@@ -1,0 +1,33 @@
+{
+ "round": 10,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "9dc18ec1339bffd6f81e74f1a5742464ef578749",
+ "regimen": "operator 2026-10-17: loop 1 of 3, build round 3 of 4",
+ "requested_model": "opencode-go-3/deepseek-v4.1-flash",
+ "workers": 64,
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "before": "179 knowledge entries; thin domain partitions (linguistics 16, myth-symbol 16, culture-material 16, verification 13); README gap list unreviewed this regimen.",
+   "after_required": ">=10 new sourced knowledge entries across the thin partitions (linguistics >=2, myth-symbol >=2, culture-material >=2, verification >=2), each with complete source/verified-at/recheck frontmatter, at least one decision-record section, and grounding in retrievable sources (round-8/9 receipts and existing corpus cross-references count as sources when cited by path); NO filler — a new entry must name the gap it fills; corpus/README.md index rows match actual files (sweep command count matches).",
+   "counting_command": "python3 reports/round-10/run-validation.py"
+  },
+  {
+   "id": "F",
+   "axis": "freshness",
+   "lowest_axis": true,
+   "before": "No round-10 drift ledger; SKILL.md/SCORECARD/registry executable claims not systematically re-verified against live surfaces this regimen.",
+   "after_required": "A drift ledger (reports/round-10/drift/) records every command cited in SKILL.md re-run with its observed output hash + verdict (current|stale-fixed|stale-documented); every SCORECARD counting command re-run; gate registry rows matched against live gate files; stale items are either fixed in this round (with evidence) or documented with a reason; zero silent staleness.",
+   "counting_command": "python3 reports/round-10/run-validation.py"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "Open adversarial-review findings without disposition: reports/round-8/depth/findings.md, findings-17.md; reports/round-9/d3/findings.md, findings-10.md.",
+   "after_required": "Every finding in the four files dispositioned in a tracker (reports/round-10/findings-tracker.json): fixed-with-control (control demonstrated) or documented wont-fix/wrong-with-reason; zero findings left without a disposition; no previously green check regresses.",
+   "counting_command": "python3 reports/round-10/run-validation.py"
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "round": 10,
+ "date": "2026-10-17",
+ "baseline_revision": "9dc18ec1339bffd6f81e74f1a5742464ef578749",
+ "coverage": [
+  {
+   "id": "R10-C01..C10",
+   "task": "Ten entry authors: linguistics x3, myth-symbol x3, culture-material x2, verification x2. Each: read corpus/README.md known-gaps + the partition's existing entries + round-8/9 receipts; pick ONE distinct gap (derive filename slug from the gap; on collision append -b); write corpus/knowledge/<partition>/<slug>.md with full frontmatter and a decision-record section; fragment reports/round-10/coverage/<id>.md."
+  },
+  {
+   "id": "R10-C11..C20",
+   "task": "Ten reviewers: one per authored entry (poll for it, max 20 min): verify frontmatter completeness, source resolvability (re-run the cited command or open the cited path/URL), no filler, no duplication of an existing entry; verdict reports/round-10/coverage/review-<id>.md."
+  },
+  {
+   "id": "R10-C21..C22",
+   "task": "README/index updaters (after entries land, poll max 20 min): update corpus/README.md index rows + known-gaps to match actual partition contents; record the sweep command + counts in reports/round-10/coverage/index-update.md."
+  },
+  {
+   "id": "R10-C23..C26",
+   "task": "Partition auditors: independent count of entries per partition (command-carried) + index-vs-files diff; reports/round-10/coverage/audit-<partition>.md."
+  }
+ ],
+ "freshness": [
+  {
+   "id": "R10-F01..F13",
+   "task": "Thirteen drift re-runners: shard SKILL.md by line ranges (~20 lines each, plus SCORECARD rows and reports/round-9/baselines/registry.md): re-run every runnable command found in your shard (record output sha256 + exit); web-only citations get a documented access attempt; write reports/round-10/drift/shard-<NN>.md. TMPDIR: use in-lane .scratch/ (export TMPDIR=$PWD/.scratch)."
+  },
+  {
+   "id": "R10-F14",
+   "task": "Drift-ledger scribe: merge shard results into reports/round-10/drift/ledger.json {command, source_locator, round10_verdict, output_sha256, exit}; classify current|stale-fixed|stale-documented."
+  },
+  {
+   "id": "R10-F15..F18",
+   "task": "Four stale-fixers: take every stale item from the ledger (poll, max 20 min): fix it in place (cite evidence) or document why it stays stale; never rewrite filed report bytes — corrections are new entries."
+  },
+  {
+   "id": "R10-F19",
+   "task": "Drift auditor: independently re-run >=10 of the ledger's commands; mismatches are findings; reports/round-10/drift/audit.md."
+  }
+ ],
+ "operability": [
+  {
+   "id": "R10-O01",
+   "task": "Findings inventory: compile every finding from reports/round-8/depth/findings.md, findings-17.md, reports/round-9/d3/findings.md, findings-10.md into reports/round-10/findings-tracker.json [{idx, source_file, finding, severity, disposition: pending}]."
+  },
+  {
+   "id": "R10-O02..O09",
+   "task": "Eight findings fixers: take findings by index (2*i-2 .. 2*i-1 per fixer from the tracker; if tracker missing, read the four source files directly and take the i-th and i+8-th findings): fix with a demonstrated control, or disposition wont-fix/wrong with reason; update the tracker row."
+  },
+  {
+   "id": "R10-O10..O13",
+   "task": "Four verifiers: re-run each fixer's control (or validate each documented reason); verdicts to reports/round-10/findings-verify-<k>.md."
+  },
+  {
+   "id": "R10-O14",
+   "task": "Findings scribe: final tracker state + zero-undispositioned check; reports/round-10/findings-scribe.md."
+  }
+ ],
+ "scribe_review": "X01 lessons gate-keeper (corpus/lessons/round-10.md); X02 adjacency/connector + out-of-lane watch; X03 run-validation.py author (acceptance over C/F/O evidence); X04 report scribe + drift-ledger consistency audit."
+}
