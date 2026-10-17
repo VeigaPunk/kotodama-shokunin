@@ -401,3 +401,1066 @@ alibaba-token-plan/deepseek-v4.1-flash; 47 completed, 15 filter-killed
 debt (batches L6 M2 M8 C6 C8 S2 V1 V2 Z03 Z10 Z13 Z18 Z19 Z21 Z22)
 recorded in corpus/lessons/round-1-gates-and-triage.md; retried round 2
 on key 3 or held for quota.
+## 2026-10-17 — round 2: triage fragment M04 (1 flag, CONFIRM)
+
+Target: `corpus/knowledge/myth-symbol/comparative-frameworks.md`
+(sorted position 4 of `corpus/knowledge/myth-symbol/*.md`). One
+`(to-verify)` flag found (`grep -n '(to-verify)'`), §3 Eliade
+calibration: "The Enūma Eliš–akītu performance link itself is contested
+in Assyriology". Web-verified the contestedness at source level and
+CONFIRMed: mark removed, clause now names the two grounds (the sole
+ritual program is a late Seleucid-era tablet, Thureau-Dangin *Rituels
+accadiens* 1921: 127–154; the cosmogonic-renewal reading is challenged
+from J. Z. Smith 1976 on), and five sources appended to the file's
+`- sources:` block as a "triage round-2 additions" clause: Sommer
+(JANES 27, 2000: 81–95 — the article PDF was read directly), J. Z. Smith
+(HR 16, 1976 / *Map is Not Territory*, 1978), Thureau-Dangin (1921),
+Ballentine (OUP 2015), Debourse (Brill 2022 / *Religion Compass* 18,
+2024). §9's cross-reference updated to "sourced as contested in §3".
+Post-edit check: `grep -c '(to-verify)'` = 0 on the file; header
+(topic/sources/couples) preserved. Ledger:
+`corpus/lessons/round-2-triage/M04.md`. Touched only the assigned file,
+the new ledger, and this log entry; no commits made.
+
+## 2026-10-17 — round 2: triage C11 (`music-instrument-lexicon.md`)
+
+Assigned file: `corpus/knowledge/culture-material/music-instrument-lexicon.md`
+(sorted position 11). Two `to-verify` flags, both in §7 Calibration.
+
+- CONFIRM — "Raga therapy"/"healing frequency" claims under-evidenced. Basis:
+  Babel, Baral & Srivastava (2023), *Cureus* (PMC10754644) — raga-EEG
+  meta-analysis "was inconclusive" (5 studies, 71 participants); Stanhope &
+  Weinstein (2020), *Complementary Therapies in Medicine* 51:102412 (PMID
+  32507429) — 4 peer-reviewed singing-bowl studies, low-level designs, "we
+  cannot recommend singing bowl therapies at this stage". Mark removed; both
+  sources named inline and appended to the `- sources:` block.
+- DOWNGRADE — Greek *kithara* ← Iranian "hypothesis". Basis: Beekes (2010),
+  *Etymological Dictionary of Greek* I:694–5 — κιθάρα as Pre-Greek, possibly
+  related to Proto-Hurro-Urartian *kinnar; the Persian story is popular-source
+  (Klein; Online Etymology Dictionary) and fails on chronology (Homeric
+  attestation) and phonology. Clause rewritten as a rejected etymology.
+
+Evidence: `grep -c -i 'to-verify' corpus/knowledge/culture-material/music-instrument-lexicon.md`
+before = 2, after = 0. Ledger: `corpus/lessons/round-2-triage/C11.md`.
+Touched only the assigned file, the ledger, and this entry; no commits made.
+
+## 2026-10-17 — round 2: triage fragment V05 (0 flags resolvable, 2 n/a)
+
+Target: `corpus/knowledge/verification/lexicon-coverage-audit.md`
+(sorted position 5 of `corpus/knowledge/verification/*.md`, resolved by
+`ls corpus/knowledge/verification/*.md | sort | sed -n '5p'`). Enumeration
+(`grep -o '(to-verify)'` = 2; bare `to-verify` = 2): lines 33 and 189 only.
+Both tokens are the entry's own status-label vocabulary (§2's
+`attested`/`reconstructed`/`contested`/`design-choice`/`(to-verify)` set) and a
+§9 scope declaration with an instruction for future users — neither marks an
+external claim, so the three resolution outcomes of
+`to-verify-triage-protocol.md` §4 do not apply; decision `n/a — not a claim`
+for both, marks retained (same class as round-1 batch V3's 30 vocabulary
+tokens). Eliminating them would delete a label the entry's verdict contract
+depends on.
+
+Because no claim was flagged, the batch's verification effort went to the
+entry's checkable scholarship (round-1 V3 precedent): all eight records in the
+`- sources:` block re-verified as printed — Haspelmath & Sims 2010 (Hodder
+Education, 2nd ed., ISBN link 200); List/Cysouw/Forkel 2016 LREC 2393–2400
+(ACL L16-1379); Rzymski et al. 2020 Sci Data 7:13, doi
+10.1038/s41597-019-0341-x (200); Haspelmath & Tadmor 2009 + Haspelmath 2009
+chapter 35–54, doi 10.1515/9783110218442.35 (202); Gries 2008 IJCL 13(4):
+403–437, doi 10.1075/ijcl.13.4.02gri — the §5 DP(w) = 0.5 × Σ|n_i(w)/n(w) −
+N_i/N| formula matches Gries's Deviation of Proportions; Campbell 2013, 3rd
+ed., EUP. All six §9 access points resolve (John Benjamins 403 = Cloudflare
+bot block to this client, DOI resolved to the correct article path; nature.com
+also bot-blocked, identity confirmed via DOI + citing works). All 16 `couples:`
+paths exist under corpus/knowledge/{linguistics,myth-symbol,culture-material}/.
+No correction warranted — **corpus file not edited**; ledger:
+`corpus/lessons/round-2-triage/V05.md`. Touched only the new ledger and this
+log entry; no commits made.
+## 2026-10-17 — round-2 TRIAGE batch M16 (myth-symbol/trickster.md)
+
+Round-2 triage worker (TRIAGE file 1/1, batch M16) processed
+`corpus/knowledge/myth-symbol/trickster.md`, resolved by
+`ls corpus/knowledge/myth-symbol/*.md | sort | sed -n '16p'`. Three
+`(to-verify)` marks found (lines 34, 79, 82; no variant forms): 3 CONFIRM,
+0 DOWNGRADE, 0 EXCISE; `grep -c 'to-verify'` 3 → 0. Every flag was
+web-verified before editing; no source invented; no sibling or fleet file
+touched.
+
+Findings: (1) the Pueblo-clown flag asked for a dedicated survey and one
+exists — Parsons & Beals (1934), "The Sacred Clowns of the Pueblo and
+Mayo-Yaqui Indians," *American Anthropologist* 36(4):491–514, plus Hieb (1972,
+in Ortiz ed., *New Perspectives on the Pueblos*) and Babcock (1984, in
+MacAloon ed., *Rite, Drama, Festival, Spectacle*, 102–128). (2) The Loki cult
+absence is the standard scholarly position: Lindow (2001), s.v. "Loki" ("no
+cult of Loki, and place-names based on Loki are unknown") and von Schnurbein
+(2000), *History of Religions* 40(2):109–124. (3) The gender flag confirmed
+with scope narrowed: dedicated female-trickster surveys exist but are
+literary/folkloristic — Smith (1997), Jurich (1998), Landay (1998), Tatar
+(2015, *Cambridge Companion to Fairy Tales*, 39–59) — and Hyde (1998,
+appendix) argues "all the standard tricksters are male"; the
+mythological/ethnographic survey is the thin part, and the sentence now says
+so.
+
+Sources were appended to the file's `- sources:` block as a "triage round-2
+additions (2026-10-17; web-verified)" clause. Ledger:
+`corpus/lessons/round-2-triage/M16.md` — one row per flag
+(file | flag | decision | basis). Diff is 4 changed lines (3 flags + sources);
+no commits made.
+
+## 2026-10-17 — round 2: triage Z10f (`arabia-pre-islamic.md`)
+
+Assigned file: `corpus/knowledge/civilizations/arabia-pre-islamic.md`
+(sorted position 10). Chunked `sed` reads; **0 live `(to-verify)` flags** —
+`grep -i verify` and a Unicode-normalized scan both return nothing. The file's
+four pre-round-1 flags were already resolved by round-1 batch Z03 (commit
+`291c714`; Zakharia 2015 / Ghabin 2008 / Al-Muaikel 1995 added to `- sources:`
+then).
+
+Round-2 re-verification of the three factual resolutions against the cited
+sources (all hold; no edit needed):
+- ġūl row — Zakharia 2015 (HAL PDF read): "les deux poèmes dans lesquels
+  Ṯābit Ibn Ǧābir Ibn Sufyān décrit sa rencontre avec la goule"; ʿAntara's
+  Algol verse (Dīwān ed. al-Tibrizī p. 137); Imruʾ al-Qays's ghoul-teeth
+  simile; the rarity statement.
+- rifādah — Ghabin 2008:67: Quṣayy institutions "feeding the pilgrims
+  (rifāda), providing water for them (siqāya) and establishing the council of
+  the clans (dār al-nadwa)", fn. 45 = Watt, *Muhammad at Mecca*, p. 13.
+- sūq chronology — Al-Muaikel 1995: ʿUkāẓ–Mijnah–Majāz sequence in
+  Dhū l-Qaʿda–Dhū l-Ḥijja; "the architectural development of the Suq did not
+  take place during the pre-Islamic period".
+
+No file edit (minimal-edit rule; round-1 wording and sources already correct).
+Post-check: `grep -c '(to-verify)'` = 0 on the file. Ledger:
+`corpus/lessons/round-2-triage/Z10f.md`. Touched only the new ledger and this
+entry; no commits made.
+## 2026-10-17 — round-2 TRIAGE M15 (symbolism-synthesis-method)
+
+Zero actionable `(to-verify)` flags: the file's only two "to-verify" strings
+(§9 step-8 line, §10 package line) name the handoff "open to-verify list"
+artifact, not claims — `grep -c '(to-verify)'` = 0 before and after; NFKC
+re-scan and the seed commit `76c105b` agree. Swept attributable claims instead:
+three verified, two wrong locators corrected (minimal edits; `- sources:`
+otherwise intact): Brown (1983) was cited as *American Ethnologist* 10(2):
+211–225, true record *Anthropological Linguistics* 25(2): 121–161 (JSTOR
+30027665; Glottolog 1061); "Aveni (1997), Skywatchers" → Aveni (2001),
+*Skywatchers: A Revised and Updated Version of Skywatchers of Ancient Mexico*,
+U Texas Press, ISBN 9780292705029 (UTP catalogue, AbeBooks 8/15/2001; the 1997
+Wiley book is *Stairways to the Stars*), body §4.4 citation re-keyed to 2001;
+Man'yōshū 894 (Yamanoue no Okura, 言霊の幸はふ国) confirmed against the Nara
+Prefecture Manyō Hyakka DB and the Senshū University text of 5:894–896, source
+line added. Ledger `corpus/lessons/round-2-triage/M15.md`. Touched only the
+assigned file, the ledger, and this log entry; no commits made.
+
+## 2026-10-17 — round-2 TRIAGE C16 (warrior material culture)
+
+`corpus/knowledge/culture-material/warrior-material-culture.md` (sorted
+position 16) carried exactly 2 `(to-verify)` flags; both processed, file now at
+`grep -c '(to-verify)'` = 0: 1 CONFIRM, 1 DOWNGRADE, 0 EXCISE.
+
+CONFIRM — §7 Nagashino "three-rank volley fire". The hedge is correct and now
+carries sources: 『信長公記』 has no rotating-volley passage (the account is
+traced to the Edo-period 『甫庵信長記』 and canonized as fact by Meiji-era
+textbooks), against 藤本正行「長篠の鉄砲戦術は虚構だ」『歴史と旅』1980年5月号 and
+「長篠合戦における織田の銃隊の人数について」『甲冑武具研究』35 (1975); 名和弓雄
+『長篠・設楽原合戦の真実』雄山閣 1998 (matchlock-replication: the drill was not
+executable); 平山優『長篠合戦と武田勝頼』吉川弘文館 2014 (the 三段＝三か所
+re-reading, reviewed by 磯田道史, 毎日新聞 2014-03-16, as overturning the 通説).
+What remains disputed is the *degree* of coordination — 小和田哲男's field
+summary (relayed at eishin.ac blog, 2023) calls the coordinated-volley image
+絵空事 while noting three-man firing teams as the current mainstream alternative
+— so the bullet keeps its hedge, loses the mark, and gains inline citations.
+
+DOWNGRADE — §4 Voice row, the term "mondō". Unverifiable as the term for night
+challenge-and-response passwords. 精選版 日本国語大辞典 s.v. 合言葉 (aikotoba),
+sense ①: "a signal word fixed in advance to distinguish friend from foe in
+darkness or when fighting in melee," first citation 『謙信家記』 (1580); 問答
+denotes the question-and-answer *exchange form*, not the watchword (Weblio's
+aikotoba entry: "言葉の問答による合図"). Cell rewritten to **aikotoba** 合言葉
+with the form/term distinction stated in place.
+
+Both sources appended as two bullets in the entry's `- sources:` block
+(kotobank.jp/word/合言葉-421239 read 2026-10-17). Header preserved; edits
+confined to the two flagged loci plus the sources block. Ledger:
+`corpus/lessons/round-2-triage/C16.md`. Touched only the assigned file, the
+ledger, and this log entry; no commits made.
+
+## 2026-10-17 — round 2: triage fragment V07 (4 flags, all rule tokens retained)
+
+Target: `corpus/knowledge/verification/naming-collision-gate.md` (sorted
+position 7 of `corpus/knowledge/verification/*.md`). Round-1 batches V1/V2
+died before triaging positions 1–8, so this file had no prior pass. All four
+`(to-verify)` tokens (lines 48, 119, 151, 188) are the gate's own rule
+vocabulary — instructions to mark *future* reviewed claims — not marks on
+existing factual propositions, so no CONFIRM/DOWNGRADE/EXCISE subject existed
+and the corpus file was left byte-identical (header intact). Independently
+re-confirmed the entry's whole 8-source block on 2026-10-17: Crossref for
+Hough (`10.1093/oxfordhb/9780199656431.001.0001`, editor Hough, OUP 2016),
+IPA Handbook (`10.1017/9780511807954`, CUP 1999) and Wagner–Fischer
+(`10.1145/321796.321811`, JACM 21(1):168–173); Open Library + live Routledge
+page for Haspelmath & Sims 2010 (Hodder, 2nd ed., ISBN 9780340950012); live
+fetches of WALS ch. 12 (Maddieson, content matches the entry's use), UAX #15
+rev 58 (Unicode 18.0.0, 2026-08-12, Whistler, §§1.1–1.2), UTS #39 rev 34
+(18.0.0, 2026-08-27, Hadley & Pournader, §4), and the UNESCO ethics page
+(12 principles, 10.COM 15.a; principles 1, 4–5, 7–10 present). Rule rationales
+checked against WALS ch. 141 (Comrie; script ≠ genealogy) and a peer-reviewed
+chance-resemblance discussion (PMC10432883). No link rot, no wrong metadata.
+Result: 0 CONFIRM / 0 DOWNGRADE / 0 EXCISE — 4 retained as rules. Ledger:
+`corpus/lessons/round-2-triage/V07.md`. Touched only the ledger and this log
+entry; no corpus file edited, no commits made.
+## 2026-10-17 — round 2: triage fragment V01 (2 CONFIRM, 1 locator corrected)
+
+Target: `corpus/knowledge/verification/calibration-registry.md` (sorted position 1
+of `corpus/knowledge/verification/*.md`, resolved by
+`ls corpus/knowledge/verification/*.md | sort | sed -n '1p'`). Enumeration
+(`grep -o '(to-verify)'` = 9): lines 36, 39, 105, 176–180, 187. 7 of the 9 are the
+entry's own status vocabulary (code T, §1 mark-survival rule), craft rules (§7
+costume guard, §13 provenance caution) and standing per-case rules (§12 rows for
+clan/crest/animacy, attestations/etymologies/edicts, sky-genealogies/deep families/
+cognitive effects) — the three §4 outcomes do not apply, so those are recorded
+`n/a — not a claim` and retained (round-1 V3 / round-2 V05 class).
+
+The two checkable §12 open dependencies were web-verified and confirmed:
+
+- **Smith "Dying and Rising Gods" — supplied placement in *Imagining Religion*
+  (1982) is wrong.** The 1982 Chicago book is seven essays ("Fences and Neighbors",
+  "In Comparison a Magic Dwells", "Sacred Persistence", "The Bare Facts of Ritual",
+  "The Unknown God: Myth in History", "A Pearl of Great Price and a Cargo of Yams",
+  "The Devil in Mr. Jones") per the publisher blurb and the archive.org contents
+  listing; no such chapter. The essay is the entry in *The Encyclopedia of Religion*,
+  ed. Eliade (Macmillan, 1987), **4:521–27** — Smith's own citation in *Drudgery
+  Divine* (1990), Mettinger's bibliography (BMCR 2002.09.07), and the Encyclopedia
+  index at archive.org. Row rewritten, mark lifted; the anti-*To Take Place*
+  substitution warning kept; residual passage check noted.
+- **Enūma Eliš / akītu.** Recitation before Marduk's statue on day 4 of Nisannu is
+  stipulated in one Late Babylonian ritual tablet (Thureau-Dangin, *Rituels
+  accadiens*, 1921: 127–154 = ANET 332); text ed. Talon, SAACT 4 (Helsinki, 2005);
+  critical treatment Debourse, *Of Priests and Kings* (CHANE 127, Brill 2022, esp.
+  9–35, doi:10.1163/9789084513837), which treats akītu as historically dynamic
+  rather than monolithic; Richey (Chicago diss.) on the sequence being known
+  essentially from one late text and on "unchanging festival" reconstructions as
+  untenable simplifications. Row now C with the recitation/drama distinction and
+  anti-extrapolation rule retained and the editions named.
+
+Edits to the corpus file (3, minimal): one appended `- sources:` bullet
+("Triage round-2 additions (2026-10-17; web-verified)") and the two §12 rows;
+`- topic`/`- sources:`/`- couples` header preserved; marks 9 → 7.
+
+**Dependency notice:** `myth-symbol/myth-ritual-theories.md` and
+`myth-symbol/pantheon-archetypes.md` carry the same wrong 1982 placement for the
+Dying-and-Rising-Gods argument; not this batch's files, so not edited — the §12
+route column now names them for whoever owns them. Canon untouched. Ledger:
+`corpus/lessons/round-2-triage/V01.md`. Touched only the assigned corpus file, the
+new ledger and this log entry; no commits made.
+
+## 2026-10-17 — round 2: triage S05 (`coupling-model.md`)
+
+Assigned file: `corpus/knowledge/synthesis/coupling-model.md` (sorted
+position 5 of `corpus/knowledge/synthesis/*.md`; 202 lines, read in ≤60-line
+`sed -n` windows). Five `(to-verify)` tokens found (lines 25, 143, 196, 200,
+201); `grep -i 'to-verify'` returns the same five, so no bare variant was
+missed.
+
+- CONFIRM — §Provenance line 196 (the Roach-Higgins & Eicher "access
+  restrictions" note). Basis: Crossref record for doi:10.1177/0887302X9201000401
+  (title, both authors, *Clothing and Textiles Research Journal* 10(4):1–8,
+  June 1992) retrieved 2026-10-17; the deposit record hdl:11299/162438 is
+  publicly readable and exposes the published abstract, whose framework matches
+  the file's summary; the p. 1 dress definition is independently quoted in the
+  PMC review PMC10559650. `curl` 403s on the UDC page while a browser-style
+  fetch succeeds, which most likely produced the original note. Mark removed;
+  residual restated in prose; UDC record added to `- sources:`.
+- 4 tokens retained as non-claims (protocol §4 applies the three outcomes to
+  claims; convention per round-2 batch V05): line 25 is the **A/H/D/V** status
+  legend, line 143 a **D** recipe non-claim, lines 200/201 the entry's
+  competence limit and its specimen-internal evidential gap.
+- Source work on line 143's feasibility premise (the model's own **F** edge):
+  "triage round-2 additions (2026-10-17; web-verified)" clause appended to the
+  Barber line in `- sources:` — Bender Jørgensen & Walton (1986), *Journal of
+  Danish Archaeology* 5:177–188, doi:10.1080/0108464x.1986.10589966 (Crossref
+  record; madder/bedstraw determinations cited at p. 184 in Vanden Berghe et
+  al.'s open-access paper), and Newman & Gates (2020), "The Matter of Madder in
+  the Ancient World," in the Getty APPEAR volume *Mummy Portraits of Roman
+  Egypt* (open-access chapter read directly; madder fixed to textile fibers with
+  inorganic mordants). §5.3 now marks the dyed wool as externally documented;
+  the recipe mark stays.
+
+Evidence: `wc -l` = 202 (unchanged), `grep -c '(to-verify)'` before = 5,
+after = 4, `git diff --stat` = 4 insertions / 4 deletions on the one file.
+Header preserved. Ledger: `corpus/lessons/round-2-triage/S05.md`. Touched only
+the assigned file, the new ledger, and this entry; no commits made.## 2026-10-17 — round-2 TRIAGE batch Z70 (olmec)
+
+Round-2 triage worker processed `corpus/knowledge/civilizations/olmec.md`
+(sorted position 70; ledger `corpus/lessons/round-2-triage/Z70.md`). File read
+only in ≤61-line chunks. 4 `(to-verify)` flags processed: 3 CONFIRM, 1 DOWNGRADE,
+0 EXCISE; `grep -c '(to-verify)'` before 4 → after 0.
+
+CONFIRMs: (a) Epi-Olmec decipherment "disputed, not a secure translation base" —
+inspected Robinson (2008) *Lost Languages* p. 263 via Wikipedia "Isthmian script"
+("decidedly unproven"), Macri (2017) Glyph Dwellers Reports 51–53 (R53 fetched;
+R52 reads sign MS20 as a phrase-ending mark, against Justeson–Kaufman), and
+Mora-Marín's 2005/2007 review PDF (defense of the decipherment) — the dispute is
+live on both sides; (b) Olmec garment/textile vocabulary "thinly evidenced" —
+Follensbee (2008), *Ancient Mesoamerica* 19(1):87–110, abstract inspected via
+Missouri State BearWorks ("only a few fragments of cordage and woven mats have
+yet been recovered"); (c) provenance note that the cited debate is not an
+exhaustive survey — later structural work (Macri 2017) located and inspected;
+Vonk (2020, unpublished) recorded as an uninspected lead only.
+
+DOWNGRADE: the §Provenance "page-specific quotation… (to-verify)" sentence was an
+access-limit statement, not a cultural claim; recast as an explicit citation-level
+note (protocol §3/§12); full-file inspection confirms no quotations, indigenous
+words, or translated royal names are introduced.
+
+Sources appended to the entry's `- sources:` block as "triage round-2 additions
+(2026-10-17; web-verified)": Follensbee 2008; Robinson 2008; Macri 2017; Mora-Marín
+2005/2007. Touched only the assigned file, the new ledger, and this log entry; no
+commits made.
+
+## 2026-10-17 — round-2 TRIAGE C15 (`trade-economy-lexicon.md`)
+
+Target: `corpus/knowledge/culture-material/trade-economy-lexicon.md`
+(sorted position 15 of `corpus/knowledge/culture-material/*.md`). Chunked
+`sed -n` reads only (≤60 lines). Two `(to-verify)` flags, both in the
+etymology tables; `grep -c 'to-verify'` 2 → 0. Ledger:
+`corpus/lessons/round-2-triage/C15.md`.
+
+- CONFIRM — §2 calibration, "troy weight" ← Troyes "plausible but debated".
+  OED online s.v. *troy* n.² (fetched 2026-10-17, public preview; entry
+  status "not yet fully revised") gives etymon "Probably from a proper
+  name: Troyes", first evidence c. 1390–1 in *Earl Derby's Expeditions*;
+  Britannica's *troy weight* entry agrees ("supposedly derives"). The rival
+  derivation was read at source — C. M. Watson 1910: 82–83 (archive.org
+  full text), with his single witness, Wright's *English Dialect
+  Dictionary* vol. 6 s.v. **TROY** ("A steelyard; a pair of scales… Cf.
+  trone"), checked directly. Zupko 1977 was unreachable in any copy and is
+  therefore not cited for the rewritten sentence. Sources added: C. M.
+  Watson (1910); Wright (1898); the header's OED entry now names the senses
+  and their unrevised status.
+- DOWNGRADE — §4B `stock` row, "retained stock half of Exchequer tallies".
+  OED online s.v. *stock* n.¹ confirms "not yet been fully revised"; its
+  text (read through two OED-derived witnesses: languagehat 2020 quoting
+  sense A.42 and the A.52a note that shares-sense is only *partly* the
+  tally sense; Etymonline s.v. *stock*) gives an obscure, blended origin,
+  not a tally origin. The popular telling (Graeber 2011, ch. 3 — already a
+  lane source) also mis-names the halves ("stock" vs "the stub… hence
+  'ticket stub'"); the documented terms are stock/foil. Cell rewritten to
+  keep the split-object image, etymology marked unproven.
+
+Touched only the assigned file, the new ledger, and this log entry; no
+commits made.
+
+## 2026-10-17 — round 2 triage Z51: khmer-angkor.md
+
+Resolved sorted position 51 (`ls corpus/knowledge/civilizations/*.md | sort |
+sed -n '51p'`) → `corpus/knowledge/civilizations/khmer-angkor.md`. Both
+`(to-verify)` flags sit in §11 and are now processed: 1 CONFIRM, 1 DOWNGRADE,
+0 EXCISE.
+
+- CONFIRM — K.235 dating calibration. DHARMA draft edition (ERC 809994,
+  rev. 2025-05-07) titles the text "K. 235. Stela of Prasat Sdok Kak Thom,
+  974 Śaka"; face D line D82 carries `974 śaka`, Sanskrit stanza 123 dates the
+  same event by horoscope (no month/tithi), and the carried translation glosses
+  974 Śaka = 1052 A.D.; Śaka 974 spans civil 1052–1053, so "1053" citations
+  (8 February 1053 in modern reference literature) are day-level conversions.
+  Source [CC25] added; hedge kept in sourced form.
+- DOWNGRADE — §11 "Thin areas" scope hedge recast as calibrated uncertainty
+  with reasons: post-Angkor epigraphy nearly disappears 13th–16th c. and the
+  royal chronicles were compiled mainly 18th–19th c. (Kolnin 2022, *RUDN
+  Journal of World History* 14(4):461–484, read 2026-10-17); *neak ta*-type
+  practice rests chiefly on twentieth-century ethnography (Ang Choulean 1986,
+  bibliographically verified, marked as not read in the file). Sources [KL22]
+  and [AC86] added.
+
+Edits confined to the two §11 bullets, the source-access-calibration bullet and
+the `- sources:` block; `- topic:`/`- couples:` untouched. Ledger:
+`corpus/lessons/round-2-triage/Z51.md`. `grep -ic to-verify` on the file = 0.
+No commits made.## 2026-10-17 — round 2: triage fragment Z76 (9 flags: 7 CONFIRM, 2 DOWNGRADE)
+
+Target: `corpus/knowledge/civilizations/polynesia-navigation.md` (sorted
+position 76 of `corpus/knowledge/civilizations/*.md`). All nine `(to-verify)`
+marks resolved against live sources: rongorongo (L25) → CONFIRM on Ferrara et
+al. 2024, *Scientific Reports* 14:2794, doi:10.1038/s41598-024-53063-7 (script
+still undeciphered) and Guy 1990, *Journal de la Société des Océanistes*
+91(2):135–149 (Tablet Mamari lunar calendar = most-cited content reading, not a
+navigation text), plus Valério 2024 (OUP, pp. 189–224). Regional-corpora gaps
+(L80, L196), the item-dating caution (L100) and chiefly tattoo entitlements
+(L131) → CONFIRM, now naming Gifford 1924 (Bishop Museum Bulletin 8, 207 pp.),
+Handy 1923 (Bulletin 9, 358 pp.), Krämer 1902–03 / trans. Verhaaren 1995, von
+den Steinen 1925–28 (Reimer, vol. I = Tatauierung) and Allen 2006 (*Tattoo
+Traditions of Hawaiʻi*, Mutual Publishing, ISBN 1-56647-770-0). Mau Moko record
+(L179) → CONFIRM: Te Awekotuku with Nikora, Rua, Karapu and Nunes (photographs),
+Viking/Penguin 2007, ISBN 978-0-67-004561-7 (Royal Society Te Apārangi record).
+Sāmoan matai titles (L162) → CONFIRM: Tapu 2020, *UCLA Asian Pacific American
+Law Journal* 24(1):61–89, doi:10.5070/P3241048154 (titles bestowed by ʻāiga
+consensus, held for the family, revocable), plus Krämer. kāpeʻa antiquity (L15)
+→ DOWNGRADE: two Hawaiian names for the cross recorded (kāpeʻa in Pukui–Elbert;
+Hānaiakamalama via Johnson & Mahelona 1975/2015, attributed in Hawaiian
+star-line teaching material) but neither dated to prehistory. Whakapapa
+teaching procedures (L147) → DOWNGRADE: Roberts et al. 2004 full text blocked
+and Mahuika 2019 description-level only, so recast as an explicit non-claim. A
+March 2026 self-published Zenodo "LLM rongorongo decipherment" claim was checked
+and set aside as non-peer-reviewed. `grep -c to-verify` on the entry = 0; file
+197 → 207 lines, header preserved, ten source records added. Ledger:
+`corpus/lessons/round-2-triage/Z76.md`. Touched only the assigned file, the new
+ledger, and this log entry; no commits made.## 2026-10-17 — round 2: triage fragment Z69 (4 flags: 4 CONFIRM, 0 DOWNGRADE, 0 EXCISE)
+
+Target: `corpus/knowledge/civilizations/nubia-kush.md` (sorted position 69 of
+92), read in three chunks (1–60, 61–120, 121–176) per the chunked-reading rule.
+Four marked propositions, all resolved by CONFIRM with a checkable source
+appended to the entry's `- sources:` key line and detail lines added to its
+"Source key and calibration" section; a fifth `(to-verify)` token is the
+entry's own rule vocabulary for future claims and was retained unchanged
+(same handling as the V07 pass). Evidence: publisher/date/ISBN/collation of
+Žabkar 1975 (Aris & Phillips; 0-85668-027-3 = 978-0-85668-027-4; 217 pp.,
+33 pls.) confirmed in catalogue and review records, with the lion-temple hymn
+separately edited (Hintze 1962:28, reproduced at Lohwasser, MittSAG 7
+(1997):33 — fetched, p. 33 checked); Amanishakheto's Beg. N 6 findspot debate
+documented from Labia 2018 (HAL halshs-03941996, pp. 517–518, quoting Ferlini
+1837 and reporting Budge 1907 and Markowitz & Lacovara JARCE 1991);
+`amani` = Amun in Meroitic royal names from Kuckertz, MittSAG 29 (2018):119ff.
+(fetched). New source keys [Lo97], [K18], [L18]. One stale cross-reference
+("confirmation where marked") updated. Header preserved; edits confined to the
+four flagged loci, the source block, and that sweep. Ledger:
+`corpus/lessons/round-2-triage/Z69.md`. Touched only the assigned file, the
+ledger, and this log entry; no commits made.
+
+## 2026-10-17 — round-2 TRIAGE Z72 (`pacific-northwest.md`)
+
+Target: `corpus/knowledge/civilizations/pacific-northwest.md` (sorted
+position 72 of `corpus/knowledge/civilizations/*.md`). Chunked `sed -n` reads
+only (≤60-line windows). Eight `(to-verify)` flags processed
+(`grep -n 'to-verify'` → lines 35, 49, 99, 132, 135, 140, 152, 179; no
+variant forms): 6 CONFIRM (one with scope narrowed), 1 DOWNGRADE, 0 EXCISE;
+`grep -c '(to-verify)'` 8 → 0. Ledger:
+`corpus/lessons/round-2-triage/Z72.md`, one row per flag.
+
+- CONFIRM — regional coverage note. Southern Wakashan coverage now rests on
+  Arima and Dewhirst (1990), "Nootkans of Vancouver Island," *HNAI* 7,
+  pp. 391–411; Renker and Gunther (1990), "Makah," same volume; McMillan
+  (1999), *Since the Time of the Transformers* (UBC Press). Salish side:
+  Gustafson (1980), *Salish Weaving*; Tepper, George, and Joseph (2017),
+  *Salish Blankets* (Univ. of Nebraska Press), co-authored with Skwxwú7mesh
+  weavers. Residual left in prose: no community-authored southern Wakashan or
+  Salish ceremonial-register source is consulted.
+- CONFIRM — Chilkat "structural yarn": Penn Museum NA1285 ("warp made from
+  wool-wrapped cedar bark fibers and weft made from wool"); National Museum
+  of Finland (2020) (bark warp covered with wool, wool weft); Canada's
+  History; Samuel (1982), *The Chilkat Dancing Blanket* (standard technical
+  monograph, record verified). Variation now stated: bark proportion differs
+  by weaver and robe (KRBD 2019, Dorica Jackson); Emmons (1907) itself not
+  inspected, and the source-key sentence that promised "fine construction
+  claims remain flagged" was corrected.
+- CONFIRM — Chilkat "equipment and sequencing": Handwoven (2020), Lily Hope
+  profile — warp fastened only to the top of the upright frame, hanging
+  free, twined in small vertical sections rather than side-to-side rows;
+  Haines Sheldon Museum — single-bar frame, suspended warp, optional stone
+  weights (variation noted); Burke Museum (2010) — painted pattern board and
+  center-plus-two-side-panel layout.
+- CONFIRM — Chilkat vs Ravenstail: Alaska State Museum exhibit coverage
+  (Alaska DEED, n.d., curator Steve Henrikson) — Ravenstail older, geometric,
+  extinct by the early 1800s; Chilkat later, curvature/formline, wool plus
+  cedar bark warp, longer fringe; Samuel (1987), *The Raven's Tail: Northern
+  Geometric Style Weaving* (UBC Press, ISBN 0-7748-0224-3).
+- CONFIRM — Coast Salish row: Lin et al. (2023), *Science*
+  382(6676):1303–1308, doi:10.1126/science.adi6549 (woolly-dog fleece as a
+  distinct fiber economy) plus Gustafson (1980) and Tepper et al. (2017).
+- CONFIRM — language-implementation and naming flags: both now name the same
+  verified route, Grubb (1977), *A Practical Writing System and Short
+  Dictionary of Kwakw'ala (Kwakiutl)*, Mercury Series, Canadian Ethnology
+  Service Paper 34, with U'mista's published orthography; no form or
+  translation was invented.
+- DOWNGRADE — the "potlatch tense"/honorific-affix flag: no consulted source
+  documents such forms, so it is now stated as negative evidence with the
+  burden of proof on any design asserting them; the one documented
+  special-speech strand found (Berman 1996 on Hunt's myth-recitation style,
+  quoted at second hand and flagged as such in the file) was added as the
+  positive pointer.
+
+Touched only the assigned file, the new ledger, and this log entry; no
+commits made.## 2026-10-17 — round 2: triage batch Z39 (india-classical-sanskrit)
+
+File: `corpus/knowledge/civilizations/india-classical-sanskrit.md` (sorted
+position 39 of 92 civilizations entries; appears in no round-1 ledger).
+8 `(to-verify)` occurrences processed — 7 CONFIRM, 1 convention retained, 0
+DOWNGRADE, 0 EXCISE (every flag was a guardrail, a gap note, or the stop-rule
+convention; no wrong claim to excise). Ledger:
+`corpus/lessons/round-2-triage/Z39.md` (one row per flag).
+
+Basis: UC Press pages for P06 (Pollock 2006) and K86 (Kinsley 1986) and the
+SUNY page for C91 (Coburn 1991) fetched and matched against the entry's
+stated chapter loci; wisdomlib Manu 2.41 (J20) read for the student-dress
+loci and its comparative notes (Vaśiṣṭha 11.49; Āpastamba 1.3.1–9 —
+white/mañjiṣṭhā/haridrā by varṇa); Leland, *Rainbow Body* (Ibis, 2016;
+*Quest* 105.2) and Leadbeater (1927) for the Western thread of the rainbow
+chakra colours; Nardi, *Theory of Citrasūtras* (Routledge, 2006) for
+text-dependent colour sets; Marshall, *Mohenjo-daro*, 1:32–33 (Gulati–Turner
+laboratory analysis of the cotton on a silver vessel) for image-vs-object
+evidence; Alkazi 1983, Boulanger 1997, Banerjee & Miller 2003 for the
+antarīya/uttarīya reconstruction labels and drape variety; Bryant 2001,
+Srinivasan 1975–76 and 1984, Jung 1932/1996 for the discredited-continuity
+norm. All are appended to the entry's `- sources:` line as a "triage round-2
+additions" clause.
+
+Gate: `python3 tools/gates/provenance-audit.py
+corpus/knowledge/civilizations/india-classical-sanskrit.md` → exit 0,
+findings=0, 1 residual mark (the stop-rule bullet, which must name the
+convention). Header (topic/sources/couples) preserved; 179 lines before and
+after; edits confined to the seven flagged loci plus the sources line.
+Touched only the assigned file, the ledger, and this log entry; no commits.
+
+## 2026-10-17 — round 2: triage batch Z49 (japan-yayoi-kofun)
+
+File: `corpus/knowledge/civilizations/japan-yayoi-kofun.md` (sorted position
+49 of 92 civilizations entries). 6 `(to-verify)` occurrences processed — 6
+CONFIRM, 0 DOWNGRADE, 0 EXCISE. Ledger: `corpus/lessons/round-2-triage/Z49.md`
+(one row per flag).
+
+Basis: Nishimura (2018) full-text copy (Project MUSE; *Asian Perspectives*
+57(1):105–158) inspected — individual-ownership thesis, six-type typology of
+157 provenienced beads, Late Jōmon household-to-grave shift, and the surveyed
+shape theories (fetus/tooth/moon/soul as proposals; Jōmon meanings "not
+clear"). Frellesvig (2010) Introduction p. 2 inspected ("Extensive attestation
+of Japanese goes back to the eighth century"); §1.2 "Sources" and §4.1 "Ainu"
+located in the ToC. The Ainu-etymology caution now names Frellesvig §4.1,
+Vovin (2022), "Ainu elements in early Japonic," in Bugaeva, ed., *Handbook of
+the Ainu Language* (De Gruyter Mouton), 185–208, and Nakagawa (2003),
+「日本語とアイヌ語の史的関係」, in Vovin & Osada, eds., 『日本語系統論の現在』
+(Nichibunken), 209–220 (genetic relation improbable; contact recent/limited).
+Vovin and Nakagawa were appended to the entry's `- sources:` line as a "triage
+round-2 additions" clause.
+
+Gate: `python3 tools/gates/provenance-audit.py
+corpus/knowledge/civilizations/japan-yayoi-kofun.md` → exit 0, marks=0,
+findings=0. Header (topic/sources/couples) preserved; 196 lines before and
+after; edits confined to the six flagged loci plus the sources line.
+Touched only the assigned file, the ledger, and this log entry; no commits.## 2026-10-17 — round-2 TRIAGE S06 (`cultural-translation-protocol.md`)
+
+Round-2 triage worker processed `corpus/knowledge/synthesis/cultural-translation-protocol.md`
+(sorted position 6; ledger `corpus/lessons/round-2-triage/S06.md`). File read only in
+≤60-line chunks. 5 `(to-verify)` occurrences: 2 claim flags, both CONFIRM, 0 DOWNGRADE,
+0 EXCISE; 3 non-claim convention tokens retained (protocol §4 class, following round-2
+V05/V01/S05). `grep -o '(to-verify)'` before 5 → after 3.
+
+CONFIRMs (both guards on the same item): Appiah, "Thick Translation", *Callaloo* 16(4):
+808–819 — Crossref `10.2307/2932211` and the JSTOR issue record (i347965, Autumn 1993)
+confirm identity, issue, and pagination; the essay's definitional sentence at p. 817 was
+verified through two inspected open-access scholarly intermediaries that quote it with
+the page number — Cammarota, "Translating Medieval Texts", Edizioni Ca' Foscari 2018,
+pp. 37–54, DOI 10.14277/6969-248-2/FMM-17-2 (fetched and read in full), and "Técnicas de
+traducción", New Prairie Press / Kansas State University Libraries open textbook (fetched
+and read in full). The entry's paraphrase also matches the Benjamins ETSB abstract.
+Residual limit stated in the entry: the paywalled full text was not collated page by
+page; reopen if a full text (Callaloo or the Venuti *Reader* reprint) is inspected.
+
+Sources appended to the `- sources:` block: DOI/JSTOR locators on the Appiah line, plus a
+"Page-level corroboration" bullet naming the two intermediaries. Coherence sweeps: the §1
+provenance sentence and the §14 close-out sentence, whose "Appiah passage-level
+verification … remain open" clause had gone stale. Retained tokens: §6 safeguard (L93),
+§8 note-discipline rule (L134), §10 coverage-card rule (L158) — convention vocabulary,
+left byte-identical. Header (`topic`/`sources`/`couples`) preserved; `git diff
+--numstat` = 5 insertions / 4 deletions on the assigned file, 205 → 206 lines.
+
+Touched only the assigned file, the ledger, and this log entry; no commits.
+
+## 2026-10-17 — round 2 triage Z52: korea-joseon.md
+
+Resolved sorted position 52 (`ls corpus/knowledge/civilizations/*.md | sort |
+sed -n '52p'`) → `corpus/knowledge/civilizations/korea-joseon.md`. 14
+`to-verify` strings: 13 real flags + 1 label definition (line 10, untouched).
+All 13 processed: 13 CONFIRM, 0 DOWNGRADE, 0 EXCISE. File diff = 14 insertions
+/ 14 deletions (the 13 flagged lines + an appended `triage round-2 additions`
+clause in `- sources:`); `grep -c to-verify` on the file went 14 → 1 (the label
+definition). Ledger: `corpus/lessons/round-2-triage/Z52.md`.
+
+Evidence highlights (all web-verified 2026-10-17, Korean reference works):
+
+- "yesa" (L56): 禮事 occurs only as a generic phrase for a ritual observance;
+  the register terms are 제사 jesa, 예 ye (한국민족문화대백과사전, 예), 예서
+  yeseo (우리역사넷, "예와 제사").
+- *Gukjo oryeui* (L58): 1474 state ritual code, five rite classes + same-year
+  국조오례의서례 (국가유산진흥원 English notice; 한국교회사연구소 record;
+  Korea Heritage Service on Jongmyo Daeje as gillye).
+- Verbatim Korean (L69): 중세국어 marked tone with 방점 until tone loss in the
+  central dialect in the later 16th c.; three-way honorific layer unlike modern
+  speech levels (한국민족문화대백과사전, 중세국어).
+- Gwageo (L91): law allowed 양인 이상; excluded 장리 sons, sons of remarried
+  women, 서얼 — relaxed 1553 / 1625 허통사목 / 1696; 『속대전』 barred 천인
+  from 무과; 식년문과 초시 240 (후 243), 복시·전시 33인 (갑3·을7·병23)
+  (한국민족문화대백과사전, 과거 §응시 자격; Wagner 1974 added).
+- Regional spirit traditions (L101): 호남·동해안·제주 corpora named
+  (한국민족문화대백과사전, 무가; 우리역사넷, 지역별 무당의 호칭); backdating
+  limit retained.
+- 오방색 / dress colour (L113): directional map documented (국립민속박물관
+  한국민속대백과사전); garment colour policed by 복식금제 bans on
+  황·백·홍·자·회·옥·녹색 with per-colour reasons (한국민족문화대백과사전,
+  복식금제 §복색).
+- Dragon claws (L114): rank grading 왕·왕비 오조룡 / 세자 사조룡 / 세손
+  삼조룡 codified by 1892 and carried into 1897; the popular "kings had four
+  claws" story is contradicted by 『세종실록』 31:9:2 (1449) — sillokwiki
+  사조룡의; Korea Heritage Service 오조룡 왕비 보.
+- 갓끈 / 망건 (L122–123): 『경국대전』 graded cord materials by rank, 1469
+  bans reached 서인; capping ceremony 15–20, headband marked adult status
+  "귀천 없이", practice folded into marriage, ended by the 1894–95 topknot
+  order (한국연구재단 한국복식사전 s.v. 갓·망건; 한국민족문화대백과사전,
+  관례; 정진영 2008, 이화여대).
+- Black-gat entitlement (L132): dated law is material/weave/brim (1441–1651,
+  1670/1688), not examination passers (한국민족문화대백과사전, 복식금제
+  §입모).
+- 항렬 / naming (L139, L144): each lineage fixes its own 항렬표 printed at the
+  jokbo head; many slave records carry a bare name with no surname; 피휘 was
+  reign-specific (안대회 2010, 『한국문화』 52).
+
+Touched only the assigned file, the new ledger, and this log entry; no commits
+made. Limits: sillok entries were read through sillokwiki citations, not
+collated from the printed recension; no Korean-language monograph read in full.
+
+## 2026-10-17 — round 2: triage fragment V04 (5 non-claim tokens retained, 8 sources verified)
+
+Assigned file: `corpus/knowledge/verification/internal-consistency-audit.md`
+(sorted position 4 of `corpus/knowledge/verification/*.md`; 186 lines, read in
+≤60-line `sed -n` windows). `grep -o '(to-verify)' | wc -l` = 5 (lines 14, 34,
+111, 154, 165); `grep -c -i 'to-verify'` = 5 and `grep -c -i 'to verify'` = 0, so
+no bare variant was missed.
+
+- **0 CONFIRM / 0 DOWNGRADE / 0 EXCISE — 5 `n/a — not a claim` (all retained).**
+  All five tokens are this method entry's own use-mention vocabulary: the mark as
+  an `evidence-status` value, as the state of an unresolved locator, and as the
+  prescribed action in three audit rules. Deleting one would delete the controlled
+  vocabulary the protocol runs on; the three outcomes in the triage protocol §4
+  apply to claims. Convention followed from round-2 batches V05/S05.
+- Verification therefore went to the method claims adjacent to the tokens, and all
+  held: Fischer (1970) p. 47 on the negative proof (consulted as quoted verbatim in
+  Vermette 2017, *aboriginal policy studies* 6(2):92, open access — Fischer's book
+  itself not inspected); Williams (2023/24), *Notes and Queries*,
+  doi:10.1093/notesj/gjad106 — OED3 revised earliest dates downward for 38–44% of
+  revised entries, so first attestation is provisional; TEI P5 ch. 22 (release
+  documentation read directly) separating graded `certainty`, `precision`, and
+  per-element `respons`; Brill's TEI–EpiDoc documentation (read directly) for
+  Leiden/EpiDoc character-level certainty (`cert="low"`) plus its caveat that
+  "there is, it seems, not one Leiden system"; Greenberg (2009), *BMJ* 339:b2680
+  (abstract and figure captions via PubMed 19622839) — citation bias,
+  amplification, and "conversion of hypothesis to fact through citation alone"
+  manufacture unfounded authority; Dowden, "Fallacies," *IEP* s.v. Appeal to
+  Authority (entry read); Kausch (2023), *Journal of Universal Language* 24(2) and
+  Honkasalo (2011), *TULIP* 31:67–77 (both read) defining the rebus as homophonic
+  substitution, so a rebus is a claim about the period's phonology.
+
+Edits to the corpus file (minimal: 11 insertions / 2 deletions; 186 → 195 lines;
+`topic`/`sources`/`couples` header fields preserved): a "triage round-2 additions
+(2026-10-17; web-verified)" clause on the `- sources:` line; eight new
+bold-author + Basis bullets in `## Source basis and limits`, each naming what was
+inspected and what was not (Fischer via Vermette; Walton 1997 not inspected); one
+"Verification boundary (round-2 triage, 2026-10-17)" bullet recording that the
+five tokens are use-mention definitions retained; and a one-line re-anchoring of
+the limits bullet ("The knowledge-representation sources above are **not
+ethnographic verification**, and neither are the round-2 verification-method
+additions"), whose old "These are …" had been left referring past the new bullets
+to its original antecedent. Marker count before = 5,
+after = 5 — no mark removed and none added (a draft boundary bullet that
+re-quoted the literal mark was reworded to keep the count stable). Ledger:
+`corpus/lessons/round-2-triage/V04.md`.
+
+Residual: the entry still surveys no tradition-specific evidence (its own limits
+bullet says so), and the `evidence-status` vocabulary remains a local convention —
+a later pass could scope-label it in §1 alongside the couples graph and severity
+levels. Touched only the assigned file, the new ledger and this log entry; no
+commits made.## 2026-10-17 — round 2 triage Z74: Achaemenid Persia entry
+
+Assigned file `corpus/knowledge/civilizations/persia-achaemenid.md` (sorted
+position 74) carried 5 `(to-verify)` occurrences; all five are now closed and the
+literal count is 0 (`grep -c to-verify` before 5 → after 0). Decisions: 4 CONFIRM
+/ 1 DOWNGRADE / 0 EXCISE. Ledger: `corpus/lessons/round-2-triage/Z74.md`.
+
+Evidence behind the decisions: (1) Boyce, "Fravaši," EI X/2: 195–199 was
+retrieved through an Internet Archive copy after the live Iranica page returned
+HTTP 403 — it records no certain ancient plastic representation of the fravašis,
+Moulton's fravaši identification of the winged symbol, and the later scholarly
+case for xᵛarənah (cites Boyce II, p. 103 n. 82); (2) Stolper, "Persepolis
+Fortification Archive Project," The Oriental Institute 2006–2007 Annual Report
+(ISAC PDF) describes the ARTA 2007.001 tablet as an ordinary archive tablet in
+Old Persian language and script, "the first 'practical' Old Persian text ever
+found, anywhere" — the ARTA PDF itself was not retrievable, which the entry now
+states as an access note; (3) the ring/feather row was downgraded after
+inspecting a 2008 Zoroastrian community essay that reads the ring as a "ring of
+covenant, loyalty and faithfulness" and the feathers as good/bad thoughts,
+words, deeds ("some interpreters consider") — the older "marriage fidelity"
+wording was found in no published source, so the cell now names these readings
+as modern reception; (4) Ebbinghaus et al. (2023), "An Achaemenid God in Color,"
+Heritage 7(1): 1–49 shows Persepolis pigments (Egyptian blue, malachite, yellow
+ocher, cinnabar, hematite, calcite) and that colour reconstructions rest on
+assumptions and get revised, so the dye/rank-colour cell now states what is and
+is not established; (5) the closing stop-rule marker was a method directive, so
+its required comparator dating was supplied in place (Shahnameh completed 1010
+CE per Iranica "Šāh-nāma").
+
+Sources added to the entry's `- sources:` block: Stolper (2007) annual report,
+Ebbinghaus et al. (2023), Firdawsī's Šāh-nāma as a dated comparator, and the
+modern devotional essay labeled as reception only. Header preserved; edits were
+five in-place text changes plus the source additions. Touched only the assigned
+file, the ledger, and this log entry; no commits.## 2026-10-17 — round 2: triage fragment Z37 (`igbo.md`)
+
+Target: `corpus/knowledge/civilizations/igbo.md` (sorted position 37 of
+`corpus/knowledge/civilizations/*.md`). 14 `(to-verify)` occurrences pre-edit
+(`grep -c`), 11 processed (CONFIRM 1 / DOWNGRADE 10 / EXCISE 0) plus 3
+no-decision legend/blanket lines (L22 legend, L25 and L184 thin-coverage).
+Evidence inspected as full pages/PDFs, accessed 2026-10-17:
+
+- CONFIRM (L29→L30): Ohiri-Aniche, “Reconstructing the Igbo Cluster,”
+  LLACAN/CNRS PDF — Williamson (1989) keeps Igboid/Lower Niger as a
+  coordinate branch of New Benue-Congo, Williamson & Blench (2000) place it
+  under West Benue-Congo, and the label “Igboid” is criticised in favour of
+  “Igbo cluster”. Mark removed; source appended.
+- DOWNGRADE highlights: kola reception now carries the documented igọ ọjị
+  structure (mmacha okwu / mkpoku / closing prayers with itu ogu;
+  presentation to the eldest, circulation, breaking) with declared
+  Christian/traditionalist variation — Oyeka, *NIU Journal of Humanities*
+  11(1):77–89 PDF. Calendar rescoped to Onwuejeogwu 1981's Nri-centred
+  13-month/28-day scheme, described in the record as “neither universal nor
+  synchronized” (Wikipedia “Igbo calendar” + ZorBari-Nwitambu & Kalu 2018,
+  *IJCA R* 5(1):36–47); the book itself not inspected. Masquerade cell tied
+  to the UW Ethnomusicology Archives Ottenberg finding aid (documents
+  occasions, not transcripts). Odinani usage divergence recorded
+  (Wikipedia “Odinani” as near-synonym usage). Mgbeke/Mgborie pattern via
+  Udeani 2007, 28–29, as recorded at Wikipedia. Chukwudi/Kenechukwu glosses
+  corroborated by Ezeugwu & Chinweuba, *Philosophia* 21/2018:26–47.
+- Kept-open fences (no text change): local tone rules; chant melody–tone
+  negotiation (Ekwueme 1974 located as lead only, uninspected); detailed
+  Nri/Onitsha/Aro institution dates (948 CE claim vs 12th-century influence
+  estimate).
+- Achebe/Chukwukere source line corrected: JSTOR 40460646 = Chukwukere
+  1983, *Anthropos* 78(3–4):519–534 (AfricaBib record); the essay text
+  itself still uninspected.
+
+Post-edit `grep -c '(to-verify)'` = 13 (12 flags + the legend line);
+`python3 tools/gates/provenance-audit.py corpus/knowledge/civilizations/igbo.md`
+→ 0 findings, exit 0. Ledger: `corpus/lessons/round-2-triage/Z37.md`.
+Touched only the assigned file, the new ledger, and this log entry; no
+commits made. Limits: Achebe, Arinze/Kalu, Onwuejeogwu 1981, Udeani 2007 and
+Ekwueme 1974 were not read in full (intermediaries are named inline); no
+Igbo-language dictionary or speaker check performed.
+
+## 2026-10-17 — round 2 triage, file 1/1 (`taino.md`)
+
+TRIAGE assignment resolved by `ls corpus/knowledge/civilizations/*.md | sort |
+sed -n '85p'` → `corpus/knowledge/civilizations/taino.md`. Twelve claim-level
+`(to-verify)` flags processed; the tag's own legend row and the closing
+verification-boundary sentence were left intact by design. Ledger:
+`corpus/lessons/round-2-triage/Z85.md`.
+
+- CONFIRM ×8 — Granberry–Vescelius attribution caution (Adelaar 2009, IJAL
+  75(2): 275–278, doi:10.1086/598773: skeptical of *Quizquella* and the Tolan
+  comparison); cassava route (Harper; Wiktionary s.v. cassava — parallel
+  Spanish/French/Portuguese routes from Taíno *caçabi*); canoe route (Harper
+  s.v. canoe — English 1550s direct from Spanish *canoa*; Wiktionary s.v.
+  canoa); Yúcahu/Atabey epithet caution (Pané gives names without glosses);
+  Guabancex (Wikisource Pané index: "CAPITULO XXIII: De otro cemí llamado
+  Guabancex"); batey adjudication caution (Oliver 2009: ritual performance and
+  heavy betting, "the rules of betting in these times are unknown"); stone
+  collars (Oliver 2009 via Walker 1993: public display / curated heirlooms);
+  cave-art thin area (Cooper et al. 2016 motifs only; ICOMOS 2006: the
+  Caribbean corpus was long considered undatable, mostly attributed to the
+  Ceramic Age).
+- DOWNGRADE ×4 — hurricane "exact Indigenous phonemic form" (only a
+  reconstruction, Wiktionary *\*hurakā*; Schwartz 2015 ch. 1 documents the
+  unresolved Taíno/Maya etymology: "A great deal of confusion clouds the
+  etymology of the word 'huracan'"); "Amona means X" (Cooper et al. 2016: 1055
+  give the name without derivation; circulated glosses unsourced — a PR OECH
+  survey saying the name's meaning is little known is an image-only PDF and
+  was not used); *nagua* rank/island detail (Nin 2020 quoting Oviedo — waist to
+  mid-leg, longer for principal women, nothing for virgins; Díaz del Castillo —
+  thigh length in Cuba); pigment recipes / color-rank dictionaries (no
+  Taíno-specific study found in targeted searches).
+- EXCISE ×0 — no flag turned out factually wrong; every one was supportable in
+  calibrated form.
+
+Sources added to the file: Adelaar 2009; Schwartz 2015; ICOMOS 2006; Nin 2020;
+Harper extended with *canoe*; Wiktionary extended with *cassava*.
+
+Checks after editing: `grep -n "to-verify"` leaves only L19 (legend) and L178
+(boundary); table pipe counts consistent (scripted check); headers intact;
+`git diff` limited to `taino.md` plus the new ledger. No commits made.
+
+## 2026-10-17 — round-2 TRIAGE Z50 (`java-majapahit.md`)
+
+Target: `corpus/knowledge/civilizations/java-majapahit.md` (sorted position 50 of
+`corpus/knowledge/civilizations/*.md`). Chunked `sed -n` reads only (≤60 lines).
+Four `(to-verify)` flags, all in prose; `grep -c 'to-verify'` 4 → 0. Ledger:
+`corpus/lessons/round-2-triage/Z50.md`.
+
+- CONFIRM — Majapahit "last date" (L47 pre-edit). Noorduyn (1978), *BKI*
+  134(2–3): 207–274, full text inspected: the 1486 Pëtak and Trailokyapuri
+  charters and Tomé Pires (1513) show Hindu-Javanese kings continued after
+  1478, which later Javanese tradition adopted as the fall — a date Noorduyn
+  shows "cannot be based on historical fact"; the end came "some forty years
+  later". Herho, Herho & Susanto (2023), *Geographica Pannonica* 27(3):
+  199–210 (PDF inspected): "differences of opinion regarding exactly when
+  the Majapahit collapsed"; 1478 = "beginning of the collapse", 1527 = last
+  year before Demak's conquest. Bullet rewritten with both dates; sources
+  added.
+- CONFIRM — macapat origins/inventory (L75). Sahlan & Mulyono (2012),
+  *el-Harakah* 14(1): 101–114 (full text inspected): origins "sulit
+  dilacak" (Purbatjaraka — born with Middle Javanese verse; Pigeaud — early
+  Islamic period; Saputra's ≥1541 estimate vs the 1279 tradition); stanza
+  inventories 8/11/15 by authority. Row rewritten; source added.
+- CONFIRM — keris meteoritic nickel (L131). UNESCO ICH "Indonesian Kris"
+  fetched: blades made "in layers of different iron ores and meteorite
+  nickel". Brandstätter et al. (2025), *Meteoritics & Planetary Science*
+  (abstract, DOI 10.1111/maps.14340): 1 of 5 Ni-rich krises possibly made
+  with Prambanan meteorite metal; Ni and Co content alone proves nothing.
+  Line rewritten; source added.
+- DOWNGRADE — thin-coverage blanket (L198): rewritten as a reasoned scope
+  limit (archive courtly, monumental, later-collected), marker retired per
+  protocol §2.8 (naked marker without a research question).
+
+Kieven (2013) and the OAPEN/Brill copies were bot-blocked this pass, so those
+statements were not counted as inspected. Touched only the assigned file, the
+new ledger, and this log entry; no commits made.
+
+## 2026-10-17 — round-2 TRIAGE V03 (`costume-era-consistency-gate.md`)
+
+Target: `corpus/knowledge/verification/costume-era-consistency-gate.md`
+(sorted position 3 of `corpus/knowledge/verification/*.md`; 203 lines before,
+205 after). 8 `(to-verify)` occurrences (pre-edit lines 11, 15, 16, 76, 158,
+168, 171, 201): **2 CONFIRM / 2 DOWNGRADE / 0 EXCISE — 4 retained as
+non-claims** (protocol §4 restricts the three outcomes to claims; §4.7–8; §8).
+
+- **[L] pagination → DOWNGRADE.** The printed vol. II is lending-restricted
+  (archive.org `tudorroyalprocla0002paul`: `_djvu.txt` HTTP 403, no
+  search-inside), so the text was not inspected; §3's rule was followed rather
+  than claiming otherwise. Pagination located through inspected citing works:
+  Bolland (2011, QMUL DPhil) cites the 1574 apparel preamble at Hughes &
+  Larkin II.381; Cotter (2021, *Journal of Early Modern Studies* PDF) cites the
+  gilt weapons/spurs clause, identical to the transcription, at II.384; Kirtio
+  (2011, *Constellations* PDF) cites the Greenwich 15 June 1574 proclamation at
+  II.386. Line now asserts the narrower claim and "no full page range is
+  claimed"; entry number "no. 601" left unasserted (excerpt did not pin it).
+- **[M] CAMEO access → CONFIRM.** Re-checked: HTTP 403 again, Wayback
+  availability + CDX report no snapshot, so the revision date stays unknown and
+  is recorded as an access fact. The used proposition (spun silk from
+  discontinuous fibre/waste) is corroborated by an inspected accessible source,
+  Encyclopaedia Britannica "Spun silk yarn" ("Spun silk is made from short
+  lengths obtained from damaged cocoons or broken off during processing,
+  twisted together to make yarn"), added as key **[B]** and to `- sources:`.
+- **§10 badge imagery → CONFIRM.** The collated text settles it: the closing
+  note exempts "a servant … wearing any cognizance of his master" alongside
+  henchmen, heralds, pursuivants at arms and apparel given by the Queen, and
+  prescribes no device imagery. Row now quotes the note.
+- **§10 naming → DOWNGRADE.** Blanket marker replaced by a dated, sourced
+  statement: Lampert (2019, University of Leicester PhD, full text read) quoting
+  Hanks, Coates & McClure (2016) — hereditary surnames "varied in different
+  parts of the country and between social classes", "by the mid-15th century
+  almost every person in England had a hereditary surname"; §3.2.3 on
+  occupational surnames formed at surname stabilisation. Added as key **[N]**.
+  Lost warrant: no formula for persons outside the settled English population.
+- **4 rule/scope tokens retained** (lines 16, 76, 158, 201): the §1 directive
+  to flag future unsupported items, the §5 competence limit, the §9 seed-file
+  scope rule, and the §12 scarce-chronicles caution — none is an atomized claim.
+
+Evidence: `wc -l` = 205 (was 203); `grep -c '(to-verify)'` before = 8,
+after = 4 (now lines 18, 78, 160, 203); `grep -c -i 'to-verify'` = 4 (no bare
+variant); `git diff --stat` = 9 insertions / 7 deletions on the one file
+(§5 "Reeled silk" guard now cites `[M]/[B]`).
+Header preserved. Ledger: `corpus/lessons/round-2-triage/V03.md`. Touched only
+the assigned file, the new ledger, and this entry; no commits made.
+
+## 2026-10-17 — round 2: TRIAGE Z81 (`siam-thai.md`, file 1/1)
+
+- File: `corpus/knowledge/civilizations/siam-thai.md` (resolved by
+  `ls corpus/knowledge/civilizations/*.md | sort | sed -n '81p'`).
+- Flags: 8 `(to-verify)` before → 0 after; decisions 8 CONFIRM (7 recalibrated
+  in place, 1 placeholder cell replaced with the verified term), 0 DOWNGRADE,
+  0 EXCISE. Ledger: `corpus/lessons/round-2-triage/Z81.md` (8 rows + limits).
+- Verification (all fetched 2026-10-17): [S11] Burapha University Library
+  rachasap reference (PDF downloaded; `pdftotext`): ประชวร = ป่วย/เจ็บ as royal
+  verb; อาพาธ = เจ็บป่วย for monks; explicit prohibition of *ทรง* before
+  ready-made royal verbs ("ทรงประชวร ทรงเสวย ทรงประทับ ไม่ได้ เป็นอันขาด");
+  [S12] King Prajadhipok's Institute "ศักดินาสยาม": schedules in the
+  พระไอยการตำแหน่งนาพลเรือน / นาทหารหัวเมือง sections of the Three Seals law,
+  attributed to Borommatrailokkanat and ชำระ under Rama I, "rai" unit
+  contested; [S13] Library of Congress Law Library (2025): 1913 Surname Act
+  uniqueness requirement (sec.12(5)); Persons' Name Act B.E. 2505 (1962)
+  sec. 8(3); Thai act name พระราชบัญญัติขนานนามสกุล B.E. 2456, promulgated
+  22 Mar 1913, in force 1 Jul 1913 (Royal Privy Purse; STOU Library pages).
+  S6 and S8 re-fetched: masking accounts differ verbatim ("all the characters"
+  vs "all performers except … goddesses, female humans, and some female
+  demons"). S2 read from the open ZORA PDF by local extraction: §4.3 p. 600,
+  *soŋ* verbal prefix / *phráʔ-thîi-nâŋ* suffix, Table 12 kin→sawoei,
+  puai→prachuan. S3 record verified (CUP 2017, ISBN 9781107190764 /
+  9781316641132; library catalogue records).
+- Gate: `python3 tools/gates/provenance-audit.py corpus/knowledge/civilizations/siam-thai.md`
+  → exit 0, marks=0, findings=0. 183 → 186 lines; header preserved; edits
+  confined to the eight flagged loci, the `- sources:` line, `verified-at`, and
+  three added source-key bullets. Touched only the assigned file, the new
+  ledger, and this log entry; no commits made.## 2026-10-17 — round-2 TRIAGE M03 (myth-symbol/color-symbolism.md)
+
+17 `(to-verify)` flags on 14 distinct claims: 12 CONFIRM, 5 DOWNGRADE,
+0 EXCISE; `grep -c '(to-verify)'` 17 → 0; `- topic/- sources/- couples`
+header intact; 18 line-edits, one file. Load-bearing corrections:
+
+- **The Tang "674" yellow edict was wrong**: 舊唐書 卷45 輿服志 (Wikisource,
+  read) gives 668 (總章元年「始一切不許著黃」) for the yellow ban and 674
+  (上元元年) for the rank ladder the file already cited — re-dated in place.
+- Korea's "crowd-visibility" motive replaced by the sources' grounds (white
+  resembling mourning dress; rank/frugality order), with the 백의금지령 list
+  (Taejong yr 1 = 1401 onward; 續大典 청의) — 한림학보 2019, 글로벌경제신문
+  2022; the 백의민족 image left flagged as contested (korea.net/Joinau 2021).
+- shiromuku's "dyed in the husband's family's colour" re-classified as a
+  modern bridal-trade gloss; the documentable element is the Muromachi-period
+  warrior bridal white (国立国会図書館 kaleido 38).
+- "White = good" questionnaires (Williams & Best lineage) and the Lüscher
+  row downgraded to measure-specific statements (PRAM/CMT forced choice;
+  Jonauskaite et al. 2019/2020a; Kawai et al. 2022 implicit null).
+
+Confirmed with added sources: 《元典章》 禮部·服色 至元五年「娼妓之家，家長并
+親屬男子裹青巾」 (blue-green headcloth; 七修類稿 owns the cuckold idiom);
+土民仕置覚 (1643) barring farmers from purple/紅梅色, repeat cycle
+1667/1683/1788/1842; taijitu swirl dating (Louis 2003, *HJAS* 63); Lüscher
+validity studies (French & Alexander 1972; Braun & Bonta 1979; Holmes et al.
+1984, record-level); obangsaek/saekdongot (한국민족문화대백과 s.v. 색동옷;
+한국민속대백과 s.v. 색동저고리); kittel/tachrichin (Dosick; Chabad.org);
+white elephants (Miksic & Goh 2017 ch., cakravartin attribute with contested
+casus belli); Ireland (Cronin & Adair 2002 recorded as the standard
+treatment); Himba/Maasai ochre (*Cosmetics* 10(3):71, 2023); red-ink name
+taboo (左傳 襄公二十三年 丹書 + Gwangju News 2013); Meiji mourning reform
+(浄土真宗本願寺派総合研究所 15: 1872 decree, 1886 women's black).
+
+Ledger `corpus/lessons/round-2-triage/M03.md` carries the per-flag inspection
+level and residuals — notably no scholarly folkloristics reference for the
+red-ink taboo, and Cronin & Adair (2002) and 風見明 (2008) not page-read.
+Touched only the assigned file, the new ledger, and this log entry; no
+commits made.
+
+## 2026-10-17 — round-2 ADJACENCY: handoff-packet-check gate
+
+Round-2 adjacency worker implemented the checker gate for the handoff
+envelope of `synthesis/worldbible-integration-contract.md` (§4 required
+fields; §1 revision/digest pinning; §6, §8.7 and §11 checklist canon
+standing) and for the glossary `etymology` profile of
+`synthesis/glossary-registry-format.md` (§§2, 4). New files, and the only
+files touched besides this entry and the SKILL.md registry row:
+`tools/gates/handoff-packet-check.py` (stdlib only),
+`tools/gates/fixtures/handoff-packet-check.md`,
+`tools/gates/fixtures/handoff-packet-check.expected`. No commits made.
+The contract plays the spec role; no separate verification spec was
+written.
+
+Interface: `handoff-packet-check.py <packet.md>` (or `-` for stdin)
+prints `FINDING <id>: <LEVEL> — <message>` plus INFO lines; exit 0 clean /
+1 findings / 2 could-not-evaluate (HO-DATA: not a Markdown document,
+unreadable, non-UTF-8, usage error). Finding IDs: HO-DATA, HO-MISSING,
+HO-EMPTY, HO-BASELINE, HO-CONTRACT-REF, HO-MANIFEST-DIGEST, HO-DEP-FLOAT,
+HO-CANON-MARKER, HO-CANON-CLAIM, HO-GLOSS-ETYM. Fields count as supplied
+when named as a section heading, a `- field: value` item, or a table-row
+first cell; a `(to-verify)`-only or placeholder value is HO-EMPTY.
+
+Measured: `python3 tools/gates/handoff-packet-check.py --selftest` →
+"selftest: OK — fixture findings 11 across 9 ids (HO-BASELINE,
+HO-CANON-CLAIM, HO-CANON-MARKER, HO-CONTRACT-REF, HO-DEP-FLOAT, HO-EMPTY,
+HO-GLOSS-ETYM, HO-MANIFEST-DIGEST, HO-MISSING); clean control exit 0;
+probes cover canon, baseline, dependency, contract_ref and glossary
+vocabulary; malformed inputs exit 2; CLI verified from another cwd"
+(exit 0). Fixture run: exit 1, 11 findings, `fields=13/16
+glossary-entries=3`, one INFO glossary-external (A3). `/dev/null`, an
+absent path and an argparse usage error exit 2; stdin run exits 1; the
+fixture bytes are unchanged after the run (`md5sum -c` passes). Full loop
+`for g in tools/gates/*.py; do python3 $g --selftest; done` → all 7 exit
+0. The fixture is synthetic and labeled non-canon; it asserts no world
+fact and no canon standing. SCORECARD operability re-measure (gates now
+count 7) is the round closer's action.
+
+## 2026-10-17 — round 2 triage Z73: parthia.md (14 claim flags cleared)
+
+Resolved position 73 of `ls corpus/knowledge/civilizations/*.md | sort` →
+`corpus/knowledge/civilizations/parthia.md`. Literal `(to-verify)` occurrences:
+16 before = 14 claim flags + 2 method-grammar references (line 13 grammar rule;
+line 211 process note, both left in place as method); 2 after. Decisions:
+14 CONFIRM, 0 DOWNGRADE, 0 EXCISE. Ledger with one row per flag:
+`corpus/lessons/round-2-triage/Z73.md`.
+
+Verification highlights: Sellwood 71.1's `wl` read as a short Aramaic-script
+form of the royal name (Hopkins's Vologases I page and inscriptions index —
+fuller `wlgšy MLK'` on later Vologases IV issues; Nabel 2017 Cornell diss.,
+"wl, an abbreviation"); Isidore *Parthian Stations* §6 (Schoff 1914) keeps the
+Bazigraban custom house separate from the Ecbatana treasury/Anaitis temple, and
+the edition's silk material sits only in Schoff's commentary and the appended
+Chinese annal passages (Hirth); Polybius 10.27.12 attests the temple's stored
+wealth (gilded pillars; silver tiles and bricks); Boyce's "Gōsān" entry read in
+full via the Internet Archive copy (Manichaean Parthian `gwsʾn` 4th–5th c. CE;
+Armenian `gōsān`; Mandaean `gwsānā`; 11th-c. *Vis o Rāmin*), with the
+hereditary-household bard explicitly her probable inference; Boyce 1957
+page/DOI metadata confirmed at the article page plus an independent
+bibliography; Alram 1986 record via the Iranica bibliography (s.v. Hēraus) and
+the IPNB series record; the Iran Chamber art excerpt identified as Edith
+Porada, *The Art of Ancient Iran* (1965), ch. 14 "The Art of the Parthians"
+(chapter title, volume series reference, Internet Archive contents list, and an
+independent thesis citation agree); Curtis 2012 (Wick–Zehnder volume) for the
+iconography cautions.
+
+Sources added to the entry: Polybius, Porada, Curtis, Nabel, plus the trail
+bullets rewritten for the Iranica access route. Touched only the assigned file,
+the new ledger, and this log entry; no commits made.
+
+## 2026-10-17 — round 2: triage fragment Z12 (austronesia-philippines-taiwan.md)
+
+Resolved position 12 of `ls corpus/knowledge/civilizations/*.md | sort` →
+`corpus/knowledge/civilizations/austronesia-philippines-taiwan.md`. Literal
+`(to-verify)` occurrences: 1 before = 1 after — the calibration-label legend,
+retained as method (no live claim flag). This file's round-1 batch (Z03) was
+filter-killed after its edits were committed and logged as carried debt; its
+10 claim rows were re-audited here, not re-decided: 19 CONFIRM, 0 DOWNGRADE,
+0 EXCISE, plus 8 additional load-bearing claims checked. Ledger with one row
+per flag: `corpus/lessons/round-2-triage/Z12.md`.
+
+Verification highlights: Unicode 17.0 §17.1 read word-for-word for the Pallava/
+Kavi route uncertainty; Findley et al. 2022 Table 1 ("Settlement Terrace —
+Latangan/boble/kubu") plus the separate *Boble* section; UNESCO record 00015
+("before the seventh century"; "Since the Ifugao's culture is matrilineal …"),
+same text in the 2001 proclamation compendium; Brown 1919 page images (printed
+p. 79 = *Hibiscus tiliaceus* cordage; p. 56 ff. = abacá section; index
+"Hibiscus tiliaceus 8, 79, 81, 103"); Calapis et al. 2011 abstract (buntal
+extracted from buri petioles, two fibre caps); Ochiai 2021 repository record
+("Kumu Watan literally means 'Kumu, the child (daughter) of Watan'"); Taru's
+*Pacific Arts* article (*K'gi*; *P'jit*, the girl who grew wings); National
+Museum exhibition terms (*maamlag*, *moma*, *hapid*, *bayah*, *bulul*);
+Cultural Survival's *gaga* gloss and tattoo reasons; *Philippine Mats* (1913)
+on *Corypha elata*.
+
+Correction: Plasencia's festival passage sits on printed p. 186 of Blair &
+Robertson vol. VII, not p. 177 (scan running head "186" + BookReader leaf 190
+→ pageNum 186; TOC relation start p. 173). Fixed in three places, and the
+register line now links the 1903 scan. Touched only the assigned file, the new
+ledger, and this log entry; no commits made.
+
+## 2026-10-17 — round 2: triage carry-over + lore-handoff adjacency (REJECTED)
+
+Claims (declared before dispatch):
+1. freshness — resolve >=400 of the 795 carried/remaining to-verify flags
+   (sum <= 395). Measured after dispatch: 795 → 587 (208 net; 43 new
+   ledgers in corpus/lessons/round-2-triage/). Target missed by 192.
+   VERDICT: improved in fact, claim falsified as declared.
+2. adjacency — executable handoff path to lore: a non-canon sample packet +
+   a contract-check gate + a passing run + L0 question. Measured: 0 →
+   tools/gates/handoff-packet-check.py (selftest green) +
+   examples/handoff-packet.sample.md passing with fields=16/16,
+   glossary-entries=20, exit 0; L0 line appended (.ufo/l0-questions.md);
+   lesson corpus/lessons/round-2-adjacency.md. VERDICT: improved, verified.
+
+Admission: REJECTED — not every claim verified (freshness below target).
+No axis harmed. Freshness progression carries to round 3, right-sized.
+
+Dispatch record: token-plan key 3 quota-dead at launch (monthly quota,
+resets 2026-10-28); key 2 also dead (resets 2026-10-23); relaunched on
+key 1 (probe confirmed quota) — 46/49 completed, 7 filter-killed
+(linguistics pos 11; synthesis pos 7; civilizations pos 71, 82, 83, 87,
+88) — third filter strike on the same files; carried as debt, to be
+finished by the lane directly or retried after quota reset.
+
+Serialization correction (evidence rule): the round-2 YAML packet's
+validation block claimed handoff-packet-check exit 0 / fields=16/16; the
+committed Markdown-native checker re-runs exit 1 over the YAML
+(field-recognition misses). Corrected pre-freeze inside the .yml (its own
+edit discipline permits pre-freeze amendment), and the envelope was
+re-serialized in the contract-default Markdown as
+examples/handoff-packet.sample.md, which passes clean. Contract file digest
+verified: sha256:50c4c2f2…8fb7268c1. L0 question to lore already asks lore
+to confirm intake format; the Markdown serialization is kotodama's
+producer-side default unless lore answers otherwise.

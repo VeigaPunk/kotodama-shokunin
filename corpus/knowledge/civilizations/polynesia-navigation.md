@@ -1,6 +1,6 @@
 # Polynesian Navigation: Language, Star Knowledge, Cloth, Rank, and Genealogy
 - topic: Comparative Polynesian reference base for coupling navigation vocabulary, celestial mnemonics, barkcloth economies, embodied status, and accountable oral genealogies; methods and reference knowledge, never fictional canon.
-- sources: Greenhill & Clark (2011), POLLEX-Online; Pukui & Elbert (1986), Hawaiian Dictionary; Lewis (1994), We, the Navigators, 2nd ed.; Nainoa Thompson / Polynesian Voyaging Society (undated teaching pages); Kirch (2017), On the Road of the Winds, revised and expanded ed.; Beckwith (1940; 1982 reprint), Hawaiian Mythology; Lennard & Mills, eds. (2020), Material Approaches to Polynesian Barkcloth; Mallon & Galliot (2018), Tatau; Te Awekotuku et al. (2007), Mau Moko; Roberts et al. (2004), “Whakapapa as a Maori Mental Construct”; Mahuika (2019), Rethinking Oral History and Tradition; Mallon (2016), “The changing art of tatau.” Full records and links below.
+- sources: Greenhill & Clark (2011), POLLEX-Online; Pukui & Elbert (1986), Hawaiian Dictionary; Lewis (1994), We, the Navigators, 2nd ed.; Nainoa Thompson / Polynesian Voyaging Society (undated teaching pages); Kirch (2017), On the Road of the Winds, revised and expanded ed.; Beckwith (1940; 1982 reprint), Hawaiian Mythology; Lennard & Mills, eds. (2020), Material Approaches to Polynesian Barkcloth; Mallon & Galliot (2018), Tatau; Te Awekotuku et al. (2007), Mau Moko; Roberts et al. (2004), “Whakapapa as a Maori Mental Construct”; Mahuika (2019), Rethinking Oral History and Tradition; Mallon (2016), “The changing art of tatau”; Johnson & Mahelona (1975), Nā Inoa Hōkū; Guy (1990), “The Lunar Calendar of Tablet Mamari”; Valério (2024); Ferrara et al. (2024); Allen (2006), Tattoo Traditions of Hawaiʻi; Gifford (1924), Tongan Myths and Tales; Handy (1923), The Native Culture in the Marquesas; Krämer (1902–03), Die Samoa-Inseln; von den Steinen (1925–28), Die Marquesaner und ihre Kunst; Tapu (2020), “Who Really is a Noble?”. Full records and links below.
 - couples: language → ../linguistics/{historical-linguistics,semantic-fields-lexicon-building,naming-systems,kinship-terminology,orality-formulaic-language,writing-systems}.md; myth/symbol → ../myth-symbol/{celestial-symbolism-calendars,cosmology-cosmography,creation-myths-taxonomy,symbolism-synthesis-method}.md; era/costume → ../culture-material/{era-periodization-models,textile-technology,trade-economy-lexicon,adornment-body-codes,sumptuary-law-rank-display}.md; sibling → lore-shokunin owns world-bible canon and consistency, not this entry.
 
 ## Scope and calibration
@@ -12,7 +12,7 @@
 - **Contested:** precise settlement sequences, retrospective chronological readings of genealogies, and historical identification of some named stars.
 - **Craft inference:** every proposed design procedure below; no proposal asserts what every historical Polynesian society did.
 - **Important correction:** Hawaiian **kāpeʻa** denotes the **Southern Cross**, literally “the cross,” in Pukui–Elbert; it is not an established umbrella term for star paths.
-- Exact antiquity of that designation, versus names recorded in other Hawaiian sources, is **(to-verify)**; a dictionary gloss cannot establish prehistoric use.
+- **Contested:** exact antiquity of that designation, versus other recorded Hawaiian names — Pukui–Elbert gives **kāpeʻa**, star-name catalogues also record **Hānaiakamalama** (“cared for by the moon”) for the same cross; neither is dated to prehistory here, and a dictionary gloss cannot establish prehistoric use [Pukui & Elbert 1986; Johnson & Mahelona 1975].
 
 ## Language family, sound history, and writing
 - Polynesian languages belong within Oceanic, within Austronesian; Proto-Polynesian is reconstructed, not an attested written standard [Greenhill & Clark 2011; Kirch 2017].
@@ -22,7 +22,7 @@
 - POLLEX often doubles vowels for length, uses **g** for /ŋ/ and **q** for /ʔ/; its transcriptions need conversion, not unexamined copying into a modern name list.
 - Modern Latin-based writing developed through differently dated encounters, missionary printing, Indigenous authorship, education, and government; literacy did not simply replace oral authority.
 - Specify a fictional orthography's sponsor, teaching network, and treatment of inherited names; do not mistake spelling variation in older records for random pronunciation.
-- A Rapa Nui-derived writing system requires a separate rongorongo evidence review **(to-verify)**; do not claim that its inscriptions supply deciphered navigation manuals.
+- A Rapa Nui-derived writing system requires a separate rongorongo evidence review; the script remains undeciphered, and its most widely accepted content reading is a lunar-calendar passage on the Mamari tablet, not a navigation manual [Guy 1990; Valério 2024; Ferrara et al. 2024].
 
 ## Proto-Polynesian-stage navigation lexicon
 - An asterisk marks reconstruction, not a word directly recorded from a historical speaker; the following are inherited lexical sets relevant to the Proto-Polynesian stage.
@@ -77,7 +77,7 @@
 | Hawaiian traditions | Kāne, Kū, Lono, Kanaloa; Hina, Pele, Māui and many local genealogical narratives [Beckwith 1940] | Divine relations, place, season, and particular narrative contexts; reject four gods as a complete universal chart. |
 | Māori traditions | Ranginui, Papatūānuku, and genealogically related beings; whakapapa can connect human and other-than-human worlds [Roberts et al. 2004] | Relationships organize knowledge and obligation; reject “nature spirits” as merely interchangeable elemental mascots. |
 | Hawaiian navigation renewal | Māui's fishhook named in the Manaiakalani teaching line [PVS] | A narrative figure can aid sky memory without proving that every fishing or sailing rite invoked Māui identically. |
-| Tonga, Sāmoa, Marquesas, Outliers | Cognate names and shared motifs invite comparison, not automatic identity | Local pantheon detail and initiation narratives are thin in this entry **(to-verify)**; do not fill the gap with Hawaiian plots. |
+| Tonga, Sāmoa, Marquesas, Outliers | Cognate names and shared motifs invite comparison, not automatic identity | Local pantheon detail and initiation narratives are not sourced in this entry; use the dedicated regional corpora before filling the gap — Gifford 1924 (Tonga), Krämer 1902–03 (Sāmoa), Handy 1923 and von den Steinen 1925–28 (Marquesas) — and do not fill it with Hawaiian plots. |
 
 - **Genealogy is not only human pedigree:** a genealogical ordering can join origins, places, plants, beings, rights, and duties; preserve the speaker's category rather than dismissing it as bad biology.
 - **Mana/tapu are not game statistics:** authority, efficacy, restriction, sacredness, and social relations require local explanation; “magic power” and “taboo law” are insufficient universal translations.
@@ -97,7 +97,7 @@
 
 - Anchors follow Kirch (2017), especially Polynesian origins/dispersals and political transformations; they are staging guides, not fine-grained dated chronicles.
 - Do not turn “chiefdom → state” into an inevitable ladder; Tonga and Hawaiʻi are specific comparative cases, not every island's future.
-- Exact dating of an individual costume, tattoo entitlement, or named navigation school needs local evidence **(to-verify)**, not interpolation from this table.
+- Exact dating of an individual costume, tattoo entitlement, or named navigation school needs item-level or locally named evidence — dated collections and regional studies such as Lennard & Mills 2020, Allen 2006, and Mallon & Galliot 2018 — not interpolation from this table.
 
 ## Tapa economy and costume/material signature
 - **Tapa/barkcloth** is made from inner bark processed into cloth; it is not woven yarn fabric. Paper mulberry is important, but breadfruit, banyan, and Hawaiian māmaki require regional attention.
@@ -128,7 +128,7 @@
 |---|---|---|
 | Sāmoan tatau: peʻa and malu | Historically gendered forms, skilled practitioners, relationships and obligations | Do not equate a peʻa with automatic possession of a matai title [Mallon & Galliot 2018]. |
 | Māori tā moko | Identity, affiliation, status, embodiment, and contemporary cultural assertion | Neither facial coverage nor a copied motif is a safe public decoder of genealogy [Te Awekotuku et al. 2007]. |
-| Hawaiian and Marquesan chiefly marking | Examine who could commission, receive, interpret, or restrict particular work | Exact period-specific entitlements and motif meanings are thin here **(to-verify)**; do not invent a universal chief's badge. |
+| Hawaiian and Marquesan chiefly marking | Examine who could commission, receive, interpret, or restrict particular work | Period-specific entitlements and motif meanings are not established here; dated regional studies are the evidence route (Allen 2006 for Hawaiʻi; von den Steinen 1925–28 for the Marquesas), not a universal chief's badge. |
 | Contemporary diaspora practice | Ceremonial exchanges, commercial transactions, new tools and health requirements may coexist | Record change without making “unchanged tools” the authenticity test [Mallon 2016]. |
 
 - **Fictional design record:** institution → eligibility → sponsor → practitioner training → body placement → occasion → duties → prohibited claims → consequences of misuse.
@@ -144,7 +144,7 @@
 - Repeated names, alternative names, marriage links, adoption, and more than one relevant line demand discrimination, not a single chain of undifferentiated ancestors.
 - Genealogies can ground social relationships and claims while also being debated; “politically important” does not mean either infallible or fabricated.
 - Do not multiply a generation count by a fixed 25/30 years to manufacture settlement dates; telescoping, branch selection, and uncertain identifications need independent chronological checks.
-- Exact local teaching, restriction, correction, and witnessing procedures require a named community/source **(to-verify)**; this entry does not claim one universal memory institution.
+- Local teaching, restriction, correction, and witnessing procedures are outside this entry's verified sourcing: Roberts et al. (2004) was checked at bibliographic level only (full text blocked) and Mahuika (2019) at publisher-description level, so no specific procedural claim is made; document them from a named community source.
 
 | Proposed fictional record field | Why it helps preserve precision | Historical claim? |
 |---|---|---|
@@ -159,7 +159,7 @@
 
 ## Naming practices and the coupling workflow
 - Separate personal name, chiefly title, kin address, vessel name, place-name, star name, and recited epithet; the same string need not have the same referent or owner.
-- Sāmoan matai titles should not be converted into hereditary European surnames; local title succession and naming rules need dedicated evidence **(to-verify)**.
+- Sāmoan matai titles should not be converted into hereditary European surnames: titles are ʻāiga property conferred by family consensus rather than inherited automatically, and family action can revoke one [Tapu 2020; Krämer 1902–03]. Specific succession and naming detail still needs local evidence, not interpolation from this entry.
 - A Māori or Hawaiian name's dictionary segmentation is not a complete etymology; names can preserve older forms, events, wordplay, or explanations associated with particular custodians.
 - A star's named story, a canoe's commemorative name, and a cloth's occasion can form a coherent semantic network without all being names for the same god.
 - **Design order:** ecology/route → inherited words and sound changes → specialist register → mnemonic narrative → production/exchange → rank/authorization → naming/genealogy.
@@ -176,9 +176,19 @@
 - **Beckwith, Martha Warren (1940).** *Hawaiian Mythology*. Yale University Press; [University of Hawaiʻi Press 1982 reprint](https://uhpress.hawaii.edu/title/hawaiian-mythology/), introduction by Katherine Luomala. A comparative compilation, not a contemporary community mandate.
 - **Lennard, Frances, & Andy Mills, eds. (2020).** *Material Approaches to Polynesian Barkcloth: Cloth, Collections, Communities*. Sidestone Press. [Record/contents](https://www.sidestone.com/books/material-approaches-to-polynesian-barkcloth); [open book](https://www.sidestone.com/openaccess/9789088909719.pdf). Especially Mills on manufacture, Lythberg on Tongan classification, Veys on colour, and Wallace on Māori barkcloth; manufacture passages checked directly.
 - **Mallon, Sean, & Sébastien Galliot (2018).** *Tatau: A History of Sāmoan Tattooing*. Te Papa Press. [Museum shop record](https://tepapastore.co.nz/products/tatau-a-history-of-samoan-tattooing). **Mallon (2016)**, [“The changing art of tatau: Samoan tattooing”](https://blog.tepapa.govt.nz/2016/12/02/the-changing-art-of-tatau-samoan-tattooing/), Te Papa, 2 December: direct practitioner-history commentary on tools, transactions, and protocol.
-- **Te Awekotuku, Ngahuia, et al. (2007).** *Mau Moko: The World of Māori Tattoo*. Auckland: Viking. Book-level reference; do not attribute a specific motif's translation to it without checking the passage **(to-verify)**.
+- **Te Awekotuku, Ngahuia, with Linda Waimarie Nikora, Mohi R. Rua, Rolinda Karapu, and Becky Nunes (photographs) (2007).** *Mau Moko: The World of Māori Tattoo*. Auckland: Viking/Penguin. ISBN 978-0-67-004561-7. [Royal Society Te Apārangi record](https://www.royalsociety.org.nz/150th-anniversary/tetakarangi/mau-moko-the-world-of-maori-tattoongahuia-te-awekotuku-linda-waimarie-nikora-mohi-r-rua-rolinda-karapu-and-becky-nunes-2007). Bibliographic record and co-authorship checked; do not attribute a specific motif's translation to it without checking the passage.
 - **Roberts, Mere, et al. (2004).** “Whakapapa as a Maori Mental Construct: Some Implications for the Debate over Genetic Modification of Organisms.” *The Contemporary Pacific* 16(1): 1–28. https://doi.org/10.1353/cp.2004.0026. Bibliographic record checked; full-text access was blocked in this pass, so institution-specific procedures are not asserted.
 - **Mahuika, Nēpia (2019).** *Rethinking Oral History and Tradition: An Indigenous Perspective*. Oxford University Press. https://doi.org/10.1093/oso/9780190681685.001.0001. Bibliography/publisher description checked; no passage-level quotation claimed.
+- **Johnson, Rubellite Kawena, & John Kaipo Mahelona (1975).** *Nā Inoa Hōkū: A Catalogue of Hawaiian and Pacific Star Names*. Honolulu: Topgallant Publishing; revised ed. with Clive Ruggles (2015). Star-name catalogue, cited here for the **Hānaiakamalama** name for the Southern Cross as attributed in [Hawaiian star-line teaching material](https://www.manoaheritagecenter.org/wp-content/uploads/2022/02/Hawaiian-Star-Lines-and-Names-for-Stars.pdf); page-level check of the catalogue itself was not possible in this pass.
+- **Guy, Jacques B. M. (1990).** “The Lunar Calendar of Tablet Mamari.” *Journal de la Société des Océanistes* 91(2): 135–149. The most widely cited identification of rongorongo content; a calendar passage, never a deciphered navigation text.
+- **Valério, Miguel (2024).** “The Rongorongo ‘Lunar Calendar’ of Rapa Nui (Easter Island) and the Type of Script.” In S. Ferrara, B. Montecchi & M. Valério, eds., *Writing from Invention to Decipherment*, pp. 189–224. Oxford: Oxford University Press. Rongorongo treated as an undeciphered script; nothing here supplies deciphered navigation manuals.
+- **Ferrara, Silvia, et al. (2024).** “The invention of writing on Rapa Nui (Easter Island). New radiocarbon dates on the Rongorongo script.” *Scientific Reports* 14: 2794. https://doi.org/10.1038/s41598-024-53063-7. New radiocarbon dating of inscribed tablets; the script itself remains undeciphered.
+- **Allen, Tricia (2006).** *Tattoo Traditions of Hawaiʻi*. Honolulu: Mutual Publishing. ISBN 1-56647-770-0. 218 pp.; ethnohistoric compilation of Hawaiian tattoo with dated illustrations. [University of Hawaiʻi at Mānoa research guide record](https://guides.library.manoa.hawaii.edu/c.php?g=105493&p=683341).
+- **Gifford, Edward Winslow (1924).** *Tongan Myths and Tales*. Bernice P. Bishop Museum Bulletin 8. Honolulu: Bishop Museum. 207 pp. Regional Tongan corpus, not used in this entry's main text; the evidence route for its Tongan gaps.
+- **Handy, E. S. Craighill (1923).** *The Native Culture in the Marquesas*. Bernice P. Bishop Museum Bulletin 9. Honolulu: Bishop Museum. 358 pp. Regional Marquesan corpus, not used in this entry's main text.
+- **Krämer, Augustin (1902–03).** *Die Samoa-Inseln: Entwurf einer Monographie mit besonderer Berücksichtigung Deutsch-Samoas*, 2 vols. Stuttgart: E. Schweizerbart. English trans. Theodore Verhaaren, *The Samoa Islands* (1995; later printings). Classic Sāmoa ethnography including the matai system.
+- **von den Steinen, Karl (1925–28).** *Die Marquesaner und ihre Kunst: Studien über die Entwicklung primitiver Südseeornamentik*, 3 vols. Berlin: Dietrich Reimer (Ernst Vohsen). Vol. I (1925) treats tatauierung; the Marquesan tuning of entitlement questions.
+- **Tapu, Ian Falefuafua (2020).** “Who Really is a Noble?: The Constitutionality of American Samoa's Matai System.” *UCLA Asian Pacific American Law Journal* 24(1): 61–89. doi:10.5070/P3241048154. Matai titles conferred by consensus of the ʻāiga and held for the family, not as hereditary surnames.
 
 ## What a worldbuilder can take
 - A design dependency, not a costume collage: routes and ecology constrain specialist language; narrative images support recall; materials organize labour; recognition and genealogy authorize claims.
@@ -193,5 +203,5 @@
 - Broad lexical cognacy is firmer than reconstruction of exact prehistoric star catalogues, tattoo codes, or ritual words; do not let confidence leak between these levels.
 - Modern voyaging demonstrates trained capability under documented conditions, not that every ancestral migration used one identical school or route.
 - Reject “primitive drift-only voyaging,” racialized lost-civilization explanations, and tourism's universal Polynesian symbol dictionaries as unsupported shortcuts; deliberate voyaging does not make every particular migration narrative verified.
-- This entry is thin on Marquesan, Tongan, Sāmoan, and Outlier ritual detail, restricted navigation initiations, and exact tattoo/rank entitlements **(to-verify)**; retain those gaps rather than inventing chronicle evidence.
+- This entry is thin on Marquesan, Tongan, Sāmoan, and Outlier ritual detail, restricted navigation initiations, and exact tattoo/rank entitlements; consult the dedicated regional corpora — Gifford 1924 (Tonga), Krämer 1902–03 (Sāmoa), Handy 1923 and von den Steinen 1925–28 (Marquesas) — rather than inventing chronicle evidence.
 - Real custodianship and consent questions are not settled by a citation or a public-domain date; use the coupling methods to invent new worlds, not to claim ownership of living traditions.

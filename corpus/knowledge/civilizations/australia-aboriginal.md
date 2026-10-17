@@ -55,7 +55,7 @@
 | Performance | Song, speech, gesture and visual representation are not interchangeable containers. | Specify what translation or transcription loses without imitating real restricted performance. |
 | Layered disclosure | Public explanation need not expose deeper teaching. | Design a complete public-facing account that does not require revealing its restricted counterpart. |
 
-- A cross-community route need not imply one language or one institution: the Seven Sisters songline runs through Martu, Pitjantjatjara, Yankunytjatjara, and Ngaanyatjarra country, and its public form is a negotiated, custodian-authorised selection (Johnson 2018). Language-by-language transitions of a named songline are not published in the sources inspected here; none are reconstructed.
+- A cross-community route need not imply one language or one institution: the exhibition's Seven Sisters songline crosses Martu, Pitjantjatjara, Yankunytjatjara, and Ngaanyatjarra country, while the review notes the Tjukurpa traverses the entire continent, not only those sections; its public form is a negotiated, custodian-authorised selection (Johnson 2018). Language-by-language transitions of a named songline are not published in the sources inspected here; none are reconstructed.
 - Do not advertise all songlines as universal “Aboriginal GPS,” a single continent-wide song, ley lines or an extractable navigation technology.
 - This entry does not supply melodies, sacred coordinates, ritual lyrics, or methods for reconstructing withheld verses.
 
@@ -63,7 +63,7 @@
 - Haviland (1979) distinguishes initiation-associated vocabulary, deceased-name/word taboo, and kin-avoidance vocabularies. These are different phenomena, not one “secret language.”
 - His Guugu Yimidhirr study belongs to the kin-avoidance category; its title itself warns against treating “mother-in-law language” as a universal literal description.
 - The article's introduction describes special vocabularies replacing all or part of ordinary vocabulary between people in particular avoidance relationships.
-- The full article was inspected: obligations ran from a wife's relatives in descending stringency (WM/WF, then WB), the register replaced many lexical items while pronouns and particles stayed ordinary, some tabooed words had no respectful equivalent at all, and use was optional as a mark of respect with a wider kin set (Haviland 1979: 367–373). It was already lapsing at Hopevale by the Second World War — do not present it as a current rule.
+- The full article was inspected: obligations ran from a wife's relatives in descending stringency (WM/WF, then WB), the register replaced many lexical items while pronouns and particles stayed ordinary, some tabooed words had no respectful equivalent at all, and use was optional as a mark of respect with a wider kin set (Haviland 1979: 367–368, 372, 378). It was already lapsing at Hopevale by the Second World War — do not present it as a current rule.
 
 | Design variable | Useful abstraction | Misapplication to reject |
 |---|---|---|

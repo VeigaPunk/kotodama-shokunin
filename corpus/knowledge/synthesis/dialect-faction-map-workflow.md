@@ -8,6 +8,8 @@
   - Agha, Asif (2007), *Language and Social Relations*, Cambridge University Press, especially §§2.5, 3, 4, and 7. [Book DOI](https://doi.org/10.1017/CBO9780511618284); [publisher frontmatter](https://assets.cambridge.org/97805215/76857/frontmatter/9780521576857_frontmatter.pdf).
   - Halliday, M. A. K. (1976), “Anti-Languages,” *American Anthropologist* 78(3): 570–584. [Article DOI](https://doi.org/10.1525/aa.1976.78.3.02a00050).
   - Eckert, Penelope (2000), *Linguistic Variation as Social Practice: The Linguistic Construction of Identity in Belten High*, Blackwell. [Edition record](https://openlibrary.org/books/OL15460924M).
+  - Gumperz, John J. (1958), “Dialect Differences and Social Stratification in a North Indian Village,” *American Anthropologist* 60(4): 668–682. [Article DOI](https://doi.org/10.1525/aa.1958.60.4.02a00050). (§13 scope pointer, not a method source.)
+  - Dixon, R. M. W. (1972), *The Dyirbal Language of North Queensland*, Cambridge University Press. [Edition record](https://openlibrary.org/books/OL22330735M). (§13 scope pointer for an avoidance register, not a method source.)
 - couples: language — `../linguistics/{sociolinguistics-registers,language-contact,historical-linguistics,phonetics-phonology,naming-systems,writing-systems}.md`; myth/symbol — `../myth-symbol/{ritual-liminality,symbolism-synthesis-method}.md`; era/costume/material — `../culture-material/{era-periodization-models,costume-semiotics,sumptuary-law-rank-display,craft-artisan-lexicon,textile-technology}.md`; sibling — lore-shokunin receives reference-backed options and owns all world-bible/canon decisions.
 
 ## 1. Keep the map layers independent
@@ -105,7 +107,7 @@ Eckert (2000) motivates locally grounded social-practice analysis; Agha (2007) e
 
 Do not assign a single “caste accent” by birth. Model variation within the category, cross-category ties, learners, defectors, code choices, and institutional permission.
 Agha’s chapter 7 distinguishes honorific repertoires and social domains: a high-status label does not itself specify how speakers address a superior, refer to an absent person, or speak among intimates.
-**Enregisterment:** record who circulates “this is how X people speak” through imitation, etiquette, jokes, teaching, and correction (Agha 2007, chapter 3). Recognition is not uniform across audiences.
+**Enregisterment:** record who circulates “this is how X people speak” through imitation, etiquette, jokes, teaching, and correction (Agha 2007, chapters 3–4). Recognition is not uniform across audiences.
 A faction may deliberately adopt a prestigious or stigmatized feature, but record the act and audience interpretation; biological descent is not its cause.
 
 ## 7. Build faction jargon from tasks and symbolic reuse
@@ -189,9 +191,9 @@ Useful friction comes from nonalignment: shared jargon across enemies, different
 
 ## 13. Provenance cautions and known gaps
 
-- **Verification scope:** DOI metadata and supplied abstracts were checked for Chambers/Trudgill, Kerswill/Williams, Agha, and Halliday; edition catalogue records for Trudgill, Milroy, and Eckert; Agha’s publisher frontmatter for edition year and chapter locations. This is not a fresh full-text collation of all books.
+- **Verification scope:** DOI metadata and supplied abstracts were checked for Chambers/Trudgill, Kerswill/Williams, Agha, and Halliday; edition catalogue records for Trudgill, Milroy, and Eckert; Agha’s publisher frontmatter for edition year and chapter locations; Crossref record for Gumperz (1958) and the Dixon (1972) edition record, both added as §13 coverage pointers. This is not a fresh full-text collation of all books.
 - **Date calibration:** Agha’s frontmatter says “First published 2007”; some digital/catalogue metadata dates release to 2006. The citation above follows the printed edition, not a different inferred work.
-- **Thin coverage:** the empirical models here lean heavily on British/US sociolinguistics. Specific South Asian caste lects, Indigenous avoidance registers, and historical speech stratification require local descriptive scholarship `(to-verify)` before adaptation; no details of those traditions are asserted here.
+- **Thin coverage:** the empirical models here lean heavily on British/US sociolinguistics. Specific South Asian caste lects, Indigenous avoidance registers, and historical speech stratification require local descriptive scholarship before adaptation — verified pointers: Gumperz (1958) on caste-linked stratification in a North Indian village, Dixon (1972) on the Dyirbal Jalnguy avoidance register; no details of those traditions are asserted here.
 - **Sparse chronicles:** elite writing, edited literature, spelling conventions, and prescriptive manuals do not provide a census of ordinary historical speech. Absence of a written form is not evidence that its spoken counterpart was absent.
 - **Colonial-source bias:** administrative ethnonyms, caste/“tribe” labels, and missionary spelling categories can impose external boundaries. Attribute the source’s labels and distinguish observation from its explanation; do not naturalize its hierarchy.
 - **Contested scope:** network effects, prestige, accommodation, and demographic explanations vary by community. A single case is not a predictive law; Halliday’s anti-society framework is an analytical interpretation, not a universal taxonomy of outsiders.

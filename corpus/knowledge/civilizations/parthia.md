@@ -1,6 +1,6 @@
 # Parthia: Arsacid scripts, cavalry prestige, road registers, and bardic memory
 - topic: Parthian reference methods for coupling language, myth, symbol, era, and costume; mixed-script coinage, Ecbatana's exchange network, mounted warfare, and calibrated gōsān reconstruction.
-- sources: Sellwood (1980); Alram (1986); Boyce (1957, 2002); Isidore of Charax, ed./trans. Schoff (1914); Plutarch, trans. Perrin (1916); Hopkins (n.d., accessed 2026-10-17); Iran Chamber Society (n.d., accessed 2026-10-17). Editions, URLs, and access limits below.
+- sources: Sellwood (1980); Alram (1986); Boyce (1957, 2002); Isidore of Charax, ed./trans. Schoff (1914); Plutarch, trans. Perrin (1916); Polybius (10.27); Porada (1965); Curtis (2012); Nabel (2017); Hopkins (n.d., accessed 2026-10-17); Iran Chamber Society (n.d., accessed 2026-10-17). Editions, URLs, and access limits below.
 - couples: language—`../linguistics/{writing-systems,language-contact,sociolinguistics-registers,naming-systems,orality-formulaic-language}.md`; myth/symbol—`../myth-symbol/{pantheon-archetypes,myth-folktale-genres,symbolism-synthesis-method}.md`; era/costume—`../culture-material/{era-periodization-models,trade-economy-lexicon,warrior-material-culture,costume-semiotics,textile-technology,material-culture-inference-method}.md`; sibling—lore-shokunin owns canon and the world bible, not this reference entry.
 
 ## Scope and evidence grammar
@@ -55,7 +55,7 @@
 - The obverse has a diademed royal bust and the short Aramaic-character inscription transliterated **wl**; the reverse has a seated archer with a bow and a partly blundered Greek legend.
 - This couples royal identification, inherited imperial titulature, portrait dress, and a durable archer emblem on one portable object.
 - “Bilingual coinage” is useful shorthand, but this example is more precisely a **mixed-script issue with unequal textual functions**: a short name marker is not a translation of the long Greek formula.
-- The catalogue calls the characters “Aramaic”; distinguish the script ancestry from the Iranian royal name being represented. Exact vocalization of `wl` from those letters alone is `(to-verify)`.
+- The catalogue calls the characters “Aramaic”; distinguish the script ancestry from the Iranian royal name being represented. The letters `wl` are read as a short form of the royal name — compare the fuller Aramaic spelling `wlgšy mlk’` on later Vologases IV issues — so the vocalization cannot be recovered from the short sign alone. [Hopkins, “Inscriptions”; Nabel (2017) on Sellwood 71.1]
 - Early Arsaces I types 3ii and 4ii are also listed with Aramaic legends; do not describe Vologases I as inventing all Aramaic use on Arsacid coins. [Hopkins, “Inscriptions”]
 
 | Element | Attested or normalized example | Coupled function | Guardrail |
@@ -109,9 +109,9 @@
 | Fiscal exchange | Customs point and treasury, §6 | Toll, assessed value, receipt, custody, payment, exemption | These are design slots, not translated local terms |
 | Travel stages | Stations, villages, wells, and route distances, §§1–7 | Stage, stopping place, water access, escort, route obligation | Do not assume a modern hotel or a later caravanserai institution |
 | Distance | Schoeni in Schoff's translation | Official distance versus travel effort; local conversion conventions | Do not impose one universal kilometer conversion |
-| High-value textiles | Wider long-distance exchange setting | Fiber, yarn, woven cloth, finish, garment, origin claim | A silk sample, trading role, or technical loanword at this site needs separate evidence `(to-verify)` |
+| High-value textiles | Wider long-distance exchange setting | Fiber, yarn, woven cloth, finish, garment, origin claim | Silk appears in this edition only in Schoff's commentary and in the appended Chinese annal passages about long-distance trade; Isidore's itinerary attaches no silk sample or term to Ecbatana |
 | Multiple audiences | Greek itinerary and mixed-script monetary evidence | Interpreter's rendering, trader's usage, fiscal spelling, court title | Their coexistence does not establish every resident's multilingual competence |
-| Sacred and civic space | Anaitis sanctuary beside treasury and road functions | Donor, offering, dedication, sanctuary personnel, civic authority | Exact financing or customs–temple revenue connection `(to-verify)` |
+| Sacred and civic space | Anaitis sanctuary beside treasury and road functions | Donor, offering, dedication, sanctuary personnel, civic authority | §6 keeps the Bazigraban custom house and the Ecbatana treasury/sanctuary as separate stations; Polybius 10.27.12 attests the sanctuary's own stored wealth (gilded pillars, silver tiles and bricks), and no source links the two |
 
 - **Borrowing workflow:** choose commodity or institution → identify brokers → choose recipient social group → adapt sound and morphology → date first use → permit specialist and everyday terms to diverge.
 - Do not invent a Chinese→Parthian→Greek etymology merely because goods traversed several regions; trade transmission and word transmission need independent histories.
@@ -121,11 +121,11 @@
 
 - Direct religious anchors in Isidore are **Anaitis at Ecbatana** (§6), an **Artemis sanctuary at Concobar** (§6), and a guarded **perpetual fire at Asaac**, where Arsaces was proclaimed king (§11).
 - Anaitis is the Greek-form divine name conventionally associated with Iranian Anāhitā; a Greek writer's Artemis label does not prove an identical Greek cult in every named sanctuary.
-- Ahura Mazdā, Mithra, and Anāhitā are relevant Iranian religious comparanda, not a securely reconstructed, uniformly ranked “Parthian trinity”; their precise roles at a selected Arsacid court are `(to-verify)`.
+- Ahura Mazdā, Mithra, and Anāhitā are relevant Iranian religious comparanda, not a securely reconstructed, uniformly ranked “Parthian trinity”; their roles at any selected Arsacid court must be argued from localized evidence rather than assumed from the triad. [Curtis, “Parthian Coins: Kingship and Divine Glory,” in Wick–Zehnder (2012)]
 - A fire linked to royal proclamation can couple sacred place and dynastic memory; the passage alone does not reconstruct the ceremony, priesthood, or doctrine.
 - Royal founder-names, diadems, bows, and sovereignty epithets provide firmer design anchors than an invented complete Arsacid creation myth.
 - Interpret a symbol through **issuer + medium + audience + neighboring signs**: an archer on money, a fire at a royal place, and a deity in a sanctuary do different work.
-- Do not identify every star, crescent, eagle, or mounted figure with the same god or royal-glory doctrine without a dated, localized argument `(to-verify)`.
+- Do not identify every star, crescent, eagle, or mounted figure with the same god or royal-glory doctrine without a dated, localized argument; identifications in this field are actively revised. [Curtis (2012)]
 - **Rejected shortcut:** Iranian worship of Mithra is not sufficient evidence for the Roman mysteries of Mithras, or for blanket claims that Christianity copied “Parthian rituals.” Hopkins's religion overview asserts such equivalences without adequate support; do not use it as authority for them.
 - Avoid “all Parthians were orthodox Zoroastrians” and the reverse claim that every Greek divine name proves religious replacement. Court, city, sanctuary, and household are separate scales.
 - **Design move:** let one ruler's title, a city's divine patron, and a household's ancestry coexist without making them one systematic pantheon.
@@ -134,7 +134,7 @@
 
 - Coin type 71.1 directly supplies a royal **diadem, earring, torque, beard, and arranged hair**; use those together as a portrait code, not a mandatory ethnic uniform.
 - The bronze figure from **Shami in Elymais** is a major reference for elite Iranian-style dress: a belted upper garment, voluminous leg coverings, and footwear are described in the online art excerpt. [Iran Chamber Society, “The Art of Parthians,” excerpt pp. 188–189]
-- That excerpt's original author/edition attribution is `(to-verify)`; its proposed narrow dating must not be adopted as settled. Use it as a checkable secondary object description, not an unqualified chronology authority.
+- The excerpt reproduces Edith Porada's chapter “The Art of the Parthians” in *The Art of Ancient Iran: Pre-Islamic Cultures* (1965; Arts of the World series); its Shami dating follows H. Seyrig (*Syria* XX, 1939) and must not be adopted as settled. Use it as a checkable secondary object description, not an unqualified chronology authority.
 - Elymais, Ecbatana, and northeastern Parthia are not the same locality; keep a Shami reference's findspot attached to the design record.
 
 | Material or visual cue | Permissible craft use | Overclaim to prevent |
@@ -157,7 +157,7 @@
 - Naming template: `individual / house or dynasty / founder-name claim / title / language-specific rendering / attestation date and medium`.
 - A founder's name can become a sovereignty label shared by rivals; identical public dynastic names need not imply personal anonymity in every other setting.
 - **Design move:** let the mint preserve a dynastic name, retainers use a personal name plus patronymic, and foreigners use an adapted form; specify the institutional reason for each.
-- A historical name's etymology or divine element requires a philological entry, not a guessed meaning from its modern spelling `(to-verify)`.
+- A historical name's etymology or divine element requires a philological entry — Alram (1986) is the coin-name authority used here — not a guessed meaning from its modern spelling.
 
 ## Gōsān: calibrate the evidence before designing a bardic institution
 
@@ -170,9 +170,9 @@
 |---|---|---|
 | Boyce reconstructs a Parthian minstrel tradition | Identifiable 1957 scholarly study | Secure attribution of the argument; not automatic proof of every reconstruction |
 | A feast-song can threaten a ruler through allegory | Medieval narrative discussed in the checked abstract | Attested literary scenario, not a documented Arsacid court incident |
-| The term has Parthian and Armenian transmission relevance | Boyce's later “Gōsān” entry and modern summaries | Specific early attestations and their dates `(to-verify)` against the cited texts |
-| Every noble house employed a hereditary genealogical bard | Generalization often attached to the reconstruction | `(to-verify)`; do not standardize a guild or caste from this entry |
-| A particular epic, melody, instrument, or costume is Arsacid | Requires a separately identified textual or material witness | `(to-verify)`; a bardic hypothesis does not supply performance detail |
+| The term has Parthian and Armenian transmission relevance | Boyce's later “Gōsān” entry, now consulted | Parthian witness: Manichaean fragment `gwsʾn` (text dated 4th–5th century CE); loanwords: Armenian `gōsān`, Mandaean `gwsānā`, probably Georgian `mgōsāni`; earliest literary occurrence: 11th-century *Vis o Rāmin*, from a Middle Persian version of a Parthian oral work |
+| Every noble house employed a hereditary genealogical bard | Boyce presents it as probable inference (“Probably, however, each noble family would have had its own hereditary gōsāns”), not attestation | Do not standardize a guild or caste from this entry |
+| A particular epic, melody, instrument, or costume is Arsacid | Only five texts are identified as of gōsān origin, all transmitted in Middle Persian or classical Persian; no contemporary performance detail accompanies them | A bardic hypothesis does not supply performance detail |
 
 - Distinguish **language of a term**, **date of its surviving witness**, **date assigned to a story**, and **date of the institution inferred from it**.
 - Do not call every ancient Iranian musician a gōsān, or back-project later Armenian singer-poet forms wholesale into Arsacid society.
@@ -184,13 +184,16 @@
 ## Editions, source access, and verification trail
 
 - **Sellwood, David (1980).** *An Introduction to the Coinage of Parthia*, 2nd ed. London: Spink. Type numbering here is accessed through Hopkins's explicit catalogue references, not independent collation of the book.
-- **Alram, Michael (1986).** *Nomina Propria Iranica in Nummis: Materialgrundlagen zu den iranischen Personennamen auf antiken Münzen*. *Iranisches Personennamenbuch* IV. Vienna: Österreichische Akademie der Wissenschaften. Bibliographic identification checked through Hopkins; individual readings require consulting the edition `(to-verify)`.
-- **Boyce, Mary (1957).** “The Parthian Gōsān and Iranian Minstrel Tradition.” *Journal of the Royal Asiatic Society* 89(1–2): 10–45. [DOI and abstract](https://doi.org/10.1017/S0035869X0010735X); metadata/abstract also retrievable through Crossref. Full-text interpretation beyond the checked opening remains `(to-verify)`.
-- **Boyce, Mary (2002).** “Gōsān.” *Encyclopaedia Iranica* XI/2: 167–170. [Entry](https://www.iranicaonline.org/articles/gosan/). Bibliography corroborated through the [“Gusans” overview](https://en.wikipedia.org/wiki/Gusans); original entry was inaccessible during this check, so its detailed attestations are `(to-verify)`.
+- **Alram, Michael (1986).** *Nomina Propria Iranica in Nummis: Materialgrundlagen zu den iranischen Personennamen auf antiken Münzen*. *Iranisches Personennamenbuch* IV. Vienna: Österreichische Akademie der Wissenschaften. Bibliographic identification corroborated through Hopkins and through dated citations of the series (e.g. the *Encyclopaedia Iranica* bibliography s.v. Hēraus; the IPNB series record, Band IV, 1986); individual readings were not collated here.
+- **Boyce, Mary (1957).** “The Parthian Gōsān and Iranian Minstrel Tradition.” *Journal of the Royal Asiatic Society* 89(1–2): 10–45. [Article page and DOI](https://doi.org/10.1017/S0035869X0010735X); journal, year, and pagination also corroborated through an independent bibliography. The opening and abstract were checked; later detail is used here only where Boyce's own 2002 entry restates it.
+- **Boyce, Mary (2002).** “Gōsān.” *Encyclopaedia Iranica* XI/2: 167–170. [Entry](https://www.iranicaonline.org/articles/gosan/); direct access was blocked, so the text was read through the Internet Archive's copy. Details drawn from it: the Manichaean Parthian `gwsʾn` passage (Henning's manuscript join, cited at Boyce 1957, p. 11), Armenian `gōsān` as a loanword, Mandaean `gwsānā`, the *Mojmal al-tawāriḵ* notice, and the 11th-century *Vis o Rāmin* occurrence.
 - **Isidore of Charax; Schoff, Wilfred H., ed./trans. (1914).** *Parthian Stations by Isidore of Charax*, Greek text with translation and commentary. [Online transcription](https://www.parthia.com/doc/parthian_stations.htm). The itinerary §§1–19 and Schoff's modern commentary are separate evidence layers.
 - **Plutarch; Perrin, Bernadotte, trans. (1916).** *Parallel Lives*, vol. III, Loeb Classical Library; *Crassus* 21–25, 33. [Online translation](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Plutarch/Lives/Crassus*.html). Ancient author: late first–early second century CE; 1916 dates the translation, not the events.
 - **Hopkins, Edward C. D. (“Chris”), ed. (n.d.; accessed 2026-10-17).** *Parthia.com*: [Vologases I specimens](https://www.parthia.com/vologases1.htm), [inscriptions](https://www.parthia.com/parthia_inscriptions.htm), [attested names](https://www.parthia.com/parthia_inscriptions_names.htm), [language](https://www.parthia.com/parthia_language.htm), and [mints](https://www.parthia.com/parthia_mints.htm). A useful source-index and object catalogue, not uniformly current scholarship.
-- **Iran Chamber Society (n.d.; accessed 2026-10-17).** [“The Art of Parthians”](https://www.iranchamber.com/art/articles/art_of_parthians.php), online excerpt with printed-page markers. Original attribution `(to-verify)`; descriptions of the Shami figure are used narrowly, while its “feudal” causation, artistic-value judgments, and erroneous 244 CE endpoint are not adopted.
+- **Porada, Edith (1965).** *The Art of Ancient Iran: Pre-Islamic Cultures* (Arts of the World). New York: Crown; ch. 14, “The Art of the Parthians.” Posted by the Iran Chamber Society as [“The Art of Parthians”](https://www.iranchamber.com/art/articles/art_of_parthians.php) (excerpt with printed-page markers; identified by chapter title, the volume's series reference, and the Internet Archive copy's contents list). Descriptions of the Shami figure are used narrowly, while its “feudal” causation, artistic-value judgments, and erroneous 244 CE endpoint are not adopted.
+- **Polybius.** *Histories* 10.27.12, on the temple of Anaitis at Ecbatana (gilded pillars; silver tiles and bricks; partly plundered from Alexander's time onward). Independent of Isidore and of Schoff's commentary.
+- **Curtis, Vesta Sarkhosh (2012).** “Parthian Coins: Kingship and Divine Glory,” in P. Wick and M. Zehnder, eds., *The Parthian Empire and its Religions: Studies in the Dynamics of Religious Diversity*. Gutenberg. Used for the point that Parthian royal and divine iconography is regional and revised, not one fixed doctrine.
+- **Nabel, Jacob T. (2017).** *The Arsacids of Rome: Royal Hostages and Roman-Parthian Relations in the First Century CE* (PhD dissertation, Cornell University), ch. 5, fig. 3 — describes the Aramaic legend of Sellwood 71.1 (`wl`) as an abbreviation.
 
 ## What a worldbuilder can take
 

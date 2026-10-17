@@ -11,9 +11,9 @@ command and the commit it was measured against.
 | depth | 6 | 176 entries with cited sources, decision tables, worked derivations | `find corpus/knowledge -name '*.md' \| wc -l` = 176 | mint commit 49ac1a5 |
 | coverage | 6 | 6 partitions; civilizations/ covers 92 bases | `ls corpus/knowledge/civilizations \| wc -l` = 92 | mint commit 49ac1a5 |
 | operability | 3→5 | round 1: 6 gates implemented (target ≥4), selftests green | `ls tools/gates/*.py \| wc -l` = 6; `for g in tools/gates/*.py; do python3 $g --selftest; done` all exit 0 | round-1 commit 2026-10-17 |
-| freshness | 1→4 | round 1: to-verify flags 1258 → 795 (463 net; target 300) | `grep -rc 'to-verify' corpus/knowledge --include='*.md' \| awk -F: '{s+=$2} END {print s}'` | round-1 commit 2026-10-17 |
+| freshness | 1→4 | round 1: 1258 → 795; round 2: 795 → 587 (208; claim ≥400 missed, round rejected) | `grep -rc 'to-verify' corpus/knowledge --include='*.md' \| awk -F: '{s+=$2} END {print s}'` = 587 | round-2 commit 2026-10-17 |
 | calibration | 6 | every entry carries a calibration section; 983 basis-carrying triage decisions (503/416/64) | `grep -h 'CONFIRM\|DOWNGRADE\|EXCISE' corpus/lessons/round-1-triage/*.md \| wc -l` = 983 | round-1 commit 2026-10-17 |
-| adjacency | 4 | synthesis/worldbible-integration-contract.md landed; handoff format defined | `test -f corpus/knowledge/synthesis/worldbible-integration-contract.md` | mint commit 49ac1a5 |
+| adjacency | 4→5 | round 2: executable handoff path — sample packet passes the contract gate 16/16; L0 filed | `python3 tools/gates/handoff-packet-check.py examples/handoff-packet.sample.md` exit 0 | round-2 commit 2026-10-17 |
 
 ## Capabilities
 
@@ -28,6 +28,7 @@ command and the commit it was measured against.
 | naming collision verdict | grade name uniqueness/pronounceability/derivation | tools/gates/naming-collision-gate.py --selftest green | round 1 |
 | corpus provenance verdict | grade entry headers/sources/calibration + flag counts | tools/gates/provenance-audit.py --selftest green | round 1 |
 | to-verify triage | resolve provenance flags with CONFIRM/DOWNGRADE/EXCISE ledgers | corpus/lessons/round-1-triage/ (42 fragments, 983 decisions) | round 1 |
+| handoff packet verdict | grade a world-bible handoff packet against the integration contract (envelope, canon hygiene, glossary etymologies) | tools/gates/handoff-packet-check.py --selftest green; exit 0 over examples/handoff-packet.sample.md | round 2 |
 
 ## Planned (next rounds)
 

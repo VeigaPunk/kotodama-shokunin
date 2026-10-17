@@ -90,8 +90,10 @@ Registry per the fleet gate standard (fleet `PROTOCOL.md` §Gate
 standard). Common interface: exit 0 clean / 1 findings / 2
 could-not-evaluate; `--selftest` runs committed fixtures with planted
 violations; input is a culture packet (schema in
-`corpus/knowledge/verification/`); corpus reads are read-only. All
-selftests green at round-1 close (2026-10-17).
+`corpus/knowledge/verification/`) except `handoff-packet-check`, which
+reads a handoff packet (`synthesis/worldbible-integration-contract.md`
+§4 envelope); corpus reads are read-only. All selftests green, last
+verified 2026-10-17.
 
 | name | kind | entry command | self-test | pinned values | write scope | owner |
 |---|---|---|---|---|---|---|
@@ -101,3 +103,4 @@ selftests green at round-1 close (2026-10-17).
 | costume-era-consistency-gate | gate | `python3 tools/gates/costume-era-consistency-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/costume-era-consistency-gate.{yml,expected} | none outside report | kotodama-shokunin |
 | naming-collision-gate | gate | `python3 tools/gates/naming-collision-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/naming-collision-gate.{yml,expected} | none outside report | kotodama-shokunin |
 | provenance-audit | gate | `python3 tools/gates/provenance-audit.py <corpus-files…>` | `--selftest` | tools/gates/fixtures/provenance/ | none outside report | kotodama-shokunin |
+| handoff-packet-check | gate | `python3 tools/gates/handoff-packet-check.py <packet.md>` — 0 clean / 1 findings / 2 could-not-evaluate; `-` reads stdin | `--selftest` | tools/gates/fixtures/handoff-packet-check.{md,expected} | none outside report | kotodama-shokunin |

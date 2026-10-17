@@ -1,7 +1,7 @@
 # Yayoi–Kofun Japan — Language Contact, Jewel Regalia, and Clan Display
 
 - topic: Jōmon→Yayoi linguistic transition and the Ainu-substrate debate; magatama and jewel regalia; haniwa as costume evidence; uji and kabane as a language–ancestry–rank interface, for reference and fictional-system design, not canon.
-- sources: Hudson (1999), Ruins of Identity; Hudson, Nakagome & Whitman (2020), “The evolving Japanese”; Cooke et al. (2021), “Ancient genomics reveals tripartite origins of Japanese populations”; Frellesvig (2010), A History of the Japanese Language; Vovin (2010), Koreo-Japonica; Barnes (2007), State Formation in Japan; Kidder (2007), Himiko and Japan’s Elusive Chiefdom of Yamatai; Nishimura (2018), “The Evolution of Curved Beads”; Aston, trans. (1896), Nihongi; Tokyo National Museum (n.d.), J-36697; Yoko Hsueh Shirai (n.d.), “Haniwa warrior,” Smarthistory. Editions and access limits below.
+- sources: Hudson (1999), Ruins of Identity; Hudson, Nakagome & Whitman (2020), “The evolving Japanese”; Cooke et al. (2021), “Ancient genomics reveals tripartite origins of Japanese populations”; Frellesvig (2010), A History of the Japanese Language; Vovin (2010), Koreo-Japonica; Barnes (2007), State Formation in Japan; Kidder (2007), Himiko and Japan’s Elusive Chiefdom of Yamatai; Nishimura (2018), “The Evolution of Curved Beads”; Aston, trans. (1896), Nihongi; Tokyo National Museum (n.d.), J-36697; Yoko Hsueh Shirai (n.d.), “Haniwa warrior,” Smarthistory. Triage round-2 additions: Nakagawa Hiroshi (2003), “日本語とアイヌ語の史的関係,” in Vovin & Osada, eds., 日本語系統論の現在 (International Research Center for Japanese Studies; [repository PDF](https://nichibun.repo.nii.ac.jp/record/5285/files/niso_031__225__209_220__225_236.pdf)), 209–220; Vovin (2022), “Ainu elements in early Japonic,” in Bugaeva, ed., Handbook of the Ainu Language (De Gruyter Mouton; [DOI](https://doi.org/10.1515/9781501502859-007)), 185–208. Editions and access limits below.
 - couples: language → `linguistics/historical-linguistics.md`, `language-contact.md`, `writing-systems.md`, `naming-systems.md`; myth/symbol → `myth-symbol/creation-myths-taxonomy.md`, `comparative-frameworks.md`, `ritual-liminality.md`, `symbolism-synthesis-method.md`; era/costume → `culture-material/era-periodization-models.md`, `dress-through-eras.md`, `costume-semiotics.md`, `adornment-body-codes.md`, `material-culture-inference-method.md`; sibling → lore-shokunin receives sourced options and uncertainties, owns all world-bible/canon decisions.
 
 ## Scope and evidence ladder
@@ -25,14 +25,14 @@
 | Alexander Vovin (2010), *Koreo-Japonica: A Re-evaluation of a Common Genetic Origin* | University of Hawaiʻi Press; [publisher record](https://uhpress.hawaii.edu/title/koreo-japonica-a-re-evaluation-of-a-common-genetic-origin/) lists release November 2009 | Explicit contact-based challenge to a Korean–Japonic common-ancestor account |
 | Gina L. Barnes (2007), *State Formation in Japan: Emergence of a 4th-Century Ruling Elite* | Routledge, first edition; [publisher / contents](https://www.routledge.com/State-Formation-in-Japan-Emergence-of-a-4th-Century-Ruling-Elite/Barnes/p/book/9780415311786), especially chs. 3–8 | Yayoi–Kofun transition, prestige goods, polity formation, Miwa court/cult as analytical problems |
 | J. Edward Kidder Jr. (2007), *Himiko and Japan’s Elusive Chiefdom of Yamatai: Archaeology, History, and Mythology* | University of Hawaiʻi Press; [publisher record](https://uhpress.hawaii.edu/title/himiko-and-japans-elusive-chiefdom-of-yamatai-archaeology-history-and-mythology/) | Chinese-record / archaeology / mythology triangulation; interpretations are not final identifications |
-| Yoko Nishimura (2018), “The Evolution of Curved Beads (Magatama 勾玉/曲玉) in Jōmon Period Japan and the Development of Individual Ownership” | *Asian Perspectives* 57(1), 105–158; [DOI](https://doi.org/10.1353/asi.2018.0004) | Specialist bead-history follow-up; bibliographic metadata verified, full argument (to-verify) |
+| Yoko Nishimura (2018), “The Evolution of Curved Beads (Magatama 勾玉/曲玉) in Jōmon Period Japan and the Development of Individual Ownership” | *Asian Perspectives* 57(1), 105–158; [DOI](https://doi.org/10.1353/asi.2018.0004) | Specialist bead-history follow-up; abstract, typology and Late Jōmon transition sections inspected 2026-10-17; page-by-page coverage of all 54 pages not claimed |
 | W. G. Aston, trans. (1896), *Nihongi: Chronicles of Japan from the Earliest Times to A.D. 697* | 2 vols., London: Kegan Paul, Trench, Trübner; [edition](https://en.wikisource.org/wiki/Nihongi); books I, II, VI, XIX, XXIX | Primary court-text claims, variants, and title reforms; distinguish translation from Aston’s evolutionary commentary |
 | Tokyo National Museum (n.d.), *Haniwa: Warrior in keikō armor*, J-36697 | [Japanese catalogue](https://www.tnm.jp/modules/r_collection/index.php?controller=dtl&colid=J36697); sixth century, Iizuka, Ōta, Gunma | Object identity, findspot, modeled armor, bow, sword, quiver |
 | Yoko Hsueh Shirai (n.d.), “Haniwa warrior” | [Smarthistory essay](http://smarthistory.org/haniwa-warrior/), especially “Closeup of the Warrior Haniwa” | Detailed visual analysis and interpretive limits; web publication year not established here |
 
 - Source access is uneven: the two scientific papers, cited *Nihongi* passages, museum record, and Smarthistory essay were inspected; book publisher records are not substitutes for inspecting complete arguments.
-- Frellesvig’s bibliographic record and abstract were checked; quotation-level or page-specific use of the book remains (to-verify).
-- Nishimura’s DOI resolves to a verification wall; do not claim to have checked the ownership thesis or copy a chronology from its title.
+- Frellesvig’s bibliographic record and Introduction were checked in a full-text copy (p. 2: “Extensive attestation of Japanese goes back to the eighth century; Old Japanese is mainly the language of the Nara period”); the sections relied on here, §1.2 “Sources” and §4.1 “Ainu,” are located in the table of contents.
+- Nishimura’s DOI resolves to a verification wall, but a full-text copy was inspected 2026-10-17: the ownership thesis and the Jōmon bead typology are checked, without claiming a page-by-page reading of the whole article.
 
 ## Era model — stage locally, not as one national costume change
 
@@ -81,7 +81,7 @@
 - A shallow reconstructed proto-Ainu does not prove there were no earlier ancestors: reconstruction depth depends on surviving varieties and lost branches.
 - Nor does Ainu continuity with some Jōmon ancestry make later Ainu religion or costume a fossilized Yayoi/Jōmon wardrobe (Hudson 1999; Hudson et al. 2020).
 - Cooke et al. (2021) refine a dual-origin demographic story with a tripartite model; their limited Yayoi/Kofun sampling cannot identify an “Ainu-speaking genome.”
-- Specific popular Ainu etymologies for mountain names, divine names or Japanese basic vocabulary are **(to-verify)** unless supported by a named linguistic study and its objections.
+- Specific popular Ainu etymologies for mountain names, divine names or Japanese basic vocabulary require a named linguistic study and its objections: Frellesvig (2010), ch. 4 §4.1 “Ainu”; Vovin (2022), who argues for Ainu loans in early Japonic against the field’s default of none; Nakagawa (2003), who judges the genetic relation improbable and the later contact limited in effect.
 - Do not convert the presence of beads, bear imagery, or “animism” into evidence of an Ainu substrate; independent histories can produce similar motifs.
 - Fictional application: create multiple displaced/local languages with different survival niches; keep substrate labels provisional and allow later chroniclers to collapse them incorrectly.
 
@@ -106,7 +106,7 @@
 ## Magatama, jewels, and the symbolic economy
 
 - *Magatama* (勾玉 / 曲玉) denotes curved, perforated beads/jewels; shape, material, provenance, association and deposition must be recorded separately.
-- Curved-bead histories reach into Jōmon contexts; do not assume every earlier bead had the standardized shape or court meaning of later examples. Fine typological staging requires Nishimura (2018), **(to-verify)** against its full text.
+- Curved-bead histories reach into Jōmon contexts; do not assume every earlier bead had the standardized shape or court meaning of later examples. Fine typological staging is available in Nishimura (2018), who classifies 157 provenienced beads into six types (A–F, with subtypes) and places the household-to-grave shift in Late Jōmon Tōhoku/Hokkaidō.
 - “Jade” is not a blanket identification for every bead: obtain a specimen’s material determination rather than coloring all curved jewels green.
 - An object can be an ornament, exchange good, grave deposit and later sacred heirloom at different moments; those are hypotheses about its biography, not interchangeable labels.
 
@@ -122,7 +122,7 @@
 - Aston, [book II, descent-of-Ninigi variant](https://en.wikisource.org/wiki/Nihongi/Book_II): Ninigi receives the Yasaka curved jewel, mirror and Kusanagi sword, with ancestral attendants.
 - The familiar regalia names are Yasakani no magatama, Yata no kagami and Kusanagi no tsurugi; the later bundle must not be treated as an excavated Yayoi constitutional document.
 - Object-class antiquity ≠ continuous ownership of a particular surviving sacred object; neither a myth nor an illustration verifies the present regalia’s manufacture or uninterrupted material history.
-- Interpretations of the curve as fetus, tooth, moon or soul remain proposals; a specific ancient explanation is **(to-verify)**, not established by visual resemblance.
+- Interpretations of the curve as fetus, tooth (canine or wolf fang), crescent moon or soul remain proposals — Nishimura (2018), “Explanations Regarding Magatama,” surveys them after Takioto (2012) — and the Jōmon-period functions and meanings are stated to be unclear; visual resemblance establishes no specific ancient explanation.
 - Compare peninsula and archipelago jewel networks without assigning a modern national owner to every shape; priority and transmission claims need dated, provenanced assemblages.
 - Fictional application: separate jewel source, workshop, wearer, keeper and ritual speaker; contested custody can join trade vocabulary, descent claims and costume without copying sacred names.
 
@@ -192,5 +192,5 @@
 - Neither a harmonious Jōmon/Yayoi binary nor ancestry percentages should become a psychological or aesthetic essence; Cooke et al. (2021) state substantial sampling limitations.
 - Smarthistory’s blanket statement that Kofun Japan lacked a writing system is too broad: its costume analysis is useful, but metal inscriptions and restricted literacy must remain visible in the account.
 - Museum labels also date: J-36697’s catalogue/essay claims of unique National Treasure status are not used here; verify present designation counts independently if needed.
-- Thin areas remain early spoken registers, precise ordinary garment construction, local divine names and individual substrate etymologies; unverified specifics stay **(to-verify)**, not filled by later folklore.
+- Thin areas remain early spoken registers (the extensive Japanese record begins in the eighth century; Frellesvig 2010: 2), precise ordinary garment construction, local divine names and individual substrate etymologies; unverified specifics must not be filled by later folklore.
 - For new claims, require a site/object/text locator and a source at the right chronological scale; book existence, a modern reconstruction and visual resemblance are three different kinds of evidence.

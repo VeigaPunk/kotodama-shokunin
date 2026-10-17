@@ -1,6 +1,6 @@
 # Siam/Thai — Tonal Speech, Royal Rank, Ramakien, and Khon Regalia
 - topic: Central Thai/Siamese language–myth–symbol–era–costume coupling; Ramakien indigenization, khon masked performance, rachasap, and sakdina; reference and generative method, never fictional canon.
-- sources: Iwasaki and Ingkaphirom (2005) [S1]; Jenny (2019) [S2]; Baker and Phongpaichit (2017) [S3]; Ramanujan (1991) [S4]; F. E. Reynolds (1991) [S5]; Miettinen (2018, updated online) [S6]; UNESCO (2018) [S7]; Robertson (n.d.) [S8]; Waters (2022) [S9]; Evason (2021) [S10].
+- sources: Iwasaki and Ingkaphirom (2005) [S1]; Jenny (2019) [S2]; Baker and Phongpaichit (2017) [S3]; Ramanujan (1991) [S4]; F. E. Reynolds (1991) [S5]; Miettinen (2018, updated online) [S6]; UNESCO (2018) [S7]; Robertson (n.d.) [S8]; Waters (2022) [S9]; Evason (2021) [S10]; Burapha University Library rachasap reference (2012) [S11]; King Prajadhipok's Institute, “ศักดินาสยาม” (n.d.) [S12]; Library of Congress Law Library (2025) [S13].
 - couples: language → `../linguistics/{phonetics-phonology,writing-systems,language-contact,sociolinguistics-registers,politeness-taboo-euphemism,naming-systems}.md`; myth/symbol → `../myth-symbol/{comparative-frameworks,pantheon-archetypes,color-symbolism,cosmology-cosmography}.md`; era/costume → `../culture-material/{era-periodization-models,costume-semiotics,sumptuary-law-rank-display,ritual-garments,material-culture-inference-method}.md`; sibling → lore-shokunin receives attributed design options, not canon declarations.
 
 ## Scope, verification, and calibration
@@ -9,13 +9,13 @@
 - **Established:** modern Thai phonological contrasts; socially sensitive reference vocabulary; differentiated khon role types; the early Bangkok court's Ramakien patronage [S1–S2, S5–S7].
 - **Interpretive/contested:** whether Ramakien is best classified as Hindu, Buddhist, or differently framed in different media; the explanatory reach of “feudalism” for sakdina [S5, S9].
 - **Thin here:** pre-1767 performance reconstruction, provincial/local ritual variants, exact legal clauses, historical textile inventories, and workshop-specific mask consecration. Do not fill these gaps with court stereotypes.
-- **verified-at:** 2026-10-17; S1's publisher excerpt, S2's published chapter, S4–S5's online volume, and the linked S6–S10 pages were consulted; S3 is a bibliographically checked historical reading route, not a claim of clause-by-clause collation.
+- **verified-at:** 2026-10-17; S1's publisher excerpt, S2's published chapter, S4–S5's online volume, and the linked S6–S13 pages and files were consulted; S3 is a bibliographically checked historical reading route, not a claim of clause-by-clause collation.
 - **recheck:** consult the relevant Thai text, dated object, production record, or practitioner before specifying an early attestation, a rank entitlement, an exact costume component, or a ritual instruction.
 
 ## Source and edition key
 - **[S1]** Shoichi Iwasaki and Preeya Ingkaphirom. 2005. *A Reference Grammar of Thai*. Cambridge University Press. [Publisher excerpt, chapter 1](https://assets.cambridge.org/97805216/50854/excerpt/9780521650854_excerpt.pdf), especially pp. 3–9; [bibliographic record](https://grambank.clld.org/sources/gIwasakiIngkaphiromThai). A modern reference grammar, not an unchanging history of all Thai speech.
 - **[S2]** Mathias Jenny. 2019. “Thai.” In Alice Vittrant and Justin Watkins, eds., *The Mainland Southeast Asia Linguistic Area*, pp. 559–608. De Gruyter Mouton. [DOI](https://doi.org/10.1515/9783110401981-013); [open published chapter](https://www.zora.uzh.ch/server/api/core/bitstreams/dbb3e7fa-6e7a-4bcb-b80c-d5ec2d770d26/content). Especially §1, §4.3 and table 12, p. 600.
-- **[S3]** Chris Baker and Pasuk Phongpaichit. 2017. *A History of Ayutthaya: Siam in the Early Modern World*. Cambridge University Press. [Publisher/ISBN route](https://www.cambridge.org/9781316641132). Historical synthesis for institutions and social differentiation; exact law dates and clauses remain `(to-verify)` here.
+- **[S3]** Chris Baker and Pasuk Phongpaichit. 2017. *A History of Ayutthaya: Siam in the Early Modern World*. Cambridge University Press. [Publisher/ISBN route](https://www.cambridge.org/9781316641132). Historical synthesis for institutions and social differentiation; it does not collate law dates or clauses, so cite those to a dated legal text (see the sakdina section) rather than to the synthesis alone.
 - **[S4]** A. K. Ramanujan. 1991. “Three Hundred Ramayanas: Five Examples and Three Thoughts on Translation.” Chapter 2 in Paula Richman, ed., *Many Ramayanas: The Diversity of a Narrative Tradition in South Asia*. University of California Press. [Open volume](https://publishing.cdlib.org/ucpressebooks/view?docId=ft3j49n8h7&brand=ucpress). Use its multiple-tellings method, not every broad cultural generalization as a present-day survey.
 - **[S5]** Frank E. Reynolds. 1991. “Ramayana, Rama Jataka, and Ramakien: A Comparative Study of Hindu and Buddhist Traditions.” Chapter 3 in Richman, ed., *Many Ramayanas*, University of California Press. [Open volume](https://publishing.cdlib.org/ucpressebooks/view?docId=ft3j49n8h7&brand=ucpress), especially “Rama Traditions in Thailand: the Texts” and “the Dynastic Cult,” pp. 55–59. Its Buddhist-framing argument is an interpretation with identified textual and institutional evidence.
 - **[S6]** Jukka O. Miettinen. 2018. *Asian Traditional Theatre and Dance*. Theatre Academy, University of the Arts Helsinki; ISBN 978-952-7218-23-5. [“Khon, ‘The Masked Pantomime’”](https://disco.teak.fi/asia/khon-the-masked-pantomime/). The living online edition includes later material; 2018 is the work's copyright year, not a date for every paragraph.
@@ -23,6 +23,9 @@
 - **[S8]** Mary Lou Robertson. n.d. [“The Khon Masks”](https://seasite.niu.edu/thai/literature/ramakian/khonmasksofthailand/khonkhon.htm). Northern Illinois University, SEAsite. Useful descriptive mask examples and older bibliography; publication year is not supplied. Its speculative symbolism and blanket historical explanations require independent corroboration.
 - **[S9]** Tony Waters. 2022. [“M. R. Kukrit Pramoj’s theory of good governance and political change: the dialectics of Farang Sakdina.”](https://doi.org/10.1057/s41599-022-01158-9) *Humanities and Social Sciences Communications* 9, article 156. A study of a politically situated twentieth-century argument, not a neutral description of every Ayutthayan relationship.
 - **[S10]** Nina Evason. 2021. [“Thai Culture — Naming.”](https://culturalatlas.sbs.com.au/thai-culture/thai-culture-naming) SBS Cultural Atlas. Contemporary orientation; useful for contrasts, not a statistical survey or evidence for medieval naming.
+- **[S11]** Burapha University Library. *ราชาศัพท์* [Thai rachasap reference, ebook; 2012 printing](https://digital_collect.lib.buu.ac.th/ebook/b00286775.pdf). Verified inside: ประชวร *prachuan* as a ready-made royal verb for “ill”; the **ทรง** *song* prefix rules and their stated prohibitions (see the rachasap section); and the monastic list in which อาพาธ *aphath* = “ill.” A prescriptive instructional reference, not a descriptive corpus study.
+- **[S12]** King Prajadhipok's Institute. n.d. [“ศักดินาสยาม”](https://wiki.kpi.ac.th/index.php?title=%E0%B8%A8%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%B2%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1), database article compiled by NiYom Rathamarit. Verified inside: the sakdina schedules in the *Phra Aiyakan Tamnaeng Na Phonlawang* and *Na Thahan Hua Mueang* sections of the Three Seals law, attributed to King Borommatrailokkanat and recompiled under Rama I; the contested “rai” unit reading.
+- **[S13]** Library of Congress, Law Library. 2025. [“Understanding Thai Names: Law and Culture.”](https://blogs.loc.gov/law/2025/07/understanding-thai-names-law-and-culture/) Verified inside: the 1913 Surname Act's requirement that citizens register a unique family surname, and the present Persons' Name Act B.E. 2505 (1962), sec. 8(3).
 
 ## Language family, sound, and writing
 | Layer | Attested reference point | Coupling consequence / limit |
@@ -50,10 +53,10 @@
 | eat | กิน *kin* | เสวย *sawoei* | ฉัน *chan* |
 | sleep | นอน *non* | บรรทม *banthom* | จำวัด *cham wat*, literally staying in the temple |
 | go | ไป *pai* | เสด็จ *sadet* | Do not manufacture a monastic equivalent by analogy. |
-| be ill | ป่วย *puai* | ประชวร *prachuan* | Rank- and context-specific extension `(to-verify)`. |
+| be ill | ป่วย *puai* | ประชวร *prachuan* | อาพาธ *aphath* (monastic register; not royal) [S11]. |
 
 - Romanizations above are readable labels without full tone/length notation; S2 supplies the phonological transcriptions. They are not sufficient pronunciation instructions.
-- Royal vocabulary includes nouns and verbs, with constructions involving **ทรง** *song* and other elements; it is not produced by mechanically adding *song* to every verb [S2 §4.3; exact compatibility rules `(to-verify)`].
+- Royal vocabulary includes nouns and verbs and derivational elements: **ทรง** *song* works as a verbal prefix and **พระที่นั่ง** *phra thinang* as a nominal suffix; it is not produced by mechanically adding *song* to every verb — instructional norms prohibit *song* before ready-made royal verbs (not *song prachuan* or *song sawoei*), while *song* + an ordinary verb or noun, and *song phra* + certain royal nouns, are regular [S2 §4.3; S11].
 - Many elevated forms have Khmer and Sanskrit connections; monastic vocabulary has a substantial Pali layer. This is historical contact and institutional specialization, not evidence for a biologically separate elite language [S2].
 - Pronoun choice, kinship address, titles, particles, omission, and the social situation also encode relationships. Rachasap is not the entirety of Thai politeness [S1, p. 9; S2 §4; S10].
 - **Design schema:** `speaker → addressee → referent → office/royal status → intimacy → public/private genre → era`; select lexical and address forms from those fields.
@@ -61,7 +64,7 @@
 - Do not invent “five tones = five ranks,” “royals always speak the highest register about themselves,” or “every elevated word is Sanskrit.” None follows from the evidence.
 
 ## Sakdina: juridical ranking and its registers
-- **ศักดินา** *sakdina/saktina* refers to a numerical status system associated with Ayutthaya and early Bangkok society; its land-measure idiom must not be treated as a transparent inventory of land actually possessed [S3; comparison debated in S9].
+- **ศักดินา** *sakdina/saktina* refers to a numerical status system associated with Ayutthaya and early Bangkok society; its land-measure idiom must not be treated as a transparent inventory of land actually possessed — the “rai” unit reading itself is contested [S3; S12; comparison debated in S9].
 - Separate **numerical legal standing**, **title**, **office**, **royal descent**, **monastic standing**, and **interactional seniority**. Their effects overlap; they are not one interchangeable ladder.
 - Here “rank register” means the channels through which status is made legible. It does **not** assert that every sakdina number had its own distinct speech variety.
 
@@ -77,7 +80,7 @@
 - **Comparison calibration:** Waters analyzes Kukrit's contrast between European land-centered feudalism and Siamese control of people and service. This is a useful question generator, not a universal Europe/Asia binary [S9].
 - The modern political use of *sakdina* also belongs to arguments about hierarchy and domination. Do not substitute a present polemical meaning for a particular historical legal arrangement.
 - Neither “Thai feudalism was exactly European feudalism” nor “Thai hierarchy was uniquely harmonious” is a neutral finding. Preserve coercion, dependency, and political disagreement in the research questions.
-- Exact numerical ranks, a single foundation date, fines, exemptions, corvée quotas, and costume privileges are **not reconstructed here**: each is `(to-verify)` against a specified legal recension and historical interpretation.
+- Exact numerical ranks, a single foundation date, fines, exemptions, corvée quotas, and costume privileges are **not reconstructed here**; the schedules themselves survive in the *Phra Aiyakan Tamnaeng Na* sections of the Three Seals law (attributed to the Ayutthayan court and recompiled under Rama I), so cite any specific figure to a named recension and edition [S12], and any interpretation to its named argument [S3, S9].
 - **Fictional application:** define rights and obligations before choosing numerical ranks; then decide which differences become audible, visible, spatial, or written. Leave mismatches and contested privileges possible.
 
 ## Mythic core: overlapping religious and narrative frames
@@ -137,9 +140,9 @@
 | Ritual object | Teacher/rishi and character masks on altars; respectful handling before performance [S6] | A commercially sold mask and an initiated ritual object need not have the same permissions. |
 
 - The often-proposed khon genealogy linking **nang yai** shadow theatre, martial techniques, and court ritual is a model of several contributing practices, not a securely documented single invention [S6].
-- S6 and S8 do not give identical accounts of which early roles wore masks. Mark exact early casting/masking reconstructions `(to-verify)` rather than resolving the discrepancy by invention.
+- S6 and S8 do not give identical accounts of which early roles wore masks: S6 states that originally all characters wore masks and that only demons and monkeys have worn them since the nineteenth century; S8 states that goddesses, female humans, and some female demons were already unmasked “originally.” Record early masking per source rather than resolving the discrepancy by invention [S6, S8].
 - Court-derived costume can communicate class, character, and ideal anatomy together. Do not invent a direct one-to-one mapping from embroidery motifs to legal sakdina numbers.
-- **Material gap:** component-level Thai garment terminology, weaving origins, metallic-thread specifications, labor time, and sumptuary entitlements for a chosen century are `(to-verify)`; the sources above chiefly support performance description.
+- **Material gap:** the sources above describe performance at role and mask level (S6, S8) and do not establish component-level Thai garment terminology, weaving origins, metallic-thread specifications, labor time, or sumptuary entitlements for a chosen century; treat those as research questions until a dated textile or legal source is named.
 - **Working brief:** specify wearer/role, silhouette, mask visibility and breathing, crown balance, range of movement, maintenance, makers, ritual status, and production date. Treat these as design questions, not an unsourced traditional construction recipe.
 
 ## Era model: stage systems separately
@@ -157,7 +160,7 @@
 
 ## Naming practices: administrative, relational, and ceremonial identities
 - Contemporary naming commonly distinguishes an official given name, family name, and **chue len** nickname; everyday address often uses a given name or nickname rather than a surname [S10].
-- Surnames became officially established in the early twentieth century [S10]. Do not issue every Ayutthayan commoner a contemporary-style inherited surname by default; exact statute wording and rollout are `(to-verify)` here.
+- Surnames became officially established by the Surname Act (พระราชบัญญัติขนานนามสกุล), promulgated 22 March 1913 and in force from 1 July 1913, and replaced by the Persons' Name Act B.E. 2505 (1962), under which a surname remains unique to a family line [S10, S13]. Do not issue every Ayutthayan commoner a contemporary-style inherited surname by default.
 - Auspicious formal names may draw on Pali/Sanskrit and other lexical sources; nicknames may come from ordinary objects, animals, bodily traits, or modern English. Names are historically layered, not all “sacred Sanskrit” [S2, S10].
 - Some naming explanations concern protection from spirits or changes of fortune; treat these as reported practices with variation, not the hidden cause of every nickname or name change [S10].
 - A title, office-name, personal name, royal style, and later historical designation must occupy separate fields. Do not assume a ruler's familiar English label was the form used by contemporaries.
@@ -179,5 +182,5 @@
 - **Colonial/outsider calibration:** early European descriptions and older comparative theatre accounts are situated observations, not transparent inventories; terms such as “harem,” “devil,” and “primitive” can impose an observer's categories. Do not inherit their social explanations unexamined.
 - **Scholarly disagreement stays attributed:** Reynolds's Buddhist framing, Ramanujan's broad comparisons, and Kukrit's sakdina argument as analyzed by Waters answer different questions. None is a timeless native consensus or a license to erase coercion.
 - **No pop shortcut:** a monomyth checklist, universal colour psychology, or a generic “god-king” template cannot replace a named recension, production, institution, and date.
-- **Thin knowledge stays visible:** exact early khon origins, mask consecration protocols, historical garment components, legal rank schedules, and local non-court traditions remain `(to-verify)` wherever needed; seek Thai-language scholarship and appropriate practitioners before detailed reuse.
+- **Thin knowledge stays visible:** early khon origins remain a question rather than a date (S6 records a 1691 French-delegation reference and infers older practice); consecration protocols and historical garment components lie outside S6–S8's coverage; specific rank figures require a named legal recension [S12]; and local non-court traditions await their own sources rather than the court record. Seek Thai-language scholarship and appropriate practitioners before detailed reuse.
 - **Stop before assertion:** if the only support is an undated mask photograph, tourist gloss, or analogy to another kingdom, record a hypothesis or research question—not a historical fact and never fictional canon.

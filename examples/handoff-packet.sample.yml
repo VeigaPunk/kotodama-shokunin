@@ -1,0 +1,656 @@
+# handoff-packet.sample.yml — NON-CANON sample world-bible handoff packet
+# kotodama-shokunin -> lore-shokunin, assembled per
+# corpus/knowledge/synthesis/worldbible-integration-contract.md
+#
+# WHAT THIS IS
+#   A worked, deliberately unbound sample of the handoff envelope required by
+#   contract §4, carrying the artifact payloads of §5 and the fictional-culture
+#   drill of §12. Every record is derived from, and traceable to, the lane's
+#   non-canon design fixture "Retied Houses" (D1) in
+#   corpus/knowledge/synthesis/worked-example-mini-culture.md (digest pinned
+#   in the artifact manifest below).
+#
+# WHAT THIS IS NOT
+#   Not a world-bible entry, not canon, not lore acceptance, and no assertion
+#   that lore has read or will read it (contract §§1, 3, 6, 8, 13). Nothing
+#   here exists in any world until lore issues a receipt and canonizes it
+#   (§§6, 8). Canon, entity identity, dates, and supernatural truth are
+#   lore-shokunin's decisions alone; this lane proposes and traces systems.
+#
+# SERIALIZATION
+#   Contract §4 prefers "UTF-8 Markdown with explicit tables unless both lanes
+#   agree another serialization". This file is a YAML sample of the same data
+#   requirements; it does not claim such agreement exists. Envelope keys cite
+#   the contract sections they satisfy; payload sections additionally use the
+#   fleet's shared culture-packet key names so the lane's executable gates can
+#   read this file directly, and the gate runs are recorded in the validation
+#   section at the end of this file.
+#
+# EDIT DISCIPLINE (contract §9)
+#   Released bytes freeze. A change to the design record or to this packet's
+#   records requires a new packet_version with a supersedes/derived_from
+#   reference — never an in-place rewrite of a delivered/received snapshot.
+
+# ===========================================================================
+# §4 ENVELOPE — Markdown-serialization view (compatibility)
+# The contract's default serialization is Markdown; this view carries the same
+# §4 envelope in the `- field: value` list form that the lane's
+# tools/gates/handoff-packet-check.py recognizes, while the YAML keys below
+# carry the full records for the culture-packet gates. Keep both views
+# identical; one freeze digest covers the single delivered file.
+# ===========================================================================
+envelope_markdown_view:
+  - packet_id: kotodama.handoff.d1-retied-houses.sample
+  - packet_version: "0.1.0-sample"
+  - contract_ref: "kotodama-lore-adjacency, revision 1.0.0; contract digest sha256 50c4c2f25a728e69260b76d42f0d838a398cc4683a6149f74cceeec8fb7268c1; bilateral read pending"
+  - producer: "kotodama-shokunin (round-2 adjacency worker; generative craft and design records only)"
+  - recipient: "lore-shokunin (canon, world-bible entities, chronology, bible-wide consistency)"
+  - request_ref: "none — no lore brief existed for this sample; assembled as an unbound drill"
+  - baseline_bible_ref: "none — deliberately unbound research packet; cannot be imported as canon without a lore baseline and a new reviewed handoff"
+  - artifact_manifest: "7 artifacts A1-A7; record counts 11/4/20/15/19/20/17; design record digest sha256 e96bc943a04e8f2691f3ba95f9cee5dd3456d3a9439714e0196eaaeeacaa2509; released-bytes digest pending-freeze"
+  - subject_refs: "7 namespaced candidate refs cand:kotodama.d1.*, all unresolved; no lore entity ids supplied"
+  - scope: "D1 language sketch, pantheon, symbols, eras, costumes, lexicon L01-L20, naming ledger; E0-E2; River branch F1"
+  - dependency_manifest: "system versions P-D1-UNION, P-D1-E1LIT, L1, M1-M7, O1, A3, A4 all at 0.1.0-sample; no floating latest; prerequisites pinned by design-record digest"
+  - claim_ledger: "13 claims CL01-CL13 with claim kind, provenance, evidence status, and uncertainty"
+  - coupling_edges: "16 typed edges E01-E16 (dependency / analogy / attributed-association) plus change trial T-01"
+  - requested_decisions: "8 decisions D-RD-01..D-RD-08 with mutually exclusive alternatives, blockers, and the partial-acceptance boundary"
+  - validation: "local checks, six executable gate runs, and the provenance-audit non-applicability recorded in the validation section at the end of this file"
+  - open_questions: "8 open questions OQ-01..OQ-08 with responsible lane and blocking status"
+
+# ===========================================================================
+# §4 HANDOFF ENVELOPE — required fields
+# ===========================================================================
+
+# §4 packet_id, packet_version: stable identifier + immutable release version.
+# Prerelease "0.1.0-sample": instability is declared (contract §9, initial
+# 1.0.0 interface discussion and experimental 0.y.z clause). This packet must
+# not silently replace any accepted dependency.
+packet_id: kotodama.handoff.d1-retied-houses.sample
+packet_version: "0.1.0-sample"
+packet_status: "sample — non-canon; unbound; never submitted to lore"
+canon_status: "not canonized (contract §6: canon standing is lore's alone)"
+
+# §4 contract_ref: contract ID, revision, and digest acknowledged by both lanes.
+contract_ref:
+  id: kotodama-lore-adjacency
+  revision: "1.0.0"
+  contract_file: corpus/knowledge/synthesis/worldbible-integration-contract.md
+  digest_sha256: 50c4c2f25a728e69260b76d42f0d838a398cc4683a6149f74cceeec8fb7268c1
+  digest_computed: "2026-10-17, working tree"
+  bilateral_read: "pending — §1 same-revision read records do not exist yet; nothing here asserts mutual acknowledgement"
+
+# §4 producer, recipient, request_ref.
+producer: "kotodama-shokunin (round-2 adjacency worker; generative craft and design records only)"
+recipient: "lore-shokunin (canon, world-bible entities, chronology, bible-wide consistency)"
+request_ref: "none — no lore brief existed for this sample; assembled as an unbound drill (§§4, 12)"
+
+# §4 baseline_bible_ref: `none` only for a deliberately unbound research packet.
+baseline_bible_ref:
+  ref: "none"
+  reason: "deliberately unbound sample; no world-bible revision was supplied or read"
+  constraints_read: "none"
+  consequence: "an unbound packet may be kept as reference but cannot be imported as canon without a lore baseline and a new reviewed handoff (contract §4)"
+
+# §4 artifact_manifest: artifact IDs, record IDs, sections, versions, counts;
+# identifies the exact delivered bytes. The release digest of a file cannot be
+# embedded in the file it describes, so it is declared pending-freeze here.
+artifact_manifest:
+  delivery:
+    surface: "examples/handoff-packet.sample.yml (single-file sample on kotodama's permitted handoff surface, contract §4)"
+    released_bytes_digest_sha256: "pending-freeze — computed at submission time (contract §4: freeze the manifest before review)"
+    freeze_note: "any later edit to this file or to the design record invalidates this delivery's digest (contract §4)"
+    design_record_ref:
+      path: corpus/knowledge/synthesis/worked-example-mini-culture.md
+      digest_sha256: e96bc943a04e8f2691f3ba95f9cee5dd3456d3a9439714e0196eaaeeacaa2509
+      status: "NON-CANON DESIGN FIXTURE D1; read-only to lore"
+  artifacts:
+    - artifact_id: A1
+      kind: "language sketch — system specification (contract §5)"
+      section: "/phonology (+ /phonology/profiles, /sound_laws) and /morphology and /orthography"
+      record_ids: [P-D1-UNION, P-D1-E1LIT, L1, M1, M2, M3, M4, M5, M6, M7, O1]
+      record_count: 11
+      version: "0.1.0-sample"
+      digest: "pending-freeze (single-file delivery; see /artifact_manifest/delivery)"
+    - artifact_id: A2
+      kind: "diachronic specification (contract §5)"
+      section: "/era_model and /sound_laws"
+      record_ids: [ST-E0, ST-E1, ST-E2, L1]
+      record_count: 4
+      version: "0.1.0-sample"
+      digest: "pending-freeze (single-file delivery)"
+    - artifact_id: A3
+      kind: "lexicon (contract §5)"
+      section: "/lexicon"
+      record_ids: "L01-L20 (consecutive, unique; recount in /validation)"
+      record_count: 20
+      version: "0.1.0-sample"
+      digest: "pending-freeze (single-file delivery)"
+    - artifact_id: A4
+      kind: "naming ledger (contract §5)"
+      section: "/names and /naming_ledger and /cross_culture_review"
+      record_ids: "9 name records (N01-N05 plus 4 alias records); ledger records X1-X2 and R1-R3; address rules; slot grammar"
+      record_count: 15
+      version: "0.1.0-sample"
+      digest: "pending-freeze (single-file delivery)"
+    - artifact_id: A5
+      kind: "myth-symbol register (contract §5)"
+      section: "/pantheon and /roles and /motifs and /symbols"
+      record_ids: "DE01-DE03, ROL1-ROL5, M-D1-01..M-D1-03, SY01-SY07 (8 symbol records; SY01 carries two era records)"
+      record_count: 19
+      version: "0.1.0-sample"
+      digest: "pending-freeze (single-file delivery)"
+    - artifact_id: A6
+      kind: "era-costume matrix (contract §5)"
+      section: "/eras and /era_model and /materials and /rank_rules and /costumes"
+      record_ids: "E0-E2, MAT1-MAT5, RR01-RR03, C01-C09"
+      record_count: 20
+      version: "0.1.0-sample"
+      digest: "pending-freeze (single-file delivery)"
+    - artifact_id: A7
+      kind: "coupling register (contract §5)"
+      section: "/coupling_edges"
+      record_ids: "E01-E16 plus T-01 (change trial)"
+      record_count: 17
+      version: "0.1.0-sample"
+      digest: "pending-freeze (single-file delivery)"
+
+# §4 subject_refs: no lore entity IDs were supplied. Namespaced candidate IDs,
+# explicitly unresolved. Never guessed canon IDs (contract §4).
+subject_refs:
+  resolution: "unresolved — no baseline bible was supplied; these are candidate keys, not lore IDs"
+  candidates:
+    - {candidate_id: "cand:kotodama.d1.collective.naliluma", kind: "culture/collective (endonym Naliluma)", note: "name string is not evidence of entity identity (contract §5)"}
+    - {candidate_id: "cand:kotodama.d1.deity.nalisena", kind: "deity (binding office)", note: "candidate only"}
+    - {candidate_id: "cand:kotodama.d1.deity.talakera", kind: "deity (release office)", note: "candidate only"}
+    - {candidate_id: "cand:kotodama.d1.deity.falasena", kind: "deity (attestation office)", note: "candidate only"}
+    - {candidate_id: "cand:kotodama.d1.place.fanoluma", kind: "settlement/place label", note: "candidate only"}
+    - {candidate_id: "cand:kotodama.d1.institution.landing-hearings", kind: "hearing venue/institution", note: "candidate only"}
+    - {candidate_id: "cand:kotodama.d1.language.f1-river", kind: "language family F1, River branch (E2 vernacular + E1 liturgical)", note: "local variety IDs are kotodama-invented; no ISO code is claimed (contract §5)"}
+
+# §4 scope: culture/group, region, variety, script, register context, era.
+scope:
+  culture_group: "D1 'Retied Houses' design fixture — a residence-and-work membership collective; affiliation is not automatically descent (worked example §2)"
+  region: "stipulated cool seasonally-flooded river terrace; no real place referenced"
+  language_variety: "F1, River branch: E2 vernacular (delivery default) + E1 liturgical register"
+  script: "E1 local alphabet (working Latin sign IDs); E0 count tallies only, no speech script"
+  register_contexts: "E2 vernacular; E1 liturgical recitation; hearing address vs home address; funeral address avoidance"
+  era_applicability: "E0 'Loose Banks' Y0-79, E1 'Tying' Y80-159, E2 'Retied' Y160-present (sample at Y183); Y coordinates are fixture-arbitrary, not BCE/CE (contract §7)"
+  per_record_note: "each delivered record carries its own era/stage/register fields; see /era_model and /coupling_edges"
+
+# §4 dependency_manifest: exact versions, prerequisites, lore dependencies.
+# No floating `latest` (contract §4/§9).
+dependency_manifest:
+  system_versions:
+    - {id: P-D1-UNION, what: "phonology block, E1+E2 union stratum (see comments at /phonology)", version: "0.1.0-sample"}
+    - {id: P-D1-E1LIT, what: "E1 liturgical register profile", version: "0.1.0-sample"}
+    - {id: L1, what: "sound law /p/ > /f/ (River branch, all positions)", version: "0.1.0-sample"}
+    - {id: M1..M7, what: "morphosyntax rules (noun suffixes, verb markers, productive -ye, conversion, compounding, SOV clause)", version: "0.1.0-sample"}
+    - {id: O1, what: "orthography and register-readings (E2 vernacular f-reading of the old P sign)", version: "0.1.0-sample"}
+    - {id: A3, what: "lexicon L01-L20", version: "0.1.0-sample"}
+    - {id: A4, what: "naming slot grammar and ledger", version: "0.1.0-sample"}
+  prerequisites: "design record digest (see /artifact_manifest); none else — no external system is required to reproduce the derivations"
+  lore_dependencies: "none supplied (no baseline bible, no entity keys, no canon policy text; §8 step 1 inputs become the /open_questions)"
+  generator_inputs: "rules are deterministic and curated; no random seed is used; selected outputs are frozen in this file rather than promised for regeneration (contract §5)"
+
+# §4 claim_ledger: statement, claim kind, provenance, evidence status,
+# uncertainty, and relation to other records (vocabulary per contract §6).
+claim_ledger:
+  - claim_id: CL01
+    statement: "/p/ > /f/ (L1) consistently separates E2 River surface forms from E1 archival forms in this design"
+    claim_kind: "generative rule"
+    provenance: "invented for D1 (worked example §§3-4); no real language is described"
+    evidence_status: "invented"
+    uncertainty: "cohort spread (Y145-170) is stipulated, not derived; the unsampled Upland sister retains /p/"
+    relations: "A1, A2, A3 (L01, L02, L11-L20), A4 (N04, names)"
+  - claim_id: CL02
+    statement: "Japanese is SOV and suffixing; English is SVO (used only as a typological comparator)"
+    claim_kind: "real-world reference"
+    provenance: "source_ledger S2 (Dryer 2013, WALS ch. 81, §1 and example 2a); S1 (Shibatani 1990) bibliographic record"
+    evidence_status: "attested"
+    uncertainty: "one word-order feature only; no cultural, religious, or dress inference is licensed (worked example §3)"
+    relations: "A1 (M6 clause)"
+  - claim_id: CL03
+    statement: "Sound correspondences, borrowing, and relative chronology are stated method, not proof of a real genealogy"
+    claim_kind: "real-world reference (method)"
+    provenance: "source_ledger S3 (Campbell 2013, 3rd ed.)"
+    evidence_status: "attested (method level; edition corroborated; no page-specific quotation asserted)"
+    uncertainty: "applies to method only"
+    relations: "A2 (L1, era seams)"
+  - claim_id: CL04
+    statement: "Family F1 with stages E0 -> E1 -> E2 is an author's genealogy, not a comparative reconstruction from attested data"
+    claim_kind: "designer interpretation"
+    provenance: "D1 (worked example §3)"
+    evidence_status: "invented"
+    uncertainty: "single-word-list reconstruction is explicitly not claimed; Upland sister unsampled"
+    relations: "A2, /open_questions OQ-05"
+  - claim_id: CL05
+    statement: "Stipulated performers say the three offices hold, open, and record; no narrator asserts that any deity exists"
+    claim_kind: "attributed in-world belief (B-status)"
+    provenance: "D1 (worked example §5)"
+    evidence_status: "invented"
+    uncertainty: "literal divine existence is unsettled by design (contract §6: temple teaches P != P is true)"
+    relations: "A5 (DE01-DE03, ROL1-ROL3), /open_questions OQ-06"
+  - claim_id: CL06
+    statement: "A founding legend about opening the first assembly to all houses is contested within D1; E1 institutional copies praise it and no independent E0 chronicle supports it"
+    claim_kind: "attributed in-world belief (contested)"
+    provenance: "D1 (worked example §5)"
+    evidence_status: "contested with alternatives (in-fiction source contest, not scholarly dispute)"
+    uncertainty: "no E0 chronicle exists in the fixture"
+    relations: "A5 (M-D1-02)"
+  - claim_id: CL07
+    statement: "E1 prescribes red-ochre beads for delegates and restricts the duty witness strip; E2 repeals the bead restriction while keeping the strip restricted"
+    claim_kind: "candidate world-fact (institutional prescription)"
+    provenance: "D1 (worked example §§4, 6, 7)"
+    evidence_status: "invented; prescription recorded separately from observed practice"
+    uncertainty: "compliance is a practice question; the enforcement pocket (hearings vs market) is documented in A6"
+    relations: "A6 (RR01-RR03, C07-C09)"
+  - claim_id: CL08
+    statement: "D1 costume cuts and meanings are design choices; no real garment is reconstructed and no textile behaviour is measured"
+    claim_kind: "designer interpretation"
+    provenance: "D1 (worked example §7); comparators S5 (Roach-Higgins & Eicher 1992), S6 (Barber 1991)"
+    evidence_status: "invented"
+    uncertainty: "physical prototype, yields, skin comfort, rub-fastness untouched (/open_questions OQ-04)"
+    relations: "A6"
+  - claim_id: CL09
+    statement: "The separation/transition/incorporation triad is used as a heuristic for the D1 passage rite, not as a law of ritual"
+    claim_kind: "real-world reference (heuristic)"
+    provenance: "source_ledger S4 (van Gennep 1960 [1909])"
+    evidence_status: "inferred with stated bridge (edition corroborated; heuristic application to an invented rite)"
+    uncertainty: "not every local design practice must fit the sequence (worked example §5)"
+    relations: "A5 (rite), A7 (E14)"
+  - claim_id: CL10
+    statement: "Holding <-> opening mediated by visible repair is a declared generator (a design lens), not an unconscious universal binary"
+    claim_kind: "designer interpretation"
+    provenance: "D1 (worked example §5)"
+    evidence_status: "invented (designer framing)"
+    uncertainty: "a variant praising invisible repair would defeat this particular reading"
+    relations: "A5, A7 (E10, E14)"
+  - claim_id: CL11
+    statement: "Dress is treated as body modifications and supplements, not garments alone"
+    claim_kind: "real-world reference"
+    provenance: "source_ledger S5 (Roach-Higgins & Eicher 1992)"
+    evidence_status: "attested (bibliography/DOI corroborated; publisher text not retrieved in the design pass)"
+    uncertainty: "framing only; no culture-specific outfit reconstructed from the article"
+    relations: "A6"
+  - claim_id: CL12
+    statement: "Unilinear savagery -> barbarism -> civilization ladders are discredited as universal history"
+    claim_kind: "real-world reference (historiographic caution)"
+    provenance: "source_ledger S7 (Trigger 2006, 2nd ed.)"
+    evidence_status: "attested (edition corroborated; full-text retrieval rate-limited in the design pass)"
+    uncertainty: "used as a caution only; D1's stages are not a progress scale"
+    relations: "A6, A2"
+  - claim_id: CL13
+    statement: "The delivered lexicon is a bounded 20-term sketch; body, kinship, weather, and war coverage is unbuilt, not absent-by-inspection"
+    claim_kind: "designer interpretation"
+    provenance: "D1 (worked example §8) + /validation gate runs"
+    evidence_status: "invented; declared gap (silence is not proof of absence, contract §11)"
+    uncertainty: "English translation supplies unbuilt vocabulary and must not be mined for conlang words"
+    relations: "A3, /open_questions OQ-01"
+
+# §11 provenance cautions: per-real-world-source record.
+source_ledger:
+  note: "metadata and locator status as verified in the design pass recorded in the worked example §11; source metadata verification is not full-text verification and not cultural permission (contract §11)"
+  sources:
+    - {id: S1, ref: "Shibatani, Masayoshi (1990), The Languages of Japan, Cambridge University Press", locator: "WALS refdb record Shibatani-1990", supports: "Japanese language-structure comparator", boundary: "bibliography checked; no sacred-name or clothing claim attributed"}
+    - {id: S2, ref: "Dryer, Matthew S. (2013), Order of Subject, Object and Verb, WALS Online ch. 81", locator: "https://wals.info/chapter/81 §1, example 2a", supports: "Japanese SOV vs English SVO", boundary: "chapter text checked; dominant order is not a complete grammar or cultural psychology"}
+    - {id: S3, ref: "Campbell, Lyle (2013), Historical Linguistics: An Introduction, 3rd ed., Edinburgh University Press", locator: "publisher title page + independent catalogue/review records", supports: "sound correspondence, borrowing, relative chronology as method", boundary: "publisher page bot-blocks fetches; no page-specific quotation or real lexical derivation asserted"}
+    - {id: S4, ref: "van Gennep, Arnold (1960 [1909]), The Rites of Passage, trans. Vizedom & Caffee, University of Chicago Press", locator: "1960 edition record", supports: "separation/transition/incorporation heuristic", boundary: "edition corroborated; not a law requiring all rituals to share the stages"}
+    - {id: S5, ref: "Roach-Higgins, Mary Ellen & Joanne B. Eicher (1992), Dress and Identity, Clothing and Textiles Research Journal 10(4): 1-8", locator: "doi:10.1177/0887302X9201000401", supports: "dress as body modifications and supplements", boundary: "bibliography/DOI corroborated; publisher text blocked; no culture-specific outfit reconstructed"}
+    - {id: S6, ref: "Barber, E. J. W. (1991), Prehistoric Textiles, Princeton University Press", locator: "digitized-book DOI 10.1515/9780691201412", supports: "textile-technology comparator", boundary: "Crossref metadata checked; Aegean emphasis is not a global clothing chronology"}
+    - {id: S7, ref: "Trigger, Bruce G. (2006), A History of Archaeological Thought, 2nd ed., Cambridge University Press", locator: "publisher catalog entry", supports: "historiography and limits of universal developmental schemes", boundary: "edition corroborated in publisher search results; full-text retrieval rate-limited; no invented page references"}
+  calibration:
+    established_descriptive_tools: "phonemic contrasts, morphological segmentation, explicit sound correspondences, textile construction vocabulary — usefulness does not make the fixture historically attested"
+    limited_or_contested: "rite triads and structuralist oppositions generate candidate designs, not universal explanations"
+    discredited_as_universal_history: "unilinear developmental ladders (S7); fixed global colour/animal dictionaries (unsupported pop rule; D1 associations are explicitly local inventions)"
+
+# §4 coupling_edges: typed source->target relations; dependency, analogy, and
+# attributed association kept distinct; each edge carries scope + justification.
+coupling_edges:
+  edges:
+    - {edge_id: E01, source: "material affordance: repairable bast cloth (A6/MAT1)", target: "L01 fala 'cloth'", relation: dependency, mechanism: "term denotes bast-cloth length; generalized sense", scope: "E0-E2", exceptions: "wool overwrap is imported and not covered by the base sense", evidence_status: "invented design link", justification: "worked example §7 production sheet -> §8 L01"}
+    - {edge_id: E02, source: "L1 (A2)", target: "L01, L02, L11-L20 surface forms", relation: dependency, mechanism: "p > f in all positions", scope: "River branch E1->E2", exceptions: "E1 liturgical recitation retains /p/ (register-tagged)", evidence_status: "invented rule, deterministic", justification: "worked example §§3-4, §8"}
+    - {edge_id: E03, source: "L1 (A2)", target: "N04 Fanoluma (place) and E1 spelling Panoluma", relation: dependency, mechanism: "same law applied to a lexicalized place label", scope: "place naming", exceptions: "charter spelling is retained as a dated alias, not corrected away (contract §9)", evidence_status: "invented", justification: "worked example §9"}
+    - {edge_id: E04, source: "L04 nali + L01 fala", target: "L11 nalifala 'oath-cloth'", relation: dependency, mechanism: "compound construction CMP", scope: "E1 onward", exceptions: "none", evidence_status: "invented", justification: "worked example §8"}
+    - {edge_id: E05, source: "L11 nalifala", target: "public obligation rite + 'visible join' sign rule", relation: dependency, mechanism: "object carries the asserted bond; witnesses inspect the seam", scope: "landing hearings", exceptions: "household oaths may use an unmarked tie", evidence_status: "invented", justification: "worked example §§5-7"}
+    - {edge_id: E06, source: "office institution (appointed witness)", target: "L12 senafala witness strip", relation: dependency, mechanism: "duty-issued garment carries the office claim; docket check verifies it", scope: "hearings; weak outside them", exceptions: "market crowds perform no docket check (enforcement pocket)", evidence_status: "invented", justification: "worked example §7"}
+    - {edge_id: E07, source: "MAT3 red ochre + removable clay bead", target: "E1 delegate display rule RR01 -> E2 repeal RR03", relation: dependency, mechanism: "detachable, inexpensive sign allows regulated display and later repeal", scope: "E1/E2", exceptions: "witness strip restriction survives the repeal", evidence_status: "invented", justification: "worked example §§6-7"}
+    - {edge_id: E08, source: "'broken loop' sign", target: "mourning reading", relation: analogy, mechanism: "suspended relation likened to a released tie", scope: "funeral register", exceptions: "licensed satellite only; not an identity between release and death", evidence_status: "invented", justification: "worked example §6 (secondary readings)"}
+    - {edge_id: E09, source: "obsolete E1 red delegate bead", target: "claimed seniority in E2 partisan speech", relation: attributed-association, mechanism: "event/history association asserted by speakers", scope: "E2 partisan speech", exceptions: "no standing rule supports the claim", evidence_status: "attributed in-world belief", justification: "worked example §6 (collision log, licensed satellites)"}
+    - {edge_id: E10, source: "release domain (DE02)", target: "L13 kerafala + unpicked stitches", relation: dependency, mechanism: "three securing stitches deliberately removed; tab detachable", scope: "release hearings; mourning satellite", exceptions: "base wrap stays intact", evidence_status: "invented", justification: "worked example §§6-7"}
+    - {edge_id: E11, source: "naming slot grammar (affiliation-GEN + given + optional office)", target: "N01 'Fanoluma-ni Morisena'; N02 'Talaluma-ni Welinali Falaye'", relation: dependency, mechanism: "slot order; -ni marks affiliation", scope: "E2 personal register", exceptions: "office may lapse without changing the given name", evidence_status: "invented", justification: "worked example §9"}
+    - {edge_id: E12, source: "myth variant 'holds two banks apart'", target: "DE01 Nalisena (theonym)", relation: dependency, mechanism: "action compound lexicalized as a divine designation", scope: "E1-E2", exceptions: "epithet traces to a named variant; shared attributes never infer divine identity (contract §5)", evidence_status: "invented", justification: "worked example §§5, 8 (L15)"}
+    - {edge_id: E13, source: "E2 charter revision", target: "symbol display access (bead), not other registers", relation: dependency, mechanism: "reform changes access, domain persists", scope: "E2", exceptions: "rank inference removed, not secretly retained in animal/direction cells", evidence_status: "invented", justification: "worked example §6 (era drift)"}
+    - {edge_id: E14, source: "ritual triad heuristic (S4)", target: "D1 passage rite design", relation: analogy, mechanism: "separation -> transition -> incorporation mapped onto the D1 rite", scope: "design lens only", exceptions: "not every practice must fit", evidence_status: "heuristic bridge (CL09)", justification: "worked example §5"}
+    - {edge_id: E15, source: "Upland trade layer (donor /lum/)", target: "L05 luma; L14 fanoluma; L18 Naliluma", relation: dependency, mechanism: "loan by final-/a/ coda repair, then compound bases", scope: "E1 onward", exceptions: "no donor phonology beyond /lum/ is modelled; Upland is unsampled", evidence_status: "invented", justification: "worked example §§4, 8, 9"}
+    - {edge_id: E16, source: "L19 fanofala (apron)", target: "rejected hybrid 'fanopala'", relation: dependency, mechanism: "L1 applies at every boundary; the hybrid misses the second /p/", scope: "E2", exceptions: "none; rejection is derivational, not stylistic", evidence_status: "invented", justification: "worked example §9 (rejected apron)"}
+  change_trial:
+    trial_id: T-01
+    statement: "Trial revision per contract §12 step 3: change the L1 target (f > v) in a hypothetical revision and enumerate impacted records without rewriting them."
+    directly_changed: "L01, L02, L11-L20 forms; N04 Fanoluma; DE03 Falasena (E2 name); place/name outputs of the pipeline"
+    flagged_dependants_not_rewritten: "costume terms (L11-L13, L19), symbol records naming the cloth terms, the E1 liturgical register (retains /p/ and does not change), the ledger's E1 spellings (Panoluma, Palasena)"
+    retained_exceptions: "E1 recitation forms, obsolete/dead forms kept as dated aliases, frozen rejected candidates"
+    required_action: "supply migration map and renewed lore review before any accepted record changes (contract §9)"
+
+# §4 requested_decisions: per-record accept/defer/reject questions, mutually
+# exclusive alternatives, blockers, and the partial-acceptance boundary.
+requested_decisions:
+  boundary: "partial acceptance is allowed per record, but no accepted label may depend on an unaccepted rule unless the frozen selected form is explicitly accepted as an exception (contract §8 step 8); the L1 rules and the lexicon are the main dependency roots"
+  decisions:
+    - decision_id: D-RD-01
+      records: "A1, A2 (language sketch + diachrony)"
+      question: "accept, defer, or reject the language sketch and its genealogy as candidate world material?"
+      alternatives: ["accept as candidate world language (E2 vernacular + E1 liturgical register)", "defer pending lore's language policy", "reject"]
+      blockers: "no baseline bible; Upland sister unsampled"
+      partial_boundary: "the sketch can be accepted with L1 frozen or rejected while keeping the method record, but accepted E2 forms depend on L1"
+    - decision_id: D-RD-02
+      records: "A5 (pantheon 'DE01-DE03', roles, motifs)"
+      question: "which variants are held, by whom, and are any supernatural propositions true?"
+      alternatives: ["accept the register as attributed in-world belief only", "accept as world-fact (lore's call, not this packet's)", "defer"]
+      blockers: "world-fact status is a canon question; no lore ruling exists"
+      partial_boundary: "symbol and motif records can be accepted without settling divine existence"
+    - decision_id: D-RD-03
+      records: "A5 (symbols), A6 (rank rules)"
+      question: "which institutions use the signs, and is any claimed efficacy real?"
+      alternatives: ["accept sign->reading rules with era/audience scoping", "accept only the engineered office signs (witness strip)", "defer"]
+      blockers: "actual enforcement is not proven by prescription (contract §3)"
+      partial_boundary: "sign records are independent of the costume records; either may be deferred"
+    - decision_id: D-RD-04
+      records: "A2 (eras), A6 (era-costume matrix)"
+      question: "are the three stages adopted with which dates and boundaries?"
+      alternatives: ["adopt relative stages without absolute dates", "adopt with lore-assigned dates", "reject"]
+      blockers: "no solved calendar or astronomy; Y coordinates are fixture-arbitrary"
+      partial_boundary: "relative staging can be accepted while dates stay open"
+    - decision_id: D-RD-05
+      records: "A6 (costumes C01-C09)"
+      question: "are wearer permissions and actual availability adopted?"
+      alternatives: ["adopt the E2 permission pattern (beads open, strip restricted)", "adopt only E2 everyday garments", "defer pending physical textile testing"]
+      blockers: "physical production and enforcement untested"
+      partial_boundary: "garment terms can be accepted without the rule rows and vice versa"
+    - decision_id: D-RD-06
+      records: "A4 (naming ledger)"
+      question: "which names and aliases are approved, and is the exonym 'Retied Houses' used officially?"
+      alternatives: ["approve endonyms and the working English byname", "approve endonyms only", "defer pending real-language screening"]
+      blockers: "cross-cultural name sweep not performed (/open_questions OQ-02)"
+      partial_boundary: "endonyms may be accepted while the exonym and rejected candidates stay ledger-only"
+    - decision_id: D-RD-07
+      records: "A3 (lexicon L01-L20)"
+      question: "accept the bounded lexicon, and how should coverage gaps be carried?"
+      alternatives: ["accept as a declared partial inventory with recorded gaps", "defer until coverage is extended", "reject"]
+      blockers: "body, kinship, weather, war coverage is unbuilt (declared, not absent)"
+      partial_boundary: "individual senses may be accepted; gaps must not be silently filled with English glosses"
+    - decision_id: D-RD-08
+      records: "whole packet"
+      question: "what receipt surface and baseline apply before any transfer?"
+      alternatives: ["lore supplies a scoped brief and baseline, then a new reviewed handoff", "keep the packet as unbound reference only"]
+      blockers: "no brief, baseline, receipt surface, or bilateral read record exists (contract §§1, 8)"
+      partial_boundary: "nothing in this packet moves toward canon until §8 steps 1-2 are satisfied"
+
+# §4 open_questions: unresolved issues with responsible lane and blocking status.
+open_questions:
+  - {id: OQ-01, issue: "lexicon coverage gaps (body, kinship, weather, war) recorded by the lexicon audit", responsible: "kotodama design + lore", blocking: "nonblocking for method reference; blocking for a full lexicon acceptance"}
+  - {id: OQ-02, issue: "real-language homophone/offensive-association sweep not performed; Gate D records it unresolved", responsible: "kotodama naming (pre-publication step) + lore", blocking: "blocking for external publication or official name approval; nonblocking for internal design work"}
+  - {id: OQ-03, issue: "calendar, lunar intercalation, and any astronomical orientation unsolved; festival timing depends on an observed event", responsible: "kotodama design", blocking: "blocking for any calendar or date calculation; nonblocking for relative staging"}
+  - {id: OQ-04, issue: "physical textile behaviour, labour hours, yields, rub-fastness not tested", responsible: "kotodama material + a physical prototype", blocking: "blocking for production claims; nonblocking for semantic records"}
+  - {id: OQ-05, issue: "the Upland sister language is unsampled; the family claim rests on an author's genealogy", responsible: "kotodama design", blocking: "blocking for a complete family claim"}
+  - {id: OQ-06, issue: "supernatural efficacy and divine existence are unaddressed by design", responsible: "lore", blocking: "blocking for world-fact import; nonblocking for belief-register records"}
+  - {id: OQ-07, issue: "no baseline bible, entity keys, canon policy, or authorized receipt surface supplied", responsible: "lore (supplies) + integrator if contested", blocking: "blocking for any canon import (contract §§4, 8)"}
+  - {id: OQ-08, issue: "bilateral same-revision read records for the contract do not exist yet", responsible: "both lanes", blocking: "blocking for the first transfer (contract §1)"}
+
+# ===========================================================================
+# §5 ARTIFACT PAYLOADS — shared culture-packet schema, NON-CANON
+# Every record below is a candidate derived from design fixture D1. Nothing
+# here is a world-bible fact; dispositions belong to lore (contract §§3, 8).
+# ===========================================================================
+
+name: "Retied Houses (D1 handoff sample; NON-CANON)"
+
+# --- A1/A2: language sketch, per-register inventories, diachrony -----------
+phonology:
+  # Declared stratum = E1 liturgical + E2 vernacular UNION, written in phonemic
+  # symbols. Within the E2 vernacular alone /p/ is absent (see /sound_laws L1);
+  # the union is declared so the diachronic law has a scoped home within one
+  # phonotactic template.
+  # Spelling vs sound (contract §5 keeps them separate): the design's working
+  # romanization writes the /j/ glide as the letter y (worked example §3), while
+  # this phonemic inventory lists it as j. The two register PROFILES below are
+  # written in working-romanization letters, so every staged record in this
+  # packet is checked against the letters actually spelled in it.
+  consonants: [p, f, t, k, m, n, s, l, r, w, j]
+  vowels: [a, e, i, o, u]
+  phonotactics: (C)V
+  tones: 0
+  notable_rules:
+    - "p → f / _"
+  strata_note: "E2 vernacular consonants omit p; E1 liturgical register omits f. Working romanization: y = /j/, r = a tap; spelling does not mark predictable stress."
+  profiles:
+    E2-romanized:
+      consonants: [f, t, k, m, n, s, l, r, w, y]
+      vowels: [a, e, i, o, u]
+      phonotactics: (C)V
+      tones: 0
+    E1-liturgical:
+      consonants: [p, t, k, m, n, s, l, r, w, j]
+      vowels: [a, e, i, o, u]
+      phonotactics: (C)V
+      tones: 0
+
+sound_laws:
+  - {id: L1, statement: "/p/ > /f/ in all positions within the River branch, including compounds and names; no other segment changes in this sketch", scope: "River branch, E1 -> E2", timing: "spreads across cohorts Y145-Y170 (stipulated, not derived from the charter date)", counterexample: "the unsampled Upland sister retains /p/; that is a retention, not a shared River innovation", status: "invented for D1"}
+  - {id: L2, statement: "donor /lum/ acquires final /a/ on entry into E1 (coda repair)", scope: "the single modelled loan", status: "invented; no donor phonology beyond /lum/ is modelled"}
+
+orthography:
+  script: latin
+  case: display-only
+  separators: ["-"]
+  transliteration: "working Latin sign IDs only; the E1 alphabet's letter shapes are not drawn or claimed"
+  register_readings: "E2 vernacular reads the old P sign as /f/ in vernacular text; E1 liturgical copies retain E1 readings; a glyph alone cannot date a text (store script-stage, spoken-stage, register)"
+
+morphology:
+  type: agglutinative
+  alignment: nom-acc
+  word_order: SOV
+  description: "suffixing and compounding; no gender agreement, no noun classes; lexical stems form before case/office morphology"
+  rules:
+    - {id: M1, rule: "STEM(-ma)(-ni|-ta); -ma plural, -ni genitive/affiliation, -ta object; subject unmarked", status: "invented rule"}
+    - {id: M2, rule: "STEM(-ke)(=mu); -ke completed event, =mu reported source", status: "invented rule"}
+    - {id: M3, rule: "zero conversion licensed: sena is noun 'witness' or verb 'witness'", status: "invented rule"}
+    - {id: M4, rule: "modifier + head compounding (see /constructions CMP)", status: "invented rule"}
+    - {id: M5, rule: "-ye derives a human custodian from a noun (fala + ye -> falaye)", status: "invented rule"}
+    - {id: M6, rule: "clause order SOV; modifiers and possessors precede the head; the sourced claim marker =mu is not proof of the claim", status: "invented rule"}
+    - {id: M7, rule: "address register: current office designation in a hearing, given name at home; funeral substitutes an office or kin description for the deceased's given name until reaggregation", status: "invented convention"}
+  derivation_rules:
+    - id: CMP
+      kind: compound
+      pattern: '^(?P<mod>.+)\+(?P<head>.+)$'
+      output: "{mod}{head}"
+    - id: YE
+      kind: suffix
+      affix: "-ye"
+      gloss: human custodian
+      stem_class: noun
+      pattern: '^(?P<stem>.+)$'
+      output: "{stem}ye"
+
+# --- A2/A6: era model (contract §7) ---------------------------------------
+eras: ["E0 Loose Banks", "E1 Tying", "E2 Retied"]
+
+era_model:
+  calendar_rule: "Y coordinates are fixture-arbitrary, not BCE/CE; the administrative year opens at the next year opening after ratification; older contracts stay valid; no CE conversion, no solved lunar intercalation"
+  counting_convention: "Y80 = Tying 1; Y160 = Retied 1; Y183 = Retied 24 = continuing Tying 104; household copies keep the old count"
+  interval_convention: "half-open intervals for machine interchange (contract §7); uncertain bounds retained rather than made precise"
+  stages:
+    - {era: "E0 Loose Banks", bounds: "Y0-Y79", language: "ancestral /p/ forms; count tallies only, no speech script", institution: "households repair bast wraps; local origin accounts circulate without a unified pantheon list", evidence: "deliberately thin: no chronicle verifies who first told what"}
+    - {era: "E1 Tying", bounds: "Y80-Y159", language: "archival /p/ register; accounting loan luma; alphabet introduced; vernacular /f/ variants appear from Y145", institution: "assembly charter regularizes three ritual offices; red-ochre delegate beads reserved; charter spells 'Panoluma'", evidence: "charters establish what an assembly prescribed, not that every household obeyed"}
+    - {era: "E2 Retied", bounds: "Y160-present (sample Y183)", language: "/p/ > /f/ standard by Y170; old liturgical register persists; public copies of house registers", institution: "charter revision opens red beads to everyone; the duty witness strip stays restricted; repair imagery promoted as shared membership", evidence: "reform rhetoric must not be projected backward as prehistoric consensus"}
+
+# --- A1/A3: constructions registry and loan layers -------------------------
+constructions:
+  - {name: CMP, pattern: "B1-B2", base_classes: [noun, verb], output_class: noun, productivity: productive, available_from: "E1 Tying", description: "modifier-head compound; boundary marker removed from the surface form"}
+  - {name: YE, pattern: "B1-ye", base_classes: [noun], output_class: noun, productivity: restricted, available_from: "E1 Tying", description: "human custodian from a noun base"}
+
+layers:
+  - {name: "Upland trade layer", donor: "Upland (D2, unsampled)", donor_stage: "pre-E1 Upland stage (unsampled)", entry_stage: "E1 Tying", channel: "upland market trade and accounting", referent_available_from: "E1 Tying", note: "only /lum/ is modelled; adaptation is the final-/a/ coda repair (L2)"}
+
+# --- A3: lexicon L01-L20 (bounded 20-term sketch; contract §5) -------------
+lexicon:
+  - {id: L01, term: fala, gloss: "cloth; noun", field: costume, layer: native, route: root, stage: "E2 Retied", class: noun, etymology: "E0 *pala 'bast-cloth length' -> E1 pala -> E2 fala (L1)", note: "generalized to cloth; does not guarantee fibre content"}
+  - {id: L02, term: fano, gloss: "raised bank; noun", field: landscape, layer: native, route: root, stage: "E2 Retied", class: noun, etymology: "E0 *pano -> E1 pano -> E2 fano", note: "terrain and work affiliation, not a caste name"}
+  - {id: L03, term: tala, gloss: "river channel; noun", field: landscape, layer: native, route: root, stage: "E2 Retied", class: noun, etymology: "E0 *tala -> unchanged E1/E2", note: "watercourse, not every body of water"}
+  - {id: L04, term: nali, gloss: "knot; binding obligation; noun", field: subsistence, layer: native, route: root, stage: "E2 Retied", class: noun, etymology: "E0 *nali 'knot' -> unchanged; obligation sense lexicalized in E1", note: "physical joining -> legal relation by metaphor"}
+  - {id: L05, term: luma, gloss: "dwelling; membership house; noun", field: trade, layer: loan, route: borrowed, loan_layer: "Upland trade layer", donor_form: "lum", stage: "E1 Tying", class: noun, etymology: "donor /lum/ (D2) -> E1 luma by final-/a/ coda repair -> unchanged E2", note: "traded accounting term extended to a social group; not automatically lineage"}
+  - {id: L06, term: sena, gloss: "witness; to witness; noun", field: religion, layer: native, route: root, stage: "E2 Retied", class: noun, etymology: "E0 *sena -> unchanged E1/E2", note: "attestation, not a promise that testimony is true; zero conversion licensed (M3)"}
+  - {id: L07, term: kera, gloss: "open; release; verb", field: landscape, layer: native, route: root, stage: "E2 Retied", class: verb, etymology: "E0 *kera 'open' -> unchanged; E1 legal extension 'release'", note: "channel opening -> legal release by extension"}
+  - {id: L08, term: mori, gloss: "local pale riverbird; noun", field: landscape, layer: native, route: root, stage: "E2 Retied", class: noun, etymology: "E0 *mori -> unchanged E1/E2", note: "fictional folk category, not an identified biological species"}
+  - {id: L09, term: ranu, gloss: "red ochre pigment; noun", field: costume, layer: native, route: root, stage: "E2 Retied", class: noun, etymology: "E0 *ranu 'ochre' -> unchanged; hue sense by metonymy", note: "pigment name, not a claim about universal basic-colour categories"}
+  - {id: L10, term: weli, gloss: "unpigmented; pale (fibre surface); modifier", field: costume, layer: native, route: root, stage: "E2 Retied", class: modifier, etymology: "E0 *weli -> unchanged E1/E2", note: "not a claim that whiteness means virtue"}
+  - {id: L11, term: nalifala, gloss: "oath-cloth; noun", field: costume, layer: native, route: compound, construction: CMP, bases: [nali, fala], stage: "E2 Retied", class: noun, etymology: "E1 nali-pala 'bond-cloth' -> E2 nalifala (L1)", note: "wearing it does not settle the terms; a record is required"}
+  - {id: L12, term: senafala, gloss: "witness strip; noun", field: costume, layer: native, route: compound, construction: CMP, bases: [sena, fala], stage: "E2 Retied", class: noun, etymology: "E1 sena-pala 'witness-cloth' -> E2 senafala (L1)", note: "office carrier, not hereditary priestly clothing"}
+  - {id: L13, term: kerafala, gloss: "released-edge cloth; noun", field: costume, layer: native, route: compound, construction: CMP, bases: [kera, fala], stage: "E2 Retied", class: noun, etymology: "E1 kera-pala 'release-cloth' -> E2 kerafala (L1)", note: "mourning is a context-dependent satellite, not the primary sense"}
+  - {id: L14, term: fanoluma, gloss: "bank-house (place or affiliation); noun", field: landscape, layer: native, route: compound, construction: CMP, bases: [fano, luma], stage: "E2 Retied", class: noun, etymology: "E1 pano-luma -> E2 fanoluma (L1 applied twice)", note: "capitalization distinguishes the generated place label Fanoluma"}
+  - {id: L15, term: Nalisena, gloss: "Knot-Witness (theonym); noun", field: religion, layer: native, route: compound, construction: CMP, bases: [nali, sena], stage: "E2 Retied", class: noun, etymology: "E1 nali-sena 'bond-witness' -> Nalisena", note: "social binding office; not interchangeable with L17"}
+  - {id: L16, term: Talakera, gloss: "River-Opener (theonym); noun", field: religion, layer: native, route: compound, construction: CMP, bases: [tala, kera], stage: "E2 Retied", class: noun, etymology: "E1 tala-kera 'river-opening' -> Talakera", note: "action compound lexicalized as a divine designation"}
+  - {id: L17, term: Falasena, gloss: "Cloth-Witness (theonym); noun", field: religion, layer: native, route: compound, construction: CMP, bases: [fala, sena], stage: "E2 Retied", class: noun, etymology: "E1 pala-sena 'cloth-witness' -> Falasena", note: "early Palasena retained only in explicitly E1 liturgical recitation"}
+  - {id: L18, term: Naliluma, gloss: "Knot-House(s) (collective endonym); noun", field: subsistence, layer: native, route: compound, construction: CMP, bases: [nali, luma], stage: "E2 Retied", class: noun, etymology: "E1 nali-luma 'bond-house' -> Naliluma", note: "unmarked for number; English 'Retied Houses' is an interpretive byname"}
+  - {id: L19, term: fanofala, gloss: "bank-work apron; noun", field: costume, layer: native, route: compound, construction: CMP, bases: [fano, fala], stage: "E2 Retied", class: noun, etymology: "E1 pano-pala -> E2 fanofala (L1 applies twice)", note: "the hybrid 'fanopala' is unlicensed"}
+  - {id: L20, term: keranali, gloss: "release of a bond; noun", field: trade, layer: native, route: compound, construction: CMP, bases: [kera, nali], stage: "E2 Retied", class: noun, etymology: "E1 kera-nali 'released-bond' -> keranali", note: "relational expiry/suspension; not intrinsically treachery"}
+
+# --- A5: pantheon, role ledger, motif ledger (contract §§5-6) --------------
+pantheon:
+  - {name: Nalisena, id: DE01, role: "Knot-Witness; binds the parties, not the river itself", domain: "binding of obligations", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, teller_status: "attributed in-world belief (B), not narrator-endorsed metaphysics"}
+  - {name: Talakera, id: DE02, role: "River-Opener; makes release possible", domain: "release of obligations", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, teller_status: "attributed in-world belief (B)"}
+  - {name: Falasena, id: DE03, role: "Cloth-Witness; records what was done rather than deciding its justice", domain: "attestation", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, teller_status: "attributed in-world belief (B)"}
+
+roles:
+  - {dependency: "binding of obligations", status: ASSIGNED, agents: [Nalisena], evidence: "D1 office table (worked example §5)", note: "counter-reading recorded: debtors ask when a bond may end"}
+  - {dependency: "release of obligations", status: ASSIGNED, agents: [Talakera], evidence: "D1 office table", note: "a dissenter invokes release against perpetual house claims"}
+  - {dependency: "attestation / public record", status: ASSIGNED, agents: [Falasena], evidence: "D1 office table", note: "an accurate record can expose an unjust bargain"}
+  - {dependency: "mortality / burial", status: NON-DIVINE, agents: [], mechanism: "household rites only", note: "no divine agent is claimed for death or burial; the rite generates vocabulary, venue, work interruption, food obligation, naming permissions, and a garment change"}
+  - {dependency: "cosmic origins", status: SHARED, agents: [Nalisena, Talakera, Falasena], note: "the origin account assigns holding, opening, and visible joining to the three offices in concert; no single creator and no slaying hero", evidence: "D1 §5 origin account (B)"}
+
+motifs:
+  - {id: M-D1-01, tier: myth, title: "The Ground That Was Held Open", summary: "the river had passages but no resting bank; holding, opening, and visible joining made inhabitable ground", status: "origin account, B-status tellers; no universal chaos-monster or slaying hero required"}
+  - {id: M-D1-02, tier: legend, title: "The Assembly Opened to All Houses", summary: "a delegate supposedly opened the first assembly to all houses", status: "contested within D1: E1 institutional copies praise it; no independent E0 chronicle supports it", evidence: "no chronicle exists in the fixture"}
+  - {id: M-D1-03, tier: folktale, title: "The Bird Unties an Over-Clever Pledge", summary: "a bird unties a pledge that was too clever", status: "performers call it amusement, not doctrine; no ATU or motif number is assigned without lookup"}
+
+# --- A5: symbol ledger — context-specific sign rules only ------------------
+symbols:
+  # UNALIGNED cell (deliberate gap): no third sky body is assigned to the
+  # release domain; the design leaves the celestial register incomplete rather
+  # than inventing a planet (worked example §6).
+  - {sign: "paired loop badge", id: SY01, medium: "red ochre pigment on a removable clay bead", era: "E1 Tying", register: "oath hearings", audience: delegates, domain: "authorized binding role", exclusive: true, evidence: "E1 assembly charter prescription; display access later repealed"}
+  - {sign: "paired loop badge", id: SY01, medium: "red ochre pigment on a removable clay bead", era: "E2 Retied", register: "ordinary work dress", audience: "any member", domain: "membership display (no delegation inference)", exclusive: true, evidence: "E2 charter revision"}
+  - {sign: "visible seam", id: SY02, medium: "unpigmented cloth repair scar", era: "E2 Retied", register: "hearings", audience: "parties under oath", domain: attestation, exclusive: true, evidence: "witness inspection of repairs"}
+  - {sign: "pale riverbird figure", id: SY03, medium: "drawn standing-watch figure on oath-cloth", era: "E2 Retied", register: "hearings", audience: witnesses, domain: "attestation (animal register)", evidence: "graphic resemblance chosen locally; no universal bird wisdom claimed"}
+  - {sign: "broken loop", id: SY04, medium: "soot-darkened detachable tab", era: "E2 Retied", register: "release hearings", audience: "parties awaiting release", domain: release, exclusive: true, evidence: "tab detachability matches the release action"}
+  - {sign: "three unpicked stitches", id: SY05, medium: "deliberately removed securing stitches on a tab", era: "E2 Retied", register: "release rite", audience: "parties awaiting release", domain: "release action (number register)", exclusive: true, evidence: "counted stitches are removed, not drawn"}
+  - {sign: "sun disk stamp", id: SY06, medium: "clay stamp on the hearing docket", era: "E2 Retied", register: "hearings", audience: "landing clerk", domain: "public record (daylight hearing convention)", evidence: "hearings are held in daylight by rule, not by solar determinism"}
+  - {sign: "obsolete delegate bead", id: SY07, medium: "kept E1 clay bead worn with an E2 work apron", era: "E2 Retied", register: "partisan speech", audience: "speakers claiming seniority", domain: "claimed seniority (attributed association)", evidence: "no standing rule supports the claim; obsolete reading kept as a labeled fossil"}
+
+# --- A6: era-costume matrix (contract §5) ----------------------------------
+materials:
+  - material: "bast fibre (flax-like plot crop)"
+    composition: "bast fibre from a stipulated domestic plot crop; no real cultivar implied"
+    routes:
+      - {kind: local, stage: fiber, eras: ["E0 Loose Banks", "E1 Tying", "E2 Retied"]}
+      - {kind: local, stage: cloth, eras: ["E0 Loose Banks", "E1 Tying", "E2 Retied"]}
+  - material: "upland wool"
+    composition: "animal fibre; upland sheep wool (stipulated exchange good)"
+    routes:
+      - {kind: import, stage: cloth, eras: ["E0 Loose Banks", "E1 Tying", "E2 Retied"]}
+  - material: "red ochre"
+    composition: "earth pigment (iron-oxide ochre) from a stipulated local deposit"
+    routes:
+      - {kind: local, stage: trim, eras: ["E0 Loose Banks", "E1 Tying", "E2 Retied"]}
+    note: "used on removable clay beads; NOT modelled as a wash-fast textile dye"
+  - material: "clay"
+    composition: "local clay formed into removable beads"
+    routes:
+      - {kind: local, stage: trim, eras: ["E0 Loose Banks", "E1 Tying", "E2 Retied"]}
+  - material: "river reed"
+    composition: "reed cordage and ties"
+    routes:
+      - {kind: local, stage: trim, eras: ["E0 Loose Banks", "E1 Tying", "E2 Retied"]}
+
+rank_rules:
+  - {id: RR01, authority: "E1 assembly charter", jurisdiction: "river terrace bank assemblies", eras: ["E1 Tying"], effect: prohibit, property: {kind: material, value: "red ochre bead"}, wearer_ranks: ["house-member (non-delegate)"], note: "prescription, not observed behaviour"}
+  - {id: RR02, authority: "landing hearing docket", jurisdiction: "landing hearings", eras: ["E1 Tying", "E2 Retied"], effect: prohibit, property: {kind: material, value: "witness strip"}, wearer_ranks: [house-member, visitor], note: "the strip stays restricted after the bead repeal"}
+  - {id: RR03, authority: "E2 charter revision", jurisdiction: "river terrace bank assemblies", eras: ["E2 Retied"], effect: permit, property: {kind: material, value: "red ochre bead"}, wearer_ranks: ["any member"], note: "repeal of RR01; rank inference removed, not retained"}
+
+costumes:
+  - {id: C01, garment: fala, material: "bast fibre (flax-like plot crop)", wearer_rank: "any member", rite: "everyday", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, provenance: local-production, note: "base wrap; plain-woven bast rectangle, hemmed, shoulder and waist ties; wool overwrap added in cold weather"}
+  - {id: C02, garment: fanofala, material: "bast fibre (flax-like plot crop)", wearer_rank: "bank worker", rite: "bank work", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, provenance: local-production, note: "bank apron; doubled work-facing panel with a replaceable abrasion patch"}
+  - {id: C03, garment: nalifala, material: "bast fibre (flax-like plot crop)", wearer_rank: "party under oath", rite: "oath hearing", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, provenance: local-production, color: "household supply; no reserved colour", note: "oath-cloth; portable selvedged band with two tied ends and a visible join"}
+  - {id: C04, garment: senafala, material: "bast fibre (flax-like plot crop)", wearer_rank: "appointed witness", rite: "oath hearing", badge_office: "appointed witness", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, provenance: local-production, claimed_status: lawful, reuse_decision: "carrier type shared with C09; C04 is the lawful duty-worn strip, C09 a borrowed-strip disguise use", note: "witness strip; duty seal stitched at the join; checked against the docket"}
+  - {id: C05, garment: kerafala, material: "bast fibre (flax-like plot crop)", wearer_rank: "mourner or party awaiting release", rite: "funeral or release hearing", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, provenance: local-production, note: "released cloth; removable edge tab, three securing stitches deliberately unpicked, base wrap intact"}
+  - {id: C06, garment: ranu, material: clay, trims: ["red ochre"], wearer_rank: "any member", rite: "everyday", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, provenance: local-production, claimed_status: lawful, reuse_decision: "carrier type shared with C07/C08; this is the E2 unrestricted membership-display use", note: "ochre bead on a removable clay body over a work apron"}
+  - {id: C07, garment: ranu, material: clay, trims: ["red ochre"], wearer_rank: delegate, rite: "oath hearing", era: "E1 Tying", stage: "E1 Tying", profile: E1-liturgical, provenance: local-production, claimed_status: lawful, reuse_decision: "carrier type shared with C06/C08; this is the E1 lawful delegate use"}
+  - {id: C08, garment: ranu, material: clay, trims: ["red ochre"], wearer_rank: "house-member (non-delegate)", rite: "bank work", era: "E1 Tying", stage: "E1 Tying", profile: E1-liturgical, provenance: local-production, claimed_status: violation, reuse_decision: "carrier type shared with C06/C07; this is the E1 recorded violation", note: "E1 rule: surrender the bead; kept visible as a declared violation"}
+  - {id: C09, garment: senafala, material: "bast fibre (flax-like plot crop)", wearer_rank: house-member, rite: "oath hearing", badge_office: "borrowed strip; docket check fails", era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, provenance: local-production, claimed_status: disguise, reuse_decision: "carrier type shared with C04; this is the declared disguise use", note: "passes visually in a crowd; fails in a hearing"}
+
+# --- A4: naming ledger (contract §5) ---------------------------------------
+names:
+  - {name: Morisena, id: N01, type: person, era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, formation: {stem: "mori+sena", rule: CMP}, note: "given name chosen at incorporation; daily address"}
+  - {name: "Fanoluma-ni Morisena", alias_of: N01, relation: alias, type: person, stage: "E2 Retied", profile: E2-romanized, slot_order: "affiliation-GEN + given"}
+  - {name: Welinali, id: N02, type: person, era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, formation: {stem: "weli+nali", rule: CMP}}
+  - {name: "Talaluma-ni Welinali Falaye", alias_of: N02, relation: alias, type: person, stage: "E2 Retied", profile: E2-romanized, slot_order: "affiliation-GEN + given + optional office"}
+  - {name: Falaye, id: N03, type: office-title, era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, formation: {stem: fala, rule: YE}, note: "office may lapse without changing the given name"}
+  - {name: Fanoluma, id: N04, type: place, era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, reuse_decision: "place label built from the bank-house compound; capitalization distinguishes it from the noun fanoluma; disambiguated in prose", formation: {stem: "fano+luma", rule: CMP}}
+  - {name: Panoluma, alias_of: N04, relation: alias, type: place, stage: "E1 Tying", profile: E1-liturgical, note: "E1 charter spelling; kept as a dated alias, never normalised away"}
+  - {name: Naliluma, id: N05, type: collective-endonym, era: "E2 Retied", stage: "E2 Retied", profile: E2-romanized, formation: {stem: "nali+luma", rule: CMP}, reuse_decision: "collective endonym equals lexicon entry L18 by design; resolved as a namesake label with number unmarked"}
+  - {name: Palasena, alias_of: DE03, relation: alias, type: deity, stage: "E1 Tying", profile: E1-liturgical, note: "E1 liturgical recitation form only"}
+
+naming_ledger:
+  slot_grammar: "affiliation-GEN + given + optional office; not inherited surnames; whole-name reuse is barred in a hearing, not every syllable appearing in a theonym"
+  address_rules:
+    - {context: home, use: "given name (childhood address uses a household nickname, here left in English)"}
+    - {context: hearing, use: "current office designation"}
+    - {context: funeral, use: "substitute an office or kin description for the deceased's given name until reaggregation; temporary avoidance only, no wholesale sound ban inferred"}
+  records:
+    - {ledger_id: X1, name_record_id: N04, entry: "Panoluma", validity: "retained dated alias (E1 charter spelling)", note: "an old name on a new object is not automatically an error (contract §7)"}
+    - {ledger_id: X2, entry: "Retied Houses / Knot-Houses", validity: "translated external label (exonym); no donor-language pronunciation is supplied", note: "outsider labels are evidence of translation practice, not of identity"}
+    - {ledger_id: R1, entry: "Falasena (person)", validity: rejected, reason: "equals the complete theonym DE03 for hearing use; a semantic/permission collision, not a phonological defect"}
+    - {ledger_id: R2, entry: "fanopala (apron)", validity: rejected, reason: "hybrid missing the second L1 application; the licensed form is fanofala"}
+    - {ledger_id: R3, entry: "Nskra", validity: rejected, reason: "initial consonant cluster outside (C)V; would need a separately specified foreign-name adaptation"}
+  screening: "local exact collisions were checked in the design pass; real-world homophone and unintended offensive-association screening is NOT performed (see /cross_culture_review)"
+
+cross_culture_review:
+  reviewed: "2026-10-17"
+  languages: []
+  channels: []
+  unresolved:
+    - "real-language homophone and unintended offensive-association sweep not performed; the design record leaves it as a pre-publication screening task"
+
+# ===========================================================================
+# §4 validation — checks actually run, with inputs and results.
+# Findings recorded here are review evidence for lore, never canon rulings
+# (contract §6). This is local generation/derivation verification, NOT
+# bible-wide consistency certification (contract §8 step 3).
+# ===========================================================================
+validation:
+  ran_at: "2026-10-17"
+  runner: "kotodama-shokunin round-2 adjacency worker; all commands run from the repo root on this file"
+  file_parse:
+    - {check: "general YAML parse", command: "ruby -ryaml -e 'YAML.safe_load(File.read(ARGV[0]))' examples/handoff-packet.sample.yml", result: "parses; 40 top-level keys (including this validation section and the envelope view)"}
+  structural_checks:
+    command: "ad-hoc ruby -ryaml structural assertions against this file (script not committed; the assertions and their observed results are listed below; the gate runs below are the reproducible checks)"
+    results:
+      - "required §4 fields: all 16 present with content (§4)"
+      - "lexicon 20 entries, ids L01-L20 unique and consecutive (§5); field tally costume 7, landscape 5, religion 4, subsistence 2, trade 2; layer tally native 19, loan 1; route tally root 9, compound 10, borrowed 1"
+      - "names 9 records (entities N01-N05 plus 4 alias records); pantheon 3 (DE01-DE03); symbols 8 records over 7 ids (SY01 carries two era records); costumes 9 (C01-C09); materials 5; rank rules 3; roles 5; motifs 3; claims 13; coupling edges 16; decisions 8; open questions 8"
+      - "L1 letter check: 0 E2-staged name/pantheon/costume forms contain the letter p; every E1-staged form carries the E1-liturgical profile, and the clause fixtures p->f (pala/fala) replay under CMP as recorded"
+      - "naming ledger 5 records, of which 3 are rejected candidates with recorded reasons (R1-R3)"
+  gate_runs:
+    command: "python3 tools/gates/<gate> examples/handoff-packet.sample.yml"
+    note: "tool files pinned by digest as run on 2026-10-17; a changed tool invalidates these result records"
+    results:
+      - {gate: handoff-packet-check.py, digest: e2fa3223b2aa57382807c51099a4360c1a9cc2559d5b4bedad1b54e9ab0ad575, exit: 1, findings: "CORRECTED at round-2 close: re-run over the committed Markdown-native checker exits 1 — this YAML serialization is not the contract-default Markdown the checker recognizes (field-recognition misses, HO-EMPTY/HO-MANIFEST-DIGEST). The exit-0 record written by the round-2 builder did not reproduce and is corrected here pre-freeze, per this packet's own edit discipline. This envelope is superseded by examples/handoff-packet.sample.md, which carries the same records in the contract-default Markdown serialization."}
+      - {gate: phonology-sanity-gate.py, digest: fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655, exit: 1, findings: "1 REVIEW: A-NEUTRAL on the L1 law — expected and interpreted: no p/f contrast witness can exist inside one scoped register because /p/ is confined to the E1 liturgical register (see /sound_laws L1 and /phonology strata_note)"}
+      - {gate: naming-collision-gate.py, digest: 8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526, exit: 1, findings: "2 HOLD: CROSS-HOLD — the real-language sweep is declared unresolved in /cross_culture_review; recorded as an honest gap, routed to OQ-02"}
+      - {gate: lexicon-coverage-audit.py, digest: 63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80, exit: 1, findings: "4 C-required-gap: body, kinship, war, weather — the bounded 20-term sketch leaves these unbuilt; declared gaps, routed to OQ-01"}
+      - {gate: myth-consistency-gate.py, digest: 26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5, exit: 0, findings: "clean"}
+      - {gate: costume-era-consistency-gate.py, digest: 29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03, exit: 1, findings: "1 [note]: R-03 on C09 — the declared disguise scenario kept visible; no reject-level finding. No era_dates are asserted: the packet has no CE-comparable dates and invents none (contract §7)"}
+      - {gate: provenance-audit.py, digest: 4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a, exit: 1, findings: "not applicable to packets: its scope is corpus entry documents carrying topic/sources/couples headers; run against this packet it reports exactly those three missing entry headers, which a non-entry file cannot supply"}
+  not_checked:
+    - "no bible-wide consistency, provenance, or identity resolution (§8 step 3); no canon standing (lore only)"
+    - "the delivered file's own digest cannot be embedded in itself and is created at freeze (§4)"
+    - "no real-language name sweep (CROSS-HOLD above); no physical textile testing; no calendar or astronomy"
