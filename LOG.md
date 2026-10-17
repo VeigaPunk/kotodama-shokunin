@@ -3027,3 +3027,20 @@ No goal, background agent or automatic continuation is started by this cleanup.
   row-047 hash contradiction, row-187 disposition); recomputed summary.json.
 - **Consequence:** freshness axis-move claims pause pending operator
   recalibration (L0 queued); round 12 (Luna verify) audits this round.
+
+## 2026-10-17 — Round 12 admitted (loop 1 verify round; 64w openai-codex/gpt-6-luna-max)
+
+- **Trigger:** operator regimen; verify claims C/O/A in `reports/round-12/claims.json`;
+  baseline `69d0c21`; 25/64 completed (route capacity), coverage completed by
+  the integrator (61 commands re-run; ledger normalized to licensed schema).
+- **C (calibration, verified):** 89-row recount ledger over rounds 8-11;
+  round-11 rejection independently reproduced with the ratio correction
+  (147/192 = 0.7656; 0.778 = 147/189 — both now recorded).
+- **O (operability, verified):** consolidated 15-entry defect ledger; 7
+  fixed-with-control (incl. rounds 8+9 filed `validation.json` clobbered by
+  ledger-command re-runs of round validators — restored byte-exact from
+  e1694ba/9dc18ec); 8 routed to round 14.
+- **A (adjacency, verified):** zero bleed across the 10 new entries + typed
+  pipeline; PROVINCE accurate; handoff packet REJECTED on semantics (missing
+  uncertainty dimension + bilateral acknowledgment) — routes to rounds 13/14.
+- **Evidence:** `reports/round-12/validation.json` acceptance true.

@@ -1,0 +1,136 @@
+{
+ "round": 12,
+ "date": "2026-10-17",
+ "source": "sweeps r8-r11 + round-12 audit findings",
+ "entries": [
+  {
+   "id": "OOL-9a",
+   "defect": "out-of-lane write: metadata fragment at fleet-root reports/round-9/metadata/v09-myth.md",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "file relocation",
+   "before": "fragment written outside the lane repo at fleet root",
+   "after": "moved into kotodama-shokunin/reports/round-9/metadata/; fleet root clean",
+   "control": "fleet commit f2b68a7 + reports/round-9/adjacency.md scope check"
+  },
+  {
+   "id": "OOL-9b",
+   "defect": "out-of-lane write: junk PDF (AccessDenied XML) saved at fleet root",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "file deletion",
+   "before": "mtk-zeichentragende.pdf at fleet root",
+   "after": "deleted; sweep documented",
+   "control": "fleet commit f2b68a7; round-12 scope.md fleet-root clean"
+  },
+  {
+   "id": "FRR-10",
+   "defect": "filed receipt rewrite: worker modified reports/round-9/validation.json + reports/round-8/run-validation.py in round 10",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "git revert of filed bytes",
+   "before": "filed round-8/round-9 bytes modified in working tree",
+   "after": "restored via git checkout at round-10 integration; staleness documented in drift ledger instead",
+   "control": "round-10 commit 94ca098 notes"
+  },
+  {
+   "id": "AVG-10",
+   "defect": "availability gap: opencode-go keys -3/-4/-5 unprovisioned (402 insufficient funds)",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "route retry",
+   "before": "three consecutive launch failures, zero workers started",
+   "after": "key 1 retried and carried the round",
+   "control": "reports/round-10/availability-attempt-{1,2,3}.json"
+  },
+  {
+   "id": "FRR-12a",
+   "defect": "filed receipt rewrite: reports/round-8/validation.json clobbered post-commit by drift-ledger re-runs of the round-8 runner",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "git restore from admission commit",
+   "before": "filed receipt showed later re-run state (acceptance false), not the admitted bytes",
+   "after": "restored byte-exact from e1694ba; git diff clean",
+   "control": "git diff --quiet e1694ba -- reports/round-8/validation.json (exit 0)"
+  },
+  {
+   "id": "FRR-12b",
+   "defect": "filed receipt rewrite: reports/round-9/validation.json clobbered the same way",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "git restore from admission commit",
+   "before": "filed receipt differed from admission bytes",
+   "after": "restored byte-exact from 9dc18ec; git diff clean",
+   "control": "git diff --quiet 9dc18ec -- reports/round-9/validation.json (exit 0)"
+  },
+  {
+   "id": "RATIO-11",
+   "defect": "documentation: round-11 artifacts mixed drift ratios (147/192=0.7656 vs reported 0.778=147/189)",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "documentation note only; filed bytes untouched",
+   "before": "SCORECARD/report prose said 0.778 over a 192 denominator",
+   "after": "both denominators recorded explicitly in reports/round-12/recount/ledger.json + dispositions.md",
+   "control": "recount r11 receipts + ledger entries 2026-10-17"
+  },
+  {
+   "id": "R8-AUDCNT",
+   "defect": "reports/round-8/operability/audit.md says harness 12/12 controls; validation + reproduction show 14/14",
+   "status": "routed",
+   "owner": "round-14 integrator",
+   "owner_note": "append-only erratum to the audit.md or SCORECARD row; do not rewrite filed bytes. Routed to round 14 integrate."
+  },
+  {
+   "id": "R9-BATROOT",
+   "defect": "gate battery default root misses myth+naming baselines (exit 2) though explicit three-root run exits 0",
+   "status": "routed",
+   "owner": "round-14 integrator",
+   "owner_note": "unify baseline roots (tools/gates/expected/ vs tools/gates/frozen/) or teach the battery both roots. Routed to round 14 integrate."
+  },
+  {
+   "id": "R10-F04",
+   "defect": "findings tracker final-state list missing a verifier pointer (fix-09 landed the correction; filed tracker unchanged by design)",
+   "status": "routed",
+   "owner": "round-14 integrator",
+   "owner_note": "apply fix-09 correction as an append-only tracker entry. Routed to round 14 integrate."
+  },
+  {
+   "id": "R10-F05",
+   "defect": "round-10 report-draft left unfinished with an 8-vs-10 count discrepancy",
+   "status": "routed",
+   "owner": "round-14 integrator",
+   "owner_note": "document the draft-superseded-by-final-report status; reconcile counts in a note. Routed to round 14 integrate."
+  },
+  {
+   "id": "R10-IXCLS",
+   "defect": "coverage runner misclassified the index-updater seat",
+   "status": "routed",
+   "owner": "round-14 integrator",
+   "owner_note": "runner role map correction with control. Routed to round 14 integrate."
+  },
+  {
+   "id": "R10-STATCONFL",
+   "defect": "conflicting statuses for the reverted round-8 runner repair across fragments",
+   "status": "routed",
+   "owner": "round-14 integrator",
+   "owner_note": "single status ledger entry. Routed to round 14 integrate."
+  },
+  {
+   "id": "R10-RUNHASH",
+   "defect": "unresolved historical runner-hash citation in round-10 fragments",
+   "status": "routed",
+   "owner": "round-14 integrator",
+   "owner_note": "pin or disposition with evidence. Routed to round 14 integrate."
+  },
+  {
+   "id": "R11-DRAFT",
+   "defect": "sweep r11 could not find a finalized round report in the lane repo",
+   "status": "fixed-with-control",
+   "bounded": true,
+   "fix_scope": "pointer correction",
+   "before": "sweep looked in-repo; the filed report lives at the fleet root",
+   "after": "fleet report .ufo/reports/round-11/kotodama.md confirmed present (fleet commit 2421e00)",
+   "control": "fleet git log 2421e00"
+  }
+ ]
+}

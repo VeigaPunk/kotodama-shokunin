@@ -1,0 +1,1717 @@
+[
+ {
+  "command": "python3 reports/round-8/run-validation.py (isolated shared-object clone)",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-1.md",
+  "recorded": {
+   "F": {
+    "passed": true,
+    "declared_ids": 15,
+    "receipts": 15,
+    "substantive_passages": 15,
+    "distinct_passage_keys": 215,
+    "reconciliation_rows": 15,
+    "bound_rows": 15,
+    "negative_controls_rejected": 8
+   },
+   "O": {
+    "passed": false,
+    "round7_touched": [
+     " M reports/round-7/validation.json"
+    ],
+    "inventory_rows": 20,
+    "required_review_ids": 11,
+    "repaired": 11,
+    "unrepaired": 0,
+    "harness_controls": "14/14",
+    "control_scripts_exit_0": 14,
+    "battery_selftests_exit_0": 2
+   },
+   "D": {
+    "passed": false,
+    "selftest": "39/39",
+    "regeneration_exit": 0,
+    "skill_table_lines": 32,
+    "replay": {
+     "exit": 2,
+     "rows": 7,
+     "reproduced": 0,
+     "mismatch": 0,
+     "could_not_evaluate": 7,
+     "gates_restored_from_head": 7
+    }
+   },
+   "SCORECARD_sha256": "29225ecdb37b7a6aa05fe1ff4b104d68dbe03ea5e1ca8b738efb35a6cdb744c5"
+  },
+  "observed": {
+   "F": {
+    "passed": true,
+    "declared_ids": 15,
+    "receipts": 15,
+    "substantive_passages": 15,
+    "distinct_passage_keys": 215,
+    "reconciliation_rows": 15,
+    "bound_rows": 15,
+    "negative_controls_rejected": 8
+   },
+   "O": {
+    "passed": true,
+    "round7_touched": [],
+    "inventory_rows": 20,
+    "required_review_ids": 11,
+    "repaired": 11,
+    "unrepaired": 0,
+    "harness_controls": "14/14",
+    "control_scripts_exit_0": 14,
+    "control_stdout_hashes_differing": 12,
+    "battery_selftests_exit_0": 2
+   },
+   "D": {
+    "passed": false,
+    "selftest": "39/39",
+    "regeneration_exit": 0,
+    "skill_table_lines": 32,
+    "replay": {
+     "exit": 2,
+     "rows": 7,
+     "reproduced": 0,
+     "mismatch": 0,
+     "could_not_evaluate": 7,
+     "gates_restored_from_head": 8
+    }
+   },
+   "SCORECARD_sha256": "f735edf4573d6ab307dad300acaabf4ec879769cde969bb737849aaf879ce35b"
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: round 11 committed the previously dirty round-7 validation file, added the eighth gate, and changed SCORECARD.md after the recorded snapshot. Environmental: 12/14 control-script stdout hashes differ because .scratch paths are not normalized. The D replay failure itself reproduces; no discrepancy was patched."
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-1.md",
+  "recorded": {
+   "exit": 0,
+   "checks": "39/39",
+   "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252"
+  },
+  "observed": {
+   "exit": 0,
+   "checks": "39/39",
+   "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252"
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 tools/harness/r8_checks.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-2.md",
+  "recorded": {
+   "validation_exit": 0,
+   "controls": "14/14",
+   "stdout_sha256": "25bf2315e6c2f3403a3fc9028720225284b1848f1a91e62ae3808543b0f5ce58"
+  },
+  "observed": {
+   "exit": 0,
+   "controls": "14/14",
+   "stdout_sha256": "25bf2315e6c2f3403a3fc9028720225284b1848f1a91e62ae3808543b0f5ce58"
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 tools/harness/r8_checks.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-2.md",
+  "recorded": {
+   "operability_audit_V1_controls": "12/12"
+  },
+  "observed": {
+   "validation_and_recount_controls": "14/14",
+   "stdout_sha256": "25bf2315e6c2f3403a3fc9028720225284b1848f1a91e62ae3808543b0f5ce58"
+  },
+  "verdict": "disposition",
+  "cause": "defect: reports/round-8/operability/audit.md §2 V1 says 12/12 while validation.json and the recount both say 14/14 with the same stdout digest; stale transcription is suspected but not established."
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-2.md",
+  "recorded": {
+   "validation_live_exit": 0,
+   "validation_live_stdout_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+   "earlier_receipt_stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+   "tool_sha256_at_earlier_receipt": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67"
+  },
+  "observed": {
+   "exit": 0,
+   "controls": "28/28",
+   "stdout_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+   "tool_sha256": "0a126b70afa6cbd5c2565b57399c318788540e10c4940d07c906718c8b9e1aa1"
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: the earlier operability receipt was captured before the check-gate-battery tool repair; the final validation live hash reproduces exactly with the repaired tool."
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-2.md",
+  "recorded": {
+   "exit": 0,
+   "tamper_cases": "10/10",
+   "CLI_cases": "18/18",
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+   "tool_sha256": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5"
+  },
+  "observed": {
+   "exit": 0,
+   "tamper_cases": "10/10",
+   "CLI_cases": "18/18",
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+   "tool_sha256": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5"
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-2.md",
+  "recorded": {
+   "exit": 0,
+   "checks": "39/39",
+   "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+   "tool_sha256": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802"
+  },
+  "observed": {
+   "exit": 0,
+   "checks": "39/39",
+   "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+   "tool_sha256": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802"
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "git ls-tree -r --name-only e1694ba -- corpus/knowledge | python3 -c 'import sys,collections; paths=[x.strip() for x in sys.stdin if x.strip().endswith(\".md\")]; counts=collections.Counter(p.split(\"/\")[2] for p in paths); print(\"total:\",len(paths)); [print(k,counts[k]) for k in sorted(counts)]; print(\"sum:\",sum(counts.values()))'",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-3.md",
+  "recorded": {
+   "total": 179,
+   "partitions": {
+    "civilizations": 94,
+    "culture-material": 16,
+    "linguistics": 16,
+    "myth-symbol": 16,
+    "synthesis": 24,
+    "verification": 13
+   }
+  },
+  "observed": {
+   "round8_admission_total": 179,
+   "round8_admission_partitions": {
+    "civilizations": 94,
+    "culture-material": 16,
+    "linguistics": 16,
+    "myth-symbol": 16,
+    "synthesis": 24,
+    "verification": 13
+   },
+   "declared_baseline_total": 179
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "find corpus/knowledge -type f -name '*.md' | wc -l; for d in corpus/knowledge/*; do if [ -d \"$d\" ]; then find \"$d\" -type f -name '*.md' | wc -l; fi; done",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-3.md",
+  "recorded": {
+   "round8_total": 179,
+   "partitions": {
+    "civilizations": 94,
+    "culture-material": 16,
+    "linguistics": 16,
+    "myth-symbol": 16,
+    "synthesis": 24,
+    "verification": 13
+   }
+  },
+  "observed": {
+   "current_total": 189,
+   "partitions": {
+    "civilizations": 94,
+    "culture-material": 18,
+    "linguistics": 19,
+    "myth-symbol": 19,
+    "synthesis": 24,
+    "verification": 15
+   }
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: git diff --name-status --diff-filter=AD e1694ba HEAD -- corpus/knowledge (2026-10-17) shows ten additions and no deletions from later round-10 work; the original round-8 admission tree still reproduces 179 and all six recorded partition counts."
+ },
+ {
+  "command": "python3 - (read-only heredoc: load reports/round-8/targets.json metadata_sweep and inspect reports/round-8/metadata/m*-civ-*.md headers)",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-3.md",
+  "recorded": {
+   "declared_civilization_ranges": 6,
+   "declared_range_count": 6,
+   "coverage_total": 94
+  },
+  "observed": {
+   "civilization_fragments": 5,
+   "actual_ranges": [
+    "1-19",
+    "20-38",
+    "39-57",
+    "58-76",
+    "77-94"
+   ],
+   "coverage_total": 94
+  },
+  "verdict": "disposition",
+  "cause": "defect: the round-8 target declares six ranges while only five contiguous metadata fragments exist; this is an allocation-record mismatch, not a missing corpus entry."
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-4.md",
+  "recorded": {
+   "exit": 0,
+   "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386",
+   "reader_pin": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f"
+  },
+  "observed": {
+   "runs": 2,
+   "exits": [
+    0,
+    0
+   ],
+   "stdout_sha256_each": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386",
+   "reader_pin": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f"
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --check",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-4.md",
+  "recorded": {
+   "historical_tool_sha256": "e9209f280c6d765561a47efdee074d0cff5f3e786e5f4f9ae7c96cc65df4a282",
+   "historical_exit": 0
+  },
+  "observed": {
+   "runs": 2,
+   "exits": [
+    0,
+    0
+   ],
+   "stdout_sha256_each": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427",
+   "current_tool_sha256": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802"
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: the historical determinism receipt is explicitly bound to an earlier tool revision; the current revision independently reproduces its own projection check."
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --emit /dev/stdout",
+  "round": 8,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r8-4.md",
+  "recorded": {
+   "historical_tool_sha256": "e9209f280c6d765561a47efdee074d0cff5f3e786e5f4f9ae7c96cc65df4a282",
+   "stdout_bytes": 81487,
+   "projection_bytes": 81469,
+   "projection_sha256": "59a53456921f830243816a35dd4a1feb42d55ebe76253f9ba8f3fe2d749ab4d2"
+  },
+  "observed": {
+   "runs": 2,
+   "exit_each": 1,
+   "stdout_bytes_each": 84632,
+   "stdout_sha256_each": "9a3e99b7db0e23fee9052dd41da72fb80855206f7fcece1376c7effe2a3fa535",
+   "projection_bytes_each": 84614,
+   "projection_sha256_each": "a3aa452cd5ae77c351d9532a707fb1f1ababf77c3fad8b9d28089e6958364a43"
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: the historical result is tool-revision-bound and its output size/hash differs on the current revision. The current emits are byte-identical; exit 1 is the finding status for emit mode, not a determinism failure."
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/frozen --baselines-root tools/gates/expected --baselines-root reports/round-9/baselines",
+  "round": 9,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r9-1.md",
+  "recorded": {
+   "exit": 0,
+   "baselines_found": 8,
+   "pinned": 8,
+   "gates_covered": 7,
+   "gates_uncovered": 0,
+   "pass": 7,
+   "fail": 0,
+   "unevaluable": 0,
+   "normalized_stdout_sha256": "2cc31620581d32037eb0e0d27e097ea5836bb32385bf7e06399aedc0fcae3ea9"
+  },
+  "observed": {
+   "exit": 0,
+   "baselines_found": 8,
+   "pinned": 8,
+   "gates_covered": 7,
+   "gates_uncovered": 0,
+   "pass": 7,
+   "fail": 0,
+   "unevaluable": 0,
+   "normalized_stdout_sha256": "33c5c04f7db561c22d01cacedc018810934bc24993176a438da87f21c68e8f9f"
+  },
+  "verdict": "disposition",
+  "cause": "environmental: the live output embeds .scratch/gate-battery-* paths, but the round-9 normalizer replaces only /tmp and /var/tmp paths. Exit, baseline/gate counts, and findings match; the hash mismatch is retained."
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --check",
+  "round": 9,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r9-2.md",
+  "recorded": {
+   "runs": 2,
+   "exits": [
+    0,
+    0
+   ],
+   "normalized_stdout_sha256_each": "8e8910da3adaed53c85fb983f2ad2732892b198fde9266d35e440dd7ed7cd7df"
+  },
+  "observed": {
+   "runs": 2,
+   "exits": [
+    0,
+    0
+   ],
+   "raw_stdout_sha256_each": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a",
+   "normalized_stdout_sha256_each": "8e8910da3adaed53c85fb983f2ad2732892b198fde9266d35e440dd7ed7cd7df",
+   "repeat_identical": true
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py examples/culture-d3/packet.json --frozen examples/culture-d3/expected.json",
+  "round": 9,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r9-3.md",
+  "recorded": {
+   "exit": 0,
+   "finding_ids": [],
+   "drift_paths": [],
+   "normalized_stdout_sha256": "c8d1a7b90a64915abef12d66951ef7a3a566e9e6ea34db76d125976520b3b2cc"
+  },
+  "observed": {
+   "exit": 0,
+   "finding_ids": [],
+   "drift_paths": [],
+   "normalized_stdout_sha256": "c8d1a7b90a64915abef12d66951ef7a3a566e9e6ea34db76d125976520b3b2cc",
+   "raw_stdout_sha256": "e282a0688498034144fb376ab43884c8607133bd6deaab763150d789b113669d"
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 -c \"import re,pathlib;root=pathlib.Path('corpus/knowledge');pat=re.compile(r'(?:^[-*]\\s|;\\s)(source|verified-at|recheck)\\s*:',re.M);files=sorted(root.rglob('*.md'));miss=[(p.as_posix(),d) for p in files for d in [sorted({'source','verified-at','recheck'}-{m.group(1) for m in pat.finditer(re.split(r'^## ',p.read_text(encoding='utf-8'),maxsplit=1,flags=re.M)[0])})] if d];print('files=%d missing_any=%d'%(len(files),len(miss)));[print('MISSING',p,','.join(d)) for p,d in miss]\"",
+  "round": 9,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r9-4.md",
+  "recorded": {
+   "close_files": 179,
+   "close_missing_strict_A": 64,
+   "baseline_A_B_C_missing": [
+    83,
+    4,
+    0
+   ],
+   "close_A_B_C_missing": [
+    64,
+    3,
+    0
+   ]
+  },
+  "observed": {
+   "current_files": 189,
+   "current_missing_strict_A": 70,
+   "original_179_paths_current_A_B_C_missing": [
+    64,
+    3,
+    0
+   ],
+   "current_A_B_C_missing": [
+    70,
+    3,
+    0
+   ]
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: ten round-10 entries were added after the round-9 179-file scope; six lack the singular source: line under strict reading A, explaining 70 versus 64. The original 179 paths still reproduce the close reading."
+ },
+ {
+  "command": "read-only Python census comparing the round-9 baseline paths, those same paths in the current tree, and the current corpus",
+  "round": 9,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r9-4.md",
+  "recorded": {
+   "baseline_files": 179,
+   "baseline_A_B_C_missing": [
+    83,
+    4,
+    0
+   ],
+   "close_files": 179,
+   "close_A_B_C_missing": [
+    64,
+    3,
+    0
+   ]
+  },
+  "observed": {
+   "baseline_files": 179,
+   "baseline_A_B_C_missing": [
+    83,
+    4,
+    0
+   ],
+   "original_paths_current_A_B_C_missing": [
+    64,
+    3,
+    0
+   ],
+   "current_files": 189,
+   "current_A_B_C_missing": [
+    70,
+    3,
+    0
+   ]
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: ten later corpus additions account for the larger live file and strict-A missing counts; baseline and original-path measurements reproduce exactly."
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --summary",
+  "round": 9,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r9-4.md",
+  "recorded": {
+   "exit": 0,
+   "files": 179,
+   "raw_lines": 610,
+   "raw_occurrences": 616,
+   "markers": 584,
+   "bare_markers": 555,
+   "detailed_markers": 29
+  },
+  "observed": {
+   "exit": 0,
+   "files": 189,
+   "raw_lines": 688,
+   "raw_occurrences": 700,
+   "markers": 633,
+   "bare_markers": 599,
+   "detailed_markers": 34
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: the current corpus has ten additional entries after the round-9 snapshot; no count was rewritten."
+ },
+ {
+  "command": "ls reports/round-9/metadata/v*.md | wc -l",
+  "round": 9,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r9-4.md",
+  "recorded": {
+   "audit_close_V09_present": false
+  },
+  "observed": {
+   "current_fragments": 11,
+   "V09_present": true
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: v09-myth.md was already tracked from round-9 admission but arrived after the auditor's close snapshot; this is later artifact visibility, not evidence the historical count was fabricated."
+ },
+ {
+  "command": "read-only Python census: compare corpus disk files, README headings/index rows, source-audit inventory, and added paths against round-10 baseline 9dc18ec1339bffd6f81e74f1a5742464ef578749",
+  "round": 10,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r10-1.md",
+  "recorded": {
+   "total_files": 189,
+   "new_entries": 10,
+   "partition_minimum": 2
+  },
+  "observed": {
+   "disk_total": 189,
+   "README_heading_total": 189,
+   "README_index_rows_total": 189,
+   "inventory_files": 189,
+   "partition_counts": {
+    "civilizations": 94,
+    "culture-material": 18,
+    "linguistics": 19,
+    "myth-symbol": 19,
+    "synthesis": 24,
+    "verification": 15
+   },
+   "added_since_baseline": 10,
+   "new_partition_counts": {
+    "culture-material": 2,
+    "linguistics": 3,
+    "myth-symbol": 3,
+    "verification": 2
+   },
+   "minimum_met": true
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "read-only Python recount using reports/round-10/run-validation.py command_key/covers/extract_cited_commands functions",
+  "round": 10,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r10-2.md",
+  "recorded": {
+   "required_command_keys": 36,
+   "ledger_rows": 192,
+   "covered": 36,
+   "missing": 0
+  },
+  "observed": {
+   "round10_snapshot_required": 36,
+   "ledger_rows": 192,
+   "covered": 36,
+   "missing": 0,
+   "live_required": 38,
+   "live_covered": 36,
+   "live_missing": 2
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: two validation commands were added to SCORECARD.md after the round-10 snapshot; the frozen 36/36 coverage claim reproduces, while live 36/38 reflects the later documentation surface."
+ },
+ {
+  "command": "read-only Python tracker recount plus python3 -c \"import json;d=json.load(open('reports/round-10/findings-tracker.json'));print(len(d['findings']), sum(1 for r in d['findings'] if r['disposition']=='pending'))\"",
+  "round": 10,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r10-3.md",
+  "recorded": {
+   "source_rows": 24,
+   "tracker_rows": 24,
+   "runner_extracted_ids": 18,
+   "pending_rows": 0,
+   "dispositions": {
+    "fixed_with_control": 18,
+    "wont_fix": 5,
+    "wrong": 1
+   }
+  },
+  "observed": {
+   "source_row_partition": [
+    13,
+    3,
+    6,
+    2
+   ],
+   "source_rows": 24,
+   "tracker_rows": [
+    13,
+    3,
+    6,
+    2
+   ],
+   "tracker_total": 24,
+   "row_match": true,
+   "runner_extracted_ids": 18,
+   "covered_ids": 18,
+   "missing_ids": 0,
+   "pending_command_output": [
+    24,
+    0
+   ],
+   "dispositions": {
+    "fixed_with_control": 18,
+    "wont_fix": 5,
+    "wrong": 1
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 reports/round-10/run-validation.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r10-4.md",
+  "recorded": {
+   "acceptance_checks_passed": true,
+   "C": "PASS",
+   "F": "PASS",
+   "O": "PASS",
+   "exit": 0
+  },
+  "observed": {
+   "acceptance_checks_passed": false,
+   "C": "PASS",
+   "F": "FAIL",
+   "O": "PASS",
+   "exit": 1,
+   "ledger_coverage": "36/38",
+   "missing_commands": 2
+  },
+  "verdict": "disposition",
+  "cause": "legitimate-change: later round-11 SCORECARD command additions and typed-pipeline gate caused the live F coverage failure, not a round-10 snapshot defect. The runner briefly rewrote reports/round-10/validation.json; r10-4 reports it restored from HEAD and verified git diff --quiet exit 0 on 2026-10-17."
+ },
+ {
+  "command": "read-only Python census of reports/round-10/drift/ledger.json and reports/round-11/recheck/row-*.json",
+  "round": 11,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r11-1.md",
+  "recorded": {
+   "ledger_rows": 192,
+   "stable": 147,
+   "unstable": 45,
+   "validation_stability": 0.7777777777777778
+  },
+  "observed": {
+   "rows": 192,
+   "byte_comparable": 189,
+   "stable": 147,
+   "hash_unstable": 42,
+   "no_hash": 3,
+   "stable_fraction_comparable": 0.7777777777777778,
+   "stable_fraction_all_rows": 0.765625
+  },
+  "verdict": "disposition",
+  "cause": "The reported 0.778 is reproducible as 147/189 byte-comparable receipts, not 147/192. The all-row fraction is 0.765625; this arithmetic inconsistency is recorded, not patched."
+ },
+ {
+  "command": "read-only Python census of 192 receipts, reports/round-11/validation.json, and reports/round-11/recheck/summary.json",
+  "round": 11,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r11-2.md",
+  "recorded": {
+   "hash_unstable_plus_unreproducible": 45,
+   "drift_rows": 46,
+   "summary": {
+    "rows": 192,
+    "stable": 147,
+    "unstable": 45,
+    "undispositioned": 0,
+    "stability": 0.7656
+   }
+  },
+  "observed": {
+   "hash_unstable_plus_unreproducible": 45,
+   "without_cause_or_class": 0,
+   "drift_rows": 46,
+   "drift_rows_without_cause_or_class": 0,
+   "summary": {
+    "rows": 192,
+    "stable": 147,
+    "unstable": 45,
+    "undispositioned": 0,
+    "stability": 0.765625
+   },
+   "row101_exit_only_drift": true
+  },
+  "verdict": "match",
+  "cause": "The 46 cause-bearing validation drift rows include row 101's exit-only change; 45 is the hash-unstable plus unreproducible count. The two counts refer to different categories and both reproduce."
+ },
+ {
+  "command": "python3 tools/gates/typed-pipeline-gate.py --json",
+  "round": 11,
+  "date": "2026-10-17",
+  "receipt": [
+   "reports/round-12/recount/r11-3.md",
+   "reports/round-12/recount/r11-4.md"
+  ],
+  "recorded": {
+   "exit": 0,
+   "expected_findings": 16,
+   "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62"
+  },
+  "observed": {
+   "r11_3": {
+    "exit": 0,
+    "expected_tokens": 16,
+    "live_tokens": 16,
+    "missing": 0,
+    "extra": 0,
+    "holds": 15,
+    "notes": 1,
+    "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62"
+   },
+   "r11_4": {
+    "expected_findings": 16,
+    "live_findings": 16,
+    "equal": true
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 reports/round-11/run-validation.py (not invoked; independent read-only Python recount of filed F and D evidence)",
+  "round": 11,
+  "date": "2026-10-17",
+  "receipt": "reports/round-12/recount/r11-4.md",
+  "recorded": {
+   "F_rows": 192,
+   "byte_comparable": 189,
+   "stable": 147,
+   "validation_stability": 0.7777777777777778,
+   "threshold": 0.95,
+   "summary_stability": 0.7656,
+   "drift_rows": 46
+  },
+  "observed": {
+   "F_rows": 192,
+   "byte_comparable": 189,
+   "stable": 147,
+   "stability_comparable": 0.7777777777777778,
+   "summary_stability": 0.765625,
+   "dispositions_missing": 0,
+   "D_findings_expected_live": [
+    16,
+    16
+   ]
+  },
+  "verdict": "disposition",
+  "cause": "The filed runner was not invoked because its main writes reports/round-11/validation.json; the read-only recount independently reproduces F below 0.95 and D equality. The task's '147/192 = 0.778' phrasing is mathematically inconsistent: 147/189 rounds to 0.778, while 147/192 is 0.765625."
+ },
+ {
+  "command": "find corpus/knowledge -type f -name '*.md' | wc -l; for d in corpus/knowledge/*; do if [ -d \"$d\" ]; then find \"$d\" -type f -name '*.md' | wc -l; fi; done",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "6b766df45067fc89d479da5ad9e7d006c1f209b05e9abbf66d49d33ddf2206e3"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=6b766df45067fc89...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "git ls-tree -r --name-only e1694ba -- corpus/knowledge | python3 -c 'import sys,collections; paths=[x.strip() for x in sys.stdin if x.strip().endswith(\".md\")]; counts=collections.Counter(p.split(\"/\")[2] for p in paths); print(\"total:\",len(paths)); [print(k,counts[k]) for k in sorted(counts)]; print(\"sum:\",sum(counts.values()))'",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "9f0c16a919760f07b043ba9dd2ba471f0b68b4466899c05c3e455ab1c9b89e91"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=9f0c16a919760f07...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 - '(read-only' heredoc: load reports/round-8/targets.json metadata_sweep and inspect 'reports/round-8/metadata/m*-civ-*.md' 'headers)'",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": "n/a",
+   "output_sha256": "n/a"
+  },
+  "verdict": "disposition",
+  "cause": "prose-described check, not a literally runnable command; evidence in the corresponding recount receipt",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=n/a output_sha256=n/a...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=2fa0c8c197459f54...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=77d408e10a494fa5...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=8b1fdd6f2d316ef2...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --check",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=17064af53c48304d...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --emit /dev/stdout",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "9a3e99b7db0e23fee9052dd41da72fb80855206f7fcece1376c7effe2a3fa535"
+  },
+  "verdict": "disposition",
+  "cause": "nonzero exit or drift; see observed value",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=1 output_sha256=9a3e99b7db0e23fe...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 tools/harness/r8_checks.py --selftest",
+  "round": 8,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "25bf2315e6c2f3403a3fc9028720225284b1848f1a91e62ae3808543b0f5ce58"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=25bf2315e6c2f340...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "ls reports/round-9/metadata/v*.md | wc -l",
+  "round": 9,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "25d4f2a86deb5e2574bb3210b67bb24fcc4afb19f93a7b65a057daa874a9d18e"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=25d4f2a86deb5e25...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 -c 'import re,pathlib;root=pathlib.Path('\"'\"'corpus/knowledge'\"'\"');pat=re.compile(r'\"'\"'(?:^[-*]\\s|;\\s)(source|verified-at|recheck)\\s*:'\"'\"',re.M);files=sorted(root.rglob('\"'\"'*.md'\"'\"'));miss=[(p.as_posix(),d) for p in files for d in [sorted({'\"'\"'source'\"'\"','\"'\"'verified-at'\"'\"','\"'\"'recheck'\"'\"'}-{m.group(1) for m in pat.finditer(re.split(r'\"'\"'^## '\"'\"',p.read_text(encoding='\"'\"'utf-8'\"'\"'),maxsplit=1,flags=re.M)[0])})] if d];print('\"'\"'files=%d missing_any=%d'\"'\"'%(len(files),len(miss)));[print('\"'\"'MISSING'\"'\"',p,'\"'\"','\"'\"'.join(d)) for p,d in miss]'",
+  "round": 9,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "207f6d9c743dc2b7c33566f6030781b6f5fa3f2c2e1e0657efaed35d086b9394"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=207f6d9c743dc2b7...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --summary",
+  "round": 9,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "6f2dfcd165028ea2260d3e63cafc2dbc89652284328c577596a6fdb958067954"
+  },
+  "verdict": "disposition",
+  "cause": "integrator coverage run",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=0 output_sha256=6f2dfcd165028ea2...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "read-only Python census comparing the round-9 baseline paths, those same paths in the current tree, and the current corpus",
+  "round": 9,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 127,
+   "output_sha256": "462eede27e1ff4134cd81512c1f12d2abc025755cbad9ee73dace68b1f544d03"
+  },
+  "verdict": "disposition",
+  "cause": "nonzero exit or drift; see observed value",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=127 output_sha256=462eede27e1ff413...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "read-only Python census: compare corpus disk files, README headings/index rows, source-audit inventory, and added paths against round-10 baseline 9dc18ec1339bffd6f81e74f1a5742464ef578749",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 127,
+   "output_sha256": "462eede27e1ff4134cd81512c1f12d2abc025755cbad9ee73dace68b1f544d03"
+  },
+  "verdict": "disposition",
+  "cause": "nonzero exit or drift; see observed value",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=127 output_sha256=462eede27e1ff413...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "read-only Python recount using reports/round-10/run-validation.py command_key/covers/extract_cited_commands functions",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 127,
+   "output_sha256": "462eede27e1ff4134cd81512c1f12d2abc025755cbad9ee73dace68b1f544d03"
+  },
+  "verdict": "disposition",
+  "cause": "round runner writes its filed receipt in place (the clobber defect class fixed this round); re-run in isolated clone instead",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=127 output_sha256=462eede27e1ff413...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "read-only Python tracker recount plus python3 -c \"import json;d=json.load(open('reports/round-10/findings-tracker.json'));print(len(d['findings']), sum(1 for r in d['findings'] if r['disposition']=='pending'))\"",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 127,
+   "output_sha256": "462eede27e1ff4134cd81512c1f12d2abc025755cbad9ee73dace68b1f544d03"
+  },
+  "verdict": "disposition",
+  "cause": "nonzero exit or drift; see observed value",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=127 output_sha256=462eede27e1ff413...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "read-only Python census of 192 receipts, reports/round-11/validation.json, and reports/round-11/recheck/summary.json",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 127,
+   "output_sha256": "462eede27e1ff4134cd81512c1f12d2abc025755cbad9ee73dace68b1f544d03"
+  },
+  "verdict": "disposition",
+  "cause": "nonzero exit or drift; see observed value",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=127 output_sha256=462eede27e1ff413...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "read-only Python census of reports/round-10/drift/ledger.json and reports/round-11/recheck/row-*.json",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed)",
+  "observed": {
+   "exit": 127,
+   "output_sha256": "462eede27e1ff4134cd81512c1f12d2abc025755cbad9ee73dace68b1f544d03"
+  },
+  "verdict": "disposition",
+  "cause": "nonzero exit or drift; see observed value",
+  "integrator": "round-12 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed at launch (25/64 completed on the Luna route); integrator re-ran the command 2026-10-17; observed exit=127 output_sha256=462eede27e1ff413...; no prior recorded value existed to compare against"
+ },
+ {
+  "command": "python3 reports/round-9/run-validation.py",
+  "round": 9,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "f55a64372911cdcbec4f9b3450ab8975ce10a96f36568ca700805569b3a34476"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=1 sha256=f55a64372911cdcb...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 reports/round-5/run-validation.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "bd085fede19efc0b6cb875407e0c55b8ee91b220183ac02ce4686ec7a28bcfde"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=1 sha256=bd085fede19efc0b...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 reports/round-6/run-validation.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "ef767ba7fae52692cef13069b032d5f53ee903e967c238d6ba2a5d906edc71a0"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=1 sha256=ef767ba7fae52692...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 reports/round-7/run-validation.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "a0c9e67468408cbb0ae0f2ec8e1b006c4da92c22389b7d76f8ee923514e828f6"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=1 sha256=a0c9e67468408cbb...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 reports/round-8/run-validation.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "b2fb989333a06f0c095731fcb5e77e7843b442a14d41156f9fee4f37bc66781e"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=1 sha256=b2fb989333a06f0c...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 reports/round-9/run-validation.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "f55a64372911cdcbec4f9b3450ab8975ce10a96f36568ca700805569b3a34476"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=1 sha256=f55a64372911cdcb...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --check",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=e20620fabdf28532...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=91a0653948d48a10...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=2fa0c8c197459f54...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=a81294c0347660d9...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "f0f9661397f3d821d570281df97cca7db8a0bebc8d233a811fdf3d5381f08425"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=f0f9661397f3d821...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=77d408e10a494fa5...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "5f1b009d0a19b1e311c0790eef382f04134ef7f42028c3415b8cde2758a5a277"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=5f1b009d0a19b1e3...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=cf62bc50e303b793...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "e20f073e78564a6e68a1d99adb7508dbf3af93ffd43bf63caf333cc3915c122c"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=e20f073e78564a6e...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=8b1fdd6f2d316ef2...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=7231139c5b060898...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/costume-era-consistency-gate.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "9003ea05d35cf22d19f632f4eaeef550294fa4c592428dbcbb703dd12ad5d1ee"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=9003ea05d35cf22d...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/costume-era-consistency-gate.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "0c2ed631fb5809ade6cbd52185cbe86f677f3278c8c40e61c5389fc191aca00b"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=0c2ed631fb5809ad...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "db9ebef416e307eb10fedf7112f7d54c743b1c1652ed5a107346310e6ed655ed"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=db9ebef416e307eb...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "be1ef058b2cfc67a564003917fd39125121755ae66960bd9ea5feb04c0c7ef2f"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=be1ef058b2cfc67a...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/lexicon-coverage-audit.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "1f4833ef79abdd2305d70bcc414ae76cc529029ef296cac054a78944c134abf9"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=1f4833ef79abdd23...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/lexicon-coverage-audit.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "fd731b1423443238cb5c1fc75dfd350244cc611295c9713b129252b251478658"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=fd731b1423443238...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/myth-consistency-gate.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "8f1027e8064ca855c34687ec5ec4adbfc347033964dfca62cca24090d5074042"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=8f1027e8064ca855...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/myth-consistency-gate.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "80e7d9dc86a29cf56591cfa0cf5bd8fab82a84d4b9d67f03200f1bd689c5aa53"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=80e7d9dc86a29cf5...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/naming-collision-gate.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "b6cade4dad886caf4b4c2931d686a8e27398430450065128c5022af505e92a42"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=b6cade4dad886caf...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/naming-collision-gate.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "d3566a9cad69f956fd7a4274cb80ad4b95a92bb63a9cf689e45338d05ca5c7da"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=d3566a9cad69f956...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/phonology-sanity-gate.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "00d966f12e91a68de18e7c3d253ed51b6d9d226d321144bd0a5f88a4e09de606"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=00d966f12e91a68d...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/phonology-sanity-gate.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "3e9a1209afa352902922a64df1d0bf7a48c25cf09126aa62b70855bd3b447843"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=3e9a1209afa35290...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "e9052750c529baaafdda64718c0e803cfde2d5ab14efbc8e424542a584f3e903"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=e9052750c529baaa...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "972306c1269a79149f2588d80579602357cb2f140a2ae4c37691eab0523c04b1"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=972306c1269a7914...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "d39566a6eb6ca8bd9ecb9c4e538cd00882fa27abab849f010431947b534dce59"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=d39566a6eb6ca8bd...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py --repo-root",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "01ac675881f9485d7653bb40b903badb109df9a50a583bdbb5466bf930dc1627"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=01ac675881f9485d...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=4d6aaea127ad9973...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "3ce2ec30acea3a572293e910a438d2d8d6b1e457b0db900209626022a6e4c6af"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=3ce2ec30acea3a57...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --root --summary",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "e1b186b6ec4371a2066b2c5dab52798c488ef4fc7bee7ecbce6e170c7585b026"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=2 sha256=e1b186b6ec4371a2...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --selftest",
+  "round": 10,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "a8c90c8890f7cced0f113b02c8a3b739f9341e6fea89f1ea4c636dd12245ae46"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=a8c90c8890f7cced...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=2fa0c8c197459f54...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/frozen --baselines-root tools/gates/expected --baselines-root reports/round-9/baselines",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "173f8d73f539fc77e852bd8af2b34b3da77c65c73b2aa3dd6159dbd0a350af14"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=173f8d73f539fc77...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --selftest",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=91a0653948d48a10...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --selftest",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=a81294c0347660d9...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py --selftest",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=cf62bc50e303b793...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "round": 11,
+  "date": "2026-10-17",
+  "recorded": "not previously recounted (worker seat failed at launch)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition_class": "defect",
+  "evidence": "worker seat failed (25/64 completed); integrator re-ran 2026-10-17; observed exit=0 sha256=7231139c5b060898...; no prior recorded value existed",
+  "integrator": "round-12 coverage completion for failed seats"
+ }
+]

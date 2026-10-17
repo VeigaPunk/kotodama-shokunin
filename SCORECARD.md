@@ -204,15 +204,38 @@ recalibration (queued at L0: a quiet-tree 95% assumption cannot hold across
 build rounds that legitimately change the tree). Round-12 verify will audit
 this round's evidence independently.
 
+## Axes — round 12 (2026-10-17), admitted (verify round)
+
+Baseline `69d0c21`; one 64-worker `openai-codex/gpt-6-luna-max` verify batch
+auditing rounds 8-11 (25/64 completed — route capacity; coverage completed by
+integrator re-measurement, 61 commands re-run, rows normalized to the licensed
+disposition schema). Acceptance: `python3 reports/round-12/run-validation.py`
+exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| calibration | improved (claim C) | Rounds 8-11 unrecounted → 89-row recount ledger: 12 exact matches, 16 worker dispositions, 61 integrator coverage rows; round-11 rejection numbers independently reproduced, including the ratio correction (147/192 = 0.7656; 0.778 = 147/189 — both recorded) | `python3 reports/round-12/run-validation.py` | `reports/round-12/recount/` (16 receipts, ledger.json, dispositions.md, audit.md) |
+| operability | improved (claim O) | No consolidated defect queue → 15-entry ledger: 7 fixed-with-control bounded (incl. rounds 8+9 filed-receipt clobber restored byte-exact from e1694ba/9dc18ec), 8 routed to round 14 with owner notes; regressions green | `python3 reports/round-12/run-validation.py` | `reports/round-12/defects/` (sweeps, fixes, routed.md, regression.md) |
+| adjacency | improved (claim A) | Per-round posture → consolidated audit: 10 new entries PASS (3 boundary-sensitive: report existing legal facts, no lane rulings); PROVINCE accurate; handoff packet REJECTED on semantics — shape passes (16/16, 20/20) but claim-ledger uncertainty dimension + bilateral acknowledgment missing; zero unfiled bleed | `python3 reports/round-12/run-validation.py` | `reports/round-12/adjacency/` (entries, contract, province, ledger.json) |
+| depth | unchanged | Audit round; no depth claim | — | — |
+| coverage | unchanged | 189 entries confirmed by recount | — | recount r10-3 |
+| freshness | unchanged (axis-move claims still paused) | Audit surfaced the filed-receipt clobber root cause (ledger commands that are round-runners); fix routed to round 14 | — | defects ledger FRR-12a/b |
+
+Admission: C/O/A verify, no axis harmed. Key audit findings: (1) filed receipt
+integrity broke for rounds 8+9 (restored; root cause routed); (2) handoff
+semantics rejected — routes to round 13/14; (3) round-11 ratio-documentation
+defect corrected in records. Conformance defects carried to round 14:
+battery baseline roots, audit-count erratum, tracker verifier pointer,
+draft-status reconciliations.
+
 ## Planned
 
-- Rounds 8-10 admitted; round 11 REJECTED on claim F (threshold), D/O verified
-  — see its section above. Next: round 12, loop 1 verify round — one 64-worker
-  swarm on `openai-codex/gpt-6-luna-max` auditing rounds 8-11 (pointer
-  resolution + counting-command re-runs + missed-defect sweep). Freshness
-  axis-move claims are paused pending the operator's threshold recalibration;
-  freshness AUDIT work (pointer resolution, rechecks as evidence for other
-  axes) continues.
+- Rounds 8-10 + round 12 (verify) admitted; round 11 REJECTED (F threshold).
+  Next: round 13, loop 1 expand round — 128 workers on `xai-oauth/grok-4.7-fast`.
+  Candidate claims: D4 culture packet (typed pipeline on a fresh build),
+  civilizations-partition recheck wave, handoff packet v2 closing the round-12
+  semantic reject (uncertainty dimension + claim-to-record links). Freshness
+  axis-move claims remain paused pending operator ruling.
 - Operator regimen 2026-10-17 (supersedes the older rounds 8–10 mapping;
   recorded in LOG.md): 3 loops × 7 rounds = lane rounds 8–28. Per loop:
   4 build rounds (one 64-worker swarm each, `opencode-go/deepseek-v4.1-flash`,
