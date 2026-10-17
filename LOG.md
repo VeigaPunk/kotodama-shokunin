@@ -1992,3 +1992,10 @@ absent from the swarm result; disk inventory used as truth. Assembly moved
 to a sol-high subagent after two opencode-go routing failures (lesson).
 Deviations recorded: orchestrator-direct triage (goal clause), sol-high
 assembly (lane outage).
+
+## 2026-10-17 — repository README
+
+- **Trigger.** The repository root had no `README.md`.
+- **Evidence.** Domain, refusals, and the lore handoff are `PROVINCE.md`. The 言霊 premise is the opening of `SKILL.md`. Handoff file `corpus/knowledge/synthesis/worldbible-integration-contract.md` exists. `examples/culture-d2/` exists. Ran `python3 tools/assemble-d2.py --check` on 2026-10-17: `packet.d2.yml: byte-identical deterministic assembly`, exit 0.
+- **Action.** Added `README.md`. Corpus indexes were not edited. No Devin wiki URL was present.
+- **Outcome.** No axis claim; no score moved.
