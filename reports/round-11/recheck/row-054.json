@@ -1,0 +1,34 @@
+{
+ "row": 54,
+ "shard": "shard-08",
+ "command": "grep -ril errata corpus/knowledge/ | wc -l",
+ "source_locator": "shard-08 receipts table",
+ "round10_verdict": "current",
+ "prior_hash": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683",
+ "prior_exit": 0,
+ "checked_at": "2026-10-17T19:03:25-0300",
+ "hash_method": "stdout-stripped",
+ "command_as_rerun": "grep -ril errata corpus/knowledge/ | wc -l",
+ "new_hash": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451",
+ "new_exit": 0,
+ "exit_matched": true,
+ "stable": false,
+ "drift_cause": "same commit added an errata section to corpus/knowledge/linguistics/sound-symbolism.md; errata-bearing corpus files moved 6 -> 7 after the shard-08 pin was taken.",
+ "drift_class": "legitimate-change",
+ "evidence": [
+  "git grep -l errata 9dc18ec -- corpus/knowledge/ | wc -l -> 6",
+  "git grep -l errata 94ca098 -- corpus/knowledge/ | wc -l -> 7",
+  "git log --oneline -1 -- corpus/knowledge/linguistics/sound-symbolism.md -> 94ca098"
+ ],
+ "verdict": "current-with-legitimate-drift",
+ "recheck_context": {
+  "recheck_date": "2026-10-17",
+  "recheck_root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "cwd": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "tmpdir": "$PWD/.scratch/r11-f03/tmp",
+  "worktree_at_recheck": "dirty: reports/round-10/coverage/index-update-22.md (M); tools/ and corpus/ bytes untouched by this seat; concurrent round-11 seats active elsewhere (reports/round-11/*)",
+  "rc_export_r3": ".scratch/f09/export-r3 rebuilt with 'git archive c610e0a | tar -x -C .scratch/f09/export-r3' because the round-10 scratch tree no longer exists; byte-identical replay output validates the reconstruction",
+  "controls_export": ".scratch/r11-f03/export-head = git archive HEAD (e3ef171); tools/ unchanged 9dc18ec..HEAD (git diff --stat 9dc18ec..HEAD -- tools/ -> empty)"
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "row": 99,
+ "seat": "R11-F05",
+ "axis": "freshness",
+ "date": "2026-10-17",
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines",
+ "command_at_run": "python3 tools/check-gate-battery.py --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines",
+ "source_locator": "SKILL.md:194",
+ "ledger_note": "green control: baselines_found 8 pinned 8 gates_uncovered []",
+ "prior_hash": "08ac35b8caa36b7c42d19bd1e9f2c79f9d9229ea25b7ca5908a80c815959c83d",
+ "prior_exit": 0,
+ "new_hash": "374086d29757dea9244169fdac0b7181c0c44dd4ee2fe4041328aecd0a22776e",
+ "new_stdout_sha256": "374086d29757dea9244169fdac0b7181c0c44dd4ee2fe4041328aecd0a22776e",
+ "new_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_combined_sha256": "374086d29757dea9244169fdac0b7181c0c44dd4ee2fe4041328aecd0a22776e",
+ "hash_convention_matched": null,
+ "exit": 0,
+ "stable": false,
+ "drift_cause": "defect: same class as rows 98/103 — battery stdout embeds per-step `seconds` and mktemp scratch paths",
+ "drift_evidence": "Two consecutive re-runs in this session produced different stdout (374086d2… then 96a676b5…), same substantive readings and exit 0 both. The prior hash 08ac35b8… was recorded by round-10 shard-10 whose own note flags the class ('hash is path-dependent'); `reports/round-10/drift/audit.md:83-89` documents the four-way hash spread for this command. Substantive readings reproduced exactly: three roots present (files_found 2/3/3), `baselines_found 8, pinned 8, readings {pinned: 8}, gates_uncovered []`, `baseline_exit 0`.",
+ "ran_at": "2026-10-17T19:03:03-0300",
+ "duration_s": 0.38,
+ "captures": [
+  ".scratch/r11f05/out/row-099.out",
+  ".scratch/r11f05/err/row-099.err"
+ ],
+ "method_note": "run 1:1 in the lane root with TMPDIR=$PWD/.scratch/r11f05/tmp; output hashed as sha256 of captured stdout (stderr captured separately, empty unless noted)"
+}

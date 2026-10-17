@@ -1,0 +1,36 @@
+{
+ "row": 90,
+ "command": "python3 tools/source-audit-inventory.py --json",
+ "source_locator": "SKILL.md:191",
+ "shard": "R10-F15-battery",
+ "round10_verdict": "current",
+ "prior_hash": "effe2fa8d3847d46f2ceb53d1caba34afbfa3dcd049c5f42a49655d7b595fa79",
+ "prior_exit": 0,
+ "new_hash": "b21837c2fc9335858a13f51089c4c99b4380a5930ff29aa49210067da6036027",
+ "new_exit": 0,
+ "stable": false,
+ "exit_matched": true,
+ "recheck_context": {
+  "recheck_date": "2026-10-17",
+  "recheck_root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r11f04/iso",
+  "live_head_at_snapshot": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "live_worktree_at_snapshot": "dirty: reports/round-10/coverage/index-update-22.md (M); concurrent round-11 seats edited reports/round-5..9/validation.json and wrote reports/round-11/depth/* while this seat ran",
+  "isolation": "full-tree mirror of the lane at snapshot (tar copy excluding .git/.scratch/__pycache__); this seat's runs wrote only under .scratch/r11f04/",
+  "hash_method": "sha256 of combined stdout+stderr (stdout then stderr), subprocess capture_output",
+  "protocol_source": "reports/round-10/drift/shard-10.md (mirror isolation; combined-stream hashing)",
+  "non_interference_control": "re-run of the 24-command set inside a mirror changed 0 files and added 0 files under reports/ (sha256 before/after over all reports/**/*.json+*.md, .scratch/r11f04/iso2): the command set writes no report artifacts",
+  "recheck_seconds": 0.09
+ },
+ "note": null,
+ "path_dependent": true,
+ "drift_cause": {
+  "class": "environmental + legitimate change",
+  "statement": "output_sha256 is run-location dependent by construction (the JSON embeds the absolute scan root in every file record) and the corpus has grown since the recorded run (files=189 now vs 179 recorded at round-10), so no re-run at any root can reproduce effe2fa8...; the ledger's own row 189 note calls this command's hash revision-bound",
+  "evidence": [
+   "two independent mirrors (.scratch/r11f04/iso, .scratch/r11f04/iso2): raw sha differs (b21837c2.. vs 9df2e267..), root-normalized sha identical (fa86cc8bebb6aae2)",
+   "live re-run cwd=lane root: exit 0, valid JSON, totals files=189 files_with_marker=125 marker_occurrences=633 (2026-10-17); round-10 recorded files=179 marker_occurrences=584",
+   "reports/round-10/drift/ledger.json row 189 note: 'the corpus grew in-round ... the earlier hash for this command is revision-bound'"
+  ]
+ },
+ "substantive_status": "exit 0, schema/keys unchanged, totals monotone (corpus growth); reproduction recipe: root-normalize then hash"
+}

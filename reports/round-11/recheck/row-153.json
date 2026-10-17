@@ -1,0 +1,32 @@
+{
+ "schema": "kotodama-round11-recheck-receipt/1",
+ "round": 11,
+ "seat": "R11-F07",
+ "slice": "rows 144-167 of reports/round-10/drift/ledger.json",
+ "row": 153,
+ "command": "python3 tools/source-audit-inventory.py --json --summary",
+ "source_locator": "shard-12 receipts table",
+ "round10_verdict": "current",
+ "round10_shard": "shard-12",
+ "prior_hash": "d48d80d35e3f4e8652124c4c6f03125a76d9c5983c1db979722b6bd9450e9c20",
+ "new_hash": "6f2dfcd165028ea2260d3e63cafc2dbc89652284328c577596a6fdb958067954",
+ "prior_exit": 0,
+ "new_exit": 0,
+ "stable": false,
+ "run_context": {
+  "date": "2026-10-17",
+  "run_at_utc": "2026-10-17T22:01:54Z",
+  "cwd": "lane working tree root (kotodama-shokunin)",
+  "tmpdir": "$PWD/.scratch (exported)",
+  "capture": "stdout bytes only; sha256; stderr stored beside",
+  "runner": ".scratch/f07/run-rechecks.py",
+  "round10_context": "shard-12 (disposable clone; per shard-12.md method: git clone --local --no-hardlinks at .scratch/f12/<label>; TMPDIR=.scratch/f12/tmp)",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "working_tree": "clean except reports/round-10/coverage/index-update-22.md (unrelated to this slice; present at recheck time)"
+ },
+ "drift_class": "environmental",
+ "drift_cause": "no-root output embeds the absolute resolved root path, so the hash is run-location dependent: round-10 ran in the disposable clone .scratch/f12/iso (shard-12 method), while this recheck ran in the live lane tree; the corpus also grew 179->189 files (commit 94ca098) in between (legitimate change, see row 152).",
+ "prior_hash_reproduced": "byte-exact-by-path-substitution",
+ "drift_evidence": "Probe tree at 94ca098^ (179 files) run 1:1 printed root=.scratch/f07/p153/corpus/knowledge; substituting only that root string with the clone root /.../.scratch/f12/iso/corpus/knowledge yields sha256 d48d80d35e3f4e8652124c4c6f03125a76d9c5983c1db979722b6bd9450e9c20 = ledger prior (control: substituting the live root instead yields dd22caa8..., confirming path sensitivity). The lone location-dependent token in the output is the root field; all file paths inside are relative. Evidence: .scratch/f07/p153.out; .scratch/f07/evidence/drift-attribution.txt.",
+ "content_stable_normalized": true
+}

@@ -1,0 +1,29 @@
+{
+ "row": 111,
+ "seat": "R11-F05",
+ "axis": "freshness",
+ "date": "2026-10-17",
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+ "command_at_run": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+ "source_locator": "SCORECARD.md:113,143",
+ "ledger_note": null,
+ "prior_hash": "c83dac8f8bab0feaa55b853a43a96562d0ccb9dd6477d24b995d2331577d5c02",
+ "prior_exit": 0,
+ "new_hash": "d4c29a95a9f2969b3b0f9f060f814e779ed6665bee42dc445f59cca06be51141",
+ "new_stdout_sha256": "d4c29a95a9f2969b3b0f9f060f814e779ed6665bee42dc445f59cca06be51141",
+ "new_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_combined_sha256": "d4c29a95a9f2969b3b0f9f060f814e779ed6665bee42dc445f59cca06be51141",
+ "hash_convention_matched": null,
+ "exit": 0,
+ "stable": false,
+ "drift_cause": "legitimate change: corpus/knowledge grew by the 10 entries round-10 admitted after the ledger was measured; the command is deterministic at a fixed tree",
+ "drift_evidence": "This run totals: files 189, files_with_marker 125, marker_occurrences 633 (vs round-10 `reports/round-10/drift/shard-13.md:65` '179 files; partition totals civilizations 94, culture-material 16, linguistics 16, myth-symbol 16, synthesis 24, verification 13'). `git log --diff-filter=A --name-only 9dc18ec..HEAD -- corpus/knowledge` returns exactly 10 added paths, all in commit 94ca098 (round-10 admit: the ten sourced coverage entries). Deterministic across two consecutive runs (d4c29a95… twice); the output embeds the absolute root (path-dependent by documented design), unchanged here. Exit 0 both.",
+ "ran_at": "2026-10-17T19:03:08-0300",
+ "duration_s": 0.09,
+ "captures": [
+  ".scratch/r11f05/out/row-111.out",
+  ".scratch/r11f05/err/row-111.err"
+ ],
+ "method_note": "run 1:1 in the lane root with TMPDIR=$PWD/.scratch/r11f05/tmp; output hashed as sha256 of captured stdout (stderr captured separately, empty unless noted)"
+}

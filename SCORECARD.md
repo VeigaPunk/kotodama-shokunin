@@ -181,13 +181,38 @@ the integrator, staleness documented in the drift ledger instead;
 (3) model availability: opencode-go keys -3/-4/-5 unprovisioned (402),
 rotation now keys 1/2 only.
 
+## Axes — round 11 (2026-10-17), NOT admitted (claim F failed as declared)
+
+Baseline `e3ef171`; one 64-worker `opencode-go-2/deepseek-v4.1-flash` batch
+(loop 1, build 4 of 4; 54/64 completed, 10 seats failed late — scribe-class
+seats, no core-claim seat lost). Acceptance:
+`python3 reports/round-11/run-validation.py`: D PASS, O PASS, F FAIL
+(stability 0.778 < declared 0.95).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D verified) | Typed projection standalone; GAR labels on legacy sound channel → typed pipeline wired (new derived typed packet + typed-pipeline gate, five gate scripts untouched); e2e findings exactly == expected hold set (15: 10 D2L-FORM-UNRESOLVED, 2 D2L-NATIVE, 3 D2L-RANK); differential proves 10/10 PHON-INVENTORY artifacts gone; negatives (channel smuggle, silent form-drop, hold laundering) each caught | `python3 reports/round-11/run-validation.py` | `reports/round-11/depth/` (design, integration, tests, negs, reviews) |
+| operability | improved (claim O verified) | No e2e handoff exercise → `tools/exercise-handoff-e2e.py` assembles a packet from live D2/D3 artifacts; 16/16 fields + 20/20 glossary entries; handoff-packet-check green in isolation; frozen expected.json baseline with tamper control | `python3 reports/round-11/run-validation.py` | `reports/round-11/handoff/` |
+| freshness | unchanged (claim F failed as declared) | Recheck covered 192/192 ledger rows; 147 stable (0.778 < 0.95); all 45 drifts dispositioned with named causes (dominant: round-10/11 legitimate changes; environmental path embedding; 3 transcription defects incl. truncated ledger row 187); zero undispositioned drift | `python3 reports/round-11/run-validation.py` | `reports/round-11/recheck/` |
+| coverage | unchanged | 189 entries; no coverage claim this round | — | — |
+| calibration | improved (unclaimed observation) | Failed threshold reported, not gamed; transcription defects dispositioned; receipt schema defects repaired by integrator re-measurement | — | this section; `recheck/summary.json` |
+| adjacency | unchanged | Fleet root clean; PROVINCE accurate; five gate scripts deliberately untouched (replay-frozen pin integrity) | `reports/round-11/adjacency.md` | X02 |
+
+Round status: REJECTED — F misses its declared threshold; D/O verify; no axis
+harmed. Freshness axis progression halts pending operator threshold
+recalibration (queued at L0: a quiet-tree 95% assumption cannot hold across
+build rounds that legitimately change the tree). Round-12 verify will audit
+this round's evidence independently.
+
 ## Planned
 
-- Rounds 8-10 admitted (above). Next: round 11, loop 1 build 4 of 4 — one
-  64-worker swarm (opencode-go key rotation now keys 1/2 only; keys -3/-4/-5
-  unprovisioned). Candidate claims: D2 typed-label integration into the D2
-  gate pipeline, handoff-packet end-to-end exercise, freshness recheck of the
-  round-10 ledger itself.
+- Rounds 8-10 admitted; round 11 REJECTED on claim F (threshold), D/O verified
+  — see its section above. Next: round 12, loop 1 verify round — one 64-worker
+  swarm on `openai-codex/gpt-6-luna-max` auditing rounds 8-11 (pointer
+  resolution + counting-command re-runs + missed-defect sweep). Freshness
+  axis-move claims are paused pending the operator's threshold recalibration;
+  freshness AUDIT work (pointer resolution, rechecks as evidence for other
+  axes) continues.
 - Operator regimen 2026-10-17 (supersedes the older rounds 8–10 mapping;
   recorded in LOG.md): 3 loops × 7 rounds = lane rounds 8–28. Per loop:
   4 build rounds (one 64-worker swarm each, `opencode-go/deepseek-v4.1-flash`,

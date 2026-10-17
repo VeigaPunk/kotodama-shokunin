@@ -1,0 +1,45 @@
+{
+ "schema": "kotodama-round11-recheck-receipt/1",
+ "round": 11,
+ "seat": "R11-F08",
+ "slice": "rows 168-191 of reports/round-10/drift/ledger.json",
+ "row": 174,
+ "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --json` (claim at :32 \"both round-3 manifests reproduce 7/7\")",
+ "source_locator": "shard-12 receipts table",
+ "round10_verdict": "stale-documented",
+ "round10_shard": "shard-12",
+ "prior_hash": "45537a5e815c9732f66e3ffea6f61b6b8dbba424ef0a0dd01d3df83629df2a96",
+ "prior_exit": 2,
+ "new_hash": "b93619d8916d852680d50b05b1e759eddf35e7092a9c83e8d66c184d0c75acce",
+ "new_exit": 2,
+ "stable": false,
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "date": "2026-10-17",
+ "method": "1:1 re-run in the lane working tree at HEAD (TMPDIR=$PWD/.scratch, PYTHONDONTWRITEBYTECODE=1); new_hash = sha256 of the command's stdout bytes",
+ "evidence": [
+  ".scratch/f08/out/row-174.lane.out",
+  ".scratch/f08/out/row-174.out"
+ ],
+ "drift_cause": "environmental \u2014 the JSON embeds \"repo_root\" as an absolute path; recorded hash is run-location-bound",
+ "revision_replay": {
+  "rev": "e3a1ec9435787328ac9f828f96cb6390e4916b8f",
+  "hash": "c6fe15998596b2354c2ad765604948bba27da31a3aeb6b8e17dbba224ef719ee",
+  "exit": 2
+ },
+ "substance_unchanged": true,
+ "substance_check": "lane vs clone byte-identical after substituting repo_root with <ROOT>; both exit 2 with rows 7 / reproduced 0 / could_not_evaluate 7, as recorded in round 10",
+ "run_context": {
+  "date": "2026-10-17",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "working_tree": "clean at session start (only reports/round-10/coverage/index-update-22.md modified); during the recheck a sibling round-11 seat rewrote the filed reports/round-{5,6,7,8,9}/validation.json in the lane tree at 19:03:00-19:03:17 local (git status M x5; 858 deletions vs HEAD) \u2014 observed, not caused by this seat: every filed-runner re-run here (rows 170-173) was done in per-command disposable clones under .scratch/f08/iso-*/ and its writes landed there (e.g. .scratch/f08/iso-h-5/reports/round-5/validation.json, 19:06:38)",
+  "cwd": "lane working tree root (kotodama-shokunin)",
+  "tmpdir": "$PWD/.scratch (exported)",
+  "capture": "stdout bytes only; sha256; stderr stored beside (.scratch/f08/out/row-<n>*.err)",
+  "runner": ".scratch/f08/rerun.py (lane) / rerun-tagged.py (tagged runs) / fresh-clones.sh (rows 170-173)",
+  "input_condition": "rows 182-185 and 188: recorded inputs are uncommitted .scratch artifacts (gitignored, deleted); reconstructed/derived as noted per row",
+  "concurrency_note": "my lane-tree runs (read-only commands) started 19:03:48, after the sibling writes; none of my re-run commands reads reports/round-{5..9}/validation.json"
+ },
+ "executed_form": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --json` (claim at :32 \"both round-3 manifests reproduce 7/7\")",
+ "exit": 2,
+ "integrator_note": "receipt repaired by integrator: command field restored to ledger text 1:1; hashes re-measured"
+}

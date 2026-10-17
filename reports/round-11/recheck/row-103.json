@@ -1,0 +1,29 @@
+{
+ "row": 103,
+ "seat": "R11-F05",
+ "axis": "freshness",
+ "date": "2026-10-17",
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "command": "python3 tools/check-gate-battery.py",
+ "command_at_run": "python3 tools/check-gate-battery.py",
+ "source_locator": "invoked by reports/round-5/run-validation.py:120; gate table SKILL.md:194 (out of shard, listed as dependency)",
+ "ledger_note": "round-5 runner dependency; the command's own row documents the committed default's duty-2 BASELINE-GATE-UNCOVERED (fix-21, registry §5 item 1), with the three-root invocation as its exit-0 control.",
+ "prior_hash": "f456f79d92a14baa0c67b4e696caf2fa7c3aa1f67c6403919af32b9db2d2d68d",
+ "prior_exit": 2,
+ "new_hash": "efaf792dd325234b8d18aff3b263a3693543fbfbbe4727895a7378b14815a949",
+ "new_stdout_sha256": "efaf792dd325234b8d18aff3b263a3693543fbfbbe4727895a7378b14815a949",
+ "new_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_combined_sha256": "efaf792dd325234b8d18aff3b263a3693543fbfbbe4727895a7378b14815a949",
+ "hash_convention_matched": null,
+ "exit": 2,
+ "stable": false,
+ "drift_cause": "defect: stdout bytes are unreproducible by construction — the battery JSON embeds per-step wall-clock `seconds` values and a mktemp scratch path; the hash pin can only match by luck",
+ "drift_evidence": "Two consecutive identical invocations in this session (row 98 and row 103, same command, same tree, minutes apart) differ only in per-step `seconds` and the `.scratch/r11f05/tmp/gate-battery-<mktemp>` path (diff of captures, 2026-10-17). Round-10's own audit reached the same conclusion: `reports/round-10/drift/audit.md:83-89` records four distinct hashes for this one command in a single day (6fd828d3, 3109467a, f456f79d, 8bf71a02) with exit 2 every time. Substantive readings reproduced exactly: duty 1 `pass 7 / fail 0 / unevaluable 0`, originals preserved (28 hashed, modified 0); duty 2 `baselines_found 5, pinned 5`, `gates_uncovered [myth-consistency-gate.py, naming-collision-gate.py]`, two BASELINE-GATE-UNCOVERED findings; exit 2 (unchanged).",
+ "ran_at": "2026-10-17T19:03:06-0300",
+ "duration_s": 0.37,
+ "captures": [
+  ".scratch/r11f05/out/row-103.out",
+  ".scratch/r11f05/err/row-103.err"
+ ],
+ "method_note": "run 1:1 in the lane root with TMPDIR=$PWD/.scratch/r11f05/tmp; output hashed as sha256 of captured stdout (stderr captured separately, empty unless noted)"
+}

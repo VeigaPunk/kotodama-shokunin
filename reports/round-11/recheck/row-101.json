@@ -1,0 +1,31 @@
+{
+ "row": 101,
+ "seat": "R11-F05",
+ "axis": "freshness",
+ "date": "2026-10-17",
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "command": "diff .scratch/r10f10/out/live-before.txt .scratch/r10f10/out/live-after.txt",
+ "command_at_run": "diff .scratch/r10f10/out/live-before.txt .scratch/r10f10/out/live-after.txt",
+ "source_locator": "isolation check (SKILL.md:181-200 write-scope column)",
+ "ledger_note": "empty diff (sha256 of empty string): no live byte written by this shard; mirrors cleaned",
+ "prior_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "prior_exit": 0,
+ "new_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_stderr_sha256": "4910ec1557ce6ad2771a3db7a281e3966efba1b7e0d3b74f186c6b234ef78eb6",
+ "new_combined_sha256": "4910ec1557ce6ad2771a3db7a281e3966efba1b7e0d3b74f186c6b234ef78eb6",
+ "hash_convention_matched": "stdout",
+ "exit": 2,
+ "stable": true,
+ "stable_semantics": "hash-stable (new_hash == prior_hash) per the F claim's counting rule; the command's exit drifted 0 -> 2 and is dispositioned in drift_cause/drift_evidence",
+ "drift_cause": "environmental: the command's inputs are round-10 disposable scratch, removed at round-10 close; the command cannot be re-run 1:1",
+ "drift_evidence": "`ls .scratch/r10f10` -> 'No such file or directory' (2026-10-17T19:03); round-10's own ledger note for the row says 'mirrors cleaned'. The re-run degrades to stdout empty + stderr 'diff: .scratch/r10f10/out/live-before.txt: No such file or directory' and exit 2 (prior exit 0). The recorded prior hash is sha256 of the empty string, so stdout hashes coincide by construction — this receipt records stable=true under the F claim's hash rule (new_hash == prior_hash) while the exit drift 0 -> 2 is dispositioned here as environmental. The claim the row carried (no live byte written by that shard) is independently re-verified by this seat: a 528-file before/after manifest (corpus, tools, examples, reports/round-5; sha256 each) taken around this seat's whole recheck window shows one change only — reports/round-5/validation.json rewritten at 19:03:00.967 by a concurrent seat's live run (my own round-5 re-run is proven to have written to .scratch/f11/mirror instead: mirror receipt mtime 19:03:06.3709, live-tree run window 19:03:02-19:03:20).",
+ "ran_at": "2026-10-17T19:03:04-0300",
+ "duration_s": 0.0,
+ "captures": [
+  ".scratch/r11f05/out/row-101.out",
+  ".scratch/r11f05/err/row-101.err"
+ ],
+ "method_note": "run 1:1 in the lane root; the recorded inputs no longer exist — see drift_evidence",
+ "stdout_hash_equal": true
+}

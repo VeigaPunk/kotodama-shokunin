@@ -1,0 +1,34 @@
+{
+ "schema": "kotodama-round11-recheck-receipt/1",
+ "round": 11,
+ "seat": "R11-F07",
+ "slice": "rows 144-167 of reports/round-10/drift/ledger.json",
+ "row": 147,
+ "command": "python3 reports/round-6/check-checkpoint.py",
+ "source_locator": "SCORECARD.md:81",
+ "round10_verdict": "stale-documented",
+ "round10_shard": "R10-F15-battery",
+ "prior_hash": "7c6333e77d287b3b39d079b26deb4be107da3ee85f9793f51d6d04a9d2075789",
+ "new_hash": "7c6333e77d287b3b39d079b26deb4be107da3ee85f9793f51d6d04a9d2075789",
+ "prior_exit": 1,
+ "new_exit": 1,
+ "stable": true,
+ "run_context": {
+  "date": "2026-10-17",
+  "run_at_utc": "2026-10-17T22:01:53Z",
+  "cwd": "lane working tree root (kotodama-shokunin)",
+  "tmpdir": "$PWD/.scratch (exported)",
+  "capture": "stdout bytes only; sha256; stderr stored beside",
+  "runner": ".scratch/f07/run-rechecks.py",
+  "round10_context": "R10-F15-battery shard (fresh-clone runs; cf. reports/round-10/drift/fix-22.md:30)",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "working_tree": "clean except reports/round-10/coverage/index-update-22.md (unrelated to this slice; present at recheck time)"
+ },
+ "side_effects": {
+  "file": "reports/round-6/checkpoint-validation.json",
+  "cause": "the command's designed receipt write (reports/round-6/check-checkpoint.py:117 writes the same JSON payload it prints)",
+  "written_sha256": "7c6333e77d287b3b39d079b26deb4be107da3ee85f9793f51d6d04a9d2075789",
+  "disposition": "restored to the committed bytes after measurement (sha256 665dc2a0d7ef1e3804f76ef529e0b64699cbdda18b4e650ae677be54daf862b0 = HEAD blob, verified with git show HEAD:...); git diff empty; net zero working-tree change",
+  "note": "round-10 recorded this row inside a disposable clone (shard method), which is why the lane tree was clean before this recheck"
+ }
+}

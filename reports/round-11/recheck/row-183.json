@@ -1,0 +1,37 @@
+{
+ "schema": "kotodama-round11-recheck-receipt/1",
+ "round": 11,
+ "seat": "R11-F08",
+ "slice": "rows 168-191 of reports/round-10/drift/ledger.json",
+ "row": 183,
+ "command": "python3 tools/d2-typed-labels.py --packet .scratch/shard-05/packet-kindless.d2.yml",
+ "source_locator": "SKILL.md:90 (TL-02 hold claim)",
+ "round10_verdict": "stale-documented",
+ "round10_shard": "shard-05",
+ "prior_hash": "f7341e84f3ff7e1b9d3eb3986f828cc6b66f56135714f81919b16e50cd2b7743",
+ "prior_exit": 1,
+ "new_hash": "f7341e84f3ff7e1b9d3eb3986f828cc6b66f56135714f81919b16e50cd2b7743",
+ "new_exit": 1,
+ "stable": true,
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "date": "2026-10-17",
+ "method": "input reconstructed (uncommitted .scratch packet); command text re-run 1:1",
+ "evidence": [
+  ".scratch/shard-05/packet-kindless.d2.yml",
+  ".scratch/f08/out/row-183.recon.out",
+  ".scratch/f08/out/row-183.recon.err"
+ ],
+ "reading": "the recorded hash is the traceback stream (stdout empty, exit 1 uncaught); the reconstruction reproduces it byte-for-byte — KeyError 'kind' traceback at tools/d2-typed-labels.py:2497, i.e. round-10 finding N1 is still live",
+ "input_note": "reconstruction, not the original bytes; the traceback text does not embed the entry content, which is why byte-identity is achievable",
+ "run_context": {
+  "date": "2026-10-17",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "working_tree": "clean at session start (only reports/round-10/coverage/index-update-22.md modified); during the recheck a sibling round-11 seat rewrote the filed reports/round-{5,6,7,8,9}/validation.json in the lane tree at 19:03:00-19:03:17 local (git status M x5; 858 deletions vs HEAD) — observed, not caused by this seat: every filed-runner re-run here (rows 170-173) was done in per-command disposable clones under .scratch/f08/iso-*/ and its writes landed there (e.g. .scratch/f08/iso-h-5/reports/round-5/validation.json, 19:06:38)",
+  "cwd": "lane working tree root (kotodama-shokunin)",
+  "tmpdir": "$PWD/.scratch (exported)",
+  "capture": "stdout bytes only; sha256; stderr stored beside (.scratch/f08/out/row-<n>*.err)",
+  "runner": ".scratch/f08/rerun.py (lane) / rerun-tagged.py (tagged runs) / fresh-clones.sh (rows 170-173)",
+  "input_condition": "rows 182-185 and 188: recorded inputs are uncommitted .scratch artifacts (gitignored, deleted); reconstructed/derived as noted per row",
+  "concurrency_note": "my lane-tree runs (read-only commands) started 19:03:48, after the sibling writes; none of my re-run commands reads reports/round-{5..9}/validation.json"
+ }
+}

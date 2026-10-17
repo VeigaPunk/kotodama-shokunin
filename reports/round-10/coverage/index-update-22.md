@@ -40,6 +40,14 @@ Command (from the lane root):
 python3 .scratch/r10-c22-sweep.py    # exit 0 on the post-C21 tree
 ```
 
+Scratch prune (recorded after filing): at 21:59:52Z a sibling worker emptied
+`.scratch/` wholesale — the instrument, its JSON receipts, the topic-fidelity
+and new-row scripts, the planted controls and the watcher log named in this
+fragment are no longer on disk. The tree was unchanged at that moment (README
+sha `9df4b7c5…`, 189 files), and §9 inlines a compact re-statement of the same
+verdict-bearing checks that reproduces `consistent`, exit 0, at 22:00:17Z. The
+numbers in §2–§6 stand as filed; their scratch receipts are gone, not disputed.
+
 ## 2. Independent sweep — result on the post-C21 tree
 
 ```
@@ -223,10 +231,68 @@ toward the `C_MIN_ENTRIES` authorship threshold if left as is; it is not an
 authorship fragment. This seat did not rename or edit anything to suit the
 runner (its name is fixed by `reports/round-10/targets.json`), and did not
 modify the runner. The parent should either widen the runner's exemption to
-`index-update*.md` or discount one authorship slot.
+`index-update*.md` or discount one authorship slot. Precision on severity: the
+ten authorship fragments `C01.md`–`C10.md` are present independently, so the
+threshold is met without this file — the issue is one extra count in a
+diagnostic bucket, not a failing check. The same runner's `unmentioned` check
+is satisfied by this fragment, which names all ten new entries (§5).
 
 Also disclosed: this seat invoked that runner once (21:44:36Z) to read its
 checks; the runner rewrites `reports/round-10/validation.json` as its own
 output on each run, so that file's bytes are now a 21:44:36Z regeneration of
 the same script over the same tree, not X03's earlier run. No source file was
 changed by that invocation.
+
+## 9. Appendix — compact re-statement (post-prune, re-runnable)
+
+Written after the 21:59:52Z scratch prune as `.scratch/r10-c22-sweep-core.py`
+(sha256 `4f0f7224eae79db34d50c517602ee22f63246a634db4a9c502162a6aa005b2dc`); it
+reproduces the §2 verdict (`consistent`, exit 0; 189/189/189, dir totals
+19/19/18/24/15/94) and the same defect classes, though it does not emit the
+full instrument's JSON fields. It is a re-statement, not the original bytes.
+
+```sh
+python3 - <<'PY'
+import os, re, sys
+ROOT, README = "corpus/knowledge", "corpus/README.md"
+readme = open(README, encoding="utf-8").read()
+dirs = {n: sorted(f for f in os.listdir(os.path.join(ROOT, n))
+                  if os.path.isfile(os.path.join(ROOT, n, f)))
+        for n in sorted(os.listdir(ROOT)) if os.path.isdir(os.path.join(ROOT, n))}
+hdr_all = [m.start() for m in re.finditer(r"^## ", readme, re.M)]
+rows_by, nodesc_by, hdr_n = {}, {}, {}
+for m in re.finditer(r"^## ([A-Za-z0-9_.\-]+)/ \((\d+)\)\s*$", readme, re.M):
+    nxt = [s for s in hdr_all if s > m.start()]
+    body = readme[m.end():nxt[0] if nxt else len(readme)]
+    pairs = re.findall(r"^- `([^`]+)`(.*)$", body, re.M)
+    rows_by[m.group(1)] = [f for f, _ in pairs]
+    nodesc_by[m.group(1)] = [f for f, d in pairs if "—" not in d]
+    hdr_n[m.group(1)] = int(m.group(2))
+problems, tf, tr = [], 0, 0
+for p in sorted(set(list(dirs) + list(rows_by))):
+    files, rows = dirs.get(p, []), rows_by.get(p, [])
+    tf, tr = tf + len(files), tr + len(rows)
+    if hdr_n.get(p) != len(rows): problems.append(f"{p}: header != rows")
+    if len(rows) != len(files): problems.append(f"{p}: rows != files")
+    miss = [f for f in files if f not in rows]
+    phan = [r for r in rows if r not in files]
+    dups = sorted({r for r in rows if rows.count(r) > 1})
+    if miss: problems.append(f"{p}: files missing from index {miss}")
+    if phan: problems.append(f"{p}: rows without file {phan}")
+    if dups: problems.append(f"{p}: duplicate rows {dups}")
+    if rows != sorted(rows): problems.append(f"{p}: rows out of order")
+    if nodesc_by.get(p): problems.append(f"{p}: rows without description")
+    print(f"{p}: files={len(files)} rows={len(rows)} header={hdr_n.get(p)}")
+allrows = [r for p in rows_by for r in rows_by[p]]
+if len(allrows) != len(set(allrows)): problems.append("duplicate rows across sections")
+tot = int(re.search(r"^Total knowledge entries: (\d+)\.?$", readme, re.M).group(1))
+dirc = [int(x) for x in re.search(r"directory totals (?:remain )?([0-9/]+)\)", readme).group(1).split("/")]
+if tot != tf: problems.append(f"total line {tot} != files {tf}")
+if dirc != [len(dirs.get(p, [])) for p in rows_by]:
+    problems.append(f"declared dir totals {dirc} != actual")
+print(f"files={tf} rows={tr} total_line={tot} dir_totals={dirc}")
+print("problems:", problems or "none")
+print("VERDICT:", "consistent" if not problems else "INCONSISTENT")
+sys.exit(0 if not problems else 1)
+PY
+```

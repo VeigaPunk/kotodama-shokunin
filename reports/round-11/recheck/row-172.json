@@ -1,0 +1,41 @@
+{
+ "schema": "kotodama-round11-recheck-receipt/1",
+ "round": 11,
+ "seat": "R11-F08",
+ "slice": "rows 168-191 of reports/round-10/drift/ledger.json",
+ "row": 172,
+ "command": "python3 reports/round-7/run-validation.py",
+ "source_locator": "shard-12 receipts table",
+ "round10_verdict": "stale-documented",
+ "round10_shard": "shard-12",
+ "prior_hash": "3ffc98f636827ba13a9743dbabc19e0977c0722887847879bd8c71789bc790ea",
+ "prior_exit": 1,
+ "new_hash": "3ffc98f636827ba13a9743dbabc19e0977c0722887847879bd8c71789bc790ea",
+ "new_exit": 1,
+ "stable": true,
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "date": "2026-10-17",
+ "method": "different disposable clone per command (git clone --local --no-hardlinks, checkout e3a1ec9435787328ac9f828f96cb6390e4916b8f), matching the recording seat's protocol",
+ "evidence": [
+  ".scratch/f08/out/row-1612.fresh-e.out",
+  ".scratch/f08/out/row-1612.fresh-h.out"
+ ],
+ "reading": "prior hash reproduced byte-for-byte in a fresh clone at the recorded revision",
+ "head_state": {
+  "hash": "a0c9e67468408cbb0ae0f2ec8e1b006c4da92c22389b7d76f8ee923514e828f6",
+  "exit": 1,
+  "delta": "at HEAD F_passed=false (round-10 commits changed files this runner's history/preservation checks read); O_passed stays true",
+  "cause": "legitimate change"
+ },
+ "run_context": {
+  "date": "2026-10-17",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "working_tree": "clean at session start (only reports/round-10/coverage/index-update-22.md modified); during the recheck a sibling round-11 seat rewrote the filed reports/round-{5,6,7,8,9}/validation.json in the lane tree at 19:03:00-19:03:17 local (git status M x5; 858 deletions vs HEAD) — observed, not caused by this seat: every filed-runner re-run here (rows 170-173) was done in per-command disposable clones under .scratch/f08/iso-*/ and its writes landed there (e.g. .scratch/f08/iso-h-5/reports/round-5/validation.json, 19:06:38)",
+  "cwd": "lane working tree root (kotodama-shokunin)",
+  "tmpdir": "$PWD/.scratch (exported)",
+  "capture": "stdout bytes only; sha256; stderr stored beside (.scratch/f08/out/row-<n>*.err)",
+  "runner": ".scratch/f08/rerun.py (lane) / rerun-tagged.py (tagged runs) / fresh-clones.sh (rows 170-173)",
+  "input_condition": "rows 182-185 and 188: recorded inputs are uncommitted .scratch artifacts (gitignored, deleted); reconstructed/derived as noted per row",
+  "concurrency_note": "my lane-tree runs (read-only commands) started 19:03:48, after the sibling writes; none of my re-run commands reads reports/round-{5..9}/validation.json"
+ }
+}

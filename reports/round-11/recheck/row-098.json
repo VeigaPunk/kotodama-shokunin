@@ -1,0 +1,29 @@
+{
+ "row": 98,
+ "seat": "R11-F05",
+ "axis": "freshness",
+ "date": "2026-10-17",
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "command": "python3 tools/check-gate-battery.py",
+ "command_at_run": "python3 tools/check-gate-battery.py",
+ "source_locator": "SKILL.md:194",
+ "ledger_note": "row's verdict map now documents duty 2 and the committed default's exit 2 + uncovered gates + three-root remedy; pin relocation itself stays the orchestrator's decision (registry §5 items 1/6/7)",
+ "prior_hash": "6fd828d32bfbde7724cfc8baea845206d8aef0a5c3a7e1b6ab9a1685286abc6e",
+ "prior_exit": 2,
+ "new_hash": "192b3750e8a2e8e9f20630364ca287c55ce7c9a1e00a77208a7899ef2f39267b",
+ "new_stdout_sha256": "192b3750e8a2e8e9f20630364ca287c55ce7c9a1e00a77208a7899ef2f39267b",
+ "new_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_combined_sha256": "192b3750e8a2e8e9f20630364ca287c55ce7c9a1e00a77208a7899ef2f39267b",
+ "hash_convention_matched": null,
+ "exit": 2,
+ "stable": false,
+ "drift_cause": "defect: stdout bytes are unreproducible by construction — the battery JSON embeds per-step wall-clock `seconds` values and a mktemp scratch path; the hash pin can only match by luck",
+ "drift_evidence": "Two consecutive identical invocations in this session (row 98 and row 103, same command, same tree, minutes apart) differ only in per-step `seconds` and the `.scratch/r11f05/tmp/gate-battery-<mktemp>` path (diff of captures, 2026-10-17). Round-10's own audit reached the same conclusion: `reports/round-10/drift/audit.md:83-89` records four distinct hashes for this one command in a single day (6fd828d3, 3109467a, f456f79d, 8bf71a02) with exit 2 every time. Substantive readings reproduced exactly: duty 1 `pass 7 / fail 0 / unevaluable 0`, originals preserved (28 hashed, modified 0); duty 2 `baselines_found 5, pinned 5`, `gates_uncovered [myth-consistency-gate.py, naming-collision-gate.py]`, two BASELINE-GATE-UNCOVERED findings; exit 2 (unchanged).",
+ "ran_at": "2026-10-17T19:03:03-0300",
+ "duration_s": 0.38,
+ "captures": [
+  ".scratch/r11f05/out/row-098.out",
+  ".scratch/r11f05/err/row-098.err"
+ ],
+ "method_note": "run 1:1 in the lane root with TMPDIR=$PWD/.scratch/r11f05/tmp; output hashed as sha256 of captured stdout (stderr captured separately, empty unless noted)"
+}

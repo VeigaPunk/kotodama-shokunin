@@ -1,0 +1,15 @@
+Frozen run of tools/gates/typed-pipeline-gate.py over the frozen typed packet copy
+(round-11 re-pin, R11-D05 integration; design.md §5.2).
+
+steps (all from the lane root, 2026-10-17):
+  1. python3 tools/assemble-d2-typed.py --emit examples/culture-d2/packet.d2.typed.yml   # exit 0
+  2. byte-copy packet.d2.typed.yml and packet.d2.yml into this directory (inputs: see MANIFEST.tsv)
+  3. python3 tools/gates/typed-pipeline-gate.py <frozen typed copy> > run.log              # exit 0, 15 FINDING lines
+  4. rows for the five legacy gates over the typed and the raw packet: see MANIFEST.tsv
+
+controls (adapter --selftest 11/11, gate --selftest 12/12): tamper, stale projection,
+coverage gaps, smuggled translated label, dropped routing row, laundered hold, adapter
+drift, malformed and missing inputs. No expected.json lives in this generation on purpose:
+the gate battery (tools/check-gate-battery.py) discovers every expected.json under its
+roots and fails closed on a gate outside its seven-name constant; the pins therefore live
+in run-receipt.json, which the battery does not scan.

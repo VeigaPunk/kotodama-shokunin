@@ -1,0 +1,32 @@
+{
+ "schema": "kotodama-round11-recheck-receipt/1",
+ "round": 11,
+ "seat": "R11-F07",
+ "slice": "rows 144-167 of reports/round-10/drift/ledger.json",
+ "row": 154,
+ "command": "python3 tools/source-audit-inventory.py --selftest",
+ "source_locator": "shard-12 receipts table",
+ "round10_verdict": "current",
+ "round10_shard": "shard-12",
+ "prior_hash": "1496ebf7b9ed578422d6294aecba6f9b3ad273a280bbcd34bc8882d6a89f37a9",
+ "new_hash": "6a1e9a973bd8ff98d86f039c22d0b55624d048bdb85eabc2f5aad411f4aaa582",
+ "prior_exit": 0,
+ "new_exit": 0,
+ "stable": false,
+ "run_context": {
+  "date": "2026-10-17",
+  "run_at_utc": "2026-10-17T22:01:54Z",
+  "cwd": "lane working tree root (kotodama-shokunin)",
+  "tmpdir": "$PWD/.scratch (exported)",
+  "capture": "stdout bytes only; sha256; stderr stored beside",
+  "runner": ".scratch/f07/run-rechecks.py",
+  "round10_context": "shard-12 (disposable clone; per shard-12.md method: git clone --local --no-hardlinks at .scratch/f12/<label>; TMPDIR=.scratch/f12/tmp)",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "working_tree": "clean except reports/round-10/coverage/index-update-22.md (unrelated to this slice; present at recheck time)"
+ },
+ "drift_class": "environmental",
+ "drift_cause": "stdout embeds the random mkdtemp directory name (source-audit-inventory-cli-XXXXXXXX under $TMPDIR), so the hash is non-reproducible by construction; round-10's clone path was a second, independent location vector.",
+ "prior_hash_reproduced": "by-construction-unreproducible",
+ "drift_evidence": "Three stdout-only re-runs (row-154.out, row154-run4.out, row154-run5.out) give three distinct raw hashes (6a1e9a97..., f23b9325..., 2f7d09fd...) but byte-identical outputs after token normalization (norm sha256 69b8075269e09881... each); exit 0 and the SELFTEST PASS text are unchanged. Evidence: .scratch/f07/evidence/drift-attribution.txt.",
+ "content_stable_normalized": true
+}

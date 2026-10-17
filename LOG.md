@@ -3006,3 +3006,24 @@ No goal, background agent or automatic continuation is started by this cleanup.
   back-patched. Two new entries needed integrator gap-field completion
   (plant-symbolism, transport-mobility-lexicon).
 - **Evidence:** `reports/round-10/validation.json` acceptance true.
+
+## 2026-10-17 — Round 11 REJECTED (loop 1, build 4 of 4; F failed as declared)
+
+- **Trigger:** operator regimen; claims D/O/F in `reports/round-11/claims.json`;
+  baseline `e3ef171`; 54/64 workers completed (10 late scribe seats failed).
+- **D (depth, verified):** typed pipeline wired — derived typed packet +
+  `typed-pipeline-gate.py`; five legacy gate scripts untouched; e2e findings
+  exactly the expected hold set (15 holds named pre-implementation);
+  10/10 PHON-INVENTORY artifacts eliminated; negatives caught.
+- **O (operability, verified):** `tools/exercise-handoff-e2e.py` — packet
+  assembled from live D2/D3 artifacts, 16/16 fields + 20/20 glossary entries,
+  handoff gate green in isolation, frozen baseline with tamper control.
+- **F (freshness, FAILED as declared):** 192/192 rows rechecked, 147 stable
+  = 0.778 < 0.95; all 45 drifts dispositioned (round-10/11 legitimate changes,
+  environmental path embedding, 3 transcription defects incl. truncated ledger
+  row 187 — its sha256sum leg reproduces the prior exactly). Threshold assumed
+  a quiet tree; build rounds legitimately change it. Not gamed; reported.
+- **Integrator acts:** repaired 3 receipt schema defects (1:1 command text,
+  row-047 hash contradiction, row-187 disposition); recomputed summary.json.
+- **Consequence:** freshness axis-move claims pause pending operator
+  recalibration (L0 queued); round 12 (Luna verify) audits this round.

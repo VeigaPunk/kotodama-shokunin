@@ -1,0 +1,36 @@
+{
+ "row": 130,
+ "command": "python3 reports/round-7/run-validation.py",
+ "source_locator": "SCORECARD.md:92-93",
+ "shard": "fix-22",
+ "round10_verdict": "stale-documented",
+ "prior_hash": "3ffc98f636827ba13a9743dbabc19e0977c0722887847879bd8c71789bc790ea",
+ "prior_exit": 1,
+ "new_hash": "a0c9e67468408cbb0ae0f2ec8e1b006c4da92c22389b7d76f8ee923514e828f6",
+ "new_exit": 1,
+ "stable": false,
+ "exit_matched": true,
+ "drift_cause": "legitimate-change",
+ "repeatability": "deterministic",
+ "evidence": [
+  "isolated clone at e3a1ec9 reproduces prior hash 3ffc98f636827ba1\u2026; at 94ca098 and live the hash is a0c9e67468408cbb\u2026 (both live passes identical)",
+  "embedded totals moved {'files': 179, 'raw_lines': 610, \u2026} \u2192 {'files': 189, 'raw_lines': 688, \u2026}",
+  "exit 1 both"
+ ],
+ "note": "round-scoped runner; its output embeds the previous round-6 acceptance output and the live knowledge inventory totals, both moved by 94ca098 (the 10 sourced entries + .gitignore); F_passed false / O_passed true unchanged",
+ "recheck_context": {
+  "recheck_date": "2026-10-17",
+  "recheck_root": "live lane worktree /home/vgpnk/Projects/shokunin/kotodama-shokunin (1:1 protocol); drift attribution used isolated clones .scratch/f06/iso (e3a1ec9, 94ca098) and .scratch/f06/iso2",
+  "live_head_at_snapshot": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "live_worktree_at_snapshot": "dirty during both passes \u2014 M reports/round-5/validation.json, M reports/round-6/checkpoint-validation.json, M reports/round-6/validation.json, M reports/round-7/validation.json, M reports/round-8/validation.json, M reports/round-9/validation.json, M reports/round-10/coverage/index-update-22.md, ?? reports/round-11/depth/; the round-5..9 validation.json files are rewritten in place by rows 120/129-132 themselves (see write_side_effects)",
+  "hash_method": "sha256 of captured stdout bytes only (bash -c '<ledger command>', cwd=repo root, TMPDIR=$PWD/.scratch); stderr captured separately \u2014 nonempty only on row 127 (401 B). All 18 byte-identical rows had empty stderr, so stdout-only and combined-stream conventions coincide there; stdout-only is the convention in reports/round-10/drift/audit.md \u00a72 and is validated by those exact matches.",
+  "protocol_source": "reports/round-10/drift/audit.md \u00a72; reports/round-11/targets.json R11-F01..F08",
+  "runs": 2,
+  "repeat_pass_hashes": [
+   "a0c9e67468408cbb0ae0f2ec8e1b006c4da92c22389b7d76f8ee923514e828f6",
+   "a0c9e67468408cbb0ae0f2ec8e1b006c4da92c22389b7d76f8ee923514e828f6"
+  ],
+  "seconds_pass_a": 2.64,
+  "write_side_effects": "rewrites reports/round-7/validation.json in place (isolated-clone write-map, fresh clone)"
+ }
+}

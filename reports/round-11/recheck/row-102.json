@@ -1,0 +1,29 @@
+{
+ "row": 102,
+ "seat": "R11-F05",
+ "axis": "freshness",
+ "date": "2026-10-17",
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "command": "python3 reports/round-5/run-validation.py",
+ "command_at_run": "python3 reports/round-5/run-validation.py",
+ "source_locator": "SKILL.md:210; SCORECARD.md:30,32,33,34,35",
+ "ledger_note": "shard-11 §2: exit 1 at HEAD with three independent causes; round-scoped acceptance bound to its own revision (fix-22 documents it; identical failure at round-9's revision a7bb205, so not a round-10 regression).",
+ "prior_hash": "2e7d8c0ff2faabafa72e3e132526b0cef6e059b263206ba0b048b9dd91c2fd0a",
+ "prior_exit": 1,
+ "new_hash": "6190f44da5be53258a5f9f45d9cd2d76623a90f65444ed2f2118f5bb68f2543d",
+ "new_stdout_sha256": "6190f44da5be53258a5f9f45d9cd2d76623a90f65444ed2f2118f5bb68f2543d",
+ "new_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_combined_sha256": "6190f44da5be53258a5f9f45d9cd2d76623a90f65444ed2f2118f5bb68f2543d",
+ "hash_convention_matched": null,
+ "exit": 1,
+ "stable": false,
+ "drift_cause": "defect: stdout embeds the bare battery's nondeterministic JSON verbatim inside errors.O (per-step `seconds` + mktemp paths), so the byte hash is unreproducible; every substantive round-10 cause reproduces exactly",
+ "drift_evidence": "`reports/round-10/drift/audit.md:89-92` states the same for this command's ledger rows ('its failure text embeds the full battery JSON above, including the random mirror path; my run and both ledger rows (2e7d8c0f, b40866b9) share exit 1 and the same failure'). This re-run: exit 1, F=false O=false; errors.F = 'non-append corpus edit: (\"corpus/lessons/supplement-opencode-1/sources/ottoman.json\", \"OTT-06\")' = shard-11 §2.1 cause F-1; errors.O = bare battery expected 0, got 2 = shard-11 §2.2 cause O-1 (`reports/round-10/drift/shard-11.md`). Re-ran in a full-tree mirror at round-10's own scratch path `.scratch/f11/mirror` (tar copy of the repo excluding .git/.scratch/ __pycache__/reports/supplement-opencode-1/scratch), TMPDIR=$PWD/.scratch/r11f05/tmp.",
+ "ran_at": "2026-10-17T19:03:04-0300",
+ "duration_s": 1.51,
+ "captures": [
+  ".scratch/r11f05/out/row-102.out",
+  ".scratch/r11f05/err/row-102.err"
+ ],
+ "method_note": "run 1:1 from a full-tree mirror at round-10's own scratch path .scratch/f11/mirror (shard-11's method), TMPDIR=$PWD/.scratch/r11f05/tmp"
+}

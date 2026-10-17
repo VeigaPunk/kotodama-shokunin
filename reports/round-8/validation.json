@@ -1,9 +1,11 @@
 {
-  "acceptance_checks_passed": true,
+  "acceptance_checks_passed": false,
   "baseline_revision": "e7ca0faeb6680fa9891b907be628d9db578c28f4",
   "claims": {
     "D": {
-      "failures": [],
+      "failures": [
+        "no D2 frozen replay without digest drift: no round-8 manifest reproduced in the live tree and the isolated pinned-revision replay did not reproduce every row ({\"rows\": 7, \"reproduced\": 0, \"mismatch\": 0, \"could_not_evaluate\": 7, \"exit\": 2})"
+      ],
       "measurement": {
         "depth_evidence_files": [
           "reports/round-8/depth/neg/run-13-observed.json",
@@ -11,9 +13,9 @@
         ],
         "docs": {
           "scorecard_row": true,
-          "skill_match": "translated labels from native forms; missing native forms remain a gap, not clea",
+          "skill_match": "Label typing — translated labels, native forms, borrowed strata Type every form",
           "skill_table": true,
-          "skill_table_lines": 47
+          "skill_table_lines": 32
         },
         "regeneration": {
           "exit": 0,
@@ -27,17 +29,17 @@
           "stdout_tail": "packet.d2.yml: byte-identical deterministic assembly"
         },
         "replay_frozen": {
-          "accepted": "isolated-pinned-revisions",
+          "accepted": null,
           "isolated": {
-            "exit": 0,
+            "exit": 2,
             "gates_restored_from_head": 7,
             "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
             "stderr_tail": "",
             "summary": {
-              "could_not_evaluate": 0,
-              "exit": 0,
+              "could_not_evaluate": 7,
+              "exit": 2,
               "mismatch": 0,
-              "reproduced": 7,
+              "reproduced": 0,
               "rows": 7
             }
           },
@@ -69,7 +71,7 @@
           "stdout_tail": "ok rank adapter block: its own controls pass ok era/material block: its own controls pass (29) ok loader: P-UNTERMINATED-FLOW refused ok loader: P-DUPLICATE-KEY refused ok loader: P-ANCHOR-TAG refused ok loader: P-TAB-INDENT refused ok load"
         }
       },
-      "passed": true
+      "passed": false
     },
     "F": {
       "failures": [],
@@ -257,7 +259,9 @@
       "passed": true
     },
     "O": {
-      "failures": [],
+      "failures": [
+        "round-7 filed artifacts were edited:  M reports/round-7/validation.json"
+      ],
       "measurement": {
         "battery_rerun": {
           "receipt": "reports/round-8/operability/battery-rerun.json",
@@ -273,12 +277,12 @@
             },
             "check-gate-battery": {
               "live_exit": 0,
-              "live_stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+              "live_stdout_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
               "recorded_stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
               "stdout_tail": "control CTRL-PASS-EXIT0: exit=0 outcome=pass ids=- control CTRL-RECOGNIZED-FAIL: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL control CTRL-FAIL-LINE-ID: exit=1 ou",
               "tool_sha256_at_receipt": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
-              "tool_sha256_now": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
-              "verdict": "stdout-hash-reproduced"
+              "tool_sha256_now": "0a126b70afa6cbd5c2565b57399c318788540e10c4940d07c906718c8b9e1aa1",
+              "verdict": "tool-repaired-after-receipt"
             }
           }
         },
@@ -344,7 +348,7 @@
               "path": "reports/round-8/operability/neg-controls/neg-05/neg-05-control.py",
               "sha256": "502e5ae6d3839ffb0e8cc92d185c17e000338ffe20b14f117d4eca8e526fb78c",
               "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "stdout_sha256": "a1739d5f5feb379ecd7b6c9018723bc5a4e5b611375ed016ab92501cff26ae71",
+              "stdout_sha256": "e610670434ab60b0bc9d1db4a43df0e32229fdaa2b93ff44eee8bcc954f0a37e",
               "stdout_tail": "NEG-05 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py NEG-05 gate sha256: d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230 NEG-05",
               "traceback": false
             },
@@ -787,7 +791,7 @@
               "path": "reports/round-8/operability/neg-controls/neg-09/probe-prefix.py",
               "sha256": "f24f374eaf3eb0c001104ae43a364091ddc025bf568cbaefb3622d20e418f345",
               "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "stdout_sha256": "7ad98aeead7161bfff9300a6f761d2686fcbd4347b90d146958a9d636422a00a",
+              "stdout_sha256": "4963e4083f0d60a7c7982d1ce8c2ee38efeb59b172b3ca68b18583060c618ee3",
               "stdout_tail": "tab-indent phonology-sanity-gate.py rc=2 FINDING G-DATA: UNEVALUABLE — packet could not be parsed: tab indentation is not supported by this subset (lin tab-indent naming-collision-gate.py rc=2 FINDING",
               "traceback": false
             },
@@ -821,8 +825,8 @@
               "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-control.py",
               "sha256": "217e83c17a389b0af1ce63b4a66a90293fdebbad5716769df2b87f36e941294d",
               "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "stdout_sha256": "c4f521c0be66afb05ad7d0f98cf77a77fc43c41105e4bad1fa65c5cef28230c7",
-              "stdout_tail": "NEG-10 scratch root: /var/tmp NEG-10 gates under test (live worktree): NEG-10 phonology /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py sha256=d5fe087ffb2342e54cd6",
+              "stdout_sha256": "ff4c717d515a0fa5a873071e83767de278bc3620b1deadb250666703b6e88af9",
+              "stdout_tail": "NEG-10 scratch root: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch NEG-10 gates under test (live worktree): NEG-10 phonology /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phon",
               "traceback": false
             },
             {
@@ -871,7 +875,7 @@
               "path": "reports/round-8/operability/neg-controls/neg-11/neg-11-control.py",
               "sha256": "1722bfd36ac877d5f556066ad7c5f8e45b38c6a5d2d38d383142ca734a5d6d85",
               "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "stdout_sha256": "07333fd5e85cf8e2465a92603b62fd50239026db7dc2cdf8369ff74451665c1b",
+              "stdout_sha256": "102c4eda0e05289191b2f760e33bfc077942d4a249ff5083cef4e024811ff762",
               "stdout_tail": "PASS C1-probe-sha256 probe sha256 2d3722282732ba9846887bd5101ab7a7bbbfb385810f48c39629870f8b4175bf PASS C2-fail-before-phonology rc=1 traceback=True findings=False PASS C3-fail-before-myth rc=1 traceb",
               "traceback": false
             },
@@ -1031,8 +1035,8 @@
               "path": "reports/round-8/operability/neg-controls/neg-13/extra-index10-fixture-pin-control.py",
               "sha256": "7c2622874b0e2473773cf880af3581da775a6be3b907701dfbf09df4ebd01b15",
               "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "stdout_sha256": "536a1ea0f38d32226bf63a0255193babd111ba836f69152227d817376a29dbd8",
-              "stdout_tail": "NEG-13 scratch root: <scratch> NEG-13 gates source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-13 gate phonology-sanity-gate.py sha256=d5fe087ffb2342e5 NEG-13 gate myth-",
+              "stdout_sha256": "e9c27ef5ba3290786c4ba9c6c60238d662b04045af25e9696ce14891d6433fbf",
+              "stdout_tail": "NEG-13 scratch root: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/neg-13-rlebhtpr NEG-13 gates source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-13 gate pho",
               "traceback": false
             },
             {
@@ -1134,7 +1138,7 @@
                 "path": "reports/round-8/operability/neg-controls/neg-05/neg-05-control.py",
                 "sha256": "502e5ae6d3839ffb0e8cc92d185c17e000338ffe20b14f117d4eca8e526fb78c",
                 "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-                "stdout_sha256": "a1739d5f5feb379ecd7b6c9018723bc5a4e5b611375ed016ab92501cff26ae71",
+                "stdout_sha256": "e610670434ab60b0bc9d1db4a43df0e32229fdaa2b93ff44eee8bcc954f0a37e",
                 "stdout_tail": "NEG-05 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py NEG-05 gate sha256: d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230 NEG-05",
                 "traceback": false
               },
@@ -1577,7 +1581,7 @@
                 "path": "reports/round-8/operability/neg-controls/neg-09/probe-prefix.py",
                 "sha256": "f24f374eaf3eb0c001104ae43a364091ddc025bf568cbaefb3622d20e418f345",
                 "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-                "stdout_sha256": "7ad98aeead7161bfff9300a6f761d2686fcbd4347b90d146958a9d636422a00a",
+                "stdout_sha256": "4963e4083f0d60a7c7982d1ce8c2ee38efeb59b172b3ca68b18583060c618ee3",
                 "stdout_tail": "tab-indent phonology-sanity-gate.py rc=2 FINDING G-DATA: UNEVALUABLE — packet could not be parsed: tab indentation is not supported by this subset (lin tab-indent naming-collision-gate.py rc=2 FINDING",
                 "traceback": false
               },
@@ -1611,8 +1615,8 @@
                 "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-control.py",
                 "sha256": "217e83c17a389b0af1ce63b4a66a90293fdebbad5716769df2b87f36e941294d",
                 "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-                "stdout_sha256": "c4f521c0be66afb05ad7d0f98cf77a77fc43c41105e4bad1fa65c5cef28230c7",
-                "stdout_tail": "NEG-10 scratch root: /var/tmp NEG-10 gates under test (live worktree): NEG-10 phonology /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py sha256=d5fe087ffb2342e54cd6",
+                "stdout_sha256": "ff4c717d515a0fa5a873071e83767de278bc3620b1deadb250666703b6e88af9",
+                "stdout_tail": "NEG-10 scratch root: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch NEG-10 gates under test (live worktree): NEG-10 phonology /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phon",
                 "traceback": false
               },
               {
@@ -1661,7 +1665,7 @@
                 "path": "reports/round-8/operability/neg-controls/neg-11/neg-11-control.py",
                 "sha256": "1722bfd36ac877d5f556066ad7c5f8e45b38c6a5d2d38d383142ca734a5d6d85",
                 "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-                "stdout_sha256": "07333fd5e85cf8e2465a92603b62fd50239026db7dc2cdf8369ff74451665c1b",
+                "stdout_sha256": "102c4eda0e05289191b2f760e33bfc077942d4a249ff5083cef4e024811ff762",
                 "stdout_tail": "PASS C1-probe-sha256 probe sha256 2d3722282732ba9846887bd5101ab7a7bbbfb385810f48c39629870f8b4175bf PASS C2-fail-before-phonology rc=1 traceback=True findings=False PASS C3-fail-before-myth rc=1 traceb",
                 "traceback": false
               },
@@ -1821,8 +1825,8 @@
                 "path": "reports/round-8/operability/neg-controls/neg-13/extra-index10-fixture-pin-control.py",
                 "sha256": "7c2622874b0e2473773cf880af3581da775a6be3b907701dfbf09df4ebd01b15",
                 "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-                "stdout_sha256": "536a1ea0f38d32226bf63a0255193babd111ba836f69152227d817376a29dbd8",
-                "stdout_tail": "NEG-13 scratch root: <scratch> NEG-13 gates source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-13 gate phonology-sanity-gate.py sha256=d5fe087ffb2342e5 NEG-13 gate myth-",
+                "stdout_sha256": "e9c27ef5ba3290786c4ba9c6c60238d662b04045af25e9696ce14891d6433fbf",
+                "stdout_tail": "NEG-13 scratch root: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/neg-13-rlebhtpr NEG-13 gates source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-13 gate pho",
                 "traceback": false
               },
               {
@@ -1966,14 +1970,16 @@
           "genuine_collision_rejected_demonstrated": true,
           "path": "tools/harness/r8_checks.py",
           "pointer": null,
-          "round7_touched": [],
+          "round7_touched": [
+            " M reports/round-7/validation.json"
+          ],
           "selftest_passed": true,
           "sha256": "0fb21d8e414c2d92b3f20742817ac9d89be24b1142b1bc65b5070086aa17fbfe",
           "stderr_tail": "",
           "stdout_sha256": "25bf2315e6c2f3403a3fc9028720225284b1848f1a91e62ae3808543b0f5ce58"
         }
       },
-      "passed": true
+      "passed": false
     }
   },
   "claims_declared": {
@@ -1982,10 +1988,13 @@
     "O": "operability"
   },
   "counting_command": "python3 reports/round-8/run-validation.py",
-  "failures": [],
+  "failures": [
+    "claim O: round-7 filed artifacts were edited:  M reports/round-7/validation.json",
+    "claim D: no D2 frozen replay without digest drift: no round-8 manifest reproduced in the live tree and the isolated pinned-revision replay did not reproduce every row ({\"rows\": 7, \"reproduced\": 0, \"mismatch\": 0, \"could_not_evaluate\": 7, \"exit\": 2})"
+  ],
   "input_sha256": {
-    "SCORECARD.md": "04e23a97af1ee79c4e81d4ec823e5401301cb735e3643e6efed87b0abbb6e2e7",
-    "SKILL.md": "ca940f4d872952607baa5421f90c019b63f1e2dc29d2b0108cff30490a95b35b",
+    "SCORECARD.md": "29225ecdb37b7a6aa05fe1ff4b104d68dbe03ea5e1ca8b738efb35a6cdb744c5",
+    "SKILL.md": "52d5f4d1be6ac97a143323306eafa9c9649484f25de60de8a3ee7630d8c6792c",
     "reports/round-8/claims.json": "b27b1ace946407ba3ac413503b7efa72f1434205b1865030c02349db057d5477",
     "reports/round-8/freshness/R8-F01-receipt.json": "5965991ea94cd22423af6ec1a05d6a75c1a28ae19dad95295c58602db7484ddb",
     "reports/round-8/freshness/R8-F02-receipt.json": "4af7f57cd9dd2a77ca98d48d7ce39fa401fe50a3dc1e5d9bc79d2397172677c9",
@@ -2010,7 +2019,7 @@
     "reports/supplement-opencode-1/29-local-boundaries.md": "c4296f182300f2069042bba2920e53afb5fddefa600d870740ef8d30c3106920",
     "tools/assemble-d2.py": "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d",
     "tools/check-craft-exercise.py": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5",
-    "tools/check-gate-battery.py": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
+    "tools/check-gate-battery.py": "0a126b70afa6cbd5c2565b57399c318788540e10c4940d07c906718c8b9e1aa1",
     "tools/d2-typed-labels.py": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802",
     "tools/harness/r8_checks.py": "0fb21d8e414c2d92b3f20742817ac9d89be24b1142b1bc65b5070086aa17fbfe",
     "tools/replay-frozen.py": "a2fb5c98260a07f0801f4bf21f349283638da6796645780393262e4368c79464"

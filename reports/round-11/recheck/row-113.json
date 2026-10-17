@@ -1,0 +1,29 @@
+{
+ "row": 113,
+ "seat": "R11-F05",
+ "axis": "freshness",
+ "date": "2026-10-17",
+ "revision": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+ "command": "python3 reports/round-8/run-validation.py",
+ "command_at_run": "python3 -c \"import importlib.util as u, sys; spec=u.spec_from_file_location('r8','reports/round-8/run-validation.py'); m=u.module_from_spec(spec); spec.loader.exec_module(m); m.OUTPUT_REL='.scratch/r11f05/receipt-redirect-r8.json'; sys.exit(m.main())\"",
+ "source_locator": "SCORECARD.md:114,115,116",
+ "ledger_note": "post-fix verification (runner sha d78da29fdacc75d4, sibling repair 18:32:28); receipt .scratch/drift-shard13/r8-validation-postfix.json",
+ "prior_hash": "4d300b24a04ff44afdb89c6944174ad8f71056667fd0e5f2044266010943b2f5",
+ "prior_exit": 0,
+ "new_hash": "9d0d40f1e27d9c18d60be1dfc2d963451230616ec5ee5953daae06cef59dcf5f",
+ "new_stdout_sha256": "9d0d40f1e27d9c18d60be1dfc2d963451230616ec5ee5953daae06cef59dcf5f",
+ "new_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "new_combined_sha256": "9d0d40f1e27d9c18d60be1dfc2d963451230616ec5ee5953daae06cef59dcf5f",
+ "hash_convention_matched": null,
+ "exit": 1,
+ "stable": false,
+ "drift_cause": "defect: the fixed runner state the ledger pinned (sha d78da29f) exists nowhere in the repository — the live tree carries the pre-fix runner and reproduces round-10's pre-fix observation bit-for-bit; the ledger's post-fix hash has no reproducible artifact",
+ "drift_evidence": "Live `reports/round-8/run-validation.py` sha256 = 7eaa36789b4d71ce… = the pre-fix runner, identical to `git show HEAD:` and the only revision in history (`git log --all --oneline -- <path>` -> e1694ba only; the fix-20 post-fix blob d78da29f is not in any commit). This re-run (OUTPUT_REL redirected, the protocol round-10 shard-13 used for this same row) reproduced the pre-fix stdout bit-for-bit: 9d0d40f1…, exit 1 — the very hash round-10's `fix-20.md:89` and ledger row 131 record for the pre-fix live-tree observation. Deterministic across three runs (9d0d40f1… x3). The failing checks are the documented pre-fix ones: O 'round-7 filed artifacts were edited: M reports/round-7/validation.json' (working-tree pollution, mtime 2026-10-17T19:03:07 — a concurrent seat's live run; this seat writes only into .scratch, proven by the redirect receipt mtimes) and D 'no round-8 manifest reproduced … could_not_evaluate 7' (the exact defect fix-20 repaired; its fix is gone). `fix-20.md` records runner sha 7eaa3678 -> d78da29f as an in-place edit; no round-10 artifact states the edit was reverted, and HEAD never carried it.",
+ "ran_at": "2026-10-17T19:03:10-0300",
+ "duration_s": 6.88,
+ "captures": [
+  ".scratch/r11f05/out/row-113.out",
+  ".scratch/r11f05/err/row-113.err"
+ ],
+ "method_note": "run via importlib with module OUTPUT_REL redirected to .scratch/r11f05/ (round-10 shard-13's protocol for this row); code executed byte-identical to the cited file; only the receipt destination differs"
+}

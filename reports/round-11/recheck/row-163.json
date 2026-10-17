@@ -1,0 +1,32 @@
+{
+ "schema": "kotodama-round11-recheck-receipt/1",
+ "round": 11,
+ "seat": "R11-F07",
+ "slice": "rows 144-167 of reports/round-10/drift/ledger.json",
+ "row": 163,
+ "command": "python3 tools/gates/costume-era-consistency-gate.py --selftest",
+ "source_locator": "shard-12 receipts table",
+ "round10_verdict": "current",
+ "round10_shard": "shard-12",
+ "prior_hash": "d45a9add4c616d584ce08bd77135d912d31e8d3c1fb7f4bfc2d8f83772ddd851",
+ "new_hash": "0c2ed631fb5809ade6cbd52185cbe86f677f3278c8c40e61c5389fc191aca00b",
+ "prior_exit": 0,
+ "new_exit": 0,
+ "stable": false,
+ "run_context": {
+  "date": "2026-10-17",
+  "run_at_utc": "2026-10-17T22:01:58Z",
+  "cwd": "lane working tree root (kotodama-shokunin)",
+  "tmpdir": "$PWD/.scratch (exported)",
+  "capture": "stdout bytes only; sha256; stderr stored beside",
+  "runner": ".scratch/f07/run-rechecks.py",
+  "round10_context": "shard-12 (disposable clone; per shard-12.md method: git clone --local --no-hardlinks at .scratch/f12/<label>; TMPDIR=.scratch/f12/tmp)",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "working_tree": "clean except reports/round-10/coverage/index-update-22.md (unrelated to this slice; present at recheck time)"
+ },
+ "drift_class": "environmental",
+ "drift_cause": "stdout embeds the absolute fixture/expected paths derived from the script's own location (HERE = dirname(abspath(__file__)), gate lines 139-143), so the hash is run-location dependent: round-10 ran the command inside the clone .scratch/f12/iso (shard-12 method); this recheck ran in the live lane tree.",
+ "prior_hash_reproduced": "byte-exact",
+ "drift_evidence": "The three-line output under prefix /home/vgpnk/Projects/shokunin/kotodama-shokunin hashes to 0c2ed631fb5809ad... (this recheck); under prefix .../.scratch/f12/iso it hashes to d45a9add4c616d584ce08bd77135d912d31e8d3c1fb7f4bfc2d8f83772ddd851 = ledger prior (byte-exact; verified by computing the output for that prefix; the clone label f12/iso is fixed by shard-12.md's own method note and independently confirmed by row 153's reconstruction). Evidence: .scratch/f07/evidence/drift-attribution.txt.",
+ "content_stable_normalized": true
+}

@@ -1,0 +1,905 @@
+{
+  "acceptance_checks_passed": false,
+  "baseline_revision": "94ca098b8ab03be52ec80f6925538e5e2c0ed327",
+  "claims": {
+    "D": {
+      "failures": [],
+      "measurement": {
+        "assembly": {
+          "assembler_check": {
+            "exit": 0,
+            "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386",
+            "tail": "packet.d2.yml: byte-identical deterministic assembly "
+          },
+          "typed_projection_check": {
+            "exit": 0,
+            "path": "examples/culture-d2/typed-labels.d2.yml",
+            "stdout_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427",
+            "tail": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/examples/culture-d2/typed-labels.d2.yml: byte-identical deterministic projection "
+          }
+        },
+        "battery": {
+          "run": {
+            "argv": [
+              "tools/check-gate-battery.py",
+              "--baselines-root",
+              "tools/gates/frozen",
+              "--baselines-root",
+              "tools/gates/expected",
+              "--baselines-root",
+              "reports/round-9/baselines"
+            ],
+            "baseline_summary": {
+              "baseline_exit": 0,
+              "baselines_found": 8,
+              "gates_covered": [
+                "costume-era-consistency-gate.py",
+                "handoff-packet-check.py",
+                "lexicon-coverage-audit.py",
+                "myth-consistency-gate.py",
+                "naming-collision-gate.py",
+                "phonology-sanity-gate.py",
+                "provenance-audit.py"
+              ],
+              "gates_uncovered": [],
+              "pinned": 8,
+              "readings": {
+                "pinned": 8
+              },
+              "unevaluable": 0,
+              "verdict_replay": "not-run: the battery verifies digests and pins; the verdict comparison belongs to the baseline's own re-run receipt"
+            },
+            "exit": 0,
+            "roots": [
+              "tools/gates/frozen",
+              "tools/gates/expected",
+              "reports/round-9/baselines"
+            ],
+            "stdout_sha256": "c2672731d263d212ddbe1e80229c87145619d8434a714ee5da626947cb3211b7",
+            "summary": {
+              "battery_exit": 0,
+              "fail": 0,
+              "pass": 7,
+              "unevaluable": 0
+            },
+            "tail": "ome/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r11x03-tmp/gate-battery-zl7jhfox\"   },   \"mode\": \"battery\",   \"originals\": {     \"added\": 0,     \"deleted\": 0,     \"files_hashed_after\": 28,     \"files_hashed_before\": 28,     \"modified\": 0,     \"preserved"
+          },
+          "selftest": {
+            "exit": 0,
+            "stdout_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+            "tail": "control CTRL-PASS-EXIT0: exit=0 outcome=pass ids=- control CTRL-RECOGNIZED-FAIL: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL control CTRL-FAIL-LINE-ID: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL contro",
+            "traceback": false
+          }
+        },
+        "e2e": {
+          "evidence": {
+            "path": "reports/round-11/depth/e2e-receipt.json",
+            "shape": "receipt"
+          },
+          "observed_source": "fresh-run-output",
+          "receipts": [
+            {
+              "exit": 0,
+              "expected_count": 16,
+              "negative": false,
+              "observed": true,
+              "path": "reports/round-11/depth/e2e-receipt.json",
+              "score": 10
+            }
+          ],
+          "rerun": {
+            "command": "python3 tools/gates/typed-pipeline-gate.py --json",
+            "error": null,
+            "exit": 0,
+            "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62",
+            "tail": "{\"banner\": \"TYPED-PIPELINE: exit 0 = the emitted findings equal the frozen expected hold set; every hold below is still open design debt.\", \"checks\": [{\"detail\": \"\", \"id\": \"L1-assembler_identity\", \"ok"
+          },
+          "sound_channel": {
+            "phon_lines": 0,
+            "translated_phon_count": 0,
+            "translated_phon_lines": []
+          }
+        },
+        "interop_d3": {
+          "d3_assembler_check": {
+            "exit": 0,
+            "stdout_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a",
+            "tail": "packet.json: byte-identical deterministic assembly; packet.gates.yml: byte-identical deterministic assembly "
+          },
+          "d3_frozen_replay": {
+            "exit": 0,
+            "findings_total": 0,
+            "stdout_sha256": "e282a0688498034144fb376ab43884c8607133bd6deaab763150d789b113669d",
+            "tail": "{   \"counts\": {     \"total\": 0   },   \"exit\": 0,   \"findings\": [],   \"profile\": \"kotodama-d3-evidence-coupling/1\" } "
+          }
+        },
+        "replay_frozen": {
+          "manifests": [
+            "tools/gates/frozen/round-11/MANIFEST.tsv"
+          ],
+          "runs": [
+            {
+              "exit": 0,
+              "green": true,
+              "manifest": "tools/gates/frozen/round-11/MANIFEST.tsv",
+              "negative_control": false,
+              "stdout_sha256": "957a3b6f99af7bb43a4418df7b29f218821262a25d6176dd57ffde6e8aa31bcb",
+              "summary": {
+                "could_not_evaluate": 0,
+                "exit": 0,
+                "mismatch": 0,
+                "reproduced": 11,
+                "rows": 11
+              },
+              "tail": "{   \"manifest\": \"tools/gates/frozen/round-11/MANIFEST.tsv\",   \"repo_root\": \"/home/vgpnk/Projects/shokunin/kotodama-shokunin\",   \"tool\": \"tools/replay-frozen.py\",   \"rows\": [     {       \"line\": 2,    "
+            }
+          ]
+        },
+        "selftests": {
+          "runs": {
+            "tools/assemble-culture-d3.py": {
+              "argv": [
+                "tools/assemble-culture-d3.py",
+                "--selftest"
+              ],
+              "counts": [
+                [
+                  "85",
+                  "85"
+                ]
+              ],
+              "exit": 0,
+              "present": true,
+              "stdout_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b",
+              "tail": "selftest: 85/85 checks passed — fixture CLI assemble/--check/determinism/tamper plus missing, invalid-JSON, invalid-UTF8, wrong-root, unexpected-key, missing-ke",
+              "traceback": false
+            },
+            "tools/assemble-d2.py": {
+              "argv": [
+                "tools/assemble-d2.py",
+                "--selftest"
+              ],
+              "counts": [
+                [
+                  "42",
+                  "42"
+                ]
+              ],
+              "exit": 0,
+              "present": true,
+              "stdout_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336",
+              "tail": "selftest: 42/42 checks passed — fixture CLI assemble/--check/tamper plus malformed, missing, duplicate-ID, incomplete-record, duplicate-key, empty and wrong-wra",
+              "traceback": false
+            },
+            "tools/check-evidence-coupling.py": {
+              "argv": [
+                "tools/check-evidence-coupling.py",
+                "--selftest"
+              ],
+              "counts": [],
+              "exit": 0,
+              "present": true,
+              "stdout_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce",
+              "tail": "{   \"domain_controls\": {     \"passed\": 16,     \"total\": 16   },   \"frozen_checks\": {     \"passed\": 5,     \"total\": 5   },   \"malformed_controls\": {     \"passed\"",
+              "traceback": false
+            },
+            "tools/d2-typed-labels.py": {
+              "argv": [
+                "tools/d2-typed-labels.py",
+                "--selftest"
+              ],
+              "counts": [
+                [
+                  "39",
+                  "39"
+                ]
+              ],
+              "exit": 0,
+              "present": true,
+              "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+              "tail": "ok   rank adapter block: its own controls pass ok   era/material block: its own controls pass (29) ok   loader: P-UNTERMINATED-FLOW refused ok   loader: P-DUPLI",
+              "traceback": false
+            }
+          }
+        }
+      },
+      "missing_dependencies": [],
+      "passed": true
+    },
+    "F": {
+      "failures": [
+        "recheck: stability 0.778 < required 0.95"
+      ],
+      "measurement": {
+        "audit": {
+          "independent_reruns": 9,
+          "mismatch_readings": [],
+          "present": true
+        },
+        "contradictions": [],
+        "drift_rows": [
+          {
+            "drift_cause": "ledger transcription defect: the command field lost its regex escapes, so the recorded text is not the command that produced the filed hash; the artifact (SKILL.md:1-20) is unchanged and the shard-01 §3 form reproduces the filed hash byte-for-byte (empty stdout, exit 1)",
+            "drift_class": "defect",
+            "path": "reports/round-11/recheck/row-001.json",
+            "reason": "hash drift",
+            "row": 1
+          },
+          {
+            "drift_cause": "legitimate change: SKILL.md was edited (+31/-17) in round-10 admit commit 94ca098 (2026-10-17 18:57:36 -0300), after shard-01 measured at revision e3a1ec9; the ledger row was true at its own measurement window and is stale by the lane's own integration, not by an external actor",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-002.json",
+            "reason": "hash drift",
+            "row": 2
+          },
+          {
+            "drift_cause": "legitimate change: SKILL.md was edited (+31/-17) in round-10 admit commit 94ca098 (2026-10-17 18:57:36 -0300), after shard-01 measured at revision e3a1ec9; the ledger row was true at its own measurement window and is stale by the lane's own integration, not by an external actor",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-004.json",
+            "reason": "hash drift",
+            "row": 4
+          },
+          {
+            "drift_cause": "legitimate change: SKILL.md was edited (+31/-17) in round-10 admit commit 94ca098 (2026-10-17 18:57:36 -0300), after shard-01 measured at revision e3a1ec9; the ledger row was true at its own measurement window and is stale by the lane's own integration, not by an external actor",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-005.json",
+            "reason": "hash drift",
+            "row": 5
+          },
+          {
+            "drift_cause": "ledger transcription defect: the -m3 limit was dropped from the command field; re-running the recorded unbounded grep prints 6 hits (line 106/139/167/176 added) while grep -m3 reproduces the filed hash exactly; the measured user-scope file is unchanged (git clean at fd9ed8c, 2026-10-16; out of this lane's write scope)",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-012.json",
+            "reason": "hash drift",
+            "row": 12
+          },
+          {
+            "drift_cause": "legitimate change: round-10 admission 94ca098 added 10 sourced corpus entries after this ledger row was recorded (linguistics +3, myth-symbol +3, culture-material +2, verification +2). Counts moved 16/16/16/24/13 -> 19/19/18/24/15.",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-039.json",
+            "reason": "hash drift",
+            "row": 39
+          },
+          {
+            "drift_cause": "legitimate change: same round-10 admission (94ca098) added 10 entries to the four listed partitions; the listing gained exactly those 10 filenames.",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-040.json",
+            "reason": "hash drift",
+            "row": 40
+          },
+          {
+            "drift_cause": "recording convention only: the recorded hash e3d6c4d4599e... is sha256('94') (no trailing newline, shard-08 C1 capture form); today's stdout byte-stream is '94\\n' -> 6fc16b03..., which is exactly ledger row 45's recorded hash for the identical command. Measured value identical (94 files).",
+            "drift_class": "other:stable-capture-convention",
+            "path": "reports/round-11/recheck/row-047.json",
+            "reason": "hash drift",
+            "row": 47
+          },
+          {
+            "drift_cause": "commit 94ca098 (round-10 admit, 2026-10-17T18:57:36-03:00) added corpus/knowledge/verification/header-conformance-readings.md and corpus/knowledge/verification/verification-independence-anti-circularity.md; the directory count moved 13 -> 15 after the shard-08 pin was taken.",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-051.json",
+            "reason": "hash drift",
+            "row": 51
+          },
+          {
+            "drift_cause": "same commit added an errata section to corpus/knowledge/linguistics/sound-symbolism.md; errata-bearing corpus files moved 6 -> 7 after the shard-08 pin was taken.",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-054.json",
+            "reason": "hash drift",
+            "row": 54
+          },
+          {
+            "drift_cause": "The recorded pin is not reproducible by construction: the battery's JSON stdout embeds the random mirror directory name (.scratch/gate-battery-<rand>/...) and wall-clock \"seconds\" fields. Two consecutive re-runs of the same command differ in exactly those fields (16 diff lines). Two normalizations of today's bytes (mirror name -> placeholder, seconds -> 0) still do not reach the recorded hash. No lane drift: the semantic reading is unchanged.",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-065.json",
+            "reason": "hash drift",
+            "row": 65
+          },
+          {
+            "drift_cause": "Same volatility class as row 65 (embedded random mirror name + wall-clock seconds in stdout); the recorded three-root pin is not reproducible by construction.",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-066.json",
+            "reason": "hash drift",
+            "row": 66
+          },
+          {
+            "drift_cause": "The ledger stores a prose description of a multi-command control (stat-hash fixtures around each of the seven --selftest runs in an export), never the script itself; the pin cannot be reproduced byte-wise. A faithful reconstruction was re-run in a fresh export.",
+            "drift_class": "unreproducible",
+            "path": "reports/round-11/recheck/row-067.json",
+            "reason": "unreproducible (not-applicable)",
+            "row": 67
+          },
+          {
+            "drift_cause": "Same class as row 67: prose description of a tamper control, script not filed; byte comparison not applicable.",
+            "drift_class": "unreproducible",
+            "path": "reports/round-11/recheck/row-068.json",
+            "reason": "unreproducible (not-applicable)",
+            "row": 68
+          },
+          {
+            "drift_cause": "Same class as row 67: prose description of a delete/regenerate control, script not filed; byte comparison not applicable.",
+            "drift_class": "unreproducible",
+            "path": "reports/round-11/recheck/row-069.json",
+            "reason": "unreproducible (not-applicable)",
+            "row": 69
+          },
+          {
+            "drift_cause": "{'class': 'environmental + legitimate change', 'statement': \"output_sha256 is run-location dependent by construction (the JSON embeds the absolute scan root in every file record) and the corpus has grown since the recorded run (files=189 now vs 179 recorded at round-10), so no re-run at any root can reproduce effe2fa8...; the ledger's own row 189 note calls this command's hash revision-bound\", 'evidence': ['two independent mirrors (.scratch/r11f04/iso, .scratch/r11f04/iso2): raw sha differs (b21837c2.. vs 9df2e267..), root-normalized sha identical (fa86cc8bebb6aae2)', 'live re-run cwd=lane root: exit 0, valid JSON, totals files=189 files_with_marker=125 marker_occurrences=633 (2026-10-17); round-10 recorded files=179 marker_occurrences=584', \"reports/round-10/drift/ledger.json row 189 note: 'the corpus grew in-round ... the earlier hash for this command is revision-bound'\"]}",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-090.json",
+            "reason": "hash drift",
+            "row": 90
+          },
+          {
+            "drift_cause": "{'class': 'environmental (non-deterministic output)', 'statement': \"the selftest prints a random scratch dir (tempfile.TemporaryDirectory prefix 'source-audit-inventory-cli-') in its CLI-section output, so the hash changes run to run at any fixed root; the two ledger rows for this command already differ (ecb68511 / e06fde07) and round-10's own auditor certified the class\", 'evidence': ['two consecutive runs, same cwd lane root: sha256 b0f9221feda9aeae vs 80f787c5ab26aaa9, exit 0 both; 4 differing lines, all the random token', 'random-token-normalized outputs identical: sha256 b44ef5e3ef35b273', \"reports/round-10/drift/audit.md lines 89-92: 'its output names the random scratch dir ... Two consecutive runs gave 1269f45d0a033d45 then a9942756778372e7, exit 0 both'\", 'prior ledger row 127 for the same command holds a third value e06fde07..., exit 0']}",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-091.json",
+            "reason": "hash drift",
+            "row": 91
+          },
+          {
+            "drift_cause": "defect: stdout bytes are unreproducible by construction — the battery JSON embeds per-step wall-clock `seconds` values and a mktemp scratch path; the hash pin can only match by luck",
+            "drift_class": "unreproducible",
+            "path": "reports/round-11/recheck/row-098.json",
+            "reason": "hash drift",
+            "row": 98
+          },
+          {
+            "drift_cause": "defect: same class as rows 98/103 — battery stdout embeds per-step `seconds` and mktemp scratch paths",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-099.json",
+            "reason": "hash drift",
+            "row": 99
+          },
+          {
+            "drift_cause": "environmental: the command's inputs are round-10 disposable scratch, removed at round-10 close; the command cannot be re-run 1:1",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-101.json",
+            "reason": "exit changed 0->2",
+            "row": 101
+          },
+          {
+            "drift_cause": "defect: stdout embeds the bare battery's nondeterministic JSON verbatim inside errors.O (per-step `seconds` + mktemp paths), so the byte hash is unreproducible; every substantive round-10 cause reproduces exactly",
+            "drift_class": "unreproducible",
+            "path": "reports/round-11/recheck/row-102.json",
+            "reason": "hash drift",
+            "row": 102
+          },
+          {
+            "drift_cause": "defect: stdout bytes are unreproducible by construction — the battery JSON embeds per-step wall-clock `seconds` values and a mktemp scratch path; the hash pin can only match by luck",
+            "drift_class": "unreproducible",
+            "path": "reports/round-11/recheck/row-103.json",
+            "reason": "hash drift",
+            "row": 103
+          },
+          {
+            "drift_cause": "legitimate change: corpus/knowledge grew by the 10 entries round-10 admitted after the ledger was measured; the command is deterministic at a fixed tree",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-111.json",
+            "reason": "hash drift",
+            "row": 111
+          },
+          {
+            "drift_cause": "defect: the fixed runner state the ledger pinned (sha d78da29f) exists nowhere in the repository — the live tree carries the pre-fix runner and reproduces round-10's pre-fix observation bit-for-bit; the ledger's post-fix hash has no reproducible artifact",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-113.json",
+            "reason": "hash drift",
+            "row": 113
+          },
+          {
+            "drift_cause": "legitimate change: the command is a working-tree snapshot; its output reflects concurrent round-11 activity, not a change in the recheck surfaces",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-117.json",
+            "reason": "hash drift",
+            "row": 117
+          },
+          {
+            "drift_cause": "environmental",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-120.json",
+            "reason": "hash drift",
+            "row": 120
+          },
+          {
+            "drift_cause": "legitimate-change",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-121.json",
+            "reason": "hash drift",
+            "row": 121
+          },
+          {
+            "drift_cause": "environmental",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-127.json",
+            "reason": "hash drift",
+            "row": 127
+          },
+          {
+            "drift_cause": "environmental",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-128.json",
+            "reason": "hash drift",
+            "row": 128
+          },
+          {
+            "drift_cause": "legitimate-change",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-129.json",
+            "reason": "hash drift",
+            "row": 129
+          },
+          {
+            "drift_cause": "legitimate-change",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-130.json",
+            "reason": "hash drift",
+            "row": 130
+          },
+          {
+            "drift_cause": "corpus/knowledge grew 179->189 files when the ten round-10 coverage entries landed in commit 94ca098 (2026-10-17 18:57:36 -0300), after shard-12's clone snapshot; the tool is byte-unchanged (f617bb99..., last moved at 9dc18ec).",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-152.json",
+            "reason": "hash drift",
+            "row": 152
+          },
+          {
+            "drift_cause": "no-root output embeds the absolute resolved root path, so the hash is run-location dependent: round-10 ran in the disposable clone .scratch/f12/iso (shard-12 method), while this recheck ran in the live lane tree; the corpus also grew 179->189 files (commit 94ca098) in between (legitimate change, see row 152).",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-153.json",
+            "reason": "hash drift",
+            "row": 153
+          },
+          {
+            "drift_cause": "stdout embeds the random mkdtemp directory name (source-audit-inventory-cli-XXXXXXXX under $TMPDIR), so the hash is non-reproducible by construction; round-10's clone path was a second, independent location vector.",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-154.json",
+            "reason": "hash drift",
+            "row": 154
+          },
+          {
+            "drift_cause": "stdout embeds the random battery mirror token (gate-battery-XXXXXXXX under .scratch/) and per-gate wall-clock 'seconds' fields, so the hash is non-reproducible by construction.",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-162.json",
+            "reason": "hash drift",
+            "row": 162
+          },
+          {
+            "drift_cause": "stdout embeds the absolute fixture/expected paths derived from the script's own location (HERE = dirname(abspath(__file__)), gate lines 139-143), so the hash is run-location dependent: round-10 ran the command inside the clone .scratch/f12/iso (shard-12 method); this recheck ran in the live lane tree.",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-163.json",
+            "reason": "hash drift",
+            "row": 163
+          },
+          {
+            "drift_cause": "environmental — output embeds absolute fixture paths; recorded hash is run-location-bound",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-169.json",
+            "reason": "hash drift",
+            "row": 169
+          },
+          {
+            "drift_cause": "environmental — output embeds the clone root, the battery's random temp-mirror name and per-gate wall-clock seconds; the recording seat itself recorded two different hashes for this command at the same revision (dd65e422 fresh clone, fdf734fe shared clone)",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-170.json",
+            "reason": "hash drift",
+            "row": 170
+          },
+          {
+            "drift_cause": "environmental — the JSON embeds \"repo_root\" as an absolute path; recorded hash is run-location-bound",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-174.json",
+            "reason": "hash drift",
+            "row": 174
+          },
+          {
+            "drift_cause": "environmental — the JSON embeds \"repo_root\" as an absolute path; recorded hash is run-location-bound",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-175.json",
+            "reason": "hash drift",
+            "row": 175
+          },
+          {
+            "drift_cause": "environmental — stdout embeds volatile fields: the battery's random temp-mirror root (gate-battery-*) and per-gate wall-clock \"seconds\"; four re-runs in the same tree produced four hashes",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-177.json",
+            "reason": "hash drift",
+            "row": 177
+          },
+          {
+            "drift_cause": "environmental — recorded input/artifact is uncommitted (gitignored .scratch) and deleted — the packet bytes behind this hash cannot be recovered; four documented reconstructions (with/without owner, gloss, issues) all reproduce the recorded exit 2 and the recorded finding classes but not the byte hash",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-185.json",
+            "reason": "hash drift",
+            "row": 185
+          },
+          {
+            "drift_cause": "ledger transcription defect: command truncated at round-10 recording (grep leg missing its file operand); the sha256sum leg reproduces the recorded prior hash exactly (4d70252b...), proving the pinned artifact is stable; hash drift is an artifact of the malformed command, not semantic drift",
+            "drift_class": "environmental",
+            "path": "reports/round-11/recheck/row-187.json",
+            "reason": "hash drift",
+            "row": 187
+          },
+          {
+            "drift_cause": "environmental — recorded input/artifact is uncommitted (gitignored .scratch) and deleted — the recorded hash is the digest of .scratch/shard-05/locators.txt, a scratch artifact; the sweep is re-derived instead and its own digest is reported",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-188.json",
+            "reason": "hash drift",
+            "row": 188
+          },
+          {
+            "drift_cause": "legitimate change — output is content-bound; commit 94ca098 added 10 corpus entries (files 179 → 189) and revised the bytes of two of them after their authoring-time digests",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-189.json",
+            "reason": "hash drift",
+            "row": 189
+          },
+          {
+            "drift_cause": "legitimate change — same corpus growth/revision as row 189 (files 179 → 189 at commit 94ca098)",
+            "drift_class": "legitimate-change",
+            "path": "reports/round-11/recheck/row-190.json",
+            "reason": "hash drift",
+            "row": 190
+          }
+        ],
+        "ledger_rows": 192,
+        "notes": [],
+        "rows_rechecked": 189,
+        "stability": 0.7777777777777778,
+        "stable": 147,
+        "summary": {
+          "rows": 192,
+          "stable": 147,
+          "unstable": 45
+        },
+        "unreproducible_dispositioned": 3,
+        "unstable": 42
+      },
+      "missing_dependencies": [],
+      "passed": false
+    },
+    "O": {
+      "failures": [],
+      "measurement": {
+        "exercise": {
+          "baseline": {
+            "git_tracked": false,
+            "parseable": true,
+            "path": "reports/round-11/handoff/expected.json",
+            "size": 5338
+          },
+          "baselines": [
+            "reports/round-11/handoff/expected.json",
+            "examples/culture-d3/expected.json"
+          ],
+          "candidates": [
+            "tools/exercise-handoff-e2e.py",
+            "tools/check-gate-battery.py"
+          ],
+          "flags": [
+            "--baseline",
+            "--freeze",
+            "--help",
+            "--json",
+            "--keep",
+            "--quiet",
+            "--root",
+            "--selftest"
+          ],
+          "packet_counts": {
+            "fields": 16,
+            "findings_zero": true,
+            "glossary": 20
+          },
+          "run": {
+            "argv": [],
+            "exit": 0,
+            "stdout_sha256": "12de1696b814d2cdbf77dd8acea0a435f501b46eecdab5e70cd450c56eadd9ba",
+            "tail": "OK   input-digest: 21 read-set digests match the frozen baseline OK   preflight: 16 fields supplied, non-canon marker present, glossary vocabulary licensed, no floating version reference OK   cross-references: contract §4 names = gate FIELD_NAMES = supplied fi"
+          },
+          "run_attempts": [
+            {
+              "argv": [],
+              "exit": 0,
+              "stdout_sha256": "12de1696b814d2cdbf77dd8acea0a435f501b46eecdab5e70cd450c56eadd9ba"
+            }
+          ],
+          "scan_line": "fields=16/16 glossary-entries=20 findings=0",
+          "selftest": {
+            "counts": [
+              [
+                "16",
+                "16"
+              ],
+              [
+                "16",
+                "16"
+              ]
+            ],
+            "exit": 0,
+            "malformed_controls": true,
+            "positive_controls": true,
+            "stdout_sha256": "3ffc034e8b1bf23a907b543fe870d1288efd40c831e8f0486c12d6b464a7e51b",
+            "tail": "selftest: OK — positive run (exit 0, fields=16/16, glossary-entries=20, findings=0) plus 17 controls:   - positive: exit 0 — fields=16/16 glossary-entries=20 findings=0   - isolation: the CLI run from a foreign cwd exits",
+            "traceback": false
+          },
+          "tool": "tools/exercise-handoff-e2e.py"
+        }
+      },
+      "missing_dependencies": [],
+      "passed": true
+    }
+  },
+  "claims_declared": {
+    "D": "depth",
+    "F": "freshness",
+    "O": "operability"
+  },
+  "counting_command": "python3 reports/round-11/run-validation.py",
+  "date": "2026-10-17",
+  "failures": [
+    "claim F: recheck: stability 0.778 < required 0.95"
+  ],
+  "input_sha256": {
+    "examples/culture-d2/typed-labels.d2.yml": "a3aa452cd5ae77c351d9532a707fb1f1ababf77c3fad8b9d28089e6958364a43",
+    "examples/culture-d3/expected.json": "562b76cb48f14bdb7bcf6362f78d8b5c5506934a10d9f912f6c4a0a554bf90fc",
+    "examples/culture-d3/packet.json": "bdf635ceaed4eb2f43ed68418aea968dc930b572bfa61b709372efe89baf4829",
+    "reports/round-10/drift/ledger.json": "9ae5ed2ee5599629cfb331d85fd5028a87c63e41b58d36c65b3a74a1c770b698",
+    "reports/round-11/claims.json": "6b718d690e79c050260d6b6de5cf8af93662a733c5ee8048d07dcee1463873ab",
+    "reports/round-11/depth/design.md": "addd0ea2ecf71871621814aa5917347ae6503d0040bcf64c31cae0f4baa69c49",
+    "reports/round-11/depth/e2e-receipt.json": "4adc90a2ca4b8df0e92bf15b1b442f4d85003461dbce5bbdb5aafca058b0c095",
+    "reports/round-11/handoff/expected.json": "a94f9ded9d0938ec1510a1834b83162635c9e94a04b70461d5db0b98a0031d7a",
+    "reports/round-11/recheck/audit.md": "8420c4b9a7ccc93f22678430639a2707bbce8a917c83a01441340d845bfc54e1",
+    "reports/round-11/recheck/row-000.json": "e2ca37b594b58c224cd9263ced28c0a2455bbac5899f251cfe5c994e794875e0",
+    "reports/round-11/recheck/row-001.json": "bce522064a6fc748247485bed36b35502a371b2490bdf70157f5ebc02d230e90",
+    "reports/round-11/recheck/row-002.json": "24566df9b6018efd260a4d4513c4fc767e421cc49600c67317d5d96d30edfc7c",
+    "reports/round-11/recheck/row-003.json": "ca9900372ce0aba3dbbe744c51ff96ab824a30f11b7b138de5eeeb4465e73e84",
+    "reports/round-11/recheck/row-004.json": "603e16a6905aa8155f82747aa48bb3c10af4dc77b78ed989ad8535870bef82e6",
+    "reports/round-11/recheck/row-005.json": "a3a259a9bbd688dbb5bc852d1ccb03dfba2eb45b46d7997fda3c96d45bbdd919",
+    "reports/round-11/recheck/row-006.json": "3ef95d8351dbf3947bf5f3dbdfd2ea760a8eafe60429d3e090c84797dadc318f",
+    "reports/round-11/recheck/row-007.json": "6edea7c51f92a6730a74e508604218ccb061338f24fdd47b4a7616fa65be8cc2",
+    "reports/round-11/recheck/row-008.json": "6b711abf4a720a82f35c9109cb9a4725a2704d7f1c4382e1ee9da919392a266b",
+    "reports/round-11/recheck/row-009.json": "4a3cdb1990e3c1e1fb4162be6e57a3783a8c86849cbb8a00ff77e634a0cf7490",
+    "reports/round-11/recheck/row-010.json": "8a3fb4bcbfa0ed4c0dcd0a1ec038b92c4c4c0234f75399e58f9cf5197c6601c8",
+    "reports/round-11/recheck/row-011.json": "84a68a45cd086e83bcd5e61f77ee5994e77074292e91ffb43fa8c6dd579fba67",
+    "reports/round-11/recheck/row-012.json": "319ea7d42b787003d68e080a904d88802f85d6fe327b4a2191424527855b8570",
+    "reports/round-11/recheck/row-013.json": "7819a45ac165407cc93fa08b207c8b2595a7ad60fa8aa0b299b49d5e2c4dbf87",
+    "reports/round-11/recheck/row-014.json": "ea05b5239ab42fcf52c091ad8f4917254c549f6d87aaa8f9924dc034a9342d67",
+    "reports/round-11/recheck/row-015.json": "a5205e94031976729f5bd04f839d77b3ab880d435fc8dab46c2dea17bbe2c4b5",
+    "reports/round-11/recheck/row-016.json": "43a78712b23d82c1f9bc9efbe15af89b955fd30e675e157a0294567cbbe200bf",
+    "reports/round-11/recheck/row-017.json": "a36f38d2e5cdca50fc856d982b233813c15a68dbfc41481ace725eb0f87eb9d5",
+    "reports/round-11/recheck/row-018.json": "a558650694616984fda162b5bda261ccac7b2642e85ca5bc7e2135bcc2f92140",
+    "reports/round-11/recheck/row-019.json": "a0482387bea439956b4bf31d44d17423a97ee3040a3307c7f3b1b18c68397a3e",
+    "reports/round-11/recheck/row-020.json": "f568dd01b14d3ad6708ac6b6b7ec7a303a1fc56ba49148ab81e9d01e9a44607e",
+    "reports/round-11/recheck/row-021.json": "4fa354210a721c898f62ede776cb51f87badbb6bfee2a909ac211108a3efac8b",
+    "reports/round-11/recheck/row-022.json": "02eced52166e6630462f39a5b52ba7862059e5f708cea1f5a108964b8b917413",
+    "reports/round-11/recheck/row-023.json": "e5c9f932d459906ee4b49db226c12b949db54b369a5cc5dbb83fc8ae5164376f",
+    "reports/round-11/recheck/row-024.json": "2b4b4914ba0d4cfa41e4540779259e4d9ce5d74d8af976e4d6106a3c0e8c3532",
+    "reports/round-11/recheck/row-025.json": "a4d276c4bf3cbc83f3d36be07a6d965524f88b988ac0c76c88d4d0be1adf1bb9",
+    "reports/round-11/recheck/row-026.json": "5e14e34f251958a3aa641536eb49656a0a8f414b92fbd5b33f6a9b070d354a8d",
+    "reports/round-11/recheck/row-027.json": "48f3e21b1bf6a26342ce1328b009d1f56bbae361c2a11a13e24d7d24bed26b79",
+    "reports/round-11/recheck/row-028.json": "ccfda91d832f8ee60b0fcd09c23f4607c0987c4a774b8d86876a20f73ddf037d",
+    "reports/round-11/recheck/row-029.json": "e723c9127e2c8fd219a9e0baa5c8b921eed7b3ca525ceffffbd415d081170143",
+    "reports/round-11/recheck/row-030.json": "df7a8e8769701dad926531f2504c26a4e2357b1dadff1319cf916ae9c93648f3",
+    "reports/round-11/recheck/row-031.json": "f709feade1e8d71f2a2c972f55fbdadda856091527fbf85f1be3c0fdb038d200",
+    "reports/round-11/recheck/row-032.json": "8fd119f03b469ed52435274fd4b4997086b4304803c49e15212c47891686951c",
+    "reports/round-11/recheck/row-033.json": "8516b78c470539cd45ef7eb19210595bd36c059d9418b114b88fc465e90cd589",
+    "reports/round-11/recheck/row-034.json": "4169f7c7453b49585275299ba4ba57e793397b67759d1fd70653d7cd900ddd16",
+    "reports/round-11/recheck/row-035.json": "41683155fa3343954646c8127c3e6302813ebd8442e77932f8ca9b536707b423",
+    "reports/round-11/recheck/row-036.json": "a1e707f1e9f3d94258be6e282d0e37774b3cb7b7eb578549e9a7198a10e6e88f",
+    "reports/round-11/recheck/row-037.json": "b8988490d5ef7b5aeebdeb0555bb54a2bf456346d99876587746bfcaf9dc1070",
+    "reports/round-11/recheck/row-038.json": "bb7f88112bf702be06b81d7022833b38185523ee2cbe6b7ce555ea6653d6dd5a",
+    "reports/round-11/recheck/row-039.json": "75d8b3f5f3984db6a7f3eaeae7995d1fdc45d74b1d20a0e7682b83637b7f61e4",
+    "reports/round-11/recheck/row-040.json": "c3b8d1e9d6a2bbe68015fb4e5c6c0e6137b818864a0ba5b839279fe49f053b11",
+    "reports/round-11/recheck/row-041.json": "9e0ed96c139fdb5f256dd8c90a677c62838e0175e461a73a0c2493566a72a05c",
+    "reports/round-11/recheck/row-042.json": "d78120bc362d3a2ae0a39997a39eb30b3d7c3e009ef80a0cf809849a8d7ea64d",
+    "reports/round-11/recheck/row-043.json": "70bf05222bbf023818e5602c35287351bc868b167780d766004ccaa83c98de75",
+    "reports/round-11/recheck/row-044.json": "d36f0cde3f67fd1a154852c5a66e1f9687e67dda81c3efb2bc7d5c7997b0b1c6",
+    "reports/round-11/recheck/row-045.json": "79f6866da6f8e9d97a99193a2413782435c621e684b2cf87c53b0c871cb29246",
+    "reports/round-11/recheck/row-046.json": "299c3000912369a0d99c6e86d22af54d98f8833a59d6091e096e9e3e2ec1299a",
+    "reports/round-11/recheck/row-047.json": "88a0290caf35f823308f8e50715bfbeb79b79098e741206083c5539d4f8ab45d",
+    "reports/round-11/recheck/row-048.json": "37742b768ef6ccdf2fd778d45f54fd217ab3f306c246bdf194defc5f3ba4add0",
+    "reports/round-11/recheck/row-049.json": "c957ef453e6d0e45e378167c9f4ddb2c11f843daeb757052ea2c01b185401719",
+    "reports/round-11/recheck/row-050.json": "d16b493a98c6bfb810763ea01229b939a8fde73386448982acb8574bea826cc8",
+    "reports/round-11/recheck/row-051.json": "b5f6f673ad89fe407e7d922e0bca9295bf91d51dcd1755a446682d087217eb03",
+    "reports/round-11/recheck/row-052.json": "6eb62bc0d86f7d084b0a4eef8dd784f313ea1ec03080175fcff23e3615a662c2",
+    "reports/round-11/recheck/row-053.json": "a68d890c00545951416a255f02eae9933f91b2c636cf919aaa665bf193f9cadd",
+    "reports/round-11/recheck/row-054.json": "e183fdf4a5771040642e3223921858de73760fb15f3118ddd1e08539ca9bc5fb",
+    "reports/round-11/recheck/row-055.json": "52654d893dd4fe3eadc3bb47bdfab8332633ddabb4858d6e05b46a021deeccfa",
+    "reports/round-11/recheck/row-056.json": "224de53dce725872daf9a04d87713ab924c6dce694d21dd3a56c7adf37d503a9",
+    "reports/round-11/recheck/row-057.json": "df7bd9691d53af8628e1de0985b6c5a9fb089235bea103f10fbf7cb72225a91f",
+    "reports/round-11/recheck/row-058.json": "6619c97a2873e4f21a158fe8185d920bcc5b8a277d999fc783a965e7c0206f60",
+    "reports/round-11/recheck/row-059.json": "e3ea1187e94531833f7db12fcb54acee6dca0ddcef7c31b10ab5a6581775f1a5",
+    "reports/round-11/recheck/row-060.json": "4456b11f61ca8fc969fb8f35e802c564a9e81bff30782fbd4e79daa4214ea259",
+    "reports/round-11/recheck/row-061.json": "b618b084635cdd5a43f004c50e2a47272f6883f3a22441e34ea2a0d362073a54",
+    "reports/round-11/recheck/row-062.json": "336f43c3e6b75afe8bda670cec34b0105b203615aec389626d52cf345f3ca563",
+    "reports/round-11/recheck/row-063.json": "5f0543a70b24e634fda7e4364fef136e8363bee5675222a5d27662d111b21e0c",
+    "reports/round-11/recheck/row-064.json": "bbb93cad127dcd8d09d90e06802d8791dd7b55ee05453a7c4e6a82d7bcd06915",
+    "reports/round-11/recheck/row-065.json": "88bdb822dff05cf31359dcd459b4b5deb66a255d11ca3e28c455063600bce288",
+    "reports/round-11/recheck/row-066.json": "2afa4db402ca47406704d2185cb30533d542d8d2fcbae03c6038cb6019882b52",
+    "reports/round-11/recheck/row-067.json": "340dc881f4c2d10b5c49213d5f880a15b238e3a538ececf856892f7336d82787",
+    "reports/round-11/recheck/row-068.json": "7ee72a50b9ed5676f8a9129a4b03bf897a34f422d4a59756c1493da4bf0d8c7e",
+    "reports/round-11/recheck/row-069.json": "61358fd7489faaf2d688a886ead2cd51b68f99de5aea9a47dc7f9f5d50f7eeed",
+    "reports/round-11/recheck/row-070.json": "089694ad658df82f1f1f6fbed3bc41653f05cdf8473a9424ced90cb27b83e4ba",
+    "reports/round-11/recheck/row-071.json": "746899136aa0a01e753fcaa0e9fc9c8f00c30f4e276ab7f4a50084d31b18f4ac",
+    "reports/round-11/recheck/row-072.json": "646ed5f7fcbf33a7063ee7ddef861c92363fb8cd63eface39b4f3db3a542d7e7",
+    "reports/round-11/recheck/row-073.json": "c66f291c1f7a0bbbf8de3d445fba5d306c9b3d74827ff58418210637a1bac9f0",
+    "reports/round-11/recheck/row-074.json": "37850c3c8b665191f6cd3f6c4fd59ae806b0460b11cecd70102951bfa015e573",
+    "reports/round-11/recheck/row-075.json": "d61779aa01c15c73bd56744df2c761ca3e0f0881fb18f759404a67e1265c4a43",
+    "reports/round-11/recheck/row-076.json": "3656b18e9c8d05a3f967e3f4bd5afa55bc76463136abefc2d401994dcd8bc0bd",
+    "reports/round-11/recheck/row-077.json": "518a4c960ae2747314410c5077e82c47e8edd92c89921c8ac44aa8f45900360e",
+    "reports/round-11/recheck/row-078.json": "38dd6c3cbd6ee5abdb2de5e4c93dd36a2f71df4b857702d8ea464b92977fd657",
+    "reports/round-11/recheck/row-079.json": "6bb07b56f73330c4bb62438466f45e839fd8fc00e0ebde164c9e93f42b31bc1e",
+    "reports/round-11/recheck/row-080.json": "09d4256d16bb304007295bb7b171cc1cebb4f5682a45906f480de461c79d8f84",
+    "reports/round-11/recheck/row-081.json": "3d1f69f66c2d9ead4430770077522ed0a5e7b681ddd0dae7b04f93650da12854",
+    "reports/round-11/recheck/row-082.json": "4bc5796857640bd53664263eaae0595ebfbd6fe45ac74970a3b1798f9422c12c",
+    "reports/round-11/recheck/row-083.json": "8b69f002170a5162c472ba97e542653d0b2e888df39e527beaca78230438fdf6",
+    "reports/round-11/recheck/row-084.json": "a8d3011f3d0c1351fbb40f23d25c099639a7b9220dbc459a9c92d693cd96f30c",
+    "reports/round-11/recheck/row-085.json": "f2a8a26646911ef4a5840bff231ba8f79448544153b4135b2935e01f73c230b2",
+    "reports/round-11/recheck/row-086.json": "fcbf0c0b8b1fbba113cebf9c38a5c06abfdb6d0e001f1841a0dc368348b8bd48",
+    "reports/round-11/recheck/row-087.json": "42579e85b7968d84b837217ef62e76b264c6b59aaece712ea68d135a1601e83b",
+    "reports/round-11/recheck/row-088.json": "30df8cbb371627e12511b0809326514973c3a261efa189e439f2a93c431d82fc",
+    "reports/round-11/recheck/row-089.json": "4b63d4d70301ff6339b1c077b9a25568396085357dd3d018ce797c77189d8c64",
+    "reports/round-11/recheck/row-090.json": "587d5fa91544c783df30b732accc8ca45c3768e387d8a4be7bae4ab6545189cc",
+    "reports/round-11/recheck/row-091.json": "6c6ceec816d4226eaa062b0862df91e0a70866236e6c09e1bfc5ba5ef6c74286",
+    "reports/round-11/recheck/row-092.json": "a53517fbdb6fc2a11771cd6b98ab6f0cbd530dab722fccf49f2e8738aed29567",
+    "reports/round-11/recheck/row-093.json": "8fadadc6064ec81520a74f7112b19da43aad7c67a597cf3df1eb0f772a2a9ea1",
+    "reports/round-11/recheck/row-094.json": "6e9ee27734fa1ceb781bacbbc734966ee7f071d9be74963254889fc41675ccbe",
+    "reports/round-11/recheck/row-095.json": "c8a321f6162bb0263c4a4491646964f9fea809d8073e53ce84c1b6e01286b6e8",
+    "reports/round-11/recheck/row-096.json": "0891e33446e75c476f3f7429ed8007afaafde7b5c88a9561da06c586bbfc3520",
+    "reports/round-11/recheck/row-097.json": "4a41e2fb449582c807248514250a7cbef43b19ca6b1ed5e69e8c7f49d579c032",
+    "reports/round-11/recheck/row-098.json": "5c2498d235976e49334ba5e4b8bf2842b3f4a386e78f56dcc409e981dbc8e5f1",
+    "reports/round-11/recheck/row-099.json": "1220321e6ddaf1d6dddfe546caa9185d475e13d862fe11aa1aea86fa62cd60b5",
+    "reports/round-11/recheck/row-100.json": "fa9b2c75a9018c344c94221d49412ea29fa0cd69ccbd5201d3d46588cc40c2f1",
+    "reports/round-11/recheck/row-101.json": "017b9ddc615a73deb9fce0973cf10ec5679255f77cc02915d8bc07d9b92e4816",
+    "reports/round-11/recheck/row-102.json": "131c4d801a257dc6e46d5ea67ee0e738b572e02636b6b92076e181986f252e04",
+    "reports/round-11/recheck/row-103.json": "de9696660cc08a39a69e8f1eaf00074532d2a12a341f34fd772059ea0b716701",
+    "reports/round-11/recheck/row-104.json": "2759db3ad0a0a253c48b9aa145d8b90145bb651f13b59ed46e3884ad4945f8b4",
+    "reports/round-11/recheck/row-105.json": "248aed0f693b937a4bbb617ca610dcaf94a1fbc56651499d2e2abb79c1501953",
+    "reports/round-11/recheck/row-106.json": "9ab5c1d5f9a5c4113f33906369f4aff08090f1e5d1dd38184c07e65dbfabc1bf",
+    "reports/round-11/recheck/row-107.json": "51f3cc49603f3beabd1bd53c0de133cc3b9e2a598e56ba757123bb56e79d5127",
+    "reports/round-11/recheck/row-108.json": "197aae6a641973011a6ddd34a24bd2f465748b30f1ce8c4771dfd930b2eb4a61",
+    "reports/round-11/recheck/row-109.json": "33a979ffd91ebd01d568a135ab4ce91a11fdaf8338a5871aadaeb6a85c8ed6ec",
+    "reports/round-11/recheck/row-110.json": "f854cf73793cdcf437bb23bbe89dad64fad61f9c626ebec94b9fd1ce2581989f",
+    "reports/round-11/recheck/row-111.json": "a1191c61b509bfedd692c924121775f402b4e283407b81564ba73ba8083990f7",
+    "reports/round-11/recheck/row-112.json": "0ad15b9edc4aea1faa9d48c8d8d95e1d9a890b458a8b45efd88392f4ce338cd8",
+    "reports/round-11/recheck/row-113.json": "230573a31e803ddd5e1aa1e2a25a1373a815834d697b911bee6767869acd0df7",
+    "reports/round-11/recheck/row-114.json": "761074a1aa2836f22f0765d982570c867599a224f43be9b304b8d8c519031f43",
+    "reports/round-11/recheck/row-115.json": "bc3baed09e21a9c610a1b241da7f906862d98863c846de13a39b9b2bc8eb09c5",
+    "reports/round-11/recheck/row-116.json": "583a4aa20b550962678edcf9f69889c7bf315f4de07980790433f4f5a703f944",
+    "reports/round-11/recheck/row-117.json": "bf4f34a7bb9ab1f4b38e512cdd06b96cc8c93ade6aa3b2a14f8c27d836b96d39",
+    "reports/round-11/recheck/row-118.json": "e3bf7a2470dd85cb25e283d0757ae9a9f234ad34d1b5948d1453542fbd116d96",
+    "reports/round-11/recheck/row-119.json": "ba892566ada27ba29f4d39bc278efbb08a4e38602ca20f01eeafeeffb86120e6",
+    "reports/round-11/recheck/row-120.json": "0ae49e55c454be2a7b048697d20781c749317fb3c4dd02bce92cc44588f5b080",
+    "reports/round-11/recheck/row-121.json": "75e652546aac7ee9121a103ed5a16c1716164a67f19991c34c133c86eb30823a",
+    "reports/round-11/recheck/row-122.json": "6eb9031db1649b728eee04259018dd583ab0b226065e9b3e3a72f0a5ebefb0c2",
+    "reports/round-11/recheck/row-123.json": "e8f61b0315a227e645210289f3d50bacef9e79b1408c807751ebf6a351a89819",
+    "reports/round-11/recheck/row-124.json": "ce28f3fe8fa14ded55ddee0d495143e361d4b420713104d09a8eac30c4d80f0c",
+    "reports/round-11/recheck/row-125.json": "eac7a444f47f3149aaea68f8307937ec3023414acc5be9208d7f1cd441e35062",
+    "reports/round-11/recheck/row-126.json": "caa57cb67a17dddd92b25f0041f40902c24e777ca51caa6c0a6e8c384e73c986",
+    "reports/round-11/recheck/row-127.json": "ca0d2b7e9e5010f4c6a7580a59909d9f3fd8b503d14a0de077a24c141f5c635f",
+    "reports/round-11/recheck/row-128.json": "16b1a6d1213bb2c0923d88fc4d59f0389339f9257a83316ed6347728d55ae7a3",
+    "reports/round-11/recheck/row-129.json": "98500899569fcbe6761a997d48455b6a6213e6412eeb7ddeec3cbe021baf1b26",
+    "reports/round-11/recheck/row-130.json": "dd3ff9af6ee0f3b0cbdd7a0b5ff4c622eed2f95239d5f78a31d0761e7d161e91",
+    "reports/round-11/recheck/row-131.json": "3e2a18e6ebd43c6a91b7fa3deab8ab0ec1dca925f8365b65ede05621e7e9aa5d",
+    "reports/round-11/recheck/row-132.json": "4c4ded9bde583ec08a0138d439113bfd6e69dccc1e131275033ec514150d0286",
+    "reports/round-11/recheck/row-133.json": "cdf71f2c14d85aba7e019505dbbeed3e581f1aa6953721e84a22cebb26e5b92b",
+    "reports/round-11/recheck/row-134.json": "68afb5eaf35fa27e391d6e41802a13ce5c7441eb5d06cec8723a2642adbbb988",
+    "reports/round-11/recheck/row-135.json": "35e0af4e495197bb7f9dc4c92c90f46ad6203ea11959159845b2a5a141566a18",
+    "reports/round-11/recheck/row-136.json": "b278c354abcac7c482ed31528f2ea9c708ffb411affa1cef506e86f7abc3fbf4",
+    "reports/round-11/recheck/row-137.json": "e4f4da0e66d3d7039358a3cc00fd043728437f35c43fad7136cc9c1696ee9bc8",
+    "reports/round-11/recheck/row-138.json": "94354f84ed2775736b56649e60b886b9734ed86daadbcb3c722f0a8ae5afa3ef",
+    "reports/round-11/recheck/row-139.json": "a78fbe45459b306d8c54f3b9f45daf52fe3457d3e2146590b498ba65141fd587",
+    "reports/round-11/recheck/row-140.json": "e75324411172ef4d3473019e40b51838332345975eb84da7790dfe315d099e9b",
+    "reports/round-11/recheck/row-141.json": "bcc98612356b003c185f67290c312405054b0bc0009561c70f8a42726531eb4e",
+    "reports/round-11/recheck/row-142.json": "a7eaf94ee833288273d37f40d4c8b9ade3264c726de63cf26ff6797d6b327dbe",
+    "reports/round-11/recheck/row-143.json": "1bab17db07155ef4d3d62d556d620feb4a8bddfc59f982cec878b5a0fe904f22",
+    "reports/round-11/recheck/row-144.json": "167a9e42a30180f19655975684f87dde3edbcf126238b141c1fcccfc519d32f4",
+    "reports/round-11/recheck/row-145.json": "0b9b7a51e261e548af9f9d4bb71d3714e6575606e9952ed0c9654fcd3640a815",
+    "reports/round-11/recheck/row-146.json": "321a13d799e36079483ec1224b75042959e657123bd6ad1c3795647a7e85637d",
+    "reports/round-11/recheck/row-147.json": "2052134055f52c5c4872c28709cd11890c2cf60e2f5c1c077b8f7e4d3ab51920",
+    "reports/round-11/recheck/row-148.json": "5d48babd2b0cdc239b700eefc397b4a3050ecc0f50a645fd60221d5bcc94053b",
+    "reports/round-11/recheck/row-149.json": "e1e85b851750ce91e05df5616708d31680852fa75b184572e7ce3e692b64d450",
+    "reports/round-11/recheck/row-150.json": "edf66bbbc298c55469b8b021329131b3275dae013d9db2ac395b91d7e05f11b7",
+    "reports/round-11/recheck/row-151.json": "72bd92f782de60905075a475e62ef3c54f47b82faf89c80b4870901e16d593a6",
+    "reports/round-11/recheck/row-152.json": "7f2ad49b5d80ec0624f717bb54837b30f3883485b43ed32321e5acb97c707a7a",
+    "reports/round-11/recheck/row-153.json": "fdc4aa93f0d08d9abce8d43c87188de67acbc7070b15b99e5c23b7f65ccf6672",
+    "reports/round-11/recheck/row-154.json": "6eab7f94e93bccc3e462654c71d70b6b067b15152d1e9f1daaa5abce0d64b4ac",
+    "reports/round-11/recheck/row-155.json": "56cf2ccb545d6dc2b4d7b6b0174952fc0ad02c6119521afc76c9d5e99d665820",
+    "reports/round-11/recheck/row-156.json": "3f9626ad3cc2e70ec1804c60758ee27989ea409e5a55304415de13200af9e27d",
+    "reports/round-11/recheck/row-157.json": "1ace1b36fbc81ff95a588e636fa6199f529c49b640f3f0eddbe22de12719e09b",
+    "reports/round-11/recheck/row-158.json": "13ab10249b6ab52781837048c7560ca75a9d0e0c202d251554fadfa771fbe7b8",
+    "reports/round-11/recheck/row-159.json": "853693c0fcaba67b0c72761644cb8227ec0360a787ba4605c4eacf0c15533f84",
+    "reports/round-11/recheck/row-160.json": "9638d5ea00e2055f422df7cadacb12270bca702611c17451665fc5eb2529b975",
+    "reports/round-11/recheck/row-161.json": "6861523832b14021d9781d39eaa219274d80881094e3d94ee51ad52a01f161f7",
+    "reports/round-11/recheck/row-162.json": "3e0da6a3225eb501054f82319970bcfa96600f5f9b08ec92b483e94a429599d0",
+    "reports/round-11/recheck/row-163.json": "fe4196daa58450899f64d1b1c581f6df2274d0783d297ea2e9639422927f63b6",
+    "reports/round-11/recheck/row-164.json": "b9c8361e16108b090d0935e2ff7ac6ee09ed58d6c835319ce1e10ec2d0219799",
+    "reports/round-11/recheck/row-165.json": "072ec39ffb07b546f4ecb56db662085bf847ef177508893929a808bc7f3372e7",
+    "reports/round-11/recheck/row-166.json": "910093335d5ddccd8058184a3db1bd65345f6012da992ee67ea437dca4afd914",
+    "reports/round-11/recheck/row-167.json": "b42023a6993dfb23f71a1239120d5d3c763cef3c4c95cf0861a632e86cc7cd66",
+    "reports/round-11/recheck/row-168.json": "35b50b9abafb899f885f73aa4575c3a63a9b9bad00f926ffafe10d0d960c5bda",
+    "reports/round-11/recheck/row-169.json": "ffa4a7043112d303bc927aefc9b800534b795a03e25b9d48c46bbcdbb79311cc",
+    "reports/round-11/recheck/row-170.json": "316222277d1b0e7be533981982632884ac5f9fdcebbd0834c3c01f0ca464c0c1",
+    "reports/round-11/recheck/row-171.json": "e7968d61abd167e52d8f60e728136b05bdb939d0f163bfadc2e484f59ae48802",
+    "reports/round-11/recheck/row-172.json": "70f00ae83ff882d98f6f59e95066efe33446a1a2caddeb68ff76239ec575c6d8",
+    "reports/round-11/recheck/row-173.json": "b239e7f836112076bc043fc0b730c3c457ebe02e3a3c0c75bc4b007c99c8a50c",
+    "reports/round-11/recheck/row-174.json": "e91802898212670f81bea8e4e687319da9a5d040983a06f9abe9dafd0ed051d7",
+    "reports/round-11/recheck/row-175.json": "b8aecc41b7328182f45239bef745be4725fa92e1d2fcaf1f46449e2c74b6d614",
+    "reports/round-11/recheck/row-176.json": "8a53fd937e04abce551dca8805ee7f47165c3e34010608252a7c9f38a522ec60",
+    "reports/round-11/recheck/row-177.json": "46c6b31bf5238404496309d7538d693d0a57e3fb164dc2d40c28cbf4df44df63",
+    "reports/round-11/recheck/row-178.json": "ed54a5b96fc8f979125e5ce3d2d5daf5aa21e9524ea7c04ef9149acf423b84e1",
+    "reports/round-11/recheck/row-179.json": "2c9d04f26a06654c74b5309fc5bc10b841a7417d7f718a5eeaec993b77debfb0",
+    "reports/round-11/recheck/row-180.json": "413b8980695cf9c5c71cfb20e73ba33c6b990ac959e2d1216a826c89640429f2",
+    "reports/round-11/recheck/row-181.json": "f766963da8407719d5e0d792b8fd504158b50c46e8c4b168e769c974cf01639f",
+    "reports/round-11/recheck/row-182.json": "4e3bd0b08c515f1b30ecb0752c2807b02b17fbea671cb5874fc9d413b2c6221f",
+    "reports/round-11/recheck/row-183.json": "e263e3e01be987e97a3b7c99c555502ac1b073617ec2bd2568bb6dd6c6f6a694",
+    "reports/round-11/recheck/row-184.json": "882d508f28a01a9e4404c72834883506a14eb7820ecbfffa3f0460098b3dff16",
+    "reports/round-11/recheck/row-185.json": "5b2f19434df03bce839a33072bbe89e11d432c62965b10d3df770b81bd15f7df",
+    "reports/round-11/recheck/row-186.json": "6cdc9c27c0e1636442f2ba495ed03e8252b992bd0abc3ac3de8207761b5cf24f",
+    "reports/round-11/recheck/row-187.json": "b4271b9b70fabcb97b7fb8837ec81001eb2b1061f881fc5be59b88c2c7979cc2",
+    "reports/round-11/recheck/row-188.json": "09968e67c6bdf067a926f30aaa2b047f9daa4a91b49c106d662492a235d395e3",
+    "reports/round-11/recheck/row-189.json": "7080f1aee720845574b1267f61f3f6fcf37ff0251eec4b54735fb46e82e94565",
+    "reports/round-11/recheck/row-190.json": "970088fac11a513855d734fe80438d4a3dc1d3d6a7a1ceb6c3f868a73c5df316",
+    "reports/round-11/recheck/row-191.json": "38315f4f04ffdd6bbd0aacd249d77553d28fb74b3667d822acc7c3b5eaef7f9c",
+    "reports/round-11/recheck/summary.json": "f633b2ff9b54c73bdb35c86d9126e8ca0508a7e02f2ae584e6e9b57f54a96f7a",
+    "reports/round-11/targets.json": "930bc076623f0ce87d8b5b2aa6a634fac4bf8fc0290802b1415c92ed22f5e08e",
+    "tools/assemble-culture-d3.py": "ba8d19d5855fe670e5a828f0aca8133fb2cbf54ee865927917c9f20d5d17f014",
+    "tools/assemble-d2.py": "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d",
+    "tools/check-evidence-coupling.py": "849494b0c4113885223f6d865110cd34ed6bb3aeec8b449d020f7b571eb2197e",
+    "tools/check-gate-battery.py": "0a126b70afa6cbd5c2565b57399c318788540e10c4940d07c906718c8b9e1aa1",
+    "tools/d2-typed-labels.py": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802",
+    "tools/exercise-handoff-e2e.py": "a21934ade22b2cda338645ee389c7f848256348446d8a79f38a9c9ff827d2005",
+    "tools/gates/frozen/round-11/MANIFEST.tsv": "aad230bfdcc1bfe4cc137339b47daf0154208b6c69225e0c0a4505ce52532063",
+    "tools/gates/handoff-packet-check.py": "e2fa3223b2aa57382807c51099a4360c1a9cc2559d5b4bedad1b54e9ab0ad575",
+    "tools/replay-frozen.py": "a2fb5c98260a07f0801f4bf21f349283638da6796645780393262e4368c79464"
+  },
+  "limits": [
+    "Structural/evidence-presence checks plus the round's own read-only commands (--check/--selftest/battery/replay). The runner does not re-run the ledger commands itself; the F leg cross-checks the recheck seats' receipts against the ledger's recorded hashes and the audit's independent re-runs.",
+    "The D e2e leg prefers a machine-readable receipt and re-runs its recorded command; when the output is not JSON the expected-vs-observed equality is read from the receipt's own lists, so a receipt that fabricates both lists is caught only by the output-hash pin (when declared) and the expected-token presence checks. Receipt shapes outside the documented keys are misses, not skips.",
+    "The sound-channel check is concrete: no PHON-INVENTORY line may name a GAR label or the word 'translated'. A different smuggling route (e.g. an owed form silently dropped) is covered only through the exact expected-set equality.",
+    "The battery is run with the committed baseline roots (frozen, expected, reports/round-9/baselines) plus any round-11 root carrying a gate-shaped <root>/<gate-stem>/expected.json; the plain default-root run leaves two gates uncovered (myth/naming) and is not used as the acceptance reading. Non-gate expected.json files (e.g. the handoff exercise's own baseline) are never fed to the battery.",
+    "The replay leg runs replay-frozen.py with a disposable TMPDIR outside the repo (the tool refuses an in-repo mirror by design), falling back to /tmp when the caller's TMPDIR sits under .scratch.",
+    "The exercise leg parses 16/16 and 20/20 from the exercise's own output (INFO scan line or JSON); a tool that hides its counts fails this leg even if its packet is correct.",
+    "'Committed' expected.json baseline is checked as an existing, parseable file read by the exercise; git-trackedness is recorded, not required — workers never commit.",
+    "The F 1:1 binding uses the receipt's index against the 192-row round-10 ledger; a receipt for a row whose ledger hash it cannot reproduce is rejected regardless of its own claims. Rows with no byte-comparable re-run (prose-only ledger rows, new_hash null) are bucketed as dispositioned unreproducible: excluded from the >=95% stability ratio and from the >=15 re-run count, but still required to carry a named cause.",
+    "Unstable-row causes are read from drift_class/drift_cause or inferred from the cause text; the licensed vocabulary is legitimate change / environmental / defect plus the unreproducible-by-construction class for prose-only ledger rows.",
+    "Calibration controls (disposable, untracked, 2026-10-17): .scratch/x03/make-fixture.py builds a hardlink/tar fixture whose synthetic round-11 evidence passes all three claims (exit 0), and .scratch/x03/controls.py plants 15 defects — an extra expected hold, a dropped owed form, a translated GAR label on the sound channel, a non-zero e2e exit, a missing re-pinned manifest, a stale typed projection, a 15/16 field count, an abandoned malformed control, an unshown gate reference, an absent baseline, a tampered ledger binding, undispositioned drift below the stability floor, an inflated summary count, a missing auditor artifact and a non-1:1 command — each was caught with exit 1 and the expected failure text. Scratch is not a deliverable and is not required for this runner to work.",
+    "Author-side only: no admission, promotion or canon decision; this runner replaces no independent review."
+  ],
+  "missing_dependencies": [],
+  "regimen": "operator 2026-10-17: loop 1 of 3, build round 4 of 4",
+  "round": 11,
+  "runner": "reports/round-11/run-validation.py",
+  "runner_sha256": "fab68287e74abc62d0681a1389bd0450d90020b65d7896ba2ab679e195acd9bd",
+  "thresholds": {
+    "D": {
+      "assembly": "tools/assemble-d2.py --check exit 0",
+      "battery": "check-gate-battery --selftest exit 0; battery run with the frozen/expected/round-9 baselines roots (+ round-11 roots) exit 0, 7 pass, 0 fail, 0 unevaluable, 0 uncovered",
+      "e2e": "exit 0; findings set == expected hold set exactly; no PHON-INVENTORY line naming a translated GAR label; owed forms carried as named holds; output hash pin (when declared) reproduced",
+      "interop": "assemble-culture-d3 --check exit 0; check-evidence-coupling --frozen exit 0 with 0 findings",
+      "replay": "a round-11 MANIFEST.tsv reproduces every row with no digest drift",
+      "selftests": [
+        "tools/assemble-d2.py --selftest",
+        "tools/d2-typed-labels.py --selftest",
+        "tools/assemble-culture-d3.py --selftest",
+        "tools/check-evidence-coupling.py --selftest"
+      ],
+      "typed_projection": "tools/d2-typed-labels.py --check exit 0"
+    },
+    "F": {
+      "binding": "receipt prior_hash == round-10 ledger row output_sha256; command text 1:1; stable == (new_hash == prior_hash)",
+      "dispositions": "every unstable row carries a cause naming legitimate change / environmental / defect",
+      "min_audit_reruns": 5,
+      "min_rows": 15,
+      "min_stability": 0.95,
+      "summary": "summary.json counts equal the receipts'"
+    },
+    "O": {
+      "baseline": "frozen *expected*.json exists and parses; the exercise source reads it",
+      "exercise": "exit 0; 16/16 fields; 20/20 glossary entries; clean gate verdict; handoff-packet-check referenced",
+      "fields": 16,
+      "glossary": 20,
+      "selftest": "exit 0 with positive + malformed controls"
+    }
+  }
+}

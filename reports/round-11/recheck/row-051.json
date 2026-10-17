@@ -1,0 +1,34 @@
+{
+ "row": 51,
+ "shard": "shard-08",
+ "command": "ls corpus/knowledge/verification/ | wc -l",
+ "source_locator": "shard-08 receipts table",
+ "round10_verdict": "current",
+ "prior_hash": "3fdba35f04dc8c462986c992bcf875546257113072a909c162f7e470e581e278",
+ "prior_exit": 0,
+ "checked_at": "2026-10-17T19:03:25-0300",
+ "hash_method": "stdout-stripped",
+ "command_as_rerun": "ls corpus/knowledge/verification/ | wc -l",
+ "new_hash": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+ "new_exit": 0,
+ "exit_matched": true,
+ "stable": false,
+ "drift_cause": "commit 94ca098 (round-10 admit, 2026-10-17T18:57:36-03:00) added corpus/knowledge/verification/header-conformance-readings.md and corpus/knowledge/verification/verification-independence-anti-circularity.md; the directory count moved 13 -> 15 after the shard-08 pin was taken.",
+ "drift_class": "legitimate-change",
+ "evidence": [
+  "git ls-tree -r 9dc18ec --name-only corpus/knowledge/verification/ | wc -l -> 13",
+  "git ls-tree -r 94ca098 --name-only corpus/knowledge/verification/ | wc -l -> 15",
+  "git log --oneline --diff-filter=A -1 -- corpus/knowledge/verification/header-conformance-readings.md -> 94ca098"
+ ],
+ "verdict": "current-with-legitimate-drift",
+ "recheck_context": {
+  "recheck_date": "2026-10-17",
+  "recheck_root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "lane_head": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "cwd": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "tmpdir": "$PWD/.scratch/r11-f03/tmp",
+  "worktree_at_recheck": "dirty: reports/round-10/coverage/index-update-22.md (M); tools/ and corpus/ bytes untouched by this seat; concurrent round-11 seats active elsewhere (reports/round-11/*)",
+  "rc_export_r3": ".scratch/f09/export-r3 rebuilt with 'git archive c610e0a | tar -x -C .scratch/f09/export-r3' because the round-10 scratch tree no longer exists; byte-identical replay output validates the reconstruction",
+  "controls_export": ".scratch/r11-f03/export-head = git archive HEAD (e3ef171); tools/ unchanged 9dc18ec..HEAD (git diff --stat 9dc18ec..HEAD -- tools/ -> empty)"
+ }
+}

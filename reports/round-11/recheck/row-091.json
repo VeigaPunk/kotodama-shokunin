@@ -1,0 +1,36 @@
+{
+ "row": 91,
+ "command": "python3 tools/source-audit-inventory.py --selftest",
+ "source_locator": "SKILL.md:191",
+ "shard": "shard-10",
+ "round10_verdict": "current",
+ "prior_hash": "ecb685112afea71e3b6d77ee38ca1935fbca0a0c900594bfebc265e2dcbd2121",
+ "prior_exit": 0,
+ "new_hash": "a0877052835b384fedc19dd5b97058ce5af33fc84ef96aa5166fa1fd8696ea9a",
+ "new_exit": 0,
+ "stable": false,
+ "exit_matched": true,
+ "recheck_context": {
+  "recheck_date": "2026-10-17",
+  "recheck_root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r11f04/iso",
+  "live_head_at_snapshot": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "live_worktree_at_snapshot": "dirty: reports/round-10/coverage/index-update-22.md (M); concurrent round-11 seats edited reports/round-5..9/validation.json and wrote reports/round-11/depth/* while this seat ran",
+  "isolation": "full-tree mirror of the lane at snapshot (tar copy excluding .git/.scratch/__pycache__); this seat's runs wrote only under .scratch/r11f04/",
+  "hash_method": "sha256 of combined stdout+stderr (stdout then stderr), subprocess capture_output",
+  "protocol_source": "reports/round-10/drift/shard-10.md (mirror isolation; combined-stream hashing)",
+  "non_interference_control": "re-run of the 24-command set inside a mirror changed 0 files and added 0 files under reports/ (sha256 before/after over all reports/**/*.json+*.md, .scratch/r11f04/iso2): the command set writes no report artifacts",
+  "recheck_seconds": 0.03
+ },
+ "note": "SELFTEST PASS incl. no-write and determinism checks",
+ "drift_cause": {
+  "class": "environmental (non-deterministic output)",
+  "statement": "the selftest prints a random scratch dir (tempfile.TemporaryDirectory prefix 'source-audit-inventory-cli-') in its CLI-section output, so the hash changes run to run at any fixed root; the two ledger rows for this command already differ (ecb68511 / e06fde07) and round-10's own auditor certified the class",
+  "evidence": [
+   "two consecutive runs, same cwd lane root: sha256 b0f9221feda9aeae vs 80f787c5ab26aaa9, exit 0 both; 4 differing lines, all the random token",
+   "random-token-normalized outputs identical: sha256 b44ef5e3ef35b273",
+   "reports/round-10/drift/audit.md lines 89-92: 'its output names the random scratch dir ... Two consecutive runs gave 1269f45d0a033d45 then a9942756778372e7, exit 0 both'",
+   "prior ledger row 127 for the same command holds a third value e06fde07..., exit 0"
+  ]
+ },
+ "substantive_status": "exit 0 in every run; SELFTEST PASS text identical modulo the random path token"
+}

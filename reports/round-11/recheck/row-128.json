@@ -1,0 +1,34 @@
+{
+ "row": 128,
+ "command": "python3 tools/check-gate-battery.py",
+ "source_locator": "SCORECARD.md:52",
+ "shard": "R10-F15-battery",
+ "round10_verdict": "stale-documented",
+ "prior_hash": "8bf71a029a2f66a21a562e4ba2514797b5d207fe6de273084bc422d286a7b3a1",
+ "prior_exit": 2,
+ "new_hash": "bdf31b3928ded3560355675e1da6990e0dc56b3262f1b530a4d00b65ce4d6d6a",
+ "new_exit": 2,
+ "stable": false,
+ "exit_matched": true,
+ "drift_cause": "environmental",
+ "repeatability": "nondeterministic",
+ "evidence": [
+  "consecutive passes differ: pass-a stdout sha256 bdf31b3928de\u2026 vs pass-b 322ea27a35bc\u2026",
+  "after masking the random token and 'seconds' fields, pass-a and pass-b outputs are byte-identical (masked sha256 15e1603409ee5c03a26a96a6a55d0b6c92b088d9e1de8639b7d55b7c37b3f754)"
+ ],
+ "note": "default battery run embeds the random mirror root \u2026/gate-battery-<rand> and per-gate 'seconds'; exit 2 and the summary (pass 7 / fail 0 / gates_uncovered [myth, naming]) match the ledger note; documented class in round-10 audit \u00a72",
+ "recheck_context": {
+  "recheck_date": "2026-10-17",
+  "recheck_root": "live lane worktree /home/vgpnk/Projects/shokunin/kotodama-shokunin (1:1 protocol); drift attribution used isolated clones .scratch/f06/iso (e3a1ec9, 94ca098) and .scratch/f06/iso2",
+  "live_head_at_snapshot": "e3ef1719c123ab4fb83ed94e033961dd61a2e8c7",
+  "live_worktree_at_snapshot": "dirty during both passes \u2014 M reports/round-5/validation.json, M reports/round-6/checkpoint-validation.json, M reports/round-6/validation.json, M reports/round-7/validation.json, M reports/round-8/validation.json, M reports/round-9/validation.json, M reports/round-10/coverage/index-update-22.md, ?? reports/round-11/depth/; the round-5..9 validation.json files are rewritten in place by rows 120/129-132 themselves (see write_side_effects)",
+  "hash_method": "sha256 of captured stdout bytes only (bash -c '<ledger command>', cwd=repo root, TMPDIR=$PWD/.scratch); stderr captured separately \u2014 nonempty only on row 127 (401 B). All 18 byte-identical rows had empty stderr, so stdout-only and combined-stream conventions coincide there; stdout-only is the convention in reports/round-10/drift/audit.md \u00a72 and is validated by those exact matches.",
+  "protocol_source": "reports/round-10/drift/audit.md \u00a72; reports/round-11/targets.json R11-F01..F08",
+  "runs": 2,
+  "repeat_pass_hashes": [
+   "bdf31b3928ded3560355675e1da6990e0dc56b3262f1b530a4d00b65ce4d6d6a",
+   "322ea27a35bc297651ec9e68e7efa7351d7e7502cbe4f69628199ae50f7dd12f"
+  ],
+  "seconds_pass_a": 0.37
+ }
+}
