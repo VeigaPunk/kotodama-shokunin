@@ -3055,3 +3055,9 @@ No goal, background agent or automatic continuation is started by this cleanup.
   407 s and was manually interrupted before any worker completed — zero files
   landed; the tree sat clean at declaration commit `3dedab2`. A route probe
   precedes the resume.
+- **Provider amendment (operator, this session):** one of the 64-worker
+  DeepSeek build rounds uses `hyper/deepseek-v4.1-flash` as provider instead
+  of opencode-go. Designated: **round 19** (loop 2, build 3 of 4). All other
+  DeepSeek build rounds stay on opencode-go keys 1/2 (keys -3/-4/-5
+  unprovisioned). This is an explicit operator route designation, not a
+  silent substitution.
