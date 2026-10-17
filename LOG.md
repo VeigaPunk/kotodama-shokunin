@@ -2949,3 +2949,37 @@ No goal, background agent or automatic continuation is started by this cleanup.
   escalation to fleet `.ufo/l0-questions.md` (contract digest vs lore r93).
 - **Honesty notes:** receipts are rechecks, not historical certifications;
   4 rows stay unresolved; calibration row is an unclaimed observation.
+
+
+## 2026-10-17 — Round 9 admitted (loop 1, build 2 of 4; 64-worker opencode-go-2/deepseek-v4.1-flash)
+
+- **Trigger:** operator regimen; claims F/O/D in `reports/round-9/claims.json`;
+  baseline `a7bb205`.
+- **F (freshness):** 4 residuals escalated with 12 hunter receipts
+  (primary/museum, scholarly-fulltext, alternate-angle strategies per
+  residual) + verifier reports V01–V03 + spot-check audit; reconciled 4/4
+  unresolved → partial-support, raw labels preserved
+  (`reports/round-9/freshness/`). Headline: R8-F01's round-8 `to-verify` item
+  closed at catalogue level (Louvre ark cl010166127 + CDLI P220619 Rimush
+  bilingual witness; AO 5477 qualified as a palaeo-Babylonian copy, not a
+  contemporaneous object).
+- **O (operability):** 7/7 structural gates carry committed expected.json
+  drift-pin baselines (`tools/gates/expected/`, `tools/gates/frozen/<gate>/r9-pre/`);
+  battery extension validates tampered → could-not-evaluate; audit confirms
+  zero gate behavior changes (`reports/round-9/baselines/`).
+- **D (depth, capability `culture-d3-acceptance`):** D3 acceptance completed
+  as new round-9 work (round 7 stays failed): --check byte-identical,
+  evidence-coupling selftest green, frozen replay exit 0/0 findings after the
+  orchestrator refreshed three expected.json pins — all three drifts are
+  round-8's legitimate committed changes (two gate repairs + one contract
+  frontmatter repair), the D2-equivalent re-pin precedent is
+  `reports/round-8/depth/test-replay.md` §6.
+- **Integration acts (orchestrator):** reconciliation rows normalized to the
+  declared flat `raw_label` contract (verdicts untouched); D3 pins refreshed;
+  two out-of-lane worker writes swept into scope (fleet-root
+  `reports/round-9/metadata/v09-myth.md` moved; junk AccessDenied-XML PDF
+  deleted) — conformance defect recorded in the round-9 fleet notes.
+- **Environment:** `/tmp` inode table at 100% hit ≥5 shards; workers adapted
+  via in-lane scratch; operator cleanup decision queued at L0.
+- **Evidence:** `reports/round-9/validation.json` acceptance true;
+  `corpus/lessons/round-9.md`; SCORECARD §"Axes — round 9".

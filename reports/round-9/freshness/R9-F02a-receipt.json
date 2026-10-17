@@ -1,0 +1,289 @@
+{
+  "id": "R9-F02a",
+  "round": 9,
+  "claim": "F / freshness",
+  "date": "2026-10-17",
+  "utc_time_at_write": "2026-10-17T20:57Z",
+  "worker": "FRESHNESS R9-F02a — primary-source / museum-record hunter",
+  "assigned_leg": "primary-source / museum-record hunt for residual R8-F02 (= R6-02-B)",
+  "targets_row": "reports/round-9/targets.json freshness[1] (id R9-R8-F02)",
+  "prior_ledger": "corpus/lessons/round-6-sources/02.json",
+  "prior_row_id": "R6-02-B",
+  "round8_receipt": "reports/round-8/freshness/R8-F02-receipt.json",
+  "entry": "corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+  "entry_sha256_recheck": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+  "entry_sha256_command": "sha256sum corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md (2026-10-17, unchanged from round 8)",
+  "entry_lines_total": 195,
+  "entry_line_count_command": "wc -l < corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md (2026-10-17, 195)",
+  "question": "Check its kaunakes or tufted/skirt-dress terminology against a dated object or scholarly source; distinguish modern/Greek descriptive naming, pictured texture and actual fibre/garment construction.",
+  "entry_locator_recheck": {
+    "command": "grep -n \"Carved texture does not uniquely establish\" corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+    "result": "line 142 (row 'Early Dynastic votive and elite imagery', the row round 8 bounded the claim to); unchanged since round 8",
+    "entry_uses_no_kaunakes_term": {
+      "command": "grep -n -i \"kaunak\" corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+      "result": "no output, exit 1 (2026-10-17) — the word does not occur in the entry; the row carries the terminology problem generically"
+    }
+  },
+  "raw_labels_preserved": {
+    "round6_worker_verdict": "supported",
+    "round6_worker_support_scope": "whole-bounded-claim",
+    "round6_parent_reconciled_disposition": "unresolved",
+    "round6_parent_main_passage_eligible": false,
+    "round6_parent_effective_source_kind": "tertiary",
+    "round6_parent_limits": "Named books, Breniquet's article and first-hand dated-object texture descriptions were not retrieved. Tertiary object mentions do not satisfy the requested object/scholarly leg.",
+    "round8_receipt_disposition": "resolved",
+    "round8_receipt_not_resolved_by_that_receipt": [
+      "Breniquet 2016 first-hand text remains unread (only page-referenced quotations via Jaramago 2023)",
+      "the LSJ-cited 3rd-c. BC papyri and Menander fragment remain citation-only",
+      "fibre/construction for any specific object remains an open plurality by design"
+    ],
+    "preservation_note": "All prior labels above are reproduced verbatim from reports/round-8/freshness/R8-F02-receipt.json and corpus/lessons/round-6-sources/02.json; the round-9 movement recorded in this receipt is a separate layer and does not overwrite them."
+  },
+  "escalation_strategies": [
+    {
+      "id": "R9-F02a-ES1",
+      "name": "first-hand reference-work (lexicographic primary) read of the only native-term candidate",
+      "what_round8_lacked": "Round 8's native-term evidence was a second-hand quotation chain (Jaramago 2023 fn. 26 quoting Breniquet 2016:9 about the Mari term aguhhum). The CAD entry itself was never opened in round 6 or round 8.",
+      "what_was_done": "Streamed the official ISAC scan of CAD volume 1 (A/1) from the ISAC S3 asset and read the aguhhu article at printed pp. 159-160 (PDF pp. 194-195 of the scan) using pdftotext in both -layout and default reading-order modes. Volume identity verified from the scan's own title pages: 'THE ASSYRIAN DICTIONARY OF THE ORIENTAL INSTITUTE ... 1964', 'THE ASSYRIAN DICTIONARY VOLUME 1', ISBN 0-918986-06-0, fourth printing 1998.",
+      "result": "First-hand entry obtained (R9-F02a-P1). CAD reads aguhhu as 'an article of clothing, perhaps a sash', made of wool or leather, equated in the synonym list Malku II 230 with me-sir-ru, and worn after the Ur III period by Istar, by demons and once by Gilgames.",
+      "movement": "The native-term leg is constrained, not resolved: the one Akkadian candidate term on which round 8's hedge rested is read in the standard dictionary as a sash/belt, attested after Ur III, and the article cites no Mari text at all."
+    },
+    {
+      "id": "R9-F02a-ES2",
+      "name": "multi-institution dated-object museum-record sweep (beyond round 8's two Louvre notices)",
+      "what_round8_lacked": "Round 8 had two Louvre notices (AO 17551, AO 2354) plus one newly found one; no other institution's records were tested, and no museum record's own wording about pictured material/fibre had been compared.",
+      "what_was_done": "Opened three further Louvre notices first-hand by direct URL (AO 30207, AO 18379/M. 180, AO 32526); probed the Met Open Access API (v1.1), Cleveland Open Access API, Art Institute of Chicago API, Ashmolean collections, British Museum, Penn Museum, UrOnline, Brooklyn Museum and Yale for the term; all negative or blocked results are recorded with commands.",
+      "result": "New first-hand dated-object records at R9-F02a-P2/P3/P4; a finder-level enumeration at P5; counted negatives at P8/P9.",
+      "movement": "The dated-object leg now runs to five Louvre notices (two from round 8, three this round) spanning Dynastic Archaic III-IIIB with findspot data; one of them supplies the museum's own material reading of the pictured surface ('jupe de mèches laineuses dite kaunakes')."
+    },
+    {
+      "id": "R9-F02a-ES3",
+      "name": "first-hand scholarly text of the author round 8 could only quote second-hand, plus an open-access companion paper on Mesopotamian textiles",
+      "what_round8_lacked": "Breniquet's own words were available only through Jaramago 2023's page-referenced quotations; every full-text route failed in round 8.",
+      "what_was_done": "Located and retrieved the authorial abstract of Breniquet 2016 (RA 110: 1-22) from a Cairn-derived archive record (OAI host), and independently confirmed the article's HAL record and the absence of a deposited full text through the public HAL search API; then retrieved the open-access HAL PDF of Breniquet & Michel 2014 (Wool Economy in the Ancient Near East and the Aegean, introduction) and read its statements on Mesopotamian textile remains and fleece/iconography method.",
+      "result": "First-hand authorial abstract at P6; first-hand methodological passages at P7.",
+      "movement": "The scholarly leg round 6 marked as missing is now first-hand at abstract level and first-hand at method level; the article body itself remains paywalled (named in the deeper-limit receipt)."
+    },
+    {
+      "id": "R9-F02a-ES4",
+      "name": "tablet-level probe for the native term (CDLI, ORACC/ePSD2, Archibab)",
+      "what_round8_lacked": "Round 8 never attempted a tablet-level corpus query; its tablet references (BRM 2 50:18, the LSJ papyri) stayed citation-only.",
+      "what_was_done": "Tested the CDLI JSON search endpoint with the target terms and with a nonsense control; probed ORACC/ePSD2 JSON paths; attempted Archibab (Old Babylonian Mari text database).",
+      "result": "Blocked this round: the CDLI JSON endpoint ignores the query parameter (identical payloads for aguhhum, tug2 and a nonsense control), ORACC term paths returned 404 under the working TLS mode, Archibab is an Angular SPA with no discoverable public endpoint and a failing local TLS chain.",
+      "movement": "No tablet-level counted negative is claimable from this round; the limitation is recorded so that no later receipt mistakes silence for absence."
+    }
+  ],
+  "fresh_retrievals": [
+    {
+      "rid": "R9-F02a-P1",
+      "leg": "reference-work / lexicographic primary (Akkadian), first-hand",
+      "source_citation": "The Assyrian Dictionary of the Oriental Institute of the University of Chicago (CAD), volume 1 (A/1), 1964, s.v. aguhhu, printed pages 159-160 (PDF pages 194-195 of the ISAC scan); editorial board I. J. Gelb, B. Landsberger, A. L. Oppenheim, E. Reiner; ISBN 0-918986-06-0; fourth printing 1998",
+      "source_url": "https://isac-assets.s3.amazonaws.com/isac-publications/cad_a1.pdf",
+      "source_page_url": "https://isac.uchicago.edu/research/publications/chicago-assyrian-dictionary",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "curl -sSL of the official ISAC S3 asset (Content-Length 42,429,708; PDF; Last-Modified 2026-06-07) piped to pdftotext (both -layout and default modes); pages located via an awk page counter over form-feed page breaks; no local file was written (the host's /tmp reports no space)",
+      "source_locator": "CAD vol. 1 (A/1), s.v. aguhhu, printed pp. 159-160; PDF pp. 194-195 of the ISAC scan; sub-sections: headword line, lexicographic section, meaning 1 (a-c/d), meaning 2, discussion paragraph",
+      "source_excerpt": "aguhhu s.; 1. (an article of clothing, perhaps a sash), 2. (uncert. mng.); OAkk., OB, SB. | (lex section) kuiku-ul.l = a-gu-uh-hu, kus.l = sa ha-rim-ti Lu IV 195f.; tug.bar.la.a.gu.hum = a kusitu-garment with an a. Hh. XIX 113; ... a-gu-uh-hu = me-sir-ru Malku II 230; a-gu-hu = MIN (= lu-bu-su) DINGIR dress of a god Malku VI 81, cf. a-gu-uh-hu = lu-bu-u DINGIR.MES LTBA 2 1 v 36 and 2:244. | (mng. 1c) in OB: 2 TUG a-gu-uh-hu I.A TLB 1 69:14, see Leemans, SLB 1/1 p. 1. | (mng. 1d) in SB: a-gu-uh-hu ina sasallisu na[di] an a. is lying over his back Kocher, MIO 1 76 iv 50 (description of representations of demons); [a-gu-uh]-ha ina irtisu labis he is wearing an a. over his breast ibid. 64:13'; Gilgames agusu itepramma rakis a-gu-uh-hu Gilgames put on his tiara, fastening on the a. Gilg. VI 5, cf. ibid. 4. | (mng. 2) nadinat a-gu-hi she (Istar) who gives the a. KAR 306:24; belet inbi u a-gu-uh-hi (Istar) mistress of attractiveness and the a. KAR 357:28; [mud]e tuqmati mummillu a-gu-uh-hu qardu experienced in battle, valiant (said of Ninurta) RA 51 108 K.7257:7. | (discussion) The article of clothing called aguhhu is worn, according to the attested instances, after the Ur III period by Istar, by demons, and once by Gilgames. In Istar's wardrobe (Leemans, SLB 1/1 1) the aguhhu is the first item (followed by gadamahhu and the parsig4 headwear). It is made of wool or leather, and the vocabularies as well as the Gilg. ref. (rakasu) indicate that it was a belt or sash. | (discussion, further) it seems that the aguhhu was a piece of apparel which distinguished its wearer as a warrior | (lex section, further) tug.bar.la.a.gu.hum = a kusitu-garment with an a. Hh. XIX 113",
+      "quote_fidelity_note": "pdftotext renders some diacritics and sign names imperfectly in the ASCII dump (e.g. 'kusitu' for kusitu with s-caron, 'me-sir-ru' for me-ser-ru, 'Istar' for Istar with s-caron, 'DINGIR.MES' for DINGIR.MES with s-caron, 'aggiltu'-class neighbours garbled). Only wording and references legible without ambiguity are quoted; the sign gloss 'kus.l = sa ha-rim-ti' is reproduced as extracted and is flagged here rather than silently corrected.",
+      "retrieved_passage": true,
+      "supports": "The only Akkadian headword resembling the round-8 native-term candidate is read by CAD as 'an article of clothing, perhaps a sash' (not a tufted skirt): it is equated in the synonym list Malku II 230 with me-sir-ru (a sash), described as made of wool or leather, worn after the Ur III period by Istar, by demons and once by Gilgames, and its Sumerian lexical companion is tug.bar.la.a.gu.hum = 'a kusitu-garment with an aguhhu' (Hh. XIX 113), i.e. an accessory attached to a garment. This supports the entry's decision to keep the garment description generic and its limit column's insistence that construction cannot be settled from a picture.",
+      "support_scope": "passage-level (reference-work entry read first-hand; not a tablet collation)",
+      "limits": "The dictionary's cited tablets (TLB 1 69:14; Kocher, MIO 1 76 iv 50; Gilg. VI 5; KAR 306:24; KAR 357:28) were not inspected; the entry is a 1964 synthesis and cannot carry Durand's later Mari material."
+    },
+    {
+      "rid": "R9-F02a-P2",
+      "leg": "dated object (first-hand museum record, Louvre, new this round)",
+      "source_citation": "Musee du Louvre, Departement des Antiquites orientales, notice for inv. AO 30207, 'Statuette d'orant' (ancien titre: Adorant, arrete du 3 novembre 1992)",
+      "source_url": "https://collections.louvre.fr/en/ark:/53355/cl010361164",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "FetchURL of the public Louvre collections notice (no authentication)",
+      "source_locator": "notice fields 'Description/Features', 'Precision sur l'objet', 'Materials and techniques', 'Places and dates', 'Location of object'; page footer 'Last updated on 18.10.2022'",
+      "source_excerpt": "Description/Features: orant aux mains jointes (imberbe, crane rase, jupe : kaunakes). Precision sur l'objet : Statuette d'orant imberbe crane rase, mains jointes, vetu d'une jupe de meches laineuses dite kaunakes, queue a l'arriere, yeux et sourcils jadis incrustes. Anepigraphe. | Materiau : albatre (?), gypse (?). | Date Dynastique archaique III (-2600 - -2340). Place of discovery : Irak = Mesopotamie. | On long-term loan : Musee des explorations du monde (ex musee de la Castre), Cannes.",
+      "retrieved_passage": true,
+      "supports": "A museum record for a dated object (Dynastic Archaic III, -2600/-2340) that (i) treats the term as a name rather than a material ('dite kaunakes' = 'so-called kaunakes') and (ii) offers the institution's own description of the pictured surface as 'meches laineuses' (woolly locks). This is the closest thing found this round to a museum-level texture/material statement, and it is still a descriptive reading, not a fibre identification.",
+      "support_scope": "passage-level (museum object record)",
+      "limits": "No fibre or technique analysis on the notice; object is on long-term loan outside Paris; the record's '(?)' marks its own material attribution as uncertain."
+    },
+    {
+      "rid": "R9-F02a-P3",
+      "leg": "dated object (first-hand museum record, Louvre, new this round; findspot- and excavation-dated)",
+      "source_citation": "Musee du Louvre, Departement des Antiquites orientales, notice for inv. AO 18379 ; M. 180, 'statue (fragment) ; base'",
+      "source_url": "https://collections.louvre.fr/en/ark:/53355/cl010143194",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "FetchURL of the public Louvre collections notice",
+      "source_locator": "notice fields 'Description/Features', 'Precision sur l'objet', 'Date', 'Date of discovery', 'Place of discovery', 'History', bibliography; page footer 'Last updated on 30.07.2025'",
+      "source_excerpt": "Description/Features: personnage feminin (kaunakes, pied : 2). Decor : personnage (kaunakes). Etat de l'oeuvre : incomplet. Precision sur l'objet : Bas du corps d'une adorante, vetue du kaunakes, dont il subsiste deux rangs. Devant du socle et les pieds manque. | Materiau : gypse. Technique : ronde-bosse. | Date : Dynastique archaique IIIB (-2500 - -2340). Date of discovery : 23 janvier 1934. Place of discovery : Mari temple d'Ishtar cella 17 (pres de la porte). | M. Parrot, Andre, Fouilleur/Archeologue (mission 1933-34); acquisition details: partage apres fouilles; acquisition date: date : 1934. | Bibliography: Parrot, Andre, Mission archeologique de Mari (MAM) I. Le temple d'Ishtar, Paris, Librairie orientaliste Paul Geuthner, 1956, p. 107, pl. XLIII, no. 91.",
+      "retrieved_passage": true,
+      "supports": "A findspot-precise, excavation-dated museum record (Mari temple of Ishtar, cella 17, found 23 January 1934 in Parrot's 1933-34 campaign; Dynastic Archaic IIIB) for an object the institution describes as wearing the kaunakes. It belongs to the same cella as Ebih-Il (round 8's AO 17551), which is exactly the 'check it object by object' procedure the entry's limit column prescribes. It also names where a first-hand published plate of the garment lives (MAM I 1956, p. 107, pl. XLIII, no. 91).",
+      "support_scope": "passage-level (museum object record; excavation bibliography is a pointer, not a retrieved plate)",
+      "limits": "The MAM I plate was not retrieved; 'il subsiste deux rangs' describes what survives of the carving, not a textile technique."
+    },
+    {
+      "rid": "R9-F02a-P4",
+      "leg": "dated object (first-hand museum record, Louvre, new this round; undated record)",
+      "source_citation": "Musee du Louvre, Departement des Antiquites orientales, notice for inv. AO 32526, 'statue (fragment)'",
+      "source_url": "https://collections.louvre.fr/en/ark:/53355/cl010150293",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "FetchURL of the public Louvre collections notice",
+      "source_locator": "notice fields 'Description/Features', 'Precision sur l'objet', 'Materials and techniques', 'Places and dates', 'History'; page footer 'Last updated on 03.11.2025'",
+      "source_excerpt": "Denomination : statue (fragment). Description/Features: personnage (kaunakes). Precision sur l'objet : Fragment de statuette ; personnage vetu du kaunakes. | Materiau : calcaire. | Place of discovery: Mari = tell Hariri. | M. Parrot, Andre, Fouilleur/Archeologue (mission); acquisition details: partage apres fouilles. | Current location: non expose.",
+      "retrieved_passage": true,
+      "supports": "Shows the museum's term applied across fragment types and sites (Mari), and shows that 'kaunakes' notices are not all dated: this record carries a findspot but no date line in the fetched notice. Useful as a counter-example against treating every kaunakes record as a dated witness.",
+      "support_scope": "passage-level (museum object record)",
+      "limits": "Undated in the notice as fetched; no fibre or construction content."
+    },
+    {
+      "rid": "R9-F02a-P5",
+      "leg": "institutional-record enumeration (search-engine-mediated finding aid; term usage across Louvre notices)",
+      "source_citation": "Louvre collections site notices matching 'kaunakes', enumerated through a web-search engine result set on 2026-10-17 (the Louvre's own search page is bot-walled; see access_failures)",
+      "source_url": "https://collections.louvre.fr/en/recherche?q=kaunak%C3%A8s (search page attempted; results obtained instead via search-engine index)",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "WebSearch for site:collections.louvre.fr kaunakes/kauankes; nine distinct ark identifiers returned in the result snippets",
+      "source_locator": "result snippets for ark cl010119549, cl010155901, cl010361164, cl010118550, cl010150293, cl010142255, cl010194671, cl010174443, cl010143194",
+      "source_excerpt": "snippet set includes: 'jupe de meches laineuses dite kaunakes' (cl010361164, fetched first-hand as P2); 'personnage vetu du kaunakes' (cl010150293, P4); 'vetue du kaunakes, dont il subsiste deux rangs' (cl010143194, P3); 'fragment : kaunakes' (cl010119549); 'orant aux mains jointes (crane rase, jupe : kaunakes)' (cl010155901); 'robe : volant : kaunakes, sur, tabouret' (cl010118550); 'Fragment de statuette dont il ne reste que la jupe du kaunakes' (cl010142255); 'Fragment de personnage vetu du kaunakes' (cl010194671); 'Restes d'une grande statuette mains croisees inscrite' (cl010174443)",
+      "retrieved_passage": true,
+      "supports": "Bounds the museum-record leg: the Louvre applies the term as a catalogue class across many Dynastic Archaic fragment types and sites, so a 'kaunakes' label in a museum record is a classificatory name, not evidence of fibre or construction. Three of the nine were opened first-hand this round (P2-P4) and two were opened first-hand in round 8 (cl010120528, cl010121765).",
+      "support_scope": "finder-level (search-engine-mediated snippets); only the records opened first-hand carry passage support",
+      "limits": "Snippet-mediated enumeration; the remaining four arks were not opened this round; the Louvre's own search interface could not be used (bot wall)."
+    },
+    {
+      "rid": "R9-F02a-P6",
+      "leg": "scholarly (authorial abstract, first-hand; the article round 6/8 could not read)",
+      "source_citation": "Breniquet, Catherine (2016). 'Que savons-nous exactement du kaunakes Mesopotamien ?', Revue d'assyriologie et d'archeologie orientale 110: 1-22; authorial abstract (French and English) as carried by a Cairn-derived archive record; the article's HAL record independently confirmed",
+      "source_url": "https://vigipallia.parlons-fin-de-vie.fr/Default/doc/OAI_4/_b64_b2FpLWNhaXJuLmluZm8tQVNTWV8xMTBfMDAwMQ%3D%3D/que-savons-nous-exactement-du-kaunakes-mesopotamien?_lg=fr-FR",
+      "source_page_url": "https://uca.hal.science/hal-01834706v1",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "FetchURL of the public archive record (abstract text rendered); HAL confirmation via the public HAL search API: curl 'https://api.archives-ouvertes.fr/search/?q=kaunakes&fl=title_s,uri_s,producedDate_s&wt=json' (numFound 1) and an author query returning the same record with files_s: 0",
+      "source_locator": "record 'Description' block, French abstract paragraphs 1 and 3, English abstract sentences 2-3; HAL record uca.hal.science/hal-01834706v1 (producedDate 2016, files: 0)",
+      "source_excerpt": "Depuis la decouverte des Sumeriens a Tello (Irak) en 1877, et les debats scientifiques suscites par leurs representations, les archeologues orientalistes ont pris l'habitude d'appeler 'kaunakes' un de leurs vetements qui apparait dans sa version minimale comme une sorte de jupe recouverte de meches. Toison d'animal pour certains, etoffe pour d'autres, on ne s'est jamais vraiment accorde sur la veritable nature de cette piece vestimentaire declinee en jupe, robe, voile et meme couverture, faute de decouverte archeologique non equivogue. | It remains unclear if this piece is an animal fleece or a true fabric, as no archaeological sample of this cloth was found. | (historiography) ... la joute scientifique qui a oppose Leon Heuzey, conservateur au Musee du Louvre a Paris, a Emile Cherblanc ... et leurs divergences de lecture des Guepes d'Aristophane qui contiendraient les cles de l'interpretation, en depit de l'anachronisme engendre par la date tres tardive de cet opus. | (programme) Un bilan sur les materiaux et techniques attestes en Mesopotamie dans la premiere moitie du IIIe millenaire avant J.-C.",
+      "quote_fidelity_note": "Accents and diacritics of the French/English abstract are rendered here without their accents because the JSON was authored in ASCII; wording, punctuation and sentence order are as retrieved. The archive record's own text is the publisher's abstract, not a third-party paraphrase.",
+      "retrieved_passage": true,
+      "supports": "First-hand authorial statement of the exact separation the entry's limit column requires: (i) the label is a modern (19th-century orientalist) habit of naming, (ii) the garment's true nature was never agreed (animal fleece vs fabric), (iii) no unequivocal archaeological sample was found, and (iv) the Greek key-text (Aristophanes' Wasps) is chronologically anachronistic for the Sumerian period. This supersedes round 8's second-hand mediation for these four propositions.",
+      "support_scope": "passage-level (publisher's abstract; the article body itself was not read)",
+      "limits": "Abstract-level only: the article's detailed arguments (historiography, textile-archaeology programme, material and technique inventory) remain unread; the abstract is the record's own machine-facing archive copy of the publisher's text."
+    },
+    {
+      "rid": "R9-F02a-P7",
+      "leg": "scholarly (open-access conference volume, first-hand full text)",
+      "source_citation": "Breniquet, Catherine; Michel, Cecile (2014). 'Wool Economy in the Ancient Near East and the Aegean' (introduction), in: Wool Economy in the Ancient Near East and the Aegean: from the Beginnings of Sheep Husbandry to Institutional Textile Industry (Ancient Textiles Series); HAL deposit halshs-01226052",
+      "source_url": "https://shs.hal.science/halshs-01226052/file/Breniquet-Michel_2014_Wool%20Economy_Introduction.pdf",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "curl -sSL of the HAL deposited PDF (HTTP 200, 718,471 bytes, application/pdf) piped to pdftotext -layout",
+      "source_locator": "introduction text: the paragraph on Mesopotamian textile remains and the Hallstatt comparison; the paragraph on bones/fleeces and iconography; the paragraph on Chalcolithic sheep varieties",
+      "source_excerpt": "Because of the poor state of the rare textile remains from Mesopotamia, the very well preserved Hallstatt sample of woolen textiles and fleeces represent a good case study. | As it is not possible to correlate directly bones and fleeces, iconography is integrated into the scientific approach as a mean of confirmation (E. Vila and D. Helmer). | It shows the existence of two sheep varieties in the Chalcolithic Near East - large sheep with spiral horns and a hairy coat, and small sheep with coiled horns and a woolly coat - which are both found on images. | (experimental session) It also made clear the different stages of cleaning and preparing wool for spinning, excluding the existence of carding for the period covered by the conference",
+      "retrieved_passage": true,
+      "supports": "First-hand methodological grounding for the entry's limit column: Mesopotamian textile remains are rare and poorly preserved; fleeces cannot be correlated directly with bones; iconography enters the method only as a means of confirmation. It also supplies the observable coat distinction (hairy vs woolly) that images can encode. This is the material-evidence reason why no 'actual fibre' answer for a specific third-millennium garment should be expected from imagery.",
+      "support_scope": "passage-level (open-access full text, first-hand)",
+      "limits": "The volume introduction does not use the term kaunakes (grep count for 'kaunak' over the extracted text: 0, 2026-10-17) and is not about Early Dynastic garment construction specifically."
+    },
+    {
+      "rid": "R9-F02a-P8",
+      "leg": "museum API negative sweep + API mechanics (Metropolitan Museum of Art)",
+      "source_citation": "The Metropolitan Museum of Art Collection API (Open Access), search and object endpoints; v1 search retirement notice",
+      "source_url": "https://collectionapi.metmuseum.org/public/collection/v1.1/search?q=kaunakes&limit=50",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "curl of the v1.1 search endpoint, then a loop over all 53 returned objectIDs fetching /public/collection/v1/objects/<id> and testing the full JSON text for the substring 'kaunak' (python3 json.dumps scan); a control fetch of the retired v1 endpoint recorded its retirement message",
+      "source_locator": "search response ('total': 53, objectIDs list); per-object JSON records; retired-endpoint message text",
+      "source_excerpt": "MET q=kaunakes total: 53 | after scanning all 53 records: checked=53 literal_kaunake_hits=0 | first matched object is objectID 660091, '[Christ Kanakes, Harry Olson, and John Iwanski; Full-Length Mugshot]', 1946, gelatin silver print | retired v1 endpoint message: '/public/collection/v1/search was retired on 2026-10-01. It was backed by Solr and returned every matching object ID in one response; use /public/collection/v1.1/search, which is Elastic-backed and paginated via offset and limit.'",
+      "retrieved_passage": true,
+      "supports": "Negative sweep with command and date: the Met's public search matches 'kaunakes' only fuzzily (the first hit is a 1946 mugshot of a person named Kanakes) and no object record in that result set contains the term at all. The Met therefore supplies no garment-terminology witness for the kaunakes row, and its own search cannot be used as a term index. Also records the 2026-10-01 API change (v1 retired), which explains the mechanics of any Met fetch attempted before that date.",
+      "support_scope": "negative sweep over one institution's API (not a claim about other museums)",
+      "limits": "An API-level sweep only; it does not rule out printed catalogue text not exposed in the API records."
+    },
+    {
+      "rid": "R9-F02a-P9",
+      "leg": "museum API negative sweep (Cleveland) + query-integrity controls (Art Institute of Chicago, Ashmolean)",
+      "source_citation": "Cleveland Museum of Art Open Access API; Art Institute of Chicago public API; Ashmolean collections site",
+      "source_url": "https://openaccess-api.clevelandart.org/api/artworks/?q=kaunakes&limit=10",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "curl of each endpoint with the term, plus a nonsense control for the Chicago API; grep of the Ashmolean page HTML for the substring 'kaunak'",
+      "source_locator": "Cleveland response 'info.total'; Chicago pagination.total for q=kaunakes and q=zzznope; Ashmolean HTML byte count and grep result",
+      "source_excerpt": "Cleveland q=kaunakes -> total: 0 | Chicago API: kaunakes -> total 133170 ; zzznope -> total 133170 | Ashmolean collections search HTML: 231643 bytes, grep -o -i 'kaunak[a-z]*' -> no output",
+      "retrieved_passage": true,
+      "supports": "Counted negatives with controls: Cleveland holds no object indexed under the term; the Chicago API ignores the q parameter (identical totals for a nonsense term), so it cannot yield a counted negative; the Ashmolean page is client-rendered and exposes no term text to a plain fetch.",
+      "support_scope": "negative sweep over two institutions' public APIs plus one client-rendered site",
+      "limits": "Cleveland's zero counts its indexed records only; the entry's own Cleveland citation (1963.154, a Gudea statue) carries no garment term, consistent with round 8's note that its API record is object metadata only."
+    }
+  ],
+  "access_failures": [
+    {"target": "Breniquet 2016 article full text (RA 110: 1-22) — Cairn route", "attempted": "curl -A browser https://shs.cairn.info/revue-d-assyriologie-2016-1-page-1?lang=fr", "status": "HTTP 403 Forbidden (2026-10-17)"},
+    {"target": "Breniquet 2016 — JSTOR stable page", "attempted": "curl https://www.jstor.org/stable/44646389 (HTTP 200) and FetchURL of the same URL", "status": "FetchURL returned the 'Client Challenge' interstitial ('A required part of this site couldn't load'), no article text (2026-10-17)"},
+    {"target": "Breniquet 2016 — ResearchGate record", "attempted": "curl -A browser https://www.researchgate.net/publication/415394376_The_Mesopotamian_kaunakes", "status": "HTTP 403 Forbidden (2026-10-17)"},
+    {"target": "HAL record page for the kaunakes article", "attempted": "FetchURL https://uca.hal.science/hal-01834706v1", "status": "Anubis proof-of-work interstitial returned instead of the record; the HAL public API supplied the record metadata instead (files: 0)", "resolution": "record metadata obtained via api.archives-ouvertes.fr (see P6)"},
+    {"target": "HAL-deposited PDF of Breniquet 2004, 'Autour de l'image mesopotamienne'", "attempted": "curl of the hal.science file URL and of the shs.hal.science equivalent", "status": "both served 'application/pdf' as a 2,251-byte text/html page instead; no text extractable (2026-10-17)"},
+    {"target": "HAL-deposited PDF of Breniquet 2005, 'Tissage et specialisation du travail en Mesopotamie'", "attempted": "curl of the shs.hal.science file URL", "status": "HTTP 200 with content-type text/html, 2,251 bytes (challenge page), not a PDF (2026-10-17)"},
+    {"target": "Louvre collections search for the term (site's own interface)", "attempted": "curl https://collections.louvre.fr/en/recherche?q=kaunakes", "status": "WADP bot-check page ('I am not a robot'), 4,640 bytes, zero result records (2026-10-17); individual notices remained fetchable by direct URL (P2-P4)"},
+    {"target": "British Museum collection search / object records", "attempted": "curl -A browser https://www.britishmuseum.org/collection/search?keyword=kaunakes; FetchURL of the same URL", "status": "curl HTTP 403; FetchURL returned only the site's navigation shell (client-rendered app), no object data (2026-10-17)"},
+    {"target": "Penn Museum collections search", "attempted": "curl https://www.penn.museum/collections/search?q=kaunakes", "status": "HTTP 403 Forbidden (2026-10-17)"},
+    {"target": "UrOnline (joint Penn Museum / British Museum Ur excavation database) term and subject pages", "attempted": "curl http://www.ur-online.org/term/456/ ; curl http://www.ur-online.org/search?SearchableText=kaunakes ; curl http://ur.iaas.upenn.edu/subject/11635/", "status": "connection timeouts: 25 s each, 0 bytes received, all three endpoints (2026-10-17)"},
+    {"target": "Brooklyn Museum and Yale University Art Gallery collection searches", "attempted": "curl https://www.brooklynmuseum.org/opencollection/search?keyword=kaunakes ; curl https://artgallery.yale.edu/collections/search?search_api_fulltext=kaunakes", "status": "Brooklyn HTTP 429 (rate limited); Yale HTTP 404 for the URL pattern used; not pursued further (2026-10-17)"},
+    {"target": "CDLI tablet-level search for the term (JSON endpoint)", "attempted": "curl https://cdli.mpiwg-berlin.mpg.de/search?q=<term>&format=json for q=kaunakes, aguhhum, tug2 and the control zzzznotaword", "status": "all four returned the identical 25-row payload beginning with artifact id 1, 'CDLI Lexical 000002, ex. 065' (VAT 01533); the query parameter is ignored at the redirect target cdli.earth — no counted negative is claimable (2026-10-17)"},
+    {"target": "ORACC ePSD2 (Sumerian dictionary) term page / JSON", "attempted": "curl -k https://oracc.museum.upenn.edu/epsd2/cbd/sux/o0027163.json ; probe of https://oracc.museum.upenn.edu/epsd2/cbd/sux/index.html ; https://oracc.museum.upenn.edu/search?q=aguhhu", "status": "term and index URLs HTTP 404; the plain-text search URL returned a 3,135-byte page with no dictionary entry; TLS requires an unverified connection from this host (missing local CA chain) (2026-10-17)"},
+    {"target": "Archibab (Old Babylonian Mari text database; the archive behind Durand's Mari terminology)", "attempted": "curl -k https://archibab.fr/ (root retrieved, 301 from http)", "status": "root is an Angular SPA shell; no public search/API endpoint was discoverable from it in this round (2026-10-17)"}
+  ],
+  "negative_sweeps": [
+    {"claim": "the entry itself uses no 'kaunakes' term", "command": "grep -n -i \"kaunak\" corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md", "date": "2026-10-17", "result": "no match, exit 1 (recheck of round 8's sweep; entry sha256 unchanged)"},
+    {"claim": "CAD's aguhhu article cites no Mari text", "command": "curl of cad_a1.pdf | pdftotext -f 194 -l 195 - - | grep -c -i \"mari\"", "date": "2026-10-17", "result": "0 — so the 1964 dictionary neither corroborates nor refutes the Mari-based reading reported second-hand in round 8"},
+    {"claim": "the open-access Wool Economy introduction does not use the term", "command": "curl of halshs-01226052 PDF | pdftotext -layout - - | grep -c -i \"kaunak\"", "date": "2026-10-17", "result": "0"},
+    {"claim": "the Met's public search is not a term index for this word", "command": "search q=kaunakes (53 objects) then per-object full-JSON substring test over all returned ids", "date": "2026-10-17", "result": "checked=53 literal_kaunake_hits=0; first hit is a 1946 mugshot of a person named Kanakes"},
+    {"claim": "Cleveland indexes no object under the term", "command": "openaccess-api.clevelandart.org q=kaunakes", "date": "2026-10-17", "result": "total: 0"},
+    {"claim": "the Chicago API q parameter cannot produce a counted negative", "command": "api.artic.edu artworks/search with q=kaunakes and q=zzznope", "date": "2026-10-17", "result": "both total 133,170 (parameter ignored)"},
+    {"claim": "the Louvre's own search cannot be used for an institutional count", "command": "curl collections.louvre.fr/en/recherche?q=kaunakes", "date": "2026-10-17", "result": "bot-check page, zero results"}
+  ],
+  "passage_support": [
+    {"leg": "primary/reference-work reading of the candidate native term", "status": "retrieved first-hand", "receipts": ["R9-F02a-P1 (CAD vol. 1 (A/1), s.v. aguhhu: 'an article of clothing, perhaps a sash'; wool or leather; = me-sir-ru in Malku II 230; worn after Ur III; no Mari citation)"]},
+    {"leg": "dated object (museum record), additional first-hand witnesses", "status": "retrieved first-hand", "receipts": ["R9-F02a-P2 (Louvre AO 30207, DA III -2600/-2340, 'jupe de meches laineuses dite kaunakes')", "R9-F02a-P3 (Louvre AO 18379 ; M. 180, DA IIIB, Mari temple of Ishtar cella 17, discovered 23.01.1934, MAM I bibliography)", "R9-F02a-P4 (Louvre AO 32526, Mari, undated in the notice)"]},
+    {"leg": "museum naming practice vs material claim", "status": "retrieved first-hand", "receipts": ["R9-F02a-P2 ('dite kaunakes' — the record presents the term as a name, and describes locks, not a measured fibre)", "R9-F02a-P5 (the term as a catalogue class across nine Louvre notices)"]},
+    {"leg": "scholarly leg (author's own text) — the leg round 6 recorded as missing", "status": "retrieved first-hand at abstract and method level", "receipts": ["R9-F02a-P6 (Breniquet 2016 authorial abstract: fleece vs fabric never agreed; no unequivocal archaeological sample; the label is a modern habit; the Greek key-text is anachronistic)", "R9-F02a-P7 (Breniquet & Michel 2014, first-hand: Mesopotamian textile remains are rare and poorly preserved; bones and fleeces cannot be correlated directly; iconography is a means of confirmation)"]},
+    {"leg": "pictured texture vs actual fibre/construction", "status": "retrieved and still plural by design (no fibre analysis found in any record)", "receipts": ["R9-F02a-P2 (institutional description 'meches laineuses')", "R9-F02a-P6 (no unequivocal archaeological sample)", "R9-F02a-P7 (rare, poorly preserved remains; method statement)"]},
+    {"leg": "museum-API term sweeps at other institutions", "status": "negative with commands", "receipts": ["R9-F02a-P8 (Met: 53 fuzzy hits, 0 literal)", "R9-F02a-P9 (Cleveland 0; Chicago control ignored; Ashmolean client-rendered)"]}
+  ],
+  "whole_claim_support": {
+    "bounded_claim_under_test": "Entry line 142 (unchanged, sha256 bf6c92f9...): 'Early Dynastic votive and elite imagery | Wrapped or skirt-like garments, conspicuously textured/flounced surfaces, formal posture, and differential adornment. | Carved texture does not uniquely establish fleece, woven pile, tufting, or construction; state any reconstruction as a proposal and check it object by object rather than settling on one reading.'",
+    "assessment": "The row is supported, now on first-hand primary, scholarly and dated-object passages rather than round 8's mix of first-hand notices and second-hand scholarly quotations.",
+    "reasoning": "(i) Primary/reference-work: the only native candidate term is read in CAD as a sash/belt, not a tufted skirt (P1), which supports both the row's non-commitment and the entry's decision not to adopt the Greek-derived label. (ii) Scholarly: the author whose article round 6 could not read states in her own abstract that the garment's nature was never agreed between animal fleece and fabric and that no unequivocal archaeological sample exists (P6); the open-access companion text states that Mesopotamian textile remains are rare/poorly preserved and that iconography serves at most as confirmation (P7). (iii) Dated objects: five Louvre notices (three new, P2-P4) describe dated Dynastic Archaic objects as wearing the garment type while making no fibre claim, and one record's wording ('dite kaunakes', 'meches laineuses') shows the institution itself separating the name from the material. (iv) Negative sweeps at the Met, Cleveland and Chicago (P8, P9) bound what other major collections' public records could add, and the failures list names exactly which routes stayed unreadable.",
+    "separation_note": "Passage support above is recorded per passage; this whole-claim assessment is this worker's reconciliation and does not upgrade any single passage's scope. Round 8's raw labels are preserved verbatim above."
+  },
+  "reconciling_disposition": {
+    "disposition": "partial-support-or-better achieved on this leg (primary-source / museum-record)",
+    "scope": "Residual R8-F02 (R6-02-B): the two legs round 6 marked missing (object leg and scholarly leg) now have first-hand passages on this worker's leg, and the native-term hedge is constrained by a first-hand dictionary entry.",
+    "what_this_moves": [
+      "native-term question: from second-hand quotation (Jaramago 2023 quoting Breniquet 2016) to first-hand CAD vol. 1 s.v. aguhhu",
+      "scholarly leg: from second-hand page-referenced quotations to the author's own abstract plus a first-hand open-access methodological passage",
+      "dated-object leg: from two Louvre notices (round 8) to five, with findspot/excavation dating on the new ones"
+    ],
+    "what_this_does_not_move": [
+      "Breniquet 2016 article body remains unread (abstract only)",
+      "no fibre or construction analysis of any specific object was found; the Louvre's 'meches laineuses' is a description, not an analysis",
+      "tablet-level collation of the dictionary's own cited witnesses was not possible this round",
+      "four of the nine enumerated Louvre term notices remain unopened"
+    ],
+    "recommended_entry_action": "none (no edit proposed; every retrieved passage aligns with the row's current wording). Optional future tightening if the parent wants a named pointer: cite CAD vol. 1 p. 159 s.v. aguhhu and Breniquet 2016 (RA 110: 1-22) in the costume-table limit column.",
+    "sibling_legs_note": "targets.json assigns each round-6 residual several escalated receipts (primary-source/museum-record = this receipt; scholarly-fulltext and alternate-angle hunters; one independent verifier). At write time (2026-10-17T20:57Z) reports/round-9/freshness/ contained only a peer scratch directory (.scratch-v03); sibling receipts for R8-F01 (a/b/c), R8-F02c, R8-F03 (a/b/c) and R8-F04 (a/b/c) landed while this receipt was being written, and no R9-F02b was present at completion (2026-10-17T21:00Z). This receipt makes no claim about other legs' findings and does not depend on them."
+  },
+  "deeper_limit_receipt": {
+    "note": "R8-F02 draws >=2 escalated receipts and this leg moves to partial-support-or-better; the following items nevertheless remain unreadable/unretrievable in this round and are named exactly so the bound is auditable.",
+    "items": [
+      {"item": "Breniquet, C. (2016), 'Que savons-nous exactement du kaunakes Mesopotamien ?', RA 110: 1-22 — article body", "why_unreadable": "three independent routes blocked on 2026-10-17: Cairn HTTP 403, JSTOR 'Client Challenge' interstitial, ResearchGate HTTP 403; the HAL record confirms no deposited full text (files_s: 0)", "partial_substitute": "the record's own French/English authorial abstract, retrieved first-hand (P6)"},
+      {"item": "fibre/construction of any specific object", "why_unretrievable": "no museum record among those fetched states a fibre identification, thread count, or construction analysis; the closest is the Louvre's descriptive 'jupe de meches laineuses dite kaunakes' (P2), and the scholarly statement that Mesopotamian textile remains are rare and poorly preserved (P7) explains the absence", "status": "open plurality by design, matching the entry's limit column"},
+      {"item": "tablet-level witnesses cited inside the dictionary entry (TLB 1 69:14; Kocher, MIO 1 76 iv 50; Gilg. VI 5; KAR 306:24; KAR 357:28)", "why_unretrievable": "CDLI's JSON search ignores the query parameter (identical payloads incl. a nonsense control); Archibab's SPA exposes no public endpoint from this host; ORACC ePSD2 term paths 404", "status": "citation-only; no counted tablet-level negative is claimable this round"},
+      {"item": "excavation plate for the findspot-dated Mari object: Parrot, MAM I (1956), p. 107, pl. XLIII, no. 91", "why_unretrievable": "not retrieved; the pointer comes from the museum record's own bibliography (P3)", "status": "citation-only"},
+      {"item": "museum collections at the British Museum, Penn Museum, Ashmolean, Brooklyn and Yale", "why_unretrievable": "403 (BM, Penn), 429 (Brooklyn), SPA-only pages (Ashmolean), connection timeouts (UrOnline) — commands and statuses in access_failures", "status": "unreached this round; not evidence of absence"}
+    ]
+  },
+  "corpus_rule_compliance": {
+    "counts_carry_command_and_date": true,
+    "negative_claim_sweep": "seven negative sweeps recorded with command + date under 'negative_sweeps'; endpoint-level failures recorded under 'access_failures' rather than counted as absences",
+    "quotes_name_location": true,
+    "web_receipts_have_accessed_at_and_url": true,
+    "failures_documented_with_attempted_command_and_status": true,
+    "no_writes_outside_assigned_files": "reports/round-9/freshness/R9-F02a-receipt.json and .md only; no git operations; /tmp was unwritable so all PDF work was streamed through pipes",
+    "no_fabricated_sources": "every excerpt above comes from a fetch or command recorded in this receipt; items that could not be verified are labelled citation-only, finder-level, or to-verify as appropriate"
+  },
+  "verification": {
+    "self_check_command": "python3 -c \"import json;d=json.load(open('reports/round-9/freshness/R9-F02a-receipt.json'));print(d['id'],len(d['fresh_retrievals']),sum(1 for r in d['fresh_retrievals'] if r['retrieved_passage']),len(d['access_failures']),len(d['escalation_strategies']),len(d['negative_sweeps']))\"",
+    "expected": "R9-F02a 9 9 14 4 7",
+    "entry_pin": "corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md sha256 bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478, 195 lines (rechecked 2026-10-17; unchanged since round 8)",
+    "shared_counting_command": "python3 reports/round-9/run-validation.py (R9-O16 acceptance runner; not yet present in the tree at write time — its F check is expected to read this receipt)"
+  }
+}

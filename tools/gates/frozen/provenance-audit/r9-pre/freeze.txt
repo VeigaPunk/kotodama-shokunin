@@ -1,0 +1,53 @@
+frozen_by: kotodama-shokunin round-9 O-shard, provenance-audit baseline author (fragment: reports/round-9/baselines/provenance-audit/author.md)
+frozen_at: 2026-10-17T17:52:43-03:00
+baseline_id: r9-pre
+gate: provenance-audit (tools/gates/provenance-audit.py)
+revision: a7bb205d3aecdaa24d91c047c8719cd8689e4ddd (measured HEAD; the round-9 claims baseline e1694bad6ac96aca45a11ca5746582b275929355 carries the same gate bytes: git show <rev>:tools/gates/provenance-audit.py | sha256sum -> 8a96aaf4... on both. The orchestrator's round-9 integration commit supersedes this revision.)
+command: python3 tools/gates/provenance-audit.py tools/gates/frozen/provenance-audit/r9-pre/inputs
+
+snapshot:
+  20 byte copies under inputs/ (13 corpus/knowledge/verification/*.md + 7 tools/gates/fixtures/provenance/*.md),
+  each verified identical to its origin by immediate re-hash of both sides at copy time and again after
+  relocation to this home (20/20 OK, 0 mismatch, 2026-10-17); live-origin recheck at the same time:
+  20/20 still identical to the pins (0 drifted).
+  sha256(gate script)            8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a
+  sha256(expected.json pins)     all 20 entries in expected.json "inputs"
+  sha256(run.log, verbatim)      26f217410f2206bcecd871ab390cb416419a619e2727d7b6216c01d5cc9d6dac
+  observed scan line             INFO scan: files=20 marks=74 mark-lines=74 findings=6 blocked=0
+
+freeze steps and observed results (2026-10-17, lane root unless noted):
+  1  python3 tools/gates/provenance-audit.py --selftest  -> exit 0
+     "SELFTEST OK: 7 fixture file(s), planted IDs missing-topic, missing-sources, empty-sources,
+      missing-couples, empty-couples, missing-calibration, exit 1 on the defect tree, exit 0 on the
+      clean entry, exit 2 on a missing path"
+     Preconditions: git status --porcelain showed 0 modified tracked files around the gate and the
+     graded input at freeze time (only other seats' untracked baseline data and the metadata shard's
+     in-flight corpus edits under corpus/knowledge/civilizations/, culture-material/ were present).
+  2  copy loop with double re-hash                      -> 20/20 OK, 0 MISMATCH (manifest: .scratch/r9-prov/manifest.tsv)
+  3  run 1: python3 tools/gates/provenance-audit.py <baseline>/inputs > run.log   -> exit 1, stderr 0 bytes
+     run 2 (replay)                                    -> exit 1, stdout byte-identical (cmp clean)
+  4  isolated mirror (copied tree, different absolute root, same relative argv)    -> exit 1,
+     stdout byte-identical to run.log
+  5  tamper: append '\n<!-- tampered byte -->\n' to a copy of
+     inputs/corpus/knowledge/verification/calibration-registry.md in the mirror; re-check the pin
+     -> cf7cceee... -> e3650182... digest mismatch = snapshot_tampered (could-not-evaluate, exit 2);
+     the gate over the tampered snapshot still exited 1 with stdout byte-identical to run.log —
+     the digest check, not the run, is the detector of that edit
+  6  pin re-verify (recompute all 20 inputs digests)    -> ok=20 mismatch=0 missing=0, exit 0
+  7  battery baseline validator (tools/check-gate-battery.py --baselines-root <scratch root>,
+     TMPDIR moved off the inode-exhausted /tmp)        -> clean root: record reading "pinned",
+     inputs_checked=20, gate_sha256 match, stdout_pin match, findings []; tampered root:
+     reading "snapshot_tampered" + BASELINE-TAMPERED. Both runs exited 2 only because the six
+     other gates are uncovered in an isolated single-baseline root (documented, expected).
+  check result: baseline valid at this revision — digests match, observed exit 1 and finding-ID set
+  equal expected {empty-couples, empty-sources, missing-calibration, missing-couples,
+  missing-sources, missing-topic}; the verdict comparison itself is the rerunner seat's re-run
+  receipt (reports/round-9/baselines/provenance-audit/rerun.md).
+
+relocation note: the first staging of this snapshot lived under
+  reports/round-9/baselines/provenance-audit/ (a location outside the battery's discovery roots);
+  it was moved here before this record, digests unchanged ("pin verify after relocation: ok=20
+  bad=0"), and the reports-side copies were removed so the id resolves under exactly one root.
+
+integration note: .gitignore line 3 is '*.log', so run.log must be committed with 'git add -f'
+  (same note filed by the costume-era, rerunner and registry seats).

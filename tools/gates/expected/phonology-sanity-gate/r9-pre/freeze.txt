@@ -1,0 +1,53 @@
+frozen_by: lane kotodama-shokunin, round 9 claim O (baseline author seat, phonology-sanity-gate)
+frozen_at: 2026-10-17T17:50:33-03:00
+baseline_id: r9-pre
+gate: phonology-sanity-gate (tools/gates/phonology-sanity-gate.py)
+revision: e1694bad6ac96aca45a11ca5746582b275929355 (round-9 declared base revision; freeze-time HEAD a7bb205d3aecdaa24d91c047c8719cd8689e4ddd)
+command: python3 tools/gates/phonology-sanity-gate.py tools/gates/expected/phonology-sanity-gate/r9-pre/packet.yml
+
+snapshot:
+  packet.yml = byte copy of examples/culture-d2/packet.d2.yml (cmp clean, 2026-10-17T17:50-03:00)
+  sha256(packet.yml)            e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643
+  sha256(gate script)           d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230
+  sha256(run.log, verbatim)     1ce5f0cdabad1bda177245607226cb6bf643f2bfbbe2ddb0918c510749066dd2
+  sha256(expected.json itself)  2763614ff26959e6b7fa7d96471e8d5e9e93616e37d47e3f0bec99b5caa62cde
+  stderr was captured separately and is 0 bytes; it is deliberately not committed (standard §3: stderr is not part of the verdict contract)
+
+freeze steps and observed results (2026-10-17, cwd = lane root; every line below was re-executed, not recalled):
+  1  python3 tools/gates/phonology-sanity-gate.py --selftest
+     -> exit 0; "selftest: fixture exit 1; 15/15 planted finding IDs present; 29 control cases passed";
+        `git status --porcelain tools/gates` afterwards showed only untracked sibling directories, and the
+        fixture pair was byte-identical (yml 96dfa97e..., expected 165bcc61...)
+  2  cp examples/culture-d2/packet.d2.yml <baseline>/packet.yml; cmp -> byte-identical to the origin
+  3  python3 tools/gates/phonology-sanity-gate.py <baseline>/packet.yml > <baseline>/run.log
+     -> exit 1, 3 FINDING lines, distinct finding-ID set {A-NEUTRAL}, stderr 0 bytes
+  4  same gate over the live origin path examples/culture-d2/packet.d2.yml
+     -> exit 1, stdout byte-identical to run.log (cmp clean; no live-path dependence)
+  5  3 reruns of the graded command over the baseline path -> stdout byte-identical to run.log each time
+  6  isolated mirror (copy of the gate script + copy of packet.yml, different cwd)
+     -> exit 1, stdout byte-identical to run.log
+  7  tamper control on a throwaway copy: append "\n# tampered byte\n" (sha256 265bd5c6a37fd90a5e0692ce39a6564622e0a787bc4293cf7dcedf944f7009d7)
+     -> sha256sum -c: "tamper-comment.yml: FAILED", "WARNING: 1 computed checksum did NOT match", exit 1
+        => snapshot_tampered (could-not-evaluate); the gate over the tampered copy still printed byte-identical
+        FINDING lines, so only the digest check detects that edit (standard §6, the load-bearing case)
+  8  gate-revision control: copy of the gate script + one comment byte (sha256 0380b0d3...)
+     -> stdout byte-identical to run.log => only gate_sha256 names the gate revision read
+  9  input digest re-verified after every run -> "packet.yml: OK" (the gate is read-only over its input)
+
+check result: baseline valid — declared input digest matches the snapshot bytes, gate_sha256 matches the live
+gate script, and observed exit + finding-ID set equal expected (exit 1 / class findings).
+Battery cross-check (claim O15 runner, `python3 tools/check-gate-battery.py`, 2026-10-17T17:52-03:00):
+this baseline reads `pinned`, inputs_checked = 1, stdout_sha256 pin = match, 0 baseline findings. The battery
+verifies digests and pins only and never re-executes a gate; the verdict comparison above and the rerunner
+seat's independent receipt (reports/round-9/baselines/phonology-sanity-gate/rerun.md) carry that half.
+
+negative control for "no gate behavior change" (2026-10-17):
+  git diff --stat e1694bad6ac96aca45a11ca5746582b275929355 -- tools/gates examples   -> empty output
+  (this seat modified no gate script, no fixture, and no example packet)
+
+interim external digest check: the phonology gate has no internal expected.json/--frozen mode
+  (grep -rn "expected.json\|--frozen" tools/gates/*.py -> NO HITS, 2026-10-17), so the check that ran is the
+  external sha256sum -c above plus the battery's digest pass, exactly as the standard §6/§8 declares.
+
+scratch: /tmp was inode-exhausted for this seat (mkdir -> ENOSPC, 2026-10-17T17:50-03:00); all throwaway
+copies lived in .scratch/r9phon-author/ inside the lane and were deleted before this fragment was written.

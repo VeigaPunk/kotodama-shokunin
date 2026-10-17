@@ -1,0 +1,55 @@
+frozen_by: kotodama-shokunin round-9 O-shard, naming-collision-gate baseline author (author.md)
+frozen_at: 2026-10-17T17:49:10-03:00
+baseline_id: r9-pre
+gate: naming-collision-gate (tools/gates/naming-collision-gate.py)
+revision: e1694bad6ac96aca45a11ca5746582b275929355 (base revision; orchestrator's round-9 integration commit supersedes)
+command: python3 tools/gates/naming-collision-gate.py reports/round-9/baselines/naming-collision-gate/packet.yml
+
+snapshot:
+  packet.yml = byte copy of examples/culture-d2/packet.d2.yml (cmp clean, 2026-10-17)
+  sha256(packet.yml)            e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643
+  sha256(gate script)           d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d
+  sha256(run.log, verbatim)     ebc8850d08ec1b7e32616cbca9092ba66f3b6f148a61515a033e6bed6fa66f4b
+
+freeze steps and observed results (2026-10-17, lane root):
+  1  python3 tools/gates/naming-collision-gate.py --selftest  -> exit 0
+     "selftest: OK — fixture findings 12 across 11 ids (...); positive control clean;
+      malformed inputs exit 2; missing profile held; case policy routed"
+  2  cp examples/culture-d2/packet.d2.yml <baseline>/packet.yml ; cmp  -> byte-identical
+  3  python3 tools/gates/naming-collision-gate.py <baseline>/packet.yml > <baseline>/run.log
+     -> exit 1, 17 FINDING lines, id set {NAME-NEAR, PHON-INVENTORY, CROSS-HOLD}
+  4  same gate over the live path examples/culture-d2/packet.d2.yml -> exit 1, stdout
+     byte-identical to run.log (path-independent)
+  5  re-run in an isolated mirror (.scratch/r9-naming-author/mirror: gate copy +
+     packet.yml copy, different cwd) -> exit 1, stdout byte-identical to run.log
+  6  tamper: copy + append "\n# tampered byte\n"; sha256sum -c -> FAILED (exit 1,
+     digest mismatch, sha256 265bd5c6...); the gate over the tampered copy printed
+     byte-identical stdout — the digest check, not the run, is the detector
+  7  digest re-verify against expected.json inputs pin -> OK
+  check result: baseline valid — digests match, observed exit and finding-ID set
+  equal expected (expected.exit 1 / class findings)
+
+negative control for "no gate behavior change" (2026-10-17):
+  git diff --stat e1694bad6ac96aca45a11ca5746582b275929355 -- tools/gates   -> empty
+  git diff --stat e1694bad6ac96aca45a11ca5746582b275929355 -- examples     -> empty
+
+concurrent observation (not this shard's evidence): python3 tools/check-gate-battery.py --selftest
+-> exit 0, "SELFTEST OK 10/10 controls behaved as expected" (2026-10-17)
+
+revision detail (2026-10-17): HEAD a7bb205d3aecdaa24d91c047c8719cd8689e4ddd;
+  git diff --stat e1694bad6ac96aca45a11ca5746582b275929355..HEAD
+  -> reports/round-9/claims.json | 34 +, reports/round-9/targets.json | 125 + (159 insertions, 0 deletions)
+
+KNOWN LIMIT — the gate has no internal digest check; the interim external sha256 check is what ran
+(standard §8 table, "gate-internal digest verification: not implemented").
+
+integration notes (for the orchestrator; no lane-local edit made here):
+  - .gitignore line 3 `*.log` ignores run.log; `git check-ignore -v
+    reports/round-9/baselines/naming-collision-gate/run.log` -> `.gitignore:3:*.log`. Commit the
+    baseline with `git add -f` for run.log or it lands without its verbatim stdout.
+  - baseline root is contested across this round's O shards: this baseline (and the phonology pair's
+    reading of the assignment) uses reports/round-9/baselines/<gate-name>/; sibling seats landed
+    costume-era-consistency-gate at tools/gates/expected/<gate>/r9-pre/ and handoff-packet-check /
+    lexicon-coverage-audit at tools/gates/frozen/<gate>/r9-pre/. Standard §3 names
+    tools/gates/frozen/<gate-name>/<baseline-id>/. If the fleet standardizes there, `git mv` the
+    four files verbatim — never re-freeze or re-pin.

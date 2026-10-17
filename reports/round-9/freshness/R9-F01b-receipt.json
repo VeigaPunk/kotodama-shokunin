@@ -1,0 +1,562 @@
+{
+ "id": "R9-F01b",
+ "residual_id": "R9-R8-F01",
+ "prior_row_id": "R8-F01",
+ "round": 9,
+ "date": "2026-10-17",
+ "shard": "FRESHNESS R9-F01b — scholarly-fulltext hunter (round-9 loop 1, build round 2 of 4)",
+ "strategy": "Escalated scholarly-fulltext hunt: repository PDFs, OA journal articles, OA edited volumes and archive.org fulltext, deliberately disjoint from the round-8 retrieval set. Prior rows: R6-02-A (unresolved), R8-F01 (round-8 receipt claimed resolved-passage-level; round-8 reconciliation kept the residual unresolved). This shard supplies NEW, previously unread scholarly passages; it does not re-run round-8's retrievals and it does not touch the primary/museum-object leg (sibling hunter).",
+ "question": "Check the entry's evidence for Sumerian/Akkadian language contact and the separation of scribal language survival from spoken-language replacement; which dated text or scholarly passage supports the institutional coupling?",
+ "entry": "corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+ "entry_sha256_at_recheck": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+ "entry_locators_rechecked": [
+  {
+   "line": 39,
+   "row": "Contact ecology",
+   "text": "Sumerian and Akkadian coexisted and influenced one another; Sumerian remained a learned and cultic language after ordinary spoken use declined. | Separate home language, state administration, schooling, and ritual competence; a script's survival does not prove a speech community's survival."
+  },
+  {
+   "line": 41,
+   "row": "grammatical anchors / timing hedge",
+   "text": "Exact pronunciation, Sumerian dialect geography, and the timing of vernacular loss are incompletely recoverable."
+  },
+  {
+   "line": 46,
+   "row": "word-signs vs spoken language",
+   "text": "Sumerian word-signs can be used inside Akkadian writing; their appearance alone does not identify the spoken language."
+  },
+  {
+   "line": 169,
+   "row": "craft grid: Ritual language survives vernacular change",
+   "text": "Language history + schooling/cult + writing conventions. | “The conquered population vanished because its speech declined.”"
+  }
+ ],
+ "entry_digest_note": {
+  "current_digest": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+  "round8_receipt_digest": "730e1be83f5e217f3041d215e7e8ee0efbc653773f8bf40c5e77e20e97ccd365",
+  "finding": "The round-8 R8-F01 receipt records 730e1be8…; the live file hashes to bf6c92f9…. The live digest equals the git blob at the declared baseline revision e1694ba (command: git show HEAD:corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md | sha256sum), and the worktree is clean (git status --porcelain empty), so the file has not been modified in round 9. The 730e1be8… value also occurs in corpus/lessons/round-6-sources/02.json and reports/round-6/baseline.json, i.e. it is the round-6 digest: the drift predates round 8 and was not introduced by this shard. All locators below were re-read against the live file at the current digest."
+ },
+ "escalation_beyond_round_8": {
+  "round8_retrieved_set": [
+   "Wikipedia 'Sumerian language' (tertiary) and its raw wikitext",
+   "Jagersma 2010, A Descriptive Grammar of Sumerian (Leiden repository PDF)",
+   "Rubio 2006, Woods 2006, Michalowski 2006 (OIS 2 chapters, web.archive.org id_ snapshot)",
+   "Zólyomi 2000 preprint (web.archive.org snapshot)"
+  ],
+  "overlap_sweep": {
+   "command": "cd kotodama-shokunin && for t in Wagensonner mprl-series journal.fi foscari 'African Sun Media' 'van Dijk-Coombes' Viano 'Studies10Chap8' 'Barber Sumerian'; do grep -ril \"$t\" reports/round-8/ | wc -l; done  (2026-10-17)",
+   "result": "0 files for every token; also 0 hits across reports/round-6 and reports/round-7 for Wagensonner|mprl|foscari|van Dijk-Coombes. Every source below is therefore newly retrieved in this round, not a re-read of round-8 material."
+  },
+  "strategies_executed": [
+   "SS1 metadata sweep: OpenAlex works API queries (Sumerian language contact; Crisostomo; Sallaberger; death of Sumerian; scribal education; Emesal lament; Ur III spoken) to locate OA repository/publisher fulltexts.",
+   "SS2 direct repository/publisher PDF retrieval: journal.fi (Finnish OA journals), edizionicafoscari.it (Ca' Foscari OA books), mprl-series.mpg.de (Max Planck Edition Open Access), African Sun Media via DOI host, saa.uaic.ro (Studia Antiqua et Archaeologica OA), escholarship.org attempt, zora.uzh.ch attempt.",
+   "SS3 whole-volume OA fetch and page-level mining: MPRL Studies 10 complete volume (543 pp.) in addition to the chapter PDF, so volume-introduction statements could be read at their printed pages.",
+   "SS4 non-overlap verification against round-8 receipts (see overlap_sweep).",
+   "SS5 deeper-limit tracking: attempt to reach the primary scholarly statement behind Woods 2006's Ur III spokenness claim (Sallaberger, OBO 160/3 1999) — see access_failures and residual_limits."
+  ]
+ },
+ "retrievals": [
+  {
+   "id": "R9F01b-S1",
+   "citation": "Wagensonner, K. 2018. 'Sumerian in the Middle Assyrian Period'. In J. Braarvig & M. J. Geller (eds), Multilingualism, Lingua Franca and Lingua Sacra (Max Planck Research Library for the History and Development of Knowledge, Studies 10), ch. 8, pp. 225–296. Edition Open Access (CC BY-NC-SA 3.0).",
+   "source_url": "https://mprl-series.mpg.de/media/studies/10/11/Studies10Chap8.pdf",
+   "accessed_at": "2026-10-17T20:49:37Z",
+   "retrieval_method": "OpenAlex API metadata query ('Sumerian Middle Assyrian') → curl -sL of the MPRL chapter PDF → pdftotext -layout full-text extraction with per-page search. HTTP 200, application/pdf.",
+   "artifact": {
+    "file_bytes": 4445650,
+    "pages": 74,
+    "sha256": "02839a701ccd5ddc7d98cfdb3845c1e56af692940c7f7dc3efd252aee61924a5",
+    "printed_pages": "225–296 (PDF page = printed page − 223)"
+   },
+   "role_in_claim": "Scribal survival vs spoken replacement leg + institutional coupling (Assur elite/scribal sphere) + why vernacular-loss dating is debated.",
+   "passages": [
+    {
+     "source_locator": "p. 227",
+     "page": "227",
+     "quoted_passage": "This paper deals with a period in which copying Sumerian scribal lore was still at its peak. Scholarly texts deriving from various sites in Babylonia reached its northern periphery.",
+     "support_scope": "scholarly passage (Middle Assyrian Assur as a copying centre)",
+     "text": "This paper deals with a period in which copying Sumerian scribal lore was still at its peak. Scholarly texts deriving from various sites in Babylonia reached its northern periphery.",
+     "passage_text": "This paper deals with a period in which copying Sumerian scribal lore was still at its peak. Scholarly texts deriving from various sites in Babylonia reached its northern periphery.",
+     "source_kind": "scholarly full-text (monograph chapter, Max Planck Edition Open Access, DOI 10.34663/9783945561133-11)"
+    },
+    {
+     "source_locator": "p. 227",
+     "page": "227",
+     "quoted_passage": "By the Middle Assyrian period, bilingualism fully infiltrated scholarly texts.",
+     "support_scope": "scholarly passage (Sumerian/Akkadian contact in the learned register)",
+     "text": "By the Middle Assyrian period, bilingualism fully infiltrated scholarly texts.",
+     "passage_text": "By the Middle Assyrian period, bilingualism fully infiltrated scholarly texts.",
+     "source_kind": "scholarly full-text (monograph chapter, Max Planck Edition Open Access, DOI 10.34663/9783945561133-11)"
+    },
+    {
+     "source_locator": "p. 233",
+     "page": "233",
+     "quoted_passage": "When exactly the Sumerian language ceased to be used as vernacular is a cause of much debate and might have happened in various stages after the downfall of the Ur III Empire at the end of the third millennium BCE. All written scribal lore that has been compiled in the two millennia that followed may show deficiencies or peculiarities of any kind. The decline of Sumerian is due further to the ever-increasing infiltration of Akkadian into the economic and daily life.",
+     "support_scope": "scholarly passage (spoken-loss timing contested and staged; Akkadian intrusion into daily life)",
+     "text": "When exactly the Sumerian language ceased to be used as vernacular is a cause of much debate and might have happened in various stages after the downfall of the Ur III Empire at the end of the third millennium BCE. All written scribal lore that has been compiled in the two millennia that followed may show deficiencies or peculiarities of any kind. The decline of Sumerian is due further to the ever-increasing infiltration of Akkadian into the economic and daily life.",
+     "passage_text": "When exactly the Sumerian language ceased to be used as vernacular is a cause of much debate and might have happened in various stages after the downfall of the Ur III Empire at the end of the third millennium BCE. All written scribal lore that has been compiled in the two millennia that followed may show deficiencies or peculiarities of any kind. The decline of Sumerian is due further to the ever-increasing infiltration of Akkadian into the economic and daily life.",
+     "source_kind": "scholarly full-text (monograph chapter, Max Planck Edition Open Access, DOI 10.34663/9783945561133-11)"
+    },
+    {
+     "source_locator": "p. 234",
+     "page": "234",
+     "quoted_passage": "But one has to bear in mind that the Old Babylonian texts are, strictly speaking, not a product of speakers of the Sumerian language.",
+     "support_scope": "scholarly passage (canonical Sumerian literature is non-native-scribe production — script/text survival ≠ speech community)",
+     "text": "But one has to bear in mind that the Old Babylonian texts are, strictly speaking, not a product of speakers of the Sumerian language.",
+     "passage_text": "But one has to bear in mind that the Old Babylonian texts are, strictly speaking, not a product of speakers of the Sumerian language.",
+     "source_kind": "scholarly full-text (monograph chapter, Max Planck Edition Open Access, DOI 10.34663/9783945561133-11)"
+    },
+    {
+     "source_locator": "p. 234",
+     "page": "234",
+     "quoted_passage": "There is ample evidence that Sumerian at the end of the second millennium BCE was not just widely used in the scholarly tradition, but was given a pivotal role in the scribal sphere as well.",
+     "support_scope": "scholarly passage (institutional coupling: scribal sphere carries Sumerian after speech loss)",
+     "text": "There is ample evidence that Sumerian at the end of the second millennium BCE was not just widely used in the scholarly tradition, but was given a pivotal role in the scribal sphere as well.",
+     "passage_text": "There is ample evidence that Sumerian at the end of the second millennium BCE was not just widely used in the scholarly tradition, but was given a pivotal role in the scribal sphere as well.",
+     "source_kind": "scholarly full-text (monograph chapter, Max Planck Edition Open Access, DOI 10.34663/9783945561133-11)"
+    },
+    {
+     "source_locator": "p. 235",
+     "page": "235",
+     "quoted_passage": "In the Middle Assyrian period, the elite of Assur came into contact with a huge amount of literary and lexical texts, which originated in Babylonia.",
+     "support_scope": "scholarly passage (elite/palace-temple import of Babylonian scholarly texts; 'Epic of Tukultī-Ninurta I' plundering of Babylonian libraries cited by the author as a transmission story)",
+     "text": "In the Middle Assyrian period, the elite of Assur came into contact with a huge amount of literary and lexical texts, which originated in Babylonia.",
+     "passage_text": "In the Middle Assyrian period, the elite of Assur came into contact with a huge amount of literary and lexical texts, which originated in Babylonia.",
+     "source_kind": "scholarly full-text (monograph chapter, Max Planck Edition Open Access, DOI 10.34663/9783945561133-11)"
+    }
+   ],
+   "source_kind": "scholarly full-text (monograph chapter, Max Planck Edition Open Access, DOI 10.34663/9783945561133-11)"
+  },
+  {
+   "id": "R9F01b-S2",
+   "citation": "Braarvig, J. & Geller, M. J. 2018. Introduction. In Multilingualism, Lingua Franca and Lingua Sacra (MPRL Studies 10), pp. 7–10.",
+   "source_url": "https://mprl-series.mpg.de/media/studies/10/Studies10.pdf",
+   "accessed_at": "2026-10-17T20:50:09Z",
+   "retrieval_method": "Whole-volume OA PDF fetched (543 pp.) and mined page-wise; volume landing page https://mprl-series.mpg.de/studies/10/ consulted for the TOC. HTTP 200, application/pdf.",
+   "artifact": {
+    "file_bytes": 5290603,
+    "pages": 543,
+    "sha256": "592b4990dac6b56d82fd4bc2c3c45a92ed6563db6db201e1798ed6348d23cbab"
+   },
+   "role_in_claim": "Independent editors' framing of Sumerian as a post-vernacular classical/sacral language and of translation as its survival mechanism.",
+   "passages": [
+    {
+     "source_locator": "Introduction, p. 8 (volume front matter; PDF p. 16)",
+     "page": "8",
+     "quoted_passage": "data produced by Klaus Wagensonner’s study of Sumerian orthographies from the end of the second millennium BCE (the so-called Middle Assyrian period), long after Sumerian ceased to be spoken but retained its status as the classical language of scholarship, incantations, and liturgy.",
+     "support_scope": "scholarly passage (classical/scholarship/incantation/liturgy survival = the entry's learned-and-cultic separation)",
+     "text": "data produced by Klaus Wagensonner’s study of Sumerian orthographies from the end of the second millennium BCE (the so-called Middle Assyrian period), long after Sumerian ceased to be spoken but retained its status as the classical language of scholarship, incantations, and liturgy.",
+     "passage_text": "data produced by Klaus Wagensonner’s study of Sumerian orthographies from the end of the second millennium BCE (the so-called Middle Assyrian period), long after Sumerian ceased to be spoken but retained its status as the classical language of scholarship, incantations, and liturgy.",
+     "source_kind": "scholarly full-text (monograph volume introduction, Max Planck Edition Open Access)"
+    },
+    {
+     "source_locator": "Introduction, p. 8",
+     "page": "8",
+     "quoted_passage": "Wagensonner argues that the processes of translating Sumerian into Akkadian contributed to the survival of Sumerian, even if orthographies no longer reflected the standard writings of earlier periods.",
+     "support_scope": "scholarly passage (translation as the institutional mechanism of survival)",
+     "text": "Wagensonner argues that the processes of translating Sumerian into Akkadian contributed to the survival of Sumerian, even if orthographies no longer reflected the standard writings of earlier periods.",
+     "passage_text": "Wagensonner argues that the processes of translating Sumerian into Akkadian contributed to the survival of Sumerian, even if orthographies no longer reflected the standard writings of earlier periods.",
+     "source_kind": "scholarly full-text (monograph volume introduction, Max Planck Edition Open Access)"
+    }
+   ],
+   "source_kind": "scholarly full-text (monograph volume introduction, Max Planck Edition Open Access)"
+  },
+  {
+   "id": "R9F01b-S3",
+   "citation": "Viano, M. 2016. The Reception of Sumerian Literature in the Western Periphery. Antichistica 9, Studi orientali 4. Venezia: Edizioni Ca' Foscari (open access).",
+   "source_url": "https://edizionicafoscari.it/media/pdf/books/978-88-7543-417-5/978-88-7543-417-5.pdf",
+   "accessed_at": "2026-10-17T20:49:27Z",
+   "retrieval_method": "OpenAlex API OA-location query → direct OA book PDF → pdftotext -layout page-wise mining. HTTP 200, application/pdf.",
+   "artifact": {
+    "file_bytes": 2941956,
+    "pages": 428,
+    "sha256": "e2d8f8c31d6f38c5a4a111dd8fc0e8a750bbd926568f204b59bcf5697ca257c5",
+    "printed_pages": "PDF page = printed page + 2"
+   },
+   "role_in_claim": "Scribal-school survival of Sumerian as written language of scholarship (with a Latin analogy), Sumerogram indispensability, and CENTURY-DATED manuscript corpora of Sumerian texts in non-Sumerian-speaking Syria/Anatolia.",
+   "passages": [
+    {
+     "source_locator": "Abstract, p. 5",
+     "page": "5",
+     "quoted_passage": "Sumerian is the most ancient language so far documented and remained for about three millennia the language of culture in Mesopotamia for its association with scribal education.",
+     "support_scope": "scholarly passage (institutional coupling: language of culture tied to scribal education)",
+     "text": "Sumerian is the most ancient language so far documented and remained for about three millennia the language of culture in Mesopotamia for its association with scribal education.",
+     "passage_text": "Sumerian is the most ancient language so far documented and remained for about three millennia the language of culture in Mesopotamia for its association with scribal education.",
+     "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+    },
+    {
+     "source_locator": "Introduction, p. 23",
+     "page": "23",
+     "quoted_passage": "After the fall of the Ur III dynasty and the collapse of its centralized administrative system, Sumerian went out of use as a spoken language by the 19th century, even though a certain level of proficiency was probably retained in scribal schools.",
+     "support_scope": "scholarly passage (dated spoken-loss estimate + schooling retention, i.e. the separation the entry asserts)",
+     "text": "After the fall of the Ur III dynasty and the collapse of its centralized administrative system, Sumerian went out of use as a spoken language by the 19th century, even though a certain level of proficiency was probably retained in scribal schools.",
+     "passage_text": "After the fall of the Ur III dynasty and the collapse of its centralized administrative system, Sumerian went out of use as a spoken language by the 19th century, even though a certain level of proficiency was probably retained in scribal schools.",
+     "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+    },
+    {
+     "source_locator": "Introduction, p. 24",
+     "page": "24",
+     "quoted_passage": "In the second half of the second millennium B.C., Sumerian had been a dead language for over half a millennium, but it continued to function as a written language of scholarship and education in scribal circles, very much like Latin in the Middle Ages.",
+     "support_scope": "scholarly passage (learned-language survival model)",
+     "text": "In the second half of the second millennium B.C., Sumerian had been a dead language for over half a millennium, but it continued to function as a written language of scholarship and education in scribal circles, very much like Latin in the Middle Ages.",
+     "passage_text": "In the second half of the second millennium B.C., Sumerian had been a dead language for over half a millennium, but it continued to function as a written language of scholarship and education in scribal circles, very much like Latin in the Middle Ages.",
+     "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+    },
+    {
+     "source_locator": "Introduction, p. 24",
+     "page": "24",
+     "quoted_passage": "Sumerian was the principal part of this training, because the study of cuneiform was always associated with Sumerian, even when it had gone out of use as a spoken language. A knowledge of Sumerian was indispensable for every scribe, in Mesopotamia as well as in the whole cuneiform world, because Sumerograms were used as logograms to write texts in all languages and in all text genres, from economic accounts to the most advanced literary works.",
+     "support_scope": "scholarly passage (directly the entry line-46 leg: word-signs/Sumerograms across languages do not identify a spoken language)",
+     "text": "Sumerian was the principal part of this training, because the study of cuneiform was always associated with Sumerian, even when it had gone out of use as a spoken language. A knowledge of Sumerian was indispensable for every scribe, in Mesopotamia as well as in the whole cuneiform world, because Sumerograms were used as logograms to write texts in all languages and in all text genres, from economic accounts to the most advanced literary works.",
+     "passage_text": "Sumerian was the principal part of this training, because the study of cuneiform was always associated with Sumerian, even when it had gone out of use as a spoken language. A knowledge of Sumerian was indispensable for every scribe, in Mesopotamia as well as in the whole cuneiform world, because Sumerograms were used as logograms to write texts in all languages and in all text genres, from economic accounts to the most advanced literary works.",
+     "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+    },
+    {
+     "source_locator": "Ch. 2 'Middle Assyrian Sumerian Literary, Liturgical and Magical Texts', p. 88",
+     "page": "88",
+     "quoted_passage": "Unlike MB manuscripts, MA tablets are in some cases dated according to the līmu system. Eponyms go back to the reigns of different Middle Assyrian kings up to Tiglath-Pileser I. […] Imported Babylonian tablets date to a time spanning the Late Old Babylonian and Kassite periods; some of them were brought to Assur before Tukulti-Ninurta I […]",
+     "support_scope": "dated witness (līmu/eponym-dated Middle Assyrian scholarly tablets at Assur, eponyms reaching Tiglath-Pileser I; imported Babylonian tablets Late OB–Kassite)",
+     "text": "Unlike MB manuscripts, MA tablets are in some cases dated according to the līmu system. Eponyms go back to the reigns of different Middle Assyrian kings up to Tiglath-Pileser I. […] Imported Babylonian tablets date to a time spanning the Late Old Babylonian and Kassite periods; some of them were brought to Assur before Tukulti-Ninurta I […]",
+     "passage_text": "Unlike MB manuscripts, MA tablets are in some cases dated according to the līmu system. Eponyms go back to the reigns of different Middle Assyrian kings up to Tiglath-Pileser I. […] Imported Babylonian tablets date to a time spanning the Late Old Babylonian and Kassite periods; some of them were brought to Assur before Tukulti-Ninurta I […]",
+     "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+    },
+    {
+     "source_locator": "Ch. 2 catalogue 2.1.4–2.1.5, pp. 104–112",
+     "page": "104",
+     "quoted_passage": "2.1.4 Emesal Liturgies […] 2.1.4.1 Balaĝ-prayer to Enlil – KAR 375 […] 2.1.5 Tukulti-Ninurta Texts […] 2.1.5.1 Prayer to Assur for Tukulti-Ninurta I – […] 2.1.5.2 A Praise Poem of Tukulti-Ninurta I",
+     "support_scope": "dated witness catalogue (Sumerian Emesal liturgy and royal-era Sumerian compositions preserved in Assur manuscripts: KAR 375 balaĝ, Tukulti-Ninurta I texts)",
+     "text": "2.1.4 Emesal Liturgies […] 2.1.4.1 Balaĝ-prayer to Enlil – KAR 375 […] 2.1.5 Tukulti-Ninurta Texts […] 2.1.5.1 Prayer to Assur for Tukulti-Ninurta I – […] 2.1.5.2 A Praise Poem of Tukulti-Ninurta I",
+     "passage_text": "2.1.4 Emesal Liturgies […] 2.1.4.1 Balaĝ-prayer to Enlil – KAR 375 […] 2.1.5 Tukulti-Ninurta Texts […] 2.1.5.1 Prayer to Assur for Tukulti-Ninurta I – […] 2.1.5.2 A Praise Poem of Tukulti-Ninurta I",
+     "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+    },
+    {
+     "source_locator": "Ch. 10 Conclusions, p. 382, dissemination table",
+     "page": "382",
+     "quoted_passage": "Dissemination of the Sumerian material to the Western periphery can be tentatively summarized as follows: Century City Composition | 16th – 15th Ḫattuša Monolingual Incantations in Phonetic Writing (CTH 800) | 15th – mid-14th Ḫattuša Sumerian Forerunner to the Hittite Prayers to the Sun-god, Prisms KBo 19 98 | 14th – 13th Ḫattuša Assyro-Mitannian Incantations Fragment KUB 4 23 (?) […] Emar A Prayer for a King | Ugarit Incantations (?)",
+     "support_scope": "century-dated reception corpus (Sumerian texts copied at Ḫattuša, Emar and Ugarit across the Late Bronze Age, outside any Sumerian speech community)",
+     "text": "Dissemination of the Sumerian material to the Western periphery can be tentatively summarized as follows: Century City Composition | 16th – 15th Ḫattuša Monolingual Incantations in Phonetic Writing (CTH 800) | 15th – mid-14th Ḫattuša Sumerian Forerunner to the Hittite Prayers to the Sun-god, Prisms KBo 19 98 | 14th – 13th Ḫattuša Assyro-Mitannian Incantations Fragment KUB 4 23 (?) […] Emar A Prayer for a King | Ugarit Incantations (?)",
+     "passage_text": "Dissemination of the Sumerian material to the Western periphery can be tentatively summarized as follows: Century City Composition | 16th – 15th Ḫattuša Monolingual Incantations in Phonetic Writing (CTH 800) | 15th – mid-14th Ḫattuša Sumerian Forerunner to the Hittite Prayers to the Sun-god, Prisms KBo 19 98 | 14th – 13th Ḫattuša Assyro-Mitannian Incantations Fragment KUB 4 23 (?) […] Emar A Prayer for a King | Ugarit Incantations (?)",
+     "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+    }
+   ],
+   "source_kind": "scholarly full-text (university-press open-access monograph, Ca' Foscari)"
+  },
+  {
+   "id": "R9F01b-S4",
+   "citation": "Jordan, D. & Fink, S. 2023. 'Scribal Identities, Renaissances, and Dead Languages: From Barber Sumerian to Kitchen Latin'. Studia Orientalia Electronica 11(2): 30–52. (OA journal, Finnish Society for the Study of Oriental Studies / journal.fi)",
+   "source_url": "https://journal.fi/store/article/download/129805/78658",
+   "accessed_at": "2026-10-17T20:49:25Z",
+   "retrieval_method": "OpenAlex API OA-location query → direct article PDF → pdftotext -layout full text (1,131 extracted lines) with page-wise search. HTTP 200, application/pdf.",
+   "artifact": {
+    "file_bytes": 591441,
+    "pages": 23,
+    "sha256": "191c417e076c7f1beaf573fb3adf6c3f28fb5151d8e25abe1783a5f13256ff44",
+    "printed_pages": "30–52 (PDF page = printed page − 29)"
+   },
+   "role_in_claim": "The cult-institution leg named in the entry's craft grid ('Ritual language survives vernacular change'): gala/kalû lamentation-singer scribes as the late transmitters of Sumerian Emesal liturgy, plus the schooling regime that kept Sumerian alive as an identity marker.",
+   "passages": [
+    {
+     "source_locator": "p. 31",
+     "page": "31",
+     "quoted_passage": "After Sumerian had become an extinct language, knowledge of it became the third pillar of scribal self-consciousness (Høyrup 2018: 218).",
+     "support_scope": "scholarly passage (dead-language competence as institutional/identity capital)",
+     "text": "After Sumerian had become an extinct language, knowledge of it became the third pillar of scribal self-consciousness (Høyrup 2018: 218).",
+     "passage_text": "After Sumerian had become an extinct language, knowledge of it became the third pillar of scribal self-consciousness (Høyrup 2018: 218).",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Orientalia Electronica)"
+    },
+    {
+     "source_locator": "p. 32",
+     "page": "32",
+     "quoted_passage": "This study originated with the question of how to study the identity of a group of scribes, the kalûs (as they were called in Akkadian), who studied and copied ancient Emesal lamentations until the knowledge of cuneiform writing slowly faded away around the turn of the era.",
+     "support_scope": "scholarly passage (cultic professionals as terminal carriers of Sumerian)",
+     "text": "This study originated with the question of how to study the identity of a group of scribes, the kalûs (as they were called in Akkadian), who studied and copied ancient Emesal lamentations until the knowledge of cuneiform writing slowly faded away around the turn of the era.",
+     "passage_text": "This study originated with the question of how to study the identity of a group of scribes, the kalûs (as they were called in Akkadian), who studied and copied ancient Emesal lamentations until the knowledge of cuneiform writing slowly faded away around the turn of the era.",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Orientalia Electronica)"
+    },
+    {
+     "source_locator": "p. 42",
+     "page": "42",
+     "quoted_passage": "However, the Sumerian lamentations, which were performed on a regular basis in the temple and during rituals, continued to be transmitted until the first century bce or more.",
+     "support_scope": "dated witness statement (temple ritual performance of Sumerian laments to the 1st century BCE — matches the entry's learned-and-cultic survival claim)",
+     "text": "However, the Sumerian lamentations, which were performed on a regular basis in the temple and during rituals, continued to be transmitted until the first century bce or more.",
+     "passage_text": "However, the Sumerian lamentations, which were performed on a regular basis in the temple and during rituals, continued to be transmitted until the first century bce or more.",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Orientalia Electronica)"
+    },
+    {
+     "source_locator": "p. 43",
+     "page": "43",
+     "quoted_passage": "the last guardians of the Sumerian tradition through their transmission of the large corpus of lamentations in Emesal.",
+     "support_scope": "scholarly passage (kalû role as institutional transmission channel)",
+     "text": "the last guardians of the Sumerian tradition through their transmission of the large corpus of lamentations in Emesal.",
+     "passage_text": "the last guardians of the Sumerian tradition through their transmission of the large corpus of lamentations in Emesal.",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Orientalia Electronica)"
+    },
+    {
+     "source_locator": "p. 47",
+     "page": "47",
+     "quoted_passage": "They describe school life in a non-Sumerian milieu where it was forbidden to speak Akkadian, and where a fluent conversation in Sumerian seemed to be the ideal for a well-educated scribe (Volk 2000: 13–14).",
+     "support_scope": "scholarly passage (schooling institution enforcing Sumerian in a non-Sumerian-speaking milieu — contact ecology at the level of the school)",
+     "text": "They describe school life in a non-Sumerian milieu where it was forbidden to speak Akkadian, and where a fluent conversation in Sumerian seemed to be the ideal for a well-educated scribe (Volk 2000: 13–14).",
+     "passage_text": "They describe school life in a non-Sumerian milieu where it was forbidden to speak Akkadian, and where a fluent conversation in Sumerian seemed to be the ideal for a well-educated scribe (Volk 2000: 13–14).",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Orientalia Electronica)"
+    }
+   ],
+   "source_kind": "scholarly full-text (open-access journal article, Studia Orientalia Electronica)"
+  },
+  {
+   "id": "R9F01b-S5",
+   "citation": "van Dijk-Coombes, R. M. 2021. 'The Use of Sumerian and Akkadian during the Akkadian Period: The Case of the “Elites”'. In L. C. Jonker, A. Berlejung & I. Cornelius (eds), Multilingualism in Ancient Contexts, ch. 8, pp. 129–144. Stellenbosch: African Sun Media (OA, CC).",
+   "source_url": "https://af77305b-83ae-4652-be9e-daa5e1e5aec2.usrfiles.com/ugd/af7730_516413d8628b4857866b157e1a189d01.pdf",
+   "accessed_at": "2026-10-17T20:49:28Z",
+   "retrieval_method": "OpenAlex DOI record (10.52779/9781991201171/08, OA) → direct PDF from the publisher's host → pdftotext -layout page-wise mining. HTTP 200, application/pdf.",
+   "artifact": {
+    "file_bytes": 1945759,
+    "pages": 18,
+    "sha256": "73a6ee96004478c2fddd073e6f5984a7d2363eeede9b833a666708270a0be4b9",
+    "printed_pages": "129–144 (PDF page = printed page − 126)"
+   },
+   "role_in_claim": "Contact ecology and institutional coupling in the documented bilingual period: which institution (religious vs secular elite) used which language, and the Sargonic-era shift of official epigraphy to Akkadian.",
+   "passages": [
+    {
+     "source_locator": "p. 132",
+     "page": "132",
+     "quoted_passage": "In this chapter, the term “elites” is used because there were two broad groups of elites during the Akkadian period. […] These were the religious elite, including priests and temple personnel, as well as the safeguarders of “culture”; the second – the secular elite, being royalty, governors, administrators, and military officers. […] There was of course some overlap between these two groups of elites, but on the whole these two groups used language or languages differently.",
+     "support_scope": "scholarly passage (institutional differentiation of language use — the entry's 'separate home language, state administration, schooling, and ritual competence')",
+     "text": "In this chapter, the term “elites” is used because there were two broad groups of elites during the Akkadian period. […] These were the religious elite, including priests and temple personnel, as well as the safeguarders of “culture”; the second – the secular elite, being royalty, governors, administrators, and military officers. […] There was of course some overlap between these two groups of elites, but on the whole these two groups used language or languages differently.",
+     "passage_text": "In this chapter, the term “elites” is used because there were two broad groups of elites during the Akkadian period. […] These were the religious elite, including priests and temple personnel, as well as the safeguarders of “culture”; the second – the secular elite, being royalty, governors, administrators, and military officers. […] There was of course some overlap between these two groups of elites, but on the whole these two groups used language or languages differently.",
+     "source_kind": "scholarly full-text (academic press chapter, DOI 10.52779/9781991201171/08)"
+    },
+    {
+     "source_locator": "p. 133, quoting Oppenheim",
+     "page": "133",
+     "quoted_passage": "As Oppenheim states, “[b]ilingualism in Mesopotamia in specific periods and regions may be viewed either in terms of mutual intelligibility between Sumerian and Akkadian, in terms of teaching and research, or in linguistic preferences for specific themes and topics.”",
+     "support_scope": "scholarly passage (framework separating intelligibility, teaching/research, and genre preference)",
+     "text": "As Oppenheim states, “[b]ilingualism in Mesopotamia in specific periods and regions may be viewed either in terms of mutual intelligibility between Sumerian and Akkadian, in terms of teaching and research, or in linguistic preferences for specific themes and topics.”",
+     "passage_text": "As Oppenheim states, “[b]ilingualism in Mesopotamia in specific periods and regions may be viewed either in terms of mutual intelligibility between Sumerian and Akkadian, in terms of teaching and research, or in linguistic preferences for specific themes and topics.”",
+     "source_kind": "scholarly full-text (academic press chapter, DOI 10.52779/9781991201171/08)"
+    },
+    {
+     "source_locator": "p. 140",
+     "page": "140",
+     "quoted_passage": "During the Akkadian period, Akkadian, for the first time, becomes the language of official inscriptions. […] According to Frayne […] the majority of royal inscriptions during the Akkadian period were written in Akkadian, “a minority are known in bilingual (Sumerian and Akkadian) versions, and a handful are in Sumerian alone”.",
+     "support_scope": "dated-corpus statement (Sargonic epigraphy: Akkadian official language with Sumerian/Akkadian bilingual minority)",
+     "text": "During the Akkadian period, Akkadian, for the first time, becomes the language of official inscriptions. […] According to Frayne […] the majority of royal inscriptions during the Akkadian period were written in Akkadian, “a minority are known in bilingual (Sumerian and Akkadian) versions, and a handful are in Sumerian alone”.",
+     "passage_text": "During the Akkadian period, Akkadian, for the first time, becomes the language of official inscriptions. […] According to Frayne […] the majority of royal inscriptions during the Akkadian period were written in Akkadian, “a minority are known in bilingual (Sumerian and Akkadian) versions, and a handful are in Sumerian alone”.",
+     "source_kind": "scholarly full-text (academic press chapter, DOI 10.52779/9781991201171/08)"
+    },
+    {
+     "source_locator": "pp. 143 (8.4 Concluding Remarks) with the Ešnunna E-sikil bilingual of Šulgi (RIME E3/1.1.2.27 Akkadian / E3/2.1.2.28 Sumerian)",
+     "page": "143",
+     "quoted_passage": "The Akkadian inscription begins by recounting Šulgi’s names and titles, while the Sumerian inscription begins by naming Ninazu. In the Akkadian period the ruler therefore becomes the primary focus of the royal inscriptions, rather than the deities. While in the Akkadian period this may have been an ideological convention, in the succeeding Neo-Sumerian period it has become a language convention.",
+     "support_scope": "dated bilingual royal inscription (reign-dated doublet published in RIME) + institutional coupling of royal ideology and language choice",
+     "text": "The Akkadian inscription begins by recounting Šulgi’s names and titles, while the Sumerian inscription begins by naming Ninazu. In the Akkadian period the ruler therefore becomes the primary focus of the royal inscriptions, rather than the deities. While in the Akkadian period this may have been an ideological convention, in the succeeding Neo-Sumerian period it has become a language convention.",
+     "passage_text": "The Akkadian inscription begins by recounting Šulgi’s names and titles, while the Sumerian inscription begins by naming Ninazu. In the Akkadian period the ruler therefore becomes the primary focus of the royal inscriptions, rather than the deities. While in the Akkadian period this may have been an ideological convention, in the succeeding Neo-Sumerian period it has become a language convention.",
+     "source_kind": "scholarly full-text (academic press chapter, DOI 10.52779/9781991201171/08)"
+    }
+   ],
+   "source_kind": "scholarly full-text (academic press chapter, DOI 10.52779/9781991201171/08)"
+  },
+  {
+   "id": "R9F01b-S6",
+   "citation": "Sommerfeld, W. 2022. 'Sumerischer Widerstand gegen semitische Herrschaft. Migration, Machtkämpfe und Demographie im 3. Jahrtausend v. Chr.' Studia Antiqua et Archaeologica 28(1): 11–40 (OA journal, Iași).",
+   "source_url": "http://saa.uaic.ro/wp-content/uploads/SAA.2022.28.1.2.pdf",
+   "accessed_at": "2026-10-17T20:51:47Z",
+   "retrieval_method": "OpenAlex API result for a 'Sumerer und Akkader' query → direct OA journal PDF → pdftotext -layout page-wise mining. HTTP 200, application/pdf.",
+   "artifact": {
+    "file_bytes": 632295,
+    "pages": 36,
+    "sha256": "60744adc8a3e5a438a58ff89db6e26f9c968c302d03807e33a85ed9bddfc27a4",
+    "printed_pages": "article pp. 11–40 (PDF page 7 = printed p. 11)"
+   },
+   "role_in_claim": "Independent 2022 scholarly fulltext on Sumerian–Semitic/Akkadian coexistence and its demographic limits; supplies the caution that name-language is not speaker language (the entry's script ≠ speech guardrail generalised to onomastics).",
+   "passages": [
+    {
+     "source_locator": "p. 12",
+     "page": "12",
+     "quoted_passage": "In sumerischen Quellen werden als Gegner häufig Personen, Städte und Regionen benannt, aber keine ethnischen Gruppen.",
+     "support_scope": "scholarly passage (contemporary sources do not label opponents ethnically — caution against ethnicising the Sumerian/Akkadian split; German; translation in md receipt)",
+     "text": "In sumerischen Quellen werden als Gegner häufig Personen, Städte und Regionen benannt, aber keine ethnischen Gruppen.",
+     "passage_text": "In sumerischen Quellen werden als Gegner häufig Personen, Städte und Regionen benannt, aber keine ethnischen Gruppen.",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Antiqua et Archaeologica)"
+    },
+    {
+     "source_locator": "p. 13",
+     "page": "13",
+     "quoted_passage": "Die Identifizierung der semitischen Bevölkerungselemente ist mit einigen Problemen verbunden, da der Zusammenhang zwischen der Sprachzugehörigkeit eines Namens und der/den Muttersprache(n) seines Sprechers mit Unschärfen behaftet ist.",
+     "support_scope": "scholarly passage (a name's language and its bearer's mother tongue are not in a one-to-one relation — same logical structure as the entry's script-vs-speech guardrail; German; translation in md receipt)",
+     "text": "Die Identifizierung der semitischen Bevölkerungselemente ist mit einigen Problemen verbunden, da der Zusammenhang zwischen der Sprachzugehörigkeit eines Namens und der/den Muttersprache(n) seines Sprechers mit Unschärfen behaftet ist.",
+     "passage_text": "Die Identifizierung der semitischen Bevölkerungselemente ist mit einigen Problemen verbunden, da der Zusammenhang zwischen der Sprachzugehörigkeit eines Namens und der/den Muttersprache(n) seines Sprechers mit Unschärfen behaftet ist.",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Antiqua et Archaeologica)"
+    },
+    {
+     "source_locator": "p. 13",
+     "page": "13",
+     "quoted_passage": "Die von der sumerischen Mehrheitsgesellschaft geprägten und kontrollierten Stadtstaaten integrierten problemlos Minoritäten, von denen die Semiten eine wichtige, aber nicht die einzige Minderheitengruppe bildeten.",
+     "support_scope": "scholarly passage (city states as integrating institutions — coexistence at population level)",
+     "text": "Die von der sumerischen Mehrheitsgesellschaft geprägten und kontrollierten Stadtstaaten integrierten problemlos Minoritäten, von denen die Semiten eine wichtige, aber nicht die einzige Minderheitengruppe bildeten.",
+     "passage_text": "Die von der sumerischen Mehrheitsgesellschaft geprägten und kontrollierten Stadtstaaten integrierten problemlos Minoritäten, von denen die Semiten eine wichtige, aber nicht die einzige Minderheitengruppe bildeten.",
+     "source_kind": "scholarly full-text (open-access journal article, Studia Antiqua et Archaeologica)"
+    }
+   ],
+   "source_kind": "scholarly full-text (open-access journal article, Studia Antiqua et Archaeologica)"
+  }
+ ],
+ "dated_witnesses": [
+  {
+   "witness": "Middle Assyrian scholarly tablets from Assur dated by līmu eponyms, eponyms reaching the reign of Tiglath-Pileser I",
+   "source": "Viano 2016, p. 88",
+   "status": "read in scholarly fulltext this round"
+  },
+  {
+   "witness": "Balaĝ-prayer to Enlil, Assur manuscript KAR 375 (Emesal liturgy catalogue)",
+   "source": "Viano 2016, catalogue 2.1.4, p. 104",
+   "status": "read in scholarly fulltext this round (catalogue entry, not collated against tablet)"
+  },
+  {
+   "witness": "Prayer to Assur for Tukulti-Ninurta I (reign-dated, 1243–1207 BCE)",
+   "source": "Viano 2016, catalogue 2.1.5, pp. 109–112",
+   "status": "read in scholarly fulltext this round (catalogue entry)"
+  },
+  {
+   "witness": "Sumerian works copied at Ḫattuša 16th–13th c., at Emar and Ugarit 14th–13th c. (CTH 800; KBo 19 98; KUB 4 23; E 775 etc.)",
+   "source": "Viano 2016, p. 382 dissemination table",
+   "status": "read in scholarly fulltext this round (century-level dating, not single-year)"
+  },
+  {
+   "witness": "Ešnunna E-sikil temple bilingual of Šulgi (Akkadian RIME E3/1.1.2.27 / Sumerian E3/2.1.2.28)",
+   "source": "van Dijk-Coombes 2021, p. 143 with Frayne RIME 3/2",
+   "status": "read in scholarly fulltext this round (reign-dated; RIME edition itself not opened)"
+  },
+  {
+   "witness": "Temple performance and transmission of Sumerian Emesal laments until the 1st century BCE or later",
+   "source": "Jordan & Fink 2023, p. 42",
+   "status": "read in scholarly fulltext this round"
+  },
+  {
+   "witness": "Louvre AO 5477 (reign of Rimush) — round-8 pointer",
+   "source": "not retrieved by this shard; primary/museum hunter's lane",
+   "status": "to-verify (unchanged)"
+  }
+ ],
+ "leg_coverage": {
+  "coexistence_and_mutual_influence": [
+   "van Dijk-Coombes 2021 pp. 132–143",
+   "Wagensonner 2018 p. 227",
+   "Sommerfeld 2022 pp. 12–13"
+  ],
+  "learned_cultic_survival_after_spoken_decline": [
+   "Wagensonner 2018 pp. 233–235",
+   "Braarvig & Geller 2018 p. 8",
+   "Viano 2016 pp. 23–24",
+   "Jordan & Fink 2023 pp. 31–43"
+  ],
+  "script_survival_is_not_speech_survival": [
+   "Viano 2016 p. 24 (Sumerograms across all languages and genres)",
+   "Wagensonner 2018 p. 234 (OB literary texts not produced by speakers)",
+   "Sommerfeld 2022 p. 13 (name-language ≠ mother tongue)"
+  ],
+  "timing_of_vernacular_loss_contested": [
+   "Wagensonner 2018 p. 233 (various stages after Ur III; Akkadian into economic and daily life)",
+   "Viano 2016 p. 23 (out of spoken use by the 19th century, schooling retention)"
+  ],
+  "institutional_coupling_named": [
+   "Viano 2016 pp. 5, 24 (culture language tied to scribal education)",
+   "Wagensonner 2018 pp. 234–235 (scribal sphere; Assur elite import of Babylonian scholarly texts)",
+   "Jordan & Fink 2023 pp. 42–43 (temple ritual performance; kalû transmitters)",
+   "van Dijk-Coombes 2021 p. 132 (religious vs secular elite language use)"
+  ]
+ },
+ "passage_support": {
+  "scope": "scholarly-passage",
+  "verdict": "retrieved — six previously unread scholarly fulltexts inspected at named printed pages, each carrying at least one passage bearing on the question; five of them are about Sumerian itself and one (Sommerfeld 2022) supplies the onomastic caution",
+  "basis": "All quotations above were extracted from the downloaded PDFs with pdftotext -layout and located by printed page; the non-overlap sweep shows none of these sources appear anywhere in reports/round-8/",
+  "previously_unread_gap_closed": "Round 8 read Jagersma's body text and the OIS 2 chapters; the round-8 residual limits named no scholarly fulltext beyond that set. This shard adds independent 2016–2023 scholarly treatments (a Max Planck OA monograph chapter + volume introduction, a Ca' Foscari OA book, a Finnish OA journal article, a South African OA volume chapter, a Romanian OA journal article) and, in particular, an account of the INSTITUTION that carries Sumerian after speech loss (temple lamentation office and scribal school), which round 8's set did not name directly."
+ },
+ "whole_claim_support": {
+  "scope": "whole-bounded-claim (entry line 39 Contact ecology row with line 41 hedge, line 46 word-sign guardrail, line 169 craft-grid row)",
+  "verdict": "supported at scholarly-passage scope by this shard's new material; unchanged and not weakened",
+  "qualification": "Nothing retrieved contradicts the row. The new sources agree that the timing of vernacular loss is contested (Wagensonner p. 233 'various stages'; Viano p. 23 'by the 19th century'), which the entry's line-41 hedge already permits. The row's limit clause ('a script's survival does not prove a speech community's survival') is now additionally supported from an onomastic angle (Sommerfeld p. 13).",
+  "not_established_by_this_receipt": [
+   "the museum object record for Louvre AO 5477 (primary-object leg, sibling hunter)",
+   "direct tablet collation for KAR 375 / the Tukulti-Ninurta I prayer (catalogue entries read, tablets not inspected)",
+   "Sallaberger's own Ur III spokenness argument in OBO 160/3 (see residual_limits)"
+  ]
+ },
+ "access_failures": [
+  {
+   "attempted_command": "curl -sL -m 180 -o salla.pdf 'https://www.zora.uzh.ch/id/eprint/151632/1/Sallaberger_Westenholz_1999_Mesopotamien.pdf'",
+   "status": "HTTP 200 but body is an Anubis proof-of-work interstitial HTML (2,266 bytes, title 'Oh noes!'); no PDF served. Landing page /id/eprint/151632/ identical. Attempted 2026-10-17T20:51:30Z."
+  },
+  {
+   "attempted_command": "curl -s 'http://archive.org/wayback/available?url=zora.uzh.ch/id/eprint/151632/1/Sallaberger_Westenholz_1999_Mesopotamien.pdf'",
+   "status": "{\"archived_snapshots\": {}} — no Wayback snapshot of the ZORA PDF exists"
+  },
+  {
+   "attempted_command": "curl -s 'https://archive.org/advancedsearch.php?q=Sallaberger%20Westenholz%20Mesopotamien&output=json'",
+   "status": "numFound 0 — OBO 160/3 not present in archive.org text collections"
+  },
+  {
+   "attempted_command": "curl -s 'https://doaj.org/api/search/articles/Sallaberger%20Sumerian?pageSize=5'",
+   "status": "total 0 — no DOAJ article by Sallaberger"
+  },
+  {
+   "attempted_command": "curl -sL 'https://brill.com/downloadpdf/journals/jane/21/1/article-p42_2.pdf'",
+   "status": "HTTP 403, HTML body (919 bytes) — Brill paywall/bot block; Lament and Ritual Weeping (JANER 21) not retrieved"
+  },
+  {
+   "attempted_command": "curl -sL 'https://escholarship.org/search/?q=Crisostomo+Sumerian'",
+   "status": "HTTP 202, 0 bytes — no body served to this client; UCLA repository dissertations not reachable this round"
+  },
+  {
+   "attempted_command": "curl -sL 'https://doi.org/10.17613/m6746z' (Language, Writing, and Ideologies in Contact)",
+   "status": "HTTP 403 from works.hcommons.org"
+  },
+  {
+   "attempted_command": "curl -sL 'http://hdl.handle.net/10831/31083' (Veldhuis 2016, An introduction to the grammar of Sumerian, ELTE repository)",
+   "status": "HTTP 404 at edit.elte.hu — repository handle dead; an alternate OA copy is still outstanding"
+  },
+  {
+   "attempted_command": "curl -sL -o /tmp/barber.pdf 'https://journal.fi/store/article/download/129805/78658'",
+   "status": "environment failure, documented: /tmp is a tmpfs under user quota and 'No space left on device' made every -o write produce a 0-byte file (three downloads affected). Mitigation: scratch moved to ~/.cache/kotodama-r9/; all downloads succeeded there. No repository file was affected."
+  }
+ ],
+ "negative_claims_and_sweeps": [
+  {
+   "claim": "None of this shard's six sources was retrieved in round 8 (or rounds 6–7).",
+   "sweep": "for t in Wagensonner mprl-series journal.fi foscari 'African Sun Media' 'van Dijk-Coombes' Viano 'Studies10Chap8' 'Barber Sumerian'; do grep -ril \"$t\" reports/round-8/ reports/round-6 reports/round-7 | wc -l; done  (2026-10-17)",
+   "result": "0 for every token in every directory"
+  },
+  {
+   "claim": "No open-access fulltext of Sallaberger's own Ur III spokenness discussion (OBO 160/3, 1999) could be retrieved.",
+   "sweep": "OpenAlex search 'Sallaberger Sumerer und Akkader' and 'Sallaberger Sumerian language Ur III' (only ZORA record 151632 surfaced, blocked); archive.org advancedsearch numFound 0; DOAJ total 0; Wayback archived_snapshots {}",
+   "result": "unretrieved — recorded as a deeper-limit row, not asserted absent from scholarship"
+  },
+  {
+   "claim": "This receipt does not assert any Sumerian pronunciation reconstruction or any single vernacular-loss date.",
+   "sweep": "the six fulltexts were searched for 'ceased to be used as vernacular', 'spoken language', 'mother tongue' (commands: python3 mine.py <pdf> '...'; in ~/.cache/kotodama-r9/)",
+   "result": "all statements found are qualitative or century-level; no absolute date is asserted by this shard"
+  }
+ ],
+ "counting_commands": [
+  "ls -la reports/round-9/freshness/R9-F01b-receipt.json reports/round-9/freshness/R9-F01b-receipt.md",
+  "python3 -c \"import json;d=json.load(open('reports/round-9/freshness/R9-F01b-receipt.json'));print(d['id'],len(d['retrievals']),sum(len(r['passages']) for r in d['retrievals']))\""
+ ],
+ "residual_limits": [
+  "Scholarly passages are not primary objects: KAR 375, the Tukulti-Ninurta I prayer and the Šulgi E-sikil bilingual are read through Viano's catalogue and van Dijk-Coombes's discussion, not collated against tablets or RIME itself.",
+  "Sallaberger's own OBO 160/3 discussion of Ur III spokenness (the source behind Woods 2006) remains unreadable in open access this round: ZORA serves an Anubis interstitial, Wayback has no snapshot, archive.org has no copy, DOAJ has no record.",
+  "Round-8's recorded entry digest (730e1be8…) is stale relative to the live file (bf6c92f9… = HEAD blob); cited line numbers were re-read against the live file, but any downstream comparison against the round-8 receipt should use the live digest."
+ ],
+ "to_verify": [
+  "Louvre AO 5477 object record — unchanged to-verify from round 8, sibling hunter's lane",
+  "RIME 3/2 editions of the EŠnunna bilingual (Frayne 1997, pp. 135–37) — not opened; cited as reported by van Dijk-Coombes",
+  "KAR 375 tablet edition — catalogue entry read only",
+  "Veldhuis 2016 grammar alternate OA location (ELTE handle 404)"
+ ],
+ "raw_labels_preserved": "This receipt rewrites no raw worker label. The round-6 raw label for R6-02-A and the reconciled dispositions live in reports/round-8/freshness/reconciliation.json and reports/round-9/targets.json; this file only declares its own round-9 shard disposition below.",
+ "disposition": {
+  "prior": "unresolved (rounds 6 and 8)",
+  "this_shard": "scholarly-fulltext leg satisfied — six previously unread scholarly fulltexts retrieved and mined at named printed pages; five legs of the entry row now carry independent 2016–2023 scholarly passages",
+  "contribution_to_reconciled": "supports movement of R9-R8-F01 to partial-support-or-better on scholarly passages; the primary/museum-object leg is not this shard's assignment, and the final reconciled disposition is the verifier's and orchestrator's call",
+  "not_claimed": "no independent verification of another shard's receipt; no promotion of any capability row"
+ }
+}

@@ -1,0 +1,125 @@
+baseline:   reports/round-9/baselines/handoff-packet-check   (baseline id r9-pre)
+gate:       handoff-packet-check  (registry row name, SKILL.md §Gates)
+frozen_by:  round-9 O-axis baseline author (handoff-packet-check author shard; role label only, no personal identifiers)
+frozen_at:  2026-10-17T17:49:02-03:00  (local, ISO-8601; `date -Is` at copy/run time)
+revision:   a7bb205d3aecdaa24d91c047c8719cd8689e4ddd
+            Pre-integration revision: the tree the run was measured on (round-9 claims commit).
+            The orchestrator's round-9 integration commit carries this baseline; workers never
+            commit in this lane, so this field names the measured tree, not the carrying commit.
+
+snapshot
+  file       packet.md
+  source     examples/culture-d3/handoff.md (the D3 handoff packet delivered 2026-10-17)
+  source sha256 at freeze time  0d8d660bf9797d1c15da477f96ded75553a8d2ca7f04f75aa86a8a65e28fd2fc
+  copy   sha256                  0d8d660bf9797d1c15da477f96ded75553a8d2ca7f04f75aa86a8a65e28fd2fc
+  copy command  cp examples/culture-d3/handoff.md <baseline>/packet.md
+  role name  §3's `packet.yml` names a culture-packet input; this gate's graded input is a
+             Markdown handoff packet, so the role-named byte copy keeps its `.md` extension.
+             The copy is never edited after freezing. If the live source advances later in the
+             round, this baseline still pins the r9-pre bytes only.
+
+root and relocation (recorded, not silent)
+  Authored 17:49:02 at the standard §3 root `tools/gates/frozen/handoff-packet-check/r9-pre/`,
+  then relocated byte-verbatim (`mv`, no re-freeze, no re-pin) to
+  `reports/round-9/baselines/handoff-packet-check/` to match the sibling pair protocol: the
+  naming-collision-gate and phonology-sanity-gate seats keep the author's four files in
+  `reports/round-9/baselines/<gate-name>/`, which is also the directory
+  `reports/round-9/targets.json` names for each gate's fragment. Digests after the move are
+  unchanged (`sha256sum`, 2026-10-17: packet.md 0d8d660b…, run.log 7c581047…). The observation
+  in `reports/round-9/baselines/naming-collision-gate/freeze.txt` ("handoff-packet-check /
+  lexicon-coverage-audit at tools/gates/frozen/<gate>/r9-pre/") was recorded before this move.
+  Root remains contested across the round (costume-era-consistency-gate seat used
+  `tools/gates/expected/<gate>/r9-pre/`).
+  Dual home (measured, deliberate): the four baseline files exist in BOTH
+  `reports/round-9/baselines/handoff-packet-check/` (round-9 pair-protocol and fragment home) and
+  `tools/gates/frozen/handoff-packet-check/r9-pre/` (the standard §3 root, which is also a default
+  baseline root of `tools/check-gate-battery.py`: BASELINE_ROOTS = `tools/gates/expected/` +
+  `tools/gates/frozen/`, and a gate without a baseline under those roots reads
+  `BASELINE-GATE-UNCOVERED`, exit 2). The two copies are byte-identical (`sha256sum`, 2026-10-17):
+  ONE baseline id `r9-pre`, not two freezes. Never re-freeze or re-pin one without the other;
+  `git mv`-ing either into a standard root is a move, not a new baseline.
+
+commands and observed results (lane root, unless noted)
+  1  python3 tools/gates/handoff-packet-check.py --selftest
+     exit 0; `selftest: OK — fixture findings 11 across 9 ids (HO-BASELINE, HO-CANON-CLAIM,
+     HO-CANON-MARKER, HO-CONTRACT-REF, HO-DEP-FLOAT, HO-EMPTY, HO-GLOSS-ETYM, HO-MANIFEST-DIGEST,
+     HO-MISSING); clean control exit 0; probes cover canon, baseline, dependency, contract_ref and
+     glossary vocabulary; malformed inputs exit 2; CLI verified from another cwd`
+     capability evidence only; the gate is read-only (no tracked file changed; `git status
+     --porcelain` showed no modification to this gate, its fixtures, or the input).
+  2  cp examples/culture-d3/handoff.md <baseline>/packet.md
+     copy digest equals the source digest (both 0d8d660b… above): byte-identical, §5 step 3.
+  3  cd <baseline> && python3 <lane>/tools/gates/handoff-packet-check.py packet.md > run.log
+     observed exit 0; run.log is the gate's stdout verbatim (stderr was empty):
+         INFO scan: fields=16/16 glossary-entries=20 findings=0
+     run.log sha256 7c5810479045c26bcc3b1c7364934f53147641504a766eeffeaaec4d2d624685
+     (`*.log` is ignored by this repo; see integration notes.) The gate was run over the snapshot
+     copy, never the live `examples/` path (§3, KTD-FR-S-0003).
+  4  digest check against expected.json `inputs` (sha256sum, 2026-10-17):
+     packet.md 0d8d660bf9797d1c15da477f96ded75553a8d2ca7f04f75aa86a8a65e28fd2fc -> OK
+     gate script (gate_sha256) e2fa3223b2aa57382807c51099a4360c1a9cc2559d5b4bedad1b54e9ab0ad575 -> matches
+     stdout pin (stdout_sha256) recomputed over run.log -> matches
+  5  path-independence (the INFO scan line names no path):
+     python3 tools/gates/handoff-packet-check.py reports/round-9/baselines/handoff-packet-check/packet.md
+     -> stdout byte-identical to run.log (`fields=16/16 glossary-entries=20 findings=0`), exit 0,
+     re-checked after the relocation on 2026-10-17.
+  6  tamper demo, scratch copy only (never the committed snapshot)
+     .scratch/r9-handoff-author/t1.md = packet.md + one appended `<!-- one appended comment line -->`
+     digest d9b80af33c508945b5d70af9767266662d6280b61b31c10fb054945d5cd5f9c3 != pin -> §6 step 1
+     reads snapshot_tampered (could-not-evaluate, exit 2), while the gate re-run over the edited
+     copy still prints `INFO scan: fields=16/16 glossary-entries=20 findings=0` and exits 0.
+     Only the digest step can see this edit; the finding comparison cannot.
+  7  falsifiability demo, scratch copy only
+     .scratch/r9-handoff-author/t2.md rewrites the `canon_standing` line to a producer-side
+     certification; digest 5af09f9b836103292fe271f4dd9166f59a8d44f44a89cd0ccd19b59b2106868d,
+     gate exits 1 with:
+         FINDING HO-CANON-CLAIM: FAIL — producer-side canon certification at line 20 …
+     The committed `clean` verdict is therefore a measured property of these bytes, not a pass
+     that cannot fail.
+
+battery validation — the round-9 instrument `tools/check-gate-battery.py` (O15 extension), read 2026-10-17
+  8  python3 tools/check-gate-battery.py        (default baseline roots: tools/gates/expected/ + tools/gates/frozen/)
+     overall exit 2, caused by OTHER gates uncovered — at this reading myth-consistency-gate and
+     naming-collision-gate (three at the first reading, before provenance-audit's baseline landed).
+     This baseline's own record:
+         "baseline": "frozen/handoff-packet-check/r9-pre/expected.json"
+         "reading": "pinned", "inputs_checked": 1, "findings": []
+         gate_sha256 declared == actual (e2fa3223…), stdout_pin declared == actual (7c581047…)
+     So the frozen-root home is discovered and reads pinned; the round-9 root alone is NOT scanned by
+     the battery's default roots (recorded as a cross-gate finding below, not absorbed here).
+  9  tamper drill on a copied root — never the committed copy:
+     cp the four files to .scratch/r9-handoff-author/tamper-root/handoff-packet-check/r9-pre/,
+     append one byte to packet.md (sha256 047b7d538ffd8f0ce9403991aa44c3ab391be27168639b19622bef173493136b), then
+     python3 tools/check-gate-battery.py --baselines-root .scratch/r9-handoff-author/tamper-root
+     -> the record reads "snapshot_tampered" with finding
+         {"id": "BASELINE-TAMPERED", "state": "snapshot_tampered",
+          "detail": "packet.md: digest 047b7d538ffd8f0c... does not match the pin 0d8d660bf9797d1c..."}
+     exit 2, unevaluable 1: a tampered snapshot is never a silent pass.
+ 10  the battery never re-executes a gate (`verdict_replay: "not-run: the battery verifies digests and
+     pins; the verdict comparison belongs to the baseline's own re-run receipt"`), which is why steps
+     4–6 carry the verdict half.
+
+integration notes (for the orchestrator; no shared file was written by this shard)
+  - `tools/gates/frozen/README.md` index row (standard §3/§5 step 7):
+        r9-pre | handoff-packet-check | a7bb205 | clean (exit 0, findings [])
+  - `.gitignore:3` is `*.log` (`git check-ignore -v
+    reports/round-9/baselines/handoff-packet-check/run.log` -> `.gitignore:3:*.log`), so the
+    §3-required `run.log` needs a forced add — in BOTH homes:
+        git add -f reports/round-9/baselines/handoff-packet-check/run.log
+        git add -f tools/gates/frozen/handoff-packet-check/r9-pre/run.log
+  - the SKILL.md §Gates registry row for handoff-packet-check gains the frozen-baseline path
+    (standard §8/§11); likewise `corpus/knowledge/verification/gate-frozen-run-standard.md` §8 still
+    records “not implemented” for the frozen layout and needs the round-9 update.
+  - cross-gate finding (reported, not absorbed): on the delivered tree the battery reads
+    `BASELINE-GATE-UNCOVERED` for myth-consistency-gate, naming-collision-gate and provenance-audit,
+    whose baselines sit in `reports/round-9/baselines/` — a root the battery does not scan. Claim O's
+    “battery validates every baseline” clause cannot read 7/7 until those baselines are moved or
+    mirrored into `tools/gates/expected/` or `tools/gates/frozen/`. This baseline keeps both homes
+    for exactly that reason.
+  - shared files (README.md, SKILL.md, corpus entry) are deliberately untouched by this shard to
+    avoid cross-worker races.
+
+check result: digest check OK (step 4); observed exit 0 and the empty finding-ID set equal
+`expected` (`class: clean`, `exit: 0`, `findings: []`); the battery reads this baseline `pinned`
+(step 8) and reads a tampered copy `snapshot_tampered` / exit 2 (step 9). Re-verify with §6 order:
+digests, then gate_sha256, then compare the verdict against run.log's `fields=16/16 … findings=0`.

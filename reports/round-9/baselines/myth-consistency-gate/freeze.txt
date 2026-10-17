@@ -1,0 +1,89 @@
+frozen_by: kotodama-shokunin round-9 O-shard — myth-consistency-gate baseline author (author.md)
+frozen_at: 2026-10-17T17:50:38-03:00
+baseline_id: r9-pre (phase pre: no gate-behavior edits land in round 9 — claim O forbids them)
+gate: myth-consistency-gate
+gate_path: tools/gates/myth-consistency-gate.py
+gate_sha256: 5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08
+baseline_root: reports/round-9/baselines/myth-consistency-gate/
+revision: a7bb205d3aecdaa24d91c047c8719cd8689e4ddd (HEAD at freeze; the orchestrator's round-9 integration commit carries this baseline)
+declared_baseline_revision: e1694bad6ac96aca45a11ca5746582b275929355 (reports/round-9/claims.json)
+python: 3.14.7
+schema: kotodama-frozen-run-v1 — see corpus/knowledge/verification/gate-frozen-run-standard.md §4 (fields), §5 (freeze), §6 (verify/tamper)
+input: byte copy of examples/culture-d2/packet.d2.yml — the D2 protocol packet, the standard's §7/§9 designated first real baseline input, and this gate's turn in the §9 gate order (phonology → lexicon → naming → myth → costume → handoff)
+
+snapshot:
+  packet.yml = byte copy of examples/culture-d2/packet.d2.yml
+  sha256(packet.yml)             e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643
+  sha256(origin as read)         e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643 (cmp clean, 2026-10-17)
+  sha256(run.log, verbatim)      e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 (empty stdout)
+  sha256(gate script)            5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08
+  the copy was never edited after freezing; the gate reads exactly one file in a graded run
+  (myth-consistency-gate.py:847-849); every other open() site is --selftest-only (1058-1095)
+
+freeze steps and observed results (2026-10-17, lane root; commands re-executed, outputs quoted):
+  1  git status --porcelain tools/gates/myth-consistency-gate.py examples/culture-d2/packet.d2.yml
+     -> empty: no tracked modification around the gate or the input (other round-9 evidence
+        was present only as untracked directories, none of them the graded paths)
+  2  python3 tools/gates/myth-consistency-gate.py --selftest
+     -> exit 0; "selftest: OK — fixture exit 1; planted IDs present: MC-P01, MC-P02, MC-M01,
+        MC-M02, MC-S01, MC-S02; clean control exit 0 (0 findings); fixture and expected
+        verified against the embedded constants under tools/gates/fixtures/"
+        git status --porcelain before and after: identical (no writes observed;
+        the committed fixture pair is verified, not rewritten)
+        fixture digests: myth-consistency-gate.yml
+        f94a700cc2d6cfadf91d8c96493fdc1e87dd50e53aa117d7598f12f524197086,
+        myth-consistency-gate.expected
+        c871b6d33c2a29f74d17ce7642c73e328a0b212fddd618699c4a3c8464f45abb
+  3  cp examples/culture-d2/packet.d2.yml <baseline>/packet.yml ; cmp -> byte-identical
+  4  python3 tools/gates/myth-consistency-gate.py <baseline>/packet.yml > <baseline>/run.log
+     -> exit 0; stdout empty (0 bytes) — a clean verdict: no FINDING lines; run.log sha256
+        e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  5  same gate over the live path examples/culture-d2/packet.d2.yml
+     -> exit 0, stdout byte-identical to run.log (cmp clean) — path-independent
+  6  isolated mirror: gate copy + packet copy in a scratch tree, different cwd
+     -> exit 0, stdout byte-identical to run.log (cmp clean)
+  7  tamper control (scratch copy of packet.yml): printf '\n# tampered byte\n' >>
+     -> sha256 265bd5c6a37fd90a5e0692ce39a6564622e0a787bc4293cf7dcedf944f7009d7
+        (digest check FAILS against the inputs pin -> snapshot_tampered, could-not-evaluate)
+        while the gate over the tampered copy still exited 0 with stdout byte-identical to
+        run.log (both empty) — measured: under a clean verdict only the digest step turns
+        the edit into a finding; stdout comparison alone cannot (and cannot here at all)
+  8  bounded mutation of the same copy (semantic, two tokens): MOT-04's
+     `index_checked: true` -> `cf_atu: "ATU 1200"` + `index_checked: false`
+     -> sha256 2e6c2d675f985dd6f6de5f42c8edcb6943f26de1b83661ec7b1c4fc0a932da5c
+        exit 1; one line: FINDING MC-M02: motif MOT-04 claims comparison 'ATU 1200' without
+        a checked entry, edition, or narrative witness [spec §4 MC-M02]
+        — the clean frozen verdict is contingent on the graded bytes, not vacuous
+  9  digest re-verify against this baseline's inputs pin -> packet.yml: OK; exit 0
+ 10  revision equivalence (recorded, not assumed):
+     git diff --stat e1694bad6ac96aca45a11ca5746582b275929355..HEAD
+     -> reports/round-9/claims.json 34 ++ / reports/round-9/targets.json 125 ++,
+        "2 files changed, 159 insertions(+)", 0 deletions — the graded artifact tree
+        (tools/gates, examples, corpus) is identical between the declared baseline
+        revision e1694bad6ac96aca45a11ca5746582b275929355 and the freeze-time HEAD
+        a7bb205d3aecdaa24d91c047c8719cd8689e4ddd
+     git diff --stat e1694bad6ac96aca45a11ca5746582b275929355..HEAD -- tools/gates examples corpus -> empty
+  check result: baseline valid — digests match, observed exit and finding-ID set equal
+  expected (expected.exit 0 / class clean / findings [])
+
+environment note: /tmp was inode-exhausted for part of this wave
+  (df -i /tmp -> tmpfs 1048576 1048576 0 100%); scratch controls used /dev/shm instead.
+  Observed hazard, not a blocker: every command above ran and its output is quoted.
+
+integration notes (for the orchestrator; none of these is a lane-local edit):
+  - .gitignore carries `*.log` (line 3), so run.log is ignored by pattern and an empty
+    run.log needs an explicit force-add: git add -f
+    reports/round-9/baselines/myth-consistency-gate/run.log — or the baseline commits
+    without its verbatim (empty) stdout.
+  - root divergence observed this round and reported, not absorbed: peer baselines landed
+    under reports/round-9/baselines/<gate-name>/ (naming-collision author; phonology pair),
+    tools/gates/expected/<gate>/r9-pre/ (costume-era author) and the standard's literal
+    tools/gates/frozen/<gate-name>/<baseline-id>/ (handoff author). This baseline uses the
+    reports root; its expected.json `gate` field allows root-agnostic discovery, and
+    duplicate ids across different roots should resolve fail-closed per the standard §3.
+  - the frozen-run standard's own §3 README index (baseline id -> gate, revision, verdict
+    class) is shared across all seven gate shards and was deliberately NOT written here to
+    avoid seven-way writes to one file; the registry scribe's reports/round-9/baselines/
+    registry.md is the natural home for these rows.
+  - this baseline pins bytes and a verdict. It is not a design PASS, not a canon ruling,
+    and not scholarship verification; a matching digest proves only byte identity.

@@ -1,0 +1,558 @@
+{
+ "round": 9,
+ "id": "R9-F03c",
+ "role": "alternate-angle hunter",
+ "escalated_strategy": "alternate-angle",
+ "parent_residual": "R9-R8-F03",
+ "prior_row_id": "R6-05-B",
+ "prior_ids": [
+  "R8-F03",
+  "R6-05-B"
+ ],
+ "date": "2026-10-17",
+ "baseline_revision": "a7bb205d3aecdaa24d91c047c8719cd8689e4ddd",
+ "baseline_revision_note": "git rev-parse HEAD at receipt time; claims.json declares baseline e1694bad6ac96aca45a11ca5746582b275929355 (= HEAD~1, the admitted round-8 state). This shard read only.",
+ "question": "Check one dated divine/royal headgear, pointed-cap or horned-crown identification in the entry; distinguish depicted rank, deity/king identification and earlier Hattic or later Neo-Hittite comparators.",
+ "entry": "corpus/knowledge/civilizations/anatolia-hittite.md",
+ "entry_sha256_at_receipt": "a8e421f7118eb956418a2abbeb24890cfa05e1b35de41f7db72dfa6b9f7332a0",
+ "entry_entry_not_modified_by_this_shard": true,
+ "entry_locators": [
+  "line 123 'Horned divine headdress' row (Symbolic system)",
+  "line 135 'Male divine figures in imperial relief' row (pointed horned headgear)",
+  "line 136 'Female divine figures' row (long garments and tall headdresses)",
+  "line 137 'Royal ceremonial representation' row (long robe and rounded cap)",
+  "line 49 terminology trap (New/Neo-Hittite)",
+  "lines 139-140 evidence-brake lines: 'Distinguish depicted garment / textual garment term / excavated textile / reconstructed cut'"
+ ],
+ "angle": {
+  "name": "terminology + pre-Hittite object register (words and older head-adornment objects)",
+  "why_alternate": "Round 8 reached the question through the imperial relief program and its excavation literature (Wikipedia Yazılıkaya, Bonatz IDD chapter, Carchemish III scan, Hittite Monuments pages, Oreshko 2018). This hunter instead goes at the same entry rows from (a) the Hittite *words* for headgear as edited in the philological literature and (b) the *pre-Hittite* Anatolian head-adornment object register with its calibrated dates.",
+  "excludes": [
+   "round-8 artifacts were not re-fetched and no round-8 passage is restated as newly retrieved",
+   "no museum object record (that is the primary-source/museum hunter's lane)",
+   "no imperial relief programme reading (that is the scholarly-fulltext hunter's lane)"
+  ]
+ },
+ "session_window_utc": "2026-10-17T20:49:02Z - 2026-10-17T20:53:22Z (all `date -u` on this host)",
+ "scratch": {
+  "dir": "/var/tmp/r9f03c",
+  "why": "`mkdir -p /tmp/r9f03c` failed with 'No space left on device' although `df -h /tmp` showed 8.5G free; `df -i /tmp` showed 1048576/1048576/0 inodes (100%) at 20:47 and again at 20:53 UTC, i.e. the tmpfs had no free inodes. Scratch was moved to /var/tmp (same filesystem as /home, 781G free at 20:53).",
+  "artifacts_retained": "the fetched artifacts and the quote-verification scripts (build_receipt.py, verify2.py) live in the scratch dir and are reproduced by the sha256 values recorded below"
+ },
+ "artifacts": [
+  {
+   "name": "hoffner-djvu.txt",
+   "sha256": "f94d303fb9951e49d9275562a9df0745687d5f1ecf26c6fe67e92fa082754e6b",
+   "bytes": 857916,
+   "url": "https://archive.org/download/hoffner-studies-1964-2003/Hoffner_Studies_1964-2003_djvu.txt",
+   "http": "200",
+   "content_type": "text/plain; charset=utf-8",
+   "accessed_at_utc": "2026-10-17T20:49:24Z",
+   "command": "curl -sL --max-time 120 -A 'Mozilla/5.0 (X11; Linux x86_64) research-retrieval' -o hoffner-djvu.txt <url>",
+   "identifies": "Hoffner, H. A. Jr., Selected Writings of Harry A. Hoffner, Jr., 29 articles 1964-2003 (Internet Archive item hoffner-studies-1964-2003, compiled by Robert Bedrosian); djvu OCR text layer.",
+   "carries": "Q_H1-Q_H5 (Hoffner 1964 JNES 23/1:66-68; Hoffner 1966 JBL 85/3:326-334)"
+  },
+  {
+   "name": "hoffner-meta.json",
+   "sha256": "0061878fe294917f9e407d54f9a3181f8eee7ef1076bdf93807ccf4390c9005a",
+   "bytes": 9957,
+   "url": "https://archive.org/metadata/hoffner-studies-1964-2003",
+   "http": "200",
+   "content_type": "application/json",
+   "accessed_at_utc": "2026-10-17T20:49:24Z",
+   "command": "curl -sL --max-time 60 -o hoffner-meta.json <url>",
+   "identifies": "Item metadata: creator, per-article contents list with journal, volume, year and page ranges; used to establish that the kupaḫi- passages sit in articles dated 1964 and 1966 and in named journals."
+  },
+  {
+   "name": "bilkent-content.pdf",
+   "sha256": "c2321a6a8e02af8534768ddbf12ef788afec61f2855216a1edd049c4556ff92a",
+   "bytes": 993749,
+   "url": "https://repository.bilkent.edu.tr/server/api/core/bitstreams/27bc11ab-cc77-4088-9edb-e319b5916b4c/content",
+   "http": "200",
+   "content_type": "application/pdf;charset=UTF-8",
+   "accessed_at_utc": "2026-10-17T20:49:28Z",
+   "command": "curl -sL --max-time 120 -o bilkent-content.pdf <url> ; pdftotext -layout bilkent-content.pdf bilkent.txt (681 lines)",
+   "identifies": "Thomas Zimmermann, 'Symbols of Salvation? – Function, Semantics and Social Context of Early Bronze Age Ritual Equipment From Central Anatolia', Anodos. Studies of the Ancient World 6-7/2006-2007, 509-520 (Bilkent University repository copy).",
+   "carries": "Q_Z1, Q_Z2 (Pre-Hittite attribution of the Alaca standards; calibrated chronology of the 13 Royal Tombs)"
+  },
+  {
+   "name": "pam-diadem.pdf",
+   "sha256": "cf59066cd9b1247556baa7c21b9644fdf8be53b392b85ad55756550521261e74",
+   "bytes": 6416638,
+   "url": "https://bazhum.muzhp.pl/media/texts/polish-archaeology-in-the-mediterranean/2014-tom-23-numer-2/polish_archaeology_in_the_mediterranean-r2014-t23-n2-s85-144.pdf",
+   "http": "200",
+   "content_type": "application/pdf",
+   "accessed_at_utc": "2026-10-17T20:50:40Z",
+   "command": "curl -sL --max-time 90 -o pam-diadem.pdf <url> ; pdftotext -layout pam-diadem.pdf pam.txt (2900+ lines, two-column pages)",
+   "identifies": "Zuzanna Wygnańska, 'Tracing the \"Diadem-Wearers\": An Inquiry into the Meaning of Simple-Form Head Adornments from the Chalcolithic and early Bronze Age in the Near East', Polish Archaeology in the Mediterranean 23/2 (2014), 85-144 (BAZHUM open copy).",
+   "carries": "Q_P1-Q_P6 (Hittite headband depictions of named kings incl. Tudhaliya IV Room 64; Hittite lupan(n)i textiles-term citation of Vigo 2010; Alacahöyük diadems as dated pre-Hittite elite headgear)"
+  },
+  {
+   "name": "simpson-ch32.pdf",
+   "sha256": "8576b52e606194d87af2f67a191eff9ef535f1758d693f6a1f24eb2c12b4558b",
+   "bytes": 2730752,
+   "url": "https://www.bgc.bard.edu/storage/uploads/Simpson_Ch32.pdf",
+   "http": "200",
+   "content_type": "application/pdf",
+   "accessed_at_utc": "2026-10-17T20:50:39Z",
+   "command": "curl -sL --max-time 90 -o simpson-ch32.pdf <url> ; pdftotext -layout simpson-ch32.pdf simpson.txt",
+   "identifies": "Elizabeth Simpson, 'Luxury Arts of the Ancient Near East', ch. 32 of The Adventure of the Illustrious Scholar: Papers Presented to Oscar White Muscarella (ed. E. Simpson), Leiden/Boston: Brill 2018, pp. 661-6xx; author-use copy hosted by the Bard Graduate Center.",
+   "carries": "Q_S1 (dated Alacahöyük royal-tomb diadem inventory)"
+  },
+  {
+   "name": "votive-djvu.txt",
+   "sha256": "ff15cf2e4bb71b879084b5226590742d6fe970263d62c996483564f757fbb49f",
+   "bytes": 560286,
+   "url": "https://archive.org/download/HittiteVotiveTexts/HittiteVotiveTexts_djvu.txt",
+   "http": "200",
+   "content_type": "text/plain; charset=utf-8",
+   "accessed_at_utc": "2026-10-17T20:51:27Z",
+   "command": "curl -sL --max-time 90 -o votive-djvu.txt <url> ; grep -n -i 'kupahi|headgear|headdress' votive-djvu.txt",
+   "identifies": "Sweep artifact only: djvu text of a Hittite votive-texts volume. grep returned one irrelevant hit ('kariulli \"headdress\"?' line 21169) and no kupaḫi attestation; recorded as a negative sweep, no claim built on it."
+  }
+ ],
+ "probe_artifacts": [
+  {
+   "name": "chd-page.html",
+   "sha256": "d35142ba0fc0594c036b411ef6acc11e34116591279edd7c9ade8d9fb35adc14",
+   "bytes": 182208,
+   "url": "https://isac.uchicago.edu/research/publications/chicago-hittite-dictionary",
+   "http": "200",
+   "accessed_at_utc": "2026-10-17T20:4xZ",
+   "note": "ISAC CHD landing page: links only to published volumes L-N, P and S. No K fascicle listed."
+  },
+  {
+   "name": "hethport-root.html",
+   "sha256": "b762edd7e8f060b1cbb82791d379484226556a4314b519470acc4f583a595bff",
+   "bytes": 1744,
+   "url": "https://www.hethport.uni-wuerzburg.de/",
+   "http": "200",
+   "accessed_at_utc": "2026-10-17T20:49:02Z",
+   "note": "Hethitologie-Portal Mainz redirect landing page; no reachable free text-corpus search in this window."
+  },
+  {
+   "name": "openalex-crown.json",
+   "sha256": "713ad33b05427bc41c6ab71278650c8421bc933b7f60161f5c7a3cb9fa02ae82",
+   "bytes": 2625,
+   "url": "https://api.openalex.org/works?search=Hittite%20horned%20crown%20divine%20headdress&per-page=8&select=id,title,publication_year,doi",
+   "http": "200",
+   "accessed_at_utc": "2026-10-17T20:52Z",
+   "note": "34 works; nearest OA lead was the CC-BY Kubaba/Iron Age divine-ladies chapter (see access_failures)."
+  },
+  {
+   "name": "fup-landing.html",
+   "sha256": "9d0fbef7185904eb38d43cc83c3eb825b5b9a7012f05fb7ec5b8bfa6b9e27f21",
+   "bytes": 5538,
+   "url": "https://doi.org/10.36253/979-12-215-0109-4.12",
+   "http": "403",
+   "accessed_at_utc": "2026-10-17T20:52Z",
+   "note": "Cloudflare interstitial ('Just a moment...') on the Firenze University Press landing page; OA Iron Age divine-headdress lead unreachable."
+  },
+  {
+   "name": "cdli-search.html",
+   "sha256": "10296bdcc47c79d8b858112c8c11a19313d9881ed91c227a40f918f3081c35fc",
+   "bytes": 1633448,
+   "url": "https://cdli.mpiwg-berlin.mpg.de/search?q=kupahi",
+   "http": "200",
+   "accessed_at_utc": "2026-10-17T20:52Z",
+   "note": "JS shell; the returned page shows the unfiltered collection ('Showing 25 entries of 10000+ results'), no usable term filter without the JS app -> no tablet-level kupaḫi witness obtained."
+  },
+  {
+   "name": "ia-search.json",
+   "sha256": "7df742f1862e8bdbb93011bdf24f611e848e4b28758549e68aff66f23d71616e",
+   "bytes": 288,
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28hittite+dress%29+OR+title%3A%28corolla+linguistica%29&fl%5B%5D=identifier&rows=20&output=json",
+   "http": "200",
+   "accessed_at_utc": "2026-10-17T20:50Z",
+   "note": "0 documents: no IA copy of Goetze 1955 'Hittite Dress' (Corolla Linguistica) under those titles."
+  },
+  {
+   "name": "gbooks-kupahi.json",
+   "sha256": "fc3984e9148b24edac27d517697361c0ac621ec1b87374f1ffcb91ce093abcf9",
+   "bytes": 1306,
+   "url": "https://www.googleapis.com/books/v1/volumes?q=%22kupahi%22&maxResults=20",
+   "http": "429",
+   "accessed_at_utc": "2026-10-17T20:52Z",
+   "note": "Rate-limited (Google Books API quota); no result set obtained."
+  }
+ ],
+ "access_failures": [
+  {
+   "attempt": "CHD K dictionary entry for kupaḫi-",
+   "command": "curl -sIL https://isac.uchicago.edu/sites/default/files/uploads/shared/docs/chd_k.pdf",
+   "result": "HTTP 404",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "CHD volume K publication page",
+   "command": "curl -sIL https://isac.uchicago.edu/publications/hittite-dictionary-volume-k",
+   "result": "HTTP 404; the CHD landing page (HTTP 200, 182208 bytes, sha256 d35142ba0fc0594c036b411ef6acc11e34116591279edd7c9ade8d9fb35adc14) lists only volumes L-N, P and S",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "Electronic Chicago Hittite Dictionary",
+   "command": "curl -sIL https://isac.uchicago.edu/research/projects/electronic-chicago-hittite-dictionary ; curl -sIL https://ochre.lib.uchicago.edu/eCHD/",
+   "result": "HTTP 404 and HTTP 403",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "Internet Archive full-text search for 'kupahi'",
+   "command": "curl -s 'https://ia-pub-fts-api.archive.org/search/v1/scrape?q=%22kupahi%22&count=10' ; curl -s 'https://archive.org/search?query=%22kupahi%22&sin=TXT'",
+   "result": "empty body / 1951-byte JS shell with no server-side results -> no cross-book full-text sweep obtainable through those endpoints",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "Internet Archive title search for Goetze 'Hittite Dress' / Corolla Linguistica",
+   "command": "curl -s 'https://archive.org/advancedsearch.php?q=...&output=json'",
+   "result": "HTTP 200, 288-byte JSON, 0 documents (no IA copy under those titles)",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "Google Books API for 'kupahi'",
+   "command": "curl -s 'https://www.googleapis.com/books/v1/volumes?q=%22kupahi%22&maxResults=20'",
+   "result": "HTTP 429 rate-limit, 1306-byte error body",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "Firenze University Press chapter 'Kubaba and other Divine Ladies of the Syro-Anatolian Iron Age' (OpenAlex W4384571244, OA diamond, CC-BY) — the nearest fresh lead for Iron Age divine headdress",
+   "command": "curl -sL https://doi.org/10.36253/979-12-215-0109-4.12",
+   "result": "HTTP 403, 5538-byte Cloudflare interstitial ('Just a moment...') -> unread",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "CDLI tablet-level attestation search for kupaḫi",
+   "command": "curl -sL 'https://cdli.mpiwg-berlin.mpg.de/search?q=kupahi'",
+   "result": "HTTP 200 but the JS shell returns the unfiltered collection ('Showing 25 entries of 10000+ results'); no query filter available without the web app -> no tablet witness",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "Hethitologie-Portal Mainz text search",
+   "command": "curl -sL https://www.hethport.uni-wuerzburg.de/",
+   "result": "HTTP 200, 1744-byte German landing page pointing to hethport.net; no free corpus search reachable in this window",
+   "date": "2026-10-17"
+  },
+  {
+   "attempt": "Goetze 1955 'Hittite Dress' (Corolla Linguistica 48-62) full text — the authority behind the kupaḫi = TÚG SAG.DUL equation",
+   "command": "bibliographic sweep only (WebSearch, 2026-10-17) + the IA/Google Books probes above",
+   "result": "The article is real and heavily cited (e.g. Cambridge Core Language 1969 bibliography; Athens Journal of Philology 2016; DergiPark bibliographies) but no open copy was located; the alternation claim is therefore quoted at second hand from Hoffner 1964 note 16 with its page locator (Goetze 1955: 59) preserved -> to-verify at first hand"
+  }
+ ],
+ "search_sweeps": [
+  {
+   "query": "Hittite term for the horned crown \"kupahi\" headdress king headgear philology",
+   "engine": "WebSearch (web index)",
+   "date": "2026-10-17",
+   "outcome": "led to the Hoffner collected-writings scan and the Sapir/Hoffner Hebrew qōba‘ discussion -> lexical leg"
+  },
+  {
+   "query": "Hattic Early Bronze Age Anatolia headgear depiction Alaca Höyük standards headdress iconography pre-Hittite",
+   "engine": "WebSearch",
+   "date": "2026-10-17",
+   "outcome": "surfaced Zimmermann's Anodos article (Bilkent) and the Early Bronze Age Alaca material; no Hattic-period headgear image or horned-crown depiction"
+  },
+  {
+   "query": "Goetze \"Hittite Dress\" Corolla Linguistica 1955 Sommer Festschrift pdf",
+   "engine": "WebSearch",
+   "date": "2026-10-17",
+   "outcome": "bibliographic verification of Goetze 1955 and Goetze 1947 (JCS 1:176-185); no open full text"
+  },
+  {
+   "query": "Alaca Höyük royal tombs gold diadem headband Early Bronze Age Hattian headgear museum",
+   "engine": "WebSearch",
+   "date": "2026-10-17",
+   "outcome": "surfaced Wygnańska's PAM diadem study and Simpson's Brill chapter -> dated pre-Hittite headgear leg"
+  },
+  {
+   "query": "\"Chicago Hittite Dictionary\" volume K fascicle published 2020 OR 2021 van den Hout \"K\"",
+   "engine": "WebSearch",
+   "date": "2026-10-17",
+   "outcome": "no published CHD K volume found; oi.uchicago.edu PDFs exist for S and other fascicles only -> no dictionary entry for kupaḫi-"
+  },
+  {
+   "query": "Hittite horned crown divine headdress (API query, 34 works)",
+   "engine": "OpenAlex API",
+   "date": "2026-10-17",
+   "outcome": "nearest relevant OA item was the unreachable Kubaba/Iron Age divine-ladies chapter; no Hattic-horizon headgear study"
+  },
+  {
+   "query": "archive.org full-text sweep for 'kupahi' in any book",
+   "engine": "archive.org (two endpoints)",
+   "date": "2026-10-17",
+   "outcome": "no usable full-text result (endpoints returned empty/JS shells) — recorded as a failed sweep"
+  }
+ ],
+ "passage_support": [
+  {
+   "leg": "A1 — the Hittite term for the headgear (textual register)",
+   "source": "Hoffner, H. A. Jr., 'An Anatolian Cult Term in Ugaritic', JNES 23/1 (Jan. 1964), 66-68",
+   "source_kind": "scholarly-article (peer-reviewed journal; text quoted from the author's collected-writings scan)",
+   "locator": "p. 67 body text and note 16 (artifact hoffner-djvu.txt lines 434-438, 455-457)",
+   "quotes": [
+    "Q_H1",
+    "Q_H2",
+    "Q_H3"
+   ],
+   "reading": "The Hittite term for the headgear is kupaḫi- (Hoffner's phrasing: 'which denotes a type of headgear'), for which Hoffner proposes an Anatolian loan into Hebrew qōba‘ ('helmet, headgear') and, following Gaster (1930s), relates to an alphabetic transcription; note 16 cites A. Goetze, 'Hittite Dress', Corolla Linguistica, p. 59, for the list-equation kupaḫi = TÚG SAG.DUL.",
+   "supports": "The entry's requirement to keep 'textual garment term' separate from 'depicted garment': the Hittite headgear word is written with the textile classifier TÚG (cloth) in lexical lists, i.e. the Hittites' own naming is a cloth head-covering term and does not by itself licence a metal 'helmet/crown' reading; the modern/Greek-comparative naming rests on a scholarly hypothesis chain (Gaster 1930s; Hoffner 1964) rather than on a preserved object.",
+   "does_not_support": "It does not identify any depicted figure, any specific tablet, or the horned divine crown as such; the Hebrew/Greek comparison is explicitly a hypothesis ('we might wish to posit')."
+  },
+  {
+   "leg": "A2 — gender-contrast in the same terminology",
+   "source": "Hoffner, H. A. Jr., 'Symbols for Masculinity and Feminity', JBL 85/3 (Sep. 1966), 326-334",
+   "source_kind": "scholarly-article",
+   "locator": "p. 331 body text (prayer to Ištar of Nineveh) and note 33 (artifact lines 2309-2313, 2330)",
+   "quotes": [
+    "Q_H4",
+    "Q_H5"
+   ],
+   "reading": "The women's headgear is TÚG kureššar, established by Hoffner from two independent lines of evidence (the soldier's-oath list equation TÚG.NÍG.MUNUS = TÚG kureššar and the kulessar/kuressar alternation); the men's headgear is kupaḫi- (again citing Goetze 'Hittite Dress' p. 59).",
+   "supports": "The entry's male/female divine-figure contrast (lines 135-136) at the level of textual terms rather than only depicted silhouettes; also the entry's discipline 'distinguish depicted garment / textual garment term / excavated textile / reconstructed cut'.",
+   "does_not_support": "Nothing here dates either term or ties it to a specific relief; the OCR of this scan renders the word as 'kupafri-' and the digraph forms are mangled (see quote_fidelity)."
+  },
+  {
+   "leg": "B — the royal headgear register: named images and a written term",
+   "source": "Wygnańska 2014, PAM 23/2: 95, 116 (citing M. Vigo 2010: 310-311)",
+   "source_kind": "scholarly-article (open copy)",
+   "locator": "p. 95 left column (artifact lines 477-486), p. 116 left+right columns (lines 1357-1368)",
+   "quotes": [
+    "Q_P1",
+    "Q_P2",
+    "Q_P3a",
+    "Q_P3b"
+   ],
+   "reading": "Late Bronze Age Anatolian headbands are attested both in depictions and in texts: they 'may be seen on a number of official Hittite depictions' and are 'found on kings: Tudhaliya IV from Yazilikaya (scene from Room 64), royal couple on an Alacahöyük orthostat, Muwatalli II on a relief from Sirkeli, and on the Sun god in a depiction from Hattuša (Südburg...)'; the Hittite inventory term lupan(n)i is interpreted (Vigo) as a fabric worn on the head, 'sometimes … made of gold, silver, \"black iron\" or bronze', and read as the head adornment of priests/priestesses and possibly of rulers in their high-priest role.",
+   "supports": "Independent convergence with the round-8 Bonatz leg on relief no. 64 (Tudhaliya IV) from a different genre/venue, and it names a *textual* royal/priestly headband term — so the entry's line-137 royal row can carry 'depicted headband + named kings + inventory term' rather than a single 'rounded cap' paraphrase.",
+   "does_not_support": "It does not describe the horned cap, and the entry's literal 'rounded cap' wording is not the terminology used here; the lupan(n)i interpretation is quoted at second hand from Vigo 2010 (not retrieved this round -> to-verify)."
+  },
+  {
+   "leg": "C — the earlier (pre-Hittite) object register, dated",
+   "source": "Wygnańska 2014, PAM 23/2: 93-95; Zimmermann, Anodos 6-7 (2006-2007): 511; Simpson, Brill 2018: 666",
+   "source_kind": "scholarly-articles/book-chapter (three independent venues)",
+   "locator": "PAM lines 407-411, 411-416, 455-458; Anodos lines 167-171, 379-381; Simpson lines 430-434",
+   "quotes": [
+    "Q_P4",
+    "Q_P5",
+    "Q_P6",
+    "Q_Z1",
+    "Q_Z2",
+    "Q_S1"
+   ],
+   "reading": "Pre-Hittite central Anatolia has a dated elite head-adornment tradition: openwork headbands at Alacahöyük that 'probably functioned as a crown' and diadems found 'in a restricted number of elite burials … clearly attributes of power and elevated social position'; diadems 'mostly of gold, proliferated in Anatolia in the second half of the 3rd millennium BC'; the 13 Alacahöyük Royal Tombs are dated (Zimmermann's calibrated bracket: upper limit c. 2300 BC cal., youngest burials c. 2000/1950 BC, 'maximum chronological span') and their metalwork is 'firmly embedded in a Pre-Hittite sequence and cultural environment' yet 'still often erroneously referred to as \"Hittite\" products'. Simpson independently dates the same tombs to the second half of the third millennium BC and lists gold diadems among their goods.",
+   "supports": "An *earlier* Anatolian headgear comparator with dates and two independent scholarly anchors — but in the headband/diadem register, not the horned-crown register; it also supplies a second naming trap for the entry (calling pre-Hittite Alaca material 'Hittite'), parallel to the entry's line-49 New/Neo-Hittite trap.",
+   "does_not_support": "No pre-Hittite horned or pointed divine crown is depicted, named or catalogued in anything retrieved: the 'earlier Hattic comparator' limb of the residual question therefore stays open (see unresolved_limbs). The 'Hattian' ethnic attribution of the tombs is a modern convention rather than a claim asserted by these sources."
+  }
+ ],
+ "quote_fidelity": {
+  "rule": "Quoted passages preserve the bytes of the retrieved artifacts; every departure is disclosed here.",
+  "normalizations": [
+   "Hoffner scan OCR forms are preserved in the artifact_form fields and normalized in the reading fields: 'Jcupahi'->kupaḫi, 'Jcubagi'->kubagi, 'kupafri'->kupaḫi, 'hupahi'->kupaḫi, 'TtJG'->TÚG, 'NlG'->NÍG; the OCR 'g' rendered as '</' in line 435 ('“</” laryngeal' for '“g” laryngeal').",
+   "Line-final hyphenation of the two-column OCR is joined in the quotes ('contain-ed'->contained, 'Küçük-höyuk'->Küçükhöyuk); the one counter-case is handled explicitly: 'Jcubagi-' + 'for' is kept apart because the hyphen belongs to the word (Q_H2).",
+   "PAM pages 92-95 and 115-116 are two-column: the pdftotext pages interleave the right column between left-column lines. Quotes from those pages are the contiguous column text; the containment test was run against a column reconstruction of the page region (disclosed per quote in tested_against), and the result of the same test against the raw interleaved text is recorded as longest_ngram_raw_interleaved (it necessarily fails, 8-10 tokens, and that failure is the evidence for the interleave).",
+   "Printed footnote markers (16, 17, 33, 22, 7) and the page-break duplication in the djvu text are omitted from quotes; source-internal quotation marks are normalized to single quotes inside JSON strings; Greek/Hebrew words that the OCR dropped entirely are shown as '…' with a note (Hoffner note 17 carries such a drop).",
+   "Source-internal italics and small caps are not marked; ephemeral page headers/footers are excluded from quotes and used only as page locators."
+  ],
+  "quote_verification": {
+   "method": "Automated containment test over vectorized tokens: both the quote and the artifact text are NFKC-normalized, the disclosed OCR mapping is applied, diacritics are folded, lowercased, non-alphanumerics dropped; then the longest contiguous token n-gram of the quote found in the artifact is measured (mirroring the sibling verifier's >=10-token pass rule).",
+   "command": "python3 /var/tmp/r9f03c/build_receipt.py  (builds quotes_final.json from the artifacts by line span and runs longest_ngram())",
+   "result": "15/15 quotes pass: longest contained n-gram 14-74 tokens (minimum 14, Q_H2); each quote's span, tested_against and raw-interleaved figure are in the per-quote records below.",
+   "quotes": [
+    {
+     "id": "Q_H1",
+     "artifact": "hoffner-djvu.txt",
+     "artifact_lines": "434-438",
+     "quote": "Another possible example of this “</” laryngeal in Hittite is the term Jcupahi -, which denotes a type of headgear.",
+     "tokens": 18,
+     "longest_contained_ngram": 18,
+     "tested_against": "full artifact text (hoffner-djvu.txt)",
+     "longest_ngram_raw_interleaved": 18
+    },
+    {
+     "id": "Q_H2",
+     "artifact": "hoffner-djvu.txt",
+     "artifact_lines": "440-443",
+     "quote": "we might wish to posit the pronunciation Jcubagi- for the cuneiform Jcupahi -, “helmet, headgear.",
+     "tokens": 14,
+     "longest_contained_ngram": 14,
+     "tested_against": "full artifact text (hoffner-djvu.txt)",
+     "longest_ngram_raw_interleaved": 14
+    },
+    {
+     "id": "Q_H3",
+     "artifact": "hoffner-djvu.txt",
+     "artifact_lines": "455-457",
+     "quote": "See A. Goetze, “Hittite Dress,” in Corolla Linguistica, p. 59. Goetze shows that in lists Hittite hupahi alternates with TUG SAG.DUL.",
+     "tokens": 22,
+     "longest_contained_ngram": 22,
+     "tested_against": "full artifact text (hoffner-djvu.txt)",
+     "longest_ngram_raw_interleaved": 22
+    },
+    {
+     "id": "Q_H4",
+     "artifact": "hoffner-djvu.txt",
+     "artifact_lines": "2309-2313",
+     "quote": "The TtJG kuressar is a kind of headgear characteristic for women. See Goetze, “Hittite Dress,” in Corolla Linguistica , pp. 48-62, who does not discuss TtJG kuressar, since it does not occur in the lists of apparel which form the skeleton outline of the study.",
+     "tokens": 45,
+     "longest_contained_ngram": 45,
+     "tested_against": "full artifact text (hoffner-djvu.txt)",
+     "longest_ngram_raw_interleaved": 45
+    },
+    {
+     "id": "Q_H5",
+     "artifact": "hoffner-djvu.txt",
+     "artifact_lines": "2330-2330",
+     "quote": "headgear is kupafri- (Goetze, op. cit., p. 59) possibly the source of Hebrew",
+     "tokens": 13,
+     "longest_contained_ngram": 13,
+     "tested_against": "full artifact text (hoffner-djvu.txt)",
+     "longest_ngram_raw_interleaved": 13
+    },
+    {
+     "id": "Q_P1",
+     "artifact": "pam.txt",
+     "artifact_lines": "477-486 col=L",
+     "quote": "forgotten over time. Headbands continued to be used in Anatolia in the Late Bronze Age and they may be seen on a number of official Hittite depictions, perhaps worn together with a textile band. They are found on kings: Tudhaliya IV from Yazilikaya (scene from Room 64), royal couple on an Alacahöyük orthostat, Muwatalli II on a relief from Sirkeli, and on the Sun god in a depiction from Hattuša (Südburg",
+     "tokens": 74,
+     "longest_contained_ngram": 74,
+     "tested_against": "pamL-348-560",
+     "longest_ngram_raw_interleaved": 10
+    },
+    {
+     "id": "Q_P2",
+     "artifact": "pam.txt",
+     "artifact_lines": "1357-1364 col=L",
+     "quote": "In Late Bronze Age Anatolia, Hittite inventory texts contained references to headbands. In his study of linen, Matteo Vigo (2010) proposed to interpret the term lupan(n)i in a specific context as “fabric worn on the head”, associating it with the Sumerogram eme, translated literally as “tongue”.",
+     "tokens": 48,
+     "longest_contained_ngram": 39,
+     "tested_against": "pamL-1230-1370",
+     "longest_ngram_raw_interleaved": 9
+    },
+    {
+     "id": "Q_P3a",
+     "artifact": "pam.txt",
+     "artifact_lines": "1358-1364 col=R",
+     "quote": "texts as part of a precious tribute offered on particular ceremonial occasions in the presence of the royal couple, and was even used as an accessory for the Sun god. The headband, sometimes adorned with jewels or thin metal layers and fixed on the forehead, is thus interpreted as a head",
+     "tokens": 51,
+     "longest_contained_ngram": 51,
+     "tested_against": "pamR-1230-1370",
+     "longest_ngram_raw_interleaved": 9
+    },
+    {
+     "id": "Q_P3b",
+     "artifact": "pam.txt",
+     "artifact_lines": "1364-1368 col=R",
+     "quote": "the forehead, is thus interpreted as a head adornment of Hittite priests or priestesses, perhaps even worn by rulers to legitimize their simultaneous role of high priest",
+     "tokens": 27,
+     "longest_contained_ngram": 27,
+     "tested_against": "pamR-1230-1370",
+     "longest_ngram_raw_interleaved": 8
+    },
+    {
+     "id": "Q_P4",
+     "artifact": "pam.txt",
+     "artifact_lines": "407-411 col=L",
+     "quote": "of simple-form head adornments, like the openwork headbands from Alacahüyük that probably functioned as a crown (Koşay 1938: Pl. 82; 1951: Pl. 129; Muscarella 2003: 280).",
+     "tokens": 30,
+     "longest_contained_ngram": 30,
+     "tested_against": "pamL-348-560",
+     "longest_ngram_raw_interleaved": 8
+    },
+    {
+     "id": "Q_P5",
+     "artifact": "pam.txt",
+     "artifact_lines": "411-416 col=L",
+     "quote": "Contrary to the evidence from Demircihöyük-Sarıket and Küçükhöyuk, the diadems from Alacahöyük were found in a restricted number of elite burials and were clearly attributes of power and elevated social position.",
+     "tokens": 39,
+     "longest_contained_ngram": 26,
+     "tested_against": "pamL-348-560",
+     "longest_ngram_raw_interleaved": 8
+    },
+    {
+     "id": "Q_P6",
+     "artifact": "pam.txt",
+     "artifact_lines": "455-458 col=L",
+     "quote": "Generally, diadems, mostly of gold, proliferated in Anatolia in the second half of the 3rd millennium BC, but the context seems to have become differentiated.",
+     "tokens": 25,
+     "longest_contained_ngram": 25,
+     "tested_against": "pamL-348-560",
+     "longest_ngram_raw_interleaved": 8
+    },
+    {
+     "id": "Q_Z1",
+     "artifact": "bilkent.txt",
+     "artifact_lines": "379-381",
+     "quote": "Indeed, despite being firmly embedded in a Pre-Hittite sequence and cultural environment, the Alaca standards are still often erroneously referred to as “Hittite” products.",
+     "tokens": 25,
+     "longest_contained_ngram": 25,
+     "tested_against": "full artifact text (bilkent.txt)",
+     "longest_ngram_raw_interleaved": 25
+    },
+    {
+     "id": "Q_Z2",
+     "artifact": "bilkent.txt",
+     "artifact_lines": "167-171",
+     "quote": "This allows to establish an upper limit at around 2,300 BC cal. for the “early” graves, with the youngest burials to be dated around 2,000/1,950 BC.16 These roughly 300 years at the end of the 3rd millennium BC, calculated to be the maximum chronological span for the 13 “Royal Tombs” at Alaca, would then coincide with the Early Bronze Age phase III according to Anatolian chronology.",
+     "tokens": 71,
+     "longest_contained_ngram": 71,
+     "tested_against": "full artifact text (bilkent.txt)",
+     "longest_ngram_raw_interleaved": 71
+    },
+    {
+     "id": "Q_S1",
+     "artifact": "simpson.txt",
+     "artifact_lines": "430-434",
+     "quote": "Outstanding jewelry and metal artifacts were recovered from 13 Early Bronze Age “royal” tombs at Alaca Höyük in central Anatolia, dating to the second half of the third millennium b.c. Burial goods included gold diadems and jewelry, along with other objects of copper, bronze, iron, gold, silver, bone, clay, and stone.",
+     "tokens": 54,
+     "longest_contained_ngram": 54,
+     "tested_against": "full artifact text (simpson.txt)",
+     "longest_ngram_raw_interleaved": 54
+    }
+   ]
+  },
+  "counts": {
+   "quotes_checked": 15,
+   "quotes_passed": 15,
+   "counting_command": "python3 /var/tmp/r9f03c/build_receipt.py (printed PASS/FAIL per quote)",
+   "counted_on": "2026-10-17",
+   "artifacts_quoted_from": 4
+  }
+ },
+ "result": "partial-support",
+ "support_scope": "Bounded to the alternate angle. Passage support is now in place for (1) the Hittite textual terminology of headgear (kupaḫi- / TÚG SAG.DUL / kureššar / lupan(n)i), (2) the royal headgear register with named royal images including relief no. 64 at Yazılıkaya (Tudhaliya IV) from a venue independent of round 8, and (3) a dated earlier Anatolian head-adornment register (Alacahöyük diadems/headbands, later 3rd millennium BC) with the 'Pre-Hittite, not Hittite' attribution caution. It does NOT establish a pre-Hittite/Hattic horned-crown comparator, a tablet-level kupaḫi attestation, or any plate-level reading of a cap's construction — those remain unresolved and are named below.",
+ "new_vs_round8": "Everything in passage_support is from artifacts fetched by this shard on 2026-10-17; the Hoffner articles, Wygnańska 2014, Zimmermann 2006-07 and Simpson 2018 were not cited in reports/round-8/freshness/R8-F03-receipt.json. The only overlap with round 8 is that both receipts reference Yazılıkaya relief no. 64 and the Alacahöyük Early Bronze tombs, from different sources and for different legs (round 8: Bonatz's rounded-skullcap comparison and the Wikipedia tomb dating; here: named-king headband depictions and the calibrated tomb chronology).",
+ "unresolved_limbs": [
+  {
+   "limb": "earlier Hattic comparator for the horned/pointed divine crown",
+   "status": "unresolved after sweep",
+   "what_is_missing": "no pre-Hittite (Hattian-horizon) image or text retrieved that shows or names a horned or pointed divine crown; the pre-Hittite Anatolian headgear record retrieved (Alacahöyük diadems/headbands, c. 2300-2000/1950 BC) is a different register",
+   "sweeps_that_failed": "the WebSearch sweeps and the OpenAlex/PAM/Simpson/Zimmermann reading above; nothing beyond round 8's own negative was opened"
+  },
+  {
+   "limb": "tablet-level attestation of kupaḫi- (which texts, which line)",
+   "status": "unresolved",
+   "what_is_missing": "a cuneiform text edition or corpus search hit; CHD volume K is unpublished (ISAC lists L-N, P, S only), the e-CHD is 404/403 and CDLI's shell offered no term filter",
+   "to_verify": "Goetze 1955: 59 unread at first hand; the kupaḫi = TÚG SAG.DUL equation is quoted at second hand from Hoffner 1964 note 16"
+  },
+  {
+   "limb": "Vigo 2010's lupan(n)i argument",
+   "status": "quoted at second hand",
+   "what_is_missing": "Vigo 2010 'Linen in Hittite inventory texts' was not retrieved; the passage is Wygnańska's citation of it (PAM 116)"
+  },
+  {
+   "limb": "plate-level cap construction (Seeher 2011 plates)",
+   "status": "unchanged from round 6/8",
+   "what_is_missing": "no plate or photograph was inspected at image level by this shard"
+  }
+ ],
+ "deeper_limit_note": "The residual stays at partial-support for the alternate angle. What remains unreadable/unretrievable as of 2026-10-17 is named precisely: (a) any pre-Hittite horned-crown image (nothing in the searched literature; the nearest statements concern a Hattian-priority water god and pre-Hittite elite headbands), (b) any tablet-level kupaḫi- witness (CHD K unpublished; e-CHD 404/403; CDLI JS shell; HPM without a reachable corpus search), (c) first-hand Goetze 1955 and Vigo 2010 (no open copies located), (d) the CC-BY Kubaba chapter that would give the Iron Age divine-headdress side of the comparison (Cloudflare 403 at the publisher DOI).",
+ "raw_label_note": "Raw round-6/round-8 labels are untouched: R8-F03's receipt recorded raw_worker_label 'partial-support' and its own result 'supported'; the round-8 reconciliation carried the residual as 'unresolved'. This receipt asserts only its own round-9 alternate-angle result and does not rewrite any label.",
+ "reconciliation_note": "Reconciled dispositions belong to the round-9 reconciliation/orchestrator, not to this shard (round-8 practice: reports/round-8/freshness/reconciliation.json).",
+ "cross_checks": {
+  "sibling_verifier_file": "reports/round-9/freshness/verify-F03.md (V02) — its §5.5 requirement that an unresolved Hattic leg name the sweeps that failed is answered in unresolved_limbs and search_sweeps; its §4 failure table and this shard's access_failures agree that Oreshko 2018 (HAL) and CHD/e-CHD routes are unreachable this round.",
+  "note": "This shard did not read the verifier's file before its own retrievals (it landed during them); the alignment above was checked afterwards and no claim was adjusted to match it."
+ },
+ "no_repo_mutation": "This shard wrote no corpus file, no tool and no gate; the only repository writes are the two receipt files named under files_written.",
+ "files_written": [
+  "reports/round-9/freshness/R9-F03c-receipt.json",
+  "reports/round-9/freshness/R9-F03c-receipt.md"
+ ]
+}

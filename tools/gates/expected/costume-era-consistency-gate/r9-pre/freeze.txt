@@ -1,0 +1,65 @@
+frozen_by: lane kotodama-shokunin, round 9 claim O — baseline author shard (costume-era-consistency-gate)
+frozen_at: 2026-10-17T17:49:12-03:00
+gate: costume-era-consistency-gate
+gate_path: tools/gates/costume-era-consistency-gate.py
+gate_sha256: e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f
+baseline_id: r9-pre
+baseline_root: tools/gates/expected/costume-era-consistency-gate/r9-pre/
+revision: a7bb205d3aecdaa24d91c047c8719cd8689e4ddd (HEAD at freeze; the rerunner seat read this value at 17:50 and
+  confirmed it equals `git rev-parse HEAD` then — reports/round-9/baselines/costume-era-consistency/rerun.md §3)
+  the graded gate and fixture bytes are identical at the round-9 declared baseline_revision
+  e1694bad6ac96aca45a11ca5746582b275929355 — measured: `git diff --stat e1694ba..HEAD` lists only
+  reports/round-9/claims.json (+34) and targets.json (+125), and
+  `git diff --stat e1694ba..HEAD -- tools corpus examples` = empty (0 lines)
+  the orchestrator's round-9 integration commit carries this baseline; never compare across an
+  unnamed gate revision
+python: 3.14.7
+schema: kotodama-frozen-run-v1 (see corpus/knowledge/verification/gate-frozen-run-standard.md)
+
+snapshot:
+  packet.yml is a byte copy of tools/gates/fixtures/costume-era-consistency-gate.yml
+  fixture sha256  36d92113d0cb8e04687c36694b507e93f25ca08c04003d75b7b537de65c1ea0e
+  copy sha256     36d92113d0cb8e04687c36694b507e93f25ca08c04003d75b7b537de65c1ea0e
+  cmp tools/gates/fixtures/costume-era-consistency-gate.yml packet.yml -> identical
+  the copy was never edited after freezing
+
+inputs the gate reads: packet.yml only.
+  Evidence: costume-era-consistency-gate.py reads exactly one file in a graded run
+  (run_file -> open(path) at line 1176); the only other open() sites are selftest-only
+  (lines 1489/1495 _pin_fixture, line 1533 EXPECTED_PATH). Cited at gate_sha256 above.
+
+commands and observed results (run 2026-10-17 from the lane root):
+  1. python3 tools/gates/costume-era-consistency-gate.py --selftest
+     -> exit 0; "self-test: 10/10 checks passed; fixture exit 1 with 21 planted finding IDs";
+        git status --porcelain tools/gates/ empty afterwards (fixture repinned byte-identically,
+        digests unchanged)
+  2. python3 tools/gates/costume-era-consistency-gate.py <baseline>/packet.yml > <baseline>/run.log
+     -> exit 1; 25 FINDING lines; stderr empty (0 bytes); stdout sha256
+        482c1597a22096b2a0a09f09ce476f6ae5bbd6db70baf50df128fb0c1ed608b3
+     -> observed unique finding-ID set (21) == sorted tools/gates/fixtures/costume-era-consistency-gate.expected
+        set diff empty (observed=21 expected=21)
+  3. digest check (interim external check; the gate does not verify digests internally)
+     sha256sum -c over the inputs map recomputed from expected.json -> packet.yml: OK; exit 0
+  4. tamper control (copy of the baseline in /dev/shm, snapshot edited)
+     printf '\n# tampered byte\n' >> packet.yml
+     -> packet.yml sha256 887e1d544a0f25fe844277cfe04f2c2c87824ea775c8588b46ab62b73b1d7a41
+        (digest check FAILED) while a re-run of the gate still exits 1 with a stdout
+        byte-identical to run.log (cmp clean) -> measured: only the digest step turns this
+        edit into snapshot_tampered; stdout comparison alone would false-pass
+  5. gate-revision control (gate copy in /dev/shm with one comment line appended)
+     -> gate sha256 94397904effbe518a7919966ce05227c19b298485bc2cca99b2d20cf8bba325f,
+        stdout byte-identical to run.log -> only gate_sha256 names the revision read
+  6. could-not-evaluate control: printf 'name: x\ncostumes: [\n' -> exit 2,
+     "FINDING G-DATA: [could-not-evaluate] costumes must be a list"
+
+expected verdict (written from the observed run, not from memory):
+  exit 1, class findings, 21 finding IDs (set; stdout order not part of the contract)
+
+integration notes (for the orchestrator; not a lane-local edit):
+  - .gitignore carries `*.log`, so `run.log` is ignored by pattern; add it explicitly
+    with `git add -f tools/gates/expected/costume-era-consistency-gate/r9-pre/run.log`
+    or the baseline commits without its verbatim stdout.
+  - the frozen-run standard's §3 directory shape is `<gate-name>/<baseline-id>/`; it is
+    rooted here at tools/gates/expected/ per the round-9 assignment (the standard's own
+    example root tools/gates/frozen/ is unchanged; no live path is graded).
+  - this baseline pins bytes and a verdict; it is not a design PASS and never a canon ruling.

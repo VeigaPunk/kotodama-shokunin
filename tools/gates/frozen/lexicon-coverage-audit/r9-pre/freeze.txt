@@ -1,0 +1,43 @@
+kotodama-shokunin — frozen-run baseline `r9-pre` for gate `lexicon-coverage-audit`
+(round 9, claim O; gate standard corpus/knowledge/verification/gate-frozen-run-standard.md §3–§5)
+
+frozen_by : round-9 O-shard, lexicon-coverage-audit baseline author
+frozen_at : 2026-10-17T17:49:43-03:00
+revision  : e1694bad6ac96aca45a11ca5746582b275929355  (round-9 declared baseline_revision)
+            HEAD at freeze a7bb205d3aecdaa24d91c047c8719cd8689e4ddd;
+            git diff --stat e1694ba..HEAD                 -> reports/round-9/claims.json, targets.json only
+            git diff --stat e1694ba..HEAD -- tools corpus examples -> empty (graded tree identical)
+            The orchestrator's round-9 integration commit carries this baseline.
+
+gate_sha256            : 2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287
+                         (tools/gates/lexicon-coverage-audit.py — NOT modified by this shard; no gate behavior change)
+snapshot source        : tools/gates/fixtures/lexicon-coverage-audit.yml (byte copy -> packet.yml)
+packet.yml sha256      : a1b8ed7c3548ace7a631b6b2752673f6a65a44896caecef170e373d67ec59187
+                         (= fixture digest; copy is byte-identical)
+
+commands, in order (all run from the lane root unless noted; date 2026-10-17)
+  1. git status --porcelain -- tools/gates/fixtures/lexicon-coverage-audit.yml \
+                              tools/gates/fixtures/lexicon-coverage-audit.expected \
+                              tools/gates/lexicon-coverage-audit.py
+     observed: empty (graded input and gate clean; a dirty fixture is not a snapshot)
+  2. python3 tools/gates/lexicon-coverage-audit.py --selftest
+     observed: exit 0 — "selftest: 14/14 checks passed"; tracked fixture and .expected unchanged afterwards
+  3. cp tools/gates/fixtures/lexicon-coverage-audit.yml \
+        tools/gates/frozen/lexicon-coverage-audit/r9-pre/packet.yml
+     observed: copy sha256 = a1b8ed7c… (byte-identical)
+  4. (in the baseline dir) sha256sum packet.yml > digests.sha256; sha256sum -c digests.sha256
+     observed: "packet.yml: OK", exit 0
+  5. (in the baseline dir) python3 ../../../lexicon-coverage-audit.py packet.yml > run.log
+     observed: exit 1; 20 FINDING lines / 18 unique IDs; stderr 0 bytes;
+               run.log sha256 af5794955b60b455b433a570434bf0ab69c110b66c891eab567d5addef0be4f4
+  6. same command a second time -> byte-identical stdout (cmp clean; same sha256)
+  7. tamper drill in a scratch copy (NOT in this baseline):
+     append one comment line -> sha256sum -c prints "packet.yml: FAILED" (exit 1)
+     -> re-run the gate over the tampered copy -> still the identical 18-ID set
+     (digest step is load-bearing; the gate alone cannot see the edit)
+  8. set agreement: diff <(sort -u observed-ids) <(sort -u tools/gates/fixtures/lexicon-coverage-audit.expected)
+     -> empty, exit 0 (18/18 IDs equal)
+
+expected verdict: exit 1, class findings, 18 IDs (order-insensitive; two IDs occur twice, 20 lines total)
+stderr is kept out of run.log per §3; stderr was empty (0 bytes) for this run.
+expected.json in this directory pins the digest, the verdict and the field-to-evidence map.

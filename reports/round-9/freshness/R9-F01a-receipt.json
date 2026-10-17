@@ -1,0 +1,411 @@
+{
+  "id": "R9-F01a",
+  "residual_id": "R9-R8-F01",
+  "prior_row_id": "R8-F01",
+  "prior_prior_row_id": "R6-02-A",
+  "round": 9,
+  "date": "2026-10-17",
+  "shard": "FRESHNESS R9-F01a — primary-source / museum-catalogue hunter (round-9 loop 1, build round 2 of 4)",
+  "strategy": "Escalated primary-source hunt: museum catalogue records (Louvre collections API + page), the CDLI catalogue itself (per-artifact JSON API plus the full 154 MB catalogue dump fetched through the CDLI GitHub LFS copy), and the primary text (CDLI ATF of the copy and of the composition), plus excavation-series publication pointers for the sister witness. Disjoint from the round-8 retrieval set, which never obtained an object record, and complementary to the sibling round-9 shards (R9-F01b scholarly-fulltext hunter, already landed at write time).",
+  "question": "Check the entry's evidence for Sumerian/Akkadian language contact and the separation of scribal language survival from spoken-language replacement; which dated text or scholarly passage supports the institutional coupling?",
+  "entry": "corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+  "entry_sha256_at_recheck": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+  "entry_locators_rechecked": [
+    {
+      "line": 14,
+      "text": "The strongest coupling evidence joins a dated text to its institution and material context. A first-millennium copy can preserve older tradition without documenting every earlier performance or costume.",
+      "role": "the entry's own coupling-evidence rule; the receipt below supplies one worked, object-level case of exactly this shape"
+    },
+    {
+      "line": 39,
+      "row": "Contact ecology",
+      "text": "Sumerian and Akkadian coexisted and influenced one another; Sumerian remained a learned and cultic language after ordinary spoken use declined. | Separate home language, state administration, schooling, and ritual competence; a script's survival does not prove a speech community's survival.",
+      "role": "the bounded claim row the residual targets"
+    },
+    {
+      "line": 72,
+      "text": "**Stage separately:** spoken language → scribal register → royal ideology → temple organization → garment production → public display; allow inheritance and lag between them.",
+      "role": "the staging rule the copy-vs-composition distinction below instantiates"
+    },
+    {
+      "line": 169,
+      "row": "Ritual language survives vernacular change",
+      "text": "Language history + schooling/cult + writing conventions. | “The conquered population vanished because its speech declined.”",
+      "role": "craft-grid row the receipts feed (schooling/cult + writing conventions)"
+    },
+    {
+      "line": 30,
+      "row": "Museum objects (institutional authors, n.d.)",
+      "text": "Accession numbers identify objects independently of changing web labels.",
+      "role": "the entry's own museum-record method statement; this receipt adds the AO 5477 accession record it lacked"
+    },
+    {
+      "line": 192,
+      "text": "**Colonial collection history:** excavation, division of finds, acquisition, restoration, and modern museum categories shape the surviving sample. An accession record is an object locator, not proof of complete archaeological provenance or an attribution/rights ruling.",
+      "role": "the entry's caution that the retrieved purchase record (Géjou 1910) must not be read as provenance"
+    }
+  ],
+  "entry_digest_note": {
+    "current_digest": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+    "round8_receipt_digest": "730e1be83f5e217f3041d215e7e8ee0efbc653773f8bf40c5e77e20e97ccd365",
+    "finding": "The entry digest moved because the round-8 admitted commit e1694bad6ac96aca45a11ca5746582b275929355 added 3 frontmatter lines (source/verified-at/recheck) and 1 source-shelf line (Quillien 2019) and reworded the Early Dynastic costume row; the bounded Contact-ecology row text is unchanged. Consequence: the round-8 receipt's locators (line 36, line 166) now read line 39 and line 169. Command: git show e1694ba --stat -- corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md -> '1 file changed, 3 insertions(+)'; git show 49ac1a5:corpus/... | grep -n 'Contact ecology' -> 35 (pre-round-8) vs 39 (current).",
+    "not_a_content_drift": "No sentence of the Contact-ecology row, the coupling rule (line 14), or the craft-grid row (line 169) changed between 49ac1a5 and HEAD."
+  },
+  "escalation_beyond_round_8": {
+    "round8_retrieved_set": [
+      "Wikipedia 'Sumerian language' lead paragraph (tertiary) and its raw wikitext",
+      "Jagersma 2010 (Leiden repository PDF), Rubio/Woods/Michalowski chapters in OIS 2, Zolyomi 2000 preprint",
+      "Louvre AO 5477 and CDLI were attempted and FAILED (Louvre HTTP 429; CDLI search client-rendered)"
+    ],
+    "round8_open_item": "to_verify: 'Louvre AO 5477 object record (museum accession page) — mark to-verify until a museum or CDLI record is retrieved'",
+    "round9_escalation_used": [
+      "Direct fetch of the Louvre collections record via the ark route (collections.louvre.fr/en/ark:/53355/cl010166127) and its JSON API (/ark:/53355/cl010166127.json, HTTP 200 application/json)",
+      "Discovery that cdli.earth serves per-artifact JSON at /artifacts/<id>.json, and that the CDLI artifact id for this object is P220619",
+      "Full CDLI catalogue dump (cdli_cat.csv, 154,768,722 bytes) pulled through the CDLI GitHub LFS copy and swept offline — this bypasses the client-rendered search entirely",
+      "CDLI ATF of the object (P220619) and of the composition composite (P461964) retrieved, giving the bilingual text itself",
+      "Sister witness CBS 02344 (+) CBS 14547 + N 3539 (Penn, provenience Nippur) retrieved from CDLI with its excavation-series publication pointers"
+    ],
+    "outcome_vs_open_item": "CLOSED at catalogue + transliteration level: the object record the round-8 receipt marked to-verify now exists in this receipt with URL, access stamp, byte size, sha256 and quoted fields."
+  },
+  "retrievals": [
+    {
+      "id": "R9F01a-S1",
+      "label": "Louvre collections record — the museum accession record the round-8 residual left to-verify",
+      "source_kind": "primary museum catalogue record (institutional author)",
+      "citation": "Musée du Louvre, Département des Antiquités orientales, inventory AO 5477, 'tablette'; collections.louvre.fr record cl010166127, page last updated 10.01.2025",
+      "url": "https://collections.louvre.fr/en/ark:/53355/cl010166127",
+      "machine_readable_url": "https://collections.louvre.fr/ark:/53355/cl010166127.json",
+      "accessed_at": "2026-10-17T20:54:04Z (JSON) / 2026-10-17T20:54:05Z (page)",
+      "artifact": "JSON 5,930 bytes sha256 e9b0f67ec2bac48e3dbafd1e43912c3b4c875fc11f3a59e0df91c70fc8970aa7 (HTTP 200 application/json); page 58,975 bytes sha256 7cb3f26197eda065295becbdd12708a79ae12b1946b1f7df57ff215a975b5a78 (HTTP 200 text/html)",
+      "quoted_passages": [
+        {
+          "text": "Précision sur l'objet : Copie d'une inscription votive de Rimush, roi d'Akkad",
+          "location": "Louvre record cl010166127, field 'description' (JSON path /description) / page section 'Description'"
+        },
+        {
+          "text": "Date de création/fabrication : Akkad : Rimush (Vers 2270 av. J. - C. ; copie d'époque paléo-babylonienne du début du IIe mill) et 1ère dynastie de Babylone (-2278 - -2270 et -1894 - -1595)",
+          "location": "Louvre record cl010166127, field 'displayDateCreated' (JSON) / page section 'Places and dates'"
+        },
+        {
+          "text": "Inscription : \"Personne n'avait exécuté (jusqu'à présent) une statue de fer, Rimush, roi de Kish, sa statue de fer exécuta : devant Enlil elle se tiendra...\" La statue devait se trouver dans le temple du dieu Enlil à Nippur. Langue : akkadien (bilingue) sumérien (bilingue)",
+          "location": "Louvre record cl010166127, field 'inscriptions' (JSON) / page section 'Description > Inscriptions' — note the second sentence ('devait se trouver') is the catalogue's placement inference, the first is its translation of the text"
+        },
+        {
+          "text": "Place of discovery: Babylonie = Sumer. Collector / Previous owner: Géjou, Elias Ibrahim. Acquisition details: achat. Acquisition date: 1910. Held by: Musée du Louvre, Département des Antiquités orientales.",
+          "location": "Louvre record cl010166127, fields 'placeOfDiscovery', 'previousOwner', 'acquisitionDetails' (JSON) / page sections 'Places and dates', 'History'"
+        },
+        {
+          "text": "Frayne, Douglas Ralph, The royal inscriptions of Mesopotamia. Early periods, Vol. 2. Sargonic and Gutian Periods (2334-2113) (RIME 2), Toronto, University of Toronto press, 1993, E2.1.2.18 | Gelb, Ignace J ; Kienast, Burkhart, Die Altakkadischen Königsinschriften des Dritten Jahrtausends v. Chr. (FAOS 7), Stuttgart, Franz Steiner Verlag Stuttgart, 1990, FAOS 7 - Rimuš C9 Text D | Thureau-Dangin, François, « Notes assyriologiques. XIII. Deux inscriptions d'Urmuš », Revue d'assyriologie et d'archéologie orientale (RA), 8, 1911, p. 135-142, RA 8, 135-142, XIII",
+          "location": "Louvre record cl010166127, field 'bibliography' (JSON array of 3 entries) / page bibliography list"
+        },
+        {
+          "text": "Dimensions: Hauteur 12 cm ; Largeur 8 cm ; Epaisseur 3,5 cm. Matériau: argile. Écriture: cunéiforme, idéographique, syllabique. Nature du texte: texte votif royal. Current location: Richelieu, [AO] Salle 228 - Mésopotamie, Vitrine 2 Empire d'Akkad.",
+          "location": "Louvre record cl010166127, fields 'dimension', 'materialsAndTechniques', 'index' (JSON) / page sections 'Physical characteristics', 'Location of object'"
+        }
+      ],
+      "support_scope": "object-level (museum catalogue)",
+      "note": "This entry is the same object the round-8 receipt could not reach (HTTP 429 at collections.louvre.fr/en/recherche?q=AO+5477). The ark route guessed in round 8 (cl010170428) was a different object ('vase'); the correct ark is cl010166127."
+    },
+    {
+      "id": "R9F01a-S2",
+      "label": "CDLI catalogue record for the same object",
+      "source_kind": "primary catalogue record (CDLI artifact P220619)",
+      "citation": "CDLI, Cuneiform Digital Library Initiative, artifact P220619 (AO 05477), designation 'RIME 2.01.02.18, ex. 03'",
+      "url": "https://cdli.earth/artifacts/220619.json",
+      "human_url": "https://cdli.earth/artifacts/220619",
+      "accessed_at": "2026-10-17T20:54:06Z",
+      "artifact": "JSON 4,694 bytes sha256 a7c94e4d2f52478bd50ad77cbebe5b8eaebdca7e91591d8f00ae04a4b76f6d5b (HTTP 200 application/json)",
+      "quoted_passages": [
+        {
+          "text": "\"designation\": \"RIME 2.01.02.18, ex. 03\", \"museum_no\": \"AO 05477\", \"dates_referenced\": \"Rimush.00.00.00\"",
+          "location": "CDLI P220619 artifact JSON, top-level fields designation / museum_no / dates_referenced"
+        },
+        {
+          "text": "\"period\": {\"period\": \"Old Babylonian (ca. 1900-1600 BC)\", \"time_range\": \"ca. 1900-1600 BC\"} ... \"collections\": [{\"collection\": \"Louvre Museum, Paris, France\", \"collection_url\": \"https://www.louvre.fr\"}]",
+          "location": "CDLI P220619 artifact JSON, fields period / collections"
+        },
+        {
+          "text": "{\"publication_type\": \"primary\", \"exact_reference\": \"01.02.18, ex. 03\", \"publication\": {\"designation\": \"RIME 2\", \"year\": \"1993\", \"title\": \"Sargonic and Gutian Periods (2334-2113 BC)\", \"publisher\": \"University of Toronto Press\"}} and {\"publication_type\": \"history\", \"exact_reference\": \"p. 138ff, AO 5477\", \"publication\": {\"designation\": \"RA 008 (pp. 135 - 158)\", \"bibtexkey\": \"Thureau-Dangin1911RA8Notes\", \"year\": \"1911\", \"title\": \"Notes Assyriologiques\", \"volume\": \"8\", \"journal\": {\"journal\": \"Revue d’Assyriologie et d’Archéologie Orientale\"}}}",
+          "location": "CDLI P220619 artifact JSON, field publications[] (primary and history entries)"
+        },
+        {
+          "text": "\"external_resource_key\": \"P220619\" (ARMEP 'Ancient Records of Middle Eastern Polities') and \"external_resource_key\": \"Q87473226\" (Wikidata)",
+          "location": "CDLI P220619 artifact JSON, field external_resources[]"
+        }
+      ],
+      "support_scope": "object-level (catalogue)",
+      "note": "The round-8 receipt recorded 'CDLI search ... no server-side row for AO 5477' and concluded CDLI could not serve as the witness record. That conclusion is superseded: CDLI holds the record; the search surface, not the catalogue, was the obstacle (see access_failures)."
+    },
+    {
+      "id": "R9F01a-S3",
+      "label": "CDLI catalogue dump sweep (definitive CDLI presence/absence evidence)",
+      "source_kind": "official catalogue data dump (CDLI GitHub 'data' repository, daily dump copy; Git-LFS object)",
+      "citation": "cdli_cat.csv, repository cdli-gh/data, LFS oid sha256:2e3232f75325b61c4d1e788d4d8c074c6230a947aed422110f9f35a6e353d09c, size 154,768,722 bytes",
+      "url": "https://media.githubusercontent.com/media/cdli-gh/data/master/cdli_cat.csv",
+      "pointer_url": "https://raw.githubusercontent.com/cdli-gh/data/master/cdli_cat.csv",
+      "accessed_at": "2026-10-17T20:51Z (download); sweep re-run 2026-10-17T20:54Z",
+      "artifact": "154,768,722 bytes, 353,284 lines, 64 columns; sha256 2e3232f75325b61c4d1e788d4d8c074c6230a947aed422110f9f35a6e353d09c — identical to the LFS pointer's declared oid (integrity check passed)",
+      "quoted_passages": [
+        {
+          "text": "accession_no='', ark_number='21198/zz001q9bzr', atf_source='cdlistaff', author='Frayne, Douglas R.', collection='Louvre Museum, Paris, France', composite_id='Q000842', date_entered='2/26/2003', date_of_origin='Rimush.00.00.00', date_updated='2018-10-20', designation='RIME 2.01.02.18, ex. 03', genre='Royal/Monumental', id='69373', id_text='220619', material='clay', museum_no='AO 05477', object_type='tablet', period='Old Babylonian (ca. 1900-1600 BC)', primary_publication='RIME 2.01.02.18, ex. 03', publication_date='1993', publication_history='RA 08, p. 138ff', subgenre='witness', translation_source='no translation'",
+          "location": "cdli_cat.csv, the single row with museum_no='AO 05477' (line 69,374 of the file; internal id 69373, public id_text 220619). Fields with empty values are quoted as-is; the row's 'provenience', ' excavation_no' and 'findspot_remarks' fields are all empty."
+        }
+      ],
+      "support_scope": "catalogue-level (whole-dump sweep)",
+      "note": "Internal id 69373 is not resolvable at https://cdli.earth/artifacts/69373.json (HTTP 404, 16,045-byte HTML error page); the public route is the P-number, /artifacts/220619.json (HTTP 200)."
+    },
+    {
+      "id": "R9F01a-S4",
+      "label": "Primary text of the object — CDLI ATF of P220619 (bilingual, Sumerian and Akkadian columns)",
+      "source_kind": "primary text edition (ATF transliteration of the object by CDLI, source 'cdlistaff', author of record Frayne, RIME 2)",
+      "citation": "CDLI artifact P220619, inscription record id 2219603, ATF header '&P220619 = RIME 2.01.02.18, ex 03'",
+      "url": "https://cdli.earth/artifacts/220619.json (field inscription.atf)",
+      "accessed_at": "2026-10-17T20:54:06Z",
+      "quoted_passages": [
+        {
+          "text": "&P220619 = RIME 2.01.02.18, ex 03 / #atf: lang sux / @tablet / $ (vertical dividing line between Sumerian and Akkadian) / @obverse / 1. [ri2-mu-us2] %a [ri2-mu-usz] / 2. [lugal] %a [_lugal_] / 3. [kisz] %a [_kisz_] / 4. [u4 ul-li2-a-ta] %a [isz-tum da-ar] / 5. [{d}en-lil2-ra] %a [a-na {d}en-lil2]-x / 6. [lu2 na-me] %a ma#-na-ma / 7. alan# an-[na] %a _dul3 ku3-an_ / 8. nu#-ta-dim2# %a la ib-ni / ... 14. igi {d}en-lil2-la2-sze3 %a _igi_-me {d}en-lil2 / 15. i3-gub %a i-za-[az]",
+          "location": "CDLI P220619, inscription.atf, lines 1–8 and 14–15 of the @obverse block (the file's own line 4 comment identifies the '%a' split as the vertical dividing line between Sumerian and Akkadian)"
+        },
+        {
+          "text": "@reverse / 1. NI-UL dingir-re-ne-ka %a _da_-isz# [i3-li] / 2. me-te-ni %a _mu_-[szu] / 3. i3-szid %a u-sa-mi-[id] / 4. lu2 %a sza _dub#_ / 5. im-sar-ra-e %a su4-a / 6. [ab]-ha-lam-me-a %a u-sa-sa3-ku-ni / 7. [{d}en]-lil2 %a {d}en-lil2# (x) u3# / 8. {d}[utu-bi] %a {[d]}utu / ... $ rest broken",
+          "location": "CDLI P220619, inscription.atf, @reverse block lines 1–8, then the ATF's '$ rest broken'"
+        }
+      ],
+      "support_scope": "primary-text-level (transliteration of the object)",
+      "note": "The tablet is broken ('$ rest broken'); the ATF is the CDLI edition after Frayne, RIME 2 (1993), not a fresh collation by this shard."
+    },
+    {
+      "id": "R9F01a-S5",
+      "label": "Composition record — CDLI composite of the Rimush inscription (bilingual, with English renderings)",
+      "source_kind": "primary catalogue record + composite text (CDLI Q008372 / P461964)",
+      "citation": "CDLI artifact P461964, designation 'RIME 2.01.02.18 composite', composite_no Q008372, period Old Akkadian (ca. 2340-2200 BC)",
+      "url": "https://cdli.earth/artifacts/461964.json",
+      "accessed_at": "2026-10-17T20:54:07Z",
+      "artifact": "JSON 3,543 bytes sha256 f9b1c2f7e0d066e5f65cdbb5d0ffebca42926c7373a0bdf3d2705d03dc48e085 (HTTP 200 application/json)",
+      "quoted_passages": [
+        {
+          "text": "&P461964 = RIME 2.01.02.18 composite / #atf: lang sux / @object composite text ... 1. [ri2-mu-us2] %a [ri2-mu-usz] #tr.en: Rimuš, / 5. [{d}en-lil2-ra] %a [a-na {d}en-lil2]-x #tr.en: for the god Enlil / 7. alan# an-[na] %a _dul3 ku3-an_ #tr.en: a statue of meteoric iron / 12. alan#-na-ni an-na-kam %a _dul3_-su sza _ku3-an_ #tr.en: a statue of himself of meteoric iron / 14. igi {d}en-lil2-la2-sze3 %a _igi_-me {d}en-lil2 #tr.en: in front of Enlil / 15. i3-gub %a i-za-[az] #tr.en: it (now) stands.",
+          "location": "CDLI P461964, inscription.atf, @obverse lines 1, 5, 7, 12, 14, 15 with the English translations on the #tr.en lines"
+        },
+        {
+          "text": "\"period\": {\"period\": \"Old Akkadian (ca. 2340-2200 BC)\"} ... {\"publication_type\": \"primary\", \"exact_reference\": \"01.02.18 composite\", \"publication\": {\"designation\": \"RIME 2\", \"year\": \"1993\"}}",
+          "location": "CDLI P461964 artifact JSON, fields period and publications[]"
+        }
+      ],
+      "support_scope": "primary-text-level (composition)",
+      "note": "The composition is catalogued by CDLI as Old Akkadian while its Louvre witness (P220619) is catalogued as Old Babylonian — the composition/object split the entry's line 72 staging rule requires."
+    },
+    {
+      "id": "R9F01a-S6",
+      "label": "Sister witness of the same composition with an excavated findspot — Penn Museum, Nippur",
+      "source_kind": "primary catalogue record (museum objects) with excavation-series publication pointers",
+      "citation": "CDLI artifact P227513, museum_no 'CBS 02344 (+) CBS 14547 + N 3539', Penn Museum, provenience Nippur (mod. Nuffar), designation includes 'RIME 2.01.02.18, ex. 02'",
+      "url": "https://cdli.earth/artifacts/227513.json",
+      "accessed_at": "2026-10-17T20:54:08Z",
+      "artifact": "JSON 12,250 bytes sha256 1a93486c21658dfbd3d99abf44fffdbd76bffd5bc45b9b696ab8c5a44a24237a (HTTP 200 application/json)",
+      "quoted_passages": [
+        {
+          "text": "\"museum_no\": \"CBS 02344 (+) CBS 14547 + N 3539\" ... \"designation\": \"RIME 2.01.02.07, ex. 03 & RIME 2.01.02.18, ex. 02, ex. 02 & RIME 2.01.04.03, ex. 02 & RIME 2.01.04.06, ex. 02\" ... \"provenience\": {\"provenience\": \"Nippur (mod. Nuffar)\"} ... \"collections\": [{\"collection\": \"Penn Museum, Philadelphia, Pennsylvania, USA\"}]",
+          "location": "CDLI P227513 artifact JSON, fields museum_no / designation / provenience / collections"
+        },
+        {
+          "text": "publications: primary 'RIME 2' 1993 ref '01.02.07, ex. 03 & 01.02.18, ex. 02 & 01.04.03, ex. 02 & 01.04.06, ex. 02'; history 'FAOS 7' 1990 ref '213, 215, 226'; history 'JCS 32 (pp. 233-246)' 1980 ref '233, 237-238, 243, 245'; history 'PBS 4' 1914 ref '209-215'; history 'PBS 5' 1914 ref '036 & 36, pl. 101'",
+          "location": "CDLI P227513 artifact JSON, field publications[]"
+        }
+      ],
+      "support_scope": "object-level (catalogue) + excavation-publication pointers",
+      "note": "This is the excavation-anchored leg: a sister witness of the same inscription group recorded as from Nippur, with publication history in the Penn Museum's excavation series (PBS 4 and PBS 5, 1914) and in JCS 32 (1980). The CDLI record is a pointer to those publications; the publications themselves were not read (see residual_limits). Penn Museum's own collection record could not be retrieved (HTTP 403, see access_failures)."
+    },
+    {
+      "id": "R9F01a-S7",
+      "label": "Wikidata structured cross-reference (index-level corroboration)",
+      "source_kind": "linked-data index mirroring the museum record",
+      "citation": "Wikidata Q87473226 'Copy of a bilingual votive inscription of Rimush-AO 5477'",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData/Q87473226.json",
+      "accessed_at": "2026-10-17T20:54:09Z",
+      "artifact": "JSON 11,177 bytes sha256 59a47cbf5b5361faac5fdacf5165c71e4bab3d588f89581731052765e9e451bd (HTTP 200 application/json)",
+      "quoted_passages": [
+        {
+          "text": "description: 'Copy of a bilingual (Sumerian-Akkadian) votive inscription of Rimush, king of Akkad, probably from a statue inside de temple of god Enlil in Nippur, copy made on clay in the paleo-Babylonian era (early 2nd millennium BCE)'; P217 inventory number 'AO 5477'; P9394 (Louvre Museum ARK ID) '010166127'; P2474 (CDLI ID) 'P220619'; P571 inception -2270; P2048/P2049/P2610 12/8/3.5 cm; P186 material clay",
+          "location": "Wikidata Q87473226 entity JSON, labels/descriptions and claims (property labels verified against Special:EntityData/P2474.json = 'CDLI ID', P9394.json = 'Louvre Museum ARK ID', P217.json = 'inventory number')"
+        }
+      ],
+      "support_scope": "index-level cross-reference (not independent of the museum record)",
+      "note": "Listed for traceability: it is the same two identifiers (Louvre ark 010166127, CDLI P220619) as above, so it corroborates the identifier chain, not any claim about the ancient object."
+    }
+  ],
+  "dated_witnesses": [
+    {
+      "witness": "Louvre AO 5477 — clay tablet, 12 x 8 x 3.5 cm, bilingual Sumerian/Akkadian votive inscription of Rimush",
+      "object_date": "Old Babylonian copy, early second millennium (Louvre: 'copie d'époque paléo-babylonienne du début du IIe mill'; CDLI: 'Old Babylonian (ca. 1900-1600 BC)')",
+      "composition_date": "Rimush (CDLI dates_referenced/date_of_origin 'Rimush.00.00.00'; Louvre 'Akkad : Rimush (Vers 2270 av. J. - C.)')",
+      "primary_publication": "RA 8 (1911) 135-142 (Louvre: 'Notes assyriologiques. XIII. Deux inscriptions d'Urmuš'); CDLI history reference 'RA 008 (pp. 135 - 158)', exact 'p. 138ff, AO 5477'; edition of record RIME 2.01.02.18, ex. 03 (Frayne 1993); FAOS 7 Rimuš C9 Text D (Gelb & Kienast 1990)",
+      "status": "read at catalogue level + ATF level (not collated against the object)",
+      "supports": "the 'dated text' leg of the coupling: a dated copy linking royal inscription, a named deity (Enlil), storied and material context (an iron statue) and scribal transmission in two languages"
+    },
+    {
+      "witness": "Penn Museum CBS 02344 (+) CBS 14547 + N 3539 — sister witness, provenience Nippur (excavated)",
+      "object_date": "Old Babylonian (CDLI period); composition references Rimush and Naram-Sin",
+      "status": "read at catalogue level (CDLI P227513); Penn Museum's own record not retrieved (403); PBS 4/PBS 5/JCS 32 not read",
+      "supports": "an excavation-provenienced anchor at Nippur for the same inscription group — the institution (Enlil's temple city) the Louvre record's placement inference names"
+    }
+  ],
+  "leg_coverage": [
+    {
+      "leg": "A dated text exists that can be joined to institution and material context (entry line 14 rule)",
+      "status": "object-level support",
+      "receipts": ["Louvre cl010166127 (date fields, inscription text, Enlil/Nippur placement inference)", "CDLI P220619 (dates_referenced Rimush; period Old Babylonian)", "Penn witness P227513 provenience Nippur"]
+    },
+    {
+      "leg": "Sumerian and Akkadian appear together in one dated object as parallel written registers (entry line 39 first clause)",
+      "status": "object-level + primary-text support",
+      "receipts": ["Louvre record inscription languages 'sumérien / akkadien'", "CDLI P220619 ATF obverse 1-15 and reverse 1-13 with the Sumerian/Akkadian dividing line", "CDLI P461964 composite ATF with #tr.en renderings"]
+    },
+    {
+      "leg": "A script or text's survival does not prove a speech community's survival (entry line 39 guardrail; line 51 'Sumerian word-signs can be used inside Akkadian writing; their appearance alone does not identify the spoken language')",
+      "status": "object-level qualification",
+      "receipts": ["The retrieved tablet is an Old Babylonian copy of a Rimush composition, i.e. a 2nd-millennium scribal product carrying 3rd-millennium royal text; it evidences copying and schooling, not the spoken language of its own period"]
+    },
+    {
+      "leg": "Institutional coupling (the prior row's unmet request: a dated text or scholarly passage)",
+      "status": "object-level support added to the round-8 passage-level support",
+      "receipts": ["Louvre cl010166127 (object record, dates, text, bibliography)", "CDLI P220619 + P461964 + P227513", "round-8 receipt's scholarly passages remain the scholarly leg (not re-litigated here)"]
+    }
+  ],
+  "support_scope": {
+    "this_shard": "object-level (museum catalogue records + CDLI catalogue/ATF) — the leg the round-8 receipt marked to-verify",
+    "whole_claim_support": "unchanged in kind from round 8 (passage-level supported) with one object-level leg now closed; nothing retrieved contradicts the entry",
+    "not_a_new_entry_date": "No new date is asserted for the entry and no sentence of the entry is edited by this shard; entry dates remain the round-8 metadata pass's."
+  },
+  "access_failures": [
+    {
+      "attempt": "curl -sS -L --max-time 45 -A '<browser UA>' 'https://cdli.earth/search?q=AO+5477'",
+      "status": "HTTP 200, 1,633,509 bytes text/html, but no server-side result row: the only /artifacts/<n> links in the response are the default id listing (ids 1-33) and the page advertises 'Showing 25 entries of 10000+ results' with a client-rendered table",
+      "consequence": "CDLI's search UI still cannot be swept as a server-side index (round-8 observation re-confirmed at the same URL)"
+    },
+    {
+      "attempt": "curl 'https://cdli.earth/search.json?q=AO+5477' and 'https://cdli.earth/search.json?q=zzzznoresultqqqq' (and /search?q=...&format=json)",
+      "status": "All three returned HTTP 200 with byte-identical 109,715-byte JSON payloads whose first record is id 1 (a Uruk III lexical tablet) and which contain neither '5477' nor any 'AO ' museum number",
+      "consequence": "that route ignores the q parameter; not usable for a targeted sweep"
+    },
+    {
+      "attempt": "curl 'https://cdli.earth/api/search?q=AO+5477', 'https://cdli.earth/api/v1/artifacts?q=AO+5477', 'https://cdli.earth/api/artifacts?q=AO+5477'",
+      "status": "HTTP 404 (16,083 / 16,068-byte HTML error pages)",
+      "consequence": "no documented REST API at those paths; per-artifact JSON (/artifacts/<id>.json) and the LFS catalogue dump were used instead"
+    },
+    {
+      "attempt": "curl 'https://cdli.ucla.edu/search/archival_view.php?ObjectID=P464358'",
+      "status": "curl: (6) Could not resolve host: cdli.ucla.edu",
+      "consequence": "the legacy CDLI host is unreachable; cdli.earth and the mpiwg mirror (https://cdli.mpiwg-berlin.mpg.de/, probed with artifact id 464358: HTTP 200, same 555,224-byte payload as cdli.earth) were used"
+    },
+    {
+      "attempt": "curl 'https://api.cdli.mpiwg-berlin.mpg.de/artifacts?q=AO+5477'",
+      "status": "curl: (6) Could not resolve host",
+      "consequence": "no separate API host"
+    },
+    {
+      "attempt": "curl and FetchURL of 'https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=gallica all \"revue d'assyriologie et d'archeologie orientale\"' and of the Gallica SRU date-filtered query for 1911",
+      "status": "HTTP 403, 6,062-byte Cloudflare 'Just a moment...' interstitial (curl); FetchURL: HTTP 403 Forbidden",
+      "consequence": "the BnF digitised RA volume could not be reached; RA 8 (1911) body text stays unread"
+    },
+    {
+      "attempt": "curl 'https://catalog.hathitrust.org/Search/Home?lookfor=Revue+d%27assyriologie&type=title'",
+      "status": "HTTP 403, 5,890-byte Cloudflare interstitial",
+      "consequence": "no HathiTrust copy of RA 8 (1911) reached"
+    },
+    {
+      "attempt": "curl 'https://www.jstor.org/stable/23284567' (the RA 8 (1911) article the round-8 receipt cited)",
+      "status": "HTTP 200 but only a 3,038-byte consent/JS shell — no article text, no page images",
+      "consequence": "JSTOR remains a pointer, not a readable source"
+    },
+    {
+      "attempt": "curl 'https://archive.org/advancedsearch.php?q=identifier:revuedassyriolog*' (RA holdings sweep) and downloads of 'revuedassyriolog0000vsch_djvu.txt' / 'revuedassyriolog0000vsch_m7x7_djvu.txt'",
+      "status": "Identifier sweep returned 15 items — volumes 1, 5, 24, 30, 33, 55-57, 58-60, 70-80, 84-86, 93-95, 96-98, 110 and three unlabelled 'vsch' scans; no volume 8 (1911). The two unlabelled RA text files: HTTP 500 (170 bytes) and HTTP 403 (4,868 bytes)",
+      "consequence": "no full-text search of RA 8 (1911) possible from archive.org"
+    },
+    {
+      "attempt": "curl 'https://www.penn.museum/collections/search?keywords=CBS%202344' and 'https://www.penn.museum/collections/api/search?q=CBS+2344'",
+      "status": "HTTP 403 (961-byte block page) for both",
+      "consequence": "the Penn Museum's own record for CBS 02344 / N 3539 is not retrieved; that witness is cited from CDLI only"
+    },
+    {
+      "attempt": "curl 'https://www.armep.gwi.uni-muenchen.de/api/documents?cdli=P220619' (ARMEP is listed as an external resource by CDLI P220619)",
+      "status": "HTTP 404 (527 bytes)",
+      "consequence": "endpoint guess invalid; ARMEP not used"
+    },
+    {
+      "attempt": "Host condition while working: 'df -i /tmp' and 'touch /tmp/_wtest'",
+      "status": "df -i /tmp: 1,048,576 inodes used of 1,048,576 (100%); touch and curl -o both fail with 'No space left on device' / 'curl: (23) client returned ERROR on write of 8192 bytes'",
+      "consequence": "all round-9 retrievals for this shard were staged under /dev/shm/kscratch; this affected command construction, not content"
+    }
+  ],
+  "negative_claims_and_sweeps": [
+    {
+      "negative_claim": "CDLI catalogues exactly one witness of the Rimush iron-statue inscription composite Q000842, namely the Louvre copy.",
+      "sweep": "python3 csv scan of the full 154,768,722-byte / 353,284-line CDLI catalogue dump (sha256 2e3232f7...) selecting rows with composite_id == 'Q000842' -> 1 row; the same scan selecting rows whose designation, primary_publication or publication_history contains '2.01.02.18' -> 3 rows (P220619 ex. 03 Louvre copy; P227513 Penn ex. 02; P461964 composite). Run 2026-10-17T20:54Z.",
+      "result": "confirmed — for CDLI, the composition's only catalogued exemplar is the Old Babylonian copy; the second exemplar in the CSV (Penn CBS 02344 group) is linked to the composition too, so CDLI has two catalogue witnesses overall, one of them the copy."
+    },
+    {
+      "negative_claim": "The Louvre record supplies no archaeological findspot for AO 5477.",
+      "sweep": "read the full Louvre JSON record (5,930 bytes; every field printed) — present fields: placeOfDiscovery='Babylonie = Sumer'; previousOwner='Géjou, Elias Ibrahim'; acquisitionDetails mode='achat' date 1910; no excavation number, no square, no stratum field exists in the record.",
+      "result": "confirmed — the object entered the Louvre by purchase in 1910; 'Babylonie = Sumer' is a region, not a site. CDLI agrees: P220619 leaves provenience, excavation_no and findspot_remarks empty."
+    },
+    {
+      "negative_claim": "No full scan of RA volume 8 (1911) is available from the free surfaces tried.",
+      "sweep": "archive.org identifier:revuedassyriolog* -> 15 items, none volume 8; Gallica SRU HTTP 403 (Cloudflare); HathiTrust HTTP 403; JSTOR HTTP 200 but 3,038-byte JS shell. All attempted 2026-10-17T20:50-20:56Z.",
+      "result": "confirmed — the 1911 primary publication is attested here only through two independent catalogue records of it (Louvre bibliographie entry and CDLI publication record), not read."
+    },
+    {
+      "negative_claim": "The CDLI PDF-searchable surfaces cannot substitute for the catalogue dump.",
+      "sweep": "/artifacts/69373.json 404 while /artifacts/220619.json 200 (the CSV's internal id is not a public route); /search.json ignores q (three byte-identical payloads for query, garbage query and format=json).",
+      "result": "confirmed — the dump sweep is the only exhaustive CDLI check performed here, and it is reproducible from the LFS object hash."
+    }
+  ],
+  "counting_commands": [
+    "date -u -> 2026-10-17T20:48:15Z at start; all retrievals stamped 2026-10-17T20:51Z-20:54:09Z",
+    "curl -sS -L --max-time 45 -A '<browser UA>' -o louvre_ao5477.json -w '%{http_code} %{size_download}' 'https://collections.louvre.fr/ark:/53355/cl010166127.json' -> 200 5930 application/json; sha256 e9b0f67e...",
+    "curl ... 'https://collections.louvre.fr/en/ark:/53355/cl010166127' -> 200 58975 text/html; sha256 7cb3f261...",
+    "curl ... 'https://cdli.earth/artifacts/220619.json' -> 200 4694 application/json; sha256 a7c94e4d...",
+    "curl ... 'https://cdli.earth/artifacts/461964.json' -> 200 3543 application/json; sha256 f9b1c2f7...",
+    "curl ... 'https://cdli.earth/artifacts/227513.json' -> 200 12250 application/json; sha256 1a93486c...",
+    "curl ... 'https://www.wikidata.org/wiki/Special:EntityData/Q87473226.json' -> 200 11177 application/json; sha256 59a47cbf...",
+    "curl -sS -L 'https://api.github.com/orgs/cdli-gh/repos?per_page=100' -> 83 repositories, including 'data' (6,188,670 KB) described as 'a copy of the daily dump of catalogue and ATF data from the Cuneiform Digital Library Initiative'",
+    "curl -sS -L 'https://raw.githubusercontent.com/cdli-gh/data/master/cdli_cat.csv' -> 200, 134 bytes, Git-LFS pointer: oid sha256:2e3232f75325b61c4d1e788d4d8c074c6230a947aed422110f9f35a6e353d09c size 154768722",
+    "curl -sS -L 'https://media.githubusercontent.com/media/cdli-gh/data/master/cdli_cat.csv' -> 200, 154,768,722 bytes; sha256sum -> 2e3232f75325b61c4d1e788d4d8c074c6230a947aed422110f9f35a6e353d09c (matches the pointer oid); wc -l -> 353,284 lines",
+    "sha256sum /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md -> bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+    "git show e1694ba --stat -- corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md -> '1 file changed, 3 insertions(+)'; git show 49ac1a5:corpus/... | grep -n 'Contact ecology' -> line 35, current -> line 39",
+    "df -i /tmp -> 1,048,576 inodes used of 1,048,576 (100%); 'touch /tmp/_wtest' -> 'No space left on device' (all staging moved to /dev/shm/kscratch)",
+    "md5sum of the three CDLI search payloads 'search.json?q=AO+5477', 'search?q=AO+5477&format=json' and 'search.json?q=zzzznoresultqqqq' -> d1a458c22f8e920737ffb0b4bea9ccc8 (all three byte-identical, 109,715 bytes, 25 records, first record id 1 museum_no 'VAT 01533'); /artifacts.json?q=AO+5477 -> 1,146,539 bytes, 100 records, also unfiltered"
+  ],
+  "residual_limits": [
+    "Thureau-Dangin 1911 (RA 8, 135-142 / 'p. 138ff, AO 5477') was not read: only its existence, author, journal, volume, year and page range are attested, by two independent catalogue records (Louvre bibliographie; CDLI publication record bibtexkey Thureau-Dangin1911RA8Notes).",
+    "RIME 2 (Frayne 1993) and FAOS 7 (Gelb & Kienast 1990) were not inspected: their content is attested only through the Louvre bibliography entry and the CDLI publication record.",
+    "The ATF used is CDLI's edition of record (atf_source 'cdlistaff', author of record Frayne) and was not collated against the object, its photograph, or a print edition; the tablet is broken ('$ rest broken').",
+    "The Penn excavation-series pointers (PBS 4 1914: 209-215; PBS 5 1914: 036 & pl. 101; Michalowski, JCS 32 (1980): 233-246) come from CDLI's publication history for P227513 and were not read; Penn Museum's own record returned HTTP 403.",
+    "No claim is made here about Sargonic-era speech: the retrieved object is a second-millennium copy.",
+    "No pronunciation, dialect-geography or vernacular-loss date is asserted anywhere in this receipt."
+  ],
+  "to_verify": [
+    "RA 8 (1911) 135-142 body text and plates (Thureau-Dangin, 'Deux inscriptions d'Urmuš') — unread; free routes tried all blocked (see access_failures)",
+    "RIME 2.01.02.18 entry and FAOS 7 Rimuš C9 Text D — unread print editions",
+    "Penn Museum record for CBS 02344 (+) CBS 14547 + N 3539 and its findspot documentation — HTTP 403 at penn.museum; cited only via CDLI P227513",
+    "Object-level collation (photograph/measurement) of AO 5477 in room 228, vitrine 2 — not performed; Louvre image URLs are on the record but were not read"
+  ],
+  "raw_labels_preserved": {
+    "round6_raw_label": "supported / whole-bounded-claim (copied verbatim from reports/round-8/freshness/reconciliation.json row R8-F01; not rewritten here)",
+    "round8_reconciled_disposition": "unresolved (round-6 reconciliation) / round-8 receipt: resolved-passage-level (copied, not rewritten here)",
+    "this_shard_effect": "R9-F01a adds object-level receipts and closes the round-8 'to-verify' object record; it does not re-adjudicate any raw label or the round-8 whole-claim verdict."
+  },
+  "disposition": {
+    "round8_state": "resolved-passage-level; object witness a tertiary pointer only; to_verify = 'Louvre AO 5477 object record (museum accession page)'",
+    "round9_state": "object-level retrieved (Louvre catalogue record + CDLI catalogue record + CDLI ATF of the copy and of the composition + a Nippur-provenienced sister witness record); the round-8 to-verify item is closed at catalogue and transliteration level",
+    "fresher_than_round_8": [
+      "the museum accession record itself, with its own dates, materials, acquisition history and bibliography (round 8 had a Wikipedia caption and a 1911 citation)",
+      "the primary text (bilingual ATF) of the object and of the composition (round 8 had no text of the artifact)",
+      "an excavation-provenienced sister witness (Nippur) with excavation-series publication pointers (round 8 had none)",
+      "the date distinction now documented at catalogue level: composition Rimush / object Old Babylonian copy"
+    ],
+    "qualification_for_reuse": "AO 5477 must not be cited as a contemporaneous Sargonic object: it is a palaeo-Babylonian copy. Use it as evidence for the copying of older royal bilinguals (scribal practice) and for the composition's text, exactly as the entry's line 14 and line 72 rules require.",
+    "sibling_shards": "R9-F01b-receipt.json (scholarly-fulltext hunter) was present in reports/round-9/freshness/ at write time; this shard deliberately did not re-fetch scholarly PDFs already in the round-8 set."
+  }
+}

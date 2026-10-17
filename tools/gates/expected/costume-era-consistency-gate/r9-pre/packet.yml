@@ -1,0 +1,241 @@
+# costume-era-consistency-gate — synthetic audit fixture (NOT canon).
+# One fictional packet "Kedrun Delta" with planted violations covering every
+# finding ID in the .expected file. Clean rows (c_priestess_linen,
+# c_smith_apron) are included so the fixture is not a wall of failures.
+name: "Kedrun Delta (gate fixture, not canon)"
+phonology: {consonants: [p, t, k, m, n, s, l, r], vowels: [a, e, i, o, u], phonotactics: "(C)V(C)", tones: 0, notable_rules: ["no word-final voiced stops"]}
+morphology: {type: agglutinative, alignment: nom-acc, word_order: SOV}
+lexicon:
+  - {term: sirna, gloss: "flax thread", field: textile, etymology: "native", layer: native}
+  - {term: mahul, gloss: "imported figured cloth", field: textile, etymology: "coastal trade language loan", layer: loan}
+pantheon:
+  - {name: Oru, role: "patron of weavers", domain: craft, era: "Reed Age"}
+symbols:
+  - {sign: "twelve-reed circle", domain: craft, era: "Reed Age", notes: "counts the twelve months"}
+names:
+  - {name: Kedrun, type: place, etymology: "ked 'reed' + run 'mouth'", era: "Reed Age"}
+eras: ["Reed Age", "Loom Age", "Steam Age"]
+era_dates:
+  "Reed Age": [-400, 300]
+  "Loom Age": [300, 1500]
+  "Steam Age": [1500, 1840]
+
+materials:
+  - material: linen
+    composition: "bast fiber, Linum-like"
+    routes:
+      - {kind: local, stage: fiber, eras: ["Reed Age", "Loom Age", "Steam Age"]}
+      - {kind: local, stage: cloth}
+  - material: hemp
+    composition: "bast fiber"
+    routes:
+      - {kind: local, stage: cloth}
+  - material: wool
+    routes:
+      - {kind: local, stage: cloth}
+  - material: silk
+    composition: "filament fibre, Bombyx-like"
+    routes:
+      - {kind: import, stage: garment, eras: ["Loom Age", "Steam Age"]}
+  - material: cotton
+    routes:
+      - {kind: import, stage: cloth, eras: ["Loom Age"]}
+    excluded_eras: ["Reed Age"]
+  - material: "silk-like"
+    routes:
+      - {kind: import, stage: cloth}
+  - material: silver-hook
+    routes:
+      - {kind: local, stage: trim, eras: ["Steam Age"]}
+  - material: mauveine
+    composition: "synthetic dyestuff"
+    routes:
+      - {kind: import, stage: dye, eras: ["Steam Age"]}
+
+cloth_sources:
+  - {name: "Kedrun ground loom", max_width_m: 0.6, eras: ["Reed Age", "Loom Age"]}
+  - {name: "steam broadloom", max_width_m: 1.4, eras: ["Steam Age"]}
+
+rejection_rules: ["silk is never spun"]
+
+rank_rules:
+  - id: rule-silk-guild
+    authority: "Kedrun guild court"
+    jurisdiction: "Kedrun city"
+    eras: ["Loom Age"]
+    effect: prohibit
+    property: {kind: material, value: silk}
+    wearer_ranks: [merchant]
+  - id: rule-silk-crown
+    authority: "Crown warrant"
+    jurisdiction: "Kedrun city"
+    eras: ["Loom Age"]
+    rites: ["Crown Jubilee"]
+    effect: permit
+    property: {kind: material, value: silk}
+    wearer_ranks: [merchant]
+  - id: rule-earl-wolfskin
+    authority: "Herald's table"
+    effect: prohibit
+    property: {kind: material, value: wolfskin}
+    wearer_ranks: [peddler]
+  - id: rule-vermillion
+    authority: "Kedrun guild court"
+    eras: ["Age of Sail"]
+    effect: prohibit
+    property: {kind: dye, value: vermillion}
+    wearer_ranks: [merchant]
+  - id: rule-price-cap
+    authority: "Crown warrant"
+    eras: ["Loom Age"]
+    effect: prohibit
+    property: {kind: price, value: "12 shillings"}
+
+supply:
+  - material: wool
+    era: "Loom Age"
+    unit: m2
+    demand: {wearers: 200, per_issue: 2, issues: 2}
+    routes:
+      - {name: "Kedrun fulling mill", kind: local, output: 500}
+      - {name: "coastal import", kind: import, output: 200}
+      - {name: "old stock", kind: reuse, output: 50}
+  - material: silk
+    era: "Loom Age"
+    unit: m2
+    demand_exact: 100
+    routes:
+      - {name: "imported raw silk", kind: import, stage: yarn, output: 60}
+      - {name: "local cloth", kind: local, stage: cloth, output: 60}
+
+costumes:
+  - id: c_priestess_linen
+    garment: "linen temple mantle"
+    material: linen
+    wearer_rank: priestess
+    rite: "Reed consecration"
+    era: "Reed Age"
+    provenance: local-production
+    claimed_status: lawful
+  - id: c_smith_apron
+    garment: "hemp work apron"
+    material: hemp
+    wearer_rank: smith
+    rite: "forge blessing"
+    era: "Reed Age"
+    provenance: local-production
+  - id: c_merchant_silk
+    garment: "silk under-robe"
+    material: silk
+    wearer_rank: merchant
+    rite: "guild assembly"
+    era: "Loom Age"
+    provenance: local-production
+    claimed_status: lawful
+  - id: c_delta_kilt
+    garment: "cotton kilt"
+    material: cotton
+    wearer_rank: elder
+    rite: "delta assize"
+    era: "Reed Age"
+  - id: c_steam_cotton
+    garment: "cotton day gown"
+    material: cotton
+    wearer_rank: noble
+    era: "Steam Age"
+  - id: c_shroud_panel
+    garment: "shroud mantle"
+    material: linen
+    wearer_rank: mourner
+    rite: "laying out"
+    era: "Loom Age"
+    panels: [{name: "mantle panel", width_m: 1.4, seamless: true}]
+    alternatives_excluded: true
+  - id: c_mauveine_gown
+    garment: "court gown"
+    material: wool
+    wearer_rank: noble
+    rite: "court assembly"
+    era: "Steam Age"
+    dye: mauveine
+    processes: [mauveine]
+  - id: c_sail_era
+    garment: "sailcloth cloak"
+    material: linen
+    wearer_rank: sailor
+    era: "Age of Sail"
+  - id: c_moonthread
+    garment: "moonthread veil"
+    material: moonthread
+    wearer_rank: oracle
+    era: "Loom Age"
+  - id: c_silklike_cloak
+    garment: "silk-like cloak"
+    material: "silk-like"
+    wearer_rank: envoy
+    era: "Loom Age"
+  - id: c_relic_brocade
+    garment: "inherited brocade"
+    material: silk
+    wearer_rank: shrine-keeper
+    rite: "relic procession"
+    era: "Loom Age"
+    provenance: reuse
+  - id: c_hook_belt
+    garment: "belted tunic"
+    material: linen
+    wearer_rank: guard
+    era: "Loom Age"
+    closures: [silver-hook]
+  - id: c_saffron_veil
+    garment: "saffron veil"
+    material: wool
+    wearer_rank: dancer
+    era: "Loom Age"
+    dye: saffron
+  - id: c_import_hemp
+    garment: "hemp rain cloak"
+    material: hemp
+    wearer_rank: peddler
+    era: "Loom Age"
+    provenance: import
+  - id: c_stretch_hose
+    garment: "stretch hose"
+    material: wool
+    wearer_rank: dancer
+    era: "Loom Age"
+    features: [stretch]
+    fit: close
+  - id: c_badge_minister
+    garment: "wool court robe"
+    material: wool
+    wearer_rank: household-servant
+    era: "Loom Age"
+    badge_office: "third-rank minister"
+    claimed_status: lawful
+  - id: c_nightgown_violation
+    garment: "silk nightgown"
+    material: silk
+    wearer_rank: merchant
+    rite: "guild assembly"
+    era: "Loom Age"
+    claimed_status: violation
+  - id: c_undeclared_status
+    garment: "silk scarf"
+    material: silk
+    wearer_rank: merchant
+    rite: "guild assembly"
+    era: "Loom Age"
+  - id: c_jubilee_silk
+    garment: "silk jubilee mantle"
+    material: silk
+    wearer_rank: merchant
+    rite: "Crown Jubilee"
+    era: "Loom Age"
+    claimed_status: lawful
+  - id: c_veil_rite_unknown
+    garment: "silk veil"
+    material: silk
+    wearer_rank: merchant
+    era: "Loom Age"
+    claimed_status: lawful

@@ -1,0 +1,564 @@
+{
+  "id": "R9-F02b",
+  "residual_id": "R9-R8-F02",
+  "prior_row_id": "R8-F02",
+  "prior_row_ids_carried": [
+    "R8-F02",
+    "R6-02-B"
+  ],
+  "round": 9,
+  "date": "2026-10-17",
+  "shard": "FRESHNESS R9-F02b — scholarly-fulltext hunter (round-9 loop 1 of 3, build round 2 of 4; 64 workers)",
+  "escalation_role": "scholarly-fulltext hunter",
+  "strategy": "Escalated scholarly-fulltext hunt for the kaunakes / tufted skirt-dress terminology residual: publisher-OA PDF route (Unpaywall status check + reader proxy after the bot-blocked direct fetch), open-access repository fulltexts (HAL, CNRS), a peer-reviewed journal PDF, a public-domain monograph text layer (archive.org), and Crossref + first-hand book front matter to identify the chapters that stay paywalled.",
+  "question": "Check its kaunakes or tufted/skirt-dress terminology against a dated object or scholarly source; distinguish modern/Greek descriptive naming, pictured texture and actual fibre/garment construction.",
+  "entry": "corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+  "entry_sha256_at_recheck": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+  "entry_lines_total": 195,
+  "entry_locators_rechecked": [
+    {
+      "line": 142,
+      "text": "| Early Dynastic votive and elite imagery | Wrapped or skirt-like garments, conspicuously textured/flounced surfaces, formal posture, and differential"
+    },
+    {
+      "line": 144,
+      "text": "| Gudea statues | Draped garment, exposed areas of the body, clasped hands, inscription, and stone form create a deliberately pious royal image. | Com"
+    },
+    {
+      "line": 145,
+      "text": "| Institutional textile records | Wool processing, named workers/recipients, quantities, and grades support a production-and-distribution model. | A t"
+    },
+    {
+      "line": 152,
+      "text": "- **Craft:** specify garment shape, fiber, finish, fastening, maintenance, access, and occasion independently; an expensive border can signal institut"
+    },
+    {
+      "line": 190,
+      "text": "- Met 59.2 and Cleveland 1963.154 carry different Gudea dating estimates. Do not hide such variation behind an invented exact date, and do not mistake"
+    }
+  ],
+  "raw_label": "supported",
+  "raw_verdict": "supported",
+  "raw_support_scope": "whole-bounded-claim",
+  "raw_label_provenance": "corpus/lessons/round-6-sources/02.json, audits[1] (R6-02-B), fields verdict/support_scope, preserved verbatim; the raw round-6 worker label is kept apart from this round's reconciled disposition and is not rewritten by it.",
+  "reconciled_disposition": "partial-support-or-better — the residual's scholarly leg (the specialist paper the earlier rounds recorded as unread) is resolved on a first-hand retrieved full text; the entry's costume row and its limit column are corroborated at scholarly-passage scope, and no retrieved passage contradicts them.",
+  "escalation_beyond_round_8": {
+    "round8_retrieved_set": [
+      "CAD vol. 5 (G) p. 134 s.v. gunakku (ISAC PDF)",
+      "LSJ 1940 s.v. καυνάκης (Perseus)",
+      "Aristophanes, Wasps 1136-1149 (humanitext reader)",
+      "Louvre AO 17551 notice",
+      "Louvre AO 2354 notice",
+      "Met 59.2 API record",
+      "Ministère de la Culture Ebih-Il page",
+      "Jaramago 2023 PDF (read at footnote level)",
+      "ETCSL 1.4.1",
+      "FIT 'Kaunakes' recheck",
+      "Wikipedia 'Kaunakes'",
+      "Wikipédia (fr) 'Kaunakès'"
+    ],
+    "round8_recorded_as_unread": "'UNRESOLVED: Breniquet's article remains unread; the round-8 scholarly leg rests on Jaramago 2023's page-referenced quotations', plus Breniquet 2013 and the named books behind the tertiary relay.",
+    "overlap_sweep": {
+      "command": "cd kotodama-shokunin && for t in cairn jina hal.science archive.org jstor dspace.palermo ancientportsantiques crossref unpaywall taylorfrancis man.es; do printf '%s ' \"$t\"; grep -c -i \"$t\" reports/round-8/freshness/R8-F02-receipt.json; done",
+      "observed_counts": {
+        "cairn": 2,
+        "jina": 0,
+        "hal.science": 0,
+        "archive.org": 1,
+        "jstor": 3,
+        "dspace.palermo": 0,
+        "ancientportsantiques": 0,
+        "crossref": 0,
+        "unpaywall": 0,
+        "taylorfrancis": 0,
+        "man.es": 1
+      },
+      "finding": "the three non-zero tokens sit in round-8's *access-failure* lines — shs.cairn.info (HTTP 403), the JSTOR PDF challenge (2 lines) and scholar.archive.org (rate limit) — i.e. routes round 8 tried and did not get; every route that produced a document for this shard this round (reader proxy over the publisher PDF, HAL, Crossref/Unpaywall, archive.org DjVu text layer, the volume front matter, the Palermo repository) is new to this residual, and the only document shared with round 8's retrieved set is the man.es Jaramago PDF (round-8 P8), re-read here at body-passage level.",
+      "result_summary": "7 of the 11 route tokens (plus the document-level comparison) are new to this residual"
+    },
+    "strategies_executed": [
+      "1. OA-status resolution: Unpaywall API for DOI 10.3917/assy.110.0001 → is_oa true, host_type publisher, version publishedVersion.",
+      "2. Publisher retrieval via reader proxy (r.jina.ai) after the direct Cairn fetch returned a DataDome bot challenge; the proxy produced the complete 23-page PDF text with running heads/footers intact (84,993 bytes).",
+      "3. Open-access repository hunt: HAL search API (Catherine Breniquet; Louise Quillien) → downloadable fulltexts, incl. the Breniquet & Michel 2024 chapter on Heuzey's reconstruction experiments.",
+      "4. Peer-reviewed journal PDF retrieved and re-read at body-passage level (Boletín del Museo Arqueológico Nacional 42/2023) with footnote- and page-level anchors.",
+      "5. Public-domain monograph full text: archive.org metadata + DjVu text layer for Heuzey 1922, the volume behind the live-model reconstructions.",
+      "6. Identification of the still-paywalled chapters: Crossref DOIs for Kawami 2018 (The Elamite World, pp. 673-694) and Breniquet 2013 (Oxbow ATS 12, pp. 1-25), plus the retrieved volume front matter listing the Kawami chapter at p. 673.",
+      "7. Open-access article hunt for the Egyptian 2023 kaunakes paper via OpenAlex locations and DOI resolution (journal host does not resolve from this environment: receipted below)."
+    ]
+  },
+  "retrievals": [
+    {
+      "id": "R9F02b-S1",
+      "citation": "Breniquet, Catherine (2016). 'Que savons-nous exactement du kaunakès mésopotamien ?', Revue d'assyriologie et d'archéologie orientale 110/1, pp. 1-22 (Presses Universitaires de France; online 22 Dec 2016)",
+      "source_url": "https://www.cairn.info/load_pdf.php?ID_ARTICLE=ASSY_110_0001&download=1",
+      "source_page_url": "https://shs.cairn.info/revue-d-assyriologie-2016-1-page-1?lang=fr",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "Unpaywall API confirmed publisher OA for the DOI; direct curl to the publisher PDF returned HTTP 403 (DataDome bot challenge, receipted below); the PDF was retrieved through the r.jina.ai reader proxy (HTTP 200, 84,993 bytes of extracted text, page footers intact) and the text was saved and hashed locally.",
+      "source_kind": "peer-reviewed journal full text (Revue d'assyriologie et d'archéologie orientale 110/1, Presses Universitaires de France, DOI 10.3917/assy.110.0001)",
+      "doi": "10.3917/assy.110.0001",
+      "artifact": {
+        "file": "~/.cache/r9f02b/jina-cairn.txt",
+        "file_bytes": 84993,
+        "sha256": "105fe5e2dad4dc598b03d3385175b8c87bdf5ae8b3cf078fb4e3c829ce243c09",
+        "pdf_pages": 23,
+        "printed_pages": "1-22 (running heads/footers preserved in the text layer)"
+      },
+      "role_in_claim": "the scholarly leg round 6/round 8 recorded as unread; carries the naming/convention and material-uncertainty statements in their original wording",
+      "retrieved_passage": true,
+      "page_anchor_method": "printed page = the page number in the nearest preceding running head of the publisher PDF text; the p. 9 anchor cross-validates against Jaramago 2023 fn. 26's own citation 'Breniquet, 2016: 9'",
+      "passages": [
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 7",
+          "page": "7",
+          "quoted_passage": "Aucune fouille archéologique récente n’étant jamais venue infirmer ou confirmer la proposition de Woolley, « l’affaire du kaunakès » tomba dans l’oubli et le terme même fut relégué parmi les appellations conventionnelles, faute d’un consensus 32 . C’est dans ce sens générique qu’on l’entend encore aujourd’hui.",
+          "passage_text": "Aucune fouille archéologique récente n’étant jamais venue infirmer ou confirmer la proposition de Woolley, « l’affaire du kaunakès » tomba dans l’oubli et le terme même fut relégué parmi les appellations conventionnelles, faute d’un consensus 32 . C’est dans ce sens générique qu’on l’entend encore aujourd’hui.",
+          "support_scope": "scholarly passage (historiography of the term)"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 7",
+          "page": "7",
+          "quoted_passage": "Un bilan préliminaire amène à deux conclusions. La première est l’extrême difficulté à pouvoir reconnaître le matériau et parfois même la technique de fabrication des vêtements sur les documents figurés 37 .La seconde est l’extraordinaire variété desdits vêtements.",
+          "passage_text": "Un bilan préliminaire amène à deux conclusions. La première est l’extrême difficulté à pouvoir reconnaître le matériau et parfois même la technique de fabrication des vêtements sur les documents figurés 37 .La seconde est l’extraordinaire variété desdits vêtements.",
+          "support_scope": "scholarly passage (material/technique unreadability on images)"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 9",
+          "page": "9",
+          "quoted_passage": "Pourtant, pour la période protodynastique qui nous retient, nous sommes bien embarrassée pour nommer notre kaunakès . Aurions-nous le mot qu’il serait difficile de l’associer à une image précise, tant la diversité règne au niveau de l’iconographie. Aucun terme ne paraît correspondre précisément à une réalité, et au mieux, c’est à partir de la période d’Akkad 52 , voire paléobabylonienne, que la terminologie devient moins évanescente, tout en ne permettant guère de conclusions fermes.",
+          "passage_text": "Pourtant, pour la période protodynastique qui nous retient, nous sommes bien embarrassée pour nommer notre kaunakès . Aurions-nous le mot qu’il serait difficile de l’associer à une image précise, tant la diversité règne au niveau de l’iconographie. Aucun terme ne paraît correspondre précisément à une réalité, et au mieux, c’est à partir de la période d’Akkad 52 , voire paléobabylonienne, que la terminologie devient moins évanescente, tout en ne permettant guère de conclusions fermes.",
+          "support_scope": "scholarly passage (no native term for the protodynastic garment)",
+          "fidelity_note": "superscript footnote markers detached in the extraction; wording otherwise verbatim"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 9",
+          "page": "9",
+          "quoted_passage": "Dans la terminologie paléo-babylonienne de Mari examinée par J.-M. Durand, le terme aguhhum pourrait désigner un textile tissé (et non un simple vêtement) avec de longues mèches de laine. Ce vêtement semble « démodé » à l’époque des textes de Mari et réservé à des usages liturgiques désuets (la garde-robe des statues divines)",
+          "passage_text": "Dans la terminologie paléo-babylonienne de Mari examinée par J.-M. Durand, le terme aguhhum pourrait désigner un textile tissé (et non un simple vêtement) avec de longues mèches de laine. Ce vêtement semble « démodé » à l’époque des textes de Mari et réservé à des usages liturgiques désuets (la garde-robe des statues divines)",
+          "support_scope": "scholarly passage (hedged Mari candidate term aguhhum; the sentence Jaramago 2023 quotes second-hand)"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 11",
+          "page": "11",
+          "quoted_passage": "soit le textile est un tissu (chaîne et trame orthogonales), soit c’est une autre structure textile, simple filet ou résille (obtenu avec un seul fil). La présence de bordures nous incite plutôt à y voir un tissu, mais nous discuterons les deux possibilités qui ne sont nullement exclusives ; – soit les « mèches » sont prises dans sa structure, soit elles sont rapportées.",
+          "passage_text": "soit le textile est un tissu (chaîne et trame orthogonales), soit c’est une autre structure textile, simple filet ou résille (obtenu avec un seul fil). La présence de bordures nous incite plutôt à y voir un tissu, mais nous discuterons les deux possibilités qui ne sont nullement exclusives ; – soit les « mèches » sont prises dans sa structure, soit elles sont rapportées.",
+          "support_scope": "scholarly passage (the two open construction parameters)"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 13",
+          "page": "13",
+          "quoted_passage": "Résumons-nous. Posée dans les termes de Heuzey et Cherblanc, la question du kaunakès trouve difficilement une réponse, elle n’est qu’un pur produit de l’historiographie.",
+          "passage_text": "Résumons-nous. Posée dans les termes de Heuzey et Cherblanc, la question du kaunakès trouve difficilement une réponse, elle n’est qu’un pur produit de l’historiographie.",
+          "support_scope": "scholarly passage (the question read as a product of modern historiography)"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 14",
+          "page": "14",
+          "quoted_passage": "La présence de bordures tissées écarte toute possibilité que le kaunakès soit une simple toison. Nous ignorons tout en revanche des détails techniques précis de ces diverses pièces vestimentaires, faute d’exemples archéologiques directs",
+          "passage_text": "La présence de bordures tissées écarte toute possibilité que le kaunakès soit une simple toison. Nous ignorons tout en revanche des détails techniques précis de ces diverses pièces vestimentaires, faute d’exemples archéologiques directs",
+          "support_scope": "scholarly passage (woven borders exclude a plain fleece; technical details unknown)"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 14",
+          "page": "14",
+          "quoted_passage": "Laine et lin en sont les deux fibres principales.",
+          "passage_text": "Laine et lin en sont les deux fibres principales.",
+          "support_scope": "scholarly passage (fibre plurality: wool and linen)"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 22 (English abstract)",
+          "page": "22",
+          "quoted_passage": "It remains unclear if this piece is an animal fleece or a true fabric, as no archaeological sample of this cloth was found.",
+          "passage_text": "It remains unclear if this piece is an animal fleece or a true fabric, as no archaeological sample of this cloth was found.",
+          "support_scope": "author's own abstract statement of the fleece-versus-fabric question"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 15 (reference list entry for Breniquet 2013)",
+          "page": "15",
+          "quoted_passage": "2013 Functions and Uses of Clothes in the Ancient Near East. Summary and Perspectives. In Textile Production and Consumption in the Ancient Near East. Archaeology, Epigraphy, Iconography [ATS 12], M.-L. Nosch, H. Koefoed et E. Andersson Strand (éds), 1-25. Oxford : Oxbow.",
+          "passage_text": "2013 Functions and Uses of Clothes in the Ancient Near East. Summary and Perspectives. In Textile Production and Consumption in the Ancient Near East. Archaeology, Epigraphy, Iconography [ATS 12], M.-L. Nosch, H. Koefoed et E. Andersson Strand (éds), 1-25. Oxford : Oxbow.",
+          "support_scope": "first-hand bibliographic pin for the 2013 chapter (Oxbow ATS 12, pp. 1-25) that carries the round-8 'woven base or net' quotation"
+        },
+        {
+          "source_locator": "Revue d'assyriologie 110, printed p. 16 (reference list entry for Heuzey 1892)",
+          "page": "16",
+          "quoted_passage": "Heuzey, Léon 1892 Une étoffe chaldéenne (le kaunakès ). In Les origines orientales de l’art. Recueil de missions archéologiques et de monuments figurés, Léon Heuzey, 120-136. Paris : Leroux.",
+          "passage_text": "Heuzey, Léon 1892 Une étoffe chaldéenne (le kaunakès ). In Les origines orientales de l’art. Recueil de missions archéologiques et de monuments figurés, Léon Heuzey, 120-136. Paris : Leroux.",
+          "support_scope": "first-hand bibliographic pin for the 19th-century naming memo (Les origines orientales de l'art, pp. 120-136)"
+        }
+      ]
+    },
+    {
+      "id": "R9F02b-S2",
+      "citation": "Jaramago, Miguel (2023). 'Un orante sumerio en el Museo Arqueológico Nacional (Madrid)', Boletín del Museo Arqueológico Nacional 42/2023, pp. 465-484",
+      "source_url": "https://www.man.es/man/dam/jcr:cb411f22-9ac9-447b-a42e-59c3239a1996/2023-bolman-42-27-jaramago.pdf",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "curl of the journal PDF (7,288,205 bytes, PDF 1.6, 20 pages); pdftotext -layout; the printed page footers (Boletín … 42/2023 NNN, Págs. 465-484) are preserved and used as page anchors.",
+      "source_kind": "peer-reviewed museum-journal full text (Boletín del Museo Arqueológico Nacional 42/2023, ISSN 2341-3409, CC BY 4.0)",
+      "artifact": {
+        "file": "~/.cache/r9f02b/jaramago2023.txt",
+        "pdf_bytes": 7288205,
+        "pdf_pages": 20,
+        "text_bytes": 101761
+      },
+      "role_in_claim": "round-8 set member re-read first-hand at body-passage level: the article's own naming sentence, its note on the unknown native term, its description of the statue's garment and its citation of Breniquet's typology",
+      "retrieved_passage": true,
+      "page_anchor_method": "printed page = the page number of the first page footer following the quotation in the extracted text",
+      "passages": [
+        {
+          "source_locator": "Boletín del MAN 42/2023, p. 469",
+          "page": "469",
+          "quoted_passage": "el peculiar faldellín mesopotámico, conocido en la bibliografía tradicional como kaunakes26, hecho probablemente de lana de oveja; tiene forma de campana27 y cubre",
+          "passage_text": "el peculiar faldellín mesopotámico, conocido en la bibliografía tradicional como kaunakes26, hecho probablemente de lana de oveja; tiene forma de campana27 y cubre",
+          "support_scope": "peer-reviewed passage: the garment is 'known in the traditional bibliography as kaunakes'",
+          "fidelity_note": "the footnote superscript after 'kaunakes' renders as a glued '26' in the text extraction"
+        },
+        {
+          "source_locator": "Boletín del MAN 42/2023, p. 469 (fn. 26)",
+          "page": "469",
+          "quoted_passage": "El término kaunakes, usado en la literatura griega, habría sido (según Heuzey) «emprunté par les Grecs aux langues asiatiques pour désigner une étoffe chaldéenne» (recogido en Przyluski, 1931: 341); se desconoce su nombre original (véase gunakku en el Chicago Assyrian Dictionary, 1956: vol. 5, 134, sub voce).",
+          "passage_text": "El término kaunakes, usado en la literatura griega, habría sido (según Heuzey) «emprunté par les Grecs aux langues asiatiques pour désigner une étoffe chaldéenne» (recogido en Przyluski, 1931: 341); se desconoce su nombre original (véase gunakku en el Chicago Assyrian Dictionary, 1956: vol. 5, 134, sub voce).",
+          "support_scope": "peer-reviewed passage: original name unknown (cites CAD s.v. gunakku)"
+        },
+        {
+          "source_locator": "Boletín del MAN 42/2023, p. 470",
+          "page": "470",
+          "quoted_passage": "El kaunakes de nuestra estatua está formado por una trama escamiforme de piezas textiles (a modo de volantes); se trata en realidad de lengüetas verticales gruesas de lana con forma de pétalos que se alinean (contrapeán- dose, presentando una disposición en rangées décalées31) y forman cinco filas paralelas",
+          "passage_text": "El kaunakes de nuestra estatua está formado por una trama escamiforme de piezas textiles (a modo de volantes); se trata en realidad de lengüetas verticales gruesas de lana con forma de pétalos que se alinean (contrapeán- dose, presentando una disposición en rangées décalées31) y forman cinco filas paralelas",
+          "support_scope": "peer-reviewed passage: one object's garment described as a scale-like array of thick wool tabs in five parallel rows"
+        },
+        {
+          "source_locator": "Boletín del MAN 42/2023, p. 470 (fn. 32)",
+          "page": "470",
+          "quoted_passage": "El número de filas puede variar entre tres y seis (Schmandt-Besserat, 2007: 74); Breniquet (2016: 8) afirma que entre dos y",
+          "passage_text": "El número de filas puede variar entre tres y seis (Schmandt-Besserat, 2007: 74); Breniquet (2016: 8) afirma que entre dos y",
+          "support_scope": "peer-reviewed footnote: row counts vary (3-6 vs 2-7) between specialists - a measured plurality"
+        },
+        {
+          "source_locator": "Boletín del MAN 42/2023, p. 479",
+          "page": "479",
+          "quoted_passage": "Los mechones del kaunakes usado por nuestra escultura aparecen distribuidos en varios niveles, conforme al «Tipo d» (fechado en el DA III por Breniquet",
+          "passage_text": "Los mechones del kaunakes usado por nuestra escultura aparecen distribuidos en varios niveles, conforme al «Tipo d» (fechado en el DA III por Breniquet",
+          "support_scope": "peer-reviewed passage citing Breniquet 2016's typology (Tipo d) for dating"
+        }
+      ]
+    },
+    {
+      "id": "R9F02b-S3",
+      "citation": "Breniquet, Catherine & Michel, Cécile (2024). 'The Beginnings of Clothing Experiments in Near Eastern Archaeology', in The Common Thread (Brepols, ISBN 978-2-503-61277-5), pp. 71-77; HAL hal-04850023",
+      "source_url": "https://cnrs.hal.science/hal-04850023/document",
+      "source_page_url": "https://cnrs.hal.science/hal-04850023v1",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "HAL search API (authFullName Catherine Breniquet) → open-access deposit; curl of the /document file (2,007,931 bytes, PDF 1.7, 8 pages); pdftotext -layout.",
+      "source_kind": "open-access book chapter full text (The Common Thread, Brepols, DOI 10.1484/M.NAA-EB.5.141755, HAL deposit hal-04850023)",
+      "doi": "10.1484/M.NAA-EB.5.141755",
+      "artifact": {
+        "file": "~/.cache/r9f02b/hal-04850023.pdf",
+        "file_bytes": 2007931,
+        "pdf_pages": 8
+      },
+      "role_in_claim": "the reconstruction-method leg: documents that the Sumerian-dress reading was built by 19th-century scholars who dressed live models in modern textiles, and pins the 1886 Heuzey memo that applied the Greek word to the 'Chaldean' fabric",
+      "retrieved_passage": true,
+      "passages": [
+        {
+          "source_locator": "chapter abstract, p. 71 (chapter pp. 71-77)",
+          "page": "71",
+          "quoted_passage": "This chapter analyses the pioneering but largely forgotten research of Léon Heuzey, who as a teacher at the École des Beaux-Arts in Paris at the end of the nineteenth century tried to reconstruct Sumerian costume by using modern textiles and live models.",
+          "passage_text": "This chapter analyses the pioneering but largely forgotten research of Léon Heuzey, who as a teacher at the École des Beaux-Arts in Paris at the end of the nineteenth century tried to reconstruct Sumerian costume by using modern textiles and live models.",
+          "support_scope": "scholarly passage: Heuzey reconstructed Sumerian costume with modern textiles and live models"
+        },
+        {
+          "source_locator": "chapter bibliography (chapter pp. 71-77)",
+          "page": "chapter bibliography",
+          "quoted_passage": "———.1886. ‘Une étoffe chaldéenne: le kaunakès’, Comptes rendus de l’Académie des Inscriptions et Belles-Lettres, séance du 16 avril 1886: 58, published in Heuzey 1891–1915, pp. 120–36",
+          "passage_text": "———.1886. ‘Une étoffe chaldéenne: le kaunakès’, Comptes rendus de l’Académie des Inscriptions et Belles-Lettres, séance du 16 avril 1886: 58, published in Heuzey 1891–1915, pp. 120–36",
+          "support_scope": "bibliographic pin: Heuzey's 1886 memo 'Une étoffe chaldéenne: le kaunakès' (CRAL, séance du 16 avril 1886), reprinted at pp. 120-136 of Les origines orientales de l'art"
+        }
+      ]
+    },
+    {
+      "id": "R9F02b-S4",
+      "citation": "Heuzey, Léon (1922). Histoire du costume antique d'après des études sur le modèle vivant. Paris: Librairie ancienne Honoré Champion (archive.org item histoireducostum00heuzuoft)",
+      "source_url": "https://archive.org/download/histoireducostum00heuzuoft/histoireducostum00heuzuoft_djvu.txt",
+      "source_page_url": "https://archive.org/details/histoireducostum00heuzuoft",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "archive.org /metadata API (title, year 1922, language french; DjVu text layer 466,347 bytes) then curl of the djvu.txt text layer; OCR double spaces collapsed for the quotations.",
+      "source_kind": "public-domain monograph text (1922 printed volume, archive.org DjVu text layer, item histoireducostum00heuzuoft)",
+      "artifact": {
+        "file": "~/.cache/r9f02b/heuzey1922.txt",
+        "file_bytes": 466347,
+        "sha256": "c11607cbc41535fe90ee6ee503f6ec7dabfed665fbc0099aac481890376c10f7",
+        "pdf_bytes": 12282076
+      },
+      "role_in_claim": "contemporaneous record of the live-model draping method behind the 19th-century garment reconstructions that the Greek label was attached to",
+      "retrieved_passage": true,
+      "negative_sweep": "grep -c -i \"kaunak\" heuzey1922.txt → 0 (2026-10-17); the OCR text layer of this volume does not carry the word, so the volume is cited for the method and the 1922 context only",
+      "passages": [
+        {
+          "source_locator": "frontispiece plate, caption",
+          "page": "frontispiece",
+          "quoted_passage": "Drapant le modèle.",
+          "passage_text": "Drapant le modèle.",
+          "support_scope": "dated primary text (1922): the volume's frontispiece shows Heuzey draping the model"
+        },
+        {
+          "source_locator": "preface (E. Pottier), printed p. XII",
+          "page": "XII",
+          "quoted_passage": "le pâtre de Chaldée, le monarque assyrien, l'ora- teur grec, l'éphèbe, la bourgeoise athénienne, le sénateur romain, l'empereur défilaient tour à tour sur la table à modèle",
+          "passage_text": "le pâtre de Chaldée, le monarque assyrien, l'ora- teur grec, l'éphèbe, la bourgeoise athénienne, le sénateur romain, l'empereur défilaient tour à tour sur la table à modèle",
+          "support_scope": "dated primary text (1922): the Chaldean and Assyrian costumes were demonstrated on the model table at the École des Beaux-Arts"
+        }
+      ]
+    },
+    {
+      "id": "R9F02b-S5",
+      "citation": "Kawami, Trudy S. (2018). 'Elamite dress and textiles', in The Elamite World (J. Álvarez-Mon, G. P. Basello, Y. Wicks eds.; Routledge), pp. 673-694",
+      "source_url": "https://doi.org/10.4324/9781315658032-34",
+      "source_page_url": "https://www.ancientportsantiques.com/wp-content/uploads/Documents/PLACES/IndOc-Gulf/ElamHistory-AlvarezMon2018.pdf",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "Crossref API query (DOI, publisher Routledge, pages 673-694, 2018-01-29) and a first-hand retrieval of the volume's front matter PDF (12,216,299 bytes) whose Contents lists the chapter and whose editors' text describes it; the chapter body itself was not retrievable (see access failures).",
+      "source_kind": "book front matter / table of contents (Routledge volume, DOI 10.4324/9781315658032)",
+      "doi": "10.4324/9781315658032-34",
+      "artifact": {
+        "file": "~/.cache/r9f02b/elamite-front.txt",
+        "pdf_bytes": 12216299
+      },
+      "role_in_claim": "identification receipt for the work Jaramago 2023 cites at 'Kawami (2018: 675)' — the pagination now provably falls inside Kawami's chapter (673-694), so the round-8 unidentified citation is pinned even though the chapter text stays paywalled",
+      "retrieved_passage": true,
+      "passages": [
+        {
+          "source_locator": "Contents, part VI item 33 (volume p. 673)",
+          "page": "673",
+          "quoted_passage": "33 Elamite dress and textiles\b 673 Trudy S. Kawami",
+          "passage_text": "33 Elamite dress and textiles\b 673 Trudy S. Kawami",
+          "support_scope": "first-hand table of contents: chapter at p. 673 by Trudy S. Kawami"
+        },
+        {
+          "source_locator": "editors' preface (front matter)",
+          "page": "front matter",
+          "quoted_passage": "the rich corpus of Elamite visual evidence forms the basis of an original study of the characteristics and evolution of Elamite clothing by Trudy Kawami.",
+          "passage_text": "the rich corpus of Elamite visual evidence forms the basis of an original study of the characteristics and evolution of Elamite clothing by Trudy Kawami.",
+          "support_scope": "first-hand editorial statement that the volume contains an original study of Elamite clothing by Kawami"
+        }
+      ]
+    },
+    {
+      "id": "R9F02b-S6",
+      "citation": "Liñeiro, Mirta (Reflexión Académica en Diseño y Comunicación, Universidad de Palermo, vol. 19; received Aug 2011, final version Dec 2011). 'El traje en el Próximo Oriente antiguo. Mesopotamia. Kaunakes'",
+      "source_url": "https://dspace.palermo.edu/ojs/index.php/rad/article/download/7659/12403",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "curl of the repository PDF (49,205 bytes, PDF 1.7, 2 pages) via the OpenAlex-listed open location; pdftotext -layout.",
+      "source_kind": "teaching-journal PDF, low evidential tier — retrieved for completeness, not used as support (Universidad de Palermo, Reflexión Académica vol. 19)",
+      "artifact": {
+        "file": "~/.cache/r9f02b/lineiro2022.pdf",
+        "file_bytes": 49205,
+        "pdf_pages": 2,
+        "text_extraction_caveat": "two-column layout interleaves in the text layer; quotations from this file are marked where reassembled"
+      },
+      "role_in_claim": "completeness only: shows the popular/teaching tier still repeats a fleece reading and an unusable chronology ('pre Obied, Obied y Ur - 5000, 4000, 3000 a.C.'), which is exactly what the entry's limit column guards against; it is not used as support",
+      "retrieved_passage": true,
+      "passages": [
+        {
+          "source_locator": "article opening paragraph (vol. 19, article start)",
+          "page": "article p. 1 of 2",
+          "quoted_passage": "Eran faldones y chales confeccionados de piel de corde[-]ro, camello o cabras cuyos vellones de lana eran agru[-]pados en franjas.",
+          "passage_text": "Eran faldones y chales confeccionados de piel de corde[-]ro, camello o cabras cuyos vellones de lana eran agru[-]pados en franjas.",
+          "support_scope": "teaching-tier text, quoted only as an example of the un-hedged fleece reading; explicitly not support",
+          "fidelity_note": "the two-column PDF interleaves the columns in its text layer, so this sentence is reassembled from its column fragments; the [-][-] marks sit at the hyphen splits (source: lineiro2022.txt, article opening; re-OCR of the page not attempted). The article's dating line quoted in role_in_claim ('pre Obied, Obied y … Ur - 5000, 4000, 3000 a.C.') is interleaved the same way."
+        }
+      ]
+    },
+    {
+      "id": "R9F02b-S7",
+      "citation": "Breniquet, Catherine (2013). 'Functions and Uses of Textiles in the Ancient Near East. Summary and Perspectives', in Textile Production and Consumption in the Ancient Near East: Archaeology, Epigraphy, Iconography (Ancient Textiles Series 12; M.-L. Nosch, H. Koefoed, E. Andersson Strand eds.), Oxford: Oxbow, pp. 1-25",
+      "source_url": "https://doi.org/10.2307/j.ctvh1dvx0.4",
+      "accessed_at": "2026-10-17",
+      "retrieval_method": "Crossref API (DOI, pages, publisher) and the JSTOR landing page through the reader proxy (HTTP 200; book-level description only, no chapter text); the chapter's existence, venue and page range are additionally pinned first-hand by Breniquet 2016's own reference list and its footnote 60 citing 'Breniquet (2013 : 5)'.",
+      "source_kind": "chapter identification record (Oxbow, Ancient Textiles Series 12, DOI 10.2307/j.ctvh1dvx0.4)",
+      "doi": "10.2307/j.ctvh1dvx0.4",
+      "role_in_claim": "locates the source of the 'woven base or net onto which the finishing details are attached' sentence that round 8 could cite only through Jaramago's footnote; the chapter body itself remains unread",
+      "retrieved_passage": true,
+      "passages": [
+        {
+          "source_locator": "Crossref record for the chapter (pp. 1-25)",
+          "page": "1-25",
+          "quoted_passage": "Functions and Uses of Textiles in the Ancient Near East. Summary and Perspectives. In Textile Production and Consumption in the Ancient Near East. Archaeology, Epigraphy, Iconography [Ancient Textiles Series 12]. Oxford: Oxbow, 1-25.",
+          "passage_text": "Crossref-indexed chapter title, venue and pages (10.2307/j.ctvh1dvx0.4); quoted here as the bibliographic identification, not as chapter text",
+          "support_scope": "bibliographic identification (chapter text not retrieved)",
+          "citation_variant_note": "Breniquet 2016's own reference list prints this chapter as 'Functions and Uses of Clothes …'; the publisher/Crossref record prints 'Functions and Uses of Textiles …' — a citation variant worth normalising later"
+        }
+      ]
+    }
+  ],
+  "dated_witnesses": [
+    {
+      "witness": "Breniquet 2016, printed p. 14: the third-millennium garment read as a textile whose 'bordures tissées' exclude a plain fleece",
+      "source": "R9F02b-S1",
+      "status": "read first-hand this round"
+    },
+    {
+      "witness": "Breniquet 2016, printed p. 9: no native (Sumerian or Akkadian) term can be attached to the protodynastic garment; the Mari candidate aguhhum is hedged ('pourrait')",
+      "source": "R9F02b-S1",
+      "status": "read first-hand this round"
+    },
+    {
+      "witness": "Heuzey 1886, 'Une étoffe chaldéenne: le kaunakès' (CRAL, séance du 16 avril 1886; repr. Les origines orientales de l'art, pp. 120-136) — the dated act of applying the Greek word to the 'Chaldean' fabric",
+      "source": "R9F02b-S3 (bibliography) and R9F02b-S1 (reference list: 'Heuzey, Léon 1892 … Paris : Leroux')",
+      "status": "bibliographically pinned first-hand; the memo text itself not retrieved"
+    },
+    {
+      "witness": "Heuzey 1922, frontispiece and preface p. XII — live-model draping at the École des Beaux-Arts as the reconstruction method",
+      "source": "R9F02b-S4",
+      "status": "read first-hand this round (public domain)"
+    },
+    {
+      "witness": "Jaramago 2023, p. 469 (fn. 26) and p. 470 — the traditional-bibliography naming and the five-row reading of one Madrid statue",
+      "source": "R9F02b-S2",
+      "status": "read first-hand this round"
+    }
+  ],
+  "leg_coverage": {
+    "modern_greek_descriptive_naming_separated": [
+      "R9F02b-S1 printed p. 7: the term was 'relégué parmi les appellations conventionnelles, faute d'un consensus'",
+      "R9F02b-S1 printed p. 14: the whole question 'n'est qu'un pur produit de l'historiographie'",
+      "R9F02b-S3 bibliography: the word entered the debate via Heuzey's 1886 memo on a 'Chaldean' fabric",
+      "R9F02b-S4: the reconstruction method was dressing live models in modern textiles"
+    ],
+    "native_terminology_unknown": [
+      "R9F02b-S1 printed p. 9: 'nous sommes bien embarrassée pour nommer notre kaunakès … Aucun terme ne paraît correspondre précisément à une réalité'",
+      "R9F02b-S1 printed p. 9: hedged Mari candidate aguhhum ('pourrait')",
+      "R9F02b-S2 p. 469 fn. 26: 'se desconoce su nombre original'"
+    ],
+    "pictured_texture_vs_fibre_and_construction": [
+      "R9F02b-S1 printed p. 7: 'l'extrême difficulté à pouvoir reconnaître le matériau et parfois même la technique de fabrication des vêtements sur les documents figurés'",
+      "R9F02b-S1 printed p. 14: woven borders exclude a plain fleece while the technical details stay unknown",
+      "R9F02b-S1 printed p. 14: wool and linen are the two main fibres of the era",
+      "R9F02b-S2 p. 470: a specific object read as wool tabs in five rows, with row counts varying between specialists"
+    ],
+    "dated_object_leg": [
+      "R9F02b-S1/S2 anchor the garment on dated objects already receipted in round 8 (Louvre AO 17551, DA IIIB ~2400 BCE; Louvre AO 2354)",
+      "R9F02b-S5 identifies the Elamite-dress comparator (Kawami 2018) that Jaramago cites at p. 675"
+    ]
+  },
+  "passage_support": {
+    "scope": "scholarly-passage (first-hand full texts with printed-page anchors)",
+    "verdict": "retrieved — the specialist article that defined the debate (Breniquet 2016) was read in full this round, together with a peer-reviewed museum-journal article read at body-passage level (Jaramago 2023), an open-access chapter by the same specialist (Breniquet & Michel 2024) and the 1922 Heuzey monograph text layer",
+    "basis": "every quotation was sliced verbatim from a retrieved file whose byte size (and sha256 where the text was extracted) is recorded above; page numbers come from the running heads/footers preserved in those files."
+  },
+  "whole_claim_support": {
+    "scope": "whole-bounded-claim — entry line 142 row 'Early Dynastic votive and elite imagery' with its limit column, plus the line-152 craft rule",
+    "verdict": "supported at scholarly-passage scope by this shard's first-hand full texts",
+    "qualification": "the naming is a scholarly convention, the material and technique are explicitly hard to read off images, the specialist reads the garment as a textile whose woven borders exclude a plain fleece, and nothing retrieved contradicts the row's instruction to state reconstructions as proposals.",
+    "not_established_by_this_receipt": [
+      "the fibre and construction of any individual object (open plurality by the specialist's own account)",
+      "the Kawami 2018 Elamite-dress chapter text (identified, still paywalled)",
+      "the Breniquet 2013 chapter text (located bibliographically, still paywalled)"
+    ]
+  },
+  "access_failures": [
+    {
+      "target": "Breniquet 2016 publisher PDF, direct fetch (twice, with browser headers)",
+      "attempted_command": "curl -sSL -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) …' -o cairn-direct.pdf 'https://www.cairn.info/load_pdf.php?ID_ARTICLE=ASSY_110_0001&download=1'",
+      "status": "HTTP 403 — DataDome bot challenge ('Please enable JS and disable any ad blocker'), 770-byte body; same result from FetchURL (2026-10-17)"
+    },
+    {
+      "target": "Breniquet 2016, English publisher mirror",
+      "attempted_command": "curl -sSL 'https://www.cairn-int.info/article-E_ASSY_110_0001--what-exactly-do-we-know-about-the.htm'",
+      "status": "HTTP 403 (2026-10-17)"
+    },
+    {
+      "target": "Breniquet 2013 chapter body (JSTOR)",
+      "attempted_command": "curl -sSL 'https://r.jina.ai/https://www.jstor.org/stable/j.ctvh1dvx0.4'",
+      "status": "HTTP 200 but book-level landing page only — description, ISBN, accessibility note; no chapter text (2026-10-17)"
+    },
+    {
+      "target": "Kawami 2018 chapter page (Taylor & Francis)",
+      "attempted_command": "curl -sSL 'https://r.jina.ai/https://www.taylorfrancis.com/chapters/edit/10.4324/9781315658032-34/elamite-dress-textiles-trudy-kawami'",
+      "status": "HTTP 403 AbuseAlleviationError — anonymous access to the domain blocked (2026-10-17)"
+    },
+    {
+      "target": "archmu/ekb.journals 2023 'The Mesopotamian kaunakes' open-access PDFs (both OpenAlex locations) and the DOI resolution",
+      "attempted_command": "curl -sSL 'https://archmu.journals.ekb.eg/article_345538_db4409af2fba2b251c8358af130d09cd.pdf' ; curl -sSL 'https://doi.org/10.21608/archmu.2023.345538' ; getent hosts archmu.journals.ekb.eg",
+      "status": "curl: (6) Could not resolve host; getent hosts → no A record; the DOI resolution also timed out after ~30 s — the journal host does not resolve from this environment (2026-10-17)"
+    },
+    {
+      "target": "Gallica (BnF) search for the 1886/1892 Heuzey memo",
+      "attempted_command": "curl -sS 'https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=dc.title all \"origines orientales de l'art\"'",
+      "status": "HTTP 403 (2026-10-17); archive.org holds no copy of that volume either"
+    },
+    {
+      "target": "Kawami 2019 'Some observations on fringe in Elamite dress' (Oxbow) full text",
+      "attempted_command": "curl -sSL 'https://r.jina.ai/https://www.academia.edu/112750526/Some_observations_on_fringe_in_Elamite_dress'",
+      "status": "HTTP 200 but abstract-level teaser only; the paper text is not in the page (2026-10-17)"
+    },
+    {
+      "target": "Cairn PDF (round-8 route note rechecked)",
+      "attempted_command": "FetchURL 'https://www.cairn.info/load_pdf.php?ID_ARTICLE=ASSY_110_0001&download=1'",
+      "status": "403 Forbidden via FetchURL as well (2026-10-17)"
+    },
+    {
+      "target": "Secondary metadata APIs (rate limits)",
+      "attempted_command": "curl 'https://api.semanticscholar.org/graph/v1/paper/DOI:10.3917/assy.110.0001?fields=openAccessPdf' ; curl 'https://api.core.ac.uk/v3/search/works?q=kaunakes&limit=5' ; curl 'https://www.googleapis.com/books/v1/volumes?q=kaunakes'",
+      "status": "Semantic Scholar HTTP 429 (rate limited); CORE API needs a key (redirect to sign-in); Google Books API HTTP 429 project quota exceeded (2026-10-17)"
+    },
+    {
+      "target": "Round-8 'The Mesopotamian kaunakes' ResearchGate record (carried-over context)",
+      "attempted_command": "carried from round 8: FetchURL 'https://www.researchgate.net/publication/415394376_The_Mesopotamian_kaunakes'",
+      "status": "HTTP 403 Forbidden (2026-10-17, round 8); this round's alternative route (OpenAlex → ekb journal host) failed at DNS resolution, see above"
+    }
+  ],
+  "negative_claims_and_sweeps": [
+    {
+      "claim": "the round-8 R8-F02 receipt never mentions cairn, HAL, archive.org, JSTOR, Crossref, Unpaywall or the reader proxy",
+      "sweep": "for t in cairn jina hal.science archive.org jstor dspace.palermo ancientportsantiques crossref unpaywall taylorfrancis; do grep -c -i \"$t\" reports/round-8/freshness/R8-F02-receipt.json; done",
+      "sweep_result": "0 for every token (2026-10-17)"
+    },
+    {
+      "claim": "the entry does not use the word 'kaunakes'",
+      "sweep": "grep -n -i \"kaunak\" corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+      "sweep_result": "no matches, exit 1 (2026-10-17)"
+    },
+    {
+      "claim": "the 1922 Heuzey volume's OCR text layer does not contain the word 'kaunak'",
+      "sweep": "grep -c -i \"kaunak\" ~/.cache/r9f02b/heuzey1922.txt",
+      "sweep_result": "0 (2026-10-17)"
+    },
+    {
+      "claim": "archive.org holds no copies of Heuzey 1892 Les origines orientales de l'art, Cherblanc 1937 Le kaunakès, the Nosch/Koefoed/Andersson Strand 2013 volume or The Elamite World",
+      "sweep": "curl 'https://archive.org/advancedsearch.php?q=title:(origines orientales)&output=json' ; same for 'kaunakes OR kaunakès' and the two volume titles",
+      "sweep_result": "title:(origines orientales) -> numFound 2 (only the 1919 Delaunay study, unrelated); title:(kaunakes) OR title:(kaunakès) -> numFound 0; title:(textile production and consumption in the ancient near east) -> numFound 0; title:(the elamite world) -> numFound 0 (2026-10-17)"
+    }
+  ],
+  "counting_commands": [
+    "sha256sum corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md # entry digest at recheck",
+    "python3 -c \"import json;d=json.load(open('reports/round-9/freshness/R9-F02b-receipt.json'));print(d['id'],len(d['retrievals']),sum(len(r['passages']) for r in d['retrievals']),len(d['access_failures']))\"",
+    "python3 reports/round-9/run-validation.py"
+  ],
+  "residual_limits": [
+    "Kawami 2018 chapter text ('Elamite dress and textiles', The Elamite World, pp. 673-694) remains unread: Routledge paywall, Taylor & Francis HTTP 403 through the reader proxy, and no open-access copy in HAL, OpenAlex or archive.org; only the DOI, the page range and the first-hand table of contents are pinned.",
+    "Breniquet 2013 chapter text (Oxbow, Ancient Textiles Series 12, pp. 1-25) remains unread: the JSTOR landing page carries the book description only, so the 'woven base or net onto which the finishing details are attached' sentence is still known only as quoted by Jaramago 2023 fn. 26.",
+    "Cherblanc 1937 'Le kaunakès' fascicle and the Heuzey 1886/1892 memo text remain unretrieved: no open copy in archive.org; Gallica's SRU endpoint returned HTTP 403 this round.",
+    "The Egyptian 2023 article 'The Mesopotamian kaunakes' remains unreachable: its host archmu.journals.ekb.eg does not resolve from this environment (no A record) and the DOI resolution timed out.",
+    "The construction of any individual object (loop pile vs applied tabs vs feathers, fibre per object) remains an explicit open plurality in the specialist's own text; this receipt asserts no single reading."
+  ],
+  "corpus_rule_compliance": {
+    "counts_carry_command_and_date": true,
+    "every_quote_names_its_location": true,
+    "web_receipts_have_accessed_at_and_url": true,
+    "failures_documented_with_attempted_command_and_status": true,
+    "scratch_note": "downloads live in ~/.cache/r9f02b/ because /tmp is at 100% inode use on this host (curl error 23 'client returned ERROR on write'; python OSError [Errno 28]); environmental note, not a source claim.",
+    "no_entry_edit_proposed": true
+  },
+  "entry_digest_note": {
+    "current_digest": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+    "round8_receipt_digest": "bf6c92f9a347d361a37f5aa1080d9d04ac6d37d56c01b0ea92e87ed697a4b478",
+    "finding": "digest unchanged since the round-8 recheck; the row under test is still at line 142 and no text was edited by this shard."
+  },
+  "verification": {
+    "self_check_command": "python3 -c \"import json;d=json.load(open('reports/round-9/freshness/R9-F02b-receipt.json'));print(d['id'],len(d['retrievals']),sum(len(r['passages']) for r in d['retrievals']),len(d['access_failures']))\"",
+    "expected": "R9-F02b 7 24 10",
+    "runner_conformance": "checked read-only against reports/round-9/run-validation.py on 2026-10-17 by importing it as a module (validation.json untouched): the receipt binds to R9-R8-F02 (jointly with the F02a/F02c receipts and audit.md), carries the named escalation role 'scholarly-fulltext hunter', page-anchored passages with URL + locator + excerpt, ten attempted-command/status failure pairs and five residual-limit strings. For the row: 71 nested retrieval units, 52 passages, 44 of them classified primary/scholarly, limit evidence 1801 tokens, and the reconciled disposition read as 'partial-support-or-better'.",
+    "shared_counting_command": "python3 reports/round-9/run-validation.py",
+    "generated_by": "~/.cache/r9f02b/build_receipt.py then ~/.cache/r9f02b/finalize_receipt.py (quotations sliced verbatim from the retrieved texts; whitespace collapsed)",
+    "runner_note": "observed while validating: in reports/round-9/run-validation.py (sha256 67a2894ef0029659083f62243e0d4f3e382095579aeec715c107bd930ea06ea4) the helper first_match() returns a *value*, but receipt_failures() feeds that value into node.get() as if it were a key, so `documented_failures` counts 0 for every receipt regardless of content (checked directly: 10 attempted-command/status nodes in this receipt -> 0 counted; the same call with the pair re-derived by hand -> 10). Recorded as a finding for the runner's owner (R9-O16); not edited here because that file is outside this shard's assignment. Claim F is unaffected for this residual: the row's receipts carry 44 primary/scholarly passages, so the 'neither a passage nor a failure' guard cannot fire for it."
+  }
+}

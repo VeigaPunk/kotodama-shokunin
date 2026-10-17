@@ -1,0 +1,60 @@
+{
+  "schema": "kotodama-frozen-run-v1",
+  "baseline_id": "r9-pre",
+  "gate": "phonology-sanity-gate",
+  "gate_script": "tools/gates/phonology-sanity-gate.py",
+  "gate_sha256": "d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230",
+  "revision": "e1694bad6ac96aca45a11ca5746582b275929355",
+  "revision_note": "Round-9 declared baseline_revision (reports/round-9/claims.json). Freeze-time lane HEAD was a7bb205d3aecdaa24d91c047c8719cd8689e4ddd (git rev-parse HEAD, 2026-10-17T17:50-03:00); measured `git diff --stat e1694bad6ac96aca45a11ca5746582b275929355 -- tools/gates examples` produced empty output, so the graded artifact tree is identical at both revisions. The orchestrator's round-9 integration commit carries this baseline; never compare across an unnamed gate revision.",
+  "frozen_at": "2026-10-17T17:50:33-03:00",
+  "frozen_by": "lane kotodama-shokunin, round 9 claim O (baseline author seat, phonology-sanity-gate)",
+  "inputs": {
+    "packet.yml": "e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643"
+  },
+  "input_origin": "examples/culture-d2/packet.d2.yml — byte copy at freeze time (cmp clean, 2026-10-17T17:50-03:00); origin digest equals the packet.yml digest above",
+  "input_class": "culture packet (D2 deliverable, mutable by design; the frozen copy, not the live path, is the graded bytes)",
+  "command": "python3 tools/gates/phonology-sanity-gate.py tools/gates/expected/phonology-sanity-gate/r9-pre/packet.yml",
+  "expected": {
+    "exit": 1,
+    "class": "findings",
+    "findings": [
+      "A-NEUTRAL"
+    ]
+  },
+  "finding_counts": {
+    "A-NEUTRAL": 3
+  },
+  "finding_count_total": 3,
+  "finding_id_note": "One distinct finding ID over three lines: A-NEUTRAL is emitted once per distinct (level, id, message) tuple, on notable_rules[1], [2] and [7]. The frozen-run contract compares the ID set, order-insensitive (gate-frozen-run-standard.md §4); the line count is reported for legibility only.",
+  "stdout_sha256": "1ce5f0cdabad1bda177245607226cb6bf643f2bfbbe2ddb0918c510749066dd2",
+  "gate_selftest": {
+    "exit": 0,
+    "summary": "selftest: fixture exit 1; 15/15 planted finding IDs present; 29 control cases passed"
+  },
+  "determinism": "3 reruns of the graded command (cwd = lane root) produced stdout byte-identical to run.log (sha256 1ce5f0cdabad1bda177245607226cb6bf643f2bfbbe2ddb0918c510749066dd2 each time, exit 1, stderr 0 bytes). The same stdout was reproduced over the live origin path and over an isolated mirror copy of gate + packet in a different cwd (cmp clean, 2026-10-17T17:5x-03:00).",
+  "tamper_evidence": {
+    "procedure": "append one comment byte ('\\n# tampered byte\\n') to a throwaway copy of packet.yml, then check sha256 against the inputs pin",
+    "tampered_copy_sha256": "265bd5c6a37fd90a5e0692ce39a6564622e0a787bc4293cf7dcedf944f7009d7",
+    "observed": "tamper-comment.yml: FAILED, sha256sum exit 1, 'WARNING: 1 computed checksum did NOT match' -> snapshot_tampered (could-not-evaluate); the gate over the tampered copy still printed byte-identical FINDING lines, so only the digest check detects the edit"
+  },
+  "gate_revision_control": {
+    "procedure": "append one comment byte to a copy of the gate script, run it over the frozen snapshot",
+    "observed": "copy sha256 0380b0d33bae45ade334681dcbef488b48f75a2f8804a03c9fbe8d134234ee80, stdout byte-identical to run.log -> only gate_sha256 names the gate revision read"
+  },
+  "controls": {
+    "clean_class_reachable": {
+      "input": "the gate's own CLEAN_PACKET constant written to scratch (sha256 36be66044aa2c0a1e103413816af96bc42f500cfc3da1c7bf8d538d50ce8fe8e)",
+      "observed": "exit 0, 0 stdout bytes -> expected.class 'clean' is reachable; exit 1 is not automatic"
+    },
+    "verdict_comparison_sensitive": {
+      "input": "throwaway copy with phonology.tones 0 -> 6 (sha256 40a71dbe085032a91dcf058f922708a1470b40115398e55ae0ef148c5f88a39d)",
+      "observed": "observed finding-ID set {A-NEUTRAL, T-TONE} != expected {A-NEUTRAL} -> the set comparison reports a mismatch (failed) instead of a silent pass; in the live procedure order the digest check fires first on this copy, since its digest differs from the pin"
+    },
+    "input_read_only": "packet.yml digest re-checked after every run -> OK; the gate does not rewrite its input"
+  },
+  "peer_seat": {
+    "file": "reports/round-9/baselines/phonology-sanity-gate/rerun.md",
+    "role": "independent rerunner seat R9-O; its rerun.md was written before this expected.json landed, so its §6 committed-baseline verification is the pair's pending independent check"
+  },
+  "layout_note": "Round-9 baseline root tools/gates/expected/<gate-name>/<baseline-id>/ (battery default baseline roots: tools/gates/expected, tools/gates/frozen — tools/check-gate-battery.py:114). Do not copy this baseline under a second root: the same baseline id under two gate directories makes r9-pre ambiguous, which the gate standard fails closed rather than compares. Sibling round-9 seats were also observed writing baselines under tools/gates/frozen/<gate-name>/r9-pre/ and reports/round-9/baselines/<gate-name>/ — reported to the integrator in reports/round-9/baselines/phonology-sanity-gate/author.md §7, not absorbed here."
+}

@@ -3,6 +3,9 @@
 - topic: Mali and Songhay as distinct, connected reference bases for coupling language, myth, symbolic authority, historical change, dress, and naming; method, not fictional canon.
 - sources: Levtzion & Hopkins (eds., 2000 [1981]); Ibn Battuta/Gibb (1929); Hunwick (1999); Hale (2007 [1998]); Hoffman (2001); Conrad & Frank (eds., 1995); Conrad/Condé (2004); Rovine (2005); Brett-Smith (2014); Jeppie & Diagne (eds., 2008); Schultz (2006); Nobili & Mathee (2015); Dimmendaal (2008); Oyler (1997); Zahan (1987); Stoller (1989; the consulted web profile is his “Songhay” entry in *Encyclopedia of World Cultures* 9, 1995, HRAF update 2016). Standard editions and accessible evidence are keyed below.
 - couples: Language → `../linguistics/{sociolinguistics-registers,orality-formulaic-language,writing-systems,naming-systems,politeness-taboo-euphemism}.md`; myth/symbol → `../myth-symbol/{cosmology-cosmography,myth-folktale-genres,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,textile-technology,costume-semiotics,material-culture-inference-method}.md`; sibling → lore-shokunin receives proposed systems and uncertainties, never canon from this entry.
+- source: [S1–S16] below
+- verified-at: 2026-10-17
+- recheck: before assigning an exact ritual restriction, medieval garment cut, manuscript date, or name etymology.
 
 ## Scope and evidence labels
 
@@ -11,7 +14,6 @@
 - **Design inference** marks a transferable mechanism, not an additional historical claim; `(to-verify)` marks an unresolved detail.
 - Mali the medieval polity, modern Mali the state, Mande-speaking populations, Bamana communities, and Songhay-speaking populations are not interchangeable categories.
 - Mande is the wider language-family label; Manding is a branch within it. Songhay/Songhai spellings do not identify a Manding dialect.
-- source: [S1–S16] below; verified-at: 2026-10-17; recheck: before assigning an exact ritual restriction, medieval garment cut, manuscript date, or name etymology.
 - Verification ceiling: the accessible primary extract, encyclopedia articles, publisher descriptions, contents, and catalogs were checked; complete monographs were not re-read. The Cairo price report and findings/bibliography for [S11–S14] were checked through secondary overviews, not full original chapters/articles. Do not treat a catalog synopsis as page-level verification.
 - Secondary lookup trail, not independent primary evidence: [Musa and the Cairo report](https://en.wikipedia.org/wiki/Mansa_Musa); [chronicle textual criticism](https://en.wikipedia.org/wiki/Tarikh_al-fattash); [Mande classification](https://en.wikipedia.org/wiki/Mande_languages); [Songhay classification](https://en.wikipedia.org/wiki/Songhay_languages); [N'Ko chronology](https://en.wikipedia.org/wiki/N%27Ko_script); [epic edition bibliography](https://en.wikipedia.org/wiki/Sundiata_Keita).
 

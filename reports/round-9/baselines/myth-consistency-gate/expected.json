@@ -1,0 +1,45 @@
+{
+  "schema": "kotodama-frozen-run-v1",
+  "baseline_id": "r9-pre",
+  "gate": "myth-consistency-gate",
+  "gate_script": "tools/gates/myth-consistency-gate.py",
+  "gate_sha256": "5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08",
+  "revision": "a7bb205d3aecdaa24d91c047c8719cd8689e4ddd",
+  "revision_note": "HEAD at freeze time. The declared round-9 baseline_revision e1694bad6ac96aca45a11ca5746582b275929355 (reports/round-9/claims.json) differs only in reports/round-9/{claims,targets}.json (git diff --stat e1694ba..HEAD, 2026-10-17: 2 files changed, 159 insertions, 0 deletions; targeted git status over the gate script and the graded packet: clean). The orchestrator's round-9 integration commit carries this baseline; never compare across an unnamed gate revision.",
+  "frozen_at": "2026-10-17T17:50:38-03:00",
+  "frozen_by": "kotodama-shokunin round-9 O-shard, myth-consistency-gate baseline author (reports/round-9/baselines/myth-consistency-gate/author.md)",
+  "inputs": {
+    "packet.yml": "e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643"
+  },
+  "input_origin": "examples/culture-d2/packet.d2.yml — byte copy (cmp clean, 2026-10-17); the origin's digest equals the packet.yml digest above",
+  "input_class": "culture packet (D2 deliverable, mutable by design)",
+  "inputs_the_gate_reads": "packet.yml only — the graded run opens exactly one path (myth-consistency-gate.py:847-849 `path = Path(argv[0])` / `path.read_text`); the only other open() sites belong to --selftest, which reads and (only when absent) writes inside tools/gates/fixtures/ (myth-consistency-gate.py:1058-1095). No other file in this baseline is read by the gate.",
+  "command": "python3 tools/gates/myth-consistency-gate.py reports/round-9/baselines/myth-consistency-gate/packet.yml",
+  "expected": {
+    "exit": 0,
+    "class": "clean",
+    "findings": []
+  },
+  "findings_note": "the frozen run printed no FINDING lines; the finding-ID set is empty. After the digest checks pass, a re-run that exits nonzero or prints any MC-*/G-DATA finding is drift against this pin; a comment-byte or whitespace edit keeps the verdict identical and is caught only by the inputs digests.",
+  "gate_selftest": {
+    "exit": 0,
+    "observed": "selftest: OK — fixture exit 1; planted IDs present: MC-P01, MC-P02, MC-M01, MC-M02, MC-S01, MC-S02; clean control exit 0 (0 findings); fixture and expected verified against the embedded constants under tools/gates/fixtures/",
+    "fixture_yml_sha256": "f94a700cc2d6cfadf91d8c96493fdc1e87dd50e53aa117d7598f12f524197086",
+    "fixture_expected_sha256": "c871b6d33c2a29f74d17ce7642c73e328a0b212fddd618699c4a3c8464f45abb",
+    "writes": "none observed — the committed fixture pair is verified byte-for-byte, never rewritten (only an absent file would be regenerated); git status --porcelain over the gate script and the graded packet was empty before and after"
+  },
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_note": "advisory whole-output pin; it is sha256 of the empty byte string because a clean run prints nothing",
+  "tamper_evidence": {
+    "procedure": "copy packet.yml to scratch, append one comment byte (\"\\n# tampered byte\\n\"), then check sha256 against the inputs pin",
+    "observed": "tampered copy sha256 265bd5c6a37fd90a5e0692ce39a6564622e0a787bc4293cf7dcedf944f7009d7 differs from the pinned e0f21509... -> snapshot_tampered (could-not-evaluate, comparison refused); the gate over the tampered copy still exited 0 with stdout byte-identical to run.log (both empty) — under a clean verdict only the digest step detects the edit"
+  },
+  "mutant_evidence": {
+    "mutation": "the same copy with one semantic edit: MOT-04's `index_checked: true` replaced by `cf_atu: \"ATU 1200\"` + `index_checked: false` (two tokens)",
+    "mutant_sha256": "2e6c2d675f985dd6f6de5f42c8edcb6943f26de1b83661ec7b1c4fc0a932da5c",
+    "observed": "exit 1, one FINDING MC-M02 line (motif MOT-04 claims comparison 'ATU 1200' without a checked entry, edition, or narrative witness) — the clean frozen verdict is contingent on the graded bytes, not vacuous"
+  },
+  "isolation_control": "gate script + packet copied to a scratch tree (different directory, different cwd) and re-run: exit 0, stdout byte-identical to run.log — the verdict is path-independent",
+  "layout_note": "Round-9 O-shard root for this lane as followed here: reports/round-9/baselines/<gate-name>/ (a peer fragment declared this root and the phonology-sanity-gate pair uses it); discovery glob reports/round-9/baselines/*/expected.json. Contested scope observed 2026-10-17, reported not absorbed: two other roots were in flight this round — tools/gates/expected/<gate>/r9-pre/ (costume-era author) and the standard's literal root tools/gates/frozen/<gate-name>/<baseline-id>/ (handoff author). One baseline, one root; a runner that globs several roots should map rows by the `gate` field and treat duplicate ids across DIFFERENT roots as fail-closed, not as extra baselines.",
+  "append_only_note": "this file is never rewritten to match a later run: a packet edit, a gate revision, or a new phase produces a NEW baseline id (e.g. r9-post, r10-pre), leaving this verdict legible next to its revision"
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "kotodama-frozen-run-v1",
+  "baseline_id": "r9-pre",
+  "gate": "naming-collision-gate",
+  "gate_script": "tools/gates/naming-collision-gate.py",
+  "gate_sha256": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+  "revision": "e1694bad6ac96aca45a11ca5746582b275929355",
+  "revision_note": "Base revision the baseline was authored against (round-9 claims baseline_revision). HEAD at freeze was a7bb205d3aecdaa24d91c047c8719cd8689e4ddd; git diff --stat e1694ba..HEAD measures only reports/round-9/{claims,targets}.json (159 insertions, 0 deletions), so the graded artifact tree is identical between the two. The orchestrator's round-9 integration commit, which carries this baseline, supersedes both; never compare across an unnamed gate revision.",
+  "frozen_at": "2026-10-17T17:49:10-03:00",
+  "frozen_by": "kotodama-shokunin round-9 O-shard, naming-collision-gate baseline author (reports/round-9/baselines/naming-collision-gate/author.md)",
+  "inputs": {
+    "packet.yml": "e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643"
+  },
+  "input_origin": "examples/culture-d2/packet.d2.yml — byte copy (cmp clean), origin digest equals the packet.yml digest above",
+  "input_class": "culture packet (D2 deliverable, mutable by design)",
+  "command": "python3 tools/gates/naming-collision-gate.py reports/round-9/baselines/naming-collision-gate/packet.yml",
+  "expected": {
+    "exit": 1,
+    "class": "findings",
+    "findings": ["CROSS-HOLD", "NAME-NEAR", "PHON-INVENTORY"]
+  },
+  "finding_counts": {"NAME-NEAR": 6, "PHON-INVENTORY": 10, "CROSS-HOLD": 1},
+  "finding_count_total": 17,
+  "gate_selftest": {"exit": 0, "summary": "fixture findings 12 across 11 ids; positive control clean; malformed inputs exit 2; missing profile held; case policy routed"},
+  "stdout_sha256": "ebc8850d08ec1b7e32616cbca9092ba66f3b6f148a61515a033e6bed6fa66f4b",
+  "tamper_evidence": {
+    "procedure": "append one comment byte to a copy of packet.yml, then check sha256 against the inputs pin",
+    "observed": "digest mismatch -> snapshot_tampered (could-not-evaluate); the gate still printed byte-identical stdout, so only the digest check detects the edit",
+    "tampered_copy_sha256": "265bd5c6a37fd90a5e0692ce39a6564622e0a787bc4293cf7dcedf944f7009d7"
+  },
+  "layout_note": "Round-9 root reports/round-9/baselines/<gate-name>/ carries one baseline per structural gate; baseline_id r9-pre (phase pre: before the round's edits land). Discovery for the battery extension: reports/round-9/baselines/*/expected.json."
+}

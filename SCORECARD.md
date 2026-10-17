@@ -127,13 +127,42 @@ Capabilities addendum (round 8):
 |---|---|---|---|
 | d2-typed-labels | Types D2 records across five kinds by declaration; enforces holds (TL-01/TL-02), borrow-ledger clock checks (B4), channel separation; emits typed projection | `python3 tools/d2-typed-labels.py --selftest`; `examples/culture-d2/typed-labels.d2.yml` | round 8 |
 
+## Axes — round 9 (2026-10-17), admitted
+
+Baseline `a7bb205`; one 64-worker `opencode-go-2/deepseek-v4.1-flash` batch
+(loop 1, build 2 of 4). Acceptance: `python3 reports/round-9/run-validation.py`
+exits 0 after two orchestrator integration acts (neither a work defect):
+reconciliation rows normalized to the declared flat `raw_label` contract, and
+the D3 `expected.json` freeze refreshed for three pins — all three drifts are
+round-8's legitimate committed changes (two gate repairs, one contract
+frontmatter repair) that round 8 re-pinned for D2 but not D3.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D, capability `culture-d3-acceptance`) | D3 capability unadmitted (round 7 closed failed) → `assemble-culture-d3.py --check` byte-identical, `check-evidence-coupling.py --selftest` green, frozen replay exit 0 / 0 findings after legitimate re-pin; contract cross-check + 2 adversarial reviews filed | `python3 tools/assemble-culture-d3.py --check`; `python3 reports/round-9/run-validation.py` | `reports/round-9/d3/*` |
+| coverage | unchanged | 179 knowledge entries, same partitions; metadata verify sweep re-audited all frontmatter post-round-8 | `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge` | `reports/round-9/metadata/v0*.md` + audit.md |
+| operability | improved (claim O) | 0 of 7 structural gates with committed drift-pin baselines → 7/7 with expected.json baselines (both `tools/gates/expected/` and `tools/gates/frozen/<gate>/r9-pre/` layouts), battery extension validates tampered → could-not-evaluate, audit confirms zero gate behavior changes | `python3 tools/check-gate-battery.py --selftest`; `python3 reports/round-9/run-validation.py` | `reports/round-9/baselines/*`, battery extension |
+| freshness | improved (claim F, lowest non-retired) | 4 residuals unresolved after round 8 → 4/4 partial-support with 12 escalated-strategy receipts (primary/museum, scholarly fulltext, alternate angle) + 3 verifier reports + spot-check audit; raw labels preserved apart | `python3 reports/round-9/run-validation.py` | `reports/round-9/freshness/*` |
+| calibration | improved (unclaimed observation) | Reconciliation carries flat raw label next to reconciled disposition with basis; 12+ named access failures documented per receipt; deeper-limit receipts name what remains unread | read `reports/round-9/freshness/reconciliation.json` | verification chain V01–V03 + audit.md |
+| adjacency | unchanged (with conformance defect) | Two out-of-lane writes occurred (fleet-root `reports/round-9/metadata/v09-myth.md`, fleet-root junk PDF) and were swept/remediated by the orchestrator; scope defect recorded, X03 check missed it; L0 contract-digest question still open | `reports/round-9/adjacency.md` | fleet round notes; remediated in commit |
+
+Admission: F/O/D all verify, no axis harmed. Conformance defects recorded:
+(1) two out-of-lane worker writes, remediated by orchestrator sweep;
+(2) `/tmp` inode exhaustion (100%) hit ≥5 shards — workers adapted with
+in-lane scratch; operator cleanup decision pending (L0).
+
+Capabilities addendum (round 9):
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| culture-d3-acceptance | D3 packet regenerates byte-identical; evidence-coupling green; frozen expectation replays clean | `python3 tools/assemble-culture-d3.py --check`; `reports/round-9/d3/replay.md` | round 9 |
+
 ## Planned
 
-- Round 8 admitted (above). Next: round 9, loop 1 build 2 of 4 — one 64-worker
-  swarm on the next opencode-go key lane. Candidate claims: D3 packet
-  acceptance completion (the unadmitted round-7 O debt, without re-dispatching
-  round 7), residual freshness rows (4 unresolved), per-gate `expected.json`
-  baselines.
+- Round 9 admitted (above). Next: round 10, loop 1 build 3 of 4 — one 64-worker
+  swarm on the next opencode-go key lane. Candidate claims: coverage expansion
+  of the thin domain partitions with sourced entries (deferred from round 9),
+  corpus README gap-index update, open D2/D3 review findings.
 - Operator regimen 2026-10-17 (supersedes the older rounds 8–10 mapping;
   recorded in LOG.md): 3 loops × 7 rounds = lane rounds 8–28. Per loop:
   4 build rounds (one 64-worker swarm each, `opencode-go/deepseek-v4.1-flash`,
