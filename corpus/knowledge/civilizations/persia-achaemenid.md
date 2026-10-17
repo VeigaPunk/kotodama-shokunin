@@ -165,3 +165,25 @@
 - Sparse chronicles do not license importing the Shahnameh, Sasanian religious institutions, or modern ethical diagrams to fill Achaemenid gaps. Date each comparator explicitly — the Shahnameh as an epic completed in 1010 CE, Sasanian institutions as 3rd–7th-century CE, modern ethical diagrams as 19th–20th-century reception — and keep any uncertain connection open rather than settled.
 - Reference limits remain explicit: detailed non-elite dress, regional oral myth cycles, and a complete office hierarchy are not reconstructed here. A specific garment name, divine identification, phonetic reconstruction, or route speed needs its own witness before being treated as historical fact.
 - Stop at the evidence boundary: retain competing readings, give the relevant source/siglum, and hand the design choice to lore-shokunin. This entry supplies coupled method and reference knowledge only.
+
+## Round 6 access-status erratum — Old Persian administrative isolate (2026-10-17)
+
+The earlier inability to retrieve ARTA 2007.001 is preserved as access
+history, not the current status of that witness. Worker 09, reviewer 15
+and the parent each retrieved Stolper and Tavernier's published paper via
+[its HTTP PDF URL](http://www.achemenet.com/document/2007.001-Stolper-Tavernier.pdf).
+The parent's 1,242,395-byte copy has SHA256
+`c7664821696a92d968b8000bdd9ae0b61020680023f3eb29e7bb7d59f79a59f8`.
+The quotation beginning “What is extraordinary” is on **PDF/printed page 9**,
+not the worker ledger's page 5–8 range. It identifies an administrative
+Old Persian text while explicitly saying that it may not demonstrate
+general use. Fort. 1208-101 is therefore a bounded counterexample to a
+strict display-only rule, not evidence for empire-wide everyday speech.
+
+This access update does not newly verify Behistun across its three
+versions, Hallock's pages, or every subject population's language. Keep
+monumental authorization, archive transactions and household speech as
+separate variables. The source ledger remains unchanged; the corrected
+locator and partial-support disposition are separate in
+`reports/round-6/parent-reconciliation.json` (R6-09-A), with parent check P05
+in `reports/round-6/parent-source-spotchecks.json`. No raw PDF is published.

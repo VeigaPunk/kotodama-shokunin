@@ -192,3 +192,23 @@
 - Universal color keys, literal cosmic-frequency physics, and “all gods are secretly one pan-cultural archetype” are not established by the cited passages. Identify any such move as designer invention, not recovered indigenous science.
 - No consultation with living practitioners is claimed. A public text or bibliography does not establish cultural permission; restrict imitation where sacred access or representation is at issue, and preserve regional/community attribution.
 - Recheck against a named edition, school, section, and translation before using any `(to-verify)` detail; preserve disagreements rather than silently resolving them into lore canon.
+
+## Round 6 source erratum — Gobhila timing and textual mediation (2026-10-17)
+
+This appended clarification narrows the earlier naming paragraph's phrase
+“ten nights or later”; it does not erase that paragraph or its access history.
+Oldenberg's SBE 30 (1892), Gobhila II.8.8, gives three named alternatives:
+**ten nights, a hundred nights, or one year** after birth. Do not turn that
+list into permission for any arbitrarily later date. The parent re-fetched
+[the exact 20231003011254 capture](https://web.archive.org/web/20231003011254/https://sacred-texts.com/hin/sbe30/sbe30020.htm)
+of the cited chapter, including §§12, 14–16 and footnote 58:14.
+
+The note to §14 explicitly emends *dîrghâbhinishthânântam* to
+*dîrghâbhinishtânântam*. The English grammatical labels and naming rules
+remain Oldenberg's rendering of this school's prescription; Sanskrit and
+the parallel schools were not independently inspected. Neither the naming
+rule nor its timing becomes universal ancient practice. The same round's
+Śatapatha check preserves ground skins versus the attached horn and treats
+Kāṇva attachment details as Eggeling's footnote report, not a first-hand
+Kāṇva reading. See `corpus/lessons/round-6-sources/13.json` and parent checks
+P01/P03 in `reports/round-6/parent-source-spotchecks.json`.

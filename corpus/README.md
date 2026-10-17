@@ -223,6 +223,19 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   see `reports/round-5/parent-reconciliation.json` before using the new
   ledgers. Historical markers and access limits remain, not deleted to buy
   freshness. The round-5 phonetics erratum corrects bibliography only.
+- Round 6 adds 24 fixed questions across twelve existing earlier-reference
+  entries, with twenty qualifying main passages across eleven entries and
+  five parent passage checks across four entries. This is not a claim to
+  have verified twelve civilizations or all earlier history. Conservative
+  dispositions are nine scoped-support, eleven partial-support and four
+  unresolved (R6-02-A/B, 05-B, 07-A); the latter mains are tertiary relays
+  without the requested directly inspected scholarly/dated-object leg.
+  Compound-claim and unread-original limits remain in
+  `reports/round-6/parent-reconciliation.json`. Reproduce the bounded counts
+  with `python3 reports/round-6/run-validation.py`; parent receipts are
+  separate from raw worker labels. Appended Vedic timing and Persian
+  access/locator errata preserve the original entry bytes. None of the
+  fifteen older round-5 residuals is closed by these different questions.
 - `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv`
   now verifies gate/input/output digests and reproduces seven historical
   verdicts. The separate per-gate `expected.json` layout required by the

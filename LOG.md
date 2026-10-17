@@ -2584,3 +2584,121 @@ closure signal. On a new session, resume existing round-6 evidence first,
 then round 7 Flash MAX/16, rounds 8–9 OpenCode Go DeepSeek Flash/32–64,
 and finally round 10 exact Grok 4.7 xhigh fast/128 AFTER DeepSeek. Extra
 checkpoint/report commits do not satisfy the ten-round completion count.
+
+## 2026-10-17 — round 6 final integration: bounded freshness admitted
+
+This entry supersedes only the pending acceptance state of the earlier
+round-6 checkpoint; its bytes, worker ledgers and reviews remain historical.
+Baseline stays `030c3928de74ed514853bc1f7490e0f8bb4d451f`; raw evidence is pinned
+at checkpoint `104aa54c737d79c5df1382f65d578b61cbf831f2`. There was **no second
+round-6 swarm**. The one actual Z.ai Flash MAX batch returned sixteen
+workers plus three same-identity review continuations, as already recorded.
+
+The parent now records five actual successful non-bibliographic re-fetches
+in `reports/round-6/parent-source-spotchecks.json`: Śatapatha III.2.1,
+Louvre E 12026 technical fields, Gobhila II.8, UT Hittite Lesson 2 and
+Stolper/Tavernier ARTA 2007.001. Four native page checks were repeated during
+integration; the downloaded ARTA PDF and page boundaries were inspected,
+with size 1,242,395 and SHA256
+`c7664821696a92d968b8000bdd9ae0b61020680023f3eb29e7bb7d59f79a59f8`.
+Its quotation is on PDF/printed **page 9**, correcting the worker locator
+separately. The Gobhila archive wildcard resolves to exact capture
+`20231003011254`; the parent reads its three timing options and explicit
+translator emendation. Failed/oversized/404 retrievals are separately
+retained and never count as successful checks.
+
+`parent-reconciliation.json` preserves all 24 raw supported labels and
+18-whole/six-partial worker scopes, then applies the strict main-source rule:
+**nine scoped-support / eleven partial-support / four unresolved**. The four
+tertiary mains R6-02-A, 02-B, 05-B and 07-A are not inspected originals and
+do not enter the threshold. Partial assertions can carry substantive
+passages without resolving every conjunct. UT teaching text and BMCR
+review are normalized to secondary-scholarly; the Science Advances main
+kind remains peer-reviewed. Wikipedia-embedded classical quotes remain
+tertiary-mediated, and Taube's deposited abstract prose is not surrounding
+metadata or unseen full-article content. All readings/reviews remain
+author-side; five parent checks are not twenty independent confirmations.
+
+The originally declared command, `python3 reports/round-6/run-validation.py`,
+is now implemented and its first actual run exits **0**. Claim **F verifies**:
+zero pre-round source rows/checks → **24 fixed questions across twelve
+entries; twenty distinct eligible main passages across eleven entries;
+five distinct parent URLs/checks across four entries**. The unchanged
+minimums are 24 rows, six distinct relevant passages across four entries,
+and three parent non-bibliographic re-fetches. Exactly twenty distinct main
+URLs contribute; optional corroborations never inflate this count. The
+receipt carries all normalized URL/locator/excerpt keys and nine passing
+in-memory negative controls. Source relevance is a recorded reading judgment,
+not a machine certification of historical truth.
+
+The runner preserves **497 checkpoint files byte-identically**, six named
+append-only prefixes, and two explicitly editable bookkeeping files. All
+twelve baseline entry hashes still bind the original bytes; only Vedic and
+Persian entries gain appended errata. The first clarifies 10 nights / 100
+nights / one year instead of arbitrary later timing; the second updates the
+ARTA access status and locator without universalizing Old Persian use.
+SKILL gains five bounded source-to-system constraints; corpus/README names
+the remaining frontier. Original source/gate/example/report bytes are not
+rewritten to manufacture a pass, and no raw downloads are published.
+
+Prior round-5 acceptance passes in a disposable child-scratch copy, not by
+overwriting its original receipt. It replays both round-3 manifests at 7/7,
+runs seven legacy gate selftests through the isolated battery, keeps craft
+10/10 domain and 18/18 CLI controls green, and preserves **twenty expected
+D2 findings**. The same craft and battery SHA256 pins remain
+`b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5`
+and `077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67`.
+The historical checkpoint checker is not altered; its exact-byte-equality
+contract applies to its checkpoint tree, not these legitimate appended
+knowledge errata. Final clean-export checks follow before publication.
+
+Every axis, no scalars:
+- **Freshness improved (declared F):** the fixed passage/refetch threshold
+  passes by the original counting command above and `validation.json`.
+- **Calibration improved (unclaimed):** conservative 9/11/4 dispositions,
+  accurate mediators, archive pin and page-9 correction replace whole-label
+  inflation without changing raw evidence. Same command and reconciliation.
+- **Depth unchanged:** five bounded decision rows, but the same executable
+  culture tasks; no new end-to-end miniature-culture success claimed.
+- **Coverage unchanged:** inventory command in SCORECARD still returns 179
+  entries in six partitions (16/16/16/24/13/94), not universal earlier-history
+  coverage. Marker inventory stays 592 raw lines / 598 raw occurrences,
+  600 case-insensitive and 568 parenthesized occurrences.
+- **Operability unchanged:** round-local acceptance/count controls are not
+  a new general scholarship gate; old domain executables and examples stay
+  identical and prior acceptance passes in isolation.
+- **Adjacency unchanged:** no lore receipt, world-bible/canon decision,
+  permission or promotion; same handoff checks and province boundary.
+
+Author-side admission: **F verifies and no tested axis is harmed**. The
+fifteen round-5 residuals remain unresolved; these twelve earlier-reference
+entries are different work, and this round still has eleven partial and
+four unresolved questions. Worker outside-write deviations and the separate
+unfixed CLI/provider-400 investigation remain disclosed in the checkpoint;
+no scope history or model-switch success is retrospectively fabricated.
+Commit final integration first under the lane identity, append the final
+outcome to the filed checkpoint report citing that real work HEAD, commit
+the report last, then push and verify remote equality. Rounds 7–10 remain
+pending; extra checkpoint/integration/report commits are not extra rounds.
+
+### Round 6 final instrument review and historical replay
+
+The existing critic identity `agent-487` performed a further read-only
+continuation on the final counting instrument and parent receipts. This
+is a fourth review continuation after the three in the frozen checkpoint
+`dispatch.json`, not another batch or a replacement worker. It reproduced
+24/12, 20/11, five parent URLs/four entries, 9/11/4 dispositions, nine
+negative controls, 497/6/2 preservation and the request digest in memory,
+without rewriting validation.json, and returned **no blocking findings**.
+Its nonblocking notes and review limits are preserved in `outcome.json`.
+The instrument's reviewed SHA256 is
+`c53f100927b8723bea25eeaa06048ace68fdfa3e763811a64e1104323e535c6e`;
+commit and report must bind these actual bytes rather than trusting a
+self-written hash alone.
+
+Separately, a clean `git archive` export of checkpoint
+`104aa54c737d79c5df1382f65d578b61cbf831f2` reran the unmodified historical
+`check-checkpoint.py` to exit 0: 468 historical files unchanged and
+round6_admission=pending, exactly its original contract. The current
+historical receipt was untouched. That reproducible pending state and
+the later final F pass are different snapshots, not contradictory labels.

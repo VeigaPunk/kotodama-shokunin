@@ -94,3 +94,54 @@ independently established. No raw downloaded works or duplicate scratch
 experiments are published. The separate CLI empty-assistant 400 was only
 investigated: no serializer, configuration or installed-binary fix has been
 made. A new main-session model selection must not be described as that fix.
+
+## Final Gate addendum (2026-10-17)
+
+The checkpoint above is historical. Parent integration now supplies the
+previously missing `parent-source-spotchecks.json`,
+`parent-reconciliation.json` and the originally declared
+`python3 reports/round-6/run-validation.py`. The first actual run exits 0:
+F passes with **24 fixed rows / twelve entries**, **twenty distinct eligible
+main passages / eleven entries**, and **five distinct parent source checks /
+four entries**. The unchanged thresholds remain exactly 24 rows, at least
+six distinct passages across four entries, and at least three parent
+non-bibliographic re-fetches. No new round-6 swarm was dispatched.
+
+Raw worker labels remain 24 supported, 18 whole and six partial. The parent
+uses one strict main-source rule and reports **nine scoped-support,
+eleven partial-support and four unresolved**. Scoped support is bounded to
+the cited attribution or object statement, not an entire culture. The four
+tertiary mains remain visible but do not enter F's passage count;
+corroborations also do not inflate it. A partial recheck can contribute a
+substantive passage without becoming a whole compound confirmation.
+
+Parent's five checks read the Louvre technical fields, UT Hittite lesson,
+Gobhila naming chapter, Śatapatha consecration chapter and ARTA paper.
+The Gobhila wildcard is resolved to capture `20231003011254`. ARTA's key
+quotation is corrected to page 9 separately from the frozen worker ledger.
+The original entries retain their bytes with appended errata; the Vedic
+erratum preserves the three timing alternatives and translator emendation.
+The five source-to-system rows in SKILL turn those readings into bounded
+design constraints rather than a new recovered wardrobe or language.
+
+The acceptance instrument rejects nine in-memory defects: missing/changed
+fixed questions, no eligible passages, duplicate-key inflation, only two
+parent checks, unpinned archive, tertiary relabelling, missing parent excerpt
+and metadata-as-content. These controls test the counting boundary, not
+quotation truth. Previous round-5 acceptance runs only in a disposable copy
+and passes, including seven gate selftests, both round-3 manifest replays
+and the same twenty expected D2 findings. Historical receipts, raw source
+ledgers, reviews, gates and examples remain unchanged. The old checkpoint
+checker belongs to its checkpoint tree; do not rerun it on legitimate new
+entry errata and interpret its byte-equality rejection as failed history.
+
+Every-axis judgment: **freshness improved (F)**; **calibration improved
+(unclaimed, scoped reconciliation/kind/locator repairs)**; depth, coverage,
+operability and adjacency **unchanged**. There are still 179 knowledge
+entries in six partitions; no new whole-culture task or general gate is
+claimed. No tested axis is harmed, so the measurable round is admitted by
+the author, not promoted by an independent verifier. The fifteen round-5
+residuals, eleven partial round-6 assertions and four unresolved round-6
+questions remain a visible frontier. The final filed report must append to
+its checkpoint bytes after the carrying work commit, then land and push
+last under the lane identity.

@@ -160,3 +160,18 @@ general culture or scholarship-certification gate.
 | A smaller avoidance vocabulary can express the same content | Model many-to-one paraphrase and register-triggered use, not one native synonym for every ordinary word | Haviland's Dixon quotation, SR-REG-07; parent spotchecks distinguish secondary quotation from unread primary pages |
 | An earlier thesis supports parts of a later-book attribution | Carry version and passage scope into the design source ledger; do not merge editions into one verified claim | TIB-A12/A16 in `reports/round-5/parent-reconciliation.json` |
 | A venue record corrects a phonetics citation | Repair the bibliography without treating that correction as support for an era-to-anatomy causal rule | PHON-A11 and appended erratum in `corpus/knowledge/linguistics/phonetics-phonology.md` |
+
+## Source-to-system constraints — round 6
+
+| Retrieved evidence | Worldbuilding decision | Scope and pointer |
+|---|---|---|
+| UT Lesson 2 spells IṢ-BAT as an Akkadogram but gives the Hittite reading ēpta | Store written form, reading language, copy horizon and cult provenance separately; a borrowed sign does not determine spoken language or deity genealogy | R6-05-A, parent P04; `reports/round-6/parent-reconciliation.json` keeps Hattic affiliation legs partial |
+| Louvre E 12026 is catalogued as pleated linen before the New Kingdom | Reject an exclusively New Kingdom pleating date-marker for this object; require a separate pattern/technique witness before reconstructing its cut | R6-03-B, parent P02; museum technical fields and excavation-context attribution, not independent re-dating |
+| Gobhila II.8.8 names ten nights, a hundred nights or one year; §14 has a translator's emendation | Model discrete school-specific timing options and keep grammatical labels edition-bound; do not implement an arbitrary “any time after ten nights” rule | R6-13-A, parent P03; exact capture and appended `india-vedic.md` erratum; Sanskrit and parallel schools unread |
+| Śatapatha III.2.1 spreads skins on the ground but attaches a horn to a garment | Give ritual surfaces and worn attachments separate slots; attach school variants to their reported witnesses instead of merging a universal cloak | R6-13-B, parent P01; Kāṇva detail is Eggeling's footnote report, not an independently read recension |
+| ARTA 2007.001 p. 9 describes a practical Old Persian administrative isolate and limits generalization | Allow an attested exception to a display-only register rule without turning it into general everyday usage; distinguish royal display, transaction and household language | R6-09-A, parent P05; appended `persia-achaemenid.md` erratum; Behistun cross-version and Hallock legs remain partial |
+
+Re-run this round's receipt/count/preservation checks with
+`python3 reports/round-6/run-validation.py`. The five parent readings are
+separate from the twenty qualifying worker main passages; neither count
+certifies whole cultures, ancient pronunciation or cultural permission.

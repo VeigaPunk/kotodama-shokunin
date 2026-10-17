@@ -2,10 +2,11 @@
 
 Axes: depth, coverage, operability, freshness, calibration, adjacency
 (fleet `AXES.md`). Rounds 1–4 retain their historical records, including
-rejected rounds 2 and 4. Round 5's author-side admission is recorded below;
-its report lands after the work commit. The OpenCode Go supplement is
-additional work, not one of the three authorized Z.ai Flash rounds. No fleet
-closure, promotion or retrospective schedule-compliance repair is claimed.
+rejected rounds 2 and 4. Rounds 5 and 6 have author-side admission tables
+below; each final report lands after its work commit. The OpenCode Go
+supplement is additional work, not one of the three authorized Z.ai Flash
+rounds. No fleet closure, promotion or retrospective schedule-compliance
+repair is claimed.
 
 The old 0–10 estimates had no reproducible mapping from evidence to score.
 They remain historical in Git, not new numeric claims. This table records
@@ -51,38 +52,40 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | isolated gate battery | Standalone copied-tree seven-gate runner; stable failure versus could-not-evaluate mapping, byte/path preservation checks and ten controls | `python3 tools/check-gate-battery.py`; `--selftest`; `reports/round-5/battery-mutation.json` | round 5 |
 | bounded typed craft CLI | Six original malformed controls and reviewed nested/argument cases return exit 2 without tracebacks; genuine findings still exit 1 | `python3 tools/check-craft-exercise.py --selftest` (10 domain + 18 CLI); actual calls in `reports/round-5/validation.json` | round 5 |
 
-## Round 6 development checkpoint — not admitted (2026-10-17)
+## Axes — round 6 final integration (2026-10-17)
 
-Baseline: `030c3928de74ed514853bc1f7490e0f8bb4d451f`. One actual Flash MAX
-batch returned 16/16 workers; all three existing-worker review continuations
-also completed. Twelve source fragments now hold 24 fixed question rows.
-Re-run `python3 reports/round-6/check-checkpoint.py` for the mechanical
-checkpoint counts and isolated previous-acceptance check; its receipt is
-`reports/round-6/checkpoint-validation.json`. This is NOT the declared F
-admission command, and no round-6 capability or final axis move is claimed.
+Baseline: `030c3928de74ed514853bc1f7490e0f8bb4d451f`. The original F claim
+and thresholds in `reports/round-6/claims.json` are unchanged. One actual
+Flash MAX batch returned 16/16; its three same-identity review continuations
+are not additional swarms. Parent reconciliation is separate from the
+frozen raw ledgers at `104aa54c737d79c5df1382f65d578b61cbf831f2`.
 
-| observable | before → checkpoint | counting command / limit |
-|---|---|---|
-| source-question rows | 0 → 24 rows across 12 entries | `python3 reports/round-6/check-checkpoint.py`; exact IDs/schema/hashes, not historical truth |
-| returned workers | 0 → 16/16, one actual batch | same command; `reports/round-6/dispatch.json`; continuations are not extra swarms |
-| raw passage candidates | 24 distinct main-row keys; 20 non-tertiary candidates across 11 entries | same command; relevance/scope reconciliation still pending |
-| worker labels | 24 supported, of which 18 whole / six partial | same command; NOT 24 parent-confirmed whole claims |
-| historical preservation | 468 baseline files unchanged; previous acceptance passes in a disposable copy | same command; tested code digests in receipt |
-| admission and every-axis judgment | pending, not a pass | original `python3 reports/round-6/run-validation.py` is not yet implemented; do not replace its thresholds with checkpoint success |
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | unchanged | Same executable culture tasks and twenty D2 findings; five bounded source-to-system rows added, not a new whole-culture demonstration | `python3 reports/round-6/run-validation.py`; `python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json` | Prior acceptance green in a disposable copy; `SKILL.md` round-6 table |
+| coverage | unchanged | 179 → 179 knowledge entries, same six partitions 16/16/16/24/13/94; twelve existing entries audited, not twelve newly verified civilizations | `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`; `python3 reports/round-6/run-validation.py` | `validation.json` inventory; civilization partition remains 92 bases plus two source maps |
+| operability | unchanged | Old code/examples byte-identical; round-local acceptance and nine count-boundary negative controls added without claiming a new general gate | `python3 reports/round-6/run-validation.py` | Seven legacy gate selftests pass; both round-3 manifests 7/7; craft 10/10 domain + 18/18 CLI; previous acceptance true |
+| freshness | improved (claim F) | Zero round-6 rows/checks → 24 fixed rows / twelve entries, twenty distinct eligible main passages / eleven entries, five parent source checks / four entries | `python3 reports/round-6/run-validation.py` | F true; unchanged 24-row / ≥6-passage / ≥4-entry / ≥3-parent thresholds; normalized key list and receipts in `validation.json` |
+| calibration | improved (unclaimed observation) | Raw 24 supported / 18 whole / six partial preserved → nine scoped-support / eleven partial-support / four unresolved; archive pin, page-9 locator and two main mediator-kind corrections recorded apart | `python3 reports/round-6/run-validation.py` | `parent-reconciliation.json`, `parent-source-spotchecks.json`; five parent checks are not twenty independent whole confirmations |
+| adjacency | unchanged | Same province and handoff boundary; no lore receipt, cultural clearance, canon or promotion | `python3 reports/round-6/run-validation.py`; `python3 tools/gates/handoff-packet-check.py examples/handoff-packet.sample.md` | Prior acceptance and preserved handoff example; `SHONEN.md` remains author-asserted |
 
-Round 5 remains the last admitted axis table above. Resume from
-`reports/round-6/checkpoint.json`: persist three parent source re-fetches,
-reconcile whole-to-partial candidates and source kinds, pin the Vedic
-archive capture, implement the original acceptance instrument, and only
-then judge all six axes. The lesson records candidates and pending Gate;
-the checkpoint report is filed after its carrying work commit. No fleet
-closure or promotion follows from saving this partial work.
+Author-side admission: F verifies and no tested axis is harmed. The
+acceptance command checks recorded relevance, schema, count boundaries,
+preserved history and actual regressions; it is not a historical-truth or
+cultural-authenticity oracle. Tertiary mains and optional corroborations do
+not enter the twenty-passage count. Fifteen older round-5 residuals remain
+unresolved; round 6 still has eleven partial and four unresolved questions.
+
+The historical checkpoint state is preserved in `checkpoint.json`,
+`checkpoint-validation.json`, the first 96 lesson lines and the first 142
+filed report lines. `check-checkpoint.py` is unmodified and applies to the
+checkpoint tree, not the later legitimate append-only entry errata. The
+final report outcome appends after the carrying work commit and lands last.
 
 ## Planned
 
-- Round 6 has ALREADY dispatched its sole 16-worker Z.ai Flash MAX batch;
-  finish integration and acceptance, do not re-dispatch it. Round 7 alone
-  still needs its 16-worker batch through native alias
+- Round 6 has finished its existing batch's author-side acceptance; do not
+  re-dispatch it. Round 7 still needs its sole 16-worker batch through
   `zai-coding-plan/glm-5.3-flash-low` (legacy name, documented MAX thinking).
   This follows the explicit operator amendment, not a silent substitution.
 - Pending rounds 8–9 use OpenCode Go DeepSeek v4.1 Flash, 32–64 workers per
