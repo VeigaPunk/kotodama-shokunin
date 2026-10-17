@@ -1,54 +1,61 @@
 # kotodama-shokunin — SCORECARD
 
-Axes per fleet `AXES.md` (depth, coverage, operability, freshness,
-calibration, adjacency). Every score is a claim: it carries the counting
-command and the commit it was measured against.
+Axes: depth, coverage, operability, freshness, calibration, adjacency
+(fleet `AXES.md`). The supplemental OpenCode Go wave is additional work,
+not one of the three reserved non-flash Z.ai rounds. Four numbered rounds
+are recorded so far; their historical admission decisions are not rewritten.
 
-## Axes
+The old 0–10 estimates had no reproducible mapping from evidence to score.
+They remain historical in Git, not new numeric claims. This table records
+per-axis verdicts and independently checkable observations instead; defining
+a calibrated numeric rubric remains an explicit protocol-conformance gap.
+A raw file or marker count is not a quality score.
 
-| axis | score | evidence | counting command | measured against |
+## Axes — supplement-opencode-1
+
+Measured baseline: `fe34faaafbe0add59ff68827a0df6c5782a72404`. Delivered-tree
+commands and results are persisted in
+`reports/supplement-opencode-1/validation.json`; the filed lane report names
+the carrying work commit. Source verdicts are worker observations except
+for the five parent re-fetches recorded in `parent-source-spotchecks.json`.
+
+| axis | verdict | observation | re-run command | measured evidence |
 |---|---|---|---|---|
-| depth | 6→7 | round 3: D2 culture built end-to-end from corpus; 15/15 components, gates graded, frozen outputs | `ls examples/culture-d2/components/*.yml \| wc -l` = 15; `test -f tools/gates/frozen/round-3/MANIFEST.tsv` | round-3 commit 2026-10-17 |
-| coverage | 6→7 | round 4: 179 entries (africa landed); README regen; 17 audit reports | `find corpus/knowledge -name '*.md' \| wc -l` = 179 | round-4 commit 2026-10-17 |
-| operability | 3→5→6 | rounds 1+3: 6 gates + deterministic merger + sha256-pinned frozen-run manifests | `ls tools/gates/*.py \| wc -l` = 6; `for g in tools/gates/*.py; do python3 $g --selftest; done` all exit 0 | round-1 commit 2026-10-17 |
-| freshness | 1→4 | rounds 1–3: 1258 → 612 raw sum (policy mentions inflate; 9 direct-resolved round 3); 5 civ files carried to round 5 | `grep -rc 'to-verify' corpus/knowledge --include='*.md' \| awk -F: '{s+=$2} END {print s}'` = 612 (raw) | round-3 commit 2026-10-17 |
-| calibration | 6 | every entry carries a calibration section; 983+ basis-carrying triage decisions; round-4 target-setting fallacy named (orchestrator-owned) | `grep -h 'CONFIRM\|DOWNGRADE\|EXCISE' corpus/lessons/round-1-triage/*.md \| wc -l` = 983 | round-1 commit 2026-10-17 |
-| adjacency | 4→5 | round 2: executable handoff path — sample packet passes the contract gate 16/16; L0 filed | `python3 tools/gates/handoff-packet-check.py examples/handoff-packet.sample.md` exit 0 | round-2 commit 2026-10-17 |
+| depth | improved (unclaimed observation) | D2 PAN-03 now derives as `huma + weha`; one genuine coda violation removed; nine-derivation non-canon contrast exercise runs | `python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --counts` | `reports/supplement-opencode-1/04-name-correction.md`, `validation.json` |
+| coverage | unchanged | 179 knowledge entries, six partitions, 94 civilization-partition entries including two primary-source maps; index omission corrected, not a new civilization | `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge` | inventory reports 179 files; `corpus/README.md` |
+| operability | improved | Assembler selftest and deterministic check pass; all seven round-3 frozen verdicts replay; seven original gate selftests pass in isolation | `python3 tools/assemble-d2.py --selftest`; `python3 tools/assemble-d2.py --check`; `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv` | `reports/supplement-opencode-1/validation.json`; immutable round-3 manifest |
+| freshness | improved | 148 assigned claim rechecks across 13 entries: 118 supported, 10 contradicted, 20 unresolved; five parent passage checks; old corpus bytes preserved under dated errata | `python3 -c 'import json,pathlib,collections; ns="ottoman slavs sogdian tibet turkic africa mesoamerica color kinship orality phonetics registers lexicon".split(); c=collections.Counter(a["verdict"] for n in ns for a in json.loads((pathlib.Path("corpus/lessons/supplement-opencode-1/sources")/(n+".json")).read_text())["audits"]); print(dict(c),sum(c.values()))'` | assigned JSON ledgers; `reports/supplement-opencode-1/parent-source-spotchecks.json` |
+| calibration | improved | Historical round-4 findings 21, not 24; audit reports 16, not 17; line/occurrence units and unresolved scholarship separated | `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`; `python3 -c 'from pathlib import Path; print(sum(l.startswith("FINDING ") for p in Path("tools/gates/frozen/round-4").glob("*.out") for l in p.read_text().splitlines()),len(list(Path("corpus/lessons/round-4-audit").glob("*.md"))))'` | baseline 590 marker-bearing lines; delivered counts in validation; appended LOG correction |
+| adjacency | unchanged | Handoff envelope checker still sees 16 fields and 20 glossary entries, exit 0; no lore receipt or cultural clearance claimed | `python3 tools/gates/handoff-packet-check.py examples/handoff-packet.sample.md` | `reports/supplement-opencode-1/25-handoff-boundary.md`, validation |
 
 ## Capabilities
 
-| name | what it can now do | evidence | first-working round |
+| name | demonstrated behavior | command / evidence | first working |
 |---|---|---|---|
-| corpus indexing | generate corpus/README.md from per-entry topic lines | corpus/README.md (176 entries indexed) | mint (operator dispatch) |
-| provenance screening | enforce cited-source + to-verify + calibration discipline across batch authorship | 1258 flags + QUALITY.md bar | mint (operator dispatch) |
-| phonology sanity verdict | grade a culture packet's sound system vs typology tables | tools/gates/phonology-sanity-gate.py --selftest green | round 1 |
-| lexicon coverage verdict | grade semantic-field coverage + derivation discipline | tools/gates/lexicon-coverage-audit.py --selftest green | round 1 |
-| myth consistency verdict | grade pantheon/motif/symbol coherence | tools/gates/myth-consistency-gate.py --selftest green | round 1 |
-| costume-era consistency verdict | grade material/rank/era costume coherence | tools/gates/costume-era-consistency-gate.py --selftest green | round 1 |
-| naming collision verdict | grade name uniqueness/pronounceability/derivation | tools/gates/naming-collision-gate.py --selftest green | round 1 |
-| corpus provenance verdict | grade entry headers/sources/calibration + flag counts | tools/gates/provenance-audit.py --selftest green | round 1 |
-| culture packet assembly | deterministically merge culture components into a gate-readable packet | tools/assemble-d2.py --check exit 0; frozen/round-3+4 MANIFEST runs | round 3 |
-| entry apparatus audit | header/calibration/flag-basis checks across all corpus entries | corpus/lessons/round-4-audit/ (17 reports) | round 4 |
-| end-to-end culture build | design a full miniature culture from corpus tables and grade it with the gate battery | examples/culture-d2/ASSEMBLY.md; 7 frozen runs | round 3 |
-| to-verify triage | resolve provenance flags with CONFIRM/DOWNGRADE/EXCISE ledgers | corpus/lessons/round-1-triage/ (42 fragments, 983 decisions) | round 1 |
-| handoff packet verdict | grade a world-bible handoff packet against the integration contract (envelope, canon hygiene, glossary etymologies) | tools/gates/handoff-packet-check.py --selftest green; exit 0 over examples/handoff-packet.sample.md | round 2 |
+| structural domain checks | Phonology, lexicon, myth, costume, naming and provenance verdicts on their supplied inputs; coverage limitations retained | `tools/gates/*.py --selftest`, seven isolated legacy selftests | round 1 (handoff round 2) |
+| reproducible culture assembly | Source-hash-pinned D2 packet and positive/negative assembly controls | `python3 tools/assemble-d2.py --selftest`; `--check` | round 3; selftest supplement-opencode-1 |
+| frozen verdict replay | Validate snapshot/gate/output digests before re-executing pinned inputs; expected red remains red | `python3 tools/replay-frozen.py --selftest`; actual round-3 replay | supplement-opencode-1 |
+| uncertainty inventory | Deterministic lines/occurrences/marker inventory with heuristic labels, never scholarship certification | `python3 tools/source-audit-inventory.py --selftest`; `--json --summary` | supplement-opencode-1 |
+| historical source rechecks | Per-claim retrieved passages, access limits, contradictions and unresolved outcomes | 13 assigned JSON ledgers, 148 audits; five parent re-fetches | supplement-opencode-1 |
+| contrastive craft exercise | Distinguish sound law, register-limited name avoidance and borrowed garment strata across two eras | `python3 tools/check-craft-exercise.py --selftest`; `examples/supplement-opencode-1/sound-change-vs-taboo.json` | supplement-opencode-1 |
+| corpus apparatus audit | Inspect declared metadata and ledger scope without equating it to factual truth | `corpus/lessons/round-4-audit/` (16 reports), supplemental reviews | round 4 |
 
-## Planned (next rounds)
+## Planned
 
-2. Freshness: triage the remaining ~795 flags incl. the 15 carried-over
-   batches (token-plan key 3 first; chunk-read instruction from the first
-   message).
-3. Operability/depth: first end-to-end domain task executed by the lane
-   itself — a miniature culture packet built and passed through all six
-   gates (SHONEN box 2); frozen two-evidence runs per the gate standard.
-4. Depth: SKILL.md decision tables deepened from synthesis/ + gap closure
-   per corpus/README.md frontier.
+- Preserve the requested three non-flash `zai-coding-plan/glm-5.3` rounds,
+  16 workers each; the OpenCode Go wave does not substitute for them.
+- Then the requested Grok 4.7 xhigh fast 128-worker wave, only if its exact
+  native route is available; no silent model or provider substitution.
+- D2 needs typed translated-label/native-form handling, scoped era/material
+  reconciliation and an executable rank-rule adapter. A green partial
+  schema check is not whole-culture verification.
+- Fix legacy parser/regex and fixture-rewriting defects documented in
+  supplemental reviews 26 and 29; add isolated negative controls.
+- Corpus metadata (`source`, `verified-at`, `recheck`), per-gate
+  `expected.json` baseline layout, and a reproducible numeric axis rubric
+  remain conformance debts. Do not claim promotion or fleet closure.
 
-## Saturation
+## Saturation and retired axes
 
-Saturation line: score 8 on any axis. Stagnation window: 3 rounds without
-a capability row.
-
-## Retired
-
-None.
+No retirement. Legacy saturation line 8 and stagnation window 3 remain
+historical policy; the nudge is not invoked without calibrated scores.

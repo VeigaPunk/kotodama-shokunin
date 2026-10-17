@@ -125,3 +125,21 @@ Additional verification:
 - Era names, stage tags, 08's E1-E4 local labels, and 12's era-1..3 are not treated as interchangeable. Numeric CE dates are unavailable. No dated costume process is claimed, so removing the inappropriate numeric field does not certify any absolute anachronism check.
 - Missing reviews: `reviews/03-morphosyntax.md` and `reviews/13-naming.md` explicitly record **ABSENT — component not delivered** from their earlier review windows; neither reviews the delivered morphology or these new names. Those historical reviews were left unchanged. Non-author review of the final integrated packet, D1 ledger comparison, bounded real-language/cultural/legal sweep, reader-channel/whistle/connected-address trials, astronomical latitude/date verification and source scholarship checks remain outstanding. No self-check is represented as a promotion or canon approval.
 - The requested round-3 TSV/output layout is preserved, with byte-identical input copies added for integrity. It is **not** the committed per-gate `expected.json` layout prescribed by the corpus frozen-run standard. The user prohibited commits; no committed-baseline/two-evidences conformance claim is made. Only the five packet gates and two provenance inputs requested here are the measured task verdicts; `handoff-packet-check` was not requested or run.
+
+## Supplemental correction — OpenCode Go wave, 2026-10-17
+
+The preceding text describes the round-3 snapshot, not the current generated
+packet. Round 4 added explicit symbol media, reconciled the costume era tags,
+and supplied derivation rules: the current naming replay no longer has the
+eight `DERIV-HOLD` findings described above. Its committed round-4 outputs
+contain 21 total finding lines, not the 24 recorded in the old LOG summary.
+
+This supplemental wave corrects PAN-03 `Humweha` to `Humaweha` by retaining the
+full `huma + weha` concatenation; the rejected spelling remains a dated alias.
+The other non-author and cultural-clearance limits remain. See
+`reports/supplement-opencode-1/04-name-correction.md` and
+`reports/supplement-opencode-1/validation.json` for the measured current tree.
+`python3 tools/assemble-d2.py --selftest` now exercises positive and negative
+assembly paths. `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv`
+verifies historical pins and replays all seven recorded verdicts;
+reproducing a red verdict does not clear D2.

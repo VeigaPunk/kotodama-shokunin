@@ -149,3 +149,22 @@ Meter decision table:
 ## 11. Canon boundary
 
 Reference knowledge and method only. Which singers exist, what the register is called, which myths the kennings cite, which war the proverbs remember — canon decisions owned by lore-shokunin. Hand off slot tables, type-scene cards, and proverb/riddle inventories as era-anchored options, and flag every to-verify item before it approaches the bible.
+
+## Errata (append-only)
+
+- 2026-10-17 (supplement-opencode-1 source recheck; appended below the baseline
+  text, sha256 756e4321… at baseline). §5 kenning example:
+  `"whale-road" = sea (OE hronrād, The Seafarer)`. The form `hronrād` is
+  attested at *Beowulf* 10 (`ofer hronráde hýran scolde`, heorot.dk electronic
+  edition); *The Seafarer*'s corresponding sea-compound is `hwælweg`
+  ("Hweteð on [h]wælweg hreðer unwearnum", *Seafarer* 63, per
+  Bosworth–Toller s.v. `hwæl-weg`). Read the citation as hronrād
+  (*Beowulf* 10) / hwælweg (*Seafarer* 63); the gloss "whale-road = sea" stands.
+- 2026-10-17 (supplement-opencode-1 source recheck). §1 and §10, Meho figure:
+  the retrieved 1960 *Singer of Tales* text (Internet Archive scan) reads
+  "his dictated version runs to over 12,000 lines" and "the twelve
+  thousand-line dictated text of 'The Wedding of Smailagić Meho' (Parry
+  6840)"; it prints no "12,323" and does not describe one continuous
+  performance. Read "12,323 lines in one performance" as the count of the
+  dictated text, and keep the exact figure and its printed provenance
+  `(to-verify)` until the edition that prints 12,323 is checked.

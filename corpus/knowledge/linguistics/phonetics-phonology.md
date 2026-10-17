@@ -276,3 +276,35 @@ Anatomy for fictional speakers:
   now sourced (§7, sources block) — re-check them pre-canonization.
 - Natural partners: `sound-change.md` (diachrony → §5), `tone-prosody.md`,
   `sound-symbolism.md` (§8), `writing-systems.md` (orthography mismatch).
+
+## Errata — live source recheck, supplement-opencode-1 (appended 2026-10-17)
+
+Audit records: `corpus/lessons/supplement-opencode-1/sources/phonetics.json`
+(11 audited claims; 10 with retrieved passages, 1 unresolved). The corrections
+below supersede the numbers they name; the original lines stay as written.
+
+- **§6 tone-system percentages.** The line "~42% of WALS languages lack it,
+  ~33% simple tone, ~25% complex" does not match the cited chapter: WALS Online
+  ch. 13 "Tone" (Maddieson), retrieved 2026-10-17, reports 306/526 (58.2%)
+  non-tonal, 132 (25.1%) simple, 88 (16.7%) complex. Corrected reading: ~58%
+  lack tone, ~25% simple, ~17% complex. The "2-tone systems most common"
+  clause stands (simple two-way 132 vs complex 88).
+- **§2 vowel figure** ("5–6 vowel qualities modal (~45%)"): WALS ch. 2 gives
+  the 5–6 "average" category at 287/564 (~51%; five qualities alone 188, ~33%).
+  Corrected: ~51%.
+- **§2 syllable figure** ("CV(C)-type 'simple' syllable systems ~54% of 534"):
+  WALS ch. 12 samples 486 languages — 61 (~12.5%) simple (CV only), 274
+  (~56.5%) moderately complex, 151 complex (~31%). No retrieved Maddieson 2013
+  chapter carries a 534-language sample; the ~56% figure belongs to
+  "moderately complex".
+- **Unresolved, not corrected:** the sources block cites Blasi et al. (2019)
+  twice with disagreeing venues ("*Science* 366" vs "*Science* 363: eaav3218");
+  publisher and metadata endpoints were unreachable this round (HTTP 403 /
+  JSON not extractable), so neither reading is confirmed here.
+- **Rechecked with no change found:** consonant modal class 19–25 (201/563 ≈
+  35.7%, mean 22.7; wals.info/chapter/1); humidity–tone "contested" framing
+  (Roberts 2018 full text); ejectives↔altitude "mechanism argued / not
+  established" (Everett 2013; Urban & Moran 2021 full texts); Silbo Gomero
+  whistled register (UNESCO element record); tone–humidity association reported
+  by Maddieson & Benedict 2023 (Frontiers in Psychology 14:1200463 full text);
+  Rotokas six-consonant inventory (wals.info/chapter/1).

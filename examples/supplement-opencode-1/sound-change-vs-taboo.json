@@ -1,0 +1,376 @@
+{
+  "wave": "supplement-opencode-1",
+  "baseline_revision": "fe34faaafbe0add59ff68827a0df6c5782a72404",
+  "entry": "corpus/knowledge/linguistics/historical-linguistics.md",
+  "entry_sha256_before": "258350fbe09059a910caddfcbd9c1cdb5d7ef37c5e15cf202977fc26e2653dbd",
+  "checked_at_utc": "2026-10-17T15:39:50Z",
+  "entry_scope_note": "Primary entry for source rechecks (baseline hash above, measured with: git show fe34faaafbe0add59ff68827a0df6c5782a72404:<path> | sha256sum). Audits also draw on the two synthesis entries whose methodologies the exercise couples; their baseline hashes are recorded below.",
+  "secondary_entries_sha256_before": {
+    "corpus/knowledge/synthesis/taboo-euphemism-lifecycle.md": "ee606018e86f73d5501862b6194b5aaa7335e55b966761e7b5a45503af11296c",
+    "corpus/knowledge/synthesis/loanword-material-dating.md": "bb08d4585033d856aaccb6b3548cfb8ce598ad226db4648d878109b9188e6fd8"
+  },
+  "canon_status": "non-canon",
+  "exercise": {
+    "title": "Two eras, three mechanisms: regular sound change, name avoidance, and borrowed garment terms",
+    "fiction_notice": "All forms, names, roles, objects, dates, and rules below are invented design variables for a fictional world. Nothing here is a real language, rite, law, or historical event; no real ritual material is copied or reconstructed.",
+    "people": "Invented communities: 'Old Maru' speakers (Era I) and 'Late Maru' speakers (Era II); invented 'Sedrin' donor traders supply two loan strata.",
+    "eras": [
+      {
+        "id": "EraI",
+        "label": "Old Maru",
+        "years": "0-120 (invented forward calendar)",
+        "language_state": "Laws L1-L4 productive in years 40-120; proto forms still transparent.",
+        "registers": ["everyday speech", "workshop speech"]
+      },
+      {
+        "id": "EraII",
+        "label": "Late Maru",
+        "years": "320-420",
+        "language_state": "L1-L4 inert; native forms now show the outcomes; loans can arrive with unshifted donor phonology.",
+        "registers": ["everyday speech", "public rolls", "recitation register (frozen Old Maru memorized form)", "weaver guild speech"]
+      }
+    ],
+    "proto_lexicon": [
+      {"form": "tapa", "gloss": "wrap (garment)", "domain": "dress", "era": "EraI"},
+      {"form": "pata", "gloss": "shoulder sheet", "domain": "dress", "era": "EraI"},
+      {"form": "miru", "gloss": "salt", "domain": "subsistence", "era": "EraI"},
+      {"form": "mirutapa", "gloss": "salt-wrap (coarse cloth)", "domain": "dress", "era": "EraI"},
+      {"form": "salpa", "gloss": "felt", "domain": "textile", "era": "EraI"},
+      {"form": "sakra", "gloss": "loom", "domain": "textile", "era": "EraI"},
+      {"form": "saku", "gloss": "to bind", "domain": "craft verb", "era": "EraI"},
+      {"form": "kasa", "gloss": "hearth", "domain": "domestic", "era": "EraI"},
+      {"form": "kalu", "gloss": "watcher", "domain": "name element (founder's name)", "era": "EraI"},
+      {"form": "haru", "gloss": "dawn", "domain": "sky", "era": "EraI"},
+      {"form": "aku", "gloss": "the pale beast (charged term)", "domain": "feared referent", "era": "EraI"},
+      {"form": "vesava", "gloss": "ash-feeder (protective descriptor)", "domain": "replacement term", "era": "EraI"}
+    ],
+    "law_list": {
+      "order": ["L1", "L2", "L3", "L4"],
+      "ordered_before": "L4 (final-vowel loss) applies last; the two order-sensitive derivations are D5.",
+      "laws": [
+        {"id": "L1", "rule": "p -> v / V_V", "calibration": "mainstream change type (intervocalic lenition); method trace: historical-linguistics.md section 3 (regular sound change)", "productive_years": "40-120"},
+        {"id": "L2", "rule": "l -> r / V_V", "calibration": "mainstream change type (rhotacism-like); method trace: historical-linguistics.md section 3", "productive_years": "40-120"},
+        {"id": "L3", "rule": "k -> h / #_V and / V_V", "calibration": "mainstream change type (debuccalization; word-initial and intervocalic); method trace: historical-linguistics.md section 3", "productive_years": "40-120"},
+        {"id": "L4", "rule": "V -> zero / word-finally", "calibration": "mainstream change type (apocope); method trace: historical-linguistics.md section 7 steps 2-3 (ordered law list; feeding/bleeding)", "productive_years": "40-120"}
+      ]
+    },
+    "mech_expectations": {
+      "note": "Machine-checkable table for the checker: it rebuilds the law engine from law_list.order and asserts each case. 'order':'reversed' runs the consonant laws after L4 and must reproduce the listed wrong forms (order is load-bearing). 'mode':'post_laws' models a loan that entered after the window closed: no law applies.",
+      "cases": [
+        {"id": "M1", "order": "declared", "mode": "laws", "cases": {"tapa": "tav"}, "maps_to": "D1 positive"},
+        {"id": "M2", "order": "declared", "mode": "laws", "cases": {"pata": "pat"}, "maps_to": "D1 negative"},
+        {"id": "M3", "order": "declared", "mode": "laws", "cases": {"kalu": "har"}, "maps_to": "D2 positive"},
+        {"id": "M4", "order": "declared", "mode": "laws", "cases": {"salpa": "salp"}, "maps_to": "D2 negative"},
+        {"id": "M5", "order": "declared", "mode": "laws", "cases": {"saku": "sah", "kasa": "has"}, "maps_to": "D3 positive (both branches of L3)"},
+        {"id": "M6", "order": "declared", "mode": "laws", "cases": {"sakra": "sakr"}, "maps_to": "D3 negative (cluster)"},
+        {"id": "M7", "order": "declared", "mode": "laws", "cases": {"miru": "mir", "mirutapa": "mirutav"}, "maps_to": "D4 positive and negative"},
+        {"id": "M8", "order": "reversed", "mode": "laws", "cases": {"tapa": "tap", "kalu": "hal"}, "maps_to": "D5 negative (reversed order must differ from declared outputs)"},
+        {"id": "M9", "order": "declared", "mode": "laws", "cases": {"apika": "avih"}, "maps_to": "D6 pre-law loan"},
+        {"id": "M10", "order": "declared", "mode": "post_laws", "cases": {"apika": "apika"}, "maps_to": "D7 post-law loan"},
+        {"id": "M11", "order": "declared", "mode": "laws", "cases": {"vesava": "vesav", "aku": "ah", "haru": "har"}, "maps_to": "D8/D9 regular reflexes"}
+      ]
+    },
+    "derivations": [
+      {
+        "id": "D1",
+        "mechanism": "regular sound change (L1 lenition)",
+        "method_trace": "historical-linguistics.md sections 3 and 7",
+        "input": "tapa",
+        "declared_output": "tav",
+        "laws_applied": ["L1", "L4"],
+        "positive_control": {"kind": "mechanical_recompute", "assert": "derive(tapa) == tav (p -> v between a and a, then final a lost)"},
+        "negative_control": {"kind": "mechanical_recompute", "assert": "derive(pata) == pat; p is word-initial, so L1 must NOT fire"}
+      },
+      {
+        "id": "D2",
+        "mechanism": "regular sound change (L2 rhotacism feeding L3)",
+        "method_trace": "historical-linguistics.md sections 3 and 7 (feeding)",
+        "input": "kalu",
+        "declared_output": "har",
+        "laws_applied": ["L2", "L3", "L4"],
+        "positive_control": {"kind": "mechanical_recompute", "assert": "derive(kalu) == har (l -> r between a and u; then k -> h word-initially before a; then final u lost)"},
+        "negative_control": {"kind": "mechanical_recompute", "assert": "derive(salpa) == salp; l sits before p and p sits between l and a, so neither L2 nor L1 may fire"}
+      },
+      {
+        "id": "D3",
+        "mechanism": "regular sound change (L3 debuccalization)",
+        "method_trace": "historical-linguistics.md section 3",
+        "input": "saku; kasa",
+        "declared_output": "sah; has",
+        "laws_applied": ["L3", "L4"],
+        "positive_control": {"kind": "mechanical_recompute", "assert": "derive(saku) == sah and derive(kasa) == has (intervocalic branch and word-initial branch of L3 both fire)"},
+        "negative_control": {"kind": "mechanical_recompute", "assert": "derive(sakra) == sakr; k stands in the cluster k-r, so L3 must NOT fire"}
+      },
+      {
+        "id": "D4",
+        "mechanism": "regular sound change (L4 final-vowel loss, word-final only)",
+        "method_trace": "historical-linguistics.md sections 3 and 7",
+        "input": "miru; mirutapa",
+        "declared_output": "mir; mirutav",
+        "laws_applied": ["L1", "L4"],
+        "positive_control": {"kind": "mechanical_recompute", "assert": "derive(miru) == mir"},
+        "negative_control": {"kind": "mechanical_recompute", "assert": "derive(mirutapa) == mirutav; the u inside the compound is retained, only the word-final a is lost, so L4 must not delete internal vowels"}
+      },
+      {
+        "id": "D5",
+        "mechanism": "law ordering is load-bearing (feeding/bleeding check)",
+        "method_trace": "historical-linguistics.md section 7 step 2 (ordering is where chronology lives)",
+        "input": "tapa; kalu",
+        "declared_output": "tav; har",
+        "laws_applied": ["L1", "L2", "L3", "L4"],
+        "positive_control": {"kind": "mechanical_recompute", "assert": "declared order L1,L2,L3,L4 gives tav and har"},
+        "negative_control": {"kind": "mechanical_recompute", "assert": "runs with the consonant laws and L4 swapped give tap and hal, not tav and har; the declared order must reproduce the derivation and the reversed order must not"}
+      },
+      {
+        "id": "D6",
+        "mechanism": "borrowed garment term in a pre-law stratum",
+        "method_trace": "loanword-material-dating.md sections 3 and 10 (loan diagnostic: loan undergoes a recipient change)",
+        "input": "donor apika 'beaded pin'",
+        "declared_output": "avih",
+        "laws_applied": ["L1", "L3", "L4"],
+        "positive_control": {"kind": "mechanical_recompute", "assert": "derive(apika) == avih; the loan participates in the receiving laws, so entry predates their close"},
+        "negative_control": {"kind": "mechanical_recompute", "assert": "the post-law stratum form apika (D7) must NOT surface as avih; a shifted form alone does not prove predating without excluding adaptation, learned reborrowing, and dialect channel"}
+      },
+      {
+        "id": "D7",
+        "mechanism": "borrowed garment term in a post-law stratum (reborrowing of the same etymon)",
+        "method_trace": "loanword-material-dating.md section 3 (two forms of one etymon differ systematically; date the sense-referent pairing)",
+        "input": "donor apika reborrowed with sense 'pinned cloak'",
+        "declared_output": "apika",
+        "laws_applied": [],
+        "positive_control": {"kind": "mechanical_recompute", "assert": "derive(apika) == apika under the same law engine; no law applies after the window closed"},
+        "negative_control": {"kind": "mechanical_recompute", "assert": "the pre-law outcome avih must not appear in the post-law witness; if both avih and apika occur, the inference is multiple borrowing episodes, not one"}
+      },
+      {
+        "id": "D8",
+        "mechanism": "taboo replacement and register partition (lifecycle, not sound change)",
+        "method_trace": "taboo-euphemism-lifecycle.md sections 2-5 (mechanism typology; fossil diagnostics; no clock)",
+        "input": "aku 'the pale beast' -> replacement vesava 'ash-feeder'",
+        "declared_output": "vesav (everyday Era II replacement fossil); aku (recitation register only)",
+        "laws_applied": ["L3", "L4"],
+        "positive_control": {"kind": "mechanical_recompute_and_data", "assert": "derive(vesava) == vesav, and the everyday register asserts vesav as the ordinary term (derive(aku) == ah is the regular reflex that ordinary speech avoids)"},
+        "negative_control": {"kind": "data_assertion", "assert": "the recitation register must retain aku (pre-L3 shape) and must not contain vesav; the everyday register must not contain aku; loss of the old term has no automatic replacement rate"}
+      },
+      {
+        "id": "D9",
+        "mechanism": "name avoidance targeting the person, not the sound sequence",
+        "method_trace": "taboo-euphemism-lifecycle.md sections 2, 5 and 12 (name avoidance; eligible homophone; whose knowledge)",
+        "input": "founder's name element kalu -> har (D2); common noun haru 'dawn' -> har (L4)",
+        "declared_output": "public roll of year 340: founder designated en; dawn word har retained in the same roll",
+        "laws_applied": ["L2", "L3", "L4"],
+        "positive_control": {"kind": "data_assertion", "assert": "in the public roll the founder's designation is en; the avoided form must not be used as his designation"},
+        "negative_control": {"kind": "data_assertion", "assert": "the same roll uses har for dawn in the harvest line; the identical sound sequence survives because the rule targets the referent, not the sound"}
+      }
+    ],
+    "name_avoidance": {
+      "event": "Founder's public designation replaced after his death (invented mourning-year rule).",
+      "ledger": {
+        "domain": "public designation in official documents",
+        "referent": "the founder as remembered office-holder",
+        "hazardous_channel": "writing his name form in public rolls",
+        "form_avoided": "har (from kalu, the founder's name element)",
+        "substitute": "en ('the quiet one')",
+        "mechanism": "name avoidance (referent-targeted), not sound change",
+        "speaker_audience": "office scribes writing public rolls",
+        "place_occasion": "public records after year 335",
+        "sanction": "invented office correction; no historical model asserted",
+        "authority": "invented record office",
+        "first_observed": "invented roll of year 340",
+        "possible_use_interval": "after 335, mourning year only",
+        "copy_composition": "applies to newly issued rolls; older rolls keep the earlier form",
+        "material_carrier": "roll margin marks and inscription notches (see symbol_readings)",
+        "source": "this exercise (invented)",
+        "alternatives": ["administrative renaming", "title replacing name by ordinary custom"],
+        "confidence": "design hypothesis",
+        "canon_status": "proposal"
+      },
+      "channels": {
+        "public_inscriptions": "notch omitted on the founder's grapheme",
+        "household_letters": "full form may persist (channel split; compare taboo-euphemism-lifecycle.md section 2 register partition)"
+      },
+      "distribution_test": {
+        "public_roll_year_340": {"founder_designation": "en", "harvest_line_dawn_word": "har"},
+        "note": "same string har, different referent: substitution applies to the person's designation only."
+      }
+    },
+    "borrowed_garment_terms": {
+      "donor": "Sedrin traders (invented)",
+      "terms": [
+        {"term": "tav", "stratum": "native (from tapa)", "referent": "everyday wrap", "material_fields": {"fiber": "local bast", "weave": "plain", "cut": "rectangle", "fastening": "cord"}},
+        {"term": "mirutav", "stratum": "native compound (miru + tapa)", "referent": "coarse salt-wrap", "material_fields": {"fiber": "bast", "weave": "coarse plain", "cut": "rectangle", "fastening": "cord"}},
+        {"term": "salp", "stratum": "native", "referent": "felt", "material_fields": {"fiber": "wool", "weave": "felted, not woven", "cut": "n/a", "fastening": "n/a"}},
+        {"term": "sakr", "stratum": "native", "referent": "loom", "material_fields": {"fiber": "n/a", "weave": "tool", "cut": "n/a", "fastening": "n/a"}},
+        {"term": "avih", "stratum": "S1 pre-law loan (by year 95; law window closes 120)", "source_etymon": "donor apika 'beaded pin'", "referent": "beaded cloak-pin", "material_fields": {"fiber": "n/a (metal pin)", "weave": "n/a", "cut": "n/a", "fastening": "pin"}, "dated_witness": "invented roll of year 95"},
+        {"term": "apika", "stratum": "S2 post-law loan (by year 352)", "source_etymon": "donor apika reborrowed with sense 'pinned cloak'", "referent": "pinned cloak", "material_fields": {"fiber": "felt (salp)", "weave": "felted", "cut": "rectangle", "fastening": "shoulder pin"}, "dated_witness": "invented inventory of year 352"}
+      ],
+      "dating_rules": [
+        {"observation": "term shows the shifted shape (v, h)", "licensed_inference": "borrowed into everyday register before the law window closed (~120), conditional on the stated exclusions", "alternatives_to_exclude": ["immediate adaptation at borrowing", "learned or recitation-channel reborrowing", "neighboring dialect channel"]},
+        {"observation": "term keeps the donor shape (p, k intact)", "licensed_inference": "borrowed after the window, or entered by a learned channel; date the sense-referent pairing, not the word's oldest ancestor", "alternatives_to_exclude": ["spelling convention", "quotation or code-switching", "semantic split"]}
+      ],
+      "mismatches_to_preserve": [
+        "an Era-I cloak (old felt weave) refurbished in Era II with an apika-type shoulder pin: old cloth, new fastening",
+        "the old term tav applied to a newly woven cloth: terminology continuity or prestige transfer, unresolved without a dated inventory"
+      ]
+    },
+    "symbol_readings": {
+      "motif": "loop-and-notch",
+      "carriers": ["cloak hem embroidery", "roll margins", "inscription borders"],
+      "readings": [
+        {"audience": "weaver circle", "era": "EraII", "reading": "journeyman's completed knot (one loop, one notch)", "register": "guild speech"},
+        {"audience": "mourning household", "era": "EraII", "reading": "nights of a vigil, one notch per night", "register": "domestic"},
+        {"audience": "record office", "era": "EraII", "reading": "bale tally in a tribute account", "register": "administrative"},
+        {"audience": "Sedrin trader", "era": "EraII", "reading": "decoration, no ledger meaning", "register": "outsider trade speech"}
+      ],
+      "constraint": "Readings are role- and era-bound; the same motif can be re-read in a later era, and one audience's reading is not evidence for another's. No universal one-symbol-one-domain mapping is asserted by this exercise.",
+      "forbidden_claims": ["always means", "universally means", "the same to every audience"]
+    },
+    "era_staging": {
+      "table": [
+        {"era": "EraI (0-120)", "language": "proto forms; laws L1-L4 productive 40-120", "material": "bast wraps, felt, native looms", "symbol": "loop-and-notch used in workshop tallies", "avoidance": "none recorded"},
+        {"era": "EraII (320-420)", "language": "shifted native forms; unshifted loan reborrowings; frozen recitation register", "material": "felt cloths pinned with Sedrin-style pins", "symbol": "loop-and-notch read differently by audience", "avoidance": "founder designation substituted after 335; charged beast term avoided in everyday speech"}
+      ],
+      "note": "Dates are invented; era labels describe in-world political/language stages, not real periods."
+    },
+    "design_assumptions": [
+      "Toy forward calendar; years 40-120 are the only window in which L1-L4 are productive.",
+      "L1-L4 are exceptionless in their stated environments; apparent exceptions must be loans, learned channels, or analogy, and are not modeled here.",
+      "Loans enter from one donor variety through one channel per stratum; dialect mixture is excluded by assumption.",
+      "The avoidance rule targets a referent's designation, not a sound sequence; homophones of the avoided form survive (D9).",
+      "The recitation register is a memorized frozen form; its retention of aku and kalu does not prove that everyday speech kept them.",
+      "Every dated witness is invented; the exercise shows method, not history."
+    ],
+    "lore_handoff": {
+      "recipient": "lore-shokunin (world bible)",
+      "status": "proposal only; canon decisions are never made in this exercise",
+      "limits": [
+        "Non-canon: all forms, dates, roles, and rules are design variables.",
+        "Hand off law lists, strata tables, and the avoidance ledger as options with confidence grades, not as world facts.",
+        "Do not copy any real ritual, oath, or restricted text into the world bible on the strength of this exercise.",
+        "The real-source audits below support method choices only; they do not license naming or dressing any real community's practice.",
+        "In-world disputes (is har one etymon or two?) should remain open; the merged forms kalu and haru are indistinguishable in Era II."
+      ],
+      "open_questions": [
+        "Which era is canonical for the roll of year 95 vs the inventory of year 352, if authored?",
+        "Does the mourning-year rule extend to the common noun haru in any later era (would break D9's contrast)?",
+        "Is the apika reborrowing a court fashion or a market term (two different diffusion stories)?"
+      ]
+    },
+    "provenance_notes": {
+      "method_sources": [
+        "corpus/knowledge/linguistics/historical-linguistics.md (sections 3, 6, 7, 9: law lists, strata, dating, taboo traces)",
+        "corpus/knowledge/synthesis/taboo-euphemism-lifecycle.md (sections 2, 3, 5, 12: mechanism typology, lifecycle, fossil diagnostics, ledger fields)",
+        "corpus/knowledge/synthesis/loanword-material-dating.md (sections 3, 4, 10: loan diagnostics, material biographies, worked dating exercise)"
+      ],
+      "no_real_sacred_copying": "Exercise content is invented; real-world material appears only in the audits' citations of public reference pages.",
+      "no_invented_scholarship": "Audit rows cite only URLs actually retrieved this round, with locators and limits; entries whose sources were blocked are recorded as unresolved."
+    },
+    "reproduction": {
+      "checker": "reports/supplement-opencode-1/scratch/32/check_exercise.py",
+      "command": "python3 reports/supplement-opencode-1/scratch/32/check_exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --report reports/supplement-opencode-1/32-craft-exercise.md",
+      "selftest_command": "python3 reports/supplement-opencode-1/scratch/32/check_exercise.py --selftest",
+      "observed": "OK all checks passed (audits=7, mech_cases=11, derivations=9, approx_checks_runner=37); exit 0. Selftest: SELFTEST OK 10/10 tamper cases detected. Full outputs recorded in reports/supplement-opencode-1/32-craft-exercise.md, section Commands."
+    }
+  },
+  "audits": [
+    {
+      "id": "audit-01",
+      "claim": "The Germanic words for 'bear' are conventionally explained as an avoidance substitution for the older inherited animal name, parallel to Russian medved' 'honey-eater'.",
+      "entry_locator": "corpus/knowledge/linguistics/historical-linguistics.md section 9, 'Taboo leaves traces' bullet",
+      "source_url": "https://en.wiktionary.org/wiki/bear",
+      "retrieval_status": "full_text",
+      "source_locator": "Etymology notes, paragraph 2 of the noun 'bear' section",
+      "source_excerpt": "the Germanic languages replaced the older name of the bear, *h₂ŕ̥tḱos, with the epithet 'brown one', presumably due to taboo avoidance; compare Russian медве́дь",
+      "verdict": "supported",
+      "basis": "coupling language+myth - retrieved full text states the replacement and the avoidance motivation; a second retrieval (медведь) independently confirms the 'honey-eater' gloss. The motivation wording is 'presumably'; see audit-02.",
+      "access_limit": "Wiktionary is a public reference, not the handbook cited by the entry (Campbell 2013; Mallory & Adams 2006 not retrieved); no page numbers asserted."
+    },
+    {
+      "id": "audit-02",
+      "claim": "E2: the avoidance motivation behind the bear-name replacement can be treated as settled (the corpus bullet states it without a hedge).",
+      "entry_locator": "corpus/knowledge/linguistics/historical-linguistics.md section 9, 'Taboo leaves traces' bullet",
+      "source_url": "https://en.wiktionary.org/wiki/bear",
+      "retrieval_status": "full_text",
+      "source_locator": "Etymology notes, final sentence citing Ringe 2006:106",
+      "source_excerpt": "Ringe (2006:106) doubts the existence of a root *bʰer- meaning 'brown'",
+      "verdict": "unresolved",
+      "basis": "coupling language+myth - the replacement pattern is supported, but the retrieved source hedges the motivation ('presumably') and disputes the root; the corpus's unhedged phrasing is therefore not fully supported. Preserved unresolved; possible erratum candidate for the owning lane, not written here (outside this worker's write scope).",
+      "access_limit": "Ringe 2006 itself not retrieved; only the citing page. No correction written: the corpus entry is not in my write scope."
+    },
+    {
+      "id": "audit-03",
+      "claim": "Latin castra 'camp' is the etymon of English place-name elements -chester/-caster via Old English ceaster.",
+      "entry_locator": "corpus/knowledge/linguistics/historical-linguistics.md section 6, loanword strata bullet",
+      "source_url": "https://en.wiktionary.org/wiki/Chester",
+      "retrieval_status": "full_text",
+      "source_locator": "Etymology (English section, first line); the Latin link restated in the downstream-language section",
+      "source_excerpt": "From Middle English Chestre, from Old English Ċeaster, from ċeaster ('a town or city, especially a Roman one').",
+      "verdict": "supported",
+      "basis": "linguistic-strata bibliography fact - retrieved full text supports the Latin/OE/English chain; the second section of the same page glosses ceaster as 'a borrowing from Latin castrum (camp)'.",
+      "access_limit": "The -caster variant and the castra vs castrum form difference were not separately retrieved."
+    },
+    {
+      "id": "audit-04",
+      "claim": "zounds is conventionally derived from 'God's wounds' and retains the oath's imagery in contracted form.",
+      "entry_locator": "corpus/knowledge/synthesis/taboo-euphemism-lifecycle.md section 4, anchor example bullet",
+      "source_url": "https://en.wiktionary.org/wiki/zounds",
+      "retrieval_status": "full_text",
+      "source_locator": "Etymology line",
+      "source_excerpt": "Minced form of God's wounds, with reference to the wounds from Christ's crucifixion.",
+      "verdict": "supported",
+      "basis": "coupling language+myth - minced-oath etymology directly retrieved; the entry's hedge 'conventionally derived' matches the source's 'minced form' wording.",
+      "access_limit": "OED is paywalled; etymonline returned HTTP 403 via the fetch channel this round; the Folger passage was not re-fetched."
+    },
+    {
+      "id": "audit-05",
+      "claim": "Under Chinese naming-taboo conventions, personal-name characters could receive substitutions (including similar-sounding ones), blanks, or stroke omission.",
+      "entry_locator": "corpus/knowledge/synthesis/taboo-euphemism-lifecycle.md section 8, 'Symbolic system' row (cited there as W22)",
+      "source_url": "https://en.wikipedia.org/wiki/Naming_taboo",
+      "retrieval_status": "full_text",
+      "source_locator": "'Methods to avoid offense' list, item 1",
+      "source_excerpt": "Changing the character to another, usually a synonym or one which sounded similar to the character being avoided.",
+      "verdict": "supported",
+      "basis": "coupling language+era (naming institution) - retrieved article lists the same three methods (substitution incl. homophones, blank, stroke omission) and shows scoping rules (a Tang edict limited avoidance to two characters in direct succession), matching the entry's summary.",
+      "access_limit": "Reference-tier encyclopedia, not the entry's cited manual (W22 Wilkinson not retrievable; chinaknowledge.de returned 404/network failure). Institutional corroboration pending."
+    },
+    {
+      "id": "audit-06",
+      "claim": "kirishitan derives from Portuguese cristao, identifying the mission contact channel.",
+      "entry_locator": "corpus/knowledge/synthesis/loanword-material-dating.md section 8, loanword bridge (cited there as Fujikawa 2017)",
+      "source_url": "https://en.wiktionary.org/wiki/%E3%82%AD%E3%83%AA%E3%82%B7%E3%82%BF%E3%83%B3",
+      "retrieval_status": "full_text",
+      "source_locator": "Etymology line",
+      "source_excerpt": "From Portuguese cristão. Cognate with Malay Kristang ('creole people in Malacca'). The kanji spellings are ateji.",
+      "verdict": "supported",
+      "basis": "coupling language+era+material (mission contact channel) - etymon confirmed in retrieved full text; the entry's own caution that first local attestation and community-specific adoption dates remain unestablished matches the evidence found.",
+      "access_limit": "No dated first-attestation source retrieved; Fujikawa 2017 and the Japanese encyclopedia cited by the entry were not re-fetched."
+    },
+    {
+      "id": "audit-07",
+      "claim": "Met object 50491 is an 18th-century Qing rank badge (silk and metallic-thread embroidery on silk satin) whose collection date is broad, not an exact reign attribution.",
+      "entry_locator": "corpus/knowledge/synthesis/taboo-euphemism-lifecycle.md section 8, 'Costume/material signature' row",
+      "source_url": "https://www.metmuseum.org/art/collection/search/50491",
+      "retrieval_status": "blocked",
+      "source_locator": "n/a - object page not delivered",
+      "source_excerpt": "",
+      "verdict": "unresolved",
+      "basis": "era+dress coupling test - could not be re-verified this round; preserved unresolved rather than asserted, and not counted as confirmation.",
+      "access_limit": "Two fetch attempts returned HTTP 429 (rate-limited); the collection API JSON endpoint returned non-extractable content via the fetch channel."
+    }
+  ],
+  "audit_counts": {
+    "total": 7,
+    "retrieval_status_full_text": 6,
+    "retrieval_status_blocked": 1,
+    "verdict_supported": 5,
+    "verdict_unresolved": 2,
+    "verdict_contradicted": 0,
+    "counting_command": "python3 reports/supplement-opencode-1/scratch/32/check_exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --counts",
+    "coupling_tests_note": "audit-01/02 (language+myth), audit-05 (language+era), audit-06 (language+era+material), audit-07 (era+dress) test couplings rather than isolated bibliography facts."
+  },
+  "selfcheck": {
+    "checker": "reports/supplement-opencode-1/scratch/32/check_exercise.py",
+    "command": "python3 reports/supplement-opencode-1/scratch/32/check_exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --report reports/supplement-opencode-1/32-craft-exercise.md",
+    "selftest_command": "python3 reports/supplement-opencode-1/scratch/32/check_exercise.py --selftest",
+    "observed": "Clean run exit 0; --counts exit 0 with the declared tallies; --selftest: SELFTEST OK 10/10 tamper cases detected (exit 0). Outputs recorded verbatim in reports/supplement-opencode-1/32-craft-exercise.md, section Commands."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "wave": "supplement-opencode-1",
+  "counted_as_reserved_numbered_round": false,
+  "authorization": "Operator requested 32-64 OpenCode Go DeepSeek v4.1 Flash swarm workers while Z.ai GLM-5.3 cools down; preserve the three non-flash Z.ai rounds.",
+  "baseline_revision": "fe34faaafbe0add59ff68827a0df6c5782a72404",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "worker_count": 32,
+  "baseline": {
+    "knowledge_entries": 179,
+    "raw_to_verify_lines": 590,
+    "registered_gate_selftests_passed": 7,
+    "d2_packet_sha256": "d5fb408871dcb985c2f9b134a26c6d64e8640a6f1f17ba1c6bb3c5db1d6dbd96",
+    "naming_findings": {"NAME-NEAR": 6, "PHON-CODA": 1, "PHON-INVENTORY": 10, "CROSS-HOLD": 1}
+  },
+  "claims": [
+    {"axis": "freshness", "before": "No source checks for this wave at the pinned baseline", "after_required": "At least 10 distinct historical or linguistic claims rechecked against retrieved public sources, with original entry/claim, source URL, passage locator, access limits, and supported/contradicted/unresolved classification. At least 5 rows must have directly retrieved supporting or contradicting passages; unavailable source text is not confirmation.", "observable": "Structured claim rows and their cited passage evidence in corpus/lessons/supplement-opencode-1/sources/*.json, with parent source spot-checks; raw marker removal is not the metric."},
+    {"axis": "operability", "before": "Assembler has --check but no --selftest; frozen TSV outputs lack a digest-verifying replay entry point", "after_required": "Assembler --selftest and --check pass; a stdlib frozen-replay command verifies all pinned input digests before rerunning gates and rejects a tampered scratch input with exit 2 and snapshot_tampered. All 7 existing gate selftests remain passing.", "observable": "python3 tools/assemble-d2.py --selftest; python3 tools/assemble-d2.py --check; python3 tools/replay-frozen.py --selftest; actual frozen round-3 replay; original gate selftest battery."},
+    {"axis": "calibration", "before": "Prior records miscount dispatch items and gate findings and conflate marker counts with resolved scholarship", "after_required": "Append an evidence-backed LOG correction with exact dispatch/item and finding totals that can be established; unresolved historical facts remain explicitly unresolved. Produce a reproducible uncertainty inventory without claiming that marker absence is validation.", "observable": "Historical audit reports tied to existing committed artifacts, tools/source-audit-inventory.py output, appended LOG corrections, and updated SCORECARD evidence links. No numeric score increase without a defined derivation."}
+  ],
+  "scope": "Child repo only. No sibling, world-bible, provider-config, credential, fleet-roster, or rank changes. Corpus corrections append errata rather than erase old bytes. Workers do not commit or write shared bookkeeping. Parent owns LOG, SCORECARD, SKILL registry, index, packet regeneration, validation, and explicit-path commits/push. Reports remain lane-local per operator scope; fleet closure is not claimed."
+}

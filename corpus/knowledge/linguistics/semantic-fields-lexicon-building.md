@@ -115,3 +115,46 @@
 - Kinship type chosen before kinship terms; evidential defaults chosen before scripture quotes.
 - Unverifiable in-world etymologies marked to-verify in the lexicon itself.
 - Worldview claims ride on grammaticalized categories first, elaboration second, absence never.
+
+## 8. Errata — 2026-10-17 (source-recheck wave supplement-opencode-1)
+
+Appended records; no earlier line is modified. Baseline revision
+fe34faa; per-audit rows with locators, excerpts and access limits:
+`corpus/lessons/supplement-opencode-1/sources/lexicon.json`.
+
+- E1 (corrects §3 borrowing strata). The sentence "the single most-borrowed
+  meaning was a pronoun ('she')" is contradicted by the WOLD data it cites.
+  In the WOLD CLDF release (lexibank/wold, `cldf/parameters.csv`, 41
+  languages, 1,814 meanings), 'she' has an average borrowed score of
+  0.0532 — 1,365 of the 1,460 core-list meanings score higher, and
+  'he/she/it' scores 0.0. The highest-scoring core meanings are
+  cultural/modern nouns: 'the olive' 0.927, 'the motor' 0.913, 'the
+  machine' 0.895, 'the coffee' 0.863. Correct form of the point: core
+  meanings can leak under contact (the 'she' average is small but nonzero),
+  yet the pronoun sits at the resistant end — the WOLD-derived
+  Leipzig–Jakarta conceptlist (Concepticon `Tadmor-2009-100`) carries its
+  3sg-pronoun row at 1.000 on its borrowed-score column, the list maximum.
+- E2 (corrects §4 Weather). "On the order of 15 snow-related roots, but
+  productive suffixation yields hundreds of derived lexemes (Woodbury, per
+  Martin 1986)" misstates both the number's identity and its source.
+  Woodbury's memo (July 1991) counts fifteen *lexeme meanings*, explicitly
+  "somewhat arbitrarily," grouping noun and verb lexemes; it is five years
+  later than Martin 1986, which does not carry the count. On roots Martin
+  argues the opposite direction: "no reason to posit more than two distinct
+  roots" (qanik, aput). The "hundreds" in the memo are inflected forms
+  (about 280 per noun lexeme, over 1,000 per verb lexeme), not derived
+  lexemes. The design lesson (copy the mechanism, not the number) stands.
+- E3 (corrects §4 Religion citation metadata). "Kolosova et al. 2016
+  (Journal of Ethnobiology and Ethnomedicine 12 …)" is Kolosova et al.
+  **2017**, J Ethnobiol Ethnomed **13**(1):14,
+  doi:10.1186/s13002-016-0132-9 (the 2016 in the DOI is the submission
+  year; PubMed 28222790). The paper is about bear-related *plant* names;
+  it does support the karhu derivation ("all connected with an ancient
+  adjective (Est. kare, Fin. karhea 'rough')") and the tabooed PIE bear
+  name, but it does not discuss the Finnish euphemism mesikämmen, which
+  remains uncited here.
+- E4 (precision, §4 Weather opening). Boas 1911 does list four items —
+  aput, qana, piqsirpoq, qimuqsuq — verified in the 1911 text, but he does
+  not distinguish roots from words or terms (Martin 1986:418), and two of
+  the four gloss as drifting snow / snowdrift. "Noted a few roots" is
+  loose; "noted four words for snow" is the defensible form.

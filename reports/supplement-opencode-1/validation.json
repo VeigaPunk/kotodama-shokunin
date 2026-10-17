@@ -1,0 +1,410 @@
+{
+  "wave": "supplement-opencode-1",
+  "baseline_revision": "fe34faaafbe0add59ff68827a0df6c5782a72404",
+  "tested_file_sha256": {
+    "tools/assemble-d2.py": "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d",
+    "tools/replay-frozen.py": "a2fb5c98260a07f0801f4bf21f349283638da6796645780393262e4368c79464",
+    "tools/source-audit-inventory.py": "f617bb99318f501db2ff51c0c180daeacf548b1a36591b1a1a80c253197b2210",
+    "tools/check-craft-exercise.py": "a64ba28058ccd3bd5b450be588796021164bd0b8655f7d65116cd5e8f3247fd4",
+    "examples/culture-d2/packet.d2.yml": "8da90b0788f86fd19babc67958715c8c16cb90a98e13572380b1c1892622b81e"
+  },
+  "checks": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/assemble-d2.py",
+        "--selftest"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "selftest: 42/42 checks passed — fixture CLI assemble/--check/tamper plus malformed, missing, duplicate-ID, incomplete-record, duplicate-key, empty and wrong-wrapper controls; no file outside the temporary directory touched\n",
+      "stderr": "",
+      "stdout_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/replay-frozen.py",
+        "--selftest"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "PASS clean-green: exit 0\nPASS clean-green: status=reproduced\nPASS clean-green: gate launched\nPASS clean-green: fixture tree unchanged\nPASS clean-green: recorded command string never executed\nPASS expected-red: exit 0\nPASS expected-red: status=reproduced\nPASS expected-red: gate launched\nPASS expected-red: fixture tree unchanged\nPASS mismatch-bytes: exit 1\nPASS mismatch-bytes: status=mismatch reason=replay_mismatch\nPASS mismatch-bytes: gate launched\nPASS mismatch-bytes: fixture tree unchanged\nPASS mismatch-exit: exit 1\nPASS mismatch-exit: status=mismatch reason=replay_mismatch\nPASS mismatch-exit: gate launched\nPASS mismatch-exit: fixture tree unchanged\nPASS snapshot-tampered: exit 2\nPASS snapshot-tampered: status=could-not-evaluate reason=snapshot_tampered\nPASS snapshot-tampered: gate not launched\nPASS snapshot-tampered: fixture tree unchanged\nPASS gate-digest-mismatch: exit 2\nPASS gate-digest-mismatch: status=could-not-evaluate reason=gate_digest_mismatch\nPASS gate-digest-mismatch: gate not launched\nPASS gate-digest-mismatch: fixture tree unchanged\nPASS output-tampered: exit 2\nPASS output-tampered: status=could-not-evaluate reason=expected_output_tampered\nPASS output-tampered: gate not launched\nPASS output-tampered: fixture tree unchanged\nPASS record-inconsistent: exit 2\nPASS record-inconsistent: status=could-not-evaluate reason=record_inconsistent\nPASS record-inconsistent: gate not launched\nPASS record-inconsistent: fixture tree unchanged\nPASS traversal-gate: exit 2\nPASS traversal-gate: status=could-not-evaluate reason=gate_unsafe_path\nPASS traversal-gate: gate not launched\nPASS traversal-gate: fixture tree unchanged\nPASS symlink-gate: exit 2\nPASS symlink-gate: status=could-not-evaluate reason=gate_unsafe_path\nPASS symlink-gate: gate not launched\nPASS symlink-gate: fixture tree unchanged\nPASS gate-not-whitelisted: exit 2\nPASS gate-not-whitelisted: status=could-not-evaluate reason=gate_not_whitelisted\nPASS gate-not-whitelisted: gate not launched\nPASS gate-not-whitelisted: fixture tree unchanged\nPASS absolute-snapshot: exit 2\nPASS absolute-snapshot: status=could-not-evaluate reason=snapshot_unsafe_path\nPASS absolute-snapshot: gate not launched\nPASS absolute-snapshot: fixture tree unchanged\nPASS traversal-internal-gate: exit 2\nPASS traversal-internal-gate: status=could-not-evaluate reason=gate_unsafe_path\nPASS traversal-internal-gate: gate not launched\nPASS traversal-internal-gate: fixture tree unchanged\nPASS traversal-internal-snapshot: exit 2\nPASS traversal-internal-snapshot: status=could-not-evaluate reason=snapshot_unsafe_path\nPASS traversal-internal-snapshot: gate not launched\nPASS traversal-internal-snapshot: fixture tree unchanged\nPASS traversal-internal-input: exit 2\nPASS traversal-internal-input: status=could-not-evaluate reason=input_unsafe_path\nPASS traversal-internal-input: gate not launched\nPASS traversal-internal-input: fixture tree unchanged\nPASS flag-input-selftest: exit 2\nPASS flag-input-selftest: status=could-not-evaluate reason=input_unsafe_path\nPASS flag-input-selftest: gate not launched\nPASS flag-input-selftest: fixture tree unchanged\nPASS flag-input-selftest: gate's own selftest never triggered\nPASS flag-input-dot-selftest: exit 2\nPASS flag-input-dot-selftest: status=could-not-evaluate reason=input_unsafe_path\nPASS flag-input-dot-selftest: gate not launched\nPASS flag-input-dot-selftest: fixture tree unchanged\nPASS flag-input-dot-selftest: gate's own selftest never triggered\nPASS flag-input-stdin: exit 2\nPASS flag-input-stdin: status=could-not-evaluate reason=input_unsafe_path\nPASS flag-input-stdin: gate not launched\nPASS flag-input-stdin: fixture tree unchanged\nPASS flag-input-stdin: gate's own selftest never triggered\nPASS bad-header: exit 2\nPASS bad-header: reason=manifest_malformed\nPASS bad-header: gate not launched\nselftest: 79/79 checks passed\n",
+      "stderr": "",
+      "stdout_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/source-audit-inventory.py",
+        "--selftest"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "source-audit-inventory: root=/tmp/source-audit-inventory-cli-7txh787f/empty files=0 raw_lines=0 raw_occurrences=0 markers=0 (bare=0 detailed=0) on 0 line(s)\nINFO behaviour: read-only, no marker cleared; all classes heuristic and review_required; marker absence is not verification\nINFO class-heuristic substantive-flag-candidate: occurrences=0\nINFO class-heuristic policy-use-mention: occurrences=0\nINFO class-heuristic needs-review: occurrences=0\nINFO scan: files=0 with_marks=0 raw_lines=0 occurrences=0 markers=0 case_variants=0 skipped=0\nsource-audit-inventory: root=/tmp/source-audit-inventory-cli-7txh787f/scan files=1 raw_lines=1 raw_occurrences=1 markers=1 (bare=1 detailed=0) on 1 line(s)\nINFO behaviour: read-only, no marker cleared; all classes heuristic and review_required; marker absence is not verification\nINFO directory .: files=1 raw_lines=1 markers=1\nINFO class-heuristic substantive-flag-candidate: occurrences=1\nINFO class-heuristic policy-use-mention: occurrences=0\nINFO class-heuristic needs-review: occurrences=0\nMarks one.md: raw_lines=1 occurrences=1 markers=1 bare=1 detailed=0\nINFO scan: files=1 with_marks=1 raw_lines=1 occurrences=1 markers=1 case_variants=0 skipped=0\nSELFTEST PASS: 3 planted entries, exact counts, policy/substantive split, no-write and determinism checks, missing-root, empty-root and non-UTF-8 exit-code controls\n",
+      "stderr": "CANNOT-EVALUATE: /tmp/source-audit-inventory-cli-7txh787f/does-not-exist: not a directory\nCANNOT-EVALUATE: /tmp/source-audit-inventory-cli-7txh787f/does-not-exist: not a directory\nCANNOT-EVALUATE: invalid.md: not UTF-8 text ('utf-8' codec can't decode byte 0xff in position 8: invalid start byte)\n",
+      "stdout_sha256": "c3adc22f5ba961f046eb84f2efd3e57ce5848080357f8354540d860080b95287"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/assemble-d2.py",
+        "--check"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "packet.d2.yml: byte-identical deterministic assembly\n",
+      "stderr": "",
+      "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/replay-frozen.py",
+        "tools/gates/frozen/round-3/MANIFEST.tsv",
+        "--json"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "{\n  \"manifest\": \"tools/gates/frozen/round-3/MANIFEST.tsv\",\n  \"repo_root\": \"/home/vgpnk/Projects/shokunin/kotodama-shokunin\",\n  \"tool\": \"tools/replay-frozen.py\",\n  \"rows\": [\n    {\n      \"line\": 2,\n      \"gate\": \"tools/gates/phonology-sanity-gate.py\",\n      \"input\": \"examples/culture-d2/packet.d2.yml\",\n      \"snapshot\": \"tools/gates/frozen/round-3/inputs/examples/culture-d2/packet.d2.yml\",\n      \"recorded_gate_sha256\": \"fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655\",\n      \"recorded_input_sha256\": \"54be6319e4907d20c8239555e3f79fcb9bb6b36d102a30a6beabf34b146459f4\",\n      \"recorded_output_sha256\": \"1ce5f0cdabad1bda177245607226cb6bf643f2bfbbe2ddb0918c510749066dd2\",\n      \"recorded_exit\": 1,\n      \"recorded_finding_count\": 3,\n      \"observed_exit\": 1,\n      \"observed_finding_count\": 3,\n      \"observed_output_sha256\": \"1ce5f0cdabad1bda177245607226cb6bf643f2bfbbe2ddb0918c510749066dd2\",\n      \"gate_launched\": true,\n      \"stderr_excerpt\": \"\",\n      \"recorded_command_ignored\": \"python3 tools/gates/phonology-sanity-gate.py examples/culture-d2/packet.d2.yml\",\n      \"status\": \"reproduced\",\n      \"reason\": null,\n      \"detail\": null\n    },\n    {\n      \"line\": 3,\n      \"gate\": \"tools/gates/lexicon-coverage-audit.py\",\n      \"input\": \"examples/culture-d2/packet.d2.yml\",\n      \"snapshot\": \"tools/gates/frozen/round-3/inputs/examples/culture-d2/packet.d2.yml\",\n      \"recorded_gate_sha256\": \"63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80\",\n      \"recorded_input_sha256\": \"54be6319e4907d20c8239555e3f79fcb9bb6b36d102a30a6beabf34b146459f4\",\n      \"recorded_output_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n      \"recorded_exit\": 0,\n      \"recorded_finding_count\": 0,\n      \"observed_exit\": 0,\n      \"observed_finding_count\": 0,\n      \"observed_output_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n      \"gate_launched\": true,\n      \"stderr_excerpt\": \"\",\n      \"recorded_command_ignored\": \"python3 tools/gates/lexicon-coverage-audit.py examples/culture-d2/packet.d2.yml\",\n      \"status\": \"reproduced\",\n      \"reason\": null,\n      \"detail\": null\n    },\n    {\n      \"line\": 4,\n      \"gate\": \"tools/gates/myth-consistency-gate.py\",\n      \"input\": \"examples/culture-d2/packet.d2.yml\",\n      \"snapshot\": \"tools/gates/frozen/round-3/inputs/examples/culture-d2/packet.d2.yml\",\n      \"recorded_gate_sha256\": \"26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5\",\n      \"recorded_input_sha256\": \"54be6319e4907d20c8239555e3f79fcb9bb6b36d102a30a6beabf34b146459f4\",\n      \"recorded_output_sha256\": \"ea56c2d3cd712864e55ff9a1fc3fc5cad1848b3999389cf33ace8bf76eb771cf\",\n      \"recorded_exit\": 1,\n      \"recorded_finding_count\": 1,\n      \"observed_exit\": 1,\n      \"observed_finding_count\": 1,\n      \"observed_output_sha256\": \"ea56c2d3cd712864e55ff9a1fc3fc5cad1848b3999389cf33ace8bf76eb771cf\",\n      \"gate_launched\": true,\n      \"stderr_excerpt\": \"\",\n      \"recorded_command_ignored\": \"python3 tools/gates/myth-consistency-gate.py examples/culture-d2/packet.d2.yml\",\n      \"status\": \"reproduced\",\n      \"reason\": null,\n      \"detail\": null\n    },\n    {\n      \"line\": 5,\n      \"gate\": \"tools/gates/costume-era-consistency-gate.py\",\n      \"input\": \"examples/culture-d2/packet.d2.yml\",\n      \"snapshot\": \"tools/gates/frozen/round-3/inputs/examples/culture-d2/packet.d2.yml\",\n      \"recorded_gate_sha256\": \"29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03\",\n      \"recorded_input_sha256\": \"54be6319e4907d20c8239555e3f79fcb9bb6b36d102a30a6beabf34b146459f4\",\n      \"recorded_output_sha256\": \"129c4f5a293f85b3da875572b5264258da5b0e9b0178699b48ada3b9cc26056c\",\n      \"recorded_exit\": 1,\n      \"recorded_finding_count\": 10,\n      \"observed_exit\": 1,\n      \"observed_finding_count\": 10,\n      \"observed_output_sha256\": \"129c4f5a293f85b3da875572b5264258da5b0e9b0178699b48ada3b9cc26056c\",\n      \"gate_launched\": true,\n      \"stderr_excerpt\": \"\",\n      \"recorded_command_ignored\": \"python3 tools/gates/costume-era-consistency-gate.py examples/culture-d2/packet.d2.yml\",\n      \"status\": \"reproduced\",\n      \"reason\": null,\n      \"detail\": null\n    },\n    {\n      \"line\": 6,\n      \"gate\": \"tools/gates/naming-collision-gate.py\",\n      \"input\": \"examples/culture-d2/packet.d2.yml\",\n      \"snapshot\": \"tools/gates/frozen/round-3/inputs/examples/culture-d2/packet.d2.yml\",\n      \"recorded_gate_sha256\": \"8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526\",\n      \"recorded_input_sha256\": \"54be6319e4907d20c8239555e3f79fcb9bb6b36d102a30a6beabf34b146459f4\",\n      \"recorded_output_sha256\": \"e81bab661a994440eabaff640b5c34ab79992da36bf7323efbff67dce3628d01\",\n      \"recorded_exit\": 1,\n      \"recorded_finding_count\": 20,\n      \"observed_exit\": 1,\n      \"observed_finding_count\": 20,\n      \"observed_output_sha256\": \"e81bab661a994440eabaff640b5c34ab79992da36bf7323efbff67dce3628d01\",\n      \"gate_launched\": true,\n      \"stderr_excerpt\": \"\",\n      \"recorded_command_ignored\": \"python3 tools/gates/naming-collision-gate.py examples/culture-d2/packet.d2.yml\",\n      \"status\": \"reproduced\",\n      \"reason\": null,\n      \"detail\": null\n    },\n    {\n      \"line\": 7,\n      \"gate\": \"tools/gates/provenance-audit.py\",\n      \"input\": \"corpus/knowledge/civilizations/mesoamerica-primary-sources.md\",\n      \"snapshot\": \"tools/gates/frozen/round-3/inputs/corpus/knowledge/civilizations/mesoamerica-primary-sources.md\",\n      \"recorded_gate_sha256\": \"4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a\",\n      \"recorded_input_sha256\": \"a916a4c2dd30d1a81415ddbcf7df1bb2474cb4caf808b898481d18ff5d846c7c\",\n      \"recorded_output_sha256\": \"57a537aeeea28ac396dcf5a4d452407943762e9901192aca9fd92aa020c109ba\",\n      \"recorded_exit\": 0,\n      \"recorded_finding_count\": 0,\n      \"observed_exit\": 0,\n      \"observed_finding_count\": 0,\n      \"observed_output_sha256\": \"57a537aeeea28ac396dcf5a4d452407943762e9901192aca9fd92aa020c109ba\",\n      \"gate_launched\": true,\n      \"stderr_excerpt\": \"\",\n      \"recorded_command_ignored\": \"python3 tools/gates/provenance-audit.py corpus/knowledge/civilizations/mesoamerica-primary-sources.md\",\n      \"status\": \"reproduced\",\n      \"reason\": null,\n      \"detail\": null\n    },\n    {\n      \"line\": 8,\n      \"gate\": \"tools/gates/provenance-audit.py\",\n      \"input\": \"corpus/knowledge/verification/gate-frozen-run-standard.md\",\n      \"snapshot\": \"tools/gates/frozen/round-3/inputs/corpus/knowledge/verification/gate-frozen-run-standard.md\",\n      \"recorded_gate_sha256\": \"4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a\",\n      \"recorded_input_sha256\": \"7b3bdc80a12ba509aae5785a5039f4ba97c94641fe0a21520868883071dbbbde\",\n      \"recorded_output_sha256\": \"1b8bf0b83b96fe30232f2b34093e78d74ab8bc9c7ac24e36d0ad16275f6af354\",\n      \"recorded_exit\": 0,\n      \"recorded_finding_count\": 0,\n      \"observed_exit\": 0,\n      \"observed_finding_count\": 0,\n      \"observed_output_sha256\": \"1b8bf0b83b96fe30232f2b34093e78d74ab8bc9c7ac24e36d0ad16275f6af354\",\n      \"gate_launched\": true,\n      \"stderr_excerpt\": \"\",\n      \"recorded_command_ignored\": \"python3 tools/gates/provenance-audit.py corpus/knowledge/verification/gate-frozen-run-standard.md\",\n      \"status\": \"reproduced\",\n      \"reason\": null,\n      \"detail\": null\n    }\n  ],\n  \"summary\": {\n    \"rows\": 7,\n    \"reproduced\": 7,\n    \"mismatch\": 0,\n    \"could_not_evaluate\": 0,\n    \"exit\": 0\n  }\n}\n",
+      "stderr": "",
+      "stdout_sha256": "d3968bc9bf4f092a426e0b1559fc207219b74fe9818c4e294c198dff225690ef"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/replay-frozen.py",
+        "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "ROW 2 reproduced reason=- gate=tools/gates/phonology-sanity-gate.py input=examples/culture-d2/packet.d2.yml exit=1/1 count=3/3 bytes=match launched=yes\nROW 3 reproduced reason=- gate=tools/gates/lexicon-coverage-audit.py input=examples/culture-d2/packet.d2.yml exit=0/0 count=0/0 bytes=match launched=yes\nROW 4 reproduced reason=- gate=tools/gates/myth-consistency-gate.py input=examples/culture-d2/packet.d2.yml exit=1/1 count=1/1 bytes=match launched=yes\nROW 5 reproduced reason=- gate=tools/gates/costume-era-consistency-gate.py input=examples/culture-d2/packet.d2.yml exit=2/2 count=1/1 bytes=match launched=yes\nROW 6 reproduced reason=- gate=tools/gates/naming-collision-gate.py input=examples/culture-d2/packet.d2.yml exit=1/1 count=20/20 bytes=match launched=yes\nROW 7 reproduced reason=- gate=tools/gates/provenance-audit.py input=corpus/knowledge/civilizations/mesoamerica-primary-sources.md exit=0/0 count=0/0 bytes=match launched=yes\nROW 8 reproduced reason=- gate=tools/gates/provenance-audit.py input=corpus/knowledge/verification/gate-frozen-run-standard.md exit=0/0 count=0/0 bytes=match launched=yes\nREPLAY OK: 7/7 rows reproduced the recorded verdicts (reproduction only: a reproduced red verdict stays red)\n",
+      "stderr": "",
+      "stdout_sha256": "fb5c90a39c291605f3a4f05f6c0bcd4627230c3ff68fb2653d674e1844fca11d"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/costume-era-consistency-gate.py",
+        "--selftest"
+      ],
+      "cwd": "isolated-export",
+      "exit": 0,
+      "stdout": "self-test: 10/10 checks passed; fixture exit 1 with 21 planted finding IDs\nfixture:  /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/costume-era-consistency-gate.yml\nexpected: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/costume-era-consistency-gate.expected\n",
+      "stderr": "",
+      "stdout_sha256": "d533ada010957531e849d79e6ba2bb0854f85c6260ba1d0af206891664710cb2"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/handoff-packet-check.py",
+        "--selftest"
+      ],
+      "cwd": "isolated-export",
+      "exit": 0,
+      "stdout": "selftest: OK — fixture findings 11 across 9 ids (HO-BASELINE, HO-CANON-CLAIM, HO-CANON-MARKER, HO-CONTRACT-REF, HO-DEP-FLOAT, HO-EMPTY, HO-GLOSS-ETYM, HO-MANIFEST-DIGEST, HO-MISSING); clean control exit 0; probes cover canon, baseline, dependency, contract_ref and glossary vocabulary; malformed inputs exit 2; CLI verified from another cwd\n",
+      "stderr": "",
+      "stdout_sha256": "be1ef058b2cfc67a564003917fd39125121755ae66960bd9ea5feb04c0c7ef2f"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/lexicon-coverage-audit.py",
+        "--selftest"
+      ],
+      "cwd": "isolated-export",
+      "exit": 0,
+      "stdout": "PASS fixture exit code 1\nPASS every planted finding ID appears\nPASS no unplanned finding IDs\nPASS fixture expected file matches\nPASS fixture findings are self-describing\nPASS clean control packet passes\nPASS missing constructions registry is reported\nPASS JSON packet is accepted\nPASS toneless diacritic variant counts as inflation\nPASS tonal minimal pair is not counted as inflation\nPASS missing gloss is a finding, not a crash\nPASS could-not-evaluate: missing lexicon\nPASS could-not-evaluate: malformed yaml\nPASS could-not-evaluate: root is not a mapping\nselftest: 14/14 checks passed\n",
+      "stderr": "",
+      "stdout_sha256": "fd731b1423443238cb5c1fc75dfd350244cc611295c9713b129252b251478658"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/myth-consistency-gate.py",
+        "--selftest"
+      ],
+      "cwd": "isolated-export",
+      "exit": 0,
+      "stdout": "selftest: OK — fixture exit 1; planted IDs present: MC-P01, MC-P02, MC-M01, MC-M02, MC-S01, MC-S02; clean control exit 0 (0 findings); fixture and expected rewritten under tools/gates/fixtures/\n",
+      "stderr": "",
+      "stdout_sha256": "befd8c18987005c363c89347fbdbc0e5f393bdc234a1391c810f7f0810ca79d3"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/naming-collision-gate.py",
+        "--selftest"
+      ],
+      "cwd": "isolated-export",
+      "exit": 0,
+      "stdout": "selftest: OK — fixture findings 12 across 11 ids (CROSS-HOLD, DERIV-AFFIX, DERIV-HOLD, DERIV-REPLAY, NAME-LEXEME, NAME-NEAR, NAME-REUSE, NAME-VISUAL, PHON-CODA, PHON-INVENTORY, PHON-ONSET); positive control clean; malformed inputs exit 2; missing profile held; case policy routed\n",
+      "stderr": "",
+      "stdout_sha256": "d3566a9cad69f956fd7a4274cb80ad4b95a92bb63a9cf689e45338d05ca5c7da"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/phonology-sanity-gate.py",
+        "--selftest"
+      ],
+      "cwd": "isolated-export",
+      "exit": 0,
+      "stdout": "selftest: fixture exit 1; 15/15 planted finding IDs present; 26 control cases passed\n",
+      "stderr": "",
+      "stdout_sha256": "3b6ad32adcc085457c29464fe87c8dedc23a099f4c1f92f82d4ab8526ad5846d"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/provenance-audit.py",
+        "--selftest"
+      ],
+      "cwd": "isolated-export",
+      "exit": 0,
+      "stdout": "selftest: defect-tree run\n  FINDING empty-couples: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-empty-couples.md: '- couples:' names nothing it connects (blank or placeholder value only)\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-empty-couples.md: 0 mark(s) on 0 line(s)\n  FINDING empty-sources: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-empty-sources.md: '- sources:' names no source (blank or placeholder value only)\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-empty-sources.md: 0 mark(s) on 0 line(s)\n  FINDING missing-calibration: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-calibration.md: no calibration vocabulary anywhere (no status section, label, or mention)\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-calibration.md: 0 mark(s) on 0 line(s)\n  FINDING missing-couples: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-couples.md: no '- couples:' header line\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-couples.md: 0 mark(s) on 0 line(s)\n  FINDING missing-sources: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-sources.md: no '- sources:' header line\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-sources.md: 0 mark(s) on 0 line(s)\n  FINDING missing-topic: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-topic.md: no '- topic:' header line\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/defect-missing-topic.md: 0 mark(s) on 0 line(s)\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/good-entry.md: 2 mark(s) on 2 line(s)\n  INFO scan: files=7 marks=2 mark-lines=2 findings=6 blocked=0\nselftest: clean-entry run\n  INFO to-verify-count: /tmp/kotodama-gate-export-_eewb00d/tools/gates/fixtures/provenance/good-entry.md: 2 mark(s) on 2 line(s)\n  INFO scan: files=1 marks=2 mark-lines=2 findings=0 blocked=0\nSELFTEST OK: 7 fixture file(s), planted IDs missing-topic, missing-sources, empty-sources, missing-couples, empty-couples, missing-calibration, exit 1 on the defect tree, exit 0 on the clean entry, exit 2 on a missing path\n",
+      "stderr": "",
+      "stdout_sha256": "380e164ab0300ef23d45ebe8d4c8cbb611e8641276f12fdd6afd52875e936436"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/handoff-packet-check.py",
+        "examples/handoff-packet.sample.md"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "INFO scan: fields=16/16 glossary-entries=20 findings=0\n",
+      "stderr": "",
+      "stdout_sha256": "7c5810479045c26bcc3b1c7364934f53147641504a766eeffeaaec4d2d624685"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/check-craft-exercise.py",
+        "examples/supplement-opencode-1/sound-change-vs-taboo.json",
+        "--report",
+        "reports/supplement-opencode-1/32-craft-exercise.md"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "OK all checks passed (audits=7, mech_cases=11, derivations=9, approx_checks_runner=37)\n",
+      "stderr": "",
+      "stdout_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/check-craft-exercise.py",
+        "--selftest"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "SELFTEST OK 10/10 tamper cases detected\n",
+      "stderr": "",
+      "stdout_sha256": "d5eceb67bce18cca5ae046e3f58d822a6834f916ea83d9d9bbf7a0a1290c552d"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "legacy_fixture_bytes_unchanged": true,
+  "legacy_selftests_run_in_isolation": 7,
+  "source_audits": [
+    {
+      "entry": "corpus/knowledge/civilizations/ottoman.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/ottoman.json",
+      "audits": 9,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/civilizations/slavs-early.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/slavs.json",
+      "audits": 9,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/civilizations/sogdian-silk-road.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/sogdian.json",
+      "audits": 30,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/civilizations/tibet.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/tibet.json",
+      "audits": 16,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/civilizations/turkic-steppe.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/turkic.json",
+      "audits": 11,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/civilizations/africa-primary-sources.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/africa.json",
+      "audits": 12,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/civilizations/mesoamerica-primary-sources.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/mesoamerica.json",
+      "audits": 16,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/linguistics/color-terminology.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/color.json",
+      "audits": 7,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/linguistics/kinship-terminology.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/kinship.json",
+      "audits": 9,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/linguistics/orality-formulaic-language.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/orality.json",
+      "audits": 5,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/linguistics/phonetics-phonology.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/phonetics.json",
+      "audits": 11,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/linguistics/sociolinguistics-registers.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/registers.json",
+      "audits": 8,
+      "append_only": true
+    },
+    {
+      "entry": "corpus/knowledge/linguistics/semantic-fields-lexicon-building.md",
+      "ledger": "corpus/lessons/supplement-opencode-1/sources/lexicon.json",
+      "audits": 5,
+      "append_only": true
+    }
+  ],
+  "source_verdicts": {
+    "supported": 118,
+    "unresolved": 20,
+    "contradicted": 10
+  },
+  "source_audits_total": 148,
+  "parent_passage_spotchecks": 5,
+  "inventory_totals": {
+    "files": 179,
+    "files_with_any_mark": 123,
+    "files_with_marker": 110,
+    "lines": 32518,
+    "raw_lines": 592,
+    "raw_occurrences": 598,
+    "ci_occurrences": 600,
+    "case_variant_occurrences": 2,
+    "marker_occurrences": 568,
+    "bare_marker_occurrences": 539,
+    "detailed_marker_occurrences": 29,
+    "marker_lines": 565,
+    "unparenthesized_occurrences": 32
+  },
+  "d2_gate_results": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/phonology-sanity-gate.py",
+        "examples/culture-d2/packet.d2.yml"
+      ],
+      "cwd": "repo",
+      "exit": 1,
+      "stdout": "FINDING A-NEUTRAL: REVIEW — notable_rules[1] 'n → m / _ p' neutralizes 'n' to the phoneme 'm': permitted, but the phonemic distinction in that same context still needs a contrast witness or a reanalysis (spec §5)\nFINDING A-NEUTRAL: REVIEW — notable_rules[2] 'n → m / _ b' neutralizes 'n' to the phoneme 'm': permitted, but the phonemic distinction in that same context still needs a contrast witness or a reanalysis (spec §5)\nFINDING A-NEUTRAL: REVIEW — notable_rules[7] 's → h / _ #' neutralizes 's' to the phoneme 'h': permitted, but the phonemic distinction in that same context still needs a contrast witness or a reanalysis (spec §5)\n",
+      "stderr": "",
+      "stdout_sha256": "1ce5f0cdabad1bda177245607226cb6bf643f2bfbbe2ddb0918c510749066dd2",
+      "finding_classes": {
+        "A-NEUTRAL": 3
+      },
+      "finding_count": 3
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/lexicon-coverage-audit.py",
+        "examples/culture-d2/packet.d2.yml"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finding_classes": {},
+      "finding_count": 0
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/myth-consistency-gate.py",
+        "examples/culture-d2/packet.d2.yml"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finding_classes": {},
+      "finding_count": 0
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/costume-era-consistency-gate.py",
+        "examples/culture-d2/packet.d2.yml"
+      ],
+      "cwd": "repo",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "finding_classes": {},
+      "finding_count": 0
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/gates/naming-collision-gate.py",
+        "examples/culture-d2/packet.d2.yml"
+      ],
+      "cwd": "repo",
+      "exit": 1,
+      "stdout": "FINDING NAME-NEAR: REVIEW — entities era#1 and era#2 are 1 edit apart on display graphemes ('E0' vs 'E1', threshold <= 1); recall-oriented retrieval, not a confusion verdict\nFINDING NAME-NEAR: REVIEW — entities era#1 and era#3 are 1 edit apart on display graphemes ('E0' vs 'E2', threshold <= 1); recall-oriented retrieval, not a confusion verdict\nFINDING NAME-NEAR: REVIEW — entities era#1 and era#4 are 1 edit apart on display graphemes ('E0' vs 'E3', threshold <= 1); recall-oriented retrieval, not a confusion verdict\nFINDING NAME-NEAR: REVIEW — entities era#2 and era#3 are 1 edit apart on display graphemes ('E1' vs 'E2', threshold <= 1); recall-oriented retrieval, not a confusion verdict\nFINDING NAME-NEAR: REVIEW — entities era#2 and era#4 are 1 edit apart on display graphemes ('E1' vs 'E3', threshold <= 1); recall-oriented retrieval, not a confusion verdict\nFINDING NAME-NEAR: REVIEW — entities era#3 and era#4 are 1 edit apart on display graphemes ('E2' vs 'E3', threshold <= 1); recall-oriented retrieval, not a confusion verdict\nFINDING PHON-INVENTORY: FAIL — name GAR-01 'winter valley coat (heavy felted wool; uncombed finish optional)': symbol /v/ at position 7 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-02 'high-pasture coat (fine first-shear felt; narrow placket; wind-flap at the shoulder)': symbol /-/ at position 5 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-03 'transit coat (felted outer; fringed hem-cords at the hem-line; the coat of the pass)': symbol /c/ at position 8 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-04 'lowland-cloth coat (woven plant-thread cloth of the lowland partner; a lowland cut)': symbol /-/ at position 8 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-05 \"mast-sash (narrow woven wool band, lineage-issued; the wind standard's sash)\": symbol /-/ at position 5 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-06 \"stranger's fair coat (flat-woven lowland cut, no fringed hem; the treaty stranger's coat)\": symbol /'/ at position 9 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-07 'mourning coat (felt left shaggy, undyed, hem-cords cut back)': symbol /c/ at position 9 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-08 'bale cord (imported plant-thread cord in coils; the legal channel of the banned import)': symbol /c/ at position 5 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-09 'down under-tunic (combed pack-ox underfleece, worn next to the skin at both poles)': symbol /-/ at position 10 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING PHON-INVENTORY: FAIL — name GAR-10 'gale legging (smoke-cured leather, wind-cut: no slack at the ankle, no inner seam)': symbol /(/ at position 12 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h}, vowels {a, e, i, o, u})\nFINDING CROSS-HOLD: HOLD — packet declares no bounded cross-cultural review; D HOLD — a constructed string is not evidence of cross-cultural clearance (spec §9.6)\n",
+      "stderr": "",
+      "stdout_sha256": "ebc8850d08ec1b7e32616cbca9092ba66f3b6f148a61515a033e6bed6fa66f4b",
+      "finding_classes": {
+        "NAME-NEAR": 6,
+        "PHON-INVENTORY": 10,
+        "CROSS-HOLD": 1
+      },
+      "finding_count": 17
+    }
+  ],
+  "d2_findings_total": 20,
+  "limits": [
+    "148 worker verdicts are not 148 independent parent confirmations; five source rows were re-fetched by parent.",
+    "Expected red design verdicts are retained, not failed test assertions or culture clearance.",
+    "Legacy corpus metadata, parser coverage, fixture selftest side effects, per-gate expected.json layout and lore receipt remain debts.",
+    "Supplemental wave does not replace the three numbered non-flash Z.ai rounds."
+  ],
+  "acceptance_checks_passed": true
+}

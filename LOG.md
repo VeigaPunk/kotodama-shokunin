@@ -2013,3 +2013,129 @@ Dispatch: 32 agents on openai-codex/gpt-6.1-sol; 31 completed, 1 unaccounted
    17 audit reports, defects named per batch. VERDICT: improved, verified.
 Admission: REJECTED (claims 1-2 as declared). No axis harmed. Calibration
 lesson (orchestrator-owned target-setting fallacy): round-4 lesson file.
+
+## 2026-10-17 — supplemental OpenCode Go wave: historical corrections
+
+These corrections supersede the numerical and assurance claims named below;
+prior entries and commits remain untouched. Baseline for this audit:
+`fe34faaafbe0add59ff68827a0df6c5782a72404`.
+
+- Round 4's five committed `.out` files contain **21** finding lines
+  (3+0+0+0+18), not 24. `corpus/lessons/round-4-audit/` contains **16**
+  Markdown reports, not 17. The depth target of <=10 still failed; this
+  correction does not change that round's historical rejection.
+- Raw marker-bearing lines by commit are 1258 (`49ac1a5`), 795
+  (`291c714`), 587 (`1688790`), 612 (`c610e0a`), 590 (`fe34faa`). These
+  are not a monotonic scholarship-resolution curve; new corpus entries and
+  policy mentions change the denominator. Counts are lines, not claims or
+  occurrences. Reproduce by enumerating `git ls-tree -r --name-only <rev>
+  corpus/knowledge`, reading each Markdown blob via `git show`, and
+  counting lines containing the exact string `to-verify`.
+- Round 4 removed all eight naming `DERIV-HOLD` findings. The old
+  `DERIV-REPLAY` residual in lessons/metadata was stale: current component
+  03 rules and component 13 complete stems replay already. The ten
+  remaining PHON-INVENTORY failures concern English garment descriptions
+  with no native forms, not accent marks or segment-encoding evidence.
+- Round-3/4 dispatch counts advertised in old prose do not have a committed
+  original prompt/result receipt. Do not manufacture absent workers from
+  a claimed batch size. This supplement persists its actual 32-item result
+  receipt at `reports/supplement-opencode-1/dispatch.json`.
+- Five legacy gate selftests regenerate their committed fixtures. A clean
+  `git status` or unchanged bytes after deterministic regeneration is NOT
+  evidence that no writes occurred. Run those tests in an isolated export.
+  Naming/handoff selftests read existing fixtures; all seven still pass.
+- A clean myth/costume kernel result does not prove complete role coverage
+  or rank-rule enforcement. Missing ledgers leave checks unexercised; see
+  supplemental reviews 23 and 24. The handoff checker verifies envelope
+  shape, not consent, digest-vs-file truth or canon acceptance. Its current
+  run over the legacy YAML produces exit 0 with zero glossary entries;
+  the prior pre-freeze YAML exit-1 correction did not reproduce and must
+  not be treated as verified. The Markdown contract remains the default.
+- The old 0–10 axis estimates lack a reproducible numeric rubric; the
+  SCORECARD now labels them historical, records per-axis observations,
+  and names numeric calibration as a remaining conformance debt.
+
+Evidence: `reports/supplement-opencode-1/07-historical-corrections.md`,
+`06-inventory.md`, `22-label-representation.md`, `25-handoff-boundary.md`,
+`29-local-boundaries.md`; re-run commands are retained in those records.
+
+## 2026-10-17 — supplement-opencode-1: source rechecks and runnable evidence (ADMITTED)
+
+Authorization: the operator requested a 32–64-worker native OpenCode Go
+DeepSeek v4.1 Flash swarm while non-flash Z.ai GLM-5.3 cooled down. One
+32-item AgentSwarm returned 32 completions; the persisted request/result
+receipt is `reports/supplement-opencode-1/dispatch.json`. It establishes
+requested routing and returned assignments, not observed simultaneous
+concurrency or an independent upstream model echo. One existing replay
+worker was resumed for path/option-injection hardening; no second batch
+was dispatched. This supplement is not numbered round 5 and does not
+replace any of the three reserved 16-worker non-flash Z.ai rounds.
+
+Baseline: `fe34faaafbe0add59ff68827a0df6c5782a72404`. The three claims were
+declared before dispatch in `reports/supplement-opencode-1/claims.json`:
+
+1. **freshness — improved, verified.** Required >=10 distinct source
+   checks and >=5 directly retrieved passages. The 13 assigned ledgers
+   contain 148 rows: 118 worker-classified supported, 10 contradicted,
+   20 unresolved. The parent independently re-fetched five bounded
+   WALS/Frontiers passages; this is not 148 independent confirmations.
+   Nine corpus entries carry appended errata with baseline bytes retained.
+   Count/schema/hash/append-only checks run in
+   `python3 reports/supplement-opencode-1/run-validation.py`; passage
+   evidence is `parent-source-spotchecks.json` and the assigned source
+   ledgers under `corpus/lessons/supplement-opencode-1/sources/`.
+2. **operability — improved, verified.** Assembler selftest absent ->
+   42/42 controls; frozen-replay entry point absent -> both seven-row
+   round-3 manifests reproduced byte-for-byte, with 79/79 replay controls.
+   Digest tampering, traversal and option-like paths are rejected before
+   a gate launches. `tools/assemble-d2.py --check` passes. Seven legacy
+   gate selftests still pass, run in an isolated export because five
+   rewrite fixture files. The bounded craft-example checker passes and
+   detects 10/10 planted tamper cases. Exact argv, outputs and tested-file
+   hashes are persisted in `reports/supplement-opencode-1/validation.json`.
+3. **calibration — improved, verified.** The preceding appended correction
+   distinguishes established counts from unresolved dispatch history and
+   separates marker counts from scholarship. The read-only inventory
+   selftest passes; 179 entries have 592 raw marker-bearing lines versus
+   590 at baseline, not a claimed resolution curve. Counting commands are
+   in SCORECARD.md and validation.json. No numeric quality score was raised.
+
+Every-axis judgment: depth **improved** as an unclaimed observation
+(PAN-03's full `huma + weha` derivation removes one actual coda defect;
+the separate non-canon exercise executes nine derivations); coverage
+**unchanged** (179 entries, six partitions; missing index row repaired);
+operability **improved**; freshness **improved**; calibration **improved**;
+adjacency **unchanged** (handoff Markdown still reports 16/16 fields and
+20 glossary entries; no lore receipt). No tested axis was harmed. All
+three declared claims verify, so this supplemental wave ADMITS under
+per-axis judgments, not a scalar score or promotion decision.
+
+Current D2 real calls retain 20 finding lines, versus the corrected
+baseline 21: three phonology REVIEWs and 17 naming findings (six era-ID
+similarity reviews, ten English-label inventory failures, one cultural
+screening hold). Expected red design verdicts are observations, not
+failed acceptance assertions or a cleared culture. Myth/costume zeroes
+cover only supplied ledgers; role coverage and rank rules remain limited.
+
+Acceptance rerun on the delivered working tree:
+`python3 reports/supplement-opencode-1/run-validation.py` exited 0 with
+`acceptance_checks_passed: true`; this includes real D2/handoff/craft calls,
+all selftests, both frozen replays, source ledger checks and
+`git diff --check`. No package/build manifest exists. The assembler packet
+was regenerated by the parent, not hand-edited. SKILL.md now records
+source-use decisions and actual tool write scopes; PROVINCE.md and the
+corpus index cover all six existing partitions. AGENTS.md documents scoped
+worker fragments and parent-owned append-only batch logging.
+
+Limits: parser/regex negative controls, missing typed label and rank-rule
+adapters, legacy corpus headers, per-gate expected.json layout and an
+uncalibrated numeric-axis rubric remain debts, not hidden passes. Reviews
+are author-side; no SHONEN box receives independent [x], no rank or canon
+changes, no world-bible/sibling/provider-configuration writes. Raw source
+downloads and experiment copies remain ignored under this wave's scratch
+path; durable records retain URLs, short excerpts, locators and commands.
+The lesson is `corpus/lessons/supplement-opencode-1.md`; the final child-local
+report will cite the carrying work commit after it exists. Fleet bookkeeping
+is outside the operator's write scope, so no fleet closure is claimed.
+Four numbered rounds remain recorded; the full requested program is not
+complete, and the exact non-flash Z.ai/Grok schedule remains pending.

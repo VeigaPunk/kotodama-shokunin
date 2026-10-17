@@ -153,3 +153,55 @@ Worked micro-example (compressed): a river kingdom with a dead temple-tongue H (
 ## 11. Canon boundary
 
 This file is reference knowledge and method only. Which registers exist in-world, which features are load-bearing, and how they bind to named factions are canon decisions owned by lore-shokunin. Hand off register grids as era-anchored options, not as facts, and flag anything marked to-verify before it enters the bible.
+
+## Errata and source-recheck appendix — 2026-10-17 (wave supplement-opencode-1; prior text preserved)
+
+Appended records only; no earlier line is modified. Baseline revision fe34faa;
+per-audit rows with URLs, locators, retrieved excerpts and access limits:
+`corpus/lessons/supplement-opencode-1/sources/registers.json` (8 rows: 5
+supported, 1 contradicted, 2 unresolved).
+
+- **E1 — correction (Japanese bullet, §4).** Bunkachō (2007) 「敬語の指針」,
+  retrieved in full, divides keigo into **five** categories — 尊敬語 /
+  謙譲語Ⅰ / 謙譲語Ⅱ（丁重語）/ 丁寧語 / 美化語 — and states that 丁寧語
+  （「です・ます」型）is 「＜相手＞に対する敬語」 ("an honorific toward the
+  addressee"), while 尊敬語 and 謙譲語Ⅰ are directed at ＜向かう先＞ (the
+  target: the addressee-side or a third party) and 謙譲語Ⅱ is likewise
+  addressee-directed. The bullet's "referent honorifics in three families —
+  sonkeigo, kenjōgo, teineigo — plus bikago" therefore conflates the addressee
+  and referent axes. Reading for reuse: referent-directed = sonkeigo +
+  kenjōgo(Ⅰ); addressee-directed = teineigo + 丁重語/謙譲語Ⅱ; bikago = the
+  fifth, "beautification" category. The uchi/soto point in the same bullet
+  stands. Locators: 第1章「＜答申の立場＞（２）敬語の区分について」(printed
+  p. 3); 第2章 第1 3「謙譲語Ⅱ」補足 (printed p. 19); 4「丁寧語」(printed
+  p. 20). Harada (1976) was not re-read this pass; the correction rests on the
+  retrieved official text alone.
+- **E2 — qualification (avoidance-registers bullet, §4).** The
+  presence-triggered switch to jalnguy is supported (Australian Academy of the
+  Humanities summary of Dixon's fieldwork; Haviland's account of the parallel
+  Guugu Yimidhirr register has such vocabulary "activated merely by the
+  presence of tabooed kin"). "A complete replacement lexicon", however, should
+  not be read as one-to-one synonymy: Haviland, citing Dixon (1971), describes
+  the avoidance vocabulary as selective — many ordinary words rendered by a
+  single avoidance equivalent. Full-lexicon coverage stays **unresolved** here;
+  Dixon (1971/1980) were not retrieved.
+- **E3 — open count (Korean bullet, §4).** The hearer/referent honorific split
+  is supported (Ku 2014, ANU sub-thesis; Kim & Findlay 2023, LSA proceedings —
+  with the caveat that -si- target selection is debated and that some -si- uses
+  are addressee-directed). The count "seven classical, four to six alive" is
+  **unresolved**: the retrieved sub-thesis reports six levels, of which four
+  are commonly used; the National Institute of Korean Language (korean.go.kr,
+  stdict.korean.go.kr) did not resolve from this environment, and the Academy
+  of Korean Studies encyclopedia (encykorea.aks.ac.kr) yielded no reachable
+  article through its search endpoint. Do not read the count as verified.
+- **E4 — confirmations, no text change (Greek example §3; Javanese bullet
+  §4).** Cambridge University Library states Katharevousa "was now replaced
+  with Demotiki as part of the 1976 Education Act", supporting "(settled
+  1976)" — the statute itself was not retrieved, so no law number is asserted.
+  Errington (1982), *Indonesia* 34: 89–101 (Cornell eCommons), supports the
+  Javanese bullet's address/reference split (palace address vocabulary
+  "defines a style of address, not reference"; krama inggil-type words "mark
+  speaker's deference through linguistic reference") and the
+  element-by-element re-grading (politeness raised or lowered "through choice
+  of krama or ngoko elements"); the general Javanese system still rests on the
+  cited Errington (1988), not re-read.

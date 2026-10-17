@@ -7,8 +7,11 @@ terminology; naming systems — for fictional worlds, feeding the world
 bible.
 
 **Owns:** the generative/coupling craft and its records in this repo
-(`corpus/knowledge/{linguistics,myth-symbol,culture-material,synthesis}`),
-this lane's own gates and reports.
+(`corpus/knowledge/{linguistics,myth-symbol,culture-material,synthesis,verification,civilizations}`),
+this lane's own gates, source-check records, non-canon examples and reports.
+The verification and civilization partitions support linguistic-cultural
+coupling; they do not expand ownership into general research method, fleet
+protocol, historical truth certification or lore's canon.
 
 **Refuses:** claiming or recording canon — that is lore-shokunin
 (kotodama *hands off* systems; lore records and verifies them); real-world

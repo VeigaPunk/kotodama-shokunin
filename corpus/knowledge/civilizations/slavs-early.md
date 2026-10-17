@@ -196,3 +196,7 @@
 - Do not use the *Book of Veles* as an authenticated early Slavic witness; an attempted defense of authenticity requires specialist source criticism, not a lore compilation.
 - Thin areas remain: original homily recensions behind Rod/rožanicy claims, the identity of `nožnici`, specific early ritual garments, and regional West/South Slavic comparisons. Keep their marked claims (to-verify), not silently completed.
 - Stop before converting etymology into theology, ornament into ethnic identity, burial selection into daily dress, or an attractive design into historical or fictional canon.
+
+## Erratum appended by source-recheck, 2026-10-17 (prior text preserved)
+
+- **`nožnici`** (flagged above as to-verify): the form is not opaque. It matches the ordinary Slavic noun for scissors — Slovak `nožnice` 'scissors' (plurale tantum, [Wiktionary](https://en.wiktionary.org/wiki/no%C5%BEnice), citing the Slovak Academy of Sciences dictionary portal), Polish `nożyce`, Lower Sorbian `nožyce`, Russian `ножницы` from `нож` ([ru.wiktionary](https://ru.wiktionary.org/wiki/ножницы)). No source retrieved on 2026-10-17 attaches the form to Rod/rožanicy, to a priesthood, or to any garment: the (to-verify) flags above stand, and any scissors-rite or robe claim tied to this label still needs a verified term, text, place, and date. Read `nožnici` as an everyday implement word under test, not as a deity, ritual, or dress term.

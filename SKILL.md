@@ -84,23 +84,49 @@ languages and cultural systems to it, never edits it.
   coupling that tradition's language, writing, myth, symbols, era model,
   costume, and naming, with provenance cautions.
 
-## Gates
+## Using the evidence
 
-Registry per the fleet gate standard (fleet `PROTOCOL.md` §Gate
-standard). Common interface: exit 0 clean / 1 findings / 2
-could-not-evaluate; `--selftest` runs committed fixtures with planted
-violations; input is a culture packet (schema in
-`corpus/knowledge/verification/`) except `handoff-packet-check`, which
-reads a handoff packet (`synthesis/worldbible-integration-contract.md`
-§4 envelope); corpus reads are read-only. All selftests green, last
-verified 2026-10-17.
+Read each entry's appended errata before using earlier tables. Source rechecks
+are claim-specific: `corpus/lessons/supplement-opencode-1/sources/` records
+supported, contradicted and unresolved claims with passage and access limits.
+A catalogue record establishes catalogue metadata, not the unread book's
+contents. A disappearing uncertainty marker is not a verified claim.
 
-| name | kind | entry command | self-test | pinned values | write scope | owner |
-|---|---|---|---|---|---|---|
-| phonology-sanity-gate | gate | `python3 tools/gates/phonology-sanity-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/phonology-sanity-gate.{yml,expected} | none outside report | kotodama-shokunin |
-| lexicon-coverage-audit | gate | `python3 tools/gates/lexicon-coverage-audit.py <packet.yml>` | `--selftest` | tools/gates/fixtures/lexicon-coverage-audit.{yml,expected} | none outside report | kotodama-shokunin |
-| myth-consistency-gate | gate | `python3 tools/gates/myth-consistency-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/myth-consistency-gate.{yml,expected} | none outside report | kotodama-shokunin |
-| costume-era-consistency-gate | gate | `python3 tools/gates/costume-era-consistency-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/costume-era-consistency-gate.{yml,expected} | none outside report | kotodama-shokunin |
-| naming-collision-gate | gate | `python3 tools/gates/naming-collision-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/naming-collision-gate.{yml,expected} | none outside report | kotodama-shokunin |
-| provenance-audit | gate | `python3 tools/gates/provenance-audit.py <corpus-files…>` | `--selftest` | tools/gates/fixtures/provenance/ | none outside report | kotodama-shokunin |
-| handoff-packet-check | gate | `python3 tools/gates/handoff-packet-check.py <packet.md>` — 0 clean / 1 findings / 2 could-not-evaluate; `-` reads stdin | `--selftest` | tools/gates/fixtures/handoff-packet-check.{md,expected} | none outside report | kotodama-shokunin |
+| Finding or observation | Response | Evidence |
+|---|---|---|
+| `A-NEUTRAL` REVIEW | Keep the contextual reanalysis and witnesses; do not call a typological warning a linguistic impossibility | `reports/supplement-opencode-1/21-phonology-review.md` |
+| English garment labels fail the D2 phoneme inventory | Separate translated labels from native forms; missing native forms remain a gap, not cleared names | `reports/supplement-opencode-1/22-label-representation.md` |
+| A name violates the declared coda rule | Repair the derivation in the owner ledger and propagate actual references, preserving the rejected form as historical evidence | `reports/supplement-opencode-1/04-name-correction.md` |
+| A clean myth/costume verdict with omitted ledgers | Report unexercised checks; a clean supplied subset does not establish coverage or authenticity | `reports/supplement-opencode-1/23-myth-coverage.md`, `24-costume-coverage.md` |
+| `CROSS-HOLD` or missing lore receipt | Retain the hold; author-side tests do not supply cultural clearance or canon authority | `reports/supplement-opencode-1/25-handoff-boundary.md` |
+| Frozen replay exits 0 with recorded findings | The red verdict reproduced; the culture did not become clean | `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv` |
+
+## Gates and probes
+
+Normal gate runs map 0 to clean, 1 to findings and 2 to could-not-evaluate.
+`provenance-audit` reads corpus entries; `handoff-packet-check` reads the
+Markdown handoff envelope; the other five read culture packets. The seven
+legacy selftests pass, but five regenerate their fixture files in place
+(phonology, lexicon, myth, costume, provenance). Run that battery in an
+isolated repo export; byte equality after a run does not prove no writes.
+See `reports/supplement-opencode-1/29-local-boundaries.md`.
+
+The replay tool validates SHA-256 pins and executes snapshots, never the
+manifest command string. Its exit 0 means reproduction, including expected
+red verdicts; 1 means mismatch and 2 means could-not-evaluate, including
+`snapshot_tampered`. The round-3 TSV recording is replayable; this does not
+retrofit the protocol's separate per-gate `expected.json` layout. Round-4
+output files alone remain unpinned legacy evidence.
+
+| name | kind | entry command | verdict map | self-test | pinned values | write scope | owner |
+|---|---|---|---|---|---|---|---|
+| phonology-sanity-gate | gate | `python3 tools/gates/phonology-sanity-gate.py <packet.yml>` | 0 clean / 1 findings / 2 could-not-evaluate | `--selftest` (isolated export) | tools/gates/fixtures/phonology-sanity-gate.{yml,expected} | selftest rewrites own fixtures | kotodama-shokunin |
+| lexicon-coverage-audit | gate | `python3 tools/gates/lexicon-coverage-audit.py <packet.yml>` | 0 clean / 1 findings / 2 could-not-evaluate | `--selftest` (isolated export) | tools/gates/fixtures/lexicon-coverage-audit.{yml,expected} | selftest rewrites own fixtures | kotodama-shokunin |
+| myth-consistency-gate | gate | `python3 tools/gates/myth-consistency-gate.py <packet.yml>` | 0 clean / 1 findings / 2 could-not-evaluate | `--selftest` (isolated export) | tools/gates/fixtures/myth-consistency-gate.{yml,expected} | selftest rewrites own fixtures | kotodama-shokunin |
+| costume-era-consistency-gate | gate | `python3 tools/gates/costume-era-consistency-gate.py <packet.yml>` | 0 clean / 1 findings / 2 could-not-evaluate | `--selftest` (isolated export) | tools/gates/fixtures/costume-era-consistency-gate.{yml,expected} | selftest rewrites own fixtures | kotodama-shokunin |
+| naming-collision-gate | gate | `python3 tools/gates/naming-collision-gate.py <packet.yml>` | 0 clean / 1 findings / 2 could-not-evaluate | `--selftest` | tools/gates/fixtures/naming-collision-gate.{yml,expected} | read-only | kotodama-shokunin |
+| provenance-audit | gate | `python3 tools/gates/provenance-audit.py <corpus-paths>` | 0 clean / 1 findings / 2 could-not-evaluate | `--selftest` (isolated export) | tools/gates/fixtures/provenance/ | selftest rewrites own fixtures | kotodama-shokunin |
+| handoff-packet-check | gate | `python3 tools/gates/handoff-packet-check.py <packet.md>` | 0 clean / 1 findings / 2 could-not-evaluate | `--selftest` | tools/gates/fixtures/handoff-packet-check.{md,expected} | read-only | kotodama-shokunin |
+| frozen-replay | gate | `python3 tools/replay-frozen.py <MANIFEST.tsv>` | 0 recorded verdict reproduced / 1 mismatch / 2 could-not-evaluate | `--selftest` | manifest gate/input/output SHA-256 pins; selftest constants in script | auto-cleaned scratch only | kotodama-shokunin |
+| uncertainty-inventory | probe | `python3 tools/source-audit-inventory.py --json` | 0 inventory produced, not scholarship verified / 2 could-not-evaluate | `--selftest` | exact-count fixture constants in script | read-only; selftest scratch | kotodama-shokunin |
+| D2 assembly | probe | `python3 tools/assemble-d2.py --check` | 0 byte-identical / 1 drift / 2 could-not-evaluate | `--selftest` | component hashes and synthetic controls in script | default mode regenerates packet; check read-only; selftest scratch | kotodama-shokunin |

@@ -1,8 +1,12 @@
 # kotodama-shokunin corpus index
 
-revision: 1.1 — Reconciled knowledge-entry topic lines and partition totals
-against the current tree; replaced stale implementation and triage gaps
-with the remaining round-5 flags and two-evidence baseline obligations.
+revision: 1.2 — Corrected the omitted African primary-source entry and total;
+source recheck records and append-only errata are linked below. Non-canon
+examples and passing structural gates do not certify historical truth.
+
+Source rechecks: `lessons/supplement-opencode-1/sources/` holds the assigned
+claim ledgers; `lessons/supplement-opencode-1.md` records admission and limits.
+Read appended errata in each entry before applying its earlier statements.
 
 言霊 — the craft record connecting languages, cultures, myths,
 symbolisms, and eras to their linguistics and costumes. Every entry
@@ -109,9 +113,10 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `to-verify-triage-protocol.md` — A lane-local procedure for resolving uncertain reference claims without laundering speculation into linguistic-cultural knowledge or fictional canon; includes risk triage, evidence tests, review cadence, and an append-only resolution ledger.
 - `verification-method-overview.md` — the lane's craft-verification philosophy: every language–myth–symbol–era–costume system claim must identify a corpus decision rule, inspectable inputs, an expected result, and a possible failure; observations, inferences, unknowns, and proposed design choices remain separate; missing evidence never becomes permission to assert canon.
 
-## civilizations/ (93)
+## civilizations/ (94)
 
 - `aegean-minoan-mycenaean.md` — Bronze Age Crete and mainland Greece as a coupled reference for language, administrative writing, cult, visual motifs, periodization, dress, and architectural vocabulary; method and reference only, not fictional canon.
+- `africa-primary-sources.md` — Bounded sub-Saharan primary-source map: Ajami manuscripts, oral-performance and language archives, excavation reports, material contexts and provenance limits; not a continent-wide cultural template.
 - `ainu.md` — Ainu linguistic-cultural reference base: language-isolate calibration; yukar and kamuy narration; reciprocity between human and spirit worlds; Ainu-moshiri and place naming; attus textiles; historically situated iyomante. Method and reference knowledge only, not fictional canon.
 - `akan.md` — Akan linguistic-cultural coupling, especially Asante Twi tone, adinkra, kente, stool regalia, and kra/day naming; reference and generative method, not fictional canon.
 - `aksum-ethiopia.md` — Aksumite and Ethiopian Orthodox reference systems coupling Geʿez, Ethiopic writing, qene, sacred objects, calendars, historical staging, dress, and names; method/reference only, never fictional canon.
@@ -207,22 +212,29 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
 ## Known gaps (frontier)
 
-- Five civilization files still carry flags for zai-lane triage in round 5:
-  `civilizations/ottoman.md`, `civilizations/slavs-early.md`,
-  `civilizations/sogdian-silk-road.md`, `civilizations/tibet.md`, and
-  `civilizations/turkic-steppe.md`. The carry is recorded in
-  `lessons/round-3-triage/orchestrator-direct.md`; use
-  `verification/to-verify-triage-protocol.md` to resolve the claims, not
-  merely remove their markers.
-- Two-evidence baselines remain pending per
-  `verification/gate-frozen-run-standard.md`: per-gate committed input
-  snapshots, digest-pinned expected verdicts, and digest verification before
-  comparison. The gates are already executable and frozen run outputs exist
-  under `tools/gates/frozen/round-3/`; finishing the baseline contract is a
-  separate obligation, not a missing first gate.
+- The five carried civilization entries now have per-claim supplemental
+  rechecks (Ottoman, early Slavic, Sogdian, Tibetan, Turkic). This does not
+  resolve every old marker: see their source JSON ledgers for specific
+  supported and unresolved checks. Preserve access limits and original
+  text; do not turn marker deletion into a freshness claim.
+- `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv`
+  now verifies gate/input/output digests and reproduces seven historical
+  verdicts. The separate per-gate `expected.json` layout required by the
+  fleet standard remains pending. Round-4 outputs have no frozen manifest
+  and remain unpinned legacy evidence.
+- Most historical entries lack the fleet's complete `source`,
+  `verified-at`, `recheck` header. The existing provenance gate checks the
+  older topic/sources/couples profile, not full corpus conformance.
+- D2 still needs typed native-form/translated-label handling, rank-rule
+  translation, and scoped material/era reconciliation. Gate coverage and
+  parser/regex negative controls need repair; legacy selftests must run in
+  an isolated export because five regenerate fixture files.
+- Cultural permission, real-language name screening, a lore receipt and
+  independent promotion review remain outside the current evidence.
 
-Total knowledge entries: 178.
+Total knowledge entries: 179.
 
 Counts checked 2026-10-17 from the repo root:
-`for p in corpus/knowledge/*/; do ls -d "$p"; ls -1 "$p"*.md | wc -l; done`
-(partitions), `ls -1 corpus/knowledge/*/*.md | wc -l` (total).
+`python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
+(total 179 files; directory totals remain 16/16/16/24/13/94).
+The inventory counts markers, not verified facts.

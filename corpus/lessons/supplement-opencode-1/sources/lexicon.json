@@ -1,0 +1,69 @@
+{
+  "wave": "supplement-opencode-1",
+  "baseline_revision": "fe34faaafbe0add59ff68827a0df6c5782a72404",
+  "entry": "corpus/knowledge/linguistics/semantic-fields-lexicon-building.md",
+  "entry_sha256_before": "aab8a8732f8b486c4acb9d2f5950654fd6d67f562e2f1eeea0188d5920dfad85",
+  "checked_at_utc": "2026-10-17T15:40:21Z",
+  "audits": [
+    {
+      "id": "LEX-01",
+      "claim": "In the WOLD 41-language sample the single most-borrowed meaning was a pronoun ('she').",
+      "entry_locator": "semantic-fields-lexicon-building.md:42 (§3 Borrowability strata)",
+      "source_url": "https://raw.githubusercontent.com/lexibank/wold/master/cldf/parameters.csv",
+      "retrieval_status": "retrieved full CSV (1815 lines = header + 1814 meanings) and aggregated locally with stdlib csv; column semantics taken from the retrieved cldf-metadata.json ('The average borrowed score of all words corresponding to this meaning')",
+      "source_locator": "parameters.csv: row ID 2-932 ('she'); row ID 2-93 ('he/she/it'); top core rows overall. Second table: Concepticon conceptlist Tadmor-2009-100 row Tadmor-2009-100-35.",
+      "source_excerpt": "2-932 'she': Borrowed_score=0.0531537916371; 2-93 'he/she/it': Borrowed_score=0.0; top core meanings: 'the olive' 0.9271, 'the motor' 0.9128, 'the machine' 0.8949, 'the coffee' 0.8631; Concepticon Tadmor-2009-100-35 '3sg pronoun' BORROWED_SCORE=1.000.",
+      "verdict": "contradicted",
+      "basis": "Recomputed from the dataset the entry cites: 1365 of the 1460 core-list meanings score higher than 'she' (0.0532), i.e. the pronoun sits near the least-borrowed end, while the highest-scoring core meanings are cultural/modern nouns. The WOLD-derived Leipzig-Jakarta conceptlist (https://raw.githubusercontent.com/concepticon/concepticon-data/master/concepticondata/conceptlists/Tadmor-2009-100.tsv, retrieved) carries the 3sg-pronoun row at 1.000 on its BORROWED_SCORE column, the list maximum, opposite in direction to borrowed items. The entry's companion point, that core meanings can leak under contact, survives in weaker form: the 'she' average is small but nonzero.",
+      "access_limit": "WOLD read as the v4.x CLDF release (lexibank/wold), a re-release of the 2009 database; the 2009 book prose and Tadmor, Haspelmath & Taylor 2010 (Diachronica) were not retrieved, so this is the database's own aggregate rather than a printed ranking table. Per-meaning word coverage was not computed (would require forms.csv), so low-coverage meanings can inflate extremes; the pronoun rows themselves are ordinary high-coverage meanings."
+    },
+    {
+      "id": "LEX-02",
+      "claim": "Central Alaskan Yup'ik has on the order of 15 snow-related roots, while productive suffixation yields hundreds of derived lexemes (Woodbury, per Martin 1986).",
+      "entry_locator": "semantic-fields-lexicon-building.md:58 (§4 Weather)",
+      "source_url": "https://archive.org/stream/lauramartineskimosnowwords/lauramartineskimosnowwords_djvu.txt",
+      "retrieval_status": "retrieved full text (archive.org text of the JSTOR scan of Martin 1986, American Anthropologist 88(2):418-423); second source, Woodbury's own memo, retrieved from https://www.sas.upenn.edu/~haroldfs/popcult/snowords/snow.html",
+      "source_locator": "Martin 1986, Notes (p. 422), note 3; Woodbury, 'Counting Eskimo words for snow: A citizen's guide' (July 1991), introductory counting-discussion paragraph and the note on inflectional forms",
+      "source_excerpt": "Woodbury (July 1991): 'Perhaps somewhat arbitrarily I have counted fifteen of them, placing within each of them noun and/or verb lexemes having the same basic sense.' (26 words)",
+      "verdict": "contradicted",
+      "basis": "Two independent defects. (a) The count's referent: Woodbury counts fifteen lexeme *meanings* — explicitly 'somewhat arbitrarily' — grouping noun and verb lexemes, not roots; Martin 1986 (note 3) instead says: 'There seems no reason to posit more than two distinct roots that can be properly said to refer to snow itself ... in any Eskimo language' (qanik, aput). (b) The attribution: Woodbury's memo is dated July 1991, five years after Martin 1986, which does not carry the fifteen-count at all; the 'hundreds' in the memo describe inflected forms (about 280 per noun lexeme, over 1000 per verb lexeme), not derived lexemes. The entry's usable design point (count mechanisms, not numbers) is unaffected.",
+      "access_limit": "Martin 1986 was read from an OCR text of a JSTOR scan (page markers 418-423 present; occasional OCR noise), not the printed journal; Pullum 1991 (the book) was not retrieved, so 'documented by ... Pullum 1991' is left as-is in the entry."
+    },
+    {
+      "id": "LEX-03",
+      "claim": "Boas 1911 noted only a few Eskimo snow words, and the inflated counts grew through the error chain documented by Martin 1986 and Pullum 1991.",
+      "entry_locator": "semantic-fields-lexicon-building.md:58 (§4 Weather)",
+      "source_url": "https://archive.org/stream/handbookofameric01boas/handbookofameric01boas_djvu.txt",
+      "retrieval_status": "retrieved full text of Boas 1911 (Handbook of American Indian Languages, Part 1, BAE Bulletin 40) from the archive.org scan of the UCLA copy",
+      "source_locator": "Boas 1911, Introduction, the form/meaning-association example (p. 25-26; located by text search, PDF/text line ~1457)",
+      "source_excerpt": "Here we find one word, aput, expressing snow on the ground; another one, qana, falling snow; a third one, piqsirpoq, drifting snow; and a fourth one, qimuqsuq, a snowdrift.",
+      "verdict": "supported",
+      "basis": "Boas's original example is exactly four items, and Martin 1986 (retrieved) traces the inflation Boas -> Whorf (1940, no data or numbers) -> Hall/Brown textbooks -> press counts of nine to two hundred, matching the entry's 'error chain' summary. Precision note: the 1911 text does not distinguish roots from words or terms (Martin 1986 notes this explicitly), and two of the four items gloss as drifting snow and snowdrift, so 'a few roots' is loose phrasing rather than a counted root inventory.",
+      "access_limit": "The Boas text is an OCR scan; page layout and any figures were not inspected. Pullum 1991 itself was not retrieved."
+    },
+    {
+      "id": "LEX-04",
+      "claim": "Finnish runs the same bear-euphemism play as Slavic: karhu < karhea 'rough' (cited to Kolosova et al. 2016, Journal of Ethnobiology and Ethnomedicine 12).",
+      "entry_locator": "semantic-fields-lexicon-building.md:76 (§4 Religion), citation metadata on line 4",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5320662/",
+      "retrieval_status": "retrieved full article text via PubMed Central (PMC5320662); the BMC publisher page returned a bot challenge and PubMed indexes the item under 2017",
+      "source_locator": "Kolosova et al., section discussing quasi bear plant names, passage on Estonian/Finnish bear words; PubMed record 28222790 (publication date 2017 Feb 21)",
+      "source_excerpt": "The words for 'bear' (North Estonian and standard Estonian karu, South Estonian kahr, and Finnish karhu) are related to each other. They are all connected with an ancient adjective (Est. kare, Fin. karhea 'rough').",
+      "verdict": "supported",
+      "basis": "The linguistic substance (karhu connected with karhea 'rough') is stated in the peer-reviewed source, so the entry's etymology stands. The citation metadata is demonstrably wrong and is corrected by appended erratum E3: the paper is Kolosova et al. 2017, J Ethnobiol Ethnomed 13(1):14, doi:10.1186/s13002-016-0132-9 (the '2016' in the DOI is the submission year, not the volume). A PubMed journal-scoped search for this author returned items for 2013 and 2017 only, no 2016 JEE paper. The retrieved article is about bear-related plant names and contains no Finnish 'mesikämmen' (text search), so that second euphemism remains uncited in this entry.",
+      "access_limit": "Read via PMC HTML, not the paginated PDF; section numbers rather than printed page numbers are cited, deliberately, to avoid inventing pagination."
+    },
+    {
+      "id": "LEX-05",
+      "claim": "Bear taboo replacement is documented, not just repeated lore: Proto-Slavic *medvědь 'honey-eater' displaced the inherited PIE word for 'bear'.",
+      "entry_locator": "semantic-fields-lexicon-building.md:76 (§4 Religion)",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5320662/",
+      "retrieval_status": "retrieved full article text via PubMed Central (PMC5320662)",
+      "source_locator": "Kolosova et al., Background section, paragraph on bear euphemisms in Eurasia",
+      "source_excerpt": "Russian literary and common name for bear is also a euphemism literally meaning 'honey eater'; all of them are used instead of old Indo-European name *ŗkso- … that has been tabooed for many centuries.",
+      "verdict": "supported",
+      "basis": "Independent peer-reviewed restatement of the tabooed-PIE-bear-name account that underwrites the entry's Slavic example (and its Hungarian borrow-medve parallel), from a source retrieved in full. This is secondary corroboration of Derksen 2008 and Udolph rather than a check of those dictionaries' own entries.",
+      "access_limit": "Derksen 2008 (s.v. *medvědь) and Udolph's 'The Slavic word for bear' were not retrieved this pass; the entry's primary citations therefore remain unverified at the dictionary level. No claim about ritual permission or restricted practice is made or implied here."
+    }
+  ]
+}
