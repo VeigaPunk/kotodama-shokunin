@@ -236,8 +236,13 @@ draft-status reconciliations.
   civilizations-partition recheck wave, handoff packet v2 closing the round-12
   semantic reject (uncertainty dimension + claim-to-record links). Freshness
   axis-move claims remain paused pending operator ruling.
-- Operator regimen 2026-10-17 (supersedes the older rounds 8–10 mapping;
-  recorded in LOG.md): 3 loops × 7 rounds = lane rounds 8–28. Per loop:
+- Operator regimen 2026-10-17, AMENDED same day (supersedes the older
+  rounds 8–10 mapping; recorded in LOG.md): 3 loops × 9 rounds. Per loop:
+  4 build (64w opencode-go/deepseek-v4.1-flash), 1 verify (64w
+  `openai-codex/gpt-6-luna-max`), 1 expand (128w `xai-oauth/grok-4.7-fast`),
+  1 integrate (32w `openai-codex/gpt-6.1-sol` max effort), then 2 GLM-flash
+  rounds (`zai-coding-plan/glm-5.3-flash`, 16–32 workers each). Lane rounds:
+  loop 1 = 8–16, loop 2 = 17–25, loop 3 = 26–34 (27 total). Original mapping:
   4 build rounds (one 64-worker swarm each, `opencode-go/deepseek-v4.1-flash`,
   rotating opencode-go key lanes), 1 verify round (64 workers,
   `openai-codex/gpt-6-luna-max`), 1 expand round (128 workers,

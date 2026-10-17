@@ -3044,3 +3044,14 @@ No goal, background agent or automatic continuation is started by this cleanup.
   pipeline; PROVINCE accurate; handoff packet REJECTED on semantics (missing
   uncertainty dimension + bilateral acknowledgment) — routes to rounds 13/14.
 - **Evidence:** `reports/round-12/validation.json` acceptance true.
+
+## 2026-10-17 — Operator regimen amendment + round-13 dispatch state
+
+- **Amendment (operator, this session):** each loop gains 2 GLM-flash rounds at
+  its end (`zai-coding-plan/glm-5.3-flash`, 16–32 workers each). Loops are now
+  9 rounds; lane rounds 8–34 (27 total). GLM rounds are additional to the
+  original 7-round structure, not a model substitution.
+- **Round-13 dispatch state:** the first 128-worker Grok expand swarm ran
+  407 s and was manually interrupted before any worker completed — zero files
+  landed; the tree sat clean at declaration commit `3dedab2`. A route probe
+  precedes the resume.
