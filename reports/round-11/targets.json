@@ -1,0 +1,76 @@
+{
+ "round": 11,
+ "date": "2026-10-17",
+ "baseline_revision": "94ca098b8ab03be52ec80f6925538e5e2c0ed327",
+ "depth": [
+  {
+   "id": "R11-D01..D02",
+   "task": "Design: the typed-pipeline wiring plan — where typed labels enter assembly, how gates receive the typed packet, what the expected hold set is for examples/culture-d2 (name each expected hold); reports/round-11/depth/design.md."
+  },
+  {
+   "id": "R11-D03..D08",
+   "task": "Implementation shards (single integrator owns the touched files; others deliver code fragments): assembler consumption of typed labels; gate reader adapter; holds mapping (TL-01 -> named holds); projection validator; CLI entry; frozen re-pin mechanics."
+  },
+  {
+   "id": "R11-D09..D16",
+   "task": "Test shards: e2e positive over examples/culture-d2; findings == expected hold set exactly; legacy-vs-typed differential (translated labels off the sound channel); determinism; replay-frozen; boundary/malformed; CLI negatives; interop with d3 path; battery green."
+  },
+  {
+   "id": "R11-D17..D19",
+   "task": "Three negative examples targeting the wiring (a translated label smuggled onto the sound channel; an owed form dropped silently; a hold laundered as clean) — each must be caught."
+  },
+  {
+   "id": "R11-D20..D23",
+   "task": "Adversarial reviewers: wiring vs design spec; hold-set completeness; circularity (a re-pin blessing its own change)."
+  },
+  {
+   "id": "R11-D24..D26",
+   "task": "Scribes: capability-row draft; frozen-manifest records; fragment ledger."
+  }
+ ],
+ "operability": [
+  {
+   "id": "R11-O01",
+   "task": "Design the handoff-e2e exercise: field map from live D2/D3 artifacts to the 16-field envelope; reports/round-11/handoff/design.md."
+  },
+  {
+   "id": "R11-O02..O05",
+   "task": "Implementation: tools/exercise-handoff-e2e.py with --selftest (positive + malformed controls); single writer."
+  },
+  {
+   "id": "R11-O06..O09",
+   "task": "Packet assembly from live artifacts (4 shard attempts, best integrated): 16/16 fields, 20/20 glossary entries populated from actual D2/D3 content."
+  },
+  {
+   "id": "R11-O10..O13",
+   "task": "Gate runs: handoff-packet-check over the assembled packet in an isolated copy; record verdicts; contract cross-reference verification (worldbible-integration-contract.md fields)."
+  },
+  {
+   "id": "R11-O14..O15",
+   "task": "Frozen expected.json baseline for the exercise + tamper control."
+  },
+  {
+   "id": "R11-O16..O18",
+   "task": "Adversarial reviewers: envelope completeness; any field populated with placeholder rather than live content."
+  }
+ ],
+ "freshness": [
+  {
+   "id": "R11-F01..F08",
+   "task": "Eight recheck rerunners: take ledger rows by index (rows[i] for i in your assigned slice of the 192-row reports/round-10/drift/ledger.json), re-run each command 1:1 (export TMPDIR=$PWD/.scratch), compare output_sha256; receipt per row reports/round-11/recheck/row-<NNN>.json {stable: bool, prior_hash, new_hash, drift_cause?}."
+  },
+  {
+   "id": "R11-F09..F10",
+   "task": "Drift disposition: for every unstable row, name the cause (legitimate change / environmental / defect) with evidence."
+  },
+  {
+   "id": "R11-F11",
+   "task": "Recheck auditor: independently re-run >=5 rechecked commands; mismatch with the recheck receipts = finding; reports/round-11/recheck/audit.md."
+  },
+  {
+   "id": "R11-F12",
+   "task": "Recheck scribe: summary JSON {rows_reckecked, stable, unstable, dispositions}; reports/round-11/recheck/summary.json."
+  }
+ ],
+ "scribe_review": "X01 lessons gate-keeper; X02 adjacency/connector + out-of-lane watch; X03 run-validation.py author; X04 report scribe."
+}

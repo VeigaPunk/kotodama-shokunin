@@ -1,0 +1,35 @@
+{
+ "round": 11,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "94ca098b8ab03be52ec80f6925538e5e2c0ed327",
+ "regimen": "operator 2026-10-17: loop 1 of 3, build round 4 of 4",
+ "requested_model": "opencode-go-2/deepseek-v4.1-flash",
+ "workers": 64,
+ "claims": [
+  {
+   "id": "D",
+   "axis": "depth",
+   "capability": "d2-typed-pipeline",
+   "before": "The d2-typed-labels projection (round 8) is standalone: the D2 example's ten GAR labels remain on the legacy gate's checked channel (skill-table-draft.md §7 limit); gates do not consume typed labels.",
+   "after_required": "The typed-label projection is wired into the D2 flow: assemble-d2 (or a documented adapter step) consumes typed labels; the D2 gates evaluate the typed packet such that translated labels never enter the sound channel and owed native forms are carried as named holds (not PHON artifacts); end-to-end command over examples/culture-d2 exits 0 with findings exactly equal to the expected hold set; frozen replay re-pinned and green; d2/d3 selftests + battery remain green.",
+   "counting_command": "python3 reports/round-11/run-validation.py; python3 tools/assemble-d2.py --check"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "capability": "handoff-e2e-exercise",
+   "before": "handoff-packet-check accepts the sample envelope (16 fields, 20 glossary entries) but no committed exercise assembles a handoff packet from the live D2+D3 artifacts end-to-end.",
+   "after_required": "A runnable exercise (tools/exercise-handoff-e2e.py or documented equivalent) assembles a handoff packet from live D2/D3 artifacts and validates it through tools/gates/handoff-packet-check.py in an isolated copy: exit 0, 16/16 fields, 20/20 glossary entries, contract cross-references intact; committed expected.json baseline; selftest with positive + malformed controls.",
+   "counting_command": "python3 reports/round-11/run-validation.py"
+  },
+  {
+   "id": "F",
+   "axis": "freshness",
+   "lowest_axis": true,
+   "before": "The round-10 drift ledger's 192 recorded output hashes are unrechecked; stability of the lane's executable claims within ~24h is unknown.",
+   "after_required": "Recheck receipts (reports/round-11/recheck/) cover >=15 ledger commands re-run 1:1 with hash comparison: >=95% hash-stable; every drifted command dispositioned (cause named: legitimate change, environmental, or defect); recheck auditor independently re-runs >=5.",
+   "counting_command": "python3 reports/round-11/run-validation.py"
+  }
+ ]
+}
