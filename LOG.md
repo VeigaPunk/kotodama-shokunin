@@ -2983,3 +2983,26 @@ No goal, background agent or automatic continuation is started by this cleanup.
   via in-lane scratch; operator cleanup decision queued at L0.
 - **Evidence:** `reports/round-9/validation.json` acceptance true;
   `corpus/lessons/round-9.md`; SCORECARD §"Axes — round 9".
+
+## 2026-10-17 — Round 10 admitted (loop 1, build 3 of 4; 64-worker opencode-go/deepseek-v4.1-flash, attempt 4)
+
+- **Trigger:** operator regimen; claims C/F/O in `reports/round-10/claims.json`;
+  baseline `eb348f3`. Model availability: keys -3/-4/-5 all returned 402
+  insufficient funds at launch (availability-attempt-1/2/3.json, no work
+  performed); key 1 quota had reset and carried the round (61/64 completed).
+- **C (coverage):** 179 → 189 knowledge entries (ling +3, myth +3, culture +2,
+  verification +2), each gap-named with decision records and resolving
+  sources; README index reconciled (`reports/round-10/coverage/`).
+- **F (freshness):** 192-row drift ledger; 36/36 cited commands covered after
+  the integrator re-ran 14 hashless rows, attached 10 fix-evidence pointers,
+  and added the one missing cited command (`assemble-culture-d3.py --selftest`,
+  SKILL.md:264); stale items fixed or documented (`reports/round-10/drift/`).
+- **O (operability):** 24/24 open findings dispositioned (18 fixed-with-control,
+  5 wont-fix documented, 1 wrong) with verifier re-runs
+  (`reports/round-10/findings-tracker.json`).
+- **Conformance defects:** a stale-fixer rewrote filed receipt bytes
+  (reports/round-9/validation.json, reports/round-8/run-validation.py) —
+  reverted by the integrator; staleness documented in the ledger instead of
+  back-patched. Two new entries needed integrator gap-field completion
+  (plant-symbolism, transport-mobility-lexicon).
+- **Evidence:** `reports/round-10/validation.json` acceptance true.

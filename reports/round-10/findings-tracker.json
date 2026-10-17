@@ -1,0 +1,388 @@
+{
+  "baseline_revision_at_compile": "e3a1ec9435787328ac9f828f96cb6390e4916b8f",
+  "compiled_at_utc": "2026-10-17T21:27Z",
+  "count_command": "python3 -c \"import json;d=json.load(open('reports/round-10/findings-tracker.json'));print(len(d['findings']), sum(1 for r in d['findings'] if r['disposition']=='pending'))\"  # expected: 24 24 (2026-10-17)",
+  "counts": {
+    "by_severity_band": {
+      "blocking_or_acceptance_affecting": 4,
+      "informational": 2,
+      "low": 7,
+      "medium": 5,
+      "resolved_at_source": 6
+    },
+    "by_source": {
+      "reports/round-8/depth/findings-17.md": 3,
+      "reports/round-8/depth/findings.md": 13,
+      "reports/round-9/d3/findings-10.md": 2,
+      "reports/round-9/d3/findings.md": 6
+    },
+    "open": 18,
+    "resolved_at_source": 6
+  },
+  "date": "2026-10-17",
+  "disposition_rule": "Every row starts disposition=pending. Fixers (R10-O02..O09) set fixed-with-control | wont-fix | wrong with a demonstrated control or documented reason; verifiers (R10-O10..O13) re-run each control or validate each reason; the scribe (R10-O14) enforces zero undispositioned rows. Rows 18-23 (resolved-at-source) need only re-verification of the resolution evidence already in reports/round-8/depth/findings.md, not a new fix.",
+  "finding_count": 24,
+  "findings": [
+    {
+      "control": {
+        "fix_recipe": "python3 .scratch/o02/build-d2-manifest.py .scratch/o02/iso -> exit 0; manifest sha256 8eec188f89eb788f8d04be1255a8655ebd2d7a162cd50e170189952171cede83; replay 5 rows, reproduced 5, mismatch 0, could_not_evaluate 0 (tools/gates/frozen/round-10-d2/MANIFEST.tsv built in the scratch tree, not landed)",
+        "isolated_head_replay": "pristine HEAD e3a1ec9 tree (git archive HEAD | tar -x -C .scratch/o02/iso) -> python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --repo-root <iso> --json -> exit 2, 7/7 could-not-evaluate reason=gate_digest_mismatch; the round-8 'isolated-pinned-revisions' acceptance does not reproduce at HEAD",
+        "live_replay": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --json -> exit 2, rows 7, reproduced 0, mismatch 0, could_not_evaluate 7 (every row reason=gate_digest_mismatch), 2026-10-17",
+        "manifest_sweep": "find . -name 'MANIFEST*.tsv' -not -path './.git/*' -not -path '*/.scratch/*' -> tools/gates/frozen/round-3/MANIFEST.tsv and round-3/attempt-1/MANIFEST.tsv only (2026-10-17); no D2 manifest exists",
+        "pin_digests": "round-3 MANIFEST.tsv pins gate bytes at cf338a7 (costume 29a9361c…, naming 8c5afb0a…, phonology fb05c644…); HEAD carries the repaired gates (e6bffd70…, d9e4e8f4…, d5fe087f…) - the admit commit e1694ba changed them",
+        "round8_receipt": "reports/round-8/validation.json claims.D.passed=true, replay_frozen.accepted='isolated-pinned-revisions', round8_manifest_candidates=[]"
+      },
+      "disposition": "wont-fix (superseded by round-8 acceptance decision; fix recipe demonstrated)",
+      "finding": "S2 [locator §S2, lines 34-45] (blocking) — no frozen manifest exists for the D2 packet: harness discover_manifest finds none (find . -name 'MANIFEST*.tsv' -> round-3/round-4 only; ls tools/gates/frozen/ -> no round-8), run-validation.py 17:26 reports 'claim D: FAIL - no frozen manifest found for the D2 packet'; claim D's frozen-replay clause is unverifiable until the D18 scribe deliverable lands.",
+      "idx": 0,
+      "reason": "Round-8 closed claim D through the runner's declared fallback (isolated replay of the round-3 manifest with HEAD gate blobs), so no owner was chartered to land a per-round D2 manifest, and landing one is a cross-lane integration act outside a fixer's write scope. The gap is live and now worse than filed: the accepted substitute does not reproduce at HEAD (7/7 gate_digest_mismatch) because the round-3 manifest pins pre-repair gate bytes while HEAD carries the repaired gates, so the round-8 D green is snapshot-bound to the pre-admit HEAD. Residual filed as R10-O02-NEW-1 in reports/round-10/fix-02.md; the demonstrated fix recipe replays green 5/5 in an isolated tree and is handed to the orchestrator.",
+      "severity": "blocking",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "open"
+    },
+    {
+      "control": {
+        "regeneration": "python3 tools/assemble-d2.py --check -> exit 0 'packet.d2.yml: byte-identical deterministic assembly' (stdout sha256 2fa0c8c1…); packet.d2.yml:3322 reader_sha256 e6bffd70… == sha256sum tools/gates/costume-era-consistency-gate.py",
+        "replay_remedy": "TMPDIR=/var/tmp python3 tools/replay-frozen.py .scratch/r10o03/frozen-d2/MANIFEST.tsv --json -> exit 0, rows 5, reproduced 5, mismatch 0, could_not_evaluate 0 (manifest sha256 9adb38ae…, two runs byte-identical stdout ce78801e…)",
+        "round3_replay": "TMPDIR=/var/tmp python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --json -> exit 2, 7/7 could-not-evaluate reason=gate_digest_mismatch (by design: corpus/knowledge/verification/gate-frozen-run-standard.md:100, never silently re-pinned)"
+      },
+      "disposition": "fixed-with-control",
+      "disposition_at_utc": "2026-10-17T21:36Z",
+      "disposition_by": "R10-O03",
+      "evidence": "reports/round-10/fix-03.md",
+      "finding": "S3 [locator §S3, lines 47-62] (blocking, cross-shard) — D2 regeneration and round-3 replay are red because gates were repaired after their digests were pinned: assemble-d2.py --check exit 1 (packet pins reader_sha256 29a9361c..., live e6bffd70...); replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv exit 2 (ROW 2 could-not-evaluate reason=gate_digest_mismatch gate=phonology-sanity-gate.py). Pins are doing their job; needs re-baseline of the packet + a new frozen manifest (integration decision - reported, not absorbed).",
+      "idx": 1,
+      "residual": "demonstrated D2 manifest is scratch-only; landing under tools/gates/frozen/round-10/ is an orchestrator bookkeeping act outside fixer write scope (recipe reports/round-10/fix-03.md §1.4); the same control supplies tracker idx 0 (S2).",
+      "severity": "blocking",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "open"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S1 [locator §2 S1, lines 33-56] (high for the round; no defect in any landed fragment) — the re-pin of examples/culture-d3/expected.json is a blessing operation until it carries a re-verification record: isolated demo - component tamper -> exit 2 (4 mismatches), then refreshing only the digest values -> exit 0 findings []. Minimum record: pre-refresh freeze token sha256 74496aa8.../git blob c420ac4c...; the three keys with old->new digests and causing commit e1694ba; verdict-preservation differential (byte-identical stdout, exits 1/1); unchanged expected_exit: 0 / finding_ids: []; stamped revision; and an independent re-run by a different shard. No fragment makes a false green today.",
+      "idx": 2,
+      "severity": "high",
+      "source_file": "reports/round-9/d3/findings.md",
+      "source_status": "open",
+      "control": "reports/round-10/fix-04.md §idx 2: frozen replay exit 0 (stdout sha256 e282a068…); semantic diff a7bb205→9dc18ec = exactly 3 digest values (74496aa8…→562b76cb…); old-vs-new gate differential byte-identical (506d1632…/40d4048c…), exits 1/1; 24/24 manifest entries match; predeclared expected_exit/finding_ids unchanged; record at round-9 d3/check-diagnosis.md:74-75 + d3/scribe.md:205-216 + LOG.md:2972-2978 + validation.json:24,991",
+      "disposition_by": "R10-O04"
+    },
+    {
+      "control": "reports/round-10/fix-05.md",
+      "control_command": "python3 tools/check-evidence-coupling.py examples/culture-d3/packet.json --frozen examples/culture-d3/expected.json -> exit 0, findings [] (stdout sha256 e282a0688498034144fb...); independent manifest sweep 24/24 match; old-vs-new gate differential byte-identical (40d4048c.../506d1632..., exits 1/1)",
+      "disposition": "fixed-with-control",
+      "finding": "F2 [locator §2 F2, lines 132-169] (acceptance-affecting; independent confirmation) — the D3 frozen pin is red on this tree: check-evidence-coupling.py examples/culture-d3/packet.json --frozen examples/culture-d3/expected.json exit 2, exactly 3 x D3-SNAPSHOT (corpus/knowledge/synthesis/worldbible-integration-contract.md declared 50c4c2f2...; tools/gates/costume-era-consistency-gate.py 29a9361c...; tools/gates/naming-collision-gate.py 8c5afb0a...). Correct follow-up is a per-input re-acknowledgement citing commit e1694ba and legitimacy; never regenerate the manifest from live bytes (the circularity this review exists to catch).",
+      "idx": 3,
+      "note": "re-pin at round-9 admit 9dc18ec carried the R9-D09 S1 record (pre-refresh token 74496aa8..., three old->new digests + causing commit e1694ba at reports/round-9/d3/check-diagnosis.md:73-75, expected_exit/finding_ids unchanged 0/[]); residual: the re-pin also re-serialized expected.json (indent 2->1, trailing newline dropped) - see reports/round-10/fix-05.md 1.4",
+      "severity": "acceptance-affecting",
+      "source_file": "reports/round-9/d3/findings-10.md",
+      "source_status": "open",
+      "verified_at": "2026-10-17",
+      "verified_by": "R10-O05"
+    },
+    {
+      "disposition": "wrong",
+      "finding": "S6 [locator §S6, lines 66-75] (medium) — a supplied native_form on a costume record is still not read at 3548185c: injecting native_form: \"vinter\" into GAR-01 leaves the projection unchanged (the only native-form sources are the lexicon and the unresolved form slots); design-spec.md §1.3 R1/R4 and §1.2 L2 assume a supplied native_form is read. Either implement it or record in the spec that D2 has no supplied-native-form channel.",
+      "idx": 4,
+      "severity": "medium",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "open",
+      "disposition_by": "R10-O06",
+      "reason": "reports/round-10/fix-06.md §1 — premise false at the reviewer's own newest-tested revision e9209f28 (Control C) and at the delivered revision 0da0015f (Controls B/D); the injected native_form is an undeclared record field (design-spec.md §1.5, bytes unchanged 84e4b4c1); the declared typed-label channel is read and enforces R1/R3/R4 + L2"
+    },
+    {
+      "control": {
+        "fail_before": "grep -c '5/21' SCORECARD.md -> 0; the d2-typed-labels capability row (SCORECARD.md:128) carries no rank coverage (2026-10-17)",
+        "pass_after": "python3 .scratch/fix07/check_s10.py SCORECARD.md .scratch/fix07/SCORECARD.patched.md -> FAIL on the filed row, PASS on the fix-07.md §1.3 row replacement; ratio grounded in the live build's rank_adapter block (5/21 gate-projected, 9/21 normalized, 13 unresolved items, 3 quarantine handles)",
+        "receipt": ".scratch/fix07/check_s10.out sha256 759178326e9e8185d30ba84dd817031464b9cb408d6d140d8119663903e7098c"
+      },
+      "disposition": "fixed-with-control",
+      "disposition_at_utc": "2026-10-17T21:50Z",
+      "disposition_by": "R10-O07",
+      "evidence": "reports/round-10/fix-07.md",
+      "finding": "S10 [locator §S10, lines 77-79] (medium) — \"executable rank-rule adapter\" overstates coverage: newest revision reports rank_rules_component=21, rank_rules_gate_projected=5, rank_rules_unresolved_items=13 (roughly triple the earlier normalized coverage, honest and quantified, but 5/21 gate-projected). The SCORECARD capability row should carry the ratio, not the adjective.",
+      "idx": 5,
+      "residual": "row patch not applied by this shard (SCORECARD.md outside the assigned write scope); fix-07.md §1.3 replacement is ready for the integration step",
+      "severity": "medium",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "open"
+    },
+    {
+      "control": "python3 tools/check-evidence-coupling.py --selftest -> exit 0, selftest_passed true, frozen_checks 5/5; python3 tools/check-evidence-coupling.py examples/culture-d3/packet.json --frozen .scratch/r10o08/expected-pre-repin.json (git show 9dc18ec^:examples/culture-d3/expected.json, sha256 74496aa8...) -> exit 2, counts {D3-SNAPSHOT: 3, total: 3}; same --frozen command with examples/culture-d3/expected.json -> exit 0, findings []",
+      "disposition": "wont-fix",
+      "disposition_at_utc": "2026-10-17T21:35Z",
+      "finding": "S2 [locator §2 S2, lines 58-62] (medium) — green-by-construction surfaces: (a) the guard's own selftest builds frozen-good/frozen-tampered from live bytes (tools/check-evidence-coupling.py:1863-1876), so selftest_passed green coexists with the red committed freeze - no acceptance summary may cite \"frozen 5/5\"/selftest_passed for the frozen-replay leg; (b) D04's proposed projection manifest is self-captured (5/5 replay blesses present behavior) - if committed, carry the README-hold correspondence (examples/culture-d3/README.md:88-93) and the old-vs-new gate differential into the commit record.",
+      "fixer_report": "reports/round-10/fix-08.md",
+      "idx": 6,
+      "reason": "By-construction surfaces, not defects, and the condition they impose is verified honored. (a) The guard's selftest builds frozen-good/frozen-tampered from live bytes at run time (tools/check-evidence-coupling.py:1866-1900), so selftest_passed never witnesses the committed freeze; the frozen-replay leg's evidence is the --frozen run itself (reports/round-9/validation.json claims.D.measurement.frozen_replay: --frozen argv, exit 0, drift_paths []; SCORECARD.md:142 evidence command reports/round-9/run-validation.py). The round-9 red this finding measured (selftest green + committed freeze red) is resolved by the legitimate re-pin in 9dc18ec: current committed freeze --frozen exits 0, 0 findings. (b) D04's proposed projection manifest was never committed (no D3 replay manifest under tools/gates/frozen/ beyond round-3/round-4 era artifacts; reports/round-9/d3/scribe.md records it scratch-only), so the conditional does not fire; its required corroboration (examples/culture-d3/README.md:88-93 + old-vs-new gate differential) is already in filed bytes (reports/round-9/d3/findings.md sec.3, replay.md) if it ever is committed.",
+      "severity": "medium",
+      "source_file": "reports/round-9/d3/findings.md",
+      "source_status": "open"
+    },
+    {
+      "disposition": "wont-fix",
+      "finding": "S3 [locator §2 S3, lines 64-73] (medium-low; test-only) — the control matcher accepts supersets: run_case (tools/check-evidence-coupling.py:1687-1706) checks expected_ids subset-of actual; 5 of 16 domain controls emit extra ids (e.g. domain-D3-REFERENCE-bridge-target-unknown-record emits D3-REFERENCE x1 plus unexpected D3-BRIDGE x1), so \"16/16 green\" does not pin exact verdicts. Recommendation: add an exact-verdict field to controls.json or record subset semantics as the accepted standard.",
+      "idx": 7,
+      "severity": "medium-low",
+      "source_file": "reports/round-9/d3/findings.md",
+      "source_status": "open",
+      "reason": "Superset semantics confirmed by a count-aware re-drive of all 16 domain controls through the shipped CLI (multiset-exact 11, differing 5: 1 extra distinct id D3-BRIDGE + 4 multiplicity-only); run_case subset check re-read at tools/check-evidence-coupling.py:1703-1705; the guard is not this shard's write scope and the acceptance legs do not rely on exact verdicts. Recommendation (b) adopted: subset semantics recorded as the accepted standard with the census as the standing exactness check. Residual: a guard regression that over-fires stays green in the selftest and is visible only in the census.",
+      "control": "reports/round-10/fix-09.md §2 (census + 16/16 bogus-expectation self-test)",
+      "disposition_by": "R10-O09"
+    },
+    {
+      "control": {
+        "artifact": "examples/culture-d2/typed-labels.d2.yml sha256 e70ba1477dbeb830061db6fd12516b7d902587bddae173f55a3650015d380b2f: label L-26 text 'kas', kind 'borrowed-strata', borrow.donor_form 'gas', borrow.substitutions {bh:p, dh:t, g:k, sh:s}, borrow.layer_ref 'Salt-road trade layer', borrow.donor roles [carrier, immediate, ultimate]",
+        "command": "python3 .scratch/o02/control-f-d17-1.py",
+        "derivation": "independent re-implementation apply({bh:p,dh:t,g:k,sh:s}, 'gas') == 'kas' == label text; negative control apply({}, 'gas') == 'gas' != 'kas' (the control discriminates)",
+        "exit": 0,
+        "tool_selftest": "python3 tools/d2-typed-labels.py --selftest -> exit 0, 39/39, incl. 'spec B3: substitutions that do not derive the form are D2L-BORROW' and 'spec B3 positive: gas with g->k derives kas and is clean'; borrow path tools/d2-typed-labels.py:649-719 (apply_substitutions, D2L-BORROW), attachment :572-573"
+      },
+      "disposition": "fixed-with-control",
+      "evidence": "python3 .scratch/o02/control-f-d17-1.py -> exit 0 (verdict fixed-at-current-revision); examples/culture-d2/typed-labels.d2.yml now carries the borrow ledger the finding said was absent; tools/d2-typed-labels.py:649-719 implements apply_substitutions + D2L-BORROW; selftest 39/39 exit 0",
+      "finding": "F-D17-1 [locator §3 case C2, lines 190-206] (hold-level, case C2; compiler-classified medium) — the typed label for L-26 kas names the layer and donor but carries no donor_form (gas, 05-lexicon.yml:569), no declared substitutions (g: k, packet.d2.yml:2553) and runs no borrow-derivation check (apply({g: k}, gas) == kas) required by design-spec.md §1.4 B2/B3 and §3 D2L-BORROW; artifact counts gas 0 / donor_form 0 / substitution 0 - the adaptation that makes kas borrowed-strata is verifiable only by returning to the lexicon component.",
+      "idx": 8,
+      "reason": "Superseded by the post-review rewrite: the finding was measured at revision 623b5b1f (round-8 D17 review, 17:24) and the delivered tool is 0da0015f (committed e1694ba, 39/39 selftest). All three sub-claims now hold false: donor_form 'gas' and the layer's declared substitutions are carried on the label, and the derivation apply(substitutions, donor_form) == text is checked by the tool and reproduces 'kas' independently. No residual.",
+      "severity": "medium",
+      "source_file": "reports/round-8/depth/findings-17.md",
+      "source_status": "open"
+    },
+    {
+      "control": {
+        "fail_after": "anchored_capability_rows(mention-only SCORECARD) -> 0 rows -> FAIL",
+        "fail_before": "reports/round-8/run-validation.py measure_d_docs() imported read-only against a mention-only synthetic SCORECARD -> scorecard_row True, failures [] (the filed whole-file regex at :1357 (1323 before a peer's 18:32:28 repair shifted it))",
+        "pass_after": "anchored_capability_rows(real SCORECARD.md) -> row at line 128, command_evidence '`python3 tools/d2-typed-labels.py --selftest`; …'",
+        "receipt": ".scratch/r10o03/s11/receipt2.json"
+      },
+      "disposition": "fixed-with-control",
+      "disposition_at_utc": "2026-10-17T21:36Z",
+      "disposition_by": "R10-O03",
+      "evidence": "reports/round-10/fix-03.md",
+      "finding": "S11 [locator §S11, lines 81-83] (low) — the harness cannot enforce \"capability row enters SCORECARD only on demonstrated run\": run-validation.py uses the whole-file regex re.search(r\"d2[-_ ]typed[-_ ]labels\") and SCORECARD.md:117 already contains that string inside the Planned section, so the check passes without any demonstrated-run row. Anchor the check to a specific table/section.",
+      "idx": 9,
+      "residual": "filed round-8 harness bytes untouched (no-rewrite rule; correction as new entry); anchored matcher is a drop-in for reports/round-10/run-validation.py (reports/round-10/fix-03.md §2.3).",
+      "severity": "low",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "open"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S12 [locator §S12, lines 85-96] (low) — D03's strict loader fragment cannot parse the lane's own packet: shard-parser.md §4.1 load_packet_strict rejects bare \"-\" list items (P-UNTERMINATED-FLOW), which the assembler emits - grep -c '^ *-$' examples/culture-d2/packet.d2.yml -> 312. The delivered tool does not use that loader, so the defect stayed in the fragment; do not land §4.1 as-is.",
+      "idx": 10,
+      "severity": "low",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "open",
+      "control": "reports/round-10/fix-04.md §idx 10: shipped loader 0da0015f parses the exact S12 case and the real 156 KB packet (19 keys, 10 costumes); filed fragment reproduces the refusal (line 82) and was not landed as-is; selftest 39/39",
+      "disposition_by": "R10-O04"
+    },
+    {
+      "control": "reports/round-10/fix-05.md",
+      "control_command": "git show 291c714:corpus/knowledge/synthesis/era-language-staging.md | sha256sum -> 226e1104... (pin exact-match); loanword-material-dating.md -> bb08d458...; current worktree=HEAD bytes 621b7a33.../5b1d75ab... (committed e1694ba); locators :44/:54 at 291c714 confirmed; no live consumer (craft checker exit 0)",
+      "disposition": "fixed-with-control",
+      "finding": "S13 [locator §S13, lines 98-102] (low, evidence hygiene) — pinned digests and line locators invalidated by concurrent edits: (a) the metadata sweep inserts source/verified-at/recheck (+3 lines), so design-spec.md §9's pins of era-language-staging.md 226e1104... and loanword-material-dating.md bb08d458... are HEAD bytes while the worktree holds 621b7a33.../5b1d75ab...; (b) reviewer's own correction: D14's locators are correct against HEAD bytes; (c) churn: revision 1756e8c0 misreported 11-costumes.yml digest (bd7eeb08 vs b6e2c5c2), fixed by 623b5b1f.",
+      "idx": 11,
+      "note": "correction-as-new-entry: pinned values resolve at revision 291c714 by command; sub-item (c) churn record = not-a-defect; filed bytes not rewritten per round standard - see reports/round-10/fix-05.md 2",
+      "severity": "low",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "open",
+      "verified_at": "2026-10-17",
+      "verified_by": "R10-O05"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S4 [locator §2 S4, lines 75-77] (low; documented design, residual only) — the freeze document is unpinned by construction: expected.json excludes itself from its own manifest (D01 §2; contract reports/round-7/d3-contract.json guard_cli), so nothing in-tool witnesses an in-place edit of expected_exit/finding_ids/manifest entries - only git and the round receipts do. Recommend the D12 ledger (or admission receipt) carry the freeze's sha256 pre/post re-pin (anchors: 74496aa8.../blob c420ac4c...).",
+      "idx": 12,
+      "severity": "low",
+      "source_file": "reports/round-9/d3/findings.md",
+      "source_status": "open",
+      "disposition_evidence": "reports/round-10/fix-06.md §2 — pre-refresh token in reports/round-9/d3/scribe.md:208-216, post-refresh token in reports/round-9/validation.json:24,991 (admit commit 9dc18ec), live bytes = recorded value, frozen replay exit 0 / 0 findings",
+      "disposition_by": "R10-O06",
+      "control": "python3 tools/check-evidence-coupling.py examples/culture-d3/packet.json --frozen examples/culture-d3/expected.json -> exit 0, findings [] (reports/round-10/fix-06.md §2); post-refresh token 562b76cb at reports/round-9/validation.json:24,991; live bytes == recorded value",
+      "control_source": "R10-O06"
+    },
+    {
+      "control": {
+        "fail_before": "python3 .scratch/fix07/probe_s5.py -> OSError(28) escapes main() as a 4-frame traceback, no exit-2 diagnostic (filed bytes ba8d19d5…)",
+        "pass_after": "same probe on the patched source a18371dd… -> rc=2, stderr 'selftest error: [Errno 28] No space left on device'; patched full copy --selftest 85/85 exit 0, --check exit 0 byte-identical",
+        "receipt": ".scratch/fix07/probe_s5.out sha256 d2f622a594339ca882374d8077aea61f0ae3f3f9714b202bfcfdea55c050c416"
+      },
+      "disposition": "fixed-with-control",
+      "disposition_at_utc": "2026-10-17T21:50Z",
+      "disposition_by": "R10-O07",
+      "evidence": "reports/round-10/fix-07.md",
+      "finding": "S5 [locator §2 S5, lines 79-81] (low; report-only, independently reproduced) — --selftest sits outside the assembler's exit-2 envelope: main() calls selftest() at tools/assemble-culture-d3.py:915-916, before the try at :917; monkeypatching tempfile.TemporaryDirectory to raise OSError(28) lets the exception propagate out of main() (4-frame traceback, no exit-2 diagnostic). Not acceptance-affecting (all cited selftest runs green); fix belongs to the assembler's owner.",
+      "idx": 13,
+      "residual": "landing deferred with reason: tools/assemble-culture-d3.py is a D3 freeze manifest entry (live bytes == pin ba8d19d5…); landing without a re-pin turns the green frozen replay red (1 x D3-SNAPSHOT, isolated copy). Re-pin record per R9-D09 S1",
+      "severity": "low",
+      "source_file": "reports/round-9/d3/findings.md",
+      "source_status": "open"
+    },
+    {
+      "control": "python3 tools/d2-typed-labels.py --selftest -> exit 0, 39/39; python3 tools/d2-typed-labels.py --emit .scratch/r10o08/emit.yml -> status vocabulary supplied 48 / to-verify 18 / confirmed 4 (era rows per spec E4), zero declared/unresolved, zero TL-01, D2L-FORM-UNRESOLVED x20 (holds on LEX-GAR-01..10), D2L- total 37; D2L-* present in tool and artifact",
+      "control_evidence": "committed artifact examples/culture-d2/typed-labels.d2.yml sha256 e70ba147... equals round-8 test-determinism seal; identical vocabulary counts to the fresh emit; tool sha256 0da0015f... equals round-8 validation.json value (reports/round-9/d3/interop.md sec.2)",
+      "disposition": "fixed-with-control",
+      "disposition_at_utc": "2026-10-17T21:35Z",
+      "finding": "F-D17-2 [locator §3, lines 210-218] (vocabulary; compiler-classified low) — status vocabulary and hold ids diverge from the spec: the tool emits declared/unresolved and hold id TL-01, while design-spec.md §1.2 L1 says supplied | to-verify | absent and §1.5 expects D2L-FORM-UNRESOLVED for the GAR-01..10 case. Semantics are preserved (record held, never silently passed), but a consumer written against the spec's D2L-* codes finds none.",
+      "fixer_report": "reports/round-10/fix-08.md",
+      "idx": 14,
+      "severity": "low",
+      "source_file": "reports/round-8/depth/findings-17.md",
+      "source_status": "open"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "F-D17-3 [locator §3, lines 220-225] (layer reference shape; compiler-classified low) — the label carries donor_layer: \"Salt-road trade layer\" inline, derived by stage (donor_layer(), tools/d2-typed-labels.py:431), rather than the spec §1.4 B1 layer_ref resolving against a packet layers block; the name is correct (matches packet.d2.yml:2540), but the field name and resolution path differ from the spec.",
+      "idx": 15,
+      "severity": "low",
+      "source_file": "reports/round-8/depth/findings-17.md",
+      "source_status": "open",
+      "reason": "Current tool emits borrow.layer_ref and resolves it against the packet's declared layers (tools/d2-typed-labels.py:569, :701-704, fail path :704); donor_layer absent (count 0 in projection and artifact); artifact carries layer_ref/donor_form/substitutions on L-26 (typed-labels.d2.yml:2409-2461).",
+      "control": "python3 tools/d2-typed-labels.py --packet <renamed-layer copy> --json -> D2L-BORROW 'does not resolve to a declared layer'; g:k->g:t layer edit -> D2L-BORROW 'substitutions derive tas from donor gas, not kas' (reports/round-10/fix-09.md §3)",
+      "disposition_by": "R10-O09",
+      "control_source": "R10-O09"
+    },
+    {
+      "disposition": "wont-fix",
+      "finding": "S6 [locator §2 S6, lines 83-87] (informational) — receipt conventions and environment: (a) D01 §3's stdout sha256 values reproduce only with the trailing newline stripped (c784dd03.../926ceb7d... vs raw-pipe 506d1632.../40d4048c...); (b) the disable-witness matrix used an in-process guard copy with stubbed check_* functions, measuring control sensitivity to the owning checkers rather than shipped-CLI behavior; (c) shared /tmp was inode-exhausted (100%) - re-runners need TMPDIR elsewhere.",
+      "idx": 16,
+      "severity": "informational",
+      "source_file": "reports/round-9/d3/findings.md",
+      "source_status": "open",
+      "reason": "Informational conventions; all three parts reproduced live: (a) raw 506d1632… vs stripped c784dd03… on identical 458-byte gate stdout, convention recorded in this round's report; (b) stubbed-matrix limit stands, supplemented by the shipped-CLI census (§2); (c) df -i /tmp = 1048576/1048576 100%, TMPDIR=.scratch used throughout.",
+      "control": "reports/round-10/fix-09.md §4",
+      "disposition_by": "R10-O09"
+    },
+    {
+      "disposition": "wont-fix",
+      "finding": "F1 [locator §2 F1, lines 92-130] (minor, informational) — the two committed artifacts declare the projection rule with different sentences: packet.gates.yml:438 vs packet.json:16 (assembly.legacy_projection.rule); the 36-byte delta is the only byte difference between the independent reconstruction and the committed projection (patching that one sentence makes the reconstruction byte-identical). Recommendation: unify the sentence or record the difference; until then no byte-level cross-artifact assertion may assume the two rule keys are equal.",
+      "idx": 17,
+      "severity": "informational",
+      "source_file": "reports/round-9/d3/findings-10.md",
+      "source_status": "open",
+      "reason": "Divergence is exactly one sentence (patched scratch bytes 829c5eb9… = R9-D10's independent reconstruction, 14227 B vs committed 14191 B); no gate or tool reads either string (sweep in §5); the unify fix is acceptance-affecting (packet.gates.yml is pinned in expected.json at 306bcac7… and the patched hash differs) and would owe an R9-S1 re-pin record. Difference recorded as intentional; recommend unify-at-re-pin or a limits line.",
+      "control": "reports/round-10/fix-09.md §5",
+      "disposition_by": "R10-O09"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S1 [locator §Resolved table, lines 106-115] (resolved-at-source) — --selftest broken at 6a80ffe4: RecursionError from two def selftest() (lines 1355, 2388) plus selftest_rank_block = selftest aliasing (line 2600); earlier 13e82857 also failed 4/30 controls (no-op (WI-1) fixture, needle-mismatch control). Resolved at 3548185c/e9209f28: 34/34 exit 0, no traceback. Needs re-verification only.",
+      "idx": 18,
+      "severity": "resolved",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "resolved_at_source",
+      "reason": "Re-verified at e3a1ec9: --selftest 39/39 exit 0, 0 tracebacks; duplicate-def shape understood (rank block :1369 aliased at :1452 before the CLI rebind at :2598; call :2619). Latent fragility recorded (alias ordering).",
+      "control": "python3 tools/d2-typed-labels.py --selftest -> exit 0, 39/39 checks passed; grep -c Traceback -> 0 (reports/round-10/fix-09.md §6.1)",
+      "disposition_by": "R10-O09",
+      "control_source": "R10-O09"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S4 [locator §Resolved table, lines 106-115] (resolved-at-source) — spec §6 finding ids absent at 623b5b1f (grep -c 'D2L-' -> 0 in tool and artifact). Resolved at e9209f28: D2L-* x69; report emits D2L-FORM-UNRESOLVED, D2L-NATIVE, D2L-RANK. Needs re-verification only.",
+      "idx": 19,
+      "severity": "resolved",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "resolved_at_source",
+      "reason": "Re-verified: D2L-* ×69 tool / ×37 artifact; live codes D2L-FORM-UNRESOLVED ×10, D2L-NATIVE ×2, R-RANK-CONFLICT ×4 with R-RANK-* aliased to D2L-RANK (:2253).",
+      "control": "python3 tools/d2-typed-labels.py --json -> D2L-* x69 tool / x37 artifact; live codes D2L-FORM-UNRESOLVED x10, D2L-NATIVE x2, R-RANK-CONFLICT x4 (reports/round-10/fix-09.md §6.2)",
+      "disposition_by": "R10-O09",
+      "control_source": "R10-O09"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S5 [locator §Resolved table, lines 106-115] (resolved-at-source) — label kinds: spec says \"exactly three\" but five shipped at 623b5b1f (fictional-coordinate, descriptive-gloss carried 25 of 94 labels). Resolved at 3548185c: label_kinds = translated-label, native-form, borrowed-strata. Needs re-verification only.",
+      "idx": 20,
+      "severity": "resolved",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "resolved_at_source",
+      "reason": "Re-verified: label_kinds exactly ['translated-label','native-form','borrowed-strata'] in the fresh emit (:515-519).",
+      "control": "python3 tools/d2-typed-labels.py --emit <fresh build> -> label_kinds exactly ['translated-label','native-form','borrowed-strata'] (reports/round-10/fix-09.md §6.3)",
+      "disposition_by": "R10-O09",
+      "control_source": "R10-O09"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S7 [locator §Resolved table, lines 106-115] (resolved-at-source) — exit map: spec says \"0 = no HOLD/FAIL\" but 623b5b1f exited 0 with 41 findings incl. 10 holds. Resolved at 3548185c: exits 1 with holds present. Needs re-verification only.",
+      "idx": 21,
+      "severity": "resolved",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "resolved_at_source",
+      "reason": "Re-verified: --json exit 1 with 15 holds; exit rule quoted (tool :812). Exit-0 branch evidenced by code + selftest fixtures (no hold-free live packet exists).",
+      "control": "python3 tools/d2-typed-labels.py --json; echo $? -> exit=1, findings=16, holds=15 (reports/round-10/fix-09.md §6.4)",
+      "disposition_by": "R10-O09",
+      "control_source": "R10-O09"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S8 [locator §Resolved table, lines 106-115] (resolved-at-source; residual) — CLI: spec §0 --emit PATH + stdout default vs 623b5b1f's --check/--report/--selftest only, writing the artifact by default; D15's docstring fragment did not match. Resolved: --packet/--json/--emit/--check/--selftest with byte-deterministic --emit (two emits -> 59a53456...). Residual: D15's fragment still needs its checklist pass. Needs re-verification only.",
+      "idx": 22,
+      "severity": "resolved",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "resolved_at_source",
+      "reason": "Re-verified: five CLI flags; two emits byte-identical (a3aa452c…); residual re-checked — docs.md §5.1's to-verify gate (tool failing its own selftest) is met since e1694ba; stdlib-only imports and non-mutation spot-checked; filed bytes untouched.",
+      "control": "python3 tools/d2-typed-labels.py --emit e1.yml; --emit e2.yml; sha256sum -> both a3aa452cd5ae77c351d9532a707fb1f1ababf77c3fad8b9d28089e6958364a43 (reports/round-10/fix-09.md §6.5)",
+      "disposition_by": "R10-O09",
+      "control_source": "R10-O09"
+    },
+    {
+      "disposition": "fixed-with-control",
+      "finding": "S9 [locator §Resolved table, lines 106-115] (resolved-at-source; residual) — contract §5 fields absent at 623b5b1f (script/representation/scheme/evidence = 0). Resolved at 3548185c: 58/58/68/58 occurrences in the emit. Residual: pronunciation (contract §5 lists it) = 0. Needs re-verification only.",
+      "idx": 23,
+      "severity": "resolved",
+      "source_file": "reports/round-8/depth/findings.md",
+      "source_status": "resolved_at_source",
+      "reason": "Re-verified: script/representation/scheme/evidence = 58/58/68/58; pronunciation = 0 and the components carry no per-label pronunciation datum (3 prose-only hits) so the residual is honest; contract §5 list noted as aspirational for D2.",
+      "control": "python3 tools/d2-typed-labels.py --emit <fresh build> -> script/representation/scheme/evidence = 58/58/68/58; pronunciation = 0 (reports/round-10/fix-09.md §6.6)",
+      "disposition_by": "R10-O09",
+      "control_source": "R10-O09"
+    }
+  ],
+  "ordering": "Open findings first, severity-ranked (blocking/acceptance-affecting -> medium -> low -> informational); the six resolved-at-source trail rows (idx 18-23) last. Rows 0-15 are covered by eight fixers at 2 rows each (2*i-2 .. 2*i-1); rows 16-23 need either a 9th/10th fixer pair or verifier-only re-verification of the source's resolution evidence.",
+  "round": 10,
+  "severity_note": "Severity strings are the source file's own words where stated (e.g. 'blocking', 'medium-low', 'acceptance-affecting'). F-D17-1/2/3 and the six resolved rows carry compiler-classified bands ('medium'/'low'/'resolved') because the sources state none.",
+  "source_files": [
+    {
+      "finding_rows": 13,
+      "note": "R8-D16 adversarial review of tools/d2-typed-labels.py; S2/S3/S6/S10/S11/S12/S13 open at source close; S1/S4/S5/S7/S8/S9 resolved-in-source (kept there as review trail, not current defects).",
+      "path": "reports/round-8/depth/findings.md",
+      "sha256": "01c27fde75fd65ee32c03d72b01a681d5c6c60b7552d1d50df4affa2f3dcaf5a"
+    },
+    {
+      "finding_rows": 3,
+      "note": "R8-D17 hand-derivation review of two D2 label cases; F-D17-1 (hold-level, case C2), F-D17-2 (vocabulary), F-D17-3 (layer reference shape).",
+      "path": "reports/round-8/depth/findings-17.md",
+      "sha256": "8f6eabadf92ca2186e84c478ef0aaa1579d47b06814240c33f0695e90eac10aa"
+    },
+    {
+      "finding_rows": 6,
+      "note": "R9-D09 circularity audit of D3 acceptance evidence; S1..S6 as ranked in its section 2.",
+      "path": "reports/round-9/d3/findings.md",
+      "sha256": "27ba8c2f0694ad6c14602d69d8e7c2c52f8ca8c4fca8b4faf4251087644a437c"
+    },
+    {
+      "finding_rows": 2,
+      "note": "R9-D10 independent re-derivation of the D3 assembly step; F1 (minor, informational), F2 (acceptance-affecting).",
+      "path": "reports/round-9/d3/findings-10.md",
+      "sha256": "19376989f22d37cfcd4701275515f12f1c62fd820c4368e313ed1d38b06691be"
+    }
+  ],
+  "task": "R10-O01 findings inventory",
+  "final_state": {
+    "scribe": "R10-O14",
+    "date": "2026-10-17",
+    "merged_by": "R10-O14 from fixer payloads in reports/round-10/fix-02..fix-09.md",
+    "rows_total": 24,
+    "disposition_counts": {
+      "wont-fix (superseded by round-8 acceptance decision; fix recipe demonstrated)": 1,
+      "fixed-with-control": 18,
+      "wrong": 1,
+      "wont-fix": 4
+    },
+    "undispositioned_rows": [],
+    "verify_files": [
+      "findings-verify-1.md",
+      "findings-verify-2.md",
+      "findings-verify-4.md"
+    ],
+    "note": "Every row carries a disposition with control evidence or a stated reason; see reports/round-10/findings-scribe.md for the audit."
+  }
+}

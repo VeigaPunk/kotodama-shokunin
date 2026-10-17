@@ -1,0 +1,1740 @@
+[
+ {
+  "command": "sed -n '1,20p' SKILL.md",
+  "source_locator": "SKILL.md:1-20",
+  "round10_verdict": "current",
+  "output_sha256": "926bd7557ccfcc1dee2f68e82862c4dab452f3f80decc816c57acb974dd14f7b",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": "segment hash pin"
+ },
+ {
+  "command": "sed -n '1,20p' SKILL.md | grep -nE '(backtick|https?://|python3|bash |curl|wget|git |.py|.sh)'",
+  "source_locator": "SKILL.md:1-20",
+  "round10_verdict": "current",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exit": 1,
+  "shard": "shard-01",
+  "note": "empty sweep: no runnable commands and no web citations exist in range; empty output is the intended result"
+ },
+ {
+  "command": "sha256sum SKILL.md",
+  "source_locator": "SKILL.md",
+  "round10_verdict": "current",
+  "output_sha256": "fb9212da5891138156fd424e42fa2a68ebc6c9b7ceb69e2f44c31684358890ef",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": "file hash 2bce468db89be47db7009cce1537538e574c3897da1a6097302dc56c0351df1b"
+ },
+ {
+  "command": "git status --porcelain SKILL.md",
+  "source_locator": "SKILL.md",
+  "round10_verdict": "current",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": "clean tree for SKILL.md"
+ },
+ {
+  "command": "git diff --stat e1694bad..HEAD -- SKILL.md",
+  "source_locator": "SKILL.md",
+  "round10_verdict": "current",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": "no change since round-8 admit commit"
+ },
+ {
+  "command": "git log -1 --format='%H %ad %s' --date=short -- SKILL.md",
+  "source_locator": "SKILL.md",
+  "round10_verdict": "current",
+  "output_sha256": "3789dbc4059bf76c965be3adbb5c88541aaa8639fba85ca1ba412f91653bbf2f",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "ruby -ryaml frontmatter parse of SKILL.md",
+  "source_locator": "SKILL.md:1-4",
+  "round10_verdict": "current",
+  "output_sha256": "2823b617493069da169258e79ddf21cb7cefd0c01081c1fe44ec2f5bd1adeba0",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": "PyYAML absent; Psych used"
+ },
+ {
+  "command": "ls -d ../lore-shokunin ../kotoba-shokunin ../chousa-shokunin",
+  "source_locator": "SKILL.md:3 (anti-triggers)",
+  "round10_verdict": "current",
+  "output_sha256": "8c8ea9a595be263ae05de64a3b085aaeaa8d334f2a78bdc1b872d90eb047d617",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "test -f corpus/knowledge/synthesis/worldbible-integration-contract.md",
+  "source_locator": "SKILL.md:3,13 (world bible handoff)",
+  "round10_verdict": "current",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "grep -n -m3 -i canon ../lore-shokunin/PROVINCE.md",
+  "source_locator": "SKILL.md:3",
+  "round10_verdict": "current",
+  "output_sha256": "8dbb9f7acbf6b70c0d1a8698fb39ca9a2bac4e87b21c359d9ffb790a603b5bde",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "grep -n -m3 -i prompt ../kotoba-shokunin/PROVINCE.md",
+  "source_locator": "SKILL.md:3",
+  "round10_verdict": "current",
+  "output_sha256": "a69804634e6eec7259ea51434be7f460e0cacc0f218efeb7139dbab5363256a5",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "grep -n -m3 -i 'research method' ../chousa-shokunin/PROVINCE.md",
+  "source_locator": "SKILL.md:3",
+  "round10_verdict": "current",
+  "output_sha256": "a5aecd59e7cce362b0a23aeaf70042d73bdb0229a09b6c8287b4088a4e2dfc20",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "grep -n -i shonen /home/vgpnk/.kimi-code/skills/shokunin/SKILL.md",
+  "source_locator": "SKILL.md:3 (Rank: shonen)",
+  "round10_verdict": "current",
+  "output_sha256": "060d4722e672e8584d00b99fcf72e95a339d50c2ac1fe5592e268dcfc9f9b164",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "head -12 PROVINCE.md",
+  "source_locator": "SKILL.md:8-19 (domain prose)",
+  "round10_verdict": "current",
+  "output_sha256": "58e2e7d5fe70ed5f5e151ede16deec787baeb405f4104d4bfd89ac5a96534c6e",
+  "exit": 0,
+  "shard": "shard-01",
+  "note": null
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "source_locator": "SKILL.md:35-36",
+  "round10_verdict": "current",
+  "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+  "exit": 0,
+  "shard": "shard-02",
+  "note": "39/39 checks passed; stderr empty; two runs byte-identical; matches round-9 admitted value (reports/round-9/d3/interop.md:26)"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --help",
+  "source_locator": "SKILL.md:35-36",
+  "round10_verdict": "current",
+  "output_sha256": "6e23d4350fc6f4cbd8d602623f449d1b793bdf27c21dc92c9688094565cdfc72",
+  "exit": 0,
+  "shard": "shard-02",
+  "note": "--selftest flag exists as documented"
+ },
+ {
+  "command": "sha256sum tools/d2-typed-labels.py",
+  "source_locator": "SKILL.md:35",
+  "round10_verdict": "current",
+  "output_sha256": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802",
+  "exit": 0,
+  "shard": "shard-02",
+  "note": "design-spec §9 pins are pre-repair values the spec itself documents (§8.1)"
+ },
+ {
+  "command": "sha256sum reports/round-8/depth/design-spec.md; grep -n '^## ' reports/round-8/depth/design-spec.md",
+  "source_locator": "SKILL.md:36",
+  "round10_verdict": "current",
+  "output_sha256": "84e4b4c19b0310f138b5bb53f3e4b3672cdc493fc83b555d912a9630984cc751",
+  "exit": 0,
+  "shard": "shard-02",
+  "note": "§1 'Typed-label schema' at :80 — the cited authority"
+ },
+ {
+  "command": "sha256sum reports/round-8/depth/skill-table-draft.md; grep -n 'LANDING-READY' reports/round-8/depth/skill-table-draft.md",
+  "source_locator": "SKILL.md:37",
+  "round10_verdict": "current",
+  "output_sha256": "0e9aca3a84ee4da360090ba921bdef9023f38c46dc47d7e7552fc8b0a1dbcac5",
+  "exit": 0,
+  "shard": "shard-02",
+  "note": "matches its own design-spec §9 pin; LANDING-READY blocks at :105 and :223; rows match SKILL.md:40-47 modulo dropped internal '(§4.3)' cross-ref"
+ },
+ {
+  "command": "sha256sum corpus/knowledge/synthesis/era-language-staging.md; sed -n '108,124p' corpus/knowledge/synthesis/era-language-staging.md",
+  "source_locator": "SKILL.md:38",
+  "round10_verdict": "current",
+  "output_sha256": "621b7a33c06ff15f5d179059e8ce856b7d22b51f5601787831956f4bf4a91da8",
+  "exit": 0,
+  "shard": "shard-02",
+  "note": "window covers §7 header (:111) + full label-type table (:113-124) — the label-typing grounding as cited"
+ },
+ {
+  "command": "for f in <18 surfaces>; do [ -f \"$f\" ] && echo OK || echo MISSING; done",
+  "source_locator": "SKILL.md:24-29",
+  "round10_verdict": "current",
+  "output_sha256": "b504b5c0cc0a44033b695c75d79bb68b3117666b330ec90b89ccb1bdcae2b275",
+  "exit": 2,
+  "shard": "shard-02",
+  "note": "every 'Correct surface' name resolves to a live file"
+ },
+ {
+  "command": "git show e1694ba -- corpus/knowledge/synthesis/era-language-staging.md",
+  "source_locator": "SKILL.md:36 (via design-spec §9)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "226e11049b7361d86c00e81e910a3d5982839e2e787faead0c9e9da4854152da",
+  "exit": 0,
+  "shard": "fix-23",
+  "note": "filed design spec pins pre-integration bytes (226e1104); live file is 621b7a33 after e1694ba inserted 3 frontmatter lines; filed bytes frozen, correction carried in fix-23.md"
+ },
+ {
+  "command": "grep -c \"PHON-INVENTORY\" tools/gates/frozen/round-4/naming-collision-gate.out",
+  "source_locator": "SKILL.md:42 via reports/round-8/depth/skill-table-draft.md:54",
+  "round10_verdict": "current",
+  "output_sha256": "917df3320d778ddbaa5c5c7742bc4046bf803c36ed2b050f30844ed206783469",
+  "exit": 0,
+  "shard": "shard-03",
+  "note": null
+ },
+ {
+  "command": "grep \"PHON-INVENTORY\" tools/gates/frozen/round-4/naming-collision-gate.out | grep -c \"GAR-\"",
+  "source_locator": "reports/round-8/depth/skill-table-draft.md:56; SKILL.md:42",
+  "round10_verdict": "current",
+  "output_sha256": "917df3320d778ddbaa5c5c7742bc4046bf803c36ed2b050f30844ed206783469",
+  "exit": 0,
+  "shard": "shard-03",
+  "note": null
+ },
+ {
+  "command": "sha256sum tools/gates/frozen/round-4/naming-collision-gate.out",
+  "source_locator": "reports/round-8/depth/skill-table-draft.md:52 / §8 pin",
+  "round10_verdict": "current",
+  "output_sha256": "c95330e1a84a00b93b5dea2b70d44cd5284287a055e523caab47ba3c2db9b489",
+  "exit": 0,
+  "shard": "shard-03",
+  "note": null
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "source_locator": "SKILL.md:35 (table authority); reports/round-8/depth/skill-table-draft.md:285-292",
+  "round10_verdict": "current",
+  "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+  "exit": 0,
+  "shard": "shard-03",
+  "note": null
+ },
+ {
+  "command": "sed -n '43,57p' corpus/knowledge/synthesis/loanword-material-dating.md (citation resolution)",
+  "source_locator": "SKILL.md:58",
+  "round10_verdict": "current",
+  "output_sha256": "de242da40c9badf7073b9c53bb684be808ab9b18ec1edb2f123c20222882cce2",
+  "exit": 0,
+  "shard": "shard-03",
+  "note": null
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "source_locator": "SKILL.md:61` (\"executable B4\")",
+  "round10_verdict": "current",
+  "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+  "exit": 0,
+  "shard": "shard-04",
+  "note": null
+ },
+ {
+  "command": "python3 .scratch/s04-b4-probe.py` (direct B4 control; source §4)",
+  "source_locator": "SKILL.md:61-62",
+  "round10_verdict": "current",
+  "output_sha256": "d84f3736656186e2862fcb713aa2dc698f1dc1fb0b6cd36e11cdcc4f64fa3a9f",
+  "exit": 0,
+  "shard": "shard-04",
+  "note": null
+ },
+ {
+  "command": "for d in lore-shokunin game-dev-2d-shokunin game-dev-3d-shokunin kake-shokunin chousa-shokunin; do [ -d \"../$d\" ] && echo \"OK ../$d\"; done",
+  "source_locator": "SKILL.md:104–107",
+  "round10_verdict": "current",
+  "output_sha256": "0f5f4c189a5c013c277a5df4c9321ea2d0d4eb7615086d53f6c14c88769a2f9d",
+  "exit": 0,
+  "shard": "shard-06",
+  "note": null
+ },
+ {
+  "command": "ls corpus/knowledge/verification/real-world-inspiration-boundaries.md",
+  "source_locator": "SKILL.md:108–109",
+  "round10_verdict": "current",
+  "output_sha256": "282bb3058d35a85ac3231ca82432a15c6478f1e9a9895fd5d3b1f34bae75a82e",
+  "exit": 0,
+  "shard": "shard-06",
+  "note": null
+ },
+ {
+  "command": "same dir sweep as 06-A",
+  "source_locator": "SKILL.md:110",
+  "round10_verdict": "current",
+  "output_sha256": "ee02663de044c8c9efebba77a4ab8e1e238e01482908e41ee716d8fae38f39b8",
+  "exit": 127,
+  "shard": "shard-06",
+  "note": null
+ },
+ {
+  "command": "same dir sweep as 06-A",
+  "source_locator": "SKILL.md:111–112",
+  "round10_verdict": "current",
+  "output_sha256": "ee02663de044c8c9efebba77a4ab8e1e238e01482908e41ee716d8fae38f39b8",
+  "exit": 127,
+  "shard": "shard-06",
+  "note": null
+ },
+ {
+  "command": "cat PROVINCE.md` (read-only)",
+  "source_locator": "SKILL.md:113",
+  "round10_verdict": "current",
+  "output_sha256": "b93619d8916d852680d50b05b1e759eddf35e7092a9c83e8d66c184d0c75acce",
+  "exit": 2,
+  "shard": "shard-06",
+  "note": null
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py corpus/knowledge",
+  "source_locator": "SKILL.md:115 + :119–120",
+  "round10_verdict": "current",
+  "output_sha256": "d2a2ea1318990e5a1f629acdb7ae4f5d00aa5944c14c5ae30abb2e8d2aec180c",
+  "exit": 0,
+  "shard": "shard-06",
+  "note": "shard's own annotation: current — item 2 is executable and green today; gate `tools/gates/provenance-audit.py` sha256 `8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py corpus/knowledge/synthesis/source-discipline-calibration.md`; `sha256sum` the file",
+  "source_locator": "SKILL.md:119–121 (boundary-spanning)",
+  "round10_verdict": "current",
+  "output_sha256": "b93619d8916d852680d50b05b1e759eddf35e7092a9c83e8d66c184d0c75acce",
+  "exit": 2,
+  "shard": "shard-06",
+  "note": "shard's own annotation: current (path)"
+ },
+ {
+  "command": "grep -rn \"anchor.family|anchor_family|typological basis|family named\" tools/*.py tools/gates/*.py tools/harness/*.py`; `grep -rln typolog tools/ --include=\"*.py\" | grep -v frozen`; `grep -n -i \"family|typolog|anchor\" tools/gates/handoff-packet-check.py",
+  "source_locator": "SKILL.md:117–118",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "952b16093e00081aef80fa717b51b7ce0484d2e3999d19711c388de516a3385e",
+  "exit": 2,
+  "shard": "shard-06",
+  "note": "shard's own annotation: **stale-documented** — the header's executability claim does not hold for item 1; the nearest surfaces are prose checklists: `corpus/knowledge/linguistics/conlang-methodology.md:151` (\"anchor family named in the grammar header; typological passport complete…\") and `corpus/knowledge/synthesis/worldbible-integration-contract.md:193` (\"real typological inspirations separately "
+ },
+ {
+  "command": "for w in mainstream contested discredited speculative rejected; do grep -o -i \"$w\" <file> | wc -l; done` on the cited file; same on `corpus/knowledge/verification/calibration-registry.md`, `corpus/README.md`, `QUALITY.md`; `grep -rn \"mainstream\" corpus/knowledge/",
+  "source_locator": "SKILL.md:119–121",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "ceb4f44b6bfbc773b7ef260edd4a59c72bb7d9e3fe90c3a257915c6f4db17685",
+  "exit": 2,
+  "shard": "shard-06",
+  "note": "shard's own annotation: **stale-documented** — the sentence cites a file whose declared vocabulary is not the three-value set it names, and whose text argues against using that set as one"
+ },
+ {
+  "command": "awk 'NR>=121 && NR<=140' SKILL.md | grep -cE 'python3|--selftest|run-validation'",
+  "source_locator": "SKILL.md:121-140",
+  "round10_verdict": "current",
+  "output_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+  "exit": 1,
+  "shard": "shard-07",
+  "note": "0 runnable commands in shard range; grep exit 1 is no-match semantics; nothing stale to re-run"
+ },
+ {
+  "command": "for p in linguistics myth-symbol culture-material synthesis verification; do printf \"%s %s\\n\" \"$p\" \"$(ls corpus/knowledge/$p/*.md | wc -l)\"; done",
+  "source_locator": "SKILL.md:129-142",
+  "round10_verdict": "current",
+  "output_sha256": "aac7ddaae7dce77eba9e77042ecfb7361774986ad3b1628fa0ca64d4aa9fa3fa",
+  "exit": 0,
+  "shard": "shard-07",
+  "note": "counts 16/16/16/24/13; all five cited partition paths resolve"
+ },
+ {
+  "command": "{ ls corpus/knowledge/linguistics; ls corpus/knowledge/myth-symbol; ls corpus/knowledge/culture-material; ls corpus/knowledge/verification; }",
+  "source_locator": "SKILL.md:129-142",
+  "round10_verdict": "current",
+  "output_sha256": "898ac8009b7c396d7c7943cb9436ba52a92f96348892bfd155d44ce25d57907c",
+  "exit": 0,
+  "shard": "shard-07",
+  "note": "every topic word in the corpus map resolves to a listed entry"
+ },
+ {
+  "command": "test -f corpus/knowledge/synthesis/source-discipline-calibration.md && wc -l corpus/knowledge/synthesis/source-discipline-calibration.md",
+  "source_locator": "SKILL.md:121",
+  "round10_verdict": "current",
+  "output_sha256": "3cbc98b4266aea08d2e8b19513ee369b3f0c6727f16f3c40eafe44796f0e4e93",
+  "exit": 0,
+  "shard": "shard-07",
+  "note": "output_sha256 is the target file's own sha256 (197 lines), a stronger pin than the wc output"
+ },
+ {
+  "command": "grep -c -i mainstream corpus/knowledge/synthesis/source-discipline-calibration.md",
+  "source_locator": "SKILL.md:119-121",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+  "exit": 1,
+  "shard": "fix-16",
+  "note": "sentence re-pointed to the cited file's own S/C/H/R/U/V set (:67); header re-scoped to 'executable where a tool exists'; control: grep for the old phrase returns no match",
+  "fix_evidence": "reports/round-10/drift/fix-16.md"
+ },
+ {
+  "command": "cp -r tools examples corpus .scratch/iso-shard07/ && cd .scratch/iso-shard07 && python3 tools/gates/costume-era-consistency-gate.py --selftest",
+  "source_locator": "SKILL.md:122-123",
+  "round10_verdict": "current",
+  "output_sha256": "854709454f11d36ccee38957efeda061637df9850f8a9adde9a522babac2cb33",
+  "exit": 0,
+  "shard": "shard-07",
+  "note": "isolated copy; 10/10 checks passed, 21 planted finding IDs; live tree untouched"
+ },
+ {
+  "command": "cp -r tools examples corpus .scratch/iso-shard07/ && cd .scratch/iso-shard07 && python3 tools/gates/handoff-packet-check.py --selftest",
+  "source_locator": "SKILL.md:124-125",
+  "round10_verdict": "current",
+  "output_sha256": "dea5e942ff6dde9e514eb7c01aa9c0ba9155479ccea36db392c8a42b41d6fcd8",
+  "exit": 0,
+  "shard": "shard-07",
+  "note": "isolated copy; fixture findings 11 across 9 ids, clean control exit 0, malformed exit 2; live tree untouched"
+ },
+ {
+  "command": "ls corpus/knowledge/civilizations/*.md | wc -l",
+  "source_locator": "SKILL.md:143 (shard 08 range; boundary note only)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "6fc16b03d8c15b9885876848a301a01816cccaf7b48e74f2b51db99c007a3bd5",
+  "exit": 0,
+  "shard": "shard-07",
+  "note": "94 vs SKILL.md's '92'; corpus/README.md:116 already says (94); owner shard 08 / F15-F18"
+ },
+ {
+  "command": "git status --porcelain tools/ corpus/",
+  "source_locator": "isolation check",
+  "round10_verdict": "current",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exit": 0,
+  "shard": "shard-07",
+  "note": "empty output (sha256 of empty string); this shard's selftests wrote nothing to the live tree"
+ },
+ {
+  "command": "ls corpus/knowledge/civilizations/*.md | wc -l",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "e3d6c4d4599e00882384ca981ee287ed961fa5f3828e2adb5e9ea890ab0d0525",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "git ls-tree -r 9dc18ec -- corpus/knowledge/civilizations/ | wc -l",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "e3d6c4d4599e00882384ca981ee287ed961fa5f3828e2adb5e9ea890ab0d0525",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "head -1 corpus/knowledge/civilizations/*.md | grep -ic 'primary sources'",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "grep -l '^- couples:.*naming' corpus/knowledge/civilizations/*.md | wc -l",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "8241649609f88ccd2a0a5b233a07a538ec313ff6adf695aa44a969dbca39f67d",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "ls corpus/knowledge/verification/ | wc -l",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "3fdba35f04dc8c462986c992bcf875546257113072a909c162f7e470e581e278",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "ls corpus/lessons/supplement-opencode-1/sources/*.json | wc -l",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "for f in 21-phonology-review.md 22-label-representation.md 04-name-correction.md 23-myth-coverage.md 24-costume-coverage.md; do test -f reports/supplement-opencode-1/$f && echo OK || echo MISSING; done | sort | uniq -c",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "aa714bdea613f3c80c4877122917866aec2e03fb2f921ac4d38f59aa36b0cc2b",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "grep -ril errata corpus/knowledge/ | wc -l",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "audit census over `sources/*.json` (verdicts + missing fields)",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "d071d209643870b9cf52ca562f75d70c3ff03959de406cd6bd7989fabac1eaa9",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "sed -n '141,160p' SKILL.md | sha256sum",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "1389ae565fceaf521e9a52d55db9f6aa6e89f226448f879f2bcacb6f6864ddb7",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "grep -ril 'provenance caution' corpus/knowledge/civilizations/ | wc -l",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "8241649609f88ccd2a0a5b233a07a538ec313ff6adf695aa44a969dbca39f67d",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "files lacking `naming` in `- couples:",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "35f3eb0057dc97b97acbb706113ea7f7f1eebc327cb51f663771101d1602ed98",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "git show 9dc18ec:SKILL.md | sed -n '141,160p' | sha256sum",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "357685c43caa14c228950a50d2c39d84dc99ef3aad122d328035c8b3baa2298e",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "sha256sum SKILL.md",
+  "source_locator": "shard-08 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "fb3dd9a49430df1e3fc7f6eb2d4ffff092da1cacf1d0a9d422e5d7776dce5b40",
+  "exit": 0,
+  "shard": "shard-08",
+  "note": "receipt row carried from a no-verdict table under the shard's declared summary"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv",
+  "source_locator": "SKILL.md:162",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "76c00a6b80d4539a70ebe976d86600f8317b8da962a3ea6cdfcf8bace7e41f80",
+  "exit": 2,
+  "shard": "fix-18",
+  "note": "claim corrected in place: live tree reads exit 2 (7/7 gate_digest_mismatch); pinned-revision recipe (restore gates from 291c714) reproduces 7/7 at exit 0 — control demonstrated twice",
+  "fix_evidence": "reports/round-10/drift/fix-18.md"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+  "source_locator": "SKILL.md:162 (same class)",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "409db5ab8b68ebc3da9a8360879db71c01e58b40ea4a8311e3818efe289c8452",
+  "exit": 2,
+  "shard": "fix-18",
+  "note": "same cause and same recipe; the corrected SKILL.md text now names the live reading for the class",
+  "fix_evidence": "reports/round-10/drift/fix-18.md"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py .scratch/f09/export-r3/tools/gates/frozen/round-3/MANIFEST.tsv --repo-root .scratch/f09/export-r3",
+  "source_locator": "SKILL.md:162 (remediation control)",
+  "round10_verdict": "current",
+  "output_sha256": "10b82d575006e744f06789b06e931541460aa3f6c65dde42222270e4fbed210d",
+  "exit": 0,
+  "shard": "shard-09",
+  "note": "export at c610e0a has all six gate hashes equal to pins; REPLAY OK 7/7 reproduced, red rows stay red"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-4/MANIFEST.tsv",
+  "source_locator": "SKILL.md:178-179",
+  "round10_verdict": "current",
+  "output_sha256": "1dc089cc51958f5435b2fd720a8ce8d92ddd337107f21910794b911b1624882b",
+  "exit": 2,
+  "shard": "shard-09",
+  "note": "manifest_unreadable — round-4 holds only .out files, so 'unpinned legacy evidence' holds"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py",
+  "source_locator": "SKILL.md:168-171",
+  "round10_verdict": "current",
+  "output_sha256": "6fd828d32bfbde7724cfc8baea845206d8aef0a5c3a7e1b6ab9a1685286abc6e",
+  "exit": 2,
+  "shard": "shard-09",
+  "note": "duty1 pass 7/fail 0/unevaluable 0, originals preserved; duty2 baseline_exit 2 (5/7 covered) — documented default, registry.md:173"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines",
+  "source_locator": "SKILL.md:168-171 (documented remedy)",
+  "round10_verdict": "current",
+  "output_sha256": "c164b1e2c386c9b24f4054076964713d25934478b6e6fbb7eab2be0792a52fee",
+  "exit": 0,
+  "shard": "shard-09",
+  "note": "7/7 gates covered, pass 7/fail 0/unevaluable 0"
+ },
+ {
+  "command": "for g in <7 gates>; do stat-hash fixtures; python3 tools/gates/$g.py --selftest; stat-hash again; done (export-ctl2)",
+  "source_locator": "SKILL.md:169-170",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "ca39f5fce21c5a3448db7a4cadc37f5fc74291d2db8ca5610b5ce407d332b639",
+  "exit": 0,
+  "shard": "fix-19",
+  "note": "sentence + five table cells corrected to verify/refuse/regenerate-only-if-absent; independent single-gate control in this seat reproduces unchanged bytes and mtime/inode",
+  "fix_evidence": "reports/round-10/drift/fix-19.md"
+ },
+ {
+  "command": "tamper phonology fixture + provenance/defect-empty-couples.md, run both --selftest (export-ctl2)",
+  "source_locator": "SKILL.md:169-170",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "04edbb00af62bdcbdc45e9348d168586fbccd3f0e62d66e9e3e79008866fabab",
+  "exit": 1,
+  "shard": "fix-19",
+  "note": "refusal behavior is now the documented contract",
+  "fix_evidence": "reports/round-10/drift/fix-19.md"
+ },
+ {
+  "command": "rm tools/gates/fixtures/phonology-sanity-gate.yml && python3 tools/gates/phonology-sanity-gate.py --selftest (export-ctl2)",
+  "source_locator": "SKILL.md:169-170",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "e0a9ec0d6fc2a97c9e8f321dbfcbd8c45275b0184a530b9842b8ffc1181580cd",
+  "exit": 0,
+  "shard": "fix-19",
+  "note": "absent-only regeneration is now the documented contract",
+  "fix_evidence": "reports/round-10/drift/fix-19.md"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py --selftest",
+  "source_locator": "SKILL.md:174-177",
+  "round10_verdict": "current",
+  "output_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16",
+  "exit": 0,
+  "shard": "shard-09",
+  "note": "79/79 checks; snapshot_tampered→2, gate_digest_mismatch→2, mismatch→1, recorded command string never executed"
+ },
+ {
+  "command": "awk 'NR>=161 && NR<=180' SKILL.md | grep -cE 'python3|--selftest|run-validation'",
+  "source_locator": "SKILL.md:161-180",
+  "round10_verdict": "current",
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "exit": 0,
+  "shard": "shard-09",
+  "note": "1 runnable command cited in range (the replay at :162); no URLs"
+ },
+ {
+  "command": "python3 tools/gates/phonology-sanity-gate.py tools/gates/fixtures/phonology-sanity-gate.yml",
+  "source_locator": "SKILL.md:183",
+  "round10_verdict": "current",
+  "output_sha256": "b3843b2a5f50809ffe43fd55212cb9ab320f4ac98c2a59c6f57c7bcc61617018",
+  "exit": 1,
+  "shard": "shard-10",
+  "note": "16 FINDING lines / 15 IDs, set identical to .expected; mirror run"
+ },
+ {
+  "command": "python3 tools/gates/phonology-sanity-gate.py --selftest",
+  "source_locator": "SKILL.md:183",
+  "round10_verdict": "current",
+  "output_sha256": "3e9a1209afa352902922a64df1d0bf7a48c25cf09126aa62b70855bd3b447843",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "15/15 planted IDs, 29 control cases"
+ },
+ {
+  "command": "python3 tools/gates/lexicon-coverage-audit.py tools/gates/fixtures/lexicon-coverage-audit.yml",
+  "source_locator": "SKILL.md:184",
+  "round10_verdict": "current",
+  "output_sha256": "af5794955b60b455b433a570434bf0ab69c110b66c891eab567d5addef0be4f4",
+  "exit": 1,
+  "shard": "shard-10",
+  "note": "20 lines / 18 IDs, set match"
+ },
+ {
+  "command": "python3 tools/gates/lexicon-coverage-audit.py --selftest",
+  "source_locator": "SKILL.md:184",
+  "round10_verdict": "current",
+  "output_sha256": "fd731b1423443238cb5c1fc75dfd350244cc611295c9713b129252b251478658",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "14/14 checks"
+ },
+ {
+  "command": "python3 tools/gates/myth-consistency-gate.py tools/gates/fixtures/myth-consistency-gate.yml",
+  "source_locator": "SKILL.md:185",
+  "round10_verdict": "current",
+  "output_sha256": "88385088ca2ee13192b9669a02cbe44aebf9c22df752a2af76138a13e1cf77d2",
+  "exit": 1,
+  "shard": "shard-10",
+  "note": "6 lines / 6 IDs, set match"
+ },
+ {
+  "command": "python3 tools/gates/myth-consistency-gate.py --selftest",
+  "source_locator": "SKILL.md:185",
+  "round10_verdict": "current",
+  "output_sha256": "80e7d9dc86a29cf56591cfa0cf5bd8fab82a84d4b9d67f03200f1bd689c5aa53",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "planted MC-* IDs, clean control exit 0"
+ },
+ {
+  "command": "python3 tools/gates/costume-era-consistency-gate.py tools/gates/fixtures/costume-era-consistency-gate.yml",
+  "source_locator": "SKILL.md:186",
+  "round10_verdict": "current",
+  "output_sha256": "482c1597a22096b2a0a09f09ce476f6ae5bbd6db70baf50df128fb0c1ed608b3",
+  "exit": 1,
+  "shard": "shard-10",
+  "note": "25 lines / 21 IDs, set match; equals round-9 baseline stdout_sha256"
+ },
+ {
+  "command": "python3 tools/gates/costume-era-consistency-gate.py --selftest",
+  "source_locator": "SKILL.md:186",
+  "round10_verdict": "current",
+  "output_sha256": "add8c431f07e6f2f7772ce97a7a126d482c7848d5f622a8e455f76f88e0f4ad3",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "10/10 checks, 21 planted IDs"
+ },
+ {
+  "command": "python3 tools/gates/naming-collision-gate.py tools/gates/fixtures/naming-collision-gate.yml",
+  "source_locator": "SKILL.md:187",
+  "round10_verdict": "current",
+  "output_sha256": "bea0fd3925c2745ecf6333733d1118deb9831241cf2d12e3742c571ec88a52ac",
+  "exit": 1,
+  "shard": "shard-10",
+  "note": "12 lines / 11 IDs, set match"
+ },
+ {
+  "command": "python3 tools/gates/naming-collision-gate.py --selftest",
+  "source_locator": "SKILL.md:187",
+  "round10_verdict": "current",
+  "output_sha256": "d3566a9cad69f956fd7a4274cb80ad4b95a92bb63a9cf689e45338d05ca5c7da",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "12 findings / 11 ids; malformed inputs exit 2"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py tools/gates/fixtures/provenance",
+  "source_locator": "SKILL.md:188",
+  "round10_verdict": "current",
+  "output_sha256": "01340bcc1cba9583906ea52014b691c990525a2b69d4a6dd61978774c9e129d2",
+  "exit": 1,
+  "shard": "shard-10",
+  "note": "6 lines / 6 IDs, set match; INFO scan files=7 findings=6"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py --selftest",
+  "source_locator": "SKILL.md:188",
+  "round10_verdict": "current",
+  "output_sha256": "0a655a0193aec587c86f3f68a4730c5892198904a2e4e599377aa4d5ff802734",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "7 fixture files, defect/clean/missing controls"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py --self-test",
+  "source_locator": "SKILL.md:188",
+  "round10_verdict": "current",
+  "output_sha256": "8c2fa8c30b5455e9400da96d56ceac88686f654b6cdffc1582ea716bad1d2b19",
+  "exit": 2,
+  "shard": "shard-10",
+  "note": "alias not claimed by SKILL; matches round-9 registry note (DR-10-03)"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py corpus/knowledge/verification/gate-frozen-run-standard.md",
+  "source_locator": "SKILL.md:188",
+  "round10_verdict": "current",
+  "output_sha256": "2e5af73aea6acf18fdfd257b601b61aa3f97e2e2f37d2cac5214e034b3fc6cca",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "corpus-path instantiation; 0 marks, 0 findings"
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py tools/gates/fixtures/handoff-packet-check.md",
+  "source_locator": "SKILL.md:189",
+  "round10_verdict": "current",
+  "output_sha256": "ec1ec331a820f5eaa4dd916c99a404fa92223c06566ffe8c1e1b6f92a01064b3",
+  "exit": 1,
+  "shard": "shard-10",
+  "note": "11 lines / 9 IDs, set match (.expected has no trailing newline)"
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py --selftest",
+  "source_locator": "SKILL.md:189",
+  "round10_verdict": "current",
+  "output_sha256": "be1ef058b2cfc67a564003917fd39125121755ae66960bd9ea5feb04c0c7ef2f",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "11 findings / 9 ids; clean control exit 0"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv",
+  "source_locator": "SKILL.md:190 (claim at SKILL.md:162/177, shard 09)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "76c00a6b80d4539a70ebe976d86600f8317b8da962a3ea6cdfcf8bace7e41f80",
+  "exit": 2,
+  "shard": "shard-10",
+  "note": "7/7 gate_digest_mismatch; identical live and mirror; see DR-10-01; fix routing F15-F18/orchestrator"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py --selftest",
+  "source_locator": "SKILL.md:190",
+  "round10_verdict": "current",
+  "output_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "79/79 checks incl. gate-digest-mismatch control"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json",
+  "source_locator": "SKILL.md:191",
+  "round10_verdict": "current",
+  "output_sha256": "effe2fa8d3847d46f2ceb53d1caba34afbfa3dcd049c5f42a49655d7b595fa79",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --selftest",
+  "source_locator": "SKILL.md:191",
+  "round10_verdict": "current",
+  "output_sha256": "ecb685112afea71e3b6d77ee38ca1935fbca0a0c900594bfebc265e2dcbd2121",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "SELFTEST PASS incl. no-write and determinism checks"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "source_locator": "SKILL.md:192",
+  "round10_verdict": "current",
+  "output_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --selftest",
+  "source_locator": "SKILL.md:192",
+  "round10_verdict": "current",
+  "output_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "42/42 checks; nothing outside temp dir touched"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json",
+  "source_locator": "SKILL.md:193",
+  "round10_verdict": "current",
+  "output_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "audits=7 mech_cases=11 derivations=9 approx_checks_runner=37"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --counts",
+  "source_locator": "SKILL.md:193,199",
+  "round10_verdict": "current",
+  "output_sha256": "20ecc47163309805345d6dc6af0d11a304b9b567bfd8a18a28dd6745d10decfb",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "printed JSON == exercise audit_counts (programmatic equality)"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --report reports/supplement-opencode-1/32-craft-exercise.md",
+  "source_locator": "SKILL.md:193",
+  "round10_verdict": "current",
+  "output_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "report file byte-identical before/after (read-only claim holds)"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "source_locator": "SKILL.md:193",
+  "round10_verdict": "current",
+  "output_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "10/10 tamper + 18/18 CLI cases"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py",
+  "source_locator": "SKILL.md:194",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "6fd828d32bfbde7724cfc8baea845206d8aef0a5c3a7e1b6ab9a1685286abc6e",
+  "exit": 2,
+  "shard": "fix-21",
+  "note": "row's verdict map now documents duty 2 and the committed default's exit 2 + uncovered gates + three-root remedy; pin relocation itself stays the orchestrator's decision (registry §5 items 1/6/7)",
+  "fix_evidence": "reports/round-10/drift/fix-21.md"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines",
+  "source_locator": "SKILL.md:194",
+  "round10_verdict": "current",
+  "output_sha256": "08ac35b8caa36b7c42d19bd1e9f2c79f9d9229ea25b7ca5908a80c815959c83d",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "green control: baselines_found 8 pinned 8 gates_uncovered []"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "source_locator": "SKILL.md:194",
+  "round10_verdict": "current",
+  "output_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "28/28 controls"
+ },
+ {
+  "command": "diff .scratch/r10f10/out/live-before.txt .scratch/r10f10/out/live-after.txt",
+  "source_locator": "isolation check (SKILL.md:181-200 write-scope column)",
+  "round10_verdict": "current",
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exit": 0,
+  "shard": "shard-10",
+  "note": "empty diff (sha256 of empty string): no live byte written by this shard; mirrors cleaned"
+ },
+ {
+  "command": "python3 reports/round-5/run-validation.py",
+  "source_locator": "SKILL.md:210; SCORECARD.md:30,32,33,34,35",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "2e7d8c0ff2faabafa72e3e132526b0cef6e059b263206ba0b048b9dd91c2fd0a",
+  "exit": 1,
+  "shard": "shard-11",
+  "note": "shard-11 §2: exit 1 at HEAD with three independent causes; round-scoped acceptance bound to its own revision (fix-22 documents it; identical failure at round-9's revision a7bb205, so not a round-10 regression)."
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py",
+  "source_locator": "invoked by reports/round-5/run-validation.py:120; gate table SKILL.md:194 (out of shard, listed as dependency)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "f456f79d92a14baa0c67b4e696caf2fa7c3aa1f67c6403919af32b9db2d2d68d",
+  "exit": 2,
+  "shard": "shard-11",
+  "note": "round-5 runner dependency; the command's own row documents the committed default's duty-2 BASELINE-GATE-UNCOVERED (fix-21, registry §5 item 1), with the three-root invocation as its exit-0 control."
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv",
+  "source_locator": "invoked by reports/round-5/run-validation.py:158",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "76c00a6b80d4539a70ebe976d86600f8317b8da962a3ea6cdfcf8bace7e41f80",
+  "exit": 2,
+  "shard": "shard-11",
+  "note": "round-5 runner dependency; the same command's SKILL.md:162 claim was corrected in place by fix-18. The live tree still reads exit 2, 7/7 gate_digest_mismatch."
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+  "source_locator": "invoked by reports/round-5/run-validation.py:158",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "409db5ab8b68ebc3da9a8360879db71c01e58b40ea4a8311e3818efe289c8452",
+  "exit": 2,
+  "shard": "shard-11",
+  "note": "round-5 runner dependency; same class and same cause as the round-3 manifest (round-8 gate repairs drifted the pins); fix-18 documents the pinned-revision recipe."
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "source_locator": "SCORECARD.md:32 (round-5 re-run cell; command text lives in another shard)",
+  "round10_verdict": "current",
+  "output_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+  "exit": 0,
+  "shard": "shard-11",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "source_locator": "SCORECARD.md:32 (round-5 re-run cell; command text lives in another shard)",
+  "round10_verdict": "current",
+  "output_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+  "exit": 0,
+  "shard": "shard-11",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json",
+  "source_locator": "SCORECARD.md:30 (round-5 re-run cell; command text lives in another shard)",
+  "round10_verdict": "current",
+  "output_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650",
+  "exit": 0,
+  "shard": "shard-11",
+  "note": null
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "source_locator": "SCORECARD.md:112,128",
+  "round10_verdict": "current",
+  "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": null
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "source_locator": "SCORECARD.md:112",
+  "round10_verdict": "current",
+  "output_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": null
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+  "source_locator": "SCORECARD.md:113,143",
+  "round10_verdict": "current",
+  "output_sha256": "c83dac8f8bab0feaa55b853a43a96562d0ccb9dd6477d24b995d2331577d5c02",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "source_locator": "SCORECARD.md:114,144",
+  "round10_verdict": "current",
+  "output_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": null
+ },
+ {
+  "command": "python3 reports/round-8/run-validation.py",
+  "source_locator": "SCORECARD.md:114,115,116",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "4d300b24a04ff44afdb89c6944174ad8f71056667fd0e5f2044266010943b2f5",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": "post-fix verification (runner sha d78da29fdacc75d4, sibling repair 18:32:28); receipt .scratch/drift-shard13/r8-validation-postfix.json",
+  "fix_evidence": "reports/round-10/drift/fix-20.md"
+ },
+ {
+  "command": "python3 reports/round-9/run-validation.py",
+  "source_locator": "SCORECARD.md:133,142,144,145",
+  "round10_verdict": "current",
+  "output_sha256": "4d300b24a04ff44afdb89c6944174ad8f71056667fd0e5f2044266010943b2f5",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": null
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --check",
+  "source_locator": "SCORECARD.md:142,158",
+  "round10_verdict": "current",
+  "output_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 -c 'import json; a=json.load(open(\"reports/round-5/availability-attempt-1.json\")); d=json.load(open(\"reports/round-5/dispatch.json\")); print(a[\"requested_workers\"],a[\"launched_workers\"],a[\"completed_workers\"]); print(d[\"workers\"],d[\"completed\"],d[\"actual_executed_batches_after_authorization\"])'",
+  "source_locator": "SCORECARD.md:201",
+  "round10_verdict": "current",
+  "output_sha256": "19b98ffbe56449bd5fc410674ad6f0d5c4914c8182d37da4f3398c7d1b627bff",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": null
+ },
+ {
+  "command": "git status --porcelain -- . ':!/.scratch'",
+  "source_locator": "SCORECARD.md:117",
+  "round10_verdict": "current",
+  "output_sha256": "a3f92351e7679c3f89476c93a5e89c8bce6600561abb1b64fcb3955cf3cee75c",
+  "exit": 0,
+  "shard": "shard-13",
+  "note": null
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --json",
+  "source_locator": "supporting evidence for SCORECARD.md:114",
+  "round10_verdict": "current",
+  "output_sha256": "cbde6c5e17c7f77e6bcf2f57d1359af1a6ef41c6c201c0b11687ad18daeab528",
+  "exit": 2,
+  "shard": "shard-13",
+  "note": "exit 2 is the tool's designed refusal on a drifted live tree (7/7 gate_digest_mismatch); supporting evidence for S13-1"
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json",
+  "source_locator": "SCORECARD.md:30",
+  "round10_verdict": "current",
+  "output_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 reports/round-5/run-validation.py",
+  "source_locator": "SCORECARD.md:30,32-35",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "2e7d8c0ff2faabafa72e3e132526b0cef6e059b263206ba0b048b9dd91c2fd0a",
+  "exit": 1,
+  "shard": "fix-22",
+  "note": "round-scoped acceptance runner; F reads round-8's corpus frontmatter repair as a non-append edit, O depends on the battery default (fix-21); filed receipt true at its own revision; identical failure at a7bb205 (F15) - documented, checks not weakened"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+  "source_locator": "SCORECARD.md:31,34,66",
+  "round10_verdict": "current",
+  "output_sha256": "c83dac8f8bab0feaa55b853a43a96562d0ccb9dd6477d24b995d2331577d5c02",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "source_locator": "SCORECARD.md:32,114",
+  "round10_verdict": "current",
+  "output_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "source_locator": "SCORECARD.md:32,53",
+  "round10_verdict": "current",
+  "output_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py examples/handoff-packet.sample.md",
+  "source_locator": "SCORECARD.md:35,70",
+  "round10_verdict": "current",
+  "output_sha256": "7c5810479045c26bcc3b1c7364934f53147641504a766eeffeaaec4d2d624685",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --selftest",
+  "source_locator": "SCORECARD.md:46",
+  "round10_verdict": "current",
+  "output_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/replay-frozen.py --selftest",
+  "source_locator": "SCORECARD.md:47",
+  "round10_verdict": "current",
+  "output_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --selftest",
+  "source_locator": "SCORECARD.md:48",
+  "round10_verdict": "current",
+  "output_sha256": "e06fde07660f4ee2b0f132e631d051ea6aa20ad69c526c753deb53065d9f14c3",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py",
+  "source_locator": "SCORECARD.md:52",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "8bf71a029a2f66a21a562e4ba2514797b5d207fe6de273084bc422d286a7b3a1",
+  "exit": 2,
+  "shard": "R10-F15-battery",
+  "note": "exit 2: duty-2 BASELINE-GATE-UNCOVERED for myth-consistency-gate.py and naming-collision-gate.py (their pins live under reports/round-9/baselines/, outside both committed roots). Documented at reports/round-9/baselines/registry.md §5 item 1. Control re-run at HEAD: --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines -> exit 0, baselines_found 8, pinned 8, gates_uncovered []."
+ },
+ {
+  "command": "python3 reports/round-6/run-validation.py",
+  "source_locator": "SCORECARD.md:65-70",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "79440ea7395873dd2cf9e7cde55dc9217ddd61c994579728fd667ab243ca9b9d",
+  "exit": 1,
+  "shard": "fix-22",
+  "note": "round-scoped; 'append-only prefix lost: SKILL.md' because rounds 8-10 legitimately extended SKILL.md in place; filed receipt true at its own revision; identical failure at a7bb205 (F15)"
+ },
+ {
+  "command": "python3 reports/round-7/run-validation.py",
+  "source_locator": "SCORECARD.md:92-93",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "3ffc98f636827ba13a9743dbabc19e0977c0722887847879bd8c71789bc790ea",
+  "exit": 1,
+  "shard": "fix-22",
+  "note": "filed red (round 7 closed failed); re-run red for the same prefix/totals reasons; round-scoped and consistent with the filed state"
+ },
+ {
+  "command": "python3 reports/round-8/run-validation.py",
+  "source_locator": "SCORECARD.md:104",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "9d0d40f1e27d9c18d60be1dfc2d963451230616ec5ee5953daae06cef59dcf5f",
+  "exit": 1,
+  "shard": "fix-20",
+  "note": "replay_isolated() now resolves each manifest gate pin by digest over git history instead of assuming HEAD; control in a clean mirror: exit 0, F/O/D all PASS, accepted=isolated-pinned-revisions, gates_restored_from_pin 6 at 291c714; filed round-8 receipt now superseded (runner_sha256 7eaa3678 -> d78da29f)",
+  "fix_evidence": "reports/round-10/drift/fix-20.md"
+ },
+ {
+  "command": "python3 reports/round-9/run-validation.py",
+  "source_locator": "SCORECARD.md:133",
+  "round10_verdict": "current",
+  "output_sha256": "4d300b24a04ff44afdb89c6944174ad8f71056667fd0e5f2044266010943b2f5",
+  "exit": 0,
+  "shard": "fix-22",
+  "note": "ledger row 117's stale-documented verdict is wrong as filed: measured exit 0 with F/O/D PASS; runner digest 8e4881309afaacc9 supersedes the registry's 58e8fa4f quote"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "source_locator": "SCORECARD.md:112",
+  "round10_verdict": "current",
+  "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/harness/r8_checks.py --selftest",
+  "source_locator": "SCORECARD.md:114",
+  "round10_verdict": "current",
+  "output_sha256": "25bf2315e6c2f3403a3fc9028720225284b1848f1a91e62ae3808543b0f5ce58",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py examples/culture-d3/packet.json",
+  "source_locator": "SKILL.md:251",
+  "round10_verdict": "current",
+  "output_sha256": "e282a0688498034144fb376ab43884c8607133bd6deaab763150d789b113669d",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py --selftest",
+  "source_locator": "SCORECARD.md:93",
+  "round10_verdict": "current",
+  "output_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": null
+ },
+ {
+  "command": "python3 tools/gates/phonology-sanity-gate.py tools/gates/fixtures/phonology-sanity-gate.yml",
+  "source_locator": "reports/round-9/baselines/registry.md (fixture verdict row: phonology-sanity-gate)",
+  "round10_verdict": "current",
+  "output_sha256": "b3843b2a5f50809ffe43fd55212cb9ab320f4ac98c2a59c6f57c7bcc61617018",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "R10-F15 re-run of shard-14's fixture row in the isolated clone; exit 1 is the expected-red fixture verdict (SKILL.md verdict map), ID set equals .expected. Hash matches shard-14's table for six gates; provenance-audit differs by run context (scan paths)."
+ },
+ {
+  "command": "python3 tools/gates/lexicon-coverage-audit.py tools/gates/fixtures/lexicon-coverage-audit.yml",
+  "source_locator": "reports/round-9/baselines/registry.md (fixture verdict row: lexicon-coverage-audit)",
+  "round10_verdict": "current",
+  "output_sha256": "af5794955b60b455b433a570434bf0ab69c110b66c891eab567d5addef0be4f4",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "R10-F15 re-run of shard-14's fixture row in the isolated clone; exit 1 is the expected-red fixture verdict (SKILL.md verdict map), ID set equals .expected. Hash matches shard-14's table for six gates; provenance-audit differs by run context (scan paths)."
+ },
+ {
+  "command": "python3 tools/gates/myth-consistency-gate.py tools/gates/fixtures/myth-consistency-gate.yml",
+  "source_locator": "reports/round-9/baselines/registry.md (fixture verdict row: myth-consistency-gate)",
+  "round10_verdict": "current",
+  "output_sha256": "88385088ca2ee13192b9669a02cbe44aebf9c22df752a2af76138a13e1cf77d2",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "R10-F15 re-run of shard-14's fixture row in the isolated clone; exit 1 is the expected-red fixture verdict (SKILL.md verdict map), ID set equals .expected. Hash matches shard-14's table for six gates; provenance-audit differs by run context (scan paths)."
+ },
+ {
+  "command": "python3 tools/gates/costume-era-consistency-gate.py tools/gates/fixtures/costume-era-consistency-gate.yml",
+  "source_locator": "reports/round-9/baselines/registry.md (fixture verdict row: costume-era-consistency-gate)",
+  "round10_verdict": "current",
+  "output_sha256": "482c1597a22096b2a0a09f09ce476f6ae5bbd6db70baf50df128fb0c1ed608b3",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "R10-F15 re-run of shard-14's fixture row in the isolated clone; exit 1 is the expected-red fixture verdict (SKILL.md verdict map), ID set equals .expected. Hash matches shard-14's table for six gates; provenance-audit differs by run context (scan paths)."
+ },
+ {
+  "command": "python3 tools/gates/naming-collision-gate.py tools/gates/fixtures/naming-collision-gate.yml",
+  "source_locator": "reports/round-9/baselines/registry.md (fixture verdict row: naming-collision-gate)",
+  "round10_verdict": "current",
+  "output_sha256": "bea0fd3925c2745ecf6333733d1118deb9831241cf2d12e3742c571ec88a52ac",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "R10-F15 re-run of shard-14's fixture row in the isolated clone; exit 1 is the expected-red fixture verdict (SKILL.md verdict map), ID set equals .expected. Hash matches shard-14's table for six gates; provenance-audit differs by run context (scan paths)."
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py tools/gates/fixtures/handoff-packet-check.md",
+  "source_locator": "reports/round-9/baselines/registry.md (fixture verdict row: handoff-packet-check)",
+  "round10_verdict": "current",
+  "output_sha256": "ec1ec331a820f5eaa4dd916c99a404fa92223c06566ffe8c1e1b6f92a01064b3",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "R10-F15 re-run of shard-14's fixture row in the isolated clone; exit 1 is the expected-red fixture verdict (SKILL.md verdict map), ID set equals .expected. Hash matches shard-14's table for six gates; provenance-audit differs by run context (scan paths)."
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py tools/gates/fixtures/provenance",
+  "source_locator": "reports/round-9/baselines/registry.md (fixture verdict row: provenance-audit)",
+  "round10_verdict": "current",
+  "output_sha256": "01340bcc1cba9583906ea52014b691c990525a2b69d4a6dd61978774c9e129d2",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "R10-F15 re-run of shard-14's fixture row in the isolated clone; exit 1 is the expected-red fixture verdict (SKILL.md verdict map), ID set equals .expected. Hash matches shard-14's table for six gates; provenance-audit differs by run context (scan paths)."
+ },
+ {
+  "command": "sha256sum tools/check-gate-battery.py",
+  "source_locator": "reports/round-9/baselines/registry.md:172",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "dcc39da3fab18c173b8c8481bd411da7d0016cacc21649bc240dbf2974b69d52",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": "registry quotes 9ad0ef95...; live is 0a126b70... (superseded by reports/round-9/baselines/battery-extension.md:15 and audit-18/20)."
+ },
+ {
+  "command": "sha256sum reports/round-9/run-validation.py",
+  "source_locator": "reports/round-9/baselines/registry.md:181-186",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "a2a7c3762a601a97bd4a770e184e965512b3e84d395371e05e28399471ebf799",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": "registry quotes 58e8fa4f... (and 5717dfb4...); live is 8e488130... Behavior now green: python3 reports/round-9/run-validation.py exit 0 at HEAD."
+ },
+ {
+  "command": "sha256sum tools/gates/frozen/provenance-audit/r9-pre/expected.json",
+  "source_locator": "reports/round-9/baselines/registry.md §4 pin table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "7c2f43915733a8caf0a8e81d199e74e826f7bd9bb7e9c4fd182dc05c39f029ae",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": "registry pin-file digest ba4b2994...; live is 425c74c0... (file mtime 17:54:17 local, after the registry's 20:53Z sweep)."
+ },
+ {
+  "command": "python3 reports/round-6/check-checkpoint.py",
+  "source_locator": "SCORECARD.md:81",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "7c6333e77d287b3b39d079b26deb4be107da3ee85f9793f51d6d04a9d2075789",
+  "exit": 1,
+  "shard": "R10-F15-battery",
+  "note": "exit 1: 'existing entry changed: corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md'. SCORECARD:81-83 already scopes this script to the historical checkpoint tree ('applies to the checkpoint tree, not the later legitimate append-only entry errata'); the corpus entry was legitimately repaired in round 8's metadata sweep. Round-scoped, not a round-10 regression."
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py examples/culture-d3/packet.json --frozen examples/culture-d3/expected.json",
+  "source_locator": "reports/round-9/baselines/registry.md:277 (D3 frozen variant)",
+  "round10_verdict": "current",
+  "output_sha256": "e282a0688498034144fb376ab43884c8607133bd6deaab763150d789b113669d",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": "exit 0, findings []; the registry's quoted D3-SNAPSHOT mismatch (50c4c2f2 vs 5f4c02bf) is resolved on the delivered tree (cf. shard-14 §3.5)."
+ },
+ {
+  "command": "sha256sum tools/gates/*.py",
+  "source_locator": "reports/round-9/baselines/registry.md:54 (digest sweep)",
+  "round10_verdict": "current",
+  "output_sha256": "bc76e629373f825b4f0ab66b0bc720f2a9e5f0e9c30cf01f9a740c51a3ae1b66",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": "all seven gate digests reproduce the registry §2 measured lines (shard-14 §2; re-run by this seat)."
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (10/10 + 18/18)"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "c83dac8f8bab0feaa55b853a43a96562d0ccb9dd6477d24b995d2331577d5c02",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current at :31/:66; :34 counts drifted (F12-07)"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --summary",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "d48d80d35e3f4e8652124c4c6f03125a76d9c5983c1db979722b6bd9450e9c20",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (identical totals to #3)"
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "1496ebf7b9ed578422d6294aecba6f9b3ad273a280bbcd34bc8882d6a89f37a9",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": null
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py examples/handoff-packet.sample.md",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "7c5810479045c26bcc3b1c7364934f53147641504a766eeffeaaec4d2d624685",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (`fields=16/16 glossary-entries=20 findings=0`)"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (42/42)"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (byte-identical assembly)"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": null
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --check",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (byte-identical assembly)"
+ },
+ {
+  "command": "python3 tools/check-evidence-coupling.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": null
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "8b1fdd6f2d316ef20ac3ebe23695a81626358084dd8535816116fd71a3fd9e28",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (28/28; :32's \"10/10\" drifted, F12-07)"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "9b382adf80ab56dfaa662ed7833f9f376f550146ca10e873cd9c972652f4957f",
+  "exit": 2,
+  "shard": "shard-12",
+  "note": "shard's own annotation: **stale-documented** (F12-01)"
+ },
+ {
+  "command": "python3 tools/gates/costume-era-consistency-gate.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "d45a9add4c616d584ce08bd77135d912d31e8d3c1fb7f4bfc2d8f83772ddd851",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (10/10, 21 IDs)"
+ },
+ {
+  "command": "python3 tools/gates/handoff-packet-check.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "be1ef058b2cfc67a564003917fd39125121755ae66960bd9ea5feb04c0c7ef2f",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (11 findings / 9 ids)"
+ },
+ {
+  "command": "python3 tools/gates/lexicon-coverage-audit.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "fd731b1423443238cb5c1fc75dfd350244cc611295c9713b129252b251478658",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (14/14)"
+ },
+ {
+  "command": "python3 tools/gates/myth-consistency-gate.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "80e7d9dc86a29cf56591cfa0cf5bd8fab82a84d4b9d67f03200f1bd689c5aa53",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": null
+ },
+ {
+  "command": "python3 tools/gates/naming-collision-gate.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "d3566a9cad69f956fd7a4274cb80ad4b95a92bb63a9cf689e45338d05ca5c7da",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (12 findings / 11 ids)"
+ },
+ {
+  "command": "python3 tools/gates/phonology-sanity-gate.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "3e9a1209afa352902922a64df1d0bf7a48c25cf09126aa62b70855bd3b447843",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": "shard's own annotation: current (15/15 IDs, 29 cases)"
+ },
+ {
+  "command": "python3 tools/gates/provenance-audit.py --selftest",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "current",
+  "output_sha256": "66ac915b83e4ba2eff10c63e4ea7a2a283ddf9b58b59aa7200f6c797c8f9208b",
+  "exit": 0,
+  "shard": "shard-12",
+  "note": null
+ },
+ {
+  "command": "python3 reports/round-5/run-validation.py",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "dd65e422c40337b31962730c44fbac5d0fafa39d9c008b61feb9c2559b69efc9",
+  "exit": 1,
+  "shard": "shard-12",
+  "note": "shard's own annotation: **stale-documented** (F12-02)"
+ },
+ {
+  "command": "python3 reports/round-6/run-validation.py",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "79440ea7395873dd2cf9e7cde55dc9217ddd61c994579728fd667ab243ca9b9d",
+  "exit": 1,
+  "shard": "shard-12",
+  "note": "shard's own annotation: **stale-documented** (F12-03)"
+ },
+ {
+  "command": "python3 reports/round-7/run-validation.py",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "3ffc98f636827ba13a9743dbabc19e0977c0722887847879bd8c71789bc790ea",
+  "exit": 1,
+  "shard": "shard-12",
+  "note": "shard's own annotation: **stale-documented** (F12-04)"
+ },
+ {
+  "command": "python3 reports/round-8/run-validation.py",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "b2fb989333a06f0c095731fcb5e77e7843b442a14d41156f9fee4f37bc66781e",
+  "exit": 1,
+  "shard": "shard-12",
+  "note": "shard-12 pre-fix observation (exit 1 at HEAD and at e1694ba: F pass, O pass, D fail). Superseded by fix-20 - the runner is repaired in-round and exits 0 in a live-tree replica (see the SCORECARD.md:104 row, stale-fixed)."
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --json` (claim at :32 \"both round-3 manifests reproduce 7/7\")",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "45537a5e815c9732f66e3ffea6f61b6b8dbba424ef0a0dd01d3df83629df2a96",
+  "exit": 2,
+  "shard": "shard-12",
+  "note": "shard's own annotation: **stale-documented** (F12-06)"
+ },
+ {
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv --json",
+  "source_locator": "shard-12 receipts table",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "915233ea24d531c38c963b58a6f0cf11bdd3b16cf66910e1c6f491e87274d9bc",
+  "exit": 2,
+  "shard": "shard-12",
+  "note": "shard's own annotation: **stale-documented** (F12-06)"
+ },
+ {
+  "command": "ls corpus/knowledge/civilizations/*.md | wc -l",
+  "source_locator": "SKILL.md:143",
+  "round10_verdict": "stale-fixed",
+  "output_sha256": "6fc16b03d8c15b9885876848a301a01816cccaf7b48e74f2b51db99c007a3bd5",
+  "exit": 0,
+  "shard": "fix-17",
+  "note": "row now reads '94 entries: 92 earlier-civilization bases plus two source maps'; matches corpus/README.md:116 and SCORECARD",
+  "fix_evidence": "reports/round-10/drift/fix-17.md"
+ },
+ {
+  "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines",
+  "source_locator": "SKILL.md:194 (documented remedy)",
+  "round10_verdict": "current",
+  "output_sha256": "c164b1e2c386c9b24f4054076964713d25934478b6e6fbb7eab2be0792a52fee",
+  "exit": 0,
+  "shard": "fix-21",
+  "note": "green control re-run by this seat: baselines_found 8, pinned 8, gates_uncovered []"
+ },
+ {
+  "command": "sha256sum tools/check-gate-battery.py reports/round-9/run-validation.py tools/gates/frozen/provenance-audit/r9-pre/expected.json",
+  "source_locator": "reports/round-9/baselines/registry.md §3.1/§3.2/§4",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "cf95ba233d7924782c7f29e3f7510f58a54d8a94e17fa66fc762a458e88c8047",
+  "exit": 0,
+  "shard": "fix-23",
+  "note": "registry quotes superseded digests: battery 9ad0ef95 -> live 0a126b70; runner 58e8fa4f -> live 8e488130 (now exit 0, F/O/D PASS); provenance pin ba4b2994 -> live 425c74c0 (20/20 inputs verified); all pins valid - drift is in quoted prose only"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "source_locator": "SKILL.md:86,88,90,93,98 (tool authority)",
+  "round10_verdict": "current",
+  "output_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+  "exit": 0,
+  "shard": "shard-05",
+  "note": null
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py",
+  "source_locator": "SKILL.md:85-100 (live vocabulary)",
+  "round10_verdict": "current",
+  "output_sha256": "b232dffb365f39598caa0abd79917ed009705d0c327b0a0e701436f1a1a6f869",
+  "exit": 1,
+  "shard": "shard-05",
+  "note": null
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --json",
+  "source_locator": "SKILL.md:86,88,90 (finding ids)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "880d0e45f75f1c14c9528a80a70ff1b6d1c034145ed741796f7038f03c124624",
+  "exit": 1,
+  "shard": "shard-05",
+  "note": "shard-05: SKILL.md cites executable ids TL-01/TL-02; grep -c 'TL-01|TL-02' tools/d2-typed-labels.py = 0 (re-verified by R10-F15) - the live id is D2L-FORM-UNRESOLVED (tools/d2-typed-labels.py:426). Id drift."
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --packet .scratch/shard-05/packet-b4.d2.yml",
+  "source_locator": "SKILL.md:93 (executable B4)",
+  "round10_verdict": "current",
+  "output_sha256": "e1b3f538e96c87fbef44a022183c0a70578e552dc71783116b3fd723f4035c24",
+  "exit": 1,
+  "shard": "shard-05",
+  "note": null
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --packet .scratch/shard-05/packet-kindless.d2.yml",
+  "source_locator": "SKILL.md:90 (TL-02 hold claim)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "f7341e84f3ff7e1b9d3eb3986f828cc6b66f56135714f81919b16e50cd2b7743",
+  "exit": 1,
+  "shard": "shard-05",
+  "note": "shard-05 finding N1: a kindless typed label raises KeyError 'kind' at tools/d2-typed-labels.py:2497 instead of a stable hold; direct validate_labels gives exit 2 with D2L-DATA. Behavior gap, not just wording."
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --packet .scratch/shard-05/packet-r5.d2.yml",
+  "source_locator": "SKILL.md:88 (TL-01 hold claim)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "b5480e214fd27026426202f66268b9e1d1569727a34421859da7f79ef6ab6b3d",
+  "exit": 1,
+  "shard": "shard-05",
+  "note": "shard-05 finding N2: the declared-sound-kind-no-bytes class produced 16 findings with none for CTL-03 - silent pass, no HOLD, so the SKILL.md:88 claim is unmet in live behavior."
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --packet .scratch/shard-05/packet-compare-only.d2.yml",
+  "source_locator": "SKILL.md:91 (design spec R3)",
+  "round10_verdict": "current",
+  "output_sha256": "2ce334574a2e552141cda8ae4b9ee54f614025cbccacffe23b01b0042c00b6ea",
+  "exit": 2,
+  "shard": "shard-05",
+  "note": null
+ },
+ {
+  "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d2/packet.d2.yml",
+  "source_locator": "SKILL.md:85 (frozen 10/10 GAR-*)",
+  "round10_verdict": "current",
+  "output_sha256": "ebc8850d08ec1b7e32616cbca9092ba66f3b6f148a61515a033e6bed6fa66f4b",
+  "exit": 1,
+  "shard": "shard-05",
+  "note": null
+ },
+ {
+  "command": "sha256sum tools/gates/frozen/round-4/naming-collision-gate.out; grep -c GAR-",
+  "source_locator": "SKILL.md:85 (frozen record)",
+  "round10_verdict": "current",
+  "output_sha256": "4d70252bdf7745dea76af07b41a94560b5789ff278cdbb5af4bf6924688bb19e",
+  "exit": 0,
+  "shard": "shard-05",
+  "note": null
+ },
+ {
+  "command": "grep -n <cited phrase> <cited file> (11 locators; locators.txt)",
+  "source_locator": "SKILL.md:92-100 (eight line-number drifts)",
+  "round10_verdict": "stale-documented",
+  "output_sha256": "58e27ee54f66ec1cd356ff66d71e8d86bf5f084bc68b1fcae0a5e5918db0ddd1",
+  "exit": 1,
+  "shard": "shard-05",
+  "note": "shard-05: 8 line-number drifts in SKILL.md:92-100. R10-F15 re-verified language-contact.md:78 (content at 80-81), garment-lexicon-crosslinguistic.md:26 (content at 28) and loanword-material-dating.md:57 (claimed row at 59); the costume-language-coupling-table.md:40 -> :43 drift was fixed in-round at SKILL.md:73 and :96."
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json",
+  "source_locator": "reports/round-10/drift/ledger.json (R10-F15 live re-check)",
+  "round10_verdict": "current",
+  "output_sha256": "41b71e3d05e73a6509e55e944220f5b2c5883b74474769df4168f99b914771f6",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": "Live re-check: the corpus grew in-round (the coverage claim's new entries landed after this seat's first run), so the earlier hash for this command is revision-bound. Count read from this run, not asserted."
+ },
+ {
+  "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+  "source_locator": "reports/round-10/drift/ledger.json (R10-F15 live re-check)",
+  "round10_verdict": "current",
+  "output_sha256": "0d096bef369894d006aba5b0e0d5e91aa98aad9c70b09954f0575531ca84d7bb",
+  "exit": 0,
+  "shard": "R10-F15-battery",
+  "note": "Live re-check after the in-round corpus growth; partition counts in this run supersede the pre-growth hash. SCORECARD's historical '179 entries' rows stay historical claims, not live counts."
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --selftest",
+  "source_locator": "SKILL.md:264",
+  "round10_verdict": "current",
+  "output_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b",
+  "exit": 0,
+  "shard": "integrator",
+  "note": "row added by integrator: cited command missing from ledger (harness 35/36 complaint); re-run at integration"
+ }
+]

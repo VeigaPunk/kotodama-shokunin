@@ -157,12 +157,37 @@ Capabilities addendum (round 9):
 |---|---|---|---|
 | culture-d3-acceptance | D3 packet regenerates byte-identical; evidence-coupling green; frozen expectation replays clean | `python3 tools/assemble-culture-d3.py --check`; `reports/round-9/d3/replay.md` | round 9 |
 
+## Axes — round 10 (2026-10-17), admitted
+
+Baseline `eb348f3`; one 64-worker `opencode-go/deepseek-v4.1-flash` batch
+(attempt 4 — keys -3/-4/-5 returned 402 insufficient funds, recorded in
+`reports/round-10/availability-attempt-{1,2,3}.json`; 61/64 workers completed,
+3 downstream scribes late-landed before integration). Acceptance:
+`python3 reports/round-10/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | 179 entries, thin partitions unexpanded → 189 entries: linguistics 16→19, myth-symbol 16→19, culture-material 16→18, verification 13→15; each new entry gap-named, frontmatter-complete, decision-record carrying, source-resolving; README index reconciled | `python3 reports/round-10/run-validation.py` | `reports/round-10/coverage/*` (10 authors, 10 reviewers, 4 auditors) |
+| freshness | improved (claim F, lowest non-retired) | No drift ledger → 192-row ledger, 36/36 cited commands covered; stale items fixed-with-evidence or documented; every ledger row command-carried with output hashes | `python3 reports/round-10/run-validation.py` | `reports/round-10/drift/ledger.json` + 14 shard fragments |
+| operability | improved (claim O) | 24 open adversarial findings (rounds 8-9) → 24/24 dispositioned: 18 fixed-with-control, 5 wont-fix documented, 1 wrong; verifiers re-ran controls; battery selftest green | `python3 reports/round-10/run-validation.py` | `reports/round-10/findings-tracker.json` + verify fragments |
+| depth | unchanged | No depth claim this round; D3 selftest 85/85 re-verified via ledger | — | ledger row SKILL.md:264 |
+| calibration | improved (unclaimed observation) | Integrator caught and reverted a worker rewrite of filed round bytes (`reports/round-9/validation.json`, `reports/round-8/run-validation.py`); staleness documented instead of back-patched; 14 ledger rows re-measured at integration | git log of the two artifacts | conformance defect below |
+| adjacency | unchanged | Fleet root verified clean this round; PROVINCE accurate | `reports/round-10/adjacency.md` | X02 fragment |
+
+Admission: C/F/O verify, no axis harmed. Conformance defects recorded:
+(1) one stale-fixer rewrote filed round-8/round-9 receipt bytes — reverted by
+the integrator, staleness documented in the drift ledger instead;
+(2) 3 workers failed late (scribe seats) and late-landed — no round defect;
+(3) model availability: opencode-go keys -3/-4/-5 unprovisioned (402),
+rotation now keys 1/2 only.
+
 ## Planned
 
-- Round 9 admitted (above). Next: round 10, loop 1 build 3 of 4 — one 64-worker
-  swarm on the next opencode-go key lane. Candidate claims: coverage expansion
-  of the thin domain partitions with sourced entries (deferred from round 9),
-  corpus README gap-index update, open D2/D3 review findings.
+- Rounds 8-10 admitted (above). Next: round 11, loop 1 build 4 of 4 — one
+  64-worker swarm (opencode-go key rotation now keys 1/2 only; keys -3/-4/-5
+  unprovisioned). Candidate claims: D2 typed-label integration into the D2
+  gate pipeline, handoff-packet end-to-end exercise, freshness recheck of the
+  round-10 ledger itself.
 - Operator regimen 2026-10-17 (supersedes the older rounds 8–10 mapping;
   recorded in LOG.md): 3 loops × 7 rounds = lane rounds 8–28. Per loop:
   4 build rounds (one 64-worker swarm each, `opencode-go/deepseek-v4.1-flash`,
