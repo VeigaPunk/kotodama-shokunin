@@ -212,11 +212,17 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
 ## Known gaps (frontier)
 
-- The five carried civilization entries now have per-claim supplemental
-  rechecks (Ottoman, early Slavic, Sogdian, Tibetan, Turkic). This does not
-  resolve every old marker: see their source JSON ledgers for specific
-  supported and unresolved checks. Preserve access limits and original
-  text; do not turn marker deletion into a freshness claim.
+- The five carried civilization entries have per-claim supplemental
+  rechecks (Ottoman, early Slavic, Sogdian, Tibetan, Turkic). Round 5 adds
+  follow-ups on twenty unresolved questions across eleven entries, with
+  twenty-two raw audit rows and five parent passage re-fetches. The parent
+  retains fifteen whole-claim residuals as unresolved and accepts five only
+  within their stated scope; raw worker support labels must not be read as
+  universal confirmation. Reproduce these counts with
+  `python3 reports/round-5/run-validation.py` and its validation receipt;
+  see `reports/round-5/parent-reconciliation.json` before using the new
+  ledgers. Historical markers and access limits remain, not deleted to buy
+  freshness. The round-5 phonetics erratum corrects bibliography only.
 - `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv`
   now verifies gate/input/output digests and reproduces seven historical
   verdicts. The separate per-gate `expected.json` layout required by the

@@ -308,3 +308,16 @@ below supersede the numbers they name; the original lines stay as written.
   whistled register (UNESCO element record); tone–humidity association reported
   by Maddieson & Benedict 2023 (Frontiers in Psychology 14:1200463 full text);
   Rotokas six-consonant inventory (wals.info/chapter/1).
+
+## Errata — round 5 bibliographic recheck (appended 2026-10-17)
+
+The earlier source block's Blasi et al. (2019) citation to *Science* **366**
+is incorrect. The publisher-deposited Crossref record for
+https://doi.org/10.1126/science.aav3218, independently retrieved by the parent
+on 2026-10-17 at https://api.crossref.org/works/10.1126/science.aav3218,
+gives *Science* **363**(6432), article **eaav3218**, published 15 March 2019.
+This supersedes only the bibliographic uncertainty in the preceding erratum;
+the original bytes remain historical. It does not verify the separate
+diet/bite-configuration causal argument or settle its published debate.
+Audit: `corpus/lessons/round-5-sources/12.json` (PHON-A11); parent receipt:
+`reports/round-5/parent-source-spotchecks.json`.

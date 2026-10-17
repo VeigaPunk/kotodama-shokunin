@@ -1,0 +1,34 @@
+{
+  "round": 5,
+  "state": "declared-before-authorized-Flash-dispatch",
+  "date": "2026-10-17",
+  "baseline_revision": "1ccb2b7119039d8026ad1d004f20427623838b94",
+  "prior_measured_domain_revision": "c52f2c07abcfae4d363e6057e3bc7f60b1329efc",
+  "authorization": "reports/round-5/flash-authorization.json",
+  "requested_model": "zai-coding-plan/glm-5.3-flash-low",
+  "requested_provider": "zai-coding-plan",
+  "workers": 16,
+  "lowest_axis": "freshness, historically lowest; numeric-rubric conformance debt remains explicit",
+  "claims": [
+    {
+      "id": "F",
+      "axis": "freshness",
+      "before": "Twenty unresolved supplemental source rows, no new round-5 follow-up ledgers.",
+      "after_required": "At least ten distinct original unresolved rows rechecked, at least three newly retrieved directly relevant passages with locators and short excerpts. Parent independently re-fetches at least three relevant passages before admission. Preserve supported/contradicted/unresolved scope; unsuccessful retrieval and catalogue metadata are not content confirmation.",
+      "counting_command": "python3 reports/round-5/run-validation.py",
+      "evidence": ["corpus/lessons/round-5-sources/*.json", "reports/round-5/parent-source-spotchecks.json", "reports/round-5/validation.json"],
+      "no_harm": "No historical ledger edits, marker-clearing metric, invented source, source-scope laundering or canon decisions. Parent-only corpus errata must append and be warranted by retrieved evidence."
+    },
+    {
+      "id": "O",
+      "axis": "operability",
+      "before": "No standalone isolated seven-gate battery. Six observed malformed craft CLI/input cases exit1 with tracebacks; the positive ten-mutation selftest exits0.",
+      "malformed_controls": ["missing argument", "missing file", "malformed JSON", "non-UTF-8", "wrong root shape", "missing --report value"],
+      "after_required": "New isolated battery actually runs all seven original gate selftests in a copied tree and has positive/negative stable-ID controls with original gate/fixture bytes unchanged. All six malformed craft controls exit2 with stable diagnostics and no traceback. Preserve genuine finding exit1, real positive example, --counts, optional existing-report read and all ten mutation detections. Both historical round-3 manifests reproduce 7/7 and all previous acceptance assertions remain green.",
+      "counting_commands": ["python3 tools/check-gate-battery.py --selftest", "python3 tools/check-gate-battery.py", "python3 tools/check-craft-exercise.py --selftest", "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --counts", "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv", "python3 tools/replay-frozen.py tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv", "python3 reports/round-5/run-validation.py"],
+      "no_harm": "Do not change tools/gates/*.py, historical frozen bytes, source semantics, toy sound laws, exercise or D2 packet. A safe wrapper does not make the five legacy selftests themselves read-only."
+    }
+  ],
+  "scope": "Identical scoped assignments and write boundaries to the prepared request. Workers do not commit, spawn, alter shared bookkeeping, provider configuration, credentials, siblings, fleet state or canon. Parent owns integration and publication.",
+  "admission_rule": "Judge every axis; admit only if both claims verify and none is harmed. Worker reviews are author-side evidence, not independent promotion verification."
+}

@@ -1,0 +1,16 @@
+{
+  "round": 5,
+  "original_sha256": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
+  "original_selftest_exit": 0,
+  "original_selftest_summary": "SELFTEST OK 10/10 controls behaved as expected",
+  "mutation": "Remove the two-line traceback veto in recognized_failure_evidence in an isolated script copy; the production script is never mutated.",
+  "mutant_sha256": "3cc7c642bbe025301b2283e0edfb81c40ad8522924f24c82d92730bbf965b781",
+  "mutant_selftest_exit": 1,
+  "detected_by": "CTRL-MARKER-THEN-CRASH",
+  "mutant_failure_lines": [
+    "SELFTEST FAIL CTRL-MARKER-THEN-CRASH: observed exit=1 outcome='fail' ids=['GATE-SELFTEST-FAIL'], expected exit=1 outcome='unevaluable' ids⊆['GATE-CRASH-EXIT1']",
+    "SELFTEST FAIL CTRL-MARKER-THEN-CRASH battery mapping is not exit 2"
+  ],
+  "original_bytes_unchanged": true,
+  "limits": "One plausible defect challenged one new behavioral invariant in an ignored scratch copy. This does not establish arbitrary mutation coverage or independently certify all gates. Reproduce by copying the committed script, removing only the two-line veto and running --selftest; normal selftest must stay green while the mutant is rejected."
+}

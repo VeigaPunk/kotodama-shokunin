@@ -2251,3 +2251,206 @@ Round 5 stays pending until the exact native non-flash route is exposed.
 This is the first consecutive post-supplement goal turn encountering this
 registry blocker; the overall goal is not yet marked blocked. The Z.ai,
 DeepSeek and Grok-after-DeepSeek pending sequence remains unchanged.
+
+## 2026-10-17 — operator route amendments: Z.ai Flash and OpenCode DeepSeek
+
+Latest requests: "use the flash zai glm 5.3 flash then" and "also, use the
+opencode provider for the deepseek swarm". These explicitly supersede the
+older non-flash Z.ai and Alibaba token-plan requirements; they do not change
+worker counts or verification targets. Pending rounds 5–7 now use Z.ai
+GLM-5.3 Flash, 16 workers each; 8–9 use OpenCode Go DeepSeek v4.1 Flash,
+32–64 workers each; 10 remains the 128-worker Grok 4.7 xhigh fast round
+AFTER DeepSeek. No provider configuration or credential edits are needed.
+
+The host exposes Z.ai Flash as `zai-coding-plan/glm-5.3-flash-low`; its tool
+documentation pins this legacy alias to MAX thinking. The available native
+alias is requested explicitly, not an implicit reroute or a claim of an
+independent upstream model echo. `reports/round-5/flash-authorization.json`
+records both directives; `flash-claims.json` keeps the exact F/O thresholds,
+no-harm constraints and 16 disjoint ownership assignments. Before-dispatch
+baseline is `1ccb2b7119039d8026ad1d004f20427623838b94`; domain and tool bytes
+are unchanged from the earlier measured baseline. Historical non-flash
+refusal records stay intact. The authorized Flash attempt is recorded
+separately and must not erase or relabel that pre-launch rejection.
+
+## 2026-10-17 — round 5: scoped source follow-up and executable verification — admitted
+
+Baseline: `1ccb2b7119039d8026ad1d004f20427623838b94`. Two measurable claims,
+F/freshness (historically lowest non-retired axis) and O/operability, were
+declared before the authorized dispatch in `reports/round-5/flash-claims.json`.
+The thresholds and no-harm constraints were not relaxed after execution.
+The uncalibrated numeric-rubric debt remains explicit; no new scalar score
+or exploratory taste claim substitutes for the measurements.
+
+### Actual dispatch and continuity
+
+One executed native AgentSwarm batch requested explicit alias
+`zai-coding-plan/glm-5.3-flash-low` with matching profile
+`sec-fast-zai-flash-low`: 16 distinct assignments, 16 returned completions,
+zero failed workers. The legacy alias name is documented by the host as
+MAX thinking; upstream wire-model identity and simultaneous runtime
+concurrency were not independently instrumented. Tool call
+`call_c0fbf2a3ee764fb681da8d89ff0271aa` reported 1789.607 seconds. Saved
+request binding, exact template and assignments resolve under
+`reports/round-5/`; canonical argument SHA256 is
+`119036a731d817d8df1a7e27c1933790d83a0fa7ea126e0632cf5ae33694b69b`.
+
+This followed the separately preserved zero-launch non-flash refusal, so
+there were two native request attempts, not one tool attempt. Only one
+actual batch ran after explicit authorization. Nine continuity requests
+retained the same identities for four source-schema cleanups, two executor
+repairs and three bounded reviews; they are not additional workers or
+completed swarms. `dispatch.json` lists identities agent-456 through
+agent-471 and continuation scopes. No worker committed or made canon.
+Count with `python3 -c 'import json; d=json.load(open("reports/round-5/dispatch.json")); print(d["workers"],d["completed"],d["actual_executed_batches_after_authorization"],len(d["existing_worker_continuations_requested"]))'`
+→ **16, 16, 1, 9**. The native binding is author-observed host evidence,
+not cryptographic third-party attestation or an independently echoed wire ID.
+
+### Claim F — freshness
+
+Before: 20 unresolved supplemental original questions and no round-5
+follow-up ledgers. Target: at least ten original questions rechecked,
+three newly retrieved directly relevant passages and three parent
+re-fetches, with no catalogue-as-content or partial-claim laundering.
+After: **22 raw audit rows, 20 distinct original questions, 17 retrieved
+rows and five parent checks**. Re-run `python3 reports/round-5/run-validation.py`;
+its F measurement is true and retains exact row evidence. Companion
+KIN rows do not inflate the original-question denominator.
+
+The raw worker classifications are 13 supported / eight unresolved / one
+contradicted; these are NOT 13 confirmed original cultural claims. Parent
+reconciliation (`parent-reconciliation.json`) is **five scoped supported /
+15 unresolved / zero whole-claim contradicted**. Supported IDs are TURK-07,
+meso-13, meso-14, PHON-A11 and SR-REG-07, each limited to its actual witness,
+abstract, metadata or quoted expressive-scope passage. Earlier-thesis versus
+later-book, compound catalogue claims, relative-register counts, numerical
+kin borrowing and exact oral-epic attribution retain residual uncertainty.
+
+Parent source checks (`parent-source-spotchecks.json`) cover the Solís
+publisher-deposited abstract (bark support/pretreatment dates, not painting
+dates), Blasi venue metadata (not causal endorsement), Lowie Chapter V
+(kin terminology is not a deterministic social-rule map), Haviland quoting
+Dixon (expressive replacement is not one-to-one synonymy), and the opening
+Zhoushu 50 witness (bounded unnamed she-wolf evidence, not global absence).
+Four checks concern non-bibliographic content; the three-passage threshold
+does not rely on counting metadata as prose. Public-response curl/PDF
+extraction was source research, not a custom provider/model API client.
+Full downloaded responses stay ignored rather than being redistributed.
+
+The sole knowledge-entry change is an appended bibliographic erratum to
+`corpus/knowledge/linguistics/phonetics-phonology.md`: Science 366 is
+superseded by **363(6432):eaav3218**, DOI 10.1126/science.aav3218. It does
+not endorse the contested diet/bite-configuration causal argument. Original
+entry bytes and historical uncertainty markers remain intact. SKILL.md now
+turns these source distinctions into bounded worldbuilding decision rows;
+`corpus/README.md` names the residual frontier. Claim F verifies.
+
+### Claim O — operability
+
+Before: the supplemental parent runner could already isolate seven legacy
+selftests, but no standalone battery entry point existed. All six declared
+malformed craft controls exited 1 with tracebacks, while ten domain
+mutations were detected. After:
+
+- `python3 tools/check-gate-battery.py` actually runs all **seven of seven**
+  legacy selftests in a disposable copy, exit 0; hashes and original path
+  membership are unchanged. The wrapper does not edit legacy gate code.
+- `python3 tools/check-gate-battery.py --selftest` passes **10/10** stable
+  controls. A recognized stable failure maps to exit 1; crash, timeout,
+  missing gate, abnormal exit or tree drift maps to exit 2. A traceback
+  veto prevents an earlier FAIL line from hiding a later Python crash.
+- All **six of six** original malformed craft cases now exit 2 without
+  traceback, with CRAFT-CLI-USAGE / NOT-FOUND / JSON / UTF8 / SHAPE /
+  REPORT-VALUE diagnostics. Reviewed nested-shape and ambiguous-argument
+  cases are also guarded; no arbitrary-schema completeness is claimed.
+- `python3 tools/check-craft-exercise.py --selftest` passes **10/10 domain
+  mutations plus 18/18 real CLI subprocess controls**. Positive example,
+  existing-report read, declared counts, foreign cwd and actual domain
+  finding/exit 1 are separately exercised in `validation.json`.
+- Both `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv`
+  and the `round-3/attempt-1/MANIFEST.tsv` replay reproduce **7/7** recorded
+  rows. Expected red remains red. The previous supplemental acceptance
+  runner passes again in an isolated input copy, without overwriting its
+  historical receipt in this tree.
+
+`python3 reports/round-5/run-validation.py` exits **0**, F=true, O=true,
+acceptance_checks_passed=true, errors={}. It records tested code SHA256:
+craft `b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5`;
+battery `077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67`.
+No historical gate, frozen fixture, toy law, exercise or D2 packet changed.
+Claim O verifies.
+
+### Review, rejection evidence and limits
+
+The first combined parent run failed honestly on worker-12's lingering
+entry_path/entry schema mismatch and a parent probe that removed a
+nonexistent root negative-control field instead of D1's actual nested
+control. Those coordinates were fixed, not the required exit or threshold.
+Review then exposed crash/failure confusion, nested-shape crashes, undetected
+fixture additions, invalid timeouts and ambiguous arguments. Existing
+executors repaired their assigned files. An intermediate recursive-selftest
+mistake was caught and repaired, not accepted. The final bounded review in
+`15-cli-review.md` confirms the named counterexamples are fixed; it does
+not independently certify promotion or all possible malformed inputs.
+`integration-attempts.json` preserves the sequence.
+
+Parent added the final traceback veto and one real mutation check:
+`battery-mutation.json` records veto removal in a scratch copy rejected by
+CTRL-MARKER-THEN-CRASH (mutant selftest exit 1), while the original remains
+exit 0 / 10 of 10 with unchanged bytes. This is one invariant challenged
+by one plausible defect, not universal mutation coverage.
+
+The wrapper is not an OS sandbox; original-byte equality is not proof of
+no writes, and child exit 0 is trusted. Five old assert-based selftests can
+report genuine failures as could-not-evaluate/2, conservatively non-green.
+Legacy fixture rewrites, parser/regex issues, independent-expected-value
+and expected.json layout debts remain. Craft LAW-ORDER early-return and
+declared audit-count metadata limitations remain; the frozen example's
+historical scratch counting_command was not silently rewritten.
+
+Reviewer observed 428 historical /tmp craft-selftest directories (~24 MB)
+from intermediate repairs, unchanged by final-byte runs. They were left
+outside this child-only cleanup scope; the parent's PID-only process check
+observed no matching live selftest process. Worker 12 reported creating
+then cleaning stray session-root temporary files. No such files are shipped,
+but no independently proven claim of zero outside writes ever is made.
+These scope deviations are recorded, not hidden by a clean Git status.
+
+### Every-axis verdict and decision
+
+- **Freshness improved** (F): 0 → 20 original-question follow-ups, with
+  retrieved evidence and conservative unresolved residuals retained.
+- **Operability improved** (O): standalone seven-gate battery and typed
+  malformed-input diagnostics pass the declared actual-call checks.
+- **Calibration improved** (unclaimed observation): 22 raw rows versus
+  20 original IDs, worker labels versus parent whole-claim dispositions,
+  source-version bounds and intermediate failures are reconciled explicitly.
+- **Depth unchanged**: source-use rules clarified, same nine-derivation
+  non-canon exercise and same D2 packet; no new culture task is claimed.
+- **Coverage unchanged**: 179 entries, six partitions, totals
+  16/16/16/24/13/94; civilization partition is 92 bases + two source maps.
+- **Adjacency unchanged**: sample handoff remains 16 fields / 20 glossary
+  entries, exit 0; no lore receipt, cultural permission or canon decision.
+
+Inventory command: `python3 tools/source-audit-inventory.py --json --summary
+--root corpus/knowledge`; current raw marker-bearing lines remain 592,
+raw occurrences 598 (600 case-insensitive; 568 parenthesized marks).
+The corpus is not made fresher by erasing markers. D2 still has **20**
+findings: three phonology REVIEWs plus 17 naming findings (six era-ID
+similarity, ten translated English labels, one cultural-screening hold).
+A green supplied subset is not whole-culture clearance.
+
+**Admit round 5:** both measurable claims verify and no tested axis is
+harmed. No untested-behavior, numeric-score, rank, canon or shared-fleet
+closure claim follows. `corpus/lessons/round-5.md` records candidates,
+admission, rejections and limits. Publication must validate the staged
+clean export before the work commit; the final child-local report
+`reports/round-5/kotodama.md` is filed only after that commit and names the
+actual carrying hash. Historical reports and prior round rejections stay
+intact; extra metadata/report commits are not new training rounds.
+
+Pending sequence remains **6–7: Z.ai Flash, 16 each → 8–9: OpenCode Go
+DeepSeek v4.1 Flash, 32–64 each → 10: exact Grok 4.7 xhigh fast, 128**, after
+DeepSeek. Round-4's 31-return/missing-original-request provenance debt is
+not repaired by this round. Five numbered records are not completion of
+the ten-round program, and no fleet roster/ledger or sibling was edited.

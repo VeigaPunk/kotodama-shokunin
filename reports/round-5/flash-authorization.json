@@ -1,0 +1,23 @@
+{
+  "round": 5,
+  "date": "2026-10-17",
+  "operator_amendments": [
+    {"request": "use the flash zai glm 5.3 flash then", "effect": "Pending rounds 5-7 use Z.ai GLM-5.3 Flash instead of the unavailable non-flash native alias; retain 16 workers per round."},
+    {"request": "also, use the opencode provider for the deepseek swarm", "effect": "Pending DeepSeek rounds 8-9 use OpenCode Go, not Alibaba token-plan; retain 32-64 workers per round."}
+  ],
+  "current_baseline_revision": "1ccb2b7119039d8026ad1d004f20427623838b94",
+  "domain_and_tool_bytes_unchanged_since": "c52f2c07abcfae4d363e6057e3bc7f60b1329efc",
+  "requested_model": "zai-coding-plan/glm-5.3-flash-low",
+  "requested_subagent_type": "sec-fast-zai-flash-low",
+  "alias_note": "This host exposes the Z.ai GLM-5.3 Flash lane under the legacy flash-low alias; its tool documentation pins thinking to MAX. Actual upstream identity is not inferred from the alias alone.",
+  "workers": 16,
+  "old_non_flash_attempt": "reports/round-5/availability-attempt-1.json",
+  "old_targets": "reports/round-5/claims.json",
+  "current_targets": "reports/round-5/flash-claims.json",
+  "dispatch_items_base": "reports/round-5/dispatch-plan.json",
+  "item_text_override": "Replace references to claims.json in assignments 01 and 16 with flash-claims.json; all file ownership and task content otherwise stay unchanged.",
+  "current_prompt_template": "reports/round-5/flash-prompt-template.txt",
+  "claim_target_changes": "None: same two claims, thresholds, scope and no-harm requirements; only the operator-authorized route and bookkeeping baseline change.",
+  "pending_sequence": ["5-7: Z.ai GLM-5.3 Flash, 16 each", "8-9: OpenCode Go DeepSeek v4.1 Flash, 32-64 each", "10: Grok 4.7 xhigh fast, 128, after DeepSeek"],
+  "counting_rule": "The earlier native preflight refusal launched zero workers and is not a completed round. This authorized retry must record its actual returned outcomes; never claim exactly one tool attempt when the earlier rejected attempt is on record."
+}

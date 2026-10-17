@@ -1,0 +1,44 @@
+{
+  "round": 5,
+  "record_kind": "Compact record of actual integration outcomes; not a replacement for full current validation.json or source evidence",
+  "attempts": [
+    {
+      "stage": "First combined parent acceptance run",
+      "command": "python3 reports/round-5/run-validation.py",
+      "exit": 1,
+      "claims": {"F": false, "O": false},
+      "observed_errors": {"F": "incomplete audit: 12.json:0", "O": "Parent negative-control probe expected exit1 but observed exit0"},
+      "diagnosis": "Worker 12's corrected path still used entry_path rather than the required entry key. Separately, the parent harness removed a nonexistent root-level negative_control instead of D1's nested negative control; that was a harness defect, not evidence that the tool ignored D1's actual control.",
+      "correction": "Parent normalized entry_path to entry without changing evidence, and changed the negative probe to require/remove exercise.derivations[0].negative_control (D1) before asserting exit1/CONTROL-MISSING. No target threshold or expected exit was relaxed."
+    },
+    {
+      "stage": "Combined acceptance after schema and fixture-coordinate corrections",
+      "command": "python3 reports/round-5/run-validation.py",
+      "exit": 0,
+      "observed_stdout": {"acceptance_checks_passed": true, "claims": {"F": true, "O": true}, "errors": {}},
+      "limit": "This green run preceded the final adversarial repair pass. It did not cover the subsequently reported child-crash classification or malformed nested data defects, and is not a premature round-admission claim."
+    },
+    {
+      "stage": "Actual-output adversarial review",
+      "evidence": "reports/round-5/15-cli-review.md, Actual-output review of the completed diff",
+      "confirmed_findings": ["P1: traceback child exit1 classified as genuine selftest failure", "P2: malformed nested craft input still crashes", "P3: added original fixture paths not detected", "P4: invalid timeout accepted", "P5/P6: ambiguous report/selftest arguments"],
+      "action": "Existing executors agent-457 and agent-458 resumed on their own two file scopes for repairs and new controls. Same sixteen identities, no second executed swarm batch. Final acceptance and judgment remain pending those actual repairs."
+    },
+    {
+      "stage": "Delivered-byte repairs, bounded re-review and final acceptance",
+      "command": "python3 reports/round-5/run-validation.py",
+      "exit": 0,
+      "observed_stdout": {
+        "acceptance_checks_passed": true,
+        "claims": {"F": true, "O": true},
+        "freshness_counts": {"worker_rows": 22, "distinct_original_claims": 20, "retrieved_worker_rows": 17, "parent_passage_checks": 5, "parent_supported": 5, "parent_unresolved": 15},
+        "operability_counts": {"gate_selftests_passed": 7, "round3_manifests_reproduced": 2, "d2_findings_unchanged": 20},
+        "errors": {}
+      },
+      "repairs": "Executors repaired nested-shape guards, ambiguous CLI modes, timeout validation and fixture path-set checks. An intermediate recursive selftest mistake was caught and repaired, not accepted. Parent then added a traceback veto plus CTRL-MARKER-THEN-CRASH so a FAIL line followed by a Python crash is could-not-evaluate exit2.",
+      "re_review": "reports/round-5/15-cli-review.md final bounded re-review verified P1-P6 repairs, the supported explicit selftest under a strict timeout, the traceback veto and the delivered 10-control battery. Reviews remain author-side evidence.",
+      "mutation_evidence": "reports/round-5/battery-mutation.json: removing only the traceback veto in an isolated copy makes CTRL-MARKER-THEN-CRASH reject the mutant (exit1); original selftest stays exit0/10 of 10 and original bytes are unchanged.",
+      "limits": "The standalone wrapper is not an OS sandbox or a repair of legacy selftests. Reviewed malformed cases are not arbitrary-schema safety. Historical intermediate /tmp residues remain outside this child-only cleanup scope; reviewer observed no increase from final-byte runs. No live selftest process was observed by the parent's PID-only check."
+    }
+  ]
+}

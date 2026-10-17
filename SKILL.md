@@ -130,9 +130,33 @@ output files alone remain unpinned legacy evidence.
 | frozen-replay | gate | `python3 tools/replay-frozen.py <MANIFEST.tsv>` | 0 recorded verdict reproduced / 1 mismatch / 2 could-not-evaluate | `--selftest` | manifest gate/input/output SHA-256 pins; selftest constants in script | auto-cleaned scratch only | kotodama-shokunin |
 | uncertainty-inventory | probe | `python3 tools/source-audit-inventory.py --json` | 0 inventory produced, not scholarship verified / 2 could-not-evaluate | `--selftest` | exact-count fixture constants in script | read-only; selftest scratch | kotodama-shokunin |
 | D2 assembly drift | gate | `python3 tools/assemble-d2.py --check` | 0 byte-identical / 1 drift / 2 could-not-evaluate | `--selftest` | committed packet, component hashes and synthetic controls in script | default mode regenerates packet; check read-only; selftest scratch | kotodama-shokunin |
-| contrastive craft example | gate (bounded example) | `python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json` | 0 checks pass / 1 failure; other codes could-not-evaluate | `--selftest` (repo root, committed example required) | committed exercise and tamper expectations in script | read-only, including optional `--report <existing-report.md>` | kotodama-shokunin |
+| contrastive craft example | gate (bounded example) | `python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json` | 0 checks pass / 1 findings / 2 could-not-evaluate for declared input errors | `--selftest` (committed example plus isolated subprocess controls; foreign cwd supported) | committed exercise and tamper/CLI expectations in script | read-only, including optional `--report <existing-report.md>` | kotodama-shokunin |
+| isolated legacy selftest battery | gate | `python3 tools/check-gate-battery.py` | 0 seven selftests pass / 1 recognized selftest failure / 2 could-not-evaluate | `--selftest` (isolated synthetic children) | fixed seven-gate list and control expectations in script | disposable copied scripts/fixtures; optional retained mirror only when requested | kotodama-shokunin |
 
 The contrastive checker is example-specific, not a general culture validator.
-Its CLI/file/JSON errors are not normalized separately from finding failures;
-that is a remaining interface defect. Its mutation-only selftest must accompany
-a real run over the committed example, not stand in for that positive control.
+Its subprocess controls complement the ten domain mutations and a real positive
+example run; they do not prove arbitrary nested schemas correct. `--counts`
+returns the exercise's declared audit-count block after checks, not a new
+independent source inventory. Its embedded historical counting-command string
+points to ignored scratch and is not an executable instruction; use the public
+entry command above. The LAW-ORDER early-return coverage limitation remains
+recorded in `reports/round-5/15-cli-review.md`.
+
+The battery runs trusted repo scripts in a copied working directory; it is not
+an operating-system sandbox. Byte preservation does not prove no writes took
+place. Copying contains the five fixture-writing legacy selftests but does not
+repair their independent-expected-value or parser-coverage conformance debts.
+Round-scoped acceptance is re-runnable with
+`python3 reports/round-5/run-validation.py`; it records the two declared claims
+and writes its own validation receipt. It is an orchestration check, not a new
+general culture or scholarship-certification gate.
+
+## Source-to-system constraints — round 5
+
+| Retrieved evidence | Worldbuilding decision | Scope and pointer |
+|---|---|---|
+| Radiocarbon ranges change with bark-paper cleaning protocol | Separate support manufacture, painting, later use and depicted dress before assigning an era | Publisher abstract for meso-13; `corpus/lessons/round-5-sources/08.json`, `reports/round-5/parent-source-spotchecks.json` |
+| Lowie gives borrowed kin terms not tied to a social institution | Borrowed relationship words alone do not establish marriage law, descent or a dowry-transfer mechanism | Lowie Chapter V passage re-fetched in parent spotchecks; combined KIN-A07/A08 residuals stay unresolved |
+| A smaller avoidance vocabulary can express the same content | Model many-to-one paraphrase and register-triggered use, not one native synonym for every ordinary word | Haviland's Dixon quotation, SR-REG-07; parent spotchecks distinguish secondary quotation from unread primary pages |
+| An earlier thesis supports parts of a later-book attribution | Carry version and passage scope into the design source ledger; do not merge editions into one verified claim | TIB-A12/A16 in `reports/round-5/parent-reconciliation.json` |
+| A venue record corrects a phonetics citation | Repair the bibliography without treating that correction as support for an era-to-anatomy causal rule | PHON-A11 and appended erratum in `corpus/knowledge/linguistics/phonetics-phonology.md` |
