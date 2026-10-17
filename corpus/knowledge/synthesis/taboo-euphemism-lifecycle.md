@@ -99,7 +99,7 @@
 | Symbolic system | A sacred name and bodily imagery can be invoked, compressed, or alluded to; graphic deletion and acoustic avoidance are not the same action. |
 | Era model | Elizabethan/Jacobean labels describe a political period; the 1622 quarto, 1623 Folio, later editions, and later performances are separate material events. |
 | Costume/material signature | Fitted doublets, hose, and shaped gowns are relevant silhouettes in A85’s c. 1560–1620 European corpus; construction and cloth matter alongside ornament. Corroborate with a dated English garment or portrait, not a generic “ruff era.” |
-| Naming practices | Christian personal names and surnames form the broader naming ecology; sacred-name invocations are not ordinary personal-name address. Detailed local naming distributions are `(to-verify)`. |
+| Naming practices | Christian personal names and surnames form the broader naming ecology; sacred-name invocations are not ordinary personal-name address. Detailed local naming distributions are not supplied by the cited sources. |
 
 - **What a worldbuilder can take:** an oath’s recognizable sacred anatomy can remain after its compression; printed, spoken, and costumed performance layers can preserve different ages.
 - **Provenance cautions:** a play is stylized speech with a fictional setting; a composite edition is not one historical performance. A85 is European and object-selected, not an inventory of all English classes. Do not attribute particular textual omissions to a specific censorship law without comparing the actual witnesses `(to-verify)`.
@@ -117,14 +117,14 @@
 
 - Y6:2 represents the High Priest pronouncing the Explicit Name and the assembled people responding. It provides a **speaker/place/occasion exception**, not evidence for an unrestricted everyday pronunciation.
 - **What a worldbuilder can take:** keep “written,” “read aloud,” “authorized speaker,” and “displayed on regalia” as independent fields; loss of a Temple can change an utterance’s opportunity without erasing its written record.
-- **Provenance cautions:** the Mishnah is a later rabbinic source, not an eyewitness transcript of every Temple-era community. R07 states an argument in an ongoing debate; do not turn it into a universal ban-onset date. This entry’s coverage of pronunciation history and regional Jewish practice is thin; exact onset and diffusion remain `(to-verify)`.
+- **Provenance cautions:** the Mishnah is a later rabbinic source, not an eyewitness transcript of every Temple-era community. R07 states an argument in an ongoing debate; do not turn it into a universal ban-onset date. This entry’s coverage of pronunciation history and regional Jewish practice is thin; exact onset and diffusion are not established here.
 
 ## 8. Reference capsule: imperial Chinese name avoidance, with Qing material anchors
 
 | Required system | Bounded reference context |
 |---|---|
 | Language family + writing | Sinitic languages are Sino-Tibetan and use Chinese characters; the Qing court was multilingual, including Tungusic Manchu in its alphabet. Do not treat a Chinese-character rule as automatically identical across scripts (W22). |
-| Mythic/ritual core | Ancestral reverence and Heaven-centered imperial legitimacy provide relevant contexts; these are not a complete account of Qing religion or a single fixed pantheon. Detailed Manchu ritual comparisons are `(to-verify)`. |
+| Mythic/ritual core | Ancestral reverence and Heaven-centered imperial legitimacy provide relevant contexts; these are not a complete account of Qing religion or a single fixed pantheon. Detailed Manchu ritual comparisons are not supplied here. |
 | Symbolic system | Personal-name characters can receive substitutions, blanks, or stroke avoidance under naming-taboo conventions. A damaged character alone is not diagnostic (W22). |
 | Era model | Identify the ruler, accession, relevant ancestor list, locality, and edition. A reign title and the ruler’s personal name are different categories; later reprints can alter the written layer. |
 | Costume/material signature | Met50491 is an 18th-century Qing rank badge in silk and metallic-thread embroidery on silk satin. Its collection date is broad, not an exact reign attribution. |
@@ -193,6 +193,6 @@ Minimal ledger fields: `domain; referent; hazardous act/channel; form; mechanism
 - **Contested:** exact beginnings and transmission paths of divine-name avoidance; reconstructions of prehistoric taboo motivations; whether a particular reform is euphemistic, emancipatory, coercive, or several at once. Record participants’ judgments and distinguish them from the analyst’s category.
 - **Discredited as history-making shortcuts:** universal “primitive superstition → civilized rationality” evolution and speculative origin stories without recoverable witnesses. A useful fictional ideology is not evidence for real chronology.
 - **Source bias:** official chronicles and regulations record institutions’ priorities; missionary, colonial, and outsider wordlists can misidentify restricted registers as ordinary vocabulary. Identify recorder, translator, interlocutor, access permissions, and collection circumstances before reuse.
-- **Scarce chronicle evidence:** oral and restricted traditions may preserve sophisticated distinctions without dated written attestations. Do not translate “not documented in accessible archives” into “did not exist,” and do not fill gaps with a pan-Indigenous or universal taboo cycle. Such traditions are not reconstructed here; community-specific claims remain `(to-verify)`.
+- **Scarce chronicle evidence:** oral and restricted traditions may preserve sophisticated distinctions without dated written attestations. Do not translate “not documented in accessible archives” into “did not exist,” and do not fill gaps with a pan-Indigenous or universal taboo cycle. Such traditions are not reconstructed here; community-specific claims are outside this entry’s coverage.
 - **What a worldbuilder can take:** a branching replacement history, distinct spoken/written/display permissions, locally anchored era seams, and old forms surviving in different social niches. Take the mechanism and evidence discipline, not a detached sacred vocabulary or a supposedly universal cultural psychology.
 - **Final provenance caution:** source editions, access limits, prescription versus practice, and copying versus composition must travel with every borrowed example. Lore-shokunin decides canon; this entry supplies methods and bounded reference knowledge only.

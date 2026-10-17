@@ -1,6 +1,6 @@
 # Edo Japan — Status Dress, Floating-World Registers, and Philological Nativism
 - topic: Edo/Tokugawa Japan as a coupled reference system: status and dress regulation, chōnin vocabulary, sharebon dialogue and ukiyo-e text–image codes, temple certification, and kokugaku language ideology; method and historical reference, never fictional canon.
-- sources: Donald H. Shively (1964–1965); Conrad Totman (1993); Bjarke Frellesvig (2010); David L. Howell (2005); John Breen and Mark Teeuwen (2010); Nam-lin Hur (2007); James Harry Morris (2018); Haruo Shirane, ed. (2002); James T. Araki (1969); Gideon Fujiwara and Peter Nosco (2021, first published 2018); Kuki Shūzō (1930); Metropolitan Museum of Art, Department of Asian Art (2003); Victoria and Albert Museum (n.d.); editions, links, and access qualifications below.
+- sources: Donald H. Shively (1964–1965); Conrad Totman (1993); Bjarke Frellesvig (2010); David L. Howell (2005); John Breen and Mark Teeuwen (2010); Nam-lin Hur (2007); James Harry Morris (2018); Haruo Shirane, ed. (2002); James T. Araki (1969); Gideon Fujiwara and Peter Nosco (2021, first published 2018); Kuki Shūzō (1930); Metropolitan Museum of Art, Department of Asian Art (2003); Victoria and Albert Museum (n.d.); Yukiko Fukatsu-Fukuoka (2004); Seiko Ogawa (2017); editions, links, and access qualifications below.
 - couples: language → `linguistics/{historical-linguistics,writing-systems,sociolinguistics-registers,politeness-taboo-euphemism,naming-systems}.md`; myth/symbol → `myth-symbol/{pantheon-archetypes,myth-folktale-genres,color-symbolism,symbolism-synthesis-method}.md`; era/costume → `culture-material/{era-periodization-models,sumptuary-law-rank-display,dress-through-eras,textile-technology,costume-semiotics,calendar-festival-systems}.md`; sibling → lore-shokunin receives proposed coupling tables and provenance, owns all world-bible canon decisions.
 
 ## Scope and calibration
@@ -22,6 +22,8 @@
 - **Kuki 1930:** *“Iki” no kōzō* [*The Structure of Iki*], Iwanami Shoten. A retrospective philosophical comparator, not an Edo eyewitness or an ordinance collection.
 - **Metropolitan Museum, Department of Asian Art 2003:** [“Woodblock Prints in the Ukiyo-e Style”](https://www.metmuseum.org/essays/woodblock-prints-in-the-ukiyo-e-style), *Heilbrunn Timeline of Art History*, October 2003. Inspected for polychrome printing chronology and production roles.
 - **Victoria and Albert Museum n.d.:** [“Kimono”](https://www.vam.ac.uk/articles/kimono), accessed 2026-10-17. Inspected for garment construction, seasonal motifs, and object examples; a museum overview, not a local legal code.
+- **Fukatsu-Fukuoka 2004:** Yukiko Fukatsu-Fukuoka, “The Evolution of Yuzen-dyeing Techniques and Designs after the Meiji Restoration,” *Textile Society of America Symposium Proceedings*, 2004. [Open paper](https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1474&context=tsaconf); inspected for *yūzen*'s establishment in the late seventeenth century and the Miyazaki Yūzensai attribution. A specialist conference paper, not a full history of Edo dyeing.
+- **Ogawa 2017:** 小川斉子 (Ogawa Seiko), 「近世中後期の石見国海村の宗門改帳と人口動態」, in 廣嶋清志 (research lead), 『日本の人口転換開始の地域分析』, KAKENHI (B) research report, pp. 19–48. [Shimane University repository](https://ir.lib.shimane-u.ac.jp/38668); inspected for annual register submission with local procedural variation. One domain case, not a national rule.
 
 ## Era staging: use several clocks, not one costume reset
 | Historical bracket | Institutional/cultural emphasis | Coupling to preserve |
@@ -32,7 +34,7 @@
 | Kansei reforms, 1787–1793 | Retrenchment and publishing discipline; Kyōden's 1791 sharebon punishment is a genre landmark | Censorship changes what can be said or pictured; it is not identical to a clothing prohibition |
 | Bunka–Bunsei, 1804–1830 | Expanding Edo entertainment and print markets; changing fiction genres | Do not label all comic fiction sharebon or project its eighteenth-century dialogue conventions forward unchanged |
 | Tenpō/Bakumatsu, 1830–1868 | Reform campaigns, crises, and foreign-pressure politics; varied kokugaku networks | Popular religion, nativism, commerce, and political loyalty need not move together |
-- These are overlapping analytical brackets, not synchronized national phases (Totman 1993; Shirane 2002; Met 2003). Exact provincial adoption dates require local evidence (to-verify).
+- These are overlapping analytical brackets, not synchronized national phases (Totman 1993; Shirane 2002; Met 2003). Provincial adoption dates vary and require local evidence; no national timetable is asserted here.
 - Keep reign-era names (*nengō*), the lunisolar calendar, political transitions, fashion shifts, and genre history as separate fields; an Edo “first month” is not automatically Gregorian January.
 
 ## Language family, writing, and register ecology
@@ -46,7 +48,7 @@
 | Learned classical Japanese | Poetry, exegesis, antiquarian authority | Antiquity is a cultivated register, not everyone's everyday speech |
 | Cursive manuscripts and carved lettering | Bureaucratic or commercial access control through literacy | “Can read kana” is not equivalent to “can read every hand and genre” |
 - Build a register matrix by speaker, addressee, task, venue, and written medium. Honorific/humble choices index relationships; a warrior label alone does not determine every utterance.
-- Exact Edo sound values, local pitch patterns, and attested pronoun frequencies are thinly covered here (to-verify). Do not generate pseudo-Edo dialogue from modern media catchphrases.
+- Exact Edo sound values, local pitch patterns, and attested pronoun frequencies are thinly covered here: none is reconstructed in this entry. Do not generate pseudo-Edo dialogue from modern media catchphrases.
 
 ## The “four classes”: status model versus actual dress jurisdiction
 - *Shi–nō–kō–shō* (士農工商: warriors, cultivators, artisans, merchants) is a useful historical ideological ordering, **not a sufficient census or a single statute assigning four uniforms** (Howell 2005).
@@ -65,13 +67,13 @@
 - For each rule record **issuer → place/date → addressee → prohibited material/technique/object → exemption → sanction → enforcement witness**. A repeated prohibition proves renewed concern, not universal compliance or universal failure.
 | Reported example | Regulated sign and recipient | Evidence/calibration |
 |---|---|---|
-| Osaka courtesan regulations reported for 1617 | Gold/silver embellishment, gold thread, embroidery and certain tie-dye display in clothing supplied by proprietors | Shively pp. 132–133 via glossary; exact ordinance text, textile terms, and grouping of clauses (to-verify) |
-| Edo, 1648, household servants; separate Osaka notices | Fine-silk restrictions on servants; Osaka notices also target silk/velvet obi and underbelts | Shively p. 128 via glossary; original wording, Osaka date, and translation of silk grades (to-verify) |
-| Edo townspeople, 1719 | Woolen capes; related restrictions extend beyond clothing to furnishing, ceremonies, transport, and sword display | Shively pp. 129–130 via glossary; exact clothing clauses and exceptions (to-verify) |
-| Regulations for warrior households, not merely commoners | Expenditure and display should fit degree; some statements condemn being too frugal as well as too extravagant | Shively pp. 148–153 via glossary; issuer/date of a reported 1710 formulation (to-verify) |
+| Osaka courtesan regulations reported for 1617 | Gold/silver embellishment, gold thread, embroidery and certain tie-dye display in clothing supplied by proprietors | Shively pp. 132–133 via glossary only; the ordinance text, textile terms, and clause grouping are not collated against the original |
+| Edo, 1648, household servants; separate Osaka notices | Fine-silk restrictions on servants; Osaka notices also target silk/velvet obi and underbelts | Shively p. 128 via glossary only; the original wording, the Osaka date, and the translation of silk grades are not confirmed against the article |
+| Edo townspeople, 1719 | Woolen capes; related restrictions extend beyond clothing to furnishing, ceremonies, transport, and sword display | Shively pp. 129–130 via glossary only; the clothing clauses and exceptions are not collated against the original |
+| Regulations for warrior households, not merely commoners | Expenditure and display should fit degree; some statements condemn being too frugal as well as too extravagant | Shively pp. 148–153 via glossary only; issuer and date of the reported 1710 formulation are not confirmed against the original |
 - These are **retrieval leads with explicit source chains**, not primary-law translations ready to quote. No unverified fine, universal silk ban, compulsory palette, or price ceiling is supplied here.
 - Distinguish fiber (*silk/cotton/bast*), weave, dye, embroidery, metal thread, and finished garment. Prohibiting one conspicuous technique does not prohibit every costly garment.
-- Paired swords are a strong warrior-status sign, but exceptional grants and rules for commoners' short swords defeat “only samurai ever carried any sword” (Shively pp. 143, 160 via glossary; exact local permissions (to-verify)).
+- Paired swords are a strong warrior-status sign, but exceptional grants and rules for commoners' short swords defeat “only samurai ever carried any sword” (Shively pp. 143, 160 via glossary; local permissions are excerpt-level reports, not collated law).
 - Hidden or subtly worked luxury is a useful **possible response**: lining, small pattern, weave quality, accessories. Scarcity, taste, occupational requirements, and imitation also matter; do not derive all *iki* from law.
 
 ## Costume and material signature
@@ -81,7 +83,7 @@
 | *Obi* 帯 | Sash whose width, placement, tying and display change over time | Date the ensemble, not only the robe; modern standardized knots are not a universal Edo baseline |
 | *Hakama* 袴 / *kamishimo* 裃 | Lower garment / formal ensemble including the projecting-shoulder *kataginu* and hakama | Office, service and ceremony, not battle armor worn daily by every warrior |
 | Cotton and *asa* 麻 | Cotton and bast-fiber textiles support work and seasonal wardrobes | *Asa* can cover hemp/ramie in translation; identify actual fiber before inferring ecology or rank |
-| *Yūzen* 友禅 | Resist-dyeing associated with pictorial patterning and late-seventeenth-century fashion | Technique, workshop and patronage are more informative than “luxury = silk” alone; exact local introduction (to-verify) |
+| *Yūzen* 友禅 | Resist-dyeing associated with pictorial patterning and late-seventeenth-century fashion | Technique, workshop and patronage are more informative than “luxury = silk” alone; Kyoto, 1680s–90s, traditionally attributed to the fan painter Miyazaki Yūzensai (Fukatsu-Fukuoka 2004) |
 | *Uchikake* 打掛 and elaborate hair ornaments | Outer robe and accessories prominent in some elite/bridal/courtesan representations | Representation is role-specific; a courtesan parade is not ordinary women's street dress |
 | *Geta*, *zōri*, *waraji* | Wooden clogs, sandals, straw footwear | Task, weather, road and occasion complicate any one-footwear-per-class mapping |
 - V&A object examples support wrap construction and pattern-based signaling; family, workshop, era, sex/gender presentation, age, and event must be checked against dated garments or images.
@@ -109,7 +111,7 @@
 - Dialogue can encode hesitation, contractions, particles, indirect refusal and asymmetrical deference. Literary selection and comic timing remain authorial constructions; “vernacular-looking” does not mean unmediated speech.
 - Early sharebon can use learned/Sinitic modes; do not project mature Edo dialogue conventions onto every work given the label. Later sentimental fiction is not simply the same register with longer plots.
 - A courtesan's staged welcome, a customer's boast, a servant's sales pitch, and a magistrate's account of the same visit should not share one vocabulary-and-politeness profile.
-- Exact *arinsu*-type forms, pronouns, sex/gender associations and local argot require an identified text and speaker (to-verify); do not sprinkle them into every Edo character's speech.
+- Exact *arinsu*-type forms, pronouns, sex/gender associations and local argot require an identified text and speaker; this entry supplies none, so do not sprinkle them into every Edo character's speech.
 - **Calibration:** these are commercially mediated, often male-oriented representations of coercively organized sexual labor. Witty female characters are not sufficient evidence of unrestricted women's agency or first-person testimony.
 
 ## Ukiyo-e: visual–verbal register, not a speech dialect
@@ -117,7 +119,7 @@
 - Full polychrome *nishiki-e* dates conventionally to 1765; elite calendar commissions helped its development (Met 2003). Do not put an 1830s-looking print shop into early seventeenth-century Edo without a changed technology model.
 - Inspect the whole sheet: title/series, names and reading aids, poems, publisher marks, seals, clothing motifs, gestures and depicted setting. A transcription stripped of layout can destroy a joke.
 - *Mitate* 見立, comparative/allusive re-presentation, can place a classical or religious referent in contemporary guise; a modern robe in such an image may be a deliberate analogy rather than a historical-costume error.
-- Crests, textile patterns, homophones and rebuses can connect celebrity identity to purchasable fashion. Not every indirect name is censorship evasion; identify the edition and applicable rule before assigning that motive (to-verify for a particular sheet).
+- Crests, textile patterns, homophones and rebuses can connect celebrity identity to purchasable fashion. Not every indirect name is censorship evasion; identify the edition and applicable rule before assigning that motive to any particular sheet.
 - Production couples designer, block cutter, printer and publisher, not a solitary inspired artist (Met 2003). Availability, commission and marketing constrain the public symbolic vocabulary.
 - **Transfer method:** record `visible sign → sound/textual cue → alluded person/story → target audience → commodity/occasion`; leave unresolved readings unresolved.
 
@@ -154,7 +156,7 @@
 | Temple death/memorial records, including *kakochō* 過去帳 | Record and ritualize the dead | Mortuary names and household continuity need not match the everyday naming register |
 - **Staging:** apostate certification precedes wider population coverage; expansion in the 1630s, domain-office requirements in 1664/1665, and register standardization in 1671 are distinct developments (Morris 2018:415, 419).
 - Morris explicitly notes differing dates in the scholarship: 1635 versus 1638 for general certificate requirements. Do not turn one into a universally implemented “system founded on this day” claim.
-- Registration could be repeated periodically, often annually, with local procedural variation; exact cycle and document requirements for a particular village or town (to-verify).
+- Registration could be repeated periodically, often annually, with local procedural variation; in at least one domain the submitted register was compiled every year while the village kept a single copy in use for several years (Ogawa 2017). The cycle and document requirements still need the particular village's or town's own records.
 - This system policed outward affiliation and population belonging, not transparent interior belief. Hidden Christian communities and selective enforcement invalidate “certificate proves sincere conversion.”
 - *Fumie* 踏絵 are images used in image-treading tests; *e-fumi* names the practice. Such tests are not the same procedure as temple certification, nor should identical use everywhere be assumed.
 - A purported 1613 *Gojōmoku* certification ordinance circulating around 1735 is identified as a forgery in the scholarship discussed by Morris (2018:420). A backdated document may itself be evidence of institutional power, not of seventeenth-century law.
@@ -169,20 +171,20 @@
 | Kamo no Mabuchi, 1697–1769 | Ancient poetry and language as access to an older *kokoro*, heart/mind | An ideal natural antiquity contrasts polemically with allegedly corrupting Chinese moral systems |
 | Motoori Norinaga, 1730–1801 | *Kojiki-den* exegesis, ancient usage, literary criticism and *mono no aware* | Philological achievement and claims about kami, native hearts and imperial descent are separable propositions |
 | Hirata Atsutane, 1776–1843 | Broad synthesis extending beyond philological exegesis into spirits, afterlife and popular teaching | Rival afterlife models and national superiority claims; not simply Norinaga's conclusions repeated |
-- Useful linguistic focus: recover historical readings, compare word uses and grammatical relations, and distinguish classical textual strata from contemporary speech. Exact Norinaga grammatical analyses and examples need the relevant edition (to-verify).
+- Useful linguistic focus: recover historical readings, compare word uses and grammatical relations, and distinguish classical textual strata from contemporary speech. Exact Norinaga grammatical analyses and examples need the relevant edition; none is cited here.
 - **Calibration:** recognizing real philological achievements does not validate “uncontaminated language proves an inherently superior people.” Chinese-derived vocabulary, writing, scholarship and institutions are historical resources, not empirical impurities.
 - *Kojiki* and *Nihon shoki* are ancient authored compilations; reading them as a transparent, unanimous pre-contact religion is an ideological reconstruction, not an uncontested recovery.
-- *Kotodama* 言霊, efficacy/spirit of words, can enter such discussions, but it is not a universal explanation of Japanese grammar or a warrant for treating every utterance as magic. A scholar's particular use requires a text (to-verify).
+- *Kotodama* 言霊, efficacy/spirit of words, can enter such discussions, but it is not a universal explanation of Japanese grammar or a warrant for treating every utterance as magic. A scholar's particular use requires a specific text; this entry cites none.
 - **Transfer framework:** `old text → specialist reading method → claimed ancient mentality → ritual/political program → dissenting interpretation`. Let technical agreement coexist with disagreement about gods and government.
 
 ## Naming practices: several names for several institutions
 | Naming layer | Historical pattern to investigate | Coupled consequence |
 |---|---|---|
 | Warrior house and person | Family/house names, common-use names and formal adult personal names; changes over a life | A document, intimate conversation and lineage claim may identify one person differently |
-| Town or village household | Personal names alongside house/shop/place designations; surnames could exist despite restrictions on their public use | “Commoners had no surnames until Meiji” is too strong; exact public-use entitlement varies by place/status (to-verify locally) |
+| Town or village household | Personal names alongside house/shop/place designations; surnames could exist despite restrictions on their public use | “Commoners had no surnames until Meiji” is too strong: surname use existed under place- and role-specific restrictions, and entitlement varies by locality and status without a single national rule |
 | Artistic/literary identity | *Gō* 号, pen/art names; stage names and artistic houses | A shared or inherited name can convey professional succession rather than biological descent |
 | Temple/mortuary identity | *Kaimyō* 戒名 and memorial records | Religious naming links death, status, ritual service and household memory rather than merely replacing a civil name |
-| Women's documentary identity | Personal names, kin relations and household position as recorded in particular sources | This entry's coverage is thin: local forms, name changes and honorific distributions (to-verify); do not invent one universal feminine suffix |
+| Women's documentary identity | Personal names, kin relations and household position as recorded in particular sources | This entry's coverage is thin: local forms, name changes and honorific distributions are not surveyed here; do not invent one universal feminine suffix |
 - Read names with Howell's status/institutional perspective, Hur's mortuary institutions, and Shirane's authorial identities; this is a research checklist, not an exhaustive Edo naming grammar.
 - Preserve kanji, attested reading, name type, user/audience, date and alternate identification separately. A crest, a shop sign and an official register are different witnesses.
 

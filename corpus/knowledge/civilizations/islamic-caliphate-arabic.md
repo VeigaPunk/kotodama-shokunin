@@ -1,6 +1,6 @@
 # Islamic caliphates and Arabic: scripture, endowment, ornament, and learned dress
 - topic: Arabic's preserved scriptural norm and changing vernaculars coupled to waqf vocabulary, sacred calligraphy, contextual aniconism, madrasa learning, dynastic eras, naming, and material display; historical reference and generative method, not fictional canon.
-- sources: Ferguson (1959); Versteegh (2014, 2nd ed.); van Putten (2022); Abdel Haleem (trans., 2004); Singer (2008); Berkey (1992; 2003); Blair (2006); Grabar (1992); Flood (2002); Stillman (2000); Schimmel (1989; edition check noted below). Full bibliographic ledger follows.
+- sources: Ferguson (1959); Versteegh (2014, 2nd ed.); van Putten (2022); Abdel Haleem (trans., 2004); Singer (2008); Berkey (1992; 2003); Blair (2006); Grabar (1992); Flood (2002); Stillman (2000); Schimmel (1989; edition verified below); R. P. Buckley (2013; bibliographic record only); Britannica, “crescent” (n.d.). Full bibliographic ledger follows.
 - couples: language / myth / symbol / era / costume; `linguistics/{sociolinguistics-registers,writing-systems,morphological-typology,naming-systems,language-contact}.md`; `myth-symbol/{pantheon-archetypes,color-symbolism,number-symbolism,symbolism-synthesis-method}.md`; `culture-material/{era-periodization-models,ritual-garments,sumptuary-law-rank-display,textile-technology,costume-semiotics,material-culture-inference-method}.md`; lore-shokunin receives candidate systems and uncertainty, never canon written here.
 
 ## Source ledger and calibration
@@ -15,7 +15,8 @@
 - Oleg Grabar (1992), *The Mediation of Ornament*, Princeton University Press. [DOI](https://doi.org/10.1353/book.114743). An interpretive framework for ornament's effects, not a universal decoding key.
 - Finbarr Barry Flood (2002), “Between Cult and Culture: Bamiyan, Islamic Iconoclasm, and the Museum,” *The Art Bulletin* 84(4): 641–659. [DOI](https://doi.org/10.2307/3177288). Critiques a timeless, uniform explanation of image destruction; Bamiyan is not an Arabic court case study.
 - Yedida Kalfon Stillman (2000), *Arab Dress: A Short History from the Dawn of Islam to Modern Times*, ed. Norman A. Stillman, Brill. [DOI](https://doi.org/10.1163/9789004491625). Long chronological synthesis; automated author/editor metadata can be inverted.
-- Annemarie Schimmel (1989), *Islamic Names*, Edinburgh University Press. Naming reference; exact edition/title-page check remains (to-verify), since the accessible DOI result was a later review rather than the book.
+- Annemarie Schimmel (1989), *Islamic Names: An Introduction*, Islamic Surveys series, Edinburgh University Press, ISBN 0-85224-563-7. Edition, series, ISBN, and pagination verified against a [published review record](https://ojs.lib.uwo.ca/index.php/oc/article/download/17352/13157/46392); check the edition before page-level citation.
+- R. P. Buckley (2013), *The Night Journey and Ascension in Islam: The Reception of Religious Narrative in Sunni, Shiʿi and Western Culture*, I. B. Tauris. Located through independent bibliographic records (St Andrews Encyclopaedia of Theology works-cited list; review listing); content not inspected in this pass, so it is a lead for reception history, not passage-level evidence.
 - Verification boundary: bibliographic records were checked where accessible; this entry is a scholarly synthesis, not a new manuscript collation or a claim to have inspected every cited page. Local, contested, or specimen-specific extrapolations are flagged below.
 - **Established:** Arabic's transregional textual prestige coexists with spoken diversity; endowments and personal teaching networks materially sustain learning; Islamic visual practice is not uniformly nonfigural.
 - **Model, not fact of nature:** “scriptural-fossilized” means unusually strong preservation incentives around an authoritative text, not that Arabic ceased changing or that every Muslim speaks Arabic.
@@ -53,7 +54,7 @@
 | Revelation and prophetic succession | Quran 12; 20; 33:40 | Shared prophetic histories feed exegesis, sermons, personal names, and dynastic claims; prophets are not gods. |
 | Angels, jinn, and Iblīs | Quran 18:50; 27:17 | Distinct kinds of created beings; jinn are not a race of minor deities. Do not import a single Christian demon taxonomy. |
 | Judgment and accountability | Quran 99; 107 | Ethical narratives support giving and public piety; scripture alone does not specify a complete waqf administration. |
-| Night Journey and ascent traditions | Quran 17:1 for the journey | Distinguish the Quranic passage from later elaborated miʿrāj narratives; the particular hadith, sīra, or artistic version needs checking (to-verify). |
+| Night Journey and ascent traditions | Quran 17:1 for the journey | Distinguish the Quranic passage from later elaborated miʿrāj narratives (for the reception history, see the lead at Buckley 2013); the particular hadith, sīra, or artistic version still needs checking (to-verify). |
 | Fasting and sacred time | Quran 2:183–185; 9:36–37 | A lunar ritual calendar makes festivals move through solar seasons; a festival does not imply one permanent seasonal costume. |
 
 - Sunni, Shiʿi, and other communities do not share every account of legitimate authority, sacred genealogy, commemorative practice, or interpretation. “Caliphate” is a contested claim to leadership, not a single theology. (Berkey 2003.)
@@ -127,7 +128,7 @@
 | Vegetal scrolls / “arabesque” | Stylization, branching, repetition, and surface integration | “Arabesque” is an art-historical label, not proof of a single native doctrine or exclusively Arab production. |
 | Geometric pattern | Rule-based construction organizes surfaces and skilled labor | An eight-point star is not intrinsically a fixed theological proposition. Universal number decoding needs evidence. |
 | Calligraphic inscription | Wording, script, scale, placement, and patronage work together | Not all Arabic writing is Quranic; blessings, poetry, ownership, dates, and titles have different functions. |
-| Crescent, star, or a politically charged color | Emblems acquire histories through particular states and uses | Do not assign the modern crescent-and-star ensemble to all early caliphates. Check the particular object (to-verify). |
+| Crescent, star, or a politically charged color | Emblems acquire histories through particular states and uses | Do not assign the modern crescent-and-star ensemble to all early caliphates: the crescent's association with Islam is Ottoman-mediated ([Britannica, “crescent”](https://www.britannica.com/topic/crescent-symbol)). Check the particular object. |
 
 - Grabar's **mediation of ornament** supports asking what ornament makes a viewer do—attend, move, admire skill, perceive continuity—before asserting that every pattern encodes infinity. Mystical readings require a named author/context. (Grabar 1992.)
 - Calligraphy gains sacred importance from the Quran's status as divine speech and from practices of copying and recitation; it also serves bureaucratic, poetic, commemorative, and courtly purposes. Sacred art is not the same as exclusively sacred employment. (Blair 2006.)
@@ -154,7 +155,7 @@
 - Application: choose how an office is conferred, what material communicates it, who makes it, and which text authorizes it; only then choose a silhouette. Route the resulting candidates, not decrees, to lore-shokunin.
 
 ## Naming practices: social coordinates rather than fixed modern surnames
-- Working typology after Schimmel (1989); exact regional prevalence and documentary form need further checking (to-verify). Components vary by genre, period, gender, and social position; not everybody displays every component.
+- Working typology after Schimmel (1989), whose edition is verified in the source ledger; regional prevalence and documentary form are not established here `(to-verify)`. Components vary by genre, period, gender, and social position; not everybody displays every component.
 
 | Component | Function | Guardrail for generative naming |
 |---|---|---|

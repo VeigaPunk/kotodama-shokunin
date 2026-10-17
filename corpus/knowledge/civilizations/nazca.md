@@ -12,7 +12,7 @@
 - Barnes, Monica, and David Fleming. 1991. “Filtration-Gallery Irrigation in the Spanish New World.” *Latin American Antiquity* 2(1): 48–68. https://doi.org/10.2307/971895
 - Schreiber, Katharina J., and Josué Lancho Rojas. 1995. “The Puquios of Nasca.” *Latin American Antiquity* 6(3): 229–254. https://doi.org/10.2307/971674
 - Conlee, Christina A. 2007. “Decapitation and Rebirth.” *Current Anthropology* 48(3): 438–445. https://doi.org/10.1086/517591
-- Knudson, Kelly J., Sloan R. Williams, Rebecca Osborn, Kathleen Forgey, and Patrick Ryan Williams. 2009. “The geographic origins of Nasca trophy heads using strontium, oxygen, and carbon isotope data.” *Journal of Anthropological Archaeology* 28(2): 244–257. https://doi.org/10.1016/j.jaa.2008.10.006
+- Knudson, Kelly J., Sloan R. Williams, Rebecca Osborn, Kathleen Forgey, and Patrick Ryan Williams. 2009. “The geographic origins of Nasca trophy heads using strontium, oxygen, and carbon isotope data.” *Journal of Anthropological Archaeology* 28(2): 244–257. https://doi.org/10.1016/j.jaa.2008.10.006 Sampling-strategy and conclusion texts checked via the publisher page, 2026-10-17; per-individual data not inspected.
 - Ruggles, Clive, and Nicholas J. Saunders. 2012. “Desert labyrinth: lines, landscape and meaning at Nazca, Peru.” *Antiquity* 86(334): 1126–1140. https://doi.org/10.1017/S0003598X00048298
 - Sakai, Masato, et al. 2024. “AI-accelerated Nazca survey nearly doubles the number of known figurative geoglyphs and sheds light on their purpose.” *PNAS* 121(40): e2407652121. https://doi.org/10.1073/pnas.2407652121 ; open text: https://pmc.ncbi.nlm.nih.gov/articles/PMC11459208/
 
@@ -114,7 +114,7 @@ Keep engineering function and sacred meaning compatible but independently eviden
 - “Trophy-head cult” is shorthand for recurring ritual practices, not evidence for a single centralized institution or a known native cult name.
 - Warfare, capture, sacrifice, ancestral relations, and agricultural renewal are not mutually exclusive explanations; different stages in a head's treatment could invoke different relationships.
 - Conlee's La Tiza headless burial provides a contextual mortuary case rather than an isolated collected skull; her renewal/fertility reading is an interpretation tied to that context (Conlee 2007).
-- Knudson et al. (2009) investigate geographical origins with isotope data. Exact local/nonlocal sample assignments and totals are **(to-verify)** here; do not invent percentages or turn a headline into an ethnicity claim.
+- Knudson et al. (2009) investigate geographical origins with isotope data: enamel was sampled from 16 of 18 trophy heads from five Nasca Drainage sites, and the conclusion reports no isotopic signatures of childhood residence in a different zone (section texts checked 2026-10-17). Per-individual assignments remain **(to-verify)** here; do not invent percentages or turn that headline into an ethnicity claim.
 - Even isotopic compatibility with the local region would not establish kinship, voluntary sacrifice, or absence of warfare between nearby communities.
 
 | Evidence question | What it can constrain | What it cannot settle alone |

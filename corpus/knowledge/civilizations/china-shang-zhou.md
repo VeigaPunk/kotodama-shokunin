@@ -1,6 +1,6 @@
 # Shang–Zhou China: Writing, Ancestors, and Carried Authority
 - topic: Shang/Zhou reference base for coupling language, divination, political theology, bronze and jade, calendrical names, era, and dressed rank; methods and historical references, never fictional canon.
-- sources: Keightley (1978); Qiu (2000); Baxter and Sagart (2014); de Bary and Bloom, eds. (1999), vol. 1; Shaughnessy (1991); Li Feng (2003, 2008); Rawson (1995); Chaffin (2021); Shanghai Museum and Metropolitan Museum collection records (n.d.); editions and access limits below.
+- sources: Keightley (1978); Qiu (2000); Baxter and Sagart (2014); de Bary and Bloom, eds. (1999), vol. 1; Shaughnessy (1991); Li Feng (2003, 2008); Rawson (1995); Chaffin (2021); Shanghai Museum and Metropolitan Museum collection records (n.d.); *Zhouli* 周禮, “Chunguan zongbo” 春官宗伯, [Wikisource transcription](https://zh.wikisource.org/wiki/周禮/春官宗伯) (accessed 2026-10-17); editions and access limits below.
 - couples: language—`../linguistics/writing-systems.md`, `../linguistics/naming-systems.md`, `../linguistics/kinship-terminology.md`; myth/symbol—`../myth-symbol/pantheon-archetypes.md`, `../myth-symbol/symbolism-synthesis-method.md`; era/calendar—`../culture-material/era-periodization-models.md`, `../culture-material/calendar-festival-systems.md`; costume/material—`../culture-material/adornment-body-codes.md`, `../culture-material/material-culture-inference-method.md`; sibling—lore-shokunin receives proposals and owns canon decisions.
 - verified-at: 2026-10-17; accessible translations, institutional records, bibliography, and publisher frontmatter checked; not a fresh collation of inscription photographs.
 - recheck: before using an exact graph reading, absolute regnal date, excavated garment reconstruction, deity identification, or numerical rank rule.
@@ -113,7 +113,7 @@
 - SM’s kneeling pendant has an excavated Fu Hao tomb context; preserve that association rather than substituting a similar market object with an invented provenance.
 - Jade is not synonymous with emerald green; MM’s blade is identified as nephrite. Identify material and condition before deriving a symbolic palette.
 - MM’s label associates jade properties with integrity and honesty; that broad cultural explanation is **not** by itself evidence that those exact moral correspondences were articulated for this object in the Western Zhou.
-- Likewise, later *bi* disc = Heaven / *cong* tube = Earth formulas need a dated textual argument before being made the original meaning of every Neolithic or Shang specimen (to-verify).
+- Likewise, the *bi* disc = Heaven / *cong* tube = Earth formulas come from the transmitted *Zhouli* (春官宗伯: “以蒼璧禮天，以黃琮禮地”; transcription checked 2026-10-17), a later prescriptive text; they still need a dated textual argument before being made the original meaning of every Neolithic or Shang specimen.
 - Fictional application: let an inherited ornament retain an archaic name while a new court recasts its origin story; record material history and claimed history separately.
 
 ## Fengjian vocabulary: kinship and delegation, not transplanted Europe

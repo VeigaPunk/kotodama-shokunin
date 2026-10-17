@@ -1,7 +1,7 @@
 # Balinese coupling: speech levels, water-temple time, ritual cloth, and gong cycles
 
 - topic: Balinese reference base for coupling language, myth, symbol, era, and costume; methods and historical comparisons, not fictional canon or instructions for conducting sacred rites.
-- sources: Arka (2003, 2005); Suwija (2017); C. Geertz (1973); H. Geertz (2004); Hauser-Schäublin, Nabholz-Kartaschoff, and Ramseyer (1991); Lansing and Kremer (1993); Hauser-Schäublin (2003); Brooks, Reyes-García, and Burnside (2017/2018); Roth and Sedana (2015); Dibia (1985); Tenzer (2000a, 2000b); Huang and Rockwell (2023); Unicode Consortium (2025); UNESCO World Heritage Committee (2012). Editions, links, and evidence limits follow.
+- sources: Arka (2003, 2005); Suwija (2017); C. Geertz (1973); H. Geertz (2004); Hauser-Schäublin, Nabholz-Kartaschoff, and Ramseyer (1991); Lansing and Kremer (1993); Hauser-Schäublin (2003); Brooks, Reyes-García, and Burnside (2017/2018); Roth and Sedana (2015); Dibia (1985); Tenzer (2000a, 2000b); Huang and Rockwell (2023); Creese (1991); Putra, Wirawibawa, and Satria (2020); Unicode Consortium (2025); UNESCO World Heritage Committee (2012). Editions, links, and evidence limits follow.
 - couples: Language—`linguistics/sociolinguistics-registers.md`, `linguistics/politeness-taboo-euphemism.md`, `linguistics/writing-systems.md`, `linguistics/naming-systems.md`; myth/symbol—`myth-symbol/cosmology-cosmography.md`, `myth-symbol/ritual-liminality.md`, `myth-symbol/number-symbolism.md`; era/costume/material—`culture-material/era-periodization-models.md`, `culture-material/calendar-festival-systems.md`, `culture-material/ritual-garments.md`, `culture-material/textile-technology.md`, `culture-material/music-instrument-lexicon.md`; sibling—lore-shokunin receives proposed systems and open questions, retaining all world-bible canon authority.
 
 ## Scope and calibration
@@ -27,6 +27,8 @@
 - **Tenzer 2000a:** Michael Tenzer, *Gamelan Gong Kebyar: The Art of Twentieth-Century Balinese Music*. Chicago: University of Chicago Press. Book reference; the directly inspected analytical text is the following article.
 - **Tenzer 2000b:** Michael S. Tenzer, “Theory and Analysis of Melody in Balinese Gamelan.” *Music Theory Online* 6(2). [Open article](https://www.mtosmt.org/issues/mto.00.6.2/mto.00.6.2.tenzer.php), especially §§1.1–1.5 and 2.1–2.6. Distinguishes historical repertoires, cyclic/linear tendencies, and analytical construction from ethnography.
 - **Huang and Rockwell 2023:** Hao Huang and Joti Rockwell, “Relational Practices in Bali: Balinese Hinduism, Subak, and Music.” *International Journal of Asia Pacific Studies* 19(1): 173–190. [Open article](https://ijaps.usm.my/wp-content/uploads/2023/01/IJAPS-191_Art-8.pdf). Includes interviews with I Nyoman Wenten; useful contemporary synthesis, not proof of universal agreement.
+- **Creese 1991:** Helen Creese, “Balinese babad as historical sources: A reinterpretation of the fall of Gèlgèl.” *Bijdragen tot de Taal-, Land- en Volkenkunde* 147(2–3): 236–260. [DOI: 10.1163/22134379-90003188](https://doi.org/10.1163/22134379-90003188). Source-critical reading of babad as dynastic genealogies and narrative; recorded here from the article record and its published opening, not a full reading.
+- **Putra et al. 2020:** I Dewa Gede Agung Diasana Putra, Ida Bagus Gde Wirawibawa, and Made Wina Satria, “Spatial Orientation and the Patterns of the Traditional Settlement in the Eastern Bali: Investigating New Tourism Attractions.” *GeoJournal of Tourism and Geosites* 29(2): 614–627. [DOI: 10.30892/gtg.29218-493](https://doi.org/10.30892/gtg.29218-493); [article PDF](https://gtg.webhost.uoradea.ro/PDF/GTG-2-2020/gtg.29218-493.pdf). Architectural fieldwork documenting village-by-village kaja/kelod variation and the north/south flip; not a ritual authority.
 - **Unicode Consortium 2025:** *The Unicode Standard*, version 17.0, chapter 17, §17.3 “Balinese.” [Specification](https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-17/). Reliable for encoding and script mechanics; not authority for ritual interpretation.
 - **UNESCO World Heritage Committee 2012:** *Cultural Landscape of Bali Province: the Subak System as a Manifestation of the Tri Hita Karana Philosophy*, World Heritage property 1194. [Listing and statement of outstanding universal value](https://whc.unesco.org/en/list/1194/). Heritage-policy framing, not independent confirmation that every explanatory term is ancient.
 
@@ -51,7 +53,7 @@
 - Table basis: Suwija 2017, pp. 16–19. These are lexical classes, not seven impermeable speech communities. Terminology differs: Arka 2003 initially uses *kasar/alus* as coarse two-register shorthand; do not silently equate every author’s categories.
 - Hereditary *wangsa*, age, religious office, professional position, intimacy, and occasion can create competing claims to deference. Suwija explicitly discusses modern office as well as descent; reduce neither to a simple occupation-to-caste lookup.
 - Craft transfer: annotate dialogue with `speaker → addressee; actor/referent; relationship; venue; intended stance`. Test a commoner elder, a younger titled official, and a ritual specialist in changing venues before inventing pronoun tables.
-- A robe or title may suggest how someone expects to be addressed; it does not make that expectation uncontested. Specific real Balinese sentence choices require a speaker check `(to-verify)` rather than fabricated “authentic” dialogue.
+- A robe or title may suggest how someone expects to be addressed; it does not make that expectation uncontested. Specific real Balinese sentence choices stay `(to-verify)` until a speaker check; do not fabricate “authentic” dialogue.
 
 ## Naming practices: several identifiers, not one surname slot
 
@@ -65,25 +67,25 @@
 | Personal name | An additional individual identifier can accompany other components | A final word is not automatically an inherited family surname |
 | Teknonym | “Father/mother of …,” later grandparental reference, identifies someone through descendants | Keep address forms separate from official recorded names |
 
-- Naming evidence: C. Geertz 1973; Suwija 2017 supplies contemporary name/title examples. Exact village-specific birth-order variants and rules for cycling after the fourth child remain `(to-verify)` before direct representation.
+- Naming evidence: C. Geertz 1973, chapter 14 records local variation in these birth-order labels and the restart of the cycle after the fourth child; Suwija 2017 supplies contemporary name/title examples. Record a specific village's variant set from local informants before direct representation.
 - Craft transfer: store `recorded name`, `household address`, `ritual title`, and `public honorific` independently. A plot can change one without changing the others; lore decides whether the proposed system enters canon.
 
 ## Mythic core and symbolic organization
 
 - Balinese Hindu traditions include Śaiva and other Hindu materials, Buddhist inheritances, local sacred places, and ancestor relationships. “A preserved Indian pantheon” and “a primitive animism beneath civilization” are both inadequate period models. [Huang and Rockwell 2023, pp. 175–177; H. Geertz 2004.]
 - Siwa/Śiva, Wisnu/Viṣṇu, and Brahma appear in ritual and narrative traditions; their relation to particular temple deities, ancestors, and supreme divinity cannot be replaced by a universal family tree.
-- Dewi Danu/water-goddess traditions and Dewi Sri/rice associations connect subsistence with divine relationships. A deity’s domain is not a bureaucratic monopoly over every instance of that substance. Local names, identifications, and narrated genealogies are `(to-verify)` for the chosen community. [Lansing and Kremer 1993; Hauser-Schäublin et al. 1991.]
+- Dewi Danu/water-goddess traditions and Dewi Sri/rice associations connect subsistence with divine relationships. A deity’s domain is not a bureaucratic monopoly over every instance of that substance. Names, identifications, and narrated genealogies vary by temple community and remain `(to-verify)` for the community being written. [Lansing and Kremer 1993; Hauser-Schäublin et al. 1991.]
 - A performance-origin narrative reported through I Nyoman Sedana describes divine performers restoring order through *wayang*. Huang and Rockwell discuss its renewed use after the 2002 bombings: myth is an actionable resource in new crises, not merely an ancient plot summary. [Huang and Rockwell 2023, p. 182.]
 
 | Named scheme | Coupled domains | Calibration and misuse to avoid |
 |---|---|---|
 | *Sekala/niskala* | Tangible/seen and unseen dimensions; offering, sound, place, efficacy | Established terms with varied explanations; not simply secular “reality” versus imaginary “superstition” |
 | *Bhuana alit/bhuana agung* | Human microcosm and larger cosmos | Documented practitioner comparison; do not derive every garment fold from one universal body map |
-| *Kaja/kelod* | Mountainward/seaward orientation, spatial valuation, movement | Topographic frame; not an island-wide equation of sacred north with profane south; precise local orientation `(to-verify)` |
+| *Kaja/kelod* | Mountainward/seaward orientation, spatial valuation, movement | Topographic frame defined by the locally sacred mountain, not a fixed island grid: south Bali reads kaja as north and north Bali reverses it, and eastern-Bali villages reorient kaja to local peaks such as Bisbis/Seraya [Putra et al. 2020] |
 | Threefold and ninefold spatial schemes | Ranked zones/worlds; center and surrounding directions | Documented cosmological resources; distinguish *tri loka*, *tri mandala*, and *sanga mandala* rather than using the names interchangeably |
 | *Poleng* | Checked cloth marking bodies, trees, shrines, or charged locations | Pattern is not a fiber or weave type; exact protective meaning and use depend on context |
 
-- Symbolic sources: Huang and Rockwell 2023, especially pp. 177–184; Hauser-Schäublin et al. 1991. Detailed directional deity/color tables and local explanations of *rwa bhineda* are `(to-verify)` here; black/white must not become a universal white-good/black-evil cipher.
+- Symbolic sources: Huang and Rockwell 2023, especially pp. 177–184; Hauser-Schäublin et al. 1991; Putra et al. 2020 documents village-level variation in the kaja/kelod and kangin/kauh axes. Detailed directional deity/color tables and any community’s explanation of *rwa bhineda* remain `(to-verify)`; black/white must not become a universal white-good/black-evil cipher.
 - **Interpretive versus historical claim:** *Tri Hita Karana* links divine, social, and environmental relationships in modern discourse. Scholarship situates its named formulation in post-independence reform, particularly the 1960s; older institutions do not establish the same antiquity for the slogan. [Roth and Sedana 2015, through Huang and Rockwell 2023, pp. 175–177.]
 - UNESCO’s description of an “ancient” THK philosophy is therefore calibrated as heritage rhetoric, not repeated as a settled medieval textual attestation. Modern formulation is neither evidence of fraud nor proof that all underlying relationships were newly invented.
 
@@ -157,7 +159,7 @@
 - Technical basis: Tenzer 2000b, §§2.1–2.6. An eight-beat example can have melodic levels every beat, every second beat, and every fourth beat, converging at gong; that is an example, not a law fixing every cycle’s length.
 - **Cosmological interpretation:** Huang and Rockwell connect nested musical cycles, agricultural calendars, repeated collective work, and offerings through “relational practices.” Their interviews ground the connection in people who farm and perform, not merely in an outsider spotting similar diagrams. [2023, pp. 178–185.]
 - Keep three claims distinct: music has nested timing; participants interpret music through sacred relationships; a scholar proposes that musical and calendrical structures are analogous. Neither the first nor the second proves an exact numerical identity between them.
-- Triadic worlds, ninefold spatial schemes, and gong cycles may be brought into particular interpretations, but “one gong = one god” or “210 days = 210 beats” is `(to-verify)` unless an identified repertoire, text, and practitioner actually supply that mapping.
+- Triadic worlds, ninefold spatial schemes, and gong cycles may be brought into particular interpretations, but no identified repertoire, text, or practitioner behind a mapping such as “one gong = one god” or “210 days = 210 beats” appears in the sources checked here — such a mapping remains `(to-verify)` until one is produced.
 - **Calibration:** a timeless “Balinese mind” deduced from circular music is an overgeneralization. Tenzer explicitly includes linear/asymmetrical organization and change; Huang and Rockwell explicitly discuss debate over circular temporality. Older anthropological fascination with an island outside history must not become a design premise.
 - Craft transfer: specify who commissions, maintains, learns, and is authorized to perform a set; then decide which occasions make its sound an offering, a public display, or both. Sound alone cannot disclose the complete ritual context.
 
@@ -173,7 +175,7 @@
 | Late twentieth century onward | Trace tourism, ecological pressure, work schedules, migration, and renewed local claims | New fabrics, seed varieties, venues, and livelihoods alter cost and access without automatically ending ritual commitments |
 
 - Staging basis: H. Geertz 2004; Tenzer 2000b; Huang and Rockwell 2023. These are research partitions, not dated language stages or a substitute for a local chronology.
-- *Babad* and lineage narratives may make claims about sacred ancestry and political legitimacy; verify recensions and compare inscriptions/archives before treating a narrated founder or migration as a precise date. This entry does not establish an early chronicle sequence `(to-verify)`.
+- *Babad* and lineage narratives may make claims about sacred ancestry and political legitimacy; scholarship reads them as dynastic genealogies and historical narratives rather than year-by-year records [Creese 1991]. Verify recensions and compare inscriptions/archives before treating a narrated founder or migration as a precise date.
 - Do not stage Bali Aga communities as living fossils or presume that “pre-Majapahit” means isolated from Hindu, Buddhist, Islamic, or later state relationships. Huang and Rockwell’s notes explicitly flag the limits of that anthropological division.
 
 ## What a worldbuilder can take

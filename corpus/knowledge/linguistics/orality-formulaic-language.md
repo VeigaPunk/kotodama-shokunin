@@ -12,6 +12,7 @@
   - Finnegan (1970), Oral Literature in Africa, Oxford UP; Finnegan (1977), Oral Poetry, Cambridge UP; Goody & Watt (1963), "The consequences of literacy", Comparative Studies in Society and History 5(3): 304–345; Street (1984), Literacy in Theory and Practice, CUP
   - Sievers (1885), "Zur Rhythmik des germanischen Alliterationsverses", Beiträge zur Geschichte der deutschen Sprache und Literatur 10
   - Whitman (1958), Homer and the Homeric Tradition, Harvard UP; Leyerle (1967), "The interlace structure of Beowulf", University of Toronto Quarterly 37(1): 1–17; Child (1882–98), The English and Scottish Popular Ballads, 5 vols., Houghton Mifflin
+  - Gummere (1907), The Popular Ballad, Boston: Houghton Mifflin (ballad structure as "leaping and lingering", p. 91)
   - Meissner (1921), Die Kenningar der Skalden, Bonn: Schroeder; Snorri Sturluson, Skáldskaparmál (c. 1220), ed. Faulkes (1987), Edda: Skáldskaparmál, Oxford: Clarendon; Skaldic Poetry of the Scandinavian Middle Ages, gen. ed. Clunies Ross et al., Brepols 2007– (database skaldic.abdn.ac.uk)
   - Miner, Odagiri & Morrell (1985), The Princeton Companion to Classical Japanese Literature, Princeton UP; Keene (1993), Seeds in the Heart, Henry Holt
   - Barber (1991), I Could Speak Until Tomorrow: Oríkì, Women and the Past in a Yoruba Town, Edinburgh UP; Opland (1983), Xhosa Oral Poetry, Cambridge UP / Ravan Press; Conrad (2004), Sunjata: A West African Epic of the Mande Peoples, Hackett
@@ -62,7 +63,7 @@
 
 - Type-scene (Arend 1933, typische Szene; Lord's "theme"): a recurring episode with fixed beat-order and variable slots. Core inventory: arming (garments → armor → weapons → mount/chariot, each item named and described), arrival (host sees guest → questioning → hospitality), feast, sacrifice, omen-taking, messenger speech, journey/underworld, lament, duel. Six to twelve cards cover most epic narrative.
 - Ring composition: episodes mirror around a center, A B C … C′ B′ A′ (Whitman 1958 for Homer; Leyerle 1967's "interlace" for Beowulf). Memory-friendly architecture: symmetry tells the singer where the story is.
-- Ballad technique: incremental repetition — a scene replays with accumulating variation (Child 1882–98); laconic jump-cuts; dialogue carries the plot. The catchphrase "leaping and lingering" describes this style (attribution uncertain — to-verify).
+- Ballad technique: incremental repetition — a scene replays with accumulating variation (Child 1882–98); laconic jump-cuts; dialogue carries the plot. The catchphrase "leaping and lingering" describes this style (Gummere 1907, The Popular Ballad, 91).
 - Rule of three: three attempts, three days, three brothers — the near-universal pacing device; combine with rings for scaffolding.
 - In medias res (Horace, Ars Poetica) is the performance default: start mid-action; the audience already owns the backstory, so "flashbacks" are reminders, not reveals.
 - Apply: write each type-scene as a card (fixed beats / variable slots / meter landmarks). A standard episode is a card re-instantiated; a "novel" event is a card used off-label — which is exactly how singers generate surprise inside tradition, and how you can too.

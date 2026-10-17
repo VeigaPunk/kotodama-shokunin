@@ -1,6 +1,6 @@
 # Han China — script, cosmic government, textile registers, and named time
 - topic: Han China as a coupled linguistic-cultural reference: Qin standardization's afterlife, Dong Zhongshu and correlative cosmology, hemp/silk registers, and the development of era names; method and historical reference, never fictional canon.
-- sources: Sima Qian (1959 ed.); Ban Gu et al. (1962 ed.); Qiu Xigui (2000); Axel Schuessler (2009); Sarah A. Queen and John S. Major (2016); Ivana Buljan (2020); John S. Major et al. (2010); Dieter Kuhn (1988); Mark Edward Lewis (2007); Ruan Yuan (1815/1980 ed.); Smarthistory (n.d.); editions, access limits, and source keys below.
+- sources: Sima Qian (1959 ed.); Ban Gu et al. (1962 ed.); Qiu Xigui (2000); Axel Schuessler (2009); Sarah A. Queen and John S. Major (2016); Ivana Buljan (2020); John S. Major et al. (2010); Dieter Kuhn (1988); Mark Edward Lewis (2007); Ruan Yuan (1815/1980 ed.); Smarthistory (n.d.); Wikipedia “Chinese era name” (accessed 2026-10-17; cites Wilkinson 1998 and Sato 1991); editions, access limits, and source keys below.
 - couples: language/writing/names → `../linguistics/{writing-systems,sociolinguistics-registers,naming-systems,historical-linguistics}.md`; myth/symbol → `../myth-symbol/{cosmology-cosmography,color-symbolism,celestial-symbolism-calendars,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,calendar-festival-systems,textile-technology,sumptuary-law-rank-display,ritual-garments,material-culture-inference-method}.md`; sibling lore-shokunin receives candidate systems and uncertainties, not canon assertions.
 
 ## Source keys and evidence discipline
@@ -97,7 +97,7 @@
 
 - **Secure anchor:** named eras develop under Emperor Wu. The received annals call his first named period *Jianyuan* 建元, conventionally 140–135 BCE; this does not prove the title was proclaimed in 140. [HS 6; SJ 28]
 - **Retrospection matters:** *Shiji* 28 describes replacing numbered periods with auspicious names and later relates naming *Yuanding* 元鼎 to the tripod and *Yuanfeng* 元封 to the sealing sacrifice. Earlier names can be retrospective labels.
-- **Open precision limit:** the exact first administrative use/proclamation year of each early title is **(to-verify)** at document level. Do not turn a modern chronological table into an eyewitness record of what a clerk wrote that year.
+- **Open precision limit:** scholarship does not settle when named eras formally began: modern reference accounts give *Jianyuan* as the first era name from 140 BCE while also treating the 110 BCE Fengshan proclamation of *Yuanfeng* as the formal establishment of the institution [era-name survey, citing Wilkinson 1998, p. 177, and Sato 1991]. The exact first administrative use/proclamation year of each early title therefore remains **(to-verify)** at document level. Do not turn a modern chronological table into an eyewitness record of what a clerk wrote that year.
 
 | Dating layer | Example or anchor | What it communicates |
 |---|---|---|

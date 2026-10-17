@@ -1,6 +1,6 @@
 # Vedic India — Sound, Fire, Cosmic Correspondence, and Ritual Time
 - topic: Vedic reference base for coupling Sanskrit phonetic science (śikṣā), efficacious speech, Ṛgvedic divine relations, consecration dress, and śrauta calendars; comparative method, not fictional canon or a ritual manual.
-- sources: Stephanie W. Jamison & Joel P. Brereton (2014); Patrick Olivelle (1998); Hartmut Scharfe (1977); Annette Wilke & Oliver Moebus (2011); Julius Eggeling (1882, 1885); Richard Salomon (1998); Kim Plofker (2009); David M. Knipe (2015); editions, primary-text locators, and verification limits below.
+- sources: Stephanie W. Jamison & Joel P. Brereton (2014); Patrick Olivelle (1998); Hartmut Scharfe (1977); Annette Wilke & Oliver Moebus (2011); Julius Eggeling (1882, 1885); Richard Salomon (1998); Kim Plofker (2009); David M. Knipe (2015); Borayin Larios (2017), Embodying the Vedas: Traditional Vedic Schools of Contemporary Maharashtra (De Gruyter, open access); Hermann Oldenberg, trans., The Gṛhya Sūtras, Sacred Books of the East 29–30; editions, primary-text locators, and verification limits below.
 - couples: language — ../linguistics/{phonetics-phonology,orality-formulaic-language,sociolinguistics-registers,naming-systems,writing-systems}.md; myth/symbol — ../myth-symbol/{pantheon-archetypes,myth-ritual-theories,celestial-symbolism-calendars,symbolism-synthesis-method}.md; era/costume — ../culture-material/{era-periodization-models,ritual-garments,textile-technology,calendar-festival-systems,material-culture-inference-method}.md; siblings — lore-shokunin owns canon, via ../synthesis/worldbible-integration-contract.md.
 
 ## Scope and evidence labels
@@ -61,11 +61,11 @@
 | santāna | Continuity and connection of sounds | Sandhi and phrasing determine how a sequence is transmitted | Treating a word-separated lexical list as the performed text |
 
 - Traditional articulatory ordering distinguishes velar, palatal, retroflex, dental, and labial stop series, with voicing/aspiration distinctions; these offer a useful conlang teaching model, not proof that all languages need Sanskrit's inventory (S77; WM11).
-- Accent terminology includes **udātta**, **anudātta**, and **svarita**; these are not three interchangeable names for stress. Distinguish linguistic accent from its school-specific recitational realization; a notation-to-audio reconstruction needs a named tradition `(to-verify)`.
+- Accent terminology includes **udātta**, **anudātta**, and **svarita**; these are not three interchangeable names for stress. Distinguish linguistic accent from its school-specific recitational realization: living recitation is transmitted within named school traditions (Larios 2017), so a notation-to-audio reconstruction must name the tradition it follows (S77; WM11).
 - Duration terminology distinguishes **hrasva** (short), **dīrgha** (long), and **pluta** (protracted). Relative quantity is a teachable contrast; do not turn it into a universal absolute speaking speed (S77; WM11).
 - **Saṃhitāpāṭha:** connected recitation; **padapāṭha:** word-separated analysis; **kramapāṭha:** sequential paired recitation. Compare their different checking functions instead of calling every method “chanting.”
 - Oral preservation can be highly exact while analysis, pronunciation traditions, and textual branches still differ. Claims of literally zero variation everywhere are **overstated**.
-- Complex permutation recitations and the surviving works attributed to famous sages require their own dating; do not project every later technique into initial Ṛgvedic composition `(to-verify: technique-by-technique chronology)`.
+- Complex permutation recitations (**jaṭā**, **mālā**, **ghana**, and the other eventual *vikṛti* series) and the surviving works attributed to famous sages require their own dating; do not project every later technique into initial Ṛgvedic composition. Technique-by-technique chronology is not established here `(to-verify)`.
 
 ## Mantra phonology and the kotodama comparison
 
@@ -122,7 +122,7 @@
 | Material / act | Precise witness | Ritual coupling | Reconstruction limit |
 |---|---|---|---|
 | Hair/beard shaving, nail cutting, bathing | 3.1.2.1–12 | Purification precedes changed status; the text discusses alternatives | Not a universal Vedic hairstyle or ordinary bathing ethnography |
-| Garment as replacement skin | 3.1.2.13–20 | Clothing restores bodily completeness; putting it on is verbally marked | Eggeling's “linen” is parenthetical; exact fiber identification from this gloss alone is `(to-verify)` |
+| Garment as replacement skin | 3.1.2.13–20 | Clothing restores bodily completeness; putting it on is verbally marked | Eggeling's “(linen)” is a parenthetical addition in the translation (inspected, ŚB 3.1.2.13); do not infer the fiber from this gloss alone |
 | New or appropriately retained cloth | 3.1.2.19 | Freshness, cleansing, prior handling, and ritual fitness interact | Prescription does not establish the actual market supply or affordability |
 | Black-antelope skins as consecration ground | 3.2.1.1–9 | Skin joins worlds; the consecrated becomes an embryo entering metres | These passages describe sitting surfaces: do not automatically draw them as a worn cloak |
 | Hempen girdle with muñja | 3.2.1.10–14 | Strength, food, generation, inner membrane, and specific plaiting | This girdle is not automatically the later familiar sacred-thread arrangement |
@@ -151,7 +151,7 @@
 - ŚB 2.1.1.12–13 juxtaposes five-season and six-season reckonings; therefore even “the Vedic seasons” needs a textual locator, not an automatic universal six-season chart.
 - [ŚB 2.1.2.1–19](https://www.wisdomlib.org/hinduism/book/satapatha-brahmana-english/d/doc63151.html) presents arguments both for and against particular inauguration stars. Ritual authorities reason and disagree; the calendar is not only a lookup table.
 - A lunar month and solar year are not commensurate; intercalation is a design problem, not evidence that every Vedic school used one later standardized Hindu calendar. Select a recension before specifying the insertion rule.
-- The *Vedāṅga Jyotiṣa* supplies a five-year yuga model in later calendrical literature (P09, chapter 2; [overview and dating dispute](https://en.wikipedia.org/wiki/Vedanga_Jyotisha)). Exact equations and their recension-specific implementation are `(to-verify)` here.
+- The *Vedāṅga Jyotiṣa* supplies a five-year yuga model — 62 lunar months, two of them intercalary, over 1,830 civil days — and survives in two recensions (Ṛgvedic and Yajurvedic), with composition dates argued from the later second millennium BCE to the last centuries BCE (P09, chapter 2; [overview and dating dispute](https://en.wikipedia.org/wiki/Vedanga_Jyotisha)). The full equations and the differences between the recensions are not independently checked here `(to-verify)`.
 - Do not confuse that short computational yuga with later cosmic world ages, or use an inferred stellar epoch to date the composition of every transmitted passage. Astronomical dating without textual-stratigraphic controls is **contested**.
 - **Design:** record `observed event / computed rule / declaration authority / intercalation / weather exception / rite-specific obligation`; show who resolves a mismatch between lunar timing and seasonal resources.
 
@@ -162,7 +162,7 @@
 - E85 ŚB 4.6.1.7–10 names Rāma Aupatasvini, Budila Āśvatarāśvi, and Yājñavalkya while reporting differing opinions: names can authorize competing technical judgments within one tradition.
 - Do not identify this Rāma with an epic protagonist merely from the shared name, or derive a biography from a patronymic without further evidence.
 - ŚB 2.1.2.11 discusses Indra's alternative name Arjuna in relation to the Phalgunīs/Arjunīs and guarded naming. This is a source-specific divine naming rule, not proof of a universal ban on speaking personal names.
-- Gṛhya naming-rite prescriptions belong to another textual genre; exact name lengths, gendered suffixes, secret names, and nakṣatra-name rules require a named school and passage `(to-verify)` before application.
+- Gṛhya naming-rite prescriptions belong to another textual genre and vary by school: the Gobhila tradition gives the name at ten nights or later, prescribing for boys a name beginning with a sonant, containing a semivowel, ending in a long vowel or the visarga (with a kṛt suffix), and for girls an odd-syllable name ending in -dā, with offerings to the child's tithi and nakshatra (Gobhila Gṛhya Sūtra 2.8.8–17, in Oldenberg, SBE 30, [text](https://sacred-texts.com/hin/sbe30/sbe30020.htm)); Oldenberg's notes cross-reference the parallels (Śāṅkhāyana 1.24, Āśvalāyana 1.15, Pāraskara 1.17). Apply any such rule only with its school and passage; claims about separate “secret” names or nakshatra-name rules still need their own citations `(to-verify)`.
 - **Design:** build separate slots for everyday address, descent claim, liturgical identifier, and earned office; specify who can pronounce each, in which register, and whether its older accent survives.
 
 ## Apply to a fictional culture: coupling drill, not a borrowed civilization

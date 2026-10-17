@@ -1,7 +1,7 @@
 # Mali–Songhay: Oral Archives, Manuscript Cities, and Material Power
 
 - topic: Mali and Songhay as distinct, connected reference bases for coupling language, myth, symbolic authority, historical change, dress, and naming; method, not fictional canon.
-- sources: Levtzion & Hopkins (eds., 2000 [1981]); Ibn Battuta/Gibb (1929); Hunwick (1999); Hale (2007 [1998]); Hoffman (2001); Conrad & Frank (eds., 1995); Conrad/Condé (2004); Rovine (2005); Brett-Smith (2014); Jeppie & Diagne (eds., 2008); Schultz (2006); Nobili & Mathee (2015); Dimmendaal (2008); Oyler (1997); Zahan (1987); Stoller (1989; web profile publication year to-verify). Standard editions and accessible evidence are keyed below.
+- sources: Levtzion & Hopkins (eds., 2000 [1981]); Ibn Battuta/Gibb (1929); Hunwick (1999); Hale (2007 [1998]); Hoffman (2001); Conrad & Frank (eds., 1995); Conrad/Condé (2004); Rovine (2005); Brett-Smith (2014); Jeppie & Diagne (eds., 2008); Schultz (2006); Nobili & Mathee (2015); Dimmendaal (2008); Oyler (1997); Zahan (1987); Stoller (1989; the consulted web profile is his “Songhay” entry in *Encyclopedia of World Cultures* 9, 1995, HRAF update 2016). Standard editions and accessible evidence are keyed below.
 - couples: Language → `../linguistics/{sociolinguistics-registers,orality-formulaic-language,writing-systems,naming-systems,politeness-taboo-euphemism}.md`; myth/symbol → `../myth-symbol/{cosmology-cosmography,myth-folktale-genres,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,textile-technology,costume-semiotics,material-culture-inference-method}.md`; sibling → lore-shokunin receives proposed systems and uncertainties, never canon from this entry.
 
 ## Scope and evidence labels
@@ -83,7 +83,7 @@
 - **Design inference — stress test:** specify initial circulating gold, release schedule, recipient access, silver availability, credit terms, and the local goods supply before predicting prices.
 - Model separate winners and losers: recipients, gold holders, silver holders, lenders, importers, and providers of scarce goods need not experience the same “shock.”
 - Use the case to couple sacred travel, finance, foreign descriptions, prestige garments, and memory; do not convert a medieval ruler's resources into a confidently ranked modern dollar net worth.
-- Exact gold quantities, caravan headcounts, price-series duration, and particular loan terms require passage-level checking before numerical use `(to-verify)`.
+- Exact gold quantities, caravan headcounts, price-series duration, and particular loan terms require passage-level checking of [S11] before numerical use `(to-verify)`.
 
 ## Timbuktu: manuscript scholarship is a social infrastructure
 
@@ -116,14 +116,14 @@
 
 - These are adjacent reference systems, **not ingredients to paste into a single historical “Mali–Songhay religion.”** Membership, practice, and interpretation vary.
 - **Design inference:** a river narrative can authorize a specialist's repertoire; an epic can authorize counsel; a pilgrimage can authorize reputation; none needs to become a uniform state theology.
-- Knowledge of exact local invocations, restricted teachings, and deity genealogies is thin here; details and permissions remain `(to-verify)` rather than invented secret lore.
+- Knowledge of exact local invocations, restricted teachings, and deity genealogies is thin here; the consulted profile notes that specialist knowledge passes through long apprenticeships and named lineages [S16], and details and permissions remain `(to-verify)` rather than invented secret lore.
 
 ## Nyama, names, and restricted speech: do not manufacture a true-name rule
 
 - **Attested, later Mande settings:** nyama is a context-dependent concept of consequential, potentially dangerous power; translating it simply as “mana,” “evil,” or generic life energy loses distinctions. [S6]
 - Nyamakalaw includes specialist groups such as verbal artists and smiths; the category's meanings, status histories, and internal differences require local treatment. [S6]
 - Do not present a convenient decomposition of *nyamakala* as a settled etymology or “caste” as a timeless, region-wide Indian-system duplicate. [S6]
-- Naming and powerful speech intersect, but the sources checked do **not** establish one universal Mande ban on speaking personal names. That proposed rule is `(to-verify)`.
+- Naming and powerful speech intersect, but the sources checked do **not** establish one universal Mande ban on speaking personal names. Treat any such universal rule as reported but not independently confirmed `(to-verify)`.
 - Positive counterweight: jeli praise makes names and lineage relationships publicly consequential; Ibn Battuta even reports an oath invoking Mansa Sulayman's name. [S2, S4]
 
 | Naming layer | What to distinguish | Safe craft operation |
@@ -158,7 +158,7 @@
 | Recontextualization | Named designer/artist, intended audience, market history | Modern adaptation is cultural production, not simply a corrupted ancient original. |
 
 - Rovine credits Chris Seydou's fashion adaptations and describes bogolan's movement into Malian identity and foreign markets; those uses are historically different from ritual wrappers. [S8]
-- Exact motif translations and claims of medieval origin are `(to-verify)`; do not dress Musa or every Songhay official in bogolan by default.
+- Exact motif translations and claims of medieval origin remain `(to-verify)`; the consulted article documents named motif references (proverbs, events, animals) and modern adaptation rather than a medieval textile tradition. Do not dress Musa or every Songhay official in bogolan by default.
 
 ## Costume and symbolic authority: build an evidence-tagged wardrobe
 
@@ -185,12 +185,12 @@
 - [S8] Victoria L. Rovine (2005), “Bogolan,” in Valerie Steele, ed., *Encyclopedia of Clothing and Fashion*, vol. 1, pp. 169–170. Thomson Gale. [Accessible article](https://www.encyclopedia.com/fashion/encyclopedias-almanacs-transcripts-and-maps/bogolan); process, use, motif references, and contemporary adaptation checked here.
 - [S9] Sarah Brett-Smith (2014), *The Silence of the Women: Bamana Mud Cloths*. Skira, distributed by Abrams. Women's knowledge and textile interpretation; catalog description checked, not every motif argument. [Catalog, ISBN 9788874396702](https://books.google.com/books?vid=ISBN9788874396702).
 - [S10] Shamil Jeppie & Souleymane Bachir Diagne, eds. (2008), *The Meanings of Timbuktu*. HSRC Press. Consult the named chapters on paper, calligraphy, scholarly lineages, Ajami, chronicles, and private libraries; the publisher also lists a later paperback. [Publisher/contents](https://hsrcpress.ac.za/books/the-meanings-of-timbuktu).
-- [S11] Warren C. Schultz (2006), “Mansa Mūsā's Gold in Mamluk Cairo: A Reappraisal of a World Civilizations Anecdote,” in Judith Pfeiffer & Sholeh A. Quinn, eds., *History and Historiography of Post-Mongol Central Asia and the Middle East: Studies in Honor of John E. Woods*, pp. 428–447. Harrassowitz. Bibliographic identification checked; precise monetary conclusions require full-chapter consultation `(to-verify)`.
+- [S11] Warren C. Schultz (2006), “Mansa Mūsā's Gold in Mamluk Cairo: A Reappraisal of a World Civilizations Anecdote,” in Judith Pfeiffer & Sholeh A. Quinn, eds., *History and Historiography of Post-Mongol Central Asia and the Middle East: Studies in Honor of John E. Woods*, pp. 428–447. Wiesbaden: Harrassowitz. Bibliographic identification independently corroborated (current bibliographies cite the same publisher and page range); the chapter's precise monetary conclusions still require full-text consultation `(to-verify)`.
 - [S12] Mauro Nobili & Mohamed Shahid Mathee (2015), “Towards a New Study of the So-Called Tārīkh al-fattāsh,” *History in Africa* 42: 37–73. [DOI 10.1017/hia.2015.18](https://doi.org/10.1017/hia.2015.18). Editorial layering warning; individual historical claims still need witness-by-witness analysis.
 - [S13] Gerrit J. Dimmendaal (2008), “Language Ecology and Linguistic Diversity on the African Continent,” *Language and Linguistics Compass* 2(5): 840–858. [DOI 10.1111/j.1749-818X.2008.00085.x](https://doi.org/10.1111/j.1749-818X.2008.00085.x). Conservative classification reference, not the last word on disputed macrofamilies.
 - [S14] Dianne White Oyler (1997), “The N'ko Alphabet as a Vehicle of Indigenist Historiography,” *History in Africa* 24: 239–256. [DOI 10.2307/3172028](https://doi.org/10.2307/3172028). Modern writing/history-making reference; not evidence of medieval N'Ko.
 - [S15] Dominique Zahan (1987), “Bambara Religion,” trans. Eva Zahan, *Encyclopedia of Religion*, subsequently revised bibliography. [Accessible article](https://www.encyclopedia.com/environment/encyclopedias-almanacs-transcripts-and-maps/bambara-religion). Its highly systematized account needs comparison with locally situated work; not a uniform Bamana or Mande catechism.
-- [S16] Paul Stoller (1989), *Fusion of the Worlds: An Ethnography of Possession among the Songhay of Niger*. University of Chicago Press; also his accessible [“Songhay” profile](https://www.encyclopedia.com/humanities/encyclopedias-almanacs-transcripts-and-maps/songhay), publication year/edition `(to-verify)`, consulted 2026-10-17. Myth and contemporary dress here follow that profile, not a claimed page-specific reading of the monograph.
+- [S16] Paul Stoller (1989), *Fusion of the Worlds: An Ethnography of Possession among the Songhay of Niger*. University of Chicago Press (paperback reissue 1997, per the entry's own bibliography); also his accessible [“Songhay” profile](https://www.encyclopedia.com/humanities/encyclopedias-almanacs-transcripts-and-maps/songhay) — Stoller's entry in John Middleton, Amal Rassam, Candice Bradley, and Laurel L. Rose, eds., *Encyclopedia of World Cultures*, Vol. 9: *Africa and the Middle East* (Boston: G. K. Hall, 1995), as re-versioned by HRAF ([eHRAF culture summary](https://ehrafworldcultures.yale.edu/cultures/ms20/documents/000), update 2016) — consulted 2026-10-17. Myth and contemporary dress here follow that entry, not a claimed page-specific reading of the monograph.
 
 - **Bias calibration:** Ibn Battuta's moral judgments about women, deference, and propriety reflect his position and expectations; retain the reported act without inheriting his praise or contempt.
 - **Colonial mediation:** translated labels such as “caste,” “fetish,” or “primitive” can flatten institutions; older editions may combine witnesses or conceal selection. Local authorship does not remove patronage or retrospective legitimation either.

@@ -1,0 +1,19 @@
+# synthetic fixture for tools/gates/phonology-sanity-gate.py --selftest
+# not canon, not a fictional-world fact, not a language design: every defect
+# below is planted on purpose to exercise the finding IDs.
+name: gate-selftest-phonology
+phonology:
+  consonants: [p, t, v, ɲ, qʼ, t]        # t listed twice -> I-DUPLICATE
+  vowels: [a, i, e, y]                   # /y/ with no back rounded peer -> M-ROUND
+  phonotactics: (C)(C)V(C)(C)            # complex: CC onset, CC coda -> T-SYL, M-SONORITY
+  tones: 0                               # contradicted by the tone rule below -> A-TONE
+  notable_rules:
+    - "t → ts / _i"
+    - "t → d / _i"                       # same src+environment, two outputs -> A-ORDER
+    - "q → k / _u"                       # q and u are not in the inventory -> I-UNKNOWN
+    - "v → s / V_V"                      # natural class, not finite context -> A-CLASS
+    - "p → t / _#"                       # neutralizes into the phoneme /t/ -> A-NEUTRAL
+    - "tones rise on the final syllable" # no arrow -> A-PARSE, and tones: 0 -> A-TONE
+names:
+  - {name: "Aren'tal", type: place, era: "First Era"}   # apostrophe -> X-NAME
+eras: [First Era]

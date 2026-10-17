@@ -1,6 +1,6 @@
 # Great Zimbabwe and Shona: stone, tone, ancestry, and modern invention
 - topic: Coupling Shona tonal language, dzimbahwe stone symbolism, ancestral music, mutupo relationships, historical eras, and material display without manufacturing a timeless civilization.
-- sources: Myers (1990); Doke (1931); Chimhundu (1992); Bourdillon (1976); Hodza and Fortune (1979); Beach (1980); Berliner (1978); Chirikure and Pikirayi (2008); Metropolitan Museum of Art (2001); Winter-Irving (1991); Zilberg (1996); UNESCO (2020); MBIRA (n.d.; accessed 2026-10-17). Editions and verification limits below.
+- sources: Myers (1990); Doke (1931); Chimhundu (1992); Bourdillon (1976); Hodza and Fortune (1979); Beach (1980); Berliner (1978); Chirikure and Pikirayi (2008); Metropolitan Museum of Art (2001); Winter-Irving (1991); Zilberg (1996); Makondo (2013); Huffman and Main (2022); UNESCO (2020); MBIRA (n.d.; accessed 2026-10-17). Editions and verification limits below.
 - couples: Language → `../linguistics/{phonetics-phonology,morphological-typology,writing-systems,naming-systems,orality-formulaic-language,politeness-taboo-euphemism}.md`; myth/symbol → `../myth-symbol/{animal-symbolism,cosmology-cosmography,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,architecture-settlement-lexicon,music-instrument-lexicon,costume-semiotics,material-culture-inference-method}.md`; sibling handoff → lore-shokunin owns world-bible canon; this entry supplies reference and generative constraints only.
 
 ## Scope and calibration key
@@ -9,7 +9,7 @@
 - Distinguish **A: material attestation**, **E: situated ethnography**, **I: interpretation**, **M: documented modern development**, and **D: fictional design inference**.
 - A stone object can be A while its supposed meaning is I; E from a twentieth-century village does not establish a thirteenth-century court ritual.
 - Shona-speaking communities differ by locality, dialect, lineage, religious affiliation, generation, and diaspora setting. Christian and ancestral commitments need not form mutually exclusive populations.
-- Verification, 2026-10-17: accessible museum, UNESCO, and MBIRA texts checked; bibliographic identities also checked through catalogue or scholarly records. This is not a full-text audit of every monograph.
+- Verification, 2026-10-17: accessible museum, UNESCO, and MBIRA texts checked; bibliographic identities also checked through catalogue or scholarly records. This is not a full-text audit of every monograph. **Triage pass 2026-10-17** sourced the dzimbahwe sense shift and the Chipo/Tendai glosses (ledger: `../../lessons/round-1-triage/Z23.md`); remaining `(to-verify)` marks are open coverage questions.
 - Knowledge is thinnest here on medieval garment cuts, locality-specific tone derivations, and particular clan sanctions; unresolved details carry `(to-verify)` rather than invented precision.
 
 ## Source shelf: editions and what each can establish
@@ -26,6 +26,8 @@
 - **Zilberg, Jonathan L. 1996. _Zimbabwean Stone Sculpture: The Invention of a Shona Tradition_. PhD dissertation, University of Illinois at Urbana-Champaign.** Critical framing of tradition-making; [catalogue identifier: ProQuest 304300839](https://www.proquest.com/docview/304300839). Full dissertation not audited here.
 - **UNESCO. 2020. “Art of crafting and playing Mbira/Sansi, the finger-plucking traditional musical instrument in Malawi and Zimbabwe.”** [ICH element 01541](https://ich.unesco.org/en/RL/art-of-crafting-and-playing-mbira-sansi-the-finger-plucking-traditional-musical-instrument-in-malawi-and-zimbabwe-01541); this joint inscription describes a broader instrument tradition, not only mbira dzavadzimu.
 - **MBIRA. n.d. “The Role of Mbira in Shona Culture” and “The Mbira Instrument.”** Practitioner-oriented organization; [ritual roles](https://mbira.org/what-is-mbira/mbira-music/the-role-of-mbira-in-shona-culture/) and [construction/tuning](https://mbira.org/what-is-mbira/mbira-music/the-mbira-instrument/), accessed 2026-10-17. Strong living-practice descriptions; antiquity claims need independent historical evidence.
+- **Makondo, Livingstone. 2013. “The Most Popular Shona Female Anthroponyms.” _Studies of Tribes and Tribals_ 11(2): 113–120.** Assessed directly: Chipo “gift,” Tendai “(be) thankful,” Tsitsi “mercy,” Rudo “love,” Tatenda “we are thankful,” Nyasha “mercy/grace,” with the longer names behind each shortening; tone and morphology are not its topic.
+- **Huffman, Thomas N., and Mike Main. 2022. “Zimbabwe Ruins in Botswana: Settlement Hierarchies, Political Boundaries and Symbolic Statements.” _Cambridge Archaeological Journal_ 32(3): 361–388.** [Article](https://www.cambridge.org/core/journals/cambridge-archaeological-journal/article/zimbabwe-ruins-in-botswana-settlement-hierarchies-political-boundaries-and-symbolic-statements/0A73304F3F4BE2535512CF6E4D23B2AC). Directly consulted for the dzimbahwe senses (via De Barros 1551) and for the Khami-period archaeology framing.
 
 ## Language family, writing, and the tonal system
 | Feature | Reference baseline | Coupling constraint |
@@ -64,7 +66,7 @@
 - Treat practitioners' explanations as religious claims in their own setting, not as laboratory proof of supernatural causation or as irrational errors to be “corrected.”
 
 ## Dzimbahwe: stone, enclosure, bird, and interpretive limits
-- **Name:** Zimbabwe/dzimbahwe is conventionally connected with “houses of stone”; alternative revered-house/court glosses circulate. The exact historical contraction, dialect form, and competing derivations are `(to-verify)`; do not turn one into a recovered inscription.
+- **Name:** Zimbabwe/dzimbahwe is conventionally connected with “houses of stone”; Huffman and Main document that the sixteenth-century sense was “the home, court, and grave of a leader” (De Barros 1551, in Theal), so today's gloss and early usage differ. The exact contraction, dialect form, and competing derivations remain `(to-verify)`; do not turn one into a recovered inscription. [Huffman and Main 2022]
 - **A:** Great Zimbabwe's granite dry-stone walls use no mortar. Earthen/daga domestic structures and courtyards were integral to the inhabited settlement. [Metropolitan Museum 2001]
 - **I:** Walls can distinguish access, visibility, status, and authority; they are not automatically military fortifications or roofs of stone palaces. Exact uses of particular enclosures remain debated. [Chirikure and Pikirayi 2008]
 - **A/I:** Carved soapstone birds survive; ancestral/royal significance is an interpretation, not a translated label left by their makers. Their precise meaning and original arrangements are not securely recovered. [Metropolitan Museum 2001]
@@ -162,7 +164,7 @@
 - Keep **given name**, **family/surname record**, **mutupo**, **chidawo**, **title**, and **spirit/medium designation** as separate fields, even when real usage links them. [Bourdillon 1976; Hodza and Fortune 1979]
 - A person's public label need not disclose the lineage or praise form that makes a formal greeting appropriate.
 - Given-name interpretation may involve circumstances, hope, religious commitment, or a message to relatives; a name's dictionary gloss is not its complete social biography.
-- Familiar starting examples are **Chipo**, commonly glossed “gift,” and **Tendai**, commonly glossed “give thanks/be thankful”; exact tone, grammatical gloss, and naming context are `(to-verify)` before reuse.
+- Familiar starting examples are **Chipo**, “gift” (shortened from names like Chipochangu “my gift” and ChipochaMwari “gift from God”), and **Tendai**, “(be) thankful” (from TendaiMwari, Tendaizvose), alongside Tsitsi “mercy,” Rudo “love,” Tatenda “we are thankful,” and Nyasha “mercy/grace” [Makondo 2013]; tone and morphological derivation still need a dictionary/community check `(to-verify)` before reuse.
 - Do not generate pseudo-Shona by attaching noun-class prefixes to English roots; class membership and agreement are grammatical, not flavor particles.
 - Keep ancestral/place names distinct from titles of their living representatives; an inherited designation does not establish identity of all its bearers.
 - **D:** test the same fictional person's birth announcement, intimate address, praise greeting, marriage inquiry, and administrative record. Preserve contextual differences rather than one universal “full name.”

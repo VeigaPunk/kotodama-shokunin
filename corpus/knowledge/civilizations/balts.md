@@ -87,7 +87,7 @@
 | Present-day sacred-fire ceremony | Dundzila and Strmiska 2005 | Direct evidence for practitioners described there; not a complete medieval reconstruction |
 
 - Rancāne identifies Rüssow’s 1578 chronicle and Einhorn’s 1649 account among early descriptions; both require attention to clerical perspective and the populations actually described.
-- The precise pre-Christian sequence of officiants, prayers, and garments for a particular solstice site is **(to-verify)**; the cited evidence does not license filling gaps from modern festival photographs.
+- No source checked here establishes a pre-Christian sequence of officiants, prayers, and garments for any particular solstice site; that sequence remains `(to-verify)` for a named site, and modern festival photographs cannot fill the gap.
 - **Application:** couple agricultural deadlines, hospitality obligations, song exchanges, wreath preparation, and night/day transitions; choose which institution later reinterprets them.
 - A festival can temporarily suspend ordinary clothing distinctions: Rancāne notes Jāņi wreaths for women regardless of status. Do not read every festival wreath as an everyday unmarried-status marker.
 
@@ -186,5 +186,5 @@
 - Folklore collectors, national institutions, Soviet-era arrangements, and modern revivalists also select and reshape material. Contemporary practitioners remain authorities on their own practice, not automatic witnesses to the medieval past.
 - Young’s scepticism and the *Lexicon*’s comparative approach mark a real interpretive dispute. Keep lexical inheritance, narrative comparison, and historical proof as separate propositions.
 - Coverage is thinner here for Old Prussian insider ritual, smaller extinct Baltic languages, local Latvian dress reconstruction, and pre-sixteenth-century festival sequences; seek specialist studies and dated objects before narrowing claims.
-- Exact medieval Romowe organization, site-specific solstice liturgy, deity-to-textile-sign assignments, and priestly dress codes remain **(to-verify)**; this entry supplies no invented reconstruction of them.
+- Mažeika’s source-critical reading shows that Dusburg’s description cannot be taken as a neutral institutional record of Romowe [Mažeika 2023]; medieval Romowe organization, site-specific solstice liturgy, deity-to-textile-sign assignments, and priestly dress codes remain `(to-verify)`, and this entry supplies no invented reconstruction of them.
 - Never infer a people’s biological ancestry, moral character, or modern political entitlement from linguistic conservatism, a motif, or a garment. This is a method/reference entry and establishes no fictional canon.

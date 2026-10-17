@@ -9,6 +9,11 @@
   - [U92] Hiroshi Utagawa (1992), “The ‘Sending-Back’ Rite in Ainu Culture,” *Japanese Journal of Religious Studies* 19(2–3): 255–270. [DOI and open article](https://doi.org/10.18874/jjrs.19.2-3.1992.255-270). Use the article’s author spelling, Utagawa.
   - [F26] The Foundation for Ainu Culture (2026), *Ainu People: History and Culture*, August 2026 edition; especially pp. 2–15, 18–19, 22–27. [Official English booklet](https://www.ff-ainu.or.jp/web/learn/culture/together/files/rekishitobunka_EN.pdf).
   - [N21] Hiroshi Nakagawa, Anna Bugaeva, Miki Kobayashi, and Yoshimi Yoshikawa (2021, introduction dated February 22), *A Glossed Audio Corpus of Ainu Folklore*, National Institute for Japanese Language and Linguistics; releases described for 2015–2020. [Corpus and project provenance](https://ainu.ninjal.ac.jp/folklore/).
+  - [DC24] Elia Dal Corso (2024), “Elements of Sakhalin Ainu Phonetics, Phonology, and Morphosyntax,” in *Time in East Asian Endangered Languages: Grammar, History, and Society* (Venice: Edizioni Ca’ Foscari). [Open chapter](https://edizionicafoscari.unive.it/media/pdf/books/978-88-6969-846-0/978-88-6969-846-0-ch-03_QXuvkXF.pdf); consulted for the end of first-language transmission of Sakhalin Ainu and for dialect-level phonological detail.
+  - [Uy15] Kumiko Uyeda (2015), *The Journey of the Tonkori: A Multicultural Transmission*, PhD dissertation, University of California, Santa Cruz. [eScholarship copy](https://escholarship.org/uc/item/1600x55b); cites Utagawa 1992 for the iomante’s present form solidifying in the later eighteenth century; used as a reception check on that dating, not as an independent historical witness.
+  - [Pal24] E. Palomino (2024), “Weaving Nature: The Flow of Ainu Elm Bark Fibres Through Hokkaido’s Ecosystems,” *Fashion Highlight* (Firenze University Press). [Article](https://riviste.fupress.net/index.php/fh/article/view/2929); consulted at summary level for elm-bast processing and backstrap-loom (*attushi karape*) weaving.
+  - [HAA] Hokkaido Ainu Association (n.d.), “History.” [Official English page](https://www.ainu-assn.or.jp/english/history.html); records the 1871 ban on Ainu customs including women’s tattoos and men’s earrings.
+  - [JTA] Japan Tourism Agency (n.d.), “Tattoos,” *Japan: The Official Guide* translation database. [Page](https://www.mlit.go.jp/tagengo-db/en/R6-00294.html); describes Ainu women’s tattooing (female tattooists, onset around puberty, stated protective/afterlife purposes) as official interpretive material, not an independent study.
   - [AM] American Museum of Natural History (n.d.), “A Cotton Coat Made by Japan’s Ainu People”; discussion of a coat collected at Shiraoi in 1901. [Museum account](https://www.amnh.org/explore/news-blogs/cotton-coat-ainu), accessed 2026-10-17; collection date is not manufacture date.
   - [NS] National Museums Scotland (n.d.), “The ancient craft of barkcloth across the world,” especially “Japan”; objects A.1909.499.1 and A.1909.499.48. [Museum account](https://www.nms.ac.uk/discover-catalogue/the-ancient-craft-of-barkcloth-across-the-world), accessed 2026-10-17.
   - [UP] Upopoy National Ainu Museum and Park / The Foundation for Ainu Culture (n.d.), [“Ainu Culture”](https://ainu-upopoy.go.jp/en/ainu-culture/) and [“Permanent Exhibition Room”](https://ainu-upopoy.go.jp/en/museum/facility/permanent-exhibition-room/), accessed 2026-10-17.
@@ -36,7 +41,7 @@
 - Editorial convention: use `kamuy`, `mosir`, `cise`, and `attus` as convenient Romanized forms; sources also use `kamui`, `moshiri`, `chise`, and `attush`. These spelling pairs are not evidence of four historical sound changes.
 - Modified katakana must be able to represent Ainu consonant endings; simply applying ordinary Japanese syllable spelling can obscure distinctions. [UP; L22]
 - **Design:** distinguish everyday speech, performed narrative, ritual address, archival transcription, and administrative naming as different registers or media, not different “evolutionary levels.”
-- Fine-grained accent rules, dialect-specific sound inventories, and person-marking paradigms are outside this entry’s checked coverage: consult the relevant grammar before using them (to-verify).
+- Fine-grained accent rules, dialect-specific sound inventories, and person-marking paradigms are outside this entry’s checked coverage: consult the specialist descriptions first — the phonetics/phonology and morphosyntax chapters collected in [L22], and [DC24] for Sakhalin Ainu. This entry neither reproduces nor adjudicates them.
 
 ## Yukar: classify the performance before borrowing a plot
 
@@ -53,7 +58,7 @@
 - NINJAL’s corpus identifies Kimura Kimi’s Saru material recorded by Nakagawa and Oda Ito’s Chitose material recorded by Bugaeva. Preserve narrator and dialect attribution when comparing examples. [N21]
 - **Framework:** genre-sensitive performance analysis first; use the Parry–Lord toolkit in `linguistics/orality-formulaic-language.md` as comparative tooling, not proof that Ainu narratives were composed exactly like South Slavic or Homeric epic.
 - **Design worksheet:** narrator identity → embodied viewpoint → refrain rule → human/nonhuman misunderstanding → social consequence → performance occasion. Change these relations, not just the animal names.
-- Sakhalin and Kuril repertoires are thinly covered here; Hokkaido genre labels and refrain practices must not be projected onto them without further evidence (to-verify).
+- Sakhalin and Kuril repertoires are thinly covered here, partly for documentary reasons: Kuril Ainu survives mainly in old documents ([L22], Satō’s chapter on the major old documents), and Sakhalin Ainu lost its last first-language speaker with Asai Take’s death in 1994 [DC24]. Hokkaido genre labels and refrain practices must not be projected onto them without further evidence.
 
 ## Kamuy reciprocity: relationships rather than a fixed god roster
 
@@ -89,7 +94,7 @@
 - Separate a sound-based Japanese rendering from a later explanation based on kanji meanings; apparent semantic transparency can be secondary.
 - **Design:** create an Indigenous hydrological name, a trading-community adaptation, and an official map form in the fictional language history. Record the transformations; do not generate pseudo-Ainu names by concatenating this glossary.
 - Personal names need a different evidence file from place names. The AMNH account notes forced Japanese naming under assimilation; a modern Japanese surname must not be treated as evidence against Ainu identity. [AM]
-- Traditional personal-name assignment, avoidance rules, and family-specific usage are insufficiently documented in the sources checked here for a general generator (to-verify). Do not invent an obligatory animal-name or clan-name formula.
+- Traditional personal-name assignment, avoidance rules, and family-specific usage are insufficiently documented in the sources checked here for a general generator; a dedicated naming study is still required before use (to-verify). The checked record mainly documents state pressure on names — Tokugawa and later Meiji officials ordered Ainu to change hairstyles, clothes, and names [F26, pp. 7–8] — not the traditional system itself. Do not invent an obligatory animal-name or clan-name formula.
 
 ## Symbolic system: form, placement, and use before “meaning”
 
@@ -104,14 +109,14 @@
 
 - **Source disagreement:** AMNH emphasizes nonrepresentational design and individual variation; NMS reports possible thorn, eye, star, and animal readings. Neither warrants a universal decipherment key. [AM; NS]
 - Keep observable geometry, an attributed protective explanation, a maker’s interpretation, and an outsider’s speculation as separate claims.
-- AMNH mentions a proposed relationship between clothing patterns and women’s tattoos; that is a suggestion, not an established derivation. Tattoo chronology and local meanings require separate checking (to-verify).
+- AMNH mentions a proposed relationship between clothing patterns and women’s tattoos; that is a suggestion, not an established derivation. What is documented is political: tattooing was a women’s practice banned by Hokkaido authorities in 1871 [HAA], with protective/beauty/afterlife interpretations recorded in later official descriptions [JTA]. Local meanings still require separate, community-specific checking.
 - **Design:** choose a constructional boundary, an attributed danger, a family/maker’s variation rule, and a transmission path. Invent the resulting graphic vocabulary rather than tracing sacred designs.
 
 ## Attus: textile technology coupled to ecology and exchange
 
 - `attus` / `attush` names bark-fiber cloth and, in descriptions, robes made from it; it does not name all Ainu clothing or all Ainu embroidery. [AM; NS]
 - **Technical distinction:** the cited Ainu elm-bast cloth is woven, not simply a sheet of beaten barkcloth like many other traditions grouped under that English word. [NS]
-- **Chaîne opératoire:** obtain suitable inner bark → soak/process and separate bast → prepare and join fiber lengths → weave on a backstrap loom → assemble garment → appliqué/embroider as appropriate. Species-specific processing and harvest schedules beyond the cited examples need verification (to-verify). [NS; UP]
+- **Chaîne opératoire:** obtain suitable inner bark → soak/process and separate bast → prepare and join fiber lengths → weave on a backstrap loom → assemble garment → appliqué/embroider as appropriate. Elm (*ohyo*) bast work is described in recent technical studies, including the portable backstrap loom (*attushi karape*) and a staked warp setup [Pal24]; treat the chain above as a summary, and check species- and locality-specific harvest schedules against that literature. [NS; UP]
 - The museum examples connect locally obtained elm fiber to traded indigo-dyed cotton applied as decoration. Material provenance and design identity can differ within one garment. [NS]
 
 | Garment/material choice | Evidence base | Worldbuilding consequence |
@@ -139,7 +144,7 @@
 
 - Useful dated anchors: 1997 cultural-promotion legislation; 2008 parliamentary Indigenous-recognition resolution; 2019 legislation recognizing the Ainu as Indigenous; Upopoy opened in 2020. These are different events, not one discovery of Ainu existence. [F26, pp. 10–11]
 - Pair every fictional era with language transmission, map labels, textile availability, performance settings, and ritual authority; these systems need not change at the same rate.
-- Regional transport, epidemics, and forced relocations deserve their own research before a detailed Sakhalin/Kuril chronology is proposed (to-verify).
+- Regional transport, epidemics, and forced relocations deserve their own research before a detailed Sakhalin/Kuril chronology is proposed; the checked record already supplies the key anchor — the 1875 Treaty of Saint Petersburg exchange and the forced relocation of Ainu from Sakhalin and the Kurils to Hokkaido and Shikotan, compounded by disease and many deaths. [F26, p. 8]
 
 ## Iyomante calibration: neither spectacle nor sanitized metaphor
 
@@ -149,7 +154,7 @@
 | All animal sendings are this same ceremony | Rejected as a blanket rule: Utagawa distinguishes raised-bear iomante from `opunire` for bears killed in the wild. [U92, p. 257] | Keep this author’s distinction visible; confirm local terminology before generalizing. |
 | It is simply sacrifice to an unrelated superior god | Misleading for the relational account in the cited sources: the visiting spirit itself receives hospitality and departure gifts. [F26; U92] | Explain who visits, who gives what, and who is addressed rather than importing a generic sacrificial template. |
 | Archaeological bear remains establish the full rite unchanged | Contested inference: Utagawa distinguishes older animal-related evidence from the developed cub-rearing ceremony. [U92, pp. 259–266] | Bones can support a material practice more directly than its exact liturgy, emotions, or theology. |
-| Its origin has one settled date | Not established here; Utagawa’s late-eighteenth-century proposal is a dated archaeological argument, not a consensus timestamp. [U92] | Leave exact origin and competing chronicle interpretations open (to-verify). |
+| Its origin has one settled date | Not established here; Utagawa’s late-eighteenth-century proposal is a dated archaeological argument, not a consensus timestamp — later scholarship records the same proposal rather than a fixed date. [U92; Uy15] | Leave exact origin and competing chronicle interpretations open. |
 | Every community performed an identical annual event | Not established by this source set; regional practice and historical disruption matter. [F26; UP] | Do not invent a mandatory pan-Ainu calendar, participant roster, or present-day obligation. |
 
 - **Comparative framework:** Utagawa critiques defining the whole culture through a “bear ceremony cultural complex” and offers a wider, hearth-centered network. This is a scholarly model, not an Indigenous constitutional text. [U92, pp. 256–264]
@@ -169,9 +174,9 @@
 ## Provenance cautions and thin coverage
 
 - Direct checks for this entry include the Foundation’s booklet sections, Utagawa’s open article, NINJAL’s corpus introduction, Upopoy’s descriptions, the AMNH/NMS textile accounts, and Strong’s publisher synopsis; the latter is not a substitute for close reading of every translated song.
-- Handbook edition, chapter authors/titles, pages, and DOI metadata were checked; detailed phonology, alignment, reconstructed stages, and individual performances still require the actual chapter/text before reuse (to-verify).
+- Handbook edition, chapter authors/titles, pages, and DOI metadata were checked (the chapter set and DOIs verify); detailed phonology, alignment, reconstructed stages, and individual performances still require the actual chapter text before reuse, and nothing here summarises their contents.
 - Utagawa’s article preserves valuable comparative detail but also dated evolutionary language and hypotheses. Do not adopt its “primitive communism” terminology or proposed cultural stages as timeless Ainu self-description.
 - Ainu voices such as Chiri Yukie’s are authored, situated evidence—not anonymous folklore raw material. Outsider chronicles and colonial-era collections are likewise situated, often selective, and not transparent windows into a whole society.
-- Chronicles and surviving objects do not securely supply a prehistoric ceremony’s complete sequence. Exact iyomante origins, traditional personal-name systems, Kuril performance traditions, and local tattoo meanings remain thin in this entry (to-verify).
+- Chronicles and surviving objects do not securely supply a prehistoric ceremony’s complete sequence. Exact iyomante origins, traditional personal-name systems, Kuril performance traditions, and local tattoo meanings remain thin in this entry; the inline markers name the items that are still open, and none should be filled from analogy.
 - Reject racial-origin typologies and the “vanishing primitive” frame; language genealogy, ancestry, material style, and political identity are different kinds of evidence. Do not convert conjectural long-range language links or Jomon continuity into an unchanged ethnic essence.
 - Public access to a record does not make every story, name, motif, or sacred practice an unrestricted design asset. Attribution and community-specific guidance remain necessary; this is reference methodology, not a rights ruling or permission grant.

@@ -1,7 +1,7 @@
 # Carthage — Punic Language, Votive Cult, and Maritime Culture
 
 - topic: Carthaginian reference base for coupling a Phoenician daughter language, votive religion, public symbols, maritime commerce, material display, and post-conquest language survival; method and reference only, not fictional canon.
-- sources: Krahmalkov (2000, 2001); Lancel (1995); Jongeling (2008); Adams (2003); Schwartz, Houghton, Macchiarelli & Bondioli (2010); Smith, Stager, Greene & Avishai (2013); Xella, Quinn, Melchiorri & van Dommelen (2013); Diodorus Siculus, Library of History 20, trans. Geer (1954); Reynolds & Ward-Perkins (1952), IRT 321, digital ed. (2009); Virgil, Aeneid 1 and 4, ed. Mynors (1969); Metropolitan Museum, Department of Ancient Near Eastern Art (2004). Full locators and verification limits below.
+- sources: Krahmalkov (2000, 2001); Lancel (1995); Jongeling (2008); Adams (2003); Schwartz, Houghton, Macchiarelli & Bondioli (2010); Smith, Stager, Greene & Avishai (2013); Xella, Quinn, Melchiorri & van Dommelen (2013); Diodorus Siculus, Library of History 20, trans. Geer (1954); Reynolds & Ward-Perkins (1952), IRT 321, digital ed. (2009); Virgil, Aeneid 1 and 4, ed. Mynors (1969); Metropolitan Museum, Department of Ancient Near Eastern Art (2004); Hurst & Stager (1978); Bénichou-Safar (1982, 2004); Quinn, McLynn, Kerr & Hadas (2014); Lancellotti (2010); McCarty (2019). Full locators and verification limits below.
 - couples: language — ../linguistics/{historical-linguistics,writing-systems,language-contact,naming-systems,semantic-fields-lexicon-building,sociolinguistics-registers}.md; myth/symbol — ../myth-symbol/{pantheon-archetypes,comparative-frameworks,ritual-liminality,symbolism-synthesis-method}.md; era/costume/material — ../culture-material/{era-periodization-models,dress-through-eras,textile-technology,costume-semiotics,trade-economy-lexicon,material-culture-inference-method}.md; sibling — lore-shokunin receives options and evidence tags, owns canon and the world bible; no sibling files are written.
 
 ## 1. Scope and evidence architecture
@@ -55,7 +55,7 @@
 | `pšt` | flax/linen | CIS I 4874, Punic; a commercial/material term linking traders, textile supply, and dress |
 
 - Naval lexicon design should separate **hull/rigging**, **rowing and command**, **coastal navigation**, **cargo and measures**, **contract/payment**, and **port authority**. Their borrowing histories need not match.
-- “Trireme,” “quinquereme,” and “admiral” are convenient translation labels, not proof of corresponding Punic lexemes. Exact Punic equivalents, pronunciation, and rank distinctions remain `(to-verify)` before quotation.
+- “Trireme,” “quinquereme,” and “admiral” are convenient translation labels, not proof of corresponding Punic lexemes. The dictionary checked here attests `brrm` (cargo ships) and `ḥbl` (sailor) but no securely attested lexeme for a warship class or naval rank; do not quote an invented equivalent.
 - Do not fill gaps by copying Hebrew forms solely because they are cognate. Comparative reconstruction, dictionary gloss, and locally attested word are different evidence classes.
 - Land wealth belongs in the model too: Diodorus 20.8.3–5 describes estates, vines, olives, livestock, and irrigation around Carthage. This is an outsider's portrayal, but it directly challenges a sea-only caricature.
 - Application: derive freight terms from what actually moves, payment terms from the accounting regime, and ceremonial textile vocabulary from the same supply chain. Maritime specialization does not entail a language with only nautical metaphors.
@@ -98,7 +98,7 @@
 - Diodorus 20.14.4–7 reports elite child sacrifice during the crisis of 310 BCE, using “Cronus” and a bronze-image mechanism. He wrote later; this is not an eyewitness report by Diodorus.
 - Treat the bronze figure as a literary claim to test, not as the default drawing of an excavated installation. Do not extrapolate one reported crisis into the routine of every century.
 - Greek/Roman rivalry and Christian polemic require source criticism, not automatic dismissal. Conversely, archaeological remains do not make every lurid textual detail true.
-- Calibration here represents identified positions in the 2010/2013 debate, not a quantitative statement of current scholarly consensus; a newer comprehensive literature update remains `(to-verify)`.
+- Calibration here represents identified positions in the 2010/2013 debate, not a quantitative statement of current scholarly consensus; a later synthesis of the debate is McCarty (2019), cited here as a pointer rather than an inspected argument.
 - Application: design vow obligations, infant-death categories, memorial practices, substitution rules, and outsider accusations as separate variables. Never make real Carthaginians a shorthand for an inherently cruel fictional people.
 
 ## 6. Symbolic system: forms are not a translation dictionary
@@ -111,7 +111,7 @@
 | Egyptianizing elements | Mediterranean circulation and local adaptation; compare the Met (2004) Levantine overview | calling every such object an import, or every user a follower of Egyptian theology |
 | Repeated votive formula and donor lineage | writing itself participates in the monument's public display | reducing symbolic culture to isolated icons |
 
-- Exact motif chronology, workshop distributions, and particular costume-bearing monument identifications are `(to-verify)` against object catalogues before visual reconstruction; the table is not an iconographic concordance.
+- Exact motif chronology, workshop distributions, and particular costume-bearing monument identifications need object-catalogue work before visual reconstruction (e.g., Bénichou-Safar 2004 on the Salammbô stelae); the table is not an iconographic concordance.
 - Use the contextual method in `material-culture-inference-method.md`: record carrier, findspot, date, inscription, deposition, and audience before inferring meaning.
 - Fictional application: a shrine sign, merchant's mark, grave motif, and state emblem can overlap without being interchangeable. Invent rules of authorized reuse, not a single “Carthage aesthetic” sticker set.
 
@@ -129,7 +129,7 @@
 | Roman African continuities, first–fifth centuries CE | Neo-Punic inscriptions, Latin-letter Punic, late-antique literary testimony | script choice, civic bilingualism, altered naming and cult identification; region-by-region evidence |
 
 - “Romanization” should be decomposed into citizenship, office, language, script, cult, and dress. One Roman name or garment does not prove all dimensions changed together.
-- Do not use the circular naval harbor as a timeless foundation-era city plan; its precise construction phases and appearance require an excavation-specific source `(to-verify)`.
+- Do not use the circular naval harbor as a timeless foundation-era city plan; its phases are known from excavation (Hurst & Stager 1978), which places the monumental military harbor in the city's final Punic centuries, not at its foundation.
 
 ## 8. Costume and material signature: build from supply and context
 
@@ -141,7 +141,7 @@
 | Phoenician purple-dye production | Met (2004) supplies a broader Levantine comparison | not evidence that all Carthaginians wore purple or that a specific Punic sumptuary law existed |
 | Broad purple stripe, KAI 126.7–9 | a Neo-Punic/Latin text records a Lepcis civic honor; Krahmalkov cites the parallel Latin | Roman-period provincial status display, not a pre-Roman Carthaginian dress code |
 
-- Detailed Carthaginian garment cuts, priestly headwear, and gendered draping are a **thin-coverage area in the sources checked here**. Verify the so-called priest/priestess sarcophagi and their dates in a monument catalogue before drawing outfits `(to-verify)`.
+- Detailed Carthaginian garment cuts, priestly headwear, and gendered draping are a **thin-coverage area in the sources checked here**. The so-called priest/priestess sarcophagi are catalogued with their dates in Bénichou-Safar (1982); the “priest(ess)” label is an interpretation of funerary context and attributes, so draw outfits from the catalogue record rather than from the label.
 - Do not turn sacred or elite funerary representation into a national uniform. Separate image convention, ritual dress, labor clothing, season, wealth, and access to imported fabrics.
 - For fiction, follow **fiber → preparation → weaving/dyeing → trade → garment → rank/rite**. Choose the actual cuts independently and label them as design choices; no historical reconstruction is implied.
 - Couple a textile seller's vocabulary to freight and money terms, a votive donor's dress to public visibility, and a Roman civic honor to bilingual office vocabulary. Shared supply chains can connect these without making them identical.
@@ -168,9 +168,9 @@
 - **IRT 321** is a specific anchor: at Lepcis Magna a theatre lintel dated 1–2 CE has Latin followed by Neo-Punic, described by its editors as a literal translation. Annobal Rufus combines local lineage, the office `sufes`, and Roman imperial/priestly titulature.
 - This proves institutional bilingual display at Lepcis; it is not direct evidence for the contemporary speech of every inhabitant of Roman Carthage.
 - Latin-letter Punic is language survival with alphabet change, not necessarily the same thing as code-switching. Adams (2003) provides the bilingualism/contact framework; Krahmalkov's foreword identifies the Tripolitanian corpus.
-- Augustine's late-antique testimony is important but socially situated. Krahmalkov cites *Epistulae ad Romanos inchoata expositio* 13 for the reported `Chanani` identification; check the primary edition and context before quoting its wording `(to-verify)`.
+- Augustine's late-antique testimony is important but socially situated. Krahmalkov cites *Epistulae ad Romanos inchoata expositio* 13 for the reported `Chanani` identification, but the standard text's wording is itself disputed: a full re-examination of the manuscripts finds the archetype read *quid sit*, not *quid sint*, and concludes the line cannot be used as positive evidence (Quinn et al. 2014).
 - Do not infer a numerical Punic-speaking majority, uniform rural monolingualism, or a precise extinction date from isolated testimony.
-- Baal Hammon's Roman-period identification with Saturn is recorded in Krahmalkov, s.v. `bʿl ḥmn`; Tanit/Caelestis identifications require their own dated cult evidence `(to-verify)` before asserting uninterrupted local continuity.
+- Baal Hammon's Roman-period identification with Saturn is recorded in Krahmalkov, s.v. `bʿl ḥmn`; the Tanit/Caelestis identification is studied with dated epigraphic and archaeological material (Lancellotti 2010). Assert local continuity only from that dated cult evidence, not from a name equation alone.
 - Application: let personal names, shrine language, public inscriptions, legal status, and daily clothing each have a different persistence curve. Continuity and institutional transformation can occur together.
 
 ## 11. What a worldbuilder can take
@@ -184,7 +184,7 @@
 
 ## 12. Source register and provenance cautions
 
-- **Krahmalkov, Charles R. (2000), *Phoenician-Punic Dictionary*.** Orientalia Lovaniensia Analecta 90 / Studia Phoenicia XV, Peeters. [Checkable scan](https://digitalthought.info/Phoenician-Punic-Dictionary.pdf); headwords and cited inscription identifiers above were checked. Its foreword calls the work personal and acknowledges cross-period pooling; its sacrificial interpretations must not be treated as consensus simply because they appear in a dictionary.
+- **Krahmalkov, Charles R. (2000), *Phoenician-Punic Dictionary*.** Orientalia Lovaniensia Analecta 90 / Studia Phoenicia XV, Peeters. [Checkable scan](https://digitalthought.info/Phoenician-Punic-Dictionary.pdf); headwords and cited inscription identifiers above were checked, including `brrm` (cargo ships, Byb 13.3) and `ḥbl` (sailor, CIS I 3189.3) in the naval-vocabulary audit. Its foreword calls the work personal and acknowledges cross-period pooling; its sacrificial interpretations must not be treated as consensus simply because they appear in a dictionary.
 - **Krahmalkov, Charles R. (2001), *A Phoenician-Punic Grammar*.** Brill, [DOI: 10.1163/9789004294202](https://doi.org/10.1163/9789004294202). Bibliographic record checked; fine reconstruction claims require consultation of the relevant discussion, not this entry alone.
 - **Lancel, Serge (1995), *Carthage: A History*, trans. Antonia Nevill.** Blackwell. General historical/archaeological orientation; not a substitute for a dated object catalogue. The 1995 work is also cited in Schwartz et al.'s bibliography, whose publisher field differs; use the named English edition when locating it.
 - **Jongeling, Karel (2008), *Handbook of Neo-Punic Inscriptions*.** Mohr Siebeck. Standard corpus reference; cited here for further regional/epigraphic checking, not as a claim that every inscription was inspected in this pass.
@@ -196,6 +196,12 @@
 - **Reynolds, J. M. & J. B. Ward-Perkins (1952), *The Inscriptions of Roman Tripolitania*.** British School at Rome; [IRT 321, digital edition (2009)](https://inslib.kcl.ac.uk/irt2009/IRT321.html) checked for date, bilingual description, text, and translation.
 - **Virgil, *Aeneid* 1 and 4**, in R. A. B. Mynors, ed. (1969), *P. Vergili Maronis Opera*, Oxford Classical Texts. Literary reference, not a native Punic chronicle; no exact verse translation is quoted here.
 - **Metropolitan Museum, Department of Ancient Near Eastern Art (2004), “The Phoenicians (1500–300 B.C.).”** [Institutional overview](https://www.metmuseum.org/essays/the-phoenicians-1500-300-b-c), checked for its broad Levantine/maritime and purple-production framing. Its objects and generalizations must not be silently relocated to Carthage.
+- **Quinn, Josephine Crawley, Neil McLynn, Robert M. Kerr & Daniel Hadas (2014).** “Augustine’s Canaanites,” *Papers of the British School at Rome* 82: 175–197, [DOI](https://doi.org/10.1017/S0068246214000087). Full-manuscript re-examination of the `Chanani` line; argues the archetype read *quid sit*, not *quid sint*, and that the passage cannot support a Canaanite self-designation. Abstract and reference apparatus checked; article body paywalled.
+- **McCarty, Matthew M. (2019).** “The Tophet and Infant Sacrifice,” in Carolina López-Ruiz & Brian R. Doak, eds., *The Oxford Handbook of the Phoenician and Punic Mediterranean*, Oxford University Press, 310–325; [chapter record](https://dialnet.unirioja.es/servlet/articulo?codigo=10234259). Cited as the post-2013 literature pointer for the tophet debate; full text not inspected here.
+- **Hurst, Henry & Lawrence E. Stager (1978).** “A metropolitan landscape: the late Punic port of Carthage,” *World Archaeology* 9(3): 334–346; [open copy](https://www.ancientportsantiques.com/wp-content/uploads/Documents/PLACES/NorthAfrica/Carthage-Hurst&Stager1978.pdf). Excavation-based account of the harbor sequence. Note the publisher’s DOI string contains a stale 1973 year — cite the article as 1978, World Archaeology 9(3).
+- **Bénichou-Safar, Hélène (1982).** *Les tombes puniques de Carthage: topographie, structures, inscriptions et rites funéraires*, Études d’antiquités africaines, Éditions du CNRS, ISBN 2-222-02914-7; [Persée record](https://www.persee.fr/doc/etaf_0768-2352_1982_mon_3_1). Standard tomb catalogue for Carthage, including the anthropoid sarcophagi; used here as the monument-catalogue control, not a wardrobe source.
+- **Bénichou-Safar, Hélène (2004).** *Le tophet de Salammbô à Carthage: essai de reconstitution*, Collection de l’École française de Rome 342, ISBN 9782728306978. Monument-level reconstruction of the tophet stelae; use with dated objects, not as a decoded motif dictionary.
+- **Lancellotti, Maria Grazia (2010).** *Dea Caelestis: studi e materiali per la storia di una divinità dell’Africa romana*, Collezione di studi fenici 44, Fabrizio Serra, ISBN 9788862273176; [review](https://bmcr.brynmawr.edu/2011/2011.09.48/). Dated epigraphic/archaeological material for the Tanit/Caelestis question; bibliographic record and review checked, monograph not inspected here.
 - KAI = Donner & Röllig, *Kanaanaische und aramäische Inschriften* (1962–1964 and later editions); CIS I = *Corpus Inscriptionum Semiticarum*, Phoenician/Punic series; RES = *Répertoire d'épigraphie sémitique*. Locators here are mediated by Krahmalkov unless explicitly stated otherwise; a locator is not a claim of independent stone autopsy.
 - Punic colonization was itself a historical process involving local populations, unequal power, and changing alliances; Greek/Roman conquest and modern colonial collecting add further filters. Neither romanticizing traders nor reproducing conquerors' caricatures is source criticism.
-- Final guard: detailed garment reconstructions, festival calendars, astronomical readings of motifs, demographic rates of sacrifice, and a final survival date are **not established by this entry**. Retain the inline `(to-verify)` gates rather than filling those gaps with plausible invention.
+- Final guard: detailed garment reconstructions, festival calendars, astronomical readings of motifs, demographic rates of sacrifice, and a final survival date are **not established by this entry**. Where the triage resolved a gap, the source is cited above; keep the remaining uncertainty calibration rather than filling these gaps with plausible invention.

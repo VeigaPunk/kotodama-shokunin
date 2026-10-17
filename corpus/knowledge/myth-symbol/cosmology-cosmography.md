@@ -7,9 +7,9 @@
   - Hesiod, Works and Days 106–201 + Theogony (trans. West 1988, OUP); Ovid, Metamorphoses 1 (trans. Melville 1986, OUP); Snorri Sturluson, Edda, trans. Faulkes (1987); Poetic Edda (Völuspá, Vafþrúðnismál), trans. Larrington (1996, OUP)
   - Rigveda 10.90, 10.121, 10.129 (trans. Jamison & Brereton 2014, OUP); Viṣṇu Purāṇa 1–2 (trans. Wilson 1840); Vasubandhu, Abhidharmakośa, trans. La Vallée Poussin (1923–31); Staal (1983), Agni: The Vedic Ritual of the Fire Altar, 2 vols.
   - Kramrisch (1946), The Hindu Temple, 2 vols., U Calcutta; Mannikka (1996), Angkor Wat: Time, Space, and Kingship, U Hawaiʻi Press
-  - Horowitz (1998), Mesopotamian Cosmic Geography, Eisenbrauns (Imago Mundi BM 92687); Lambert (2013), Babylonian Creation Myths, Eisenbrauns (Enūma Eliš); Bidmead (2002), The Akitu Festival, Gorgias
+  - Horowitz (1998), Mesopotamian Cosmic Geography, Eisenbrauns (Imago Mundi BM 92687); Lambert (2013), Babylonian Creation Myths, Eisenbrauns (Enūma Eliš); Bidmead (2002), The Akitu Festival, Gorgias; Sommer (2000), "The Babylonian Akitu Festival: Rectifying the King or Renewing the Cosmos?", JANES 27: 81–95; Debourse (2022), Of Priests and Kings: The Babylonian New Year Festival in the Last Age of Cuneiform Culture, Brill (CHANE 127) — the Enūma Eliš recitation is attested only in a Seleucid-era ritual text, and the annual-reenactment reading is contested
   - Allen, J.P. (1988), Genesis in Egypt, Yale Egyptological Studies 2; Hornung (1999), The Ancient Egyptian Books of the Afterlife, Cornell UP; Neugebauer & Parker (1960–69), Egyptian Astronomical Texts, 3 vols., Brown UP; Belmonte & Shaltout eds. (2009), In Search of Cosmic Order, Supreme Council of Antiquities, Cairo
-  - Needham (1959), Science and Civilisation in China, vol. 3, CUP (gaitian/huntian/xuanye, Kaogongji); Pankenier (2013), Astrology and Cosmology in Early China, Cambridge UP
+  - Needham (1959), Science and Civilisation in China, vol. 3, CUP (gaitian/huntian/xuanye, Kaogongji); Pankenier (2013), Astrology and Cosmology in Early China, Cambridge UP; He et al. (2023), "Study on the historical changes in the central axis of Beijing based on modern technology", ISPRS Archives XLVIII-1/W2-2023, 91–96, doi:10.5194/isprs-archives-XLVIII-1-W2-2023-91-2023 — central-axis deviation measured at 2°49′26″ counterclockwise (Kui's earlier measure 2°12′)
   - Sahagún, Florentine Codex, trans. Anderson & Dibble (1950–82, U Utah); Miller & Taube (1993), The Gods and Symbols of Ancient Mexico and the Maya, Thames & Hudson; Bierhorst (1992), History and Mythology of the Aztecs (Leyenda de los Soles), U Arizona Press; Codex Borbonicus (New Fire folio); Codex Fejérváry-Mayer p. 1 (direction almanac); Aveni (2001), Skywatchers, rev. ed., U Texas Press; Aveni (2009), The End of Time: The Maya Mystery of 2012, U Press of Colorado; Milbrath (1999), Star Gods of the Maya, U Texas Press; Heyden (1975), "An Interpretation of the Cave underneath the Pyramid of the Sun in Teotihuacan", American Antiquity 40(2)
   - Cobo (1653; trans. Hamilton 1990), Inca Religion and Customs, U Texas Press; Zuidema (1964), The Ceque System of Cuzco, Brill; Bauer (1998), The Sacred Landscape of the Inca, U Texas Press
   - Kojiki (712 CE; trans. Philippi 1968, U Tokyo Press); Buck / Te Rangi Hīroa (1949), The Coming of the Māori; Beckwith (1951), The Kumulipo: A Hawaiian Creation Chant, U Chicago Press; Liezi, "Tang Wen" chapter
@@ -60,7 +60,7 @@
 
 | System | Code | Built / ritual expression | Sources |
 |---|---|---|---|
-| China: wǔfāng–wǔxíng | E blue-green/wood, S red/fire, W white/metal, N black/water, C yellow/earth | Kaogongji capital: 9-li square, 3 gates per side, ancestral temple E, soil-and-grain altar W, court S, market N; Beijing's 7.8 km central axis (UNESCO 2024) with round Temple of Heaven and square Temple of Earth; axis sits ~2° off true north (to-verify) | Needham 1959; Pankenier 2013 |
+| China: wǔfāng–wǔxíng | E blue-green/wood, S red/fire, W white/metal, N black/water, C yellow/earth | Kaogongji capital: 9-li square, 3 gates per side, ancestral temple E, soil-and-grain altar W, court S, market N; Beijing's 7.8 km central axis (UNESCO 2024) with round Temple of Heaven and square Temple of Earth; axis deviates ~2°12′–2°49′ counterclockwise from true north (measured; He et al. 2023) | Needham 1959; Pankenier 2013 |
 | Mesoamerica: quincunx | E red, W black, N white, S yellow, C blue-green | year-bearers rotate through the quarters in 13-year bundles; Codex Fejérváry-Mayer p. 1 is the canonical diagram | Sahagún; Miller & Taube 1993 |
 | Cusco: ceque system | not quartered — 41 radial lines from the Coricancha through 328 huacas, owned by royal lineages | roads (Qhapaq Ñan) plug the provinces into the diagram; huacas serviced on a calendrical round | Cobo 1990; Zuidema 1964; Bauer 1998 |
 | Gaelic: body-coded | facing sunrise: right = deas "south", left = tuath "north"; deiseil = sunwise circumambulation | luck runs with the sun; widdershins cursing | — |
@@ -102,7 +102,7 @@
 
 | Complex | Cosmographic claim | Built signature | Sources |
 |---|---|---|---|
-| Babylon: Etemenanki + akītu | ziggurat named "house of the foundation of heaven-and-earth"; Enūma Eliš recited at New Year as Marduk renews cosmos and kingship; the king's cheek struck, his scepter restored | city as stage; the annual reenactment link is late-attested and contested in Assyriology (to-verify; see comparative-frameworks.md §3) | Lambert 2013; Bidmead 2002 |
+| Babylon: Etemenanki + akītu | ziggurat named "house of the foundation of heaven-and-earth"; Enūma Eliš recited at New Year as Marduk renews cosmos and kingship; the king's cheek struck, his scepter restored | city as stage; the annual reenactment link is late-attested (Seleucid-era ritual text) and contested in Assyriology (Sommer 2000; Debourse 2022; see comparative-frameworks.md §3) | Lambert 2013; Bidmead 2002 |
 | Egyptian temple | temple = primeval mound; pylons = akhet "horizon"; columns = marsh plants; Karnak's main axis toward winter-solstice sunrise | floor rises toward the sanctuary; one dawn a year light reaches the inner statue | Allen 1988; Belmonte & Shaltout 2009 |
 | Vedic agnicayana | fire altar built as Puruṣa-cosmos in five brick layers; brick totals keyed to year-units and Vedic syllable-count symbolism; rebuilt yearly | the calendar is laid in bricks | Staal 1983 |
 | Hindu temple | garbhagriha over the vastu-puruṣa-maṇḍala (81 padas, Brahma at center); śikhara as Meru | temple plan = maṇḍala = diagram; the king patrons the axis | Kramrisch 1946 |
@@ -143,7 +143,7 @@
 - "Medieval flat earth": 19th-century fabrication (Russell 1991).
 - Medicine-wheel direction colors: vary by nation; Black Elk's set arrives mediated through Neihardt (DeMallie 1984). Never pan-Indianize direction colors.
 - Waters, Book of the Hopi (1963): unreliable synthesis; prefer Hopi-authored sources (Geertz 1994). Apply the same discipline to any "secret teachings" cosmography.
-- akītu / Enūma Eliš annual performance: late-attested, contested (to-verify).
+- akītu / Enūma Eliš annual performance: the recitation is attested only in a Seleucid-era ritual text and the annual-reenactment model is contested (Sommer 2000; Debourse 2022).
 - Wheatley's ceremonial-center urbanism: generator, not settled history — single-cause models are heavily qualified in current urban archaeology.
 - El Castillo's equinox light-serpent: the phenomenon is real; builder intent is debated (Aveni 2001).
 

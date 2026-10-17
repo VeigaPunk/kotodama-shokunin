@@ -68,7 +68,7 @@
 - Roman elite ethnography is an imperial filter, not neutral access to colonized or neighboring peoples; Tacitus also uses them to discuss Roman moral concerns.
 - **Comparison grid:** local name | outsider equivalent | who asserts equivalence | shared attribute | incompatible rite | patron/funder | date | evidence type.
 - **Application:** design rival translations by merchants, conquerors, priests, and local elites; preserve the possibility that locals reject the offered equivalence.
-- Do not reconstruct an otherwise unattested local theology from a Roman label alone; names, ritual details, and language outside the surviving report remain **(to-verify)**.
+- Do not reconstruct an otherwise unattested local theology from a Roman label alone; names, ritual details, and language outside the surviving report are not attested elsewhere.
 
 ## 6. Imperial cult — institutions, not one compulsory creed
 | Setting/object of honor | Working distinction | Coupling |
@@ -112,7 +112,7 @@
 - Suetonius, *Augustus* 40.5, reports toga enforcement near the Forum; a demand to restore a dress norm is evidence of tension, not proof of universal compliance.
 - Woolen draped civic dress coexists with tunics, cloaks, linen textiles, regional fashions, and working clothes; fiber, weave, cleaning, repair, and season need independent specification.
 - Women's stola/palla terminology and the literary association of some women with the toga require caution; “all respectable women wore X, all prostitutes wore Y” is an overconfident wardrobe census.
-- Cloth survives unevenly; statues idealize bodies and often lose color. Exact early cuts, dye recipes, and province-specific access rules not established here remain **(to-verify)**.
+- Cloth survives unevenly; statues idealize bodies and often lose color. Exact early cuts, dye recipes, and province-specific access rules are not established here.
 - **Application:** couple garment eligibility to age, office, wealth, and occasion; test an outfit whose rank signal passes while its wearer's speech or name reveals a mismatch.
 
 ## 9. Naming practices — status-bearing, historical, not a three-box generator
@@ -174,8 +174,9 @@
 - Alison E. Cooley (2012), *The Cambridge Manual of Latin Epigraphy*, Cambridge University Press; [publisher front matter](https://assets.cambridge.org/97805218/40262/frontmatter/9780521840262_frontmatter.pdf) confirms edition and scope: inscriptions as situated, transmitted evidence.
 - Andrew Burnett (1987), *Coinage in the Roman World*, Seaby; C. H. V. Sutherland (1984), *The Roman Imperial Coinage*, vol. I, revised ed., *From 31 BC to AD 69*, Spink: monetary history versus individual type identification.
 - Quintilian, *Institutio oratoria*, trans. H. E. Butler (1920–1922), Loeb Classical Library; checked [1.6](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/1B*.html#6) and [11.3.137–149](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Quintilian/Institutio_Oratoria/11C*.html#3.137). Ancient composition belongs to the late first century CE, not the translation date.
-- Tacitus, *Germania*, trans. M. Hutton (1914), Loeb Classical Library; ancient text conventionally dated c. 98 CE; chapter 43 checked against [Latin text](https://www.thelatinlibrary.com/tacitus/tac.ger.shtml), whose web presentation does not replace a critical edition.
+- Tacitus, *Germania*, trans. M. Hutton (1914), Loeb Classical Library; ancient text conventionally dated c. 98 CE; chapter 43 checked against [Latin text](https://www.thelatinlibrary.com/tacitus/tac.ger.shtml), whose web presentation does not replace a critical edition. The Alcis are attested only in this passage; names, ritual details, and language of the grove have no independent record.
 - Suetonius, *Lives of the Caesars*, vol. I, trans. J. C. Rolfe (1914), Loeb Classical Library; [*Augustus* 38.2, 40.5, 52](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Suetonius/12Caesars/Augustus*.html): early second-century biography describing an earlier reign.
+- Livy, *Ab urbe condita* 1.8 ([Latin text](https://www.thelatinlibrary.com/livy/liv.1.shtml)) and Dionysius of Halicarnassus, *Roman Antiquities* 3.61 (English translation at [LacusCurtius](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Dionysius_of_Halicarnassus/3D*.html)): passages inspected 2026-10-17 for the regal insignia attributions; both are later literary constructions, not contemporary records.
 - American Numismatic Society / Institute for the Study of the Ancient World, *Online Coins of the Roman Empire* (ongoing), Augustus 206, accessed 2026-10-17; MoneyMuseum (n.d.), [record 397](https://www.moneymuseum.com/en/coins?&id=397), accessed 2026-10-17: its explicit Augustan tariff was checked, not its compressed account of later weight changes.
 
 ## 13. What a worldbuilder can take
@@ -190,8 +191,8 @@
 ## 14. Provenance cautions and thin areas
 - **Evidence asymmetry:** elite male literary authors, selective inscriptions, commissioned images, and archaeologically favored materials dominate; enslaved people, women, rural communities, and many local languages are unevenly recoverable.
 - **Source bias:** Quintilian prescribes cultivated behavior; Suetonius constructs imperial character; Tacitus interprets outsiders through Roman categories. None is a neutral census or a transcript of collective belief.
-- **Chronicle scarcity:** regal institutional origins and detailed archaic dress chronologies remain thin here; a later story that a king “invented” an insignia is not a secure event date **(to-verify)**.
-- **Reconstruction limits:** exact dialect-to-class mappings, garment dimensions, dye identification from faded images, and region-specific ritual compliance need dedicated evidence **(to-verify)**; no universal recipe is supplied.
+- **Chronicle scarcity:** regal institutional origins and detailed archaic dress chronologies remain thin here; a later story that a king “invented” an insignia is not a secure event date. Such attributions belong to later literary tradition (Livy 1.8 on Romulus' twelve lictors and the Etruscan origin of curule chair and toga praetexta; Dionysius of Halicarnassus 3.61 on the insignia brought to Tarquinius Priscus), not to contemporary evidence.
+- **Reconstruction limits:** exact dialect-to-class mappings, garment dimensions, dye identification from faded images, and region-specific ritual compliance need dedicated evidence; no universal recipe is supplied.
 - **Verification scope:** linked ancient passages and the OCRE type were inspected; publisher front matter and selected catalog metadata establish bibliographic anchors, not a fresh full-text audit of every modern monograph. No uninspected page-specific quotation or precision measurement is asserted.
 - **Misleading defaults to reject:** decadent Latin as a linguistic fact; Roman gods as merely renamed Greeks; universal emperor worship; latus clavus as a toga border; every Roman with three names; every year dated AUC; an aureus worth the same basket of goods for centuries.
 - **Method boundary:** the matrices and application rules are analytical aids, not ancient native taxonomies. Reference does not authorize a single moral essence of “Roman culture,” and it does not settle fictional canon.

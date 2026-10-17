@@ -1,6 +1,6 @@
 # Amazigh / Berber — language, ritual time, dress, and poetic authority
 - topic: Amazigh comparative base: the Tamazight/Berber language cluster, Tifinagh histories, Tuareg matriliny and men's veiling, oasis calendars, and asefru performance registers; reference and generative method, not fictional canon.
-- sources: Chaker (1986, 1989, 2012); Camps (1986); Camps and Chaker (1989); Camps-Fabrer (1991); Rasmussen (1991); E.B., Gast and Delheure (1992); Camps et al. (1996); Gélard (2012); Abrous (2015); Claudot-Hawad (2015); Bounfour (2015); Unicode Consortium (2025); UNESCO (2008, 2013, 2014, 2015); full references below.
+- sources: Chaker (1986, 1989, 2012); Camps (1986); Camps and Chaker (1989); Camps-Fabrer (1991); Rasmussen (1991); E.B., Gast and Delheure (1992); Camps et al. (1996); Gélard (2012); Abrous (2015); Claudot-Hawad (2015); Bounfour (2015); Unicode Consortium (2025); UNESCO (2008, 2013, 2014, 2015); Taoutaou, *Insaniyat* (n.d.); Xinhua (2018); BBC (2024, 2026); full references below.
 - couples: language → `../linguistics/{morphological-typology,writing-systems,kinship-terminology,naming-systems,sociolinguistics-registers,orality-formulaic-language}.md`; myth/symbol → `../myth-symbol/{pantheon-archetypes,comparative-frameworks,symbolism-synthesis-method,celestial-symbolism-calendars}.md`; era/costume → `../culture-material/{era-periodization-models,calendar-festival-systems,costume-semiotics,textile-technology,material-culture-inference-method}.md`; sibling → lore-shokunin owns world-bible selection and canon verification; no sibling writes.
 
 ## Scope and calibration
@@ -34,6 +34,9 @@
 - UNESCO (2013), “Practices and knowledge linked to the Imzad of the Tuareg communities of Algeria, Mali and Niger,” element 00891. [Record](https://ich.unesco.org/en/RL/practices-and-knowledge-linked-to-the-imzad-of-the-tuareg-communities-of-algeria-mali-and-niger-00891).
 - UNESCO (2014), “Ritual and ceremonies of Sebeïba in the oasis of Djanet, Algeria,” element 00665. [Record](https://ich.unesco.org/en/RL/ritual-and-ceremonies-of-sebeiba-in-the-oasis-of-djanet-algeria-00665).
 - UNESCO (2015), “Sbuâ, annual pilgrimage to the zawiya of Sidi El Hadj Belkacem in Gourara,” element 00667. [Record](https://ich.unesco.org/en/RL/sbua-annual-pilgrimage-to-the-zawiya-of-sidi-el-hadj-belkacem-in-gourara-00667).
+- Taoutaou, Hocine. n.d. “Contribution au débat sur la fête populaire de Yennayer.” *Insaniyat* (CRASC, Oran). [Article record](https://journals.openedition.org/insaniyat/31954). Used for the modern origin of the era count (Ammar Negadi's 1980 calendar, 950 BCE anchor); the site's anti-scraping gate blocked the full text during this check and the publication year was not independently confirmed (site metadata indicates 2024), so the point is carried as a search-verified abstract-level claim.
+- Xinhua (2018), [“Algeria recognizes Berber's Yennayer as national public holiday”](http://www.xinhuanet.com/english/2018-01/12/c_136889329.htm). Wire report dated 2018-01-12 used for the paid-holiday decision.
+- BBC News (2026), [“Yennayer: North Africa's Amazigh people ring in the year 2976”](https://www.bbc.com/news/articles/cj0nm44g361o), and BBC Travel (2024), [“Yennayer: North Africa's 3,000-year-old new year's celebration”](https://www.bbc.com/travel/article/20240112-yennayer-north-africas-3000-year-old-new-years-celebration). Reporting used for current observance dates and recognition status, not for history.
 
 ## Language family: related systems, not an Arabic dialect
 - Amazigh/Berber constitutes a branch of Afroasiatic; Arabic belongs to the Semitic branch. Contact and borrowing do not make Berber a descendant of Arabic (Chaker 1989, §12).
@@ -142,7 +145,7 @@
 
 - The listed subperiods called “weeks” include named decades and a final much longer interval; do not translate their terminology into uniform seven-day units.
 - *Asili*, pollination, is glossed through climbing the palms; this directly couples calendar terminology to skilled bodily work, rather than to an abstract numbered month.
-- Ennayer/Yennayer belongs to the January/new-year complex; the source records Kabyle “door of the year” language and auspicious meals. Local modern celebration dates and year-numbering histories are `(to-verify)`, not evidence of one unchanged ancient founding epoch.
+- Ennayer/Yennayer belongs to the January/new-year complex; the source records Kabyle “door of the year” language and auspicious meals. Modern observance spans 12–14 January by area, and the era count (Gregorian year + 950) is a twentieth-century convention traced to Ammar Negadi's 1980 calendar rather than a continuously recorded ancient era [BBC 2026; Taoutaou]. State recognition is also recent: Algeria has observed 12 January as a paid holiday since 2018, Morocco since 2024 [Xinhua 2018; BBC 2024]. None of this is evidence of one unchanged ancient founding epoch.
 - Djanet's Sebeïba falls in the first Islamic lunar month, while Sbuâ commemorates the Prophet's birth; neither is established as a fixed solar harvest festival by its UNESCO record.
 - **Design:** choose the food bottleneck, water-work schedule, sky observation, and ritual authority first; then test what happens when a lunar festival and harvest labor coincide.
 

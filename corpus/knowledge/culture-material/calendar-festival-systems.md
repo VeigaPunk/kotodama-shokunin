@@ -11,7 +11,8 @@
   - French Republican calendar: decree of 5 October 1793 (National Convention) with Fabre d'Églantine's month-name report; decimal time suspended 18 Germinal An III (April 1795); calendar abolished effective 1 January 1806; Comte (1849), calendrier positiviste
   - Soviet week: nepreryvka decree (Sept 1929), shestidnevka (1931), return to the 7-day week (June 1940); covered in Zerubavel (1985), *The Seven Day Circle*, Free Press (also: Babylonian lunar-quarter omens, planetary week attested at Pompeii, weeks of every length)
   - Eiseman (1989), *Bali: Sekala and Niskala* vol. 1 (pawukon, ten concurrent weeks, 210-day year; Saka/Nyepi); Javanese pasaran–weton material (standard ethnography)
-  - Poole (1996), "'Give us our eleven days!'", Past & Present 150 (to-verify volume) — the calendar-riot myth demoted; Hogarth, *An Election Entertainment* (1755) for the slogan itself; Duncan (1998), *The Calendar* (popular history still repeating the riots)
+  - Konadu (2012), "The Calendrical Factor in Akan History," *International Journal of African Historical Studies* 45.2 (adaduanan as a 42-day cycle: six prefixes × seven day-names; dapaa/dabɔne/dahunu day classes)
+  - Poole (1995), "'Give us our eleven days!'", Past & Present 149 — the calendar-riot myth demoted; Hogarth, *An Election Entertainment* (1755) for the slogan itself; Duncan (1998), *The Calendar* (popular history still repeating the riots)
   - World Calendar (Achelis 1930; UN shelving 1955); International Fixed Calendar (Cotsworth; Eastman; Kodak usage 1928–1989) — Journal of Calendar Reform run; Pax calendar (intercalary week)
   - Iran: Solar Hijri law of 1925; Jalali commission of Malik-Shah at Isfahan (1079) with Khayyam among the astronomers (his personal share partly legendary); Zoroastrian month names preserved in the modern calendar
   - Sahagún, Florentine Codex Bk II (18 veintenas + nemontemi)
@@ -67,7 +68,7 @@
 | 20th c. | China 1912 (dual-calendar life ever since); Soviet Russia 1918 (31 Jan → 14 Feb); Greece 1923 (last in Europe); Turkey 1926 |
 
 - Sequelae: Old Style/New Style double dating ("born 11 Feb 1731 OS / 22 Feb 1732 NS" — Washington's two birthdays); the British tax year moved to 5 April (1753) and again to 6 April (1800) so no revenue days were lost — fiscal time outlives reform and quietly rewrites it.
-- Calibration — the "calendar riots of 1752" are largely mythical: the slogan "Give us our Eleven Days!" is known from Hogarth's satire; documented disturbances are not (Poole 1996). Popular histories still print riot scenes; a lore bible must not.
+- Calibration — the "calendar riots of 1752" are largely mythical: the slogan "Give us our Eleven Days!" is known from Hogarth's satire; documented disturbances are not (Poole 1995). Popular histories still print riot scenes; a lore bible must not.
 - Failed global projects: the World Calendar (Achelis, 1930; League of Nations → UN, shelved 1955, in part over sabbath-continuity objections to a perpetual year); the International Fixed Calendar (Cotsworth; adopted by Kodak 1928–1989: 13 months × 28 days + "Year Day"); the Pax calendar (intercalary week). The recurring killer: religions whose rest day must run uninterrupted forever.
 - Soviet week wars: 1929 nepreryvka (continuous 5-day week; rest staggered by color — yellow, orange, red, purple, green — one worker in five off each day, no shared rest day), 1931 shestidnevka (6-day), June 1940 return to the 7-day week. Intent: dissolve the weekend as sacred/free-time institution; result: unpopularity, then repeal. The best-attested case of week engineering as social engineering.
 
@@ -143,7 +144,7 @@
 
 ## 10. Calibration shelf (contested or discredited — flag before anything reaches the bible)
 
-- Calendar riots of 1752 — myth (Poole 1996); grievance satire (Hogarth) real.
+- Calendar riots of 1752 — myth (Poole 1995); grievance satire (Hogarth) real.
 - Nicaea's Easter canon — the exact conciliar ruling is lost; the stated rule is later reconstruction; write "the principle", not "the decree".
 - Hillel II "created the fixed calendar in 359 CE" — traditional attribution; Stern (2001) argues the fixed calendar crystallized gradually, with thin evidence before the geonic period.
 - "Meton discovered the 19-year cycle" — Babylonian regularized intercalation predates him (Parker & Dubberstein 1956); the Greek name is a priority claim.
@@ -153,7 +154,7 @@
 - Khmer Rouge "Year Zero" (1975) — widely reported framing; a formal decree is thin in the record; use as rhetoric-attributed.
 - Gregorian accuracy figures vary with the reference year (≈1 d/3,300 yr vs mean tropical; longer vs the equinox year) — quote with the yardstick named.
 - "The week comes from a Babylonian seven-day creation" — etiological legend; the attested chain is lunar-quarter omens → Jewish rest day → planetary week → church calendar (Zerubavel 1985).
-- West African market-week structure (Akan adaduanan, a 40-day cycle; Rattray 1923) — the cycle is standard, the internal substructure I have not verified (to-verify).
+- West African market-week structure (Akan adaduanan; Rattray 1923): "forty days" is the colloquial name — structurally a 42-day cycle of six prefixes × seven day-names, days classed dapaa/dabɔne/dahunu (Konadu 2012, who contests the Mande/Islamic-conjunction origin thesis). The cycle is standard; name and structure differ.
 
 ## 11. Application protocol — building a fictional culture's calendar
 
@@ -169,4 +170,4 @@
 
 ## 12. Canon boundary
 
-Reference knowledge and method only. Which calendar a fictional culture keeps, what its festivals mean in-world, which real-world parallel its system instantiates, whether its reform succeeds — canon decisions owned by lore-shokunin. Hand off: intercalation-strategy tables, adoption/reform patterns, week alternatives, festival-arc slots, era mechanics, and the vocabulary list as era-anchored options with calibration flags attached (flag every to-verify item above before it approaches the bible).
+Reference knowledge and method only. Which calendar a fictional culture keeps, what its festivals mean in-world, which real-world parallel its system instantiates, whether its reform succeeds — canon decisions owned by lore-shokunin. Hand off: intercalation-strategy tables, adoption/reform patterns, week alternatives, festival-arc slots, era mechanics, and the vocabulary list as era-anchored options with calibration flags attached (flag every residual uncertainty before it approaches the bible).

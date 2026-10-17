@@ -13,13 +13,18 @@
   - [SL03c] Lee, Soyoung (2003), “Goryeo Celadon,” *Heilbrunn Timeline of Art History*, Metropolitan Museum of Art, October. [Museum essay](https://www.metmuseum.org/essays/goryeo-celadon).
   - [SL03s] Lee, Soyoung (2003), “Golden Treasures: The Royal Tombs of Silla,” *Heilbrunn Timeline of Art History*, Metropolitan Museum of Art, October. [Museum essay](https://www.metmuseum.org/toah/hd/sila/hd_sila.htm).
   - [WH95] UNESCO World Heritage Centre (1995 inscription; current web synthesis undated), “Haeinsa Temple Janggyeong Panjeon, the Depositories for the Tripitaka Koreana Woodblocks.” [Property 737](https://whc.unesco.org/en/list/737/).
+  - [SJ46t] Wikisource community English translation of the *Hunminjeongeum* / Haerye, [Translation:Hunminjeongeum](https://en.wikisource.org/wiki/Translation:Hunminjeongeum), consulted 2026-10-17 — used only as a translation route for the design chapter; a facsimile collation remains the stronger check.
+  - [KJ15] Kim, Jinyoung, Jaeyeong Lee, and Jongoh Lee (2015), “Goryeoyang and Mongolpung in the 13th–14th Centuries,” *Acta Orientalia Academiae Scientiarum Hungaricae* 68(3): 281–292, [open PDF](https://real.mtak.hu/37257/1/062.2015.68.3.3.pdf), consulted 2026-10-17.
+  - [NMK24] “Sculpted Celadon: An Aesthetic Rhapsody of Goryeo” (trans. Lee Kyong-hee), *International Journal of Korean Art and Archaeology* (National Museum of Korea), [article](http://www.ijkaa.org/v20/1/11/180), consulted 2026-10-17; quotes Xu Jing (1124), *Illustrated Account of Goryeo*, vol. 32.
+  - [Met27] Metropolitan Museum of Art, object record 27.119.1, [“Maebyeong with lotus decoration”](https://www.metmuseum.org/art/collection/search/42278), consulted 2026-10-17.
+  - Retrieval note (2026-10-17): [SL02], [SL03c], and [SL03s] were retrieved and inspected in the triage pass; checks they support are cited per row below.
 - couples: language → `../linguistics/{historical-linguistics,writing-systems,language-contact,sociolinguistics-registers,naming-systems}.md`; myth/symbol → `../myth-symbol/{creation-myths-taxonomy,pantheon-archetypes,color-symbolism,animal-symbolism,symbolism-synthesis-method}.md`; era/costume/material → `../culture-material/{era-periodization-models,sumptuary-law-rank-display,dress-through-eras,textile-technology,ritual-garments,material-culture-inference-method}.md`; sibling recipient → lore-shokunin owns world-bible decisions, while this entry supplies reference constraints and uncertainty-tagged design options only.
 
 ## 1. Evidence contract and lookup conventions
 
 - Reference spellings mainly use Revised Romanization: Goguryeo/Koguryŏ, Baekje/Paekche, Goryeo/Koryŏ, golpum/kolp’um, cheongja/ch’ŏngja. These are alternative transcriptions, not separate cultures or historical sound changes.
 - **Strongly checked here:** [LR11] Introduction; the two translated primary-source selections in [PHL93]; [SJ46] catalogue description; [SV20] open article; [WH95] synthesis. Publisher descriptions establish the bibliography and broad arguments of [SV08], [D92], and [P00], not every statement in those books.
-- **Art-source limitation:** [SL02], [SL03c], and [SL03s] are identifiable museum essays, but full-text retrieval was blocked during this pass. Fine terminology, object-level meanings, and reconstructions dependent on those texts are marked `(to-verify)` below rather than presented as freshly checked evidence.
+- **Art-source status:** [SL02], [SL03c], and [SL03s] were retrieved and inspected in the 2026-10-17 triage pass; the checks they support are cited per row below. Residual object-level meanings and catalogue-dependent detail remain marked `(to-verify)` rather than presented as freshly checked evidence.
 - **Thin coverage:** ordinary households, regional speech, lower-status naming, perishable clothing, and the exact performance of local rites are much less recoverable here than elite inscriptions, chronicles, and surviving luxury objects. Absence from this entry is not historical absence.
 - Designer rule: keep **date of alleged event → date of surviving witness → date of modern interpretation** in separate fields. A Goryeo compilation about ancient Silla is not an eyewitness transcript of Silla.
 
@@ -30,7 +35,7 @@
 | Three Kingdoms, especially fourth–seventh centuries | Fragmentary names, inscriptions, and later-recorded vernacular material; Literary Sinitic prestige | Goguryeo, Baekje, and Silla are competing courts, not interchangeable provinces | Traditional BCE foundation dates are not equally secure archaeological dates for mature states [LR11; P00] |
 | Later Silla, conventionally 668–935 | Silla-based Old Korean; learned Sinitic and character-based vernacular transcription | Royal genealogy, rank, Buddhist patronage, and transregional learning interact | “Unified Silla” does not mean all territory of modern Korea; include northern polities, especially Balhae, in a fuller map [LR11] |
 | Goryeo, 918–1392; consolidation in 936 | Early Middle Korean in [LR11]’s terminology; capital-centered language change; vernacular evidence still fragmentary | Monasteries, royal patronage, elite display, and learned administration coexist [SV08; SV20] | Dynasty boundaries are not instantaneous changes in speech, kinship, or clothing |
-| Later Goryeo under Mongol/Yuan entanglement | Mongolian loans supply contact evidence, not proof of language-family membership [LR11, pp. 6–7] | Court exchange changes alongside older institutions; specific imported dress forms require dated evidence `(to-verify)` | Do not label every unfamiliar garment “Mongolian” or every loan “ancient Korean” |
+| Later Goryeo under Mongol/Yuan entanglement | Mongolian loans supply contact evidence, not proof of language-family membership [LR11, pp. 6–7] | Court exchange changes alongside older institutions; the borrowed-dress episode has dated anchors (King Chungnyeol’s *byŏnbal* ordinance after the peace with the Mongols; King Gongmin’s 1352 prohibition of *Mongolpung* customs) [KJ15] | Do not label every unfamiliar garment “Mongolian” or every loan “ancient Korean” |
 | Early Joseon, after 1392; Sejong’s reform 1443/1446 | Alphabetic documentation makes Late Middle Korean unusually visible | Neo-Confucian reform and continuing Buddhist practices/publications must be distinguished [LR11; D92; SV20] | Han’gŭl belongs here, not to Three Kingdoms or Goryeo |
 
 - Couple separate timelines for **political rule, vernacular change, writing technology, ritual patronage, and garment production**; let them overlap imperfectly.
@@ -65,7 +70,7 @@
 | Script type | An alphabet arranged in syllable blocks, with articulatory/featural design; block layout does not make it a syllabary [LR11, p. 7] | Couple glyph construction to phonological analysis rather than visual exoticism |
 | Historical visibility | Alphabetic materials expose distinctions absent from modern standard spelling and make earlier stages more reconstructable [LR11] | A script reform can change what future historians know without creating the language itself |
 
-- The detailed consonant-shape derivations and heaven–earth–human account of vowel forms require checking the actual Haerye text before reproducing its cosmology `(to-verify: primary-text collation)`.
+- The Haerye design chapter itself derives consonant letter shapes from articulatory organs and the basic vowels from heaven (ㆍ), earth (ㅡ), and human (ㅣ) — the “three talents” [SJ46t; translation route checked 2026-10-17, a facsimile collation remains the stronger check].
 - Do not infer immediate universal literacy, the instant disappearance of hanja, or a uniformly hostile elite. Each needs its own social-history evidence; an enabling technology is not its uptake curve.
 - Keep royal claims about accessibility distinct from measured literacy outcomes; avoid the pop slogan “the uniquely perfect/scientific alphabet” as historical explanation.
 - A useful design option is **vernacular access reform inside an enduring learned order**, not a crude transition from “primitive pictures” to “advanced letters.” No fictional reform or canon is prescribed here.
@@ -77,12 +82,12 @@
 
 | Category | Safe working distinction | Calibration |
 |---|---|---|
-| Seonggol 聖骨 | “Hallowed/sacred bone,” associated with the royal category | Exact genealogical boundaries and their historical reconstruction need more than a simplified chart `(to-verify)` |
+| Seonggol 聖骨 | “Hallowed/sacred bone,” associated with the royal category | Exact genealogical boundaries and their historical reconstruction need more than a simplified chart `(to-verify: primary genealogical attestations)` |
 | Jingol 眞骨 | “True bone,” the high aristocratic category | Do not substitute “merit nobility”; descent remains load-bearing [PHL93] |
 | Head rank six | A status below the principal nobility, with frustrated access to higher office | Sŏl Kyedu is the explicit translated case in [PHL93, p. 49] |
 | Other head ranks | Standard accounts distinguish further graded categories | A complete numbered ladder, especially the lowest ranks, should not be asserted as equally documented `(to-verify: primary attestations and office ceilings)` |
 
-- [PHL93] connects birth rank directly to **government appointment and permissible clothes**. Any finer table of garment colors, textiles, house dimensions, carriage forms, or rank-to-office numbers requires checking the relevant *Samguk sagi* regulations `(to-verify)`.
+- [PHL93] connects birth rank directly to **government appointment and permissible clothes**. Any finer table of garment colors, textiles, house dimensions, carriage forms, or rank-to-office numbers requires checking the relevant *Samguk sagi* regulations `(to-verify: primary regulations not inspected)`.
 - Sŏl Kyedu’s biography makes the coupling unusually explicit: talent cannot overcome descent; he imagines success abroad expressed through an official’s robes and sword. The account places his departure for Tang in 621 [PHL93].
 - **Design extraction:** separate inherited status, current office, wealth, ritual qualification, and display license. Their mismatches generate conflict without turning every inequality into one universal “caste” system.
 - A court rank is not a surname, and a robe is not automatically proof of actual office: gifts, funerary display, unauthorized imitation, and later narration are alternative explanations to test.
@@ -99,8 +104,8 @@
 | Bear-woman and tiger | Both seek humanity; the bear completes the transformative discipline and becomes Dangun’s mother [PHL93] | Food, seclusion, taboo, bodily transformation, and ancestry are linked |
 | Sacred mountain, altar tree, heavenly seals | These appear together in the translated account [PHL93] | A royal origin story can couple landscape, ritual site, and tokens of authority |
 | Kingdom founders such as Jumong and Hyeokgeose | Distinct foundation traditions must be checked separately | Do not attach every egg-birth, horse, solar, or river motif to every kingdom `(to-verify: episode-level comparison)` |
-| Seokgamoni / Śākyamuni; Amitabul / Amitābha | Buddhist sacred figures with different doctrinal and devotional settings | Do not flatten historical Buddha and Pure Land Buddha into two interchangeable local gods `(to-verify: selected period iconography, SL02)` |
-| Mireuk / Maitreya; Gwaneum / Avalokiteśvara | Future Buddha and compassion bodhisattva respectively; titles and functions differ | Verify image identification and dated cult context before deriving dress or polity symbolism `(to-verify: SL02 and object inscriptions)` |
+| Seokgamoni / Śākyamuni; Amitabul / Amitābha | Buddhist sacred figures with different doctrinal and devotional settings | Do not flatten historical Buddha and Pure Land Buddha into two interchangeable local gods `(to-verify: dated Pure Land iconography; [SL02] checked for the general Buddha/bodhisattva distinction only)` |
+| Mireuk / Maitreya; Gwaneum / Avalokiteśvara | Future Buddha and compassion bodhisattva respectively; titles and functions differ | Verify image identification and dated cult context before deriving dress or polity symbolism `(to-verify: Avalokiteśvara images and object inscriptions; [SL02] identifies the pensive figure as “often identified as … Maitreya”)` |
 
 - The legendary date 2333 BCE is not an archaeologically established date for Dangun’s reign or a recovered state constitution [PHL93; P00].
 - Reading bear/tiger as the exact totems of identifiable prehistoric clans is **speculative**, not a decipherment. The source itself does not supply such an archaeological identification.
@@ -127,16 +132,16 @@
 
 ## 8. Celadon: aesthetic vocabulary attached to processes, not a color swatch
 
-- *Cheongja* 청자 靑瓷 is the Korean celadon category. [SL03c] is the reference route for Goryeo examples; the technical glosses in the following table are useful lookup leads, but require art-source text checks `(to-verify)`.
+- *Cheongja* 청자 靑瓷 is the Korean celadon category. [SL03c] (retrieved 2026-10-17) is the reference route for Goryeo examples; the rows below cite the checked text, and object-specific sequence questions stay flagged.
 
 | Term / distinction | Working meaning | Design use and verification boundary |
 |---|---|---|
-| Cheongja / celadon | Green- to blue-green-glazed high-fired ceramic ware | Separate clay body, glaze, firing atmosphere, and connoisseur’s color judgment `(to-verify: SL03c)` |
-| Bisaek 비색, often written 翡色 in Goryeo discussion | “Kingfisher” coloration, an admired glaze quality rather than a fixed modern hue | Do not silently equate 翡色 with the Chinese term 秘色 or invent a universal RGB standard `(to-verify: original graph, passage, and translation)` |
-| Sanggam 상감 象嵌 | Inlay: contrasting materials/slips placed into prepared designs before glazing | Not synonymous with painting a pattern on the glaze; verify recipe and sequence for the chosen object `(to-verify: SL03c)` |
-| Eumgak 음각 陰刻 / yanggak 양각 陽刻 | Incised / raised-relief treatments | Distinguish cutting into the surface from retaining or forming a raised design `(to-verify: catalogue terminology)` |
-| Maebyeong 매병 梅甁 | A named vessel form, commonly broad-shouldered with a narrow mouth | “Plum-vase” is a type label, not evidence that every example held plum blossoms `(to-verify: object form and function)` |
-| Incised, carved, molded, inlaid, sculptural | Distinct ways of organizing the vessel’s surface or body | A shared glaze category does not imply one workshop technique or one budget [SL03c; individual processes `(to-verify)`] |
+| Cheongja / celadon | Green- to blue-green-glazed high-fired ceramic ware | Separate clay body, glaze, firing atmosphere, and connoisseur’s color judgment [SL03c: gray-green hue; iron in the clay, iron and manganese oxide plus quartz in the glaze; ~1150ºC reducing firing] |
+| Bisaek 비색, often written 翡色 in Goryeo discussion | “Kingfisher” coloration, an admired glaze quality rather than a fixed modern hue | The graph is attributed: Xu Jing (1124) reports that the people of Goryeo called the jade-green ware 翡色 (K. *bisaek*), distinct from 秘色 (*mise*) [NMK24 quoting Xu Jing]; do not equate the two or invent a universal RGB standard |
+| Sanggam 상감 象嵌 | Inlay: etching motifs on the dried body and filling the carved space with black and/or white slip before the translucent glaze and firing | Not synonymous with painting a pattern on the glaze; production sequence for a chosen object still requires its own evidence [SL03c] |
+| Eumgak 음각 陰刻 / yanggak 양각 陽刻 | Incised / raised-relief treatments | Distinguish cutting into the surface from retaining or forming a raised design `(to-verify: Korean catalogue terminology)` |
+| Maebyeong 매병 梅甁 | A named vessel form: “plum bottle,” broad-shouldered to curvilinear, inspired by earlier Chinese shapes | “Plum-vase” is a type label, not evidence that every example held plum blossoms [Met27] |
+| Incised, carved, molded, inlaid, sculptural | Distinct ways of organizing the vessel’s surface or body | A shared glaze category does not imply one workshop technique or one budget; museum texts list incised, carved, mold-impressed, and inlaid work as separate techniques [SL03c; NMK24] |
 
 - **Production-sheet questions:** where are clay and fuel obtained; who controls kiln access; how is failure absorbed; who orders vessels; how do fragile objects travel? These are research/design questions, not asserted answers for every Goryeo workshop.
 - Do not make all citizens dress “celadon green.” Courtly ceramic taste, textile dye categories, and ordinary clothing are different distributions; cross-medium influence needs evidence.
@@ -147,15 +152,15 @@
 
 | Evidence / motif | Productive relationship to test | What not to claim |
 |---|---|---|
-| Silla gold crowns, pendants, belts, tomb assemblages [SL03s] | Royal funerary display, skilled production, bodily arrangement, inherited rank | Every buried crown was daily headwear; every branching projection proves a particular “world tree” theology `(to-verify: object use and interpretation)` |
+| Silla gold crowns, pendants, belts, tomb assemblages [SL03s] | Royal funerary display, skilled production, bodily arrangement, inherited rank; [SL03s] notes at least some ornaments were made for burial rather than wear and treats the tree-branch motif comparatively | Every buried crown was daily headwear; every branching projection proves a particular “world tree” theology [SL03s inspected 2026-10-17] |
 | Buddhist image: robe versus crown/jewellery [SL02] | The image’s sacred category and ritual setting may differentiate forms of adorned or renunciant embodiment | A bodhisattva’s dress is a direct photograph of the local ruling class `(to-verify: dated image identification)` |
 | Lotus on a vessel or sacred image | Buddhist reference may be relevant, depending on object and assemblage | Lotus always means the same thing, or proves monastic ownership `(to-verify: context-specific reading)` |
-| Crane/cloud designs on celadon | Auspicious or transcendent associations are hypotheses to check against use, patron, and inscription | Every crane is exclusively “Daoist,” or every cloud is a Buddhist doctrinal diagram `(to-verify)` |
+| Crane/cloud designs on celadon | Auspicious or transcendent associations are hypotheses to check against use, patron, and inscription | Every crane is exclusively “Daoist,” or every cloud is a Buddhist doctrinal diagram `(to-verify: dated design interpretations)` |
 | Dress regulated through rank [PHL93] | Legal eligibility becomes visible through a permitted garment or accessory | The regulation proves perfect compliance or describes every village household |
 | Later photographs, reconstructed “hanbok,” television costumes | Useful reception-history material and leads to period research | A modern national-dress ensemble reconstructs Silla or Goryeo without a dated bridge |
 
 - Costume minimum: record **silhouette/cut, fiber, weave, dye, fastener, layering, footwear, headgear, occasion, wearer, and evidence date** separately; a text naming a color supplies almost none of the rest.
-- This entry cannot supply a securely reconstructed full Goryeo outfit or kingdom-by-kingdom vernacular garment lexicon. Period garment names and modern Korean glosses remain `(to-verify)` before production use.
+- This entry cannot supply a securely reconstructed full Goryeo outfit or kingdom-by-kingdom vernacular garment lexicon. Period garment names and modern Korean glosses remain `(to-verify: textile and garment dossiers)` before production use.
 - Perishable garments, stylized sacred imagery, sumptuary prescriptions, and tomb deposition produce different biases. Use the inference ladder in `../culture-material/material-culture-inference-method.md`, not an artifact-to-ethnicity dictionary.
 
 ## 10. Naming practices: separate person, lineage, office, and remembrance
@@ -182,5 +187,5 @@
 - Colonial-era archaeology and later national narratives can both load objects with ethnic/racial conclusions that the objects alone do not establish. [P00] is a critical intervention, not a substitute consensus to apply mechanically.
 - “Harmony” and “state protection” are interpretive models, not transparent medieval self-descriptions of every Buddhist practice. [SV08; SV20] explicitly contest their sufficiency.
 - Publisher abstracts verify titles and declared arguments; they do not verify unseen page-level claims. No page numbers have been invented for the uninspected monographs or blocked museum essays.
-- Open checks remain: celadon technical/aesthetic terminology and historical graphs; dated dress cuts and textile lexicon; detailed Silla rank regulations; nonelite naming; regional/local ritual evidence. Retain the inline `(to-verify)` markers until those checks are actually made.
+- Open checks after the 2026-10-17 triage: dated dress cuts and textile lexicon; detailed Silla rank regulations; nonelite naming; regional/local ritual evidence; object-level image identification. The celadon terminology, the 翡色 graph, the maebyeong label, the Mongol-era dress episode, and the Haerye design chapter were checked this pass and are cited above. Retain the remaining inline `(to-verify)` markers until those checks are actually made.
 - Verification state: accessible sources and bibliographic records checked 2026-10-17; this is a bounded reference entry, not a claim to comprehensive expertise in Korean philology, costume reconstruction, or ritual history.

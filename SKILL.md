@@ -83,3 +83,21 @@ languages and cultural systems to it, never edits it.
 - `corpus/knowledge/civilizations/` — 92 earlier-civilization bases, each
   coupling that tradition's language, writing, myth, symbols, era model,
   costume, and naming, with provenance cautions.
+
+## Gates
+
+Registry per the fleet gate standard (fleet `PROTOCOL.md` §Gate
+standard). Common interface: exit 0 clean / 1 findings / 2
+could-not-evaluate; `--selftest` runs committed fixtures with planted
+violations; input is a culture packet (schema in
+`corpus/knowledge/verification/`); corpus reads are read-only. All
+selftests green at round-1 close (2026-10-17).
+
+| name | kind | entry command | self-test | pinned values | write scope | owner |
+|---|---|---|---|---|---|---|
+| phonology-sanity-gate | gate | `python3 tools/gates/phonology-sanity-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/phonology-sanity-gate.{yml,expected} | none outside report | kotodama-shokunin |
+| lexicon-coverage-audit | gate | `python3 tools/gates/lexicon-coverage-audit.py <packet.yml>` | `--selftest` | tools/gates/fixtures/lexicon-coverage-audit.{yml,expected} | none outside report | kotodama-shokunin |
+| myth-consistency-gate | gate | `python3 tools/gates/myth-consistency-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/myth-consistency-gate.{yml,expected} | none outside report | kotodama-shokunin |
+| costume-era-consistency-gate | gate | `python3 tools/gates/costume-era-consistency-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/costume-era-consistency-gate.{yml,expected} | none outside report | kotodama-shokunin |
+| naming-collision-gate | gate | `python3 tools/gates/naming-collision-gate.py <packet.yml>` | `--selftest` | tools/gates/fixtures/naming-collision-gate.{yml,expected} | none outside report | kotodama-shokunin |
+| provenance-audit | gate | `python3 tools/gates/provenance-audit.py <corpus-files…>` | `--selftest` | tools/gates/fixtures/provenance/ | none outside report | kotodama-shokunin |

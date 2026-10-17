@@ -1,6 +1,6 @@
 # Lakota / Northern Plains: Sacred Register, Event-Time, and Historical Dress
 - topic: Lakota-centered language–myth–symbol–era–costume coupling; Siouan comparison, wakȟáŋ discourse, Sun Dance structure, ledger drawings, and winter-count historiography; reference and method, not fictional canon.
-- sources: Rood and Taylor (1996); White Hat (1999); DeMallie, ed. (2001); Walker (1917); Black Elk/Brown (1953); Powers (1986); Greene and Thornton, eds. (2007); Schupman and O’Flahavan/NMAI (n.d.); Plains Indian Ledger Art Digital Publishing Project/UC San Diego (n.d.); full references and access limits below.
+- sources: Rood and Taylor (1996); White Hat (1999); DeMallie, ed. (2001); Walker (1917); Black Elk/Brown (1953); Powers (1986); Greene and Thornton, eds. (2007); Schupman and O’Flahavan/NMAI (n.d.); Plains Indian Ledger Art Digital Publishing Project/UC San Diego (n.d.); Dorsey (1894); American Heritage Dictionary, 5th ed. (2022); Taylor et al. (2023); full references and access limits below.
 - couples: language → `../linguistics/{phonetics-phonology,sociolinguistics-registers,writing-systems,naming-systems,orality-formulaic-language}.md`; myth/symbol → `../myth-symbol/{cosmology-cosmography,myth-ritual-theories,ritual-liminality,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,calendar-festival-systems,ritual-garments,costume-semiotics,material-culture-inference-method}.md`; siblings → lore-shokunin receives proposed systems and evidence, never canon decisions from this entry.
 
 ## Scope and calibration
@@ -23,7 +23,10 @@
 - **GT07:** Candace S. Greene and Russell Thornton, eds. 2007. *The Year the Stars Fell: Lakota Winter Counts at the Smithsonian*. Lincoln: University of Nebraska Press. [Bibliographic record and contents](https://books.google.com/books?vid=ISBN9780803222113); also listed in [Greene’s Smithsonian publications](https://profiles.si.edu/display/nGreenec6202005).
 - **NMAI:** Edwin Schupman and Leslie O’Flahavan. n.d. *Lone Dog’s Winter Count: Keeping History Alive*. National Museum of the American Indian teaching poster, especially background pp. 1–2, meteor event p. 3, contemporary testimony p. 6, credits p. 9. [PDF](https://americanindian.si.edu/sites/1/files/pdf/education/poster_lone_dog_final.pdf). Accessible explanation with dated linguistic terminology; see cautions below.
 - **PILA:** Plains Indian Ledger Art Digital Publishing Project, Department of Ethnic Studies, UC San Diego. n.d. [Historical introduction](https://plainsledgerart.org/project-info/history/), [project/provenance and permissions overview](https://plainsledgerart.org/project-info/overview/), and [Black Hawk ledger catalog](https://plainsledgerart.org/plates/index/4/detail). Institutional descriptions and object records, not a single dated monograph.
-- Verification, 2026-10-17: online descriptions/catalogs, NMAI’s poster text, and selected W17 primary passages including pp. 68–69 and 92–95. A verified bibliographic record does not mean the entire book was re-read; specific unconfirmed fine detail is marked `(to-verify)`. No verbatim ceremonial text is reproduced here.
+- **D94:** Dorsey, James Owen. 1894. *A Study of the Siouan Cults*. In *Eleventh Annual Report of the Bureau of Ethnology*, 361–522. Washington, DC: Government Printing Office; [Project Gutenberg text](https://www.gutenberg.org/files/48635/48635-h/48635-h.htm) consulted 2026-10-17 — records the term *wiwanyag wacipi*.
+- **AHD22:** *The American Heritage Dictionary of the English Language*, 5th ed. 2022. Usage note s.v. “Nakota”: the Yankton and Yanktonai peoples use *dakhota* as their self-designation, and “Nakota” is no longer in scholarly use for them.
+- **T23:** Taylor, William Timothy Treal, et al. 2023. “Early dispersal of domestic horses into the Great Plains and northern Rockies.” *Science* 379: 1316–1323, [doi:10.1126/science.adc9691](https://doi.org/10.1126/science.adc9691) — abstract and institutional summary checked, not the full article.
+- Verification, 2026-10-17: online descriptions/catalogs, NMAI’s poster text, and selected W17 primary passages including pp. 68–69 and 92–95; the same-day triage pass added Dorsey’s 1894 *wiwanyag wacipi* record, the American Heritage usage note on “Nakota,” and the Taylor et al. 2023 horse-dispersal summary. A verified bibliographic record does not mean the entire book was re-read; specific unconfirmed fine detail is marked `(to-verify)`. No verbatim ceremonial text is reproduced here.
 
 ## Language family, linguistic texture, and writing
 
@@ -38,7 +41,7 @@
 
 - Lakota/Lakhota/Lakȟóta spellings can reflect different transcription conventions. Retain the form used by a cited source rather than silently blending conventions.
 - The familiar l/d/n correspondence is not sufficient to build a politically or linguistically accurate three-box chart of all “Sioux” peoples. Assiniboine/Stoney require their own treatment. [RT96; D01]
-- NMAI’s poster calls the Yanktonai community “Nakota” and presents a simple three-dialect chart. Treat that as the poster’s historical terminology, not the controlling classification; current self-designation and exact dialect mapping require checking `(to-verify)`.
+- NMAI’s poster calls the Yanktonai community “Nakota” and presents a simple three-dialect chart. Treat that as the poster’s historical terminology, not the controlling classification: the Yankton and Yanktonai peoples use *dakhota* as their self-designation, and “Nakota” is no longer in scholarly use for them [AHD22]. Dialect-mapping details still belong with a dedicated linguistic source.
 - Contrast **alphabetic spelling**, **name/event pictography**, and **oral performance**. These can coexist without performing the same task.
 - For fictional application, assign each medium its own affordance: pronunciation-preserving script, portable event cue, authoritative recital, or administrative identifier. This is a design inference, not a claim that Lakota media fit exclusive boxes.
 
@@ -78,8 +81,8 @@
 
 ## Sun Dance: public structural model, not performance instructions
 
-- Topic spelling: **Wi-wanyag wačípi**. Transcriptions vary across publications; a normalized form and pronunciation must be checked against the selected community’s orthography `(to-verify)`. Do not present this mixed-source form as a linguistic standard.
-- Public descriptions commonly gloss the name along the lines of “sun-gazing dance.” An exact morpheme-by-morpheme analysis is not established here `(to-verify)`.
+- Topic spelling: **Wi-wanyag wačípi**. Nineteenth-century sources record *wiwanyag wacipi* [D94]; transcriptions vary across publications, and a normalized form and pronunciation must still be checked against the selected community’s orthography `(to-verify: community orthography)`. Do not present this mixed-source form as a linguistic standard.
+- Public descriptions commonly gloss the name along the lines of “sun-gazing dance.” An exact morpheme-by-morpheme analysis is not established here `(to-verify: morpheme analysis)`.
 - W17 and B53 concern Oglala accounts. Neither defines what all Plains nations, all Lakota communities, or present-day ceremonial leaders must do.
 - The table below is an analytical grouping of public descriptions, not an indigenous checklist, schedule, or order of operations. [W17; B53]
 
@@ -114,7 +117,7 @@
 
 | Research stage | Questions to stage together | Evidence and caution |
 |---|---|---|
-| Before widely established equestrian lifeways | Mobility, food acquisition, household materials, neighboring languages | Use D01’s regional histories; do not project nineteenth-century mounted dress backward. Exact local adoption dates are `(to-verify)`. |
+| Before widely established equestrian lifeways | Mobility, food acquisition, household materials, neighboring languages | Use D01’s regional histories; do not project nineteenth-century mounted dress backward. Adoption chronologies are under active revision and vary locally [T23, summary checked 2026-10-17]; treat any single date as provisional. |
 | Equestrian and expanding trade networks | Horse access, bison use, trade cloth, metal goods, ornament materials | Model overlapping old/new materials and unequal access, not a single replacement year. [D01] |
 | Nineteenth-century warfare and colonial constraint | Coercion, disrupted movement, material scarcity, new drawing media | PILA places paper-ledger drawing within these pressures; medium change is not disappearance of Native agency. [PILA] |
 | Reservation-era representation and adaptation | Remembered events, courtship, ceremony, schooling, public presentation | A drawing’s production date may postdate the dress or event represented. [PILA; NMAI] |

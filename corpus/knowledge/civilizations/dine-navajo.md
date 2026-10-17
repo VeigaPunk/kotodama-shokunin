@@ -1,6 +1,6 @@
 # Diné (Navajo): language, relational cosmology, and the work of weaving
 - topic: Diné linguistic-cultural coupling: Southern Athabaskan tone and register; hózhǫ́; sandpainting as situated ritual technology; weaving, dress, and kinship; clan-based introductions and naming.
-- sources: Robert W. Young and William Morgan Sr. (1987); Michelle Kahn-John and Mary Koithan (2015); Lynda Teller Pete (2023); Hadley Welch Jensen and individually credited contributors (2023); Jennifer Nez Denetdale (2007); Navajo Nation Council (2002); Navajo Nation, “History” (n.d.); full references and verification limits below.
+- sources: Robert W. Young and William Morgan Sr. (1987); Michelle Kahn-John and Mary Koithan (2015); Lynda Teller Pete (2023); Hadley Welch Jensen and individually credited contributors (2023); Jennifer Nez Denetdale (2007); Navajo Nation Council (2002); Navajo Nation, “History” (n.d.); Keren Rice (1999); Michael E. Krauss (2005); full references and verification limits below.
 - couples: Language → linguistics/{phonetics-phonology,sociolinguistics-registers,kinship-terminology,naming-systems,writing-systems}.md; myth/symbol → myth-symbol/{cosmology-cosmography,myth-ritual-theories,color-symbolism,symbolism-synthesis-method}.md; era/costume → culture-material/{era-periodization-models,textile-technology,costume-semiotics,material-culture-inference-method}.md; sibling → lore-shokunin receives reference methods and alternatives, never canon from this entry.
 
 ## Scope and calibration
@@ -24,7 +24,9 @@
 - **D07:** Denetdale, Jennifer Nez. 2007. *Reclaiming Diné History: The Legacies of Navajo Chief Manuelito and Juanita*. Tucson: University of Arizona Press. [Publisher overview](https://uapress.arizona.edu/book/reclaiming-dine-history). Diné historian; places matrilineal family histories against colonial and male-centered historiography.
 - **J02:** Navajo Nation Council. 2002. Resolution CN-69-02, recognizing the Fundamental Laws of the Diné, 1 N.N.C. §§201–206. [Judicial Branch text](https://courts.navajo-nsn.gov/dine.htm); [resolution index, November 8, 2002](https://courts.navajo-nsn.gov/resolutions.htm). The old HTML has damaged Diné character encoding; do not copy spellings from its corrupted text.
 - **N-H:** Navajo Nation. n.d. [“History,” especially “Flag”](https://www.navajo-nsn.gov/History), accessed 2026-10-17. Describes the 1968 flag and cites Resolution CMY-55-68; some other governmental details on this page are outdated, so it is not a current-statistics source.
-- Verification: H15, P23 including its downloadable essay, B23 sections, and J02 were consulted in public full text; L87 edition information and D07 publisher overview were checked, not their complete books. No uninspected page numbers are supplied.
+- **R99:** Rice, Keren. 1999. *The Languages of Native North America*. Cambridge Language Surveys. Cambridge University Press. [Publisher preview consulted 2026-10-17](https://api.pageplace.de/preview/DT0400.9781107298729_A23760569/preview-9781107298729_A23760569.pdf). States that Proto-Athabaskan can be reconstructed without tone and that several daughter languages remain non-tonal; preview read, book not inspected page by page.
+- **K05:** Krauss, Michael E. 2005. “Athabaskan tone.” In Sharon Hargus and Keren Rice (eds.), *Athabaskan Prosody*, 55–136. Amsterdam: John Benjamins. [Publisher catalogue record](https://benjamins.com/catalog/persons/7347), checked 2026-10-17. Proposes that tone not be reconstructed for Proto-Athabaskan; chapter identity and scope checked, chapter not inspected page by page.
+- Verification: H15, P23 including its downloadable essay, B23 sections, and J02 were consulted in public full text; L87 edition information and D07 publisher overview were checked, not their complete books. R99 was read in a publisher preview and K05 through catalogue records only. No uninspected page numbers are supplied.
 
 ## Language family, writing, and register
 | Layer | Supported description | Coupling consequence / misuse to avoid |
@@ -40,7 +42,7 @@
 | Literacy and history | L87 is a revised modern reference; contemporary written forms are not evidence that the same spelling existed centuries earlier. | Stage literacy, schooling, and media histories separately from oral continuity. |
 
 - Secondary phonological cross-check: [“Navajo language,” sections “Phonology,” “Orthography,” and bibliography](https://en.wikipedia.org/wiki/Navajo_language), consulted 2026-10-17; use L87 or a qualified speaker for production-level forms, not this mutable summary alone.
-- Tone is not a universal property that can be assigned to every Athabaskan language; family-wide tonal history and particular phonological analyses require specialist verification `(to-verify)`.
+- Tone is not a universal property of Athabaskan languages: Proto-Athabaskan is reconstructed without tonal contrasts, and several daughter languages (e.g. Ahtna, Koyukon, and the Pacific Coast group) remain non-tonal; particular analyses of Diné tone and its history remain specialist work (Rice 1999; Krauss 2005).
 - **Interpretation:** for a fictional language, choose its own segment inventory, morphology, and sound history before inventing names; then define everyday, public-formal, pedagogical, and restricted speech situations without copying Diné expressions.
 - Hard linguistic determinism is not supported: complex verbs do not prove that all speakers share one metaphysics, nor does grammar compel an unchanging culture.
 

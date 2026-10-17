@@ -1,0 +1,125 @@
+# synthetic fixture for tools/gates/myth-consistency-gate.py --selftest
+# not canon, not a fictional-world fact; it exists only to exercise MC finding IDs
+name: gate-selftest-culture
+phonology:
+  consonants: [p, t, k, m, n, s]
+  vowels: [a, i, u]
+  tones: 0
+pantheon:
+  - name: Sedge-Mother
+    role: subsistence, water
+    domain: floodplain fertility
+    era: marsh-era
+  - name: Ash-Judge
+    role: oath, conflict settlement
+    domain: boundary oaths
+    era: marsh-era
+  - name: Cinder-Smith
+    role: craft, exchange
+    domain: forge work
+    era: marsh-era
+roles:
+  - dependency: subsistence-water
+    status: ASSIGNED
+    agents: [Sedge-Mother]
+  - dependency: oath-conflict
+    status: SHARED
+    agents: [Ash-Judge]
+    note: shared with household elders; a disputed invocation goes to the boundary rite first
+  - dependency: mortality-burial
+    status: NON-DIVINE
+    agents: []
+    note: household rites only; no divine agent is claimed
+  - dependency: cosmic-origins
+    status: EXPLICITLY-UNEXPLAINED
+    agents: []
+    note: doctrine refuses an origin account
+  - dependency: craft-exchange
+    status: ASSIGNED
+    exclusive: true
+    agents: []
+    substitute: false
+    note: the forge rite requires one exclusive patron; no substitute is licensed
+  - dependency: reproduction-care
+    status: UNKNOWN
+    basis: elite-text-silence
+    note: absent from the surviving temple text
+motifs:
+  - id: local-07
+    tier: folktale
+    title: The Marsh-Wife Names the Reed-Cutter
+    code: cf. ATU 500
+    cf_atu: ATU 500
+    index_checked: false
+    note: claimed comparison rests on an unchecked recollection
+  - id: local-11
+    tier: myth
+    title: The Oath-Chamber and the River Guest
+    law:
+      rule: true-name power
+      when: captive speaks its true name
+      then: captor power ends
+    variants:
+      - id: var-a
+        teller: marsh-women guild
+        register: teaching
+        asserts_law: true
+        events:
+          - actor: river guest
+            action: speaks its true name
+            effect: power remains intact
+      - id: var-b
+        teller: reed-cutters lodge
+        register: fireside
+        asserts_law: false
+        events:
+          - actor: river guest
+            action: speaks its true name
+            effect: captor loses the trail
+symbols:
+  - sign: white salt crust
+    medium: shell-lime paste
+    era: marsh-era
+    register: burial
+    audience: mourners
+    domain: grief
+    exclusive: true
+    evidence: household rite manual, burial entries
+  - sign: white salt crust
+    medium: shell-lime paste
+    era: marsh-era
+    register: investiture
+    audience: officiant
+    domain: purity of office
+    exclusive: true
+    evidence: investiture manual
+  - sign: heron feather
+    medium: feather worn on hem
+    era: marsh-era
+    register: oath-taking
+    audience: parties under oath
+    domain: grants the judge authority
+    exclusive: true
+    evidence: oath-chamber practice
+  - sign: heron feather
+    medium: feather worn on hem
+    era: marsh-era
+    register: oath-taking
+    audience: parties under oath
+    domain: denies the judge authority
+    exclusive: true
+    evidence: counter-oath practice
+  - sign: serpent
+    medium: body paint
+    era: marsh-era
+    register: healing
+    audience: patients
+    domain: universal meaning of healing
+    notes: claimed to mean the same thing in every culture
+costumes:
+  - garment: reed cloak
+    material: woven reed
+    wearer_rank: officiant
+    rite: investiture
+    era: marsh-era
+eras: [marsh-era]

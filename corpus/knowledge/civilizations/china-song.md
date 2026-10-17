@@ -1,6 +1,6 @@
 # Song China — Learning, Print, Examination, and the Language of Refined Things
 - topic: Song China (960–1279) as a reference base for coupling language, cosmology, examination status, commercial print, names, and dress; neo-Confucian lexicon and Ru-ware taste vocabulary; methods and reference knowledge, never fictional canon.
-- sources: Norman (1988); Chaffee (1995, second edition); Chia (2002); Hymes (2002); Bol (2008); Kuhn (2009); Ebrey (1993); Ebrey and Gregory, eds. (1993); Anderson (1991, revised edition, comparative frame only); Thompson (2015, revised 2025); Cleveland Museum of Art (n.d., object 1957.40). Full editions and checkable pointers below.
+- sources: Norman (1988); Chaffee (1995, second edition); Chia (2002); Hymes (2002); Bol (2008); Kuhn (2009); Ebrey (1993); Ebrey and Gregory, eds. (1993); Anderson (1991, revised edition, comparative frame only); Thompson (2015, revised 2025); Fujian Provincial Museum (1982); Zhang (2023); Cleveland Museum of Art (n.d., object 1957.40). Full editions and checkable pointers below.
 - couples: language → `linguistics/writing-systems.md`, `linguistics/sociolinguistics-registers.md`, `linguistics/naming-systems.md`, `linguistics/color-terminology.md`; myth/symbol → `myth-symbol/cosmology-cosmography.md`, `myth-symbol/pantheon-archetypes.md`, `myth-symbol/color-symbolism.md`; era/costume → `culture-material/era-periodization-models.md`, `culture-material/costume-semiotics.md`, `culture-material/sumptuary-law-rank-display.md`, `culture-material/craft-artisan-lexicon.md`; sibling → lore-shokunin receives design alternatives and constraints, not canon assignments.
 
 ## Scope and calibration
@@ -137,7 +137,7 @@
 | Surface | Song reference base | Guardrail |
 |---|---|---|
 | Officials' dress | Robes, belts, and headwear including *futou* 幞頭; office and occasion matter | Do not paste later Ming–Qing animal rank squares or a Qing queue onto Song figures |
-| Layered garments | Jackets/overgarments, robes, skirts, and trousers vary by wearer and setting | *Beizi* 褙子 is a useful research headword, not one universal reconstruction; exact cut, sleeve, and fastening for a dated wearer `(to-verify)` |
+| Layered garments | Jackets/overgarments, robes, skirts, and trousers vary by wearer and setting | *Beizi* 褙子 is a useful research headword, not one universal reconstruction; dated excavated Southern Song examples (Huang Sheng tomb, Fuzhou, 1243) document particular straight-collared, front-opening, side-slit cuts (Fujian Provincial Museum 1982) |
 | Textile economy | Silk production and women's textile labor are major social/material anchors | Fiber, weave, embroidery, dye, and finish are separate status variables; no universal silk wardrobe |
 | Gender and the body | Footbinding spread during the period, unevenly; Ebrey (1993) rejects a simple story of uniformly declining female agency | Do not depict all women as bound-footed, confined, nameless, or economically inactive |
 | Learned consumption | Books, calligraphy materials, tea equipment, and collected objects | Refinement depends on labor, money, access, and judgment; it is not a trait of every “Chinese” character |
@@ -161,8 +161,8 @@
 | Form | Restrained profile; balance between vessel shape and glaze | The absence of design labor, cost, or status display |
 | Provenance | Court association; kiln attribution; later collection history | Continuous ownership, exact original use, or a known original owner's words |
 
-- **Lexical discipline:** *tiānqīng* 天青 (“sky blue”) can be a modern research/collector label; its exact use for Ru in a particular Song passage is `(to-verify)`. Do not present it here as verified Song workshop terminology.
-- The “sky after rain” imperial instruction story lacks a verified early passage in this entry `(to-verify)`; do not quote it as Huizong's order or infer a glaze specification from it.
+- **Lexical discipline:** *tiānqīng* 天青 (“sky blue”) for Ru is first datable in later records — the earliest located mention is Zhou Mi's *Wulin Jiushi* on a 1179 Southern Song court event (“天青汝窯金瓶”), with Ming–Qing ceramic texts continuing the label (Zhang 2023). Do not present it here as verified Song workshop terminology.
+- The “sky after rain” instruction story is a late-Ming anecdote tied to Chai ware and the Later Zhou ruler Chai Rong, first recorded in Xie Zhaozhe's Wanli-era *Wuzazu* (五雜俎); attributing it to Huizong is even less credible (Zhang 2023). Do not quote it as Huizong's order or infer a glaze specification from it.
 - Do not import Japanese *wabi-sabi*, auction-price rhetoric, a fixed surviving-object count, or a modern “five great kilns” shopping list as a complete Song aesthetic system.
 - **Coupling exercise, not historical fact:** make a fictional connoisseur judge hue, glaze feel, profile, and provenance while a potter judges firing risk and a merchant judges reproducibility. Their vocabularies should overlap without becoming identical.
 
@@ -192,6 +192,8 @@
 - **Ebrey, Patricia Buckley, and Peter N. Gregory, eds. (1993).** *Religion and Society in T'ang and Sung China*. University of Hawai‘i Press. [Publisher record](https://uhpress.hawaii.edu/title/religion-and-society-in-tang-and-sung-china/); use contributions with their particular period and locality, not as one undifferentiated religious system.
 - **Anderson, Benedict (1991).** *Imagined Communities: Reflections on the Origin and Spread of Nationalism*, revised edition. Verso; first edition 1983. Comparative provenance for “print-capitalism,” not direct evidence about Song institutions.
 - **Thompson, Kirill (2015; substantive revision 2025).** “Zhu Xi,” *Stanford Encyclopedia of Philosophy*. [Spring 2025 archived entry](https://plato.stanford.edu/archives/spr2025/entries/zhu-xi/); conceptual exposition and competing interpretations of Zhu Xi. English translations of the technical terms remain interpretive.
+- **Fujian Provincial Museum (福建省博物馆, 1982).** 《福州南宋黄昇墓》 (*The Southern Song Tomb of Huang Sheng at Fuzhou*), Beijing: Wenwu Press. Excavation report on the dated 1243 tomb at Fuchangshan, Fuzhou; the excavated garments, including *beizi*, are the object-level basis used above. [Bibliographic review record](http://dh.dha.ac.cn/Journal/Article?id=271198), checked 2026-10-17. Report identity checked; not inspected page by page here.
+- **Zhang, Mingwu (2023).** “汝窑、耀州窑‘天青釉’的色度对比分析” (A comparative chromaticity analysis of the “sky-blue” glazes of Ru and Yaozhou wares), *Sciences of Conservation and Archaeology* (文物保护与考古科学); [article text](http://www.wwbhkgkx.net/wwbh/article/html/20230411), checked 2026-10-17. Inspected for the textual chronology of *tiānqīng* and of the “sky after rain” anecdote.
 - **Cleveland Museum of Art (n.d.).** “Brush Washer,” accession 1957.40. [Object catalogue](https://www.clevelandart.org/art/1957.40), checked 2026-10-17. Object description checked directly; dating, attribution, and modern functional title remain curatorial claims.
 
 ## What a worldbuilder can take

@@ -1,6 +1,6 @@
 # Chimú / Chimor: coastal languages, shell wealth, and the walled court
 - topic: Chimú reference base—Muchik language loss, Chan Chan ciudadela vocabulary, Spondylus exchange symbolism, and the Chimú–Inca conquest layer; generative method, not fictional canon.
-- sources: Eloranta-Barrera Virhuez (2020); Herrera Wassilowsky (2016); Moore (1992; 2002 as credited by Yale eHRAF); Pillsbury (1996); Quilter et al. (2010), with Sutter (2010); Correa-Trigoso & Soberón Winchonlóng (2020); Scher (2017); Alegria (2024). Editions, links, and access limits below.
+- sources: Eloranta-Barrera Virhuez (2020); Herrera Wassilowsky (2016); Moore (1992; 2002 as credited by Yale eHRAF); Pillsbury (1996); Quilter et al. (2010), with Sutter (2010); Correa-Trigoso & Soberón Winchonlóng (2020); Scher (2017); Alegria (2024); Moseley & Deeds (1982); Urban (2017); Herrera Calderón et al. (2019). Editions, links, and access limits below.
 - couples: language—`../linguistics/language-contact.md`, `../linguistics/historical-linguistics.md`, `../linguistics/naming-systems.md`, `../linguistics/writing-systems.md`; myth/symbol—`../myth-symbol/celestial-symbolism-calendars.md`, `../myth-symbol/symbolism-synthesis-method.md`; era/costume/material—`../culture-material/era-periodization-models.md`, `../culture-material/architecture-settlement-lexicon.md`, `../culture-material/trade-economy-lexicon.md`, `../culture-material/textile-technology.md`, `../culture-material/costume-semiotics.md`; sibling—lore-shokunin owns canon and the world bible; this entry supplies reference mechanisms only.
 
 ## Scope and evidence calibration
@@ -19,6 +19,9 @@
 - **Correa-Trigoso, Denis Elvis & Fabián Soberón Winchonlóng (2020).** “Excavaciones en los patios norte del conjunto amurallado de Chol An (Ex Palacio Rivero), Chan Chan, Perú.” *Boletín del Museo Chileno de Arte Precolombino* 25(1):13–32. [Full text](https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-68942020000100013); [DOI](https://doi.org/10.4067/S0718-68942020000100013). Excavation, remodeling, access control, and later domestic reuse; checked directly.
 - **Scher, Sarahh (2017).** “Introduction to the Chimú culture.” *Smarthistory*, October 23. [Accessible LibreTexts reproduction](https://human.libretexts.org/Bookshelves/Art/Art_History_and_Theory/SmartHistory_of_Art_2e/SmartHistory_of_Art_XIa_-_The_Americas_before_1500/04%3A_South_America_before_c._1500/4.02%3A_Peru_and_Bolivia/4.2.11%3A_Chimu_culture/4.2.11.01%3A_Introduction_to_the_Chimu_culture). Useful object-based introduction; do not adopt its aesthetic ranking of ceramics or its rhetoric of luxury ending with conquest.
 - **Alegria, Maximillion A. (2024).** “Tunic with Felines,” Metropolitan Museum of Art, object **1979.206.955**, dated **1450–1550**, cotton and camelid hair. [Collection record and signed commentary](https://www.metmuseum.org/art/collection/search/313153), checked directly. Cites Ann Pollard Rowe's *Costumes and Featherwork of the Lords of Chimor* (Textile Museum, 1984), p. 39, no. 4; that book was not independently inspected here.
+- **Urban, Matthias (2017).** “Observaciones etimológicas acerca del nombre de la ciudad antigua de Chan Chan y sus estructuras arquitectónicas.” *Letras* 88(128): 126–148; [full text](http://www.scielo.org.pe/scielo.php?script=sci_arttext&pid=S2071-50722017000200006). Reviews the proposed etymologies (“moon city,” “snake city,” Middendorf's reduplicated ‘sun’) and argues the name cannot currently be etymologized from the surviving Quingnam record. Article text checked.
+- **Herrera Calderón (†), Américo, Michaela Ziemendorff & Stefan Ziemendorff (2019).** “Grabaciones del extinto idioma mochica.” *Indiana* 36(1): 77–108; [DOI](https://doi.org/10.1844/ind.v36i1.77-108). Document first pages and abstract checked; cited for twentieth-century recordings and extinction horizons, not for grammatical analysis.
+- **Moseley, Michael E. & Eric E. Deeds (1982).** “The Land in Front of Chan Chan: Agrarian Expansion, Reform, and Collapse in the Moche Valley,” in Michael E. Moseley & Kent C. Day, eds., *Chan Chan: Andean Desert City*, University of New Mexico Press, 25–53. The standard account of the valley's agrarian system, including sunken cultivation (*huachaque*) plots; bibliographic record checked through multiple bibliographies, chapter itself not inspected here.
 - Colonial authors below—Oré (1607), Carrera (1644), Calancha (1639 in Eloranta's citations)—are encountered through these modern studies. Their original editions/folios were not independently collated; preserve that source chain.
 
 ## Language family, documentation, and writing
@@ -47,7 +50,7 @@
 | Mid-twentieth-century collections | Word lists, remembered expressions, and copied manuscripts; provenance varies | Distinguish fluent speech, remembered vocabulary, and copying of older records |
 | Modern reclamation | “New Mochica” initiatives use colonial/republican materials, teaching, and cultural activity | Revival is present-day community work, not an untouched fifteenth-century survival |
 
-- Evidence chain: Eloranta (2020), §2.4.2, especially pp. 55–66, and §2.4.3. Her discussion itself uses differing extinction horizons; a single exact last-speaker year is **(to-verify)**, not settled by selecting one convenient sentence.
+- Evidence chain: Eloranta (2020), §2.4.2, especially pp. 55–66, and §2.4.3. Her discussion itself uses differing extinction horizons, and later material adds twentieth-century recordings: no single exact last-speaker year can be cited from the sources checked here (cf. Herrera Calderón et al. 2019).
 - **Attested pressure:** the reported switch to Spanish among children. **Not established here:** the relative causal weights of schooling, particular decrees, disease, marriage patterns, or migration in each town.
 - Do not write “the Inca extinguished Muchik in 1470”: the 1644 grammar and later consultations contradict that compression by centuries.
 - Fictional application: stage domain loss—court, trade, household, prayer, craft vocabulary—at different rates; then distinguish speakers, semi-speakers, rememberers, archivists, and revival learners. This is a design model, not a complete recovered Muchik social history.
@@ -63,7 +66,7 @@
 | **banqueta / rampa** | Raised bench/platform and inclined connector | Changes of level can stage visibility, waiting, movement, and ceremonial rank |
 | **depósito** | Storage room or facility | Name goods, containers, responsibility, and access separately; storage alone does not prove a particular taxation system |
 | **plataforma funeraria** | Funerary platform within the monumental complex | Couples dead rulers, household continuity, and architectural memory |
-| **huachaque** | Named water-related feature associated with compound layouts in the excavation discussion | Exact function and dimensions must be checked context by context; “well,” “reservoir,” and “sunken garden” are not interchangeable **(to-verify)** |
+| **huachaque** | Named water-related feature associated with compound layouts in the excavation discussion | In the Chan Chan literature the term denotes sunken cultivation dug to the water table (Moseley & Deeds 1982); any particular excavated feature still needs context-by-context checking — “well,” “reservoir,” and “sunken garden” are not interchangeable |
 | **adobe / tapia / enlucido** | Mud brick, rammed-earth construction, and surface plaster | Different materials/processes; do not call all earthen walls adobe brick |
 
 - Terminological basis: Correa-Trigoso & Soberón Winchonlóng (2020), especially “Chan Chan y el conjunto amurallado Chol An,” “Discusión,” and “Ambientes”; U-shaped-room/access method: Moore (1992). These are research terms, not an invented indigenous dictionary.
@@ -81,7 +84,7 @@
 | Stars / cosmic eggs and differentiated origins | Regional traditions used to explain noble/commoner distinctions | Treat as competing/local origin accounts, not one harmonized empire-wide creation narrative |
 | Ancestors and burial ritual | Funerary architecture and grave goods, interpreted alongside testimony | Couple continuing obligations to dead rulers with living households; specific liturgies remain unknown |
 
-- Source limit: Moore's (2002) religious synthesis offers an outline, not a complete pantheon. Divine gender, kinship, priestly ranks, ritual calendar, and original-language prayers are thinly documented here; particulars are **(to-verify)**.
+- Source limit: Moore's (2002) religious synthesis offers an outline, not a complete pantheon. Divine gender, kinship, priestly ranks, ritual calendar, and original-language prayers are not established by the sources checked here; treat the particulars as open research needs.
 - Keep Lambayeque/Sicán's Ñaimlap/Naylamp traditions distinct from Tacaynamo's Chimor lineage. Neighboring sea-origin stories are not licenses to merge founders or transfer every named attendant to Chan Chan.
 - Reject the shortcut “Moon = silver = female = fertility everywhere.” It combines objects, modern associations, and theology without demonstrating the local links.
 - For fiction, use a **charter-myth comparison**: whose ancestry authorizes access to which water, workshop, or courtyard? This is an analytical question, not proof that every excavated room enacted one particular myth.
@@ -130,7 +133,7 @@
 | Modeled blackware | Reducing firing and molded/three-dimensional forms in Scher (2017) | Process and surface differ from a deity/color code; “black” does not establish a death cult |
 
 - The Met tunic is dated **1450–1550**, crossing conventional Inca conquest and reaching into Spanish rule. Its feline subject/color choices are interpreted as possibly late or postconquest; the date range does not prove an exact event of manufacture (Alegria 2024).
-- Calibrate claims separately: fiber/technique = object observation; multiple makers = interpretation; protective feline meaning = possibility; a specific office entitled to wear it = **(to-verify)**.
+- Calibrate claims separately: fiber/technique = object observation; multiple makers = interpretation; protective feline meaning = possibility; a specific office entitled to wear it = not evidenced; treat as unknown.
 - A high-status surviving tunic does not document everyday dress for all genders/classes. Looting, preservation, collecting, and elite tomb selection shape the sample (Scher 2017; Alegria 2024).
 - Fictional use: stage change through materials, workshop organization, border designs, and political insignia independently; avoid copying an entire museum ensemble and calling it the uniform of a monolingual nation.
 
@@ -146,9 +149,9 @@
 
 - Angle brackets preserve source spelling; asterisks reproduce reconstructed source forms in the cited analysis. Do not silently convert these into a confident modern pronunciation or invented name generator.
 - **Chronological restraint:** attestation in 1644 establishes that a form was recorded by then; it does not date the borrowing. Earlier contact, Inca-period use, and colonial Quechua mediation must be distinguished rather than collapsed into “introduced in 1470.”
-- Herrera Wassilowsky (2016) explicitly notes pre-Inca Quechua in Ancash and proposes multilingual contact scenarios. Applying this to a particular Chan Chan household remains **(to-verify)**.
+- Herrera Wassilowsky (2016) explicitly notes pre-Inca Quechua in Ancash and proposes multilingual contact scenarios. Applying this to a particular Chan Chan household remains an extrapolation beyond the cited evidence.
 - **Model for fiction:** local coastal speech + an expansion-associated language + a highland prestige layer + later colonial language. Assign actual domains and interlocutors; do not assume everyone speaks every layer or that grammar switches when a banner changes.
-- Conquest can displace craftspeople and redirect elite production (Scher 2017); language-use details for particular relocated workshops are **(to-verify)**. A change in patronage is not itself proof of a specific conversational language.
+- Conquest can displace craftspeople and redirect elite production (Scher 2017); language-use details for particular relocated workshops are not attested. A change in patronage is not itself proof of a specific conversational language.
 
 ## Naming practices: names as layered witnesses
 | Name category | Evidence / caution | Application rule |
@@ -158,7 +161,7 @@
 | Compound labels | Chol An / former Rivero; Nik An / former Tschudi in archaeological usage | Track present nomenclature and earlier scholarly names separately; do not assume either is an attested fifteenth-century name |
 | River, spring, canal, mountain | Nepeña toponyms discussed by Herrera Wassilowsky (2016) | Names can preserve water claims and sacred geography across language shifts |
 | Segmented place-name | Herrera discusses Muchik `-an` “house” and `-pon/-pong` “rock / rocky mountain,” with uncertain Quingnam sharing/compounding | Treat identifications as local hypotheses, not a universal decoder for all north-coast names |
-| Repeated name | Repetition appears in discussed coastal toponyms | Repetition alone cannot determine language, date, or translation; a “sun-sun” explanation of Chan Chan is **(to-verify)** here |
+| Repeated name | Repetition appears in discussed coastal toponyms | Repetition alone cannot determine language, date, or translation; the “sun-sun” reading traces to Middendorf's proposal and remains unconfirmed — later etymological work argues no such reading is verifiable from the surviving record (Urban 2017) |
 
 - No comprehensive Chimú personal-name grammar is recovered by this entry. Avoid fabricated gender endings, inherited surnames, royal name taboos, or rank prefixes presented as attested.
 - Build fictional names from an independently specified conlang, then record whether each is an endonym, conqueror's form, translation, colonial spelling, or later commemorative rename.

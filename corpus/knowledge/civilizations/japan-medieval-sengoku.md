@@ -7,14 +7,16 @@
   - Kuroda, Toshio (1981), “Shinto in the History of Japanese Religion,” trans. James C. Dobbins and Suzanne Gay, *Journal of Japanese Studies* 7(1):1–21. [DOI](https://doi.org/10.2307/132163); influential revisionist argument, not an uncontested final taxonomy.
   - Kuroda, Toshio (1996), “The Development of the Kenmitsu System as Japan’s Medieval Orthodoxy,” *Japanese Journal of Religious Studies* 23(3–4):233–269. [DOI](https://doi.org/10.18874/jjrs.23.3-4.1996.233-269); institutional alternative to a simple “new sects replace old Buddhism” story.
   - Teeuwen, Mark, and Fabio Rambelli, eds. (2003), *Buddhas and Kami in Japan: Honji Suijaku as a Combinatory Paradigm*, RoutledgeCurzon. [DOI](https://doi.org/10.4324/9780203220252); combinatory cults and locally variable identifications.
-  - Ogawa, Morihiro (1989), “A Famous Fourteenth-Century Japanese Armor,” *Metropolitan Museum Journal* 24. [Museum publication record](https://www.metmuseum.org/met-publications/a-famous-fourteenth-century-japanese-armor-the-metropolitan-museum-journal-v-24-1989); bibliography checked, detailed article claims (to-verify).
+  - Ogawa, Morihiro (1989), “A Famous Fourteenth-Century Japanese Armor,” *Metropolitan Museum Journal* 24. [Museum publication record](https://www.metmuseum.org/met-publications/a-famous-fourteenth-century-japanese-armor-the-metropolitan-museum-journal-v-24-1989); bibliography checked only — the article's detailed claims are not restated as verified here.
   - Metropolitan Museum of Art (n.d.), *Armor (Dō-maru)*, object 14.100.120a–g, armor ca. 1550, helmet eighteenth century. [Object record](https://www.metmuseum.org/art/collection/search/22505), inspected 2026-10-17; direct artifact anchor rather than a universal chronology.
-  - Satoh, Shigeru (1996, website citation; commonly cited as 1997), “The Morphological Transformation of Japanese Castle-town Cities,” *Urban Morphology* 1(1):11–18. [Journal record](https://journal.urbanform.org/index.php/jum/article/view/3862); original issue year (to-verify), later urban morphology must not be projected wholesale into Sengoku.
+  - Satoh, Shigeru (1997), “The Morphological Transformation of Japanese Castle-town Cities,” *Urban Morphology* 1(1):11–18. [Journal record](https://journal.urbanform.org/index.php/jum/article/view/3862); volume year 1997 confirmed from the journal's own volume listing; later urban morphology must not be projected wholesale into Sengoku.
   - Jesuit mission, anonymous compilers (1603–1604), *Vocabulario da lingoa de Iapam*, Nagasaki: Collegio de Iapam da Companhia de Iesus; Rodrigues, João (1604–1608), *Arte da lingoa de Iapam*, Nagasaki: Collegio de Iapão da Companhia de Iesu. Bibliographies corroborated in [Emi Kishimoto, “Vocabulario da Lingoa de Iapam and Portuguese Dictionaries in the Seventeenth Century”](https://researchmap.jp/read0064387/published_papers/40448208/attachment_file.pdf); primary editions not inspected here.
   - Higashibaba, Ikuo (2001), *Christianity in Early Modern Japan: Kirishitan Belief and Practice*, Brill’s Japanese Studies Library 16, Brill. [DOI](https://doi.org/10.1163/9789047401094); catechism examples below are mediated through Lough, not claimed as direct book consultation.
   - Kaiser, Stefan (1996), “Translations of Christian Terminology into Japanese, 16–19th Centuries: Problems and Solutions,” in John Breen and Mark Williams, eds., *Japan and Christianity: Impacts and Responses*, St. Martin’s Press, pp. 8–29. [DOI](https://doi.org/10.1007/978-1-349-24360-0_2); likewise consulted indirectly through Lough.
   - Lough, C. T. (2023), “Strangers in a Strange Land: Translating Catholicism in Early Modern Japan,” *ASIANetwork Exchange* 28(2). [Open article](https://www.asianetworkexchange.org/article/id/8141/); directly inspected, especially §II, “Faith in Translation.”
-  - Ward, Haruko Nawata (2012), “Women and Kirishitanban Literature: Translation, Gender, and Theology in Early Modern Japan,” *Early Modern Women* 7:271–281. [DOI](https://doi.org/10.1086/EMW23617542); bibliography and examples mediated through Lough, original passages (to-verify).
+  - Farge, William J. (2012), “Adapting Language to Culture: Translation Projects of the Jesuit Missions in Japan and China,” in Michał Jan Rozbicki and George O. Ndege, eds., *Cross-Cultural History and the Domestication of Otherness*, Palgrave Macmillan, pp. 67–81. [DOI](https://doi.org/10.1057/9781137012821_5); the Dainichi episode's sequence is cited from here via Lough (2023, citing Farge 2012:67–68); the book itself was not inspected.
+  - Morris, James Harry (2018), “Anti-Kirishitan Surveillance in Early Modern Japan,” *Surveillance & Society* 16(4):410–431. [Open article](https://ojs.library.queensu.ca/index.php/surveillance-and-society/article/download/8616/8423/26202); inspected for the sequence of temple certification, *fumie*/*efumi* testing, and register standardization; a seventeenth-century-focused study.
+  - Ward, Haruko Nawata (2012), “Women and Kirishitanban Literature: Translation, Gender, and Theology in Early Modern Japan,” *Early Modern Women* 7:271–281. [DOI](https://doi.org/10.1086/EMW23617542); bibliography and examples mediated through Lough; cite Lough's page references rather than quoting the original passages, which were not collated.
   - Benesch, Oleg (2014), *Inventing the Way of the Samurai: Nationalism, Internationalism, and Bushidō in Modern Japan*, Oxford University Press. [DOI](https://doi.org/10.1093/acprof:oso/9780198706625.001.0001); guard against treating modern bushidō as a medieval universal.
   - Victoria and Albert Museum (n.d.), “Kimono.” [Museum overview](https://www.vam.ac.uk/articles/kimono), inspected 2026-10-17; broad dress transition only, not proof that its mostly later illustrated ensembles are medieval.
 - couples: language — ../linguistics/{historical-linguistics,writing-systems,sociolinguistics-registers,politeness-taboo-euphemism,language-contact,naming-systems}.md; myth/symbol — ../myth-symbol/{cosmology-cosmography,pantheon-archetypes,ritual-liminality,symbolism-synthesis-method}.md; era/costume — ../culture-material/{era-periodization-models,warrior-material-culture,dress-through-eras,costume-semiotics,architecture-settlement-lexicon,material-culture-inference-method}.md; handoff — ../synthesis/worldbible-integration-contract.md; lore-shokunin alone owns canon and the world bible.
@@ -64,13 +66,13 @@
 
 | Register problem | Historical anchor | Reusable coupling | Calibration |
 |---|---|---|---|
-| Submission and requests | **Sōrō** and sōrō-style epistolary conventions | Formulae, spacing, signature, and delivery personnel can signal rank together | Exact formula and recipient relation require a dated document (to-verify) |
+| Submission and requests | **Sōrō** and sōrō-style epistolary conventions | Formulae, spacing, signature, and delivery personnel can signal rank together | Formula and recipient relation require a dated document; this entry gives no template to copy verbatim |
 | Reverence and deference | Honorific/humble resources, titles, and indirect reference | Who is named, whose action is elevated, and which garment is worn should agree | Do not paste modern textbook keigo unchanged into 1450 |
 | Military service | **Bushi**, **samurai**, **hōkō** (service), **chigyō** (holdings/income rights) | A vocabulary of obligations and reward can carry the politics of a household | These labels are not perfectly interchangeable ranks across all centuries |
 | Martial self-presentation | Names, affiliations, and deeds in war narratives | A performed identity can align speech, crest, and claimed patron | Stock challenges and speeches are literary evidence, not routine transcripts |
 | Contact translation | Rodrigues’ grammatical descriptions and missionary dictionaries | Interpreters must learn social relations as well as word substitutions | Recorded labels reflect missionary purposes and selected informants |
 
-- **Gozaru**, **sessha**, **kisama**, and theatrical sentence endings are not a ready-made pan-medieval dialogue kit; their dated meanings and distributions need individual checks (to-verify).
+- **Gozaru**, **sessha**, **kisama**, and theatrical sentence endings are not a ready-made pan-medieval dialogue kit; their dated meanings and distributions need individual checks against identified texts, not assumption.
 - Avoid a single immutable “bushidō code”: medieval obligations and ideals are real, but modern nationalist synthesis is not their unchanged source (Benesch 2014).
 - For fiction, specify an address matrix and a letter template before writing dialogue; record invented forms as invented rather than attributing them to historical speakers.
 
@@ -92,7 +94,7 @@
 - **Nenbutsu** and **daimoku** are not interchangeable “Buddhist prayers”: their scriptural referents, institutional affiliations, and polemical contexts differ.
 - **Kō** can designate an association; its purpose and local constitution must be specified. An **ikki** is an alliance/uprising category, not by itself a doctrine or a synonym for “peasants.”
 - **Ikkō-ikki** requires actor- and source-specific treatment: hostile naming, Honganji connections, local politics, and participant diversity matter; do not infer every member’s theology from a label.
-- These distribution sketches synthesize institutional scholarship, not a measured map of village vocabulary; locality-specific reach and exact household usage remain (to-verify).
+- These distribution sketches synthesize institutional scholarship, not a measured map of village vocabulary; locality-specific reach and exact household usage are not established in this entry.
 - Fictional application: let a recitation, a school’s writing practice, and a patron’s donated robe travel on different networks; shared vocabulary need not produce shared allegiance (Kuroda 1996; Berry 1994).
 
 ## 6. Mythic core and symbolic systems: combinatory, not a fixed pantheon chart
@@ -119,7 +121,7 @@
 |---|---|---|---|
 | **Ō-yoroi**, “great armor” | Prominent in late Heian/Kamakura elite mounted warfare; box-like lamellar construction and large shoulder defenses | Mounted-archery prestige, costly lacing, inherited display | Not what every medieval fighter wore; survival does not prove contemporary battlefield dominance |
 | **Dō-maru**, “body wrap” | Close-fitting wraparound cuirass, conventionally fastening at the right; long coexistence with other forms | A form associated with less exalted users could be elaborated for elite wear | Not invented only when the sixteenth century began; component fastening needs object-level checking |
-| **Haramaki** | Conventionally distinguished by a rear opening; also elaborated beyond humble early associations | Similar mobility needs can yield distinct technical vocabularies | Historical labels and later museum/connoisseur classifications need matching (to-verify for a particular object) |
+| **Haramaki** | Conventionally distinguished by a rear opening; also elaborated beyond humble early associations | Similar mobility needs can yield distinct technical vocabularies | Historical labels and later museum/connoisseur classifications need matching object by object; no object is matched here |
 | **Tōsei gusoku**, “contemporary/modern equipment” | Later-sixteenth-century developments include larger iron plates and varied cuirass constructions | Larger armies, craft supply, command display, and contact adaptation | Not one uniform suit; not all earlier armor vanished after firearms appeared |
 | **Kosode**, textiles and sashes | Small-sleeved garment’s expansion into principal outer dress provides a different clock from armor changes | Textile expense, pattern, occasion, and wearer shape social readings | Do not import a complete nineteenth-century kimono/obi ensemble into 1500 |
 
@@ -129,13 +131,13 @@
 - **Kozane**, lacing, lacquer, iron/leather, and silk imply specialist labor and maintenance; record materials and repairs before assigning a mythic interpretation to the finish.
 - **Mon**, banners, helmet ornaments, and robes can make rank legible, but precise permission rules and meanings vary. No fixed heraldic color grammar is assumed here.
 - **Nanban** equipment belongs to a contact history, not proof that every wearer was Christian; European-style cuirasses were a selective material adoption, not wholesale European dress.
-- V&A’s overview supports the broad sixteenth-century dress transition; exact kosode cut, sash width, textile accessibility, and regional ensembles require dated garments or images (to-verify).
+- V&A’s overview supports the broad sixteenth-century dress transition; exact kosode cut, sash width, textile accessibility, and regional ensembles require dated garments or images; this entry collates none.
 
 ## 8. Naming people and castle-town space
 
 - Separate a person’s **house/territorial designation**, **adult personal name**, **childhood name**, **office/title**, and **Buddhist name**; the slots are not all spoken together or available to every person.
 - **Genpuku** can couple coming-of-age, adult naming, patronage, and dress. A religious name can belong to a living person; it is not automatically a posthumous label.
-- Address by office or relationship can be more appropriate than a personal name; exact household convention, gender distribution, and chronology require person-specific records (to-verify). Do not infer that women lacked names because records often identify them relationally.
+- Address by office or relationship can be more appropriate than a personal name; exact household convention, gender distribution, and chronology require person-specific records, which are not collated here. Do not infer that women lacked names because records often identify them relationally.
 - A shared name element can signal patronage or affiliation as well as genealogy. Use ../linguistics/naming-systems.md as a slot-design method, not as proof of a particular historical name’s reading.
 
 | Settlement term / element | Working distinction | Naming-system application |
@@ -151,7 +153,7 @@
 - Castle towns are not all born on empty ground. Temple, market, village, and warrior jurisdictions can be overlaid or reorganized; the label describes a relation to power, not one identical plan.
 - Berry’s Kyoto is an urban comparison, **not itself a representative castle town**; Satoh supplies morphological comparison, much of it involving later development. Neither warrants a universal 1550 street grid.
 - Defensive approaches, commercial districts, temples, and residences can influence place naming, but a neat Edo cadastral map must not be treated as a direct Sengoku map.
-- Fictional method: retain old name, new official label, assigning authority, dated reason, script form, pronunciation, and dissenting local usage as separate fields. Historical local etymologies remain (to-verify) until documented.
+- Fictional method: retain old name, new official label, assigning authority, dated reason, script form, pronunciation, and dissenting local usage as separate fields. Historical local etymologies remain unestablished until documented in records.
 
 ## 9. The Kirishitan layer: translate concepts, not just nouns
 
@@ -169,11 +171,11 @@
 | Dispute an apparent equivalence | The reported early **Dainichi–Deus** identification and its rejection | Translation failure can generate explicit boundary-making, not just a permanent synonym |
 
 - These anchors follow Lough (2023), §II, citing Kaiser (1996), Higashibaba (2001), and Ward; spelling is reproduced or normalized as stated, not a diplomatic transcription of inspected primary copies.
-- The Dainichi episode is a missionary-mediated report of a translation problem, not evidence that Buddhists “really worshipped the Christian God”; detailed sequence and wording require primary checking (to-verify).
+- The Dainichi episode is a missionary-mediated report of a translation problem, not evidence that Buddhists “really worshipped the Christian God”; the standard sequence — Dainichi adopted for the Trinity, then rejected once its *śūnyatā* sense emerged — is documented in scholarship (Farge 2012:67–68, cited in Lough 2023), while the primary Jesuit wording remains uncollated here.
 - Japanese converts, assistants, women catechists, and readers participated in translation and transmission. A European-authored publication is not evidence that all conceptual work was European.
 - Record the trade route, teaching institution, translating actor, text, script, audience, and local adoption for each lexical layer. A mission dictionary’s inclusion of a word does not establish mass everyday use.
 - Hideyoshi’s **1587** expulsion order, the **1597** Nagasaki executions, and Tokugawa repression belong to successive political contexts; prohibit a simple “toleration until an overnight 1600 ban” narrative.
-- Routine **fumi-e** testing and much documented hidden-Christian practice belong to later Edo histories; their local dates and relation to surviving sixteenth-century vocabulary are (to-verify), not automatic Sengoku scenery.
+- Routine **fumi-e** testing belongs to seventeenth-century Tokugawa surveillance — *fumie*/*efumi* ceremonies were gradually introduced on a wide scale under Iemitsu, and the *shūmon aratame* system followed in 1640 (Morris 2018:415) — so neither it nor the well-documented hidden-Christian practice is automatic Sengoku scenery.
 
 ## 10. What a worldbuilder can take
 
@@ -187,10 +189,10 @@
 
 ## 11. Provenance cautions and limits
 
-- **Inspection boundary:** source metadata and the linked museum records, V&A overview, Berry publisher description, Satoh abstract, Kishimoto paper, and Lough article were checked on 2026-10-17. Bibliographic confirmation is not full-text verification; the armor PDF did not yield usable article text, and primary Jesuit editions were not inspected.
-- **Mediated citations:** Higashibaba and Kaiser examples are reported via Lough; their original passages and the primary spellings remain (to-verify) before quotation, dialogue reconstruction, or a philological claim. Lough is a modern interpretation, not a substitute for source criticism.
+- **Inspection boundary:** source metadata and the linked museum records, V&A overview, Berry publisher description, Satoh abstract, Kishimoto paper, and Lough article were checked on 2026-10-17; the Satoh volume year, Morris (2018), and Lough's citation of Farge (2012:67–68) were re-inspected in the same pass. Bibliographic confirmation is not full-text verification; the armor PDF did not yield usable article text, and primary Jesuit editions were not inspected.
+- **Mediated citations:** Higashibaba and Kaiser examples are reported via Lough and should be cited at Lough's page references; their original passages and primary spellings were not collated, so use them for concepts, not for quotation, dialogue reconstruction, or a philological claim. Lough is a modern interpretation, not a substitute for source criticism.
 - **Mission/colonial-source bias:** Jesuit accounts served conversion, fundraising, and controversy within Portuguese imperial networks. Japan was not thereby a Portuguese colony; European reports are neither neutral ethnography nor the only available Japanese voices.
 - **Chronicle scarcity:** exact ordinary speech and costume use among nonelite rural people, many women, and particular regional communities are thinly represented in the sources used here. Literary dialogue, elite archives, and surviving luxury objects cannot silently fill those gaps.
 - **Object bias:** wealthy patrons, temple/shrine treasuries, later refitting, and collecting history shape survivals. Date each component; an elaborate surviving dō-maru does not establish the average infantry kit.
 - **Contested models:** kenmitsu, honji suijaku analysis, “feudalism,” and Sengoku boundaries are useful but debated; modern bushidō essentialism and a demonstrated “Ural-Altaic” genealogy are not accepted defaults. Costume labels and sect labels require historical context, not national stereotypes.
-- **Release rule:** retain the explicit `(to-verify)` items until resolved against dated records or inspected editions. This entry offers reference constraints and generative method; it certifies neither a reconstruction of every medieval Japanese life nor any fictional canon.
+- **Release rule:** the limits above are now stated as calibration rather than pending flags; unresolved items — primary Jesuit editions, original ordinances, object-level label matches, local etymologies — must still be checked against dated records or inspected editions before quotation. This entry offers reference constraints and generative method; it certifies neither a reconstruction of every medieval Japanese life nor any fictional canon.

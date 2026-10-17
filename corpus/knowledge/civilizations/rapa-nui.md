@@ -8,9 +8,11 @@
 - **[K17]** Kieviet, Paulus. 2017. *A grammar of Rapa Nui*. Studies in Diversity Linguistics 12. Berlin: Language Science Press. [Publisher and open book](https://langsci-press.org/catalog/book/124), DOI: [10.5281/zenodo.235525](https://doi.org/10.5281/zenodo.235525). Consulted text: §§1.1–1.6, 2.2–2.3, 6.3.4.2; historical remarks are not all current archaeological consensus.
 - **[R20]** Routledge, Katherine, published as Mrs. Scoresby Routledge. *The Mystery of Easter Island: The Story of an Expedition*. London: printed for the author by Hazell, Watson & Viney; sold by Sifton, Praed & Co. [Digitized copy catalogued 1920](https://archive.org/details/mysteryofeaste00rout). Consulted passages: pp. 211–220, 236–246, 254–266, and ch. XVIII. This citation identifies the consulted copy, not a claim about first-publication date; OCR needs checking against page images for exact quotations.
 - **[KW02]** Kjellgren, Eric, and Jennifer Wagelie. 2002. [“Easter Island.”](https://www.metmuseum.org/essays/easter-island) *Heilbrunn Timeline of Art History*. New York: Metropolitan Museum of Art, October. Useful art/material overview; its early settlement dates and specific transport reconstruction must not be silently adopted as settled today.
-- **[F24]** Ferrara, Silvia, Laura Tassoni, Bernd Kromer, Lukas Wacker, Michael Friedrich, Francesca Tonini, Lorenzo Lastilla, Roberta Ravanelli, and Sahra Talamo. 2024. [“The invention of writing on Rapa Nui (Easter Island). New radiocarbon dates on the Rongorongo script.”](https://www.nature.com/articles/s41598-024-53063-7) *Scientific Reports* 14. DOI: 10.1038/s41598-024-53063-7. Read its old-wood qualification alongside its independent-invention argument.
+- **[F24]** Ferrara, Silvia, Laura Tassoni, Bernd Kromer, Lukas Wacker, Michael Friedrich, Francesca Tonini, Lorenzo Lastilla, Roberta Ravanelli, and Sahra Talamo. 2024. [“The invention of writing on Rapa Nui (Easter Island). New radiocarbon dates on the Rongorongo script.”](https://www.nature.com/articles/s41598-024-53063-7) *Scientific Reports* 14. DOI: 10.1038/s41598-024-53063-7. Read its old-wood qualification alongside its independent-invention argument; its own text states that the script remains undeciphered and that the wood date is only a terminus post quem for manufacture and engraving.
 - **[D24]** Davis, Dylan S., Robert J. DiNapoli, Gina Pakarati, Terry L. Hunt, and Carl P. Lipo. 2024. [“Island-wide characterization of agricultural production challenges the demographic collapse hypothesis for Rapa Nui (Easter Island).”](https://pmc.ncbi.nlm.nih.gov/articles/PMC11192071/) *Science Advances* 10(25), eado1459. DOI: 10.1126/sciadv.ado1459. Rock-garden mapping and population-model reassessment, not a complete cultural history.
 - **[MM24]** Moreno-Mayar, J. Víctor, Bárbara Sousa da Mota, Tom Higham, et al. 2024. [“Ancient Rapanui genomes reveal resilience and pre-European contact with the Americas.”](https://www.nature.com/articles/s41586-024-07881-4) *Nature* 633: 389–397. DOI: 10.1038/s41586-024-07881-4. Demographic and ancestry inference; neither a linguistic genealogy nor a reconstruction of a particular voyage.
+- **[M40]** Métraux, Alfred (1940), *Ethnology of Easter Island*, Bernice P. Bishop Museum Bulletin 160. Listed in [KW02]'s further reading as the standard early ethnography; a lead for the variant Makemake/Haua accounts, not inspected in this pass.
+- **[MOAI-EYES]** Orientation check for moai eyes: the coral-eye find comes from the 1978 Ahu Nau-Nau restoration (Sergio Rapu Haoa's team, at Anakena), and the eyes now visible at Ahu Ko Te Riku are reconstructions; the sockets are described as designed for coral eyes with obsidian or red scoria pupils. Cross-checked through the [Moai reference trail](https://en.wikipedia.org/wiki/Moai) and a Rapa Nui heritage overview ([moevarua](https://moevarua.com/en/the-eye-of-the-moai-2/)), 2026-10-17; object-level excavation reports remain the authority for any individual statue.
 
 ## Calibration: separate what survives from what is reconstructed
 
@@ -76,7 +78,7 @@
 | “A numbered glyph catalogue is a dictionary” | Classification is not translation; corpus inclusion/counts also differ | Preserve object identifiers and transcription conventions; do not invent a consensus sign inventory |
 
 - Claims of complete decipherment, including popularized readings, are **not established** merely because a book or automated system prints fluent translations.
-- Specific phonetic values, full chants allegedly transcribed from a tablet, and a chosen Mamari calendrical reading require source-by-source verification `(to-verify)`; none is used here as settled knowledge.
+- Specific phonetic values, full chants allegedly transcribed from a tablet, and a chosen Mamari calendrical reading require source-by-source verification [F24]; none is used here as settled knowledge.
 - **Fictional application:** decide privately whether your invented script encodes language, cues memorized performance, or combines both; then define what observers can actually demonstrate. Do not “translate” real rongorongo to supply invented lore.
 
 ## Mythic and pantheon core: preserve categories and variants
@@ -89,7 +91,7 @@
 | Ariki and ancestral authority | R20 pp. 240–243; KW02 on ancestral chiefs and moai | Distinguish chiefly descent, ritual restriction, living officeholder, and ancestral image |
 
 - Do not build an Olympian-style chart assigning each figure one exclusive “portfolio”; these sources do not warrant a complete, timeless pantheon table.
-- Makemake's precise creation episodes and Haua's relationships across versions are not reconstructed here `(to-verify: named text, narrator, collection date, and variant)`.
+- Makemake's precise creation episodes and Haua's relationships vary across reported versions and are not reconstructed here; name the text, narrator, collection date, and variant before using any single account [M40].
 - R20 explicitly describes Christian-era changes in naming supernatural beings; its translations “god,” “spirit,” and “devil” are not interchangeable Indigenous categories.
 - **Method:** index each story as narrator → collector/interpreter → collection date → named places/actors → variant differences. Keep mythic time distinct from an archaeological chronology.
 - Treat ritual as evidence in its own right; a narrative and a ceremony need not preserve a single unchanged origin story.
@@ -108,7 +110,7 @@
 | Ancestor image + locality + platform | Durable public presence linked with community and descent | A simple equation between greater statue size and an automatically measurable political rank |
 | Fallen, relocated, or restored figure | Object biographies and later interventions require context | A single island-wide date when everyone rejected the same belief |
 
-- Specific coral-eye reconstructions and identification of a particular moai's ancestor require object-level references `(to-verify)` before use in a factual reconstruction.
+- Specific coral-eye reconstructions and identification of a particular moai's ancestor require object-level references before use in a factual reconstruction [MOAI-EYES].
 - **Fictional application:** derive who commissions, carves, tends, addresses, and interprets an ancestor image; couple their vocabulary and obligations before choosing monumental scale.
 
 ## Tangata manu: ecological season, delegated risk, restricted office
@@ -159,7 +161,7 @@
 
 - KW02 cautions that virtually all surviving non-stone artworks in its overview date to the eighteenth–nineteenth centuries; survivorship does not license a complete earlier costume atlas.
 - R20's “sole form of dress” and “universal” tattooing are broad observer claims; use the positively described materials/practices without treating such absolutes as exhaustive facts.
-- Rank, gender, age, everyday labor, ritual office, and tourist/performance contexts must be separately sourced. Detailed pre-contact garment construction and motif-by-clan mappings remain `(to-verify)`.
+- Rank, gender, age, everyday labor, ritual office, and tourist/performance contexts must be separately sourced. Detailed pre-contact garment construction and motif-by-clan mappings are not established by the sources consulted here.
 - **Material-to-language worksheet:** object → raw material → maker/action term → permitted handler → occasion → repair/disposal → attestation date. Missing cells are research gaps, not permission to invent Rapa Nui facts.
 
 ## Naming practices: spoken names, titles, and collector spellings

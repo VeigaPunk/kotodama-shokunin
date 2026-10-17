@@ -1,0 +1,170 @@
+# naming-collision-gate.yml — constructed regression fixture for
+# tools/gates/naming-collision-gate.py.
+#
+# Toy profile F from the spec's §10 ("Constructed regression fixtures —
+# not setting canon"): consonants /p t k m n s l r/, vowels /a i u/,
+# syllables (C)V(C), codas only /n s/, no onset clusters, penultimate
+# stress (initial in monosyllables). The records below are supplied
+# inputs and fixtures, never statements about any real language or canon.
+#
+# Planted findings (expected file: naming-collision-gate.expected):
+#   NAME-REUSE      F01 'talin' / F02 'Talin' — same case-policy key,
+#                   two entities, no decision recorded
+#   NAME-REUSE      G01 'é' / G02 'e\u0301' — canonical equivalence (NFC),
+#                   comparison-unit fixture, no claim about F's inventory
+#   NAME-VISUAL     H01 Latin 'a' / H02 Cyrillic 'а' — confusable skeleton
+#   NAME-NEAR       F09 'musa' / F10 'musi' — edit distance 1
+#   NAME-LEXEME     F13 'Kanu' equals lexicon term 'kanu', no decision
+#   PHON-ONSET      F03 'tlina' — initial cluster /tl/ outside (C)V(C)
+#   PHON-CODA       F04 'kanat' — coda /t/ outside {n, s}
+#   PHON-INVENTORY  F05 'vata' — /v/ not in the declared inventory
+#   DERIV-AFFIX     F06 'talasi' — '-si' is not a licensed agent suffix
+#   DERIV-REPLAY    F07 'taluna' — the declared chain yields 'talin'
+#   DERIV-HOLD      F08 'makan' — formation block without a stem
+#   CROSS-HOLD      no bounded cross-cultural review recorded
+#
+# Demonstrated non-findings:
+#   the F01 alias 'Talin' merges into F01 — one entity, no duplicate-entity
+#     failure
+#   F11 'Tala' and F12 'tala' share a key but carry recorded decisions
+#     (reuse_decision / disposition: retain-intentional)
+#   F01 'talin' passes Gate B and replays Gate C cleanly: /tala/ + R1
+#   F06 'talasi' and F07 'taluna' are pronounceable — their failures are
+#     derivational only, at the level the spec table names
+#   F09 'musa' and F10 'musi' are legal F words; the finding is retrieval
+#     at the edit-distance threshold, REVIEW not FAIL
+#   no NAME-CASE fires because this packet declares its casing rule
+#     (orthography.case: display-only); G01/G02 and H01/H02 stay
+#     comparison units with no claim about F's inventory
+
+name: F-toy
+note: "constructed regression fixture per corpus/knowledge/verification/naming-collision-gate.md section 10; not canon"
+
+phonology:
+  consonants: [p, t, k, m, n, s, l, r]
+  vowels: [a, i, u]
+  phonotactics: "(C)V(C)"
+  coda: [n, s]
+  onset_clusters: false
+  tones: 0
+  notable_rules:
+    - penultimate stress; initial stress in monosyllables
+
+orthography:
+  script: latin
+  case: display-only
+  separators: ["-"]
+
+morphology:
+  type: agglutinative
+  alignment: nom-acc
+  word_order: SOV
+  derivation_rules:
+    - id: R1
+      kind: suffix
+      affix: "-in"
+      gloss: agent noun
+      stem_class: noun
+      allomorph: "delete stem-final /a/ immediately before -in"
+      pattern: "^(?P<stem>.+)a$"
+      output: "{stem}in"
+
+lexicon:
+  - {term: tala, gloss: reed, field: plants, etymology: "opaque native root (toy)", layer: native}
+  - {term: kanu, gloss: boat, field: craft, etymology: "opaque native root (toy)", layer: native}
+  - {term: sala, gloss: "woven mat or sail", field: craft, etymology: "opaque native root (toy)", layer: native}
+
+pantheon:
+  - {name: Saku, role: "patron of boats", domain: river, era: "First Age"}
+
+symbols:
+  - {sign: "reed-bundle", domain: household, era: "First Age", notes: "invented fixture emblem"}
+
+costumes:
+  - {garment: "kanu-sala", material: "reed fiber", wearer_rank: boat-wright, rite: "river blessing", era: "First Age"}
+
+eras: ["First Age", "Second Age"]
+
+names:
+  - name: talin
+    id: F01
+    type: person
+    era: "Early F"
+    formation: {stem: tala, rule: R1}
+    etymology: "tala 'reed' + R1 agent; replay: talin"
+  - name: Talin
+    alias_of: F01
+    relation: alias
+    type: person
+  - name: Talin
+    id: F02
+    type: person
+    era: "Late F"
+    opaque: true
+  - name: tlina
+    id: F03
+    type: place
+    era: "Early F"
+    opaque: true
+  - name: kanat
+    id: F04
+    type: place
+    era: "Late F"
+    opaque: true
+  - name: vata
+    id: F05
+    type: person
+    opaque: true
+  - name: talasi
+    id: F06
+    type: person
+    era: "Early F"
+    formation: {stem: tala, affix: "-si", gloss: "agent (claimed)"}
+    etymology: "claimed tala + -si agent"
+  - name: taluna
+    id: F07
+    type: person
+    era: "Late F"
+    formation: {stem: tala, rule: R1}
+  - name: makan
+    id: F08
+    type: person
+    formation: {rule: R1}
+  - name: musa
+    id: F09
+    type: person
+    opaque: true
+  - name: musi
+    id: F10
+    type: person
+    opaque: true
+  - name: Tala
+    id: F11
+    type: place
+    era: "Early F"
+    reuse_decision: "place named for the reed beds; person F12 is a distinct entity; disambiguated by map label"
+  - name: tala
+    id: F12
+    type: person
+    disposition: retain-intentional
+    note: "personal namesake of the plant noun; disambiguated as F12 in prose"
+  - name: Kanu
+    id: F13
+    type: person
+    opaque: true
+  - name: "é"
+    id: G01
+    type: person
+    compare_only: true
+  - name: "e\u0301"
+    id: G02
+    type: place
+    compare_only: true
+  - name: "a"
+    id: H01
+    type: person
+    compare_only: true
+  - name: "а"
+    id: H02
+    type: place
+    compare_only: true

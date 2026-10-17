@@ -10,6 +10,7 @@
   - Moshe Weinfeld (1970), “The Covenant of Grant in the Old Testament and in the Ancient Near East,” *Journal of the American Oriental Society* 90(2): 184–203. [DOI](https://doi.org/10.2307/598135).
   - Oded Borowski (2003), *Daily Life in Biblical Times*, Society of Biblical Literature, Archaeology and Biblical Studies 5. [ISBN record](https://books.google.com/books?vid=ISBN9781589830424&hl=en).
   - Gabriel Barkay, Marilyn J. Lundberg, Andrew G. Vaughn, and Bruce Zuckerman (2004), “The Amulets from Ketef Hinnom: A New Edition and Evaluation,” *Bulletin of the American Schools of Oriental Research* 334: 41–71. [DOI](https://doi.org/10.2307/4150106).
+  - Executive Committee of the Editorial Board, J. F. McLaughlin, and Judah David Eisenstein (1901–1906), “Names of God,” *The Jewish Encyclopedia*, Funk & Wagnalls. [Online text](https://www.jewishencyclopedia.com/articles/11305-names-of-god); inspected 2026-10-17 for the Masoretic *qere perpetuum* and the Temple/provincial reading distinction. An early twentieth-century reference work: used for the standard description of the reading substitutes, not for current philological debate.
   - Sacha Stern (2012), *Calendars in Antiquity: Empires, States, and Societies*, Oxford University Press. [Bibliographic record and critical review](https://bmcr.brynmawr.edu/2013/2013.08.16/).
   - Jacob L. Wright (2015), “How and When the Seventh Day Became Shabbat,” *TheTorah.com*. [Article](https://www.thetorah.com/article/how-and-when-the-seventh-day-became-shabbat); a particular reconstruction of Sabbath origins, not a consensus chronology.
   - Gershon Galil (1996), *The Chronology of the Kings of Israel and Judah*, Brill, Studies in the History and Culture of the Ancient Near East 9. [Publisher record](https://brill.com/abstract/title/329); one argued reconstruction, not an uncontested master chronology.
@@ -109,7 +110,7 @@
 
 - Barkay et al. (2004) argue a late seventh/early sixth-century BCE setting for the amulets. Separate their epigraphic/archaeological argument from claims that these objects fix the composition date of Numbers as a whole.
 - The Mishnah was compiled around 200 CE after the Temple's destruction; its ritual memories and legal schematization require historical criticism. Do not merge all rows into a single timeless prohibition.
-- In later Jewish practice **Adonai** is an important liturgical reading substitute; **HaShem**, “the Name,” is an avoidance expression. Their exact distribution by community, era, and conversational setting requires a specific source **(to-verify)** before scripting authentic dialogue.
+- In later Jewish practice **Adonai** is the standard reading substitute carried by the Masoretic *qere perpetuum*, and the divine name was already known in early rabbinic usage simply as “the Name” (**HaShem**), an avoidance expression. Distribution by community, era, and conversational setting varies and requires community-specific sources before scripting authentic dialogue (Jewish Encyclopedia 1901–1906, “Names of God”; Mishnah Sotah 7:6).
 - Masoretic pointing can cue a substitute reading rather than a pronunciation made from YHWH's consonants plus those vowel signs. Do not present “Jehovah” as an independently recovered Iron Age pronunciation (Joüon–Muraoka 2006).
 - **A: name-magic design matrix:** record `written form / permitted spoken form / speaker / place / occasion / gesture / sanction / object bearing the name`. A name may be wearable and visible but restricted in speech; authority is distributed across media.
 - Fictional magical causation is a separate choice. Mark whether protection comes from divine favor, institutional authorization, recitation, or an invented causal rule; do not pass that invented rule off as Jewish doctrine.
@@ -117,7 +118,7 @@
 ## 7. Costume and material signature: bigdei kehuna
 
 - Separate everyday dress from sanctuary prescription. Borowski (2003) supplies household production context; biblical tunic/cloak terminology does not by itself recover every cut, fiber, sex distinction, or local fashion.
-- Wool/linen production, weaving tools, belts, mantles, sandals, storage jars, and household labor are better material prompts than a uniform “biblical robe.” For a specific excavated ensemble, require findspot/date and direct textile or image evidence **(to-verify)**.
+- Wool/linen production, weaving tools, belts, mantles, sandals, storage jars, and household labor are better material prompts than a uniform “biblical robe.” For a specific excavated ensemble, require findspot/date and direct textile or image evidence; this entry collates no such dated ensemble.
 - *Bigdei kehuna* means priestly garments; Exodus 28 calls its prescribed vestments *bigdei qodesh*, sacred garments. The familiar **four ordinary-priest / eight high-priest garments** classification is explicit in Mishnah Yoma 7:5; do not mistake the later schema for a dated excavation inventory.
 
 | Garment | Textual material / form | Coupled function and caution |
@@ -148,7 +149,7 @@
 | Fringes and remembered commands | Numbers 15:38–40; Deuteronomy 22:12 | garment edge becomes a mnemonic surface; not a license to back-project every modern prayer-shawl form |
 
 - Number, color, object, and inscription acquire meaning through rite and location. A temple lamp, household lamp, and later communal emblem need separate evidence records.
-- Modern emblems and recognizable modern Jewish clothing are not default reconstructions of monarchic Israel. Any proposed ancient use of a particular badge, hat, or standardized shawl needs period-specific evidence **(to-verify)**.
+- Modern emblems and recognizable modern Jewish clothing are not default reconstructions of monarchic Israel. Any proposed ancient use of a particular badge, hat, or standardized shawl needs period-specific evidence; none is supplied in this entry.
 
 ## 9. Sabbath and the week: portable coordination, uncertain beginnings
 
@@ -202,6 +203,6 @@
 - **Contested:** monarchy scale/chronology, dating individual biblical strata, the historical route to monotheism, Asherah interpretations, Sabbath origins, exact divine-name pronunciation, and detailed regnal reconciliations. A book citation identifies an argument, not universal assent.
 - **Source bias:** biblical texts are selective literary/legal/theological works; royal inscriptions and imperial reliefs advertise power. Neither a Judean elite author nor an Assyrian conqueror gives transparent access to every household.
 - **Historiographic bias:** older biblical archaeology and comparative religion often carried confessional, colonial, or civilizational-progress assumptions. Reject “primitive magic → superior monotheism” as a neutral history, and do not turn ancient material into a modern territorial entitlement argument.
-- **Thin coverage:** this entry does not independently collate Hebrew inscriptions, reconstruct women's regional wardrobes, or survey Samaritan, Elephantine, Qumran, and other communities' divergent practices. Specific claims about them remain **(to-verify)** rather than being inferred from a Jerusalem-centered model.
+- **Thin coverage:** this entry does not independently collate Hebrew inscriptions, reconstruct women's regional wardrobes, or survey Samaritan, Elephantine, Qumran, and other communities' divergent practices. Specific claims about them remain outside this entry's verified scope rather than being inferred from a Jerusalem-centered model.
 - **Chronicle scarcity:** Kings' selectivity, lost cited annals, uneven excavation, and foreign royal agendas leave genuine gaps. Preserve rival dates and unknowns; never invent an archival quotation or missing ritual instruction.
 - Modern editions, translations, and online expanded explanations are different editorial layers. Verify difficult Hebrew, verse numbering, mineral/fiber identifications, and any claimed garment reconstruction at passage/object level before presenting it as historical fact.

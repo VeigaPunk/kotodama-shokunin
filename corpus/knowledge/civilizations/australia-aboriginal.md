@@ -1,6 +1,6 @@
 # Aboriginal Australian Traditions — Language, Country and Living Law
 - topic: Ethics-calibrated reference for coupling language, ancestral law, geography, symbol, historical change and dress; locally attributed methods, not fictional canon or a pan-Aboriginal culture template.
-- sources: Bouckaert, Bowern & Atkinson (2018); Haviland (1979); Evans, ed. (2003); Parks Australia (n.d., public Aṉangu accounts); Couzens (2020); Australian Embassy, United States (2024, NMA exhibition account); AIATSIS (2020); Warlukurlangu Artists Aboriginal Corporation (n.d.); full citations and verification limits below.
+- sources: Bouckaert, Bowern & Atkinson (2018); Haviland (1979); Evans, ed. (2003); Parks Australia (n.d., public Aṉangu accounts); Couzens (2020); Australian Embassy, United States (2024, NMA exhibition account); Johnson (2018); Central Land Council (n.d.); AIATSIS (2020); Warlukurlangu Artists Aboriginal Corporation (n.d.); full citations and verification limits below.
 - couples: language—`corpus/knowledge/linguistics/historical-linguistics.md`, `writing-systems.md`, `sociolinguistics-registers.md`, `politeness-taboo-euphemism.md`, `naming-systems.md`; myth/symbol—`corpus/knowledge/myth-symbol/cosmology-cosmography.md`, `symbolism-synthesis-method.md`; era/costume—`corpus/knowledge/culture-material/era-periodization-models.md`, `ritual-garments.md`, `adornment-body-codes.md`, `material-culture-inference-method.md`; sibling—lore-shokunin owns canon and world-bible decisions; these are reference and design constraints only.
 
 ## Scope and calibration
@@ -55,7 +55,7 @@
 | Performance | Song, speech, gesture and visual representation are not interchangeable containers. | Specify what translation or transcription loses without imitating real restricted performance. |
 | Layered disclosure | Public explanation need not expose deeper teaching. | Design a complete public-facing account that does not require revealing its restricted counterpart. |
 
-- A cross-community route need not imply one language or one institution. The exact language transitions of any named real songline are `(to-verify)` here; none are reconstructed.
+- A cross-community route need not imply one language or one institution: the Seven Sisters songline runs through Martu, Pitjantjatjara, Yankunytjatjara, and Ngaanyatjarra country, and its public form is a negotiated, custodian-authorised selection (Johnson 2018). Language-by-language transitions of a named songline are not published in the sources inspected here; none are reconstructed.
 - Do not advertise all songlines as universal “Aboriginal GPS,” a single continent-wide song, ley lines or an extractable navigation technology.
 - This entry does not supply melodies, sacred coordinates, ritual lyrics, or methods for reconstructing withheld verses.
 
@@ -63,7 +63,7 @@
 - Haviland (1979) distinguishes initiation-associated vocabulary, deceased-name/word taboo, and kin-avoidance vocabularies. These are different phenomena, not one “secret language.”
 - His Guugu Yimidhirr study belongs to the kin-avoidance category; its title itself warns against treating “mother-in-law language” as a universal literal description.
 - The article's introduction describes special vocabularies replacing all or part of ordinary vocabulary between people in particular avoidance relationships.
-- The checked abstract does not establish a current rule for every speaker or a universal presence-distance threshold; detailed triggers and grammatical equivalences remain `(to-verify)` here.
+- The full article was inspected: obligations ran from a wife's relatives in descending stringency (WM/WF, then WB), the register replaced many lexical items while pronouns and particles stayed ordinary, some tabooed words had no respectful equivalent at all, and use was optional as a mark of respect with a wider kin set (Haviland 1979: 367–373). It was already lapsing at Hopevale by the Second World War — do not present it as a current rule.
 
 | Design variable | Useful abstraction | Misapplication to reject |
 |---|---|---|
@@ -74,7 +74,7 @@
 | Initiation vocabulary | Haviland notes reports of vocabulary associated with male initiation. | Inferring its actual words, access rules or dress from kin-avoidance data. |
 
 - **Craft proposal:** test an invented dialogue against a relationship graph and lexical substitution table; keep bereavement, affinal avoidance and specialist performance rules separate.
-- Exact Guugu Yimidhirr substitution pairs, historical scope and contemporary practice are not supplied from an abstract alone.
+- Exact Guugu Yimidhirr substitution pairs are not reproduced here; the article's examples come from one speaker's repertoire and a mission-era record, not from a present-day survey.
 
 ## Symbolic systems: context before motif dictionaries
 - The Uluṟu account says designs can communicate Tjukurpa and can be sacred, with creation/use restricted to particular people or groups (Parks Australia, n.d.).
@@ -103,7 +103,7 @@
 | Contemporary art and licensing | Warlukurlangu describes an Aboriginal-owned art centre and licensed collaborations. | Include living institutions and negotiated circulation, not only archaeological objects. |
 
 - These are analytical layers, not a mandatory chronological sequence or claims that every community shares each event.
-- **Chronicle gap:** this entry has no district-by-district colonial chronology or continuous ancient garment sequence. Local dates and transitions not cited above are `(to-verify)`.
+- **Chronicle gap:** this entry has no district-by-district colonial chronology or continuous ancient garment sequence; local dates and transitions not cited above are not established here.
 - Avoid “Stone Age,” “untouched,” “vanishing race,” and a universal ancient-to-modern costume progression; they erase agency and regional histories.
 
 ## Costume and material signature: regional rather than continental
@@ -121,7 +121,7 @@
 ## Initiation dress: the evidence boundary is part of the entry
 - Couzens publicly describes cloak markings that can record initiatory rites of passage. This supports a link between material biography and changing status in that account, not a reproducible initiation wardrobe.
 - The Aṉangu public Tjukurpa account establishes restricted transmission and restricted designs; it does not authorise this entry to specify initiation dress.
-- **Thin evidence:** a community-authorised account sufficient to describe Western Desert initiation garments, body designs, their sequence or wearer eligibility has not been verified here; those details are `(to-verify)` and deliberately absent.
+- **Thin evidence:** no community-authorised account sufficient to describe Western Desert initiation garments, body designs, their sequence or wearer eligibility is used in this entry; those details are deliberately absent, and no substitute is inferred from colonial descriptions or photographs.
 - Do not obtain missing detail by collating colonial descriptions, zooming into photographs, or treating a public dance as a transparent display of initiation knowledge.
 
 | Safe method question for an invented culture | Information not to lift from a living tradition |
@@ -137,7 +137,7 @@
 - Parks Australia's public language page explains Aṉangu self-designation and particular place-name meanings, including Kata Tjuṯa. Use these as evidence of word–place relations, not a stock list for fictional naming.
 - Haviland's introduction documents reports of deceased-name and similar-sounding-word restrictions; duration, affected people and substitutions must be verified locally before real-world use.
 - Do not infer that a name is pronounceable, reusable or unrestricted because it occurs in an old ethnography, catalogue or search result.
-- A “skin name” or subsection system must be researched as a particular social system where relevant, not assumed for all communities. Local assignment and transmission rules are `(to-verify)` here; no such table is invented.
+- A “skin name” or subsection system must be researched as a particular social system where relevant, not assumed for all communities: central Australian systems differ in size and spelling (four-to-eight-name sections/subsections across Arrernte, Warlpiri, Pintupi-Luritja and others), and Pitjantjatjara uses moieties without skins (Central Land Council, n.d.). This entry tabulates no community's assignment or transmission rules.
 - **Craft proposal:** record `name type / bearer / permitted addressers / situation / lifecycle change / public form / source` before generating fictional names.
 - For invented languages, generate names from their own phonology and morphology; do not splice Aboriginal words into an “authentic-sounding” generator or repurpose sacred/deceased persons' names.
 - In a real collaboration, ask how people wish to be identified and whether name/image/voice warnings are needed; this note cannot issue that permission.
@@ -154,11 +154,13 @@
 
 ## Sources and verification ledger
 - **Bouckaert, Remco R., Claire Bowern & Quentin D. Atkinson. 2018.** “The origin and expansion of Pama–Nyungan languages across Australia.” *Nature Ecology & Evolution* 2: 741–749. [DOI: 10.1038/s41559-018-0489-3](https://doi.org/10.1038/s41559-018-0489-3). Crossref metadata and the [Europe PMC abstract record](https://europepmc.org/article/MED/29531347) checked; full article not rechecked. Supports the attributed model, not certainty about dispersal.
-- **Haviland, John B. 1979.** “Guugu Yimidhirr brother-in-law language.” *Language in Society* 8(2–3): 365–393. [DOI: 10.1017/S0047404500007600](https://doi.org/10.1017/S0047404500007600). Crossref metadata and abstract checked; full text not rechecked. Detailed register rules are not claimed from the abstract.
+- **Haviland, John B. 1979.** “Guugu Yimidhirr brother-in-law language.” *Language in Society* 8(2–3): 365–393. [DOI: 10.1017/S0047404500007600](https://doi.org/10.1017/S0047404500007600). Crossref metadata checked and the author's open PDF of the full article inspected 2026-10-17 ([copy](https://pages.ucsd.edu/~jhaviland/Publications/GYBiL/HavilandGYBilLang.pdf)); the register rules are recorded from a 1970s Hopevale repertoire and are not current usage.
 - **Evans, Nicholas, ed. 2003.** *The Non-Pama–Nyungan Languages of Northern Australia: Comparative Studies of the Continent's Most Linguistically Complex Region*. Canberra: Pacific Linguistics, Australian National University. Bibliographic existence checked in [Bouckaert et al.'s references](https://www.nature.com/articles/s41559-018-0489-3); individual classifications and grammars not rechecked.
 - **Parks Australia. n.d.** [“Tjukurpa”](https://uluru.gov.au/discover/culture/tjukurpa/), [“Language”](https://uluru.gov.au/discover/culture/language/), and [“Culture”](https://uluru.gov.au/discover/culture/), *Uluṟu-Kata Tjuṯa National Park*. Public Aṉangu-voiced text checked. A locally framed visitor account, not permission to recover its protected content.
 - **Couzens, Vicki. 2020.** [“Possum skin cloaks then and now – same same but different”](https://australian.museum/learn/first-nations/possum-skin-cloaks-then-and-now/). Australian Museum. Public artist account checked; source identifies Couzens as Keerray Woorroong Gunditjmara. Its regional and contemporary scope must travel with each claim.
 - **Australian Embassy, United States. 2024.** [“Walking through a Songline”](https://usa.embassy.gov.au/wtas). Public account of the National Museum of Australia's exhibition/digital presentation checked; explicitly describes custodial guidance. This is exhibition mediation, not a complete songline corpus.
+- **Johnson, Vivien. 2018.** [“Songlines: Tracking the Seven Sisters”](https://www.artlink.com.au/articles/4651/songlines-tracking-the-seven-sisters/), *Artlink* (online). Named specialist review of the National Museum of Australia exhibition; checked 2026-10-17. Records the Martu, Pitjantjatjara, Yankunytjatjara, and Ngaanyatjarra participation and the Anangu curatorium; exhibition criticism, not a songline corpus.
+- **Central Land Council. n.d.** [“Our kinship systems”](https://www.clc.org.au/our-kinship-systems/). Central Land Council (Alice Springs) public account of central Australian kinship, with a skin-name chart prepared by Inge Kral (2002) from Henderson and Dobson 1994 and others; checked 2026-10-17. A community organisation's summary, not a per-community rulebook.
 - **AIATSIS. 2020.** *AIATSIS Code of Ethics for Aboriginal and Torres Strait Islander Research*. Canberra: Australian Institute of Aboriginal and Torres Strait Islander Studies. [Original PDF](https://aiatsis.gov.au/sites/default/files/2020-10/aiatsis-code-ethics.pdf); publication metadata and abstract checked through [Ninti One's resource record](https://www.nintione.com.au/resources/rao/aiatsis-code-of-ethics-for-aboriginal-and-torres-strait-islander-research/). Original PDF returned HTTP 403 during checking; individual clauses were not reverified.
 - **Warlukurlangu Artists Aboriginal Corporation. n.d.** [Public website](https://warlu.com/). Community art-centre self-description, Jukurrpa spelling, artist-linked works and licensed collaborations checked. A changing commercial/public surface, not a general licence for its imagery.
 - Verification date: 2026-10-17. Undated pages are recorded as n.d.; no publication year is invented. Recheck living-community access guidance before any new use.
@@ -169,7 +171,7 @@
 - Design public and restricted layers without copying or reconstructing the real restricted layer; an omission can be a deliberate and complete design boundary.
 - Let dress have biography, labour, place, public use and changing materials rather than treating it as a fixed ethnic silhouette.
 - Test a proposed system with a permissions matrix and relationship-sensitive dialogue; do not claim that a formal model captures a living culture's whole meaning.
-- Handoff to lore-shokunin: sourced constraints, explicitly labelled design options, chronology dependencies, unresolved `(to-verify)` items and permission boundaries. Canon selection remains with that sibling.
+- Handoff to lore-shokunin: sourced constraints, explicitly labelled design options, chronology dependencies, open questions and permission boundaries. Canon selection remains with that sibling.
 
 ## Provenance cautions
 - Early colonial ethnography can be extractive, mistranslated, masculinist and overgeneralised. Haviland's introduction cites older reports; their appearance in a later article does not independently validate every earlier claim or authorise reuse.

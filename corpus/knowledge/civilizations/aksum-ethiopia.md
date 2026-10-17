@@ -7,7 +7,7 @@
 - “Aksum,” “Ethiopia,” “Ethiopian Orthodox,” and “Geʿez-using communities” are overlapping, not interchangeable categories.
 - Aksum's northern-Horn heartland includes territory now in Ethiopia and Eritrea; modern national borders are not ancient cultural boundaries. [MH; DP]
 - This entry concentrates on Christian highland institutions; it is not a description of every Ethiopian or Eritrean language, religion, costume, or naming system.
-- Geʿez also serves traditions outside the Ethiopian Orthodox Church; do not infer identical theology or ritual from a shared language. Their comparative treatment remains thin here (to-verify).
+- Geʿez also serves traditions outside the Ethiopian Orthodox Church: Beta Israel read and recited Geʿez texts [JL], and the same liturgical language is used in both the Ethiopian and Eritrean Orthodox churches [MCO]. Do not infer identical theology or ritual from a shared language; their comparative treatment remains thin here.
 - Evidence labels: **attested** = inscription, object, or documented practice; **interpretation** = scholarly explanation; **tradition** = community account, not automatically independently dated history; **transfer** = proposed design method, not an Ethiopian historical claim.
 - “Liturgical fossil” is usable only for retention of older forms: **not** for a motionless culture, perfect preservation of ancient pronunciation, or an inability to compose new work.
 - Keep archaeological chronology, manuscript transmission, liturgical tradition, and present-day ethnography as separate evidence tracks.
@@ -27,12 +27,17 @@
 - **UNI** — Unicode Consortium (2024), *The Unicode Standard*, version 16.0, §19.1, “Ethiopic.” [Technical specification](https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-19/). Encoding and script mechanics, not a sufficient historical reconstruction.
 - **VA** — Victoria and Albert Museum (2026 catalogue records, checked 17 October): [vestment O86941 / 1424-1870](https://api.vam.ac.uk/v2/museumobject/O86941), [kamis O143065 / 400-1869](https://api.vam.ac.uk/v2/museumobject/O143065), [shamma O143073 / 401-1869](https://api.vam.ac.uk/v2/museumobject/O143073). Records updated February 2026; distinguish cataloguing date, manufacture date, and acquisition date.
 - **LF** — Lucy Fleming (2021), “Ethiopia: The country where a year lasts 13 months,” BBC News, 10 September. [Report](https://www.bbc.com/news/world-africa-57443424). Used for contemporary hour-counting; its compressed calendar-origin narrative is not the conversion authority.
+  - **GR97** — Gene Gragg (1997), “Geʿez (Ethiopic),” in Robert Hetzron (ed.), *The Semitic Languages*, London: Routledge, pp. 242–260. Bibliographic details verified through current reference lists; used for the position of Geʿez within northern Ethiosemitic.
+  - **MT21** — Ronny Meyer and Yvonne Treis (2021), “How to quote Ethiopian authors in linguistic publications,” *Afrika und Übersee* (Hamburg University Press). [Open PDF](https://journals.sub.uni-hamburg.de/hup1/afrikaunduebersee/article/download/222/168/710); directly checked for the patronymic naming system (given name + father’s name, plus the paternal grandfather’s name in administrative contexts; the concept of a family name is absent).
+  - **JL** — Jewish Language Project (n.d.), “Jewish Ethiopian.” [Page](https://www.jewishlanguages.org/jewish-ethiopian); consulted 2026-10-17; notes that Beta Israel read and recited texts in Geʿez.
+  - **MCO** — Marzia Coltri (2010), “The Ethiopian Orthodox Tewahedo Church and its legacy in RastafarI,” CESNUR conference paper, Torino. [Text](https://www.cesnur.org/2010/to-coltri.htm); directly checked; its glossary places the end of spoken Geʿez between the 4th and 10th centuries CE and notes liturgical use in both the Ethiopian and Eritrean Orthodox churches.
+  - **EPA19** — Ethiopian Press Agency (2019), “Qene Centers and Ecclesiastical Scholarship,” *The Ethiopian Herald*, 11 September. [Article](https://press.et/herald/?p=13189); consulted at excerpt level; names the several qene centers and their founding figures.
 
 ## Language family and the productive “fossil”
 - Geʿez, also called Classical Ethiopic, is an Ethiopian Semitic language within Semitic/Afroasiatic. Language relationship and the ancestry of letterforms are different questions. [TL; WL]
-- Do not describe Geʿez as Sabaic written differently or as the automatic direct ancestor of every modern Ethiopian Semitic language; a detailed subgrouping requires specialist linguistic evidence (to-verify here).
+- Do not describe Geʿez as Sabaic written differently or as the automatic direct ancestor of every modern Ethiopian Semitic language: Geʿez is classified with Tigre and Tigrinya in the northern Ethiosemitic group, while the South Ethiosemitic languages (Amharic, Argobba, Harari, Gurage, and others) are its relatives rather than its descendants. [GR97; WL]
 - Retention of Geʿez in worship coexists with vernacular communication and teaching. “Old sacred language versus modern everyday language” is a register relationship, not two isolated civilizations. [HD]
-- The date of the loss of ordinary native transmission is not pinned here (to-verify); no precise “death year” should be used as an era boundary.
+- The date of the loss of ordinary native transmission is not pinned to a year; the checked summaries place the end of spoken vernacular use between late antiquity and about the tenth century CE, so no precise “death year” should be used as an era boundary. [MCO; JL]
 - New composition, grammatical instruction, biblical interpretation, copying, and musical performance keep the learned language productive. Memorized recitation and understanding are not the same attainment. [HD]
 
 | Register or competence | Institutional work | Coupled consequence |
@@ -125,7 +130,7 @@
 - **Transfer worksheet:** identify the public occasion → intended listeners → overt proposition → second interpretation → exact linguistic hinge → shared reference → musical/metrical constraints → competent reviewer.
 - A successful hinge must allow both readings in the fictional language's grammar; merely announcing that an English sentence has a secret meaning does not build a poetic register.
 - Couple the audience to education: who recognizes the biblical allusion, who understands the grammar, and who can judge the performance need not be the same people.
-- Precise founder dates, derivation of all schools from a single master, and continuity of every modern form from Aksum are not established here (to-verify). Do not backdate HD's twentieth-century description wholesale.
+- Precise founder dates, derivation of all schools from a single master, and continuity of every modern form from Aksum are not established: the school traditions themselves name several centers and founding figures (Wadla, Gonj, Washera, Gondar) rather than one origin. [EPA19; HD] Do not backdate HD's twentieth-century description wholesale.
 
 ## Era staging: continuity without a timeless costume box
 
@@ -165,7 +170,7 @@
 - Christian names can couple ordinary human identity to sacred vocabulary: **Gäbrä Mäsqäl** is conventionally glossed “servant of the Cross,” **Wäldä Maryam** “son of Mary.” These illustrate compound/construct relationships, not a license to concatenate dictionary stems without morphology. [WL; TL; MH on Gabra Masqal]
 - Transliteration systems differ: scholarly vowels and conventional English spellings must be mapped, not treated as different historical people.
 - **Transfer:** maintain separate fields for given name, filiation, devotional/baptismal identity, regnal designation, title, and affiliation; not every person or era requires every field.
-- Contemporary surname/patronymic rules, women's naming variation, and differences among Ethiopian/Eritrean communities need a community-specific source before application (to-verify); neither a royal inscription nor a dictionary supplies them.
+- The patronymic system is documented — a given name followed by the father’s name (with the paternal grandfather’s name added in administrative contexts) and no family-name concept; the same pattern is shown for women’s names. Contemporary surname/patronymic conventions and differences among Ethiopian/Eritrean communities still need a dated, community-specific source before application; neither a royal inscription nor a dictionary supplies them. [MT21]
 
 ## What a worldbuilder can take
 1. **Productive archaism:** let an old learned language authorize new verse while vernacular explanations and different literacy competencies coexist.
@@ -182,6 +187,6 @@
 - **Institutional bias:** HD/EC are 1970 church presentations, with dated assumptions about gender, hierarchy, pedagogy, and national culture. Their statistics and universalizing rhetoric are not used here as present-day facts.
 - **Interpretive caution:** Levine's wax/gold analysis is influential, not a psychological law for all Amhara people or all Ethiopians. A formal literary technique is not evidence that a population is inherently secretive.
 - **Museum bias:** catalogue names, dates, maker attributions, and collecting histories remain revisable. Elite objects survive disproportionately; British possession after an expedition is not evidence of consensual transfer.
-- **Expertise gaps:** regional qene terminology/metrics, ancient pronunciation, pre-Christian narratives, nonelite ancient dress, and community-specific naming are thin here; keep their inline (to-verify) limits rather than filling them from analogy.
+- **Expertise gaps:** regional qene terminology/metrics, ancient pronunciation, pre-Christian narratives, nonelite ancient dress, and community-specific naming remain thin here; do not fill them from analogy, and name the missing evidence rather than inventing a connecting custom.
 - **Respectful application:** borrow structural relations, not restricted sacred designs or claims of access to concealed tabots; consult living custodians before direct representation of practices whose viewing is restricted.
 - Recheck precise date conversion against DR or a tested implementation, exact lexemes against WL/TL, and ritual terminology against dated community-specific accounts before delivering a detailed fictional system.

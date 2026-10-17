@@ -7,9 +7,10 @@
   - Uther (2004), The Types of International Folktales, 3 vols., FFC 284–286, Helsinki: Academia Scientiarum Fennica (the ATU — cite this edition; includes per-type motif references)
   - Thompson (1946), The Folktale, New York: Dryden; repr. U California Press 1977 (motif-vs-type definitions; genre history)
   - Krohn (1926), Die folkloristische Arbeitsmethode; trans. Welsch (1971), Folklore Methodology, U Texas Press (historic-geographic variant clustering); Anderson (1923), Kaiser und Abt, FFC 42 (epic laws, incl. the law of self-correction in oral transmission)
-  - Christiansen (1958), The Migratory Legends: A Proposed List of Types with a Systematic Catalogue of the Norwegian Variants, FFC 175 (legend types, ML 3000 series); Ó Súilleabháin & Christiansen (1963), The Types of the Irish Folktale, FFC 188; Ting (1978), A Type Index of Chinese Folktales in the Oral Tradition and Major Works of Non-Religious Classical Literature, FFC 223; Thompson & Roberts (1960), Types of Indic Oral Tales: India, Pakistan and Ceylon (the regional-index practice a world bible should imitate)
+  - Christiansen (1958), The Migratory Legends: A Proposed List of Types with a Systematic Catalogue of the Norwegian Variants, FFC 175 (legend types, ML 3000–8025); Ó Súilleabháin & Christiansen (1963), The Types of the Irish Folktale, FFC 188; Ting (1978), A Type Index of Chinese Folktales in the Oral Tradition and Major Works of Non-Religious Classical Literature, FFC 223; Thompson & Roberts (1960), Types of Indic Oral Tales: India, Pakistan and Ceylon (the regional-index practice a world bible should imitate)
   - Propp (1928; trans. 2nd ed. 1968), Morphology of the Folktale, U Texas Press (the motif-as-unit critique); Dundes (1962), "From Etic to Emic Units in the Structural Study of Folktales", JAF 75: 95–105; Dundes (1962), "Earth-Diver: Creation of the Mythopoeic Male", JAF 75 (motif A812 as the worked comparative case) — both treated fully in myth-symbol/comparative-frameworks.md
   - Witzel (2012), The Origins of the World's Mythologies, Oxford UP (long-range motif comparison; the "Laurasian" reconstruction is contested as method); MacDonald (1982), The Storyteller's Sourcebook, Gale (subject/title/motif retrieval — the librarian's cross-index)
+  - Triage verification surrogates inspected 2026-10-17 (batch M5): Motif-Index text of the rev. & enl. ed. (ruthenia.ru/folklore/thompson — A, B and U chapters); Uther 2004 type titles as reproduced in the Cologne folk-tale-ontology paper (philtypo3.uni-koeln.de) and the RunoVerse ATU index; 1955–58 volume contents per the Wikisource Motif-Index contents page and the NYPL catalogue record; ML catalogue range 3000–8025 (incl. ML 8025 "The Robbers and the Captive Girl") per Norsk folkeminnesamling (hf.uio.no) and Museum Wales folktale notes
 - couples: myth-symbol/comparative-frameworks.md (Propp's function-level critique, Dundes etic/emic, Bascom genre tiers — this file supplies the indexing layer that file lacks); myth-symbol/creation-myths-taxonomy.md + pantheon-archetypes.md + flood-traditions.md (A-chapter strings; the flood file already carries A1010/A1020/A1021.x); myth-symbol/hero-journey-variants.md (type-level hero audits); myth-symbol/symbolism-synthesis-method.md (motif-objects → symbol routing); linguistics/politeness-taboo-euphemism.md (C-class tabus ↔ real speech tabus); linguistics/naming-systems.md (name-tabu motifs, ATU 500); linguistics/orality-formulaic-language.md (Anderson's self-correction law, gatekeeper tellers); linguistics/language-contact.md (borrowed types as contact fingerprints); era files (palette-by-era calibration); costume (ATU 510B's impossible dresses as costume index); lore-shokunin world bible (reference and method ONLY — no canon generated here)
 
 ## 1. Two layers: motifs are atoms, types are bundles
@@ -43,7 +44,7 @@ Six volumes, 23 lettered chapters; letters I, O and Y are unused (a common sourc
 | R | Captives and fugitives | captivity/escape block | law and war residue |
 | S | Unnatural cruelty | mutilation/exposure block | atrocity register |
 | T | Sex: courtship, marriage, incest | marriage-system block | marriage system |
-| U | The nature of life | U10 Origin of death | mortality theology |
+| U | The nature of life | U250 Shortness of life; A1335 Origin of death (A-chapter) | mortality theology |
 | V | Religion | piety/saint block | cult vs tale boundary |
 | W | Traits of character | virtue/vice block | character ethics |
 | X | Humor | joke blocks | licensed laughter |
@@ -55,11 +56,11 @@ Note the texture: the index is flat and unweighted — J641 "escaping" sits in t
 
 | Numbers | Group | Real exemplars |
 |---|---|---|
-| 1–299 | Animal tales | ATU 2 The Tail Fisher |
+| 1–299 | Animal tales | ATU 2 The Tail-Fisher |
 | 300–749 | Tales of Magic | ATU 300 The Dragon-Slayer; 311/312 the murderous-bridegroom block (Fitcher's Bird / Bluebeard); 313 The Magic Flight; 410 Sleeping Beauty; 425C Beauty and the Beast; 510A Cinderella / 510B Donkeyskin–Cap o' Rushes; 551 The Water of Life |
-| 750–849 | Religious Tales | ATU 750A The Wishes |
-| 850–999 | Realistic Tales (Novellen) | ATU 870 The Princess in the Mound; 875 The Clever Peasant Girl |
-| 1000–1199 | Tales of the Stupid Ogre | ATU 1000 Anger Bout; 1119 The Ogre Kills His Mother (Wife) |
+| 750–849 | Religious Tales | ATU 750A The Three Wishes |
+| 850–999 | Realistic Tales (Novellen) | ATU 870 The Princess Confined in the Mound; 875 The Clever Farmgirl |
+| 1000–1199 | Tales of the Stupid Ogre | ATU 1000 Contest not to Become Angry; 1119 The Ogre Kills His Mother (Wife) |
 | 1200–1999 | Anecdotes and Jokes | ATU 1525 The Master Thief |
 | 2000–2399 | Formula Tales | cumulative and catch tales (The House That Jack Built family) |
 | 2400–2499 | Unclassified Tales | the index's own residual — not free space (see §7) |
@@ -102,7 +103,7 @@ Procedure: (0) list the culture's tales, tiered (myth / legend / folktale per Ba
 
 - Real-tradition logic: motifs occur in families. Variants cluster (Krohn 1926/1971), oral transmission self-corrects (Anderson 1923), and motifs have cousins across types — E323.2 serves the 510A-family tales; D672 serves the 313-family flights. A motif attested once and nowhere else is, to the historic-geographic method, a flag: invention, mistranscription, or survival from an unrecorded tradition.
 - In-world readings for an orphan in your inventory — choose deliberately, it is evidence either way: (a) **contact-zone survivor**: a single foreign tale adopted, its siblings rejected (evidence of a trade route, mission, or war prize); (b) **gatekeeper-class motif**: told only by priests, bards, or lineage singers, invisible to the folk layer (couples orality-formulaic-language); (c) **broken tradition**: a suppression event killed the tale-type but one motif fossilized in jokes or lullabies — the motif is the scar; (d) **era fossil**: an A-chapter creation image surviving inside a K-chapter farce — the culture outgrew the myth, not the image.
-- Craft rule: **seed families, not loners.** Before an invented motif counts as the culture's own, generate 2–5 tellings: the type-analog, a variant, a half-remembered fragment, optionally a hostile parody. Worked micro-example — orphan: "an ember hidden in a pot of wet rice." Seed: a 480-family tale (kind girl rewarded by hearth-spirits), a U10-fragment (fire withheld when death entered the world), a K-analog (the ember stolen from the sky-keeper's hearth). The family now evidences a fire-history, a hearth cult, and a theft doctrine — three files updated from one motif, and the orphan is no longer suspicious because it has relatives.
+- Craft rule: **seed families, not loners.** Before an invented motif counts as the culture's own, generate 2–5 tellings: the type-analog, a variant, a half-remembered fragment, optionally a hostile parody. Worked micro-example — orphan: "an ember hidden in a pot of wet rice." Seed: a 480-family tale (kind girl rewarded by hearth-spirits), an A1335-fragment (fire withheld when death entered the world), a K-analog (the ember stolen from the sky-keeper's hearth). The family now evidences a fire-history, a hearth cult, and a theft doctrine — three files updated from one motif, and the orphan is no longer suspicious because it has relatives.
 
 ## 7. Notation and handoff protocol
 
@@ -117,4 +118,4 @@ Procedure: (0) list the culture's tales, tiered (myth / legend / folktale per Ba
 | Q | 1 | cold | moral causality weak; tales run on luck (N = 5) |
 
 - Handoff: this lane ships palette tables, motif strings, and orphan-evidence notes as reference for lore-shokunin's world bible; canon tiering (which tale is true-in-world, who may tell it) stays with lore. Reference and method only.
-- Verification status: the chapter list, the ATU ranges, the FFC numbers, and exemplar IDs A812, A791, C31, C900–C999, D672, E323.2, G310, H80/H81.1 (via ATU 551's entry), K911.5, J641, N511.1.12, and ATU 1119's re-title were spot-checked this session against scanned index text and secondary tables. B11, U10, and the ATU exemplar titles 2 / 750A / 870 / 875 / 1000 / 1525 are standard in the literature but were not individually re-verified (to-verify if cited load-bearing); likewise the per-volume split of the 1955–58 edition and the exact upper bound of the ML 3000 series (to-verify).
+- Verification status: the chapter list, the ATU ranges, the FFC numbers, and exemplar IDs A812, A791, C31, C900–C999, D672, E323.2, G310, H80/H81.1 (via ATU 551's entry), K911.5, J641, N511.1.12, and ATU 1119's re-title were spot-checked against scanned index text and secondary tables. Triage pass 2026-10-17: B11, the ATU exemplar titles 2 / 750A / 870 / 875 / 1000 / 1525, the per-volume split of the 1955–58 edition (A–C / D–E / F–H / J–K / L–Z / index) and the ML catalogue's upper bound (ML 8025) were verified, and the tables above now carry the ATU 2004 renderings; two mis-citations were corrected in the same pass — Thompson's U10 is "justice and injustice" (origin-of-death is A1335, A-chapter) and ATU 1000 is "Contest not to Become Angry", not "Anger Bout".

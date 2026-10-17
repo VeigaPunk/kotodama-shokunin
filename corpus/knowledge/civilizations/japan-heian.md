@@ -3,7 +3,7 @@
 - sources: Frellesvig (2010); Ki no Tsurayuki et al., Kokinshū (commission dated 905), trans. Rodd with Henkenius (1996 reprint of 1984); Murasaki Shikibu, trans. Bowring (1996); Sei Shōnagon, trans. McKinney (2006); Shively and McCullough, eds. (1999); LaMarre (2000); Kojiki (712), trans. Heldt (2014); Major (1993); Hayashi and Hayek (2013); Takata Shizuo and Shōgakukan dictionaries (n.d.); Hachijō Tadamoto/Costume Museum (n.d.); Cabinet Office of Japan (2020); editions, URLs, and evidential limits below.
 - couples: language — linguistics/{writing-systems,sociolinguistics-registers,historical-linguistics,color-terminology,naming-systems,semantics-pragmatics}.md; myth/symbol — myth-symbol/{pantheon-archetypes,color-symbolism,cosmology-cosmography,celestial-symbolism-calendars,symbolism-synthesis-method}.md; era/costume — culture-material/{era-periodization-models,costume-semiotics,sumptuary-law-rank-display,textile-technology,calendar-festival-systems,material-culture-inference-method}.md; siblings — lore-shokunin receives options and provenance, owns all world-bible canon.
 - verified-at: 2026-10-17; live checks covered bibliographic records, UVa Kokinshū passages, Hayashi/Hayek pp. 1–10, dictionary entries, and the linked costume references; not a manuscript collation or cover-to-cover verification of every monograph.
-- recheck: Before an exact reconstruction, choose a century, ceremony, wearer, textual witness, and dress tradition; verify the original passage and its modern edition. Unknown details remain `(to-verify)`.
+- recheck: Before an exact reconstruction, choose a century, ceremony, wearer, textual witness, and dress tradition; verify the original passage and its modern edition. Unknown details remain outside this entry's verified scope.
 
 ## 1. Source register and evidence grades
 
@@ -108,7 +108,7 @@
 - **Relations matter:** generating sequence wood → fire → earth → metal → water → wood; overcoming sequence wood → earth → water → fire → metal → wood. These are correlative relationships, not evidence of physical causation.
 - **Do not collapse pentads:** Buddhist _godai_ commonly uses earth, water, fire, wind, space; that is not the wood/fire/earth/metal/water list.
 - The Onmyōryō combined responsibilities involving astronomy, calendars, timekeeping, and divination. Court Onmyōdō subsequently involved changing patronage and hereditary expertise, including Abe and Kamo specialists; it was not an unchanging guild of fantasy magicians.
-- Directional prohibitions and _katatagae_ (changing direction by taking another lodging/route) make calendar knowledge affect travel, visits, and narrative timing; an exact day's calculation requires its actual system `(to-verify)`.
+- Directional prohibitions and _katatagae_ (changing direction by taking another lodging/route) make calendar knowledge affect travel, visits, and narrative timing; an exact day's calculation requires its actual system, and no day-level almanac is reconstructed here.
 - **Contested:** whether Onmyōdō is best classified as technique, art, or religion; Hayashi/Hayek explicitly reject a simple equation with imported Daoism and a simple “golden age then decay” story.
 - **Application:** record who computes a correspondence, for whom, by which textual lineage, and with what exception. Yin is not “evil women,” yang is not “good men,” and phase colours do not dictate every garment's meaning.
 
@@ -142,8 +142,8 @@
 | Spring, floral progression | Plum, cherry, wisteria, yamabuki have distinct associations | Matching a botanical name is insufficient: choose which part or growth stage supplies the colours | Same name can identify different layer/lining arrangements |
 | Summer, fourth month | _Hanatachibana_: _Masasuke shōzoku shō_ quotation includes yellow gradations, white, and green gradations | Leaves, blossom, and fruit can all be represented in one arrangement | Mediated through Hachijō/Costume Museum; white/green hitoe alternatives are preserved, not flattened into one rule |
 | Summer, fifth month | _Shōbu_: quotation combines green gradations, white, and red-plum gradations with a white raw-silk hitoe | Festival plant terminology and garment naming share a referent | Hachijō argues for leaf/root colours, not purple iris flowers; label that identification interpretive |
-| Autumn | _Beni-momiji_: quotation combines red, yamabuki/yellow, and green gradations | Transition between colours, not all-red saturation, can carry the seasonal meaning | Mediated late-Heian prescription; hitoe reading/variant needs original-edition checking `(to-verify)` |
-| Winter and seasonal edges | Reserve a dated cold-season recipe before filling the wardrobe chart | Contrast calendar season, actual weather, and deliberate anticipation | Exact winter palette/order not established here `(to-verify)`; do not invent a “snow” formula |
+| Autumn | _Beni-momiji_: quotation combines red, yamabuki/yellow, and green gradations | Transition between colours, not all-red saturation, can carry the seasonal meaning | Mediated late-Heian prescription as quoted by the Costume Museum; the parenthetical *suō*-hitoe gloss is the page's own reading, and the pre-modern manuscript variants remain uncollated |
+| Winter and seasonal edges | Reserve a dated cold-season recipe before filling the wardrobe chart | Contrast calendar season, actual weather, and deliberate anticipation | Exact winter palette/order is not established in this entry; do not invent a “snow” formula |
 
 - A white face over a red lining can yield a cherry-like pale tone through thin silk; it is not the same operation as putting a white robe over a red robe (Cabinet Office 2020; Costume Museum n.d.).
 - **Recipe record:** source/date → garment → face/lining or ordered layers → hitoe → weave/translucency → season/occasion → wearer's permission → variants. Record the source's order before translating it into an illustration.
@@ -152,7 +152,7 @@
 
 ## 9. Rank colours — requested “shikishō” needs a terminology correction
 
-- **Secure terms:** **ishiki** (位色) and **tōjiki** (当色) for rank-corresponding colour; **ihō** (位袍) for the rank robe. **Shikishō** (式正) means proper/formal ceremony, not the rank-colour ladder (Shōgakukan n.d.). “Shikishō = rank colours” remains `(to-verify)`; do not silently make it a historical synonym.
+- **Secure terms:** **ishiki** (位色) and **tōjiki** (当色) for rank-corresponding colour; **ihō** (位袍) for the rank robe. **Shikishō** (式正) means proper/formal ceremony, not the rank-colour ladder (Shōgakukan n.d.). The equation “Shikishō = rank colours” is not supported by the cited dictionary entries and must not be used as a historical synonym.
 - The table contrasts an inherited Yōrō clothing-code scheme with later practice summarized by Takata. **It describes selected male official dress, not a female layering chart, every court occasion, or a four-century frozen law.**
 
 | Wearer/rank | Earlier code baseline | Middle-Heian tendency, especially tenth–eleventh centuries | Qualification |
@@ -182,7 +182,7 @@
 | Written name versus reading | Shōshi/Akiko for 彰子; Teishi/Sadako for 定子 | Can one written name support learned and vernacular readings? | A conventional scholarly reading does not establish the bearer's spoken everyday name |
 | Posthumous/regnal/era labels | Later historical labels and nengō dating | Who names a reign, and when? | A nengō need not equal a whole reign; posthumous labels are unavailable in life |
 
-- Reference controls: introductions to Bowring (1996) and McKinney (2006), anthology headnotes, and Shively/McCullough (1999); exact Heian pronunciation of particular names is often `(to-verify)`.
+- Reference controls: introductions to Bowring (1996) and McKinney (2006), anthology headnotes, and Shively/McCullough (1999); the exact Heian pronunciation of particular names is often unrecoverable and is not reconstructed here.
 - **Design inference:** store written form, possible readings, kin group, office, residence, intimate name, public title, and who uses each. A name's disclosure can be socially meaningful without inventing a universal magical “true-name taboo.”
 
 ## 11. What a worldbuilder can take
@@ -205,7 +205,7 @@
 - **Court-source bias:** chronicles, diaries, and elite literature privilege patrons and literate households; fiction, prescriptions, and actual practice are different evidence types. Detailed court coverage does not license claims about every inhabitant of Heian Japan.
 - **Scarcity:** early-Heian garments and direct visual witnesses are sparse; later paintings, copies, manuals, and reconstructions must carry their own dates. This entry does not supply an archaeological inventory or a complete provincial dress history.
 - **Mediated costume evidence:** Hachijō's accessible posts distinguish earlier quotations from his interpretation, but do not replace a critical edition. Exact colour orders, textual variants, and rule enforcement remain narrow-scope checks, not universalized certainty.
-- **Thin areas here:** exact winter layering recipes, precise day-by-day directional calculations, individual spoken name readings, and the local chronology of particular kami/Buddha equations remain `(to-verify)`.
+- **Thin areas here:** exact winter layering recipes, precise day-by-day directional calculations, individual spoken name readings, and the local chronology of particular kami/Buddha equations are not established in this entry.
 - **Colonial/national framing:** “pure native kana culture replacing foreign Chinese culture” is a retrospective simplification. LaMarre (2000) critiques national-purity readings; Hayashi/Hayek (2013) trace modern categories that distorted Onmyōdō scholarship.
 - **Reject pop universals:** no timeless twelve-layer uniform, one-word-one-colour symbolism, male/Chinese versus female/Japanese biological split, or anime-style Seimei biography as primary historical evidence. Modern costume pedagogy and heritage promotion are valuable but independently situated sources.
 - **Translation calibration:** _phase_ is not a chemical element; _ao_ is not a fixed blue swatch; “kimono” can be a modern explanatory umbrella; a romanized modern reading is not reconstructed Heian pronunciation. Preserve the Japanese label and the source's domain before choosing an English gloss.

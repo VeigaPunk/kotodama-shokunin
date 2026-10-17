@@ -62,7 +62,7 @@
 - **C:** Rodríguez Freyle's version, reported through [M21], describes an heir undergoing preparation, a naked body coated with a sticky substance and gold dust, a raft carrying companions and offerings, deposition into the lake, and return to shore as recognized chief.
 - Important correction to the shorthand **“zipa gilding”**: the particular informant/story is associated with the cacique of **Guatavita**; identifying every participant with the Bogotá zipa is not warranted [M21, opening discussion].
 - Earlier chroniclers' versions are not identical: [M21] notes that some describe offering rather than an explicit coronation. Do not merge all details into one supposedly eyewitness script.
-- Treat an obligatory dive, a fixed annual repetition, exact dust quantities, and precise ritual words as separate claims requiring passages `(to-verify)`; they are not established by the account summarized here.
+- Treat an obligatory dive, a fixed annual repetition, exact dust quantities, and precise ritual words as separate claims requiring their own passages; none appear in the account summarized here ([M21], opening discussion, re-inspected 2026-10-17).
 - The Spanish expression *El Dorado* points to a gilded person in this narrative complex; the shift toward a wealthy location belongs to the legend's expansion [M21]. It is not an attested Muisca city-name.
 - **A:** the famous raft was found near Pasca in a cave offering assemblage, not recovered from Lake Guatavita. A charcoal sample associated with its mold yielded 1295–1410 CE; that range is not a date for Freyle's narrated ceremony [M21].
 - [M21] explicitly critiques the automatic raft = Guatavita coronation equation. Possible political circumstances around the offering are hypotheses, not the identification of a particular historical event.
@@ -156,7 +156,7 @@
 - **Source ladder:** Duquesne's late-eighteenth-century account → Humboldt/other dissemination → Restrepo's 1892 rejection → Izquierdo Peña's reconsideration. Repetition down this chain is not multiple independent witnesses.
 - Restrepo's objection cannot be adopted wholesale: [I09, §3.2] shows assumptions that colonial communities could retain no meaningful ancestral knowledge. Rejecting that prejudice does not, by itself, prove Duquesne's complete model.
 - Izquierdo Peña explicitly cautions that his reconstruction of **Duquesne's interpretation** is not a definitive calendar of the pre-contact Muisca [I09, Part II introduction]. Preserve that qualification even when borrowing the arithmetic.
-- *Acrotom/acrótomo* is a term in the scholarly transmission; its status as an Indigenous lexeme is not established here `(to-verify)`. Do not manufacture a Muysca etymology for it.
+- *Acrotom/acrótomo* is Duquesne's own designation: [I09, §3.3.6] states that the Muiscas left the 37-moon year unnamed and that Duquesne gave it this name. Do not manufacture a Muysca etymology for it.
 - **F:** choose independently whether a fictional culture has agricultural, market, observational, and specialist ritual cycles. If they differ, specify who reconciles them, how intercalation is authorized, and what dissenting towns do.
 - Test a fictional calendar over many cycles for seasonal drift; a functioning simulation validates the invented arithmetic, not the historical Muisca reconstruction.
 

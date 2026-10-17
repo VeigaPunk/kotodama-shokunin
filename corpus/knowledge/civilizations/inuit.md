@@ -1,6 +1,6 @@
 # Inuit — polysynthesis, consequential speech, namesakes, and clothing technology
 - topic: Linguistic-cultural reference for coupling Inuit language structure, mythic relationships, ritual registers, naming, historical change, and parka technology; methods for fictional cultures, never fictional canon.
-- sources: Dorais (2010), The Language of the Inuit; Martin (1986), “Eskimo words for snow”; Pullum (1989), “The great Eskimo vocabulary hoax”; Boas (1888), The Central Eskimo; Randa (2009), “Uumajunik uqaruluujaqtuq”; Dupré (2009), “Naming, being named, and experiencing atiq on Qikirtait”; Issenman (1997), Sinews of Survival; Pirurvik Centre (n.d.), Inuktut Tusaalanga; Kaplan (n.d.), “Inuit or Eskimo”; Nunatsiaq News (2014), “Kinship naming among Inuit unites family and community”; editions and access limits below.
+- sources: Dorais (2010), The Language of the Inuit; Martin (1986), “Eskimo words for snow”; Pullum (1989), “The great Eskimo vocabulary hoax”; Boas (1888), The Central Eskimo; Randa (2009), “Uumajunik uqaruluujaqtuq”; Dupré (2009), “Naming, being named, and experiencing atiq on Qikirtait”; Issenman (1997), Sinews of Survival; Pirurvik Centre (n.d.), Inuktut Tusaalanga; Kaplan (n.d.), “Inuit or Eskimo”; Nunatsiaq News (2014), “Kinship naming among Inuit unites family and community”; Inuit Tapiriit Kanatami (n.d.), “Inuktut Qaliujaaqpait” writing-system history; Bettina Spreng (2001), “Little v in Inuktitut: Antipassive Revisited,” Linguistica Atlantica 23; Richard Compton (2017), “Ergativity in Inuktitut”; Inuinnaqtun–English Dictionary (NWT Literacy Council, n.d.); Penn Museum, Expedition Magazine (clothing); National Museum of Denmark, Arctic research (Dorset); editions and access limits below.
 - couples: Language—corpus/knowledge/linguistics/{morphological-typology,semantic-fields-lexicon-building,sociolinguistics-registers,writing-systems,kinship-terminology,naming-systems,politeness-taboo-euphemism}.md; myth/symbol—corpus/knowledge/myth-symbol/{animal-symbolism,cosmology-cosmography,pantheon-archetypes}.md; era/costume—corpus/knowledge/culture-material/{era-periodization-models,garment-lexicon-crosslinguistic,textile-technology,costume-semiotics}.md; sibling—lore-shokunin owns the world bible and decides canon; this entry supplies reference and coupling methods only.
 
 ## Scope and calibration
@@ -27,6 +27,12 @@
 | T | Pirurvik Centre, n.d., *Inuktut Tusaalanga*: [Basic Structure](https://tusaalanga.ca/lesson/1/grammar), [Writing](https://tusaalanga.ca/node/2505), [Dual](https://tusaalanga.ca/node/1108), [Double Verb Endings](https://tusaalanga.ca/node/1117) | Inspected teaching pages; usable Canadian examples, not an exhaustive grammar of every Inuit variety or a current national policy statement. |
 | K | Lawrence Kaplan, n.d., [“Inuit or Eskimo: Which name to use?”](https://www.uaf.edu/anlc/research-and-resources/resources/archives/inuit_or_eskimo.php), Alaska Native Language Center, University of Alaska Fairbanks | Inspected explanation of self-designations and linguistic/political naming distinctions; no publication year supplied, so none invented. |
 | N | Nunatsiaq News, 17 July 2014, [“Kinship naming among Inuit unites family and community”](https://nunatsiaq.com/stories/article/kinship_naming_among_inuit_unites_family_and_community/) | Inspected reporting of Kivalliq elders and Louise Flaherty; mediates testimony from *Inuit Kinship and Naming Customs* (Inhabit Media, 2013). |
+| ITK | Inuit Tapiriit Kanatami, [“Inuktut Qaliujaaqpait” project history](https://itk.ca/projects/inuktut-qaliujaaqpait/) | Inspected timeline: the 1976 ICI standard dual orthography was ratified by Inuit organizations; a national unified Roman orthography was approved in 2019. Institutional history, not a linguist's evaluation. |
+| SP | Bettina Spreng (2001), “Little v in Inuktitut: Antipassive Revisited,” *Linguistica Atlantica* 23: 155–190, [PDF](https://journals.lib.unb.ca/index.php/la/article/download/22454/26111/34006) | Inspected: “Inuktitut has a predominantly ergative case assignment system” with an antipassive alternative; a research paper, not a full reference grammar. |
+| C | Richard Compton (2017), “Ergativity in Inuktitut,” in *The Oxford Handbook of Ergativity* (ch. 34), [proof PDF](https://archipel.uqam.ca/17245/1/Compton%202017%20OUP%20Ergativity.pdf) | Inspected (uncorrected proof): “Inuktitut exhibits an ergative–absolutive case alignment,” with ergative patterning also described in agreement and dialectal variation in the antipassive. |
+| NED | [*Inuinnaqtun–English Dictionary*](https://nbes.ca/wp-content/uploads/2014/03/inuinnaqtun_english_dictionary.pdf), NWT Literacy Council (n.d.) | Inspected entry `ivalu` “sinew (for sewing)”; a lexical source for a western variety, not a grammar of every Inuit variety. |
+| PM | Penn Museum, *Expedition* Magazine, [“Sapangat”](https://www.penn.museum/sites/expedition/sapangat/) | Inspected article: the amautik is described in two layers, an inner parka (`atigi`) with fur inward and an outer parka (`qulittaq`) with fur outward. Museum article, not a nomenclature survey. |
+| NM | National Museum of Denmark, [Arctic research: Dorset](https://natmus.dk/organisation/forskning-og-kulturarv/nyere-tid-og-verdens-kulturer/etnografisk-samling/arktisk-forskning/prehistory-of-greenland/late-dorset/) | Page inspected: Dorset is the latest pre-Inuit culture of the Eastern Arctic, divided into Early/Middle/Late phases with radiocarbon ranges varying by region (e.g. Greenland c. 700 BCE–200 CE and 800–1300 CE). Institutional overview; local chronologies vary. |
 
 - Source access checked 2026-10-17; garment terminology was also compared with the [secondary clothing overview](https://en.wikipedia.org/wiki/Inuit_clothing), not silently treated as a reading of its cited books.
 - Historical book passages below use printed section/page locators where supplied; R and U page references are their individual proceedings-paper pagination.
@@ -45,7 +51,7 @@
 
 - Canadian syllabics were adapted from systems developed for Cree/Ojibwe and introduced through missionary activity; Inuit then circulated literacy within families. Not an immemorial sacred Arctic script. [T, Writing]
 - Greenlandic religious literacy developed through eighteenth-century missions; the 1973 orthographic revision is a later institutional stage, not a change in the people's identity. [T]
-- The Canadian ICI writing standard of 1976 paired syllabic and Roman forms; distinguish this historical standard from later proposals and present uptake `(to-verify)`. [T]
+- The Canadian ICI writing standard of 1976 paired syllabic and Roman forms and was ratified by Inuit organizations; distinguish this historical standard from later proposals and present uptake. [T; ITK]
 - **Design heuristic:** attach script to transmission institutions—households, missions, schools, publishing, administration—rather than to “snow culture.”
 - For a fictional script, invent forms and a transmission history; do not use living Inuit syllabics as interchangeable exotic runes.
 
@@ -65,7 +71,7 @@
 | Morphophonology | T's transitive-ending page documents changes conditioned by the root's final consonant | Specify productive boundary rules and exceptions; prohibit arbitrary “Arctic-sounding” spellings. |
 
 - Long forms are useful diagnostics only when their constituent meanings and boundary changes are sourced; word length itself is not the design goal.
-- Full Canadian Inuktitut commonly receives an ergative–absolutive analysis; the linked introductory pages do not establish its complete case/voice system, so exact paradigms here remain `(to-verify)` against a local grammar.
+- Full Canadian Inuktitut receives a predominantly ergative–absolutive case analysis, though accounts differ on how the agreement system patterns; the linked introductory pages do not establish its complete case/voice system, so exact paradigms here still require a local grammar. [SP; C]
 - Noun-to-verb derivation should not automatically be called unrestricted “noun incorporation”; the structural analysis and permitted base/affix combinations need a grammar, not a typological slogan.
 - **Application:** choose a limited base inventory, ordered derivations, argument/number endings, and sound rules; generate a small set of checked paradigms before creating ritual or garment vocabulary.
 - Couple clothing terms to actions—cutting, fitting, wearing, repairing, carrying—only where the fictional morphology licenses those derivations.
@@ -128,7 +134,7 @@
 - Checkable example: R, p. 6, pairs everyday `nanuq` “polar bear” with ritual `pisukti` “the walker” and poetic `pisuqasiaq`, translated there “the ever-wandering one.”
 - These are source-specific examples, not permission to generate Inuit ritual vocabulary by substituting any descriptive phrase for any animal.
 - R also reports different registers can use the same designation for different animals; substitution is relational/contextual, not a one-to-one cipher.
-- Ritual syntax is explicitly under-investigated in R; claims about a systematic alternate grammar, archaic tense system, or obligatory cryptic phonology remain `(to-verify)`.
+- R notes that grammar/syntax was concerned in the ritual register and that research on it is still pending; R's overall account is explicitly preliminary, so no systematic alternate grammar, archaic tense system, or obligatory cryptic phonology is established. [R, pp. 1, 5]
 - R's older menstruation/bereavement restrictions must retain their historical attribution; “unclean” is source terminology, not this entry's endorsement or a rule for contemporary Inuit.
 - **Application:** derive fictional ritual/poetic registers from speech situations and social consequences; leave actual restricted formulas uncopied.
 
@@ -140,9 +146,9 @@
 | Term or technical distinction | Reference meaning / calibration | Coupled systems |
 |---|---|---|
 | `amauti`; `amaut` | Canadian reference terms for a child-carrying parka and its carrying pouch; local forms/cuts vary [I; secondary cross-check] | Childcare, body movement, household skill, kinship; not a generic coat with a decorative hood. |
-| `atigi`; `qulittaq` | Inner/outer parka distinction in Canadian clothing reference terminology; exact regional distribution/spellings `(to-verify)` [I] | Layer position and fur orientation become lexical distinctions, not social rank by default. |
+| `atigi`; `qulittaq` | Inner/outer parka distinction in Canadian clothing reference terminology and museum descriptions; regional forms and spellings vary (e.g. `qulittaujaq` in Tusaalanga) [I; PM; T] | Layer position and fur orientation become lexical distinctions, not social rank by default. |
 | `kamik`, `kamiik` | Skin boot; dual “two skin boots” explicitly exemplified by T | Garment vocabulary and grammatical number interact; do not confuse paired-object forms with singular names. |
-| `ivalu` | Sinew thread in clothing literature; local pronunciation/orthography `(to-verify)` [I] | Anatomy, preparation, sewing, strength, and repair; not generic woven textile yarn. |
+| `ivalu` | Sinew thread; dictionary-attested as “sinew (for sewing)” (Inuinnaqtun; also Inupiaq) and used in clothing literature [I; NED] | Anatomy, preparation, sewing, strength, and repair; not generic woven textile yarn. |
 | `ulu` | Cutting/scraping tool associated with clothing production [I]; B describes use of the woman's knife | Tool affordance, skilled labor, hide geometry, and household transmission. |
 | Caribou versus seal skin | Dry-cold insulation and wet-condition uses require different preparation/material choices [I; B] | Hunting season, animal relations, weather, maintenance, and lexicon. |
 | Inner/outer layer and fur direction | A functional clothing system, not simply maximum bulk [I; B] | Fit, mobility, heat retention, ventilation, and task. |
@@ -186,7 +192,7 @@
 
 | Stage for reference selection | Language / record changes | Myth, symbol, and clothing implications |
 |---|---|---|
-| Archaeological backstory | Thule/ancestral Inuit and earlier Paleo-Inuit/Dorset labels require specialist local chronology `(to-verify)` | Do not automatically project nineteenth-century names or ritual registers into every earlier archaeological culture. |
+| Archaeological backstory | Thule/ancestral Inuit and earlier Paleo-Inuit/Dorset labels are conventional archaeological categories with regionally variable chronologies; dates require specialist local sources (NM) | Do not automatically project nineteenth-century names or ritual registers into every earlier archaeological culture. |
 | Before regional missionary literacy | Oral narratives, remembered relationships, skilled demonstrations; no local written chronicle is consulted here | Historical knowledge exists without a written court chronicle; surviving material evidence does not fully specify a ritual lexicon. |
 | Regional missions and trade | Greenland religious literacy from the eighteenth century; eastern Canadian syllabics introduced in the nineteenth [T] | Imported goods and religious institutions alter transmission; the dates and trajectories differ by community. |
 | Late nineteenth-century Baffin reference | B's observations plus older traveler reports | Source already includes brass ornaments and outside contact; it is not an untouched pre-contact snapshot. |

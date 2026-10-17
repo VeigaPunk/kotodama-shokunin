@@ -17,7 +17,7 @@
 - [W13] Robert Lloyd Williams. 2013. *The Complete Codex Zouche-Nuttall: Mixtec Lineage Histories and Political Biographies*. University of Texas Press. Edition and commentary; [UC Davis Library's illustrated guide](https://library.ucdavis.edu/news/50-features-special-collections-story-lord-eight-deer-jaguar-claw/) verifies the edition and explains the older facsimile.
 - [L17] Brook Danielle Lillehaugen, George Aaron Broadwell, Michel R. Oudijk, Laurie Allen, May Helena Plumb, and Mike Zarafonetis. 2017. [“Colonial Valley Zapotec to English Vocabulary.”](https://ticha.haverford.edu/en/vocabulary/) *Ticha: a digital text explorer for Colonial Zapotec*, first edition. Use headwords and dated attestations, not modernized guesses.
 - [K92] Frances Karttunen. 1992. *An Analytical Dictionary of Nahuatl*. University of Oklahoma Press, p. 35, CIHUĀ-TL. [Digital dictionary entry with the citation](https://nahuatl.wired-humanities.org/content/cihuatl).
-- Verification boundary: linked guides and vocabulary were checked for this entry; the bibliography is a reading map, not a claim that every monograph was re-read in full. Manuscript-specific disputed reconstructions require the cited commentary.
+- Verification boundary: linked guides and vocabulary were checked for this entry; the bibliography is a reading map, not a claim that every monograph was re-read in full. Manuscript-specific disputed reconstructions require the cited commentary. **Triage pass 2026-10-17** audited the *cihua* title claim (not attested in the consulted Zapotec vocabulary) and restated the *ñuhu* senses (ledger: `../../lessons/round-1-triage/Z23.md`); remaining `(to-verify)` marks are open coverage questions.
 
 ## Scope corrections and calibration
 - **Established:** Zapotec and Mixtec are not language isolates. They belong to different branches within Oto-Manguean; “Mesoamerican” identifies an interaction area, not a single language family. [C97]
@@ -53,7 +53,7 @@
 | **cihua / cihuā- / cihuātl** | Nahuatl, not an established Zapotec–Mixtec royal counterpart: “woman”; possessed, “wife” [K92] | Audit whether a text is Nahuatl, a translation, or evidence of contact | Manufacture a coqui/cihua = king/queen binary |
 
 - The brief's “coqui/cihua titles” must therefore be retained as a **source-audit problem**, not accepted as a matched native title pair.
-- A claimed independent local title spelled **cihua** remains `(to-verify)` until its language, community, date, and source passage are supplied; a resemblance to Nahuatl is not proof of borrowing either.
+- A claimed independent local title spelled **cihua** is not attested in the consulted Zapotec sources: the Colonial Valley Zapotec vocabulary records *chana* “Sir; Lady; Lord” and *coqui* “noble; lord, lady,” with no *cihua* headword [L17], while Nahuatl *cihuātl* “woman; wife” belongs to a different language [K92]. Any such title claim must still supply its language, community, date, and source passage.
 - Keep fields separate: `calendar-name | epithet | local-title | polity | kin-links | language | document-date | event-date`.
 - Calendrical names recur: identify people through parents, spouses, places, and dated events rather than the numeral-sign combination alone. [PW; JP11]
 - Women appear as dynastic actors, not merely costume variants of men; Lady 6 Monkey's history is an essential counterweight to an exclusively male ruler template. [PW]
@@ -63,7 +63,7 @@
 - **Ñuu**, commonly translated “town,” is one of the geographical bases in Mixtec place signs. The brief's **ñuù** notation is not assumed to be a universal tone spelling. [S73; PW, places]
 - Pohl's analytical model is **geographical substantive + qualifier(s)**: a limited set of landscape bases combines with colors, beings, plants, weapons, numbers, and other identifiers.
 - His guide lists **yucu** “hill,” **yuta** “river,” **ñuu** “town,” and **yodzo** “plain.” These are cited forms, not a certified modern pronunciation guide. [PW]
-- **Ñuhu** is discussed in scholarship on earth/sacred beings; exact historical lexical senses, tone contrasts, and its relation to a particular town-name spelling are `(to-verify)` here. Do not equate ñuu and ñuhu because their untoned romanizations resemble one another. [M95; JP11]
+- **Ñuhu** is discussed in scholarship on earth/sacred beings; it is rendered “earth/land,” with senses running from soil and terrain to the sacred [T01; S73, p. 66]. Exact tone contrasts and its relation to a particular town-name spelling remain `(to-verify)` here. Do not equate ñuu and ñuhu because their untoned romanizations resemble one another. [M95; JP11]
 - “Animated” should mean that a locality can be an origin, interlocutor, ritual destination, or source of authority within a particular account—not that every mountain has the same personality.
 
 | Place-reading layer | Example / evidence | Transferable question |
@@ -182,5 +182,5 @@ These are broad working bands, not substitutes for local ceramic phases or commu
 - **Interpretation versus decipherment:** named persons and narrative sequences can be persuasive without yielding every word once spoken at a performance; do not invent phonetic certainty. [U05; JP11]
 - **Chronicle scarcity:** no continuous neutral chronicle resolves every kingdom's sequence, costume rule, or myth. This entry is especially thin on commoners, early spoken registers, and local variants of earth-being vocabulary.
 - **No universal pantheon, animism, or costume code:** the deity/ancestor debate, lexical ambiguity, and regional diversity require local evidence; generic pan-Mesoamerican compilations cannot settle them.
-- **Unresolved here:** ñuhu lexical history and tone; any independent local cihua title; a full sourced Dzahui attribute catalogue; ancient garment construction. These remain `(to-verify)`, not invitations to silently supply attractive guesses.
+- **Unresolved here:** the tonal detail of *ñuhu* and its relation to town-name spellings; a full sourced Dzahui attribute catalogue; ancient garment construction. The claimed local *cihua* title was audited above and is not attested in the consulted sources. These remaining gaps are not invitations to silently supply attractive guesses.
 - **Living reference cultures:** work by Indigenous speakers and contemporary communities is scholarship and present agency, not decorative confirmation of an imagined timeless past. Borrow structural questions; avoid presenting copied sacred names, regalia, or practices as freely interchangeable fantasy stock.

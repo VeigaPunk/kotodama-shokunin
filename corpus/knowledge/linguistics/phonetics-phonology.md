@@ -50,6 +50,23 @@
     (2000), *J. Phonetics* 28; Janik & Slater (1997); Suthers (1990),
     *Nature* 347; Poole et al. (1988); Cranford et al. (1996), *J.
     Morphology* 229; Zipf (1935); Prince & Smolensky (2004).
+  - Climate–phonology debate (the contested §7 claims): Hammarström (2016),
+    *J. Language Evolution* 1(1): 65–69; Collins (2016), *JLE* 1(1): 46–52;
+    Collins (2017), in Enfield, ed., *Dependencies in Language*, Language
+    Science Press; Donohue (2016), *JLE* 1(1): 57–60; Roberts (2018),
+    *Frontiers in Psychology* 9: 166; Maddieson (2018), *Frontiers in
+    Communication* 3: 28; Maddieson & Benedict (2023), *Frontiers in
+    Psychology* 14: 1200463; Liang et al. (2023), *Humanities and Social
+    Sciences Communications*; Hartmann, Roberts, Valdes & Grollemund (2024),
+    *Evolutionary Human Sciences*.
+  - Bite-configuration debate: Blasi et al. (2019), *Science* 363: eaav3218;
+    Tarasov & Uyeda (2020), "Causal modeling refutes Hockett's hypothesis…",
+    bioRxiv (published as a *Science* eLetter), with the response Blasi et al.
+    (2020), bioRxiv; Berthommier & Boë (2019), electronic response to
+    *Science*; Chen & Everett (2020), *Proceedings of the 13th International
+    Conference on the Evolution of Language*.
+  - Noback, Harvati & Spoor (2011), *Am. J. Physical Anthropology* 145(4):
+    599–614 (climate-related variation in the human nasal cavity).
 - couples: language (this file, core method); myth (divine/true names, taboo
   naming, onomatopoeic etiologies); symbol (sound symbolism, name-shape,
   bouba/kiki iconography); era (Neolithic bite → f/v, sound-change dating of
@@ -186,16 +203,27 @@ Solid couplings:
 Contested — seeds only, flag downstream:
 - Ejectives ↔ altitude (Everett 2013): mechanism argued, sampling criticized;
   not established.
-- Tone ↔ cold/dry climate (Everett, Blasi & Roberts 2015): cross-correlation,
-  mixed replication (follow-ups to-verify); flavor, never law.
+- Tone ↔ dry climate (desiccation; Everett, Blasi & Roberts 2015):
+  cross-correlation; contested — commentaries object on mechanism and on
+  contact confounds (Hammarström 2016; Collins 2016, 2017; Donohue 2016), and
+  a diachronic Bantu model finds no effect once geography and phylogeny are
+  controlled (Hartmann et al. 2024), though raw global correlations
+  (Maddieson & Benedict 2023) and Chinese voice data (Liang et al. 2023)
+  still fit; flavor, never law.
 - Post-Neolithic bite → labiodental f/v (Blasi et al. 2019): influential;
-  critiques (to-verify). Soft *era* marker: pre-agricultural cultures skew
-  away from f/v.
+  contested — causal modelling is claimed to refute it (Tarasov & Uyeda
+  2020, answered by Blasi et al. 2020), the inventory statistics are
+  challenged (Berthommier & Boë 2019), while a word-list follow-up does
+  support the association (Chen & Everett 2020). Soft *era* marker:
+  pre-agricultural cultures skew away from f/v.
 - Genes → tone bias (Dediu & Ladd 2007): probabilistic bias, not
   determinism; contested.
 - Small isolated societies accumulate complexity (Trudgill 2011; Lupyan &
   Dale 2010): tendencies reported, robustness debated.
-- "Cold = no nasals": no solid source (to-verify).
+- "Cold = no nasals": no solid source — climate work touching nasality is
+  about nasal-cavity anatomy (Noback et al. 2011) or the sonority/temperature
+  association (Maddieson 2018), neither of which licenses a nasal-inventory
+  law.
 
 Anatomy for fictional speakers:
 - Human two-tube vocal tract enables quantal [i a u]; the old "Neandertals
@@ -244,7 +272,7 @@ Anatomy for fictional speakers:
 
 - Method + reference data only; no canon decisions. Setting-level claims are
   lore-shokunin's call — hand off the decision tables, not decisions.
-- Flag §7–§8 contested items; check `to-verify` items (Everett 2015
-  replications, Blasi 2019 critiques) pre-canonization.
+- Flag §7–§8 contested items; the climate and bite-configuration debates are
+  now sourced (§7, sources block) — re-check them pre-canonization.
 - Natural partners: `sound-change.md` (diachrony → §5), `tone-prosody.md`,
   `sound-symbolism.md` (§8), `writing-systems.md` (orthography mismatch).

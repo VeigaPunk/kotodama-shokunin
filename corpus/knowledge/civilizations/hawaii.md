@@ -1,6 +1,6 @@
 # Hawaiʻi — Language, Sacred Restriction, Feathered Rank, and Performed Memory
 - topic: Hawaiian coupling of ʻōlelo Hawaiʻi, kapu/noa, chiefly featherwork, hula/ mele transmission, and inoa; historical reference and fictional-system method, not world-bible canon or instructions for conducting Hawaiian rites.
-- sources: Elbert & Pukui (1979), *Hawaiian Grammar* [G]; Pukui & Elbert (1986), *Hawaiian Dictionary* [D]; Pukui, Haertig & Lee (1972), *Nānā i ke Kumu*, vol. 1 [N]; Beckwith (1940; 1982 reprint), *Hawaiian Mythology* [M]; Stillman (1998), *Sacred Hula*, and Stillman (2009) [H]; Silva (2004), *Aloha Betrayed* [S]; Te Papa (2020) [T]; Mallon (2020, updating 2016) [J]; National Park Service (2019) [K]; Papahānaumokuākea Marine National Monument (n.d.) [P]; Wizinowich (2020) [W]. Editions, links, and limits below.
+- sources: Elbert & Pukui (1979), *Hawaiian Grammar* [G]; Pukui & Elbert (1986), *Hawaiian Dictionary* [D]; Pukui, Haertig & Lee (1972), *Nānā i ke Kumu*, vol. 1 [N]; Beckwith (1940; 1982 reprint), *Hawaiian Mythology* [M]; Stillman (1998), *Sacred Hula*, and Stillman (2009) [H]; Silva (2004), *Aloha Betrayed* [S]; Te Papa (2020) [T]; Mallon (2020, updating 2016) [J]; National Park Service (2019) [K]; Papahānaumokuākea Marine National Monument (n.d.) [P]; Wizinowich (2020) [W]; Athens, Rieth & Dye (2014) [A]; Merry (2000) [R]. Editions, links, and limits below.
 - couples: paths relative to `corpus/knowledge/`; language → `linguistics/phonetics-phonology.md`, `linguistics/writing-systems.md`, `linguistics/politeness-taboo-euphemism.md`, `linguistics/semantics-pragmatics.md`, `linguistics/naming-systems.md`, `linguistics/orality-formulaic-language.md`; myth/symbol → `myth-symbol/cosmology-cosmography.md`, `myth-symbol/myth-ritual-theories.md`, `myth-symbol/color-symbolism.md`; era/costume → `culture-material/era-periodization-models.md`, `culture-material/sumptuary-law-rank-display.md`, `culture-material/ritual-garments.md`, `culture-material/costume-semiotics.md`; sibling → lore-shokunin receives options, provenance, and contradictions, never an asserted fictional canon.
 
 ## Source register and calibration
@@ -15,6 +15,8 @@
 - **[K]** National Park Service. 2019. [“Kamakahonu, HI”](https://www.nps.gov/places/kamakahonu.htm); also [Puʻuhonua o Hōnaunau, “History & Culture”](https://www.nps.gov/puho/learn/historyculture/index.htm) (n.d.). Public-history summaries support event/site orientation; their sweeping descriptions of penalties and religious disappearance require qualification.
 - **[P]** Papahānaumokuākea Marine National Monument. n.d. [“What is the importance of names?”](https://www.papahanaumokuakea.gov/heritage/kapainoa.html). Institutional Hawaiian cultural-heritage account of ancestral, commemorative, and place names, with the Nihoa example.
 - **[W]** Jan Wizinowich. 2020. [“Hawaiian Naming Traditions: A Cultural Legacy”](https://keolamagazine.com/culture/hawaiian-naming-traditions/). *Ke Ola Magazine*, September–October. Interviews Larry Kimura and identifies [N], pp. 94–98; secondary reporting, not a universal ritual manual.
+- **[A]** J. Stephen Athens, Timothy M. Rieth, and Thomas S. Dye. 2014. “A Paleoenvironmental and Archaeological Model-Based Age Estimate for the Colonization of Hawaiʻi.” *American Antiquity* 79(4): 144–155. [Record](https://ui.adsabs.harvard.edu/abs/2014AmAnt..79..144A/abstract). Radiocarbon-and-model synthesis, not a single-event date; compare Wilmshurst et al. (2011), *PNAS* 108(5): 1815–1820, [doi](https://doi.org/10.1073/pnas.1015876108), whose East Polynesian estimate for initial settlement is A.D. 1219–1266.
+- **[R]** Sally Engle Merry. 2000. *Colonizing Hawaiʻi: The Cultural Power of Law*. Princeton: Princeton University Press. ISBN 978-0-691-00932-2. Consulted through a public copy; her page locators for Malo (1951: 56–57) and Kamakau (1961: 223) are secondhand here and would need the printed editions for quotation.
 - **Status vocabulary:** *attested* = supported at the stated source's scale; *variable* = community, genre, era, or manuscript matters; *analytical* = a design lens supplied here; `(to-verify)` = do not promote the claim into a historical assertion without the missing evidence.
 
 ## Coupling model: relations, not an island aesthetic
@@ -50,7 +52,7 @@
 | Pō / ao | Darkness/night and light/day belong to cosmological and poetic fields. [M, D] | Do not mechanically translate them as evil/good. |
 | Kāne, Kū, Lono, Kanaloa | Major akua have intersecting manifestations, relationships, and cult contexts; Lono is associated with Makahiki, agriculture, and fertility. [M] | A four-god game-role grid loses local forms; Kū is not exhausted by “war god.” |
 | Pele and Hiʻiaka | Place, volcanic landscape, kin relations, journeys, and performance repertoires intersect. [M, H] | Not every hula is a Pele rite, and every volcanic place does not tell the same story. |
-| Laka and hula | Laka is important in hula traditions. [M] | Precise identifications, offerings, and relationships to other figures are lineage-specific; details here remain thin `(to-verify)` before attribution to a hālau. |
+| Laka and hula | Laka is important in hula traditions. [M] | Precise identifications, offerings, and relationships to other figures are lineage-specific — dictionary sources themselves spread “Laka” across distinct referents, so attribute only through a named hālau source `(to-verify)`. |
 | ʻAumākua | Ancestral guardian relationships belong to particular families; embodiments and obligations vary. [D, N] | An animal emblem is not automatically a person's universal “spirit animal.” |
 | Mana, kapu, noa | Power/efficacy and restricted/released conditions interrelate with ancestry, persons, acts, and things. [D, M] | Neither a numerical magic resource nor a permanent sacred/profane binary explains every use. |
 
@@ -60,7 +62,7 @@
 
 ## Kapu as legal linguistics: authority, scope, and release
 - **Attested baseline:** kapu joins religious, social, and political restrictions; noa includes being free of a restriction. Translation as merely “superstition” or merely modern secular statute is inadequate. [D, M, K]
-- **Analytical claim only:** “legal linguistics” asks how authoritative communication establishes or changes obligations. It does not assert a historically separate Hawaiian legal language or special grammatical mood `(to-verify)`.
+- **Analytical claim only:** “legal linguistics” asks how authoritative communication establishes or changes obligations. It does not assert a historically separate Hawaiian legal language or special grammatical mood: nineteenth-century Hawaiian-language legal and political documents are their own genre area (cf. [S]) and establish neither a distinct grammar nor a legal mood.
 - Model each norm as `authorized issuer + affected persons + act/object + place/time + recognized communication + consequence + release`.
 
 | Dimension | Historical anchor | Design operation, not reconstructed Hawaiian law |
@@ -75,14 +77,14 @@
 - **1819 hinge:** Liholiho/Kamehameha II, Kaʻahumanu, and Keōpūolani are central to accounts of ending ʻai kapu; resistance and conflict followed. Missionaries arrived in 1820, after this break. [K]
 - Do not give missionaries sole agency for that event, or turn the actions of high-ranking women into proof that gender restrictions had never existed.
 - Conversely, food restrictions do not mean all women were politically powerless; genealogy, office, and gender are intersecting, not interchangeable ranks.
-- Neither every kapu breach nor every period had the same sanction; the sources here do not supply a complete offence-and-penalty schedule `(to-verify)`.
+- Neither every kapu breach nor every period had the same sanction; Malo and Kamakau describe severe, varied punishments and even treat the system as historically recent, so no complete offence-and-penalty schedule should be reconstructed from them (Malo 1951: 56–57; Kamakau 1961: 223, cited in [R]).
 - Speech, bodily proximity, silence, names, and visible insignia can be investigated together; a specific royal naming prohibition or formula needs its own attestation, not inference from the word *kapu*.
 - **Fictional test:** ask whether a validly announced release changes clothing access, performance rights, and address forms immediately or unevenly. Keep competing interpretations visible to lore-shokunin.
 
 ## Era model: overlapping institutions, not a frozen “ancient Hawaiʻi”
 | Stage | Coupling to track | Historical guardrail |
 |---|---|---|
-| Settlement and pre-1778 regional histories | Oral genealogies, changing chiefly formations, cultivation, barkcloth and featherwork technologies | Not one unchanging precontact era; a precise settlement date or phase sequence needs archaeological evidence beyond this entry `(to-verify)`. |
+| Settlement and pre-1778 regional histories | Oral genealogies, changing chiefly formations, cultivation, barkcloth and featherwork technologies | Not one unchanging precontact era; recent radiocarbon syntheses support a “short chronology” (c. A.D. 1000–1250; Wilmshurst et al. 2011: A.D. 1219–1266), earlier estimates remain published (Dye 2011: A.D. 780–1119, tabulated in [A]), and island-specific sequences stay uneven. |
 | 1778–1819 encounter and kingdom formation | Foreign trade and goods coexist with chiefly ritual authority; Kalaniʻōpuʻu's 1779 cloak transfer supplies an object-level anchor. [J, K] | Imported objects do not instantly replace local codes. |
 | 1819–1820 institutional rupture | ʻAi Noa precedes missionary arrival; authority, worship, and public conduct are renegotiated. [K] | A formal break is not disappearance of all ancestral practice. |
 | Nineteenth-century kingdom, to 1893 | Print, written governance, Christianity, inherited genealogies, mele, court performance, and imported dress coexist. [S] | Court innovation is not automatically inauthentic; print is not merely colonial speech. |
@@ -99,11 +101,11 @@
 | Material / sign | Coupling | Evidence limit / craft control |
 |---|---|---|
 | Feather bundles on olonā cordage netting | Forest resources, specialized skill, time, and chiefly command become wearable authority. [T] | Describe a netted feather construction, not a woven feather textile; avoid unverified labor-hour totals. |
-| Red and yellow fields / patterned arrangement | Spectacular visibility and prized materials communicate chiefly distinction. [T, J] | No universal red-to-yellow promotion ladder or documented rank-by-chevron table is established here `(to-verify)`. |
-| Feather species | Bird ecology constrains available colors and supply. | Species identifications for any chosen cloak require its catalogue/conservation record `(to-verify)`; do not guess from hue alone. |
+| Red and yellow fields / patterned arrangement | Spectacular visibility and prized materials communicate chiefly distinction. [T, J] | No formal red-to-yellow rank ladder is established: the inspected institutional accounts describe entitlement, labour, and chiefly status instead, so popular “more yellow = higher rank” claims need object-level support. |
+| Feather species | Bird ecology constrains available colors and supply. | Species identifications require the object's catalogue/conservation record; even Te Papa's own release for FE000327 counts “feathers from about 20,000 birds” without naming species, so do not guess from hue — or from a count — alone. |
 | Mahiole with cloak | Multiple objects frame a chiefly body as an ensemble. [T] | A helmet, cloak, genealogy, and occasion must be read together; shape alone is not a complete rank key. |
 | Kapa; malo and pāʻū | Barkcloth production and garment forms supply a wider dress vocabulary beyond royal featherwork. [D, relevant headwords] | Kapa is beaten barkcloth, not loom-woven cloth; wearer, material, and arrangement require era-specific evidence. |
-| Lei and plant adornment | Plant choice can couple locality, occasion, and performance. [D] | A specific plant-to-akua equivalence or mandatory hula costume needs lineage and occasion evidence `(to-verify)`. |
+| Lei and plant adornment | Plant choice can couple locality, occasion, and performance. [D] | A specific plant-to-akua equivalence or mandatory hula costume needs lineage and occasion evidence — hālau- or event-specific documentation, not a general plant dictionary `(to-verify)`. |
 | Later imported clothing | Existing status systems can incorporate new materials and silhouettes. [S] | Do not assume a foreign textile makes the wearer less Hawaiian or the rank claim meaningless. |
 
 - **Object biography:** Kalaniʻōpuʻu gave the cloak and helmet he wore to Cook in 1779; these treasures later entered overseas collections, returned on loan in 2016, and were permanently repatriated in 2020. [T, J]
@@ -143,10 +145,10 @@
 | Inoa hoʻomanaʻo | Commemorates a person or event; may attach to people and places. [P] | The Nihoa names associated with Kaʻahumanu's 1822 voyage provide a specific example, not a template for all names. |
 | Inoa pō | A name received in a dream, understood in some accounts as binding for the infant's well-being. [D, s.v. *inoa pō*] | Reported belief, not a clinical claim; [direct dictionary entry](https://hilo.hawaii.edu/wehe/?q=inoa%20p%C5%8D). |
 | Inoa hōʻailona / inoa ʻūlāleo | Sign/vision and heard-voice origins link naming to spiritual communication. [W, citing N] | Their recognition and authority are family/context-dependent; do not fabricate a universal omen-decoding chart. |
-| Inoa kūamuamu | Reviling names can carry protective or adversarial purposes in the accounts summarized by [W]. | Do not turn these into comic “ugly baby names”; specific cases and renaming procedures require the original account `(to-verify)`. |
+| Inoa kūamuamu | Reviling names can carry protective or adversarial purposes in the accounts summarized by [W]. | Do not turn these into comic “ugly baby names”; the phrase is not a standard dictionary headword (UH Wehewehe lookup, 2026-10-17), so treat it as an account-level category and require the named original `(to-verify)`. |
 
 - **Ritual mechanics worth studying:** who may propose or receive a name; whose relationship validates it; who must agree; how it is bestowed and acknowledged; when a name can be changed.
-- These questions are an analytical checklist, not an attested Hawaiian ceremony sequence. Exact prayers, officiants, timing, restrictions, and gestures are not established here `(to-verify)`.
+- These questions are an analytical checklist, not an attested Hawaiian ceremony sequence. Exact prayers, officiants, timing, restrictions, and gestures are not established here; [N], pp. 94–98, is the named lead and must be collated before any wording is quoted `(to-verify)`.
 - [W] discusses ʻoki, severing/cutting, in accounts of name change; that does not authorize supplying a reconstructed ritual script from a gloss.
 - Do not presume every family maintains the same ancestral religious practice today, or that Christian and Hawaiian naming relationships are mutually exclusive.
 - **Fictional application:** design the relationship before the phonetic form: `giver/recipient → grounds for authority → remembered referent → public/private use → consequences of misuse → change procedure`.
@@ -170,4 +172,4 @@
 - Thin coverage here: island-specific legal speech, historical naming performances, everyday clothing distributions, and internal hālau protocols. Public chronicle evidence is uneven; absence of a written account is not absence of a practice.
 - Living traditions require contemporary, named community authority for detailed attribution. A published description is evidence of a description, not blanket permission to reenact or commercialize it.
 - Reject tourist essentialism, a universal color/symbol dictionary, “one people = one myth,” and a single Campbell-style hero path as historical explanations. Such grids may be optional fiction heuristics, never proof of Hawaiian structure.
-- All fictional applications above are analytical proposals only; unresolved claims retain `(to-verify)` and no canon is written.
+- All fictional applications above are analytical proposals only; unresolved claims are recorded in the round-1 triage ledger (`../lessons/round-1-triage/Z09.md`), and no canon is written here.

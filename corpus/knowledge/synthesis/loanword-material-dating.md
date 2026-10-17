@@ -126,19 +126,19 @@ Triangulation is not a license to multiply confidence scores. A chronicle naming
 | Coupled system | Reference profile and dating lesson |
 |---|---|
 | Language family + writing | Kiswahili is Bantu, within Sabaki; Arabic loans do not turn it into an Arabic descendant. Distinguish Arabic inscriptions from Swahili written in Arabic-derived Ajami (Spear 2000; Mugane 2015). |
-| Myth/religious core | Islamic monotheism, not a pantheon; Mugane also describes encounters with local ancestral/spirit traditions. A specific town's pre-Islamic narrative corpus is thinly covered here **(to-verify)**. |
+| Myth/religious core | Islamic monotheism, not a pantheon; customary (mila) practice and spirit-possession complexes are documented alongside dini Islam (Spear 2000, reviewing Middleton and Giles). A specific town's pre-Islamic narrative corpus is not established by the sources inspected for this entry. |
 | Symbolic system | Arabic writing, mosque/tomb forms, and prestige objects participate in status and religious expression; do not assign every imported ornament an Islamic meaning. |
 | Era model | Late-first-millennium coastal settlements and exchange; expanding medieval urban/Islamic institutions; differentiated Portuguese and later Omani-era interventions. Site phases must not become a single coast-wide conversion date. |
-| Costume/material signature | Local weaving, beadworking, and iron production coexist with imported glazed pottery and other prestige goods (Spear 2000). Medieval garment cuts and dye-to-rank assignments remain **(to-verify)**; later kanga evidence is not a medieval uniform. |
+| Costume/material signature | Local weaving, beadworking, and iron production coexist with imported glazed pottery and other prestige goods (Spear 2000). Medieval garment cuts and dye-to-rank assignments are not documented in the sources inspected for this entry; later kanga evidence is not a medieval uniform. |
 | Naming practices | Arabic personal-name forms, *bin* patronymics, origin labels, and Shirazi descent narratives can signal affiliation/status. Their presence is not a census of newly arrived Arabs or Persians. |
 
 Loanword bridge: Arabic vocabulary in law, trade, and religion must be stratified by dialect and period; treating the present lexicon as a snapshot of medieval borrowing is unsafe (Spear 2000; Mugane 2015).
-Material bridge: Spear's Shanga discussion combines local continuity, imported ceramics, mosque rebuilding, and changing production; its older phase dates require current site-report checking **(to-verify)** before reuse as fine anchors.
+Material bridge: Spear's Shanga discussion combines local continuity, imported ceramics, mosque rebuilding, and changing production; he notes differences in dating and periodization between Horton's own reports, so the Shanga site report (Horton 1996) should be checked before reusing phase dates as fine anchors.
 Naming bridge: a Shirazi origin claim is evidence about remembered/claimed descent; neither dismiss it as inherently fictional nor accept its voyage and dynastic dates without corroboration.
 **What a worldbuilder can take:** a locally rooted port society can acquire foreign ritual words, imports, and elite name styles on different schedules without population replacement.
 **Provenance cautions:** colonial archaeology overweighted exotic goods and foreign founders. Spear (2000) is a critical historiographic baseline, not the final word on ancestry.
 Brielle et al. (2023) find African–Asian ancestry mixtures and infer contact/mixture by about 1000 CE, complicating blanket dismissals of Persian connections; their mostly elite, geographically uneven samples and demographic models cannot date individual loans, prove every pedigree, or equate ancestry with language.
-Early chronicle testimony is sparse and often retrospective; the Kilwa Chronicle's sixteenth-century written form is not a contemporary witness to all earlier events (Brielle et al. 2023). Local ritual traditions and non-elite dress require additional specialist sources **(to-verify)**.
+Early chronicle testimony is sparse and often retrospective; the Kilwa Chronicle's sixteenth-century written form is not a contemporary witness to all earlier events (Brielle et al. 2023). Local ritual traditions and non-elite dress are not established by the sources inspected for this entry.
 
 ## 8. Comparative setting B — Japanese Nanban/Kirishitan contact
 
@@ -151,13 +151,13 @@ Early chronicle testimony is sparse and often retrospective; the Kilwa Chronicle
 | Costume/material signature | Nanban paintings represent European outfits alongside Japanese dress; imported images and Chinese silk moved through Portuguese/Jesuit networks. A painted costume is not proof of an excavated garment or widespread local wear. |
 | Naming practices | Japanese names coexist with Christian ones: Hosokawa Gracia and Naitō Julia are examples discussed by Fujikawa. A baptismal name records religious/social affiliation, not Portuguese birth. |
 
-Loanword bridge: *kirishitan* derives from Portuguese *cristão* (Fujikawa 2017). Its etymon identifies a contact channel; its exact first local attestation and community-specific adoption date remain **(to-verify)**.
+Loanword bridge: *kirishitan* derives from Portuguese *cristão* (Fujikawa 2017; etymon also given in the 世界大百科事典 entry 「キリシタン」, checked 2026-10-17). Its etymon identifies a contact channel; its exact first local attestation and community-specific adoption date are not established by the sources inspected for this entry.
 Material bridge: silk acquired through Macao is not therefore Portuguese-grown silk. Split producer, financier, shipper, and linguistic intermediary (Fujikawa 2017).
 Naming/symbol bridge: conversion can add a Christian name and devotional objects while leaving local kinship and dress conventions intact; investigate individuals rather than generating a mandatory “convert costume.”
 Survival test: Fujikawa describes underground prayer traditions and copied Christian texts after suppression. A prohibition cannot serve as a hard TAQ for every loan, sacred name, or object.
 **What a worldbuilder can take:** an imported name–ritual–object bundle can travel through selective institutions, then outlive the institution publicly licensed to transmit it.
 **Provenance cautions:** Jesuit published letters could be edited for reputation; compare manuscripts, hostile texts, Japanese sources, and excavated contexts rather than treating all accounts as neutral (Fujikawa 2017).
-Gutiérrez (1993) supplies useful image descriptions but uses dated East/West hierarchies and missionary-centered judgments; individual attributions, costume identifications, and caption dates need catalogue confirmation **(to-verify)**. This entry does not reconstruct regional kami myth cycles from mission literature.
+Gutiérrez (1993) supplies useful image descriptions but uses dated East/West hierarchies and missionary-centered judgments; the article is Jesuit-authored and its closing note says the journal's staff added the captions, so its attributions, costume identifications, and caption dates are not tied to catalogue records (article inspected 2026-10-17). This entry does not reconstruct regional kami myth cycles from mission literature.
 
 ## 9. Era staging for a fictional culture
 
