@@ -3061,3 +3061,20 @@ No goal, background agent or automatic continuation is started by this cleanup.
   DeepSeek build rounds stay on opencode-go keys 1/2 (keys -3/-4/-5
   unprovisioned). This is an explicit operator route designation, not a
   silent substitution.
+
+## 2026-10-17 — Regimen amendment 3: expand rounds cancelled, GLM rounds pinned
+
+- **Operator directives (this session):** (1) skip the Grok expand rounds
+  entirely (both interrupted attempts produced zero output; route abandoned by
+  operator decision, not provider failure); (2) the 2 end-of-loop GLM rounds
+  are pinned to 16 workers each on `zai-coding-plan/glm-5.3-flash-low` — the
+  zai lane whose low alias is host-pinned to MAX thinking effort (documented
+  pin flip 2026-10-16).
+- **Loop structure now:** 4 build (64w deepseek; r19 = hyper provider) +
+  1 verify (64w luna) + 1 integrate (32w sol) + 2 GLM (16w zai-max) = 8
+  rounds per loop. Lane map: loop 1 = 8–16 (r13 skipped, r14 integrate,
+  r15–16 GLM), loop 2 = 17–24, loop 3 = 25–32.
+- **Round 13 status:** operator-skipped before any work landed (two interrupt
+  events, 0 files); round-13 claims (D4, civ-map, handoff-v2) are deferred —
+  handoff-v2 and civ-map fold into loop-1 GLM rounds 15–16 (16-worker scope),
+  D4 into a loop-2 build round.
