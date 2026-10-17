@@ -1,0 +1,34 @@
+{
+ "round": 9,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "e1694bad6ac96aca45a11ca5746582b275929355",
+ "regimen": "operator 2026-10-17: loop 1 of 3, build round 2 of 4",
+ "requested_model": "opencode-go-2/deepseek-v4.1-flash",
+ "workers": 64,
+ "claims": [
+  {
+   "id": "F",
+   "axis": "freshness",
+   "lowest_axis": true,
+   "before": "4 residuals reconciled unresolved after round 8 (see reports/round-8/freshness/reconciliation.json): each carries a round-8 receipt documenting why passage support could not be established.",
+   "after_required": "Each of the 4 carries >=2 escalated-strategy retrieval receipts (reports/round-9/freshness/): primary-source/museum-record hunter, scholarly-fulltext hunter, alternate-angle hunter, independent verifier; >=2 of the 4 move to partial-support-or-better on primary or scholarly passages; any that stay unresolved carry a deeper-limit receipt naming exactly what remains unreadable/unretrievable. Raw labels preserved apart from reconciled dispositions.",
+   "counting_command": "python3 reports/round-9/run-validation.py"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "0 of the 7 structural gates (tools/gates/*.py) carry committed expected.json drift-pin baselines with input digests (verify actual count first and record it).",
+   "after_required": "7/7 structural gates carry a committed expected.json baseline layout (expected outputs + sha256 digests of snapshot inputs) per the gate standard; the battery runner validates every baseline (tampered snapshot -> could-not-evaluate, never a silent pass); battery selftest remains green; no gate behavior changes without a documented reason in the fragment.",
+   "counting_command": "python3 reports/round-9/run-validation.py"
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "capability": "culture-d3-acceptance",
+   "before": "The D3 capability from round 7's unadmitted O claim remains unadmitted: assemble-culture-d3 exists but acceptance never completed (round 7 closed failed).",
+   "after_required": "python3 tools/assemble-culture-d3.py --check exits 0 with byte-identical deterministic assembly on the delivered tree; python3 tools/check-evidence-coupling.py --selftest green; D3 replays frozen without digest drift; the capability row for reproducible D3 culture assembly enters SCORECARD only on demonstrated run (orchestrator admits).",
+   "counting_command": "python3 reports/round-9/run-validation.py; python3 tools/assemble-culture-d3.py --check"
+  }
+ ]
+}

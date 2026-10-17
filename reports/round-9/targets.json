@@ -1,0 +1,125 @@
+{
+ "round": 9,
+ "date": "2026-10-17",
+ "baseline_revision": "e1694bad6ac96aca45a11ca5746582b275929355",
+ "freshness": [
+  {
+   "id": "R9-R8-F01",
+   "unresolved": {
+    "id": "R8-F01",
+    "prior_row_id": "R6-02-A",
+    "question": "Check the entry's evidence for Sumerian/Akkadian language contact and the separation of scribal language survival from spoken-language replacement; which dated text or scholarly passage supports the institutional coupling?",
+    "entry": "corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+    "source_url": "https://en.wikipedia.org/wiki/Sumerian_language",
+    "prior_limits": "Jagersma body text and a dated cuneiform witness remain unread; the tertiary dates are not new entry dates.",
+    "round8_receipt": "reports/round-8/freshness/R8-F01-receipt.json"
+   }
+  },
+  {
+   "id": "R9-R8-F02",
+   "unresolved": {
+    "id": "R8-F02",
+    "prior_row_id": "R6-02-B",
+    "question": "Check its kaunakes or tufted/skirt-dress terminology against a dated object or scholarly source; distinguish modern/Greek descriptive naming, pictured texture and actual fibre/garment construction.",
+    "entry": "corpus/knowledge/civilizations/mesopotamia-sumer-akkad.md",
+    "source_url": null,
+    "prior_limits": null,
+    "round8_receipt": "reports/round-8/freshness/R8-F02-receipt.json"
+   }
+  },
+  {
+   "id": "R9-R8-F03",
+   "unresolved": {
+    "id": "R8-F03",
+    "prior_row_id": "R6-05-B",
+    "question": "Check one dated divine/royal headgear, pointed-cap or horned-crown identification in the entry; distinguish depicted rank, deity/king identification and earlier Hattic or later Neo-Hittite comparators.",
+    "entry": "corpus/knowledge/civilizations/anatolia-hittite.md",
+    "source_url": "https://en.wikipedia.org/wiki/Yaz%C4%B1l%C4%B1kaya",
+    "prior_limits": "No first-hand relief plates, royal-cap contrast, earlier Hattic comparator or dated Neo-Hittite headgear witness was inspected. Tertiary description does not satisfy the requested stronger object identification.",
+    "round8_receipt": "reports/round-8/freshness/R8-F03-receipt.json"
+   }
+  },
+  {
+   "id": "R9-R8-F04",
+   "unresolved": {
+    "id": "R8-F04",
+    "prior_row_id": "R6-07-A",
+    "question": "Check mlqrt/Melqart's king-of-the-city analysis and the limits of a fixed merchant-patron/theological profile against an inscription, philological source or scholarly passage.",
+    "entry": "corpus/knowledge/civilizations/levant-canaan-phoenician.md",
+    "source_url": "https://en.wikipedia.org/wiki/Melqart",
+    "prior_limits": "Bonnet 1988 and Lipinski's page remain unread. Embedded Herodotus/Josephus quotations are tertiary-mediated, not independent classical witnesses or a recovered complete theological profile.",
+    "round8_receipt": "reports/round-8/freshness/R8-F04-receipt.json"
+   }
+  }
+ ],
+ "operability": [
+  {
+   "id": "R9-O01..O14",
+   "task": "Seven gates x two workers: author a committed expected.json baseline (expected outputs + input digests) and independently re-run/validate it in a copied tree; fragment per gate under reports/round-9/baselines/<gate-name>/."
+  },
+  {
+   "id": "R9-O15",
+   "task": "Extend tools/check-gate-battery.py to validate every committed expected.json (digest verify -> could-not-evaluate on tamper) WITHOUT changing gate behavior; regression controls."
+  },
+  {
+   "id": "R9-O16",
+   "task": "Author reports/round-9/run-validation.py over F/O/D evidence; emits validation.json."
+  },
+  {
+   "id": "R9-O17",
+   "task": "Registry scribe: gate registry rows (name, gate|probe, entry command, verdict map, self-test, pinned-value path) in reports/round-9/baselines/registry.md."
+  },
+  {
+   "id": "R9-O18..O20",
+   "task": "Auditors: re-run all baselines in isolation, verify tamper-rejection with a mutated copy, confirm battery selftest green."
+  }
+ ],
+ "depth": [
+  {
+   "id": "R9-D01",
+   "task": "python3 tools/assemble-culture-d3.py --check on the delivered tree; if the packet pin drifted for legitimate reasons, diagnose exactly which file and why (reports/round-9/d3/check-diagnosis.md)."
+  },
+  {
+   "id": "R9-D02",
+   "task": "Determinism: regenerate D3 packet twice, byte-compare; record (reports/round-9/d3/determinism.md)."
+  },
+  {
+   "id": "R9-D03",
+   "task": "python3 tools/check-evidence-coupling.py --selftest + the D3 domain controls; record exact outputs."
+  },
+  {
+   "id": "R9-D04",
+   "task": "Frozen replay: replay D3 artifacts with tools/replay-frozen.py; no digest drift; record."
+  },
+  {
+   "id": "R9-D05",
+   "task": "CLI negatives: malformed D3 inputs -> stable exit-2 diagnostics; record."
+  },
+  {
+   "id": "R9-D06",
+   "task": "Interop: confirm d2-typed-labels and assemble-d2 still green after round 9 (no cross-contamination); record."
+  },
+  {
+   "id": "R9-D07",
+   "task": "SKILL/SCORECARD capability-row draft for reproducible D3 assembly (draft only)."
+  },
+  {
+   "id": "R9-D08",
+   "task": "Docs/example regen evidence."
+  },
+  {
+   "id": "R9-D09..D10",
+   "task": "Adversarial reviewers: review the acceptance evidence for circularity (e.g. regenerating a packet to bless a change); file findings."
+  },
+  {
+   "id": "R9-D11",
+   "task": "Cross-check D3 packet against d3-contract.json (reports/round-7/) field by field."
+  },
+  {
+   "id": "R9-D12",
+   "task": "Scribe: D3 acceptance ledger fragment."
+  }
+ ],
+ "metadata_verify": "11 shards re-audit all 179 corpus/knowledge entries for complete source/verified-at/recheck frontmatter after round 8's sweep; fix stragglers in place; fragments under reports/round-9/metadata/ + 1 auditor shard.",
+ "scribe_review": "X01 lessons gate-keeper (corpus/lessons/round-9.md); X02 freshness receipts auditor; X03 adjacency/connector; X04 fleet-report scribe (draft report body from landed fragments, orchestrator finalizes)."
+}
