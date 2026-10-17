@@ -42,10 +42,15 @@ for the five parent re-fetches recorded in `parent-source-spotchecks.json`.
 
 ## Planned
 
-- Preserve the requested three non-flash `zai-coding-plan/glm-5.3` rounds,
-  16 workers each; the OpenCode Go wave does not substitute for them.
-- Then the requested Grok 4.7 xhigh fast 128-worker wave, only if its exact
-  native route is available; no silent model or provider substitution.
+- Latest operator ordering (2026-10-17; appended in LOG.md): pending rounds
+  5–7 are the three non-flash `zai-coding-plan/glm-5.3` rounds, 16 workers
+  each. The OpenCode Go supplement does not substitute for them.
+- Pending rounds 8–9 return to Alibaba token-plan DeepSeek v4.1 Flash,
+  32–64 workers per round, with keys rotated by availability.
+- Round 10 is the requested Grok 4.7 xhigh fast 128-worker wave, AFTER the
+  DeepSeek rounds. This supersedes the older goal draft's round-8 ordering,
+  not its exact-model requirement. Use the native route or the host's Grok
+  CLI if necessary and available; no silent model or provider substitution.
 - D2 needs typed translated-label/native-form handling, scoped era/material
   reconciliation and an executable rank-rule adapter. A green partial
   schema check is not whole-culture verification.

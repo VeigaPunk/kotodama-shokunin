@@ -2179,3 +2179,28 @@ could-not-evaluate exit; this remains an explicit interface defect, not
 claimed hardening. These are integration corrections, not a fourth claim
 or another numbered training round. The final report is filed only after
 this correction and its refreshed validation receipt are committed.
+
+## 2026-10-17 — operator ordering amendment: Grok after DeepSeek
+
+Operator request: "do a round with the 128 swarm using the grok 4.7xhigh
+fast also, after the deepseek rounds". This latest ordering supersedes the
+older stored goal draft's Grok-at-round-8 sequence. Preserve the requested
+model/count totals and only reorder the undispatched numbered rounds:
+5–7 are three non-flash Z.ai GLM-5.3 rounds of 16 workers each; 8–9 are the
+two remaining Alibaba token-plan DeepSeek v4.1 Flash rounds of 32–64 workers
+each; 10 is the single 128-worker Grok 4.7 xhigh fast round AFTER DeepSeek.
+SCORECARD.md's planned queue now carries this order. No pending round has
+been dispatched or counted complete by this amendment, and no provider
+configuration was changed. Exact native routing must be demonstrated; a
+substitute model must never be reported as the requested one. The host's
+Grok substrate CLI remains the authorized fallback dispatch path if native
+AgentSwarm cannot route that exact model.
+
+The additional OpenCode Go wave is already published at
+`82eafdf5df793c8d1f6e9e230a7be385535bec27`; `git ls-remote origin
+refs/heads/main` matched local HEAD and tracked `git status --porcelain=v1`
+was empty. Its final lane report is
+`reports/supplement-opencode-1/kotodama.md`. A clean staged-deliverable export
+also passed the entire acceptance runner without ignored source downloads
+or experiment trees. This is supplemental closure, not completion of the
+ten-round training goal or retrospective repair of old dispatch evidence.
