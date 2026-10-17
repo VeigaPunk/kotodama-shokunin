@@ -140,3 +140,129 @@ Historical round-2/round-4 rejections and round-4 dispatch-provenance debt
 remain. This checkpoint plus its report are not additional training rounds,
 and the ten-round goal is not complete. Push equality and clean nonignored
 Git state are checked after publication, not assumed by this report.
+
+---
+
+## Final-outcome erratum — round 6 admitted by the author (2026-10-17)
+
+This addendum supersedes the **pending admission/unfinished queue** status
+in the checkpoint above, not its historical measurements or source bytes.
+The first 142 lines remain unchanged. The checkpoint really was pending at
+`104aa54c737d79c5df1382f65d578b61cbf831f2`; its unmodified checker still
+reproduces that state in a disposable export of that exact commit.
+
+### Work performed
+
+Finished the original F contract without another swarm: persisted five
+parent source re-fetches, reconciled all 24 questions with one main-source
+scope rule, pinned the Gobhila capture, corrected the ARTA locator apart
+from its raw ledger, and implemented the originally declared acceptance
+command. Evidence: `parent-source-spotchecks.json`,
+`parent-reconciliation.json`, `run-validation.py`, `validation.json` and
+`outcome.json` under `reports/round-6/`.
+
+The original sole batch remains sixteen completed Z.ai GLM-5.3 Flash MAX
+workers. There were three actual-output reviewer continuations in the
+checkpoint, then one further read-only counting-instrument review by the
+same critic identity `agent-487`. That review independently reproduced the
+bounded counts and returned **no blocking findings**. It is author-side,
+not an independent promotion verifier or another AgentSwarm. Its limits
+and nonblocking notes are retained in `outcome.json`.
+
+### Landed changes and work-hash binding
+
+Actual work HEAD at this addendum's writing:
+**`b815bf400120c90f422dbe8d15f8ce028078bfd0`**.
+Its tree is **`9352a8f7af50446d37a658985bfb3d1a7e9c5324`**, the clean staged
+export that passed full acceptance before commit. Author and committer are
+`kotodama-shokunin <kotodama@shokunin.local>`.
+
+That commit lands the parent receipts/reconciliation, counting runner and
+receipt, outcome record, five SKILL decision rows, two append-only Vedic
+and Persian entry errata, README frontier update, six-axis SCORECARD and
+appended lesson/LOG evidence. All are tied to LOG entries headed
+“round 6 final integration: bounded freshness admitted” and
+“Round 6 final instrument review and historical replay”. Historical
+ledgers, reviews, old reports, gates and examples are not rewritten.
+
+The critic-reviewed and committed acceptance instrument SHA256 is
+`c53f100927b8723bea25eeaa06048ace68fdfa3e763811a64e1104323e535c6e`,
+confirmed by hashing the actual Git blob at the work hash. This report
+addendum is written after that commit, then committed last without amending
+or rebinding any earlier report hash.
+
+### Before → after and actual verification
+
+`python3 reports/round-6/run-validation.py` exits **0**, F=true and
+acceptance_checks_passed=true on the work tree and a clean
+`git checkout-index` export of the staged deliverable. Exported and live
+receipt JSON are equal; no ignored downloads or duplicate experiment trees
+are required. Staged and unstaged whitespace checks passed.
+
+- Zero round-6 rows/checks → **24 fixed questions across twelve entries**.
+- **Twenty distinct eligible main passages / twenty main URLs across eleven
+  entries**; threshold remains at least six passages across four entries.
+- **Five parent passage re-fetches / five URLs across four entries**;
+  threshold remains at least three parent non-bibliographic checks.
+- Raw worker labels remain **24 supported / 18 whole / six partial**.
+  Parent dispositions are **nine scoped-support / eleven partial-support /
+  four unresolved**, not 24 independent whole-claim confirmations.
+- Four tertiary mains and every optional corroboration are excluded from
+  F's passage threshold. Museum technical fields are labelled field content;
+  the Crossref record contributes actual deposited abstract prose, not
+  bibliographic fields or unread full text.
+- Nine in-memory count-boundary negative controls pass. They do not certify
+  quotation truth or provide a universal scholarship gate.
+- **497 checkpoint files byte-identical, six named append-only prefixes
+  preserved, two explicitly editable bookkeeping files**. This final model
+  is not the checkpoint's earlier 468-file whole-byte-equality measurement.
+- Previous round-5 acceptance passes only in a disposable copy: seven gate
+  selftests, both round-3 manifests 7/7, craft 10/10 domain and 18/18 CLI
+  controls, with **twenty expected D2 findings unchanged**. Original receipts
+  are untouched; old craft/battery code hashes still match their pins.
+- Inventory remains **179 entries / six partitions 16/16/16/24/13/94**, with
+  592 raw marker-bearing lines / 598 raw occurrences, 600 case-insensitive
+  and 568 parenthesized occurrences. This is inventory, not a quality score.
+
+### Every-axis verdict
+
+- **Freshness: improved (declared F).** Original 24/≥6/≥4/≥3 contract passes
+  by the exact declared command and saved normalized passage-key list.
+- **Calibration: improved (unclaimed).** Strict 9/11/4 reconciliation,
+  truthful mediators, pinned capture and page-9 locator preserve uncertainty
+  and raw records rather than inflate support.
+- **Depth: unchanged.** Five bounded source-to-system rows are useful
+  constraints, not a new end-to-end miniature-culture demonstration.
+- **Coverage: unchanged.** Existing entries rechecked within twelve fixed
+  reference surfaces; no all-civilization or all-earlier-history claim.
+- **Operability: unchanged.** Prior executable domain behavior is preserved;
+  the new round-local receipt instrument is not a new general culture gate.
+- **Adjacency: unchanged.** Same province/handoff checks; no lore receipt,
+  cultural clearance, canon ruling or promotion.
+
+**Author-side admission: F verifies and no tested axis is harmed.**
+No scalar, rank promotion or fleet closure is inferred.
+
+### SHONEN
+
+- [~] Decision tables, error patterns and checklists remain source-linked in SKILL/corpus; five new bounded decision rows cite actual parent readings, with scope in reconciliation.
+- [~] Existing domain demonstrations rerun through isolated prior acceptance; no new whole-culture or lore-receipt success, and D2's twenty findings remain visible.
+- [~] The declared acceptance command passes on the clean staged work tree without ignored downloads; the committed instrument hash and work HEAD are bound above.
+- [~] Province and cross-domain boundaries remain; author-side review only, no non-author promotion verifier and no canon decision.
+
+### Remaining frontier and next round
+
+The fifteen round-5 residuals remain unresolved; round 6 still has eleven
+partial and four unresolved questions. Unread monographs, Sanskrit/Kāṇva
+witnesses, original title/garment terms and source-specific disputed legs
+remain explicitly bounded. Public text does not grant cultural permission.
+The worker outside-write deviations, historical round-4 dispatch debt and
+the unfixed CLI/provider-400 investigation remain disclosed above.
+
+Next: **round 7 Flash MAX/16 → rounds 8–9 OpenCode Go DeepSeek v4.1
+Flash/32–64 each → round 10 exact Grok 4.7 xhigh fast/128 after DeepSeek**.
+The later operator amendments override the stored goal draft's old routes
+and order. Do not silently substitute a Grok model. The ten-round goal is
+still incomplete; integration/report commits do not add round credit.
+This addendum must land in its own lane-identity commit before the normal
+push; verify remote equality and a clean nonignored tree afterward.
