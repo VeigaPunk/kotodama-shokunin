@@ -1,3 +1,8 @@
+revision: 1.1
+revision_notes:
+  - "Round 4: align all ten garment era references with 09-eras-calendar.era_tag_map; their existing E0/E1/E2 values are already canonical and are retained, as are material exclusions and dated routes. Refresh reconciliation notes because 12 now uses the same tags."
+era_registry_ref: "09-eras-calendar.yml: eras, era_tag_map, named_eras, era_records"
+
 component: 11-costumes
 culture: D2
 canon: not canonized (D2 design drill)
@@ -48,19 +53,17 @@ follows_index:
   alias_brief: "examples/culture-d2/components/01-brief.yml contract.era_tags (E0/E1/E2 fixed), contract.record_fields.costumes, contract.rules RG-01 (cord geometry: vertical position, never obligation), RG-02 (every record carries follows), RG-05 (every record carries axis), CP-09 (costume records carry the full route), A-07 (this component's acceptance block)"
 
 eras: ["E0", "E1", "E2"]
-era_note: "Tags only. The contract's fixed space is E0-E3 (01-brief.yml contract.era_tags, revised mid-round on 2026-10-17, with the alias rule); these records occupy E0-E2 and E3 is unoccupied here (09-eras-calendar assigns it). Era names and era_dates are that component's and are not asserted here; the assembler takes `eras`/`era_dates` from it. This component uses the contract tag space directly, so no alias is needed for its own records — stated here explicitly per the alias rule."
+era_note: "Tags only, defined by 09-eras-calendar.era_tag_map and its nine named_eras records. The contract's fixed space is E0-E3 (01-brief.yml contract.era_tags, revised mid-round on 2026-10-17, with the alias rule); these records occupy E0-E2 and E3 is unoccupied here (09-eras-calendar assigns it). Era names and era_dates are that component's and are not asserted here; the assembler takes `eras`/`era_dates` from it. This component uses the contract tag space directly, so no alias is needed for its own records — stated here explicitly per the alias rule."
 era_reconciliation:
-  # Landed components (read 2026-10-17, mid-round) label eras differently. Contract
-  # treatment: a component written before the contract keeps its own prefix, declares a
-  # one-line mapping, and is aliased at assembly; content is never renumbered
-  # (contract.era_tags.alias_rule; RCN-01/RCN-02/RCN-03). This is this file's declared
-  # mapping. Tags above need no mapping; the rows below map OTHER components onto it.
+  # 09/11/12 now share canonical tags; other components retain local labels.
+  # Earlier labels are mapped explicitly, never merged by their E-number.
   - {id: ERX-0, source: 09-eras-calendar, their_labels: "era_tags E0|E1|E2|E3 (identical meanings to the contract) with in-world era names Open Grazing, First Ascent, Salt Turn, Long Storm, Ash Wind, Bitter Smoke, Marked Count, Two Counts, Still Air (reserved)", mapping: "identity for the tags; the names are theirs and are not used as era values here", status: "confirmed on disk at write time; their ER- records' `costume_seam` fields point at this component's GAR- ids (e.g. felt layers from the earliest stratum, lowland cloth not before the E0/E1 seam) and match what this file dates"}
-  - {id: ERX-1, source: "10-materials (slot ids), 12-rank-rules (era-1..3), 08-symbols (E1..E4)", their_labels: {10-materials: "E1 shelter era", 12-rank-rules: "era-1", 08-symbols: "E1 shelter era"}, maps_to: "E0", status: "(to-verify) proposed mapping; slot-level, not label-level"}
-  - {id: ERX-2, source: "10-materials, 12-rank-rules, 08-symbols, 05-lexicon", their_labels: {10-materials: "E2 road era", 12-rank-rules: "era-2", 08-symbols: "E2 road era", 05-lexicon: "Nalne (salt-road naming)"}, maps_to: "E1 (script-arrival seam; the road and the treaty register are the same seam in this file's dating)", status: "(to-verify)"}
-  - {id: ERX-3, source: "10-materials, 12-rank-rules, 08-symbols, 05-lexicon", their_labels: {10-materials: "E3 assembly era", 12-rank-rules: "era-3", 08-symbols: "E3 assembly era", 05-lexicon: "Pertne (script naming)"}, maps_to: "E1 -> E2 (two-to-one: their assembly era sits inside the seam and the anchor; the finer grain is theirs)", status: "(to-verify)"}
+  - {id: ERX-R, source: 12-rank-rules, their_labels: "E0|E1|E2", legacy_labels: {era-1: E0, era-2: E1, era-3: E2}, maps_to: "identity; E0 covers ER-01..ER-06, E1 is ER-07 Marked Count, E2 is ER-08 Two Counts", status: "round-4 alignment; record tags follow 09-eras-calendar.era_tag_map, with rule intervals preserved in era_history"}
+  - {id: ERX-1, source: "10-materials (slot ids), 08-symbols (E1..E4)", their_labels: {10-materials: "E1 shelter era", 08-symbols: "E1 shelter era"}, maps_to: "E0", status: "(to-verify) proposed mapping; slot-level, not label-level"}
+  - {id: ERX-2, source: "10-materials, 08-symbols, 05-lexicon", their_labels: {10-materials: "E2 road era", 08-symbols: "E2 road era", 05-lexicon: "Nalne (salt-road naming)"}, maps_to: "E1 (script-arrival seam; the road and the treaty register are the same seam in this file's dating)", status: "(to-verify)"}
+  - {id: ERX-3, source: "10-materials, 08-symbols, 05-lexicon", their_labels: {10-materials: "E3 assembly era", 08-symbols: "E3 assembly era", 05-lexicon: "Pertne (script naming)"}, maps_to: "E1 -> E2 (two-to-one: their assembly era sits inside the seam and the anchor; the finer grain is theirs)", status: "(to-verify)"}
   - {id: ERX-4, source: "10-materials, 08-symbols", their_labels: {10-materials: "E4 script era", 08-symbols: "E4 script era"}, maps_to: "E2 (literate anchor; the luxury import slot)", status: "(to-verify)"}
-  - {id: ERX-W, warning: "08-symbols' and 10-materials' E-numbers do NOT coincide with the contract's (their E1 = shelter = contract E0). Merge by slot, never by number; and note 10-materials' own flagged seam tension (12-rank-rules' era-2 register vs 08-symbols' E4 script media) is the same seam this table maps."}
+  - {id: ERX-W, warning: "08-symbols' and 10-materials' E-numbers do NOT coincide with the contract's (their E1 = shelter = contract E0). Merge by slot, never by number; and note 10-materials' own flagged seam tension (12-rank-rules' E1 register, formerly era-2, vs 08-symbols' E4 script media) is the same seam this table maps."}
 
 deps:
   - component: 12-rank-rules
@@ -474,7 +477,7 @@ calibration:
   - "(to-verify): the slot-to-slot era mapping (era_reconciliation, proposed not confirmed); the storm-cloak naming (OQ-2); the two unmapped materials and the silk/broadcloth luxury conflict (OQ-3); the felt-grade slot mapping (OQ-6); every LEX-GAR-* form."
 
 open_questions:
-  - {id: OQ-1, question: "Era labels still do not agree across landed components (contract tags E0-E3, which 09-eras-calendar uses identically and this file uses; 12-rank-rules era-1..3; 08-symbols E1..E4; 10-materials E1..E4 slots; 05-lexicon Nalne/Pertne; 14-kin-address ES0-ES3). This file's era_reconciliation now maps the landed sets at slot level. The integrator should adopt that table (or publish its own) before assembly, or assembly will merge label sets by number and be wrong.", owner: "round integrator"}
+  - {id: OQ-1, question: "09-eras-calendar, this file and 12-rank-rules now agree on canonical E0-E3 tags, with the nine named eras mapped in 09. Other landed components still use local labels (08-symbols E1..E4; 10-materials E1..E4 slots; 05-lexicon Nalne/Pertne; 14-kin-address ES0-ES3). This file's era_reconciliation maps those sets at slot level, still (to-verify). The integrator should adopt that table (or publish its own) before assembly, or assembly will merge label sets by number and be wrong.", owner: "round integrator"}
   - {id: OQ-2, question: "08-symbols' colour register names a storm cloak; no garment id here is titled that. Read as GAR-02 (wind-flap, high pole)? If the sibling meant a separate garment, the id should be declared by that component.", owner: "round integrator"}
   - {id: OQ-3, question: "Material set vs the landed contracts (rewritten after 10-materials was read): (a) this file's lowland plant-thread cloth and cord map cleanly to 10-materials MAT-05/MAT-06; (b) two dispatch materials have NO counterpart in that inventory and are carried as REPORT-don't-merge — pack-ox down (their pack-ox yields only hair cordage, MAT-03) and silk (their anchor-era luxury is lowland-broadcloth MAT-07, not silk); the integrator must either extend the inventory or re-letter GAR-06 to broadcloth; (c) the felt-grade ladder G1-G3 used by 12-rank-rules has no slot in this file's garment records yet (OQ-6).", owner: "round integrator"}
   - {id: OQ-4, question: "The assembled packet needs a `rank_rules:` block in the gate's schema for the R-checks to run; 12-rank-rules' rule records are written in its own shape (WR-/TR-/LO-). Who maps them, and at which revision?", owner: "round integrator"}

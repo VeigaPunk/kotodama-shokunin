@@ -37,7 +37,7 @@ phonology:
     - "s → h / _ #"
     - "t → t͡s / _ i"
     - "k → c / _ i"
-  strata_note: "One stratum is declared — the native D2 lexicon across both stages. Loans form a second stratum only after the trade contact and are governed by loan_adaptation; the knot-era and script-era vernaculars share this inventory. The gate-facing rule list is written in finite symbol contexts so that a finite-segment checker can run it."
+  strata_note: "One stratum is declared — the native D2 lexicon across both stages. Loans form a second stratum only after the trade contact and are governed by loan_adaptation; the knot-era and script-era vernaculars share this inventory. The gate-facing rule list is written in finite symbol contexts so that a finite-segment checker can run it. The legacy allophony container retains its structure, but AL-1, AL-2, and AL-7 are reclassified as morphophonemic stem alternations with explicit word-formation triggers and paired forms below; the other six remain allophonic rules. Their gate-facing strings are unchanged phonological projections, not encodings of the morphological triggers, and LA-3 retains the nasal place mapping as a loan-integration filter."
   coda:
     - "n"
     - "l"
@@ -65,6 +65,132 @@ morphology:
     primary: "dependent (case and relator suffixes on nominals)"
     secondary: "one topic-person index on the verb (head-marking-lite); no object agreement, no noun-class agreement"
     note: "locus set with the typology corollary, not left random (CIT-02)"
+  derivation_contract:
+    source: "05-lexicon.yml constructions and derivation_tests; 13-naming.yml names[].formation; these construction IDs are spelling adapters, not additional M-/SYN- records"
+    input_templates:
+      unary: "{B1}"
+      binary: "{B1}+{B2}"
+    serialization: "B1 and B2 are the ordered citation spellings in bases; a unary input is bases[0], a binary input is '+'.join(bases). The plus is analysis only, never part of the derived word. A gate-facing formation.stem must contain that complete serialized input."
+    replay: "Use Python re.fullmatch(rule.pattern, input), reject a non-match, then rule.output.format(**match.groupdict()). Input spellings are NFC lowercase; output preserves the captured letters, including written accent, without deletion, assimilation or a hidden linking segment."
+    domain: "Apply only to bases licensed by 05's noun classes, selection restrictions, productivity and available_from stage; spelling regexes do not replace those checks. 02 retains authority over phonotactics and accent. The current derivation witnesses have no accent-marked bases; combining two contrastive accent peaks is not specified by these adapters."
+    ordering: "A derived noun becomes STEM in M-01 before plural and case. Lexical LOC -ra is homophonous with PL M-02, not a replacement for it; SPIRIT -ir is distinct from the summer locative M-10. Rule IDs, not suffix shape alone, distinguish these functions."
+    excluded_routes: "05's gas > kas and bher > per are loan-layer substitutions, not these derivations; L-32 tolsa is explicitly lexicalized/noncompositional, so no productive -sa is invented."
+    unresolved:
+      - "13 currently supplies only B1 as formation.stem for NM-01..NM-08, although bases contains both inputs. Gate C reads stem only, so the unchanged naming records remain DERIV-REPLAY findings with the binary rule below. In particular, the same stem su cannot yield both sunel and sulas under one deterministic UP-COMPOUND rule; both bases must reach the applier."
+      - "05's AGENT description excludes mass bases, while its held-out pal > palin test admits the salt base. The spelling pair below reproduces the prediction but does not decide that eligibility discrepancy; lexical-owner review remains required."
+  derivation_rules:
+    -
+      id: "LOC"
+      kind: "suffix"
+      affix: "-ra"
+      gloss: "place or span of B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "productive"
+      available_from: "E0"
+      selection: "05 LOC: exclude r-final bases; the regex enforces that boundary exclusion rather than generating rr or deleting a consonant"
+      pattern: "^(?!.*r$)(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ra"
+      source: "05-lexicon.yml constructions.LOC; L-11 sin > sinra, L-39 gen > genra"
+    -
+      id: "AGENT"
+      kind: "suffix"
+      affix: "-in"
+      gloss: "keeper or taker of B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 AGENT: herd, pasture, land, war-band and lineage bases; ir, su and wal excluded; the pal diagnostic discrepancy is retained in derivation_contract.unresolved"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}in"
+      source: "05-lexicon.yml constructions.AGENT; L-23 ral > ralin, L-36 las > lasin, L-37 bel > belin, L-40 gen > genin"
+    -
+      id: "SPIRIT"
+      kind: "suffix"
+      affix: "-ir"
+      gloss: "breath of B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 SPIRIT: wind-working terms of the sacred stratum only"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ir"
+      source: "05-lexicon.yml constructions.SPIRIT; L-30 bel > belir, L-31 hur > hurir"
+    -
+      id: "WIND"
+      kind: "suffix"
+      affix: "-su"
+      gloss: "wind associated with place or slope B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "productive"
+      available_from: "E1"
+      selection: "05 WIND: place and slope bases, not abstract ir; available only from the E1 standardization"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}su"
+      source: "05-lexicon.yml constructions.WIND and derivation_tests; L-12 bel > belsu"
+    -
+      id: "MATRI-SIDE"
+      kind: "suffix"
+      affix: "-ter"
+      gloss: "opposite-sex sibling of parent B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 MATRI-SIDE: parent kin bases nen and wen only; both are captured without truncation"
+      pattern: "^(?P<B1>nen|wen)$"
+      output: "{B1}ter"
+      source: "05-lexicon.yml constructions.MATRI-SIDE and derivation_tests; L-07 nen > nenter"
+    -
+      id: "UP-COMPOUND"
+      kind: "compound"
+      gloss: "B1 qualifies B2; modifier before head"
+      base_classes:
+        - "noun"
+        - "noun"
+      output_class: "noun"
+      productivity: "productive"
+      available_from: "E0"
+      selection: "05 UP-COMPOUND: two noun bases in their recorded order; no inference of B2 from B1 or from the target name"
+      pattern: "^(?P<B1>[a-záéíóú]+)[+](?P<B2>[a-záéíóú]+)$"
+      output: "{B1}{B2}"
+      source: "05-lexicon.yml constructions.UP-COMPOUND: L-28 pal+kor > palkor, L-33 su+wal > suwal; 13-naming.yml NM-01..NM-08"
+    -
+      id: "PROCESS"
+      kind: "suffix"
+      affix: "-ur"
+      gloss: "work B1 into keepable form"
+      base_classes:
+        - "noun"
+      output_class: "verb"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 PROCESS: foodstuff and material bases only; kin and abstract bases excluded"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ur"
+      source: "05-lexicon.yml constructions.PROCESS and derivation_tests; L-24 tas > tasur"
+    -
+      id: "GARMENT"
+      kind: "suffix"
+      affix: "-ken"
+      gloss: "wrap made of material B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 GARMENT: fiber and hide bases only"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ken"
+      source: "05-lexicon.yml constructions.GARMENT; L-35 mir > mirken"
   records:
     -
       id: "M-01"
@@ -1259,6 +1385,7 @@ symbols:
   -
     id: "S1"
     sign: "storm-slate (blue-black wool; the storm cloak's dye)"
+    medium: "E1: naturally dark ewe-fleece (10-materials.yml MAT-01), carded and felted (MAT-02), optionally winter-hearth smoke-darkened (MAT-10), not dyed; E2+: wool felt with a tannin/smith-scale wool-black base (MAT-09, MAT-19) and traded-indigo vat reduction followed by air oxidation (MAT-08). The existing bog-iron wording in ground/T1 is an unresolved inventory mismatch (to-verify), not a declared local ore route."
     register: "color"
     era: "E1 bog-dark (undyed valley wool, a shelter dark); E2+ storm-slate after traded indigo arrives (M1 material/economic)"
     audience: "assembly oath-speakers first, all adults second; the lowland partner recognizes a public obligation is present but cannot read the knots that specify it"
@@ -1305,6 +1432,7 @@ symbols:
   -
     id: "S2"
     sign: "fleece-white (undyed wool; the fold's own color)"
+    medium: "E1+: undyed white ewe-fleece (10-materials.yml MAT-01), plucked in E1 or shorn in E2+, displayed as fleece or carded and rubbed into felt (MAT-02); no bleaching or white pigment. E4 paper satellite only: gall-iron ink (WM-01) written on imported-paper (WM-03), never projected into earlier eras."
     register: "color"
     era: "E1+ (unchanged across all four eras; the code's steady floor). E4 satellite: the script era's bills are written on pale traded paper, and 'white-measure' becomes a synonym for honest measure by M5 contact."
     audience: "everyone including children and visiting lowlanders — the most legible sign in the code; children learn it as 'the sheep's own color' before any dye word"
@@ -1345,6 +1473,7 @@ symbols:
   -
     id: "S3"
     sign: "ridge-grey (rain-worn rock; the descent's unwashed grey fleece)"
+    medium: "E1+: naturally grey ewe-fleece (10-materials.yml MAT-01), kept undyed and unsorted on descent; the wrap uses carded, rubbed felt (MAT-02) worn wet and unwashed after the journey. Rain-worn ridge stone supplies the observed colour comparison, not an added mineral pigment."
     register: "color"
     era: "E1+; E3 satellite by M6 event-index — the summer of losses (date pending the era component) made grey the famine-year colour in the lower valleys"
     audience: "mourners and the descent counters; the whole camp reads it, but only the counters may SPEAK the count it accompanies"
@@ -1391,6 +1520,7 @@ symbols:
   -
     id: "S4"
     sign: "pack-ox (the salt-bearer; the animal of the tally-harness)"
+    medium: "E1+: tannin-tanned herd-hide harness (10-materials.yml MAT-20), house-marks hand-stitched in sinew-thread (MAT-21), with hand-twisted S-ply ox-hair cordage (MAT-03) station-knotted for the tally. E4 heraldic residue can retain the stitched-hide house-mark after the working ox leaves the gate; knots remain record hardware, not oath-binding."
     register: "animal"
     era: "E1+; E4 heraldic residue — the lowland partner's road-mule displaces the ox at the gate, and the ox survives on house-marks long after it stops working the road (animal-symbolism §7, heraldic lag)"
     audience: "knot-keepers read the harness cords; every herder reads the harness house-mark at a distance; outsiders read only 'a lineage is moving'"
@@ -1437,6 +1567,7 @@ symbols:
   -
     id: "S5"
     sign: "wind-rider (the large soaring carrion bird of the high ground; species fixed against the biome list at integration)"
+    medium: "E1+: the living bird is read by direct observation in open air and named by voiced circumlocution; the requested corpse-cloth carrier uses ewe-fleece (10-materials.yml MAT-01), carded and rubbed into felt (MAT-02), with its cut and rite still pending 06. E4 written-formula medium only: gall-iron ink (WM-01) written on rubbed hide-parchment (WM-02); no written formula is projected into E1-E3."
     register: "animal"
     era: "E1+; E4 drift M3/M5 — the script era's written death-formula arrives from the lowland partner, and the doctrine splits: the bird CARRIES the message (local reading) versus the writing IS the message (roadward reading). Both readings preserved as an in-world dispute."
     audience: "the dying and the mourners; the bird's true name is avoided at death-places and only the circumlocution chain is spoken aloud (animal-symbolism §10)"
@@ -1482,6 +1613,7 @@ symbols:
   -
     id: "S6"
     sign: "rock-whistler (the alpine burrowing rodent; high burrows, sleeps the winter under the high ground)"
+    medium: "E1+: breath-driven sound in ambient air, produced as the animal's whistle or voiced by people as circumlocution, oath and insult; burrowed ground is read in place by direct observation. The medium is acoustic and landscape-based, not a garment or written mark, so it requires no manufactured material beyond 10-materials.yml's inventory."
     register: "animal"
     era: "E1+ (the code's only stable anomaly; survives all four eras unchanged — an anomaly that does not drift is itself an era marker)"
     audience: "everyone; the insult and accusation register is fully public — 'has fed the whistler' = hid a word from the wind"
@@ -1521,6 +1653,7 @@ symbols:
   -
     id: "S7"
     sign: "ten (the whole cord; two crossings of five station-knots)"
+    medium: "E1+: hand-twisted S-ply ox-hair cordage (10-materials.yml MAT-03), station-knotted in two sets of five and read from the top knot; E1 uses undyed stock, while an E2+ slate trade cord may take traded-indigo vat dye (MAT-08). E4 retains the same cord-and-knot technique as ceremonial record hardware rather than a written account."
     register: "number"
     era: "E1-E3 the knots ARE the trade record; E4 the script takes the accounts (M3 media standardization) and the cord survives as ceremonial plus fossil idiom 'the top knot' (drift law 4: leave fossils on purpose)"
     audience: "knot-keepers (the office), the assembly (accounts read aloud in the open), the lowland partner (who receives script bills by E4 and stops reading cords)"
@@ -1568,6 +1701,7 @@ symbols:
   -
     id: "S8"
     sign: "the axle-star (the unmoving one; the light the turning sky is hung on)"
+    medium: "E1+: stellar light viewed through open air from the high-pasture night-watch station; technique is repeated unaided-eye comparison of the circling field through the night. This is the observed sky, not a drawn chart, garment or metal emblem, and adds no manufactured input to 10-materials.yml; the latitude-dependent circumpolarity check remains (to-verify)."
     register: "celestial"
     era: "E1+ (no drift recorded; the sky is the code's slowest register — and that slowness is itself an emic observation: 'the one thing the road did not change')"
     audience: "the sky-readers (a named office, PENDING 07 to name the office or leave it unnamed); all herders on night watch; the lowland partner does not use it — their horizon is their own"
@@ -1610,6 +1744,7 @@ symbols:
   -
     id: "S9"
     sign: "the ascent-star (the compact dawn cluster whose first morning rising opens the climb; the same body's evening setting closes the descent)"
+    medium: "E1+: cluster light through open air, sighted against local stone dry-stacked as the existing gate notch-cairn; local scree-stone use is already present in 10-materials.yml LM-01. Technique is repeated unaided-eye dawn/evening horizon sighting, not an inscribed chart or imported instrument; the rising/setting dates and notch tolerance remain (to-verify) at the final latitude."
     register: "celestial"
     era: "E1+; E4 drift M2/M5 — the lowland partner's calendar names for the same cluster arrive with the script, and the doctrine conflicts: one body walked up and down the sky (local) versus two named signs (roadward). Owned as in-world doctrine, not left as silent contradiction (celestial §4.4)."
     audience: "the calendar office (whoever watched it first claims the year); the whole camp reads the dawn; carriers at the gate wait for it before the road opens"
@@ -1653,6 +1788,7 @@ symbols:
   -
     id: "S10"
     sign: "the gate (the pass; the fifth slot; the one place where up and down are the same place)"
+    medium: "E1+: ewe-fleece (10-materials.yml MAT-01) and ox-hair cordage (MAT-03), hand-twisted then braided from naturally white and dark stock into the pass-collar's two-colour pattern, without dye in E1. The existing cairn is dry-stacked local stone (compare LM-01's scree-stone stock); the oath is voiced into open air, not written onto the collar or made into a binding knot."
     register: "direction"
     era: "E1+; E2 drift M1/M5 — the salt and dried-meat road formalizes the gate market; E4 drift M3 — the first writing done on the plateau is the partner's bill, produced at the gate (seed: script arrives late by adaptation)"
     audience: "oath-takers, carriers, the lowland partner (who recognizes the gate but not the oath grammar); those barred from the high assembly may still speak at the gate, which makes the gate the code's political safety valve"
@@ -1986,7 +2122,7 @@ names:
     evidence: "design-choice"
     etymology: "su (L-08 wind) + nel (L-02 hand/forearm): wind-hand, a wish for a sure herder's hand in weather."
     formation:
-      stem: "su"
+      stem: "su+nel"
       bases:
         - "su"
         - "nel"
@@ -2007,7 +2143,7 @@ names:
     evidence: "design-choice"
     etymology: "ban (L-03 bone/lineage substance) + wal (L-29 oath): bone-oath, a household wish that the child's spoken word outlast the ascent."
     formation:
-      stem: "ban"
+      stem: "ban+wal"
       bases:
         - "ban"
         - "wal"
@@ -2028,7 +2164,7 @@ names:
     evidence: "design-choice"
     etymology: "su (L-08 wind) + las (L-04 lineage): wind-lineage, a proposed descent-group label remembered from an exposed winter shelter."
     formation:
-      stem: "su"
+      stem: "su+las"
       bases:
         - "su"
         - "las"
@@ -2049,7 +2185,7 @@ names:
     evidence: "design-choice"
     etymology: "mir (L-34 fleece/wool) + las (L-04 lineage): fleece-lineage, a proposed affiliation label for holders of a shearing-ground pasture."
     formation:
-      stem: "mir"
+      stem: "mir+las"
       bases:
         - "mir"
         - "las"
@@ -2070,7 +2206,7 @@ names:
     evidence: "design-choice"
     etymology: "kol (L-17 pass) + sin (L-10 snow): pass-snow, the snow patch used to recognize a candidate upper crossing."
     formation:
-      stem: "kol"
+      stem: "kol+sin"
       bases:
         - "kol"
         - "sin"
@@ -2091,7 +2227,7 @@ names:
     evidence: "design-choice"
     etymology: "tol (L-14 low ground) + mir (L-34 fleece/wool): low-ground fleece, a proposed winter shelter's wool-working yard."
     formation:
-      stem: "tol"
+      stem: "tol+mir"
       bases:
         - "tol"
         - "mir"
@@ -2113,7 +2249,7 @@ names:
     evidence: "design-choice"
     etymology: "bel (L-13 heights) + wal (L-29 oath): height-oath, a proposed local address of the high-pasture power at a pasture-claim rite."
     formation:
-      stem: "bel"
+      stem: "bel+wal"
       bases:
         - "bel"
         - "wal"
@@ -2135,7 +2271,7 @@ names:
     evidence: "design-choice"
     etymology: "hur (L-09 storm) + su (L-08 wind): storm-wind, a proposed avoidance address for the storm-law power rather than its provisional plain theonym."
     formation:
-      stem: "hur"
+      stem: "hur+su"
       bases:
         - "hur"
         - "su"
@@ -2148,15 +2284,10 @@ names:
     license: "Proposed ritual substitute; does not repeal PAN-02's seasonal plain-name taboo."
     follows: "naming-systems.md §4, §6; 05-lexicon UP-COMPOUND"
 eras:
-  - "Open Grazing"
-  - "First Ascent"
-  - "Salt Turn"
-  - "Long Storm"
-  - "Ash Wind"
-  - "Bitter Smoke"
-  - "Marked Count"
-  - "Two Counts"
-  - "Still Air (reserved)"
+  - "E0"
+  - "E1"
+  - "E2"
+  - "E3"
 source_era_dates:
   "Open Grazing":
     - null
@@ -3180,15 +3311,15 @@ assembly:
   reader: "tools/gates/costume-era-consistency-gate.py"
   reader_sha256: "29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03"
   source_sha256:
-    "examples/culture-d2/components/02-phonology.yml": "b52ce1688b5091d5dc5ad9785756cd69cd8791801515af00f71af00a39786300"
-    "examples/culture-d2/components/03-morphosyntax.yml": "fa71403dba4e65afc815df70c01207a78f4bd6e3051f21c3acc090d89c02f9b8"
-    "examples/culture-d2/components/05-lexicon.yml": "fdd48f4e197dd87081e26e6d2334f3f35f022584dcaf7b8b62756ba1162b3e46"
+    "examples/culture-d2/components/02-phonology.yml": "23500df0f97a43c8800e3a678df6928f476254e56ff844fabe0c71829ecbb538"
+    "examples/culture-d2/components/03-morphosyntax.yml": "bd2f78c19eb4d788319760bcebd49973f53b416f3067737c507064b98ad8688d"
+    "examples/culture-d2/components/05-lexicon.yml": "9bdcb8d895be0592047260361c4c12493569e7d38318b3508a5bde314d87abdf"
     "examples/culture-d2/components/06-pantheon.yml": "ef0ebf64f787d04730b6a22c7cf9fafb4de0c5e6dae2db223f57cf53de460478"
     "examples/culture-d2/components/07-myths-motifs.yml": "fe4426002890e18e876b826aeb50d98da28839f0fad103ad15a217a92ef11bae"
-    "examples/culture-d2/components/08-symbols.yml": "7479dc7df321bb3ef12e35ab229b4921923f52f18923b09c176b7d5f9dee1784"
-    "examples/culture-d2/components/09-eras-calendar.yml": "673b33df6492a1846e02d205ea1590aa99b2bab82786a06015833b7b32c03afa"
-    "examples/culture-d2/components/11-costumes.yml": "d9da1382d4a144b498c95b4e654d9d86b8047f5842efecd6d7f4702937cac43e"
-    "examples/culture-d2/components/13-naming.yml": "a4ac45943465bd3e4359996abd807ab603f34d6cac81c77adf9fd4314cc01a22"
+    "examples/culture-d2/components/08-symbols.yml": "b8da2cb0181c54b0dd06fdcc400f94ded357e754309e27ff215905876d93c369"
+    "examples/culture-d2/components/09-eras-calendar.yml": "540a9339627fdcb802a7f59915a3c72e8234fff37c4a771783382af9c863b030"
+    "examples/culture-d2/components/11-costumes.yml": "b6e2c5c29cc5d68900d6cde5a8487e64f27d85ecb3d2bd7f3f5beb1113483f22"
+    "examples/culture-d2/components/13-naming.yml": "e0c01eb22977e76e78251cd0b6f8f0b81d1917ca77c9ead04d06b1559b47b6df"
   normalizations:
     - "phonology.coda=[n,l,r,s] and onset_clusters=false transcribed from 02 P-1..P-4"
     - "Optional roles and motifs concatenated from 06 then 07, no aliasing or deduplication"

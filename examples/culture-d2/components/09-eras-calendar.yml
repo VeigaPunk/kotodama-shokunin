@@ -14,6 +14,16 @@
 # contract's record rule RG-01 (knot geometry = vertical position on a hanging
 # line, never a metaphor for obligation).
 
+revision: 1.1
+revision_notes:
+  - "Round 4: declare E0-E3 as the canonical packet tags and map them explicitly to all nine named ER-* eras, resolving the frozen round-3 G-ERA mismatch without changing chronology."
+era_tag_map:
+  E0: ["Open Grazing", "First Ascent", "Salt Turn", "Long Storm", "Ash Wind", "Bitter Smoke"]
+  E1: ["Marked Count"]
+  E2: ["Two Counts"]
+  E3: ["Still Air (reserved)"]
+era_tag_map_note: "Tags are broad stages, not nine interchangeable era names: E0 covers six named eras; E1/E2 each cover one; E3 is reserved and undated. named_eras lists every name with its ER-* id; era_records retain the full seams, and era_dates remain keyed by named era in non-CE descent coordinates."
+
 component: 09-eras-calendar
 culture: D2
 canon: not canonized (D2 design drill)
@@ -51,7 +61,7 @@ contract_conformance:
     - {component: 06-symbols, ids: [SYM- records unassigned at write time], need: "the sky objects whose calendar use this file fixes as handles only" }
     - {component: 10-records, ids: [REC-/SGN- records unassigned at write time], need: "knot and incised-record types that the dating rules reference" }
   conformance_notes:
-    - "eras and era_dates are delivered in the contract's shape; ER- records carry tag, institution_seam, language_stage, record_stage, costume_seam, axis, evidence."
+    - "eras declares the canonical short tags E0-E3 for gate-facing records; named_eras preserves all nine era names with ER-* ids, era_tag_map relates the two levels, and era_dates retains the named-era descent coordinates. ER- records carry tag, institution_seam, language_stage, record_stage, costume_seam, axis, evidence."
     - "schema split: sample_dates (Y-coordinates like D103) are in-world register coordinates and are not BCE/CE; no absolute chronology is claimed."
     - "costume dates and institution dates are independent, per A-09; nothing here moves a costume record."
     - "record shape (RG-05, RG-02): a record is any entry carrying a record id (ER-, EL-, CL-R*, CAL-, SKY-, FES-, SEAM-, DC-, ART-, TRQ-, VAL-, CB-); each record carries axis or a neutral axis with a coupling_note. Block containers (EL, CL, CAL, SC, SKY, FES, SEAM, DC, TRQ, XC, VAL, CB, CANON) are not records. Declared follows inheritance: a record without its own follows entry inherits the follows list of its enclosing block; blocks that hold such records carry an explicit follows list (term_requests and coupling_handles included)."
@@ -73,18 +83,19 @@ spine_check:
   D1_avoidance: "no river/water/binding/thread imagery; 'knot' occurs only in the seed's tally-knot record tech under RG-01; the lowland script is an adaptation receipt for register marks, not an alphabet theme"
 
 # ===========================================================================
-# ERAS — contract shape (eras:[names]; era_dates; ER- records)
+# ERAS — canonical packet tags; nine named eras with ids; era_dates; ER- records
 # ===========================================================================
-eras:
-  - "Open Grazing"
-  - "First Ascent"
-  - "Salt Turn"
-  - "Long Storm"
-  - "Ash Wind"
-  - "Bitter Smoke"
-  - "Marked Count"
-  - "Two Counts"
-  - "Still Air (reserved)"
+eras: ["E0", "E1", "E2", "E3"]
+named_eras:
+  - {id: ER-01, name: "Open Grazing", tag: E0}
+  - {id: ER-02, name: "First Ascent", tag: E0}
+  - {id: ER-03, name: "Salt Turn", tag: E0}
+  - {id: ER-04, name: "Long Storm", tag: E0}
+  - {id: ER-05, name: "Ash Wind", tag: E0}
+  - {id: ER-06, name: "Bitter Smoke", tag: E0}
+  - {id: ER-07, name: "Marked Count", tag: E1}
+  - {id: ER-08, name: "Two Counts", tag: E2}
+  - {id: ER-09, name: "Still Air (reserved)", tag: E3}
 
 era_dates:
   "Open Grazing": [null, "D1"]
@@ -673,4 +684,4 @@ canon_boundary:
 index:
   blocks: [ER-, EL-, CL-, CAL-, SC-, SKY-, CAL-POLE, FES-, SEAM-, DC-, ART-, TRQ-, XC, VAL, CB, CANON]
   sample_present_date: "Two Counts 5, the 103rd descent — the 99th climb"
-  counts: {eras: 9, era_records: 9, era_law: 8, rungs: 5, sound_changes: 3, sky_events: 6, festivals: 5, seam_rites: 7, dating_rules: 8, artifacts: 5, term_requests: 25}
+  counts: {eras: 4, named_eras: 9, era_records: 9, era_law: 8, rungs: 5, sound_changes: 3, sky_events: 6, festivals: 5, seam_rites: 7, dating_rules: 8, artifacts: 5, term_requests: 25}

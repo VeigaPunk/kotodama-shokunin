@@ -1,8 +1,13 @@
+revision: 1.1
+revision_notes:
+  - "Round-4 naming repair: supply a full-vowel PAN-03 compound and ten D2 garment citation-name proposals, with English descriptions confined to gloss/note fields; authoritative 06/07/11 occurrences are outside this file's write scope and remain pending owner integration."
+  - "Serialize both bases in all eight NM formation.stem inputs as B1+B2, matching 03's round-4 derivation_contract; the unchanged gate can then replay the actual compound instead of receiving B1 alone."
+  - "Declare cross_culture_review unresolved as a genuine pre-publication gap; no language sweep or clearance is invented, and CROSS-HOLD must remain."
 component: 13-naming
 culture: D2
 canon: not canonized (D2 design drill)
 status: "round-3 replacement for the missing writer; proposed system, not canon"
-packet_keys: [names]
+packet_keys: [names, cross_culture_review]
 follows:
   - path: corpus/knowledge/linguistics/naming-systems.md
     sections: "§2 slots and life stages; §3 descriptive places; §4 cult epithets; §6 taboo institutions; §7 derivation pipeline"
@@ -11,8 +16,11 @@ follows:
     sections: "P-1..P-4, AC-1..AC-4, WR-4"
     use: "No special name phonemes or fossil exceptions; default initial peak, unchanged by honor."
   - path: examples/culture-d2/components/05-lexicon.yml
-    sections: "L-01..L-40; UP-COMPOUND; L-32 death avoidance"
-    use: "Only attested D2 roots; modifier then head, concatenation without deletion. The lexicon's construction is not silently installed in 03's morphology."
+    sections: "L-01..L-40; UP-COMPOUND; L-32 death avoidance; naming_support.name_only_bases"
+    use: "Only recorded D2 bases; modifier then head, concatenation without deletion. The PAN-03 repair uses the explicitly separate name-only bases, not invented L- ids."
+  - path: examples/culture-d2/components/03-morphosyntax.yml
+    sections: "morphology.derivation_contract; morphology.derivation_rules UP-COMPOUND"
+    use: "Consume the declared B1+B2 input and {B1}{B2} output; the plus is analysis only and never part of a D2 name."
 spine_coupling:
   - {axis: wind, records: [NM-01, NM-03, NM-08], coupling: "Wind is a name element and the medium that makes an illicit public address dangerous."}
   - {axis: verticality, records: [NM-05, NM-06, NM-07], coupling: "Places distinguish pass and low shelter; cult address distinguishes the high power without ranking living people by pitch."}
@@ -20,9 +28,9 @@ phonotactic_contract:
   consonants: [p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h]
   vowels: [a, e, i, o, u]
   syllable: "(C)V(C); codas only n l r s; no onset or coda clusters; no geminates"
-  roots: "One to three syllables; empty onset only initially inside a root; no root-internal hiatus; no three identical CV syllables. These compounds have two syllables each and no hiatus, so the deferred boundary-glide rule is not needed."
+  roots: "One to three syllables; empty onset only initially inside a root; no root-internal hiatus; no three identical CV syllables. The eight NM compounds have two syllables each and no hiatus; the cross-component repairs below carry their own longer witnesses. None needs the deferred boundary-glide rule."
   accent: "One initial H peak per citation name, AC-2 default; names do not acquire a final peak as a rank marker. AC-4 kin up-call is not generalized to personal names."
-  spelling: "Lowercase display throughout. sh and y would spell /ʃ j/ under WR-4; none of the eight needs either. Word-final s remains written s despite AL-7 [h]. Syllable dots below are analysis, never spelling."
+  spelling: "Lowercase citation forms throughout; source owners may capitalize them for display. sh and y would spell /ʃ j/ under WR-4; none of the current forms needs either. Word-final s remains written s despite AL-7 [h]. Syllable dots below are analysis, never spelling."
 slots:
   personal: "Given name first; a caregiver assigns it at the first household breath-count. No gender morphology. At first ascent the bearer may ratify or replace it before two lineage elders; the old name remains an archive alias, not a second person."
   clan: "Hereditary pasture-holding affiliation follows the given name as a separate word; it is not a patronymic or an office. In a hearing, 03 M-04 -ni may mark affiliation on the clan word before the personal word; that connected-use form is not a new citation name."
@@ -35,7 +43,7 @@ life_and_license:
   death: "Adopt the finite avoidance already in L-32: after the death count, four grass-seasons without the deceased's given name in public wind-reached speech; use tolsa plus a kin/office description. Accidental naming requires the storm formula and one beast to the lineage cairn, as L-32 prescribes. Private identification of a namesake is not identity with the dead."
   sacred: "NM-07/08 may be proposed in a rite but not bestowed as infant names: speaking a cult-address on the ridge is heard as asking its power to answer. This is an in-world belief, not a claim that words actually cause weather."
   unresolved: "06 and 07 omit L-32's four-season endpoint; reconciliation of their apparently indefinite death avoidance needs non-author review. No sibling is edited."
-formation_policy: "Each record exposes both bases and a concatenation witness. UP-COMPOUND is licensed in 05, but 03 lacks the naming gate's derivation_rules adapter; a DERIV-HOLD is expected, not masked with opaque: true."
+formation_policy: "Each NM record exposes both bases and the complete formation.stem serialized as B1+B2. The round-4 03 derivation_contract and UP-COMPOUND adapter concatenate those two inputs without deletion; the plus is analysis only, never part of the output. Opacity is not used to evade replay."
 names:
   - id: NM-01
     name: sunel
@@ -44,7 +52,7 @@ names:
     axis: wind
     evidence: design-choice
     etymology: "su (L-08 wind) + nel (L-02 hand/forearm): wind-hand, a wish for a sure herder's hand in weather."
-    formation: {stem: su, bases: [su, nel], rule: UP-COMPOUND, operation: concatenate, expected: sunel}
+    formation: {stem: su+nel, bases: [su, nel], rule: UP-COMPOUND, operation: concatenate, expected: sunel}
     syllables: [su, nel]
     license: "Living person's given name; household assignment, bearer ratification at first ascent."
     follows: "naming-systems.md §2, §7; 05-lexicon UP-COMPOUND"
@@ -55,7 +63,7 @@ names:
     axis: both
     evidence: design-choice
     etymology: "ban (L-03 bone/lineage substance) + wal (L-29 oath): bone-oath, a household wish that the child's spoken word outlast the ascent."
-    formation: {stem: ban, bases: [ban, wal], rule: UP-COMPOUND, operation: concatenate, expected: banwal}
+    formation: {stem: ban+wal, bases: [ban, wal], rule: UP-COMPOUND, operation: concatenate, expected: banwal}
     syllables: [ban, wal]
     license: "Living person's given name, not an oath formula or an office claim."
     follows: "naming-systems.md §2, §7; 05-lexicon UP-COMPOUND"
@@ -66,7 +74,7 @@ names:
     axis: wind
     evidence: design-choice
     etymology: "su (L-08 wind) + las (L-04 lineage): wind-lineage, a proposed descent-group label remembered from an exposed winter shelter."
-    formation: {stem: su, bases: [su, las], rule: UP-COMPOUND, operation: concatenate, expected: sulas}
+    formation: {stem: su+las, bases: [su, las], rule: UP-COMPOUND, operation: concatenate, expected: sulas}
     syllables: [su, las]
     license: "Affiliation inherited or publicly adopted with pasture rights; not self-awarded as praise."
     follows: "naming-systems.md §2; 05-lexicon UP-COMPOUND"
@@ -77,7 +85,7 @@ names:
     axis: verticality
     evidence: design-choice
     etymology: "mir (L-34 fleece/wool) + las (L-04 lineage): fleece-lineage, a proposed affiliation label for holders of a shearing-ground pasture."
-    formation: {stem: mir, bases: [mir, las], rule: UP-COMPOUND, operation: concatenate, expected: mirlas}
+    formation: {stem: mir+las, bases: [mir, las], rule: UP-COMPOUND, operation: concatenate, expected: mirlas}
     syllables: [mir, las]
     license: "Inherited affiliation, not an occupational title available to every wool-worker."
     follows: "naming-systems.md §2; 05-lexicon UP-COMPOUND"
@@ -88,7 +96,7 @@ names:
     axis: verticality
     evidence: design-choice
     etymology: "kol (L-17 pass) + sin (L-10 snow): pass-snow, the snow patch used to recognize a candidate upper crossing."
-    formation: {stem: kol, bases: [kol, sin], rule: UP-COMPOUND, operation: concatenate, expected: kolsin}
+    formation: {stem: kol+sin, bases: [kol, sin], rule: UP-COMPOUND, operation: concatenate, expected: kolsin}
     syllables: [kol, sin]
     license: "Route-users' descriptive endonym; no etymology from an unmodelled donor is claimed."
     follows: "naming-systems.md §3, §7; 05-lexicon UP-COMPOUND"
@@ -99,7 +107,7 @@ names:
     axis: verticality
     evidence: design-choice
     etymology: "tol (L-14 low ground) + mir (L-34 fleece/wool): low-ground fleece, a proposed winter shelter's wool-working yard."
-    formation: {stem: tol, bases: [tol, mir], rule: UP-COMPOUND, operation: concatenate, expected: tolmir}
+    formation: {stem: tol+mir, bases: [tol, mir], rule: UP-COMPOUND, operation: concatenate, expected: tolmir}
     syllables: [tol, mir]
     license: "Households' place-name, not proof that the site has a shrine or a legal rank."
     follows: "naming-systems.md §3, §7; 05-lexicon UP-COMPOUND"
@@ -111,7 +119,7 @@ names:
     axis: both
     evidence: design-choice
     etymology: "bel (L-13 heights) + wal (L-29 oath): height-oath, a proposed local address of the high-pasture power at a pasture-claim rite."
-    formation: {stem: bel, bases: [bel, wal], rule: UP-COMPOUND, operation: concatenate, expected: belwal}
+    formation: {stem: bel+wal, bases: [bel, wal], rule: UP-COMPOUND, operation: concatenate, expected: belwal}
     syllables: [bel, wal]
     license: "Ritual address only, proposal pending pantheon review; no new divine entity and no exclusive oath-patron jurisdiction claimed."
     follows: "naming-systems.md §4, §6; 05-lexicon UP-COMPOUND"
@@ -123,7 +131,7 @@ names:
     axis: wind
     evidence: design-choice
     etymology: "hur (L-09 storm) + su (L-08 wind): storm-wind, a proposed avoidance address for the storm-law power rather than its provisional plain theonym."
-    formation: {stem: hur, bases: [hur, su], rule: UP-COMPOUND, operation: concatenate, expected: hursu}
+    formation: {stem: hur+su, bases: [hur, su], rule: UP-COMPOUND, operation: concatenate, expected: hursu}
     syllables: [hur, su]
     license: "Proposed ritual substitute; does not repeal PAN-02's seasonal plain-name taboo."
     follows: "naming-systems.md §4, §6; 05-lexicon UP-COMPOUND"
@@ -140,4 +148,87 @@ rejected_candidates:
     syllables: [sin, las]
     etymology: "sin L-10 snow + las L-04 lineage"
     reason: "Phonotactically legal, but reject as a self-chosen adult honor-name: it falsely claims hereditary affiliation without a descent or adoption record."
-review_limits: "No bounded real-language collision sweep, reader test, D1 ledger comparison, connected-address trial or non-author review has been performed. The eight syllable witnesses and root links are self-checks only; all adoption remains with lore-shokunin."
+review_limits: "No bounded real-language collision sweep, reader test, D1 ledger comparison, connected-address trial or non-author review has been performed. The eight NM syllable witnesses and the cross-component repair witnesses below are self-checks only; all adoption remains with lore-shokunin."
+cross_component_repairs:
+  status: "pending owner integration; proposals, not completed source-field fixes"
+  source: "tools/gates/frozen/round-3/naming-collision-gate.out PHON-CODA and PHON-INVENTORY findings"
+  application:
+    - "PAN-03: 06-pantheon owns name, derivation and its other occurrences; 07-myths-motifs repeats the theonym. Adopt humaweha consistently, with initial capitalization only where the owner's display style calls for it. Neither owner is edited by this worker."
+    - "GAR-01..10: 11-costumes owns the records. Set both name and the gate-facing garment field to the D2 citation form; move the entire original English garment description to gloss/note without losing material, cut or wearer information. Adding name alone does not repair this gate, which reads garment."
+    - "tools/assemble-d2.py copies 06.name and 11.garment unchanged and does not apply this repair ledger. The eleven phonology failures therefore remain until the owning components integrate the changes; do not suppress them or substitute this ledger for the owner records."
+  garment_scope: "Native D2 descriptive citation names for these items, not generic garment headwords or invented donor-language loans. The imported-cloth naming strata requested by 11's form_slots_note remain a separate unresolved lexical task; these proposals do not clear it."
+  records:
+    - id: PAN-03
+      name: humaweha
+      gloss: "shelter-wind; the wind that carries the last breath below"
+      bases: [huma, weha]
+      etymology: "huma (05 naming_support.name_only_bases: shelter, low place) + weha (same block: wind, breath of); UP-COMPOUND concatenation, no vowel deletion. The bases preserve 06 PAN-03's proposed meaning; /m/ begins ma rather than closing hu."
+      syllables: [hu, ma, we, ha]
+      note: "Same PAN-03 entity, role and cult; spelling repair, not a replacement deity. The complete four-CV sequence also satisfies the stricter open-syllable reading."
+    - id: GAR-01
+      name: tolmirken
+      gloss: "winter valley coat (heavy felted wool; uncombed finish optional)"
+      bases: [tol, mirken]
+      etymology: "tol (L-14 low ground) + mirken (L-35 wool cloak): low-ground wool-cloak; UP-COMPOUND concatenation."
+      syllables: [tol, mir, ken]
+    - id: GAR-02
+      name: belmirken
+      gloss: "high-pasture coat (fine first-shear felt; narrow placket; wind-flap at the shoulder)"
+      bases: [bel, mirken]
+      etymology: "bel (L-13 heights) + mirken (L-35 wool cloak): height wool-cloak; UP-COMPOUND concatenation."
+      syllables: [bel, mir, ken]
+    - id: GAR-03
+      name: kolkormirken
+      gloss: "transit coat (felted outer; fringed hem-cords at the hem-line; the coat of the pass)"
+      bases: [kol, kor, mirken]
+      etymology: "kol (L-17 pass) + kor (L-25 tally-cord), then mirken (L-35 wool cloak): pass-tally wool-cloak; two modifier-before-head UP-COMPOUND concatenations, naming the count on the hem, never an obligation tied."
+      syllables: [kol, kor, mir, ken]
+    - id: GAR-04
+      name: tolwal
+      gloss: "lowland-cloth coat (woven plant-thread cloth of the lowland partner; a lowland cut)"
+      bases: [tol, wal]
+      etymology: "tol (L-14 low ground) + wal (L-29 oath): low-ground oath; UP-COMPOUND concatenation, a descriptive name for the coat's fair-and-valley jurisdiction, not a word for plant cloth."
+      syllables: [tol, wal]
+    - id: GAR-05
+      name: laswal
+      gloss: "mast-sash (narrow woven wool band, lineage-issued; the wind standard's sash)"
+      bases: [las, wal]
+      etymology: "las (L-04 lineage) + wal (L-29 oath): lineage-oath; UP-COMPOUND concatenation, an office-name for the annually issued sash, not a new hereditary rank."
+      syllables: [las, wal]
+    - id: GAR-06
+      name: walper
+      gloss: "stranger's fair coat (flat-woven lowland cut, no fringed hem; the treaty stranger's coat)"
+      bases: [wal, per]
+      etymology: "wal (L-29 oath) + per (L-27 script-mark): oath-mark; UP-COMPOUND concatenation, an E2 descriptive name for the registered treaty garment, not a donor word or a silk term."
+      syllables: [wal, per]
+    - id: GAR-07
+      name: tolsamirken
+      gloss: "mourning coat (felt left shaggy, undyed, hem-cords cut back)"
+      bases: [tolsa, mirken]
+      etymology: "tolsa (L-32 the dead, retained as an unanalyzed fossil) + mirken (L-35 wool cloak): dead-one's wool-cloak; UP-COMPOUND concatenation. No analysis of L-32's opaque remainder or change to the name-avoidance rule is claimed."
+      syllables: [tol, sa, mir, ken]
+    - id: GAR-08
+      name: taskor
+      gloss: "bale cord (imported plant-thread cord in coils; the legal channel of the banned import)"
+      bases: [tas, kor]
+      etymology: "tas (L-21 dried meat) + kor (L-25 tally-cord): meat-tally; UP-COMPOUND concatenation, a metonymic citation name for the bale counter's shoulder coil, not a claim that kor generically means packing cord."
+      syllables: [tas, kor]
+    - id: GAR-09
+      name: banmirken
+      gloss: "down under-tunic (combed pack-ox underfleece, worn next to the skin at both poles)"
+      bases: [ban, mirken]
+      etymology: "ban (L-03 bone, the person’s substance) + mirken (L-35 wool cloak): bone wool-cloak; UP-COMPOUND concatenation, a figurative name for the body's innermost fleece layer, not a claim of sheep fiber or a new body-part root."
+      syllables: [ban, mir, ken]
+    - id: GAR-10
+      name: hurban
+      gloss: "gale legging (smoke-cured leather, wind-cut: no slack at the ankle, no inner seam)"
+      bases: [hur, ban]
+      etymology: "hur (L-09 storm) + ban (L-03 bone): storm-bone; UP-COMPOUND concatenation, a figurative name for the close-cut leg cover in a gale, not a new generic word for leg, hide or leather."
+      syllables: [hur, ban]
+cross_culture_review:
+  status: "unresolved (pre-publication step, declared gap)"
+  scope: "All D2 names and proposed cross-component citation forms; constructed etymologies and local phonotactic checks are not real-language clearance."
+  languages: []
+  unresolved:
+    - "No bounded real-language homophone, offensive-association or restricted-name sweep has been performed. Before publication, declare priority languages/communities, search channels and dates, record actual findings and obtain qualified review where needed."
+  assembly_gap: "The current tools/assemble-d2.py does not export this top-level block. Integration must carry it into the packet unchanged; either way CROSS-HOLD is expected, not cleared."

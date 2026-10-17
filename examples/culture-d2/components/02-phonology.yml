@@ -1,3 +1,8 @@
+revision: 1.1
+revision_notes:
+  - "AL-1 and AL-2 reclassified as morphophonemic /n/-stem allomorphy, with /p/- and /b/-initial word-formation triggers and paired witnesses; underlying coda /m/ is not licensed by P-3, so a same-context /n/ : /m/ contrast pair would be false. LA-3 retains the same place mapping as a recipient-side loan filter."
+  - "AL-7 reclassified as morphophonemic /s/-stem allomorphy at word closure versus vowel-initial suffixation, with paired witnesses; P-3 excludes underlying coda /h/, so final [h] does not merge two licensed coda phonemes."
+  - "Added W-23 and morphological parses for the existing trigger witnesses, without assigning lexical senses or suffix functions. The nine finite rule strings remain unchanged; gate_run records the three residual A-NEUTRAL REVIEW prompts rather than suppressing them."
 component: 02-phonology
 culture: D2
 canon: not canonized (D2 design drill)
@@ -88,7 +93,7 @@ phonology:
     - "s → h / _ #"
     - "t → t͡s / _ i"
     - "k → c / _ i"
-  strata_note: "One stratum is declared — the native D2 lexicon across both stages. Loans form a second stratum only after the trade contact and are governed by loan_adaptation; the knot-era and script-era vernaculars share this inventory. The gate-facing rule list is written in finite symbol contexts so that a finite-segment checker can run it."
+  strata_note: "One stratum is declared — the native D2 lexicon across both stages. Loans form a second stratum only after the trade contact and are governed by loan_adaptation; the knot-era and script-era vernaculars share this inventory. The gate-facing rule list is written in finite symbol contexts so that a finite-segment checker can run it. The legacy allophony container retains its structure, but AL-1, AL-2, and AL-7 are reclassified as morphophonemic stem alternations with explicit word-formation triggers and paired forms below; the other six remain allophonic rules. Their gate-facing strings are unchanged phonological projections, not encodings of the morphological triggers, and LA-3 retains the nasal place mapping as a loan-integration filter."
 
 inventory_record:
   - id: C-1
@@ -144,18 +149,24 @@ phonotactics_record:
 allophony:
   - id: AL-1
     rule: "n → m / _ p"
+    classification: "morphophonemic alternation — prelabial allomorph of an /n/-final stem"
     family: "place assimilation of a coda nasal (corpus §5 assimilation family)"
     origin: "a coda nasal took the place of the following stop; the recitation register keeps the underlying /n/, which is why the alternating forms stay transparent to speakers (design stipulation)"
+    morphological_trigger: "concatenate an /n/-final stem with a /p/-initial suffix or compound member: select [m] before /p/; the unextended stem retains [n]. LA-3 reuses this place mapping during loan-stem integration, without admitting an underlying /m/ coda."
     trigger_witness: "W-3"
-    blocked_witness: "W-4"
-    neutralization: "before /p/ the contrast /n/ : /m/ is not maintained. The contrast lives in onsets and before vowels (W-4, W-5), and it is not claimed in the assimilating context — this is the neutralization the gate reports as A-NEUTRAL, and the scoped analysis is that the neutralization is the rule's purpose"
+    blocked_witness: "W-23"
+    alternation_witness_pair: "W-23 /san/ → [san] versus W-3 /san-pa/ → [sampa]; the same stem selects [n] or [m] according to the extension. The /-pa/ frame is a schematic design test, not an assigned grammatical suffix or canon word."
+    neutralization: "not a merger of licensed /n/-final and /m/-final stems: P-3 licenses underlying coda /n/ but excludes /m/. The onset distinction (W-4, W-5) remains; [m] here is the stem allomorph, not evidence for a second underlying coda phoneme. A-NEUTRAL remains on the gate's finite phonological projection, which cannot check the morphological trigger."
   - id: AL-2
     rule: "n → m / _ b"
+    classification: "morphophonemic alternation — prelabial allomorph of an /n/-final stem"
     family: "place assimilation of a coda nasal (corpus §5)"
     origin: "same drift as AL-1, voiced series"
+    morphological_trigger: "concatenate an /n/-final stem with a /b/-initial suffix or compound member: select [m] before /b/; the unextended stem retains [n]. LA-3 reuses this place mapping during loan-stem integration, without admitting an underlying /m/ coda."
     trigger_witness: "W-6"
-    blocked_witness: "W-4"
-    neutralization: "as AL-1"
+    blocked_witness: "W-23"
+    alternation_witness_pair: "W-23 /san/ → [san] versus W-6 /san-ba/ → [samba]; the same stem selects [n] or [m] according to the extension. The /-ba/ frame is a schematic design test, not an assigned grammatical suffix or canon word."
+    neutralization: "before the /b/-initial extension the stem selects [m], but P-3 excludes a competing underlying /m/-final stem. This is morphophonemic allomorphy, not loss of a coda /n/ : /m/ phonemic contrast. The gate's finite projection still emits A-NEUTRAL; the paired forms and trigger supply the reanalysis rather than suppress the finding."
   - id: AL-3
     rule: "n → ŋ / _ k"
     family: "place assimilation of a coda nasal (corpus §5)"
@@ -182,11 +193,14 @@ allophony:
     blocked_witness: "W-2"
   - id: AL-7
     rule: "s → h / _ #"
+    classification: "morphophonemic alternation — word-final versus vowel-suffixed allomorph of an /s/-final stem"
     family: "coda weakening (corpus §5 coda-weakening family)"
     origin: "the last obstruent coda is debuccalizing; the historical drift that gave the language its accent (AC-6) is finishing here. The law register's recitation keeps the [h] audible, which is part of how a clause is heard as finished (couples to 12-rank-rules SR-05 by contract, not by content)"
+    morphological_trigger: "close the prosodic word on the /s/-final stem and select final [h]; add a vowel-initial suffix and retain [s], resyllabified as an onset. The word-edge condition remains mandatory: a non-final coda /s/ is not changed by AL-7."
     trigger_witness: "W-11"
-    blocked_witness: "W-12"
-    neutralization: "the output [h] is the same phone as the phoneme /h/. No lexical contrast is lost, because /h/ is not licensed in codas at all (P-3) — a coda [h] can only have come from /s/. This is the second neutralization the gate reports, and the scoped analysis resolves it"
+    blocked_witness: "W-1"
+    alternation_witness_pair: "W-11 /hus/ → [ɸuh] versus W-1 /hus-a/ → [ɸusa]; [h] and [s] are allomorphs of the same stem ending. The /-a/ frame is a schematic design test, not an assigned grammatical suffix; AL-5 independently supplies initial [ɸ] in both forms."
+    neutralization: "no /s/ : /h/ coda contrast is lost, because P-3 excludes underlying coda /h/. Final [h] is the word-final allomorph of stem /s/, whereas onset /h/ remains a separate phoneme. A-NEUTRAL remains on the unchanged gate projection; the explicit stem alternation is the reanalysis, not a claim that a same-context coda contrast exists."
   - id: AL-8
     rule: "t → t͡s / _ i"
     family: "palatalization before a front vowel (corpus §5 palatalization family)"
@@ -333,7 +347,8 @@ witnesses:
   - id: W-1
     form: "husa"
     surface_ipa: "ɸusa"
-    checks: "AL-5 trigger, the breath phoneme before /u/"
+    morphological_parse: "hus-a (schematic test extension; no grammatical function assigned)"
+    checks: "AL-5 trigger, the breath phoneme before /u/; AL-7 blocked by vowel-initial suffixation, paired with W-11"
   - id: W-2
     form: "hasa"
     surface_ipa: "hasa"
@@ -341,7 +356,8 @@ witnesses:
   - id: W-3
     form: "sanpa"
     surface_ipa: "sampa"
-    checks: "AL-1 trigger, coda nasal before /p/"
+    morphological_parse: "san-pa (schematic stem + suffix or compound-member frame)"
+    checks: "AL-1 trigger, the /n/-stem selects [m] before the /p/-initial extension; paired with unextended W-23"
   - id: W-4
     form: "nama"
     surface_ipa: "nama"
@@ -353,7 +369,8 @@ witnesses:
   - id: W-6
     form: "sanba"
     surface_ipa: "samba"
-    checks: "AL-2 trigger, coda nasal before /b/"
+    morphological_parse: "san-ba (schematic stem + suffix or compound-member frame)"
+    checks: "AL-2 trigger, the /n/-stem selects [m] before the /b/-initial extension; paired with unextended W-23"
   - id: W-7
     form: "sanka"
     surface_ipa: "saŋka"
@@ -373,7 +390,8 @@ witnesses:
   - id: W-11
     form: "hus"
     surface_ipa: "ɸuh"
-    checks: "AL-5 plus AL-7 in one word — a feeding chain, the round wind and then the final breath"
+    morphological_parse: "hus (unextended stem at prosodic-word edge)"
+    checks: "AL-5 and AL-7 independently co-apply — the round wind and the word-final [h] stem allomorph; paired with vowel-suffixed W-1, not a feeding chain"
   - id: W-12
     form: "saka"
     surface_ipa: "saka"
@@ -418,14 +436,19 @@ witnesses:
     form: "sta, tapl, kti, hamp"
     surface_ipa: "deliberately illegal shapes"
     checks: "P-1 and P-3 negative controls — onset cluster, coda cluster, onset cluster with an obstruent, and an unlicensed coda /p/"
+  - id: W-23
+    form: "san"
+    surface_ipa: "san"
+    morphological_parse: "san (unextended stem)"
+    checks: "AL-1 and AL-2 blocked without a labial-initial extension; the same /san-/ stem has [n] here and [m] in W-3 and W-6"
 
 gate_run:
   tool: tools/gates/phonology-sanity-gate.py
   target: examples/culture-d2/components/02-phonology.yml
   command: "python3 tools/gates/phonology-sanity-gate.py examples/culture-d2/components/02-phonology.yml"
-  expected: "exit 1 with REVIEW findings only, all of them A-NEUTRAL on the neutralizing rules AL-1, AL-2, and AL-7. No FAIL is expected and no finding is a contradiction"
-  interpretation: "A-NEUTRAL is the gate's prompt that neutralization into another phoneme's phone needs a contrast witness or a reanalysis. Here the analysis is explicit — the nasal place assimilation neutralizes /n/ before labials (the contrast is witnessed in onset position, W-4 and W-5), and the final-breath rule cannot lose a contrast because /h/ is never licensed in a coda (P-3). Both are design intent, not defects"
-  actual: "run at write time, 2026-10-17, on the delivered bytes — see gate_result. The three A-NEUTRAL findings are the only output; the run is reproducible with the command above"
+  expected: "exit 1 with three REVIEW findings, all A-NEUTRAL on the unchanged finite projections of AL-1, AL-2, and AL-7. No FAIL is expected; the morphological reanalyses require human review because the gate does not consume their triggers or witness pairs"
+  interpretation: "AL-1 and AL-2 are /n/-stem alternations triggered by labial-initial word formation (W-23 paired with W-3 and W-6); AL-7 is /s/-stem allomorphy at word closure versus vowel-initial suffixation (W-11 paired with W-1). P-3 excludes underlying coda /m/ and /h/, so no same-context contrast pair with those codas is claimed. The gate's output-phone membership check does not inspect these morphological analyses; its three A-NEUTRAL prompts remain visible and are not a clean-gate claim"
+  actual: "round-4 revision 1.1 rerun, 2026-10-17, on the delivered bytes with the unchanged tool — see gate_result. Output is byte-for-byte the round-3 frozen phonology-sanity-gate.out: the same three A-NEUTRAL REVIEW findings and no additional finding"
   gate_result: "exit 1; three REVIEW findings, A-NEUTRAL on notable_rules[1] (n → m / _ p), notable_rules[2] (n → m / _ b), and notable_rules[7] (s → h / _ #); no FAIL, no G-DATA, no T-C, no T-V, no T-SYL, no P-* finding"
   parsed_check: "independent parse of the delivered bytes via the gate module — 15 consonants, all classified as IPA consonants; vowels a e i o u; tones 0; template (C)V(C) parses to onset 1, nucleus 1, coda 1; all nine notable_rules parse to a source, an output, and an environment"
 

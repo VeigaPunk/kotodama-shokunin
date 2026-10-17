@@ -1,5 +1,9 @@
 # kotodama-shokunin corpus index
 
+revision: 1.1 — Reconciled knowledge-entry topic lines and partition totals
+against the current tree; replaced stale implementation and triage gaps
+with the remaining round-5 flags and two-evidence baseline obligations.
+
 言霊 — the craft record connecting languages, cultures, myths,
 symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
@@ -89,11 +93,12 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `worked-example-mini-culture.md` — A single synthetic teaching fixture coupling a language sketch, pantheon, symbolic grammar, periodization, costume system, twenty-word etymological lexicon, and executed naming pipeline; method demonstration, never world-bible canon.
 - `worldbible-integration-contract.md` — The shared adjacency interface by which kotodama-shokunin hands linguistic-cultural systems to lore-shokunin without claiming, recording, or silently changing canon.
 
-## verification/ (12)
+## verification/ (13)
 
 - `calibration-registry.md` — Master claim-level calibration registry for the linguistic-cultural corpus: Campbell universalism, fixed-rate glottochronology, strong Whorfian determinism, Frazerian evolutionism, Gimbutas's goddess reconstruction, and the history of totemism; routes adjacent language–myth–symbol–era–costume overclaims without converting reference methods into canon.
 - `citation-format-and-source-registry.md` — A lane-local citation profile connecting each linguistic-cultural claim to its exact source version, supported scope, mediations, and design transformations; bibliography accuracy never substitutes for evidence or canon approval.
 - `costume-era-consistency-gate.md` — a manual pre-handoff review of whether a claimed outfit can be made, obtained, worn under the stated rules, and interpreted in its proposed era; distinguish impossibility, insufficient evidence, and intelligible rule-breaking
+- `gate-frozen-run-standard.md` — How kotodama-shokunin satisfies the fleet gate standard's two-evidences clause: every gate in `tools/gates/` ships a self-test (capability) AND a frozen run (measurement) — a run over a committed input snapshot with a committed, digest-pinned expected verdict that a later hand-edit contradicts; the layout under `tools/gates/frozen/`, the freeze/verify procedure, and a worked example measured on `myth-consistency-gate`.
 - `internal-consistency-audit.md` — audit the cross-file coherence of linguistic-cultural design methods and candidate handoff packets; expose missing couplings, misaligned terms, incompatible assertions, and unsupported repairs without deciding world-bible canon.
 - `lexicon-coverage-audit.md` — a reproducible manual gate for semantic-field coverage against the seven field briefs, derivational consistency, frequency discipline, and coherent loanword layers; release means a usable design proposal, never established canon
 - `myth-consistency-gate.md` — A source-calibrated review gate for coupling a fictional culture's divine roles, narrative motifs, historical layers, linguistic forms, and worn symbols; verifies a proposed system without deciding world-bible canon.
@@ -104,7 +109,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `to-verify-triage-protocol.md` — A lane-local procedure for resolving uncertain reference claims without laundering speculation into linguistic-cultural knowledge or fictional canon; includes risk triage, evidence tests, review cadence, and an append-only resolution ledger.
 - `verification-method-overview.md` — the lane's craft-verification philosophy: every language–myth–symbol–era–costume system claim must identify a corpus decision rule, inspectable inputs, an expected result, and a possible failure; observations, inferences, unknowns, and proposed design choices remain separate; missing evidence never becomes permission to assert canon.
 
-## civilizations/ (92)
+## civilizations/ (93)
 
 - `aegean-minoan-mycenaean.md` — Bronze Age Crete and mainland Greece as a coupled reference for language, administrative writing, cult, visual motifs, periodization, dress, and architectural vocabulary; method and reference only, not fictional canon.
 - `ainu.md` — Ainu linguistic-cultural reference base: language-isolate calibration; yukar and kamuy narration; reciprocity between human and spirit worlds; Ainu-moshiri and place naming; attus textiles; historically situated iyomante. Method and reference knowledge only, not fictional canon.
@@ -166,6 +171,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `mamluk.md` — coupling military enslavement and emancipation, Kipchak–Circassian–Turkic–Arabic language strata, furūsiyya literature, office/household blazons, naming, dress, and waqf-funded urban life; comparative method and reference knowledge, not fictional canon
 - `maori.md` — Māori linguistic-cultural coupling in Aotearoa: te reo registers and tangata whenua protocols; whakapapa as a relational archive; haka as performed language; moko as situated biography; pounamu as prestigious, ancestral material. Reference and design method only, never fictional canon.
 - `maya-classic.md` — Classic Maya linguistic-cultural coupling: logosyllabic decipherment and the Knorozov/Ventris comparison; Long Count mathematics; the later K’iche’ Popol Vuh as a controlled comparison; jade regalia, divine embodiment, bloodletting registers, and royal naming. Reference and generative method only, not fictional canon.
+- `mesoamerica-primary-sources.md` — what actually survives of Mesoamerican languages, myth, and material culture beyond Spanish-authored chronicles — the surviving codex inventory and its holdings, indigenous-language alphabetic sources, early grammars and dictionaries, modern epigraphic and digital corpora — with the provenance cautions (facsimile chains, unprovenanced objects, dating horizons, colonial mediation) required before any of it seeds a design record; a reference map for the four Mesoamerican bases in this directory, method only, never fictional canon.
 - `mesopotamia-sumer-akkad.md` — Southern Mesopotamian language, writing, myth, kingship, symbols, historical eras, names, and dress as coupled reference systems; methods for fictional cultures, never world-bible canon.
 - `mexica-aztec.md` — A central-Mexican reference base coupling Nahuatl reverentials, Huitzilopochtli migration traditions, calpulli organization, eagle/jaguar warrior identities, and xiuhmolpilli era-binding; method and reference knowledge, not fictional canon.
 - `mississippian.md` — Cahokia-centered Mississippian reference base: political vocabulary and the limits of a “Big Other” cosmology lens; Southeastern Ceremonial Complex iconography; platform-mound urbanism; Monks Mound scale; coupling language, myth, symbol, era, and dress without reconstructing an unattested canon.
@@ -201,11 +207,22 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
 ## Known gaps (frontier)
 
-- Mesoamerican and African civilizations lean on colonial-era
-  chronicles; primary-source recovery is a standing frontier.
-- The verification/ gates are specifications, not yet executable
-  scripts; a shonen round should implement the first gate.
-- `to-verify` lines (1258 at index time) await triage per
-  `verification/to-verify-triage-protocol.md`.
+- Five civilization files still carry flags for zai-lane triage in round 5:
+  `civilizations/ottoman.md`, `civilizations/slavs-early.md`,
+  `civilizations/sogdian-silk-road.md`, `civilizations/tibet.md`, and
+  `civilizations/turkic-steppe.md`. The carry is recorded in
+  `lessons/round-3-triage/orchestrator-direct.md`; use
+  `verification/to-verify-triage-protocol.md` to resolve the claims, not
+  merely remove their markers.
+- Two-evidence baselines remain pending per
+  `verification/gate-frozen-run-standard.md`: per-gate committed input
+  snapshots, digest-pinned expected verdicts, and digest verification before
+  comparison. The gates are already executable and frozen run outputs exist
+  under `tools/gates/frozen/round-3/`; finishing the baseline contract is a
+  separate obligation, not a missing first gate.
 
-Total knowledge entries: 176.
+Total knowledge entries: 178.
+
+Counts checked 2026-10-17 from the repo root:
+`for p in corpus/knowledge/*/; do ls -d "$p"; ls -1 "$p"*.md | wc -l; done`
+(partitions), `ls -1 corpus/knowledge/*/*.md | wc -l` (total).

@@ -1,3 +1,10 @@
+revision: 1.1
+revision_notes:
+  - "Round 4: replace legacy era-1/2/3 record values with canonical E0/E1/E2 tags from 09; retain each rule's interval and transition wording in era_history, and correct the named-era glosses without changing any statute."
+era_registry_ref: "09-eras-calendar.yml: eras, era_tag_map, named_eras, era_records"
+era_aliases: {era-1: E0, era-2: E1, era-3: E2}
+era_note: "A rule's era is its initial canonical stage; era_history preserves its full interval, renewals and transitions using the same tags. E0 covers ER-01..ER-06, not just Open Grazing; E1 is Marked Count (ER-07), E2 is Two Counts (ER-08), and E3 is the undated Still Air reservation (ER-09), unoccupied here. No finer founding date is inferred."
+
 component: 12-rank-rules
 culture: D2
 canon: not canonized (D2 design drill)
@@ -8,7 +15,7 @@ contract_conformance:
   rg_02_follows: "Every rule record carries `follows` (alias + section; each alias resolves to a corpus path + sections in the list below)."
   rg_03_ids_only: "Cross-component references use ids only: GAR-01..GAR-08 from 11-costumes (its ids match this file's `garment_refs`), LEX-DEG-1..7 and the packet `lexicon:` field for surface forms, the packet `eras:` for era names. No sibling file text is quoted."
   rg_05_axis: "This component predates the brief's axis rule; per-record axes are declared in `axis_by_record` below (neutral records carry a coupling_note there) rather than left implicit."
-  cp_07_era_alias: "Pre-contract era handles are aliased in, never silently (CP-07): era-1 -> E0, era-2 -> E1, era-3 -> E2. Era names and dates belong to 09-eras (Open Grazing / First Ascent / Salt Turn)."
+  cp_07_era_alias: "Pre-contract era handles are aliased in, never silently (CP-07): era-1 -> E0, era-2 -> E1, era-3 -> E2 (era_aliases). All record era values now use those canonical tags. Era names and dates belong to 09-eras-calendar: E0 covers Open Grazing through Bitter Smoke (ER-01..ER-06), E1 is Marked Count (ER-07), E2 is Two Counts (ER-08); E3 is reserved Still Air (ER-09)."
   cp_09_rank_basis: "Degree slots are pasture-right and office institutions (lineage head, wind-speaker, herd-master, herder household, shelter-kin, treaty stranger), never wealth grades."
   cp_11_status: "Every rule pairs `prescription` with `enforcement_reality`; the `calibration` block labels status; comparators cite corpus entries by path, and every unrouted item is marked (to-verify)."
 axis_by_record:
@@ -108,9 +115,9 @@ depends_on:
   - field: "culture-packet `lexicon:` [{term, gloss, field, etymology, layer}]"
     contract: "term ids referenced as LEX-*. This component does not coin surface forms; it pins the degree slots, their glosses, and the register/era distribution the lexicon component must satisfy."
     status: "(to-verify) form ownership stays with the lexicon component."
-  - field: "culture-packet `eras:` [names]"
-    contract: "era tags used here are working labels era-1 / era-2 / era-3; the era component owns the final names."
-    status: "(to-verify)"
+  - field: "culture-packet `eras:` [canonical short tags]"
+    contract: "All record era values use E0 / E1 / E2 from 09-eras-calendar.era_tag_map; that component's named_eras and era_records own the nine names and ER-* ids, and its era_dates owns their dates."
+    status: "round-4 alignment: tags and named-era coverage agree with 09; dates remain non-CE descent coordinates, and E3 is reserved."
 garment_refs:
   - id: GAR-01
     gloss: "winter valley coat - heavy felted wool, uncombed finish optional"
@@ -195,7 +202,8 @@ wear_rules:
     assay: "felt-days stamped at the bale seal-knot; the winter moot's cord check recomputes each household's grade from its own ascents and bales"
     authority: "Valley Moot statute; oldest cord in the archive"
     jurisdiction: "all circuits and all altitude bands (the only rule that follows the household everywhere)"
-    era: "era-1 (knot only) -> era-2 (renewed in script) -> era-3 (grade floors frozen, prices left to the fair)"
+    era: "E0"
+    era_history: "E0 (knot only) -> E1 (renewed in script) -> E2 (grade floors frozen, prices left to the fair)"
     enforcement_reality: "obeyed in the valley where the cord check runs; above the snow-line a household wears one grade up all summer and is not prosecuted, because no keeper is present and the claim is unassayable until winter"
     sanction: "knot cut (recorded ascents reduced), the coat's hem to the informing household, salt fine"
     follows: [alias_sumptuary §2, alias_sumptuary §10.1, alias_textile §2, alias_trade_econ §2]
@@ -207,7 +215,8 @@ wear_rules:
     assay: "the fair court reads the caravan register, kept in the lowland script, against the coat on the wearer; the cord archive records only who is registered, not what they wear"
     authority: "caravan treaty ratified at the winter moot"
     jurisdiction: "valley fairgrounds and valley road; void at transit and high pasture"
-    era: "era-2 onward (the treaty is the script's first D2 use)"
+    era: "E1"
+    era_history: "E1 onward (the treaty is the script's first D2 use)"
     enforcement_reality: "the fair court prosecutes strangers and the visibly overdressed, and almost never a registered herd-master's spouse, whose coat the register cannot name (the wives problem, sumptuary §6)"
     sanction: "forfeiture of the coat at the fair gate, half the coat's hem-value to whoever sues; at home, no sanction at all"
     follows: [alias_sumptuary §7, alias_sumptuary §6, alias_registers §5, alias_coupling §5]
@@ -219,7 +228,8 @@ wear_rules:
     assay: "count of cords against the cord archive; a cord of the wrong twist marks an unconfirmed crossing"
     authority: "Valley Moot statute"
     jurisdiction: "all bands; the check itself happens only in the winter valley"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "the flagship counterfeit of D2 - over-fringed coats at the fair, cord-twist forgeries, and a summer trade in second-hand fringes; the moot prosecutes the forgers it can catch in the valley"
     sanction: "the over-count cords are cut at the moot in public; a forger's twist cord pays a bale"
     follows: [alias_sumptuary §8.3, alias_sumptuary §8.4, alias_dress_eras §10, alias_costume_semiotics §4]
@@ -231,7 +241,8 @@ wear_rules:
     assay: "the sash is issued and recalled at the moot; weights are tied into its end-cords and counted against the archive"
     authority: "lineage head with moot confirmation"
     jurisdiction: "all bands, because the mast travels with the herds"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "a forged sash is the only D2 dress crime that can end a family - it is read as a claim to the pasture right itself"
     sanction: "sash forfeited and burned; the wearer loses moot voice for a year; a repeated forgery ends the household's registration"
     follows: [alias_sumptuary §4, alias_coupling §5, alias_costume_semiotics §6]
@@ -243,7 +254,8 @@ wear_rules:
     assay: "the shaggy finish is visible; the cut-back cords are checked against the archive at the next moot"
     authority: "Valley Moot statute with the wind-speakers' recitation"
     jurisdiction: "all bands; suspended during storm law's first day (see TR-05)"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "observed hard - mourning is the one rule that is self-enforcing, because the shaggy coat is also the thing that shelters you from being spoken to"
     sanction: "none needed; the sanction is social, plus moot comment by the dead-roll reciter"
     follows: [alias_dress_eras §11.5, alias_costume_semiotics §3, alias_ritual §7]
@@ -255,7 +267,8 @@ wear_rules:
     assay: "the exemption is recorded by the moot as a single-day entry; a second wearing is a knot cut"
     authority: "Valley Moot statute"
     jurisdiction: "any band, the day only"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "kept and even traded - families time weddings to the muster so the borrowed grade is seen by everyone; a wedding moved off-muster is read as a family hiding something"
     sanction: "for the second wearing - salt fine and the cords returned"
     follows: [alias_sumptuary §8.5, alias_sumptuary §6, alias_ritual §7.4]
@@ -267,7 +280,8 @@ wear_rules:
     assay: "at corridor distance a good imitation passes; the court's real test is speech - the greeting formula and the ascent recitation fail first"
     authority: "caravan treaty; enforced by the fair court"
     jurisdiction: "fairgrounds and valley road only"
-    era: "era-2 onward"
+    era: "E1"
+    era_history: "E1 onward"
     enforcement_reality: "the fair court convicts on speech, not cloth; the classic case is a lowlander in a bought D2 coat who answers the greeting in the loan register"
     sanction: "coat forfeited; the trader's seal withdrawn for a season (a trade sanction, not a dress one)"
     follows: [alias_costume_semiotics §6, alias_sumptuary §7, alias_registers §5]
@@ -279,7 +293,8 @@ wear_rules:
     assay: "none that works - the repair patch is the loophole written into the statute"
     authority: "an archaic cord in the archive; renewed twice in living memory"
     jurisdiction: "all bands, unenforced"
-    era: "era-1 (when the thread was rare) to era-3 (when everyone wears it)"
+    era: "E0"
+    era_history: "E0 (when the thread was rare) to E2 (when everyone wears it)"
     enforcement_reality: "dead letter; old herders still refuse the patch publicly and wear it under the placket. The renewal is the evidence of its weakness"
     sanction: "on paper, a salt fine; in practice, moot laughter"
     follows: [alias_sumptuary §10.6, alias_sumptuary §8.8, alias_costume_semiotics §4]
@@ -287,11 +302,12 @@ wear_rules:
     precedent_via_corpus: "plant one fossil law on a now-common material (sumptuary §10.6); a reissued ban is a chronic weakness marker in-world historians can read (sumptuary §8.8)"
   - id: WR-09
     sign_axis: "fiber/material - the low-door reform (a law that lowers the dial)"
-    prescription: "In the era-3 reform, lowland cloth is lawful for any household at the winter fair, and felt above G2 may be sold off the high households' bales by any registered seller; the felt-day grades survive on the coat, the monopoly dies on the price."
+    prescription: "In the E2 reform, lowland cloth is lawful for any household at the winter fair, and felt above G2 may be sold off the high households' bales by any registered seller; the felt-day grades survive on the coat, the monopoly dies on the price."
     assay: "the register keeps the seller's name, not the buyer's - the assay moves from person to bale"
     authority: "Valley Moot, after the storm-famine; opposed by the wind-speakers as a valley law pretending to be a pasture law"
     jurisdiction: "valley fairgrounds"
-    era: "era-3"
+    era: "E2"
+    era_history: "E2"
     enforcement_reality: "the reform passes and the fair booms; the old cords are kept as ceremony and read aloud annually, which is how the moot remembers what it gave up"
     sanction: "none (permissive statute)"
     follows: [alias_sumptuary §9, alias_costume_semiotics §4, alias_eras §13]
@@ -305,7 +321,8 @@ speech_rules:
     assay: "the words themselves; a listener above or below the line"
     authority: "wind-speakers' Storm Seat, ratified at the moot"
     jurisdiction: "band-keyed - lawful-above / forbidden-below; the same sentence changes status when the herds descend"
-    era: "era-1 to era-3 (the script cannot write the name, so the statute exists only as cord + recitation)"
+    era: "E0"
+    era_history: "E0 to E2 (the script cannot write the name, so the statute exists only as cord + recitation)"
     enforcement_reality: "the valley sanction bites (elder, salt, moot comment); the high-pasture sanction is believed, not enforced - and the belief is stronger there, since the wind is present"
     sanction: "first breach - a salt fine paid to the line's dead-roll; second - the speaker keeps silent for a moot cycle"
     follows: [alias_taboo §3, alias_taboo §5, alias_cosmology §9]
@@ -316,7 +333,8 @@ speech_rules:
     assay: "who spoke first, and with which formula; the moot can subpoena a witness to a greeting"
     authority: "moot statute; recited with the tune"
     jurisdiction: "band-keyed"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "asymmetric in practice - the high formula used low is prosecuted as presumption (the speech twin of wearing office dress); the low formula used high is only rudeness, and rudeness is not a crime"
     sanction: "presumption - moot comment and a knot cut; guest - explicit invitation before the next crossing"
     follows: [alias_sumptuary §4, alias_registers §5, alias_taboo §3]
@@ -327,7 +345,8 @@ speech_rules:
     assay: "testimony only; the offense is prosecuted when it happens in the moot's hearing"
     authority: "moot statute; the dead-roll reciter is the officer"
     jurisdiction: "valley moot only (the valley is the jurisdiction; the pasture is the exemption of fact)"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "prosecuted rarely and remembered long; families keep a list of mouths as other cultures keep a list of debts"
     sanction: "salt fine and a place in the next dead-roll recitation (the offender's own name read as a warning)"
     follows: [alias_taboo §3, alias_taboo §5, alias_ritual §7.1]
@@ -338,7 +357,8 @@ speech_rules:
     assay: "the form itself (cord and tune vs written formula and clerk); a written lineage oath is void, a knotted trade oath unenforceable"
     authority: "Storm Seat and fair court jointly; the moot's archive holds the boundary"
     jurisdiction: "lineage oaths in the valley and at the camps; trade oaths in the fairgrounds"
-    era: "era-1 (cord only) -> era-2 (both, and the argument about which binds)"
+    era: "E0"
+    era_history: "E0 (cord only) -> E1 (both, and the argument about which binds)"
     enforcement_reality: "the 'borrowed mouth' offense is the most litigated in the fair court - a herder swearing the lowland formula over a pasture dispute is read as having sold the dispute to strangers"
     sanction: "the oath is voided, the swearer pays both the fine and the cost of the court's clerk"
     follows: [alias_registers §5, alias_taboo §5, alias_sumptuary §4]
@@ -349,7 +369,8 @@ speech_rules:
     assay: "the recitation itself: the moot keeps a register of which clauses have tunes; the lowland script cannot mark the tune, so the clerk's page and the speaker's mouth disagree by construction"
     authority: "wind-speakers' Storm Seat over the moot's script register"
     jurisdiction: "everywhere the moot's law runs; the fair court treats untuned clauses as commercial terms only"
-    era: "era-2 onward - the arrival of the script creates this rule, and this rule is why the script never fully replaces the cords"
+    era: "E1"
+    era_history: "E1 onward - the arrival of the script creates this rule, and this rule is why the script never fully replaces the cords"
     enforcement_reality: "the best lawyers in D2 are reciters; the best fraud is a forged tune, and the moot's annulment ritual exists to unsing a clause that was recited to the wrong melody"
     sanction: "an untuned clause stays mute until recited; a forged tune annuls the clause and cuts the reciter's knots"
     follows: [alias_taboo §5, alias_registers §8, alias_coupling §7]
@@ -360,7 +381,8 @@ speech_rules:
     assay: "the moot's roll of sworn reciters"
     authority: "Storm Seat"
     jurisdiction: "valley, any season except the storm; camps, never"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "kept strictly; the teacher-pupil bond is the pastoralists' school, and the door is the only real admission exam the culture has"
     sanction: "both teacher and pupil lose the moot voice for a year"
     follows: [alias_taboo §6, alias_registers §5, alias_amazigh, alias_ritual §7.1, alias_ritual §8]
@@ -373,7 +395,8 @@ touch_rules:
     assay: "the keeper's count on the morning of the moot; a touched running end re-counts the line differently (a touched cord is presumed amended)"
     authority: "Valley Moot; the keeper is an office, not a lineage"
     jurisdiction: "the winter valley archive; movable only with the keeper and the mast"
-    era: "era-1 to era-3 (in era-2 a duplicate script register is kept by the herd-masters, which the moot does not read aloud)"
+    era: "E0"
+    era_history: "E0 to E2 (in E1 a duplicate script register is kept by the herd-masters, which the moot does not read aloud)"
     enforcement_reality: "the offense is taken seriously because a cord that anyone may touch is a record that anyone may write; the worst D2 forgery is a false ascent knotted in the winter dark"
     sanction: "the offender's knot cut; a second offense - the line's cord is re-knotted from the dead-roll, annually, for a generation"
     follows: [alias_sumptuary §8.4, alias_trade_econ §2, alias_dress_eras §9]
@@ -385,7 +408,8 @@ touch_rules:
     assay: "the witness roll; the hem's own wear - a hem taken twice in a decade shows in the felt"
     authority: "Valley Moot; witnessed by the line and the keeper"
     jurisdiction: "the moot only; the mast itself may travel but the hem-claim may not"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "the strong move of D2 law: the claim is a touch, so the record of who touched what - not a written title - is the title. Failed claims forfeit a bale, which is why the hem is taken rarely and by the old"
     sanction: "failed claim - a bale to the line whose circuit was claimed against; invalid touch - the claim is void and the toucher loses moot voice for a season"
     follows: [alias_dress_eras §9, alias_costume_semiotics §3, alias_ritual §7.4]
@@ -397,7 +421,8 @@ touch_rules:
     assay: "the knots are the assay: the count is the claim (see WR-01)"
     authority: "caravan treaty; enforced at the fair by the herd-masters"
     jurisdiction: "fairgrounds; the custom travels with the bales"
-    era: "era-2 onward"
+    era: "E1"
+    era_history: "E1 onward"
     enforcement_reality: "the whole fair runs on counted knots; the standing crime is not the forgery of the cord but the forgery of the count, and the standing fix is to make the warden count aloud twice, once in each register"
     sanction: "knot-fee; a forged seal-knot - the bale is forfeit, half its hem-value to the informer"
     follows: [alias_sumptuary §8.3, alias_sumptuary §8.4, alias_trade_econ §2]
@@ -409,7 +434,8 @@ touch_rules:
     assay: "the measure's rim wear and the grain's ring; the fair's wardens compare against the standard held by the treaty council"
     authority: "treaty council (both partners), ratified at the moot"
     jurisdiction: "fairgrounds and valley stores"
-    era: "era-1 (salt by hand for kin) -> era-2 (standard measure under treaty)"
+    era: "E0"
+    era_history: "E0 (salt by hand for kin) -> E1 (standard measure under treaty)"
     enforcement_reality: "the standard is sacred in speech and negotiable in practice; each partner suspects the other's standard of having been weighed wet"
     sanction: "measure seized, salt forfeit to the wardens' store; a repeated offense ends the household's fair standing"
     follows: [alias_trade_econ §3, alias_trade_econ §2, alias_newar §6]
@@ -420,7 +446,8 @@ touch_rules:
     assay: "the reciter's account at the storm's end: who was lifted, who was carried, whose coat was taken"
     authority: "Storm Seat; the wind-speakers are the officers and the witnesses"
     jurisdiction: "above the snow-line, during storm law only (the band and the weather are the jurisdiction)"
-    era: "era-1 to era-3"
+    era: "E0"
+    era_history: "E0 to E2"
     enforcement_reality: "the one rule no one evades, because the alternative is a death the herd cannot afford; the storm-debt ledger is D2's only unconditional currency"
     sanction: "for the failure to lift - the herd's own judgment: a household that passed a neighbor in storm law is fed last at the next muster, for a year"
     follows: [alias_sumptuary §8.5, alias_ritual §7.2, alias_costume_semiotics §4]
@@ -432,7 +459,8 @@ touch_rules:
     assay: "two touches, two witnesses' names written in the register"
     authority: "caravan treaty, fair court"
     jurisdiction: "fairgrounds"
-    era: "era-2 onward"
+    era: "E1"
+    era_history: "E1 onward"
     enforcement_reality: "the ceremony is the contract's evidence; the disputes are almost never about whether the touch happened, but about which coat was touched"
     sanction: "a disputed touch - the sale is void and the bale returns to the seller's cord count"
     follows: [alias_dress_eras §9, alias_sumptuary §7, alias_coupling §8]
@@ -617,25 +645,25 @@ black_market:
     follows: [alias_ritual §7.4, alias_sumptuary §10.8]
 eras_effect:
   - id: ER-1
-    era: era-1
+    era: E0
     brief_tag: E0
-    label: "the knot years (handle era-1; brief tag E0, name owned by 09-eras: Open Grazing)"
+    label: "the knot years (canonical tag E0; legacy handle era-1; named eras owned by 09-eras-calendar: Open Grazing through Bitter Smoke, ER-01..ER-06)"
     rule_base: "cord archive and recitation only; no script"
     whats_changes: "nothing is written; every rank right is a count in a cord and a tune in a mouth"
     whats_frozen: "the felt-day ladder and the ascent count are born here and survive every later reform"
     follows: [alias_eras §13, alias_trade_econ §2]
   - id: ER-2
-    era: era-2
+    era: E1
     brief_tag: E1
-    label: "the register years (handle era-2; brief tag E1, name owned by 09-eras: First Ascent)"
+    label: "the register years (canonical tag E1; legacy handle era-2; name owned by 09-eras-calendar: Marked Count, ER-07)"
     rule_base: "lowland script arrives by adaptation; the caravan register and trade oaths become written"
     whats_changes: "the import monopoly becomes administrable; the fair court can read a seller's name; SR-05 (the tune is the law) is enacted to keep the script at arm's length"
     whats_frozen: "the storm-name still cannot be written; the hem-claim stays a touch; the archive stays knotted"
     follows: [alias_eras §13, alias_coupling §7, alias_sumptuary §4]
   - id: ER-3
-    era: era-3
+    era: E2
     brief_tag: E2
-    label: "the low-door years (handle era-3; brief tag E2, name owned by 09-eras: Salt Turn; the brief reserves E3 for the round's fourth stratum, which this component does not claim)"
+    label: "the low-door years (canonical tag E2; legacy handle era-3; name owned by 09-eras-calendar: Two Counts, ER-08; the brief reserves E3 for Still Air, ER-09, which this component does not claim)"
     rule_base: "the reform statute (WR-09) lowers the import monopoly and freezes the grades"
     whats_changes: "lowland cloth spreads to all households at the fair; felt is sold off the high bales by any registered seller"
     whats_frozen: "the mast-sash, the hem-claim, the ascent cords, and the tune - the ceremonial corpse of the old order, read aloud annually"
@@ -677,7 +705,7 @@ calibration:
 open_checks:
   - "GAR-* ids reconciled with 11-costumes on delivery: its GAR-01..GAR-08 are declared to match this file's `garment_refs` ids and glosses (sibling scope note); its deps ids resolve here (17/17). GAR-09/GAR-10 are the sibling's own records and take no rules from this component."
   - "LEX-DEG-1..7 surface forms authored by the lexicon component; pitch-accent class is required on all of them (the tune is the law, SR-05)."
-  - "era handles reconciled: era-1/2/3 -> brief tags E0/E1/E2 (see `contract_conformance.cp_07_era_alias`); era names and dates are 09-eras' (E0 Open Grazing, E1 First Ascent, E2 Salt Turn). Note for the integrator: 10-materials.yml works era slots E1-E4, which do not line up with the brief's fixed E0-E3 space; this file carries the brief tags and is not party to that mismatch."
+  - "era handles reconciled: legacy era-1/2/3 -> canonical tags E0/E1/E2 (see `contract_conformance.cp_07_era_alias`); record values use canonical tags directly, with rule intervals retained in era_history. Names and dates are 09-eras-calendar's: E0 Open Grazing through Bitter Smoke (ER-01..ER-06), E1 Marked Count (ER-07), E2 Two Counts (ER-08), E3 Still Air reserved (ER-09). Note for the integrator: 10-materials.yml works era slots E1-E4, which do not line up with the brief's fixed E0-E3 space; this file carries the brief tags and is not party to that mismatch."
   - "assay choice (felt-days) reconciled with 10-materials.yml, which uses the felt-day unit and the same G1-G3 grade slots (see `design_flags`)."
   - "corpus audit checklist (coupling §9) run at handoff: every row resolves garment <-> material <-> term <-> wearer <-> context <-> era, with explicit unknowns."
 handoff:

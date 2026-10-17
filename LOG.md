@@ -1992,3 +1992,24 @@ absent from the swarm result; disk inventory used as truth. Assembly moved
 to a sol-high subagent after two opencode-go routing failures (lesson).
 Deviations recorded: orchestrator-direct triage (goal clause), sol-high
 assembly (lane outage).
+
+
+## 2026-10-17 — round 4: D2 v1.1 + audits on sol-max (REJECTED as declared)
+
+Dispatch: 32 agents on openai-codex/gpt-6.1-sol; 31 completed, 1 unaccounted
+(disk used as truth). Claims and measurements:
+1. depth — D2 design findings <= 10 after fixes (from 34). Measured: 24
+   (phonology 3 REVIEW honest-remaining, lexicon 0, myth 0 FIXED, costume 0
+   FIXED, naming 18). Two finding classes eliminated; naming residual = 10
+   PHON-INVENTORY (suspect encoding/segment class, undiagnosed) + 6
+   NAME-NEAR + 1 PHON-CODA + 1 CROSS-HOLD (declared gap). Gate integrity
+   verified: 7/7 selftests green, fixture bytes unchanged.
+   VERDICT: improved in fact; claim falsified as declared.
+2. freshness — >=25 gap-entry flags resolved. Measured: 22 (33 -> 11;
+   60-row ledger, retained flags carry bases). VERDICT: improved in fact;
+   claim falsified as declared (by 3).
+3. coverage — africa gap-fill + README regeneration + audit sweep.
+   Measured: corpus 178 -> 179 entries; README revision 1.1 (7 partitions);
+   17 audit reports, defects named per batch. VERDICT: improved, verified.
+Admission: REJECTED (claims 1-2 as declared). No axis harmed. Calibration
+lesson (orchestrator-owned target-setting fallacy): round-4 lesson file.

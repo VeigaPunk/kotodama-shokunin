@@ -1,3 +1,11 @@
+revision: 1.1
+revision_note: |
+  Round-4 FIX: add morphology.derivation_rules with explicit regex/output pairs
+  for the eight constructions used by 05-lexicon and 13-naming, so their spelling
+  operations can be replayed without guessing affixes or deleting segments.
+  Declare the two-base compound input and the remaining naming-input mismatch:
+  the unchanged gate reads formation.stem, which 13 currently supplies as B1 only.
+  Preserve the M-/SYN- records, paradigms, phonology authority and non-canon scope.
 component: 03-morphosyntax
 culture: D2
 canon: not canonized (D2 design drill)
@@ -76,6 +84,113 @@ morphology:
   fusion_index: {value: "0 portmanteau exponents: one function per form across the 26 paradigm forms and the 56 M-/SYN- records of this file", exception: "the accent-shift plural (M-03) is a residual fusion, labelled a fossil (CIT-03)", status: "counted over this file only; not a whole-language index"}
   wheel_position: {label: "early agglutinative; postpositional relators still recognizable as former landscape nouns in the sacred register (M-11 note)", era: "E0 (pre-script) into the E0/E1 seam (script arrives by adaptation from the lowland trade partner); tags fixed by contract, names/dates owned by component 09", follows: [CIT-04]}
   marking_locus: {primary: "dependent (case and relator suffixes on nominals)", secondary: "one topic-person index on the verb (head-marking-lite); no object agreement, no noun-class agreement", note: "locus set with the typology corollary, not left random (CIT-02)"}
+  derivation_contract:
+    source: "05-lexicon.yml constructions and derivation_tests; 13-naming.yml names[].formation; these construction IDs are spelling adapters, not additional M-/SYN- records"
+    input_templates: {unary: "{B1}", binary: "{B1}+{B2}"}
+    serialization: "B1 and B2 are the ordered citation spellings in bases; a unary input is bases[0], a binary input is '+'.join(bases). The plus is analysis only, never part of the derived word. A gate-facing formation.stem must contain that complete serialized input."
+    replay: "Use Python re.fullmatch(rule.pattern, input), reject a non-match, then rule.output.format(**match.groupdict()). Input spellings are NFC lowercase; output preserves the captured letters, including written accent, without deletion, assimilation or a hidden linking segment."
+    domain: "Apply only to bases licensed by 05's noun classes, selection restrictions, productivity and available_from stage; spelling regexes do not replace those checks. 02 retains authority over phonotactics and accent. The current derivation witnesses have no accent-marked bases; combining two contrastive accent peaks is not specified by these adapters."
+    ordering: "A derived noun becomes STEM in M-01 before plural and case. Lexical LOC -ra is homophonous with PL M-02, not a replacement for it; SPIRIT -ir is distinct from the summer locative M-10. Rule IDs, not suffix shape alone, distinguish these functions."
+    excluded_routes: "05's gas > kas and bher > per are loan-layer substitutions, not these derivations; L-32 tolsa is explicitly lexicalized/noncompositional, so no productive -sa is invented."
+    unresolved:
+    - "13 currently supplies only B1 as formation.stem for NM-01..NM-08, although bases contains both inputs. Gate C reads stem only, so the unchanged naming records remain DERIV-REPLAY findings with the binary rule below. In particular, the same stem su cannot yield both sunel and sulas under one deterministic UP-COMPOUND rule; both bases must reach the applier."
+    - "05's AGENT description excludes mass bases, while its held-out pal > palin test admits the salt base. The spelling pair below reproduces the prediction but does not decide that eligibility discrepancy; lexical-owner review remains required."
+  derivation_rules:
+  - id: LOC
+    kind: suffix
+    affix: "-ra"
+    gloss: "place or span of B1"
+    base_classes: [noun]
+    output_class: noun
+    productivity: productive
+    available_from: E0
+    selection: "05 LOC: exclude r-final bases; the regex enforces that boundary exclusion rather than generating rr or deleting a consonant"
+    pattern: "^(?!.*r$)(?P<B1>[a-záéíóú]+)$"
+    output: "{B1}ra"
+    source: "05-lexicon.yml constructions.LOC; L-11 sin > sinra, L-39 gen > genra"
+  - id: AGENT
+    kind: suffix
+    affix: "-in"
+    gloss: "keeper or taker of B1"
+    base_classes: [noun]
+    output_class: noun
+    productivity: restricted
+    available_from: E0
+    selection: "05 AGENT: herd, pasture, land, war-band and lineage bases; ir, su and wal excluded; the pal diagnostic discrepancy is retained in derivation_contract.unresolved"
+    pattern: "^(?P<B1>[a-záéíóú]+)$"
+    output: "{B1}in"
+    source: "05-lexicon.yml constructions.AGENT; L-23 ral > ralin, L-36 las > lasin, L-37 bel > belin, L-40 gen > genin"
+  - id: SPIRIT
+    kind: suffix
+    affix: "-ir"
+    gloss: "breath of B1"
+    base_classes: [noun]
+    output_class: noun
+    productivity: restricted
+    available_from: E0
+    selection: "05 SPIRIT: wind-working terms of the sacred stratum only"
+    pattern: "^(?P<B1>[a-záéíóú]+)$"
+    output: "{B1}ir"
+    source: "05-lexicon.yml constructions.SPIRIT; L-30 bel > belir, L-31 hur > hurir"
+  - id: WIND
+    kind: suffix
+    affix: "-su"
+    gloss: "wind associated with place or slope B1"
+    base_classes: [noun]
+    output_class: noun
+    productivity: productive
+    available_from: E1
+    selection: "05 WIND: place and slope bases, not abstract ir; available only from the E1 standardization"
+    pattern: "^(?P<B1>[a-záéíóú]+)$"
+    output: "{B1}su"
+    source: "05-lexicon.yml constructions.WIND and derivation_tests; L-12 bel > belsu"
+  - id: MATRI-SIDE
+    kind: suffix
+    affix: "-ter"
+    gloss: "opposite-sex sibling of parent B1"
+    base_classes: [noun]
+    output_class: noun
+    productivity: restricted
+    available_from: E0
+    selection: "05 MATRI-SIDE: parent kin bases nen and wen only; both are captured without truncation"
+    pattern: "^(?P<B1>nen|wen)$"
+    output: "{B1}ter"
+    source: "05-lexicon.yml constructions.MATRI-SIDE and derivation_tests; L-07 nen > nenter"
+  - id: UP-COMPOUND
+    kind: compound
+    gloss: "B1 qualifies B2; modifier before head"
+    base_classes: [noun, noun]
+    output_class: noun
+    productivity: productive
+    available_from: E0
+    selection: "05 UP-COMPOUND: two noun bases in their recorded order; no inference of B2 from B1 or from the target name"
+    pattern: "^(?P<B1>[a-záéíóú]+)[+](?P<B2>[a-záéíóú]+)$"
+    output: "{B1}{B2}"
+    source: "05-lexicon.yml constructions.UP-COMPOUND: L-28 pal+kor > palkor, L-33 su+wal > suwal; 13-naming.yml NM-01..NM-08"
+  - id: PROCESS
+    kind: suffix
+    affix: "-ur"
+    gloss: "work B1 into keepable form"
+    base_classes: [noun]
+    output_class: verb
+    productivity: restricted
+    available_from: E0
+    selection: "05 PROCESS: foodstuff and material bases only; kin and abstract bases excluded"
+    pattern: "^(?P<B1>[a-záéíóú]+)$"
+    output: "{B1}ur"
+    source: "05-lexicon.yml constructions.PROCESS and derivation_tests; L-24 tas > tasur"
+  - id: GARMENT
+    kind: suffix
+    affix: "-ken"
+    gloss: "wrap made of material B1"
+    base_classes: [noun]
+    output_class: noun
+    productivity: restricted
+    available_from: E0
+    selection: "05 GARMENT: fiber and hide bases only"
+    pattern: "^(?P<B1>[a-záéíóú]+)$"
+    output: "{B1}ken"
+    source: "05-lexicon.yml constructions.GARMENT; L-35 mir > mirken"
   records:
   - {id: M-01, form: "STEM(-PL)(-CASE)", gloss: "noun chain: stem, then number, then case", function: "the only nominal order; number inside case", stage: "E0", axis: neutral, coupling_note: "chain order is structural machinery; it carries no spine content", evidence: "design-choice", follows: [CIT-02, CIT-03]}
   - {id: M-02, form: "-ra", gloss: "PL (Class A: animals, portable things, all loans)", function: "general plural", stage: "E0", axis: neutral, coupling_note: "number marking is not spine-bearing by design", evidence: "design-choice", follows: [CIT-03]}
