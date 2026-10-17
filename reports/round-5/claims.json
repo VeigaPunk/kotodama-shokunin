@@ -1,0 +1,39 @@
+{
+  "round": 5,
+  "state": "declared-before-dispatch",
+  "date": "2026-10-17",
+  "baseline_revision": "c52f2c07abcfae4d363e6057e3bc7f60b1329efc",
+  "requested_model": "zai-coding-plan/glm-5.3",
+  "requested_provider": "zai-coding-plan",
+  "non_flash_required": true,
+  "workers": 16,
+  "lowest_axis": "freshness (historically lowest; no invented numeric rerating; the uncalibrated numeric rubric remains a named conformance debt)",
+  "claims": [
+    {
+      "id": "F",
+      "axis": "freshness",
+      "before": "Twenty unresolved source rows in thirteen assigned supplemental ledgers; zero round-5 follow-up rows at the pinned baseline.",
+      "after_required": "At least ten distinct original unresolved rows rechecked; at least three newly retrieved directly relevant passages with source locators, short excerpts and explicit inference limits. Parent independently re-fetches at least three passages before admission. Preserve supported/contradicted/unresolved scope; unsuccessful retrieval is not factual confirmation.",
+      "counting_command": "python3 reports/round-5/run-validation.py (parent acceptance runner, to be implemented only after actual dispatch)",
+      "evidence_paths": ["corpus/lessons/round-5-sources/*.json", "reports/round-5/parent-source-spotchecks.json", "reports/round-5/validation.json"],
+      "no_harm": "No old ledger changes, marker-clearing metric, fabricated source or canon decisions; append corpus errata only when source evidence warrants them. Distinguish metadata checks, retrieved passages and unread works."
+    },
+    {
+      "id": "O",
+      "axis": "operability",
+      "before": {
+        "standalone_isolated_battery": "absent: no tools/check-gate-battery.py",
+        "craft_cli_controls": ["missing argument", "missing file", "malformed JSON", "non-UTF-8", "wrong root shape", "missing --report value"],
+        "observed_malformed_exits": [1, 1, 1, 1, 1, 1],
+        "observed_tracebacks": 6,
+        "craft_selftest": "exit 0; SELFTEST OK 10/10 tamper cases detected"
+      },
+      "after_required": "New standalone battery runs all seven original gate selftests in an isolated copied tree and demonstrates stable positive/negative controls with original gate/fixture bytes unchanged. All six named malformed craft CLI/input cases return 2 with stable diagnostics and no traceback. Existing positive craft run, --counts, optional existing-report read and ten mutation detections remain valid. Both historical round-3 replay manifests still reproduce 7/7 and all previous acceptance assertions remain green.",
+      "counting_commands": ["python3 tools/check-gate-battery.py --selftest", "python3 tools/check-gate-battery.py", "python3 tools/check-craft-exercise.py --selftest", "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json --counts", "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv", "python3 tools/replay-frozen.py tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv", "python3 reports/round-5/run-validation.py"],
+      "no_harm": "Do not change tools/gates/*.py, historical frozen bytes, toy sound laws, source semantics or D2 packet contents. A safe wrapper is not a retrospective claim that the five legacy selftests themselves stopped writing fixtures."
+    }
+  ],
+  "source_assignment_rule": "Ten disjoint two-row follow-up ledgers cover the twenty unresolved supplemental IDs; workers own only their new ledger, never the common corpus entries or historical ledgers.",
+  "scope": "Child repo only. Workers never commit, spawn, edit shared bookkeeping, provider configuration, credentials, siblings, fleet state or canon. Parent owns integration, append-only LOG, SCORECARD, SKILL registry, lesson, acceptance, lane report after work commit and own-origin push.",
+  "availability_rule": "Native exact-model dispatch only. If route validation rejects before launch, persist refusal and prepared request; no substitution, custom client, manual execution of worker tasks or claim of completed round. The overall goal's consecutive-turn blocker audit still applies."
+}

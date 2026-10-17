@@ -60,6 +60,20 @@ for the five parent re-fetches recorded in `parent-source-spotchecks.json`.
   `expected.json` baseline layout, and a reproducible numeric axis rubric
   remain conformance debts. Do not claim promotion or fleet closure.
 
+## Round 5 availability attempt — pending, not completed
+
+Baseline: `c52f2c07abcfae4d363e6057e3bc7f60b1329efc`. Two claims are declared
+in `reports/round-5/claims.json`; 16 disjoint assignments are prepared.
+The native batch rejected `zai-coding-plan/glm-5.3` before launch; no source
+or executor work ran. All six axes remain unchanged from the last measured
+wave. Neither a new capability nor completed-round credit is claimed.
+
+Count command: `python3 -c 'import json; d=json.load(open("reports/round-5/availability-attempt-1.json")); print(d["requested_workers"], d["launched_workers"], d["completed_workers"])'`
+reports **16 requested, 0 launched, 0 completed**. The exact refusal and
+prepared-file digests are in that receipt; provider availability/rate limits
+were not observed. Claim F/O after-measurements remain pending. The older
+positive tests still describe the existing baseline, not new round-5 work.
+
 ## Saturation and retired axes
 
 No retirement. Legacy saturation line 8 and stagnation window 3 remain

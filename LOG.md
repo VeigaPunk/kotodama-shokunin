@@ -2204,3 +2204,50 @@ was empty. Its final lane report is
 also passed the entire acceptance runner without ignored source downloads
 or experiment trees. This is supplemental closure, not completion of the
 ten-round training goal or retrospective repair of old dispatch evidence.
+
+## 2026-10-17 — round 5 preparation attempt 1: native alias rejected before launch
+
+Baseline: `c52f2c07abcfae4d363e6057e3bc7f60b1329efc`. Re-read the lane
+SCORECARD/LOG, fleet protocol/appendix/mission/axes/corpus contract and local
+quality bar. Declared two causally separable measurable claims before the
+attempt in `reports/round-5/claims.json`: freshness (historically lowest;
+follow up >=10 unresolved rows with >=3 directly retrieved passages and
+parent re-fetches), and operability (standalone isolated seven-gate battery
+plus six craft-input errors normalized to exit 2). Numeric-rubric debt is
+not replaced by an invented score. The prepared 16 distinct assignments
+are ten disjoint two-row source follow-ups, two executors and four bounded
+planner/connector/review/critic fragments; template and exact assignment
+text are persisted under `reports/round-5/`.
+
+Actual before-probes on tools/check-craft-exercise.py reproduced exit 1
+with a traceback for all six cases: missing argument, missing file,
+malformed JSON, non-UTF-8, list instead of object root and missing --report
+value. The current --selftest still reports exit 0, 10/10 mutations detected.
+No standalone tools/check-gate-battery.py exists. These are baseline defects,
+not changes landed or targets satisfied by this attempt.
+
+ONE native AgentSwarm call requested 16 workers using explicit model
+`zai-coding-plan/glm-5.3` and its matching non-flash profile. It returned
+`Invalid model "zai-coding-plan/glm-5.3"` before launching any worker. The
+available-model list contains only the Flash-low Z.ai alias; the exact
+refusal, timestamp and prepared-file SHA256 values are retained in
+`reports/round-5/availability-attempt-1.json`. This is a host registry
+rejection, not an observed provider 429, upstream failure or proof that
+GLM-5.3 itself does not work. No alternate alias, implicit default, custom
+client, provider/configuration edit or manual executor replacement was used.
+
+Requested -> launched -> completed: **16 -> 0 -> 0**. Reproduce the receipt
+count with `python3 -c 'import json; d=json.load(open("reports/round-5/availability-attempt-1.json")); print(d["requested_workers"],d["launched_workers"],d["completed_workers"])'`.
+No source ledger, corpus erratum, gate, exercise or packet was changed.
+Claims F/O remain pending; no after-verification or admission is claimed.
+All six axis verdicts: depth unchanged; coverage unchanged; operability
+unchanged; freshness unchanged; calibration unchanged; adjacency unchanged.
+This preparation/refusal does NOT count as a dispatched or completed craft
+round, and does not advance the four numbered rounds already recorded.
+
+The lesson is `corpus/lessons/round-5-availability.md`; the child-local
+availability report is filed after this preparation work is committed.
+Round 5 stays pending until the exact native non-flash route is exposed.
+This is the first consecutive post-supplement goal turn encountering this
+registry blocker; the overall goal is not yet marked blocked. The Z.ai,
+DeepSeek and Grok-after-DeepSeek pending sequence remains unchanged.
