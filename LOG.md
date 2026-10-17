@@ -2158,3 +2158,24 @@ the remote append; its placement here reflects merge integration, not a
 new training round. No force-push, rebase or history rewrite was used.
 The acceptance runner will be rerun on the merged deliverable; the
 child-local report will cite its committed work revision and outcome.
+
+## 2026-10-17 — supplement-opencode-1: merged-tree check and registry correction
+
+The merged tree at `f7c0ac6a6fa47aa12decc6b0f4eca596c2fd7724` passed
+`python3 reports/supplement-opencode-1/run-validation.py` before the merge
+commit, including all real domain calls and the isolated test battery.
+Preservation assertions confirmed the prior work LOG is an exact prefix,
+the remote's seven-line append is retained, and README.md is byte-identical
+to `848417c2d366cae2eb07e48fba53f19cafcb6388:README.md`.
+
+Final registry inspection found two documentation omissions: the assembler's
+`--check` mode returns a drift verdict and therefore is a gate, not a probe;
+the bounded craft-example checker also needed a registry row. SKILL.md now
+records both actual interfaces. The craft checker's optional `--report`
+reads an existing report; it does not generate one. Its selftest tests ten
+mutations of the committed example, so the positive CLI run is separately
+required. File/JSON/CLI errors are not yet normalized into a distinct
+could-not-evaluate exit; this remains an explicit interface defect, not
+claimed hardening. These are integration corrections, not a fourth claim
+or another numbered training round. The final report is filed only after
+this correction and its refreshed validation receipt are committed.
