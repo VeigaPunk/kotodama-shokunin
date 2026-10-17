@@ -14,6 +14,8 @@
   - [U] UNESCO (2021), [“Malagasy Kabary, the Malagasy oratorical art,” nomination/inscription no. 01741](https://ich.unesco.org/en/RL/malagasy-kabary-the-malagasy-oratorical-art-01741), Representative List of the Intangible Cultural Heritage of Humanity.
   - [N] Njo, Mose (2021), [“A Journey of Malagasy Script,” Global Literature in Libraries Initiative](https://glli-us.org/2021/12/14/madagascarlitmonth-from-sorabe-script-to-latin-script/). Malagasy writer’s historical commentary; useful for script history, not an unqualified authority on rulers’ character.
 - couples: language → `../linguistics/historical-linguistics.md`, `../linguistics/language-contact.md`, `../linguistics/writing-systems.md`, `../linguistics/sociolinguistics-registers.md`, `../linguistics/naming-systems.md`; myth/symbol → `../myth-symbol/myth-folktale-genres.md`, `../myth-symbol/ritual-liminality.md`, `../myth-symbol/symbolism-synthesis-method.md`; era/costume → `../culture-material/era-periodization-models.md`, `../culture-material/ritual-garments.md`, `../culture-material/textile-technology.md`, `../culture-material/music-instrument-lexicon.md`; sibling → lore-shokunin receives proposals and owns canon.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m03-civ-39-57.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (403/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: Before exact use, verify the specific dictionary date and region, edition, or ritual description; [A], [B], [E], [R] and Richardson's edition have bibliographic verification only, and early migration has no voyage chronicle. (Derived from §11.)
 
 ## 1. Scope and calibration
 

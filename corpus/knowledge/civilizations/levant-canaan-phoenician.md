@@ -19,6 +19,8 @@
   - Josephus, *Against Apion* 1.18 and *Antiquities of the Jews* 8.5.3, quoting Menander of Ephesus’ Tyrian archives, in William Whiston’s translation; [Wikisource text](https://en.wikisource.org/wiki/Against_Apion/Book_I) consulted 2026-10-17 — the translation route, not a collation of the Greek.
   - López-Ruiz, Carolina (2021), *Phoenicians and the Making of the Mediterranean*, Cambridge, MA: Harvard University Press; [publisher sample](https://www.hup.harvard.edu/file/feeds/PDF/9780674988187_sample.pdf) consulted 2026-10-17 for the *phoenix* / *kinahhu* discussion in the Introduction.
 - couples: `linguistics/{historical-linguistics,writing-systems,morphological-typology,language-contact,naming-systems,sociolinguistics-registers,color-terminology}.md`; `myth-symbol/{pantheon-archetypes,myth-ritual-theories,color-symbolism,symbolism-synthesis-method}.md`; `culture-material/{era-periodization-models,dress-through-eras,textile-technology,costume-semiotics,sumptuary-law-rank-display,trade-economy-lexicon,material-culture-inference-method}.md`; lore-shokunin receives sourced design options and open questions, not canon declarations.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m03-civ-39-57.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: Before exact use, verify the specific inscription, object record, or passage; the monographs are reference leads, not full re-collations, and the phoinix/kinahhu derivations remain scholarly hypotheses. (Derived from §10.)
 
 ## 1. Scope and calibration: related traditions are not interchangeable
 

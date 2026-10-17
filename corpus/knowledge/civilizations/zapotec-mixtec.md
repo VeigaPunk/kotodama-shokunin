@@ -2,6 +2,8 @@
 - topic: Oaxaca reference base for coupling language, sacred landscape, genealogy, calendrics, political era, and costume; method and comparative evidence, never fictional canon.
 - sources: Campbell (1997); Flannery and Marcus, eds. (1983); Urcid (2005); Smith (1973); Pohl (1994; online guide n.d.); Terraciano (2001); Monaghan (1995); Jansen and Pérez Jiménez (2011); Nuttall, ed. (1902); Williams (2013); Lillehaugen et al. (2017); Karttunen (1992).
 - couples: language / myth / symbol / era / costume; `linguistics/naming-systems.md`, `linguistics/writing-systems.md`, `myth-symbol/cosmology-cosmography.md`, `myth-symbol/pantheon-archetypes.md`, `culture-material/costume-semiotics.md`, `culture-material/era-periodization-models.md`, `culture-material/material-culture-inference-method.md`; lore-shokunin owns any resulting world-bible canon.
+- verified-at: 2026-10-17; frontmatter/apparatus audit (M05 metadata sweep): schema, source-list presence, and couples-link resolution checked; body evidence boundary unchanged (§“Source key and evidence boundary”: the bibliography is a reading map, not a full re-read).
+- recheck: before using a manuscript-specific reconstruction (for example cihua/coqui titles or ñuhu senses), consult the cited commentary and keep the remaining unresolved markers.
 
 ## Source key and evidence boundary
 - [C97] Lyle Campbell. 1997. *American Indian Languages: The Historical Linguistics of Native America*. Oxford University Press. Classification reference; [Glottolog's Otomanguean record](https://glottolog.org/resource/languoid/id/otom1299) cites it.

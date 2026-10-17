@@ -8,6 +8,8 @@
   - UNESCO, Intergovernmental Committee for the Safeguarding of the Intangible Cultural Heritage (2015), *Ethical Principles for Safeguarding Intangible Cultural Heritage*, Decision 10.COM 15.a, especially principles 4, 5, and 8; [official text](https://ich.unesco.org/en/ethics-and-ich-00866). An ethical safeguarding benchmark, not a legal permission ruling for fiction.
   - Internal method authorities: `SKILL.md` decision table and checklist; the seeded knowledge files routed in §5. Their design constraints and historical assertions require different tests.
 - couples: **language** — historical-linguistics, naming-systems, writing-systems; **myth** — comparative-frameworks and named narrative variants; **symbol** — symbolism-synthesis-method and color-symbolism; **era** — era-periodization-models and language stages; **costume/material** — textile-technology, costume-semiotics, material-culture-inference-method; **siblings** — lore-shokunin receives findings and candidate systems, chousa-shokunin owns general source-research method; no sibling or world-bible writes.
+- verified-at: 2026-10-17 — round-8 metadata pass: header fields and cross-reference resolution checked (couples targets are named at entry level and resolve); 3 linked locators re-checked for resolution (2 reachable, 1 blocked by remote server); argument structures not re-inspected.
+- recheck: when the corpus decision rules it cites are revised, or before a PASS is carried into a handoff as though it were canon.
 
 ## 1. Contract: verify the claim at its actual strength
 

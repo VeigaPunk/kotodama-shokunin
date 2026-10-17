@@ -58,6 +58,20 @@ Calibration (craft policy, declaring what this implementation does)
   with \uXXXX escapes, `#` comments, `|`/`>` blocks. No anchors, tags,
   multi-document streams, or tab indentation; input outside the subset
   exits 2 instead of being guessed.
+- Gate C matching budget: `formation.pattern` is a packet-authored regex, so
+  it is matched under a 0.5 s wall-clock deadline (SIGALRM, POSIX main
+  thread) and the two canonical catastrophic-backtracking shapes (a
+  quantified group whose body carries a quantifier or an alternation) are
+  refused up front; `re.error` alone cannot catch a pattern that compiles
+  and then runs unbounded. A pattern over budget is a DERIV-HOLD, not a
+  crash or a hang. Where signals are unavailable the static screen is the
+  only guard (documented limit).
+- Gate C output template: `formation.output` is packet-authored `str.format`
+  text restricted to plain `{name}` placeholders naming the pattern's named
+  groups. Attribute access, indexing, conversions and format specs leave the
+  subset and are refused as a DERIV-HOLD instead of being rendered, so a
+  template such as `{stem.__class__}` cannot echo interpreter internals into
+  a report (review 26 §3 D9).
 - Gate A indexes entity classes (names, pantheon, symbols, costumes,
   eras). Lexicon terms are tested separately (NAME-LEXEME): an ordinary
   word and a personal name sharing a form is common in real naming
@@ -94,6 +108,8 @@ Calibration (craft policy, declaring what this implementation does)
 """
 
 import re
+import signal
+import string
 import sys
 import unicodedata
 from collections import Counter
@@ -145,11 +161,16 @@ def _strip_comment(line):
 
 def _split_lines(text):
     lines = []
+    marker_seen = False
     for raw in text.splitlines():
         line = _strip_comment(raw).rstrip()
         if not line.strip():
             continue
         if line.strip() in ("---", "..."):
+            if lines or marker_seen:
+                raise YamlError(
+                    "multi-document streams are not supported by this subset")
+            marker_seen = True
             continue
         indent = len(line) - len(line.lstrip(" "))
         rest = line[indent:]
@@ -188,7 +209,23 @@ def _unescape_double(text):
     return "".join(out)
 
 
-def _parse_scalar(text):
+# YAML 1.1 booleans and numbers are typed only for the keys this gate reads as
+# typed values; every other scalar keeps its authored text, so a form-bearing
+# field (`names[].name`, `id`, `formation.stem`, inventory tokens) is never
+# re-rendered as `false`/`true`/`7` — an audit must not silently audit a
+# different form than the packet declares (review 26 §3 D4). A quoted scalar is
+# text in every position, typed keys included.
+_TYPED_KEYS = {
+    "enabled": "bool",
+    "onset_clusters": "bool",
+    "adapted": "bool",
+    "opaque": "bool",
+    "compare_only": "bool",
+    "max_distance": "number",
+}
+
+
+def _parse_scalar(text, typed=None):
     s = text.strip()
     if s == "" or s in ("null", "Null", "NULL", "~"):
         return None
@@ -196,16 +233,23 @@ def _parse_scalar(text):
         return _unescape_double(s[1:-1])
     if len(s) >= 2 and s[0] == "'" and s[-1] == "'":
         return s[1:-1].replace("''", "'")
-    low = s.lower()
-    if low in ("true", "yes"):
-        return True
-    if low in ("false", "no"):
-        return False
-    if re.fullmatch(r"-?\d+", s):
-        return int(s)
-    if re.fullmatch(r"-?\d+\.\d+", s):
-        return float(s)
+    if s[0] in "&*!":
+        raise YamlError(f"anchor/alias/tag syntax is outside the declared subset: {s[:40]!r}")
+    if typed == "bool":
+        low = s.lower()
+        if low in ("true", "yes"):
+            return True
+        if low in ("false", "no"):
+            return False
+    if typed == "number":
+        if re.fullmatch(r"-?\d+", s):
+            return int(s)
+        if re.fullmatch(r"-?\d+\.\d+", s):
+            return float(s)
     return s
+
+
+MAX_FLOW_DEPTH = 64
 
 
 def _split_flow(text):
@@ -216,6 +260,9 @@ def _split_flow(text):
     i = 0
     while i < len(text):
         ch = text[i]
+        if depth > MAX_FLOW_DEPTH:
+            raise YamlError(
+                "flow nesting deeper than the supported %d levels" % MAX_FLOW_DEPTH)
         if quote:
             cur.append(ch)
             if quote == '"' and ch == "\\" and i + 1 < len(text):
@@ -254,6 +301,8 @@ def _key_of(text):
         return _unescape_double(s[1:-1])
     if len(s) >= 2 and s[0] == "'" and s[-1] == "'":
         return s[1:-1].replace("''", "'")
+    if s[:1] in ("&", "*", "!"):
+        raise YamlError(f"anchor/alias/tag syntax is outside the declared subset: {s[:40]!r}")
     return s
 
 
@@ -321,11 +370,11 @@ def _looks_like_key(text):
     return False
 
 
-def _parse_value(text):
+def _parse_value(text, typed=None):
     s = text.strip()
     if s.startswith("[") or s.startswith("{"):
         return _parse_flow(s)
-    return _parse_scalar(s)
+    return _parse_scalar(s, typed)
 
 
 def _parse_flow(text):
@@ -340,7 +389,9 @@ def _parse_flow(text):
         out = {}
         for part in _split_flow(s[1:-1]):
             key, rest = _split_key(part)
-            out[key] = _parse_value(rest)
+            if key in out:
+                raise YamlError(f"duplicate key {key!r}")
+            out[key] = _parse_value(rest, _TYPED_KEYS.get(key))
         return out
     raise YamlError(f"not a flow collection: {s[:40]!r}")
 
@@ -410,6 +461,8 @@ def _parse_map(lines, i, indent):
         if text == "-" or text.startswith("- "):
             raise YamlError(f"sequence item where mapping expected at input line {i + 1}")
         key, rest = _split_key(text)
+        if key in node:
+            raise YamlError(f"duplicate key {key!r}")
         if rest in ("|", "|-", "|+", ">", ">-", ">+"):
             parts = []
             j = i + 1
@@ -427,7 +480,7 @@ def _parse_map(lines, i, indent):
                 node[key] = None
                 i += 1
         else:
-            node[key] = _parse_value(rest)
+            node[key] = _parse_value(rest, _TYPED_KEYS.get(key))
             i += 1
     return node, i
 
@@ -1167,6 +1220,129 @@ def _derivation_rules(packet):
     return table or None
 
 
+MATCH_BUDGET_SECONDS = 0.5
+
+
+class _MatchBudgetExceeded(Exception):
+    """A packet-authored `formation.pattern` exceeded its matching budget."""
+
+
+def _match_with_budget(pattern, subject, budget=MATCH_BUDGET_SECONDS):
+    """`re.fullmatch` under a wall-clock budget.
+
+    `re.error` only covers patterns that do not compile; catastrophic
+    backtracking (`(a+)+` against a long failing subject) compiles and then
+    runs unbounded, so the match itself needs a budget. On POSIX main-thread
+    execution a SIGALRM deadline raises `_MatchBudgetExceeded`. Where signals
+    are unavailable (`signal.signal` refuses outside the main thread, or the
+    platform has no SIGALRM) the match runs unbounded and
+    `_catastrophic_pattern` is the only guard — a documented limit.
+    """
+    def _expired(signum, frame):
+        raise _MatchBudgetExceeded(f"matching budget {budget:g}s exceeded")
+
+    try:
+        previous = signal.signal(signal.SIGALRM, _expired)
+    except (AttributeError, ValueError, OSError):
+        return re.fullmatch(pattern, subject)
+    try:
+        signal.setitimer(signal.ITIMER_REAL, budget)
+        return re.fullmatch(pattern, subject)
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous)
+
+
+_TEMPLATE_FIELD_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+
+
+def _template_problem(template, group_names):
+    """Return a diagnostic if a `formation.output` template leaves the subset.
+
+    The accepted subset is plain `{name}` placeholders naming the pattern's
+    named groups. `str.format` can also resolve attribute access
+    (`{stem.__class__}`), indexing (`{stem[0]}`), conversions (`{stem!r}`) and
+    format specs (`{stem:>8}`, including nested spec fields), which reach
+    interpreter internals or nested lookups and were echoed into findings
+    (review 26 §3 D9); they are refused instead of rendered.
+    """
+    try:
+        parsed = list(string.Formatter().parse(template))
+    except ValueError as exc:
+        return f"template is malformed: {exc}"
+    for _literal, field_name, format_spec, conversion in parsed:
+        if field_name is None:
+            continue
+        if conversion or format_spec:
+            return f"placeholder {{{field_name}}} uses a conversion or format spec"
+        if not _TEMPLATE_FIELD_RE.fullmatch(field_name):
+            return f"placeholder {{{field_name}}} is not a plain named field"
+        if field_name not in group_names:
+            return f"placeholder {{{field_name}}} names no group of the pattern"
+    return None
+
+
+def _quantifier_at(text, i):
+    """(is_open_ended_quantifier, next_index) for the token at `i`.
+
+    `?` and the bounded `{m}`/`{m,n}` forms cannot drive exponential
+    backtracking; `*`, `+` and open-ended `{m,}` can.
+    """
+    if i >= len(text):
+        return False, i
+    if text[i] in "*+":
+        return True, i + 1
+    if text[i] == "{":
+        end = text.find("}", i + 1)
+        if end == -1:
+            return False, i
+        return text[i + 1:end].replace(" ", "").endswith(","), end + 1
+    return False, i
+
+
+def _catastrophic_pattern(pattern):
+    """True for the two canonical catastrophic-backtracking shapes.
+
+    A quantified group whose body carries its own quantifier (`(a+)+`) or an
+    alternation (`(a|aa)+`) backtracks exponentially on a failing subject.
+    The scan is deliberately narrow: it refuses exactly those shapes and
+    leaves every other pattern — including every committed fixture — alone.
+    """
+    stack = []          # [body_has_quantifier, body_has_alternation] per open group
+    escaped = False
+    in_class = False
+    i = 0
+    while i < len(pattern):
+        ch = pattern[i]
+        if escaped:
+            escaped = False
+        elif ch == "\\":
+            escaped = True
+        elif in_class:
+            if ch == "]":
+                in_class = False
+        elif ch == "[":
+            in_class = True
+        elif ch == "(":
+            stack.append([False, False])
+        elif ch == ")" and stack:
+            body = stack.pop()
+            quantified, after = _quantifier_at(pattern, i + 1)
+            if quantified and (body[0] or body[1]):
+                return True
+            if stack:
+                stack[-1][0] = stack[-1][0] or quantified
+                stack[-1][1] = stack[-1][1] or body[1]
+            i = after
+            continue
+        elif ch in "*+{" and stack:
+            stack[-1][0] = True
+        elif ch == "|" and stack:
+            stack[-1][1] = True
+        i += 1
+    return False
+
+
 def _gate_c(records, packet):
     findings = []
     rules = _derivation_rules(packet)
@@ -1277,7 +1453,21 @@ def _gate_c(records, packet):
             )
             continue
         try:
-            match = re.fullmatch(pattern, stem)
+            if _catastrophic_pattern(pattern):
+                raise _MatchBudgetExceeded(
+                    "pattern nests a quantifier or alternation inside a quantified group "
+                    "(catastrophic backtracking shape)"
+                )
+            match = _match_with_budget(pattern, stem)
+        except _MatchBudgetExceeded as exc:
+            findings.append(
+                _finding(
+                    "DERIV-HOLD",
+                    "HOLD",
+                    f"name {record['eid']} {record['form']!r}: rule {rule_name!r} pattern is not usable: {exc}",
+                )
+            )
+            continue
         except re.error as exc:
             findings.append(
                 _finding(
@@ -1294,6 +1484,17 @@ def _gate_c(records, packet):
                     "FAIL",
                     f"name {record['eid']} {record['form']!r}: rule {rule_name!r} does not apply to stem {stem!r}; "
                     "the stated inputs and rules do not yield the candidate",
+                )
+            )
+            continue
+        problem = _template_problem(output, match.groupdict())
+        if problem:
+            findings.append(
+                _finding(
+                    "DERIV-HOLD",
+                    "HOLD",
+                    f"name {record['eid']} {record['form']!r}: rule {rule_name!r} output template is outside "
+                    f"the accepted subset ({problem}); replay is not possible",
                 )
             )
             continue
@@ -1490,6 +1691,11 @@ def evaluate_text(text):
     except YamlError as exc:
         return EXIT_UNEVALUATED, [
             _finding("G-DATA", "HOLD", f"input could not be evaluated: {exc}")
+        ]
+    except RecursionError:
+        return EXIT_UNEVALUATED, [
+            _finding("G-DATA", "HOLD",
+                     "input could not be evaluated: flow nesting exceeds the supported depth")
         ]
     if isinstance(root, dict):
         packets = [root]

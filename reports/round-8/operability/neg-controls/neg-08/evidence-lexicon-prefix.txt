@@ -1,0 +1,18 @@
+NEG-08 gate under test: /var/tmp/tmpjep_es0g/lexicon-coverage-audit.prefix.py
+NEG-08 gate sha256: 63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80
+NEG-08 note: PRE-FIX bytes (review-26 §0 pin / committed cf338a7 bytes); duplicate-key checks below are expected to FAIL.
+NEG-08 json-duplicate-key-rejected          rc=1 FAIL
+NEG-08 block-duplicate-key-rejected         rc=1 FAIL
+NEG-08 flow-duplicate-key-rejected          rc=2 FAIL
+NEG-08 nested-duplicate-key-rejected        rc=1 FAIL
+NEG-08 quoted-plain-key-collision-rejected  rc=1 FAIL
+NEG-08 guard-clean-json-evaluates           rc=1 PASS
+NEG-08 guard-clean-yaml-equals-json         rc=1 PASS
+NEG-08 guard-repeated-keys-across-entries-ok rc=1 PASS
+NEG-08 guard-tab-indentation-still-exit-2   rc=2 PASS
+NEG-08 RESULT: FAIL (5/9 checks)
+NEG-08 FAILURE: json-duplicate-key-rejected: PRE-FIX PATTERN OBSERVED: the duplicate key was not reported (expected exit 2 naming "'lexicon'") — rc=1 output=["FINDING C-required-gap: field 'kinship' has no entries; every needed meaning there is a gap (unevaluated, not N/A)", "FINDING C-required-gap: field 'landscape' has no entries; every needed meaning there is a gap (unevaluated, not N/A)"]
+NEG-08 FAILURE: block-duplicate-key-rejected: PRE-FIX PATTERN OBSERVED: the duplicate key was not reported (expected exit 2 naming "'lexicon'") — rc=1 output=["FINDING C-required-gap: field 'kinship' has no entries; every needed meaning there is a gap (unevaluated, not N/A)", "FINDING C-required-gap: field 'landscape' has no entries; every needed meaning there is a gap (unevaluated, not N/A)"]
+NEG-08 FAILURE: flow-duplicate-key-rejected: PRE-FIX PATTERN OBSERVED: the duplicate key was not reported (expected exit 2 naming "'a'") — rc=2 output=["ERROR: /var/tmp/tmp36uqb261/packet.yml: 'lexicon' must be a list of entries"]
+NEG-08 FAILURE: nested-duplicate-key-rejected: PRE-FIX PATTERN OBSERVED: the duplicate key was not reported (expected exit 2 naming "'gloss'") — rc=1 output=["FINDING C-required-gap: field 'kinship' has no entries; every needed meaning there is a gap (unevaluated, not N/A)", "FINDING C-required-gap: field 'landscape' has no entries; every needed meaning there is a gap (unevaluated, not N/A)"]
+NEG-08 FAILURE: quoted-plain-key-collision-rejected: PRE-FIX PATTERN OBSERVED: the duplicate key was not reported (expected exit 2 naming "'lexicon'") — rc=1 output=["FINDING C-required-gap: field 'kinship' has no entries; every needed meaning there is a gap (unevaluated, not N/A)", "FINDING C-required-gap: field 'landscape' has no entries; every needed meaning there is a gap (unevaluated, not N/A)"]

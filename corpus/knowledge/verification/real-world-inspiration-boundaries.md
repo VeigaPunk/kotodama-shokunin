@@ -2,6 +2,8 @@
 - topic: Screening linguistic-cultural worldbuilding references for extractive copying, restricted or sacred material, misleading authenticity claims, and consultation needs; method and reference knowledge, never permission or canon.
 - sources: Rogers (2006), *From Cultural Exchange to Transculturation*; United Nations General Assembly (2007), *United Nations Declaration on the Rights of Indigenous Peoples*; UNESCO (2015), *Ethical Principles for Safeguarding Intangible Cultural Heritage*; Terri Janke and Company (2019), *Protocols for Using First Nations Cultural and Intellectual Property in the Arts*, third edition; Christen (2012), *Does Information Really Want to Be Free?*; editions, links, and scope limits below.
 - couples: language: `linguistics/{phonetics-phonology,naming-systems,writing-systems,language-contact,linguistic-anthropology}.md`; myth/symbol: `myth-symbol/{comparative-frameworks,ritual-liminality,symbolism-synthesis-method}.md`; era/costume: `culture-material/{era-periodization-models,costume-semiotics,ritual-garments,textile-technology,material-culture-inference-method}.md`; siblings: lore-shokunin owns canon and world-bible acceptance; chousa-shokunin owns general source-research method. Paths are relative to `corpus/knowledge/`.
+- verified-at: 2026-10-17 — round-8 metadata pass: header fields and cross-reference resolution checked; 9 linked locators re-checked for resolution (8 reachable, 1 blocked by remote server); no community consultation was performed for this entry.
+- recheck: local guidance and permissions before delivery, adaptation, marketing changes, or reuse.
 
 ## 1. Scope and calibration
 

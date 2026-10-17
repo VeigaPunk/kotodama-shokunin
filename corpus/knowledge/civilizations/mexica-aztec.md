@@ -16,6 +16,9 @@
   - Barrera Atuesta, Carlos (2022), “El sistema de correlaciones de los calendarios mayas clásico y k’iche’,” *Boletín Americanista* 84: 9–39, [DOI](https://doi.org/10.1344/BA2022.84.1001); current statement of the still-open Mesoamerican–Christian correlation problem, with the Aztec-specific literature (Caso 1939, 1959) in its bibliography.
   - Kellogg, Susan (1986), “Kinship and Social Organization in Early Colonial Tenochtitlan,” in *Supplement to the Handbook of Middle American Indians*, vol. 4: Ethnohistory, ed. Ronald Spores, University of Texas Press, pp. 103–121 (2nd printing 1997); page-level direction given in the dictionary's *calpolli* entry.
 - couples: language — `../linguistics/{sociolinguistics-registers,politeness-taboo-euphemism,morphological-typology,writing-systems,naming-systems}.md`; myth/symbol — `../myth-symbol/{animal-symbolism,cosmology-cosmography,celestial-symbolism-calendars,ritual-liminality}.md`; era/costume — `../culture-material/{era-periodization-models,calendar-festival-systems,costume-semiotics,sumptuary-law-rank-display,warrior-material-culture,textile-technology}.md`; sibling — lore-shokunin receives sourced design options and uncertainty, and alone owns canon.
+- source: the entry's own source apparatus — the `- sources:` field above with its editions, links, and access limits stated in this entry; pointer added in the round-8 metadata conformance pass (receipts: reports/round-8/metadata/m04-civ-58-76.md)
+- verified-at: 2026-10-17; round-8 metadata pass only — entry frontmatter checked and all 12 cited links status-swept on 2026-10-17 (12 live, 0 non-2xx or blocked); no passage, catalogue, or dated-object re-inspection in this pass
+- recheck: phonetic-encoding readings, calpolli terminology by place and date, and New Fire schedule claims against the cited scholarship before reuse.
 
 ## Scope and calibration key
 

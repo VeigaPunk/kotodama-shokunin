@@ -53,18 +53,21 @@ Usage:
   provenance-audit.py <directory> [more directories ...]   # *.md, sorted
   provenance-audit.py --selftest
 
-`--selftest` regenerates tools/gates/fixtures/provenance/ (one clean entry
-plus one entry per planted defect) and the committed expected-ID lists
+`--selftest` verifies tools/gates/fixtures/provenance/ (one clean entry plus
+one entry per planted defect) and the committed expected-ID lists
 tools/gates/fixtures/provenance.expected and
-tools/gates/fixtures/provenance-audit.expected (one ID per line), then
-asserts: exit 1 on the defect tree with exactly the planted IDs, exit 0 with
-no findings on the clean entry, its mark count, and exit 2 on a missing path.
+tools/gates/fixtures/provenance-audit.expected (one ID per line) against this
+file's embedded constants, regenerating a file atomically only when it is
+absent and refusing to overwrite divergent bytes; it then asserts: exit 1 on
+the defect tree with exactly the planted IDs, exit 0 with no findings on the
+clean entry, its mark count, and exit 2 on a missing path.
 
 Spec: corpus/knowledge/verification/provenance-audit-ledger-format.md;
 admission bar: corpus/QUALITY.md. Stdlib only.
 """
 
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -400,18 +403,50 @@ def run_paths(raw_paths):
     return code, outputs
 
 
-def write_fixtures(root):
-    """Regenerate the fixture tree and both committed expected-ID lists."""
+def _pin_fixture(path, body):
+    """Regenerate a committed fixture only when absent; never overwrite.
+
+    The embedded constant is the pin; the committed file is a deterministic
+    artifact of it. A present file is verified byte-for-byte and a divergent
+    file is reported instead of overwritten, so tampering cannot be erased;
+    regeneration writes atomically (temp file + rename).
+    """
+    data = body.encode("utf-8")
+    if os.path.exists(path):
+        with open(path, "rb") as handle:
+            if handle.read() != data:
+                return "divergent"
+        return "verified"
+    tmp = "%s.tmp-%d" % (path, os.getpid())
+    with open(tmp, "wb") as handle:
+        handle.write(data)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+    return "regenerated"
+
+
+def pin_fixtures(root):
+    """Verify the fixture tree against the embedded constants; regenerate absent files.
+
+    The embedded constants are the pin; the committed files are deterministic
+    artifacts of them. A present file is verified byte-for-byte, a divergent
+    file is reported instead of overwritten (tampering cannot be erased), and
+    a missing file is regenerated atomically.
+    """
     fixture_dir = root.joinpath(*FIXTURE_SUBDIR)
     fixture_dir.mkdir(parents=True, exist_ok=True)
+    divergent = []
     for name, body in FIXTURES:
-        (fixture_dir / name).write_text(body, encoding="utf-8")
+        if _pin_fixture(fixture_dir / name, body) == "divergent":
+            divergent.append(str(fixture_dir / name))
     expected_body = "".join(f"{finding_id}\n" for finding_id in EXPECTED_IDS)
     for relative in EXPECTED_PATHS:
         target = root / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(expected_body, encoding="utf-8")
-    return fixture_dir
+        if _pin_fixture(target, expected_body) == "divergent":
+            divergent.append(str(target))
+    return fixture_dir, divergent
 
 
 def split_finding(line):
@@ -421,9 +456,14 @@ def split_finding(line):
 
 
 def selftest(root):
-    """Build the fixtures, run the gate on them, assert the planted outcome."""
+    """Verify the fixtures, run the gate on them, assert the planted outcome."""
     failures = []
-    fixture_dir = write_fixtures(root)
+    fixture_dir, divergent = pin_fixtures(root)
+    if divergent:
+        for path in divergent:
+            print(f"SELFTEST FAIL: {path} diverges from the embedded constant; "
+                  "refusing to overwrite (delete the file to regenerate it)")
+        return 1
     fixture_paths = [str(fixture_dir / name) for name, _ in FIXTURES]
 
     for relative in EXPECTED_PATHS:
@@ -506,7 +546,7 @@ def main(argv=None):
     parser.add_argument(
         "--selftest",
         action="store_true",
-        help="regenerate tools/gates/fixtures/provenance/ and self-check",
+        help="verify the committed fixtures against the embedded constants and self-check",
     )
     args = parser.parse_args(argv)
     root = Path(__file__).resolve().parent

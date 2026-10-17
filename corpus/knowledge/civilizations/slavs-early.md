@@ -2,6 +2,8 @@
 - topic: Early Slavic linguistic-cultural coupling; Proto-Slavic reconstruction, birch-bark literacy, calibrated dvoeverie, Rod/rožanicy and unresolved nožnici ritual-dress claims, Christianization language layers; reference and design method, never fictional canon.
 - sources: Schenker (1995); Derksen (2008); Lunt (2001); Barford (2001); Curta (2001); Franklin (2002); Ivanits (1989); Rock (2007); Procopius, Wars VII.14, trans. Dewing (1924); Primary Chronicle, trans. Cross and Sherbowitz-Wetzor (1953); HSE/Institute of Slavic Studies, Russian Academy of Sciences, online birch-bark corpus (consulted 2026-10-17). Editions and links below.
 - couples: Language—../linguistics/{historical-linguistics,writing-systems,language-contact,sociolinguistics-registers,naming-systems}.md; myth/symbol—../myth-symbol/{pantheon-archetypes,myth-ritual-theories,symbolism-synthesis-method}.md; era/costume—../culture-material/{era-periodization-models,textile-technology,ritual-garments,costume-semiotics,material-culture-inference-method}.md; sibling—lore-shokunin owns world-bible decisions and consistency, not this reference entry.
+- verified-at: 2026-10-17; frontmatter/apparatus audit (M05 metadata sweep): schema, source-list presence, and couples-link resolution checked; body verification routes unchanged (§“Source shelf and verification routes”); not a fresh retrieval of the listed works.
+- recheck: before using a Proto-Slavic reconstruction, a dvoeverie generalization, or the nožnici ritual-dress label, verify the attested name and its witness first.
 
 ## Scope and calibration ledger
 

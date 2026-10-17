@@ -11,6 +11,9 @@
   - Gumperz, John J. (1958), “Dialect Differences and Social Stratification in a North Indian Village,” *American Anthropologist* 60(4): 668–682. [Article DOI](https://doi.org/10.1525/aa.1958.60.4.02a00050). (§13 scope pointer, not a method source.)
   - Dixon, R. M. W. (1972), *The Dyirbal Language of North Queensland*, Cambridge University Press. [Edition record](https://openlibrary.org/books/OL22330735M). (§13 scope pointer for an avoidance register, not a method source.)
 - couples: language — `../linguistics/{sociolinguistics-registers,language-contact,historical-linguistics,phonetics-phonology,naming-systems,writing-systems}.md`; myth/symbol — `../myth-symbol/{ritual-liminality,symbolism-synthesis-method}.md`; era/costume/material — `../culture-material/{era-periodization-models,costume-semiotics,sumptuary-law-rank-display,craft-artisan-lexicon,textile-technology}.md`; sibling — lore-shokunin receives reference-backed options and owns all world-bible/canon decisions.
+- source: the editions and records in the `- sources:` list; the workflow, diagnostics, and mapping fixture are lane-authored craft, not findings attributed to those works.
+- verified-at: 2026-10-17 — metadata pass: header fields, couples-path existence, and source-list form checked; the entry's own record claims DOI/abstract, catalogue, and frontmatter-level checks as listed in §13, not a fresh full-text collation.
+- recheck: before importing a specific caste lect, avoidance register, or historical speech stratification; those need local descriptive scholarship, and associations requiring unsourced detail stay marked for verification.
 
 ## 1. Keep the map layers independent
 

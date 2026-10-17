@@ -18,12 +18,14 @@ Interface
         which stay visible in each finding's message.
     python3 tools/gates/phonology-sanity-gate.py -            # packet on stdin
     python3 tools/gates/phonology-sanity-gate.py --selftest
-        (`--self-test` accepted as an alias.) Writes
-        tools/gates/fixtures/phonology-sanity-gate.yml and .expected, runs the
-        gate on that fixture as a subprocess, asserts exit 1 with every
-        planted finding ID present, then runs the control cases below: a
-        clean packet (exit 0), malformed packets (exit 2), and one case for
-        each check the fixture does not plant.
+        (`--self-test` accepted as an alias.) Verifies the committed fixture
+        pair tools/gates/fixtures/phonology-sanity-gate.yml and .expected
+        against this file's embedded constants, regenerating a file
+        atomically only when it is absent and refusing to overwrite divergent
+        bytes; runs the gate on that fixture as a subprocess, asserts exit 1
+        with every planted finding ID present, then runs the control cases
+        below: a clean packet (exit 0), malformed packets (exit 2), and one
+        case for each check the fixture does not plant.
 
 Finding IDs (family / level / condition)
 ----------------------------------------
@@ -260,6 +262,12 @@ DELETION_TOKENS = {"∅", "⌀", "-", "0", "Ø"}
 
 # --------------------------------------------------------------------------
 # a lenient reader for the shared culture-packet YAML subset
+#
+# The subset is closed: input outside it (tab indentation, anchor/alias/tag
+# syntax, unbalanced flow collections, duplicate mapping keys in block
+# mappings, flow mappings or sequence mapping entries) raises PacketError and
+# exits 2 — a colliding key is a packet the author must fix, never a silent
+# last-wins merge.
 # --------------------------------------------------------------------------
 
 class PacketError(Exception):
@@ -286,6 +294,9 @@ def _strip_comment(line):
 def _preprocess(text):
     lines = []
     for lineno, raw in enumerate(text.splitlines(), 1):
+        if "\t" in raw[: len(raw) - len(raw.lstrip(" \t"))]:
+            raise PacketError("tab indentation is not supported by this subset "
+                              "(line %d)" % lineno)
         line = _strip_comment(raw.replace("\t", "  "))
         if not line.strip():
             continue
@@ -293,9 +304,15 @@ def _preprocess(text):
     return lines
 
 
+MAX_FLOW_DEPTH = 64
+
+
 def _flow_parts(body):
     parts, depth, quote, cur = [], 0, None, ""
     for ch in body:
+        if depth > MAX_FLOW_DEPTH:
+            raise PacketError(
+                "flow nesting deeper than the supported %d levels" % MAX_FLOW_DEPTH)
         if quote is not None:
             cur += ch
             if ch == quote:
@@ -323,19 +340,28 @@ def _flow_parts(body):
 def _parse_scalar(s):
     s = s.strip()
     if s.startswith("["):
-        body = s[1:-1] if s.endswith("]") else s[1:]
+        if not s.endswith("]"):
+            raise PacketError("unterminated flow sequence: %r" % s[:40])
+        body = s[1:-1]
         return [_parse_scalar(p) for p in _flow_parts(body)]
     if s.startswith("{"):
-        body = s[1:-1] if s.endswith("}") else s[1:]
+        if not s.endswith("}"):
+            raise PacketError("unterminated flow mapping: %r" % s[:40])
+        body = s[1:-1]
         result = {}
         for part in _flow_parts(body):
             key, sep, val = part.partition(":")
             if not sep:
                 raise PacketError("flow mapping entry without ':'")
-            result[str(_parse_scalar(key))] = _parse_scalar(val)
+            key = str(_parse_scalar(key))
+            if key in result:
+                raise PacketError("duplicate key %r in flow mapping" % key)
+            result[key] = _parse_scalar(val)
         return result
     if len(s) >= 2 and s[0] == s[-1] and s[0] in "\"'":
         return s[1:-1]
+    if s[:1] in ("&", "*", "!"):
+        raise PacketError("anchor/alias/tag syntax is outside the declared subset: %r" % s[:40])
     if s in ("null", "~", "None"):
         return None
     if re.fullmatch(r"-?\d+", s):
@@ -387,6 +413,10 @@ def _parse_sequence(lines, i, indent):
             while i < len(lines) and lines[i][0] > indent and not _is_seq_item(lines[i][1]):
                 sub, i = _parse_block(lines, i, lines[i][0])
                 if isinstance(sub, dict):
+                    clash = sorted(set(sub) & set(entry))
+                    if clash:
+                        raise PacketError("duplicate key %r in mapping entry"
+                                          % clash[0])
                     entry.update(sub)
                 else:
                     break
@@ -411,6 +441,8 @@ def _parse_mapping(lines, i, indent):
         if not sep:
             raise PacketError("missing ':' at line %d" % lineno)
         key = str(_parse_scalar(key.strip()))
+        if key in result:
+            raise PacketError("duplicate key %r at line %d" % (key, lineno))
         val = val.strip()
         if val:
             result[key] = _parse_scalar(val)
@@ -1085,6 +1117,9 @@ def run_text(text):
     except PacketError as error:
         return 2, [("UNEVALUABLE", "G-DATA",
                     "packet could not be parsed: %s" % error)]
+    except RecursionError:
+        return 2, [("UNEVALUABLE", "G-DATA",
+                    "packet could not be evaluated: flow nesting exceeds the supported depth")]
     return evaluate(packet)
 
 
@@ -1214,15 +1249,58 @@ CONTROL_CASES = [
      _packet(phonology={"vowels": ["a", "i", "ü", "o", "u"]}), 1, ["I-SYM"]),
     ("boolean tone count",
      _packet(phonology={"tones": True}), 1, ["G-DATA"]),
+    ("duplicate block mapping key",
+     "name: t\nphonology:\n  consonants: [p, t, k, m, n, s, l]\n"
+     "  vowels: [a, e, i, o, u]\n  phonotactics: (C)V(C)\n  tones: 0\n"
+     "phonology:\n  consonants: [p, t, k, m, n, s, l, qʼ]\n"
+     "  vowels: [a, e, i, o, u]\n  phonotactics: (C)V(C)\n  tones: 0\n",
+     2, ["G-DATA"]),
+    ("duplicate flow mapping key",
+     "name: t\nphonology: {consonants: [p], consonants: [k]}\n", 2, ["G-DATA"]),
+    ("duplicate key in a sequence mapping entry",
+     "name: t\nphonology:\n  consonants: [p, t, k, m, n, s, l]\n"
+     "  vowels: [a, e, i, o, u]\n  phonotactics: (C)V(C)\n  tones: 0\n"
+     "names:\n  - name: A\n    name: B\n", 2, ["G-DATA"]),
 ]
+
+
+def _pin_fixture(path, body):
+    """Regenerate a committed fixture only when absent; never overwrite.
+
+    The embedded constant is the pin; the committed file is a deterministic
+    artifact of it. A present file is verified byte-for-byte and a divergent
+    file is reported instead of overwritten, so tampering cannot be erased;
+    regeneration writes atomically (temp file + rename).
+    """
+    data = body.encode("utf-8")
+    if os.path.exists(path):
+        with open(path, "rb") as handle:
+            if handle.read() != data:
+                return "divergent"
+        return "verified"
+    tmp = "%s.tmp-%d" % (path, os.getpid())
+    with open(tmp, "wb") as handle:
+        handle.write(data)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+    return "regenerated"
+
+
+def _pin_fixture_or_fail(path, body):
+    if _pin_fixture(path, body) == "divergent":
+        print("SELFTEST FAIL: %s diverges from the embedded constant; "
+              "refusing to overwrite (delete the file to regenerate it)" % path)
+        return False
+    return True
 
 
 def selftest():
     os.makedirs(os.path.dirname(FIXTURE_PATH), exist_ok=True)
-    with open(FIXTURE_PATH, "w", encoding="utf-8") as handle:
-        handle.write(FIXTURE_TEXT)
-    with open(EXPECTED_PATH, "w", encoding="utf-8") as handle:
-        handle.write("\n".join(sorted(PLANTED)) + "\n")
+    if not _pin_fixture_or_fail(FIXTURE_PATH, FIXTURE_TEXT):
+        return 1
+    if not _pin_fixture_or_fail(EXPECTED_PATH, "\n".join(sorted(PLANTED)) + "\n"):
+        return 1
 
     import subprocess
     proc = subprocess.run(
@@ -1273,16 +1351,20 @@ def main(argv):
             "       phonology-sanity-gate.py --selftest\n")
         return 2
     path = args[0]
-    if path == "-":
-        text = sys.stdin.read()
-    else:
-        try:
+    try:
+        if path == "-":
+            text = sys.stdin.read()
+        else:
             with open(path, encoding="utf-8") as handle:
                 text = handle.read()
-        except OSError as error:
-            print("FINDING G-DATA: UNEVALUABLE — packet could not be read: %s"
-                  % error)
-            return 2
+    except UnicodeDecodeError as error:
+        print("FINDING G-DATA: UNEVALUABLE — packet is not UTF-8 text: %s"
+              % error)
+        return 2
+    except OSError as error:
+        print("FINDING G-DATA: UNEVALUABLE — packet could not be read: %s"
+              % error)
+        return 2
     code, findings = run_text(text)
     for level, fid, msg in emit(findings):
         print("FINDING %s: %s — %s" % (fid, level, msg))

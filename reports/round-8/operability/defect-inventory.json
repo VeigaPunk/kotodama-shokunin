@@ -1,0 +1,391 @@
+[
+ {
+  "idx": 1,
+  "defect_id": "R26-D1",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D1",
+  "severity": "medium",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "defect": "D1: unterminated flow sequence silently closed — _parse_scalar built ['p','t','k'] from '[p, t, k' and the gate audited a document that is not valid YAML (review §3 D1, cited lines 323-330).",
+  "evidence_pointer": "review §3 D1. Committed baseline (HEAD cf338a7 bytes, extracted with 'git show HEAD:tools/gates/phonology-sanity-gate.py'): no 'unterminated flow' guard (grep -c = 0) and the truncated packet is evaluated: rc=1 'FINDING G-DATA: REVIEW — phonology.notable_rules is missing'. Working tree 2026-10-17 (contains uncommitted sibling edits): :326-327/:331-332 raise PacketError, rc=2 'unterminated flow sequence'.",
+  "suggested_control": "Isolated control: feed the truncated packet (consonants: [p, t, k, no closing bracket) and assert exit 2 + G-DATA. Fail-before = HEAD bytes (rc=1 evaluated); the working tree already passes, so run the control against 'git show HEAD' bytes to reproduce the failure.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "repaired_in_working_tree_uncommitted",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py (HEAD-byte copies in /tmp/r8o03-head); python3 /tmp/r8o03_repro.py (working tree)",
+   "result": "HEAD bytes: rc=1 evaluated (defect present). Working tree: rc=2 G-DATA unterminated flow sequence."
+  }
+ },
+ {
+  "idx": 2,
+  "defect_id": "R26-D2-phonology",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D2",
+  "severity": "high",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "defect": "D2: duplicate mapping keys silently last-win with no diagnostic — block mapping overwrite (baseline :416), flow-mapping overwrite (baseline :382); no duplicate-key check exists anywhere in this loader.",
+  "evidence_pointer": "review §3 D2 (cited overwrite site :416). HEAD-byte repro: parse_packet on two 'phonology:' blocks -> consonants ['p','q'] from the second block, no error.",
+  "suggested_control": "Isolated control: call parse_packet (importlib, in-memory, HEAD bytes) on the two-block payload and assert a duplicate-key failure (exit 2 / PacketError naming 'phonology'); fail-before = silent last-win ['p','q'].",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_probe3.py",
+   "result": "HEAD bytes: D2-phonology-dup = ['p','q'] (last wins). Working tree: consonants include 'q', no error."
+  }
+ },
+ {
+  "idx": 3,
+  "defect_id": "R26-D2-naming",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D2",
+  "severity": "high",
+  "file": "tools/gates/naming-collision-gate.py",
+  "defect": "D2: duplicate keys silently last-win in flow mappings and block mappings; the loader has no duplicate-key diagnostic at all. The review's verdict-flip counterexample reproduces at the committed baseline.",
+  "evidence_pointer": "review §3 D2 (cited overwrite site :430). HEAD-byte repro: 'orthography: {case: contrastive}' -> NAME-CASE; adding a second 'orthography: {case: display-only}' -> NAME-REUSE — a stale key silently flips the verdict with no duplicate-key finding.",
+  "suggested_control": "Isolated control: evaluate_text on the dup-orthography packet; assert exit 2 + a duplicate-key finding naming 'orthography'; fail-before = the NAME-REUSE verdict on HEAD bytes.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; inline working-tree CLI probe",
+   "result": "HEAD bytes: single [NAME-CASE], dup [NAME-REUSE]. Working tree: identical flip (dup last=display-only -> NAME-REUSE)."
+  }
+ },
+ {
+  "idx": 4,
+  "defect_id": "R26-D2-costume",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D2",
+  "severity": "high",
+  "file": "tools/gates/costume-era-consistency-gate.py",
+  "defect": "D2: duplicate keys silently last-win in block mappings (out[key] assignments, no duplicate check) and on the JSON path (json.loads without object_pairs_hook).",
+  "evidence_pointer": "review §3 D2 (cited :274; JSON :325-332). HEAD-byte repro: parse_packet('{\"costumes\":[C1],\"costumes\":[C2]}') -> [{'id': 'C2'}], no error.",
+  "suggested_control": "Isolated control: assert exit 2 / duplicate-key error for the JSON dup payload and the YAML block dup; fail-before = silent last-win [{'id':'C2'}].",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; inline working-tree YAML dup probe",
+   "result": "HEAD bytes: costume-json-dup = [{'id':'C2'}]. Working tree: same; YAML dup = [{'id':'C2'}]."
+  }
+ },
+ {
+  "idx": 5,
+  "defect_id": "R26-D2-lexicon",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D2",
+  "severity": "high",
+  "file": "tools/gates/lexicon-coverage-audit.py",
+  "defect": "D2: duplicate keys silently last-win in block mappings and on the JSON path (json.loads without object_pairs_hook).",
+  "evidence_pointer": "review §3 D2 (cited :465; JSON :498-503). HEAD-byte repro: load_packet('{\"lexicon\":[a],\"lexicon\":[b]}') -> [{'term':'b'}], no error.",
+  "suggested_control": "Isolated control: assert exit 2 / duplicate-key error for the JSON dup and YAML block dup; fail-before = silent [{'term':'b'}].",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_probe3.py",
+   "result": "HEAD bytes: [{'term':'b'}]; working tree: [{'term':'b'}]."
+  }
+ },
+ {
+  "idx": 6,
+  "defect_id": "R26-D2-myth",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D2",
+  "severity": "medium",
+  "file": "tools/gates/myth-consistency-gate.py",
+  "defect": "D2: block mappings reject duplicates ('duplicate key' GateParseError) but flow mappings do not — the flow path overwrites silently.",
+  "evidence_pointer": "review §3 D2 (cited flow :249 / block :267). HEAD-byte repro: parse_packet('phonology: {consonants: [p], consonants: [k]}') -> {'consonants': ['k']}, no error; the block form raises GateParseError(\"duplicate key 'phonology'\").",
+  "suggested_control": "Isolated control: assert the flow-form dup raises the same GateParseError as the block form; fail-before = silent {'consonants': ['k']}.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_probe3.py",
+   "result": "HEAD bytes: D2-myth-flow = {'consonants': ['k']}; block form errors. Working tree: same."
+  }
+ },
+ {
+  "idx": 7,
+  "defect_id": "R26-D3",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D3",
+  "severity": "medium",
+  "file": "tools/gates/naming-collision-gate.py",
+  "also_in": ["tools/gates/phonology-sanity-gate.py", "tools/gates/myth-consistency-gate.py", "tools/gates/lexicon-coverage-audit.py", "tools/gates/costume-era-consistency-gate.py"],
+  "defect": "D3: anchors and tags are guessed, not rejected, contradicting the naming gate's declared subset policy (docstring: 'No anchors, tags, multi-document streams, or tab indentation; input outside the subset exits 2 instead of being guessed'). At the committed baseline all five gates guess: naming audits '&tag anchor-probe' and '*tag' as forms and invents PHON-INVENTORY FAILs on '&' and '*'; phonology parsed '&x p' as a literal consonant. In the working tree the four siblings now reject &/*/! ('anchor/alias/tag syntax is outside the declared subset'), but naming still guesses — scope the remaining repair to naming plus one cross-gate conformance fixture.",
+  "evidence_pointer": "review §3 D3; naming docstring lines 57-60. HEAD-byte repro: naming '&tag anchor-probe' -> 'FINDING PHON-INVENTORY: FAIL — name N1 '&tag anchor-probe': symbol /&/ at position 1 …'; phonology consonants parsed as ['&x p','t']. Working tree: phonology/myth/lexicon/costume raise subset-rejection errors; naming unchanged.",
+  "suggested_control": "Isolated control: packet with 'name: &tag x' and 'name: *tag' must exit 2 with a subset-rejection message; fail-before (HEAD bytes) = invented PHON-INVENTORY FAIL. Add the same control to all five gates so the subset policy is conformance-tested once.",
+  "status_baseline": "present_in_committed_baseline_all_five",
+  "status_working_tree": "repaired_uncommitted_in_four_gates_naming_still_present",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py (HEAD bytes); python3 /tmp/r8o03_probe2.py + inline in-memory probes (working tree)",
+   "result": "HEAD bytes: naming PHON-INVENTORY FAIL on '&'; phonology keeps '&x p' literal. Working tree: naming rc=1 same FAIL; phonology/myth/lexicon/costume all raise 'anchor/alias/tag syntax is outside the declared subset'."
+  }
+ },
+ {
+  "idx": 8,
+  "defect_id": "R26-D4",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D4",
+  "severity": "medium",
+  "file": "tools/gates/naming-collision-gate.py",
+  "also_in": ["tools/gates/myth-consistency-gate.py", "tools/gates/phonology-sanity-gate.py"],
+  "defect": "D4: YAML 1.1 boolean coercion re-renders authored forms — the scalar parser maps true/yes/false/no (any case) to bool and the form renderer prints booleans back as 'true'/'false'. A packet whose name is 'no' is audited as the name 'false', producing a FAIL about a name that appears nowhere in the packet. Per-gate divergence: myth also coerces on/off; phonology coerces only true/false.",
+  "evidence_pointer": "review §3 D4 (cited naming :199-203, :450-457; myth :219-225; phonology :343-344). HEAD-byte repro: name 'no' with consonants [p,t,n], vowels [a,o] -> 'FINDING PHON-INVENTORY: FAIL — name N1 'false': symbol /f/ at position 1 …'.",
+  "suggested_control": "Isolated control: packet with name 'no' -> assert the finding (if any) names 'no', or exit 2; fail-before = the 'false' FAIL. A second control pins yes/no/on/off typing to one shared table across the five gates.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_probe2.py",
+   "result": "HEAD bytes and working tree both: PHON-INVENTORY FAIL on name 'false' for authored 'no'."
+  }
+ },
+ {
+  "idx": 9,
+  "defect_id": "R26-D5",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D5",
+  "severity": "medium",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "also_in": ["tools/gates/costume-era-consistency-gate.py", "tools/gates/myth-consistency-gate.py", "tools/gates/naming-collision-gate.py", "tools/gates/lexicon-coverage-audit.py"],
+  "defect": "D5: tab indentation has four different outcomes for the same input — phonology replaces tabs with 2 spaces and evaluates a tab-indented packet instead of rejecting it (working tree: rc=0, no output on the review's complete packet; HEAD bytes: rc=1 evaluated); costume replaces with 4 spaces and silently accepted (same finding as its space-indented twin); naming and lexicon exit 2 explicitly; myth's guard tests only the space prefix so a leading tab is collapsed and dies with the misleading 'unparsed YAML content at token 7'. Same class: naming merges '---' multi-document input instead of rejecting it.",
+  "evidence_pointer": "review §3 D5 (cited phonology :289, costume :334, naming :154-157, lexicon :399-400, myth :321-325). Repro: tab-indented packet -> phonology evaluated (HEAD rc=1 / working tree rc=0 silent); costume tab twin identical to space twin (G-ERA hold on C1); myth rc=2 'unparsed YAML content at token 7'; naming/lexicon rc=2 explicit. Multi-doc: doc1 phonology + doc2 names evaluates the union (only CROSS-HOLD; a dropped doc2 would have raised NAME-INVENTORY HOLD).",
+  "suggested_control": "Isolated control: the same tab-indented valid packet against all five gates must yield one declared outcome (exit 2 'tabs'); the '---' packet must exit 2; fail-before = evaluated/silent-accept/misleading message/merged union.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_repro.py; python3 /tmp/r8o03_probe2.py",
+   "result": "HEAD bytes: phonology rc=1 evaluated (not exit 2). Working tree: phonology rc=0 silent; costume tab == space finding; myth rc=2 misleading; naming/lexicon rc=2 explicit; naming multi-doc merged."
+  }
+ },
+ {
+  "idx": 10,
+  "defect_id": "R26-D6",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D6",
+  "severity": "medium",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "also_in": ["tools/gates/naming-collision-gate.py"],
+  "defect": "D6: uncaught RecursionError on deep flow nesting prints a Python traceback and exits 1 — indistinguishable from a findings verdict, violating the documented '2 = could-not-evaluate' contract. Recursive sites: phonology _parse_scalar; naming _parse_flow/_parse_value; main catches only OSError in phonology and myth.",
+  "evidence_pointer": "review §3 D6 (cited phonology :327, naming :324-345; catches :1279-1284 / :833-837). Repro: 3000 nested '[' inside phonology.consonants -> 'Traceback (most recent call last):' rc=1.",
+  "suggested_control": "Isolated control: deep-nesting payload -> assert exit 2 + G-DATA (or a declared depth cap), never a traceback; fail-before = traceback rc=1 in both gates.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_repro.py",
+   "result": "HEAD bytes: phonology rc=1 traceback. Working tree: phonology and naming both rc=1 traceback."
+  }
+ },
+ {
+  "idx": 11,
+  "defect_id": "R26-D7",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D7",
+  "severity": "medium",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "also_in": ["tools/gates/myth-consistency-gate.py"],
+  "defect": "D7: a non-UTF-8 packet file raises uncaught UnicodeDecodeError (traceback, rc=1) because main catches only OSError in phonology and myth. naming, costume and lexicon already return exit 2 with a message.",
+  "evidence_pointer": "review §3 D7 (cited phonology :1279-1284, myth :833-837; correct siblings naming :1710-1712, costume :1150-1151, lexicon :978-980). Repro: Latin-1-encoded packet -> phonology traceback rc=1 (HEAD bytes and working tree).",
+  "suggested_control": "Isolated control: Latin-1 packet file -> assert exit 2 + G-DATA message; fail-before = traceback rc=1.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_probe2.py",
+   "result": "HEAD bytes: phonology rc=1 traceback. Working tree: phonology and myth both rc=1 traceback."
+  }
+ },
+ {
+  "idx": 12,
+  "defect_id": "R26-D8",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D8",
+  "severity": "medium",
+  "file": "tools/gates/naming-collision-gate.py",
+  "defect": "D8: packet-controlled regex can hang the gate — formation.pattern is compiled with re.fullmatch and only re.error is caught; no timeout or complexity screen exists. Unbounded CPU from a packet another lane can author.",
+  "evidence_pointer": "review §3 D8 (cited :1279-1288). Repro: rule pattern '^(?P<stem>(a+)+)$' with stem 40*'a'+'b' -> subprocess killed at a 6-8 s wall bound (rc=TIMEOUT).",
+  "suggested_control": "Isolated control: run the ReDoS payload with a wall bound and assert the gate terminates (exit 2 HOLD or 1) within it; fail-before = TIMEOUT.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py (6 s bound); python3 /tmp/r8o03_repro.py (8 s bound)",
+   "result": "HEAD bytes: TIMEOUT. Working tree: TIMEOUT."
+  }
+ },
+ {
+  "idx": 13,
+  "defect_id": "R26-D9",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D9",
+  "severity": "low",
+  "file": "tools/gates/naming-collision-gate.py",
+  "defect": "D9 (hardening): formation.output is a packet-controlled str.format template that reaches into objects — output '{stem.__class__}' is rendered into the finding text. No code execution is possible, but interpreter internals from packet text are echoed into the report.",
+  "evidence_pointer": "review §3 D9 (cited :1300-1324). Repro: output '{stem.__class__}' -> finding text 'declared chain 'R1' applied to 'aaa' yields \"<class 'str'>\"' (HEAD bytes and working tree).",
+  "suggested_control": "Isolated control: packet with output '{stem.__class__}' -> assert no interpreter-internal rendering (reject the template or escape braces); fail-before = \"<class 'str'>\" echoed.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 /tmp/r8o03_headprobe.py; python3 /tmp/r8o03_probe2.py",
+   "result": "Both: DERIV-REPLAY finding contains \"<class 'str'>\"."
+  }
+ },
+ {
+  "idx": 14,
+  "defect_id": "R26-D10",
+  "source_review": "reports/supplement-opencode-1/26-parser-controls.md",
+  "source_section": "§3 D10",
+  "severity": "note",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "also_in": ["tools/gates/naming-collision-gate.py", "tools/gates/myth-consistency-gate.py", "tools/check-gate-battery.py"],
+  "defect": "D10 (coverage gap): the registered selftest battery cannot see the divergences above — phonology CONTROL_CASES (26 cases) has no unterminated-flow, duplicate-key, anchor/tag or token-level boolean case (the 'boolean tone count' case feeds a Python bool, not a YAML token); naming's selftest covers malformed input for itself only; myth has no duplicate-key selftest case; no cross-gate conformance fixture exists (grep unterminated|duplicate|anchor|conformance over tools/check-gate-battery.py -> no hits).",
+  "evidence_pointer": "review §3 D10 (cited phonology :1161-1217, naming :1610-1615). HEAD-byte grep: CONTROL_CASES block contains only 'boolean tone count' among the missing classes; naming :1612 covers 'names: [' for itself; myth 'duplicate' grep = 1 hit (the parser check only).",
+  "suggested_control": "One shared conformance fixture (the review §4 payloads) executed against all five gates, so a green battery implies a cross-gate input contract; fail-before = per-gate selftests green while the divergences persist.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "Grep over HEAD-byte copies (/tmp/r8o03-head) and working-tree tools/",
+   "result": "No cross-gate conformance payload in either; phonology/myth selftest coverage unchanged."
+  }
+ },
+ {
+  "idx": 15,
+  "defect_id": "R29-F1a",
+  "source_review": "reports/supplement-opencode-1/29-local-boundaries.md",
+  "source_section": "§F1",
+  "severity": "concrete",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "also_in": ["tools/gates/myth-consistency-gate.py", "tools/gates/lexicon-coverage-audit.py", "tools/gates/costume-era-consistency-gate.py", "tools/gates/provenance-audit.py"],
+  "defect": "F1: five of seven gate selftests overwrite their committed fixtures before running, so tampering those files is silently erased and they cannot fail a conformance run — writer sites (HEAD bytes): phonology :1222/:1224 open(...,'w'), myth :1040-1041 write_text, lexicon :1402-1403, costume :1454/:1456, provenance :408/:413. The read-backs are tautologies: lexicon re-reads its own write against the same EXPECTED_IDS constant; costume reads back its own write; provenance rewrites the expected file then compares it to the same embedded constants.",
+  "evidence_pointer": "review §F1 (writer-gate list + tamper experiment + positive control on naming/handoff). Repro (working tree, scratch copy /tmp/r8o03-tree): tamper the phonology fixture -> --selftest exit 0, bytes restored; pre-tamper sha256 da629880…, post-run 96dfa97e… equal to the committed bytes. Reader gates naming/handoff fail loudly on the same tamper (AssertionError).",
+  "suggested_control": "Isolated control: in a scratch copy, append '# TAMPER' to a writer gate's committed .expected -> assert --selftest FAILS with a tamper-naming message; fail-before = exit 0 + silent restore. Use naming :1594-1601 / handoff :695-701 (reader pattern) as the positive-control reference.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "Grep over HEAD-byte copies for writer sites; cp -r tools /tmp/r8o03-tree && tamper && python3 tools/gates/phonology-sanity-gate.py --selftest",
+   "result": "HEAD bytes contain all five writer sites; tamper run: exit 0, '15/15 planted finding IDs present', fixture restored to the committed digest."
+  }
+ },
+ {
+  "idx": 16,
+  "defect_id": "R29-F1b",
+  "source_review": "reports/supplement-opencode-1/29-local-boundaries.md",
+  "source_section": "§F1 (consequence 2)",
+  "severity": "concrete",
+  "file": "tools/gates/phonology-sanity-gate.py",
+  "also_in": ["tools/gates/myth-consistency-gate.py", "tools/gates/lexicon-coverage-audit.py", "tools/gates/costume-era-consistency-gate.py", "tools/gates/provenance-audit.py"],
+  "defect": "F1 consequence 2: the fixture write is a direct truncating open(...,'w')/write_text with no temp-file + rename. An interrupted run, or two concurrent selftest batteries (plausible in this swarm), can leave or read a truncated fixture. The review recorded the torn read as an untested race; the non-atomic write itself is line-cited.",
+  "evidence_pointer": "review §F1 consequence 2; HEAD-byte writer sites as in row 15. No torn read was forced here either — this row is a code-path control, not a reproduced failure.",
+  "suggested_control": "Static + dynamic control: (a) assert the write path goes through a temp file + os.replace; (b) run two concurrent selftests of the same gate on a scratch copy and assert both exit 0 and the fixture digest is stable; fail-before = truncating in-place writes.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "Grep open(...,'w') / write_text over HEAD-byte copies",
+   "result": "All five writer sites are direct truncating writes; no temp+rename in either baseline or working tree."
+  }
+ },
+ {
+  "idx": 17,
+  "defect_id": "R29-F1c-assert",
+  "source_review": "reports/supplement-opencode-1/29-local-boundaries.md",
+  "source_section": "§F1 (reader gates) + lane records LOG.md:2404, reports/round-5/kotodama.md:147-150",
+  "severity": "concrete",
+  "file": "tools/gates/naming-collision-gate.py",
+  "also_in": ["tools/gates/handoff-packet-check.py", "tools/gates/phonology-sanity-gate.py", "tools/gates/myth-consistency-gate.py", "tools/gates/costume-era-consistency-gate.py"],
+  "defect": "Assert-based selftests: the tamper-detecting reader gates (naming, handoff) and the assert-based selftests of phonology/myth/costume rely on bare assert statements. Under 'python3 -O' the checks are stripped and the selftest passes silently; a genuine failure otherwise surfaces as an AssertionError traceback (exit 1), which the battery maps conservatively to could-not-evaluate/2 — lane record LOG.md:2404: 'Five old assert-based selftests can report genuine failures as could-not-evaluate/2, conservatively non-green.' HEAD-byte assert counts: naming 17, costume 16, phonology 6, myth 5, handoff 41.",
+  "evidence_pointer": "review §F1 positive control (naming/handoff AssertionError on tamper). Repro (scratch copy): tampered naming .expected -> plain --selftest exit 1 AssertionError naming the tamper text; 'python3 -O --selftest' exit 0 printing 'selftest: OK — fixture findings 12 across 11 ids …'. Standalone: 'python3 -O -c \"assert False; print('stripped')\"' prints 'stripped', exit 0.",
+  "suggested_control": "Isolated control: tamper the fixture in a scratch copy and run the selftest under 'python3 -O'; assert non-zero exit; fail-before = exit 0 'selftest: OK'. Repair option: replace asserts with explicit checks returning a distinct non-zero code and a stable diagnostic, independent of -O.",
+  "status_baseline": "present_in_committed_baseline",
+  "status_working_tree": "present_in_working_tree",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "cd /tmp/r8o03-tree && append '# TAMPER-R8O03' to fixtures/naming-collision-gate.expected && python3 tools/gates/naming-collision-gate.py --selftest ; python3 -O tools/gates/naming-collision-gate.py --selftest",
+   "result": "plain exit=1 AssertionError listing the tamper id; -O exit=0 'selftest: OK — fixture findings 12 across 11 ids …'."
+  }
+ },
+ {
+  "idx": 18,
+  "defect_id": "R29-F5-scalar",
+  "source_review": "reports/supplement-opencode-1/29-local-boundaries.md",
+  "source_section": "§F5",
+  "severity": "limit",
+  "file": "tools/gates/costume-era-consistency-gate.py",
+  "defect": "F5 (documented fidelity limit, not a boundary escape): _scalar handles quoting naively — no YAML '' de-doubling. The review found no silent mis-slice in the assembler extraction-regex class and no adversarial regex in the static catalog.",
+  "evidence_pointer": "review §F5 ('a fidelity limit, not a boundary escape'); costume _scalar (HEAD bytes ~:191-212).",
+  "suggested_control": "Parser unit probe with a ''-doubled quoted scalar in a costume packet; if not repaired, quarantine with the review's reason (fidelity limit, no boundary escape) recorded in the round-8 record.",
+  "status_baseline": "limit_not_defect",
+  "status_working_tree": "limit_not_defect",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "Read tools/gates/costume-era-consistency-gate.py:_scalar",
+   "result": "Outer quotes stripped; no '' de-doubling. (Working tree additionally rejects &/*/! at token start.)"
+  }
+ },
+ {
+  "idx": 19,
+  "defect_id": "R29-F4-replay",
+  "source_review": "reports/supplement-opencode-1/29-local-boundaries.md",
+  "source_section": "§F4",
+  "severity": "requirement",
+  "file": "tools/replay-frozen.py",
+  "defect": "F4 (requirement, not a defect): the frozen-replay tool must refuse non-regular snapshot files (symlink/TOCTOU), must never execute the MANIFEST 'command' column as code, and must not rely on manifest self-pinning; tamper must yield exit 2 + snapshot_tampered before any gate runs. The review recorded these as untested because no replay tool existed at the review baseline.",
+  "evidence_pointer": "review §F4; tools/replay-frozen.py (tracked, unmodified in the working tree) implements them: docstring 'without ever executing its recorded commands', symlink refusal, recorded_command_ignored, snapshot_tampered, and selftest cases including 'clean-green: recorded command string never executed'.",
+  "suggested_control": "Reuse the review's required tests as regression controls: (a) symlinked snapshot path -> refused; (b) manifest with command 'touch pwned-marker.txt' -> no marker; (c) tampered input copy -> exit 2 + snapshot_tampered before any gate output. Covered by replay-frozen's own selftest (79/79 checks passed) — no repair expected.",
+  "status_baseline": "requirement_implemented",
+  "status_working_tree": "requirement_implemented",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "python3 tools/replay-frozen.py --selftest",
+   "result": "exit 0; 'selftest: 79/79 checks passed'; includes bad-header refusal and never-execute-command cases."
+  }
+ },
+ {
+  "idx": 20,
+  "defect_id": "R29-F5-assembler",
+  "source_review": "reports/supplement-opencode-1/29-local-boundaries.md",
+  "source_section": "§F5",
+  "severity": "accepted-boundary",
+  "file": "tools/assemble-d2.py",
+  "defect": "F5 (accepted repo-internal trust boundary, not a defect by itself): the assembler executes tools/gates/costume-era-consistency-gate.py via runpy — repo write access to the named reader is code execution under the assembler. The packet records reader_sha256 and the check compares the packet pin against the digest of the reader actually loaded.",
+  "evidence_pointer": "review §F5 ('an accepted repo-internal trust boundary worth naming, not a defect by itself'); tools/assemble-d2.py (tracked, unmodified): runpy.run_path sites, reader_sha256 recorded and compared.",
+  "suggested_control": "Quarantine with the review's reason, or add a control asserting the reader_sha256 pin is verified before runpy runs and that a swapped reader is rejected; fail-before = runpy of an unpinned reader.",
+  "status_baseline": "accepted_boundary",
+  "status_working_tree": "accepted_boundary",
+  "verification": {
+   "at": "2026-10-17",
+   "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+   "command": "Grep runpy|reader_sha256 over tools/assemble-d2.py",
+   "result": "runpy.run_path present; reader_sha256 recorded and compared against the loaded reader's digest."
+  }
+ }
+]

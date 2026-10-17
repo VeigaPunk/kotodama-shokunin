@@ -3,6 +3,9 @@
 - topic: Finnic/Sámi reference base; Uralic inheritance versus substrate, joik as a situated register, noaidi drum interpretation, gákti as an identity map, and contested sky/thunder terminology.
 - sources: Bakró-Nagy, Laakso & Skribnik (eds., 2022); Aikio (2012); Lönnrot (compiler, 1849); Rydving (2010); Larsson (2013); Kelemen (2022); Gaski (1999); Länsman (1999); Magga (2022); Aalto & Lehtola (2017). Editions, links, and verification limits appear below.
 - couples: language → `../linguistics/{historical-linguistics,language-contact,sociolinguistics-registers,naming-systems,writing-systems}.md`; myth/symbol → `../myth-symbol/{pantheon-archetypes,cosmology-cosmography,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,costume-semiotics,textile-technology,music-instrument-lexicon}.md`; sibling → lore-shokunin owns canon and continuity; this entry supplies reference and generative method only.
+- source: the sources ledger above — Bakró-Nagy et al., Aikio, Lönnrot, Rydving, Larsson, Kelemen, and the remaining items; editions, links, and verification limits appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (403/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact reconstructed form, joik attribution, drum interpretation, or gákti detail; living Sámi community authority and source position apply.
 
 ## Scope and calibration
 

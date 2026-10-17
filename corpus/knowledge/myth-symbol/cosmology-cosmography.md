@@ -18,6 +18,9 @@
   - al-Bīrūnī, Taḥdīd nihāyat al-amākin (11th c.) — qibla trigonometry; Isidore of Seville, Etymologiae 14 (T-O tripartition)
   - Russell (1991), Inventing the Flat Earth, Praeger; de Santillana & von Dechend (1969), Hamlet's Mill (see §10); Geertz (1994), The Invention of Prophecy, U California Press (Waters 1963, Book of the Hopi caution)
 - couples: myth-symbol/comparative-frameworks.md (spine file — supplies the emic/etic rule and Eliade vocabulary this entry operationalizes), linguistics/color-terminology (direction-color codes are capped by a culture's basic color terms), linguistics/naming-systems (tonal day-names, toponym etymologies, "navel" capitals), linguistics/conlang-methodology (coining direction lexemes, cosmographic derivational morphology), linguistics/semantic-fields-lexicon-building (sky/earth/underworld/gate lexicon), era files (world-ages doctrine as in-world periodization and epoch disputes), culture-material (temple and city plans, festival calendars, pilgrimage routes), costume (quarter-color regalia, calendar-name display, age-austerity dress), synthesis (canon handoff to lore-shokunin)
+- source: the sources block above (world-model texts, ritual-architecture and calendar scholarship); contested claims (akītu reenactment, flat-earth, Hopi prophecy) are calibrated in §10.
+- verified-at: 2026-10-17 — round-8 metadata sweep: header fields and README index row present; calibration checklist §10 and canon boundary §11 located; metadata-level audit only, no per-source retrieval in this sweep.
+- recheck: before an age-doctrine, layer-count, or ritual-reenactment claim becomes load-bearing; the akītu performance link stays contested (§7, §10).
 
 ## 1. Frame: cosmology vs cosmography, and the design axes
 

@@ -38,6 +38,8 @@
   - Hymes (1974), Foundations in Sociolinguistics, U Pennsylvania Press; Hudson (1996), Sociolinguistics, 2nd ed., CUP
   - James & Drakich (1993), "Understanding gender differences in amount of talk", in Tannen (ed.), Gender and Conversational Interaction, OUP
   - ISO 639-3 macrolanguage codes (e.g. `ara` for Arabic, `zho` for Chinese) — stable reminder that "one language vs several" is partly an administrative act
+- verified-at: 2026-10-17 — live source recheck (wave supplement-opencode-1; record corpus/lessons/supplement-opencode-1/sources/registers.json: 8 claims, 5 supported / 1 contradicted / 2 unresolved; round-5 follow-up SR-REG-04/07 in corpus/lessons/round-5-sources/13.json). The Japanese keigo-family correction is in the errata appendix below; the Korean speech-level count and jalnguy coverage rows were rechecked with limits stated there.
+- recheck: before using an honorific-family list, a speech-level count, or an avoidance-register claim in a handoff; rerun the cited audit records if a source URL or locator changes.
 - couples: linguistics/historical-change (where dialects come from), linguistics/writing-systems (H varieties ride on script + schooling), myth-symbol (oaths, taboo, liturgical H), era files (periodization drives standardization and levelling), costume (sumptuary parallels — socially visible marking), culture-material/crafts (professional jargon sources), synthesis (handoff options to lore-shokunin; canon stays there)
 
 ## 1. The three layers of "same language" variation

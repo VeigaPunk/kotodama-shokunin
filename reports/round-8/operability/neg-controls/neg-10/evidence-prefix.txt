@@ -1,0 +1,34 @@
+# evidence-prefix.txt — neg-10 control against PINNED PRE-FIX bytes (git cf338a7)
+# command: python3 reports/round-8/operability/neg-controls/neg-10/neg-10-control.py --rev cf338a7 --json reports/round-8/operability/neg-controls/neg-10/neg-10-prefix.json
+# scratch: auto-selected (--scratch unset); the control falls back to /var/tmp when the tmpfs /tmp is full, as it was during an earlier run of this command (OSError ENOSPC).
+# run_at_utc=2026-10-17T20:30:24Z
+
+NEG-10 scratch root: /var/tmp
+NEG-10 gates under test (git cf338a7 (pinned pre-fix bytes)):
+NEG-10   phonology /var/tmp/neg-10-pre-fix-6tillius/phonology-sanity-gate.py  sha256=fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655  [PINNED PRE-FIX]
+NEG-10   naming    /var/tmp/neg-10-pre-fix-6tillius/naming-collision-gate.py  sha256=8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526  [PINNED PRE-FIX]
+NEG-10   myth      /var/tmp/neg-10-pre-fix-6tillius/myth-consistency-gate.py  sha256=26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5  [PINNED PRE-FIX]
+NEG-10   costume   /var/tmp/neg-10-pre-fix-6tillius/costume-era-consistency-gate.py  sha256=29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03  [PINNED PRE-FIX]
+NEG-10 phonology deep-bracket-nesting     rc=1    FAIL
+NEG-10 phonology deep-brace-nesting       rc=1    FAIL
+NEG-10 phonology fixture-packet-unaffected rc=1    PASS
+NEG-10 naming    deep-bracket-nesting     rc=1    FAIL
+NEG-10 naming    deep-brace-nesting       rc=1    FAIL
+NEG-10 naming    fixture-packet-unaffected rc=1    PASS
+NEG-10 myth      deep-bracket-nesting     rc=1    FAIL
+NEG-10 myth      deep-brace-nesting       rc=1    FAIL
+NEG-10 myth      fixture-packet-unaffected rc=1    PASS
+NEG-10 costume   deep-bracket-nesting     rc=1    FAIL
+NEG-10 costume   deep-brace-nesting       rc=1    FAIL
+NEG-10 costume   fixture-packet-unaffected rc=1    PASS
+NEG-10 SUMMARY: 4/12 checks passed; verdict=PRE-FIX-PATTERN-OBSERVED
+NEG-10 FAILURE: phonology/deep-bracket-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/phonology-sanity-gate.py", line 1293, in <module>', '    sys.exit(main(sys.argv))']
+NEG-10 FAILURE: phonology/deep-brace-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/phonology-sanity-gate.py", line 1293, in <module>', '    sys.exit(main(sys.argv))']
+NEG-10 FAILURE: naming/deep-bracket-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/naming-collision-gate.py", line 1720, in <module>', '    sys.exit(main(sys.argv))']
+NEG-10 FAILURE: naming/deep-brace-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/naming-collision-gate.py", line 1720, in <module>', '    sys.exit(main(sys.argv))']
+NEG-10 FAILURE: myth/deep-bracket-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/myth-consistency-gate.py", line 1073, in <module>', '    sys.exit(main(sys.argv[1:]))']
+NEG-10 FAILURE: myth/deep-brace-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/myth-consistency-gate.py", line 1073, in <module>', '    sys.exit(main(sys.argv[1:]))']
+NEG-10 FAILURE: costume/deep-bracket-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/costume-era-consistency-gate.py", line 1589, in <module>', '    sys.exit(main(sys.argv))']
+NEG-10 FAILURE: costume/deep-brace-nesting: expected rc=2 with a G-DATA finding naming the depth cap and no traceback; observed rc=1 output=['Traceback (most recent call last):', '  File "/var/tmp/neg-10-pre-fix-6tillius/costume-era-consistency-gate.py", line 1589, in <module>', '    sys.exit(main(sys.argv))']
+
+exit=1

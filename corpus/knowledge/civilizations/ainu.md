@@ -18,6 +18,9 @@
   - [NS] National Museums Scotland (n.d.), “The ancient craft of barkcloth across the world,” especially “Japan”; objects A.1909.499.1 and A.1909.499.48. [Museum account](https://www.nms.ac.uk/discover-catalogue/the-ancient-craft-of-barkcloth-across-the-world), accessed 2026-10-17.
   - [UP] Upopoy National Ainu Museum and Park / The Foundation for Ainu Culture (n.d.), [“Ainu Culture”](https://ainu-upopoy.go.jp/en/ainu-culture/) and [“Permanent Exhibition Room”](https://ainu-upopoy.go.jp/en/museum/facility/permanent-exhibition-room/), accessed 2026-10-17.
 - couples: language → `linguistics/language-contact.md`, `linguistics/writing-systems.md`, `linguistics/naming-systems.md`, `linguistics/orality-formulaic-language.md`; myth/symbol → `myth-symbol/myth-folktale-genres.md`, `myth-symbol/cosmology-cosmography.md`, `myth-symbol/animal-symbolism.md`, `myth-symbol/symbolism-synthesis-method.md`; era/costume → `culture-material/era-periodization-models.md`, `culture-material/textile-technology.md`, `culture-material/costume-semiotics.md`, `culture-material/material-culture-inference-method.md`; sibling → lore-shokunin receives optional system proposals and owns all world-bible canon decisions.
+- source: the keyed ledger above ([L22] Bugaeva, [S11] Strong, [U92] Utagawa, [F26] Foundation for Ainu Culture, [N21] NINJAL corpus, [DC24] Dal Corso, and the AMNH/NMS/Upopoy accounts); per-item access limits are stated with each entry.
+- verified-at: 2026-10-17; the AMNH, NMS, and Upopoy pages were accessed at the cited URLs; chapter-level contents of the Handbook and of Strong's study remain unread and are not summarised.
+- recheck: before reusing a phonological, alignment, or reconstructed-stage claim, or transferring a ceremony, name, or textile term; Handbook chapter text and Utagawa's dated terminology require their own recheck (“Provenance cautions and thin coverage”).
 
 ## Scope and confidence contract
 

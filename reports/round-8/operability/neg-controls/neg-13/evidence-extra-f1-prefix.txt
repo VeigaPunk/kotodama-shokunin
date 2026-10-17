@@ -1,0 +1,46 @@
+# evidence — extra index-10 fixture-pin control, fail-before git e7ca0fa
+# command: python3 reports/round-8/operability/neg-controls/neg-13/extra-index10-fixture-pin-control.py --from-git e7ca0fa
+# run_at_utc: 2026-10-17T20:29:54Z
+# exit: 1
+NEG-13 scratch root: /var/tmp/neg-13-fpl4yjzj
+NEG-13 gates source: git revision e7ca0fa (git archive)
+NEG-13 gate phonology-sanity-gate.py         sha256=fb05c644cafb0855 (pre-fix writer pin: tamper checks expected to FAIL)
+NEG-13 gate myth-consistency-gate.py         sha256=26d246e9936db437 (pre-fix writer pin: tamper checks expected to FAIL)
+NEG-13 gate lexicon-coverage-audit.py        sha256=63ee4ec6b15188fe (pre-fix writer pin: tamper checks expected to FAIL)
+NEG-13 gate costume-era-consistency-gate.py  sha256=29a9361c7b96a354 (pre-fix writer pin: tamper checks expected to FAIL)
+NEG-13 gate provenance-audit.py              sha256=4aaea6e98b977692 (pre-fix writer pin: tamper checks expected to FAIL)
+NEG-13 gate naming-collision-gate.py         sha256=8c5afb0a5abc8b00
+NEG-13 gate handoff-packet-check.py          sha256=e2fa3223b2aa5738
+NEG-13 phonology-sanity-gate clean-writes-nothing FAIL
+NEG-13 phonology-sanity-gate tamper-refused-preserved FAIL
+NEG-13 phonology-sanity-gate absent-regenerated PASS
+NEG-13 myth-consistency-gate clean-writes-nothing FAIL
+NEG-13 myth-consistency-gate tamper-refused-preserved FAIL
+NEG-13 myth-consistency-gate absent-regenerated PASS
+NEG-13 lexicon-coverage-audit clean-writes-nothing FAIL
+NEG-13 lexicon-coverage-audit tamper-refused-preserved FAIL
+NEG-13 lexicon-coverage-audit absent-regenerated PASS
+NEG-13 costume-era-consistency-gate clean-writes-nothing FAIL
+NEG-13 costume-era-consistency-gate tamper-refused-preserved FAIL
+NEG-13 costume-era-consistency-gate absent-regenerated PASS
+NEG-13 provenance-audit clean-writes-nothing  FAIL
+NEG-13 provenance-audit tamper-refused-preserved FAIL
+NEG-13 provenance-audit absent-regenerated    PASS
+NEG-13 naming-collision-gate reader-tamper-loud PASS
+NEG-13 handoff-packet-check reader-tamper-loud PASS
+NEG-13 RESULT: FAIL (10/17 checks)
+NEG-13 FAILURE: phonology-sanity-gate clean-writes-nothing: PRE-FIX PATTERN OBSERVED: clean run rewrote fixtures/phonology-sanity-gate.yml in place (mtime changed; truncating write)
+NEG-13 FAILURE: phonology-sanity-gate tamper-refused-preserved: PRE-FIX PATTERN OBSERVED: tampered fixtures/phonology-sanity-gate.yml silently erased (exit 0, original bytes restored): selftest: fixture exit 1; 15/15 planted finding IDs present; 26 control cases passed
+NEG-13 FAILURE: myth-consistency-gate clean-writes-nothing: PRE-FIX PATTERN OBSERVED: clean run rewrote fixtures/myth-consistency-gate.yml in place (mtime changed; truncating write)
+NEG-13 FAILURE: myth-consistency-gate tamper-refused-preserved: PRE-FIX PATTERN OBSERVED: tampered fixtures/myth-consistency-gate.yml silently erased (exit 0, original bytes restored): anted IDs present: MC-P01, MC-P02, MC-M01, MC-M02, MC-S01, MC-S02; clean control exit 0 (0 findings); fixture and expected rewritten under tools/gates/fixtures/
+NEG-13 FAILURE: lexicon-coverage-audit clean-writes-nothing: PRE-FIX PATTERN OBSERVED: clean run rewrote fixtures/lexicon-coverage-audit.yml in place (mtime changed; truncating write)
+NEG-13 FAILURE: lexicon-coverage-audit tamper-refused-preserved: PRE-FIX PATTERN OBSERVED: tampered fixtures/lexicon-coverage-audit.yml silently erased (exit 0, original bytes restored): sh
+PASS could-not-evaluate: missing lexicon
+PASS could-not-evaluate: malformed yaml
+PASS could-not-evaluate: root is not a mapping
+selftest: 14/14 checks passed
+NEG-13 FAILURE: costume-era-consistency-gate clean-writes-nothing: PRE-FIX PATTERN OBSERVED: clean run rewrote fixtures/costume-era-consistency-gate.yml in place (mtime changed; truncating write)
+NEG-13 FAILURE: costume-era-consistency-gate tamper-refused-preserved: PRE-FIX PATTERN OBSERVED: tampered fixtures/costume-era-consistency-gate.yml silently erased (exit 0, original bytes restored): /tmps9xxovn4/gates/fixtures/costume-era-consistency-gate.yml
+expected: /var/tmp/neg-13-fpl4yjzj/tmps9xxovn4/gates/fixtures/costume-era-consistency-gate.expected
+NEG-13 FAILURE: provenance-audit clean-writes-nothing: PRE-FIX PATTERN OBSERVED: clean run rewrote fixtures/provenance/good-entry.md in place (mtime changed; truncating write)
+NEG-13 FAILURE: provenance-audit tamper-refused-preserved: PRE-FIX PATTERN OBSERVED: tampered fixtures/provenance/good-entry.md silently erased (exit 0, original bytes restored): sing-sources, empty-sources, missing-couples, empty-couples, missing-calibration, exit 1 on the defect tree, exit 0 on the clean entry, exit 2 on a missing path

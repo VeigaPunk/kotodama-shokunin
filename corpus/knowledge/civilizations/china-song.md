@@ -2,6 +2,9 @@
 - topic: Song China (960–1279) as a reference base for coupling language, cosmology, examination status, commercial print, names, and dress; neo-Confucian lexicon and Ru-ware taste vocabulary; methods and reference knowledge, never fictional canon.
 - sources: Norman (1988); Chaffee (1995, second edition); Chia (2002); Hymes (2002); Bol (2008); Kuhn (2009); Ebrey (1993); Ebrey and Gregory, eds. (1993); Anderson (1991, revised edition, comparative frame only); Thompson (2015, revised 2025); Fujian Provincial Museum (1982); Zhang (2023); Cleveland Museum of Art (n.d., object 1957.40). Full editions and checkable pointers below.
 - couples: language → `linguistics/writing-systems.md`, `linguistics/sociolinguistics-registers.md`, `linguistics/naming-systems.md`, `linguistics/color-terminology.md`; myth/symbol → `myth-symbol/cosmology-cosmography.md`, `myth-symbol/pantheon-archetypes.md`, `myth-symbol/color-symbolism.md`; era/costume → `culture-material/era-periodization-models.md`, `culture-material/costume-semiotics.md`, `culture-material/sumptuary-law-rank-display.md`, `culture-material/craft-artisan-lexicon.md`; sibling → lore-shokunin receives design alternatives and constraints, not canon assignments.
+- source: the sources ledger above — Norman, Chaffee, Chia, Hymes, Bol, Kuhn, Ebrey, and the remaining items; full editions and checkable pointers appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact examination grade, print date, Ru-ware attribution, or dress rule; reopen the named source and retain object-level provenance.
 
 ## Scope and calibration
 

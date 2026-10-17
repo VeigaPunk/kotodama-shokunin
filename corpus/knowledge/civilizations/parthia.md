@@ -2,6 +2,9 @@
 - topic: Parthian reference methods for coupling language, myth, symbol, era, and costume; mixed-script coinage, Ecbatana's exchange network, mounted warfare, and calibrated gōsān reconstruction.
 - sources: Sellwood (1980); Alram (1986); Boyce (1957, 2002); Isidore of Charax, ed./trans. Schoff (1914); Plutarch, trans. Perrin (1916); Polybius (10.27); Porada (1965); Curtis (2012); Nabel (2017); Hopkins (n.d., accessed 2026-10-17); Iran Chamber Society (n.d., accessed 2026-10-17). Editions, URLs, and access limits below.
 - couples: language—`../linguistics/{writing-systems,language-contact,sociolinguistics-registers,naming-systems,orality-formulaic-language}.md`; myth/symbol—`../myth-symbol/{pantheon-archetypes,myth-folktale-genres,symbolism-synthesis-method}.md`; era/costume—`../culture-material/{era-periodization-models,trade-economy-lexicon,warrior-material-culture,costume-semiotics,textile-technology,material-culture-inference-method}.md`; sibling—lore-shokunin owns canon and the world bible, not this reference entry.
+- source: the entry's own source apparatus — the `- sources:` field above with its editions, links, and access limits stated in this entry; pointer added in the round-8 metadata conformance pass (receipts: reports/round-8/metadata/m04-civ-58-76.md)
+- verified-at: 2026-10-17; round-8 metadata pass only — entry frontmatter checked and all 10 cited links status-swept on 2026-10-17 (9 live, 1 non-2xx or blocked); no passage, catalogue, or dated-object re-inspection in this pass
+- recheck: everyday speech at Ecbatana, ordinary wardrobe, Arsacid bardic training, coin type and mint attributions, and any court myth cycle against the cited catalogue or edition before reuse.
 
 ## Scope and evidence grammar
 

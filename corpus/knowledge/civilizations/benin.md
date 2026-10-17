@@ -3,6 +3,9 @@
 - topic: The Edo-speaking Kingdom of Benin as a reference for coupling linguistic registers, royal cosmology, authorized craft, coral regalia, and historical change; method and reference knowledge, not fictional canon.
 - sources: Digital Benin project team (2022–); Agheyisi (1986); Barnes and Ben-Amos (1983); Bondarenko (2003); Ezra (1992); Egharevba (1968, fourth edition); Aigbedo (2024); Evbuomwan and Edobor-Uzamere (2022); Peavy (2010); Nwachukwu (2010); Leadership/Benin Traditional Council statement (2025); UNESCO (2008). Bibliographic details, access limits, and citation keys follow below.
 - couples: Language—`linguistics/sociolinguistics-registers.md`, `linguistics/writing-systems.md`, `linguistics/naming-systems.md`; myth/symbol—`myth-symbol/cosmology-cosmography.md`, `myth-symbol/animal-symbolism.md`, `myth-symbol/color-symbolism.md`; era/costume—`culture-material/era-periodization-models.md`, `culture-material/craft-artisan-lexicon.md`, `culture-material/sumptuary-law-rank-display.md`, `culture-material/ritual-garments.md`; sibling—lore-shokunin receives proposed systems and owns canon decisions. Paths are relative to `corpus/knowledge/`.
+- source: the keyed ledger below (Digital Benin; Agheyisi; Barnes–Ben-Amos; Bondarenko; Ezra; Egharevba; Aigbedo; Evbuomwan–Edobor-Uzamere; Peavy; Nwachukwu; the Benin Traditional Council statement; UNESCO); bibliographic details and access limits below.
+- verified-at: 2026-10-17; the Digital Benin Ẹyo Òtọ glossary was consulted on 2026-10-17 and Aigbedo's checked abstract was inspected; several listed works were not directly consulted and are marked as such.
+- recheck: before reusing palace register, regalia, or oracle claims; exact historical court speech, complete regalia codes, and a critically compared oracle corpus still require specialist verification (closing bullets).
 
 ## Scope and calibration
 

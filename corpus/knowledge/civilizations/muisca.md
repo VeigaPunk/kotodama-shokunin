@@ -2,6 +2,9 @@
 - topic: Chibchan Muisca reference base: colonial linguistic evidence, El Dorado gilding narratives, tunjo offerings, zipa/zaque political models, calendrical debate, and coupled material culture; method and reference, never fictional canon.
 - sources: Adelaar with Muysken (2004); Lugo (1619); González de Pérez (1987); Rodríguez Freyle (c. 1636–1638/1979); Duquesne (1795/1848); Restrepo (1892); Izquierdo Peña (2008/2009); Uribe Villegas and Martinón-Torres (2012); Uribe Villegas, Martinón-Torres, and Quintero Guzmán (2021); Gómez, Muysc cubun dictionary (2008–2026); full references and access qualifications below.
 - couples: language ↔ ritual/myth ↔ gold and landscape symbolism ↔ periodization ↔ cotton dress and rank; `linguistics/{writing-systems,naming-systems,semantic-fields-lexicon-building,language-contact}.md`; `myth-symbol/{myth-ritual-theories,ritual-liminality,celestial-symbolism-calendars,symbolism-synthesis-method}.md`; `culture-material/{textile-technology,costume-semiotics,calendar-festival-systems,material-culture-inference-method}.md`; lore-shokunin receives sourced options and uncertainty, not canon decisions.
+- source: the entry's own source apparatus — the `- sources:` field above with its editions, links, and access limits stated in this entry; pointer added in the round-8 metadata conformance pass (receipts: reports/round-8/metadata/m04-civ-58-76.md)
+- verified-at: 2026-10-17; round-8 metadata pass only — entry frontmatter checked and all 8 cited links status-swept on 2026-10-17 (2 live, 6 non-2xx or failed); no passage, catalogue, or dated-object re-inspection in this pass
+- recheck: original ritual utterances, personal-name formation, metal color → deity → rank codes, and regional speech variation against the named colonial or archaeological source before reuse.
 
 ## Evidence key and scope
 

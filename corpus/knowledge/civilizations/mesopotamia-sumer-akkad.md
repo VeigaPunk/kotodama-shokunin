@@ -2,6 +2,9 @@
 - topic: Southern Mesopotamian language, writing, myth, kingship, symbols, historical eras, names, and dress as coupled reference systems; methods for fictional cultures, never world-bible canon.
 - sources: Jagersma (2010); Huehnergard (2011, 3rd ed.); Lambert (2013); Lambert and Millard (1969, with Civil); Postgate (1992); Van De Mieroop (2016, 3rd ed.); Black and Green (1992); Zawadzki (2006); ETCSL team (1998–2001 revisions); Spar (2004); Westenholz (1989); museum collection records (n.d.); full references and access limits below.
 - couples: language / myth / symbol / era / costume / naming; `linguistics/{language-contact,writing-systems,naming-systems,sociolinguistics-registers}.md`; `myth-symbol/{creation-myths-taxonomy,flood-traditions,pantheon-archetypes,symbolism-synthesis-method}.md`; `culture-material/{era-periodization-models,textile-technology,costume-semiotics,ritual-garments,material-culture-inference-method}.md` (all under `corpus/knowledge/`); lore-shokunin receives options and provenance, owns canon.
+- source: the entry's own source apparatus — the `- sources:` field above with its editions, links, and access limits stated in this entry; pointer added in the round-8 metadata conformance pass (receipts: reports/round-8/metadata/m04-civ-58-76.md)
+- verified-at: 2026-10-17; round-8 metadata pass only — entry frontmatter checked and all 14 cited links status-swept on 2026-10-17 (11 live, 3 non-2xx or blocked); no passage, catalogue, or dated-object re-inspection in this pass
+- recheck: Kassite/Sealand transitions, provincial garment variation, asserted synchronisms, and priestly-clothing reconstructions against the named text or object before reuse.
 
 ## Scope and calibration
 - **Geography:** emphasize the southern Tigris–Euphrates alluvium: Uruk, Ur, Lagash/Girsu, Nippur, Eridu, Babylon, and Sippar; Assyria is related, not interchangeable.

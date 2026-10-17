@@ -67,6 +67,8 @@
     Conference on the Evolution of Language*.
   - Noback, Harvati & Spoor (2011), *Am. J. Physical Anthropology* 145(4):
     599–614 (climate-related variation in the human nasal cavity).
+- verified-at: 2026-10-17 — live source recheck (wave supplement-opencode-1; record corpus/lessons/supplement-opencode-1/sources/phonetics.json: 11 claims, 7 supported / 3 contradicted / 1 unresolved) plus round-5 bibliographic recheck PHON-A11 (corpus/lessons/round-5-sources/12.json). The WALS percentage corrections and the Blasi venue resolution are in the two errata sections below; the diet/bite-configuration debate stays (to-verify).
+- recheck: before using any WALS percentage, the humidity–tone or ejective–altitude claim, or the Blasi citation in a handoff; rerun the cited audit records if a source URL or locator changes.
 - couples: language (this file, core method); myth (divine/true names, taboo
   naming, onomatopoeic etiologies); symbol (sound symbolism, name-shape,
   bouba/kiki iconography); era (Neolithic bite → f/v, sound-change dating of

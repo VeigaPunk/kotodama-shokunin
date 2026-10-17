@@ -3,6 +3,9 @@
 - topic: Proto-Algonquian reconstruction; wampum diplomacy registers; manitou vocabulary; Midewiwin birchbark records; seasonal subsistence, material culture, and naming, with explicit regional limits.
 - sources: Hewson (1993), Goddard (1994), Mithun (1999), Hallowell (1960), Hoffman (1891), Densmore (1929), Angel (2002), Bruchac (2018), Oestreicher (1994), Pulla (2003–2004); American Philosophical Society, Indigenous Materials guide (n.d.); Livesay and Nichols, Ojibwe People's Dictionary (n.d.); The Canadian Encyclopedia (n.d.); full references and verification limits below.
 - couples: language ↔ myth ↔ symbol ↔ era ↔ costume; `linguistics/historical-linguistics.md`, `linguistics/sociolinguistics-registers.md`, `linguistics/writing-systems.md`, `linguistics/naming-systems.md`, `linguistics/semantic-fields-lexicon-building.md`; `myth-symbol/myth-folktale-genres.md`, `myth-symbol/trickster.md`, `myth-symbol/symbolism-synthesis-method.md`; `culture-material/calendar-festival-systems.md`, `culture-material/era-periodization-models.md`, `culture-material/costume-semiotics.md`, `culture-material/material-culture-inference-method.md`; lore-shokunin receives optional methods and uncertainty records, never canon from this entry.
+- source: the keyed ledger below (Hewson; Goddard; Mithun; Hallowell; Hoffman; Densmore; Angel; Bruchac; Oestreicher; Pulla; APS guide; Ojibwe People's Dictionary; The Canadian Encyclopedia); per-item verification limits are stated with each entry.
+- verified-at: 2026-10-17 (web checks, per the ledger line above); specific dictionary entries and accessible overview texts were checked as noted; monographs were not re-read in full.
+- recheck: recheck any exported form against its actual dictionary entry, transcription, speaker/region, and grammatical category; recheck any symbolic claim against its named object and interpretive history (closing line).
 
 ## Scope and calibration
 

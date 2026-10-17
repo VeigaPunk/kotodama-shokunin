@@ -1,0 +1,39 @@
+checked_at_utc = 2026-10-17T20:33:00Z
+command: python3 reports/round-8/operability/neg-controls/neg-06/neg-06-control.py --pre-fix-from-git
+pre-fix bytes: git show HEAD:tools/gates/{costume-era-consistency-gate,lexicon-coverage-audit,myth-consistency-gate}.py (== review 26 §0 pins)
+NEG-06 gate under test: /var/tmp/neg06-7teccwbv/costume-era-consistency-gate.py sha256=29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03
+NEG-06 note: this is the review-26 pinned PRE-FIX byte copy for costume-era-consistency-gate.py; duplicate-key checks below are expected to FAIL.
+NEG-06 costume-era-consistency-gate.py block-duplicate FAIL
+NEG-06 costume-era-consistency-gate.py flow-duplicate FAIL
+NEG-06 costume-era-consistency-gate.py sequence-entry-duplicate FAIL
+NEG-06 costume-era-consistency-gate.py json-duplicate-in-memory FAIL
+NEG-06 costume-era-consistency-gate.py block-duplicate-in-memory FAIL
+NEG-06 costume-era-consistency-gate.py live-example-packet-clean PASS
+NEG-06 gate under test: /var/tmp/neg06-7teccwbv/lexicon-coverage-audit.py sha256=63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80
+NEG-06 note: this is the review-26 pinned PRE-FIX byte copy for lexicon-coverage-audit.py; duplicate-key checks below are expected to FAIL.
+NEG-06 lexicon-coverage-audit.py block-duplicate  FAIL
+NEG-06 lexicon-coverage-audit.py flow-duplicate   FAIL
+NEG-06 lexicon-coverage-audit.py sequence-entry-duplicate FAIL
+NEG-06 lexicon-coverage-audit.py json-duplicate-in-memory FAIL
+NEG-06 lexicon-coverage-audit.py block-duplicate-in-memory FAIL
+NEG-06 lexicon-coverage-audit.py live-example-packet-clean PASS
+NEG-06 gate under test: /var/tmp/neg06-7teccwbv/myth-consistency-gate.py sha256=26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5
+NEG-06 note: this is the review-26 pinned PRE-FIX byte copy for myth-consistency-gate.py; duplicate-key checks below are expected to FAIL.
+NEG-06 myth-consistency-gate.py block-duplicate   PASS
+NEG-06 myth-consistency-gate.py flow-duplicate    FAIL
+NEG-06 myth-consistency-gate.py sequence-entry-duplicate PASS
+NEG-06 myth-consistency-gate.py block-duplicate-in-memory PASS
+NEG-06 myth-consistency-gate.py live-example-packet-clean PASS
+NEG-06 RESULT: FAIL (11/17 checks)
+NEG-06 FAILURE: costume-era-consistency-gate.py block-duplicate: PRE-FIX PATTERN OBSERVED: rc=0, no duplicate-key diagnostic — the loader evaluated or silently merged colliding keys; expected rc=2 naming the duplicate. output=[]
+NEG-06 FAILURE: costume-era-consistency-gate.py flow-duplicate: PRE-FIX PATTERN OBSERVED: rc=0, no duplicate-key diagnostic — the loader evaluated or silently merged colliding keys; expected rc=2 naming the duplicate. output=[]
+NEG-06 FAILURE: costume-era-consistency-gate.py sequence-entry-duplicate: PRE-FIX PATTERN OBSERVED: rc=0, no duplicate-key diagnostic — the loader evaluated or silently merged colliding keys; expected rc=2 naming the duplicate. output=[]
+NEG-06 FAILURE: costume-era-consistency-gate.py json-duplicate-in-memory: PRE-FIX PATTERN OBSERVED: parse returned returned (no duplicate-key error) — last-wins value={'name': 'b'}; expected a parse error naming the duplicate
+NEG-06 FAILURE: costume-era-consistency-gate.py block-duplicate-in-memory: PRE-FIX PATTERN OBSERVED: parse returned returned (no duplicate-key error) — last-wins value={'name': 'b'}; expected a parse error naming the duplicate
+NEG-06 FAILURE: lexicon-coverage-audit.py block-duplicate: PRE-FIX PATTERN OBSERVED: rc=0, no duplicate-key diagnostic — the loader evaluated or silently merged colliding keys; expected rc=2 naming the duplicate. output=[]
+NEG-06 FAILURE: lexicon-coverage-audit.py flow-duplicate: PRE-FIX PATTERN OBSERVED: rc=0, no duplicate-key diagnostic — the loader evaluated or silently merged colliding keys; expected rc=2 naming the duplicate. output=[]
+NEG-06 FAILURE: lexicon-coverage-audit.py sequence-entry-duplicate: PRE-FIX PATTERN OBSERVED: rc=0, no duplicate-key diagnostic — the loader evaluated or silently merged colliding keys; expected rc=2 naming the duplicate. output=[]
+NEG-06 FAILURE: lexicon-coverage-audit.py json-duplicate-in-memory: PRE-FIX PATTERN OBSERVED: parse returned returned (no duplicate-key error) — last-wins value={'name': 'b'}; expected a parse error naming the duplicate
+NEG-06 FAILURE: lexicon-coverage-audit.py block-duplicate-in-memory: PRE-FIX PATTERN OBSERVED: parse returned returned (no duplicate-key error) — last-wins value={'name': 'b'}; expected a parse error naming the duplicate
+NEG-06 FAILURE: myth-consistency-gate.py flow-duplicate: PRE-FIX PATTERN OBSERVED: rc=0, no duplicate-key diagnostic — the loader evaluated or silently merged colliding keys; expected rc=2 naming the duplicate. output=[]
+prefix-exit=1

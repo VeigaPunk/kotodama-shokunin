@@ -19,6 +19,9 @@
   - Dundzila, Vilius Rudra, and Michael F. Strmiska (2005), “Romuva: Lithuanian Paganism in Lithuania and America,” in Michael F. Strmiska (ed.), *Modern Paganism in World Cultures: Comparative Perspectives*, ABC-CLIO. [Author manuscript](https://is.muni.cz/el/phil/podzim2015/RLB502/um/60444300/ModPag_ChaSeven_Romuva_LT_USA.pdf); modern ethnography, not medieval testimony.
   - Zinkevičius, Zigmas (2010), “Lietuviškos ir nelietuviškos pavardės,” *Gimtoji kalba* 9: 7–11, reproduced by VLKK. [Article](https://vardai.vlkk.lt/lietuviskos-ir-nelietuviskos-pavardes/).
 - couples: language—`../linguistics/historical-linguistics.md`, `../linguistics/orality-formulaic-language.md`, `../linguistics/naming-systems.md`; myth/symbol—`../myth-symbol/comparative-frameworks.md`, `../myth-symbol/symbolism-synthesis-method.md`; era/costume—`../culture-material/era-periodization-models.md`, `../culture-material/textile-technology.md`, `../culture-material/costume-semiotics.md`, `../culture-material/calendar-festival-systems.md`; sibling boundary—lore-shokunin alone approves and records world-bible canon.
+- source: the keyed ledger above (Schenker; Derksen; and the works cited in the source key and ledger below); per-item verification limits are stated with each entry.
+- verified-at: 2026-10-17; linked publisher/catalogue metadata, institutional descriptions, abstracts, and the accessible texts identified above were checked; not every cited book or historical document was collated in full (closing ledger line).
+- recheck: before asserting a pre-Christian officiant, prayer, or garment sequence for a named solstice site; no source checked here establishes one, and modern festival photographs cannot fill the gap.
 
 ## Scope: related traditions, not one timeless civilization
 - “Baltic” here is principally linguistic-cultural, not a synonym for every people bordering the Baltic Sea.

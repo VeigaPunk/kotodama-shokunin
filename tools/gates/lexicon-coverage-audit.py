@@ -114,6 +114,7 @@ Scope limits (declared, not silently skipped)
 """
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -211,6 +212,8 @@ def _unquote_scalar(token):
             return json.loads(s)
         except ValueError:
             return s[1:-1]
+    if s[:1] in ("&", "*", "!"):
+        raise PacketError("anchor/alias/tag syntax is outside the declared subset: %r" % s[:40])
     if s in ("", "~", "null", "Null", "NULL"):
         return None
     if s in ("true", "True", "TRUE"):
@@ -229,6 +232,8 @@ def _unquote_key(token):
     if len(s) >= 2 and s[0] == s[-1] and s[0] in "\"'":
         value = _unquote_scalar(s)
         return str(value)
+    if s[:1] in ("&", "*", "!"):
+        raise PacketError("anchor/alias/tag syntax is outside the declared subset: %r" % s[:40])
     return s
 
 
@@ -360,7 +365,10 @@ def _flow_value(s, pos):
                 raise PacketError("expected ':' in flow mapping")
             pos = _skip_ws(s, pos + 1)
             value, pos = _flow_value(s, pos)
-            out[str(key)] = value
+            flow_key = str(key)
+            if flow_key in out:
+                raise PacketError("duplicate key %r in flow mapping" % flow_key)
+            out[flow_key] = value
             pos = _skip_ws(s, pos)
             if pos >= len(s):
                 raise PacketError("unterminated flow mapping")
@@ -378,7 +386,31 @@ def _flow_value(s, pos):
     return _unquote_scalar(s[start:pos]), pos
 
 
+MAX_FLOW_DEPTH = 64
+
+
+def _flow_nesting_too_deep(text, limit=MAX_FLOW_DEPTH):
+    depth, quote = 0, None
+    for ch in text:
+        if quote:
+            if ch == quote:
+                quote = None
+            continue
+        if ch in "\"'":
+            quote = ch
+        elif ch in "[{":
+            depth += 1
+            if depth > limit:
+                return True
+        elif ch in "]}":
+            depth -= 1
+    return False
+
+
 def _parse_flow(text):
+    if _flow_nesting_too_deep(text):
+        raise PacketError(
+            "flow nesting deeper than the supported %d levels" % MAX_FLOW_DEPTH)
     value, pos = _flow_value(text, 0)
     pos = _skip_ws(text, pos)
     if pos != len(text):
@@ -456,6 +488,8 @@ def _parse_map(lines, i, indent):
         key, rest = _split_key(content)
         if key is None:
             raise PacketError("expected a mapping entry near %r" % content)
+        if key in out:
+            raise PacketError("duplicate key %r" % key)
         row_index = i
         i += 1
         if rest == "" and i < len(lines.rows) and lines.rows[i][0] > indent:
@@ -493,12 +527,21 @@ def _parse_seq(lines, i, indent):
     return out, i
 
 
+def _json_object_no_duplicates(pairs):
+    out = {}
+    for key, value in pairs:
+        if key in out:
+            raise ValueError("duplicate key %r in JSON mapping" % key)
+        out[key] = value
+    return out
+
+
 def load_packet(text):
     """Parse a culture packet from YAML-subset text or JSON."""
     stripped = text.lstrip("\ufeff \r\n\t")
     if stripped.startswith("{") or stripped.startswith("["):
         try:
-            return json.loads(stripped)
+            return json.loads(stripped, object_pairs_hook=_json_object_no_duplicates)
         except ValueError as exc:
             raise PacketError("JSON packet did not parse: %s" % exc)
     lines = _collect_lines(text)
@@ -983,6 +1026,10 @@ def main(argv):
     except PacketError as exc:
         sys.stderr.write("ERROR: %s: %s\n" % (first, exc))
         return 2
+    except RecursionError:
+        sys.stderr.write(
+            "ERROR: %s: flow nesting exceeds the supported depth\n" % first)
+        return 2
     for fid, message in findings:
         print("FINDING %s: %s" % (fid, message))
     return 1 if findings else 0
@@ -1392,6 +1439,37 @@ def _finding_ids(lines):
     return ids
 
 
+def _pin_fixture(path, body):
+    """Regenerate a committed fixture only when absent; never overwrite.
+
+    The embedded constant is the pin; the committed file is a deterministic
+    artifact of it. A present file is verified byte-for-byte and a divergent
+    file is reported instead of overwritten, so tampering cannot be erased;
+    regeneration writes atomically (temp file + rename).
+    """
+    data = body.encode("utf-8")
+    if os.path.exists(path):
+        with open(path, "rb") as handle:
+            if handle.read() != data:
+                return "divergent"
+        return "verified"
+    tmp = "%s.tmp-%d" % (path, os.getpid())
+    with open(tmp, "wb") as handle:
+        handle.write(data)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+    return "regenerated"
+
+
+def _pin_fixture_or_fail(path, body):
+    if _pin_fixture(path, body) == "divergent":
+        print("SELFTEST FAIL: %s diverges from the embedded constant; "
+              "refusing to overwrite (delete the file to regenerate it)" % path)
+        return False
+    return True
+
+
 def selftest():
     checks = []
 
@@ -1399,8 +1477,10 @@ def selftest():
         checks.append((name, ok, detail))
 
     FIXTURE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    FIXTURE_PATH.write_text(FIXTURE_YAML, encoding="utf-8")
-    EXPECTED_PATH.write_text("".join(fid + "\n" for fid in EXPECTED_IDS), encoding="utf-8")
+    if not _pin_fixture_or_fail(FIXTURE_PATH, FIXTURE_YAML):
+        return 1
+    if not _pin_fixture_or_fail(EXPECTED_PATH, "".join(fid + "\n" for fid in EXPECTED_IDS)):
+        return 1
 
     try:
         proc = subprocess.run(

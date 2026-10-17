@@ -2,6 +2,9 @@
 - topic: Han China as a coupled linguistic-cultural reference: Qin standardization's afterlife, Dong Zhongshu and correlative cosmology, hemp/silk registers, and the development of era names; method and historical reference, never fictional canon.
 - sources: Sima Qian (1959 ed.); Ban Gu et al. (1962 ed.); Qiu Xigui (2000); Axel Schuessler (2009); Sarah A. Queen and John S. Major (2016); Ivana Buljan (2020); John S. Major et al. (2010); Dieter Kuhn (1988); Mark Edward Lewis (2007); Ruan Yuan (1815/1980 ed.); Smarthistory (n.d.); Wikipedia “Chinese era name” (accessed 2026-10-17; cites Wilkinson 1998 and Sato 1991); editions, access limits, and source keys below.
 - couples: language/writing/names → `../linguistics/{writing-systems,sociolinguistics-registers,naming-systems,historical-linguistics}.md`; myth/symbol → `../myth-symbol/{cosmology-cosmography,color-symbolism,celestial-symbolism-calendars,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,calendar-festival-systems,textile-technology,sumptuary-law-rank-display,ritual-garments,material-culture-inference-method}.md`; sibling lore-shokunin receives candidate systems and uncertainties, not canon assertions.
+- source: the sources ledger above — Sima Qian, Ban Gu, Qiu Xigui, Schuessler, Queen & Major, Kuhn, Lewis, and the remaining items; source keys and access limits appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact Han title, era-name date, tomb object, or textile/rank rule; reopen the named edition and retain its attribution limits.
 
 ## Source keys and evidence discipline
 

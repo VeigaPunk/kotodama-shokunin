@@ -2,6 +2,9 @@
 - topic: Diné linguistic-cultural coupling: Southern Athabaskan tone and register; hózhǫ́; sandpainting as situated ritual technology; weaving, dress, and kinship; clan-based introductions and naming.
 - sources: Robert W. Young and William Morgan Sr. (1987); Michelle Kahn-John and Mary Koithan (2015); Lynda Teller Pete (2023); Hadley Welch Jensen and individually credited contributors (2023); Jennifer Nez Denetdale (2007); Navajo Nation Council (2002); Navajo Nation, “History” (n.d.); Keren Rice (1999); Michael E. Krauss (2005); full references and verification limits below.
 - couples: Language → linguistics/{phonetics-phonology,sociolinguistics-registers,kinship-terminology,naming-systems,writing-systems}.md; myth/symbol → myth-symbol/{cosmology-cosmography,myth-ritual-theories,color-symbolism,symbolism-synthesis-method}.md; era/costume → culture-material/{era-periodization-models,textile-technology,costume-semiotics,material-culture-inference-method}.md; sibling → lore-shokunin receives reference methods and alternatives, never canon from this entry.
+- source: the sources ledger above — Young & Morgan, Kahn-John & Koithan, Teller Pete, Denetdale, Rice, Krauss, and the remaining items; full references and verification limits appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact Diné term, ceremony detail, sandpainting element, or weaving attribution; living-community authority and the entry's stated permissions govern reuse.
 
 ## Scope and calibration
 - Diné are living peoples and a contemporary sovereign nation, not a vanished civilization or a reusable “Southwestern aesthetic.”

@@ -1,0 +1,3010 @@
+{
+  "assembly": {
+    "notes": [
+      "read-only over components, packet and gates; the packet is never rewritten",
+      "no CE dates are synthesized (design-spec §2.2 E7)",
+      "a (to-verify) row is held, never promoted (E5)"
+    ],
+    "packet": "examples/culture-d2/packet.d2.yml",
+    "packet_sha256": "8da90b0788f86fd19babc67958715c8c16cb90a98e13572380b1c1892622b81e",
+    "reader": "tools/gates/costume-era-consistency-gate.py",
+    "reader_sha256": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f",
+    "schema_basis": [
+      "reports/round-8/depth/design-spec.md (R8-D01)",
+      "reports/round-8/depth/shard-parser.md (R8-D03)",
+      "reports/round-8/depth/shard-rank.md (R8-D04)",
+      "reports/round-8/depth/shard-era-material.md (R8-D05)",
+      "corpus/knowledge/synthesis/glossary-registry-format.md §1-4",
+      "corpus/knowledge/synthesis/loanword-material-dating.md",
+      "corpus/knowledge/synthesis/era-language-staging.md"
+    ],
+    "shard_blocks": [
+      "R8-D03 §4.1 strict_loader",
+      "R8-D03 §4.2 label_parser",
+      "R8-D04 §4 rank_adapter",
+      "R8-D05 §4 era_material"
+    ]
+  },
+  "canon": "not canonized (D2 design drill); derived view of examples/culture-d2/packet.d2.yml",
+  "coverage": {
+    "conflicts": 4,
+    "findings_hold_or_fail": 15,
+    "findings_total": 16,
+    "label_findings_fail": 2,
+    "label_findings_hold": 10,
+    "labels_by_kind": {
+      "borrowed-strata": 2,
+      "native-form": 46,
+      "translated-label": 10
+    },
+    "rank_quarantine_handles": 3,
+    "rank_rules_component": 21,
+    "rank_rules_gate_projected": 5,
+    "rank_rules_normalized": 9,
+    "rank_rules_unresolved_items": 13,
+    "reconciliation_records": 10,
+    "typed_labels": 58
+  },
+  "era_material_reconciliation": {
+    "findings": [
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to '10-materials MAT-01 ewe-fleece (same slot: the state fiber)' declares 'MAT-01' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-01"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to '10-materials MAT-02 felt (name and slot match)' declares 'MAT-02' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-02"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to 'null' declares 'null' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-03"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to '10-materials MAT-20 herd-hide (same slot: the wind-facing outer layer)' declares 'MAT-20' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-04"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to '10-materials MAT-22 horn-and-bone (same slot: toggles and pins)' declares 'MAT-22' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-05"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to '10-materials MAT-05 lowland-plant-cloth (same slot) — note the convergent exclusions: their record is excluded in its E1 (shelter) slot and this one in E0, which are the same slot under the era mapping' declares 'MAT-05' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-06"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to '10-materials MAT-06 lowland-plant-cord (same slot: the exception channel)' declares 'MAT-06' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-07"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to 'null' declares 'null' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-08"
+      },
+      {
+        "class": "D2L-SCOPE",
+        "code": "R-MAT-BRIDGE-MISSING",
+        "detail": "maps_to \"10-materials MAT-10 hearth-dark (same slot and chemistry; the earlier name 'storm-slate bath' was withdrawn in favour of this slot's name)\" declares 'MAT-10' with no bridge for scope packet-materials; carried, not merged",
+        "scope": "packet-materials",
+        "severity": "hold",
+        "verdict": "unresolved",
+        "where": "CMAT-09"
+      }
+    ],
+    "records": [
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E0"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-02"
+        },
+        "record": "GAR-01"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E0"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-02"
+        },
+        "record": "GAR-02"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E0"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-02"
+        },
+        "record": "GAR-03"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E1"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-06"
+        },
+        "record": "GAR-04"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E0"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-01"
+        },
+        "record": "GAR-05"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E2"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-08"
+        },
+        "record": "GAR-06"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E0"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-02"
+        },
+        "record": "GAR-07"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E1"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-07"
+        },
+        "record": "GAR-08"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E0"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-03"
+        },
+        "record": "GAR-09"
+      },
+      {
+        "era": {
+          "code": "R-ERA-IN-SCOPE",
+          "tag": "E0"
+        },
+        "findings": [],
+        "material": {
+          "code": "R-MAT-RESOLVED",
+          "resolved": "CMAT-04"
+        },
+        "record": "GAR-10"
+      }
+    ],
+    "scopes": {
+      "bridges": [],
+      "era": "packet-eras",
+      "material": "packet-materials"
+    },
+    "summary": {
+      "by_code": {
+        "R-MAT-BRIDGE-MISSING": 9
+      },
+      "by_severity": {
+        "hold": 9
+      },
+      "claims": 10,
+      "findings": 9
+    }
+  },
+  "era_reconciliation": {
+    "alias_rows": [
+      {
+        "id": "12-rank-rules era_aliases.era-1",
+        "source": "era-1",
+        "status": "confirmed",
+        "tag": "E0"
+      },
+      {
+        "id": "12-rank-rules era_aliases.era-2",
+        "source": "era-2",
+        "status": "confirmed",
+        "tag": "E1"
+      },
+      {
+        "id": "12-rank-rules era_aliases.era-3",
+        "source": "era-3",
+        "status": "confirmed",
+        "tag": "E2"
+      },
+      {
+        "id": "ERX-1",
+        "source": "E1 shelter era",
+        "status": "to-verify",
+        "tag": "E0"
+      },
+      {
+        "id": "ERX-1",
+        "source": "E1 shelter era",
+        "status": "to-verify",
+        "tag": "E0"
+      },
+      {
+        "id": "ERX-2",
+        "source": "E2 road era",
+        "status": "to-verify",
+        "tag": "E1"
+      },
+      {
+        "id": "ERX-2",
+        "source": "E2 road era",
+        "status": "to-verify",
+        "tag": "E1"
+      },
+      {
+        "id": "ERX-2",
+        "source": "Nalne (salt-road naming)",
+        "status": "to-verify",
+        "tag": "E1"
+      },
+      {
+        "id": "ERX-4",
+        "source": "E4 script era",
+        "status": "to-verify",
+        "tag": "E2"
+      },
+      {
+        "id": "ERX-4",
+        "source": "E4 script era",
+        "status": "to-verify",
+        "tag": "E2"
+      }
+    ],
+    "basis": [
+      "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1)",
+      "examples/culture-d2/components/11-costumes.yml era_reconciliation (ERX-0/ERX-R confirmed, ERX-1..4 (to-verify), ERX-W warning)"
+    ],
+    "note": "a (to-verify) row yields mapped-unconfirmed (hold); a label no row names stays unmapped — the E-number is never a mapping",
+    "two_to_one": [
+      {
+        "id": "ERX-R",
+        "raw": "identity; E0 covers ER-01..ER-06, E1 is ER-07 Marked Count, E2 is ER-08 Two Counts",
+        "sources": [
+          "E0|E1|E2"
+        ],
+        "status": "confirmed",
+        "tags": [
+          " E0",
+          " E1",
+          " E2"
+        ]
+      },
+      {
+        "id": "ERX-3",
+        "raw": "E1 -> E2 (two-to-one: their assembly era sits inside the seam and the anchor; the finer grain is theirs)",
+        "sources": [
+          "E3 assembly era",
+          "E3 assembly era",
+          "Pertne (script naming)"
+        ],
+        "status": "to-verify",
+        "tags": [
+          " E2",
+          "E1"
+        ]
+      }
+    ],
+    "verdicts": [
+      {
+        "label": "E0",
+        "row": null,
+        "tag": "E0",
+        "verdict": "identity"
+      },
+      {
+        "label": "era-1",
+        "row": "12-rank-rules era_aliases.era-1",
+        "tag": "E0",
+        "verdict": "mapped-confirmed"
+      },
+      {
+        "label": "E1 shelter era",
+        "row": "ERX-1",
+        "tag": "E0",
+        "verdict": "mapped-unconfirmed"
+      },
+      {
+        "label": "E4 script era",
+        "row": "ERX-4",
+        "tag": "E2",
+        "verdict": "mapped-unconfirmed"
+      },
+      {
+        "label": "E9 no such label",
+        "row": null,
+        "tag": null,
+        "verdict": "unmapped"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-01 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-01"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-02 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-02"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-03 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-03"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-04 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-04"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-05 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-05"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-06 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-06"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-07 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-07"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-08 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-08"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-09 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-09"
+    },
+    {
+      "code": "D2L-FORM-UNRESOLVED",
+      "detail": "label_id LEX-GAR-10 has no supplied native/borrowed form",
+      "id": "D2L-FORM-UNRESOLVED",
+      "severity": "hold",
+      "where": "GAR-10"
+    },
+    {
+      "code": "D2L-NATIVE",
+      "detail": "supplied form 'sára' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed",
+      "id": "D2L-NATIVE",
+      "severity": "hold",
+      "where": "L-15"
+    },
+    {
+      "code": "D2L-NATIVE",
+      "detail": "supplied form 'sará' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed",
+      "id": "D2L-NATIVE",
+      "severity": "hold",
+      "where": "L-16"
+    },
+    {
+      "code": "R-RANK-CONFLICT",
+      "detail": "act-collision: band-keyed-pair",
+      "id": "D2L-RANK",
+      "severity": "note",
+      "where": "SR-01#a|SR-01#b"
+    },
+    {
+      "code": "R-RANK-CONFLICT",
+      "detail": "act-collision: genuine-priority-gap",
+      "id": "D2L-RANK",
+      "severity": "hold",
+      "where": "TR-04#a|TR-06#a"
+    },
+    {
+      "code": "R-RANK-CONFLICT",
+      "detail": "R-05-class: genuine-priority-gap",
+      "id": "D2L-RANK",
+      "severity": "hold",
+      "where": "WR-02#g|WR-09#g"
+    },
+    {
+      "code": "R-RANK-CONFLICT",
+      "detail": "R-05-class: genuine-priority-gap",
+      "id": "D2L-RANK",
+      "severity": "hold",
+      "where": "WR-08#g|WR-09#g"
+    }
+  ],
+  "generator": "tools/d2-typed-labels.py",
+  "label_kinds": [
+    "translated-label",
+    "native-form",
+    "borrowed-strata"
+  ],
+  "name": "D2 typed labels, scoped reconciliation and adapted rank rules (derived projection, non-canon)",
+  "rank_rules": {
+    "act_rules": [
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "speech",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:318-329",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [
+          "wind-speaker"
+        ],
+        "id": "SR-01#a",
+        "jurisdiction": "below the snow-line",
+        "object": "storm-name",
+        "source_rule": "SR-01",
+        "unresolved": [
+          "speech is not a gate-modelled channel; raw sign_axis: sacred speech - the storm-name"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "speech",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:318-329",
+        "effect": "permit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "SR-01#b",
+        "jurisdiction": "above the snow-line",
+        "object": "storm-name",
+        "source_rule": "SR-01",
+        "unresolved": [
+          "speech is not a gate-modelled channel"
+        ],
+        "wearer_ranks": [
+          "wind-speaker"
+        ]
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "speech",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:330-341",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "SR-02#a",
+        "jurisdiction": "below the snow-line",
+        "object": "summit greeting",
+        "source_rule": "SR-02",
+        "unresolved": [
+          "speech is not a gate-modelled channel"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "speech",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:342-353",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "SR-03#a",
+        "jurisdiction": "valley moot only",
+        "object": "another lineage's dead-name",
+        "source_rule": "SR-03",
+        "unresolved": [
+          "speech is not a gate-modelled channel"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "speech",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:354-365",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "SR-04#a",
+        "jurisdiction": "valley and camps (lineage oath); fairgrounds (trade oath)",
+        "object": "oath-form",
+        "source_rule": "SR-04",
+        "unresolved": [
+          "speech is not a gate-modelled channel"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "speech",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:366-377",
+        "effect": "obligate",
+        "eras": [
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "SR-05#a",
+        "jurisdiction": "everywhere the moot's law runs",
+        "object": "statute-recitation",
+        "source_rule": "SR-05",
+        "unresolved": [
+          "speech is not a gate-modelled channel"
+        ],
+        "wearer_ranks": [
+          "wind-speaker"
+        ]
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "speech",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:378-389",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "SR-06#a",
+        "jurisdiction": "valley, any season except the storm; camps, never",
+        "object": "storm-law recitation",
+        "source_rule": "SR-06",
+        "unresolved": [
+          "speech is not a gate-modelled channel",
+          "the jurisdiction field excludes the settings where the prohibition appears to operate (RR-02)"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "touch",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:392-404",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "TR-01#a",
+        "jurisdiction": "the winter valley archive",
+        "object": "archive cord",
+        "source_rule": "TR-01",
+        "unresolved": [
+          "touch is not a gate-modelled channel; the touch right is limited to the lineage's own cord in the keeper's presence"
+        ],
+        "wearer_ranks": [
+          "lineage-head"
+        ]
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "touch",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:405-417",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "TR-02#a",
+        "jurisdiction": "the moot only",
+        "object": "wind-standard hem",
+        "source_rule": "TR-02",
+        "unresolved": [
+          "touch is not a gate-modelled channel; the act kind is named by the spec's table but not modelled by the gate"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "touch",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:418-430",
+        "effect": "permit",
+        "eras": [
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "TR-03#a",
+        "jurisdiction": "fairgrounds; the custom travels with the bales",
+        "object": "bale seal-knot",
+        "source_rule": "TR-03",
+        "unresolved": [
+          "touch is not a gate-modelled channel"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "touch",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:431-442",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [
+          "fair-stranger"
+        ],
+        "id": "TR-04#a",
+        "jurisdiction": "fairgrounds and valley stores",
+        "object": "salt-measure",
+        "source_rule": "TR-04",
+        "unresolved": [
+          "touch is not a gate-modelled channel"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "touch",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:443-455",
+        "effect": "permit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "TR-05#a",
+        "jurisdiction": "above the snow-line, during storm law only",
+        "object": "mast rope",
+        "source_rule": "TR-05",
+        "unresolved": [
+          "touch is not a gate-modelled channel; the necessity clause's interval (while storm law holds) disagrees with WR-05"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "channel": "touch",
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:456-468",
+        "effect": "obligate",
+        "eras": [
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "TR-06#a",
+        "jurisdiction": "fairgrounds",
+        "object": "salt-measure",
+        "source_rule": "TR-06",
+        "unresolved": [
+          "touch is not a gate-modelled channel"
+        ],
+        "wearer_ranks": []
+      }
+    ],
+    "assay_gaps": [
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:199-211",
+        "gap": "no felt-day-to-grade thresholds, ascent/bale-to-entitlement rule, or coat-to-bale link exists",
+        "rule": "WR-01"
+      },
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:225-237",
+        "gap": "the cord count has no machine-readable field on the costume rows",
+        "rule": "WR-03"
+      }
+    ],
+    "calibration_flags": [
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:386",
+        "rule": "SR-06",
+        "text": "kept strictly"
+      },
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:451",
+        "rule": "TR-05",
+        "text": "the one rule no one evades"
+      },
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:259",
+        "rule": "WR-05",
+        "text": "observed hard - mourning is the one rule that is self-enforcing"
+      }
+    ],
+    "coverage": {
+      "component_rules": 21,
+      "gate_projected": 5,
+      "normalized": 9,
+      "partitioned": true
+    },
+    "entitlement_edges": [
+      {
+        "against": [
+          "WR-02"
+        ],
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:189",
+        "rank": "fair-stranger",
+        "rights": "may wear their own lowland cloth and fair coat"
+      },
+      {
+        "against": [],
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:171",
+        "rank": "herd-master",
+        "rights": "may wear lowland cloth inside the fairgrounds"
+      }
+    ],
+    "era_aliases_applied": {
+      "era-1": "E0",
+      "era-2": "E1",
+      "era-3": "E2"
+    },
+    "era_aliases_basis": "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1); the D2 records already use the canonical tags, so the map is identity for every rule emitted here",
+    "gate_rank_rules": [
+      {
+        "adapt_status": "partial",
+        "authority": "caravan treaty ratified at the winter moot",
+        "cite": "12-rank-rules.yml:212",
+        "effect": "prohibit",
+        "eras": [
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [
+          "herd-master"
+        ],
+        "id": "WR-02#g",
+        "jurisdiction": "valley fairgrounds and valley road; void at transit and high pasture",
+        "property": {
+          "kind": "material",
+          "value": "lowland plant-thread cloth"
+        },
+        "rites": [
+          "the caravan fair"
+        ],
+        "semantics_note": "spec wearer_ranks names the licensed class for a prohibition; the gate scopes wearer_ranks to the class the rule bites, so the licensed class moves to exempt_ranks",
+        "source_rule": "WR-02",
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "Valley Moot statute",
+        "cite": "12-rank-rules.yml:225",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "WR-03#g",
+        "jurisdiction": "all bands; the check itself happens only in the winter valley",
+        "property": {
+          "kind": "trim",
+          "value": "hem-cord"
+        },
+        "rites": [
+          "the crossing"
+        ],
+        "semantics_note": "spec wearer_ranks names the licensed class for a prohibition; the gate scopes wearer_ranks to the class the rule bites, so the licensed class moves to exempt_ranks",
+        "source_rule": "WR-03",
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "lineage head with moot confirmation",
+        "cite": "12-rank-rules.yml:238",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [
+          "mast-bearer"
+        ],
+        "id": "WR-04#g",
+        "jurisdiction": "all bands, because the mast travels with the herds",
+        "property": {
+          "kind": "badge",
+          "value": "mast-sash"
+        },
+        "rites": null,
+        "semantics_note": "spec wearer_ranks names the licensed class for a prohibition; the gate scopes wearer_ranks to the class the rule bites, so the licensed class moves to exempt_ranks",
+        "source_rule": "WR-04",
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "an archaic cord in the archive; renewed twice in living memory",
+        "cite": "12-rank-rules.yml:290",
+        "effect": "prohibit",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "WR-08#g",
+        "jurisdiction": "all bands, unenforced",
+        "property": {
+          "kind": "material",
+          "value": "lowland plant-thread cloth"
+        },
+        "rites": null,
+        "semantics_note": "spec wearer_ranks names the licensed class for a prohibition; the gate scopes wearer_ranks to the class the rule bites, so the licensed class moves to exempt_ranks",
+        "source_rule": "WR-08",
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "Valley Moot, after the storm-famine",
+        "cite": "12-rank-rules.yml:303",
+        "effect": "permit",
+        "eras": [
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "id": "WR-09#g",
+        "jurisdiction": "valley fairgrounds",
+        "property": {
+          "kind": "material",
+          "value": "lowland plant-thread cloth"
+        },
+        "rites": [
+          "the caravan fair"
+        ],
+        "semantics_note": "spec wearer_ranks names the licensed class for a prohibition; the gate scopes wearer_ranks to the class the rule bites, so the licensed class moves to exempt_ranks",
+        "source_rule": "WR-09",
+        "wearer_ranks": []
+      }
+    ],
+    "jurisdiction_gaps": [
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:514-520,528-533",
+        "gap": "officer coverage disagrees with EN-2's circuit-wide reach",
+        "rule": "JU-3"
+      },
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:378-389",
+        "gap": "the jurisdiction field excludes the settings where the prohibition appears to operate",
+        "rule": "SR-06"
+      },
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:212-224",
+        "gap": "the sell-line is undefined, so upland wearing is either illegal-but-unpoliced or outside the ban",
+        "rule": "WR-02"
+      }
+    ],
+    "normalized_rules": [
+      {
+        "adapt_status": "partial",
+        "authority": "Valley Moot statute; oldest cord in the archive",
+        "effect": "prohibit",
+        "enforcement": {
+          "assay": "felt-days stamped at the bale seal-knot",
+          "mechanism": "winter moot cord check",
+          "reality": "obeyed in the valley where the cord check runs; above the snow-line a household wears one grade up all summer and is not prosecuted",
+          "sanction": "knot cut, the coat's hem to the informing household, salt fine"
+        },
+        "era_history_raw": "E0 (knot only) -> E1 (renewed in script) -> E2 (grade floors frozen, prices left to the fair)",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-01",
+          "GAR-02",
+          "GAR-03"
+        ],
+        "id": "WR-01",
+        "jurisdiction": {
+          "bands": [],
+          "places": [],
+          "raw": "all circuits and all altitude bands"
+        },
+        "property": {
+          "kind": "grade",
+          "slot_ref": "MAT-02",
+          "value": "G1-G3 felt-day ladder"
+        },
+        "rites": [],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 199,
+          "record_id": "WR-01"
+        },
+        "unresolved": [
+          "prose-only span: no felt-day-to-grade thresholds exist (RR-05)"
+        ],
+        "wearer_ranks": [
+          "herd-master",
+          "lineage-head"
+        ]
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "caravan treaty ratified at the winter moot",
+        "effect": "prohibit",
+        "enforcement": {
+          "assay": "the fair court reads the caravan register against the coat",
+          "mechanism": "fair court register",
+          "reality": "the fair court prosecutes strangers and the visibly overdressed, and almost never a registered herd-master's spouse",
+          "sanction": "forfeiture of the coat at the fair gate, half the coat's hem-value to whoever sues"
+        },
+        "era_history_raw": "E1 onward (the treaty is the script's first D2 use)",
+        "eras": [
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-04",
+          "GAR-06"
+        ],
+        "id": "WR-02",
+        "jurisdiction": {
+          "bands": [],
+          "places": [
+            "fairgrounds",
+            "valley-road"
+          ],
+          "raw": "valley fairgrounds and valley road; void at transit and high pasture"
+        },
+        "property": {
+          "kind": "material",
+          "slot_ref": "CMAT-06",
+          "value": "lowland-plant-cloth"
+        },
+        "rites": [
+          "the caravan fair"
+        ],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 212,
+          "record_id": "WR-02"
+        },
+        "unresolved": [
+          "the sell-line is undefined, so the upland scope is undecidable (RR-02)"
+        ],
+        "wearer_ranks": [
+          "herd-master"
+        ]
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "Valley Moot statute",
+        "effect": "prohibit",
+        "enforcement": {
+          "assay": "count of cords against the cord archive",
+          "mechanism": "moot cord check",
+          "reality": "over-fringed coats at the fair, cord-twist forgeries, a summer trade in second-hand fringes",
+          "sanction": "the over-count cords are cut at the moot in public; a forger's twist cord pays a bale"
+        },
+        "era_history_raw": "E0 to E2",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-03"
+        ],
+        "id": "WR-03",
+        "jurisdiction": {
+          "bands": [],
+          "places": [],
+          "raw": "all bands; the check itself happens only in the winter valley"
+        },
+        "property": {
+          "kind": "trim",
+          "slot_ref": "GAR-03",
+          "value": "hem-cords"
+        },
+        "rites": [
+          "the crossing"
+        ],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 225,
+          "record_id": "WR-03"
+        },
+        "unresolved": [
+          "cord count versus recorded ascents is not expressible",
+          "costume rows carry hem-cords in prose, not in closures/trims"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "lineage head with moot confirmation",
+        "effect": "prohibit",
+        "enforcement": {
+          "assay": "weights tied into the end-cords, counted against the archive",
+          "mechanism": "moot issuance and recall",
+          "reality": "a forged sash is the only D2 dress crime that can end a family",
+          "sanction": "sash forfeited and burned; moot voice lost for a year"
+        },
+        "era_history_raw": "E0 to E2",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-05"
+        ],
+        "id": "WR-04",
+        "jurisdiction": {
+          "bands": [],
+          "places": [],
+          "raw": "all bands, because the mast travels with the herds"
+        },
+        "property": {
+          "kind": "badge",
+          "slot_ref": "GAR-05",
+          "value": "mast-sash"
+        },
+        "rites": [],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 238,
+          "record_id": "WR-04"
+        },
+        "unresolved": [
+          "the annual issuance/revocation interval is not expressible",
+          "GAR-05 declares no badge field, so the gate's R-03 cannot fire"
+        ],
+        "wearer_ranks": [
+          "mast-bearer"
+        ]
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "authority": "Valley Moot statute with the wind-speakers' recitation",
+        "effect": "prohibit",
+        "enforcement": {
+          "assay": "the shaggy finish is visible; cut-back cords checked at the next moot",
+          "mechanism": "moot comment by the dead-roll reciter",
+          "reality": "observed hard - mourning is the one rule that is self-enforcing",
+          "sanction": "none needed; the sanction is social"
+        },
+        "era_history_raw": "E0 to E2",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-07",
+          "GAR-04"
+        ],
+        "id": "WR-05",
+        "jurisdiction": {
+          "bands": [],
+          "places": [],
+          "raw": "all bands; suspended during storm law's first day (see TR-05)"
+        },
+        "property": {
+          "kind": "rite-state",
+          "slot_ref": "GAR-07",
+          "value": "mourning finish"
+        },
+        "rites": [
+          "mourning year"
+        ],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 251,
+          "record_id": "WR-05"
+        },
+        "unresolved": [
+          "rite-state is not a gate-modelled property kind",
+          "the suspension interval (storm law's first day) disagrees with TR-05 (while storm law holds)"
+        ],
+        "wearer_ranks": [
+          "mourner"
+        ]
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "authority": "Valley Moot statute",
+        "effect": "exempt",
+        "enforcement": {
+          "assay": "the exemption is recorded by the moot as a single-day entry",
+          "mechanism": "moot single-day entry",
+          "reality": "kept and even traded - families time weddings to the muster",
+          "sanction": "for the second wearing - salt fine and the cords returned"
+        },
+        "era_history_raw": "E0 to E2",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-01",
+          "GAR-03"
+        ],
+        "id": "WR-06",
+        "jurisdiction": {
+          "bands": [],
+          "places": [],
+          "raw": "any band, the day only"
+        },
+        "property": {
+          "kind": "occasion-exemption",
+          "slot_ref": null,
+          "value": "wedding day"
+        },
+        "rites": [
+          "wedding day"
+        ],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 264,
+          "record_id": "WR-06"
+        },
+        "unresolved": [
+          "the single-day duration and the borrowed household grade are not expressible"
+        ],
+        "wearer_ranks": [
+          "spouse"
+        ]
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "authority": "caravan treaty; enforced by the fair court",
+        "effect": "obligate",
+        "enforcement": {
+          "assay": "at corridor distance a good imitation passes; the court's real test is speech",
+          "mechanism": "fair court",
+          "reality": "the fair court convicts on speech, not cloth",
+          "sanction": "coat forfeited; the trader's seal withdrawn for a season"
+        },
+        "era_history_raw": "E1 onward",
+        "eras": [
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-06",
+          "GAR-02"
+        ],
+        "id": "WR-07",
+        "jurisdiction": {
+          "bands": [],
+          "places": [
+            "fairgrounds",
+            "valley-road"
+          ],
+          "raw": "fairgrounds and valley road only"
+        },
+        "property": {
+          "kind": "wearer-category",
+          "slot_ref": "GAR-06",
+          "value": "treaty stranger"
+        },
+        "rites": [
+          "the caravan fair"
+        ],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 277,
+          "record_id": "WR-07"
+        },
+        "unresolved": [
+          "wearer-category is not a gate-modelled property kind",
+          "the G1 ceiling on strangers' felt is a grade predicate"
+        ],
+        "wearer_ranks": [
+          "fair-stranger"
+        ]
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "an archaic cord in the archive; renewed twice in living memory",
+        "effect": "prohibit",
+        "enforcement": {
+          "assay": "none that works - the repair patch is the loophole written into the statute",
+          "mechanism": "none that works",
+          "reality": "dead letter; old herders still refuse the patch publicly and wear it under the placket",
+          "sanction": "on paper, a salt fine; in practice, moot laughter"
+        },
+        "era_history_raw": "E0 (when the thread was rare) to E2 (when everyone wears it)",
+        "eras": [
+          "E0",
+          "E1",
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-08",
+          "GAR-01",
+          "GAR-04"
+        ],
+        "id": "WR-08",
+        "jurisdiction": {
+          "bands": [],
+          "places": [],
+          "raw": "all bands, unenforced"
+        },
+        "property": {
+          "kind": "material",
+          "slot_ref": "CMAT-06",
+          "value": "plant-thread"
+        },
+        "rites": [],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 290,
+          "record_id": "WR-08"
+        },
+        "unresolved": [
+          "the exception channel (bale-tying cord; patches smaller than a hand) is a form/size exemption the gate cannot express"
+        ],
+        "wearer_ranks": []
+      },
+      {
+        "adapt_status": "partial",
+        "authority": "Valley Moot, after the storm-famine",
+        "effect": "permit",
+        "enforcement": {
+          "assay": "the register keeps the seller's name, not the buyer's",
+          "mechanism": "fair register",
+          "reality": "the reform passes and the fair booms",
+          "sanction": "none (permissive statute)"
+        },
+        "era_history_raw": "E2",
+        "eras": [
+          "E2"
+        ],
+        "exempt_ranks": [],
+        "garment_refs": [
+          "GAR-02",
+          "GAR-04",
+          "GAR-08"
+        ],
+        "id": "WR-09",
+        "jurisdiction": {
+          "bands": [],
+          "places": [
+            "fairgrounds"
+          ],
+          "raw": "valley fairgrounds"
+        },
+        "property": {
+          "kind": "material",
+          "slot_ref": "CMAT-06",
+          "value": "lowland-plant-cloth"
+        },
+        "rites": [
+          "the caravan fair"
+        ],
+        "source": {
+          "component": "12-rank-rules.yml",
+          "line": 303,
+          "record_id": "WR-09"
+        },
+        "unresolved": [
+          "the supersession list (which clauses this reform overrides) is not stated (RR-01)"
+        ],
+        "wearer_ranks": []
+      }
+    ],
+    "quarantine": [
+      {
+        "adapt_status": "cannot-evaluate",
+        "cite": "examples/culture-d2/packet.d2.yml:2007",
+        "handle": "GAR-06",
+        "issue": "one wearer_rank field names two ranks; the primary is declared in RANK_RESOLUTIONS, the gift reading stays secondary"
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "cite": "examples/culture-d2/components/11-costumes.yml:102",
+        "handle": "WI-2",
+        "issue": "no DEG slot: rule_ref is '(to-verify) DEG slot'"
+      },
+      {
+        "adapt_status": "cannot-evaluate",
+        "cite": "examples/culture-d2/components/11-costumes.yml:103-107",
+        "handle": "WI-3..WI-7",
+        "issue": "lexicon_ref is '(to-verify)' for each"
+      }
+    ],
+    "residuals": [
+      {
+        "cite": "examples/culture-d2/components/12-rank-rules.yml:264-276",
+        "id": "WR-06#b",
+        "reason": "the household-grade lock is a grade predicate; recorded as a loss, not a record",
+        "source_rule": "WR-06"
+      }
+    ],
+    "unresolved": [
+      {
+        "item": "prose-only span: no felt-day-to-grade thresholds exist (RR-05)",
+        "rule": "WR-01"
+      },
+      {
+        "item": "the sell-line is undefined, so the upland scope is undecidable (RR-02)",
+        "rule": "WR-02"
+      },
+      {
+        "item": "cord count versus recorded ascents is not expressible",
+        "rule": "WR-03"
+      },
+      {
+        "item": "costume rows carry hem-cords in prose, not in closures/trims",
+        "rule": "WR-03"
+      },
+      {
+        "item": "GAR-05 declares no badge field, so the gate's R-03 cannot fire",
+        "rule": "WR-04"
+      },
+      {
+        "item": "the annual issuance/revocation interval is not expressible",
+        "rule": "WR-04"
+      },
+      {
+        "item": "rite-state is not a gate-modelled property kind",
+        "rule": "WR-05"
+      },
+      {
+        "item": "the suspension interval (storm law's first day) disagrees with TR-05 (while storm law holds)",
+        "rule": "WR-05"
+      },
+      {
+        "item": "the single-day duration and the borrowed household grade are not expressible",
+        "rule": "WR-06"
+      },
+      {
+        "item": "the G1 ceiling on strangers' felt is a grade predicate",
+        "rule": "WR-07"
+      },
+      {
+        "item": "wearer-category is not a gate-modelled property kind",
+        "rule": "WR-07"
+      },
+      {
+        "item": "the exception channel (bale-tying cord; patches smaller than a hand) is a form/size exemption the gate cannot express",
+        "rule": "WR-08"
+      },
+      {
+        "item": "the supersession list (which clauses this reform overrides) is not stated (RR-01)",
+        "rule": "WR-09"
+      }
+    ]
+  },
+  "typed_labels": {
+    "labels": [
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-01",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-01",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-01"
+        },
+        "status": "to-verify",
+        "text": "winter valley coat (heavy felted wool; uncombed finish optional)"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-02",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-02",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-02"
+        },
+        "status": "to-verify",
+        "text": "high-pasture coat (fine first-shear felt; narrow placket; wind-flap at the shoulder)"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-03",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-03",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-03"
+        },
+        "status": "to-verify",
+        "text": "transit coat (felted outer; fringed hem-cords at the hem-line; the coat of the pass)"
+      },
+      {
+        "era_ids": [
+          "E1"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-04",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-04",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-04"
+        },
+        "status": "to-verify",
+        "text": "lowland-cloth coat (woven plant-thread cloth of the lowland partner; a lowland cut)"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-05",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-05",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-05"
+        },
+        "status": "to-verify",
+        "text": "mast-sash (narrow woven wool band, lineage-issued; the wind standard's sash)"
+      },
+      {
+        "era_ids": [
+          "E2"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-06",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-06",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-06"
+        },
+        "status": "to-verify",
+        "text": "stranger's fair coat (flat-woven lowland cut, no fringed hem; the treaty stranger's coat)"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-07",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-07",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-07"
+        },
+        "status": "to-verify",
+        "text": "mourning coat (felt left shaggy, undyed, hem-cords cut back)"
+      },
+      {
+        "era_ids": [
+          "E1"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-08",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-08",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-08"
+        },
+        "status": "to-verify",
+        "text": "bale cord (imported plant-thread cord in coils; the legal channel of the banned import)"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-09",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-09",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-09"
+        },
+        "status": "to-verify",
+        "text": "down under-tunic (combed pack-ox underfleece, worn next to the skin at both poles)"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "GAR-10",
+        "issues": [
+          {
+            "field": "scheme",
+            "reason": "english-gloss needs no romanization scheme"
+          }
+        ],
+        "kind": "translated-label",
+        "label_id": "LEX-GAR-10",
+        "owner": "11-costumes",
+        "register": null,
+        "representation": "english-gloss",
+        "scheme": null,
+        "script": "Latn",
+        "source": {
+          "component": "11-costumes.yml",
+          "field": "garment",
+          "line": null,
+          "record": "GAR-10"
+        },
+        "status": "to-verify",
+        "text": "gale legging (smoke-cured leather, wind-cut: no slack at the ankle, no inner seam)"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-01",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "body",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-01"
+        },
+        "status": "supplied",
+        "text": "ir"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-02",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "body",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-02"
+        },
+        "status": "supplied",
+        "text": "nel"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-03",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "body",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-03"
+        },
+        "status": "supplied",
+        "text": "ban"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "attested-comparator",
+        "id": "L-04",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "kinship",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-04"
+        },
+        "status": "supplied",
+        "text": "las"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "attested-comparator",
+        "id": "L-05",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "kinship",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-05"
+        },
+        "status": "supplied",
+        "text": "wen"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "attested-comparator",
+        "id": "L-06",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "kinship",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-06"
+        },
+        "status": "supplied",
+        "text": "nen"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "attested-comparator",
+        "id": "L-07",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "kinship",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-07"
+        },
+        "status": "supplied",
+        "text": "nenter"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-08",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "weather",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-08"
+        },
+        "status": "supplied",
+        "text": "su"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-09",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "weather",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-09"
+        },
+        "status": "supplied",
+        "text": "hur"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-10",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "weather",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-10"
+        },
+        "status": "supplied",
+        "text": "sin"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-11",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "weather",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-11"
+        },
+        "status": "supplied",
+        "text": "sinra"
+      },
+      {
+        "era_ids": [
+          "E1"
+        ],
+        "evidence": "design-choice",
+        "id": "L-12",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "weather",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-12"
+        },
+        "status": "supplied",
+        "text": "belsu"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-13",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "landscape",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-13"
+        },
+        "status": "supplied",
+        "text": "bel"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-14",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "landscape",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-14"
+        },
+        "status": "supplied",
+        "text": "tol"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-15",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "landscape",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-15"
+        },
+        "status": "supplied",
+        "text": "sára"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-16",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "landscape",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-16"
+        },
+        "status": "supplied",
+        "text": "sará"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-17",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "landscape",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-17"
+        },
+        "status": "supplied",
+        "text": "kol"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-18",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "subsistence",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-18"
+        },
+        "status": "supplied",
+        "text": "ral"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-19",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "subsistence",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-19"
+        },
+        "status": "supplied",
+        "text": "nir"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-20",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "subsistence",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-20"
+        },
+        "status": "supplied",
+        "text": "mil"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-21",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "subsistence",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-21"
+        },
+        "status": "supplied",
+        "text": "tas"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-22",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "subsistence",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-22"
+        },
+        "status": "supplied",
+        "text": "pal"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-23",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "subsistence",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-23"
+        },
+        "status": "supplied",
+        "text": "ralin"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-24",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "subsistence",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-24"
+        },
+        "status": "supplied",
+        "text": "tasur"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-25",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "trade",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-25"
+        },
+        "status": "supplied",
+        "text": "kor"
+      },
+      {
+        "borrow": {
+          "alternative_checks": [],
+          "channel": "the salt and dried-meat road over the pass, and the annual fair at its mouth",
+          "donor": {
+            "carrier": null,
+            "immediate": "lowland stage 1 (reserved to lore)",
+            "ultimate": null
+          },
+          "donor_form": "gas",
+          "entry_stage": "E1",
+          "layer_ref": "Salt-road trade layer",
+          "referent_available_from": "E1",
+          "substitutions": {
+            "bh": "p",
+            "dh": "t",
+            "g": "k",
+            "sh": "s"
+          }
+        },
+        "era_ids": [
+          "E1"
+        ],
+        "evidence": "design-choice",
+        "id": "L-26",
+        "issues": [],
+        "kind": "borrowed-strata",
+        "label_id": null,
+        "layer": "loan",
+        "owner": "05-lexicon",
+        "register": "trade",
+        "representation": "editorial-romanization",
+        "route": "loan",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-26"
+        },
+        "status": "supplied",
+        "text": "kas"
+      },
+      {
+        "borrow": {
+          "alternative_checks": [],
+          "channel": "written tallies demanded by the fair court and copied by D2 tally-keepers",
+          "donor": {
+            "carrier": null,
+            "immediate": "lowland stage 2 (reserved to lore)",
+            "ultimate": null
+          },
+          "donor_form": "bher",
+          "entry_stage": "E2",
+          "layer_ref": "Lowland script layer",
+          "referent_available_from": "E1",
+          "substitutions": {
+            "bh": "p",
+            "dh": "t",
+            "g": "k",
+            "sh": "s"
+          }
+        },
+        "era_ids": [
+          "E2"
+        ],
+        "evidence": "design-choice",
+        "id": "L-27",
+        "issues": [],
+        "kind": "borrowed-strata",
+        "label_id": null,
+        "layer": "loan",
+        "owner": "05-lexicon",
+        "register": "trade",
+        "representation": "editorial-romanization",
+        "route": "loan",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-27"
+        },
+        "status": "supplied",
+        "text": "per"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-28",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "trade",
+        "representation": "editorial-romanization",
+        "route": "compound",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-28"
+        },
+        "status": "supplied",
+        "text": "palkor"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-29",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "religion",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-29"
+        },
+        "status": "supplied",
+        "text": "wal"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-30",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "sacred",
+        "owner": "05-lexicon",
+        "register": "religion",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-30"
+        },
+        "status": "supplied",
+        "text": "belir"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-31",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "sacred",
+        "owner": "05-lexicon",
+        "register": "religion",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-31"
+        },
+        "status": "supplied",
+        "text": "hurir"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-32",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "taboo",
+        "owner": "05-lexicon",
+        "register": "religion",
+        "representation": "editorial-romanization",
+        "route": "lexicalized",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-32"
+        },
+        "status": "supplied",
+        "text": "tolsa"
+      },
+      {
+        "era_ids": [
+          "E1"
+        ],
+        "evidence": "design-choice",
+        "id": "L-33",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "sacred",
+        "owner": "05-lexicon",
+        "register": "religion",
+        "representation": "editorial-romanization",
+        "route": "compound",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-33"
+        },
+        "status": "supplied",
+        "text": "suwal"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-34",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "costume",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-34"
+        },
+        "status": "supplied",
+        "text": "mir"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-35",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "costume",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-35"
+        },
+        "status": "supplied",
+        "text": "mirken"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-36",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "social_order",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-36"
+        },
+        "status": "supplied",
+        "text": "lasin"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-37",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "social_order",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-37"
+        },
+        "status": "supplied",
+        "text": "belin"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-38",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "war",
+        "representation": "editorial-romanization",
+        "route": "root",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-38"
+        },
+        "status": "supplied",
+        "text": "gen"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-39",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "war",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-39"
+        },
+        "status": "supplied",
+        "text": "genra"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "L-40",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "05-lexicon",
+        "register": "war",
+        "representation": "editorial-romanization",
+        "route": "derived",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "05-lexicon.yml",
+          "field": "term",
+          "line": null,
+          "record": "L-40"
+        },
+        "status": "supplied",
+        "text": "genin"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-01",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-01"
+        },
+        "status": "supplied",
+        "text": "sunel"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-02",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-02"
+        },
+        "status": "supplied",
+        "text": "banwal"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-03",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-03"
+        },
+        "status": "supplied",
+        "text": "sulas"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-04",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-04"
+        },
+        "status": "supplied",
+        "text": "mirlas"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-05",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-05"
+        },
+        "status": "supplied",
+        "text": "kolsin"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-06",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-06"
+        },
+        "status": "supplied",
+        "text": "tolmir"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-07",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-07"
+        },
+        "status": "supplied",
+        "text": "belwal"
+      },
+      {
+        "era_ids": [
+          "E0"
+        ],
+        "evidence": "design-choice",
+        "id": "NM-08",
+        "issues": [],
+        "kind": "native-form",
+        "label_id": null,
+        "layer": "native",
+        "owner": "13-naming",
+        "register": null,
+        "representation": "editorial-romanization",
+        "scheme": "d2-roman",
+        "script": "Latn",
+        "source": {
+          "component": "13-naming.yml",
+          "field": "name",
+          "line": null,
+          "record": "NM-08"
+        },
+        "status": "supplied",
+        "text": "hursu"
+      }
+    ],
+    "stats": {
+      "fail": 2,
+      "hold": 10,
+      "labels": 58
+    }
+  }
+}

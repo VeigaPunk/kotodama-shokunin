@@ -28,6 +28,50 @@ languages and cultural systems to it, never edits it.
 | Dress a culture | dress-through-eras + costume-semiotics → garment lexicon (crosslinguistic) | costume with no rank/rite/era semantics | costume system + its terminology + signaling table |
 | Check a world hangs together | consistency-verification-checklist (synthesis) | silently resolving contradictions into canon | a findings list; canon rulings go to lore |
 
+### Label typing — translated labels, native forms, borrowed strata
+
+Type every form-bearing record before any gate reads it. The checked channel
+holds one form per record; a gloss is never that form, and a loan is never
+typed by its look. Executable authority `tools/d2-typed-labels.py`
+(`--selftest`); design authority `reports/round-8/depth/design-spec.md` §1;
+full receipts `reports/round-8/depth/skill-table-draft.md`. Grounding:
+`corpus/knowledge/synthesis/era-language-staging.md:108-124`.
+
+| Condition on the record | Kind and status | Checked channel | Required companions | Wrong-typing consequence |
+|---|---|---|---|---|
+| Text is a reader-facing gloss (declared gloss field, whitespace/gloss syntax, or a segment outside the declared inventory) | `translated-label` | **never** — not on the sound or identity channel | `label_id` + `owner`; when the native form is still owed, the form slot stays held | grading a gloss against native phonotactics manufactures representation artifacts — 10/10 of the frozen round-4 `PHON-INVENTORY` class are this |
+| A supplied native form exists | `native-form`, `status: supplied` | sound + identity; exactly one checked form per record | script/representation/scheme, `era_ids`, evidence | a translation claim cannot waive it: native bytes govern, still FAIL |
+| Sound kind declared, no bytes supplied | `native-form` / `borrowed-strata`, `status: absent` or `to-verify` | nothing checked | owner + form slot + reason | silent pass forbidden — `D2L-FORM-UNRESOLVED` HOLD, never clean |
+| Supplied form passes the declared inventory **and** ≥2 borrowed-strata discriminators hold | `borrowed-strata`, `status: supplied` | the recipient-adapted form against the recipient inventory, **plus** borrow-ledger checks: layer resolves, donor separated, substitutions reproduce the form, clocks ordered, domain/register declared | layer ref, donor {immediate / ultimate / carrier}, donor form + substitutions, entry stage, referent availability, channel, register/domain | mistyping a loan as native erases the contact clock; mistyping a native word as a loan invents a contact history |
+| Exactly 1 discriminator holds | kind not asserted; `status: to-verify` with the one discriminator named | nothing | the discriminator that holds, stated | do not default to either kind |
+| Untyped legacy record | no kind | unchanged channel — its legacy form field is still checked | — | adding typing fields cannot exempt a string from checking |
+
+Thresholds (T1–T4 hard; T5 calibration): T1 native-eligibility = every segment
+in the declared inventory **and** tokenizable under the declared syllable
+profile; a label signature (whitespace, gloss punctuation, out-of-inventory
+segment, declared gloss provenance) is sufficient to route off the sound
+channel. T2 identity = exactly one checked form per record; a contradiction
+between a translation claim and native bytes ⇒ native bytes govern; a declared
+sound kind with no bytes ⇒ HOLD. T3 borrowed-strata discriminators — house
+rule, ≥2 of 5: recurring correspondences with a named donor stage, donor-side
+chronology, channel separation (etymon/donor/carrier as separate facts),
+field/register clustering, dated witness + usage status (`corpus/knowledge/synthesis/loanword-material-dating.md:43-57`); exactly 1 → `to-verify`; 0 → native default, which is not a native finding. T4 clock separation:
+typing `borrowed-strata` opens a second clock — word-entry interval ≠
+referent-arrival interval; never intersect them to manufacture a date
+(executable B4: `entry_stage` earlier than `referent_available_from` ⇒
+`D2L-BORROW` FAIL). T5: WOLD 1,460-meaning / 41-language sample means ~24%
+borrowing, none loan-free (`language-contact.md:56-62`) — a fully loan-free
+declared lexicon needs a stated contact story; the band never overrides a
+packet's own declared history.
+
+Three cautions that are part of the rule: inventory-legal is not native (the
+inventory test routes strings *away* from the native channel; it never proves
+nativeness — provenance decides); a label is not a gap-filler (removing a
+gloss from the sound channel removes an artifact, it does not clear the name —
+the aggregate stays red with owed forms held); a label is not history (a
+translated or curatorial label never becomes an attested historical native
+word by repetition, `costume-language-coupling-table.md:40`).
+
 ## Error patterns
 
 | Observation | Reading |
@@ -38,6 +82,22 @@ languages and cultural systems to it, never edits it.
 | costume described with modern garment words | era/register lexicon mismatch; derive terms from textile technology and cut |
 | names with no derivational morphology | naming-systems pipeline skipped; names should carry etymology |
 | myth that explains nothing in daily life | myth is detached from ritual, calendar, and taboo; re-couple via ritual-liminality |
+| An English garment label fails the native inventory | representation-channel artifact, not a name violation; type the record or hold the owed form — never rename the garment to "fix" the gate (frozen round-4 output 10/10 `GAR-*`; `reports/supplement-opencode-1/22-label-representation.md` §1) |
+| A label-only record passes silently | forbidden: label-only → off the sound channel **and** a hold, so the aggregate stays red (`22-label-representation.md:126-128`; executable `TL-01`) |
+| A translation claim made over a violating native form | cannot waive: native bytes govern, still FAIL (`22-label-representation.md:129-130`) |
+| A sound kind declared with no bytes supplied | HOLD, not clean (`22-label-representation.md:131-132`; executable `TL-01`) |
+| An untyped legacy label | still checked; typing fields cannot exempt a string (`22-label-representation.md:133-134`) |
+| A record with no declared kind at all | hold with a stable reason — the kind is never guessed from the text's language (`tools/d2-typed-labels.py` `TL-02`) |
+| `compare_only` set while the typed label is unresolved | misuse, not a pass — the unresolved hold stands (design spec R3) |
+| A borrowed form judged only against the native stratum | misfile: loans pass through the recipient's phonotactic filter and carry donor provenance (`language-contact.md:78-79`) |
+| A loan's oldest form used to date the referent's arrival | clock conflation; keep word-entry and object-arrival intervals separate (`loanword-material-dating.md:26,60`; executable B4) |
+| A loanword that switched referent in transit | keep both coexisting names; date the sense–referent pairing (`garment-lexicon-crosslinguistic.md:26`) |
+| Imported prestige terminology for locally made goods read as evidence of import | dictionary/selection bias; check local manufacture under imported labels (`loanword-material-dating.md:57`) |
+| A modern/curatorial label promoted to an attested historical native word | reject or split: the label is typed as a label; the term keeps its own record (`costume-language-coupling-table.md:40`) |
+| A translation, exonym, or official replacement run through the inherited-form sound laws | track separately: sound laws apply to the inherited spoken label, not its translation or replacement (`era-language-staging.md:124`) |
+| Era tags or slot glosses graded on the name/sound channel | type them `fictional-coordinate` / `descriptive-gloss`; neither enters the sound channel (tool `FIELD_DEFAULTS`) |
+| A transliteration collision read as native-script identity | compare per declared scheme; a collision in that output channel is not native identity (`naming-collision-gate.md:69-70`) |
+| A shared garment label across cultures read as identical cut or status | labels are neither cut nor status (`naming-collision-gate.md:52`) |
 
 ## Boundaries (hard)
 

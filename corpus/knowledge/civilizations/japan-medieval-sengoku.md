@@ -20,6 +20,8 @@
   - Benesch, Oleg (2014), *Inventing the Way of the Samurai: Nationalism, Internationalism, and Bushidō in Modern Japan*, Oxford University Press. [DOI](https://doi.org/10.1093/acprof:oso/9780198706625.001.0001); guard against treating modern bushidō as a medieval universal.
   - Victoria and Albert Museum (n.d.), “Kimono.” [Museum overview](https://www.vam.ac.uk/articles/kimono), inspected 2026-10-17; broad dress transition only, not proof that its mostly later illustrated ensembles are medieval.
 - couples: language — ../linguistics/{historical-linguistics,writing-systems,sociolinguistics-registers,politeness-taboo-euphemism,language-contact,naming-systems}.md; myth/symbol — ../myth-symbol/{cosmology-cosmography,pantheon-archetypes,ritual-liminality,symbolism-synthesis-method}.md; era/costume — ../culture-material/{era-periodization-models,warrior-material-culture,dress-through-eras,costume-semiotics,architecture-settlement-lexicon,material-culture-inference-method}.md; handoff — ../synthesis/worldbible-integration-contract.md; lore-shokunin alone owns canon and the world bible.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m03-civ-39-57.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (429/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: Before exact use, verify the specific armor, document, or edition date; Satoh's volume year, Morris (2018), and Lough's Farge citation were re-inspected on 2026-10-17, but bibliographic confirmation is not full-text verification and mediated citations must be quoted at Lough's pages. (Derived from §11.)
 
 ## 1. Scope and calibration
 

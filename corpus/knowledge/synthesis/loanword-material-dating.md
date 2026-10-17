@@ -2,6 +2,9 @@
 - topic: Infer relative sequences and bounded dates for fictional contact, borrowing, adoption, and deposition by coupling linguistic, material, and naming evidence without treating them as one clock.
 - sources: Campbell (2013); Haspelmath & Tadmor (eds., 2009); Harris (1989, 2nd ed.); Schiffer (1987); Durkin (2014); Spear (2000); Mugane (2015); Brielle et al. (2023); Fujikawa (2017); Gutiérrez (1993). Editions, links, and verification limits below.
 - couples: **language** — `../linguistics/{historical-linguistics,language-contact,phonetics-phonology,writing-systems,naming-systems}.md`; **myth/symbol** — `../myth-symbol/{myth-folktale-genres,symbolism-synthesis-method}.md`; **era/costume/material** — `../culture-material/{era-periodization-models,dress-through-eras,textile-technology,garment-lexicon-crosslinguistic,trade-economy-lexicon,material-culture-inference-method}.md`; **siblings** — method/options handed to lore-shokunin, which owns canon and the world bible.
+- source: the works in the `- sources:` list and §1; the workflow, exercise, and handoff checklist are lane-authored craft, not findings attributed to those works.
+- verified-at: 2026-10-17 — web-linked descriptions/passages checked as §1 records; the full book-length sources were not all reread, and no quotation or exact earliest word-attestation date is asserted from an unseen entry.
+- recheck: before a case-specific handoff — recheck individual etymologies, object catalogues, and manuscript witnesses; exact first attestations and community-specific adoption dates remain unestablished.
 
 ## 1. Source register and calibration
 

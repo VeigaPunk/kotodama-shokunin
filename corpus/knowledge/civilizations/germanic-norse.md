@@ -2,6 +2,9 @@
 - topic: Germanic/Norse reference base for coupling language, myth, symbol, era, and costume; methods and historical comparisons, never fictional canon.
 - sources: Ringe (2006); Lehmann (2005–2007, ed. Slocum); Barnes (2012); Clunies Ross (2005); Snorri Sturluson (eds. Faulkes 1998, 2005, 2007); Larrington (2014); Price (2019); anonymous Eiríks saga rauða (Icelandic text; Sephton trans. 1880); National Museum of Denmark (n.d.). Standard editions, links, and verification limits below.
 - couples: Language → `../linguistics/{historical-linguistics,writing-systems,sociolinguistics-registers,orality-formulaic-language,naming-systems}.md`; myth/symbol → `../myth-symbol/{cosmology-cosmography,pantheon-archetypes,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,ritual-garments,textile-technology,material-culture-inference-method}.md`; sibling → lore-shokunin owns canon, not this entry.
+- source: the sources ledger above — Ringe, Lehmann, Barnes, Clunies Ross, Snorri (Faulkes), Larrington, Price, and the remaining items; standard editions, links, and verification limits appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact runic reading, eddic stanza, reconstructed *form, or object date; keep reconstruction separate from attestation.
 
 ## Evidence rules and cultural scope
 - **Germanic** is a language-family designation, not one timeless civilization, costume, religion, or biological population; Norse is its northern branch/context, not a synonym for all Germanic traditions.

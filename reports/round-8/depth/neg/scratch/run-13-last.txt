@@ -1,0 +1,19 @@
+tool: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/d2-typed-labels.py
+tool sha256: e9209f280c6d765561a47efdee074d0cff5f3e786e5f4f9ae7c96cc65df4a282  (D02 owns this file; it was edited during round 8 — the digest pins the revision this run used)
+fixture: /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-8/depth/neg/packet-13.era-material-scope.yml
+fixture sha256: 595cc73fec891b7bb094770ff8c0d7985768f2b0b799c89ab34896782f504867
+
+== 1. tool on the fixture (the claim must be flagged) ==
+exit: 1
+FINDING D2L-MATERIAL: [reject] GAR-R13-02 — CMAT-13-02 is not available in E0: excluded_eras declares E0
+FINDING D2L-MATERIAL: [reject] GAR-R13-02 — CMAT-13-02 is not available in E0: excluded_eras declares E0
+
+== 2. corrected twin (era E0 -> E1 on GAR-R13-02 only; finding must disappear) ==
+exit: 1
+no D2L-MATERIAL finding on the corrected twin: ok
+
+== 3. frozen costume-era-consistency gate on the fixture (independent check) ==
+exit: 1
+FINDING MAT-02: [reject] GAR-R13-02: material 'lowland plant-thread cloth' is explicitly excluded in E0 by `excluded_eras: E0`; a declaration of exclusion is a closed inventory, not an absent-evidence guess
+
+PASS: the reconciliation path flags the claim, the corrected twin passes, the frozen gate agrees.

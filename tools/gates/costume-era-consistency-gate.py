@@ -161,9 +161,15 @@ def _strip_comment(line):
     return line
 
 
+MAX_FLOW_DEPTH = 64
+
+
 def _split_flow(text):
     parts, buf, depth, quote = [], [], 0, None
     for ch in text:
+        if depth > MAX_FLOW_DEPTH:
+            raise ValueError(
+                "flow nesting deeper than the supported %d levels" % MAX_FLOW_DEPTH)
         if quote:
             buf.append(ch)
             if ch == quote:
@@ -198,6 +204,8 @@ def _scalar(token):
             inner = (inner.replace('\\"', '"').replace("\\n", "\n")
                      .replace("\\\\", "\\"))
         return inner
+    if token[0] in "&*!":
+        raise ValueError("anchor/alias/tag syntax is outside the declared subset: %r" % token[:40])
     low = token.lower()
     if low in ("null", "~"):
         return None
@@ -226,6 +234,8 @@ def _flow(text):
             key, sep, value = _split_key(part)
             if sep is None:
                 raise ValueError("flow mapping entry without ':'")
+            if key in out:
+                raise ValueError("duplicate key %r in flow mapping" % key)
             out[key] = _value(value)
         return out
     return _scalar(text)
@@ -263,6 +273,8 @@ def _parse_map(lines, i, indent):
         key, sep, value = _split_key(lines[i][1])
         if sep is None:
             raise ValueError("not a mapping entry: %r" % lines[i][1])
+        if key in out:
+            raise ValueError("duplicate key %r" % key)
         i += 1
         if value in ("|", ">"):
             block = []
@@ -308,6 +320,9 @@ def _parse_list(lines, i, indent):
                 entry[key] = None
             while i < len(lines) and lines[i][0] > indent:
                 more, i = _parse_map(lines, i, lines[i][0])
+                clash = sorted(set(more) & set(entry))
+                if clash:
+                    raise ValueError("duplicate key %r in mapping entry" % clash[0])
                 entry.update(more)
             out.append(entry)
     return out, i
@@ -319,20 +334,31 @@ def _parse(lines, i, indent):
     return _parse_map(lines, i, indent)
 
 
+def _json_object_no_duplicates(pairs):
+    out = {}
+    for key, value in pairs:
+        if key in out:
+            raise ValueError("duplicate key %r in JSON mapping" % key)
+        out[key] = value
+    return out
+
+
 def parse_packet(text):
     """Return the packet mapping, or raise Malformed with a reason."""
     stripped = text.lstrip()
     if stripped.startswith("{"):
         try:
-            value = json.loads(text)
+            value = json.loads(text, object_pairs_hook=_json_object_no_duplicates)
         except ValueError as error:
             raise Malformed("JSON parse error: %s" % error)
         if not isinstance(value, dict):
             raise Malformed("root is not a mapping")
         return value
     lines = []
-    for raw in text.replace("\t", "    ").split("\n"):
-        line = _strip_comment(raw).rstrip()
+    for raw in text.split("\n"):
+        if "\t" in raw[: len(raw) - len(raw.lstrip(" \t"))]:
+            raise Malformed("tab indentation is not supported by this subset")
+        line = _strip_comment(raw.replace("\t", "    ")).rstrip()
         if not line.strip() or line.strip() in ("---", "..."):
             continue
         lines.append((len(line) - len(line.lstrip(" ")), line.strip()))
@@ -1131,6 +1157,8 @@ def run_text(text):
         packet = parse_packet(text)
     except Malformed as error:
         return EXIT_CNE, [gdata(error)]
+    except RecursionError:
+        return EXIT_CNE, [gdata("flow nesting exceeds the supported depth")]
     try:
         findings, code = evaluate(packet)
     except Malformed as error:
@@ -1449,12 +1477,43 @@ def _finding_ids(lines):
     return ids
 
 
+def _pin_fixture(path, body):
+    """Regenerate a committed fixture only when absent; never overwrite.
+
+    The embedded constant is the pin; the committed file is a deterministic
+    artifact of it. A present file is verified byte-for-byte and a divergent
+    file is reported instead of overwritten, so tampering cannot be erased;
+    regeneration writes atomically (temp file + rename).
+    """
+    data = body.encode("utf-8")
+    if os.path.exists(path):
+        with open(path, "rb") as handle:
+            if handle.read() != data:
+                return "divergent"
+        return "verified"
+    tmp = "%s.tmp-%d" % (path, os.getpid())
+    with open(tmp, "wb") as handle:
+        handle.write(data)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+    return "regenerated"
+
+
+def _pin_fixture_or_fail(path, body):
+    if _pin_fixture(path, body) == "divergent":
+        print("SELFTEST FAIL: %s diverges from the embedded constant; "
+              "refusing to overwrite (delete the file to regenerate it)" % path)
+        return False
+    return True
+
+
 def selftest():
     os.makedirs(FIXTURE_DIR, exist_ok=True)
-    with open(FIXTURE_PATH, "w", encoding="utf-8") as handle:
-        handle.write(FIXTURE)
-    with open(EXPECTED_PATH, "w", encoding="utf-8") as handle:
-        handle.write("\n".join(EXPECTED) + "\n")
+    if not _pin_fixture_or_fail(FIXTURE_PATH, FIXTURE):
+        return 1
+    if not _pin_fixture_or_fail(EXPECTED_PATH, "\n".join(EXPECTED) + "\n"):
+        return 1
 
     checks = 0
 

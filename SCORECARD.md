@@ -97,8 +97,43 @@ axis verdict or new capability is admitted at declaration. Old D1/D2,
 source uncertainty and round-6 evidence remain unchanged; D3 is not an
 implicit repair of D2. Dispatch is exactly one 16-worker Flash MAX batch.
 
+## Axes — round 8 (2026-10-17), admitted
+
+Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker
+`opencode-go/deepseek-v4.1-flash` batch (loop 1, build 1 of 4). Acceptance:
+`python3 reports/round-8/run-validation.py` exits 0
+(`reports/round-8/validation.json`, `reports/round-8/rerun.json`).
+Owner action during integration: D2 packet regenerated to re-pin the
+reader sha after the legitimate costume-gate repair — drift was caused by
+in-round O repairs, not by the D tool.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D, capability `d2-typed-labels`) | No typed-label handling → `tools/d2-typed-labels.py` with five kinds, kind-by-declaration, borrow-ledger checks; selftest 39/39; D2 packet regenerates byte-identical; SKILL.md gains the label-typing decision table + 15 error-pattern rows with cited sources | `python3 tools/d2-typed-labels.py --selftest`; `python3 tools/assemble-d2.py --check` | `reports/round-8/depth/*`, `validation.json` claims.D |
+| coverage | unchanged | 179 knowledge entries, same six partitions; metadata frontmatter repaired, no entries added or removed | `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge` | `reports/round-8/metadata/m0*.md` (11 shard fragments) |
+| operability | improved (claim O) | Harness mis-rejected duplicate-parent-receipt controls → `tools/harness/r8_checks.py` fix with regression controls; 20 legacy defects inventoried, 10 isolated negative controls; battery 10/10 + craft 10/10 domain + 18/18 CLI controls green; round-3 manifests reproduce 7/7 isolated | `python3 tools/check-gate-battery.py --selftest`; `python3 reports/round-8/run-validation.py` | `reports/round-8/operability/*`, `battery-rerun.json` |
+| freshness | improved (claim F, lowest non-retired) | 15 residual round-6 rows with no round-8 receipts → 15/15 receipts with fresh retrievals (215 distinct substantive passage keys per harness count), raw 15× supported split conservatively to 11 partial-support / 4 unresolved with basis text; passage support separated from whole-claim support by enforced controls; documented access failures carried | `python3 reports/round-8/run-validation.py` | `reports/round-8/freshness/R8-F*-receipt.{json,md}`, `reconciliation.json`, `audit.md` |
+| calibration | improved (unclaimed observation) | Raw worker labels (15× "supported") preserved apart from reconciled dispositions; named access failures recorded per receipt (e.g. R8-F01: 6 documented failures); limits handed forward explicitly | `python3 reports/round-8/run-validation.py`; read `reconciliation.json` notes | 15 rows with raw/reconciled fields; `freshness/audit.md` spot-checks |
+| adjacency | unchanged | No cross-domain bleed: handoff contract untouched by D work, PROVINCE still accurate, no out-of-lane writes (git-scope check); contract-digest drift vs lore's open r93 ratification escalated to L0, not absorbed | `git status` scope read; `reports/round-8/adjacency.md` | `adjacency.md`; fleet `.ufo/l0-questions.md` append |
+
+Admission: F/O/D all verify and no axis is harmed. Exploratory content:
+none declared. Limits: receipts are current-constraint rechecks, not new
+historical certifications; the 4 unresolved rows stay open; the D tool's
+holds are representation discipline, not clearance.
+
+Capabilities addendum (round 8):
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| d2-typed-labels | Types D2 records across five kinds by declaration; enforces holds (TL-01/TL-02), borrow-ledger clock checks (B4), channel separation; emits typed projection | `python3 tools/d2-typed-labels.py --selftest`; `examples/culture-d2/typed-labels.d2.yml` | round 8 |
+
 ## Planned
 
+- Round 8 admitted (above). Next: round 9, loop 1 build 2 of 4 — one 64-worker
+  swarm on the next opencode-go key lane. Candidate claims: D3 packet
+  acceptance completion (the unadmitted round-7 O debt, without re-dispatching
+  round 7), residual freshness rows (4 unresolved), per-gate `expected.json`
+  baselines.
 - Operator regimen 2026-10-17 (supersedes the older rounds 8–10 mapping;
   recorded in LOG.md): 3 loops × 7 rounds = lane rounds 8–28. Per loop:
   4 build rounds (one 64-worker swarm each, `opencode-go/deepseek-v4.1-flash`,

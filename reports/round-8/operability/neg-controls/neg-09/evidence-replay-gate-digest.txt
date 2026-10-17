@@ -1,0 +1,21 @@
+### Frozen-replay interaction of the D5 gate repairs
+date: 2026-10-17
+
+A) LIVE (repaired) gates in a copied tree (/tmp/neg09-replay):
+   REPLAY COULD-NOT-EVALUATE: 7 could-not-evaluate, 0 mismatch, 0 reproduced of 7 row(s)
+   reason: gate_digest_mismatch for all five repaired gates + provenance-audit.py
+
+B) PRE-FIX baseline gate bytes in the same copy:
+   REPLAY COULD-NOT-EVALUATE: 2 could-not-evaluate, 0 mismatch, 5 reproduced of 7 row(s)
+   reason: only the two provenance-audit.py rows fail (pre-existing: its on-disk bytes already differ from the round-3 pin; provenance-audit.py is unmodified in the worktree)
+
+C) live gate sha256 vs round-3 MANIFEST pins (2026-10-17):
+   phonology-sanity-gate.py live=722ff91bd0d41482ee14be37b9b410d887f77b007a9b0c8555d0bf3f48b43cb7 pin=fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655
+   naming-collision-gate.py live=ab98fe1ad71b6020cde84d13eb57686f0f20d980f2471fe638c56a7144b911ce pin=8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526
+   myth-consistency-gate.py live=270e4e0fc5033202675cd6cd8d3bcc260f7e76922c4609bf54a85af75b969503 pin=26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5
+   costume-era-consistency-gate.py live=590e7f65df46dd022e725cd7832fc9b99260afdd007bd8e001565320887d044a pin=29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03
+   lexicon-coverage-audit.py live=989b129535f24c6c944f8b6cf857092e4cc834fdc45f37265da877e11cecafdf pin=63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80
+   provenance-audit.py live=8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a pin=4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a
+4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a
+
+Interpretation: the round-8 gate repairs (D1, D4, D5 owners) change gate bytes, so the round-3 frozen manifest's gate pins no longer match the live tree; the replay tool correctly refuses (exit 2) instead of replaying unpinned code.

@@ -14,6 +14,9 @@
   - Pandey, Anshuman (2019), “Revised proposal to encode Old Uyghur in Unicode,” Unicode working-group document L2/19-016, [PDF](https://www.unicode.org/L2/L2019/19016-old-uyghur.pdf), p. 2 inspected here; used for the modern scholarly framing of the script's transmission, not as a chronicle of events.
   - Starostin, Sergei A., Anna V. Dybo, and Oleg A. Mudrak (2003), Etymological Dictionary of the Altaic Languages, Leiden: Brill; consulted as a PDF scan for lexical documentation only (e.g. the Middle Mongol female-shaman forms under the entry *ŭdu), not for its contested Altaic genealogy.
 - couples: language → `linguistics/{writing-systems,orality-formulaic-language,sociolinguistics-registers,naming-systems,language-contact}.md`; myth/symbol → `myth-symbol/{cosmology-cosmography,color-symbolism,animal-symbolism,number-symbolism,symbolism-synthesis-method}.md`; era/costume/logistics → `culture-material/{era-periodization-models,dress-through-eras,costume-semiotics,sumptuary-law-rank-display,trade-economy-lexicon,material-culture-inference-method}.md`; sibling → lore-shokunin receives options and evidence, owns canon and the world bible.
+- source: the entry's own source apparatus — the `- sources:` field above with its editions, links, and access limits stated in this entry; pointer added in the round-8 metadata conformance pass (receipts: reports/round-8/metadata/m04-civ-58-76.md)
+- verified-at: 2026-10-17; round-8 metadata pass only — entry frontmatter checked and all 10 cited links status-swept on 2026-10-17 (9 live, 1 non-2xx or failed); no passage, catalogue, or dated-object re-inspection in this pass
+- recheck: named local dress regulations, early-script adoption testimony, female-specialist terminology, and spirit/standard/cairn continuities against named editions before reuse.
 
 ## Scope and evidence grades
 

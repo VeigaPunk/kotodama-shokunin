@@ -19,6 +19,8 @@
   - [Met27] Metropolitan Museum of Art, object record 27.119.1, [“Maebyeong with lotus decoration”](https://www.metmuseum.org/art/collection/search/42278), consulted 2026-10-17.
   - Retrieval note (2026-10-17): [SL02], [SL03c], and [SL03s] were retrieved and inspected in the triage pass; checks they support are cited per row below.
 - couples: language → `../linguistics/{historical-linguistics,writing-systems,language-contact,sociolinguistics-registers,naming-systems}.md`; myth/symbol → `../myth-symbol/{creation-myths-taxonomy,pantheon-archetypes,color-symbolism,animal-symbolism,symbolism-synthesis-method}.md`; era/costume/material → `../culture-material/{era-periodization-models,sumptuary-law-rank-display,dress-through-eras,textile-technology,ritual-garments,material-culture-inference-method}.md`; sibling recipient → lore-shokunin owns world-bible decisions, while this entry supplies reference constraints and uncertainty-tagged design options only.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m03-civ-39-57.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (206/206/206) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: Before exact use, verify the specific object or text and its date; open checks (dated dress cuts, Silla rank regulations, nonelite naming, local ritual evidence, object-level image identification) remain after the 2026-10-17 triage. (Derived from §12.)
 
 ## 1. Evidence contract and lookup conventions
 

@@ -2,6 +2,9 @@
 - topic: Ming China (1368–1644): coupling language, myth, symbolic authority, era, costume, and administration; buzi dress codes, maritime loan layers, novel registers, and lijia vocabulary.
 - sources: Zhang Tingyu et al. (1739; standard punctuated edition 1974); Cammann (1953); Huang (1974); Norman (1988); Coblin (1997, 2000); Hanan (1981); Plaks (1987); Ma Huan, trans. Mills (1970); Klöter (2011); Brook (1998); von Glahn (2004); Mair and Hoh (2009); Ma Huan, *Yingya Shenglan* [Wikisource transcription](https://zh.wikisource.org/wiki/瀛涯勝覽) (accessed 2026-10-17); Wikipedia “Mazu,” title-history section (accessed 2026-10-17); editions and checkable links below.
 - couples: language ↔ myth ↔ symbol ↔ era ↔ costume; `../linguistics/{writing-systems,sociolinguistics-registers,language-contact,naming-systems}.md`; `../myth-symbol/{animal-symbolism,cosmology-cosmography,symbolism-synthesis-method}.md`; `../culture-material/{sumptuary-law-rank-display,costume-semiotics,textile-technology,trade-economy-lexicon,era-periodization-models}.md`; lore-shokunin receives options and constraints, never canon from this entry.
+- source: the sources ledger above — Zhang Tingyu et al., Cammann, Huang, Norman, Coblin, Ma Huan (Mills), Brook, von Glahn, and the remaining items; editions and checkable links appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/200/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact Ming garment cut, rank badge, title, or maritime loanword; reopen the named source and retain its date and uncertainty.
 
 ## Scope and evidence discipline
 - This is a reference base and generative method, not a fictional polity, pantheon, wardrobe, or approved world-bible entry.

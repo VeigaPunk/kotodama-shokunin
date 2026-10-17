@@ -2,6 +2,9 @@
 - topic: Akan linguistic-cultural coupling, especially Asante Twi tone, adinkra, kente, stool regalia, and kra/day naming; reference and generative method, not fictional canon.
 - sources: Florence Abena Dolphyne (1988); Susanne Genzel and Frank Kügler (2011); Kofi Agyekum (2006); Kojo Arthur (2001); R. S. Rattray (1923); Kwame Gyekye (1995 [1987]); Doran H. Ross, ed. (1998); UNESCO (2024); Peri Klemm and Beth Harris (n.d.). Editions, links, and inspection limits below.
 - couples: language—`../linguistics/{phonetics-phonology,writing-systems,orality-formulaic-language,naming-systems,sociolinguistics-registers,kinship-terminology}.md`; myth/symbol—`../myth-symbol/{cosmology-cosmography,pantheon-archetypes,myth-ritual-theories,symbolism-synthesis-method}.md`; era/costume—`../culture-material/{era-periodization-models,textile-technology,costume-semiotics,sumptuary-law-rank-display,ritual-garments,material-culture-inference-method}.md`; sibling boundary—lore-shokunin owns world-bible decisions; no sibling files or canon are changed here.
+- source: the keyed ledger below (Dolphyne 1988; Genzel–Kügler 2011; Agyekum 2006; Arthur 2001; Rattray 1923; Gyekye 1995; Ross 1998; UNESCO 2024; Klemm–Harris n.d.); per-item inspection limits are stated with each entry.
+- verified-at: 2026-10-17; the Smarthistory transcript was checked at the cited page; the remaining works are checked at the level named with each entry (selections, publisher record, or bibliography only).
+- recheck: before reusing a tone or phonetics claim, a name gloss, or an adinkra symbol explanation; adinkra origins, early textile chronology, and individual symbol histories remain verification debt (closing calibration bullets).
 
 ## Scope and calibration
 - Akan is not a synonym for Asante, Ghanaian, or West African; this entry's strongest political and ritual evidence is Asante-specific.

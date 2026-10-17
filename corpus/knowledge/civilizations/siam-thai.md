@@ -2,6 +2,8 @@
 - topic: Central Thai/Siamese language–myth–symbol–era–costume coupling; Ramakien indigenization, khon masked performance, rachasap, and sakdina; reference and generative method, never fictional canon.
 - sources: Iwasaki and Ingkaphirom (2005) [S1]; Jenny (2019) [S2]; Baker and Phongpaichit (2017) [S3]; Ramanujan (1991) [S4]; F. E. Reynolds (1991) [S5]; Miettinen (2018, updated online) [S6]; UNESCO (2018) [S7]; Robertson (n.d.) [S8]; Waters (2022) [S9]; Evason (2021) [S10]; Burapha University Library rachasap reference (2012) [S11]; King Prajadhipok's Institute, “ศักดินาสยาม” (n.d.) [S12]; Library of Congress Law Library (2025) [S13].
 - couples: language → `../linguistics/{phonetics-phonology,writing-systems,language-contact,sociolinguistics-registers,politeness-taboo-euphemism,naming-systems}.md`; myth/symbol → `../myth-symbol/{comparative-frameworks,pantheon-archetypes,color-symbolism,cosmology-cosmography}.md`; era/costume → `../culture-material/{era-periodization-models,costume-semiotics,sumptuary-law-rank-display,ritual-garments,material-culture-inference-method}.md`; sibling → lore-shokunin receives attributed design options, not canon declarations.
+- verified-at: 2026-10-17; S1's publisher excerpt, S2's published chapter, S4–S5's online volume, and the linked S6–S13 pages and files were consulted; S3 is a bibliographically checked historical reading route, not a claim of clause-by-clause collation.
+- recheck: consult the relevant Thai text, dated object, production record, or practitioner before specifying an early attestation, a rank entitlement, an exact costume component, or a ritual instruction.
 
 ## Scope, verification, and calibration
 - **Scope:** principally Central Thai and the Ayutthaya/Bangkok court traditions; neither an inventory of every culture in Thailand nor a pan-Tai civilization template.
@@ -9,8 +11,6 @@
 - **Established:** modern Thai phonological contrasts; socially sensitive reference vocabulary; differentiated khon role types; the early Bangkok court's Ramakien patronage [S1–S2, S5–S7].
 - **Interpretive/contested:** whether Ramakien is best classified as Hindu, Buddhist, or differently framed in different media; the explanatory reach of “feudalism” for sakdina [S5, S9].
 - **Thin here:** pre-1767 performance reconstruction, provincial/local ritual variants, exact legal clauses, historical textile inventories, and workshop-specific mask consecration. Do not fill these gaps with court stereotypes.
-- **verified-at:** 2026-10-17; S1's publisher excerpt, S2's published chapter, S4–S5's online volume, and the linked S6–S13 pages and files were consulted; S3 is a bibliographically checked historical reading route, not a claim of clause-by-clause collation.
-- **recheck:** consult the relevant Thai text, dated object, production record, or practitioner before specifying an early attestation, a rank entitlement, an exact costume component, or a ritual instruction.
 
 ## Source and edition key
 - **[S1]** Shoichi Iwasaki and Preeya Ingkaphirom. 2005. *A Reference Grammar of Thai*. Cambridge University Press. [Publisher excerpt, chapter 1](https://assets.cambridge.org/97805216/50854/excerpt/9780521650854_excerpt.pdf), especially pp. 3–9; [bibliographic record](https://grambank.clld.org/sources/gIwasakiIngkaphiromThai). A modern reference grammar, not an unchanging history of all Thai speech.

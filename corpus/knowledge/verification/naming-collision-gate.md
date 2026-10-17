@@ -10,6 +10,8 @@
   - [E] Wagner, Robert A., and Michael J. Fischer (1974), “The String-to-String Correction Problem,” *Journal of the ACM* 21(1): 168–173; [DOI](https://doi.org/10.1145/321796.321811). Edit-distance machinery, not a model of reader confusion.
   - [C] UNESCO Intergovernmental Committee (2015), *Ethical Principles for Safeguarding Intangible Cultural Heritage*, endorsed by Decision 10.COM 15.a; [principles](https://ich.unesco.org/en/ethics-and-ich-00866), especially 1, 4–5, 7–10. Ethical reference adapted here, not a fiction-naming law.
 - couples: language — `linguistics/naming-systems.md`, `phonetics-phonology.md`, `morphological-typology.md`, `historical-linguistics.md`, `writing-systems.md`, `language-contact.md`, `politeness-taboo-euphemism.md`; myth/symbol — `myth-symbol/symbolism-synthesis-method.md`, `pantheon-archetypes.md`; era/costume — `culture-material/era-periodization-models.md`, `costume-semiotics.md`, `garment-lexicon-crosslinguistic.md`; sibling — lore-shokunin owns entity identity, canon exceptions, and world-bible admission. Abbreviated filenames belong to the preceding directory; all paths are relative to `corpus/knowledge/`.
+- verified-at: 2026-10-17 — round-8 metadata pass: header fields and cross-reference resolution checked; 8 linked locators re-checked for resolution (5 reachable, 3 blocked by remote servers); no uninspected passage is quoted.
+- recheck: on new aliases, entity merges/splits, sound changes, script/transliteration reform, or a revised canon snapshot.
 
 ## 1. Contract and calibration
 - This is a review specification, not a shipped executable gate or evidence that a live canon was searched. Its findings concern only the supplied snapshot and declared review scope.

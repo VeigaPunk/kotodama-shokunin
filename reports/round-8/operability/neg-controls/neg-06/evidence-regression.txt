@@ -1,0 +1,36 @@
+checked_at_utc = 2026-10-17T20:32:13Z
+
+== sha256 (worktree, post-fix) ==
+e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f  tools/gates/costume-era-consistency-gate.py
+2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287  tools/gates/lexicon-coverage-audit.py
+5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08  tools/gates/myth-consistency-gate.py
+
+== sha256 (git show HEAD, pre-fix; == review 26 §0 pins) ==
+29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03  -
+63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80  -
+26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5  -
+
+== gate selftests ==
+-- costume-era-consistency-gate --
+expected: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/fixtures/costume-era-consistency-gate.expected
+rc=0
+-- lexicon-coverage-audit --
+selftest: 14/14 checks passed
+rc=0
+-- myth-consistency-gate --
+selftest: OK — fixture exit 1; planted IDs present: MC-P01, MC-P02, MC-M01, MC-M02, MC-S01, MC-S02; clean control exit 0 (0 findings); fixture and expected verified against the embedded constants under tools/gates/fixtures/
+rc=0
+
+== battery / craft ==
+SELFTEST OK 10/10 controls behaved as expected
+battery-rc=0
+CLI-SELFTEST OK 18/18 cases passed
+craft-rc=0
+
+== live example packet, pre-fix vs post-fix (byte identity) ==
+costume-era-consistency-gate pre_rc=0 post_rc=0 output=IDENTICAL
+lexicon-coverage-audit pre_rc=0 post_rc=0 output=IDENTICAL
+myth-consistency-gate pre_rc=0 post_rc=0 output=IDENTICAL
+
+== costume selftest summary line ==
+self-test: 10/10 checks passed; fixture exit 1 with 21 planted finding IDs

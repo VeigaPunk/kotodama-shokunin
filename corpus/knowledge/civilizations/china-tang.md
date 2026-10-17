@@ -3,6 +3,9 @@
 - topic: Tang China (618–907): coupling language and writing, Buddhist translation, examination register, regulated verse, plural sacred authority, symbolic display, era change, names, and hu fu; reference knowledge and design methods, never fictional canon.
 - sources: Norman (1988); Pulleyblank (1984); Mair (1994); Sen (2003); McMullen (1988); Cai, ed. (2008); Lewis (2009); Chen (2019); Teiser (1988); Wilkinson (2015, 4th ed.); Schafer (1963); full editions and verification links below.
 - couples: language — `linguistics/phonetics-phonology.md`, `linguistics/writing-systems.md`, `linguistics/language-contact.md`, `linguistics/sociolinguistics-registers.md`, `linguistics/naming-systems.md`; myth/symbol — `myth-symbol/pantheon-archetypes.md`, `myth-symbol/cosmology-cosmography.md`, `myth-symbol/symbolism-synthesis-method.md`; era/costume — `culture-material/era-periodization-models.md`, `culture-material/dress-through-eras.md`, `culture-material/textile-technology.md`, `culture-material/sumptuary-law-rank-display.md`, `culture-material/material-culture-inference-method.md`; sibling recipient — lore-shokunin owns world-bible decisions and canon.
+- source: the sources ledger above — Norman, Pulleyblank, Mair, Sen, McMullen, Lewis, Schafer, and the remaining items; full editions and verification links appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/200/403) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact Middle Chinese form, translation date, hu fu garment cut, or rank-colour rule; reopen the named edition and retain its uncertainty.
 
 ## 1. Scope and calibration
 

@@ -1,0 +1,19 @@
+NEG-08 gate under test: /var/tmp/tmpgqmn8352/naming-collision-gate.prefix.py
+NEG-08 gate sha256: 8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526
+NEG-08 note: PRE-FIX bytes (review-26 §0 pin / committed cf338a7 bytes); authored-form checks below are expected to FAIL.
+NEG-08 name-authored-no-preserved             rc=1 ids=PHON-INVENTORY,CROSS-HOLD FAIL
+NEG-08 name-authored-yes-preserved            rc=1 ids=PHON-INVENTORY,CROSS-HOLD FAIL
+NEG-08 name-authored-007-preserved            rc=1 ids=PHON-INVENTORY,CROSS-HOLD FAIL
+NEG-08 id-authored-007-preserved              rc=1 ids=PHON-INVENTORY,CROSS-HOLD FAIL
+NEG-08 guard-enabled-false-still-typed        rc=1 ids=NAME-NEAR,PHON-INVENTORY,PHON-INVENTORY,CROSS-HOLD PASS
+NEG-08 guard-enabled-false-suppresses-near    rc=1 ids=PHON-INVENTORY,PHON-INVENTORY,CROSS-HOLD PASS
+NEG-08 guard-opaque-true-still-typed          rc=1 ids=DERIV-HOLD,CROSS-HOLD PASS
+NEG-08 guard-opaque-true-suppresses-hold      rc=1 ids=CROSS-HOLD PASS
+NEG-08 guard-max-distance-typed               rc=1 ids=PHON-INVENTORY,PHON-INVENTORY,CROSS-HOLD PASS
+NEG-08 guard-non-boolean-token-no-crash       rc=1 ids=NAME-NEAR,PHON-INVENTORY,PHON-INVENTORY,CROSS-HOLD PASS
+NEG-08 guard-tab-indentation-still-exit-2     rc=2 ids=G-DATA PASS
+NEG-08 RESULT: FAIL (4/11 checks)
+NEG-08 FAILURE: name-authored-no-preserved: PRE-FIX PATTERN OBSERVED: authored 'no' and quoted 'no' audit differently or the authored form was re-rendered — authored rc=1 ["FINDING PHON-INVENTORY: FAIL — name N1 'false': symbol /f/ at position 1 is not in the declared inventory (consonants {p, t, n}, vowels {a, o})"] vs quoted rc=1 ['FINDING CROSS-HOLD: HOLD — packet declares no bounded cross-cultural review; D HOLD — a constructed string is not evidence of cross-cultural clearance (spec §9.6)']
+NEG-08 FAILURE: name-authored-yes-preserved: PRE-FIX PATTERN OBSERVED: authored 'yes' and quoted 'yes' audit differently or the authored form was re-rendered — authored rc=1 ["FINDING PHON-INVENTORY: FAIL — name N1 'true': symbol /r/ at position 2 is not in the declared inventory (consonants {p, t, n}, vowels {a, o})"] vs quoted rc=1 ["FINDING PHON-INVENTORY: FAIL — name N1 'yes': symbol /y/ at position 1 is not in the declared inventory (consonants {p, t, n}, vowels {a, o})"]
+NEG-08 FAILURE: name-authored-007-preserved: PRE-FIX PATTERN OBSERVED: authored '007' and quoted '007' audit differently or the authored form was re-rendered — authored rc=1 ["FINDING PHON-INVENTORY: FAIL — name N1 '7': symbol /7/ at position 1 is not in the declared inventory (consonants {p, t, n}, vowels {a, o})"] vs quoted rc=1 ["FINDING PHON-INVENTORY: FAIL — name N1 '007': symbol /0/ at position 1 is not in the declared inventory (consonants {p, t, n}, vowels {a, o})"]
+NEG-08 FAILURE: id-authored-007-preserved: PRE-FIX PATTERN OBSERVED: authored id 007 vs quoted '007' differ or the id was re-rendered as '7' — authored rc=1 ["FINDING PHON-INVENTORY: FAIL — name 7 'tani': symbol /i/ at position 4 is not in the declared inventory (consonants {p, t, n}, vowels {a, o})"] vs quoted rc=1 ["FINDING PHON-INVENTORY: FAIL — name 007 'tani': symbol /i/ at position 4 is not in the declared inventory (consonants {p, t, n}, vowels {a, o})"]

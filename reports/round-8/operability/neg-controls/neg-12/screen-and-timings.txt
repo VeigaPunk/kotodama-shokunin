@@ -1,0 +1,34 @@
+== screen precision table (in-process, 2026-10-17) ==
+^(?P<stem>(a+)+)$                              want=True  got=True  ok
+^(?P<stem>(a|aa)+)$                            want=True  got=True  ok
+(?:a*)*                                        want=True  got=True  ok
+(a+){2,}                                       want=True  got=True  ok
+(x|y)*                                         want=True  got=True  ok
+^(?P<stem>.+)a$                                want=False got=False ok
+^(?!.*r$)(?P<B1>[a-záéíóú]+)$                  want=False got=False ok
+^(?P<B1>nen|wen)$                              want=False got=False ok
+^(?P<B1>[a-záéíóú]+)[+](?P<B2>[a-záéíóú]+)$    want=False got=False ok
+^(?P<mod>.+)\+(?P<head>.+)$                    want=False got=False ok
+a{2,3}b                                        want=False got=False ok
+(ab)+                                          want=False got=False ok
+\(a+\)+                                        want=False got=False ok
+[(a+)]+                                        want=False got=False ok
+^(?P<stem>.+)$                                 want=False got=False ok
+screen table: 15/15 ok
+
+== wall-clock timings (2026-10-17) ==
+-- post-fix, nested-quantifier payload:
+
+real	0m0.020s
+user	0m0.018s
+sys	0m0.001s
+-- post-fix, budget-only payload:
+
+real	0m0.520s
+user	0m0.517s
+sys	0m0.001s
+-- pre-fix (cf338a7 bytes), budget-only payload:
+
+real	0m10.001s
+user	0m9.981s
+sys	0m0.001s

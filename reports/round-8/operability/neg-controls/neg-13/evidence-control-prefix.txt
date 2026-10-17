@@ -1,0 +1,23 @@
+# evidence — neg-13 control (D9) fail-before, git e7ca0fa bytes
+# command: python3 reports/round-8/operability/neg-controls/neg-13/neg-13-control.py --from-git e7ca0fa
+# run_at_utc: 2026-10-17T20:28:41Z
+# exit: 1
+NEG-13 gate source: git revision e7ca0fa (git archive)
+NEG-13 gate under test: /var/tmp/neg-13-9mjof7j3/git-e7ca0fa/tools/gates/naming-collision-gate.py
+NEG-13 gate sha256: 8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526
+NEG-13 note: this is the review-26 pinned PRE-FIX byte copy (8c5afb0a…); the subset checks below are expected to FAIL.
+NEG-13 attribute-access-__class__     rc=1 ids=DERIV-REPLAY FAIL
+NEG-13 attribute-chain-__mro__        rc=1 ids=DERIV-REPLAY FAIL
+NEG-13 indexing-stem-0                rc=1 ids=DERIV-REPLAY FAIL
+NEG-13 conversion-stem-repr           rc=1 ids=DERIV-REPLAY FAIL
+NEG-13 format-spec-stem               rc=1 ids=DERIV-REPLAY FAIL
+NEG-13 malformed-single-brace         rc=1 ids=- FAIL
+NEG-13 plain-template-still-clean     rc=0 ids=- PASS
+NEG-13 plain-template-mismatch-fails  rc=1 ids=PHON-CODA,DERIV-REPLAY PASS
+NEG-13 RESULT: FAIL (6/8 checks)
+NEG-13 FAILURE: attribute-access-__class__: PRE-FIX PATTERN OBSERVED: internals echoed into the report (rc=1 ids=['DERIV-REPLAY']): ['FINDING DERIV-REPLAY: FAIL — name F01 \'talin\': declared chain \'R1\' applied to \'tala\' yields "<class \'str\'>"; the stated inputs and rules do not yield the candidate']
+NEG-13 FAILURE: attribute-chain-__mro__: PRE-FIX PATTERN OBSERVED: internals echoed into the report (rc=1 ids=['DERIV-REPLAY']): ['FINDING DERIV-REPLAY: FAIL — name F01 \'talin\': declared chain \'R1\' applied to \'tala\' yields "(<class \'str\'>, <class \'object\'>)"; the stated inputs and rules do not yield the candidate']
+NEG-13 FAILURE: indexing-stem-0: PRE-FIX PATTERN OBSERVED: template rendered instead of refused (rc=1 ids=['DERIV-REPLAY']; expected rc=1 with only DERIV-HOLD and 'outside the accepted subset'): ["FINDING DERIV-REPLAY: FAIL — name F01 'talin': declared chain 'R1' applied to 'tala' yields 't'; the stated inputs and rules do not yield the candidate"]
+NEG-13 FAILURE: conversion-stem-repr: PRE-FIX PATTERN OBSERVED: template rendered instead of refused (rc=1 ids=['DERIV-REPLAY']; expected rc=1 with only DERIV-HOLD and 'outside the accepted subset'): ['FINDING DERIV-REPLAY: FAIL — name F01 \'talin\': declared chain \'R1\' applied to \'tala\' yields "\'tal\'"; the stated inputs and rules do not yield the candidate']
+NEG-13 FAILURE: format-spec-stem: PRE-FIX PATTERN OBSERVED: template rendered instead of refused (rc=1 ids=['DERIV-REPLAY']; expected rc=1 with only DERIV-HOLD and 'outside the accepted subset'): ["FINDING DERIV-REPLAY: FAIL — name F01 'talin': declared chain 'R1' applied to 'tala' yields '     tal'; the stated inputs and rules do not yield the candidate"]
+NEG-13 FAILURE: malformed-single-brace: PRE-FIX PATTERN OBSERVED: malformed template not refused as a stable DERIV-HOLD (rc=1 ids=[]): ['Traceback (most recent call last):', '  File "/var/tmp/neg-13-9mjof7j3/git-e7ca0fa/tools/gates/naming-collision-gate.py", line 1720, in <module>']

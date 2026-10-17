@@ -2,6 +2,9 @@
 - topic: Archaeological Nazca as a reference for coupling landscape, visual communication, ritual authority, water technology, chronological change, and dress; method only, not fictional canon.
 - sources: Silverman (1988, 1993); Silverman and Proulx (2002); Proulx (2006); Barnes and Fleming (1991); Schreiber and Lancho Rojas (1995); Conlee (2007); Knudson et al. (2009); Ruggles and Saunders (2012); Sakai et al. (2024); editions and persistent links below.
 - couples: Language—linguistics/{naming-systems,writing-systems,semantic-fields-lexicon-building}.md; myth/symbol—myth-symbol/{cosmology-cosmography,myth-ritual-theories,symbolism-synthesis-method}.md; era/costume—culture-material/{era-periodization-models,ritual-garments,textile-technology,material-culture-inference-method}.md; sibling—lore-shokunin owns canon and the world bible.
+- source: the entry's own source apparatus — the `- sources:` field above with its editions, links, and access limits stated in this entry; pointer added in the round-8 metadata conformance pass (receipts: reports/round-8/metadata/m04-civ-58-76.md)
+- verified-at: 2026-10-17; round-8 metadata pass only — entry frontmatter checked and all 10 cited links status-swept on 2026-10-17 (3 live, 7 non-2xx or blocked); no passage, catalogue, or dated-object re-inspection in this pass
+- recheck: object-specific cut, fiber, date, attachment, and wear reconstructions, and any named-god or spoken-language claim, against the cited catalogue before copying a particular artifact.
 
 ## Source register and calibration
 

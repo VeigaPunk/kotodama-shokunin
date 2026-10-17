@@ -12,12 +12,13 @@ Interface
             2  could-not-evaluate — input missing/unreadable, or the root is
                not a YAML mapping carrying a nonempty `name` (malformed packet)
     python3 tools/gates/myth-consistency-gate.py --selftest
-        (`--self-test` is accepted as an alias.) Rebuilds
-        tools/gates/fixtures/myth-consistency-gate.yml and
-        tools/gates/fixtures/myth-consistency-gate.expected, runs this gate on
-        the fixture as a subprocess, and asserts exit 1 with every planted
-        finding ID present, plus an in-memory repaired control asserting
-        exit 0.
+        (`--self-test` is accepted as an alias.) Verifies the committed pair
+        tools/gates/fixtures/myth-consistency-gate.yml and .expected against
+        this file's embedded constants, regenerating a file atomically only
+        when it is absent and refusing to overwrite divergent bytes; runs
+        this gate on the fixture as a subprocess, and asserts exit 1 with
+        every planted finding ID present, plus an in-memory repaired control
+        asserting exit 0.
 
 Kernel scope
 ------------
@@ -87,11 +88,14 @@ checked entry, edition, and witness as a `cf_atu` comparison [spec §4].
 
 Input support: a documented YAML subset (block mappings/sequences, flow
 lists/mappings, quoted and plain scalars, comments, `- key: value` items).
-The evaluator never writes to the packet; only --selftest writes, and only
-inside tools/gates/fixtures/.
+The evaluator never writes to the packet. --selftest writes only inside
+tools/gates/fixtures/, only to regenerate a file that is absent (atomic
+temp-file + rename); a present fixture is verified byte-for-byte and a
+divergent one is reported instead of overwritten.
 """
 
 import copy
+import os
 import re
 import subprocess
 import sys
@@ -158,9 +162,15 @@ def _strip_comment(raw):
     return "".join(out)
 
 
+MAX_FLOW_DEPTH = 64
+
+
 def _split_top(text, sep=","):
     parts, buf, quote, depth = [], [], None, 0
     for i, ch in enumerate(text):
+        if depth > MAX_FLOW_DEPTH:
+            raise GateParseError(
+                "flow nesting deeper than the supported %d levels" % MAX_FLOW_DEPTH)
         prev = text[i - 1] if i else None
         if quote:
             buf.append(ch)
@@ -216,6 +226,8 @@ def _parse_scalar(text):
         if len(text) < 2 or text[-1] != text[0]:
             raise GateParseError("unterminated quoted scalar: %r" % text)
         return text[1:-1]
+    if text[0] in "&*!":
+        raise GateParseError("anchor/alias/tag syntax is outside the declared subset: %r" % text[:40])
     low = text.lower()
     if low in ("true", "yes", "on"):
         return True
@@ -246,7 +258,10 @@ def _parse_flow(text):
         key, sep, rest = part.partition(":")
         if not sep:
             raise GateParseError("flow mapping entry without ':': %r" % part)
-        result[key.strip()] = _parse_scalar(rest)
+        flow_key = key.strip()
+        if flow_key in result:
+            raise GateParseError("duplicate key %r" % flow_key)
+        result[flow_key] = _parse_scalar(rest)
     return result
 
 
@@ -320,7 +335,7 @@ def parse_packet(text):
         stripped = _strip_comment(raw)
         if not stripped.strip():
             continue
-        indent_text = stripped[: len(stripped) - len(stripped.lstrip(" "))]
+        indent_text = stripped[: len(stripped) - len(stripped.lstrip(" \t"))]
         if "\t" in indent_text:
             raise GateParseError("tab indentation is not supported")
         lines.append((len(indent_text), stripped.strip()))
@@ -835,11 +850,18 @@ def main(argv):
     except OSError as error:
         print("FINDING G-DATA: cannot read %s: %s" % (path, error))
         return 2
+    except UnicodeDecodeError as error:
+        print("FINDING G-DATA: cannot decode %s as UTF-8 text: %s"
+              % (path, error))
+        return 2
     try:
         packet = parse_packet(text)
         findings = evaluate(packet)
     except GateParseError as error:
         print("FINDING G-DATA: %s" % error)
+        return 2
+    except RecursionError:
+        print("FINDING G-DATA: flow nesting exceeds the supported depth")
         return 2
     print_findings(findings)
     return 1 if findings else 0
@@ -1033,12 +1055,45 @@ def _clean_control(packet):
     return control
 
 
+def _pin_fixture(path, body):
+    """Regenerate a committed fixture only when absent; never overwrite.
+
+    The embedded constant is the pin; the committed file is a deterministic
+    artifact of it. A present file is verified byte-for-byte and a divergent
+    file is reported instead of overwritten, so tampering cannot be erased;
+    regeneration writes atomically (temp file + rename).
+    """
+    data = body.encode("utf-8")
+    if os.path.exists(path):
+        with open(path, "rb") as handle:
+            if handle.read() != data:
+                return "divergent"
+        return "verified"
+    tmp = "%s.tmp-%d" % (path, os.getpid())
+    with open(tmp, "wb") as handle:
+        handle.write(data)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+    return "regenerated"
+
+
+def _pin_fixture_or_fail(path, body):
+    if _pin_fixture(path, body) == "divergent":
+        print("SELFTEST FAIL: %s diverges from the embedded constant; "
+              "refusing to overwrite (delete the file to regenerate it)" % path)
+        return False
+    return True
+
+
 def selftest():
     FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
     fixture_path = FIXTURE_DIR / (FIXTURE_STEM + ".yml")
     expected_path = FIXTURE_DIR / (FIXTURE_STEM + ".expected")
-    fixture_path.write_text(FIXTURE_TEXT, encoding="utf-8")
-    expected_path.write_text("\n".join(PLANTED_IDS) + "\n", encoding="utf-8")
+    if not _pin_fixture_or_fail(fixture_path, FIXTURE_TEXT):
+        return 1
+    if not _pin_fixture_or_fail(expected_path, "\n".join(PLANTED_IDS) + "\n"):
+        return 1
 
     run = subprocess.run(
         [sys.executable, str(Path(__file__).resolve()), str(fixture_path)],
@@ -1063,7 +1118,8 @@ def selftest():
 
     print(
         "selftest: OK — fixture exit 1; planted IDs present: %s; "
-        "clean control exit 0 (0 findings); fixture and expected rewritten under tools/gates/fixtures/"
+        "clean control exit 0 (0 findings); fixture and expected verified against "
+        "the embedded constants under tools/gates/fixtures/"
         % ", ".join(PLANTED_IDS)
     )
     return 0

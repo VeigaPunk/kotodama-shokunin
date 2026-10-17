@@ -3,6 +3,9 @@
 - topic: Coupling coastal Tupinambá registers, Guarani Jesuit redução bilingualism, pajé/ritual speech, manioc technology, forest nomenclature, periodization, naming, and bodily display; comparative method/reference, never fictional canon.
 - sources: Anchieta (1595); Léry (1578; Whatley translation 1990); Ruiz de Montoya (1639); Cadogan (1959; Melià-prepared edition 1997); Neumann (2015); Boidin (2020); Pompa (2004); Noelli (1998); Balée and Moore (1991); Montagnac, Davis, and Tanumihardjo (2009); Instituto Socioambiental (ISA, n.d.; accessed 2026-10-17). Editions, access routes, and limits below.
 - couples: language ↔ myth ↔ symbol ↔ era ↔ costume; `../linguistics/{sociolinguistics-registers,language-contact,writing-systems,naming-systems,semantic-fields-lexicon-building,orality-formulaic-language}.md`; `../myth-symbol/{creation-myths-taxonomy,myth-ritual-theories,comparative-frameworks,symbolism-synthesis-method}.md`; `../culture-material/{cuisine-food-lexicon,adornment-body-codes,ritual-garments,textile-technology,era-periodization-models,material-culture-inference-method}.md`; lore-shokunin receives proposed systems and evidence, not canon authored here.
+- source: the keyed ledger below (Anchieta; Léry; Ruiz de Montoya; Cadogan; Neumann; Boidin; Pompa; Noelli; Balée–Moore; Montagnac et al.; ISA); per-item access routes and limits are stated with each entry.
+- verified-at: 2026-10-17; catalogue identities, accessible chapters/extracts, journal abstracts, and ISA dossiers were checked; bibliographic verification is not full-text or archival verification (“Provenance cautions and recheck triggers”).
+- recheck: exact historical headwords, CT ritual formulas, early attestations of regional food/device words, garment distributions, and contested pagination before treating them as settled (“Provenance cautions and recheck triggers”).
 
 ## Scope and calibration
 

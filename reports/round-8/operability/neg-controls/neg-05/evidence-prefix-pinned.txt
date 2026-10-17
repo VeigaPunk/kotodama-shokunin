@@ -1,0 +1,17 @@
+NEG-05 gate under test: /home/vgpnk/tmp/neg05/prefix-gate.py
+NEG-05 gate sha256: fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655
+NEG-05 scratch parent: /var/tmp
+NEG-05 note: this is the review-26 pinned PRE-FIX byte copy (fb05c644...); checks below are expected to FAIL.
+NEG-05 duplicate-block-key                rc=1 ids=G-DATA FAIL
+NEG-05 duplicate-block-verdict-flip       rc=1 ids=G-DATA,M-EJECT FAIL
+NEG-05 duplicate-flow-key                 rc=1 ids=G-DATA,G-DATA,G-DATA,M-CLASS,P-PATTERN,T-C FAIL
+NEG-05 duplicate-sequence-entry-key       rc=1 ids=G-DATA FAIL
+NEG-05 first-block-twin-still-evaluates   rc=1 ids=G-DATA PASS
+NEG-05 valid-packet-still-clean           rc=0 ids=- PASS
+NEG-05 stdin-duplicate-block              rc=1 ids=G-DATA FAIL
+NEG-05 RESULT: FAIL (5/7 checks)
+NEG-05 FAILURE: duplicate-block-key: PRE-FIX PATTERN OBSERVED: rc=1 ids=['G-DATA'] (expected rc=2 with only G-DATA naming 'duplicate key'); the duplicate block was silently merged. output=['FINDING G-DATA: REVIEW — phonology.notable_rules is missing — allophony consistency could not evaluate']
+NEG-05 FAILURE: duplicate-block-verdict-flip: PRE-FIX PATTERN OBSERVED: rc=1 ids=['G-DATA', 'M-EJECT'] (expected rc=2 with only G-DATA); last-wins audited a document that is not valid YAML. output=['FINDING G-DATA: REVIEW — phonology.notable_rules is missing — allophony consistency could not evaluate', 'FINDING M-EJECT: REVIEW — ejective /qʼ/ with no plain stop at the uvular place: ejectives imply plain stops (a statistical tendency, not a universal) — add the peer or record the exception [Greenberg 1963; Maddieson 1984, via corpus §4]']
+NEG-05 FAILURE: duplicate-flow-key: PRE-FIX PATTERN OBSERVED: rc=1 ids=['G-DATA', 'G-DATA', 'G-DATA', 'M-CLASS', 'P-PATTERN', 'T-C'] (expected rc=2 with only G-DATA); the flow mapping kept only the last entry. output=['FINDING G-DATA: REVIEW — phonology.notable_rules is missing — allophony consistency could not evaluate', 'FINDING G-DATA: REVIEW — phonology.tones is missing — the tone-structure check could not evaluate', 'FINDING G-DATA: REVIEW — phonology.vowels is missing — vowel quality checks could not evaluate']
+NEG-05 FAILURE: duplicate-sequence-entry-key: PRE-FIX PATTERN OBSERVED: rc=1 ids=['G-DATA'] (expected rc=2 with only G-DATA); the repeated entry key was silently overwritten. output=['FINDING G-DATA: REVIEW — phonology.notable_rules is missing — allophony consistency could not evaluate']
+NEG-05 FAILURE: stdin-duplicate-block: PRE-FIX PATTERN OBSERVED: rc=1 ids=['G-DATA'] (expected rc=2 with only G-DATA naming 'duplicate key')

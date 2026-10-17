@@ -7,6 +7,9 @@
   - Elizabeth Closs Traugott and Richard B. Dasher (2002), *Regularity in Semantic Change*, Cambridge University Press; [DOI and edition metadata](https://doi.org/10.1017/CBO9780511486500). Standard citation uses 2002; Crossref's print-publication metadata records 20 December 2001.
   - Jo B. Paoletti (2012), *Pink and Blue: Telling the Boys from the Girls in America*, Indiana University Press; [edition record and description, ISBN 9780253001177](https://books.google.com/books?vid=ISBN9780253001177).
 - couples: language — ../linguistics/semantics-pragmatics.md, historical-linguistics.md, language-contact.md, writing-systems.md, naming-systems.md; myth/symbol — ../myth-symbol/symbolism-synthesis-method.md, comparative-frameworks.md, ritual-liminality.md, color-symbolism.md; era/costume — ../culture-material/era-periodization-models.md, costume-semiotics.md, textile-technology.md, sumptuary-law-rank-display.md; sibling boundary — lore-shokunin owns canon and world-bible consistency verification, while this entry supplies local design constraints and reference cautions only
+- source: the works listed above and the provenance cautions in the final section; the closed-grammar policy and audit verdicts are lane-authored craft, not findings attributed to the cited authors.
+- verified-at: 2026-10-17 — linked records checked at the levels noted inline (Peirce SEP guide; Turner, Eco, Traugott & Dasher, and Paoletti edition/DOI records); the entry's own "Provenance cautions" limits remain in force; round-8 metadata pass checked header fields and cross-reference resolution only.
+- recheck: before a specific proposed historical claim (symbol, dating, or costume carrier) becomes load-bearing; missing chronicle or material evidence stays missing, and unresolved marks are not evidence.
 
 ## 1. Calibration: what closure does and does not claim
 

@@ -1,0 +1,2471 @@
+{
+ "assignment": "R8-O16",
+ "axis": "operability",
+ "commands": {
+  "pristine_baseline_manifests": [
+   "git archive HEAD | tar -x -C <scratch>",
+   "python3 tools/replay-frozen.py <manifest> --repo-root <scratch>"
+  ],
+  "repaired_gate_probe": "python3 /var/tmp/r8-o16/gate-equivalence.py <repo>",
+  "round3_manifests": [
+   "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv",
+   "python3 tools/replay-frozen.py tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv"
+  ],
+  "validation": "python3 reports/round-8/run-validation.py"
+ },
+ "date": "2026-10-17",
+ "environment": {
+  "TMPDIR": "/var/tmp/r8-o16/tmp",
+  "reason": "/tmp inode space is exhausted on this host during the 64-worker wave (df -i /tmp: 1048576/1048576 used, 0 free at 2026-10-17T20:16Z); tools that build a mirror under /tmp crash with OSError ENOSPC. The final re-run sets TMPDIR to a scratch directory on the root filesystem (782G free, inodes unlimited). This affects the measurement environment only; no lane file is altered by it.",
+  "reproduced_failure": {
+   "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv --repo-root /var/tmp/r8-o16/baseline",
+   "exit_code": 1,
+   "observed_at_utc": "2026-10-17T20:33Z",
+   "traceback_excerpt": "File \"tools/replay-frozen.py\", line 179, in run_in_mirror\n    destination.parent.mkdir(parents=True, exist_ok=True)\nOSError: [Errno 28] No space left on device: '/tmp/replay-frozen-m0zy4k6g/examples'"
+  }
+ },
+ "findings": [
+  {
+   "evidence": {
+    "behavior_probe_summaries": [
+     {
+      "could_not_evaluate": 0,
+      "exit": 0,
+      "mismatch": 0,
+      "reproduced": 7,
+      "rows": 7
+     },
+     {
+      "could_not_evaluate": 0,
+      "exit": 0,
+      "mismatch": 0,
+      "reproduced": 7,
+      "rows": 7
+     }
+    ],
+    "delivered_tree_summaries": [
+     {
+      "could_not_evaluate": 7,
+      "mismatch": 0,
+      "reproduced": 0,
+      "total": 7,
+      "verdict": "could-not-evaluate"
+     },
+     {
+      "could_not_evaluate": 7,
+      "mismatch": 0,
+      "reproduced": 0,
+      "total": 7,
+      "verdict": "could-not-evaluate"
+     }
+    ],
+    "drifted_gates": [
+     "tools/gates/costume-era-consistency-gate.py",
+     "tools/gates/lexicon-coverage-audit.py",
+     "tools/gates/myth-consistency-gate.py",
+     "tools/gates/naming-collision-gate.py",
+     "tools/gates/phonology-sanity-gate.py",
+     "tools/gates/provenance-audit.py"
+    ],
+    "pristine_head_summaries": [
+     {
+      "reproduced": 7,
+      "total": 7,
+      "verdict": "ok"
+     },
+     {
+      "reproduced": 7,
+      "total": 7,
+      "verdict": "ok"
+     }
+    ]
+   },
+   "id": "O16-F1",
+   "severity": "blocking-for-7/7-expectation",
+   "statement": "The two round-3 frozen manifests do not replay 7/7 in the delivered working tree: all six gates named by the manifests were rewritten in place during round 8, so all seven rows are could-not-evaluate (gate_digest_mismatch) and tools/replay-frozen.py exits 2. The frozen verdicts themselves are intact: a pristine extraction of the committed revision replays both manifests 7/7, and the repaired gates still reproduce all 7 recorded verdicts byte-for-byte on the frozen inputs (see repaired_gate_behavior_probe). The orchestrator decides between re-freezing the manifest pins, reverting, or quarantining the in-place repairs."
+  },
+  {
+   "evidence": {
+    "phonology_gate_mtime_utc": "2026-10-17T20:13:42Z",
+    "post_repair_capture": {
+     "path": "/var/tmp/r8-o16/round-3-replay.txt",
+     "sha256": "a6e704651ee9fc3117985ebb4dbe169cfd2539785493f9bad8ad0b6a405c4826"
+    },
+    "pre_repair_capture": {
+     "path": "/var/tmp/r8-o16/round-3-replay-pre-repair.txt",
+     "sha256": "f027bb7b64248ccbf0bd537626b480794f7f6a706e624ee86575d80a4a1d3ebf"
+    }
+   },
+   "id": "O16-F2",
+   "severity": "informational",
+   "statement": "The drift onset is timestamped: both manifests replayed 7/7 with exit 0 at ~20:13Z, and the same commands returned 6/7 with exit 2 at 20:16:12Z after tools/gates/phonology-sanity-gate.py was rewritten (mtime 2026-10-17T20:13:42Z). Verbatim captures: /var/tmp/r8-o16/round-3-replay-pre-repair.txt sha256 f027bb7b64248ccbf0bd537626b480794f7f6a706e624ee86575d80a4a1d3ebf (7/7, exit 0) and /var/tmp/r8-o16/round-3-replay.txt sha256 a6e704651ee9fc3117985ebb4dbe169cfd2539785493f9bad8ad0b6a405c4826 (1 could-not-evaluate, 6 reproduced, exit 2). Both are scratch captures outside the lane; the same 7/7 is reproducible in-lane via the pristine-extraction section of this receipt."
+  },
+  {
+   "id": "O16-F3",
+   "severity": "environmental",
+   "statement": "/tmp inode space is exhausted on this host during the 64-worker wave (df -i /tmp: 1048576/1048576 used, 0 free at 2026-10-17T20:16Z); new file creation under /tmp fails with ENOSPC. This is not merely a worker nuisance: tools/replay-frozen.py builds its run mirror under /tmp, so a manifest replay that must actually launch a gate crashes with an unhandled OSError (reproduced traceback under environment.reproduced_failure) while the digest-only rows still report. The final re-run sets TMPDIR to /var/tmp/r8-o16/tmp; the round-8 acceptance harness and the legacy gate selftests were exercised under that TMPDIR. Other workers using the default TMPDIR may be silently failing; the orchestrator should re-run the harness after /tmp is cleared to confirm no artifact depends on this workaround."
+  },
+  {
+   "id": "O16-F4",
+   "severity": "informational",
+   "statement": "Acceptance verdicts at re-run time (delivered tree, TMPDIR set): exit 1, F=true, O=true, D=false. The harness's own failure list at this instant names the remaining D gaps (see validation_rerun.per_claim_after_rerun). The verdicts are a point-in-time measurement of a tree that was still being written (188 dirty paths at run time); they are recorded, not endorsed."
+  }
+ ],
+ "git_head": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+ "git_status_porcelain_lines": 189,
+ "limits": [
+  "Author-side evidence: O16 records measurements and does not decide admission, promotion, re-freezing or canon.",
+  "The re-run captures the delivered tree at the recorded UTC instant; concurrent workers were still writing (git status line count is recorded), so later bytes are not covered by this receipt.",
+  "The validation re-run executes the harness as delivered; the harness's own acceptance verdict is reported, not endorsed.",
+  "The behavior probe overlays gate bytes in a scratch tree and updates gate_sha256 pins there; the lane's frozen manifests are never edited."
+ ],
+ "midflight_observations": [
+  {
+   "at_utc": "2026-10-17T20:23Z",
+   "evidence": "O16 trial run stdout (scratch; copy deleted after use)",
+   "observation": "Trial run in a scratch copy: the delivered harness exited 1 with an unhandled AttributeError ('list' object has no attribute 'get') in measure_o_defects against the delivered list-shaped defect-inventory.json, before any verdict was written. The harness was revised at 2026-10-17T20:26:22Z to accept a top-level list, which removed the crash."
+  },
+  {
+   "at_utc": "2026-10-17T20:26Z",
+   "evidence": "/var/tmp/r8-o16/trial/run2.log",
+   "observation": "Trial run in a fresh scratch copy: the runner completes without a crash and exits 1 (acceptance false) with claim-level failures still mid-flight: F missing R8-F02 and reconciliation raw-label preservation; O missing controls for D7/D8/F1, two control tracebacks, battery and craft selftests exit 1; D selftest traceback, no frozen manifest for the D2 packet, SCORECARD row present before a demonstrated run. Superseded by the final re-run below."
+  }
+ ],
+ "repaired_gate_behavior_probe": {
+  "all_reproduced": true,
+  "manifest_summaries": [
+   {
+    "exit_code": 0,
+    "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+    "summary": {
+     "could_not_evaluate": 0,
+     "exit": 0,
+     "mismatch": 0,
+     "reproduced": 7,
+     "rows": 7
+    }
+   },
+   {
+    "exit_code": 0,
+    "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+    "summary": {
+     "could_not_evaluate": 0,
+     "exit": 0,
+     "mismatch": 0,
+     "reproduced": 7,
+     "rows": 7
+    }
+   }
+  ],
+  "note": "Additional independent probe (not part of the required O16 record): replays the round-3 manifests against a pristine HEAD extraction whose gate files are overlaid with the current working-tree bytes and whose gate_sha256 pins are updated to those bytes. Reproduced rows mean the in-place repair preserves the recorded verdict (exit code, finding count, output bytes) on the frozen inputs.",
+  "overlaid_gates": [
+   {
+    "gate": "tools/gates/costume-era-consistency-gate.py",
+    "head_sha256": "29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03",
+    "worktree_sha256": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f"
+   },
+   {
+    "gate": "tools/gates/lexicon-coverage-audit.py",
+    "head_sha256": "63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80",
+    "worktree_sha256": "2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287"
+   },
+   {
+    "gate": "tools/gates/myth-consistency-gate.py",
+    "head_sha256": "26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5",
+    "worktree_sha256": "5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08"
+   },
+   {
+    "gate": "tools/gates/naming-collision-gate.py",
+    "head_sha256": "8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526",
+    "worktree_sha256": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d"
+   },
+   {
+    "gate": "tools/gates/phonology-sanity-gate.py",
+    "head_sha256": "fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655",
+    "worktree_sha256": "d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230"
+   },
+   {
+    "gate": "tools/gates/provenance-audit.py",
+    "head_sha256": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+    "worktree_sha256": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a"
+   }
+  ]
+ },
+ "repo": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+ "rerun_utc": "2026-10-17T20:32:57Z",
+ "round": 8,
+ "round3_manifest_replays": {
+  "delivered_tree": {
+   "all_seven_of_seven": false,
+   "drifted_gate_rows": [
+    {
+     "gate": "tools/gates/phonology-sanity-gate.py",
+     "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+     "on_disk_sha256": "d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230",
+     "pinned_sha256": "fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655",
+     "reason": "gate_digest_mismatch",
+     "row": 2
+    },
+    {
+     "gate": "tools/gates/lexicon-coverage-audit.py",
+     "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+     "on_disk_sha256": "2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287",
+     "pinned_sha256": "63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80",
+     "reason": "gate_digest_mismatch",
+     "row": 3
+    },
+    {
+     "gate": "tools/gates/myth-consistency-gate.py",
+     "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+     "on_disk_sha256": "5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08",
+     "pinned_sha256": "26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5",
+     "reason": "gate_digest_mismatch",
+     "row": 4
+    },
+    {
+     "gate": "tools/gates/costume-era-consistency-gate.py",
+     "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+     "on_disk_sha256": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f",
+     "pinned_sha256": "29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03",
+     "reason": "gate_digest_mismatch",
+     "row": 5
+    },
+    {
+     "gate": "tools/gates/naming-collision-gate.py",
+     "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+     "on_disk_sha256": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+     "pinned_sha256": "8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526",
+     "reason": "gate_digest_mismatch",
+     "row": 6
+    },
+    {
+     "gate": "tools/gates/provenance-audit.py",
+     "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+     "on_disk_sha256": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+     "pinned_sha256": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+     "reason": "gate_digest_mismatch",
+     "row": 7
+    },
+    {
+     "gate": "tools/gates/provenance-audit.py",
+     "manifest": "tools/gates/frozen/round-3/MANIFEST.tsv",
+     "on_disk_sha256": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+     "pinned_sha256": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+     "reason": "gate_digest_mismatch",
+     "row": 8
+    },
+    {
+     "gate": "tools/gates/phonology-sanity-gate.py",
+     "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+     "on_disk_sha256": "d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230",
+     "pinned_sha256": "fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655",
+     "reason": "gate_digest_mismatch",
+     "row": 2
+    },
+    {
+     "gate": "tools/gates/lexicon-coverage-audit.py",
+     "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+     "on_disk_sha256": "2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287",
+     "pinned_sha256": "63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80",
+     "reason": "gate_digest_mismatch",
+     "row": 3
+    },
+    {
+     "gate": "tools/gates/myth-consistency-gate.py",
+     "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+     "on_disk_sha256": "5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08",
+     "pinned_sha256": "26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5",
+     "reason": "gate_digest_mismatch",
+     "row": 4
+    },
+    {
+     "gate": "tools/gates/costume-era-consistency-gate.py",
+     "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+     "on_disk_sha256": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f",
+     "pinned_sha256": "29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03",
+     "reason": "gate_digest_mismatch",
+     "row": 5
+    },
+    {
+     "gate": "tools/gates/naming-collision-gate.py",
+     "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+     "on_disk_sha256": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+     "pinned_sha256": "8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526",
+     "reason": "gate_digest_mismatch",
+     "row": 6
+    },
+    {
+     "gate": "tools/gates/provenance-audit.py",
+     "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+     "on_disk_sha256": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+     "pinned_sha256": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+     "reason": "gate_digest_mismatch",
+     "row": 7
+    },
+    {
+     "gate": "tools/gates/provenance-audit.py",
+     "manifest": "tools/gates/frozen/round-3/attempt-1/MANIFEST.tsv",
+     "on_disk_sha256": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+     "pinned_sha256": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+     "reason": "gate_digest_mismatch",
+     "row": 8
+    }
+   ],
+   "exit_codes": [
+    2,
+    2
+   ],
+   "manifest_sha256": [
+    "d5337590b343c65b42fd6e55457862fa325c138ad652e59c81b887daf9971399",
+    "613e59452bf76422e85ce4586cc00b85588e03b974a67e3ad1897f589f7b06a1"
+   ],
+   "rows": [
+    [
+     {
+      "gate": "tools/gates/phonology-sanity-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230",
+      "gate_sha256_pinned": "fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655",
+      "reason": "gate_digest_mismatch",
+      "row": 2,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/lexicon-coverage-audit.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287",
+      "gate_sha256_pinned": "63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80",
+      "reason": "gate_digest_mismatch",
+      "row": 3,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/myth-consistency-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08",
+      "gate_sha256_pinned": "26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5",
+      "reason": "gate_digest_mismatch",
+      "row": 4,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/costume-era-consistency-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f",
+      "gate_sha256_pinned": "29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03",
+      "reason": "gate_digest_mismatch",
+      "row": 5,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/naming-collision-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+      "gate_sha256_pinned": "8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526",
+      "reason": "gate_digest_mismatch",
+      "row": 6,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/provenance-audit.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+      "gate_sha256_pinned": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+      "reason": "gate_digest_mismatch",
+      "row": 7,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/provenance-audit.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+      "gate_sha256_pinned": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+      "reason": "gate_digest_mismatch",
+      "row": 8,
+      "status": "could-not-evaluate"
+     }
+    ],
+    [
+     {
+      "gate": "tools/gates/phonology-sanity-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230",
+      "gate_sha256_pinned": "fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655",
+      "reason": "gate_digest_mismatch",
+      "row": 2,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/lexicon-coverage-audit.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287",
+      "gate_sha256_pinned": "63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80",
+      "reason": "gate_digest_mismatch",
+      "row": 3,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/myth-consistency-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "5368b13542cd4b8a5bd850d83835e588df13a72b7d6c502b2aa016ee36b95f08",
+      "gate_sha256_pinned": "26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5",
+      "reason": "gate_digest_mismatch",
+      "row": 4,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/costume-era-consistency-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f",
+      "gate_sha256_pinned": "29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03",
+      "reason": "gate_digest_mismatch",
+      "row": 5,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/naming-collision-gate.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+      "gate_sha256_pinned": "8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526",
+      "reason": "gate_digest_mismatch",
+      "row": 6,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/provenance-audit.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+      "gate_sha256_pinned": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+      "reason": "gate_digest_mismatch",
+      "row": 7,
+      "status": "could-not-evaluate"
+     },
+     {
+      "gate": "tools/gates/provenance-audit.py",
+      "gate_bytes_changed": true,
+      "gate_sha256_on_disk": "8a96aaf4ccd14ef40defd4dce115e9ffa79c7a67ea3e9848cb63efbd3aa14e3a",
+      "gate_sha256_pinned": "4aaea6e98b9776922708692e6e0f38f76ef7323e3c748cbdf82c789eb77e1e7a",
+      "reason": "gate_digest_mismatch",
+      "row": 8,
+      "status": "could-not-evaluate"
+     }
+    ]
+   ],
+   "stdout_sha256": [
+    "76c00a6b80d4539a70ebe976d86600f8317b8da962a3ea6cdfcf8bace7e41f80",
+    "409db5ab8b68ebc3da9a8360879db71c01e58b40ea4a8311e3818efe289c8452"
+   ],
+   "summaries": [
+    {
+     "could_not_evaluate": 7,
+     "mismatch": 0,
+     "reproduced": 0,
+     "total": 7,
+     "verdict": "could-not-evaluate"
+    },
+    {
+     "could_not_evaluate": 7,
+     "mismatch": 0,
+     "reproduced": 0,
+     "total": 7,
+     "verdict": "could-not-evaluate"
+    }
+   ]
+  },
+  "pristine_head_extraction": {
+   "all_seven_of_seven": true,
+   "command": {
+    "command": "git archive HEAD | tar -x -C /var/tmp/r8-o16/baseline",
+    "exit_code": 0,
+    "head": "cf338a713060f274269cdacb18cdc0085bb06aeb"
+   },
+   "exit_codes": [
+    0,
+    0
+   ],
+   "stdout_sha256": [
+    "10b82d575006e744f06789b06e931541460aa3f6c65dde42222270e4fbed210d",
+    "fb5c90a39c291605f3a4f05f6c0bcd4627230c3ff68fb2653d674e1844fca11d"
+   ],
+   "summaries": [
+    {
+     "reproduced": 7,
+     "total": 7,
+     "verdict": "ok"
+    },
+    {
+     "reproduced": 7,
+     "total": 7,
+     "verdict": "ok"
+    }
+   ]
+  }
+ },
+ "status": "complete",
+ "validation_rerun": {
+  "delivered_receipt_preserved": {
+   "byte_identical_after_rerun": false,
+   "copy_matches_delivered": false,
+   "delivered_existed": true
+  },
+  "delivered_tree_run": {
+   "command": "/usr/bin/python3 reports/round-8/run-validation.py",
+   "cwd_kind": "delivered tree in place",
+   "exit_code": 1,
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_tail": "",
+   "stdout_sha256": "c0ec84977d51e38d87585e0582b52ecfab7317e1d736340ef0ccf73d668743e1",
+   "stdout_tail": "claim F: PASS\nclaim O: PASS\nclaim D: FAIL\n  - tools/assemble-d2.py --check exit 1 (expected 0: deterministic regeneration) — the packet's reader_sha256 pin 29a9361c7b96... no longer matches the live tools/gates/costume-era-consistency-gate.py e6bffd7020c0..., so the assembly differs by that pinned line alone; the packet needs regeneration (owner action)\n  - no frozen manifest found for the D2 packet (reports/round-8/**, tools/gates/frozen/round-8/**, examples/culture-d2/**)\nacceptance_checks_passed: False\n",
+   "validation_json": {
+    "bytes": 84199,
+    "exists": true,
+    "mtime_utc": "2026-10-17T20:33:11Z",
+    "sha256": "ecf92eccd9c1779c3ef5ae8b49aaf99f3e27cf185397a0f04ef43d683f5c1288"
+   }
+  },
+  "determinism_note": "The isolated-copy run and the delivered-tree run printed identical stdout (sha256 c0ec84977d51e38d87585e0582b52ecfab7317e1d736340ef0ccf73d668743e1), so their claim verdicts agree ({\"D\": false, \"F\": true, \"O\": true}); their validation.json bytes differ (d48a384ef50f18b1c638b1c9a47ef9f9a5a76c3f6de5806a12785934e6364d90 vs ecf92eccd9c1779c3ef5ae8b49aaf99f3e27cf185397a0f04ef43d683f5c1288) because the harness embeds live input hashes, neg-control artifact hashes and rendered paths, and the delivered tree kept changing during the run. Determinism holds at the verdict level, not the byte level, while the wave is in flight.",
+  "isolated_copy_run": {
+   "command": "/usr/bin/python3 reports/round-8/run-validation.py",
+   "cwd_kind": "isolated snapshot copy (shutil.copytree)",
+   "exit_code": 1,
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_tail": "",
+   "stdout_sha256": "c0ec84977d51e38d87585e0582b52ecfab7317e1d736340ef0ccf73d668743e1",
+   "stdout_tail": "claim F: PASS\nclaim O: PASS\nclaim D: FAIL\n  - tools/assemble-d2.py --check exit 1 (expected 0: deterministic regeneration) — the packet's reader_sha256 pin 29a9361c7b96... no longer matches the live tools/gates/costume-era-consistency-gate.py e6bffd7020c0..., so the assembly differs by that pinned line alone; the packet needs regeneration (owner action)\n  - no frozen manifest found for the D2 packet (reports/round-8/**, tools/gates/frozen/round-8/**, examples/culture-d2/**)\nacceptance_checks_passed: False\n",
+   "validation_json": {
+    "bytes": 84199,
+    "exists": true,
+    "mtime_utc": "2026-10-17T20:33:04Z",
+    "sha256": "d48a384ef50f18b1c638b1c9a47ef9f9a5a76c3f6de5806a12785934e6364d90"
+   }
+  },
+  "per_claim_after_rerun": {
+   "acceptance_checks_passed": false,
+   "baseline_revision": "e7ca0faeb6680fa9891b907be628d9db578c28f4",
+   "claims": {
+    "D": {
+     "error": null,
+     "measurement": {
+      "depth_evidence_files": [
+       "reports/round-8/depth/neg/run-13-observed.json",
+       "reports/round-8/depth/neg/scratch/run-13-corrected.json"
+      ],
+      "docs": {
+       "scorecard_row": true,
+       "skill_match": "translated labels from native forms; missing native forms remain a gap, not clea",
+       "skill_table": true,
+       "skill_table_lines": 47
+      },
+      "regeneration": {
+       "exit": 1,
+       "reader_pin": {
+        "drifted": true,
+        "live_reader_sha256": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f",
+        "packet_reader_sha256": "29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03",
+        "reader": "tools/gates/costume-era-consistency-gate.py"
+       },
+       "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+       "stdout_tail": ""
+      },
+      "replay_frozen": {
+       "candidates": [],
+       "failure": "no frozen manifest found for the D2 packet (reports/round-8/**, tools/gates/frozen/round-8/**, examples/culture-d2/**)"
+      },
+      "selftest": {
+       "exit": 0,
+       "malformed_mentioned": true,
+       "path": "tools/d2-typed-labels.py",
+       "selftest_counts": [
+        [
+         "39",
+         "39"
+        ]
+       ],
+       "sha256": "1131912d4c0d571d20a81870be28ccd94b91a7b9aeea7a629cbcf6c894f8232b",
+       "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252",
+       "stdout_tail": "ok rank adapter block: its own controls pass ok era/material block: its own controls pass (29) ok loader: P-UNTERMINATED-FLOW refused ok loader: P-DUPLICATE-KEY refused ok loader: P-ANCHOR-TAG refused ok loader: P-TAB-INDENT refused ok load"
+      }
+     },
+     "passed": false
+    },
+    "F": {
+     "error": null,
+     "measurement": {
+      "control_error": null,
+      "declared_ids": [
+       "R8-F01",
+       "R8-F02",
+       "R8-F03",
+       "R8-F04",
+       "R8-F05",
+       "R8-F06",
+       "R8-F07",
+       "R8-F08",
+       "R8-F09",
+       "R8-F10",
+       "R8-F11",
+       "R8-F12",
+       "R8-F13",
+       "R8-F14",
+       "R8-F15"
+      ],
+      "distinct_substantive_passage_keys": 215,
+      "mirrored_duplicates": {
+       "R8-F01": 0,
+       "R8-F02": 0,
+       "R8-F03": 0,
+       "R8-F04": 0,
+       "R8-F05": 0,
+       "R8-F06": 0,
+       "R8-F07": 0,
+       "R8-F08": 0,
+       "R8-F09": 0,
+       "R8-F10": 0,
+       "R8-F11": 0,
+       "R8-F12": 0,
+       "R8-F13": 0,
+       "R8-F14": 0,
+       "R8-F15": 0
+      },
+      "negative_controls": [
+       {
+        "control": "missing-receipt-rejected",
+        "diagnostic": "missing receipts",
+        "rejected": true
+       },
+       {
+        "control": "identity-collision-rejected",
+        "diagnostic": "identity collision",
+        "rejected": true
+       },
+       {
+        "control": "benign-mirror-deduplicated",
+        "diagnostic": "identity collision",
+        "rejected": true
+       },
+       {
+        "control": "passage-leg-separation-enforced",
+        "diagnostic": "separate fields",
+        "rejected": true
+       },
+       {
+        "control": "claim-leg-separation-enforced",
+        "diagnostic": "separate fields",
+        "rejected": true
+       },
+       {
+        "control": "substantive-floor-enforced",
+        "diagnostic": "substantive retrieved",
+        "rejected": true
+       },
+       {
+        "control": "reconciliation-raw-label-required",
+        "diagnostic": "raw worker label",
+        "rejected": true
+       },
+       {
+        "control": "reconciliation-coverage-required",
+        "diagnostic": "misses declared ids",
+        "rejected": true
+       }
+      ],
+      "receipt_sources": {
+       "R8-F01": "reports/round-8/freshness/R8-F01-receipt.json",
+       "R8-F02": "reports/round-8/freshness/R8-F02-receipt.json",
+       "R8-F03": "reports/round-8/freshness/R8-F03-receipt.json",
+       "R8-F04": "reports/round-8/freshness/R8-F04-receipt.json",
+       "R8-F05": "reports/round-8/freshness/R8-F05-receipt.json",
+       "R8-F06": "reports/round-8/freshness/R8-F06-receipt.json",
+       "R8-F07": "reports/round-8/freshness/R8-F07-receipt.json",
+       "R8-F08": "reports/round-8/freshness/R8-F08-receipt.json",
+       "R8-F09": "reports/round-8/freshness/R8-F09-receipt.json",
+       "R8-F10": "reports/round-8/freshness/R8-F10-receipt.json",
+       "R8-F11": "reports/round-8/freshness/R8-F11-receipt.json",
+       "R8-F12": "reports/round-8/freshness/R8-F12-receipt.json",
+       "R8-F13": "reports/round-8/freshness/R8-F13-receipt.json",
+       "R8-F14": "reports/round-8/freshness/R8-F14-receipt.json",
+       "R8-F15": "reports/round-8/freshness/R8-F15-receipt.json"
+      },
+      "receipts_present": [
+       "R8-F01",
+       "R8-F02",
+       "R8-F03",
+       "R8-F04",
+       "R8-F05",
+       "R8-F06",
+       "R8-F07",
+       "R8-F08",
+       "R8-F09",
+       "R8-F10",
+       "R8-F11",
+       "R8-F12",
+       "R8-F13",
+       "R8-F14",
+       "R8-F15"
+      ],
+      "reconciliation": {
+       "bound": 15,
+       "duplicates": [],
+       "ledger_labels_checked": 15,
+       "missing": [],
+       "present": true,
+       "receipt_label_notes": {
+        "R8-F01": "receipt carries ['unresolved']; the reconciliation preserves the round-6 worker label 'supported' (the receipt's own prior-disposition is the round-6 audit disposition, not the worker label)",
+        "R8-F04": "receipt carries ['partial-support', 'unresolved']; the reconciliation preserves the round-6 worker label 'supported' (the receipt's own prior-disposition is the round-6 audit disposition, not the worker label)",
+        "R8-F05": "receipt carries ['partial-support']; the reconciliation preserves the round-6 worker label 'supported' (the receipt's own prior-disposition is the round-6 audit disposition, not the worker label)",
+        "R8-F07": "receipt carries ['partial-support']; the reconciliation preserves the round-6 worker label 'supported' (the receipt's own prior-disposition is the round-6 audit disposition, not the worker label)",
+        "R8-F09": "receipt carries ['Raw worker label preserved verbatim; reconciled dispositions are not made here and belong to reports/round-8/freshness/reconciliation.json.', 'partial-support']; the reconciliation preserves the round-6 worker label 'supported' (the receipt's own prior-disposition is the round-6 audit disposition, not the worker label)",
+        "R8-F11": "receipt carries ['partial-support']; the reconciliation preserves the round-6 worker label 'supported' (the receipt's own prior-disposition is the round-6 audit disposition, not the worker label)"
+       },
+       "rows": 15
+      },
+      "separation": {
+       "R8-F01": true,
+       "R8-F02": true,
+       "R8-F03": true,
+       "R8-F04": true,
+       "R8-F05": true,
+       "R8-F06": true,
+       "R8-F07": true,
+       "R8-F08": true,
+       "R8-F09": true,
+       "R8-F10": true,
+       "R8-F11": true,
+       "R8-F12": true,
+       "R8-F13": true,
+       "R8-F14": true,
+       "R8-F15": true
+      },
+      "shapes": {
+       "R8-F01": "retrieved",
+       "R8-F02": "retrieved",
+       "R8-F03": "retrieved",
+       "R8-F04": "retrieved",
+       "R8-F05": "retrieved",
+       "R8-F06": "retrieved",
+       "R8-F07": "retrieved",
+       "R8-F08": "retrieved",
+       "R8-F09": "retrieved",
+       "R8-F10": "retrieved",
+       "R8-F11": "retrieved",
+       "R8-F12": "retrieved",
+       "R8-F13": "retrieved",
+       "R8-F14": "retrieved",
+       "R8-F15": "retrieved"
+      },
+      "substantive_passages": [
+       "R8-F01",
+       "R8-F02",
+       "R8-F03",
+       "R8-F04",
+       "R8-F05",
+       "R8-F06",
+       "R8-F07",
+       "R8-F08",
+       "R8-F09",
+       "R8-F10",
+       "R8-F11",
+       "R8-F12",
+       "R8-F13",
+       "R8-F14",
+       "R8-F15"
+      ]
+     },
+     "passed": true
+    },
+    "O": {
+     "error": null,
+     "measurement": {
+      "battery_rerun": {
+       "receipt": "reports/round-8/operability/battery-rerun.json",
+       "recorded": {
+        "check-craft-exercise": {
+         "live_exit": 0,
+         "live_stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+         "recorded_stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+         "stdout_tail": "SELFTEST OK 10/10 tamper cases detected CLI-SELFTEST OK 18/18 cases passed",
+         "tool_sha256_at_receipt": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5",
+         "tool_sha256_now": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5",
+         "verdict": "stdout-hash-reproduced"
+        },
+        "check-gate-battery": {
+         "live_exit": 0,
+         "live_stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+         "recorded_stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+         "stdout_tail": "control CTRL-PASS-EXIT0: exit=0 outcome=pass ids=- control CTRL-RECOGNIZED-FAIL: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL control CTRL-FAIL-LINE-ID: exit=1 ou",
+         "tool_sha256_at_receipt": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
+         "tool_sha256_now": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
+         "verdict": "stdout-hash-reproduced"
+        }
+       }
+      },
+      "defect_repairs": {
+       "controls": [
+        {
+         "exit": 0,
+         "ids": [
+          "D1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-04/neg-04-control.py",
+         "sha256": "5496862c3395fefc5097983ddc2019783df60b8643d49167fb5edf8491791295",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "d2194570bb67c2e6d29272438066415e0a0dc3e70850cd556cac874905a2ac32",
+         "stdout_tail": "NEG-04 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py NEG-04 gate sha256: d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230 NEG-04",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D2",
+          "D9",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-04/neg-04-report.md",
+         "sha256": "18fc6c525280681dc9eb586310ba5bf0c42d324d1124776433a88189be9fb07d"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-05/evidence-postfix-live.txt",
+         "sha256": "35a6c23a8127aadb2b4fbdaed7d9ae5c69a4b0dcd95c7d7ddbf71648635d3b85"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-05/evidence-prefix-pinned.txt",
+         "sha256": "40de96dd6135cac1df8cab4dfc9e838b8cf80bb9ab7ff6bde63e52a8ca2473ab"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D2"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-05/neg-05-control.py",
+         "sha256": "502e5ae6d3839ffb0e8cc92d185c17e000338ffe20b14f117d4eca8e526fb78c",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "b2b3f5c39c15bdbea31fb2ba07b3ce13c9daf3b5ffc71b3f3d6b8b1f40cad715",
+         "stdout_tail": "NEG-05 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py NEG-05 gate sha256: d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230 NEG-05",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D2",
+          "D3",
+          "D5",
+          "D6",
+          "D9",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-05/neg-05-report.md",
+         "sha256": "fbac6982908f8ed5d90cf951c4573f9cb12c5cc0aee3a85d5d3f358a461f1c7f"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-06/evidence-live.txt",
+         "sha256": "d67c300f18aec18e10e1ee6c435cd7b797ad9c93dcfa2a54fda9d8484e039783"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-06/evidence-prefix.txt",
+         "sha256": "f072c220c84e44a6b2541857e8d32c6f7ec5e8b787ca32b54593620a2621de9a"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-06/evidence-regression.txt",
+         "sha256": "f59c30376ba1be93333d548d23508a8f57d095d760469b7e3b380d1e70b0ec5d"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D2"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-06/neg-06-control.py",
+         "sha256": "fcf125c54d4c8edf55299485f0b3f5d4ca559d940d137dffb5e2e3ed57d72274",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "abbcf20decb9da0e72e6d07025da248c2cf7c7e65a59db869f1ff8d8cd2b7541",
+         "stdout_tail": "NEG-06 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/costume-era-consistency-gate.py sha256=e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f NEG-06 costu",
+         "traceback": false
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/evidence-control-live.txt",
+         "sha256": "a0dd8d79c87694eacb58a4cc6c40f6453eccec37db6431c09cf20c017a425f40"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/evidence-control-prefix.txt",
+         "sha256": "a0a48301651fba7c53e60dd7bb236df0b81dbb82acbcaf80a6610919f70303df"
+        },
+        {
+         "ids": [
+          "D3"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/evidence-d3-control-live.txt",
+         "sha256": "88046a3860a485e3025d6509c4474e39b0a596006d2b35791b2bbba47d47cce5"
+        },
+        {
+         "ids": [
+          "D3"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/evidence-d3-control-prefix.txt",
+         "sha256": "e50034a88fe1dce9a52842cb2015d2e9294c0f94bf3775f27e503a95c4bf336e"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/evidence-fixture-hashes.txt",
+         "sha256": "4293237d7c0b84ba0f0a760f1ea057632aa2c5df707b3196055d5b16971ac360"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/evidence-prefix-naming-invented-finding.txt",
+         "sha256": "49dcf516bc6b8dfc4f44d682dab5a1b313edf9fa1ea0bd7ba401be230d1f6b3d"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D2"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/neg-07-control.py",
+         "sha256": "6a736a2f236fe44a1cfc840f63b2d53ec203f00f58b6cd01d095b95ae68440c7",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "dd6361031e8f35dff3809edab045270a87e5140b5fb966cf6c80256d126c821b",
+         "stdout_tail": "NEG-07 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-07 gate sha256: d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-07",
+         "traceback": false
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D3"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/neg-07-d3-control.py",
+         "sha256": "f528683aef8b816e64402847ba8fd14899c65f8145a8ddc79e4eec907bf86fa9",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "ff1a2375f2eccba31034872efdab111de5b3f72de230d00f5d916b33f5936e5a",
+         "stdout_tail": "NEG-07-D3 gate naming-collision-gate sha256=d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-07-D3 naming-collision-gate anchor-alias-tag-rejected rc=2 PASS NEG-07-D3 naming-collis",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D9",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-07/neg-07-report.md",
+         "sha256": "aae51ea502f2ed3348932528f123326313aefa13def16ea52915aaf62b1de565"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-battery-gates.txt",
+         "sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-battery.txt",
+         "sha256": "cdf0d90ae883e352ed10dbb8a4fe1792725e342a97375726ecd7b73e27dbc44c"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-crossgate.txt",
+         "sha256": "e43c227c82f2d9deff6c882944dcbb49ee95d0c78897afda9d56b4f6b004e986"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-digests.txt",
+         "sha256": "713bc86a9a213d12bbe7fc28a5f6f22e1539d3df8bf876351268e4d10473cceb"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-lexicon-postfix.txt",
+         "sha256": "fd537a41b7a5c76e76cc5a8ef8f1e37158e6bef4393993ba00667dac1ba14810"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-lexicon-prefix.txt",
+         "sha256": "fee5fbfe2145b9096e718d1dc9d6c0edce46bff16db7b17c4ebc438b30dc7528"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-postfix-live.txt",
+         "sha256": "9e7b07cafee9c2cc16450d48a70f33e69b655239a2b03f256cfe51b4962fded8"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-prefix-git.txt",
+         "sha256": "30af8b66a69547f73bd2abd09508e6c20aae2a38f17ab43443b165c3d5a398e6"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/evidence-residual-probes.txt",
+         "sha256": "37c7aa3f1a1a45ec29d1cff05f6f93d945209683f52164272eb880631228146e"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D2"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/neg-08-control.py",
+         "sha256": "c2e979482f6cf439beced962d8118708486344d50100b1f9c43d570871ad27b8",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "abb530487f4dbca65f50dab09ec86e299de3f67d857efa684af62e26d89faebf",
+         "stdout_tail": "NEG-08 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/lexicon-coverage-audit.py NEG-08 gate sha256: 2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287 NEG-0",
+         "traceback": false
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/neg-08-d4-control.py",
+         "sha256": "3dfa95d70374dee8d3e0eff8b35f8693e719b8ee3f0cd4e1800e44deceb02986",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "70a0d98417f058f0064cc1f0b4806a86341a37d9a64b0a11695d41bd5613caff",
+         "stdout_tail": "NEG-08 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-08 gate sha256: d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-08",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "D9",
+          "F1",
+          "F5"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/neg-08-report.md",
+         "sha256": "0c85a381b8d33f8c72498e4520702c647cc7592f7e41ccbac876a7950f80dfd6"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/postfix-receipt.txt",
+         "sha256": "dcce7db0f362fd69223920d83ebf34988159192c86034c144e0cfa1b1c061f73"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-08/prefix-receipt.txt",
+         "sha256": "87c6b0d580d3402cdc0744e4b044f498e5510bdf520deb6c33c79f682e797df0"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/evidence-control-postfix.txt",
+         "sha256": "aac83603295a6231bfdb8a94f30079111cbd84d8195c89bc75b230e00d043b84"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/evidence-control-prefix.txt",
+         "sha256": "75780501c7ff6894e9a0619ef4ff061e7167605bcec78ce933dbaa8d2ee4f4d6"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/evidence-postfix-live.txt",
+         "sha256": "e25ca95aa2f3dbe40255a81cde3e4dbebba63e27cc2d675e3732c0d1ec2f142b"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/evidence-prefix-live.txt",
+         "sha256": "493f33895c30205e37247982210ad86b7a0146fd524773d5a27c7e01710caa8b"
+        },
+        {
+         "ids": [
+          "D1",
+          "D4",
+          "D5"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/evidence-replay-gate-digest.txt",
+         "sha256": "d52dfe6d3a0bfcafb174d26130bf87ecdb5b747d1a078129421f314fda062c70"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D5"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/neg-09-control.py",
+         "sha256": "ba72b66cd85409d7c628e80221d67ca192ea12fda1ac1af17b8be33e00367ecb",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "8193b5a29d1d9be8cd1ea675d428b6740a726a847539e7ba1d97da95b9820427",
+         "stdout_tail": "NEG-09 gates under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-09 phonology-sanity-gate.py sha256=d5fe087ffb2342e5 (post-fix/modified) NEG-09 naming-collision-gate.py sha256=",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D4",
+          "D5",
+          "D6",
+          "D9",
+          "F1",
+          "F5"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/neg-09-report.md",
+         "sha256": "648f83feaaefe276e88b8441c86d19ee909def52aee9b97f19f73739aa071bc1"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D5"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-09/probe-prefix.py",
+         "sha256": "f24f374eaf3eb0c001104ae43a364091ddc025bf568cbaefb3622d20e418f345",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "7ad98aeead7161bfff9300a6f761d2686fcbd4347b90d146958a9d636422a00a",
+         "stdout_tail": "tab-indent phonology-sanity-gate.py rc=2 FINDING G-DATA: UNEVALUABLE — packet could not be parsed: tab indentation is not supported by this subset (lin tab-indent naming-collision-gate.py rc=2 FINDING",
+         "traceback": false
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-10/evidence-live.txt",
+         "sha256": "56c54e936caf1beb590ca7ca0811579226afd174df05b891f28add82f5f83ed7"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-10/evidence-prefix.txt",
+         "sha256": "dee39b38c0d906fbb6d5e3b10e115143848427bf1b3caa33be9ca9a087a492b7"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D6"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-control.py",
+         "sha256": "217e83c17a389b0af1ce63b4a66a90293fdebbad5716769df2b87f36e941294d",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "16830babac1bc3a266bbb4fa6ee8c37d59aeb166273c97c34f98d361996f304c",
+         "stdout_tail": "NEG-10 scratch root: <scratch> NEG-10 gates under test (live worktree): NEG-10 phonology /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py sha256=d5fe087ffb2342e54cd",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D6"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-live.json",
+         "sha256": "f77c8ee22be991439f105726cf3f29ebcc21b71b244c4115deacc9340cb0982c"
+        },
+        {
+         "ids": [
+          "D6"
+         ],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-prefix.json",
+         "sha256": "f7982216de4159b12c11e2ca430359754183d51e09e039ff6895f96d497a7446"
+        },
+        {
+         "ids": [
+          "D6"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-report.md",
+         "sha256": "61ccda77238104e00089a75388114a99982526d49553787f37e4fafa7ca091a0"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D7",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-11/neg-11-control.py",
+         "sha256": "1722bfd36ac877d5f556066ad7c5f8e45b38c6a5d2d38d383142ca734a5d6d85",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "12f54018867820be413c26de282f0ecb30d5db2bc6a9b2f8d1b43383c62f4d84",
+         "stdout_tail": "PASS C1-probe-sha256 probe sha256 2d3722282732ba9846887bd5101ab7a7bbbfb385810f48c39629870f8b4175bf PASS C2-fail-before-phonology rc=1 traceback=True findings=False PASS C3-fail-before-myth rc=1 traceb",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "D9",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-11/neg-11-report.md",
+         "sha256": "74e87b5751981cd9405377b5f2fbeaf00bda315801c4ac52e2d1846a14cf0548"
+        },
+        {
+         "ids": [
+          "D7"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-11/receipts.json",
+         "sha256": "76af17e3ef45548b58d94bc03f8e413c169b0c76897f6eda0232710b6d3963a9"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D8"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-12/neg-12-control.py",
+         "sha256": "56c5bf2b39ba069e747053a2d8e685ff81e4b7830924db1bef8303e32d16be3d",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "db16cb906febda52ca46bc1060464e96ababc5b0ab778622833c91567e0df6c1",
+         "stdout_tail": "NEG-12 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-12 gate sha256: d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-12",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "D8",
+          "D9",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-12/neg-12-report.md",
+         "sha256": "435249274118314f11e9460fa37a143d9b82fdfc8d5569f40bc6e9ccbf7a5015"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-12/no-harm-differential.txt",
+         "sha256": "002a419730d4573922f11eca68515608e0a04763985fcfadad5bd50f4e49839f"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-12/postfix-receipt.txt",
+         "sha256": "712535144f49e22b323717025ccfc7b4f1f4f35f4db33b975bd5fcd39941e446"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-12/prefix-receipt.txt",
+         "sha256": "a894ac9afa882058341bffb22f3496379e1c9907db367286b7936ab6d5bc865b"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-12/screen-and-timings.txt",
+         "sha256": "09733dd8f53ec08162acc219f04ea8914f5bdd993f8969a43de2b326ee2c23ff"
+        },
+        {
+         "ids": [
+          "D9"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-13/evidence-control-postfix.txt",
+         "sha256": "8294189458a56957cf0962a63049ef0db5e9bb26b59412ef26bd2da12796c983"
+        },
+        {
+         "ids": [
+          "D9"
+         ],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-13/evidence-control-prefix.txt",
+         "sha256": "3ba9ecdd0fa8c3a228a75e61595d3438a9dd05a48297b6489246e5137b408538"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": false
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-13/evidence-extra-f1-postfix.txt",
+         "sha256": "58a1abce91e66592aa2e693dd72f47f01bd61237b18a02eee4be19e69e8a24c9"
+        },
+        {
+         "ids": [],
+         "leg_markers": {
+          "post_fix": false,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-13/evidence-extra-f1-prefix.txt",
+         "sha256": "cf8a4a5c9f4ee5a95bf7f91183521fa119fb3ea3454d877cb41351e1be581806"
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D1",
+          "D9",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-13/extra-index10-fixture-pin-control.py",
+         "sha256": "7c2622874b0e2473773cf880af3581da775a6be3b907701dfbf09df4ebd01b15",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "536a1ea0f38d32226bf63a0255193babd111ba836f69152227d817376a29dbd8",
+         "stdout_tail": "NEG-13 scratch root: <scratch> NEG-13 gates source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-13 gate phonology-sanity-gate.py sha256=d5fe087ffb2342e5 NEG-13 gate myth-",
+         "traceback": false
+        },
+        {
+         "exit": 0,
+         "ids": [
+          "D9"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-13/neg-13-control.py",
+         "sha256": "b1bd044ba31ce1defad1f7b28952b87101a384b1379e2c03526c3dd2db69bbbf",
+         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+         "stdout_sha256": "43d895827e0523c9afe19d2566c380b4170b5b649f49f883c43e88a9f7ef6fac",
+         "stdout_tail": "NEG-13 gate source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-13 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/n",
+         "traceback": false
+        },
+        {
+         "ids": [
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "D9",
+          "F1"
+         ],
+         "leg_markers": {
+          "post_fix": true,
+          "pre_fix": true
+         },
+         "path": "reports/round-8/operability/neg-controls/neg-13/neg-13-report.md",
+         "sha256": "dcbec34ec2a2b3e0a7ec2d56ff493d5cdc679936ede8965706052be73363276e"
+        }
+       ],
+       "inventory": "reports/round-8/operability/defect-inventory.json",
+       "neg_controls": {
+        "artifacts": [
+         {
+          "exit": 0,
+          "ids": [
+           "D1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-04/neg-04-control.py",
+          "sha256": "5496862c3395fefc5097983ddc2019783df60b8643d49167fb5edf8491791295",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "d2194570bb67c2e6d29272438066415e0a0dc3e70850cd556cac874905a2ac32",
+          "stdout_tail": "NEG-04 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py NEG-04 gate sha256: d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230 NEG-04",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D2",
+           "D9",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-04/neg-04-report.md",
+          "sha256": "18fc6c525280681dc9eb586310ba5bf0c42d324d1124776433a88189be9fb07d"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-05/evidence-postfix-live.txt",
+          "sha256": "35a6c23a8127aadb2b4fbdaed7d9ae5c69a4b0dcd95c7d7ddbf71648635d3b85"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-05/evidence-prefix-pinned.txt",
+          "sha256": "40de96dd6135cac1df8cab4dfc9e838b8cf80bb9ab7ff6bde63e52a8ca2473ab"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D2"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-05/neg-05-control.py",
+          "sha256": "502e5ae6d3839ffb0e8cc92d185c17e000338ffe20b14f117d4eca8e526fb78c",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "b2b3f5c39c15bdbea31fb2ba07b3ce13c9daf3b5ffc71b3f3d6b8b1f40cad715",
+          "stdout_tail": "NEG-05 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py NEG-05 gate sha256: d5fe087ffb2342e54cd6d6f3ef1e891315a95224bc25cdc5bc425b91dec34230 NEG-05",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D2",
+           "D3",
+           "D5",
+           "D6",
+           "D9",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-05/neg-05-report.md",
+          "sha256": "fbac6982908f8ed5d90cf951c4573f9cb12c5cc0aee3a85d5d3f358a461f1c7f"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-06/evidence-live.txt",
+          "sha256": "d67c300f18aec18e10e1ee6c435cd7b797ad9c93dcfa2a54fda9d8484e039783"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-06/evidence-prefix.txt",
+          "sha256": "f072c220c84e44a6b2541857e8d32c6f7ec5e8b787ca32b54593620a2621de9a"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-06/evidence-regression.txt",
+          "sha256": "f59c30376ba1be93333d548d23508a8f57d095d760469b7e3b380d1e70b0ec5d"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D2"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-06/neg-06-control.py",
+          "sha256": "fcf125c54d4c8edf55299485f0b3f5d4ca559d940d137dffb5e2e3ed57d72274",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "abbcf20decb9da0e72e6d07025da248c2cf7c7e65a59db869f1ff8d8cd2b7541",
+          "stdout_tail": "NEG-06 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/costume-era-consistency-gate.py sha256=e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f NEG-06 costu",
+          "traceback": false
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/evidence-control-live.txt",
+          "sha256": "a0dd8d79c87694eacb58a4cc6c40f6453eccec37db6431c09cf20c017a425f40"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/evidence-control-prefix.txt",
+          "sha256": "a0a48301651fba7c53e60dd7bb236df0b81dbb82acbcaf80a6610919f70303df"
+         },
+         {
+          "ids": [
+           "D3"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/evidence-d3-control-live.txt",
+          "sha256": "88046a3860a485e3025d6509c4474e39b0a596006d2b35791b2bbba47d47cce5"
+         },
+         {
+          "ids": [
+           "D3"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/evidence-d3-control-prefix.txt",
+          "sha256": "e50034a88fe1dce9a52842cb2015d2e9294c0f94bf3775f27e503a95c4bf336e"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/evidence-fixture-hashes.txt",
+          "sha256": "4293237d7c0b84ba0f0a760f1ea057632aa2c5df707b3196055d5b16971ac360"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/evidence-prefix-naming-invented-finding.txt",
+          "sha256": "49dcf516bc6b8dfc4f44d682dab5a1b313edf9fa1ea0bd7ba401be230d1f6b3d"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D2"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/neg-07-control.py",
+          "sha256": "6a736a2f236fe44a1cfc840f63b2d53ec203f00f58b6cd01d095b95ae68440c7",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "dd6361031e8f35dff3809edab045270a87e5140b5fb966cf6c80256d126c821b",
+          "stdout_tail": "NEG-07 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-07 gate sha256: d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-07",
+          "traceback": false
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D3"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/neg-07-d3-control.py",
+          "sha256": "f528683aef8b816e64402847ba8fd14899c65f8145a8ddc79e4eec907bf86fa9",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ff1a2375f2eccba31034872efdab111de5b3f72de230d00f5d916b33f5936e5a",
+          "stdout_tail": "NEG-07-D3 gate naming-collision-gate sha256=d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-07-D3 naming-collision-gate anchor-alias-tag-rejected rc=2 PASS NEG-07-D3 naming-collis",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D2",
+           "D3",
+           "D4",
+           "D9",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-07/neg-07-report.md",
+          "sha256": "aae51ea502f2ed3348932528f123326313aefa13def16ea52915aaf62b1de565"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-battery-gates.txt",
+          "sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-battery.txt",
+          "sha256": "cdf0d90ae883e352ed10dbb8a4fe1792725e342a97375726ecd7b73e27dbc44c"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-crossgate.txt",
+          "sha256": "e43c227c82f2d9deff6c882944dcbb49ee95d0c78897afda9d56b4f6b004e986"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-digests.txt",
+          "sha256": "713bc86a9a213d12bbe7fc28a5f6f22e1539d3df8bf876351268e4d10473cceb"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-lexicon-postfix.txt",
+          "sha256": "fd537a41b7a5c76e76cc5a8ef8f1e37158e6bef4393993ba00667dac1ba14810"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-lexicon-prefix.txt",
+          "sha256": "fee5fbfe2145b9096e718d1dc9d6c0edce46bff16db7b17c4ebc438b30dc7528"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-postfix-live.txt",
+          "sha256": "9e7b07cafee9c2cc16450d48a70f33e69b655239a2b03f256cfe51b4962fded8"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-prefix-git.txt",
+          "sha256": "30af8b66a69547f73bd2abd09508e6c20aae2a38f17ab43443b165c3d5a398e6"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/evidence-residual-probes.txt",
+          "sha256": "37c7aa3f1a1a45ec29d1cff05f6f93d945209683f52164272eb880631228146e"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D2"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/neg-08-control.py",
+          "sha256": "c2e979482f6cf439beced962d8118708486344d50100b1f9c43d570871ad27b8",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "abb530487f4dbca65f50dab09ec86e299de3f67d857efa684af62e26d89faebf",
+          "stdout_tail": "NEG-08 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/lexicon-coverage-audit.py NEG-08 gate sha256: 2c4dd39702a15ea3fa62d3597fe42304e3bda4122d7b17d6c00121f9d27d4287 NEG-0",
+          "traceback": false
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D1",
+           "D2",
+           "D3",
+           "D4",
+           "D5",
+           "D6",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/neg-08-d4-control.py",
+          "sha256": "3dfa95d70374dee8d3e0eff8b35f8693e719b8ee3f0cd4e1800e44deceb02986",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "70a0d98417f058f0064cc1f0b4806a86341a37d9a64b0a11695d41bd5613caff",
+          "stdout_tail": "NEG-08 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-08 gate sha256: d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-08",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D2",
+           "D3",
+           "D4",
+           "D5",
+           "D6",
+           "D7",
+           "D8",
+           "D9",
+           "F1",
+           "F5"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/neg-08-report.md",
+          "sha256": "0c85a381b8d33f8c72498e4520702c647cc7592f7e41ccbac876a7950f80dfd6"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/postfix-receipt.txt",
+          "sha256": "dcce7db0f362fd69223920d83ebf34988159192c86034c144e0cfa1b1c061f73"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-08/prefix-receipt.txt",
+          "sha256": "87c6b0d580d3402cdc0744e4b044f498e5510bdf520deb6c33c79f682e797df0"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/evidence-control-postfix.txt",
+          "sha256": "aac83603295a6231bfdb8a94f30079111cbd84d8195c89bc75b230e00d043b84"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/evidence-control-prefix.txt",
+          "sha256": "75780501c7ff6894e9a0619ef4ff061e7167605bcec78ce933dbaa8d2ee4f4d6"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/evidence-postfix-live.txt",
+          "sha256": "e25ca95aa2f3dbe40255a81cde3e4dbebba63e27cc2d675e3732c0d1ec2f142b"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/evidence-prefix-live.txt",
+          "sha256": "493f33895c30205e37247982210ad86b7a0146fd524773d5a27c7e01710caa8b"
+         },
+         {
+          "ids": [
+           "D1",
+           "D4",
+           "D5"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/evidence-replay-gate-digest.txt",
+          "sha256": "d52dfe6d3a0bfcafb174d26130bf87ecdb5b747d1a078129421f314fda062c70"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D5"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/neg-09-control.py",
+          "sha256": "ba72b66cd85409d7c628e80221d67ca192ea12fda1ac1af17b8be33e00367ecb",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "8193b5a29d1d9be8cd1ea675d428b6740a726a847539e7ba1d97da95b9820427",
+          "stdout_tail": "NEG-09 gates under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-09 phonology-sanity-gate.py sha256=d5fe087ffb2342e5 (post-fix/modified) NEG-09 naming-collision-gate.py sha256=",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D4",
+           "D5",
+           "D6",
+           "D9",
+           "F1",
+           "F5"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/neg-09-report.md",
+          "sha256": "648f83feaaefe276e88b8441c86d19ee909def52aee9b97f19f73739aa071bc1"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D5"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-09/probe-prefix.py",
+          "sha256": "f24f374eaf3eb0c001104ae43a364091ddc025bf568cbaefb3622d20e418f345",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "7ad98aeead7161bfff9300a6f761d2686fcbd4347b90d146958a9d636422a00a",
+          "stdout_tail": "tab-indent phonology-sanity-gate.py rc=2 FINDING G-DATA: UNEVALUABLE — packet could not be parsed: tab indentation is not supported by this subset (lin tab-indent naming-collision-gate.py rc=2 FINDING",
+          "traceback": false
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-10/evidence-live.txt",
+          "sha256": "56c54e936caf1beb590ca7ca0811579226afd174df05b891f28add82f5f83ed7"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-10/evidence-prefix.txt",
+          "sha256": "dee39b38c0d906fbb6d5e3b10e115143848427bf1b3caa33be9ca9a087a492b7"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D6"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-control.py",
+          "sha256": "217e83c17a389b0af1ce63b4a66a90293fdebbad5716769df2b87f36e941294d",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "16830babac1bc3a266bbb4fa6ee8c37d59aeb166273c97c34f98d361996f304c",
+          "stdout_tail": "NEG-10 scratch root: <scratch> NEG-10 gates under test (live worktree): NEG-10 phonology /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/phonology-sanity-gate.py sha256=d5fe087ffb2342e54cd",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D6"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-live.json",
+          "sha256": "f77c8ee22be991439f105726cf3f29ebcc21b71b244c4115deacc9340cb0982c"
+         },
+         {
+          "ids": [
+           "D6"
+          ],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-prefix.json",
+          "sha256": "f7982216de4159b12c11e2ca430359754183d51e09e039ff6895f96d497a7446"
+         },
+         {
+          "ids": [
+           "D6"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-10/neg-10-report.md",
+          "sha256": "61ccda77238104e00089a75388114a99982526d49553787f37e4fafa7ca091a0"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D7",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-11/neg-11-control.py",
+          "sha256": "1722bfd36ac877d5f556066ad7c5f8e45b38c6a5d2d38d383142ca734a5d6d85",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "12f54018867820be413c26de282f0ecb30d5db2bc6a9b2f8d1b43383c62f4d84",
+          "stdout_tail": "PASS C1-probe-sha256 probe sha256 2d3722282732ba9846887bd5101ab7a7bbbfb385810f48c39629870f8b4175bf PASS C2-fail-before-phonology rc=1 traceback=True findings=False PASS C3-fail-before-myth rc=1 traceb",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D2",
+           "D3",
+           "D4",
+           "D5",
+           "D6",
+           "D7",
+           "D8",
+           "D9",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-11/neg-11-report.md",
+          "sha256": "74e87b5751981cd9405377b5f2fbeaf00bda315801c4ac52e2d1846a14cf0548"
+         },
+         {
+          "ids": [
+           "D7"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-11/receipts.json",
+          "sha256": "76af17e3ef45548b58d94bc03f8e413c169b0c76897f6eda0232710b6d3963a9"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D8"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-12/neg-12-control.py",
+          "sha256": "56c5bf2b39ba069e747053a2d8e685ff81e4b7830924db1bef8303e32d16be3d",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "db16cb906febda52ca46bc1060464e96ababc5b0ab778622833c91567e0df6c1",
+          "stdout_tail": "NEG-12 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-12 gate sha256: d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d NEG-12",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D2",
+           "D3",
+           "D4",
+           "D5",
+           "D7",
+           "D8",
+           "D9",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-12/neg-12-report.md",
+          "sha256": "435249274118314f11e9460fa37a143d9b82fdfc8d5569f40bc6e9ccbf7a5015"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-12/no-harm-differential.txt",
+          "sha256": "002a419730d4573922f11eca68515608e0a04763985fcfadad5bd50f4e49839f"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-12/postfix-receipt.txt",
+          "sha256": "712535144f49e22b323717025ccfc7b4f1f4f35f4db33b975bd5fcd39941e446"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-12/prefix-receipt.txt",
+          "sha256": "a894ac9afa882058341bffb22f3496379e1c9907db367286b7936ab6d5bc865b"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-12/screen-and-timings.txt",
+          "sha256": "09733dd8f53ec08162acc219f04ea8914f5bdd993f8969a43de2b326ee2c23ff"
+         },
+         {
+          "ids": [
+           "D9"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-13/evidence-control-postfix.txt",
+          "sha256": "8294189458a56957cf0962a63049ef0db5e9bb26b59412ef26bd2da12796c983"
+         },
+         {
+          "ids": [
+           "D9"
+          ],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-13/evidence-control-prefix.txt",
+          "sha256": "3ba9ecdd0fa8c3a228a75e61595d3438a9dd05a48297b6489246e5137b408538"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": false
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-13/evidence-extra-f1-postfix.txt",
+          "sha256": "58a1abce91e66592aa2e693dd72f47f01bd61237b18a02eee4be19e69e8a24c9"
+         },
+         {
+          "ids": [],
+          "leg_markers": {
+           "post_fix": false,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-13/evidence-extra-f1-prefix.txt",
+          "sha256": "cf8a4a5c9f4ee5a95bf7f91183521fa119fb3ea3454d877cb41351e1be581806"
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D1",
+           "D9",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-13/extra-index10-fixture-pin-control.py",
+          "sha256": "7c2622874b0e2473773cf880af3581da775a6be3b907701dfbf09df4ebd01b15",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "536a1ea0f38d32226bf63a0255193babd111ba836f69152227d817376a29dbd8",
+          "stdout_tail": "NEG-13 scratch root: <scratch> NEG-13 gates source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates NEG-13 gate phonology-sanity-gate.py sha256=d5fe087ffb2342e5 NEG-13 gate myth-",
+          "traceback": false
+         },
+         {
+          "exit": 0,
+          "ids": [
+           "D9"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-13/neg-13-control.py",
+          "sha256": "b1bd044ba31ce1defad1f7b28952b87101a384b1379e2c03526c3dd2db69bbbf",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "43d895827e0523c9afe19d2566c380b4170b5b649f49f883c43e88a9f7ef6fac",
+          "stdout_tail": "NEG-13 gate source: live tree /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/naming-collision-gate.py NEG-13 gate under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/n",
+          "traceback": false
+         },
+         {
+          "ids": [
+           "D1",
+           "D3",
+           "D4",
+           "D5",
+           "D6",
+           "D7",
+           "D8",
+           "D9",
+           "F1"
+          ],
+          "leg_markers": {
+           "post_fix": true,
+           "pre_fix": true
+          },
+          "path": "reports/round-8/operability/neg-controls/neg-13/neg-13-report.md",
+          "sha256": "dcbec34ec2a2b3e0a7ec2d56ff493d5cdc679936ede8965706052be73363276e"
+         }
+        ],
+        "dir": "reports/round-8/operability/neg-controls",
+        "repaired_ids": [
+         "D1",
+         "D2",
+         "D3",
+         "D4",
+         "D5",
+         "D6",
+         "D7",
+         "D8",
+         "D9",
+         "F1",
+         "F5"
+        ],
+        "unreferenced_required": []
+       },
+       "optional_review_ids": [
+        "D10",
+        "F2",
+        "F3",
+        "F4",
+        "F6"
+       ],
+       "quarantined": [],
+       "repaired": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "F1",
+        "F5"
+       ],
+       "required_review_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "F1",
+        "F5"
+       ],
+       "rows": 20,
+       "statuses": {
+        "D1": [
+         "present_in_committed_baseline"
+        ],
+        "D2": [
+         "present_in_committed_baseline"
+        ],
+        "D3": [
+         "present_in_committed_baseline_all_five"
+        ],
+        "D4": [
+         "present_in_committed_baseline"
+        ],
+        "D5": [
+         "present_in_committed_baseline"
+        ],
+        "D6": [
+         "present_in_committed_baseline"
+        ],
+        "D7": [
+         "present_in_committed_baseline"
+        ],
+        "D8": [
+         "present_in_committed_baseline"
+        ],
+        "D9": [
+         "present_in_committed_baseline"
+        ],
+        "F1": [
+         "present_in_committed_baseline"
+        ],
+        "F5": [
+         "accepted_boundary",
+         "limit_not_defect"
+        ]
+       },
+       "uncovered_optional": [
+        "D10",
+        "F2",
+        "F3",
+        "F4",
+        "F6"
+       ],
+       "uncovered_required": [],
+       "unrepaired": []
+      },
+      "harness_fix": {
+       "benign_duplicate_accepted_demonstrated": true,
+       "controls_passed": 14,
+       "controls_total": 14,
+       "exit": 0,
+       "genuine_collision_rejected_demonstrated": true,
+       "path": "tools/harness/r8_checks.py",
+       "pointer": null,
+       "round7_touched": [],
+       "selftest_passed": true,
+       "sha256": "0fb21d8e414c2d92b3f20742817ac9d89be24b1142b1bc65b5070086aa17fbfe",
+       "stderr_tail": "",
+       "stdout_sha256": "25bf2315e6c2f3403a3fc9028720225284b1848f1a91e62ae3808543b0f5ce58"
+      }
+     },
+     "passed": true
+    }
+   },
+   "counting_command": "python3 reports/round-8/run-validation.py",
+   "errors": null,
+   "missing_dependencies": []
+  },
+  "runner": {
+   "exists": true,
+   "path": "reports/round-8/run-validation.py",
+   "sha256": "44cd1adfc3d3ea1fdb8fd998c98904eee866fd93e635c8979c5ec577d1d4cdd1"
+  },
+  "validation_json_delivered_before_rerun": {
+   "bytes": 86737,
+   "exists": true,
+   "mtime_utc": "2026-10-17T20:32:27Z",
+   "sha256": "f043ab97867874945c62c2c9a0c594a2225073f6f5b1bb87700943b50eb49cf6"
+  }
+ },
+ "worker_scope": "O16 final independent re-run (worker-authored author-side evidence; the orchestrator owns integration, judgment and the round commit)"
+}

@@ -15,6 +15,9 @@
   - Ooms, Herman (1996), *Tokugawa Village Practice: Class, Status, Power, Law*, University of California Press; especially chapters 1, 3–4 and pp. 132–133, 177–178, 214–215; [open edition](https://publishing.cdlib.org/ucpressebooks/view?docId=ft0000034x&brand=ucpress).
   - Victoria and Albert Museum (n.d.), “Kimono,” institutional collection essay, [online](https://www.vam.ac.uk/articles/kimono), accessed 2026-10-17; undated publication, not a historical primary text.
 - couples: Paths are relative to `corpus/knowledge/`: language — `linguistics/language-contact.md`, `linguistics/sociolinguistics-registers.md`, `linguistics/historical-linguistics.md`, `linguistics/naming-systems.md`, `linguistics/writing-systems.md`; myth/symbol — `myth-symbol/ritual-liminality.md`, `myth-symbol/color-symbolism.md`, `myth-symbol/symbolism-synthesis-method.md`; era/costume — `culture-material/era-periodization-models.md`, `culture-material/garment-lexicon-crosslinguistic.md`, `culture-material/textile-technology.md`, `culture-material/costume-semiotics.md`, `culture-material/sumptuary-law-rank-display.md`, `culture-material/trade-economy-lexicon.md`; sibling — lore-shokunin receives proposed systems and evidence limits, owns world-bible decisions.
+- source: the works listed above and the provenance cautions in §11; the register-ecology model is lane-authored method, not findings attributed to the cited authors.
+- verified-at: 2026-10-17 — §11 verification scope: bibliographic records, the author page, Ooms's specified passages, and the V&A essay support the bounded examples; not a cover-to-cover or exhaustive regional source audit; round-8 metadata pass checked header fields and cross-reference resolution only.
+- recheck: before supplying a historical village word list, a measured leveling rate, or an exact Edo pronunciation; unresolved marks are research tasks, not validated evidence.
 
 ## 1. Separate the units before drawing an urban–rural map
 

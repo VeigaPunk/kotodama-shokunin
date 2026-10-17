@@ -1,0 +1,28 @@
+# reports/round-8/depth/neg/packet-12a.unterminated-label-window.yml
+# R8-D12 negative control — a typed-label packet whose second label record
+# leaves its era_window flow sequence open. NON-CANON synthetic fixture: not a
+# culture design, not a canon record, not a handoff, no real-world claim.
+# Written in the strict-loader subset of reports/round-8/depth/shard-parser.md
+# section 4. LBL-N12A-01 is the clean control record; LBL-N12A-02 carries the
+# single defect. Run: reports/round-8/depth/neg/run-negatives.sh
+
+name: "R8-D12 negative control 12a — a label era_window left open (NON-CANON)"
+canon: "not canonized (round-8 D2 typed-labels negative control)"
+status: "negative control fixture; the loader must refuse this packet with a stable exit-2 P-* diagnostic"
+eras: [E0, E1, E2]
+
+typed_labels:
+  - id: LBL-N12A-01
+    kind: translated-label
+    text: "the valley felt wrap, the shelter-season wrap of the low pole"
+    label_type: costume-period
+    referent_id: GAR-N12A-01
+    gloss: "the valley felt wrap"
+    era_window: [E0, E2]
+  - id: LBL-N12A-02
+    kind: translated-label
+    text: "the transit coat of the pass, worn on the crossing"
+    label_type: costume-period
+    referent_id: GAR-N12A-02
+    gloss: "the transit coat"
+    era_window: [E0, E2

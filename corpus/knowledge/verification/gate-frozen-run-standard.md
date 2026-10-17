@@ -16,6 +16,7 @@
 - follows: `corpus/knowledge/verification/verification-method-overview.md` §3 (rule locator / preserve the reviewed version or digest), §6 (fail-closed verdicts), §8 (reference/design clock), §10 step 1 (freeze the input packet and rule version); `corpus/knowledge/synthesis/worldbible-integration-contract.md` §4 (freeze the manifest; a changed referenced file invalidates the digest) and §9 (pinned versions, no auto-upgrade); `corpus/knowledge/verification/provenance-audit-ledger-format.md` §8 (append-only, active-view reconstruction); fleet `PROTOCOL.md` §Gate standard (two-evidences clause) and §Evidence standard — read-only fleet surface.
 - canon: not canonized (D2 design drill)
 - verified-at: 2026-10-17 — re-executed against lane revision `16887909ed66e8e4fb4c82a20d0d18084f430518`: all seven gate `--selftest` runs exit 0 (7/7); a scratch freeze of the `myth-consistency-gate` fixture produced exit 1 with the six expected finding IDs, and the tamper step produced a digest mismatch (transcript in §7). No gate in `tools/gates/frozen/` exists yet — §8 records that as an open, fail-closed obligation.
+- recheck: whenever a gate, fixture, or frozen baseline changes — re-execute the selftests and re-verify the frozen digests before citing these revision-pinned results.
 
 "Two evidences" is fleet policy (KTD-FR-S-0001): a green self-test is **capability**, not a
 measurement. Every gate in this lane grades a mutable artifact — a culture packet under active

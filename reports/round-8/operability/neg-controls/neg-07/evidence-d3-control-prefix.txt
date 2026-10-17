@@ -1,0 +1,34 @@
+NEG-07-D3 gate naming-collision-gate sha256=8c5afb0a5abc8b00a659120e3795586ddce688bd962ccc68f7308f7bf19aa526 [review-26 pinned PRE-FIX bytes: checks expected to FAIL]
+NEG-07-D3 naming-collision-gate          anchor-alias-tag-rejected  rc=1   FAIL
+NEG-07-D3 naming-collision-gate          quoted-indicator-legal     rc=1   PASS
+NEG-07-D3 naming-collision-gate          indicator-inside-scalar-legal rc=1   PASS
+NEG-07-D3 naming-collision-gate          pristine-fixture-unchanged rc=1   PASS
+NEG-07-D3 gate phonology-sanity-gate sha256=fb05c644cafb0855481beb5d8bc3f619ae688d8b12787e530f01543f85372655 [review-26 pinned PRE-FIX bytes: checks expected to FAIL]
+NEG-07-D3 phonology-sanity-gate          anchor-alias-tag-rejected  rc=1   FAIL
+NEG-07-D3 phonology-sanity-gate          quoted-indicator-legal     rc=1   PASS
+NEG-07-D3 phonology-sanity-gate          indicator-inside-scalar-legal rc=1   PASS
+NEG-07-D3 phonology-sanity-gate          pristine-fixture-unchanged rc=1   PASS
+NEG-07-D3 gate myth-consistency-gate sha256=26d246e9936db4375c31c6eb260545bf55051d11ec00bb1e757458399b1b55c5 [review-26 pinned PRE-FIX bytes: checks expected to FAIL]
+NEG-07-D3 myth-consistency-gate          anchor-alias-tag-rejected  rc=1   FAIL
+NEG-07-D3 myth-consistency-gate          quoted-indicator-legal     rc=1   PASS
+NEG-07-D3 myth-consistency-gate          indicator-inside-scalar-legal rc=1   PASS
+NEG-07-D3 myth-consistency-gate          pristine-fixture-unchanged rc=1   PASS
+NEG-07-D3 gate costume-era-consistency-gate sha256=29a9361c7b96a354c41a3994e3459a951ce0a43425b3984d6506b3e5b3a43f03 [review-26 pinned PRE-FIX bytes: checks expected to FAIL]
+NEG-07-D3 costume-era-consistency-gate   anchor-alias-tag-rejected  rc=1   FAIL
+NEG-07-D3 costume-era-consistency-gate   quoted-indicator-legal     rc=1   PASS
+NEG-07-D3 costume-era-consistency-gate   indicator-inside-scalar-legal rc=1   PASS
+NEG-07-D3 costume-era-consistency-gate   pristine-fixture-unchanged rc=1   PASS
+NEG-07-D3 gate lexicon-coverage-audit sha256=63ee4ec6b15188fefa3e997766971d66fe4d7d7bf9eed65cdcdd55f548fe8a80 [review-26 pinned PRE-FIX bytes: checks expected to FAIL]
+NEG-07-D3 lexicon-coverage-audit         anchor-alias-tag-rejected  rc=1   FAIL
+NEG-07-D3 lexicon-coverage-audit         quoted-indicator-legal     rc=1   PASS
+NEG-07-D3 lexicon-coverage-audit         indicator-inside-scalar-legal rc=1   PASS
+NEG-07-D3 lexicon-coverage-audit         pristine-fixture-unchanged rc=1   PASS
+NEG-07-D3 RESULT: FAIL (5/20 checks)
+NEG-07-D3 FAILURE: naming-collision-gate/anchor-alias-tag-rejected: PRE-FIX PATTERN OBSERVED: rc=1 -- alias audited as the name form '*tag' -> invented PHON-INVENTORY finding; the gate evaluated syntax its subset declares unrepresentable instead of the documented exit 2. output=["FINDING NAME-REUSE: FAIL — entities F01, F02 share the unqualified key 'talin' (exact code-point sequence); no reuse/disambiguation decision recorded for F01, F02; record a decision or qualify the reference", "FINDING NAME-REUSE: FAIL — entities G01, G02 share the unqualified key 'é' (canonically equivalent sequences (NFC)); no reuse/disambiguation decision recorded for G01, G02; record a decision or qualify the reference", "FINDING NAME-VISUAL: REVIEW — entities H01, H02 overlap on skeleton key 'a' (stored forms: 'a', 'а'); UTS #39-style confusables subset: review visual channels, not linguistic equivalence"]
+NEG-07-D3 FAILURE: phonology-sanity-gate/anchor-alias-tag-rejected: PRE-FIX PATTERN OBSERVED: rc=1 -- anchor scalar evaluated as the literal packet name; the gate evaluated syntax its subset declares unrepresentable instead of the documented exit 2. output=["FINDING A-TONE: FAIL — notable_rules[6] 'tones rise on the final syllable' manipulates tone while the packet declares tones: 0 — the profile contradicts its declared tone structure (corpus §6)", "FINDING I-DUPLICATE: FAIL — duplicate token(s) in the inventory: 't' x2 — each phoneme is listed once; C and V must not overlap (kernel §6 I-DUPLICATE)", "FINDING I-UNKNOWN: FAIL — notable_rules[3] 'q → k / _u' conditions on 'u', which is not a phoneme of this inventory (spec §5)"]
+NEG-07-D3 FAILURE: myth-consistency-gate/anchor-alias-tag-rejected: PRE-FIX PATTERN OBSERVED: rc=1 -- alias scalar evaluated as the literal packet name; the gate evaluated syntax its subset declares unrepresentable instead of the documented exit 2. output=["FINDING MC-P01: role 'craft-exchange' requires an exclusive agent for its rite, assigns none, and explicitly denies a substitute [spec §3 MC-P01]", "FINDING MC-P02: role 'reproduction-care' is marked absent solely on basis 'elite-text-silence' (the surviving elite text does not mention it) with no other evidence recorded [spec §3 MC-P02]", "FINDING MC-M02: motif local-07 claims comparison 'ATU 500' without a checked entry, edition, or narrative witness [spec §4 MC-M02]"]
+NEG-07-D3 FAILURE: costume-era-consistency-gate/anchor-alias-tag-rejected: PRE-FIX PATTERN OBSERVED: rc=1 -- alias scalar evaluated as a literal material id; the gate evaluated syntax its subset declares unrepresentable instead of the documented exit 2. output=["FINDING T-03: [reject] rejection rule 'silk is never spun' is invalid: spun silk is a discontinuous-silk/waste yarn [M]; the rule conflates filament and spun silk — withdraw it before judging any material", "FINDING EAR-04: [hold] rank rule rule-earl-wolfskin has no effective interval: legal dress is a dated predicate — locate the rule's version before applying it", 'FINDING G-ERA: [hold] rank rule rule-vermillion names era(s) Age of Sail not declared in `eras`: its window cannot be resolved']
+NEG-07-D3 FAILURE: lexicon-coverage-audit/anchor-alias-tag-rejected: PRE-FIX PATTERN OBSERVED: rc=1 -- alias scalar evaluated as the literal packet name; the gate evaluated syntax its subset declares unrepresentable instead of the documented exit 2. output=["FINDING C-contrast-lost: field 'kinship' (layer 'native') records hama and tiru with the same gloss 'kinsman'; the required contrast is not recorded", "FINDING C-count-inflation: field 'body' counts 'sahu' and 'sahū' with the same gloss 'hand'; spelling variants or inflected forms must not inflate the inventory", 'FINDING C-entry-unevaluable: lexicon[29] (wilu) lacks field; no review row can evaluate it']
+rc=1
+
+# neg-07 controls carry the pre-fix and post-fix control legs; this file is one run of the control above.

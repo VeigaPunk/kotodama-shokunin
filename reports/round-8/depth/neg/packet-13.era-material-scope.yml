@@ -1,0 +1,74 @@
+# reports/round-8/depth/neg/packet-13.era-material-scope.yml
+# R8-D13 negative control — one plausible-but-unsupported era/material scope
+# claim, for the D2 typed-labels reconciliation path
+# (python3 tools/d2-typed-labels.py --packet <this file>).
+# NON-CANON synthetic fixture: not a culture design, not a canon record, not a
+# handoff, no real-world claim.
+#
+# The claim: GAR-R13-02, a valley coat of imported lowland plant-thread cloth,
+# is declared at era E0. It is plausible — the valley coat is an E0 garment
+# (the felt control GAR-R13-01 sits at E0), the material reference resolves to
+# a declared material, and the record shape matches the packet's other rows,
+# so nothing about the record is malformed — and it is unsupported: the
+# packet's own material record excludes the imported cloth in E0 and routes it
+# only from E1.
+#
+# Expected handling: the reconciliation path flags the era/material scope of
+# GAR-R13-02 and the tool exits 1; the felt control reconciles clean. The
+# actual observed output is recorded in reports/round-8/depth/neg/report-13.md
+# (and its receipt files), not in this fixture.
+
+name: "R8-D13 negative control — imported cloth claimed at E0 (NON-CANON)"
+canon: "not canonized (round-8 D2 typed-labels negative control)"
+status: "negative control fixture; GAR-R13-02 carries the unsupported claim, GAR-R13-01 is the clean control"
+profile: "d2-typed-labels/negative-control"
+
+negative_control:
+  shard: "R8-D13"
+  claim_record: "GAR-R13-02"
+  claim_under_test: "a coat of imported lowland plant-thread cloth is in scope at E0"
+  why_plausible: "the valley coat is an E0 garment (GAR-R13-01, felt), the material reference resolves to a declared material, and the record shape matches the packet's other rows, so the record is well formed and looks ordinary"
+  why_unsupported: "CMAT-13-02 declares excluded_eras [E0] and its only route covers E1 and E2; no declared route supplies the cloth in E0"
+  clean_control: "GAR-R13-01 (felt, route covers E0)"
+  expected_flag: "GAR-R13-02"
+  expected_codes: "to be read from the actual run; recorded in report-13.md"
+
+eras: [E0, E1, E2]
+
+era_records:
+  - {tag: E0, name: "Open Grazing"}
+  - {tag: E1, name: "Marked Count"}
+  - {tag: E2, name: "Two Counts"}
+
+materials:
+  - id: CMAT-13-01
+    material: felt
+    composition: "nonwoven animal-fibre mat, carded and fulled at the hearth"
+    provenance: local-production
+    routes:
+      - {id: RT-13-01, name: "hearth-side felt work", kind: local, stage: cloth, eras: [E0, E1, E2]}
+  - id: CMAT-13-02
+    material: lowland plant-thread cloth
+    composition: "woven plant-thread cloth of the lowland partner, imported as finished cloth"
+    provenance: import
+    excluded_eras: [E0]
+    routes:
+      - {id: RT-13-02, name: "caravan import of finished cloth", kind: import, stage: cloth, eras: [E1, E2]}
+
+costumes:
+  - id: GAR-R13-01
+    garment: "valley felt wrap"
+    form_slot: "LEX-GAR-01 (to-verify with the lexicon owner)"
+    era: E0
+    material: felt
+    wearer_rank: "any adult of a pasture-holding lineage"
+    rite: "low stay, the shelter season"
+    provenance: local-production
+  - id: GAR-R13-02
+    garment: "lowland-cloth valley coat"
+    form_slot: "LEX-GAR-02 (to-verify with the lexicon owner)"
+    era: E0
+    material: lowland plant-thread cloth
+    wearer_rank: "registered herd-master at the fairgrounds"
+    rite: "the gate market"
+    provenance: import

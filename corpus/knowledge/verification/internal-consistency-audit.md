@@ -3,6 +3,8 @@
 - topic: audit the cross-file coherence of linguistic-cultural design methods and candidate handoff packets; expose missing couplings, misaligned terms, incompatible assertions, and unsupported repairs without deciding world-bible canon.
 - sources: Thomas R. Gruber (1993); Alistair Miles and Sean Bechhofer, eds. (2009); Luc Moreau and Paolo Missier, eds. (2013); Holger Knublauch and Dimitris Kontokostas, eds. (2017); triage round-2 additions (2026-10-17; web-verified): David Hackett Fischer (1970), Steven A. Greenberg (2009), David-Antoine Williams (2023/24), TEI P5 ch. 22 (TEI Consortium, release version consulted), the Leiden/EpiDoc editorial conventions (Brill TEI–EpiDoc documentation), Bradley Dowden, “Fallacies” (*Internet Encyclopedia of Philosophy*), John Kausch (2023), Sami Honkasalo (2011); full references and limits below.
 - couples: language (`../linguistics/`) / myth and symbol (`../myth-symbol/`) / era and costume (`../culture-material/`); especially naming, historical linguistics, writing, symbolic synthesis, periodization, textiles, ritual dress, and material inference; siblings: lore-shokunin receives findings and owns canon verification; chousa-shokunin receives unresolved source-research questions, neither sibling is edited here.
+- verified-at: 2026-10-17 — round-8 metadata pass: header fields and cross-reference resolution checked (couples targets are directory-level references and all resolve); 13 linked locators re-checked for resolution (11 reachable, 2 blocked by remote servers); sources not re-inspected.
+- recheck: when a coupled entry is renamed or re-scoped, a new contradiction class is added, or before a finding is promoted into a repair.
 
 ## Scope, authority, and calibration
 

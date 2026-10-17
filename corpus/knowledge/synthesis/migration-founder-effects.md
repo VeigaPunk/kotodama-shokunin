@@ -3,6 +3,9 @@
 - topic: founder populations and language — conditional drift acceleration, diaspora conservatism, colony naming patterns, and heritage registers coupled to myth, symbol, era, and dress
 - sources: Mufwene (1996); Trudgill (2004); Polinsky (2018); Agha (2003); Tent & Blair (2011); Rose-Redwood, Alderman & Azaryahu (2010); Byock (2001); Jesch (2015); Hayeur Smith (2020); Harris (1994); Juhasz (ed., 1990); University of Michigan Library (2023); Raschellà (2016); Plomp et al. (2021); Schwarzwald (Jewish Languages, n.d.); Beider (n.d.); National Museum of Denmark C24451; Lester-Makin & Owen-Crocker (eds., 2024); full references and verification limits below
 - couples: language — `../linguistics/{historical-linguistics,language-contact,sociolinguistics-registers,naming-systems,writing-systems}.md`; myth/symbol — `../myth-symbol/{creation-myths-taxonomy,myth-folktale-genres,ritual-liminality,symbolism-synthesis-method}.md`; era/costume — `../culture-material/{era-periodization-models,dress-through-eras,textile-technology,costume-semiotics,ritual-garments,material-culture-inference-method}.md`; sibling recipient — lore-shokunin owns all canon decisions and the world bible
+- source: the references and verification boundary in §12; the procedure and comparison tables are lane-authored design craft, not findings attributed to the cited scholars.
+- verified-at: 2026-10-17 — §12 verification boundary: available metadata, abstracts, and linked collection summaries were checked; complete monographs were not reread; round-8 metadata pass checked header fields and cross-reference resolution only.
+- recheck: before reusing a local reconstruction carrying an unresolved mark as a historical fact, or importing a comparison row as evidence about a real population.
 
 ## 1. Scope and calibration
 

@@ -2,6 +2,9 @@
 - topic: The shared adjacency interface by which kotodama-shokunin hands linguistic-cultural systems to lore-shokunin without claiming, recording, or silently changing canon.
 - sources: Star & Griesemer (1989), “Institutional Ecology, ‘Translations’ and Boundary Objects”; Moreau & Missier (eds., 2013), PROV-DM, W3C Recommendation; Miles & Bechhofer (eds., 2009), SKOS Reference, W3C Recommendation; Preston-Werner (2013), Semantic Versioning 2.0.0; editions, links, and verification limits below.
 - couples: language — ../linguistics/{naming-systems,historical-linguistics,writing-systems,semantic-fields-lexicon-building}.md; myth/symbol — ../myth-symbol/{comparative-frameworks,symbolism-synthesis-method}.md; era/costume — ../culture-material/{era-periodization-models,costume-semiotics,material-culture-inference-method,textile-technology}.md; siblings — lore-shokunin owns canon, chousa owns general research method, integrator arbitrates contested scope.
+- source: the works listed above and the provenance cautions and acceptance checklist in §11; the contract rules are lane-local policy, not quotations from the cited standards.
+- verified-at: 2026-10-17 — §1 verification date: contract text and the cited standards were checked at the levels noted inline (§2 linked records; PROV-DM, SKOS, and SemVer label/release distinctions checked); no tradition-specific expertise established; round-8 metadata pass checked header fields and cross-reference resolution only.
+- recheck: on any contract revision or pinned-digest change — both lanes re-read and acknowledge before importing under it (§§1, 9); before a first real packet is sent.
 
 ## 1. Both-lane read: authority and activation
 

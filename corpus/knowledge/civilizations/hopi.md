@@ -2,6 +2,9 @@
 - topic: Hopi reference base for coupling Uto-Aztecan language, katsina ceremonial calendars, clan responsibilities, emergence narratives, symbolic materials, and historically situated dress; method and reference only, never fictional canon.
 - sources: Hopi Dictionary Project (1998); Whorf (1956); Malotki (1983); Lee (1996); Whiteley (1988); Nicholas (2009); Wright (2008 online edition); Schlegel (2008 online edition); Lyons (2013); Hopi Tribe and Hopi Cultural Preservation Office (n.d.); National Park Service (n.d.); Lam Museum (n.d.); Garcia and Webster (n.d.); Jeanne (1978); Voth (1905); Cushing (1923); full references and verification limits below.
 - couples: language ↔ myth ↔ symbol ↔ era ↔ costume; `linguistics/{semantics-pragmatics,naming-systems,kinship-terminology,writing-systems,sociolinguistics-registers}.md`; `myth-symbol/{creation-myths-taxonomy,cosmology-cosmography,myth-ritual-theories,color-symbolism}.md`; `culture-material/{calendar-festival-systems,ritual-garments,costume-semiotics,textile-technology,era-periodization-models}.md`; method handoff to lore-shokunin, which alone owns world-bible canon.
+- source: the sources ledger above — Hopi Dictionary Project, Whorf, Malotki, Lee, Whiteley, Nicholas, and the remaining items; full references and verification limits appear below.
+- verified-at: 2026-10-17; round-8 metadata audit (reports/round-8/metadata/m02-civ-20-38.md): frontmatter fields and first-heading structure checked; 3 cited links sampled for liveness (200/202/200) — sample-level check only, cited passages not re-retrieved in this pass.
+- recheck: before importing an exact Hopi term, katsina detail, ceremonial-calendar claim, or regalia element; restricted-knowledge protocols and community authority govern reuse.
 
 ## Scope and calibration
 - Hopi people are living, internally diverse communities, not an extinct civilization or a ready-made fantasy aesthetic.

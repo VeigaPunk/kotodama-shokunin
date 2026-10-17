@@ -16,6 +16,9 @@
   - Metropolitan Museum of Art (collection record, consulted 2026), *Rank Badge with Mandarin Duck*, China, 18th century, accession 30.75.1021; [object 50491](https://www.metmuseum.org/art/collection/search/50491) and [collection API](https://collectionapi.metmuseum.org/public/collection/v1/objects/50491) [Met50491].
   - Oxford University Press (*OED Online*, consulted 2026), s.v. [“zounds, int.”](https://www.oed.com/dictionary/zounds_int); Douglas Harper (*Online Etymology Dictionary*, consulted 2026), s.v. [“zounds”](https://www.etymonline.com/word/zounds) [Z; online reference dates are consultation dates].
 - couples: **language** — `linguistics/politeness-taboo-euphemism.md`, `historical-linguistics.md`, `naming-systems.md`, `writing-systems.md`, `sociolinguistics-registers.md`; **myth/symbol** — `myth-symbol/ritual-liminality.md`, `pantheon-archetypes.md`, `symbolism-synthesis-method.md`; **era** — `culture-material/era-periodization-models.md`; **costume/material** — `culture-material/costume-semiotics.md`, `ritual-garments.md`, `dress-through-eras.md`, `material-culture-inference-method.md`; **siblings** — options and evidence for lore-shokunin, which alone owns world-bible canon.
+- source: the works listed above and the calibration and provenance cautions in §13; the lifecycle model and dating protocol are lane-authored method, not findings attributed to the cited authors.
+- verified-at: 2026-10-17 — §1 verification boundary: DOI metadata/abstracts, the legal text, Folger passage, Sefaria text/version data, dress bibliography, and Met API were checked; publisher full-text access was limited; no unavailable page references or exact ban-onset dates are asserted; round-8 metadata pass checked header fields and cross-reference resolution only.
+- recheck: before importing a precise historical chronology, or using a taboo stratum to date a document, name, or costume anchor.
 
 ## 1. Scope, evidence grades, and the core distinction
 

@@ -1,0 +1,33 @@
+NEG-09 gates under test: /var/tmp/neg-09-baseline-wdq8xclg
+NEG-09 extracted pre-fix bytes from revision cf338a7
+NEG-09 phonology-sanity-gate.py         sha256=fb05c644cafb0855 (PRE-FIX pinned bytes)
+NEG-09 naming-collision-gate.py         sha256=8c5afb0a5abc8b00 (PRE-FIX pinned bytes)
+NEG-09 myth-consistency-gate.py         sha256=26d246e9936db437 (PRE-FIX pinned bytes)
+NEG-09 costume-era-consistency-gate.py  sha256=29a9361c7b96a354 (PRE-FIX pinned bytes)
+NEG-09 lexicon-coverage-audit.py        sha256=63ee4ec6b15188fe (PRE-FIX pinned bytes)
+NEG-09 note: all five gates match the review-26 §0 pre-fix pins; the tab and multi-document checks below are expected to FAIL.
+NEG-09 phonology-sanity-gate/tab-indent       rc=0 ids=- FAIL
+NEG-09 costume-era-consistency-gate/tab-indent rc=1 ids=T-03,EAR-04,G-ERA,R-07,MAT-03,R-02,MAT-02,EAR-01,T-01,E-01,G-ERA,MAT-02,MAT-01,MAT-06,MAT-07,MAT-04,MAT-03,T-02,R-03,R-01,R-04,R-05,R-06,MAT-05,MAT-05 FAIL
+NEG-09 myth-consistency-gate/tab-indent       rc=2 ids=G-DATA FAIL
+NEG-09 naming-collision-gate/tab-indent       rc=2 ids=G-DATA PASS
+NEG-09 lexicon-coverage-audit/tab-indent      rc=2 ids=- PASS
+NEG-09 phonology-sanity-gate.py/conformance-tab rc=0 ids=- FAIL
+NEG-09 naming-collision-gate.py/conformance-tab rc=2 ids=G-DATA PASS
+NEG-09 myth-consistency-gate.py/conformance-tab rc=2 ids=G-DATA FAIL
+NEG-09 costume-era-consistency-gate.py/conformance-tab rc=2 ids=G-DATA FAIL
+NEG-09 lexicon-coverage-audit.py/conformance-tab rc=2 ids=- PASS
+NEG-09 phonology-sanity-gate.py/space-twin    rc=1 ids=A-TONE,I-DUPLICATE,I-UNKNOWN,I-UNKNOWN,A-CLASS,A-NEUTRAL,A-ORDER,A-PARSE,M-EJECT,M-NASAL,M-ROUND,M-SONORITY,M-VOICE,T-C,T-SYL,X-NAME PASS
+NEG-09 costume-era-consistency-gate.py/space-twin rc=1 ids=T-03,EAR-04,G-ERA,R-07,MAT-03,R-02,MAT-02,EAR-01,T-01,E-01,G-ERA,MAT-02,MAT-01,MAT-06,MAT-07,MAT-04,MAT-03,T-02,R-03,R-01,R-04,R-05,R-06,MAT-05,MAT-05 PASS
+NEG-09 myth-consistency-gate.py/space-twin    rc=1 ids=MC-P01,MC-P02,MC-M02,MC-M01,MC-S01,MC-S02 PASS
+NEG-09 naming-collision-gate.py/space-twin    rc=1 ids=NAME-REUSE,NAME-REUSE,NAME-VISUAL,NAME-NEAR,NAME-LEXEME,PHON-ONSET,PHON-CODA,PHON-INVENTORY,DERIV-AFFIX,DERIV-REPLAY,DERIV-HOLD,CROSS-HOLD PASS
+NEG-09 lexicon-coverage-audit.py/space-twin   rc=1 ids=C-contrast-lost,C-count-inflation,C-entry-unevaluable,C-entry-unevaluable,C-required-gap,D-exception-unlicensed,D-form-mismatch,D-meaning-mismatch,D-route-missing,D-rule-underspecified,D-rule-violation,D-stage-mismatch,D-stage-mismatch,L-adaptation-mismatch,L-chronology-conflict,L-contact-unsupported,L-integration-mismatch,L-layer-incomplete,L-layer-unregistered,L-material-anachronism PASS
+NEG-09 naming-collision-gate/multi-document   rc=1 ids=PHON-ONSET,CROSS-HOLD FAIL
+NEG-09 naming-collision-gate/leading-marker   rc=1 ids=NAME-INVENTORY,CROSS-HOLD PASS
+NEG-09 RESULT: FAIL (7/17 checks)
+NEG-09 FAILURE: phonology-sanity-gate/tab-indent: PRE-FIX PATTERN OBSERVED: rc=0 ids=[] (expected rc=2 G-DATA 'tab indentation is not supported'); output=[]
+NEG-09 FAILURE: costume-era-consistency-gate/tab-indent: PRE-FIX PATTERN OBSERVED: rc=1 ids=['T-03', 'EAR-04', 'G-ERA', 'R-07', 'MAT-03', 'R-02', 'MAT-02', 'EAR-01', 'T-01', 'E-01', 'G-ERA', 'MAT-02', 'MAT-01', 'MAT-06', 'MAT-07', 'MAT-04', 'MAT-03', 'T-02', 'R-03', 'R-01', 'R-04', 'R-05', 'R-06', 'MAT-05', 'MAT-05'] (expected rc=2 G-DATA; the gate audited the tab-rewritten packet instead). output=["FINDING T-03: [reject] rejection rule 'silk is never spun' is invalid: spun silk is a discontinuous-silk/waste yarn [M]; the rule conflates filament and spun silk — withdraw it before judging any material", "FINDING EAR-04: [hold] rank rule rule-earl-wolfskin has no effective interval: legal dress is a dated predicate — locate the rule's version before applying it"]
+NEG-09 FAILURE: myth-consistency-gate/tab-indent: PRE-FIX PATTERN OBSERVED: rc=2 ids=['G-DATA'] (expected rc=2 G-DATA 'tab indentation is not supported'; the pre-fix guard missed leading tabs). output=['FINDING G-DATA: unparsed YAML content at token 6']
+NEG-09 FAILURE: phonology-sanity-gate.py/conformance-tab: PRE-FIX PATTERN OBSERVED: rc=0 ids=[] (the same bytes are not rejected by all five gates). output=[]
+NEG-09 FAILURE: myth-consistency-gate.py/conformance-tab: PRE-FIX PATTERN OBSERVED: rc=2 ids=['G-DATA'] (the same bytes are not rejected by all five gates). output=['FINDING G-DATA: unparsed YAML content at token 7']
+NEG-09 FAILURE: costume-era-consistency-gate.py/conformance-tab: PRE-FIX PATTERN OBSERVED: rc=2 ids=['G-DATA'] (the same bytes are not rejected by all five gates). output=['FINDING G-DATA: [could-not-evaluate] no `costumes` declared: nothing to review']
+NEG-09 FAILURE: naming-collision-gate/multi-document: PRE-FIX PATTERN OBSERVED: rc=1 ids=['PHON-ONSET', 'CROSS-HOLD'] (expected rc=2 G-DATA 'multi-document streams are not supported'; pre-fix the documents were merged and the union evaluated). output=["FINDING PHON-ONSET: FAIL — name N2 'tl' cannot be syllabified: consonant cluster /tl/ (2 tokens) exceeds the licensed onset of 1 under template (C)V(C)", 'FINDING CROSS-HOLD: HOLD — packet declares no bounded cross-cultural review; D HOLD — a constructed string is not evidence of cross-cultural clearance (spec §9.6)']

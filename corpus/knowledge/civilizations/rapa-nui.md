@@ -2,6 +2,8 @@
 - topic: Rapa Nui linguistic-cultural reference: undeciphered rongorongo, moai symbolism, tangata manu/Birdman rites, and language change under relative isolation and renewed contact; method, not fictional canon.
 - sources: Paulus Kieviet (2017), A grammar of Rapa Nui [K17]; Katherine Routledge (1920 digitized edition), The Mystery of Easter Island [R20]; Eric Kjellgren and Jennifer Wagelie (2002), “Easter Island” [KW02]; Silvia Ferrara et al. (2024), “The invention of writing on Rapa Nui…” [F24]; Dylan S. Davis et al. (2024), “Island-wide characterization of agricultural production…” [D24]; J. Víctor Moreno-Mayar et al. (2024), “Ancient Rapanui genomes…” [MM24]. Full references and access distinctions below.
 - couples: language → `../linguistics/{historical-linguistics,language-contact,writing-systems,naming-systems,orality-formulaic-language}.md`; myth/symbol → `../myth-symbol/{myth-ritual-theories,animal-symbolism,ritual-liminality,symbolism-synthesis-method}.md`; era/costume → `../culture-material/{era-periodization-models,calendar-festival-systems,textile-technology,ritual-garments,adornment-body-codes,material-culture-inference-method}.md`; sibling handoff → lore-shokunin owns canon, chronology decisions, and the world bible.
+- verified-at: 2026-10-17; frontmatter/apparatus audit (M05 metadata sweep): schema, source-list presence, and couples-link resolution checked; body reading limits unchanged (§“Source register and reading limits”); not a fresh retrieval of the listed works.
+- recheck: before using an early settlement date, a rongorongo reading, or a moai/tangata manu detail, check the cited witness; do not use early dates from KW02 without rechecking.
 
 ## Source register and reading limits
 

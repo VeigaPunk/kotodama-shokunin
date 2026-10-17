@@ -1,0 +1,244 @@
+{
+ "round": 8,
+ "shard": "R8-O14",
+ "claim": "O",
+ "axis": "operability",
+ "date": "2026-10-17",
+ "task": "Run python3 tools/check-gate-battery.py --selftest and python3 tools/check-craft-exercise.py --selftest in a copied tree; record exact stdout hashes and exit codes.",
+ "verdict": "green",
+ "verdict_detail": "Both selftests exit 0 in every run. stdout is byte-identical across two independent copied trees and two repeats per tree (8 runs), and both copied trees are byte-identical before and after the runs (547-file manifest unchanged), so the selftests are deterministic and read-only with respect to the tree.",
+ "environment": {
+  "python": "Python 3.14.7 (main, Aug 10 2026, 07:46:56) [GCC 16.1.1 20260728]",
+  "python_executable": "/usr/bin/python3",
+  "platform": "Linux-7.2.3-arch1-3-x86_64-with-glibc2.44"
+ },
+ "revision_binding": {
+  "source_repo": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "head_revision": "cf338a713060f274269cdacb18cdc0085bb06aeb",
+  "claims_declared_baseline": "e7ca0faeb6680fa9891b907be628d9db578c28f4",
+  "note": "Both tools under test are byte-identical at e7ca0fa and cf338a7, so this receipt binds to the declared baseline revision as well as to HEAD.",
+  "tools_under_test": [
+   {
+    "path": "tools/check-gate-battery.py",
+    "sha256_worktree": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
+    "sha256_at_cf338a7": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67",
+    "sha256_at_e7ca0fa": "077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67"
+   },
+   {
+    "path": "tools/check-craft-exercise.py",
+    "sha256_worktree": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5",
+    "sha256_at_cf338a7": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5",
+    "sha256_at_e7ca0fa": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5"
+   }
+  ],
+  "hash_commands": [
+   "git show cf338a7:tools/check-gate-battery.py | sha256sum",
+   "git show e7ca0fa:tools/check-gate-battery.py | sha256sum",
+   "git show cf338a7:tools/check-craft-exercise.py | sha256sum",
+   "git show e7ca0fa:tools/check-craft-exercise.py | sha256sum"
+  ]
+ },
+ "trees": {
+  "rsync_copy": {
+   "path": "/tmp/kotodama-r8-o14/tree",
+   "built_by": "rsync -a --exclude='.git/' --exclude='__pycache__/' <repo>/ /tmp/kotodama-r8-o14/tree/",
+   "built_from": "worktree of kotodama-shokunin at revision cf338a7 (== declared baseline e7ca0fa for both tools under test)",
+   "size_on_disk": "333M"
+  },
+  "pristine_snapshot": {
+   "path": "/tmp/kotodama-r8-o14/snap",
+   "built_by": "git archive cf338a7 | tar -x -C /tmp/kotodama-r8-o14/snap",
+   "built_from": "committed tree at revision cf338a7 (no untracked files, no .git)",
+   "files": 547,
+   "size_on_disk": "12M"
+  }
+ },
+ "runs": [
+  {
+   "id": "R8-O14-rsync-gate-1",
+   "tree": "rsync_copy",
+   "cwd": "/tmp/kotodama-r8-o14/tree",
+   "command": "python3 tools/check-gate-battery.py --selftest",
+   "started_utc": "2026-10-17T20:13:07Z",
+   "finished_utc": "2026-10-17T20:13:08Z",
+   "exit_code": 0,
+   "stdout_exact": "control CTRL-PASS-EXIT0: exit=0 outcome=pass ids=-\ncontrol CTRL-RECOGNIZED-FAIL: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-FAIL-LINE-ID: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-EXIT1-UNRECOGNIZED: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-CRASH-EXIT1: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MARKER-THEN-CRASH: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MISSING-GATE: exit=None outcome=unevaluable ids=GATE-FILE-MISSING\ncontrol CTRL-TIMEOUT-GATE: exit=None outcome=unevaluable ids=GATE-TIMEOUT\ncontrol CTRL-TREE-DIFF: exit=0 outcome=- ids=-\ncontrol CTRL-STABLE-IDS: exit=0 outcome=- ids=-\nSELFTEST OK 10/10 controls behaved as expected\n",
+   "stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+   "stdout_bytes": 724,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  },
+  {
+   "id": "R8-O14-rsync-craft-1",
+   "tree": "rsync_copy",
+   "cwd": "/tmp/kotodama-r8-o14/tree",
+   "command": "python3 tools/check-craft-exercise.py --selftest",
+   "started_utc": "2026-10-17T20:13:08Z",
+   "finished_utc": "2026-10-17T20:13:08Z",
+   "exit_code": 0,
+   "stdout_exact": "SELFTEST OK 10/10 tamper cases detected\nCLI-SELFTEST OK 18/18 cases passed\n",
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+   "stdout_bytes": 75,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  },
+  {
+   "id": "R8-O14-rsync-gate-2",
+   "tree": "rsync_copy",
+   "cwd": "/tmp/kotodama-r8-o14/tree",
+   "command": "python3 tools/check-gate-battery.py --selftest",
+   "started_utc": "2026-10-17T20:13:08Z",
+   "finished_utc": "2026-10-17T20:13:09Z",
+   "exit_code": 0,
+   "stdout_exact": "control CTRL-PASS-EXIT0: exit=0 outcome=pass ids=-\ncontrol CTRL-RECOGNIZED-FAIL: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-FAIL-LINE-ID: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-EXIT1-UNRECOGNIZED: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-CRASH-EXIT1: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MARKER-THEN-CRASH: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MISSING-GATE: exit=None outcome=unevaluable ids=GATE-FILE-MISSING\ncontrol CTRL-TIMEOUT-GATE: exit=None outcome=unevaluable ids=GATE-TIMEOUT\ncontrol CTRL-TREE-DIFF: exit=0 outcome=- ids=-\ncontrol CTRL-STABLE-IDS: exit=0 outcome=- ids=-\nSELFTEST OK 10/10 controls behaved as expected\n",
+   "stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+   "stdout_bytes": 724,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  },
+  {
+   "id": "R8-O14-rsync-craft-2",
+   "tree": "rsync_copy",
+   "cwd": "/tmp/kotodama-r8-o14/tree",
+   "command": "python3 tools/check-craft-exercise.py --selftest",
+   "started_utc": "2026-10-17T20:13:09Z",
+   "finished_utc": "2026-10-17T20:13:10Z",
+   "exit_code": 0,
+   "stdout_exact": "SELFTEST OK 10/10 tamper cases detected\nCLI-SELFTEST OK 18/18 cases passed\n",
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+   "stdout_bytes": 75,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  },
+  {
+   "id": "R8-O14-snap-gate-1",
+   "tree": "pristine_snapshot",
+   "cwd": "/tmp/kotodama-r8-o14/snap",
+   "command": "python3 tools/check-gate-battery.py --selftest",
+   "started_utc": "2026-10-17T20:14:00Z",
+   "finished_utc": "2026-10-17T20:14:01Z",
+   "exit_code": 0,
+   "stdout_exact": "control CTRL-PASS-EXIT0: exit=0 outcome=pass ids=-\ncontrol CTRL-RECOGNIZED-FAIL: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-FAIL-LINE-ID: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-EXIT1-UNRECOGNIZED: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-CRASH-EXIT1: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MARKER-THEN-CRASH: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MISSING-GATE: exit=None outcome=unevaluable ids=GATE-FILE-MISSING\ncontrol CTRL-TIMEOUT-GATE: exit=None outcome=unevaluable ids=GATE-TIMEOUT\ncontrol CTRL-TREE-DIFF: exit=0 outcome=- ids=-\ncontrol CTRL-STABLE-IDS: exit=0 outcome=- ids=-\nSELFTEST OK 10/10 controls behaved as expected\n",
+   "stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+   "stdout_bytes": 724,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  },
+  {
+   "id": "R8-O14-snap-craft-1",
+   "tree": "pristine_snapshot",
+   "cwd": "/tmp/kotodama-r8-o14/snap",
+   "command": "python3 tools/check-craft-exercise.py --selftest",
+   "started_utc": "2026-10-17T20:14:01Z",
+   "finished_utc": "2026-10-17T20:14:01Z",
+   "exit_code": 0,
+   "stdout_exact": "SELFTEST OK 10/10 tamper cases detected\nCLI-SELFTEST OK 18/18 cases passed\n",
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+   "stdout_bytes": 75,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  },
+  {
+   "id": "R8-O14-snap-gate-2",
+   "tree": "pristine_snapshot",
+   "cwd": "/tmp/kotodama-r8-o14/snap",
+   "command": "python3 tools/check-gate-battery.py --selftest",
+   "started_utc": "2026-10-17T20:14:01Z",
+   "finished_utc": "2026-10-17T20:14:02Z",
+   "exit_code": 0,
+   "stdout_exact": "control CTRL-PASS-EXIT0: exit=0 outcome=pass ids=-\ncontrol CTRL-RECOGNIZED-FAIL: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-FAIL-LINE-ID: exit=1 outcome=fail ids=GATE-SELFTEST-FAIL\ncontrol CTRL-EXIT1-UNRECOGNIZED: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-CRASH-EXIT1: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MARKER-THEN-CRASH: exit=1 outcome=unevaluable ids=GATE-CRASH-EXIT1\ncontrol CTRL-MISSING-GATE: exit=None outcome=unevaluable ids=GATE-FILE-MISSING\ncontrol CTRL-TIMEOUT-GATE: exit=None outcome=unevaluable ids=GATE-TIMEOUT\ncontrol CTRL-TREE-DIFF: exit=0 outcome=- ids=-\ncontrol CTRL-STABLE-IDS: exit=0 outcome=- ids=-\nSELFTEST OK 10/10 controls behaved as expected\n",
+   "stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+   "stdout_bytes": 724,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  },
+  {
+   "id": "R8-O14-snap-craft-2",
+   "tree": "pristine_snapshot",
+   "cwd": "/tmp/kotodama-r8-o14/snap",
+   "command": "python3 tools/check-craft-exercise.py --selftest",
+   "started_utc": "2026-10-17T20:14:02Z",
+   "finished_utc": "2026-10-17T20:14:03Z",
+   "exit_code": 0,
+   "stdout_exact": "SELFTEST OK 10/10 tamper cases detected\nCLI-SELFTEST OK 18/18 cases passed\n",
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+   "stdout_bytes": 75,
+   "stderr_exact": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0
+  }
+ ],
+ "summary_by_command": {
+  "check-gate-battery": {
+   "stdout_sha256": "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+   "exit_codes": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "run_ids": [
+    "R8-O14-rsync-gate-1",
+    "R8-O14-rsync-gate-2",
+    "R8-O14-snap-gate-1",
+    "R8-O14-snap-gate-2"
+   ],
+   "stdout_bytes": 724
+  },
+  "check-craft-exercise": {
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+   "exit_codes": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "run_ids": [
+    "R8-O14-rsync-craft-1",
+    "R8-O14-rsync-craft-2",
+    "R8-O14-snap-craft-1",
+    "R8-O14-snap-craft-2"
+   ],
+   "stdout_bytes": 75
+  }
+ },
+ "result_lines": {
+  "check-gate-battery": "SELFTEST OK 10/10 controls behaved as expected",
+  "check-craft-exercise": [
+   "SELFTEST OK 10/10 tamper cases detected",
+   "CLI-SELFTEST OK 18/18 cases passed"
+  ]
+ },
+ "tree_immutability": {
+  "method": "find . -type f | LC_ALL=C sort | xargs -d'\\n' sha256sum, run in /tmp/kotodama-r8-o14/snap before and after the four snapshot runs",
+  "files_hashed": 547,
+  "manifest_sha256_before": "5d2467488b84270c9cbeab46c9058d48577308510b6996c279dfe890519f15c7",
+  "manifest_sha256_after": "5d2467488b84270c9cbeab46c9058d48577308510b6996c279dfe890519f15c7",
+  "diff_result": "empty (TREE-UNCHANGED)",
+  "note": "The craft-exercise --report flag is an input (the tool reads that file via read_report_text); the selftest cases write only into their own tempfile.mkdtemp() scratch dirs, so no fixture is written into the tree. The rsync copy's tools and reports/supplement-opencode-1/32-craft-exercise.md also kept their pre-run sha256 values."
+ },
+ "source_repo_untouched": {
+  "evidence": "git status --porcelain in /home/vgpnk/Projects/shokunin/kotodama-shokunin was empty immediately before and after the /tmp runs; every command executed with cwd inside /tmp/kotodama-r8-o14/.",
+  "concurrent_worker_note": "A post-run rsync dry-run diff of the copy against the source showed new files under reports/supplement-opencode-1/scratch/round8-f14/ (F-shard scratch) landing in the source repo during the window; those are other workers' writes, not effects of this shard's runs."
+ },
+ "verify_recipe": "For any run entry r: python3 -c \"import json,hashlib;d=json.load(open('reports/round-8/operability/battery-rerun.json'));r=d['runs'][0];print(hashlib.sha256(r['stdout_exact'].encode()).hexdigest()==r['stdout_sha256'])\"",
+ "caveats": [
+  "This is a pre-repair receipt: it records the R8-O14 rerun of the legacy batteries at revision cf338a7. Shards R8-O04..O13 repair/quarantine legacy selftest/parser defects in these same tools; the O-claim green leg must be re-run on the post-repair tree (a stale hash is expected once those edits land).",
+  "The empty-stderr sha256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 is the well-known SHA-256 of the empty string; stderr was empty in all 8 runs."
+ ],
+ "counting": {
+  "runs_recorded": 8,
+  "exit_zero_runs": 8,
+  "distinct_stdout_sha256": [
+   "03f14e3d2d16fd7b0203631b8031a84e216fed1568e55ba257ad1596e96569cf",
+   "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"
+  ]
+ }
+}
