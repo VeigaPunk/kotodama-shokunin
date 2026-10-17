@@ -1,0 +1,187 @@
+# Calibration Registry — Contested Claims, Discredited Inferences, and Replacement Practice
+
+- topic: Master claim-level calibration registry for the linguistic-cultural corpus: Campbell universalism, fixed-rate glottochronology, strong Whorfian determinism, Frazerian evolutionism, Gimbutas's goddess reconstruction, and the history of totemism; routes adjacent language–myth–symbol–era–costume overclaims without converting reference methods into canon.
+- sources:
+  - Joseph Campbell (1949), *The Hero with a Thousand Faces*, Pantheon, Bollingen Series XVII; Robert A. Segal (1999), *Theorizing about Myth*, University of Massachusetts Press; Wendy Doniger (1998), *The Implied Spider: Politics and Theology in Myth*, Columbia University Press.
+  - Morris Swadesh (1955), “Towards Greater Accuracy in Lexicostatistic Dating,” *International Journal of American Linguistics* 21(2): 121–137; Knut Bergsland & Hans Vogt (1962), “On the Validity of Glottochronology,” *Current Anthropology* 3(2): 115–153, including discussion, [doi:10.1086/200264](https://doi.org/10.1086/200264).
+  - Lyle Campbell (2013), *Historical Linguistics: An Introduction*, 3rd ed., Edinburgh University Press; Will Chang, Chundra Cathcart, David Hall & Andrew Garrett (2015), “Ancestry-constrained phylogenetic analysis supports the Indo-European steppe hypothesis,” *Language* 91(1): 194–244.
+  - Benjamin Lee Whorf (1956), *Language, Thought, and Reality: Selected Writings of Benjamin Lee Whorf*, ed. John B. Carroll, Technology Press of MIT; John A. Lucy (1997), “Linguistic Relativity,” *Annual Review of Anthropology* 26: 291–312.
+  - Jonathan Winawer et al. (2007), “Russian blues reveal effects of language on color discrimination,” *PNAS* 104(19): 7780–7785, [open text](https://pmc.ncbi.nlm.nih.gov/articles/PMC1876524/).
+  - James George Frazer (1922), *The Golden Bough: A Study in Magic and Religion*, abridged edition, Macmillan; Frazer (1910), *Totemism and Exogamy*, 4 vols., Macmillan; E. E. Evans-Pritchard (1965), *Theories of Primitive Religion*, Clarendon Press.
+  - Catherine Bell (1992), *Ritual Theory, Ritual Practice*, Oxford University Press; Jonathan Z. Smith (1987), *To Take Place: Toward Theory in Ritual*, University of Chicago Press.
+  - Marija Gimbutas (1989), *The Language of the Goddess*, Harper & Row; Lynn Meskell (1995), “Goddesses, Gimbutas and New Age archaeology,” *Antiquity* 69(262): 74–86, [doi:10.1017/S0003598X00064310](https://doi.org/10.1017/S0003598X00064310); Lucy Goodison & Christine Morris, eds. (1998), *Ancient Goddesses: The Myths and the Evidence*, British Museum Press.
+  - Wolfgang Haak et al. (2015), “Massive migration from the steppe was a source for Indo-European languages in Europe,” *Nature* 522: 207–211, [open text](https://pmc.ncbi.nlm.nih.gov/articles/PMC5048219/).
+  - Émile Durkheim (1912), *Les formes élémentaires de la vie religieuse*, Félix Alcan; Sigmund Freud (1913), *Totem und Tabu*; Claude Lévi-Strauss (1962), *Le Totémisme aujourd'hui*, Presses Universitaires de France; English trans. Rodney Needham (1963), *Totemism*, Beacon Press.
+  - Adam Kuper (1988), *The Invention of Primitive Society: Transformations of an Illusion*, Routledge; A. Irving Hallowell (1960), “Ojibwa Ontology, Behavior, and World View,” in Stanley Diamond, ed., *Culture in History: Essays in Honor of Paul Radin*, Columbia University Press.
+  - Heidi Bohaker (2020), *Doodem and Council Fire: Anishinaabe Governance through Alliance*, University of Toronto Press; [Osgoode Society description and contents](https://www.osgoodesociety.ca/book/doodem-and-council-fire-anishinabe-governance-through-alliance/).
+  - Lévi-Strauss (1955), “The Structural Study of Myth,” *Journal of American Folklore* 68(270): 428–444; Alan Dundes, ed. (1988), *The Flood Myth*, University of California Press; Hans-Jörg Uther (2004), *The Types of International Folktales*, FF Communications 284–286, Academia Scientiarum Fennica.
+  - Brent Berlin & Paul Kay (1969), *Basic Color Terms: Their Universality and Evolution*, University of California Press; Paul Kay et al. (2009), *The World Color Survey*, CSLI Publications; Peter T. Daniels & William Bright, eds. (1996), *The World's Writing Systems*, Oxford University Press.
+  - Penelope Brown & Stephen C. Levinson (1987), *Politeness: Some Universals in Language Usage*, Cambridge University Press; Asif Agha (2007), *Language and Social Relations*, Cambridge University Press.
+  - Bruce G. Trigger (2006), *A History of Archaeological Thought*, 2nd ed., Cambridge University Press; Alison Wylie (2002), *Thinking from Things: Essays in the Philosophy of Archaeology*, University of California Press.
+  - Fred Davis (1992), *Fashion, Culture, and Identity*, University of Chicago Press; Alan Hunt (1996), *Governance of the Consuming Passions: A History of Sumptuary Law*, Macmillan; Eric Hobsbawm & Terence Ranger, eds. (1983), *The Invention of Tradition*, Cambridge University Press.
+- couples: language — `linguistics/historical-linguistics.md`, `linguistics/linguistic-anthropology.md`, `linguistics/color-terminology.md`, `linguistics/kinship-terminology.md`; myth — `myth-symbol/comparative-frameworks.md`, `myth-symbol/hero-journey-variants.md`, `myth-symbol/myth-ritual-theories.md`; symbol — `myth-symbol/animal-symbolism.md`, `myth-symbol/symbolism-synthesis-method.md`; era — `culture-material/era-periodization-models.md`; costume/material — `culture-material/costume-semiotics.md`, `culture-material/material-culture-inference-method.md`; siblings — lore-shokunin receives qualified options and owns canon; unresolved source-research needs may be routed to chousa-shokunin, not silently treated as resolved here.
+
+## 1. Authority, status vocabulary, and use
+
+- Paths below are relative to `corpus/knowledge/`. This registry supplies the claim-level qualification to carry alongside seeded notes; their stronger shorthand is not a license to omit the qualification.
+- A verdict attaches to a proposition, not to an author's entire output, a people, or a religion. “Contested,” “not demonstrated,” “unfalsifiable interpretation,” and “discredited inference” are not synonyms.
+- Separate three records: **reference evidence** about real people; **designer hypothesis/heuristic** for generating possibilities; **in-world assertion** made by a specified speaker or institution. None automatically authorizes canon.
+
+| Code | Calibration status | Permitted use / stop rule |
+|---|---|---|
+| R | Rejected/discredited as the specified general inference | Do not use as evidence; may portray the theory as a dated ideology or choose a fictional premise explicitly |
+| C | Contested empirical or historical interpretation | Preserve alternatives, scope, and discriminating evidence; do not report one reading as settled |
+| B | Bounded, usable within a named domain | Carry population, genre, period, task, and exceptions; no extrapolation by resemblance |
+| H | Heuristic or interpretive framework, not an established causal law | Generate with it; label the designer's choices instead of presenting a discovery |
+| T | Unresolved provenance or claim check | Mark `(to-verify)` inline at the exact dependency; do not make it load-bearing |
+
+- R does not mean “every example is false”; H does not mean “worthless”; C does not mean all alternatives have equal support. Multiple codes may apply to different parts of one theory.
+- The following core IDs are stable handoff references; the extended index routes related claims. A local `(to-verify)` survives until its own source passage is checked, even when a general registry row is resolved.
+
+## 2. Core registry: verdict and replacement at a glance
+
+| ID | Contested/discredited proposition | Status | Replacement practice | Primary corpus routes |
+|---|---|---|---|---|
+| CAL-01 | Campbell's monomyth is a demonstrated universal structure of human myth | R as empirical universal; H as plot heuristic | Compare complete, situated tellings; retain non-fitting genres and variants; use stage menus only as declared composition choices | `myth-symbol/comparative-frameworks.md`; `myth-symbol/hero-journey-variants.md` |
+| CAL-02 | Shared basic-vocabulary percentages yield reliable absolute dates through one constant retention rate | R as universal clock; C/B for separately tested dating models | Comparative method, relative chronology, attestation and contact anchors; explicit rate models and uncertainty for numerical dates | `linguistics/historical-linguistics.md`; `linguistics/language-contact.md` |
+| CAL-03 | Language determines all thought; absence of a word proves absence of a concept | R; B for task-specific language effects | Specify habitual attention, task, training and social practice; allow paraphrase, learning, bilingualism and individual variation | `linguistics/linguistic-anthropology.md`; `linguistics/color-terminology.md` |
+| CAL-04 | Every society advances through magic → religion → science, with one reconstructable ritual origin for myth | R as universal evolution/history; H/B for local analogy and description | Reconstruct particular practices and their changing institutions; test myth–rite links independently | `myth-symbol/myth-ritual-theories.md`; `culture-material/calendar-festival-systems.md` |
+| CAL-05 | Neolithic female figurines prove one peaceful, matriarchal, pan-European Great Goddess civilization | R as established reconstruction; C for particular figurine/cult interpretations | Contextual artifact study, multiple hypotheses, separate descent/residence/authority variables; keep migration evidence distinct | `myth-symbol/myth-ritual-theories.md`; `culture-material/material-culture-inference-method.md` |
+| CAL-06 | “Totemism” is one universal primitive stage linking animal worship, clan descent, exogamy and taboo | R as universal package/stage; B/C for named local institutions | Disaggregate affiliation, display rights, marriage rules, guardianship, food law and personhood; use community-specific histories | `myth-symbol/animal-symbolism.md`; `linguistics/kinship-terminology.md` |
+
+## 3. CAL-01 — Campbell universalism
+
+- **Claim boundary:** Joseph Campbell (1949) offers a comparative psycho-spiritual synthesis, not a representative statistical survey of all narrative traditions. Its influence on writers is not validation of its universality (Segal 1999; Doniger 1998).
+- **Failure signature:** extract departure/initiation/return fragments from different tellings, merge them into one biography, then cite the assembled biography as independent confirmation. Genre selection, elastic stage matching and omitted counterexamples can manufacture the fit.
+- **Do not overcorrect:** “no actual tale can contain all the stages” is itself an unnecessary universal claim. Nor does criticism of Campbell settle every question about recurring narrative patterns.
+- **Replacement worksheet:** telling/edition → language and translation → teller/editor → audience/occasion → event sequence → local genre/value → variant differences → proposed comparison and mismatches.
+- Compare the same unit: a complete telling with another complete telling, not a whole epic with an isolated ritual episode. A quest, a genealogy and a trickster episode need not share one grammar.
+- **Gender guard:** a heroine template is another situated craft model, not the biological opposite of a male universal. Choose narrative relations and stakes before protagonist gender.
+- **Coupling move:** derive an initiation's archaic speech, temporary name, threshold insignia and changed costume rights from its local institution; do not infer that every hero tale encodes such an initiation.
+- **Era staging:** distinguish the recorded telling, the putative event, a later redaction, and a modern screenwriting adaptation. None dates the others automatically.
+- **Fictional application:** offer departure, refusal, collective action or non-return as alternative plot organizations; record who would preserve each version. Do not assign any of them to a canon culture here.
+
+## 4. CAL-02 — Glottochronology and chronological overprecision
+
+- **Historical target:** Swadesh (1955) proposed lexicostatistical dating using basic-vocabulary retention; Bergsland & Vogt (1962) challenged the reliability of the constant-rate assumptions with historically accessible cases. The rejected move is an unqualified universal clock, not counting lexical similarities at all.
+- **Keep distinct:** lexicostatistics describes coded lexical relationships; the comparative method establishes correspondence-based inheritance; glottochronology adds dating assumptions. A raw resemblance count establishes neither ancestry nor age.
+- **Replacement sequence:** establish cognacy → identify borrowing/semantic replacement → subgroup by shared innovations → order changes and contact strata → anchor against dated evidence → state remaining chronological uncertainty (Lyle Campbell 2013).
+- A divine name, title or garment term may be a loan, learned restoration or fossilized spelling. First attestation dates its presence in that record, not its invention, pronunciation, cult or associated garment.
+- **Modern-model calibration:** Bayesian phylogenetic dating is not identical to the original fixed-rate method and not automatically reliable either. Dates depend on lexical coding, topology/ancestry constraints, calibration priors, rate model and treatment of contact (Chang et al. 2015).
+- Report conditional estimates and sensitivity to assumptions; do not convert a model interval into an exact founding year. Historical calibration points can be disputed too.
+- **Coupling move:** maintain separate timelines for sound change, script reform, myth redaction and textile innovation, connected only by stated evidence; a borrowed textile name can postdate the technique.
+- **Fictional application:** choose a designer timeline as a parameter, then derive daughter forms and loan layers consistently. Do not claim that running the invented vocabulary through a constant formula independently discovered that timeline.
+
+## 5. CAL-03 — Strong Whorf, linguistic relativity, and personhood
+
+- **Claim boundary:** “strong Whorf” here means the deterministic slogan, not a claim that every formulation in Whorf (1956) says “no word, no thought.” Distinguish his historical writings from later popular caricatures (Lucy 1997).
+- **Rejected entailments:** no lexical item ⇒ no concept; no grammatical tense ⇒ no understanding of time; grammatical gender ⇒ prescribed social gender order; grammatical animacy ⇒ every speaker believes every animate-class referent is a conscious spirit.
+- **Positive evidence, narrowly:** Winawer et al. (2007) found a Russian color-category advantage in a speeded matching task, reduced by verbal interference. This is evidence about performance in that design, not color blindness in English speakers or a total worldview.
+- **Replacement test:** name the linguistic feature, the actual activity, an observable behavioral contrast, alternative explanations and conditions under which it should weaken. Culture, schooling, task instructions and multilingual experience need attention.
+- “Weak relativity is always defensible” is too broad: one supported color task does not validate a new claim about number, morality, time, navigation or supernatural perception.
+- **Animacy guard:** Hallowell (1960) is situated ethnographic interpretation, not a one-to-one dictionary from Ojibwe noun class to theology. Compare usage, narratives and speakers' judgments; do not use grammar alone to reconstruct belief.
+- **Coupling move:** an oath register can train attention to evidence; a dye guild can teach fine named contrasts; costume and speech may jointly mark rank. These are practice-level design hypotheses, not cognitive prisons.
+- **Fictional application:** make translation difficult through local obligations, register and metaphor; permit explanation and learning. If a magical language literally constrains thought, label that an invented supernatural premise for lore-shokunin to accept or reject.
+
+## 6. CAL-04 — Frazer's evolutionism and the myth–ritual shortcut
+
+- **Historical target:** *The Golden Bough* (use the specified 1922 abridgment or identify a full-edition volume) organizes comparative material around magic, religion, sacred kingship and intellectual evolution. Its literary importance does not establish its proposed history.
+- **Discredited inference:** one hierarchy of “primitive” magic, later religion and mature science as a general history of peoples; compilation of superficially similar rites as proof of one origin or stage (Evans-Pritchard 1965; Kuper 1988).
+- **Bounded residue:** similarity/contact are useful descriptors of some ritual reasoning. They neither prove magical efficacy nor exhaust participants' explanations. Return to the local source before reusing an example collected by Frazer.
+- **Do not flatten the genealogy:** Frazer, the Cambridge ritualists, later ritual theorists and contemporary performance studies are not interchangeable versions of one rejected theory. Local myth–rite connections remain legitimate research questions (Bell 1992; Smith 1987).
+- **Replacement worksheet:** actor/office → rite and words → calendar/occasion → access rules → material actions and regalia → stated purpose → evidence of performance → historically attested changes.
+- Test whether story and rite were actually associated in the relevant period. A modern scholar's seasonal interpretation is not evidence that a community killed an annual king.
+- **Dying/rising dossier:** different deities' disappearance, death, revivification, seasonal return and continuing underworld existence must not be collapsed into one cycle. The comparative category is contested; resolve deity and text separately, not by a blanket yes/no.
+- **Coupling move:** distinguish the garment prescribed by ritual text from surviving cloth, depicted dress and observed practice; record who can recite the formula and who supplies the material kit.
+- **Fictional application:** generate a rite with optional rival explanations and a history of changes. Magic, worship and empirical craft can coexist in the same society; do not place societies on a ranking ladder.
+
+## 7. CAL-05 — Gimbutas: figurines, gender history, and migration
+
+- **Split the propositions:** Gimbutas (1989) interprets imagery as a religious symbolic system; Meskell (1995) and the contextual studies in Goodison & Morris (1998) challenge the evidential leaps involved in a unified goddess-centered prehistoric order.
+- **Inference brakes:** female representation ≠ deity; deity ≠ a single Great Goddess; goddess worship ≠ women's political rule; matrilineal descent ≠ matrilocal residence ≠ matriarchy ≠ peaceful society. Define and investigate each variable separately.
+- **Status:** the peaceful pan-regional goddess/matriarchy synthesis is not an established archaeological reconstruction. This does not prove that no female deity, powerful woman, matrilineal arrangement or peaceful settlement existed.
+- **Replacement worksheet:** site/phase → find context and depositional history → material/production → wear/breakage → associated objects → distribution and variation → competing functions → evidence that could discriminate among them (Wylie 2002).
+- **Scarcity warning:** prehistoric figurine corpora generally lack contemporary written explanations; their makers' language families, divine names and naming rules may be unknown. Do not fill those gaps from later neighboring traditions without an explicit, qualified argument.
+- **Costume guard:** a modeled belt, headdress or body marking does not by itself identify priesthood, gender role, office or textile construction. Distinguish visible form, interpretation and reconstruction; unrecoverable details stay `(to-verify)` or explicitly invented.
+- **Separate migration evidence:** Haak et al. (2015) document substantial steppe-related ancestry in sampled Late Neolithic Europeans and discuss language dispersal. This does not demonstrate the displaced population's goddess worship, a sex-specific moral character, or every detail of a Kurgan scenario.
+- Genetic ancestry, reconstructed language affiliation, material style and religious change are different observations; association among them needs an argument, not an equals sign. Later research can revise migration and language models independently.
+- **Fictional application:** design descent, property, residence, cult offices and warfare independently, then test their interactions. A goddess revival or rival figurine interpretations can be proposed as dated institutions without asserting a real prehistoric utopia.
+
+## 8. CAL-06 — Totemism: analytical history without erasing institutions
+
+- **Genealogy, not one doctrine:** nineteenth-century comparative classifications associated with McLennan, Frazer's *Totemism and Exogamy* (1910), Durkheim's religious sociology (1912) and Freud's speculative primal-horde narrative (1913) make different arguments. Do not attribute an identical evolutionary sequence to all of them (Kuper 1988).
+- **Rejected package:** animal emblem + descent group + exogamy + food taboo + animal worship as one necessary institution, or as the universal beginning of religion. One component does not establish the others.
+- **Lévi-Strauss's intervention:** *Totemism* (1962/1963) challenges the unity of the analytical category and redirects attention to classification. This is a major critique, not proof that local relationships to species, ancestors or places are unreal or extinguished.
+- **Replacement feature matrix:** affiliation mechanism | descent/residence | marriage restrictions | names/address | rights to display | food/handling rules | ritual obligations | authority to interpret | historical change. Allow blanks and non-correspondence.
+- **Local anchor:** Bohaker (2020) treats Anishinaabe doodem through kinship, governance, alliance and documentary/material evidence, especially in the eastern Great Lakes. Do not generalize that account to every Indigenous nation or infer a universal “animal religion.”
+- **Keep mechanisms apart:** inherited crest rights are not synonymous with individual spirit helpers; a food prohibition is not proof of descent; a pole, mask or embroidered species is not automatically an idol.
+- **Language guard:** “totem” is an imported comparative label; use locally documented terms with their particular meanings. Do not project its English umbrella sense backward into every community's own taxonomy.
+- **Colonial-source guard:** early collections often passed through interpreters, officials or missionaries and unequal access to knowledge. Record collector, named community, date, translation and restrictions; do not use “Australia” or “the Northwest Coast” as a single ethnographic unit.
+- **Fictional application:** choose the legal/ritual relationships first; derive species-names, address rules and display permissions afterward. Supply historical variants and disputed claims, not a generic “totemic tribe” or borrowed restricted insignia.
+
+## 9. Extended corpus watchlist — same brakes, additional routes
+
+| Claim cluster / status | Replacement and evidence boundary | Corpus routes |
+|---|---|---|
+| Propp or heroine models as universal narrative grammar — R; bounded morphology / craft model — B/H | Respect corpus and genre; choose arcs by relation and stakes, not biological destiny; retain counterexamples (Segal 1999; Uther 2004) | `myth-symbol/hero-journey-variants.md`; `myth-symbol/myth-folktale-genres.md` |
+| Eliade's universal “archaic mind” or cosmic center — H, not an ethnographic fact | Investigate a particular site's rites, institutions and histories; resemblance alone does not establish universal ontology (Smith 1987) | `myth-symbol/comparative-frameworks.md`; `myth-symbol/cosmology-cosmography.md` |
+| Structuralist binaries as the discovered origin of every myth — H/C | Record segmentation choices, competing readings and local categories; Lévi-Strauss (1955) supplies an analysis, not an automatic proof | `myth-symbol/comparative-frameworks.md`; `myth-symbol/trickster.md` |
+| Freud's primal parricide as human history — R; fixed Jungian story-content inheritance — unsupported/H | Separate psychological interpretation from historical evidence; do not mistake repeated interpretive parallels for a mechanism (Kuper 1988; Segal 1999) | `myth-symbol/myth-ritual-theories.md`; `myth-symbol/pantheon-archetypes.md` |
+| Every solar/serpent/triadic resemblance proves shared origin — R; particular inherited pattern — C/B | Require independent linguistic, textual or transmission evidence; neither solar reductionism nor an automatically inherited three-function society follows (Doniger 1998; Lyle Campbell 2013) | `myth-symbol/pantheon-archetypes.md`; `myth-symbol/creation-myths-taxonomy.md` |
+| Motif or ATU identity proves borrowing, antiquity or meaning — R | Indexes are finding aids; compare dated variants, distributions and transmission possibilities (Uther 2004) | `myth-symbol/motif-index-usage.md`; `linguistics/orality-formulaic-language.md` |
+| One flood, primordial sky cult or precession code explains worldwide myths — unsupported general inference/R | Investigate event–story links individually; keep diffusion, convergence and later editing as alternatives (Dundes 1988; Doniger 1998) | `myth-symbol/flood-traditions.md`; `myth-symbol/celestial-symbolism-calendars.md` |
+| Berlin–Kay stages give a cultural clock or visual deficits — R; color-naming regularities — B/C | Compare task and term criteria, variation and history; naming evidence does not dictate symbolism (Berlin & Kay 1969; Kay et al. 2009; Winawer et al. 2007) | `linguistics/color-terminology.md`; `myth-symbol/color-symbolism.md` |
+| Alphabet = highest script; morphology/alignment = intelligence or civilization — R | Compare sign–speech mapping and grammatical organization without ranking peoples; script, language and polity have different histories (Daniels & Bright 1996; Lyle Campbell 2013) | `linguistics/writing-systems.md`; `linguistics/morphological-typology.md`; `linguistics/syntax-typology.md` |
+| Deep-family lookalikes prove genealogy — R; proposed macrofamilies — C/T | Require recurring correspondences and borrowing controls; do not turn a contested family into an ethnic/costume package (Lyle Campbell 2013) | `linguistics/historical-linguistics.md`; `linguistics/language-contact.md` |
+| One universal politeness/rank code or grammar = national character — C/R as universal entailment | Describe speech events and local norms; treat Brown & Levinson (1987) as a model to test, not a decoder; track register histories (Agha 2007) | `linguistics/politeness-taboo-euphemism.md`; `linguistics/sociolinguistics-registers.md`; `linguistics/semantics-pragmatics.md` |
+| Kin terms prove group marriage, matriarchy or fixed social organization — R | Separate terminology, practice, law and ideal genealogy; date changes independently (Kuper 1988; CAL-05/06) | `linguistics/kinship-terminology.md`; `linguistics/naming-systems.md` |
+| Color/number/animal = one universal meaning; symbols can be decoded without context — R | Specify term, carrier, practice, authority, wearer/reader and era; a formal recurrence is not its explanation (Doniger 1998; Wylie 2002) | `myth-symbol/color-symbolism.md`; `myth-symbol/number-symbolism.md`; `myth-symbol/animal-symbolism.md`; `myth-symbol/symbolism-synthesis-method.md` |
+| Stone–Bronze–Iron, dynastic decline or subsistence predicts a total social stage — R | Local chronology and material constraints remain usable; institutions and histories require additional evidence (Trigger 2006; Wylie 2002) | `culture-material/era-periodization-models.md`; `culture-material/material-culture-inference-method.md` |
+| Pots = people = language; grave kit = life résumé; unexplained = ritual — R | Investigate formation, curation, deposition and competing identities; even a physical provenance does not settle belief (Wylie 2002) | `culture-material/material-culture-inference-method.md`; `culture-material/architecture-settlement-lexicon.md` |
+| Dress is a universal dictionary; statute = everyone's wardrobe; tradition = unchanged antiquity — R | Separate prescription, depiction, surviving objects and use; track enforcement and reinvention (Davis 1992; Hunt 1996; Hobsbawm & Ranger 1983) | `culture-material/costume-semiotics.md`; `culture-material/sumptuary-law-rank-display.md`; `culture-material/dress-through-eras.md`; `culture-material/ritual-garments.md` |
+| Popular “first invention,” word origin, musical ethos or weapon-superiority story — T until checked per case | Keep underlying local flags; verify the actual dated artifact, text, experiment or dictionary entry rather than treating an attractive origin tale as evidence | `culture-material/{trade-economy-lexicon,craft-artisan-lexicon,adornment-body-codes,cuisine-food-lexicon,music-instrument-lexicon,warrior-material-culture,garment-lexicon-crosslinguistic}.md` |
+
+## 10. Era staging: replace ladders with separate clocks
+
+| Evidence horizon | What can be supported | What must not be silently reconstructed | Coupled design option, not canon |
+|---|---|---|---|
+| Archaeological, no readable local text | Materials, contexts and qualified practice hypotheses | Language family, divine names, exact myths, named offices or garment vocabulary | Several interpretations of the same object; names explicitly invented |
+| Earliest surviving text or recording | That version existed by that attestation, subject to dating/authenticity | First composition, first performance or society-wide assent | Archaic name spellings beside changing speech and dress |
+| Chronicle/redaction or translation | Editorial framing and a particular transmitted version | Transparent access to an earlier era or every social group's belief | Competing temple, court and household versions |
+| Colonial collection or codification | An encounter-mediated record with identifiable collection conditions | Timeless pre-contact total culture or absence of knowledge not disclosed | Language suppression, renamed institutions and contested display rights |
+| Revival, museum or mass-media adaptation | A datable selection, reinterpretation or new practice | Proof that the reconstructed past existed in that form | Reclaimed titles, redesigned regalia and disputed “authenticity” |
+
+- These are evidence horizons, not mandatory cultural stages. Writing, oral performance, archival silence, revival and scientific practice can coexist; oral sources are not inherently frozen or inferior.
+- A seven-part rainbow or threefold cosmology is not automatically impossible before a famous European formulation. Verify the local attestation; do not replace a false universal with a universal anachronism ban.
+
+## 11. How to apply to a fictional culture: coupling audit
+
+1. Choose a **design question**, not a historical verdict: e.g. how initiation could couple a speech register, a new name, an animal emblem and a garment right. Do not start by naming a “totemic stage.”
+2. Split the dependencies: phonological form; naming/address rule; told myth; participant interpretation; display entitlement; garment production; local era. Assign each an evidence source or mark it explicitly invented.
+3. Attach the relevant CAL ID and status to every borrowed argument. A source's fame, a neat diagram or agreement among authors quoting the same collector is not independent support.
+4. Construct at least one alternative explanation or variant where the inference is contested: the emblem might mark office rather than ancestry; the older-sounding name might be a restoration rather than an unchanged survival.
+5. Check consequences separately: who inherits the name, who may recite the myth, who makes and wears the insignia, who sanctions misuse, and how these rights change. A link can be institutional without being linguistically or biologically determined.
+6. Stress the era seam: change one material supply, political authority or register norm and record which other systems actually change, which lag and which are deliberately revived. Do not synchronize every clock by default.
+7. Hand lore-shokunin **options, evidence and unresolved dependencies**, not named-world facts. If literal magic is proposed, distinguish the supernatural premise from every claim about real languages or religions.
+
+## 12. Provenance limits and unresolved checks
+
+- **Verification scope, 2026-10-17:** Winawer et al. (2007) and Haak et al. (2015) open texts were inspected for the narrow findings used above; [Uppsala's historical-linguistics reading list](https://www.uu.se/en/study/reading-list?query=41293) confirms Swadesh/Bergsland–Vogt metadata; [Cambridge's March 1995 contents and abstract](https://www.cambridge.org/core/journals/antiquity/issue/C1AFE95005862070C41E9629AE83A114) confirm Meskell's publication and critical subject; the linked Osgoode page confirms Bohaker's scope and contents. Metadata/abstract checks are not claims to have reread whole books.
+- Other works above are standard bibliographic references, not newly completed full-text audits. This registry makes no unlocated direct quotations; exact wording, page-specific attributions and newly reused case details need passage checks.
+- **Tradition-depth limit:** this registry is not an insider account of Anishinaabe, Australian Aboriginal or Northwest Coast institutions. The relevant communities are not interchangeable; restricted ritual, naming and crest knowledge is not supplied here. A publicly described relationship is not permission to reproduce protected designs or ceremonies.
+- **Scarce chronicle evidence:** prehistoric images and post-contact records cannot supply missing indigenous names, complete pantheons, dress rules or earlier narrative wording merely because a design needs them. “Not recorded,” “not preserved,” “not disclosed” and “did not exist” are different findings.
+
+| Open dependency | Status and required replacement check | Originating route |
+|---|---|---|
+| J. Z. Smith's “Dying and Rising Gods” placed in *Imagining Religion* (1982) | T — supplied placement `(to-verify)`; locate the actual essay/edition before citing. Do not use the present registry's *To Take Place* (1987) as a substitute citation for that argument | `myth-symbol/myth-ritual-theories.md` |
+| Enūma Eliš / akītu recitation, reenactment and dates of witnesses | C/T `(to-verify)` with a specialist Assyriological edition; distinguish text recitation from a performed combat drama and avoid extrapolating to all periods | `myth-symbol/comparative-frameworks.md`; `myth-symbol/cosmology-cosmography.md` |
+| Specific early clan, crest or animacy interpretation | T `(to-verify)` for the named community, date, source and access conditions; prefer community-grounded public scholarship; CAL-06 does not verify every seeded example | `myth-symbol/animal-symbolism.md`; `linguistics/linguistic-anthropology.md` |
+| Earliest attestations, etymologies, dress edicts, numerical yields and reconstructed garments | T `(to-verify)` wherever the local entry leaves them open; check the edition, dictionary sense, artifact context or dated statute; distinguish a law from adherence | `culture-material/`; `linguistics/naming-systems.md`; `linguistics/color-terminology.md` |
+| Sweeping sky-myth genealogies, disputed deep language families and unreplicated cognitive effects | C/T `(to-verify)` for the exact claim and current specialist response; do not treat a general warning as a completed review of every research program | `myth-symbol/celestial-symbolism-calendars.md`; `linguistics/historical-linguistics.md`; `linguistics/syntax-typology.md` |
+
+## 13. Handoff and maintenance contract
+
+- Claim packet: `{claim text; CAL/watchlist route; real-world population/period/genre; source + edition + passage; observation vs interpretation; status; alternative; language/myth/symbol/era/costume dependencies; open checks; proposed fictional use}`.
+- Recheck when a new edition, excavation context, replication, corpus extension or community correction changes the supporting evidence. Update the proposition's status and reason, not an author's reputation wholesale.
+- **What a worldbuilder can take:** conditional mechanisms, variant matrices, separate historical clocks, situated symbolic codes and an auditable distinction between reference, hypothesis and invention. Coherence is a design achievement, not proof of a universal anthropology.
+- **Provenance cautions:** never launder colonial testimony through repeated citations, treat a museum label as a whole culture, or erase `(to-verify)` because the proposed world sounds convincing. Canon selection, adjudication of in-world truth and world-bible writes remain lore-shokunin's responsibility.

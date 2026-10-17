@@ -34,3 +34,23 @@ wave to finish the mint — the synthesis niche (coupling craft), the
 verification/provenance partition, and civilizational bases covering all
 earlier-civilization traditions. GitHub remote created and first push
 same day.
+
+## 2026-10-17 — mint corpus finishing wave (128 sol-max) + remote
+
+Operator dispatch 2026-10-17: one 128-agent swarm on gpt-6.1-sol landed
+the remaining partitions. Measured: `find corpus/knowledge -name '*.md'
+| wc -l` = 176 total — synthesis/ 24, verification/ 12, civilizations/ 92
+(plus the 48 from waves 1–3). Counting command re-runnable; measured in
+worktree at commit time. `grep -rc 'to-verify' corpus/knowledge
+--include='*.md' | awk -F: '{s+=$2} END {print s}'` = 1258 provenance
+flags. corpus/README.md (index) and corpus/QUALITY.md (admission bar)
+written; SKILL.md corpus map updated; SCORECARD re-measured.
+
+Remote: github.com/VeigaPunk/kotodama-shokunin (public, matching the
+2026-10 `shokunin-<domain>`/sibling convention). First push carried the
+seed kit + 48 wave-1–3 entries; this commit carries the finishing wave.
+Fleet README index row added (main-repo commit `bc889c5`).
+
+Probation standing: >=3 verified rounds still required before a roster
+row; probation recorded in fleet MANIFEST.json rounds[] (type "mint",
+2026-10-17).

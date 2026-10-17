@@ -74,6 +74,12 @@ languages and cultural systems to it, never edits it.
 - `corpus/knowledge/culture-material/` — the material side: dress through
   eras, costume semiotics, textiles, food, architecture, trade, calendars,
   craft, music, adornment.
-- `corpus/knowledge/synthesis/` — the coupling: decision tables, matrices,
-  pipelines, the lore handoff contract, the worked example, source
-  discipline.
+- `corpus/knowledge/synthesis/` — the coupling (THE NICHE): decision
+  tables, matrices, pipelines, the lore handoff contract, the worked
+  example, source discipline.
+- `corpus/knowledge/verification/` — the honesty layer: gate
+  specifications, citation/provenance formats, the calibration registry,
+  to-verify triage, real-world-inspiration boundaries.
+- `corpus/knowledge/civilizations/` — 92 earlier-civilization bases, each
+  coupling that tradition's language, writing, myth, symbols, era model,
+  costume, and naming, with provenance cautions.

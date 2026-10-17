@@ -8,26 +8,30 @@ command and the commit it was measured against.
 
 | axis | score | evidence | counting command | measured against |
 |---|---|---|---|---|
-| depth | 0→pending | seed SKILL.md carries decision table but corpus cites are unlanded | `grep -c '^| ' SKILL.md` (6 rows) | seed commit |
-| coverage | 1 | corpus skeleton exists, 4 partition dirs | `find corpus/knowledge -mindepth 1 -maxdepth 1 -type d \| wc -l` | seed commit |
-| operability | 1 | checklists exist but not yet executed end-to-end | `grep -c '^- \[ \]' SKILL.md` (4 items) | seed commit |
-| freshness | 0→pending | no re-verification cycle yet (mint day) | — | — |
-| calibration | 1 | calibration section seeded via synthesis/source-discipline-calibration.md (planned) | — | — |
-| adjacency | 2 | lore handoff contract declared in PROVINCE.md + synthesis plan | `grep -c 'lore' PROVINCE.md` (3) | seed commit |
+| depth | 6 | 176 entries with cited sources, decision tables, worked derivations | `find corpus/knowledge -name '*.md' \| wc -l` = 176 | worktree, mint-corpus commit 2026-10-17 (commands re-runnable) |
+| coverage | 6 | 6 partitions; civilizations/ covers 92 bases across all macro-areas | `ls corpus/knowledge \| wc -l` = 6; `ls corpus/knowledge/civilizations \| wc -l` = 92 | same |
+| operability | 3 | index + QUALITY bar + executable checklists; verification gates are specs, not scripts (named gap in corpus/README.md) | `test -f corpus/README.md && test -f corpus/QUALITY.md` | same |
+| freshness | 1 | mint day; no re-verification cycle yet — first re-verify is a planned claim | — | — |
+| calibration | 6 | every entry carries a calibration section; master registries at verification/calibration-registry.md + source-discipline; 1258 to-verify flags | `grep -rc 'to-verify' corpus/knowledge --include='*.md' \| awk -F: '{s+=$2} END {print s}'` = 1258 | same |
+| adjacency | 4 | synthesis/worldbible-integration-contract.md landed; handoff format defined; README fleet index row live | `test -f corpus/knowledge/synthesis/worldbible-integration-contract.md` | same |
 
 ## Capabilities
 
 | name | what it can now do | evidence | first-working round |
 |---|---|---|---|
-| — none yet; corpus seeding in flight (mint directive) — | | | |
+| corpus indexing | generate corpus/README.md from per-entry topic lines | corpus/README.md (176 entries indexed) | mint (operator dispatch) |
+| provenance screening | enforce cited-source + to-verify + calibration discipline across batch authorship | 1258 flags + QUALITY.md bar | mint (operator dispatch) |
 
 ## Planned (next rounds)
 
-1. Corpus seeding lands (64 swarm entries): coverage claim, counting
-   command `find corpus/knowledge -name '*.md' \| wc -l` (target 64 + index).
-2. corpus/README.md index + knowledge-entry spot audit: operability.
-3. First end-to-end domain task: a miniature culture built end-to-end and
-   logged (SHONEN box 2).
+1. Implement the first executable verification gate
+   (verification/phonology-sanity-gate.md) — operability claim.
+2. to-verify triage pass over the 1258 flags per
+   verification/to-verify-triage-protocol.md — freshness claim.
+3. First end-to-end domain task executed and logged by the lane itself:
+   a miniature culture built from the corpus tooling (SHONEN box 2) —
+   note worked-example-mini-culture.md is corpus reference, not the
+   executed task.
 
 ## Saturation
 
