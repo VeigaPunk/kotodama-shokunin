@@ -1,0 +1,172 @@
+# Food as cultural system: staple theory, the calibrated culinary triangle, feast and famine, fermentation as heritage, taboo and identity (kashrut/halal), and the registers of restaurant and street
+
+- topic: Food as the most daily of cultural systems — how a staple grain organizes labor, landscape, and lexicon (meal=staple lexicalization in East/Southeast Asian languages vs bread-based companionship etyma in Europe); the Lévi-Straussian culinary triangle read as generator rather than law, with flavor principles (Rozin) and meal grammar (Douglas) as the surviving craft tools; the feast/famine cycle (omen and homophone foods, fast calendars, mourning meals, Sen's entitlement theory of famine, famine foods); fermentation as inheritable heritage (koji, garum, Ninkasi, chicha, kimjang, sourdough mothers); dietary law as identity boundary with kashrut and halal as the calibration case studies (Douglas vs Milgrom vs Harris); etiquette as table grammar (fork history, chopstick taboos, guest-right of bread and salt, pre/post-meal formulas); and the social registers of eating from palace kitchen to night market (Song dynasty restaurants, the Parisian invention of the restaurant, street-food institutions, menu-language drift) — all as worldbuilder method with calibration flags.
+- sources:
+  - Lévi-Strauss (1965), "Le triangle culinaire", *L'Arc* 26; Eng. "The Culinary Triangle", *Partisan Review* 33 (1966); *The Raw and the Cooked* (1964; trans. 1969); *The Origin of Table Manners* (1968, rev. triangle: smoked, rotted); critique in Goody (1982), *Cooking, Cuisine and Class*, Cambridge UP
+  - Mary Douglas, *Purity and Danger* (1966); "Deciphering a Meal", *Daedalus* 101(1) (1972), repr. *Implicit Meanings* (1975); Jean Soler, "The Semiotics of Food in the Bible" (1973; trans. in Counihan & Van Esterik eds., *Food and Culture: A Reader*, 1997)
+  - Rozin & Rozin (1981), "Culinary themes and variations", *Natural History* 90(2): 6–14; E. Rozin (1973), *The Flavor-Principle Cookbook*; P. Rozin (1976), "The selection of foods by rats, humans, and other animals" (omnivore's paradox); Rozin & Schiller (1980) on chili/benign masochism; Fischler (1988), "Food, self and identity", *Social Science Information* 27(2)
+  - Marvin Harris, *Good to Eat: Riddles of Food and Culture* (1985; UK title *The Sacred Cow and the Abominable Pig*); Frederick Simoons, *Eat Not This Flesh*, 2nd ed. (1994); Jacob Milgrom, *Leviticus 1–16*, Anchor Bible (1991); Meyer-Rochow (2009), "Food taboos: their origins and purposes", *J. Ethnobiology and Ethnomedicine* 5:18
+  - Leviticus 11; Exodus 23:19, 34:26; Deuteronomy 14 (dietary law; "kid in its mother's milk" ×3); Deuteronomy 8:10 (grace after meals); Quran 2:173, 5:3 (prohibited foods), 5:90 (khamr); Mishnah/Talmud kashrut corpus (standard rabbinic elaboration); Yiddish kitchen register (milchig/fleishig/pareve) standard lexicography
+  - Ohnuki-Tierney (1993), *Rice as Self*, Princeton UP; Umesao (1957), "An ecological view of the history of civilization", *Chūō Kōron*; Talhelm et al. (2014), "Large-scale psychological differences within China explained by rice versus wheat agriculture", *Science* 344 (contested, §9); Chang ed. (1977), *Food in Chinese Culture*, Yale UP
+  - Crosby (1972), *The Columbian Exchange*; Nunn & Qian (2011), "The potato's contribution to population and urbanization", *QJE* 126(2); Sen (1981), *Poverty and Famines*; Ó Gráda (2009), *Famine: A Short History*, Princeton UP; Mintz (1985), *Sweetness and Power*
+  - Elias (1939; trans. 1978), *The Civilizing Process*; Erasmus, *De civilitate morum puerilium* (1530); Visser (1991), *The Rituals of Dinner*; Spang (2000), *The Invention of the Restaurant*, Harvard UP; Brillat-Savarin (1825), *Physiologie du goût*; Grimod de la Reynière, *Almanach des gourmands* (1803–12); Escoffier (1903), *Le Guide Culinaire*
+  - Meng Yuanlao (1147), *Dongjing meng hua lu* (Kaifeng restaurants; 72 great establishments; Eng. trans. by S. West, edition details to-verify); Tinker ed. (1997), *Street Foods*, Oxford UP; Freedman (2008), *Out of the East* (spices not for masking spoilage); Cwiertka (2006), *Modern Japanese Cuisine* (washoku as 20th-c. construction)
+  - Steinkraus ed. (1996), *Handbook of Indigenous Fermented Foods*, 2nd ed.; Katz (2012), *The Art of Fermentation*; Brewing Society of Japan declaration of koji as national fungus (kokkin), 12 Oct 2006 (the 1950s Sakaguchi attribution circulates; use the 2006 declaration); Jha (2001), *The Myth of the Holy Cow* (contested)
+  - Sutton (2001), *Remembrance of Repasts*; Montanari (2006), *Food Is Culture*; Anderson, *Everyone Eats* (2005; 2nd ed. 2014); DeSoucey (2010), "Gastronationalism", *American Sociological Review* 75(3); Hobsbawm & Ranger eds. (1983), *The Invention of Tradition*
+  - UNESCO ICH Representative List: French gastronomic meal (2010), Mediterranean diet (2010), washoku (2013), kimjang (2013), hawker culture Singapore (2020)
+- couples: linguistics/semantic-fields-lexicon-building (meal=staple lexicalization; kitchen and menu taxonomies as semantic fields), linguistics/politeness-taboo-euphemism (dietary taboo speech, politeness formulas around food, euphemism in famine), linguistics/sociolinguistics-registers (court/restaurant/street/religious/military eating registers), linguistics/language-contact (menu-French, deli-Yiddish, tempura ← Portuguese, crop-name loanword chains as contact receipts), linguistics/historical-linguistics (companion/lord/lady/dinner etyma as fossils in the food field), myth-symbol/ritual-liminality (fast/feast alternation, mourning meals, potlatch), myth-symbol/animal-symbolism (taboo and omen animals; the pig's anomaly), myth-symbol/number-symbolism (twelve grapes, four cups, thirteen desserts, ekadashi 11), myth-symbol/comparative-frameworks (method for comparing taboo systems without essentializing), culture-material/calendar-festival-systems (feast days and fast calendars ride its festival arcs), culture-material/era-periodization-models (Columbian exchange as an era seam a food system can date itself by), culture-material/ritual-garments (banquet wardrobe, sumptuary law overlapping food/dress regulation), costume (feast dress; service dress codes), symbol (bread-and-salt covenant symbolism; coin-in-cake), era (restaurant cultures and gastro-nationalism as period markers), synthesis (handoff to lore-shokunin — canon decisions are theirs)
+
+## 1. Staple theory: the grain skeleton and its lexical shadow
+
+- The ecological constants: wet-rice paddies need dense cooperative labor and water control (terraces, calendars — couple calendar file); wheat needs milling and ovens (bread as centralized technology, then the cottage hearth); maize requires nixtamalization (alkaline cooking frees niacin; without it, maize-heavy diets produce pellagra — a real technological dependency, not a preference); bitter cassava is edible only after cyanide-removal processing (grate, soak, press); millet/sorghum are the drought-margin staples; rye favors sourdough fermentation over yeast loaves; the potato grows on plots too small for grain and stores underground. A staple choice is therefore a whole social-organizational choice before it is a taste.
+- Columbian exchange test: Nunn & Qian (2011) credit the potato with a measurable share of Old World population and urban growth post-1700. One tuber, one era seam — a fictional world should have its own exchange moment, with the crop's loanword trail marking it.
+
+| Staple zone | Landscape/labor signature | Lexical shadow (meal = staple) |
+|---|---|---|
+| Wet rice | terraces, paddies, communal irrigation | Japanese gohan, Korean bap, Chinese fàn 飯, Thai khāo, Vietnamese cơm, Bengali bhāt — all mean both "cooked rice" and "meal"; Malay "makan nasi" (eat rice) = eat a meal |
+| Wheat/bread | milling, ovens, market grain | Europe lexicalizes the *accompaniment* instead: companion ← com+panis; Italian companatico, French companage "what goes with bread"; English breadwinner; German Beilage "side (dish)" |
+| Maize | milpa/three sisters (corn-bean-squash), nixtamal | tortilla/tamal registers; the meal unit is the stacked prepared food, not the bare grain |
+| Rye/potato belt | cold-margin fields, sourdough, cellar storage | potato doubles into many national starches; "boiled dinner" registers |
+| Millet/sorghum/cassava | dry margins, processing-heavy | porridge-and-relish pattern: stiff staple + pungent accompaniment (a widespread African typology) |
+
+- Calibration: the pop typology "rice civilization vs bread civilization vs potato civilization" (Umesao 1957 lineage) is a period piece — useful as a fictional culture's *own ideology about itself*, weak as analysis; Ohnuki-Tierney (1993) shows rice-as-self is nationalist metaphor-making in Japan. The FAO-flavored claim that rice+wheat+maize supply ~42% of world food calories circulates widely (exact share to-verify; do not put digits in a bible without checking FAOSTAT).
+- Kotodama hooks: whether a language says "have you eaten yet?" as a greeting (Chinese chī fàn le ma "eaten rice yet?" — real conversational greeting); whether breakfast is "morning-rice" (asa-gohan) or "break-fast" (dinner/disner ← *disjejunare "break the fast" — French déjeuner keeps a two-breakfasts fossil: petit déjeuner is the second); the lord's house as bread-house (OE hlāford ← hlāfweard "loaf-ward", hlæfdige "bread-woman", traditional OED etymology; the exact sense of -dige debated).
+
+## 2. The culinary triangle, calibrated: raw/cooked as generator, not law
+
+- Lévi-Strauss (1965): the triad raw–cooked–rotted across the natural–cultural axis; the boiled (enclosed pot, endogenous, introvert) vs roasted (open fire, exalted, exterior, extravert) opposition; smoked and rotted slots added in the 1968 revision. Lévi-Strauss himself altered the device when it failed to hold — treat it as a *heuristic that the author revised*, not a discovered constant.
+- What survives as craft tool: (1) the transformation axis (how much fire/fermentation separates the eaten from the harvested — a culture indexes itself on it); (2) Douglas's meal grammar ("Deciphering a Meal" 1972: a meal is a structured event with boundary rules — main + trimmings + course order vs a "drink", which is the same foods ungrammaticalized); (3) Goody's (1982) high/low cuisine split — differentiated court cuisine vs undifferentiated home cooking — with the historical claim that Africa lacked high cuisines corrected by later work (Ethiopian, Swahili, West African court cuisines); (4) Rozin & Rozin (1981) flavor principle: a cuisine's identity rides 2–4 signature seasonings more than ingredients — soy+ginger+garlic; lard+chili+onion; olive oil+garlic+herb; ghee+onion+cardamom. Add the signature, strangers read the dish as "that cuisine".
+- Rozin 1976 omnivore's paradox (omnivores must seek novelty but fear poison) and Fischler 1988 gastro-anomie (modern eaters stripped of shared rules) — the two forces any fictional cuisine must be built to manage: novelty channels (banquet exotics, traveler tales, fusion quarters) and continuity channels (festival identity dishes).
+- Kotodama hooks: invent the transformation vocabulary a culture uses to *judge* cooking — e.g. rank dishes by boiling vs roasting as sacred/profane in ritual contexts only, never daily life (the triangle applies in the temple, collapses in the tavern — a realistic asymmetry).
+
+## 3. Feast and famine: ritual foods, fast calendars, and the entitlement trap
+
+| Ritual food slot | Exemplars (real) | Mechanism |
+|---|---|---|
+| Homophone/omen foods | New Year: whole fish 鱼 yú ≈ 余 "surplus"; niángāo 年糕 ≈ 年高 "higher year"; toshikoshi soba (long noodle = long life); twelve grapes at midnight (Spain, documented by early 1900s; origin partly promotional); black-eyed peas/collards (US South) | speech-sound luck — food names as incantation (core kotodama territory) |
+| Symbolic feast menus | Passover seder (matzah "bread of affliction", maror, four cups); Rosh Hashanah simanim (apples in honey, pomegranate "may our merits multiply"; medieval custom) | eating the catechism — each bite a recited meaning |
+| Hidden object in food | vasilopita coin (St. Basil); galette des rois fève; New Orleans king-cake charm | the year's luck distributed by slicing order — a status ritual with dessert props |
+| State feasting | potlatch (Kwakwaka'wakw; banned in Canada 1885–1951, a law against feasting = a law against a legal system) | rank, debt, and law transacted in food; the ban is a worldbuilding case of legalized jealousy |
+| Mourning foods | Jewish se'udat havra'ah (shiva meal: round foods — eggs, lentils — the cycle motif) | grief grammar; roundness as theology |
+| Famine foods | tulip bulbs (Netherlands Hongerwinter 1944–45); "Guanyin clay" eaten in Chinese famines; nettles, bark meal, famine breads (bark/straw adulterated loaves, documented in European famines) | the emergency lexicon; survivors' foods later become festival foods or never touched again |
+
+- Famine theory: Sen (1981) — famines are entitlement collapses, not necessarily food shortages (Bengal 1943: food present, purchasing power absent). For worldbuilding: who starves in your world is a property of law, wages, and transport, not of total harvest. Ó Gráda (2009) for the long typology; famine → migration → diaspora cuisine is the standard chain (Irish case).
+- Fast systems: Ramadan (dawn-to-dusk; iftar opened with dates); Yom Kippur (~25 h); Lent and Orthodox fasting calendars (Great Lent is effectively vegan — a dietary law hiding inside "moderation"); Buddhist monastic no-eating-after-noon (Vinaya); Hindu ekādaśī (11th lunar day, twice monthly — couples number-symbolism). Fast and feast are one system: the fast defines the feast's release.
+- Mintz (1985) sugar model: a "drug food" rides empire and class — luxury → proletarian necessity ("proletarian hunger killer") → childhood norm. Template for any stimulant crop in a fictional economy.
+
+## 4. Fermentation as heritage: the culture's oldest intellectual property
+
+| Organism class | Named heritage | Worldbuilding handle |
+|---|---|---|
+| Mold (koji, Aspergillus oryzae) | miso, shōyu, sake, mirin; koji declared national fungus (kokkin) by the Brewing Society of Japan, 2006 | a *state-declared sacred microbe* — imagine the ministry, the contests, the smuggling of spores |
+| Bacteria+lactobacilli | kimchi (kimjang communal making, UNESCO 2013), sauerkraut, yogurt lineages, idli/dosa batters | seasonal collective labor with a fermentation clock; buried-jar autumn events |
+| Yeast | beer (Hymn to Ninkasi, c. 1800 BCE — brewing as goddess-taught recipe recited to brewsters), wine, bread starters | brewing hymns = recipes in verse; a recipe is a song (kotodama hook) |
+| Mixed/aged | garum (Rome; Pliny NH 31; Pompeii production), cheese washes, nukazuke pickling beds, sourdough mothers | heirloom objects: a starter/mother/pickling bed is *inherited, fed, and can be murdered* — a household's living estate |
+
+- Ritual fermented drink: Inca chicha brewed by the aclla (chosen women) for state ritual; Mexica pulque under license (colonial ethnography — Sahagún — records drinking licenses for elders and punishment for public drunkenness: intoxication is legislated, not merely moralized).
+- Heritage branding: UNESCO inscriptions (kimjang 2013, washoku 2013, French gastronomic meal 2010, Mediterranean diet 2010) are *recent certificates on ancient practice* — pair with the invented-tradition critique (§9) when writing worlds that bureaucratize heritage. "Microbial terroir" (the claim that place-specific house microbiomes make each starter unique) is partly marketing, partly live research — in-world: guild fights over whose mother culture is the true lineage.
+
+## 5. Taboo and identity: kashrut and halal as calibration case studies
+
+| Dimension | Kashrut | Halal |
+|---|---|---|
+| Source texts | Leviticus 11; Deuteronomy 14; rabbinic elaboration | Quran 2:173, 5:3, 6:145; sunna; fiqh elaboration |
+| Animal rule | split hoof + cud for land animals; fins + scales for fish; locusts permitted (Lev 11:22) | the Quran's short list (carrion, blood, swine, etc.); most seafood halal, schools differ (Ja'fari stricter) |
+| Slaughter | shechita (trained shochet, knife law) | dhabīḥah (invocation, sharp blade, swift cut) |
+| Mixing rules | milk + meat separation (Ex 23:19 "kid in its mother's milk", ×3 in Torah); separate dishes; waiting times | no milk+meat law; wine and intoxicants forbidden (Quran 5:90) — the big divergence |
+| Extras | grape products from non-Jewish manufacture (stam yeinam); Passover kitniyot ban (Ashkenazi custom) | carrion-derived additives (gelatin, rennet) debated; certification bodies differ |
+| Kitchen lexicon | treif (non-kosher), milchig/fleishig/pareve (dairy/meat/neutral), kosher salt (named for koshering meat, i.e. drawing blood) | halal/ḥarām/makrūh (disliked)/mashbūh (doubtful); the five-rulings ladder (al-aḥkām al-khamsa: wājib, mandūb, mubāḥ, makrūh, ḥarām) as the law's own severity scale |
+| Identity drift | "kosher-style" (American: the cuisine without the law); "keeping kosher at home, not outside" — practice as ethnic boundary more than piety | halal certification as global trade infrastructure; halal-friendly as market register |
+
+- Three rival explanations of the taboo systems — keep all three alive in-world (real scholarship has not settled it): Douglas (1966): the pig is a taxonomic anomaly (cloven hoof, no cud — it breaks the category); Milgrom (1991): the diet expresses holiness — separation from death, rejection of carnivores/carrion-eaters; Harris (1985): cultural materialism — pigs compete with humans for food and were ecologically costly in the deforested Near East (cf. Herodotus 2.47 on Egyptian pig-avoidance), while cattle are worth more alive (traction, milk, dung) than dead — the cow taboo as economy. Soler (1973): the biblical food code draws the sacred map (creation order → edible order). Simoons (1994) gives the deep history of pork aversion beyond Judaism. Meyer-Rochow (2009) tabulates taboo rationales cross-culturally.
+- Adjacent systems (brevity here, full entries elsewhere): Hindu cow sanctity — Vedic-era beef attested, taboo accreted (Jha 2001, contested and banned in India at one point; handle with care); Jain vegetarianism extending to roots/tubers (pulling one kills the organism and its tenants); Buddhist monastic meat permitted under "threefold purity" (not seen, heard, or suspected to have been killed for the monk — MN 55, Jīvaka Sutta); East Asian monastic vegetarianism hardened by Liang emperor Wu's edict (6th c.; commonly dated 511 CE, to-verify); Hindu jootha/ushṭa pollution of tasted food (whose mouth has touched it is a caste-and-intimacy boundary); Orthodox fast calendar; DeSoucey (2010) gastronationalism — food authenticity as identity politics (PDO/PGI marks: Champagne, Parmigiano-Reggiano — law defending the word, not the dish).
+- Kotodama hook: every dietary law generates a register (the Yiddish kitchen triad is law become household vocabulary; the Islamic five-rulings ladder is law become grammar). Design the *lexicon* of the law, not just the law: what word does your world have for "doubtful", and who sells certainty?
+
+## 6. Etiquette: the table as grammar
+
+- History: Elias (1939) — table manners as state-society discipline: from shared pot and trencher to individual settings and place settings (16th–17th c.); Erasmus, *De civilitate morum puerilium* (1530), the manners textbook (do not scratch, do not blow your nose in the cloth, do not dip twice). The fork: Byzantine noblewoman shocks Venice c. 1004, denounced by Peter Damian as decadence (the classic anecdote, popularized by Elias; the modern identification of the woman as Maria Argyropoulaina d. 1004 is scholarly reconstruction, to-verify); spread via Italy to northern courts over centuries; the "Catherine de' Medici brought forks to France" story is legend — adoption was gradual and late. Service shift: à la française (all dishes laid at once) → à la russe (sequential courses; the Prince Kurakin attribution c. 1810 is itself shaky — to-verify), standardized by Carême and Escoffier.
+- Chopstick grammar (Japanese etiquette set, each with its funeral or economic etiology): tsukitate-bashi (upright in rice = grave incense — always taboo at table), hashiwatashi (passing food chopstick-to-chopstick = bone-handling at cremation), yosebitashi (raking dishes), saguribashi (spearing to search), mayoitabashi (hesitation). A cutlery taboo list tied to death ritual is a portable, high-yield invention.
+- Commensality rules: Ethiopian gursha (feeding a morsel to another as honor); jootha (India: leftover-touched food carries the eater — sharing it is intimacy or pollution by caste); right-hand eating (India, Muslim worlds); the communal-plate/dish geography (injera platter, banchan field, meze spread) as the map of who-is-near-whom.
+- Guest-right and the salt covenant: Slavic bread-and-salt (khleb-sol) welcome; "to eat someone's salt" as protection across the Islamic world and South Asia — Hindi/Urdu namak-halāl "salt-true" = loyal, namak-harām "salt-false" = traitor, Persian namak-nashenās "salt-unrecognizing" = ingrate. The guest-host bond is lexicalized as *taste*: betraying your host is a flavor word.
+- Pre/post-meal formulas (the pragmatics of eating — every culture has at least one pair):
+
+| Formula | Language | Literal logic |
+|---|---|---|
+| itadakimasu / gochisōsama(deshita) | Japanese | "I (humbly) receive" (< itadaku, receive atop one's head) / "it was a running-about" (< gochisō 御馳走 — the host's exertion): the meal framed as gift labor |
+| jal meokketseumnida ("I will eat well") | Korean | announced to elders before eating — the meal as social event needing declaration |
+| kain tayo ("let's eat") | Filipino | greeting and invitation fused; refusing = refusing company |
+| ṣaḥtayn ("two healths") | Arabic | blessing exchanged to the eater |
+| afiyet olsun ("may it be health") | Turkish | wish after serving |
+| qǐng màn yòng ("please eat slowly") | Chinese | slowness as courtesy — haste insults the host |
+| bon appétit / Guten Appetit | French/German | the borrowed international pair; some cultures consider wishing appetite presumptuous (the French vs Anglo debate is real usage lore) |
+| grace / birkat hamazon | Christian/Jewish | blessing before/biblical command after meals (Deut 8:10) — the meal bracketed by speech |
+
+## 7. Registers of eating: palace kitchen to night market
+
+| Register | Institutions | Lexical signature |
+|---|---|---|
+| Court/high cuisine | differentiated palace kitchens (Goody's high cuisine: Ottoman Topkapı, Ming, Mughal, Versailles) | dish titles as politics (named for rulers/battles); tasters; sumptuary overlap — what commoners may not eat |
+| Restaurant | Paris 1760s–80s onward; Song Kaifeng/Hangzhou centuries earlier; Michelin (guide 1900, stars from 1926) | menu-French (à la carte vs table d'hôte; hors d'œuvre; the entrée split — starter in France, main course in US English); brigade terms (Escoffier 1903: sous-chef, maître d' hôtel) |
+| Street/market | Pompeian thermopolia (dozens identified); Fukuoka yatai stalls; Singapore hawker centres (UNESCO 2020); Taiwan night markets; FAO street-food economy studies (Tinker 1997) | haggling registers, standing-eat grammar ("one more" orders), vendor calls; street names become dish names |
+| Religious/dietary law | temple kitchens, certification bodies, monastery refectories | law lexicon (§5); permitted/forbidden as the first split in any food word |
+| Military/mess | Roman frugalitas to modern rations; "mess" (messmates) as the unit | ration vocab, field chow, the officer's mess as rank made edible |
+| Home | mother's-cooking nostalgia (Sutton 2001: food as memory — the diaspora dish), comfort-food canon | diminutive register, recipes as inheritance documents; "taste of home" as exile literature trope |
+
+- Restaurant history, calibrated: Spang (2000) dismantles the standard tale — "restaurant" began as the restorative *broth* sold by health-caterers in 1760s Paris; the Boulanger 1765 "first restaurateur" story with its motto is legend (flag it); restaurants predate the Revolution, so "unemployed aristocrats' chefs invented the restaurant in 1789" is a later myth (they *staffed and multiplied* an existing institution). The true first mover is organizational: a menu, a fixed price, a private table, a choice of venue — modern choice-architecture.
+- The Song dynasty counter-example: Kaifeng's restaurant world (Meng Yuanlao, *Dongjing meng hua lu*, 1147 — seventy-two "great restaurants" plus countless small ones; delivery, specialized houses, festival menus) — urban eating-out centuries before Paris. A world can have restaurants without capitalism and without Paris; decide which historical package your city's eating-out rides.
+- Loanword chains as contact receipts: menu-French into every trade language; Yiddish deli lexicon into New York English (lox, nosh, schmaltz); sushi terminology globalized post-1970s; tempura ← Portuguese (16th c. mission contact — a European frying technique remembered as quintessentially Japanese); crop names (maize, potato, chili) crossing eras with their names. Track three loanwords per fictional cuisine and you have written its trade history (couple language-contact file).
+- Mintz's sugar arc applies per register: whatever was once court-luxury (spices, sugar, coffee, tea) descends to mass necessity, then gets re-elevated by artisanal branding — the full loop is a periodization tool (§9: spices were about status and imagination, not masking spoilage — Freedman 2008).
+
+## 8. Working vocabulary of food-culture craft (for in-world coinage)
+
+| Term | Real referent | In-world hook |
+|---|---|---|
+| commensality | eating-together as social contract (Latin con+mensa, "at the same table") | who may share a table = the society's real constitution |
+| flavor principle | a cuisine's 2–4 signature seasonings (Rozin & Rozin 1981) | design the signature first; the "national dish" follows |
+| meal grammar | boundary rules distinguishing meal from snack/drink (Douglas 1972) | write the rules, then write the transgressor (the child who eats dessert first) |
+| omnivore's paradox | novelty-seeking vs neophobia (Rozin 1976) | the engine of culinary adventure tales and poison-oracle priesthoods |
+| benign masochism | enjoyed "safe danger" (chili burn — Rozin & Schiller 1980) | pain spices as coming-of-age tests |
+| gastro-anomie | rule-less modern eating (Fischler 1988) | the crisis-word for a culture whose foodways collapsed |
+| gastronationalism / PDO | food authenticity as identity politics; legal marks (DeSoucey 2010) | the guild, the lawsuit, the counterfeit-cheese smuggling plot |
+| nixtamalization | alkali-processing maize (nutritionally mandatory) | a technology so hidden that its loss looks like divine punishment — famine backstory for free |
+| kokkin / national fungus | koji's 2006 designation | the state *names* a microbe: ministry of ferments |
+| salt covenant / guest-right | bread-and-salt; namak-halāl loyalty words | betrayal framed as taste; salt as contract token |
+| jootha / gursha / tsukitate-bashi | tasted-food pollution (India); honor-feeding (Ethiopia); grave-incense chopsticks (Japan) | three verbs a world can borrow outright |
+| famine food | emergency edibles (bulbs, bark, clay) | survivors' silence vs festival survival — pick which foods your culture refuses to remember |
+| entitlement failure | famine without shortage (Sen 1981) | the economist-priest's heresy: "the granaries are full and the city starves" |
+| entremets / entrée drift | course words drifting between cuisines (US entrée = main) | register drift as era marker: the word outlives the service order |
+| starter / mother | heirloom sourdough/pickling beds | living property, inheritance, sabotage target |
+
+## 9. Calibration shelf (contested, mythical, or overrepeated — flag before anything reaches the bible)
+
+- Rice theory of culture (Talhelm et al. 2014, *Science*: rice farming → collectivism) — published, cited, and contested: correlational, effect sizes debated, mechanisms argued. Do not let "rice cultures are collectivist" enter a bible as fact; it is one research program among several.
+- Umesao-style "rice vs wheat vs potato civilization" macro-typology — a 1950s intellectual artifact; usable as an *in-world* ideology (cultures really do tell these stories about themselves — Ohnuki-Tierney 1993 shows it for Japan), not as authorial truth.
+- The Boulanger 1765 "first restaurant" story — legend per Spang (2000); likewise "the Revolution's orphaned aristocrats' chefs invented the restaurant".
+- Catherine de' Medici introduced the fork to France — legend; adoption was gradual, 17th c. mainstream. The Byzantine fork anecdote (c. 1004) rests on a real invective (Peter Damian) with a debated modern identification (to-verify).
+- The Lévi-Strauss culinary triangle — the author revised it himself (1968); Goody (1982) attacked its universality. Use as generator; never as discovered law.
+- Harris's materialist taboos (pig economics, cow economics) — contested by culturalists; strongest case is the pig, weakest the cow. In-world, let priests and economists hold the two theories simultaneously (that is the real-world condition).
+- "Medieval spices masked rotten meat" — debunked (spices were ruinously expensive status goods; Freedman 2008). Also treat "medieval people drank only weak beer because water was unsafe" as an overgeneralization (nuance to-verify).
+- Marco Polo brought pasta from China — legend; pasta trades in the Mediterranean before him. "Ancient traditional dishes" are frequently 19th–20th c. codifications (invented tradition, Hobsbawm & Ranger 1983; Cwiertka 2006 on washoku as modern construction) — date your dishes like artifacts.
+- The twelve grapes' origin story (Alicante growers, c. 1909) is partly promotional; the custom is real, the founding tale is a to-verify.
+- Liang emperor Wu's monastic meat ban commonly dated 511 CE (to-verify exact year/edict); the Jīvaka Sutta threefold-purity rule is solid (MN 55).
+- FAO "rice+wheat+maize ≈ 42% of world calories" — circulating figure, verify against FAOSTAT before citing digits.
+- UNESCO food inscriptions certify practice for the list, not antiquity; washoku/kimjang branding has 20th-century nationalist packaging — write heritage claims as claims.
+- Korean/Japanese/Chinese "X thousand years of cuisine" framing — rhetorical, not evidence; same for any "national dish" (many are post-WWII tourism codifications, to-verify per case).
+
+## 10. Application protocol — building a fictional culture's foodway
+
+1. Pick the staple(s) and write their agronomic truth (§1): labor organization, storage, processing necessity (a nixtamalization-class dependency is a gift — its loss is a famine plot with a mechanism).
+2. Write the lexical shadow (§1): does the language say meal=staple (gohan pattern) or meal=bread+companion (companatico pattern)? Derive breakfast/lunch/dinner names from it, and one status fossil (lord=loaf-ward).
+3. Design the flavor principle before any dish list (§2): 2–4 signature seasonings with a trade logic (each element should have a source region or a monopoly).
+4. Place the cuisine on the high/low ladder (§2, §7): who cooks for whom, where the differentiated kitchen is, and what the court register's dish titles are doing politically.
+5. Build the fast/feast calendar (§3, couple calendar file): one homophone/omen feast (speech-luck foods), one fast system with a release feast, one mourning meal, one state-fight-feast (potlatch class) — and one famine in the culture's living memory, with its refused foods and its remembered foods.
+6. Choose the fermentation stack (§4): which organism class the culture owns, which ferment is sacred/state-monopolized, and one living heirloom object (starter/mother/pickling bed) with an inheritance story.
+7. Design dietary law as identity boundary (§5): pick source text, animal logic, slaughter rule, mixing rule, and — crucially — write the law's *lexicon* (severity ladder, kitchen triad, doubtful-food word). Then give the culture two contradictory in-world explanations of its own law (priestly vs materialist) — that is the realistic condition, not a bug.
+8. Write the table grammar (§6): one death-linked cutlery taboo set, one guest-right token (salt/bread class) with loyalty vocabulary, one pre-meal and one post-meal formula with literal meanings, and the commensality geography (shared plate? caste order? gender order?).
+9. Place the eating-out institutions (§7): Song-style old restaurants, Paris-style modern, street-first, or temple-canteen; invent the menu register (its loanwords, its price grammar, its dish-title politics) and let one course-word drift across eras as a period marker.
+10. Stage one exchange moment (§1, §7): a crop or technique crossing a civilizational seam, tracked by its loanword chain and one court-luxury→mass-necessity→artisanal-rebranding arc (Mintz loop).
+11. Hand off to lore-shokunin: the tables above as options with calibration flags attached; the canon decisions (which taboo, which feast, whose famine) are theirs.
+
+## 11. Canon boundary
+
+Reference knowledge and method only. Which staple a fictional culture raises, what its taboos mean in-world, whether its restaurants precede its capitalism, how its famine is remembered — canon decisions owned by lore-shokunin. This file supplies the frameworks (staple theory, flavor principle, meal grammar, entitlement theory, taboo explanatory programs, register typology), the real exemplars, and the calibration flags (§9: flag every to-verify item before it approaches the bible); hand off the vocabulary table as a kit of named moves, not as lore.

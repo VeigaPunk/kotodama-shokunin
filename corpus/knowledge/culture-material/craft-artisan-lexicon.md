@@ -1,0 +1,151 @@
+# Artisan lexicon — tool names and their literal senses (the shokunin angle), material-grading vocabularies, workshop ladders and guild ranks, signatures and maker's marks, craft deities and ritual, and the quality-and-fraud machine
+
+- topic: the workshop as a speech community — a closed technical register with five banks of terms: (1) tool names and etymologies (Japanese pull-cut carpentry nomenclature — ryōba "both-edge", kugihiki "nail-pull", the sumitsubo "ink-pot" with its makigitsune "winding-fox" crank, the adze whose kanji say "hand-axe", yasurime file-marks as smith handwriting; the body-metaphor grammar of tool anatomy; the homonym traps of fuller/bickern/hardie); (2) material-grading vocabularies (tamahagane "jewel-steel", kawagane/shingane "skin/heart metal", the hada grain words masame/itame/mokume shared with wood via the -me 目 "grain/eye" classifier, nie "boiling" and nioi "scent" in the temper line, NHLA timber grades, karat/fineness, GIA's 4Cs, the Kaogongji four-factor quality formula and qiao/zhuo aesthetic inversion); (3) workshop organization across seven systems (Lehrling–Geselle–Meister with Meisterstück and Wanderjahre; London apprentice→journeyman→freedom→livery with three entry routes; Ottoman çırak–kalfa–usta with gedik and şed investiture; Persian ustād–shāgird; Chinese shifu–xuetu under hang/huiguan; Japanese shishō–deshi under za→kabunakama; Indian śreṇī guilds and Roman collegia with Egyptian papyrus contracts; Benin's royal hereditary ateliers as the non-guild model); (4) signatures and marks as a six-type typology (authorship, assay, brand, license/proof, registry celebrity, attribution forensics — from the 1300 leopard's head through Dürer's monogram lawsuit to Morelli's clue paradigm); and (5) craft deity and ritual (Ptah's heart-and-tongue creation, Athena's kiln prayer, Viśvakarman, Lu Ban's hidden build-curses, Kanayago-kami, Ottoman pîrs, hari-kuyō needle funerals, tsukumogami), plus the anti-fraud machine (assize, jurés, hallmarks, proof marks) that quality vocabulary is really about
+- sources:
+  - Guild institutions: Epstein (1991) Wage Labor and Guilds in Medieval Europe, U North Carolina Press; Rosser (2015) The Art of Solidarity in the Middle Ages, OUP/British Academy; Ogilvie (2011) Institutions and European Trade, Cambridge UP + Ogilvie (2014) "The economics of guilds," Journal of Economic Perspectives 28.4; Waltzing (1895–1900) Étude historique sur les corporations professionnelles chez les Romains, Louvain; Ibn Khaldun (1377) Muqaddimah Book 5 (Rosenthal trans. 1958)
+  - Ottoman/Islamic guilds: Faroqhi (2009) Artisans of Empire: Crafts and Craftspeople under the Ottomans, I.B. Tauris; Stevenson (1988) The First Freemasons, Aberdeen UP
+  - South & East Asia: Kauṭilya, Arthaśāstra (Kangle ed. 1960–65, U Bombay) + Mandasor silk-weavers' guild inscriptions, 437 & 473 CE (Epigraphia Indica); Kaogongji 考工記 (Warring States core, preserved by Han insertion into the Zhouli); Ruitenbeek (1993) Carpentry & Building in Late Imperial China: A Study of the Fifteenth-Century Carpenter's Manual Lu Ban jing, Brill; Lu Yu, Chajing (c. 760–780); Cambridge History of Japan vols. 3–4 (1990, 1991) on za and kabunakama; Odate (1984) Japanese Woodworking Tools: Their Tradition, Spirit and Use, Sterling; Ben-Amos (1980) The Art of Benin, Thames & Hudson
+  - Japan metallurgy: Robinson (1961) The Arts of the Japanese Sword, Faber; Kapp, Kapp & Yoshihara (1987) The Craft of the Japanese Sword, Kodansha; Philippi (1968) Kojiki, U Tokyo Press; Tsukumogami-ki 付喪神絵詞 (Muromachi picture scroll, 14th c.)
+  - Deities and ritual: Eliade (1956; 2nd ed. 1978) The Forge and the Crucible, U Chicago Press; Davidson (1964) Gods and Myths of Northern Europe, Penguin + Völundarkviða (Poetic Edda); Lichtheim (1973) Ancient Egyptian Literature I (Memphite Theology / Shabaka Stone), U California Press; Rigveda 10.81–82 (O'Flaherty trans. 1981, Penguin); Ovid, Fasti 3 (Quinquatrus); REED: York, ed. Johnston & Rogerson (1979) — the Ordo Paginarum register c. 1415; Malinowski (1926) Myth in Primitive Psychology, Norton; Tamari (1991) "The Development of Caste Systems in West Africa," Journal of African History 32
+  - Marks and connoisseurship: Chaffers (1863) Hall Marks on Gold and Silver Plate; Jackson's Silver and Gold Marks, ed. Culme (3rd ed. 1989); Vasari, Lives (1568) on the Dürer–Marcantonio monogram case; Oswald & Pryce (1920) An Introduction to the Study of Terra Sigillata, Longmans; Vainker (1991) Chinese Pottery and Porcelain, British Museum Press; Wood (1999) Chinese Glazes, U Penn Press; Morelli (as "Ivan Lermolieff," 1874–76) Die Werke italienischer Meister; Ginzburg (1989) Clues, Myths, and the Historical Method
+  - Statutory: Assize of Bread and Ale (1266); Edward I silver ordinance (1300); Goldsmiths' Company charter (1327); Skinners–Merchant Taylors award (1484); Statute of Artificers 1563 (5 Eliz. I c. 4); Gunmakers' Company charter (1637), Birmingham Proof House (1813); NHLA hardwood grading rules (association est. 1898)
+- couples: linguistics/naming-systems.md (occupational surnames — the Smith/Schmidt/Faber/Haddad set; the master's name as product brand), linguistics/semantic-fields-lexicon-building.md (tool anatomy named with body parts; the one-classifier grain generator), linguistics/sociolinguistics-registers.md (workshop jargon as in-group register; the craft "word" and passwords), linguistics/historical-linguistics.md (etymological method; the folk-etymology traps in §11), linguistics/language-contact.md (the ustād→usta / shāgird / khalīfa→kalfa loan chain; mestier→English "mystery"), linguistics/kinship-terminology.md (fictive kinship of the shop: shifu "master-father," deshi as child), linguistics/writing-systems.md (marks as writing on objects; yasurime as script), myth-symbol/pantheon-archetypes.md (patron-god typology; the marked body of the smith god), myth-symbol/ritual-liminality.md (investiture, initiation secrecy, tool funerals), myth-symbol/number-symbolism.md (99-year tsukumogami arithmetic; nine-rank official grading), myth-symbol/animal-symbolism.md (makigitsune "winding-fox", takanoha "hawk-feather" file-marks), myth-symbol/comparative-frameworks.md (charter myth as institutional legitimization), culture-material/warrior-material-culture.md (that file owns mei/oshigata/hakogaki/meibutsu and "armor of proof"; cross-referenced, not duplicated here), culture-material/textile-technology.md (owns cloth grades and the Arte della Lana/Calimala geography), culture-material/era-periodization-models.md (every statute below is an era stamp), culture-material/calendar-festival-systems.md (Quinquatrus, Vulcanalia, York pageant calendar), era (1300/1327/1484/1563/1637/1813 as institutional dates), costume (livery robes and craft dress), synthesis (handoff to lore-shokunin)
+
+## 1. Frame: the workshop is a speech community, and the key variable is who owns it
+
+- Craft terminology is the clearest closed register a culture produces: it is learned under compulsion, spoken inside a building, and policed by law. A worldbuilder gets five banks of vocabulary for free (tools, grades, ranks, marks, rites) and should build them in that order — tools first, because tool names encode the culture's technique metaphors.
+- The master design axis is **workshop ownership**: (a) **palace/state monopoly ateliers** — Chinese guanyao official kilns, Benin's royal brass-casters (Igun Eronmwon, hereditary palace guilds, Ben-Amos 1980); (b) **autonomous guild cities** — Flanders, Florence, the Ottoman esnaf; (c) **family/lineage production** — the Japanese *ie* shop, Indian *jāti*, the Benin and Mande hereditary trades. Everything else (who signs, who grades, who is punished for fraud) follows from that choice.
+- The oldest Chinese craft manual opens with a doctrine worth stealing whole: "Heaven has its seasons, earth has its qi, materials have their beauty, work has its skill; combine these four and the result is *liang* 良 (good)" — the **Kaogongji**'s four-factor quality formula (and its claim that "the works of the hundred artisans are all creations of the sages," which makes every craft a religious act). A fictional culture should have its own version of this sentence; it will do more worldbuilding per word than a page of description.
+
+## 2. Tools and their names: the shokunin angle
+
+- **The pull-cut principle reorganizes a whole tool lexicon.** Japanese saws (nokogiri) and planes (kanna) cut on the draw, so blades run paper-thin and every name encodes geometry: **ryōba** 両刃 "both-edge" (crosscut one way, rip the other), **kataba** "single-edge," **kugihiki** 釘引 "nail-pull" (flush-cutting saw), **azebiki** 畦引き "ridge-pull" (convex-backed, starts mid-panel), **mawaribiki** "around-cut" (compass saw). European push-cut tools solve the same problems with mass and backs — one physical choice, two incommensurable vocabularies (Odate 1984).
+- Named etymologies worth copying as a design pattern:
+
+| Tool | Craft | Literal sense | Notes |
+|---|---|---|---|
+| sumitsubo 墨壷 | carpentry | "ink pot" | snaps the layout line; the weight-wheel is the karuko, the crank handle the **makigitsune** 巻き狐 "winding-fox"; daiku lore ranks it head of the toolbox (craft lore, treat as lore) |
+| chōna 手斧 | carpentry | kanji read "hand-axe," means **adze** | script lies; the adze, with the earlier **yariganna** 槍鉋 "spear-plane," was the finishing tool before the kanna spread — a tool-chronology fossil |
+| genno 玄翁 | carpentry | folk-named for the monk Genno | folk etymology — exactly the kind a fictional workshop would invent |
+| yasurime 鑢目 | swordsmithing | "file-marks" | the file-stroke pattern on the tang (sensuki, ō-sujikai, takanoha "hawk-feather," higaki "hurdle") is a *school signature* — handwriting on steel, standardized vocabulary (Robinson 1961) |
+| bickern/bick, hardy, fuller, swage, flatter | European smithing | — | the anvil's horn, the square-shank cutter, the grooving top-tools; **fuller** is homonymous with the blade-groove and the cloth-worker (three crafts, one word; the etymological links are not all established — flag) |
+| daiku 大工 / tōryō 棟梁 | Japanese construction | "great artisan" / "ridge-beam" | the foreman's title is an architecture metaphor: he is the ridgepole that holds the building up |
+
+- **Tool anatomy is spoken in body parts**, nearly universally but with language-specific choices: saw *teeth*, axe *eye*, plane *mouth/sole/belly*, anvil *horn/face/waist*, hammer *face/cheek/peen*, saw *spine*, chisel *heel*. This is a generative rule for conlanging: name each new tool from one body metaphor per function (what enters, what cuts, what is held), and let two cultures disagree on the metaphor — that disagreement is a contact point (couple linguistics/semantic-fields-lexicon-building.md).
+- The Japanese kanna adds an ontological quirk: the blade's back is deliberately **hollowed (ura 裏 "back")** so only the last millimeters contact the stone — maintenance is designed into the object. Fictional equivalent: tools whose *maintenance geometry* is named.
+
+## 3. Material grading vocabularies
+
+| Domain | Grading vocabulary | Design lesson |
+|---|---|---|
+| Steel (Japan) | **tamahagane** 玉鋼 "ball/jewel-steel" (tatara bloom); **kawagane** 皮鉄 "skin-metal" and **shingane** 心鉄 "heart-metal" — the blade literally has skin and a heart; **hada** 肌 "skin" = grain: **masame** (straight), **itame** (plank), **mokume** (burl), **ayasugi** (wavy); the temper line (hamon) has coarse bright **nie** 沸 "boiling" and a fine mist called **nioi** 匂 "scent/fragrance" — quality judged partly by its smell (Robinson 1961) | metallurgy speaks anatomy and the senses; the steel-grain words are borrowed from wood-grain words — see next row |
+| Wood | Japanese **masame** 柾目 / **itame** 板目 — the **-me 目 ("grain/eye")** suffix is one classifier across wood *and* steel; English quartersawn/rift/flat-sawn, boxed-heart; the NHLA's FAS ("First and Seconds") / F1F / Select / No. 1 Common (rules codified from 1898) | build one grain-classifier and deploy it across every material; then let law-grade systems (NHLA-style) fossilize as trade jargon |
+| Precious metal | sterling 925; Britannia standard 95.84 (1697–1720 only, marked with the figure of Britannia); gold by **karat** < Greek *keration*, the carob seed used as a weight; modern millesimal fineness | fineness is a *legal* number, not a description — the mark IS the grade (§6) |
+| Gems | GIA's 4Cs — carat, cut, color (D–Z), clarity (Flawless–I3) — systematized mid-20th c. | a modern invented grading language that conquered the world's trade in one century; your guild can do this too |
+| China | grade triples 上等/中等/下等 (shang/zhong/xia-deng); the Nine-Ranks official system (220 CE) — people and goods graded on one ladder; Lu Yu's Chajing (c. 760) grades both tea *and water* | grading vocabularies leak across domains: the same ladder ranks officials, tea, horses, cloth |
+| Aesthetics (China) | **qiao** 巧 "clever/deft" vs **zhuo** 拙 "clumsy/rustic" — literati taste *inverts* skill, prizing the artless over the brilliant (standard in Chinese painting criticism) | a culture's highest quality-word may condemn what its guilds reward — write the tension |
+| (cross-ref) cloth | broadcloth/kersey/frieze ladder and the dye-gate colors are owned by textile-technology.md | do not duplicate; couple |
+
+## 4. The workshop ladder across seven systems
+
+| System | Apprentice | Journeyman | Master | Entry rite / mechanism |
+|---|---|---|---|---|
+| Germanic guild | Lehrling (learner) | **Geselle** "hall-companion" (from *Saal*); the Wanderjahre/Walz wandering years | Meister | the **Meisterstück** masterpiece + feast + fees; masters' sons commonly exempt (Epstein 1991; Ogilvie 2014) |
+| London livery companies | apprentice under indenture (7 years; Statute of Artificers 1563) | journeyman (< French *journée*, paid by the day) | freeman → liveryman | **freedom by patrimony, by apprenticeship, or by redemption (purchase)** — three legal routes; Skinners vs Merchant Taylors precedence settled by the 1484 award (alternating 6th/7th place; the "at sixes and sevens" link is folk) |
+| Ottoman esnaf | **çırak** | **kalfa** (< Arabic *khalīfa* "deputy") | **usta** (< Persian *ustād* "master") | **şed** belt investiture under futuwwa ethics; **gedik** — the transferable right to a shop's setup (its legal nature is a live Ottomanist debate, Faroqhi 2009) |
+| Persianate/Islamic | **shāgird** "pupil" | khalīfa/kalfa | **ustād** | ustād–shāgird pair loans across Ottoman, Persian, Urdu — the master-apprentice dyad as a contact loanword chain |
+| China | **xuetu** 學徒 "learn-worker" | (assistant years) | **shifu** 師傅 "master-father" | trade associations **hang** 行; native-place guild halls **huiguan** 会馆; **gongsuo** 公所 |
+| Japan | **deshi** 弟子 (live-in uchi-deshi; helpers **tetsudai** 手伝い "hand-borrowers") | — | **shishō** 師匠 | medieval shrine/temple-allied **za** 座 monopolies → Edo chartered share-holding **kabunakama** (株 "share/stump") |
+| India | hereditary *jāti* training | — | guild elders (*jyeṣṭha*) in the **śreṇī** guild | Arthaśāstra regulates guild courts and guild-held deposits; the Mandasor silk-weavers' inscriptions (437 & 473 CE) record a guild that migrated states, rebuilt its temple, and kept its corporate identity for centuries |
+| (non-guild models) | Roman collegia: no formal ladder, but Roman-Egypt papyri preserve actual apprenticeship contracts (weavers); officers were *pater collegii* and *quinquennales*, with elite patrons above (Waltzing) — Benin: hereditary palace ateliers under the oba | | | the palace-monopoly and lineage models need no ladder at all — promotion is birth, not examination |
+
+- Design rule: pick a rung system and then break it deliberately — the masterpiece you can *buy your way around* (redemption; masters' sons) is where corruption plots live; the rung you cannot buy (the şed belt, the freedom oath) is where sacredness lives.
+
+## 5. Governance: guild ranks and offices worth naming
+
+- **London stack:** Master, upper and lower Wardens, Court of Assistants, the Livery (robed — costume hook), the Yeomanry below them, freemen at the base; "the Twelve Great Companies" (Mercers, Grocers, Drapers, Fishmongers, Goldsmiths, Skinners, Merchant Taylors, Haberdashers, Salters, Ironmongers, Vintners, Clothworkers) as the named top tier.
+- **Paris:** the *jurés*/**jurande** — sworn inspectors empowered to seize and destroy substandard goods (the punitive half of quality vocabulary, §8).
+- **Florence:** the seven greater arts (*Arti Maggiori*) vs fourteen lesser — political citizenship ran through guild membership (the Lana/Calimala split is owned by textile-technology.md).
+- **Ottoman esnaf officers:** şeyh (sheikh, ritual head), kethüda (steward), yiğitbaşı ("chief of the lads") — note the *ritual* office outranks the administrative one in dignity; guilds were religious bodies wearing a commercial skin (Faroqhi 2009).
+- **Japan:** tōryō at the top of the construction pyramid; **shitauke** 下請 subcontracting below — the Edo production pyramid is the ancestor of the modern general-contractor structure.
+- **Roman collegium:** pater, quinquennales, curator, scribe — plus a *patron*, an outside elite protector: a governance slot guild-cities don't have but palace economies do.
+
+## 6. Signatures and maker's marks: a six-type typology
+
+| Type | What it certifies | Real exemplars |
+|---|---|---|
+| 1. Authorship signature | "a hand made this" | the sword **mei** (owned by warrior-material-culture.md — cross-ref); potters'/lacquerers' **kakihan** 書判 cursive monograms; the **kaō** 花押 of nobles and tea masters; Dürer's AD monogram |
+| 2. Assay hallmark | "the metal is legal" | London leopard's head "King's mark" from the 1300 silver ordinance; Goldsmiths' charter 1327; lion passant (sterling); date letters from 1478; Britannia 1697–1720 (Chaffers 1863; Jackson 1989) |
+| 3. Workshop brand | "from this firm" | Roman terra sigillata **figlina** stamps — potters' names are standard archaeological dating tools (Oswald & Pryce 1920); Chinese **reign marks** (nianhao) regular on porcelain from the early 15th c., with later wares bearing *apocryphal earlier reigns* as the standard connoisseur trap (Vainker 1991; Wood 1999); Renaissance **bottega** signatures — a "Raphael" is a workshop's output, not one hand (Wackernagel 1938/1981) |
+| 4. License/proof | "tested and passed" | gun **proof marks** (Gunmakers' Company charter 1637; Birmingham 1813); armor sold "of proof" with the test dent left in place (cross-ref warrior file) |
+| 5. Registry celebrity | "this object is famous and owned by X" | the meibutsu registers and owner-chain catalogs (Kyōhō meibutsu-chō; cross-ref warrior file) |
+| 6. Attribution forensics | "who *really* made it" | Morelli's method — attribute by ears, hands, folds as involuntary handwriting (Lermolieff 1874–76); Ginzburg (1989) traces the same clue-paradigm into Freud and detective fiction; **yasurime** (§2) is the metal version |
+
+- **The signature law case to steal:** Vasari records that Marcantonio Raimondi was made to stop copying Dürer's AD monogram (Venice, early 16th c.) — arguably the first documented trademark infringement proceeding. A fictional guild city should have a court of marks, a docket, and precedent.
+- The permanent problem under all six types: **the shop hand** — signed by the master, made by apprentices. Attribution conflict is not a bug of craft economies; it is their central legal genre.
+
+## 7. Craft deity and ritual
+
+| Deity | Culture | Domain | Checkable datum |
+|---|---|---|---|
+| Ptah | Egypt | all crafts; creation | the Memphite Theology (Shabaka Stone): Ptah creates through the **heart and the tongue** — thought and speech; **the craft god is a word god** (Lichtheim 1973); the original's dating is contested — current view favors New Kingdom composition, not an Old Kingdom original (§11) |
+| Athena | Greece | weaving, pottery | the Pseudo-Homeric "Kiln Prayer" — potters beg Athena to burst the kiln of cheating rivals (ancient attribution, certainly not Homer; use as attested *genre*) |
+| Hephaestus / Vulcan | Greece / Rome | forge | the lame smith god of Lemnos; the Kabeiroi smith-daimones; Vulcanalia Aug 23; Minerva's **Quinquatrus** (March 19–23, Ovid, Fasti 3) was the artisans' holiday |
+| Kothar-wa-Khasis | Ugarit | divine smith | fashions the gods' weapons in the Baal Cycle (KTU 1.1–1.6); Egypt's Ptah and Ugarit's Kothar are comparative twins |
+| Tvaṣṭṛ / Viśvakarman | Vedic / India | smith / all-maker | RV 10.81–82; the "five sons" craft genealogy (Manu–Maya–Tvashta–Shilpi–Vishvajna) is traditional lore, not Vedic text — label it so; Viśvakarma Puja still consecrates the tools |
+| Lu Ban | China | carpentry | the Luban jing manual embeds ritual: **hidden curse-charms chalked into a building** against a bad client (Ruitenbeek 1993) — hostile writing as architecture |
+| Kanayago-kami | Japan (Izumo) | tatara iron | female patron of the smelters; forge taboos — dogs, and women kept from the furnace (shrine lore, Yasugi); multi-day smelts run under purity rules with offerings (Kapp et al. 1987) |
+| Ame-no-Mahitotsu | Japan | smith kami | "Heaven's One-Eyed" (Kojiki/Nihon shoki; Philippi 1968) — the one-eyed smith motif |
+| Weland / Völundr | Germanic | smith | Völundarkviða; Wayland's Smithy barrow; the Franks Casket panel (Davidson 1964) |
+| Ottoman pîr | Islamic Anatolia | every craft | each esnaf claimed a spiritual founder (**pîr**) — Ali ibn Abi Talib for many, Ahi Evran by tradition; investiture via the **şed** belt (Faroqhi 2009) — the charter-myth template (Malinowski 1926) |
+| Guild saints | Christian Europe | by craft | Eligius (goldsmiths/coiners), Luke (painters' guilds — the Guild of St Luke), Crispin & Crispinian (shoemakers; Shakespeare's Agincourt eve speech), Barbara (miners/artillery), Dunstan (smiths; the devil's-nose legend is hagiography, flag it) |
+
+- **Ritual mechanics to reuse:** investiture (şed belt; freedom oath); the feast-calendar where craft meets content — the York Ordo Paginarum (c. 1415) assigns pageants by trade: **shipwrights build the ark, bakers stage the Last Supper, pinners (nail-makers) perform the nailing of Christ** (REED: York 1979); **tool funerals** — hari-kuyō 針供養, the needle memorial services (Feb 8) where broken needles are stuck into tofu or konnyaku in thanks for hard work (Awashima shrines, Kyoto's Horin-ji); **tsukumogami** — the Muromachi Tsukumogami-ki scroll's discarded tools rising as resentful spirits (the "99th year" rule is later folk arithmetic — treat the number as folklore); initiation secrecy — the Scottish masons' "Mason Word" (Stevenson 1988), guild passwords: the craft's knowledge is gated by *speech*; **purity and liminality** — smiths simultaneously sacred and feared across Eurasia and Africa (Eliade 1956; West Africa's endogamous **nyamakala** artisan-griot castes, handlers of *nyama* occult force — Tamari 1991).
+
+## 8. Quality vocabulary and the anti-fraud machine
+
+- Quality words are *legal* words: **"of proof," "warranted," "assayed," "sterling"** (etymology genuinely unresolved — star-theory vs Easterling-theory, §11) all name compliance, not beauty. Beauty-vocabularies sit above: Japanese **shokunin kishitsu** 職人気質 "craftsman temperament," **kodawari** こだわり (obsessive attention), and the **ura** culture — the unseen back of an object finished as carefully as its face; English "masterly" (praise) vs "workmanlike" (faint praise) encodes the guild ladder in adjectives.
+- Enforcement history, in escalating order: market assize (Assize of Bread and Ale 1266 — pillory for fraud); guild inspection with seizure and burning (Paris jurés); state hallmarking (1300 onward); mandatory proof-testing (1637/1813). Every one of these implies its black market: unmarked silver, false hallmarks, "foreign-made" work — the whole counterfeit genre is preinstalled.
+- Reputation is the other enforcer: named masters, meibutsu registers, shop brands — and Ibn Khaldun's law (*Muqaddimah* V) that **craft perfection concentrates in great cities** because demand density supports specialization. A village can feed one smith; only a metropolis can feed a lacquer master.
+- Calibration on guilds themselves: the historiography is genuinely split — Ogilvie's line reads guilds as rent-seeking monopolies that delayed growth; Epstein's and Rosser's reads them as training, welfare, and credit institutions that made skilled labor possible. Both are evidence-based; a fictional guild can be written from either premise, but should know which it is.
+
+## 9. Kotodama hooks: the word-spirit layer
+
+- **The craft god speaks the world** (Ptah's heart-and-tongue): make one culture's patron of makers a *speech* deity, so that craft and kotodama are the same profession.
+- **One classifier, every material** (the -me 目 generator): design the grain/eye/figuring word once, then let smiths, carpenters, and potters argue over whose material deserves it.
+- **Sensory borrowing:** a temper line's mist is its *scent* (nioi). Let quality language in your world cross senses systematically — describe a blade's edge as "quiet," a joint as "sweet," a dye as "deep-voiced" — and give connoisseurs' registers their own synesthetic lexicon (couple linguistics/semantics-pragmatics.md).
+- **Marks as script on objects:** file-marks as dialect (yasurime), kakihan as signature-hand, hallmarks as state handwriting — an in-world scholar should be able to "read" an unsigned object the way a palaeographer reads a manuscript (couple linguistics/writing-systems.md).
+- **The hidden build-curse** (Lu Ban jing template): writing buried in walls — apotropaic or hostile. Combine with tool funerals: tools and buildings as ensouled witnesses (a chisel that cut a crime scene needs its own kuyō before it can be sold).
+- **The word of the craft:** passwords, grips, the Mason Word — membership as a speech act; excommunication as being *un-named* from the register (couple myth-symbol/ritual-liminality.md).
+- **Surnames by the forge:** Smith, Schmidt, Faber, Herrera, Ferreira, Kovács, Kovač, Kowalski, Kuznetsov, Haddad, Lohar, MacGowan ("son of the smith") — nearly every language names people by the forge; a world where the smith-name is *absent* from a language is making a statement (couple linguistics/naming-systems.md).
+
+## 10. Build order for a fictional culture
+
+1. Choose **workshop ownership** (§1): palace atelier, autonomous guilds, or lineage trades — this decides who signs and who is punishable.
+2. Derive the **tool lexicon** (§2): fix the cutting mechanic (pull/push), name 8–12 tools with literal-metaphor names, one deliberate script-lie (the chōna move), one folk etymology.
+3. Write the culture's **four-factor quality formula** (§1, Kaogongji template) as a quotable sentence.
+4. Build the **grading vocabulary** (§3): one grain-classifier, one legal-fineness system, one inverted aesthetic pair (qiao/zhuo), one cross-domain ladder.
+5. Fix the **ladder** (§4): three rungs with loan-chain etymologies; then break it once (purchasable mastery, exempt sons).
+6. Name the **offices** (§5), including one purely ritual office (şeyh/pîr slot).
+7. Install the **six mark-types** (§6) the economy actually uses, plus the marks court with precedent (the Dürer move).
+8. Attach the **patron and the rites** (§7): charter myth, investiture token, feast day with craft-meets-content pageants, one tool funeral, one purity taboo.
+9. Write the **anti-fraud law** (§8) and its black market; stamp one era-date on each statute.
+10. Audit against §11; hand flagged folklore to the bible labeled as folklore.
+
+## 11. Calibration: contested, popular, and discredited (do not ship unflagged)
+
+- **"Mystery" in guild names = mestier/ministerium "craft," not mystērion "secret rite."** The secret-society reading is a persistent false etymology (standard lexicography; OED s.v. mystery).
+- **guild ≠ gold:** *gild/guild* is from OE *gield* "payment" (related to *yield*; cf. German *Geld*) — guild dues, not golden hands. The gold folk etymology is false.
+- **"Sterling"** is genuinely unresolved (star-coin vs Easterling theories both circulate) — do not adjudicate in canon.
+- **The lame/one-eyed smith god as a universal law** (Eliade's sphere): real instances exist (Hephaestus, Ame-no-Mahitotsu), but the worldwide-pattern version overreaches, and Hephaestus's lameness also has non-occupational readings. Use as motif, not law.
+- **Tsukumogami "99-year rule":** later folk arithmetic; the Muromachi scroll is the anchor text and does not legislate the number (verify its wording before quoting).
+- **"Baker's dozen from assize penalties":** popular; attestation is late and the mechanism contested — treat as folk etiology.
+- **7-year apprenticeship** is the English statutory ideal (1563), not a universal; terms varied by town, trade, and century.
+- **Patron-saint lists** circulating online are unreliable aggregates; stick to attested guild dedications (§7's list).
+- **Reign marks:** the mark is the easiest element to fake; attribution never rests on the mark alone, and apocryphal early marks are the connoisseur's standard trap.
+- **Dating debates to flag if load-bearing:** Kaogongji composition (Warring States core vs Han redaction); Shabaka Stone's original date (Old-Kingdom-copy theory now widely doubted); compagnonnage's claimed medieval origins (documented only from the 17th–18th c.).
+- **Guild historiography** (§8) is a live split — Ogilvie vs Epstein/Rosser; do not write "guilds were X" as settled fact.
+
+## 12. Canon boundary
+
+Reference knowledge and method only. Which deity a fictional workshop consecrates, which rung of its ladder is purchasable, which mark-type is state-enforced, and what its quality formula says are lore-shokunin's canon decisions. Hand off: the ownership triad (§1), the tool-name patterns (§2), the grading templates (§3), the ladder table (§4), the mark typology (§6), the rite kit (§7), and the calibration shelf (§11) as options with flags attached.
