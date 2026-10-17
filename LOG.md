@@ -2886,3 +2886,11 @@ staged acceptance pass is claimed. The next model must inspect/fix these
 harness defects without weakening thresholds or changing historical gates,
 then rerun and record six-axis verdicts. Existing source counts, domain
 subchecks and expected holds remain useful evidence, not a forced pass.
+
+### User-requested removal of the round7 checkpoint handoff
+
+Removed `reports/round-7/checkpoint.json` and its active SCORECARD/report
+handoff references at the user's request. Development files, original claims,
+validation results and reviews remain unchanged; round7 is still unfinished.
+Earlier LOG entries describe historical actions and are retained append-only.
+No goal, background agent or automatic continuation is started by this cleanup.

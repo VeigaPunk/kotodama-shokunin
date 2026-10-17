@@ -1,4 +1,4 @@
-# Round 7 — published unfinished checkpoint (2026-10-17)
+# Round 7 — unfinished development report (2026-10-17)
 
 The user requested immediate session wrap-up, cancelled the goal and stopped
 further agents. This is **not an admitted round or ten-round completion**.
@@ -23,9 +23,9 @@ Baseline: `30caac66a2a382f1c46ba31f0c3c93da62d0762c`.
 
 All development files and append-only LOG evidence land in work commit
 `57c3ce65febd7cf80c05ab91669f1df262f3da86`; this report is committed afterward.
-`checkpoint.json` is the new-session entry point. No sibling, world-bible,
-credential, routing or canon edits are included. Earlier reports/ledgers and
-old gates/examples remain historical. Ignored scratch/downloads are not shipped.
+No sibling, world-bible, credential, routing or canon edits are included.
+Earlier reports/ledgers and old gates/examples remain historical. Ignored
+scratch/downloads are not shipped. No automatic continuation is configured.
 
 ## Before → after measurements
 
@@ -44,7 +44,7 @@ old gates/examples remain historical. Ignored scratch/downloads are not shipped.
   match, `git diff --check` clean. **No full clean-staged acceptance pass.**
   Runner SHA256: `c3b8418445d03bee2ba394ab6e4e4767e5ef07168c1a70dc904b3813e878c1e7`.
 
-## Every axis — checkpoint only
+## Every axis — unfinished round
 
 Freshness and operability claims remain unadmitted pending their original
 acceptance. Depth, coverage, calibration and adjacency have no final round7
@@ -59,12 +59,11 @@ All four `SHONEN.md` boxes remain unchanged `[ ]`; author-side evidence exists
 for decision tables, D3 execution, executable instructions and scope checks,
 but no named independent non-author verifier has checked them. No `[x]` claim.
 
-## Resume
+## Remaining work
 
-Read `checkpoint.json`, `claims.json`, failing `validation.json` and reviews15/16.
-Finish/review the existing harness and private-Git regression, rerun on the
-actual deliverable, then record six-axis verdicts and append final outcome.
-Do not redispatch round7. Further training requires user authorization:
-rounds8–9 OpenCode Go DeepSeek Flash32–64 each; round10 exact Grok4.7 xhigh
-fast128 AFTER DeepSeek. Old D2 findings/source residuals, no lore receipt,
-unscreened names and the separate unfixed provider400 issue remain open.
+The original requirements, failing results and reviews remain in `claims.json`,
+`validation.json` and reviews15/16. Finishing the existing harness/private-Git
+regression and recording final verdicts requires a new user instruction.
+No additional training or agents are started automatically. Old D2 findings,
+source residuals, no lore receipt, unscreened names and the separate unfixed
+provider400 issue remain open.

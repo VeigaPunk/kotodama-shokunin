@@ -103,9 +103,10 @@ implicit repair of D2. Dispatch is exactly one 16-worker Flash MAX batch.
   16-worker batch through `zai-coding-plan/glm-5.3-flash-low` (legacy name,
   documented MAX thinking) has returned16/16. Its original F/O acceptance,
   final harness/review remain unfinished. User requested session wrap and
-  cancelled the goal; integration task stopped. Read
-  `reports/round-7/checkpoint.json` and the failing `validation.json` before
-  resuming. No final round7 admission/verdict/capability is claimed; never
+  cancelled the goal; integration task stopped. The original claims and
+  failing receipt remain in `reports/round-7/claims.json` and
+  `reports/round-7/validation.json`. No automatic continuation is configured.
+  No final round7 admission/verdict/capability is claimed; never
   launch a second round7 swarm. The host request has
   one documented non-verbatim step6 clause in `native-request-binding.json`.
   This follows the explicit model amendment, not a silent substitution.
