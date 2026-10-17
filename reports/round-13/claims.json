@@ -1,0 +1,33 @@
+{
+ "round": 13,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "44070b4a6038f54e78d8d5be551e549fe202b0ee",
+ "regimen": "operator 2026-10-17: loop 1 of 3, expand round (128 workers, grok-4.7-fast)",
+ "requested_model": "xai-oauth/grok-4.7-fast",
+ "workers": 128,
+ "claims": [
+  {
+   "id": "D",
+   "axis": "depth",
+   "capability": "culture-d4-assembly",
+   "before": "Three example cultures (D1/D2/D3 lineage); the typed pipeline has only been exercised on the legacy D2 example; no fresh culture has been built end-to-end through it.",
+   "after_required": "A fourth example culture (examples/culture-d4/) built end-to-end through the typed pipeline: brief -> components -> typed labels -> gates -> named holds; D4 packet assembles deterministically (twice byte-identical), replays frozen, and the typed-pipeline gate passes with findings exactly equal to D4's named hold set; D4 is explicitly NON-CANON and refuses real-world clearance claims; d2/d3 paths remain green.",
+   "counting_command": "python3 reports/round-13/run-validation.py"
+  },
+  {
+   "id": "C",
+   "axis": "coverage",
+   "before": "The civilizations partition (94 entries, the fleet's largest) has no systematic source-staleness map; rechecks so far covered only specific residual rows.",
+   "after_required": "A partition-wide freshness map (reports/round-13/civ-map.json) gives every one of the 94 civilization entries a status receipt: current (source re-fetched or verified in-repo this round, with date+command), stale-fixed (entry corrected with evidence), or stale-documented (named reason); zero entries without a status; the map's counting command reproduces 94.",
+   "counting_command": "python3 reports/round-13/run-validation.py"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "Round-12 adjacency audit REJECTED the handoff packet on semantics: claim ledger lacks an uncertainty dimension; D2 couplings aggregated; bilateral acknowledgment pending.",
+   "after_required": "Handoff packet v2 adds the uncertainty dimension (per-claim confidence/status field populated, not blank) and claim-to-record links (each claim points at its source record); the round-12 contract audit is re-run over v2 and the semantic verdict flips to pass or the remaining gaps are named with owner notes; the handoff gate still passes 16/16 + 20/20.",
+   "counting_command": "python3 reports/round-13/run-validation.py"
+  }
+ ]
+}
