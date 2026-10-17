@@ -2454,3 +2454,133 @@ DeepSeek v4.1 Flash, 32–64 each → 10: exact Grok 4.7 xhigh fast, 128**, afte
 DeepSeek. Round-4's 31-return/missing-original-request provenance debt is
 not repaired by this round. Five numbered records are not completion of
 the ten-round program, and no fleet roster/ledger or sibling was edited.
+
+## 2026-10-17 — round 6 declaration: early-reference source checks, Flash MAX
+
+Latest operator confirmation: "glm 5.3 flash max". Use Z.ai's native
+`zai-coding-plan/glm-5.3-flash-low` / `sec-fast-zai-flash-low`; the legacy
+suffix is host-documented at MAX thinking, not a request for low effort.
+No configuration change, non-flash relabelling or implicit provider/model
+substitution is authorized or needed. The provider/ordering amendments
+above remain: round 7 also Flash MAX/16, then OpenCode Go DeepSeek rounds
+8–9/32–64, then exact Grok 4.7 xhigh fast round 10/128 after DeepSeek.
+
+Baseline is published `030c3928de74ed514853bc1f7490e0f8bb4d451f`.
+Re-read SCORECARD/LOG, fleet protocol/appendix/mission/axes/corpus and the
+child quality/operating rules. `reports/round-6/baseline.json` records the
+actual SHA256 values of twelve existing early-reference entries and zero
+round-6 source ledgers before dispatch. The fixed two questions per entry
+are in `targets.json`; they are questions, not presumed historical truths.
+This checks new earlier-reference surfaces rather than spending another
+wave retrying the same fifteen unresolved round-5 residuals.
+
+Declare ONE measurable claim, **F/freshness**, historically the lowest
+non-retired axis. Before: zero round-6 audits. Required after: exactly 24
+named question rows across all twelve assigned entries; at least six
+distinct newly retrieved directly relevant non-bibliographic passages
+across at least four entries; at least three parent non-metadata passage
+re-fetches. Count by `python3 reports/round-6/run-validation.py` once the
+actual deliverable exists, never by raw supported-label totals. Duplicate
+passages, title/TOC/metadata and an unread primary behind a secondary quote
+do not meet the direct-content threshold. The declared schema preserves
+actual entry locator, original bytes/hash, source type/version, short
+excerpt or access failure, scoped verdict, design implication and limits.
+
+Prepared dispatch: exactly one 16-item native AgentSwarm request through
+the explicit Flash MAX profile, with one planner/connector, twelve disjoint
+source executor/scout/scribe assignments, two source reviewers and one
+calibration critic. `dispatch-plan.json` and `prompt-template.txt` retain
+exact assignments and operative contract. Reviewers must not predict
+passes for absent concurrent output; existing identities may continue on
+actual output afterward, not become another swarm. Parent owns shared
+integration and publication; no worker commits, delegates, changes gates
+or examples, or writes canon/siblings/fleet/configuration/credentials.
+Research scratch stays in assigned ignored child subtrees, not /tmp or
+session-root artifacts. Historical evidence stays historical; corpus errata
+append only if real retrieved evidence warrants them. No new round credit
+or admission is claimed by this declaration alone. All six axes are judged
+only after actual results and unchanged prior acceptance are measured.
+
+## 2026-10-17 — round 6 development checkpoint before session handoff — not admitted
+
+Operator request: "contnue, push to remote all the developments, ill be
+starting a new session". Preserve the actual completed work without
+calling unfinished acceptance a pass. The model/provider interruptions
+affected the main-session continuation, not the already completed native
+source batch. No new swarm is launched to replace or duplicate that work.
+
+Actual dispatch from baseline `030c3928de74ed514853bc1f7490e0f8bb4d451f`:
+ONE AgentSwarm, call `call_ca9de43bcc5844c08d4c2a33da728ba0`, explicit
+Z.ai alias `zai-coding-plan/glm-5.3-flash-low` and profile
+`sec-fast-zai-flash-low` (legacy name, host-documented MAX thinking),
+16 distinct assignments, 16 completions, zero failed workers, native
+reported runtime 1224.021 seconds. Assignment IDs agent-472 through
+agent-487, template and question targets are retained under
+`reports/round-6/`. Parent checked the host request against the saved
+arguments; canonical SHA256 is
+`47ea1a29da86628aa320632541a0a4d25d6347dc2ea5d68eb8b2de8275769906`.
+`native-request-binding.json` records the observed event digest and limits;
+no upstream wire-model echo or simultaneous concurrency is claimed.
+
+Three existing identities (reviewers 14/15 and critic 16) continued on
+actual completed fragments, all returned, and appended to their own
+reports. These are not replacement workers or additional swarms. Initial
+absent-at-review-time findings remain in those reports as scheduling
+history; their later actual-output reviews are separately appended.
+There are no running child tasks from this wave at checkpoint preparation.
+
+The twelve source ledgers contain **24 fixed question rows**, all worker
+labelled supported: 18 whole-bounded-claim / six partial. Mechanical keys
+are distinct, and excluding tertiary/catalogue/unavailable mains leaves
+**20 candidates across eleven entries**. These are provisional source
+readings, NOT 24 parent-confirmed whole historical facts. Actual-output
+reviews identify whole-to-partial candidates 04-A, 05-A, 06-A, 08-A, 08-B,
+09-A and 10-A; source-kind mediator corrections and 13-A's wildcard archive
+capture still need integration. The full queue is in `checkpoint.json`.
+The fifteen older round-5 residual questions remain residual.
+
+`python3 reports/round-6/check-checkpoint.py` exits **0** with
+checkpoint_checks_passed=true, round6_admission=pending. It verifies all
+24 exact IDs/questions, declared schema/enums/URL/excerpt shapes, twelve
+baseline entry hashes, request reconstruction, source-fragment coverage,
+append-only LOG prefix and **468 unchanged historical files**. It reruns
+round-5 acceptance only in a disposable child-scratch copy, where F/O and
+all previous acceptance assertions pass. The original round-5 validation
+receipt is not overwritten. Tested craft/battery digests still match
+`b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5`
+and `077f68e488d56c633c98a0d95a24581389ed655b52e0fb553c3dec5f5ffe9b67`.
+
+This checkpoint checker is an integration/preservation check, NOT the
+originally declared F admission instrument. Parent has not yet persisted
+three non-metadata source re-fetch receipts or a conservative whole-claim
+reconciliation, and `reports/round-6/run-validation.py` is not implemented.
+One native Wisdomlib re-fetch returned the full cited chapter before the
+interruption, but no durable parent receipt was filed; the two PDF native
+fetches did not extract and are not completed checks. No original F
+threshold is relaxed. **Round 6 remains unadmitted; all final round-6
+axis verdicts are pending.** The last admitted six-axis table stays round 5.
+No new end-to-end culture task, capability, rank, lore receipt or canon is
+claimed; D2's twenty findings and legacy conformance debts remain.
+
+Worker 09 and worker 11 reported temporary fleet-root writes followed by
+cleanup, despite the scoped prompt. They are not in the deliverable; zero
+outside writes ever is not independently established. Raw downloaded works,
+PDFs and duplicate experiment trees remain ignored rather than being
+redistributed. No sibling, fleet roster/ledger, world bible, credential or
+provider-configuration changes are committed by this checkpoint.
+
+The separate empty-assistant provider-400 bug was investigated in the CLI
+checkout, but no source/configuration/binary patch was made; that checkout
+remains clean. The operator's main-model preference is Kimi K2.8 Preview,
+selectable via /model; no successful model switch is asserted by this lane.
+The checkpoint cannot be represented as a fix for the provider error.
+
+`corpus/lessons/round-6.md` preserves the Gate's pending state and the
+source-to-system lessons. Work must be committed before filing
+`reports/round-6/kotodama.md`; that child-local checkpoint report cites the
+actual carrying hash, includes SHONEN author assertions and names every
+unfinished acceptance step. Its existence is NOT a passed-round or fleet
+closure signal. On a new session, resume existing round-6 evidence first,
+then round 7 Flash MAX/16, rounds 8–9 OpenCode Go DeepSeek Flash/32–64,
+and finally round 10 exact Grok 4.7 xhigh fast/128 AFTER DeepSeek. Extra
+checkpoint/report commits do not satisfy the ten-round completion count.

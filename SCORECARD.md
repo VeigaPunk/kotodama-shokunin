@@ -51,10 +51,38 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | isolated gate battery | Standalone copied-tree seven-gate runner; stable failure versus could-not-evaluate mapping, byte/path preservation checks and ten controls | `python3 tools/check-gate-battery.py`; `--selftest`; `reports/round-5/battery-mutation.json` | round 5 |
 | bounded typed craft CLI | Six original malformed controls and reviewed nested/argument cases return exit 2 without tracebacks; genuine findings still exit 1 | `python3 tools/check-craft-exercise.py --selftest` (10 domain + 18 CLI); actual calls in `reports/round-5/validation.json` | round 5 |
 
+## Round 6 development checkpoint — not admitted (2026-10-17)
+
+Baseline: `030c3928de74ed514853bc1f7490e0f8bb4d451f`. One actual Flash MAX
+batch returned 16/16 workers; all three existing-worker review continuations
+also completed. Twelve source fragments now hold 24 fixed question rows.
+Re-run `python3 reports/round-6/check-checkpoint.py` for the mechanical
+checkpoint counts and isolated previous-acceptance check; its receipt is
+`reports/round-6/checkpoint-validation.json`. This is NOT the declared F
+admission command, and no round-6 capability or final axis move is claimed.
+
+| observable | before → checkpoint | counting command / limit |
+|---|---|---|
+| source-question rows | 0 → 24 rows across 12 entries | `python3 reports/round-6/check-checkpoint.py`; exact IDs/schema/hashes, not historical truth |
+| returned workers | 0 → 16/16, one actual batch | same command; `reports/round-6/dispatch.json`; continuations are not extra swarms |
+| raw passage candidates | 24 distinct main-row keys; 20 non-tertiary candidates across 11 entries | same command; relevance/scope reconciliation still pending |
+| worker labels | 24 supported, of which 18 whole / six partial | same command; NOT 24 parent-confirmed whole claims |
+| historical preservation | 468 baseline files unchanged; previous acceptance passes in a disposable copy | same command; tested code digests in receipt |
+| admission and every-axis judgment | pending, not a pass | original `python3 reports/round-6/run-validation.py` is not yet implemented; do not replace its thresholds with checkpoint success |
+
+Round 5 remains the last admitted axis table above. Resume from
+`reports/round-6/checkpoint.json`: persist three parent source re-fetches,
+reconcile whole-to-partial candidates and source kinds, pin the Vedic
+archive capture, implement the original acceptance instrument, and only
+then judge all six axes. The lesson records candidates and pending Gate;
+the checkpoint report is filed after its carrying work commit. No fleet
+closure or promotion follows from saving this partial work.
+
 ## Planned
 
-- Round 5 used one actual 16-worker Z.ai Flash batch (16 completed). Pending
-  rounds 6–7 each use one more 16-worker batch through native alias
+- Round 6 has ALREADY dispatched its sole 16-worker Z.ai Flash MAX batch;
+  finish integration and acceptance, do not re-dispatch it. Round 7 alone
+  still needs its 16-worker batch through native alias
   `zai-coding-plan/glm-5.3-flash-low` (legacy name, documented MAX thinking).
   This follows the explicit operator amendment, not a silent substitution.
 - Pending rounds 8–9 use OpenCode Go DeepSeek v4.1 Flash, 32–64 workers per
