@@ -61,7 +61,7 @@
 - **Do not derive powers from glosses:** “lord” describes a relationship; it does not prove a universal sovereignty portfolio. A title can become a stable designation without losing all its ordinary uses.
 - **Cognacy is not interpretatio:** Greek Zeus, Latin Iuppiter, and Vedic Dyauṣ preserve related inherited material; they are not a simple chain of translations from one historical cult into the next (Mallory & Adams 2006).
 - A leading `*` marks reconstruction, not manuscript spelling. Preserve original-script witness, editorial transliteration, reconstructed form, and reader pronunciation as separate fields.
-- Specific origins proposed for names such as Apollo or Athena require an etymological source and competing analyses `(to-verify)`; this entry supplies no definitive derivation for them.
+- Specific origins proposed for names such as Apollo or Athena require an etymological source and competing analyses; this entry supplies no definitive derivation for them (declared open debt, not concealed uncertainty).
 
 ## 4. Epithet systems: grammar plus jurisdiction
 
@@ -153,7 +153,7 @@
 **Late Bronze Age Ugarit — title grammar and poetic epithets**
 - Language/writing: Ugaritic is Northwest Semitic; alphabetic cuneiform generally records consonantal structure, while syllabic Akkadian also occurs in the city’s written environment. Do not substitute Biblical Hebrew grammar without checking Ugaritic usage.
 - Myth/pantheon and symbols: El, Baal, Anat, and Athirat occur in the religious corpus; distinguish narrative relations from offering lists. Baal’s cloud-rider epithet is not a complete definition of his cult (Pardee 2002; Rahmouni 2008).
-- Era and material/dress: situate the archives in the Late Bronze Age before the city’s destruction around 1200 BCE. The conventional “Baal with Thunderbolt” stele offers horned-headdress and short-garment imagery; indigenous garment terms and image-to-fiber identifications remain `(to-verify)` here.
+- Era and material/dress: situate the archives in the Late Bronze Age before the city’s destruction around 1200 BCE. The conventional “Baal with Thunderbolt” stele offers horned-headdress and short-garment imagery; indigenous garment terms and image-to-fiber identifications remain unverified here (declared gap, see Open debt).
 - Naming: `bʿl` can be an ordinary title as well as a divine designation. Record local referent, phrase construction, and witness; the English capital “Baal” is an editorial convenience, not a Ugaritic grammatical marker.
 - Take/caution: port a productive title plus inherited poetic diction. Court/temple archives and damaged tablets unevenly preserve practice; knowledge here is thin on everyday regional speech and garment nomenclature. Ugarit is not a transcript of all “Canaanite religion.”
 
@@ -205,5 +205,5 @@
 - **Evidence hierarchy is question-dependent:** an inscription can establish local wording but not everyone’s beliefs; a hymn can establish poetic usage but not a statute; a statute can prescribe avoidance without demonstrating compliance.
 - **Bias calibration:** Roman accounts privilege outside elite categories; court and temple corpora privilege literate institutions; modern comparative labels can reproduce imperial/colonial flattening. Missing vernacular and non-elite testimony is a limit, not permission to invent it.
 - **Verification boundary:** direct passage checks here cover Tacitus’ Latin §43, the cited Mishnah passages, and JPS Exodus 3:14/28:36; the Parker review, SBL record, and Yale catalogue support bibliographic/contextual checks, not a claim to have collated every printed edition or ancient witness.
-- **Open debt:** exact Apollo/Athena derivations are not supplied; Ugaritic garment terminology and specific textile identifications remain `(to-verify)`. Egyptian, South Asian, African, and Indigenous American naming traditions are outside this entry’s evidential coverage, not presumed to follow this sample.
+- **Open debt:** exact Apollo/Athena derivations are not supplied; Ugaritic garment terminology and specific textile identifications remain unverified (declared open debt). Egyptian, South Asian, African, and Indigenous American naming traditions are outside this entry’s evidential coverage, not presumed to follow this sample.
 - **Handoff boundary:** offer causal mechanisms, reference comparisons, and explicit alternatives. Which gods exist, which names are effective, which identities are accepted, and which dress rules bind fictional societies remain lore-shokunin’s canon decisions.

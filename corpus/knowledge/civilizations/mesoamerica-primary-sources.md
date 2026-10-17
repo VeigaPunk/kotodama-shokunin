@@ -1,0 +1,162 @@
+# Mesoamerican primary sources — codices, indigenous-language texts, and epigraphy beyond the colonial chronicle
+- topic: what actually survives of Mesoamerican languages, myth, and material culture beyond Spanish-authored chronicles — the surviving codex inventory and its holdings, indigenous-language alphabetic sources, early grammars and dictionaries, modern epigraphic and digital corpora — with the provenance cautions (facsimile chains, unprovenanced objects, dating horizons, colonial mediation) required before any of it seeds a design record; a reference map for the four Mesoamerican bases in this directory, method only, never fictional canon.
+- sources:
+  - [SLUB] Sächsische Landesbibliothek — Staats- und Universitätsbibliothek Dresden. *The Dresden Maya Codex* (Codex Dresdensis; shelf mark Mscr.Dresd.R.310 widely cited, not re-checked on the object page this pass) and "Other Maya codices." [Dresden Codex](https://www.slub-dresden.de/en/explore/manuscripts/the-dresden-maya-codex/), [other codices](https://www.slub-dresden.de/en/explore/manuscripts/the-dresden-maya-codex/other-maya-codices). Inspected 2026-10-17: the "other codices" page supplied the Códice Maya de México chain (Saenz purchase, Grolier Club 1971, transfer to Mexico 1974); the site's dating wording was not transcribed as a fixed range here.
+  - [S18] Solís, Corina, Miguel Ángel Martínez Carrillo, María Rodríguez-Ceja, Efraín Rafael Chávez-Lomelí & José Andrés Christen (2018), "Datación del Códice Maya de México con radiocarbono y espectrometría de masas con aceleradores," in Sofía Martínez del Campo Lanz (coord.), *El Códice Maya de México, antes Grolier*, Secretaría de Cultura / INAH, pp. 109–117; INAH's authentication announcement (30 August 2018) was reported by [La Jornada, 31 August 2018](https://www.jornada.com.mx/2018/08/31/cultura/a02n1cul). Bibliographic details web-verified in this pass; the volume itself was not inspected (to-verify).
+  - [SN16] Snijders, Ludo, Tim Zaman & David Howell (2016), "Using hyperspectral imaging to reveal a hidden precolonial Mesoamerican codex," *Journal of Archaeological Science: Reports* 9: 143–149, [doi:10.1016/j.jasrep.2016.07.019](https://doi.org/10.1016/j.jasrep.2016.07.019). Record and press coverage inspected; full text (to-verify).
+  - [PUL] Princeton University Library, *Digital PUL*: "Book of the Chilam Balam of Chumayel, [between 1775 and 1800]" (Princeton Mesoamerican Manuscripts, C0940 no. 4; acquired 1968). [Manuscript record](https://dpul.princeton.edu/mesoamerican/catalog/0z708w51x). Inspected 2026-10-17; the commonly cited 1782 compilation date inside the volume is (to-verify).
+  - [FC] Sahagún, Bernardino de, with Nahua collaborators (manuscript completed 1577), *Florentine Codex: General History of the Things of New Spain*, Biblioteca Medicea Laurenziana, Florence; consult via the Getty Research Institute's [Digital Florentine Codex](https://www.getty.edu/projects/florentine-codex/). Cited as already registered in `mexica-aztec.md`; digital-edition editor credits (to-verify).
+  - [MAYA] Kettunen, Harri & Christophe Helmke (2020), *Introduction to Maya Hieroglyphs*, 17th revised ed., Wayeb; Houston, Stephen, John Robertson & David Stuart (2000), "The Language of Classic Maya Inscriptions," *Current Anthropology* 41(3): 321–356. Carried over from `maya-classic.md`, which records the inspection limits.
+  - [CMHI] *Corpus of Maya Hieroglyphic Inscriptions*, Peabody Museum of Archaeology and Ethnology, Harvard University (Ian Graham and successors, from 1975; project goal of over 200 sites and 2,000 monuments, per publisher copy). Series identity checked through independent review listings in this pass; online-archive status (to-verify).
+  - [TWKM] *Textdatenbank und Wörterbuch des Klassischen Maya* (TWKM), Universität Bonn / Nordrhein-Westfälische Akademie der Wissenschaften und Künste, from 2014, directed by Nikolai Grube; portal [classicmayan.org](https://classicmayan.org/). Institutional project description and coordinator (Christian Prager) inspected 2026-10-17; project end date (to-verify).
+  - [OLM] `olmec.md`, source key and §"Epi-Olmec case file": Justeson & Kaufman (1993, *Science* 259: 1703–1711); Houston & Coe (2003, *Mexicon* 25(6): 151–161); Macri (2017), Glyph Dwellers Reports 51–53 (Maya Hieroglyphic Database Project); Rodríguez Martínez et al. (2006, Cascajal Block, *Science*); Mora-Marín (2020, *Ancient Mesoamerica* 31(2): 210–229). Citation trail reused as recorded there; not independently re-verified in this pass.
+  - [ZAP] `zapotec-mixtec.md`, source key: Urcid (2005, FAMSI *Zapotec Writing*); Terraciano (2001); Lillehaugen et al. (2017, [Ticha](https://ticha.haverford.edu/en/vocabulary/)); Jansen & Pérez Jiménez (2011); Pohl (1994; FAMSI guides n.d.); Nuttall, ed. (1902); Williams (2013). Reused for all Oaxaca holdings and cautions.
+  - [MEX] `mexica-aztec.md`, source key: Lockhart (1992, 2001); Karttunen (1992); Berdan & Anawalt, eds. (1992), *The Codex Mendoza*; Chimalpahin, ed. Anderson & Schroeder (1997); Wired Humanities Projects, [*Online Nahuatl Dictionary*](https://nahuatl.wired-humanities.org/). Reused for the Nahua documentary corpus.
+  - [POP] Christenson, Allen J. (2003; Mesoweb electronic version 2007), *Popol Vuh*, as registered in `maya-classic.md`; the surviving text is Francisco Ximénez's early-eighteenth-century transcription, held at the Newberry Library, Chicago (Ayer MS 1515) — holding (to-verify).
+  - [BOO] Boone, Elizabeth Hill (2007), *Cycles of Time and Meaning in the Mexican Books of Fate*, University of Texas Press, ISBN 978-0-292-71263-8; publisher record inspected 2026-10-17. Standard study of the divinatory screenfold genre (Borgia Group) and its interpretive limits.
+  - [LND] Landa, Diego de, *Relación de las cosas de Yucatán* (c. 1566), ed. Alfred M. Tozzer (1941), Papers of the Peabody Museum of Archaeology and Ethnology 18. Cited for the 1562 Maní book destruction and the "alphabet" episode; edition details (to-verify).
+  - [MIC] *Relación de Michoacán* (completed 1539–1541, attributed to Fray Jerónimo de Alcalá), Real Biblioteca del Monasterio de San Lorenzo de El Escorial, MS C-IV-5; commissioned for and dedicated to Viceroy Antonio de Mendoza; catalog and facsimile records web-verified 2026-10-17; critical editions (to-verify).
+  - [AILLA] Archive of the Indigenous Languages of Latin America (AILLA), University of Texas at Austin, LLILAS Benson, a DELAMAN network member; [ailla.utexas.org](https://www.ailla.utexas.org/), platform relaunched 2024. Inspected 2026-10-17.
+  - [CARE] Carroll, Stephanie Russo, Ibrahim Garba, Oscar L. Figueroa-Rodríguez et al. (2020), "The CARE Principles for Indigenous Data Governance," *Data Science Journal* 19: article 43, [doi:10.5334/dsj-2020-043](https://doi.org/10.5334/dsj-2020-043); registered as KTD-S-0004 in `../verification/citation-format-and-source-registry.md`.
+  - [MB13] Miller, Mary & Claudia Brittenham (2013), *The Spectacle of the Late Maya Court: Reflections on the Murals of Bonampak*, University of Texas Press, ISBN 978-0-292-74436-3; publisher and author records web-verified 2026-10-17. Bonampak mural dating (dedication 791 CE) is standard.
+  - [SB06] Saturno, William, David Stuart & Boris Beltrán (2006), "Early Maya Writing at San Bartolo, Guatemala," *Science* 311(5765): 1281–1283, [doi:10.1126/science.1121745](https://doi.org/10.1126/science.1121745). Bibliographic identity web-verified 2026-10-17.
+  - Evidence boundary: links and bibliographic records above were checked on 2026-10-17; where a claim rests on a work not read in this pass, it carries `(to-verify)` at that claim. Repository shelf marks and dates not directly re-checked are flagged rather than asserted.
+- couples: the four Mesoamerican bases in this directory — `maya-classic.md`, `mexica-aztec.md`, `zapotec-mixtec.md`, `olmec.md` (this entry supplies their source-criticism layer); language — `../linguistics/{writing-systems,historical-linguistics,language-contact,orality-formulaic-language,sociolinguistics-registers}.md`; myth/symbol — `../myth-symbol/{comparative-frameworks,motif-index-usage,symbolism-synthesis-method}.md`; era/material — `../culture-material/{material-culture-inference-method,era-periodization-models,textile-technology}.md`; verification — `../verification/{to-verify-triage-protocol,citation-format-and-source-registry}.md`; sibling interface — `../synthesis/worldbible-integration-contract.md`; lore-shokunin alone owns canon.
+
+## 1. Scope: what counts as a primary source here
+- **Primary source** in this entry means an object or text produced by Mesoamerican actors, or a record made directly from them: inscriptions, painted books, lienzos, alphabetic documents in indigenous languages, early missionary grammars/dictionaries, and — for living languages — modern field recordings.
+- **The colonial chronicle is not the baseline.** Spanish-authored histories (Sahagún's Spanish column, Durán, Torquemada, Landa) are one filter among several; this entry inventories the filters they have been standing in for.
+- Keep four evidence horizons apart: (a) pre-Hispanic objects and inscriptions; (b) colonial-period documents written by Indigenous authors or in Indigenous languages; (c) Spanish-authored chronicles and missionary records; (d) modern epigraphy, archaeology, archives, and living-language documentation.
+- The boundary between (a) and (b) is a spectrum, not a wall: most surviving "codices" are colonial-period productions that continue older genres (`zapotec-mixtec.md`, "Era model"); do not let a colonial production date erase a pre-Hispanic content horizon — or the reverse.
+- "Codex" is a Spanish-era label applied loosely to screenfold books, lienzos (cloth), and tiras; format is evidence of genre and use, not of ethnicity (`culture-material/material-culture-inference-method.md` §3, material constraints).
+
+## 2. The surviving codex inventory
+| Manuscript / group | Tradition and genre | Holding | Usual dating | Provenance caution |
+|---|---|---|---|---|
+| Codex Dresdensis (Dresden) | Maya; screenfold, astronomical/divinatory tables | SLUB Dresden | commonly 11th–13th c.; exact range (to-verify) [SLUB] | The least contested pre-Hispanic book; cite the digital surrogate and folio, not a redrawn plate |
+| Codex Tro-Cortesianus (Madrid) | Maya; almanacs, divination | Museo de América, Madrid | Postclassic (to-verify) | Named after two separately acquired fragments later joined; custody history shapes what pages exist |
+| Codex Peresianus (Paris) | Maya; divinatory almanacs, fragmentary | Bibliothèque nationale de France | Postclassic (to-verify) | Traditional "found in a chimney" story and poor condition; treat page-level readings as edition-specific |
+| Códice Maya de México (ex-Grolier) | Maya; Venus almanac | Museo Nacional de Antropología, Mexico City | radiocarbon 1021–1154 CE [S18] | Decades of authenticity dispute: allegedly cave-found in Chiapas, bought by collector Josué Saenz 1965, shown at the Grolier Club 1971, to Mexico 1974, authenticated by INAH 2018 [SLUB; S18] — the model case of "unprovenanced until re-examined" |
+| Borgia Group (Borgia, Vaticanus B, Fejérváry-Mayer, Laud, Cospi) | Divinatory/ritual screenfolds | Vatican Library; World Museum Liverpool; Bodleian Library; University of Bologna | Late Postclassic, pre/early-colonial production debated (contested) [BOO] | "Borgia Group" is a modern stylistic label, not a people; place of manufacture (Puebla–Tlaxcala, Mixtec, or other) is disputed [BOO] |
+| Mixtec group (Nuttall, Bodley, Vindobonensis, Selden, Colombino-Becker) | Dynastic histories, genealogies, place signs | British Museum; Bodleian Library; Austrian National Library; Bodleian; Mexico + Vienna (split manuscript) | mostly 16th-c. productions of older programs (to-verify) [ZAP] | Selden/Codex Añute is a palimpsest: hyperspectral imaging recovered a hidden earlier text under gesso that does not match the other Mixtec books [SN16] — proof the surviving corpus is not a closed set |
+| Nahua histories, tribute lists, ritual books (Codex Mendoza, Borbonicus, Telleriano-Remensis/Ríos, Matrícula de Tributos) | Tribute, annals, divination | Bodleian; Assemblée nationale (Paris); BnF/Vatican; Museo Nacional de Antropología (to-verify) | 16th c., colonial production with pre-Hispanic content [MEX] | Made with or for Spanish patrons, glossed by friars and scribes; compare Nahuatl, Spanish, and image columns instead of trusting one |
+| Lienzos and cartographic histories (Quauhquechollan, Tlaxcala, Coixtlahuaca) | Cloth maps/migration-conquest accounts | dispersed; Quauhquechollan at Universidad Francisco Marroquín (to-verify); Tlaxcala original lost (to-verify) | 16th c. | Originals often lost; the copy chain is the evidence — record which copy you cite [ZAP] |
+
+- Strictly pre-Hispanic book production is attested for the four Maya screenfolds and argued — not settled — for parts of the Borgia Group [SLUB; BOO].
+- Every "codex" name is a modern convenience (owner, collector, or library), not an indigenous title; do not build a fictional title system from these labels.
+
+## 3. Why the archive looks like this: loss, selection, and the copy chain
+- Destruction is documented but its scale is not recoverable: the 1562 Maní auto-da-fé in Yucatán is reported by Landa [LND]; the story that Itzcoatl ordered old paintings burned comes from colonial-era Nahua annals and is a chronicle-internal political-memory claim (to-verify), not an archaeological count.
+- Material survival is selective: gessoed amate paper and deer hide can survive dry conditions; cloth, cordage, featherwork, and wood mostly do not — the "missing majority" of perishable culture (`culture-material/material-culture-inference-method.md` §2, Hurcombe 2014; §3, formation processes).
+- The nineteenth-century facsimile industry (Lord Kingsborough's *Antiquities of Mexico*, 1831–1848; the 1902 Nuttall facsimile built from commissioned copies [ZAP]) sits in the middle of the evidence chain: lithographs and redrawings are interpretive works, not neutral witnesses.
+- Modern access is a surrogate layer: digital facsimiles (Dresden, Paris, Princeton, INAH viewers, Getty's Florentine Codex) widen inspection but do not replace object examination; cite the surrogate's edition and folio.
+- Consequence for design: any fictional "rediscovered archive" should carry the same three seams — loss bias, copy chain, surrogate layer — or it reads as a wishlist, not a record.
+
+## 4. Indigenous-language alphabetic sources
+| Corpus / text | Language and medium | Custody | Genre | Use and caution |
+|---|---|---|---|---|
+| Florentine Codex | Nahuatl + Spanish + images; 1577 | Biblioteca Medicea Laurenziana | Ethnographic/doctrinal compilation | Nahua testimony, formal speech, images; the three columns are not always equivalent translations; Sahagún edited [FC; MEX] |
+| Codex Mendoza and related tribute books | Nahuatl glosses + Spanish + images | Bodleian (Mendoza) | Tribute, history, education | Narrates an imperial claim for a Spanish viceroy; read as negotiated record [MEX] |
+| Nahua annals and title documents (Chimalpahin, títulos primordiales, municipal records) | Nahuatl, alphabetic | dispersed archives (BnF, Bodleian, community and national archives; to-verify) | Annals, migration charters, land titles | Local-interest narratives and legal framing; "New Philology" reads them as primary without calling them transparent [MEX, Lockhart 1992] |
+| Books of Chilam Balam | Yucatec Maya, alphabetic | e.g., Chumayel C0940 no. 4 and Kaua at Princeton; others dispersed | Prophecy, medicine, history miscellanies | 18th–19th-c. copies of older compilations: copy date ≠ content horizon [PUL] |
+| Popol Vuh | K'iche' Maya, alphabetic | Ximénez transcription, Newberry Library (to-verify) | Narrative scripture | Survives only through a Dominican friar's early-18th-c. copy; composition date and authorship debated (to-verify) [POP; MAYA] |
+| Kaqchikel and highland Maya annals/titles (Memorial de Sololá, Título de Totonicapán) | Kaqchikel, K'iche' | copies in Guatemala and abroad (to-verify) | Annals, dynastic titles | Colonial legal framing; surviving copies late (to-verify) |
+| Rabinal Achí | K'iche', recorded 19th c. | Brasseur de Bourbourg transcription; UNESCO recognition (to-verify) | Dance-drama performance text | Performance tradition is living; treat the recorded text as one moment of it |
+| Cantares Mexicanos / Romances de los señores | Nahuatl, alphabetic | BnF; University of Texas at Austin (to-verify) | Song compilation | Missionary-era compilation; the "ghost songs" interpretation is contested (to-verify) [MEX] |
+| Zapotec and Mixtec documents | Valley Zapotec etc.; alphabetic | Ticha (Haverford) and community/archive collections [ZAP] | Legal, religious, community records | Earliest alphabetic attestation of Otomanguean languages; spelling varies locally [ZAP] |
+| Relación de Michoacán | Spanish frame with Purépecha terms and songs | El Escorial | Ethnography of the Tarascan realm | Friar-authored from informants; the Purépecha vocabulary is still testimony [MIC] |
+- Rule: an indigenous-language text is **primary for the language and genre it documents**, not automatically a window onto pre-1521 practice; colonial genres (petition, catechism, title) structure what could be said.
+- Convenience test for design: could this scene exist in a colonial courtroom, mission school, or town council? If yes, the document's content is inside colonial institutions even when its language is indigenous.
+
+## 5. Early grammars and dictionaries as linguistic documentation
+| Work | Language | Date | Use and caution |
+|---|---|---|---|
+| Córdova, *Arte y vocabulario* | Zapotec | 1578 | Earliest systematic Zapotec record; entries carry dated attestations through Ticha [ZAP] |
+| Molina, *Vocabulario en lengua castellana y mexicana* | Nahuatl | 1555/1571 (to-verify) | Foundation of Nahuatl lexicography; Latin categories imposed on the analysis [MEX] |
+| Motul dictionary tradition | Yucatec Maya | 16th–17th-c. manuscripts (to-verify) | Standard colonial lexical record; manuscript and copy history matters [PUL] |
+- Missionary linguistics is data and filter at once: it preserved paradigms and vocabulary while selecting for catechism, confession, and legal use (`linguistics/sociolinguistics-registers.md` register ecology).
+- Use such works as **attestation corpora** (what form, in what text, at what date), not as a grammar for an earlier spoken stage (`linguistics/historical-linguistics.md` §6, dating stages).
+
+## 6. Modern epigraphy, archaeology, and living-language archives
+| Corpus/class | Coverage | Status | Caution |
+|---|---|---|---|
+| Maya epigraphy (CMHI, TWKM/classicmayan.org, Wayeb handbook, Glyph Dwellers, Mesoweb/FAMSI material) | Classic inscriptions: dynastic texts, dates, ritual statements | Partially deciphered at sentence level — the only Mesoamerican script that is [MAYA; CMHI; TWKM; OLM] | Glyph readings are edition-specific; logogram/syllable values carry source tags, not universal certainty |
+| Isthmian/Epi-Olmec (Tuxtla Statuette, La Mojarra Stela 1) | ~150 CE texts from the Gulf lowlands | Decipherment claimed by Justeson & Kaufman 1993, challenged by Houston & Coe 2003; unresolved (contested) [OLM] | Do not quote "readings" without both sides of the dispute |
+| Olmec Cascajal Block | 62-sign single object, early first millennium BCE | Unprovenanced find from disturbed road fill; "oldest writing" claim disputed (contested) [OLM] | Single-object scripts prove nothing by themselves; keep the find context with the claim |
+| Zapotec script | Monte Albán and earlier monuments, ~600 BCE onward | Calendrics, names, and formats partly read; not a phonetic sentence corpus [ZAP] | Monument programs are political genres, not archives |
+| Nahua pictorial writing | Name/place/date signs, tribute and history books | Semasiographic + partial phonetic devices; not a full script for sentences [MEX; BOO] | "Pictographic" is not a license to treat images as free-floating symbols |
+| Material image corpora (mural painting, polychrome vessels, stone sculpture) | Bonampak 791 CE [MB13]; San Bartolo murals and early writing [SB06]; Teotihuacan murals; Oaxaca tomb programs [ZAP] | Direct visual evidence of ensembles and scenes | Pictures document depicted conventions, not inventories of what everyone owned — read visible form at L1 and identity/meaning at L6–L8 of the inference ladder, never as one class (`culture-material/material-culture-inference-method.md` §2 ladder, §5 failure modes) |
+| Living-language documentation (AILLA and comparable archives) | field recordings, texts, multimedia in current languages | Active, growing, community-governed | Speakers and communities hold rights and authority: CARE principles, access protocols, and consent before reuse [CARE; AILLA] |
+
+## 7. What each source class can and cannot prove
+| Class | Can support | Cannot establish alone |
+|---|---|---|
+| Royal inscriptions and monuments | Attested claims (a king says he did X; a rite is depicted), dynastic order, calendrical anchors | The beliefs of an entire population; truth of supernatural claims [MAYA §1 attestation/interpretation/analogy] |
+| Divinatory screenfolds (Borgia Group, almanacs) | Ritual-calendar genres, mantic programs, a deity/force repertoire | A single narrative mythology; origin and date are contested [BOO] |
+| Highland alphabetic narratives (Popol Vuh, Chilam Balam, Cantares) | Colonial-era literary-theological programs; how older matter was compiled | A transcript of pre-Hispanic oral performance — textualization transforms tradition (`linguistics/orality-formulaic-language.md` §9) |
+| Indigenous-language legal/admin documents | Colonial institutions in indigenous idiom; dated language attestation | Pre-conquest speech and custom as unchanged survivals [MEX] |
+| Early dictionaries/grammars | Dated lexical attestations; semantic fields as recorded | Phonetic truth about earlier stages (`linguistics/historical-linguistics.md` §8 calibrations) |
+| Murals, ceramics, sculpture | Depicted ensembles, scenes, media (L1–L3 ladder) | What commoners wore; unstated meanings (L6–L8 need convergence, not one image) |
+| Myth texts as myth | The genre's own claim to authority | Historicity; and comparison across traditions needs calibration (`myth-symbol/comparative-frameworks.md` §7) |
+
+## 8. Provenance cautions (working checklist)
+1. **Copy chain first.** For every book, name the object, the edition/facsimile, and the surrogate actually inspected; Kingsborough-era lithographs and 1902-style commissioned copies are interpretive works [ZAP].
+2. **Unprovenanced ≠ forged, and both need the same discipline.** The Códice Maya de México moved from "collector object" to radiocarbon-authenticated INAH holding [S18]; the Cascajal Block remains a single unprovenanced object with a contested script claim [OLM]. Record the re-examination that settled — or left open — the question.
+3. **Four dates, kept apart:** object production, content/event, copy/edition, and modern interpretation (mirrors `culture-material/era-periodization-models.md` §11 and `synthesis/worldbible-integration-contract.md` §7).
+4. **Colonial mediation is structure, not noise.** Friars, courts, and tax offices shaped which genres exist; "all Spanish invention" and "untouched native voice" are both wrong defaults [MEX; ZAP].
+5. **Elite and genre bias.** Ruling-house genealogies and monumental programs overrepresent the powerful; women and commoners surface rarely and obliquely [ZAP; MEX].
+6. **Labels are modern umbrellas.** "Maya," "Mixtec," "Aztec," "Borgia Group" are scholarly groupings; none is a single people, language, or style [BOO; ZAP].
+7. **Language ≠ practice.** Nahuatl served as a colonial prestige language across non-Nahua communities; spoken language, scribal language, and depicted practice can diverge (`linguistics/language-contact.md` §9 linguistic areas; §11 design moves).
+8. **Living sources have owners.** Consult communities; respect archive access rules and CARE [CARE; AILLA].
+9. **Press-cycle claims.** "Lost codex found" headlines compress decades of scholarship; read the edition, not the announcement.
+10. **Counts drift.** Sign inventories and corpus statistics change between editions; re-check numbers before quoting them (this entry leaves several such numbers `(to-verify)`).
+
+## 9. Source-criticism protocol (use before seeding any design record)
+- Ledger fields: `object | genre | language | script | holding | edition/surrogate | production-date | event/content-date | copy-date | provenance | authentication status | citation trail | (to-verify) items`.
+- Procedure: (1) locate object and edition; (2) identify genre and its conventions; (3) fix the four date fields; (4) separate attestation / interpretation / analogy (per `maya-classic.md` §1); (5) test the claim against a second, independent source class; (6) mark unresolved points `(to-verify)` with the missing check; (7) hand off, never canonize (`../verification/to-verify-triage-protocol.md` §2 intake; `../verification/citation-format-and-source-registry.md` §2 citation syntax).
+- Minimum-source table for common claim types:
+
+| Design claim | Minimum evidence before use |
+|---|---|
+| A named ruler / dated event | One inscription or document + one independent line (second manuscript, monument, or archaeology) |
+| A ritual (sequence, participants) | Image corpus + genre text; still interpretive (L7–L8) — mark as institutional claim, not world-fact |
+| A garment ensemble | Depicted scene + material/technique evidence; never one image alone [MB13; `culture-material/textile-technology.md`] |
+| A lexical item | Dated attestation with edition locator; do not modernize silently [ZAP; MEX] |
+| A mythic narrative | Text edition + genre/performance frame; keep variant versions visible (`myth-symbol/motif-index-usage.md` motif discipline) |
+
+## 10. Calibration
+- **Established (B, bounded):** four Maya screenfolds survive [SLUB]; the Selden palimpsest reanalysis [SN16]; Maya script is logosyllabic and partially readable at sentence level [MAYA]; 1562 Maní destruction is documentary fact, magnitude unknown [LND]; large indigenous-language colonial corpora exist and are actively edited [MEX; ZAP]; community-governed language archives operate [AILLA].
+- **Contested (C):** Borgia Group place and pre- or post-conquest production [BOO]; Isthmian decipherment [OLM]; Cascajal Block as writing and its reading [OLM]; Popol Vuh composition date and authorship (to-verify) [POP]; Cantares "ghost songs" reading (to-verify); exact dates for the Dresden, Madrid, and Paris books (to-verify).
+- **Rejected/discredited as defaults (R):** "Maya glyphs are pure pictographs with no phoneticism" (the pre-Knorozov position — see `../linguistics/writing-systems.md` §5); "surviving codices are a representative sample of pre-Hispanic books" (rejected by the destruction + survival evidence in §3); "indigenous-language documents are transparent native voice" (false dichotomy, §8.4).
+- **Heuristic (H):** reading colonial-period compilations "backward" into pre-Hispanic horizons — useful as a question generator when each step is evidenced; not a method that licenses direct reconstruction.
+- **Unresolved here (T):** shelf marks, repository attributions, and dates flagged `(to-verify)` throughout — resolve against the holding institution's catalogue before load-bearing use.
+
+## 11. Corpus couplings and handoff
+- Decision tables this entry applies, and what it feeds:
+  - `../linguistics/writing-systems.md` §5 (solved vs unsolved decipherments), §8 step 5 (the archive a script choice leaves behind) — this entry is the real-world archive behind that step.
+  - `../linguistics/orality-formulaic-language.md` §9 (textualization) — for Popol Vuh/Cantares cautions.
+  - `../linguistics/historical-linguistics.md` §6 (dating stages) — dictionaries as attestation vs inference.
+  - `../linguistics/language-contact.md` §9–§11 (areas, design moves) — colonial diglossia and mid-script-contact strata.
+  - `../culture-material/material-culture-inference-method.md` §2 (L1–L8 ladder), §3 (biography/formation), §5 (failure modes) — maps each source class onto canon tags.
+  - `../culture-material/era-periodization-models.md` §11 (era-name and dating vocabulary) — the four-date discipline.
+  - `../myth-symbol/comparative-frameworks.md` §7, `../myth-symbol/motif-index-usage.md` — comparative limits when using these texts as myth evidence.
+  - `../verification/to-verify-triage-protocol.md` §2–§3 and `../verification/citation-format-and-source-registry.md` §1–§2 — mark and citation discipline used above.
+  - `../synthesis/worldbible-integration-contract.md` §2 (provenance), §7 (era staging), §11 (acceptance checklist) — handoff path for any record derived from this entry.
+- The four Mesoamerican base entries (`maya-classic.md`, `mexica-aztec.md`, `zapotec-mixtec.md`, `olmec.md`) keep their own claims; this entry adds the source-inventory and provenance layer without editing any of them.
+- Handoff: lore-shokunin receives candidate mechanisms and their evidence status; deeper source discovery goes to chousa-shokunin; contested scope goes to the integrator.
+
+## 12. What a worldbuilder can take
+1. **Archive ecology, not a prop list.** Choose what a fictional culture writes on, who keeps it, and what future scholars could recover from the survival/selection logic in §3 (`../linguistics/writing-systems.md` §8 step 5).
+2. **An authenticity arc with real mechanics.** Unprovenanced object → decades of doubt → technical re-examination → accepted or still open (the §2 Grolier/Cascajal contrast).
+3. **A palimpsest or a split manuscript** as a plot-grade archive object: Selden's hidden text and Colombino-Becker's split pages are checkable real mechanisms [SN16; ZAP].
+4. **Rival archives of one event** — two manuscripts whose competing emphases are both primary (the Mixtec manuscript-comparison method in `zapotec-mixtec.md`).
+5. **Late script adoption, staged honestly.** A culture adopting a foreign script acquires genres with it (petition, catechism, chronicle) and may run pictorial and alphabetic media in parallel for generations — the Mesoamerican colonial case generalized (`../linguistics/language-contact.md` §11).
+6. **A source-criticism scene kit.** Give in-world scholars the §9 ledger fields; their disagreements become evidence of method, not authorial vagueness.
+7. **Living-source ethics as world-content.** Access rules, community authority, and restricted archives are designable institutions [CARE; AILLA], not just real-world compliance.
+8. **Spine-neutral by construction.** This entry is a real-world reference base and prescribes no culture; design lanes (including any highland-pastoralist or other spine culture) may couple its record-ecology and provenance mechanisms to their own systems without importing Mesoamerican content. Comparative use of the four base entries stays calibration-gated.
+
+## Provenance cautions and known gaps
+- This entry is a reading map: several works above are registered at bibliographic level only and are marked `(to-verify)`; do not cite them at a finer granularity than was checked here.
+- Known open items carried forward: exact dates for Dresden/Madrid/Paris; Borgia Group place of manufacture; Isthmian and Cascajal status updates; Newberry and other repository attributions flagged above; Motul/Molina edition details; the CMHI online-archive status and TWKM project end date; Rabinal Achí recognition year; Quauhquechollan holding; full catalogue of the colonial Nahuatl corpus.
+- The corpus frontier this entry addresses is recorded in `corpus/README.md` §"Known gaps (frontier)" ("Mesoamerican and African civilizations lean on colonial-era chronicles; primary-source recovery is a standing frontier"); this entry closes the Mesoamerican half of that line at inventory level, not at exhaustive-catalogue level.
+- **Canon boundary:** no claim here is canon, and no real tradition is described as a fictional design. Design use of this entry is limited to the mechanical levers in §12; every historical claim remains reference knowledge with its stated calibration. Canon recording and consistency verification belong to lore-shokunin; entries end at the handoff.

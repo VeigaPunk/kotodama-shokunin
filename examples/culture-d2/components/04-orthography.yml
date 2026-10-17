@@ -1,0 +1,560 @@
+# examples/culture-d2/components/04-orthography.yml
+# D2 design drill — orthographic system component (write worker, round 3).
+# Non-canon. No real culture is described; every comparator is cited to a
+# corpus entry by path + section, never to invented scholarship.
+
+component: 04-orthography
+culture: D2
+canon: not canonized (D2 design drill)
+component_version: 0.1.0-drill
+scope: >-
+  D2's recording systems only: the pre-writing tally-knot ledger, the late script
+  borrowed from the lowland trade partner and its adaptation to D2 phonology, the
+  glyph inventory, orthographic rules, media and archive, and the literacy
+  institutions those imply. Phonology, morphosyntax, and the general lexicon are
+  CONSUMED interfaces, never authored here.
+follows:
+  - corpus/knowledge/linguistics/writing-systems.md §1 (typology), §2 (calibration),
+    §3.1-§3.4 (lineages), §4 (spread/reform/digraphia/literacy texture),
+    §5 (decipherment keys), §6 (script-to-phonology fit table, inventory
+    arithmetic, depth dial), §7 (conspect pitfalls), §8 (workbook)
+  - corpus/knowledge/synthesis/era-language-staging.md §4 (stage packets),
+    §5 (register strata; orthography-is-not-audio; script restriction vs
+    language restriction), §7 (label typing; name record), §8 (non-deterministic sync)
+  - corpus/knowledge/synthesis/loanword-material-dating.md §2 (separate clocks;
+    TPQ/TAQ), §3 (loan strata; ultimate etymon vs immediate donor vs carrier)
+  - corpus/knowledge/synthesis/contact-scenario-builder.md §2 (Thomason-Kaufman;
+    Haspelmath), §3 (contact dossier), §5 (loan-row minimum)
+  - corpus/knowledge/verification/phonology-sanity-gate.md §1 (stage x register
+    scoping), §3 (inventory comparison bands), §4 (no inference from inventory
+    to era/society), §5 (legality and allophony audit shape)
+  - corpus/knowledge/linguistics/conlang-methodology.md Stage 0 (culture brief as
+    spec), Stage 1 (inventory baselines), Stage 2 (phonotactics)
+  - corpus/knowledge/linguistics/phonetics-phonology.md §6 (Hyman 2006 prosody
+    typology; tonogenesis), §7 (whistled speech as a solid environment coupling)
+  - corpus/knowledge/linguistics/historical-linguistics.md §6 (relative chronology),
+    §9 (names as fossils; strata table)
+  - corpus/knowledge/linguistics/orality-formulaic-language.md §8 (register design),
+    §9 (textualization), §10 (calibration)
+  - corpus/knowledge/culture-material/era-periodization-models.md §1 (emic vs etic),
+    §2 (typology), §3 (era-name craft rules), §4 (seam logistics),
+    §5 (calendar as loyalty)
+  - corpus/knowledge/synthesis/worldbible-integration-contract.md §3 (ownership
+    decision table), §4 (envelope fields), §5 (payload minimums), §6 (claim kind
+    vs evidence vs canon), §7 (era staging without a universal ladder)
+
+# ---------------------------------------------------------------- spine ----
+spine:
+  declared: >-
+    Verticality (high/low, ascent/descent, seasonal poles) and wind (breath,
+    soul-carrier, storm law). The record systems below are built so that the
+    vertical axis of the writing surface and the wind that reads it are
+    meaning-bearing, not decorative.
+  coupling_rules:
+    - id: SP-1
+      rule: >-
+        Sign geometry uses the vertical axis. Vowel marks for front vowels sit
+        ABOVE the letter, back vowels BELOW; the inherent vowel /a/ is unmarked
+        and is glossed in-culture as "plain air".
+      follows: [writing-systems.md §3.3 (matra placement in real abugidas), §7.3 (ductus and baseline logic)]
+    - id: SP-2
+      rule: >-
+        Text runs DOWNWARD in columns; blocks of columns are read as a descent
+        from the head of the record to its foot. Column order differs by medium
+        (bark-strips left-to-right, stelae right-to-left as archaic donor memory).
+      follows: [writing-systems.md §4 (scripts travel and turn 90 degrees; Aramaic-to-Manchu chain)]
+    - id: SP-3
+      rule: >-
+        The tally's positional semantics are the transhumance poles: low rung of
+        the cord = valley-shelter account, high rung = high-pasture account, and
+        the order of magnitude climbs with the ascent.
+      follows: [writing-systems.md §7.6 (numerals as missing plumbing), §1 (semasiography is not writing)]
+    - id: SP-4
+      rule: >-
+        Wind is procedural: a record gains authority only by standing a full
+        season on the open frame ("wind-tested"); the storm season is the annual
+        audit that unwinds failed records.
+      follows: [era-periodization-models.md §4 (transition seams as designed logistics), celestial-symbolism-calendars.md §8 (whoever declares the cycle owns the count)]
+    - id: SP-5
+      rule: >-
+        The whistle register is the long-distance read-out: herders whistle
+        tallies and names across the valley, and the late reform makes accent
+        marks obligatory on names and numerals so a whistle cannot be
+        mis-recovered from the page.
+      follows: [phonetics-phonology.md §7 (whistled speech: mountains + long-distance herding), §6 (pitch prominence in long-distance ecology)]
+  non_import_guard:
+    - id: NG-1
+      rule: "No river, water, or flood imagery in D2 orthographic design, terminology, or emblems."
+      why: "D1's spine is river + binding; D2's declared spine is verticality + wind (task brief)."
+    - id: NG-2
+      rule: >-
+        The knot medium carries no binding/tying cosmology. Record authority words
+        are STAND (hurshi) and READ (waren); cut/untie vocabulary is
+        taboo-displaced, not foundational.
+      why: "D1's contrast profile; a knot is tool physics here, never a metaphysical key."
+    - id: NG-3
+      rule: >-
+        D2's script is NOT an alphabet. A full vowel-letter alphabet is D1's
+        profile and is rejected below on phonology-fit grounds as well.
+      why: "Contrast spine; writing-systems.md §6."
+    - id: NG-4
+      rule: "No D1 glyphs, sign names, or orthographic vocabulary are imported; the only modelled donor is the lowland trade partner L (unbuilt)."
+      why: "D1 is a separate fixture; cross-fixture borrowing is not designed."
+
+# ------------------------------------------------- phonology interface ----
+# Consumed, not authored. Reconcile with 02-phonology.yml at handoff; the
+# mapping rules are parameterized so a differing inventory re-derives.
+phonology_interface:
+  consumed_from: 02-phonology (shared key name: phonology)
+  interface_id: P-D2-PHON
+  interface_version: 0.1.0-assumed
+  status: assumed-interface; reconcile at handoff (to-verify)
+  consonants: "/p t k b d g m n s S r l j w h/ (15; spelled p t k b d g m n s sh r l y w h)"
+  vowels: "/a e i o u/ (5 qualities; no contrastive length)"
+  phonotactics: "(C)V(C); codas limited to /n l r s/; no onset clusters; no geminates"
+  tones: >-
+    pitch accent, not tone (Hyman 2006 type): one H per word, culminative;
+    H is usually initial and a minority class carries non-initial H, which the
+    script marks (to-verify: 02 owns the actual accent rule and any minimal pair).
+  notable_rules:
+    - "accent contrast is assumed to have arisen when an older coda contrast was reanalysed as pitch (tonogenesis path; phonetics-phonology.md §6)."
+    - "stress and reduction are not assumed; term forms below are drill placeholders built from this interface."
+  recompute_rule: >-
+    If 02 differs: (1) consonant letters := |C| classes; (2) vowel diacritics
+    := |V| - 1 (inherent vowel /a/); (3) if pitch accent is absent, delete glyph
+    G-P01 and the OR-4 accent obligation, and the mark degrades to a learned
+    non-initial stress mark; (4) if the coda set exceeds {n l r s}, re-run the
+    syllabary arithmetic of SD-1 before reopening a syllabary option.
+  follows: [writing-systems.md §6 (freeze the language first), §8.1; phonology-sanity-gate.md §1, §3]
+
+# ----------------------------------------------------------- records index --
+records:
+  - {id: T-01, block: tally, era: E1, summary: "standing frame", follows: [writing-systems.md §1, §7.9]}
+  - {id: T-02, block: tally, era: E1, summary: "lineage cord and spin parity"}
+  - {id: T-03, block: tally, era: E1, summary: "notch count and vertical magnitude"}
+  - {id: T-04, block: tally, era: E1, summary: "wind-test and storm audit"}
+  - {id: T-05, block: tally, era: E1, summary: "read-out orientation convention"}
+  - {id: SD-01, block: script_decision, era: E2, summary: "syllabary rejected on arithmetic"}
+  - {id: SD-02, block: script_decision, era: E2, summary: "abjad accepted as arrival form only"}
+  - {id: SD-03, block: script_decision, era: E2, summary: "abugida chosen as target shape"}
+  - {id: SD-04, block: script_decision, era: E2, summary: "alphabet rejected (contrast guard)"}
+  - {id: SD-05, block: script_decision, era: E2, summary: "logosyllabary rejected"}
+  - {id: SD-06, block: script_decision, era: E2, summary: "featural script rejected"}
+  - {id: SD-07, block: script_decision, era: E2, summary: "tallies-only option rejected by the trade document"}
+  - {id: SD-08, block: script_decision, era: E2, summary: "digraphia adopted (market hand vs pasture hand)"}
+  - {id: AD-01, block: adaptation, era: E2, summary: "arrival bound, not date"}
+  - {id: AD-02, block: adaptation, era: E2, summary: "rotation to vertical columns"}
+  - {id: AD-03, block: adaptation, era: E2, summary: "inherent vowel patch"}
+  - {id: AD-04, block: adaptation, era: E2, summary: "above/below vowel diacritics"}
+  - {id: AD-05, block: adaptation, era: E2, summary: "accent tick from the notch"}
+  - {id: AD-06, block: adaptation, era: E2, summary: "silent record mark (dead donor letter)"}
+  - {id: AD-07, block: adaptation, era: E3, summary: "native numerals kept; zero as empty rung"}
+  - {id: AD-08, block: adaptation, era: E3, summary: "word division and separators"}
+  - {id: OR-01..OR-08, block: orthography_rules, era: E2-E3, summary: "direction, division, registers, depth, readings"}
+  - {id: S-01..S-03, block: symbols, era: E1-E3, summary: "frame, breath mark, descending column"}
+  - {id: O-T01..O-T14, block: lexicon, era: E1-E3, summary: "orthography slice term ledger"}
+  - {id: G-00..G-TOTAL, block: glyph_inventory, era: E2-E3, summary: "sign classes and counts; 35 basic signs priced in LI-03"}
+  - {id: M-01..M-05, block: media_archive, era: E1-E3, summary: "bark, hide, stelae, donor archive; survival logic"}
+  - {id: LI-01..LI-04, block: literacy_institutions, era: E1-E3, summary: "cord-keepers become scribes; literacy price; hand families"}
+
+# --------------------------------------------------------------- eras ------
+eras:
+  - {id: E0, name: "tala war", gloss: "High Wind", note: "oral; no recording beyond memory and the muster (design)"}
+  - {id: E1, name: "sul war", gloss: "Notched Wind", note: "tally-knot ledger; the standing frame; cord-keepers emerge as an office"}
+  - {id: E2, name: "ashu war", gloss: "Wind of Columns", note: "borrowed script arrives up the salt road; adaptation begins"}
+  - {id: E3, name: "hurshi", gloss: "The Standing", note: "reform: standard vertical hand, obligatory marks, wind-book archive"}
+  - id: ERA-NOTE
+    rule: >-
+      E-labels are etic designer labels; the quoted names are emic era names and
+      are the culture's own count. Era seams fall at the ascent muster (spring),
+      not at a New Year; a lineage seat that keeps the lapsed count is signalling
+      a claim, the D2 analogue of calendar-as-loyalty.
+    follows: [era-periodization-models.md §1, §2, §3 (era-name craft rules), §5]
+
+# ----------------------------------------------------------- tally block ---
+tally:
+  - id: T-00
+    status: pre-writing recording system; declared NON-PHONETIC by this drill
+    calibration: >-
+      A cord-and-knot record is a recording technology, not a demonstrated
+      phonetic writing system; the in-world dispute over whether the tallies ever
+      "held speech" is modelled on the open quipu research question, and the drill
+      asserts neither side.
+    follows: [writing-systems.md §2 (quipu; no demonstrated phonetic encoding), §1 (semasiography class)]
+  - id: T-01
+    name: hur
+    gloss: "standing frame; the vertical staff array on which records hang"
+    design: >-
+      Three vertical staffs bound to a head-beam, rungs at fixed heights, erected
+      at the lineage seat and again at the summer pasture station. The frame is
+      the record's coordinate system before it is a piece of furniture.
+    follows: [writing-systems.md §7.9 (media physics), §1]
+  - id: T-02
+    name: sula
+    gloss: "a lineage's tally cord"
+    design: >-
+      Spun from that lineage's own wool; dye and ply identify the lineage, so the
+      pasture-right ledger is literally made of the herd it records. Spin
+      direction (pura) encodes the record's seasonal pole; a cord whose spin
+      contradicts its rung station is invalid on sight. One lineage, one cord
+      keeper.
+    follows: [writing-systems.md §7.5 (no homogeneity fallacy: per-holder registers), contact-scenario-builder.md §3 (who holds what)]
+  - id: T-03
+    name: sul
+    gloss: "notch; the counted unit"
+    design: >-
+      Units are notches cut with the cord-keeper's knife; a group of ten is
+      marked by a rung-crossing, and magnitude climbs UP the cord (low rung =
+      units, higher = tens, hundreds), reading with the ascent. Empty positions
+      are read as absence of account, i.e. the zero is positional, not a glyph.
+    follows: [writing-systems.md §7.6 (numerals), §6 (orthographic depth analog: positional vs sign value)]
+  - id: T-04
+    name: hurshi
+    gloss: "the standing; a wind-tested record"
+    design: >-
+      A ledger entry hangs on the open frame from ascent to descent muster. If no
+      challenger's counter-cord defeats it through the storm season, it is cited
+      as hurshi thereafter; a defeated cord is unwound (not destroyed) and
+      re-cut. Institutional consequence: the verification ritual is public,
+      seasonal, and weather-exposed, which is why the D2 phrase for reliable
+      testimony is "it stood".
+    belief: "B (attributed): the storm itself is said to test true records; the institution is real, the judgement is attributed to the wind."
+    follows: [era-periodization-models.md §4, worldbible-integration-contract.md §6 (belief vs fact)]
+  - id: T-05
+    name: waren
+    gloss: "the wind's reading; the read-out of a record"
+    design: >-
+      Ascent-season records are counted from the bottom rung upward;
+      descent-season records from the top downward. Reading a cord against its
+      recorded orientation is "reading downhill" and yields a wrong number by
+      construction: the orientation convention is the ledger's checksum.
+    follows: [writing-systems.md §7.6 (plumbing: conventions are part of the system), number-style positional logic in §1]
+
+# --------------------------------------------------- script decision table -
+script_decision:
+  - id: SD-00
+    method: >-
+      Step 0 freeze the language (02-phonology interface above), then score each
+      candidate type against D2's profile with the corpus fit table, computing the
+      inventory price before choosing.
+    follows: [writing-systems.md §6 (decision table; inventory arithmetic; depth dial), §8.2-§8.3]
+  - id: SD-01
+    candidate: syllabary
+    arithmetic: "(C+1) x (V+1) x (1 + coda classes) = 16 x 6 x 5 = ~480 signs for a faithful CV(C) syllabary"
+    verdict: rejected
+    reason: >-
+      A faithful syllabary prices at ~480 signs, and the lossy alternative
+      (CV-only) would misrepresent codas and say nothing about accent. Both the
+      learning cost and the distortion are unaffordable for a lineage-scale
+      society with no school apparatus.
+    follows: [writing-systems.md §6 (inventory arithmetic; syllabary trap), §7.4 (inventory denial), §7.2 (wrong typology)]
+  - id: SD-02
+    candidate: abjad (the donor's own shape)
+    verdict: accepted as arrival form, rejected as final form
+    reason: >-
+      Fits the donor's templatic morphology; hides exactly what D2 cannot hide
+      (five vowel qualities plus a culminative accent that distinguishes words).
+      It is what comes up the salt road, and it must be patched.
+    follows: [writing-systems.md §3.2 (a script carries the donor's blind spots), §6 (templatic roots -> abjad)]
+  - id: SD-03
+    candidate: abugida
+    verdict: chosen target shape
+    reason: >-
+      CV-heavy, cluster-light, small legal coda set: consonant letters carry an
+      inherent vowel, diacritics override it, and residual codas use the coda
+      letters directly. Base signs = 15 letters + 4 vowel marks; the accent mark
+      is a fifth layer. Sign count sits at the low end of the abugida band
+      because the inventory is moderately small.
+    follows: [writing-systems.md §3.3 (abugida mechanics), §6 (CV-heavy agglutinative-ish profile -> abugida), §1 (inventory bands)]
+  - id: SD-04
+    candidate: full alphabet (vowel letters as equals)
+    verdict: rejected on two grounds
+    reason: >-
+      Phonology-fit: an alphabet pays for itself with rich clusters and a large
+      vowel system, neither of which D2 has. Contrast spine: a vowel-letter
+      alphabet is precisely D1's profile, and D2 was not designed to converge on
+      it. The patch that D2 chose keeps vowels as marks, not letters.
+    follows: [writing-systems.md §6 (alphabet row), §2 (no teleology toward alphabets)]
+  - id: SD-05
+    candidate: logosyllabary
+    verdict: rejected
+    reason: >-
+      Requires a graph budget and a scribal bureaucracy D2 does not have
+      (clan-segmentary lineages, no central chancery). Graph price 2,500-3,500
+      for functional literacy is out of scale.
+    follows: [writing-systems.md §1 (inventory), §7.4, §4 (literacy cost by script)]
+  - id: SD-06
+    candidate: featural script
+    verdict: rejected
+    reason: "Featural design is historically near-unique; handing it to D2 would be overdesign, and it would also encode the accent system too neatly to be believed."
+    follows: [writing-systems.md §7.7 (featural overdesign), §2 ("most scientific script" rhetoric)]
+  - id: SD-07
+    candidate: keep tallies only, no script
+    verdict: rejected
+    reason: >-
+      The felt need is concrete and external: salt and dried-meat sales to lowland
+      farmers generate debt records the partner's own script already writes, and
+      pasture leases between lineages need recitable copies that outlive a
+      cord-keeper. Recording systems spread when they solve a community's felt
+      need and get institutional backing; D2 has both.
+    follows: [writing-systems.md §2 (new scripts live on felt need + institutional backing)]
+  - id: SD-08
+    candidate: digraphia
+    verdict: adopted
+    reason: >-
+      Two hands, one script: a market hand in the donor's horizontal orientation
+      for contracts with L, and a pasture hand rotated vertical for internal
+      records. This is the Eurasian norm for a trading polity and doubles as a
+      register marker.
+    follows: [writing-systems.md §4 (digraphia as the norm; scripts turn 90 degrees), era-language-staging.md §5 (register strata)]
+
+# --------------------------------------------------------- adaptation -----
+adaptation:
+  - id: AD-00
+    donor: >-
+      L, the lowland trade partner (design placeholder; unbuilt culture, to-verify).
+      Ultimate etymon, immediate donor, and carrier are kept distinct: L is the
+      immediate donor and carrier of the script; nothing is asserted about where L
+      got it.
+    follows: [loanword-material-dating.md §3.2 (ultimate etymon vs immediate donor vs carrier)]
+  - id: AD-01
+    step: arrival bound
+    design: >-
+      The first D2-facing documents are L-side market tallies that list D2
+      lineage names. Their existence gives a terminus post quem for D2 names in
+      writing, not a date for D2 adoption of the letters; the script's arrival
+      and the community's adoption are separate clocks.
+    follows: [loanword-material-dating.md §2 (separate clocks; TPQ/TAQ), era-language-staging.md §1 (five clocks)]
+  - id: AD-02
+    step: rotation
+    design: "The letters are rotated to descend down the strip and down the stela face; horizontal writing survives only in the market hand."
+    follows: [writing-systems.md §4 (rotated-vertical lineage), §7.9 (media physics: strip and awl)]
+  - id: AD-03
+    step: inherent-vowel patch
+    design: "Consonant letters are read with inherent /a/ unless a vowel mark overrides; the market hand keeps the donor habit of omitting vowels, the pasture hand does not."
+    follows: [writing-systems.md §3.3 (inherent vowel + virama family), §6 (borrower patches the donor's blind spot)]
+  - id: AD-04
+    step: vowel marks
+    design: "Four marks: front vowels above the letter, back vowels below. In-culture gloss: above = high breath, below = low breath; unmarked = plain air."
+    follows: [writing-systems.md §3.3 (matra placement), §7.3 (ductus logic)]
+  - id: AD-05
+    step: accent mark
+    design: >-
+      One tick, written above the vowel mark, derived from the pre-writing NOTCH
+      rather than from any donor letter: the pitch layer of the script is the
+      tally's inheritance. It is written only for non-initial accent at E2, and
+      becomes obligatory on names and numerals at E3 (SP-5).
+    follows: [writing-systems.md §7.9 (glyph shape from tool and prior medium), §2 (Pahawh-style tone marking as the marked option)]
+  - id: AD-06
+    step: silent record mark
+    design: >-
+      One donor letter whose segment D2 does not have is retained as a silent
+      mark distinguishing a trade copy from a pasture copy - a silent
+      classifier in the determinative tradition, not a sound.
+    follows: [writing-systems.md §1 (determinatives/classifiers as a reusable device)]
+  - id: AD-07
+    step: numerals
+    design: >-
+      No numeral glyph is borrowed. Native notch-figures (vertical stroke groups)
+      continue the tally's count; magnitude is positional down the column; an
+      empty position is the zero. The festival-muster recalculation is the annual
+      audit of the numeral set.
+    follows: [writing-systems.md §7.6 (numerals, positional systems), §3.1 (accounting-first invention path)]
+  - id: AD-08
+    step: word division and separators
+    design: >-
+      Words are separated by a gap about one rung wide plus a small rung-mark
+      separator between ledger items; the donor's unseparated style is abandoned
+      in the pasture hand because herders read aloud by item.
+    follows: [writing-systems.md §4 (scriptura continua vs word separation; Saenger), §7.6 (punctuation plumbing)]
+
+# ---------------------------------------------------------- orthography ----
+orthography_rules:
+  - id: OR-01
+    rule: "Columns descend; bark-strips are ordered left-to-right in a bundle; stelae keep the archaic right-to-left column order."
+  - id: OR-02
+    rule: "Word gap = one rung; item separator = rung-mark; record end = the cord's end mark; corrections are knife-cuts through the erroneous notch, never erasures (hide and bark do not erase)."
+    follows: [writing-systems.md §7.6, §7.9]
+  - id: OR-03
+    rule: >-
+      Register variants of one script: monumental (stelae, angular, full marks),
+      ledger (hide strips, ligatures, abbreviation by notch-signs; the working
+      hand), market (donor orientation, donor conventions, vowels may be omitted).
+    follows: [writing-systems.md §7.5 (monumental vs cursive, regional hands), era-language-staging.md §5]
+  - id: OR-04
+    rule: >-
+      Depth dial: at E2 the orthography is deep (vowels and accent optional;
+      spellings carry the pre-reform accent); at E3 the ledger becomes shallow
+      (vowel marks obligatory, accent obligatory on names, numerals, and loans)
+      while legal and monumental registers stay deep and archaizing.
+    follows: [writing-systems.md §6 (depth dial; sound change after standardization -> deep), §4 (reform events)]
+  - id: OR-05
+    rule: >-
+      Orthography is not audio. Archival spellings are recited with the current
+      accent system unless a learned register licenses the older reading; a
+      spelling-pronunciation revival movement is an E3 feature, not a fact about
+      E3 speech.
+    follows: [era-language-staging.md §5 (orthography is not audio; reading convention), historical-linguistics.md §6]
+  - id: OR-06
+    rule: >-
+      Script restriction and language restriction are separate: a D2 lineage may
+      archive in the D2 language and D2 hand, and a market document may be
+      written in L's language in L's hand with D2 names inside it.
+    follows: [era-language-staging.md §5 (separate a script restriction from a language restriction)]
+  - id: OR-07
+    rule: "Read-out may be spoken or whistled; the whistle carries accent and number, which is why SP-5's marking reform lands on names and numerals first."
+    follows: [phonetics-phonology.md §7 (whistled speech), §6]
+  - id: OR-08
+    rule: "The sign set is not a substitution cipher over any real alphabet: letters map to D2 phoneme classes, marks map to vowel colour and accent, and the numeral layer is native."
+    follows: [writing-systems.md §7.1 (cipher-script trap)]
+
+# ------------------------------------------------------- glyph inventory ---
+glyph_inventory:
+  - id: G-00
+    note: >-
+      Working key only: these are sign classes and counts, not drawings. Letter
+      identities are phonological classes, never a cipher over a real alphabet
+      (OR-08). Donor glyph shapes are not fixed by this file (to-verify; L is
+      unbuilt).
+    follows: [writing-systems.md §8.3 (state the inventory and the literacy price), §7.1]
+  - id: G-C01..G-C15
+    class: consonant letters
+    count: 15
+    design: "One letter per D2 consonant phoneme class; the letters for n l r s double as codas; no separate coda forms at E2, ligatures appear by E3."
+    follows: [writing-systems.md §3.3 (abugida behaviour), §7.3 (small stroke inventory)]
+  - id: G-V01..G-V04
+    class: vowel marks
+    count: 4
+    design: "e and i above the letter, o and u below; /a/ inherent and unmarked; the mark is the vowel's colour placed on the vertical axis (SP-1)."
+    follows: [writing-systems.md §3.3 (matra placement), §6 (abugida fit)]
+  - id: G-P01
+    class: accent tick
+    count: 1
+    design: "Written above the vowel mark for non-initial accent at E2; obligatory on names and numerals at E3; derived from the tally notch, not from a donor letter (AD-05, SP-5)."
+    follows: [writing-systems.md §2 (under-marking tone is the common native pattern; Pahawh is the marked option), phonetics-phonology.md §6]
+  - id: G-S01
+    class: silent record mark
+    count: 1
+    design: "A donor letter with no D2 value, retained as a silent trade-copy / pasture-copy classifier (AD-06)."
+    follows: [writing-systems.md §1 (determinatives/classifiers as a reusable device)]
+  - id: G-N00..G-N09
+    class: numeral figures
+    count: 10
+    design: "Native notch-figures; magnitude by column position; an empty position is the zero; no numeral was borrowed (AD-07)."
+    follows: [writing-systems.md §7.6 (numerals), §3.1 (accounting-first path)]
+  - id: G-U01..G-U04
+    class: separators and correction marks
+    count: 4
+    design: "Word gap (spacing, not a sign), rung separator, record-end mark, and the correction cut that strikes an erroneous notch (OR-02)."
+    follows: [writing-systems.md §7.6 (plumbing), §7.9 (media physics: correction by cut, not erasure)]
+  - id: G-TOTAL
+    total_basic_signs: "15 letters + 4 vowel marks + 1 accent + 1 silent mark + 4 separators + 10 numerals = 35 basic signs; the literacy price is priced in LI-03"
+    follows: [writing-systems.md §4 (literacy cost by script is a first-order social variable), §8.3]
+
+# -------------------------------------------------------------- symbols ----
+symbols:
+  - {id: S-01, sign: "the standing frame (three verticals, three rungs)", domain: "lineage record authority; pasture rights", era: "E1-", notes: "cut over the door of the winter shelter and on the pass stela; reads as 'this seat keeps records', never 'this seat ties'."}
+  - {id: S-02, sign: "the notch tick (accent mark)", domain: "speech; the breath that carries a word", era: "E2-", notes: "descends from the tally notch; on stelae it is the 'breath mark' that tells a reader which syllable stands high."}
+  - {id: S-03, sign: "the descending column", domain: "the pass; the descent between pasture and shelter", era: "E2-", notes: "a column of text at a pass doubles as a waymark; 'the pass speaks' is how a traveller reports finding one."}
+  - id: S-00
+    follows: [writing-systems.md §7.9 (shape from medium and prior systems)]
+    note: "sign records use the culture-packet symbols keys: sign, domain, era, notes."
+
+# -------------------------------------------------------------- lexicon ----
+lexicon:
+  - id: O-T00
+    scope_note: >-
+      Orthography and record-keeping slice only (ids O-T01-O-T14). These are drill
+      placeholders built from the P-D2-PHON interface; the general D2 lexicon
+      component owns the shared `lexicon` block, and collisions resolve there.
+    follows: [writing-systems.md §4 (loan layers and patching), loanword-material-dating.md §3, era-language-staging.md §7 (name/spelling forms), phonology_interface (form legality)]
+  - {id: O-T01, term: sul, gloss: "notch; counted unit", field: records, etymology: "native", layer: native}
+  - {id: O-T02, term: sula, gloss: "lineage tally cord", field: records, etymology: "native (nod to the cord-keeper's stock)", layer: native}
+  - {id: O-T03, term: hur, gloss: "standing frame", field: records, etymology: "native", layer: native}
+  - {id: O-T04, term: hurshi, gloss: "the standing; a wind-tested record", field: records/law, etymology: "native; accent non-initial, so the acute is written", layer: native}
+  - {id: O-T05, term: war, gloss: "wind; the moving breath", field: cosmology, etymology: "native", layer: native}
+  - {id: O-T06, term: waren, gloss: "the wind's reading; read-out of a record", field: records, etymology: "native", layer: native}
+  - {id: O-T07, term: pura, gloss: "spin of a cord; seasonal pole of a record", field: records, etymology: "native", layer: native}
+  - {id: O-T08, term: tala, gloss: "high pasture; the upward station", field: transhumance, etymology: "native", layer: native}
+  - {id: O-T09, term: nuka, gloss: "lowland; down-country", field: transhumance, etymology: "native", layer: native}
+  - {id: O-T10, term: tamur, gloss: "written character; letter", field: trade/literacy, etymology: "loan from L; non-initial accent; final coda repaired to the legal /r/", layer: loan}
+  - {id: O-T11, term: ashu, gloss: "column of writing; a descending line", field: literacy, etymology: "loan from L ('line' sense re-cut for the vertical hand)", layer: loan}
+  - {id: O-T12, term: "hurshi tamur", gloss: "the standing letters; the D2 script's endonym", field: literacy, etymology: "native hurshi + loan tamur: the name is the adaptation", layer: native}
+  - {id: O-T13, term: "war hurshi", gloss: "the wind stands it (formula spoken when a record is hung at the muster)", field: rite, etymology: "native formula", layer: sacred}
+  - {id: O-T14, term: "war nuka", gloss: "wind down-country (euphemism for an annulled record or a broken oath)", field: law, etymology: "native euphemism; displaces the cut/untie vocabulary", layer: taboo}
+
+# --------------------------------------------------- media and archive -----
+media_archive:
+  - {id: M-01, medium: "bark strip", use: "working ledger line; hangs with the cord; cheap, short-lived", survives: no}
+  - {id: M-02, medium: "incised hide", use: "contract and lease copies; knife-cut parallel to the fibers", survives: no (rot)}
+  - {id: M-03, medium: "pass stelae", use: "monumental register: era name, lineage, right claimed, curse formula", survives: yes}
+  - {id: M-04, medium: "L-side market archive", use: "unbuilt (to-verify); the only likely bilingual corpus of D2 names", survives: to-verify}
+  - id: M-05
+    rule: >-
+      Survival logic decides what any future in-world philology can read: cords
+      and strips rot, so pre-writing D2 is recoverable only through later
+      descriptions and the stelae; the bilingual keys sit in L's archive, not in
+      D2's pastures. A false-decipherment industry around the tallies is a
+      standing genre, and the honest outcome of a tally corpus is a live dispute.
+    follows: [writing-systems.md §5 (decipherment keys; false decipherments), §8.5-§8.6, §2 (quipu dispute)]
+
+# --------------------------------------------------- literacy institutions -
+literacy_institutions:
+  - id: LI-01
+    rule: "The scribal class does not appear with the script: the cord-keepers of E1 (custodians of the standing frames) are the first lettered D2, so the institution predates the letters."
+    follows: [writing-systems.md §2 (institutional backing), §7.4 (the scribal class is an institution)]
+  - id: LI-02
+    rule: "Scribes are licensed at the ascent muster by the assembly of lineage heads; a lowland-trained scribe is a status outlier and a plot hook."
+    follows: [era-periodization-models.md §4, §5]
+  - id: LI-03
+    rule: "Literacy price: about 30 signs (15 letters + 4 vowel marks + 2 marks + numerals). Merchant-level literacy is a season of study; scribe-level requires the ledger conventions. One reader per lineage seat and per trade house is the design baseline, not a measured census."
+    follows: [writing-systems.md §4 (literacy cost by script; a first-order social variable), §7.4]
+  - id: LI-04
+    rule: "Families of practice diverge: the market hand indexes lowland dealings, the pasture hand indexes lineage standing, and the monumental hand indexes a right that must outlive both."
+    follows: [writing-systems.md §7.5, era-language-staging.md §5]
+
+# ------------------------------------------------- attributed beliefs ------
+attributed_beliefs:
+  - id: B-00
+    follows: [worldbible-integration-contract.md §6 (claim kind, evidence status, canon standing are orthogonal)]
+    note: "belief records carry statement + status; none is asserted as world-fact."
+  - {id: B-01, statement: "the storm tests true records; what fails it was never truly standing", status: "attributed in-world belief, not world-fact"}
+  - {id: B-02, statement: "the accent mark is the breath of a word, so a name written without it cannot be whistled home", status: "attributed in-world belief, not world-fact"}
+  - {id: B-03, statement: "letters came up the salt road in the packs of the trading partners, and D2 made them stand", status: "attributed in-world account of AD-01/AD-02"}
+
+# ------------------------------------------------------- consistency ------
+consistency_checks:
+  - {id: CK-01, check: "sign count matches the interface: 15 consonant letters = |C| (G-C01..G-C15); 4 vowel marks = |V|-1 (G-V01..G-V04)", status: pass-on-assumed-interface}
+  - {id: CK-02, check: "every term in the lexicon block is buildable from (C)V(C) with codas in {n l r s}; tamur, hurshi, ashu, waren, pura re-checked by hand", status: pass}
+  - {id: CK-03, check: "no river/water/binding imagery outside the guard statements: grep hits are NG-1, NG-2, the S-01 disclaimer, the O-T14 taboo gloss, and this check itself", status: pass by grep}
+  - {id: CK-04, check: "no alphabet, no cipher mapping, no teleological script ladder (SD-04, NG-3, OR-08)", status: pass}
+  - {id: CK-05, check: "every record carries a short id; every record block carries a follows: citation to a corpus path and section, carried by the block's header record (T-00, SD-00, AD-00, O-T00, S-00, B-00, G-00)", status: pass}
+  - {id: CK-06, check: "canon marker present; beliefs marked B, not asserted", status: pass}
+  - {id: CK-07, check: "no inference from the record system to a pantheon, moral order, or era quality", status: pass}
+    follows: [phonology-sanity-gate.md §4 (no inference from inventory to era/society/pantheon)]
+  - {id: CK-08, check: "the syllabary arithmetic is recomputed and shown, not asserted", status: pass (480 signs)}
+
+# -------------------------------------------------------- open questions ---
+open_questions:
+  - {id: OQ-01, question: "02-phonology's delivered inventory and accent rule; re-run CK-01/CK-02 and the recompute rule", owner: "kotodama (write worker, handoff)", status: blocking for canon}
+  - {id: OQ-02, question: "does 03-morphosyntax treat the language as suffixing/agglutinative? an abugida choice assumes cluster-light affixation", owner: kotodama, status: non-blocking}
+  - {id: OQ-03, question: "L's own script typology and medium remain unbuilt (to-verify); the donor-specific claims above are placeholders", owner: kotodama/lore, status: non-blocking}
+  - {id: OQ-04, question: "is there a lexicon-side minimal pair for accent? if not, the accent mark's necessity rests on the loan class and the whistle rule", owner: kotodama, status: non-blocking}
+  - {id: OQ-05, question: "which of D2's neighbours, if any, is D1? cross-fixture contact is not designed in this drill", owner: lore/integrator, status: non-blocking}
+  - {id: OQ-06, question: "whether the tallies are admitted as 'writing' in-world is deliberately left contested", owner: kotodama/lore, status: non-blocking}
+
+# ------------------------------------------------------------- handoff -----
+handoff:
+  recipient: lore-shokunin (canon, world-bible entities, bible-wide consistency)
+  producer: kotodama-shokunin (generative craft and design records only)
+  status: not canonized; unbound design drill; no lore baseline supplied
+  envelope_note: >-
+    Intended for later encapsulation in the contract envelope (packet fields:
+    artifact_manifest, dependency_manifest listing P-D2-PHON and this component,
+    claim_ledger, coupling_edges, requested_decisions); this file is a component,
+    not a packet.
+  requested_decisions:
+    - {id: RD-01, question: "accept the abugida-with-accent shape as D2's orthographic system?"}
+    - {id: RD-02, question: "accept the wind-test institution (T-04) as an institutional proposal, with the storm claim left attributed?"}
+    - {id: RD-03, question: "accept the digraphia (SD-08) and the market/pasture hand split?"}
+  follows: [worldbible-integration-contract.md §3, §4, §5, §7]

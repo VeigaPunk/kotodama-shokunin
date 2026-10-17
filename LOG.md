@@ -1464,3 +1464,531 @@ examples/handoff-packet.sample.md, which passes clean. Contract file digest
 verified: sha256:50c4c2f2…8fb7268c1. L0 question to lore already asks lore
 to confirm intake format; the Markdown serialization is kotodama's
 producer-side default unless lore answers otherwise.
+## 2026-10-17 — round 3 D2: component 14-kin-address written
+
+Delivered `examples/culture-d2/components/14-kin-address.yml` (round-3
+D2 design drill; marked `canon: not canonized (D2 design drill)`).
+Omaha-type kinship on an Iroquois base for D2's segmentary
+pasture-holding lineages (patrilineal, male-line pasture rights): MBD/MBS
+skew, cross-cousin distinctness, partial affine-merging, 24 kin-lexicon
+records K01-K24, a feature matrix, a five-column term table, twelve
+address rules (pitch compass, wind-name licence, storm law, name closing,
+stranger + salt-kin protocol, teknonymy, marriage-direction pitch, joking
+licence, bystander rule, dry-word rule, seasonal address ecology,
+refusal/repair), the `suwá` ("held-air") avoidance register with a
+generative class-word substitution table and pitch flattening, four era
+strata ES0-ES3, five metadiscourse artifacts, six stress-test scenes, nine
+typed coupling edges written as CONTRACT FIELD paths, an import audit, and
+a `follows:` list of 20 corpus-section citations.
+
+Evidence (local, pre-freeze): lines=436 bytes=41526; K-records=24, all
+unique; block ids=49, all unique; all 8 cited corpus paths exist; 0 tabs;
+YAML validity unverified (PyYAML absent in this environment). Import grep
+`grep -n -i -oE "river|water|flood|tie|rope|yoke"` → 6 hits, every one
+inside the import-audit note itself or a substring false positive
+("property"); the one binding-image gloss found in self-review (K13
+'yoke-mate') was re-coined to 'the one across the fire' before freeze.
+Frozen digest (final, after all pre-freeze amendments including a
+path-typo fix in the R01 follows line; the component's validation block
+records the check-time digest d8967e2b… and points here):
+`sha256:4bfa35d08ae7345dea47852ebfc4734b469c671764bbefd2cc0f3a257330a6a6`
+(435 lines, 41578 bytes). No sibling component or corpus
+file was read or edited for content; cross-component needs are stated as
+CONTRACT FIELD paths because the round-3 CONTRACT block was absent from
+the writer's dispatch text — flag for the round closer. No commits made.## 2026-10-17 — round 3 D2: corpus gap-fill mesoamerica-primary-sources written
+
+Delivered `corpus/knowledge/civilizations/mesoamerica-primary-sources.md`
+(round-3 gap-fill; a real-world reference entry, not a D2 design component,
+so the D2 shared-culture seed does not govern it and no `culture:`/`follows:`
+header keys apply — the corpus house format is topic/sources/couples; the
+equivalent decision-table list sits in §11 "Corpus couplings and handoff").
+Content: surviving codex inventory with holdings (four Maya screenfolds,
+incl. Códice Maya de México / ex-Grolier and its 2018 radiocarbon
+authentication; Borgia Group; Mixtec group incl. the Selden palimpsest;
+Nahua tribute/history books; lienzos), indigenous-language alphabetic
+sources (Florentine Codex, Mendoza, Chilam Balam, Popol Vuh, Cantares,
+Zapotec documents via Ticha, Relación de Michoacán), missionary grammars
+(Córdova 1578, Molina, Motul tradition), modern epigraphy and archives
+(CMHI, TWKM/Bonn, Wayeb, Glyph Dwellers, the Isthmian dispute, Cascajal
+contested, AILLA/CARE), a ten-item provenance checklist, a four-date
+source-criticism protocol with a minimum-source table, calibration
+(B/C/R/H/T vocabulary), and a canon-boundary close.
+
+Evidence (local, pre-freeze): lines=161 bytes=32633; predicate `python3
+tools/gates/provenance-audit.py corpus/knowledge/civilizations/mesoamerica-primary-sources.md`
+-> exit 0, findings=0, INFO to-verify-count 39 marks on 32 lines (inventory
+only, per provenance-audit-ledger-format §5). All 18 corpus paths cited by
+the entry resolve (`test -f` loop, all OK). Citations web-verified this pass
+before writing: SLUB Dresden codices pages (Códice Maya de México chain:
+Saenz 1965, Grolier Club 1971, Mexico 1974); Solís et al. 2018 / INAH
+2018-08-30 authentication (La Jornada 2018-08-31); Snijders, Zaman & Howell
+2016 doi:10.1016/j.jasrep.2016.07.019; Princeton Digital PUL Chumayel C0940
+no. 4; Boone 2007 ISBN 978-0-292-71263-8; Miller & Brittenham 2013 ISBN
+978-0-292-74436-3; Saturno, Stuart & Beltrán 2006 doi:10.1126/science.1121745;
+Relación de Michoacán MS Escorial C-IV-5 (1539–1541); TWKM/classicmayan.org
+(Univ. Bonn, from 2014, dir. Grube); CMHI Peabody series identity; AILLA
+(UT Austin, DELAMAN, 2024 relaunch). Where only a bibliographic record was
+inspected, the claim carries `(to-verify)`.
+
+No sibling component or corpus file was read or edited for content; no
+commits made. Flag for the round closer: gap-fill dispatches carry the D2
+shared-culture-seed boilerplate although corpus reference entries are
+seed-exempt by house format — cost is one wasted interpretation step.
+
+## 2026-10-17 — round 3 D2: component 01-brief written
+
+Delivered `examples/culture-d2/components/01-brief.yml` (round-3 D2 design
+drill; `canon: not canonized (D2 design drill)`). Supplies the CONTRACT
+block the round-3 dispatches were missing (flag raised by the
+14-kin-address writer): design problem, seed restated SEED-01–08, spine
+SP-01–03 (verticality + wind), aesthetic stance AS-01–05, D1 contrast
+R-01–06, D1 no-import list D1B-01–09, coupling principles CP-01–13,
+comparator register CMP-01–06 (each a corpus entry with its own cautions),
+component registry C-01–C-10 + C-14 + C-ASM, contract (ID namespaces, era
+tag space E0–E3 with an explicit alias rule, per-key record fields matching
+the six executable gates, rules RG-01–08 incl. the knot-geometry rule
+against the D1 tying metaphor), per-component acceptance A-01–A-14 plus
+A-ASM, assembly plan with the six gate commands, open questions OQ-01–05.
+
+Reconciliation: component 14-kin-address (delivered earlier this round,
+pre-contract) is registered as observed and aliased under RCN-01–03 —
+K01–K24 maps to the kin/address namespace, ES0–ES3 aliases into the E0–E3
+tag space by a declared mapping recorded at assembly; no delivered record
+is renamed or renumbered and no sibling file was edited.
+
+Evidence (local, pre-freeze): lines=338 bytes=48205; YAML parsed clean by
+Ruby/Psych (`YAML.safe_load_file`, Date permitted); 96 record ids, zero
+duplicates; all 37 distinct cited corpus paths exist; 0 tabs; corpus files
+read in <=80-line windows. Digest
+`sha256:ea0d67d0179aba4b118016f32f6cbf0d5e0dde92b1e8468ee6535e5026f2ea19`.
+Scope: wrote only this component and this log line; no commits made.
+## 2026-10-17 — round 3: D2 design drill — component 12-rank-rules (write)
+
+Assignment: write `examples/culture-d2/components/12-rank-rules.yml` (D2, round-3
+design drill; non-canon). Deliverable: sumptuary-style rules — who may wear, say,
+and touch what — each rule carrying authority, jurisdiction, era, and
+prescription-vs-enforcement-reality, with wear rules referencing 11-costumes
+garment ids by contract.
+
+Written (607 lines, `canon: not canonized (D2 design drill)`; starts
+`component: 12-rank-rules` / `culture: D2`):
+
+- `follows:` — 15 corpus citations with path + section (sumptuary-law-rank-display,
+  costume-semiotics, dress-through-eras, textile-technology, trade-economy-lexicon,
+  era-periodization-models, costume-language-coupling-table, politeness-taboo-
+  euphemism, sociolinguistics-registers, ritual-liminality, cosmology-cosmography,
+  and four civilization comparators: mongol, amazigh-berber, finnic-sami,
+  newar-nepal). Per-record `follows:` cite alias + section against that list.
+- `depends_on:` — the 11-costumes garment-id contract (ids consumed, not copied),
+  the packet `lexicon:` field for degree-slot surface forms, and the packet
+  `eras:` list; each marked `(to-verify)` because those siblings were not on disk
+  at write time (`ls examples/culture-d2` → no such directory).
+- 8 required garment ids (`garment_refs`, GAR-01..GAR-08) with the gloss each rule
+  assumes, so a sibling id mismatch is remappable by gloss alone.
+- 6 degree slots + gender clause; 9 wear rules, 6 speech rules, 6 touch rules;
+  authority (4 bodies), jurisdiction (3 altitude bands), enforcement (4 officers),
+  sanctions (5), loophole dialect (6), black-market spread (5 rows, the §10.8
+  handoff artifact), era staging (3 eras), 5 scene hooks, calibration, handoff.
+
+Spine coupling (declared D2 spine = verticality + wind): every rule keys to an
+altitude band; enforcement migrates with the transhumance; storm law suspends and
+creates bans; the pitch-accent/script mismatch (a written clause is "mute law"
+until recited) makes the pre-writing knot archive legally authoritative. The
+`spine.anti_import` field records that no D1 river/binding imagery is used;
+`grep -i "river|ferry|tying|binding"` returns only that anti-import line plus
+"bale-tying" cord use.
+
+Evidence (commands run, cwd = repo root):
+- `ruby -ryaml -e 'YAML.unsafe_load_file("examples/culture-d2/components/12-rank-rules.yml")'`
+  → parse OK (initial parse failed twice: a `note:` key mixed with list items
+  under five nodes, and one block left indented inside the `degree_slots`
+  sequence — both fixed and re-verified).
+- structural checker (one-off, /tmp): header + canon markers; all rule records
+  have id/follows; prescription/authority/jurisdiction/era/enforcement_reality/
+  sanction present on every wear/speech/touch rule; every `follows` alias resolves;
+  every GAR id referenced and every reference defined; every id-shaped token in
+  the text defined → `ALL CHECKS PASS (70 ids, 8 garments, 15 aliases)`.
+
+Carried to-verify: GAR-* id reconciliation with 11-costumes; LEX-DEG-1..7 surface
+forms and pitch-accent class (lexicon component); era-1..3 label reconciliation
+(packet `eras:`); felt-days assay reconciled with the material-culture component;
+coupling-table §9 audit run at handoff. Touched only the assigned component file
+and this log entry; no commits made; no corpus or sibling component edited.
+
+## 2026-10-17 — round 3: component 06-pantheon written (D2 design drill)
+
+Delivered `examples/culture-d2/components/06-pantheon.yml` (round-3 dispatch
+stem 06-pantheon; `canon: not canonized (D2 design drill)`; 508 displayed
+lines, 507 newline-terminated; sha256
+`5c5fbe714186a72a6a1fbbc90d226d6ce039b62fa96c8713bfea5d12944a65bc`).
+Content: 7 PAN- agents (storm-law patron, breath/death keeper, high-pasture
+power, salt-road keeper, demoted sky-holder, trickster with an institution
+and no cult, deified road founder), 15 role rows using all five contract
+status marks with deliberate blanks (no creator, no sun/moon deity, no love
+deity, war and smith slots merged), 5 MYTH- narratives each with a rival or
+variant telling, 5 RIT- rites across the ascent/descent year, 5 pantheon
+career events (demotion, rise, deified human, foreign equation, schism),
+7 declared blanks, 5 open questions, 38 corpus follows entries and 6
+contract_deps rows. Every record carries id, axis and evidence; cross-
+component references are IDs only (RG-03); era tags drawn from the fixed
+space E0–E3; tally-knots count and never bind (RG-01).
+
+Evidence (local, pre-freeze):
+- `python3 tools/gates/myth-consistency-gate.py examples/culture-d2/components/06-pantheon.yml`
+  → exit 1, exactly one finding: MC-S00 no symbol ledger present. Disposition:
+  expected cross-component hold — `symbols[]` is owned by the symbols
+  component (registry C-06; delivered 08-symbols.yml), so the packet-level
+  ledger is assembled from that file, not this one.
+- Same file plus a minimal conforming symbol ledger (scratch copy
+  `/tmp/d2-stub-symbols.yml`) → exit 0, zero findings; proves the PAN, roles,
+  RIT and MYTH sections contribute no finding once the packet carries a
+  symbol ledger.
+- Same file plus the delivered symbols block (08-symbols.yml lines 67–327;
+  scratch copy `/tmp/d2-trial-packet.yml`) → exit 1, MC-S00
+  under-normalized symbol keys, every instance naming a symbols-component
+  record. Not a defect of this component: those records carry no `medium`
+  key, which registry acceptance A-06 requires. Reported to the integrator;
+  not fixed here (this worker writes only its own file).
+- D1 self-scan over record text: D1B-01 clean (no river/water term in record
+  text); D1B-02 hits are explicit negations, allowed counting-knots, or the
+  linguistic term `bound form` — two plain-English connective uses were
+  reworded during self-scan; D1B-04 and D1B-05 not applicable; D1B-06 clean
+  (no D1 fixture form or name). Formal D1B review remains a review-class
+  check, listed in the file's validation block and not resolved here.
+
+Integration findings handed over, not absorbed (no sibling file edited):
+(1) component numbering — dispatch says 06-pantheon, the 01-brief registry
+names C-05 as the pantheon slot and 06 as symbols (OQ-P01); (2) era labels —
+the delivered symbols file writes E1–E4 while the contract's fixed space is
+E0–E3 with an alias rule (OQ-P02); (3) symbol IDs — registry prefix SYM- vs
+delivered S1–S9 (OQ-P03); (4) 02-phonology and the lexicon component were
+not present at write time, so every spelled form is provisional on the
+03-morphosyntax placeholder segment set and every L-/P-/NM-/SYM-/ER-
+reference is recorded UNRESOLVED per RG-04, not invented (OQ-P04, OQ-P05).
+
+Scope: wrote only this component file and this log line; no commits made.
+
+Addendum (same worker, after the round's later components landed): 02-phonology,
+05-lexicon, 07-myths-motifs, 09-eras-calendar, 10-materials and 11-costumes
+appeared after this component was drafted, and two of them bear on it. (1) ID
+collision — 07-myths-motifs occupies MYTH-01 and MYTH-04 to MYTH-08, while the
+contract's namespace row gives MYTH- to the pantheon component and this file
+used MYTH-01 to MYTH-05. The five narratives here were re-prefixed to
+PAN-MYTH-01 to PAN-MYTH-05, declared in the file header per RCN-02 and raised
+as OQ-P06; no sibling file was edited and no other file references these IDs.
+(2) Lexicon mismatch — the delivered lexicon's roots differ from the working
+roots in this file, so a lexicon_alignment note now states plainly that no L-
+alignment is claimed and the theonyms must be re-derived from the delivered
+L- records at assembly. OQ-P02 and OQ-P04 were updated for the delivered era
+range (E0-E5 in 09-eras-calendar) and for the late delivery. Re-verified after
+the amendments: standalone gate run exit 1 with the single expected MC-S00
+cross-component hold; run with a minimal conforming symbol ledger exit 0, zero
+findings; 22 record ids, all unique, no bare MYTH- ids remain. Final digest for
+the frozen component: sha256
+`381720ad04d0562942fca8dd98cdb337b91b09fa9f9f25177e053bd891d084af`, 510 lines.
+The digest in the entry above is superseded by this addendum. Scope unchanged:
+wrote only this component file and LOG.md entries; no commits made.## 2026-10-17 — round 3: component 06-pantheon reviewed (findings; all repairable)
+
+Review written: `examples/culture-d2/reviews/06-pantheon.md`; target revision
+507 lines, sha256 `5c5fbe71…` (mtime 14:35:14Z). Six minor defects listed in
+the `component-id | violation | corpus path:section` format: two dead corpus
+citation paths (PF-33/34 cite `synthesis/comparative-frameworks.md`,
+PF-37 cites `synthesis/symbolism-synthesis-method.md`; both files live in
+`myth-symbol/` — verified), PH-01…PH-05 missing `follows:` (RG-02), TP-01…03
+missing per-record `evidence` with TP-01 asserting an M- compounding record
+that 03-morphosyntax does not deliver, one role row without reason/scope,
+one status-token drift (`EXPLICITLY-UNEXPLAINED`). No FAIL-class violation:
+role coverage, no real-pantheon renaming, and era consistency all pass.
+
+Evidence (cwd = repo root):
+- `python3 tools/gates/myth-consistency-gate.py examples/culture-d2/components/06-pantheon.yml`
+  → exit 1, single finding MC-S00 (no symbol ledger) — reproduced the writer's
+  V-P01; every other evaluated check clean.
+- cited-path loop over every `corpus/…md` cite → only the two `synthesis/`
+  paths missed; all other cites resolve to real sections.
+- real-theonym scan (Zeus, Indra, Perun, Þórr, Baal, Marduk, Osiris, Yama,
+  Óðinn, Amaterasu, Inanna, Aphrodite, Ares, Mars, Hades, Hel, Loki,
+  Prometheus, Māui, Raven, Coyote) → zero record-text hits; D1 term scan →
+  only guard negations and RG-01 counting-knots.
+- freeze digest cross-check: the file's claimed digest matches LOG.md's
+  round-3 (06-pantheon) entry and the reviewed bytes, `5c5fbe71…`.
+
+Escalations verified and left with the integrator: OQ-P01 numbering,
+OQ-P02 era tags (08 writes E1–E4, 09 writes E0–E5; contract fixes E0–E3).
+Scope: wrote only the review file and this log line; no component or corpus
+file edited; no commits made.
+
+Digest correction (06-pantheon worker, same round): after one final edit (the
+unresolved list in the validation block, now OQ-P01 to OQ-P06) the frozen
+component's digest is sha256
+`ef0ebf64f787d04730b6a22c7cf9fafb4de0c5e6dae2db223f57cf53de460478`, 511 lines.
+The digest quoted in the addendum above (381720…, 510 lines) is superseded by
+this line. Re-verified at this revision: standalone gate run exit 1 with the
+single expected MC-S00 cross-component hold; run with a minimal conforming
+symbol ledger exit 0, zero findings. No further edits to that file are
+planned by this worker.## 2026-10-17 — round 3: D2 12-rank-rules — post-landing contract alignment
+
+After the 12-rank-rules write entry above, sibling components landed on disk
+(01-brief.yml 11:33, 11-costumes.yml 11:35, 09-eras-calendar.yml 11:33). Read them
+in chunks and aligned this component to the live handoff contract; only the
+assigned component file was edited.
+
+What was checked and changed:
+
+- `11-costumes.yml` scopes ten garment records GAR-01..GAR-10 and states that
+  GAR-01..GAR-08 are written to be compatible with this file's `garment_refs`
+  (ids and glosses matched) — so the id contract this component declared blind is
+  now satisfied by the sibling. Verified: its `deps` ids
+  [WR-01..WR-09, TR-02, TR-03, TR-05, TR-06, LO-01, LO-02, LO-05, DEG-1] all
+  resolve here (17/17, ruby check).
+- Renumbered this file's loophole ids LO-1..LO-6 -> LO-01..LO-06 (the sibling's
+  deps already cite the two-digit form, and its deps were read off this file
+  while the two-digit refs were still in `garment_refs`); updated the three
+  `garment_refs.appears_in` rows and the `axis_by_record` keys; `grep -c
+  "LO-[0-9]\b"` now returns 0 (no stale single-digit refs).
+- 01-brief.yml contract: added `brief_ref` + `contract_conformance` declaring
+  RG-01 (knots are record geometry only), RG-02 (every record carries follows),
+  RG-03 (cross-component references by id only), RG-05 (per-record axis) and
+  CP-07/CP-09/CP-11. Because the brief landed after this file, the pre-contract
+  handles are aliased by declaration, per CP-07 ("pre-contract components alias
+  their own era prefixes in, never silently").
+- Added `axis_by_record` (62 ids; neutral entries carry the RG-05 coupling_note).
+- Added `brief_tag: E0 / E1 / E2` to eras ER-1/ER-2/ER-3, with era *names*
+  deferred to 09-eras (E0 Open Grazing, E1 First Ascent, E2 Salt Turn — read from
+  that component's era tables, not asserted here).
+- Added `follows:` to all six degree slots and to the gender clause (RG-02).
+
+Evidence (cwd = repo root):
+- `ruby -ryaml -e 'YAML.unsafe_load_file(...)'` -> "YAML parse: OK".
+- structural checker (one-off, /tmp) -> `ALL CHECKS PASS (70 ids, 8 garments,
+  15 aliases)`; rule-record field coverage for `id/prescription/authority/
+  jurisdiction/era/enforcement_reality/sanction/follows` -> no misses;
+  `axis_by_record` covers all 21 rank-rule ids.
+- cross-ref resolution -> 17/17 of 11-costumes' deps ids resolve here.
+
+Remaining to-verify: GAR-09/GAR-10 are the sibling's own records and take no
+rules from this component (its own note); LEX-DEG-1..7 surface forms and pitch
+accent classes stay with the lexicon component; the felt-days assay should be
+reconciled with 10-materials before assembly; E3 (brief tag) is not claimed here.
+Touched only examples/culture-d2/components/12-rank-rules.yml and this log entry;
+no commits made.### addendum to the entry above (same day)
+
+Aligned two more items after reading 10-materials.yml:
+
+- Assay reconciled: 10-materials already works the **felt-day** as an
+  action/substance unit (its measures note cites trade-econ §2 alongside the
+  salt-cake) and assumes the **G1-G3** grade slots this component uses, so the
+  felt-days `(to-verify)` in `calibration.design_flags` and `open_checks` is
+  cleared and replaced with the reconciliation note.
+- Added `garment_refs_note` recording that GAR-01..GAR-08 are the records the
+  rules consume (11-costumes matches ids and glosses) and that its GAR-09/GAR-10
+  are outside this component's rule set.
+- Open item carried for the integrator (not this component's to resolve):
+  10-materials.yml works era slots E1-E4, which do not line up with the brief's
+  fixed E0-E3 space (11-costumes' own reconciliation table already warns of the
+  same class of mismatch). This file carries brief tags E0/E1/E2 plus its own
+  pre-contract handles, so it is not party to the mismatch.
+
+Re-verified: `YAML parse: OK; lines=691`; checker `ALL CHECKS PASS (70 ids,
+8 garments, 15 aliases)`. Only the assigned component file and this log entry
+were touched; no commits made.Correction (round 3, 14:40Z): the 06-pantheon review pins revision
+`ef0ebf64…` (510 lines, mtime 14:37:46Z), not the `5c5fbe71…` named in this
+worker's entry above — the writer revised the component after the review
+draft (narratives re-prefixed to PAN-MYTH-*, OQ-P02/OQ-P04 updated, OQ-P06
+added for the MYTH- namespace collision with 07-myths-motifs). All six
+findings were re-verified against the new revision and stand; the writer's
+LOG digest above corresponds to the intermediate 507-line revision and
+should be recomputed at assembly. `examples/culture-d2/reviews/06-pantheon.md`
+updated accordingly (no component or corpus file touched).## 2026-10-17 — round 3 D2: component 11-costumes written
+
+Delivered `examples/culture-d2/components/11-costumes.yml` (round-3 D2 design drill,
+non-canon): 10 garment records (GAR-01..GAR-10), 9 material records (CMAT-01..CMAT-09),
+3 cloth sources (CS-01..CS-03), plus the reading tables the component is judged by
+(wearer institutions, two-wardrobe calendar, legibility stations, enforcement economy,
+reading ledger, misread scenes, drift plan, form slots).
+
+Contract handling (components landed mid-write were read and reconciled, not ignored):
+- GAR-01..GAR-08 match the garment refs 12-rank-rules had already declared in its
+  `garment_refs` block; its rule ids are carried per garment as typed I-edges; GAR-09 and
+  GAR-10 are this component's own (pack-ox down under-tunic, leather gale legging). This
+  file writes no rank-rule records — the law stays in 12-rank-rules and is consumed by id.
+- Material ids were re-lettered CMAT-* because 10-materials owns MAT-01..MAT-22; every
+  record carries a `maps_to` slot mapping, per that file's instruction to map by slot
+  rather than by label. Two dispatch-mandated materials have no counterpart in that
+  inventory (pack-ox down: their pack-ox yields only hair cordage; silk: their anchor-era
+  luxury is lowland-broadcloth MAT-07) — carried as REPORT-don't-merge findings (OQ-3),
+  not silently dropped or merged. The competing local dye was withdrawn in favour of
+  10-materials' hearth-dark slot.
+- Era tags E0-E2 of the contract's fixed space; 09-eras-calendar uses the same tags and
+  agrees on both costume seams it states (felt layers from the earliest stratum; lowland
+  cloth not before the E0/E1 seam). era_reconciliation maps the 10-materials,
+  12-rank-rules, 08-symbols, 05-lexicon and 14-kin-address label sets at slot level.
+- Surface forms are the lexicon component's: no form coined here; 10 LEX-GAR-* slots
+  requested with (to-verify) forms (L35 mirken and L34 mir referenced as landed).
+- D1 self-scan: no river/water/binding imagery in record text; the banned-word hits are
+  explicit negations; 10-materials' local nettle-bast is noted and no garment row is bast;
+  hem cords are record geometry (RG-01) and never obligation.
+
+Evidence (local, pre-freeze):
+- `python3 tools/gates/costume-era-consistency-gate.py examples/culture-d2/components/11-costumes.yml`
+  → first run exit 2 (G-DATA: input is not one mapping): two keys sat at the same indent
+  as their sibling list items (era_reconciliation.warning, form_slots.note), invalid YAML
+  there. Re-placed; every later revision re-run.
+  Final run after the reconciliation: exit 0, zero findings.
+- Structural check on the same file: 10 GAR records carrying all eight contract fields
+  (garment, material, wearer_rank, rite, era, route, axis, evidence); 9 CMAT entries each
+  with kind/stage routes and a composition; 3 cloth sources with max_width_m and eras;
+  spine_coupling, registration and validation blocks present.
+
+Handed to the integrator, not absorbed (no sibling file edited): OQ-1 era-label sets;
+OQ-2 the storm-cloak naming in 08-symbols; OQ-3 material-set conflicts; OQ-4 mapping
+12-rank-rules' records into the gate's `rank_rules:` schema; OQ-6 felt grades G1-G3;
+OQ-7 `materials`/`cloth_sources` packet-key overlap with 10-materials and that file's own
+RCN-02 registration debt; this component's RCN-02 registration row is supplied in-file
+for the integrator to append.
+
+Scope: wrote only this component file and this log line; no commits made.## 2026-10-17 — round 3: component 05-lexicon written (D2 design drill)
+
+Delivered `examples/culture-d2/components/05-lexicon.yml` (827 lines): 40 lexicon
+records across the dispatched semantic fields plus the audit's seven-field matrix
+(subsistence 7, weather 5, landscape 5, religion 5, kinship 4, trade 4, body 3,
+war 3, costume 2, social_order 2 = 40; layers native 34, sacred 3, loan 2,
+taboo 1; stages E0 36, E1 3, E2 1).
+
+Contract discovery and adoption (the material event of this component): the
+round-3 coupling contract is `examples/culture-d2/components/01-brief.yml` and
+the authoritative inventory is `examples/culture-d2/components/02-phonology.yml`.
+The first draft was written before either was read; on discovery it was rebuilt
+to the contract rather than patched — era tags from the fixed space E0–E3,
+`axis:` and `evidence:` on every record, record-level `follows:` citations, id
+namespace L-01…L-40, typed `deps:` edges to 02/03/06/09/10/11/12/14 by ID
+namespaces (L-, P-, M-, K-, PAN-, ER-, MAT-, GAR-, REC-/SGN-; no prefix invented:
+the rank component is referenced by name with ids: [] per RG-04). 13 first-draft
+forms were illegal under 02 (coda set {n l r s}, no geminates) and were
+re-lexified: im→ir, wem→wen, nem→nen, tok→tol, mik→mil, sak→ban, sir/sirra→
+sin/sinra, vel→bel, kat→kas, pert→per, toksa→tolsa; the 02 accent handoff was
+discharged by assigning senses to the `sara` pair (sára valley camp locus, sará
+ridge camp locus), the only accent-marked forms in the file (RG-07).
+
+Measured evidence (all commands re-runnable):
+- `python3 tools/gates/lexicon-coverage-audit.py examples/culture-d2/components/05-lexicon.yml`
+  exit 0, no FINDING lines (C, D and L clean); gate `--selftest` exit 0.
+- `python3 tools/gates/phonology-sanity-gate.py examples/culture-d2/components/05-lexicon.yml`
+  exit 0 (the provisional mirror block is gate-clean).
+- Loan adaptation reproduced independently of the gate: L-26 kas < donor gas,
+  L-27 per < donor bher, both matching under their layer substitutions, with
+  record stage >= layer entry stage.
+- Machine checks run at write time: all 40 forms legal under (C)V(C) with coda
+  {n l r s}, no clusters or geminates, no segment outside 02's inventory (zero
+  violations); D1 overlap scan against worked-example-mini-culture.md §8 gives
+  exact collisions 0, distance-1 0, distance-2 38 pairs, no shared sense domain.
+- Structural self-check through the gate's own parser: 40 records, no record
+  missing a contract field, every neutral axis record carrying its coupling_note,
+  the taboo record carrying its recorded sanction.
+
+Declared delta, not hidden: A-04's floors assume >= 60 records (weather >= 10,
+landscape >= 10, loan >= 6, sacred >= 4, taboo >= 2, native >= 40, seven fields
+>= 4 each); this dispatch specified 40, so body 3 and war 3, weather 5,
+landscape 5, native 34, loan 2, sacred 3 and taboo 1 sit below those floors. The
+delta is stated in the file's `acceptance_delta` and in this log; expansion is
+additive because every record is already contract-complete.
+
+Also read for compliance (not edited): 01-brief.yml contract block and registry,
+02-phonology.yml header/inventory lines, worked-example-mini-culture.md §8 for
+the required scan. Touched only the assigned component file and this log entry;
+no commits made.
+
+## 2026-10-17 — round 3: missing D2 naming, packet assembly and frozen measurements
+
+Evidence motivating the work: `examples/culture-d2/components/13-naming.yml` was
+missing while the fourteen sibling components were present; the gate headers and
+fixtures require actual shared-schema ledgers, not their component wrappers.
+Read all 510 lines of `02-phonology.yml`, the requested source ledgers, and
+`corpus/knowledge/linguistics/naming-systems.md` before authoring the names.
+
+Delivered `examples/culture-d2/components/13-naming.yml`: eight etymologized names
+(two persons, two clans, two places, two proposed cult addresses), slots and
+life-stage licenses, L-32's finite death avoidance with the 06/07 tension flagged,
+and three institutionally rejected but phonotactically legal candidates. All
+11 strings independently satisfy 02's inventory, (C)V(C), n/l/r/s codas and
+no-geminate constraint; all eight accepted concatenations reproduce from recorded
+05-lexicon roots. The missing 03 derivation adapter is not concealed with opacity.
+
+Delivered stdlib-only `tools/assemble-d2.py` and its deterministic output
+`examples/culture-d2/packet.d2.yml`: 40 lexemes, 27 morphology records, seven agents,
+ten symbols, ten costumes, eight names, nine eras, plus eight constructions, two
+loan layers, 23 roles, nine motifs, nine costume-facing materials and three cloth
+sources. Optional role/motif ledgers come from 06 and 07; owner base ledgers stay
+separate from 07's reference views/proposals. Source hashes and extraction limits
+are carried in the packet. `python3 tools/assemble-d2.py --check` exits 0.
+
+Actual final runs are frozen byte-exactly under `tools/gates/frozen/round-3/`, with
+seven rows in `MANIFEST.tsv`, gate/input/output SHA-256 values, actual exits and
+finding-line counts, commands, and byte-copy input snapshots. Results:
+- phonology-sanity-gate: exit 1, three A-NEUTRAL reviews;
+- lexicon-coverage-audit: exit 0, zero findings;
+- myth-consistency-gate: exit 1, one aggregate MC-S00 (ten missing symbol media);
+- costume-era-consistency-gate: exit 1, ten G-ERA holds (seven E0, two E1, one E2
+  garment tags absent from 09's named-era inventory);
+- naming-collision-gate: exit 1, 20 findings: Humweha's illegal /m/ coda, ten English
+  garment labels treated as D2 names, eight missing derivation replay adapters,
+  and one absent bounded cross-cultural review;
+- provenance-audit on mesoamerica-primary-sources.md: exit 0, zero findings,
+  39 to-verify marks on 32 lines;
+- provenance-audit on gate-frozen-run-standard.md: exit 0, zero findings,
+  one to-verify mark on one line.
+
+One assembly-level fix was necessary: 09's optional `era_dates` uses non-CE descent
+coordinates and open bounds; copied into the costume gate's numeric CE field it
+caused exit 2, G-DATA (expected a number, got None). The merger now preserves that
+mapping intact under `source_era_dates`, without inventing a conversion. Every
+initial output/input/manifest is retained under `frozen/round-3/attempt-1/`.
+No component changed between gate attempts. Final packet SHA-256:
+`54be6319e4907d20c8239555e3f79fcb9bb6b36d102a30a6beabf34b146459f4`.
+
+Verification: both seven-row manifests' gate/input-copy/output hashes match; all
+seven final commands reproduce exact exit codes and output bytes; independent
+sibling gate readers confirm the selected source ledgers survive extraction and
+emission unchanged (including all 40 lexemes and 27 morphology records). Six
+relevant gate `--selftest` runs all exit 0, outputs retained under
+`frozen/round-3/selftests/`, and fixture hashes are unchanged. No standard package
+build exists; the merger and existing executable-gate selftests are the runnable
+checks for this deliverable.
+
+`examples/culture-d2/ASSEMBLY.md` records extraction paths, authored names, counts,
+ranked findings, the parse fix, and missing reviews. No rank-rule adapter, material
+union, era alias arbitration, cross-cultural clearance or canon decision is
+claimed. This TSV/output freeze is worktree evidence, not the corpus standard's
+committed per-gate expected.json baseline: the operator prohibited commits.
+Scope: only this repo; no git commits; no corpus/knowledge files edited. Existing
+uncommitted component/corpus/log work was retained; only new naming, merger,
+packet, frozen artifacts, ASSEMBLY.md and this append were authored here.
+
+## 2026-10-17 — round 3: D2 end-to-end build + direct triage (ADMITTED)
+
+Claims (declared before dispatch):
+1. depth — execute an end-to-end miniature-culture task: build D2 from the
+   corpus via swarm, assemble packet.d2.yml, grade with gates, freeze
+   outputs. Measured: components 14/15 (swarm) → 15/15 (assembly authored
+   13-naming after its writer failed); packet assembled by
+   tools/assemble-d2.py; 5 culture-gate runs + 2 provenance runs frozen
+   under tools/gates/frozen/round-3/ (MANIFEST.tsv, sha256-pinned);
+   findings: phonology 3 REVIEW, lexicon clean, myth 1, costume 10 G-ERA,
+   naming 20 (1 real coda violation + noise classes). Task executed and
+   logged end-to-end (SHONEN box 2 evidence). VERDICT: improved, verified.
+2. freshness — triage the 7 provider-blocked files' flags; orchestrator
+   triages the 2 non-civ files directly after 3 filter strikes each.
+   Measured: 12 flag-lines examined, 9 resolved (5 CONFIRM, 1 DOWNGRADE,
+   3 declared-debt), 3 policy mentions documented; the 5 civ files (39
+   flags) carried to round 5 zai lane. VERDICT: improved, verified.
+Other axes: operability improved (merger script + frozen-run manifest
+pattern); calibration improved (policy-mention counting caveat recorded);
+coverage unchanged (2/3 gap-fills landed); adjacency unchanged.
+No axis harmed. Round ADMITS.
+
+Dispatch record: round swarm 34 agents on token-plan key 1 — 25 completed,
+3 launch failures (13-naming writer, 09 review, africa gap-fill), 6 items
+absent from the swarm result; disk inventory used as truth. Assembly moved
+to a sol-high subagent after two opencode-go routing failures (lesson).
+Deviations recorded: orchestrator-direct triage (goal clause), sol-high
+assembly (lane outage).

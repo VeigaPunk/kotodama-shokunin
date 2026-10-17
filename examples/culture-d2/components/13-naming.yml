@@ -1,0 +1,143 @@
+component: 13-naming
+culture: D2
+canon: not canonized (D2 design drill)
+status: "round-3 replacement for the missing writer; proposed system, not canon"
+packet_keys: [names]
+follows:
+  - path: corpus/knowledge/linguistics/naming-systems.md
+    sections: "§2 slots and life stages; §3 descriptive places; §4 cult epithets; §6 taboo institutions; §7 derivation pipeline"
+    use: "Separate the bearer, the slot, the formation and the license to speak; names below are design choices, not claims about a real culture."
+  - path: examples/culture-d2/components/02-phonology.yml
+    sections: "P-1..P-4, AC-1..AC-4, WR-4"
+    use: "No special name phonemes or fossil exceptions; default initial peak, unchanged by honor."
+  - path: examples/culture-d2/components/05-lexicon.yml
+    sections: "L-01..L-40; UP-COMPOUND; L-32 death avoidance"
+    use: "Only attested D2 roots; modifier then head, concatenation without deletion. The lexicon's construction is not silently installed in 03's morphology."
+spine_coupling:
+  - {axis: wind, records: [NM-01, NM-03, NM-08], coupling: "Wind is a name element and the medium that makes an illicit public address dangerous."}
+  - {axis: verticality, records: [NM-05, NM-06, NM-07], coupling: "Places distinguish pass and low shelter; cult address distinguishes the high power without ranking living people by pitch."}
+phonotactic_contract:
+  consonants: [p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h]
+  vowels: [a, e, i, o, u]
+  syllable: "(C)V(C); codas only n l r s; no onset or coda clusters; no geminates"
+  roots: "One to three syllables; empty onset only initially inside a root; no root-internal hiatus; no three identical CV syllables. These compounds have two syllables each and no hiatus, so the deferred boundary-glide rule is not needed."
+  accent: "One initial H peak per citation name, AC-2 default; names do not acquire a final peak as a rank marker. AC-4 kin up-call is not generalized to personal names."
+  spelling: "Lowercase display throughout. sh and y would spell /ʃ j/ under WR-4; none of the eight needs either. Word-final s remains written s despite AL-7 [h]. Syllable dots below are analysis, never spelling."
+slots:
+  personal: "Given name first; a caregiver assigns it at the first household breath-count. No gender morphology. At first ascent the bearer may ratify or replace it before two lineage elders; the old name remains an archive alias, not a second person."
+  clan: "Hereditary pasture-holding affiliation follows the given name as a separate word; it is not a patronymic or an office. In a hearing, 03 M-04 -ni may mark affiliation on the clan word before the personal word; that connected-use form is not a new citation name."
+  place: "One descriptive compound, qualifier before landscape/substance head; a map may append an English gloss outside the D2 name. These are two candidate sites, not names assigned to existing world entities."
+  deity: "Existing PAN identity plus a local cult-address epithet; an epithet is not a new god or a replacement for a provisional theonym. NM-07/08 are proposals for PAN-04/02 respectively, with adoption unresolved."
+life_and_license:
+  birth: "Household uses the given name quietly; no clan-wide announcement until the child has returned from the first ascent."
+  majority: "Bearer ratifies the given name at the ascent; clan affiliation is spoken independently and does not confer a task-rank."
+  honor: "An appointed caller says office or kin address before any given name at a windy ridge. Honor is the right to call on behalf of a lineage, not a new suffix or an unlicensed pitch shift. 14-kin-address owns the actual kin forms."
+  death: "Adopt the finite avoidance already in L-32: after the death count, four grass-seasons without the deceased's given name in public wind-reached speech; use tolsa plus a kin/office description. Accidental naming requires the storm formula and one beast to the lineage cairn, as L-32 prescribes. Private identification of a namesake is not identity with the dead."
+  sacred: "NM-07/08 may be proposed in a rite but not bestowed as infant names: speaking a cult-address on the ridge is heard as asking its power to answer. This is an in-world belief, not a claim that words actually cause weather."
+  unresolved: "06 and 07 omit L-32's four-season endpoint; reconciliation of their apparently indefinite death avoidance needs non-author review. No sibling is edited."
+formation_policy: "Each record exposes both bases and a concatenation witness. UP-COMPOUND is licensed in 05, but 03 lacks the naming gate's derivation_rules adapter; a DERIV-HOLD is expected, not masked with opaque: true."
+names:
+  - id: NM-01
+    name: sunel
+    type: person
+    era: E0
+    axis: wind
+    evidence: design-choice
+    etymology: "su (L-08 wind) + nel (L-02 hand/forearm): wind-hand, a wish for a sure herder's hand in weather."
+    formation: {stem: su, bases: [su, nel], rule: UP-COMPOUND, operation: concatenate, expected: sunel}
+    syllables: [su, nel]
+    license: "Living person's given name; household assignment, bearer ratification at first ascent."
+    follows: "naming-systems.md §2, §7; 05-lexicon UP-COMPOUND"
+  - id: NM-02
+    name: banwal
+    type: person
+    era: E0
+    axis: both
+    evidence: design-choice
+    etymology: "ban (L-03 bone/lineage substance) + wal (L-29 oath): bone-oath, a household wish that the child's spoken word outlast the ascent."
+    formation: {stem: ban, bases: [ban, wal], rule: UP-COMPOUND, operation: concatenate, expected: banwal}
+    syllables: [ban, wal]
+    license: "Living person's given name, not an oath formula or an office claim."
+    follows: "naming-systems.md §2, §7; 05-lexicon UP-COMPOUND"
+  - id: NM-03
+    name: sulas
+    type: clan
+    era: E0
+    axis: wind
+    evidence: design-choice
+    etymology: "su (L-08 wind) + las (L-04 lineage): wind-lineage, a proposed descent-group label remembered from an exposed winter shelter."
+    formation: {stem: su, bases: [su, las], rule: UP-COMPOUND, operation: concatenate, expected: sulas}
+    syllables: [su, las]
+    license: "Affiliation inherited or publicly adopted with pasture rights; not self-awarded as praise."
+    follows: "naming-systems.md §2; 05-lexicon UP-COMPOUND"
+  - id: NM-04
+    name: mirlas
+    type: clan
+    era: E0
+    axis: verticality
+    evidence: design-choice
+    etymology: "mir (L-34 fleece/wool) + las (L-04 lineage): fleece-lineage, a proposed affiliation label for holders of a shearing-ground pasture."
+    formation: {stem: mir, bases: [mir, las], rule: UP-COMPOUND, operation: concatenate, expected: mirlas}
+    syllables: [mir, las]
+    license: "Inherited affiliation, not an occupational title available to every wool-worker."
+    follows: "naming-systems.md §2; 05-lexicon UP-COMPOUND"
+  - id: NM-05
+    name: kolsin
+    type: place
+    era: E0
+    axis: verticality
+    evidence: design-choice
+    etymology: "kol (L-17 pass) + sin (L-10 snow): pass-snow, the snow patch used to recognize a candidate upper crossing."
+    formation: {stem: kol, bases: [kol, sin], rule: UP-COMPOUND, operation: concatenate, expected: kolsin}
+    syllables: [kol, sin]
+    license: "Route-users' descriptive endonym; no etymology from an unmodelled donor is claimed."
+    follows: "naming-systems.md §3, §7; 05-lexicon UP-COMPOUND"
+  - id: NM-06
+    name: tolmir
+    type: place
+    era: E0
+    axis: verticality
+    evidence: design-choice
+    etymology: "tol (L-14 low ground) + mir (L-34 fleece/wool): low-ground fleece, a proposed winter shelter's wool-working yard."
+    formation: {stem: tol, bases: [tol, mir], rule: UP-COMPOUND, operation: concatenate, expected: tolmir}
+    syllables: [tol, mir]
+    license: "Households' place-name, not proof that the site has a shrine or a legal rank."
+    follows: "naming-systems.md §3, §7; 05-lexicon UP-COMPOUND"
+  - id: NM-07
+    name: belwal
+    type: deity-epithet
+    proposed_bearer: PAN-04
+    era: E0
+    axis: both
+    evidence: design-choice
+    etymology: "bel (L-13 heights) + wal (L-29 oath): height-oath, a proposed local address of the high-pasture power at a pasture-claim rite."
+    formation: {stem: bel, bases: [bel, wal], rule: UP-COMPOUND, operation: concatenate, expected: belwal}
+    syllables: [bel, wal]
+    license: "Ritual address only, proposal pending pantheon review; no new divine entity and no exclusive oath-patron jurisdiction claimed."
+    follows: "naming-systems.md §4, §6; 05-lexicon UP-COMPOUND"
+  - id: NM-08
+    name: hursu
+    type: deity-epithet
+    proposed_bearer: PAN-02
+    era: E0
+    axis: wind
+    evidence: design-choice
+    etymology: "hur (L-09 storm) + su (L-08 wind): storm-wind, a proposed avoidance address for the storm-law power rather than its provisional plain theonym."
+    formation: {stem: hur, bases: [hur, su], rule: UP-COMPOUND, operation: concatenate, expected: hursu}
+    syllables: [hur, su]
+    license: "Proposed ritual substitute; does not repeal PAN-02's seasonal plain-name taboo."
+    follows: "naming-systems.md §4, §6; 05-lexicon UP-COMPOUND"
+rejected_candidates:
+  - candidate: suwal
+    syllables: [su, wal]
+    etymology: "su L-08 + wal L-29; already L-33 wind-oath"
+    reason: "Phonotactically legal, but reject as an infant given name: it appropriates the fair-court formula and its ritual license."
+  - candidate: tolsa
+    syllables: [tol, sa]
+    etymology: "L-32 fossil based on tol L-14; the remaining suffix is opaque to living speakers"
+    reason: "Phonotactically legal, but reject as a living person's name: this is the avoidance term for the dead, not a blessing."
+  - candidate: sinlas
+    syllables: [sin, las]
+    etymology: "sin L-10 snow + las L-04 lineage"
+    reason: "Phonotactically legal, but reject as a self-chosen adult honor-name: it falsely claims hereditary affiliation without a descent or adoption record."
+review_limits: "No bounded real-language collision sweep, reader test, D1 ledger comparison, connected-address trial or non-author review has been performed. The eight syllable witnesses and root links are self-checks only; all adoption remains with lore-shokunin."

@@ -1,0 +1,510 @@
+component: 02-phonology
+culture: D2
+canon: not canonized (D2 design drill)
+component_version: 0.1.0-drill
+title: "02-phonology — the tune is the law. D2 inventory, pitch accent, phonotactics, allophony, and the calling registers"
+producer: "kotodama-shokunin round-3 write worker"
+date: 2026-10-17
+scope: "One variety per stage — D2 highland-plateau pastoralist isolate, E0 pre-script vernacular (tally-record era) and the E1 script-adapted vernacular. Registers are scoped apart in calling_registers — ordinary speech, the shout-call register, the whistled ridge register, and knot recitation, which is deferred. No liturgical stratum is declared for D2 in this pass. The lowland trade stratum is handled as a recipient-side loan filter only; the donor's own phonology is not modelled here, because the lowland partner is unscoped in this drill."
+spine_coupling: "verticality — the accent peak is the word's camp, held early by default and moved rightward ('up the slope') only by the licensed morphology; wind — one breath phoneme /h/ with wind-named allophones [ɸ] and [ç], a final breath for words that end in /s/, and a whistled ridge register for herder-to-herder calls"
+spine_check: "no D1 imagery is imported. No tying, binding, knotting-as-speech, river, or ferry material appears in any rule, witness, or register note. The tally knot appears only as a record technology, and that surface belongs to 04-orthography; nothing here treats it as a phonological gesture."
+
+follows:
+  - id: F-1
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§2 inventory design (WALS bands; size from contact history, not coolness)"
+    decision_followed: "a narrow-contact clan society takes the moderately small band (15-18 consonants) and puts its complexity in phonotactics and prosody; the modal 19-25 class is noted and deliberately not chased; every non-modal token sits in a series"
+  - id: F-2
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§3 phonotactics (write the template first; codas restricted)"
+    decision_followed: "template written first and word shapes derived from it; no onset clusters and no coda clusters; codas limited to three sonorants plus one obstruent; no word of identical CV syllables"
+  - id: F-3
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§4 markedness and implicational universals (generator, not law)"
+    decision_followed: "implications were used as a generator — the nasal series is filled at both places where orals exist, the velar nasal is kept as an allophone rather than inserted as a lone phoneme, and no front rounded vowel or ejective is admitted, so no implication is broken for flavor"
+  - id: F-4
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§5 allophony (5-8 rules; families; derive from plausible drift)"
+    decision_followed: "nine finite-context rules in three corpus families (place assimilation, palatalization, coda weakening); every rule carries a drift origin and both a trigger and a blocked witness; no rule is stated as a natural class in the gate-facing list. The count is nine rather than the suggested five to eight because the place-assimilation family must be expanded finitely over two voicing series — that is class expansion, not extra texture"
+  - id: F-5
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§6 prosody (Hyman 2006 type distinction; long-distance speech takes pitch prominence; tonogenesis)"
+    decision_followed: "pitch accent chosen as a type distinct from tone and stress; the accent is culminative with a movable locus, which is what the calling ecology needs; the accent split is given a tonogenesis origin; intonation is specified above word prosody"
+  - id: F-6
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§7 environment, anatomy, society (solid couplings versus contested seeds)"
+    decision_followed: "the single environment warrant used is the solid one — mountains plus long-distance herding give a whistled register; the four contested claims (ejectives and altitude, tone and dry climate, diet and labiodentals, sonority and temperature) are declined as warrants and each is recorded in environment_analysis with its status"
+  - id: F-7
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§8 sound symbolism (bias, not a per-language meaning key)"
+    decision_followed: "sound symbolism is not used to select any phoneme or any vowel; it is reserved for name flavor at population scale, which the naming component owns"
+  - id: F-8
+    path: corpus/knowledge/linguistics/phonetics-phonology.md
+    section: "§9 conlang pitfalls checklist"
+    decision_followed: "all twelve items walked in pitfalls_check; the two that needed active repair were achronic allophony (each rule has an origin) and decoration prosody (the accent carries grammar and register work)"
+  - id: F-9
+    path: corpus/knowledge/linguistics/language-contact.md
+    section: "§6 loanword adaptation (recipient-side filters)"
+    decision_followed: "coda repair, epenthesis, nasal re-placing, and default accent assignment for the trade stratum; the recipient's phonology does the filtering, and no claim is made about the donor's inventory"
+  - id: F-10
+    path: corpus/knowledge/linguistics/sociolinguistics-registers.md
+    section: "§4 registers (specification by field, tenor, mode)"
+    decision_followed: "the call and whistle registers are specified as mode-driven registers — distance and channel change the phonation and the coding, not the segment inventory and not the social footing"
+  - id: F-11
+    path: corpus/knowledge/synthesis/worldbible-integration-contract.md
+    section: "§3 ownership decision table and §5 artifact payload minimums"
+    decision_followed: "this file is a system specification with rule IDs, witnesses, and a stated deterministic order; it decides no canon population, no world-bible entity, no era date, and no script question"
+  - id: F-12
+    path: corpus/knowledge/verification/phonology-sanity-gate.md
+    section: "§3 inventory versus typology audit, §5 legality and allophony audits"
+    decision_followed: "the inventory was read against the WALS comparison bands rather than against a preferred chart; the allophony was audited for membership, ordering, and neutralization; the gate run is recorded in gate_run"
+
+interface:
+  consumed_interface: "P-D2-PHON, the assumed interface published by 04-orthography (examples/culture-d2/components/04-orthography.yml, interface_version 0.1.0-assumed, status assumed-interface to-verify)"
+  delivered_interface_id: P-D2-PHON
+  delivered_interface_version: 1.0.0-drill
+  adoption_decision: "ADOPTED with no deltas. Consonant set, five vowel qualities, template (C)V(C), coda set {n l r s}, no onset clusters, no geminates, no contrastive length, pitch accent rather than tone, and a tonogenesis origin all match the assumed interface. 04's recompute branch is therefore not triggered and can be retired at handoff."
+  accent_rule_delivered: "one H peak per prosodic word, default on the first stem syllable, with a minority final-peak lexical class and a licensed rightward shift (AC-1 through AC-6). This closes 04's to-verify note that 02 owns the accent rule and any minimal pair."
+  minimal_pair_delivered: "sara valley-locus [sára] versus sara ridge-locus [sará] — same segments, different peak, contrasting senses (the senses themselves are the lexicon component's to assign, not claimed here); this is the pair a script accent mark would need in order to be worth writing"
+  reconcile_for_03: "03-morphosyntax DEP1 placeholder letters (k t m n s r l w h, vowels a e i o u) are all legal in the delivered inventory, and adding p b d g ʃ j changes none of the listed stems (tamu, hani, iru, hewa, nera-). Re-run the phonotactic check and expect no violations; no structural rule in 03 depends on a segment value."
+  reconcile_for_14: "14-kin-address PH1 up-call is licensed here as AC-4 (rightward shift plus lengthening in the call register) and the down-address as AC-1b (a register-scoped accentless form). This answers 14 OQ-02 — the segmental sandhi rules are blind to the accent, so the call rules do not fight them."
+  reconcile_for_15: "15-pragmatics asks phonology for the contour specifications of the three sentence-ender particles; delivered as CX-1 (UP), CX-2 (LEVEL), CX-3 (DOWN) in phrase_contours. The particles stay outside the accent domain and are listed as accentless in AC-1a."
+  open_conflict_reported: "04-orthography assumes the script marks accent (glyph G-P01) while 12-rank-rules (SR-05) and 14-kin-address (ES2) state that the adapted script carries no accent marks. This component decides nothing about scripts and does not absorb the conflict. Cross-component item for the integrator, owner 04-orthography, status to-verify."
+
+phonology:
+  consonants: [p, t, k, b, d, g, m, n, s, ʃ, r, l, j, w, h]
+  vowels: [a, e, i, o, u]
+  phonotactics: (C)V(C)
+  tones: 0
+  accent: "pitch accent, culminative, two levels H and L, one H syllable per prosodic word. The tones field counts lexical tone categories, and D2 has none — no syllable carries an independent tone category, and the H is a property of the word's accent locus, not of the syllable (see pitch_accent)"
+  accent_levels: 2
+  notable_rules:
+    - "n → m / _ p"
+    - "n → m / _ b"
+    - "n → ŋ / _ k"
+    - "n → ŋ / _ g"
+    - "h → ɸ / _ u"
+    - "h → ç / _ i"
+    - "s → h / _ #"
+    - "t → t͡s / _ i"
+    - "k → c / _ i"
+  strata_note: "One stratum is declared — the native D2 lexicon across both stages. Loans form a second stratum only after the trade contact and are governed by loan_adaptation; the knot-era and script-era vernaculars share this inventory. The gate-facing rule list is written in finite symbol contexts so that a finite-segment checker can run it."
+
+inventory_record:
+  - id: C-1
+    series: "voiceless stops"
+    tokens: [p, t, k]
+    note: "three places, no gaps; the voicing contrast is the only laryngeal contrast in the system (F-3)"
+  - id: C-2
+    series: "voiced stops"
+    tokens: [b, d, g]
+    note: "the second stop series fills every place the voiceless series fills, so no lone exotic stop exists (F-1). The contrast is plain two-way voicing; the Korean three-way VOT and f0 type named in corpus §5 is deliberately not instantiated"
+  - id: C-3
+    series: "nasals"
+    tokens: [m, n]
+    note: "two places, matching the two labial and coronal oral stops. No phonemic velar nasal — [ŋ] exists only as the surface reflex of /n/ before a velar stop (AL-3, AL-4), which is the corpus §4 pattern of filling a gap allophonically instead of inserting a lone phoneme"
+  - id: C-4
+    series: "sibilant fricatives"
+    tokens: [s, ʃ]
+    note: "all voiceless; no voiced fricative is admitted at this stage, so the corpus §4 voiced-fricative implication is never left hanging"
+  - id: C-5
+    series: "breath phoneme"
+    tokens: [h]
+    note: "the wind/culture-named phoneme; it is the only consonant with wind-named allophones (AL-5, AL-6) and it is the target of the final-breath rule (AL-7)"
+  - id: C-6
+    series: "sonorants"
+    tokens: [r, l, j, w]
+    note: "the class that licenses codas (P-3) and gives the word shapes their slope and glide: a liquid pair plus the two glides"
+  - id: V-1
+    series: "vowels"
+    tokens: [a, e, i, o, u]
+    note: "five qualities in the triangular dispersion the corpus §2 cites for five-vowel systems (/i e a o u/). No contrastive length, no nasal vowels, no rounding contrast on the front vowels, so the front-rounded implication is not triggered rather than broken"
+  - id: V-2
+    series: "vowel sequences"
+    tokens: [V+V]
+    note: "adjacent vowels arise only across a morpheme or compound boundary; glide formation of the first high vowel is declared as a deferred morphophonological item for the 03 interface, and it is not claimed here"
+
+phonotactics_record:
+  - id: P-1
+    claim: "one syllable template, (C)V(C). No onset clusters, no coda clusters, no consonant-only syllables, no adjacent vowels inside a root"
+    follows: "corpus phonetics-phonology.md §3 (template first; the simple CV(C) type is the common one)"
+  - id: P-2
+    claim: "onset — any single consonant; an empty onset is licensed word-initially only, so iru and ata are legal shapes while a root-internal onsetless syllable is not"
+    follows: "corpus §3 (onsets easier than codas; the template keeps the margin optional)"
+  - id: P-3
+    claim: "coda — exactly {n, l, r, s}. Three sonorants and one obstruent; no stop and no glide may close a syllable"
+    follows: "corpus §3 (codas restricted, typically to sonorants) and the drift story in AC-6 — these are the codas that never carried the voicing contrast that fed the accent split"
+  - id: P-4
+    claim: "no geminates, no word-final consonant clusters, no morpheme-initial cluster. Roots run one to three syllables, and a root may not repeat one identical CV syllable three times"
+    follows: "corpus §3 (three identical CV syllables per word is a template, not a phonotactics) and 04-orthography's assumed no-geminate condition, adopted here"
+  - id: P-5
+    claim: "the word's last obstruent coda is still moving — /s/ in coda is the only obstruent left, and word-finally it breathes out to [h] (AL-7). The drift that produced the accent split is not finished in coda position"
+    follows: "corpus §5 (allophony is frozen sound change; phonologization) and AC-6"
+
+allophony:
+  - id: AL-1
+    rule: "n → m / _ p"
+    family: "place assimilation of a coda nasal (corpus §5 assimilation family)"
+    origin: "a coda nasal took the place of the following stop; the recitation register keeps the underlying /n/, which is why the alternating forms stay transparent to speakers (design stipulation)"
+    trigger_witness: "W-3"
+    blocked_witness: "W-4"
+    neutralization: "before /p/ the contrast /n/ : /m/ is not maintained. The contrast lives in onsets and before vowels (W-4, W-5), and it is not claimed in the assimilating context — this is the neutralization the gate reports as A-NEUTRAL, and the scoped analysis is that the neutralization is the rule's purpose"
+  - id: AL-2
+    rule: "n → m / _ b"
+    family: "place assimilation of a coda nasal (corpus §5)"
+    origin: "same drift as AL-1, voiced series"
+    trigger_witness: "W-6"
+    blocked_witness: "W-4"
+    neutralization: "as AL-1"
+  - id: AL-3
+    rule: "n → ŋ / _ k"
+    family: "place assimilation of a coda nasal (corpus §5)"
+    origin: "same drift as AL-1, velar series; this is where the surface velar nasal of D2 comes from, and it is the reason the inventory needs no phonemic /ŋ/ (C-3)"
+    trigger_witness: "W-7"
+    blocked_witness: "W-8"
+  - id: AL-4
+    rule: "n → ŋ / _ g"
+    family: "place assimilation of a coda nasal (corpus §5)"
+    origin: "same drift as AL-3, voiced series"
+    trigger_witness: "W-9"
+    blocked_witness: "W-8"
+  - id: AL-5
+    rule: "h → ɸ / _ u"
+    family: "the breath phoneme's coloring (corpus §5 records the Japanese /h/ to [ɸ] pattern as the model to copy)"
+    origin: "the breath phoneme takes its color from the following vowel; the culture names this allophone as the round wind (name-flavor only, and the naming ledger owns any actual term)"
+    trigger_witness: "W-1"
+    blocked_witness: "W-2"
+  - id: AL-6
+    rule: "h → ç / _ i"
+    family: "the breath phoneme's coloring (corpus §5 records the Japanese /h/ to [ç] pattern)"
+    origin: "as AL-5, the thin wind before the high front vowel"
+    trigger_witness: "W-10"
+    blocked_witness: "W-2"
+  - id: AL-7
+    rule: "s → h / _ #"
+    family: "coda weakening (corpus §5 coda-weakening family)"
+    origin: "the last obstruent coda is debuccalizing; the historical drift that gave the language its accent (AC-6) is finishing here. The law register's recitation keeps the [h] audible, which is part of how a clause is heard as finished (couples to 12-rank-rules SR-05 by contract, not by content)"
+    trigger_witness: "W-11"
+    blocked_witness: "W-12"
+    neutralization: "the output [h] is the same phone as the phoneme /h/. No lexical contrast is lost, because /h/ is not licensed in codas at all (P-3) — a coda [h] can only have come from /s/. This is the second neutralization the gate reports, and the scoped analysis resolves it"
+  - id: AL-8
+    rule: "t → t͡s / _ i"
+    family: "palatalization before a front vowel (corpus §5 palatalization family)"
+    origin: "assibilation before the high front vowel, a common drift path; the output [t͡s] is a surface segment only, so D2's affricate exists in the mouth but not in the chart (corpus §1 — a phonetic output need not be a phoneme)"
+    trigger_witness: "W-13"
+    blocked_witness: "W-14"
+  - id: AL-9
+    rule: "k → c / _ i"
+    family: "palatalization before a front vowel (corpus §5)"
+    origin: "fronting of the velar stop before the high front vowel; the rule is deliberately not extended to /e/, which is the blocked site that keeps the palatalization young (design choice, and a testable prediction for the lexicon)"
+    trigger_witness: "W-15"
+    blocked_witness: "W-16"
+  - id: AL-ORDER
+    claim: "application order is the order listed above, left to right, simultaneously per position, in one pass. The assimilation rules see the underlying string first; the breath rules never interact with them because no rule creates a new /h/. No rule feeds or bleeds another in the native lexicon, and that flatness is deliberate"
+    follows: "spec §5 rule semantics, read as design discipline rather than as a claim that ordered opacity is impossible in D2's history"
+
+pitch_accent:
+  - id: AC-1
+    rule: "culminativity — exactly one accentual peak per prosodic word. Function words and the sentence-ender particles consumed from 15-pragmatics are outside the domain and may be accentless (AC-1a)"
+    follows: "corpus §6 prosody typology, Hyman 2006 pitch accent as a type distinct from tone and stress"
+  - id: AC-1b
+    rule: "licensed de-accenting — the kin down-address suppresses the peak entirely and takes the -l suffix instead (a register-scoped accentless form, consumed from 14-kin-address PH1). This is the one systematic exception to AC-1 and it is confined to that register"
+  - id: AC-2
+    rule: "default locus — the peak stands on the first syllable of the stem, the valley locus. This is the majority class and the default assigned to anything not listed otherwise"
+  - id: AC-3
+    rule: "lexical locus class — a minority stem list takes the peak on the final syllable, the ridge locus. It is the only accent fact stored in a lexical entry, and it is the accent class field the lexicon component must carry on every entry (12-rank-rules LEX-DEG note, by contract)"
+    witness: "the pair sara valley-locus [sára] versus sara ridge-locus [sará]"
+    status: "design; the class lists are the lexicon component's to fill"
+  - id: AC-4
+    rule: "licensed rightward shift — the peak moves right in exactly three places, all consumed contracts — the inherited-noun plural (03-morphosyntax N3, hani to haní), the mirative contour (03-morphosyntax MIR1), and the kin up-call, where the final peak also lengthens (14-kin-address PH1). Every other suffix is accent-transparent"
+    consequence: "a ridge-locus stem shows no distinct plural form, because its peak is already final. That is an accidental gap of the design, stated here so the lexicon component does not have to discover it by accident"
+  - id: AC-5
+    rule: "realization — H on the peak syllable, L on every other syllable, a fall after the peak, and no other level. Two levels only; no contour tone, no downstep, no lexical H or L on any syllable"
+  - id: AC-6
+    rule: "origin of the split (design drift, invented) — an older coda voicing contrast was reanalysed as pitch on the preceding syllable and the coda obstruents were lost; the majority of stems reanalysed the peak as word-initial (AC-2), while the ridge-locus list preserves the stems whose peak stood where a coda once stood (AC-3)"
+    follows: "corpus §6 tonogenesis (Haudricourt 1954 and Thurgood 2002 as carried by the corpus); the D2 story itself is invented and is not a claim about any real language"
+  - id: AC-7
+    rule: "intonation above word prosody — a statement declines across the phrase, an interrogative takes a final rise, and the call register expands the whole pitch range. Intonation never moves the lexical peak except through the licensed shifts of AC-4"
+
+phrase_contours:
+  - id: CX-1
+    name: "UP"
+    shape: "final rise — the tail steps above the word's own H and holds to the boundary"
+    consumer: "15-pragmatics, the up sentence-ender particle"
+  - id: CX-2
+    name: "LEVEL"
+    shape: "flat tail at the word's H level, no final movement"
+    consumer: "15-pragmatics, the level sentence-ender particle"
+  - id: CX-3
+    name: "DOWN"
+    shape: "final fall to a level below the word's L"
+    consumer: "15-pragmatics, the down sentence-ender particle"
+  - id: CX-4
+    name: "CALL"
+    shape: "the shout register's contour — the word's own H-L profile with the range expanded and the peak held longer"
+    consumer: "calling_registers R-2"
+  - id: CX-NOTE
+    shape: "contours are phrase-level and add no tone category. D2 stays a two-level accent language with zero lexical tones, and a contour is never stored in a lexical entry"
+
+calling_registers:
+  - id: R-0
+    name: "ordinary speech"
+    field: "herd, camp, and household talk at conversational distance"
+    note: "the baseline against which the other registers are measured"
+  - id: R-1
+    name: "ridge-whistle, the long call"
+    field: "herder to herder across a valley on the open plateau, used while the herd strings out on the ascent"
+    grounding: "corpus §7 solid coupling — mountains plus long-distance herding give whistled registers (Silbo Gomero, Kuskoey, Chinantec, as carried by the corpus through Meyer 2008). This is the one environment claim used as a warrant in this file"
+    encodes: "the accent peak position, the syllable count, and the phrase contour — the whistle carries the tune, not the words"
+    loses: "most place and manner contrasts and the vowel qualities; the register is not a full code and never was (design stipulation)"
+    preconditions: "culminative single-peak accent (AC-1), simple syllables with recoverable count (P-1), and no consonant-only syllables — the phonology had to be shaped this way for the channel to work"
+    distance: "valley-to-valley, order of a kilometre (design stipulation; no source is claimed for the figure)"
+    ambiguity_policy: "fixed call formulae plus context. The register is rated for the fixed stock of herd and kin calls, not for open conversation"
+    status: "design on a corpus-grounded coupling — flagged as a design stipulation wherever the detail exceeds the corpus"
+  - id: R-2
+    name: "shout-call register"
+    field: "medium distance, wind up, or a herd out of sight"
+    shape: "expanded pitch range, lengthened peak, slower rate. The segmental string is unchanged — no new segments, no reduction, no elision"
+    follows: "corpus §6 apply line — long-distance speech takes pitch prominence; and corpus §6, all languages carry intonation above word prosody"
+  - id: R-3
+    name: "knot-recitation voice"
+    field: "reading the tally ledger aloud"
+    status: "seeded only and deliberately not specified. The tally knot is a record technology; whether recitation imposes a stylized monotone is 04-orthography's surface, not this component's. No rule here depends on the answer"
+  - id: R-4
+    name: "register invariant"
+    claim: "all four registers share one inventory and one accent system. Register changes phonation, pace, and coding; it never changes a phoneme inventory, which is the distinction the gate spec §1 draws between a register and a language"
+
+loan_adaptation:
+  - id: LA-1
+    strategy: "coda repair — a donor coda outside {n l r s} is opened with a vowel or dropped"
+    follows: "language-contact.md §6 coda repair row (Korean and Japanese loans; Bantu borrowings)"
+  - id: LA-2
+    strategy: "cluster repair by epenthesis — a donor onset cluster is broken by a copy vowel, giving an extra light syllable"
+    follows: "language-contact.md §6 epenthesis row (sutoraiku, Makudonarudo as carried there)"
+  - id: LA-3
+    strategy: "nasal re-placing — a donor nasal plus stop is re-placed by AL-1 through AL-4"
+    follows: "language-contact.md §6 nasal assimilation row (tempero to tempura as carried there)"
+  - id: LA-4
+    strategy: "accent assignment — a loan takes the default valley locus (AC-2) unless it entered in the script era and is marked as foreign by the lexicon"
+  - id: LA-5
+    strategy: "cognitive shortcut after literacy — written donor forms are read with D2 letter values, so the filter can be bypassed once scribes exist"
+    follows: "language-contact.md §6 orthographic adaptation row, which flags this pattern as dominant in literate eras"
+  - id: LA-6
+    scope_note: "recipient-side filters only. The donor's inventory is unscoped in this drill, and the corpus principle that the recipient's phonology does the filtering is the reason no donor chart is invented here"
+    follows: "language-contact.md §6 principle 1"
+
+writing_interface:
+  - id: WR-1
+    claim: "the knot era has no phonological writing. The tally ledger records counts and rights, not sound, and that surface belongs to 04-orthography"
+  - id: WR-2
+    claim: "the late adapted script must carry fifteen consonant values, five vowel values, and possibly an accent mark. Whether the mark exists is not decided here; see the open conflict reported in interface"
+  - id: WR-3
+    claim: "the phonology does not depend on the script. If the accent mark is never adopted, the language is unchanged and the accent stays a spoken fact, which is exactly what 12-rank-rules SR-05 asserts as an in-world ideology"
+  - id: WR-4
+    claim: "the working romanization in this file is one symbol per phoneme, with sh for ʃ and y for j, matching 04-orthography's assumed spelling. Surface phones appear only in IPA brackets and are never spelled"
+
+environment_analysis:
+  - id: ENV-1
+    claim: "a whistled register for long-distance herding on open high ground"
+    grounding: "corpus §7 solid coupling (mountains plus long-distance herding; Silbo Gomero, Kuskoey, Chinantec)"
+    status: "used as a warrant"
+  - id: ENV-2
+    claim: "long-distance calling favours pitch prominence over segmental prominence"
+    grounding: "corpus §6 apply line (long-distance speech takes pitch prominence)"
+    status: "used as a warrant"
+  - id: ENV-3
+    claim: "wind exposure selects against particular segment classes, for instance against high-frequency fricatives"
+    grounding: "no source is carried by the corpus for a wind-noise effect on inventories; the nearest climate work in corpus §7 is about temperature and sonority"
+    status: "DECLINED and not instantiated. Recorded as to-verify if a source is ever found. Nothing in this file depends on it"
+  - id: ENV-4
+    claim: "ejectives correlate with altitude"
+    grounding: "corpus §7 contested — mechanism argued, sampling criticized (Everett 2013 as carried there)"
+    status: "DECLINED as a warrant. The inventory has no ejective for unrelated reasons, and no altitude claim is used to justify that choice"
+  - id: ENV-5
+    claim: "a dry high-plateau climate produces tone"
+    grounding: "corpus §7 contested — desiccation correlation versus Hammarström 2016 and Collins 2016"
+    status: "DECLINED as a warrant. The accent is motivated by the calling ecology of ENV-2 and by the tonogenesis origin of AC-6, not by climate"
+  - id: ENV-6
+    claim: "a pastoral diet removes labiodentals"
+    grounding: "corpus §7 contested — the bite-configuration claim and its rebuttals (Blasi et al. 2019 against Tarasov and Uyeda 2020, as carried there)"
+    status: "soft design hedge only. The inventory has no /f v/, and that is presented as a hedge, never as a law. A reviewer may restore them freely without touching any rule in this file"
+
+witnesses:
+  - id: W-1
+    form: "husa"
+    surface_ipa: "ɸusa"
+    checks: "AL-5 trigger, the breath phoneme before /u/"
+  - id: W-2
+    form: "hasa"
+    surface_ipa: "hasa"
+    checks: "AL-5 and AL-6 blocked site, the breath phoneme before /a/ stays [h]"
+  - id: W-3
+    form: "sanpa"
+    surface_ipa: "sampa"
+    checks: "AL-1 trigger, coda nasal before /p/"
+  - id: W-4
+    form: "nama"
+    surface_ipa: "nama"
+    checks: "AL-1 and AL-2 blocked site, and the /n/ : /m/ contrast witness in onset"
+  - id: W-5
+    form: "mata"
+    surface_ipa: "mata"
+    checks: "the /m/ side of the onset contrast witness, with no nasal in the coda"
+  - id: W-6
+    form: "sanba"
+    surface_ipa: "samba"
+    checks: "AL-2 trigger, coda nasal before /b/"
+  - id: W-7
+    form: "sanka"
+    surface_ipa: "saŋka"
+    checks: "AL-3 trigger, coda nasal before /k/ — the only place the velar nasal surfaces"
+  - id: W-8
+    form: "saka"
+    surface_ipa: "saka"
+    checks: "AL-3 and AL-4 blocked site, no nasal before the velar stop"
+  - id: W-9
+    form: "sanga"
+    surface_ipa: "saŋga"
+    checks: "AL-4 trigger, coda nasal before /g/"
+  - id: W-10
+    form: "hiri"
+    surface_ipa: "çiri"
+    checks: "AL-6 trigger, the breath phoneme before /i/"
+  - id: W-11
+    form: "hus"
+    surface_ipa: "ɸuh"
+    checks: "AL-5 plus AL-7 in one word — a feeding chain, the round wind and then the final breath"
+  - id: W-12
+    form: "saka"
+    surface_ipa: "saka"
+    checks: "AL-7 blocked site, /s/ not in coda position"
+  - id: W-13
+    form: "tika"
+    surface_ipa: "t͡sika"
+    checks: "AL-8 trigger"
+  - id: W-14
+    form: "teka"
+    surface_ipa: "teka"
+    checks: "AL-8 blocked site, /t/ before mid /e/ does not assibilate"
+  - id: W-15
+    form: "kika"
+    surface_ipa: "cika"
+    checks: "AL-9 trigger"
+  - id: W-16
+    form: "keka"
+    surface_ipa: "keka"
+    checks: "AL-9 blocked site, /k/ before mid /e/ does not front — the young palatalization's diagnostic"
+  - id: W-17
+    form: "sara valley locus"
+    surface_ipa: "sára"
+    checks: "AC-2 default locus on the first stem syllable"
+  - id: W-18
+    form: "sara ridge locus"
+    surface_ipa: "sará"
+    checks: "AC-3 lexical class, the accent minimal pair"
+  - id: W-19
+    form: "hani singular to hani plural"
+    surface_ipa: "háni to haní"
+    checks: "AC-4 licensed rightward shift, consumed from 03-morphosyntax N3"
+  - id: W-20
+    form: "hani up-call"
+    surface_ipa: "haní"
+    checks: "AC-4 in the call register, with peak lengthening, consumed from 14-kin-address PH1"
+  - id: W-21
+    form: "duru, nera, kiru, shama, bewa"
+    surface_ipa: "sample legal shapes"
+    checks: "P-1 through P-4 — legal roots of one to three syllables, codas only from {n l r s}, no clusters, no triple CV repeat"
+  - id: W-22
+    form: "sta, tapl, kti, hamp"
+    surface_ipa: "deliberately illegal shapes"
+    checks: "P-1 and P-3 negative controls — onset cluster, coda cluster, onset cluster with an obstruent, and an unlicensed coda /p/"
+
+gate_run:
+  tool: tools/gates/phonology-sanity-gate.py
+  target: examples/culture-d2/components/02-phonology.yml
+  command: "python3 tools/gates/phonology-sanity-gate.py examples/culture-d2/components/02-phonology.yml"
+  expected: "exit 1 with REVIEW findings only, all of them A-NEUTRAL on the neutralizing rules AL-1, AL-2, and AL-7. No FAIL is expected and no finding is a contradiction"
+  interpretation: "A-NEUTRAL is the gate's prompt that neutralization into another phoneme's phone needs a contrast witness or a reanalysis. Here the analysis is explicit — the nasal place assimilation neutralizes /n/ before labials (the contrast is witnessed in onset position, W-4 and W-5), and the final-breath rule cannot lose a contrast because /h/ is never licensed in a coda (P-3). Both are design intent, not defects"
+  actual: "run at write time, 2026-10-17, on the delivered bytes — see gate_result. The three A-NEUTRAL findings are the only output; the run is reproducible with the command above"
+  gate_result: "exit 1; three REVIEW findings, A-NEUTRAL on notable_rules[1] (n → m / _ p), notable_rules[2] (n → m / _ b), and notable_rules[7] (s → h / _ #); no FAIL, no G-DATA, no T-C, no T-V, no T-SYL, no P-* finding"
+  parsed_check: "independent parse of the delivered bytes via the gate module — 15 consonants, all classified as IPA consonants; vowels a e i o u; tones 0; template (C)V(C) parses to onset 1, nucleus 1, coda 1; all nine notable_rules parse to a source, an output, and an environment"
+
+pitfalls_check:
+  PC-1: "§9.1 kitchen-sink — avoided. Fifteen consonants, every token inside a series (C-1 through C-6), no phoneme without a sibling"
+  PC-2: "§9.2 orthography thinking — avoided. IPA tokens only in the inventory; the romanization is one symbol per phoneme and is declared once (WR-4)"
+  PC-3: "§9.3 no phonotactics — avoided. Template, coda set, onset restriction, and negative controls (P-1 through P-5, W-21, W-22)"
+  PC-4: "§9.4 uniform phoneme frequency — not claimed either way. Frequency skew is a corpus property and belongs to the lexicon component's word list, not to this chart"
+  PC-5: "§9.5 tone as decoration — avoided. The accent is culminative, has a lexical class, a licensed shift, an origin, and a phrase layer (AC-1 through AC-7, CX-1 through CX-4)"
+  PC-6: "§9.6 markedness inversion as politics — avoided. Size is justified from contact history (F-1), not from sophistication or virtue"
+  PC-7: "§9.7 sound-symbolism dictionary-itis — avoided. §8 is not used to pick a single phoneme or vowel (F-7)"
+  PC-8: "§9.8 pop-science determinism — avoided. Four contested seeds are declined with their citations (ENV-3 through ENV-6)"
+  PC-9: "§9.9 one pronunciation per language — avoided. Four registers scoped (R-0 through R-3), with an invariant stated (R-4)"
+  PC-10: "§9.10 achronic allophony — avoided. Every rule carries an origin, and one rule is specified as still in progress (P-5, AL-7)"
+  PC-11: "§9.11 human anatomy for aliens — not applicable. The speakers are human; no articulatory spec sheet is needed"
+  PC-12: "§9.12 inventory as complexity gauge — avoided. Complexity is budgeted in the accent system and the registers, and the size band is chosen, not scored"
+
+cross_refs:
+  - id: XR-1
+    to: "03-morphosyntax"
+    field: "DEP1 (inventory, vowels, accent field, phonotactics) and M6 and N3 (grammatical accent shift)"
+    status: "delivered; the accent-shift contracts of 03 are instantiated here as AC-4"
+  - id: XR-2
+    to: "04-orthography"
+    field: "P-D2-PHON interface and its recompute rule"
+    status: "delivered at 1.0.0-drill with no deltas; recompute not required"
+  - id: XR-3
+    to: "12-rank-rules"
+    field: "SR-05 (the tune is the law) and the LEX-DEG accent-class requirement"
+    status: "supported — AC-3 makes the accent class a required lexical field, and WR-3 states that the language stands without the script"
+  - id: XR-4
+    to: "14-kin-address"
+    field: "PH1 (kin up-call and down-address) and OQ-02 (sandhi conflict)"
+    status: "supported — AC-4 and AC-1b license both forms, and the sandhi rules are accent-blind, so OQ-02 resolves without a rule change"
+  - id: XR-5
+    to: "15-pragmatics"
+    field: "the three sentence-ender particles and their contour specifications"
+    status: "delivered as CX-1 through CX-3, with the particles held outside the accent domain (AC-1a)"
+  - id: XR-6
+    to: "lexicon component (unwritten at this pass)"
+    field: "per-entry accent class and loan stratum flag"
+    status: "requested — every entry needs an accent class (AC-3) and a native or adapted stratum label (LA-4)"
+
+open_questions:
+  - id: OQ-1
+    question: "does the adapted script ever mark the accent?"
+    owner: "04-orthography, with the integrator arbitrating the conflict recorded in interface"
+    status: "open, non-blocking for this component — the phonology is specified either way (WR-2, WR-3)"
+  - id: OQ-2
+    question: "how large is the ridge-locus lexical list, and does it cluster in any semantic field?"
+    owner: "lexicon component"
+    status: "open. AC-3 supplies the class and the minimal pair; the list is not invented here. If the list turns out to be one semantic field, that is a finding about the tonogenesis story in AC-6 and should be reported back rather than smoothed over"
+  - id: OQ-3
+    question: "is the whistled register rated for anything beyond the fixed call formulae?"
+    owner: "this component at a later round, if the design needs it"
+    status: "open and deliberately narrow — the register is not a full code, and expanding it needs either a source or an explicit stipulation"
+  - id: OQ-4
+    question: "does glide formation at compound boundaries need a rule?"
+    owner: "03-morphosyntax at the morphophonology interface"
+    status: "deferred. Declared in V-2 and not instantiated, so that no rule here contradicts whatever 03 decides"
+
+calibration:
+  - id: CAL-1
+    claim: "the environment and society couplings"
+    status: "one solid warrant used (whistled speech in mountains with long-distance herding, corpus §7), one apply line used (long-distance speech takes pitch prominence, corpus §6)"
+  - id: CAL-2
+    claim: "ejectives and altitude, tone and dry climate, diet and labiodentals, sonority and temperature"
+    status: "contested in the corpus and declined here as warrants; each is listed in environment_analysis with its status and its citations as carried by the corpus"
+  - id: CAL-3
+    claim: "wind noise and inventory shape"
+    status: "no source carried by the corpus. Declined outright and marked to-verify (ENV-3). This is the one place where a reader might expect a wind claim, and it is the place where the design refuses to invent one"
+  - id: CAL-4
+    claim: "phoneme-frequency skew and sound symbolism"
+    status: "not claimed. Both are statistical biases that a word list can express; neither is used to justify a chart decision"
+  - id: CAL-5
+    claim: "the accent's tonogenesis origin and the drift story behind every allophony rule"
+    status: "invented design, using the corpus's tonogenesis model as the shape only. No claim is made about any real language's history, and the corpus sources are cited as carried by the corpus"
+  - id: CAL-6
+    claim: "every sample form and every gloss-seed in witnesses"
+    status: "illustrative only. Senses, IDs, and final spellings belong to the lexicon component; no witness form is a canon word"
+
+canon_boundary: "This file is a non-canonized design drill for the D2 sample packet. It hands lore-shokunin a system specification with rule IDs, witnesses, and an explicit interface; it records no world-bible fact, assigns no canon population, dates no era, and rules on no script. Where a sibling component and this one disagree, the disagreement is reported in interface and open_questions rather than absorbed. Canon decisions remain lore-shokunin's, and the D1 contrast profile is honoured by construction — the design spine here is verticality and wind, and no river, tying, or binding material appears anywhere in the system."

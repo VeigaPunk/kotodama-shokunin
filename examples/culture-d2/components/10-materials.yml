@@ -1,0 +1,670 @@
+component: 10-materials
+culture: D2
+component_title: "Material inventory — fibers, dyes, metals, leather, fuel, and the route that carries them"
+canon: not canonized (D2 design drill)
+status: "PROPOSED — non-canon sample design; no real culture is described; comparators cite repository corpus entries only; handoff is reference-only (AGENTS.md; QUALITY.md 5)"
+rev: "round-3 drill, 2026-10-17, worker W10"
+spine: "verticality (high/low, ascent/descent, seasonal poles) + wind (breath, soul-carrier, storm law)"
+spine_boundary: "D1 imagery excluded by construction: no river or watercourse imagery in any record; no binding/tying/knot imagery in the finish, loom, or dress vocabulary. Record cords appear ONLY as seed-granted record hardware (tally and hem cords) — they count, they do not bind; their design belongs to the tally/script components. No ochre (D1's ranu pigment); D2's poor-black is tannin-and-iron, not ochre."
+
+# ---------------------------------------------------------------------------
+# interface facts assumed from the round-3 D2 tree (read 2026-10-17). They are
+# contract-level only — no sibling file content is copied; if a sibling revises
+# them, map by slot id (E1-E4, G1-G3) rather than by label.
+interface_facts:
+  strapline: "Era slots E1-E4 (shelter / road / assembly / script) and the felt-grade ladder G1-G3 are already used by sibling components; traded indigo is already the era-2 dyestuff. This component supplies their material substrate and does not rename them."
+  era_slots_assumed: [E1, E2, E3, E4]
+  grade_slots_assumed: [G1, G2, G3]
+  open_interface_tension: "(to-verify) sibling 12-rank-rules dates the lowland-script caravan register to era-2 onward, while sibling 08-symbols places the script era at E4; this file follows E4 for script-era media and flags the seam for integration (see open_handoffs OH-03)."
+  reconciliation_after_siblings_landed: "checked at round-3 close (2026-10-17): 05-lexicon has already coined mir (fleece, wool), pal (salt), kor (tally-cord) and the kol/kól pitch pair (the pass vs the toll taken there) — lexicon_requests LR-01/LR-03/LR-04 must be answered against those forms, not re-coined; 05 also carries measure ladders as a declared gap, which is what ME-01..ME-06 fill at slot level. 09-eras-calendar owns the in-world era-name series (Open Grazing, First Ascent, Salt Turn, ...), so the E1-E4 tags here are slot ids for staging only and must be mapped to 09's names at integration, never treated as era names in their own right."
+  do_not_depend_on: "term ids, garment ids, or institution ids are NOT read from sibling files; they are referenced by contract field only (lexicon [{term, gloss, field, etymology, layer}]; costumes [{garment, material, wearer_rank, rite, era}])."
+
+contract_note: "Shared culture-packet keys used here: eras [names], materials [], cloth_sources []. Added component-local blocks: era_slots, bulk_materials, dye_palette, looms (inside cloth_sources), grade_ladder, trade_routes, measures, writing_media, lexicon_requests, costume_interface, gates_interface, spine_check, calibration, open_handoffs, canon_boundary. Every record carries a short id. Term forms are never coined here — lexicon_requests (LR-xx) pins the slots the lexicon component must fill; the page-name forms stay (to-verify) until then."
+
+ref_tags:
+  TT: "corpus/knowledge/culture-material/textile-technology.md — §1 four gates; §2 fiber hierarchy (worsted/woolen fork; minor fibers; linen whiteness); §3 dye chemistry, alum, monopoly template; §4 loom types + S/Z forensics; §5 fulling, grade words, stink trades; §6 lexical bounds; §7 checklist steps 1-3, 4, 5, 8, 9"
+  MC: "corpus/knowledge/culture-material/material-culture-inference-method.md — §2 inference ladder and canon tags; §4 constraint table (seasonality; energy and fuel; transport; scarcity and source distance; perishability); §5 failure modes"
+  TE: "corpus/knowledge/culture-material/trade-economy-lexicon.md — §1 Kula's law and the weighing drift; §2 measure sources (body / substance / action / container); §4 money-words that are weighings; §5 bargain registers; §7 split-object authentication; §8 risk grammar for instruments; §10 design levers"
+  EP: "corpus/knowledge/culture-material/era-periodization-models.md — §1 emic vs etic periodization and the two-layer model; §2 the typology table; §4 logistics and vocabulary of the era seam; §8 the metal-age ladder is an etic museum schema"
+  LM: "corpus/knowledge/synthesis/loanword-material-dating.md — §2 the six clocks and TPQ/TAQ; §3 loanword strata (immediate donor vs carrier; craft-domain clustering)"
+  CG: "corpus/knowledge/verification/costume-era-consistency-gate.md — §2 freeze the claim; §4 MAT-01..08 route tracing; §5 textile-tech bounds T-01..T-03; §7 first surviving example is not the invention date; §8 supply states; §9 lexical access"
+  QQ: "corpus/QUALITY.md — provenance, calibration, coupling, usability, canon hygiene"
+
+follows:
+  - "TT §1 — the four gates framework (fiber, dye, loom, finish) sets the block order of this file and the demand that each material name a gate"
+  - "TT §2 — fiber hierarchy: wool as the state fiber, the worsted/woolen fork, linen's prestige as whiteness and thread count, nettle as a minor bast; minor fibers used here as plot seams"
+  - "TT §3 — dye classes (vat, mordant, direct), fastness, alum as the trade's salt, the purple case study as the monopoly template"
+  - "TT §4 — loom typology with the warp-weighted upright loom and its forensic signatures; width sets garment architecture; S/Z spin as the cheapest single forensic"
+  - "TT §5 — fulling and finishing as the expensive half; grade words; the stink trades sit downstream of taboo"
+  - "TT §6 — the binding rule: a culture cannot have a basic costume term for a cloth or color its four gates cannot make"
+  - "TT §7 — application checklist: fiber suite (1), dye palette + monopoly chain (2), loom set and width (3), three-rung grade ladder (4), forensics paragraph (8), contrast drill (9)"
+  - "MC §2 — inference ladder: local/import route claims are L4 (provenance and exchange) and carry the HARD tag only when a route is actually declared"
+  - "MC §4 — constraint table rows used: seasonality, energy and fuel, transport and draft animals, scarcity and source distance, perishability"
+  - "MC §5 — failure modes avoided: no ritually-explained trade without a route; no constraint chain without a stated culture choice"
+  - "TE §1 — Kula's law: the selling measure and the buying measure differ; the weighing drift ingot-name to coin-name to account-name"
+  - "TE §2 — measures come from the body, the substance, the action, or the counting technology (the salt-cake and the felt-day are substance- and action-units)"
+  - "TE §4 — money-words begin as weighings; silver arrives by weight, not as coin, inside this window"
+  - "TE §5 — bargain registers: the gate market's register is law-visible barter under an inspector, not posted price"
+  - "TE §7 — split-object authentication: tally halves and cut objects are the contract's teeth (record hardware only; the design is the tally component's)"
+  - "TE §8 — risk grammar: name the instrument after the body that bears the loss (here the load and the pass, not a hull)"
+  - "TE §10 — design levers 1-3 and 6 applied: a guarantor for the measure, the drift written into the words, a measure vow, a market bargain grammar"
+  - "EP §1 — emic and etic cuts are separated; era labels below are working handles, and the cosmic layer stays a separate attributed layer"
+  - "EP §2 — era typology: the D2 count is a seasonal station count (an eponym-style administrative layer), not a dynastic cycle"
+  - "EP §4 — the era seam has logistics: what breaks and what is recut when a count changes"
+  - "EP §8 — no Stone/Bronze/Iron ladder: D2's eras are social and seasonal, and imported metal does not make an 'age'"
+  - "LM §2 — every import claim is dated to a clock: material import, lexical loan, and documentary use are separate events"
+  - "LM §3 — craft-domain loan clustering: the dyer's, trader's, and scribe's vocabularies are separate loan strata"
+  - "CG §2 — freeze the claim before reviewing it: this file fixes the substrate so a costume claim can be frozen against it"
+  - "CG §4 — MAT-01..08: market name separated from identification; import stage named; dye auxiliaries tracked; reuse declared; thread and closures declared"
+  - "CG §5 — technique bounds: cloth width, spun vs reeled, felt is not woven, sheep are plucked before shears"
+  - "CG §7 — first surviving example is not the invention date; late arrivals are staged as arrivals here"
+  - "CG §8 — supply states (external curiosity / specialist enclave / regional network) are the era vocabulary used per material"
+  - "CG §9 — lexical access: a language may name an imported or prohibited cloth it cannot make; lexicon_requests uses this licence"
+  - "QQ 1-5 — provenance, calibration, coupling, usability, and canon hygiene are the admission bar this file is measured against"
+
+eras: [E1, E2, E3, E4]
+era_slots:
+  - id: E1
+    label_candidate: "shelter era"
+    regime: "local-only highland year; no road, no imports, no traded dyestuff; cords are the only record (seed); the camp uses both poles but trades with nobody"
+    fiber_regime: "plucked fleece (no shears yet), ox-hair cordage, nettle bast, hide; felt carded only (no wool combs, so no combed grades)"
+    dye_regime: "no dyed cloth; natural fleece colors (white, grey, dark) and hearth-smoke darkening; tannin darkens leather only"
+    metal_regime: "sky-iron only — rare meteoritic iron cold-worked into awls and small blades; no smelting, no shears, no combs"
+    energy_regime: "dung fuel; no charcoal (charcoal is a below-the-line import)"
+    trade_regime: "closed inventory — every import route is explicitly excluded in this era (not unknown: excluded)"
+  - id: E2
+    label_candidate: "road era"
+    regime: "the salt-and-dried-meat road opens with the lowland partner; the gate market formalizes; traded indigo arrives (sibling 08 registers it as the era-2 dyestuff)"
+    fiber_regime: "iron shears and wool combs arrive as imports, so the clip is shorn and the combed grades (and first-shear) become possible; lowland plant-thread cloth and cord arrive as finished goods"
+    dye_regime: "traded indigo at valley vats (fuel + lichen-free alkali + imported dyestuff); local wool-black from tannin and smith scale"
+    metal_regime: "bloom iron in small lots (shears, combs, awls, knife stock); reforging at the winter camp; smith fuel is imported charcoal"
+    energy_regime: "dung fuel for households; imported charcoal reserved for the forge"
+    trade_regime: "external curiosity then specialist enclave (CG §8): one register, one vat, one forge"
+  - id: E3
+    label_candidate: "assembly era"
+    regime: "the gate market becomes the open-sky assembly; the road's second generation of imports"
+    fiber_regime: "lowland cloth widens from curiosity to a licensed category; madder and weld enter as dyestuffs and seed; a valley dye plot exists"
+    dye_regime: "madder red and weld yellow with alum mordant; overdye green (indigo over weld) possible; the valley vat serves the licensed blues"
+    metal_regime: "bronze (bells for the gate, harness studs), more iron (tools, fittings), silver by weight as stored value"
+    energy_regime: "charcoal imports grow with the forge; dung fuel still the household norm"
+    trade_regime: "regional network (CG §8) inside the road's season window"
+  - id: E4
+    label_candidate: "script era"
+    regime: "script adapted late from the lowland trade partner (seed); trade accounts begin to leave the cord (sibling 08: the cord's meanings become ceremonial and fossil)"
+    fiber_regime: "as E3, with the fuller grades of lowland cloth entering as luxury categories; the broadcloth trade"
+    dye_regime: "as E3 plus the fugitive luxury pink; the licensed indigo remains the prestige hue"
+    metal_regime: "as E3, plus writing metal (pen/knife stock) and finer trade weights"
+    energy_regime: "as E3; the forge's charcoal demand is the standing constraint on all metalwork"
+    trade_regime: "regional network; the register is written, the cord is ceremonial"
+    media_regime: "writing media become a material line (see writing_media): hide parchment locally prepared, gall-and-iron ink from the tannin chain, imported paper late"
+mythic_layer:
+  - id: E0
+    label_candidate: "the Winnowing (mythic layer, attributed only)"
+    note: "the cosmic layer of the two-layer model (EP §1-2): storm and ascent narratives. No administrative count and no material record; any E0 material statement is an in-world belief and is never a design fact (MC §2 ladder, DESIGN tag)."
+
+# ---------------------------------------------------------------------------
+# materials — gate-compatible records (kind: local|import|reuse|alternative|excluded;
+# stage: fiber|yarn|cloth|garment|dye|trim). excluded_eras marks a CLOSED
+# inventory: a costume claim inside an excluded era is a contradiction, not an
+# open question (CG §4 MAT-02).
+# ---------------------------------------------------------------------------
+materials:
+  - id: MAT-01
+    material: ewe-fleece
+    composition: "animal fibre — wool of the wool-bearer flock; grades separated by pasture pole and animal age"
+    ecology: "the flock grazes the summer pasture above the shepherds' line and folds on the valley floor in winter; the clip is sorted by pole, and the fleece is aired on the ridge racks"
+    verticality: "shearing and plucking at the low camp before the ascent; combing at the summer camp; the clip climbs and descends with the household it belongs to"
+    wind: "drying and airing are wind work; a wet fleece is never baled"
+    routes:
+      - {id: RT-m01a, name: "hand-plucking at the moult, low camp", kind: local, stage: fiber, eras: [E1]}
+      - {id: RT-m01b, name: "shearing at the low camp (shears arrive by road)", kind: import, stage: fiber, eras: [E2, E3, E4]}
+      - {id: RT-m01c, name: "combing on the summer racks", kind: local, stage: yarn, eras: [E2, E3, E4]}
+      - {id: RT-m01d, name: "carding at the winter shelters", kind: local, stage: yarn, eras: [E1, E2, E3, E4]}
+    supply_state: "regional network (CG §8) from E1; the plucked-to-shorn switch is the era's real fiber break"
+    export_flow: "grease wool goes down the road (BULK-05) while the fine combed clip stays for felt grades G2-G3"
+    follows: [TT §2.wool, TT §2.fleece-chronology, TT §7.1, MC §4.seasonality]
+  - id: MAT-02
+    material: felt
+    composition: "nonwoven animal-fibre mat — wool, carded; hair-blended for the coarse grades"
+    ecology: "matting happens at the summer seeps with meltwater and warmth and at the winter shelters with hearth heat; it needs no loom"
+    verticality: "the shelter material of both poles — wall, floor, and bale; felt is why a camp can sit above the tree line"
+    wind: "the wall that stops the wind; finished bales are aired on the racks before the gales"
+    note_grade_ladder: "G1-G3 below; a felt bale is a supply unit (see measures ME-02, the felt-day)"
+    routes:
+      - {id: RT-m02a, name: "seep-edge felt work, summer camp", kind: local, stage: cloth, eras: [E1, E2, E3, E4]}
+      - {id: RT-m02b, name: "hearth-side felt work, winter shelter", kind: local, stage: cloth, eras: [E1, E2, E3, E4]}
+    supply_state: "regional network (CG §8); felt is the bulk cloth export down the road"
+    export_flow: "felt bales down-trail (RT-1)"
+    follows: [TT §1.fiber-gate, TT §5.fulling-physics, TT §7.4, CG §5.felt-not-woven]
+  - id: MAT-03
+    material: ox-hair cordage
+    composition: "animal fibre — long coarse hair of the pack-ox, hand-twisted cord and rope, S-ply"
+    ecology: "gathered at the spring shedding; twisted by hand at the shelters; no loom"
+    verticality: "harness cord goes up with the load and down with the salt; storm bands hold the high camp"
+    wind: "guy-lines and storm bands are chosen for the gale, not for looks; a cord that has held a storm is a cord worth counting"
+    note: "also the stock for record cords and hem cords (record hardware only — see spine_boundary)"
+    routes:
+      - {id: RT-m03a, name: "hand-twisting at the winter shelter", kind: local, stage: yarn, eras: [E1, E2, E3, E4]}
+    supply_state: "local throughout (CG §8)"
+    follows: [TT §2.minor-animal-fibres, TT §4.spin-forensic, CG §4.MAT-07]
+  - id: MAT-04
+    material: nettle-bast
+    composition: "bast fibre — high-scrub nettle, retted and hackled (botanical identification to-verify; no Linum-analog on the plateau)"
+    ecology: "cut at the scrub line above the valley farms; retted in the winter pools; the poor's fibre and the sack fibre"
+    verticality: "grows between the two poles, used at both"
+    wind: "sacks and bale wraps for the road; a bad-weather fibre, not a display fibre"
+    routes:
+      - {id: RT-m04a, name: "scrub-line cutting and pond retting", kind: local, stage: fiber, eras: [E1, E2, E3, E4]}
+    supply_state: "local throughout (CG §8)"
+    follows: [TT §2.minor-fibres, MC §4.seasonality]
+  - id: MAT-05
+    material: lowland-plant-cloth
+    composition: "bast-fibre cloth of the lowland partner's weave (flax analog), imported as finished cloth"
+    ecology: "not growable above the valley farms — closed inventory at home"
+    imported_stage: "cloth (bottleneck: the pass window and the pack loads, not the market)"
+    verticality: "a lowland-made good, lawful only low on the road and at the gate market (sibling 12's sell-line is the costume component's rule, not decided here)"
+    wind: "stays in the valley register; the high camp wears its own felt"
+    routes:
+      - {id: RT-m05a, name: "up the road, pack loads to the gate market", kind: import, stage: cloth, eras: [E2, E3, E4]}
+    excluded_eras: [E1]
+    supply_state: "external curiosity (E2) to licensed category (E3-E4) (CG §8)"
+    follows: [CG §4.MAT-03, TT §2.linen-whiteness, TT §7.2, CG §9]
+  - id: MAT-06
+    material: lowland-plant-cord
+    composition: "plant-fibre cord of the lowland partner, imported as yarn/cord"
+    note: "the bale-cord import of sibling 12's fossil law; gift bales use undyed cord (their rule — referenced, not decided here)"
+    routes:
+      - {id: RT-m06a, name: "up the road with bale cord", kind: import, stage: yarn, eras: [E2, E3, E4]}
+    excluded_eras: [E1]
+    supply_state: "external curiosity then licensed category (CG §8)"
+    follows: [CG §4.MAT-03, TE §7.split-object-authentication]
+  - id: MAT-07
+    material: lowland-broadcloth
+    composition: "fulled and sheared wool cloth of the lowland treadle looms; regular twill repeat is the provenance tell"
+    imported_stage: "cloth (the finish is the partner's; D2 can neither full nor shear at this grade)"
+    routes:
+      - {id: RT-m07a, name: "up the road, luxury lots", kind: import, stage: cloth, eras: [E4]}
+    excluded_eras: [E1, E2, E3]
+    supply_state: "external curiosity (CG §8)"
+    follows: [TT §4.treadle-signature, TT §5.grade-words, CG §5.T-01]
+  - id: MAT-08
+    material: traded-indigo
+    composition: "vat dyestuff, indigotin-class, arriving as cakes from the lowland partner"
+    chemistry: "vat dye: reduction in a valley vat, then air oxidation on the fibre (TT §3.chem-classes)"
+    monopoly_chain: "lowland plant (organism) -> cake processing at the lowland town -> the road (route) -> the gate toll and the licensed vat (tax); the licensing is the sibling components' institution, this file supplies the bottleneck"
+    verticality: "dyeing is a low-station work: the vat needs fuel, warmth, and a vat house, none of which travel up"
+    wind: "the vat house sits downwind of the camp (stink trade; TT §5.stink-trades); the storm-slate hue's symbolic register belongs to sibling 08"
+    routes:
+      - {id: RT-m08a, name: "gate-market licence, valley vat house", kind: import, stage: dye, eras: [E2, E3, E4]}
+    excluded_eras: [E1]
+    supply_state: "external curiosity (E2) to regional network (E3-E4) (CG §8)"
+    follows: [TT §3.vat-class, TT §1.rarest-fast-dye, TT §7.2, TT §5.stink-trades]
+  - id: MAT-09
+    material: wool-black
+    composition: "tannin from scrub galls and bark, saddened with iron (smith scale) — the genuine black, also the tanner's chemistry"
+    ecology: "scrub belt between the valley farms and the shepherds' line; gathered dry in autumn"
+    verticality: "mid-slope material, used at both poles"
+    wind: "a cheap working colour; nobody dresses it up"
+    routes:
+      - {id: RT-m09a, name: "scrub gathering and shelter-side dyeing", kind: local, stage: dye, eras: [E2, E3, E4]}
+      - {id: RT-m09b, name: "leather darkening (not cloth)", kind: local, stage: trim, eras: [E1, E2, E3, E4]}
+    excluded_eras: []
+    supply_state: "local throughout (CG §8); the poor's black against the licensed blue"
+    follows: [TT §3.tannin-row, TT §3.iron-saddens, TE §1]
+  - id: MAT-10
+    material: hearth-dark
+    composition: "smoke-darkened fleece and felt — no dye molecule added; the darkening is soot and heat"
+    ecology: "the shelters' smoke does the work over a winter; the colour is a process, not a substance"
+    verticality: "the smoke goes up; the cloth hangs above the hearth"
+    wind: "shelter work only — this colour cannot be made in the open"
+    note: "the fossil dark of the E1 palette that the storm slot occupied before traded indigo (sibling 08's drift law); this file supplies only the process"
+    routes:
+      - {id: RT-m10a, name: "winter-hearth curing", kind: local, stage: dye, eras: [E1, E2, E3, E4]}
+    supply_state: "local throughout (CG §8)"
+    follows: [TT §3.direct-class-fugitive, TT §5, EP §1]
+  - id: MAT-11
+    material: traded-madder-root
+    composition: "mordant dyestuff, root, alizarin-class, imported dried"
+    chemistry: "mordant dye — needs alum (MAT-13); red shifts with iron to a sadder tone (TT §3.madder-row)"
+    routes:
+      - {id: RT-m11a, name: "up the road, dye lots", kind: import, stage: dye, eras: [E3, E4]}
+    excluded_eras: [E1, E2]
+    supply_state: "external curiosity to specialist enclave (CG §8): one dye lot at a time"
+    follows: [TT §3.madder-row, TT §3.alum-is-the-trades-salt, CG §4.MAT-04]
+  - id: MAT-12
+    material: weld-plot
+    composition: "mordant dyestuff, herb, luteolin-class — imported as seed in E3, grown at valley plots by E4"
+    chemistry: "the fast yellow; indigo over weld yields the stable green (TT §3.weld-row)"
+    verticality: "a valley-plot crop: it belongs to the low station and the low season"
+    routes:
+      - {id: RT-m12a, name: "seed lots up the road, first plot", kind: import, stage: dye, eras: [E3]}
+      - {id: RT-m12b, name: "valley dye plots, local harvest", kind: local, stage: dye, eras: [E4]}
+    excluded_eras: [E1, E2]
+    supply_state: "external curiosity (E3) to local plot (E4) (CG §8)"
+    follows: [TT §3.weld-row, TT §2.fiber-gate-analogue, MC §4.seasonality]
+  - id: MAT-13
+    material: alum
+    composition: "mordant salt (alum-class), imported in cakes"
+    note: "the dyers' salt against the eating salt (BULK-01): one word, two substances — the buying and selling measures differ (TE §1 Kula's law)"
+    routes:
+      - {id: RT-m13a, name: "up the road with the dye lots", kind: import, stage: dye, eras: [E3, E4]}
+    excluded_eras: [E1, E2]
+    supply_state: "external curiosity to specialist enclave (CG §8)"
+    follows: [TT §3.alum-is-the-trades-salt, TE §1, CG §4.MAT-04]
+  - id: MAT-14
+    material: traded-pink
+    composition: "direct dyestuff, carthamin-class, imported as pressed cakes — vivid and fugitive"
+    routes:
+      - {id: RT-m14a, name: "up the road, luxury lots", kind: import, stage: dye, eras: [E4]}
+    excluded_eras: [E1, E2, E3]
+    supply_state: "external curiosity (CG §8)"
+    follows: [TT §3.safflower-row]
+  - id: MAT-15
+    material: sky-iron
+    composition: "meteoric iron, cold-worked; the only pre-road metal (design element; comparator basis to-verify — no corpus table consulted, do not canonize on this file's authority)"
+    ecology: "found on the scree above the shepherds' line, after weather, by those already up there"
+    verticality: "the metal of the top; it is never dug for"
+    wind: "it falls with the storm, so its finding is a storm-event — an in-world claim the myth component may or may not use"
+    routes:
+      - {id: RT-m15a, name: "scree finds, cold-worked at the camp", kind: local, stage: trim, eras: [E1, E2, E3, E4]}
+    supply_state: "external curiosity internally: rare, sacred, never bulk (CG §8; MC §2 DESIGN tag)"
+    follows: [MC §2.design-tag, TT §7.5.sacred-fibre-analogue]
+  - id: MAT-16
+    material: trail-iron
+    composition: "bloom iron imported as stock; reforged (not smelted) at the winter camp"
+    ecology: "no local ore in the design; the smith's constraint is fuel, not ore"
+    bottleneck: "imported charcoal (BULK-04) — the forge is charcoal-limited, so iron arrivals set the tool ceiling"
+    use_note: "shears (finish gate), wool combs (combed grades), awls, knife stock, harness fittings"
+    routes:
+      - {id: RT-m16a, name: "road lots to the winter forge", kind: import, stage: trim, eras: [E2, E3, E4]}
+    excluded_eras: [E1]
+    supply_state: "specialist enclave (E2) to regional network (E3-E4) (CG §8)"
+    follows: [MC §4.energy-and-fuel, MC §4.transport, CG §4.MAT-03, TT §5.shears]
+  - id: MAT-17
+    material: bronze
+    composition: "copper-alloy, imported as ingot and as finished castings (partner's foundry)"
+    use_note: "gate bells, harness studs and rings, small vessels; D2 owns finish-work and re-casting only"
+    wind: "the gate bell is heard across the pass when the wind runs the right way — the sound is a route fact, not a symbol claim"
+    routes:
+      - {id: RT-m17a, name: "castings up the road", kind: import, stage: trim, eras: [E3, E4]}
+    excluded_eras: [E1, E2]
+    supply_state: "external curiosity to specialist enclave (CG §8)"
+    follows: [CG §4.MAT-03, MC §4.transport]
+  - id: MAT-18
+    material: weighed-silver
+    composition: "silver by weight — ingot, hack-silver, and (E4) the partner's coin as metal"
+    note: "the weighing drift: weight-words become money-words; the measure used for buying is not the one used for selling (TE §1, §4)"
+    routes:
+      - {id: RT-m18a, name: "road lots, weighed at the gate market", kind: import, stage: trim, eras: [E3, E4]}
+    excluded_eras: [E1, E2]
+    supply_state: "external curiosity (CG §8)"
+    follows: [TE §4.money-words, TE §1.weighing-drift, TE §10.lever-2]
+  - id: MAT-19
+    material: smith-scale
+    composition: "hammer-scale and spent iron, reused as the iron mordant that saddens tannin and madder (reuse, not a primary material)"
+    routes:
+      - {id: RT-m19a, name: "forge-floor collection to the dye pots", kind: reuse, stage: dye, eras: [E2, E3, E4]}
+    excluded_eras: [E1]
+    supply_state: "specialist enclave (CG §8)"
+    follows: [TT §3.iron-saddens, CG §4.MAT-06]
+  - id: MAT-20
+    material: herd-hide
+    composition: "animal hide of the herd, tannin-tanned; leather for the wind-facing outer layer, harness, bags, boot stock"
+    ecology: "the autumn kill and the fallen animals; tanning pits sit downwind of the camp"
+    wind: "leather is the outer layer against weather; the pits are sited by wind, not by water (spine_boundary)"
+    routes:
+      - {id: RT-m20a, name: "camp tanning, downwind pits", kind: local, stage: garment, eras: [E1, E2, E3, E4]}
+      - {id: RT-m20b, name: "hide-parchment preparation (E4 writing medium)", kind: local, stage: trim, eras: [E4]}
+    supply_state: "local throughout (CG §8)"
+    follows: [TT §5.stink-trades, MC §4.seasonality, CG §4.MAT-07]
+  - id: MAT-21
+    material: sinew-thread
+    composition: "animal sinew and gut thread — the garment thread of the highland wardrobe"
+    note: "declared so a costume claim's closures, seams, and pads resolve (CG §4.MAT-07); the lowland cloth brings its own thread"
+    routes:
+      - {id: RT-m21a, name: "camp thread work", kind: local, stage: yarn, eras: [E1, E2, E3, E4]}
+    supply_state: "local throughout (CG §8)"
+    follows: [CG §4.MAT-07, TT §7.3]
+  - id: MAT-22
+    material: horn-and-bone
+    composition: "horn, bone, and antler: toggles, pins, harness rings, belt ends, awl handles"
+    note: "closures and strap-ends are bone and horn before they are metal, and remain so after it (CG §4.MAT-07)"
+    routes:
+      - {id: RT-m22a, name: "camp bone work", kind: local, stage: trim, eras: [E1, E2, E3, E4]}
+    supply_state: "local throughout (CG §8)"
+    follows: [CG §4.MAT-07, MC §4.transport]# ---------------------------------------------------------------------------
+# bulk_materials — economy-facing goods that never appear on a costume record.
+# Same route shape as `materials`, deliberately kept out of the gate-read block
+# because the gate's stage enum does not model food, fuel, or export stock.
+# ---------------------------------------------------------------------------
+bulk_materials:
+  - id: BULK-01
+    material: salt
+    composition: "rock and pan salt; the trade good that names the road"
+    ecology: "high pans and licks above the summer pasture, dried by sun and wind; the pan season is the high season"
+    verticality: "taken from the top and carried down — the road's down-cargo is heavy, which is why the up-cargo is priced against it"
+    routes:
+      - {id: RT-b01a, name: "high pan harvest, summer", kind: local, era_scope: [E1, E2, E3, E4]}
+      - {id: RT-b01b, name: "down-trail packs to the lowland fair", kind: local, era_scope: [E2, E3, E4]}
+    measure_note: "the salt-cake is unit and good at once (ME-01); the measure you sell with is not the measure you buy with (TE §1)"
+    follows: [TE §1, TE §2.substance-unit, MC §4.scarcity]
+  - id: BULK-02
+    material: dried-meat
+    composition: "air- and wind-dried herd meat; the road's second down-cargo"
+    ecology: "the autumn kill after the descent; drying is wind work at the shelters"
+    verticality: "made at the low station from herd raised at the high one"
+    routes:
+      - {id: RT-b02a, name: "autumn drying, winter stores and road lots", kind: local, era_scope: [E1, E2, E3, E4]}
+    follows: [MC §4.seasonality, MC §4.perishability]
+  - id: BULK-03
+    material: dung-fuel
+    composition: "dried herd dung — the household fuel of a treeless plateau"
+    energy_note: "the energy gate behind every dye pot and hearth at the high camp; charcoal is for the forge only"
+    routes:
+      - {id: RT-b03a, name: "camp collection and drying", kind: local, era_scope: [E1, E2, E3, E4]}
+    follows: [MC §4.energy-and-fuel]
+  - id: BULK-04
+    material: charcoal
+    composition: "charcoal, imported from below the tree line; the forge's fuel and therefore the tool ceiling"
+    bottleneck: "all metalwork scales with this import, not with ore supply"
+    routes:
+      - {id: RT-b04a, name: "up the road, sacks to the forge", kind: import, era_scope: [E2, E3, E4]}
+    excluded_eras: [E1]
+    follows: [MC §4.energy-and-fuel, TT §5]
+  - id: BULK-05
+    material: grease-wool
+    composition: "raw fleece in the grease, exported as bulk stock"
+    note: "the fine combed clip is kept home for grades G2-G3; the grease wool pays for the grain (MAT-01)"
+    routes:
+      - {id: RT-b05a, name: "down the road by the pack-load", kind: local, era_scope: [E2, E3, E4]}
+    follows: [TT §2.wool, TE §1]
+  - id: BULK-06
+    material: grain
+    composition: "lowland grain, imported food; the up-cargo's ballast"
+    routes:
+      - {id: RT-b06a, name: "up the road, bulk sacks", kind: import, era_scope: [E2, E3, E4]}
+    excluded_eras: [E1]
+    follows: [MC §4.transport, MC §4.seasonality]
+
+# ---------------------------------------------------------------------------
+# dye_palette — the TT §7.2 card: 4 fast + 2 fugitive + 1 monopoly, and the
+# no-dye palette that E1 actually lives in. Hue words are not coined here.
+# ---------------------------------------------------------------------------
+dye_palette:
+  monopoly:
+    dye_id: MAT-08
+    name: traded-indigo
+    chain: "lowland plant -> lowland cake processing -> the road -> gate toll and licensed vat"
+    why_monopoly: "imported fast dye under a treaty licence: the gate, not the dye pot, is what a rival must break (TT §1, §3; TT §7.2)"
+  fast:
+    - {id: DP-01, color_slot: "the licensed blue of the assembly", dye: traded-indigo, class: vat, route: import, eras: [E2, E3, E4], follows: "TT §3.vat-class"}
+    - {id: DP-02, color_slot: "the working black", dye: wool-black, class: tannin + iron mordant, route: local, eras: [E2, E3, E4], follows: "TT §3.tannin-row; TT §3.iron-saddens"}
+    - {id: DP-03, color_slot: "the imported red", dye: traded-madder-root, class: mordant, route: import, eras: [E3, E4], follows: "TT §3.madder-row"}
+    - {id: DP-04, color_slot: "the fast yellow (and the overdye green)", dye: weld-plot, class: mordant, route: import then local plot, eras: [E3, E4], follows: "TT §3.weld-row"}
+  fugitive:
+    - {id: DP-05, color_slot: "the shelter dark", dye: hearth-dark, class: process darkening (soot and heat), route: local, eras: [E1, E2, E3, E4], failure: "abrades and lightens; a working colour", follows: "TT §3.direct-class-fugitive"}
+    - {id: DP-06, color_slot: "the luxury pink", dye: traded-pink, class: direct, route: import, eras: [E4], failure: "fades in light; a fair-day colour", follows: "TT §3.safflower-row"}
+  no_dye_palette:
+    id: DP-07
+    content: "E1 cloth is undyed: natural fleece colours (white, grey, the dark of dark-fleeced animals) plus smoke darkening. This is a real palette, not an absence — the fleece carries the colour (TT §2; sibling 08's fleece-white slot)."
+  register_boundary: "This block is a material-versus-hue fact sheet only. Symbolic register assignments for colours belong to sibling 08; the red and yellow above are NOT claimed as signs, and integration must score them against 08's register list before any symbol use."
+
+# ---------------------------------------------------------------------------
+# cloth_sources — gate-read width bound (TT §4: cloth width = loom width; a
+# seamless panel wider than every source is a contradiction unless piecing or
+# stretching is declared). Extra keys carry the forensic signature.
+# ---------------------------------------------------------------------------
+cloth_sources:
+  - id: LM-01
+    name: "upright warp-weighted loom, scree-stone weights"
+    max_width_m: 1.4
+    eras: [E1, E2, E3, E4]
+    tension: "stone loomweights hang the warp; the beam sits at the top of the frame"
+    signature: "woven top-down from a starting border at the top; doubled weight-bearing selvedge warps; slate weights in pits are the archaeological tell; the loom itself is the vertical axis of the shelter, cloth descending from the sky-edge of the frame to the floor"
+    follows: [TT §4.warp-weighted, TT §4.width-breeds-architecture, TT §7.3]
+  - id: LM-02
+    name: "narrow band frame"
+    max_width_m: 0.12
+    eras: [E1, E2, E3, E4]
+    signature: "bands for hems, harness, girths, hem cords; selvedge-heavy, no pattern"
+    follows: [TT §4.forensics]
+  - id: LM-03
+    name: "felt mat work (no loom)"
+    max_width_m: 1.6
+    eras: [E1, E2, E3, E4]
+    signature: "nonwoven: no warp, no selvedge, no spin direction in the finished face; edges are rubbed, not cut clean; felt is never called woven (CG §5)"
+    follows: [TT §5.fulling-physics, CG §5.felt-not-woven]
+  - id: LM-04
+    name: "imported lowland treadle-loom cloth"
+    max_width_m: 1.6
+    eras: [E4]
+    signature: "regular twill repeat and machine-even weft — the provenance tell of a lowland loom; the cloth carries its maker's width, not ours"
+    follows: [TT §4.treadle-signature, CG §5.T-01, CG §4.MAT-03]
+
+# ---------------------------------------------------------------------------
+# grade_ladder — the three-rung ladder TT §7.4 asks for, mapped to the G1-G3
+# slots sibling 12 already uses. Finishing here is wind work, not mill work:
+# no fulling mill, no tenter frames; the gale does the drying and the shear
+# does the rest (TT §5).
+# ---------------------------------------------------------------------------
+grade_ladder:
+  rung_count: 3
+  finishing_capacity: "washing and rinsing at the valley pools, fulling by foot at the seeps and hearths, nap raising by hand, shearing with imported shears (E2+), and gale-racking on frames — no water-powered fulling mill and no tenter ground (TT §5)"
+  rungs:
+    - id: G1
+      working_label: "day felt"
+      fibre_basis: "carded winter-clip fleece, hair-blended; plucked fleece only in E1"
+      era: [E1, E2, E3, E4]
+      finish: "rubbed and felted; left shaggy or shear-touched"
+      use_scope: "shelter and work grade; the floor of the ladder"
+      follows: [TT §5.grade-words, TT §7.4]
+    - id: G2
+      working_label: "fold felt"
+      fibre_basis: "carded summer-clip fleece from the high pasture; no combed content"
+      era: [E1, E2, E3, E4]
+      finish: "fully felted at the seeps, then nap-raised and sheared"
+      use_scope: "the household's ordinary coat grade; export bales are G2"
+      follows: [TT §5.fulling, TT §2.wool-fork]
+    - id: G3
+      working_label: "white felt"
+      fibre_basis: "combed first-shear undercoat from the high-pasture clip — combing requires imported wool combs, so the grade is E2 onward"
+      era: [E2, E3, E4]
+      finish: "fine fulling, careful nap, wind-racked white; no overdye by preference"
+      use_scope: "the top of the ladder; the rank assignment of G1-G3 belongs to the rank-rules component, not here"
+      follows: [TT §2.wool-fork, TT §4.forensics, TT §5.grade-words]
+  era_break_note: "the plucked-to-shorn switch (E1 -> E2) is what creates the ladder's top rung: without shears there is no clean fleece and without combs there is no combed grade. This is the single most checkable material claim in the file."
+
+# ---------------------------------------------------------------------------
+# trade_routes — every import is a gate good; there is no second seam.
+# ---------------------------------------------------------------------------
+trade_routes:
+  - id: RT-1
+    name_candidate: "the road (salt and dried-meat trail)"
+    spine: "a pass, not a river: the route is vertical and seasonal"
+    season: "opens when the pass is fit and closes at the first gale of the closing storm; over-winter traffic does not exist in the design"
+    endpoints: "the gate market (high, on our side) <-> the lowland partner's fair (below)"
+    down_cargo: [BULK-01, BULK-02, BULK-05, felt bales (MAT-02)]
+    up_cargo: [MAT-05, MAT-06, MAT-08, MAT-13, MAT-16, MAT-11, MAT-12, MAT-07, MAT-14, MAT-17, MAT-18, BULK-04, BULK-06]
+    imported_stage_rule: "cloth arrives as cloth, dye as dye cake, iron as stock, castings as castings; D2 never claims the partner's production stages (CG §4.MAT-03)"
+    risk_grammar: "the pass bears the risk, not a hull: lost loads are shared by pack-owner and merchant according to the load agreement sworn at the gate (instrument naming belongs to the trade component; TE §8 supplies the grammar)"
+    bargain_register: "market barter under an inspector at the gate; the lowland fair keeps its own register; no posted prices in the design (TE §5)"
+    follows: [TE §5, TE §8, MC §4.transport, MC §4.seasonality, CG §4.MAT-03]
+  - id: RT-2
+    name_candidate: "the pan path"
+    kind: internal
+    season: "summer only, while the high pans are reachable"
+    flow: "salt from the pans down to the shelters; no imported good travels this path"
+    follows: [MC §4.transport, TT §7.3]
+  - id: RT-3
+    name_candidate: "the scrub run"
+    kind: internal
+    flow: "tannin bark and galls, nettle bast, and (E3+) the valley dye plot harvest move between the mid-slope and the camps on foot"
+    follows: [MC §4.seasonality, TT §3.tannin-row]
+
+# ---------------------------------------------------------------------------
+# measures — slots only; no unit word is coined here (lexicon_requests LR-05).
+# ---------------------------------------------------------------------------
+measures:
+  - {id: ME-01, unit_slot: "the salt-cake", source: substance (TE §2), note: "unit and good coincide; selling measure differs from buying measure (TE §1)", era: [E1, E2, E3, E4]}
+  - {id: ME-02, unit_slot: "the felt-day", source: "action (TE §2) — a work-unit like the acre-as-a-day's-plowing", note: "felt is counted in bales and bales are counted in felt-days; the slot is already used by sibling 12 (referenced, not designed here)", era: [E1, E2, E3, E4]}
+  - {id: ME-03, unit_slot: "the pack-load", source: container/vehicle (TE §2), note: "the road's freight unit; the up-cargo is priced against the down-cargo", era: [E2, E3, E4]}
+  - {id: ME-04, unit_slot: "the pass-year", source: action/season (TE §2), note: "the administrative year runs from pass-clearing to closing storm; era seams are recut on the record cords (EP §4: what breaks at a seam)", era: [E1, E2, E3, E4]}
+  - {id: ME-05, unit_slot: "the vat-lot", source: counting technology of the dye house (TE §2), note: "one licensed vat's worth of dyestuff; the licence is the institution, the lot is the material count", era: [E2, E3, E4]}
+  - {id: ME-06, unit_slot: "the cord", source: "record hardware (TE §2, §7)", note: "the tally unit — sibling 08 declares the arithmetic (five stations, two crossings, ten knots); this file only supplies the cord stock (MAT-03) and never designs the record", era: [E1, E2, E3, E4]}
+
+# ---------------------------------------------------------------------------
+# writing_media — the E4 material line. The script itself, its orthography and
+# its register belong to other components; this block supplies the substrate
+# only, on the LM §2 rule that material, lexical, and documentary clocks are
+# separate.
+# ---------------------------------------------------------------------------
+writing_media:
+  - id: WM-01
+    medium: gall-iron-ink
+    composition: "tannin from the scrub galls + iron from smith scale — the black dye's own chemistry, shared with the dye house (TT §3: a culture's ink and black dye may share a supply chain)"
+    route: local
+    eras: [E4]
+    bottleneck: "shares the tannin gather and the forge's iron; an ink shortage is a dye-house shortage"
+    follows: [TT §3.tannin-row, LM §2.material-clock, MAT-09, MAT-19]
+  - id: WM-02
+    medium: hide-parchment
+    composition: "prepared herd hide (MAT-20), rubbed smooth; the local writing surface"
+    route: local
+    eras: [E4]
+    note: "ink + hide keeps the whole ledger inside the herd economy; the partner's script written on the herd's own skin is a designed irony, not a symbolic claim"
+    follows: [LM §2.documentary-clock, MAT-20]
+  - id: WM-03
+    medium: imported-paper
+    composition: "paper sheets from the lowland partner"
+    route: import
+    eras: [E4]
+    bottleneck: "pack loads; a paper sheet is a load-fraction, which keeps paper scarce and official"
+    excluded_eras: [E1, E2, E3]
+    follows: [CG §4.MAT-03, LM §2]
+
+# ---------------------------------------------------------------------------
+# lexicon_requests — slots and layering only. NO surface form is coined in this
+# file; the lexicon component owns the phonology contract and the term ids.
+# `layer` anticipates the packet's lexicon [{term, gloss, field, etymology, layer}].
+# ---------------------------------------------------------------------------
+lexicon_requests:
+  - {id: LR-01, gloss_slot: "fleece; wool (of the wool-bearer)", field: material, layer: native, form: "(to-verify — lexicon component)", note: "grade senses G1-G3 attach here"}
+  - {id: LR-02, gloss_slot: "felt", field: material, layer: native, form: "(to-verify)", note: "the culture's default cloth noun; sparse-morphology languages often use one noun for cloth and felt"}
+  - {id: LR-03, gloss_slot: "cord (harness, record, hem)", field: material, layer: native, form: "(to-verify)", note: "record senses belong to the tally component; the material sense belongs here"}
+  - {id: LR-04, gloss_slot: "salt", field: material, layer: native, form: "(to-verify)"}
+  - {id: LR-05, gloss_slot: "salt-cake (measure)", field: measure, layer: native, form: "(to-verify)", note: "unit and good; the measure vow and inspector office are elsewhere (TE §3)"}
+  - {id: LR-06, gloss_slot: "indigo; the dyestuff cake", field: material, layer: loan, form: "(to-verify)", note: "loan along RT-1 with the E2 road; the HUE word may remain native while the dyestuff noun is loaned (LM §3: separate strata)"}
+  - {id: LR-07, gloss_slot: "alum; the dyers' salt", field: material, layer: loan, form: "(to-verify)", note: "collides semantically with LR-04 — the buying measure differs from the selling measure (TE §1) and the two salts may share a word with a qualifier"}
+  - {id: LR-08, gloss_slot: "lowland cloth (plant-thread)", field: material, layer: loan, form: "(to-verify)", note: "CG §9 licence: a language may name a cloth it cannot make"}
+  - {id: LR-09, gloss_slot: "bale (felt supply unit)", field: measure, layer: native, form: "(to-verify)"}
+  - {id: LR-10, gloss_slot: "iron; shears; comb", field: material, layer: loan, form: "(to-verify)", note: "tool nouns arrive with the tools (LM §3 craft-domain clustering)"}
+  - {id: LR-11, gloss_slot: "silver; weight; to weigh", field: measure, layer: loan, form: "(to-verify)", note: "the weighing drift (TE §1, §4): weight-word becomes money-word inside the window"}
+  - {id: LR-12, gloss_slot: "dye vat; to dye", field: material, layer: native, form: "(to-verify)", note: "the process may be native while the major dyestuff is loaned"}
+  - {id: LR-13, gloss_slot: "ink; ledger; parchment", field: writing, layer: loan, form: "(to-verify)", note: "the ledger vocabulary arrives with the script (LM §2 documentary clock; sibling 12 already uses a caravan register)"}
+  - {id: LR-14, gloss_slot: "madder; weld", field: material, layer: loan, form: "(to-verify)", note: "plant names travel with the seeds and the cakes"}
+
+# ---------------------------------------------------------------------------
+# costume_interface — the contract surface a costume component consumes. It
+# names material identifiers, widths, and thread; it decides NO rank rules.
+# ---------------------------------------------------------------------------
+costume_interface:
+  material_names_to_use:
+    - "ewe-fleece | felt | ox-hair cordage | nettle-bast | lowland-plant-cloth | lowland-plant-cord | lowland-broadcloth | traded-indigo | wool-black | hearth-dark | traded-madder-root | weld-plot | alum | traded-pink | sky-iron | trail-iron | bronze | weighed-silver | smith-scale | herd-hide | sinew-thread | horn-and-bone"
+  dye_names_to_use: "traded-indigo | wool-black | hearth-dark | traded-madder-root | weld-plot | traded-pink (the `dye:` field of a costume record should use exactly these strings; MAT-04 in the gate matches them)"
+  width_cap: "local cloth: 1.4 m seamless (LM-01); felt: 1.6 m (LM-03); imported lowland cloth: 1.6 m (LM-04, E4). Any seamless panel above the declared source width must be declared as pieced, felted, or imported (CG §5.T-01)."
+  thread_and_closures: "garment thread = sinew-thread (MAT-21); toggles, pins, strap-ends = horn-and-bone (MAT-22); lowland cloth brings its own thread (declare it) — this closes the gate's MAT-07 loop for the highland wardrobe"
+  era_map_for_costume_records:
+    E1: "ewe-fleece (plucked), felt G1-G2, ox-hair cordage, nettle-bast, herd-hide, sinew-thread, horn-and-bone, sky-iron, salt; no dyed cloth, no imported anything"
+    E2: "+ lowland-plant-cloth and lowland-plant-cord, traded-indigo (licensed), wool-black, trail-iron (shears, combs), charcoal; felt G3 becomes possible"
+    E3: "+ traded-madder-root, alum, weld seed, bronze, weighed-silver, smith-scale reuse"
+    E4: "+ lowland-broadcloth, traded-pink, imported-paper; writing media (not worn)"
+  rank_hooks_not_decided_here: "the G1-G3 rank assignment, the sell-line rule, the licensed-blue rule, the covenant sash, the mourning dress rules, and every penalty are the rank-rules/costume components' business; this file only asserts what exists, where it comes from, and when it is reachable"
+  provenance_values_expected: "local-production | import | reuse | alternative (the gate's vocabulary); a costume with no matching material route is a HOLD, not an assumption (CG §4.MAT-02)"
+
+# ---------------------------------------------------------------------------
+# gates_interface — how this component plugs into the executable gate.
+# ---------------------------------------------------------------------------
+gates_interface:
+  splice_blocks: "a costume packet can splice `eras:`, `era_slots:` (labels only), `materials:`, `cloth_sources:` and `grade_ladder:` from this file unchanged; the gate reads material/material-composition/routes[kind,stage,eras]/excluded_eras and cloth_sources[name,max_width_m,eras] and ignores the extra keys"
+  enum_conformance: "routes[].kind in {local, import, reuse, alternative, excluded}; routes[].stage in {fiber, yarn, cloth, garment, dye, trim}; bulks and writing media live outside `materials:` because their stages are not in the enum"
+  self_run_note: "run as a packet this file exits 2 by design (the kernel needs a `costumes` block to review); the costume component supplies it, and the gate then reads this substrate — no waiver, a declared boundary"
+  closed_inventory_rule: "every excluded_eras row above is a declared closed inventory. If a costume from a later component claims the excluded good in that era, the finding is a real contradiction (reject), not a missing datum — repair it by moving the claim or by amending this file, and log which"
+  reuse_rule: "smith-scale (MAT-19) is declared `reuse`; a costume claiming reused iron trim in E2+ can cite it, and the gate's MAT-06 will find the route instead of a HOLD"
+
+# ---------------------------------------------------------------------------
+# spine_check — the two-axis audit the round requires, plus the D1 scan.
+# ---------------------------------------------------------------------------
+spine_check:
+  verticality:
+    - "two pasture poles set the fiber calendar: pluck/shear at the low camp, comb and felt at the high one (MAT-01, MAT-02)"
+    - "production splits by altitude: salt from the high pans, dye vats and plots at the valley floor, the forge at the winter camp (BULK-01, MAT-08, MAT-12, MAT-16)"
+    - "the loom is upright and its weights are scree stone: cloth descends the frame from the sky-edge to the floor (LM-01)"
+    - "the only import seam is a pass; all imported material is a gate good (RT-1)"
+    - "sky-iron is found only above the shepherds' line (MAT-15)"
+    - "the administrative year is a vertical event: pass-clearing to closing storm (ME-04)"
+  wind:
+    - "felt is the wall against the wind; the high camp exists because of it (MAT-02)"
+    - "finishing is gale work: wind-racking replaces the tenter ground, and no fulling mill exists (grade_ladder.finishing_capacity; TT §5)"
+    - "every stink trade is sited downwind: the vat house, the tanning pits, the retting pools (MAT-08, MAT-20, MAT-04; TT §5)"
+    - "hearth-dark is a smoke process: the colour that goes up with the smoke (MAT-10)"
+    - "drying is wind work throughout: fleece, felt bales, dried meat, salt pans, hides (MAT-01, BULK-01, BULK-02)"
+    - "the gate bell is heard across the pass when the wind runs right (MAT-17; sound as a route fact)"
+    - "storm-triggered scheduling: the road closes at the first gale, and the closing storm is the year's seam (RT-1, ME-04)"
+  d1_import_scan:
+    - "no river, watercourse, ford, bank, or flood imagery anywhere in this file; trade runs on a pass and drying on the wind"
+    - "no binding/tying/knot imagery in the finish, loom, or dress vocabulary; record cords appear only as seed-granted record hardware and are explicitly 'count, do not bind' (spine_boundary)"
+    - "moisture is present only as process physics, never as location or route: felt matting and fulling need seeps, pools, and urine scours (TT §5), but no watercourse is a place, a road, or an image in this file"
+    - "no ochre and no D1 pigment name; the poor-black is tannin and iron (MAT-09)"
+    - "no oath-cloth or witness-strip material analogue; no cloth is made to carry an obligation in this file (any such object belongs to the rank/ritual components, which must build it from the materials declared here)"
+    - "no D1 textile substrate: the D2 default is felt and wool, not bast-cloth rectangles"
+
+# ---------------------------------------------------------------------------
+# calibration — status tags per MC §2 / CG §7 / QQ §1-2.
+# ---------------------------------------------------------------------------
+calibration:
+  comparators_used_from_corpus:
+    - "warp-weighted upright loom with stone/clay weights, woven top-down from a starting border (TT §4, Hoffmann 1964 via corpus)"
+    - "fleece quality is a chronology and the worsted/woolen fork is the fiber's real decision (TT §2, Ryder 1983 via corpus)"
+    - "wool as the state/bulk fiber with rationed workshops as the comparandum for 'herd economy' (TT §2, Breniquet & Michel 2014 via corpus)"
+    - "alum as the trade's salt and the monopoly-template chain from scarce fast dye to law to language (TT §3)"
+    - "woad-over-weld as the stable green (TT §3, Pastoureau 2001 via corpus)"
+    - "tannin black and iron-gall ink sharing one supply chain (TT §3)"
+    - "nettle as a minor prehistoric bast (TT §2, Barber 1991 via corpus)"
+    - "the stink trades' social position (TT §5, Flohr 2013 via corpus)"
+    - "measures from body, substance, action, container (TE §2); the weighing drift (TE §1, §4); split-object authentication (TE §7); the Moneta move's lesson that a guarantor names the measure (TE §10)"
+    - "the metal-age ladder is an etic museum schema, so no D2 age is named after a metal (EP §8)"
+  design_inventions:
+    - "the two-pole fleece sorting, the plucked-to-shorn era break, the gale-racked finish, the downwind stink geography, the gate-market licensing of imported dye, and the sky-iron find are DESIGN (MC §2 DESIGN tag): they are this drill's choices, not historical claims"
+    - "the ledger-on-hide and ink-from-the-dye-chain coupling is DESIGN with an attested comparator only at the chemistry level (TT §3)"
+  to_verify:
+    - "(to-verify) meteoric iron worked into tools was practiced in several real cases, but no repository corpus entry consulted here covers it; do not canonize sky-iron on this file's authority"
+    - "(to-verify) nettle species and retting practice at the stated altitude band"
+    - "(to-verify) the plucking-vs-shearing transition date for a wool flock; TT §2 gives the fleece chronology, not a shearing date"
+    - "(to-verify) the vat alkali available on the plateau without trade (stale urine is the corpus-attested fulling scours; the woad vat's alkali is not specified in the consulted table)"
+    - "(to-verify) alum source region and the road's shipping form"
+    - "(to-verify) the era-seam tension: sibling 12 dates the lowland-script register to era-2 onward while sibling 08 places the script at E4"
+    - "(to-verify) no yields, hours, losses, or loads are invented anywhere in this file — the gate forbids universal rates (CG §4) and the method forbids determinism (MC §4); any production claim needs a physical test before it leaves this drill"
+  not_claimed:
+    - "no real culture is described; no real-language term is coined; no scholarship is invented; no canon standing is asserted"
+
+open_handoffs:
+  - id: OH-01
+    to: "lexicon component"
+    ask: "fill LR-01..LR-14 with surface forms under the phonology contract; the loan rows must arrive with the E2/E3/E4 road chronology (LM §3)"
+  - id: OH-02
+    to: "costume and rank-rules components"
+    ask: "consume material_names_to_use, dye_names_to_use, width_cap, and thread_and_closures verbatim so the gate's MAT/T checks resolve; rank decisions stay yours"
+  - id: OH-03
+    to: "integrator"
+    ask: "resolve the era-seam tension recorded in to_verify (era-2 register vs E4 script) before any packet assembly; this file will follow the era component's ruling"
+  - id: OH-04
+    to: "script/writing component"
+    ask: "take WM-01..WM-03 as the writing substrate; date first script use on hide with a TPQ from the road's E4 trade lots (LM §2)"
+  - id: OH-05
+    to: "myth/symbol component"
+    ask: "sky-iron and hearth-dark are offered as material facts only; promote or decline them as symbols in your register (this file asserts no reading)"
+  - id: OH-06
+    to: "physical test / lore"
+    ask: "the felt-day and the bale are work-units without measured throughput; a prototype (fleece yield, vat throughput, pack capacity) is required before any production claim is canonized (CG §4; MC §4)"
+
+canon_boundary: "This is a non-canon design drill. It asserts no fact about any real culture or any world-bible entity; comparators are repository corpus entries and their own cited sources, and invented names, grades, and routes are DESIGN choices of this drill only. Canon recording and consistency verification belong to lore-shokunin; this file ends at the handoff and claims no authority to canonize anything it contains."
