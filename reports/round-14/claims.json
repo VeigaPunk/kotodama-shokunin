@@ -1,0 +1,33 @@
+{
+ "round": 14,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "926c86f8be3cc9307f8f10dce55768c290b6f94d",
+ "regimen": "operator 2026-10-17: loop 1 of 3, integrate round (32w gpt-6.1-sol max effort)",
+ "requested_model": "openai-codex/gpt-6.1-sol (max effort)",
+ "workers": 32,
+ "claims": [
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "Round-12 routed 8 open items to this round: battery baseline-root gap (myth/naming outside default roots), r8 audit-count erratum (12 vs 14), fix-09 tracker verifier pointer not yet applied, draft-status reconciliations (r10 report-draft, r11 draft census), unresolved runner-hash citation, index-updater misclassification, stale-fixed status conflicts, report-reconciliation items.",
+   "after_required": "Every routed item dispositioned in reports/round-14/routed-resolution.json: applied-with-control (battery roots unified and green; tracker pointer appended append-only; errata filed as new entries — filed bytes of rounds 8-12 never modified) or resolved-by-documentation with evidence; battery + craft + d2/d3 selftests green after all changes.",
+   "counting_command": "python3 reports/round-14/run-validation.py"
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "capability": "receipt-guard",
+   "before": "Root cause of the rounds 8+9 filed-receipt clobbers is unmitigated: any worker re-running a round validator overwrites its filed validation.json; drift ledgers cite round validators as commands, so recurrence is likely.",
+   "after_required": "tools/harness/receipt_guard.py: importable guard + CLI that refuses to let a round runner overwrite an already-committed validation.json unless REFRESH_RECEIPTS=1 is explicitly set (otherwise exit 3 with a named diagnostic); guard selftest covers both modes; rounds 14+ harnesses wire the guard; an append-only erratum in the round-12 defect ledger records the filed-rounds exposure (rounds 8-11 runners stay filed/unchanged).",
+   "counting_command": "python3 reports/round-14/run-validation.py; python3 tools/harness/receipt_guard.py --selftest"
+  },
+  {
+   "id": "C",
+   "axis": "calibration",
+   "before": "Loop 1 (rounds 8-13) has no consolidated retrospective: 4 admissions, 1 rejection, 1 skip, 2 operator amendments, 6 conformance-defect classes — spread across SCORECARD/LOG/fleet notes.",
+   "after_required": "reports/round-14/loop1-retrospective.md: per-round final state (admitted/rejected/skipped) with evidence pointers; every claim's threshold honored-or-failed named honestly; conformance-defect classes enumerated with dispositions; the round-11 freshness-threshold calibration question restated for the operator with the loop-1 data; SCORECARD gains the loop-1 summary row.",
+   "counting_command": "python3 reports/round-14/run-validation.py"
+  }
+ ]
+}
