@@ -1,0 +1,34 @@
+{
+ "round": 8,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "e7ca0faeb6680fa9891b907be628d9db578c28f4",
+ "regimen": "operator 2026-10-17: loop 1 of 3, build round 1 of 4",
+ "requested_model": "opencode-go/deepseek-v4.1-flash",
+ "workers": 64,
+ "claims": [
+  {
+   "id": "F",
+   "axis": "freshness",
+   "lowest_axis": true,
+   "before": "15 residual round-6 reconciliation rows (11 partial-support, 4 unresolved) carry no round-8 recheck receipts; zero round-8 live retrievals on record.",
+   "after_required": "Each of the 15 residuals carries a round-8 receipt in reports/round-8/freshness/: a fresh retrieved-passage record (source URL, accessed-at date, quoted passage with named location, support scope) or a documented access failure with the attempted command and status; >=8 of the 15 show a retrieved substantive passage; passage support stays separate from whole-claim support; raw worker labels preserved apart from reconciled dispositions in reports/round-8/freshness/reconciliation.json.",
+   "counting_command": "python3 reports/round-8/run-validation.py"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "Round-7 acceptance harness mis-rejects the duplicate-parent-receipt control (reports/round-7/validation.json F error: 'wrong rejection for duplicate-parent-receipt-does-not-inflate: parent check identity collision'); the legacy assert-based/fixture-writing selftest and parser/regex defects from supplemental reviews 26 and 29 remain unrepaired with no isolated negative controls.",
+   "after_required": "The validation harness accepts duplicate-parent-receipt-does-not-inflate and still rejects genuine parent-check identity collisions; each legacy selftest/parser defect from supplemental reviews 26/29 is repaired or explicitly quarantined with a documented reason; every repaired defect ships an isolated negative control demonstrating fail-before/pass-after; python3 tools/check-gate-battery.py --selftest and python3 tools/check-craft-exercise.py --selftest remain green.",
+   "counting_command": "python3 reports/round-8/run-validation.py"
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "capability": "d2-typed-labels",
+   "before": "No typed translated-label/native-form handling: D2 packet assembly has no typed-label schema, no scoped era/material reconciliation, and no executable rank-rule adapter (SCORECARD Planned debt).",
+   "after_required": "A single new tool entry (tools/d2-typed-labels.py) implements the typed-label schema, scoped era/material reconciliation, and rank-rule adapter; --selftest passes with positive and malformed-input controls; the D2 example packet regenerates deterministically and replays frozen (python3 tools/replay-frozen.py) without digest drift; SKILL.md gains the label-typing decision table with cited sources; the capability row enters SCORECARD only on demonstrated run.",
+   "counting_command": "python3 reports/round-8/run-validation.py; python3 tools/d2-typed-labels.py --selftest"
+  }
+ ]
+}

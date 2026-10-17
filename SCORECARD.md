@@ -99,36 +99,30 @@ implicit repair of D2. Dispatch is exactly one 16-worker Flash MAX batch.
 
 ## Planned
 
-- Round 6 is finished and published; do not re-dispatch it. Round 7's sole
-  16-worker batch through `zai-coding-plan/glm-5.3-flash-low` (legacy name,
-  documented MAX thinking) has returned16/16. Its original F/O acceptance,
-  final harness/review remain unfinished. User requested session wrap and
-  cancelled the goal; integration task stopped. The original claims and
-  failing receipt remain in `reports/round-7/claims.json` and
-  `reports/round-7/validation.json`. No automatic continuation is configured.
-  No final round7 admission/verdict/capability is claimed; never
-  launch a second round7 swarm. The host request has
-  one documented non-verbatim step6 clause in `native-request-binding.json`.
-  This follows the explicit model amendment, not a silent substitution.
-- Pending rounds 8–9 use OpenCode Go DeepSeek v4.1 Flash, 32–64 workers per
-  round. The operator explicitly replaced Alibaba token-plan with OpenCode.
-- Round 10 is the requested Grok 4.7 xhigh fast 128-worker wave, AFTER the
-  DeepSeek rounds. This supersedes the older goal draft's round-8 ordering,
-  not its exact-model requirement. Use the native route or the host's Grok
-  CLI if necessary and available; no silent model or provider substitution.
-- Freshness follow-up: 15 original questions retain residual uncertainty.
-  Prioritize primary passages for compound/edition-specific claims, not
-  another catalogue match. Keep passage support separate from whole claims.
-- D2 needs typed translated-label/native-form handling, scoped era/material
-  reconciliation and an executable rank-rule adapter. A green partial
-  schema check is not whole-culture verification.
-- Fix legacy parser/regex and fixture-rewriting defects documented in
-  supplemental reviews 26 and 29; add isolated negative controls. The new
-  battery does not repair five old assert-based/fixture-writing selftests.
-- Corpus metadata (`source`, `verified-at`, `recheck`), per-gate
-  `expected.json` baseline layout, and a reproducible numeric axis rubric
-  remain conformance debts. Historical round-4 dispatch provenance remains
-  incomplete (31 returns, no durable original request); do not fabricate it.
+- Operator regimen 2026-10-17 (supersedes the older rounds 8–10 mapping;
+  recorded in LOG.md): 3 loops × 7 rounds = lane rounds 8–28. Per loop:
+  4 build rounds (one 64-worker swarm each, `opencode-go/deepseek-v4.1-flash`,
+  rotating opencode-go key lanes), 1 verify round (64 workers,
+  `openai-codex/gpt-6-luna-max`), 1 expand round (128 workers,
+  `xai-oauth/grok-4.7-fast`), 1 integrate round (32 workers,
+  `openai-codex/gpt-6.1-sol`, max effort). Lane rounds 1–6 closed
+  retroactively and round 7 closed `failed` in MANIFEST.json rounds[]
+  (no fleet report landed; never re-dispatch round 7).
+- Round 8 declared (loop 1, build 1 of 4): claims F/O/D on
+  freshness/operability/depth — F: follow up the 15 residual round-6
+  reconciliation rows (11 partial-support, 4 unresolved) with fresh
+  retrieved-passage receipts; O: repair the round-7 validation parent-check
+  identity-collision defect plus the legacy selftest/parser debts from
+  supplemental reviews 26/29, with isolated negative controls; D:
+  `d2-typed-labels` capability (typed translated-label/native-form handling,
+  scoped era/material reconciliation, executable rank-rule adapter).
+  Declarations in `reports/round-8/claims.json`; shard assignments in
+  `reports/round-8/targets.json`.
+- Debts folded into rounds 9–28: corpus metadata conformance
+  (`source`/`verified-at`/`recheck`), per-gate `expected.json` baselines,
+  reproducible numeric axis rubric. Historical round-4 dispatch provenance
+  remains incomplete (31 returns, no durable original request); do not
+  fabricate it.
 
 ## Round 5 routing history
 

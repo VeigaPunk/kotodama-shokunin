@@ -2894,3 +2894,25 @@ handoff references at the user's request. Development files, original claims,
 validation results and reviews remain unchanged; round7 is still unfinished.
 Earlier LOG entries describe historical actions and are retained append-only.
 No goal, background agent or automatic continuation is started by this cleanup.
+
+
+## 2026-10-17 — Operator training regimen + round-7 ledger closure
+
+- **Trigger:** operator directive (this session): train kotodama-shokunin in
+  3 loops × 7 rounds = lane rounds 8–28; per loop 4 build rounds of 64
+  workers on `opencode-go/deepseek-v4.1-flash`, 1 verify round of 64 workers
+  on `openai-codex/gpt-6-luna-max`, 1 expand round of 128 workers on
+  `xai-oauth/grok-4.7-fast`, 1 integrate round of 32 workers on
+  `openai-codex/gpt-6.1-sol` (max effort).
+- **Ledger closure:** appended 6 `retroactive-closure` rows (lane rounds
+  1–6, status `failed` = fleet reports never landed; lane-side evidence in
+  `reports/round-5..7/`; presence-of-evidence only) and 1 `closure` row
+  (round 7 `failed`: terminated at operator session wrap, acceptance receipt
+  failing per `reports/round-7/validation.json`, no landed report, never
+  re-dispatched per the round-7 declaration) to `MANIFEST.json rounds[]`.
+- **Supersession:** this directive supersedes the older SCORECARD `Planned`
+  mapping (rounds 8–9 DeepSeek / round 10 Grok-128 ordering); the loop
+  structure governs rounds 8–28.
+- **Evidence:** MANIFEST.json rounds[] tail (7 new entries); SCORECARD.md
+  `## Planned`; round-8 declarations in `reports/round-8/claims.json` and
+  `reports/round-8/targets.json`.
