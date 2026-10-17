@@ -1992,3 +1992,8 @@ absent from the swarm result; disk inventory used as truth. Assembly moved
 to a sol-high subagent after two opencode-go routing failures (lesson).
 Deviations recorded: orchestrator-direct triage (goal clause), sol-high
 assembly (lane outage).
+## 2026-10-17 — root README added
+
+- **Trigger.** Operator request for a repository front door. This checkout had no root `README.md`.
+- **Action.** Added `README.md` from `PROVINCE.md` (言霊 domain, handoff to lore, `to-verify` discipline), `examples/handoff-packet.sample.md` header (non-canon), and `tools/gates/*.py` usage lines that document `--selftest` (phonology, lexicon, myth, naming, costume-era, handoff-packet-check, provenance-audit). A search of the sibling fleet `MANIFEST.json` finds no `kotodama` row; the README says the repo is not a registered roster member.
+- **Non-claims.** No Devin wiki URL existed here and none was added. No axis claim, no score change, no gate run. Not a craft round.
