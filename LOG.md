@@ -1992,3 +1992,11 @@ absent from the swarm result; disk inventory used as truth. Assembly moved
 to a sol-high subagent after two opencode-go routing failures (lesson).
 Deviations recorded: orchestrator-direct triage (goal clause), sol-high
 assembly (lane outage).
+
+## 2026-10-17 — root README
+
+Motivating evidence: no root `README.md`. The page is drawn from
+`PROVINCE.md` (言霊; canon stays with lore), `SKILL.md`, the seven files in
+`tools/gates/`, and `tools/assemble-d2.py` (`--check` compares bytes and
+does not write, per its docstring). `SHONEN.md` boxes are open. No Devin
+wiki URL exists here; none was invented.
