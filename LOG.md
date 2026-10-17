@@ -2139,3 +2139,22 @@ report will cite the carrying work commit after it exists. Fleet bookkeeping
 is outside the operator's write scope, so no fleet closure is claimed.
 Four numbered rounds remain recorded; the full requested program is not
 complete, and the exact non-flash Z.ai/Grok schedule remains pending.
+
+## 2026-10-17 — README: Devin wiki link
+
+- Operator directive (2026-10-17): insert the Devin wiki link into the README header of every repository with a generated wiki.
+- Change: `README.md` created (lane-header convention) with a `**Wiki:**` link to https://app.devin.ai/org/veigapunk/wiki/VeigaPunk/kotodama-shokunin?branch=main.
+- Evidence: the org's Devin wiki index lists this repo's generated wiki; sibling lane READMEs carry the same `**Wiki:**` header.
+- Documentation-only change; no round run, no axis moved, no verdict changed.
+
+## 2026-10-17 — supplement-opencode-1: remote integration
+
+The supplemental work landed in `c53782ab875e88d7311c8b9b1db310357b944685`.
+Meanwhile origin/main advanced from the pinned baseline to
+`848417c2d366cae2eb07e48fba53f19cafcb6388`, carrying the README/wiki change
+from `dee3089`. A normal merge preserves the remote README byte-for-byte
+and both branches' LOG additions. The wiki entry above is preserved from
+the remote append; its placement here reflects merge integration, not a
+new training round. No force-push, rebase or history rewrite was used.
+The acceptance runner will be rerun on the merged deliverable; the
+child-local report will cite its committed work revision and outcome.
