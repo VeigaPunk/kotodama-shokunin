@@ -2702,3 +2702,187 @@ Separately, a clean `git archive` export of checkpoint
 round6_admission=pending, exactly its original contract. The current
 historical receipt was untouched. That reproducible pending state and
 the later final F pass are different snapshots, not contradictory labels.
+
+## 2026-10-17 — round 7 declaration: source-bounded culture assembly
+
+Baseline `30caac66a2a382f1c46ba31f0c3c93da62d0762c`; round 6 is already
+committed, reported, pushed and remote-equal. Re-read SCORECARD/LOG,
+PROTOCOL, MISSION, AXES, CORPUS, QUALITY and PROVINCE before this declaration.
+The latest operator amendment requests the final **one sixteen-worker Z.ai
+GLM-5.3 Flash MAX batch**, native legacy alias
+`zai-coding-plan/glm-5.3-flash-low` / `sec-fast-zai-flash-low`; MAX is the
+host-documented pin, not inferred from the old suffix. No route/config edits
+or silent substitution. Native request and returned identities will be
+recorded separately; no execution success is asserted before dispatch.
+
+Two measurable, causally separable claims in `reports/round-7/claims.json`:
+- **F / freshness**, historically lowest non-retired: zero new rule-drift
+  records → exactly five fixed source checks, at least three distinct
+  substantive main passages across three reference entries, plus two parent
+  re-fetches. These recheck current source-derived constraints; they are not
+  five new discoveries or closure of older residual questions. Counting
+  command: `python3 reports/round-7/run-validation.py`.
+- **O / operability, capability acquisition:** zero D3 profile/tool/component
+  artifacts → deterministic NON-CANON miniature-culture assembly and a
+  read-only evidence/coupling guard, actually exercised through CLI. Minimum
+  two eras, twenty constructed lexemes, six replayable names, two attributed
+  myth variants, four costume/scene cases, five limited source bridges,
+  twelve stable domain-negative controls and four malformed controls.
+  Positive exit 0, contradictions exit 1, malformed inputs exit 2; isolated
+  selftest, frozen-input tamper rejection, no input writes or tracebacks.
+  Same acceptance command; assembler --check and guard --selftest also run.
+
+F reads live sources independently of O. O uses already committed round-6
+reference evidence independently of new live-source access. The exact schema,
+fixed interface anchors and diagnostic vocabulary are declared before
+execution in `reports/round-7/d3-contract.json`; fixed source questions and
+baseline counts/hashes are in `targets.json` and `baseline.json`. The
+pre-declaration Python count observed zero round-7 source ledgers, zero D3
+component files and zero new tools. Old culture exercises do exist; this
+is a new bounded profile, not a false absence claim about the whole lane.
+
+One batch has disjoint scopes: planner/connector, checker, assembler, four
+component writers, five source scouts/scribes, independent control author,
+handoff scribe, reviewer and critic. Workers never commit, delegate or
+write outside their assigned child paths. Existing identities can continue
+for actual-output review; no replacement/second swarm. Parent owns shared
+bookkeeping, evidence reconciliation, acceptance, work commit, report-last
+commit and normal push. The operative prompt contract and saved dispatch
+payload precede launch. Same-model roles follow the explicit operator
+amendment, not a claim that generic fleet buckets were used.
+
+D3 keeps translated labels separate from native forms, written/read/avoided
+forms separate by context, reference passages separate from invented rules,
+and ground surfaces separate from worn attachments. Fictional timing
+numbers deliberately differ from Gobhila; no sacred rite is reconstructed.
+Expected legacy CROSS-HOLD or declared costume violation must remain visible,
+not be erased to claim clearance. No lore receipt, world-bible edit,
+cultural permission, promotion or universal historical coverage.
+
+All historical source/report/lesson/knowledge/gate/example bytes stay frozen;
+LOG/SKILL append only and SCORECARD/README may update. Re-run round-6
+acceptance on delivered old surfaces in an isolated export/private baseline
+index because its round-local whitelist excludes later-round artifacts.
+Never rewrite its runner or receipt. D2's twenty findings and every older
+residual remain. Measure on the actual clean staged deliverable, judge all
+six axes, and admit only if F/O verify with none harmed. Rounds 8–10 remain
+later work: two OpenCode Go DeepSeek Flash waves, then exact Grok/128.
+
+### Round 7 integration checkpoint — actual returns and corrected defects
+
+Trigger: the sole native batch `call_7330cf50cf424608b67e9a9cabf4df7c`
+returned16/16 in1544.207 tool-reported seconds. Parent read the actual
+outputs and retained initial reviews that correctly reported then-absent
+files. `reports/round-7/dispatch.json` maps assignments01–16 to agent488–503;
+continuations use those identities and are not replacement swarms. Source
+ledgers08–12, four components, two new tools, independent controls and D3
+outputs are present; completed workers alone do not verify the claims.
+
+Action/evidence: parent persisted two actual native FetchURL readings (UT
+and Louvre), all-five conservative reconciliation, native request binding
+and integration defects in round7 reports. Main excerpt whitespace counts
+are20/35/27/35/36; five distinct keys span four existing entries; scopes
+remain three scoped/two partial. Critic agent503 independently rederived
+these counts and both canonical request digests, without repeating network
+research or claiming parent checks for allfive. No older residual closed.
+
+Prompt fidelity: host event's SHA256 including LF is
+`c7e225cdf955f47082381d63709e187bd2fb872d8b0a35031c6f8e4fb0459401`.
+Saved canonical args hash `4733dffea5b06ee953326d73e35949aa6578695e476f3dee4385b2945b02451c`
+and actual `9f46d717352a1c8f7f428bbf4c7af48733676b287a6a16253a6e8ffe68e1676f`
+differ by exactly one documented capability-clause paraphrase. Parent
+rechecked this against the original event after compaction. The quoted
+contract was not byte-verbatim: semantic retention does not repair that
+conformance defect. Pre-dispatch intent is preserved, not rewritten to fit.
+No upstream wire identity or simultaneous concurrency is independently
+instrumented; the legacy Flash-low alias is host-documented MAX.
+
+Actual defect→correction: independent controls gained a valid scope-
+laundering case and fake real-language-sweep flag without weakening expected
+diagnostics. The guard rejected the latter as D3-MYTH rather than D3-SCOPE;
+same owner489 corrected screening scope labels and retained belief-world-
+fact D3-MYTH. A documented boolean/integer alias in frozen expectations
+then received strict integer checking and two subprocess controls. Parent
+actually ran the positive guard (exit0/findings[]) and selftest (exit0,
+5/5positive,16/16domain,4/4malformed,5/5frozen) at guard SHA256
+`849494b0c4113885223f6d865110cd34ed6bb3aeec8b449d020f7b571eb2197e`.
+Unknown extra frozen metadata, set-valued finding IDs and safe in-repo
+symlinks remain explicit interface limits. Owner reported separate /tmp
+probe files; zero outside writes ever is not claimed. No unrelated routing,
+credential, sibling, lore or world-bible changes are shipped.
+
+Reviewer502 found synthetic `coda` versus real `coda_subset` fixture drift
+and an inert legacy coda inventory. Existing executor490 owns the scoped
+adapter/fixture fix and derived outputs. Parent explicitly expanded that
+same executor's assigned ownership to implement `reports/round-7/run-validation.py`
+for parent review; this delegation is recorded separately from the original
+parent-owned acceptance declaration, with no new authority/worker/batch.
+The handoff scribe501 is reconciling actual glossary/names/bridges rather
+than shipping stale independent proposals. The final frozen manifest,
+content-equivalence checks, original counting command and clean delivered-
+tree old-surface regression remain required before any final admission.
+
+Before final bookkeeping, a parent byte comparison found506 frozen baseline
+files unchanged, LOG/SKILL prefixes intact and only SCORECARD/corpusREADME
+editable. `SKILL.md` now appends bounded D3 decisions/error patterns and
+commands; `corpus/README.md` keeps all old frontier debts and links this new
+exercise. `corpus/lessons/round-7.md` records useful findings plus honest
+pending gate status. No axis verdict or capability is admitted by this
+checkpoint. The requested remote publication will use lane identity and a
+report-last commit, with a durable restart queue if final checks find a
+remaining blocker rather than forcing a green result.
+
+Further observed integration: parent created the24-input computational
+`examples/culture-d3/expected.json` (SHA256
+`74496aa8aa7db2d7b2d69ecbd7a5a6acf3d4f565f600fd74bfeab5480adf5080`)
+from measured bytes and the predeclared0/[] expectation. The actual frozen
+CLI exits0/findings[]. Reviewer502 closed both prior code findings with
+behavioral evidence: fake sweep now D3-SCOPE; a real-projection `pinat`
+garment mutant now produces PHON-CODA FAIL for forbidden final /t/. Its
+seventeen bounded adversarial probes pass, and it corrects its earlier
+unproven symlink test in an append-only review section rather than hiding it.
+A genuine outside-target symlink is rejected before reading; in-repo aliases
+remain an explicitly accepted bounded behavior, not blanket path hardening.
+
+Scribe501's final pass supplies seventeen measured handoff artifact rows,
+actual constructed glossary/names/utterances/bridge relations, separate
+three independent versus five total positive controls, and the correct four
+round6 unresolved IDs (R6-09-B remains partial). Parent independently
+compared all20 E0/E1/gloss rows, all6 name/type/label/base rows and all17
+artifact digests against delivered bytes. One remaining phrase was corrected
+by parent to four closed ledger files for five source bindings. Parent ran
+actual legacy calls: naming exit1, exactly CROSS-HOLD×2 plus E0/E1 NAME-NEAR
+review and no PHON/DERIV FAIL; costume exit1, exactly C03 R-01 note/noR-02;
+handoff exit0, sixteen fields/twenty glossary entries/no findings. Expected
+holds are preserved, not failed surprises or fabricated clearance.
+
+Review interpretation correction: one nonblocking review sentence proposes
+reissuing the snapshot after prose freeze. The parent does not adopt that
+reading: handoff/README are deliberately excluded from computational inputs
+and pinned separately by acceptance. Only changes to a listed input require
+reverification and a new freeze. The existing24input digests remain correct;
+regenerating the manifest merely to make an excluded prose edit look pinned
+would create misleading provenance. The reviewer is advisory, not an
+admission authority. The original counting command, complete historical
+regression and clean staged replay are the remaining acceptance steps.
+
+### User-requested session wrap — round7 remains unadmitted
+
+The user explicitly requested immediate wrap-up, cancelled the goal and
+instructed no further background agents. Remaining integration task490 was
+stopped; no additional swarm or training round is authorized by this wrap.
+Current developments are preserved and published as a checkpoint, not a
+completed/admitted round. Start the next session with
+`reports/round-7/checkpoint.json`.
+
+The partial runner is syntax-valid (SHA256
+`c3b8418445d03bee2ba394ab6e4e4767e5ef07168c1a70dc904b3813e878c1e7`).
+Its existing worker receipt says acceptance=false: F's duplicate-parent
+negative-control expected-message mismatch and the nested old-surface
+private-Git regression remain red. Its O=true is provisional, unreviewed
+and not admission. All24 computational snapshot digests still match; the
+three new Python files parse and git diff --check is clean. No full clean
+staged acceptance pass is claimed. The next model must inspect/fix these
+harness defects without weakening thresholds or changing historical gates,
+then rerun and record six-axis verdicts. Existing source counts, domain
+subchecks and expected holds remain useful evidence, not a forced pass.

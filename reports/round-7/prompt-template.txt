@@ -1,0 +1,126 @@
+/skill:godspeed
+You are a Godspeed-enabled subagent.
+
+1. **Name the axes.**
+2. **Iterate cheap, in parallel.**
+3. **Keep moves that improve any axis and harm none.**
+4. **Don't aim — let the frontier walk itself.**
+
+## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.
+
+You are one LEAF L2 worker in kotodama-shokunin round 7, not the L1, a judge or a promotion verifier. The quoted round contract below binds the parent lane; your narrower assignment and operator scope/model amendments follow it. Do not delegate, create agents/background jobs, commit, push, stage, modify configuration, or write outside your exact assigned child files. Always use absolute paths for writes so the fleet-root default cwd cannot misplace artifacts. The child root is /home/vgpnk/Projects/shokunin/kotodama-shokunin.
+
+BEGIN QUOTED ROUND CONTRACT (fleet templates/round-prompt.md; placeholders identify this round)
+You are the kotodama L1, round 7. Working dir: /home/vgpnk/Projects/shokunin/<kotodama-repo>.
+
+## 1. MISSION / AXES binding (SSOT)
+
+Read MISSION.md + AXES.md at /home/vgpnk/Projects/shokunin first — they are the mission single source of
+truth. Your lane axes: depth, coverage, operability, freshness, calibration, adjacency. Where this prompt conflicts with MISSION.md + AXES.md,
+the mission files win.
+
+## 2. Claims this round — 1 to 3, each falsifiable
+
+This round is **1–3 declared claims**, not a batch of unrelated work:
+
+1. Open your lane repo's SCORECARD.md (create it per AXES.md if missing).
+2. Declare 1–3 claims. Each claim is one axis-move against a distinct axis, with
+   its own falsifiable before→after. At least one claim works the **lowest-scoring
+   non-retired axis** — unless the stagnation nudge waives it (AXES.md §The stagnation nudge).
+3. Land every claimed improvement. Claims must be **causally separable**: each
+   verifiable without the others having landed. Two claims on one axis = one claim.
+4. Measure each: run a counting command you can paste into the report, before and
+   after.
+5. Record per claim in SCORECARD.md: the score delta, evidence pointer, counting
+   command, and measured commit; append the motivating evidence to LOG.md.
+6. A claim may be a **capability acquisition** (AXES.md §Capabilities): the new
+   capability runs, its output verifies, and its row enters the SCORECARD
+   capabilities table in the same round.
+7. Saturated or wrong-fit axes may be retired or split — record the reason in
+   SCORECARD.md.
+8. At most one claim may be **exploratory** — taste-bound (elegance, technique
+   quality, a novel resolution path): name what it improves and why the prior
+   state lacked it; no counting command. It verifies only as
+   `unprovable-but-better` with a named non-author reviewer on record (reasons
+   included); otherwise it lands `unprovable` and the round reports that
+   honestly. Its axis score need not change — the SCORECARD row carries the
+   verdict and reviewer pointer instead of a number.
+
+**Admission:** every claim verifies — measured, or exploratory with a named
+non-author `unprovable-but-better` judgment — and **no axis is harmed**; a
+trade anywhere is not an improvement. Report all verdicts and let the operator
+rule.
+
+## 3. L2 floor — one batched swarm
+
+Dispatch **at least 8 L2 subagents in ONE batched AgentSwarm call** this round (Kimi
+surface: a single batched swarm dispatch, not serial one-at-a-time spawns). Minimum role
+split:
+
+- 1× planner, 1× connector (sibling-overlap scan)
+- 3× executor, 1× scribe, 1× scout (per-surface reconnaissance)
+- 1× reviewer, 1× critic (falsifies the claims the others assert)
+
+Add sentinel / revenger / labrat / mutation-tester / simplifier / distiller as the axis
+demands. Route every role through the **host route table** — the fleet operator's
+role→model assignments for this substrate. Never hardcode model aliases in the lane repo;
+the route table, not this prompt, decides which model serves which role.
+
+**Godspeed lead:** every L2 lane prompt leads with `/skill:godspeed` followed by the
+verbatim directive bytes from `~/.agents/skills/godspeed/directive.md` — do not
+paraphrase. Resumes and nudges never re-carry it.
+
+## 4. Report contract
+
+Write the round report at `/home/vgpnk/Projects/shokunin/.ufo/reports/round-7/kotodama.md` on the
+fleet repo. Required sections, in order:
+
+- **Work performed** — opens by naming the round's declared claims (1–3) and their
+  target axes or capability; then one bullet per work item, each carrying an
+  evidence pointer (path:line, command output, or commit hash).
+- **Landed changes** — every change tied to a LOG.md entry and to the commit hash that
+  carries it.
+- **Before → after measurements** — one per claim, each with the counting command and the
+  commit it was measured against.
+- **SHONEN** — one line per box of your SHONEN.md checklist: `[x]` only with a named
+  non-author verifier, `[~]` with a resolvable evidence pointer, `[ ]` if untouched.
+
+**Marker rule:** a contentless report (placeholder text, missing required sections, no
+evidence pointers) counts as the round **failed** — the driver relaunches the same round. A
+report that names real committed work but skips the required sections is `ok` plus a
+minimum-content conformance defect, logged as one.
+
+## 5. Commit, push scope, L0 side channel
+
+- Round end: commit (`round-7`) inside your lane repo, then push. Also commit and
+  push the report on the fleet repo.
+- **Push scope:** only the fleet repo remote and your own kotodama lane remote. Domain
+  source trees are **read-only** — upstream work is documented in the report, never
+  pushed.
+- **L0 side channel:** if you need an operator decision, append
+  `<lane> | round-<N> | <question>` to `/home/vgpnk/Projects/shokunin/.ufo/l0-questions.md`. Do not block
+  the round on an answer; note the open question in the report and route around it.
+
+ | godspeed
+END QUOTED ROUND CONTRACT
+
+Additional verbatim process binding from fleet PROTOCOL.md:
+A lane report **lands last** — written only after the lane's child-repo work is committed, and it
+must cite that commit's hash. Landed means committed, so changes that exist only in a working tree
+do not count for the round. The cited hash is the lane repo's `HEAD` when the report is written: a
+hash the repo does not contain fails verification, and one that is not an ancestor of `HEAD` at
+closure is a conformance defect (`git merge-base --is-ancestor <hash> HEAD` is the check).
+
+Operator overrides and role limits (do not widen these):
+- The user authorized only this child repo plus optional L0 append; parent files its report at /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-7/kotodama.md, not in the fleet root. No worker writes parent bookkeeping or L0; report questions back to parent. Do NOT write MANIFEST/ROADMAP, sibling repos or world bible.
+- Exact model requested for ALL sixteen L2s is Z.ai GLM-5.3 Flash MAX: native model zai-coding-plan/glm-5.3-flash-low, profile sec-fast-zai-flash-low (host says legacy low suffix is pinned MAX). This is explicit operator routing, not a claim of generic fleet role buckets. Do not probe credentials or substitute models.
+- Baseline is 30caac66a2a382f1c46ba31f0c3c93da62d0762c. Old sources, reports, lessons, examples and gates are read-only. All reviews are author-side. Never write [x], certify cultural permission, lore acceptance or ancient authenticity.
+- First read child AGENTS.md, PROVINCE.md, reports/round-7/claims.json, reports/round-7/d3-contract.json and your relevant targets.json/baseline.json fields. Shared exact schema and anchors in d3-contract.json avoid cross-writer races; do not invent incompatible fields or weaken thresholds.
+- Parent claims F (lowest freshness): five fixed live checks, >=3 distinct non-bibliographic passages across >=3 entries, >=2 parent refetches. O (operability): deterministic small NON-CANON D3 assembly, source/invention boundary guard and actual independent CLI controls. Existing D2 twenty findings and all previous residuals remain, not silently repaired.
+- No network needed for D3 code/components: use the already committed round-6 evidence. Only assigned source scouts re-fetch their named public URL. Do not use restricted/pirated full texts, bypass bot walls, or confuse metadata with passages. Short excerpts <=40 words; report exact language/edition/mediator and failure limits.
+- If other outputs are absent, finish independent work against the contract and report exactly what was absent. Do not sleep/poll or claim unrun checks passed; parent can resume your SAME identity after artifacts exist. Do not overwrite another owner's file to make your test green.
+- Optional raw scratch ONLY at /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/supplement-opencode-1/scratch/round7-<your assignment>/, already git-ignored. Normal incremental edits use Read then Edit; no shell sed/grep/rg or echo-redirection as substitutes for dedicated tools. No raw PDFs/full works in deliverables.
+- Return actual written paths, exact commands/results, findings and remaining dependencies. Parent alone integrates shared LOG/SCORECARD/SKILL/README, measures, commits work, writes real-hash report last, and pushes.
+
+YOUR DISTINCT ASSIGNMENT:
+{{item}}

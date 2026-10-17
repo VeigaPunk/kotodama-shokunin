@@ -175,3 +175,57 @@ Re-run this round's receipt/count/preservation checks with
 `python3 reports/round-6/run-validation.py`. The five parent readings are
 separate from the twenty qualifying worker main passages; neither count
 certifies whole cultures, ancient pronunciation or cultural permission.
+
+## Source-bounded culture drill — D3 (round 7)
+
+D3 is a small constructed model, not a recovered ancient culture and not a
+repair of D2. Its four components separate language, attributed ritual,
+era/material cases and evidence bridges. Read the exact bounded interface in
+`reports/round-7/d3-contract.json` before editing; regenerate the packet
+rather than hand-editing its derived outputs. Native forms are unscreened;
+translated display labels do not enter a phonotactic test.
+
+| name | kind | entry command | verdict map | self-test | pinned values | write scope | owner |
+|---|---|---|---|---|---|---|---|
+| D3 assembly drift | gate, bounded profile | `python3 tools/assemble-culture-d3.py --check` | 0 byte-identical / 1 drift / 2 could-not-evaluate | `--selftest`, isolated actual CLI | four component hashes and committed packet/projection | default rebuilds only two derived outputs; check read-only; selftest scratch | kotodama-shokunin |
+| D3 evidence coupling | gate, bounded profile | `python3 tools/check-evidence-coupling.py examples/culture-d3/packet.json` | 0 consistent supplied model / 1 profile contradiction / 2 could-not-evaluate | `--selftest`, independent committed controls and isolated subprocesses | closed source tuples/digests; optional `--frozen examples/culture-d3/expected.json` | normal run read-only; selftest disposable scratch | kotodama-shokunin |
+
+| Condition | Decision / executable error | Evidence and limit |
+|---|---|---|
+| The same written L01 is read in ordinary E1 market speech and ritual E1 hall speech | Replay SC1 for ordinary speech (`fina`), but use AV1's `suma` only in its exact ritual/hall context; preserve written `pina`. Other places and L03 do not inherit the avoidance | D3 U01–U07 and `D3-UTTERANCE`; S01/BR01 transfer a written/read distinction, not a reconstructed Hittite taboo |
+| A native name's displayed expected value agrees but its bases do not derive it | Recompute concat from the two E1 base forms; reject disagreement with `D3-DERIVATION`, not a hand-approved spelling | D3 N01–N06 and independent derivation control; no general morphology or historical genealogy proved |
+| An English label contains spaces or sounds outside the native inventory | Keep it as `display_label`; project the constructed `native_form` only. A forbidden native spelling still receives `D3-NATIVE` | D3 label-positive/native-negative controls; separate representation is not real-language clearance |
+| A source has a partial effective scope but the packet advertises scoped whole support | Use the committed parent reconciliation tuple, not the raw worker label; return `D3-SCOPE`. Check the actual ledger digest independently | S01/S05 remain partial; S03 keeps the exact archive capture. BR01–BR05 stay design-only |
+| A naming institution offers discrete dates | Validate membership in the declared integer set, rejecting booleans and arbitrary later dates (`D3-TIMING`) | NR1 uses fictional [2,8,20] nights. S03's Gobhila 10/100 nights/one year is a methodological analogy, not this invented prescription |
+| A ground surface is made into a garment or a worn item's material changes silently | Keep O01 unworn and verify object/material identity (`D3-OBJECT`); distinguish unavailable import routes (`D3-ERA`) | S04/BR04 transfer separate object roles; no copied sacred rite, immutable colour key or first-hand Kanva reading |
+| A visitor wears prohibited imported cloth at the E1 hall assembly | Record C03 as a declared violation; reject only the false lawful entitlement (`D3-RANK`). Legacy R-01 must remain visible | RR1 is fictional. A clean new guard does not erase an honest scene violation or supply a historical dress law |
+| A belief is promoted to narrator-certified truth, or screening is claimed without work | `D3-MYTH` protects attributed B01/B02; `D3-SCOPE` protects unresolved/unperformed real-language screening | Source analogy does not confer canon or community permission. The handoff stays prepared-not-accepted |
+
+### D3 replay checklist
+
+1. Run assembler `--check` and its isolated `--selftest`; drift or malformed
+   components are not a passed culture task.
+2. Run the positive guard, independent control selftest and frozen command.
+   Snapshot mode verifies every listed input digest before the verdict;
+   boolean exit labels and unsafe manifest paths are rejected. The committed
+   manifest is deliberately comprehensive; the generic reader requires only
+   packet coverage and does not infer artifact roles for the caller.
+3. Run legacy naming and costume checks on `packet.gates.yml`. Keep naming's
+   CROSS-HOLD (and E0/E1 similarity review) and C03's costume R-01 finding;
+   neither is a green clearance gate. Verify the native coda adapter, not
+   merely a permissive synthetic fixture.
+4. Compare the handoff's glossary, names, source bridges and digest rows
+   against actual packet bytes, then run its structural envelope check.
+   Sixteen fields and twenty glossary rows alone cannot prove content agrees.
+5. Run `python3 reports/round-7/run-validation.py` for the original F/O
+   thresholds, input preservation and old-surface regressions. It writes its
+   own receipt, not historical receipts. Fresh source access and invented
+   model consistency are causally separate checks.
+
+The frozen reader ignores extra metadata keys, compares finding IDs as a set
+and allows symlinks whose resolved target remains inside the repo. These are
+limits of this bounded interface, not a claim of universal schema/security
+validation. Legacy parsers and D2's twenty expected findings remain unchanged.
+Read `reports/round-7/integration-attempts.json` for corrected failures and
+`native-request-binding.json` for the actual prompt's non-verbatim step-6
+defect; passing example checks do not erase protocol-conformance debt.

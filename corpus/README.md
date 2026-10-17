@@ -248,6 +248,25 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   translation, and scoped material/era reconciliation. Gate coverage and
   parser/regex negative controls need repair; legacy selftests must run in
   an isolated export because five regenerate fixture files.
+- D3 (`examples/culture-d3/`) adds a separate source-bounded NON-CANON
+  miniature-culture exercise, not a D2 repair or a new historical entry.
+  The two-era packet distinguishes native/translated labels, ordinary sound
+  change/register-limited avoidance, attributed beliefs/world facts,
+  surface/worn objects, import availability and declared rank violations.
+  `tools/assemble-culture-d3.py --check` and
+  `tools/check-evidence-coupling.py` are bounded-profile tools. Round7
+  acceptance remains pending until `reports/round-7/validation.json` records
+  the original F/O commands and actual handoff; worker completion alone is
+  not a passed round. See `lessons/round-7.md` and `reports/round-7/`.
+- Five round7 live constraint rechecks remain three scoped and two partial
+  supports across four existing reference entries, with two separate parent
+  refetches. They do not close the fifteen older round5 residuals or the
+  eleven partial/four unresolved round6 questions. Optional extra quotations
+  never inflate the distinct-main-passage count.
+- Earlier round-local acceptance scripts retain strict historical path
+  whitelists. On later-round trees, use the latest acceptance runner's
+  explicitly recorded old-surface export/private-index regression; do not
+  edit old scripts or rewrite historical receipts to accommodate new paths.
 - Cultural permission, real-language name screening, a lore receipt and
   independent promotion review remain outside the current evidence.
 

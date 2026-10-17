@@ -82,12 +82,33 @@ filed report lines. `check-checkpoint.py` is unmodified and applies to the
 checkpoint tree, not the later legitimate append-only entry errata. The
 final report outcome appends after the carrying work commit and lands last.
 
+## Round 7 declared — no result claimed yet (2026-10-17)
+
+Baseline `30caac66a2a382f1c46ba31f0c3c93da62d0762c`.
+`reports/round-7/claims.json` declares two distinct measurable moves:
+
+| claim / axis | before → required after | counting command |
+|---|---|---|
+| F / freshness, historically lowest non-retired | Zero round-7 records → five fixed live rule checks, ≥3 distinct substantive passages across ≥3 reference entries and ≥2 parent re-fetches | `python3 reports/round-7/run-validation.py` |
+| O / operability, capability acquisition | No D3 profile → deterministic NON-CANON two-era culture packet, 20 lexemes, 6 replayed names, 2 attributed variants, 4 costume/scene cases, 5 scoped source bridges; actual positive/≥12 domain-negative/≥4 malformed CLI controls, isolated selftest and frozen tamper rejection | `python3 reports/round-7/run-validation.py`; `python3 tools/assemble-culture-d3.py --check`; `python3 tools/check-evidence-coupling.py --selftest` |
+
+The live-source check and D3 capability are independently verifiable. No
+axis verdict or new capability is admitted at declaration. Old D1/D2,
+source uncertainty and round-6 evidence remain unchanged; D3 is not an
+implicit repair of D2. Dispatch is exactly one 16-worker Flash MAX batch.
+
 ## Planned
 
-- Round 6 has finished its existing batch's author-side acceptance; do not
-  re-dispatch it. Round 7 still needs its sole 16-worker batch through
-  `zai-coding-plan/glm-5.3-flash-low` (legacy name, documented MAX thinking).
-  This follows the explicit operator amendment, not a silent substitution.
+- Round 6 is finished and published; do not re-dispatch it. Round 7's sole
+  16-worker batch through `zai-coding-plan/glm-5.3-flash-low` (legacy name,
+  documented MAX thinking) has returned16/16. Its original F/O acceptance,
+  final harness/review remain unfinished. User requested session wrap and
+  cancelled the goal; integration task stopped. Read
+  `reports/round-7/checkpoint.json` and the failing `validation.json` before
+  resuming. No final round7 admission/verdict/capability is claimed; never
+  launch a second round7 swarm. The host request has
+  one documented non-verbatim step6 clause in `native-request-binding.json`.
+  This follows the explicit model amendment, not a silent substitution.
 - Pending rounds 8–9 use OpenCode Go DeepSeek v4.1 Flash, 32–64 workers per
   round. The operator explicitly replaced Alibaba token-plan with OpenCode.
 - Round 10 is the requested Grok 4.7 xhigh fast 128-worker wave, AFTER the

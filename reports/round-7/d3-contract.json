@@ -1,0 +1,73 @@
+{
+  "profile": "kotodama-d3-evidence-coupling/1",
+  "status": "declared-before-dispatch; normative bounded fixture interface, not a universal culture schema",
+  "root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "baseline_revision": "30caac66a2a382f1c46ba31f0c3c93da62d0762c",
+  "outputs": {"packet": "examples/culture-d3/packet.json", "legacy_projection": "examples/culture-d3/packet.gates.yml", "controls": "examples/culture-d3/controls.json", "frozen_expected": "examples/culture-d3/expected.json", "handoff": "examples/culture-d3/handoff.md"},
+  "components": {
+    "examples/culture-d3/components/04-language.json": ["phonology", "lexicon", "names", "sound_changes", "utterances"],
+    "examples/culture-d3/components/05-ritual.json": ["beliefs", "speech_rules", "symbols", "naming_rule"],
+    "examples/culture-d3/components/06-material.json": ["eras", "materials", "objects", "costumes", "rank_rules"],
+    "examples/culture-d3/components/07-evidence.json": ["references", "bridges", "canon_status", "handoff_status", "scope_notes", "screening"]
+  },
+  "assembly": "Each component is a JSON object with exactly its assigned top-level keys. Merge without overriding collisions. Add profile, name='D3 source-bounded culture drill (NON-CANON)' and assembly={generator,source_sha256}. Deterministic sorted-key UTF-8 JSON with indent 2 and final newline. No timestamps or absolute paths in generated packets. Legacy projection derives only native name/garment forms, not English display labels; retain trace mapping and explicit projection limits under assembly. Existing tools/assemble-d2.py yaml_lines serializer may be loaded read-only, no third-party YAML dependency. The assembler owns only the two output paths and its script; --check is read-only and exits 0 equal / 1 drift / 2 error.",
+  "minimum_counts": {"eras": 2, "lexicon": 20, "names": 6, "beliefs": 2, "costumes": 4, "references": 5, "bridges": 5},
+  "interface_anchors": {"native_lexeme_E0": {"L01":"pina","L02":"suma","L03":"talu","L17":"nara","L18":"salu","L19":"mila","L20":"kuru"}, "material_gate_names": {"M01":"felt","M02":"plant-cloth","M03":"horn"}, "costume_lexemes": {"C01":"L17","C02":"L18","C03":"L19","C04":"L20"}, "note":"These anchors prevent cross-writer races. Include lexeme_id in every costume as specified by costume_lexemes; its native_form must equal that lexeme's form for the costume era. Other L04-L16 spellings and meanings are the language owner's choices. All spellings are constructed and unscreened, not claimed as novel in all real languages."},
+  "language": {
+    "phonology": "consonants/vowels lists, phonotactics '(C)V(C)', coda subset [n,l,r,s], onset_clusters=false. Include p and f for an explicitly union-stage projection. Only ASCII lowercase native spellings in this bounded drill; English translated labels are never phonotactically tested.",
+    "lexicon": "Exactly IDs L01..L20, each {id,native_form,gloss,status:'constructed',available_from:'E0'|'E1',forms:{E0:...,E1:...}}. native_form is the E0 citation spelling; E1 forms are computed by SC1 for ordinary speech. Introduce at least three initial-p forms and three unchanged forms. Each form must tokenize/syllabify under the declared profile; foreign language derivation/real-world genealogy is unclaimed.",
+    "sound_changes": "One declared SC1 {id:'SC1',from:'p',to:'f',environment:'initial',from_era:'E0',to_era:'E1',register:'ordinary'}. Apply once only at the beginning of a native word; do not apply arbitrary replacements elsewhere or treat avoidance as this law. The retained ritual citation layer uses E0 forms.",
+    "names": "Exactly N01..N06, each {id,native_form,display_label,type,era:'E1',formation:{bases:[L-id,L-id],operation:'concat',expected:<native_form>}}. Compute concat of E1 base forms, not the expected value alone; ensure output syllabifies. Names do not equal base lexemes and are mutually distinct beyond trivial near similarities. Display labels are English explanatory labels, never native-name claims.",
+    "utterances": "At least four {id,lexeme_id,era:'E1',register:'ordinary'|'ritual',place,spoken_form,written_form}. Both U01 ordinary at market and U02 ritual in hall use lexeme L01. U03 ordinary L03 and U04 ritual L03 have no avoidance trigger. Written form is the original lexeme's E0 form. Ordinary reading uses E1 sound-changed form; ritual reading uses E0 form unless an exactly matching avoidance rule substitutes L02's E0 form. No generalized taboo outside its place/register. Language owner reads this whole contract to coordinate without waiting for another writer."
+  },
+  "ritual": {
+    "speech_rules": "Exactly AV1 {id:'AV1',lexeme_id:'L01',era:'E1',register:'ritual',place:'hall',substitute_lexeme_id:'L02',claim_kind:'constructed-rule'}. The fixed IDs let the language owner generate U01/U02 without a race.",
+    "beliefs": "B01/B02: {id,speaker,era:'E1',claim_kind:'attributed-belief',truth_status:'unresolved',proposition}. Two disagreeing fictional accounts of a record/voice or textile-sign institution, explicitly attributed, not a copied real sacred rite or narrator-certified supernatural event.",
+    "symbols": "SY01/SY02: {id,display_label,era:'E1',audience,reading,claim_kind:'constructed-rule'}. Audience nonempty, no universal colour/meaning key. They may refer to the two fictional offices but cannot assert real ancient semantics.",
+    "naming_rule": "NR1 {id:'NR1',allowed_offsets:[2,8,20],unit:'fictional-nights',chosen_offset:8,status:'constructed-not-historical',source_id:'S03'}. The fictional numbers deliberately differ from Gobhila; only discrete school-specific versus arbitrary-later timing is the method analogy. Guard requires the chosen offset be in the declared nonempty unique integer set (reject bools). It must not claim Gobhila prescribed these fictional numbers."
+  },
+  "material": {
+    "eras": "Exactly [{id:'E0',ordinal:0,display_label:...},{id:'E1',ordinal:1,display_label:...}]. Fictional relative coordinates only, not CE/BCE or a reconstructed civilization.",
+    "materials": "M01 local wool/felt available E0, M02 imported woven plant cloth available E1, M03 local horn/bone trim available E0. Each {id,gate_name,composition,available_from,provenance:'local-production'|'import',routes:[{kind:'local'|'import',stage:'cloth'|'trim',eras:[E0/E1]}]}. M02 must have no E0 route. No biological species authenticity claimed.",
+    "objects": "O01 ground surface (M01,object_kind:'ground-surface',worn:false); O02 garment M01; O03 garment M02; O04 worn attachment M03. Each {id,material_id,object_kind,worn,display_label}. O01 must remain a ground surface; objects O02/O03/O04 worn=true. This is an invented office/display system, not a reconstruction of Vedic consecration.",
+    "costumes": "Exactly C01..C04, {id,object_id,native_form,display_label,material_id,era,wearer_rank,rite,place,claimed_status,provenance}. C01=O02/M01/E0 ordinary work lawful; C02=O02/M01/E1 ordinary work lawful; C03=O03/M02/E1 visitor/assembly/hall declared violation; C04=O04/M03/E1 appointed/assembly/hall lawful. Pick each native_form from L17/L18/L19/L20 appropriate era forms, distinct from N names; display labels translated and not tested as native. Costume object's material_id must match and a ground-surface cannot become a worn garment. Availability and declared provenance must agree with era/material route.",
+    "rank_rules": "RR1 in existing legacy-gate shape: {id:'RR1',authority:<fictional hall authority>,jurisdiction:'hall',eras:['E1'],rites:['assembly'],effect:'prohibit',property:{kind:'material',value:<M02.gate_name>},wearer_ranks:['visitor'],exempt_ranks:[]}. C03 retains this as violation, not a clean lawful case. The new guard rejects only falsely claiming lawful entitlement to this prohibited use; it does not hide a declared violation. No historically sourced universal garment law is claimed."
+  },
+  "evidence": {
+    "references": "Exactly S01..S05, each {id,ledger_path,audit_id,file_sha256,source_url,source_kind,support_scope,limits}. Use the closed source_bindings below and baseline hashes. Scope/kind/URL must match the effective round-6 parent reconciliation row (not raw worker whole labels). Old files are read-only, and guard must never follow an input-supplied path outside the closed binding or make network requests.",
+    "bridges": "Exactly BR01..BR05, each {id,source_id,relation:'method-transfer'|'analogy',target_ids:[existing D3 record ids],asserted_scope:'design-only',claim_kind:'constructed-rule',mechanism,limits}. BR01 S01 -> U01/U02 (written form vs read form); BR02 S02 -> C01/C02 (object evidence not exclusive era marker/cut); BR03 S03 -> NR1 (discrete fictional timing, not historical numbers); BR04 S04 -> O01/O04 (surface vs worn attachment, not copied rite); BR05 S05 -> SY01/B01 (institution-specific record vs universal speech). A partial source stays partial; no recovered-native-form or ancient-genealogy claim.",
+    "canon_status": "NON-CANON",
+    "handoff_status": "prepared-not-accepted",
+    "screening": "{status:'unresolved',real_language_sweep_performed:false,limits:<nonempty>}; no fake language/community clearance",
+    "scope_notes": "Nonempty list covering invented genealogy, cultural-permission limit, no lore receipt and unresolved historical/corpus residuals."
+  },
+  "source_bindings": {
+    "S01": {"ledger_path":"corpus/lessons/round-6-sources/05.json","audit_id":"R6-05-A","support_scope":"partial-support"},
+    "S02": {"ledger_path":"corpus/lessons/round-6-sources/03.json","audit_id":"R6-03-B","support_scope":"scoped-support"},
+    "S03": {"ledger_path":"corpus/lessons/round-6-sources/13.json","audit_id":"R6-13-A","support_scope":"scoped-support"},
+    "S04": {"ledger_path":"corpus/lessons/round-6-sources/13.json","audit_id":"R6-13-B","support_scope":"scoped-support"},
+    "S05": {"ledger_path":"corpus/lessons/round-6-sources/09.json","audit_id":"R6-09-A","support_scope":"partial-support"}
+  },
+  "guard_cli": "python3 tools/check-evidence-coupling.py <packet.json> [--frozen <expected.json>]; --selftest. Stdlib only; no eval, network or shell interpolation; no input/report writes at normal run. JSON stdout {profile,exit,findings:[{id,record_id,message}],counts}; exits 0 valid bounded model / 1 demonstrated profile contradiction / 2 could-not-evaluate. --selftest drives actual CLI over committed positive packet and independent controls in isolated ignored child scratch, including foreign-cwd call; JSON stdout with selftest_passed/domain_controls/malformed_controls/results. Snapshot mode verifies every persisted input digest BEFORE verdict and returns exit2 D3-SNAPSHOT on tamper. expected.json created by parent after inputs land, with predeclared expected_exit=0/finding_ids=[], not a printed self-blessing checksum.",
+  "diagnostics": {
+    "D3-CANON":"canon_status other than NON-CANON or handoff claiming acceptance",
+    "D3-REFERENCE":"missing/unknown record or source ids, broken bridge target/ref, duplicate ids",
+    "D3-DIGEST":"reference ledger hash disagrees with actual closed-path bytes",
+    "D3-SCOPE":"reference kind/URL/support scope differs from effective round-6 reconciliation; unread whole-claim promotion",
+    "D3-NATIVE":"native form violates declared symbol/syllable profile; translated labels never tested",
+    "D3-DERIVATION":"E1 lexeme SC1 computation or name concat does not yield its actual native form/declared expected output",
+    "D3-UTTERANCE":"spoken/written form fails context/register law versus limited AV1 substitution",
+    "D3-TIMING":"chosen offset outside discrete allowed integer set",
+    "D3-MYTH":"belief is promoted to world-fact or supernatural truth certified",
+    "D3-OBJECT":"ground surface worn, costume bound to non-worn object, material identity mismatched",
+    "D3-ERA":"material or route unavailable in the costume's declared era",
+    "D3-RANK":"unexempted prohibited C03 use falsely claimed lawful",
+    "D3-BRIDGE":"reference-to-invention bridge not design-only method/analogy or claims historical reconstruction",
+    "D3-SYMBOL":"symbol audience/era scope absent or universal meaning asserted",
+    "D3-DATA":"malformed file/UTF8/JSON/root or nested essential schema; exit2, no traceback",
+    "D3-SNAPSHOT":"frozen input digest or manifest unreadable/mismatched; exit2, no traceback"
+  },
+  "controls_format": "controls.json: {profile,positive:[{name,patches,expected_exit:0,expected_ids:[]}],domain:[{name,patches,expected_exit:1,expected_ids:[stable id]}],malformed:[{name,kind:'invalid-json'|'invalid-utf8'|'wrong-root'|'missing-file',expected_exit:2,expected_ids:['D3-DATA']}]} with JSON-pointer patches {op:'replace'|'add'|'remove',path,value optional}. At least twelve domain negatives (prefer one per non-DATA diagnostic) and four malformed. Positive translated-display-label changes and ordinary unaffected-context controls must remain clean. Expectations independent of checker recomputation. If nested authors' fields are not yet present, write contract-based controls and report absence; parent can resume same identity to reconcile paths, never weaken expected diagnostic to fit a bug.",
+  "legacy_projection": "Generate YAML via existing serializer. phonology direct; morphology.derivation_rules synthesized as exactly six explicit concat replay rules with escaped E1 base forms; lexicon term=E1 forms; names native_form only and complete formation stems/rule IDs; costumes garment=native_form, materials gate_name and routes; era strings E0/E1. Preserve trace mapping of native-form versus display-label. cross_culture_review={languages:[],unresolved:['real-language sweep not performed']} so CROSS-HOLD is expected, not cleared. Similarity may be a recorded review, never disabled merely to buy green. No English display labels as garment names. Legacy costume should retain C03's R-01 note/exit1; naming should keep CROSS-HOLD/exit1 and no native phonotactic or derivation FAIL; handoff envelope should pass structurally but remain not canonized. Parent records actual outputs, not pre-announced success.",
+  "handoff_requirements": "Use existing examples/handoff-packet.sample.md format with 16 required fields, pinned contract digest from baseline.json, NON-CANON/not canonized, deliberately unbound research packet, no baseline bible or lore receipt; list actual D3 manifest digests and twenty inline constructed glossary etymologies, scoped claim ledger, five bridge references, decisions and uncertainties. README documents real commands and expected holds, not a universal all-gates-green claim. Writer may initially report missing outputs, then continue same identity on actual packet; do not invent hashes or validation outcomes."
+}
