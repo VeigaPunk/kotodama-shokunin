@@ -1,0 +1,32 @@
+{
+ "round": 12,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "a3f6fcef2d92a1099581140c81d4264e9a4e2aa3",
+ "regimen": "operator 2026-10-17: loop 1 of 3, verify round (audits rounds 8-11)",
+ "requested_model": "openai-codex/gpt-6-luna-max",
+ "workers": 64,
+ "claims": [
+  {
+   "id": "C",
+   "axis": "calibration",
+   "before": "Rounds 8-11 rest on their own harnesses' receipts; no independent recount of the recorded before->after numbers exists; round 11 was rejected on a threshold the operator has not yet recalibrated.",
+   "after_required": "An independent recount ledger (reports/round-12/recount/) re-runs every counting command recorded in rounds 8-11 validation.json files and compares observed vs recorded: 100% of recounts either match exactly or carry a dispositioned cause (environmental, legitimate-change, or defect); zero silent discrepancies; the round-11 F-failure numbers independently reproduced.",
+   "counting_command": "python3 reports/round-12/run-validation.py"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "No consolidated cross-round conformance-defect ledger; rounds 8-11 filed 4 conformance defects ad hoc (out-of-lane writes x2, filed-receipt rewrite, availability gaps) with no single queue.",
+   "after_required": "A consolidated defect ledger (reports/round-12/defects/) enumerates every conformance defect found across rounds 8-11 reports: small bounded fixes land this round with demonstrated controls; everything larger is routed to round 14 (integrate) with an owner note; previously green checks still green after the fixes.",
+   "counting_command": "python3 reports/round-12/run-validation.py"
+  },
+  {
+   "id": "A",
+   "axis": "adjacency",
+   "before": "Cross-domain posture of four rounds of new content (10 new entries, typed pipeline, handoff exercise) asserted per-round but never consolidated.",
+   "after_required": "A consolidated adjacency audit (reports/round-12/adjacency/): every new corpus entry checked for out-of-province content (canon claims, real-world rights rulings, game mechanics); handoff contract fields vs lore's province re-verified; PROVINCE.md still accurate or corrected with a logged entry; zero unreported bleed — anything found is filed, not absorbed.",
+   "counting_command": "python3 reports/round-12/run-validation.py"
+  }
+ ]
+}

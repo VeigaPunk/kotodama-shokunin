@@ -1,0 +1,72 @@
+{
+ "round": 12,
+ "date": "2026-10-17",
+ "baseline_revision": "a3f6fcef2d92a1099581140c81d4264e9a4e2aa3",
+ "calibration": [
+  {
+   "id": "R12-C01..C04",
+   "task": "Round-8 recount (4 workers): re-run every counting command in reports/round-8/validation.json claims' measurement blocks; compare observed vs recorded; per-command receipts reports/round-12/recount/r8-<k>.md."
+  },
+  {
+   "id": "R12-C05..C08",
+   "task": "Round-9 recount, same protocol."
+  },
+  {
+   "id": "R12-C09..C12",
+   "task": "Round-10 recount, same protocol."
+  },
+  {
+   "id": "R12-C13..C16",
+   "task": "Round-11 recount, same protocol — MUST independently reproduce the F-failure numbers (0.778 stability, 45 dispositions, 147/192)."
+  },
+  {
+   "id": "R12-C17..C18",
+   "task": "Audit ledger scribes: merge receipts into reports/round-12/recount/ledger.json {command, round, recorded, observed, match|disposition}."
+  },
+  {
+   "id": "R12-C19..C22",
+   "task": "Dispositions: every mismatch named (environmental | legitimate-change | defect) with evidence."
+  },
+  {
+   "id": "R12-C23..C24",
+   "task": "Recount auditors: independently re-run >=8 recounted commands; mismatch with the ledger = finding."
+  }
+ ],
+ "operability": [
+  {
+   "id": "R12-O01..O08",
+   "task": "Defect sweep (2 workers per round 8-11): conformance review of the round report + artifacts vs protocol (SHONEN heading, hash citations resolve, LOG entries, marker-vs-report); findings to reports/round-12/defects/sweep-r<N>.md."
+  },
+  {
+   "id": "R12-O09..O16",
+   "task": "Bounded fixers: small fixes (typo-level, pointer-level) with demonstrated before/after controls; anything larger routed, not fixed."
+  },
+  {
+   "id": "R12-O17..O18",
+   "task": "Routers: every non-fixed finding routed to round 14 with owner note in reports/round-12/defects/routed.md."
+  },
+  {
+   "id": "R12-O19..O20",
+   "task": "Regression runners: battery + craft + d2/d3 selftests green post-fixes."
+  }
+ ],
+ "adjacency": [
+  {
+   "id": "R12-A01..A04",
+   "task": "New-entry bleed check: read all 10 round-10 entries + round-11/12 changes; flag any canon claim, rights ruling, or game-mechanics content (out of province)."
+  },
+  {
+   "id": "R12-A05..A08",
+   "task": "Handoff contract audit: worldbible-integration-contract.md fields vs the round-11 exercise packet; lore-boundary notes."
+  },
+  {
+   "id": "R12-A09..A10",
+   "task": "PROVINCE.md accuracy check vs the actual four rounds of new capability; correction entry if drifted (LOG it)."
+  },
+  {
+   "id": "R12-A11..A12",
+   "task": "Scribes: adjacency ledger + verdict."
+  }
+ ],
+ "scribe_review": "X01 lessons gate-keeper; X02 out-of-lane watch (fleet root clean); X03 run-validation.py author; X04 report scribe."
+}
