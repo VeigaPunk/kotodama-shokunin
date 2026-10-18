@@ -72,6 +72,62 @@ the aggregate stays red with owed forms held); a label is not history (a
 translated or curatorial label never becomes an attested historical native
 word by repetition, `costume-language-coupling-table.md:43`).
 
+
+
+### Claim uncertainty typing — supported / partial / unresolved
+
+Every handoff claim-ledger row carries `uncertainty: {status: supported|
+partial|unresolved, basis}` plus claim-to-record links that resolve: contract
+§4 requires per-claim "uncertainty, and relation to other records"
+(`corpus/knowledge/synthesis/worldbible-integration-contract.md:63`), and the
+round-12 audit rejected the v1 packet because the ledger had neither the
+uncertainty dimension nor claim-to-record keys, while D2 coupling was one
+aggregate edge (`reports/round-12/adjacency/contract.md:27-28`). Status says
+how completely this packet's pinned records and checks ground the claim
+**exactly as worded**; claim kind and evidence status stay independent
+dimensions, never merged with it (`worldbible-integration-contract.md:92-106`).
+Executable authority `tools/harness/packet_uncertainty.py` (`--selftest`);
+design authority `reports/round-15/handoff/v2-design.md` §2; knowledge draft
+`reports/round-15/knowledge/uncertainty-table-draft.md` §3; vocabulary
+`reports/round-15/claims.json:14`. Basis grammar: one `grounding:` witness per
+claim (a manifest artifact id, a repo path, or a named validation check);
+`restriction:` iff `partial`; `open:` + `owner:` iff `unresolved`
+(v2-design §2.2).
+
+| Status | Assign when (necessary condition) | Required basis | Never |
+|---|---|---|---|
+| `supported` | every element of the claim-as-worded is grounded by a named record in the packet's manifest or a named check with an observed result; nothing open narrows the wording | the resolving `grounding:` witness; residual limits are named even here — scoped-supported is "bounded and revisable, not certainty" (`corpus/knowledge/verification/to-verify-triage-protocol.md:18`) | upgrade a node's support onto its coupling edge (`to-verify-triage-protocol.md:97`); cite a shape-gate pass or digest match as the basis of a semantics claim (`reports/round-12/adjacency/contract.md:9-10,23`) |
+| `partial` | the claim holds only under a stated restriction — scope limit, translation/mediation, projection-of-records, caveat-carrying source | `grounding:` + `restriction:` naming the exact bound, as BR05 did: "the Behistun cross-version leg … remain[s] unverified" (`reports/round-11/handoff/packet.md:108`) | widen the evidence instead of narrowing the wording (`to-verify-triage-protocol.md:70,76`); drop the `(to-verify)` from the downgraded remainder (`:182`) |
+| `unresolved` | a named open question blocks the claim as worded: unperformed work, an external authority still pending, or contested alternatives that must coexist | `grounding:` + `open:` question + `owner:` lane — "a naked marker without a research question is not a usable queue item" (`to-verify-triage-protocol.md:32`) | let a deadline or failed search force closure (`:80`); present open as a fourth verdict — it is a queue state (`:80,181`); read absence as disproof ("silence is not proof of absence", `worldbible-integration-contract.md:179`) |
+
+Partition crosswalk (`corpus/knowledge/verification/`): triage §1 evidence
+states route to statuses — `Located` alone never rises above `partial`
+(`to-verify-triage-protocol.md:16`); `Inspected` with unqualified wording
+grounds `supported` (`:17`); `Scoped-supported` and `Contested` map to
+`partial`, the restriction preserving the disagreement (`:18-19`); `Unknown`
+maps to `unresolved`, and unknown is not false (`:21`). The corpus's
+framework statuses S/C/H/R/U/V (`source-discipline-calibration.md:67`) stay
+framework-level: they calibrate a source or framework, never substitute for a
+claim's basis. Provenance-audit wording governs: `supported` does not mean
+`improved`, and neither means canon
+(`corpus/knowledge/verification/provenance-audit-ledger-format.md:12`).
+Legacy `HARD/SOFT/DOCTRINE/DESIGN` labels are advisory and do not map onto
+these statuses without lore's explicit mapping
+(`worldbible-integration-contract.md:104`; `to-verify-triage-protocol.md:100`).
+
+Cautions that are part of the rule: `supported` is not true and not canon —
+evidence strength and fictional truth are orthogonal
+(`worldbible-integration-contract.md:102`) and canon standing is lore's alone
+(`:100`); `unresolved` is not false; `partial` describes the evidence, not a
+demotion of the design. Status never inherits downward: an edge derived from
+a `partial` or `unresolved` claim carries at least that status ("A confirmed
+node does not upgrade an uncertain relationship",
+`to-verify-triage-protocol.md:97`; severity `supported` < `partial` <
+`unresolved`, v2-design §2.2). Basis is never boilerplate: unique per claim,
+its witness must resolve, and a basis that restates the status word is
+rejected (`worldbible-integration-contract.md:183`; v2-design §2.3).
+````
+
 ## Error patterns
 
 | Observation | Reading |
@@ -98,6 +154,20 @@ word by repetition, `costume-language-coupling-table.md:43`).
 | Era tags or slot glosses graded on the name/sound channel | type them `fictional-coordinate` / `descriptive-gloss`; neither enters the sound channel (tool `FIELD_DEFAULTS`) |
 | A transliteration collision read as native-script identity | compare per declared scheme; a collision in that output channel is not native identity (`naming-collision-gate.md:69-70`) |
 | A shared garment label across cultures read as identical cut or status | labels are neither cut nor status (`naming-collision-gate.md:52`) |
+
+| Status | Assign when (necessary condition) | Required basis | Never |
+| `supported` | every element of the claim-as-worded is grounded by a named record in the packet's manifest or a named check with an observed result; nothing open narrows the wording | the resolving `grounding:` witness; residual limits are named even here — scoped-supported is "bounded and revisable, not certainty" (`corpus/knowledge/verification/to-verify-triage-protocol.md:18`) | upgrade a node's support onto its coupling edge (`to-verify-triage-protocol.md:97`); cite a shape-gate pass or digest match as the basis of a semantics claim (`reports/round-12/adjacency/contract.md:9-10,23`) |
+| `partial` | the claim holds only under a stated restriction — scope limit, translation/mediation, projection-of-records, caveat-carrying source | `grounding:` + `restriction:` naming the exact bound, as BR05 did: "the Behistun cross-version leg … remain[s] unverified" (`reports/round-11/handoff/packet.md:108`) | widen the evidence instead of narrowing the wording (`to-verify-triage-protocol.md:70,76`); drop the `(to-verify)` from the downgraded remainder (`:182`) |
+| `unresolved` | a named open question blocks the claim as worded: unperformed work, an external authority still pending, or contested alternatives that must coexist | `grounding:` + `open:` question + `owner:` lane — "a naked marker without a research question is not a usable queue item" (`to-verify-triage-protocol.md:32`) | let a deadline or failed search force closure (`:80`); present open as a fourth verdict — it is a queue state (`:80,181`); read absence as disproof ("silence is not proof of absence", `worldbible-integration-contract.md:179`) |
+| A claim's status rides as prose inside `evidence_status` or `kind` | no per-claim uncertainty carrier — the round-12 reject (`reports/round-12/adjacency/contract.md:27`; v1 rows `reports/round-11/handoff/packet.md:82,88,95`); fill the dedicated `uncertainty` field, don't decorate another column |
+| The packet passes `16/16 + 20/20` with no uncertainty column anywhere | shape-clean is not uncertainty-populated: the gate has zero uncertainty checks (`grep -ci uncertainty tools/gates/handoff-packet-check.py` → 0, 2026-10-17) and its fixture ledger has five columns, none of them uncertainty (`tools/gates/handoff-packet-check.py:651`) |
+| Two claims share one basis sentence, or a basis restates the status word | boilerplate basis: basis is per-claim evidence whose witness resolves (`reports/round-15/claims.json:14`; `worldbible-integration-contract.md:183`) |
+| A digest match or gate exit 0 offered as a claim's basis | byte identity is not meaning: the audit matched 21/21 digests and still declined the count-semantics claim (`reports/round-12/adjacency/contract.md:11,23`) |
+| A claim-to-record link present but not resolving | same defect class as an absent basis (`reports/round-15/claims.json:14`); existence-check every link at freeze and digest-pin the bytes |
+| An edge or record inherits its source node's `supported` | nodes do not upgrade arrows: each source→target row is typed with its own status, applicability and justification (`to-verify-triage-protocol.md:97`; `worldbible-integration-contract.md:64`) |
+| A date, count, or bound invented to avoid writing `unresolved` | retain uncertain bounds rather than invent precision (`worldbible-integration-contract.md:120`); an unverified conversion stays `(to-verify)` (`to-verify-triage-protocol.md:112`) |
+| An open item closed because the round ended | a deadline never forces confirmation; unresolved rows carry owner + reopen condition, not a closure date (`to-verify-triage-protocol.md:80,181`) |
+| A landed packet whose uncertainty markers disappeared | a disappearing uncertainty marker is not a verified claim (see *Using the evidence*); recheck every reused reference and unresolved id before each handoff (`to-verify-triage-protocol.md:139`) |
 
 ## Boundaries (hard)
 

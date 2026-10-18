@@ -1,0 +1,199 @@
+{
+  "round": 15,
+  "assignment": "SCRIBE X04 — report scribe + independent validation rerun post-settle",
+  "status": "blocked-missing-integration-after-15m",
+  "axes": {
+    "O": "handoff packet v2 operability (uncertainty dimension + claim-to-record links; shape gate 16/16+20/20; durable builder with frozen baseline; contract-audit re-run)",
+    "D": "label-uncertainty decision-table knowledge (worker draft; SKILL.md landing is orchestrator work)"
+  },
+  "declared_round_date": "2026-10-17",
+  "record_date_utc": "2026-10-18",
+  "baseline_revision": "b02cfbc9468aa906f0ff8301ec643770fb2bcfd8",
+  "observed_head": "c60b17c21a77182a5c1f0251e98b4ea42e563c3e",
+  "write_scope": ["reports/round-15/rerun.json"],
+  "environment": {
+    "TMPDIR": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "REFRESH_RECEIPTS": "unset for every child process",
+    "date_note": "Declared round date 2026-10-17 (lane local); all UTC timestamps in this record fall on 2026-10-18."
+  },
+  "dependency_wait": {
+    "command": "Two identical read-only Python watchers: SHA-256 manifest of reports/round-15/**, tools/**, corpus/knowledge/{synthesis,verification}/**, SKILL/SCORECARD/LOG at 60-second intervals; the first watcher's orphaned process survived its parent shell, so duplicate poll series ran concurrently and both append to .scratch/x04-dependency-watch.jsonl; disclosed rather than silently merged",
+    "first_poll_at_utc": "2026-10-18T00:27:06.963813+00:00",
+    "final_poll_at_utc": "2026-10-18T00:42:15+00:00 (poll 13 of restarted series; first series reached poll 8)",
+    "poll_interval_seconds": 60,
+    "maximum_wait_seconds": 900,
+    "result": "timeout-after-15-minutes; required packet never appeared",
+    "required": [
+      "reports/round-15/run-validation.py",
+      "reports/round-15/handoff/packet-v2.yml"
+    ],
+    "present_at_deadline": [
+      "reports/round-15/run-validation.py (revision churn: 5 SHA-256 values observed 00:36Z-00:43Z while its owner revised it in flight)",
+      "reports/round-15/knowledge/uncertainty-table-draft.md (owner-revised during window; f45f6a55e59b5d7f58d2a37a6366850d5760cec2eb0722facb75d26041e29c2f at 00:43Z)",
+      "reports/round-15/handoff/v2-design.md",
+      "reports/round-15/scope.md",
+      "reports/round-15/claims.json",
+      "reports/round-15/targets.json",
+      "tools/harness/packet_uncertainty.py (a000cb3d6b8f62061e78427a8530bf4740d9318605a8bb17115d40f7297f353b at 00:44Z)",
+      "tools/harness/packet_links.py (3fa03b2e871f8d0a12436882ae5b4ac882a612225da0d5fbf6ce746f33532eb1 at 00:44Z)"
+    ],
+    "missing_at_deadline": [
+      "reports/round-15/handoff/packet-v2.yml (and packet-v2.md)",
+      "the durable packet builder (design names tools/build-handoff-v2.py, v2-design.md §6)",
+      "reports/round-15/handoff/expected.json (frozen baseline)",
+      "the uncertainty-population audit receipt in reports/round-15/",
+      "the round-12 contract-audit re-run artifact over v2",
+      "O-reviewer receipts; SKILL.md landing; LOG.md landing (parent)"
+    ],
+    "new_untracked_paths_observed_during_window": [
+      "corpus/lessons/round-15.md (another seat's lesson fragment; outside X04 write scope, not inspected beyond its git-status line)"
+    ]
+  },
+  "post_settle_validation": null,
+  "completion": {
+    "bounded_evidence_record_filed": true,
+    "required_post_integration_rerun_complete": false,
+    "acceptance_claimed": false,
+    "reason": "The settle never happened inside the bounded window: packet-v2, builder, frozen baseline, audit receipts and the contract-audit re-run did not land. Measured state is an in-flight tree, not a settled round; the primary validation.json was neither created nor overwritten by X04.",
+    "parent_follow_up": [
+      "Land the O-chain in dependency order (v2-design.md §9): packet-v2.yml, builder with --selftest, frozen expected.json after packet bytes stop moving, uncertainty-audit receipt, contract-audit re-run over v2.",
+      "Reconcile the packet_uncertainty.py selftest red (X14 fixture: expected [U-BASIS-SHORT, U-BASIS-RESTATES], got [... U-BASIS-NO-GROUNDING] on a000cb3d at 00:44Z) before the runner consumes it; owner: O-impl.",
+      "After integration settles, rerun python3 reports/round-15/run-validation.py --check, then publish the primary receipt through its authorized owner; only then decide axis verdicts.",
+      "Land the D table into SKILL.md via the orchestrator (uncertainty-table-draft.md §6 block); SKILL.md was byte-unchanged through this window.",
+      "If a future freshness measurement re-includes python3 tools/check-gate-battery.py (default mode), note its stdout is not hash-stable run-to-run (see final_available_battery.battery_stdout_stability_probe); the exit channel was 0 on every observation today.",
+      "Do not run historical round validators in the live tree; do not use REFRESH_RECEIPTS to bypass receipt preservation."
+    ]
+  },
+  "final_available_battery": {
+    "command": "python3 .scratch/x04-battery.py (orchestrates subprocess children listed below; full payload at .scratch/x04-rerun-measurements.json)",
+    "started_at_utc": "2026-10-18T00:42:13.378753+00:00",
+    "finished_at_utc": "2026-10-18T00:42:20.162510+00:00",
+    "head_at_start": "c60b17c21a77182a5c1f0251e98b4ea42e563c3e",
+    "snapshot_file_count": 836,
+    "snapshot_manifest_sha256_before": "9fef109fd3dddd835f3f8e55e0c88f8511b029008c1bf61919b119805d3203b2",
+    "snapshot_manifest_sha256_after": "9fef109fd3dddd835f3f8e55e0c88f8511b029008c1bf61919b119805d3203b2",
+    "manifest_identical_before_and_after": true,
+    "changed_paths_during_battery": [],
+    "filed_receipts_before_equal_after": true,
+    "filed_receipts_sha256": {
+      "reports/round-8/validation.json": "359932a7debf6ec39f3182ac078ae3e900860efd97831f6b41bfe818b96ccfba",
+      "reports/round-9/validation.json": "036f84278c4817901413d97839ceba78aa8a367f91579de7505c92800611e418",
+      "reports/round-10/validation.json": "e8571db918b2c3237256342bd95f241be5661a96019e460990c7d1fe2fc32f94",
+      "reports/round-11/validation.json": "b5a7841dd427885c599d8a3ca01d5e5bb96470239fab38e52cd7d4d0bba0cab6",
+      "reports/round-12/validation.json": "773183b2d800c7c19e18b5dba09eb7e9a83e27f621560e6cdd79122baad9af5d"
+    },
+    "git_diff_check_exit": 0,
+    "git_status_porcelain_at_battery": "untracked round-15 work products and harness modules only; no tracked file modified or staged",
+    "regressions": [
+      {"command": "python3 tools/check-gate-battery.py --selftest", "exit": 0, "stdout_sha256": "2812a3270ce97583eaa9a7a16f78f95c60e703b00076fd2fc95f0802783442c2"},
+      {"command": "python3 tools/check-gate-battery.py", "exit": 0, "stdout_sha256": "12f7947bb20680eb7fe96a0f48d3b8ab1db5dce60f8be052e4d3efe9195169d2", "note": "single-run record; stdout not byte-stable run-to-run, see battery_stdout_stability_probe"},
+      {"command": "python3 tools/check-craft-exercise.py --selftest", "exit": 0, "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"},
+      {"command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json", "exit": 0, "stdout_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650"},
+      {"command": "python3 tools/assemble-d2.py --selftest", "exit": 0, "stdout_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336"},
+      {"command": "python3 tools/assemble-d2.py --check", "exit": 0, "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"},
+      {"command": "python3 tools/d2-typed-labels.py --selftest", "exit": 0, "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252"},
+      {"command": "python3 tools/d2-typed-labels.py --check", "exit": 0, "stdout_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427"},
+      {"command": "python3 tools/assemble-culture-d3.py --selftest", "exit": 0, "stdout_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b"},
+      {"command": "python3 tools/assemble-culture-d3.py --check", "exit": 0, "stdout_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a"},
+      {"command": "python3 tools/check-evidence-coupling.py --selftest", "exit": 0, "stdout_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce"},
+      {"command": "python3 tools/assemble-d2-typed.py --check", "exit": 0, "stdout_sha256": "e3b16d3bae56cce5760cbde277716263636a4d9fad83c5c5f2f9a05b181bc924"},
+      {"command": "python3 tools/gates/typed-pipeline-gate.py --json", "exit": 0, "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62"}
+    ],
+    "regression_green": 13,
+    "regression_total": 13,
+    "regression_stderr_each": "empty (stderr sha256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 on every child)",
+    "battery_stdout_stability_probe": {
+      "command": "Three consecutive subprocess runs of python3 tools/check-gate-battery.py (default mode), 2026-10-18T00:47Z window, with the round-9 baselines root and frozen/expected roots unchanged (find -newermt '2026-10-17 21:24' over tools/gates/expected, tools/gates/frozen, reports/round-9/baselines returned no paths)",
+      "observed_stdout_sha256_prefix16": ["0e08bce71770bdef", "9ce958b744f68659", "da8f6a2631a789c3"], "observed_stdout_sha256_note": "16-hex prefixes recorded from the determinism probe; full digests were not retained for these three probe runs",
+      "exit_each": 0,
+      "reading": "The default battery's stdout is not byte-stable run-to-run; its verdict channel (exit 0) was stable on every observation. Single-run stdout hashes for this command are per-run records, not reproducibility pins. No fix attempted (tool is outside X04 write scope); relevant to any future freshness-axis measurement that re-includes this command."
+    },
+    "limit": "This is a full regression + preservation pass on the in-flight tree at the deadline, not the required post-settle acceptance rerun."
+  },
+  "final_available_runner_runs": {
+    "revision_observed": "f16b26375d64ca9e90ee37483ba5386b87ddc3b8bf35814e3985c8192f443ec6",
+    "revision_note": "This revision superseded 11ec4aef834454edbb71c7d836394ca1c459641167a339032d3991f2b30ee34a, whose --selftest crashed with KeyError: 'links' (reports/round-15/run-validation.py:1187) at 00:42:13Z; the owner's next revision fixed both selftest and check. All four revisions observed during the window are listed under preliminary_observations.",
+    "selftest": {
+      "command": "python3 reports/round-15/run-validation.py --selftest",
+      "observed_at_utc": "2026-10-18T00:43:20+00:00 (after the battery)",
+      "exit": 0,
+      "controls_passed": 37,
+      "controls_total": 37,
+      "selftest_passed": true
+    },
+    "check": {
+      "command": "python3 reports/round-15/run-validation.py --check",
+      "started_at_utc": "2026-10-18T00:43:24+00:00 (approx.; immediately after the selftest)",
+      "exit": 1,
+      "receipt_written": false,
+      "acceptance_checks_passed": false,
+      "claim_passed": {"O": false, "D": true},
+      "O_failures_exact": [
+        "Handoff packet v2 is missing under reports/round-15/handoff/ (looked for: packet-v2.yml, packet-v2.md, packet.yml, packet.md)",
+        "No uncertainty-population audit receipt found in reports/round-15/ (non-boilerplate per audit is unproven)",
+        "Shape gate did not run (packet missing or unreadable)",
+        "No durable packet builder discovered (a .py with --selftest referencing packet-v2/expected.json under tools/ or reports/round-15/)"
+      ],
+      "D_measurement": {
+        "draft": "reports/round-15/knowledge/uncertainty-table-draft.md",
+        "tables": 5,
+        "rule_rows": 17,
+        "cited_rows": 17,
+        "statuses_covered": ["supported", "partial", "unresolved"],
+        "partition_crossref": true,
+        "dated": true
+      },
+      "scope": "Check mode writes no receipt. D passes at DRAFT level; the declared D after-state also requires the SKILL.md landing (orchestrator), which had not happened. O is blocked exactly on the missing integration artifacts, not on a measured defect of landed O evidence."
+    }
+  },
+  "preliminary_observations": [
+    {
+      "command": "python3 tools/harness/packet_uncertainty.py --selftest",
+      "revision_2e9dd1a5_at_utc": "2026-10-18T00:35:30+00:00 window",
+      "exit": 1,
+      "behavior": "uncaught ValueError: line 2: not a mapping row: '-' at packet_uncertainty.py:413 -> 299 -> 254 (selftest crash, no named findings)",
+      "revision_next_at_utc": "2026-10-18T00:37:45+00:00 window (bytes changed between the 00:37:24 hash and the 00:38:15 watcher tick)",
+      "exit_after_owner_edit": 1,
+      "behavior_after_owner_edit": "named control failures, no traceback: X5 expected ['U-STATUS-VOCAB'] got ['U-STATUS-VOCAB', 'U-BASIS-DUPLICATE']; X9 expected ['U-BASIS-DUPLICATE'] got []; bare-dash open_questions misparsed [{'id': 'OQ-2', 'claims': [['CL-A']]}]",
+      "revision_a000cb3d_at_utc": "2026-10-18T00:44:00+00:00",
+      "exit_final_observed": 1,
+      "behavior_final_observed": "selftest: FAIL negative fixture X14: expected ['U-BASIS-SHORT', 'U-BASIS-RESTATES'], got ['U-BASIS-SHORT', 'U-BASIS-RESTATES', 'U-BASIS-NO-GROUNDING']",
+      "scope": "Preliminary, in-flight, owner-active module. X04 did not edit it. Still red at the last observation; a named gap for the parent, not a settled O verdict."
+    },
+    {
+      "command": "python3 tools/harness/packet_links.py --selftest",
+      "observed_at_utc": "2026-10-18T00:36:00+00:00 (revision b8fee76b) and 2026-10-18T00:44:00+00:00 (revision 3fa03b2e)",
+      "exit_each": 0,
+      "output": "selftest: 17 checks passed (path/token/line specs, symlink escape, record index, aggregate rejection)"
+    },
+    {
+      "command": "python3 reports/round-15/run-validation.py --selftest (revision churn series)",
+      "series": [
+        {"revision": "422f1dd5ffecfeefa212eecd0e93128ca2a3c75ee9760084df8887321532a6d2", "at_utc": "2026-10-18T00:36:20+00:00", "exit": 0, "controls_total": 26},
+        {"revision": "d4761425e4375b5d6ca733afe3fe3088681453661ceee8eddf1b3dfd267d0c92", "at_utc": "2026-10-18T00:38:00+00:00", "exit": 0, "controls": "30/30"},
+        {"revision": "11ec4aef834454edbb71c7d836394ca1c459641167a339032d3991f2b30ee34a", "at_utc": "2026-10-18T00:42:13+00:00", "exit": 1, "behavior": "KeyError: 'links' crash in selftest at run-validation.py:1187 (in-flight fixture/parser mismatch)"},
+        {"revision": "f16b26375d64ca9e90ee37483ba5386b87ddc3b8bf35814e3985c8192f443ec6", "at_utc": "2026-10-18T00:43:20+00:00", "exit": 0, "controls": "37/37"}
+      ],
+      "scope": "The runner was revised by its owner at least five times during the window. Only the final f16b2637 runs are offered as current-revision evidence; earlier revisions are retained as the honest record of the in-flight state."
+    },
+    {
+      "command": "Sibling seat's earlier check (read-only observation of .scratch/validation-check-1.json; not run by X04)",
+      "observed_at_utc": "2026-10-18T00:34-00:35Z window, against an earlier runner revision",
+      "content": "claim D failures for rule rows 'lacks a corpus or round-12/15 citation' plus 'unresolvable citations: reports/round-15/handoff/packet-v2.yml'",
+      "disposition": "Corroborates that the D draft/runner pair was being reconciled in flight; the same checks are green on the final observed revision f16b2637. Not an X04 measurement; retained as context only."
+    }
+  ],
+  "preservation_summary": {
+    "filed_rounds_8_through_12_receipts": "byte-identical before and after the battery (sha256 values recorded above; they also match round-14's filed initial-receipt control)",
+    "repo_snapshot": "836 files under reports/round-8..14, tools, corpus/knowledge/{synthesis,verification}, SKILL/SCORECARD/LOG/PROVINCE and round-15 declarations; manifest SHA-256 identical before and after",
+    "repo_writes_by_x04": "reports/round-15/rerun.json and reports/round-15/report-draft.md only; all other work confined to gitignored .scratch/"
+  },
+  "limits": [
+    "This is X04's bounded evidence record at the 15-minute dependency deadline. The post-settle rerun did not happen because integration did not settle; no admission, axis verdict, or promotion verification is claimed.",
+    "The runner, both harness modules and the D draft were revised by their owners during the measurement window; every observation is hash-bound to the revision named, and none of them is asserted settled.",
+    "The runner's --check on f16b2637 shows D passing at draft level only; the declared D after-state (SKILL.md landing) remains open orchestrator work.",
+    "The uncertainty selftest was red on every revision observed; it is recorded as a named gap with owner note, not silently absorbed.",
+    "No historical round validator was run; no filed round-8..14 artifact was read as writable; no git commit or push was performed by X04."
+  ]
+}

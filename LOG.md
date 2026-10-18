@@ -3189,3 +3189,18 @@ Parent records O/D/C acceptance and all-axis judgments only after the
 retrospective, routed dispositions, guard controls and regression evidence
 exist. No rank, independent promotion verification, historical-truth
 certification or lore/world-bible ownership is claimed.
+
+## 2026-10-17 — Round 15 admitted (loop 1, GLM round 1 of 2; 16w zai flash MAX)
+
+- **Trigger:** regimen; claims O/D in `reports/round-15/claims.json`; baseline
+  `c60b17c`; 12/16 completed (O02 timed out; suite covered it).
+- **O (verified):** handoff packet v2 closes the round-12 semantic reject —
+  uncertainty dimension + claim-to-record links + atomic D2 edges;
+  validators 19/19 + 31/31; frozen expected.json + freeze/verify tool;
+  contract audit re-run pass-with-named-gaps.
+- **D (verified):** SKILL.md claim-uncertainty decision table landed (BLOCK A
+  4,741 chars + 13 error rows; 17/17 cited).
+- **Integrator acts:** settled-tree validation rerun (late-landing artifacts);
+  SKILL landing repaired after a slicing defect (BLOCK A initially missed);
+  three reviewer findings routed to round 16.
+- **Evidence:** `reports/round-15/validation.json` acceptance true.

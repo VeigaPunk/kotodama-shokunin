@@ -112,6 +112,24 @@ integrator). Acceptance: `python3 reports/round-14/run-validation.py` exits 0.
 Admission: O/D/C verify, no axis harmed. Integrator acts: routed-resolution.json
 authored; SCORECARD/LOG drafts landed; 5 failed scribe seats' coverage folded.
 
+## Axes — round 15 (2026-10-17), admitted (GLM round 1 of 2)
+
+Baseline `c60b17c`; one 16-worker `zai-coding-plan/glm-5.3-flash-low` (zai MAX
+effort) batch (12/16 completed; O02 builder seat timed out — its role was
+covered by the landed validator suite + deterministic packet build; 2h wave).
+Acceptance: `python3 reports/round-15/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | Handoff packet semantically rejected (round 12) → v2 lands: 16/16 + 20/20 shape, 15/15 claims with uncertainty {status,basis} (8 supported / 5 partial / 2 unresolved, zero boilerplate per audit), 50/50 claim-to-record links resolving, D2 aggregate dissolved into 34 atomic edges; contract-audit re-run = pass-with-named-gaps (bilateral read + L0 digest remain lore-owned); validators (19/19, 31/31 selftests) + frozen expected.json + freeze/verify tool durable | `python3 reports/round-15/run-validation.py` | `reports/round-15/handoff/` (v2-design, packet-v2-05 twins, contract-v2-audit, frozen.md, reviewers) |
+| depth | improved (claim D) | No uncertainty-typing craft knowledge → SKILL.md gains the claim-uncertainty decision table (supported/partial/unresolved + basis grammar + verification-partition crosswalk) + 13 error-pattern rows; 17/17 rule rows cited; enum drift-checked vs the landed packet | `python3 reports/round-15/run-validation.py` | `reports/round-15/knowledge/` drafts + SKILL.md subsection |
+| calibration | improved (unclaimed observation) | Three reviewer findings (L-anchor link bypass, unchecked edge source, lexeme link-coverage gap) routed to round 16 with recipes, not absorbed | — | `reports/round-15/handoff/review-{9,10}.md` |
+| coverage / freshness / adjacency | unchanged | Freshness axis-moves still paused; fleet root has one pre-existing stray (baseline-analyze.txt, flagged not ours); filed rounds 8-14 byte-preserved (651 files checked) | — | `reports/round-15/scope.md` |
+
+Admission: O/D verify, no axis harmed. Routed to round 16: reviewer findings
+F9-1/F9-2/F10-1; packet canonical rename note; lore-owned items (bilateral
+read, L0 digest) stay open.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker
