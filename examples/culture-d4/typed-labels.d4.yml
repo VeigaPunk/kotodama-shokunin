@@ -136,100 +136,43 @@
   "era_reconciliation": {
     "alias_rows": [
       {
-        "id": "12-rank-rules era_aliases.era-1",
-        "source": "era-1",
+        "id": "packet named_eras.ER-01",
+        "source": "the stamp era",
         "status": "confirmed",
         "tag": "E0"
       },
       {
-        "id": "12-rank-rules era_aliases.era-2",
-        "source": "era-2",
+        "id": "packet named_eras.ER-02",
+        "source": "the mark hand",
         "status": "confirmed",
         "tag": "E1"
       },
       {
-        "id": "12-rank-rules era_aliases.era-3",
-        "source": "era-3",
+        "id": "packet named_eras.ER-03",
+        "source": "the league",
         "status": "confirmed",
         "tag": "E2"
       },
       {
-        "id": "ERX-1",
-        "source": "E1 shelter era",
-        "status": "to-verify",
-        "tag": "E0"
-      },
-      {
-        "id": "ERX-1",
-        "source": "E1 shelter era",
-        "status": "to-verify",
-        "tag": "E0"
-      },
-      {
-        "id": "ERX-2",
-        "source": "E2 road era",
-        "status": "to-verify",
-        "tag": "E1"
-      },
-      {
-        "id": "ERX-2",
-        "source": "E2 road era",
-        "status": "to-verify",
-        "tag": "E1"
-      },
-      {
-        "id": "ERX-2",
-        "source": "Nalne (salt-road naming)",
-        "status": "to-verify",
-        "tag": "E1"
-      },
-      {
-        "id": "ERX-4",
-        "source": "E4 script era",
-        "status": "to-verify",
-        "tag": "E2"
-      },
-      {
-        "id": "ERX-4",
-        "source": "E4 script era",
-        "status": "to-verify",
-        "tag": "E2"
+        "id": "packet named_eras.ER-04",
+        "source": "the cold fire (reserved)",
+        "status": "confirmed",
+        "tag": "E3"
       }
     ],
     "basis": [
-      "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1)",
-      "examples/culture-d2/components/11-costumes.yml era_reconciliation (ERX-0/ERX-R confirmed, ERX-1..4 (to-verify), ERX-W warning)"
+      "examples/culture-d4/packet.d4.yml named_eras (A1)",
+      "examples/culture-d4/packet.d4.yml era_reconciliation: skipped — the packet declares no reconciliation rows (the D2 leg's examples/culture-d2/components/11-costumes.yml is not read for family d4)"
     ],
     "note": "a (to-verify) row yields mapped-unconfirmed (hold); a label no row names stays unmapped — the E-number is never a mapping",
-    "two_to_one": [
+    "skipped": [
       {
-        "id": "ERX-R",
-        "raw": "identity; E0 covers ER-01..ER-06, E1 is ER-07 Marked Count, E2 is ER-08 Two Counts",
-        "sources": [
-          "E0|E1|E2"
-        ],
-        "status": "confirmed",
-        "tags": [
-          " E0",
-          " E1",
-          " E2"
-        ]
-      },
-      {
-        "id": "ERX-3",
-        "raw": "E1 -> E2 (two-to-one: their assembly era sits inside the seam and the anchor; the finer grain is theirs)",
-        "sources": [
-          "E3 assembly era",
-          "E3 assembly era",
-          "Pertne (script naming)"
-        ],
-        "status": "to-verify",
-        "tags": [
-          " E2",
-          "E1"
-        ]
+        "leg": "costume-era reconciliation",
+        "source": "examples/culture-d4/packet.d4.yml",
+        "why": "the packet declares no era_reconciliation rows"
       }
     ],
+    "two_to_one": [],
     "verdicts": [
       {
         "label": "E0",
@@ -238,22 +181,22 @@
         "verdict": "identity"
       },
       {
-        "label": "era-1",
-        "row": "12-rank-rules era_aliases.era-1",
-        "tag": "E0",
+        "label": "E1",
+        "row": null,
+        "tag": "E1",
+        "verdict": "identity"
+      },
+      {
+        "label": "the cold fire (reserved)",
+        "row": "packet named_eras.ER-04",
+        "tag": "E3",
         "verdict": "mapped-confirmed"
       },
       {
-        "label": "E1 shelter era",
-        "row": "ERX-1",
-        "tag": "E0",
-        "verdict": "mapped-unconfirmed"
-      },
-      {
-        "label": "E4 script era",
-        "row": "ERX-4",
+        "label": "the league",
+        "row": "packet named_eras.ER-03",
         "tag": "E2",
-        "verdict": "mapped-unconfirmed"
+        "verdict": "mapped-confirmed"
       },
       {
         "label": "E9 no such label",
@@ -707,11 +650,12 @@
       }
     ],
     "era_aliases_applied": {
-      "era-1": "E0",
-      "era-2": "E1",
-      "era-3": "E2"
+      "the cold fire (reserved)": "E3",
+      "the league": "E2",
+      "the mark hand": "E1",
+      "the stamp era": "E0"
     },
-    "era_aliases_basis": "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1); the D2 records already use the canonical tags, so the map is identity for every rule emitted here",
+    "era_aliases_basis": "examples/culture-d4/packet.d4.yml named_eras (A1); the normalized rank records already use the canonical tags, so the map is identity for every rule emitted here",
     "gate_rank_rules": [
       {
         "adapt_status": "partial",

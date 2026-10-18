@@ -1,0 +1,297 @@
+{
+ "round": 20,
+ "assignment": "SCRIBE X19..X20 — report scribes (round-20 report draft + bounded evidence record + fragment conformance index)",
+ "status": "in-flight-at-the-20-minute-bound",
+ "axes": {
+  "D": "depth — handoff e2e v3 assembling from D2+D3+D4 with uncertainty and resolving links",
+  "O": "operability — per-family era-alias resolution (wart closed; D2 byte-identical; re-pin cascade as new rows)",
+  "C": "coverage — corpus/README.md reconciled command-carried"
+ },
+ "declared_round_date": "2026-10-18",
+ "record_date_utc": "2026-10-18",
+ "baseline_revision": "caf1beac19b55f3bbce47e4a9e7e8710cc1c581d",
+ "observed_head": "122086bce0aa577bec221bb2d37eedf20f4f3ed2",
+ "observed_head_subject": "round-20: declare claims D/O/C (handoff v3 with D4, alias-wart fix, README reconciliation)",
+ "head_is_declare_commit": true,
+ "write_scope": [
+  "reports/round-20/report-draft.md",
+  "reports/round-20/rerun.json",
+  "reports/round-20/fragment-index.md"
+ ],
+ "environment": {
+  "TMPDIR": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/x19",
+  "PYTHONDONTWRITEBYTECODE": "1",
+  "REFRESH_RECEIPTS": "unset for every child process",
+  "date_note": "All timestamps in this record are UTC; the lane-local clock is UTC-03:00, so the declared round date 2026-10-18 is the same calendar day."
+ },
+ "dependency_wait": {
+  "command": "Read-only Python watcher: sha256 inventory of reports/round-20/** plus the pinned surfaces (tools/exercise-handoff-e2e.py, reports/round-20/run-validation.py, corpus/README.md, tools/d2-typed-labels.py, SKILL.md) at 60-second intervals, appended to .scratch/x19/watch.jsonl",
+  "started_at_utc": "2026-10-18T12:55:05.939553+00:00",
+  "planned_end_utc": null,
+  "last_poll_at_utc": "2026-10-18T13:04:05.946235+00:00",
+  "polls": 10,
+  "poll_interval_seconds": 60,
+  "maximum_wait_seconds": 1200,
+  "window_closed": true,
+  "result": "the 20-minute window closed with the wave still writing: 39-40 artifacts at 13:13Z; C green, O green (13:13Z reading), D still failing on its own named legs",
+  "artifacts_present_at_last_poll": 18,
+  "round20_files_at_last_poll": null,
+  "required": [
+   "reports/round-20/run-validation.py",
+   "tools/exercise-handoff-e2e.py#<v3 D2+D3+D4 assembly>",
+   "the per-family alias resolution in tools/d2-typed-labels.py (+ assemble-d4-typed.py mirror without the foreign tree)",
+   "corpus/README.md#<round-20 revision>"
+  ],
+  "present_at_last_poll": [
+   "reports/round-20/audit-12.md",
+   "reports/round-20/audit/x22-readme-rows-spotcheck.md",
+   "reports/round-20/audit/x24-lessons-audit.md",
+   "reports/round-20/audit/x24-lessons-audit.py",
+   "reports/round-20/audit/x24-lessons-receipt.json",
+   "reports/round-20/claims.json",
+   "reports/round-20/fragment-index.md",
+   "reports/round-20/handoff/capability-draft.md",
+   "reports/round-20/handoff/claims-map.md",
+   "reports/round-20/handoff/design.md",
+   "reports/round-20/handoff/review.md",
+   "reports/round-20/handoff/uncertainty-plan.md",
+   "reports/round-20/integration/ledger-gen.py",
+   "reports/round-20/readme/gaps.md",
+   "reports/round-20/readme/reconcile.md",
+   "reports/round-20/readme/verify.md",
+   "reports/round-20/report-draft.md",
+   "reports/round-20/rerun.json",
+   "reports/round-20/run-validation.py",
+   "reports/round-20/targets.json",
+   "reports/round-20/wart/expected-v2-07-r20.json",
+   "reports/round-20/wart/repin-r20.json",
+   "reports/round-20/wart/shard-1.md",
+   "reports/round-20/wart/shard-2.md"
+  ],
+  "missing_at_last_poll": []
+ },
+ "independent_rerun": {
+  "inventory": {
+   "command": "python3 .scratch/x19/inventory.py",
+   "recorded_at_utc": "2026-10-18T12:56:21.248050+00:00",
+   "green": 25,
+   "total": 25,
+   "receipt": ".scratch/x19/inventory.json"
+  },
+  "key_runs": {
+   "handoff-e2e": {
+    "command": "python3 tools/exercise-handoff-e2e.py",
+    "exit": 0,
+    "tail": ""
+   },
+   "handoff-e2e-selftest": {
+    "command": "python3 tools/exercise-handoff-e2e.py --selftest",
+    "exit": 0,
+    "tail": ""
+   },
+   "handoff-gate-selftest": {
+    "command": "python3 tools/gates/handoff-packet-check.py --selftest",
+    "exit": 0,
+    "tail": "selftest: OK — fixture findings 11 across 9 ids (HO-BASELINE, HO-CANON-CLAIM, HO-CANON-MARKER, HO-CONTRACT-REF, HO-DEP-FLOAT, HO-EMPTY, HO-GLOSS-ETYM, HO-MANIFEST-DIGEST, HO-MISSING); clean control exit 0; probes cover c"
+   },
+   "battery": {
+    "command": "python3 tools/check-gate-battery.py",
+    "exit": 0,
+    "tail": "}"
+   },
+   "battery-selftest": {
+    "command": "python3 tools/check-gate-battery.py --selftest",
+    "exit": 0,
+    "tail": "SELFTEST OK 35/35 controls behaved as expected"
+   },
+   "d2-projector-check": {
+    "command": "python3 tools/d2-typed-labels.py --check",
+    "exit": 0,
+    "tail": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/examples/culture-d2/typed-labels.d2.yml: byte-identical deterministic projection"
+   },
+   "d2-projector-selftest": {
+    "command": "python3 tools/d2-typed-labels.py --selftest",
+    "exit": 0,
+    "tail": "selftest: 50/50 checks passed — the three shard control matrices, the loader/parser malformed cases, the live-packet typing and reconciliation cases, and the CLI emit/check/tamper controls; no file outside the temporary "
+   },
+   "d4-projector-check": {
+    "command": "python3 tools/assemble-d4-typed.py --check",
+    "exit": 0,
+    "tail": "examples/culture-d4/packet.d4.typed.yml: byte-identical deterministic typed packet"
+   },
+   "d4-projector-selftest": {
+    "command": "python3 tools/assemble-d4-typed.py --selftest",
+    "exit": 0,
+    "tail": "selftest: 12/12 checks passed — build/determinism/--check/tamper plus stale-projection, coverage-gap and malformed-packet controls; no file outside the temporary mirror touched"
+   },
+   "d2-typed-check": {
+    "command": "python3 tools/assemble-d2-typed.py --check",
+    "exit": 0,
+    "tail": "examples/culture-d2/packet.d2.typed.yml: byte-identical deterministic typed packet"
+   },
+   "d2-typed-selftest": {
+    "command": "python3 tools/assemble-d2-typed.py --selftest",
+    "exit": 0,
+    "tail": "selftest: 11/11 checks passed — build/determinism/--check/tamper plus stale-projection, coverage-gap and malformed-packet controls; no file outside the temporary mirror touched"
+   },
+   "typed-pipeline-d2": {
+    "command": "python3 tools/gates/typed-pipeline-gate.py",
+    "exit": 0,
+    "tail": "summary: 16/16 legs passed"
+   },
+   "typed-pipeline-d4": {
+    "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+    "exit": 0,
+    "tail": "summary: 19/19 legs passed"
+   },
+   "typed-pipeline-selftest": {
+    "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+    "exit": 0,
+    "tail": "selftest: 12/12 checks passed — constant==baseline, the mirrored four legs, determinism/--json, and the smuggled-label, dropped-row, laundered-hold, adapter-drift, malformed and missing controls; no file outside the temp"
+   }
+  },
+  "before_bundle": {
+   "command": "python3 .scratch/x19/before-after.py",
+   "recorded_at_utc": "2026-10-18T12:57:23.653410+00:00",
+   "receipt": ".scratch/x19/before.json",
+   "handoff_e2e_exit": 0,
+   "readme_revision": "1.4",
+   "partition_counts": {
+    "civilizations": 94,
+    "linguistics": 19,
+    "myth-symbol": 19,
+    "culture-material": 18,
+    "synthesis": 29,
+    "verification": 20
+   },
+   "d2_pin_surface_count": 106
+  },
+  "deadline_snapshot": {
+   "command": "python3 .scratch/x19/deadline-snapshot.py",
+   "recorded_at_utc": "2026-10-18T13:08:29.783307+00:00",
+   "receipt": ".scratch/x19/snapshot.json",
+   "readme_revision": "1.5",
+   "readme_rows": 199,
+   "readme_missing_rows": [],
+   "partition_counts": {
+    "civilizations": 94,
+    "linguistics": 19,
+    "myth-symbol": 19,
+    "culture-material": 18,
+    "synthesis": 29,
+    "verification": 20
+   }
+  },
+  "preservation_control": {
+   "command": "find reports/round-8..19 -type f ! -path '*__pycache__*' ! -name '*.log' -print0 | sort -z | xargs -0 sha256sum, compared LC_ALL=C",
+   "files": 892,
+   "canonical_digest": "7adf60d680a9118e5ab24981cfbab1cb0bef300b08b2667ffdb99529cf71897d",
+   "unchanged_vs_before": true,
+   "note": "a first comparison flagged a difference; it was this seat's own locale-collation artifact (same digests, different order), corrected under LC_ALL=C"
+  },
+  "round20_census_at_snapshot": [
+   "reports/round-20/audit-12.md",
+   "reports/round-20/audit/x22-readme-rows-spotcheck.md",
+   "reports/round-20/audit/x24-lessons-audit.md",
+   "reports/round-20/audit/x24-lessons-audit.py",
+   "reports/round-20/audit/x24-lessons-receipt.json",
+   "reports/round-20/claims.json",
+   "reports/round-20/fragment-index.md",
+   "reports/round-20/handoff/capability-draft.md",
+   "reports/round-20/handoff/claims-map.md",
+   "reports/round-20/handoff/design.md",
+   "reports/round-20/handoff/review.md",
+   "reports/round-20/handoff/uncertainty-plan.md",
+   "reports/round-20/integration/ledger-gen.py",
+   "reports/round-20/readme/gaps.md",
+   "reports/round-20/readme/reconcile.md",
+   "reports/round-20/readme/verify.md",
+   "reports/round-20/report-draft.md",
+   "reports/round-20/rerun.json",
+   "reports/round-20/run-validation.py",
+   "reports/round-20/targets.json",
+   "reports/round-20/wart/expected-v2-07-r20.json",
+   "reports/round-20/wart/repin-r20.json",
+   "reports/round-20/wart/shard-1.md",
+   "reports/round-20/wart/shard-2.md"
+  ],
+  "run_validation_sha256": "30de7d5ea73a818d3de8494920f4d5a5ccb1d5445b30341701b1e69b78134bda"
+ },
+ "round20_validator": {
+  "command": "python3 reports/round-20/run-validation.py --check",
+  "date": "2026-10-18",
+  "exit": 1,
+  "runner_sha256": "12f70f74323b8b4e0f681c2a85618919fd7175f9c3af47b423493f1cfd9b1835",
+  "acceptance_checks_passed": false,
+  "claims": {
+   "C": {
+    "passed": true,
+    "failures": []
+   },
+   "D": {
+    "passed": false,
+    "failures": [
+     "v1 path not green: python3 tools/exercise-handoff-e2e.py exit 2 — acket_sha256=(not assembled)\nhandoff-e2e: E2E-BASELINE: frozen baseline not found: /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-20/handoff/expected.json (write one with --freeze DIR)\n",
+     "v2 path not green: exit 2 — IR]\n                               [--baseline PATH] [--keep DIR] [--json]\n                               [--freeze DIR] [--quiet]\nexercise-handoff-e2e.py: error: unrecognized arguments: --profile v2\n",
+     "v3 path not green: exit 2 — usage: exercise-handoff-e2e.py [-h] [--selftest] [--root DIR]\n                               [--baseline PATH] [--keep DIR] [--json]\n                               [--freeze DIR] [--quiet]\nexercise-handoff-e2e.py: error: unrecognized arguments: --profile v3\n",
+     "v3 selftest not green: exit 2 — IR]\n                               [--baseline PATH] [--keep DIR] [--json]\n                               [--freeze DIR] [--quiet]\nexercise-handoff-e2e.py: error: unrecognized arguments: --profile v3\n",
+     "No contract-audit re-run artifact found under reports/round-20/",
+     "No v3 baseline expected.json under reports/round-20/handoff/"
+    ]
+   },
+   "O": {
+    "passed": true,
+    "failures": []
+   }
+  },
+  "missing_dependencies": [
+   "reports/round-20/<contract-audit-rerun>.md",
+   "reports/round-20/handoff/expected.json"
+  ],
+  "filed_rounds_preserved": null,
+  "receipt": ".scratch/x19/check.json",
+  "note": "run with --check only; this seat wrote no validation.json",
+  "readings": [
+   {
+    "at_utc": "2026-10-18T13:07Z",
+    "runner_sha256": "afdf11986f003002e4448adad0e2ca8c26d87bbf4c6a92da900742b752452011",
+    "claims": {
+     "C": true,
+     "D": false,
+     "O": false
+    },
+    "receipt": ".scratch/x19/check.json"
+   },
+   {
+    "at_utc": "2026-10-18T13:09Z",
+    "runner_sha256": "de879cefc23cc0d5",
+    "claims": {
+     "C": true,
+     "D": false,
+     "O": false
+    },
+    "receipt": ".scratch/x19/check2.json"
+   },
+   {
+    "at_utc": "2026-10-18T13:13Z",
+    "runner_sha256": "566dd75d04d1c74f3ee6731d2caad89143de8fb556fa079b56133315dc1833a4",
+    "claims": {
+     "C": true,
+     "D": false,
+     "O": true
+    },
+    "receipt": ".scratch/x19/check3.json"
+   }
+  ]
+ },
+ "primary_receipt": {
+  "path": "reports/round-20/validation.json",
+  "exists": true,
+  "written_by_this_seat": false
+ },
+ "completion": {
+  "bounded_evidence_record_filed": true,
+  "admission": "none — this record admits no claim and certifies no canon",
+  "non_canon": true
+ }
+}

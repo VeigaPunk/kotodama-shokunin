@@ -208,6 +208,23 @@ Admission: D/C/O verify, no axis harmed. Integrator acts: errata + SKILL
 landings; adapter selftest repaired (12/12: mirror faithfulness + named-once
 fixture); availability record closed.
 
+## Axes — round 20 (2026-10-18), admitted (build 4 of 4 — loop 2 builds complete)
+
+Baseline `122086b`; one 64-worker `opencode-go/deepseek-v4.1-flash` batch
+(20/64 completed; heavy integration seats landed). Acceptance:
+`python3 reports/round-20/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D) | Handoff e2e v2 (D2+D3) -> v3 adds D4: 27 claims (16 supported / 7 partial / 4 unresolved), D4-CL01..12 with uncertainty + 102/102 resolving links; gate 16/16 + 20/20; v2 subset equality preserved; frozen v3 baseline + tamper control | `python3 reports/round-20/run-validation.py` | `reports/round-20/handoff/` (design, claims-map, packet-v3-13, audit-v3) |
+| operability | improved (claim O) | Projector era-alias wart closed: per-family alias resolution (D4 documented skip; D2 byte-identical — selftest 50/50, gate 13/13 stdout sha unchanged); adapter selftest 12/12 WITHOUT the foreign examples tree; repin cascade updated as new rows; all regressions green | `python3 tools/d2-typed-labels.py --selftest` | `reports/round-20/wart/`, `repin/` |
+| coverage | improved (claim C) | README unreconciled since rounds 10/19 -> command-carried reconciliation (civ 94 / ling 20 / myth 19 / culture 18 / synth 29 / verif 20); index rows == files; known-gaps refreshed against rounds 17-20 content | `python3 reports/round-20/run-validation.py` | `reports/round-20/readme/` |
+| calibration | improved (unclaimed observation) | Design seats executed documented flip rules when the wart fix landed mid-wave (basis re-grounded with the negative-control leg named as owed); fragment-index collision (X19/X20 vs X24) recorded for integrator disposition | — | design.md §4; fragment indexes |
+| freshness / adjacency | unchanged | Pause in force (operator ruling still pending at L0); ledger snapshot taken for the loop-2 verify round; scope clean | — | `reports/round-20/ledger-snapshot.md` |
+
+Admission: D/O/C verify, no axis harmed. Loop 2 builds complete (rounds 17-20;
+one rejection r17 later repaired by r18). Next: round 21 verify (luna).
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

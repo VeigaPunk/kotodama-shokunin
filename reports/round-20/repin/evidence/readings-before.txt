@@ -1,0 +1,41 @@
+== BEFORE readings 2026-10-18T12:56:00Z ==
+-- hashes --
+0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802  tools/d2-typed-labels.py
+04ad4bb479562c419b48d750a8f9303c4a5a717ca7f2fe3b3658cc1bb9578a48  tools/gates/typed-pipeline-gate.py
+c7e5a7493601d3312f2eb55185ac4d081139cdaa0e11f67dd69f67250b037071  tools/assemble-d2-typed.py
+1ddad6a7da1fc27f4c3efb126111a5a0eaa6fdb856d91c96221df0c927aeecec  tools/assemble-d4-typed.py
+8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d  tools/assemble-d2.py
+-- pin surfaces naming projector --
+c49ebc9e71ce870a  tools/gates/frozen/round-11/typed-pipeline/run-receipt.json
+d90c09e8789bb9df  tools/gates/frozen/round-18/repin-d2/run-receipt-repin.json
+dc75c5d7e347987e  reports/round-16/handoff/expected-v2-07.json
+d5fda399490d47eb  reports/round-18/repin/expected-v2-07-r18.json
+b927db311370c27a  reports/round-15/handoff/expected.json
+a94f9ded9d0938ec  reports/round-11/handoff/expected.json
+93b84da0cbd3b2a8  tools/gates/expected/d4-typed-labels-check-gate/r19-pre/expected.json
+a5dc26d5b495a90e  examples/culture-d2/expected-holds.json
+09490a2756d123eb  examples/culture-d4/expected-holds.json
+-- D2 path verdicts --
+ok   malformed packet: exit 2, no traceback
+ok   missing packet: exit 2
+selftest: 12/12 checks passed — constant==baseline, the mirrored four legs, determinism/--json, and the smuggled-label, dropped-row, laundered-hold, adapter-drift, malformed and missing controls; no file outside the temporary mirror touched
+selftest_exit=0
+default_exit=0
+15cdfbda73cd56cb6107d2fdbee533dbce47e9381e2082085ca1f0c45f2e695b  .scratch/o11/d2-default.out
+json_exit=0
+19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62  .scratch/o11/d2-json.out
+frozen_exit=0
+9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606  .scratch/o11/d2-frozen.out
+-- projector self-test + D4 gate --
+ok   cli: malformed packet exits 2 with a stable code
+selftest: 39/39 checks passed — the three shard control matrices, the loader/parser malformed cases, the live-packet typing and reconciliation cases, and the CLI emit/check/tamper controls; no file outside the temporary directory touched
+examples/culture-d4/typed-labels.d4.yml: byte-identical deterministic projection
+d4_gate_exit=0
+examples/culture-d4/packet.d4.yml: byte-identical deterministic assembly
+d4_asm_exit=0
+-- replay repin-d2 --
+ROW 11 could-not-evaluate reason=mirror_unsafe gate=tools/gates/lexicon-coverage-audit.py input=examples/culture-d2/packet.d2.yml exit=None/0 count=None/0 bytes=skipped launched=no
+  detail: mirror: temporary root is inside the repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/replay-frozen-sfchqx7u
+ROW 12 could-not-evaluate reason=mirror_unsafe gate=tools/gates/myth-consistency-gate.py input=examples/culture-d2/packet.d2.yml exit=None/0 count=None/0 bytes=skipped launched=no
+  detail: mirror: temporary root is inside the repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/replay-frozen-8ukz4ydc
+REPLAY COULD-NOT-EVALUATE: 11 could-not-evaluate, 0 mismatch, 0 reproduced of 11 row(s) in tools/gates/frozen/round-18/repin-d2/MANIFEST.tsv

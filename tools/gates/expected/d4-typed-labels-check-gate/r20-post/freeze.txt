@@ -1,0 +1,65 @@
+baseline_id: r20-post
+gate: d4-typed-labels-check-gate (tools/gates/d4-typed-labels-check-gate.py)
+gate_sha256: 05f99629d870280c55e15f46d799c29d7cfbc0645f0d0cd68a5fff1006181841
+frozen_by: lane kotodama-shokunin, round 20 claim O — per-family era-alias resolution seat (R20-O05..O10)
+frozen_at: 2026-10-18
+revision: caf1beac19b55f3bbce47e4a9e7e8710cc1c581d (the round-20 declared baseline_revision; the
+  baseline lands as uncommitted round-20 worker output, so no HEAD commit names these bytes)
+schema: kotodama-frozen-run-v1 (corpus/knowledge/verification/gate-frozen-run-standard.md §3/§4/§5/§6)
+
+what moved since r19-pre (the reason this is a NEW baseline id, never an edit):
+  the peer `tools/d2-typed-labels.py` now resolves the era-alias leg per packet family
+  (round-20 O claim). The D2 path is byte-identical — `python3 tools/d2-typed-labels.py
+  --check examples/culture-d2/typed-labels.d2.yml` still exits 0 against the round-19
+  bytes — while a D4 packet is resolved from its own declaration. The D4 projection
+  therefore moved, and with it the read set this baseline declares.
+
+snapshot (byte copies taken at freeze time; every copy cmp-clean against the live path):
+  typed-labels.d4.yml                              <- examples/culture-d4/typed-labels.d4.yml
+                                                      sha256 cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f
+                                                      (the graded argv input; the round-20 build)
+  examples/culture-d4/packet.d4.yml                <- live  sha256 e7ecd2045ef0e5f9823ce0a067d21b8221b2ceb5e8f5799736981a1c88fa50d3
+  tools/d2-typed-labels.py                         <- live  sha256 76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb
+  tools/gates/costume-era-consistency-gate.py      <- live  sha256 e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f
+                                                      (the frozen reader both tools load by path)
+
+read set, re-measured (not assumed): a sys.addaudithook("open") trace over the peer's graded
+  command recorded exactly the four files above as the non-stdlib reads. r19-pre had to declare
+  six inputs — the two D2 component copies below are GONE from the set:
+    examples/culture-d2/components/12-rank-rules.yml   (r19-pre input; no longer read for a D4 packet)
+    examples/culture-d2/components/11-costumes.yml     (r19-pre input; no longer read for a D4 packet)
+  This is the round-19 routed wart closed: a faithful D4 mirror no longer needs the foreign tree
+  (controls: tools/d2-typed-labels.py --selftest section 5, "mirror" legs).
+
+commands and observed results (lane root, 2026-10-18):
+  1. python3 tools/gates/d4-typed-labels-check-gate.py \
+       tools/gates/expected/d4-typed-labels-check-gate/r20-post/typed-labels.d4.yml > <baseline>/run.log
+     -> exit 0; stdout one line
+        "tools/gates/expected/d4-typed-labels-check-gate/r20-post/typed-labels.d4.yml: byte-identical
+         deterministic projection"; stderr 0 bytes; stdout sha256
+        0d92cb4f285d0f728730d634fae0788eeb5ac5e1aeef1ce9122ae9e810530606
+  2. determinism: three reruns -> stdout sha256 0d92cb4f... each time (== run.log)
+  3. pin check: every `inputs` digest recomputed from the committed copies equals its pin, and every
+     copy equals the live file it was copied from (4/4 copy == live == pin)
+  4. peer controls at this revision, measured: `--selftest` exit 0, 50/50 checks passed (was 39/39 at
+     r19-pre; +11 family-resolution and mirror-faithfulness legs); `--check` on the D2 projection
+     exit 0 (byte-identical); `--check` on the D4 projection exit 0.
+
+expected verdict (written from the observed run, not from memory):
+  exit 0, class clean, findings [] (empty ID set; stdout order is not part of the contract)
+
+limits (honest bounds):
+  - the graded run reads the packet and the peer from the LIVE tree (the adapter hardcodes
+    ROOT/examples/culture-d4/packet.d4.yml); the baseline pins those bytes by copy, so a later edit
+    to the live packet is caught by this baseline's pin recomputation, not by the battery's digest
+    step alone (that step compares the copy to the pin, never the copy to the live file).
+  - a missing or malformed TARGET path exits 1, not 2 (the peer's `--check` answers byte-identity).
+  - digests are integrity, not truth: exit 0 is byte-identity of a NON-CANON projection.
+
+integration notes (for the orchestrator; not a lane-local edit):
+  - .gitignore line 3 is `*.log`, so `run.log` is ignored by pattern:
+    `git check-ignore -v <baseline>/run.log` -> `.gitignore:3:*.log`. Commit it with
+    `git add -f tools/gates/expected/d4-typed-labels-check-gate/r20-post/run.log`, or the baseline
+    lands without its verbatim stdout.
+  - r19-pre stays filed and untouched; it still reads `pinned` (its committed copies are its own
+    snapshot), and it now describes a superseded revision of the peer.

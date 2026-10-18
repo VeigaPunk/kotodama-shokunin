@@ -3269,3 +3269,16 @@ certification or lore/world-bible ownership is claimed.
   for the projector's D2 alias-component dependency — documented wart routed;
   named-once fixture); availability record closed.
 - **Evidence:** `reports/round-19/validation.json` acceptance true.
+
+## 2026-10-18 — Round 20 admitted (loop 2, build 4 of 4)
+
+- **Trigger:** regimen; claims D/O/C in `reports/round-20/claims.json`; baseline
+  `122086b`; 20/64 completed.
+- **D (verified):** handoff e2e v3 — D4 claims (27 total; census 16/7/4);
+  102/102 links; frozen baseline.
+- **O (verified):** projector era-alias wart closed per-family; D2 byte-identical;
+  repin cascade as new rows.
+- **C (verified):** README reconciled command-carried (six partition counts).
+- **Integrator acts:** fragment-index collision disposition (kept the dated
+  X24 census index alongside X19/X20's; noted in the round notes).
+- **Evidence:** `reports/round-20/validation.json` acceptance true.

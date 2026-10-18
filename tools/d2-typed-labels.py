@@ -2394,30 +2394,188 @@ def era_alias_rows():
         # block is needed here, so it is read with the same block extractor the
         # lane's assembler uses for component files, and the loader's own
         # refusals stay exactly as delivered.
-        for row in component_block(costumes_path, "era_reconciliation"):
-            if not isinstance(row, dict) or row.get("warning"):
-                continue
-            their = row.get("their_labels")
-            if isinstance(their, dict):
-                labels = [str(value) for value in their.values()]
-            elif isinstance(their, str):
-                labels = [their]
-            else:
-                continue
-            tags = sorted(set(ERA_TAG_RE.findall(str(row.get("maps_to") or ""))))
-            if not tags:
-                continue
-            status = ("confirmed" if "(to-verify)" not in str(row.get("status"))
-                      else "to-verify")
-            if len(tags) > 1:
-                two_to_one.append({"id": row.get("id"), "sources": labels,
-                                   "tags": tags, "status": status,
-                                   "raw": row.get("maps_to")})
-                continue
-            for label in labels:
-                rows.append({"id": row.get("id"), "source": label,
-                             "tag": tags[0], "status": status})
+        shaped_rows, shaped_two_to_one = shape_reconciliation_rows(
+            component_block(costumes_path, "era_reconciliation"))
+        rows.extend(shaped_rows)
+        two_to_one.extend(shaped_two_to_one)
     return rows, two_to_one
+
+
+def shape_reconciliation_rows(declared):
+    """The declared costume-era reconciliation rows as `reconcile_era` rows.
+
+    One shaping for both sources: the D2 leg reads 11-costumes.yml with the
+    block extractor above, and a packet that declares its own
+    `era_reconciliation` table (round 20) is shaped by this same function, so a
+    row means the same thing wherever it is declared. A row that maps one
+    source label to two tags is kept in `two_to_one` with its raw text rather
+    than collapsed into a conflict verdict the declaration does not assert.
+    """
+    rows, two_to_one = [], []
+    for row in declared or []:
+        if not isinstance(row, dict) or row.get("warning"):
+            continue
+        their = row.get("their_labels")
+        if isinstance(their, dict):
+            labels = [str(value) for value in their.values()]
+        elif isinstance(their, str):
+            labels = [their]
+        else:
+            continue
+        tags = sorted(set(ERA_TAG_RE.findall(str(row.get("maps_to") or ""))))
+        if not tags:
+            continue
+        status = ("confirmed" if "(to-verify)" not in str(row.get("status"))
+                  else "to-verify")
+        if len(tags) > 1:
+            two_to_one.append({"id": row.get("id"), "sources": labels,
+                               "tags": tags, "status": status,
+                               "raw": row.get("maps_to")})
+            continue
+        for label in labels:
+            rows.append({"id": row.get("id"), "source": label,
+                         "tag": tags[0], "status": status})
+    return rows, two_to_one
+
+
+# ---- per-family alias leg (round 20, O claim) ----------------------------
+#
+# The round-19 routed wart: the era-alias leg hard-required
+# examples/culture-d2/components/12-rank-rules.yml for every packet, so a D4
+# run read the D2 tree and a faithful D4 mirror had to carry it. The leg now
+# resolves per packet family: the D2 path above is the round-8 path, unchanged;
+# every other family resolves the alias rules its own packet declares and, when
+# the packet declares none, is skipped in the open — never aliased silently
+# (A1) and never read from another family's tree.
+
+DEFAULT_FAMILY = "d2"
+D2_ERA_PROBES = ("E0", "era-1", "E1 shelter era", "E4 script era", "E9 no such label")
+UNMAPPED_PROBE = "E9 no such label"
+PACKET_ALIAS_KEYS = ("era_aliases", "named_eras", "era_records")
+
+
+def packet_family(packet_path):
+    """`d2` / `d4` / … from `examples/culture-<family>/…`; the D2 default else.
+
+    The same convention `tools/gates/typed-pipeline-gate.py` `family_of` names.
+    A packet outside that convention keeps the D2 default, so every
+    pre-round-20 invocation resolves exactly as it did.
+    """
+    match = re.fullmatch(r"culture-([a-z0-9]+)",
+                         pathlib.Path(packet_path).parent.name)
+    return match.group(1) if match else DEFAULT_FAMILY
+
+
+def shown_path(path):
+    """The path as the projection reports it: repo-relative when inside ROOT."""
+    try:
+        return str(pathlib.Path(path).relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def packet_alias_rows(packet):
+    """(aliases, rows, key) from the packet's own era-alias declaration.
+
+    Three declared shapes are read, in this order: `era_aliases` (the D2-shaped
+    label -> tag map), then the era-name record lists (`named_eras`,
+    `era_records`), whose declared `name` -> `tag` pair is the family's own
+    alias. Nothing is inferred from an E-number; an undeclared label stays
+    unmapped. `key` is None when the packet declares none of the three.
+    """
+    declared = packet.get("era_aliases")
+    if isinstance(declared, dict) and declared:
+        aliases = {str(label): str(tag) for label, tag in declared.items()}
+        rows = [{"id": "packet era_aliases.%s" % label, "source": label,
+                 "tag": aliases[label], "status": "confirmed"}
+                for label in sorted(aliases)]
+        return aliases, rows, "era_aliases"
+    for key in ("named_eras", "era_records"):
+        records = packet.get(key)
+        if not isinstance(records, list):
+            continue
+        aliases, rows = {}, []
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            name, tag = record.get("name"), record.get("tag")
+            if not isinstance(name, str) or not isinstance(tag, str):
+                continue
+            aliases[name] = tag
+            rows.append({"id": "packet %s.%s" % (key, record.get("id", name)),
+                         "source": name, "tag": tag, "status": "confirmed"})
+        if rows:
+            return aliases, rows, key
+    return {}, [], None
+
+
+def family_alias_leg(packet_path, packet):
+    """The family's era-alias leg: aliases, rows, basis, probes, skips.
+
+    D2 keeps the round-8 leg (`declared_era_aliases` + `era_alias_rows`, both
+    reading the D2 components) byte for byte. Every other family resolves from
+    its own packet, and each leg the packet does not declare is reported as a
+    skip row rather than satisfied from a foreign tree.
+    """
+    family = packet_family(packet_path)
+    if family == DEFAULT_FAMILY:
+        rows, two_to_one = era_alias_rows()
+        return {
+            "family": family,
+            "aliases": declared_era_aliases(),
+            "rows": rows,
+            "two_to_one": two_to_one,
+            "basis": [
+                "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1)",
+                "examples/culture-d2/components/11-costumes.yml era_reconciliation "
+                "(ERX-0/ERX-R confirmed, ERX-1..4 (to-verify), ERX-W warning)",
+            ],
+            "probes": list(D2_ERA_PROBES),
+            "skipped": [],
+            "ledger_basis": (
+                "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1); "
+                "the D2 records already use the canonical tags, so the map is "
+                "identity for every rule emitted here"),
+        }
+    label = shown_path(packet_path)
+    aliases, rows, key = packet_alias_rows(packet)
+    skipped = []
+    if key is not None:
+        basis = ["%s %s (A1)" % (label, key)]
+        ledger_basis = ("%s %s (A1); the normalized rank records already use the "
+                        "canonical tags, so the map is identity for every rule "
+                        "emitted here" % (label, key))
+    else:
+        basis = ["%s: no era-alias rules declared (%s) — skipped in the open, "
+                 "never aliased silently (A1)"
+                 % (label, ", ".join(PACKET_ALIAS_KEYS))]
+        ledger_basis = ("%s: no era-alias rules declared (A1) — no alias map is "
+                        "applied and none is imported from another family's tree; "
+                        "the emitted rank records already use the canonical tags"
+                        % label)
+        skipped.append({"leg": "era-alias resolution", "source": label,
+                        "why": "the packet declares none of %s"
+                               % ", ".join(PACKET_ALIAS_KEYS)})
+    declared = packet.get("era_reconciliation")
+    two_to_one = []
+    if isinstance(declared, list) and declared:
+        shaped, two_to_one = shape_reconciliation_rows(declared)
+        rows = rows + shaped
+        basis.append("%s era_reconciliation (%d shaped rows)"
+                     % (label, len(shaped)))
+    else:
+        basis.append("%s era_reconciliation: skipped — the packet declares no "
+                     "reconciliation rows (the D2 leg's "
+                     "examples/culture-d2/components/11-costumes.yml is not read "
+                     "for family %s)" % (label, family))
+        skipped.append({"leg": "costume-era reconciliation", "source": label,
+                        "why": "the packet declares no era_reconciliation rows"})
+    probes = (sorted({row["tag"] for row in rows})[:2]
+              + sorted({row["source"] for row in rows})[:2]
+              + [UNMAPPED_PROBE])
+    return {"family": family, "aliases": aliases, "rows": rows,
+            "two_to_one": two_to_one, "basis": basis, "probes": probes,
+            "skipped": skipped, "ledger_basis": ledger_basis}
 
 
 def sha256_file(path):
@@ -2453,18 +2611,14 @@ def run_pipeline(packet_path):
                                           item.get("detail", ""),
                                           item.get("kind", "fail")))
     ledger = build_payload()
-    aliases = declared_era_aliases()
-    alias_rows, two_to_one = era_alias_rows()
+    leg = family_alias_leg(packet_path, packet)
+    aliases = leg["aliases"]
     era_verdicts = [
-        dict(reconcile_era(label, alias_rows), label=label)
-        for label in ("E0", "era-1", "E1 shelter era", "E4 script era",
-                      "E9 no such label")
+        dict(reconcile_era(label, leg["rows"]), label=label)
+        for label in leg["probes"]
     ]
     ledger["era_aliases_applied"] = aliases
-    ledger["era_aliases_basis"] = (
-        "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1); the "
-        "D2 records already use the canonical tags, so the map is identity for "
-        "every rule emitted here")
+    ledger["era_aliases_basis"] = leg["ledger_basis"]
     for rule in ledger["normalized_rules"]:
         shaped = dict(rule)
         shaped.setdefault("era_aliases_applied", aliases)
@@ -2508,10 +2662,17 @@ def run_pipeline(packet_path):
         "findings_total": len(findings),
         "findings_hold_or_fail": len(hard),
     }
-    try:
-        shown = str(packet_path.relative_to(ROOT))
-    except ValueError:
-        shown = str(packet_path)
+    shown = shown_path(packet_path)
+    era_block = {
+        "alias_rows": leg["rows"],
+        "two_to_one": leg["two_to_one"],
+        "verdicts": era_verdicts,
+        "basis": leg["basis"],
+        "note": "a (to-verify) row yields mapped-unconfirmed (hold); a label "
+                "no row names stays unmapped — the E-number is never a mapping",
+    }
+    if leg["skipped"]:
+        era_block["skipped"] = leg["skipped"]
     projection = {
         "name": "D2 typed labels, scoped reconciliation and adapted rank rules "
                 "(derived projection, non-canon)",
@@ -2520,18 +2681,7 @@ def run_pipeline(packet_path):
         "label_kinds": list(KINDS),
         "typed_labels": {"stats": parse_result["stats"], "labels": parse_result["labels"]},
         "era_material_reconciliation": reconciliation,
-        "era_reconciliation": {
-            "alias_rows": alias_rows,
-            "two_to_one": two_to_one,
-            "verdicts": era_verdicts,
-            "basis": [
-                "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1)",
-                "examples/culture-d2/components/11-costumes.yml era_reconciliation "
-                "(ERX-0/ERX-R confirmed, ERX-1..4 (to-verify), ERX-W warning)",
-            ],
-            "note": "a (to-verify) row yields mapped-unconfirmed (hold); a label "
-                    "no row names stays unmapped — the E-number is never a mapping",
-        },
+        "era_reconciliation": era_block,
         "rank_rules": ledger,
         "findings": findings,
         "coverage": coverage,
@@ -2795,6 +2945,64 @@ def selftest():
     check("era: the declared two-to-one row is kept, not collapsed",
           all(entry.get("tags") for entry in two_to_one), json.dumps(two_to_one))
 
+    # ---- 3d. per-family alias resolution (round 20, O claim) ------------
+    # The round-19 wart: the alias leg read examples/culture-d2 for every
+    # packet. These controls hold the two ends apart — the D2 leg is the
+    # round-8 leg, and a non-D2 packet is resolved from its own declaration or
+    # skipped in the open, never satisfied from the D2 tree.
+    d4_packet_path = ROOT / "examples/culture-d4/packet.d4.yml"
+    if d4_packet_path.is_file():
+        d4_leg = family_alias_leg(d4_packet_path,
+                                  load_packet_file(str(d4_packet_path))["packet"] or {})
+        check("family: a d4 packet resolves its own declared alias rows",
+              [row["source"] for row in d4_leg["rows"]]
+              == ["the stamp era", "the mark hand", "the league",
+                  "the cold fire (reserved)"]
+              and all(row["status"] == "confirmed" for row in d4_leg["rows"]),
+              json.dumps(d4_leg["rows"]))
+        check("family: no d4 alias row or basis line resolves from the d2 tree",
+              not any("12-rank-rules" in str(row["id"]) for row in d4_leg["rows"])
+              and not any(str(entry).startswith("examples/culture-d2")
+                          for entry in d4_leg["basis"]),
+              json.dumps(d4_leg["basis"]))
+        check("family: the leg the d4 packet does not declare is skipped, not faked",
+              [entry["leg"] for entry in d4_leg["skipped"]]
+              == ["costume-era reconciliation"], json.dumps(d4_leg["skipped"]))
+        check("family: the d4 verdict probes are the packet's own labels",
+              d4_leg["probes"][-1] == UNMAPPED_PROBE
+              and "the league" in d4_leg["probes"]
+              and d4_leg["aliases"].get("the league") == "E2",
+              json.dumps(d4_leg["probes"]))
+    else:
+        check("family: the d4 packet is present", False, str(d4_packet_path))
+    d2_leg = family_alias_leg(PACKET_DEFAULT,
+                              load_packet_file(str(PACKET_DEFAULT))["packet"] or {})
+    check("family: the d2 leg is the round-8 leg, unchanged",
+          [row["id"] for row in d2_leg["rows"]][:3]
+          == ["12-rank-rules era_aliases.era-1", "12-rank-rules era_aliases.era-2",
+              "12-rank-rules era_aliases.era-3"]
+          and d2_leg["probes"] == list(D2_ERA_PROBES) and d2_leg["skipped"] == []
+          and d2_leg["basis"][0]
+          == "examples/culture-d2/components/12-rank-rules.yml era_aliases (A1)",
+          json.dumps(d2_leg["basis"]))
+    bare_leg = family_alias_leg(ROOT / "examples/culture-d4/probe-bare.yml",
+                                {"eras": ["E0"]})
+    check("family: a packet declaring no alias rules is skipped, never aliased",
+          bare_leg["aliases"] == {} and bare_leg["rows"] == []
+          and {entry["leg"] for entry in bare_leg["skipped"]}
+          == {"era-alias resolution", "costume-era reconciliation"}
+          and bare_leg["probes"] == [UNMAPPED_PROBE],
+          json.dumps(bare_leg["skipped"]))
+    shaped_leg = family_alias_leg(
+        ROOT / "examples/culture-d4/probe-rows.yml",
+        {"named_eras": [{"id": "ER-01", "name": "the stamp era", "tag": "E0"}],
+         "era_reconciliation": [{"id": "ERX-9", "their_labels": {"a": "the old era"},
+                                 "maps_to": "E1", "status": "(to-verify)"}]})
+    check("family: a packet-declared reconciliation row is shaped like the d2 leg",
+          any(row["id"] == "ERX-9" and row["source"] == "the old era"
+              and row["status"] == "to-verify" and row["tag"] == "E1"
+              for row in shaped_leg["rows"]), json.dumps(shaped_leg["rows"]))
+
     # ---- 4. CLI: emit / check / tamper, in an isolated tree -------------
     with tempfile.TemporaryDirectory() as tmp:
         mirror = pathlib.Path(tmp) / "repo"
@@ -2849,6 +3057,49 @@ def selftest():
         check("cli: malformed packet exits 2 with a stable code",
               broken.returncode == 2 and "D2L-DATA" in broken.stdout + broken.stderr,
               "exit=%s %s" % (broken.returncode, broken.stdout[:120]))
+
+    # ---- 5. the d4 family is faithful with no foreign examples tree -----
+    # The round-19 wart: a faithful d4 mirror had to copy
+    # examples/culture-d2/components/{12-rank-rules,11-costumes}.yml. The mirror
+    # below holds only the d4 family's own tree, the reader the projection names
+    # and the projector — and must rebuild the filed d4 projection byte for byte.
+    d4_packet = ROOT / "examples/culture-d4/packet.d4.yml"
+    d4_projection = ROOT / "examples/culture-d4/typed-labels.d4.yml"
+    if d4_packet.is_file():
+        with tempfile.TemporaryDirectory() as tmp:
+            d4mirror = pathlib.Path(tmp) / "repo"
+            (d4mirror / "tools/gates").mkdir(parents=True)
+            (d4mirror / "examples/culture-d4").mkdir(parents=True)
+            shutil.copy(pathlib.Path(__file__).resolve(),
+                        d4mirror / "tools/d2-typed-labels.py")
+            shutil.copy(ROOT / "tools/gates/costume-era-consistency-gate.py",
+                        d4mirror / "tools/gates/costume-era-consistency-gate.py")
+            shutil.copy(d4_packet, d4mirror / "examples/culture-d4/packet.d4.yml")
+            check("mirror: the d4 mirror holds no examples/culture-d2 tree",
+                  not (d4mirror / "examples/culture-d2").exists())
+            d4tool = d4mirror / "tools/d2-typed-labels.py"
+            d4emitted = d4mirror / "examples/culture-d4/typed-labels.d4.yml"
+
+            def d4run(*args):
+                return subprocess.run([sys.executable, str(d4tool)] + list(args),
+                                      capture_output=True, text=True, cwd=str(d4mirror))
+
+            build = d4run("--packet", "examples/culture-d4/packet.d4.yml",
+                          "--emit", "examples/culture-d4/typed-labels.d4.yml")
+            check("mirror: the d4 build runs with no foreign tree (exit 0/1)",
+                  build.returncode in (0, 1) and d4emitted.exists(),
+                  "exit=%s %s" % (build.returncode, build.stderr.strip()[:200]))
+            live = d4_projection.read_bytes() if d4_projection.is_file() else b""
+            check("mirror: the mirror build is byte-identical to the filed d4 projection",
+                  bool(live) and d4emitted.exists() and d4emitted.read_bytes() == live,
+                  "mirror %d bytes vs filed %d bytes"
+                  % (d4emitted.stat().st_size if d4emitted.exists() else -1, len(live)))
+            clean = d4run("--packet", "examples/culture-d4/packet.d4.yml",
+                          "--check", "examples/culture-d4/typed-labels.d4.yml")
+            check("mirror: --check exits 0 in the mirror", clean.returncode == 0,
+                  "exit=%s %s" % (clean.returncode, clean.stderr.strip()[:200]))
+    else:
+        check("mirror: the d4 packet is present", False, str(d4_packet))
 
     total = len(passed) + len(failed)
     if failed:

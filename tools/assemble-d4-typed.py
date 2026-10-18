@@ -300,9 +300,19 @@ def text_payload(packet_text, doc):
     nulls (D4 is the first culture whose packet carries derivations with regex
     patterns). Only the costume `garment` key is renamed (moved), and the
     adapter-owned blocks (schema/typed_channel/typed_assembly/findings) are
-    appended, serialized from adapter-generated data alone."""
+    appended, serialized from adapter-generated data alone.
+
+    The three input pins (`packet_sha256`, `projection_sha256`,
+    `adapter_sha256`) are written into the carried `assembly:` block, the shape
+    the D2 typed packet already has: the filed artifact pins what it was built
+    from, so a later edit to the packet or the projection reads as drift
+    (`--check` exit 1) instead of passing silently. Before round 20 the D4
+    adapter held those pins in memory only, and the filed packet carried the
+    source packet's assembler-identity block without them.
+    """
     out = []
     in_costumes = False
+    pins_written = False
     for line in packet_text.split("\n"):
         if line and line[0] not in " \t-":
             key = line.strip()
@@ -315,13 +325,20 @@ def text_payload(packet_text, doc):
             if match:
                 line = "%sgarment_gloss:%s" % match.groups()
         out.append(line)
-    additions = {
+        if not pins_written and line == "assembly:":
+            for key in ("packet_sha256", "projection_sha256", "adapter_sha256"):
+                out.append('  %s: "%s"' % (key, doc["assembly"][key]))
+            pins_written = True
+    additions = {}
+    if not pins_written:
+        additions["assembly"] = doc["assembly"]
+    additions.update({
         "schema": doc["schema"],
         "typed_channel": doc["typed_channel"],
         "typed_assembly": doc["typed_assembly"],
         "pipeline_findings": doc["pipeline_findings"],
         "pipeline_counts": doc["pipeline_counts"],
-    }
+    })
     return ("\n".join(out).rstrip("\n") + "\n" +
             "\n".join(render_lines(additions)) + "\n")
 
@@ -413,10 +430,12 @@ def selftest():
                         mirror / "tools/gates/costume-era-consistency-gate.py")
         shutil.copytree(ROOT / "examples/culture-d4", mirror / "examples/culture-d4",
                         ignore=shutil.ignore_patterns("__pycache__"))
-        # the projector's era-alias leg requires the D2 alias component even for
-        # D4 packets (documented wart; routed) — the mirror must be faithful
-        shutil.copytree(ROOT / "examples/culture-d2", mirror / "examples/culture-d2",
-                        ignore=shutil.ignore_patterns("__pycache__"))
+        # the foreign examples/culture-d2 tree is NOT copied: the projector's
+        # era-alias leg resolves per packet family (round 20, O claim), so a D4
+        # mirror is faithful without it — the round-19 wart is closed. The
+        # controls below are the test: if a D4 build ever needs the foreign tree
+        # again, --emit fails with "missing examples/culture-d2/...; A1 cannot
+        # be recorded" instead of passing.
         tool = mirror / "tools/assemble-d4-typed.py"
 
         def run(*args, tree=mirror):

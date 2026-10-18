@@ -1,0 +1,93 @@
+{
+ "schema": "kotodama-repin-receipt-v1",
+ "round": 20,
+ "claim": "O (operability) — per-family era-alias resolution; the round-19 routed wart closed",
+ "date": "2026-10-18",
+ "measured_at": "2026-10-18T13:12:19Z",
+ "lane_root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+ "baseline_revision": "caf1beac19b55f3bbce47e4a9e7e8710cc1c581d",
+ "canon": "NON-CANON engineering evidence; a pin is integrity, never truth and never clearance",
+ "protocol": "new rows only: no filed artifact of rounds 8-19 is edited (the runner's preservation duty reads 897 filed files, 0 failures); the pins move in the live channel and are recorded here and in reports/round-20/wart/shard-{1..6}.md",
+ "acceptance": {
+  "command": "python3 reports/round-20/run-validation.py",
+  "reading": "claim O: PASS (claim C PASS; claim D another seat's, missing its v3 artifacts)",
+  "detail": "gate 19/19 legs; adapter selftest 12/12; foreign_tree_copy_in_adapter false; d2_byte_identical true; wart_mirror culture_d2_present false with both mirror checks exit 0; every expected_holds / typed_packet / typed_pipelines pin row ok; round-20 re-pin rows found"
+ },
+ "moved": [
+  {
+   "surface": "tools/d2-typed-labels.py",
+   "before": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802",
+   "after": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+   "why": "the per-family era-alias leg (R20-O05); the D2 projection it builds is byte-identical, measured",
+   "command": "sha256sum tools/d2-typed-labels.py"
+  },
+  {
+   "surface": "examples/culture-d4/typed-labels.d4.yml",
+   "before": "a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d",
+   "after": "cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f",
+   "why": "the D4 projection now carries the D4-declared alias rows, not the D2 component's",
+   "command": "python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --emit examples/culture-d4/typed-labels.d4.yml"
+  },
+  {
+   "surface": "tools/assemble-d4-typed.py",
+   "before": "1ddad6a7da1fc27f4c3efb126111a5a0eaa6fdb856d91c96221df0c927aeecec",
+   "after": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+   "why": "the selftest mirror no longer copies the foreign examples/culture-d2 tree (selftest still 12/12), and --emit writes the three input pins into the typed packet's assembly block (the D2 typed-packet idiom the D4 emit had dropped)",
+   "command": "sha256sum tools/assemble-d4-typed.py"
+  },
+  {
+   "surface": "examples/culture-d4/packet.d4.typed.yml",
+   "before": "f63ed5315f6889f8c411b4dda2e69d43b05ce4fc6152f941a2b36bb1d7a13ebe",
+   "after": "e823db6706bcd5729aaf14378b31893b2e85d31ae7fb94d6bd2c4a44686e2da5",
+   "why": "three lines added to the carried assembly block: packet_sha256 e7ecd204, projection_sha256 cbcf997f, adapter_sha256 92f5460b, all matching the live bytes",
+   "command": "python3 tools/assemble-d4-typed.py --emit examples/culture-d4/packet.d4.typed.yml"
+  },
+  {
+   "surface": "examples/culture-d4/expected-holds.json",
+   "before": "09490a2756d123ebbc2023be89fc01c95ec2f8cc7e6df42ecc5b8cd438058e98",
+   "after": "18d0cfce3f3f7a862efd3528084b2650b233286f6782ff0a3c1faad7e46146a3",
+   "why": "its internal projector_sha256 and projection_sha256 moved with the live bytes (packet_sha256 unchanged); the hold/note set is byte-identical (fail 0 / hold 15 / note 1). Diff is the two values plus a revision_note and a supersedes_pins block - nothing else",
+   "command": "sha256sum examples/culture-d4/expected-holds.json"
+  },
+  {
+   "surface": "tools/gates/typed-pipelines.json",
+   "before": "projection pin a59990bb…; adapter pin null",
+   "after": "projection pin cbcf997f…; adapter pin 92f5460b…; expected pin 18d0cfce…",
+   "why": "the live pin channel refused the run (exit 2, L1-profile) until re-pinned; the adapter pin is the one the round-18 note asked for at the first freeze after the adapter landed",
+   "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml"
+  }
+ ],
+ "new_rows": [
+  {
+   "path": "tools/gates/expected/d4-typed-labels-check-gate/r20-post/",
+   "what": "second committed baseline for the gate (expected.json, freeze.txt, run.log, the graded projection copy, the packet copy, the peer copy, the reader copy)",
+   "inputs": 4,
+   "supersedes": "r19-pre (input edit: the peer and the projection moved)",
+   "reading": "battery: pinned, inputs_checked 4, gate_sha256 match, stdout_pin match"
+  },
+  {
+   "path": "reports/round-20/wart/expected-v2-07-r20.json",
+   "what": "handoff-v2/1 baseline re-frozen through reports/round-15/handoff/frozen-verify.py --freeze --baseline …",
+   "inputs": 28,
+   "moved_inputs": 1,
+   "moved_input": "tools/d2-typed-labels.py (0da0015f… -> 76536a92…)",
+   "verify": "exit 0: fields=16/16 glossary=20/20 findings=0 claims=15/15 links=50/50",
+   "note": "links.findings moved 1 -> 2; attribution in shard-6 (one row is this claim's projector move, one row is the pre-existing tools/harness/packet_links.py manifest drift)"
+  },
+  {
+   "path": "reports/round-20/wart/repin-r20.json",
+   "what": "this receipt"
+  }
+ ],
+ "filed_untouched": [
+  "tools/gates/expected/d4-typed-labels-check-gate/r19-pre/ (kept filed; its own copies still verify pinned)",
+  "tools/gates/frozen/round-18/** (replay-frozen receipts; their pins name the r18 revision and are not edited)",
+  "reports/round-16/handoff/expected-v2-07.json and reports/round-18/repin/expected-v2-07-r18.json (superseded by the r20 row; filed)",
+  "reports/round-8..19/** (the runner's preservation duty: 897 filed files compared against the baseline revision, 0 failures)"
+ ],
+ "limits": [
+  "digests are integrity, not truth: no row here asserts a design PASS or a canon ruling",
+  "the round-20 declared baseline_revision grades the pre-change tree; this receipt's rows land as uncommitted round-20 worker output",
+  "82 files still name the old projector sha (documentation and filed receipts): grep -rl 0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802 . --exclude-dir=.git --exclude-dir=.scratch --exclude-dir=__pycache__ | wc -l -> 82 at 2026-10-18T13:07Z; they are history, not live pins"
+ ]
+}

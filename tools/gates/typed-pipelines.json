@@ -17,16 +17,25 @@
    },
    "projection": {
     "path": "examples/culture-d4/typed-labels.d4.yml",
-    "sha256": "a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d"
+    "sha256": "cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f",
+    "superseded": "a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d (round-18/19 build; the round-20 per-family alias leg moved this projection)"
    },
    "adapter": {
     "path": "tools/assemble-d4-typed.py",
-    "sha256": null,
-    "note": "the D4 adapter is a round-18 D-seat artifact; the path is resolved and its absence is reported by the gate (FAIL L1-build: adapter missing). Pin this field at the first freeze after the adapter lands."
+    "sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+    "note": "round-20 revision: the selftest mirror no longer copies the foreign examples/culture-d2 tree (the round-19 wart's closure), and --emit now writes the three input pins into the typed packet's assembly block (the D2 typed-packet idiom). Supersedes 1ddad6a7da1f\u2026, pinned earlier the same day before those two edits."
    },
    "expected": {
     "path": "examples/culture-d4/expected-holds.json",
-    "sha256": "09490a2756d123ebbc2023be89fc01c95ec2f8cc7e6df42ecc5b8cd438058e98"
+    "sha256": "18d0cfce3f3f7a862efd3528084b2650b233286f6782ff0a3c1faad7e46146a3",
+    "note": "round-20 re-pin: the two internal pins moved with the projector and the projection (the hold/note set did not: fail 0 / hold 15 / note 1). Supersedes 09490a2756d1\u2026. The round-20 receipt is reports/round-20/wart/repin-r20.json."
+   },
+   "repin": {
+    "round": 20,
+    "claim": "O (per-family era-alias resolution)",
+    "date": "2026-10-18",
+    "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml",
+    "recorded_in": "reports/round-20/wart/shard-4.md"
    }
   }
  ]

@@ -1,5 +1,31 @@
 # kotodama-shokunin corpus index
 
+revision: 1.5 — Round-20 reconciliation (2026-10-18): every row re-measured
+against the files it indexes (199 rows, 199 files, 0 missing, 0 ghosts) and the
+ten round-19 rows repaired — they carried condensed paraphrases instead of the
+entries' own `- topic:` text, and the round-19 auditor's tool states it never
+compared a row's description with its file's content
+(`reports/round-19/audit/x27-coverage-readme-vs-files.md` §1), so revision
+1.4's "0 topic mismatches" was asserted rather than measured; the verbatim
+comparison now returns zero mismatches (counts command:
+`python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`,
+cross-checked with `ls corpus/knowledge/<partition>/*.md | wc -l`; sweep, diff
+and receipts: `reports/round-20/readme/reconcile.md`, `verify.md`). Known gaps
+corrected: the
+D2 typed-handling bullet is superseded (typed native-form/translated-label
+handling, the rank-rule adapter and `reconcile_scoped` all shipped in
+`tools/d2-typed-labels.py`, `--selftest` 39/39 measured 2026-10-18 13:02Z), and
+the gate battery now
+registers nine gates (`tools/check-gate-battery.py`, measured `pass 7 / fail 0 /
+unevaluable 0`, exit 0), so "the D4 family is outside the battery's seven-name
+constant" holds for the selftest legs only, never for coverage;
+`tools/gates/d4-assembly-check-gate.py` still ships no `--selftest` (measured
+`--selftest` → exit 2, 2026-10-18). Counts, command-carried from the repo root:
+civilizations 94, linguistics 19, myth-symbol 19, culture-material 18, synthesis
+29, verification 20 — 199 files (the round-20 claim's declared linguistics 20 is
+not reproducible; the tree measures 19). Non-canon examples and passing
+structural gates do not certify historical truth.
+
 revision: 1.4 — Round-19 index refresh: the thin partitions gained ten new
 entries (verification 5, synthesis 5, landed 2026-10-18; each names the gap it
 fills, with author fragments under `reports/round-19/entries/` and the claimed
@@ -104,12 +130,12 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `deity-name-derivation-pipeline.md` — Derive era-specific divine naming systems by coupling linguistic history, cult address, myth, symbols, and material display; distinguish transparent and opaque names, epithet accumulation, interpretatio, and name avoidance without deciding fictional canon.
 - `dialect-faction-map-workflow.md` — Map dialect features and situational registers onto travel networks, factions, hereditary strata, and eras without making political borders into linguistic facts; diagnose focal/relic areas, koineization, and faction jargon.
 - `era-language-staging.md` — Staging one constructed language across fictional eras through ordered sound changes, stratified registers, diglossic domain shifts, regnal naming, period labels, and independently dated costume/material practices.
-- `era-material-scoped-reconciliation.md` — The design workflow for scoped era/material reconciliation: era labels resolve through declared rows (`identity`, `mapped-confirmed`, `mapped-unconfirmed`, `unmapped`, `conflict`) and materials by slot identity, never by label or ordinal; a `(to-verify)` row holds, an unnamed label stays `unmapped`, and a declared two-to-one row is kept rather than collapsed. Gap filled: `era-language-staging.md` and `era-myth-language-costume-matrix.md` stage eras but no synthesis entry stated the resolution rule; the row vocabulary is grounded in `tools/d2-typed-labels.py` `reconcile_scoped` (R8-D05 §4) and its measured selftest.
+- `era-material-scoped-reconciliation.md` — The design workflow for **scoped era and material reconciliation**: era labels in a packet resolve through declared scoped rows (`identity`, `mapped-confirmed`, `mapped-unconfirmed`, `unmapped`, `conflict`) and materials resolve by slot identity, never by label text or by an ordinal; a `(to-verify)` row holds rather than promotes, an unnamed label is `unmapped` rather than identity-by-number, and a declared two-to-one row is kept rather than collapsed. Covers the reconciliation ledger, the row vocabulary, the design obligations a designer owes the resolver, and the rule that a reconciliation is a resolution record, never a dating. Reference method and design workflow only; canon belongs to lore-shokunin.
 - `era-myth-language-costume-matrix.md` — A reusable era-by-system worksheet: separate political periodization from changes in cult, speech, writing, naming, dress, signs, and timekeeping; record mechanisms, uneven adoption, and survivals. Includes a historical calibration profile and a filled fictional demonstration of drift, not world canon.
-- `finding-disposition-workflow.md` — The design workflow for turning a gate's findings into owned design work: the severity ladder (`fail` / `hold` / `note` / legacy `REVIEW`), the disposition record (class, owner, action, evidence, run revision), the collect→classify→route→record→re-run loop, and the rule that a disposition — and a green re-run — is design debt, never clearance. Gap filled: the synthesis partition had verification checklists but no finding-to-disposition loop; grounded in the D4 gate runs (`fail 0 / hold 15 / note 1`) and the round-18 hold-set record.
-- `generated-artifact-lifecycle.md` — The design workflow for the generated artifacts a culture packet carries: authored components are sources, the packet and typed projection are generated outputs, never hand-edited; the source/generated split, the rebuild loop (edit source → rebuild → `--check` → gates → re-freeze), and the rule that a hand-edit is a defect even when the content is right. Gap filled: no synthesis entry stated which files a designer may edit and what to do when a generated file is wrong; grounded in `examples/culture-d4/ASSEMBLY.md` §1 and the round-18 frozen rows.
+- `finding-disposition-workflow.md` — The design workflow for **dispositioning a gate's findings**: read each finding's id and severity (`fail` / `hold` / `note`), classify it as a design defect, an owed form, a tolerated artifact, or a false positive, route it to the design seat that owns the fix, and record the disposition so the next run can be compared. Covers the severity ladder, the disposition record, the rule that a `hold` is debt and a `note` is information, and why a disposition — and a green re-run — is never a clearance or canon. Reference method and design workflow only; canon belongs to lore-shokunin.
+- `generated-artifact-lifecycle.md` — The design workflow for the **generated artifacts** a culture packet carries: authored components are the sources; the packet and the typed projection are generated outputs that are never hand-edited; a change goes to the source, then the artifact is rebuilt and the drift check re-run. Covers the source/generated split, the rebuild loop, the artifact registry a packet declares, and the handoff statement that distinguishes authored from generated bytes. Reference method and design workflow only; canon belongs to lore-shokunin.
 - `glossary-registry-format.md` — Canonical local glossary-entry profile for this corpus and terminology handoff to the world bible: identity, required fields, evidential etymologies, register labels, diachronic scope, and versioned exchange; reference knowledge and method only.
-- `hold-set-contract-in-brief.md` — The design workflow for writing a hold-set declaration into a culture brief: before any packet exists, the brief names the finding set the typed pipeline is expected to emit (ids, severities, where-keys, per-row reasons), with a pre-implementation stamp and a non-clearance clause. Gap filled: the brief template had no declaration section; grounded in the D4 `contract.hold_set_declaration` (6 holds declared) and the round-18 reconciliation that emitted 15 holds + 1 note.
+- `hold-set-contract-in-brief.md` — The design workflow for writing a **hold-set declaration into a culture brief**: before any packet exists, the brief names the finding set the typed pipeline is expected to emit (ids, severities, where-keys, and a reason per row), fixes the artifact contract the set is declared against, and states that the expected set is design debt, never a clearance. Covers the declaration's place in the brief, the fields it owes, how it is used as a prior by verification, and the discipline that keeps a declaration from becoming a target. Reference method and design workflow only; canon belongs to lore-shokunin.
 - `loanword-material-dating.md` — Infer relative sequences and bounded dates for fictional contact, borrowing, adoption, and deposition by coupling linguistic, material, and naming evidence without treating them as one clock.
 - `migration-founder-effects.md` — founder populations and language — conditional drift acceleration, diaspora conservatism, colony naming patterns, and heritage registers coupled to myth, symbol, era, and dress
 - `multi-culture-creole-workshop.md` — designing a possible trade-port trajectory from intermittent contact through stabilized contact speech to an expanded community vernacular, coupled to myth, symbols, era, naming, and material culture without treating creolization as inevitable
@@ -120,7 +146,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `symbol-lexicon-colexification.md` — designing shared symbol-to-word mappings and colexification networks; reading polysemy as situated worldview evidence rather than proof of a culture's collective mind
 - `symbolism-consistency-rules.md` — assigning one primary domain per scoped symbol; licensing secondary readings, regional variants, era drift, and compounds; auditing the resulting method package without deciding world-bible canon
 - `taboo-euphemism-lifecycle.md` — In-world taboo drift across eras: competing euphemisms, minced forms, fossilized replacements, and the limits of using their distribution to date fictional documents, rituals, names, symbols, and dress.
-- `typed-label-routing-workflow.md` — The design-side workflow for routing every form-bearing record onto the correct channel before a gate reads it: the routing pass P1–P7 (enumerate → declare the inventory → type each string → attach companions → hold owed slots → scope to register/era → hand to verification), the register/era/loan scoping of slots, the owed-slot backlog, and the rule that a routed packet reads clean-with-holds, never clean. Gap filled: the synthesis partition had the glossary shape and the borrow clocks but no order of operations for typing a packet; grounded in `examples/culture-d4/typed-labels.d4.yml` (74 typed labels, 12 held).
+- `typed-label-routing-workflow.md` — The design-side workflow for **routing form-bearing records onto the correct channel before any gate reads them**: enumerate the records a culture packet carries, type each string as a native form, a translated label, or a borrowed-strata form, attach the companions each kind owes, hold every owed form slot open rather than filling it with a gloss, and hand the packet to the gates only after the routing is complete. Covers the routing pass, the register/era scoping of slots, the owed-slot backlog, and the handoff statement that a routed packet is clean-with-holds, never clean. Reference method and design workflow only; canon belongs to lore-shokunin.
 - `urban-rural-register-ecology.md` — City–countryside language ecologies: market koine formation, court versus village costume vocabularies, and migration-driven leveling coupled to myth, symbol, naming, and era change; reference and design method only, never canon.
 - `worked-example-mini-culture.md` — A single synthetic teaching fixture coupling a language sketch, pantheon, symbolic grammar, periodization, costume system, twenty-word etymological lexicon, and executed naming pipeline; method demonstration, never world-bible canon.
 - `worldbible-integration-contract.md` — The shared adjacency interface by which kotodama-shokunin hands linguistic-cultural systems to lore-shokunin without claiming, recording, or silently changing canon.
@@ -130,21 +156,21 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `calibration-registry.md` — Master claim-level calibration registry for the linguistic-cultural corpus: Campbell universalism, fixed-rate glottochronology, strong Whorfian determinism, Frazerian evolutionism, Gimbutas's goddess reconstruction, and the history of totemism; routes adjacent language–myth–symbol–era–costume overclaims without converting reference methods into canon.
 - `citation-format-and-source-registry.md` — A lane-local citation profile connecting each linguistic-cultural claim to its exact source version, supported scope, mediations, and design transformations; bibliography accuracy never substitutes for evidence or canon approval.
 - `costume-era-consistency-gate.md` — a manual pre-handoff review of whether a claimed outfit can be made, obtained, worn under the stated rules, and interpreted in its proposed era; distinguish impossibility, insufficient evidence, and intelligible rule-breaking
-- `gate-battery-surface-verification.md` — What the isolated gate battery (`tools/check-gate-battery.py`) actually measures and where its coverage stops: the seven legacy gate selftests in a disposable mirror, the originals-preserved measurement (per-file sha256 AND path set), committed-baseline discovery, the 0/1/2 exit semantics, and the seven-name constant that puts the D4 family outside the battery's surface. Gap filled: `gate-frozen-run-standard.md` states the two-evidences clause but no entry stated what the battery covers; grounded in this round's run (`pass 7 / fail 0 / unevaluable 0`, originals preserved) and `tools/gates/frozen/round-18/README.md`.
+- `gate-battery-surface-verification.md` — The verification procedure for reading the **gate battery** (`tools/check-gate-battery.py`) as evidence: it runs the seven legacy gate selftests inside a disposable mirror, measures that the live gates tree is preserved, and validates every committed `expected.json` baseline against its digest pins — but it is not a run of the gates over the lane's artifacts, and it does not cover gates outside its seven-name constant. Covers the exit-code semantics (0/1/2), the mirror/originals measurement, baseline discovery, and the coverage statement a battery reading must carry. Method and lane policy only; canon belongs to lore-shokunin.
 - `gate-frozen-run-standard.md` — How kotodama-shokunin satisfies the fleet gate standard's two-evidences clause: every gate in `tools/gates/` ships a self-test (capability) AND a frozen run (measurement) — a run over a committed input snapshot with a committed, digest-pinned expected verdict that a later hand-edit contradicts; the layout under `tools/gates/frozen/`, the freeze/verify procedure, and a worked example measured on `myth-consistency-gate`.
-- `generated-artifact-roundtrip-verification.md` — The round-trip verification of a generated artifact: regenerate from source and compare bytes, run the tool's own `--check` against the **committed** artifact, and prove the check can fail; the corruption classes a re-serialization can hide (silent re-serialization, default insertion, lossy normalization, check-that-cannot-fail, generator self-agreement) and the rule that byte-identity proves determinism, not soundness. Gap filled: no entry covered regeneration/`--check`/the corruption class; grounded in this round's three `--check` legs (all exit 0) and the projector's `--selftest` (39/39, incl. `--check exit 1 on a changed byte`).
+- `generated-artifact-roundtrip-verification.md` — The verification procedure for **generated artifacts**: an artifact produced by a tool from authored sources (a packet from components, a projection from a packet) is verified by regenerating it and comparing bytes, by running the tool's own `--check` mode, and by proving the check can fail. Covers the round-trip corruption class — a re-serialization that keeps a document's shape while changing its meaning — the digest pins that make a hand-edit contradict the record, and the rule that a byte-identical regeneration proves determinism, not soundness. Method and lane policy only; canon belongs to lore-shokunin.
 - `header-conformance-readings.md` — The measurement contract for the corpus entry header — the fleet sentence ("each `knowledge/` entry opens with `source:`, `verified-at:` and `recheck:`") versus this lane's gate profile (`topic`/`sources`/`couples`), the three defensible readings of the source leg that make a single corpus report three different conformance counts (64 / 3 / 0 of 179 on 2026-10-17), a count-statement schema so no header count circulates without its reading id, a context table for which reading a given check may cite, the digest-pin constraint that keeps three placement stragglers deliberately unrepaired, repair discipline that forbids boilerplate `verified-at` lines, and the open integrator question this lane reports but does not absorb.
 - `internal-consistency-audit.md` — audit the cross-file coherence of linguistic-cultural design methods and candidate handoff packets; expose missing couplings, misaligned terms, incompatible assertions, and unsupported repairs without deciding world-bible canon.
-- `label-channel-routing-verification.md` — The verification procedure for label channel routing: which channel a form-bearing record's string is graded on (sound/identity, recipient-adapted borrow, or none), the routing rows R1–R6, the negative controls that prove the router routes rather than blesses, and the four things routing never proves (inventory-legal is not native; a label is not a gap-filler; a label is not history; a green run is bounded). Gap filled: the partition had the typed-label kinds and the executable but no routing check; grounded in this round's projector run (`74 labels / 15 holds / 1 note / 0 fails`) and `examples/culture-d4/typed-labels.d4.yml`.
+- `label-channel-routing-verification.md` — The verification procedure for **label channel routing**: given one form-bearing record in a linguistic-cultural packet, decide which channel its string is graded on (the sound/identity channel, the recipient-adapted borrow channel, or no channel at all), prove the routing with negative controls, and refuse the two failure modes — grading a reader-facing gloss as a native form, and exempting a native form from checking because it was mislabeled. Reference method and lane policy only; canon decisions belong to lore-shokunin.
 - `lexicon-coverage-audit.md` — a reproducible manual gate for semantic-field coverage against the seven field briefs, derivational consistency, frequency discipline, and coherent loanword layers; release means a usable design proposal, never established canon
 - `myth-consistency-gate.md` — A source-calibrated review gate for coupling a fictional culture's divine roles, narrative motifs, historical layers, linguistic forms, and worn symbols; verifies a proposed system without deciding world-bible canon.
 - `naming-collision-gate.md` — A pre-handoff gate for name uniqueness across a supplied canon snapshot, phonotactic pronounceability, derivational validity, and bounded cross-cultural collision review; method and reference knowledge only, never canon approval.
 - `phonology-sanity-gate.md` — An executable, bounded verification specification for fictional spoken-language profiles; distinguish contradictions from typological rarity and keep historical/register strata separate.
-- `pre-declared-hold-set-reconciliation.md` — The procedure for pre-declaring an expected finding set before implementation and reconciling the emitted set against it: the declaration record, the three-way reconciliation (design union / delivered declaration / emitted set), the delta classes (emitted-extra, emitted-missing, severity-drift, union-untriggered), and the rule that a matched set is not a good set. Gap filled: `gate-frozen-run-standard.md` covers frozen runs and the anti-circularity entry covers re-pins, but neither covered pre-declaration; grounded in the D4 declaration (6 holds) vs emitted set (15 holds + 1 note) and the round-18 reconciliation.
+- `pre-declared-hold-set-reconciliation.md` — The verification procedure for **pre-declared expected finding sets**: a designer names, before implementation, the exact finding set a gate or projector is expected to emit (ids, severities, where-keys); the run emits its set; the two are reconciled row by row and every delta is dispositioned. Covers the declaration record, the three-way reconciliation (design union / delivered declaration / emitted set), delta classes, and the rule that a reconciled set is debt, never a clearance. Method and lane policy only; canon belongs to lore-shokunin.
 - `provenance-audit-ledger-format.md` — A durable, claim-level source-audit record for linguistic-cultural coupling: entry schema, calibrated verdicts, evidence dependencies, era boundaries, and non-destructive correction history.
 - `real-world-inspiration-boundaries.md` — Screening linguistic-cultural worldbuilding references for extractive copying, restricted or sacred material, misleading authenticity claims, and consultation needs; method and reference knowledge, never permission or canon.
 - `to-verify-triage-protocol.md` — A lane-local procedure for resolving uncertain reference claims without laundering speculation into linguistic-cultural knowledge or fictional canon; includes risk triage, evidence tests, review cadence, and an append-only resolution ledger.
-- `two-reader-interop-agreement.md` — Verifying that two independent readers of one artifact agree: the agreement shapes E1–E5 (both exit 0 → verdict-field → set equality → byte-identical stdout → cross-round byte recording), the divergence classes (reader-drift, input-drift, adapter-drift, shared-bug, non-byte-stable), and the rule that agreement is consistency, never correctness. Gap filled: no entry stated the interop comparison; grounded in the round-18 interop receipts (12 of 13 regression stdout digests byte-match a prior recording) and this round's adapter/peer re-measurement.
+- `two-reader-interop-agreement.md` — The verification procedure for **interop agreement**: when two independently implemented readers consume the same artifact — a thin gate and the peer tool it adapts, a projector's projection and the gate that checks it, a run and a previously recorded run — their verdicts must be compared, not assumed, and a divergence must be dispositioned as reader-drift, input-drift, or a real defect. Covers the agreement shapes (byte-identical stdout, field-for-field verdict, set equality), the standing-regression reading (“same bytes as when the capability was admitted”), and the rule that agreement is a consistency result, never correctness. Method and lane policy only; canon belongs to lore-shokunin.
 - `verification-independence-anti-circularity.md` — The verification partition's missing discipline for *independence of verification evidence*: who must be independent of whom (failure sources, not job titles), the circularity modes this lane has actually measured — bless-the-tamper re-pins, green-by-construction self-tests, self-captured manifests, subset-only control matchers, unpinned freeze documents, regex false positives, stale pins, mid-review churn — and the minimum record that converts a re-pin from a blessing operation into a verification act. Gap filled: the partition already carries *source*-corroboration independence rules (`citation-format-and-source-registry.md:90,192`), one checkpoint-anchoring rule for the provenance ledger (`provenance-audit-ledger-format.md:151`), and a named-reviewer requirement (`verification-method-overview.md:163`) — but no entry states verifier independence (who must not certify what they authored or re-pinned), catalogs the circularity modes this lane has measured, or defines the record that makes a re-pin admissible; the round-8/9 adversarial receipts each discovered one mode in isolation and none was carried into method.
 - `verification-method-overview.md` — the lane's craft-verification philosophy: every language–myth–symbol–era–costume system claim must identify a corpus decision rule, inspectable inputs, an expected result, and a possible failure; observations, inferences, unknowns, and proposed design choices remain separate; missing evidence never becomes permission to assert canon.
 
@@ -274,8 +300,11 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv`
   now verifies gate/input/output digests and reproduces seven historical
   verdicts. The separate per-gate `expected.json` layout required by the
-  fleet standard remains pending. Round-4 outputs have no frozen manifest
-  and remain unpinned legacy evidence.
+  fleet standard has since shipped: seventeen committed `expected.json`
+  baselines across `tools/gates/expected/`, `tools/gates/frozen/`, and
+  `reports/round-9/baselines/` (counted 2026-10-18; `tools/check-gate-battery.py`
+  verifies every pin and reports nine registered gates covered). Round-4
+  outputs still have no frozen manifest and remain unpinned legacy evidence.
 - Most historical entries lack the fleet's complete `source`,
   `verified-at`, `recheck` header. The existing provenance gate checks the
   older topic/sources/couples profile, not full corpus conformance.
@@ -283,6 +312,13 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   translation, and scoped material/era reconciliation. Gate coverage and
   parser/regex negative controls need repair; legacy selftests must run in
   an isolated export because five regenerate fixture files.
+  Superseded 2026-10-18 (round 20): the three named needs shipped in
+  `tools/d2-typed-labels.py` — typed native-form/translated-label handling,
+  the rank-rule adapter, and `reconcile_scoped` (`--selftest` 39/39, exit 0,
+  loader/parser malformed-case controls included); the legacy selftests now
+  run inside the gate battery's disposable mirror rather than an ad-hoc
+  export, and the battery's registered coverage is nine gates. This bullet
+  remains as the historical record, not as an open gap.
 - D3 (`examples/culture-d3/`) adds a separate source-bounded NON-CANON
   miniature-culture exercise, not a D2 repair or a new historical entry.
   The two-era packet distinguishes native/translated labels, ordinary sound
@@ -293,6 +329,10 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   acceptance remains pending until `reports/round-7/validation.json` records
   the original F/O commands and actual handoff; worker completion alone is
   not a passed round. See `lessons/round-7.md` and `reports/round-7/`.
+  Updated 2026-10-18 (round 20): the file now exists at HEAD and records
+  `acceptance_checks_passed: false` — the F claim's wrong rejection, a
+  preservation failure, and the chained round-6 acceptance; round-7
+  acceptance is recorded as not passed, not as pending.
 - Five round7 live constraint rechecks remain three scoped and two partial
   supports across four existing reference entries, with two separate parent
   refetches. They do not close the fifteen older round5 residuals or the
@@ -329,8 +369,34 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   exit 0; `d2-typed-labels.py --selftest` 39/39; battery `pass 7 / fail 0 /
   unevaluable 0`. Two limits are recorded rather than closed:
   `tools/gates/d4-assembly-check-gate.py` ships **no** `--selftest` (measured
-  `--selftest` → exit 2), and the D4 family is outside the battery's seven-name
-  constant. The rounds 5–7 residuals above remain open.
+  `--selftest` → exit 2, re-measured 2026-10-18), and the D4 family sat
+  outside the battery's seven-name *selftest* constant at that measurement —
+  round-19 claim O registered both D4 adapters into the battery's nine-gate
+  coverage set (`tools/check-gate-battery.py` module docstring, "Coverage is
+  the registered nine"; measured 2026-10-18: `pass 7 / fail 0 / unevaluable 0`,
+  exit 0, `coverage 9/9`, 17 pinned baselines). The rounds 5–7
+  residuals above remain open.
+- Round 20 reconciles the index (199 rows vs 199 files; 0 missing, 0 ghosts;
+  the ten round-19 rows repaired to verbatim `- topic:` text after the
+  verbatim sweep measured them as condensed paraphrases; command, diff and
+  receipts in `reports/round-20/readme/reconcile.md` and `verify.md`). The
+  sweep closes three items the bullets above carry as open — the D2
+  typed-handling needs, the per-gate `expected.json` layout, and the battery's
+  D4 exclusion — and leaves these open: `d4-assembly-check-gate.py` ships no
+  `--selftest`; round-4 outputs remain unpinned; the fleet header conformance
+  question stays an integrator question (`header-conformance-readings.md`);
+  round-7 acceptance is recorded false; the round-5/6/7 claim residuals, the
+  earlier rounds' strict path whitelists, and cultural permission / name
+  screening / lore receipt / independent promotion review remain outside the
+  current evidence. The round-5 and round-6 bullets' reproduction commands no
+  longer re-derive at HEAD: the round-local runners exit 1 on a later tree
+  (round 5: a non-append corpus edit and seven `gate_digest_mismatch` rows in
+  the round-3 manifest replay; round 6: `historical file changed: .gitignore`) —
+  attributed measurement with digests in `reports/round-20/readme/gaps.md`
+  §1.5/§2.1/§2.2, not re-executed here because those runners rewrite their own
+  filed `validation.json` in place. Read those counts from the filed
+  `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
+  do not edit the old runners.
 
 Total knowledge entries: 199.
 
@@ -346,3 +412,8 @@ the landing window are in `reports/round-10/coverage/index-update.md`.
 Index rows re-measured 2026-10-18 at HEAD `169c616` after the round-19 wave
 (199 rows vs 199 files; the ten new rows above added to the synthesis and
 verification sections; partition counts 19/19/18/29/20/94).
+
+Index rows re-measured 2026-10-18 at HEAD `122086b` plus the round-20 working
+tree by the round-20 R20-C sweep (199 rows vs 199 files; 0 missing, 0 topic
+mismatches after the ten round-19 rows were repaired to verbatim `- topic:`
+text; the sweep's planted controls are in `reports/round-20/readme/verify.md`).

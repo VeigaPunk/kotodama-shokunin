@@ -1,0 +1,30 @@
+== AFTER readings 2026-10-18T13:14:57Z ==
+-- replay round-20 repin manifest --
+REPLAY OK: 11/11 rows reproduced the recorded verdicts (reproduction only: a reproduced red verdict stays red)
+-- replay filed round-18 repin manifest --
+REPLAY OK: 11/11 rows reproduced the recorded verdicts (reproduction only: a reproduced red verdict stays red)
+-- replay filed round-11 manifest --
+REPLAY COULD-NOT-EVALUATE: 1 could-not-evaluate, 0 mismatch, 10 reproduced of 11 row(s) in tools/gates/frozen/round-11/MANIFEST.tsv
+-- battery --
+battery_exit=0
+gates {"battery_exit": 0, "fail": 0, "pass": 7, "unevaluable": 0}
+baselines {"baseline_exit": 0, "baselines_found": 18, "coverage": "9/9", "gates_covered": ["costume-era-consistency-gate.py", "handoff-packet-check.py", "lexicon-coverage-audit.py", "myth-consistency-gate.py", "naming-collision-gate.py", "phonology-sanity-gate.py", "provenance-audit.py", "d4-typed-labels-check-gate.py", "d4-assembly-check-gate.py"], "gates_registered": 9, "gates_uncovered": [], "pinned": 18, "readings": {"pinned": 18}, "unevaluable": 0, "verdict_replay": "not-run: the battery verifies digests and pins; the verdict comparison belongs to the baseline's own re-run receipt"}
+-- frozen-verify: filed r16, filed r18, new r20, peer wart twin --
+reports/round-16/handoff/expected-v2-07.json exit=2
+reports/round-18/repin/expected-v2-07-r18.json exit=2
+reports/round-20/repin/expected-v2-07-r20.json exit=0
+reports/round-20/wart/expected-v2-07-r20.json exit=0
+-- D2 controls --
+json_exit=0
+19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62  .scratch/o11/d2-json-after.out
+frozen_exit=0
+9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606  .scratch/o11/d2-frozen-after.out
+selftest: 50/50 checks passed — the three shard control matrices, the loader/parser malformed cases, the live-packet typing and reconciliation cases, and the CLI emit/check/tamper controls; no file outside the temporary directory touched
+-- filed artifacts re-hash --
+aad230bfdcc1bfe4cc137339b47daf0154208b6c69225e0c0a4505ce52532063  tools/gates/frozen/round-11/MANIFEST.tsv
+c49ebc9e71ce870af621604bb0e00886b45ad8f4028777f202ec845ede6cc902  tools/gates/frozen/round-11/typed-pipeline/run-receipt.json
+2556b084b73c2d03cc9919b179153660f1512641382040f6c4f0fa26316e3e9d  tools/gates/frozen/round-18/repin-d2/MANIFEST.tsv
+d90c09e8789bb9dfb303071853a15a28f88ac2a18e3fe3715e8c0cb0b7f7dc03  tools/gates/frozen/round-18/repin-d2/run-receipt-repin.json
+dc75c5d7e347987e81efe6f6fe17314e8f6a2ce26a12a1ca7ec3567a21dcaad1  reports/round-16/handoff/expected-v2-07.json
+d5fda399490d47eb35be2d14f14d8652fe8fd071df46de0fb90fdc1567b899f9  reports/round-18/repin/expected-v2-07-r18.json
+93b84da0cbd3b2a8531319555c9848c0fb85a79e675a4fc8768096e2b22f776a  tools/gates/expected/d4-typed-labels-check-gate/r19-pre/expected.json
