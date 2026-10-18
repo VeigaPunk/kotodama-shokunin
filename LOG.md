@@ -3358,3 +3358,16 @@ designation (provider test), not a silent substitution.
 - **LOOP 2 COMPLETE (rounds 17-24).** Loop 3 = rounds 25-32 with DeepSeek
   builds on `devin/deepseek-v4-1-flash-high` (operator provider test).
 - **Evidence:** `reports/round-24/validation.json` acceptance true.
+
+## 2026-10-18 — Round 25 admitted (loop 3 build 1 of 4; devin provider test)
+
+- **Trigger:** regimen + operator provider test (`devin/deepseek-v4-1-flash-high`);
+  baseline `f74fc94`; 26/64 completed (31-min wave).
+- **O (verified):** gate typed-input honesty (named input-class refusals +
+  nullish guard; false red eliminated; source 19/19 byte-identical); v3 claim
+  prose supersession (declared-in-r4).
+- **D (verified):** argot-derivation checking leg implemented with real
+  negatives; the delivered-vs-forecast delta named (register-form domain empty
+  in the delivered packet — design-forecast never built).
+- **C (verified):** corpus/lessons/README.md reconciled with open-question queue.
+- **Evidence:** `reports/round-25/validation.json` acceptance true.

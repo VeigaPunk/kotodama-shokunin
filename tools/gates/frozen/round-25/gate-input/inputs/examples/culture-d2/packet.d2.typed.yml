@@ -1,0 +1,3533 @@
+name: "D2 highland pastoralists — round-3 design drill"
+canon: "not canonized (D2 design drill)"
+phonology:
+  consonants:
+    - "p"
+    - "t"
+    - "k"
+    - "b"
+    - "d"
+    - "g"
+    - "m"
+    - "n"
+    - "s"
+    - "ʃ"
+    - "r"
+    - "l"
+    - "j"
+    - "w"
+    - "h"
+  vowels:
+    - "a"
+    - "e"
+    - "i"
+    - "o"
+    - "u"
+  phonotactics: "(C)V(C)"
+  tones: 0
+  accent: "pitch accent, culminative, two levels H and L, one H syllable per prosodic word. The tones field counts lexical tone categories, and D2 has none — no syllable carries an independent tone category, and the H is a property of the word's accent locus, not of the syllable (see pitch_accent)"
+  accent_levels: 2
+  notable_rules:
+    - "n → m / _ p"
+    - "n → m / _ b"
+    - "n → ŋ / _ k"
+    - "n → ŋ / _ g"
+    - "h → ɸ / _ u"
+    - "h → ç / _ i"
+    - "s → h / _ #"
+    - "t → t͡s / _ i"
+    - "k → c / _ i"
+  strata_note: "One stratum is declared — the native D2 lexicon across both stages. Loans form a second stratum only after the trade contact and are governed by loan_adaptation; the knot-era and script-era vernaculars share this inventory. The gate-facing rule list is written in finite symbol contexts so that a finite-segment checker can run it. The legacy allophony container retains its structure, but AL-1, AL-2, and AL-7 are reclassified as morphophonemic stem alternations with explicit word-formation triggers and paired forms below; the other six remain allophonic rules. Their gate-facing strings are unchanged phonological projections, not encodings of the morphological triggers, and LA-3 retains the nasal place mapping as a loan-integration filter."
+  coda:
+    - "n"
+    - "l"
+    - "r"
+    - "s"
+  onset_clusters: "false"
+morphology:
+  type: "agglutinative, predominantly suffixing; transparent one-function-per-affix chains, with two along-side processes (accent shift, reduplication)"
+  alignment: "aspect-split: ergative-absolutive in the perfective (agent M-05), nominative-accusative in the imperfective (patient M-06); plus a fluid-S micro-class in vertical-motion verbs (SYN-05)"
+  word_order: "SOV"
+  synthesis_index:
+    value: "target 2.0–2.5 morphemes per word on running text"
+    method: "Greenberg 1960 counting method (CIT-01); provisional figure from the chains below (verbs average ~4 morphemes, nouns ~2)"
+    status: "design target, not a measurement (CIT-05)"
+  fusion_index:
+    value: "0 portmanteau exponents: one function per form across the 26 paradigm forms and the 56 M-/SYN- records of this file"
+    exception: "the accent-shift plural (M-03) is a residual fusion, labelled a fossil (CIT-03)"
+    status: "counted over this file only; not a whole-language index"
+  wheel_position:
+    label: "early agglutinative; postpositional relators still recognizable as former landscape nouns in the sacred register (M-11 note)"
+    era: "E0 (pre-script) into the E0/E1 seam (script arrives by adaptation from the lowland trade partner); tags fixed by contract, names/dates owned by component 09"
+    follows:
+      - "CIT-04"
+  marking_locus:
+    primary: "dependent (case and relator suffixes on nominals)"
+    secondary: "one topic-person index on the verb (head-marking-lite); no object agreement, no noun-class agreement"
+    note: "locus set with the typology corollary, not left random (CIT-02)"
+  derivation_contract:
+    source: "05-lexicon.yml constructions and derivation_tests; 13-naming.yml names[].formation; these construction IDs are spelling adapters, not additional M-/SYN- records"
+    input_templates:
+      unary: "{B1}"
+      binary: "{B1}+{B2}"
+    serialization: "B1 and B2 are the ordered citation spellings in bases; a unary input is bases[0], a binary input is '+'.join(bases). The plus is analysis only, never part of the derived word. A gate-facing formation.stem must contain that complete serialized input."
+    replay: "Use Python re.fullmatch(rule.pattern, input), reject a non-match, then rule.output.format(**match.groupdict()). Input spellings are NFC lowercase; output preserves the captured letters, including written accent, without deletion, assimilation or a hidden linking segment."
+    domain: "Apply only to bases licensed by 05's noun classes, selection restrictions, productivity and available_from stage; spelling regexes do not replace those checks. 02 retains authority over phonotactics and accent. The current derivation witnesses have no accent-marked bases; combining two contrastive accent peaks is not specified by these adapters."
+    ordering: "A derived noun becomes STEM in M-01 before plural and case. Lexical LOC -ra is homophonous with PL M-02, not a replacement for it; SPIRIT -ir is distinct from the summer locative M-10. Rule IDs, not suffix shape alone, distinguish these functions."
+    excluded_routes: "05's gas > kas and bher > per are loan-layer substitutions, not these derivations; L-32 tolsa is explicitly lexicalized/noncompositional, so no productive -sa is invented."
+    unresolved:
+      - "13 currently supplies only B1 as formation.stem for NM-01..NM-08, although bases contains both inputs. Gate C reads stem only, so the unchanged naming records remain DERIV-REPLAY findings with the binary rule below. In particular, the same stem su cannot yield both sunel and sulas under one deterministic UP-COMPOUND rule; both bases must reach the applier."
+      - "05's AGENT description excludes mass bases, while its held-out pal > palin test admits the salt base. The spelling pair below reproduces the prediction but does not decide that eligibility discrepancy; lexical-owner review remains required."
+  derivation_rules:
+    -
+      id: "LOC"
+      kind: "suffix"
+      affix: "-ra"
+      gloss: "place or span of B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "productive"
+      available_from: "E0"
+      selection: "05 LOC: exclude r-final bases; the regex enforces that boundary exclusion rather than generating rr or deleting a consonant"
+      pattern: "^(?!.*r$)(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ra"
+      source: "05-lexicon.yml constructions.LOC; L-11 sin > sinra, L-39 gen > genra"
+    -
+      id: "AGENT"
+      kind: "suffix"
+      affix: "-in"
+      gloss: "keeper or taker of B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 AGENT: herd, pasture, land, war-band and lineage bases; ir, su and wal excluded; the pal diagnostic discrepancy is retained in derivation_contract.unresolved"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}in"
+      source: "05-lexicon.yml constructions.AGENT; L-23 ral > ralin, L-36 las > lasin, L-37 bel > belin, L-40 gen > genin"
+    -
+      id: "SPIRIT"
+      kind: "suffix"
+      affix: "-ir"
+      gloss: "breath of B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 SPIRIT: wind-working terms of the sacred stratum only"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ir"
+      source: "05-lexicon.yml constructions.SPIRIT; L-30 bel > belir, L-31 hur > hurir"
+    -
+      id: "WIND"
+      kind: "suffix"
+      affix: "-su"
+      gloss: "wind associated with place or slope B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "productive"
+      available_from: "E1"
+      selection: "05 WIND: place and slope bases, not abstract ir; available only from the E1 standardization"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}su"
+      source: "05-lexicon.yml constructions.WIND and derivation_tests; L-12 bel > belsu"
+    -
+      id: "MATRI-SIDE"
+      kind: "suffix"
+      affix: "-ter"
+      gloss: "opposite-sex sibling of parent B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 MATRI-SIDE: parent kin bases nen and wen only; both are captured without truncation"
+      pattern: "^(?P<B1>nen|wen)$"
+      output: "{B1}ter"
+      source: "05-lexicon.yml constructions.MATRI-SIDE and derivation_tests; L-07 nen > nenter"
+    -
+      id: "UP-COMPOUND"
+      kind: "compound"
+      gloss: "B1 qualifies B2; modifier before head"
+      base_classes:
+        - "noun"
+        - "noun"
+      output_class: "noun"
+      productivity: "productive"
+      available_from: "E0"
+      selection: "05 UP-COMPOUND: two noun bases in their recorded order; no inference of B2 from B1 or from the target name"
+      pattern: "^(?P<B1>[a-záéíóú]+)[+](?P<B2>[a-záéíóú]+)$"
+      output: "{B1}{B2}"
+      source: "05-lexicon.yml constructions.UP-COMPOUND: L-28 pal+kor > palkor, L-33 su+wal > suwal; 13-naming.yml NM-01..NM-08"
+    -
+      id: "PROCESS"
+      kind: "suffix"
+      affix: "-ur"
+      gloss: "work B1 into keepable form"
+      base_classes:
+        - "noun"
+      output_class: "verb"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 PROCESS: foodstuff and material bases only; kin and abstract bases excluded"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ur"
+      source: "05-lexicon.yml constructions.PROCESS and derivation_tests; L-24 tas > tasur"
+    -
+      id: "GARMENT"
+      kind: "suffix"
+      affix: "-ken"
+      gloss: "wrap made of material B1"
+      base_classes:
+        - "noun"
+      output_class: "noun"
+      productivity: "restricted"
+      available_from: "E0"
+      selection: "05 GARMENT: fiber and hide bases only"
+      pattern: "^(?P<B1>[a-záéíóú]+)$"
+      output: "{B1}ken"
+      source: "05-lexicon.yml constructions.GARMENT; L-35 mir > mirken"
+  records:
+    -
+      id: "M-01"
+      form: "STEM(-PL)(-CASE)"
+      gloss: "noun chain: stem, then number, then case"
+      function: "the only nominal order; number inside case"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "chain order is structural machinery; it carries no spine content"
+      evidence: "design-choice"
+      follows:
+        - "CIT-02"
+        - "CIT-03"
+    -
+      id: "M-02"
+      form: "-ra"
+      gloss: "PL (Class A: animals, portable things, all loans)"
+      function: "general plural"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "number marking is not spine-bearing by design"
+      evidence: "design-choice"
+      follows:
+        - "CIT-03"
+    -
+      id: "M-03"
+      form: "hani > haní (accent shifts right, no suffix)"
+      gloss: "PL (Class B: kin terms, shelters, pasture rights)"
+      function: "inherited-class plural; fossil of a lost plural suffix; licensed as a rightward accent shift by 02's AC-4, which names this rule (hani to haní)"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "pitch-coupled, not spine-coupled: it belongs to 02's accent system (A-03 non-affixal requirement met here)"
+      evidence: "design-choice (umlaut-type fossil per CIT-03); interface: P-D2-PHON AC-4"
+      follows:
+        - "CIT-03"
+        - "CIT-12"
+    -
+      id: "M-04"
+      form: "-ni"
+      gloss: "GEN / affiliation (prenominal)"
+      function: "possessor or affiliation, incl. affiliation to a lineage or pasture"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice"
+      follows:
+        - "CIT-07"
+    -
+      id: "M-05"
+      form: "-si"
+      gloss: "AGT/ERG: A of a perfective clause"
+      function: "names the responsible party in closed events"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "alignment machinery; its split trigger (aspect) is the spine-laden part (M-18, M-19)"
+      evidence: "design-choice (aspect-split ergative per CIT-08)"
+      follows:
+        - "CIT-08"
+    -
+      id: "M-06"
+      form: "-tu"
+      gloss: "ACC: P of an imperfective clause"
+      function: "marks the affected object of open events"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "alignment machinery (see M-05)"
+      evidence: "design-choice"
+      follows:
+        - "CIT-08"
+    -
+      id: "M-07"
+      form: "-ku"
+      gloss: "ALL: goal, and the UNSLOPE term"
+      function: "unmarked direction, generalized from the ascent route; any upland goal"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice"
+      follows:
+        - "CIT-06"
+        - "CIT-08"
+    -
+      id: "M-08"
+      form: "-mu"
+      gloss: "ALL: goal, and the DOWNSLOPE term"
+      function: "downhill goal must be marked; the marked direction"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice"
+      follows:
+        - "CIT-06"
+    -
+      id: "M-09"
+      form: "-an"
+      gloss: "LOC: winter valley shelter (down, enclosed)"
+      function: "locative sited by the winter pole"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice"
+      follows:
+        - "CIT-06"
+    -
+      id: "M-10"
+      form: "-ir"
+      gloss: "LOC: summer high pasture (up, open)"
+      function: "locative sited by the summer pole"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice"
+      follows:
+        - "CIT-06"
+    -
+      id: "M-11"
+      form: "-wa"
+      gloss: "TRAVERSE: along a contour, keeping altitude"
+      function: "the sidehill route; also a meeting between camps that keeps neither party uphill; its shape is a former landscape noun retained in the sacred register"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice (grammaticalization from a landscape noun per CIT-04)"
+      follows:
+        - "CIT-04"
+        - "CIT-06"
+    -
+      id: "M-12"
+      form: "-na"
+      gloss: "INALIENABLE possessive: kin, body, breath, pasture right"
+      function: "what cannot be sold out of the line"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "possession classes are institutional machinery; WHAT is inalienable (pasture right, shelter) is the spine's doing"
+      evidence: "design-choice"
+      follows:
+        - "CIT-03"
+    -
+      id: "M-13"
+      form: "-ha"
+      gloss: "ALIENABLE possessive: herd, gear, trade goods"
+      function: "what can be sold or given; the suffix that drops in fast speech"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "see M-12"
+      evidence: "design-choice"
+      follows:
+        - "CIT-03"
+    -
+      id: "M-14"
+      form: "na- (1sg), sa- (2sg), zero (3sg)"
+      gloss: "bound pronouns, possessive and person"
+      function: "no free possessive pronouns exist"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "person machinery; the inclusive/exclusive split (M-15) carries the institutional content"
+      evidence: "design-choice"
+      follows:
+        - "CIT-02"
+    -
+      id: "M-15"
+      form: "1pl inclusive -ra (lineage) vs 1pl exclusive (camp)"
+      gloss: "we-of-the-pasture-right vs we-here-now"
+      function: "the inclusive set is the lineage that holds the pasture right; the exclusive set is whoever is present"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice"
+      follows:
+        - "CIT-02"
+    -
+      id: "M-16"
+      form: "su-"
+      gloss: "logophoric 'the person whose speech is reported'"
+      function: "keeps a quoted speaker distinct from the reporter (Culy 1994 pattern)"
+      stage: "E0"
+      axis: "wind"
+      evidence: "design-choice (logophor per CIT-10)"
+      follows:
+        - "CIT-10"
+    -
+      id: "M-17"
+      form: "STEM(-DERIV)(-ASPECT)(-PERSON)(-EVID)"
+      gloss: "verb chain; evidential outermost"
+      function: "the last sound of the clause carries how it was known"
+      stage: "E0"
+      axis: "wind"
+      evidence: "design-choice"
+      follows:
+        - "CIT-02"
+        - "CIT-10"
+    -
+      id: "M-18"
+      form: "-ka"
+      gloss: "PERF: a closed, counted event"
+      function: "pasture year tallied, drive finished, trade closed; the winter count seals it"
+      stage: "E0"
+      axis: "both"
+      evidence: "design-choice"
+      follows:
+        - "CIT-08"
+        - "CIT-04"
+    -
+      id: "M-19"
+      form: "-ne"
+      gloss: "IPFV: an open, ongoing or habitual event"
+      function: "moving, grazing, a route in progress; the ascent opens the year"
+      stage: "E0"
+      axis: "both"
+      evidence: "design-choice"
+      follows:
+        - "CIT-08"
+    -
+      id: "M-20"
+      form: "-so"
+      gloss: "CAUS / LEAD (so- 'drive' + nera- 'go up' > nera-so- 'drive up')"
+      function: "the herding derivation"
+      stage: "E0"
+      axis: "verticality"
+      evidence: "design-choice"
+      follows:
+        - "CIT-03"
+    -
+      id: "M-21"
+      form: "-li"
+      gloss: "MIDDLE (the subject acts on itself or its own herd)"
+      function: "self-directed action; preferred in oath and incantation"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "voice machinery; its ritual preference is a register fact (R-01), not a spine claim"
+      evidence: "design-choice"
+      follows:
+        - "CIT-03"
+    -
+      id: "M-22"
+      form: "-na (1), -sa (2), zero (3); plural -ra"
+      gloss: "one person index on the verb"
+      function: "drops with a full topic noun present"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "person machinery"
+      evidence: "design-choice"
+      follows:
+        - "CIT-02"
+    -
+      id: "M-23"
+      form: "-lu"
+      gloss: "NEG (in the aspect slot)"
+      function: "declarative negation scoping over the event; the evidential still says how the negated event was known"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "polarity machinery"
+      evidence: "design-choice"
+      follows:
+        - "CIT-10"
+    -
+      id: "M-24"
+      form: "ma="
+      gloss: "PROHIBITIVE proclitic + imperative form"
+      function: "prohibition is formally distinct from assertion negation (blueprint test T7)"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "polarity machinery; note the clitic/suffix contrast with M-23"
+      evidence: "design-choice"
+      follows:
+        - "CIT-13"
+    -
+      id: "M-25"
+      form: "-hi"
+      gloss: "medial verb: SAME BREATH (next clause, same actor)"
+      function: "scene hand-off without changing actor"
+      stage: "E0"
+      axis: "wind"
+      evidence: "design-choice (switch-reference per CIT-09)"
+      follows:
+        - "CIT-09"
+        - "CIT-10"
+    -
+      id: "M-26"
+      form: "-ha"
+      gloss: "medial verb: OTHER BREATH (next clause, different actor)"
+      function: "scene hand-off with a new actor"
+      stage: "E0"
+      axis: "wind"
+      evidence: "design-choice"
+      follows:
+        - "CIT-09"
+    -
+      id: "M-27"
+      form: "-nu"
+      gloss: "nominalizer for internally-headed relatives"
+      function: "makes the clause a noun ('the one who / that')"
+      stage: "E0"
+      axis: "neutral"
+      coupling_note: "relative-clause machinery; the strategy choice (SYN-23) is the genre-facing part"
+      evidence: "design-choice"
+      follows:
+        - "CIT-09"
+lexicon:
+  -
+    id: "L-01"
+    term: "ir"
+    gloss: "breath (the soul-carrier of a person)"
+    field: "body"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "underived D2 root; ritual speech pairs ir with su (wind) — the one designed colexification of this packet, unchecked against CLICS3 until a check is run (to-verify)"
+    follows: "sf-lex §4/Body (soul-organ doctrine); taboo §3 (breath as a sacred domain)"
+  -
+    id: "L-02"
+    term: "nel"
+    gloss: "hand and forearm, one term (no separate word for the forearm or the wrist)"
+    field: "body"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "a working-body term with no axis reading of its own; the field's axis duty is carried by ir (breath) and ban (bones), and what nel records is a partition, not a direction"
+    evidence: "design-choice"
+    etymology: "underived D2 root; the partition covers hand and forearm as one working segment (the milking grip) — the single anomalous partition this body field is allowed"
+    follows: "sf-lex §4/Body (partitions vary with culture); audit §3 (Body review row)"
+  -
+    id: "L-03"
+    term: "ban"
+    gloss: "bone (the lineage substance; what remains of a person)"
+    field: "body"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived D2 root; the second half of the person beside ir: the breath leaves upward and the bones stay at the lineage cairn"
+    sense_note: "the two-part person doctrine of this field — a winter guest taken into a household is said to be given bones, that is, a place in the lineage"
+    follows: "sf-lex §4/Body (one soul-organ doctrine); cosmo §2 (the axis needs a built place — the cairn)"
+  -
+    id: "L-04"
+    term: "las"
+    gloss: "lineage (the pasture-holding patrilineal descent group)"
+    field: "kinship"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "attested-comparator"
+    etymology: "underived D2 root; the lineage is the property-holding unit of pasture rights, which is the social fact the terminology is chosen from (no universal chief, no assembly of witnesses)"
+    follows: "kin §9 step 1 (economy and descent before terms); brief CP-06"
+  -
+    id: "L-05"
+    term: "wen"
+    gloss: "father"
+    field: "kinship"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "a descent term with no axis reading of its own; the field's axis duty is carried by the pasture-right records (L-04, L-18, L-36)"
+    evidence: "attested-comparator"
+    etymology: "underived; the everyday reference and address term of the father line"
+    follows: "kin §1 (G+1 row); kin §8 (an address stratum is a decision, not an afterthought)"
+  -
+    id: "L-06"
+    term: "nen"
+    gloss: "mother"
+    field: "kinship"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "as wen: descent term; the Omaha fingerprint below is a structural note, not an axis claim"
+    evidence: "attested-comparator"
+    etymology: "underived; the mother term also absorbs the mother's brother's daughter, the read-off fingerprint of the Omaha skew chosen here for patrilineal pasture-holding lineages"
+    follows: "kin §1 (Omaha fingerprint); kin §4 rule 4 (skewing derived from an Iroquois base)"
+  -
+    id: "L-07"
+    term: "nenter"
+    gloss: "mother's brother (the avunculate: he funds a nephew's first herd)"
+    field: "kinship"
+    layer: "native"
+    route: "derived"
+    construction: "MATRI-SIDE"
+    bases:
+      - "nen"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "the cross-sex kin term; its axis work is economic (the first herd), not directional"
+    evidence: "attested-comparator"
+    etymology: "nen (mother) plus MATRI-SIDE; the opposite-sex sibling of the mother is the outside-man of the household — the atom-of-kinship role that is terminologically special in every system"
+    follows: "kin §1 (the atom of kinship); kin §4 rule 1 (bifurcate terms kept distinct)"
+  -
+    id: "L-08"
+    term: "su"
+    gloss: "wind"
+    field: "weather"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "underived D2 root; wind is the medium of the breath and the carrier of news, oath and death, and every slope-wind word is built on it"
+    follows: "sf-lex §4/Weather; cosmo §9 (direction lexemes from wind names)"
+  -
+    id: "L-09"
+    term: "hur"
+    gloss: "storm (the wind that takes animals and flattens the summer camp)"
+    field: "weather"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "underived; the storm is an agent with a law, which is why the storm-breath hurir is the oath-keeper of this packet"
+    follows: "sf-lex §4/Weather (each weather noun justified); brief CP-04 (wind is a register)"
+  -
+    id: "L-10"
+    term: "sin"
+    gloss: "snow"
+    field: "weather"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived; snow is named as a substance, and the field is deepened by band, not by kind — the snow-word count is deliberately not inflated"
+    follows: "sf-lex §4/Weather (the N-words-for-snow hoax is not copied); sf-lex §7 (field sizes justified by profile)"
+  -
+    id: "L-11"
+    term: "sinra"
+    gloss: "the snow-line (the height above which snow stays through the summer)"
+    field: "weather"
+    layer: "native"
+    route: "derived"
+    construction: "LOC"
+    bases:
+      - "sin"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "sin (snow) plus LOC; a vertical band rather than a new snow type"
+    follows: "sf-lex §4/Weather (snow-by-band); audit §3 (Weather needs)"
+  -
+    id: "L-12"
+    term: "belsu"
+    gloss: "the upslope wind (the noon wind that climbs from the valley to the heights; the wind said to carry the dead upward)"
+    field: "weather"
+    layer: "native"
+    route: "derived"
+    construction: "WIND"
+    bases:
+      - "bel"
+    stage: "E1"
+    class: "noun"
+    axis: "both"
+    evidence: "design-choice"
+    etymology: "bel (the heights) plus WIND; direction is by slope, and the E1 seam standardised the slope-winds so that travellers and herds could be warned"
+    follows: "sf-lex §4/Weather (wind-by-direction-of-travel); audit §7 (era-staging of a standardised set)"
+  -
+    id: "L-13"
+    term: "bel"
+    gloss: "the heights (the upper country, the summer side)"
+    field: "landscape"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived D2 root; the upper pole of the transhumance cycle and the base of the whole vertical set"
+    follows: "sf-lex §4/Landscape (lexicalise the differences that carry subsistence weight)"
+  -
+    id: "L-14"
+    term: "tol"
+    gloss: "the low ground (the valley floor, the winter side)"
+    field: "landscape"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived D2 root; the lower pole, paired with bel — the two roots together are how this culture says where anything is, and no body-part frame is used for it"
+    follows: "sf-lex §4/Landscape; sf-lex §4/Body (the spatial frame is built on the axis, not on body parts)"
+  -
+    id: "L-15"
+    term: "sára"
+    gloss: "the winter camp locus (the spot the lineage holds on the valley floor)"
+    field: "landscape"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived root of the accent pair; the peak held early keeps the word down in the valley — the mechanism is 02's (P- accent rules) and the sense assignment is this component's, which closes the handoff 02 names"
+    follows: "brief CP-03 (at least two poles, lexically carried); deps: 02-phonology"
+  -
+    id: "L-16"
+    term: "sará"
+    gloss: "the summer camp locus (the spot the lineage holds on the ridge)"
+    field: "landscape"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "the ridge twin of sára: the peak moved rightward sends the word up the slope (02's accent mechanism, this component's senses)"
+    sense_note: "the pair is the audible spine: one stem, two camp loci, and the pitch alone tells a listener which slope the speaker means"
+    follows: "brief CP-03; deps: 02-phonology"
+  -
+    id: "L-17"
+    term: "kol"
+    gloss: "the pass (the notch that lets herds cross between the valley and the heights)"
+    field: "landscape"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived; the single unavoidable crossing of the vertical world, and from E1 also the site of the salt fair and the raid road"
+    follows: "cosmo §2 (the axis needs built expression and a ritual); trade §2 (a pass, not a river crossing)"
+  -
+    id: "L-18"
+    term: "ral"
+    gloss: "flock animal (a head of smallstock; the counting unit of wealth)"
+    field: "subsistence"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "the herd unit of account; the axis duty of this field is carried by the pasture and salt records (L-13, L-17, L-22)"
+    evidence: "design-choice"
+    etymology: "underived; the generic-level term of the folk-biological hierarchy and the unit in which herds, tolls and bride-wealth are counted"
+    follows: "sf-lex §4/Subsistence (generic ranks; tallies precede numerals); trade §2 (counting units)"
+  -
+    id: "L-19"
+    term: "nir"
+    gloss: "sheep"
+    field: "subsistence"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "the wool animal as a subsistence record; the fiber coupling itself is costume-side (deps: MAT-, GAR-)"
+    evidence: "design-choice"
+    etymology: "underived; the wool animal, named at the generic level below ral"
+    follows: "sf-lex §4/Subsistence (generic-level salience); textile §2 (wool as the state fiber)"
+  -
+    id: "L-20"
+    term: "mil"
+    gloss: "milk"
+    field: "subsistence"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "taken at both pastures; the record is a substance, not a direction"
+    evidence: "design-choice"
+    etymology: "underived; milk is worked at both poles, which is why the milk word is a root and not a loan"
+    follows: "sf-lex §4/Subsistence (obtain, process, distribute)"
+  -
+    id: "L-21"
+    term: "tas"
+    gloss: "dried meat (meat that keeps)"
+    field: "subsistence"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "the provision noun; its processing verb tasur carries the wind"
+    evidence: "design-choice"
+    etymology: "narrowing: a root glossed as keepable provision, narrowed in the pastoral economy to dried meat"
+    follows: "sf-lex §3 (change routes: narrowing, logged); trade §10 (the trade good)"
+  -
+    id: "L-22"
+    term: "pal"
+    gloss: "salt (as worked at the highland licks)"
+    field: "subsistence"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived; D2 works the high licks and carries salt down, which is what makes the trade road worth opening"
+    follows: "sf-lex §4/Subsistence (materials with local importance); trade §2 (the substance measured)"
+  -
+    id: "L-23"
+    term: "ralin"
+    gloss: "herder (the one who keeps the flock; a year-round task, not a rank)"
+    field: "subsistence"
+    layer: "native"
+    route: "derived"
+    construction: "AGENT"
+    bases:
+      - "ral"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "ral (flock animal) plus AGENT; the labor word the subsistence brief asks for beside the herd nouns, and the task that walks the year's two moves"
+    follows: "sf-lex §4/Subsistence (verbs and tasks, not only nouns); audit §3 (Subsistence needs)"
+  -
+    id: "L-24"
+    term: "tasur"
+    gloss: "to wind-dry meat (cut thin and hung in the upslope wind)"
+    field: "subsistence"
+    layer: "native"
+    route: "derived"
+    construction: "PROCESS"
+    bases:
+      - "tas"
+    stage: "E0"
+    class: "verb"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "tas (dried meat) plus PROCESS; the drying is done by the wind and not by fire — the wind spine carried into the food economy"
+    follows: "sf-lex §4/Subsistence (preserve and process); spell-out of brief CP-03/CP-04 in the economy"
+  -
+    id: "L-25"
+    term: "kor"
+    gloss: "tally-cord (a hanging line whose knots record herd counts and pasture claims)"
+    field: "trade"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "underived; a counting-technology unit read by knot height — RG-01 governs the geometry (height encodes magnitude or register, never ownership), and the cord counts rather than binds"
+    sense_note: "the cord is a manufacturing and measuring object; no obligation, kin or oath sense attaches to the knot itself, which is the D1 ban honoured in the design"
+    follows: "trade §2 (counting technology: strings and tallies); brief RG-01"
+  -
+    id: "L-26"
+    term: "kas"
+    gloss: "the written tally-sheet demanded at the salt fair (a debt record)"
+    field: "trade"
+    layer: "loan"
+    route: "loan"
+    loan_layer: "Salt-road trade layer"
+    donor_form: "gas"
+    stage: "E1"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "an administrative import with no axis reading; the partners' sheet is flat, and D2's own records stay vertical (L-25)"
+    evidence: "design-choice"
+    etymology: "loan from the lowland trade partner, donor gas (the written tally), devoiced g to k on entry; the referent arrives with the salt road, which is why the word and the sheet share a date"
+    follows: "audit §6 (layer, donor form, adaptation); audit §7 (availability staged); trade §7 (contract and debt vocabulary)"
+  -
+    id: "L-27"
+    term: "per"
+    gloss: "the script-mark (a borrowed character cut or painted onto a tally)"
+    field: "trade"
+    layer: "loan"
+    route: "loan"
+    loan_layer: "Lowland script layer"
+    donor_form: "bher"
+    stage: "E2"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "an imported notation technology; the mark is written where the cord hangs, so its axis reading is neutral while its host is vertical"
+    evidence: "design-choice"
+    etymology: "loan from the lowland partner at a later stage (donor bher), simplified bh to p; the marks are copied, not invented, which is the late-script story of the seed"
+    follows: "audit §6 (chronology); sf-lex §3 (administration as a high-borrow field)"
+  -
+    id: "L-28"
+    term: "palkor"
+    gloss: "the pass toll (counted in salt and recorded as a salt tally)"
+    field: "trade"
+    layer: "native"
+    route: "compound"
+    construction: "UP-COMPOUND"
+    bases:
+      - "pal"
+      - "kor"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "pal (salt) plus kor (tally-cord): the toll is what the pass takes, counted in salt and entered on the cord — a measure negotiated at the pass, not a coin (no mint is coined anywhere in this packet)"
+    follows: "trade §2 (negotiated measure, not metrology); trade §10 (the Moneta move declined on purpose)"
+  -
+    id: "L-29"
+    term: "wal"
+    gloss: "oath, the sworn word"
+    field: "religion"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "underived; an oath is sworn against the herd and in the moving air, which is what the compound suwal later makes explicit — the obligation is held, not tied"
+    follows: "sf-lex §4/Religion (ritual acts and their vocabulary); taboo §3 (oath formulas as a sacred domain)"
+  -
+    id: "L-30"
+    term: "belir"
+    gloss: "the upper breath (the sky-wind that carries the soul at death)"
+    field: "religion"
+    layer: "sacred"
+    route: "derived"
+    construction: "SPIRIT"
+    bases:
+      - "bel"
+    stage: "E0"
+    class: "noun"
+    axis: "both"
+    evidence: "design-choice"
+    etymology: "bel (the heights) plus SPIRIT; the sacred stratum of the wind spine — the breath goes up, and the upslope wind belsu is felt to carry it"
+    sense_note: "also usable as an epithet of the sky-power; the deity record itself is not declared here (deps: PAN-)"
+    follows: "cosmo §2 (the axis needs a built place and a ritual); taboo §3 (sacred words as a domain)"
+  -
+    id: "L-31"
+    term: "hurir"
+    gloss: "the storm-breath (the law of the storm; the wind that answers a false oath)"
+    field: "religion"
+    layer: "sacred"
+    route: "derived"
+    construction: "SPIRIT"
+    bases:
+      - "hur"
+    stage: "E0"
+    class: "noun"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "hur (storm) plus SPIRIT; storm law is the sanction behind oaths and false measures — the storm is the institution, not a weather event with a temper"
+    follows: "taboo §3 (supernatural dread as a sanction); trade §3 (sacred standardisation of measures); brief CP-04"
+  -
+    id: "L-32"
+    term: "tolsa"
+    gloss: "the one who went down (the dead; said instead of a personal name)"
+    field: "religion"
+    layer: "taboo"
+    route: "lexicalized"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    noncompositional: "true"
+    sanction: "the name of the dead is not spoken for four grass-seasons; a name said by mistake is answered with the storm formula, and the speaker owes a beast to the lineage cairn"
+    sense_note: "fossilised fear-euphemism built on tol (the low ground) with a suffix no living speaker can gloss; the literal reading is not recoverable, which is exactly the fossil the design wants"
+    etymology: "fossilised circumlocution: the oldest rung of the death ladder, preserved as the everyday word"
+    follows: "taboo §3 (death as a core taboo domain); taboo §5 (frozen replacements: the circumlocution becomes the name)"
+  -
+    id: "L-33"
+    term: "suwal"
+    gloss: "the wind-oath (the formula sworn at the pass before the salt fair)"
+    field: "religion"
+    layer: "sacred"
+    route: "compound"
+    construction: "UP-COMPOUND"
+    bases:
+      - "su"
+      - "wal"
+    stage: "E1"
+    class: "noun"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "su (wind) plus wal (oath); coined at the E1 seam, when the fair court needed a formula both sides could swear by, so the ritual vocabulary moves with the trade era"
+    follows: "audit §7 (a rite and an institution can have different naming dates); trade §3 (the vow that standardises exchange)"
+  -
+    id: "L-34"
+    term: "mir"
+    gloss: "fleece, wool (on the animal or off it)"
+    field: "costume"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "the fiber floor record; the wool chain's route and its ceiling belong to the materials and costume components (deps: MAT-, GAR-)"
+    evidence: "design-choice"
+    etymology: "underived; the fiber word of a wool-exporting culture, which is why the costume field borrows nothing here"
+    follows: "textile §2 (wool as the state fiber); textile §6 (the word classes the fiber gate generates)"
+  -
+    id: "L-35"
+    term: "mirken"
+    gloss: "wool cloak (the felted wrap worn at both pastures)"
+    field: "costume"
+    layer: "native"
+    route: "derived"
+    construction: "GARMENT"
+    bases:
+      - "mir"
+    stage: "E0"
+    class: "noun"
+    axis: "both"
+    evidence: "design-choice"
+    etymology: "mir plus GARMENT; worn through the ascent and against the storm wind, which is why the record carries both axes — one garment floor term is enough for this stage, and the full route is costume-side (CP-09)"
+    follows: "textile §6 (a culture cannot have a basic costume term for a cloth its gates cannot make); brief CP-09"
+  -
+    id: "L-36"
+    term: "lasin"
+    gloss: "lineage head (the elder who keeps the pasture tally and speaks the lineage herd count at the fair)"
+    field: "social_order"
+    layer: "native"
+    route: "derived"
+    construction: "AGENT"
+    bases:
+      - "las"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "las (lineage) plus AGENT; authority is a task held by an elder and not an inherited title, which is the segmentary pattern and not a chiefdom"
+    follows: "kin §9 step 5 (register strata); brief CP-06 (no universal chief)"
+  -
+    id: "L-37"
+    term: "belin"
+    gloss: "the vanguard herder (the one who opens the summer pasture each season; a task-rank, not a title)"
+    field: "social_order"
+    layer: "native"
+    route: "derived"
+    construction: "AGENT"
+    bases:
+      - "bel"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "bel (the heights) plus AGENT; whoever goes up first holds the season for the rest, so the rank is read off the ascent order"
+    follows: "sf-lex §4/Landscape (season and route words carry subsistence weight); brief CP-03"
+  -
+    id: "L-38"
+    term: "gen"
+    gloss: "raid, herd-taking (the sanctioned raid to recover stolen animals, not a war of conquest)"
+    field: "war"
+    layer: "native"
+    route: "root"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "the force institution; the axis reading is carried by the ground it happens on (L-39) and by the season it is timed to, not by the noun itself"
+    evidence: "design-choice"
+    etymology: "underived; raiding vocabulary indexes force organisation, and D2 has no standing army — one word carries the whole institution"
+    follows: "sf-lex §4/War (war lexicon indexes force organisation); sf-lex §6 (raid deepened for the pastoral row)"
+  -
+    id: "L-39"
+    term: "genra"
+    gloss: "the raiding ground (the disputed pasture at the pass where raids arrive)"
+    field: "war"
+    layer: "native"
+    route: "derived"
+    construction: "LOC"
+    bases:
+      - "gen"
+    stage: "E0"
+    class: "noun"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "gen plus LOC; the pasture beside the pass is both the toll site and the raid ground, which is the coupling this field exists for"
+    follows: "audit §3 (War need: threat, defense, negotiation); sf-lex §4/Landscape"
+  -
+    id: "L-40"
+    term: "genin"
+    gloss: "raid-leader (chosen for one raid, then unranked again)"
+    field: "war"
+    layer: "native"
+    route: "derived"
+    construction: "AGENT"
+    bases:
+      - "gen"
+    stage: "E0"
+    class: "noun"
+    axis: "neutral"
+    coupling_note: "the office expires with the raid; no rank ladder is coined or borrowed, so the term stays axis-neutral by design"
+    evidence: "design-choice"
+    etymology: "gen plus AGENT; the office expires with the raid, which is why no rank vocabulary is imported with the trade goods"
+    follows: "sf-lex §4/War (a levy society has few rank terms; borrowed officer titles would be a false-coverage red flag); brief CP-08"
+pantheon:
+  -
+    id: "PAN-01"
+    name: "Halatu"
+    role: "archaic sky-holder; demotion case, kept in formula only"
+    domain: "holds the sky apart from the peaks — the world-axis as a standing figure, never a tie"
+    era: "E0 formula; demoted by the E1 charter; survives in the opening line of the ascent blessing"
+    axis: "verticality"
+    evidence: "design-choice (to-verify against L- and ER- records)"
+    cult_status: "no cult: no festival, no offering, no priest. The ritual-address test fails on purpose and the figure is kept as story, not cult"
+    gender: "spoken as a man in the blessing; the language does not mark gender on theonyms"
+    derivation: "hala (sky) + -tu (standing one); transparent compound, read as the archaic layer"
+    epithets:
+      - "Halasawa \\\"breath of the sky\\\""
+      - "Humahala \\\"sky at the shelter\\\""
+    demotion_event: "the E1 charter seats Kahatu as the oath patron; a holder who only holds cannot enforce a spoken word"
+    deps:
+      -
+        component: "04-lexicon"
+        ids:
+          - "UNRESOLVED"
+        note: "roots hala, huma"
+      -
+        component: "02-phonology"
+        ids:
+          - "UNRESOLVED"
+        note: "provisional spelling"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §5"
+        short: "PF-05"
+      -
+        cite: "corpus/knowledge/myth-symbol/cosmology-cosmography.md §2"
+        short: "PF-09"
+  -
+    id: "PAN-02"
+    name: "Kahatu"
+    role: "storm-law; the oath patron; war function fused into punitive law"
+    domain: "thunder, hail, blizzard and thin air over the saddle; the spring opening of the pass; the punitive half of a spoken promise"
+    era: "E0 ridge cult of the pass bands; confederation oath patron from E1"
+    axis: "both"
+    evidence: "design-choice (to-verify against ER- records)"
+    cult_status: "full cult address: three epithets, two festivals, two taboos, one offering, one address formula"
+    gender: "spoken as a man; unmarked in grammar"
+    derivation: "kaha (thunder-crack) + -tu (standing one); transparent compound"
+    epithets:
+      -
+        form: "Halakaha"
+        gloss: "sky-crack"
+        register: "praise"
+        use: "recitation and the pass-opening dawn"
+      -
+        form: "Sawakaha"
+        gloss: "breath-thunder"
+        register: "address"
+        use: "the oath formula only: the released breath is what he hears"
+      -
+        form: "Humkaha"
+        gloss: "shelter-thunder"
+        register: "avoidance"
+        use: "winter-camp substitute; his plain name is not said while the herd is under a roof"
+    festivals:
+      - "RIT-02"
+      - "and the pass-opening dawn kept by the road keepers"
+    taboos:
+      - "the plain name is not spoken at the high pasture during the thunder halt"
+      - "no fire is lit on the open ridge in storm season"
+    offering: "a pinch of salt cast up into the wind; no blood offering is made above the shelter line"
+    address_formula: "You who stand above, take this breath and hold the word"
+    war_theology: "no standing army: a raid is filed as a debt claim and blessed at the pass; therefore no separate war god, no discipline god, and no berserk god"
+    deps:
+      -
+        component: "04-lexicon"
+        ids:
+          - "UNRESOLVED"
+        note: "roots kaha, hala, sawa"
+      -
+        component: "06-symbols"
+        ids:
+          - "UNRESOLVED"
+        note: "storm slate and gate signs are symbols-owned"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §5"
+        short: "PF-05"
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §3"
+        short: "PF-03"
+  -
+    id: "PAN-03"
+    name: "Humaweha"
+    alias: "Humweha — the retired pre-repair spelling, kept as a dated retrieval alias (see name_errata NE-01, 2026-10-17). Not a gate-facing name form"
+    role: "keeper of the ended breath; the wind that carries the last breath below"
+    domain: "death, breath-souls, the tally of ended breaths, the Still Camp at the lowest shelter"
+    era: "E0 onward"
+    axis: "wind"
+    evidence: "design-choice"
+    cult_status: "full cult address: three epithets, the descent count, two taboos, one offering that is a count rather than a gift, one address formula"
+    gender: "spoken as a woman; unmarked in grammar"
+    derivation: "huma (shelter, low place) + -weha (wind, breath of), concatenated with the compound vowel kept: hu.ma.we.ha, four open syllables; transparent compound, deliberately paired with Kalweha"
+    name_errata:
+      id: "NE-01"
+      date: "2026-10-17"
+      was: "Humweha"
+      now: "Humaweha"
+      defect: "the elided compound put /m/ in coda, outside the coda set {n, l, r, s} that 02-phonology P-3 licenses; baseline evidence is tools/gates/frozen/round-4/naming-collision-gate.out, PHON-CODA FAIL on name PAN-03, reproduced byte-for-byte from the pinned packet by this round's recheck"
+      repair_basis: "this file's own two stated working roots are concatenated with no vowel deletion — the spelling 05-lexicon revision 1.1 naming_support already registers (huma + weha, syllables [hu, ma, we, ha]) and 13-naming cross_component_repairs proposes for PAN-03"
+      scope: "same entity, role, cult and taboos; a spelling repair, not a replacement deity. The retired spelling survives only in this erratum and the alias field above"
+      unresolved: "no L- id is claimed for either base (RG-04), and the theonym stays provisional on the lexicon handoff"
+    epithets:
+      -
+        form: "Sawahuma"
+        gloss: "breath at the shelter"
+        register: "address"
+        use: "the descent count"
+      -
+        form: "Mutu"
+        gloss: "the Counter"
+        register: "functional"
+        use: "the cord keepers' title for her"
+      -
+        form: "Korasawa"
+        gloss: "the herd's breath, register: pastoral, use: \\\"said over a beast that dies on the road\\\""
+    death_architecture: "a keeper and a place, no judge, no devil; dualism is not imported. The uncounted dead whistle in the passes — a folktale belief, not a doctrine"
+    taboos:
+      - "her name is not said while a body lies unwashed"
+      - "a dead person's personal name is not spoken once the count is entered"
+    offering: "the last milk of the autumn descent poured at the shelter door, and one knot added to the tally — a count, not a gift"
+    address_formula: "Keeper below, count this breath gently"
+    deps:
+      -
+        component: "04-lexicon"
+        ids:
+          - "UNRESOLVED"
+        note: "roots huma, weha, sawa, muta, kora"
+      -
+        component: "09-eras"
+        ids:
+          - "UNRESOLVED"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §5"
+        short: "PF-05"
+      -
+        cite: "corpus/knowledge/myth-symbol/ritual-liminality.md §1"
+        short: "PF-22"
+  -
+    id: "PAN-04"
+    name: "Kalweha"
+    role: "the high pasture's power; herd increase and milk; the ascent"
+    domain: "the summer pasture, milk, lambing, wool; the opening and closing of the high stay"
+    era: "E0 onward"
+    axis: "both"
+    evidence: "design-choice"
+    cult_status: "full cult address: three epithets, the ascent departure and the milk-first rite, two taboos, one offering, one address formula"
+    gender: "spoken as a woman; unmarked in grammar"
+    derivation: "kala (height) + -weha (wind, breath of); transparent compound, paired with Humaweha as the upper pole"
+    epithets:
+      -
+        form: "Nusatu"
+        gloss: "milk-keeper"
+        register: "functional"
+        use: "the milk-first rite"
+      -
+        form: "Kalamutu"
+        gloss: "counter of the height"
+        register: "praise"
+        use: "she counts what comes in, as Humaweha counts what goes out"
+      -
+        form: "Sawakala"
+        gloss: "breath of the height"
+        register: "address"
+        use: "the ascent blessing"
+    taboos:
+      - "no wool is cut on the height before the milk-first rite"
+      - "no one climbs past the shoulder stone before the ascent departure rite"
+    offering: "the first milk poured on the pasture stone; a tuft of wool at the gate"
+    address_formula: "Mother of the height, count them as they come"
+    deps:
+      -
+        component: "04-lexicon"
+        ids:
+          - "UNRESOLVED"
+        note: "roots kala, weha, nusa, muta"
+      -
+        component: "06-symbols"
+        ids:
+          - "UNRESOLVED"
+        note: "fleece-white and the gate signs are symbols-owned"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §2"
+        short: "PF-02"
+      -
+        cite: "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md §2"
+        short: "PF-27"
+  -
+    id: "PAN-05"
+    name: "Seratu"
+    role: "keeper of the salt road; strangers, trade vows, and the restricted salt craft"
+    domain: "the down-road, the salt springs, the boundary stone, foreign names and the lowland receipts"
+    era: "E1, with the opening of the road; foreign equated name from the same seam"
+    axis: "verticality"
+    evidence: "design-choice (the lowland equation is a design proposal, recorded as the D2 side only)"
+    cult_status: "full cult address: three epithets, the salt opening and the market vow, two taboos, one offering, one address formula; the cutting rite is licensed to one keeper lineage"
+    gender: "spoken as a man; unmarked in grammar"
+    derivation: "sera (road, pass) + -tu (standing one); transparent compound"
+    restricted_craft: "the salt-cutters and trade-iron workers are an endogamous liminal caste: salt-bleached hands and soot-marked brows are their marks; they may not hold pasture rights and may not enter the high pasture shrine. The smith-god slot is merged here rather than filled separately"
+    epithets:
+      -
+        form: "Tasatu"
+        gloss: "salt-keeper"
+        register: "functional"
+        use: "the salt opening"
+      -
+        form: "Kalasera"
+        gloss: "the high pass road"
+        register: "praise"
+        use: "the road keepers' recitation"
+      -
+        form: "Serasura"
+        gloss: "the road turned back"
+        register: "avoidance"
+        use: "said when a caravan turns back; his plain name is not spoken at the boundary stone while a debt is open"
+    foreign_equation: "the lowland trade partner maps its own road-and-receipt power onto Seratu; the mapping gives him gates, keys, and written receipts he never had. Distortions are kept as contact evidence and belong to the contact record, not to this pantheon"
+    taboos:
+      - "salt is not sold before the salt opening"
+      - "a caste member may not enter the high pasture shrine"
+    offering: "a salt block set at the boundary stone"
+    address_formula: "Keeper of the road below, hear the vow at the stone"
+    deps:
+      -
+        component: "04-lexicon"
+        ids:
+          - "UNRESOLVED"
+        note: "roots sera, tasa, kala, sura"
+      -
+        component: "06-symbols"
+        ids:
+          - "UNRESOLVED"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §2"
+        short: "PF-02"
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §5"
+        short: "PF-05"
+  -
+    id: "PAN-06"
+    name: "Suweha"
+    role: "trickster; the wrong-time wind — the trickster slot, with an institution and no cult"
+    domain: "the wind that blows a round backward; the winter telling season; the one-day reversal at midwinter"
+    era: "E0 tale figure; the reversal rite is attested from E1"
+    axis: "wind"
+    evidence: "design-choice"
+    cult_status: "no cult address and no festival of his own; the reversal rite addresses the round, not the god — a tale figure held to an institution, per the institutional-pairing rule"
+    gender: "the figure's gender follows the teller: the grandmothers' winter telling has the old aunt, the men's telling has the boy. The two tellings disagree and neither is corrected here"
+    body: "shown as the chough — an alpine bird that rides the upslope wind and robs nests at the edge"
+    derivation: "bound su- (backward) + weha (wind, breath of); transparent, deliberately paired with Humaweha as the wrong-wind against the down-wind"
+    constraint: "the wrong round may run one day only; a second day is forbidden"
+    etiologies:
+      - "why the chough's beak is red"
+      - "why the marmot sleeps through the first snow"
+      - "why one stone at the pass never melts"
+    teller_class: "winter camp; the tales are told after the descent, never at the high pasture"
+    deps:
+      -
+        component: "04-lexicon"
+        ids:
+          - "UNRESOLVED"
+        note: "root weha with bound su-"
+      -
+        component: "08-names"
+        ids:
+          - "UNRESOLVED"
+        note: "tale names and the avoidance forms are names-owned"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/trickster.md §1"
+        short: "PF-16"
+      -
+        cite: "corpus/knowledge/myth-symbol/trickster.md §3"
+        short: "PF-17"
+      -
+        cite: "corpus/knowledge/myth-symbol/trickster.md §9"
+        short: "PF-20"
+  -
+    id: "PAN-07"
+    name: "Ula"
+    role: "human founder of the salt road, deified in the later cult; the culture-hero slot fused into a deified human"
+    domain: "the first descent with salt; the written receipt; the market vow from E2"
+    era: "person in E1; cult from E2; assimilated into Seratu's address in the same seam"
+    axis: "verticality"
+    evidence: "design-choice (the exposure legend is a legitimation device, not history)"
+    cult_status: "market-cult address: one title and one festival day; the salt-cutter caste, his foster caste, refuses the divine address and keeps only the human name"
+    legend: "exposed as an infant at the pass during a thunder halt and spared by the storm; raised by a salt-cutter band; first carried salt down; brought the lowland script back"
+    cult_title:
+      form: "Seratusulu"
+      gloss: "the road-keeper returned"
+      register: "market address"
+      use: "an assimilation title, not a second god"
+    schism: "the salt-cutters insist he was a man and refuse the title; the market cults use it. Live in-world dispute, not resolved here"
+    deps:
+      -
+        component: "04-lexicon"
+        ids:
+          - "UNRESOLVED"
+        note: "roots sera, tasa, sulu"
+      -
+        component: "08-names"
+        ids:
+          - "UNRESOLVED"
+        note: "NM- record for a human name pending"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §5"
+        short: "PF-05"
+      -
+        cite: "corpus/knowledge/myth-symbol/hero-journey-variants.md §2"
+        short: "PF-28"
+symbols:
+  -
+    id: "S1"
+    sign: "storm-slate (blue-black wool; the storm cloak's dye)"
+    medium: "E1: naturally dark ewe-fleece (10-materials.yml MAT-01), carded and felted (MAT-02), optionally winter-hearth smoke-darkened (MAT-10), not dyed; E2+: wool felt with a tannin/smith-scale wool-black base (MAT-09, MAT-19) and traded-indigo vat reduction followed by air oxidation (MAT-08). The existing bog-iron wording in ground/T1 is an unresolved inventory mismatch (to-verify), not a declared local ore route."
+    register: "color"
+    era: "E1 bog-dark (undyed valley wool, a shelter dark); E2+ storm-slate after traded indigo arrives (M1 material/economic)"
+    audience: "assembly oath-speakers first, all adults second; the lowland partner recognizes a public obligation is present but cannot read the knots that specify it"
+    domain:
+      id: "STORM-LAW"
+      definition: "the enforceable stake of words spoken in the open — pasture claims, gate oaths, debts read aloud; the storm is what weighs un-witnessed words"
+      includes:
+        - "oaths at the gate and the high assembly"
+        - "debts read aloud (cord in hand, head uncovered)"
+      excludes:
+        - "roofed household agreements with the cord visible (AX-3 reading, witness = the record)"
+        - "mourning (S3)"
+        - "herd-hygiene and butchery rules (practical, unmarked)"
+      contrasts: "S2 fleece-white (yield, unmarked standing) and S3 ridge-grey (absence). Slate is the only color that witnesses."
+    ground:
+      type: "index"
+      statement: "the dye is the receipt — traded indigo over a bog-iron base; wearing the slate is a visible claim of access to the road (colour-symbolism §10 dye-economics; method §2 index)"
+    carrier: "pending(06.costumes[].garment) — the assembly cloak, worn OPEN (enforcement artifact A1); if 06 supplies no cloak record, the slate re-hangs on the pass-collar and the coupling is flagged at integration"
+    satellites:
+      -
+        operator: "metonymy"
+        reading: "the storm itself, as the enforcer of STORM-LAW ('the wind weighs it')"
+        occasion: "assembly rhetoric and gate disputes"
+        readers: "all"
+      -
+        operator: "borrowing"
+        reading: "the roadward dye name, donor = the lowland trade partner (M5)"
+        occasion: "gate-market usage"
+        readers: "carriers and traders; donor marked, term pending(03.lexicon[].term)"
+      -
+        operator: "event-index"
+        reading: "a dated runaway herd in the storm summer entered the idiom 'slate weather' for any self-inflicted disaster"
+        occasion: "fixed collocation"
+        readers: "all; event date pending the era component (M6)"
+    couples:
+      - "06 (cloak + wear rule)"
+      - "07 (the storm-power, if any: see component_interfaces)"
+      - "eras (E1 to E2 re-key)"
+    follows:
+      - "corpus/knowledge/myth-symbol/color-symbolism.md §10 (dye economics; codes ride on chromophore scarcity)"
+      - "corpus/knowledge/myth-symbol/color-symbolism.md §5 (dualism modes — this is Mode A/B territory, NOT antagonistic Mode C)"
+      - "corpus/knowledge/myth-symbol/symbolism-synthesis-method.md §6 M1 and drift law 3 (neighbour audit)"
+    notes: "Variance guard V2: slate is law, not sin. No 'black = evil' import; the moral-dark genealogy is Zoroastrian-Christian-European (color-symbolism §11) and is not D2's."
+  -
+    id: "S2"
+    sign: "fleece-white (undyed wool; the fold's own color)"
+    medium: "E1+: undyed white ewe-fleece (10-materials.yml MAT-01), plucked in E1 or shorn in E2+, displayed as fleece or carded and rubbed into felt (MAT-02); no bleaching or white pigment. E4 paper satellite only: gall-iron ink (WM-01) written on imported-paper (WM-03), never projected into earlier eras."
+    register: "color"
+    era: "E1+ (unchanged across all four eras; the code's steady floor). E4 satellite: the script era's bills are written on pale traded paper, and 'white-measure' becomes a synonym for honest measure by M5 contact."
+    audience: "everyone including children and visiting lowlanders — the most legible sign in the code; children learn it as 'the sheep's own color' before any dye word"
+    domain:
+      id: "HERD-YIELD"
+      definition: "baseline standing: what the fold produced before any dye, debt or grief entered it; the unmarked year"
+      includes:
+        - "the clip"
+        - "an unencumbered household"
+        - "the first year after a herd is granted"
+      excludes:
+        - "mourning (S3)"
+        - "oath-witnessing (S1)"
+        - "any purity or virginity claim (explicit anti-port, colour-symbolism §4 and §11)"
+      contrasts: "S3 ridge-grey — contrast axis declared: the fold's grease-soft fleece versus the rock's rain-bleached grey; material state, not hue (method §5 R5)"
+    ground:
+      type: "index"
+      statement: "undyed wool is literally the herd's output; white here is 'undone' — not yet in the colour economy — which is why it reads as the unmarked year rather than as purity (color-symbolism §4 craft reading)"
+    carrier: "the everyday wool of all ranks; no sumptuary gate exists, and that is the point of the sign (a sign anyone can be wrong about: a household that dresses too white is read as claiming an unencumbered year it does not have)"
+    satellites:
+      -
+        operator: "metonymy"
+        reading: "one's own herd, in gate talk"
+        occasion: "trade"
+        readers: "all"
+      -
+        operator: "metaphor (AX-3)"
+        reading: "'white year' = a year whose accounts closed on time"
+        occasion: "assembly review"
+        readers: "knot-keepers and clan heads"
+    couples:
+      - "06 (the ordinary wool register)"
+      - "03 (basic-term inventory: white is expected to be a base term — PENDING check against the language component's colour lexicon)"
+    follows:
+      - "corpus/knowledge/myth-symbol/color-symbolism.md §4 ('white is usually undone'; derive white from what it materially is)"
+      - "corpus/knowledge/myth-symbol/color-symbolism.md §11 ('white bridal purity is ancient and European' — flagged FALSE)"
+    notes: "Variance guards V1 and V1b: this white is NEVER bridal, NEVER mourning, NEVER purity. A mourner in fleece-white is a scene error by construction; mourning wears S3."
+  -
+    id: "S3"
+    sign: "ridge-grey (rain-worn rock; the descent's unwashed grey fleece)"
+    medium: "E1+: naturally grey ewe-fleece (10-materials.yml MAT-01), kept undyed and unsorted on descent; the wrap uses carded, rubbed felt (MAT-02) worn wet and unwashed after the journey. Rain-worn ridge stone supplies the observed colour comparison, not an added mineral pigment."
+    register: "color"
+    era: "E1+; E3 satellite by M6 event-index — the summer of losses (date pending the era component) made grey the famine-year colour in the lower valleys"
+    audience: "mourners and the descent counters; the whole camp reads it, but only the counters may SPEAK the count it accompanies"
+    domain:
+      id: "ABSENCE-COUNTED"
+      definition: "the accounting of what did not come back — losses are counted on the way down, because in the open the count cannot be spoken (AX-2 forbids loud loss-talk on the high ground: it would be reading a count where the pika can hear)"
+      includes:
+        - "deaths in the herd"
+        - "a person lost at the high stay"
+        - "the year's shortfall"
+      excludes:
+        - "poverty claims (grey is absence, not shame)"
+        - "debt (that is counted in knots, not in cloth)"
+      contrasts: "S2 fleece-white (yield) and S1 storm-slate (law); grey is the only one of the three that is counted downward"
+    ground:
+      type: "index"
+      statement: "the grey of the high rock after the rains, and the grey the fleece takes when it is carried down wet and unsorted; the colour is the descent's material fact, not a mood"
+    carrier: "pending(06.costumes[].garment) — the grey descent-wrap, rite pending(06.costumes[].rite) 'descent-count'; a request, not an assertion about 06's content"
+    satellites:
+      -
+        operator: "event-index"
+        reading: "famine-year grey (M6)"
+        occasion: "the summer of losses"
+        readers: "valley households"
+        evidence_status: "PROPOSED; needs the dated event from the era component"
+      -
+        operator: "ritual inversion"
+        reading: "at the marking of a child's first descent, grey is worn briefly to 'show the road what it may take and give it nothing' — inverted, bounded, ordinary reading restored after"
+        occasion: "first-descent rite"
+        readers: "the household"
+      -
+        operator: "taboo substitution"
+        reading: "the counters' euphemisms for 'died' (grey verbs) replace direct terms in the descent count"
+        occasion: "the counting"
+        readers: "counters; chain depth = age of the word (animal-symbolism §10)"
+    couples:
+      - "06 (wrap + descent-count rite)"
+      - "eras (E3 event)"
+      - "number register (the count is spoken over the cord, S7)"
+    follows:
+      - "corpus/knowledge/myth-symbol/color-symbolism.md §12 step 2 (derive the mourning colour from material logic, not a meaning table)"
+      - "corpus/knowledge/myth-symbol/symbolism-synthesis-method.md §5 R1 and R3 (one primary; satellites licensed)"
+    notes: "Variance guard V1c: D2 mourning is grey, and the neighbouring lowland partner's white-for-mourning is an OUTSIDE code — reading it in D2 is a designed cross-border misreading (consistency rules §6: intended under code A / inferred under code B)."
+  -
+    id: "S4"
+    sign: "pack-ox (the salt-bearer; the animal of the tally-harness)"
+    medium: "E1+: tannin-tanned herd-hide harness (10-materials.yml MAT-20), house-marks hand-stitched in sinew-thread (MAT-21), with hand-twisted S-ply ox-hair cordage (MAT-03) station-knotted for the tally. E4 heraldic residue can retain the stitched-hide house-mark after the working ox leaves the gate; knots remain record hardware, not oath-binding."
+    register: "animal"
+    era: "E1+; E4 heraldic residue — the lowland partner's road-mule displaces the ox at the gate, and the ox survives on house-marks long after it stops working the road (animal-symbolism §7, heraldic lag)"
+    audience: "knot-keepers read the harness cords; every herder reads the harness house-mark at a distance; outsiders read only 'a lineage is moving'"
+    domain:
+      id: "LEDGER-BURDEN"
+      definition: "the lineage's account while it is in motion — the record is true only while it is carried"
+      includes:
+        - "house-marks on harness"
+        - "the cord's presence on the road"
+        - "the ascent order (whose ox leads)"
+      excludes:
+        - "worship of any kind"
+        - "meat significance (the ox is eaten, but not marked)"
+      contrasts: "the lead-ewe (descent, memory) — both are lead animals, and the contrast between them (record vs memory) is the culture's own favourite riddle"
+    ground:
+      type: "index"
+      statement: "the cord exists on the harness because the load needs it there; the sign is inseparable from the pack gear that carries the trade (seed: pre-writing tally-knots)"
+    carrier: "harness house-marks and pending(06.costumes[] pass-collar / cord record) — the patterned gate collar is the same cord family (see THE-GATE pattern cell)"
+    satellites:
+      -
+        operator: "metonymy"
+        reading: "'the ox' = the debt itself in gate talk"
+        occasion: "trade"
+        readers: "carriers, traders"
+      -
+        operator: "taboo substitution"
+        reading: "the ox's true working name is not spoken at the gate; carriers use the load-word instead (name-taboo chain, animal-symbolism §10)"
+        occasion: "gate market"
+        readers: "carriers"
+      -
+        operator: "borrowing"
+        reading: "the road-mule's name arrives with the animal, donor marked (M5)"
+        occasion: "gate"
+        readers: "traders"
+        evidence_status: "PROPOSED; term pending(03.lexicon[].term)"
+    couples:
+      - "06 (harness / collar records)"
+      - "03 (animal terms; the lexicon component owns species words)"
+    follows:
+      - "corpus/knowledge/myth-symbol/animal-symbolism.md §3 (crest/heraldry mechanism — inherited rights to display, not worship)"
+      - "corpus/knowledge/myth-symbol/animal-symbolism.md §7 (heraldic lag: symbols outlive their animals)"
+      - "corpus/knowledge/myth-symbol/animal-symbolism.md §9 (idiom-of-value species; decide which animal's words mean wealth)"
+    notes: "Variance guard V5: outsiders may (wrongly) call the house-marks totemism; the misnomer is welcome as in-world error, never as a design claim (animal-symbolism §2 demolition shelf)."
+  -
+    id: "S5"
+    sign: "wind-rider (the large soaring carrion bird of the high ground; species fixed against the biome list at integration)"
+    medium: "E1+: the living bird is read by direct observation in open air and named by voiced circumlocution; the requested corpse-cloth carrier uses ewe-fleece (10-materials.yml MAT-01), carded and rubbed into felt (MAT-02), with its cut and rite still pending 06. E4 written-formula medium only: gall-iron ink (WM-01) written on rubbed hide-parchment (WM-02); no written formula is projected into E1-E3."
+    register: "animal"
+    era: "E1+; E4 drift M3/M5 — the script era's written death-formula arrives from the lowland partner, and the doctrine splits: the bird CARRIES the message (local reading) versus the writing IS the message (roadward reading). Both readings preserved as an in-world dispute."
+    audience: "the dying and the mourners; the bird's true name is avoided at death-places and only the circumlocution chain is spoken aloud (animal-symbolism §10)"
+    domain:
+      id: "SOUL-BREATH"
+      definition: "the breath that goes up — the bird is the escort of the last breath, because it alone rides the upslope wind that the dying cannot walk"
+      includes:
+        - "death on the high ground"
+        - "the escort reading at burials on open rock"
+      excludes:
+        - "ordinary weather reading of the same bird (practical, unmarked)"
+        - "any claim about an afterlife inventory: D2 has a direction for the dead, not a map of a country"
+      contrasts: "S6 rock-whistler — the bird takes breath up, the whistler keeps words down; the two animals are the code's two verticalities, and the culture says so in proverbs"
+    ground:
+      type: "index"
+      statement: "behaviour: it rides the same upslope wind the herders use, appears over the gate before weather turns, and gathers at high-ground deaths; three checks, all behavioural"
+    carrier: "pending(06.costumes[].garment + 06.costumes[].rite 'sky-sending') — the corpse-cloth and the exposure rite; the exposure place itself is pending(axes/era component as a landscape record)"
+    satellites:
+      -
+        operator: "metaphor (AX-1)"
+        reading: "'wind-ridden' = to have died on the high ground"
+        occasion: "everyday speech"
+        readers: "all"
+      -
+        operator: "taboo substitution"
+        reading: "the circumlocution chain for the bird (deepest euphemism = oldest word)"
+        occasion: "death-places"
+        readers: "all adults"
+      -
+        operator: "borrowing"
+        reading: "the roadward term for the bird, donor marked (M5)"
+        occasion: "script-era religious talk"
+        readers: "the script-trained few"
+    couples:
+      - "06 (corpse-cloth, sky-sending rite)"
+      - "07 (PENDING: whether a power owns the birds or the birds own the road upward — ask 07, decide nowhere here)"
+      - "eras (E4 script drift)"
+    follows:
+      - "corpus/knowledge/myth-symbol/animal-symbolism.md §4 (messenger-species households and dietary codes)"
+      - "corpus/knowledge/myth-symbol/animal-symbolism.md §10 (euphemism chains; the kotodama hook)"
+      - "corpus/knowledge/civilizations/tibet.md §5 (media-and-authority audit for a text-bearing practice — used here for the script-era split)"
+    notes: "Variance guard V6: no cycle-of-rebirth doctrine and no sky-burial exoticism is imported; the rite's existence, cut and authority are 06/era decisions (tibet.md §6: keep separate timelines)."
+  -
+    id: "S6"
+    sign: "rock-whistler (the alpine burrowing rodent; high burrows, sleeps the winter under the high ground)"
+    medium: "E1+: breath-driven sound in ambient air, produced as the animal's whistle or voiced by people as circumlocution, oath and insult; burrowed ground is read in place by direct observation. The medium is acoustic and landscape-based, not a garment or written mark, so it requires no manufactured material beyond 10-materials.yml's inventory."
+    register: "animal"
+    era: "E1+ (the code's only stable anomaly; survives all four eras unchanged — an anomaly that does not drift is itself an era marker)"
+    audience: "everyone; the insult and accusation register is fully public — 'has fed the whistler' = hid a word from the wind"
+    domain:
+      id: "HIDDEN-SPEECH"
+      definition: "the taboo witness: the animal that hears under the ground, where the wind cannot reach"
+      includes:
+        - "accusations of hidden debt"
+        - "the ban on speaking lineage counts in burrowed fields"
+      excludes:
+        - "ordinary pest talk"
+        - "hunting talk (it is not a game animal)"
+      contrasts: "S5 wind-rider — the code's two witnesses: the one above (wind) and the one below (ground). Two witnesses, two taboos, one axis."
+    ground:
+      type: "symbol (with an anomaly ground, per method §4.2)"
+      statement: "category anomaly: it lives at the TOP but winters UNDER the ground — high and low at once; it sleeps through the storm, refusing the wind. Leach/Douglas style: the boundary-straddler carries the pollution load (animal-symbolism §1 and the method's §4.2 anomaly rule)"
+    carrier: "no garment carrier — instead the whistle itself and the burrow-field (the ban is spatial: counts may not be spoken where the ground is holed)"
+    satellites:
+      -
+        operator: "insult register"
+        reading: "calling a person a whistler = accusing them of speaking only where the wind cannot hear"
+        occasion: "all"
+        readers: "all"
+      -
+        operator: "taboo substitution"
+        reading: "the whistler's name is used as a mild oath for 'I did not hear that'"
+        occasion: "household"
+        readers: "all"
+    couples:
+      - "07 (PENDING: is the whistler anyone's creature? The code says no power owns it)"
+      - "06 (the burrow-field ban interacts with the where-counts-may-be-spoken dress rule)"
+    follows:
+      - "corpus/knowledge/myth-symbol/animal-symbolism.md §1 (proximity + category salience; ecology first, then meaning)"
+      - "corpus/knowledge/myth-symbol/symbolism-synthesis-method.md §4.2 (anomaly picks your taboo: one boundary-straddler per major boundary)"
+      - "corpus/knowledge/myth-symbol/animal-symbolism.md §10 (insult map is the category system made hostile)"
+    notes: "Variance guard V7: exactly ONE boundary-straddler is loaded (the up/down boundary). Do not multiply anomalies by reflex; a second one would dilute the taboo and read as decoration."
+  -
+    id: "S7"
+    sign: "ten (the whole cord; two crossings of five station-knots)"
+    medium: "E1+: hand-twisted S-ply ox-hair cordage (10-materials.yml MAT-03), station-knotted in two sets of five and read from the top knot; E1 uses undyed stock, while an E2+ slate trade cord may take traded-indigo vat dye (MAT-08). E4 retains the same cord-and-knot technique as ceremonial record hardware rather than a written account."
+    register: "number"
+    era: "E1-E3 the knots ARE the trade record; E4 the script takes the accounts (M3 media standardization) and the cord survives as ceremonial plus fossil idiom 'the top knot' (drift law 4: leave fossils on purpose)"
+    audience: "knot-keepers (the office), the assembly (accounts read aloud in the open), the lowland partner (who receives script bills by E4 and stops reading cords)"
+    domain:
+      id: "ACCOUNT-CLOSURE"
+      definition: "the moment a year's obligations are all on one cord and can be closed; closure is a public act, spoken in the open"
+      includes:
+        - "year-end settlement"
+        - "herd counts"
+        - "gate tolls"
+      excludes:
+        - "counting for its own sake (the cord counts only what is owed or held)"
+        - "ritual repetition counts (D2 does not repeat rites in numbered series)"
+      contrasts: "'five' (one crossing, the half-cord) and 'one' (the shelter-knot) are satellites of the same sign, not rival signs (method §5 R5 handled by inclusion, not by a new entry)"
+    ground:
+      type: "institutional arithmetic"
+      statement: "practice counts it: five stations per crossing, two crossings per year, ten knots per cord; the number HAS an enumerator in the culture's real counting life (number-symbolism §1: a number is sacred because it is load-bearing)"
+    carrier: "the tally-cord itself: pending(06.costumes[] cord/harness record) and pending(03.lexicon[].term for the cord) — the cord is gear, and gear belongs to 06's material list"
+    satellites:
+      -
+        operator: "synecdoche"
+        reading: "five = the half-cord, a one-way journey or one season"
+        occasion: "journey planning"
+        readers: "all"
+      -
+        operator: "metonymy"
+        reading: "one = the shelter-knot, the winter summary kept indoors"
+        occasion: "winter counting"
+        readers: "households"
+      -
+        operator: "event-index"
+        reading: "'the lost cord' — a dated trading disaster entered the idiom for an unrecoverable debt"
+        occasion: "fixed collocation"
+        readers: "traders"
+        evidence_status: "PROPOSED; date pending the era component (M6)"
+    couples:
+      - "06 (cord gear)"
+      - "03 (numeral words and their assignment — the language component owns 'five', 'ten')"
+      - "eras (E4 script drift)"
+    follows:
+      - "corpus/knowledge/myth-symbol/number-symbolism.md §1 (the three engines; load-bearing maxim)"
+      - "corpus/knowledge/myth-symbol/symbolism-synthesis-method.md §4.3 (the enumeration rule) and §6 M3 (media standardization)"
+      - "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md §8 (whoever declares the count owns the year — here the knot-keeper, not a priest)"
+    notes: "Variance guard V8 (the enumerator test, collision log CL-5): 7 and 12 are DELIBERATELY ABSENT — no week, no zodiac, no administrative dozen exists in D2 counting life, so they may not be installed for flavour (number-symbolism §1)."
+  -
+    id: "S8"
+    sign: "the axle-star (the unmoving one; the light the turning sky is hung on)"
+    medium: "E1+: stellar light viewed through open air from the high-pasture night-watch station; technique is repeated unaided-eye comparison of the circling field through the night. This is the observed sky, not a drawn chart, garment or metal emblem, and adds no manufactured input to 10-materials.yml; the latitude-dependent circumpolarity check remains (to-verify)."
+    register: "celestial"
+    era: "E1+ (no drift recorded; the sky is the code's slowest register — and that slowness is itself an emic observation: 'the one thing the road did not change')"
+    audience: "the sky-readers (a named office, PENDING 07 to name the office or leave it unnamed); all herders on night watch; the lowland partner does not use it — their horizon is their own"
+    domain:
+      id: "AXIS-UNMOVING"
+      definition: "the vertical world-axis, observed rather than drawn: the axis is where the sky does not turn"
+      includes:
+        - "night navigation"
+        - "the oath formula ('by the unmoving one')"
+        - "the high stay's nightly watch"
+      excludes:
+        - "omens and weather (that is the gate's sky-colour business)"
+        - "any claim that the axis is a person — a power's ownership is PENDING 07, and the code functions without one"
+      contrasts: "S9 ascent-star — the unmoving versus the returning; the culture says the axle is what makes the returning count as returning"
+    ground:
+      type: "index"
+      statement: "circumpolar behaviour: at the high pasture the circumpolar field turns visibly around it all night; the one light that does not travel. Circumpolarity requires the world latitude to be fixed first — (to-verify; method §4.4 tolerance figures belong in the handoff)"
+    carrier: "no garment; the sign's carrier is the sky itself plus the night-watch station at the high pasture"
+    satellites:
+      -
+        operator: "metaphor (AX-1)"
+        reading: "'the reason up and down exist'"
+        occasion: "assembly rhetoric"
+        readers: "clan heads"
+      -
+        operator: "borrowing"
+        reading: "PENDING: whether the roadward sky-name for it is a loan (M5) — ask the language component before asserting a donor"
+        occasion: "gate talk"
+        readers: "traders"
+        evidence_status: "UNKNOWN (to-verify)"
+    couples:
+      - "07 (PENDING: office or person)"
+      - "03 (star-name morphology: naming-systems owns it)"
+      - "eras (latitude/world files: circumpolarity check)"
+    follows:
+      - "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md §4 (asterism vs constellation; every sky is re-lexified)"
+      - "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md §2 (gender ledger: sun/moon genders are local; no default may be imported)"
+      - "corpus/knowledge/civilizations/finnic-sami.md §'Sky-god terminology debate: words, offices, and equations' (a sky word, an office and a god are three different claims)"
+    notes: "Interface note: no sun or moon is registered as a sign in this component. Sun and moon are calendar facts for D2; any personification is a 07 decision and must clear the celestial §2 gender ledger and the mongol.md §'Symbolic system' rule that a colour word and a cult are different systems."
+  -
+    id: "S9"
+    sign: "the ascent-star (the compact dawn cluster whose first morning rising opens the climb; the same body's evening setting closes the descent)"
+    medium: "E1+: cluster light through open air, sighted against local stone dry-stacked as the existing gate notch-cairn; local scree-stone use is already present in 10-materials.yml LM-01. Technique is repeated unaided-eye dawn/evening horizon sighting, not an inscribed chart or imported instrument; the rising/setting dates and notch tolerance remain (to-verify) at the final latitude."
+    register: "celestial"
+    era: "E1+; E4 drift M2/M5 — the lowland partner's calendar names for the same cluster arrive with the script, and the doctrine conflicts: one body walked up and down the sky (local) versus two named signs (roadward). Owned as in-world doctrine, not left as silent contradiction (celestial §4.4)."
+    audience: "the calendar office (whoever watched it first claims the year); the whole camp reads the dawn; carriers at the gate wait for it before the road opens"
+    domain:
+      id: "SEASONAL-OPEN"
+      definition: "the opening date — the cluster's rising is the ascent's licence, and its setting is the descent's deadline"
+      includes:
+        - "the ascent date"
+        - "the gate road's opening day"
+      excludes:
+        - "the solstice (not marked in this grammar — the notch marks crossing days, not solstices)"
+        - "personal horoscopy (nothing in D2 reads a birth sky)"
+      contrasts: "S8 axle-star — the returning versus the unmoving; the calendar office holds that they are one sign (the sky's turn) and the herders that they are two; the dispute is designed"
+    ground:
+      type: "index"
+      statement: "heliacal rising of a compact cluster — an annually sharp, publicly checkable boundary (celestial §5). Tolerance: rising date ±3 days, and the gate's sun-notch azimuth ±2 days, both at the final world latitude — (to-verify until the latitude is set; Ruggles-style checkable alignment, method §4.4)"
+    carrier: "no garment; the sign's carriers are the dawn watch and the gate's notch cairn"
+    satellites:
+      -
+        operator: "event-index"
+        reading: "the year the cluster rose under cloud and the ascent was late — an idiom for a late season (M6)"
+        occasion: "fixed collocation"
+        readers: "all"
+        evidence_status: "PROPOSED; date pending"
+      -
+        operator: "borrowing"
+        reading: "the roadward calendar name, donor marked (M5)"
+        occasion: "script-era documents"
+        readers: "script-trained few"
+        evidence_status: "PROPOSED; term pending(03.lexicon[].term)"
+    couples:
+      - "07 (PENDING: is the dawn 'watched by' anyone, or does the office own it?)"
+      - "eras (the ascent date is an era-staged calendar fact)"
+      - "06 (ascent dress keyed to the rising)"
+      - "world latitude (to-verify)"
+    follows:
+      - "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md §5 (the calendar star; hemisphere/latitude decides the festival)"
+      - "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md §8 (calendar machinery; who owns the year)"
+      - "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md §10 step 1 (fix latitude and hemisphere before festival dates)"
+    notes: "Variance guard V9: no 'lost sister' / seven-sisters narrative is imported; the cluster's in-world story is 05/07's to write, and the perceptual six-or-seven debate is flagged as convergence-tested (celestial §5)."
+  -
+    id: "S10"
+    sign: "the gate (the pass; the fifth slot; the one place where up and down are the same place)"
+    medium: "E1+: ewe-fleece (10-materials.yml MAT-01) and ox-hair cordage (MAT-03), hand-twisted then braided from naturally white and dark stock into the pass-collar's two-colour pattern, without dye in E1. The existing cairn is dry-stacked local stone (compare LM-01's scree-stone stock); the oath is voiced into open air, not written onto the collar or made into a binding knot."
+    register: "direction"
+    era: "E1+; E2 drift M1/M5 — the salt and dried-meat road formalizes the gate market; E4 drift M3 — the first writing done on the plateau is the partner's bill, produced at the gate (seed: script arrives late by adaptation)"
+    audience: "oath-takers, carriers, the lowland partner (who recognizes the gate but not the oath grammar); those barred from the high assembly may still speak at the gate, which makes the gate the code's political safety valve"
+    domain:
+      id: "LIMINAL-PASS"
+      definition: "the crossing as an institution: the oath place, the market, the place where the world-axis is walked instead of drawn"
+      includes:
+        - "oaths sworn at the cairn"
+        - "first and last trade of the year"
+        - "the barred speaker's one hearing"
+      excludes:
+        - "the high assembly's pasture law (that is UP-WARD)"
+        - "household agreements (SHELTERWARD)"
+      contrasts: "UP-WARD and DOWNWARD both claim legitimate speech; the gate's contrast is that there the two are indistinguishable, which is why only the gate can license a crossing claim"
+    ground:
+      type: "index"
+      statement: "the pass is where the wind is strongest and the road actually crosses; oaths are sworn there because the wind is the witness (AX-2) — the material fact of the geography carries the institution"
+    carrier: "the pass-collar (patterned white x dark cord on every animal crossing) — pending(06.costumes[] record); the cairn itself is a landscape record for the era/architecture component"
+    satellites:
+      -
+        operator: "metonymy"
+        reading: "'the gate' = the oath itself ('he was at the gate with him')"
+        occasion: "assembly recall"
+        readers: "all"
+      -
+        operator: "borrowing"
+        reading: "the roadward name for the pass, donor marked (M5)"
+        occasion: "gate market"
+        readers: "traders"
+        evidence_status: "PROPOSED; term pending(03.lexicon[].term)"
+      -
+        operator: "ritual inversion"
+        reading: "at the crossing of the year's first flock, the barred and the debt-bound walk through in the flock's dust, and their ordinary standing is restored at the far cairn"
+        occasion: "gate rite"
+        readers: "all; bounded, ends at the far cairn"
+    couples:
+      - "06 (pass-collar pattern cell)"
+      - "07 (PENDING: does any power hold the gate, or is the gate held by the wind itself?)"
+      - "eras (E2 road, E4 script)"
+    follows:
+      - "corpus/knowledge/myth-symbol/symbolism-synthesis-method.md §4.5 (frame of reference first; landmark frames, not compasses)"
+      - "corpus/knowledge/myth-symbol/color-symbolism.md §5 (pattern symbolism is a separate channel — the gate is the code's pattern cell)"
+      - "corpus/knowledge/synthesis/symbolism-consistency-rules.md §5 (ritual inversion needs its bounded trigger and restoration)"
+    notes: "The gate is the only slot where the direction register admits an outsider's term without loan-dating risk: the pass is a place both cultures must name, so borrowing here is expected, not suspicious (loans pre-dating E2 at the gate are (to-verify))."
+costumes:
+  -
+    id: "GAR-01"
+    form_slot: "LEX-GAR-01, the valley grade of L35 mirken (to-verify with 05-lexicon)"
+    material: "felt"
+    wearer_rank: "any adult of a pasture-holding lineage, at the low pole (lineage head speaks the coat's grade at the fair; WI-1)"
+    rite: "low stay (the shelter season); not worn above the sell-line"
+    era: "E0"
+    route: "native chain: L34 mir (fleece) -> shear -> card -> felt table (CS-03) -> cut and seamed in the valley shelter -> horn toggles; no imported component"
+    provenance: "local-production"
+    closures:
+      -
+        material: "horn"
+        form: "toggle"
+    panels:
+      -
+        name: "body felt panel"
+        width_m: 1.7
+        seamless: "true"
+    rank_mark: "none on the body; the coat's grade is spoken, not worn (the count lives on GAR-03 and the cords)"
+    axis: "verticality"
+    evidence: "design-choice"
+    viewer_read: "A stranger at the valley gate reads a heavy coat as weather, not as rank; a lineage member reads the finish (combed or not) as who did the work."
+    penalty: "none for the coat itself; wearing it above the sell-line in the pasture season is the lapse the law catches by coat, not by name (12-rank-rules TR-05)"
+    era_seam: "E0 to E1 unchanged; E2 keeps it as the shelter coat while the road coat takes the fair"
+    misread: "A lowland trader at the gate offers to buy 'the poor man's coat' from a lineage head's son; the offer is taken as an assay of the household's workmanship."
+    rule_edges:
+      - "WR-01"
+      - "WR-06"
+      - "WR-08"
+      - "TR-05"
+    follows:
+      - "alias_dress"
+      - "alias_textile"
+      - "alias_semiotics"
+    garment_gloss: "winter valley coat (heavy felted wool; uncombed finish optional)"
+  -
+    id: "GAR-02"
+    form_slot: "LEX-GAR-02, the high grade of L35 mirken (to-verify)"
+    material: "felt"
+    wearer_rank: "vanguard herder and the household that opens the pasture (WI-2); the fine grade is licensed by the degree ladder (DEG-*)"
+    rite: "ascent (the opening of the summer pasture)"
+    era: "E0"
+    route: "native chain as GAR-01, but from the first shear and fulled twice; the wind-flap is cut from the same felt sheet, no imported trim"
+    provenance: "local-production"
+    closures:
+      -
+        material: "horn"
+        form: "toggle"
+    dye: "hearth-dark"
+    rank_mark: "the wind-flap itself (a working mark, not a badge: it is read as 'this one goes up first')"
+    axis: "both"
+    evidence: "design-choice"
+    viewer_read: "On the high ground the flap is read as function and as office at once; at the fair it reads as a claim to have opened the pasture, which a stranger cannot check."
+    penalty: "imposture edge: a flap sewn on a shelter coat is read against the ascent order (12-rank-rules WR-01, WR-07)"
+    era_seam: "E0 to E2 unchanged in cut; the darkening bath is the storm register's (S1) and drifts in hue reading, not in make"
+    misread: "This is the layer 08-symbols' colour register calls the storm cloak; read here as the storm-facing high-pole coat, and flagged as a naming question (OQ-2)."
+    rule_edges:
+      - "WR-01"
+      - "WR-07"
+      - "WR-09"
+      - "TR-05"
+    follows:
+      - "alias_dress"
+      - "alias_semiotics"
+      - "alias_textile"
+    garment_gloss: "high-pasture coat (fine first-shear felt; narrow placket; wind-flap at the shoulder)"
+  -
+    id: "GAR-03"
+    form_slot: "LEX-GAR-03 (to-verify)"
+    material: "felt"
+    wearer_rank: "herd hands on the move, and the lineage head on a moot road; counted by whoever keeps the cords"
+    rite: "the crossing (ascent and descent both; the descent state is the same coat unwashed and turned, ridge-wool out, read as the counted absence of S3)"
+    era: "E0"
+    route: "native chain as GAR-01; the hem-cords are attached at the hem-line, each after a verified crossing, and are never woven into the cloth"
+    provenance: "local-production"
+    closures:
+      -
+        material: "horn"
+        form: "toggle"
+    rank_mark: "hem-cords, read vertically: the lowest cord is the first crossing, and the count is read from the bottom up (RG-01: cord geometry is position, never obligation)"
+    axis: "both"
+    evidence: "design-choice"
+    viewer_read: "At the lineage moot the cords are a public count; on the road the same cords are rolled inward and readable only by someone who knows to look at the hem."
+    penalty: "a cord added for a crossing that did not happen is the packet's imposture edge (12-rank-rules WR-03, TR-02, TR-06)"
+    era_seam: "E1 to E2: the script takes the count off the hem for trade accounts; the cords stay ceremonially and stop being the ledger (the drift the costume-semiotics §7 strata predict)"
+    misread: "A lowland fair clerk reads the cords as a tally of debts and asks what the wearer owes; the question is answered with the number of times he has gone up."
+    rule_edges:
+      - "WR-01"
+      - "WR-03"
+      - "WR-06"
+      - "TR-02"
+      - "TR-06"
+      - "LO-01"
+    follows:
+      - "alias_dress"
+      - "alias_semiotics"
+      - "alias_brief"
+    garment_gloss: "transit coat (felted outer; fringed hem-cords at the hem-line; the coat of the pass)"
+  -
+    id: "GAR-04"
+    form_slot: "LEX-GAR-04 (to-verify)"
+    material: "lowland plant-thread cloth"
+    wearer_rank: "registered herd-master only (WI-3), and lawful only within the fairgrounds and on the valley road"
+    rite: "the caravan fair (treaty days)"
+    era: "E1"
+    route: "import: lowland farm thread -> lowland weaving -> caravan (CMAT-06) -> cut by a D2 tailor to a lowland cut in the valley; no D2 fiber stage at all"
+    provenance: "import"
+    closures:
+      -
+        material: "horn"
+        form: "toggle"
+    rank_mark: "none: the coat is jurisdiction, not rank; it is the coat that says where you may stand"
+    axis: "verticality"
+    evidence: "design-choice"
+    viewer_read: "At the fairgrounds it reads as credit with the partner; one step up the valley road it reads as a claim the wearer may not make."
+    penalty: "forfeiture face: the coat worn above the sell-line is the packet's clean statute case (12-rank-rules WR-02: void above the sell-line)"
+    era_seam: "Arrives E1 (the dated import route A-07 requires); forbidden in E0 by construction (CMAT-06 excluded_eras, converging with 10-materials' own exclusion in the same slot under the era mapping)"
+    misread: "A vanguard herder keeps the coat on returning up the road because the wind is cold; at the first shelter it is read as showing off the partner's cloth, and the telling is remembered."
+    rule_edges:
+      - "WR-02"
+      - "WR-05"
+      - "WR-09"
+      - "LO-02"
+    follows:
+      - "alias_sumptuary"
+      - "alias_semiotics"
+      - "alias_garlex"
+    garment_gloss: "lowland-cloth coat (woven plant-thread cloth of the lowland partner; a lowland cut)"
+  -
+    id: "GAR-05"
+    form_slot: "LEX-GAR-05 (to-verify)"
+    material: "wool"
+    wearer_rank: "wind-standard bearer, appointed annually by the lineage and revocable (WI-4)"
+    rite: "the standard raised at the moot and at the departure of the herds (storm-watch days)"
+    era: "E0"
+    route: "native chain: the narrow band is woven on CS-02 with a warp kept for bands only; darkened at the winter hearth in the hearth-dark of CMAT-09"
+    provenance: "local-production"
+    dye: "hearth-dark"
+    rank_mark: "the sash is the office: it is issued with the standard and surrendered with it, so it cannot be inherited or worn by a household (ritual-garments §1: garment-as-office)"
+    axis: "wind"
+    evidence: "design-choice"
+    viewer_read: "On a storm-watch day the sash is read at distance as 'the standard is up'; indoors it is read as nothing, which is the point (wind-reached vs roofed, 08-symbols AX-2)"
+    penalty: "wearing it out of appointment is an imposture case (12-rank-rules WR-04, TR-02, LO-05)"
+    era_seam: "unchanged E0 to E2; the standard is the one garment-record that never takes an import grade"
+    misread: "A lowland envoy reads the sash as a badge of rank and addresses the bearer as a chief; the bearer answers for the herd's route that day and for nothing else."
+    rule_edges:
+      - "WR-04"
+      - "TR-02"
+      - "TR-05"
+      - "LO-05"
+    follows:
+      - "alias_ritual"
+      - "alias_dress"
+      - "alias_sumptuary"
+    garment_gloss: "mast-sash (narrow woven wool band, lineage-issued; the wind standard's sash)"
+  -
+    id: "GAR-06"
+    form_slot: "LEX-GAR-06 (to-verify)"
+    material: "silk"
+    wearer_rank: "treaty stranger (WI-5); by gift, a registered herd-master may wear one at the fairgrounds only, which is the received-robe reading"
+    rite: "the treaty renewal at the fair"
+    era: "E2"
+    route: "import: the partner's own weave, arriving as a finished coat-to-be; the D2 tailor may shorten it and must not add cords"
+    provenance: "import"
+    rank_mark: "the absence of hem-cords: a coat that cannot count crossings says its wearer never crossed (the flat hem is the mark)"
+    axis: "verticality"
+    evidence: "design-choice"
+    viewer_read: "At the fair it reads as the partner's cloth at its top grade and as a person who is lawful only here; up the valley it reads as a claim with no lineage behind it."
+    penalty: "cutting cords onto a fair coat is the offence that reads as a forged lineage at the moot (12-rank-rules TR-06)"
+    era_seam: "E1 to E2 drift: the same coat was the plant-thread grade (CMAT-06) in the trade-contact era; silk is the treaty grade of one channel, not a new garment (the drift record is this one id). Integration note: 10-materials' luxury import of the anchor era is lowland-broadcloth (its MAT-07), not silk — the two luxuries must be reconciled before assembly (OQ-3)."
+    misread: "An escort dressed in the gift-grade coat is read at the pasture as a man of the partner's house; he is a herd-master's nephew, and the coat outranks anything he can answer for."
+    rule_edges:
+      - "WR-02"
+      - "WR-07"
+      - "TR-06"
+    follows:
+      - "alias_semiotics"
+      - "alias_dress"
+      - "alias_garlex"
+    garment_gloss: "stranger's fair coat (flat-woven lowland cut, no fringed hem; the treaty stranger's coat)"
+  -
+    id: "GAR-07"
+    form_slot: "LEX-GAR-07 (to-verify)"
+    material: "felt"
+    wearer_rank: "mourner, household of the dead (WI-6); the coat is the household's, not the wearer's, and returns after the year"
+    rite: "the mourning year (time-locked; the liminal sequence of ritual-garments §6)"
+    era: "E0"
+    route: "native chain as GAR-01, then deliberately unfinished: no combing, no bath, and the hem-cords of GAR-03 cut back to stubs"
+    provenance: "local-production"
+    rank_mark: "the cuts: the count that was on the hem is visibly reduced, so the year of grief is read as a descent in the same grammar as the ascents"
+    axis: "both"
+    evidence: "design-choice"
+    viewer_read: "In the lineage it is read as the year's count; at the fair a stranger reads it as a shabby coat and offers a better one, which must be refused without explanation."
+    penalty: "keeping the coat past the year is a rite lapse, not a sumptuary offence (12-rank-rules WR-05, TR-02)"
+    era_seam: "unchanged E0 to E2; the E2 court keeps it while the accounts move to script"
+    misread: "A mourning coat seen from behind at the pass is read by a road hand as a coat with its cords lost, and he offers cord from his own bale: an act read as a kindness and as a small theft of grief."
+    rule_edges:
+      - "WR-05"
+      - "TR-02"
+    follows:
+      - "alias_ritual"
+      - "alias_dress"
+      - "alias_semiotics"
+    garment_gloss: "mourning coat (felt left shaggy, undyed, hem-cords cut back)"
+  -
+    id: "GAR-08"
+    form_slot: "LEX-GAR-08 (to-verify)"
+    material: "lowland cord"
+    wearer_rank: "bale keeper and caravan hands (WI-7); worn as a shoulder coil by the man who counts bales at the mooring"
+    rite: "the bale audit (departure of the salt and dried-meat bales)"
+    era: "E1"
+    route: "import: lowland twisting -> coils by the caravan -> cut at the bale; the cord is never worn as a belt or a sash"
+    provenance: "import"
+    axis: "neutral"
+    coupling_note: "Deliberately off both axes: this record exists to keep the law's exception channel visible (a cord may be imported where cloth may not), and its only spine contact is that cord is record geometry (RG-01), never obligation."
+    evidence: "design-choice"
+    viewer_read: "The coil on the shoulder reads as trade in flow; the same cord on a waist would read as an imported belt, which is the offence the exception is written around"
+    penalty: "wearing the cord as dress converts a lawful import into the prohibited cloth case (12-rank-rules WR-08, WR-09, TR-03, LO-02)"
+    era_seam: "Arrives E1 with the road; forbidden in E0 by construction (CMAT-07 excluded_eras)"
+    misread: "A fair clerk sees the coil and writes the wearer down as a carrier of cloth; the register line has to be corrected by the cord's own twist count."
+    rule_edges:
+      - "WR-08"
+      - "WR-09"
+      - "TR-03"
+      - "LO-02"
+    follows:
+      - "alias_sumptuary"
+      - "alias_semiotics"
+      - "alias_brief"
+    garment_gloss: "bale cord (imported plant-thread cord in coils; the legal channel of the banned import)"
+  -
+    id: "GAR-09"
+    form_slot: "LEX-GAR-09 (to-verify)"
+    material: "pack-ox down"
+    wearer_rank: "any adult; children from the first ascent (no rank on the body's own layer)"
+    rite: "daily wear, both poles; the layer that makes the coats bearable in the gale"
+    era: "E0"
+    route: "native chain: summer clip (CMAT-03) -> hand-combed -> spun fine on the hand spindle -> woven narrow on CS-01 -> the panels pieced, since the ground loom cannot span a body (loom gate read honestly)"
+    provenance: "local-production"
+    rank_mark: "none by design: the body's own layer carries no rank, so rank is read only where the lineage can see it (the hem and the shoulder)"
+    axis: "verticality"
+    evidence: "design-choice"
+    viewer_read: "Invisible at the fair; a partner who is offered the fleece to feel reads it as the finest thing the herds yield, which is a trade secret given away."
+    penalty: "none; the one garment outside the law's reach"
+    era_seam: "unchanged across all three eras; the one layer the imported cloth never replaces"
+    misread: "A road hand buys down thinking it is cloth stock and is told it is what the coats are worn over, not sold from the back."
+    rule_edges: []
+    follows:
+      - "alias_textile"
+      - "alias_dress"
+      - "alias_semiotics"
+    garment_gloss: "down under-tunic (combed pack-ox underfleece, worn next to the skin at both poles)"
+  -
+    id: "GAR-10"
+    form_slot: "LEX-GAR-10 (to-verify)"
+    material: "leather"
+    wearer_rank: "herd hands on the pass in the gale months; the vanguard herder wears the pair that is kept for the first ascent"
+    rite: "the gale watch on the pass (and any crossing made in weather)"
+    era: "E0"
+    route: "native chain: hide (CMAT-04) -> smoke pit in the valley -> cut to the leg with no inner seam -> horn pins at the ankle"
+    provenance: "local-production"
+    closures:
+      -
+        material: "horn"
+        form: "pin"
+    rank_mark: "the pair kept for the first ascent is issued with the high-pole coat (GAR-02), so the legwear and the coat are read as one office"
+    axis: "both"
+    evidence: "design-choice"
+    viewer_read: "Read as weather gear by anyone who has not stood on the pass; read as 'this one has crossed in the gale' by anyone who has"
+    penalty: "none on the record; a legging worn up the shelter ladder is a household joke, not a case"
+    era_seam: "unchanged E0 to E2; the one leather garment that never takes a lowland cut"
+    misread: "A lowland envoy mistakes the legging for a hose-and-shoe and asks for a pair in cloth; the answer is that cloth on the pass is what takes a man off it."
+    rule_edges: []
+    follows:
+      - "alias_dress"
+      - "alias_textile"
+      - "alias_semiotics"
+    garment_gloss: "gale legging (smoke-cured leather, wind-cut: no slack at the ankle, no inner seam)"
+names:
+  -
+    id: "NM-01"
+    name: "sunel"
+    type: "person"
+    era: "E0"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "su (L-08 wind) + nel (L-02 hand/forearm): wind-hand, a wish for a sure herder's hand in weather."
+    formation:
+      stem: "su+nel"
+      bases:
+        - "su"
+        - "nel"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "sunel"
+    syllables:
+      - "su"
+      - "nel"
+    license: "Living person's given name; household assignment, bearer ratification at first ascent."
+    follows: "naming-systems.md §2, §7; 05-lexicon UP-COMPOUND"
+  -
+    id: "NM-02"
+    name: "banwal"
+    type: "person"
+    era: "E0"
+    axis: "both"
+    evidence: "design-choice"
+    etymology: "ban (L-03 bone/lineage substance) + wal (L-29 oath): bone-oath, a household wish that the child's spoken word outlast the ascent."
+    formation:
+      stem: "ban+wal"
+      bases:
+        - "ban"
+        - "wal"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "banwal"
+    syllables:
+      - "ban"
+      - "wal"
+    license: "Living person's given name, not an oath formula or an office claim."
+    follows: "naming-systems.md §2, §7; 05-lexicon UP-COMPOUND"
+  -
+    id: "NM-03"
+    name: "sulas"
+    type: "clan"
+    era: "E0"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "su (L-08 wind) + las (L-04 lineage): wind-lineage, a proposed descent-group label remembered from an exposed winter shelter."
+    formation:
+      stem: "su+las"
+      bases:
+        - "su"
+        - "las"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "sulas"
+    syllables:
+      - "su"
+      - "las"
+    license: "Affiliation inherited or publicly adopted with pasture rights; not self-awarded as praise."
+    follows: "naming-systems.md §2; 05-lexicon UP-COMPOUND"
+  -
+    id: "NM-04"
+    name: "mirlas"
+    type: "clan"
+    era: "E0"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "mir (L-34 fleece/wool) + las (L-04 lineage): fleece-lineage, a proposed affiliation label for holders of a shearing-ground pasture."
+    formation:
+      stem: "mir+las"
+      bases:
+        - "mir"
+        - "las"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "mirlas"
+    syllables:
+      - "mir"
+      - "las"
+    license: "Inherited affiliation, not an occupational title available to every wool-worker."
+    follows: "naming-systems.md §2; 05-lexicon UP-COMPOUND"
+  -
+    id: "NM-05"
+    name: "kolsin"
+    type: "place"
+    era: "E0"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "kol (L-17 pass) + sin (L-10 snow): pass-snow, the snow patch used to recognize a candidate upper crossing."
+    formation:
+      stem: "kol+sin"
+      bases:
+        - "kol"
+        - "sin"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "kolsin"
+    syllables:
+      - "kol"
+      - "sin"
+    license: "Route-users' descriptive endonym; no etymology from an unmodelled donor is claimed."
+    follows: "naming-systems.md §3, §7; 05-lexicon UP-COMPOUND"
+  -
+    id: "NM-06"
+    name: "tolmir"
+    type: "place"
+    era: "E0"
+    axis: "verticality"
+    evidence: "design-choice"
+    etymology: "tol (L-14 low ground) + mir (L-34 fleece/wool): low-ground fleece, a proposed winter shelter's wool-working yard."
+    formation:
+      stem: "tol+mir"
+      bases:
+        - "tol"
+        - "mir"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "tolmir"
+    syllables:
+      - "tol"
+      - "mir"
+    license: "Households' place-name, not proof that the site has a shrine or a legal rank."
+    follows: "naming-systems.md §3, §7; 05-lexicon UP-COMPOUND"
+  -
+    id: "NM-07"
+    name: "belwal"
+    type: "deity-epithet"
+    proposed_bearer: "PAN-04"
+    era: "E0"
+    axis: "both"
+    evidence: "design-choice"
+    etymology: "bel (L-13 heights) + wal (L-29 oath): height-oath, a proposed local address of the high-pasture power at a pasture-claim rite."
+    formation:
+      stem: "bel+wal"
+      bases:
+        - "bel"
+        - "wal"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "belwal"
+    syllables:
+      - "bel"
+      - "wal"
+    license: "Ritual address only, proposal pending pantheon review; no new divine entity and no exclusive oath-patron jurisdiction claimed."
+    follows: "naming-systems.md §4, §6; 05-lexicon UP-COMPOUND"
+  -
+    id: "NM-08"
+    name: "hursu"
+    type: "deity-epithet"
+    proposed_bearer: "PAN-02"
+    era: "E0"
+    axis: "wind"
+    evidence: "design-choice"
+    etymology: "hur (L-09 storm) + su (L-08 wind): storm-wind, a proposed avoidance address for the storm-law power rather than its provisional plain theonym."
+    formation:
+      stem: "hur+su"
+      bases:
+        - "hur"
+        - "su"
+      rule: "UP-COMPOUND"
+      operation: "concatenate"
+      expected: "hursu"
+    syllables:
+      - "hur"
+      - "su"
+    license: "Proposed ritual substitute; does not repeal PAN-02's seasonal plain-name taboo."
+    follows: "naming-systems.md §4, §6; 05-lexicon UP-COMPOUND"
+eras:
+  - "E0"
+  - "E1"
+  - "E2"
+  - "E3"
+source_era_dates:
+  "Open Grazing":
+    - "null"
+    - "D1"
+  "First Ascent":
+    - "D1"
+    - "D31"
+  "Salt Turn":
+    - "D31"
+    - "D73"
+  "Long Storm":
+    - "D73"
+    - "D77"
+  "Ash Wind":
+    - "D77"
+    - "D78"
+  "Bitter Smoke":
+    - "D78"
+    - "D86"
+  "Marked Count":
+    - "D86"
+    - "D99"
+  "Two Counts":
+    - "D99"
+    - "D103"
+  "Still Air (reserved)":
+    - "null"
+    - "null"
+era_records:
+  -
+    id: "ER-01"
+    tag: "E0"
+    name: "Open Grazing"
+    span: "before D1; reckoned in hearth generations, not turns"
+    institution_seam: "none; the era before the register — no seam rite exists for it"
+    language_stage: "knot-era vernacular; the recitation register is the only formal speech"
+    record_stage: "knot tallies only, hanging-line geometry (RG-01); no script"
+    costume_seam: "requirement only: wool felt layers date from this stratum; garment records and dates belong to 11-costumes (GAR- ids unassigned at write time)"
+    axis: "both"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §10"
+      - "§12"
+    notes: "retrospective label applied by the later chroniclers; in-world called 'the turns they did not count'; the folk generation count carries the standard error bars (Herodotus 2.142 via era-periodization §10)"
+  -
+    id: "ER-02"
+    tag: "E0"
+    name: "First Ascent"
+    span: "[D1, D31); 30 turns"
+    institution_seam: "the covenant ascent: pasture rights fixed at the first summer moot; era announced at the moot, effective at the descent that closes that turn (EL-02)"
+    language_stage: "E0 knot-era vernacular (02/03 stage-E0 forms are this stage's inputs)"
+    record_stage: "knot tallies; the covenant is remembered by recital"
+    costume_seam: "requirement only: the banner felt and the keeper's staff are this stratum's objects; no garment is assigned here"
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §3"
+      - "§4"
+    notes: "epoch by convention; the earliest surviving mark is ER-07's stratum — the retrospective-backdating caveat applies (era-periodization §3)"
+  -
+    id: "ER-03"
+    tag: "E0"
+    name: "Salt Turn"
+    span: "[D31, D73); 42 turns"
+    institution_seam: "T3: the first ratified salt term with the lowland towns; announced at the moot, effective at the closing descent"
+    language_stage: "E0 vernacular; the trade vocabulary enters as a recipient-side stratum (02's loan filter); the lowland partner's own script is their ledger's business, not D2's yet"
+    record_stage: "knot tallies; salt measures counted as knot groups on the trade lines"
+    costume_seam: "requirement only: the lowland cloth arrives as an import dated from the E0/E1 seam, not earlier; costume records belong to 11-costumes"
+    axis: "both"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §4"
+      - "§13.3"
+    notes: "the era ends mid-turn, so its last turn ('Salt Turn 42') lasts only a half-turn — artifact ART-01; the salt tablets are knotted, not incised, until the E0/E1 seam"
+  -
+    id: "ER-04"
+    tag: "E0"
+    name: "Long Storm"
+    span: "[D73, D77); 4 turns; held turn D74"
+    institution_seam: "T2 expiation: a failed ascent and storm deaths; announced at the summer moot of turn 72, effective at the closing descent"
+    language_stage: "E0 vernacular; the storm-law formulae are recited, never written"
+    record_stage: "the held turn is a gap in the knot count (RG-01 geometry; the gap is visible)"
+    costume_seam: "requirement only: storm layers are used at the high stay; no garment record is asserted here"
+    axis: "wind"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §9"
+      - "§13.3"
+    notes: "first of three names in one crisis; era-name churn is the in-world instability statistic here"
+  -
+    id: "ER-05"
+    tag: "E0"
+    name: "Ash Wind"
+    span: "[D77, D78); 1 turn"
+    institution_seam: "T2 as the crisis continues: storm deaths of two shelter heads at the moot of turn 76"
+    language_stage: "E0 vernacular"
+    record_stage: "knot tallies; the single-turn era shows as one knot group with no successor group"
+    costume_seam: "requirement only: the banner is raised for one turn and taken down (artifact ART-05)"
+    axis: "wind"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §13.3"
+    notes: "the register's shortest era by turns; the object behind the Quiet Rule's minimum duration (EL-03)"
+  -
+    id: "ER-06"
+    tag: "E0"
+    name: "Bitter Smoke"
+    span: "[D78, D86); 8 turns; held turns D78, D84"
+    institution_seam: "T5: the Keeper's death in the storm season, in the turn of the eating-storm (D78); announced at the descent assembly, effective at that close"
+    language_stage: "E0 vernacular; the eating-storm re-ratification is spoken (SKY-05)"
+    record_stage: "knot tallies; two gaps in the climb count"
+    costume_seam: "requirement only: the mourning pause (SEAM-06) is this stratum's dress question; costume records belong elsewhere"
+    axis: "wind"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §4"
+      - "§9"
+    notes: "the eclipse inside its first turn is re-ratified, not a seam"
+  -
+    id: "ER-07"
+    tag: "E1"
+    name: "Marked Count"
+    span: "[D86, D99); 13 turns; held turn D95"
+    institution_seam: "T2/T4: the crisis assembly of turn 85 opens the era after the Keeper's death and the failed pastures; the Quiet Rule is carried at the D90 muster (the era's first Ninefold Muster); the E0/E1 seam states the script arrival: D2 adopts the lowland partner's incising practice for the register, and the knot domains are retained — herding tallies and rite counts stay knotted (RG-01), only the eracount is incised"
+    language_stage: "script-era vernacular opens: SC-01 applies (intervocalic /h/ loss in ordinary speech), the recitation keeps the older forms"
+    record_stage: "knot + incised register (the keeper's board); first D2-made marks date from this seam"
+    costume_seam: "requirement only: the lowland cloth import is dated at or after this seam; costume dates remain 11-costumes' decision"
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §4"
+      - "§13.3; historical-linguistics.md §6"
+    notes: "double dating with the lowland ledger begins; D95 is ratified retroactively at the D99 muster (artifact ART-02)"
+  -
+    id: "ER-08"
+    tag: "E2"
+    name: "Two Counts"
+    span: "[D99, D103 sample present); 5 turns"
+    institution_seam: "T4: the D99 muster, where the two shelter confederations declared different climb counts; the era label splits — official 'the Standing Wind', common 'Two Counts' (attributed accounts, contract §6)"
+    language_stage: "literate standard: SC-02 applies (word-final high-vowel loss after n l r s); the E1/E2 seam states register stratification — the incised register is the legal surface, the recitation and the knot tally hold the sacred and herding registers, and SC-01's /h/ survives in the recitation"
+    record_stage: "incised register normal; the recital of winds is still oral; the register's gaps are read as the count dispute's evidence"
+    costume_seam: "requirement only: no costume movement follows from the era label itself; institution dates and costume dates are independent (A-09)"
+    axis: "both"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §5"
+      - "§13.2; historical-linguistics.md §6"
+    notes: "official climb count C99, restored count C103 at the sample present; the two straddle the C100 rung boundary"
+  -
+    id: "ER-09"
+    tag: "E3"
+    name: "Still Air (reserved)"
+    span: "undated; not entered on the official count"
+    institution_seam: "reserved: the moot's register names the tag but has not declared the stratum; the restored count claims it began at C101, three climbs before the sample present"
+    language_stage: "none attested; a prospective stratum only"
+    record_stage: "none; the tag is reserved in the register"
+    costume_seam: "not applicable; no costume claim is attached to a reserved stratum"
+    axis: "wind"
+    evidence: "design-choice"
+    follows:
+      - "era-periodization-models.md §9"
+      - "§12"
+      - "§13.2"
+    notes: "content assigned by component 09 per contract.era_tags: the last rung's stratum; its computation is the dread at CL-ARI/CL-DRD and its dates will slip if it is ever declared (era-periodization §12)"
+constructions:
+  -
+    name: "LOC"
+    pattern: "B1-ra"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    productivity: "productive"
+    available_from: "E0"
+    description: "a place or span of B1 — the ground where the thing holds or is worked; bases ending in r take a different locution and are excluded by design"
+  -
+    name: "AGENT"
+    pattern: "B1-in"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    productivity: "restricted"
+    available_from: "E0"
+    description: "the keeper or taker of B1; eligible bases are herd, pasture, land, war-band and lineage bases; mass and abstract bases (ir breath, su wind, wal oath) are excluded"
+  -
+    name: "SPIRIT"
+    pattern: "B1-ir"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    productivity: "restricted"
+    available_from: "E0"
+    description: "the breath of B1 — the spirit suffix is the breath root itself; used for the wind-working terms of the sacred stratum only"
+  -
+    name: "WIND"
+    pattern: "B1-su"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    productivity: "productive"
+    available_from: "E1"
+    description: "the wind that comes off the place or slope B1; standardised at the E1 seam as the slope-wind set travellers and herds are warned by"
+  -
+    name: "MATRI-SIDE"
+    pattern: "B1-ter"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    productivity: "restricted"
+    available_from: "E0"
+    description: "the opposite-sex sibling of a parent-generation base B1 (the bifurcate term); eligible bases are parent kin terms only (nen, wen)"
+  -
+    name: "UP-COMPOUND"
+    pattern: "B1-B2"
+    base_classes:
+      - "noun"
+      - "noun"
+    output_class: "noun"
+    productivity: "productive"
+    available_from: "E0"
+    description: "a qualifying compound: B1 (usually a vertical pole or a medium) qualifies B2"
+  -
+    name: "PROCESS"
+    pattern: "B1-ur"
+    base_classes:
+      - "noun"
+    output_class: "verb"
+    productivity: "restricted"
+    available_from: "E0"
+    description: "to work B1 into keepable form; eligible bases are foodstuffs and materials; kin and abstract bases are excluded"
+  -
+    name: "GARMENT"
+    pattern: "B1-ken"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    productivity: "restricted"
+    available_from: "E0"
+    description: "a wrap made of the material B1; eligible bases are fiber and hide bases only"
+layers:
+  -
+    name: "Salt-road trade layer"
+    donor: "the lowland farmer trade partner (name reserved to lore; this partner is not D1)"
+    donor_stage: "lowland stage 1 (reserved to lore)"
+    entry_stage: "E1"
+    channel: "the salt and dried-meat road over the pass, and the annual fair at its mouth"
+    contact_window:
+      - "E0"
+      - "E1"
+    substitutions:
+      bh: "p"
+      dh: "t"
+      sh: "s"
+      g: "k"
+    referent_available_from: "E1"
+    domain_note: "CP-08 domain check: trade and administration only — the loan is a record word, not a religion, a garment or a second culture."
+  -
+    name: "Lowland script layer"
+    donor: "the same lowland partner, at a later stage"
+    donor_stage: "lowland stage 2 (reserved to lore)"
+    entry_stage: "E2"
+    channel: "written tallies demanded by the fair court and copied by D2 tally-keepers"
+    contact_window:
+      - "E1"
+      - "E2"
+    substitutions:
+      bh: "p"
+      dh: "t"
+      sh: "s"
+      g: "k"
+    referent_available_from: "E1"
+    domain_note: "CP-08 domain check: script only. The script is adapted at the E0/E1 seam (SEED-06) while the D2 word for the borrowed mark is staged later, at E2 — naming date and arrival date are different facts (audit §7)."
+roles:
+  -
+    dependency: "storm-petition"
+    status: "ASSIGNED"
+    agents:
+      - "Kahatu"
+    exclusive: "true"
+    substitute: "denied"
+    note: "one patron; the petition is spoken at the ridge stones only"
+  -
+    dependency: "oath-enforcement"
+    status: "SHARED"
+    agents:
+      - "Kahatu"
+    note: "shared with the pasture-right holders: they hear the complaint, the pass rite releases the breath; a disputed invocation goes to the pass rite first. No oath-cloth and no rotating witnesses — this is a claim before lineage rights, not a D1 bond"
+  -
+    dependency: "mortality-breath"
+    status: "ASSIGNED"
+    agents:
+      - "Humaweha"
+  -
+    dependency: "herd-increase"
+    status: "ASSIGNED"
+    agents:
+      - "Kalweha"
+    note: "increase and milk; herd losses are counted under Humaweha"
+  -
+    dependency: "pasture-rights-legitimacy"
+    status: "SHARED"
+    agents:
+      - "Kalweha"
+    note: "shared with the lineage reciters who keep the cords; the ascent departure rite confirms the claim at the gate; a rival claim goes to the cords, not to a court"
+  -
+    dependency: "salt-road-exchange"
+    status: "ASSIGNED"
+    agents:
+      - "Seratu"
+    exclusive: "true"
+    substitute: "denied"
+    note: "one keeper lineage licenses the cutting rite; the road vow is spoken at the boundary stone"
+  -
+    dependency: "foreign-trade-vow"
+    status: "SHARED"
+    agents:
+      - "Seratu"
+      - "Ula"
+    note: "the boundary-stone vow is Seratu's; the market cults hear it under Ula's title; the caste disputes the second claim"
+  -
+    dependency: "war-raiding"
+    status: "SHARED"
+    agents:
+      - "Kahatu"
+    note: "no standing army; a raid is filed as a debt claim before the pasture-right holders and blessed at the pass; there is no separate war patron"
+  -
+    dependency: "vertical-axis"
+    status: "SHARED"
+    agents:
+      - "Kalweha"
+      - "Humaweha"
+    note: "the between-pole line is invoked as a pair at every crossing; no single axis god is claimed"
+  -
+    dependency: "sky-and-stars"
+    status: "NON-DIVINE"
+    agents: []
+    note: "the sky has a named holder in formula only, with no cult practice; the star readings are the reciters' craft and no patron is claimed"
+  -
+    dependency: "hearth-and-fire"
+    status: "NON-DIVINE"
+    agents: []
+    note: "dung fires are household work; no patron is claimed and none is needed"
+  -
+    dependency: "cosmic-origins"
+    status: "NON-DIVINE"
+    agents: []
+    note: "the climb account is recited by the lineage reciters as a route charter; no maker is claimed"
+  -
+    dependency: "first-cause"
+    status: "EXPLICITLY-UNEXPLAINED"
+    agents: []
+    note: "the recitation stops at the lowest shelter; doctrine refuses a first cause rather than answering it"
+  -
+    dependency: "eros-courtship"
+    status: "NON-DIVINE"
+    agents: []
+    note: "paired songs at the ascent; doctrine assigns courtship to no god and claims no patron"
+  -
+    dependency: "reproduction-care"
+    status: "UNKNOWN"
+    agents: []
+    basis: "the closed winter rites are not in the reciters' corpus"
+    evidence: "no claim made; recorded as a knowledge gap, not a silence to be filled by a guess"
+  -
+    dependency: "storm-law-oath"
+    status: "ASSIGNED"
+    agents:
+      - "Kahatu"
+    exclusive: "true"
+    note: "the pass oath is sung and smoke-tested, only the storm-law hears it, and no substitute rite is licensed for a pasture claim"
+    axis: "both"
+    basis: "the smoke test at the contract gate as delivered in 09-eras-calendar, read together with the oath patron in 06-pantheon"
+    evidence: "MOT-03 variant var-ascent"
+  -
+    dependency: "breath-carriage"
+    status: "ASSIGNED"
+    agents:
+      - "Humaweha"
+    note: "the ended breath is counted below at the Still Camp; the descent count is the keeper's rite and the household lays the body"
+    axis: "wind"
+    basis: "06-pantheon PAN-03 death architecture, a keeper and a place with no judge"
+    evidence: "MOT-01 variant var-a1"
+  -
+    dependency: "pasture-title"
+    status: "NON-DIVINE"
+    agents: []
+    note: "titles are recited as the walked route and kept in the pasture tally, no agent grants or voids a pasture, and the rotation rule itself is a lineage institution"
+    axis: "verticality"
+    basis: "creation-myths-taxonomy §4 craft hook, the route is the deed"
+    evidence: "MYTH-07 charter line"
+  -
+    dependency: "herd-increase-and-milk"
+    status: "ASSIGNED"
+    agents:
+      - "Kalweha"
+    exclusive: "false"
+    note: "the milk-first rite and the ascent blessing name her, while household milk work needs no priest"
+    axis: "both"
+    basis: "the wool, milk and meat economy of the seed"
+    evidence: "MOT-01 beat five, the pasture count"
+  -
+    dependency: "sky-axis-holding"
+    status: "ASSIGNED"
+    agents:
+      - "Halatu"
+    note: "addressed in the opening formula only, with no festival, offering or priest; the ritual-address test fails on purpose and the figure is kept as story"
+    axis: "verticality"
+    basis: "pantheon-archetypes §5, a god with a myth and no address is a story figure"
+    evidence: "MOT-01 variant var-a1"
+  -
+    dependency: "trade-vows-and-strangers"
+    status: "SHARED"
+    agents:
+      - "Seratu"
+    note: "jurisdiction split, market vows and the lowland receipts belong to the road keeper, while the salt-cutters keep the human name of Ula and refuse the divine title, so a market oath invokes Seratu and a road debt invokes Ula"
+    axis: "verticality"
+    basis: "06-pantheon PAN-05 and PAN-07, including the recorded schism"
+    evidence: "MYTH-07 stratum E1"
+  -
+    dependency: "wrong-time-wind-and-winter-telling"
+    status: "ASSIGNED"
+    agents:
+      - "Suweha"
+    exclusive: "false"
+    note: "no cult address and no festival, the reversal rite addresses the round rather than the god, and the teller class is the winter camp"
+    axis: "wind"
+    basis: "06-pantheon PAN-06 institutional pairing"
+    evidence: "MYTH-08 variant var-village"
+  -
+    dependency: "passage-keeping"
+    status: "NON-DIVINE"
+    agents: []
+    note: "the cairn tally and the pass-watch office keep the route, the path between the two ends has no divine agent at all, since the walking is the keeping"
+    axis: "verticality"
+    basis: "MYTH-06 beat six and MOT-02 law"
+    evidence: "MYTH-06 beat six"
+motifs:
+  -
+    id: "PAN-MYTH-01"
+    tier: "myth"
+    title: "The pass-opening"
+    genre: "myth"
+    teller: "ridge reciters of the pass bands"
+    era: "E0 onward"
+    axis: "both"
+    evidence: "design-choice"
+    law:
+      rule: "storm law frees the pass"
+      when: "the thunder speaks over the saddle in spring"
+      then: "the ice lets go and the herd road opens"
+    variants:
+      -
+        id: "var-ridge"
+        teller: "ridge reciters"
+        register: "ascent blessing"
+        asserts_law: "true"
+        events:
+          -
+            actor: "Kahatu"
+            action: "the thunder speaks over the saddle in spring"
+            effect: "the ice lets go and the herd road opens"
+      -
+        id: "var-road"
+        teller: "low-road market singers"
+        register: "fireside"
+        asserts_law: "false"
+        exception: "a rival telling recorded as such: it credits the salt buyers' arrival instead, and is not corrected here"
+        events:
+          -
+            actor: "the salt buyers"
+            action: "come up the road in early spring"
+            effect: "the carriers go the long way around until the pass dries"
+    licensing: "licenses AS-02 (the storm is an institution) and the seasonal poles: the ascent waits on the storm, so the storm's season and the pasture's season are one institution"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §3"
+        short: "PF-03"
+      -
+        cite: "corpus/knowledge/myth-symbol/comparative-frameworks.md §1"
+        short: "PF-33"
+  -
+    id: "PAN-MYTH-02"
+    tier: "myth"
+    title: "Why the wind comes down"
+    genre: "myth"
+    teller: "lineage reciters at the descent count"
+    era: "E0 onward"
+    axis: "wind"
+    evidence: "design-choice"
+    law:
+      rule: "an ended breath goes below with the wind and returns at the thaw"
+      when: "an ended breath is counted on the cord"
+      then: "the wind carries it below and the thaw brings it back up"
+    variants:
+      -
+        id: "var-reciter"
+        teller: "lineage reciters"
+        register: "descent count"
+        asserts_law: "true"
+        events:
+          -
+            actor: "Humaweha"
+            action: "an ended breath is counted on the cord"
+            effect: "the wind carries it below and the thaw brings it back up"
+      -
+        id: "var-cordkeeper"
+        teller: "a cord keeper of the low shelters"
+        register: "work telling"
+        asserts_law: "false"
+        exception: "this telling keeps only the count and drops the return, and is recorded as a variant without a ruling"
+        events:
+          -
+            actor: "the reciter"
+            action: "an ended breath is counted on the cord"
+            effect: "the name is safe and the wind is not mentioned"
+    licensing: "licenses the vertical axis as a round: descent carries, ascent returns; this is also why the axis is invoked as a pair"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/creation-myths-taxonomy.md §4"
+        short: "PF-15"
+      -
+        cite: "corpus/knowledge/myth-symbol/cosmology-cosmography.md §1"
+        short: "PF-08"
+  -
+    id: "PAN-MYTH-03"
+    tier: "folktale"
+    title: "The wrong round"
+    genre: "folktale"
+    teller: "grandmothers in the winter camp"
+    era: "E0 onward"
+    axis: "verticality"
+    evidence: "design-choice"
+    law:
+      rule: "one reversed round costs one herd and returns one rule"
+      when: "a herder runs the round backward"
+      then: "one herd is lost and one rule is learned"
+    variants:
+      -
+        id: "var-aunt"
+        teller: "grandmothers"
+        register: "winter telling"
+        asserts_law: "true"
+        events:
+          -
+            actor: "Suweha"
+            action: "runs the round backward in summer"
+            effect: "one herd is lost and one rule is learned"
+      -
+        id: "var-boy"
+        teller: "men on the descent"
+        register: "work telling"
+        asserts_law: "false"
+        exception: "the men's telling gives Suweha the herd back and takes the road instead; recorded as the rival telling"
+        events:
+          -
+            actor: "Suweha"
+            action: "runs the round backward in summer"
+            effect: "he keeps the herd and loses the road"
+    licensing: "the failure upward: the reversal deposits the one-day rule that the midwinter rite obeys"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/trickster.md §7"
+        short: "PF-19"
+      -
+        cite: "corpus/knowledge/myth-symbol/trickster.md §10"
+        short: "PF-21"
+  -
+    id: "PAN-MYTH-04"
+    tier: "legend"
+    title: "The first descent with salt"
+    genre: "legend"
+    teller: "market scribes at the boundary stone"
+    era: "E1 onward"
+    axis: "verticality"
+    evidence: "design-choice (a legitimation device, not history)"
+    law:
+      rule: "the storm spares the exposed child and the road is his"
+      when: "a child is left at the pass during a thunder halt"
+      then: "the storm spares the child and the road claims him"
+    variants:
+      -
+        id: "var-market"
+        teller: "market scribes"
+        register: "market address"
+        asserts_law: "true"
+        events:
+          -
+            actor: "the infant Ula"
+            action: "is left at the pass during a thunder halt"
+            effect: "the storm spares the child and the road claims him"
+      -
+        id: "var-caste"
+        teller: "the salt-cutter caste"
+        register: "caste recitation"
+        asserts_law: "false"
+        exception: "the caste telling denies the exposure and calls it a market invention; recorded as a denial, not adjudicated"
+        events:
+          -
+            actor: "the band"
+            action: "takes in an orphan of the caste"
+            effect: "the road is worked and no title is claimed"
+    licensing: "licenses the market vow and, later, the assimilation title; the two tellings are the E2 schism's charter"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/hero-journey-variants.md §2"
+        short: "PF-28"
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §5"
+        short: "PF-05"
+  -
+    id: "PAN-MYTH-05"
+    tier: "myth"
+    title: "The holder steps aside"
+    genre: "myth"
+    teller: "pass-clan reciters at the charter"
+    era: "E1"
+    axis: "verticality"
+    evidence: "design-choice"
+    law:
+      rule: "the sky is held apart standing, never tied"
+      when: "the sky leans on the saddle"
+      then: "a standing one sets his shoulders under it"
+    variants:
+      -
+        id: "var-formula"
+        teller: "ascent blessing keepers"
+        register: "recitation"
+        asserts_law: "true"
+        events:
+          -
+            actor: "Halatu"
+            action: "sets his shoulders under the sky as it leans on the saddle"
+            effect: "the sky is held apart and the herds pass under it"
+      -
+        id: "var-charter"
+        teller: "the E1 charter reciters"
+        register: "assembly recitation"
+        asserts_law: "false"
+        exception: "the charter telling adds the handover to Kahatu and is recorded as a political addition, dated to the charter"
+        events:
+          -
+            actor: "Halatu"
+            action: "yields the seat to Kahatu"
+            effect: "the oath is heard at the pass and the old holder keeps the first line only"
+    licensing: "the demotion's own story; it keeps the axis standing and keeps the pantheon's sovereignty chained to the pass institution"
+    follows:
+      -
+        cite: "corpus/knowledge/myth-symbol/pantheon-archetypes.md §5"
+        short: "PF-05"
+      -
+        cite: "corpus/knowledge/myth-symbol/comparative-frameworks.md §7"
+        short: "PF-34"
+  -
+    id: "MOT-01"
+    record: "MYTH-06"
+    tier: "myth"
+    title: "The Sealed Hole and the Held Breath"
+    code: "KTD-M0001"
+    index_note: "no ATU or FFC identifier claimed, so no entry check is required; the type claim is the emergence type with a world-parent parting and a creation-by-breath layer, per corpus/knowledge/myth-symbol/creation-myths-taxonomy.md §2 and §11"
+    axis: "both"
+    evidence: "design-choice"
+    law:
+      rule: "a held breath that refuses the smoke test returns as weather"
+      when: "a shelter seals its smoke hole and refuses the count at the cairn"
+      then: "the held breath breaks the seal as storm"
+    variants:
+      -
+        id: "var-a1"
+        teller: "the imtur reciters at the ascent"
+        register: "the ascent opening, in open air"
+        asserts_law: "true"
+        events:
+          -
+            actor: "the hoarding line"
+            action: "a shelter seals its smoke hole and refuses the count at the cairn"
+            effect: "the held breath breaks the seal as storm"
+      -
+        id: "var-a2"
+        teller: "the smoke testers at a contract day"
+        register: "a hearing, smoke read against the wind"
+        asserts_law: "true"
+        events:
+          -
+            actor: "the record keepers of the upper lines"
+            action: "keep the tally covered and answer no question at the hearing"
+            effect: "the road keeper voids their market vow and the year is read against them"
+        exception: "the testers use the fault as an accounting lesson and stop short of the weather clause"
+      -
+        id: "var-a3"
+        teller: "a herder lineage at a winter telling"
+        register: "fireside counter-reading"
+        asserts_law: "false"
+        events:
+          -
+            actor: "a grazing line"
+            action: "seals the smoke hole and refuses the count at the cairn"
+            effect: "nothing follows, and the herders say storms come with the season and not with a verdict"
+  -
+    id: "MOT-02"
+    record: "MYTH-06 secondary and MYTH-07 etiology"
+    tier: "myth-law carried into legend"
+    title: "The Route Stays Open Only While It Is Walked"
+    code: "KTD-M0002"
+    index_note: "no ATU or FFC identifier claimed; the route-as-deed hook follows corpus/knowledge/myth-symbol/creation-myths-taxonomy.md §4"
+    axis: "verticality"
+    evidence: "design-choice"
+    law:
+      rule: "a route stays open only while it is walked"
+      when: "a lineage skips the ascent for one season and stakes no cairn stone"
+      then: "the path closes and the title lapses to the lines that walked"
+    variants:
+      -
+        id: "var-recited"
+        teller: "the ascent reciters and the pass-watch"
+        register: "the cairn field at the top of the route"
+        asserts_law: "true"
+        events:
+          -
+            actor: "the upper line"
+            action: "a lineage skips the ascent for one season and stakes no cairn stone"
+            effect: "the path closes and the title lapses to the lines that walked"
+          -
+            actor: "Humaweha"
+            action: "counts the ended breath at the Still Camp below"
+            effect: "the count of ended breaths is kept and no name is spoken once it is entered"
+      -
+        id: "var-clerk"
+        teller: "the E1 pasture clerks"
+        register: "a written clause read in the valley"
+        asserts_law: "false"
+        events:
+          -
+            actor: "a written line"
+            action: "skips the ascent for one season and stakes no cairn stone"
+            effect: "the clause still holds and the pasture is kept, since the slip says so and the slip is the deed"
+  -
+    id: "MOT-03"
+    record: "MYTH-07"
+    tier: "legend"
+    title: "The Shared Pass of Imkora"
+    code: "KTD-M0003"
+    index_note: "no ATU or FFC identifier claimed; the pattern handling follows corpus/knowledge/myth-symbol/hero-journey-variants.md §2 and §6"
+    axis: "verticality"
+    evidence: "design-choice"
+    law:
+      rule: "the one who will not share the pass winters alone"
+      when: "a line claims the first step and the private pasture"
+      then: "the wind turns the claim back and the line winters alone"
+    variants:
+      -
+        id: "var-ascent"
+        teller: "the ascent recitation in its E0 form"
+        register: "the cairn hearing at the pass"
+        asserts_law: "true"
+        events:
+          -
+            actor: "the rival line"
+            action: "a line claims the first step and the private pasture"
+            effect: "the wind turns the claim back and the line winters alone"
+          -
+            actor: "Imkora"
+            action: "sings the count at the cairn and assigns the lower summer pasture to the rival line"
+            effect: "the rotation holds and both lines climb together the next spring"
+      -
+        id: "var-court"
+        teller: "the E1 shrine reciters"
+        register: "a festival telling for the shrine keepers"
+        asserts_law: "true"
+        events:
+          -
+            actor: "Imkora"
+            action: "sings the count at the cairn and assigns the lower summer pasture to the rival line"
+            effect: "the keepers add that Kahatu turned the wind by his own hand"
+        exception: "the divine hand and the writing slip in this telling are E1 insertions, recorded as seams and not as E0 content"
+      -
+        id: "var-lowland"
+        teller: "the lowland market version"
+        register: "a trading-season entertainment"
+        asserts_law: "false"
+        events:
+          -
+            actor: "Imkora"
+            action: "takes the pass by force and drives the rival herd down the mountain"
+            effect: "the lowland tellers make him a raider and a rain-bringer, and the D2 reciters reject this telling"
+  -
+    id: "MOT-04"
+    record: "MYTH-08"
+    tier: "folktale"
+    title: "The Fool Who Carried the Wind"
+    code: "KTD-T0001"
+    index_chapter_range_ref: "ATU 1200 to 1999 anecdote and joke chapter range only, no type number claimed"
+    index_checked: "true"
+    index_edition: "Uther 2004 chapter ranges as tabulated in corpus/knowledge/myth-symbol/myth-folktale-genres.md §3"
+    index_witness: "the D2 telling recorded as MYTH-08 in this file, a lane-internal KTD-T type id per the house convention for cultures outside the European analog zone"
+    axis: "wind"
+    evidence: "design-choice"
+    law:
+      rule: "the exact word without the turned wind is spent breath"
+      when: "a reciter carries perfect words down and does not read the turning wind"
+      then: "the herd is lost in the storm"
+    variants:
+      -
+        id: "var-village"
+        teller: "the small-line herders"
+        register: "fireside entertainment, opened with surak surak"
+        asserts_law: "true"
+        events:
+          -
+            actor: "Korim the exact speaker"
+            action: "carries perfect words down and does not read the turning wind"
+            effect: "the herd is lost in the storm"
+          -
+            actor: "Toksu the lagging one"
+            action: "brings the flock down slowly and reports the turned wind at the gate"
+            effect: "his flock lives and so do the lines that waited for the wind"
+      -
+        id: "var-market"
+        teller: "the lowland carters and market traders"
+        register: "a market entertainment"
+        asserts_law: "false"
+        events:
+          -
+            actor: "the servant"
+            action: "tells the master that a storm is coming and is beaten for idleness"
+            effect: "the market version rewards a lucky bargain and drops the wind entirely"
+      -
+        id: "var-lodge"
+        teller: "the winter camp reciters"
+        register: "the winter telling season, an official dismissal"
+        asserts_law: "false"
+        events:
+          -
+            actor: "the winter camp reciters"
+            action: "call the tale a surak and nothing more, wind-spent speech"
+            effect: "the reciters keep their register and admit the tale only after the descent"
+materials:
+  -
+    id: "CMAT-01"
+    material: "wool"
+    composition: "fleece of the herd's wool analog (a sheep analog; no real breed is described); native state fiber, spun and woven in the valley sheds"
+    maps_to: "10-materials MAT-01 ewe-fleece (same slot: the state fiber)"
+    axis: "both"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+    routes:
+      -
+        kind: "local"
+        stage: "fiber"
+      -
+        kind: "local"
+        stage: "cloth"
+  -
+    id: "CMAT-02"
+    material: "felt"
+    composition: "matted and fulled wool, non-woven; formed on the felt table, so the loom ceiling does not bound it (CS-03 is the bound that applies)"
+    maps_to: "10-materials MAT-02 felt (name and slot match)"
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+    routes:
+      -
+        kind: "local"
+        stage: "cloth"
+      -
+        kind: "local"
+        stage: "garment"
+  -
+    id: "CMAT-03"
+    material: "pack-ox down"
+    composition: "fine combed underfleece of the pack-ox (the salt-bearer of 08-symbols S4), taken at the summer clip; the finest thing the herd yields"
+    maps_to: "null"
+    maps_to_note: "REPORT, do not merge: 10-materials supplies the pack-ox's hair as cordage (MAT-03 ox-hair cordage) but no down/underfleece record. This material is the 'yak/camelid fiber analog' of this component's dispatch; it is carried with the flag rather than dropped (OQ-3)."
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+    routes:
+      -
+        kind: "local"
+        stage: "fiber"
+  -
+    id: "CMAT-04"
+    material: "leather"
+    composition: "smoke-cured hide of the herd (sheep and pack-ox); worked straight to the piece, so its route has a garment stage and no yarn or cloth stage"
+    maps_to: "10-materials MAT-20 herd-hide (same slot: the wind-facing outer layer)"
+    axis: "both"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+    routes:
+      -
+        kind: "local"
+        stage: "garment"
+  -
+    id: "CMAT-05"
+    material: "horn"
+    composition: "horn of the herd, steam-softened and cut into toggles and placket pins"
+    maps_to: "10-materials MAT-22 horn-and-bone (same slot: toggles and pins)"
+    axis: "neutral"
+    coupling_note: "A fastening material, not a spine record: it couples to the herd economy (brief R-03 allows leather and horn from the same herds) and to no axis of its own."
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+    routes:
+      -
+        kind: "local"
+        stage: "trim"
+  -
+    id: "CMAT-06"
+    material: "lowland plant-thread cloth"
+    composition: "woven plant-thread cloth of the lowland farmers, imported by the caravan as finished cloth; no D1 craft route is reused (this is the partner's weave, and the local bast of 10-materials MAT-04 nettle-bast is that component's cordage material, not a garment here)"
+    maps_to: "10-materials MAT-05 lowland-plant-cloth (same slot) — note the convergent exclusions: their record is excluded in its E1 (shelter) slot and this one in E0, which are the same slot under the era mapping"
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+      - "alias_garlex"
+    excluded_eras:
+      - "E0"
+    routes:
+      -
+        kind: "import"
+        stage: "cloth"
+        eras:
+          - "E1"
+          - "E2"
+    note: "The dated E1 import the acceptance block requires, and the cloth 12-rank-rules' GAR-04/GAR-06/GAR-08 glosses assume. Reconciliation: it is present in 10-materials (MAT-05) although not in this component's dispatch list — kept, mapping declared (OQ-3)."
+  -
+    id: "CMAT-07"
+    material: "lowland cord"
+    composition: "twisted plant-thread cord of the lowland partner; imported in coils and used for bales and harness repair under the exception channel"
+    maps_to: "10-materials MAT-06 lowland-plant-cord (same slot: the exception channel)"
+    axis: "neutral"
+    coupling_note: "Kept out of the axes because its only spine contact is record geometry: a cord counts (RG-01), it does not bind a person to anyone."
+    evidence: "design-choice"
+    follows:
+      - "alias_sumptuary"
+      - "alias_brief"
+    excluded_eras:
+      - "E0"
+    routes:
+      -
+        kind: "import"
+        stage: "trim"
+        eras:
+          - "E1"
+          - "E2"
+  -
+    id: "CMAT-08"
+    material: "silk"
+    composition: "filament silk of the lowland partner's moths, arriving as woven cloth in the treaty grade; never reared, reeled, spun or woven in D2"
+    maps_to: "null"
+    maps_to_note: "REPORT, do not merge: 10-materials has no silk record; its luxury import of the anchor era is MAT-07 lowland-broadcloth (fulled, sheared, wool), arriving in its E4 slot = brief E2. Silk is this component's dispatch-mandated 'late-era luxury' and is retained; the integrator must either keep both luxury imports or re-letter GAR-06 to the broadcloth (OQ-3)."
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+      - "alias_garlex"
+    routes:
+      -
+        kind: "import"
+        stage: "cloth"
+        eras:
+          - "E2"
+    note: "The late-era luxury of this component's dispatch. It is the treaty grade of the same lowland-woven cloth channel 12-rank-rules regulates (WR-02), not a second import class; the word and the cloth arrive together (alias_garlex §4)."
+  -
+    id: "CMAT-09"
+    material: "hearth-dark"
+    composition: "smoke-darkening of wool and felt at the winter hearth — soot and heat, no dye molecule added (the chemistry of 10-materials MAT-10, mapped by slot)"
+    maps_to: "10-materials MAT-10 hearth-dark (same slot and chemistry; the earlier name 'storm-slate bath' was withdrawn in favour of this slot's name)"
+    axis: "wind"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+      - "alias_semiotics"
+    routes:
+      -
+        kind: "local"
+        stage: "dye"
+    note: "Hue meaning belongs to 08-symbols (S1); this record claims makeability only. The genuine tannin-and-iron black (10-materials MAT-09 wool-black) and the traded indigo (MAT-08) are NOT claimed here."
+cloth_sources:
+  -
+    id: "CS-01"
+    name: "valley ground loom (winter sheds; warp staked to the shelter floor)"
+    max_width_m: 0.65
+    eras:
+      - "E0"
+      - "E1"
+      - "E2"
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+  -
+    id: "CS-02"
+    name: "upright warp-weighted loom (the tall shelter frame)"
+    max_width_m: 1.25
+    eras:
+      - "E0"
+      - "E1"
+      - "E2"
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+  -
+    id: "CS-03"
+    name: "felt table (non-woven matting; the felt ceiling, not a loom)"
+    max_width_m: 1.9
+    eras:
+      - "E0"
+      - "E1"
+      - "E2"
+    axis: "verticality"
+    evidence: "design-choice"
+    follows:
+      - "alias_textile"
+assembly:
+  packet_sha256: "e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643"
+  projection_sha256: "a3aa452cd5ae77c351d9532a707fb1f1ababf77c3fad8b9d28089e6958364a43"
+  adapter_sha256: "c7e5a7493601d3312f2eb55185ac4d081139cdaa0e11f67dd69f67250b037071"
+schema: "kotodama-typed-packet-v1"
+typed_channel:
+  -
+    record: "GAR-01"
+    kind: "translated-label"
+    label_id: "LEX-GAR-01"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-01"
+  -
+    record: "GAR-02"
+    kind: "translated-label"
+    label_id: "LEX-GAR-02"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-02"
+  -
+    record: "GAR-03"
+    kind: "translated-label"
+    label_id: "LEX-GAR-03"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-03"
+  -
+    record: "GAR-04"
+    kind: "translated-label"
+    label_id: "LEX-GAR-04"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-04"
+  -
+    record: "GAR-05"
+    kind: "translated-label"
+    label_id: "LEX-GAR-05"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-05"
+  -
+    record: "GAR-06"
+    kind: "translated-label"
+    label_id: "LEX-GAR-06"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-06"
+  -
+    record: "GAR-07"
+    kind: "translated-label"
+    label_id: "LEX-GAR-07"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-07"
+  -
+    record: "GAR-08"
+    kind: "translated-label"
+    label_id: "LEX-GAR-08"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-08"
+  -
+    record: "GAR-09"
+    kind: "translated-label"
+    label_id: "LEX-GAR-09"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-09"
+  -
+    record: "GAR-10"
+    kind: "translated-label"
+    label_id: "LEX-GAR-10"
+    owner: "11-costumes"
+    source_field: "garment"
+    off_channel_field: "garment_gloss"
+    channel: "off-sound-and-identity"
+    hold: "D2L-FORM-UNRESOLVED"
+    owed_slot: "LEX-GAR-10"
+typed_assembly:
+  generator: "tools/assemble-d2-typed.py"
+  packet: "examples/culture-d2/packet.d2.yml"
+  projection: "examples/culture-d2/typed-labels.d2.yml"
+  rules:
+    - "translated-label (no native form supplied): checked field moved garment -> garment_gloss; off sound-and-identity channel; owed form held as D2L-FORM-UNRESOLVED (design §2.3 T1 rows 1/3)"
+    - "native-form and borrowed-strata records ride through unchanged; their checked field stays (T1 rows 2/4)"
+    - "an untyped record is a coverage problem, never a silent exemption (T1 row 6)"
+pipeline_findings:
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-01 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-01"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-02 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-02"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-03 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-03"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-04 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-04"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-05 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-05"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-06 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-06"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-07 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-07"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-08 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-08"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-09 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-09"
+  -
+    code: "D2L-FORM-UNRESOLVED"
+    detail: "label_id LEX-GAR-10 has no supplied native/borrowed form"
+    id: "D2L-FORM-UNRESOLVED"
+    severity: "hold"
+    where: "GAR-10"
+  -
+    code: "D2L-NATIVE"
+    detail: "supplied form 'sára' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed"
+    id: "D2L-NATIVE"
+    severity: "hold"
+    where: "L-15"
+  -
+    code: "D2L-NATIVE"
+    detail: "supplied form 'sará' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed"
+    id: "D2L-NATIVE"
+    severity: "hold"
+    where: "L-16"
+  -
+    code: "R-RANK-CONFLICT"
+    detail: "act-collision: band-keyed-pair"
+    id: "D2L-RANK"
+    severity: "note"
+    where: "SR-01#a|SR-01#b"
+  -
+    code: "R-RANK-CONFLICT"
+    detail: "act-collision: genuine-priority-gap"
+    id: "D2L-RANK"
+    severity: "hold"
+    where: "TR-04#a|TR-06#a"
+  -
+    code: "R-RANK-CONFLICT"
+    detail: "R-05-class: genuine-priority-gap"
+    id: "D2L-RANK"
+    severity: "hold"
+    where: "WR-02#g|WR-09#g"
+  -
+    code: "R-RANK-CONFLICT"
+    detail: "R-05-class: genuine-priority-gap"
+    id: "D2L-RANK"
+    severity: "hold"
+    where: "WR-08#g|WR-09#g"
+pipeline_counts:
+  hold: 15
+  note: 1
+  fail: 0

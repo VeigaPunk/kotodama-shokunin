@@ -1,0 +1,55 @@
+# tools/gates/fixtures/argot-derivation-gate.yml
+# Committed fixture for the argot-derivation gate selftest. Fixture-only,
+# NON-CANON, and not a claim about any language: every form here is either one
+# of the round-17 design's own worked derivations
+# (reports/round-17/d4/design-language.md §5) or a planted mutation of one.
+#
+# The planted verdict set is in the sibling .expected file: four
+# D4L-ARGOT-DERIV fails and one D4L-ARGOT-RULE hold, and nothing else.
+name: "F-argot fixture (fixture-only, NON-CANON)"
+phonology:
+  consonants: [p, t, k, b, d, g, m, n, s, r, l, w, j, h]
+  vowels: [a, e, i, o, u]
+  phonotactics: "(C)V(V)(C)"
+layers:
+  - id: LY-01
+    name: "West layer"
+    register: trade
+    substitutions: {sh: s, kh: k}
+  - id: LY-02
+    name: "North layer"
+    register: craft
+    substitutions: {o: a}
+morphology:
+  derivation_rules:
+    - id: CX-01
+      kind: compound
+      pattern: "^(?P<a>.+)\\+(?P<b>.+)$"
+      output: "{a}{b}"
+      note: "STACK-COMPOUND: concatenated without deletion; the plus is analysis only"
+lexicon:
+  # ---- positive rows: every stated input re-derives the delivered form ----
+  - {id: Q-01, term: saalu, register: quote, derived_from: saalumi, derivation: head2}
+  - {id: Q-02, term: nim, register: quote, derived_from: min, derivation: reverse}
+  - {id: Q-03, term: numas, register: quote, derived_from: samun, derivation: reverse}
+  - {id: Q-04, term: sunel, register: quote, derived_from: "su+nel", derivation: CX-01}
+  - {id: B-01, term: res, route: borrowed, layer: LY-01, loan_layer: "West layer", donor_form: resh}
+  - {id: B-02, term: gal, route: borrowed, layer: LY-02, loan_layer: "North layer", donor_form: gol}
+  # ---- planted violations: the stated chain does not yield the candidate ----
+  # V1 is the design's own named trap: the maximal-CONDA reading of head2 would
+  # give `saalum`, and the design states the maximal-ONSET algorithm precisely
+  # because the two readings disagree on this one row (§5).
+  - {id: Q-11, term: saalum, register: quote, derived_from: saalumi, derivation: head2}
+  - {id: Q-12, term: kin, register: quote, derived_from: kin, derivation: reverse}
+  - {id: Q-13, term: suk, register: quote, derived_from: sun, derivation: reverse}
+  - {id: B-03, term: gal, route: borrowed, layer: LY-01, loan_layer: "West layer", donor_form: gol}
+  # ---- a declared derivation that is not replayable: named, never silent ----
+  - {id: Q-20, term: nuka, register: quote, derived_from: makun, derivation: someop}
+# Scope control: a symbol record carries `form:` prose and a `register`, and is
+# NOT a language form. Reading it as one would manufacture findings out of a
+# medium description; the gate must skip it entirely.
+symbols:
+  - id: SYM-01
+    sign: "the mold-mark"
+    form: "a stamped impression from the mold's own geometry, one per cast"
+    register: quote

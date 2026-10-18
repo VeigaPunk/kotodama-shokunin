@@ -35,8 +35,15 @@ printed verbatim, so the artifact a reader sees is red at the design level. A
 hold laundered into a note, deleted or renamed fails L3.
 
 A typed packet may also be handed in directly (the frozen replay row does): a
-file carrying `typed_channel` is graded as the build product — L2 reconstructs
-the legacy packet from the moved fields, and L3/L4 run as usual.
+file carrying `typed_channel` is graded as the build product, and L3/L4 run as
+usual. For L2 the legacy side is the source the typed packet *declares* under
+`typed_assembly.packet`, digest-checked against its own `assembly.packet_sha256`
+— the gate's own rebuild of that source is not byte-faithful (the serializer
+escapes backslashes a second time and re-quotes nulls), so grading a rebuild
+manufactured DERIV-REPLAY findings that exist in no file (round-24 cold-run C2).
+A declared source that is unreadable or stale against its pin is an input-class
+refusal (exit 2, named) rather than a verdict; only an unnamed typed packet falls
+back to the rebuild, and then only if the rebuild round-trips.
 
 Declared assembler identity (round-18 O claim). The gate grades more than one
 pipeline family by *declaration*: the graded packet may carry a `typed_pipeline`
@@ -70,6 +77,11 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 GATES_DIR = ROOT / "tools/gates"
+# The argot-derivation leg (round-25 D claim) lives in a sibling gate that
+# replays the two declared argot operations and the packet's own formation
+# claims. It is loaded read-only by path and invoked with the same single
+# input, so the leg is the sibling's bytes, never a re-implementation here.
+ARGOT_GATE = GATES_DIR / "argot-derivation-gate.py"
 PACKET_DEFAULT = ROOT / "examples/culture-d2/packet.d2.yml"
 PROJECTION_DEFAULT = ROOT / "examples/culture-d2/typed-labels.d2.yml"
 EXPECTED_HOLDS_PATH = ROOT / "examples/culture-d2/expected-holds.json"
@@ -183,6 +195,15 @@ def detail_of(finding):
     return finding.get("detail", "")
 
 
+def nullish(value):
+    """A missing key or a null-ish value (`null`, `none`, `~`, empty).
+
+    The lane's reader keeps an unquoted `null` as the *string* `"null"`, so a
+    plain truthiness test would read a null slot as a present one.
+    """
+    return not isinstance(value, str) or value.strip().lower() in ("", "null", "none", "~")
+
+
 def moved_field(row):
     """The field a routing row moved off the sound channel.
 
@@ -191,9 +212,19 @@ def moved_field(row):
     channel, the D4 register class the round-17 brief declares.
     """
     value = row.get("off_channel_field")
-    if not isinstance(value, str) or value.strip().lower() in ("", "null", "none", "~"):
-        return None
-    return value
+    return None if nullish(value) else value
+
+
+def owed_slot_of(row):
+    """The slot a routing row owes, or None when the row owes no slot.
+
+    `owed_slot: null` is the D4 register class: the record is routed off the
+    sound channel but owes no form slot, so it contributes no owed slot to the
+    routing-consistency set. The null-ish test is the same one `moved_field`
+    applies, so the two halves of a routing row cannot disagree.
+    """
+    value = row.get("owed_slot")
+    return None if nullish(value) else value
 
 
 # --------------------------------------------------------------------------
@@ -256,6 +287,13 @@ def declared_paths(document):
         for key, value in block.items():
             if key in DECLARED_ALIASES and key not in declared:
                 declared[key] = value
+    # A typed artifact names its own source under `typed_assembly.packet` (its
+    # `assembly` block names the source's *digests*). Only that one key is read:
+    # `typed_assembly.generator` is the typed *adapter*, not the assembler, so
+    # the block cannot be scanned wholesale without mis-binding the identity.
+    typed_block = document.get("typed_assembly")
+    if isinstance(typed_block, dict) and isinstance(typed_block.get("packet"), str):
+        declared.setdefault("packet", typed_block["packet"])
     return declared
 
 
@@ -476,6 +514,32 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
     identity_requested = (config["assembler"] != SERIALIZER) or bool(
         (flags or {}).get("assembler"))
 
+    # ---- L3b argot derivation (round-25 D claim) -------------------------
+    # The register-scoped derivation relation the round-17 Δ3 forecast. The
+    # sibling gate owns the semantics and is invoked with the same single input
+    # (never re-implemented here); its FAIL findings join this verdict, so a
+    # form whose stated inputs and rules do not yield it cannot read green even
+    # when an earlier L1 leg refuses the run. Guarded on the generalized path:
+    # the D2 default run keeps its pre-round-25 output byte for byte.
+    argot_lines = []
+    if generalized and ARGOT_GATE.is_file():
+        proc = run_gate(ARGOT_GATE, packet_path if typed_arg is None else typed_arg,
+                        ROOT)
+        result["argot"] = {"exit": proc.returncode,
+                           "sha256": sha256_bytes(proc.stdout.encode())}
+        argot_lines = [line for line in proc.stdout.splitlines()
+                       if line.startswith("FINDING D4L-ARGOT-")]
+        result["argot_lines"] = argot_lines
+        argot_fails = [line for line in argot_lines if "FAIL" in line]
+        if argot_fails:
+            for line in argot_fails:
+                result["findings"].append({"id": "D4L-ARGOT-DERIV", "severity": "fail",
+                                           "where": "argot-derivation-gate",
+                                           "detail": line})
+        check("L3b-argot", not argot_fails and proc.returncode in (0, 1),
+              "argot leg exit %d: %s" % (proc.returncode,
+                                         "; ".join(argot_fails[:2]) or "unreadable"))
+
     # ---- L1 declared identity -------------------------------------------
     if generalized and config.get("profile_problems"):
         check("L1-profile", False, "; ".join(config["profile_problems"]))
@@ -584,26 +648,74 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
     check("L1-routing", True, "")
 
     # ---- L2 channel ------------------------------------------------------
+    # The legacy side of the comparison. A typed packet handed in directly does
+    # not carry its source bytes, and the gate's own rebuild of them is not
+    # byte-faithful: the serializer's `scalar` escapes backslashes a second time
+    # and the reader keeps an unquoted `null` as the string, so grading a rebuild
+    # manufactures DERIV-REPLAY findings that exist in no file (round-24 cold-run
+    # C2). The graded legacy side is therefore the source the typed packet
+    # declares, digest-checked against the pin the typed packet carries. Only
+    # when no source resolves does the rebuild stand in — and then it is trusted
+    # only if it round-trips, so a manufactured delta becomes a named
+    # input-class refusal (exit 2) instead of a plausible false red.
     legacy_bytes = None
+    result["input_class"] = "source"
+    result["rebuild_faithful"] = None
     if typed_arg is not None:
-        # reconstruct the legacy packet by moving the off-channel fields back
-        rebuilt = copy.deepcopy(typed_doc)
-        for row in routing:
-            for entry in rebuilt.get("costumes") or []:
-                if isinstance(entry, dict) and str(entry.get("id")) == row["record"]:
-                    field = row.get("source_field") or "garment"
-                    moved = moved_field(row) or "%s_gloss" % field
-                    if moved in entry:
-                        entry[field] = entry.pop(moved)
-        rebuilt.pop("typed_channel", None)
-        rebuilt.pop("typed_pipeline", None)
-        rebuilt.pop("typed_assembly", None)
-        rebuilt.pop("assembly", None)
-        rebuilt.pop("pipeline_findings", None)
-        rebuilt.pop("pipeline_counts", None)
-        rebuilt.pop("schema", None)
-        legacy_bytes = ("\n".join(load_peer(SERIALIZER)["yaml_lines"](rebuilt))
-                        + "\n").encode("utf-8")
+        declared_source = Path(config["packet"])
+        declared_sha = (typed_doc.get("assembly") or {}).get("packet_sha256")
+        typed_block = typed_doc.get("typed_assembly")
+        # only a typed packet that *names* its source is graded against one: an
+        # unnamed fallback may be a family convention that never built this
+        # artifact, so the rebuild stays the default there.
+        source_named = isinstance(typed_block, dict) and isinstance(
+            typed_block.get("packet"), str) and typed_block["packet"].strip()
+        source_named = bool(source_named or "packet" in (config.get("flags") or []))
+        source_bytes = (declared_source.read_bytes()
+                        if source_named and declared_source.is_file() else None)
+        if source_bytes is not None and (declared_sha is None
+                                         or sha256_bytes(source_bytes) == declared_sha):
+            legacy_bytes = source_bytes
+            result["input_class"] = "typed-declared-source"
+        elif source_named and source_bytes is None:
+            result["input_class"] = "typed-unresolvable"
+            result["input_class_error"] = True
+            check("L2-channel", False,
+                  "typed-packet input without its source: %s declares source %s, "
+                  "which is unreadable — a typed packet is the pipeline's output, "
+                  "not a gate input; restore the source or grade it directly"
+                  % (rel(typed_arg), rel(declared_source)))
+            return result
+        elif source_named:
+            result["input_class"] = "typed-stale-source"
+            result["input_class_error"] = True
+            check("L2-channel", False,
+                  "typed packet pins source %s, %s hashes %s — the derived artifact "
+                  "is stale against its own source; re-derive it or grade the source"
+                  % (str(declared_sha)[:12], rel(declared_source),
+                     sha256_bytes(source_bytes or b"")[:12]))
+            return result
+        else:
+            rebuilt = copy.deepcopy(typed_doc)
+            for row in routing:
+                for entry in rebuilt.get("costumes") or []:
+                    if isinstance(entry, dict) and str(entry.get("id")) == row["record"]:
+                        field = row.get("source_field") or "garment"
+                        moved = moved_field(row) or "%s_gloss" % field
+                        if moved in entry:
+                            entry[field] = entry.pop(moved)
+            rebuilt.pop("typed_channel", None)
+            rebuilt.pop("typed_pipeline", None)
+            rebuilt.pop("typed_assembly", None)
+            rebuilt.pop("assembly", None)
+            rebuilt.pop("pipeline_findings", None)
+            rebuilt.pop("pipeline_counts", None)
+            rebuilt.pop("schema", None)
+            legacy_bytes = ("\n".join(load_peer(SERIALIZER)["yaml_lines"](rebuilt))
+                            + "\n").encode("utf-8")
+            result["input_class"] = "typed-rebuilt"
+            result["rebuild_faithful"] = (
+                load_packet_strict(legacy_bytes.decode("utf-8"), reader)["packet"] == rebuilt)
     else:
         legacy_bytes = Path(packet_path).read_bytes()
 
@@ -667,11 +779,22 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
         field_moved = sorted(name for name in moved_records if name in costume_ids)
     else:
         field_moved = moved_records
-    check("L2-channel",
-          delta_ok and not off_named and removed_total == len(field_moved),
-          "; ".join(delta_detail)
-          or ("off-channel lines in the typed run: %s" % off_named[:2]
-              if off_named else "removed %d, routed %d" % (removed_total, len(moved_records))))
+    l2_ok = delta_ok and not off_named and removed_total == len(field_moved)
+    l2_detail = ("; ".join(delta_detail)
+                 or ("off-channel lines in the typed run: %s" % off_named[:2]
+                     if off_named else "removed %d, routed %d"
+                     % (removed_total, len(moved_records))))
+    if not l2_ok and result.get("rebuild_faithful") is False:
+        result["input_class"] = "typed-unfaithful-rebuild"
+        result["input_class_error"] = True
+        l2_detail = ("typed-packet input: %s declares no source packet that hashes to "
+                     "its own assembly.packet_sha256, and the gate's rebuild of that "
+                     "source does not round-trip — the serializer escapes backslashes "
+                     "a second time and re-quotes nulls, so this delta is manufactured "
+                     "by the rebuild, not found in any file; grade the source packet "
+                     "(%s) instead. Underlying delta: %s"
+                     % (rel(typed_arg), rel(config["packet"]), l2_detail))
+    check("L2-channel", l2_ok, l2_detail)
     # a routing row that keeps its record on the sound channel may not remove
     # that record's inventory line (D4 register class: routing, not deletion)
     if retained_records:
@@ -745,8 +868,8 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
     hold_slots = sorted({match.group(1) for item in findings
                          if item["id"] in routing_hold_ids
                          and (match := re.search(r"label_id\s+(\S+)", detail_of(item)))})
-    routed_slots = sorted(row.get("owed_slot") for row in routing
-                          if moved_field(row) and row.get("owed_slot"))
+    routed_slots = sorted(slot for row in routing
+                          if moved_field(row) and (slot := owed_slot_of(row)))
     check("L3-routing-consistency",
           hold_records == moved_records and hold_slots == routed_slots,
           "holds %s vs routed %s; owed slots %s vs routing %s"
@@ -795,6 +918,8 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
 
     failed = [item for item in checks if not item["ok"]]
     result["exit"] = 0 if not failed else 1
+    if result.get("input_class_error"):
+        result["exit"] = 2
     if generalized and any(item["id"] == "L4-pins" for item in failed):
         result["exit"] = 2
     result["typed"] = typed_gates
@@ -812,9 +937,15 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
 def report(result, stream=sys.stdout, config=None):
     config = config or result.get("config") or {}
     line = resolution_line(config)
+    # The argot leg's own findings always reach the reader, including on the
+    # exit-2 path where an earlier L1 leg refused the run: a derivation failure
+    # must be legible, not hidden behind the refusal that preceded it.
+    argot_lines = result.get("argot_lines") or []
     if result["exit"] == 2:
         if line:
             print(line, file=stream)
+        for item in argot_lines:
+            print(item, file=stream)
         for item in result["checks"]:
             print("%s %s: %s" % ("ok  " if item["ok"] else "FAIL", item["id"],
                                  item["detail"]), file=stream)
@@ -822,6 +953,8 @@ def report(result, stream=sys.stdout, config=None):
     print(BANNER, file=stream)
     if line:
         print(line, file=stream)
+    for item in argot_lines:
+        print(item, file=stream)
     holds = [item for item in result["findings"] if item["severity"] == "hold"]
     notes = [item for item in result["findings"] if item["severity"] == "note"]
     for item in holds:
@@ -862,6 +995,8 @@ def json_document(result, config=None):
                     "typed_packet": rel(config["typed"])}
     if result["exit"] == 2:
         document = {"ok": False, "exit_code": 2, "checks": result["checks"]}
+        if result.get("argot_lines"):
+            document["argot"] = result["argot_lines"]
         if resolved is not None:
             document["resolved"] = resolved
         return document
@@ -880,6 +1015,7 @@ def json_document(result, config=None):
         "gates": [{"gate": item["gate"], "exit": item["exit"],
                    "findings": len(item["findings"]), "stdout_sha256": item["sha256"]}
                   for item in result["typed"]],
+        "input_class": result.get("input_class"),
         "ok": all(item["ok"] for item in result["checks"]),
         "packet": rel(config.get("packet") or PACKET_DEFAULT),
         "pins": result["pins"],
@@ -987,6 +1123,40 @@ def selftest():
               launder_run.returncode == 1 and "L3" in launder_run.stdout,
               "exit %d" % launder_run.returncode)
 
+        # hazard control 3b: the null-ish owed_slot normalization (round-25 fix)
+        module = runpy.run_path(str(tool))
+        owed = module["owed_slot_of"]
+        truth = [({}, None), ({"owed_slot": None}, None), ({"owed_slot": "null"}, None),
+                 ({"owed_slot": "  ~ "}, None), ({"owed_slot": ""}, None),
+                 ({"owed_slot": 5}, None), ({"owed_slot": "LEX-GAR-01"}, "LEX-GAR-01")]
+        check("owed_slot normalization: the null-ish truth table holds",
+              all(owed(row) == want for row, want in truth),
+              "%s" % [(row, owed(row), want) for row, want in truth if owed(row) != want])
+
+        # hazard control 3c: a moved row that owes no slot must not contribute a
+        # phantom owed slot to the routing comparison. Pre-fix the literal
+        # `'null'` entered `routed_slots` and the check detail carried it.
+        unowed = original.replace(b'    owed_slot: "LEX-GAR-01"\n', b"    owed_slot: null\n", 1)
+        assert unowed != original, "the fixture must carry the owed slot"
+        unowed_path = Path(tmpdir) / "unowed-typed.yml"
+        unowed_path.write_bytes(unowed)
+        unowed_run = run("--json", str(unowed_path))
+        unowed_payload = (json.loads(unowed_run.stdout)
+                          if unowed_run.stdout.strip().startswith("{") else {})
+        routing_detail = next((item["detail"] for item in unowed_payload.get("checks") or []
+                               if item["id"] == "L3-routing-consistency"), "")
+        check("phantom owed slot: a null-ish owed_slot never reaches the comparison",
+              unowed_run.returncode == 1 and "'null'" not in routing_detail,
+              "exit %d: %s" % (unowed_run.returncode, routing_detail[:200]))
+
+        # hazard control 3d: the declared-assembler source leg is taken only when
+        # the declared assembler builds a gradeable packet; the D2 mirror declares
+        # none, so the reconstruction path stays in force
+        check("declared-assembler source leg: absent without a declared assembler",
+              not any(item["id"] == "L2-legacy-source"
+                      for item in (payload.get("checks") or [])),
+              "%s" % [item["id"] for item in (payload.get("checks") or [])])
+
         # hazard control 4: the adapter edited under a frozen packet (pin break)
         adapter_copy = mirror / "tools/assemble-d2-typed.py"
         adapter_bytes = adapter_copy.read_bytes()
@@ -1008,6 +1178,44 @@ def selftest():
         check("missing packet: exit 2", missing.returncode == 2,
               "exit %d" % missing.returncode)
 
+        # input-class controls (round-25 O): a typed packet grades against its
+        # declared source; an unresolvable or stale declaration refuses, exit 2
+        typed_positive = run(str(built))
+        typed_json = run("--json", str(built))
+        typed_payload = (json.loads(typed_json.stdout)
+                         if typed_json.stdout.strip().startswith("{") else {})
+        check("typed input: graded against its declared source (exit 0)",
+              typed_positive.returncode == 0
+              and "L2-channel" in typed_positive.stdout
+              and typed_positive.stdout != first.stdout,
+              "exit %d" % typed_positive.returncode)
+        check("typed input: --json reports the input class",
+              typed_payload.get("input_class") == "typed-declared-source",
+              "%s" % typed_payload.get("input_class"))
+        orphan_text = original.decode("utf-8").replace(
+            '  packet: "examples/culture-d2/packet.d2.yml"',
+            '  packet: "examples/culture-d2/packet.absent.yml"', 1)
+        assert orphan_text != original.decode("utf-8"), "the typed packet must name its source"
+        orphan = Path(tmpdir) / "orphan-typed.yml"
+        orphan.write_text(orphan_text, encoding="utf-8")
+        orphan_run = run(str(orphan))
+        check("typed input, missing source: exit 2 and the class is named",
+              orphan_run.returncode == 2 and "not a gate input" in orphan_run.stdout,
+              "exit %d: %s" % (orphan_run.returncode, orphan_run.stdout[-200:]))
+        stale_source = mirror / "examples/culture-d2/packet.stale.yml"
+        stale_source.write_bytes(
+            (mirror / "examples/culture-d2/packet.d2.yml").read_bytes() + b"\n# drift\n")
+        stale_text = original.decode("utf-8").replace(
+            '  packet: "examples/culture-d2/packet.d2.yml"',
+            '  packet: "examples/culture-d2/packet.stale.yml"', 1)
+        stale_typed = Path(tmpdir) / "stale-source-typed.yml"
+        stale_typed.write_text(stale_text, encoding="utf-8")
+        stale_source_run = run(str(stale_typed))
+        check("typed input, stale source: exit 2 and the class is named",
+              stale_source_run.returncode == 2
+              and "stale against its own source" in stale_source_run.stdout,
+              "exit %d: %s" % (stale_source_run.returncode, stale_source_run.stdout[-200:]))
+
     total = len(passed) + len(failed)
     if failed:
         print("selftest: %d/%d checks passed — failures: %s"
@@ -1015,7 +1223,8 @@ def selftest():
         return 1
     print("selftest: %d/%d checks passed — constant==baseline, the mirrored four "
           "legs, determinism/--json, and the smuggled-label, dropped-row, "
-          "laundered-hold, adapter-drift, malformed and missing controls; no file "
+          "laundered-hold, adapter-drift, malformed, missing and input-class "
+          "controls; no file "
           "outside the temporary mirror touched" % (len(passed), total))
     return 0
 
@@ -1185,6 +1394,13 @@ def selftest_generalized():
         for name in GATE_NAMES:
             shutil.copyfile(GATES_DIR / name, mirror / "tools/gates" / name)
         shutil.copyfile(Path(__file__), mirror / "tools/gates/typed-pipeline-gate.py")
+        # the argot-derivation sibling (round-25 D): mirrored with its fixtures
+        # so the leg is exercised inside the mirror, and its own selftest runs there.
+        shutil.copyfile(ARGOT_GATE, mirror / "tools/gates/argot-derivation-gate.py")
+        (mirror / "tools/gates/fixtures").mkdir(parents=True, exist_ok=True)
+        for fixture in ("argot-derivation-gate.yml", "argot-derivation-gate.expected"):
+            shutil.copyfile(GATES_DIR / "fixtures" / fixture,
+                            mirror / "tools/gates/fixtures" / fixture)
         fixture_assembler = mirror / "tools/assemble-culture-d9.py"
         fixture_assembler.write_text(FIXTURE_ASSEMBLER, encoding="utf-8")
         (mirror / "examples/culture-d9/components/01-brief.yml").write_text(
@@ -1237,6 +1453,23 @@ def selftest_generalized():
               "%s" % payload.get("resolved"))
         first, second = positive.stdout, run("--json", str(typed)).stdout
         check("declared identity: two gate runs byte-identical", first == second)
+
+        # argot-derivation leg (round-25 D claim): the sibling is mirrored, so
+        # the leg runs inside the mirror too. The sibling's own selftest names
+        # its controls, and the mirror's leg must be present and answer.
+        argot_tool = mirror / "tools/gates/argot-derivation-gate.py"
+        argot_selftest = subprocess.run([sys.executable, str(argot_tool), "--selftest"],
+                                        capture_output=True, text=True, cwd=str(mirror),
+                                        env=child_env(), check=False)
+        check("argot derivation leg: the mirrored sibling selftest is green",
+              argot_selftest.returncode == 0 and "checks passed" in argot_selftest.stdout,
+              "exit %d: %s" % (argot_selftest.returncode, argot_selftest.stdout[-200:]))
+        argot_probe = subprocess.run(
+            [sys.executable, str(argot_tool), str(mirror / "examples/culture-d9/packet.d9.yml")],
+            capture_output=True, text=True, cwd=str(mirror), env=child_env(), check=False)
+        check("argot derivation leg: the mirrored leg runs on the family packet",
+              argot_probe.returncode in (0, 1) and "coverage:" in argot_probe.stdout,
+              "exit %d: %s" % (argot_probe.returncode, argot_probe.stdout[-200:]))
 
         packet_bytes = packet.read_bytes()
         packet.write_bytes(packet_bytes + b"# tamper\n")

@@ -1,0 +1,341 @@
+{
+  "round": 25,
+  "assignment": "SCRIBE X40 — report scribe and settled-tree rerun",
+  "date": "2026-10-18",
+  "status": "measurement-closed on checkpoint-d: the round-25 counting command returns acceptance true (O/D/C all green). Rerun record, not a round admission — the parent owns the verdict.",
+  "baseline_revision": "e06581b7fc2b50050a336f7f38a7e2baebcc6abc",
+  "declaration_head": "f74fc9403d4b02c8ee76439eb133e3dea9b65b14",
+  "axes": {"O": "operability", "D": "depth", "C": "coverage"},
+  "method": {
+    "scratch_prelude": "export TMPDIR=$PWD/.scratch; export PYTHONDONTWRITEBYTECODE=1 (from the lane root before every command batch)",
+    "clone_root": ".scratch/r25-x40",
+    "overlay_snapshot_policy": "checkpoint-a/b/c are shared Git clones of declaration HEAD f74fc94 overlaid with hash-inventoried live working-tree surfaces (tools, examples, corpus, reports/round-25, SKILL.md, SCORECARD.md, LOG.md, AGENTS.md, PROVINCE.md, README.md); copy_stable true at every snapshot (inventory identical before/after copy).",
+    "historical_clone_policy": "plain shared clones of declaration HEAD with no overlay, one per round: .scratch/r25-x40/r19, r20, r21, r22, r23, r24; each has its own .scratch. REFRESH_RECEIPTS=1 grants receipt writes inside the clones only.",
+    "live_filed_receipts_refreshed_by_x40": false,
+    "commits_or_pushes_by_x40": false,
+    "shared_bookkeeping_edited_by_x40": false,
+    "round25_validator_executed_by_x40": true,
+    "round25_validator_note": "reports/round-25/run-validation.py landed mid-wave (absent at 17:26:07Z, present by 17:30:35Z, sha256 aaeab0cb31a541e55f0f9e5660055716e32f928ab3912c46a4becc525b9dab82). It was executed by this seat in --check mode only, inside isolated overlay clones, never in the live lane, and no filed receipt was written by this seat. The runs below bind the clone bytes at their stated snapshots."
+  },
+  "preservation": {
+    "surface": "reports/round-8..24 and tools/gates/frozen/round-8..24 compared to declared baseline e06581b by git ls-tree blob-id and mode",
+    "command": "python3 .scratch/r25-x40/capture.py protect",
+    "initial": {
+      "observed_at_utc": "2026-10-18T17:24:57.271653+00:00",
+      "files": 1247,
+      "mismatches": [],
+      "manifest_sha256": "067cec3d4c70f432d19e078f740c85bd5a77da52661d25dcaf8daafe8ac974e6",
+      "protected_status": "",
+      "record": ".scratch/r25-x40/protected-initial.json"
+    },
+    "closing": {
+      "observed_at_utc": "2026-10-18T17:31:21.922104+00:00",
+      "files": 1247,
+      "mismatches": [],
+      "manifest_sha256": "067cec3d4c70f432d19e078f740c85bd5a77da52661d25dcaf8daafe8ac974e6",
+      "protected_status": ""
+    },
+    "finding": "Identical manifest digest at both samples: no protected filed byte changed during this seat's window. Unlike the round-23 window there is NO in-flight foreign write on the protected surface this round.",
+    "limit": "Tracked bytes and file modes only; a clean observation does not exclude a transient write-and-restore between samples. Ignored logs have no committed baseline identity.",
+    "fleet_root": {
+      "fleet_head": "8b150d6cffdb153c44edc3118ad62a853b16d3cb",
+      "status_rows": 10,
+      "note": "Ten untracked debris files under the fleet root .scratch/ (battery.out, coupling.out, craft.out, d2check.out, d3check.out, replay-r22.out, replay-r3.out, rv5-p.out, rv6-p.out, rv7-p.out), all last written 2026-10-18 13:10-13:15 -03:00, i.e. BEFORE the round-25 dispatch commit (14:23:25 -03:00). The kotodama lane itself is gitignored at the fleet root (fleet .gitignore:1 `*-shokunin/`). The round-25 scope watch (SCRIBE X39, reports/round-25/scope.md) independently discloses the same two debris families and marks the 'fleet root clean' clause FAIL as observed; this seat concurs on the observation and asserts no disposition."
+    }
+  },
+  "settled_tree_regressions": {
+    "command": "python3 .scratch/r25-x40/capture.py run checkpoint-a .scratch/r25-x40-commands.json",
+    "commands_file": ".scratch/r25-x40-commands.json (round-22 X04 battery, reused verbatim; sha256 8d821590a6caf322c3f5f25667d06b5d91ab0a5ffc536148da62b6fc358f14d8)",
+    "snapshot": "checkpoint-a (HEAD f74fc94 + live overlay, 729 files, manifest 7039736348d2a57eb1beb2f0f07806832a0a03fa1076af9b774de2caf35f07c2, copy_stable true)",
+    "date": "2026-10-18",
+    "commands": 32,
+    "all_exit_zero": true,
+    "key_results": {
+      "battery_selftest": "35/35 controls behaved as expected",
+      "battery": "exit 0",
+      "craft": "all checks passed (audits=7, mech_cases=11, derivations=9, approx_checks_runner=37)",
+      "d2_assembly_selftest": "42/42", "d3_assembly_selftest": "85/85", "d4_assembly_selftest": "81/81",
+      "d2_adapter_selftest": "12/12", "d4_adapter_selftest": "12/12",
+      "replay_selftest": "79/79",
+      "projector_selftest": "163/163 checks passed (includes the family/embedded control matrices)",
+      "typed_gate_d2": "16/16 legs", "typed_gate_d4": "19/19 legs",
+      "typed_gate_selftest": "12/12 checks passed (pre-fix revision)",
+      "handoff_v2": "claims=15, links=50/50, drift=named(tools/harness/packet_links.py round-16), exit 0",
+      "handoff_v3": "fields=16/16 glossary=20/20 findings=0 links=105/105 claims=27 statuses=16/7/4 v2_subset=equal alias_leg=landed packet_sha256=a97a0f0a0a497cb4410124607065df7686bbc7f78b4b46bdaaaa1d66ba4d1b6e",
+      "receipt_guard_selftest": "selftest_passed true",
+      "packet_links_selftest": "exit 0", "packet_uncertainty_selftest": "exit 0"
+    },
+    "per_command_results": ".scratch/r25-x40/checkpoint-a-results.json with per-command streams under .scratch/r25-x40/checkpoint-a-runs/",
+    "boundary": "Measured against checkpoint-a overlay bytes captured 2026-10-18T17:24Z. The live tree kept moving (overlay inventory 729 -> 764 -> 789 files between 17:24Z and 17:33Z as worker fragments and the two O/D source fixes landed); those later bytes are outside this battery."
+  },
+  "round_validators": {
+    "round19": {
+      "clone": ".scratch/r25-x40/r19",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-19/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "5b27a80de1f4b11012061e7ed3e835734049661ace295b39878afd9f71454d3a",
+      "exit_code": 0,
+      "stdout": "acceptance: False ['C entries']",
+      "disposition": "Known selector defect, unchanged from the round-21 and round-23 reruns: reports/round-19/run-validation.py:10-12 counts only untracked (??) corpus paths, and every filed round-19 entry is tracked at settled HEAD. The runner prints the inner result but exits 0; exit 0 is not acceptance. Clone-local receipt refreshed; filed receipt untouched."
+    },
+    "round20": {
+      "clone": ".scratch/r25-x40/r20",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-20/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "2b7a252b5449415dddac2e667ed2e192df800a80173849989fa72423961646da",
+      "exit_code": 1,
+      "acceptance_checks_passed": false,
+      "claim_passed": {"O": true, "C": true, "D": false},
+      "failures": [
+        "v2 successor row not green: reports/round-20/wart/expected-v2-07-r20.json exit 2 — V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py",
+        "contract audit re-run verdict is 'fail', not a semantic PASS or named gaps with owners: reports/round-20/handoff/packet-v3-16.md",
+        "v3 baseline reports/round-20/handoff/expected.json pins packet e92f5e6775b6… but the run assembled a97a0f0a0a49…"
+      ],
+      "disposition": "Byte-for-byte the same three failures recorded in reports/round-23/rerun.json and reports/round-22/rerun.json. All three are R22-admitted drift (the projector source change and the delivered v3 packet revision) plus the carried audit-selector defect; historical red rows preserved, not patched. Not a round-25 regression."
+    },
+    "round21": {
+      "clone": ".scratch/r25-x40/r21",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-21/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "938cddeed86dedf52a4904c9c6a81248d6dc719c1330d4f3b64bcd8f3be896b0",
+      "exit_code": 1,
+      "acceptance_checks_passed": false,
+      "claim_passed": {"O": true, "C": false, "A": false},
+      "disposition": "Unchanged from the round-23 rerun: C fails on the isolated R18 rerun comparability loss (reports/round-21/run-validation.py:359-363); A fails on the current handoff twin link replay [105,105,4] versus the filed [102,102,0]. Both are documented carry-overs from the R22 packet delivery, not new regressions."
+    },
+    "round22": {
+      "clone": ".scratch/r25-x40/r22",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-22/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "3af74c2b40f007c21581b037c9059512bd745d4fe8645dd9e4364818a4e463dd",
+      "exit_code": 0,
+      "acceptance_checks_passed": true,
+      "claim_passed": {"O": true, "C": true, "D": true},
+      "disposition": "Reproduces the round-23 first-full-settled-receipt result: the round-22 recipe's measurable legs are green on the tree the round-25 claims build on. Does not reverse the round-22 rejection (a process verdict) and does not discharge any round-25 claim."
+    },
+    "round23": {
+      "clone": ".scratch/r25-x40/r23",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-23/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "ae897cb8d808f0c1432948154d440f9c86730685b32b91442d9714dc27692cb2",
+      "exit_code": 0,
+      "acceptance_checks_passed": true,
+      "claim_passed": {"O": true, "D": true},
+      "note": "This is the round-23 admission-finalized runner; round 23's filed receipt already records acceptance true. The settled recut reproduces it — the SKILL.md family-clean rule that was the round-23 D blocker is now landed, so the previously-recorded single failure is gone."
+    },
+    "round24": {
+      "clone": ".scratch/r25-x40/r24",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-24/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "ba3b18a79e9b0dbb",
+      "exit_code": 0,
+      "acceptance_checks_passed": true,
+      "claim_passed": {"C": true, "O": true, "D": true},
+      "note": "Reproduces the filed round-24 acceptance on the settled tree."
+    },
+    "overall_disposition": "Recuts 19-24 are unchanged from the round-23 baseline picture: r19 known selector defect (exit 0 is not acceptance), r20/r21 documented R22-admitted drift carry-overs, r22/r23/r24 green on their admission-finalized runners. No new round-25 regression appears on the filed surface."
+  },
+  "round25_runner": {
+    "runner": "reports/round-25/run-validation.py",
+    "runner_sha256": "aaeab0cb31a541e55f0f9e5660055716e32f928ab3912c46a4becc525b9dab82",
+    "executed_by_x40": true,
+    "mode": "--check (measure only; no receipt written by this seat)",
+    "runs": [
+      {
+        "snapshot": "checkpoint-b",
+        "clone": ".scratch/r25-x40/checkpoint-b",
+        "files": 764,
+        "manifest_sha256_prefix": "409d8dd408562ae6",
+        "observed_at_utc": "2026-10-18T17:32Z",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {"C": true, "D": false, "O": false},
+        "claim_failures": {
+          "C": [],
+          "D": ["argot: the typed gate's selftest legs are not both green", "argot: the D4 typed gate's selftest names no argot/derivation-replay control", "argot: control: the violating derivation emits neither D4L-ARGOT-DERIV nor a named derivation diagnostic"],
+          "O": ["v3-supersession: no superseding v3 row landed under reports/round-25 (expected a directory with expected.json + packet.md + twin.json)", "Regression failed: python3 tools/gates/typed-pipeline-gate.py --selftest (exit 1, 2026-10-18)"]
+        },
+        "note": "This snapshot caught the gate-input fix mid-flight: the O gate-input behavioural legs were ALREADY green (derived packet exit 0, 16/16 legs, 0 DERIV-REPLAY lines, nullish_routing false; source packet 19/19) but the gate's own --selftest was still red, so the regression leg failed. Superseded by checkpoint-c."
+      },
+      {
+        "snapshot": "checkpoint-c",
+        "clone": ".scratch/r25-x40/checkpoint-c",
+        "files": 789,
+        "manifest_sha256_prefix": "3400a612a550d0b6",
+        "observed_at_utc": "2026-10-18T17:34Z",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {"C": true, "D": false, "O": false},
+        "claim_failures": {
+          "C": [],
+          "D": ["argot: the D4 typed gate's selftest names no argot/derivation-replay control", "argot: control: the violating derivation emits neither D4L-ARGOT-DERIV nor a named derivation diagnostic"],
+          "O": ["v3-supersession: no superseding v3 row landed under reports/round-25 (expected a directory with expected.json + packet.md + twin.json)"]
+        },
+        "missing_dependencies": ["reports/round-25 (successor v3 row)"],
+        "protected_filed_artifacts": {"passed": true, "differences": [], "protected_paths": 1247, "protected_status_rows": 0},
+        "regressions": {"runs_total": 33, "labels_nonzero_exit": [], "all_green": true},
+        "measurements": {
+          "O_gate_input_honesty": {
+            "source_packet": {"command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml", "exit": 0, "legs_passed": 19, "legs_total": 19, "failed_legs": []},
+            "derived_packet": {"command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml", "exit": 0, "legs_passed": 16, "legs_total": 16, "failed_legs": [], "deriv_replay_lines": 0, "nullish_routing": false},
+            "control_corrupted_packet": {"command": "… broken.d4.yml", "exit": 2},
+            "control_tampered_expectation": {"command": "… --expected tampered/expected-holds.json …", "exit": 1},
+            "reading": "HAZARD (a) FIXED and behaviourally verified: feeding the typed packet back can no longer manufacture a finding — it now exits 0 at 16/16 with zero DERIV-REPLAY lines and no nullish routing, while the source entry keeps 19/19 and both refusal controls still bite (truncated packet exit 2, tampered expectation exit 1)."
+          },
+          "O_v3_supersession": {
+            "live_family_clean_state": {"expected_holds_counts": {"hold": 12, "note": 0, "fail": 0}, "findings_total": 12, "conflicts": 0, "rank_rules_unresolved_items": 0, "rank_quarantine_handles": 0, "reconciliation_records": 6, "typed_labels": 74},
+            "filed_predecessor": {"path": "reports/round-22/handoff/declared-in-r2/twin.json", "stale_tokens_present": ["D2L-RANK", "13 unresolved rank", "three quarantine handles", "four conflicts", "1 note"], "note": "filed bytes stay as filed; staleness here is historical, not graded"},
+            "successor_candidates": [],
+            "reading": "HAZARD (b) NOT YET DISCHARGED at this snapshot. reports/round-25/v3-supersession/declared-in-r4/ carries packet.md (sha256 5f58db4a52b688568eac054b1c75e9bd110843370a1943cf4353fff75b46aa03, 109,817 bytes), expected.json and freeze.txt — but NO twin.json, and the runner's successor detector requires all three of expected.json + packet.md + twin.json. The corrected prose itself is on disk and verified (see v3_supersession_build below)."
+          },
+          "D_argot": {
+            "runner_independent_rederivation": {"worked_pairs": 11, "agreements": 11, "mismatches": [], "reading": "the runner's own head2/reverse implementation reproduces all eleven design-fixed derivations"},
+            "artifacts": 14,
+            "d4_gate": {"command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml", "exit": 0},
+            "gate_selftest": {"typed_pipeline_selftest": 0, "typed_pipeline_generalized_selftest": 0, "names_argot_control": false},
+            "control_violating_derivation": {"exit": 2, "argot_id_emitted": false, "legs_passed": 1, "legs_total": 2},
+            "reading": "PARTIAL. The analysis and delta artifacts landed (14 files), the runner's independent re-derivation agrees 11/11, and the standalone leg tools/gates/argot-derivation-gate.py landed and is green (selftest 18/18, D4 run exit 0, derived_pairs=0 violations=0). What is NOT yet landed is the binding the claim requires: the D4 typed gate's selftest does not name an argot/derivation-replay control (grep -c argot on tools/gates/typed-pipeline-gate.py -> 0), and the runner's mutated-packet control does not emit D4L-ARGOT-DERIV. The claim's after_required says 'the D4 typed gate grows the leg with selftest controls' — that specific integration is the remaining delta."
+          }
+        }
+      }
+    ],
+    "receipt_paths": [".scratch/r25-x40/checkpoint-b-runner.json", ".scratch/r25-x40/checkpoint-c-runner.json", ".scratch/r25-x40/checkpoint-d-runner.json"]
+  },
+  "round25_runner_final": {
+    "snapshot": "checkpoint-d and checkpoint-e (two independent overlay clones; both green)",
+    "clone": ".scratch/r25-x40/checkpoint-d and .scratch/r25-x40/checkpoint-e",
+    "files": "802 (checkpoint-d) / 802 (checkpoint-e)",
+    "manifest_sha256_prefix": "05ca031882c63d8d (checkpoint-d) / 2b181543889efca5 (checkpoint-e)",
+    "observed_at_utc": "2026-10-18T17:41Z (checkpoint-d) / 17:43Z (checkpoint-e)",
+    "runner_sha256": "4cd6f066f823c7e0eb3eb3f07d661d171a344c1fb78086c67ebb3ae5c9678779 (checkpoint-d) / 2698f7b2ac1b9e7b5aafa7cbeb2787e45c576a4fed5f718d2b403729540208f9 (checkpoint-e)",
+    "runner_note": "The runner was revised at least three times during this seat's window (aaeab0cb… -> 4cd6f066… -> 2698f7b2…). Two revisions mattered to the outcome: the successor-v3 detector came to accept the claim-prose row shape (packet.md + expected.json) as well as the renderer-emitted twin shape, and the argot control came to probe the standalone gate. Acceptance was independently reproduced on TWO separate runner revisions, so it is not an artefact of a single instrument version.",
+    "command": "python3 reports/round-25/run-validation.py --check (isolated clones, no receipt written by this seat)",
+    "exit_code": 0,
+    "acceptance_checks_passed": true,
+    "claim_passed": {"O": true, "D": true, "C": true},
+    "failures": [],
+    "missing_dependencies": [],
+    "regressions": {"runs_total": 35, "labels_nonzero_exit": [], "all_green": true},
+    "protected_filed_artifacts": {"passed": true, "differences": [], "protected_paths": 1247, "protected_status_rows": 0},
+    "checkpoint_d_to_e_delta": {
+      "added": [], "removed": [],
+      "changed": ["reports/round-25/audit/o18-gate-input-adversarial.md", "reports/round-25/audit/o18-probe-matrix.sh", "reports/round-25/audit/x42-argot-execution-spotcheck.md", "reports/round-25/regression.md", "reports/round-25/scribe/fragment-ledger.json", "reports/round-25/scribe/fragment-ledger.md", "tools/gates/argot-derivation-gate.py"],
+      "reading": "No file added or removed; seven surfaces were revised (all round-25-owned, plus the argot gate itself). Acceptance held across the change."
+    },
+    "receipts": [".scratch/r25-x40/checkpoint-d-runner.json", ".scratch/r25-x40/checkpoint-e-runner.json"],
+    "measurements": {
+      "O_gate_input_honesty": {
+        "source_packet": {"exit": 0, "legs_passed": 19, "legs_total": 19, "failed_legs": []},
+        "derived_packet": {"exit": 0, "legs_passed": 16, "legs_total": 16, "failed_legs": [], "deriv_replay_lines": 0, "nullish_routing": false},
+        "control_corrupted_packet": {"exit": 2},
+        "control_tampered_expectation": {"exit": 1},
+        "reading": "Hazard (a) discharged: the derived packet no longer manufactures a finding, the source entry keeps 19/19, and both refusal controls bite."
+      },
+      "O_v3_supersession": {
+        "successor_candidates": ["reports/round-25/v3-supersession/declared-in-r4"],
+        "successor_row": {"revision": "declared-in-r4", "path": "reports/round-25/v3-supersession/declared-in-r4", "claims_seen": 14, "packet_sha256": "5f58db4a52b688568eac054b1c75e9bd110843370a1943cf4353fff75b46aa03"},
+        "successor_pin": {"declared": "5f58db4a52b688568eac054b1c75e9bd110843370a1943cf4353fff75b46aa03", "observed": "5f58db4a52b688568eac054b1c75e9bd110843370a1943cf4353fff75b46aa03"},
+        "parent_binding": {"path": "reports/round-23/wording/declared-in-r3/packet.md", "declared_sha256": "084dc5db9a8d923bb06a987b0b437bf5bfee3caac2e41cd16743da0c71499250", "observed_sha256": "084dc5db9a8d923bb06a987b0b437bf5bfee3caac2e41cd16743da0c71499250"},
+        "claim_rows": {"D4-CL05": {"states_family_clean_value": true, "undispositioned_stale_sentences": []}, "D4-CL06": {"states_family_clean_value": true, "undispositioned_stale_sentences": []}, "D4-CL07": {"states_family_clean_value": true, "undispositioned_stale_sentences": []}, "D4-CL09": {"states_family_clean_value": true, "undispositioned_stale_sentences": []}},
+        "oq_v3_05": {"disposition_marked": true, "undispositioned_stale_sentences": []},
+        "filed_predecessor": {"path": "reports/round-22/handoff/declared-in-r2/twin.json", "stale_tokens_present": ["13 unresolved rank", "15 hold-or-fail", "d2l-rank rows", "four conflicts", "one d2l-rank note", "three quarantine handles"], "note": "filed bytes stay as filed; staleness here is historical, not a failure"},
+        "reading": "Hazard (b) discharged: the successor row carries the corrected prose for all four watched claim rows and the OQ passenger, with the parent packet's declared digest re-verified byte-equal, and no undispositioned stale sentence survives. Filed predecessor bytes remain untouched."
+      },
+      "D_argot": {
+        "runner_independent_rederivation": {"worked_pairs": 11, "agreements": 11, "mismatches": []},
+        "artifacts": 15,
+        "argot_gate": {"path": "tools/gates/argot-derivation-gate.py", "exists": true, "selftest_exit": 0, "selftest_summary": "selftest: 18/18 checks passed", "d4_run_exit": 0, "typed_gate_carries_the_leg": false},
+        "control_violating_derivation": {"command": "python3 tools/gates/argot-derivation-gate.py … violating.yml", "exit": 1, "argot_id_emitted": true, "positive_control_command": "python3 tools/gates/argot-derivation-gate.py … clean.yml", "positive_control_exit": 0},
+        "reading": "Claim D discharged as the runner measures it: the leg is implemented as the standalone tools/gates/argot-derivation-gate.py (selftest 18/18, green on D4), its negative control emits D4L-ARGOT-DERIV with a paired clean positive control, and the forecast delta is filed element-by-element. NOTE: the runner's typed_gate_carries_the_leg field is false — the leg lives in its own gate rather than inside tools/gates/typed-pipeline-gate.py, which is a narrower reading of the claim's 'the D4 typed gate grows the leg' than a reader might expect. The parent should judge whether a standalone gate satisfies that clause."
+      },
+      "C_lessons_index": {
+        "partition": {"files": 26, "index_rows": 26, "declared_counts_match": true},
+        "census_formats": {"documented": ["gate-keeper", "fragment-index", "plain"], "expected": ["gate-keeper", "fragment-index", "plain"]},
+        "open_question_queue": {"rows": 51, "owner_count": 33},
+        "round_13_row": {"round": "13", "rows": ["13"], "note": "a row may exist for a skipped round provided it says so"},
+        "reading": "Claim C discharged: one row per lesson file, no phantom rows, the three census formats documented, an owner-bearing open-question queue, and a declared count that reproduces."
+      }
+    },
+    "input_sha256": {
+      "corpus/lessons/README.md": "ee2a15dff30e7edf352c4c87dd525f5fe414ad511931bf5caeb6fece0d172154",
+      "examples/culture-d4/expected-holds.json": "3826ba68d705b3c379b2a12737c14075d9095a1ba2aa2eb525de1851a9ecd2f7",
+      "examples/culture-d4/typed-labels.d4.yml": "60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092",
+      "reports/round-22/handoff/declared-in-r2/twin.json": "d3de56a8be1d28fdcead751aa0ac9364f7b43ff2b8bad71b696f0b57955b4d5c"
+    }
+  },
+  "v3_supersession_build": {
+    "builder": "reports/round-25/v3-supersession/build-revision.py",
+    "command": "python3 -B reports/round-25/v3-supersession/build-revision.py --check",
+    "date": "2026-10-18",
+    "exit_code": 0,
+    "result": "declared-delta rebuild: EQUAL; revision sha256 5f58db4a52b688568eac054b1c75e9bd110843370a1943cf4353fff75b46aa03; filed 109817 bytes / rebuilt 109817 bytes",
+    "parent": "reports/round-23/wording/declared-in-r3/packet.md (sha256 084dc5db9a8d923bb06a987b0b437bf5bfee3caac2e41cd16743da0c71499250)",
+    "delta": "exactly five ledger-line substitutions (D4-CL05, D4-CL06, D4-CL07, D4-CL09, OQ-V3-05) plus one provenance note; the corrected OQ-V3-05 now reads 'D4's own holds stay open: twelve form holds, zero rank holds, zero notes and zero fails … removed from D4 ownership by the round-22 family-clean repair and still open in D2 (OQ-V2-03)'",
+    "audit": {
+      "tool": "reports/round-25/audit/x48-v3-supersession-audit.py",
+      "command": "python3 -B reports/round-25/audit/x48-v3-supersession-audit.py",
+      "date": "2026-10-18",
+      "exit_code": 0,
+      "result": "live counts {hold 12, note 0, fail 0} findings_total 12 conflicts 0 unresolved 0; stale assertions per revision: r20-packet.md 8, r22-declared-in 8, r22-declared-in-r2 8, r23-declared-in-r3 8"
+    },
+    "limit": "This is the prose revision's own build-and-verify receipt. The round-25 runner later accepted this row shape directly once its successor detector was revised (see round25_runner_final.measurements.O_v3_supersession)."
+  },
+  "c_lessons_index": {
+    "index": "corpus/lessons/README.md (sha256 ee2a15dff30e7edf352c4c87dd525f5fe414ad511931bf5caeb6fece0d172154 at checkpoint-d; an earlier revision measured sha256 05adf044fc2d0a9c76a902f9c6e460d82a5517901f41c9ac39faf4034f608240)",
+    "audit_tool": "reports/round-25/audit/c31-lessons-index-audit.py",
+    "command": "python3 -B reports/round-25/audit/c31-lessons-index-audit.py",
+    "date": "2026-10-18",
+    "exit_code": 0,
+    "result": {
+      "index_present": true,
+      "lesson_files": 26,
+      "index_rows": 26,
+      "queue_rows": 49,
+      "format_histogram": {"gate-keeper": 14, "fragment-index": 5, "plain": 7},
+      "checks_passed": ["C31_index_rows_eq_files", "C32_owners_resolve", "C33_formats_documented", "C34_pins_rederived", "C34c_shape_cells_rederived", "C34b_prose_arithmetic"],
+      "findings": []
+    },
+    "reading": "Claim C's deliverable is on disk and independently passes all six audit checks: one row per lesson file with no phantom rows, every open-question owner resolving to a live path/role/round pointer, the three census formats documented, and the per-row bytes/lines/sha8 cells re-derived from live bytes rather than inherited. The round-25 runner's own C leg also passed (claim C failures=[]).",
+    "note": "The partition grew from 24 to 26 files during the wave (corpus/lessons/round-25.md landed, and README.md counts itself), which is why the README's declared count reads 26 at this seat's measurement rather than the 24 in the claim's before-clause."
+  },
+  "gate_input_fix": {
+    "tool": "tools/gates/typed-pipeline-gate.py",
+    "pre_fix_sha256": "04ad4bb479562c419b48d750a8f9303c4a5a717ca7f2fe3b3658cc1bb9578a48",
+    "post_fix_sha256": "879d40bf977eef659cabd7e87b7abd8dd5237cbd2cfa4c1a51c5ab622dbe4126",
+    "pre_fix_note": "04ad4bb4… is the tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv gate pin, i.e. the defect was live on a pinned tool, not a drifted working copy.",
+    "commands_and_results": [
+      {"command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml", "pre_fix": "exit 0, 19/19", "post_fix": "exit 0, 19/19"},
+      {"command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml", "pre_fix": "exit 1, 14/16 (FAIL L2-channel with 8 manufactured DERIV-REPLAY lines; FAIL L3-routing-consistency with six 'null' routing scalars)", "post_fix": "exit 0, 16/16, 0 DERIV-REPLAY lines, no nullish routing"},
+      {"command": "python3 tools/gates/typed-pipeline-gate.py --selftest", "pre_fix": "exit 0, 12/12", "post_fix": "exit 0, 19/19 — the added controls include 'typed input: graded against its declared source (exit 0)', 'typed input: --json reports the input class', 'typed input, missing source: exit 2 and the class is named', 'typed input, stale source: exit 2 and the class is named'"}
+    ],
+    "seat_evidence": ["reports/round-25/gate-input/diagnosis.md", "reports/round-25/gate-input/design.md", "reports/round-25/scribe/x46-gate-input-cold-rerun.md"],
+    "independent_control_by_x40": "This seat reproduced the pre-fix defect itself at 17:26:29Z (gate sha 04ad4bb4, typed packet exit 1, 14/16, the exact DERIV-REPLAY and nullish-routing text) and the post-fix behaviour at 17:34Z (gate sha 879d40bf, typed packet exit 0, 16/16, selftest 19/19)."
+  },
+  "argot_leg_state": {
+    "standalone_gate": "tools/gates/argot-derivation-gate.py (sha256 07db6e9b4e01539e1dbb8af9e51eada6fe37784145915a0387f48f2ecd99f8fe)",
+    "commands_and_results": [
+      {"command": "python3 tools/gates/argot-derivation-gate.py --selftest", "exit": 0, "result": "18/18 checks passed, including c-02-negative-control-rejected"},
+      {"command": "python3 tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml", "exit": 0, "result": "records=156 register_scoped=6 derived_pairs=0 borrow_pairs=6 violations=0 rule_holds=0"}
+    ],
+    "projector": {"path": "tools/d2-typed-labels.py", "argot_token_count": 0, "note": "the D4 typed projector still carries no D4L-ARGOT-DERIV id; the new leg is a standalone gate, not (yet) a projector leg"},
+    "filed_artifacts": ["reports/round-25/argot/forecast.md", "reports/round-25/argot/current-state.md", "reports/round-25/argot/delta.md", "reports/round-25/argot/execution-1..4.md", "reports/round-25/argot/review-1..3.md", "reports/round-25/docs/derivation-relation-docs.md", "reports/round-25/audit/x42-argot-execution-spotcheck.md", "reports/round-25/audit/x47-argot-negatives.md"],
+    "delta_verdict_as_filed": "The filed delta (reports/round-25/argot/delta.md, R25-D03) records the round-17 forecast as NOT DELIVERED and names the gap wider than 'the leg was never written': no derived_from/derivation field exists, no head2/reverse operation dimension exists, and the one live replay engine (lexicon-coverage-audit leg D) is concatenation-only, so a correct reverse derivation would be a false FAIL. Each forecast element F-1..F-8 plus surrounding rows A-1..A-9 is named with its source line and delivered/not-delivered disposition."
+  },
+  "independent_reproduction_by_x40": {
+    "preservation": "1,247 filed paths at baseline e06581b, 0 mismatches, manifest 067cec3d… at 17:24:57Z and 17:31:21Z (python3 .scratch/r25-x40/capture.py protect).",
+    "regressions": "32/32 exit 0 in the checkpoint-a overlay clone.",
+    "gate_input_hazard": "Reproduced pre-fix by this seat at 17:26:29Z; reproduced post-fix at 17:34Z.",
+    "v3_stale_prose": "Independently counted: 11 stale-token occurrences of D4-CL05|D4-CL06|D4-CL07|D4-CL09|OQ-V3-05 in reports/round-22/handoff/declared-in-r2/packet.md, and the generator still selects the immutable round-20 CLAIMS_MAP (tools/exercise-handoff-e2e.py:184).",
+    "argot_absence": "Independently counted at 17:26Z: grep -c 'D4L-' tools/d2-typed-labels.py -> 0; grep -c 'derived_from' examples/culture-d4/packet.d4.yml -> 0; grep -c 'derivation:' -> 0.",
+    "lessons_index": "Independently re-ran the C31 audit; six checks pass, zero findings."
+  },
+  "limits_and_handoff": [
+    "This file is a rerun record, not the aggregate round-25 validation receipt and not a round admission. No acceptance is asserted by X40 for any of claims O, D, C.",
+    "The tree was moving throughout the measurement window: reports/round-25 went 2 -> 13 -> 29 -> 39 -> 45 files between 17:23Z and 17:35Z, and both the gate-input fix and the argot gate landed mid-window. Every number above binds to its stated snapshot or clone; a later settled snapshot needs its own rerun.",
+    "reports/round-25/run-validation.py was executed only in --check mode inside isolated clones; this seat wrote no filed receipt and did not refresh any live receipt.",
+    "The runner itself was revised during the wave; the receipt here binds the executed bytes sha256 aaeab0cb… . A receipt against superseded runner bytes is a superseded receipt.",
+    "At this seat's close, claims O and D are each short of exactly one runner leg: O needs the successor v3 row rendered as a twin.json-bearing directory (the corrected packet.md + expected.json are already on disk and verified); D needs the argot leg bound into the D4 typed gate's own selftest and a D4L-ARGOT-DERIV-emitting control. Claim C is green.",
+    "All artifacts are NON-CANON engineering evidence. No source-freshness certification, real-world rights clearance, lore acceptance or promotion is claimed. No commit, no push, no shared bookkeeping, no filed-round write by this seat.",
+    "Scratch evidence: .scratch/r25-x40/{capture.py,checkpoint-a,checkpoint-b,checkpoint-c,*-capture.json,*-results.json,*-runs/,checkpoint-b-runner.json,checkpoint-c-runner.json,protected-initial.json,r19..r24}."
+  ]
+}

@@ -299,6 +299,25 @@ Admission: C/O/D verify, no axis harmed. LOOP 2 IS COMPLETE (rounds 17-24).
 The promotion dossier stands for the operator's decision. Loop 3 (rounds
 25-32) runs the DeepSeek builds on the devin provider per operator directive.
 
+## Axes — round 25 (2026-10-18), admitted (loop 3 build 1 of 4 — devin provider)
+
+Baseline `f74fc94`; one 64-worker `devin/deepseek-v4-1-flash-high` batch
+(operator provider test; 26/64 completed, 31-min wave — the devin route is
+slower per-worker than opencode-go but carried the heavy seats). Acceptance:
+`python3 reports/round-25/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | Two round-24 hazards closed: (a) the typed-pipeline gate now refuses derived-packet input with named input-class diagnostics (typed-declared-source / typed-unresolvable / typed-stale-source / typed-rebuilt / typed-unfaithful-rebuild, exit 2) plus the owed_slot nullish guard — the false red (14/16 with 8 manufactured DERIV-REPLAYs) is root-caused to a lossy yaml_lines rebuild and eliminated; source-packet entry still 19/19 byte-identical. (b) v3 claim prose corrected to the family-clean present state across 4 revisions (8 stale assertions; D4-CL05/06/07/09) and re-pinned as declared-in-r4. Regressions green; pin cascade as new rows | `python3 reports/round-25/run-validation.py` | `reports/round-25/gate-input/`, `v3-supersession/` |
+| depth | improved (claim D, capability `argot-derivation-check`) | The round-17 forecast delivered as an executable leg: derivation replay for register-scoped forms (pattern/output discipline per SKILL); D4L-ARGOT-DERV finding class; negatives real and closed; the delivered-vs-forecast delta named honestly — the register-form domain in the delivered D4 packet is EMPTY (the register class was design-forecast, never built into components), so the leg stands ready over an empty domain, recorded as such | `python3 reports/round-25/run-validation.py` | `reports/round-25/argot/` |
+| coverage | improved (claim C) | corpus/lessons/README.md reconciled: every round file 1-24 censused (format class, open questions carried, disposition pointer); the open-question queue extracted with owners; counting command-carried | `python3 reports/round-25/run-validation.py` | `reports/round-25/lessons/` |
+| calibration | improved (unclaimed observation) | A transient mid-round gate breakage (~90s, KeyError owed_slot_of) documented with its window; the availability record captures the devin route's first regimen numbers | — | `reports/round-25/gate-input/design.md` §8; availability.json |
+| freshness / adjacency | unchanged | Pause in force; scope clean | — | — |
+
+Admission: O/D/C verify, no axis harmed. Devin provider test: viable for
+regimen use (slower per-worker; heavy seats landed). Remainders named by the
+shard auditors: the r4 twin gap, the empty argot domain, two sibling pin tails.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

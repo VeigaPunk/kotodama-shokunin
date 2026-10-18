@@ -1,0 +1,24 @@
+generation: round-25 gate-input re-pin (O08..O10) — the typed-packet input class
+frozen_by: round-25 O08..O10 gate-input seat (reports/round-25/gate-input/verify.md); every file here is NEW
+frozen_at: 2026-10-18T17:33:49.701522+00:00
+
+sources bound (sha256, measured 2026-10-18):
+  tools/gates/typed-pipeline-gate.py  879d40bf977eef659cabd7e87b7abd8dd5237cbd2cfa4c1a51c5ab622dbe4126 (the round-25 input-class fix; predecessor 04ad4bb479562c419b48d750a8f9303c4a5a717ca7f2fe3b3658cc1bb9578a48)
+  examples/culture-d4/packet.d4.yml          e7ecd2045ef0e5f9823ce0a067d21b8221b2ceb5e8f5799736981a1c88fa50d3
+  examples/culture-d4/packet.d4.typed.yml    ffece0feb52c5b0b8ae6b0f8c1848d6220ad2dc2b36b1faac6385d62f4bfd84e
+  examples/culture-d2/packet.d2.yml          e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643
+  examples/culture-d2/packet.d2.typed.yml    1b5010b7f449ec78755e9a8b0efea62c705af7ec5c592ceda6cf2c072dfac8a3
+
+rows (6): four input-class rows (both families, source and typed packet) plus two
+fail-closed controls — a typed packet whose declared source is absent, and one whose
+assembly.packet_sha256 no longer matches its declared source. Both controls are exit 2.
+
+replay: python3 tools/replay-frozen.py tools/gates/frozen/round-25/gate-input/MANIFEST.tsv --json
+  (temp mirror root must sit outside this repository; in-repo TMPDIR is refused as mirror_unsafe)
+  observed 2026-10-18: exit 0, 6/6 reproduced, 0 mismatch, 0 could-not-evaluate
+
+cascade: this re-pin moves the gate digest, so every earlier generation that pinned the
+predecessor now refuses its typed-pipeline row with gate_digest_mismatch (round-18/repin-d2,
+round-20/repin-d2, round-22/d4-repin, round-23/repin-d2: one refused row each, the other
+rows still reproduce). Restoring the predecessor blob (git show f74fc94:tools/gates/typed-pipeline-gate.py)
+returns those manifests to full reproduction; no historical manifest is edited here.
