@@ -262,6 +262,26 @@ Round status: REJECTED on D (impl aborted; design + controls route to round
 25 with the implementation seats' recipe). O/C verify; no axis harmed.
 Loop-2 retrospective stands as the loop's calibration record.
 
+## Axes — round 23 (2026-10-18), admitted (loop 2, GLM round 1 of 2)
+
+Baseline `0e81d9d` (preservation leg; the adjudicated r22 straggler was
+resolved inside the round — regression.md restored to baseline bytes, the
+completed O12 report living on as regression-completed.md). One 16-worker
+`zai-coding-plan/glm-5.3-flash-low` (MAX effort) batch (17/17 completed).
+Acceptance: `python3 reports/round-23/run-validation.py` exits 0 (run in an
+isolated copy per the receipt-guard; close-time refresh under
+REFRESH_RECEIPTS=1).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | Two r22 tails closed: PLACEHOLDER_RE false positive dispositioned via the preferred route (D4-CL08 basis reworded in the uncertainty grammar — 'foreign-path-stability control' — packet re-pinned as new revision declared-in-r3; no rule weakened; wording-check 28/28 + 17/17); all six combined-source successor pins landed (D2 live expected-holds to projector 2819f687 with supersedes history; round-23 frozen repin-d2 generation replaying 11/11; v2 successor + stale-refusal control; D4 profile/frozen rows re-verified) | `python3 reports/round-23/run-validation.py` | `reports/round-23/wording/`, `pins/` |
+| depth | improved (claim D) | Family-clean projection rule drafted (rule statement, unconditional-build_payload injection-point warning, 7 paired controls mapped to landed selftest lines, r25 commitment) and landed into SKILL.md; every row cited | `python3 reports/round-23/run-validation.py` | `reports/round-23/rule/skill-draft.md` + SKILL.md |
+| calibration | improved (unclaimed observation) | LOG append-only correction: round 22's 'never implemented' wording mis-described the tree — the family-clean implementation IS present at 0e81d9d (verified by two independent round-23 seats); the r22 ledger row stands with the correction pointer | — | LOG.md correction entry |
+| coverage / freshness / adjacency | unchanged | Pause in force; scope clean at recorded observations | — | `reports/round-23/scope.md` |
+
+Admission: O/D verify, no axis harmed. SHONEN-box evidence survey prepared for
+round 24's promotion review (`reports/round-23/shonen-survey.md`).
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

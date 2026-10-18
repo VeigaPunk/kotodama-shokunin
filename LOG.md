@@ -3322,3 +3322,17 @@ D4 holds 12/0/0. The r22 rejection's verification path (validator legs
 requiring the SKILL rule and specific pin rows at close time) was indeed
 unmet at close, but the source fix itself had landed; the verdict mis-described
 the tree state. Correction recorded per append-only discipline.
+
+## 2026-10-18 — Round 23 admitted (loop 2, GLM round 1 of 2)
+
+- **Trigger:** regimen; claims O/D in `reports/round-23/claims.json`; baseline
+  `0e81d9d`; 17/17 completed.
+- **O (verified):** wording false positive dispositioned (preferred route);
+  six combined-source successor pins landed; regressions green.
+- **D (verified):** family-clean projection rule landed in SKILL.md.
+- **Conformance:** the round-22 straggler (in-place regression.md completion)
+  resolved per X02's adjudication — filed bytes restored, completed report
+  preserved as a new file; receipt-guard enforced the close-time refresh.
+- **Correction:** see the append-only entry above — the r22 'never
+  implemented' wording was wrong; the family-clean impl was in 0e81d9d.
+- **Evidence:** `reports/round-23/validation.json` acceptance true.
