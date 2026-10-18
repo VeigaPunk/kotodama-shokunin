@@ -1,0 +1,32 @@
+{
+ "round": 18,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-18",
+ "baseline_revision": "3dd3754207032cb81f5fb3e202fe85cf79211339",
+ "regimen": "operator: loop 2 of 3, build round 2 of 4 (64w opencode-go-2)",
+ "requested_model": "opencode-go-2/deepseek-v4.1-flash",
+ "workers": 64,
+ "claims": [
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "The typed-pipeline-gate L1 assembler-identity leg pins assemble-d2 output; D4 packets cannot be gated (round-17 rejection); frozen manifests and baselines pin the current gate/helper shas.",
+   "after_required": "Generalized gate: the assembler-identity leg accepts a declared assembler pin (packet-declared or flag), default D2 behavior byte-identical; the re-pin cascade lands (round-11 frozen manifest row, round-9 baseline pins, round-16 v2-07 expected.json helper pins) with before/after pins recorded; battery + craft + validators + frozen replays all green; no frozen receipt is edited in place — new pins are new rows/files per the append-only rule.",
+   "counting_command": "python3 reports/round-18/run-validation.py"
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "before": "D4 typed hold set derived by the projector (74 labels / 15 holds / 0 fails) but never gate-verified; no expected-holds artifact; no D4 frozen manifest.",
+   "after_required": "The generalized gate runs over examples/culture-d4/packet.d4.yml: findings exactly equal the D4 expected hold set (15 holds + the declared note set); expected-holds.json lands with pre-declared ids reconciled against the emitted set (any delta dispositioned); a round-18 frozen manifest replays green under replay-frozen; determinism (two gate runs byte-identical findings); D2 path untouched and green.",
+   "counting_command": "python3 reports/round-18/run-validation.py"
+  },
+  {
+   "id": "C",
+   "axis": "coverage",
+   "before": "The round-17 civ work proposed a map patch (7 stale->current transitions + 5 attempt notes) not yet applied to a map revision; the round-16 map still carries pre-fix statuses.",
+   "after_required": "A round-18 civ-map revision applies the round-17 patch (transitions with fix-evidence pointers) and re-verifies the 5 attempt-documented rows; the map's counting command reproduces 94; every transitioned row's new status carries date+command; the round-16 map remains filed/unchanged (new revision file).",
+   "counting_command": "python3 reports/round-18/run-validation.py"
+  }
+ ]
+}
