@@ -1,0 +1,25 @@
+{
+ "round": 16,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "16652e822e9dd5d83f7ab9e6078cbf010fc8f7e6",
+ "regimen": "operator 2026-10-17: loop 1, GLM round 2 of 2 (16w zai glm-5.3-flash MAX)",
+ "requested_model": "zai-coding-plan/glm-5.3-flash-low (host-pinned MAX thinking effort)",
+ "workers": 16,
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "before": "The civilizations partition (94 entries, largest in the fleet) has no systematic staleness map; rechecks covered only specific residual rows in rounds 5-9.",
+   "after_required": "reports/round-16/civ-map.json gives every one of the 94 civilization entries a status receipt: current (cited source re-fetched or verified in-repo this round, with date+command), stale-fixed (corrected with evidence), or stale-documented (named reason); zero entries without a status; the map's counting command reproduces 94; an auditor independently spot-checks >=10 entries; this is a coverage map, not a freshness axis-move (pause still in force).",
+   "counting_command": "python3 reports/round-16/run-validation.py"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "Three reviewer findings from round 15 are open: F10-1 packet_links.resolve_edges never checks edge source (a v1-style aggregate passes); F9-1 the #L<n> line-anchor syntax collides with record ids L01-L20 (dangling-link bypass); F9-2 handoff packet v2 leaves 18/20 lexemes + 6 names link-orphaned vs design §3.2.4.",
+   "after_required": "All three fixed with controls: edge-source checking rejects aggregates (selftest); the L-anchor collision closed (syntax disambiguated or ids excluded — with a regression control proving a dangling #L99-style link is rejected); the packet's lexeme/name link coverage completed to the design's §3.2.4 expectation or the deviation documented with an owner note; packet_uncertainty + packet_links selftests grow and stay green; handoff gate still 16/16 + 20/20 on the amended packet.",
+   "counting_command": "python3 reports/round-16/run-validation.py"
+  }
+ ]
+}
