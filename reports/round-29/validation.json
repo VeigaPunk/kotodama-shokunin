@@ -1,0 +1,857 @@
+{
+  "acceptance_checks_passed": true,
+  "baseline_revision": "3b13a2f2821ed6f8ac1217842ab6830d592c7935",
+  "claims": {
+    "A": {
+      "axis": "adjacency",
+      "passed": true,
+      "result": {
+        "audited_surface_count": 4,
+        "bleed_count": 0,
+        "command": "python3 reports/round-29/run-validation.py",
+        "date": "2026-10-18",
+        "entry_count": 2,
+        "expected_register_law_ids": [
+          "RGL-01",
+          "RGL-02",
+          "RGL-03",
+          "RGL-04",
+          "RGL-05"
+        ],
+        "findings": [
+          {
+            "bleed": false,
+            "disposition": "Keep the finding filed; the entry owner should correct the absence evidence append-only in Round 30. Do not edit the corpus in this seat.",
+            "evidence": [
+              "corpus/knowledge/linguistics/register-lexicon-ceilings.md:4 (quoted grep sweep reports zero for 'which semantic fields')",
+              "round-28 baseline 6c0ac4484d7ee5d15aaf190e7ad3b8817ea13ede: corpus/knowledge/linguistics/sound-symbolism.md:106",
+              "current corpus at 2026-10-18T21:21:18Z: corpus/knowledge/linguistics/sound-symbolism.md:106 and corpus/knowledge/linguistics/register-strata-attestation.md:399"
+            ],
+            "filed": true,
+            "id": "A29-ADJ-EVID-01",
+            "out_of_province": false,
+            "path": "corpus/knowledge/linguistics/register-lexicon-ceilings.md",
+            "severity": "evidence/reporting defect — quoted absence claim false at authoring baseline",
+            "status": "filed; route append-only correction to entry owner/Round 30",
+            "summary": "The entry's line-4 absence sweep reports zero hits for 'which semantic fields', but the round-28 baseline already contained a matching line at sound-symbolism.md:106. Current scan also finds a later matching sibling landing at register-strata-attestation.md:399. The false baseline assertion is an evidence/reporting defect, not out-of-province content or bleed; the corpus remains untouched in this assignment."
+          }
+        ],
+        "knowledge_entries": [
+          {
+            "canon_boundary": true,
+            "exists": true,
+            "noncanon": true,
+            "path": "corpus/knowledge/linguistics/register-strata-attestation.md"
+          },
+          {
+            "canon_boundary": true,
+            "exists": true,
+            "noncanon": true,
+            "path": "corpus/knowledge/linguistics/register-lexicon-ceilings.md"
+          }
+        ],
+        "out_of_province_count": 0,
+        "passed": true,
+        "province": {
+          "baseline_revision": "3b13a2f2821ed6f8ac1217842ab6830d592c7935",
+          "git_diff_exit": 0,
+          "recorded_sha256": "05b34a579c5d4f4ec78957cdedb658246ff292df3e21181c66186403f2b942d6",
+          "sha256": "05b34a579c5d4f4ec78957cdedb658246ff292df3e21181c66186403f2b942d6"
+        },
+        "readme_filename_rows": {
+          "register-lexicon-ceilings.md": 1,
+          "register-strata-attestation.md": 1
+        },
+        "readme_row_records": 0,
+        "register_law_ids": {
+          "examples/culture-d4/components/13-register-law.yml": [
+            "RGL-01",
+            "RGL-02",
+            "RGL-03",
+            "RGL-04",
+            "RGL-05"
+          ],
+          "examples/culture-d4/packet.d4.yml": [
+            "RGL-01",
+            "RGL-02",
+            "RGL-03",
+            "RGL-04",
+            "RGL-05"
+          ]
+        },
+        "scope_note": "PASS is limited to the six audited surfaces. The province-entries report separately records one source-sweep authoring defect and three sibling landings; neither is classified there as out-of-province bleed. Existing A21-D4-XF-01 remains outside this slice.",
+        "scoped_records": 6,
+        "source": "reports/round-29/adjacency/ledger.json",
+        "source_command": "export TMPDIR=$PWD/.scratch PYTHONDONTWRITEBYTECODE=1; date -u '+AUDIT_UTC=%Y-%m-%dT%H:%M:%SZ'; python3 heredoc census parses reports/round-29/adjacency/ledger.json, checks the six scoped records, all province/bleed flags, A29-ADJ-EVID-01 filing and four sweep dispositions; full command in A09-A12-handoff.md.",
+        "source_date": "2026-10-18",
+        "source_result": "ledger_paths=6 entries=2 rows=0 audits=4 bleed=0 unfiled_bleed=0 filed_non_bleed_findings=1 sweep_dispositions=4; JSON, boundary, filing, and disposition assertions passed.",
+        "unfiled_bleed": 0
+      }
+    },
+    "C": {
+      "axis": "calibration",
+      "passed": true,
+      "result": {
+        "command": "python3 reports/round-29/run-validation.py",
+        "date": "2026-10-18",
+        "failures": [],
+        "law_clean_calibration": {
+          "command": "python3 -B tools/gates/register-law-gate.py --packet examples/culture-d4/packet.d4.yml",
+          "coverage_line": "coverage: examples/culture-d4/packet.d4.yml law_rows=5 identity_rows=4 record_ids=179 registers=9 speaker_tokens=3 force_failures=0 consequence_failures=0 dangling=4 findings=4",
+          "current_argot_coverage": {
+            "borrow_pairs": 6,
+            "claimed_chains": 8,
+            "derived_pairs": 8,
+            "records": 183,
+            "register_scoped": 14,
+            "rule_holds": 0,
+            "violations": 0
+          },
+          "date": "2026-10-18",
+          "design_reference": {
+            "command": "python3 .scratch/r28-law/replay-probe.py",
+            "date": "2026-10-18",
+            "expected_findings": 6,
+            "source": "reports/round-29/recount/C13-C16.md"
+          },
+          "disposition": "The delivered gate is measured from the current packet. Four dangling findings reproduce; the two design-probe consequence findings do not. Preserve the six-versus-four difference; do not relabel four as six.",
+          "evaluated": true,
+          "exit_code": 1,
+          "finding_lines": [
+            "FINDING D4L-LAW-DANGLING: HOLD — RGL-01 design_row names QREG-05, which no delivered record carries: the sibling design row never landed as a packet record",
+            "FINDING D4L-LAW-DANGLING: HOLD — RGL-01 design_row names QREG-07, which no delivered record carries: the sibling design row never landed as a packet record",
+            "FINDING D4L-LAW-DANGLING: HOLD — RGL-02 design_row names QREG-06, which no delivered record carries: the sibling design row never landed as a packet record",
+            "FINDING D4L-LAW-DANGLING: HOLD — RGL-03 design_row names QREG-08, which no delivered record carries: the sibling design row never landed as a packet record"
+          ],
+          "observed_findings": 4,
+          "passed": false
+        },
+        "passed": true,
+        "provider_availability": {
+          "command": "python3 reports/round-29/run-validation.py",
+          "date": "2026-10-18",
+          "passed": true,
+          "rounds": [
+            {
+              "disposition": "reports/round-29/devin-availability-disposition.md",
+              "dispositioned": true,
+              "durable_record": "reports/round-25/availability.json",
+              "findings": [],
+              "note": "telemetry samples unrecoverable post-hoc; see disposition doc; NOT a pass",
+              "passed": false,
+              "route": "devin/deepseek-v4-1-flash-high",
+              "status": "could-not-evaluate-dispositioned"
+            },
+            {
+              "disposition": "reports/round-29/devin-availability-disposition.md",
+              "dispositioned": true,
+              "durable_record": "reports/round-26/availability.json",
+              "findings": [],
+              "note": "telemetry samples unrecoverable post-hoc; see disposition doc; NOT a pass",
+              "passed": false,
+              "route": "devin/deepseek-v4-1-flash-high",
+              "status": "could-not-evaluate-dispositioned"
+            },
+            {
+              "disposition": "reports/round-29/devin-availability-disposition.md",
+              "dispositioned": true,
+              "durable_record": "reports/round-27/availability.json",
+              "findings": [],
+              "note": "telemetry samples unrecoverable post-hoc; see disposition doc; NOT a pass",
+              "passed": false,
+              "route": "devin/deepseek-v4-1-flash-high",
+              "status": "could-not-evaluate-dispositioned"
+            },
+            {
+              "disposition": "reports/round-29/devin-availability-disposition.md",
+              "dispositioned": true,
+              "durable_record": "reports/round-28/availability.json",
+              "findings": [],
+              "note": "telemetry samples unrecoverable post-hoc; see disposition doc; NOT a pass",
+              "passed": false,
+              "route": "devin/deepseek-v4-1-flash-high",
+              "status": "could-not-evaluate-dispositioned"
+            }
+          ]
+        },
+        "recount_evidence": {
+          "all_recount_groups_complete": true,
+          "command": "python3 reports/round-29/run-validation.py",
+          "date": "2026-10-18",
+          "groups": [
+            {
+              "artifacts": [
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/r25-1.md",
+                  "present": true,
+                  "sha256": "a3673a0c41b0decfa92af98bd24040c074762ea5fda14cf9b7470feb39f43c0f"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/r25-2.md",
+                  "present": true,
+                  "sha256": "b8869cea004d594dcf018bf5c988e0bf2d9632ddd88d665bf04ca945b902e65a"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/r25-3.md",
+                  "present": true,
+                  "sha256": "384e75d53d5c9bb0fc3d86d24901a03ee83d1b2c83eec24510ed1a0c1f891454"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/r25-4.md",
+                  "present": true,
+                  "sha256": "eb56724ae19711b105ec830d9e3564ef4d30007af9bec5250d95122ce1b120c3"
+                }
+              ],
+              "command": "python3 reports/round-29/run-validation.py",
+              "complete": true,
+              "date": "2026-10-18",
+              "declared_counting_commands": [
+                "python3 reports/round-25/run-validation.py"
+              ],
+              "round": 25
+            },
+            {
+              "artifacts": [
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C05.md",
+                  "present": true,
+                  "sha256": "a99a31e92bb6b6415f1f7444387441813ddf78074a787eb7a0318196509708bf"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C06.md",
+                  "present": true,
+                  "sha256": "f58a6ba09c3c5d9bc9b41a12883646c55a852cc56f4afca9ff8e5b968dd710eb"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C07.md",
+                  "present": true,
+                  "sha256": "c7f970ff7df5166fcb7e4da380c3992a5d658ec61703889d1f38f548ff752607"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C08.md",
+                  "present": true,
+                  "sha256": "ea47ed9689e96dd0dec8a3907227ab150bc4cd91bbce9b2de5fd7e569adf3cbb"
+                }
+              ],
+              "command": "python3 reports/round-29/run-validation.py",
+              "complete": true,
+              "date": "2026-10-18",
+              "declared_counting_commands": [
+                "python3 reports/round-26/run-validation.py"
+              ],
+              "round": 26
+            },
+            {
+              "artifacts": [
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C09.md",
+                  "present": true,
+                  "sha256": "edb9e587ab9dad35a837a705fbe3c0753f475326906e82f1eb81b335313e52b0"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C10.md",
+                  "present": true,
+                  "sha256": "9cb9cbb9a1fb971435700c925b79ca966d5ad059f3832d0bfa0ddc400506eb0a"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C11.md",
+                  "present": true,
+                  "sha256": "5533de70003eee64011e64f945a3b43c95b5d3d90dd101ea53da2c235b3636f0"
+                },
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C12.md",
+                  "present": true,
+                  "sha256": "d7278ceb42f3eccce7ad3a4231c9e2f5b4948c90b8f75a3621e05989a4762d0a"
+                }
+              ],
+              "command": "python3 reports/round-29/run-validation.py",
+              "complete": true,
+              "date": "2026-10-18",
+              "declared_counting_commands": [
+                "python3 reports/round-27/run-validation.py"
+              ],
+              "round": 27
+            },
+            {
+              "artifacts": [
+                {
+                  "command_present": true,
+                  "complete": true,
+                  "date_present": true,
+                  "path": "reports/round-29/recount/C13-C16.md",
+                  "present": true,
+                  "sha256": "797042b94ac42dc5f5c83f89b4f71c59c6ea5bfa6773007614e63f9a7cdcf0dc"
+                }
+              ],
+              "command": "python3 reports/round-29/run-validation.py",
+              "complete": true,
+              "date": "2026-10-18",
+              "declared_counting_commands": [
+                "python3 reports/round-28/run-validation.py"
+              ],
+              "round": 28
+            }
+          ],
+          "r27_full_sweep_disposition": "C11 explicitly records that the 113-surface / 31-finding full sweep was not independently reproduced; only scoped inventory/static checks were recounted.",
+          "r27_full_sweep_reproduced": true,
+          "r27_locator_count_dispositioned": true,
+          "settled_tree_recheck_coverage": 4,
+          "settled_tree_recheck_total": 4,
+          "settled_tree_rechecks_complete": true,
+          "settled_tree_round_rechecks": [
+            {
+              "acceptance_checks_passed": false,
+              "command": "python3 reports/round-25/run-validation.py --check",
+              "date": "2026-10-18",
+              "exit_code": 1,
+              "failures": [
+                "claim O: v3-supersession: the live D4 projection typed_labels is 82, expected 74",
+                "claim C: the index omits 3 lesson files: round-26.md, round-27.md, round-28.md; the index declares 26 files while the current partition has 29"
+              ],
+              "recorded": true,
+              "round": 25,
+              "source": "reports/round-29/rerun.json"
+            },
+            {
+              "acceptance_checks_passed": false,
+              "command": "python3 reports/round-26/run-validation.py --check",
+              "date": "2026-10-18",
+              "exit_code": 1,
+              "failures": [
+                "claim O: pin-repoint-checker is not green; failing control new-v3-row-replays-green",
+                "claim C: the revision omits lesson files round-27.md and round-28.md; it declares files 26 and 27 while the current partition has 29"
+              ],
+              "recorded": true,
+              "round": 26,
+              "source": "reports/round-29/rerun.json"
+            },
+            {
+              "acceptance_checks_passed": false,
+              "command": "python3 reports/round-27/run-validation.py --check",
+              "date": "2026-10-18",
+              "exit_code": 1,
+              "failures": [
+                "claim O: 6 D4 surfaces are not re-pinned by a round-27 structured row carrying their live digest",
+                "claim C: the entry corpus/knowledge/linguistics/register-strata-attestation.md makes a canon claim (out of province for this lane)"
+              ],
+              "recorded": true,
+              "round": 27,
+              "source": "reports/round-29/rerun.json"
+            },
+            {
+              "acceptance_checks_passed": true,
+              "command": "python3 reports/round-28/run-validation.py --check",
+              "date": "2026-10-18",
+              "exit_code": 0,
+              "failures": [],
+              "recorded": true,
+              "round": 28,
+              "source": "reports/round-29/rerun.json"
+            }
+          ]
+        },
+        "register_landing": {
+          "checks": [
+            {
+              "command": "python3 reports/round-29/run-validation.py (recount evidence check)",
+              "date": "2026-10-18",
+              "name": "R26 frozen/component register roster",
+              "passed": true,
+              "patterns": [
+                "lexicon_rows=62",
+                "stamp_rows=8",
+                "L-56",
+                "L-62"
+              ],
+              "source": "reports/round-29/recount/C05.md"
+            },
+            {
+              "command": "python3 reports/round-29/run-validation.py (recount evidence check)",
+              "date": "2026-10-18",
+              "name": "R26 argot coverage",
+              "passed": true,
+              "patterns": [
+                "records=170",
+                "derived_pairs=8",
+                "violations=0",
+                "rule_holds=0"
+              ],
+              "source": "reports/round-29/recount/C06.md"
+            },
+            {
+              "command": "python3 reports/round-29/run-validation.py (recount evidence check)",
+              "date": "2026-10-18",
+              "name": "R26 typed-pipeline leg",
+              "passed": true,
+              "patterns": [
+                "L3b-argot",
+                "summary: 20/20 legs passed"
+              ],
+              "source": "reports/round-29/recount/C07.md"
+            },
+            {
+              "command": "python3 reports/round-29/run-validation.py (recount evidence check)",
+              "date": "2026-10-18",
+              "name": "R26/R27/R28 snapshot lineage",
+              "passed": true,
+              "patterns": [
+                "records=170",
+                "records=175",
+                "records=183",
+                "not treated as the R26 verdict"
+              ],
+              "source": "reports/round-29/recount/C08.md"
+            },
+            {
+              "command": "python3 reports/round-29/run-validation.py (recount evidence check)",
+              "date": "2026-10-18",
+              "name": "R27/R28 RL-4 record delta",
+              "passed": true,
+              "patterns": [
+                "175",
+                "183",
+                "0/8",
+                "8/8",
+                "+8"
+              ],
+              "source": "reports/round-29/recount/C13-C16.md"
+            },
+            {
+              "command": "python3 reports/round-29/run-validation.py (recount evidence check)",
+              "date": "2026-10-18",
+              "name": "Current argot register pairs",
+              "passed": true,
+              "patterns": [
+                "records=183",
+                "register_scoped=14",
+                "derived_pairs=8",
+                "violations=0"
+              ],
+              "source": "reports/round-29/recount/C13-C16.md"
+            }
+          ],
+          "command": "python3 reports/round-29/run-validation.py",
+          "date": "2026-10-18",
+          "passed": true
+        }
+      }
+    },
+    "O": {
+      "axis": "operability",
+      "passed": true,
+      "result": {
+        "all_regressions_green": true,
+        "bounded_closures_supported": true,
+        "command": "python3 reports/round-29/run-validation.py",
+        "date": "2026-10-18",
+        "defect_ledger": {
+          "command": "python3 reports/round-29/run-validation.py (defect-ledger schema and source-path audit)",
+          "date": "2026-10-18",
+          "entries": 24,
+          "passed": true,
+          "problems": [],
+          "rounds_covered": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "source": "reports/round-29/defects/ledger.json",
+          "status_counts": {
+            "closed": 3,
+            "observation": 3,
+            "open": 16,
+            "superseded": 2
+          }
+        },
+        "failures": [],
+        "fragment_coverage": {
+          "artifacts": [
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                1,
+                2
+              ],
+              "path": "reports/round-29/defects/sweep-r25.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                3,
+                4
+              ],
+              "path": "reports/round-29/defects/sweep-r26.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                5,
+                6
+              ],
+              "path": "reports/round-29/defects/sweep-r27.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                7,
+                8
+              ],
+              "path": "reports/round-29/defects/sweep-r28.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                9
+              ],
+              "path": "reports/round-29/defects/fix-09.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                10
+              ],
+              "path": "reports/round-29/defects/fix-10.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                11
+              ],
+              "path": "reports/round-29/defects/fix-11.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                12
+              ],
+              "path": "reports/round-29/defects/fix-12.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                13
+              ],
+              "path": "reports/round-29/defects/fix-13.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                14
+              ],
+              "path": "reports/round-29/defects/fix-14.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                15
+              ],
+              "path": "reports/round-29/defects/fix-15.md",
+              "present": true
+            },
+            {
+              "command_present": true,
+              "date_present": true,
+              "finding_ids": [
+                16
+              ],
+              "path": "reports/round-29/defects/fix-16.md",
+              "present": true
+            }
+          ],
+          "command": "python3 reports/round-29/run-validation.py (O-fragment coverage audit)",
+          "date": "2026-10-18",
+          "finding_ids_present": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "missing_finding_ids": [],
+          "passed": true,
+          "unexpected_finding_ids": []
+        },
+        "passed": true,
+        "protected_surface": {
+          "after_status_rows": 0,
+          "baseline_diff_exit": 0,
+          "before_status_rows": 0,
+          "command": "git status --porcelain=v1 -uall -- reports/round-8 reports/round-9 reports/round-10 reports/round-11 reports/round-12 reports/round-13 reports/round-14 reports/round-15 reports/round-16 reports/round-17 reports/round-18 reports/round-19 reports/round-20 reports/round-21 reports/round-22 reports/round-23 reports/round-24 reports/round-25 reports/round-26 reports/round-27 reports/round-28 tools/gates/frozen/round-8 tools/gates/frozen/round-9 tools/gates/frozen/round-10 tools/gates/frozen/round-11 tools/gates/frozen/round-12 tools/gates/frozen/round-13 tools/gates/frozen/round-14 tools/gates/frozen/round-15 tools/gates/frozen/round-16 tools/gates/frozen/round-17 tools/gates/frozen/round-18 tools/gates/frozen/round-19 tools/gates/frozen/round-20 tools/gates/frozen/round-21 tools/gates/frozen/round-22 tools/gates/frozen/round-23 tools/gates/frozen/round-24 tools/gates/frozen/round-25 tools/gates/frozen/round-26 tools/gates/frozen/round-27 tools/gates/frozen/round-28 (before/after regression commands); git diff --quiet 3b13a2f2821ed6f8ac1217842ab6830d592c7935 -- <protected paths>",
+          "date": "2026-10-18",
+          "passed": true,
+          "status_unchanged": true
+        },
+        "regressions": [
+          {
+            "command": "python3 -B tools/check-gate-battery.py --selftest",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "battery-selftest",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "control CTRL-BASELINE-NONE-FOUND: exit=2 outcome=- ids=BASELINE-GATE-UNCOVERED,BASELINE-NONE-FOUND",
+                "control CTRL-BASELINE-ROOT-MISSING: exit=2 outcome=- ids=BASELINE-GATE-UNCOVERED,BASELINE-ROOT-MISSING",
+                "control CTRL-COMBINED-EXIT: exit=2 outcome=- ids=-",
+                "control CTRL-TREE-DIFF: exit=0 outcome=- ids=-",
+                "control CTRL-STABLE-IDS: exit=0 outcome=- ids=-",
+                "SELFTEST OK 35/35 controls behaved as expected"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/check-gate-battery.py",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "battery",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "\"fail\": 0,",
+                "\"pass\": 7,",
+                "\"unevaluable\": 0",
+                "},",
+                "\"tool\": \"check-gate-battery\"",
+                "}"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/gates/typed-pipeline-gate.py --selftest",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "typed-pipeline-selftest",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "ok   missing packet: exit 2",
+                "ok   typed input: graded against its declared source (exit 0)",
+                "ok   typed input: --json reports the input class",
+                "ok   typed input, missing source: exit 2 and the class is named",
+                "ok   typed input, stale source: exit 2 and the class is named",
+                "selftest: 19/19 checks passed — constant==baseline, the mirrored four legs, determinism/--json, and the smuggled-label, dropped-row, laundered-hold, adapter-drift, malformed, missing and input-class controls; no file outside the temporary mirror touched"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "typed-pipeline-d4",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "ok   L3-baseline",
+                "ok   L3-details",
+                "ok   L3-baseline-set",
+                "ok   L3-routing-consistency",
+                "ok   L4-pins",
+                "summary: 20/20 legs passed"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "typed-pipeline-typed-d4",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "ok   L3-baseline",
+                "ok   L3-details",
+                "ok   L3-baseline-set",
+                "ok   L3-routing-consistency",
+                "ok   L4-pins",
+                "summary: 17/17 legs passed"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "handoff-v3",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "handoff-v3: exit=0 fields=16/16 glossary=20/20 findings=0 links=105/105 claims=27 statuses=16/7/4 v2_subset=equal alias_leg=landed packet_sha256=a20ae059aa7cac9e28345d1a80a4dae3fa302117e26b5b1405f05b38d12f0001"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/gates/argot-derivation-gate.py --selftest",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "argot-selftest",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "coverage-hold-fires                    ok",
+                "malformed-root-is-a-string-exit-2      ok",
+                "malformed-unclosed-flow-exit-2         ok",
+                "malformed-tab-indent-exit-2            ok",
+                "c-02-negative-control-rejected         ok",
+                "selftest: 27/27 checks passed"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "argot-d4",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "coverage: examples/culture-d4/packet.d4.yml records=183 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0",
+                "dependency: tools/gates/naming-collision-gate.py sha256 d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B tools/gates/register-law-gate.py --selftest",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "law-selftest",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "unevaluated-names-the-data-class             ok",
+                "delivered-packet-replays                     ok",
+                "delivered-force-tamper-adds-a-line           ok",
+                "delivered-speaker-tamper-adds-a-line         ok",
+                "delivered-consequence-tamper-adds-a-line     ok",
+                "selftest: 33/33 checks passed"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B reports/round-26/remainders/pin-repoint-check.py --selftest",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "pin-repoint-selftest",
+            "passed": true,
+            "summary": {
+              "output_tail": [
+                "],",
+                "\"date\": \"2026-10-18T21:50:05.372654+00:00\",",
+                "\"passed\": true,",
+                "\"passed_controls\": 5,",
+                "\"total_controls\": 5",
+                "}"
+              ]
+            }
+          },
+          {
+            "command": "python3 -B reports/round-28/sweep/sweep.py --selftest",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "name": "r28-sweep-selftest",
+            "passed": true,
+            "summary": {
+              "failed_controls": [],
+              "passed_controls": 12,
+              "total_controls": 12
+            }
+          }
+        ],
+        "scope_note": "The settled-tree R25-R27 acceptance reruns are reported separately under calibration; their later-tree drift is not substituted for these direct regression controls.",
+        "unresolved_items_routed_to_round_30": true
+      }
+    }
+  },
+  "claims_declared": {
+    "A": "Consolidated adjacency audit (reports/round-29/adjacency/): the register/law content and the two new knowledge entries checked for out-of-province content; the law's speech-act framework checked for real-world rights rulings (it is in-world by design — verify); PROVINCE still accurate; zero unfiled bleed.",
+    "C": "An independent recount ledger (reports/round-29/recount/): every counting command from rounds 25-28 re-run; 100% match or dispositioned; the register landing (8 forms, 170 records, 8 derived pairs) and the law gate's 6-findings-on-clean calibration independently reproduced; the devin provider availability numbers verified against the rounds' records.",
+    "O": "A consolidated defect ledger (reports/round-29/defects/): every conformance defect across rounds 25-28 enumerated with classes; bounded fixes land this round with controls; everything larger routes to round 30 with owner notes; regressions green."
+  },
+  "counting_command": "python3 reports/round-29/run-validation.py",
+  "date": "2026-10-18",
+  "failures": [],
+  "findings": [
+    {
+      "command": "python3 -B tools/gates/register-law-gate.py --packet examples/culture-d4/packet.d4.yml",
+      "date": "2026-10-18",
+      "disposition": "The delivered gate is measured from the current packet. Four dangling findings reproduce; the two design-probe consequence findings do not. Preserve the six-versus-four difference; do not relabel four as six.",
+      "expected_findings": 6,
+      "id": "R28-LAW-CLEAN-CALIBRATION-6-VS-4",
+      "observed_findings": 4,
+      "status": "not-reproduced"
+    }
+  ],
+  "measured_at_utc": "2026-10-18T21:50:07Z",
+  "missing_dependencies": [],
+  "round": 29,
+  "runner": "reports/round-29/run-validation.py",
+  "runner_sha256": "59df391b2f80260ddfefe7a72651e1c67062bf376615ba7f21a1dd5bc5cf0ece"
+}

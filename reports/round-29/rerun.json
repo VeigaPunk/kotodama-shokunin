@@ -1,0 +1,236 @@
+{
+  "round": 29,
+  "assignment": "SCRIBE X04 — report scribe + settled-tree rerun",
+  "date": "2026-10-18",
+  "status": "Independent settled-tree recount of rounds 25–28. Rounds 25–27 no longer reproduce their filed all-green verdicts on the post-round-28 tree; round 28 reproduces. Historical receipts were not changed. Findings and temporal drift are preserved for parent disposition.",
+  "method": {
+    "command": "python3 reports/round-N/run-validation.py --check",
+    "date": "2026-10-18",
+    "tmpdir": "export TMPDIR=$PWD/.scratch from the lane root before cloning or running validators",
+    "clones": "Four independent clones under .scratch/r29-x04/r25, r26, r27, and r28; each began clean at the same settled HEAD.",
+    "settled_head": "e923d6ecaf5fd9d256e4b377745bd3d24f5e2d47",
+    "baseline_revision": "3b13a2f2821ed6f8ac1217842ab6830d592c7935",
+    "tree_delta_command": "git diff --stat 3b13a2f2821ed6f8ac1217842ab6830d592c7935..HEAD",
+    "tree_delta_date": "2026-10-18",
+    "tree_delta": "Only the new reports/round-29/claims.json and reports/round-29/targets.json were present beyond the round-28 admission at the measured HEAD.",
+    "receipt_writes": false,
+    "stderr": "Empty for all four invocations.",
+    "commands_file": ".scratch/r29-x04/r25.stdout through r28.stdout; captured stdout SHA-256 is recorded per run. Clones and logs remain ignored scratch evidence."
+  },
+  "runs": [
+    {
+      "round": 25,
+      "clone": ".scratch/r29-x04/r25",
+      "head": "e923d6ecaf5fd9d256e4b377745bd3d24f5e2d47",
+      "command": "python3 reports/round-25/run-validation.py --check",
+      "date": "2026-10-18",
+      "started_local": "2026-10-18T17:53:50-03:00",
+      "finished_local": "2026-10-18T17:54:40-03:00",
+      "exit_code": 1,
+      "runner_sha256": "d19435251dccb738e456c01fe7fb94498c27bae7f70704a96f94ec9324ce35af",
+      "stdout_sha256": "08a76d375cfa55f3c6be9a044410a0aa04c91d6adcc6cee5548893d8ffc9ea73",
+      "acceptance_checks_passed": false,
+      "claim_passed": {"C": false, "D": true, "O": false},
+      "missing_dependencies": [],
+      "failures": [
+        "claim O: v3-supersession: the live D4 projection typed_labels is 82, expected 74",
+        "claim C: the index omits 3 lesson files: round-26.md, round-27.md, round-28.md; the index declares 26 files while the current partition has 29"
+      ],
+      "protected_filed_artifacts": {
+        "passed": true,
+        "baseline_revision": "e06581b7fc2b50050a336f7f38a7e2baebcc6abc",
+        "protected_paths": {"command": "python3 reports/round-25/run-validation.py (git ls-tree of protected baseline)", "date": "2026-10-18", "value": 1247},
+        "differences_total": {"command": "python3 reports/round-25/run-validation.py (compare protected Git blobs to working bytes)", "date": "2026-10-18", "value": 0},
+        "protected_status_rows": {"command": "python3 reports/round-25/run-validation.py (git status over protected paths)", "date": "2026-10-18", "value": 0}
+      },
+      "filed_receipt": {
+        "path": "reports/round-25/validation.json",
+        "sha256": "ac460c22075f2d6f0f98fed661e3d015358e407ded5c4105cda29e25aef38428",
+        "acceptance_checks_passed": true,
+        "claim_passed": {"O": true, "D": true, "C": true}
+      }
+    },
+    {
+      "round": 26,
+      "clone": ".scratch/r29-x04/r26",
+      "head": "e923d6ecaf5fd9d256e4b377745bd3d24f5e2d47",
+      "command": "python3 reports/round-26/run-validation.py --check",
+      "date": "2026-10-18",
+      "started_local": "2026-10-18T17:54:40-03:00",
+      "finished_local": "2026-10-18T17:55:34-03:00",
+      "measured_at_utc": "2026-10-18T20:55:34+00:00",
+      "exit_code": 1,
+      "runner_sha256": "73297683d552b1673f2064a1a1ec76bf359f4add1bf8be4411ee77caa7f0be55",
+      "stdout_sha256": "ea5e9f115c158ae79cfa9a2b992d68d3c91d76fc970f9f4f6ab6fb08e4e48061",
+      "acceptance_checks_passed": false,
+      "claim_passed": {"C": false, "D": true, "O": false},
+      "missing_dependencies": [],
+      "failures": [
+        "claim O: pin-repoint-checker is not green; failing control new-v3-row-replays-green",
+        "claim C: the revision omits lesson files round-27.md and round-28.md; it declares files 26 and 27 while the current partition has 29"
+      ],
+      "pin_repoint_measurement": {
+        "command": "python3 reports/round-26/remainders/pin-repoint-check.py --check",
+        "date": "2026-10-18",
+        "controls": "16/17",
+        "exit": 1,
+        "failing_controls": ["new-v3-row-replays-green"]
+      },
+      "register_landing_measurement": {
+        "command": "python3 reports/round-26/run-validation.py --check",
+        "date": "2026-10-18",
+        "register_scoped_records": 8,
+        "declared_pairs": 8,
+        "argot_gate_coverage": {"records": 183, "register_scoped": 14, "derived_pairs": 8, "violations": 0, "rule_holds": 0}
+      },
+      "filed_register_measurement": {
+        "source": "reports/round-26/validation.json",
+        "command": "python3 reports/round-26/run-validation.py",
+        "date": "2026-10-18",
+        "measured_at_utc": "2026-10-18T19:09:32+00:00",
+        "argot_gate_coverage": {"records": 170, "register_scoped": 14, "derived_pairs": 8},
+        "reading": "The settled-tree rerun replays the eight scoped items/eight pairs, but its current live-packet population is 183 records, not the filed 170-record snapshot. This later-round drift is retained, not normalized."
+      },
+      "protected_filed_artifacts": {
+        "passed": true,
+        "baseline_revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+        "protected_paths": {"command": "python3 reports/round-26/run-validation.py (git ls-tree of protected baseline)", "date": "2026-10-18", "value": 1328},
+        "differences_total": {"command": "python3 reports/round-26/run-validation.py (compare protected Git blobs to working bytes)", "date": "2026-10-18", "value": 0},
+        "protected_status_rows": {"command": "python3 reports/round-26/run-validation.py (git status over protected paths)", "date": "2026-10-18", "value": 0}
+      },
+      "filed_receipt": {
+        "path": "reports/round-26/validation.json",
+        "sha256": "99f2c3f3fc315309c098465d901118c93d833a0abd87822bf82504d88ffd0d66",
+        "acceptance_checks_passed": true,
+        "claim_passed": {"C": true, "D": true, "O": true}
+      }
+    },
+    {
+      "round": 27,
+      "clone": ".scratch/r29-x04/r27",
+      "head": "e923d6ecaf5fd9d256e4b377745bd3d24f5e2d47",
+      "command": "python3 reports/round-27/run-validation.py --check",
+      "date": "2026-10-18",
+      "started_local": "2026-10-18T17:55:34-03:00",
+      "finished_local": "2026-10-18T17:56:25-03:00",
+      "measured_at_utc": "2026-10-18T20:56:25+00:00",
+      "exit_code": 1,
+      "runner_sha256": "36b597068d59a88156090e5c179e1ab2c68fe4ce7735d7b1bb6f67d82babe08a",
+      "stdout_sha256": "092bc86c19f9fa739a56a4aa57d0d3cf94998dc759a501f65c197876f9ac7fa3",
+      "acceptance_checks_passed": false,
+      "claim_passed": {"C": false, "D": true, "O": false},
+      "missing_dependencies": [],
+      "failures": [
+        "claim O: 6 D4 surfaces are not re-pinned by a round-27 structured row carrying their live digest",
+        "claim C: the entry corpus/knowledge/linguistics/register-strata-attestation.md makes a canon claim (out of province for this lane)"
+      ],
+      "unrepinned_surfaces": [
+        "examples/culture-d4/components/03-orthography.yml",
+        "examples/culture-d4/components/09-costumes.yml",
+        "examples/culture-d4/expected-holds.json",
+        "examples/culture-d4/packet.d4.typed.yml",
+        "examples/culture-d4/packet.d4.yml",
+        "examples/culture-d4/typed-labels.d4.yml"
+      ],
+      "protected_filed_artifacts": {
+        "passed": true,
+        "baseline_revision": "4f09c990d4c17f23b5e2cda0871f81db875635fc",
+        "protected_paths": {"command": "python3 reports/round-27/run-validation.py (git ls-tree of protected baseline)", "date": "2026-10-18", "value": 1460},
+        "differences_total": {"command": "python3 reports/round-27/run-validation.py (compare protected Git blobs to working bytes)", "date": "2026-10-18", "value": 0},
+        "protected_status_rows": {"command": "python3 reports/round-27/run-validation.py (git status over protected paths)", "date": "2026-10-18", "value": 0}
+      },
+      "filed_receipt": {
+        "path": "reports/round-27/validation.json",
+        "sha256": "71783dc39ea57448f758e643a54714d8bbe3a2bd3474b9fa0f4ec2a377e93533",
+        "acceptance_checks_passed": true,
+        "claim_passed": {"C": true, "D": true, "O": true}
+      }
+    },
+    {
+      "round": 28,
+      "clone": ".scratch/r29-x04/r28",
+      "head": "e923d6ecaf5fd9d256e4b377745bd3d24f5e2d47",
+      "command": "python3 reports/round-28/run-validation.py --check",
+      "date": "2026-10-18",
+      "started_local": "2026-10-18T17:56:25-03:00",
+      "finished_local": "2026-10-18T17:57:16-03:00",
+      "measured_at_utc": "2026-10-18T20:57:16+00:00",
+      "exit_code": 0,
+      "runner_sha256": "20e09ea8db7bcb306b0c8948c7b8afb62eca5e0d47f674ebfea9643f2f6add77",
+      "stdout_sha256": "74ec317200fdfc089590fe01b9f4eb348b12469d5c9c4b01b02ff080976eeed8",
+      "acceptance_checks_passed": true,
+      "claim_passed": {"C": true, "D": true, "O": true},
+      "missing_dependencies": [],
+      "clean_law_calibration": {
+        "command": "python3 reports/round-28/run-validation.py --check (law_replay.clean; delivered checking leg)",
+        "date": "2026-10-18",
+        "instrument_command": "python3 tools/gates/register-law-gate.py <isolated clone packet.d4.yml>",
+        "exit": 1,
+        "finding_lines": 4,
+        "finding_classes": ["D4L-LAW-DANGLING"],
+        "runner_law_reader_findings": {"command": "python3 reports/round-28/run-validation.py --check (runner_law_reader.findings_total)", "date": "2026-10-18", "value": 4},
+        "discrepancy": "Round 29 claims.json requires the law gate's six-findings-on-clean calibration. Round 28's design reference describes six findings as four dangling design_row ids plus two consequence class-fit findings, but the delivered gate and Round 28 runner's own reader report four clean findings; the runner scopes force:none consequences out. The six-vs-four reading needs an explicit disposition; the settled rerun does not count four as six."
+      },
+      "protected_filed_artifacts": {
+        "passed": true,
+        "baseline_revision": "6c0ac4484d7ee5d15aaf190e7ad3b8817ea13ede",
+        "protected_paths": {"command": "python3 reports/round-28/run-validation.py (git ls-tree of protected baseline)", "date": "2026-10-18", "value": 1587},
+        "differences_total": {"command": "python3 reports/round-28/run-validation.py (compare protected Git blobs to working bytes)", "date": "2026-10-18", "value": 0},
+        "protected_status_rows": {"command": "python3 reports/round-28/run-validation.py (git status over protected paths)", "date": "2026-10-18", "value": 0}
+      },
+      "filed_receipt": {
+        "path": "reports/round-28/validation.json",
+        "sha256": "ed8aa84c7ad9453357d53b3cb00100c8bf67172aa996587d1c526091530159bf",
+        "acceptance_checks_passed": true,
+        "claim_passed": {"C": true, "D": true, "O": true}
+      }
+    }
+  ],
+  "historical_register_recheck": {
+    "date": "2026-10-18",
+    "head": "4f09c990d4c17f23b5e2cda0871f81db875635fc",
+    "clone": ".scratch/r29-x04/r26-snapshot-gate",
+    "runs": [
+      {
+        "command": "python3 tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+        "date": "2026-10-18",
+        "exit_code": 0,
+        "packet_sha256": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67",
+        "coverage": "records=170 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0"
+      },
+      {
+        "command": "python3 - <<'PY' (load the frozen R26 packet and git-show R26 lexicon component; count register=stamp rows)",
+        "date": "2026-10-18",
+        "exit_code": 0,
+        "r26_frozen_packet": {"lexicon_rows": 62, "stamp_rows": 8},
+        "r26_committed_component": {"lexicon_rows": 62, "stamp_rows": 8},
+        "forms": ["L-56:kit", "L-57:lom", "L-55:tuum", "L-58:nees", "L-59:huum", "L-60:mees", "L-61:reek", "L-62:saam"]
+      },
+      {
+        "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+        "date": "2026-10-18",
+        "exit_code": 0,
+        "summary": "20/20 legs passed; L3b-argot present"
+      }
+    ],
+    "interpretation": "The 170-record/8-pair register landing is reproduced at its matching R26 commit. It is distinct from the later settled-tree live packet, which reports 183 records with the same 8 derived pairs."
+  },
+  "excluded_historical_validator_probe": {
+    "command": "python3 reports/round-26/run-validation.py --check",
+    "date": "2026-10-18",
+    "clone_head_before_run": "4f09c990d4c17f23b5e2cda0871f81db875635fc",
+    "exit_code": 1,
+    "disposition": "Not used as a historical R26 result: the R26 runner's live_lane() finds the first non-.scratch ancestor with .git and reports/round-26/claims.json, then sync_round_surface() copies live files into the clone. In this probe, the committed packet hash was dd25077b while the clone and current lane packet were 543d68a8 after execution.",
+    "evidence_commands": [
+      {"command": "git show HEAD:examples/culture-d4/packet.d4.yml | sha256sum", "date": "2026-10-18", "result": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67"},
+      {"command": "sha256sum examples/culture-d4/packet.d4.yml (clone after runner); sha256sum <lane-root>/examples/culture-d4/packet.d4.yml", "date": "2026-10-18", "result": "Both 543d68a82640e1b0c53b9cb7cb26c4dc60fce5878c2bf487050ead3af0945c4f"}
+    ],
+    "source": "reports/round-26/run-validation.py:299-306,1604-1627; this is the R28-ACCEPTANCE-CLONE-LIVE-SYNC observation in reports/round-29/defects/ledger.json."
+  },
+  "result": {
+    "command": "python3 reports/round-25/run-validation.py --check; python3 reports/round-26/run-validation.py --check; python3 reports/round-27/run-validation.py --check; python3 reports/round-28/run-validation.py --check",
+    "date": "2026-10-18",
+    "current_tree_claim_states": "R25 C/D/O = fail/pass/fail; R26 C/D/O = fail/pass/fail; R27 C/D/O = fail/pass/fail; R28 C/D/O = pass/pass/pass.",
+    "interpretation": "The historical runners are time-sensitive: later lessons, D4 packet revisions, and repins change their live inputs. This rerun reports current behavior only and does not overwrite or retroactively invalidate the historical receipts. The matching-commit R26 gate recount separately reproduces 170 records and 8 pairs. Parent should disposition post-round drift, live-clone sync behavior, and the six-versus-four law calibration explicitly."
+  }
+}

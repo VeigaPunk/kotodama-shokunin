@@ -3407,3 +3407,14 @@ designation (provider test), not a silent substitution.
 - **LOOP 3 BUILDS COMPLETE (rounds 25-28).** Remaining: r29 verify (luna),
   r30 integrate (sol), r31-32 GLM (zai).
 - **Evidence:** `reports/round-28/validation.json` acceptance true.
+
+## 2026-10-18 — Round 29 admitted (loop 3 verify round)
+
+- **Trigger:** regimen; verify claims C/O/A in `reports/round-29/claims.json`;
+  baseline `e923d6e`; 17/64 completed; integrator dispositions post-wave.
+- **C (verified):** recount complete; register landing reproduced; law
+  calibration dispositioned; R27 sweep reproduced; devin availability
+  documented could-not-evaluate with durable records.
+- **O (verified):** 24-entry defect queue; bounded fixes; routed to r30.
+- **A (verified):** zero unfiled bleed; PROVINCE byte-identical.
+- **Evidence:** `reports/round-29/validation.json` acceptance true.

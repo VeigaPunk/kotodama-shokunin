@@ -1,0 +1,619 @@
+{
+  "round": 29,
+  "date": "2026-10-18",
+  "source": "Append-only synthesis of defect reports and controls in rounds 25-28. Each measurement records its date and command. Open work routes to round 30; historical observations are not represented as current failures. No rounds 8-28 files were changed.",
+  "status_values": ["open", "closed", "superseded", "observation"],
+  "entries": [
+    {
+      "id": "R25-TYPED-PIPELINE-MANUFACTURED-RED",
+      "round": 25,
+      "classification": "conformance",
+      "defect": "The typed-pipeline gate's lossy legacy reconstruction manufactured derivation failures, while null-like owed slots were counted as present, producing a false red on typed D4 input.",
+      "status": "closed",
+      "bounded": true,
+      "fix_scope": "Round-25 typed-pipeline gate input-class and nullish-routing repair; historical manifests remain append-only.",
+      "before": "The typed D4 command exited 1 at 14/16: the reconstruction generated 8 DERIV-REPLAY failures and six phantom null routing slots.",
+      "after": "The declared-source typed D4 command exited 0 at 16/16 with no DERIV-REPLAY lines; the source packet remained 19/19 and the gate selftest reached 19/19.",
+      "control": "Independent cold rerun and post-fix typed-packet, source-packet, selftest, tamper, and frozen-generation controls; reports/round-25/gate-input/verify.md and reports/round-25/scribe/x46-gate-input-cold-rerun.md.",
+      "owner": "Round-30 typed-pipeline owner (archive-only)",
+      "route_round": 30,
+      "owner_note": "Closed by the cited bounded repair and controls. Preserve the pre-fix report as historical evidence; do not call the superseded red a current regression.",
+      "sources": [
+        "reports/round-25/gate-input/diagnosis.md:22-42",
+        "reports/round-25/gate-input/verify.md:20-49,81-114",
+        "reports/round-25/scribe/x46-gate-input-cold-rerun.md:20-35,226-233"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml",
+          "result": "Pre-fix: exit 1, 14/16 legs, 8 manufactured DERIV-REPLAY failures, six phantom null slots; post-fix: exit 0, 16/16, zero DERIV-REPLAY lines."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+          "result": "Settled post-fix selftest: exit 0, 19/19."
+        }
+      ],
+      "evidence": "The pre-fix defect was in the gate's own reconstruction and null-like scalar handling. The repair graded the typed packet's pinned declared source and centralized nullish slot handling; the new frozen generation passed without rewriting historical manifests."
+    },
+    {
+      "id": "R25-TYPED-ROUTING-HOLD-LAUNDERING",
+      "round": 25,
+      "classification": "conformance",
+      "defect": "A single moved routing row can evade hold validation when its hold is null or absent; null is treated as a truthy string, and a missing hold disappears from both compared sets.",
+      "status": "open",
+      "owner": "Owner of tools/gates/typed-pipeline-gate.py",
+      "route_round": 30,
+      "owner_note": "Add separate negative controls for a single null hold and a missing hold key; each must refuse or report the mismatch. Preserve the current clean and valid-null controls.",
+      "sources": [
+        "reports/round-25/audit/o18-gate-input-adversarial.md:195-218",
+        "reports/round-25/scribe/x46-gate-input-cold-rerun.md:163-170"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/typed-pipeline-gate.py <typed-D4 fixture with hold: null on one moved LEX-GAR row>",
+          "result": "Exit 0, 16/16 despite a single laundered hold; nulling all moved rows is caught, so the single-row bypass is discriminating."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/typed-pipeline-gate.py <typed-D4 fixture with hold key absent on one moved row>",
+          "result": "Exit 0, 16/16; the absent row drops out of both compared sets."
+        }
+      ],
+      "evidence": "These are pre-existing gaps, not regressions from the typed-input fix. Round-25's own selftest exercised deleted rows and renamed notes, not a single null or missing hold. No later cited control closes these cases."
+    },
+    {
+      "id": "R25-TYPED-INPUT-REFUSAL-TRACEBACKS",
+      "round": 25,
+      "classification": "conformance",
+      "defect": "Malformed typed-input paths can raise uncaught exceptions rather than the documented exit-2 could-not-evaluate result: a D4-shaped packet with a missing declared source crashes before the refusal branch, and a source-less typed packet with a routing row lacking record raises KeyError.",
+      "status": "open",
+      "owner": "Owner of tools/gates/typed-pipeline-gate.py",
+      "route_round": 30,
+      "owner_note": "Guard source reads and semantic row access; add end-to-end malformed D4 and source-less typed fixtures that exit 2 without a traceback. The reported controls were historical probes, not a current re-run.",
+      "sources": [
+        "reports/round-25/audit/o18-gate-input-adversarial.md:152-193",
+        "reports/round-25/scribe/x46-gate-input-cold-rerun.md:235-258"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/typed-pipeline-gate.py <D4-shaped typed packet declaring a missing source>",
+          "result": "Exit 1 with FileNotFoundError traceback instead of the promised named exit-2 refusal."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/typed-pipeline-gate.py <typed packet without typed_assembly and with a typed_channel row missing record>",
+          "result": "Exit 1 with uncaught KeyError: 'record' instead of exit 2."
+        }
+      ],
+      "evidence": "The missing-source case was reproduced on both the pre-fix and landed gate; the missing-record case was reproduced on both the shipped gate and its predecessor. Neither is established as reachable from the committed packet shapes."
+    },
+    {
+      "id": "R25-TRANSIENT-GATE-SELFTEST-REDS",
+      "round": 25,
+      "classification": "process",
+      "defect": "During the round-25 landing, the argot gate selftest had fixture/assertion failures and the typed-pipeline selftest temporarily crashed because owed_slot_of was not exported.",
+      "status": "closed",
+      "bounded": true,
+      "fix_scope": "Round-25 final gate and fixture revisions; no historical red is rewritten.",
+      "before": "Intermediate selftests failed while fixtures and module exports were landing.",
+      "after": "The settled argot and typed-pipeline controls both exited 0 with their final named checks passing.",
+      "control": "Final selftests and D4 runtime readings recorded in reports/round-25/scribe/fragment-ledger.md.",
+      "owner": "Round-30 integrator (archive-only)",
+      "route_round": 30,
+      "owner_note": "Closed as a transient integration state. Do not cite an intermediate red as the final gate state or erase its timing record.",
+      "sources": ["reports/round-25/scribe/fragment-ledger.md:150-195"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py --selftest",
+          "result": "Settled at 18/18, exit 0; earlier states included missing-fixture and failed-control readings."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+          "result": "Settled at 19/19, exit 0; an intermediate revision raised KeyError: 'owed_slot_of'."
+        }
+      ],
+      "evidence": "The final revision is green, but the in-flight failures explain why only settled revisions and their controls count as closure."
+    },
+    {
+      "id": "R25-ARGOT-REVERSE-ENGINE-LIMIT",
+      "round": 25,
+      "classification": "conformance",
+      "defect": "The predecessor replay engine modeled derivation as concatenation only, so correct reverse derivations were false failures and indistinguishable from incorrect reversals.",
+      "status": "closed",
+      "bounded": true,
+      "fix_scope": "Round-25 argot-derivation gate and paired positive/negative fixtures.",
+      "before": "A correct reverse and a wrong reverse produced byte-identical D-form-mismatch findings under the old engine.",
+      "after": "The new gate distinguished a correct reverse from a wrong operation and a tampered result; its fixture IDs matched the expected file.",
+      "control": "Argot gate selftest and positive/negative derivation fixtures; reports/round-25/audit/x47-argot-negatives.md.",
+      "owner": "Round-30 argot-gate owner (archive-only for this bounded class)",
+      "route_round": 30,
+      "owner_note": "The old-engine false failure is closed by the new gate controls. This closure does not claim that the delivered D4 packet contains a derivation domain; see R25-ARGOT-REGISTER-RELATION-ABSENT.",
+      "sources": ["reports/round-25/audit/x47-argot-negatives.md:126-176,202-234"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py --selftest",
+          "result": "18/18 checks passed, exit 0."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py <correct reverse fixture> and python3 tools/gates/argot-derivation-gate.py <wrong-operation fixture>",
+          "result": "The correct pair passed; the wrong operation exited 1 with D4L-ARGOT-DERIV."
+        }
+      ],
+      "evidence": "The engine capability was repaired and independently exercised; the reported empty delivered relation is a separate coverage gap."
+    },
+    {
+      "id": "R25-ARGOT-REGISTER-RELATION-ABSENT",
+      "round": 25,
+      "classification": "conformance",
+      "defect": "The D4 packet did not deliver the forecast register-derived relation, leaving the argot gate with no derived pair to grade; a green run therefore did not establish that the domain was checked.",
+      "status": "open",
+      "owner": "Round-30 register-stratum / argot owner",
+      "route_round": 30,
+      "owner_note": "Either deliver the declared register relation end-to-end or explicitly retain it as an undelivered delta. Do not infer coverage from an exit-zero run over an empty relation set.",
+      "sources": [
+        "reports/round-25/audit/x47-argot-negatives.md:171-176,202-234",
+        "reports/round-26/argot/D24-forecast-closure.md:23-31,48-67,75-93",
+        "reports/round-27/argot/D20-gap-closure-record.md:164-169"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+          "result": "Coverage reported derived_pairs=0 and violations=0; the clean exit was vacuous for derivation arithmetic."
+        }
+      ],
+      "evidence": "The same empty-relation limitation was re-measured in round 26 and retained as a named delta in round 27. The round-28 materials cited here do not establish that the relation later landed."
+    },
+    {
+      "id": "R25-V3-STALE-PROSE-SUPERSESSION",
+      "round": 25,
+      "classification": "bookkeeping",
+      "defect": "Several filed v3 handoff revisions repeated stale D4 claim prose after the family-clean change; the round-25 r4 successor corrected the claims and reassigned the residual rows to their D2 owner.",
+      "status": "superseded",
+      "bounded": true,
+      "fix_scope": "Append-only r4 successor; r4 lineage itself was later superseded by the round-26 r5 lineage.",
+      "before": "Earlier revisions retained stale D4 figures and passenger prose.",
+      "after": "The r4 packet had no stale revision hits and explicitly retained the residual as D2-owned; the r4 checker is historical, not a current checker for r5.",
+      "control": "Round-25 independent census and checker; round-26 pin-repoint controls and v3 end-to-end successor.",
+      "owner": "Round-30 integrator (archive-only)",
+      "route_round": 30,
+      "owner_note": "Preserve all predecessor revisions. Do not revive or repair the r4 checker against r5 pins; use the successor lineage and its controls.",
+      "sources": [
+        "reports/round-25/audit/x48-v3-supersession.md:49-121,125-177",
+        "reports/round-26/remainders/r4-checker-supersession.md:1-16"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 reports/round-25/v3-supersession/v3-supersession-check.py --root .scratch/r25-x48/clone --check",
+          "result": "Exit 0, 52/52 controls; stale-prose detector reported 13 parent hits and zero r4 revision hits."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 reports/round-26/remainders/pin-repoint-check.py --check; python3 tools/exercise-handoff-e2e.py --profile v3 --quiet",
+          "result": "The r5 successor controls exited 0; pin-repoint controls were 17/17 and the handoff exercise reported 16/16, 20/20, 105/105."
+        }
+      ],
+      "evidence": "The stale prose was corrected in a successor, not by rewriting predecessors. The r4 checker is explicitly superseded rather than repaired."
+    },
+    {
+      "id": "R25-FROZEN-GATE-PIN-UNCOMMITTED",
+      "round": 25,
+      "classification": "process",
+      "defect": "The round-25 gate-input frozen generation pinned an uncommitted working-tree gate digest, so its rows could not replay against a repository object.",
+      "status": "superseded",
+      "bounded": true,
+      "fix_scope": "Successor manifests pin committed gate bytes; the round-25 generation remains filed unchanged.",
+      "before": "The round-25 generation's rows refused at gate_digest_mismatch before the gate ran.",
+      "after": "Later committed generations superseded the uncommitted pin; the round-28 r28-post generation reproduced its recorded rows.",
+      "control": "Round-26 regression identifies the missing git object; round-28 report records successor replay.",
+      "owner": "Round-30 frozen-replay owner (archive-only)",
+      "route_round": 30,
+      "owner_note": "Historical generation is superseded, not repaired in place. Keep its expected refusal distinct from current replay status.",
+      "sources": [
+        "reports/round-26/regression.md:221-236",
+        "reports/round-28/report-draft.md:137-148,200-205"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "git cat-file -t 879d40bf977eef659cabd7e87b7abd8dd5237cbd2cfa4c1a51c5ab622dbe4126",
+          "result": "Not a valid object name; all six round-25 frozen rows reported gate_digest_mismatch."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/replay-frozen.py reports/round-28/pinsweep/frozen/r28-post/MANIFEST.tsv",
+          "result": "Successor generation reproduced 4/4 rows."
+        }
+      ],
+      "evidence": "The uncommitted digest was a historical freeze defect. Successor generations are append-only and are not a claim that old rows changed meaning."
+    },
+    {
+      "id": "R26-R4-CHECKER-UNEVALUATED",
+      "round": 26,
+      "classification": "process",
+      "defect": "The round-26 validation runner passed a nonexistent --root to the r4 checker; exit 2 produced no passed verdict, while the runner recorded a note rather than failing the required checker clause.",
+      "status": "observation",
+      "owner": "Round-30 validation-runner owner",
+      "route_round": 30,
+      "owner_note": "This is a historical unevaluated check, not a pass or a current product failure. Future required checks must not be satisfied by a receipt with no verdict; do not rewrite the round-26 receipt.",
+      "sources": ["reports/round-26/audit/o39-o40-remainder-fixes-adversarial.md:235-267,271-279"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 reports/round-26/run-validation.py --check",
+          "result": "Exit 1 at 18:21:10Z; the checker invoked with --root .scratch/round-26/checker-clone exited 2 because that isolated clone path did not exist, and the receipt contained no passed field."
+        }
+      ],
+      "evidence": "Round-26's r4 checker was subsequently superseded by the r5 lineage. The historical runner gap is recorded for future mandatory-check design, not as a need to revive the old checker."
+    },
+    {
+      "id": "R26-ARGOT-DERIVATION-IDENTITY-AND-PAIR-SCOPE",
+      "round": 26,
+      "classification": "conformance",
+      "defect": "The argot replay gate can accept a base not present as a packet record, a self-derivation, and a wrong derivation after one pair field is deleted; those cases are counted as clean or omitted from replay.",
+      "status": "open",
+      "owner": "Owner of tools/gates/argot-derivation-gate.py",
+      "route_round": 30,
+      "owner_note": "Resolve bases to packet records, reject identity derivations unless the declared operation permits them, and HOLD malformed half-pairs. Re-run on the current gate before claiming closure.",
+      "sources": ["reports/round-26/argot/D21-adversarial-replay.md:115-138,140-171,173-197,258-276"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py <A1 dangling-base fixture>",
+          "result": "A derivation naming a base absent from the packet exited 0 and counted a derived pair."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py <A2 self-derivation fixtures>",
+          "result": "Palindrome reverse and one-syllable head2 self-derivations exited 0 with zero violations; a bad-pair control exited 1."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py <A3 fixture with derivation field deleted>",
+          "result": "The wrong register-scoped form exited 0 with no finding when one pair field was deleted; the complete pair exited 1."
+        }
+      ],
+      "evidence": "The controls isolate three separate identity/scope holes. Later round-27/28 evidence cited here does not establish that these specific attacks were repaired."
+    },
+    {
+      "id": "R26-ARGOT-LABEL-TYPING-AND-REGISTER-SCOPE",
+      "round": 26,
+      "classification": "conformance",
+      "defect": "The argot leg treats any non-plain register string as argot scope and can replay prose glosses as forms; it does not consult label kind, inventory signature, or borrowed-strata routing.",
+      "status": "open",
+      "owner": "Owner of tools/gates/argot-derivation-gate.py",
+      "route_round": 30,
+      "owner_note": "Route by the label-typing table before arithmetic replay. Keep gloss, native-form, borrowed-strata, and argot-register channels distinct; preserve the same-bytes projector control.",
+      "sources": [
+        "reports/round-26/argot/D22-label-typing-crosscheck.md:40-96,98-160,190-207",
+        "reports/round-27/argot/D19-label-typing-crosscheck.md:129-155,157-176"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B tools/gates/argot-derivation-gate.py .scratch/r27-d19/C1-full-gloss-on-register-slot.yml",
+          "result": "A prose gloss on a register slot exited 0 in the argot gate."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B tools/d2-typed-labels.py --packet .scratch/r27-d19/C1-full-gloss-on-register-slot.yml",
+          "result": "The same fixture emitted D2L-NATIVE failure, demonstrating the channel disagreement."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B tools/gates/argot-derivation-gate.py .scratch/r27-d19/C2-full-prose-register.yml",
+          "result": "A prose register remained accepted; round-27 review measured the scope/typing gap as not repaired."
+        }
+      ],
+      "evidence": "Round-27 reproduced the label-typing gap on full-packet mutations and stated it was reported, not repaired. The clean D4 gate result must not be read as type validation."
+    },
+    {
+      "id": "R26-ARGOT-BORROW-REPLAY-OVERPERMISSIVE",
+      "round": 26,
+      "classification": "conformance",
+      "defect": "Borrow replay applies arbitrary global substitutions to donor_form without requiring declared donor-side correspondence or inventory legality, so an arbitrary one-letter rewrite can be graded as a clean adaptation.",
+      "status": "observation",
+      "owner": "Owner of tools/gates/argot-derivation-gate.py",
+      "route_round": 30,
+      "owner_note": "Last measured in round 26; current status must be re-probed before treating it as open or closed. Add negative controls for donor correspondence and recipient inventory if the path remains in use.",
+      "sources": ["reports/round-26/argot/D23-overmatch.md:87-121,173-188,190-200"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/argot-derivation-gate.py <E3-borrow-oversub fixture>",
+          "result": "The arbitrary substitution fixture exited 0 with borrow_pairs=1 and no violations; a mismatching global-rewrite control exited 1."
+        }
+      ],
+      "evidence": "The report names an over-permissive borrowed-strata replay rule. This ledger does not assert the same reading on the final round-28 gate without a current re-run."
+    },
+    {
+      "id": "R26-ARGOT-PROSE-OPERATION-DETECTOR",
+      "round": 26,
+      "classification": "conformance",
+      "defect": "The argot operation detector scans rule prose for substrings such as reverse and head2, allowing unrelated prose to manufacture a coverage HOLD while synonym phrasing evades the same detector.",
+      "status": "observation",
+      "owner": "Owner of tools/gates/argot-derivation-gate.py",
+      "route_round": 30,
+      "owner_note": "Last measured in round 26; re-measure the final gate before closure. Operation declarations should be typed fields, not unanchored prose matches.",
+      "sources": ["reports/round-26/argot/D23-overmatch.md:36-85,183-200"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 .scratch/r26-d21/probeB.py",
+          "result": "Three prose variants triggered a manufactured D4L-ARGOT-COVERAGE HOLD; three synonym controls did not."
+        }
+      ],
+      "evidence": "The delivered D4 prose did not trigger this false red at that measurement. It is a detector discipline finding, and its present status is unverified."
+    },
+    {
+      "id": "R27-HEAD2-DIPHTHONG-VERDICT-INVERSION",
+      "round": 27,
+      "classification": "conformance",
+      "defect": "The argot gate's head2 syllabifier still treats ai/au as two nuclei. The design-correct two-syllable form tumhai is graded red while the gate's truncated tumha reading is green.",
+      "status": "open",
+      "owner": "Owner of tools/gates/argot-derivation-gate.py",
+      "route_round": 30,
+      "owner_note": "Fix diphthong syllabification against the packet's declared syllables and design algorithm; retain the opposite-reading probe pair. Do not repeat the superseded cluster-only closure.",
+      "sources": [
+        "reports/round-27/argot/D18-mis-syllabified-form.md:147-201,212-226",
+        "reports/round-27/argot/D20-gap-closure-record.md:98-160,164-169"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B .scratch/r27-d18/final-census.py",
+          "result": "Head2 disagreement remained on 3 of 70 forms; the round-27 runner's 0-of-70 reading shared the same diphthong mistake."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B tools/gates/argot-derivation-gate.py .scratch/r27-d18/diph-design-correct.yml and python3 -B tools/gates/argot-derivation-gate.py .scratch/r27-d18/diph-gate-reading.yml",
+          "result": "The design-correct tumhai form exited 1 with one violation; the gate-reading tumha form exited 0 with zero violations."
+        }
+      ],
+      "evidence": "The cluster class was fixed; the diphthong class and its verdict inversion remained explicitly open. Round-28 ceiling prose cites this round-27 correction/supersession record rather than closing the gate residue."
+    },
+    {
+      "id": "R28-LAW-FORCE-OVERMATCH",
+      "round": 28,
+      "classification": "conformance",
+      "defect": "The delivered law gate accepts force values through independent class/modifier substring matches, without checking value membership or polarity; refusals, negation, and fabricated values can pass as valid forces.",
+      "status": "open",
+      "owner": "Owner of tools/gates/register-law-gate.py",
+      "route_round": 30,
+      "owner_note": "Declare a machine-readable force vocabulary and grade class, polarity, and qualifiers as related fields. Keep positive and inversion/negation controls; do not self-derive the vocabulary from the values being checked.",
+      "sources": [
+        "reports/round-28/argot/D18-force-overmatch.md:69-136,211-258,285-296,385-440",
+        "reports/round-28/argot/D17-law-bypass.md:263-329,385-440,459-501"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 - <<'PY' (runpy the delivered tools/gates/register-law-gate.py and test the D18 force probe set)",
+          "result": "The delivered gate accepted commissive-binding granted, commissive-binding, not-directive-binding, and none directive naming; the no-such-force control was caught."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 - <<'PY' (in-memory RGL-02 force mutation through the delivered gate)",
+          "result": "The inverted-force tamper left the clean packet's four dangling-HOLD findings unchanged, while a no-such-force control added a force finding."
+        }
+      ],
+      "evidence": "The gate narrowed one none-only case but retained the core substring/polarity overmatch. Round-28 evidence confirms the defect on the delivered gate, not only its review runner."
+    },
+    {
+      "id": "R28-LAW-CONSEQUENCE-AND-SPEAKER-BLINDNESS",
+      "round": 28,
+      "classification": "conformance",
+      "defect": "The delivered law reader misses empty or polarity-inverted consequences and does not resolve bare speaker classes; it resolves only Name (ID) tokens, so a tokenless bogus class is indistinguishable from the clean law row.",
+      "status": "open",
+      "owner": "Owner of tools/gates/register-law-gate.py",
+      "route_round": 30,
+      "owner_note": "Validate consequence presence and polarity, and declare/resolve speaker classes explicitly. Add tokenless speaker and consequence-negation controls; do not use a token-bearing speaker fixture as a substitute.",
+      "sources": [
+        "reports/round-28/argot/D17-law-bypass.md:240-282,418-459,485-501,579-615",
+        "reports/round-28/audit/o39-o40-law-replay-and-sweep-adversarial.md:222-282,307-320"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 - <<'PY' (in-memory consequence blanking/polarity and tokenless speaker mutations through register-law-gate.py)",
+          "result": "Blanked and polarity-inverted consequences and bare bogus speaker classes left the clean finding set unchanged; Name (ID) and no-such-kind controls were caught."
+        }
+      ],
+      "evidence": "The round-28 runner's speaker selftest retains an ID token and therefore does not cover the round-27 tokenless speaker-class probe. The gate's stated ID-token limit does not satisfy the stronger claim wording."
+    },
+    {
+      "id": "R28-LAW-REGISTER-ROW-ASSEMBLY-VALIDATION",
+      "round": 28,
+      "classification": "conformance",
+      "defect": "The D4 assembler does not validate register_law record fields; stripping an RGL row id still assembles, unlike stripping a lexicon row id.",
+      "status": "open",
+      "owner": "Owner of tools/assemble-culture-d4.py",
+      "route_round": 30,
+      "owner_note": "Add register_law to assembler record validation and a mirror-based negative control; keep the lexicon contrast and deterministic-assembly check.",
+      "sources": [
+        "reports/round-27/argot/D17-speech-act-outside-the-law.md:169-201,203-219",
+        "reports/round-28/scribe/x54-law-negatives-spotcheck.md:164-198"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B tools/assemble-culture-d4.py (isolated full mirror with id stripped from RGL-03)",
+          "result": "Exit 0 and emitted a register_law row without id; the same edit to a lexicon row exited 2."
+        }
+      ],
+      "evidence": "The component and contract declare fields, but the assembler's record validator lacks a register_law field list. The round-28 mirror control reproduced the asymmetry."
+    },
+    {
+      "id": "R28-LAW-DANGLING-DESIGN-ROW-REFERENCES",
+      "round": 28,
+      "classification": "conformance",
+      "defect": "The delivered register-law rows cite QREG-05 through QREG-08, which have no delivered records; the law gate emits clean-packet dangling HOLDs for those citations.",
+      "status": "open",
+      "owner": "Round-30 register-law packet/design owner",
+      "route_round": 30,
+      "owner_note": "Resolve the references by delivering the cited design rows or by correcting the citations in an authorized successor; preserve the HOLD semantics and do not classify the expected clean-packet HOLDs as a gate regression.",
+      "sources": [
+        "reports/round-28/argot/D17-law-bypass.md:89-99,579-602",
+        "reports/round-28/scribe/x58-d4-chain-cold-rerun.md:315-342"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 tools/gates/register-law-gate.py examples/culture-d4/packet.d4.yml",
+          "result": "The clean packet emitted four D4L-LAW-DANGLING HOLDs for QREG-05..08."
+        }
+      ],
+      "evidence": "These are real dangling references, distinct from the gate's expected HOLD semantics and distinct from mutations that should create a new tamper finding."
+    },
+    {
+      "id": "R28-LAW-GATE-ABSENT-FROM-REGRESSION-LABELS",
+      "round": 28,
+      "classification": "process",
+      "defect": "The delivered register-law gate is not included in the runner's registered regression label set, so its clean exit and tamper controls are not part of the standard battery verdict.",
+      "status": "open",
+      "owner": "Round-30 validation-runner / gate-battery owner",
+      "route_round": 30,
+      "owner_note": "Register the law gate in the standard battery with its clean calibration and tamper delta controls; ensure the expected clean-packet dangling HOLDs are interpreted as calibrated baseline, not hidden by omission.",
+      "sources": [
+        "reports/round-28/audit/o39-o40-law-replay-and-sweep-adversarial.md:20-30,307-323",
+        "reports/round-28/report-draft.md:105-108"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 reports/round-28/run-validation.py --check",
+          "result": "The runner's 35 regression labels contained zero labels naming register-law-gate.py; the separate law gate emitted four clean-packet HOLDs."
+        }
+      ],
+      "evidence": "A separate selftest is not a substitute for registration in the standard battery. Round-28 report identifies this as a later-round follow-up."
+    },
+    {
+      "id": "R28-FROZEN-REPLAY-USES-LIVE-TREE",
+      "round": 28,
+      "classification": "process",
+      "defect": "tools/replay-frozen.py runs a gate whose ROOT resolves to the live repository and loads live peers/packet bytes instead of evaluating only the pinned snapshot; it then classifies the gate's exit-2 refusal as replay_mismatch rather than could-not-evaluate.",
+      "status": "open",
+      "owner": "Owner of tools/replay-frozen.py",
+      "route_round": 30,
+      "owner_note": "Build an isolated mirror containing the full pinned read set and dependencies, and preserve an input-class refusal as could-not-evaluate. Keep different pinned inputs from collapsing to the same live-tree output.",
+      "sources": [
+        "reports/round-28/audit/o39-o40-law-replay-and-sweep-adversarial.md:104-220",
+        "reports/round-27/pinsweep/sweep-receipt.json"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "TMPDIR=/var/tmp/r28o39 python3 tools/replay-frozen.py tools/gates/frozen/round-26/post-register/MANIFEST.tsv",
+          "result": "At 20:12Z two distinct pinned D4 inputs emitted one identical output digest and exited 2; at 20:26Z their output digests diverged but both still mismatched against live-tree assembly bytes."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "TMPDIR=/var/tmp/r28o39 python3 tools/replay-frozen.py tools/gates/frozen/round-26/post-register/MANIFEST.tsv",
+          "result": "The two gate exit-2 refusals were recorded as replay_mismatch/status=mismatch rather than could-not-evaluate."
+        }
+      ],
+      "evidence": "The defect predates round 28 and is still reported after the output collision symptom was removed. A matching D2 replay was coincidental because the live D2 bytes equaled its pins."
+    },
+    {
+      "id": "R28-VALIDATION-CLAUSE-OMITS-FROZEN-MANIFEST-REPLAY",
+      "round": 28,
+      "classification": "process",
+      "defect": "The round-28 runner's all-replays-green clause checks handoff/selftest labels but excludes frozen-manifest replay, so it can report green while the manifest replay surface is nonzero.",
+      "status": "open",
+      "owner": "Round-30 validation-runner owner",
+      "route_round": 30,
+      "owner_note": "Make the acceptance clause enumerate and evaluate the frozen manifest generations it claims to cover; bind refusals and mismatches to separate statuses. Do not infer replay success from handoff selftests.",
+      "sources": ["reports/round-28/audit/o39-o40-law-replay-and-sweep-adversarial.md:184-220,307-323"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 reports/round-28/run-validation.py --check",
+          "result": "The replay label set contained replay-selftest and handoff labels but no frozen manifest replay; the sweep recorded 11 of 12 manifest generations as nonzero."
+        }
+      ],
+      "evidence": "This is a runner coverage defect independent of replay-frozen's live-tree bug: even a correct replay tool cannot affect a claim clause that never invokes it."
+    },
+    {
+      "id": "R28-ACCEPTANCE-CLONE-LIVE-SYNC",
+      "round": 28,
+      "classification": "process",
+      "defect": "Round-23 through round-28 acceptance runners discover the live lane as an ancestor of an in-lane clone and sync live bytes over the snapshot being measured.",
+      "status": "open",
+      "owner": "Round-30 acceptance-runner owner",
+      "route_round": 30,
+      "owner_note": "Use a clone isolation rule that cannot resolve back to the live lane, or disable synchronization in snapshot-only phases. Require before/after hashes for probe files and keep the current exclusion until repaired.",
+      "sources": ["reports/round-28/regression.md:52-87,112-124"],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 .scratch/r28-o33-o36-regression/f0-control.py",
+          "result": "The passing reproduction changed three HEAD-probe files to their live bytes when reports/round-28/run-validation.py --check ran inside the in-lane clone."
+        }
+      ],
+      "evidence": "The round-28 sweep excluded live-syncing runners from the HEAD-only phase, which avoids this contamination in that driver but does not repair the runner behavior."
+    },
+    {
+      "id": "R28-CHECK-MODE-WRITES-RECEIPT",
+      "round": 28,
+      "classification": "process",
+      "defect": "The round-27 and round-28 gate-test runners parse --check as measure-only but unconditionally write their receipt, so a check-only invocation mutates a filed receipt in the round-27 runner.",
+      "status": "open",
+      "owner": "Owner of reports/round-27/gate-tests/run-gate-tests.py and reports/round-28/gate-tests/run-gate-tests.py",
+      "route_round": 30,
+      "owner_note": "Make --check read-only and verify receipt hashes before and after; retain the round-27 restored receipt and do not run the writer against filed artifacts in the live lane.",
+      "sources": [
+        "reports/round-28/regression.md:89-110,305-314",
+        "reports/round-28/audit/o39-o40-law-replay-and-sweep-adversarial.md:53-102"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 reports/round-27/gate-tests/run-gate-tests.py --check",
+          "result": "At 17:13:19 direct check-only execution rewrote the filed receipt; it was restored and re-hashed equal to HEAD."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 reports/round-28/gate-tests/run-gate-tests.py --check",
+          "result": "Source inspection and the round-28 regression report confirm the same unconditional receipt write in the successor runner."
+        }
+      ],
+      "evidence": "The historical byte was restored, but restoration does not close the writer behavior. The round-28 file was not yet a filed historical artifact when measured."
+    },
+    {
+      "id": "R28-SWEEP-LIVE-COUPLED-ADMISSION-AND-PIN-KEY-COVERAGE",
+      "round": 28,
+      "classification": "process",
+      "defect": "Family-G sweep admission depends on live-tree lineage instead of the hold set's own packet pin, so a drifted hold set can disappear during the re-pin window; family-J uses a fixed pin-map key vocabulary that misses key families the lane writes.",
+      "status": "open",
+      "owner": "Round-30 sweep-inventory owner",
+      "route_round": 30,
+      "owner_note": "Admit D4 hold sets by their own packet_sha256 against recorded D4 lineage and report drift rather than silently skipping. Extend family-J discovery beyond a fixed key-name list. Do not count historical pin maps as live defects.",
+      "sources": [
+        "reports/round-28/audit/o38-sweep-inventory-adjudication.md:87-145,147-170,199-223",
+        "reports/round-28/audit/o37-sweep-inventory-audit.md"
+      ],
+      "measurements": [
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B reports/round-28/audit/o38-sweep-inventory-adjudication.py",
+          "result": "At an earlier drift stamp family G returned zero rows; injecting the current hold-set pin made the walker find it. The contemporaneous repair returned one row and the selftest reached 12/12, but the filter remained live-tree-coupled."
+        },
+        {
+          "date": "2026-10-18",
+          "command": "python3 -B reports/round-28/audit/o38-sweep-inventory-adjudication.py --json",
+          "result": "The adjudication found pin maps under key names the fixed family-J vocabulary did not read; the historical map census is evidence of key-vocabulary coverage, not a count of live defects."
+        }
+      ],
+      "evidence": "The family-G symptom was repaired during the round, but the admission rule still reopens the same blind window on a future packet landing. The static key list is a separate coverage limit."
+    }
+  ]
+}

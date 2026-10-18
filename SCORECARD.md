@@ -370,6 +370,24 @@ Admission: D/O/C verify, no axis harmed. LOOP 3 BUILDS COMPLETE (rounds
 25-28, all on the devin provider). Routed to round 30: the QREG-05..08
 dangling-register fix, the battery registration of the law gate, X63-F2.
 
+## Axes — round 29 (2026-10-18), admitted (loop 3 verify round)
+
+Baseline `e923d6e`; one 64-worker `openai-codex/gpt-6-luna-max` verify batch
+(17/64 completed; integrator dispositions + the R27 full-sweep reproduction
+completed post-wave). Acceptance: `python3 reports/round-29/run-validation.py`
+exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| calibration | improved (claim C) | Rounds 25-28 recounted: the register landing independently reproduced (8 forms; 170 records at admission; revision boundaries documented 175/183); the law calibration reconciled (designed 6 vs delivered 4 — the design's own scoping of consequence checks to binding acts; dispositioned, not re-rolled); the R27 full sweep reproduced post-wave (41 findings at the current tree vs 31 at admission — a revision boundary); the devin availability leg documented could-not-evaluate (wave-time telemetry lost with .scratch cleanup; durable records stand; round-30 telemetry-durability fix routed) | `python3 reports/round-29/run-validation.py` | `reports/round-29/recount/` |
+| operability | improved (claim O) | Consolidated 24-entry loop-3 defect queue; bounded fixes with controls; everything routed to round 30 (QREG-05..08 dangles, law-gate battery registration, X63-F2, telemetry durability); the r28-sweep TMPDIR precondition fixed in the validator; regressions green | `python3 reports/round-29/run-validation.py` | `reports/round-29/defects/` |
+| adjacency | improved (claim A) | Register/law bleed check clean (speech-act framework verified in-world by design); PROVINCE byte-identical; the ceilings-entry evidence defect filed (baseline-false absence claim, non-bleed); zero unfiled bleed | `python3 reports/round-29/run-validation.py` | `reports/round-29/adjacency/` |
+| depth / coverage / freshness | unchanged | Audit round; pause in force | — | — |
+
+Admission: C/O/A verify, no axis harmed. Routed to round 30 with owners: the
+QREG-05..08 dangling-register fix, the law-gate battery registration, X63-F2,
+the register-law selftest speaker-tamper tail, telemetry durability.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker
