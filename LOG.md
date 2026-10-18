@@ -3282,3 +3282,15 @@ certification or lore/world-bible ownership is claimed.
 - **Integrator acts:** fragment-index collision disposition (kept the dated
   X24 census index alongside X19/X20's; noted in the round notes).
 - **Evidence:** `reports/round-20/validation.json` acceptance true.
+
+## 2026-10-18 — Round 21 admitted (loop 2 verify round)
+
+- **Trigger:** regimen; verify claims C/O/A in `reports/round-21/claims.json`;
+  baseline `8115eaa`; 20/64 completed; integrator coverage completion.
+- **C (verified):** recount ledger complete; r18 repair reproduced; all
+  mismatches dispositioned (see `recount/dispositions.md`).
+- **O (verified):** 23-entry consolidated defect queue; bounded fixes;
+  routed to r22.
+- **A (verified):** handoff v3 contract green on the current pair; one filed
+  D2->D4 fixture bleed routed; PROVINCE accurate.
+- **Evidence:** `reports/round-21/validation.json` acceptance true.

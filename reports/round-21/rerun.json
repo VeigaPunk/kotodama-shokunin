@@ -1,0 +1,356 @@
+{
+  "round": 21,
+  "assignment": "SCRIBE X04 — report scribe and independent settled-tree rerun",
+  "date": "2026-10-18",
+  "baseline_revision": "35b6797b42d48bec52e1e3ddba1f3afc9bb85046",
+  "measured_revision": "8115eaaeb57c9dce157fe291337cb52dd914c6cf",
+  "method": {
+    "clone_root": ".scratch/r21-recount",
+    "clone_revisions": {
+      "17": "8115eaaeb57c9dce157fe291337cb52dd914c6cf",
+      "18": "8115eaaeb57c9dce157fe291337cb52dd914c6cf",
+      "19": "8115eaaeb57c9dce157fe291337cb52dd914c6cf",
+      "20": "8115eaaeb57c9dce157fe291337cb52dd914c6cf"
+    },
+    "scratch_prelude": "export TMPDIR=$PWD/.scratch (from the lane root before entering each isolated clone)",
+    "receipt_refresh": "REFRESH_RECEIPTS=1 was used only for rounds 17, 18 and 20 inside their clones; round 19 writes its receipt only inside its clone.",
+    "r17_r20_filed_receipts_modified_by_x04": false,
+    "round21_validator": {
+      "executed_by_x04": false,
+      "reason": "X04 is assigned only report-draft.md and rerun.json; this report does not claim aggregate round-21 validation status."
+    }
+  },
+  "rounds": {
+    "17": {
+      "filed": {
+        "path": "reports/round-17/validation.json",
+        "command": "python3 reports/round-17/run-validation.py",
+        "date": "2026-10-18",
+        "acceptance_checks_passed": false,
+        "claim_passed": {"C": true, "D": false, "O": true},
+        "C": {
+          "command": "python3 reports/round-17/run-validation.py (count targets, evidence fragments and dispositions)",
+          "date": "2026-10-18",
+          "targets": 12,
+          "fragments": 16,
+          "fixed": 7,
+          "attempted": 5
+        },
+        "D_failure": "D4 typed artifact, projection, expected artifact and round-17 frozen manifest were absent at the filed measurement."
+      },
+      "settled_rerun": {
+        "clone": ".scratch/r21-recount/r17",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-17/run-validation.py",
+        "date": "2026-10-18",
+        "runner_sha256": "6b98abadef9951be7cfce006f339dad036f7b341cee6713ecc00be6e5f9095ec",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {"C": false, "D": false, "O": false},
+        "C": {
+          "command": "python3 reports/round-17/run-validation.py (count stale targets, evidence fragments, and fixed/attempted dispositions)",
+          "date": "2026-10-18",
+          "targets": 12,
+          "fragments_seen": 0,
+          "fixed": 0,
+          "attempted": 0,
+          "all_targets_reported_missing": true
+        },
+        "D": {
+          "command": "python3 reports/round-17/run-validation.py (D4 assembly, adapter and hold-set checks)",
+          "date": "2026-10-18",
+          "components": 12,
+          "holds": 15,
+          "notes": 1,
+          "fails": 0,
+          "details_pinned": 16,
+          "detail_mismatches": 0,
+          "adapter_builds": [
+            {
+              "command": "python3 tools/assemble-d2-typed.py --packet examples/culture-d4/packet.d4.yml --projection examples/culture-d4/typed-labels.d4.yml --emit .scratch/round-17-d4-typed-a.yml",
+              "date": "2026-10-18",
+              "exit_code": 2
+            },
+            {
+              "command": "python3 tools/assemble-d2-typed.py --packet examples/culture-d4/packet.d4.yml --projection examples/culture-d4/typed-labels.d4.yml --emit .scratch/round-17-d4-typed-b.yml",
+              "date": "2026-10-18",
+              "exit_code": 2
+            }
+          ],
+          "d4_manifest_replay": {
+            "command": "python3 tools/replay-frozen.py reports/round-17/tests/frozen/MANIFEST.tsv",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "reproduced": 5,
+            "rows": 5
+          }
+        },
+        "O": {
+          "command": "python3 reports/round-17/run-validation.py (compare pinned D2/D3 paths with the R17 baseline)",
+          "date": "2026-10-18",
+          "changed_paths": ["examples/culture-d2/expected-holds.json"]
+        }
+      },
+      "filesystem_probe": {
+        "command": "git ls-files reports/round-17/civ | wc -l",
+        "date": "2026-10-18",
+        "tracked_files_present": 16,
+        "cause": "reports/round-17/run-validation.py:326-346 tests '.scratch' in each absolute Path.parts. Since the isolated clone is below the lane's .scratch directory, every absolute evidence path is filtered out. The zero-fragment result is a scanner/path-context defect, not absence of the filed evidence."
+      },
+      "dispositions": [
+        "The filed C counts and current scanner counts do not match; disposition the rerun zero as an environment-sensitive scanner result. Preserve the filed count and all evidence; do not rewrite either receipt.",
+        "The current R17 validator still invokes the D2 typed adapter for the now-current D4 packet. Its D4 hold-set comparison is exact, but the two obsolete adapter calls exit 2. This is a settled-tree/time-scope mismatch, not evidence that the R17-era missing-artifact rejection was false.",
+        "The D2 expected-holds pin drift is documented by round 20: commit 35b6797 updates projector_sha and records byte-identical D2 output."
+      ]
+    },
+    "18": {
+      "filed": {
+        "path": "reports/round-18/validation.json",
+        "command": "python3 reports/round-18/run-validation.py",
+        "date": "2026-10-18",
+        "acceptance_checks_passed": true,
+        "claim_passed": {"C": true, "D": true, "O": true},
+        "D4": {
+          "command": "python3 reports/round-18/run-validation.py (D4 tree, hold-set and typed-rebuild checks)",
+          "date": "2026-10-18",
+          "components": 12,
+          "files": 19,
+          "holds": 15,
+          "notes": 1,
+          "details_pinned": 16,
+          "typed_rebuild_byte_identical": true
+        },
+        "O_replays": {
+          "command": "python3 reports/round-18/run-validation.py (round-18 frozen manifests)",
+          "date": "2026-10-18",
+          "round18_manifest": {"reproduced": 2, "rows": 2, "exit_code": 0},
+          "repin_d2_manifest": {"reproduced": 11, "rows": 11, "exit_code": 0}
+        }
+      },
+      "settled_rerun": {
+        "clone": ".scratch/r21-recount/r18",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-18/run-validation.py",
+        "date": "2026-10-18",
+        "runner_sha256": "01b138500ce30ad25cc8f0078110d6b2afeb9bf8ca79f5903deae3746c19bca8",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {"C": true, "D": false, "O": false},
+        "C": {
+          "command": "python3 reports/round-18/run-validation.py (round-18 civ-map rows)",
+          "date": "2026-10-18",
+          "rows": 94
+        },
+        "D": {
+          "command": "python3 reports/round-18/run-validation.py (D4 tree and hold-set checks)",
+          "date": "2026-10-18",
+          "components": 12,
+          "files": 19,
+          "holds": 15,
+          "notes": 1,
+          "fails": 0,
+          "details_pinned": 16,
+          "detail_mismatches": 0,
+          "typed_rebuild_byte_identical": true,
+          "unrecorded_fragment_ids": ["D4L-BORROW@hold", "D4L-ERA@hold", "D4L-FORM-UNRESOLVED@hold"],
+          "undispositioned_fragment_to_delivery_delta": true,
+          "unnamed_delivered_ids": ["D2L-FORM-UNRESOLVED", "D2L-RANK"],
+          "d2_expected_holds": {
+            "command": "python3 reports/round-18/run-validation.py (compare D2 expected-holds bytes with the R18 baseline)",
+            "date": "2026-10-18",
+            "baseline_sha256": "a5dc26d5b495a90e05ce42d4d8b6d08f047359c377e458f9190b1d310d6dde3a",
+            "settled_sha256": "7b9439c4d695b50b0898605e9038dd46ba62fc05536a21ca6d806fcad69d2b51",
+            "byte_identical": false
+          }
+        },
+        "O": {
+          "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-18/MANIFEST.tsv and python3 tools/replay-frozen.py tools/gates/frozen/round-18/repin-d2/MANIFEST.tsv",
+          "date": "2026-10-18",
+          "round18_manifest": {
+            "recorded_exit": 0,
+            "observed_exit": 1,
+            "reproduced": 1,
+            "rows": 2,
+            "mismatches": 1,
+            "mismatch_row": "d4-typed-labels-check-gate"
+          },
+          "repin_d2_manifest": {"reproduced": 11, "rows": 11, "mismatches": 0, "exit_code": 0},
+          "other_failures": [
+            "R18 does not record before/after digests for tools/d2-typed-labels.py and tools/gates/typed-pipeline-gate.py.",
+            "The R16 v2-07 projector pin drift has no R18 re-pin record."
+          ]
+        }
+      },
+      "targeted_reproduction": {
+        "typed_pipeline": {
+          "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+          "date": "2026-10-18",
+          "exit_code": 0,
+          "summary": "19/19 legs passed"
+        },
+        "d2_projection": {
+          "command": "python3 tools/d2-typed-labels.py --check",
+          "date": "2026-10-18",
+          "exit_code": 0,
+          "summary": "byte-identical deterministic projection"
+        }
+      },
+      "dispositions": [
+        "The R18 typed pipeline repair reproduces on the settled tree: the direct generalized D4 gate is green and the default D2 projection is byte-identical, both measured on 2026-10-18 by the commands above.",
+        "The R18 manifest mismatch is expected historical drift: its frozen input is the R18 projection, while the live D4 projection was revised by the R20 admission commit. The R18 replay note explicitly treats later live-peer changes as a reason for an old row to turn red; preserve this as a mismatch, not a corrected receipt.",
+        "The D2 expected-holds change is intentional and documented in R20 commit 35b6797 as a projector re-pin; it does not mean the D2 packet or typed projection changed. The R18 D4 evidence/disposition gaps remain open findings."
+      ]
+    },
+    "19": {
+      "filed": {
+        "path": "reports/round-19/validation.json",
+        "command": "python3 reports/round-19/run-validation.py",
+        "date": "2026-10-18",
+        "acceptance_checks_passed": true,
+        "claim_passed": {"C": true, "D": true, "O": true},
+        "C": {
+          "command": "python3 reports/round-19/run-validation.py (filed entry census)",
+          "date": "2026-10-18",
+          "entries": 10,
+          "verification": 5,
+          "synthesis": 5
+        }
+      },
+      "settled_rerun": {
+        "clone": ".scratch/r21-recount/r19",
+        "command": "python3 reports/round-19/run-validation.py",
+        "date": "2026-10-18",
+        "runner_sha256": "5b27a80de1f4b11012061e7ed3e835734049661ace295b39878afd9f71454d3a",
+        "exit_code": 0,
+        "acceptance_checks_passed": false,
+        "failures": ["C entries"],
+        "claim_values_retained_from_filed_receipt": {"C": true, "D": true, "O": true},
+        "subclaim_caution": "The compact runner does not refresh the C/D/O measurement objects; the true values are inherited from the filed validation.json. The C failure is newly calculated from git status."
+      },
+      "corpus_presence_audit": {
+        "command": "git diff --name-only 169c616613899f7ba86b8fb58ed808bdfd4b5ccd..HEAD -- corpus/knowledge/verification corpus/knowledge/synthesis",
+        "date": "2026-10-18",
+        "entries_landed_since_r19_baseline": 10,
+        "verification": 5,
+        "synthesis": 5
+      },
+      "status_selector_audit": {
+        "command": "git status --short | awk '$1==\"??\" && $2 ~ /^corpus\\/knowledge\\// {print $2}' | wc -l",
+        "date": "2026-10-18",
+        "untracked_corpus_entries": 0,
+        "cause": "reports/round-19/run-validation.py:10-12 only counts untracked corpus paths. At settled HEAD the filed R19 entries are tracked, so the selector falsely reports C entries missing. The outer runner prints the inner result without propagating its status; exit 0 is not acceptance."
+      }
+    },
+    "20": {
+      "filed": {
+        "path": "reports/round-20/validation.json",
+        "command": "python3 reports/round-20/run-validation.py",
+        "date": "2026-10-18",
+        "acceptance_checks_passed": true,
+        "claim_passed": {"C": true, "D": true, "O": true}
+      },
+      "settled_rerun": {
+        "clone": ".scratch/r21-recount/r20",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-20/run-validation.py",
+        "date": "2026-10-18",
+        "runner_sha256": "2b7a252b5449415dddac2e667ed2e192df800a80173849989fa72423961646da",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {"C": true, "D": false, "O": true},
+        "C": {
+          "command": "python3 reports/round-20/run-validation.py (count corpus/knowledge/<partition>/*.md per partition)",
+          "date": "2026-10-18",
+          "counts": {
+            "civilizations": 94,
+            "culture-material": 18,
+            "linguistics": 19,
+            "myth-symbol": 19,
+            "synthesis": 29,
+            "verification": 20
+          },
+          "total": 199,
+          "declared_linguistics": 20,
+          "documented_linguistics_delta": true
+        },
+        "D_packet_and_gate": {
+          "command": "python3 reports/round-20/run-validation.py (round-20 handoff packet census and v3 exercise scan)",
+          "date": "2026-10-18",
+          "packet_claims": 27,
+          "d4_claims": 12,
+          "statuses": {"supported": 16, "partial": 7, "unresolved": 4},
+          "exercise_command": "python3 tools/exercise-handoff-e2e.py --profile v3",
+          "exercise_date": "2026-10-18",
+          "exercise_exit": 0,
+          "fields": 16,
+          "fields_total": 16,
+          "glossary": 20,
+          "glossary_total": 20,
+          "gate_links_resolved": 105,
+          "gate_links_total": 105,
+          "findings": 0,
+          "v2_subset": "equal"
+        },
+        "contract_audit_selector": {
+          "command": "REFRESH_RECEIPTS=1 python3 reports/round-20/run-validation.py",
+          "date": "2026-10-18",
+          "selected": "reports/round-20/handoff/packet-v3-16.md",
+          "selected_build_rank": 16,
+          "classification": "fail",
+          "explicit_fail": false,
+          "state": "other",
+          "verdict_text": "",
+          "cause": "The selector admits the packet as a contract-audit candidate and breaks the tied highest build rank by mtime; it chooses the packet rather than audit-v3.md. The packet has no verdict label, so the parser classifies state=other as fail.",
+          "correct_audit": {
+            "path": "reports/round-20/handoff/audit-v3.md",
+            "command": "R20-D17 independent reader documented in reports/round-20/handoff/audit-v3.md §1 (scratch reader: .scratch/r20-d17/auditlib.py)",
+            "date": "2026-10-18",
+            "audited_packet_identity": {
+              "command": "sha256sum reports/round-20/handoff/packet-v3-16.md",
+              "date": "2026-10-18",
+              "audit_recorded_sha256": "9f37c08af9bd56fce668ccb42bd34351d21e650c49e27898ff7736a70dfdd730",
+              "settled_tree_sha256": "9f37c08af9bd56fce668ccb42bd34351d21e650c49e27898ff7736a70dfdd730",
+              "byte_identical": true
+            },
+            "verdict": "PASS-with-named-minors",
+            "markdown_claims": 27,
+            "markdown_links_resolved": 92,
+            "markdown_links_total": 92,
+            "manifest_digests_matched": 56,
+            "manifest_digests_total": 56,
+            "coupling_edges": 94,
+            "named_interop_finding": "F-INT-1 records a distinct markdown-vs-filed-twin divergence; do not merge the audit's markdown counts with the validator's exercise scan counts."
+          }
+        },
+        "O": {
+          "command": "python3 reports/round-20/run-validation.py (operability measurements)",
+          "date": "2026-10-18",
+          "typed_pipeline_gate": {
+            "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "summary": "19/19 legs passed"
+          },
+          "d2_projection": {
+            "command": "python3 tools/d2-typed-labels.py --check",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "byte_identical": true
+          },
+          "d4_adapter_selftest": {
+            "command": "python3 tools/assemble-d4-typed.py --selftest",
+            "date": "2026-10-18",
+            "exit_code": 0,
+            "checks_passed": 12,
+            "checks_total": 12
+          }
+        }
+      }
+    }
+  },
+  "overall_disposition": {
+    "round17_recount": "Discrepancy dispositioned to the .scratch absolute-path filter; current R17 adapter and D2 pin checks are later-tree drift.",
+    "round18_recount": "Core D4 counts and repair reproduced; historical replay drift is explained by the R20 projection change. R18 record/disposition gaps remain open.",
+    "round19_recount": "Ten landed entries exist; current C failure is the untracked-only selector. Inner acceptance=false is masked by process exit 0.",
+    "round20_recount": "Corpus census and operability repair reproduced; D failure is the audit candidate selector choosing the packet. Keep cross-surface link measurements separate.",
+    "calibration": "Not a 100% byte-for-byte pass. All observed mismatches are recorded and dispositioned as expected historical drift, scanner/selector defects, or open R18 evidence gaps; no historical receipt was patched.",
+    "round21_acceptance": "Not assessed by X04; this file is a rerun record, not the aggregate round-21 validation receipt."
+  }
+}

@@ -1,0 +1,1288 @@
+[
+ {
+  "round": 17,
+  "command": "python3 reports/round-17/run-validation.py",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "baseline_revision": "f30b6f8188937632bbedd0e7b29aeefff6f8b07b",
+   "runner_exit": 1,
+   "acceptance_checks_passed": false,
+   "claims_passed": {
+    "C": true,
+    "D": false,
+    "O": true
+   },
+   "metrics": {
+    "C": {
+     "attempted": 5,
+     "fixed": 7,
+     "fragments": 16
+    },
+    "D": {
+     "components": 12,
+     "pinned_d2d3_checked": 48,
+     "round11_replay_exit": 0
+    },
+    "O": {
+     "pinned_d2d3_checked": 48
+    },
+    "filed_rounds_8_16_checked": 694
+   },
+   "failures": [
+    "claim D: D4 typed artifact not found under examples/culture-d4",
+    "claim D: D4 projection artifact not found under examples/culture-d4",
+    "claim D: D4 expected artifact not found under examples/culture-d4",
+    "claim D: no round-17 frozen manifest found for the D4 replay"
+   ]
+  },
+  "observed": {
+   "baseline_revision": "f30b6f8188937632bbedd0e7b29aeefff6f8b07b",
+   "runner_exit": 1,
+   "acceptance_checks_passed": false,
+   "claims_passed": {
+    "C": false,
+    "D": false,
+    "O": true
+   },
+   "metrics": {
+    "C": {
+     "attempted": 0,
+     "fixed": 0,
+     "fragments": 0
+    },
+    "D": {
+     "components": 12,
+     "pinned_d2d3_checked": 48,
+     "round11_replay_exit": 2
+    },
+    "O": {
+     "pinned_d2d3_checked": 48
+    },
+    "filed_rounds_8_16_checked": 694
+   },
+   "failures": [
+    "claim D: D4 typed artifact not found under examples/culture-d4",
+    "claim D: D4 expected artifact not found under examples/culture-d4",
+    "claim C: C target inuit: no evidence fragment names the entry",
+    "claim C: C target maya-classic: no evidence fragment names the entry",
+    "claim C: C target mesoamerica-primary-sources: no evidence fragment names the entry",
+    "claim C: C target mongol: no evidence fragment names the entry",
+    "claim C: C target muisca: no evidence fragment names the entry",
+    "claim C: C target persia-sasanian: no evidence fragment names the entry",
+    "claim C: C target polynesia-navigation: no evidence fragment names the entry",
+    "claim C: C target rapa-nui: no evidence fragment names the entry",
+    "claim C: C target rome: no evidence fragment names the entry",
+    "claim C: C target ryukyu: no evidence fragment names the entry",
+    "claim C: C target scythian-saka: no evidence fragment names the entry",
+    "claim C: C target siam-thai: no evidence fragment names the entry",
+    "claim C: C disposition bar not met: 0 fixed, 0 attempted of 12 (need >=6 fixed or every non-fixed entry naming its attempt)"
+   ]
+  },
+  "verdict": "disposition",
+  "cause": "environmental; legitimate-change",
+  "evidence": "Environmental: the pinned clone root is below .scratch, and reports/round-17/run-validation.py worktree_files() excludes any file whose path has a .scratch component (lines 326-339), yielding C counts 0/0/0 instead of 5/7/16 although the source files are tracked. Legitimate-change: the final admission tree tracks examples/culture-d4/typed-labels.d4.yml and reports/round-17/tests/frozen/MANIFEST.tsv although the archived receipt records the projection and round-17 manifest absent; those recorded missing-artifact results are stale relative to the final admission tree. The round-11 replay exit 0-to-2 is separately due the gitignored run.log missing from the clean clone."
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/assemble-culture-d3.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "exit": 0
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "exit": 0
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/assemble-culture-d3.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "exit": 0
+  },
+  "observed": {
+   "exit": 0
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/assemble-culture-d4.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "exit": 0,
+    "stderr_tail": "",
+    "stdout_tail": "packet.d4.yml: byte-identical deterministic assembly\n"
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "exit": 0,
+    "stderr_tail": "",
+    "stdout_tail": "packet.d4.yml: byte-identical deterministic assembly\n"
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/assemble-culture-d4.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "exit": 0,
+   "stderr_tail": "",
+   "stdout_tail": "selftest: 81/81 checks passed — positive assemble/--check/determinism, tamper drift, malformed, missing-component and missing-output controls, plus collision, duplicate-id, wrong-type, empty-block, missing-field, too-few-files and serializer/reader-absent fail-closed controls; no file outside the temporary directory touched\n"
+  },
+  "observed": {
+   "exit": 0,
+   "stderr_tail": "",
+   "stdout_tail": "selftest: 81/81 checks passed — positive assemble/--check/determinism, tamper drift, malformed, missing-component and missing-output controls, plus collision, duplicate-id, wrong-type, empty-block, missing-field, too-few-files and serializer/reader-absent fail-closed controls; no file outside the temporary directory touched\n"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/assemble-d2-typed.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "exit": 0
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "exit": 0
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/assemble-d2.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "exit": 0
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "exit": 0
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/assemble-d2.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "exit": 0
+  },
+  "observed": {
+   "exit": 0
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/d2-typed-labels.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "exit": 0
+  },
+  "observed": {
+   "exit": 0
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/gates/typed-pipeline-gate.py",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "exit": 0
+  },
+  "observed": {
+   "exit": 0
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 17,
+  "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-11/MANIFEST.tsv",
+  "date": "2026-10-18",
+  "receipt": "reports/round-17/validation.json@3dd3754207032cb81f5fb3e202fe85cf79211339 (sha256=3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a); .scratch/round-21/r21-c17-pinned-r17/reports/round-17/validation.json (sha256=078d92d9cd374abaea40288230c5d51e21e99e55d8080bfb87dfa539ef4effa7)",
+  "recorded": {
+   "exit": 0
+  },
+  "observed": {
+   "exit": 2
+  },
+  "verdict": "disposition",
+  "cause": "environmental",
+  "evidence": "The pinned admission tree does not track tools/gates/frozen/round-11/typed-pipeline/run.log (git ls-tree shows the frozen inputs and run-receipt.json, not run.log); the clean clone therefore exits 2 where the archived receipt recorded exit 0."
+ },
+ {
+  "round": 18,
+  "command": "python3 reports/round-18/run-validation.py",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "baseline_revision": "3dd3754207032cb81f5fb3e202fe85cf79211339",
+   "runner_exit": 0,
+   "acceptance_checks_passed": true,
+   "claims_passed": {
+    "C": true,
+    "D": true,
+    "O": true
+   },
+   "metrics": {
+    "C": {
+     "map_rows": 94,
+     "rows_carried_verbatim": 82,
+     "transitions": 12
+    },
+    "D": {
+     "components": 12,
+     "observed_findings": 16,
+     "details_pinned": 16,
+     "reconciliation_docs": 97,
+     "typed_rebuild_byte_identical": true
+    },
+    "O": {
+     "round11_replay": {
+      "exit": 2,
+      "rows_total": 11,
+      "reproduced": 10,
+      "mismatch": 0,
+      "could_not_evaluate": 1
+     },
+     "round18_replays": {
+      "tools/gates/frozen/round-18/MANIFEST.tsv": {
+       "exit": 0,
+       "rows_total": 2,
+       "reproduced": 2,
+       "mismatch": 0,
+       "could_not_evaluate": 0
+      },
+      "tools/gates/frozen/round-18/repin-d2/MANIFEST.tsv": {
+       "exit": 0,
+       "rows_total": 11,
+       "reproduced": 11,
+       "mismatch": 0,
+       "could_not_evaluate": 0
+      }
+     },
+     "default_stdout_matches_round18_receipt": true,
+     "json_findings_identical": true
+    },
+    "filed_rounds_8_17_checked": 761
+   },
+   "failures": []
+  },
+  "observed": {
+   "baseline_revision": "3dd3754207032cb81f5fb3e202fe85cf79211339",
+   "runner_exit": 1,
+   "acceptance_checks_passed": false,
+   "claims_passed": {
+    "C": true,
+    "D": false,
+    "O": false
+   },
+   "metrics": {
+    "C": {
+     "map_rows": 94,
+     "rows_carried_verbatim": 82,
+     "transitions": 12
+    },
+    "D": {
+     "components": 12,
+     "observed_findings": 16,
+     "details_pinned": 16,
+     "reconciliation_docs": 0,
+     "typed_rebuild_byte_identical": true
+    },
+    "O": {
+     "round11_replay": {
+      "exit": 2,
+      "rows_total": 11,
+      "reproduced": 10,
+      "mismatch": 0,
+      "could_not_evaluate": 1
+     },
+     "round18_replays": {
+      "tools/gates/frozen/round-18/MANIFEST.tsv": {
+       "exit": 0,
+       "rows_total": 2,
+       "reproduced": 2,
+       "mismatch": 0,
+       "could_not_evaluate": 0
+      },
+      "tools/gates/frozen/round-18/repin-d2/MANIFEST.tsv": {
+       "exit": 2,
+       "rows_total": 11,
+       "reproduced": 10,
+       "mismatch": 0,
+       "could_not_evaluate": 1
+      }
+     },
+     "default_stdout_matches_round18_receipt": true,
+     "json_findings_identical": true
+    },
+    "filed_rounds_8_17_checked": 761
+   },
+   "failures": [
+    "claim O: the untracked frozen run log tools/gates/frozen/round-11/typed-pipeline/run.log no longer hashes the recorded round-11 stdout pin",
+    "claim O: the round-11 typed row's cascade reading is could-not-evaluate/output_missing (expected could-not-evaluate/gate_digest_mismatch)",
+    "claim O: round-18 frozen manifest does not replay green: tools/gates/frozen/round-18/repin-d2/MANIFEST.tsv (exit 2, 10/11 reproduced)",
+    "claim O: no round-18 record names the before/after digests of the re-pinned surface tools/gates/typed-pipeline-gate.py",
+    "claim D: dropped fragment id D4L-BORROW@hold is named in no round-17/18 record",
+    "claim D: dropped fragment id D4L-ERA@hold is named in no round-17/18 record",
+    "claim D: dropped fragment id D4L-FORM-UNRESOLVED@hold is named in no round-17/18 record",
+    "claim D: the fragment -> delivered hold-set delta carries no round-18 disposition record",
+    "claim D: delivered hold ids named in no round-17/18 design doc: ['D2L-FORM-UNRESOLVED', 'D2L-RANK']"
+   ]
+  },
+  "verdict": "disposition",
+  "cause": "environmental",
+  "evidence": "The clone root is below .scratch; reports/round-18/run-validation.py worktree_files() excludes any path with a .scratch component, so scan_all_files() reports 0 reconciliation docs rather than 97 and the D hold-set checks fail despite the tracked round-17/18 docs. The ignored round-11 typed-pipeline/run.log is absent, changing the replay reason from gate_digest_mismatch to output_missing and the round-18 repin-d2 replay from 11/11 to 10/11."
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/assemble-culture-d3.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/assemble-culture-d4.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "293bf19f7e6e9c709f3dbda248bbb74fbfd2a3daf4e1bf526154529e697581bb"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "293bf19f7e6e9c709f3dbda248bbb74fbfd2a3daf4e1bf526154529e697581bb"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/assemble-d2-typed.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b16d3bae56cce5760cbde277716263636a4d9fad83c5c5f2f9a05b181bc924"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b16d3bae56cce5760cbde277716263636a4d9fad83c5c5f2f9a05b181bc924"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/assemble-d2-typed.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "00303b77249831604f6b0a8bb086771c8e65db4c7948a52ac25aa746bf5d8015"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "00303b77249831604f6b0a8bb086771c8e65db4c7948a52ac25aa746bf5d8015"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/assemble-d2.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/assemble-d4-typed.py --packet examples/culture-d4/packet.d4.yml --projection examples/culture-d4/typed-labels.d4.yml --emit .scratch/x03/d4-emitted.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "adapter": "tools/assemble-d4-typed.py",
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "0da79c261134c66e6dca28ba70a5732e88e6b3ada9a541d2ae8e6ea2f7596e82"
+  },
+  "observed": {
+   "adapter": "tools/assemble-d4-typed.py",
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "0da79c261134c66e6dca28ba70a5732e88e6b3ada9a541d2ae8e6ea2f7596e82"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/check-craft-exercise.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/check-evidence-coupling.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/check-gate-battery.py",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e96ef5494e84370ed60e11051b5a255b8b7504bb3e6cbf75d0f86cf50a1f8867"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "7b83672e648a0e76f6fffe5b7d516fcb2d33b7fdb1e50af82f5fedaaac4d74c4"
+  },
+  "verdict": "disposition",
+  "cause": "environmental",
+  "evidence": "Both executions remain exit 0; only stdout_sha256 changes. A direct run in the isolated clone emits multiple 'run.log absent' readings because the referenced logs are gitignored and absent from the clean clone, changing the battery JSON."
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "d3fbf7ecdcd3e137eea2540a598af2a9e252f9785f070dbcbe9389529485d002"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "ea1d2a054efe4a463e07b19544bd4e66b13c3eea4b71a397a923f7784af7b9e1"
+  },
+  "verdict": "disposition",
+  "cause": "environmental",
+  "evidence": "Both executions remain exit 0; only stdout_sha256 changes. A direct run in the isolated clone emits multiple 'run.log absent' readings because the referenced logs are gitignored and absent from the clean clone, changing the battery JSON."
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/check-gate-battery.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "2812a3270ce97583eaa9a7a16f78f95c60e703b00076fd2fc95f0802783442c2"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "2812a3270ce97583eaa9a7a16f78f95c60e703b00076fd2fc95f0802783442c2"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/d2-typed-labels.py --check",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "543b90a23e9e663e4ef5098730b0fea9980473c513fb26f0a8aa83627a3f239b"
+  },
+  "verdict": "disposition",
+  "cause": "environmental",
+  "evidence": "Both executions remain exit 0 and report a byte-identical deterministic projection; only stdout_sha256 changes. The pinned-clone stdout embeds its absolute .scratch checkout path (…/r21-c17-pinned-r18/examples/culture-d2/typed-labels.d2.yml), so the stdout bytes differ by workspace prefix."
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/costume-era-consistency-gate.py examples/culture-d4/packet.d4.typed.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/costume-era-consistency-gate.py examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/lexicon-coverage-audit.py examples/culture-d4/packet.d4.typed.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/lexicon-coverage-audit.py examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/myth-consistency-gate.py examples/culture-d4/packet.d4.typed.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/myth-consistency-gate.py examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.typed.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "f844f07b4e7d3de182f85ef97fe82485043db9a78ad815136958501888a4c09e"
+  },
+  "observed": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "f844f07b4e7d3de182f85ef97fe82485043db9a78ad815136958501888a4c09e"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "0c613c9d973f3c32bb20f4db7a43a02da7a5edcaa1bc3382531acce21e2a89f7"
+  },
+  "observed": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "0c613c9d973f3c32bb20f4db7a43a02da7a5edcaa1bc3382531acce21e2a89f7"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/phonology-sanity-gate.py examples/culture-d4/packet.d4.typed.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "3a28efd5eabe6ca42597aead61c2f2efc240159c3c7173110afa04b679706091"
+  },
+  "observed": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "3a28efd5eabe6ca42597aead61c2f2efc240159c3c7173110afa04b679706091"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/phonology-sanity-gate.py examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "3a28efd5eabe6ca42597aead61c2f2efc240159c3c7173110afa04b679706091"
+  },
+  "observed": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "3a28efd5eabe6ca42597aead61c2f2efc240159c3c7173110afa04b679706091"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "15cdfbda73cd56cb6107d2fdbee533dbce47e9381e2082085ca1f0c45f2e695b"
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "15cdfbda73cd56cb6107d2fdbee533dbce47e9381e2082085ca1f0c45f2e695b"
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py --assembler tools/assemble-culture-d4.py --projection examples/culture-d4/typed-labels.d4.yml --expected examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "ec9d6d3b61120ef6579854c997112463a6074bda3adb8fe0039ac33fd9e23174"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "ec9d6d3b61120ef6579854c997112463a6074bda3adb8fe0039ac33fd9e23174"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py --expected .scratch/x03/tampered-expected.json examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 2,
+   "stdout_sha256": "5a55c46d951cf31de6d937a683bba8eb09dde3dae6acfaa9750866c8d0dcae0d"
+  },
+  "observed": {
+   "error": null,
+   "exit": 2,
+   "stdout_sha256": "5a55c46d951cf31de6d937a683bba8eb09dde3dae6acfaa9750866c8d0dcae0d"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py --json",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62"
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62"
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py --json examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "0a10ae74e7476f2be54b398c74f7017fabcd42aebd94979aa1a6788184a4dafb"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "0a10ae74e7476f2be54b398c74f7017fabcd42aebd94979aa1a6788184a4dafb"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "22ce048a6528808848c737944e77dfddd370ca93f90757602eb99c0a3e640ddc"
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "22ce048a6528808848c737944e77dfddd370ca93f90757602eb99c0a3e640ddc"
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py .scratch/x03/wrong-generator.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 2,
+   "stdout_sha256": "21020a81c834d36b38568ebbb99183b442f43ec13551e992c8734e90c51efb41"
+  },
+  "observed": {
+   "error": null,
+   "exit": 2,
+   "stdout_sha256": "21020a81c834d36b38568ebbb99183b442f43ec13551e992c8734e90c51efb41"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "765fa267db3464309622e1ba47fb47418af616d887ac331c7744981215999e76"
+  },
+  "observed": {
+   "error": null,
+   "exit": 1,
+   "stdout_sha256": "765fa267db3464309622e1ba47fb47418af616d887ac331c7744981215999e76"
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "runs": 3,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "ec9d6d3b61120ef6579854c997112463a6074bda3adb8fe0039ac33fd9e23174"
+   }
+  },
+  "observed": {
+   "runs": 3,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "ec9d6d3b61120ef6579854c997112463a6074bda3adb8fe0039ac33fd9e23174"
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/gates/typed-pipeline-gate.py tools/gates/frozen/round-11/typed-pipeline/packet.d2.typed.yml",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606"
+   }
+  },
+  "observed": {
+   "runs": 2,
+   "result": {
+    "error": null,
+    "exit": 0,
+    "stdout_sha256": "9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606"
+   }
+  },
+  "verdict": "match"
+ },
+ {
+  "round": 18,
+  "command": "python3 tools/replay-frozen.py --selftest",
+  "date": "2026-10-18",
+  "receipt": "reports/round-18/validation.json@e5718945a1ab0a0c3db955338d2cae77d68fd348 (sha256=997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1); .scratch/round-21/r21-c17-pinned-r18/reports/round-18/validation.json (sha256=75e5fb07dd3a769e906cd6a4cbcb621b923f9ec0612df8809acd0a92ebff3cf4)",
+  "recorded": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16"
+  },
+  "observed": {
+   "error": null,
+   "exit": 0,
+   "stdout_sha256": "4d6aaea127ad99737b53ce50a7378efad5562b6fa01da88e9ca8610aa604ea16"
+  },
+  "verdict": "match"
+ },
+ {
+  "command": "python3 reports/round-19/run-validation.py",
+  "round": 19,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "6ed5e3cafa3f7944db898f8b744c1f6339723de4cdcc7974bc85003d3363e979"
+  },
+  "verdict": "disposition",
+  "disposition_class": "environmental",
+  "evidence": "round runner re-run in isolated clone (it rewrites its filed receipt)",
+  "integrator": "round-21 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "round runner re-run in isolated clone (it rewrites its filed receipt); no prior recorded value existed to compare against"
+  }
+ },
+ {
+  "command": "cd /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/x18-wart-mirror && python3 tools/assemble-d4-typed.py --check examples/culture-d4/packet.d4.typed.yml",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "692d476ad07f1ca6a9f0b8315862fb0e0a09005ee53ed171f9deab25817e40e5"
+  },
+  "verdict": "disposition",
+  "disposition_class": "environmental",
+  "evidence": "environmental: the recorded scratch mirror path no longer exists; the mirror-free form (the wart fix's own guarantee) re-run live",
+  "integrator": "round-21 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "environmental: the recorded scratch mirror path no longer exists; the mirror-free form (the wart fix's own guarantee) re-run live; no prior recorded value existed to compare against"
+  }
+ },
+ {
+  "command": "cd /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/x18-wart-mirror && python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "1c8add321259a9f026d6e37b0dbd95b0f548f31fe0a10c56098911c21532a6fe"
+  },
+  "verdict": "disposition",
+  "disposition_class": "environmental",
+  "evidence": "environmental: the recorded scratch mirror path no longer exists; the mirror-free form (the wart fix's own guarantee) re-run live",
+  "integrator": "round-21 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "environmental: the recorded scratch mirror path no longer exists; the mirror-free form (the wart fix's own guarantee) re-run live; no prior recorded value existed to compare against"
+  }
+ },
+ {
+  "command": "python3 reports/round-15/handoff/frozen-verify.py --baseline reports/round-20/wart/expected-v2-07-r20.json",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "500e5a3e6bd143bf4a39f00e15a7a92dd42fde424caa06d16b248ae66975eadd"
+  },
+  "verdict": "disposition",
+  "disposition_class": null,
+  "evidence": "integrator coverage completion",
+  "integrator": "round-21 coverage completion for failed seats",
+  "status": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "integrator coverage completion; no prior recorded value existed to compare against"
+  }
+ },
+ {
+  "command": "python3 reports/round-20/run-validation.py",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 3,
+   "output_sha256": "6e56b0d0d838f2ddcca54e978ca1b34564abc970a00ad43f77bdcfc8d309ee06"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=3"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-culture-d3.py --check",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-culture-d4.py --check",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "293bf19f7e6e9c709f3dbda248bbb74fbfd2a3daf4e1bf526154529e697581bb"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-d2.py --check",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/assemble-d4-typed.py --selftest",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "4945c941cd2437347473c8c23209aeb8240a63f936bb612c0db15824986e5c5f"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --check",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --packet examples/culture-d3/packet.gates.yml",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 2,
+   "output_sha256": "9ff47a1790089d0e9921a5dc353cb5bb7763388e74a302abf872254ac5f290a6"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=2"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "1c8add321259a9f026d6e37b0dbd95b0f548f31fe0a10c56098911c21532a6fe"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/d2-typed-labels.py --selftest",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "5bb980a50046f327c4a67c9209e0e7cccb05a3cad77f3ca313ddf2cdbb3c5781"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/exercise-handoff-e2e.py",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 1,
+   "output_sha256": "8fe4f019debc6cfc5bb6b0f6945b1e4a3c806bf8324bca7f5efb591a4655e2a8"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=1"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/exercise-handoff-e2e.py --profile v2",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "911d31de848db375fe1126af400d49d5a9aaaa1ace1d8d938e00582772500700"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/exercise-handoff-e2e.py --profile v3",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "80e6346911415c7133f546b5602fab7054c290125123c8093d1fc9fd7433f36e"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --selftest",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "903af22212ddcbcedc971764694ab1c8385111ff8c19c2c5c8f9346040b33f8b"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ },
+ {
+  "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+  "round": 20,
+  "date": "2026-10-18",
+  "recorded": "not previously recounted (scribe seat failed)",
+  "observed": {
+   "exit": 0,
+   "output_sha256": "f7630ddbeac2ce6b3e3ceb4e4fc2c275d428f1fe5588873656d9bc7fe7b5aee1"
+  },
+  "status": "disposition",
+  "verdict": "disposition",
+  "disposition": {
+   "class": "environmental",
+   "evidence": "no prior recorded value existed; re-run at integration; exit=0"
+  },
+  "integrator": "round-21 coverage completion for failed seats"
+ }
+]

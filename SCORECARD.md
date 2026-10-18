@@ -225,6 +225,25 @@ Baseline `122086b`; one 64-worker `opencode-go/deepseek-v4.1-flash` batch
 Admission: D/O/C verify, no axis harmed. Loop 2 builds complete (rounds 17-20;
 one rejection r17 later repaired by r18). Next: round 21 verify (luna).
 
+## Axes — round 21 (2026-10-18), admitted (loop 2 verify round)
+
+Baseline `8115eaa`; one 64-worker `openai-codex/gpt-6-luna-max` verify batch
+(20/64; integrator coverage completion for failed scribe seats — 18 ledger
+rows added and normalized to the licensed disposition schema). Acceptance:
+`python3 reports/round-21/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| calibration | improved (claim C) | Rounds 17-20 unrecounted -> full recount ledger (45+ unique commands; 100% match or dispositioned); r18 repair independently reproduced (19/19, D2 byte-identical, replay 11/11); dispositions name every mismatch class incl. one filed-figure defect (r20 linguistics count) and the 102-vs-105 link drift (mtime tie-break, non-hermetic) | `python3 reports/round-21/run-validation.py` | `reports/round-21/recount/` (16 receipts, ledger.json, dispositions.md, audit.md) |
+| operability | improved (claim O) | No loop-2 defect queue -> consolidated 23-entry ledger across rounds 17-20 (conformance/process/bookkeeping classes); bounded fixes demonstrated; everything larger routed to round 22 with owners; regressions green (battery, craft, all typed/assembly selftests, replay selftest) | `python3 reports/round-21/run-validation.py` | `reports/round-21/defects/` (sweeps, fixes, routed.md, regression.md, ledger.json) |
+| adjacency | improved (claim A) | Per-round posture -> consolidated audit: handoff v3 contract re-verified (16/16 + 20/20 + 27 claims 16/7/4 + 105/105 links current pair); one filed D2->D4 fixture bleed in the typed projection (routed, not absorbed); v3 edge-payload loss (declared_in) documented; PROVINCE accurate; zero unfiled bleed | `python3 reports/round-21/run-validation.py` | `reports/round-21/adjacency/` |
+| depth / coverage / freshness | unchanged | Audit round; pause in force | — | — |
+
+Admission: C/O/A verify, no axis harmed. Loop 2 is complete (rounds 17-21).
+Routed to round 22 (with owners): edge declared_in restoration, mtime
+tie-break hermeticity, the D4 fixture bleed, the r17 clone-snapshot question,
+the alias malformed-tag coercion, baseline-binding drift class.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

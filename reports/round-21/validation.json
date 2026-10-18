@@ -1,0 +1,1839 @@
+{
+  "acceptance_checks_passed": true,
+  "baseline_revision": "35b6797b42d48bec52e1e3ddba1f3afc9bb85046",
+  "claims": {
+    "A": {
+      "failures": [],
+      "measurement": {
+        "adjacency_audit": {
+          "command": "python3 reports/round-21/run-validation.py (read and verify reports/round-21/adjacency/entries.md)",
+          "date": "2026-10-18",
+          "date_present": true,
+          "path": "reports/round-21/adjacency/entries.md"
+        },
+        "boundary_verdicts": {
+          "command": "python3 reports/round-21/run-validation.py (parse A01-A04 verdict matrix in adjacency audit)",
+          "date": "2026-10-18",
+          "value": {
+            "A01": true,
+            "A02": true,
+            "A03": true,
+            "A04": true
+          }
+        },
+        "contract_audit": {
+          "command": "python3 reports/round-21/run-validation.py (read reports/round-20/handoff/audit-v3.md and interop.md)",
+          "date": "2026-10-18",
+          "dated": true,
+          "handoff_divergence_filed": true,
+          "path": "reports/round-20/handoff/audit-v3.md"
+        },
+        "d4_full_tree_scan": {
+          "command": "python3 reports/round-21/run-validation.py (verify documented full-tree lexical scan in adjacency audit)",
+          "date": "2026-10-18",
+          "value": true
+        },
+        "entry_inventory": {
+          "r19_author_fragments": {
+            "command": "python3 reports/round-21/run-validation.py (check reports/round-19/entries/R19-C11..C20 and filed inventory command)",
+            "date": "2026-10-18",
+            "expected": 10,
+            "value": 10
+          },
+          "r19_corpus_entries": {
+            "command": "git diff --name-only e5718945a1ab0a0c3db955338d2cae77d68fd348 HEAD -- corpus/knowledge",
+            "date": "2026-10-18",
+            "value": 10
+          },
+          "r20_author_fragments": {
+            "command": "python3 reports/round-21/run-validation.py (check reports/round-20/entries/R20-D21..D24 and filed inventory command)",
+            "date": "2026-10-18",
+            "expected": 4,
+            "value": 4
+          }
+        },
+        "handoff_gate": {
+          "command": "python3 tools/gates/handoff-packet-check.py reports/round-20/handoff/packet-v3-16.md",
+          "date": "2026-10-18",
+          "run": {
+            "argv": [
+              "python3",
+              "tools/gates/handoff-packet-check.py",
+              "reports/round-20/handoff/packet-v3-16.md"
+            ],
+            "command": "python3 tools/gates/handoff-packet-check.py reports/round-20/handoff/packet-v3-16.md",
+            "date": "2026-10-18",
+            "exit": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_tail": "",
+            "stdout_sha256": "7c5810479045c26bcc3b1c7364934f53147641504a766eeffeaaec4d2d624685",
+            "stdout_tail": "INFO scan: fields=16/16 glossary-entries=20 findings=0\n"
+          },
+          "value": {
+            "fields": [
+              16,
+              16
+            ],
+            "findings": 0,
+            "glossary_entries": 20,
+            "passed": true
+          }
+        },
+        "handoff_link_counts": {
+          "command": "python3 tools/harness/packet_links.py --packet reports/round-20/handoff/twin.json",
+          "date": "2026-10-18",
+          "delta": 3,
+          "discrepancy_preserved_and_routed": true,
+          "filed": [
+            102,
+            102,
+            0
+          ],
+          "replayed": [
+            105,
+            105,
+            0
+          ],
+          "run": {
+            "argv": [
+              "python3",
+              "tools/harness/packet_links.py",
+              "--packet",
+              "reports/round-20/handoff/twin.json"
+            ],
+            "command": "python3 tools/harness/packet_links.py --packet reports/round-20/handoff/twin.json",
+            "date": "2026-10-18",
+            "exit": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_tail": "",
+            "stdout_sha256": "eeaf60aa7421e4fc9d96014a9f1f99a269c6ce031f45ed0e6710de5db3a930a3",
+            "stdout_tail": "quarantine_handles]\nok [examples/culture-d4/typed-labels.d4.yml#conflicts]\nok [examples/culture-d4/packet.d4.yml#provenance]\nok [examples/culture-d4/packet.d4.yml#donor_stage]\nok [examples/culture-d4/packet.d4.yml#unmodelled]\nok [examples/culture-d4/packet.d4.yml#CT-01]\nok [examples/culture-d4/packet.d4.yml#LY-01]\nok [examples/culture-d4/components/12-provenance.yml]\nok [examples/culture-d4/packet.d4.yml#PR-04]\nok [examples/culture-d4/packet.d4.yml#provenance]\nok [examples/culture-d4/components/05-naming.yml]\nok [examples/culture-d4/brief.md]\nok [examples/culture-d4/components/01-brief.yml#handoff_recipient]\nok [examples/culture-d4/packet.d4.yml#provenance]\nlinks=105 resolved=105 findings=0\n"
+          }
+        },
+        "province_review": {
+          "command": "python3 reports/round-21/run-validation.py (read dated PROVINCE review against PROVINCE.md)",
+          "date": "2026-10-18",
+          "path": "reports/round-21/adjacency/province.md",
+          "verdict": "accurate"
+        },
+        "required_paths": {
+          "command": "git diff --name-only e5718945a1ab0a0c3db955338d2cae77d68fd348 HEAD -- corpus/knowledge",
+          "count": {
+            "command": "python3 reports/round-21/run-validation.py (round-19 baseline diff plus named R20/handoff/D4 references)",
+            "date": "2026-10-18",
+            "value": 24
+          },
+          "date": "2026-10-18",
+          "discovery_exit": 0,
+          "value": [
+            "components/12-provenance.yml",
+            "corpus/knowledge/synthesis/era-material-scoped-reconciliation.md",
+            "corpus/knowledge/synthesis/finding-disposition-workflow.md",
+            "corpus/knowledge/synthesis/generated-artifact-lifecycle.md",
+            "corpus/knowledge/synthesis/hold-set-contract-in-brief.md",
+            "corpus/knowledge/synthesis/typed-label-routing-workflow.md",
+            "corpus/knowledge/verification/gate-battery-surface-verification.md",
+            "corpus/knowledge/verification/generated-artifact-roundtrip-verification.md",
+            "corpus/knowledge/verification/label-channel-routing-verification.md",
+            "corpus/knowledge/verification/pre-declared-hold-set-reconciliation.md",
+            "corpus/knowledge/verification/two-reader-interop-agreement.md",
+            "corpus/lessons/round-20.md",
+            "examples/culture-d4/",
+            "reports/round-20/entries/R20-D21.md",
+            "reports/round-20/entries/R20-D22.md",
+            "reports/round-20/entries/R20-D23.md",
+            "reports/round-20/entries/R20-D24.md",
+            "reports/round-20/handoff/capability-draft.md",
+            "reports/round-20/handoff/claims-map.md",
+            "reports/round-20/handoff/design.md",
+            "reports/round-20/handoff/frozen.md",
+            "reports/round-20/handoff/packet-v3-16.md",
+            "reports/round-20/handoff/packet.md",
+            "reports/round-20/handoff/v3.md"
+          ]
+        },
+        "reviewed_paths": [
+          {
+            "cited": true,
+            "path": "components/12-provenance.yml"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/synthesis/era-material-scoped-reconciliation.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/synthesis/finding-disposition-workflow.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/synthesis/generated-artifact-lifecycle.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/synthesis/hold-set-contract-in-brief.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/synthesis/typed-label-routing-workflow.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/verification/gate-battery-surface-verification.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/verification/generated-artifact-roundtrip-verification.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/verification/label-channel-routing-verification.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/verification/pre-declared-hold-set-reconciliation.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/knowledge/verification/two-reader-interop-agreement.md"
+          },
+          {
+            "cited": true,
+            "path": "corpus/lessons/round-20.md"
+          },
+          {
+            "cited": true,
+            "path": "examples/culture-d4/"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/entries/R20-D21.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/entries/R20-D22.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/entries/R20-D23.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/entries/R20-D24.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/handoff/capability-draft.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/handoff/claims-map.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/handoff/design.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/handoff/frozen.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/handoff/packet-v3-16.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/handoff/packet.md"
+          },
+          {
+            "cited": true,
+            "path": "reports/round-20/handoff/v3.md"
+          }
+        ],
+        "uncertainty_census": {
+          "command": "python3 tools/harness/packet_uncertainty.py --claims-json .scratch/round-21/handoff/packet-claims.json --json",
+          "date": "2026-10-18",
+          "run": {
+            "argv": [
+              "python3",
+              "tools/harness/packet_uncertainty.py",
+              "--claims-json",
+              ".scratch/round-21/handoff/packet-claims.json",
+              "--json"
+            ],
+            "command": "python3 tools/harness/packet_uncertainty.py --claims-json .scratch/round-21/handoff/packet-claims.json --json",
+            "date": "2026-10-18",
+            "exit": 0,
+            "stderr_tail": "",
+            "stdout": "{\n \"tool\": \"tools/harness/packet_uncertainty.py\",\n \"claims\": 27,\n \"findings\": []\n}\n",
+            "stdout_sha256": "e8e19f81375d1d9b357f5bd75af392c656370bf048e74fe9ecd8a1147407b75a"
+          },
+          "value": {
+            "checker_passed": true,
+            "claims": 27,
+            "d4_claims": 12,
+            "statuses": {
+              "partial": 7,
+              "supported": 16,
+              "unresolved": 4
+            },
+            "unresolved_missing_open_question": []
+          }
+        },
+        "uncovered_paths": [],
+        "unfiled_bleed": {
+          "command": "python3 reports/round-21/run-validation.py (verify filed A01-A04 no-bleed conclusion)",
+          "date": "2026-10-18",
+          "value": 0
+        }
+      },
+      "missing_dependencies": [],
+      "passed": true
+    },
+    "C": {
+      "failures": [],
+      "measurement": {
+        "additional_ledger_commands": [],
+        "auditors": {
+          "files": [
+            {
+              "commands_referenced": [
+                "python3 tools/assemble-culture-d3.py --check",
+                "python3 tools/assemble-culture-d3.py --selftest",
+                "python3 tools/assemble-culture-d4.py --check",
+                "python3 tools/assemble-d2-typed.py --check",
+                "python3 tools/assemble-d2.py --check",
+                "python3 tools/assemble-d2.py --selftest",
+                "python3 tools/check-gate-battery.py",
+                "python3 tools/gates/typed-pipeline-gate.py",
+                "python3 tools/gates/typed-pipeline-gate.py --selftest",
+                "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml"
+              ],
+              "dates": [
+                "2026-10-18"
+              ],
+              "path": "reports/round-21/recount/audit.md"
+            }
+          ],
+          "independently_referenced_commands": {
+            "command": "python3 reports/round-21/run-validation.py (independent auditor markdown coverage)",
+            "date": "2026-10-18",
+            "value": 10
+          }
+        },
+        "dispositioned_rows": {
+          "command": "python3 reports/round-21/run-validation.py (validate licensed cause and evidence for recount differences)",
+          "date": "2026-10-18",
+          "value": 24
+        },
+        "duplicate_command_rows": [],
+        "historical_acceptance_discrepancies": [
+          {
+            "observed": false,
+            "recorded": true,
+            "round": 18
+          },
+          {
+            "observed": false,
+            "recorded": true,
+            "round": 19
+          },
+          {
+            "observed": false,
+            "recorded": true,
+            "round": 20
+          }
+        ],
+        "historical_validator_reruns": [
+          {
+            "clone": ".scratch/round-21/validator-r17",
+            "command": "python3 reports/round-17/run-validation.py",
+            "date": "2026-10-18",
+            "exit": 1,
+            "isolated": true,
+            "observed_acceptance": false,
+            "receipt_refresh_granted": true,
+            "receipt_refresh_required": true,
+            "receipt_sha256": "d6d84c86d809bb96b2f3748e551fbc6285c195403d1542ee62298fa6fecdffe5",
+            "receipt_sha256_before": "3fa183febd360e1588bc92dccadf9c5d2da8ff61917e548713279c30ee27e37a",
+            "receipt_updated": true,
+            "recorded_acceptance": false,
+            "round": 17,
+            "stderr_tail": "receipt_guard: REFRESH_RECEIPTS=1 permits overwrite path=reports/round-17/validation.json committed_sha=8115eaaeb57c9dce157fe291337cb52dd914c6cf committed_blob=38db5f262705f0439cc3dfd0671d24c92994f88b [RECEIPT-GUARD-REFRESH]\nreceipt_guard: REFRESH_RECEIPTS=1 permits overwrite path=reports/round-17/validation.json committed_sha=8115eaaeb57c9dce157fe291337cb52dd914c6cf committed_blob=38db5f262705f0439cc3dfd0671d24c92994f88b [RECEIPT-GUARD-REFRESH]\n",
+            "stdout_tail": "claim D: FAIL\nclaim C: FAIL\nclaim O: FAIL\nacceptance_checks_passed: False\n"
+          },
+          {
+            "clone": ".scratch/round-21/validator-r18",
+            "command": "python3 reports/round-18/run-validation.py",
+            "date": "2026-10-18",
+            "exit": 1,
+            "ignored_r18_input": {
+              "clone": ".scratch/round-21/validator-r18/tools/gates/frozen/round-11/typed-pipeline/run.log",
+              "sha256": "9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606",
+              "source": "tools/gates/frozen/round-11/typed-pipeline/run.log"
+            },
+            "isolated": true,
+            "observed_acceptance": false,
+            "receipt_refresh_granted": true,
+            "receipt_refresh_required": true,
+            "receipt_sha256": "7aba195293a1983851a0bacb694407e464cc40d6bbd1e83af8d43610c66ef5d5",
+            "receipt_sha256_before": "997659a91b4d40769dcd786a800c568b7dfbea30cb684442afa99a199c531ba1",
+            "receipt_updated": true,
+            "recorded_acceptance": true,
+            "round": 18,
+            "stderr_tail": "receipt_guard: REFRESH_RECEIPTS=1 permits overwrite path=reports/round-18/validation.json committed_sha=8115eaaeb57c9dce157fe291337cb52dd914c6cf committed_blob=d20e8347e02238ac8d803518ef288436999ddfcf [RECEIPT-GUARD-REFRESH]\nreceipt_guard: REFRESH_RECEIPTS=1 permits overwrite path=reports/round-18/validation.json committed_sha=8115eaaeb57c9dce157fe291337cb52dd914c6cf committed_blob=d20e8347e02238ac8d803518ef288436999ddfcf [RECEIPT-GUARD-REFRESH]\n",
+            "stdout_tail": "claim O: FAIL\nclaim D: FAIL\nclaim C: PASS\nacceptance_checks_passed: False\n"
+          },
+          {
+            "clone": ".scratch/round-21/validator-r19",
+            "command": "python3 reports/round-19/run-validation.py",
+            "date": "2026-10-18",
+            "exit": 0,
+            "isolated": true,
+            "observed_acceptance": false,
+            "receipt_refresh_granted": false,
+            "receipt_refresh_required": false,
+            "receipt_sha256": "14bbcf7e2207d7ad932e4b7f6302abe5491118b409530d0fbb57648b0d33e0ee",
+            "receipt_sha256_before": "7dbc346ccab15be1997139989511479f969b250c300168f391b8c4e491d5cb74",
+            "receipt_updated": true,
+            "recorded_acceptance": true,
+            "round": 19,
+            "stderr_tail": "",
+            "stdout_tail": "acceptance: False ['C entries']\n"
+          },
+          {
+            "clone": ".scratch/round-21/validator-r20",
+            "command": "python3 reports/round-20/run-validation.py",
+            "date": "2026-10-18",
+            "exit": 1,
+            "isolated": true,
+            "observed_acceptance": false,
+            "receipt_refresh_granted": true,
+            "receipt_refresh_required": true,
+            "receipt_sha256": "38696cff2ac0caf82f0f58b2c0ece373549ef509442e02e05066a54986dc3e22",
+            "receipt_sha256_before": "dca392c43838f06b2b46e182a30a43922edf78ada114ba3c5db16fefaa9c3cef",
+            "receipt_updated": true,
+            "recorded_acceptance": true,
+            "round": 20,
+            "stderr_tail": "receipt_guard: REFRESH_RECEIPTS=1 permits overwrite path=reports/round-20/validation.json committed_sha=8115eaaeb57c9dce157fe291337cb52dd914c6cf committed_blob=29d9efaf4ef9b68fa326f6a736f124fc4190c59a [RECEIPT-GUARD-REFRESH]\n",
+            "stdout_tail": "claim D: FAIL\n  - contract audit re-run verdict is 'fail', not a semantic PASS or named gaps with owners: reports/round-20/handoff/packet-v3-16.md\nclaim O: PASS\nclaim C: PASS\nacceptance_checks_passed: False\n"
+          }
+        ],
+        "matched_rows": {
+          "command": "python3 reports/round-21/run-validation.py (compare independent recorded and observed recount values)",
+          "date": "2026-10-18",
+          "value": 39
+        },
+        "missing_source_commands": [],
+        "recounted_rows": {
+          "command": "python3 reports/round-21/run-validation.py (reports/round-21/recount/ledger.json)",
+          "date": "2026-10-18",
+          "value": 63
+        },
+        "round18_repair_reproduction": {
+          "d2_byte_identity": {
+            "command": "python3 tools/gates/typed-pipeline-gate.py (run at round-18 before/after Git revisions in an isolated clone)",
+            "date": "2026-10-18",
+            "runs": {
+              "after": {
+                "argv": [
+                  "python3",
+                  "tools/gates/typed-pipeline-gate.py"
+                ],
+                "command": "python3 tools/gates/typed-pipeline-gate.py",
+                "date": "2026-10-18",
+                "exit": 0,
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stderr_tail": "",
+                "stdout_sha256": "15cdfbda73cd56cb6107d2fdbee533dbce47e9381e2082085ca1f0c45f2e695b",
+                "stdout_tail": "wed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-08 — label_id LEX-GAR-08 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-09 — label_id LEX-GAR-09 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-10 — label_id LEX-GAR-10 has no supplied native/borrowed form\nFINDING D2L-NATIVE: [hold] L-15 — supplied form 'sára' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed\nFINDING D2L-NATIVE: [hold] L-16 — supplied form 'sará' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed\nFINDING D2L-RANK: [hold] TR-04#a|TR-06#a — act-collision: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-02#g|WR-09#g — R-05-class: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-08#g|WR-09#g — R-05-class: genuine-priority-gap\nNOTE D2L-RANK: [note] SR-01#a|SR-01#b — act-collision: band-keyed-pair\nchannel: 10 PHON artifact(s) retired, 0 added, retained lines identical\nok   L1-assembler_identity\nok   L1-projection_freshness\nok   L1-coverage\nok   L1-build\nok   L1-schema\nok   L1-routing\nok   L2-channel\nok   L3-holds\nok   L3-notes\nok   L3-fails\nok   L3-counts\nok   L3-baseline\nok   L3-details\nok   L3-baseline-set\nok   L3-routing-consistency\nok   L4-pins\nsummary: 16/16 legs passed\n"
+              },
+              "before": {
+                "argv": [
+                  "python3",
+                  "tools/gates/typed-pipeline-gate.py"
+                ],
+                "command": "python3 tools/gates/typed-pipeline-gate.py",
+                "date": "2026-10-18",
+                "exit": 0,
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stderr_tail": "",
+                "stdout_sha256": "15cdfbda73cd56cb6107d2fdbee533dbce47e9381e2082085ca1f0c45f2e695b",
+                "stdout_tail": "wed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-08 — label_id LEX-GAR-08 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-09 — label_id LEX-GAR-09 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-10 — label_id LEX-GAR-10 has no supplied native/borrowed form\nFINDING D2L-NATIVE: [hold] L-15 — supplied form 'sára' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed\nFINDING D2L-NATIVE: [hold] L-16 — supplied form 'sará' carries symbols outside the declared inventory: ['á'] — but the offending symbol(s) ['á'] are acute-accented vowels, the accent mark 02-phonology.yml declares by its own minimal pair (02-phonology.yml:73 sara [sára] vs sara [sará]); the segment inventory is not the test for a diacritic, so this is held for the form's owner rather than failed\nFINDING D2L-RANK: [hold] TR-04#a|TR-06#a — act-collision: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-02#g|WR-09#g — R-05-class: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-08#g|WR-09#g — R-05-class: genuine-priority-gap\nNOTE D2L-RANK: [note] SR-01#a|SR-01#b — act-collision: band-keyed-pair\nchannel: 10 PHON artifact(s) retired, 0 added, retained lines identical\nok   L1-assembler_identity\nok   L1-projection_freshness\nok   L1-coverage\nok   L1-build\nok   L1-schema\nok   L1-routing\nok   L2-channel\nok   L3-holds\nok   L3-notes\nok   L3-fails\nok   L3-counts\nok   L3-baseline\nok   L3-details\nok   L3-baseline-set\nok   L3-routing-consistency\nok   L4-pins\nsummary: 16/16 legs passed\n"
+              }
+            },
+            "value": true
+          },
+          "d4_gate": {
+            "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml (post-round-18 revision in isolated clone)",
+            "date": "2026-10-18",
+            "reproduced_19_of_19": true,
+            "run": {
+              "argv": [
+                "python3",
+                "tools/gates/typed-pipeline-gate.py",
+                "examples/culture-d4/packet.d4.yml"
+              ],
+              "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "ec9d6d3b61120ef6579854c997112463a6074bda3adb8fe0039ac33fd9e23174",
+              "stdout_tail": "orrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-03 — label_id LEX-GAR-03 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-04 — label_id LEX-GAR-04 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-05 — label_id LEX-GAR-05 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] GAR-06 — label_id LEX-GAR-06 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] LEX-GAR-01 — label_id LEX-GAR-01 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] LEX-GAR-02 — label_id LEX-GAR-02 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] LEX-GAR-03 — label_id LEX-GAR-03 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] LEX-GAR-04 — label_id LEX-GAR-04 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] LEX-GAR-05 — label_id LEX-GAR-05 has no supplied native/borrowed form\nFINDING D2L-FORM-UNRESOLVED: [hold] LEX-GAR-06 — label_id LEX-GAR-06 has no supplied native/borrowed form\nFINDING D2L-RANK: [hold] TR-04#a|TR-06#a — act-collision: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-02#g|WR-09#g — R-05-class: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-08#g|WR-09#g — R-05-class: genuine-priority-gap\nNOTE D2L-RANK: [note] SR-01#a|SR-01#b — act-collision: band-keyed-pair\nchannel: 6 PHON artifact(s) retired, 0 added, retained lines identical\nok   L1-profile\nok   L1-assembler\nok   L1-expected-holds\nok   L1-assembler_identity\nok   L1-projection_freshness\nok   L1-coverage\nok   L1-build\nok   L1-schema\nok   L1-routing\nok   L2-channel\nok   L3-holds\nok   L3-notes\nok   L3-fails\nok   L3-counts\nok   L3-baseline\nok   L3-details\nok   L3-baseline-set\nok   L3-routing-consistency\nok   L4-pins\nsummary: 19/19 legs passed\n"
+            },
+            "value": [
+              19,
+              19
+            ]
+          },
+          "revisions": {
+            "after_round18": "e5718945a1ab0a0c3db955338d2cae77d68fd348",
+            "before_round18": "3dd3754207032cb81f5fb3e202fe85cf79211339"
+          }
+        },
+        "source_command_total": {
+          "command": "python3 reports/round-21/run-validation.py (discover counting_command and command/argv leaves in rounds 17-20 claims and validation measurements)",
+          "date": "2026-10-18",
+          "value": 63
+        },
+        "source_commands": [
+          {
+            "command": "python3 reports/round-17/run-validation.py",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/claims.json:claims.D.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/claims.json:claims.C.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/claims.json:claims.O.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.C.measurement.attempted_count.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.C.measurement.fixed_count.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.C.measurement.fragments.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.components_count.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.pinned_d2d3.checked.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.pinned_d2d3.checked.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.filed_rounds.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.filed_rounds.baseline.checked.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.filed_rounds.d2d3_pins.checked.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d3.py --check",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.greens.d3_assembler_check.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.greens.d3_assembler_check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d3.py --selftest",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.greens.d3_assembler_selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d4.py --check",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.determinism.assembler_check.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.checks.check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d4.py --selftest",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.checks.selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d2-typed.py --check",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.greens.d2_adapter_check.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.greens.d2_adapter_check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d2.py --check",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.greens.d2_assembler_check.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.greens.d2_assembler_check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d2.py --selftest",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.O.measurement.greens.d2_assembler_selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/d2-typed-labels.py --check",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.greens.projector_check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.greens.typed_pipeline_gate.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-11/MANIFEST.tsv",
+            "round": 17,
+            "sources": [
+              {
+                "source": "reports/round-17/validation.json:root.claims.D.measurement.replay.round11_regression.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 reports/round-18/run-validation.py",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/claims.json:claims.O.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/claims.json:claims.D.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/claims.json:claims.C.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.C.measurement.counts.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.counts.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.determinism.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.counts.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.filed_rounds.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.filed_rounds.baseline.checked.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.filed_rounds.corpus.checked.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d3.py --check",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.d3-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d4.py --check",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.d4-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d2-typed.py --check",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.adapter-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d2-typed.py --selftest",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.adapter-selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d2.py --check",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.assemble-d2-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d4-typed.py --packet examples/culture-d4/packet.d4.yml --projection examples/culture-d4/typed-labels.d4.yml --emit .scratch/x03/d4-emitted.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.typed_emit.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/check-craft-exercise.py --selftest",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.craft-selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/check-evidence-coupling.py --selftest",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.evidence-coupling-selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/check-gate-battery.py",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.battery.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/check-gate-battery.py --baselines-root tools/gates/expected --baselines-root tools/gates/frozen --baselines-root reports/round-9/baselines",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.battery-3root.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/check-gate-battery.py --selftest",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.battery-selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/d2-typed-labels.py --check",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.projector-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/costume-era-consistency-gate.py examples/culture-d4/packet.d4.typed.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.typed:costume-era-consistency-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/costume-era-consistency-gate.py examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.packet:costume-era-consistency-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/lexicon-coverage-audit.py examples/culture-d4/packet.d4.typed.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.typed:lexicon-coverage-audit.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/lexicon-coverage-audit.py examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.packet:lexicon-coverage-audit.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/myth-consistency-gate.py examples/culture-d4/packet.d4.typed.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.typed:myth-consistency-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/myth-consistency-gate.py examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.packet:myth-consistency-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.typed.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.typed:naming-collision-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.packet:naming-collision-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/phonology-sanity-gate.py examples/culture-d4/packet.d4.typed.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.typed:phonology-sanity-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/phonology-sanity-gate.py examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.interop.packet:phonology-sanity-gate.py.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.default.after.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.default.before.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py --assembler tools/assemble-culture-d4.py --projection examples/culture-d4/typed-labels.d4.yml --expected examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.declared_runs.flag-run.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py --expected .scratch/x03/tampered-expected.json examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.tampered_expected.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py --json",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.json.after.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.json.before.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py --json examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.gate_runs.json.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.selftest.after.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.selftest.before.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py .scratch/x03/wrong-generator.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.wrong_generator.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.declared_runs.typed-run.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.gate_runs.primary.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.D.measurement.gate_runs.second.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.declared_runs.packet-run.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py tools/gates/frozen/round-11/typed-pipeline/packet.d2.typed.yml",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.frozen-row.after.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.d2_path.frozen-row.before.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/replay-frozen.py --selftest",
+            "round": 18,
+            "sources": [
+              {
+                "source": "reports/round-18/validation.json:root.claims.O.measurement.regressions.replay-frozen-selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 reports/round-19/run-validation.py",
+            "round": 19,
+            "sources": [
+              {
+                "source": "reports/round-19/validation.json:counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-19/validation.json:rerun_at_close[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-19/claims.json:claims.D.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-19/claims.json:claims.C.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-19/claims.json:claims.O.counting_command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "cd /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/x18-wart-mirror && python3 tools/assemble-d4-typed.py --check examples/culture-d4/packet.d4.typed.yml",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.wart_mirror.d4_adapter_check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "cd /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/x18-wart-mirror && python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.wart_mirror.d4_projection_check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 reports/round-15/handoff/frozen-verify.py --baseline reports/round-20/wart/expected-v2-07-r20.json",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.runs.v2-successor.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 reports/round-20/run-validation.py",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/claims.json:claims.D.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/claims.json:claims.O.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/claims.json:claims.C.counting_command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.claims.C.measurement.counts_metric.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.filed_bytes.measurement.checked.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.filed_bytes.measurement.untracked_ignored.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.filed_bytes.measurement.violations.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.filed_bytes.measurement.checked.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.filed_bytes.measurement.untracked_ignored.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.filed_bytes.measurement.violations.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.filed_rounds.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.filed_rounds.baseline.measurement.checked.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.filed_rounds.baseline.measurement.untracked_ignored.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.filed_rounds.baseline.measurement.violations.command[0]",
+                "source_date": "2026-10-18"
+              },
+              {
+                "source": "reports/round-20/validation.json:root.filed_rounds.outside_scope.changed.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d3.py --check",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.d3-assembler-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-culture-d4.py --check",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.d4-assembler-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d2.py --check",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.d2-assembler-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/assemble-d4-typed.py --selftest",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.adapter-selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/d2-typed-labels.py --check",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.d2-projector-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/d2-typed-labels.py --packet examples/culture-d3/packet.gates.yml",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.d3-projector-probe.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.d4-projector-check.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/d2-typed-labels.py --selftest",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.projector-selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/exercise-handoff-e2e.py",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.runs.exercise.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/exercise-handoff-e2e.py --profile v2",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.runs.exercise-v2.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/exercise-handoff-e2e.py --profile v3",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.runs.exercise-v3.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --selftest",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.D.measurement.runs.selftest.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+            "round": 20,
+            "sources": [
+              {
+                "source": "reports/round-20/validation.json:root.claims.O.measurement.runs.d4-gate.command[0]",
+                "source_date": "2026-10-18"
+              }
+            ]
+          }
+        ]
+      },
+      "missing_dependencies": [],
+      "passed": true
+    },
+    "O": {
+      "failures": [],
+      "measurement": {
+        "bounded_fixes": {
+          "command": "python3 reports/round-21/run-validation.py (closed ledger rows with bounded scope and before/after controls)",
+          "date": "2026-10-18",
+          "value": 5
+        },
+        "defect_ledger": "reports/round-21/defects/ledger.json",
+        "finding_rows": {
+          "command": "python3 reports/round-21/run-validation.py (reports/round-21/defects/ledger.json)",
+          "date": "2026-10-18",
+          "value": 23
+        },
+        "ledger_date": "2026-10-18",
+        "regressions": {
+          "date": "2026-10-18",
+          "failures": [],
+          "passed": true,
+          "runs": [
+            {
+              "argv": [
+                "python3",
+                "tools/check-gate-battery.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/check-gate-battery.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "3342bbfc99174e7395211096ef8483aa9343612e29abc9350ecc0fbe74fdb855",
+              "stdout_tail": "INE-EXPECTED-INCONSISTENT: exit=2 outcome=no baseline ids=BASELINE-EXPECTED-INCONSISTENT\ncontrol CTRL-BASELINE-AGGREGATE: exit=0 outcome=pinned ids=-\ncontrol CTRL-BASELINE-STDOUT-ADVISORY: exit=0 outcome=pinned ids=-\ncontrol CTRL-BASELINE-UNCOVERED-GATE: exit=2 outcome=pinned ids=BASELINE-GATE-UNCOVERED\ncontrol CTRL-BASELINE-NONE-FOUND: exit=2 outcome=- ids=BASELINE-GATE-UNCOVERED,BASELINE-NONE-FOUND\ncontrol CTRL-BASELINE-ROOT-MISSING: exit=2 outcome=- ids=BASELINE-GATE-UNCOVERED,BASELINE-ROOT-MISSING\ncontrol CTRL-COMBINED-EXIT: exit=2 outcome=- ids=-\ncontrol CTRL-TREE-DIFF: exit=0 outcome=- ids=-\ncontrol CTRL-STABLE-IDS: exit=0 outcome=- ids=-\nSELFTEST OK 35/35 controls behaved as expected\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/check-gate-battery.py"
+              ],
+              "command": "python3 tools/check-gate-battery.py",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "8d2525c82d94cbb3527a8222f3227f8f1d074784d74df7dc34c31100a89dc55b",
+              "stdout_tail": "hokunin/kotodama-shokunin/.scratch/round-21/regressions/02/gate-battery-d3b2p6n6/fixtures/provenance/defect-missing-sources.md: no '- sources:' header line\\n  INFO to-verify-count: /home/vgpnk\",\n      \"stdout_truncated\": true\n    }\n  ],\n  \"mirror\": {\n    \"removed\": true,\n    \"root\": \"/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/round-21/regressions/02/gate-battery-d3b2p6n6\"\n  },\n  \"mode\": \"battery\",\n  \"originals\": {\n    \"added\": 0,\n    \"deleted\": 0,\n    \"files_hashed_after\": 30,\n    \"files_hashed_before\": 30,\n    \"modified\": 0,\n    \"preserved\": true\n  },\n  \"summary\": {\n    \"battery_exit\": 0,\n    \"fail\": 0,\n    \"pass\": 7,\n    \"unevaluable\": 0\n  },\n  \"tool\": \"check-gate-battery\"\n}\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/check-craft-exercise.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/check-craft-exercise.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32",
+              "stdout_tail": "SELFTEST OK 10/10 tamper cases detected\nCLI-SELFTEST OK 18/18 cases passed\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/check-craft-exercise.py",
+                "examples/supplement-opencode-1/sound-change-vs-taboo.json"
+              ],
+              "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650",
+              "stdout_tail": "OK all checks passed (audits=7, mech_cases=11, derivations=9, approx_checks_runner=37)\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-d2.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/assemble-d2.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336",
+              "stdout_tail": "selftest: 42/42 checks passed — fixture CLI assemble/--check/tamper plus malformed, missing, duplicate-ID, incomplete-record, duplicate-key, empty and wrong-wrapper controls; no file outside the temporary directory touched\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-d2.py",
+                "--check"
+              ],
+              "command": "python3 tools/assemble-d2.py --check",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386",
+              "stdout_tail": "packet.d2.yml: byte-identical deterministic assembly\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-d2-typed.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/assemble-d2-typed.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "00303b77249831604f6b0a8bb086771c8e65db4c7948a52ac25aa746bf5d8015",
+              "stdout_tail": "ok   positive: --emit exit 0\nok   positive: typed packet written\nok   determinism: two builds byte-identical\nok   --check: exit 0 on the build\nok   tamper: --check exit 1 on a changed byte\nok   tamper: restored build passes\nok   stale projection: exit 2 and the pin is named\nok   coverage: an untyped garment record is a problem\nok   coverage: a routing row for a missing record is a problem\nok   routing: the checked field is moved, not flagged\nok   malformed packet: exit 2, no traceback\nselftest: 11/11 checks passed — build/determinism/--check/tamper plus stale-projection, coverage-gap and malformed-packet controls; no file outside the temporary mirror touched\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-d2-typed.py",
+                "--check"
+              ],
+              "command": "python3 tools/assemble-d2-typed.py --check",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "e3b16d3bae56cce5760cbde277716263636a4d9fad83c5c5f2f9a05b181bc924",
+              "stdout_tail": "examples/culture-d2/packet.d2.typed.yml: byte-identical deterministic typed packet\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-culture-d3.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/assemble-culture-d3.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b",
+              "stdout_tail": "selftest: 85/85 checks passed — fixture CLI assemble/--check/determinism/tamper plus missing, invalid-JSON, invalid-UTF8, wrong-root, unexpected-key, missing-key, collision, wrong-type, below-minimum and serializer-absent fail-closed controls; real naming gate (CROSS-HOLD, no PHON/DERIV FAIL) and real costume gate (R-01 note, no R-02) run read-only; no file outside the temporary directory touched\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-culture-d3.py",
+                "--check"
+              ],
+              "command": "python3 tools/assemble-culture-d3.py --check",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a",
+              "stdout_tail": "packet.json: byte-identical deterministic assembly; packet.gates.yml: byte-identical deterministic assembly\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-culture-d4.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/assemble-culture-d4.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "0182f7178e24616d8adb6b9360782363e12f9ae2561ea22047e3b6889fe53022",
+              "stdout_tail": "selftest: 81/81 checks passed — positive assemble/--check/determinism, tamper drift, malformed, missing-component and missing-output controls, plus collision, duplicate-id, wrong-type, empty-block, missing-field, too-few-files and serializer/reader-absent fail-closed controls; no file outside the temporary directory touched\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/assemble-culture-d4.py",
+                "--check"
+              ],
+              "command": "python3 tools/assemble-culture-d4.py --check",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "293bf19f7e6e9c709f3dbda248bbb74fbfd2a3daf4e1bf526154529e697581bb",
+              "stdout_tail": "packet.d4.yml: byte-identical deterministic assembly\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/d2-typed-labels.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/d2-typed-labels.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "5bb980a50046f327c4a67c9209e0e7cccb05a3cad77f3ca313ddf2cdbb3c5781",
+              "stdout_tail": "n\nok   cli: --check exit 1 on a changed byte\nok   cli: --check exit 0 after restore\nok   cli: two builds are byte-identical\nok   cli: --json prints one JSON document\nok   cli: malformed packet exits 2 with a stable code\nok   mirror: the d4 mirror holds no examples/culture-d2 tree\nok   mirror: the d4 build runs with no foreign tree (exit 0/1)\nok   mirror: the mirror build is byte-identical to the filed d4 projection\nok   mirror: --check exits 0 in the mirror\nselftest: 50/50 checks passed — the three shard control matrices, the loader/parser malformed cases, the live-packet typing and reconciliation cases, and the CLI emit/check/tamper controls; no file outside the temporary directory touched\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/d2-typed-labels.py",
+                "--check"
+              ],
+              "command": "python3 tools/d2-typed-labels.py --check",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427",
+              "stdout_tail": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/examples/culture-d2/typed-labels.d2.yml: byte-identical deterministic projection\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/gates/typed-pipeline-gate.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "22ce048a6528808848c737944e77dfddd370ca93f90757602eb99c0a3e640ddc",
+              "stdout_tail": "ent and red-at-design-level wording\nok   positive: 15 FINDING lines and 1 NOTE line\nok   determinism: two runs byte-identical\nok   --json: one document, ok true, 16 findings\nok   smuggle control: exit 1 and L2 names the channel\nok   dropped routing row: exit 1 (L3 or L4 fires)\nok   laundered hold: exit 1 and L3 fires\nok   adapter drift: the frozen packet's adapter pin breaks (exit 1)\nok   malformed packet: exit 2, no traceback\nok   missing packet: exit 2\nselftest: 12/12 checks passed — constant==baseline, the mirrored four legs, determinism/--json, and the smuggled-label, dropped-row, laundered-hold, adapter-drift, malformed and missing controls; no file outside the temporary mirror touched\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/gates/typed-pipeline-gate.py"
+              ],
+              "command": "python3 tools/gates/typed-pipeline-gate.py",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "15cdfbda73cd56cb6107d2fdbee533dbce47e9381e2082085ca1f0c45f2e695b",
+              "stdout_tail": " than failed\nFINDING D2L-RANK: [hold] TR-04#a|TR-06#a — act-collision: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-02#g|WR-09#g — R-05-class: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-08#g|WR-09#g — R-05-class: genuine-priority-gap\nNOTE D2L-RANK: [note] SR-01#a|SR-01#b — act-collision: band-keyed-pair\nchannel: 10 PHON artifact(s) retired, 0 added, retained lines identical\nok   L1-assembler_identity\nok   L1-projection_freshness\nok   L1-coverage\nok   L1-build\nok   L1-schema\nok   L1-routing\nok   L2-channel\nok   L3-holds\nok   L3-notes\nok   L3-fails\nok   L3-counts\nok   L3-baseline\nok   L3-details\nok   L3-baseline-set\nok   L3-routing-consistency\nok   L4-pins\nsummary: 16/16 legs passed\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/gates/typed-pipeline-gate.py",
+                "examples/culture-d4/packet.d4.yml"
+              ],
+              "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "f7630ddbeac2ce6b3e3ceb4e4fc2c275d428f1fe5588873656d9bc7fe7b5aee1",
+              "stdout_tail": "act-collision: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-02#g|WR-09#g — R-05-class: genuine-priority-gap\nFINDING D2L-RANK: [hold] WR-08#g|WR-09#g — R-05-class: genuine-priority-gap\nNOTE D2L-RANK: [note] SR-01#a|SR-01#b — act-collision: band-keyed-pair\nchannel: 6 PHON artifact(s) retired, 0 added, retained lines identical\nok   L1-profile\nok   L1-assembler\nok   L1-expected-holds\nok   L1-assembler_identity\nok   L1-projection_freshness\nok   L1-coverage\nok   L1-build\nok   L1-schema\nok   L1-routing\nok   L2-channel\nok   L3-holds\nok   L3-notes\nok   L3-fails\nok   L3-counts\nok   L3-baseline\nok   L3-details\nok   L3-baseline-set\nok   L3-routing-consistency\nok   L4-pins\nsummary: 19/19 legs passed\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/check-evidence-coupling.py",
+                "--selftest"
+              ],
+              "command": "python3 tools/check-evidence-coupling.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce",
+              "stdout_tail": "ected\": 0,\n      \"kind\": \"frozen\",\n      \"name\": \"frozen-good\",\n      \"passed\": true\n    },\n    {\n      \"actual\": 2,\n      \"expected\": 2,\n      \"kind\": \"frozen\",\n      \"name\": \"frozen-tampered-digest\",\n      \"passed\": true\n    },\n    {\n      \"actual\": 2,\n      \"expected\": 2,\n      \"kind\": \"frozen\",\n      \"name\": \"frozen-unknown-manifest-entry\",\n      \"passed\": true\n    },\n    {\n      \"actual\": 2,\n      \"expected\": 2,\n      \"kind\": \"frozen\",\n      \"name\": \"frozen-bool-expected-exit-false\",\n      \"passed\": true\n    },\n    {\n      \"actual\": 2,\n      \"expected\": 2,\n      \"kind\": \"frozen\",\n      \"name\": \"frozen-bool-expected-exit-true\",\n      \"passed\": true\n    }\n  ],\n  \"selftest_passed\": true\n}\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/exercise-handoff-e2e.py",
+                "--profile",
+                "v3",
+                "--selftest"
+              ],
+              "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --selftest",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "903af22212ddcbcedc971764694ab1c8385111ff8c19c2c5c8f9346040b33f8b",
+              "stdout_tail": "un witness: assembly exits E2E-UNC\n  - hazard probe: a `scope-notes` heading is read as a `scope` supply with exit still 0; the renderer emits no heading carrying a field-name token\n  - preservation: the 58 read-set files are byte-identical before and after a run\n  - m12a tamper baseline: exit 2 E2E-BASELINE (integrity digest mismatch), never a pass\n  - m12b tamper read-set (D4 projection): exit 1 E2E-DIGEST naming the changed file\n  - m8 re-typed v2 row: exit 1 E2E-DIGEST (v2 twin digest-pinned, subset equality enforced)\n  - tamper scan expectation: exit 2 E2E-BASELINE (a re-signed expectation is refused, not honoured)\n  - missing D4 artifact: exit 2 E2E-ARTIFACT naming the unreadable path\n"
+            },
+            {
+              "argv": [
+                "python3",
+                "tools/exercise-handoff-e2e.py",
+                "--profile",
+                "v3",
+                "--quiet"
+              ],
+              "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet",
+              "date": "2026-10-18",
+              "exit": 0,
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr_tail": "",
+              "stdout_sha256": "b0c839073dde0008c5837e9321522c6d2b5d3165ba140fe8d53e9dc798d22beb",
+              "stdout_tail": "handoff-v3: exit=0 fields=16/16 glossary=20/20 findings=0 links=105/105 claims=27 statuses=16/7/4 v2_subset=equal alias_leg=landed packet_sha256=e92f5e6775b657c24fa6260e340e4e7a04cf6c3777188cba80678bed079ae43b\n"
+            }
+          ]
+        },
+        "required_defect_classes": {
+          "fragment_index_collision": {
+            "command": "python3 reports/round-21/run-validation.py (cross-round defect ledger coverage)",
+            "date": "2026-10-18",
+            "value": true
+          },
+          "mirror_faithfulness_wart": {
+            "command": "python3 reports/round-21/run-validation.py (cross-round defect ledger coverage)",
+            "date": "2026-10-18",
+            "value": true
+          },
+          "route_capacity": {
+            "command": "python3 reports/round-21/run-validation.py (cross-round defect ledger coverage)",
+            "date": "2026-10-18",
+            "value": true
+          },
+          "scribe_seat_failures": {
+            "command": "python3 reports/round-21/run-validation.py (cross-round defect ledger coverage)",
+            "date": "2026-10-18",
+            "value": true
+          }
+        },
+        "round22_routes": {
+          "command": "python3 reports/round-21/run-validation.py (open defect rows with owner notes and route_round 22)",
+          "date": "2026-10-18",
+          "value": 18
+        },
+        "rows": [
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R17-BASELINE-METADATA",
+            "round": 17
+          },
+          {
+            "disposition": "closed-with-control",
+            "id": "R17-ROUTE-CAPACITY",
+            "round": 17
+          },
+          {
+            "disposition": "closed-with-control",
+            "id": "R17-HISTORICAL-D-REJECTION",
+            "round": 17
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R17-CURRENT-RECOUNT-DISCREPANCY",
+            "round": 17
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R18-FINAL-REPORT-POINTER",
+            "round": 18
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R18-BASELINE-METADATA",
+            "round": 18
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R18-ORIGINAL-FROZEN-REPLAY",
+            "round": 18
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R19-SCRIBE-SEAT-FAILURE",
+            "round": 19
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R19-LESSON-PATH-COLLISION",
+            "round": 19
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R19-FINAL-REPORT-POINTER",
+            "round": 19
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R19-BASELINE-RECEIPT-BINDING",
+            "round": 19
+          },
+          {
+            "disposition": "closed-with-control",
+            "id": "R19-ADAPTER-SELFTEST",
+            "round": 19
+          },
+          {
+            "disposition": "closed-with-control",
+            "id": "R19-BATTERY-UNEVALUABLE-GATE",
+            "round": 19
+          },
+          {
+            "disposition": "closed-with-control",
+            "id": "R19-MIRROR-FAITHFULNESS-WART",
+            "round": 19
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-FINAL-REPORT-POINTER",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-BASELINE-METADATA",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-HISTORICAL-RECEIPT-REWRITE",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-CONTRACT-AUDIT-RECOUNT",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-HANDOFF-LINK-COUNT",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-FRAGMENT-INDEX-COLLISION",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-MALFORMED-ALIAS-FAIL-OPEN",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-INTERMEDIATE-RECEIPT-BINDING",
+            "round": 20
+          },
+          {
+            "disposition": "routed-to-round-22",
+            "id": "R20-LINGUISTICS-DECLARED-COUNT",
+            "round": 20
+          }
+        ],
+        "sweeps": {
+          "17": [
+            "reports/round-21/defects/sweep-r17.md",
+            "reports/round-21/defects/sweep-r18.md",
+            "reports/round-21/defects/sweep-r19.md",
+            "reports/round-21/defects/sweep-r20.md"
+          ],
+          "18": [
+            "reports/round-21/defects/sweep-r18.md",
+            "reports/round-21/defects/sweep-r19.md",
+            "reports/round-21/defects/sweep-r20.md"
+          ],
+          "19": [
+            "reports/round-21/defects/sweep-r19.md",
+            "reports/round-21/defects/sweep-r20.md"
+          ],
+          "20": [
+            "reports/round-21/defects/sweep-r20.md"
+          ]
+        }
+      },
+      "missing_dependencies": [],
+      "passed": true
+    }
+  },
+  "claims_declared": {
+    "A": "adjacency",
+    "C": "calibration",
+    "O": "operability"
+  },
+  "counting_command": "python3 reports/round-21/run-validation.py",
+  "date": "2026-10-18",
+  "failures": [],
+  "filed_rounds_status": {
+    "command": "git status --short -- reports/round-8 through reports/round-20",
+    "date": "2026-10-18",
+    "value_after": "",
+    "value_before": ""
+  },
+  "limits": [
+    "Historical round validators are invoked only in isolated clones under .scratch/round-21; REFRESH_RECEIPTS=1 is set only in those clones, the runner must prove its cloned receipt was updated, round 18 redirects its external replay temp candidate into repository scratch, and its ignored R11 log is copied into that clone only after digest verification.",
+    "The recount inventory extracts each counting_command plus command, command_line, argv and recheck_command leaves from rounds 17-20. Each normalized source-round command must have one dated recorded/observed ledger row.",
+    "Adjacency checks use the round-19 baseline diff, the named R20 handoff/entry surfaces, the R19-C11..C20 and R20-D21..D24 inventories, and the documented D4 full-tree scan; the D4 child tree is not required to be duplicated path-by-path in the audit.",
+    "Adjacency checks are structural evidence checks, not a semantic determination of canon, historical truth or rights. The filed 102-link count and current replay are reported side-by-side; any difference remains a routed finding, not a normalized value.",
+    "Regression checks use check/selftest modes or the v3 quiet exercise; TMPDIR is scoped beneath this repository's .scratch and Python bytecode is disabled. No commit or push is performed."
+  ],
+  "missing_dependencies": [],
+  "round": 21,
+  "runner": "reports/round-21/run-validation.py",
+  "runner_sha256": "938cddeed86dedf52a4904c9c6a81248d6dc719c1330d4f3b64bcd8f3be896b0",
+  "targets_date": "2026-10-18"
+}
