@@ -241,6 +241,116 @@ Thresholds and cautions that are part of the rule:
   §2, §6); a green self-test is capability, not measurement
   (`corpus/knowledge/verification/gate-frozen-run-standard.md` §1).
 
+### Family-clean projection — a family's owned fields cite that family's own records
+
+A multi-family projector selects data and provenance by the input packet's
+declared family **before** constructing labels, rank ledgers, coverage, or
+findings. Shared parser/gate code, tool paths, and diagnostic vocabulary may be
+reused; another family's fixture records, bare component citations, owner
+labels, romanization schemes, residuals, or conflict findings may not appear in
+family-owned fields. Identity is at least `(family, source block/component,
+record id)` — `GAR-01`, `WR-01`, or `E0` alone is not an identity, and a
+same-ID foreign record is never reinterpreted as a local one. A declared
+linguistic borrow ledger is not permission to borrow fixture data. Determinism
+is not isolation: the pre-fix D4 projection passed its canonical gate 19/19
+while carrying D2's 21-component rank fixture
+(`reports/round-22/bleed/repin.md:15,18`; the rejected reading "deterministic
+means family-clean", `corpus/lessons/round-22.md:63`). Executable authority
+`tools/d2-typed-labels.py` (family dispatch `:2837-2838`; boundary checks
+`P-FAMILY-SOURCE`/`P-FAMILY-RANK` `:2636-2732`; family-boundary controls
+`_selftest_family` `:2980`; selftest 163/163,
+`reports/round-22/bleed/impl.md:54,70`); design authority
+`reports/round-22/bleed/design.md` (R22-D03); measured defect basis
+`reports/round-22/bleed/analysis.md` §C1-C3; normative boundary
+`examples/culture-d4/components/01-brief.yml:55-75,111-121`; worked instance
+`examples/culture-d4/typed-labels.d4.yml` with
+`examples/culture-d4/expected-holds.json` (counts hold:12 / note:0 / fail:0,
+`supersedes_pins` naming the pre-fix projection/projector digests).
+
+**Injection-point warning — an embedded-fixture builder invoked before family
+dispatch injects the default family into every family.** At the round-21
+baseline `46a03257…`, `run_pipeline` called `build_payload()`
+**unconditionally** (`tools/d2-typed-labels.py:2613` at that revision),
+packaging the embedded D2 constants (`:925-1197`) through a helper with **no
+packet/family argument** (`:1235-1258`); the family alias leg invoked
+afterward (`:2614`) annotated the foreign ledger without making it local. An
+embedded fixture needs no disk read: with `load_packet_file` replaced by a
+raising sentinel, `build_payload()` still returned the exact D2 ledger,
+byte-equal to the filed D4 `rank_rules` (2/2 helper probes,
+2026-10-18T14:42:15Z, `reports/round-22/bleed/analysis.md` §C3). A
+foreign-tree-free rebuild therefore proves dependency isolation, not data
+isolation. The landed dispatch (`tools/d2-typed-labels.py:2837-2838`:
+`build_payload()` only when `family == DEFAULT_FAMILY` (`:2471`), else the
+packet's own `family_rank_payload`) is the shape to preserve; add every new
+family leg on the family side of that line.
+
+| Paired control (design §Required paired controls) | Positive must show | Defect it defeats — Never | Landed control | Citation |
+|---|---|---|---|---|
+| D2 compatibility | the baseline D2 serialized projection keeps digest `a3aa452c…`; D2 `--check`/selftests pass; a D2 rank mutation still moves D2 | achieving compatibility by disabling rank projection globally | `boundary compatibility: D2 projection keeps its exact baseline digest`; `boundary D2 control: D2 rank projection remains enabled and responds to D2 mutation` | `tools/d2-typed-labels.py:3114,:3119`; digest at `reports/round-22/bleed/analysis.md:18` |
+| D4 independence | a D4 packet-only mirror is byte-identical with no `examples/culture-d2/` tree **and** poisoning the embedded D2 fixture hooks (raising sentinels) leaves D4 output identical; the pre-fix artifact is refused semantically | reading filesystem absence as data isolation (the C3 result) | `boundary: packet-only D4 mirror is byte-identical without a foreign tree`; `boundary poison control: D4 never calls embedded D2 fixture machinery`; pre-fix bytes refused `P-FAMILY-SOURCE … GAR-01.owner: foreign owner '11-costumes'` | `tools/d2-typed-labels.py:3045,:3053-3054`; `reports/round-22/bleed/analysis.md:103-110`; `reports/round-22/bleed/impl.md:64` |
+| Not empty-by-default | mutating declared `RK-01` authority/property/rank moves only the corresponding D4 projection; add/remove of one valid RK row moves coverage exactly once; malformed or duplicate declared records fail closed | replacing the foreign ledger with empty arrays and calling the family clean | `boundary local control: RK-01 authority/property/rank follow the local packet only`; `boundary coverage control: … counted exactly once`; `boundary malformed local rank set … fails closed` | `tools/d2-typed-labels.py:3063,:3073,:3099`; shape checks `P-FAMILY-RANK` `:2694-2732` |
+| Owner-qualified citations | an absolute foreign citation, a short component citation, or a foreign owner/scheme injected into a family-owned field is rejected, while genuine `WR-*` orthography IDs and shared tool/schema references pass | a whole-document substring ban on the family token (it would reject method provenance and the packet's own contrast declarations) and any unqualified foreign citation passing | `boundary control: deterministic D2-owned label metadata is rejected`; `boundary control: foreign label … rejected`; `boundary: D4 WR writing ids and shared engine references are not substring-banned` | `tools/d2-typed-labels.py:3011,:3024,:3032`; `WR-*` are D4's own rules, `examples/culture-d4/components/03-orthography.yml:83-90` |
+| No ID-based reinterpretation | same-ID foreign records fail ownership checks while the six local owed slots still route to their garments; ordinary era tags never import foreign eras | treating a shared ID or era tag as ownership evidence (D4 `GAR-01`/`GAR-06` keep D4 ranks/text, never a foreign `RANK_RESOLUTIONS`) | `boundary explicit same-id foreign label: emit refuses and preserves … output` | `tools/d2-typed-labels.py:3109`; identity definition `reports/round-22/bleed/design.md` §Decision |
+| Honest borrowed language | the six `borrowed-strata` labels keep packet-declared donors, layer refs and adaptation rules; an undeclared donor in an owned source field stays a failure | legalizing an embedded fixture block by relabeling the ledger borrowed | `boundary: label texts, kinds, owed slots and all six borrow ledgers unchanged`; D4 no-import rows `D2B-01..04` | `tools/d2-typed-labels.py:2989`; `examples/culture-d4/components/01-brief.yml:111-121` |
+| Propagation/tamper | a stale projection pin, a stale expected-hold set, or one changed typed routing byte fails the gate/adapter checks; a clean regeneration passes with new rows | re-blessing pins in place, freezing while upstream moves, or letting inherited findings ride into consumers | consumers copy the projector's own finding set (`carry_findings`); frozen generation `tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv` (3 rows, exit 0; deployed replay 33 peer pairs, 2026-10-18T14:56:01Z); profile row `$.profiles[0]` with `repin_history[2]` binding projector+expected; stale pins refuse exit 2 `L1-profile` | `tools/assemble-d4-typed.py:276-288`; `reports/round-22/bleed/evidence/deployed-replay.json`; `tools/gates/typed-pipelines.json`; `reports/round-22/bleed/impl.md:60` |
+
+Thresholds and cautions that are part of the rule:
+
+- **T1 — check owned fields structurally; substring bans are not ownership
+  checks.** Explanatory negative provenance ("the foreign component was not
+  read"), shared engine paths, and the receiving family's own reused ID space
+  are legitimate; the structural checks above are the boundary
+  (`reports/round-22/bleed/design.md` §Reusable machinery;
+  `reports/round-22/bleed/analysis.md:60`; control
+  `tools/d2-typed-labels.py:3032`).
+- **T2 — equality and isolation are independent.** A deterministic projection
+  can deterministically reproduce the wrong family; a byte-equality pass never
+  grounds a family-ownership claim (`reports/round-22/bleed/repin.md:15,18`;
+  poison control `tools/d2-typed-labels.py:3053-3054`).
+- **T3 — both halves of every pair, or the fix is cosmetic.** The mirror
+  control without the poison control proves dependency isolation only; the
+  poison control without a local-packet mutation control cannot distinguish
+  real selection from empty-by-default (`reports/round-22/bleed/analysis.md`
+  §C3; `corpus/lessons/round-22.md:53`;
+  `reports/round-22/bleed/design.md` §Required paired controls).
+- **T4 — obligations and history survive a data cleanup.** Removing inherited
+  findings removes misattribution, not debt: the six owed garment forms remain
+  held (12 holds), and the removal is recorded as new rows with before/after
+  digests (`examples/culture-d4/expected-holds.json` `revision_note` +
+  `supersedes_pins` → pre-fix projection `cbcf997f…`, projector `76536a92…`;
+  append-only discipline
+  `corpus/knowledge/verification/gate-frozen-run-standard.md:50-78,102-142`;
+  keep historical verdict / current reproduction / supersession distinct,
+  `corpus/lessons/round-22.md:19`).
+- Cautions that are part of the rule: this is an engineering boundary, not a
+  canon, lore-acceptance, or real-world rights decision — handoffs stay
+  prepared-not-accepted (`reports/round-22/bleed/design.md` §Decision final
+  sentence; `reports/round-22/bleed/analysis.md` §Handoff limitation). A
+  family-local leg the packet does not declare is reported as an explicit
+  skip, never counted as evaluated (`tools/d2-typed-labels.py:3343`;
+  `reports/round-22/bleed/design.md` §3).
+
+**Round-25 implementation commitment.** Round 22 closed REJECTED on D and
+routed the remaining integration to round 25 with the full recipe
+(`LOG.md:3298-3309`; `reports/round-22/routed-resolution.json`
+R21-ALIAS-COERCION, R21-MTIME-TIE-BREAK). Landed at the round-23 baseline
+`0e81d9d`: the family-clean projector (`2819f687…`), the regenerated D4
+projection/typed packet/expected holds, the combined-source profile row
+(`repin_history[2]`), and the frozen `d4-repin` generation. Committed to
+round 25: (1) a superseding handoff v3 claim map/baseline — D4-CL05/06/07/09
+and OQ-V3-05 still describe the removed rank passengers
+(`reports/round-22/bleed/repin.md:26-37`); (2) the PLACEHOLDER_RE
+validator-wording disposition, so the full historical check runs without
+weakening any placeholder rule (`reports/round-22/routed-resolution.json`
+R21-MTIME-TIE-BREAK); (3) any combined-source successor row (D2 live/frozen
+pins, v2) not landed under round 23's O claim
+(`reports/round-23/claims.json` O). Until each lands, this rule's per-row
+verification status is stated as landed or pending — never retroactively
+green — and filed historical wording is not rewritten
+(`corpus/lessons/round-22.md:19`).
+
+<!-- END R23-D SKILL SUBSECTION -->
+
 ## Error patterns
 
 | Observation | Reading |

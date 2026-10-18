@@ -3308,3 +3308,17 @@ certification or lore/world-bible ownership is claimed.
   were interrupted. Routed to round 25 with the full recipe.
 - **Evidence:** `reports/round-22/routed-resolution.json`; regressions re-run
   by the integrator (all exit 0).
+
+## 2026-10-18 — Correction to the round-22 entry (append-only; the r22 ledger row stands)
+
+The round-22 entry above records the D-claim implementation as "never
+implemented". Subsequent verification (round 23: X04 settled-tree rerun and
+the D-rule drafters' source audit) proved the family-clean implementation IS
+present at commit `0e81d9d` — the aborted D04-D06 seats had written their
+changes to the working tree before the interrupt, and the round-22 close
+commit swept them in: projector `2819f687…` carries the `_selftest_family`
+dispatch (build_payload only for the default family), selftest 163/163, live
+D4 holds 12/0/0. The r22 rejection's verification path (validator legs
+requiring the SKILL rule and specific pin rows at close time) was indeed
+unmet at close, but the source fix itself had landed; the verdict mis-described
+the tree state. Correction recorded per append-only discipline.

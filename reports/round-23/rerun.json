@@ -1,0 +1,153 @@
+{
+  "round": 23,
+  "assignment": "SCRIBE X04 — report scribe and settled-tree rerun",
+  "date": "2026-10-18",
+  "baseline_revision": "0e81d9d99514631d6717e1ff354d5a5a759aa980",
+  "declaration_head": "7b181a52eb74319e5e5c40cdb1f0a1a1dc652079",
+  "claims_declared": {"O": "operability", "D": "depth"},
+  "method": {
+    "scratch_prelude": "export TMPDIR=$PWD/.scratch; export PYTHONDONTWRITEBYTECODE=1 (from the lane root before every command batch)",
+    "clone_root": ".scratch/r23-x04",
+    "overlay_snapshot_policy": "checkpoint-a is a shared Git clone of declaration HEAD 7b181a5 overlaid with hash-inventoried live working-tree surfaces (tools, examples, corpus, reports/round-23, SKILL.md, SCORECARD.md, LOG.md, AGENTS.md, PROVINCE.md, README.md): 714 files, manifest sha256 9c2a244ea4ebe9e34bcdd4d3cd2d86d4ad5f101ff9b14a5cd9728ff3bb5d4851, copy_stable true (inventory identical before/after copy), captured 2026-10-18T15:07:27Z. Manifest-referenced ignored run.log receipts were copied into the clone and hashed (16 files).",
+    "historical_clone_policy": "plain shared clones of declaration HEAD with no overlay, one per round: .scratch/r23-x04/r19, r20, r21, r22; each has its own .scratch. REFRESH_RECEIPTS=1 grants receipt writes inside the clones only.",
+    "live_filed_receipts_refreshed_by_x04": false,
+    "round23_validator_executed_by_x04": false,
+    "round23_validator_reason": "reports/round-23/run-validation.py (the declared counting command for claims O and D) was absent at every poll: 2026-10-18T12:04:19-03:00, 12:19:50-03:00, 12:22:34-03:00. Per the round-21 X04 precedent this seat neither authors nor assumes the aggregate round validator; the rerun below is an independent settled-tree measurement, not a round-23 acceptance receipt.",
+    "commits_or_pushes_by_x04": false,
+    "shared_bookkeeping_edited_by_x04": false
+  },
+  "preservation": {
+    "surface": "reports/round-8..22 and tools/gates/frozen/round-8..22 compared to declared baseline 0e81d9d by git ls-tree blob-id and mode",
+    "command": "python3 .scratch/r23-x04/capture.py protect",
+    "initial": {
+      "observed_at_utc": "2026-10-18T15:07:27.596763+00:00",
+      "files": 1168,
+      "mismatches": ["reports/round-22/fixes/regression.md"],
+      "manifest_sha256": "2d07691a05c519f27dd3354f2da141aaea69bf06ac5721623065f8c9db03981d",
+      "record": ".scratch/r23-x04/protected-1507Z-snapshot.json"
+    },
+    "current": {
+      "observed_at_utc": "2026-10-18T15:19:50.038146+00:00",
+      "files": 1168,
+      "mismatches": ["reports/round-22/fixes/regression.md"],
+      "manifest_sha256": "2d07691a05c519f27dd3354f2da141aaea69bf06ac5721623065f8c9db03981d",
+      "record": ".scratch/r23-x04/protected-current.json",
+      "stability": "Identical manifest digest to the 15:07:27Z sample: no protected byte changed between the two observations (the regression.md rewrite predates both and was stable across them)."
+    },
+    "finding": "The only protected mismatch is reports/round-22/fixes/regression.md, rewritten in flight by another seat during this wave (the interrupted R22-O12 regression report completed from 'Status: IN PROGRESS' to a closing GREEN/OPEN verdict; diff measured 122 insertions / 54 deletions at 2026-10-18T12:04-03:00). The round-23 rules file corrections to NEW files, not edits of filed round-22 artifacts; flagged for the orchestrator. X04 did not touch it.",
+    "limit": "Tracked bytes and file modes only; a clean observation does not exclude a transient write-and-restore between samples.",
+    "live_surface_observation": {
+      "path": "examples/culture-d2/expected-holds.json",
+      "observation": "Modified in the worktree between 2026-10-18T15:04Z and 15:19Z (git status M; 5 insertions / 2 deletions vs HEAD): HEAD blob 7b9439c4d695b50b0898605e9038dd46ba62fc05536a21ca6d806fcad69d2b51, worktree sha256 9dd1a1050d93045cc8cec0020acbce620b1e3ceb46dc5b1b5b186eecd7cadf06 (commands run 2026-10-18).",
+      "classification": "A live derived-output re-pin on an owned surface, outside the protected filed set; consistent with the round-23 O successor-pin work. Recorded, not judged. examples/culture-d2/typed-labels.d2.yml (the file --check pins) is unchanged and byte-identical at both HEAD and worktree."
+    }
+  },
+  "impl_provenance": {
+    "finding": "The round-22 family-clean bleed implementation is present at declaration HEAD. Live/HEAD tools/d2-typed-labels.py is sha256 2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3 — exactly the 'final source' recorded in reports/round-22/bleed/impl.md; live/HEAD examples/culture-d4/expected-holds.json is sha256 3826ba68d705b3c379b2a12737c14075d9095a1ba2aa2eb525de1851a9ecd2f7 — exactly impl.md's final expected holds. git log -S _selftest_family --oneline -- tools/d2-typed-labels.py returns 0e81d9d (the round-22 admission commit); impl.md states 'IMPLEMENTED — SOURCE READY FOR FINAL RE-PIN' with a 163/163 selftest at 2026-10-18T14:50:49Z.",
+    "coherence": "This resolves the apparent contradiction with the round-22 LOG wording ('the D4 bleed fix ... never implemented'): the impl seats delivered after the verdict snapshot; the rejection stood on the claim as declared (combined-source successor pins and the SKILL.md rule were not landed). What remains open is precisely the round-23 O claim's combined successor pins and the round-23 D claim's SKILL.md rule.",
+    "commands": [
+      "git log -S _selftest_family --oneline -- tools/d2-typed-labels.py (2026-10-18: 0e81d9d)",
+      "sha256sum tools/d2-typed-labels.py examples/culture-d4/expected-holds.json examples/culture-d4/typed-labels.d4.yml (2026-10-18)"
+    ]
+  },
+  "settled_tree_regressions": {
+    "command": "python3 .scratch/r23-x04/capture.py run checkpoint-a .scratch/r22-x04/commands.json",
+    "commands_file": ".scratch/r22-x04/commands.json (round-22 X04 battery, reused verbatim)",
+    "commands_file_sha256": "8d821590a6caf322c3f5f25667d06b5d91ab0a5ffc536148da62b6fc358f14d8",
+    "date": "2026-10-18",
+    "commands": 32,
+    "all_exit_zero": true,
+    "key_results": {
+      "battery_selftest": "35/35 controls",
+      "battery": "pass 7, fail 0, unevaluable 0",
+      "craft": "all checks passed (audits=7, mech_cases=11, derivations=9, approx_checks_runner=37)",
+      "d2_assembly_selftest": "42/42", "d3_assembly_selftest": "85/85", "d4_assembly_selftest": "81/81",
+      "replay_selftest": "79/79",
+      "projector_selftest": "163/163 checks passed (includes the family/embedded control matrices)",
+      "typed_gate_d2": "16/16 legs", "typed_gate_d4": "19/19 legs",
+      "handoff_v2": "claims=15, links=50/50, fields=16/16, glossary=20, findings=0; links-digests names the 2 documented round-16 drift rows (tools/d2-typed-labels.py, tools/harness/packet_links.py), exit 0",
+      "handoff_v3": "fields=16/16 glossary=20/20 findings=0 links=105/105 claims=27 statuses=16/7/4 v2_subset=equal alias_leg=landed packet_sha256=a97a0f0a0a497cb4410124607065df7686bbc7f78b4b46bdaaaa1d66ba4d1b6e"
+    },
+    "boundary": "Measured against checkpoint-a overlay bytes as of 2026-10-18T15:07:27Z. Live-tree changes after that instant (the expected-holds re-pin, continuously landing worker fragments; overlay inventory grew 714 to 750 files by 15:22:34Z, manifest dd1d419b8c0c07e0179e884c63784928478b05da6e7b27e7af4416e2b2793c43) are outside this measurement.",
+    "per_command_results": ".scratch/r23-x04/checkpoint-a-results.json with per-command streams under .scratch/r23-x04/checkpoint-a-runs/"
+  },
+  "round_validators": {
+    "round19": {
+      "clone": ".scratch/r23-x04/r19",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-19/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "5b27a80de1f4b11012061e7ed3e835734049661ace295b39878afd9f71454d3a",
+      "exit_code": 0,
+      "stdout": "acceptance: False ['C entries']",
+      "disposition": "Known selector defect, unchanged from the round-21 rerun: reports/round-19/run-validation.py:10-12 counts only untracked (??) corpus paths, and every filed round-19 entry is tracked at settled HEAD. The runner prints the inner result but exits 0; exit 0 is not acceptance. The clone-local receipt was refreshed; the filed receipt was not touched."
+    },
+    "round20": {
+      "clone": ".scratch/r23-x04/r20",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-20/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "2b7a252b5449415dddac2e667ed2e192df800a80173849989fa72423961646da",
+      "runner_matches_filed_receipt": true,
+      "exit_code": 1,
+      "acceptance_checks_passed": false,
+      "claim_passed": {"O": true, "C": true, "D": false},
+      "failures": [
+        "v2 successor row not green: reports/round-20/wart/expected-v2-07-r20.json exit 2 — V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py",
+        "contract audit re-run verdict is 'fail', not a semantic PASS or named gaps with owners: reports/round-20/handoff/packet-v3-16.md",
+        "v3 baseline reports/round-20/handoff/expected.json pins packet e92f5e6775b6… but the run assembled a97a0f0a0a49…"
+      ],
+      "dispositions": [
+        "v2-07 pin drift is expected historical change: the freeze predates the round-22-admitted projector source change (malformed-alias CLI repair plus the family-clean implementation, final bytes 2819f687…). The new-row successor is the round-22 d4-repin generation, tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv, which this seat's round-22 rerun replayed 3/3 green. Preserve the red historical row; no receipt edit.",
+        "The audit-selector defect is carried unchanged from reports/round-21/rerun.json: candidate ranking admits packet-v3-16.md over audit-v3.md and classifies the packet's missing verdict as fail. Independent of that defect, the packet bytes changed after round 20 (now a97a0f0a…), so even the filed digest-bound audit no longer binds to current bytes; the round-22 closing regression report records the semantic handoff follow-up as OPEN (the delivered v3 packet copies obsolete D4 claim wording).",
+        "The v3 baseline staleness is the same packet revision seen from the other side: round 22 delivered a new v3 packet and the round-22 closing battery measures v3 green on it (links=105/105, findings=0, statuses 16/7/4). The R20 freeze is not wrong about its own era; it is superseded by later admitted work, not patched."
+      ]
+    },
+    "round21": {
+      "clone": ".scratch/r23-x04/r21",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-21/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "938cddeed86dedf52a4904c9c6a81248d6dc719c1330d4f3b64bcd8f3be896b0",
+      "runner_matches_filed_receipt": true,
+      "exit_code": 1,
+      "acceptance_checks_passed": false,
+      "claim_passed": {"C": false, "O": true, "A": false},
+      "failures": [
+        "A: Current handoff twin link replay failed: exit 1, result (105, 105, 4)",
+        "C: Isolated round-18 validator did not update its scratch-clone receipt",
+        "C: Isolated round-18 committed receipt refresh was not explicitly granted",
+        "C: Isolated round-18 validator rerun did not produce a comparable acceptance receipt"
+      ],
+      "dispositions": [
+        "A: the filed round-21 A measurement replayed the twin at [102,102,0] with a delta of 3 preserved-and-routed; on the settled tree the replay is [105,105,4] — links grew to the round-20/22 packet shape and findings rose 0 to 4 because the round-22-delivered v3 packet copies obsolete D4 claim wording. This is the documented OPEN semantic handoff follow-up (reports/round-22/fixes/regression.md, closing section), not a new regression introduced by round 23.",
+        "C: the round-21 validator re-runs the round-18 validator in its own scratch clone and requires a comparable acceptance receipt (reports/round-21/run-validation.py:359-363). The round-18 settled rerun exits 1 for the drift and evidence gaps already documented and dispositioned in reports/round-21/rerun.json (R18 manifest invalidated by the R20 projection revision; D2 expected-holds pin re-pin; unrecorded fragment gaps). Expected comparability loss on a later tree; the filed round-21 C verdict was measured against the round-21-era tree and is not invalidated by this."
+      ]
+    },
+    "round22": {
+      "clone": ".scratch/r23-x04/r22",
+      "command": "REFRESH_RECEIPTS=1 python3 reports/round-22/run-validation.py",
+      "date": "2026-10-18",
+      "runner_sha256": "3af74c2b40f007c21581b037c9059512bd745d4fe8645dd9e4364818a4e463dd",
+      "runner_note": "The admission-finalized runner; reports/round-22/rerun.json's in-flight checkpoint measured an earlier runner (470e503a…) before the round-22 pins and SCORECARD landing moved it.",
+      "exit_code": 0,
+      "acceptance_checks_passed": true,
+      "claim_passed": {"O": true, "C": true, "D": true},
+      "receipt": ".scratch/r23-x04/r22/reports/round-22/validation.json (clone-local only)",
+      "first_full_settled_receipt": true,
+      "receipt_note": "No filed reports/round-22/validation.json exists: round 22 closed via routed-resolution.json plus the integrator's regression rerun, so this is the first full settled-tree receipt produced by that runner.",
+      "key_measurements": {
+        "O": "routed six-item ledger accepted; alias CLI controls 1 valid + 4 malformed pass; successor replay tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv reproduced 3/3 (mismatch 0, could_not_evaluate 0); content-selection controls pass; the full embedded regression battery exits 0",
+        "C": "loop-2 retrospective and pointer rechecks green; at least two digest-bound auditors green; filed R17..R21 acceptance flags match the declared historical states (R17 false, R18..R21 true)",
+        "D": "D4 projection boundary scan clean (no foreign D2 ownership/citation fields); source-isolation poison and local-rank counterfactuals pass; projector source differs from the declared round-22 baseline; D4 gate 19/19, D4 adapter selftest 12/12, handoff v3 links 105/105 and gate 16/16 20/20 findings 0; skill draft rule_present: reports/round-22/bleed/skill-rule-draft.md; bleed control evidence: reports/round-22/bleed/{analysis,design,impl,repin}.md"
+      },
+      "limits": "The runner's D legs are draft- and source-scoped: they verify the filed round-22 skill draft and bleed evidence, the live D4 boundary, and the changed projector — not SKILL.md itself, and not the combined-source successor pins. A green settled rerun therefore does not reverse the round-22 rejection (a process verdict on the claim as declared) and does not discharge either round-23 claim; it shows the round-22 recipe's measurable legs reproduce green on the tree the round-23 claims build on."
+    }
+  },
+  "overall_disposition": {
+    "regressions": "The 32-command settled-tree battery is fully green on the checkpoint-a overlay (2026-10-18T15:07:27Z snapshot).",
+    "round19_recount": "Unchanged known selector defect; filed receipt stands.",
+    "round20_recount": "All three settled-tree D failures are R22-admitted drift (projector source change, delivered packet revision) plus the documented audit-selector defect; historical rows preserved, not patched.",
+    "round21_recount": "C comparability loss and A's 4 semantic findings are documented carry-overs from the R22 packet delivery, not new round-23 regressions.",
+    "round22_recount": "First full settled-tree receipt: acceptance true with O/C/D green on the finalized runner, on a tree that contains the family-clean implementation (2819f687… / 3826ba68…) landed at 0e81d9d.",
+    "round23_bearing": "The rerun is consistent with both round-23 claims being open and actionable: O owes the combined-source successor pins (the projector/adapter final bytes and the in-flight D2 expected-holds re-pin are unpinned at HEAD), and D owes the SKILL.md family-clean rule (present only as the round-22 draft and the round-23 rule fragments at measurement close).",
+    "not_claimed": "This file is a rerun record, not the aggregate round-23 validation receipt; no round-23 acceptance is asserted by X04."
+  }
+}
