@@ -147,6 +147,27 @@ Admission: C/O verify, no axis harmed. Integrator acts: map repoint + row
 annotation (3 defect classes); v2-07 baseline re-frozen; validation rerun on
 the settled tree. Loop 1 is complete: rounds 8-16 (r13 operator-skipped).
 
+## Axes — round 17 (2026-10-18), NOT admitted (claim D failed as declared)
+
+Baseline `9b49a4a`; one 64-worker `opencode-go/deepseek-v4.1-flash` batch
+(loop 2 build 1; 30/64 completed — route capacity; integration by the
+orchestrator). Acceptance: `python3 reports/round-17/run-validation.py`:
+C PASS, O PASS, D FAIL.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C verified) | 12 round-16 stale-documented civ entries -> 7 fixed with live content-verified replacements + 5 attempts documented; verifiers re-ran evidence; map-patch proposed | `python3 reports/round-17/run-validation.py` | `reports/round-17/civ/` (12 fixer + 4 verifier fragments + map-patch.json) |
+| operability | improved (claim O verified, capability `assemble-culture-d4`) | No D4 assembler -> `tools/assemble-culture-d4.py` durable: 81/81 selftest controls, --check byte-identical regeneration; integrator eras-shape fix (flat tag list + era_records, documented normalization) after the projector contract was discovered | `python3 tools/assemble-culture-d4.py --selftest` | `reports/round-17/assembler/`, packet regenerated twice byte-identical (e7ecd204…) |
+| depth | unchanged (claim D failed as declared) | D4 tree complete (12 components, deterministic packet) and the typed projection runs (74 labels / 15 holds / 0 fails emitted) — but the round-11 `typed-pipeline-gate` L1 leg pins assemble-d2 output bytes and structurally cannot consume a D4 packet; "gate findings == D4 hold set" not executable this round; generalization + re-pin cascade routed to round 18 | `python3 reports/round-17/run-validation.py` | gate L1 output; `reports/round-17/d4/` design docs incl. the fork record |
+| calibration | improved (unclaimed observation) | Design fork recorded (three D4 concepts across doc seats; delivered tree rules); the gate's D2-boundary discovered and documented rather than worked around | — | D01 §13 fork analysis |
+| freshness / adjacency | unchanged | Pause in force; scope clean | — | `reports/round-17/scope.md` |
+
+Round status: REJECTED on D (unverifiable-as-declared; boundary + recipe
+recorded); C/O verify; no axis harmed. Routed to round 18: typed-gate
+assembler-identity generalization (re-pin cascade: round-11 frozen manifest,
+round-9 baselines, round-16 v2-07 expected.json helper pins); D4 gate run +
+expected-holds + frozen manifest once the gate accepts D4.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

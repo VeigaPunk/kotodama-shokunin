@@ -1,0 +1,131 @@
+# reports/round-17/d4/components/03-orthography.yml
+# D4 design drill — component 03 of the round-17 registry.
+# NON-CANON: this file proposes a design; it records nothing about any world.
+#
+# Write seat: R17-D07 (D-components, seat 3 of 12). Round 17, 2026-10-18.
+# The `orthography` block below is the packet block the assembler extracts.
+component: 03-orthography
+culture: D4
+canon: not canonized (D4 design drill)
+title: "03-orthography — the stamp hand. D4's native stamp-derived script, its sign inventory, and the writing rules"
+status: "round-17 component write, 2026-10-18; supersede-by-new-file only"
+scope: >
+  The D4 script from the E0 count-stamp inventory to the E2 literate league
+  hand. One script, three stages: E0 stamp tallies on ingots and seals; E1 the
+  extended stamp hand (a native abugida built from the stamp inventory); E2 the
+  incised and painted league hand. No donor script is modelled: the script is
+  native, and the salt-road towns' writing, if any, is out of scope.
+spine_coupling: "mark — the script IS the mark institution extended: a sign is an impression first (stamp), a trace second (incision, paint), and every sign record names its stamp ancestor. fire — sign geometry follows the furnace: the bar, the wedge, the hook and the bowl are mold and tool shapes; the script is cut with the mold-keeper's gravers, and its longest documents are league furnace accounts"
+spine_check: "no D1 or D2 imagery is imported. No alphabet-first premise and no letter-ID list (D1B-04): the signs are named by the syllables and marks they write, and their values derive from 02's inventory. No knot, cord, tally-cord, or vertical hanging-line appears; D4 tallies are stamp rows, not knots. No wind or breath medium appears."
+
+follows:
+  - id: F-1
+    path: corpus/knowledge/linguistics/writing-systems.md
+    section: "§6 matching script type to phonology"
+    decision_followed: "an abugida with an inherent vowel is chosen because the language's syllables are (C)V(V)(C) with a small vowel inventory and no clusters; a full syllabary would multiply signs for no contrast, and an alphabet would discard the stamp geometry the script descends from"
+  - id: F-2
+    path: corpus/knowledge/linguistics/writing-systems.md
+    section: "§3 origin narratives (invention, borrowing, adaptation) and §7 orthography design"
+    decision_followed: "the origin is an extension of an existing accounting device (count-stamps), recorded as a dated seam, not as a gift or a revelation; direction, spacing and the seam mark are fixed as explicit rules"
+  - id: F-3
+    path: corpus/knowledge/culture-material/craft-artisan-lexicon.md
+    section: "§6 signatures and maker's marks — a six-type typology"
+    decision_followed: "the E0 stamp inventory starts as maker's marks and count-marks; the script keeps the maker's-mark register (a master's stamp) distinct from the text register"
+  - id: F-4
+    path: corpus/knowledge/synthesis/era-language-staging.md
+    section: "§4 stage packets; §7 synchronize without determinism"
+    decision_followed: "the script's stages are dated independently of the language's sound changes: the E1 script seam does not coincide with SC-1 or SC-2, and the orthography does not silently modernize"
+  - id: F-5
+    path: corpus/knowledge/synthesis/glossary-registry-format.md
+    section: "§2 the form object (native form, script, representation, scheme)"
+    decision_followed: "every delivered form is a lowercase ASCII romanization with a declared scheme (D4-roman-1); the script's own signs are described, not encoded, and no Unicode script is claimed"
+  - id: F-6
+    path: corpus/knowledge/verification/phonology-sanity-gate.md
+    section: "§2 kernel boundary (script/romanization choices justified against the accent system)"
+    decision_followed: "length is notated by doubling the vowel in romanization and by the long mark in the script; no diacritics are used, so no form carries a symbol outside 02's inventory"
+
+orthography:
+  case: "display-only"
+  direction: "right-to-left in the E0 stamp rows and the E1 hand; the E2 league hand keeps right-to-left for text and left-to-right for account columns (a dated reversal recorded as OR-03)"
+  type: "abugida with inherent vowel a; consonant signs carry the inherent a, and four vowel marks (e, i, o, u) modify them; a length mark doubles the marked vowel; a seam mark separates roots in compounds"
+  signs: 20
+  scheme: "D4-roman-1 (lowercase ASCII; length as double vowels; diphthongs ai/au; no diacritics)"
+  notes: "the script is unicameral; no tone is notated (the language has none); numerals are the E0 count-stamps, kept as a separate numeral register, not as letters"
+
+records:
+  - {id: OR-01, stage: E0, name: "count-stamp tally", medium: "stamped into wax on the ingot or the seal bar", content: "count marks and maker's marks; no connected text", institutions: "none; the marks are private craft accounting", axis: mark, evidence: design-choice, follows: [F-3]}
+  - {id: OR-02, stage: E1, name: "the extended stamp hand", medium: "stamped and incised; each sign is cut as a stamp first", content: "accounts, names, short dedications; the sign inventory is extended from the stamp shapes", institutions: "the stamp-house keeps the sign stamps; a mold-keeper's license is required to cut a new sign stamp", axis: mark, evidence: design-choice, follows: [F-1, F-2]}
+  - {id: OR-03, stage: E2, name: "the league hand", medium: "incised on clay and metal, painted on wood and hide; stamps survive for seals and marks", content: "league furnace accounts, charters, road notices", institutions: "the league council keeps the furnace roll; the stamp-house licenses hands", axis: fire, evidence: design-choice, follows: [F-4]}
+
+signs:
+  # Consonant signs carry the inherent vowel a; vowel marks modify. Values derive from 02's inventory.
+  - {id: SG-01, value: "p", shape: "the bar with a foot", name: "pa sign", era: E0, origin: "the E0 maker's stamp of the bar-iron mold", axis: mark, evidence: design-choice}
+  - {id: SG-02, value: "t", shape: "the cross", name: "ta sign", era: E0, origin: "the E0 count-stamp for a single ingot", axis: mark, evidence: design-choice}
+  - {id: SG-03, value: "k", shape: "the wedge", name: "ka sign", era: E0, origin: "the E0 charcoal tally stamp", axis: fire, evidence: design-choice}
+  - {id: SG-04, value: "b", shape: "the bowl", name: "ba sign", era: E1, origin: "derived from SG-01 by closing the foot (the E1 voicing seam)", axis: mark, evidence: design-choice}
+  - {id: SG-05, value: "d", shape: "the barred cross", name: "da sign", era: E1, origin: "derived from SG-02 by a bar (the E1 voicing seam)", axis: mark, evidence: design-choice}
+  - {id: SG-06, value: "g", shape: "the doubled wedge", name: "ga sign", era: E1, origin: "derived from SG-03 by doubling (the E1 voicing seam)", axis: fire, evidence: design-choice}
+  - {id: SG-07, value: "m", shape: "the closed bar", name: "ma sign", era: E0, origin: "the E0 tally stamp for a full measure", axis: mark, evidence: design-choice}
+  - {id: SG-08, value: "n", shape: "the hook", name: "na sign", era: E0, origin: "the E0 tally stamp for a half measure", axis: mark, evidence: design-choice}
+  - {id: SG-09, value: "s", shape: "the wave", name: "sa sign", era: E0, origin: "the E0 salt tally stamp (salt moves in measures)", axis: mark, evidence: design-choice}
+  - {id: SG-10, value: "r", shape: "the fork", name: "ra sign", era: E0, origin: "the E0 ore stamp (a broken seam)", axis: fire, evidence: design-choice}
+  - {id: SG-11, value: "l", shape: "the leaf", name: "la sign", era: E1, origin: "the E1 wool stamp (a folded leaf shape)", axis: mark, evidence: design-choice}
+  - {id: SG-12, value: "w", shape: "the step", name: "wa sign", era: E1, origin: "the E1 road stamp (a stepped route mark)", axis: mark, evidence: design-choice}
+  - {id: SG-13, value: "j", shape: "the pin", name: "ja sign", era: E1, origin: "the E1 fire-striker stamp", axis: fire, evidence: design-choice}
+  - {id: SG-14, value: "h", shape: "the gate", name: "ha sign", era: E0, origin: "the E0 furnace-mouth stamp", axis: fire, evidence: design-choice}
+  - {id: SG-15, value: "e", shape: "the notch", name: "e mark", era: E1, origin: "the E1 vowel mark; modifies the preceding consonant sign", axis: mark, evidence: design-choice}
+  - {id: SG-16, value: "i", shape: "the stem", name: "i mark", era: E1, origin: "the E1 vowel mark", axis: mark, evidence: design-choice}
+  - {id: SG-17, value: "o", shape: "the ring", name: "o mark", era: E1, origin: "the E1 vowel mark (the quench-trough ring)", axis: fire, evidence: design-choice}
+  - {id: SG-18, value: "u", shape: "the crook", name: "u mark", era: E1, origin: "the E1 vowel mark (the bellows crook)", axis: fire, evidence: design-choice}
+  - {id: SG-19, value: "length", shape: "the double bar", name: "long mark", era: E1, origin: "doubles the marked vowel; derives from the E0 double-count stamp", axis: mark, evidence: design-choice}
+  - {id: SG-20, value: "seam", shape: "the small gap-stamp", name: "seam mark", era: E1, origin: "separates roots in compounds; the E0 stamp rows already separate counts with a gap", axis: mark, evidence: design-choice}
+
+orthography_rules:
+  - {id: WR-01, rule: "Direction: right-to-left for text in all stages; the E2 account columns read left-to-right (OR-03 records the reversal as a dated convention, not a drift).", axis: mark, evidence: design-choice}
+  - {id: WR-02, rule: "The inherent vowel is a; a bare consonant sign reads Ca. Vowel marks e, i, o, u modify the preceding sign; there is no separate a mark in the E1 hand, and the E2 hand adds none.", axis: mark, evidence: design-choice}
+  - {id: WR-03, rule: "Length is written with the long mark (SG-19) after the vowel mark, or, when the vowel is the inherent a, directly after the consonant sign; in romanization length is a double vowel.", axis: mark, evidence: design-choice}
+  - {id: WR-04, rule: "Compounds write the seam mark (SG-20) between roots; a compound without a seam mark is read as one root and is a spelling error, not a variant.", axis: mark, evidence: design-choice}
+  - {id: WR-05, rule: "No case: the script is unicameral, and the romanization is lowercase throughout; orthography.case is display-only for reader-facing glosses.", axis: mark, evidence: design-choice}
+  - {id: WR-06, rule: "Numerals are the E0 count-stamps, kept in a separate register; a count-stamp in text position reads as a numeral, never as a letter.", axis: mark, evidence: design-choice}
+  - {id: WR-07, rule: "A master's maker's mark (the E0 register) may be impressed on a finished work in addition to the text; the maker's mark is not read as text and the text is not read as a mark.", axis: fire, evidence: design-choice}
+
+numeral_register:
+  id: NUM-01
+  description: "count-stamps: one stamp per unit, grouped in fives with a gap; no zero sign; large counts use the measure stamps (SG-07, SG-08)"
+  era: E0
+  axis: mark
+  evidence: design-choice
+
+literacy_institutions:
+  - {id: LI-01, name: "the stamp-house", role: "keeps the sign stamps and teaches the hand; a league institution in every furnace town by E1", axis: mark, evidence: design-choice, follows: [F-2]}
+  - {id: LI-02, name: "the mold-keeper's license", role: "only a licensed mold-keeper cuts a new sign stamp; an unlicensed stamp is a forgery (the culture's cardinal fraud, CP-04)", axis: fire, evidence: design-choice, follows: [F-3]}
+  - {id: LI-03, name: "the furnace roll", role: "the league council's account of furnace rights, kept in the E2 league hand; the roll is the league's legal memory", axis: fire, evidence: design-choice, follows: [F-4]}
+
+lexicon_requests:
+  # Slots 04-lexicon fills; this component coins no form.
+  - {id: LR-01, slot: "stamp, mark (noun and verb)", status: "filled by 04 as tik"}
+  - {id: LR-02, slot: "script, the hand (writing)", status: "filled by 04 as tikmes (mark-metal, the stamped account)"}
+  - {id: LR-03, slot: "sign, character", status: "filled by 04 as tiksam (mark-charcoal, a drawn sign)"}
+  - {id: LR-04, slot: "to write, to incise", status: "unfilled in this drill (to-verify)"}
+
+consistency_checks:
+  - {id: CC-01, check: "every sign value is a member of 02's inventory or a mark (length, seam)", status: pass, evidence: "SG-01..SG-20 values compared against 02-phonology.yml phonology.consonants and phonology.vowels"}
+  - {id: CC-02, check: "no sign is named by a letter ID or by an alphabetic order position", status: pass, evidence: "sign names are syllable values and mark names; no A/B/C ordering exists"}
+  - {id: CC-03, check: "the script encodes no tone and no pitch", status: pass, evidence: "02 declares tones 0 and fixed stress; the script has no pitch sign"}
+  - {id: CC-04, check: "no D1 letter-ID list is reused", status: pass, evidence: "D1B-04 sweep over the sign list; the D1 list P T K M N S L R W Y A E I O U does not appear as an ordering or as sign names"}
+
+open_questions:
+  - {id: OQ-O1, text: "Whether the salt-road towns write, and in what script, is out of scope and unmodelled (to-verify)."}
+  - {id: OQ-O2, text: "The E0 stamp inventory's full size before extension is not delivered; only the signs that survive into the hand are recorded (to-verify)."}
+  - {id: OQ-O3, text: "The E2 account-column reversal (OR-03) has no dated document in this drill; it is a design record (to-verify)."}
+
+calibration:
+  - {id: CAL-O1, status: design-choice, note: "the abugida choice is calibrated to 02's syllable shape, not measured against any real script"}
+  - {id: CAL-O2, status: to-verify, note: "no real script is described or compared; the sign shapes are invented geometry"}
+
+canon_boundary: |
+  This component designs a system and cites its corpus bases; it records nothing
+  about any world. Canon, adoption, and in-world documents are lore-shokunin's.
+  No sibling component was edited; sibling content is referenced only by contract
+  field path. No real-world script, community, or rights question is decided or
+  implied here.
