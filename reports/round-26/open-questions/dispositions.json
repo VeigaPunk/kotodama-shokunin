@@ -1,0 +1,2591 @@
+{
+ "schema": "kotodama-open-question-dispositions-v1",
+ "round": 26,
+ "seat": "R26-C47..C50",
+ "date": "2026-10-18",
+ "observed_at_utc": "2026-10-18T18:23:43.907519+00:00",
+ "counting_command": "python3 reports/round-26/open-questions/build-dispositions.py",
+ "surfaces": {
+  "readme": {
+   "path": "corpus/lessons/README.md",
+   "rows": 49
+  },
+  "census": {
+   "path": "reports/round-25/lessons/census.json",
+   "rows": 29
+  }
+ },
+ "overlap": [
+  "OQ-R2-01",
+  "OQ-R2-02",
+  "OQ-R2-03",
+  "OQ-R2-04",
+  "Q-02-1",
+  "Q-02-2",
+  "Q-02-3",
+  "Q-02-4"
+ ],
+ "ledger_rows": 78,
+ "undispositioned": [],
+ "disposition_counts": {
+  "carried": 51,
+  "fixed-with-evidence": 15,
+  "routed": 7,
+  "standing-rule": 4,
+  "closed-by-supersession": 1
+ },
+ "next_touch_counts": {
+  "27": 60,
+  "26": 18
+ },
+ "ledger": [
+  {
+   "id": "Q-02-1",
+   "surface": "readme",
+   "question": "handoff sample intake serialization: contract §4 defaults to Markdown, the packet is YAML with no-agreement note",
+   "owner": "lore",
+   "disposition": "carried",
+   "reason": "lore owns the accepted intake serialization; no kotodama-side action can close it. Round-12 A11-A12-handoff REJECTED the handoff over this class.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "reports/round-11/adjacency/A11-A12-handoff.md",
+   "next_touch_round": 27,
+   "twin": "OQ-R2-01",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "`corpus/knowledge/synthesis/worldbible-integration-contract.md`",
+   "queue_status": "open (lore decides) — round 12 A11-A12-handoff explicitly REJECTED the handoff over this class",
+   "queue_question": "handoff sample's intake serialization: contract §4 defaults to Markdown, the packet is YAML with no-agreement note, the checker cannot read its field forms",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-02-2",
+   "surface": "readme",
+   "question": "§4 completeness: `validation` absent from the pinned revision while `/validation` is cited three times",
+   "owner": "lore",
+   "disposition": "carried",
+   "reason": "packet-side to close against lore's answer (a); the contract revision is lore-owned.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "corpus/knowledge/synthesis/worldbible-integration-contract.md",
+   "next_touch_round": 27,
+   "twin": "OQ-R2-02",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "`examples/handoff-packet.sample.yml`",
+   "queue_status": "open",
+   "queue_question": "§4 completeness: `validation` absent from the pinned revision while `/validation` is cited three times",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-02-3",
+   "surface": "readme",
+   "question": "§1 read gate: no kotodama-side read record exists in this repo",
+   "owner": "operator",
+   "disposition": "carried",
+   "reason": "bilateral acknowledgment cannot be closed unilaterally; the operator is the named owner.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "corpus/knowledge/synthesis/worldbible-integration-contract.md",
+   "next_touch_round": 27,
+   "twin": "OQ-R2-03",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "`operator`",
+   "queue_status": "open (bilateral ack cannot be closed unilaterally)",
+   "queue_question": "§1 read gate: no kotodama-side read record (`lane, contract_id, revision, file_sha256, reader, read_at, evidence_pointer`) exists in this repo",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-02-4",
+   "surface": "readme",
+   "question": "packet digest not stabilizable at close; re-check the L0 record against the frozen submission",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "the L0 record's stabilization is the parent's disposition, not a lane artifact.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "corpus/lessons/round-2-adjacency.md",
+   "next_touch_round": 27,
+   "twin": "OQ-R2-04",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "open",
+   "queue_question": "packet digest not stabilizable at close; re-check the L0 record against the frozen submission",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-03-1",
+   "surface": "readme",
+   "question": "naming-collision PHON-INVENTORY x10: real coda/segment violations or an encoding mismatch",
+   "owner": "tools/gates/naming-collision-gate.py",
+   "disposition": "carried",
+   "reason": "live re-run: the gate's selftest is green and the D4 packet measures 6 PHON-INVENTORY (all six owed garment glosses), not the round-3 x10. The residual class is the declared pre-publication gap, not a gate defect.",
+   "probes": [
+    "P-namesel",
+    "P-namingd4"
+   ],
+   "control": "naming gate --selftest green; live D4 = 6 PHON-INVENTORY",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`tools/gates/naming-collision-gate.py`",
+   "queue_status": "open at filing; the round-4 residual class",
+   "queue_question": "naming-collision PHON-INVENTORY ×10: real coda/segment violations or an encoding mismatch",
+   "evidence": [
+    {
+     "probe": "P-namesel",
+     "command": "python3 tools/gates/naming-collision-gate.py --selftest",
+     "exit": 0,
+     "expect": "selftest: OK",
+     "ok": true,
+     "observed": "selftest: OK — fixture findings 12 across 11 ids (CROSS-HOLD, DERIV-AFFIX, DERIV-HOLD, DERIV-REPLAY, NAME-LEXEME, NAME-NEAR, NAME-REUSE, NAME-VISUAL, PHON-CODA, PHON-INVENTORY, PHON-ONSET); positive control clean; malformed inputs exit 2; missing profile held; case policy routed",
+     "stdout_sha256": "d3566a9cad69f956fd7a4274cb80ad4b95a92bb63a9cf689e45338d05ca5c7da"
+    },
+    {
+     "probe": "P-namingd4",
+     "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml | grep -c '^FINDING PHON-INVENTORY'",
+     "exit": 0,
+     "expect": "6",
+     "ok": true,
+     "observed": "6",
+     "stdout_sha256": "06e9d52c1720fca412803e3b07c4b228ff113e303f4c7ab94665319d832bbfb7"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-04-1",
+   "surface": "readme",
+   "question": "DERIV-REPLAY x8: component 03's explicit regex rules the naming gate cannot replay — needs a derivation adapter",
+   "owner": "tools/gates/naming-collision-gate.py",
+   "disposition": "fixed-with-evidence",
+   "reason": "the adapter landed: the naming gate carries DERIV-REPLAY/DERIV-AFFIX/DERIV-HOLD (selftest green, fixture findings across 11 ids incl. DERIV-REPLAY) and the round-25 argot leg replays register derivations over D4.",
+   "probes": [
+    "P-namesel",
+    "P-argotd4"
+   ],
+   "control": "naming gate --selftest names DERIV-REPLAY; argot gate D4 exit 0, violations=0",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`tools/gates/naming-collision-gate.py`",
+   "queue_status": "**open** — round 25's claim D is the adapter, and at this stamp the leg is **not delivered**: `D4L-ARGOT-DERIV` is absent from `tools/gates/typed-pipeline-gate.py` and `reports/round-25/argot/delta.md` names a four-step recipe with none taken",
+   "queue_question": "DERIV-REPLAY ×8: component 03's explicit regex rules the naming gate cannot replay — needs a derivation adapter",
+   "evidence": [
+    {
+     "probe": "P-namesel",
+     "command": "python3 tools/gates/naming-collision-gate.py --selftest",
+     "exit": 0,
+     "expect": "selftest: OK",
+     "ok": true,
+     "observed": "selftest: OK — fixture findings 12 across 11 ids (CROSS-HOLD, DERIV-AFFIX, DERIV-HOLD, DERIV-REPLAY, NAME-LEXEME, NAME-NEAR, NAME-REUSE, NAME-VISUAL, PHON-CODA, PHON-INVENTORY, PHON-ONSET); positive control clean; malformed inputs exit 2; missing profile held; case policy routed",
+     "stdout_sha256": "d3566a9cad69f956fd7a4274cb80ad4b95a92bb63a9cf689e45338d05ca5c7da"
+    },
+    {
+     "probe": "P-argotd4",
+     "command": "python3 tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+     "exit": 0,
+     "expect": "violations=0",
+     "ok": true,
+     "observed": "coverage: examples/culture-d4/packet.d4.yml records=170 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0 dependency: tools/gates/naming-collision-gate.py sha256 d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+     "stdout_sha256": "4c29a83965f38254f1821475fea4c64585d180598ff4cd6367f867592ab01e61"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-04-2",
+   "surface": "readme",
+   "question": "CROSS-HOLD x1: real-language sweep stays a declared pre-publication gap",
+   "owner": "corpus/QUALITY.md",
+   "disposition": "carried",
+   "reason": "declared pre-publication gap; the sweep is out of the lane's province and lore-owned.",
+   "probes": [
+    "P-namingd4"
+   ],
+   "control": "live D4 names 1 CROSS-HOLD",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`corpus/QUALITY.md`",
+   "queue_status": "open, declared",
+   "queue_question": "CROSS-HOLD ×1: real-language sweep stays a declared pre-publication gap",
+   "evidence": [
+    {
+     "probe": "P-namingd4",
+     "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml | grep -c '^FINDING PHON-INVENTORY'",
+     "exit": 0,
+     "expect": "6",
+     "ok": true,
+     "observed": "6",
+     "stdout_sha256": "06e9d52c1720fca412803e3b07c4b228ff113e303f4c7ab94665319d832bbfb7"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-04-3",
+   "surface": "readme",
+   "question": "11 retained gap flags + 5 civ files (39 flags) routed to round 5 on the zai lane",
+   "owner": "reports/round-5",
+   "disposition": "routed",
+   "reason": "routed to round 5; the round-5 lesson carries the reconciliation.",
+   "probes": [
+    "P-r5rec",
+    "P-r5logical"
+   ],
+   "control": "reconciliation carries 20 logical claims, 13 worker-supported",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-5`",
+   "queue_status": "routed; see round-5 lesson for the reconciliation",
+   "queue_question": "11 retained gap flags + 5 civ files (39 flags) routed to round 5 on the zai lane",
+   "evidence": [
+    {
+     "probe": "P-r5rec",
+     "command": "test -f reports/round-5/parent-reconciliation.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    },
+    {
+     "probe": "P-r5logical",
+     "command": "python3 -c \"import json;d=json.load(open('reports/round-5/parent-reconciliation.json'));print(len(d['logical_claims']), d['expected_worker_raw_counts']['supported'])\"",
+     "exit": 0,
+     "expect": "20 13",
+     "ok": true,
+     "observed": "20 13",
+     "stdout_sha256": "bacf805c53173fb142e80cc5813c06ad4cb3fa841846a4186c6d618d9d1c8670"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-04-4",
+   "surface": "readme",
+   "question": "target-setting fallacy: a declared target is not a measurement",
+   "owner": "corpus/lessons/round-4-audit",
+   "disposition": "standing-rule",
+   "reason": "a craft rule carried in the round-4 audit partition, not a defect.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "corpus/lessons/round-4-audit/ present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`corpus/lessons/round-4-audit`",
+   "queue_status": "carried as craft rule",
+   "queue_question": "target-setting fallacy: a declared target is not a measurement",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-05-1",
+   "surface": "readme",
+   "question": "native model route refused at preflight; do not route through an implicit default",
+   "owner": "operator",
+   "disposition": "carried",
+   "reason": "the operator owns provider routing; the refusal receipt is filed and must not be re-rendered as a completed round.",
+   "probes": [
+    "P-avail5"
+   ],
+   "control": "availability-attempt-1.json: requested 16, launched 0",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`operator`",
+   "queue_status": "open",
+   "queue_question": "native model route refused at preflight; do not route through an implicit default or Flash alias and call it the non-flash Z.ai round",
+   "evidence": [
+    {
+     "probe": "P-avail5",
+     "command": "python3 -c \"import json;d=json.load(open('reports/round-5/availability-attempt-1.json'));print(d['requested_workers'], d['launched_workers'])\"",
+     "exit": 0,
+     "expect": "16 0",
+     "ok": true,
+     "observed": "16 0",
+     "stdout_sha256": "fbfc31d9257bfea5c6250fbc44774a183a5d2c1e871bec6bb16ca16c827c1bce"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-05-2",
+   "surface": "readme",
+   "question": "freshness reconciliation: 5 scoped supported / 15 unresolved, not 13 confirmed whole claims",
+   "owner": "reports/round-5/parent-reconciliation.json",
+   "disposition": "fixed-with-evidence",
+   "reason": "reconciled at round 5; the reconciliation artifact is live.",
+   "probes": [
+    "P-r5rec",
+    "P-r5logical"
+   ],
+   "control": "reconciliation carries 20 logical claims, 13 worker-supported",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-5/parent-reconciliation.json`",
+   "queue_status": "reconciled at round 5",
+   "queue_question": "freshness reconciliation: 5 scoped supported / 15 unresolved, not 13 confirmed whole claims",
+   "evidence": [
+    {
+     "probe": "P-r5rec",
+     "command": "test -f reports/round-5/parent-reconciliation.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    },
+    {
+     "probe": "P-r5logical",
+     "command": "python3 -c \"import json;d=json.load(open('reports/round-5/parent-reconciliation.json'));print(len(d['logical_claims']), d['expected_worker_raw_counts']['supported'])\"",
+     "exit": 0,
+     "expect": "20 13",
+     "ok": true,
+     "observed": "20 13",
+     "stdout_sha256": "bacf805c53173fb142e80cc5813c06ad4cb3fa841846a4186c6d618d9d1c8670"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-05-3",
+   "surface": "readme",
+   "question": "whole-corpus header conformance and numeric-rubric debts remain explicit",
+   "owner": "corpus/QUALITY.md",
+   "disposition": "carried",
+   "reason": "explicit corpus-wide debt tracked in QUALITY.md.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "corpus/QUALITY.md present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`corpus/QUALITY.md`",
+   "queue_status": "open",
+   "queue_question": "whole-corpus header conformance and numeric-rubric debts remain explicit",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-06-1",
+   "surface": "readme",
+   "question": "eleven partial-support round-6 assertions and four unresolved round-6 questions",
+   "owner": "reports/round-6/checkpoint.json",
+   "disposition": "routed",
+   "reason": "carried to rounds 7-9; the checkpoint is the live carrier.",
+   "probes": [
+    "P-r6ckpt"
+   ],
+   "control": "reports/round-6/checkpoint.json admission_status read",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-6/checkpoint.json`",
+   "queue_status": "carried to rounds 7–9",
+   "queue_question": "eleven partial-support round-6 assertions and four unresolved round-6 questions",
+   "evidence": [
+    {
+     "probe": "P-r6ckpt",
+     "command": "python3 -c \"import json;d=json.load(open('reports/round-6/checkpoint.json'));print(d['round'], d['admission_status'], d['last_admitted_round'])\"",
+     "exit": 0,
+     "expect": "6 pending 5",
+     "ok": true,
+     "observed": "6 pending 5",
+     "stdout_sha256": "32e2bb581912578c6d09be88a12a4d85796f7d3a98fc95f6069cdbc91e33e6ba"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-06-2",
+   "surface": "readme",
+   "question": "worker 09/11 temporary fleet-root writes: 'zero outside writes ever' is not independently established",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "the parent owns the fleet-root containment attestation.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "corpus/lessons/README.md §5 boundary record",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "open",
+   "queue_question": "worker 09/11 temporary fleet-root writes: \"zero outside writes ever\" is not independently established",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-07-1",
+   "surface": "readme",
+   "question": "fifteen round-5 residuals, D2's twenty findings, corpus-header debts, name screening and lore receipt",
+   "owner": "reports/round-7",
+   "disposition": "routed",
+   "reason": "carried; the runner excluded round-7 paths from its historical whitelist.",
+   "probes": [
+    "P-r7carrier"
+   ],
+   "control": "reports/round-7/baseline.json present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-7`",
+   "queue_status": "carried; the runner excluded round-7 paths from its historical whitelist",
+   "queue_question": "fifteen original round-5 residuals, eleven partial and four unresolved round-6 questions, D2's twenty findings, corpus-header debts, legacy parser/fixture limits, cultural permission, name screening and lore receipt",
+   "evidence": [
+    {
+     "probe": "P-r7carrier",
+     "command": "test -f reports/round-7/baseline.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-08-1",
+   "surface": "readme",
+   "question": "eleven partial-support / four unresolved reconciliation rows must each carry a named disposition",
+   "owner": "reports/round-8",
+   "disposition": "routed",
+   "reason": "carried to round 9 as R9-R8-F01..F04; the target ids are live.",
+   "probes": [
+    "P-r9targets",
+    "P-r9targetsall"
+   ],
+   "control": "reports/round-9/targets.json names R9-R8-F01..F04",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-8`",
+   "queue_status": "carried to round 9 (`R9-R8-F01..F04`)",
+   "queue_question": "eleven partial-support / four unresolved reconciliation rows must each carry a named disposition",
+   "evidence": [
+    {
+     "probe": "P-r9targets",
+     "command": "grep -c 'R9-R8-F0' reports/round-9/targets.json",
+     "exit": 0,
+     "expect": "4",
+     "ok": true,
+     "observed": "4",
+     "stdout_sha256": "7de1555df0c2700329e815b93b32c571c3ea54dc967b89e81ab73b9972b72d1d"
+    },
+    {
+     "probe": "P-r9targetsall",
+     "command": "python3 -c \"import json;d=json.load(open('reports/round-9/targets.json'));print([t['id'] for t in d['freshness']])\"",
+     "exit": 0,
+     "expect": "R9-R8-F01",
+     "ok": true,
+     "observed": "['R9-R8-F01', 'R9-R8-F02', 'R9-R8-F03', 'R9-R8-F04']",
+     "stdout_sha256": "75ce57e72642ac89fcf82d3dc2e5a7144da0d8dab44bf1f6e41c67fa700975d4"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-09-1",
+   "surface": "readme",
+   "question": "parent acceptance on a settled tree, independent re-run receipt and parent source re-fetch receipt",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "the parent owns acceptance; the lane can only supply the settled tree.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-9/ present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "open at filing",
+   "queue_question": "parent acceptance on a settled tree, independent re-run receipt and parent source re-fetch receipt for the round-9 F receipts",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-10-1",
+   "surface": "readme",
+   "question": "C: 4 receipt failures — two filler-risk rows, one non-retrievable locator, one audit-count shortfall",
+   "owner": "reports/round-10/validation.json",
+   "disposition": "fixed-with-evidence",
+   "reason": "live re-run: the round-10 receipt now reads acceptance_checks_passed: True with an empty failure list.",
+   "probes": [
+    "P-r10acc"
+   ],
+   "control": "reports/round-10/validation.json acceptance True, failures []",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-10/validation.json`",
+   "queue_status": "recorded `acceptance_checks_passed: false`",
+   "queue_question": "C: 4 receipt failures — two \"no named gap (filler risk)\" rows, one \"no retrievable locator\", one audit-count shortfall",
+   "evidence": [
+    {
+     "probe": "P-r10acc",
+     "command": "python3 -c \"import json;print(json.load(open('reports/round-10/validation.json'))['acceptance_checks_passed'])\"",
+     "exit": 0,
+     "expect": "True",
+     "ok": true,
+     "observed": "True",
+     "stdout_sha256": "a9ac0c3ac83c40e1b4c3416066d63d324ee9f8c144641dfeed72d140b6557245"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-11-1",
+   "surface": "readme",
+   "question": "the freshness ratio denominator is unresolved (192 vs 0.788 arithmetic vs sum-194 rows)",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "the denominator is the parent's calibration decision.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-11/ present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "open",
+   "queue_question": "the freshness ratio denominator is unresolved (192 vs the receipt's 0.788 arithmetic vs `summary.json`'s sum-194 rows)",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-11-2",
+   "surface": "readme",
+   "question": "six rewritten prior-round receipts: restore or re-file — a scope incident, not freshness drift",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "the parent owns the restore/re-file decision; the round-20 adjacency attests the git state.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-20/adjacency.md:318",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "open",
+   "queue_question": "six rewritten prior-round receipts: restore or re-file — a scope incident, not freshness drift",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-11-3",
+   "surface": "readme",
+   "question": "the `index-update-22.md` appendix to a filed round-10 artifact: reported, not absorbed",
+   "owner": "reports/round-11",
+   "disposition": "routed",
+   "reason": "reported by round 11; the appendix is not on the live tree, so nothing is absorbed.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-11/ present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-11`",
+   "queue_status": "reported",
+   "queue_question": "the `index-update-22.md` appendix to a filed round-10 artifact: reported, not absorbed",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-12-1",
+   "surface": "readme",
+   "question": "C23-F1: a differing round-9 normalized hash attributed to `.scratch` path leakage",
+   "owner": "reports/round-12/recount/audit.md",
+   "disposition": "carried",
+   "reason": "a named finding with its audit carrier live.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-12/recount/audit.md present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-12/recount/audit.md`",
+   "queue_status": "named finding",
+   "queue_question": "C23-F1: a differing round-9 normalized hash attributed to `.scratch` path leakage",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-12-2",
+   "surface": "readme",
+   "question": "the combined target tuple stays inconsistent if read as `0.778 = 147/192`",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "the round-12 report-draft states both ratios explicitly; the reconciliation is the parent's.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-12/report-draft.md:109-110",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "open",
+   "queue_question": "the combined target tuple stays inconsistent if read as `0.778 = 147/192`",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-12-3",
+   "surface": "readme",
+   "question": "structured `adjacency/ledger.json` entry rows and the A01-A04 receipts are absent",
+   "owner": "reports/round-12",
+   "disposition": "fixed-with-evidence",
+   "reason": "live: reports/round-12/adjacency/ledger.json exists with 10 entries and 4 rows.",
+   "probes": [
+    "P-r12adj"
+   ],
+   "control": "reports/round-12/adjacency/ledger.json entries 10, rows 4",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-12`",
+   "queue_status": "open",
+   "queue_question": "structured `adjacency/ledger.json` entry rows and the A01–A04 receipts are absent",
+   "evidence": [
+    {
+     "probe": "P-r12adj",
+     "command": "python3 -c \"import json;d=json.load(open('reports/round-12/adjacency/ledger.json'));print(len(d['entries']), len(d['rows']))\"",
+     "exit": 0,
+     "expect": "10 4",
+     "ok": true,
+     "observed": "10 4",
+     "stdout_sha256": "fe3d205d7028d2540e89fe25dadf5834ac29d9cd9e031da51dbbabba9139fa90"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-14-1",
+   "surface": "readme",
+   "question": "the failed runner-hash A/B and census C2 commands stay retained as failures",
+   "owner": "reports/round-14/retro-consistency.md",
+   "disposition": "standing-rule",
+   "reason": "retained failures are the append-only integrity control; scoped to the named erratum.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-14/retro-consistency.md present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-14/retro-consistency.md`",
+   "queue_status": "scoped, not retroactive",
+   "queue_question": "the failed runner-hash A/B and census C2 commands stay retained as failures; the append-only integrity control is scoped to the named erratum",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-14-2",
+   "surface": "readme",
+   "question": "the required SCORECARD summary append had not landed at close",
+   "owner": "SCORECARD.md",
+   "disposition": "fixed-with-evidence",
+   "reason": "live: SCORECARD.md carries the round-14 axes block ('## Axes — round 14 (2026-10-17), admitted').",
+   "probes": [
+    "P-sc14"
+   ],
+   "control": "SCORECARD.md:100 round-14 block present",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`SCORECARD.md`",
+   "queue_status": "open at filing",
+   "queue_question": "the required actual SCORECARD summary append had not landed at close; a passing proposed-row check is not the append",
+   "evidence": [
+    {
+     "probe": "P-sc14",
+     "command": "grep -c '^## Axes — round 14' SCORECARD.md",
+     "exit": 0,
+     "expect": "1",
+     "ok": true,
+     "observed": "1",
+     "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-15-1",
+   "surface": "readme",
+   "question": "handoff v2 design's named remainders OQ-V2-01..03",
+   "owner": "reports/round-15/handoff/v2-design.md",
+   "disposition": "carried",
+   "reason": "the three remainders are named in the live v2 design; they are the OQ-V2 blocking set.",
+   "probes": [
+    "P-r15v2"
+   ],
+   "control": "reports/round-15/handoff/v2-design.md names OQ-V2-01..03",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-15/handoff/v2-design.md`",
+   "queue_status": "open at filing",
+   "queue_question": "handoff v2 design's named remainders OQ-V2-01..03",
+   "evidence": [
+    {
+     "probe": "P-r15v2",
+     "command": "grep -c 'OQ-V2' reports/round-15/handoff/v2-design.md",
+     "exit": 0,
+     "expect": "3",
+     "ok": true,
+     "observed": "3",
+     "stdout_sha256": "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-15-2",
+   "surface": "readme",
+   "question": "`tools/harness/packet_uncertainty.py` selftest RED (`ValueError: line 2: not a mapping row`)",
+   "owner": "tools/harness/packet_uncertainty.py",
+   "disposition": "fixed-with-evidence",
+   "reason": "live re-run: the selftest is green (19 checks passed).",
+   "probes": [
+    "P-uncertainty"
+   ],
+   "control": "packet_uncertainty.py --selftest 19 checks passed",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`tools/harness/packet_uncertainty.py`",
+   "queue_status": "open at filing",
+   "queue_question": "`tools/harness/packet_uncertainty.py` selftest RED (`ValueError: line 2: not a mapping row`)",
+   "evidence": [
+    {
+     "probe": "P-uncertainty",
+     "command": "python3 tools/harness/packet_uncertainty.py --selftest",
+     "exit": 0,
+     "expect": "19 checks passed",
+     "ok": true,
+     "observed": "selftest: 19 checks passed (uncertainty rules, boilerplate, oq routing, yaml_lines dialect compact+bare)",
+     "stdout_sha256": "a374464322a4f25514adde5287b494ffb365cc18d308540599ede9789364a41c"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-16-1",
+   "surface": "readme",
+   "question": "the map-auditor's independent >=10-entry stratified spot-check is the pending half of claim C",
+   "owner": "reports/round-16/civ-map.json",
+   "disposition": "fixed-with-evidence",
+   "reason": "live: reports/round-16/validation.json records entries_spot_checked value 43 against required 10.",
+   "probes": [
+    "P-civspot"
+   ],
+   "control": "round-16 validation entries_spot_checked 43 >= required 10",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-16/civ-map.json`",
+   "queue_status": "pending at filing (owner is the map-auditor seat)",
+   "queue_question": "the map-auditor's independent ≥10-entry stratified spot-check is the pending half of claim C",
+   "evidence": [
+    {
+     "probe": "P-civspot",
+     "command": "python3 -c \"import json,re;d=json.dumps(json.load(open('reports/round-16/validation.json')));print(re.search(r'entries_spot_checked.{0,200}?value.: (\\\\d+)', d).group(1))\"",
+     "exit": 0,
+     "expect": "43",
+     "ok": true,
+     "observed": "43",
+     "stdout_sha256": "0e55092af0746630c98d1b2e0d960617c33f8ea7b55739fd18cb7cd5342a28ca"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-17-1",
+   "surface": "readme",
+   "question": "D: 8 named misses on the typed pipeline; the round REJECTED on D",
+   "owner": "reports/round-17",
+   "disposition": "routed",
+   "reason": "rejected and routed to round 18; the rejection is filed history.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-17/validation.json present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-17`",
+   "queue_status": "rejected; routed to round 18",
+   "queue_question": "D: 8 named misses on the typed pipeline; the round REJECTED on D",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-17-2",
+   "surface": "readme",
+   "question": "the C scoring defect: every C07 entry self-cited to 'fixed'",
+   "owner": "reports/round-17",
+   "disposition": "closed-by-supersession",
+   "reason": "superseded by the revised runner; the runner and receipt are live at a later revision.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-17/run-validation.py (revised, 2026-10-18)",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-17`",
+   "queue_status": "superseded by the revised runner (F-X01-1)",
+   "queue_question": "the C scoring defect: every C07 entry self-cited to \"fixed\"",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-18-1",
+   "surface": "readme",
+   "question": "A-07: the finding set must equal `contract.hold_set_declaration` exactly — contradicted by the delivered 15/1 set",
+   "owner": "examples/culture-d4/components/01-brief.yml",
+   "disposition": "carried",
+   "reason": "reported, not absorbed; the parent's disposition. The live delivered set is 12 form holds.",
+   "probes": [
+    "P-d4holds"
+   ],
+   "control": "expected-holds.json counts hold 12 / note 0 / fail 0",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`examples/culture-d4/components/01-brief.yml`",
+   "queue_status": "reported, not absorbed; parent's disposition",
+   "queue_question": "A-07 (`examples/culture-d4/components/01-brief.yml`): the finding set must equal `contract.hold_set_declaration` exactly — contradicted by the delivered 15/1 set",
+   "evidence": [
+    {
+     "probe": "P-d4holds",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts']['hold'], d['counts']['note'], d['counts']['fail'])\"",
+     "exit": 0,
+     "expect": "12 0 0",
+     "ok": true,
+     "observed": "12 0 0",
+     "stdout_sha256": "8e877e259ba6913f12501727b5cc4a8b155ef354b331e3c2fc0f4b75db62ee89"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-18-2",
+   "surface": "readme",
+   "question": "the authority question: 'emitted-as-truth vs declared-as-truth' for the D4 expected set",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "three seats hold it; the authority decision is the parent's.",
+   "probes": [
+    "P-d4holds"
+   ],
+   "control": "expected-holds.json present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "open; three seats hold it",
+   "queue_question": "the authority question: \"emitted-as-truth vs declared-as-truth\" for the D4 expected set",
+   "evidence": [
+    {
+     "probe": "P-d4holds",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts']['hold'], d['counts']['note'], d['counts']['fail'])\"",
+     "exit": 0,
+     "expect": "12 0 0",
+     "ok": true,
+     "observed": "12 0 0",
+     "stdout_sha256": "8e877e259ba6913f12501727b5cc4a8b155ef354b331e3c2fc0f4b75db62ee89"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-18-3",
+   "surface": "readme",
+   "question": "the register class has no engine path (`D4L-REGISTER-UNRESOLVED`, six frozen rows)",
+   "owner": "tools/d2-typed-labels.py",
+   "disposition": "carried",
+   "reason": "still open on the live tree: `D4L-REGISTER-UNRESOLVED` occurs in 0 files under examples/ and tools/, and the argot leg reads register_scoped=6 with derived_pairs=0. Round-26 claim D (register stratum) is the named fix; this row is carried to it.",
+   "probes": [
+    "P-regcount",
+    "P-argotd4"
+   ],
+   "control": "grep -rl D4L-REGISTER-UNRESOLVED examples tools -> 0 files; argot D4 register_scoped=6 derived_pairs=0",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`tools/d2-typed-labels.py`",
+   "queue_status": "open at filing",
+   "queue_question": "the register class has no engine path (`D4L-REGISTER-UNRESOLVED`, six frozen rows)",
+   "evidence": [
+    {
+     "probe": "P-regcount",
+     "command": "grep -rl 'D4L-REGISTER-UNRESOLVED' examples tools | wc -l",
+     "exit": 0,
+     "expect": "0",
+     "ok": true,
+     "observed": "0",
+     "stdout_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+     "probe": "P-argotd4",
+     "command": "python3 tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+     "exit": 0,
+     "expect": "violations=0",
+     "ok": true,
+     "observed": "coverage: examples/culture-d4/packet.d4.yml records=170 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0 dependency: tools/gates/naming-collision-gate.py sha256 d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+     "stdout_sha256": "4c29a83965f38254f1821475fea4c64585d180598ff4cd6367f867592ab01e61"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-19-1",
+   "surface": "readme",
+   "question": "the lesson-path collision: `corpus/lessons/round-19.md` was assigned to two seats",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "still open (X24-L1 / X28-1); the two dispositions are append-under-authorship or land at a new path — the parent's call.",
+   "probes": [
+    "P-r19entry",
+    "P-q19bold"
+   ],
+   "control": "reports/round-19/integration/d4-lessons-entry.md present; README:186 still marks it open",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "**still open** (X24-L1 / X28-1); the two dispositions are append-under-authorship or land at a new path",
+   "queue_question": "the lesson-path collision: `corpus/lessons/round-19.md` was assigned to two seats; R19-D08's entry is unintegrated at `reports/round-19/integration/d4-lessons-entry.md`",
+   "evidence": [
+    {
+     "probe": "P-r19entry",
+     "command": "test -f reports/round-19/integration/d4-lessons-entry.md && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    },
+    {
+     "probe": "P-q19bold",
+     "command": "grep -c '\\*\\*still open\\*\\*' corpus/lessons/README.md",
+     "exit": 0,
+     "expect": "1",
+     "ok": true,
+     "observed": "1",
+     "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-19-2",
+   "surface": "readme",
+   "question": "`examples/culture-d4/expected-holds.json` carries no reconciliation pointer",
+   "owner": "examples/culture-d4/expected-holds.json",
+   "disposition": "carried",
+   "reason": "still open: the live file's keys carry no `declared_expectation` / `fragment_of` / amendment pointer; the reconciliation lives in reports/round-18/d4/holds.md.",
+   "probes": [
+    "P-d4holds"
+   ],
+   "control": "expected-holds.json keys carry no reconciliation pointer",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`examples/culture-d4/expected-holds.json`",
+   "queue_status": "open at filing; the reconciliation lives in `reports/round-18/d4/holds.md`",
+   "queue_question": "`examples/culture-d4/expected-holds.json` carries no reconciliation pointer (`declared_expectation`, `fragment_of`, amendment pointer)",
+   "evidence": [
+    {
+     "probe": "P-d4holds",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts']['hold'], d['counts']['note'], d['counts']['fail'])\"",
+     "exit": 0,
+     "expect": "12 0 0",
+     "ok": true,
+     "observed": "12 0 0",
+     "stdout_sha256": "8e877e259ba6913f12501727b5cc4a8b155ef354b331e3c2fc0f4b75db62ee89"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-20-1",
+   "surface": "readme",
+   "question": "the declared `linguistics 20` count is named non-reproducible in `corpus/README.md` rev 1.5",
+   "owner": "corpus/README.md",
+   "disposition": "fixed-with-evidence",
+   "reason": "live: corpus/README.md rev 1.5 names the delta ('the round-20 claim's declared linguistics 20 is not reproducible; the tree measures 19').",
+   "probes": [
+    "P-corpora"
+   ],
+   "control": "corpus/README.md:25 names the linguistics-20 delta",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`corpus/README.md`",
+   "queue_status": "open",
+   "queue_question": "the declared `linguistics 20` count is named non-reproducible in `corpus/README.md` rev 1.5",
+   "evidence": [
+    {
+     "probe": "P-corpora",
+     "command": "grep -c 'linguistics 20 is' corpus/README.md",
+     "exit": 0,
+     "expect": "1",
+     "ok": true,
+     "observed": "1",
+     "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-20-2",
+   "surface": "readme",
+   "question": "one stale live pin with no reader: `examples/culture-d2/expected-holds.json` `projector_sha256`",
+   "owner": "examples/culture-d2/expected-holds.json",
+   "disposition": "fixed-with-evidence",
+   "reason": "live re-run: the D2 pin 2819f687… equals the live tools/d2-typed-labels.py, and the file's revision_note records the round-23 combined-source re-pin.",
+   "probes": [
+    "P-d2proj",
+    "P-d2pins"
+   ],
+   "control": "sha256sum tools/d2-typed-labels.py == pin 2819f687…",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`examples/culture-d2/expected-holds.json`",
+   "queue_status": "open at filing; the D4 counterpart was re-pinned",
+   "queue_question": "one stale live pin with no reader: `examples/culture-d2/expected-holds.json` `projector_sha256` vs the live projector",
+   "evidence": [
+    {
+     "probe": "P-d2proj",
+     "command": "sha256sum tools/d2-typed-labels.py",
+     "exit": 0,
+     "expect": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+     "ok": true,
+     "observed": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3 tools/d2-typed-labels.py",
+     "stdout_sha256": "d01e67feb54872353dc0c2ebdfc8f3a26a198219242d430a5749d459ca8d0b80"
+    },
+    {
+     "probe": "P-d2pins",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d2/expected-holds.json'));print(d['supersedes_pins']['projector_sha256'])\"",
+     "exit": 0,
+     "expect": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+     "ok": true,
+     "observed": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+     "stdout_sha256": "1e7ce99c6f88e209189064a464e4fbd46c00ead8ab03f7c3126f72dccfe2fcaa"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-20-3",
+   "surface": "readme",
+   "question": "the exercise's `--profile v2|v3` routes and the contract-audit re-run owed at the survey's last stamp",
+   "owner": "tools/exercise-handoff-e2e.py",
+   "disposition": "carried",
+   "reason": "the v2 route is live and green (selftest exit 0); the contract-audit re-run artifact is still absent from reports/round-20/ (regression.md:211 names it missing).",
+   "probes": [
+    "P-exv2",
+    "P-nocontractaudit"
+   ],
+   "control": "handoff-v2 exit=0; reports/round-20/contract-audit absent",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "v3` routes and the contract-audit re-run owed at the survey's last stamp",
+   "queue_status": "`tools/exercise-handoff-e2e.py`",
+   "queue_question": "the exercise's `--profile v2\\",
+   "evidence": [
+    {
+     "probe": "P-exv2",
+     "command": "python3 tools/exercise-handoff-e2e.py --profile v2 --selftest",
+     "exit": 0,
+     "expect": "handoff-v2: exit=0",
+     "ok": true,
+     "observed": "OK packet-digest: reports/round-15/handoff/packet-v2-05.md and reports/round-15/handoff/packet-v2-05.yml match the v2 baseline pins OK gate: reports/round-15/handoff/packet-v2-05.md: exit 0, fields=16/16 glossary-entries=20 findings=0 OK uncertainty: tools/harness/packet_uncertainty.py: exit 0, clai",
+     "stdout_sha256": "911d31de848db375fe1126af400d49d5a9aaaa1ace1d8d938e00582772500700"
+    },
+    {
+     "probe": "P-nocontractaudit",
+     "command": "test -d reports/round-20/contract-audit && echo present || echo absent",
+     "exit": 0,
+     "expect": "absent",
+     "ok": true,
+     "observed": "absent",
+     "stdout_sha256": "7925d3e9a9613a093e5eb4054b32aa39de910d2b03ba7e8046c3b4550b8de1e4"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-20-4",
+   "surface": "readme",
+   "question": "the filed round-5/7/9 `validation.json` in-tree mutations by live seats",
+   "owner": "parent",
+   "disposition": "carried",
+   "reason": "reported; the parent owns the restore attestation.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-20/adjacency.md:318",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`parent`",
+   "queue_status": "reported",
+   "queue_question": "the filed round-5/7/9 `validation.json` in-tree mutations by live seats (outside the runner's rounds-8–19 window)",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-21-1",
+   "surface": "readme",
+   "question": "the round-17 current-tree mismatch and the round-20 link-count discrepancy remain open in the defect ledger",
+   "owner": "reports/round-21/defects/ledger.json",
+   "disposition": "carried",
+   "reason": "the ledger is live with 23 entries; the two rows stay open by design.",
+   "probes": [
+    "P-r21ledger"
+   ],
+   "control": "reports/round-21/defects/ledger.json entries 23",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-21/defects/ledger.json`",
+   "queue_status": "open at filing",
+   "queue_question": "the round-17 current-tree mismatch and the round-20 link-count discrepancy remain open in the defect ledger",
+   "evidence": [
+    {
+     "probe": "P-r21ledger",
+     "command": "python3 -c \"import json;print(len(json.load(open('reports/round-21/defects/ledger.json'))['entries']))\"",
+     "exit": 0,
+     "expect": "23",
+     "ok": true,
+     "observed": "23",
+     "stdout_sha256": "076320a2a08267b4c026d06573bba408ea68841e73cdc20e62cce59de165ece3"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-21-2",
+   "surface": "readme",
+   "question": "the regression report routes a still-superseded replay to the next round",
+   "owner": "reports/round-21/defects/regression.md",
+   "disposition": "routed",
+   "reason": "routed by the regression report; R21-O-REG-1 names the round-18 D4 replay as superseded.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-21/defects/regression.md:67",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-21/defects/regression.md`",
+   "queue_status": "open at filing",
+   "queue_question": "the regression report routes a still-superseded replay to the next round",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-22-1",
+   "surface": "readme",
+   "question": "the D4 fixture bleed: fix required at the producer `tools/d2-typed-labels.py`",
+   "owner": "tools/d2-typed-labels.py",
+   "disposition": "fixed-with-evidence",
+   "reason": "implemented at commit 0e81d9d; live: the family-clean dispatch `_selftest_family` is present and selftest reads 163/163.",
+   "probes": [
+    "P-family",
+    "P-d2proj"
+   ],
+   "control": "grep _selftest_family -> 2; sha256 tools/d2-typed-labels.py 2819f687…",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`tools/d2-typed-labels.py`",
+   "queue_status": "implemented at `0e81d9d`; confirmed by round-23 X04 (see `LOG.md` correction)",
+   "queue_question": "the D4 fixture bleed: fix required at the producer `tools/d2-typed-labels.py` and its regenerated output",
+   "evidence": [
+    {
+     "probe": "P-family",
+     "command": "grep -c '_selftest_family' tools/d2-typed-labels.py",
+     "exit": 0,
+     "expect": "2",
+     "ok": true,
+     "observed": "2",
+     "stdout_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    {
+     "probe": "P-d2proj",
+     "command": "sha256sum tools/d2-typed-labels.py",
+     "exit": 0,
+     "expect": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+     "ok": true,
+     "observed": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3 tools/d2-typed-labels.py",
+     "stdout_sha256": "d01e67feb54872353dc0c2ebdfc8f3a26a198219242d430a5749d459ca8d0b80"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-22-2",
+   "surface": "readme",
+   "question": "freshness threshold/recalibration: the recorded pause remains in force until the operator changes it",
+   "owner": "operator",
+   "disposition": "carried",
+   "reason": "the pause is in force; only the operator can lift it.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "SCORECARD.md freshness rows",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`operator`",
+   "queue_status": "open (pause in force)",
+   "queue_question": "freshness threshold/recalibration: the recorded pause remains in force until the operator changes it",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-22-3",
+   "surface": "readme",
+   "question": "successor pins must bind final bytes; a pin on moving bytes is not a pin",
+   "owner": "reports/round-22/routed-resolution.json",
+   "disposition": "standing-rule",
+   "reason": "a craft rule carried by the routed resolution.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "reports/round-22/routed-resolution.json present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-22/routed-resolution.json`",
+   "queue_status": "carried as craft rule",
+   "queue_question": "successor pins must bind final bytes; a pin on moving bytes is not a pin",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-23-1",
+   "surface": "readme",
+   "question": "committed to round 25: a superseding handoff v3 claim map/baseline",
+   "owner": "reports/round-25/claims.json",
+   "disposition": "fixed-with-evidence",
+   "reason": "delivered: reports/round-25/v3-supersession/declared-in-r4/packet.md corrects D4-CL05/06/07/09 and the OQ-V3-05 passenger line to the family-clean present state, pinned by its own expected.json.",
+   "probes": [
+    "P-r4cl05",
+    "P-r4cl09"
+   ],
+   "control": "declared-in-r4/packet.md:151 reads findings_total 12; D4-CL09 carried at :155",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-25/claims.json`",
+   "queue_status": "**in flight round 25** (claim O)",
+   "queue_question": "**committed to round 25:** a superseding handoff v3 claim map/baseline — D4-CL05/06/07/09 and OQ-V3-05 still describe the removed rank passengers",
+   "evidence": [
+    {
+     "probe": "P-r4cl05",
+     "command": "grep -c 'findings_total 12, findings_hold_or_fail 12' reports/round-25/v3-supersession/declared-in-r4/packet.md",
+     "exit": 0,
+     "expect": "1",
+     "ok": true,
+     "observed": "1",
+     "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+     "probe": "P-r4cl09",
+     "command": "grep -c 'D4-CL09' reports/round-25/v3-supersession/declared-in-r4/packet.md",
+     "exit": 0,
+     "expect": "3",
+     "ok": true,
+     "observed": "3",
+     "stdout_sha256": "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-23-2",
+   "surface": "readme",
+   "question": "committed to round 25: the `PLACEHOLDER_RE` validator-wording disposition",
+   "owner": "reports/round-25/claims.json",
+   "disposition": "fixed-with-evidence",
+   "reason": "delivered: the declared-in-r4 revision rewords the one phrase the frozen PLACEHOLDER_RE false-positived on, and the frozen validators stay byte-identical.",
+   "probes": [
+    "P-r4reword"
+   ],
+   "control": "declared-in-r4 carries the reworded phrase; frozen validators byte-identical; the filed round-20 validator is NOT claimed to pass (round-25 regression.md:183-185 records the retained red)",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-25/claims.json`",
+   "queue_status": "**in flight round 25** (claim O)",
+   "queue_question": "**committed to round 25:** the `PLACEHOLDER_RE` validator-wording disposition, so the full historical check runs without weakening any placeholder rule",
+   "evidence": [
+    {
+     "probe": "P-r4reword",
+     "command": "grep -c 'foreign-path-stability control' reports/round-25/v3-supersession/declared-in-r4/packet.md",
+     "exit": 0,
+     "expect": "2",
+     "ok": true,
+     "observed": "2",
+     "stdout_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-23-3",
+   "surface": "readme",
+   "question": "committed to round 25: any combined-source successor row (D2 live/frozen pins, v2) not landed under round 23's O claim",
+   "owner": "reports/round-25/claims.json",
+   "disposition": "fixed-with-evidence",
+   "reason": "delivered: the D2 combined-source re-pin landed (supersedes_pins records the prior projector digest; reports/round-23/pins/r2-live.md carries the before/after table).",
+   "probes": [
+    "P-d2pins",
+    "P-d2proj"
+   ],
+   "control": "expected-holds.json supersedes_pins present; live pin matches",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/round-25/claims.json`",
+   "queue_status": "**in flight round 25** (claim O)",
+   "queue_question": "**committed to round 25:** any combined-source successor row (D2 live/frozen pins, v2) not landed under round 23's O claim",
+   "evidence": [
+    {
+     "probe": "P-d2pins",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d2/expected-holds.json'));print(d['supersedes_pins']['projector_sha256'])\"",
+     "exit": 0,
+     "expect": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+     "ok": true,
+     "observed": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+     "stdout_sha256": "1e7ce99c6f88e209189064a464e4fbd46c00ead8ab03f7c3126f72dccfe2fcaa"
+    },
+    {
+     "probe": "P-d2proj",
+     "command": "sha256sum tools/d2-typed-labels.py",
+     "exit": 0,
+     "expect": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+     "ok": true,
+     "observed": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3 tools/d2-typed-labels.py",
+     "stdout_sha256": "d01e67feb54872353dc0c2ebdfc8f3a26a198219242d430a5749d459ca8d0b80"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "Q-S1-1",
+   "surface": "readme",
+   "question": "the 20 unresolved supplemental outcomes must be preserved; promotion boxes unverified by a non-author",
+   "owner": "reports/supplement-opencode-1",
+   "disposition": "carried",
+   "reason": "preserved; the round-24 promotion review addresses the boxes but the decision is the operator's.",
+   "probes": [
+    "P-promo"
+   ],
+   "control": "reports/round-24/promotion-review.md present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": null,
+   "blocking": "unstated",
+   "queue_owner": "`reports/supplement-opencode-1`",
+   "queue_status": "open at filing; round 24 promotion review addresses the boxes",
+   "queue_question": "the 20 unresolved supplemental outcomes must be preserved, not hidden; all promotion boxes remain unverified by a non-author",
+   "evidence": [
+    {
+     "probe": "P-promo",
+     "command": "test -f reports/round-24/promotion-review.md && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R2-01",
+   "surface": "census",
+   "question": "Serialization: §4 defaults to Markdown; the packet is YAML with an explicit no-agreement note",
+   "owner": "lore",
+   "disposition": "carried",
+   "reason": "lore owns the accepted intake serialization.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "corpus/knowledge/synthesis/worldbible-integration-contract.md",
+   "next_touch_round": 27,
+   "twin": "Q-02-1",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "lore",
+   "queue_status": "unstated",
+   "queue_question": "Serialization: §4 defaults to Markdown; the packet is YAML with an explicit no-agreement note",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R2-02",
+   "surface": "census",
+   "question": "§4 completeness: `validation` absent from the pinned revision",
+   "owner": "lore",
+   "disposition": "carried",
+   "reason": "packet-side to close against lore's answer (a).",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "contract revision 1.0.0 present",
+   "next_touch_round": 27,
+   "twin": "Q-02-2",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "lore",
+   "queue_status": "unstated",
+   "queue_question": "§4 completeness: `validation` absent from the pinned revision",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R2-03",
+   "surface": "census",
+   "question": "§1 read gate: no kotodama-side read record exists in this repo",
+   "owner": "kotodama/packet-side",
+   "disposition": "carried",
+   "reason": "bilateral acknowledgment cannot be closed unilaterally.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "contract present",
+   "next_touch_round": 27,
+   "twin": "Q-02-3",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "kotodama/packet-side",
+   "queue_status": "unstated",
+   "queue_question": "§1 read gate: no kotodama-side read record exists in this repo",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R2-04",
+   "surface": "census",
+   "question": "Packet digest is not stabilizable at close",
+   "owner": "kotodama/packet-side",
+   "disposition": "carried",
+   "reason": "the L0 record's stabilization is the parent's disposition.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "corpus/lessons/round-2-adjacency.md present",
+   "next_touch_round": 27,
+   "twin": "Q-02-4",
+   "carrier": "round-2 adjacency",
+   "blocking": "unstated",
+   "queue_owner": "kotodama/packet-side",
+   "queue_status": "unstated",
+   "queue_question": "Packet digest is not stabilizable at close",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-E2E-01",
+   "surface": "census",
+   "question": "no real-language homophone, offensive-association or novelty sweep has been performed for any D2 or D3 spelling",
+   "owner": "kotodama pre-publication + lore",
+   "disposition": "carried",
+   "reason": "declared pre-publication gap; the sweep is out of the lane's province.",
+   "probes": [
+    "P-namingd4"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 e2e packet",
+   "blocking": "blocking",
+   "queue_owner": "kotodama pre-publication + lore",
+   "queue_status": "blocking",
+   "queue_question": "no real-language homophone, offensive-association or novelty sweep has been performed for any D2 or D3 spelling",
+   "evidence": [
+    {
+     "probe": "P-namingd4",
+     "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml | grep -c '^FINDING PHON-INVENTORY'",
+     "exit": 0,
+     "expect": "6",
+     "ok": true,
+     "observed": "6",
+     "stdout_sha256": "06e9d52c1720fca412803e3b07c4b228ff113e303f4c7ab94665319d832bbfb7"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-E2E-02",
+   "surface": "census",
+   "question": "no lore baseline, entity keys, receipt surface or bilateral same-revision read exists for the contract",
+   "owner": "lore + both lanes",
+   "disposition": "carried",
+   "reason": "lore-owned; the bilateral read cannot be closed by kotodama alone.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 e2e packet",
+   "blocking": "blocking",
+   "queue_owner": "lore + both lanes",
+   "queue_status": "blocking",
+   "queue_question": "no lore baseline, entity keys, receipt surface or bilateral same-revision read exists for the contract",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-E2E-03",
+   "surface": "census",
+   "question": "5 D3 scope notes and 21 D2 `to-verify` lines carry unresolved residuals",
+   "owner": "kotodama",
+   "disposition": "carried",
+   "reason": "carried; the affected records are named, not the envelope.",
+   "probes": [
+    "P-d4holds"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 e2e packet",
+   "blocking": "blocking",
+   "queue_owner": "kotodama",
+   "queue_status": "blocking",
+   "queue_question": "5 D3 scope notes and 21 D2 `to-verify` lines carry unresolved residuals",
+   "evidence": [
+    {
+     "probe": "P-d4holds",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts']['hold'], d['counts']['note'], d['counts']['fail'])\"",
+     "exit": 0,
+     "expect": "12 0 0",
+     "ok": true,
+     "observed": "12 0 0",
+     "stdout_sha256": "8e877e259ba6913f12501727b5cc4a8b155ef354b331e3c2fc0f4b75db62ee89"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-E2E-04",
+   "surface": "census",
+   "question": "the D2 and D3 drills are separate design fixtures with no shared chronology",
+   "owner": "lore",
+   "disposition": "carried",
+   "reason": "a lore decision; the packet asserts none.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 e2e packet",
+   "blocking": "non-blocking",
+   "queue_owner": "lore",
+   "queue_status": "non-blocking",
+   "queue_question": "the D2 and D3 drills are separate design fixtures with no shared chronology",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-E2E-05",
+   "surface": "census",
+   "question": "documentation surfaces outside this read set are excluded from the computational freeze",
+   "owner": "kotodama-owned",
+   "disposition": "carried",
+   "reason": "non-blocking; the exercise re-measures the bytes it reads.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 e2e packet",
+   "blocking": "non-blocking",
+   "queue_owner": "kotodama-owned",
+   "queue_status": "non-blocking",
+   "queue_question": "documentation surfaces outside this read set are excluded from the computational freeze",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R11-A1-01",
+   "surface": "census",
+   "question": "real-language homophone/offensive-association sweep not performed for any constructed form",
+   "owner": "kotodama pre-publication + lore",
+   "disposition": "carried",
+   "reason": "declared pre-publication gap.",
+   "probes": [
+    "P-namingd4"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 attempt-1",
+   "blocking": "blocking",
+   "queue_owner": "kotodama pre-publication + lore",
+   "queue_status": "blocking",
+   "queue_question": "real-language homophone/offensive-association sweep not performed for any constructed form",
+   "evidence": [
+    {
+     "probe": "P-namingd4",
+     "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml | grep -c '^FINDING PHON-INVENTORY'",
+     "exit": 0,
+     "expect": "6",
+     "ok": true,
+     "observed": "6",
+     "stdout_sha256": "06e9d52c1720fca412803e3b07c4b228ff113e303f4c7ab94665319d832bbfb7"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R11-A1-02",
+   "surface": "census",
+   "question": "no lore receipt, no baseline bible reference, no bilateral same-revision read record",
+   "owner": "both lanes",
+   "disposition": "carried",
+   "reason": "lore-owned; bilateral.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 attempt-1",
+   "blocking": "blocking",
+   "queue_owner": "both lanes",
+   "queue_status": "blocking",
+   "queue_question": "no lore receipt, no baseline bible reference, no bilateral same-revision read record",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R11-A1-03",
+   "surface": "census",
+   "question": "cultural-permission limit — invented design; citation of real sources is not permission",
+   "owner": "invented design",
+   "disposition": "standing-rule",
+   "reason": "a standing limit of invented design, not a defect.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 attempt-1",
+   "blocking": "unstated",
+   "queue_owner": "invented design",
+   "queue_status": "unstated",
+   "queue_question": "cultural-permission limit — invented design; citation of real sources is not permission",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R11-A1-04",
+   "surface": "census",
+   "question": "historical/corpus residuals inherited from the closed bindings stay open",
+   "owner": "unnamed",
+   "disposition": "carried",
+   "reason": "carried; the carrier is the round-11 attempt-1 packet.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 attempt-1",
+   "blocking": "unstated",
+   "queue_owner": "unnamed",
+   "queue_status": "unstated",
+   "queue_question": "historical/corpus residuals inherited from the closed bindings stay open",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R11-A1-05",
+   "surface": "census",
+   "question": "no calendar or intercalation; era offsets are fictional-nights with no date calculation",
+   "owner": "unnamed",
+   "disposition": "carried",
+   "reason": "blocking for era dating; out of this envelope's province.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 attempt-1",
+   "blocking": "blocking",
+   "queue_owner": "unnamed",
+   "queue_status": "blocking",
+   "queue_question": "no calendar or intercalation; era offsets are fictional-nights with no date calculation",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R11-A1-06",
+   "surface": "census",
+   "question": "live-vs-filed digest disagreement — the round-7 handoff prose cites older contract and freeze digests",
+   "owner": "the round-7 handoff prose",
+   "disposition": "carried",
+   "reason": "filed prose is history, not a correction target; the packet pins the live values.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 attempt-1",
+   "blocking": "unstated",
+   "queue_owner": "the round-7 handoff prose cites contract digest 50c4c2f2… and freeze manifest 74496aa8…",
+   "queue_status": "unstated",
+   "queue_question": "live-vs-filed digest disagreement — the round-7 handoff prose cites older contract and freeze digests",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-R11-A1-07",
+   "surface": "census",
+   "question": "the parent acceptance-runner receipt is pending and is not declared passed",
+   "owner": "unnamed",
+   "disposition": "carried",
+   "reason": "the parent owns acceptance.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-11 attempt-1",
+   "blocking": "unstated",
+   "queue_owner": "unnamed",
+   "queue_status": "unstated",
+   "queue_question": "the parent acceptance-runner receipt is pending and is not declared passed",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V2-01",
+   "surface": "census",
+   "question": "no real-language homophone, offensive-association or novelty sweep has been performed",
+   "owner": "kotodama pre-publication + lore",
+   "disposition": "carried",
+   "reason": "declared pre-publication gap.",
+   "probes": [
+    "P-namingd4"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-15 v2 packet",
+   "blocking": "blocking",
+   "queue_owner": "kotodama pre-publication + lore",
+   "queue_status": "blocking",
+   "queue_question": "no real-language homophone, offensive-association or novelty sweep has been performed",
+   "evidence": [
+    {
+     "probe": "P-namingd4",
+     "command": "python3 tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml | grep -c '^FINDING PHON-INVENTORY'",
+     "exit": 0,
+     "expect": "6",
+     "ok": true,
+     "observed": "6",
+     "stdout_sha256": "06e9d52c1720fca412803e3b07c4b228ff113e303f4c7ab94665319d832bbfb7"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V2-02",
+   "surface": "census",
+   "question": "no lore baseline, entity keys, receipt surface or bilateral same-revision read exists for the contract",
+   "owner": "lore + both lanes",
+   "disposition": "carried",
+   "reason": "lore-owned; bilateral.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-15 v2 packet",
+   "blocking": "blocking",
+   "queue_owner": "lore + both lanes",
+   "queue_status": "blocking",
+   "queue_question": "no lore baseline, entity keys, receipt surface or bilateral same-revision read exists for the contract",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V2-03",
+   "surface": "census",
+   "question": "D2 normalization residuals stay open (13 unresolved rank items, 3 quarantine handles, 4 conflicts)",
+   "owner": "kotodama",
+   "disposition": "carried",
+   "reason": "carried; the D2 residuals are named, not the envelope.",
+   "probes": [
+    "P-d4holds"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-15 v2 packet",
+   "blocking": "blocking",
+   "queue_owner": "kotodama",
+   "queue_status": "blocking",
+   "queue_question": "D2 normalization residuals stay open (13 unresolved rank items, 3 quarantine handles, 4 conflicts)",
+   "evidence": [
+    {
+     "probe": "P-d4holds",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts']['hold'], d['counts']['note'], d['counts']['fail'])\"",
+     "exit": 0,
+     "expect": "12 0 0",
+     "ok": true,
+     "observed": "12 0 0",
+     "stdout_sha256": "8e877e259ba6913f12501727b5cc4a8b155ef354b331e3c2fc0f4b75db62ee89"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V2-04",
+   "surface": "census",
+   "question": "the truth status of attributed beliefs B01-B02 is unresolved by record",
+   "owner": "lore",
+   "disposition": "carried",
+   "reason": "a lore disposition; non-blocking for this envelope.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-15 v2 packet",
+   "blocking": "non-blocking",
+   "queue_owner": "lore",
+   "queue_status": "non-blocking",
+   "queue_question": "the truth status of attributed beliefs B01-B02 is unresolved by record",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V2-05",
+   "surface": "census",
+   "question": "5 D3 source bridges rest on partial-support or scoped-support rows with named unverified legs",
+   "owner": "kotodama",
+   "disposition": "carried",
+   "reason": "carried; the bridges are named.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-15 v2 packet",
+   "blocking": "blocking",
+   "queue_owner": "kotodama",
+   "queue_status": "blocking",
+   "queue_question": "5 D3 source bridges rest on partial-support or scoped-support rows with named unverified legs",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V2-06",
+   "surface": "census",
+   "question": "the D2 and D3 drills are separate design fixtures with no shared chronology",
+   "owner": "lore",
+   "disposition": "carried",
+   "reason": "a lore decision.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-15 v2 packet",
+   "blocking": "non-blocking",
+   "queue_owner": "lore",
+   "queue_status": "non-blocking",
+   "queue_question": "the D2 and D3 drills are separate design fixtures with no shared chronology",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V2-07",
+   "surface": "census",
+   "question": "the durable packet builder with a frozen expected.json baseline is a separate round-15 deliverable",
+   "owner": "round-15 integrator",
+   "disposition": "carried",
+   "reason": "a process gap, not a packet-content gap.",
+   "probes": [
+    "P-r15v2"
+   ],
+   "control": "see probe",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-15 v2 packet",
+   "blocking": "non-blocking",
+   "queue_owner": "round-15 integrator",
+   "queue_status": "unstated",
+   "queue_question": "the durable packet builder with a frozen expected.json baseline is a separate round-15 deliverable",
+   "evidence": [
+    {
+     "probe": "P-r15v2",
+     "command": "grep -c 'OQ-V2' reports/round-15/handoff/v2-design.md",
+     "exit": 0,
+     "expect": "3",
+     "ok": true,
+     "observed": "3",
+     "stdout_sha256": "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V3-01",
+   "surface": "census",
+   "question": "the bilateral same-revision read of contract 1.0.0 is still pending",
+   "owner": "lore + both lanes",
+   "disposition": "carried",
+   "reason": "lore-owned; bilateral.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "contract 1.0.0 digest 5f4c02bf…",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-20 v3 packet",
+   "blocking": "blocking",
+   "queue_owner": "lore + both lanes",
+   "queue_status": "blocking",
+   "queue_question": "the bilateral same-revision read of contract 1.0.0 is still pending",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V3-02",
+   "surface": "census",
+   "question": "the round-8 L0 contract-digest question stays open",
+   "owner": "integrator/lore",
+   "disposition": "carried",
+   "reason": "the L0 record's stabilization is the parent's disposition.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "contract digest measured live",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-20 v3 packet",
+   "blocking": "non-blocking",
+   "queue_owner": "integrator/lore",
+   "queue_status": "non-blocking",
+   "queue_question": "the round-8 L0 contract-digest question stays open",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V3-03",
+   "surface": "census",
+   "question": "no kotodama-side §1 read record exists yet for the pinned contract revision",
+   "owner": "kotodama orchestrator",
+   "disposition": "carried",
+   "reason": "bilateral; the read record cannot be authored unilaterally.",
+   "probes": [
+    "P-contract"
+   ],
+   "control": "contract present",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-20 v3 packet",
+   "blocking": "non-blocking",
+   "queue_owner": "kotodama orchestrator",
+   "queue_status": "non-blocking",
+   "queue_question": "no kotodama-side §1 read record exists yet for the pinned contract revision",
+   "evidence": [
+    {
+     "probe": "P-contract",
+     "command": "sha256sum corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "exit": 0,
+     "expect": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069",
+     "ok": true,
+     "observed": "5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 corpus/knowledge/synthesis/worldbible-integration-contract.md",
+     "stdout_sha256": "9addb75212cf4c34673646085eb998cfd5d6bcc466f1f80b4166018842fc2267"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V3-04",
+   "surface": "census",
+   "question": "the round-19 routed wart (the projector's era-alias leg reading a foreign family's component)",
+   "owner": "kotodama",
+   "disposition": "fixed-with-evidence",
+   "reason": "the row itself records the wart closed by evidence: the per-family resolution landed at the v3 build and the projection's basis names the D4 packet's own named_eras with an explicit skip.",
+   "probes": [
+    "P-d2proj"
+   ],
+   "control": "packet-v3-16.md:115 names the family-local alias leg; live projector pin matches",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": "round-20 v3 packet",
+   "blocking": "unstated",
+   "queue_owner": "so the row stands as a dated note that the wart is closed by evidence, not by intent (claim D4-CL08). Unresolved claims referenced: D4-CL08.",
+   "queue_status": "unstated",
+   "queue_question": "the round-19 routed wart (the projector's era-alias leg reading a foreign family's component)",
+   "evidence": [
+    {
+     "probe": "P-d2proj",
+     "command": "sha256sum tools/d2-typed-labels.py",
+     "exit": 0,
+     "expect": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+     "ok": true,
+     "observed": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3 tools/d2-typed-labels.py",
+     "stdout_sha256": "d01e67feb54872353dc0c2ebdfc8f3a26a198219242d430a5749d459ca8d0b80"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V3-05",
+   "surface": "census",
+   "question": "D4's inherited and own holds stay open: 12 form holds + 3 rank holds + 1 note, 13 unresolved rank items",
+   "owner": "kotodama",
+   "disposition": "fixed-with-evidence",
+   "reason": "delivered: the round-25 declared-in-r4 revision corrects this passenger line to twelve form holds, zero rank holds, zero notes and zero fails, with the D2-owned residuals attributed to D2.",
+   "probes": [
+    "P-r4pkt",
+    "P-d4holds"
+   ],
+   "control": "declared-in-r4/packet.md:310 carries the corrected OQ-V3-05 line; live holds 12/0/0",
+   "next_touch_round": 26,
+   "twin": null,
+   "carrier": "round-20 v3 packet",
+   "blocking": "blocking",
+   "queue_owner": "kotodama",
+   "queue_status": "blocking",
+   "queue_question": "D4's inherited and own holds stay open: 12 form holds + 3 rank holds + 1 note, 13 unresolved rank items",
+   "evidence": [
+    {
+     "probe": "P-r4pkt",
+     "command": "grep -c 'twelve form holds, zero rank holds, zero notes and zero fails' reports/round-25/v3-supersession/declared-in-r4/packet.md",
+     "exit": 0,
+     "expect": "1",
+     "ok": true,
+     "observed": "1",
+     "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+     "probe": "P-d4holds",
+     "command": "python3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts']['hold'], d['counts']['note'], d['counts']['fail'])\"",
+     "exit": 0,
+     "expect": "12 0 0",
+     "ok": true,
+     "observed": "12 0 0",
+     "stdout_sha256": "8e877e259ba6913f12501727b5cc4a8b155ef354b331e3c2fc0f4b75db62ee89"
+    }
+   ],
+   "evidence_ok": true
+  },
+  {
+   "id": "OQ-V3-06",
+   "surface": "census",
+   "question": "no lore baseline revision, entity key or receipt surface exists for the D4 culture",
+   "owner": "lore-shokunin",
+   "disposition": "carried",
+   "reason": "lore-owned; non-blocking.",
+   "probes": [
+    "P-censusexists"
+   ],
+   "control": "corpus/lessons/README.md §4",
+   "next_touch_round": 27,
+   "twin": null,
+   "carrier": "round-20 v3 packet",
+   "blocking": "non-blocking",
+   "queue_owner": "lore-shokunin",
+   "queue_status": "non-blocking",
+   "queue_question": "no lore baseline revision, entity key or receipt surface exists for the D4 culture",
+   "evidence": [
+    {
+     "probe": "P-censusexists",
+     "command": "test -f reports/round-25/lessons/census.json && echo present",
+     "exit": 0,
+     "expect": "present",
+     "ok": true,
+     "observed": "present",
+     "stdout_sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+    }
+   ],
+   "evidence_ok": true
+  }
+ ]
+}

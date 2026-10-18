@@ -1,0 +1,14 @@
+# negative N8 — the register design's own operation (a packet `LENGTHEN`
+# pattern/output rule, reports/round-26/register/rules.md §3) declared with a
+# form that does not double the vowel. Fixture-only, NON-CANON.
+name: "N8 lengthen rule does not derive its form (fixture-only)"
+morphology:
+  derivation_rules:
+    - id: LENGTHEN
+      kind: "vowel-length"
+      pattern: "^(?P<onset>[^aeiou]*)(?P<vowel>[aeiou])(?P<rest>.*)$"
+      output: "{onset}{vowel}{vowel}{rest}"
+      note: "the register's length operation: the stressed root vowel is doubled"
+lexicon:
+  - {id: N8-01, term: tik, register: stamp, derived_from: tik, derivation: {op: LENGTHEN, base: tik}}
+  - {id: N8-02, term: tuum, register: stamp, derived_from: tum, derivation: {op: LENGTHEN, base: tum}}

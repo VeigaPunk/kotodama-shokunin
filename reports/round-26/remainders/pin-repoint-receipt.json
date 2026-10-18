@@ -1,0 +1,136 @@
+{
+  "baseline_revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+  "command": "python3 reports/round-26/remainders/pin-repoint-check.py --check",
+  "controls": [
+    {
+      "control": "stale-v2-row-filed-bytes",
+      "passed": true,
+      "sha256": "ad761a61c0c3be068c54c382ce43c88978a6c0c2a0f7493bb46a15063e2ebd04"
+    },
+    {
+      "control": "new-v2-row-filed-bytes",
+      "passed": true,
+      "sha256": "f695b910699ab5310b0853fe38471b7714616973f7deff366e1298888b766bc3"
+    },
+    {
+      "control": "stale-v3-row-filed-bytes",
+      "passed": true,
+      "sha256": "e2bfa52a35e518586be49cd61559f3d45ccea1e353e76281b51fe4d70ac39c4d"
+    },
+    {
+      "control": "new-v3-row-filed-bytes",
+      "passed": true,
+      "sha256": "4879e7602efcbc57f134b0e1604d38ca54d837bcbf8407d1667ef9bf30e238b7"
+    },
+    {
+      "control": "live-projector-measures-the-new-pin",
+      "live": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+      "passed": true,
+      "pinned": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3"
+    },
+    {
+      "control": "v2-new-row-pins-live-projector",
+      "passed": true
+    },
+    {
+      "control": "v2-stale-row-pins-the-old-projector",
+      "passed": true
+    },
+    {
+      "control": "v2-delta-is-the-single-input",
+      "moved": [
+        "tools/d2-typed-labels.py"
+      ],
+      "passed": true
+    },
+    {
+      "control": "v3-stale-row-pins-the-old-packet",
+      "passed": true
+    },
+    {
+      "control": "v3-new-row-pins-the-live-packet",
+      "passed": true
+    },
+    {
+      "control": "control-stale-v2-row-replays-red",
+      "exit": 2,
+      "passed": true,
+      "stderr": "V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py"
+    },
+    {
+      "control": "control-stale-v3-row-replays-red",
+      "exit": 1,
+      "passed": true,
+      "tail": "doff-v3: E2E-DIGEST: 4 read-set file(s) changed since the baseline was frozen: examples/culture-d4/expected-holds.json, examples/culture-d4/packet.d4.typed.yml, examples/culture-d4/typed-labels.d4.yml"
+    },
+    {
+      "control": "new-v2-row-replays-green",
+      "exit": 0,
+      "passed": true,
+      "stdout": "frozen-v2: exit=0 fields=16/16 glossary=20/20 findings=0 claims=15/15 statuses={'supported': 8, 'unresolved': 2, 'partial': 5} links=50/50 packet_sha256=24f9dd39bdad\u2026"
+    },
+    {
+      "control": "new-v3-row-replays-green",
+      "exit": 0,
+      "passed": true,
+      "stdout": "OK   input-digest: 58 read-set digests match the frozen baseline\nOK   preflight: 16 fields supplied, non-canon marker present, glossary vocabulary licensed, 27 claim rows carry the uncertainty grammar"
+    },
+    {
+      "control": "v2-row-pair-differs-only-by-the-input-and-its-digest",
+      "moved": [
+        "baseline_digest",
+        "inputs"
+      ],
+      "passed": true
+    },
+    {
+      "control": "v3-row-carries-the-full-five-file-set",
+      "passed": true
+    },
+    {
+      "changed": [],
+      "control": "filed-rounds-8-25-unchanged",
+      "passed": true
+    }
+  ],
+  "date": "2026-10-18T18:08:57.472923+00:00",
+  "limits": [
+    "A pin is integrity, never truth and never clearance; re-pointing a pin asserts the bytes moved, not that the move was correct.",
+    "The re-pointed rows land under reports/round-26/; the filed round-20 rows stay byte-identical and were not edited.",
+    "The frozen round-20 runner discovers its v2/v3 rows under reports/round-20/, so the re-point is proven by replay, not by moving the runner's discovery path."
+  ],
+  "passed": true,
+  "passed_controls": 17,
+  "root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "tales": {
+    "A": {
+      "control": {
+        "code": "V2F-DIGEST",
+        "exit": 2
+      },
+      "fix": {
+        "exit": 0
+      },
+      "live_pin": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+      "new_row": "reports/round-26/remainders/v2-successor-r26/expected.json",
+      "replayer": "reports/round-15/handoff/frozen-verify.py",
+      "stale_pin": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+      "surface": "reports/round-20/wart/expected-v2-07-r20.json"
+    },
+    "B": {
+      "control": {
+        "code": "E2E-DIGEST",
+        "exit": 1
+      },
+      "fix": {
+        "exit": 0
+      },
+      "live_pin": "a97a0f0a0a497cb4410124607065df7686bbc7f78b4b46bdaaaa1d66ba4d1b6e",
+      "new_row": "reports/round-26/remainders/v3-baseline-r26/expected.json",
+      "replayer": "tools/exercise-handoff-e2e.py --profile v3",
+      "stale_pin": "e92f5e6775b657c24fa6260e340e4e7a04cf6c3777188cba80678bed079ae43b",
+      "surface": "reports/round-20/handoff/expected.json"
+    }
+  },
+  "total_controls": 17
+}

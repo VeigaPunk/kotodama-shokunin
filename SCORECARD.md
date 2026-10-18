@@ -318,6 +318,22 @@ Admission: O/D/C verify, no axis harmed. Devin provider test: viable for
 regimen use (slower per-worker; heavy seats landed). Remainders named by the
 shard auditors: the r4 twin gap, the empty argot domain, two sibling pin tails.
 
+## Axes — round 26 (2026-10-18), admitted (loop 3 build 2 of 4 — devin)
+
+Baseline `1ad491a`; one 64-worker `devin/deepseek-v4-1-flash-high` batch
+(24/64 completed). Acceptance: `python3 reports/round-26/run-validation.py`
+exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D, capability `register-stratum`) | The round-17 register forecast CLOSED: the `stamp` attestation register lands in the delivered furnace-league tree — 8 verified register forms (tuum/kit/lom/nees/huum/mees/reek/saam) with the discovered axis-to-operation rule (mark->reverse, fire->lengthen), era E1 scoped, derivation replay clean (8 derived pairs, 0 violations over 170 records); typed labels classify the register forms; named gaps recorded (head2 empty proper domain, syllabify disagreement on 15/62, register law needs a future component — additive landing) | `python3 reports/round-26/run-validation.py` | `reports/round-26/register/` (design measured on the delivered tree) |
+| operability | improved (claim O) | Three round-25 remainders dispositioned: the register landing's 6-file read-set change re-pinned through the sanctioned chain — v3 default baseline moved to declared-in-r5 (self-referential tool-pin subtlety: freeze must follow the re-point edit); the pin-repoint checker green 17/17 (stale rows replay red, new rows green, filed rows untouched); the r4 checker superseded-and-recorded with its tails resolved by the pin checker + r5 freeze | `python3 reports/round-26/run-validation.py` | `reports/round-26/remainders/` |
+| coverage | improved (claim C) | The round-25 open-question queue 100% dispositioned (fixed-with-evidence or carried with owner + reason + next touch); lessons README new revision | `python3 reports/round-26/run-validation.py` | `reports/round-26/open-questions/` |
+| calibration | improved (unclaimed observation) | X64's cold re-run verdict ("not landed") was a stale-snapshot misread — three independent measurements by the integrator confirmed the stratum in the packet and components; the fragment stands as honest-but-superseded | — | this section; packet greps |
+| freshness / adjacency | unchanged | Pause in force; scope clean | — | — |
+
+Admission: D/O/C verify, no axis harmed. Devin route: second viable sample.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

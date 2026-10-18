@@ -1,0 +1,970 @@
+{
+ "schema": "kotodama-openq-disposition-audit-v1",
+ "round": 26,
+ "seat": "R26-C47..C50",
+ "date": "2026-10-18",
+ "observed_at_utc": "2026-10-18T18:23:42.994408+00:00",
+ "counting_command": "python3 reports/round-26/open-questions/audit-dispositions.py",
+ "queue_rows": 49,
+ "fragments_landed": [
+  "C41",
+  "C42",
+  "C43",
+  "C44",
+  "C45",
+  "C46"
+ ],
+ "fragments_pending": [],
+ "rows_audited": 49,
+ "rows_dispositioned": 49,
+ "checks": [
+  {
+   "id": "A1_every_queue_row_dispositioned",
+   "ok": true,
+   "detail": "49 queue rows; 0 undispositioned"
+  },
+  {
+   "id": "A2_class_in_vocabulary",
+   "ok": true,
+   "detail": "0 row(s) outside the vocabulary"
+  },
+  {
+   "id": "A3_fixed_rows_cite_evidence",
+   "ok": true,
+   "detail": "0 fixed row(s) with no evidence command"
+  },
+  {
+   "id": "A4_carried_rows_complete",
+   "ok": true,
+   "detail": "0 carried row(s) missing owner/reason/next-touch"
+  },
+  {
+   "id": "A5_evidence_commands_rerun",
+   "ok": true,
+   "detail": "49 fence(s) re-run; 0 diverged"
+  },
+  {
+   "id": "A5b_stamp_drift_attributed",
+   "ok": true,
+   "detail": "2 fence(s) diverged; the D4 read set has 1 file(s) moved off the round-25 baseline (examples/culture-d4/expected-holds.json); 0 unattributed"
+  },
+  {
+   "id": "A6_declared_block_counts",
+   "ok": true,
+   "detail": "0 fragment(s) disagree with the declared partition"
+  },
+  {
+   "id": "A7_revision_carries_dispositions",
+   "ok": true,
+   "detail": "reports/round-26/zzz-lessons-index-revision-3.md: 49 ids named; 0 queue rows absent"
+  },
+  {
+   "id": "A8_revision_class_agrees",
+   "ok": true,
+   "detail": "0 row(s) whose class family differs between the revision and the disposer fragment"
+  }
+ ],
+ "findings": [],
+ "revision": {
+  "path": "reports/round-26/zzz-lessons-index-revision-3.md",
+  "present": true,
+  "discovery": "the .md file under reports/round-26 naming the most queue ids",
+  "ids_named": 49,
+  "rows_missing": [],
+  "class_disagreements": [],
+  "class_label_mapping": {
+   "fixed": "fixed-with-evidence",
+   "carried": "carried",
+   "routed": "routed",
+   "superseded": "closed-by-supersession",
+   "standing-rule": "standing-rule"
+  }
+ },
+ "stamp_drift": [
+  [
+   "Q-02-4",
+   "python3 -B tools/exercise-handoff-e2e.py --profile v3",
+   1,
+   [
+    0
+   ],
+   "OK input-digest: 58 read-set digests match the frozen baseline OK preflight: 16 fields supplied, non-canon marker presen"
+  ],
+  [
+   "Q-20-3",
+   "python3 -B tools/exercise-handoff-e2e.py --profile v2",
+   1,
+   [
+    0
+   ],
+   "OK packet-digest: reports/round-15/handoff/packet-v2-05.md and reports/round-15/handoff/packet-v2-05.yml match the v2 ba"
+  ]
+ ],
+ "class_histogram": {
+  "carried": 17,
+  "closed-by-supersession": 0,
+  "fixed-with-evidence": 32,
+  "routed": 0,
+  "standing-rule": 0
+ },
+ "rerun": [
+  {
+   "row": "Q-02-1",
+   "command": "python3 -B tools/gates/handoff-packet-check.py examples/handoff-packet.sample.yml",
+   "exit": 0,
+   "claimed_exits": [
+    0
+   ],
+   "observed": "INFO scan: fields=16/16 glossary-entries=0 findings=0"
+  },
+  {
+   "row": "Q-02-2",
+   "command": "grep -n \"^validation:\" examples/handoff-packet.sample.yml     # 629:validation:\ngrep -c \"validation\" examples/handoff-packet.sample.yml       # 7   (2026-10-18)",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "629:validation: 7"
+  },
+  {
+   "row": "Q-02-3",
+   "command": "grep -rln \"read_at\" --include=\"*.json\" --include=\"*.yml\" . | grep -v '^./.git\\|.scratch'",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "./reports/round-25/lessons/census.json ./reports/round-26/open-questions/dispositions.json ./reports/round-26/open-questions/audit.json"
+  },
+  {
+   "row": "Q-02-4",
+   "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3",
+   "exit": 1,
+   "claimed_exits": [
+    0
+   ],
+   "observed": "OK input-digest: 58 read-set digests match the frozen baseline OK preflight: 16 fields supplied, non-canon marker present, glossary vocabulary licensed, 27 claim rows carry the uncertainty grammar and read-set links, 88 edges name claims OK cross-references: contract §4 names = gate FIELD_NAMES = su"
+  },
+  {
+   "row": "Q-03-1",
+   "command": "python3 -B tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml 2>&1 | grep -c PHON-INVENTORY   # 6",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "6"
+  },
+  {
+   "row": "Q-04-1",
+   "command": "python3 -B tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml 2>&1 | grep -c DERIV-REPLAY   # 0\npython3 -B tools/gates/naming-collision-gate.py --selftest\ngrep -n \"D4L-ARGOT-DERIV\" tools/gates/typed-pipeline-gate.py   # 536: …\"id\": \"D4L-ARGOT-DERIV\"…\npython3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+   "exit": 0,
+   "claimed_exits": [
+    0,
+    0
+   ],
+   "observed": "0 selftest: OK — fixture findings 12 across 11 ids (CROSS-HOLD, DERIV-AFFIX, DERIV-HOLD, DERIV-REPLAY, NAME-LEXEME, NAME-NEAR, NAME-REUSE, NAME-VISUAL, PHON-CODA, PHON-INVENTORY, PHON-ONSET); positive control clean; malformed inputs exit 2; missing profile held; case policy routed 536: result[\"findi"
+  },
+  {
+   "row": "Q-04-2",
+   "command": "python3 -B tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml 2>&1 | tail -2",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "FINDING PHON-INVENTORY: FAIL — name GAR-06 'market-day coat (valley wool with salt-road cloth facing)': symbol /-/ at position 7 is not in the declared inventory (consonants {p, t, k, b, d, g, m, n, s, r, l, w, j, h}, vowels {a, e, i, o, u}) FINDING CROSS-HOLD: HOLD — packet declares no bounded cros"
+  },
+  {
+   "row": "Q-04-3",
+   "command": "ls reports/round-5/parent-reconciliation.json     # exists\npython3 -c \"import json;d=json.load(open('reports/round-5/parent-reconciliation.json'));print(d['expected_worker_raw_counts'])\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "reports/round-5/parent-reconciliation.json {'rows': 22, 'supported': 13, 'unresolved': 8, 'contradicted': 1}"
+  },
+  {
+   "row": "Q-05-1",
+   "command": "python3 -c \"import json;d=json.load(open('reports/round-5/availability-attempt-1.json'));print(d['requested_model'],d['requested_workers'],d['launched_workers'],d['completed_workers'])\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "zai-coding-plan/glm-5.3 16 0 0"
+  },
+  {
+   "row": "Q-05-2",
+   "command": "python3 -c \"import json;d=json.load(open('reports/round-5/parent-reconciliation.json'));print(d['basis'][:80]);print(d['expected_worker_raw_counts'])\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "Twenty logical original unresolved claims, not twenty-two fresh independent clai {'rows': 22, 'supported': 13, 'unresolved': 8, 'contradicted': 1}"
+  },
+  {
+   "row": "Q-05-3",
+   "command": "grep -n \"header\\|rubric\" corpus/QUALITY.md     # (no matches)\ngrep -n \"numeric rubric\" reports/round-5/kotodama.md\ngrep -n \"full corpus-header\" corpus/lessons/round-5.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "54:no calibrated numeric rubric is claimed. 113: operator's scope rule; full corpus-header, numeric-rubric and expected.json"
+  },
+  {
+   "row": "Q-06-1",
+   "command": "python3 -c \"import json;d=json.load(open('reports/round-6/checkpoint.json'));print(d['state']);print(d['admission_status']);print(d['resume_first'])\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "interrupted-round-development-checkpoint pending Finish round 6 from the existing sixteen workers' output. DO NOT re-dispatch round 6 or count this checkpoint/report commit as another training round."
+  },
+  {
+   "row": "Q-06-2",
+   "command": "ls /home/vgpnk/Projects/shokunin/.ufo/     # history-pin.json, l0-questions.md, reports, state, …\ngrep -n \"Fleet root is not clean\" reports/round-25/report-draft.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "history-pin.json interactive-l1-20261015T050057Z l0-questions.md l0-recovery-20261015T054007Z lane-watch.sh prompts reports round-10 scopes state watchdog.log waves 49:- **Fleet root is not clean.** Ten untracked debris files sit under the fleet root `.scratch/`, all last written 13:10–13:15 −03:00,"
+  },
+  {
+   "row": "Q-08-1",
+   "command": "grep -n \"R9-R8-F0\" reports/round-9/targets.json\nls reports/round-9/freshness/verify-F03.md    # exists (per-row verification)",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "7: \"id\": \"R9-R8-F01\", 19: \"id\": \"R9-R8-F02\", 31: \"id\": \"R9-R8-F03\", 43: \"id\": \"R9-R8-F04\", reports/round-9/freshness/verify-F03.md"
+  },
+  {
+   "row": "Q-09-1",
+   "command": "python3 -c \"import json;print(json.load(open('reports/round-9/validation.json'))['acceptance_checks_passed'])\"\nls reports/round-9/ | grep -i 'spot\\|parent'    # NONE",
+   "exit": 1,
+   "claimed_exits": [],
+   "observed": "True"
+  },
+  {
+   "row": "Q-10-1",
+   "command": "python3 -c \"import json;d=json.load(open('reports/round-10/validation.json'));print(d['date'],d['acceptance_checks_passed'],d['failures']);print({k:v['passed'] for k,v in d['claims'].items()})\"\ngit show 94ca098:reports/round-10/validation.json | sha256sum\nsha256sum reports/round-10/validation.json",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "2026-10-17 True [] {'C': True, 'F': True, 'O': True} e8571db918b2c3237256342bd95f241be5661a96019e460990c7d1fe2fc32f94 - e8571db918b2c3237256342bd95f241be5661a96019e460990c7d1fe2fc32f94 reports/round-10/validation.json"
+  },
+  {
+   "row": "Q-11-1",
+   "command": "python3 -c \"import json;d=json.load(open('reports/round-12/defects/ledger.json'));\n[print(json.dumps(e,indent=1)) for e in d['entries'] if e['id']=='RATIO-11']\"\ngrep -n \"0.778\\|0.7656\" reports/round-12/defects/sweep-r11.md | head -2",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "{ \"id\": \"RATIO-11\", \"defect\": \"documentation: round-11 artifacts mixed drift ratios (147/192=0.7656 vs reported 0.778=147/189)\", \"status\": \"fixed-with-control\", \"bounded\": true, \"fix_scope\": \"documentation note only; filed bytes untouched\", \"before\": \"SCORECARD/report prose said 0.778 over a 192 den"
+  },
+  {
+   "row": "Q-11-2",
+   "command": "for f in reports/round-5/validation.json reports/round-6/checkpoint-validation.json \\\n         reports/round-6/validation.json reports/round-7/validation.json \\\n         reports/round-8/validation.json reports/round-9/validation.json; do\n  [ \"$(git rev-parse HEAD:$f)\" = \"$(git hash-object $f)\" ] && echo \"$f same=YES\" || echo \"$f same=NO\"\ndone",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "reports/round-5/validation.json same=YES reports/round-6/checkpoint-validation.json same=YES reports/round-6/validation.json same=YES reports/round-7/validation.json same=YES reports/round-8/validation.json same=YES reports/round-9/validation.json same=YES"
+  },
+  {
+   "row": "Q-11-3",
+   "command": "ls -l reports/round-10/coverage/index-update-22.md     # exists\ngit log --oneline -2 -- reports/round-10/coverage/index-update-22.md\ngit status --porcelain reports/round-10/coverage/index-update-22.md    # (empty)",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "-rw-r--r-- 1 vgpnk vgpnk 17166 Oct 17 19:01 reports/round-10/coverage/index-update-22.md a3f6fce round-11: D/O verified; F failed as declared (0.778<0.95) — round rejected, freshness claims paused 94ca098 round-10: admit C/F/O — 10 sourced entries, 192-row drift ledger, 24 findings dispositioned"
+  },
+  {
+   "row": "Q-12-1",
+   "command": "grep -n \"C23-F1\" reports/round-12/recount/audit.md | head -2",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "18:| `python3 tools/check-gate-battery.py --baselines-root tools/gates/frozen --baselines-root tools/gates/expected --baselines-root reports/round-9/baselines` (round 9; 19:53:51-03:00; repeat also 19:50:52-03:00) | exit 0; 8 baselines pinned, 7/7 gates covered, 7 pass, 0 fail, 0 unevaluable; runner"
+  },
+  {
+   "row": "Q-12-2",
+   "command": "grep -n \"147/192\" reports/round-12/targets.json\ngrep -n \"147/189\\|147/192\" SCORECARD.md | head -2",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "20: \"task\": \"Round-11 recount, same protocol — MUST independently reproduce the F-failure numbers (0.778 stability, 45 dispositions, 147/192).\" 110:| calibration | improved (claim C) | No loop view → loop-1 retrospective: 4 admitted / 1 rejected / 1 operator-skipped; claim flags 14 passed / 1 failed"
+  },
+  {
+   "row": "Q-12-3",
+   "command": "ls reports/round-12/adjacency/ledger.json    # exists\npython3 -c \"import json;d=json.load(open('reports/round-12/adjacency/ledger.json'));print(list(d));print(len(d['entries']));print(d['entries'][0])\"\ngrep -n \"R12-A01\" reports/round-12/targets.json",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "reports/round-12/adjacency/ledger.json ['round', 'date', 'unfiled_bleed', 'entries', 'rows'] 10 {'path': 'corpus/knowledge/linguistics/language-shift-obsolescence-revival.md', 'status': 'pass', 'scope': 'in-province', 'filed_path': 'reports/round-12/adjacency/entries.md'} 55: \"id\": \"R12-A01..A04\","
+  },
+  {
+   "row": "Q-14-1",
+   "command": "grep -n \"erratum\\|scoped\" reports/round-14/retro-consistency.md | head -4",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "13:| 8 | `SCORECARD.md:100-122`, admitted | D/F/O true | Preserve admission; freshness receipts are scoped passage support, not whole-claim certification. | 33:The round-12 ledger acquired a new round-14 exposure entry during this wave (`FRR-14-EXPOSURE`). A working-tree count at this stage is there"
+  },
+  {
+   "row": "Q-14-2",
+   "command": "grep -n \"Axes — round 14\" SCORECARD.md\nsed -n '100,110p' SCORECARD.md | grep -c \"^| \"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "100:## Axes — round 14 (2026-10-17), admitted (integrate round) 4"
+  },
+  {
+   "row": "Q-15-1",
+   "command": "grep -n \"OQ-V2-0\" reports/round-15/handoff/v2-design.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "305:lanes; blocks first transfer only (OQ-V2-01); (b) round-8 L0 digest question 307:blocking for envelope work (OQ-V2-02); (c) no kotodama-side §1 read record 309:§3.1) — owner kotodama orchestrator (OQ-V2-03). These live in v2's"
+  },
+  {
+   "row": "Q-15-2",
+   "command": "python3 -B tools/harness/packet_uncertainty.py --selftest",
+   "exit": 0,
+   "claimed_exits": [
+    0,
+    2
+   ],
+   "observed": "selftest: 19 checks passed (uncertainty rules, boilerplate, oq routing, yaml_lines dialect compact+bare)"
+  },
+  {
+   "row": "Q-15-2",
+   "command": "printf -- \"- not a mapping row\\n\" > .scratch/r26c/ctl/bad.yml\npython3 -B tools/harness/packet_uncertainty.py --packet .scratch/r26c/ctl/bad.yml",
+   "exit": 2,
+   "claimed_exits": [
+    0,
+    2
+   ],
+   "observed": "tools/harness/packet_uncertainty.py: cannot read packet: .scratch/r26c/ctl/bad.yml: packet root is not a mapping"
+  },
+  {
+   "row": "Q-16-1",
+   "command": "ls -l reports/round-16/civ/map-audit.md     # exists\nsed -n '10,14p' reports/round-16/civ/map-audit.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "-rw-r--r-- 1 vgpnk vgpnk 19484 Oct 17 23:58 reports/round-16/civ/map-audit.md - Counting commands (this audit, 2026-10-17): - `ls corpus/knowledge/civilizations/*.md | wc -l` → **94** - dated `- verified-at:` statement present in every entry → **94/94, 0 missing** (scan `.scratch/audit-derivation.js"
+  },
+  {
+   "row": "Q-17-1",
+   "command": "ls -l tools/assemble-d4-typed.py\npython3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+   "exit": 0,
+   "claimed_exits": [
+    0
+   ],
+   "observed": "-rwxr-xr-x 1 vgpnk vgpnk 26546 Oct 18 10:11 tools/assemble-d4-typed.py TYPED-PIPELINE: exit 0 = the emitted findings equal the frozen expected hold set; every hold below is still open design debt. declared pipeline: family d4; profile tools/gates/typed-pipelines.json (sha256 35946c8d71d5); assembler"
+  },
+  {
+   "row": "Q-17-2",
+   "command": "grep -n \"F-X01-1 superseded\" corpus/lessons/round-17.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "173:### 2026-10-18T09:33Z: F-X01-1 superseded — the revised runner skips evidence trails"
+  },
+  {
+   "row": "Q-18-1",
+   "command": "python3 -c \"\nt=open('examples/culture-d4/packet.d4.typed.yml').read()\nprint('D4L-FORM-UNRESOLVED',t.count('D4L-FORM-UNRESOLVED'))\nprint('D2L-FORM-UNRESOLVED',t.count('D2L-FORM-UNRESOLVED'))\"\npython3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts'],len(d['holds']))\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "D4L-FORM-UNRESOLVED 6 D2L-FORM-UNRESOLVED 37 {'hold': 12, 'note': 0, 'fail': 0} 12"
+  },
+  {
+   "row": "Q-18-2",
+   "command": "grep -n \"authority question\" corpus/lessons/round-18.md\ngrep -n \"must say which authority\" reports/round-19/integration/d4-lessons-entry.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "173:- **What remains open at this stamp, and who owns it.** (a) The delivered component's own acceptance criterion A-07 (`components/01-brief.yml:224`: \"the typed pipeline's finding set equals contract.hold_set_declaration exactly (six holds, zero notes, zero fails)\") is contradicted by the delivere"
+  },
+  {
+   "row": "Q-18-3",
+   "command": "grep -rl \"D4L-REGISTER-UNRESOLVED\" examples/ tools/     # (no output: 0 files)\ngrep -c \"D9L-REGISTER-UNRESOLVED\" tools/gates/typed-pipeline-gate.py   # 3 (a D9 fixture only)\npython3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "3 coverage: examples/culture-d4/packet.d4.yml records=170 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0 dependency: tools/gates/naming-collision-gate.py sha256 d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d"
+  },
+  {
+   "row": "Q-19-1",
+   "command": "grep -n \"collision (X24-L1 / X28-1) is the standing example\" corpus/lessons/README.md\ngrep -n \"still open\" corpus/lessons/README.md\nls -l corpus/lessons/round-19.md reports/round-19/integration/d4-lessons-entry.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "20: collision (X24-L1 / X28-1) is the standing example and remains the parent's 186:| Q-19-1 | the lesson-path collision: `corpus/lessons/round-19.md` was assigned to two seats; R19-D08's entry is unintegrated at `reports/round-19/integration/d4-lessons-entry.md` | `parent` | **still open** (X24-L1 "
+  },
+  {
+   "row": "Q-19-2",
+   "command": "python3 -c \"\nimport json;d=json.load(open('examples/culture-d4/expected-holds.json'))\nprint(list(d))\nprint(d['revision_note'][:150])\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "['schema', 'packet_sha256', 'projection_sha256', 'projector_sha256', 'revision_note', 'supersedes_pins', 'counts', 'holds', 'notes'] round-26 register-stratum build (2026-10-18): the stamp register landed in 04-lexicon.yml (8 register-scoped records, the registers law block, the LEN"
+  },
+  {
+   "row": "Q-20-1",
+   "command": "find corpus/knowledge/linguistics -type f | wc -l     # 19\nfind corpus/knowledge -type f | wc -l                 # 199\nsed -n '23,25p' corpus/README.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "19 199 `--selftest` → exit 2, 2026-10-18). Counts, command-carried from the repo root: civilizations 94, linguistics 19, myth-symbol 19, culture-material 18, synthesis 29, verification 20 — 199 files (the round-20 claim's declared linguistics 20 is"
+  },
+  {
+   "row": "Q-20-2",
+   "command": "python3 -c \"\nimport json,hashlib\nd=json.load(open('examples/culture-d2/expected-holds.json'))\nlive=hashlib.sha256(open('tools/d2-typed-labels.py','rb').read()).hexdigest()\nprint(d['projector_sha256']); print(live); print(d['projector_sha256']==live)\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3 2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3 True"
+  },
+  {
+   "row": "Q-20-3",
+   "command": "python3 -B tools/exercise-handoff-e2e.py --profile v2\npython3 -B tools/exercise-handoff-e2e.py --profile v3",
+   "exit": 1,
+   "claimed_exits": [
+    0
+   ],
+   "observed": "OK packet-digest: reports/round-15/handoff/packet-v2-05.md and reports/round-15/handoff/packet-v2-05.yml match the v2 baseline pins OK gate: reports/round-15/handoff/packet-v2-05.md: exit 0, fields=16/16 glossary-entries=20 findings=0 OK uncertainty: tools/harness/packet_uncertainty.py: exit 0, clai"
+  },
+  {
+   "row": "Q-20-4",
+   "command": "for f in reports/round-5/validation.json reports/round-7/validation.json reports/round-9/validation.json; do\n  echo \"$f $([ \"$(git rev-parse HEAD:$f)\" = \"$(git hash-object $f)\" ] && echo same=YES || echo same=NO)\"; done\npython3 -B tools/harness/receipt_guard.py --selftest | tail -3",
+   "exit": 0,
+   "claimed_exits": [
+    0
+   ],
+   "observed": "reports/round-5/validation.json same=YES reports/round-7/validation.json same=YES reports/round-9/validation.json same=YES \"selftest_passed\": true, \"tool\": \"tools/harness/receipt_guard.py\" }"
+  },
+  {
+   "row": "Q-21-1",
+   "command": "python3 -c \"\nimport json;d=json.load(open('reports/round-21/defects/ledger.json'))\n[print(e['id'],e['status'],'route',e.get('route_round')) for e in d['entries']\n if e['id'] in ('R17-CURRENT-RECOUNT-DISCREPANCY','R20-HANDOFF-LINK-COUNT')]\"\npython3 -c \"\nimport json;s=json.dumps(json.load(open('reports/round-22/routed-resolution.json')))\nprint('R17-CURRENT-RECOUNT-DISCREPANCY' in s, 'R20-HANDOFF-LINK-COUNT' in s)\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "R17-CURRENT-RECOUNT-DISCREPANCY open route 22 R20-HANDOFF-LINK-COUNT open route 22 False False"
+  },
+  {
+   "row": "Q-21-2",
+   "command": "export TMPDIR=/tmp/r26c\npython3 -B tools/replay-frozen.py tools/gates/frozen/round-18/MANIFEST.tsv\npython3 -B tools/replay-frozen.py tools/gates/frozen/round-11/MANIFEST.tsv",
+   "exit": 2,
+   "claimed_exits": [
+    1,
+    2
+   ],
+   "observed": "ROW 2 mismatch reason=replay_mismatch gate=tools/gates/d4-typed-labels-check-gate.py input=examples/culture-d4/typed-labels.d4.yml exit=1/0 count=0/0 bytes=differ launched=yes detail: exit code 1 != recorded 0; output bytes differ from the recorded output ROW 3 mismatch reason=replay_mismatch gate=t"
+  },
+  {
+   "row": "Q-22-1",
+   "command": "python3 -B tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --emit .scratch/r26c/ctl/d4d.yml\ndiff -q .scratch/r26c/ctl/d4d.yml examples/culture-d4/typed-labels.d4.yml   # IDENTICAL\ngrep -c \"D2L-RANK\" examples/culture-d4/typed-labels.d4.yml examples/culture-d4/expected-holds.json\npython3 -B tools/d2-typed-labels.py --packet examples/culture-d2/packet.d2.yml --check\npython3 -B tools/d2-typed-labels.py --selftest",
+   "exit": 0,
+   "claimed_exits": [
+    0,
+    0
+   ],
+   "observed": "Wrote .scratch/r26c/ctl/d4d.yml examples/culture-d4/typed-labels.d4.yml:0 examples/culture-d4/expected-holds.json:0 /home/vgpnk/Projects/shokunin/kotodama-shokunin/examples/culture-d2/typed-labels.d2.yml: byte-identical deterministic projection ok rank adapter block: its own controls pass ok era/mat"
+  },
+  {
+   "row": "Q-22-2",
+   "command": "grep -n \"freshness\" SCORECARD.md | tail -3\ngrep -n \"claims pause pending operator recalibration\" reports/round-16/scope.md",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "417:| freshness | unchanged (claim F failed as declared) | Recheck covered 192/192 ledger rows; 147 stable (0.778 < 0.95); all 45 drifts dispositioned with named causes (dominant: round-10/11 legitimate changes; environmental path embedding; 3 transcription defects incl. truncated ledger row 187); z"
+  },
+  {
+   "row": "Q-22-3",
+   "command": "head -14 reports/round-23/pins/r2-live.md\nhead -2 tools/gates/frozen/round-23/repin-d2/MANIFEST.tsv",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "# R23-O06 — D2 live expected-holds: combined-source successor pin Date: 2026-10-18. Seat: O06 of the round-23 combined successor pins (O05..O10). Status: landed and green. This seat moves the D2 live `projector_sha256` pin inside `examples/culture-d2/expected-holds.json` from the round-20 source `76"
+  },
+  {
+   "row": "Q-23-1",
+   "command": "ls reports/round-25/v3-supersession/declared-in-r4/\nhead -6 reports/round-25/v3-supersession/declared-in-r4/freeze.txt",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "expected.json freeze.txt packet.md frozen: 2026-10-18 by reports/round-25/v3-supersession/v3-supersession-check.py --check (round-25 O seat, claims R25-O11..O15; NOT by tools/exercise-handoff-e2e.py — the renderer still renders 3.1.1 and its v3 baseline is untouched) revision: declared-in-r4 (valida"
+  },
+  {
+   "row": "Q-23-2",
+   "command": "grep -c \"foreign-path-stability control\" reports/round-23/wording/declared-in-r3/packet.md\ngrep -c \"foreign-path-stability control\" reports/round-25/v3-supersession/declared-in-r4/packet.md\ngrep -n \"preserved invariants\" reports/round-25/v3-supersession/declared-in-r4/freeze.txt",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "2 2 17:preserved invariants: census 27 rows with statuses 16 supported / 7 partial / 4 unresolved; the 15 carried v2 rows byte-identical to the v2 source (normalized subset digest ad35c860acf3b452c6f8974cd08a8333fa1ffd7758b371c12123b6437bde069b); the 34 carried v2 edge rows unchanged; zero uncertain"
+  },
+  {
+   "row": "Q-23-3",
+   "command": "head -8 reports/round-23/pins/r2-live.md\nls tools/gates/frozen/round-23/repin-d2/ | head -4\npython3 -c \"\nimport json,hashlib\nd=json.load(open('examples/culture-d2/expected-holds.json'))\nprint(d['projector_sha256']==hashlib.sha256(open('tools/d2-typed-labels.py','rb').read()).hexdigest())\"",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "# R23-O06 — D2 live expected-holds: combined-source successor pin Date: 2026-10-18. Seat: O06 of the round-23 combined successor pins (O05..O10). Status: landed and green. This seat moves the D2 live `projector_sha256` pin inside `examples/culture-d2/expected-holds.json` from the round-20 source `76"
+  },
+  {
+   "row": "Q-S1-1",
+   "command": "ls corpus/lessons/supplement-opencode-1/sources/*.json | wc -l          # 15\npython3 - <<'PY'\nimport json,glob\ntot=unres=0\nfor f in glob.glob('corpus/lessons/supplement-opencode-1/sources/*.json'):\n    s=json.dumps(json.load(open(f)))\n    tot+=s.count('\"supported\"'); unres+=s.count('\"unresolved\"')\nprint('supported',tot,'unresolved',unres)\nPY",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "15 supported 130 unresolved 21"
+  },
+  {
+   "row": "Q-S1-1",
+   "command": "grep -n \"authored none of the lane's artifacts\" reports/round-24/promotion-review.md\nsed -n '26,29p' reports/round-24/promotion-review.md\ngrep -c \"verified-with-conditions\" reports/round-24/promotion-review.md   # 12",
+   "exit": 0,
+   "claimed_exits": [],
+   "observed": "| 1 | SKILL.md decision tables, error patterns, checklists, cited sources | verified-with-conditions | r24-box1a, r24-box1b | box1-tables.md, box1-craft.md | | 2 | End-to-end domain task chain D2->D3->D4->handoff executed and logged | verified-with-conditions | r24-box2a, r24-box2b | box2-chain.md, "
+  }
+ ],
+ "dispositions": [
+  {
+   "id": "Q-02-1",
+   "owner": "corpus/knowledge/synthesis/worldbible-integration-contract.md",
+   "class": "fixed-with-evidence",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -B tools/gates/handoff-packet-check.py examples/handoff-packet.sample.yml"
+   ]
+  },
+  {
+   "id": "Q-02-2",
+   "owner": "examples/handoff-packet.sample.yml",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "grep -n \"^validation:\" examples/handoff-packet.sample.yml     # 629:validation:\ngrep -c \"validation\" examples/handoff-packet.sample.yml       # 7   (2026-10-18)"
+   ]
+  },
+  {
+   "id": "Q-02-3",
+   "owner": "operator",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "grep -rln \"read_at\" --include=\"*.json\" --include=\"*.yml\" . | grep -v '^./.git\\|.scratch'"
+   ]
+  },
+  {
+   "id": "Q-02-4",
+   "owner": "parent",
+   "class": "fixed-with-evidence",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -B tools/exercise-handoff-e2e.py --profile v3"
+   ]
+  },
+  {
+   "id": "Q-03-1",
+   "owner": "tools/gates/naming-collision-gate.py",
+   "class": "fixed-with-evidence",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -B tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml 2>&1 | grep -c PHON-INVENTORY   # 6"
+   ]
+  },
+  {
+   "id": "Q-04-1",
+   "owner": "tools/gates/naming-collision-gate.py",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -B tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml 2>&1 | grep -c DERIV-REPLAY   # 0\npython3 -B tools/gates/naming-collision-gate.py --selftest\ngrep -n \"D4L-ARGOT-DERIV\" tools/gates/typed-pipeline-gate.py   # 536: …\"id\": \"D4L-ARGOT-DERIV\"…\npython3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml"
+   ]
+  },
+  {
+   "id": "Q-04-2",
+   "owner": "corpus/QUALITY.md",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -B tools/gates/naming-collision-gate.py examples/culture-d4/packet.d4.yml 2>&1 | tail -2"
+   ]
+  },
+  {
+   "id": "Q-04-3",
+   "owner": "reports/round-5",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "ls reports/round-5/parent-reconciliation.json     # exists\npython3 -c \"import json;d=json.load(open('reports/round-5/parent-reconciliation.json'));print(d['expected_worker_raw_counts'])\""
+   ]
+  },
+  {
+   "id": "Q-04-4",
+   "owner": "corpus/lessons/round-4-audit",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": []
+  },
+  {
+   "id": "Q-05-1",
+   "owner": "operator",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -c \"import json;d=json.load(open('reports/round-5/availability-attempt-1.json'));print(d['requested_model'],d['requested_workers'],d['launched_workers'],d['completed_workers'])\""
+   ]
+  },
+  {
+   "id": "Q-05-2",
+   "owner": "reports/round-5/parent-reconciliation.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -c \"import json;d=json.load(open('reports/round-5/parent-reconciliation.json'));print(d['basis'][:80]);print(d['expected_worker_raw_counts'])\""
+   ]
+  },
+  {
+   "id": "Q-05-3",
+   "owner": "corpus/QUALITY.md",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "grep -n \"header\\|rubric\" corpus/QUALITY.md     # (no matches)\ngrep -n \"numeric rubric\" reports/round-5/kotodama.md\ngrep -n \"full corpus-header\" corpus/lessons/round-5.md"
+   ]
+  },
+  {
+   "id": "Q-06-1",
+   "owner": "reports/round-6/checkpoint.json",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -c \"import json;d=json.load(open('reports/round-6/checkpoint.json'));print(d['state']);print(d['admission_status']);print(d['resume_first'])\""
+   ]
+  },
+  {
+   "id": "Q-06-2",
+   "owner": "parent",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "ls /home/vgpnk/Projects/shokunin/.ufo/     # history-pin.json, l0-questions.md, reports, state, …\ngrep -n \"Fleet root is not clean\" reports/round-25/report-draft.md"
+   ]
+  },
+  {
+   "id": "Q-07-1",
+   "owner": "reports/round-7",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": []
+  },
+  {
+   "id": "Q-08-1",
+   "owner": "reports/round-8",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "grep -n \"R9-R8-F0\" reports/round-9/targets.json\nls reports/round-9/freshness/verify-F03.md    # exists (per-row verification)"
+   ]
+  },
+  {
+   "id": "Q-09-1",
+   "owner": "parent",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -c \"import json;print(json.load(open('reports/round-9/validation.json'))['acceptance_checks_passed'])\"\nls reports/round-9/ | grep -i 'spot\\|parent'    # NONE"
+   ]
+  },
+  {
+   "id": "Q-10-1",
+   "owner": "reports/round-10/validation.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -c \"import json;d=json.load(open('reports/round-10/validation.json'));print(d['date'],d['acceptance_checks_passed'],d['failures']);print({k:v['passed'] for k,v in d['claims'].items()})\"\ngit show 94ca098:reports/round-10/validation.json | sha256sum\nsha256sum reports/round-10/validation.json"
+   ]
+  },
+  {
+   "id": "Q-11-1",
+   "owner": "parent",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -c \"import json;d=json.load(open('reports/round-12/defects/ledger.json'));\n[print(json.dumps(e,indent=1)) for e in d['entries'] if e['id']=='RATIO-11']\"\ngrep -n \"0.778\\|0.7656\" reports/round-12/defects/sweep-r11.md | head -2"
+   ]
+  },
+  {
+   "id": "Q-11-2",
+   "owner": "parent",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "for f in reports/round-5/validation.json reports/round-6/checkpoint-validation.json \\\n         reports/round-6/validation.json reports/round-7/validation.json \\\n         reports/round-8/validation.json reports/round-9/validation.json; do\n  [ \"$(git rev-parse HEAD:$f)\" = \"$(git hash-object $f)\" ] && echo \"$f same=YES\" || echo \"$f same=NO\"\ndone"
+   ]
+  },
+  {
+   "id": "Q-11-3",
+   "owner": "reports/round-11",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "ls -l reports/round-10/coverage/index-update-22.md     # exists\ngit log --oneline -2 -- reports/round-10/coverage/index-update-22.md\ngit status --porcelain reports/round-10/coverage/index-update-22.md    # (empty)"
+   ]
+  },
+  {
+   "id": "Q-12-1",
+   "owner": "reports/round-12/recount/audit.md",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "grep -n \"C23-F1\" reports/round-12/recount/audit.md | head -2"
+   ]
+  },
+  {
+   "id": "Q-12-2",
+   "owner": "parent",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "grep -n \"147/192\" reports/round-12/targets.json\ngrep -n \"147/189\\|147/192\" SCORECARD.md | head -2"
+   ]
+  },
+  {
+   "id": "Q-12-3",
+   "owner": "reports/round-12",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "ls reports/round-12/adjacency/ledger.json    # exists\npython3 -c \"import json;d=json.load(open('reports/round-12/adjacency/ledger.json'));print(list(d));print(len(d['entries']));print(d['entries'][0])\"\ngrep -n \"R12-A01\" reports/round-12/targets.json"
+   ]
+  },
+  {
+   "id": "Q-14-1",
+   "owner": "reports/round-14/retro-consistency.md",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "grep -n \"erratum\\|scoped\" reports/round-14/retro-consistency.md | head -4"
+   ]
+  },
+  {
+   "id": "Q-14-2",
+   "owner": "SCORECARD.md",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "grep -n \"Axes — round 14\" SCORECARD.md\nsed -n '100,110p' SCORECARD.md | grep -c \"^| \""
+   ]
+  },
+  {
+   "id": "Q-15-1",
+   "owner": "reports/round-15/handoff/v2-design.md",
+   "class": "fixed-with-evidence",
+   "next_touch_round": 27,
+   "has_reason": false,
+   "commands": [
+    "grep -n \"OQ-V2-0\" reports/round-15/handoff/v2-design.md"
+   ]
+  },
+  {
+   "id": "Q-15-2",
+   "owner": "tools/harness/packet_uncertainty.py",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -B tools/harness/packet_uncertainty.py --selftest",
+    "printf -- \"- not a mapping row\\n\" > .scratch/r26c/ctl/bad.yml\npython3 -B tools/harness/packet_uncertainty.py --packet .scratch/r26c/ctl/bad.yml"
+   ]
+  },
+  {
+   "id": "Q-16-1",
+   "owner": "reports/round-16/civ-map.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "ls -l reports/round-16/civ/map-audit.md     # exists\nsed -n '10,14p' reports/round-16/civ/map-audit.md"
+   ]
+  },
+  {
+   "id": "Q-17-1",
+   "owner": "reports/round-17",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "ls -l tools/assemble-d4-typed.py\npython3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml"
+   ]
+  },
+  {
+   "id": "Q-17-2",
+   "owner": "reports/round-17",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "grep -n \"F-X01-1 superseded\" corpus/lessons/round-17.md"
+   ]
+  },
+  {
+   "id": "Q-18-1",
+   "owner": "examples/culture-d4/components/01-brief.yml",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -c \"\nt=open('examples/culture-d4/packet.d4.typed.yml').read()\nprint('D4L-FORM-UNRESOLVED',t.count('D4L-FORM-UNRESOLVED'))\nprint('D2L-FORM-UNRESOLVED',t.count('D2L-FORM-UNRESOLVED'))\"\npython3 -c \"import json;d=json.load(open('examples/culture-d4/expected-holds.json'));print(d['counts'],len(d['holds']))\""
+   ]
+  },
+  {
+   "id": "Q-18-2",
+   "owner": "parent",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "grep -n \"authority question\" corpus/lessons/round-18.md\ngrep -n \"must say which authority\" reports/round-19/integration/d4-lessons-entry.md"
+   ]
+  },
+  {
+   "id": "Q-18-3",
+   "owner": "tools/d2-typed-labels.py",
+   "class": "carried",
+   "next_touch_round": 26,
+   "has_reason": true,
+   "commands": [
+    "grep -rl \"D4L-REGISTER-UNRESOLVED\" examples/ tools/     # (no output: 0 files)\ngrep -c \"D9L-REGISTER-UNRESOLVED\" tools/gates/typed-pipeline-gate.py   # 3 (a D9 fixture only)\npython3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml"
+   ]
+  },
+  {
+   "id": "Q-19-1",
+   "owner": "parent",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "grep -n \"collision (X24-L1 / X28-1) is the standing example\" corpus/lessons/README.md\ngrep -n \"still open\" corpus/lessons/README.md\nls -l corpus/lessons/round-19.md reports/round-19/integration/d4-lessons-entry.md"
+   ]
+  },
+  {
+   "id": "Q-19-2",
+   "owner": "examples/culture-d4/expected-holds.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -c \"\nimport json;d=json.load(open('examples/culture-d4/expected-holds.json'))\nprint(list(d))\nprint(d['revision_note'][:150])\""
+   ]
+  },
+  {
+   "id": "Q-20-1",
+   "owner": "corpus/README.md",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "find corpus/knowledge/linguistics -type f | wc -l     # 19\nfind corpus/knowledge -type f | wc -l                 # 199\nsed -n '23,25p' corpus/README.md"
+   ]
+  },
+  {
+   "id": "Q-20-2",
+   "owner": "examples/culture-d2/expected-holds.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -c \"\nimport json,hashlib\nd=json.load(open('examples/culture-d2/expected-holds.json'))\nlive=hashlib.sha256(open('tools/d2-typed-labels.py','rb').read()).hexdigest()\nprint(d['projector_sha256']); print(live); print(d['projector_sha256']==live)\""
+   ]
+  },
+  {
+   "id": "Q-20-3",
+   "owner": "tools/exercise-handoff-e2e.py",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -B tools/exercise-handoff-e2e.py --profile v2\npython3 -B tools/exercise-handoff-e2e.py --profile v3"
+   ]
+  },
+  {
+   "id": "Q-20-4",
+   "owner": "parent",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "for f in reports/round-5/validation.json reports/round-7/validation.json reports/round-9/validation.json; do\n  echo \"$f $([ \"$(git rev-parse HEAD:$f)\" = \"$(git hash-object $f)\" ] && echo same=YES || echo same=NO)\"; done\npython3 -B tools/harness/receipt_guard.py --selftest | tail -3"
+   ]
+  },
+  {
+   "id": "Q-21-1",
+   "owner": "reports/round-21/defects/ledger.json",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "python3 -c \"\nimport json;d=json.load(open('reports/round-21/defects/ledger.json'))\n[print(e['id'],e['status'],'route',e.get('route_round')) for e in d['entries']\n if e['id'] in ('R17-CURRENT-RECOUNT-DISCREPANCY','R20-HANDOFF-LINK-COUNT')]\"\npython3 -c \"\nimport json;s=json.dumps(json.load(open('reports/round-22/routed-resolution.json')))\nprint('R17-CURRENT-RECOUNT-DISCREPANCY' in s, 'R20-HANDOFF-LINK-COUNT' in s)\""
+   ]
+  },
+  {
+   "id": "Q-21-2",
+   "owner": "reports/round-21/defects/regression.md",
+   "class": "fixed-with-evidence",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "export TMPDIR=/tmp/r26c\npython3 -B tools/replay-frozen.py tools/gates/frozen/round-18/MANIFEST.tsv\npython3 -B tools/replay-frozen.py tools/gates/frozen/round-11/MANIFEST.tsv"
+   ]
+  },
+  {
+   "id": "Q-22-1",
+   "owner": "tools/d2-typed-labels.py",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "python3 -B tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --emit .scratch/r26c/ctl/d4d.yml\ndiff -q .scratch/r26c/ctl/d4d.yml examples/culture-d4/typed-labels.d4.yml   # IDENTICAL\ngrep -c \"D2L-RANK\" examples/culture-d4/typed-labels.d4.yml examples/culture-d4/expected-holds.json\npython3 -B tools/d2-typed-labels.py --packet examples/culture-d2/packet.d2.yml --check\npython3 -B tools/d2-typed-labels.py --selftest"
+   ]
+  },
+  {
+   "id": "Q-22-2",
+   "owner": "operator",
+   "class": "carried",
+   "next_touch_round": 27,
+   "has_reason": true,
+   "commands": [
+    "grep -n \"freshness\" SCORECARD.md | tail -3\ngrep -n \"claims pause pending operator recalibration\" reports/round-16/scope.md"
+   ]
+  },
+  {
+   "id": "Q-22-3",
+   "owner": "reports/round-22/routed-resolution.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": 27,
+   "has_reason": false,
+   "commands": [
+    "head -14 reports/round-23/pins/r2-live.md\nhead -2 tools/gates/frozen/round-23/repin-d2/MANIFEST.tsv"
+   ]
+  },
+  {
+   "id": "Q-23-1",
+   "owner": "reports/round-25/claims.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "ls reports/round-25/v3-supersession/declared-in-r4/\nhead -6 reports/round-25/v3-supersession/declared-in-r4/freeze.txt"
+   ]
+  },
+  {
+   "id": "Q-23-2",
+   "owner": "reports/round-25/claims.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "grep -c \"foreign-path-stability control\" reports/round-23/wording/declared-in-r3/packet.md\ngrep -c \"foreign-path-stability control\" reports/round-25/v3-supersession/declared-in-r4/packet.md\ngrep -n \"preserved invariants\" reports/round-25/v3-supersession/declared-in-r4/freeze.txt"
+   ]
+  },
+  {
+   "id": "Q-23-3",
+   "owner": "reports/round-25/claims.json",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "head -8 reports/round-23/pins/r2-live.md\nls tools/gates/frozen/round-23/repin-d2/ | head -4\npython3 -c \"\nimport json,hashlib\nd=json.load(open('examples/culture-d2/expected-holds.json'))\nprint(d['projector_sha256']==hashlib.sha256(open('tools/d2-typed-labels.py','rb').read()).hexdigest())\""
+   ]
+  },
+  {
+   "id": "Q-S1-1",
+   "owner": "reports/supplement-opencode-1",
+   "class": "fixed-with-evidence",
+   "next_touch_round": null,
+   "has_reason": false,
+   "commands": [
+    "ls corpus/lessons/supplement-opencode-1/sources/*.json | wc -l          # 15\npython3 - <<'PY'\nimport json,glob\ntot=unres=0\nfor f in glob.glob('corpus/lessons/supplement-opencode-1/sources/*.json'):\n    s=json.dumps(json.load(open(f)))\n    tot+=s.count('\"supported\"'); unres+=s.count('\"unresolved\"')\nprint('supported',tot,'unresolved',unres)\nPY",
+    "grep -n \"authored none of the lane's artifacts\" reports/round-24/promotion-review.md\nsed -n '26,29p' reports/round-24/promotion-review.md\ngrep -c \"verified-with-conditions\" reports/round-24/promotion-review.md   # 12"
+   ]
+  }
+ ]
+}

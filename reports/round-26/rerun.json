@@ -1,0 +1,856 @@
+{
+  "round": 26,
+  "assignment": "SCRIBE X58 \u2014 report scribe + settled-tree rerun",
+  "date": "2026-10-18",
+  "status": "measurement-closed on checkpoints c/d/e; the round-26 counting command reports/round-26/run-validation.py landed mid-window and reads acceptance_checks_passed: false with claim_passed {C: true, D: true, O: false} on three independent snapshots and three runner revisions. This seat wrote no round-26 receipt; the filed reports/round-26/validation.json was produced by another seat. Rerun record + integration draft, not a round admission \u2014 the parent owns the verdict.",
+  "baseline_revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+  "declaration_head": "1ad491a1a4b0aef9ebdc1861dfb8237727503825",
+  "axes": {
+    "O": "operability",
+    "D": "depth",
+    "C": "coverage"
+  },
+  "method": {
+    "scratch_prelude": "export TMPDIR=$PWD/.scratch (from the lane root before every scratch-writing command)",
+    "clone_root": ".scratch/r58",
+    "overlay_snapshot_policy": "checkpoint-a/checkpoint-b are shared Git clones of declaration HEAD 1ad491a overlaid with hash-inventoried live working-tree surfaces (tools, examples, corpus, reports/round-26, SKILL.md, SCORECARD.md, LOG.md, AGENTS.md, PROVINCE.md, README.md); copy_stable is measured, not assumed.",
+    "historical_clone_policy": "plain shared clones of declaration HEAD with no overlay, one per round: .scratch/r58/r19 .. r24, each with its own .scratch; REFRESH_RECEIPTS=1 grants receipt writes inside the clones only.",
+    "live_filed_receipts_refreshed_by_x58": false,
+    "commits_or_pushes_by_x58": false,
+    "shared_bookkeeping_edited_by_x58": false,
+    "round26_validator_executed_by_x58": true,
+    "round26_validator_note": "reports/round-26/run-validation.py did NOT exist at this seat's 18:00-18:10Z reads; it landed by ~18:22Z and was then executed by this seat in --check mode in three isolated overlay clones (checkpoint-c/d/e). This seat wrote no reports/round-26/validation.json; the filed receipt (sha256 202d44bf...) was produced by another seat, and this seat's independent reads reproduce its verdict.",
+    "commands_file": ".scratch/r58-commands.json \u2014 the round-25 runner's own REGRESSIONS tuple, extracted verbatim (35 commands) so this battery is comparable to round 25's."
+  },
+  "preservation": {
+    "surface": "reports/round-8..25 and tools/gates/frozen/round-8..25 compared to declared baseline fc13cd2 by git ls-tree blob-id and mode",
+    "command": "python3 .scratch/r58/capture.py protect",
+    "initial": {
+      "observed_at_utc": "2026-10-18T18:31:39.885664+00:00",
+      "files": 1328,
+      "manifest_sha256": "c1fe724d274ba8117ef5f0673d1498e1771edc8dc89fe48ab75b3343db8e3e9e"
+    },
+    "initial_mismatches": [],
+    "initial_protected_status_rows": 0,
+    "closing": {
+      "observed_at_utc": "2026-10-18T18:31:39.885664+00:00",
+      "files": 1328,
+      "manifest_sha256": "c1fe724d274ba8117ef5f0673d1498e1771edc8dc89fe48ab75b3343db8e3e9e"
+    },
+    "closing_mismatches": [],
+    "closing_protected_status_rows": 0,
+    "samples": [
+      {
+        "observed_at_utc": "2026-10-18T18:01:26.959985+00:00",
+        "files": 1328,
+        "manifest_sha256": "c1fe724d274ba8117ef5f0673d1498e1771edc8dc89fe48ab75b3343db8e3e9e",
+        "mismatches": 0,
+        "protected_status_rows": 0,
+        "record": ".scratch/r58/protected-initial.json"
+      },
+      {
+        "observed_at_utc": "2026-10-18T18:07:27.949911+00:00",
+        "files": 1328,
+        "manifest_sha256": "c1fe724d274ba8117ef5f0673d1498e1771edc8dc89fe48ab75b3343db8e3e9e",
+        "mismatches": 0,
+        "protected_status_rows": 0,
+        "record": ".scratch/r58/protected-closing.json"
+      },
+      {
+        "observed_at_utc": "2026-10-18T18:24:37.153826+00:00",
+        "files": 1328,
+        "manifest_sha256": "c1fe724d274ba8117ef5f0673d1498e1771edc8dc89fe48ab75b3343db8e3e9e",
+        "mismatches": 0,
+        "protected_status_rows": 0,
+        "record": ".scratch/r58/protected-last.json"
+      },
+      {
+        "observed_at_utc": "2026-10-18T18:31:05.672568+00:00",
+        "files": 1328,
+        "manifest_sha256": "c1fe724d274ba8117ef5f0673d1498e1771edc8dc89fe48ab75b3343db8e3e9e",
+        "mismatches": 0,
+        "protected_status_rows": 0,
+        "record": ".scratch/r58/protected-closing.json"
+      }
+    ],
+    "limit": "Tracked bytes and file modes only; a clean observation does not exclude a transient write-and-restore between samples. Ignored logs have no committed baseline identity."
+  },
+  "settled_tree_regressions": {
+    "command": "python3 .scratch/r58/capture.py run checkpoint-a .scratch/r58-commands.json",
+    "commands_file": ".scratch/r58-commands.json \u2014 the round-25 runner's own REGRESSIONS tuple, extracted verbatim (35 commands) so this battery is comparable to round 25's.",
+    "snapshot": "checkpoint-a (HEAD 1ad491a + live overlay, 748 files, manifest e4fa13a75de70c8ce0e95a0841a78536903c21d118af4f0462175940be3def77, copy_stable True)",
+    "date": "2026-10-18",
+    "commands": 35,
+    "all_exit_zero": true,
+    "nonzero_exit_ids": [],
+    "key_results": {
+      "battery_selftest": "SELFTEST OK 35/35 controls behaved as expected",
+      "battery": "}",
+      "craft": "OK all checks passed (audits=7, mech_cases=11, derivations=9, approx_checks_runner=37)",
+      "craft_selftest": "CLI-SELFTEST OK 18/18 cases passed",
+      "d2_assembly_selftest": "selftest: 42/42 checks passed \u2014 fixture CLI assemble/--check/tamper plus malformed, missing, duplicate-ID, incomplete-record, duplicate-key, empty and wrong-wrapper controls; no file outside the temporary directory touched",
+      "d2_adapter_selftest": "selftest: 11/11 checks passed \u2014 build/determinism/--check/tamper plus stale-projection, coverage-gap and malformed-packet controls; no file outside the temporary mirror touched",
+      "d3_assembly_selftest": "selftest: 85/85 checks passed \u2014 fixture CLI assemble/--check/determinism/tamper plus missing, invalid-JSON, invalid-UTF8, wrong-root, unexpected-key, missing-key, collision, wrong-type, below-minimum and serializer-absent fail-closed contro",
+      "d4_assembly_selftest": "selftest: 81/81 checks passed \u2014 positive assemble/--check/determinism, tamper drift, malformed, missing-component and missing-output controls, plus collision, duplicate-id, wrong-type, empty-block, missing-field, too-few-files and serialize",
+      "d4_adapter_selftest": "selftest: 12/12 checks passed \u2014 build/determinism/--check/tamper plus stale-projection, coverage-gap and malformed-packet controls; no file outside the temporary mirror touched",
+      "projector_selftest": "selftest: 163/163 checks passed \u2014 the three shard control matrices, the loader/parser malformed cases, the live-packet typing and reconciliation cases, and the CLI emit/check/tamper controls; no file outside the temporary directory touched",
+      "replay_selftest": "selftest: 79/79 checks passed",
+      "typed_gate_selftest": "selftest: 19/19 checks passed \u2014 constant==baseline, the mirrored four legs, determinism/--json, and the smuggled-label, dropped-row, laundered-hold, adapter-drift, malformed, missing and input-class controls; no file outside the temporary m",
+      "typed_gate_generalized_selftest": "selftest-generalized: 16/16 checks passed \u2014 default resolution on the D2 constants, a declared family graded green, determinism, and the tamper/drift/self-pin/missing-expected/stale-pin controls, each identity verdict agreed with the assemb",
+      "d2_gate": "summary: 16/16 legs passed",
+      "d4_gate": "summary: 20/20 legs passed",
+      "argot_gate_selftest": "selftest: 21/21 checks passed",
+      "argot_gate_d4": "dependency: tools/gates/naming-collision-gate.py sha256 d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+      "handoff_v2": "handoff-v2: exit=0 claims=15 links=50/50 drift=named(tools/harness/packet_links.py round-16)",
+      "handoff_v3": "handoff-v3: exit=0 fields=16/16 glossary=20/20 findings=0 links=105/105 claims=27 statuses=16/7/4 v2_subset=equal alias_leg=landed packet_sha256=a97a0f0a0a497cb4410124607065df7686bbc7f78b4b46bdaaaa1d66ba4d1b6e",
+      "receipt_guard_selftest": "}"
+    },
+    "per_command_results": ".scratch/r58/checkpoint-a-results.json with per-command streams under .scratch/r58/checkpoint-a-runs/",
+    "boundary": "Measured against checkpoint-a overlay bytes captured at the stamp in .scratch/r58/checkpoint-a-capture.json. The live tree kept moving as worker fragments landed; later bytes are outside this battery."
+  },
+  "historical_validators": {
+    "command": "python3 .scratch/r58/historical.py",
+    "date": "2026-10-18",
+    "observed_at_utc": "2026-10-18T18:08:33.626596+00:00",
+    "rows": {
+      "r19": {
+        "clone": ".scratch/r58/r19",
+        "date": "2026-10-18",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-19/run-validation.py",
+        "runner_sha256": "5b27a80de1f4b11012061e7ed3e835734049661ace295b39878afd9f71454d3a",
+        "exit_code": 0,
+        "stdout_sha256": "6ed5e3cafa3f7944db898f8b744c1f6339723de4cdcc7974bc85003d3363e979",
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "C": true,
+          "O": true,
+          "D": true
+        },
+        "failures": [
+          "C entries"
+        ]
+      },
+      "r20": {
+        "clone": ".scratch/r58/r20",
+        "date": "2026-10-18",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-20/run-validation.py",
+        "runner_sha256": "2b7a252b5449415dddac2e667ed2e192df800a80173849989fa72423961646da",
+        "exit_code": 1,
+        "stdout_sha256": "bfc4ec4a0e5bc7fd8374c2c09fd0cccd6b241369c6cef97abb5b92ee3abec5ad",
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "C": true,
+          "D": false,
+          "O": false
+        },
+        "failures": [
+          "claim D: v2 successor row not green: reports/round-20/wart/expected-v2-07-r20.json exit 2 \u2014 V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py\n",
+          "claim D: contract audit re-run verdict is 'fail', not a semantic PASS or named gaps with owners: reports/round-20/handoff/packet-v3-16.md",
+          "claim D: v3 baseline reports/round-20/handoff/expected.json pins packet e92f5e6775b6\u2026 but the run assembled a97a0f0a0a49\u2026",
+          "claim O: D4 gate legs summary: 20/20 legs passed != 19/19"
+        ]
+      },
+      "r21": {
+        "clone": ".scratch/r58/r21",
+        "date": "2026-10-18",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-21/run-validation.py",
+        "runner_sha256": "938cddeed86dedf52a4904c9c6a81248d6dc719c1330d4f3b64bcd8f3be896b0",
+        "exit_code": 1,
+        "stdout_sha256": "437426a2155571b7b6e8df5eace034db9fc6bdd0c1e1d61b767af91e72ee8821",
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "A": false,
+          "C": false,
+          "O": true
+        },
+        "failures": [
+          "claim C: Isolated round-18 validator did not update its scratch-clone receipt",
+          "claim C: Isolated round-18 committed receipt refresh was not explicitly granted",
+          "claim C: Isolated round-18 validator rerun did not produce a comparable acceptance receipt",
+          "claim A: Current handoff twin link replay failed: exit 1, result (105, 105, 4)"
+        ]
+      },
+      "r22": {
+        "clone": ".scratch/r58/r22",
+        "date": "2026-10-18",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-22/run-validation.py",
+        "runner_sha256": "3af74c2b40f007c21581b037c9059512bd745d4fe8645dd9e4364818a4e463dd",
+        "exit_code": 1,
+        "stdout_sha256": "a0fbf223ca1275932938c6d4fdd81128447bd5e10b35f539b6109c423d8b63d0",
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "C": true,
+          "D": false,
+          "O": false
+        },
+        "failures": [
+          "claim O: Round-22 frozen successor replay failed: tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv",
+          "claim D: D4 gate summary did not reproduce (19, 19): (20, 20)"
+        ]
+      },
+      "r23": {
+        "clone": ".scratch/r58/r23",
+        "date": "2026-10-18",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-23/run-validation.py",
+        "runner_sha256": "ae897cb8d808f0c1432948154d440f9c86730685b32b91442d9714dc27692cb2",
+        "exit_code": 1,
+        "stdout_sha256": "ede7f616be4c3d223337eb3919c91d88fc8ef90b1a6c9918c06300fa166e9a2e",
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "D": true,
+          "O": false
+        },
+        "failures": [
+          "claim O: wording: wording-check --check failed (exit 1)",
+          "claim O: pins: replay of the frozen round-23 generation failed (exit 2)"
+        ]
+      },
+      "r24": {
+        "clone": ".scratch/r58/r24",
+        "date": "2026-10-18",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-24/run-validation.py",
+        "runner_sha256": "ba3b18a79e9b0dbbe9fae70b7bc4b27f50d670ff025b1b24cf7f14b1ac6d43ad",
+        "exit_code": 0,
+        "stdout_sha256": "88554521b8dac4fdd2b8afcad4051dcf57fc4614f071f6eb3dcd0395ef9679d7",
+        "acceptance_checks_passed": true,
+        "claim_passed": {
+          "C": true,
+          "D": true,
+          "O": true
+        },
+        "failures": []
+      }
+    }
+  },
+  "round25_runner_crosscheck": {
+    "command": "python3 reports/round-25/run-validation.py --check",
+    "clone": ".scratch/r58/checkpoint-b",
+    "clone_files": null,
+    "date": "2026-10-18",
+    "exit_code": 0,
+    "acceptance_checks_passed": true,
+    "claim_passed": {
+      "C": true,
+      "D": true,
+      "O": true
+    },
+    "failures": [],
+    "reading": "The round-25 runner still reads acceptance true on the round-26 in-flight tree. This is a cross-check that round 26 has not regressed round 25's own claims; it is NOT a round-26 measurement and it discharges no round-26 claim.",
+    "receipt": ".scratch/r58/r25-checkpoint-b.json"
+  },
+  "wave_census": {
+    "observed_at_utc": "2026-10-18T18:31:39.922653+00:00",
+    "command": "python3 .scratch/r58/assemble.py (rglob over reports/round-26, __pycache__ and this seat's two paths excluded)",
+    "files": 92,
+    "rows": [
+      {
+        "path": "reports/round-26/adjacency.md",
+        "bytes": 24353,
+        "sha256": "b3da3afaa2aa1171f9e1d710baf7a84f8b94466cb3d1a36dfcc39dc2eab434f6"
+      },
+      {
+        "path": "reports/round-26/argot/D21-adversarial-replay.md",
+        "bytes": 14903,
+        "sha256": "77fa1e8f54a74fe1b67ff19191468f8a7d659e75cef39fa25b4a6043d3ae0a30"
+      },
+      {
+        "path": "reports/round-26/argot/D22-label-typing-crosscheck.md",
+        "bytes": 12308,
+        "sha256": "1328ba0a86c6b962fa05ad1e6c0f0337afce2d83af1190407d4f9e2335cd0562"
+      },
+      {
+        "path": "reports/round-26/argot/D23-overmatch.md",
+        "bytes": 11191,
+        "sha256": "7d31da7dd84ec8f45ba627e5f4add2ad99254371c5b9bf8815b617159aad9f87"
+      },
+      {
+        "path": "reports/round-26/argot/D24-forecast-closure.md",
+        "bytes": 12849,
+        "sha256": "28cfa55512f54e10c42cd9c911c0958db405fc3c411b69de80a268cb49692dd0"
+      },
+      {
+        "path": "reports/round-26/audit/o39-o40-remainder-fixes-adversarial.md",
+        "bytes": 21671,
+        "sha256": "0c7a10d712a391542f3becc5718a92c64aa42253ae01f41fbf40a6d563c4b7c3"
+      },
+      {
+        "path": "reports/round-26/audit/x60-register-derivation-spotcheck.md",
+        "bytes": 27096,
+        "sha256": "71745325efc1d901c61c4c1721c2dbb00a479bbf19984b098a9b33b6587dad1f"
+      },
+      {
+        "path": "reports/round-26/audit/x60-register-derivation-spotcheck.py",
+        "bytes": 24203,
+        "sha256": "db22fb132ffa2f22440c52edcbea059cb9fae55ab0b592a4ff0d92147066fc6c"
+      },
+      {
+        "path": "reports/round-26/audit/x63-lessons-audit.md",
+        "bytes": 16876,
+        "sha256": "ed933058e082865a5d65fe88d80213a1f216f1d0b30cb02daa3dea2e3bc38c9a"
+      },
+      {
+        "path": "reports/round-26/audit/x63-lessons-audit.py",
+        "bytes": 22851,
+        "sha256": "33e27e78decae9deb9f7129c06ba637c3977163eaa60b13354fde64ab25149a0"
+      },
+      {
+        "path": "reports/round-26/audit/x63-lessons-receipt.json",
+        "bytes": 4912,
+        "sha256": "d90aebc2b5cb00e2dea70c99c43bfa7294dbf84ae64a2abf4aaf5ea9df22c597"
+      },
+      {
+        "path": "reports/round-26/availability.json",
+        "bytes": 23057,
+        "sha256": "7e23f33daa65514182cc3d6dca54bf6ea355c5b61d4f978261a7d366fe5f2b6c"
+      },
+      {
+        "path": "reports/round-26/claims.json",
+        "bytes": 2383,
+        "sha256": "363498eda7e5c960c7749ceb95d57679576cc00ecbd8c3685122262d0d5948ae"
+      },
+      {
+        "path": "reports/round-26/fragment-index-x54.md",
+        "bytes": 35781,
+        "sha256": "52f875399c2193e82c3ee325de5e167a9fc56aacecc90096fe9cb669dacc2456"
+      },
+      {
+        "path": "reports/round-26/gate-tests/D17-D20-teeth.md",
+        "bytes": 3563,
+        "sha256": "b92b80819bb7181226c8b783330fb34e21d9247609e23f9236663857cb2ef51b"
+      },
+      {
+        "path": "reports/round-26/gate-tests/D17-typed-gate.md",
+        "bytes": 6640,
+        "sha256": "3c835aa3838ab5acab368aa3b9ac6926864492c120cb68b3d81eb428349b6c08"
+      },
+      {
+        "path": "reports/round-26/gate-tests/D18-negatives.md",
+        "bytes": 6505,
+        "sha256": "d2bbe8da3c056f55f1754cc65a349aaa06f4bdd297f3a73d1e60c088ce50b765"
+      },
+      {
+        "path": "reports/round-26/gate-tests/D19-determinism.md",
+        "bytes": 3770,
+        "sha256": "5b462befee64938f46dd9c4d60957c4b6832aae218edfd58a6e522141dc6b3e6"
+      },
+      {
+        "path": "reports/round-26/gate-tests/D20-replay-frozen.md",
+        "bytes": 7212,
+        "sha256": "50f219e7d79ae228f127f4f881c33201b1f735a7e14e77cca421854e580fb65e"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n1-maximal-coda.yml",
+        "bytes": 539,
+        "sha256": "460cae8476c48bd4d790392964e40b25494e77de5ebc62acf19ff370cb2f080b"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n2-rule-mismatch.yml",
+        "bytes": 485,
+        "sha256": "ef2ad71b8fb6e8c3cf5a1d0f6f376c7bbc2c934019a047c9a8a4cef406d167d6"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n3-positive-control.yml",
+        "bytes": 553,
+        "sha256": "92e14150d4026ea1e59e2b1c8654989668ad209e16f84cdfa8cdb106040c1b4b"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n4-unknown-rule.yml",
+        "bytes": 350,
+        "sha256": "77b31d15ed4ae4b232142fe06c5c4392999e5cbe95d6468401d473a5313c2753"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n5-borrow-mismatch.yml",
+        "bytes": 339,
+        "sha256": "04f54be68ce9f22a7ec46fe7158cf9c44b6843b9ed7c4f8a8025e8acf7095a5a"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n6-coverage-hold.yml",
+        "bytes": 408,
+        "sha256": "5b455472e85bd2d716a9bf19050c0f9d9f9d1df388c79f3f08840da930af1bb5"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n7-malformed.yml",
+        "bytes": 46,
+        "sha256": "c19d69c0da5ea83d5c1f5969406740e6d6a00280233e8b2cc5206c1611fb7089"
+      },
+      {
+        "path": "reports/round-26/gate-tests/fixtures/n8-lengthen-mismatch.yml",
+        "bytes": 771,
+        "sha256": "d5a0f128c5faf954a1174ff24a65be4be15fc5248b5c045e194dc645b3a5212e"
+      },
+      {
+        "path": "reports/round-26/gate-tests/freeze.py",
+        "bytes": 10446,
+        "sha256": "3614fa51f45be62724b380f504eb376e93b0bb657defe6f0caa2e0e8ae3d7c32"
+      },
+      {
+        "path": "reports/round-26/gate-tests/receipt.json",
+        "bytes": 56267,
+        "sha256": "1e630436461557dcdad937828e014dbeda6bd2f480fe3fc81788ccff0353db73"
+      },
+      {
+        "path": "reports/round-26/gate-tests/run-gate-tests.py",
+        "bytes": 31393,
+        "sha256": "112181d999086d1e2aea15a1bba9b65fd1a9e0932190e48c5b8522a671e52e3d"
+      },
+      {
+        "path": "reports/round-26/lessons/C51-C52.md",
+        "bytes": 13179,
+        "sha256": "fb916d391d0c4acc92e3bed9f214bc895e785a17aed2401e607bdc43d2f34a97"
+      },
+      {
+        "path": "reports/round-26/lessons/C53.md",
+        "bytes": 19950,
+        "sha256": "b71fe79669c0d8028b76b1c14865d8f65383e99b0a2db04b0317d8e79dd4d2d2"
+      },
+      {
+        "path": "reports/round-26/lessons/c51-revision-audit.py",
+        "bytes": 15080,
+        "sha256": "d0b6d1b3807a1ff0c47c69ae4056705ad78d2e3ed810caf173eef8b62165313a"
+      },
+      {
+        "path": "reports/round-26/lessons/c51-revision-receipt.json",
+        "bytes": 1874,
+        "sha256": "1eaab9035736dc5a9b743c74d4379ec753610b084b9d3cea139f5ea29436bf55"
+      },
+      {
+        "path": "reports/round-26/lessons/c51-revision-selftest.json",
+        "bytes": 1685,
+        "sha256": "82292aa31fd8f5d1874e0ce721569a67fbfe6c33b5bb0e8779cdaf34fc8a2b7c"
+      },
+      {
+        "path": "reports/round-26/lessons/r26-census.py",
+        "bytes": 8670,
+        "sha256": "cd64a81e734d96f1b86ddd43f29ed55ab9de8c7c371383d7a49e5943f48e24e1"
+      },
+      {
+        "path": "reports/round-26/open-questions/C41.md",
+        "bytes": 13930,
+        "sha256": "70c80d11dd965fd1c6251e0315fd4ffc7860417aeba9cd9a2c232bd19bd38c06"
+      },
+      {
+        "path": "reports/round-26/open-questions/C42.md",
+        "bytes": 6417,
+        "sha256": "2cbbfc898d76a8d1e561eecc47aee9a5fdd9b502485397856cf665dcf3fb0e21"
+      },
+      {
+        "path": "reports/round-26/open-questions/C43.md",
+        "bytes": 9349,
+        "sha256": "ad598518e9fb5888699674be6f273a36195d0a5e102e74e4c37ea1702e92dd1f"
+      },
+      {
+        "path": "reports/round-26/open-questions/C44.md",
+        "bytes": 8363,
+        "sha256": "33c4e3db55bbab30c28caa51246de5bff905f12d9a13f83f6f74b6546df0c0dd"
+      },
+      {
+        "path": "reports/round-26/open-questions/C45.md",
+        "bytes": 16785,
+        "sha256": "72f605334b4c530b8ead84d80d5f67b4845ef05d0d85d43273e085ade0183cb3"
+      },
+      {
+        "path": "reports/round-26/open-questions/C46.md",
+        "bytes": 7472,
+        "sha256": "eb1adc515d4ebdfc780fd574934b2ad1ea39431d2e8c075bda831a4aa8884b51"
+      },
+      {
+        "path": "reports/round-26/open-questions/audit-dispositions.py",
+        "bytes": 24660,
+        "sha256": "1fdd6607c6b688209117fe194335cd576ac956dcc2f2c78b2421cf801641d3a9"
+      },
+      {
+        "path": "reports/round-26/open-questions/audit.json",
+        "bytes": 45017,
+        "sha256": "558a5b67e60ec403d323a6eca7eaffbf7733e255aeeba19c76756361d699f144"
+      },
+      {
+        "path": "reports/round-26/open-questions/audit.md",
+        "bytes": 3780,
+        "sha256": "c1e0eea5bec1799261a5f000c4904be145385816c34c2e9091973941aad00d9d"
+      },
+      {
+        "path": "reports/round-26/open-questions/build-dispositions.py",
+        "bytes": 45530,
+        "sha256": "f833cedd0004c33710caa1d98384c7829914a9ff636e06d8eaac2a4cf9013106"
+      },
+      {
+        "path": "reports/round-26/open-questions/dispositions.json",
+        "bytes": 95421,
+        "sha256": "4071dbf9556fc9c88118adcab34b46ea6c7e5f5f27f3ae55d276216be764994a"
+      },
+      {
+        "path": "reports/round-26/open-questions/dispositions.md",
+        "bytes": 9468,
+        "sha256": "5af233b99e24b741372d64ae322a33c579424a32327a09accb23bdfde7d438d2"
+      },
+      {
+        "path": "reports/round-26/open-questions/verify-dispositions.py",
+        "bytes": 7179,
+        "sha256": "2ea881b3ab97c645625af7f049d92fe0f8830e3db69fd953b62df56d217801a6"
+      },
+      {
+        "path": "reports/round-26/open-questions/verify.json",
+        "bytes": 765,
+        "sha256": "9a7c76de634446cbc5dec55a1463f9335198d17ede80d2c04fc50507be84d6b0"
+      },
+      {
+        "path": "reports/round-26/register/design.md",
+        "bytes": 14454,
+        "sha256": "27d23fa67d0bb920d1841d25c82b09919419ef58ef3b2f75494d950f3b5bb55a"
+      },
+      {
+        "path": "reports/round-26/register/execution-1.md",
+        "bytes": 10155,
+        "sha256": "42aaa818dd52cbecaf02cd6f894db472e2c8c743eb32dd9dd703b52f77b38ecc"
+      },
+      {
+        "path": "reports/round-26/register/execution-2.md",
+        "bytes": 6726,
+        "sha256": "87bc9d94df3f4702e45bedbf22182559d3210a6cb899eda7f4fb94460b03615d"
+      },
+      {
+        "path": "reports/round-26/register/execution-3.md",
+        "bytes": 8368,
+        "sha256": "4ccbb4abf9652fd468697a73c8abc15f2a276622c4c503ed3526d75f8a7cbb71"
+      },
+      {
+        "path": "reports/round-26/register/execution-4.md",
+        "bytes": 8801,
+        "sha256": "cf361a8b44e7adca9d9b6fcd4af097ef3a7cf3504603b796dada9ea0ad7f1fd1"
+      },
+      {
+        "path": "reports/round-26/register/forms.md",
+        "bytes": 10031,
+        "sha256": "06635a1c123e0908e1bf51796c04940caac7d4b29ddaa47169eaaa1a1b7fc71b"
+      },
+      {
+        "path": "reports/round-26/register/impl.md",
+        "bytes": 16553,
+        "sha256": "180a60b2b51ebe8fb28686529bbe9c2af153541e50c3234f57bb62bcc4dedc46"
+      },
+      {
+        "path": "reports/round-26/register/repin.json",
+        "bytes": 6986,
+        "sha256": "4515642974ffd08cc87511c432f3f23abc6af49403df859fe0b69e666ffc85bc"
+      },
+      {
+        "path": "reports/round-26/register/review.md",
+        "bytes": 13537,
+        "sha256": "0082f08b62986ab2091a07acee464888fd68fa5312f19ef1b3817111a05f96e1"
+      },
+      {
+        "path": "reports/round-26/register/rules.md",
+        "bytes": 9350,
+        "sha256": "535cf7a981c5cf7d8c824454cb46319745bf096342a203add998a34842b026ef"
+      },
+      {
+        "path": "reports/round-26/register/v3-baseline-r26/expected.json",
+        "bytes": 10856,
+        "sha256": "581f1a8d57adcfe38eea93fc255272410d64581610b8320694a37aee8850f68b"
+      },
+      {
+        "path": "reports/round-26/register/v3-baseline-r26/freeze.txt",
+        "bytes": 521,
+        "sha256": "7060579e4ad224f14fb8e39cd94399db016f53f35fb8706618bc7d6f53897621"
+      },
+      {
+        "path": "reports/round-26/register/v3-baseline-r26/packet.md",
+        "bytes": 105582,
+        "sha256": "69ce387795c48b022858b39124c57cb6a682a587a59f4ceb2f3790be6f8e6c73"
+      },
+      {
+        "path": "reports/round-26/register/v3-baseline-r26/run.log",
+        "bytes": 1603,
+        "sha256": "373ce32b0b53d8254c74e2f94416a75bf0ac9c897e365b24a0c07bbac4689cc4"
+      },
+      {
+        "path": "reports/round-26/register/v3-baseline-r26/twin.json",
+        "bytes": 103370,
+        "sha256": "b849e2f9c919320f17166c54b53492d6be3da26d0a2184466ab81a26018f6f13"
+      },
+      {
+        "path": "reports/round-26/remainders/pin-repoint-check.py",
+        "bytes": 12165,
+        "sha256": "5674a6b32a8ce4fec660a84e5bf13eb84ae1c91e89e3c90013301a8470ce380e"
+      },
+      {
+        "path": "reports/round-26/remainders/pin-repoint-receipt.json",
+        "bytes": 4722,
+        "sha256": "406b764e28db23f438587aa3397ca5cc806aba36e8455e0aa57e12dfce642a02"
+      },
+      {
+        "path": "reports/round-26/remainders/pins.json",
+        "bytes": 6887,
+        "sha256": "cae128abbd0cd679cb5a0d1d23e6b01c4aae2cb0657c56f47f6858bb70c80c8a"
+      },
+      {
+        "path": "reports/round-26/remainders/pins.md",
+        "bytes": 8109,
+        "sha256": "fcb6e1fc7f4c0370429c092140466f0dc9fa8302819f30763f89501214836726"
+      },
+      {
+        "path": "reports/round-26/remainders/r4-twin/build-twin.py",
+        "bytes": 18739,
+        "sha256": "20a670e213ae5caaee17903f925aea3f915f4cb559d4b18cd4e72c9122f72498"
+      },
+      {
+        "path": "reports/round-26/remainders/r4-twin/expected.json",
+        "bytes": 1912,
+        "sha256": "d02a9f2c9e07a0b6acf3e71f8bd18f9082c5202560e2389daa4fd0c9a5daaf90"
+      },
+      {
+        "path": "reports/round-26/remainders/r4-twin/freeze.txt",
+        "bytes": 2556,
+        "sha256": "d3b0e2f19e1f327705d422e4e8379c23ad7187001dc9c195a461814b09a6570d"
+      },
+      {
+        "path": "reports/round-26/remainders/r4-twin/twin.json",
+        "bytes": 103975,
+        "sha256": "1874efbc1a6f892d035e47bbfbb8ca228622b26fd622a002ee822594a5420b95"
+      },
+      {
+        "path": "reports/round-26/remainders/r4-twin/verify-twin.py",
+        "bytes": 20274,
+        "sha256": "10cfa07d961d0953514a8a9847ebcb90c60289b58c48e0d12d8ec4f487108df7"
+      },
+      {
+        "path": "reports/round-26/remainders/v2-successor-r26/expected.json",
+        "bytes": 4435,
+        "sha256": "f695b910699ab5310b0853fe38471b7714616973f7deff366e1298888b766bc3"
+      },
+      {
+        "path": "reports/round-26/remainders/v3-baseline-r26/expected.json",
+        "bytes": 10856,
+        "sha256": "4879e7602efcbc57f134b0e1604d38ca54d837bcbf8407d1667ef9bf30e238b7"
+      },
+      {
+        "path": "reports/round-26/remainders/v3-baseline-r26/freeze.txt",
+        "bytes": 521,
+        "sha256": "adad86ab149457cbb5a4649d2d07af4ee85c8e37203e132b2aabb81ee3b80d60"
+      },
+      {
+        "path": "reports/round-26/remainders/v3-baseline-r26/packet.md",
+        "bytes": 105582,
+        "sha256": "a97a0f0a0a497cb4410124607065df7686bbc7f78b4b46bdaaaa1d66ba4d1b6e"
+      },
+      {
+        "path": "reports/round-26/remainders/v3-baseline-r26/run.log",
+        "bytes": 1603,
+        "sha256": "ba68aee78efa6d7ad939f6c29d5f874308f7a47616c112e255c13e39dc679987"
+      },
+      {
+        "path": "reports/round-26/remainders/v3-baseline-r26/twin.json",
+        "bytes": 103155,
+        "sha256": "d3de56a8be1d28fdcead751aa0ac9364f7b43ff2b8bad71b696f0b57955b4d5c"
+      },
+      {
+        "path": "reports/round-26/run-validation.py",
+        "bytes": 99165,
+        "sha256": "4d79d0488f895fc455f0cb3f8db98e8e929920b92f0bd953a718648c1b2723ee"
+      },
+      {
+        "path": "reports/round-26/scope.md",
+        "bytes": 13386,
+        "sha256": "12681452db20b385c3524ea11efdcf72c74acd53cac83245475ce9f18c7e04e9"
+      },
+      {
+        "path": "reports/round-26/scribe/capability-row.md",
+        "bytes": 22370,
+        "sha256": "9ab00ee112d7caf137ccd57143bf9b553bbc55cc0c82f42012d552cfcd3a0d1f"
+      },
+      {
+        "path": "reports/round-26/scribe/fragment-ledger.json",
+        "bytes": 18886,
+        "sha256": "f4fe5fd524dc695c6ca3c22d53df0cc9610719096e8d7b960b6b8476ca001991"
+      },
+      {
+        "path": "reports/round-26/scribe/fragment-ledger.md",
+        "bytes": 20611,
+        "sha256": "05a4efc218d9f9aebf749dbd990464e9d902be2785b1f32820f36629b2d32a53"
+      },
+      {
+        "path": "reports/round-26/scribe/frozen-rows.md",
+        "bytes": 30627,
+        "sha256": "2f5bd3b6ca758499cc2cca04ef9f909054b0739fa701b26937500cfc4ddf6e55"
+      },
+      {
+        "path": "reports/round-26/scribe/skill-rule-row.md",
+        "bytes": 18337,
+        "sha256": "15e4b2a9dc45a53d3b176d6215ada0a381c0e0635446eae4628cc27b95f27cf4"
+      },
+      {
+        "path": "reports/round-26/scribe/x64-d4-chain-cold-rerun.md",
+        "bytes": 20558,
+        "sha256": "df7bd4417462732dc4ab897248f860ecdb48485378ca1e88e71e127ae65aeeed"
+      },
+      {
+        "path": "reports/round-26/targets.json",
+        "bytes": 192,
+        "sha256": "50a307527bdc70191e9836e5e33e1fc71ac8dc6fcb20d15790c972012ec2be9f"
+      },
+      {
+        "path": "reports/round-26/validation.json",
+        "bytes": 149716,
+        "sha256": "37b3670ac72e379c283fd9d3f42ad5c0196d04a05d0ead3c18d6a3682af70659"
+      },
+      {
+        "path": "reports/round-26/zzz-lessons-index-revision-3.md",
+        "bytes": 23411,
+        "sha256": "eb6cde79a325e878d971a30cf009f41baf100046d162ec3e97b87342c16eab9e"
+      },
+      {
+        "path": "reports/round-26/zzz-lessons-index-revision-4.md",
+        "bytes": 30178,
+        "sha256": "1c4623ec2e26954853da75af9783190aa573a291a426ab3a3cf574945016f9b9"
+      }
+    ]
+  },
+  "limits": [
+    "This seat asserts no round admission and no claim verdict. The parent owns the verdict.",
+    "The round-26 runner landed mid-window; this seat ran it --check in isolated clones only and wrote no receipt. The filed receipt is another seat's.",
+    "The regression battery measures checkpoint-a bytes only; the live tree moved after that stamp.",
+    "The preservation sample is a tracked-bytes-and-modes comparison at four stamps; it does not exclude a transient write-and-restore between them.",
+    "One checkpoint-c reading (packet_links red over reports/round-26/remainders/r4-twin/twin.json) was taken while that directory was being written; checkpoint-d clears it.",
+    "The r23 arm of the historical regression is not cleanly attributable by this seat (its runner syncs the live round-23 surface into its clone).",
+    "All artifacts are NON-CANON engineering evidence: no source-freshness certification, rights clearance, lore acceptance or promotion is claimed.",
+    "No commit, no push, no shared bookkeeping and no filed round-8-25 write by this seat."
+  ],
+  "historical_regression_finding": {
+    "id": "X58-R1",
+    "severity": "regression on the filed historical surface",
+    "finding": "Two historical validators that round-25's X40 seat filed green now read RED: reports/round-22/run-validation.py and reports/round-23/run-validation.py both exit 1 where the round-25 rerun records exit 0 / acceptance true.",
+    "root_cause": "fc13cd2 (round-25 admit) grew tools/gates/typed-pipeline-gate.py by 295 lines and the D4 profile's leg count from 19 to 20 (selftest 12/12 -> 19/19). reports/round-22/run-validation.py:703 requires the D4 summary to reproduce (19, 19); at fc13cd2 the gate emits 20/20, so the r22 D claim goes red. reports/round-20/run-validation.py pins the same 19/19 and gains a fourth failure line.",
+    "controls": [
+      {
+        "id": "r22-at-f74fc94",
+        "clone": ".scratch/r58/ctl22",
+        "revision": "f74fc9403d4b02c8ee76439eb133e3dea9b65b14",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-22/run-validation.py",
+        "exit_code": 0,
+        "acceptance_checks_passed": true,
+        "claim_passed": {
+          "O": true,
+          "C": true,
+          "D": true
+        }
+      },
+      {
+        "id": "r22-at-fc13cd2",
+        "clone": ".scratch/r58/r22",
+        "revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+        "command": "REFRESH_RECEIPTS=1 python3 reports/round-22/run-validation.py",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "C": true,
+          "D": false,
+          "O": false
+        },
+        "failures": [
+          "claim O: Round-22 frozen successor replay failed: tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv",
+          "claim D: D4 gate summary did not reproduce (19, 19): (20, 20)"
+        ]
+      },
+      {
+        "id": "d4-gate-legs-at-f74fc94",
+        "clone": ".scratch/r58/ctl-f74fc94",
+        "revision": "f74fc9403d4b02c8ee76439eb133e3dea9b65b14",
+        "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+        "observed": "summary: 19/19 legs passed",
+        "selftest": "12/12"
+      },
+      {
+        "id": "d4-gate-legs-at-fc13cd2",
+        "clone": ".scratch/r58/ctl-fc13cd2",
+        "revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+        "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+        "observed": "summary: 20/20 legs passed"
+      },
+      {
+        "id": "r23-at-f74fc94",
+        "clone": ".scratch/r58/ctl23b",
+        "revision": "f74fc9403d4b02c8ee76439eb133e3dea9b65b14",
+        "command": "python3 reports/round-23/run-validation.py --check",
+        "exit_code": 0,
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "D": true,
+          "O": false
+        },
+        "failures": [
+          "claim O: Regression failed: python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml (exit 2, 2026-10-18)"
+        ],
+        "note": "the control does NOT reproduce the round-25 X40 filed green for r23, so the r23 divergence is not cleanly attributable to the fc13cd2 change; r23's runner also calls live_lane() and syncs the live round-23 surface into its clone, so this clone rerun is not fully isolated."
+      }
+    ],
+    "reading": "The r22 divergence is cleanly attributable: the same runner bytes (sha8 3af74c2b, identical in both reruns) reproduce exit 0 at f74fc94 and exit 1 at fc13cd2, and the D4 leg count is measured 19/19 at f74fc94 and 20/20 at fc13cd2 in isolated clones. The r23 divergence is NOT cleanly attributable by this seat: its runner calls live_lane() and syncs the live round-23 surface into its clone, so the pre-admit control also reads red and the clone rerun is not fully isolated. Both are reported, not dispositioned.",
+    "disposition": "parent-owned. The r20/r22/r23 leg-count pins at 19/19 are now stale against the delivered 20/20 gate; whether the pins move (a new row) or the historical reds stand as filed history is the parent's decision."
+  },
+  "round26_runner_reads": {
+    "command": "python3 reports/round-26/run-validation.py --check (isolated overlay clones, --check mode; no receipt written by this seat)",
+    "date": "2026-10-18",
+    "reads": {
+      "checkpoint-c": {
+        "clone": ".scratch/r58/checkpoint-c",
+        "files": null,
+        "manifest_sha256": null,
+        "runner_sha256": "41aaa1e127dd8d542e9f83b5ce912bb95cc7cd4cafd2ea22f52ab23c6445ad7b",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "C": true,
+          "D": true,
+          "O": false
+        },
+        "failures": [
+          "claim O: twin: reports/round-26/remainders/r4-twin: tools/harness/packet_links.py is not green over the twin (exit 1)",
+          "claim O: Regression failed: python3 tools/exercise-handoff-e2e.py --profile v3 --quiet (exit 1, 2026-10-18)"
+        ],
+        "receipt": ".scratch/r58/r26-checkpoint-c.json"
+      },
+      "checkpoint-d": {
+        "clone": ".scratch/r58/checkpoint-d",
+        "files": null,
+        "manifest_sha256": null,
+        "runner_sha256": "274cfca63384e26bd957a2c382be6e2a2be532512e650925e6a5323e31a223dd",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "C": true,
+          "D": true,
+          "O": false
+        },
+        "failures": [
+          "claim O: pin-repoint-checker is not green: the re-pointed rows do not satisfy its control set ([])",
+          "claim O: r4-checker is not green: the re-pointed rows do not satisfy its control set (['claim D: v2 successor row not green: reports/round-20/wart/expected-v2-07-r20.json exit 2 \u2014 V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py\\n', 'claim D: v3 baseline reports/round-",
+          "claim O: Regression failed: python3 tools/exercise-handoff-e2e.py --profile v3 --quiet (exit 1, 2026-10-18)"
+        ],
+        "receipt": ".scratch/r58/r26-checkpoint-d.json"
+      },
+      "checkpoint-e": {
+        "clone": ".scratch/r58/checkpoint-e",
+        "files": null,
+        "manifest_sha256": null,
+        "runner_sha256": "060310d092d70a284c3cb5b2e1c29982714c69f064ed6954f63c9f6eafe5c164",
+        "exit_code": 1,
+        "acceptance_checks_passed": false,
+        "claim_passed": {
+          "C": true,
+          "D": true,
+          "O": false
+        },
+        "failures": [
+          "claim O: pin-repoint-checker is not green: the re-pointed rows do not satisfy its control set ([])",
+          "claim O: r4-checker is not green: the re-pointed rows do not satisfy its control set (['claim D: v2 successor row not green: reports/round-20/wart/expected-v2-07-r20.json exit 2 \u2014 V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py\\n', 'claim D: v3 baseline reports/round-",
+          "claim O: Regression failed: python3 tools/exercise-handoff-e2e.py --profile v3 --quiet (exit 1, 2026-10-18)"
+        ],
+        "receipt": ".scratch/r58/r26-checkpoint-e.json"
+      }
+    },
+    "filed_receipt": {
+      "path": "reports/round-26/validation.json",
+      "note": "filed by another seat at 18:26Z; this seat's independent reads reproduce its verdict (C true / D true / O false). The runner was revised again mid-window (sha256 060310d0\u2026 -> 41aaa1e1\u2026), so a later revision needs a dated refresh."
+    },
+    "reading": "Claim D passes as the runner measures it (the register stratum landed: register_scoped=14, derived_pairs=8, argot gate exit 0, d4-gate 20/20). Claim C passes (49/49 queue rows dispositioned, filed README bytes unchanged, revision at a new path). Claim O fails: the v3 handoff regression is red on the fresh D-landing pin cascade, and the two remainder checkers do not pass their own control sets."
+  }
+}

@@ -9,7 +9,7 @@
    },
    "packet": {
     "path": "examples/culture-d4/packet.d4.yml",
-    "sha256": "e7ecd2045ef0e5f9823ce0a067d21b8221b2ceb5e8f5799736981a1c88fa50d3"
+    "sha256": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67"
    },
    "assembler": {
     "path": "tools/assemble-culture-d4.py",
@@ -17,8 +17,8 @@
    },
    "projection": {
     "path": "examples/culture-d4/typed-labels.d4.yml",
-    "sha256": "60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092",
-    "superseded": "cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f (round-20 build, superseded by the round-22 family-clean source fix); earlier a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d (round-18/19 build, superseded by the round-20 per-family alias leg)"
+    "sha256": "d03f6391fb8dc2b4d2b2ad05e08547455bc96c580050d830ce0c7c22bb75e580",
+    "superseded": "60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092 (round-22 family-clean build, superseded by the round-26 register-stratum build); cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f (round-20 build, superseded by the round-22 family-clean source fix); earlier a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d (round-18/19 build, superseded by the round-20 per-family alias leg)"
    },
    "adapter": {
     "path": "tools/assemble-d4-typed.py",
@@ -27,15 +27,15 @@
    },
    "expected": {
     "path": "examples/culture-d4/expected-holds.json",
-    "sha256": "3826ba68d705b3c379b2a12737c14075d9095a1ba2aa2eb525de1851a9ecd2f7",
+    "sha256": "d6136488e22f989e109c435cb4f7eb02ca680043785e88e78038ed5f47150fd3",
     "note": "round-22 family-clean re-pin: fail 0 / hold 12 / note 0, as declared in reports/round-22/bleed/design.md before implementation. Exactly three inherited D2 rank holds and one note are removed from D4 ownership; all six garment-form obligations remain held under twelve record/slot rows. The final expected file binds combined projector 2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3. Supersedes 18d0cfce3f3f7a862efd3528084b2650b233286f6782ff0a3c1faad7e46146a3 and the provisional round-22 pin retained in repin_history. New receipt: reports/round-22/bleed/repin.json."
    },
    "repin": {
-    "round": 22,
-    "claim": "D (R22-D07..D08 family-clean D4 re-pin)",
-    "date": "2026-10-18T14:53:59Z",
-    "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml tools/d2-typed-labels.py",
-    "recorded_in": "reports/round-22/bleed/repin.json"
+    "round": 26,
+    "claim": "D (R26-D05..D12 register stratum)",
+    "date": "2026-10-18",
+    "command": "sha256sum examples/culture-d4/packet.d4.yml examples/culture-d4/typed-labels.d4.yml examples/culture-d4/expected-holds.json",
+    "recorded_in": "reports/round-26/register/repin.json"
    },
    "repin_history": [
     {
@@ -66,6 +66,16 @@
      "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml tools/d2-typed-labels.py",
      "recorded_in": "reports/round-22/bleed/repin.json",
      "reason": "Final combined-source binding after the provisional projector pin became stale; the projection, adapter, hold set, and typed packet did not otherwise move."
+    },
+    {
+     "round": 26,
+     "date": "2026-10-18",
+     "packet_sha256": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67",
+     "projection_sha256": "d03f6391fb8dc2b4d2b2ad05e08547455bc96c580050d830ce0c7c22bb75e580",
+     "expected_sha256": "d6136488e22f989e109c435cb4f7eb02ca680043785e88e78038ed5f47150fd3",
+     "adapter_sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+     "reason": "the register stratum amended 04-lexicon.yml; the packet, its projection and the hold-set pins moved together while the hold set itself is unchanged (12/0/0)",
+     "recorded_in": "reports/round-26/register/repin.json"
     }
    ]
   }

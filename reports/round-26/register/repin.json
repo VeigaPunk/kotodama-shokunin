@@ -1,0 +1,95 @@
+{
+ "schema": "kotodama-d4-register-repin-v1",
+ "round": 26,
+ "date": "2026-10-18",
+ "seat": "R26-D05..D12",
+ "claim": "D (register stratum)",
+ "axis": "depth",
+ "baseline_revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+ "worktree_head": "1ad491a1a4b0aef9ebdc1861dfb8237727503825",
+ "canon": "NON-CANON engineering evidence; a pin is integrity, never truth and never clearance",
+ "kind": "re-pin of this seat's own surfaces; the hold ROWS are unchanged, only the digests move",
+ "command": "sha256sum examples/culture-d4/packet.d4.yml examples/culture-d4/typed-labels.d4.yml examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml",
+ "reason": "the register stratum amended examples/culture-d4/components/{01-brief,04-lexicon}.yml, so the D4 packet and its two derived artifacts moved; the hold set's rows did not change (12 holds / 0 notes / 0 fails) because a register field never moves a form off the sound-and-identity channel and therefore owes no form slot.",
+ "new_pins": {
+  "examples/culture-d4/packet.d4.yml": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67",
+  "examples/culture-d4/typed-labels.d4.yml": "d03f6391fb8dc2b4d2b2ad05e08547455bc96c580050d830ce0c7c22bb75e580",
+  "examples/culture-d4/expected-holds.json": "d6136488e22f989e109c435cb4f7eb02ca680043785e88e78038ed5f47150fd3",
+  "examples/culture-d4/packet.d4.typed.yml": "618a78c90fc04c0d17e2619d1fed080e99f98b1213ad01fcbb75e7aab48fd18c"
+ },
+ "superseded_pins": {
+  "examples/culture-d4/packet.d4.yml": "e7ecd2045ef0e5f9823ce0a067d21b8221b2ceb5e8f5799736981a1c88fa50d3",
+  "examples/culture-d4/typed-labels.d4.yml": "60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092",
+  "examples/culture-d4/expected-holds.json": "3826ba68d705b3c379b2a12737c14075d9095a1ba2aa2eb525de1851a9ecd2f7",
+  "examples/culture-d4/packet.d4.typed.yml": "ffece0feb52c5b0b8ae6b0f8c1848d6220ad2dc2b36b1faac6385d62f4bfd84e"
+ },
+ "component_digests": {
+  "examples/culture-d4/components/01-brief.yml": "feca7bda25beb6ec7cecd2569fe8f8d6d802ff492f40c79cb6c58fdf5ac18d7d",
+  "examples/culture-d4/components/04-lexicon.yml": "d0d4e17cc3c43a11e598259271fe16f18539c8bce3c3a30a40b6d2554b6c7240"
+ },
+ "profile_repin": {
+  "path": "tools/gates/typed-pipelines.json",
+  "profile": "d4",
+  "fields_moved": [
+   "packet.sha256",
+   "projection.sha256",
+   "expected.sha256"
+  ],
+  "unchanged": [
+   "assembler.sha256",
+   "adapter.sha256"
+  ],
+  "history_row": "repin_history[-1] (round 26)"
+ },
+ "cascade_reported_not_repaired": [
+  {
+   "surface": "reports/round-22/handoff/declared-in-r2/expected.json",
+   "why": "the v3 handoff-e2e read-set pins the D4 packet, its components and its hold set; the register landing moves all three",
+   "observed": "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet -> exit 1, E2E-DIGEST: 6 read-set file(s) changed",
+   "green_at_head": true,
+   "owner": "the O claim's pin-tail re-point work; this seat may not write a filed round-22 byte",
+   "successor_frozen_and_green": "reports/round-26/register/v3-baseline-r26/ (replay exit 0, packet_sha256 69ce3877\u2026), but the runner's regression uses the DEFAULT baseline",
+   "detail": "the v3 read-set is 58 files, six of them D4 surfaces this landing moved: examples/culture-d4/{packet.d4.yml, packet.d4.typed.yml, typed-labels.d4.yml, expected-holds.json, components/01-brief.yml, components/04-lexicon.yml}. The successor row reports/round-26/register/v3-baseline-r26/ is frozen at the post-landing bytes and replays exit 0 (packet_sha256 69ce3877...), but the lane runner's fixed regression inventory calls `--profile v3 --quiet` with no --baseline, so it reads the filed round-22 default and goes red. Superseding the default is the O seat's re-point, not this seat's"
+  },
+  {
+   "surface": "reports/round-26/remainders/r4-twin/twin.json",
+   "why": "the r4 twin's artifact_manifest pins examples/culture-d4/components/04-lexicon.yml at 74c2561b\u2026, which the register amendment moves",
+   "observed": "python3 tools/harness/packet_links.py --packet reports/round-26/remainders/r4-twin/twin.json --json -> exit 1, six M-DIGEST-MISMATCH findings naming every D4 artifact this landing moved: packet.d4.yml, packet.d4.typed.yml, typed-labels.d4.yml, expected-holds.json, components/01-brief.yml, components/04-lexicon.yml",
+   "green_at_head": true,
+   "owner": "the O seat that authored the r4-twin row",
+   "detail": "the twin's artifact_manifest is a full read-set pin over the D4 tree, not a single component digest; the register amendment moves six of its rows at once. python3 reports/round-26/remainders/r4-twin/build-twin.py --stdout refuses to regenerate against the live tree (exit 1, 'source ... is dd25077bc01681bc... but the packet pins A-28 at e7ecd2045ef0e5f9...'), so the row must be re-projected by its own generator against the pinned read set \u2014 its authoring seat's surface, not this one's"
+  }
+ ],
+ "determinism": {
+  "packet": "two consecutive builds byte-identical (cmp clean)",
+  "typed_packet": "two consecutive builds byte-identical (cmp clean)",
+  "projection": "python3 tools/d2-typed-labels.py --packet \u2026 --check \u2026 -> byte-identical deterministic projection, exit 0"
+ },
+ "limits": [
+  "a re-pin asserts the bytes moved, never that the move was correct or that the round arc is complete",
+  "no filed round-8..25 artifact was written by this seat; the two cascades above are reported, not repaired"
+ ],
+ "generated_artifact_digests": {
+  "examples/culture-d4/packet.d4.yml": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67",
+  "examples/culture-d4/typed-labels.d4.yml": "d03f6391fb8dc2b4d2b2ad05e08547455bc96c580050d830ce0c7c22bb75e580",
+  "examples/culture-d4/packet.d4.typed.yml": "618a78c90fc04c0d17e2619d1fed080e99f98b1213ad01fcbb75e7aab48fd18c",
+  "examples/culture-d4/expected-holds.json": "d6136488e22f989e109c435cb4f7eb02ca680043785e88e78038ed5f47150fd3",
+  "tools/gates/typed-pipelines.json": "35946c8d71d5a023990a0e07cdde821af93f59c0e0686be240b83f0a8f6871d3"
+ },
+ "ab_control": {
+  "what": "the two cascaded surfaces measured with and without this seat's D4 landing, the landing staged/removed by `git stash push -- <7 files>` and `git stash pop`, everything else held constant",
+  "date": "2026-10-18",
+  "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet ; python3 tools/harness/packet_links.py --packet reports/round-26/remainders/r4-twin/twin.json --json",
+  "before_landing": {
+   "v3_e2e_exit": 0,
+   "twin_links_exit": 0,
+   "reading": "both green at HEAD 1ad491a with the register stratum absent"
+  },
+  "after_landing": {
+   "v3_e2e_exit": 1,
+   "twin_links_exit": 1,
+   "reading": "both red, each naming the D4 bytes this landing moved"
+  },
+  "conclusion": "both failures are pin cascades caused by the D4 packet move, not defects in the register stratum; each surface is owned by the O claim (the filed round-22 v3 baseline and the r4 twin row), and neither is repaired by this seat"
+ }
+}

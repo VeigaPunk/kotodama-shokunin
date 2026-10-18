@@ -3371,3 +3371,16 @@ designation (provider test), not a silent substitution.
   in the delivered packet — design-forecast never built).
 - **C (verified):** corpus/lessons/README.md reconciled with open-question queue.
 - **Evidence:** `reports/round-25/validation.json` acceptance true.
+
+## 2026-10-18 — Round 26 admitted (loop 3 build 2 of 4; devin)
+
+- **Trigger:** regimen; claims D/O/C in `reports/round-26/claims.json`; baseline
+  `1ad491a`; 24/64 completed.
+- **D (verified):** the register stratum lands; the round-17 forecast closes
+  (8 forms, axis-to-operation rule, replay clean; named gaps recorded).
+- **O (verified):** the register read-set change re-pinned through the r5
+  chain; pin-repoint checker 17/17; r4 checker superseded-and-recorded.
+- **C (verified):** open-question queue 100% dispositioned.
+- **Correction:** X64's "stratum not landed" was a stale snapshot; integrator
+  measurements confirmed the landing.
+- **Evidence:** `reports/round-26/validation.json` acceptance true.

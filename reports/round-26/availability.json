@@ -1,0 +1,280 @@
+{
+ "round": 26,
+ "date": "2026-10-18",
+ "kind": "availability-record",
+ "sample": "second",
+ "lane": "kotodama-shokunin",
+ "seat": "R26-X59",
+ "state": "open-at-seat-close",
+ "regimen": "operator: loop 3 of 3, build round 2 of 4 (64 workers on devin/deepseek-v4-1-flash-high)",
+ "baseline_revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+ "declaration_commit": "1ad491a",
+ "route": "devin/deepseek-v4-1-flash-high",
+ "route_source": "operator amendment 4 (LOG.md '2026-10-18 - Operator amendment 4: devin provider for loop-3 DeepSeek builds', line 3340, commit eb4295c): all remaining DeepSeek build rounds (25-28, 64 workers each) use the devin provider, designated devin/deepseek-v4-1-flash-high; declared as requested_model in reports/round-26/claims.json",
+ "route_is_known_measured_lane": {
+  "census_entry": "research/round-18-kimi-model-routing/census/manifest.json:2863 (provider=devin, model=deepseek-v4-1-flash-high, protocol=openai, base_url=http://127.0.0.1:8787/v1, capabilities=['thinking']); manifest:271 lists the id in the provider's model id set",
+  "config_entry": "~/.kimi-code/config.toml [providers.devin] base_url=http://127.0.0.1:8787/v1 type=openai; [secondary_model.models] 'devin/deepseek-v4-1-flash-high': FAST bucket, devin lane, high effort, 1M context (key present, never printed)",
+  "census_probe_history": "research/round-18-kimi-model-routing/census/raw/chat-devin.json: the round-18 census probe POSTed model_id swe-2 with temperature:0 and timed out at 180 s ('no response within 180s'); that probe never exercised deepseek-v4-1-flash-high and its timeout is not a deepseek-route property",
+  "first_sample": "reports/round-25/availability.json (seat R25-X41) - the first sample on this route; this record is the second, independent sample"
+ },
+ "requested_workers": 64,
+ "launched_workers": null,
+ "launched_workers_basis": "not observable from a worker seat: a seat cannot read the host's per-seat launch receipt. Corroborating observation only: 15 distinct round-26 seat markers under .scratch/ (see observed_seat_markers) plus the shim's request volume (see journal_traffic). The declaration (64 seats in claims.json + targets.json) is the dispatch claim; the count is NOT verified by this seat.",
+ "observed_concurrent_seat_markers": 15,
+ "observed_seat_markers": [
+  "r26c",
+  "r26-c47",
+  "r26-c51",
+  "r26-c53c54",
+  "r26d",
+  "r26-d13",
+  "r26-d17-d20",
+  "r26-d21",
+  "r26-d-reg",
+  "r26-o29",
+  "r26-o29-clone",
+  "r26-o33-clone",
+  "r26-o33-r4-before.txt",
+  "r26-o37-o38-regression",
+  "r26-o39"
+ ],
+ "observed_x_seat_markers": ["x56", "x57", "x59"],
+ "completed_workers": null,
+ "completed_workers_basis": "not observable from a worker seat; reports/round-26/validation.json was absent at this seat's close (see finalization_note). reports/round-26/ held 5 worker artifacts at the close census.",
+ "route_liveness": {
+  "resolved": true,
+  "endpoint": "http://127.0.0.1:8787/v1/chat/completions",
+  "shim": "devin-openai-shim/2 (systemd user unit devin-shim.service, active since 2026-10-17 00:00:08 -03, Main PID 1574, upstream server.codeium.com GetChatMessage/connect)",
+  "models_listing": "GET /v1/models -> HTTP 200, static 9-id list including deepseek-v4-1-flash-high",
+  "real_completions": true,
+  "served_model_echoed": "deepseek-v4-1-flash-high",
+  "served_model_basis": "every ok row of .scratch/x59/sample.json and .scratch/x59/sample2.json echoed model='deepseek-v4-1-flash-high'; finish_reason in {stop,length}; usage present (prompt_tokens/completion_tokens/total_tokens)"
+ },
+ "completion_measurement": {
+  "instrument": ".scratch/x59/sample.py (writes .scratch/x59/sample.json, .scratch/x59/sample2.json); body mirrors the kimi client: model + max_tokens + messages, NO temperature field",
+  "clean_attempts": {
+   "attempts": 175,
+   "completed": 173,
+   "failed": 2,
+   "completion_ratio": 0.9886,
+   "note": "the 2 failures are the two in-sample temperature:0 controls (one per sample file); the clean (non-control) population is 171/171 = 1.0000",
+   "counting_command": "python3 -c \"import json;r=[a for f in ['.scratch/x59/sample.json','.scratch/x59/sample2.json'] for a in json.load(open(f))['attempts']];print('attempts=%d ok=%d failed=%d ratio=%.4f'%(len(r),sum(1 for a in r if a.get('ok')),sum(1 for a in r if not a.get('ok')),sum(1 for a in r if a.get('ok'))/len(r)))\"  # -> attempts=175 ok=173 failed=2 ratio=0.9886",
+   "wall_s": {
+    "min": 0.884,
+    "median": 1.19,
+    "p90": 2.578,
+    "p99": 2.677,
+    "max": 2.769
+   }
+  },
+  "clean_population_only": {
+   "attempts": 171,
+   "completed": 171,
+   "failed": 0,
+   "completion_ratio": 1.0,
+   "counting_command": "python3 -c \"import json;r=[a for f in ['.scratch/x59/sample.json','.scratch/x59/sample2.json'] for a in json.load(open(f))['attempts']];c=[a for a in r if not a['tag'].startswith('control')];ok=[a for a in c if a.get('ok')];print('clean=%d ok=%d ratio=%.4f'%(len(c),len(ok),len(ok)/len(c)))\"  # -> clean=171 ok=171 ratio=1.0000"
+  },
+  "per_sample": {
+   "sample.json": {
+    "gap_s": 0.25,
+    "seq_n": 40,
+    "bursts": [1, 8, 16, 32],
+    "attempts": 99,
+    "completed": 98,
+    "clean_ratio": 1.0,
+    "median_s": 1.278,
+    "p90_s": 2.578,
+    "max_s": 2.769,
+    "burst_wall_s": {"1": 1.386, "8": 1.391, "16": 1.542, "32": 2.772}
+   },
+   "sample2.json": {
+    "gap_s": 0.15,
+    "seq_n": 50,
+    "bursts": [24],
+    "attempts": 76,
+    "completed": 75,
+    "clean_ratio": 1.0,
+    "median_s": 1.171,
+    "p90_s": 1.507,
+    "max_s": 1.638,
+    "burst_wall_s": {"24": 1.64}
+   }
+  },
+  "concurrency_sweep": {
+   "reading": "throughput stays flat to 16-way and degrades gracefully at 24-32-way while the wave is driving the same shim: 1-way 1.386 s, 8-way 1.391 s, 16-way 1.542 s, 24-way 1.640 s, 32-way 2.772 s",
+   "per_request_median_by_leg": {"seq": 1.152, "burst1": 1.385, "burst8": 1.257, "burst16": 1.442, "burst24": 1.171, "burst32": 2.432},
+   "interpretation": "no queue-collapse, no 5xx, no timeout under 32-way concurrent load on the shared shim; the 32-way inflation is load sharing with the live wave, not route failure"
+  }
+ },
+ "control_temperature_zero": {
+  "probes_total": 5,
+  "in_sample_file": 2,
+  "in_labelled_script": 3,
+  "attempts": 5,
+  "completed": 0,
+  "failed": 5,
+  "completion_ratio": 0.0,
+  "status": "all five -> HTTP 400, error code invalid_argument, wall_s ~0.405-0.410 (fast rejection, not a timeout)",
+  "probe_seconds": ["18:01:01Z (sample.json)", "18:02:10Z (labelled a)", "18:02:11Z (labelled b, c)", "18:02:35Z (sample2.json)"],
+  "counting_command": "python3 -c \"import json;r=[a for f in ['.scratch/x59/sample.json','.scratch/x59/sample2.json'] for a in json.load(open(f))['attempts']];s=[a for a in r if a['tag'].startswith('control')];print('in-sample controls=%d statuses=%s'%(len(s),[a['http_status'] for a in s]))\"  # -> in-sample controls=4 statuses=[400, 200, 400, 200]; plus 3 labelled temp0 probes in .scratch/x59/labeled.out, all 400",
+  "note": "deliberate control: this lane rejects temperature:0 (see instrument_artifact). The control reproduces the round-25 X41 finding exactly, in a second sample and a second window."
+ },
+ "instrument_artifact": {
+  "finding": "The devin lane answers HTTP 400 invalid_argument to any body carrying temperature: 0. This is a pre-existing, documented lane property, not a round-26 route failure.",
+  "reproduced_second_sample": true,
+  "prior_evidence": "research/round-18-kimi-model-routing/devin-opus/ANALYSIS.md:72-92 (M10 field-isolation table: bare 200, temperature:0 -> 400, temperature:1.0 -> 200, stream_options 200, temperature:0+stream_options -> 400) with raw captures research/round-18-kimi-model-routing/devin-opus/raw/shape-*.json; first sample reports/round-25/availability.json instrument_artifact",
+  "does_not_bind_the_wave": "the kimi client transmits no temperature field at all; the string 'temperature' does not occur in research/round-18-kimi-model-routing/definitions/raw/client-semantics.json (round-25 X41 grep -c temperature -> 0)",
+  "closed_loop_control": ".scratch/x59/labeled.json: 3x temperature:0 -> 3x 400 at ~0.405-0.410 s (18:02:10-11Z), then 3x no-temperature -> 3x 200 at ~1.02-1.09 s (18:02:12-14Z); timestamps matched against the shim journal by second (see status_400_attribution)"
+ },
+ "journal_traffic": {
+  "window_local_since": "14:58:00",
+  "window_local_until": "15:04:00",
+  "window_timezone": "LOCAL (journalctl --since/--until take local time here, not UTC; local = UTC-3)",
+  "window_note": "the window is pinned with an explicit --until so the count reproduces; an open-ended --since grows while the wave keeps running and does NOT reproduce",
+  "http_200": 2069,
+  "http_400": 5,
+  "http_5xx": 0,
+  "other_status_lines": 0,
+  "total_http_lines": 2074,
+  "counting_command": "journalctl --user -u devin-shim.service --since '14:58:00' --until '15:04:00' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 2069 x200, 5 x400, 0 other; re-run at 18:25Z, identical",
+  "reading": "2069 x200 + 5 x400 = 2074 HTTP lines in the pinned window; zero 5xx, zero 402/429/401/403. The route served the round-26 wave continuously for the whole observation window.",
+  "second_pinned_window": {
+   "window_local_since": "15:04:00",
+   "window_local_until": "15:08:00",
+   "http_200": 1227,
+   "http_400": 0,
+   "other_status_lines": 0,
+   "counting_command": "journalctl --user -u devin-shim.service --since '15:04:00' --until '15:08:00' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 1227 x200 only; re-run at 18:25Z, identical",
+   "reading": "after this seat's probes stopped (last probe 15:02:35), the next four minutes carry 1227 x200 and ZERO 400: the five window-A 400s are confined to this seat's control seconds, and the lane served the wave cleanly either side of them. This is the sustained-liveness leg.",
+   "measurement_note": "an earlier reading of this window at 18:07Z returned 1138 x200 because the window had not yet closed (15:08 local = 18:08Z); the settled reading is 1227. Recorded so the drift is not mistaken for a route change."
+  }
+ },
+ "status_400_attribution": {
+  "journal_400s": 5,
+  "journal_400s_by_second": {"15:01:01": 1, "15:02:10": 1, "15:02:11": 2, "15:02:35": 1},
+  "my_temperature_zero_probes_by_second": {
+   "15:01:01": 1,
+   "15:02:10": 1,
+   "15:02:11": 2,
+   "15:02:35": 1
+  },
+  "matched_by_second": 5,
+  "reading": "all 5 window 400s match this seat's own temperature:0 control seconds exactly (15:01:01 = sample.json control-temp0-artifact; 15:02:10/15:02:11 = labeled trap-temp0-a/b/c; 15:02:35 = sample2.json control-temp0-artifact). Unlike round-25's X41 reading (which split its 400s roughly half to other seats), this window's 400s are 100% attributable to this seat's controls.",
+  "caveat": "second-resolution matching only; a same-second collision is possible, so the attribution is indicative, not exact. No 400 is attributable to the wave's own agent traffic."
+ },
+ "route_failures": {
+  "quota_or_auth_receipts": "none: no 402 insufficient-funds (round-10 class), no 429, no 401, no 403 in the shim journal over the window; no availability-attempt-*.json failure receipt under reports/round-26/ or reports/round-25/",
+  "transport_errors": "none observed by this seat: no 5xx, no connection reset/refused, no 'shim busy' 503",
+  "cold_start": "not observed as a failure: the lane answered the first probe (18:01:01Z) in 1.824 s while the wave was already driving it",
+  "false_positive_note": "a naive grep for '402|429' over reports/round-25/*.json matches sha256 digests inside validation.json / rerun.json / fragment-ledger.json (substrings like '...f4020cf...' and '...e3b0c44...' do not occur, but '4020' and '429' do occur inside hex digests). A strict scan of JSON status fields finds no route-error receipt; the grep class is a false positive."
+ },
+ "observed_at_utc": "2026-10-18T18:23:06Z",
+ "polling_budget": "20 min from 18:02:21Z (15:02:21 local), 60 s interval; poll script .scratch/x59/poll.sh, log .scratch/x59/poll.log (1108 lines); ended 18:22:36Z (POLL-END line)",
+ "poll_log": ".scratch/x59/poll.log",
+ "whole_window_traffic": {
+  "window_local_since": "14:58:00",
+  "window_local_until": "15:22:00",
+  "window_timezone": "LOCAL (journalctl --since/--until take local time here, not UTC; local = UTC-3)",
+  "http_200": 5416,
+  "http_400": 5,
+  "other_status_lines": 0,
+  "counting_command": "journalctl --user -u devin-shim.service --since '14:58:00' --until '15:22:00' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 5416 x200, 5 x400; run three times at 18:26Z, identical",
+  "reading": "over the full observation span the route served 5416 requests with only the 5 deliberate control 400s and no other status; the count was 5 x400 for the last 20 minutes of the window, i.e. the wave produced no 400 of its own. The 400 seconds across the whole span are exactly the five control seconds 15:01:01, 15:02:10, 15:02:11 x2, 15:02:35.",
+  "drift_note": "an earlier reading used '--until 18:15:00' and kept growing (5486 -> 5509 -> 5510 -> 5539 ...) because that bound is in LOCAL time, i.e. three hours in the future; journalctl here reads --since/--until as local clock times. Corrected to the settled local bound 15:22:00, which reproduces exactly. Every window in this record uses local clock times."
+ },
+ "wave_artifacts_observed": [
+  "reports/round-26/claims.json",
+  "reports/round-26/targets.json",
+  "reports/round-26/audit/x60-register-derivation-spotcheck.py",
+  "reports/round-26/audit/x63-lessons-audit.py",
+  "reports/round-26/lessons/r26-census.py"
+ ],
+ "second_sample_delta_vs_round_25": {
+  "clean_completion_ratio": {"round_25_x41_clean_block": 1.0, "round_25_x41_counting_command": 0.9872, "round_26_x59_clean_block": 1.0, "reading": "both seats' clean_attempts blocks read 1.0; round-25 X41's single-sample counting_command read 0.9872 because it counted the one temperature:0 control among that sample's 78 attempts. This record separates the control out explicitly, so its clean block and its headline are the same 1.0000."},
+  "median_wall_s": {"round_25_x41": 1.066, "round_26_x59": 1.19},
+  "max_wall_s": {"round_25_x41": 1.881, "round_26_x59": 2.769},
+  "burst_16_wall_s": {"round_25_x41": 1.794, "round_26_x59": 1.542},
+  "journal_400s": {"round_25_x41": 41, "round_26_x59": 5, "reading": "round-25's 41 window 400s included other seats' house-style probes; round-26's 5 are all this seat's controls (see status_400_attribution)"},
+  "temperature_0_artifact": {"round_25_x41": "400 invalid_argument", "round_26_x59": "400 invalid_argument (reproduced)"},
+  "verdict": "the route behaves the same in the second sample: same endpoint, same echoed model, same temperature:0 rejection, comparable per-request latency. The small latency spread is within wave-load noise and is not a route change."
+ },
+ "evidence": [
+  {
+   "claim": "round-26 wave declared before dispatch on the operator-designated route",
+   "source": "reports/round-26/claims.json ; reports/round-26/targets.json ; LOG.md:3340",
+   "command": "cat reports/round-26/claims.json reports/round-26/targets.json ; sed -n '3340,3348p' LOG.md",
+   "observed": "state=declared-before-dispatch; requested_model=devin/deepseek-v4-1-flash-high; workers=64; baseline_revision=fc13cd27b9e78d5d7c4f70740fd26c9383a7447b; targets split D-register 28 / O-remainders 12 / C-openq 14 / X 10; operator amendment 4 designates the devin provider for loop-3 DeepSeek builds (rounds 25-28)"
+  },
+  {
+   "claim": "the route is a provisioned local lane with a live shim",
+   "source": "systemd user unit ; config.toml",
+   "command": "systemctl --user status devin-shim.service ; ss -ltnp | grep 8787 ; curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8787/v1/models",
+   "observed": "devin-shim.service active (running) since 2026-10-17 00:00:08 -03, Main PID 1574; 127.0.0.1:8787 LISTEN; /v1/models -> 200"
+  },
+  {
+   "claim": "the lane returns real completions while the wave is running",
+   "source": ".scratch/x59/sample.json ; .scratch/x59/sample2.json",
+   "command": "python3 -B .scratch/x59/sample.py 0.25 40 1,8,16,32 > .scratch/x59/sample.json ; python3 -B .scratch/x59/sample.py 0.15 50 24 > .scratch/x59/sample2.json",
+   "observed": "175 attempts, 173 ok, 2 failed (both in-sample temperature:0 controls); clean population 171/171 = 1.0000; median 1.19 s; burst walls 1-way 1.386 s, 8-way 1.391 s, 16-way 1.542 s, 24-way 1.640 s, 32-way 2.772 s; served model echoed deepseek-v4-1-flash-high on every ok row"
+  },
+  {
+   "claim": "the 400s are the instrument artifact, reproduced in the second sample",
+   "source": ".scratch/x59/labeled.json ; .scratch/x59/labeled.out ; research/round-18-kimi-model-routing/devin-opus/ANALYSIS.md:72-92",
+   "command": "python3 -B .scratch/x59/labeled.py ; sed -n '72,92p' research/round-18-kimi-model-routing/devin-opus/ANALYSIS.md",
+   "observed": "3x temperature:0 -> 400 invalid_argument at 0.405-0.410 s; 3x no-temperature -> 200 at 1.018-1.093 s; the round-18 M10 table already records temperature:0 -> 400 on this lane; round-25 X41 recorded the same"
+  },
+  {
+   "claim": "the wave dispatched concurrently on this route",
+   "source": ".scratch/ ; devin-shim journal",
+   "command": "ls -d .scratch/r26* | wc -l ; journalctl --user -u devin-shim.service --since 14:58:00 --no-pager | grep -c 'HTTP/1.1\\\" 200'",
+   "observed": "15 distinct round-26 seat markers (r26c, r26d, r26-d13/d17-d20/d21/d-reg, r26-c47/c51/c53c54, r26-o29/o29-clone/o33-clone/o33-r4-before.txt/o37-o38-regression/o39), plus x56/x57/x59 X seats; journal shows 2069 x200 over the pinned 14:58:00-15:04:00 window"
+  },
+  {
+   "claim": "no provider-failure receipt of the round-5 or round-10 kind exists for this round",
+   "source": "reports/round-26/ ; devin-shim journal",
+   "command": "ls reports/round-26/ ; journalctl --user -u devin-shim.service --since 14:58:00 --no-pager | grep -E ' 5[0-9]{2} -|HTTP/1.1\\\" (402|429|401|403)'",
+   "observed": "reports/round-26/ holds claims.json, targets.json and worker fragments (audit/, lessons/, gate-tests/) - no availability-attempt-*.json failure receipt; journal grep returns no 5xx/402/429/401/403 line"
+  },
+  {
+   "claim": "this record's own seat is part of the dispatch evidence",
+   "source": ".scratch/x59/",
+   "command": "ls -la .scratch/x59/",
+   "observed": "sample.py, labeled.py, poll.sh, sample.json, sample2.json, labeled.json, labeled.out, poll.log - created 15:00-15:03 local - this seat is one of the round-26 workers"
+  }
+ ],
+ "notes": [
+  "This is the SECOND sample on this route (round 25's X41 seat took the first). It was taken independently, with a different instrument shape (concurrency sweep + sustained leg + labelled control), while the round-26 wave was live.",
+  "Unlike round 5 (native model-registry rejection) and round 10 (402 insufficient funds), this round produced live concurrent worker artifacts and thousands of served completions, so the route resolved, dispatched and returned work.",
+  "Wall time here is a short-completion round-trip (max_tokens 64, non-streaming, through the local shim), NOT the TTFT/TPS figure a battery would produce; it is a liveness and load measurement, not a latency score.",
+  "This record is written by the availability seat (X59). It records the route, the measured completion ratio and wall time, and the instrument artifact at this seat's close; the round's own acceptance verdict is the integrator's, from reports/round-26/validation.json (see finalization_note)."
+ ],
+ "finalization_note": "The round's receipt landed during this seat's poll (reports/round-26/validation.json, 15:20 local). It reads acceptance_checks_passed: false with two claim-O failures (see round_receipt_at_close). This is NOT this record's verdict: this seat measures the route, not the round. Recorded here only so the integrator does not mistake a live route for a green round. launched_workers and completed_workers remain unobservable from a worker seat.",
+ "round_receipt_at_close": {
+  "artifact": "reports/round-26/validation.json",
+  "runner": "reports/round-26/run-validation.py (94,268 B)",
+  "runner_sha256": "41aaa1e127dd8d542e9f83b5ce912bb95cc7cd4cafd2ea22f52ab23c6445ad7b",
+  "binding_checked": "live run-validation.py hashes 41aaa1e127dd8d542e9f83b5ce912bb95cc7cd4cafd2ea22f52ab23c6445ad7b at 18:23Z - the receipt BINDS the live runner bytes (the round-20 lesson)",
+  "acceptance_checks_passed": false,
+  "failures": [
+   "claim O: twin: reports/round-26/remainders/r4-twin: tools/harness/packet_links.py is not green over the twin (exit 1)",
+   "claim O: Regression failed: python3 tools/exercise-handoff-e2e.py --profile v3 --quiet (exit 1, 2026-10-18)"
+  ],
+  "reading": "at this seat's close the round was RED on claim O, not on the route. The route served the wave throughout (5416 x200 in the pinned whole window) while the round's own acceptance checks failed; a live route and a green round are independent, and this record claims only the former.",
+  "route_vs_round": "route status: healthy (this record). round status: acceptance_checks_passed false (the runner's, attributed here, not adjudicated)."
+ },
+ "self_check": {
+  "kind": "in-memory re-derivation of this record's aggregate counts against the raw samples",
+  "command": "python3 -B .scratch/x59/self-check.py",
+  "result": "SELF_CHECK=PASS record aggregates match raw samples + labelled control + journal 400 count",
+  "asserts": [
+   "175 attempts / 173 ok / 2 failed in the sample files",
+   "171/171 clean ratio 1.0",
+   "4 in-sample controls (2 x400, 2 x200) + 3 labelled temp0 probes (all x400) = 5 temperature:0 probes, all 400",
+   "record.control_temperature_zero.probes_total == 5 == journal_traffic.http_400"
+  ],
+  "control": "the check FAILED on the first run at 18:04Z and caught a real defect: the record's clean_attempts block had counted the 4 in-sample controls as failures and double-counted the labelled control. Corrected 18:05Z; the check now passes. This is the round-20 receipt-guard discipline applied to this record's own numbers."
+ },
+ "close_observation": "at 2026-10-18T18:23:06Z reports/round-26/ holds 88 files (excl. __pycache__), including claims.json, targets.json, validation.json, run-validation.py, availability.json, adjacency.md, fragment-index-x54.md, report-draft.md, scope.md, zzz-lessons-index-revision-3.md / -4.md, and the subtrees argot/, audit/, gate-tests/, lessons/, open-questions/, register/, remainders/ (incl. r4-twin/, v2-successor-r26/, v3-baseline-r26/), scribe/",
+ "recheck_at_utc": "2026-10-18T18:23:06Z",
+ "recheck_observation": "reports/round-26/validation.json IS present at 2026-10-18T18:23:06Z (measured_at_utc 18:22:36Z, the instant this seat's poll ended) and reads acceptance_checks_passed: false with the two claim-O failures in round_receipt_at_close; the receipt binds the live runner. So the round filed its verdict RED while the route stayed green (5416 x200 in the pinned whole window). Claim C's measurement block reads 49/49 queue rows dispositioned (100%)."
+}

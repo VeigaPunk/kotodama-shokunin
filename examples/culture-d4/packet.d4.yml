@@ -36,6 +36,19 @@ contract:
       - "construction"
       - "layer"
       - "stage"
+      - "register"
+      - "derived_from"
+      - "derivation"
+      - "doublet_of"
+      - "axis"
+      - "evidence"
+      - "follows"
+    registers:
+      - "id"
+      - "title"
+      - "register"
+      - "class"
+      - "law"
       - "axis"
       - "evidence"
       - "follows"
@@ -223,7 +236,19 @@ morphology:
       pattern: "^(?P<stem>.+)$"
       output: "{stem}en"
       note: "ATTRIBUTIVE: of-the-X; naming and epithets only"
+    -
+      id: "lengthen"
+      kind: "vowel-length"
+      pattern: "^(?P<onset>[^aeiou]*)(?P<vowel>[aeiou])(?P<rest>.*)$"
+      output: "{onset}{vowel}{vowel}{rest}"
+      note: "the register's fire operation: the stressed root vowel is doubled, because the fire lengthens. Stressed position is the root-initial syllable for every delivered root (02 STR-01), so doubling the first nucleus is the one length operation the language can spell."
   derivation_note: "the three rules replay the four derived or compound records in this file and the eight names in 05-naming; rule ids match the constructions block"
+  derivation_ops:
+    - "head2"
+    - "reverse"
+    - "lengthen"
+  derivation_ops_note: "the three register operations. `reverse` and `head2` are computed character/syllable operations (reports/round-17/d4/design-language.md section 5); `lengthen` is declared as the machine-readable LENGTHEN pattern/output pair above. `reverse` is NOT expressible as such a pair (a reversal needs indexing, which the template subset refuses), so it stays computed in tools/gates/argot-derivation-gate.py. `head2` is declared but unused: over the delivered tree it is an identity, not a derivation (reports/round-26/register/review.md section 4)."
+  derivation_spelling_note: "a record's `derivation.op` must equal the declared rule id by exact string. The design's own two files spell this operation two ways -- rules.md section 2 states `op = 'lengthen'` while its section 3 registry row gives `id: LENGTHEN` -- and the round-26 execution-1 seat measured that landing the lowercase op against the uppercase id emits six D4L-ARGOT-RULE holds (reports/round-26/register/execution-1.md section 2). This landing resolves the split by declaring the rule id in the lowercase spelling the design's own operation rule uses, so the rule id and every record's `op` agree and the leg replays clean."
 orthography:
   case: "display-only"
   direction: "right-to-left in the E0 stamp rows and the E1 hand; the E2 league hand keeps right-to-left for text and left-to-right for account columns (a dated reversal recorded as OR-03)"
@@ -949,6 +974,182 @@ lexicon:
     follows:
       - "F-3"
       - "F-4"
+  -
+    id: "L-56"
+    term: "kit"
+    gloss: "the mark itself, spoken"
+    field: "trade"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "tik"
+    construction: "STAMP-REVERSE"
+    register: "stamp"
+    derived_from: "tik"
+    derivation:
+      op: "reverse"
+      base: "tik"
+    doublet_of: "L-42"
+    axis: "mark"
+    evidence: "design-choice"
+    etymology: "reverse of tik (L-42 mark, stamp): the register reads the account column the other way"
+    follows:
+      - "F-2"
+  -
+    id: "L-57"
+    term: "lom"
+    gloss: "the mold, named in the register"
+    field: "craft"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "mol"
+    construction: "STAMP-REVERSE"
+    register: "stamp"
+    derived_from: "mol"
+    derivation:
+      op: "reverse"
+      base: "mol"
+    doublet_of: "L-38"
+    axis: "mark"
+    evidence: "design-choice"
+    etymology: "reverse of mol (L-38 mold, cast form): the mold is what carries the mark"
+    follows:
+      - "F-2"
+  -
+    id: "L-55"
+    term: "tuum"
+    gloss: "the breath the smith swears by"
+    field: "body"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "tum"
+    construction: "STAMP-LENGTHEN"
+    register: "stamp"
+    derived_from: "tum"
+    derivation:
+      op: "lengthen"
+      base: "tum"
+    doublet_of: "L-02"
+    axis: "fire"
+    evidence: "design-choice"
+    etymology: "lengthen of tum (L-02 breath, bellows-breath): the register draws the breath out over the mark"
+    follows:
+      - "F-2"
+  -
+    id: "L-58"
+    term: "nees"
+    gloss: "the quench water, named"
+    field: "landscape"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "nes"
+    construction: "STAMP-LENGTHEN"
+    register: "stamp"
+    derived_from: "nes"
+    derivation:
+      op: "lengthen"
+      base: "nes"
+    doublet_of: "L-16"
+    axis: "fire"
+    evidence: "design-choice"
+    etymology: "lengthen of nes (L-16 water, quench trough)"
+    follows:
+      - "F-2"
+  -
+    id: "L-59"
+    term: "huum"
+    gloss: "the smoke that carries the word"
+    field: "weather"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "hum"
+    construction: "STAMP-LENGTHEN"
+    register: "stamp"
+    derived_from: "hum"
+    derivation:
+      op: "lengthen"
+      base: "hum"
+    doublet_of: "L-09"
+    axis: "fire"
+    evidence: "design-choice"
+    etymology: "lengthen of hum (L-09 smoke, the furnace's messenger): smoke is the messenger that carries the attested word"
+    follows:
+      - "F-2"
+  -
+    id: "L-60"
+    term: "mees"
+    gloss: "the ingot as an attested lot"
+    field: "trade"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "mes"
+    construction: "STAMP-LENGTHEN"
+    register: "stamp"
+    derived_from: "mes"
+    derivation:
+      op: "lengthen"
+      base: "mes"
+    doublet_of: "L-43"
+    axis: "fire"
+    evidence: "design-choice"
+    etymology: "lengthen of mes (L-43 metal, ingot): the lot is named long as it is sealed"
+    follows:
+      - "F-2"
+  -
+    id: "L-61"
+    term: "reek"
+    gloss: "the ore as an attested lot"
+    field: "craft"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "rek"
+    construction: "STAMP-LENGTHEN"
+    register: "stamp"
+    derived_from: "rek"
+    derivation:
+      op: "lengthen"
+      base: "rek"
+    doublet_of: "L-37"
+    axis: "fire"
+    evidence: "design-choice"
+    etymology: "lengthen of rek (L-37 ore, bog-ore)"
+    follows:
+      - "F-2"
+  -
+    id: "L-62"
+    term: "saam"
+    gloss: "the charcoal as an attested lot"
+    field: "craft"
+    route: "derived"
+    layer: "native"
+    stage: "E1"
+    bases:
+      - "sam"
+    construction: "STAMP-LENGTHEN"
+    register: "stamp"
+    derived_from: "sam"
+    derivation:
+      op: "lengthen"
+      base: "sam"
+    doublet_of: "L-39"
+    axis: "fire"
+    evidence: "design-choice"
+    etymology: "lengthen of sam (L-39 charcoal)"
+    follows:
+      - "F-2"
 layers:
   -
     id: "LY-01"
@@ -1038,6 +1239,38 @@ constructions:
     evidence: "design-choice"
     follows:
       - "F-2"
+  -
+    id: "STAMP-REVERSE"
+    name: "STAMP-REVERSE"
+    operation: "reverse"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    description: "the register's mark operation: the plain term read back to front (the stamp is the impression of the mold, the word read the other way)."
+    productivity: "closed; the register licenses a fixed set of turned forms"
+    base_eligibility: "native-only"
+    available_from: "E1"
+    axis: "mark"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+      - "F-6"
+  -
+    id: "STAMP-LENGTHEN"
+    name: "STAMP-LENGTHEN"
+    operation: "lengthen"
+    base_classes:
+      - "noun"
+    output_class: "noun"
+    description: "the register's fire operation: the stressed root vowel is doubled, because the fire lengthens. Replayed through the LENGTHEN pattern/output pair in morphology.derivation_rules."
+    productivity: "closed; the register licenses a fixed set of lengthened forms"
+    base_eligibility: "native-only"
+    available_from: "E1"
+    axis: "fire"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+      - "F-6"
 cloth_sources:
   -
     id: "CS-01"
@@ -1062,6 +1295,49 @@ cloth_sources:
     evidence: "design-choice"
     follows:
       - "F-3"
+registers:
+  -
+    id: "QREG-01"
+    title: "plain"
+    register: "plain"
+    class: "unmarked"
+    law: "the forge, the household and the road: the unmarked baseline the register is measured against, present from E0. Not a member of the stratum."
+    axis: "neutral"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+  -
+    id: "QREG-02"
+    title: "the stamp register"
+    register: "stamp"
+    class: "marked"
+    law: "the attestation speech: the speech a stamp-holder uses when a spoken word is being made to bind, as against the plain speech of the forge floor. A stamp form is admissible only in a stamp-act slot (a charge at the weigh-stone, an oath attested before the stamp-holder, a lot named as it is sealed). The register owns no segment: a stamp form is inventory-checked exactly as a plain form."
+    axis: "mark"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+  -
+    id: "QREG-03"
+    title: "the operation rule"
+    register: "stamp"
+    class: "marked"
+    operation_rule: "axis mark -> reverse; axis fire -> lengthen"
+    law: "a stamp form is the plain base carried into the register by the operation the base's own axis selects. The rule is total over the two delivered axis values and is not total in effect: 13 of the 54 delivered lexicon records yield an unusable form, so each form is checked individually (reports/round-26/register/review.md section 3)."
+    axis: "mark"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+  -
+    id: "QREG-04"
+    title: "era"
+    register: "stamp"
+    class: "marked"
+    era_rule: "a stamp form is available_from E1"
+    law: "the register is the speech of the stamp-house, which 03-orthography dates to E1. A stamp form claimed at E0 is a defect; E3 is reserved and unoccupied by delivered records."
+    axis: "mark"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
 pantheon:
   -
     id: "PAN-01"
@@ -2349,10 +2625,10 @@ assembly:
   serializer: "tools/assemble-d2.py (yaml_lines loaded read-only)"
   serializer_sha256: "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d"
   source_sha256:
-    "examples/culture-d4/components/01-brief.yml": "a2bc3111b8e936d2aa78feca86b871996455cc98d7d639f3825a88df8a1c056f"
+    "examples/culture-d4/components/01-brief.yml": "feca7bda25beb6ec7cecd2569fe8f8d6d802ff492f40c79cb6c58fdf5ac18d7d"
     "examples/culture-d4/components/02-phonology.yml": "7aa9cac5c030dfb39fbe5a90d04ea5d94f130f7a7e28b5bbb17ff2773ab0a42a"
     "examples/culture-d4/components/03-orthography.yml": "de1820b0c115271f7f86fbad8f7e6d637a6155cb61ad9a92cd53e32fdc08783e"
-    "examples/culture-d4/components/04-lexicon.yml": "74c2561b7c875c7c98708c589002b85b7989fc64bafa6abf794210401c69a9a5"
+    "examples/culture-d4/components/04-lexicon.yml": "d0d4e17cc3c43a11e598259271fe16f18539c8bce3c3a30a40b6d2554b6c7240"
     "examples/culture-d4/components/05-naming.yml": "b154d80700c47719dcf8395f6017f68c00c21a5eea79965d205df4bdbb688e0c"
     "examples/culture-d4/components/06-myth.yml": "2ca4935d8dc33899a98ebfe2212f73ca5efadee56e7720b59a592416fd3a6b9d"
     "examples/culture-d4/components/07-symbolism.yml": "5da857dc832c69b71fe1ac51f80232b63527e8e953abe6d93e26836c28c1c80c"

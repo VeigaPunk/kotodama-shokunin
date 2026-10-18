@@ -1,0 +1,121 @@
+{
+ "schema": "kotodama-pin-repoint-v1",
+ "round": 26,
+ "date": "2026-10-18",
+ "seat": "R26-O33..O36",
+ "axis": "operability",
+ "baseline_revision": "fc13cd27b9e78d5d7c4f70740fd26c9383a7447b",
+ "kind": "re-point as a NEW row; the filed round-20 rows stay byte-identical",
+ "canon": "NON-CANON engineering evidence; a pin is integrity, never truth and never clearance",
+ "declared_by": "reports/round-25/audit/x48-v3-supersession.md:148-158 (the two sibling pin tails, open since round 23)",
+ "tails": [
+  {
+   "id": "R26-O33",
+   "tail": "the stale combined-source v2 successor pin",
+   "surface": "reports/round-20/wart/expected-v2-07-r20.json",
+   "surface_sha256": "ad761a61c0c3be068c54c382ce43c88978a6c0c2a0f7493bb46a15063e2ebd04",
+   "stale_pin": {
+    "key": "inputs[\"tools/d2-typed-labels.py\"]",
+    "value": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb"
+   },
+   "live_pin": {
+    "key": "inputs[\"tools/d2-typed-labels.py\"]",
+    "value": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+    "measured_by": "sha256sum tools/d2-typed-labels.py",
+    "measured_at": "2026-10-18"
+   },
+   "new_row": "reports/round-26/remainders/v2-successor-r26/expected.json",
+   "new_row_sha256": "f695b910699ab5310b0853fe38471b7714616973f7deff366e1298888b766bc3",
+   "new_row_delta": [
+    "inputs[\"tools/d2-typed-labels.py\"] 76536a92… -> 2819f687…",
+    "baseline_digest 44b3c299… -> 803ec02f… (the derived integrity digest, re-frozen)"
+   ],
+   "frozen_by": "python3 reports/round-15/handoff/frozen-verify.py --freeze --baseline reports/round-26/remainders/v2-successor-r26/expected.json",
+   "replayer": "python3 reports/round-15/handoff/frozen-verify.py --baseline <row>",
+   "control": {
+    "baseline": "reports/round-20/wart/expected-v2-07-r20.json",
+    "exit": 2,
+    "code": "V2F-DIGEST",
+    "stderr": "V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py"
+   },
+   "fix": {
+    "baseline": "reports/round-26/remainders/v2-successor-r26/expected.json",
+    "exit": 0,
+    "stdout": "frozen-v2: exit=0 fields=16/16 glossary=20/20 findings=0 claims=15/15 statuses={'supported': 8, 'unresolved': 2, 'partial': 5} links=50/50 packet_sha256=24f9dd39bdad…"
+   }
+  },
+  {
+   "id": "R26-O34",
+   "tail": "the stale v3 packet-baseline pin",
+   "surface": "reports/round-20/handoff/expected.json",
+   "surface_sha256": "e2bfa52a35e518586be49cd61559f3d45ccea1e353e76281b51fe4d70ac39c4d",
+   "stale_pin": {
+    "key": "packet_sha256",
+    "value": "e92f5e6775b657c24fa6260e340e4e7a04cf6c3777188cba80678bed079ae43b"
+   },
+   "live_pin": {
+    "key": "packet_sha256",
+    "value": "a97a0f0a0a497cb4410124607065df7686bbc7f78b4b46bdaaaa1d66ba4d1b6e",
+    "measured_by": "python3 tools/exercise-handoff-e2e.py --profile v3",
+    "measured_at": "2026-10-18"
+   },
+   "new_row": "reports/round-26/remainders/v3-baseline-r26/expected.json",
+   "new_row_sha256": "4879e7602efcbc57f134b0e1604d38ca54d837bcbf8407d1667ef9bf30e238b7",
+   "new_row_delta": [
+    "packet_sha256 e92f5e6775b6… -> a97a0f0a0a49…",
+    "twin_sha256 58cb246081e0… -> d3de56a8be1d…",
+    "baseline_digest bbadb3a94dc7… (the same digest the round-22 declared-in-r2 baseline carries)"
+   ],
+   "frozen_by": "python3 tools/exercise-handoff-e2e.py --profile v3 --freeze reports/round-26/remainders/v3-baseline-r26",
+   "replayer": "python3 tools/exercise-handoff-e2e.py --profile v3 --baseline <row>",
+   "control": {
+    "baseline": "reports/round-20/handoff/expected.json",
+    "exit": 1,
+    "code": "E2E-DIGEST",
+    "stdout": "handoff-v3: E2E-DIGEST: 4 read-set file(s) changed since the baseline was frozen: examples/culture-d4/expected-holds.json, examples/culture-d4/packet.d4.typed.yml, examples/culture-d4/typed-labels.d4.yml"
+   },
+   "fix": {
+    "baseline": "reports/round-26/remainders/v3-baseline-r26/expected.json",
+    "exit": 0,
+    "stdout": "handoff-v3: exit=0 fields=16/16 glossary=20/20 findings=0 links=105/105 claims=27 statuses=16/7/4 v2_subset=equal alias_leg=landed packet_sha256=a97a0f0a0a49…"
+   }
+  }
+ ],
+ "checker": {
+  "path": "reports/round-26/remainders/pin-repoint-check.py",
+  "what": "the round-26 successor checker bound to the re-pointed rows: replays each stale row (the control) and each new row (the fix) through the same filed replayer, asserts the new rows are the only delta, and asserts filed rounds 8-25 are byte-unchanged",
+  "command": "python3 reports/round-26/remainders/pin-repoint-check.py --check",
+  "selftest": "python3 reports/round-26/remainders/pin-repoint-check.py --selftest",
+  "reading": "exit 0, 17/17 controls; selftest exit 0, 5/5 controls",
+  "receipt": "reports/round-26/remainders/pin-repoint-receipt.json"
+ },
+ "ab_control": {
+  "what": "the frozen round-20 runner run twice in isolated clones at the declared baseline revision, differing only in whether the re-pointed rows occupy the paths its discovery reads",
+  "red": {
+   "fixture": "the filed rows at their filed paths",
+   "command": "python3 reports/round-20/run-validation.py --check",
+   "claim_D_failures": [
+    "v2 successor row not green: reports/round-20/wart/expected-v2-07-r20.json exit 2 — V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py",
+    "v3 baseline reports/round-20/handoff/expected.json pins packet e92f5e6775b6… but the run assembled a97a0f0a0a49…"
+   ]
+  },
+  "green": {
+   "fixture": "the re-pointed rows copied over the discovery paths (reports/round-20/wart/expected-v2-07-r26.json, reports/round-20/handoff/expected.json)",
+   "command": "python3 reports/round-20/run-validation.py --check",
+   "claim_D_failures": [
+    "contract audit re-run verdict is 'fail', not a semantic PASS or named gaps with owners: reports/round-20/handoff/packet-v3-16.md"
+   ]
+  },
+  "reading": "with the re-pointed rows visible, both tail failures disappear from claim D; the residual claim-D failure is the contract-audit verdict, a different surface this seat does not own"
+ },
+ "filed_untouched": [
+  "reports/round-20/wart/expected-v2-07-r20.json (byte-identical, sha256 ad761a61…)",
+  "reports/round-20/handoff/expected.json (byte-identical, sha256 e2bfa52a…)",
+  "reports/round-8..25/** (the checker's preservation duty: 0 changed bytes)"
+ ],
+ "limits": [
+  "the frozen round-20 runner discovers its v2 successor row and its v3 baseline under reports/round-20/, which is filed; the re-point therefore lands under reports/round-26/ and is proven by replay plus the A/B control, not by moving the historical runner's discovery path",
+  "a pin is integrity, not truth: re-pointing asserts the bytes moved, never that the move was correct or that the round arc is complete",
+  "the residual claim-D failure in the green arm (the contract-audit verdict) and the claim-O gate-legs 20/20-vs-19/19 reading are other seats' surfaces and are reported, not absorbed"
+ ]
+}

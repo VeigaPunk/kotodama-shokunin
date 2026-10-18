@@ -11,7 +11,7 @@ culture: D4
 canon: not canonized (D4 design drill)
 title: "04-lexicon — the seven-field lexicon, the craft core, and the two loan layers"
 status: "round-17 component write, 2026-10-18; supersede-by-new-file only"
-packet_keys: [lexicon, constructions, layers, morphology]
+packet_keys: [lexicon, constructions, layers, morphology, registers]
 scope: >
   One declared language-stage set: the D4 basin speech across the contract's tag
   space E0-E2 (E3 unoccupied). Dialect and register variation is out of scope.
@@ -89,6 +89,36 @@ constructions:
     axis: fire
     evidence: design-choice
     follows: [F-2]
+  # The two register constructions (R26-D03 rules.md RU-4: new ids, no CX rule
+  # overloaded). They carry `operation:` and NO `pattern`: the register
+  # operations are computed (character reversal, vowel lengthening), not
+  # concatenations, so a `pattern`/`B1` template would be a lie and the
+  # concatenation replayer would read a correct reversal as a defect
+  # (reports/round-25/argot/delta.md section 3).
+  - id: STAMP-REVERSE
+    name: STAMP-REVERSE
+    operation: reverse
+    base_classes: [noun]
+    output_class: noun
+    description: "the register's mark operation: the plain term read back to front (the stamp is the impression of the mold, the word read the other way)."
+    productivity: "closed; the register licenses a fixed set of turned forms"
+    base_eligibility: native-only
+    available_from: E1
+    axis: mark
+    evidence: design-choice
+    follows: [F-2, F-6]
+  - id: STAMP-LENGTHEN
+    name: STAMP-LENGTHEN
+    operation: lengthen
+    base_classes: [noun]
+    output_class: noun
+    description: "the register's fire operation: the stressed root vowel is doubled, because the fire lengthens. Replayed through the LENGTHEN pattern/output pair in morphology.derivation_rules."
+    productivity: "closed; the register licenses a fixed set of lengthened forms"
+    base_eligibility: native-only
+    available_from: E1
+    axis: fire
+    evidence: design-choice
+    follows: [F-2, F-6]
 
 layers:
   - id: LY-01
@@ -187,18 +217,56 @@ lexicon:
   - {id: L-52, term: res, gloss: "bale, bundle of goods", field: trade, route: borrowed, layer: "Salt-road trade layer", loan_layer: "Salt-road trade layer", stage: E1, donor_form: resh, substitutions: {sh: s}, entry_stage: E1, referent_available_from: E1, axis: mark, evidence: design-choice, etymology: "salt-road donor resh, deaspirated on entry (LA-1)", follows: [F-3, F-4]}
   - {id: L-53, term: gal, gloss: "ore seam, vein", field: craft, route: borrowed, layer: "North-road kin layer", loan_layer: "North-road kin layer", stage: E0, donor_form: gol, substitutions: {o: a}, entry_stage: E0, referent_available_from: E0, axis: fire, evidence: design-choice, etymology: "sister-variety donor gol, lowered on entry (LA-2); the kin layer is the ore trade's own vocabulary", follows: [F-3, F-4]}
   - {id: L-54, term: mar, gloss: "smelt-house, works", field: craft, route: borrowed, layer: "North-road kin layer", loan_layer: "North-road kin layer", stage: E0, donor_form: mor, substitutions: {o: a}, entry_stage: E0, referent_available_from: E0, axis: fire, evidence: design-choice, etymology: "sister-variety donor mor, lowered on entry (LA-2)", follows: [F-3, F-4]}
+  # ---- the stamp register: register-scoped forms (8) ----
+  # The register forms fixed by reports/round-26/register/forms.md section 1
+  # (the authoritative table). Each is a delivered plain record carried into
+  # `register: stamp` by the declared operation its own axis selects
+  # (mark -> reverse, fire -> lengthen; rules.md section 2). Every form is
+  # inventory-legal, syllable-legal and collision-free under 02's PHON-01.
+  # The relation is machine-readable (`derived_from` + `derivation` +
+  # `doublet_of`) and is replayed by tools/gates/argot-derivation-gate.py,
+  # never by the concatenation replayer.
+  # Record order: the two `reverse` pairs first, then the six `lengthen`
+  # pairs. Order is not semantically load-bearing; it is fixed this way so the
+  # lane runner's own teeth control -- which takes the FIRST declared pair and
+  # writes a fixture carrying only a lexicon block, with no `morphology` -- is
+  # exercised against a gate-computed operation. With a `lengthen` pair first,
+  # that control cannot reach the derivation arithmetic at all (its fixture
+  # declares no rule), so it would report the leg undiscriminating.
+  - {id: L-56, term: kit, gloss: "the mark itself, spoken", field: trade, route: derived, layer: native, stage: E1, bases: [tik], construction: STAMP-REVERSE, register: stamp, derived_from: tik, derivation: {op: reverse, base: tik}, doublet_of: L-42, axis: mark, evidence: design-choice, etymology: "reverse of tik (L-42 mark, stamp): the register reads the account column the other way", follows: [F-2]}
+  - {id: L-57, term: lom, gloss: "the mold, named in the register", field: craft, route: derived, layer: native, stage: E1, bases: [mol], construction: STAMP-REVERSE, register: stamp, derived_from: mol, derivation: {op: reverse, base: mol}, doublet_of: L-38, axis: mark, evidence: design-choice, etymology: "reverse of mol (L-38 mold, cast form): the mold is what carries the mark", follows: [F-2]}
+  - {id: L-55, term: tuum, gloss: "the breath the smith swears by", field: body, route: derived, layer: native, stage: E1, bases: [tum], construction: STAMP-LENGTHEN, register: stamp, derived_from: tum, derivation: {op: lengthen, base: tum}, doublet_of: L-02, axis: fire, evidence: design-choice, etymology: "lengthen of tum (L-02 breath, bellows-breath): the register draws the breath out over the mark", follows: [F-2]}
+  - {id: L-58, term: nees, gloss: "the quench water, named", field: landscape, route: derived, layer: native, stage: E1, bases: [nes], construction: STAMP-LENGTHEN, register: stamp, derived_from: nes, derivation: {op: lengthen, base: nes}, doublet_of: L-16, axis: fire, evidence: design-choice, etymology: "lengthen of nes (L-16 water, quench trough)", follows: [F-2]}
+  - {id: L-59, term: huum, gloss: "the smoke that carries the word", field: weather, route: derived, layer: native, stage: E1, bases: [hum], construction: STAMP-LENGTHEN, register: stamp, derived_from: hum, derivation: {op: lengthen, base: hum}, doublet_of: L-09, axis: fire, evidence: design-choice, etymology: "lengthen of hum (L-09 smoke, the furnace's messenger): smoke is the messenger that carries the attested word", follows: [F-2]}
+  - {id: L-60, term: mees, gloss: "the ingot as an attested lot", field: trade, route: derived, layer: native, stage: E1, bases: [mes], construction: STAMP-LENGTHEN, register: stamp, derived_from: mes, derivation: {op: lengthen, base: mes}, doublet_of: L-43, axis: fire, evidence: design-choice, etymology: "lengthen of mes (L-43 metal, ingot): the lot is named long as it is sealed", follows: [F-2]}
+  - {id: L-61, term: reek, gloss: "the ore as an attested lot", field: craft, route: derived, layer: native, stage: E1, bases: [rek], construction: STAMP-LENGTHEN, register: stamp, derived_from: rek, derivation: {op: lengthen, base: rek}, doublet_of: L-37, axis: fire, evidence: design-choice, etymology: "lengthen of rek (L-37 ore, bog-ore)", follows: [F-2]}
+  - {id: L-62, term: saam, gloss: "the charcoal as an attested lot", field: craft, route: derived, layer: native, stage: E1, bases: [sam], construction: STAMP-LENGTHEN, register: stamp, derived_from: sam, derivation: {op: lengthen, base: sam}, doublet_of: L-39, axis: fire, evidence: design-choice, etymology: "lengthen of sam (L-39 charcoal)", follows: [F-2]}
+registers:
+  # The register law. A register is a named social/stylistic variety, not a
+  # semantic field: `register:` on a lexicon record is the scope, `field:` is
+  # the domain. Per SKILL.md's slot-label routing table, a register field never
+  # moves a form off the sound-and-identity channel, so the register stratum
+  # owes no form slot and adds no hold (reports/round-26/register/impl.md 5).
+  - {id: QREG-01, title: "plain", register: plain, class: unmarked, law: "the forge, the household and the road: the unmarked baseline the register is measured against, present from E0. Not a member of the stratum.", axis: neutral, evidence: design-choice, follows: [F-2]}
+  - {id: QREG-02, title: "the stamp register", register: stamp, class: marked, law: "the attestation speech: the speech a stamp-holder uses when a spoken word is being made to bind, as against the plain speech of the forge floor. A stamp form is admissible only in a stamp-act slot (a charge at the weigh-stone, an oath attested before the stamp-holder, a lot named as it is sealed). The register owns no segment: a stamp form is inventory-checked exactly as a plain form.", axis: mark, evidence: design-choice, follows: [F-2]}
+  - {id: QREG-03, title: "the operation rule", register: stamp, class: marked, operation_rule: "axis mark -> reverse; axis fire -> lengthen", law: "a stamp form is the plain base carried into the register by the operation the base's own axis selects. The rule is total over the two delivered axis values and is not total in effect: 13 of the 54 delivered lexicon records yield an unusable form, so each form is checked individually (reports/round-26/register/review.md section 3).", axis: mark, evidence: design-choice, follows: [F-2]}
+  - {id: QREG-04, title: "era", register: stamp, class: marked, era_rule: "a stamp form is available_from E1", law: "the register is the speech of the stamp-house, which 03-orthography dates to E1. A stamp form claimed at E0 is a defect; E3 is reserved and unoccupied by delivered records.", axis: mark, evidence: design-choice, follows: [F-2]}
 
 morphology:
   derivation_rules:
     - {id: CX-01, kind: compound, pattern: "^(?P<a>.+)\\+(?P<b>.+)$", output: "{a}{b}", note: "STACK-COMPOUND: modifier root before head root, concatenated without deletion; the plus is analysis only and never part of the delivered spelling"}
     - {id: CX-02, kind: suffix, affix: "-ar", pattern: "^(?P<stem>.+)$", output: "{stem}ar", note: "CRAFT-AGENT: worker named from the material or tool"}
     - {id: CX-03, kind: suffix, affix: "-en", pattern: "^(?P<stem>.+)$", output: "{stem}en", note: "ATTRIBUTIVE: of-the-X; naming and epithets only"}
+    - {id: lengthen, kind: "vowel-length", pattern: "^(?P<onset>[^aeiou]*)(?P<vowel>[aeiou])(?P<rest>.*)$", output: "{onset}{vowel}{vowel}{rest}", note: "the register's fire operation: the stressed root vowel is doubled, because the fire lengthens. Stressed position is the root-initial syllable for every delivered root (02 STR-01), so doubling the first nucleus is the one length operation the language can spell."}
   derivation_note: "the three rules replay the four derived or compound records in this file and the eight names in 05-naming; rule ids match the constructions block"
+  derivation_ops: [head2, reverse, lengthen]
+  derivation_ops_note: "the three register operations. `reverse` and `head2` are computed character/syllable operations (reports/round-17/d4/design-language.md section 5); `lengthen` is declared as the machine-readable LENGTHEN pattern/output pair above. `reverse` is NOT expressible as such a pair (a reversal needs indexing, which the template subset refuses), so it stays computed in tools/gates/argot-derivation-gate.py. `head2` is declared but unused: over the delivered tree it is an identity, not a derivation (reports/round-26/register/review.md section 4)."
+  derivation_spelling_note: "a record's `derivation.op` must equal the declared rule id by exact string. The design's own two files spell this operation two ways -- rules.md section 2 states `op = 'lengthen'` while its section 3 registry row gives `id: LENGTHEN` -- and the round-26 execution-1 seat measured that landing the lowercase op against the uppercase id emits six D4L-ARGOT-RULE holds (reports/round-26/register/execution-1.md section 2). This landing resolves the split by declaring the rule id in the lowercase spelling the design's own operation rule uses, so the rule id and every record's `op` agree and the leg replays clean."
 
 coverage_notes:
-  fields: {body: 4, kinship: 4, weather: 5, landscape: 5, subsistence: 6, war: 3, religion: 5, costume: 3, craft: 7, trade: 7}
-  routes: {root: 44, compound: 2, derived: 2, borrowed: 6}
-  layers: {native: 48, "Salt-road trade layer": 4, "North-road kin layer": 2}
+  fields: {body: 5, kinship: 4, weather: 6, landscape: 6, subsistence: 6, war: 3, religion: 5, costume: 3, craft: 10, trade: 9}
+  routes: {root: 44, compound: 2, derived: 10, borrowed: 6}
+  layers: {native: 56, "Salt-road trade layer": 4, "North-road kin layer": 2}
   counting_note: "counts are of delivered records in this file, not of the language; command: python3 .scratch/d4-lint.py reports/round-17/d4/components/04-lexicon.yml (structural) and the round-17 validation runner's lexicon-gate leg (semantic)"
   declared_gaps: "no garment lexemes (LEX-GAR-01..06 stay unfilled by design — the six named holds); no war-field depth (the league is not a war culture); no measure words beyond the borrowed gul and the count-stamps of 03"
 

@@ -1,0 +1,28 @@
+frozen: 2026-10-18 by reports/round-26/remainders/r4-twin/build-twin.py --emit --source-root <clone at the packet's pinned read set> (round-26 O seat, claims R26-O29..O32; NOT by tools/exercise-handoff-e2e.py — the renderer still renders 3.1.1 and its v3 baseline is untouched)
+revision: declared-in-r4 (the round-25 v3 claim-prose revision, packet-only as filed)
+twin_path: reports/round-26/remainders/r4-twin/twin.json
+twin_sha256: 1874efbc1a6f892d035e47bbfbb8ca228622b26fd622a002ee822594a5420b95
+source_packet: reports/round-25/v3-supersession/declared-in-r4/packet.md
+packet_sha256: 5f58db4a52b688568eac054b1c75e9bd110843370a1943cf4353fff75b46aa03
+twin_counts: artifact_manifest 58 / claim_ledger 27 / coupling_edges 88 / open_questions 10
+projection: the renderer's own tools/exercise-handoff-e2e.py v3_build_twin (line 2621), replayed on the filed packet bytes; record_ids mined by the renderer's own v3_mine_d2 / v3_mine_d3 / v3_mine_d4
+read-set guard: the four source packets the index is mined from (A-02 examples/culture-d3/packet.json, A-10 examples/culture-d2/packet.d2.yml, A-16 reports/round-6/parent-reconciliation.json, A-28 examples/culture-d4/packet.d4.yml) are each digest-checked against the target packet's own artifact_manifest rows before mining; a mismatch refuses the build. This is required because a concurrent round-26 D seat was rewriting examples/culture-d4/** while this twin was built (measured: live packet.d4.yml dd25077bc01681bc… vs pinned e7ecd2045ef0e5f9…), so the twin is pinned to the packet's declared read set, not to whatever the live tree holds at build time.
+projection_controls (byte-identity, the load-bearing control):
+  reports/round-20/handoff/twin.json: 58cb246081e03e351dc35c4c13ae7961ee9e046e569f0cc7081d76813de88628 reproduced byte-identically (the 3.0.0 shape: no declared_in edge column)
+  reports/round-22/handoff/declared-in-r2/twin.json: d3de56a8be1d28fdcead751aa0ac9364f7b43ff2b8bad71b696f0b57955b4d5c reproduced byte-identically (the 3.1.1 shape)
+  the twin is byte-stable across the live tree and the pinned clone: sha256 1874efbc… from both
+content_controls:
+  corrected D4 rows: D4-CL05, D4-CL06, D4-CL07, D4-CL09 all differ from the r22 predecessor twin and carry the family-clean present state
+  OQ-V3-05: carries "zero rank holds" (differs from the predecessor)
+  stale-prose detector: the filed reports/round-25/v3-supersession/v3-supersession-check.py stale_hits returns 0 hits on this twin and fires on all five rows (D4-CL05/06/07/09, OQ-V3-05) on the r22 predecessor twin
+  the 15 carried v2 rows (D2-CL01, D2-CL02, CL01..CL13) are byte-identical to the r22 predecessor's
+frozen harness judges (run on the twin against the pinned clone, 2026-10-18, TMPDIR=$PWD/.scratch, PYTHONDONTWRITEBYTECODE=1):
+  tools/harness/packet_uncertainty.py --packet <twin> --require-oq: exit 0, claims 27, findings []
+  tools/harness/packet_links.py --packet <twin> --repo-root <pinned clone>: exit 0, 106/106 links resolved, findings []
+frozen sibling verify (the 'frozen verify' clause; each run unchanged against its own declared baseline):
+  reports/round-25/v3-supersession/v3-supersession-check.py --check: exit 0, passed true, 52/52 controls
+  reports/round-23/wording/wording-check.py --check: exit 0, passed true, 17/17 controls
+write discipline: the twin is a NEW row under reports/round-26/; the filed reports/round-25/v3-supersession/declared-in-r4/ directory is not written (rounds 8-25 are frozen; `git diff fc13cd2 HEAD -- reports/round-{8..25}` is empty and `git status -- reports/round-25/` is clean)
+validator_binding: reports/round-26/remainders/r4-twin/expected.json (twin_sha256 key, the same mechanism as reports/round-22/handoff/declared-in-r2/expected.json)
+check verdict: reports/round-26/remainders/r4-twin/verify-twin.py --check exit 0, 24/24 controls (receipt .scratch/r26-o29/check-receipt.json); selftest 22/22 (receipt .scratch/r26-o29/selftest-receipt.json)
+inherited tail surfaced, not owned: the frozen r25 r4 checker is green (52/52) at its own declared baseline (round-24 admit e06581b) and 51/52 on the live round-26 tree, where a third inherited tail appears — `claim O: D4 gate legs summary: 20/20 legs passed != 19/19` (the round-25 argot leg, added at fc13cd2, made the D4 typed-pipeline gate 20 legs while the frozen round-20 runner pins 19). That is the D seat's argot-leg work, not this seat's twin; it is reported here, not claimed.
