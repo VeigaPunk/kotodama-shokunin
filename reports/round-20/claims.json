@@ -1,0 +1,32 @@
+{
+ "round": 20,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-18",
+ "baseline_revision": "caf1beac19b55f3bbce47e4a9e7e8710cc1c581d",
+ "regimen": "operator: loop 2 of 3, build round 4 of 4 (64w opencode-go key 1)",
+ "requested_model": "opencode-go/deepseek-v4.1-flash",
+ "workers": 64,
+ "claims": [
+  {
+   "id": "D",
+   "axis": "depth",
+   "before": "The handoff e2e exercise (round 11) assembles packets from D2+D3 only; D4 — now fully gate-verified — is not exercised in the handoff path, and the packet carries no D4-sourced claims with the round-15 uncertainty dimension.",
+   "after_required": "tools/exercise-handoff-e2e.py v3 assembles a handoff packet from D2+D3+D4 artifacts: D4 claims enter the claim ledger with uncertainty {status,basis} (grounding/restriction/open grammar), claim-to-record links resolve into culture-d4 records; handoff-packet-check 16/16 + 20/20; contract-v2 audit re-run yields pass-with-named-gaps or better; v2 paths unchanged and green.",
+   "counting_command": "python3 reports/round-20/run-validation.py"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "The projector's era-alias leg (declared_era_aliases) hard-requires the D2 component examples/culture-d2/components/12-rank-rules.yml even when run over D4 packets (routed wart from round 19); selftest mirrors must copy the D2 tree to be faithful.",
+   "after_required": "The alias component resolves per packet family (d2 -> the D2 rank-rules component; d4 -> a D4-declared alias source or a documented skip when the packet declares no era-alias rules); the round-19 wart erratum is closed; d2/d3/d4 projector runs + gate 19/19 + adapter selftest 12/12 all green WITHOUT the mirror copying the foreign examples tree.",
+   "counting_command": "python3 reports/round-20/run-validation.py"
+  },
+  {
+   "id": "C",
+   "axis": "coverage",
+   "before": "corpus/README.md has not been reconciled since the round-19 wave (+10 entries) and the round-10 wave; the index rows and known-gaps list lag the actual partition contents.",
+   "after_required": "corpus/README.md reconciled against the actual partition contents (command-carried counts: civilizations 94, linguistics 20, myth-symbol 19, culture-material 18, synthesis 29, verification 20); every index row names an existing file; known-gaps updated to name only still-open gaps; zero filler.",
+   "counting_command": "python3 reports/round-20/run-validation.py"
+  }
+ ]
+}
