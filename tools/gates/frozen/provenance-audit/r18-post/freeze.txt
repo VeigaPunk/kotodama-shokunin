@@ -1,0 +1,18 @@
+baseline_id: r18-post
+gate: provenance-audit (tools/gates/provenance-audit.py)
+frozen_by: round-18 O07-O10 re-pin seat (new revision of r9-pre)
+frozen_at: 2026-10-18T07:28:54-03:00
+revision: c66ac3c951b346a2a56f9386e3324b4f5fe33902
+
+snapshot: 20 current-phase byte copies under inputs/ (13 corpus verification documents + 7 provenance fixtures), each cmp-clean against its live origin
+
+commands and observed results (round-18, lane root):
+  1. python3 tools/gates/provenance-audit.py --selftest
+  2. python3 tools/gates/provenance-audit.py tools/gates/frozen/provenance-audit/r18-post/inputs > tools/gates/frozen/provenance-audit/r18-post/inputs/run.log
+     -> exit 1, 6 FINDING lines, stdout sha256 5dd12b31e79c22aa4350ce7eabee910c6d15e05eb5e2cedb41115f816595007b
+     scan line: INFO scan: files=20 marks=74 mark-lines=74 findings=6 blocked=0
+  3. observed unique finding-ID set (6): ['empty-couples', 'empty-sources', 'missing-calibration', 'missing-couples', 'missing-sources', 'missing-topic']
+
+verdict: exit 1, class findings, findings = the ID set above
+
+this revision is new pins only: the r9-pre baseline bytes are never edited

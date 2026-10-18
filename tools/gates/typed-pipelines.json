@@ -1,0 +1,33 @@
+{
+ "schema": "kotodama-typed-pipelines-v1",
+ "note": "Round-18 O claim: the flagless, sha-pinned resolution channel for non-D2 pipelines. Matching is by the graded packet's own `assembly.generator` string, never by filename. Every field carries the live digest it was pinned at; editing this file cannot silently re-point a run -- a stale pin refuses (exit 2, L1-profile) until it is re-pinned with a command and a date. No filed receipt is edited by a re-pin; the pins move in this file and are recorded in the round's fragments.",
+ "profiles": [
+  {
+   "id": "d4",
+   "match": {
+    "assembly_generator": "tools/assemble-culture-d4.py"
+   },
+   "packet": {
+    "path": "examples/culture-d4/packet.d4.yml",
+    "sha256": "e7ecd2045ef0e5f9823ce0a067d21b8221b2ceb5e8f5799736981a1c88fa50d3"
+   },
+   "assembler": {
+    "path": "tools/assemble-culture-d4.py",
+    "sha256": "943f487ba991d45d369eb8fb6e9bb686046df165424d101cfa2670f79bb844b2"
+   },
+   "projection": {
+    "path": "examples/culture-d4/typed-labels.d4.yml",
+    "sha256": "a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d"
+   },
+   "adapter": {
+    "path": "tools/assemble-d4-typed.py",
+    "sha256": null,
+    "note": "the D4 adapter is a round-18 D-seat artifact; the path is resolved and its absence is reported by the gate (FAIL L1-build: adapter missing). Pin this field at the first freeze after the adapter lands."
+   },
+   "expected": {
+    "path": "examples/culture-d4/expected-holds.json",
+    "sha256": "09490a2756d123ebbc2023be89fc01c95ec2f8cc7e6df42ecc5b8cd438058e98"
+   }
+  }
+ ]
+}

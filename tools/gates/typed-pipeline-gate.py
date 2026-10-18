@@ -37,6 +37,22 @@ hold laundered into a note, deleted or renamed fails L3.
 A typed packet may also be handed in directly (the frozen replay row does): a
 file carrying `typed_channel` is graded as the build product — L2 reconstructs
 the legacy packet from the moved fields, and L3/L4 run as usual.
+
+Declared assembler identity (round-18 O claim). The gate grades more than one
+pipeline family by *declaration*: the graded packet may carry a `typed_pipeline`
+block (or an `assembly.generator` / `assembly.assembler` key) naming the
+assembler, projection, adapter, expected-holds file and legacy packet, and the
+CLI adds `--assembler/--projection/--adapter/--expected/--legacy-packet`
+overrides. Precedence is flags > packet declaration > family convention
+(`examples/culture-<family>/…`, the D2/D3 naming) > D2 defaults; with nothing
+declared the resolution lands on exactly the D2 paths, so the default run is
+byte-identical to the pre-generalization gate. When a non-D2 assembler is
+declared, L1 runs an `L1-assembler` identity leg that calls the declared
+assembler's own `assemble()` — the same call `--check` makes, never a
+re-implementation — and requires the packet bytes (and, when the packet pins
+`assembly.assembler_sha256`, the live assembler bytes) to match; a mismatch is
+exit 2. `--selftest-generalized` drives that mechanism over fixture trees in
+one temporary directory.
 """
 
 import argparse
@@ -97,6 +113,34 @@ EXPECTED_HOLDS = (
 EXPECTED_NOTES = (("D2L-RANK", "note", "SR-01#a|SR-01#b"),)
 EXPECTED_COUNTS = {"hold": 15, "note": 1, "fail": 0}
 
+# The D2 identity the resolver returns when nothing is declared — the exact
+# pre-generalization constants, kept equal to them (round-18 O claim: the
+# default path is byte-identical; `--selftest-generalized` asserts the equality).
+PROFILE_DEFAULT = GATES_DIR / "typed-pipelines.json"
+D2_DEFAULTS = {
+    "packet": PACKET_DEFAULT,
+    "typed": ROOT / "examples/culture-d2/packet.d2.typed.yml",
+    "projection": PROJECTION_DEFAULT,
+    "adapter": ADAPTER,
+    "expected": EXPECTED_HOLDS_PATH,
+    "assembler": SERIALIZER,
+    "projector": PROJECTOR,
+}
+# Keys a packet may declare about its own pipeline (additive: only the D2 path
+# keys are honoured, anything else in the block is left to its owner).
+DECLARED_ALIASES = {
+    "assembler": "assembler",
+    "generator": "assembler",
+    "projection": "projection",
+    "adapter": "adapter",
+    "expected": "expected",
+    "expected_holds": "expected",
+    "packet": "packet",
+    "legacy_packet": "packet",
+    "typed_packet": "typed",
+    "projector": "projector",
+}
+
 
 def sha256_bytes(payload):
     return hashlib.sha256(payload).hexdigest()
@@ -127,8 +171,8 @@ def load_peer(path):
     return runpy.run_path(str(path))
 
 
-def load_packet_strict(text):
-    return load_peer(PROJECTOR)["load_packet_strict"](text)
+def load_packet_strict(text, projector=None):
+    return load_peer(projector or PROJECTOR)["load_packet_strict"](text)
 
 
 def key_of(finding):
@@ -137,6 +181,242 @@ def key_of(finding):
 
 def detail_of(finding):
     return finding.get("detail", "")
+
+
+def moved_field(row):
+    """The field a routing row moved off the sound channel.
+
+    A missing key or a null-ish value (`null`, `none`, `~`, empty — the lane's
+    reader keeps an unquoted `null` as the string) means the row stays on
+    channel, the D4 register class the round-17 brief declares.
+    """
+    value = row.get("off_channel_field")
+    if not isinstance(value, str) or value.strip().lower() in ("", "null", "none", "~"):
+        return None
+    return value
+
+
+# --------------------------------------------------------------------------
+# declared pipeline identity (round-18 O claim)
+# --------------------------------------------------------------------------
+
+
+def candidate_path(value):
+    """A declared path string as a path; relative values resolve against ROOT."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    path = Path(value.strip())
+    return path if path.is_absolute() else ROOT / path
+
+
+def family_of(path):
+    """`examples/culture-d4/packet.d4.yml` -> `d4`; None when not that shape."""
+    match = re.fullmatch(r"culture-([a-z0-9]+)", Path(path).parent.name)
+    return match.group(1) if match else None
+
+
+def family_paths(family):
+    """The lane's per-family naming convention (D3 idiom, brief §9.1)."""
+    base = ROOT / ("examples/culture-%s" % family)
+    assembler = ROOT / ("tools/assemble-culture-%s.py" % family)
+    if not assembler.is_file():
+        assembler = ROOT / ("tools/assemble-%s.py" % family)
+    projector = ROOT / ("tools/%s-typed-labels.py" % family)
+    if not projector.is_file():
+        projector = PROJECTOR
+    return {
+        "packet": base / ("packet.%s.yml" % family),
+        "typed": base / ("packet.%s.typed.yml" % family),
+        "projection": base / ("typed-labels.%s.yml" % family),
+        "adapter": ROOT / ("tools/assemble-%s-typed.py" % family),
+        "expected": base / "expected-holds.json",
+        "assembler": assembler,
+        "projector": projector,
+    }
+
+
+def family_projector(packet_path):
+    """The family's own reader when one exists (D2's reader otherwise)."""
+    family = family_of(packet_path)
+    if family and family != "d2":
+        candidate = ROOT / ("tools/%s-typed-labels.py" % family)
+        if candidate.is_file():
+            return candidate
+    return PROJECTOR
+
+
+def declared_paths(document):
+    """What the graded packet declares about its own pipeline, if anything."""
+    declared = {}
+    if not isinstance(document, dict):
+        return declared
+    for block in (document.get("typed_pipeline"), document.get("assembly")):
+        if not isinstance(block, dict):
+            continue
+        for key, value in block.items():
+            if key in DECLARED_ALIASES and key not in declared:
+                declared[key] = value
+    return declared
+
+
+def load_profile(document, flags=None):
+    """The sha-pinned pipeline profile matching the graded packet (design §4).
+
+    The flagless channel `tools/replay-frozen.py` can replay: matching is by the
+    packet's own `assembly.generator` string, never by filename. Returns
+    `(info, chosen)`; `info` is None when no profile file exists.
+    """
+    path = candidate_path((flags or {}).get("profile")) or PROFILE_DEFAULT
+    if not path.is_file():
+        return None, None
+    info = {"file": path, "problems": []}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (ValueError, OSError) as exc:
+        info["problems"].append("unreadable: %s" % exc)
+        return info, None
+    info["payload"] = payload
+    generator = None
+    if isinstance(document, dict) and isinstance(document.get("assembly"), dict):
+        generator = document["assembly"].get("generator")
+    info["generator"] = generator
+    profiles = []
+    for key in ("profiles", "pipelines", "families"):
+        value = payload.get(key) if isinstance(payload, dict) else None
+        if isinstance(value, dict):
+            profiles = list(value.values())
+            break
+        if isinstance(value, list):
+            profiles = value
+            break
+    info["profiles"] = len(profiles)
+    chosen = None
+    for profile in profiles:
+        if not isinstance(profile, dict):
+            continue
+        match = profile.get("match") or {}
+        if generator and match.get("assembly_generator") == generator:
+            chosen = profile
+            break
+    info["chosen"] = (chosen or {}).get("id")
+    return info, chosen
+
+
+def profile_pins(profile, resolved):
+    """Every pinned profile field re-verified against the live bytes."""
+    checks = []
+    if not isinstance(profile, dict):
+        return checks
+    for key in ("packet", "assembler", "projection", "adapter", "expected"):
+        field = profile.get(key)
+        if not isinstance(field, dict):
+            continue
+        target = candidate_path(field.get("path")) or resolved.get(key)
+        pinned = field.get("sha256")
+        entry = {"field": key, "path": target, "pinned": pinned, "live": None, "ok": True}
+        if target is not None and target.is_file():
+            entry["live"] = sha256_file(target)
+        if isinstance(pinned, str) and pinned:
+            entry["ok"] = entry["live"] == pinned
+        elif pinned is None:
+            entry["ok"] = True
+            entry["detail"] = "path only: pin pending"
+        checks.append(entry)
+    return checks
+
+
+def resolve_config(packet_path, document, flags=None):
+    """flags > packet declaration > profile > family convention > D2 defaults.
+
+    An unresolved key keeps the D2 default, and with every key on its D2 value
+    the run is `generalized = False`: no declared-identity leg, no extra check,
+    no extra output — the pre-generalization behavior exactly.
+    """
+    flags = {key: value for key, value in (flags or {}).items() if value}
+    resolved = dict(D2_DEFAULTS)
+    family = family_of(packet_path)
+    if family and family != "d2":
+        resolved.update(family_paths(family))
+    profile_info, profile = load_profile(document, flags)
+    if isinstance(profile, dict):
+        for key in D2_DEFAULTS:
+            field = profile.get(key)
+            if isinstance(field, dict):
+                field = field.get("path")
+            path = candidate_path(field if isinstance(field, str) else None)
+            if path is not None:
+                resolved[key] = path
+    declared = declared_paths(document)
+    for key, value in declared.items():
+        path = candidate_path(value)
+        if path is not None:
+            resolved[DECLARED_ALIASES[key]] = path
+    for key in D2_DEFAULTS:
+        path = candidate_path(flags.get(key))
+        if path is not None:
+            resolved[key] = path
+    resolved["family"] = family
+    resolved["declared"] = declared
+    resolved["flags"] = sorted(flags)
+    resolved["profile"] = (profile or {}).get("id") if isinstance(profile, dict) else None
+    resolved["profile_file"] = (profile_info or {}).get("file")
+    resolved["profile_problems"] = list((profile_info or {}).get("problems") or [])
+    resolved["profile_pins"] = profile_pins(profile, resolved)
+    resolved["generalized"] = bool(flags) or any(
+        resolved[key] != D2_DEFAULTS[key] for key in D2_DEFAULTS)
+    return resolved
+
+
+def resolution_line(config):
+    """The one line a non-default run prints: the resolved, digest-bearing set."""
+    if not config.get("generalized"):
+        return None
+    parts = ["declared pipeline: family %s" % config.get("family")]
+    profile_file = config.get("profile_file")
+    if profile_file:
+        digest = sha256_file(profile_file)[:12] if Path(profile_file).is_file() else "absent"
+        parts.append("profile %s (sha256 %s)"
+                     % (rel(profile_file), digest if config.get("profile") else "no-match"))
+    for key in ("assembler", "adapter", "projection", "expected"):
+        target = Path(config[key])
+        digest = sha256_file(target)[:12] if target.is_file() else "absent"
+        parts.append("%s %s (sha256 %s)" % (key, rel(target), digest))
+    return "; ".join(parts)
+
+
+def assembler_identity(packet_path, assembler_path, declared_sha=None):
+    """The declared assembler's own build must reproduce the packet bytes.
+
+    This is the byte comparison `--check` performs, through the same call
+    (`assemble()`); the gate never re-implements an assembler. A packet that
+    pins `assembly.assembler_sha256` additionally has the live assembler bytes
+    verified against that pin.
+    """
+    try:
+        namespace = load_peer(assembler_path)
+        build = namespace.get("assemble")
+    except Exception as exc:
+        return False, "assembler unreadable: %s: %s: %s" % (
+            rel(assembler_path), type(exc).__name__, exc)
+    if not callable(build):
+        return False, "%s has no assemble() build path" % rel(assembler_path)
+    try:
+        expected = build()
+    except Exception as exc:
+        return False, "assembler refused the components: %s: %s" % (
+            type(exc).__name__, exc)
+    if not isinstance(expected, bytes):
+        return False, "%s assemble() did not return bytes" % rel(assembler_path)
+    actual = Path(packet_path).read_bytes()
+    if actual != expected:
+        return False, "packet bytes %s are not %s's deterministic assembly (%s)" % (
+            sha256_bytes(actual)[:12], rel(assembler_path), sha256_bytes(expected)[:12])
+    if declared_sha:
+        live = sha256_file(assembler_path)
+        if declared_sha != live:
+            return False, "assembler self-pin broken: packet pins %s, live %s hashes %s" % (
+                str(declared_sha)[:12], rel(assembler_path), live[:12])
+    return True, ""
 
 
 def run_gate(gate_path, input_path, cwd):
@@ -163,7 +443,7 @@ def gate_bundle(input_path, cwd, gates_dir=GATES_DIR):
 
 
 def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
-            expected_path=EXPECTED_HOLDS_PATH):
+            flags=None, config=None):
     """Run L1-L4 once; returns the result dict (never raises for input)."""
     checks = []
 
@@ -174,12 +454,85 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
 
     result = {"exit": 2, "checks": checks, "typed": None, "legacy": None,
               "deltas": None, "findings": [], "routing": [], "pins": {}}
-    adapter_ns = load_peer(ADAPTER)
+    loaded = None
+    document = None
+    reader = family_projector(typed_arg or packet_path)
+    if typed_arg is not None:
+        typed_bytes = Path(typed_arg).read_bytes()
+        loaded = load_packet_strict(typed_bytes.decode("utf-8"), reader)
+        document = loaded["packet"]
+    elif Path(packet_path).is_file():
+        try:
+            parsed = load_packet_strict(Path(packet_path).read_text(encoding="utf-8"), reader)
+            document = parsed.get("packet")
+        except Exception:
+            document = None
+    config = config or resolve_config(packet_path, document, flags)
+    if typed_arg is not None and config["projector"] != reader:
+        loaded = load_packet_strict(typed_bytes.decode("utf-8"), config["projector"])
+        document = loaded["packet"]
+    result["config"] = config
+    generalized = config["generalized"]
+    identity_requested = (config["assembler"] != SERIALIZER) or bool(
+        (flags or {}).get("assembler"))
+
+    # ---- L1 declared identity -------------------------------------------
+    if generalized and config.get("profile_problems"):
+        check("L1-profile", False, "; ".join(config["profile_problems"]))
+        return result
+    if generalized and config.get("profile_pins"):
+        broken = [item for item in config["profile_pins"] if not item["ok"]]
+        check("L1-profile", not broken,
+              "; ".join("%s: pins %s, live %s (%s)"
+                        % (item["field"], str(item["pinned"])[:12],
+                           str(item["live"])[:12], rel(item["path"]))
+                        for item in broken))
+        if broken:
+            return result
+    if generalized and identity_requested:
+        declared_sha = None
+        if isinstance(document, dict) and isinstance(document.get("assembly"), dict):
+            declared_sha = document["assembly"].get("assembler_sha256")
+        ok, detail = assembler_identity(
+            config["packet"] if typed_arg is not None else packet_path,
+            config["assembler"], declared_sha)
+        check("L1-assembler", ok, detail)
+        if not ok:
+            return result
+    expected_holds, expected_notes, expected_counts = EXPECTED_HOLDS, EXPECTED_NOTES, EXPECTED_COUNTS
+    expected_baseline = None
+    if generalized:
+        expected_path = config["expected"]
+        if not expected_path.is_file():
+            check("L1-expected-holds", False, "missing: %s" % rel(expected_path))
+            return result
+        try:
+            expected_baseline = json.loads(expected_path.read_text(encoding="utf-8"))
+        except ValueError as exc:
+            check("L1-expected-holds", False, "unreadable: %s: %s"
+                  % (rel(expected_path), exc))
+            return result
+        expected_holds = tuple(
+            (item.get("id"), item.get("severity"), str(item.get("where")))
+            for item in (expected_baseline.get("holds") or []))
+        expected_notes = tuple(
+            (item.get("id"), item.get("severity"), str(item.get("where")))
+            for item in (expected_baseline.get("notes") or []))
+        expected_counts = dict(expected_baseline.get("counts") or {})
+        consistent = (expected_counts.get("hold") == len(expected_holds)
+                      and expected_counts.get("note") == len(expected_notes)
+                      and expected_counts.get("fail") == 0
+                      and expected_baseline.get("schema") in (None, SCHEMA))
+        check("L1-expected-holds", consistent,
+              "inconsistent expected file: schema %r, counts %s, %d holds, %d notes"
+              % (expected_baseline.get("schema"), expected_counts,
+                 len(expected_holds), len(expected_notes)))
+        if not consistent:
+            return result
+    result["expected_counts"] = expected_counts
 
     # ---- L1 build --------------------------------------------------------
     if typed_arg is not None:
-        typed_bytes = Path(typed_arg).read_bytes()
-        loaded = load_packet_strict(typed_bytes.decode("utf-8"))
         if loaded["packet"] is None:
             check("L1-build", False, "typed packet unparseable: %s"
                   % loaded["findings"][:1])
@@ -191,7 +544,16 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
         if not Path(packet_path).is_file():
             check("L1-build", False, "packet missing: %s" % rel(packet_path))
             return result
-        built = adapter_ns["build"](Path(packet_path), Path(PROJECTION_DEFAULT))
+        if not config["adapter"].is_file():
+            check("L1-build", False, "adapter missing: %s" % rel(config["adapter"]))
+            return result
+        try:
+            adapter_ns = load_peer(config["adapter"])
+            built = adapter_ns["build"](Path(packet_path), Path(config["projection"]))
+        except Exception as exc:
+            check("L1-build", False, "adapter %s refused the run: %s: %s"
+                  % (rel(config["adapter"]), type(exc).__name__, exc))
+            return result
         for name, record in built["inputs"].items():
             check("L1-%s" % name, record["ok"], record["detail"])
         if built["exit"] != 0:
@@ -204,6 +566,13 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
 
     routing = typed_doc.get("typed_channel") or []
     off_records = sorted(row.get("record") for row in routing if row.get("record"))
+    # rows whose form field was moved off the sound channel (D2: every row) vs
+    # rows the routing keeps on channel (`off_channel_field: null`, D4 register
+    # class) — only the moved ones may retire gate lines.
+    moved_records = sorted(row.get("record") for row in routing
+                           if row.get("record") and moved_field(row))
+    retained_records = sorted(row.get("record") for row in routing
+                              if row.get("record") and not moved_field(row))
     result["routing"] = routing
     if typed_doc.get("schema") != "kotodama-typed-packet-v1":
         check("L1-schema", False, "typed packet schema is %r" % typed_doc.get("schema"))
@@ -223,7 +592,7 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
             for entry in rebuilt.get("costumes") or []:
                 if isinstance(entry, dict) and str(entry.get("id")) == row["record"]:
                     field = row.get("source_field") or "garment"
-                    moved = row.get("off_channel_field") or "%s_gloss" % field
+                    moved = moved_field(row) or "%s_gloss" % field
                     if moved in entry:
                         entry[field] = entry.pop(moved)
         rebuilt.pop("typed_channel", None)
@@ -257,7 +626,7 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
     off_named = []
     for gate, lines in typed_lines.items():
         for line in lines:
-            if any(record in line for record in off_records):
+            if any(record in line for record in moved_records):
                 off_named.append("%s: %s" % (gate, line))
     deltas = {}
     delta_ok = True
@@ -277,19 +646,40 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
             delta_detail.append("%s: retained findings are not the legacy set" % gate)
         for line in removed:
             if not line.startswith("FINDING PHON-") or \
-                    not any(record in line for record in off_records):
+                    not any(record in line for record in moved_records):
                 delta_ok = False
                 delta_detail.append("%s: non-artifact removal: %s" % (gate, line))
     removed_total = sum(len(deltas[gate]["removed"]) for gate in GATE_NAMES)
     added_total = sum(len(deltas[gate]["added"]) for gate in GATE_NAMES)
     result["sound_channel"] = {"translated_on_sound_channel": len(off_named),
                                "removed": removed_total, "added": added_total,
-                               "routed": len(off_records)}
+                               "routed": len(moved_records)}
+    if generalized:
+        result["sound_channel"]["retained_on_channel"] = len(retained_records)
+        # D4 family: two routing rows per costume (garment-field row + owed-slot
+        # row) but exactly one field move per costume — the removed-artifact
+        # count must equal the costumes whose field actually moved, not the
+        # routing-row count. D2: every moved record is a costume record, so
+        # this reduces to the legacy comparison unchanged.
+        costume_ids = {str(entry.get("id"))
+                       for entry in (typed_doc.get("costumes") or [])
+                       if isinstance(entry, dict)}
+        field_moved = sorted(name for name in moved_records if name in costume_ids)
+    else:
+        field_moved = moved_records
     check("L2-channel",
-          delta_ok and not off_named and removed_total == len(off_records),
+          delta_ok and not off_named and removed_total == len(field_moved),
           "; ".join(delta_detail)
           or ("off-channel lines in the typed run: %s" % off_named[:2]
-              if off_named else "removed %d, routed %d" % (removed_total, len(off_records))))
+              if off_named else "removed %d, routed %d" % (removed_total, len(moved_records))))
+    # a routing row that keeps its record on the sound channel may not remove
+    # that record's inventory line (D4 register class: routing, not deletion)
+    if retained_records:
+        lost = [record for record in retained_records
+                if any(record in line for lines in legacy_lines.values() for line in lines)
+                and not any(record in line for lines in typed_lines.values() for line in lines)]
+        check("L2-retention", not lost,
+              "on-channel records lost from the typed run: %s" % lost)
 
     # ---- L3 holds --------------------------------------------------------
     findings = typed_doc.get("pipeline_findings") or []
@@ -302,23 +692,24 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
     holds = {item for item in observed if item[1] == "hold"}
     notes = {item for item in observed if item[1] == "note"}
     fails = {item for item in observed if item[1] not in ("hold", "note")}
-    expected_pairs = set(EXPECTED_HOLDS) | set(EXPECTED_NOTES)
-    check("L3-holds", holds == set(EXPECTED_HOLDS), "missing %s; extra %s"
-          % (sorted(set(EXPECTED_HOLDS) - holds), sorted(holds - set(EXPECTED_HOLDS))))
-    check("L3-notes", notes == set(EXPECTED_NOTES), "missing %s; extra %s"
-          % (sorted(set(EXPECTED_NOTES) - notes), sorted(notes - set(EXPECTED_NOTES))))
+    expected_pairs = set(expected_holds) | set(expected_notes)
+    check("L3-holds", holds == set(expected_holds), "missing %s; extra %s"
+          % (sorted(set(expected_holds) - holds), sorted(holds - set(expected_holds))))
+    check("L3-notes", notes == set(expected_notes), "missing %s; extra %s"
+          % (sorted(set(expected_notes) - notes), sorted(notes - set(expected_notes))))
     check("L3-fails", not fails, "fail set: %s" % sorted(fails))
     check("L3-counts", {severity: sum(1 for item in observed if item[1] == severity)
-                        for severity in ("hold", "note", "fail")} == EXPECTED_COUNTS,
-          "observed counts differ from %s" % EXPECTED_COUNTS)
-    baseline = None
-    if Path(expected_path).is_file():
-        try:
-            baseline = json.loads(Path(expected_path).read_text(encoding="utf-8"))
-        except ValueError as exc:
-            check("L3-baseline", False, "expected-holds.json unreadable: %s" % exc)
-    else:
-        check("L3-baseline", False, "missing: %s" % rel(expected_path))
+                        for severity in ("hold", "note", "fail")} == expected_counts,
+          "observed counts differ from %s" % expected_counts)
+    baseline = expected_baseline
+    if not generalized:
+        if EXPECTED_HOLDS_PATH.is_file():
+            try:
+                baseline = json.loads(EXPECTED_HOLDS_PATH.read_text(encoding="utf-8"))
+            except ValueError as exc:
+                check("L3-baseline", False, "expected-holds.json unreadable: %s" % exc)
+        else:
+            check("L3-baseline", False, "missing: %s" % rel(EXPECTED_HOLDS_PATH))
     if baseline is not None:
         committed = {(item.get("id"), item.get("severity"), str(item.get("where")))
                      for item in (baseline.get("holds") or []) + (baseline.get("notes") or [])}
@@ -326,9 +717,14 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
                              for item in (baseline.get("holds") or []) + (baseline.get("notes") or [])}
         details_observed = {(item["id"], str(item["where"])): detail_of(item)
                             for item in findings}
-        check("L3-baseline", committed == expected_pairs
-              and (baseline.get("counts") or {}) == EXPECTED_COUNTS,
-              "committed baseline disagrees with the embedded constant")
+        if generalized:
+            check("L3-baseline", committed == expected_pairs
+                  and (baseline.get("counts") or {}) == expected_counts,
+                  "declared baseline disagrees with its own expected set")
+        else:
+            check("L3-baseline", committed == expected_pairs
+                  and (baseline.get("counts") or {}) == EXPECTED_COUNTS,
+                  "committed baseline disagrees with the embedded constant")
         check("L3-details", all(details_committed.get(key) == value
                                 for key, value in details_observed.items()),
               "a detail string differs from the committed baseline")
@@ -337,41 +733,70 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
     else:
         check("L3-baseline-set", False, "no baseline to compare")
 
-    # routing consistency: every owed-form hold names a routed record and every
-    # routed record carries exactly one such hold (a dropped routing row, or a
-    # hold without its routing row, is a defect — design §2.2 coverage, D18)
+    # routing consistency: every off-channel hold names a moved routing record
+    # and every moved record carries exactly one such hold (a dropped routing
+    # row, or a hold without its routing row, is a defect — design §2.2
+    # coverage, D18). The hold id is read off the routing rows, so a D4-family
+    # packet checks its own class (`D4L-FORM-UNRESOLVED`).
+    routing_hold_ids = sorted({row.get("hold") for row in routing
+                               if moved_field(row) and row.get("hold")})
     hold_records = sorted(str(item["where"]) for item in findings
-                          if item["id"] == "D2L-FORM-UNRESOLVED")
+                          if item["id"] in routing_hold_ids)
     hold_slots = sorted({match.group(1) for item in findings
-                         if item["id"] == "D2L-FORM-UNRESOLVED"
+                         if item["id"] in routing_hold_ids
                          and (match := re.search(r"label_id\s+(\S+)", detail_of(item)))})
     routed_slots = sorted(row.get("owed_slot") for row in routing
-                          if row.get("owed_slot"))
+                          if moved_field(row) and row.get("owed_slot"))
     check("L3-routing-consistency",
-          hold_records == off_records and hold_slots == routed_slots,
+          hold_records == moved_records and hold_slots == routed_slots,
           "holds %s vs routed %s; owed slots %s vs routing %s"
-          % (hold_records, off_records, hold_slots, routed_slots))
+          % (hold_records, moved_records, hold_slots, routed_slots))
 
     # ---- L4 pins ---------------------------------------------------------
     pins = typed_doc.get("assembly") or {}
     result["pins"] = pins
-    if typed_arg is None:
-        expected_pins = {"packet_sha256": sha256_file(packet_path),
-                         "projection_sha256": sha256_file(PROJECTION_DEFAULT),
-                         "adapter_sha256": sha256_file(ADAPTER)}
-        check("L4-pins", all(pins.get(key) == value
-                             for key, value in expected_pins.items()),
-              "pin mismatch: %s" % {k: (pins.get(k), v)
-                                    for k, v in expected_pins.items()
-                                    if pins.get(k) != v})
+    if not generalized:
+        if typed_arg is None:
+            expected_pins = {"packet_sha256": sha256_file(packet_path),
+                             "projection_sha256": sha256_file(PROJECTION_DEFAULT),
+                             "adapter_sha256": sha256_file(ADAPTER)}
+            check("L4-pins", all(pins.get(key) == value
+                                 for key, value in expected_pins.items()),
+                  "pin mismatch: %s" % {k: (pins.get(k), v)
+                                        for k, v in expected_pins.items()
+                                        if pins.get(k) != v})
+        else:
+            check("L4-pins",
+                  pins.get("adapter_sha256") == sha256_file(ADAPTER),
+                  "frozen typed packet pins adapter %s, live adapter hashes %s"
+                  % (pins.get("adapter_sha256"), sha256_file(ADAPTER)))
     else:
+        # every pin the packet declares re-verifies against the bytes read; a
+        # declared pin whose live file is gone is a could-not-evaluate
+        live = {"packet_sha256": config["packet"],
+                "projection_sha256": config["projection"],
+                "adapter_sha256": config["adapter"],
+                "assembler_sha256": config["assembler"]}
+        expected_pins, missing, mismatched = {}, [], []
+        for key, target in live.items():
+            if key not in pins:
+                continue
+            if not target.is_file():
+                missing.append("%s: live %s missing" % (key, rel(target)))
+                continue
+            expected_pins[key] = sha256_file(target)
+            if pins.get(key) != expected_pins[key]:
+                mismatched.append("%s: pins %s, live %s"
+                                  % (key, str(pins.get(key))[:12], expected_pins[key][:12]))
         check("L4-pins",
-              pins.get("adapter_sha256") == sha256_file(ADAPTER),
-              "frozen typed packet pins adapter %s, live adapter hashes %s"
-              % (pins.get("adapter_sha256"), sha256_file(ADAPTER)))
+              bool(expected_pins) and not missing and not mismatched,
+              "; ".join(missing + mismatched)
+              or "no pin declared: %s" % sorted(pins))
 
     failed = [item for item in checks if not item["ok"]]
     result["exit"] = 0 if not failed else 1
+    if generalized and any(item["id"] == "L4-pins" for item in failed):
+        result["exit"] = 2
     result["typed"] = typed_gates
     result["legacy"] = legacy_gates
     result["deltas"] = deltas
@@ -384,13 +809,19 @@ def grading(packet_path, pkt_arg=None, typed_arg=None, gates_dir=GATES_DIR,
 # --------------------------------------------------------------------------
 
 
-def report(result, stream=sys.stdout):
+def report(result, stream=sys.stdout, config=None):
+    config = config or result.get("config") or {}
+    line = resolution_line(config)
     if result["exit"] == 2:
+        if line:
+            print(line, file=stream)
         for item in result["checks"]:
             print("%s %s: %s" % ("ok  " if item["ok"] else "FAIL", item["id"],
                                  item["detail"]), file=stream)
         return 2
     print(BANNER, file=stream)
+    if line:
+        print(line, file=stream)
     holds = [item for item in result["findings"] if item["severity"] == "hold"]
     notes = [item for item in result["findings"] if item["severity"] == "note"]
     for item in holds:
@@ -412,18 +843,37 @@ def report(result, stream=sys.stdout):
     return result["exit"]
 
 
-def json_document(result):
+def json_document(result, config=None):
+    config = config or result.get("config") or {}
+    resolved = None
+    if config.get("generalized"):
+        resolved = {"assembler": rel(config["assembler"]),
+                    "adapter": rel(config["adapter"]),
+                    "expected": rel(config["expected"]),
+                    "family": config.get("family"),
+                    "flags": config.get("flags", []),
+                    "packet": rel(config["packet"]),
+                    "profile": config.get("profile"),
+                    "profile_file": rel(config["profile_file"]) if config.get("profile_file") else None,
+                    "profile_sha256": (sha256_file(config["profile_file"])
+                                       if config.get("profile_file")
+                                       and Path(config["profile_file"]).is_file() else None),
+                    "projection": rel(config["projection"]),
+                    "typed_packet": rel(config["typed"])}
     if result["exit"] == 2:
-        return {"ok": False, "exit_code": 2, "checks": result["checks"]}
+        document = {"ok": False, "exit_code": 2, "checks": result["checks"]}
+        if resolved is not None:
+            document["resolved"] = resolved
+        return document
     deltas = {gate: {"legacy_findings": result["deltas"][gate]["legacy_findings"],
                      "typed_findings": result["deltas"][gate]["typed_findings"],
                      "removed": len(result["deltas"][gate]["removed"]),
                      "added": len(result["deltas"][gate]["added"])}
               for gate in GATE_NAMES}
-    return {
+    document = {
         "banner": BANNER,
         "checks": result["checks"],
-        "counts": EXPECTED_COUNTS,
+        "counts": result.get("expected_counts") or EXPECTED_COUNTS,
         "deltas": deltas,
         "exit_code": result["exit"],
         "findings": result["findings"],
@@ -431,14 +881,18 @@ def json_document(result):
                    "findings": len(item["findings"]), "stdout_sha256": item["sha256"]}
                   for item in result["typed"]],
         "ok": all(item["ok"] for item in result["checks"]),
-        "packet": rel(PACKET_DEFAULT),
+        "packet": rel(config.get("packet") or PACKET_DEFAULT),
         "pins": result["pins"],
         "routing": result["routing"],
         "sound_channel": result.get("sound_channel", {}),
         "translated_on_sound_channel": (result.get("sound_channel") or {}).get(
             "translated_on_sound_channel"),
-        "typed_packet": rel(ROOT / "examples/culture-d2/packet.d2.typed.yml"),
+        "typed_packet": rel(config.get("typed")
+                            or ROOT / "examples/culture-d2/packet.d2.typed.yml"),
     }
+    if resolved is not None:
+        document["resolved"] = resolved
+    return document
 
 
 # --------------------------------------------------------------------------
@@ -577,6 +1031,284 @@ def _launder_hold(mirror, tmpdir):
 
 
 # --------------------------------------------------------------------------
+# generalized selftest (round-18 O claim)
+# --------------------------------------------------------------------------
+
+FIXTURE_ASSEMBLER = '''#!/usr/bin/env python3
+"""fixture assembler for the round-18 generalized-gate controls; not a lane tool."""
+import hashlib
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+PACKET = ROOT / "examples/culture-d9/packet.d9.yml"
+COMPONENTS = ROOT / "examples/culture-d9/components"
+
+
+def assemble():
+    rows = []
+    for path in sorted(COMPONENTS.glob("*.yml")):
+        rows.append('  "%s": "%s"'
+                    % (path.name, hashlib.sha256(path.read_bytes()).hexdigest()))
+    lines = ['name: "d9 fixture"', "assembly:",
+             '  generator: "tools/assemble-culture-d9.py"',
+             '  assembler_sha256: "%s"'
+             % hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+             "components:"]
+    return ("\\n".join(lines + rows) + "\\n").encode("utf-8")
+
+
+def main():
+    payload = assemble()
+    if "--check" in sys.argv:
+        if not PACKET.exists() or PACKET.read_bytes() != payload:
+            print("packet.d9.yml differs from deterministic assembly", file=sys.stderr)
+            return 1
+        print("packet.d9.yml: byte-identical deterministic assembly")
+        return 0
+    PACKET.parent.mkdir(parents=True, exist_ok=True)
+    PACKET.write_bytes(payload)
+    print("Wrote %s (%d bytes)" % (PACKET.relative_to(ROOT), len(payload)))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+'''
+
+
+def _fixture_typed_packet(pins):
+    """A minimal typed packet whose one routing row stays on channel.
+
+    The non-typed blocks are the smallest the five culture gates accept at
+    exit 0/1 (measured, `.scratch/r18-o03/gfixture/`): a phonology mapping, one
+    costume, one lexicon entry and an era tag list.
+    """
+    return "\n".join([
+        'name: "d9 fixture typed"',
+        "assembly:",
+        '  packet_sha256: "%s"' % pins["packet_sha256"],
+        '  projection_sha256: "%s"' % pins["projection_sha256"],
+        '  adapter_sha256: "%s"' % pins["adapter_sha256"],
+        '  assembler_sha256: "%s"' % pins["assembler_sha256"],
+        "phonology:",
+        '  consonants: ["p", "t", "k", "m", "n", "s", "l", "r"]',
+        '  vowels: ["a", "i", "u"]',
+        '  coda: ["n", "l", "r", "s"]',
+        "  onset_clusters: false",
+        "costumes:",
+        "  -",
+        '    id: "RF-01"',
+        '    garment: "plain coat"',
+        '    form_slot: "LEX-RF-01, the plain grade"',
+        '    material: "felt"',
+        '    wearer_rank: "any adult"',
+        '    rite: "none"',
+        '    era: "E0"',
+        '    route: "local chain: shear -> felt -> seam"',
+        '    provenance: "local-production"',
+        '    rank_mark: "none"',
+        '    evidence: "design-choice"',
+        "    follows:",
+        '      - "alias_dress"',
+        "lexicon:",
+        "  -",
+        '    id: "L-01"',
+        '    term: "ir"',
+        '    gloss: "breath"',
+        '    field: "body"',
+        '    layer: "native"',
+        '    route: "root"',
+        '    stage: "E0"',
+        '    class: "noun"',
+        '    axis: "wind"',
+        '    evidence: "design-choice"',
+        'eras: ["E0"]',
+        'schema: "kotodama-typed-packet-v1"',
+        "typed_channel:",
+        "  -",
+        '    record: "RF-01"',
+        '    kind: "translated-label"',
+        '    label_id: "LEX-RF-01"',
+        '    owner: "09-costumes"',
+        '    source_field: "garment"',
+        "    off_channel_field: null",
+        '    channel: "on-sound-and-identity"',
+        '    hold: "D9L-REGISTER-UNRESOLVED"',
+        '    owed_slot: "LEX-RF-01"',
+        "typed_assembly:",
+        '  generator: "tools/assemble-d9-typed.py"',
+        "pipeline_findings:",
+        "  -",
+        '    id: "D9L-REGISTER-UNRESOLVED"',
+        '    code: "REGISTER"',
+        '    severity: "hold"',
+        '    where: "LEX-RF-01"',
+        '    detail: "fixture hold"',
+        "pipeline_counts:",
+        "  hold: 1",
+        "  note: 0",
+        "  fail: 0",
+    ]) + "\n"
+
+
+def selftest_generalized():
+    """Declared-identity controls, run over fixture trees in one temp directory."""
+    passed, failed = [], []
+
+    def check(label, condition, detail=""):
+        (passed if condition else failed).append(label)
+        print("%s %s%s" % ("ok  " if condition else "FAIL", label,
+                           "" if condition else " — %s" % detail))
+
+    # default resolution: nothing declared lands exactly on the D2 constants
+    for probe in (PACKET_DEFAULT, ROOT / "examples/culture-d2/packet.d2.typed.yml"):
+        resolved = resolve_config(probe, {"assembly": {"packet_sha256": "0" * 64}})
+        drift = {key: rel(resolved[key]) for key in D2_DEFAULTS
+                 if resolved[key] != D2_DEFAULTS[key]}
+        check("default resolution lands on the D2 constants (%s)" % rel(probe),
+              not resolved["generalized"] and not drift, "%s" % drift)
+    declared = resolve_config(ROOT / "examples/culture-d4/packet.d4.yml",
+                              {"typed_pipeline": {"assembler": "tools/assemble-culture-d4.py"}})
+    check("a declaration resolves the family paths",
+          declared["generalized"] and declared["family"] == "d4"
+          and declared["assembler"] == ROOT / "tools/assemble-culture-d4.py"
+          and declared["expected"] == ROOT / "examples/culture-d4/expected-holds.json",
+          "%s, %s" % (rel(declared["assembler"]), rel(declared["expected"])))
+
+    with tempfile.TemporaryDirectory(prefix="typed-pipeline-gate-generalized-") as tmpdir:
+        mirror = Path(tmpdir) / "repo"
+        (mirror / "tools/gates").mkdir(parents=True)
+        (mirror / "examples/culture-d9/components").mkdir(parents=True)
+        for name in ("assemble-d2.py", "assemble-d2-typed.py", "d2-typed-labels.py"):
+            shutil.copyfile(ROOT / "tools" / name, mirror / "tools" / name)
+        for name in GATE_NAMES:
+            shutil.copyfile(GATES_DIR / name, mirror / "tools/gates" / name)
+        shutil.copyfile(Path(__file__), mirror / "tools/gates/typed-pipeline-gate.py")
+        fixture_assembler = mirror / "tools/assemble-culture-d9.py"
+        fixture_assembler.write_text(FIXTURE_ASSEMBLER, encoding="utf-8")
+        (mirror / "examples/culture-d9/components/01-brief.yml").write_text(
+            'name: "d9 fixture component"\n', encoding="utf-8")
+        projection = mirror / "examples/culture-d9/typed-labels.d9.yml"
+        projection.write_text('name: "d9 fixture projection"\n', encoding="utf-8")
+        adapter = mirror / "tools/assemble-d9-typed.py"
+        adapter.write_text('"""fixture adapter stub (round-18 control)."""\n', encoding="utf-8")
+        build = subprocess.run([sys.executable, str(fixture_assembler)],
+                               capture_output=True, text=True, cwd=str(mirror),
+                               env=child_env(), check=False)
+        check("fixture assembler built its packet", build.returncode == 0,
+              build.stdout[-200:] + build.stderr[-200:])
+        packet = mirror / "examples/culture-d9/packet.d9.yml"
+        expected = mirror / "examples/culture-d9/expected-holds.json"
+        typed = mirror / "examples/culture-d9/packet.d9.typed.yml"
+        pins = dict((name, sha256_file(path)) for name, path in (
+            ("packet_sha256", packet), ("projection_sha256", projection),
+            ("adapter_sha256", adapter), ("assembler_sha256", fixture_assembler)))
+        typed.write_text(_fixture_typed_packet(pins), encoding="utf-8")
+        expected.write_text(json.dumps(
+            {"schema": SCHEMA, "counts": {"hold": 1, "note": 0, "fail": 0},
+             "holds": [{"id": "D9L-REGISTER-UNRESOLVED", "severity": "hold",
+                        "where": "LEX-RF-01", "detail": "fixture hold"}],
+             "notes": []}, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+        tool = mirror / "tools/gates/typed-pipeline-gate.py"
+
+        def run(*args):
+            return subprocess.run([sys.executable, str(tool), *args],
+                                  capture_output=True, text=True, cwd=str(mirror),
+                                  env=child_env(), check=False)
+
+        def as_check(proc):
+            payload = json.loads(proc.stdout) if proc.stdout.strip().startswith("{") else {}
+            checks = {item["id"]: item for item in payload.get("checks") or []}
+            return checks, payload
+
+        positive = run("--json", str(typed))
+        checks, payload = as_check(positive)
+        check("declared identity: the typed fixture grades green (exit 0)",
+              positive.returncode == 0 and payload.get("ok") is True,
+              "exit %d: %s" % (positive.returncode, positive.stdout[-300:]))
+        check("declared identity: L1-assembler passed and the pin re-verified",
+              (checks.get("L1-assembler") or {}).get("ok") is True
+              and (checks.get("L4-pins") or {}).get("ok") is True,
+              "%s" % checks.get("L1-assembler"))
+        check("declared identity: the resolved block is reported",
+              (payload.get("resolved") or {}).get("assembler")
+              == "tools/assemble-culture-d9.py",
+              "%s" % payload.get("resolved"))
+        first, second = positive.stdout, run("--json", str(typed)).stdout
+        check("declared identity: two gate runs byte-identical", first == second)
+
+        packet_bytes = packet.read_bytes()
+        packet.write_bytes(packet_bytes + b"# tamper\n")
+        tampered_check = subprocess.run([sys.executable, str(fixture_assembler), "--check"],
+                                        capture_output=True, text=True, cwd=str(mirror),
+                                        env=child_env(), check=False)
+        tampered = run("--json", str(typed))
+        tampered_checks, _ = as_check(tampered)
+        check("tamper: the gate's identity leg agrees with the assembler's --check",
+              tampered_check.returncode == 1 and tampered.returncode == 2
+              and (tampered_checks.get("L1-assembler") or {}).get("ok") is False,
+              "check %d, gate %d: %s" % (tampered_check.returncode, tampered.returncode,
+                                         (tampered_checks.get("L1-assembler") or {}).get("detail")))
+        packet.write_bytes(packet_bytes)
+
+        assembler_bytes = fixture_assembler.read_bytes()
+        fixture_assembler.write_bytes(assembler_bytes + b"\n# drift\n")
+        drifted = run("--json", str(typed))
+        drifted_checks, _ = as_check(drifted)
+        check("assembler drift: the identity leg breaks (exit 2)",
+              drifted.returncode == 2
+              and (drifted_checks.get("L1-assembler") or {}).get("ok") is False,
+              "exit %d" % drifted.returncode)
+        fixture_assembler.write_bytes(assembler_bytes)
+
+        module = runpy.run_path(str(tool))
+        stale_pin, stale_detail = module["assembler_identity"](packet, fixture_assembler,
+                                                               "0" * 64)
+        good_bytes, good_detail = module["assembler_identity"](packet, fixture_assembler)
+        check("self-pin control: a stale assembler pin is refused",
+              stale_pin is False and "self-pin broken" in stale_detail, stale_detail)
+        check("identity leg agrees with --check on the restored tree",
+              good_bytes is True and good_detail == "", "%s / %s" % (good_bytes, good_detail))
+
+        expected_bytes = expected.read_bytes()
+        expected.unlink()
+        no_expected = run("--json", str(typed))
+        no_expected_checks, _ = as_check(no_expected)
+        check("missing expected file: exit 2 and the expected leg names it",
+              no_expected.returncode == 2
+              and "missing" in (no_expected_checks.get("L1-expected-holds") or {}).get("detail", ""),
+              "exit %d: %s" % (no_expected.returncode,
+                               (no_expected_checks.get("L1-expected-holds") or {}).get("detail")))
+        expected.write_bytes(expected_bytes)
+
+        text = typed.read_text(encoding="utf-8")
+        stale = text.replace('adapter_sha256: "%s"' % pins["adapter_sha256"],
+                             'adapter_sha256: "%s"' % ("0" * 64), 1)
+        assert stale != text, "the fixture must carry the adapter pin"
+        typed.write_text(stale, encoding="utf-8")
+        stale_run = run("--json", str(typed))
+        stale_checks, _ = as_check(stale_run)
+        check("stale declared pin: exit 2 and L4-pins fires",
+              stale_run.returncode == 2 and (stale_checks.get("L4-pins") or {}).get("ok") is False,
+              "exit %d: %s" % (stale_run.returncode,
+                               (stale_checks.get("L4-pins") or {}).get("detail")))
+        typed.write_text(text, encoding="utf-8")
+
+    total = len(passed) + len(failed)
+    if failed:
+        print("selftest-generalized: %d/%d checks passed — failures: %s"
+              % (len(passed), total, "; ".join(failed)), file=sys.stderr)
+        return 1
+    print("selftest-generalized: %d/%d checks passed — default resolution on the "
+          "D2 constants, a declared family graded green, determinism, and the "
+          "tamper/drift/self-pin/missing-expected/stale-pin controls, each "
+          "identity verdict agreed with the assembler's own --check; no file "
+          "outside the temporary mirror touched" % (len(passed), total))
+    return 0
+
+
+# --------------------------------------------------------------------------
 # CLI
 # --------------------------------------------------------------------------
 
@@ -586,26 +1318,42 @@ def main(argv=None):
     parser.add_argument("packet", nargs="?", default=str(PACKET_DEFAULT),
                         help="packet to grade (default: %s)" % rel(PACKET_DEFAULT))
     parser.add_argument("--json", action="store_true", help="one JSON document")
+    parser.add_argument("--assembler", help="declared assembler identity")
+    parser.add_argument("--projection", help="declared projection pin path")
+    parser.add_argument("--adapter", help="declared typed adapter path")
+    parser.add_argument("--expected", help="declared expected-holds file")
+    parser.add_argument("--legacy-packet", dest="legacy_packet",
+                        help="legacy packet the declared pipeline assembles")
     parser.add_argument("--selftest", "--self-test", action="store_true", dest="selftest",
                         help="mirrored four legs plus hazard controls")
+    parser.add_argument("--selftest-generalized", action="store_true",
+                        dest="selftest_generalized",
+                        help="declared-identity controls over fixture trees")
     args = parser.parse_args(argv)
     if args.selftest:
         return selftest()
+    if args.selftest_generalized:
+        return selftest_generalized()
     candidate = Path(args.packet)
     typed_arg = None
     if candidate.is_file():
         try:
-            head = load_packet_strict(candidate.read_text(encoding="utf-8"))
+            head = load_packet_strict(candidate.read_text(encoding="utf-8"),
+                                      family_projector(candidate))
             document = head.get("packet") or {}
-        except (ValueError, OSError):
+        except Exception:
             document = {}
         if document.get("typed_channel") is not None:
             typed_arg = candidate
-    result = grading(candidate, typed_arg=typed_arg)
+    flags = {"assembler": args.assembler, "projection": args.projection,
+             "adapter": args.adapter, "expected": args.expected,
+             "packet": args.legacy_packet}
+    result = grading(candidate, typed_arg=typed_arg, flags=flags)
     if args.json:
-        print(json.dumps(json_document(result), sort_keys=True, ensure_ascii=False))
+        print(json.dumps(json_document(result, result.get("config")),
+                         sort_keys=True, ensure_ascii=False))
         return result["exit"]
-    return report(result)
+    return report(result, config=result.get("config"))
 
 
 if __name__ == "__main__":

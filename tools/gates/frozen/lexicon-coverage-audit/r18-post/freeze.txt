@@ -1,0 +1,19 @@
+baseline_id: r18-post
+gate: lexicon-coverage-audit (tools/gates/lexicon-coverage-audit.py)
+frozen_by: round-18 O07-O10 re-pin seat (new revision of r9-pre)
+frozen_at: 2026-10-18T07:28:54-03:00
+revision: c66ac3c951b346a2a56f9386e3324b4f5fe33902
+
+snapshot (current-phase bytes, copied at freeze time):
+  packet.yml <- tools/gates/fixtures/lexicon-coverage-audit.yml  sha256 a1b8ed7c3548ace7a631b6b2752673f6a65a44896caecef170e373d67ec59187
+  cmp tools/gates/fixtures/lexicon-coverage-audit.yml tools/gates/frozen/lexicon-coverage-audit/r18-post/packet.yml -> identical
+
+commands and observed results (round-18, lane root):
+  1. python3 tools/gates/lexicon-coverage-audit.py --selftest   # see the round-18 re-pin table for the reading
+  2. python3 tools/gates/lexicon-coverage-audit.py tools/gates/frozen/lexicon-coverage-audit/r18-post/packet.yml > tools/gates/frozen/lexicon-coverage-audit/r18-post/run.log
+     -> exit 1, 20 FINDING lines, stdout sha256 af5794955b60b455b433a570434bf0ab69c110b66c891eab567d5addef0be4f4
+  3. observed unique finding-ID set (18): ['C-contrast-lost', 'C-count-inflation', 'C-entry-unevaluable', 'C-required-gap', 'D-exception-unlicensed', 'D-form-mismatch', 'D-meaning-mismatch', 'D-route-missing', 'D-rule-underspecified', 'D-rule-violation', 'D-stage-mismatch', 'L-adaptation-mismatch', 'L-chronology-conflict', 'L-contact-unsupported', 'L-integration-mismatch', 'L-layer-incomplete', 'L-layer-unregistered', 'L-material-anachronism']
+
+verdict: exit 1, class findings, findings = the ID set above (a reproduced findings verdict is still a red design reading; this is evidence, not a clearance)
+
+this revision is new pins only: r9-pre bytes (tools/gates/expected/, tools/gates/frozen/*/r9-pre/, reports/round-9/baselines/) are never edited

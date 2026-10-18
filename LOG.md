@@ -3238,3 +3238,19 @@ certification or lore/world-bible ownership is claimed.
   delivered component tree rules. Lesson: design-authority seats must converge
   before component seats build (process checklist for round 18).
 - **Evidence:** `reports/round-17/validation.json` (C/O pass, D fail).
+
+## 2026-10-18 — Round 18 admitted (loop 2, build 2 of 4; repairs the r17 rejection)
+
+- **Trigger:** regimen; claims O/D/C in `reports/round-18/claims.json`; baseline
+  `c66ac3c`; 19/64 completed; integrator built the missing D4 adapter.
+- **O (verified):** gate generalized (declared assembler; D2 default
+  byte-identical); re-pin cascade green; L2 D4-family accounting; before/after
+  digest table records d96958b6 -> 04ad4bb4.
+- **D (verified):** D4 typed pipeline gate-verified 19/19; findings exactly the
+  15-hold + 1-note expected set; frozen manifest replays.
+- **C (verified):** civ-map r18 revision applies the round-17 patch.
+- **Integrator acts:** `tools/assemble-d4-typed.py` built (text transform after
+  diagnosing serializer round-trip corruption: regex/boolean/null mangling);
+  routing model = one row per translated label (garment + slot), owed slot
+  named once; repin-d2 manifest re-pinned to the post-L2 gate sha.
+- **Evidence:** `reports/round-18/validation.json` acceptance true.

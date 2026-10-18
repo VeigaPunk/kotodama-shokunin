@@ -1,0 +1,91 @@
+{
+ "command": "python3 tools/gates/typed-pipeline-gate.py tools/gates/frozen/round-18/repin-d2/typed-pipeline/packet.d2.typed.yml",
+ "declared_expectation": "the re-pin is a digest change, not a verdict change: with the revised gate in place the frozen typed packet still emits the round-11 recorded verdict and the same stdout bytes",
+ "exit": 0,
+ "expected": {
+  "class": "clean",
+  "exit": 0,
+  "fail_count": 0,
+  "finding_count": 15,
+  "hold_count": 15,
+  "hold_ids": [
+   "[hold] GAR-01",
+   "[hold] GAR-02",
+   "[hold] GAR-03",
+   "[hold] GAR-04",
+   "[hold] GAR-05",
+   "[hold] GAR-06",
+   "[hold] GAR-07",
+   "[hold] GAR-08",
+   "[hold] GAR-09",
+   "[hold] GAR-10",
+   "[hold] L-15",
+   "[hold] L-16",
+   "[hold] TR-04#a|TR-06#a",
+   "[hold] WR-02#g|WR-09#g",
+   "[hold] WR-08#g|WR-09#g"
+  ],
+  "note_count": 1
+ },
+ "finding_count": 15,
+ "frozen_at": "2026-10-18T07:49:29-03:00",
+ "frozen_by": "kotodama-shokunin round-18 O07-O10 re-pin seat (new files only; the round-11 generation is read-only)",
+ "gate": "tools/gates/typed-pipeline-gate.py",
+ "gate_bytes_stable_across_run": true,
+ "gate_sha256_after_run": "d96958b6a642c6c43fbc7b7ebf1c219f9fe7f276ca41b4ffbd2ffc5d71175617",
+ "gate_sha256_at_freeze": "d96958b6a642c6c43fbc7b7ebf1c219f9fe7f276ca41b4ffbd2ffc5d71175617",
+ "gate_sha256_before": "d102fd1dd1bae3cc4c9d0ea33844b2f706a2098707938c82c75ce9fb6368e27d",
+ "inputs": {
+  "packet.d2.typed.yml": {
+   "equals_round11_snapshot": true,
+   "sha256": "1b5010b7f449ec78755e9a8b0efea62c705af7ec5c592ceda6cf2c072dfac8a3"
+  },
+  "packet.d2.yml": {
+   "sha256": "e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643"
+  }
+ },
+ "limits": "reproduction only: exit 0 with 15 open FINDING lines is a red design reading; this file pins bytes and a verdict, not a clearance",
+ "profile": "kotodama-typed-pipeline-repin/1",
+ "recorded_exit": 0,
+ "recorded_expected": {
+  "class": "clean",
+  "exit": 0,
+  "fail_count": 0,
+  "finding_count": 15,
+  "hold_count": 15,
+  "hold_ids": [
+   "[hold] GAR-01",
+   "[hold] GAR-02",
+   "[hold] GAR-03",
+   "[hold] GAR-04",
+   "[hold] GAR-05",
+   "[hold] GAR-06",
+   "[hold] GAR-07",
+   "[hold] GAR-08",
+   "[hold] GAR-09",
+   "[hold] GAR-10",
+   "[hold] L-15",
+   "[hold] L-16",
+   "[hold] TR-04#a|TR-06#a",
+   "[hold] WR-02#g|WR-09#g",
+   "[hold] WR-08#g|WR-09#g"
+  ],
+  "note_count": 1
+ },
+ "recorded_finding_count": 15,
+ "recorded_stdout_sha256": "9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606",
+ "schema": "kotodama-frozen-run-v1",
+ "stderr_bytes": 0,
+ "stdout_bytes_equal_to_round11": true,
+ "stdout_sha256": "9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606",
+ "superseded_manifest": "tools/gates/frozen/round-11/MANIFEST.tsv",
+ "superseded_manifest_sha256": "aad230bfdcc1bfe4cc137339b47daf0154208b6c69225e0c0a4505ce52532063",
+ "supersedes": "tools/gates/frozen/round-11/typed-pipeline/run-receipt.json",
+ "supersedes_receipt_sha256": "c49ebc9e71ce870af621604bb0e00886b45ad8f4028777f202ec845ede6cc902",
+ "tool_pins": {
+  "tools/assemble-d2-typed.py": "c7e5a7493601d3312f2eb55185ac4d081139cdaa0e11f67dd69f67250b037071",
+  "tools/assemble-d2.py": "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d",
+  "tools/d2-typed-labels.py": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802"
+ },
+ "tool_pins_equal_to_round11_receipt": true
+}

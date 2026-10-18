@@ -1,0 +1,20 @@
+generation: round-18 re-pin-d2 (design.md section 5, rows P1/P2/P8)
+frozen_by: round-18 O07-O10 re-pin seat; every file here is NEW
+frozen_at: 2026-10-18T07:49:29-03:00
+
+P1  tools/gates/frozen/round-18/repin-d2/MANIFEST.tsv
+    derived from the filed round-11 manifest (sha aad230bfdcc1bfe4cc137339b47daf0154208b6c69225e0c0a4505ce52532063) by replacing
+    ONE cell: the typed-pipeline row's gate_sha256 d102fd1dd1bae3cc4c9d0ea33844b2f706a2098707938c82c75ce9fb6368e27d -> d96958b6a642c6c43fbc7b7ebf1c219f9fe7f276ca41b4ffbd2ffc5d71175617.
+    typed row's other cells byte-equal to round-11: True
+    other 10 rows byte-equal to the filed manifest: True
+
+P2  run-receipt-repin.json and the new snapshot dir typed-pipeline/:
+    packet.d2.typed.yml  sha256 1b5010b7f449ec78755e9a8b0efea62c705af7ec5c592ceda6cf2c072dfac8a3  (= round-11 snapshot pin: True)
+    run.log (revised gate over the frozen copy) sha256 9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606
+    stdout byte-identical to the round-11 run.log: True
+    exit 0 (recorded 0), 15 FINDING lines (recorded 15), stderr 0 bytes
+    tool_pins identical to the round-11 receipt: True
+
+P8  the filed round-11 manifest is NOT edited (re-hashed after the build below);
+    after the gate revision lands it reads row 1 could-not-evaluate
+    (gate_digest_mismatch, exit 2) - supersession, not a regression.

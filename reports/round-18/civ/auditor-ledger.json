@@ -1,0 +1,894 @@
+{
+ "round": 18,
+ "seats": [
+  "C R18-C09",
+  "C R18-C10 (auditors x2)"
+ ],
+ "date": "2026-10-18",
+ "generated_utc": "2026-10-18T10:39:20Z",
+ "head": "c66ac3c951b346a2a56f9386e3324b4f5fe33902",
+ "object": "the round-17 map patch's 12 proposed transitions (reports/round-17/civ/map-patch.json), as applied in the round-18 revision (reports/round-18/civ-map-r18.json)",
+ "demotion_rule": "A transition is KEPT iff (a) the entry's current bytes equal the receipt-claimed after-hash, (b) the fix receipt exists, carries a date and a runnable command, and its bytes match the round-17 validation pin, (c) the decisive claims (every replacement target; every previously-failing URL; every entry-side repair assertion) reproduce on the auditor's independent re-run, and (d) the applied map row carries date+command. Any failure would demote to stale-documented with the failing leg named. DECISIVE SET per row: all replacement targets; all URLs the receipt singles out as fixed/live/blocked/hard-fail; the specific in-repo assertion the fix claims.",
+ "demotions": [],
+ "demotion_count": 0,
+ "kept_count": 12,
+ "entries": [
+  {
+   "file": "inuit.md",
+   "group": "fixed-type",
+   "idx_round16_1based": 44,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "312427a38a52d7ee03d85d11914ced36cc861c38bb246531d6f76353ddd45f0b",
+    "sha256_after": "52c5a11b7b7db949f8f93da199a34a0062a888a180e021b2a124558480ef0c5d"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "52c5a11b7b7db949f8f93da199a34a0062a888a180e021b2a124558480ef0c5d"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/inuit.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "old locator (kept as trail text)",
+     "expected": "404-class (fixer: 404 x3)",
+     "observed": "404, 95720 B",
+     "ok": true
+    },
+    {
+     "check": "new locator (pageplace preview)",
+     "expected": "200/206, 515139 B, sha256 61388588...660d",
+     "observed": "200, 515139 B; body sha256 61388588ca884f514c3e29510fc4ba21cb3d14d0b849e2a728eb87502f5f660d (downloaded artifact, MATCH)",
+     "ok": true
+    },
+    {
+     "check": "books.google alternative",
+     "expected": "200 (title content-checked)",
+     "observed": "200, 121409 B",
+     "ok": true
+    },
+    {
+     "check": "C01/C02 r18_recheck agreement",
+     "expected": "same classes",
+     "observed": "200|515139 + sha 61388588...; old 404|95720 \u2014 byte-identical to my two runs",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "fixed-type; old locator kept as trail text (404 reproduces); replacement target digest re-downloaded and re-hashed by this seat"
+   ]
+  },
+  {
+   "file": "maya-classic.md",
+   "group": "fixed-type",
+   "idx_round16_1based": 61,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "d3520973b3458df227cf687dd937b0822e75e23359189a2fb2d96c64eacc7055",
+    "sha256_after": "d9608d842ccb97da3514032d41a323016dc65c0039ff6396d4f96b7678ce67b5"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "d9608d842ccb97da3514032d41a323016dc65c0039ff6396d4f96b7678ce67b5"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/maya-classic.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "Sacbe source",
+     "expected": "200, 178576 B, sha256 94b6bdaf...7e90",
+     "observed": "200, 178576 B; body sha256 94b6bdafaae439ccc171e6e1f3fe458bbebb8a0954a547609d2d4c0c5c567e90 (MATCH)",
+     "ok": true
+    },
+    {
+     "check": "in-entry sacbeob assertion (round-16 repro was 0 hits)",
+     "expected": ">0",
+     "observed": "grep -ci sacbeob corpus/knowledge/civilizations/maya-classic.md -> 8 (section 14 + couples line)",
+     "ok": true
+    },
+    {
+     "check": "reciprocal couples pointer",
+     "expected": "transport-mobility-lexicon.md:20 sacbeob target resolvable in-entry",
+     "observed": "lexicon :20 couples line names civilizations/maya-classic.md (sacbeob); maya :15 carries the reciprocal pointer",
+     "ok": true
+    },
+    {
+     "check": "mesoweb handbook liveness",
+     "expected": "200, 49858925 B per receipt",
+     "observed": "HTTP 206 on -r 0-1023 range probe (range supported; full digest pinned in receipt)",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "couples-gap repair; \u00a714 added at EOF (pre-existing \u00a7-number locators keep meaning); mesoweb full digest not re-downloaded (49.9 MB) - range liveness only"
+   ]
+  },
+  {
+   "file": "mesoamerica-primary-sources.md",
+   "group": "fixed-type",
+   "idx_round16_1based": 62,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "6d40a97d2b025fb43317ecd8477afc3082ab4a1e43efcf58ebf82c70b477bcb2",
+    "sha256_after": "d04d8913e704961533d123857d87c93d8cfc25b89c854b1f6c3f5bcf1d0db530"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "d04d8913e704961533d123857d87c93d8cfc25b89c854b1f6c3f5bcf1d0db530"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/mesoamerica.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "strict client on the 3 re-attempted URLs",
+     "expected": "000 (incomplete TLS chain x2; hostname mismatch x1)",
+     "observed": "000 x3, same curl error classes (60/20; liblilly hostname mismatch)",
+     "ok": true
+    },
+    {
+     "check": "-k content on getty folio",
+     "expected": "200, 267502 B",
+     "observed": "200, 267502 B",
+     "ok": true
+    },
+    {
+     "check": "-k content on iif PDF",
+     "expected": "200, 3499309 B",
+     "observed": "200, 3499309 B",
+     "ok": true
+    },
+    {
+     "check": "-k content on liblilly (rotted, replaced)",
+     "expected": "404, 146 B",
+     "observed": "404, 146 B",
+     "ok": true
+    },
+    {
+     "check": "replacement locator (scholarworks)",
+     "expected": "200, 19081 B",
+     "observed": "200, 19081 B",
+     "ok": true
+    },
+    {
+     "check": "replacement locator (wayback lilly transcription)",
+     "expected": "200, 130398 B",
+     "observed": "200, 130398 B",
+     "ok": true
+    },
+    {
+     "check": "positive control (getty project page, strict)",
+     "expected": "200, 3162177 B",
+     "observed": "200, 3162177 B",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "strict-client failures are the recorded TLS caveats, not new defects; -k/content reproduction is byte-exact on all three; pin re-base recorded in receipt"
+   ]
+  },
+  {
+   "file": "mongol.md",
+   "group": "fixed-type",
+   "idx_round16_1based": 67,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "0c85e10f14f3295d4dcd99e266a05bf5f98fe727bf5c871099afd1fdf7a6a892",
+    "sha256_after": "e60b3903402034bcd897617fac589340fb9c70439a028583fbe193fec14c1163"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "e60b3903402034bcd897617fac589340fb9c70439a028583fbe193fec14c1163"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/mongol.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "rubruck.html (round-8 hard-fail 000)",
+     "expected": "200, 289660 B",
+     "observed": "200, 289660 B",
+     "ok": true
+    },
+    {
+     "check": "full-entry sweep",
+     "expected": "10/10 live",
+     "observed": "10x200 in my sweep",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "debt-retired without replacement; round-8 000 was transient"
+   ]
+  },
+  {
+   "file": "muisca.md",
+   "group": "fixed-type",
+   "idx_round16_1based": 68,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "b1f013acb4daf9be3e06f5275a759a5ebf02c83ffdd39fd964dc56c903899468",
+    "sha256_after": "417b7086b5b3e8270b8509e17223c4bc966bd60d7d82cc444bf5a979b4237064"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "417b7086b5b3e8270b8509e17223c4bc966bd60d7d82cc444bf5a979b4237064"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/muisca.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "4 muysca.cubun.org URLs (http)",
+     "expected": "200 each, 25827/33028/30692/32263 B",
+     "observed": "200/25827, 200/33028, 200/30692, 200/32263 - all four exact",
+     "ok": true
+    },
+    {
+     "check": "nyia body digest + manuscript anchor",
+     "expected": "sha256 prefix 68342c14f9cc6479; anchors 'Ms. 2923. fol. 31v'",
+     "observed": "body sha256 first16 68342c14f9cc6479 (MATCH); anchor grep 'Ms. 2923. fol. 31v' present",
+     "ok": true
+    },
+    {
+     "check": "https negative control",
+     "expected": "000 (http-only host)",
+     "observed": "000, connect timeout x2",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "http-only host caveat reproduces (https 000); locator strings unchanged as the entry requires"
+   ]
+  },
+  {
+   "file": "persia-sasanian.md",
+   "group": "never-swept",
+   "idx_round16_1based": 77,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "9d0a65e34dbafddd5999eb1039503228641ad33a7c7dd83dc09f27b3894cb3b9",
+    "sha256_after": "20e7513e1f3b288e167f2cd56163caba2cbc238c92b0b6524b655a6f40ca7e2e"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "20e7513e1f3b288e167f2cd56163caba2cbc238c92b0b6524b655a6f40ca7e2e"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/persia-sasanian.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "replacement target (Compareti SR14 PDF)",
+     "expected": "200, 948943 B",
+     "observed": "200, 948943 B",
+     "ok": true
+    },
+    {
+     "check": "avesta Wayback fallback",
+     "expected": "200, ~127643 B",
+     "observed": "200, 127638 B (wayback re-render; C01 observed the same 127638; verifier saw 127635)",
+     "ok": true
+    },
+    {
+     "check": "jstor DOI 10.2307/599356",
+     "expected": "200 -> jstor stable",
+     "observed": "200 -> https://www.jstor.org/stable/599356?origin=crossref",
+     "ok": true
+    },
+    {
+     "check": "ucpress + 2 Sasanika PDFs",
+     "expected": "200; 168710 / 536387 / 2928181 B",
+     "observed": "200/168710, 200/536387, 200/2928181 - exact",
+     "ok": true
+    },
+    {
+     "check": "avesta primary (dead, cert expired)",
+     "expected": "000, TLS expired",
+     "observed": "000, curl error 60 certificate has expired (reproduces)",
+     "ok": true
+    },
+    {
+     "check": "entry-side fallback text",
+     "expected": "dated archived-copy fallback in entry",
+     "observed": "corpus entry line 14 carries the Wayback URL + 9/9-samples note",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "primary avesta locator remains dead (expired cert) - entry carries dated Wayback fallback inline; status label means URL-status receipt + disposition, not all-live"
+   ]
+  },
+  {
+   "file": "polynesia-navigation.md",
+   "group": "never-swept",
+   "idx_round16_1based": 78,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "ff72bf1143be58fbc10ffce9b1f7b3a22317c6cbf79a0fab2fd7e0c7a4d0c33f",
+    "sha256_after": "a47639dc0774bd7c12782d61099ed07c14b3712d3092f76a1102cd7176bb5981"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "a47639dc0774bd7c12782d61099ed07c14b3712d3092f76a1102cd7176bb5981"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/polynesia-navigation.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "9 new re-pin targets (8 pollex.org.nz + wehe.hilo)",
+     "expected": "200 each",
+     "observed": "9/9 200 (sizes 37919/27732/32920/32101/28210/31663/15127/7986/117921)",
+     "ok": true
+    },
+    {
+     "check": "old host 301 chains",
+     "expected": "old -> new 301 -> 200",
+     "observed": "pollex.eva.mpg.de/entry/moana -> pollex.org.nz/entry/moana 200|31663; hilo hawaii wehe -> wehe.hilo 200|117921",
+     "ok": true
+    },
+    {
+     "check": "samples (hokulea archive, tepapastore, uhpress)",
+     "expected": "200",
+     "observed": "200/74131, 200/176052, 200/136642",
+     "ok": true
+    },
+    {
+     "check": "full-entry sweep",
+     "expected": "24x200 + 2x403 (receipt tally)",
+     "observed": "26/26: 24x200 + 2x403 - exact tally match",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "9 moved locators re-pinned after 301 checks; old-host chains re-verified"
+   ]
+  },
+  {
+   "file": "rapa-nui.md",
+   "group": "never-swept",
+   "idx_round16_1based": 79,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "e56906e8317ca9a99c3b58a003898ad8dd13623be891b39e323f6491933cc1ec",
+    "sha256_after": "c893805a82ed953c29a3f8a20472c6e0579119e7c59d6a3db9ee5e86fb2a0f57"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "c893805a82ed953c29a3f8a20472c6e0579119e7c59d6a3db9ee5e86fb2a0f57"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/rapa-nui.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "static live set",
+     "expected": "200 w/ exact byte counts (82124/427128/37175/373137)",
+     "observed": "200/82124, 200/427128, 200/37175, 200/373137 - exact",
+     "ok": true
+    },
+    {
+     "check": "archive.org details page",
+     "expected": "200, 256646 B",
+     "observed": "200; 256647 / 256645 across two runs (live counter page, +/-2 B)",
+     "ok": true
+    },
+    {
+     "check": "metmuseum bot wall",
+     "expected": "429 host-wide",
+     "observed": "429, 34218 B (C01 429/34223) - reproduces",
+     "ok": true
+    },
+    {
+     "check": "nature article",
+     "expected": "200 (dynamic token page)",
+     "observed": "200, 683216 B (receipt 683212; F-V02-2 dynamic class)",
+     "ok": true
+    },
+    {
+     "check": "full-entry sweep",
+     "expected": "8x200 + 1x429",
+     "observed": "9/9: 8x200 + 1x429 - exact",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "dynamic-size variance +/-2 B (archive view counter); metmuseum 429 host-wide bot wall with Wayback content check per receipt"
+   ]
+  },
+  {
+   "file": "rome.md",
+   "group": "never-swept",
+   "idx_round16_1based": 80,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "current",
+    "sha256_before": "f0b2747c5afe92bc6c6499f063c1a176117b88a495c994829f0ee0da041637fb",
+    "sha256_after": "0b29e05c44f0a55e49b7f29ca787eea0809df2d80635e5677f0fa9becbcfe68c"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "0b29e05c44f0a55e49b7f29ca787eea0809df2d80635e5677f0fa9becbcfe68c"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/sed77.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "current",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "OCRE paren URL (balanced-paren, the receipt's key case)",
+     "expected": "200, 11046 B compressed + body sha16 dfa92e87f8ad338f",
+     "observed": "200; --compressed size 11046 (exact); raw 80524 (C01 same); body sha256 first16 dfa92e87f8ad338f (MATCH)",
+     "ok": true
+    },
+    {
+     "check": "tacitus (latinlibrary)",
+     "expected": "200, 17659 B compressed, body sha16 8f605172cdba5905",
+     "observed": "200/17659 (compressed, exact); body sha16 8f605172cdba5905 (MATCH)",
+     "ok": true
+    },
+    {
+     "check": "suetonius (penelope)",
+     "expected": "200, 326426 B, body sha16 9344cf5845ccb962",
+     "observed": "200/326426 raw; body sha16 9344cf5845ccb962 (MATCH)",
+     "ok": true
+    },
+    {
+     "check": "moneymuseum",
+     "expected": "200, 5419 B compressed",
+     "observed": "200/5419 (compressed, exact)",
+     "ok": true
+    },
+    {
+     "check": "cambridge frontmatter PDF",
+     "expected": "200, 731447 B, body sha16 6c450b438b4ed57f",
+     "observed": "200/731447 (raw, exact); body sha16 6c450b438b4ed57f (MATCH)",
+     "ok": true
+    },
+    {
+     "check": "cambridge DOI",
+     "expected": "429 bot-block",
+     "observed": "429, 1302 B - reproduces",
+     "ok": true
+    },
+    {
+     "check": "full-entry sweep (after paren correction)",
+     "expected": "10x200 + 2x429",
+     "observed": "12/12: 10x200 + 2x429 - exact (naive extractor truncates the paren URL; corrected)",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "receipt byte column = --compressed wire size (F-V02-1); identity-byte counts larger by construction; body hashes exact; later repeat probe of numismatics.org timed out after several hits in one session - host throttling, not rot (3 successful 200s incl. byte-exact body first)"
+   ]
+  },
+  {
+   "file": "ryukyu.md",
+   "group": "never-swept",
+   "idx_round16_1based": 81,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "de541d332cced7aef0a14e28469be15389e93008af7153930e9de4ac21d88883",
+    "sha256_after": "424fcbb5de9f4d226039c7472f92372784801a128f62ee6024a71e590819afa5"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "424fcbb5de9f4d226039c7472f92372784801a128f62ee6024a71e590819afa5"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/sed78.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "MDPI article",
+     "expected": "403 bot wall",
+     "observed": "403, 398 B (C01 403/398 - byte-identical)",
+     "ok": true
+    },
+    {
+     "check": "sample live rows",
+     "expected": "200 w/ exact receipt sizes (183135, 1679959)",
+     "observed": "kyotoreview 200/183135; lingdy PDF 200/1679959 - exact; artscape/okinawago/okimu samples 200",
+     "ok": true
+    },
+    {
+     "check": "full-entry sweep",
+     "expected": "11x200 + 1x403",
+     "observed": "12/12: 11x200 + 1x403 - exact",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "MDPI 403 bot wall with archive fallback named in receipt; my sweep reproduces the receipt class exactly"
+   ]
+  },
+  {
+   "file": "scythian-saka.md",
+   "group": "never-swept",
+   "idx_round16_1based": 82,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "aff3ca0aa3a31e477a21a08d6aa94561a028466e55ec9202e3e6dd9572e95e00",
+    "sha256_after": "cb3a6428c4b174a4917871185e416f3ac7d3ecdf62a016432f87a486b3ab5c51"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "cb3a6428c4b174a4917871185e416f3ac7d3ecdf62a016432f87a486b3ab5c51"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/sed79.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "Leiden permanent-301 target (new locator)",
+     "expected": "200, 8911 B",
+     "observed": "200, 8911 B (old access/item form also resolves to it, 200/8911)",
+     "ok": true
+    },
+    {
+     "check": "sample rows",
+     "expected": "200 w/ exact sizes 92359 / 498050 / 76005",
+     "observed": "200/92359, 200/498050, 200/76005 - exact",
+     "ok": true
+    },
+    {
+     "check": "full-entry sweep",
+     "expected": "11x200 + 1x403",
+     "observed": "12/12: 11x200 + 1x403 - exact",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "permanent-301 re-pin verified at both old and new forms; academia.edu 403 class reproduces"
+   ]
+  },
+  {
+   "file": "siam-thai.md",
+   "group": "never-swept",
+   "idx_round16_1based": 83,
+   "patch_row": {
+    "from_status": "stale-documented",
+    "to_status": "stale-fixed",
+    "sha256_before": "cf9269bcaa2ddef9cbb83b900db6d5ce71220cb97bb57f9a56aebecde314ca06",
+    "sha256_after": "8bef2a5b3936c2f45d9d0027646e4d107d45b5f58942379cbb4db9fb7cb6c733"
+   },
+   "byte_chain": {
+    "before_vs_round17_validation_baseline": true,
+    "current_vs_sha256_after": true,
+    "current_sha256": "8bef2a5b3936c2f45d9d0027646e4d107d45b5f58942379cbb4db9fb7cb6c733"
+   },
+   "receipt": {
+    "path": "reports/round-17/civ/sed80.md",
+    "round17_validation_pin_match": true,
+    "applied_evidence_path_equals_patch": true
+   },
+   "applied_status_r18": "stale-fixed",
+   "terminal_status_r18": "current",
+   "from_rows_asserted_equal_by_me": true,
+   "live_repro": [
+    {
+     "check": "2 permanent-301 targets",
+     "expected": "200; 118615 / 1657019 B",
+     "observed": "200/118615, 200/1657019 - exact",
+     "ok": true
+    },
+    {
+     "check": "cambridge excerpt",
+     "expected": "200, 199008 B",
+     "observed": "200, 199008 B",
+     "ok": true
+    },
+    {
+     "check": "unesco page",
+     "expected": "200, 155457 B",
+     "observed": "200, 155463 B (+6 B dynamic page)",
+     "ok": true
+    },
+    {
+     "check": "loc.gov blog",
+     "expected": "403 bot wall",
+     "observed": "403, 5744 B - reproduces",
+     "ok": true
+    },
+    {
+     "check": "full-entry sweep",
+     "expected": "12 live (11x200 + 202 DOI) + 2x403",
+     "observed": "14/14: 11x200 + 1x202 + 2x403 - exact",
+     "ok": true
+    }
+   ],
+   "verdict": "KEEP",
+   "notes": [
+    "2 Cloudflare 403 bot walls with retries recorded; DOIs resolve (202/206 classes); 2 canonical 301 re-pins verified"
+   ]
+  }
+ ],
+ "cross_checks": {
+  "from_rows_byte_equal_to_filed_round16_rows": true,
+  "round16_map_sha256": "07cabb69b4a41c51b74767212a07ba4ffae3c09ef8c2571abd954b37342cb943",
+  "round16_map_equals_patch_target_sha": true,
+  "round17_c_evidence_pins": {
+   "checked": 18,
+   "match": 18
+  },
+  "round17_validation_corpus_edits_chain": {
+   "inuit.md": true,
+   "maya-classic.md": true,
+   "mesoamerica-primary-sources.md": true,
+   "mongol.md": true,
+   "muisca.md": true,
+   "persia-sasanian.md": true,
+   "polynesia-navigation.md": true,
+   "rapa-nui.md": true,
+   "rome.md": true,
+   "ryukyu.md": true,
+   "scythian-saka.md": true,
+   "siam-thai.md": true
+  },
+  "counting_command": {
+   "command": "ls corpus/knowledge/civilizations/*.md | wc -l",
+   "date": "2026-10-18",
+   "value": 94
+  },
+  "full_url_resweep": {
+   "urls": 193,
+   "date": "2026-10-18",
+   "method": "curl -sS -o /dev/null -w '%{http_code} %{size_download} %{url_effective} %{content_type}' -L --max-time 12 -A 'Mozilla/5.0 (compatible; kotodama-metadata-audit/1.0)'; retry once on 000; 8 concurrent",
+   "tallies": {
+    "inuit.md": {
+     "200": 19,
+     "403": 1,
+     "404": 1
+    },
+    "maya-classic.md": {
+     "200": 6,
+     "429": 2,
+     "403": 2
+    },
+    "mesoamerica-primary-sources.md": {
+     "200": 36,
+     "429": 4,
+     "403": 4,
+     "000": 4,
+     "202": 1
+    },
+    "mongol.md": {
+     "200": 10
+    },
+    "muisca.md": {
+     "200": 6,
+     "403": 1,
+     "429": 1
+    },
+    "persia-sasanian.md": {
+     "429": 1,
+     "200": 8,
+     "000": 1
+    },
+    "polynesia-navigation.md": {
+     "200": 24,
+     "403": 2
+    },
+    "rapa-nui.md": {
+     "200": 8,
+     "429": 1
+    },
+    "rome.md": {
+     "200": 9,
+     "429": 2,
+     "404": 1
+    },
+    "ryukyu.md": {
+     "200": 11,
+     "403": 1
+    },
+    "scythian-saka.md": {
+     "200": 11,
+     "403": 1
+    },
+    "siam-thai.md": {
+     "200": 11,
+     "403": 2,
+     "202": 1
+    }
+   }
+  }
+ },
+ "revision_audit": {
+  "path": "reports/round-18/civ-map-r18.json",
+  "sha256": "5fb4dd1cb948abbbbdb7b3182e5ba47cb15057da3519bd8bc63ad022ad8bf796",
+  "scribe_receipt": "reports/round-18/civ/patch-apply.md",
+  "scribe_receipt_sha256": "f9c1fe70e5a777b7e392f5a2ae6305dbdea21e1fea6b812a298322581e96277d",
+  "transitions_applied": 12,
+  "rows_carried_verbatim": 82,
+  "all_12_transition_rows_equal_patch_to": true,
+  "no_non_transition_row_differs_from_round16": true,
+  "status_counts": {
+   "current": 83,
+   "stale-fixed": 11,
+   "stale-documented": 0
+  },
+  "terminal_status_counts": {
+   "current": 94,
+   "stale-documented": 0
+  },
+  "unreceipted": [],
+  "count": 94,
+  "evidence_pins_all_match_current_bytes": true,
+  "label_policy": "F-18AUD-1 resolved: patch-proposed labels applied verbatim (11 stale-fixed + 1 current) AND every transitioned row carries transition.terminal_status=current; normalization left optional and documented - consistent with both readings of the round-16 'current' definition.",
+  "fix_receipt_pins": {
+   "checked": 12,
+   "match": 12
+  },
+  "validate_command_status": {
+   "note": "python3 reports/round-18/run-validation.py --check (no-write mode) run twice while the runner was still being written during the wave",
+   "run_1": {
+    "runner_sha256": "af21d2e23b25f98bfcf6ab32c0aa806df1617fda6fe11f274921836ed428be17",
+    "utc": "2026-10-18",
+    "rc": 1,
+    "claim_C_failures": 2,
+    "detail": "row maya-classic / mesoamerica-primary-sources 'carries no date+command' under the then-current narrower carrier rule"
+   },
+   "run_2": {
+    "runner_sha256": "905314f744f45f9e59e48c62d47a6b686d6cd764bbff00af07f928d43c53e1ce",
+    "utc": "2026-10-18",
+    "rc": 1,
+    "claim_C_failures": 0,
+    "detail": "C green; rc=1 comes from claim D (D4 typed artifact not found - in-flight D work) and claim O (D4 adapter missing; flag-declared assembler path not green - in-flight O work); acceptance_checks_passed false mid-wave"
+   },
+   "c_relevant_verdict": "On the current runner the C claim reports zero failures; the two run-1 C failures were an artifact of the intermediate runner's narrower carrier and did not indicate missing evidence.",
+   "residual_note": "the two rows' own `command` prose carries no executable token; the current runner's carrier (command + verified_r18 + transition.r18_recheck.command) passes - see F-18AUD-9"
+  }
+ },
+ "integrity_checks": {
+  "round16_map_git_status_clean": true,
+  "round17_c_evidence_files_match_round17_validation_pins": 18,
+  "round17_c_evidence_files_checked": 18,
+  "non_c_pins_differing": [
+   "reports/round-17/d4/typed-run.md",
+   "reports/round-17/report-draft.md"
+  ]
+ },
+ "findings": [
+  {
+   "id": "F-18AUD-1",
+   "severity": "resolved",
+   "text": "Label policy (current vs stale-fixed): the revision applies the patch's proposed labels verbatim and carries transition.terminal_status=current per row, with the normalization option documented. Adjudicated: evidence supports both readings; the filed choice is consistent and per-row legible."
+  },
+  {
+   "id": "F-18AUD-2",
+   "severity": "informational",
+   "text": "Paren-URL extraction artifact (rome OCRE id): a naive https?://-regex truncates at the first close paren and yields a false 404; balanced-paren extraction returns 200 with body sha16 dfa92e87f8ad338f. Same artifact class as round-17 F-V34-1/F-V02-2; my own initial sweep reproduced it and was corrected before classification."
+  },
+  {
+   "id": "F-18AUD-3",
+   "severity": "informational",
+   "text": "Dynamic-size variance (+/- bytes) on four URLs: archive.org details 256645/256646/256647; Wayback avesta fallback 127638 vs receipt 127643 / verifier 127635; unesco 155463 vs 155457; metmuseum wall 34218 vs 34223; nature 683216 vs 683212. All HTTP-200/429 live; static decisive targets are byte-exact."
+  },
+  {
+   "id": "F-18AUD-4",
+   "severity": "informational",
+   "text": "rome receipt byte column is --compressed wire size: 11046/17659/5419 reproduce exactly only with --compressed; raw sizes are larger. Confirms F-V02-1/F-V34-2."
+  },
+  {
+   "id": "F-18AUD-5",
+   "severity": "note-for-future-sweep",
+   "text": "https://openn.library.upenn.edu/Data/0002/html/mscoll700_item221.html returned 000 on 5 attempts (2 sweep + 3 targeted; timeouts/reset) on 2026-10-18 - outside every transition's decisive set and not claimed by any receipt; carried as a future-sweep item only."
+  },
+  {
+   "id": "F-18AUD-6",
+   "severity": "informational",
+   "text": "'the 5 attempt-documented rows' has two readings: round-17 validation's attempted=[mongol, muisca, rapa-nui, rome, ryukyu]; the r18 revision's attempt_row flags the 5 fixed-type rows. All 12 rows carry live re-checks, so both readings are satisfied; the map's flag is explicit and auditable."
+  },
+  {
+   "id": "F-18AUD-7",
+   "severity": "informational",
+   "text": "numismatics.org served 3 successive 200s to this seat (raw 80524, compressed 11046, body sha16 exact) and then timed out on a fourth probe ~30 min later - host throttling under repeat probing, not rot; the fixer's and my earlier evidence stand."
+  },
+  {
+   "id": "F-18AUD-8",
+   "severity": "informational",
+   "text": "Evidence immutability: all 18 C-related round-17 files (the civ/ directory, claims.json, targets.json) match their round-17 validation.json pins; 2 non-C files (reports/round-17/d4/typed-run.md, reports/round-17/report-draft.md) differ from those pins but are worktree-clean, i.e. the divergence predates round 18 (draft-to-final integration before the round-17 admit commit) and is not a round-18 edit."
+  },
+  {
+   "id": "F-18AUD-9",
+   "severity": "informational",
+   "text": "Two transitioned rows (maya-classic, mesoamerica-primary-sources) carry a `command` string with no executable token ('couples-gap repair ... per receipt' / 'hard-fail URL dispositions + pin re-base per receipt'). The current round-18 runner's carrier rule (command + verified_r18 + transition.r18_recheck.command) passes both rows (their r18_recheck.command carries the curl/grep command lists), and C reports zero failures. Optional hardening for any future revision: name the actual command in the row's own `command` field; no action required for claim C as filed."
+  }
+ ],
+ "limits": [
+  "NON-CANON: locator/status-class verification only; no freshness axis verdict (freshness pause respected), no canon/rights/clearance.",
+  "Point-in-time: all probes 2026-10-18; a single-day sweep cannot rule out intermittent failure.",
+  "403/429 classes read per M04 as bot walls, not rot; my probes come from one network vantage.",
+  "Map scribe and this audit are separate seats; agreement is corroboration, not independent laboratory reproduction."
+ ]
+}

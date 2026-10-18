@@ -1,0 +1,19 @@
+baseline_id: r18-post
+gate: myth-consistency-gate (tools/gates/myth-consistency-gate.py)
+frozen_by: round-18 O07-O10 re-pin seat (new revision of r9-pre)
+frozen_at: 2026-10-18T07:28:54-03:00
+revision: c66ac3c951b346a2a56f9386e3324b4f5fe33902
+
+snapshot (current-phase bytes, copied at freeze time):
+  packet.yml <- examples/culture-d2/packet.d2.yml  sha256 e0f21509e14ac03ed5747e6bbbb48183cbe56d6b61afff8c8475e4a50137b643
+  cmp examples/culture-d2/packet.d2.yml tools/gates/frozen/myth-consistency-gate/r18-post/packet.yml -> identical
+
+commands and observed results (round-18, lane root):
+  1. python3 tools/gates/myth-consistency-gate.py --selftest   # see the round-18 re-pin table for the reading
+  2. python3 tools/gates/myth-consistency-gate.py tools/gates/frozen/myth-consistency-gate/r18-post/packet.yml > tools/gates/frozen/myth-consistency-gate/r18-post/run.log
+     -> exit 0, 0 FINDING lines, stdout sha256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  3. observed unique finding-ID set (0): []
+
+verdict: exit 0, class clean, findings = the ID set above (a reproduced findings verdict is still a red design reading; this is evidence, not a clearance)
+
+this revision is new pins only: r9-pre bytes (tools/gates/expected/, tools/gates/frozen/*/r9-pre/, reports/round-9/baselines/) are never edited

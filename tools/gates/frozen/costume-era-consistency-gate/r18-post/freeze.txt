@@ -1,0 +1,19 @@
+baseline_id: r18-post
+gate: costume-era-consistency-gate (tools/gates/costume-era-consistency-gate.py)
+frozen_by: round-18 O07-O10 re-pin seat (new revision of r9-pre)
+frozen_at: 2026-10-18T07:28:54-03:00
+revision: c66ac3c951b346a2a56f9386e3324b4f5fe33902
+
+snapshot (current-phase bytes, copied at freeze time):
+  packet.yml <- tools/gates/fixtures/costume-era-consistency-gate.yml  sha256 36d92113d0cb8e04687c36694b507e93f25ca08c04003d75b7b537de65c1ea0e
+  cmp tools/gates/fixtures/costume-era-consistency-gate.yml tools/gates/frozen/costume-era-consistency-gate/r18-post/packet.yml -> identical
+
+commands and observed results (round-18, lane root):
+  1. python3 tools/gates/costume-era-consistency-gate.py --selftest   # see the round-18 re-pin table for the reading
+  2. python3 tools/gates/costume-era-consistency-gate.py tools/gates/frozen/costume-era-consistency-gate/r18-post/packet.yml > tools/gates/frozen/costume-era-consistency-gate/r18-post/run.log
+     -> exit 1, 25 FINDING lines, stdout sha256 482c1597a22096b2a0a09f09ce476f6ae5bbd6db70baf50df128fb0c1ed608b3
+  3. observed unique finding-ID set (21): ['E-01', 'EAR-01', 'EAR-04', 'G-ERA', 'MAT-01', 'MAT-02', 'MAT-03', 'MAT-04', 'MAT-05', 'MAT-06', 'MAT-07', 'R-01', 'R-02', 'R-03', 'R-04', 'R-05', 'R-06', 'R-07', 'T-01', 'T-02', 'T-03']
+
+verdict: exit 1, class findings, findings = the ID set above (a reproduced findings verdict is still a red design reading; this is evidence, not a clearance)
+
+this revision is new pins only: r9-pre bytes (tools/gates/expected/, tools/gates/frozen/*/r9-pre/, reports/round-9/baselines/) are never edited

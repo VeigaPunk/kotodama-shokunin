@@ -168,6 +168,27 @@ assembler-identity generalization (re-pin cascade: round-11 frozen manifest,
 round-9 baselines, round-16 v2-07 expected.json helper pins); D4 gate run +
 expected-holds + frozen manifest once the gate accepts D4.
 
+## Axes — round 18 (2026-10-18), admitted (build 2 of 4 — repairs round 17)
+
+Baseline `c66ac3c`; one 64-worker `opencode-go-2/deepseek-v4.1-flash` batch
+(19/64 completed; the gate generalization design + re-pin seats landed; the
+D4-adapter seat never delivered — built by the integrator as
+`tools/assemble-d4-typed.py`, text-transform architecture after the serializer
+round-trip corruption was diagnosed: regex backslashes, booleans, nulls).
+Acceptance: `python3 reports/round-18/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | Typed gate D2-bound -> generalized: declared-assembler identity (packet-declared pin; D4 profile), default D2 path byte-identical (16/16 legs pre/post); re-pin cascade green (round-18 repin-d2 manifest 11/11 reproduced; round-9 baseline pins; v2-07 helper pins); L2 D4-family accounting landed with the before/after digest table | `python3 reports/round-18/run-validation.py` | `reports/round-18/gate/`, `repin/` |
+| depth | improved (claim D) | D4 never gate-verified -> generalized gate runs D4 19/19 legs: findings exactly == the 15-hold + 1-note expected set; routing consistency (12 rows: 6 garment + 6 slot, owed slots named once); channel differential exactly the 6 PHON-INVENTORY artifacts removed, zero additions; round-18 frozen manifest replays green; D2 verdict identical to round-11 | `python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml` | `reports/round-18/d4/`, `tools/gates/frozen/round-18/` |
+| coverage | improved (claim C) | Round-16 map pre-fix -> round-18 revision applies the round-17 patch (transitions with fix-evidence pointers; attempt rows annotated; counting command reproduces 94; round-16 map untouched) | `python3 reports/round-18/run-validation.py` | `reports/round-18/civ-map-r18.json` |
+| calibration | improved (unclaimed observation) | Round-17 rejection root-caused to a discovered architectural boundary, repaired with a documented recipe; the serializer round-trip corruption class recorded (D4 first culture with derivations) | — | this section; gate design §11 |
+| freshness / adjacency | unchanged | Pause in force; scope clean | — | `reports/round-18/scope.md` |
+
+Admission: O/D/C verify, no axis harmed. The round-17 D-rejection stands on
+record; its artifacts are now fully verified. Capabilities addendum:
+`assemble-d4-typed` (D4 typed-packet adapter, text-transform architecture).
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker
