@@ -3336,3 +3336,11 @@ the tree state. Correction recorded per append-only discipline.
 - **Correction:** see the append-only entry above — the r22 'never
   implemented' wording was wrong; the family-clean impl was in 0e81d9d.
 - **Evidence:** `reports/round-23/validation.json` acceptance true.
+
+## 2026-10-18 — Operator amendment 4: devin provider for loop-3 DeepSeek builds
+
+Operator directive (this session): all remaining DeepSeek build rounds use the
+devin provider — designated `devin/deepseek-v4-1-flash-high` for loop-3 builds
+(rounds 25-28, 64 workers each). This replaces the opencode-go key rotation and
+the hyper substitution for those rounds; it is an explicit operator route
+designation (provider test), not a silent substitution.

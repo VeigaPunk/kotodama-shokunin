@@ -427,6 +427,9 @@ draft-status reconciliations.
   hyper provider**), 1 verify (64w `openai-codex/gpt-6-luna-max`), 1 integrate
   (32w `openai-codex/gpt-6.1-sol` max effort), 2 GLM rounds (16w
   `zai-coding-plan/glm-5.3-flash-low` = zai MAX thinking effort).
+  **Loop-3 DeepSeek builds (rounds 25-28) run on the devin provider**
+  (`devin/deepseek-v4-1-flash-high`) per operator directive 2026-10-18 —
+  a provider test replacing the opencode-go/hyper lanes for those rounds.
   **Expand (Grok) rounds cancelled by operator.** Lane rounds: loop 1 = 8–16
   (r13 operator-skipped), loop 2 = 17–24, loop 3 = 25–32 (24 dispatched +
   r13 skipped). Round-13 claims deferred: handoff-v2 + civ-map -> GLM rounds
