@@ -28,13 +28,16 @@ Profiles (R20 design.md §6):
   link leg passes with `--no-digests`, and the digest leg's only tolerated
   finding is the named allowance row.
 - **v3** extends the exercise to the D2/D3/D4 triple drill with the round-15
-  v2 semantics and the round-17/18 D4 tree: the 15 v2 claim rows are carried
-  verbatim from `reports/round-15/handoff/packet-v2-05.yml` (subset-equality
-  control), twelve D4 rows enter the ledger from `reports/round-20/handoff/
-  claims-map.md`, the D4 coupling-edge families are atomic rows with claim
-  back-links, and the machine twin — re-parsed from the delivered Markdown — is
-  judged by both harness validators against the live repo bytes. The v3 baseline
-  is a new file under `reports/round-20/handoff/`.
+  v2 semantics and the round-17/18 D4 tree: the 15 v2 claim rows and 34 v2 edge
+  rows are carried from `reports/round-15/handoff/packet-v2-05.yml` with
+  subset-equality controls, twelve D4 rows enter the ledger from
+  `reports/round-20/handoff/claims-map.md`, the D4 coupling-edge families are
+  atomic rows with claim back-links, and the machine twin — re-parsed from the
+  delivered Markdown — is judged by both harness validators against live repo
+  bytes. Renderer 3.1.x restores declared_in and full edge text; its current
+  baseline is under `reports/round-22/handoff/declared-in-r2/` (3.1.1, final
+  combined-projector pins). The first round-22 `declared-in/` row and the filed
+  round-20 3.0.0 baseline stay untouched.
 
 Read sets
 
@@ -60,9 +63,11 @@ Assertions the v3 run makes
   1. read-set digests match the frozen v3 baseline (drift names the file);
   2. preflight: 16 fields, non-canon marker, licensed glossary vocabulary, no
      floating version, and the uncertainty/link grammar below;
-  3. v2-subset equality: the 15 v2 rows parsed out of the v3 ledger are
+  3. v2-subset equality: the 15 v2 claims parsed out of the v3 ledger are
      identical (kind, evidence_status, status, basis, links) to the v2 packet's
-     rows after whitespace normalization — any drift is `E2E-DIGEST`;
+     rows after whitespace normalization; the 34 v2 edge mappings are identical
+     in Markdown and twin, including declared_in and untruncated mechanism and
+     limits — any drift is `E2E-DIGEST`;
   4. every claim row carries an uncertainty status in the licensed vocabulary
      and a unique, non-placeholder basis in the clause grammar (`grounding:`
      always; `restriction:` iff partial; `open:` + `owner:` iff unresolved),
@@ -1924,9 +1929,9 @@ def v2_verify(root=ROOT):
 
 V3_PROFILE = "kotodama-handoff-e2e/3"
 V3_PACKET_ID = "kotodama.handoff.d2d3d4-e2e"
-V3_PACKET_VERSION = "3.0.0"
-V3_BASELINE_DEFAULT = "reports/round-20/handoff/expected.json"
-V3_FROZEN_DIR_DEFAULT = "reports/round-20/handoff"
+V3_PACKET_VERSION = "3.1.1"
+V3_BASELINE_DEFAULT = "reports/round-22/handoff/declared-in-r2/expected.json"
+V3_FROZEN_DIR_DEFAULT = "reports/round-22/handoff/declared-in-r2"
 V3_READ_SET = (
     *V1_READ_SET,
     V2_PACKET_MD,
@@ -2314,28 +2319,19 @@ def v3_parse_claims_map(root):
     return rows
 
 
-def v3_build_edge_rows(d2, d3, d4):
-    """The v3 edge table: the 34 v2 rows carried from the v2 machine twin plus
-    the D4 families, one atomic row per live relation (design §3)."""
-    rows = []
+def v3_load_v2_edges(root):
     try:
-        namespace = runpy.run_path(str(Path(ROOT) / LINKS_TOOL))
-        data = namespace["read_packet"](Path(ROOT) / V2_PACKET_YML)
-        for edge in data["coupling_edges"]:
-            rows.append(
-                {
-                    "edge_id": str(edge["edge_id"]),
-                    "source": str(edge["source"]),
-                    "relation": str(edge["relation"]),
-                    "target_ids": [str(target) for target in edge["target_ids"]],
-                    "claims": [str(claim) for claim in edge.get("claims", [])],
-                    "applicability": str(edge.get("applicability", "")),
-                    "mechanism": str(edge.get("mechanism", "")),
-                    "limits": str(edge.get("limits", "")),
-                }
-            )
+        namespace = runpy.run_path(str(Path(root) / LINKS_TOOL))
+        data = namespace["read_packet"](Path(root) / V2_PACKET_YML)
+        return [dict(edge) for edge in data["coupling_edges"]]
     except (OSError, ValueError) as exc:
         raise ArtifactError(f"{V2_PACKET_YML}: cannot read the v2 edge rows ({exc})") from exc
+
+
+def v3_build_edge_rows(d2, d3, d4, root=ROOT):
+    """The v3 edge table: the 34 v2 rows carried from the v2 machine twin plus
+    the D4 families, one atomic row per live relation (design §3)."""
+    rows = v3_load_v2_edges(root)
     position = 0
 
     def d4_edge(source, relation, targets, claims, mechanism, limits, applicability):
@@ -2351,6 +2347,7 @@ def v3_build_edge_rows(d2, d3, d4):
                 "applicability": applicability,
                 "mechanism": mechanism,
                 "limits": limits,
+                "declared_in": D4_PACKET,
             }
         )
 
@@ -2667,6 +2664,7 @@ def v3_build_twin(ledger, edges, open_questions, ids, digests, d2, d3, d4):
                 "applicability": row["applicability"],
                 "mechanism": row["mechanism"],
                 "limits": row["limits"],
+                "declared_in": row["declared_in"],
             }
             for row in edges
         ],
@@ -2707,6 +2705,15 @@ def v3_build_packet(root, d2, d3, typed, d4, d4_typed, d4_labels, d4_holds, cont
         "(contract §6, §8.7). All native spellings are constructed and unscreened ASCII lowercase; no "
         "real-language clearance, community consultation, or cultural permission is claimed, performed, or "
         "granted."
+    )
+    add("")
+    add(
+        f"Renderer {V3_PACKET_VERSION} is the round-22 correcting revision, derived from and superseding "
+        "the filed `reports/round-20/handoff/packet.md` 3.0.0 exercise without rewriting it: the optional "
+        "declared_in edge column and full mechanism/limits text are restored. The 34 carried v2 edge "
+        "mappings are checked for exact equality after Markdown parsing and twin projection; the claim "
+        "rows and their evidence statuses are unchanged. This is an additive provenance correction, not "
+        "a lore disposition or an automatic adopted replacement."
     )
     add("")
     add("- canon_standing: not canonized — lore disposition required (lore-shokunin owns canon)")
@@ -2947,23 +2954,25 @@ def v3_build_packet(root, d2, d3, typed, d4, d4_typed, d4_labels, d4_holds, cont
     add("")
     add(
         "Typed source→target relations, one row per declared coupling. The 34 v2 rows (BR01–BR05 and "
-        f"D2E-01..29) are carried verbatim from {V2_PACKET_YML}: the D2 packet states its couplings as one "
-        "`coupling_note` per record, carried as one edge each — the round-11 aggregate row is gone. The D4 "
+        f"D2E-01..29) are carried verbatim from {V2_PACKET_YML}, including declared_in and the full "
+        "mechanism and limits text (full-row equality checked after Markdown and twin projection): the D2 "
+        "packet states its couplings as one `coupling_note` per record, carried as one edge each — the "
+        "round-11 aggregate row is gone. The D4 "
         "families (costume→slot, costume→material, rank rule→wearer ranks, era→costume seam, borrowed "
         "label→layer, name→formation/bases, symbol→era, festival/rite→calendar, contact→route) are one "
         "atomic row per live relation, measured from the packet bytes at assembly time. Every source and "
         "target resolves through the §artifact_manifest record index, and the claims cell names the ledger "
-        "claim each edge realizes."
+        "claim each edge realizes; declared_in names the source packet, not a canon authority."
     )
     add("")
-    add("| edge_id | source | relation | target_ids | claims | applicability | mechanism | limits |")
-    add("|---|---|---|---|---|---|---|---|")
+    add("| edge_id | source | relation | target_ids | claims | applicability | mechanism | limits | declared_in |")
+    add("|---|---|---|---|---|---|---|---|---|")
     for row in edge_rows:
         add(
-            f"| {row['edge_id']} | {row['source']} | {cell(row['relation'], 200)} | "
+            f"| {row['edge_id']} | {row['source']} | {cell(row['relation'])} | "
             f"{', '.join(row['target_ids'])} | {', '.join(row['claims'])} | "
-            f"{cell(row['applicability'], 180)} | {cell(row['mechanism'], 300)} | "
-            f"{cell(row['limits'], 320)} |"
+            f"{cell(row['applicability'])} | {cell(row['mechanism'])} | "
+            f"{cell(row['limits'])} | {row['declared_in']} |"
         )
     add("")
 
@@ -3210,6 +3219,7 @@ def v3_build_packet(root, d2, d3, typed, d4, d4_typed, d4_labels, d4_holds, cont
 
 V3_EDGE_HEADER = (
     "edge_id", "source", "relation", "target_ids", "claims", "applicability", "mechanism", "limits",
+    "declared_in",
 )
 
 
@@ -3455,6 +3465,14 @@ def v3_run_leg(root, command):
     return {"command": command, "exit": run.returncode, "observed": lines[-1] if lines else ""}
 
 
+def v3_selftest_witness(leg, minimum):
+    counts = re.match(r"selftest: (\d+)/(\d+) checks passed\b", leg["observed"])
+    return bool(
+        leg["exit"] == EXIT_PASS and counts
+        and int(counts.group(1)) == int(counts.group(2)) >= minimum
+    )
+
+
 class V3Assembly:
     def __init__(self, root):
         self.root = root
@@ -3531,9 +3549,7 @@ class V3Assembly:
             if leg["exit"] != 0:
                 raise Failed("E2E-DIGEST", f"d4 leg failed: {leg['command']} exit {leg['exit']}: {leg['observed']}")
         witnesses = self.d4_legs[2:]
-        witness_ok = all(leg["exit"] == 0 for leg in witnesses) and all(
-            token in witnesses[0]["observed"] for token in ("50/50",)
-        ) and all(token in witnesses[1]["observed"] for token in ("12/12",))
+        witness_ok = v3_selftest_witness(witnesses[0], 50) and v3_selftest_witness(witnesses[1], 12)
         self.alias_state = "landed" if witness_ok else "open"
         if not witness_ok:
             summary = "; ".join(f"{leg['command']} exit {leg['exit']}" for leg in witnesses)
@@ -3544,7 +3560,7 @@ class V3Assembly:
         self.claim_rows = v3_build_claim_rows(
             self.v2_rows, self.d4_rows, self.d4, self.d4_labels, self.d4_holds, self.d4_typed, self.d4_legs
         )
-        self.edge_rows = v3_build_edge_rows(self.d2, self.d3, self.d4)
+        self.edge_rows = v3_build_edge_rows(self.d2, self.d3, self.d4, root=root)
         self.v2_subset_digest = v3_subset_digest(
             [
                 {
@@ -3661,6 +3677,18 @@ class V3Assembly:
         d4_rows = [row for row in self.ledger if row["claim_id"].startswith("D4-")]
         if len(d4_rows) != 12:
             raise Failed("E2E-COUNT", f"the ledger holds {len(d4_rows)} D4 claim rows, expected 12")
+        expected_edges = v3_load_v2_edges(self.root)
+        if len(expected_edges) != 34:
+            raise ArtifactError(f"{V2_PACKET_YML}: holds {len(expected_edges)} edge rows, expected 34")
+        v2_edge_ids = {row["edge_id"] for row in expected_edges}
+        for surface, edges in (("Markdown", self.edges), ("twin", self.twin["coupling_edges"])):
+            carried = [row for row in edges if row["edge_id"] in v2_edge_ids]
+            if carried != expected_edges:
+                raise Failed(
+                    "E2E-DIGEST",
+                    f"the 34 v2 edge rows in the delivered {surface} differ from {V2_PACKET_YML} "
+                    "(including declared_in, full mechanism and limits)",
+                )
 
     def run_gate(self, workdir):
         isolated = Path(workdir) / "isolated"
@@ -3817,8 +3845,9 @@ def v3_exercise(root=ROOT, baseline_rel=V3_BASELINE_DEFAULT):
         record(
             "v2-subset",
             True,
-            f"the 15 v2 rows in the delivered ledger equal the rows carried from {V2_PACKET_YML}; normalized "
-            f"subset digest {assembly.v2_subset_digest[:16]}… (frozen in the baseline)",
+            f"the 15 v2 claims in the delivered ledger equal the rows carried from {V2_PACKET_YML}; normalized "
+            f"subset digest {assembly.v2_subset_digest[:16]}… (frozen in the baseline); the 34 v2 edge rows "
+            "are identical in Markdown and twin, including declared_in and full mechanism/limits",
         )
         record("alias-leg", True, f"d4 alias evidence state: {assembly.alias_state}")
 
@@ -4123,6 +4152,20 @@ def v3_freezed_copy(fixture, workdir, name="frozen"):
 
 def v3_selftest():
     results = []
+    for minimum in (50, 12):
+        for count in (minimum, minimum + 82):
+            leg = {"exit": EXIT_PASS, "observed": f"selftest: {count}/{count} checks passed — controls"}
+            assert v3_selftest_witness(leg, minimum), leg
+        for code, observed in (
+            (EXIT_PASS, f"selftest: {minimum - 1}/{minimum} checks passed"),
+            (EXIT_PASS, f"selftest: {minimum - 1}/{minimum - 1} checks passed"),
+            (EXIT_PASS, f"unparsed output mentioning {minimum}/{minimum}"),
+            (EXIT_PASS, "selftest: 0/0 checks passed"),
+            (EXIT_FAIL, f"selftest: {minimum}/{minimum} checks passed"),
+        ):
+            leg = {"exit": code, "observed": observed}
+            assert not v3_selftest_witness(leg, minimum), leg
+    results.append("selftest witnesses: expanded complete suites accepted; partial, undersized, unparsed and nonzero-exit suites refused")
     with tempfile.TemporaryDirectory(prefix="handoff-selftest-") as workdir:
         fixture = v3_build_fixture_root(workdir)
         frozen_root, baseline = v3_freezed_copy(fixture, workdir, "frozen-root")
@@ -4150,6 +4193,45 @@ def v3_selftest():
 
         assembly = V3Assembly(frozen_root)
         packet = assembly.packet
+        expected_edges = v3_load_v2_edges(frozen_root)
+        v2_edge_ids = {row["edge_id"] for row in expected_edges}
+        for surface, edges in (("Markdown", assembly.edges), ("twin", assembly.twin["coupling_edges"])):
+            assert [row for row in edges if row["edge_id"] in v2_edge_ids] == expected_edges, surface
+            victim = edges[0]
+            original = dict(victim)
+            for field, value in (("declared_in", None), ("declared_in", "wrong-packet.yml"),
+                                 ("mechanism", original["mechanism"][:300]),
+                                 ("limits", original["limits"][:320])):
+                try:
+                    if value is None:
+                        victim.pop(field)
+                    else:
+                        victim[field] = value
+                    try:
+                        assembly.assert_subset_equality()
+                        raised = None
+                    except Failed as exc:
+                        raised = exc.code
+                        assert surface in str(exc), str(exc)
+                    assert raised == "E2E-DIGEST", (surface, field, raised)
+                finally:
+                    victim.clear()
+                    victim.update(original)
+                results.append(f"edge carry {surface} {field} {value is None and 'dropped' or 'changed'}: E2E-DIGEST")
+        results.append("edge carry: all 34 v2 edge rows equal the filed source in Markdown and twin, including declared_in and full text")
+
+        edge_root = Path(workdir) / "edge-source-root"
+        for rel in (V2_PACKET_YML, LINKS_TOOL):
+            target = edge_root / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(frozen_root / rel, target)
+        reader = runpy.run_path(str(edge_root / LINKS_TOOL))
+        edge_source = reader["read_packet"](edge_root / V2_PACKET_YML)
+        edge_source["coupling_edges"][0]["declared_in"] = "alternate-root-witness.yml"
+        (edge_root / V2_PACKET_YML).write_text(json.dumps(edge_source), encoding="utf-8")
+        carried = v3_build_edge_rows(assembly.d2, assembly.d3, assembly.d4, root=edge_root)
+        assert carried[:34] == edge_source["coupling_edges"], "v2 edges were read outside the selected root"
+        results.append("edge carry root: the generator reads the selected root's v2 edges, not module ROOT")
 
         def gate_case(label, text, expect_exit, expect_ids):
             with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:

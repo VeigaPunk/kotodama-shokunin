@@ -1,0 +1,41 @@
+selftest: OK — positive run (exit 0, fields=16/16, glossary-entries=20, findings=0, links=105/105, claims=27, statuses=16/7/4, v2_subset=equal, alias_leg=landed) plus 39 controls:
+  - selftest witnesses: expanded complete suites accepted; partial, undersized, unparsed and nonzero-exit suites refused
+  - positive: exit 0 — fields=16/16 glossary-entries=20 findings=0; tools/harness/packet_links.py exit 0; 105/105 links resolved against live bytes; findings 0; claims=27 statuses=16/7/4
+  - isolation: the v3 CLI run from a foreign cwd exits 0 with the same scan
+  - edge carry Markdown declared_in dropped: E2E-DIGEST
+  - edge carry Markdown declared_in changed: E2E-DIGEST
+  - edge carry Markdown mechanism changed: E2E-DIGEST
+  - edge carry Markdown limits changed: E2E-DIGEST
+  - edge carry twin declared_in dropped: E2E-DIGEST
+  - edge carry twin declared_in changed: E2E-DIGEST
+  - edge carry twin mechanism changed: E2E-DIGEST
+  - edge carry twin limits changed: E2E-DIGEST
+  - edge carry: all 34 v2 edge rows equal the filed source in Markdown and twin, including declared_in and full text
+  - edge carry root: the generator reads the selected root's v2 edges, not module ROOT
+  - malformed-01 dropped request_ref row: gate exit 1, HO-MISSING
+  - malformed-02 blank scope value: gate exit 1, HO-EMPTY
+  - malformed-03 floating version: gate exit 1, HO-DEP-FLOAT
+  - malformed-04 canon marker removed: gate exit 1, HO-CANON-MARKER
+  - malformed-05 producer canon claim: gate exit 1, HO-CANON-CLAIM
+  - malformed-06 unlicensed etymology status: gate exit 1, HO-GLOSS-ETYM
+  - malformed-08 hyphenated coupling_edges heading: gate exit 1, HO-MISSING
+  - malformed-09 renamed open_questions heading: gate exit 1, HO-MISSING
+  - malformed-10 malformed input (no heading): gate exit 2, HO-DATA
+  - m10 basis cell tripping the canon-verb trap: gate exit 1, HO-CANON-CLAIM
+  - m1 dropped D4 claim row: preflight exits E2E-COUNT
+  - m2 off-vocabulary D4 status: preflight exits E2E-UNC
+  - m3 duplicated D4 basis: preflight exits E2E-UNC
+  - m4 partial row without restriction: preflight exits E2E-UNC
+  - m5 unresolved row without owner: preflight exits E2E-UNC
+  - m7 link to a file outside the v3 read set: preflight exits E2E-LINK
+  - m9 extra glossary row: preflight exits E2E-SCAN
+  - m6 dangling selector in the twin: tools/harness/packet_links.py exit 1 with L-TOKEN-MISSING
+  - m2b off-vocabulary status in the twin: tools/harness/packet_uncertainty.py exit 1 with U-STATUS-VOCAB
+  - m11 D4-CL08 supported without the run witness: assembly exits E2E-UNC
+  - hazard probe: a `scope-notes` heading is read as a `scope` supply with exit still 0; the renderer emits no heading carrying a field-name token
+  - preservation: the 58 read-set files are byte-identical before and after a run
+  - m12a tamper baseline: exit 2 E2E-BASELINE (integrity digest mismatch), never a pass
+  - m12b tamper read-set (D4 projection): exit 1 E2E-DIGEST naming the changed file
+  - m8 re-typed v2 row: exit 1 E2E-DIGEST (v2 twin digest-pinned, subset equality enforced)
+  - tamper scan expectation: exit 2 E2E-BASELINE (a re-signed expectation is refused, not honoured)
+  - missing D4 artifact: exit 2 E2E-ARTIFACT naming the unreadable path

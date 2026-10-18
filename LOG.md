@@ -3294,3 +3294,17 @@ certification or lore/world-bible ownership is claimed.
 - **A (verified):** handoff v3 contract green on the current pair; one filed
   D2->D4 fixture bleed routed; PROVINCE accurate.
 - **Evidence:** `reports/round-21/validation.json` acceptance true.
+
+## 2026-10-18 — Round 22 REJECTED on claim D (loop 2 integrate)
+
+- **Trigger:** regimen; claims O/C/D in `reports/round-22/claims.json`; baseline
+  `cd9c8e4`; 9 completed + 6 aborted (operator interrupt took the D-impl seats).
+- **O (verified):** six routed items resolved (routed-resolution.json); all
+  regressions green; controls per item.
+- **C (verified):** loop-2 retrospective with the qualified r17/r18 arc
+  assessment; auditors green.
+- **D (failed as declared):** the D4 bleed fix was analyzed (24-field census,
+  injection point, family-clean design) but never implemented — the impl seats
+  were interrupted. Routed to round 25 with the full recipe.
+- **Evidence:** `reports/round-22/routed-resolution.json`; regressions re-run
+  by the integrator (all exit 0).

@@ -1,0 +1,56 @@
+{
+  "round": 22,
+  "assignment": "SCRIBE X04 — report scribe and settled-tree rerun",
+  "date": "2026-10-18",
+  "status": "awaiting-settled-tree-dependencies",
+  "baseline_revision": "46a03257ee75dd8f685a105e47da3f45a0154172",
+  "declaration_head": "cd9c8e4cb62896a8b5d0d642cd04966d41dd4d13",
+  "axes": {"O": "operability", "C": "calibration", "D": "depth"},
+  "method": {
+    "scratch_prelude": "export TMPDIR=$PWD/.scratch",
+    "clone_root": ".scratch/r22-x04",
+    "snapshot_policy": "Clone local HEAD, overlay hash-inventoried delivered working-tree surfaces, copy only named public ignored fixture logs; measure before/after manifests and disclose changes.",
+    "round_validators_run_only_in_isolated_clones": true,
+    "live_filed_receipts_refreshed_by_x04": false,
+    "commits_or_pushes_by_x04": false,
+    "shared_bookkeeping_edited_by_x04": false
+  },
+  "preservation_initial": {
+    "command": "python3 .scratch/r22-x04/capture.py protect",
+    "date": "2026-10-18",
+    "observed_at_utc": "2026-10-18T14:41:48.079150+00:00",
+    "baseline_revision": "46a03257ee75dd8f685a105e47da3f45a0154172",
+    "files": 1018,
+    "mismatches": [],
+    "manifest_sha256": "8eaa73b290eb0b85240b79d91d8f2cb5d41b77d2e009003be0072e699a896ff4",
+    "protected_status": "",
+    "limit": "Tracked bytes and file modes only; ignored logs have no baseline. A clean observation does not exclude a transient write-and-restore between samples."
+  },
+  "round22_validator": {
+    "command": "python3 reports/round-22/run-validation.py",
+    "date": "2026-10-18",
+    "executed_by_x04": true,
+    "snapshot": "checkpoint-a",
+    "clone": ".scratch/r22-x04/checkpoint-a",
+    "runner_sha256": "470e503a508e38f850ccff35a1d50ba22f42e23ff798150fe4f4229030038064",
+    "started_at_utc": "2026-10-18T14:50:54.742131+00:00",
+    "finished_at_utc": "2026-10-18T14:51:33.278867+00:00",
+    "exit_code": 1,
+    "acceptance_checks_passed": false,
+    "claim_passed": {"O": false, "C": false, "D": false},
+    "receipt": ".scratch/r22-x04/checkpoint-a/reports/round-22/validation.json",
+    "selftest": {"command": "python3 reports/round-22/run-validation.py --selftest", "date": "2026-10-18", "exit_code": 0, "passed": 21, "total": 21},
+    "reason": "In-flight snapshot: missing routed ledger/new frozen generation, parent SCORECARD landing and final audit stamps; D product/boundary legs passed but its draft missed the then-current command/date predicate. Runner and combined-source pins subsequently moved; final snapshot pending."
+  },
+  "regressions": {
+    "command": "python3 .scratch/r22-x04/capture.py run checkpoint-a .scratch/r22-x04/commands.json",
+    "date": "2026-10-18",
+    "started_at_utc": "2026-10-18T14:50:07.848594+00:00",
+    "finished_at_utc": "2026-10-18T14:50:44.455386+00:00",
+    "commands": 32,
+    "all_exit_zero": true,
+    "per_command_results": ".scratch/r22-x04/checkpoint-a-regressions.json",
+    "key_results": {"d4_gate": [19, 19], "d4_adapter_selftest": [12, 12], "projector_selftest": [163, 163], "d2_projection_byte_identical": true, "v2_links": [50, 50], "v3_links": [105, 105], "v3_claims": 27, "v3_statuses": [16, 7, 4], "v3_fields": [16, 16], "v3_glossary": [20, 20], "v3_findings": 0}
+  },
+  "overall_disposition": "Product regressions passed in checkpoint-a, but aggregate acceptance is false and source/pin changes require a later snapshot. No round-22 admission is asserted."
+}

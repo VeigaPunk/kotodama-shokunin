@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-18T14:53:50.850823+00:00",
+  "command": "json.load(D4 projection, expected holds, current v3 twin); compare D4-CL05/06/07/09 statements and uncertainty basis with live coverage/counts",
+  "projection_coverage": {
+    "conflicts": 0,
+    "findings_hold_or_fail": 12,
+    "findings_total": 12,
+    "label_findings_fail": 0,
+    "label_findings_hold": 12,
+    "labels_by_kind": {
+      "borrowed-strata": 6,
+      "native-form": 56,
+      "translated-label": 12
+    },
+    "rank_quarantine_handles": 0,
+    "rank_rules_component": 4,
+    "rank_rules_gate_projected": 4,
+    "rank_rules_normalized": 4,
+    "rank_rules_unresolved_items": 0,
+    "reconciliation_records": 6,
+    "typed_labels": 74
+  },
+  "hold_counts": {
+    "hold": 12,
+    "note": 0,
+    "fail": 0
+  },
+  "claims": [
+    {
+      "claim_id": "D4-CL05",
+      "claim_kind": "designer interpretation",
+      "evidence_status": "derived projection (author-side)",
+      "links": [
+        "examples/culture-d4/typed-labels.d4.yml#coverage",
+        "examples/culture-d4/typed-labels.d4.yml#labels_by_kind",
+        "examples/culture-d4/typed-labels.d4.yml#stats",
+        "examples/culture-d4/typed-labels.d4.yml#typed_labels",
+        "tools/gates/d4-typed-labels-check-gate.py"
+      ],
+      "statement": "The D4 typed channel types 74 labels \u2014 56 native-form, 12 translated-label, 6 borrowed-strata \u2014 and carries 16 findings of which 15 are hold-or-fail (12 label holds, 0 label fails); the committed projection is the projector's own deterministic output, and its check leg reports byte-identity rather than a re-derivation.",
+      "uncertainty": {
+        "basis": "grounding: examples/culture-d4/typed-labels.d4.yml#coverage (typed_labels 74, labels_by_kind native-form 56 / translated-label 12 / borrowed-strata 6, findings_total 16, findings_hold_or_fail 15, label_findings_fail 0) and examples/culture-d4/typed-labels.d4.yml#stats (fail 0, hold 12, labels 74), re-read from the delivered bytes; the projection is the projector's own output and the check leg reports byte-identical determinism",
+        "status": "supported"
+      }
+    },
+    {
+      "claim_id": "D4-CL06",
+      "claim_kind": "designer interpretation",
+      "evidence_status": "derived projection (author-side)",
+      "links": [
+        "examples/culture-d4/expected-holds.json#counts",
+        "examples/culture-d4/expected-holds.json#holds",
+        "examples/culture-d4/components/01-brief.yml#hold_set_declaration",
+        "reports/round-18/d4/holds.md"
+      ],
+      "statement": "The committed D4 hold set is 15 holds, 1 note and 0 fails, pinned to the delivered bytes: twelve `D2L-FORM-UNRESOLVED` holds keyed to each garment twice (record id and slot id) and three `D2L-RANK` holds, plus one `D2L-RANK` note for the band-keyed pair; the emitted set equals the committed file, and the round-17 brief's six-row declaration is reconciled by a documented +9 hold / +1 note delta rather than absorbed or silently re-declared.",
+      "uncertainty": {
+        "basis": "grounding: examples/culture-d4/expected-holds.json#counts (hold 15, note 1, fail 0) with the row list, whose holds are twelve D2L-FORM-UNRESOLVED rows keyed to each garment twice and three D2L-RANK rows, plus one D2L-RANK note for the band-keyed pair; the emitted set equals the committed file and reports/round-18/d4/holds.md reconciles the brief's six-row declaration with a documented +9 hold delta rather than absorbing it",
+        "status": "supported"
+      }
+    },
+    {
+      "claim_id": "D4-CL07",
+      "claim_kind": "designer interpretation",
+      "evidence_status": "derived projection (author-side)",
+      "links": [
+        "examples/culture-d4/typed-labels.d4.yml#era_material_reconciliation",
+        "examples/culture-d4/typed-labels.d4.yml#R-MAT-RESOLVED",
+        "examples/culture-d4/typed-labels.d4.yml#reconciliation_records",
+        "examples/culture-d4/typed-labels.d4.yml#conflicts",
+        "examples/culture-d4/packet.d4.yml#materials"
+      ],
+      "statement": "The D4 projection's era and material reconciliation resolves all six garment records by declared row and slot identity \u2014 each record's era block tagged in scope, each material block resolved to a `CMAT` record \u2014 with zero findings, while the reconciliation's own conflicts (4), quarantine handles (3) and reconciliation records (6) are carried as counts rather than collapsed into a cleaner ledger.",
+      "uncertainty": {
+        "basis": "grounding: examples/culture-d4/typed-labels.d4.yml#era_material_reconciliation, six records GAR-01..GAR-06 each carrying an era block tagged E0 or E1 and a material block resolved by slot identity to a CMAT record, summary claims 6 findings 0; the same file's examples/culture-d4/typed-labels.d4.yml#reconciliation_records and examples/culture-d4/typed-labels.d4.yml#conflicts counts carry four conflicts without collapsing them",
+        "status": "supported"
+      }
+    },
+    {
+      "claim_id": "D4-CL09",
+      "claim_kind": "designer interpretation",
+      "evidence_status": "derived projection (author-side), holds open",
+      "links": [
+        "examples/culture-d4/typed-labels.d4.yml#rank_rules",
+        "examples/culture-d4/typed-labels.d4.yml#rank_rules_unresolved_items",
+        "examples/culture-d4/typed-labels.d4.yml#rank_quarantine_handles",
+        "examples/culture-d4/typed-labels.d4.yml#conflicts"
+      ],
+      "statement": "The D4 projection re-carries D2's rank-rule adaptation rows with `adapt_status: cannot-evaluate` \u2014 speech is not a gate-modelled channel \u2014 and the packet's coverage block holds 13 unresolved rank items, 3 quarantine handles and 4 conflicts; none of them is promoted, resolved or hidden by this packet, and they are inherited D2 normalization residuals rather than D4 design debt.",
+      "uncertainty": {
+        "basis": "grounding: examples/culture-d4/typed-labels.d4.yml#rank_rules, whose act rows carry adapt_status cannot-evaluate because speech is not a gate-modelled channel, with examples/culture-d4/typed-labels.d4.yml#rank_rules_unresolved_items 13 and examples/culture-d4/typed-labels.d4.yml#rank_quarantine_handles 3 and examples/culture-d4/typed-labels.d4.yml#conflicts 4 in the same file's coverage block; open: the thirteen unresolved rank items, three quarantine handles and four conflicts are inherited D2 normalization residuals and none of them is promoted by this packet; owner: kotodama, blocking for the affected D2 rank records, not for this envelope",
+        "status": "unresolved"
+      }
+    }
+  ],
+  "interpretation": "Current v3 claim wording still describes removed D2 passengers; structural link resolution cannot prove those counts. Renderer owner must supersede claim descriptions, not historical files.",
+  "tool_sha256": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+  "expected_projector_sha256": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3"
+}

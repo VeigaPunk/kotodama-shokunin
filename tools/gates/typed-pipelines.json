@@ -17,8 +17,8 @@
    },
    "projection": {
     "path": "examples/culture-d4/typed-labels.d4.yml",
-    "sha256": "cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f",
-    "superseded": "a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d (round-18/19 build; the round-20 per-family alias leg moved this projection)"
+    "sha256": "60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092",
+    "superseded": "cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f (round-20 build, superseded by the round-22 family-clean source fix); earlier a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d (round-18/19 build, superseded by the round-20 per-family alias leg)"
    },
    "adapter": {
     "path": "tools/assemble-d4-typed.py",
@@ -27,16 +27,47 @@
    },
    "expected": {
     "path": "examples/culture-d4/expected-holds.json",
-    "sha256": "18d0cfce3f3f7a862efd3528084b2650b233286f6782ff0a3c1faad7e46146a3",
-    "note": "round-20 re-pin: the two internal pins moved with the projector and the projection (the hold/note set did not: fail 0 / hold 15 / note 1). Supersedes 09490a2756d1\u2026. The round-20 receipt is reports/round-20/wart/repin-r20.json."
+    "sha256": "3826ba68d705b3c379b2a12737c14075d9095a1ba2aa2eb525de1851a9ecd2f7",
+    "note": "round-22 family-clean re-pin: fail 0 / hold 12 / note 0, as declared in reports/round-22/bleed/design.md before implementation. Exactly three inherited D2 rank holds and one note are removed from D4 ownership; all six garment-form obligations remain held under twelve record/slot rows. The final expected file binds combined projector 2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3. Supersedes 18d0cfce3f3f7a862efd3528084b2650b233286f6782ff0a3c1faad7e46146a3 and the provisional round-22 pin retained in repin_history. New receipt: reports/round-22/bleed/repin.json."
    },
    "repin": {
-    "round": 20,
-    "claim": "O (per-family era-alias resolution)",
-    "date": "2026-10-18",
-    "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml",
-    "recorded_in": "reports/round-20/wart/shard-4.md"
-   }
+    "round": 22,
+    "claim": "D (R22-D07..D08 family-clean D4 re-pin)",
+    "date": "2026-10-18T14:53:59Z",
+    "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml tools/d2-typed-labels.py",
+    "recorded_in": "reports/round-22/bleed/repin.json"
+   },
+   "repin_history": [
+    {
+     "round": 20,
+     "date": "2026-10-18",
+     "projection_sha256": "cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f",
+     "adapter_sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+     "expected_sha256": "18d0cfce3f3f7a862efd3528084b2650b233286f6782ff0a3c1faad7e46146a3",
+     "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml",
+     "recorded_in": "reports/round-20/wart/shard-4.md"
+    },
+    {
+     "round": 22,
+     "date": "2026-10-18T14:49:38Z",
+     "projection_sha256": "60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092",
+     "adapter_sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+     "expected_sha256": "88c21ff3cd31776e3838f3e3140f42d7389ae3558d55e9761dbe549b8175475c",
+     "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml tools/d2-typed-labels.py",
+     "recorded_in": "reports/round-22/bleed/repin.json"
+    },
+    {
+     "round": 22,
+     "date": "2026-10-18T14:53:59Z",
+     "projection_sha256": "60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092",
+     "projector_sha256": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+     "adapter_sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+     "expected_sha256": "3826ba68d705b3c379b2a12737c14075d9095a1ba2aa2eb525de1851a9ecd2f7",
+     "command": "sha256sum examples/culture-d4/typed-labels.d4.yml tools/assemble-d4-typed.py examples/culture-d4/expected-holds.json examples/culture-d4/packet.d4.typed.yml tools/d2-typed-labels.py",
+     "recorded_in": "reports/round-22/bleed/repin.json",
+     "reason": "Final combined-source binding after the provisional projector pin became stale; the projection, adapter, hold set, and typed packet did not otherwise move."
+    }
+   ]
   }
  ]
 }

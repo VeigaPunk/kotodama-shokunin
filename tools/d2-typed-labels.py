@@ -29,6 +29,12 @@ with its conflict triage and quarantine table, the merged finding list under the
 design spec's `D2L-*` vocabulary (`reports/round-8/depth/design-spec.md` §6), and
 the coverage counts.
 
+For non-D2 families the integration layer selects packet-native rank records
+before invoking any D2 fixture machinery. D4 labels cite its own components and
+its declared orthography scheme; explicit foreign provenance fails closed.
+Unsupported rank properties remain held, and an absent rank leg is explicitly
+skipped. Shared D2L-* diagnostics and method references do not import D2 data.
+
 Interface
 ---------
     python3 tools/d2-typed-labels.py [--packet PATH]        # report to stdout
@@ -58,22 +64,12 @@ rewrites the packet, so the regenerated `packet.d2.yml` stays byte-identical to
 A `(to-verify)` row stays `(to-verify)`, an unresolved form slot stays held, and
 canon belongs to lore-shokunin.
 
-Integration (R8-D02): the four code blocks below are the shard payloads lifted
-verbatim — R8-D03 §4.1 and §4.2, R8-D04 §4, R8-D05 §4 — with four edits, every
-one recorded at the point it is applied:
-
-  1. the rank block's trailing `sys.exit(selftest())` is removed and bound to
-     `selftest_rank_block` instead, so this CLI owns the process exit (binding
-     it after the CLI's own `selftest` would recurse);
-  2. the era/material block's `__main__` driver is removed for the same reason;
-  3. the strict loader accepts the bare-dash list item (`-` on its own line),
-     the form the D2 files actually use; it refused the real packet without it;
-  4. the lexicon stratum test counts the declared register strata (`sacred`,
-     `taboo`) as native rather than borrowed — 05-lexicon.yml:57 declares
-     exactly two loan strata and calls those two the sacred and taboo strata.
-
-Everything after the `Integration layer (R8-D02)` banner is the integrator's
-own work.
+The original R8 integration lifted four shard payloads — R8-D03 §4.1/§4.2,
+R8-D04 §4, R8-D05 §4 — removing the shard process drivers, accepting bare-dash
+YAML list items, and treating the declared sacred/taboo registers as native.
+The label parser now also accepts family-owned metadata; its default helper
+arguments retain the D2 contract. The lower integration layer selects each
+family's data, validates ownership, combines findings and owns the CLI.
 """
 
 import argparse
@@ -400,7 +396,7 @@ def load_packet_file(path, bool_coercion=False):
 
 # ==========================================================================
 
-# Block 2/4 — label parser (R8-D03 §4.2), lifted verbatim.
+# Block 2/4 — label parser (R8-D03 §4.2), with family-owned metadata.
 
 # ==========================================================================
 
@@ -490,31 +486,32 @@ def _source(component, record, field, line):
 # projection: packet records -> spec §1.2 label records
 # ---------------------------------------------------------------------------
 
-def _costume_label(entry, index):
+def _costume_label(entry, index, owner="11-costumes", component="11-costumes.yml"):
     garment = entry.get("garment")
     if not _is_str(garment) or not garment.strip():
         return None
     slot = entry.get("form_slot")
-    slot_id = _SLOT_RE.search(slot).group(0) if _is_str(slot) else None
+    match = _SLOT_RE.search(slot) if _is_str(slot) else None
+    slot_id = match.group(0) if match else None
     return {
         "id": entry.get("id", f"costume#{index + 1}"),
-        "owner": "11-costumes",
+        "owner": owner,
         "label_id": slot_id,
         "kind": "translated-label",
         "text": garment,
         "script": "Latn",
         "representation": "english-gloss",
         "scheme": None,
-        "status": "to-verify",          # spec §1.5: the ten GAR records project this way
+        "status": "to-verify",
         "era_ids": [entry["era"]] if _is_str(entry.get("era")) else [],
         "register": None,
         "evidence": entry.get("evidence") or "to-verify",
-        "source": _source("11-costumes.yml", entry.get("id"), "garment", None),
+        "source": _source(component, entry.get("id"), "garment", None),
         "issues": [{"field": "scheme", "reason": "english-gloss needs no romanization scheme"}],
     }
 
 
-def _form_slot_label(slot, owner, record_id):
+def _form_slot_label(slot, owner, record_id, component=None):
     return {
         "id": record_id,
         "owner": owner,
@@ -528,7 +525,7 @@ def _form_slot_label(slot, owner, record_id):
         "era_ids": [],
         "register": slot.get("register"),
         "evidence": "to-verify",
-        "source": _source(owner, record_id, "form_slot", None),
+        "source": _source(component or owner, record_id, "form_slot", None),
         "issues": [{"field": "text", "reason": "form slot unfilled; the requirement is a gloss, not a form"},
                    {"field": "script", "reason": "no form, so no script applies"},
                    {"field": "representation", "reason": "no form, so no representation applies"},
@@ -537,7 +534,8 @@ def _form_slot_label(slot, owner, record_id):
     }
 
 
-def _lexicon_label(entry, index, layers):
+def _lexicon_label(entry, index, layers, owner="05-lexicon",
+                   component="05-lexicon.yml", scheme="d2-roman"):
     term = entry.get("term")
     if not _is_str(term) or not term.strip():
         return None
@@ -546,18 +544,18 @@ def _lexicon_label(entry, index, layers):
     layer_rec = layers.get(layer_name) if _is_str(layer_name) else None
     base = {
         "id": entry.get("id", f"lex#{index + 1}"),
-        "owner": "05-lexicon",
+        "owner": owner,
         "label_id": None,
         "kind": "native-form",
         "text": term,
         "script": "Latn",
         "representation": "editorial-romanization",
-        "scheme": "d2-roman",
+        "scheme": scheme,
         "status": "supplied",
         "era_ids": [entry["stage"]] if _is_str(entry.get("stage")) else [],
         "register": entry.get("field"),
         "evidence": entry.get("evidence") or "design-choice",
-        "source": _source("05-lexicon.yml", entry.get("id"), "term", None),
+        "source": _source(component, entry.get("id"), "term", None),
         "issues": [],
         "layer": layer,                 # B6: preserved verbatim, route is a different field
         "route": entry.get("route"),
@@ -579,35 +577,54 @@ def _lexicon_label(entry, index, layers):
     return base
 
 
-def _name_label(entry, index):
+def _name_label(entry, index, owner="13-naming", component="13-naming.yml",
+                scheme="d2-roman"):
     name = entry.get("name")
     if not _is_str(name) or not name.strip():
         return None
     return {
         "id": entry.get("id", f"name#{index + 1}"),
-        "owner": "13-naming",
+        "owner": owner,
         "label_id": None,
         "kind": "native-form",
         "text": name,
         "script": "Latn",
         "representation": "editorial-romanization",
-        "scheme": "d2-roman",
+        "scheme": scheme,
         "status": "supplied",
         "era_ids": [entry["era"]] if _is_str(entry.get("era")) else [],
         "register": None,
         "evidence": entry.get("evidence") or "design-choice",
-        "source": _source("13-naming.yml", entry.get("id"), "name", None),
+        "source": _source(component, entry.get("id"), "name", None),
         "issues": [],
         "layer": "native",
     }
 
 
-def project_labels(packet):
-    """Project every typed label the packet carries (spec §1.5 worked mapping).
+def family_label_metadata(packet, family="d2", packet_path=None):
+    if family == "d2":
+        return {"costumes": ("11-costumes", "11-costumes.yml"),
+                "form_slots": ("11-costumes", "11-costumes"),
+                "lexicon": ("05-lexicon", "05-lexicon.yml"),
+                "names": ("13-naming", "13-naming.yml"), "scheme": "d2-roman"}
+    orthography = packet.get("orthography") or {}
+    scheme = orthography.get("scheme") if isinstance(orthography, dict) else None
+    if not isinstance(scheme, str) or not scheme.strip():
+        raise Malformed("P-FAMILY-SOURCE: %s declares no orthography.scheme" % family)
+    if family == "d4":
+        base = "examples/culture-d4/components/"
+        return {"costumes": ("09-costumes", base + "09-costumes.yml"),
+                "form_slots": ("09-costumes", base + "09-costumes.yml"),
+                "lexicon": ("04-lexicon", base + "04-lexicon.yml"),
+                "names": ("05-naming", base + "05-naming.yml"), "scheme": scheme}
+    source = shown_path(packet_path) if packet_path else "packet"
+    return {block: (block, source) for block in
+            ("costumes", "form_slots", "lexicon", "names")} | {"scheme": scheme}
 
-    Explicit `typed_labels` entries pass through unchanged; they are the channel
-    the malformed controls and hand-authored labels use.
-    """
+
+def project_labels(packet, family="d2", packet_path=None):
+    """Project labels with family-owned metadata; explicit rows are never rewritten."""
+    metadata = family_label_metadata(packet, family, packet_path)
     labels = []
     for entry in packet.get("typed_labels") or []:
         if isinstance(entry, dict):
@@ -616,22 +633,23 @@ def project_labels(packet):
     for index, entry in enumerate(packet.get("costumes") or []):
         if not isinstance(entry, dict):
             continue
-        label = _costume_label(entry, index)
+        label = _costume_label(entry, index, *metadata["costumes"])
         if label:
             labels.append(label)
     for slot in packet.get("form_slots") or []:
         if isinstance(slot, dict) and _is_str(slot.get("id")):
-            labels.append(_form_slot_label(slot, "11-costumes", slot["id"]))
+            owner, component = metadata["form_slots"]
+            labels.append(_form_slot_label(slot, owner, slot["id"], component))
     for index, entry in enumerate(packet.get("lexicon") or []):
         if not isinstance(entry, dict):
             continue
-        label = _lexicon_label(entry, index, layers)
+        label = _lexicon_label(entry, index, layers, *metadata["lexicon"], metadata["scheme"])
         if label:
             labels.append(label)
     for index, entry in enumerate(packet.get("names") or []):
         if not isinstance(entry, dict):
             continue
-        label = _name_label(entry, index)
+        label = _name_label(entry, index, *metadata["names"], metadata["scheme"])
         if label:
             labels.append(label)
     return labels
@@ -760,7 +778,7 @@ def validate_labels(labels, packet, strict=False):
         if label.get("representation") not in (None,) + REPRESENTATIONS:
             _fail(findings, D2L_DATA, where,
                   f"representation {label.get('representation')!r} is not one of {REPRESENTATIONS}")
-        if label.get("owner") == "11-costumes" and not label.get("label_id"):
+        if label.get("owner") in ("11-costumes", "09-costumes", "costumes", "form_slots") and not label.get("label_id"):
             _fail(findings, D2L_DATA, where, "costume label carries no label_id for its form slot")
         for field in ("text", "script", "representation", "scheme"):
             if label.get(field) is None:
@@ -813,13 +831,15 @@ def validate_labels(labels, packet, strict=False):
     return findings, exit_code
 
 
-def parse_typed_labels(packet, strict=False):
+def parse_typed_labels(packet, strict=False, family="d2", packet_path=None):
     """Top-level entry: project, validate, return a JSON-serializable result."""
     if not isinstance(packet, dict):
         return {"exit_code": 2, "ok": False, "labels": [],
                 "findings": [{"code": D2L_DATA, "where": "<root>", "detail": "packet is not a mapping", "kind": "fail"}],
                 "stats": {"fail": 1, "hold": 0, "labels": 0}}
-    labels = project_labels(packet)
+    labels = project_labels(packet, family, packet_path)
+    if family != "d2":
+        validate_family_labels(packet_path, packet, labels, family)
     findings, exit_code = validate_labels(labels, packet, strict)
     return {
         "exit_code": exit_code,
@@ -2474,33 +2494,52 @@ def shown_path(path):
         return str(path)
 
 
+def validate_alias_pair(name, tag, where):
+    if not isinstance(name, str) or not name.strip():
+        raise Malformed("P-ERA-ALIAS at %s: alias name must be a non-empty string"
+                        % where)
+    if not isinstance(tag, str) or tag not in CONTRACT_ERAS:
+        raise Malformed("P-ERA-ALIAS at %s: tag must be one of %s, got %r"
+                        % (where, ", ".join(CONTRACT_ERAS), tag))
+
+
 def packet_alias_rows(packet):
     """(aliases, rows, key) from the packet's own era-alias declaration.
 
     Three declared shapes are read, in this order: `era_aliases` (the D2-shaped
     label -> tag map), then the era-name record lists (`named_eras`,
     `era_records`), whose declared `name` -> `tag` pair is the family's own
-    alias. Nothing is inferred from an E-number; an undeclared label stays
-    unmapped. `key` is None when the packet declares none of the three.
+    alias. Names must be non-empty strings and tags must be contract tags;
+    malformed declarations raise P-ERA-ALIAS, never coerce or silently skip.
+    `key` is None when no non-empty alias declaration is present.
     """
+    if "era_aliases" in packet and not isinstance(packet["era_aliases"], dict):
+        raise Malformed("P-ERA-ALIAS at era_aliases: expected a label-to-tag map")
     declared = packet.get("era_aliases")
-    if isinstance(declared, dict) and declared:
-        aliases = {str(label): str(tag) for label, tag in declared.items()}
+    if declared:
+        for label, tag in declared.items():
+            validate_alias_pair(label, tag, "era_aliases.%s" % label)
+        aliases = dict(declared)
         rows = [{"id": "packet era_aliases.%s" % label, "source": label,
                  "tag": aliases[label], "status": "confirmed"}
                 for label in sorted(aliases)]
         return aliases, rows, "era_aliases"
     for key in ("named_eras", "era_records"):
-        records = packet.get(key)
-        if not isinstance(records, list):
+        if key not in packet:
             continue
+        records = packet[key]
+        if not isinstance(records, list):
+            raise Malformed("P-ERA-ALIAS at %s: expected an era-record list" % key)
         aliases, rows = {}, []
-        for record in records:
+        for index, record in enumerate(records):
+            where = "%s[%d]" % (key, index)
             if not isinstance(record, dict):
-                continue
+                raise Malformed("P-ERA-ALIAS at %s: expected an era record" % where)
             name, tag = record.get("name"), record.get("tag")
-            if not isinstance(name, str) or not isinstance(tag, str):
-                continue
+            validate_alias_pair(name, tag, where)
+            if name in aliases and aliases[name] != tag:
+                raise Malformed("P-ERA-ALIAS at %s: alias %r maps to different tags"
+                                % (where, name))
             aliases[name] = tag
             rows.append({"id": "packet %s.%s" % (key, record.get("id", name)),
                          "source": name, "tag": tag, "status": "confirmed"})
@@ -2582,6 +2621,190 @@ def sha256_file(path):
     return hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
 
 
+def validate_family_provenance(value, packet_path, metadata, where):
+    components = {pair[1] for key, pair in metadata.items() if key != "scheme"}
+    components.add(shown_path(packet_path) if packet_path else "packet")
+    owners = {pair[0] for key, pair in metadata.items() if key != "scheme"}
+
+    def walk(item, location):
+        if isinstance(item, dict):
+            for field, child in item.items():
+                here = "%s.%s" % (location, field)
+                if field in ("component", "cite", "citation", "source_path", "source_file"):
+                    path = re.split(r"[:#]", child, maxsplit=1)[0] if isinstance(child, str) else None
+                    if path not in components:
+                        raise Malformed("P-FAMILY-SOURCE at %s: citation is not family-owned: %r"
+                                        % (here, child))
+                if field == "owner" and child not in owners:
+                    raise Malformed("P-FAMILY-SOURCE at %s: foreign owner %r" % (here, child))
+                if field == "scheme" and child is not None and child != metadata["scheme"]:
+                    raise Malformed("P-FAMILY-SOURCE at %s: foreign scheme %r" % (here, child))
+                walk(child, here)
+        elif isinstance(item, list):
+            for index, child in enumerate(item):
+                walk(child, "%s[%d]" % (location, index))
+    walk(value, where)
+
+
+def validate_family_labels(packet_path, packet, labels, family):
+    metadata = family_label_metadata(packet, family, packet_path)
+    fields = {"garment": "costumes", "form_slot": "form_slots",
+              "term": "lexicon", "name": "names", "text": "typed_labels"}
+    for label in labels:
+        where = "typed_labels.%s" % label.get("id", "?")
+        validate_family_provenance(label, packet_path, metadata, where)
+        source = label.get("source")
+        if not isinstance(source, dict):
+            raise Malformed("P-FAMILY-SOURCE at %s: a qualified source is required" % where)
+        block = fields.get(source.get("field"))
+        records = packet.get(block) if block else None
+        record = next((row for row in records or [] if isinstance(row, dict)
+                       and row.get("id") == source.get("record")), None)
+        if record is None or label.get("id") != source.get("record"):
+            raise Malformed("P-FAMILY-SOURCE at %s: source record/field does not resolve" % where)
+        if block == "typed_labels":
+            if (source.get("component") != (shown_path(packet_path) if packet_path else "packet")
+                    or source.get("block") != block):
+                raise Malformed("P-FAMILY-SOURCE at %s: explicit label needs packet/typed_labels source" % where)
+            if label.get("owner") not in {metadata[key][0] for key in fields.values()
+                                           if key != "typed_labels"}:
+                raise Malformed("P-FAMILY-SOURCE at %s: explicit label owner is not local" % where)
+        else:
+            owner, component = metadata[block]
+            if label.get("owner") != owner or source.get("component") != component:
+                raise Malformed("P-FAMILY-SOURCE at %s: owner/component does not own this field" % where)
+            expected = None if block == "form_slots" else record.get(source["field"])
+            if label.get("text") != expected:
+                raise Malformed("P-FAMILY-SOURCE at %s: text differs from the family source" % where)
+            if block in ("costumes", "form_slots"):
+                slot = record.get("id") if block == "form_slots" else record.get("form_slot")
+                match = _SLOT_RE.search(slot) if isinstance(slot, str) else None
+                if not match or label.get("label_id") != match.group(0):
+                    raise Malformed("P-FAMILY-SOURCE at %s: owed slot is missing or foreign" % where)
+        if label.get("kind") in SOUND_KINDS and label.get("scheme") != metadata["scheme"]:
+            raise Malformed("P-FAMILY-SOURCE at %s: supplied form needs the declared scheme" % where)
+
+
+def family_rank_payload(packet_path, packet, family):
+    import copy
+    metadata = family_label_metadata(packet, family, packet_path)
+    source_path = shown_path(packet_path)
+    records = packet.get("rank_rules", [])
+    if not isinstance(records, list):
+        raise Malformed("P-FAMILY-RANK: rank_rules must be a record list")
+    ledger = {key: [] for key in ("normalized_rules", "gate_rank_rules", "act_rules",
+              "residuals", "unresolved", "quarantine", "calibration_flags",
+              "entitlement_edges", "jurisdiction_gaps", "assay_gaps")}
+    seen = set()
+    for index, record in enumerate(records):
+        where = "rank_rules[%d]" % index
+        if not isinstance(record, dict):
+            raise Malformed("P-FAMILY-RANK at %s: expected a mapping" % where)
+        rid = record.get("id")
+        if not isinstance(rid, str) or not _LABEL_ID_RE.fullmatch(rid) or rid in seen:
+            raise Malformed("P-FAMILY-RANK at %s: invalid or duplicate id %r" % (where, rid))
+        seen.add(rid)
+        validate_family_provenance(record, packet_path, metadata, where)
+        if "source" in record:
+            source = record["source"]
+            if (not isinstance(source, dict) or source.get("block") != "rank_rules"
+                    or source.get("component") not in (source_path, metadata["costumes"][1])
+                    or source.get("record_id", source.get("record")) != rid):
+                raise Malformed("P-FAMILY-SOURCE at %s: source must identify this rank record" % where)
+        for field in ("authority", "jurisdiction", "effect"):
+            if (not isinstance(record.get(field), str)
+                    or record[field].strip().lower() in ("", "null", "none", "~")):
+                raise Malformed("P-FAMILY-RANK at %s: missing %s" % (where, field))
+        eras = record.get("eras")
+        if (not isinstance(eras, list) or not eras or
+                any(not isinstance(era, str) or era not in packet.get("eras", []) for era in eras)):
+            raise Malformed("P-FAMILY-RANK at %s: eras must name declared packet tags" % where)
+        prop = record.get("property")
+        if not isinstance(prop, dict) or any(not isinstance(prop.get(key), str)
+                                            or not prop[key].strip() for key in ("kind", "value")):
+            raise Malformed("P-FAMILY-RANK at %s: property.kind/value required" % where)
+        for field in ("wearer_ranks", "exempt_ranks", "rites", "garment_refs"):
+            value = record.get(field, [])
+            if not isinstance(value, list) or not all(isinstance(item, str) and item.strip() for item in value):
+                raise Malformed("P-FAMILY-RANK at %s: %s must be a string list" % (where, field))
+        costume_ids = {row.get("id") for row in packet.get("costumes", []) if isinstance(row, dict)}
+        if any(ref not in costume_ids for ref in record.get("garment_refs", [])):
+            raise Malformed("P-FAMILY-SOURCE at %s: garment_refs names a foreign record" % where)
+        normalized = copy.deepcopy(record)
+        normalized["source"] = {"component": source_path, "block": "rank_rules",
+                                "record_id": rid, "field": "rank_rules"}
+        unsupported = []
+        if prop["kind"] not in GATE_PROPERTY_KINDS:
+            unsupported.append("property kind %r is outside the gate model" % prop["kind"])
+        if record["effect"] not in ("permit", "prohibit", "require"):
+            unsupported.append("effect %r has no packet-native gate mapping" % record["effect"])
+        normalized["adapt_status"] = "cannot-evaluate" if unsupported else "executable"
+        normalized["unresolved"] = unsupported
+        if record["effect"] == "require":
+            normalized["effect"] = "obligate"
+        ledger["normalized_rules"].append(normalized)
+        ledger["unresolved"].extend({"rule": rid, "item": item} for item in unsupported)
+        if not unsupported:
+            gate = copy.deepcopy(record)
+            gate.update({"id": rid + "#g", "source_rule": rid,
+                         "source": dict(normalized["source"]), "adapt_status": "executable"})
+            ledger["gate_rank_rules"].append(gate)
+    for field in ("normalized_rules", "gate_rank_rules"):
+        ledger[field].sort(key=lambda row: row["id"])
+    ledger["coverage"] = {"component_rules": len(records), "normalized": len(records),
+                          "gate_projected": len(ledger["gate_rank_rules"]), "partitioned": True}
+    ledger["skipped"] = [{"leg": "D2 prose-rank adapter and residual tables", "source": source_path,
+                           "why": "packet-native rank rules only; no foreign fixture data is imported"}]
+    if not records:
+        ledger["skipped"].append({"leg": "rank-rule projection", "source": source_path,
+                                  "why": "the packet declares no rank_rules"})
+    return ledger
+
+
+def family_rank_conflicts(records):
+    findings = []
+    for index, first in enumerate(records):
+        for second in records[index + 1:]:
+            if (first["property"] != second["property"]
+                    or {first["effect"], second["effect"]} != {"permit", "prohibit"}
+                    or not set(first["eras"]) & set(second["eras"])):
+                continue
+            a, b = first.get("rites", []), second.get("rites", [])
+            if a and b and not set(a) & set(b):
+                continue
+            a, b = set(first.get("wearer_ranks", [])), set(second.get("wearer_ranks", []))
+            excluded = set(first.get("exempt_ranks", [])) | set(second.get("exempt_ranks", []))
+            if a and b and not (a & b) - excluded:
+                continue
+            if (a or b) and not ((a & b) if a and b else a or b) - excluded:
+                continue
+            findings.append({"class": "declared-rank-overlap", "pair": [first["id"], second["id"]],
+                             "triage": {"status": "untriaged-family-local",
+                                        "why": "declared scopes may overlap; no prose jurisdiction priority inferred"}})
+    return findings
+
+
+def validate_family_projection(packet_path, packet, projection):
+    family = packet_family(packet_path)
+    if family == DEFAULT_FAMILY:
+        return
+    metadata = family_label_metadata(packet, family, packet_path)
+    validate_family_labels(packet_path, packet, projection["typed_labels"]["labels"], family)
+    ledger = projection["rank_rules"]
+    expected = family_rank_payload(packet_path, packet, family)
+    for field in ("normalized_rules", "gate_rank_rules", "act_rules", "residuals", "unresolved",
+                  "quarantine", "calibration_flags", "entitlement_edges", "jurisdiction_gaps", "assay_gaps", "coverage"):
+        validate_family_provenance(ledger[field], packet_path, metadata, "rank_rules." + field)
+        if ledger[field] != expected[field]:
+            raise Malformed("P-FAMILY-SOURCE at rank_rules.%s: differs from packet-native records" % field)
+    local_ids = {label["id"] for label in projection["typed_labels"]["labels"]}
+    local_ids.update(row["id"] for row in ledger["normalized_rules"])
+    local_ids.update(row["id"] for row in ledger["gate_rank_rules"])
+    for finding in projection["findings"]:
+        if not set(str(finding["where"]).split("|")) <= local_ids:
+            raise Malformed("P-FAMILY-SOURCE at findings: record is outside the family view")
+
+
 def run_pipeline(packet_path):
     """Run every capability over one packet; return the projection document."""
     packet_path = pathlib.Path(packet_path)
@@ -2598,9 +2821,10 @@ def run_pipeline(packet_path):
                                             "labels": 0},
                                   "findings": findings}}
     packet = loaded["packet"]
-    parse_result = parse_typed_labels(packet)
+    family = packet_family(packet_path)
+    parse_result = parse_typed_labels(packet, family=family, packet_path=packet_path)
     for item in parse_result["findings"]:
-        reclassified = reclassify_parser_finding(item)
+        reclassified = reclassify_parser_finding(item) if family == DEFAULT_FAMILY else None
         if reclassified is not None:
             findings.append(normalize_finding(reclassified["code"],
                                               reclassified["where"],
@@ -2610,7 +2834,8 @@ def run_pipeline(packet_path):
         findings.append(normalize_finding(item["code"], item.get("where", "<label>"),
                                           item.get("detail", ""),
                                           item.get("kind", "fail")))
-    ledger = build_payload()
+    ledger = (build_payload() if family == DEFAULT_FAMILY else
+              family_rank_payload(packet_path, packet, family))
     leg = family_alias_leg(packet_path, packet)
     aliases = leg["aliases"]
     era_verdicts = [
@@ -2627,14 +2852,20 @@ def run_pipeline(packet_path):
                 "E-LABEL-RANK-SHAPE", rule.get("id", "?"),
                 "normalized rule shape rejected by the parser-side check: %s"
                 % problem, "hold"))
-    conflict_list = conflicts(ledger["gate_rank_rules"])
-    act_list = act_conflicts(ledger["act_rules"])
+    if family == DEFAULT_FAMILY:
+        conflict_list = conflicts(ledger["gate_rank_rules"])
+        act_list = act_conflicts(ledger["act_rules"])
+    else:
+        conflict_list = family_rank_conflicts(ledger["gate_rank_rules"])
+        act_list = []
+        for item in ledger["unresolved"]:
+            findings.append(normalize_finding("R-RANK-UNSUPPORTED", item["rule"], item["item"], "hold"))
     for item in conflict_list + act_list:
         triage = item.get("triage") or {}
         findings.append(normalize_finding(
             "R-RANK-CONFLICT", "|".join(item["pair"]),
             "%s: %s" % (item["class"], triage.get("status", "UNTRIAGED")),
-            "hold" if triage.get("status") == "genuine-priority-gap" else "note"))
+            "hold" if family != DEFAULT_FAMILY or triage.get("status") == "genuine-priority-gap" else "note"))
     reconciliation = reconcile_scoped(packet)
     for record in reconciliation["records"]:
         for item in record["findings"]:
@@ -2674,9 +2905,9 @@ def run_pipeline(packet_path):
     if leg["skipped"]:
         era_block["skipped"] = leg["skipped"]
     projection = {
-        "name": "D2 typed labels, scoped reconciliation and adapted rank rules "
-                "(derived projection, non-canon)",
-        "canon": "not canonized (D2 design drill); derived view of %s" % shown,
+        "name": "%s typed labels, scoped reconciliation and adapted rank rules "
+                "(derived projection, non-canon)" % family.upper(),
+        "canon": "not canonized (%s design drill); derived view of %s" % (family.upper(), shown),
         "generator": "tools/d2-typed-labels.py",
         "label_kinds": list(KINDS),
         "typed_labels": {"stats": parse_result["stats"], "labels": parse_result["labels"]},
@@ -2709,6 +2940,7 @@ def run_pipeline(packet_path):
             ],
         },
     }
+    validate_family_projection(packet_path, packet, projection)
     document = {"exit_code": exit_code, "ok": exit_code == 0,
                 "packet": shown,
                 "stats": {"fail": sum(1 for f in findings
@@ -2745,8 +2977,151 @@ def report(result, stream=sys.stdout):
     return result["exit"]
 
 
+def _selftest_family(check):
+    import copy
+    from unittest.mock import patch
+    path = ROOT / "examples/culture-d4/packet.d4.yml"
+    packet = load_packet_file(path)["packet"]
+    current = run_pipeline(path)["projection"]
+    before = parse_typed_labels(packet)["labels"]
+    labels = current["typed_labels"]["labels"]
+    identity = lambda rows: [(row["id"], row["kind"], row["text"], row["label_id"], row.get("borrow")) for row in rows]
+    check("boundary: label texts, kinds, owed slots and all six borrow ledgers unchanged",
+          identity(labels) == identity(before) and sum(row["kind"] == "borrowed-strata" for row in labels) == 6)
+    check("boundary: D4 owners and declared romanization replace D2 metadata",
+          {row["owner"] for row in labels} == {"09-costumes", "04-lexicon", "05-naming"}
+          and all(row["scheme"] == packet["orthography"]["scheme"] for row in labels if row["kind"] in SOUND_KINDS))
+    check("boundary: D4 metadata and local rank census",
+          current["name"].startswith("D4 ") and "D4 design drill" in current["canon"]
+          and current["rank_rules"]["coverage"] == {"component_rules": 4, "normalized": 4, "gate_projected": 4, "partitioned": True})
+    check("boundary: only the twelve owed-form holds remain",
+          len(current["findings"]) == 12 and all(row["id"] == D2L_FORM and row["severity"] == "hold" for row in current["findings"]))
+    missing_slot = copy.deepcopy(labels[0])
+    missing_slot["label_id"] = None
+    check("boundary: the D4 owner does not bypass the costume-slot requirement",
+          any(row["code"] == D2L_DATA and "no label_id" in row["detail"]
+              for row in validate_labels([missing_slot], packet)[0]))
+    synthetic = copy.deepcopy(current)
+    synthetic["typed_labels"]["labels"] = before
+    try:
+        validate_family_projection(path, packet, synthetic)
+        refused = False
+    except Malformed:
+        refused = True
+    check("boundary control: deterministic D2-owned label metadata is rejected", refused)
+    for field, value in (("component", str(ROOT / ALIAS_COMPONENT)), ("component", "12-rank-rules.yml:212"),
+                         ("owner", "11-costumes"), ("scheme", "d2-roman")):
+        contaminated = copy.deepcopy(labels[0])
+        if field == "component":
+            contaminated["source"][field] = value
+        else:
+            contaminated[field] = value
+        try:
+            validate_family_labels(path, packet, [contaminated], "d4")
+            refused = False
+        except Malformed as exc:
+            refused = "P-FAMILY-SOURCE" in str(exc)
+        check("boundary control: foreign label %s %r rejected" % (field, value), refused)
+    method_packet = copy.deepcopy(packet)
+    method_packet["orthography"]["writing_rules"] = [{"id": "WR-01", "tool": "tools/d2-typed-labels.py"}]
+    try:
+        validate_family_projection(path, method_packet, current)
+        accepted = True
+    except Malformed:
+        accepted = False
+    check("boundary: D4 WR writing ids and shared engine references are not substring-banned", accepted)
+    with tempfile.TemporaryDirectory(prefix="family-clean-") as tmp:
+        mirror = pathlib.Path(tmp) / "repo"
+        (mirror / "tools/gates").mkdir(parents=True)
+        (mirror / "examples/culture-d4").mkdir(parents=True)
+        for source, target in ((pathlib.Path(__file__), mirror / "tools/d2-typed-labels.py"),
+                               (READER, mirror / "tools/gates/costume-era-consistency-gate.py"),
+                               (path, mirror / "examples/culture-d4/packet.d4.yml")):
+            shutil.copyfile(source, target)
+        ns = runpy.run_path(str(mirror / "tools/d2-typed-labels.py"))
+        globals_ = ns["run_pipeline"].__globals__
+        mirror_path = mirror / "examples/culture-d4/packet.d4.yml"
+        local = ns["run_pipeline"](mirror_path)["projection"]
+        check("boundary: packet-only D4 mirror is byte-identical without a foreign tree",
+              ns["serialize"](local) == serialize(current) and not (mirror / "examples/culture-d2").exists())
+        def poison(*args, **kwargs):
+            raise AssertionError("D2 fixture machinery invoked")
+        hooks = ("build_payload", "project_to_gate", "resolve_costume_rank", "conflicts",
+                 "act_conflicts", "entitlement_conflicts")
+        with patch.dict(globals_, {name: poison for name in hooks}):
+            poisoned = ns["run_pipeline"](mirror_path)["projection"]
+        check("boundary poison control: D4 never calls embedded D2 fixture machinery",
+              ns["serialize"](poisoned) == ns["serialize"](local))
+        text = mirror_path.read_text(encoding="utf-8")
+        def write_rules(rows):
+            block = "rank_rules:" + ("\n" + "".join("  - " + json.dumps(row, ensure_ascii=False) + "\n" for row in rows) if rows else " []\n")
+            mirror_path.write_text(re.sub(r"^rank_rules:\n.*?(?=^\S)", lambda match: block, text, count=1, flags=re.M | re.S), encoding="utf-8")
+        changed = copy.deepcopy(packet["rank_rules"])
+        changed[0].update(authority="the local probe charter", property={"kind": "material", "value": "probe hide"}, wearer_ranks=["probe-smith"])
+        write_rules(changed)
+        mutation = ns["run_pipeline"](mirror_path)["projection"]
+        check("boundary local control: RK-01 authority/property/rank follow the local packet only",
+              mutation["rank_rules"]["normalized_rules"][0]["authority"] == "the local probe charter"
+              and mutation["rank_rules"]["gate_rank_rules"][0]["property"] == changed[0]["property"]
+              and mutation["rank_rules"]["gate_rank_rules"][0]["wearer_ranks"] == ["probe-smith"]
+              and mutation["rank_rules"]["normalized_rules"][1:] == local["rank_rules"]["normalized_rules"][1:]
+              and mutation["typed_labels"] == local["typed_labels"] and mutation["findings"] == local["findings"])
+        extra = copy.deepcopy(packet["rank_rules"][0]); extra["id"] = "RK-99"
+        for label, rows, count in (("add", packet["rank_rules"] + [extra], 5), ("remove", packet["rank_rules"][1:], 3), ("absent", [], 0)):
+            write_rules(rows)
+            result = ns["run_pipeline"](mirror_path)["projection"]
+            check("boundary coverage control: %s local row counted exactly once" % label,
+                  result["coverage"]["rank_rules_component"] == count and result["coverage"]["rank_rules_gate_projected"] == count)
+        unsupported = copy.deepcopy(packet["rank_rules"]); unsupported[0]["property"]["kind"] = "unmodelled-local-property"
+        write_rules(unsupported)
+        held = ns["run_pipeline"](mirror_path)["projection"]
+        check("boundary limitation: an unsupported local property is held, not evaluated",
+              held["coverage"]["rank_rules_gate_projected"] == 3 and held["coverage"]["rank_rules_unresolved_items"] == 1
+              and any(row["where"] == "RK-01" and row["severity"] == "hold" for row in held["findings"]))
+        prohibition = copy.deepcopy(extra); prohibition["effect"] = "prohibit"
+        write_rules(packet["rank_rules"] + [prohibition])
+        conflict = ns["run_pipeline"](mirror_path)["projection"]
+        check("boundary conflict control: local prohibition is not inverted through D2 licenses",
+              conflict["rank_rules"]["gate_rank_rules"][-1]["wearer_ranks"] == prohibition["wearer_ranks"]
+              and conflict["coverage"]["conflicts"] == 1 and any(row["where"] == "RK-01#g|RK-99#g" and row["severity"] == "hold" for row in conflict["findings"]))
+        malformed = [packet["rank_rules"] + [packet["rank_rules"][0]], [None]]
+        for field, value in (("authority", None), ("property", []), ("eras", ["E9"]),
+                             ("wearer_ranks", "smith"), ("cite", "12-rank-rules.yml:212"),
+                             ("source", {"component": str(ROOT / ALIAS_COMPONENT), "record_id": "RK-01", "block": "rank_rules"})):
+            row = copy.deepcopy(packet["rank_rules"][0]); row[field] = value; malformed.append([row])
+        for index, rows in enumerate(malformed):
+            write_rules(rows)
+            try:
+                ns["run_pipeline"](mirror_path)
+                refused = False
+            except ns["Malformed"] as exc:
+                refused = "P-FAMILY-" in str(exc)
+            check("boundary malformed local rank set %d fails closed" % (index + 1), refused)
+        mirror_path.write_text(text, encoding="utf-8")
+        contaminated = copy.deepcopy(labels[0])
+        contaminated["source"]["component"] = str(ROOT / COSTUME_COMPONENT)
+        mirror_path.write_text(text + "\ntyped_labels:\n  - " + json.dumps(contaminated) + "\n", encoding="utf-8")
+        target = mirror / "output.yml"
+        for existing in (False, True):
+            if existing:
+                target.write_bytes(b"sentinel\n")
+            proc = subprocess.run([sys.executable, str(mirror / "tools/d2-typed-labels.py"), "--packet", str(mirror_path), "--emit", str(target)], capture_output=True, text=True, cwd=mirror)
+            check("boundary explicit same-id foreign label: emit refuses and preserves %s output" % ("existing" if existing else "absent"),
+                  proc.returncode == 2 and "P-FAMILY-SOURCE" in proc.stderr and (target.read_bytes() == b"sentinel\n" if existing else not target.exists()))
+        shutil.copytree(ROOT / "examples/culture-d2", mirror / "examples/culture-d2")
+        d2path = mirror / "examples/culture-d2/packet.d2.yml"
+        d2 = ns["run_pipeline"](d2path)["projection"]
+        check("boundary compatibility: D2 projection keeps its exact baseline digest",
+              hashlib.sha256(ns["serialize"](d2)).hexdigest() == "a3aa452cd5ae77c351d9532a707fb1f1ababf77c3fad8b9d28089e6958364a43")
+        normalized = copy.deepcopy(globals_["NORMALIZED"]); normalized[0]["authority"] = "D2 mutation control"
+        with patch.dict(globals_, {"NORMALIZED": normalized}):
+            mutated = ns["run_pipeline"](d2path)["projection"]
+        check("boundary D2 control: D2 rank projection remains enabled and responds to D2 mutation",
+              mutated["rank_rules"]["normalized_rules"][0]["authority"] == "D2 mutation control" and ns["serialize"](mutated) != ns["serialize"](d2))
+
+
 def selftest():
-    """Control matrix: shard blocks, spec §5 D4 cases, CLI build/--check/tamper."""
+    """Control matrix: shards, malformed cases, family boundaries, CLI tamper."""
     passed, failed = [], []
 
     def check(label, condition, detail=""):
@@ -3003,6 +3378,61 @@ def selftest():
               and row["status"] == "to-verify" and row["tag"] == "E1"
               for row in shaped_leg["rows"]), json.dumps(shaped_leg["rows"]))
 
+    def alias_refusal(packet):
+        try:
+            packet_alias_rows(packet)
+        except Malformed as exc:
+            return str(exc)
+        return ""
+
+    for tag in CONTRACT_ERAS:
+        aliases, rows, key = packet_alias_rows({"era_aliases": {"old era": tag}})
+        check("alias: declared %s stays mapped-confirmed without coercion" % tag,
+              aliases == {"old era": tag} and key == "era_aliases"
+              and reconcile_era("old era", rows)["verdict"] == "mapped-confirmed"
+              and rows[0]["tag"] == tag, json.dumps(rows))
+    invalid_tags = ([1, 2], {"tag": "E1"}, 1, 1.5, True, None,
+                    "", " E1", "E1 ", "e1", "E9", "E10", "E1 suffix")
+    for key in PACKET_ALIAS_KEYS:
+        for tag in invalid_tags:
+            declared = ({"old era": tag} if key == "era_aliases" else
+                        [{"id": "ER-PROBE", "name": "old era", "tag": tag}])
+            diagnostic = alias_refusal({key: declared})
+            check("alias: %s rejects malformed tag %r" % (key, tag),
+                  diagnostic.startswith("P-ERA-ALIAS at ") and key in diagnostic,
+                  diagnostic)
+    malformed_aliases = (
+        {"era_aliases": "nope"}, {"era_aliases": []}, {"era_aliases": None},
+        {"era_aliases": {1: "E1"}}, {"era_aliases": {"": "E1"}},
+        {"era_aliases": {" ": "E1"}},
+        {"era_aliases": {"old era": [1, 2]},
+         "named_eras": [{"name": "valid fallback", "tag": "E1"}]},
+    )
+    for index, malformed in enumerate(malformed_aliases):
+        diagnostic = alias_refusal(malformed)
+        check("alias: malformed map/name %d refuses before fallback" % (index + 1),
+              diagnostic.startswith("P-ERA-ALIAS at "), diagnostic)
+    for key in ("named_eras", "era_records"):
+        aliases, rows, source = packet_alias_rows(
+            {key: [{"id": "ER-PROBE", "name": "old era", "tag": "E1"}]})
+        check("alias: valid %s preserves its declared name/tag pair" % key,
+              aliases == {"old era": "E1"} and source == key
+              and rows == [{"id": "packet %s.ER-PROBE" % key,
+                            "source": "old era", "tag": "E1",
+                            "status": "confirmed"}], json.dumps(rows))
+        for index, declared in enumerate((None, {}, ["not a record"],
+                                           [{"name": "old era"}],
+                                           [{"name": "", "tag": "E1"}],
+                                           [{"name": "old era", "tag": "E1"},
+                                            {"name": "old era", "tag": "E2"}])):
+            diagnostic = alias_refusal({key: declared})
+            check("alias: malformed %s record set %d refuses" % (key, index + 1),
+                  diagnostic.startswith("P-ERA-ALIAS at "), diagnostic)
+    empty_aliases = packet_alias_rows({"era_aliases": {}, "named_eras": [],
+                                       "era_records": []})
+    check("alias: empty declarations keep the explicit no-alias path",
+          empty_aliases == ({}, [], None), repr(empty_aliases))
+
     # ---- 4. CLI: emit / check / tamper, in an isolated tree -------------
     with tempfile.TemporaryDirectory() as tmp:
         mirror = pathlib.Path(tmp) / "repo"
@@ -3098,9 +3528,58 @@ def selftest():
                           "--check", "examples/culture-d4/typed-labels.d4.yml")
             check("mirror: --check exits 0 in the mirror", clean.returncode == 0,
                   "exit=%s %s" % (clean.returncode, clean.stderr.strip()[:200]))
+            original = d4_packet.read_text(encoding="utf-8")
+            malformed_declarations = (
+                ("list-tag", "era_aliases", {"era-9": [1, 2]}),
+                ("invalid-tag", "era_aliases", {"era-9": "E9"}),
+                ("non-map", "era_aliases", "nope"),
+                ("named-list-tag", "named_eras",
+                 [{"id": "ER-PROBE", "name": "old era", "tag": [1, 2]}]),
+            )
+            for label, key, declaration in malformed_declarations:
+                probe = d4mirror / "examples/culture-d4" / (label + ".yml")
+                line = "%s: %s\n" % (key, json.dumps(declaration))
+                text = (original + "\n" + line if key == "era_aliases" else
+                        re.sub(r"^named_eras:\n.*?(?=^\S)", lambda match: line,
+                               original, count=1, flags=re.M | re.S))
+                probe.write_text(text, encoding="utf-8")
+                target = d4mirror / "examples/culture-d4" / (label + "-output.yml")
+                refused = d4run("--packet", str(probe), "--emit", str(target))
+                check("alias cli: %s emit refuses without creating a projection" % label,
+                      refused.returncode == 2 and "P-ERA-ALIAS" in refused.stderr
+                      and not refused.stdout and not target.exists(),
+                      "exit=%s %s" % (refused.returncode, refused.stderr.strip()[:200]))
+                sentinel = b"existing output must survive malformed input\n"
+                target.write_bytes(sentinel)
+                refused = d4run("--packet", str(probe), "--emit", str(target))
+                check("alias cli: %s emit preserves an existing output" % label,
+                      refused.returncode == 2 and "P-ERA-ALIAS" in refused.stderr
+                      and target.read_bytes() == sentinel, refused.stderr.strip()[:200])
+                refused = d4run("--packet", str(probe), "--json")
+                check("alias cli: %s json refuses without a confirmed row" % label,
+                      refused.returncode == 2 and "P-ERA-ALIAS" in refused.stderr
+                      and not refused.stdout, refused.stderr.strip()[:200])
+                refused = d4run("--packet", str(probe), "--check", str(d4emitted))
+                check("alias cli: %s check refuses before byte comparison" % label,
+                      refused.returncode == 2 and "P-ERA-ALIAS" in refused.stderr,
+                      refused.stderr.strip()[:200])
+            valid = d4mirror / "examples/culture-d4/valid-alias.yml"
+            valid.write_text(original + '\nera_aliases: {"era-9": "E1"}\n',
+                             encoding="utf-8")
+            target = d4mirror / "examples/culture-d4/valid-alias-output.yml"
+            accepted = d4run("--packet", str(valid), "--emit", str(target))
+            alias_rows = (json.loads(target.read_text(encoding="utf-8"))
+                          ["era_reconciliation"]["alias_rows"] if target.is_file() else [])
+            check("alias cli: a valid declared map still emits a confirmed contract tag",
+                  accepted.returncode in (0, 1)
+                  and alias_rows == [{"id": "packet era_aliases.era-9",
+                                      "source": "era-9", "tag": "E1",
+                                      "status": "confirmed"}],
+                  "exit=%s %s" % (accepted.returncode, accepted.stderr.strip()[:200]))
     else:
         check("mirror: the d4 packet is present", False, str(d4_packet))
 
+    _selftest_family(check)
     total = len(passed) + len(failed)
     if failed:
         print("selftest: %d/%d checks passed — failures: %s"

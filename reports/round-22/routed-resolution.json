@@ -1,0 +1,43 @@
+{
+ "round": 22,
+ "date": "2026-10-18",
+ "source": "reports/round-21/defects/routed.md",
+ "resolutions": [
+  {
+   "id": "R21-EDGE-DECLARED-IN",
+   "disposition": "fixed-with-control",
+   "evidence": "reports/round-22/fixes/declared-in.md",
+   "control": "34/34 carried edges exactly equal in Markdown and twin; truncation removed; new frozen revision declared-in-r2 replays green; packet version 3.1.1"
+  },
+  {
+   "id": "R21-MTIME-TIE-BREAK",
+   "disposition": "fixed-with-control",
+   "evidence": "reports/round-22/fixes/tie-break.md + tie-break.py",
+   "control": "deterministic numeric-build then content-sha ordering; 23/23 selector controls; both timestamp orders select identically. Open tail: PLACEHOLDER_RE false positive on D4-CL08's legitimate phrase 'unchanged-foreign-path control' blocks the full historical check — routed to round 25 (validator wording fix), not weakened here"
+  },
+  {
+   "id": "R21-ALIAS-COERCION",
+   "disposition": "fixed-with-control",
+   "evidence": "reports/round-22/fixes/alias-coercion.md",
+   "control": "malformed era-alias tags fail closed P-ERA-ALIAS exit 2 (paired before/after control); projector selftest 132/132; alias-only v2 baseline landed; combined-source successor pins deferred to the round-25 bleed-fix integration"
+  },
+  {
+   "id": "R21-R17-SNAPSHOT",
+   "disposition": "resolved-by-documentation",
+   "evidence": "reports/round-22/fixes/snapshot-r17.md",
+   "control": "mechanism reproduced in a fresh clone: the scanner filters absolute paths containing the ancestor .scratch -> zero fragments; restoring root context returns 16 fragments / 7 fixed / 5 attempted. Frozen runner untouched"
+  },
+  {
+   "id": "R21-R18-SUPERSESSION",
+   "disposition": "resolved-by-documentation",
+   "evidence": "reports/round-22/fixes/r18-supersession.md",
+   "control": "named supersession row R22-O11-SUPERSESSION-1; successor projection row replays 2/2; original 2/2-at-admission vs 1/2-after-peer-change recorded, never edited"
+  },
+  {
+   "id": "R21-BASELINE-BINDING",
+   "disposition": "resolved-by-documentation",
+   "evidence": "reports/round-22/fixes/declared-in.md + alias-coercion-repin.json",
+   "control": "new-pin discipline enforced this round: every re-pin is a new revision row with before/after digests; the class is codified in the resolution ledger"
+  }
+ ]
+}

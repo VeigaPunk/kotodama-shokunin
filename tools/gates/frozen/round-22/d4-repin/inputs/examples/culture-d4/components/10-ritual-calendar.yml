@@ -1,0 +1,68 @@
+# reports/round-17/d4/components/10-ritual-calendar.yml
+# D4 design drill — component 10 of the round-17 registry.
+# NON-CANON: this file proposes a design; it records nothing about any world.
+#
+# Write seat: R17-D14 (D-components, seat 10 of 12). Round 17, 2026-10-18.
+# The `calendar`, `festivals` and `rites` blocks below are the packet blocks the
+# assembler extracts.
+component: 10-ritual-calendar
+culture: D4
+canon: not canonized (D4 design drill)
+title: "10-ritual-calendar — the year of the kept fire: burns, turns, and the fallow"
+status: "round-17 component write, 2026-10-18; supersede-by-new-file only"
+packet_keys: [calendar, festivals, rites]
+scope: >
+  The furnace year (twelve burns of five turns, the two-burn fallow, the
+  relight), six festivals, four rites, and the held-day rule. Era names and
+  dates are 08-eras's; this component dates its records only by tag.
+spine_coupling: "fire — the year is a heat cycle: ten working burns, two banked, and the relight from the banked coals; the rites are furnace operations made ceremonial (relight, quench blessing, stamp-taking). mark — the year's accounts are stamped at the burn's close, and the stamp-taking rite makes a new holder's first mark a public act"
+spine_check: "no D1 or D2 imagery is imported. No seasonal pasture poles, no ascent/descent, no storm-law closure: the fallow is the fire's rest, not a wind or a migration. No knot or cord in any calendar record (RG-01)."
+
+follows:
+  - {id: F-1, path: "corpus/knowledge/culture-material/calendar-festival-systems.md", section: "§1 three clocks and the lie, §2 intercalation strategies, §6 per-day register, §8 new-year placement", use: "the year is declared with its units and its intercalation rule stated plainly"}
+  - {id: F-2, path: "corpus/knowledge/myth-symbol/ritual-liminality.md", section: "§5 calendrical rites, §6 performative speech and felicity conditions", use: "the relight and stamp-taking rites are liminal by construction, with the conditions that make them felicitous"}
+  - {id: F-3, path: "corpus/knowledge/myth-symbol/celestial-symbolism-calendars.md", section: "§4 cycle to calendar, §8 leap ownership", use: "no sky object is used: D4's clock is the furnace's, and the leap rule is owned by the furnace-master's council"}
+  - {id: F-4, path: "corpus/knowledge/verification/myth-consistency-gate.md", section: "§3 role coverage", use: "every festival names the role it serves; no festival is decorative"}
+
+calendar:
+  id: CAL-01
+  year: "twelve burns; a burn is five turns; the fallow is the last two burns (banked fire); the relight opens the new year"
+  turns: "a turn is the furnace's working day; the kept fire's count of turns is the era coordinate (08-eras)"
+  intercalation: "the furnace-master's council inserts a held turn when the burn's count drifts; the held turn is stamped into the roll and the year is not renamed"
+  held_rule: "a held turn is a non-working day; no cast is opened and no account is stamped"
+  axis: fire
+  evidence: design-choice
+  follows: [F-1, F-3]
+
+festivals:
+  - {id: FES-01, festival: "the relight", timing: "the first turn of the first burn", role_served: ROL-01, rite: RIT-01, era: E0, axis: fire, evidence: design-choice, follows: [F-1, F-2]}
+  - {id: FES-02, festival: "the first cast", timing: "the second turn of the first burn", role_served: ROL-06, rite: RIT-02, era: E0, axis: fire, evidence: design-choice, follows: [F-1]}
+  - {id: FES-03, festival: "the weigh-fair", timing: "the close of the fifth burn and the tenth burn", role_served: ROL-03, rite: null, era: E1, axis: mark, evidence: design-choice, follows: [F-1]}
+  - {id: FES-04, festival: "the banked fire", timing: "the first turn of the eleventh burn (fallow begins)", role_served: ROL-02, rite: null, era: E0, axis: fire, evidence: design-choice, follows: [F-1]}
+  - {id: FES-05, festival: "the ash spreading", timing: "the third turn of the twelfth burn", role_served: ROL-05, rite: null, era: E0, axis: fire, evidence: design-choice, follows: [F-1]}
+  - {id: FES-06, festival: "the naming of the dead", timing: "the fifth turn of the twelfth burn", role_served: ROL-05, rite: RIT-04, era: E0, axis: fire, evidence: design-choice, follows: [F-2]}
+
+rites:
+  - {id: RIT-01, rite: "the relight", act: "the furnace-master carries a coal from the banked hearth to the furnace mouth and breathes the bellows until the charge catches", holder: "the furnace-master", participants: "the town", felicity: "the coal must come from the town's own banked hearth; a relight from another town's fire is not a relight", era: E0, axis: fire, evidence: design-choice, follows: [F-2]}
+  - {id: RIT-02, rite: "the quench blessing", act: "the first cast of the year is quenched by the smith and the steam is read by the messenger's holder", holder: "the smith at the quench", participants: "the forge crew", felicity: "the cast must be the year's first; a later cast's steam is not read", era: E0, axis: both, evidence: design-choice, follows: [F-2]}
+  - {id: RIT-03, rite: "the stamp-taking", act: "a new stamp-holder cuts or receives a stamp and makes the first mark on a witness ingot at the weigh-stone", holder: "the stamp-house", participants: "the town and the council", felicity: "the first mark must be on the holder's own work; marking another's work voids the taking", era: E1, axis: mark, evidence: design-choice, follows: [F-2]}
+  - {id: RIT-04, rite: "the naming of the dead", act: "the lineage's dead are named at the banked hearth, and their names are read from the lineage's roll bar", holder: "the shade-keeper", participants: "the lineage", felicity: "the naming is at the banked hearth, not at the working furnace; the fire is not relit for it", era: E0, axis: fire, evidence: design-choice, follows: [F-2]}
+
+calendar_poles:
+  - {id: POLE-01, pole: "the relight", meaning: "continuity: the fire is inherited, not reinvented (AS-03)", axis: fire, evidence: design-choice}
+  - {id: POLE-02, pole: "the banked fire", meaning: "the fallow: work stops, the dead are named, the ash is kept", axis: fire, evidence: design-choice}
+
+open_questions:
+  - {id: OQ-CAL1, text: "The intercalation rule is declared but not exercised by any delivered festival or rite (to-verify); no year is dated in this drill."}
+  - {id: OQ-CAL2, text: "Whether the weigh-fair's two dates are the same institution at two scales is left open (to-verify)."}
+
+calibration:
+  - {id: CAL-CAL1, status: design-choice, note: "the year is an invented convention; no real calendar, festival, or ritual is described or compared"}
+  - {id: CAL-CAL2, status: to-verify, note: "no astronomical or agricultural measurement backs the burn count"}
+
+canon_boundary: |
+  This component designs a calendar and rites; it records nothing about any
+  world. Canon, chronology, and in-world religious practice are lore-shokunin's.
+  No sibling component was edited; sibling content is referenced only by contract
+  field path. No real-world calendar, religion, community, or rights question is
+  decided or implied here.

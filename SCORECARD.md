@@ -244,6 +244,24 @@ Routed to round 22 (with owners): edge declared_in restoration, mtime
 tie-break hermeticity, the D4 fixture bleed, the r17 clone-snapshot question,
 the alias malformed-tag coercion, baseline-binding drift class.
 
+## Axes — round 22 (2026-10-18), NOT admitted (claim D failed as declared)
+
+Baseline `cd9c8e4`; one 32-worker `openai-codex/gpt-6.1-sol` (max effort)
+integrate batch (9 completed, 6 aborted mid-flight by operator interrupt —
+among them the D-claim implementation seats D04-D08). Acceptance: O and C
+verify; D does not (the bleed fix was designed but never implemented).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O verified) | Six round-21 routed items dispositioned in routed-resolution.json: declared_in restored (34/34 exact equality, truncation removed, packet 3.1.1, new frozen revisions); deterministic content-based tie-break (23/23 controls; the PLACEHOLDER_RE wording false positive routed to r25, not weakened); alias coercion fails closed (132/132 projector selftest; paired before/after); r17 scanner mechanism reproduced (.scratch path filter); r18 supersession documented as a named row; baseline-binding new-pin discipline codified. Regressions: battery/craft/adapter/d4-gate/d2-gate/handoff-v3/handoff-v2/projector all exit 0 | `python3 reports/round-22/run-validation.py` (parent-assembled) | `reports/round-22/fixes/`, `routed-resolution.json` |
+| calibration | improved (claim C verified) | reports/round-22/loop2-retrospective.md: loop 2 = 4 admissions / 1 rejection; 14 passing / 1 failing claim flags; the r17/r18 arc assessed honestly — the executable repair is real but R17's 6-hold/0-note contract vs the reconciled 15/1 shows the original contract was not unchanged; 23 defect entries classified exactly once; auditors verified numbers and pointers (C08 PASS; strict C07 unblocked by the resolution JSON) | `reports/round-22/loop2-retrospective.md` | retrospective + audits |
+| depth | unchanged (claim D failed as declared) | The D4 fixture-bleed FIX was analyzed and designed (exact census: 24 rank-provenance fields + 3 quarantine citations + 14 short refs; injection point at the projector's unconditional D2 build_payload; family-clean design with paired controls) but the implementation seats were aborted before landing — no source fix this round | `reports/round-22/bleed/` | analysis.md + design.md only |
+| freshness / adjacency / coverage | unchanged | Pause in force; scope verified clean at recorded observations (1,018 protected paths) | — | `reports/round-22/scope.md` |
+
+Round status: REJECTED on D (impl aborted; design + controls route to round
+25 with the implementation seats' recipe). O/C verify; no axis harmed.
+Loop-2 retrospective stands as the loop's calibration record.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

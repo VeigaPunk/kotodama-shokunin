@@ -1,0 +1,259 @@
+{
+  "baseline_revision": "46a03257ee75dd8f685a105e47da3f45a0154172",
+  "battery": {
+    "baselines": {
+      "findings": [],
+      "mode": "baselines",
+      "roots": [
+        {
+          "files_found": 5,
+          "present": true,
+          "root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r22-o07-8iaicnio/repo/tools/gates/expected"
+        },
+        {
+          "files_found": 10,
+          "present": true,
+          "root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r22-o07-8iaicnio/repo/tools/gates/frozen"
+        },
+        {
+          "files_found": 3,
+          "present": true,
+          "root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r22-o07-8iaicnio/repo/reports/round-9/baselines"
+        }
+      ],
+      "summary": {
+        "baseline_exit": 0,
+        "baselines_found": 18,
+        "coverage": "9/9",
+        "gates_covered": [
+          "costume-era-consistency-gate.py",
+          "handoff-packet-check.py",
+          "lexicon-coverage-audit.py",
+          "myth-consistency-gate.py",
+          "naming-collision-gate.py",
+          "phonology-sanity-gate.py",
+          "provenance-audit.py",
+          "d4-typed-labels-check-gate.py",
+          "d4-assembly-check-gate.py"
+        ],
+        "gates_registered": 9,
+        "gates_uncovered": [],
+        "pinned": 18,
+        "readings": {
+          "pinned": 18
+        },
+        "unevaluable": 0,
+        "verdict_replay": "not-run: the battery verifies digests and pins; the verdict comparison belongs to the baseline's own re-run receipt"
+      },
+      "tool": "check-gate-battery"
+    },
+    "command": "python3 tools/check-gate-battery.py",
+    "date": "2026-10-18",
+    "exit": 0,
+    "measured_at": "2026-10-18T14:43:21.196391+00:00",
+    "stdout_sha256": "cd5491355c12e5b44440e5b08bcbc13cb7ccb23119581c45a22870a1ebad5796",
+    "summary": {
+      "battery_exit": 0,
+      "fail": 0,
+      "pass": 7,
+      "unevaluable": 0
+    }
+  },
+  "claim": "O: malformed packet-era aliases fail closed",
+  "commands": [
+    {
+      "command": "python3 tools/d2-typed-labels.py --selftest",
+      "date": "2026-10-18",
+      "exit": 0,
+      "measured_at": "2026-10-18T14:44:03.221153+00:00",
+      "stderr": "",
+      "stdout_sha256": "67aba4b10f2d0a0cb7cd7fccfc0881e6ad9f19cc952adba7882a8c44bb975606",
+      "stdout_tail": "selftest: 132/132 checks passed \u2014 the three shard control matrices, the loader/parser malformed cases, the live-packet typing and reconciliation cases, and the CLI emit/check/tamper controls; no file outside the temporary directory touched"
+    },
+    {
+      "command": "python3 tools/assemble-d4-typed.py --selftest",
+      "date": "2026-10-18",
+      "exit": 0,
+      "measured_at": "2026-10-18T14:44:04.697009+00:00",
+      "stderr": "",
+      "stdout_sha256": "4945c941cd2437347473c8c23209aeb8240a63f936bb612c0db15824986e5c5f",
+      "stdout_tail": "selftest: 12/12 checks passed \u2014 build/determinism/--check/tamper plus stale-projection, coverage-gap and malformed-packet controls; no file outside the temporary mirror touched"
+    },
+    {
+      "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+      "date": "2026-10-18",
+      "exit": 0,
+      "measured_at": "2026-10-18T14:44:05.427004+00:00",
+      "stderr": "",
+      "stdout_sha256": "22ce048a6528808848c737944e77dfddd370ca93f90757602eb99c0a3e640ddc",
+      "stdout_tail": "selftest: 12/12 checks passed \u2014 constant==baseline, the mirrored four legs, determinism/--json, and the smuggled-label, dropped-row, laundered-hold, adapter-drift, malformed and missing controls; no file outside the temporary mirror touched"
+    },
+    {
+      "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+      "date": "2026-10-18",
+      "exit": 0,
+      "measured_at": "2026-10-18T14:44:08.549370+00:00",
+      "stderr": "",
+      "stdout_sha256": "f7630ddbeac2ce6b3e3ceb4e4fc2c275d428f1fe5588873656d9bc7fe7b5aee1",
+      "stdout_tail": "summary: 19/19 legs passed"
+    },
+    {
+      "command": "python3 reports/round-15/handoff/frozen-verify.py --baseline reports/round-22/fixes/alias-coercion-v2-07.json",
+      "date": "2026-10-18",
+      "exit": 0,
+      "measured_at": "2026-10-18T14:44:08.983353+00:00",
+      "stderr": "",
+      "stdout_sha256": "500e5a3e6bd143bf4a39f00e15a7a92dd42fde424caa06d16b248ae66975eadd",
+      "stdout_tail": "frozen-v2: exit=0 fields=16/16 glossary=20/20 findings=0 claims=15/15 statuses={'supported': 8, 'unresolved': 2, 'partial': 5} links=50/50 packet_sha256=24f9dd39bdad\u2026"
+    },
+    {
+      "command": "python3 reports/round-15/handoff/frozen-verify.py --baseline reports/round-20/repin/expected-v2-07-r20.json",
+      "date": "2026-10-18",
+      "exit": 2,
+      "measured_at": "2026-10-18T14:44:09.140386+00:00",
+      "stderr": "V2F-DIGEST: 1 pinned file(s) changed since the freeze: tools/d2-typed-labels.py",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": ""
+    },
+    {
+      "command": "python3 tools/d2-typed-labels-before-alias.py --packet /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r22-o07-8iaicnio/repo/examples/culture-d4/alias-negative-control.yml --emit .scratch/pre-fix-control.yml",
+      "date": "2026-10-18",
+      "exit": 1,
+      "measured_at": "2026-10-18T14:44:09.172548+00:00",
+      "stderr": "",
+      "stdout_sha256": "efd62772d5c89e9f4938ce74c96818da46998aad52754c889a825072ce167d7c",
+      "stdout_tail": "Wrote .scratch/pre-fix-control.yml"
+    },
+    {
+      "command": "python3 tools/d2-typed-labels.py --packet /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/r22-o07-8iaicnio/repo/examples/culture-d4/alias-negative-control.yml --emit .scratch/post-fix-control.yml",
+      "date": "2026-10-18",
+      "exit": 2,
+      "measured_at": "2026-10-18T14:44:09.221524+00:00",
+      "stderr": "d2-typed-labels error: P-ERA-ALIAS at era_aliases.era-9: tag must be one of E0, E1, E2, E3, got [1, 2]",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_tail": ""
+    }
+  ],
+  "date": "2026-10-18",
+  "initial_replay_refusal": {
+    "date": "2026-10-18",
+    "exit": 2,
+    "measured_at": "2026-10-18T14:43:02.655911+00:00",
+    "reason": [
+      "one ignored output log omitted by git clone",
+      "TMPDIR was inside disposable clone, rejected by mirror_unsafe"
+    ],
+    "resolution": "copy exact existing run.log bytes only into disposable clone; keep TMPDIR at lane .scratch outside clone; rerun standard unmodified replay"
+  },
+  "limits": [
+    "Live expected-hold and typed-profile writes belong to the integration/D4 owners; successor source rows are supplied here without modifying those files.",
+    "No historical filed workspace artifact was edited.",
+    "The v2 row pins the alias-only snapshot, not automatically the separate D4 source changes.",
+    "Handoff-v3 source pins are rebuilt by the handoff/integration owner; historical v3 packets stay immutable.",
+    "Battery baseline validation checks digests, not a replacement for every recorded verdict replay."
+  ],
+  "malformed_full_cli_control": {
+    "after_diagnostic": "d2-typed-labels error: P-ERA-ALIAS at era_aliases.era-9: tag must be one of E0, E1, E2, E3, got [1, 2]",
+    "after_exit": 2,
+    "after_output_exists": false,
+    "before_exit": 1,
+    "before_rows": [
+      {
+        "id": "packet era_aliases.era-9",
+        "source": "era-9",
+        "status": "confirmed",
+        "tag": "[1, 2]"
+      }
+    ]
+  },
+  "measured_at": "2026-10-18T14:44:09.271237+00:00",
+  "new_rows": [
+    {
+      "after": "a10861f039f7e80a2f38a11fe1d72d4ef6fa5f48987f5fff96185b1875924a7b",
+      "before": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+      "command": "sha256sum tools/d2-typed-labels.py",
+      "date": "2026-10-18",
+      "disposition": "new-row alias-source pin; live channel requires final combined-source integration",
+      "field": "projector_sha256",
+      "path": "examples/culture-d2/expected-holds.json"
+    },
+    {
+      "after": "a10861f039f7e80a2f38a11fe1d72d4ef6fa5f48987f5fff96185b1875924a7b",
+      "before": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+      "command": "sha256sum tools/d2-typed-labels.py",
+      "date": "2026-10-18",
+      "disposition": "new-row alias-source pin; live channel requires final combined-source integration",
+      "field": "projector_sha256",
+      "path": "examples/culture-d4/expected-holds.json"
+    },
+    {
+      "after": "a10861f039f7e80a2f38a11fe1d72d4ef6fa5f48987f5fff96185b1875924a7b",
+      "before": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+      "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-20/repin-d2/MANIFEST.tsv --json",
+      "date": "2026-10-18",
+      "disposition": "new receipt row; r20 stays filed",
+      "field": "tools/d2-typed-labels.py",
+      "path": "D2 typed replay tool_pins",
+      "reading": {
+        "could_not_evaluate": 0,
+        "exit": 0,
+        "mismatch": 0,
+        "reproduced": 11,
+        "rows": 11
+      },
+      "supersedes": "tools/gates/frozen/round-20/repin-d2/run-receipt-repin.json"
+    },
+    {
+      "after": "a10861f039f7e80a2f38a11fe1d72d4ef6fa5f48987f5fff96185b1875924a7b",
+      "baseline_sha256": "1dadef813cfb64e9d134afdbf983219fb9d5f0f516060dd01b7b5c29bf2b396c",
+      "before": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+      "command": "python3 reports/round-15/handoff/frozen-verify.py --freeze --baseline reports/round-22/fixes/alias-coercion-v2-07.json",
+      "date": "2026-10-18",
+      "field": "inputs.tools/d2-typed-labels.py",
+      "inputs": 28,
+      "moved_inputs": [
+        "tools/d2-typed-labels.py"
+      ],
+      "path": "reports/round-22/fixes/alias-coercion-v2-07.json",
+      "supersedes": "reports/round-20/repin/expected-v2-07-r20.json",
+      "verification_exit": 0
+    },
+    {
+      "after": "a10861f039f7e80a2f38a11fe1d72d4ef6fa5f48987f5fff96185b1875924a7b",
+      "before": "76536a924280ad4187e2abeec1977b92861656a30d2dc7428f1f09087df8edfb",
+      "command": "sha256sum tools/d2-typed-labels.py examples/culture-d4/typed-labels.d4.yml",
+      "date": "2026-10-18",
+      "disposition": "new alias-source row; D07-D08 owns r22-post final snapshot with separate bleed projection",
+      "field": "inputs.tools/d2-typed-labels.py",
+      "path": "D4 projection-check baseline source input",
+      "supersedes": "tools/gates/expected/d4-typed-labels-check-gate/r20-post/expected.json"
+    }
+  ],
+  "projector_source_stable_at_publication": true,
+  "replay": {
+    "TMPDIR": "lane .scratch, outside the disposable clone",
+    "command": "python3 tools/replay-frozen.py tools/gates/frozen/round-20/repin-d2/MANIFEST.tsv --json",
+    "date": "2026-10-18",
+    "exit": 0,
+    "ignored_log_sha256": "9a69985aabdf3e9bf233653f7b31ce6f3bf5fd12858cfedf7e9ebca14ada4606",
+    "measured_at": "2026-10-18T14:43:20.463030+00:00",
+    "stdout_sha256": "c029d7b2579ba9f5d3d5ccc0ed5bf03ff8e22610a6fc34a08a1b1cdc53396cd4",
+    "summary": {
+      "could_not_evaluate": 0,
+      "exit": 0,
+      "mismatch": 0,
+      "reproduced": 11,
+      "rows": 11
+    }
+  },
+  "round": 22,
+  "schema": "kotodama-repin-receipt-v1",
+  "scope": "isolated alias-source snapshot; later combined D4 source moves require NEW successor rows",
+  "seats": [
+    "R22-O07",
+    "R22-O08",
+    "R22-O09"
+  ],
+  "snapshot_projector_sha256": "a10861f039f7e80a2f38a11fe1d72d4ef6fa5f48987f5fff96185b1875924a7b",
+  "snapshot_root": ".scratch/r22-o07-8iaicnio/repo"
+}
