@@ -1,0 +1,822 @@
+{
+ "schema": "kotodama-r27-gate-tests-v1",
+ "round": 27,
+ "seats": [
+  "R27-D13",
+  "R27-D14",
+  "R27-D15",
+  "R27-D16"
+ ],
+ "date": "2026-10-18T20:04:10Z",
+ "runs": [
+  {
+   "label": "argot-selftest",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/argot-derivation-gate.py --selftest",
+   "date": "2026-10-18T20:04:10Z",
+   "exit": 0,
+   "tail": "selftest: 27/27 checks passed"
+  },
+  {
+   "label": "d4-typed",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml",
+   "date": "2026-10-18T20:04:11Z",
+   "exit": 0,
+   "legs": 17,
+   "failed_legs": [],
+   "hold_lines": 12,
+   "stdout_sha256": "c670aa42f543cc20b75af316160a5a9478845235190aace520a9807c545eb853"
+  },
+  {
+   "label": "d4-source",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+   "date": "2026-10-18T20:04:11Z",
+   "exit": 0,
+   "legs": 20,
+   "failed_legs": [],
+   "hold_lines": 12,
+   "stdout_sha256": "146b6e20a8fa96f8274525185c4e28bbe5d153fe4528df79c8c1fd86aa24b16e"
+  },
+  {
+   "label": "assemble-d4",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/assemble-culture-d4.py --check",
+   "date": "2026-10-18T20:04:12Z",
+   "exit": 0,
+   "tail": "packet.d4.yml: byte-identical deterministic assembly"
+  },
+  {
+   "label": "assemble-d4-typed",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/assemble-d4-typed.py --check",
+   "date": "2026-10-18T20:04:12Z",
+   "exit": 0,
+   "tail": "examples/culture-d4/packet.d4.typed.yml: byte-identical deterministic typed packet"
+  },
+  {
+   "label": "d4-assembly-check-gate",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/d4-assembly-check-gate.py examples/culture-d4/packet.d4.yml",
+   "date": "2026-10-18T20:04:12Z",
+   "exit": 0,
+   "tail": "examples/culture-d4/packet.d4.yml: byte-identical deterministic assembly"
+  },
+  {
+   "label": "d4-typed-labels-check-gate",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/d4-typed-labels-check-gate.py examples/culture-d4/typed-labels.d4.yml",
+   "date": "2026-10-18T20:04:12Z",
+   "exit": 0,
+   "tail": "examples/culture-d4/typed-labels.d4.yml: byte-identical deterministic projection"
+  },
+  {
+   "label": "projector-check",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml",
+   "date": "2026-10-18T20:04:12Z",
+   "exit": 0,
+   "tail": "examples/culture-d4/typed-labels.d4.yml: byte-identical deterministic projection"
+  },
+  {
+   "label": "argot-selftest-d16",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/argot-derivation-gate.py --selftest",
+   "date": "2026-10-18T20:04:13Z",
+   "exit": 0,
+   "tail": "selftest: 27/27 checks passed"
+  }
+ ],
+ "checks": [
+  {
+   "name": "D13 the argot gate exits 0 on the amended packet",
+   "ok": true,
+   "detail": "exit 0: ['coverage: examples/culture-d4/packet.d4.yml records=175 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0']"
+  },
+  {
+   "name": "D13 no finding is emitted",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "name": "D13 the coverage line is printed",
+   "ok": true,
+   "detail": "no coverage line"
+  },
+  {
+   "name": "D13 the register domain is non-empty",
+   "ok": true,
+   "detail": "register_scoped=14"
+  },
+  {
+   "name": "D13 the derivation pairs replay",
+   "ok": true,
+   "detail": "derived_pairs=8"
+  },
+  {
+   "name": "D13 zero violations",
+   "ok": true,
+   "detail": "violations=0"
+  },
+  {
+   "name": "D13 zero rule holds",
+   "ok": true,
+   "detail": "rule_holds=0"
+  },
+  {
+   "name": "D13 the dependency line names the gate it loaded",
+   "ok": true,
+   "detail": "no dependency line"
+  },
+  {
+   "name": "D13 the amended packet declares the registers block",
+   "ok": true,
+   "detail": "no top-level `registers:` key"
+  },
+  {
+   "name": "D13 the register law rows are in the packet",
+   "ok": true,
+   "detail": "missing []"
+  },
+  {
+   "name": "D13 three runs are byte-identical",
+   "ok": true,
+   "detail": "1 distinct digests"
+  },
+  {
+   "name": "D13 the exit is stable across runs",
+   "ok": true,
+   "detail": "exits [0, 0, 0]"
+  },
+  {
+   "name": "D13 the argot selftest passes",
+   "ok": true,
+   "detail": "exit 0: ['selftest: 27/27 checks passed']"
+  },
+  {
+   "name": "D13 the argot selftest reports its check count",
+   "ok": true,
+   "detail": [
+    "selftest: 27/27 checks passed"
+   ]
+  },
+  {
+   "name": "D14 d4-typed exits 0",
+   "ok": true,
+   "detail": "exit 0"
+  },
+  {
+   "name": "D14 d4-typed runs at least 17 legs",
+   "ok": true,
+   "detail": "17 legs"
+  },
+  {
+   "name": "D14 d4-typed has no FAIL leg",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "D14 d4-typed names the hold set",
+   "ok": true,
+   "detail": "no [hold] FINDING line"
+  },
+  {
+   "name": "D14 d4-typed argot leg is ok",
+   "ok": true,
+   "detail": "L3b-argot not ok"
+  },
+  {
+   "name": "D14 d4-source exits 0",
+   "ok": true,
+   "detail": "exit 0"
+  },
+  {
+   "name": "D14 d4-source runs at least 20 legs",
+   "ok": true,
+   "detail": "20 legs"
+  },
+  {
+   "name": "D14 d4-source has no FAIL leg",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "D14 d4-source names the hold set",
+   "ok": true,
+   "detail": "no [hold] FINDING line"
+  },
+  {
+   "name": "D14 d4-source argot leg is ok",
+   "ok": true,
+   "detail": "L3b-argot not ok"
+  },
+  {
+   "name": "D14 the live hold counts equal the frozen hold set",
+   "ok": true,
+   "detail": "live {'fail': 0, 'hold': 12, 'note': 0} vs expected {'hold': 12, 'note': 0, 'fail': 0}"
+  },
+  {
+   "name": "D14 the frozen hold set declares zero fails",
+   "ok": true,
+   "detail": "{'hold': 12, 'note': 0, 'fail': 0}"
+  },
+  {
+   "name": "D14 assemble-d4 --check exits 0",
+   "ok": true,
+   "detail": "exit 0: ['packet.d4.yml: byte-identical deterministic assembly']"
+  },
+  {
+   "name": "D14 assemble-d4 --check reports byte-identity",
+   "ok": true,
+   "detail": [
+    "packet.d4.yml: byte-identical deterministic assembly"
+   ]
+  },
+  {
+   "name": "D14 assemble-d4-typed --check exits 0",
+   "ok": true,
+   "detail": "exit 0: ['examples/culture-d4/packet.d4.typed.yml: byte-identical deterministic typed packet']"
+  },
+  {
+   "name": "D14 assemble-d4-typed --check reports byte-identity",
+   "ok": true,
+   "detail": [
+    "examples/culture-d4/packet.d4.typed.yml: byte-identical deterministic typed packet"
+   ]
+  },
+  {
+   "name": "D14 d4-assembly-check-gate exits 0",
+   "ok": true,
+   "detail": "exit 0: ['examples/culture-d4/packet.d4.yml: byte-identical deterministic assembly']"
+  },
+  {
+   "name": "D14 d4-typed-labels-check-gate exits 0",
+   "ok": true,
+   "detail": "exit 0: ['examples/culture-d4/typed-labels.d4.yml: byte-identical deterministic projection']"
+  },
+  {
+   "name": "D14 the projector --check exits 0",
+   "ok": true,
+   "detail": "exit 0: ['examples/culture-d4/typed-labels.d4.yml: byte-identical deterministic projection']"
+  },
+  {
+   "name": "D15 the peer law instrument passes its own controls",
+   "ok": true,
+   "detail": "controls: 8/8 caught: []"
+  },
+  {
+   "name": "D15 the lane tree's baseline verdict is recorded",
+   "ok": true,
+   "detail": "exit 1"
+  },
+  {
+   "name": "D15 the working-tree copy is available",
+   "ok": true,
+   "detail": "component missing from the copy"
+  },
+  {
+   "name": "D15 the copied tree rebuilds",
+   "ok": true,
+   "detail": "a build step failed"
+  },
+  {
+   "name": "D15 the clean copy reproduces the baseline verdict",
+   "ok": true,
+   "detail": "copy ['L6b-HOLD', 'L9-HOLD'] vs baseline ['L6b-HOLD', 'L9-HOLD']"
+  },
+  {
+   "name": "D15 the law plant landed",
+   "ok": true,
+   "detail": "'{id: L-55, term: tuum, gloss: \"the breath the smith swears by\", field: body, route: derived, layer: native, stage: E1,' anchor not found"
+  },
+  {
+   "name": "D15 the planted artifacts rebuild through the lane pipeline",
+   "ok": true,
+   "detail": "a build step failed"
+  },
+  {
+   "name": "D15 the planted law violation is caught by the named instrument",
+   "ok": true,
+   "detail": "exit 1 (clean) on a planted era-law violation"
+  },
+  {
+   "name": "D15 the plant adds a finding the baseline does not carry",
+   "ok": true,
+   "detail": "no new finding id: plant ['L4-FAIL', 'L6b-HOLD', 'L9-HOLD'] vs baseline ['L6b-HOLD', 'L9-HOLD']"
+  },
+  {
+   "name": "D15 the caught violation names the planted record",
+   "ok": true,
+   "detail": "the instrument's output does not name L-55"
+  },
+  {
+   "name": "D15 the restored tree returns to the baseline verdict",
+   "ok": true,
+   "detail": "exit 1 ids ['L6b-HOLD', 'L9-HOLD'] vs baseline exit 1 ids ['L6b-HOLD', 'L9-HOLD']"
+  },
+  {
+   "name": "D16 the design's eleven worked rows all re-derive",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "D16 s3-head2-maximal-coda.yml exits 1",
+   "ok": true,
+   "detail": "exit 1"
+  },
+  {
+   "name": "D16 s3-head2-maximal-coda.yml emits ['D4L-ARGOT-DERIV']",
+   "ok": true,
+   "detail": "got ['D4L-ARGOT-DERIV']"
+  },
+  {
+   "name": "D16 exactly one reading of head2(tumkalker) derives",
+   "ok": true,
+   "detail": "[('s1-head2-unconstrained.yml', 1), ('s2-head2-constrained.yml', 0)]"
+  },
+  {
+   "name": "D16 the non-deriving reading names D4L-ARGOT-DERIV",
+   "ok": true,
+   "detail": "[('s1-head2-unconstrained.yml', ['D4L-ARGOT-DERIV'])]"
+  },
+  {
+   "name": "D16 the gate agrees with the design's own worked row",
+   "ok": true,
+   "detail": "head2(saalumi)='saalu' want 'saalu'"
+  },
+  {
+   "name": "D16 the delivered reading is the legality-constrained one",
+   "ok": true,
+   "detail": "delivered reading reads 'constrained'"
+  },
+  {
+   "name": "D16 s4-head2-prefix-reading.yml exits 1",
+   "ok": true,
+   "detail": "exit 1"
+  },
+  {
+   "name": "D16 s4-head2-prefix-reading.yml emits ['D4L-ARGOT-DERIV']",
+   "ok": true,
+   "detail": "got ['D4L-ARGOT-DERIV']"
+  },
+  {
+   "name": "D16 the packet declares its own syllable witness on 8 name records",
+   "ok": true,
+   "detail": "8 declared rows"
+  },
+  {
+   "name": "D16 the argot selftest still passes",
+   "ok": true,
+   "detail": "exit 0"
+  }
+ ],
+ "failures": [],
+ "gaps": [
+  "the delivered syllabifier still disagrees with the packet's own `syllables:` field on 2 of 8 name records (gate agrees 6/8): the residual rows are NM-01 tumhai (declared ['tum', 'hai'], gate ['tum', 'ha', 'i']), NM-05 haitik (declared ['hai', 'tik'], gate ['ha', 'i', 'tik']), each of which begins with the falling diphthong `ai` that the syllabifier splits as two nuclei"
+ ],
+ "inputs": {
+  "tools/gates/argot-derivation-gate.py": "b5406bcdaf41c5950438bacd9ccf73ca2e97c044f631f505129cdd0e7e2352fb",
+  "tools/gates/typed-pipeline-gate.py": "b749ad07cf1710279aea557c071587cf4b3a228a9fb4d03398b4b94d2f32ad85",
+  "tools/gates/d4-assembly-check-gate.py": "df1a364b3970365c217a9b6a16f075bab854ee87aefab831de50df4a9d71544a",
+  "tools/gates/d4-typed-labels-check-gate.py": "05f99629d870280c55e15f46d799c29d7cfbc0645f0d0cd68a5fff1006181841",
+  "tools/assemble-culture-d4.py": "943f487ba991d45d369eb8fb6e9bb686046df165424d101cfa2670f79bb844b2",
+  "tools/assemble-d4-typed.py": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+  "tools/d2-typed-labels.py": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+  "examples/culture-d4/expected-holds.json": "857417e949fb5cb9b265918b8982ca86e47a820d136ba7b009414d84aa4ec28f",
+  "examples/culture-d4/packet.d4.yml": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc",
+  "examples/culture-d4/packet.d4.typed.yml": "1c4b88088b696a131f71af69ad14dda518acdec83dc7e873cfcad6fae5fc2660",
+  "examples/culture-d4/typed-labels.d4.yml": "88a94422b4123f6b436f9935590d69f081f90e688655ee605f33e0c1305fb68d"
+ },
+ "head": "b95fca1e40f32f7346937ab6426f9ccca60e319f",
+ "argot": {
+  "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18T20:04:10Z",
+  "exit": 0,
+  "coverage": "coverage: examples/culture-d4/packet.d4.yml records=175 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0",
+  "fields": {
+   "records": 175,
+   "register_scoped": 14,
+   "derived_pairs": 8,
+   "claimed_chains": 8,
+   "borrow_pairs": 6,
+   "violations": 0,
+   "rule_holds": 0
+  },
+  "findings": []
+ },
+ "register_block": {
+  "path": "examples/culture-d4/packet.d4.yml",
+  "sha256": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc",
+  "has_registers_key": true,
+  "rows_present": [
+   "QREG-01",
+   "QREG-02",
+   "QREG-03",
+   "QREG-04"
+  ],
+  "rows_missing": []
+ },
+ "argot_determinism": {
+  "runs": 3,
+  "exits": [
+   0,
+   0,
+   0
+  ],
+  "unique_digests": 1
+ },
+ "hold_set": {
+  "path": "examples/culture-d4/expected-holds.json",
+  "sha256": "857417e949fb5cb9b265918b8982ca86e47a820d136ba7b009414d84aa4ec28f",
+  "declared": {
+   "hold": 12,
+   "note": 0,
+   "fail": 0
+  },
+  "live": {
+   "fail": 0,
+   "hold": 12,
+   "note": 0
+  },
+  "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml --json",
+  "date": "2026-10-18T20:04:12Z",
+  "holds": [
+   "GAR-01",
+   "GAR-02",
+   "GAR-03",
+   "GAR-04",
+   "GAR-05",
+   "GAR-06",
+   "LEX-GAR-01",
+   "LEX-GAR-02",
+   "LEX-GAR-03",
+   "LEX-GAR-04",
+   "LEX-GAR-05",
+   "LEX-GAR-06"
+  ],
+  "revision_note": "round-27 register-law build, revision 2 (2026-10-18): the law block landed as a NEW component 13-register-law.yml (RGL-01..RGL-05) and was then reconciled with the sibling design seats' speech-act vocabulary (reports/round-27/law/design.md section 3): each row gained `speaker` and `force` and a `design_row` correspondence, and the block was declared in the contract (01-brief.yml registry C-13 and contract.record_fields.register_law). The hold set is UNCHANGED at 12 holds / 0 notes / 0 fails: a law row is not a form, so the six garment-form obligations still route to their twelve record/slot rows and the register stratum owes no form slot. Command: python3 tools/assemble-culture-d4.py; python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --emit examples/culture-d4/typed-labels.d4.yml; evidence: reports/round-27/law/impl-1.md. The round-26 pins remain recorded under supersedes_pins; no historical generation is overwritten in place."
+ },
+ "law_instrument": {
+  "path": "reports/round-27/audit/x59-register-law-negatives.py",
+  "present": true,
+  "sha256": "52672606888e155ddaa1c8d3b710d3999586a4037d4a2ae725339ed794cfcb2a"
+ },
+ "law_controls_clean_tree": {
+  "command": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/audit/x59-register-law-negatives.py --controls",
+  "date": "2026-10-18T20:04:12Z",
+  "exit": 0,
+  "lines": [
+   "control-1-op-contradicts-axis      ok  law=L3  findings=3",
+   "control-2-early-era                ok  law=L4  findings=3",
+   "control-3-form-mismatch            ok  law=L3  findings=3",
+   "control-4-stray-construction       ok  law=L5  findings=3",
+   "control-5-oath-in-register         ok  law=L7  findings=3",
+   "control-6-dangling-doublet         ok  law=L8  findings=3",
+   "control-6b-law-row-without-id      ok  law=L9  findings=2",
+   "control-7-clean-stays-clean        ok  law=no-FAIL  findings=2"
+  ],
+  "misses": [],
+  "crashed": false,
+  "tail": "controls: 8/8 caught"
+ },
+ "law_baseline_verdict": {
+  "command": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/audit/x59-register-law-negatives.py",
+  "date": "2026-10-18T20:04:12Z",
+  "exit": 1,
+  "ids": [
+   "L6b-HOLD",
+   "L9-HOLD"
+  ],
+  "lines": [
+   "FINDING L6b-HOLD: a tampered law value is not a finding in any delivered gate (measured: the tampered packet emits the same finding set as the clean one): the law is a declaration with no teeth \u2014 the enforcement leg is unowned",
+   "FINDING L9-HOLD: the `register_law` block is landed and every row carries an `id`, but the assembler (`tools/assemble-culture-d4.py`) declares it in neither `PACKET_KEYS` nor `RECORD_FIELDS`, so its record validator has no field list for the block. Measured (scratch clone): stripping an `id` from a `register_law` row assembles exit 0 and lands `id: None`; the same edit to a `lexicon` row refuses exit 2. The block reaches the packet only through the component's own per-file `packet_keys` declaration"
+  ]
+ },
+ "law_clean_copy": {
+  "command": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/audit/x59-register-law-negatives.py --packet examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18T20:04:12Z",
+  "exit": 1,
+  "ids": [
+   "L6b-HOLD",
+   "L9-HOLD"
+  ]
+ },
+ "law_plant": {
+  "copy": ".scratch/r27-d13/law-tree-616939",
+  "component": "examples/culture-d4/components/04-lexicon.yml",
+  "record": "L-55",
+  "from_stage": "E1",
+  "to_stage": "E0",
+  "law": "QREG-04 / RGL-05: every stamp form is available_from E1",
+  "rebuilt": true,
+  "date": "2026-10-18T20:04:13Z"
+ },
+ "law_plant_verdict": {
+  "command": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/audit/x59-register-law-negatives.py --packet examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18T20:04:13Z",
+  "exit": 1,
+  "ids": [
+   "L4-FAIL",
+   "L6b-HOLD",
+   "L9-HOLD"
+  ],
+  "baseline_ids": [
+   "L6b-HOLD",
+   "L9-HOLD"
+  ],
+  "added_ids": [
+   "L4-FAIL"
+  ],
+  "lines": [
+   "FINDING L4-FAIL: stamp record(s) staged before E1: L-55",
+   "FINDING L6b-HOLD: a tampered law value is not a finding in any delivered gate (measured: the tampered packet emits the same finding set as the clean one): the law is a declaration with no teeth \u2014 the enforcement leg is unowned",
+   "FINDING L9-HOLD: the `register_law` block is landed and every row carries an `id`, but the assembler (`tools/assemble-culture-d4.py`) declares it in neither `PACKET_KEYS` nor `RECORD_FIELDS`, so its record validator has no field list for the block. Measured (scratch clone): stripping an `id` from a `register_law` row assembles exit 0 and lands `id: None`; the same edit to a `lexicon` row refuses exit 2. The block reaches the packet only through the component's own per-file `packet_keys` declaration"
+  ]
+ },
+ "law_reverted": {
+  "command": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/audit/x59-register-law-negatives.py --packet examples/culture-d4/packet.d4.yml",
+  "date": "2026-10-18T20:04:13Z",
+  "exit": 1,
+  "ids": [
+   "L6b-HOLD",
+   "L9-HOLD"
+  ],
+  "lines": [
+   "FINDING L6b-HOLD: a tampered law value is not a finding in any delivered gate (measured: the tampered packet emits the same finding set as the clean one): the law is a declaration with no teeth \u2014 the enforcement leg is unowned",
+   "FINDING L9-HOLD: the `register_law` block is landed and every row carries an `id`, but the assembler (`tools/assemble-culture-d4.py`) declares it in neither `PACKET_KEYS` nor `RECORD_FIELDS`, so its record validator has no field list for the block. Measured (scratch clone): stripping an `id` from a `register_law` row assembles exit 0 and lands `id: None`; the same edit to a `lexicon` row refuses exit 2. The block reaches the packet only through the component's own per-file `packet_keys` declaration"
+  ]
+ },
+ "design_table": [
+  {
+   "base": "saalumi",
+   "op": "head2",
+   "expected": "saalu",
+   "got": "saalu",
+   "agrees": true
+  },
+  {
+   "base": "min",
+   "op": "reverse",
+   "expected": "nim",
+   "got": "nim",
+   "agrees": true
+  },
+  {
+   "base": "kus",
+   "op": "reverse",
+   "expected": "suk",
+   "got": "suk",
+   "agrees": true
+  },
+  {
+   "base": "nam",
+   "op": "reverse",
+   "expected": "man",
+   "got": "man",
+   "agrees": true
+  },
+  {
+   "base": "nes",
+   "op": "reverse",
+   "expected": "sen",
+   "got": "sen",
+   "agrees": true
+  },
+  {
+   "base": "sam",
+   "op": "reverse",
+   "expected": "mas",
+   "got": "mas",
+   "agrees": true
+  },
+  {
+   "base": "mus",
+   "op": "reverse",
+   "expected": "sum",
+   "got": "sum",
+   "agrees": true
+  },
+  {
+   "base": "kin",
+   "op": "reverse",
+   "expected": "nik",
+   "got": "nik",
+   "agrees": true
+  },
+  {
+   "base": "sun",
+   "op": "reverse",
+   "expected": "nus",
+   "got": "nus",
+   "agrees": true
+  },
+  {
+   "base": "samun",
+   "op": "reverse",
+   "expected": "numas",
+   "got": "numas",
+   "agrees": true
+  },
+  {
+   "base": "makun",
+   "op": "reverse",
+   "expected": "nukam",
+   "got": "nukam",
+   "agrees": true
+  }
+ ],
+ "syllabify_fixtures": [
+  {
+   "fixture": "s3-head2-maximal-coda.yml",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/argot-derivation-gate.py /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/gate-tests/fixtures/s3-head2-maximal-coda.yml",
+   "date": "2026-10-18T20:04:13Z",
+   "exit": 1,
+   "expected_exit": 1,
+   "ids": [
+    "D4L-ARGOT-DERIV"
+   ],
+   "expected_ids": [
+    "D4L-ARGOT-DERIV"
+   ],
+   "why": "the maximal-coda reading (design-language.md \u00a75 names this trap)"
+  }
+ ],
+ "syllabify_reading_pair": [
+  {
+   "fixture": "s1-head2-unconstrained.yml",
+   "reading": "tumka",
+   "why": "the unconstrained maximal-onset reading (a run moves whole to the onset)",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/argot-derivation-gate.py /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/gate-tests/fixtures/s1-head2-unconstrained.yml",
+   "date": "2026-10-18T20:04:13Z",
+   "exit": 1,
+   "ids": [
+    "D4L-ARGOT-DERIV"
+   ]
+  },
+  {
+   "fixture": "s2-head2-constrained.yml",
+   "reading": "tumkal",
+   "why": "the legality-constrained reading (a run splits coda|onset)",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/argot-derivation-gate.py /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/gate-tests/fixtures/s2-head2-constrained.yml",
+   "date": "2026-10-18T20:04:13Z",
+   "exit": 0,
+   "ids": []
+  }
+ ],
+ "syllabify_reading": {
+  "gate_head2_saalumi": "saalu",
+  "design_table_saalumi": "saalu",
+  "gate_agrees_with_design_table": true,
+  "delivered_reading": "constrained",
+  "legality_check_in_source": true,
+  "head2_tikmes": "tikmes",
+  "syllabify_tikmes": [
+   "tik",
+   "mes"
+  ],
+  "syllabify_tumkalker": [
+   "tum",
+   "kal",
+   "ker"
+  ]
+ },
+ "syllabify_fix_witness": [
+  {
+   "fixture": "s4-head2-prefix-reading.yml",
+   "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/gates/argot-derivation-gate.py /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-27/gate-tests/fixtures/s4-head2-prefix-reading.yml",
+   "date": "2026-10-18T20:04:13Z",
+   "exit": 1,
+   "expected_exit": 1,
+   "ids": [
+    "D4L-ARGOT-DERIV"
+   ],
+   "expected_ids": [
+    "D4L-ARGOT-DERIV"
+   ],
+   "why": "the pre-fix reading of `tikmes` (`ti.kme.s` -> `tikme`): red once the fix lands"
+  }
+ ],
+ "syllables_witness": {
+  "source": "examples/culture-d4/packet.d4.yml (names records, `syllables:` field)",
+  "declared_rows": 8,
+  "rows": [
+   {
+    "id": "NM-01",
+    "name": "tumhai",
+    "declared": [
+     "tum",
+     "hai"
+    ],
+    "gate": [
+     "tum",
+     "ha",
+     "i"
+    ],
+    "agrees": false
+   },
+   {
+    "id": "NM-02",
+    "name": "kalker",
+    "declared": [
+     "kal",
+     "ker"
+    ],
+    "gate": [
+     "kal",
+     "ker"
+    ],
+    "agrees": true
+   },
+   {
+    "id": "NM-03",
+    "name": "samren",
+    "declared": [
+     "sam",
+     "ren"
+    ],
+    "gate": [
+     "sam",
+     "ren"
+    ],
+    "agrees": true
+   },
+   {
+    "id": "NM-04",
+    "name": "mestum",
+    "declared": [
+     "mes",
+     "tum"
+    ],
+    "gate": [
+     "mes",
+     "tum"
+    ],
+    "agrees": true
+   },
+   {
+    "id": "NM-05",
+    "name": "haitik",
+    "declared": [
+     "hai",
+     "tik"
+    ],
+    "gate": [
+     "ha",
+     "i",
+     "tik"
+    ],
+    "agrees": false
+   },
+   {
+    "id": "NM-06",
+    "name": "meslun",
+    "declared": [
+     "mes",
+     "lun"
+    ],
+    "gate": [
+     "mes",
+     "lun"
+    ],
+    "agrees": true
+   },
+   {
+    "id": "NM-07",
+    "name": "kalnes",
+    "declared": [
+     "kal",
+     "nes"
+    ],
+    "gate": [
+     "kal",
+     "nes"
+    ],
+    "agrees": true
+   },
+   {
+    "id": "NM-08",
+    "name": "salwer",
+    "declared": [
+     "sal",
+     "wer"
+    ],
+    "gate": [
+     "sal",
+     "wer"
+    ],
+    "agrees": true
+   }
+  ],
+  "gate_agrees": 6,
+  "gate_agrees_ids": [
+   "NM-02",
+   "NM-03",
+   "NM-04",
+   "NM-06",
+   "NM-07",
+   "NM-08"
+  ],
+  "gate_disagrees_ids": [
+   "NM-01",
+   "NM-05"
+  ]
+ },
+ "passed": true,
+ "summary": {
+  "checks": 55,
+  "passed": 55,
+  "failed": 0
+ }
+}

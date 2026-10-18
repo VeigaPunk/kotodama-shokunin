@@ -1,0 +1,265 @@
+{
+ "round": 27,
+ "assignment": "SCRIBE X52 \u2014 report scribe + settled-tree rerun",
+ "date": "2026-10-18",
+ "status": "measurement-closed on the settled tree. The round-27 counting command reports/round-27/run-validation.py landed at 19:20:34Z and was then revised twice while this seat measured (sha256 7c8c725c\u2026 -> 2c3a69b8\u2026 -> 05f8a47a\u2026). This seat reproduced the verdict independently in three isolated overlay clones; the filed reports/round-27/validation.json agrees with this seat's read on all three claims: D pass, C pass, O fail, acceptance_checks_passed false. This is a rerun record plus an integration draft, NOT a round admission \u2014 the parent owns the verdict.",
+ "final_verdict": {
+  "runner": "reports/round-27/run-validation.py",
+  "runner_sha256_at_final_read": "05f8a47a7f21756f6e43df929e86a84f33862cc94ae5c814847a7966554dd454",
+  "acceptance_checks_passed": false,
+  "claims": {"D": "pass", "C": "pass", "O": "fail"},
+  "filed_receipt": "reports/round-27/validation.json",
+  "filed_receipt_note": "sha256 moved under this seat's reads (c2d2698a\u2026 at 19:28Z, 4a851fd1\u2026 at 19:29Z) as the runner was revised; the verdict was stable across every read.",
+  "missing_dependencies": [],
+  "agreement": "this seat's --check read in .scratch/x52/checkpoint-e at runner sha 05f8a47a\u2026 reproduces the filed verdict claim for claim"
+ },
+ "post_landing_measurements": {
+  "note": "the D and C artifacts landed mid-window (between 19:20Z and 19:26Z), moving the tree this seat had measured pre-landing. The pre-landing entries below are kept as the auditable delta; these are the settled numbers the verdict rests on.",
+  "stamp": "2026-10-18T19:26Z-19:31Z",
+  "checkpoints": {
+   "checkpoint-c": "clone at runner sha 2c3a69b8..., read D pass / C pass / O fail",
+   "checkpoint-d": "clone at runner sha 2c3a69b8..., read D pass / C pass / O fail; full 35-command battery run (34 exit 0, handoff-v3 exit 1)",
+   "checkpoint-e": "clone at runner sha 05f8a47a..., read D pass / C pass / O fail; reproduces the filed receipt"
+  },
+  "register_law": {
+   "component": "examples/culture-d4/components/13-register-law.yml (8870 B)",
+   "component_ids": ["RGL-01", "RGL-02", "RGL-03", "RGL-04", "RGL-05"],
+   "packet_ids": ["RGL-01", "RGL-02", "RGL-03", "RGL-04", "RGL-05"],
+   "ids_equal": true,
+   "rows_equal": true,
+   "clauses": {"admissibility": true, "agent": true, "consequence": true},
+   "speech_act_rows": 5,
+   "rows_total": 9,
+   "rows_with_universal_fields": 9,
+   "law_text_bytes": 3178,
+   "rule_ids": ["QREG-01", "QREG-02", "QREG-03", "QREG-04", "RGL-01", "RGL-02", "RGL-03", "RGL-04", "RGL-05"]
+  },
+  "syllabify_fix": {
+   "algorithm_declared": "legality-constrained maximal onset (design-language.md section 5)",
+   "delivered_gate_splits": {"tikmes": ["tik", "mes"], "kalker": ["kal", "ker"], "tumhai": ["tum", "ha", "i"], "saalumi": ["saa", "lu", "mi"], "haitun": ["ha", "i", "tun"], "mesar": ["me", "sar"]},
+   "worked_row": "head2(saalumi) = saalu reproduces",
+   "disagreements_vs_runner_reading": 0,
+   "illegal_syllables": 0,
+   "argot_selftest": "27/27 (was 21/21 before the fix)"
+  },
+  "determinism": {"d4-assembly": 0, "d4-adapter": 0, "d4-projection": 0},
+  "gates": {"typed_gate_legs": "20/20", "typed_gate_failed_legs": [], "register_leg_present": true, "argot_d4_exit": 0, "argot_coverage": {"records": 175, "register_scoped": 14, "derived_pairs": 8, "claimed_chains": 8, "borrow_pairs": 6, "violations": 0, "rule_holds": 0}, "d4_assembly_gate_exit": 0, "d4_label_gate_exit": 0},
+  "holds": {"counts": {"hold": 12, "note": 0, "fail": 0}, "names_round_27": true, "projection_findings_total": 12, "labels_by_kind": {"native-form": 64, "translated-label": 12, "borrowed-strata": 6}},
+  "coverage": {
+   "entry": "corpus/knowledge/linguistics/register-strata-attestation.md (54284 B)",
+   "readme_revision": "1.7",
+   "linguistics_entries": {"baseline": 19, "live": 20},
+   "partitions": {"civilizations": 94, "culture-material": 18, "linguistics": 20, "myth-symbol": 19, "synthesis": 29, "verification": 20},
+   "total_files": 200,
+   "mismatches": {}
+  },
+  "pin_sweep_settled": {
+   "rows_naming_a_d4_surface": 232,
+   "green": 140,
+   "drift": 92,
+   "absent": 0,
+   "repinned_surfaces": ["examples/culture-d4/components/01-brief.yml", "examples/culture-d4/components/04-lexicon.yml", "examples/culture-d4/expected-holds.json", "examples/culture-d4/packet.d4.typed.yml", "examples/culture-d4/packet.d4.yml", "examples/culture-d4/typed-labels.d4.yml"],
+   "unrepinned_surfaces": [],
+   "note": "the 92 drifted rows are the historical round-18/22/25/26 generations, which correctly pin their own revision; append-only convention, not a defect"
+  },
+  "o_failure": {
+   "leg": "handoff-v3",
+   "exit": 1,
+   "stderr": "handoff-v3: E2E-DIGEST: 5 read-set file(s) changed since the baseline was frozen",
+   "files": ["examples/culture-d4/components/01-brief.yml", "examples/culture-d4/expected-holds.json", "examples/culture-d4/packet.d4.typed.yml", "examples/culture-d4/packet.d4.yml", "examples/culture-d4/typed-labels.d4.yml"],
+   "v3_baseline_default": "reports/round-26/handoff/declared-in-r5/expected.json",
+   "declared_packet_sha256": "e3fb1ca500d62981b59129f898ef7e4b2843b1fa5ab7d12e8fc16818d1f764b8",
+   "live_packet_sha256": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc",
+   "reading": "drift",
+   "round27_successor_row": "reports/round-27/pinsweep/v3-baseline-r27/ (frozen against packet e3fb1ca5... \u2014 the PRE-law packet, so it does not close the drift)",
+   "classification": "D/O sequencing interaction, the same class round 26 hit: the D seat's write to examples/culture-d4/ invalidates the O seat's v3 read-set baseline within minutes, and no O seat can freeze a baseline that survives a later D landing.",
+   "required_action": "re-freeze the v3 baseline against the final packet 86079a67... AFTER the D landing settles, or declare the v3 read-set baseline order-dependent and record the drift as a named consequence of the D landing"
+  },
+  "battery_settled": {
+   "commands": 35,
+   "all_exit_zero": false,
+   "red": ["handoff-v3"],
+   "green_highlights": ["battery selftest 35/35", "battery pass 7 / fail 0 / unevaluable 0, coverage 9/9, 19 baselines pinned", "d4-assembly-selftest 81/81", "projector-selftest 163/163", "d4-gate 20/20", "argot-gate-selftest 27/27", "d4-adapter-selftest 12/12", "replay-selftest 79/79"]
+  }
+ },
+ "baseline_revision": "4f09c990d4c17f23b5e2cda0871f81db875635fc",
+ "declaration_head": "b95fca1e40f32f7346937ab6426f9ccca60e319f",
+ "axes": {
+  "D": "depth \u2014 the register law lands + syllabify fixed",
+  "O": "operability \u2014 the D4 pin sweep + regressions",
+  "C": "coverage \u2014 the register-strata knowledge entry + README"
+ },
+ "method": {
+  "scratch_prelude": "export TMPDIR=$PWD/.scratch (from the lane root before every scratch-writing command)",
+  "clone_root": ".scratch/x52",
+  "overlay_snapshot_policy": "checkpoint-a is a shared Git clone of declaration HEAD b95fca1 overlaid with hash-inventoried live working-tree surfaces (tools, examples, corpus, reports/round-27, SKILL.md, SCORECARD.md, LOG.md, AGENTS.md, PROVINCE.md, README.md); copy_stable is measured, not assumed.",
+  "replay_tmpdir_note": "tools/replay-frozen.py refuses an in-repo temporary mirror root as mirror_unsafe. The lane's prescribed TMPDIR=$PWD/.scratch therefore cannot evaluate a frozen row; the replay legs below were re-run with TMPDIR=/tmp/x52-replay, outside the repository.",
+  "round27_validator_executed_by_x52": false,
+  "commits_or_pushes_by_x52": false,
+  "shared_bookkeeping_edited_by_x52": false,
+  "filed_rounds_8_26_written_by_x52": false,
+  "commands_file": ".scratch/x52-commands.json \u2014 the round-26 runner's own REGRESSIONS tuple, extracted verbatim (35 commands) so this battery is comparable to round 26's."
+ },
+ "preservation": {
+  "command": "python3 .scratch/x52/capture.py protect",
+  "date": "2026-10-18",
+  "surface": "reports/round-{8..26} plus tools/gates/frozen/round-{8..26}",
+  "samples": [
+   {"observed_at_utc": "2026-10-18T19:12:34.798577+00:00", "files": 1460, "mismatches": 0, "manifest_sha256": "e408361bcc3c5318e3c3a0fcc3725ccf1f355e0bf354621578f5e6085e3f72e9", "protected_status": ""},
+   {"observed_at_utc": "2026-10-18T19:16:10Z", "files": 1460, "mismatches": 0, "manifest_sha256": "e408361bcc3c5318e3c3a0fcc3725ccf1f355e0bf354621578f5e6085e3f72e9", "protected_status": ""},
+   {"observed_at_utc": "2026-10-18T19:18Z", "files": 1460, "mismatches": 0, "manifest_sha256": "e408361bcc3c5318e3c3a0fcc3725ccf1f355e0bf354621578f5e6085e3f72e9", "protected_status": ""}
+  ],
+  "verdict": "clean at every sample; no round-27 seat wrote a filed round-8-26 byte"
+ },
+ "settled_tree_regressions": {
+  "clone": ".scratch/x52/checkpoint-a",
+  "clone_head": "b95fca1e40f32f7346937ab6426f9ccca60e319f",
+  "clone_files": 782,
+  "copy_stable": true,
+  "command": "python3 .scratch/x52/capture.py run checkpoint-a .scratch/x52-commands.json",
+  "date": "2026-10-18",
+  "commands": 35,
+  "all_exit_zero": true,
+  "legs": {
+   "battery-selftest": "35/35 controls, exit 0",
+   "battery": "pass 7 / fail 0 / unevaluable 0, exit 0",
+   "d4-assembly-selftest": "81/81, exit 0",
+   "d4-assembly": "byte-identical deterministic assembly, exit 0",
+   "d4-adapter-selftest": "12/12, exit 0",
+   "d4-adapter": "byte-identical deterministic typed packet, exit 0",
+   "projector-selftest": "163/163, exit 0",
+   "d4-projection": "byte-identical deterministic projection, exit 0",
+   "typed-pipeline-selftest": "19/19, exit 0",
+   "typed-pipeline-generalized-selftest": "16/16, exit 0",
+   "d2-gate": "16/16 legs, exit 0",
+   "d4-gate": "20/20 legs, exit 0",
+   "d4-label-gate": "exit 0",
+   "argot-gate-selftest": "21/21, exit 0",
+   "argot-gate-d4": "records=170 register_scoped=14 derived_pairs=8 borrow_pairs=6 violations=0 rule_holds=0, exit 0",
+   "replay-selftest": "79/79, exit 0",
+   "handoff-v2": "exit 0 claims=15 links=50/50",
+   "handoff-v3": "exit 0 fields=16/16 glossary=20/20 findings=0 links=105/105 claims=27 alias_leg=landed",
+   "handoff-v3-selftest": "exit 0"
+  },
+  "note": "handoff-v3 exit 0 is the delta against round 26, where the same leg read exit 1 with E2E-DIGEST naming 6 changed read-set files. The round-26 O red is cleared on the live tree; the v3 baseline was re-frozen by a round-26 seat (reports/round-26/handoff/declared-in-r5/expected.json, packet_sha256 e3fb1ca5...)."
+ },
+ "frozen_pin_sweep": {
+  "probe": ".scratch/x52/pin-sweep.py (independent: re-derives every row itself, never via tools/replay-frozen.py)",
+  "date": "2026-10-18",
+  "manifests": 11,
+  "manifest_rows": 81,
+  "manifest_mismatches": 25,
+  "manifest_absent": 0,
+  "baselines": 6,
+  "baseline_rows": 38,
+  "baseline_mismatches": 0,
+  "baseline_absent": 1,
+  "findings": [
+   "Every manifest mismatch is a gate_sha256 pin against a gate revision not on disk. The live typed-pipeline-gate.py is b749ad07cf1710279aea557c071587cf4b3a228a9fb4d03398b4b94d2f32ad85; generations round-11, round-18/repin-d2, round-20/repin-d2, round-22/d4-repin and round-23/repin-d2 pin 04ad4bb47956... (and round-11 pins d102fd1dd1ba...). A generation that pins a dead gate revision refuses gate_digest_mismatch before the gate runs; that is by design, not drift, and round 26 re-pinned the current generation (tools/gates/frozen/round-26/gate-input, receipt supersedes the round-25 generation for exactly this reason).",
+   "The round-3 and round-3/attempt-1 manifests pin six D2-era gate revisions that no longer exist on disk; recorded as historical, not graded.",
+   "tools/gates/expected/costume-era-consistency-gate/r9-pre/expected.json declares `gate` as a NAME (no `gate_script` path), so its gate pin cannot be resolved by path; the other five baselines resolve and hold."
+  ],
+  "d4_pin_surfaces": {
+   "rows": 11,
+   "generations": ["round-18", "round-22/d4-repin", "round-25/gate-input", "round-26/gate-input", "round-26/post-register"]
+  }
+ },
+ "frozen_replay_legs": {
+  "command_template": "TMPDIR=/tmp/x52-replay python3 tools/replay-frozen.py <manifest>",
+  "date": "2026-10-18",
+  "runs": [
+   {"manifest": "tools/gates/frozen/round-25/gate-input/MANIFEST.tsv", "verdict": "COULD-NOT-EVALUATE 6/6", "reason": "gate_digest_mismatch \u2014 the generation pins gate revision 879d40bf97..., not on disk", "graded": false},
+   {"manifest": "tools/gates/frozen/round-26/gate-input/MANIFEST.tsv", "verdict": "MISMATCH 2/6, 4 reproduced", "detail": "the two D4 rows (packet.d4.yml, packet.d4.typed.yml) record exit 0 / 12 findings; the pinned snapshot replays exit 2 / 0 findings with L1-assembler FAIL", "graded": true},
+   {"manifest": "tools/gates/frozen/round-26/post-register/MANIFEST.tsv", "verdict": "OK 6/6 reproduced", "graded": true}
+  ]
+ },
+ "d4_pin_defect": {
+  "finding": "X52-F1 \u2014 the round-26 D4 gate-input rows are recorded green against bytes that cannot replay",
+  "evidence": [
+   "tools/gates/frozen/round-26/gate-input/inputs/examples/culture-d4/packet.d4.yml sha256 e7ecd2045ef0e5f9823ce0a067d21b8221b2ceb5e8f5799736981a1c88fa50d3 \u2014 this is the PRE-register packet (identical to git show fc13cd2:examples/culture-d4/packet.d4.yml).",
+   "The live / r26-admit packet examples/culture-d4/packet.d4.yml is sha256 dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67 (identical at 4f09c99 and b95fca1, and diff-clean against the live working tree).",
+   "The manifest row pins input_sha256 e7ecd2045ef0e5f98... and records exit 0 / 12 findings; replaying that row launches the live gate on the pinned snapshot and reads exit 2 / 0 findings, FAIL L1-assembler ('packet bytes e7ecd2045ef0 are not tools/assemble-culture-d4.py's deterministic assembly (dd25077bc016)').",
+   "The recorded output tools/gates/frozen/round-26/gate-input/d4-source.out (sha256 5b67905b67ca...) does NOT equal the live run's stdout (sha256 3eb9042e0664...); the recorded output is a third artefact, produced neither by the pinned snapshot nor by the live packet.",
+   "By contrast tools/gates/frozen/round-26/post-register/ pins the LIVE packet dd25077bc016... and replays 6/6 reproduced. So the same round has one correct generation and one defective one."
+  ],
+  "classification": "the freeze was taken mid-window, before the register landing moved the packet; the sibling generation was re-frozen afterwards and the pre-register generation was never superseded. This is a pin-cascade artefact of the r26 D/O interaction the r26 report-draft already named \u2014 not a fabricated green, but it IS a filed green row that does not reproduce.",
+  "required_action": "claim O must re-pin tools/gates/frozen/round-26/gate-input as a NEW generation (or supersede it), never edit the filed bytes."
+ },
+ "register_law_measurement": {
+  "command": "python3 -B reports/round-27/audit/x59-register-law-negatives.py --json  (peer instrument, re-run by this seat)",
+  "date": "2026-10-18",
+  "counters": {"records": 62, "stamp_records": 8, "register_rows": 4, "law_rows": 0, "rule_checked": 8, "era_checked": 8, "admissibility_checked": 8, "oath_checked": 8, "refs_checked": 8},
+  "findings": [{"law": "L6", "level": "HOLD", "message": "the register block declares the register IDENTITY (QREG-*) but no speech-act law rows (RGL-01..05)"}],
+  "independent_check": "grep -c 'RGL-0' examples/culture-d4/packet.d4.yml -> 0; grep -c 'RGL-0' examples/culture-d4/components/04-lexicon.yml -> 0",
+  "verdict": "at this seat's close the register LAW is DESIGN ONLY (reports/round-27/law/design.md, rules.md); no component owns it and no law row is on the packet surface. Claim D's 'wired into the packet deterministically' clause is NOT met yet. The QREG-01..04 rows that landed in r26 are register IDENTITY + the axis->operation rule + the era rule \u2014 they do not carry speaker, force, or record consequence."
+ },
+ "syllabify_measurement": {
+  "probes": [
+   ".scratch/x52/syl-indep.py \u2014 ports the round-26 seat's own .scratch/r26-d-reg/syl.py design reading",
+   ".scratch/x52/syl-corrected.py \u2014 a literal re-port of design-language.md section 5 (single-consonant maximal onset, doubled-vowel and ai/au nuclei)"
+  ],
+  "date": "2026-10-18",
+  "gate_sha256": "5b5abe7865ed906c23fba87fd0dae8b6187c8dfc1a80137adbd364d4d88b0211",
+  "packet_sha256": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67",
+  "forms_measured": 70,
+  "r26_probe_impl_rerun": {"disagreements": 15, "note": "reproduces the published r26 figure 15 of 62 exactly"},
+  "corrected_reference": {"disagreements": 12, "note": "the r26 probe breaks legal syllables apart (sau -> ['s','a','u']; tikmes -> ['t','ik','m','es']) before comparing, so its 15 is a port artefact; the direction is confirmed, the exact figure is not"},
+  "third_witness": {
+   "source": "the packet's own author-declared `syllables:` field on the 8 names records",
+   "result": "gate agrees 0/8; the design reading agrees 8/8",
+   "rows": [
+    "NM-01 tumhai declared ['tum','hai'] vs gate ['tu','mha','i']",
+    "NM-02 kalker declared ['kal','ker'] vs gate ['ka','lke','r']",
+    "NM-03 samren declared ['sam','ren'] vs gate ['sa','mre','n']",
+    "NM-04 mestum declared ['mes','tum'] vs gate ['me','stu','m']",
+    "NM-05 haitik declared ['hai','tik'] vs gate ['ha','i','ti','k']",
+    "NM-06 meslun declared ['mes','lun'] vs gate ['me','slu','n']",
+    "NM-07 kalnes declared ['kal','nes'] vs gate ['ka','lne','s']",
+    "NM-08 salwer declared ['sal','wer'] vs gate ['sa','lwe','r']"
+   ]
+  },
+  "verdict": "the delivered gate's syllabify is UNCHANGED at round-27 HEAD (tools/gates/argot-derivation-gate.py is byte-identical to the round-25 admit fc13cd2). It emits illegal clusters (kme, lke, mre, stu, mha, slu, lne, lwe) and disagrees with the design reading on 12 of 70 forms and with the packet's own declared syllables on 8 of 8. Claim D's 'syllabify disagreement fixed (one algorithm)' is NOT met yet."
+ },
+ "regressions_note": {
+  "battery": "35/35 exit 0 at checkpoint-a",
+  "pin_repoint_checker": "python3 reports/round-26/remainders/pin-repoint-check.py --check -> passed true, 17/17 controls, 2026-10-18",
+  "r26_open_reds": "the round-26 O reds named in reports/round-26/report-draft.md (handoff-v3 E2E-DIGEST, r4 checker 51/52) \u2014 handoff-v3 now exits 0 on the live tree; the r4 checker red was superseded by reports/round-26/remainders/r4-checker-supersession.md"
+ },
+ "coverage_measurement": {
+  "command": "python3 reports/round-27/readme/sweep.py (peer instrument, re-run by this seat)",
+  "date": "2026-10-18",
+  "readme_sha256": "1a359d55387eef1aebd79316a7bf19d53a2ac6f0bcacb1cd109bdeff1294e7ce",
+  "parts": {"civilizations": 94, "culture-material": 18, "linguistics": 19, "myth-symbol": 19, "synthesis": 29, "verification": 20},
+  "rows": 199,
+  "files": 199,
+  "missing_from_index": 0,
+  "topic_mismatch": 0,
+  "orphan_rows": 0,
+  "header_drift": {},
+  "totals_line": 199,
+  "totals_ok": true,
+  "register_strata_entry_present": false,
+  "readme_revision": "1.5 (round-20 reconciliation; unchanged)",
+  "verdict": "the corpus index is internally consistent (199/199, zero drift) but carries NO round-27 register-strata entry: corpus/knowledge/linguistics/ is unchanged at 19 files and corpus/README.md is still revision 1.5. Claim C's after_required is not met at this stamp."
+ },
+ "wave_census": {
+  "census_utc": "2026-10-18T19:32Z (closing)",
+  "reports_round_27_files": 124,
+  "reports_round_27_bytes": 521444,
+  "growth": "2 (declaration) -> 4 -> 10 -> 21 -> 29 -> 31 (19:18Z) -> 65 (19:20Z) -> 124 (19:32Z); the wave was still writing at this seat's close",
+  "run_validation_py": "landed 19:20:34Z; revised twice while this seat measured (7c8c725c -> 2c3a69b8 -> 05f8a47a)",
+  "filed_receipt": "reports/round-27/validation.json landed 19:28Z (c2d2698a -> 4a851fd1); verdict stable across every read",
+  "note": "the 19:18Z census (31 files, 521444 bytes) is kept for the pre-landing delta; the closing count is 124 files and a consumer must re-measure rather than inherit."
+ },
+ "limits": [
+  "This seat asserts no round admission and no claim verdict. The parent owns the verdict.",
+  "The round-27 runner landed mid-window (19:20:34Z) and was revised twice while this seat measured; this seat ran it --check in isolated overlay clones only and wrote no round-27 receipt. Each read is bound to the runner sha256 named with it; the filed receipt is another seat's, and this seat's read agrees with it claim for claim.",
+  "The regression battery's 34/35 green run measured checkpoint-d bytes (HEAD b95fca1 overlaid with the post-landing live surfaces); the live tree kept moving after that stamp.",
+  "The preservation sample is a tracked-bytes-and-modes comparison at four stamps; it does not exclude a transient write-and-restore between them.",
+  "The frozen replay legs required TMPDIR outside the repository; the lane's prescribed TMPDIR=$PWD/.scratch makes every row mirror_unsafe and therefore cannot evaluate any frozen row.",
+  "The pre-landing D and O measurements describe a tree that no longer exists; they are kept as the auditable delta, never as the verdict.",
+  "The syllabify port is this seat's own re-derivation of a prose algorithm; two defensible ports disagree (12 vs 15), so the exact count is reported with its port, never as a bare number.",
+  "All artifacts are NON-CANON engineering evidence: no source-freshness certification, rights clearance, lore acceptance or promotion is claimed.",
+  "No commit, no push, no shared bookkeeping and no filed round-8-26 write by this seat."
+ ]
+}

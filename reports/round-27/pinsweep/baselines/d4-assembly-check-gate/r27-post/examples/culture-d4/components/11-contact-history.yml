@@ -1,0 +1,86 @@
+# reports/round-17/d4/components/11-contact-history.yml
+# D4 design drill — component 11 of the round-17 registry.
+# NON-CANON: this file proposes a design; it records nothing about any world.
+#
+# Write seat: R17-D15 (D-components, seat 11 of 12). Round 17, 2026-10-18.
+# The `contact` and `routes` blocks below are the packet blocks the assembler
+# extracts. The loan lexemes themselves live in 04-lexicon (L-49..L-54) and the
+# borrow ledgers in 04's `layers` block; this file carries the contact history
+# they are dated against.
+component: 11-contact-history
+culture: D4
+canon: not canonized (D4 design drill)
+title: "11-contact-history — two roads and two strangers: D4's contact layers, routes, and events"
+status: "round-17 component write, 2026-10-18; supersede-by-new-file only"
+packet_keys: [contact, routes]
+scope: >
+  Two contact layers (CT-01 salt road, CT-02 north ore road), three routes
+  (RT-01..03), and four dated contact events (CE-01..04). The donors are scoped
+  as stages only: neither donor language is modelled, and no donor religion,
+  costume, or second complete culture enters.
+spine_coupling: "mark — contact is recorded: every event is dated by a record change (a new stamp convention, a measure standard, a loan entering the ledger). fire — the north road is the ore road (the furnace's input) and the salt road carries the flux and the salt; both roads exist because the furnace needs what the basin lacks"
+spine_check: "no D1 or D2 imagery is imported. No caravan-as-institution from D2 (the road is not a fair court), no river or ferry, no oath-witness assembly. The strangers arrive with goods and measures, not with a religion."
+
+follows:
+  - {id: F-1, path: "corpus/knowledge/linguistics/language-contact.md", section: "§4 borrowability, §6 loanword adaptation, §10 stratigraphy", use: "two strata with different donors and different adaptation filters; both confined to declared registers and domains"}
+  - {id: F-2, path: "corpus/knowledge/synthesis/loanword-material-dating.md", section: "§2-§4 build strata; date the sense-referent pairing", use: "each layer separates entry stage from referent availability and names its channel"}
+  - {id: F-3, path: "corpus/knowledge/culture-material/trade-economy-lexicon.md", section: "§2 weights and measures, §3 sacred standardization, §8 instruments", use: "the measure standard and its inspection office are the contact's institutional residue"}
+  - {id: F-4, path: "corpus/knowledge/verification/real-world-inspiration-boundaries.md", section: "§3 borrowing versus copying, §5 transformation checklist", use: "no real trade network, people, or language is described or approximated"}
+
+contact:
+  - id: CT-01
+    name: "the salt road"
+    donor: "the salt-road towns' speech (unrelated to D4; stage unmodelled, to-verify)"
+    donor_stage: "salt-road stage 1"
+    entry_stage: E1
+    channel: "the salt and measure trade; salt up, wool and ingots down"
+    contact_window: [E1, E2]
+    domain: "salt, measures, carriage and bales only"
+    register: trade
+    loans: [L-49, L-50, L-51, L-52]
+    axis: mark
+    evidence: design-choice
+    follows: [F-1, F-2]
+  - id: CT-02
+    name: "the north ore road"
+    donor: "the hill sister variety (related to D4; one attested sister, unmodelled)"
+    donor_stage: "sister stage E0"
+    entry_stage: E0
+    channel: "the ore and charcoal trade; ore down, charcoal and ingots up"
+    contact_window: [E0, E2]
+    domain: "ore, seams and works only"
+    register: craft
+    loans: [L-53, L-54]
+    axis: fire
+    evidence: design-choice
+    follows: [F-1, F-2]
+
+routes:
+  - {id: RT-01, route: "the salt road", from: "the weigh-stone at the basin's south gate", to: "the lowland towns (unmodelled)", use: "salt, measures, bales; the road the market-day coat's imported cloth travels", era: E1, axis: mark, evidence: design-choice, follows: [F-3]}
+  - {id: RT-02, route: "the north ore road", from: "the ore seams on the basin's north rim", to: "the furnace towns", use: "ore and charcoal; the kin layer's words travel with it", era: E0, axis: fire, evidence: design-choice, follows: [F-3]}
+  - {id: RT-03, route: "the valley road", from: "the terraced valley fields", to: "the furnace towns", use: "grain and wool; internal to the basin, not a contact road", era: E0, axis: fire, evidence: design-choice, follows: [F-3]}
+
+contact_events:
+  - {id: CE-01, event: "the first ore road season", era: E0, record_change: "the tally-stamps adopt the sister variety's seam count; the kin loans enter (L-53, L-54)", axis: fire, evidence: design-choice, follows: [F-2]}
+  - {id: CE-02, event: "the salt road opens", era: E1, record_change: "the salt-road loans enter (L-49..L-52) and the weigh-stone adopts a standard weight", axis: mark, evidence: design-choice, follows: [F-2, F-3]}
+  - {id: CE-03, event: "the weigh-stone standard is stamped", era: E1, record_change: "the measure standard is stamped at the weigh-stone; the stamp-house keeps the standard bar", axis: mark, evidence: design-choice, follows: [F-3]}
+  - {id: CE-04, event: "the market-day calendar settles", era: E2, record_change: "the weigh-fair's two dates are fixed in the league roll (10's FES-03)", axis: mark, evidence: design-choice, follows: [F-3]}
+
+stranger_law:
+  - {id: SL-01, rule: "a trader may trade at the weigh-stone and may not stamp; a trader's own mark is a trader's mark, not a D4 stamp", axis: mark, evidence: design-choice, follows: [F-4]}
+  - {id: SL-02, rule: "no donor institution is adopted: the salt-road towns' religion, dress, and household forms are not modelled and not imported", axis: mark, evidence: design-choice, follows: [F-4]}
+
+open_questions:
+  - {id: OQ-CT1, text: "Neither donor language is modelled; only recipient-side filters and donor forms are recorded (to-verify)."}
+  - {id: OQ-CT2, text: "Whether the salt road carried a script is unmodelled; D4's script is native by design (03-orthography)."}
+
+calibration:
+  - {id: CAL-CT1, status: design-choice, note: "the roads and layers are invented for this drill; no real trade route, people, or language is described or approximated"}
+  - {id: CAL-CT2, status: to-verify, note: "no exchange-volume or chronology measurement exists; contact windows are design conventions"}
+
+canon_boundary: |
+  This component designs a contact history; it records nothing about any world.
+  Canon, chronology, and in-world trade institutions are lore-shokunin's. No
+  sibling component was edited; sibling content is referenced only by contract
+  field path. No real-world trade network, people, community, or rights question
+  is decided or implied here.

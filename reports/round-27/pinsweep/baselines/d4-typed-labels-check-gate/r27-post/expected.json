@@ -1,0 +1,32 @@
+{
+ "append_only_note": "New baseline id only. Every filed baseline and every filed round-8..26 byte stays unchanged; a re-pin is a new row, never an in-place edit (gate-frozen-run-standard.md section 3).",
+ "baseline_id": "r27-post",
+ "command": "python3 tools/gates/d4-typed-labels-check-gate.py examples/culture-d4/typed-labels.d4.yml",
+ "expected": {
+  "class": "clean",
+  "exit": 0,
+  "findings": []
+ },
+ "frozen_at": "2026-10-18",
+ "frozen_by": "kotodama-shokunin R27-O25..O32 (pin sweep)",
+ "gate": "d4-typed-labels-check-gate.py",
+ "gate_script": "tools/gates/d4-typed-labels-check-gate.py",
+ "gate_sha256": "05f99629d870280c55e15f46d799c29d7cfbc0645f0d0cd68a5fff1006181841",
+ "input_class": "NON-CANON post-register-law D4 typed-labels.d4.yml (the graded argv input), byte copy of the live artifact",
+ "inputs": {
+  "examples/culture-d2/components/11-costumes.yml": "b6e2c5c29cc5d68900d6cde5a8487e64f27d85ecb3d2bd7f3f5beb1113483f22",
+  "examples/culture-d2/components/12-rank-rules.yml": "28696a5a70404984fbf1a453f66c9e7618e318ebf93f25bce461fdb7dfcd35a3",
+  "examples/culture-d4/packet.d4.yml": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc",
+  "examples/culture-d4/typed-labels.d4.yml": "88a94422b4123f6b436f9935590d69f081f90e688655ee605f33e0c1305fb68d",
+  "tools/d2-typed-labels.py": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+  "tools/gates/costume-era-consistency-gate.py": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f"
+ },
+ "read_set_note": "Read set re-measured at this stamp with a sys.addaudithook('open') trace over the graded command (scratch script, not committed); every pinned copy equals its pin and the live file it was copied from.",
+ "revision": "b95fca1e40f32f7346937ab6426f9ccca60e319f",
+ "revision_note": "round-27 O claim (R27-O25..O32 pin sweep). Baseline lands as uncommitted round-27 worker output; the digests below, not the commit alone, bind the measured bytes. No commit/push performed.",
+ "schema": "kotodama-frozen-run-v1",
+ "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "stdout_sha256": "1c8add321259a9f026d6e37b0dbd95b0f548f31fe0a10c56098911c21532a6fe",
+ "supersedes": "the same gate's r19-pre / r20-post / r22-post rows",
+ "why_repinned": "the round-26 register stratum and the round-27 register law amended examples/culture-d4/components/{01-brief.yml,04-lexicon.yml,13-register-law.yml}, which moved the D4 packet, its typed packet, its projection and its hold set; the earlier rows pin the pre-law digests and refuse with exit 1 (drift)"
+}

@@ -3384,3 +3384,13 @@ designation (provider test), not a silent substitution.
 - **Correction:** X64's "stratum not landed" was a stale snapshot; integrator
   measurements confirmed the landing.
 - **Evidence:** `reports/round-26/validation.json` acceptance true.
+
+## 2026-10-18 — Round 27 admitted (loop 3 build 3 of 4; devin)
+
+- **Trigger:** regimen; claims D/O/C in `reports/round-27/claims.json`; baseline
+  `b95fca1`; 24/64 completed.
+- **D (verified):** register law lands (RGL-01..05; A/B-chosen route; 0 new
+  holds); syllabify fixed; RL-1/RL-3/RL-4 named.
+- **O (verified):** the D4 pin sweep complete; regressions green.
+- **C (verified):** register-strata knowledge entry + README.
+- **Evidence:** `reports/round-27/validation.json` acceptance true.

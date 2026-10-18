@@ -1,0 +1,183 @@
+{
+ "axis": "operability",
+ "canon": "NON-CANON engineering evidence; a pin is integrity, never truth and never clearance",
+ "controls": [
+  {
+   "exit": 1,
+   "gate": "tools/gates/d4-assembly-check-gate.py",
+   "id": "control:d4-assembly-check-gate",
+   "stderr_tail": [
+    "tools/gates/expected/d4-assembly-check-gate/r19-pre/packet.d4.yml differs from the deterministic assembly"
+   ],
+   "surface": "tools/gates/expected/d4-assembly-check-gate/r19-pre/packet.d4.yml"
+  },
+  {
+   "exit": 1,
+   "gate": "tools/gates/d4-typed-labels-check-gate.py",
+   "id": "control:d4-typed-labels-check-gate",
+   "stderr_tail": [
+    "tools/gates/expected/d4-typed-labels-check-gate/r19-pre/typed-labels.d4.yml differs from the deterministic projection"
+   ],
+   "surface": "tools/gates/expected/d4-typed-labels-check-gate/r19-pre/typed-labels.d4.yml"
+  },
+  {
+   "exit": 1,
+   "gate": "tools/gates/d4-typed-labels-check-gate.py",
+   "id": "control:d4-typed-labels-check-gate",
+   "stderr_tail": [
+    "tools/gates/expected/d4-typed-labels-check-gate/r20-post/typed-labels.d4.yml differs from the deterministic projection"
+   ],
+   "surface": "tools/gates/expected/d4-typed-labels-check-gate/r20-post/typed-labels.d4.yml"
+  },
+  {
+   "exit": 1,
+   "gate": "tools/gates/d4-typed-labels-check-gate.py",
+   "id": "control:d4-typed-labels-check-gate",
+   "stderr_tail": [
+    "tools/gates/expected/d4-typed-labels-check-gate/r22-post/typed-labels.d4.yml differs from the deterministic projection"
+   ],
+   "surface": "tools/gates/expected/d4-typed-labels-check-gate/r22-post/typed-labels.d4.yml"
+  },
+  {
+   "exit": 1,
+   "id": "control:tools/gates/frozen/round-18/MANIFEST.tsv",
+   "statuses": [
+    "mismatch",
+    "mismatch"
+   ],
+   "surface": "tools/gates/frozen/round-18/MANIFEST.tsv"
+  },
+  {
+   "exit": 2,
+   "id": "control:tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv",
+   "statuses": [
+    "mismatch",
+    "mismatch",
+    "could-not-evaluate"
+   ],
+   "surface": "tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv"
+  },
+  {
+   "exit": 1,
+   "id": "control:tools/gates/frozen/round-26/post-register/MANIFEST.tsv",
+   "statuses": [
+    "mismatch",
+    "mismatch",
+    "reproduced",
+    "reproduced",
+    "reproduced",
+    "reproduced"
+   ],
+   "surface": "tools/gates/frozen/round-26/post-register/MANIFEST.tsv"
+  },
+  {
+   "exit": 1,
+   "id": "control:reports/round-20/handoff/expected.json",
+   "surface": "reports/round-20/handoff/expected.json"
+  },
+  {
+   "exit": 1,
+   "id": "control:reports/round-22/handoff/declared-in/expected.json",
+   "surface": "reports/round-22/handoff/declared-in/expected.json"
+  },
+  {
+   "exit": 1,
+   "id": "control:reports/round-22/handoff/declared-in-r2/expected.json",
+   "surface": "reports/round-22/handoff/declared-in-r2/expected.json"
+  },
+  {
+   "exit": 1,
+   "id": "control:reports/round-26/register/v3-baseline-r26/expected.json",
+   "surface": "reports/round-26/register/v3-baseline-r26/expected.json"
+  },
+  {
+   "exit": 1,
+   "id": "control:reports/round-26/remainders/v3-baseline-r26/expected.json",
+   "surface": "reports/round-26/remainders/v3-baseline-r26/expected.json"
+  }
+ ],
+ "date": "2026-10-18",
+ "declared_by": "reports/round-26/register/repin.json (the two cascades it reported and did not repair) and the round-27 register-law landing",
+ "kind": "re-pin as a NEW row; every filed row stays byte-identical",
+ "limits": [
+  "a re-pin asserts the bytes moved, never that the move was correct",
+  "no filed round-8..26 byte is written by this seat"
+ ],
+ "live_pins": {
+  "examples/culture-d4/components/01-brief.yml": "649aa111db2e57a737234330690ea4fbb197039ba8ecf92d6248d1bed8ea793b",
+  "examples/culture-d4/components/04-lexicon.yml": "d0d4e17cc3c43a11e598259271fe16f18539c8bce3c3a30a40b6d2554b6c7240",
+  "examples/culture-d4/expected-holds.json": "857417e949fb5cb9b265918b8982ca86e47a820d136ba7b009414d84aa4ec28f",
+  "examples/culture-d4/packet.d4.typed.yml": "1c4b88088b696a131f71af69ad14dda518acdec83dc7e873cfcad6fae5fc2660",
+  "examples/culture-d4/packet.d4.yml": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc",
+  "examples/culture-d4/typed-labels.d4.yml": "88a94422b4123f6b436f9935590d69f081f90e688655ee605f33e0c1305fb68d"
+ },
+ "revision": "b95fca1e40f32f7346937ab6426f9ccca60e319f",
+ "round": 27,
+ "rows": [
+  {
+   "control": {
+    "command": "python3 tools/gates/d4-assembly-check-gate.py examples/culture-d4/packet.d4.yml",
+    "exit": 0,
+    "reading": "exit 0 byte-identical at the new row's own snapshot"
+   },
+   "id": "baseline:d4-assembly-check-gate",
+   "inputs_pinned": 17,
+   "new_row": "reports/round-27/pinsweep/baselines/d4-assembly-check-gate/r27-post/expected.json",
+   "stdout_sha256": "c60820a54742ecaa1edef972c6c94cce3f88313fbace8ef19eaeddd9a42572a7",
+   "surface": "tools/gates/expected/d4-assembly-check-gate/{r19-pre,r20-post,r22-post}/expected.json"
+  },
+  {
+   "control": {
+    "command": "python3 tools/gates/d4-typed-labels-check-gate.py examples/culture-d4/typed-labels.d4.yml",
+    "exit": 0,
+    "reading": "exit 0 byte-identical at the new row's own snapshot"
+   },
+   "id": "baseline:d4-typed-labels-check-gate",
+   "inputs_pinned": 6,
+   "new_row": "reports/round-27/pinsweep/baselines/d4-typed-labels-check-gate/r27-post/expected.json",
+   "stdout_sha256": "1c8add321259a9f026d6e37b0dbd95b0f548f31fe0a10c56098911c21532a6fe",
+   "surface": "tools/gates/expected/d4-typed-labels-check-gate/{r19-pre,r20-post,r22-post}/expected.json"
+  },
+  {
+   "id": "frozen-generation",
+   "new_row": "reports/round-27/pinsweep/frozen/r27-post/MANIFEST.tsv",
+   "rows": 2,
+   "surface": "tools/gates/frozen/round-{18,22}/**"
+  },
+  {
+   "control": {
+    "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet",
+    "exit": 0,
+    "reading": "exit 0 \u2014 the default regression is green at the successor row"
+   },
+   "frozen_dir": "reports/round-27/pinsweep/v3-baseline-r27",
+   "gate_sha256": "0a69ab8a289299139a57e63cb135f9bd0bd6887ff5690fc13f31c11fe30c7fdc",
+   "id": "default-pointer",
+   "now": "reports/round-27/pinsweep/v3-baseline-r27/expected.json",
+   "surface": "tools/exercise-handoff-e2e.py:V3_BASELINE_DEFAULT + V3_FROZEN_DIR_DEFAULT",
+   "was": "reports/round-26/handoff/declared-in-r5/expected.json"
+  },
+  {
+   "control": {
+    "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --baseline reports/round-27/pinsweep/v3-baseline-r27/expected.json",
+    "exit": 0,
+    "tail": [
+     "re-froze reports/round-27/pinsweep/v3-baseline-r27: packet sha256 6ea03f4279314e537d51da8d96d94e7ad1aa62cb97f91d9aa5fd99a40fe9b5ef"
+    ]
+   },
+   "id": "v3-baseline",
+   "new_row": "reports/round-27/pinsweep/v3-baseline-r27/expected.json",
+   "surface": "reports/round-{20,22,25,26}/*/expected.json (the v3 handoff chain)"
+  }
+ ],
+ "schema": "kotodama-r27-d4-repin-v1",
+ "seat": "R27-O25..O32",
+ "stale_pins": {
+  "examples/culture-d4/components/01-brief.yml": "a2bc3111b8e936d2aa78feca86b871996455cc98d7d639f3825a88df8a1c056f",
+  "examples/culture-d4/components/04-lexicon.yml": "74c2561b7c875c7c98708c589002b85b7989fc64bafa6abf794210401c69a9a5",
+  "examples/culture-d4/expected-holds.json": "d6136488e22f989e109c435cb4f7eb02ca680043785e88e78038ed5f47150fd3",
+  "examples/culture-d4/packet.d4.typed.yml": "618a78c90fc04c0d17e2619d1fed080e99f98b1213ad01fcbb75e7aab48fd18c",
+  "examples/culture-d4/packet.d4.yml": "dd25077bc01681bc17f4586b40cfdd6959d4f45fc63e4f33f13fdc9b2cc88e67",
+  "examples/culture-d4/typed-labels.d4.yml": "d03f6391fb8dc2b4d2b2ad05e08547455bc96c580050d830ce0c7c22bb75e580"
+ }
+}

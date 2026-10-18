@@ -334,6 +334,24 @@ exits 0.
 
 Admission: D/O/C verify, no axis harmed. Devin route: second viable sample.
 
+## Axes — round 27 (2026-10-18), admitted (loop 3 build 3 of 4 — devin)
+
+Baseline `b95fca1`; one 64-worker `devin/deepseek-v4-1-flash-high` batch
+(24/64 completed). Acceptance: `python3 reports/round-27/run-validation.py`
+exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D, capability `register-law`) | The register law lands: component 13 + the `register_law` packet block (RGL-01..05 — charge, attested oath, naming-of-a-lot, guest's charge; speakers, forces, record consequences) via a decisive A/B (route A beside `registers`: 0 new holds vs route B's 4); the syllabify disagreement fixed (one maximal-onset algorithm; selftest 21->27; all forms re-verified); named findings: RL-1 (no law replay leg yet), RL-3 (all 8 register forms are material-presence; the 5 legal abstractions refuse reverse — the register cannot spell its own law's vocabulary, a recorded craft constraint), RL-4 (orthography packet_keys gap: OR-01..03/LI-01..03/EN-01..02 never reach the packet — routed) | `python3 reports/round-27/run-validation.py` | `reports/round-27/law/` |
+| operability | improved (claim O) | The D4 pin sweep: every frozen manifest/baseline/expected-holds/replay row pinning D4 surfaces re-verified against the amended packet; drifted rows re-pinned as new rows; battery 9/9, all replays green; sweep auditors independently verified the inventory | `python3 reports/round-27/run-validation.py` | `reports/round-27/pinsweep/` |
+| coverage | improved (claim C) | corpus/knowledge/linguistics/register-strata-attestation.md: sourced, gap-named, decision-record carrying, 32 locators resolving; README reconciled; five false-green/self-defect classes found and fixed in the audit instruments themselves | `python3 reports/round-27/run-validation.py` | `reports/round-27/entry/` |
+| calibration | improved (unclaimed observation) | The A/B measurement culture (route chosen by measured holds, not taste); instrument self-defects caught by their own auditors | — | law/design.md §5 |
+| freshness / adjacency | unchanged | Pause in force; scope clean | — | — |
+
+Admission: D/O/C verify, no axis harmed. Routed: the law replay leg (RL-1),
+the orthography packet_keys gap (RL-4), the register-lexicon ceiling (RL-3 —
+a design constraint, not a defect).
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

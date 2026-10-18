@@ -1,0 +1,234 @@
+{
+ "schema": "kotodama-lessons-audit-x57-selftest-v1",
+ "checks": [
+  {
+   "name": "filed index is read",
+   "pass": true,
+   "observed": "ec7469dadf87df3e"
+  },
+  {
+   "name": "newest revision is read",
+   "pass": true,
+   "observed": "1c4623ec2e269548"
+  },
+  {
+   "name": "partition is 27 md files",
+   "pass": true,
+   "observed": 27
+  },
+  {
+   "name": "filed rows are 26",
+   "pass": true,
+   "observed": 26
+  },
+  {
+   "name": "revision rows are 27",
+   "pass": true,
+   "observed": 27
+  },
+  {
+   "name": "filed pins re-derive (live control)",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "revision pins drift on exactly one row (live control)",
+   "pass": true,
+   "observed": [
+    "round-26.md"
+   ]
+  },
+  {
+   "name": "filed orphan is exactly round-26.md (live control)",
+   "pass": true,
+   "observed": [
+    "round-26.md"
+   ]
+  },
+  {
+   "name": "revision has no orphan (live control)",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "filed queue is 49 rows (live control)",
+   "pass": true,
+   "observed": 49
+  },
+  {
+   "name": "A1 fires on a deleted filed row",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "B2 fires on a falsified revision pin",
+   "pass": true,
+   "observed": [
+    "round-26.md"
+   ]
+  },
+  {
+   "name": "B3 classifier separates gate-keeper from fragment-index",
+   "pass": true,
+   "observed": "gate-keeper"
+  },
+  {
+   "name": "D fires on an undeclared dead pointer",
+   "pass": true,
+   "observed": [
+    "reports/round-4*",
+    "reports/round-8/nope-xyz"
+   ]
+  },
+  {
+   "name": "D exempts a declared-absent pointer",
+   "pass": true,
+   "observed": 5
+  },
+  {
+   "name": "E fires on a queue orphan",
+   "pass": true,
+   "observed": [
+    "Q-08-1"
+   ]
+  },
+  {
+   "name": "E2 accepts `operator` and `parent` as role tokens",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "E2 fires on a fabricated path owner",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "F fires on drifted prose",
+   "pass": true,
+   "observed": [
+    26,
+    48
+   ]
+  },
+  {
+   "name": "G1 reproduces exactly six instances",
+   "pass": true,
+   "observed": 6
+  },
+  {
+   "name": "G1 surfaces are the six X63-G1 names",
+   "pass": true,
+   "observed": [
+    "Q-04-1",
+    "Q-23-1",
+    "Q-23-2",
+    "Q-23-3",
+    "round-12.md",
+    "round-21.md"
+   ]
+  },
+  {
+   "name": "G1 silent when the receipt is absent",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "G1 fires when the receipt is present",
+   "pass": true,
+   "observed": [
+    "round-12.md",
+    "round-21.md"
+   ]
+  },
+  {
+   "name": "G2 carries the drifted revision pin",
+   "pass": true,
+   "observed": [
+    "rev4 pin for round-26.md",
+    "rev4 \u00a71 row for round-25.md",
+    "rev4 \u00a71 row for round-26.md",
+    "rev4 \u00a74 disposition Q-18-3"
+   ]
+  },
+  {
+   "name": "G2 silent when the revision pin matches the live bytes",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "G3 fires on the filed row-level pending cell",
+   "pass": true,
+   "observed": [
+    "filed \u00a72 row for round-25.md"
+   ]
+  },
+  {
+   "name": "G3 names exactly the round-25 row (live control)",
+   "pass": true,
+   "observed": [
+    "filed \u00a72 row for round-25.md"
+   ]
+  },
+  {
+   "name": "G3 stays silent when the round's receipt is absent",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "G2 \u00a74 silent when no next-touch round has closed",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "G2 \u00a74 fires on the live revision's closed next-touch row",
+   "pass": true,
+   "observed": [
+    "rev4 \u00a74 disposition Q-18-3"
+   ]
+  },
+  {
+   "name": "I reads 49 queue ids and 49 disposition rows",
+   "pass": true,
+   "observed": [
+    49,
+    49
+   ]
+  },
+  {
+   "name": "I is green on the live revision",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "I fires on a dropped disposition row",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "I fires on an out-of-vocabulary class",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "J records all three peer tools",
+   "pass": true,
+   "observed": [
+    "c31",
+    "x45",
+    "x63"
+   ]
+  },
+  {
+   "name": "J records a live exit code per peer",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "J records the round-26 auditor's selftest state (its controls pin the pre-round-26 partition)",
+   "pass": true,
+   "observed": 1
+  }
+ ],
+ "passed": 37,
+ "total": 37
+}

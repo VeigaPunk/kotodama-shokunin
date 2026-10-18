@@ -1,0 +1,526 @@
+revision: 1.1
+revision_notes:
+  - "Round 4: align all ten garment era references with 09-eras-calendar.era_tag_map; their existing E0/E1/E2 values are already canonical and are retained, as are material exclusions and dated routes. Refresh reconciliation notes because 12 now uses the same tags."
+era_registry_ref: "09-eras-calendar.yml: eras, era_tag_map, named_eras, era_records"
+
+component: 11-costumes
+culture: D2
+canon: not canonized (D2 design drill)
+title: "Costumes — the two-wardrobe year: valley, pass, high pasture, and what may be worn at each"
+status: "round-3 write drill, 2026-10-17, worker W11; single-component write assignment; supersede-by-new-file only"
+packet_keys: [costumes, materials, cloth_sources]
+registry_ref: "01-brief.yml registry C-07 (07-costumes): packet_keys are the binding identity; this file is written under the round dispatch stem 11-costumes, and its own `component:` value governs (01-brief.yml registry note)"
+brief_ref: "examples/culture-d2/components/01-brief.yml (contract.record_fields.costumes, contract.rules RG-01..RG-08, spine SP-01..SP-03, d1_contrast R-01..R-06, acceptance A-07)"
+handoff_recipient: "lore-shokunin (canon, entity identity, chronology) — reference only"
+
+scope_note: |
+  Ten garment records (GAR-01..GAR-10), nine material records (CMAT-01..CMAT-09), three
+  cloth sources (CS-01..CS-03), and the dress reading tables this component is judged by.
+  Material ids are CMAT-* because component 10-materials (landed mid-round) owns the
+  MAT-01..MAT-22 space; each CMAT record carries a `maps_to` slot mapping to that
+  component's inventory, per its own instruction to map by slot rather than by label.
+  GAR-01..GAR-08 are written to be compatible with the garment refs already declared by
+  component 12-rank-rules (its `garment_refs` block lists ids GAR-01..GAR-08 with glosses,
+  and names the rules each appears in); id and gloss are matched, and the rule ids are
+  carried here as typed I-edges in `deps`. GAR-09 and GAR-10 are this component's own
+  records and no sibling law claims them yet. Surface forms are the lexicon component's:
+  this file coins none and carries its requirements as form slots (LEX-GAR-*), the same
+  pattern 12-rank-rules used for its degree slots. No rank-rule records are written here;
+  the law lives in 12-rank-rules and is consumed by id (see deps, open questions).
+
+spine:
+  verticality: "The wardrobe is a two-pole set (valley shelter, high pasture) plus the pass, and every garment record is licensed to one of the three. Layers are named per pole, not per season: GAR-01 low pole, GAR-02 high pole, GAR-03 the crossing, GAR-10 the gale layer of the crossing. Rank and record are counted on the body along the same line the year moves: cords hang at the hem and are read from the lowest (first ascent) upward."
+  wind: "Wind is what the coat is built against and what the cords are read by. The high-pole coat takes the wind-flap; the gale legging is cut so no slack can be taken; the storm-layer dye is the darkening bath of the storm register (S1, consumed by id). Breath and soul vocabulary is the lexicon component's (L01 im, L08 su, L09 hur) and is not restated here."
+  anti_import: "No river, bank, tide, ford or flood imagery; no tying/binding metaphor. Tying appears once, as manufacture (cord twisting and hem-cord attachment), and never as obligation: obligations are pasture rights held by lineages (SP/AS-04). No D1 fiber route (flax, bast, reed) is reused as the native textile story: the state fiber chain is the herd's wool (L34 mir), and the only woven cloth in this file other than wool and felt is the lowland partner's import. (10-materials' local nettle-bast is that component's cordage material and no garment record here is bast.)"
+
+follows:
+  - alias_dress
+  - alias_semiotics
+  - alias_sumptuary
+  - alias_textile
+  - alias_ritual
+  - alias_garlex
+  - alias_eras
+  - alias_brief
+follows_index:
+  alias_dress: "corpus/knowledge/culture-material/dress-through-eras.md §1 (three-slot grammar: silhouette / material / wearer rule; port constraints, never names), §3 (the trouser-and-riding axis, re-caused here for a herding pass), §5 (layer grammar; rank in layer count and trim), §9 (the hem speaks: hem-as-person-proxy device, re-read vertically here as the count line), §10 (who-wears-what rule generator: ledger columns and the two-mechanism minimum), §11 (application protocol steps 1-8), §12 (debunk shelf: no timeless costume without a dated founding fight)"
+  alias_semiotics: "corpus/knowledge/culture-material/costume-semiotics.md §1 (dress is a weak code, not a language; the misreading test), §3 (channel grid: rank, rite, region, gender, occupation, faction, age), §4 (sumptuary display: on-the-books vs on-the-street; hidden undersides as the defiance channel), §5 (a modesty code needs its display sibling), §6 (legibility dial; imposture theorem), §7 (cross-era signaling drift; one region one era behind), §9 (application protocol: enforcement artifacts, reading scenes, drift plan, language wiring), §10 (coupling notes)"
+  alias_sumptuary: "corpus/knowledge/culture-material/sumptuary-law-rank-display.md §2 (the regulated object: fiber/material, trim, garment-type axes), §5 (status outfit with a hidden-luxury dialect; the analogy used here is bounded, not evidence), §8 (drafting formulae: degree, assay, forfeiture-plus-informer, occasion exemption, renewal — implemented by 12-rank-rules, consumed here by rule id), §10 (build sequence)"
+  alias_textile: "corpus/knowledge/culture-material/textile-technology.md §1 (the four gates: fiber, dye, loom, finish), §2 (fiber hierarchy and the fiber prestige order), §5 (fulling and finishing as the expensive half: the felt grade ladder), §6 (a culture cannot have a basic costume term for a cloth its gates cannot make)"
+  alias_ritual: "corpus/knowledge/culture-material/ritual-garments.md §1 (garment-as-office; donning as a rite with order and formula), §6 (lifecycle-rite dress: the mourning year as a liminal sequence), §8 (build order for a fictional sacral wardrobe)"
+  alias_garlex: "corpus/knowledge/culture-material/garment-lexicon-crosslinguistic.md §4 (loan vs coin: a cloth's name travels with the cloth when the receiver does not make it), §6 (classifiers: how a language ontologizes garments), §9 (craft checklist)"
+  alias_eras: "corpus/knowledge/culture-material/era-periodization-models.md §13 (build order: give the culture its own way of cutting time, then date the seams)"
+  alias_brief: "examples/culture-d2/components/01-brief.yml contract.era_tags (E0/E1/E2 fixed), contract.record_fields.costumes, contract.rules RG-01 (cord geometry: vertical position, never obligation), RG-02 (every record carries follows), RG-05 (every record carries axis), CP-09 (costume records carry the full route), A-07 (this component's acceptance block)"
+
+eras: ["E0", "E1", "E2"]
+era_note: "Tags only, defined by 09-eras-calendar.era_tag_map and its nine named_eras records. The contract's fixed space is E0-E3 (01-brief.yml contract.era_tags, revised mid-round on 2026-10-17, with the alias rule); these records occupy E0-E2 and E3 is unoccupied here (09-eras-calendar assigns it). Era names and era_dates are that component's and are not asserted here; the assembler takes `eras`/`era_dates` from it. This component uses the contract tag space directly, so no alias is needed for its own records — stated here explicitly per the alias rule."
+era_reconciliation:
+  # 09/11/12 now share canonical tags; other components retain local labels.
+  # Earlier labels are mapped explicitly, never merged by their E-number.
+  - {id: ERX-0, source: 09-eras-calendar, their_labels: "era_tags E0|E1|E2|E3 (identical meanings to the contract) with in-world era names Open Grazing, First Ascent, Salt Turn, Long Storm, Ash Wind, Bitter Smoke, Marked Count, Two Counts, Still Air (reserved)", mapping: "identity for the tags; the names are theirs and are not used as era values here", status: "confirmed on disk at write time; their ER- records' `costume_seam` fields point at this component's GAR- ids (e.g. felt layers from the earliest stratum, lowland cloth not before the E0/E1 seam) and match what this file dates"}
+  - {id: ERX-R, source: 12-rank-rules, their_labels: "E0|E1|E2", legacy_labels: {era-1: E0, era-2: E1, era-3: E2}, maps_to: "identity; E0 covers ER-01..ER-06, E1 is ER-07 Marked Count, E2 is ER-08 Two Counts", status: "round-4 alignment; record tags follow 09-eras-calendar.era_tag_map, with rule intervals preserved in era_history"}
+  - {id: ERX-1, source: "10-materials (slot ids), 08-symbols (E1..E4)", their_labels: {10-materials: "E1 shelter era", 08-symbols: "E1 shelter era"}, maps_to: "E0", status: "(to-verify) proposed mapping; slot-level, not label-level"}
+  - {id: ERX-2, source: "10-materials, 08-symbols, 05-lexicon", their_labels: {10-materials: "E2 road era", 08-symbols: "E2 road era", 05-lexicon: "Nalne (salt-road naming)"}, maps_to: "E1 (script-arrival seam; the road and the treaty register are the same seam in this file's dating)", status: "(to-verify)"}
+  - {id: ERX-3, source: "10-materials, 08-symbols, 05-lexicon", their_labels: {10-materials: "E3 assembly era", 08-symbols: "E3 assembly era", 05-lexicon: "Pertne (script naming)"}, maps_to: "E1 -> E2 (two-to-one: their assembly era sits inside the seam and the anchor; the finer grain is theirs)", status: "(to-verify)"}
+  - {id: ERX-4, source: "10-materials, 08-symbols", their_labels: {10-materials: "E4 script era", 08-symbols: "E4 script era"}, maps_to: "E2 (literate anchor; the luxury import slot)", status: "(to-verify)"}
+  - {id: ERX-W, warning: "08-symbols' and 10-materials' E-numbers do NOT coincide with the contract's (their E1 = shelter = contract E0). Merge by slot, never by number; and note 10-materials' own flagged seam tension (12-rank-rules' E1 register, formerly era-2, vs 08-symbols' E4 script media) is the same seam this table maps."}
+
+deps:
+  - component: 12-rank-rules
+    kind: I
+    ids: [WR-01, WR-02, WR-03, WR-04, WR-05, WR-06, WR-07, WR-08, WR-09, TR-02, TR-03, TR-05, TR-06, LO-01, LO-02, LO-05]
+    note: "Permission edges. These rule records consume GAR-01..GAR-08 by id (12-rank-rules `garment_refs`); this file writes no rule records of its own and keeps the id/gloss match so their rule text stays valid. The rule-to-garment mapping per garment is listed in each garment record's `rule_edges`."
+    status: "(to-verify) the sibling's rules were read only at its declared contract block and its WR-02 record; the full rule text is not restated here (RG-03)."
+  - component: 05-lexicon
+    kind: T
+    ids: [L08, L09, L14, L15, L18, L25, L34, L35, L36, L37]
+    note: "Transmission edge. Surface forms are the lexicon component's; L34 mir (fleece, wool) and L35 mirken (wool cloak, the felted wrap worn at both pastures) are the two costume-field lexemes already landed, and GAR-01/GAR-02 are their valley and high-pole grades. L36 lasin (lineage head) and L37 velin (vanguard herder) supply two wearer institutions used below."
+    status: "(to-verify) further garment forms are requested as form slots (LEX-GAR-01..10, (to-verify)); the lexicon component owns whether it coins them."
+  - component: 08-symbols
+    kind: R
+    ids: [S1, S3, S4]
+    note: "Retrospective-interpretation edge. The storm register (S1), the counted-absence register (S3) and the pack-gear register (S4) supply the hue reading, the descent grey and the pack-ox the fiber comes off; hue meaning stays theirs (each garment record states only what is worn, and cites S1/S3 where a colour is involved)."
+    status: "Updated after 10-materials landed: the local darkening is now carried as CMAT-09 hearth-dark (their MAT-10 slot), so this file no longer coins a competing storm dye; 08-symbols' storm cloak is still read as GAR-02 (OQ-2)."
+  - component: 09-eras-calendar
+    kind: F
+    ids: []
+    note: "Feasibility edge for names, dates and seams: the tags E0/E1/E2 are the contract's and this file's records use them; the in-world era names (Open Grazing ... Two Counts) and all dates are that component's and are not asserted here. Its ER- records' `costume_seam` fields address this component's GAR- ids by id."
+    status: "Read on disk at write time; the two files agree on the felt layers' earliest stratum and on lowland cloth not predating the E0/E1 seam (mapping ERX-0)."
+  - component: 10-materials
+    kind: F
+    ids: []
+    note: "Feasibility edge, and the contract this component's material set is bounded by. Mapping is by slot per that file's own instruction: each CMAT record carries `maps_to` to its MAT- record (wool/ewe-fleece, felt/felt, leather/herd-hide, horn/horn-and-bone, plant-thread cloth/lowland-plant-cloth, cord/lowland-plant-cord, hearth-dark/hearth-dark). Two records have no counterpart and are reported, not merged: CMAT-03 pack-ox down and CMAT-08 silk (OQ-3). ID collision resolved by re-lettering this file's records to CMAT-* (their MAT-01..MAT-22 space left intact)."
+    status: "Read on disk at write time; slot mappings declared above; two unmapped records carried as findings."
+  - component: 06-names, 14-kin-address, 15-pragmatics
+    kind: R
+    ids: []
+    note: "No direct claims. Named for completeness: the mourner's address and the fair-court formulae are theirs; this file only states which garment is worn."
+
+wearer_institutions:
+  # Rank is held as a pasture task, never as wealth (CP-06, CP-09; A-07 check 4).
+  - {id: WI-1, institution: "lineage head", lexicon_ref: L36, rule_ref: DEG-1, garment_basis: "speaks the lineage herd count at the fair; wears the lineage's coat grade"}
+  - {id: WI-2, institution: "vanguard herder", lexicon_ref: L37, rule_ref: "(to-verify) DEG slot", garment_basis: "opens the summer pasture; first up the pass wears the high-pole coat first"}
+  - {id: WI-3, institution: "registered herd-master", lexicon_ref: "(to-verify)", rule_ref: "WR-02 (the registered class the fair court reads against the caravan register)", garment_basis: "the only rank licensed lowland-woven cloth, and only at the fairgrounds and on the valley road"}
+  - {id: WI-4, institution: "wind-standard bearer", lexicon_ref: "(to-verify)", rule_ref: "GAR-05 refs WR-04, TR-02, TR-05, LO-05", garment_basis: "appointed annually, not inherited; wears the mast-sash and nothing that outlives the appointment"}
+  - {id: WI-5, institution: "treaty stranger", lexicon_ref: "(to-verify)", rule_ref: "GAR-06 refs WR-02, WR-07, TR-06", garment_basis: "the regulated lowland person at the fair: lowland cut, no hem-cords, no lineage coat"}
+  - {id: WI-6, institution: "mourner (household of the dead)", lexicon_ref: "(to-verify)", rule_ref: "GAR-07 refs WR-05, TR-02", garment_basis: "time-locked one year; felt left shaggy, undyed, hem-cords cut back"}
+  - {id: WI-7, institution: "bale keeper / caravan hand", lexicon_ref: "(to-verify)", rule_ref: "GAR-08 refs WR-08, WR-09, TR-03, LO-02", garment_basis: "handles the imported cord under the exception channel; wears no imported cloth"}
+
+materials:
+  # IDs re-lettered CMAT-* to avoid colliding with 10-materials' MAT-01..MAT-22 (that
+  # component owns the inventory; this block is the costume-facing subset with routes).
+  # Mapping is by slot, per 10-materials' own instruction ("map by slot id rather than by
+  # label", 10-materials interface_facts) — never by label merge. `maps_to` names the
+  # 10-materials record where one exists; a null map is a reported finding, not a merge.
+  - id: CMAT-01
+    material: "wool"
+    composition: "fleece of the herd's wool analog (a sheep analog; no real breed is described); native state fiber, spun and woven in the valley sheds"
+    maps_to: "10-materials MAT-01 ewe-fleece (same slot: the state fiber)"
+    axis: both
+    evidence: design-choice
+    follows: [alias_textile]
+    routes:
+      - {kind: local, stage: fiber}
+      - {kind: local, stage: cloth}
+  - id: CMAT-02
+    material: "felt"
+    composition: "matted and fulled wool, non-woven; formed on the felt table, so the loom ceiling does not bound it (CS-03 is the bound that applies)"
+    maps_to: "10-materials MAT-02 felt (name and slot match)"
+    axis: verticality
+    evidence: design-choice
+    follows: [alias_textile]
+    routes:
+      - {kind: local, stage: cloth}
+      - {kind: local, stage: garment}
+  - id: CMAT-03
+    material: "pack-ox down"
+    composition: "fine combed underfleece of the pack-ox (the salt-bearer of 08-symbols S4), taken at the summer clip; the finest thing the herd yields"
+    maps_to: null
+    maps_to_note: "REPORT, do not merge: 10-materials supplies the pack-ox's hair as cordage (MAT-03 ox-hair cordage) but no down/underfleece record. This material is the 'yak/camelid fiber analog' of this component's dispatch; it is carried with the flag rather than dropped (OQ-3)."
+    axis: verticality
+    evidence: design-choice
+    follows: [alias_textile]
+    routes:
+      - {kind: local, stage: fiber}
+  - id: CMAT-04
+    material: "leather"
+    composition: "smoke-cured hide of the herd (sheep and pack-ox); worked straight to the piece, so its route has a garment stage and no yarn or cloth stage"
+    maps_to: "10-materials MAT-20 herd-hide (same slot: the wind-facing outer layer)"
+    axis: both
+    evidence: design-choice
+    follows: [alias_textile]
+    routes:
+      - {kind: local, stage: garment}
+  - id: CMAT-05
+    material: "horn"
+    composition: "horn of the herd, steam-softened and cut into toggles and placket pins"
+    maps_to: "10-materials MAT-22 horn-and-bone (same slot: toggles and pins)"
+    axis: neutral
+    coupling_note: "A fastening material, not a spine record: it couples to the herd economy (brief R-03 allows leather and horn from the same herds) and to no axis of its own."
+    evidence: design-choice
+    follows: [alias_textile]
+    routes:
+      - {kind: local, stage: trim}
+  - id: CMAT-06
+    material: "lowland plant-thread cloth"
+    composition: "woven plant-thread cloth of the lowland farmers, imported by the caravan as finished cloth; no D1 craft route is reused (this is the partner's weave, and the local bast of 10-materials MAT-04 nettle-bast is that component's cordage material, not a garment here)"
+    maps_to: "10-materials MAT-05 lowland-plant-cloth (same slot) — note the convergent exclusions: their record is excluded in its E1 (shelter) slot and this one in E0, which are the same slot under the era mapping"
+    axis: verticality
+    evidence: design-choice
+    follows: [alias_textile, alias_garlex]
+    excluded_eras: ["E0"]
+    routes:
+      - {kind: import, stage: cloth, eras: ["E1", "E2"]}
+    note: "The dated E1 import the acceptance block requires, and the cloth 12-rank-rules' GAR-04/GAR-06/GAR-08 glosses assume. Reconciliation: it is present in 10-materials (MAT-05) although not in this component's dispatch list — kept, mapping declared (OQ-3)."
+  - id: CMAT-07
+    material: "lowland cord"
+    composition: "twisted plant-thread cord of the lowland partner; imported in coils and used for bales and harness repair under the exception channel"
+    maps_to: "10-materials MAT-06 lowland-plant-cord (same slot: the exception channel)"
+    axis: neutral
+    coupling_note: "Kept out of the axes because its only spine contact is record geometry: a cord counts (RG-01), it does not bind a person to anyone."
+    evidence: design-choice
+    follows: [alias_sumptuary, alias_brief]
+    excluded_eras: ["E0"]
+    routes:
+      - {kind: import, stage: trim, eras: ["E1", "E2"]}
+  - id: CMAT-08
+    material: "silk"
+    composition: "filament silk of the lowland partner's moths, arriving as woven cloth in the treaty grade; never reared, reeled, spun or woven in D2"
+    maps_to: null
+    maps_to_note: "REPORT, do not merge: 10-materials has no silk record; its luxury import of the anchor era is MAT-07 lowland-broadcloth (fulled, sheared, wool), arriving in its E4 slot = brief E2. Silk is this component's dispatch-mandated 'late-era luxury' and is retained; the integrator must either keep both luxury imports or re-letter GAR-06 to the broadcloth (OQ-3)."
+    axis: verticality
+    evidence: design-choice
+    follows: [alias_textile, alias_garlex]
+    routes:
+      - {kind: import, stage: cloth, eras: ["E2"]}
+    note: "The late-era luxury of this component's dispatch. It is the treaty grade of the same lowland-woven cloth channel 12-rank-rules regulates (WR-02), not a second import class; the word and the cloth arrive together (alias_garlex §4)."
+  - id: CMAT-09
+    material: "hearth-dark"
+    composition: "smoke-darkening of wool and felt at the winter hearth — soot and heat, no dye molecule added (the chemistry of 10-materials MAT-10, mapped by slot)"
+    maps_to: "10-materials MAT-10 hearth-dark (same slot and chemistry; the earlier name 'storm-slate bath' was withdrawn in favour of this slot's name)"
+    axis: wind
+    evidence: design-choice
+    follows: [alias_textile, alias_semiotics]
+    routes:
+      - {kind: local, stage: dye}
+    note: "Hue meaning belongs to 08-symbols (S1); this record claims makeability only. The genuine tannin-and-iron black (10-materials MAT-09 wool-black) and the traded indigo (MAT-08) are NOT claimed here."
+
+cloth_sources:
+  - {id: CS-01, name: "valley ground loom (winter sheds; warp staked to the shelter floor)", max_width_m: 0.65, eras: ["E0", "E1", "E2"], axis: verticality, evidence: design-choice, follows: [alias_textile]}
+  - {id: CS-02, name: "upright warp-weighted loom (the tall shelter frame)", max_width_m: 1.25, eras: ["E0", "E1", "E2"], axis: verticality, evidence: design-choice, follows: [alias_textile]}
+  - {id: CS-03, name: "felt table (non-woven matting; the felt ceiling, not a loom)", max_width_m: 1.9, eras: ["E0", "E1", "E2"], axis: verticality, evidence: design-choice, follows: [alias_textile]}
+loom_note: "A felted coat is not bounded by loom width but by the table it is worked on (textile §5: fulling is the expensive half); CS-03 is declared for exactly that reason, so the seamless-panel check has a real bound to read."
+
+costumes:
+  - id: GAR-01
+    garment: "winter valley coat (heavy felted wool; uncombed finish optional)"
+    form_slot: "LEX-GAR-01, the valley grade of L35 mirken (to-verify with 05-lexicon)"
+    material: "felt"
+    wearer_rank: "any adult of a pasture-holding lineage, at the low pole (lineage head speaks the coat's grade at the fair; WI-1)"
+    rite: "low stay (the shelter season); not worn above the sell-line"
+    era: "E0"
+    route: "native chain: L34 mir (fleece) -> shear -> card -> felt table (CS-03) -> cut and seamed in the valley shelter -> horn toggles; no imported component"
+    provenance: local-production
+    closures: [{material: horn, form: "toggle"}]
+    panels: [{name: "body felt panel", width_m: 1.7, seamless: true}]
+    rank_mark: "none on the body; the coat's grade is spoken, not worn (the count lives on GAR-03 and the cords)"
+    axis: verticality
+    evidence: design-choice
+    viewer_read: "A stranger at the valley gate reads a heavy coat as weather, not as rank; a lineage member reads the finish (combed or not) as who did the work."
+    penalty: "none for the coat itself; wearing it above the sell-line in the pasture season is the lapse the law catches by coat, not by name (12-rank-rules TR-05)"
+    era_seam: "E0 to E1 unchanged; E2 keeps it as the shelter coat while the road coat takes the fair"
+    misread: "A lowland trader at the gate offers to buy 'the poor man's coat' from a lineage head's son; the offer is taken as an assay of the household's workmanship."
+    rule_edges: [WR-01, WR-06, WR-08, TR-05]
+    follows: [alias_dress, alias_textile, alias_semiotics]
+  - id: GAR-02
+    garment: "high-pasture coat (fine first-shear felt; narrow placket; wind-flap at the shoulder)"
+    form_slot: "LEX-GAR-02, the high grade of L35 mirken (to-verify)"
+    material: "felt"
+    wearer_rank: "vanguard herder and the household that opens the pasture (WI-2); the fine grade is licensed by the degree ladder (DEG-*)"
+    rite: "ascent (the opening of the summer pasture)"
+    era: "E0"
+    route: "native chain as GAR-01, but from the first shear and fulled twice; the wind-flap is cut from the same felt sheet, no imported trim"
+    provenance: local-production
+    closures: [{material: horn, form: "toggle"}]
+    dye: "hearth-dark"
+    rank_mark: "the wind-flap itself (a working mark, not a badge: it is read as 'this one goes up first')"
+    axis: both
+    evidence: design-choice
+    viewer_read: "On the high ground the flap is read as function and as office at once; at the fair it reads as a claim to have opened the pasture, which a stranger cannot check."
+    penalty: "imposture edge: a flap sewn on a shelter coat is read against the ascent order (12-rank-rules WR-01, WR-07)"
+    era_seam: "E0 to E2 unchanged in cut; the darkening bath is the storm register's (S1) and drifts in hue reading, not in make"
+    misread: "This is the layer 08-symbols' colour register calls the storm cloak; read here as the storm-facing high-pole coat, and flagged as a naming question (OQ-2)."
+    rule_edges: [WR-01, WR-07, WR-09, TR-05]
+    follows: [alias_dress, alias_semiotics, alias_textile]
+  - id: GAR-03
+    garment: "transit coat (felted outer; fringed hem-cords at the hem-line; the coat of the pass)"
+    form_slot: "LEX-GAR-03 (to-verify)"
+    material: "felt"
+    wearer_rank: "herd hands on the move, and the lineage head on a moot road; counted by whoever keeps the cords"
+    rite: "the crossing (ascent and descent both; the descent state is the same coat unwashed and turned, ridge-wool out, read as the counted absence of S3)"
+    era: "E0"
+    route: "native chain as GAR-01; the hem-cords are attached at the hem-line, each after a verified crossing, and are never woven into the cloth"
+    provenance: local-production
+    closures: [{material: horn, form: "toggle"}]
+    rank_mark: "hem-cords, read vertically: the lowest cord is the first crossing, and the count is read from the bottom up (RG-01: cord geometry is position, never obligation)"
+    axis: both
+    evidence: design-choice
+    viewer_read: "At the lineage moot the cords are a public count; on the road the same cords are rolled inward and readable only by someone who knows to look at the hem."
+    penalty: "a cord added for a crossing that did not happen is the packet's imposture edge (12-rank-rules WR-03, TR-02, TR-06)"
+    era_seam: "E1 to E2: the script takes the count off the hem for trade accounts; the cords stay ceremonially and stop being the ledger (the drift the costume-semiotics §7 strata predict)"
+    misread: "A lowland fair clerk reads the cords as a tally of debts and asks what the wearer owes; the question is answered with the number of times he has gone up."
+    rule_edges: [WR-01, WR-03, WR-06, TR-02, TR-06, LO-01]
+    follows: [alias_dress, alias_semiotics, alias_brief]
+  - id: GAR-04
+    garment: "lowland-cloth coat (woven plant-thread cloth of the lowland partner; a lowland cut)"
+    form_slot: "LEX-GAR-04 (to-verify)"
+    material: "lowland plant-thread cloth"
+    wearer_rank: "registered herd-master only (WI-3), and lawful only within the fairgrounds and on the valley road"
+    rite: "the caravan fair (treaty days)"
+    era: "E1"
+    route: "import: lowland farm thread -> lowland weaving -> caravan (CMAT-06) -> cut by a D2 tailor to a lowland cut in the valley; no D2 fiber stage at all"
+    provenance: import
+    closures: [{material: horn, form: "toggle"}]
+    rank_mark: "none: the coat is jurisdiction, not rank; it is the coat that says where you may stand"
+    axis: verticality
+    evidence: design-choice
+    viewer_read: "At the fairgrounds it reads as credit with the partner; one step up the valley road it reads as a claim the wearer may not make."
+    penalty: "forfeiture face: the coat worn above the sell-line is the packet's clean statute case (12-rank-rules WR-02: void above the sell-line)"
+    era_seam: "Arrives E1 (the dated import route A-07 requires); forbidden in E0 by construction (CMAT-06 excluded_eras, converging with 10-materials' own exclusion in the same slot under the era mapping)"
+    misread: "A vanguard herder keeps the coat on returning up the road because the wind is cold; at the first shelter it is read as showing off the partner's cloth, and the telling is remembered."
+    rule_edges: [WR-02, WR-05, WR-09, LO-02]
+    follows: [alias_sumptuary, alias_semiotics, alias_garlex]
+  - id: GAR-05
+    garment: "mast-sash (narrow woven wool band, lineage-issued; the wind standard's sash)"
+    form_slot: "LEX-GAR-05 (to-verify)"
+    material: "wool"
+    wearer_rank: "wind-standard bearer, appointed annually by the lineage and revocable (WI-4)"
+    rite: "the standard raised at the moot and at the departure of the herds (storm-watch days)"
+    era: "E0"
+    route: "native chain: the narrow band is woven on CS-02 with a warp kept for bands only; darkened at the winter hearth in the hearth-dark of CMAT-09"
+    provenance: local-production
+    dye: "hearth-dark"
+    rank_mark: "the sash is the office: it is issued with the standard and surrendered with it, so it cannot be inherited or worn by a household (ritual-garments §1: garment-as-office)"
+    axis: wind
+    evidence: design-choice
+    viewer_read: "On a storm-watch day the sash is read at distance as 'the standard is up'; indoors it is read as nothing, which is the point (wind-reached vs roofed, 08-symbols AX-2)"
+    penalty: "wearing it out of appointment is an imposture case (12-rank-rules WR-04, TR-02, LO-05)"
+    era_seam: "unchanged E0 to E2; the standard is the one garment-record that never takes an import grade"
+    misread: "A lowland envoy reads the sash as a badge of rank and addresses the bearer as a chief; the bearer answers for the herd's route that day and for nothing else."
+    rule_edges: [WR-04, TR-02, TR-05, LO-05]
+    follows: [alias_ritual, alias_dress, alias_sumptuary]
+  - id: GAR-06
+    garment: "stranger's fair coat (flat-woven lowland cut, no fringed hem; the treaty stranger's coat)"
+    form_slot: "LEX-GAR-06 (to-verify)"
+    material: "silk"
+    wearer_rank: "treaty stranger (WI-5); by gift, a registered herd-master may wear one at the fairgrounds only, which is the received-robe reading"
+    rite: "the treaty renewal at the fair"
+    era: "E2"
+    route: "import: the partner's own weave, arriving as a finished coat-to-be; the D2 tailor may shorten it and must not add cords"
+    provenance: import
+    rank_mark: "the absence of hem-cords: a coat that cannot count crossings says its wearer never crossed (the flat hem is the mark)"
+    axis: verticality
+    evidence: design-choice
+    viewer_read: "At the fair it reads as the partner's cloth at its top grade and as a person who is lawful only here; up the valley it reads as a claim with no lineage behind it."
+    penalty: "cutting cords onto a fair coat is the offence that reads as a forged lineage at the moot (12-rank-rules TR-06)"
+    era_seam: "E1 to E2 drift: the same coat was the plant-thread grade (CMAT-06) in the trade-contact era; silk is the treaty grade of one channel, not a new garment (the drift record is this one id). Integration note: 10-materials' luxury import of the anchor era is lowland-broadcloth (its MAT-07), not silk — the two luxuries must be reconciled before assembly (OQ-3)."
+    misread: "An escort dressed in the gift-grade coat is read at the pasture as a man of the partner's house; he is a herd-master's nephew, and the coat outranks anything he can answer for."
+    rule_edges: [WR-02, WR-07, TR-06]
+    follows: [alias_semiotics, alias_dress, alias_garlex]
+  - id: GAR-07
+    garment: "mourning coat (felt left shaggy, undyed, hem-cords cut back)"
+    form_slot: "LEX-GAR-07 (to-verify)"
+    material: "felt"
+    wearer_rank: "mourner, household of the dead (WI-6); the coat is the household's, not the wearer's, and returns after the year"
+    rite: "the mourning year (time-locked; the liminal sequence of ritual-garments §6)"
+    era: "E0"
+    route: "native chain as GAR-01, then deliberately unfinished: no combing, no bath, and the hem-cords of GAR-03 cut back to stubs"
+    provenance: local-production
+    rank_mark: "the cuts: the count that was on the hem is visibly reduced, so the year of grief is read as a descent in the same grammar as the ascents"
+    axis: both
+    evidence: design-choice
+    viewer_read: "In the lineage it is read as the year's count; at the fair a stranger reads it as a shabby coat and offers a better one, which must be refused without explanation."
+    penalty: "keeping the coat past the year is a rite lapse, not a sumptuary offence (12-rank-rules WR-05, TR-02)"
+    era_seam: "unchanged E0 to E2; the E2 court keeps it while the accounts move to script"
+    misread: "A mourning coat seen from behind at the pass is read by a road hand as a coat with its cords lost, and he offers cord from his own bale: an act read as a kindness and as a small theft of grief."
+    rule_edges: [WR-05, TR-02]
+    follows: [alias_ritual, alias_dress, alias_semiotics]
+  - id: GAR-08
+    garment: "bale cord (imported plant-thread cord in coils; the legal channel of the banned import)"
+    form_slot: "LEX-GAR-08 (to-verify)"
+    material: "lowland cord"
+    wearer_rank: "bale keeper and caravan hands (WI-7); worn as a shoulder coil by the man who counts bales at the mooring"
+    rite: "the bale audit (departure of the salt and dried-meat bales)"
+    era: "E1"
+    route: "import: lowland twisting -> coils by the caravan -> cut at the bale; the cord is never worn as a belt or a sash"
+    provenance: import
+    axis: neutral
+    coupling_note: "Deliberately off both axes: this record exists to keep the law's exception channel visible (a cord may be imported where cloth may not), and its only spine contact is that cord is record geometry (RG-01), never obligation."
+    evidence: design-choice
+    viewer_read: "The coil on the shoulder reads as trade in flow; the same cord on a waist would read as an imported belt, which is the offence the exception is written around"
+    penalty: "wearing the cord as dress converts a lawful import into the prohibited cloth case (12-rank-rules WR-08, WR-09, TR-03, LO-02)"
+    era_seam: "Arrives E1 with the road; forbidden in E0 by construction (CMAT-07 excluded_eras)"
+    misread: "A fair clerk sees the coil and writes the wearer down as a carrier of cloth; the register line has to be corrected by the cord's own twist count."
+    rule_edges: [WR-08, WR-09, TR-03, LO-02]
+    follows: [alias_sumptuary, alias_semiotics, alias_brief]
+  - id: GAR-09
+    garment: "down under-tunic (combed pack-ox underfleece, worn next to the skin at both poles)"
+    form_slot: "LEX-GAR-09 (to-verify)"
+    material: "pack-ox down"
+    wearer_rank: "any adult; children from the first ascent (no rank on the body's own layer)"
+    rite: "daily wear, both poles; the layer that makes the coats bearable in the gale"
+    era: "E0"
+    route: "native chain: summer clip (CMAT-03) -> hand-combed -> spun fine on the hand spindle -> woven narrow on CS-01 -> the panels pieced, since the ground loom cannot span a body (loom gate read honestly)"
+    provenance: local-production
+    rank_mark: "none by design: the body's own layer carries no rank, so rank is read only where the lineage can see it (the hem and the shoulder)"
+    axis: verticality
+    evidence: design-choice
+    viewer_read: "Invisible at the fair; a partner who is offered the fleece to feel reads it as the finest thing the herds yield, which is a trade secret given away."
+    penalty: "none; the one garment outside the law's reach"
+    era_seam: "unchanged across all three eras; the one layer the imported cloth never replaces"
+    misread: "A road hand buys down thinking it is cloth stock and is told it is what the coats are worn over, not sold from the back."
+    rule_edges: []
+    follows: [alias_textile, alias_dress, alias_semiotics]
+  - id: GAR-10
+    garment: "gale legging (smoke-cured leather, wind-cut: no slack at the ankle, no inner seam)"
+    form_slot: "LEX-GAR-10 (to-verify)"
+    material: "leather"
+    wearer_rank: "herd hands on the pass in the gale months; the vanguard herder wears the pair that is kept for the first ascent"
+    rite: "the gale watch on the pass (and any crossing made in weather)"
+    era: "E0"
+    route: "native chain: hide (CMAT-04) -> smoke pit in the valley -> cut to the leg with no inner seam -> horn pins at the ankle"
+    provenance: local-production
+    closures: [{material: horn, form: "pin"}]
+    rank_mark: "the pair kept for the first ascent is issued with the high-pole coat (GAR-02), so the legwear and the coat are read as one office"
+    axis: both
+    evidence: design-choice
+    viewer_read: "Read as weather gear by anyone who has not stood on the pass; read as 'this one has crossed in the gale' by anyone who has"
+    penalty: "none on the record; a legging worn up the shelter ladder is a household joke, not a case"
+    era_seam: "unchanged E0 to E2; the one leather garment that never takes a lowland cut"
+    misread: "A lowland envoy mistakes the legging for a hose-and-shoe and asks for a pair in cloth; the answer is that cloth on the pass is what takes a man off it."
+    rule_edges: []
+    follows: [alias_dress, alias_textile, alias_semiotics]
+
+form_slots:
+  # The lexicon component owns surface forms (05-lexicon L34/L35 landed); these are this
+  # component's requirements, in the pattern 12-rank-rules used for its degree slots.
+  - {id: LEX-GAR-01, gloss: "the valley/winter grade of the felted wrap (L35 mirken)", register: "everyday", form: "(to-verify)"}
+  - {id: LEX-GAR-02, gloss: "the high-pole grade (first-shear felt, wind-flap)", register: "task-rank", form: "(to-verify)"}
+  - {id: LEX-GAR-03, gloss: "the transit coat and its hem-cord count", register: "everyday/record", form: "(to-verify)"}
+  - {id: LEX-GAR-04, gloss: "the imported lowland-cloth coat", register: "trade/legal", form: "(to-verify)"}
+  - {id: LEX-GAR-05, gloss: "the mast-sash and the office it is issued with", register: "ritual/legal", form: "(to-verify)"}
+  - {id: LEX-GAR-06, gloss: "the treaty stranger's flat-hem coat", register: "legal/trade", form: "(to-verify)"}
+  - {id: LEX-GAR-07, gloss: "the mourning coat and the cut-back cords", register: "ritual", form: "(to-verify)"}
+  - {id: LEX-GAR-08, gloss: "the imported bale cord (the exception channel)", register: "trade/legal", form: "(to-verify)"}
+  - {id: LEX-GAR-09, gloss: "the down under-tunic", register: "everyday", form: "(to-verify)"}
+  - {id: LEX-GAR-10, gloss: "the wind-cut gale legging", register: "everyday/gale", form: "(to-verify)"}
+
+form_slots_note: "This file coins no surface form; any form the lexicon component supplies for these slots must arrive in a declared layer (CP-08) — the imported-cloth terms by trade loan, the rest native."
+
+two_wardrobe_calendar:
+  # The time-lock (dress-through-eras §11 step 5 analogue): dress is keyed to the pole
+  # the household occupies, and the transitions are the ritual seams.
+  - {id: CAL-1, pole: "low pole (valley shelter)", dress_set: "GAR-09 + GAR-01 + GAR-03 (cords rolled inward)", when: "the low stay, from the descent to the ascent"}
+  - {id: CAL-2, pole: "the pass", dress_set: "GAR-09 + GAR-02 + GAR-10 (+ GAR-03 on the moot road), cords outward and countable", when: "the crossing days, both directions"}
+  - {id: CAL-3, pole: "high pole (summer pasture)", dress_set: "GAR-09 + GAR-02 + GAR-03; the valley coat stays folded in the shelter and is not carried up", when: "the high stay, from the opening of the pasture to the descent"}
+  - {id: CAL-4, pole: "the fairgrounds (lowland edge)", dress_set: "GAR-04 (registered herd-master) or GAR-06 (treaty stranger); never cords onto a fair coat", when: "the treaty days only"}
+  - {id: CAL-5, pole: "the mourning year (time out of the cycle)", dress_set: "GAR-07, one year, then back to the cycle set", when: "the year after a death in the household"}
+
+legibility:
+  - {id: LEG-1, setting: "the lineage moot at the winter shelter", station: "L5-L6 (engineered to sumptuary): cords and grades are counted by role, and a false cord is a prose case (costume-semiotics §6)", audience: "lineage counters"}
+  - {id: LEG-2, setting: "the pass in the crossing season", station: "L4 (rite-indexed): who goes up first is read off the coat and the issued pair, by people who know the order", audience: "herd hands"}
+  - {id: LEG-3, setting: "the high pasture alone", station: "L4 among the lineage's own; L3 for the rare stranger, who reads only 'herder'", audience: "lineage, strangers"}
+  - {id: LEG-4, setting: "the fairgrounds", station: "L3-L5 (boundary plus import law): lowland cloth reads as credit with the partner, and the register, not the eye, decides who may wear it", audience: "fair court, caravan"}
+  - {id: LEG-5, station_note: "One deliberate pocket: the fairgrounds run L5 while the pasture runs L4/L6, so the same coat changes meaning by one valley stage — the scenario engine this packet is built to hand over (costume-semiotics §6 pockets)."}
+
+enforcement:
+  # Costume-side only. The rule records are 12-rank-rules' (WR-/TR-/LO-); this block states
+  # who reads what on the body, and what the reading costs.
+  mechanisms:
+    - {id: EN-1, mechanism: "rite (the crossing and the ascent)", binds: "which layer may be worn at which pole, and when cords may be added", reading: "the cords are added in front of witnesses at the crossing, not claimed later", corpus: "dress-through-eras §10 (cult/liturgy); 12-rank-rules TR-02"}
+    - {id: EN-2, mechanism: "rank institution (the lineage moot and the degree ladder)", binds: "coat grades and the wind-flap; the sash office", reading: "the count is spoken by the lineage head and checked against the hem", corpus: "dress-through-eras §10 (rank badge/institution); alias_sumptuary §2"}
+    - {id: EN-3, mechanism: "market/monopoly (the fair court and the caravan register)", binds: "imported cloth, its grades, and the cord exception", reading: "the register is read against the coat at the gate, in the partner's script", corpus: "dress-through-eras §10 (market/monopoly); alias_semiotics §4"}
+  economy:
+    - "which law everyone works around: the fair coat's grade (a herd-master's spouse wears the coat the register cannot name — the wives problem, alias_sumptuary §8 pattern 6, implemented by 12-rank-rules WR-02)"
+    - "what enforcement pays in: cords, not coins (the informer's share stays inside the herd economy; alias_sumptuary §8 pattern 4)"
+    - "the statute that ends a family: not the silk, but a cord added for a crossing that never happened (the count is the one signal the lineage cannot afford to be wrong)"
+
+reading_ledger:
+  # costume-semiotics §9 step 3: term | carrier | wearer | viewer | penalty | era-of-change
+  - {id: RL-1, term: "felt finish (combed / not)", carrier: "GAR-01", wearer: "any adult", viewer: "lineage, at touch", penalty: "none (workmanship read)", era_of_change: "stable E0-E2"}
+  - {id: RL-2, term: "wind-flap", carrier: "GAR-02", wearer: "vanguard herder", viewer: "herd hands at the pass", penalty: "imposture edge at the moot", era_of_change: "stable; hue reading drifts with S1"}
+  - {id: RL-3, term: "hem-cord count", carrier: "GAR-03", wearer: "herd hands", viewer: "moot counters, road hands", penalty: "false cord (12-rank-rules WR-03)", era_of_change: "E2: the script takes the count for trade; cords become ceremonial"}
+  - {id: RL-4, term: "lowland cut", carrier: "GAR-04, GAR-06", wearer: "registered herd-master, treaty stranger", viewer: "fair court", penalty: "forfeiture above the sell-line", era_of_change: "E1 arrival; E2 silk grade of the same channel"}
+  - {id: RL-5, term: "flat hem (no cords)", carrier: "GAR-06", wearer: "treaty stranger", viewer: "anyone who counts", penalty: "cords cut onto it read as a forged lineage", era_of_change: "E1-E2"}
+  - {id: RL-6, term: "cut-back cords", carrier: "GAR-07", wearer: "mourner", viewer: "lineage", penalty: "rite lapse beyond the year", era_of_change: "stable"}
+  - {id: RL-7, term: "shoulder coil of cord", carrier: "GAR-08", wearer: "bale keeper", viewer: "fair clerk", penalty: "worn as dress, the import becomes the cloth offence", era_of_change: "E1-E2"}
+  - {id: RL-8, term: "sash + standard", carrier: "GAR-05", wearer: "bearer, appointed annually", viewer: "distance read on storm-watch days", penalty: "wearing it out of appointment", era_of_change: "stable; the one record with no import grade"}
+
+misread_scenes:
+  - {id: MRS-1, scene: "gate assay", staging: "A vanguard herder comes down to the fair in the high-pole coat with the cords rolled inward; the fair clerk, reading costume only, takes him for a carrier and quotes a carrier's toll (kól, L28). He answers by unrolling the hem.", payoff: "the coat's real signal is on the hem, and the law's register never sees it"}
+  - {id: MRS-2, scene: "one region one era behind", staging: "A partner's envoy arrives at the pasture in the plant-thread grade of the fair coat a year after the treaty grade became the norm at the fair; the lineage reads him as either poor or as refusing the new grade.", payoff: "drift is legible at the seam (costume-semiotics §7 synchronization device)"}
+  - {id: MRS-3, scene: "the borrowed coat", staging: "A herd-master's nephew is sent to the fair in the gift-grade coat; the coat reads as the partner's house and he is asked for terms he has no standing to give.", payoff: "material legibility outruns person identity (the imposture theorem read forward: the outfit passes, the standing fails)"}
+  - {id: MRS-4, scene: "the offered cord", staging: "A road hand offers cord from his bale to a mourner whose hem-cords are cut back, taking the cut for damage; refusing the cord without telling the year would read as pride.", payoff: "a kind act that would convert a rite garment into an illegal dress item if it were taken"}
+  - {id: MRS-5, scene: "the legging in cloth", staging: "The envoy asks for leggings woven in his own cloth for the crossing; the answer is that cloth on the pass is what takes a man off it.", payoff: "the textile ceiling argued on the trail, by people who have to walk on it"}
+
+drift_plan:
+  - {id: DR-1, seam: "E0 to E1", change: "the imported lowland coat arrives (GAR-04), lawful only at the fairgrounds and on the valley road; the cord stays the only local record", dated_by: "the dated import route CMAT-06 (A-07 check 3), converging with 09-eras-calendar's ER-03 costume_seam (lowland cloth from the E0/E1 seam, not earlier)"}
+  - {id: DR-2, seam: "E1 to E2", change: "the treaty grade of the same coat becomes silk (GAR-06); the script takes trade accounts off the hem of GAR-03, so the cord count becomes ceremonial and the ascents become memory", dated_by: "09-eras' seam records (ER-), not asserted here"}
+  - {id: DR-3, founding_fight: "the first coat worn above the sell-line (a vanguard herder who kept the fair coat up the road) is the trickster story the later law is remembered by: the 'always' rule has a dated fight behind it (dress-through-eras §12: no timeless costume without a founding scandal)"}
+  - {id: DR-4, fossil: "the bog-dark of the shelter era survives as the mourning coat's unbathed felt after the storm register is re-keyed dark; a fossil, not a fresh sign"}
+
+calibration:
+  - "design-choice: every garment, material, route and seam in this file is invented for the D2 drill; no real culture or garment is described."
+  - "corpus-derived: the grammar of the file is taken from the cited decision tables (three slots, ledger columns, two mechanisms, drift strata) — the citations are to this repo's corpus entries, never to outside scholarship."
+  - "bounded analogy: the hidden-luxury dialect (alias_sumptuary §5) and the [L] stations (alias_semiotics §6) are analogies for a reading pattern, not evidence that any herding culture worked this way."
+  - "convergent with siblings, not attested: GAR-01..GAR-08 follow 12-rank-rules' pre-declared refs so its rule text stays valid; that makes them contract-compatible, not canon."
+  - "(to-verify): the slot-to-slot era mapping (era_reconciliation, proposed not confirmed); the storm-cloak naming (OQ-2); the two unmapped materials and the silk/broadcloth luxury conflict (OQ-3); the felt-grade slot mapping (OQ-6); every LEX-GAR-* form."
+
+open_questions:
+  - {id: OQ-1, question: "09-eras-calendar, this file and 12-rank-rules now agree on canonical E0-E3 tags, with the nine named eras mapped in 09. Other landed components still use local labels (08-symbols E1..E4; 10-materials E1..E4 slots; 05-lexicon Nalne/Pertne; 14-kin-address ES0-ES3). This file's era_reconciliation maps those sets at slot level, still (to-verify). The integrator should adopt that table (or publish its own) before assembly, or assembly will merge label sets by number and be wrong.", owner: "round integrator"}
+  - {id: OQ-2, question: "08-symbols' colour register names a storm cloak; no garment id here is titled that. Read as GAR-02 (wind-flap, high pole)? If the sibling meant a separate garment, the id should be declared by that component.", owner: "round integrator"}
+  - {id: OQ-3, question: "Material set vs the landed contracts (rewritten after 10-materials was read): (a) this file's lowland plant-thread cloth and cord map cleanly to 10-materials MAT-05/MAT-06; (b) two dispatch materials have NO counterpart in that inventory and are carried as REPORT-don't-merge — pack-ox down (their pack-ox yields only hair cordage, MAT-03) and silk (their anchor-era luxury is lowland-broadcloth MAT-07, not silk); the integrator must either extend the inventory or re-letter GAR-06 to broadcloth; (c) the felt-grade ladder G1-G3 used by 12-rank-rules has no slot in this file's garment records yet (OQ-6).", owner: "round integrator"}
+  - {id: OQ-4, question: "The assembled packet needs a `rank_rules:` block in the gate's schema for the R-checks to run; 12-rank-rules' rule records are written in its own shape (WR-/TR-/LO-). Who maps them, and at which revision?", owner: "round integrator"}
+  - {id: OQ-5, question: "This component asserts no dates and no era names; if 09-eras-calendar's naming changes, the records above need only the tag mapping, not a rewrite. Note it already agrees with this file on the two costume seams it states (felt from the earliest stratum; lowland cloth not before the E0/E1 seam).", owner: "round integrator"}
+  - {id: OQ-6, question: "Felt-grade slots: 12-rank-rules licenses 'felt grades through G3' and 10-materials assumes a G1-G3 ladder. This file writes 'heavy winter grade' (GAR-01) and 'fine first-shear, fulled twice' (GAR-02) without the slot ids. The two records should be stamped G1/G3 (or whatever the ladder says) at integration; no guess is made here.", owner: "round integrator"}
+  - {id: OQ-7, question: "Packet-key ownership overlap: both this file and 10-materials supply `materials` and `cloth_sources` bodies (its registry row is not in 01-brief.yml, so RCN-02 registration is owed). Its inventory is the richer one; this file's is the costume-facing subset with A-07 routes. Recommend: assembler takes the union with this file's routes where the costume gate reads them, and 10-materials' blocks retained under their own key names — decided by the integrator, not here.", owner: "round integrator"}
+
+spine_coupling:
+  # SP-03: the two strongest couplings of this component, with record ids.
+  - {id: SPC-1, axis: verticality, coupling: "The wardrobe is the year's movement worn: a low-pole set, a high-pole set and a pass set, and the counting line is a hem whose cords are read from the lowest crossing up, so rank, record and season share one axis.", records: [GAR-01, GAR-02, GAR-03, GAR-07, GAR-10]}
+  - {id: SPC-2, axis: wind, coupling: "The wind is what is built against and what the count is read by: the high-pole coat's wind-flap, the gale legging cut to take no slack, the standard's sash that exists only while the standard is up, and a storm layer darkened by hearth smoke rather than by any traded dye.", records: [GAR-02, GAR-05, GAR-10, CMAT-09]}
+
+registration:
+  # RCN-02: a round component not in the brief's registry owes a registration row. This
+  # worker does not edit 01-brief.yml; the row is supplied here for the integrator.
+  file: "examples/culture-d2/components/11-costumes.yml"
+  component: 11-costumes
+  packet_keys: [costumes, materials, cloth_sources]
+  accepted_id_prefixes: [GAR-, CMAT-, CS-, LEX-GAR-]
+  id_prefix_notes: "CMAT- and LEX-GAR- are this file's own and new to the contract (RCN-02 requires declaring them): CMAT- is the costume-facing material subset that 10-materials' MAT- space does not cover, and LEX-GAR- is a requested-form slot family owned by the lexicon component. Both must be aliased or registered before assembly."
+  spine_coupling: [SPC-1, SPC-2]
+  follows: [alias_dress, alias_semiotics, alias_sumptuary, alias_textile, alias_ritual, alias_garlex, alias_eras, alias_brief]
+  acceptance_claimed: "A-07 (all five checks addressed in validation.a07_selfcheck)"
+  status: "submitted by the component worker; registry row owed by the integrator (01-brief.yml or the assembly manifest)"
+
+validation:
+  gate_command: "python3 tools/gates/costume-era-consistency-gate.py examples/culture-d2/components/11-costumes.yml"
+  exit_code: "0 (clean) — final run after the 10-materials/09-eras reconciliation, 2026-10-17. Earlier in the same session a first run returned exit 2 (G-DATA, input is not one mapping) because two keys sat at the same indent as their sibling list items (era_reconciliation.warning, form_slots.note); both were re-placed, and every later revision was re-run."
+  counts: "costumes 10 (GAR-01..GAR-10), materials 9 (CMAT-01..CMAT-09; every route carries kind+stage; every entry carries composition and a maps_to slot mapping), cloth_sources 3 (CS-01 0.65 m, CS-02 1.25 m, CS-03 felt table 1.9 m), eras 3 tags declared of the contract's E0-E3 space."
+  a07_selfcheck: "A-07 fields present on all 10 garment records (garment, material, wearer_rank, rite, era, route, axis, evidence); >= 6 materials with kind/stage routes (9); >= 2 cloth_sources with max_width_m and eras (3); wool chain complete at CMAT-01/CMAT-02 (fiber -> cloth -> garment); felt and loom ceilings justified (CS-03 vs textile §5); lowland cloth is an E1 import with a dated route and is excluded in E0 (CMAT-06/CMAT-07 excluded_eras); no 'silk-like' placeholder, though CMAT-08 silk is flagged for having no counterpart in 10-materials (OQ-3); ascent/descent/storm layers are named records (GAR-02 high pole + storm layer, GAR-03 the crossing and its descent state, GAR-10 the gale layer)."
+  scope_note: "The gate reads this file's own blocks only: costumes, materials, cloth_sources, eras (tags). The R-checks are vacuous here by construction because the rule records live in 12-rank-rules and are not duplicated (OQ-4); material, import-era, loom-bound and anachronism checks are live."
+  findings: "none (exit 0, no FINDING lines) on the final run. Findings dispositioned at write time: the exit-2 parse defect is fixed, not waived; the two material records with no 10-materials counterpart are recorded as findings in the file (OQ-3), not silently merged."
+  not_run: "No anachronism (E-01) finding is possible here because no dated process is claimed; if a process token is ever added, era_dates must be supplied by 09-eras-calendar first (its own era_dates are in descent coordinates, not CE — 10-materials' CE-anchored process table could not date them either). The phonology/lexicon/myth/naming gates are not applicable to this component (their packet keys are not supplied here)."
+
+follows_scope_note: "RG-02 conformance stated plainly: every costume, material and cloth-source record carries `follows`; the auxiliary tables carry their corpus basis in the block header comment or inline (two_wardrobe_calendar: dress-through-eras §11 step 5; legibility: costume-semiotics §6; enforcement.mechanisms: the `corpus` field per row; reading_ledger: costume-semiotics §9 step 3; misread_scenes: costume-semiotics §7 for MRS-2, §6 for MRS-3; drift_plan: `dated_by` per row plus the founding-fight note). No auxiliary record is left without a located corpus basis."
+
+assembly_note: "For the assembler: this file supplies `costumes`, `materials`, `cloth_sources` (registry C-07 packet_keys) — with 10-materials supplying the full inventory under its own richer blocks (OQ-7), so merge by CMAT-to-MAT slot mapping, not by label. Do not take `eras`/`era_dates` from here — that is 09-eras-calendar — and do not take `rank_rules` from here (12-rank-rules). Apply the era_reconciliation table before merging any sibling era labels."
+
+canon_boundary: |
+  NON-CANON. This file is a design drill record in kotodama-shokunin: it invents a
+  wardrobe for the D2 drill and describes no real people, region, or living practice.
+  Every record is a proposal; nothing here decides what is true in any world. Canon,
+  entity identity, chronology and supernatural truth belong to lore-shokunin alone, and
+  the D2 packet may be handed off only as an explicitly non-canon proposal with its
+  provenance cautions and open questions attached (worldbible-integration-contract.md
+  §6, §11, §12; corpus/QUALITY.md §5).

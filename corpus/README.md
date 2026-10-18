@@ -1,5 +1,37 @@
 # kotodama-shokunin corpus index
 
+revision: 1.7 — Round-27 register-strata landing (2026-10-18): the round-27 C
+entry landed (`linguistics/register-strata-attestation.md`, the register law for
+attestation speech) and the index was reconciled to it. `## linguistics/` moved
+19 → **20**; its row was added in filename order with the entry's own `- topic:`
+text byte-equal; the totals line moved 199 → **200**. Re-measured with
+`reports/round-27/readme/sweep.py`: 200 rows vs 200 files, 0 missing, 0 ghosts,
+0 duplicate rows, 0 header drift, 0 topic mismatches, totals line 200. Counts:
+civilizations 94, linguistics 20, myth-symbol 19, culture-material 18, synthesis
+29, verification 20 — 200 files. This supersedes revision 1.6's "the entry had
+not landed" note, which remains below as the dated reading it was. Non-canon
+examples and passing structural gates do not certify historical truth.
+
+revision: 1.6 — Round-27 re-measurement (2026-10-18): the index was swept again
+with a freshly committed instrument (`reports/round-27/readme/sweep.py`) after
+the round-20 sweep's tool was found to live only in `.scratch/`. The reading
+**reproduces round 20 exactly and no repair was needed**: 199 rows vs 199 files,
+0 missing, 0 ghosts, 0 duplicate rows, 0 header drift, every row byte-equal to
+its entry's own `- topic:` text, totals line 199, and the README bytes at the
+pin are the same digest round 20 settled at (`1a359d55…`). Counts re-derived by
+two methods (inventory and plain `find`): civilizations 94, linguistics 19,
+myth-symbol 19, culture-material 18, synthesis 29, verification 20 — 199 files.
+Carried C item, stated rather than omitted: **the round-27 register-strata entry
+had not landed** at this pin (the tree measured 199 files at every stamp from
+16:11Z to 19:19:25Z), so this revision adds no new row; a later landing needs a
+new row, a bumped section header, a bumped totals line, and its own revision
+block, never an edit of this one — the landing arrived and became revision 1.7.
+Measurement stamp 2026-10-18T19:19:25Z at HEAD
+`b95fca1e40f32f7346937ab6426f9ccca60e319f`; declared baseline
+`4f09c990d4c17f23b5e2cda0871f81db875635fc`; command, controls and limits in
+`reports/round-27/readme/reconcile.md` and `verify.md`. Non-canon examples and
+passing structural gates do not certify historical truth.
+
 revision: 1.5 — Round-20 reconciliation (2026-10-18): every row re-measured
 against the files it indexes (199 rows, 199 files, 0 missing, 0 ghosts) and the
 ten round-19 rows repaired — they carried condensed paraphrases instead of the
@@ -54,7 +86,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (19)
+## linguistics/ (20)
 
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
@@ -69,6 +101,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `orality-formulaic-language.md` — Oral tradition linguistics — how extended verbal art is composed, performed, and remembered without writing: the Parry–Lord oral-formulaic theory, meter as mnemonic engineering, epithet and praise-name systems, type-scenes and ring composition, kennings and myth-locked diction, proverbs and riddles as compressed cultural knowledge, and a design checklist for an oral-formulaic register ("singer's speech") in a fictional culture
 - `phonetics-phonology.md` — speech sounds and sound systems for fictional cultures — IPA categories, inventory design, phonotactics, markedness, allophony, prosody/tone, environment & anatomy effects, conlang pitfalls
 - `politeness-taboo-euphemism.md` — How cultures regulate saying — politeness theory (Brown & Levinson and its critics), honorific systems as grammar (Japanese, Korean, Javanese, Thai/Vietnamese), taboo vocabulary and its sanctions, euphemism cycles and the euphemism treadmill, and the fossil strata taboo leaves in lexicon, calendar, and law — with construction procedures for fictional cultures
+- `register-strata-attestation.md` — How to design the **attestation register** — the marked speech a culture uses when a spoken word is being made to bind, as against its unmarked everyday speech — and, separately, the **register law** that governs it: which acts may be spoken in-register, by whom, with what illocutionary force, and with what record consequence. Supplies the speech-act framework (Austin's felicity conditions and misfires, Searle's five classes and the declaration/status-function machinery, Searle's constitutive rules and deontic powers), the anthropological spine for ritually binding speech (Tambiah on the magical power of words; Rappaport on invariance as the engine of liturgical authority), the social conditions that authorise a speaker (Bourdieu's authorized language and delegation; Irvine's honorific ideology), the documentary-institution side that makes an oral act a record (Clanchy; Clanchy's "from memory to written record" transition), a register-law design procedure with worked rows, the boundary against costume/rank rules, and the calibration shelf for what is contested. Reference knowledge and method only; canon decisions belong to lore-shokunin.
 - `semantic-fields-lexicon-building.md` — engineering a fictional lexicon by semantic field — core-vocabulary floors (Swadesh–Yakhontov lineages and their limits), field-by-field elaboration briefs (body, kin, weather, landscape, subsistence, war, religion), borrowability strata, and what cultural vocabulary can and cannot prove about worldview
 - `semantics-pragmatics.md` — how languages package meaning (semantic fields, polysemy, classifiers) and act through it (evidentials, implicature, speech acts, deixis) — named frameworks, comparative data, and design levers for a fictional culture's "meaning economy"
 - `sociolinguistics-registers.md` — Sociolinguistic stratification within a single language — dialect geography, diglossia, registers by class/caste/profession, gendered speech, age-grading — and how register maps to era and social structure in a fictional world
@@ -398,7 +431,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
 
-Total knowledge entries: 199.
+Total knowledge entries: 200.
 
 Counts checked 2026-10-18 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`

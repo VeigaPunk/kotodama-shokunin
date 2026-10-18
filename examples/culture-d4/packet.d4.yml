@@ -52,6 +52,19 @@ contract:
       - "axis"
       - "evidence"
       - "follows"
+    register_law:
+      - "id"
+      - "register"
+      - "axis"
+      - "kind"
+      - "act"
+      - "speaker"
+      - "holder"
+      - "force"
+      - "consequence"
+      - "design_row"
+      - "evidence"
+      - "follows"
     names:
       - "id"
       - "name"
@@ -2617,6 +2630,86 @@ era_tags:
   - "E1"
   - "E2"
   - "E3"
+register_law:
+  -
+    id: "RGL-01"
+    design_row:
+      - "QREG-05"
+      - "QREG-07"
+    register: "stamp"
+    axis: "mark"
+    kind: "admissibility"
+    act: "a charge at the weigh-stone, a lot named as it is sealed, or an oath attested before the stamp-holder"
+    speaker: "stamp-holder, furnace-master (RK-03), mold-keeper (OR-02, component-only)"
+    holder: "a stamp-holder, or a speaker the stamp-holder is attesting"
+    force: "directive-binding for the charge; declarative-naming for the lot's name"
+    consequence: "the spoken form binds and the stamp-holder enters the act on the stamp-roll; the lot's name is written on the ingot's tally face"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+    cite: "reports/round-26/register/forms.md section 5 RGL-01; reports/round-27/law/design.md section 3 QREG-05/QREG-07"
+  -
+    id: "RGL-02"
+    design_row:
+      - "QREG-06"
+    register: "stamp"
+    axis: "mark"
+    kind: "exclusion"
+    act: "an oath"
+    speaker: "stamp-holder only — no master, no delegate"
+    holder: "none — the register admits no binding oath"
+    force: "commissive-binding refused"
+    consequence: "an oath spoken in stamp is void; the binding oath is plain speech (L-30 gis, the plain mark-axis oath word), so a stamp oath carries no entry on the stamp-roll"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+    cite: "reports/round-26/register/forms.md section 5 RGL-02; reports/round-27/law/design.md section 3 QREG-06; reports/round-17/d4/design-brief.md section 6 (the forecast's delta-6 register property, re-hosted)"
+  -
+    id: "RGL-03"
+    design_row:
+      - "QREG-08"
+    register: "stamp"
+    axis: "mark"
+    kind: "asymmetry"
+    act: "a guest broker's charge, lot-naming or attested oath"
+    speaker: "broker, market-goer (RK-04), at market days"
+    holder: "a guest broker, speaking under a stamp-name"
+    force: "directive-binding, not-rollable"
+    consequence: "the act binds the goods at the gate and is entered on the stamp-roll under the guest's stamp-name, but the guest may not write or read the furnace roll; the asymmetry is recorded, not licensed away"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+    cite: "reports/round-26/register/forms.md section 5 RGL-03; reports/round-27/law/design.md section 3 QREG-08"
+  -
+    id: "RGL-04"
+    design_row: []
+    register: "stamp"
+    axis: "fire"
+    kind: "no-segment"
+    act: "any form in the register"
+    speaker: "any speaker admitted by RGL-01 or RGL-03"
+    holder: "any speaker admitted by RGL-01 or RGL-03"
+    force: "none — a sound-channel constraint, not a speech act"
+    consequence: "the register owns no segment: a stamp form is inventory-checked exactly as a plain form, so no phoneme, allophone or syllable template is licensed by being in-register"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+    cite: "reports/round-26/register/forms.md section 5 RGL-04; reports/round-26/register/design.md section 2"
+  -
+    id: "RGL-05"
+    design_row: []
+    register: "stamp"
+    axis: "mark"
+    kind: "era"
+    act: "any form in the register"
+    speaker: "any speaker admitted by RGL-01 or RGL-03"
+    holder: "any speaker admitted by RGL-01 or RGL-03"
+    force: "none — a dating constraint, not a speech act"
+    consequence: "every stamp form is available_from E1, the era 03-orthography dates the stamp-house to; an E0 stamp claim is a defect and E3 is reserved and unoccupied"
+    evidence: "design-choice"
+    follows:
+      - "F-2"
+    cite: "reports/round-26/register/forms.md section 5 RGL-05; examples/culture-d4/components/03-orthography.yml (the stamp-house's E1 date)"
 assembly:
   generator: "tools/assemble-culture-d4.py"
   assembler_sha256: "943f487ba991d45d369eb8fb6e9bb686046df165424d101cfa2670f79bb844b2"
@@ -2625,7 +2718,7 @@ assembly:
   serializer: "tools/assemble-d2.py (yaml_lines loaded read-only)"
   serializer_sha256: "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d"
   source_sha256:
-    "examples/culture-d4/components/01-brief.yml": "feca7bda25beb6ec7cecd2569fe8f8d6d802ff492f40c79cb6c58fdf5ac18d7d"
+    "examples/culture-d4/components/01-brief.yml": "649aa111db2e57a737234330690ea4fbb197039ba8ecf92d6248d1bed8ea793b"
     "examples/culture-d4/components/02-phonology.yml": "7aa9cac5c030dfb39fbe5a90d04ea5d94f130f7a7e28b5bbb17ff2773ab0a42a"
     "examples/culture-d4/components/03-orthography.yml": "de1820b0c115271f7f86fbad8f7e6d637a6155cb61ad9a92cd53e32fdc08783e"
     "examples/culture-d4/components/04-lexicon.yml": "d0d4e17cc3c43a11e598259271fe16f18539c8bce3c3a30a40b6d2554b6c7240"
@@ -2637,6 +2730,7 @@ assembly:
     "examples/culture-d4/components/10-ritual-calendar.yml": "5a8d41b4bc58997a8181c8f5ae8f2c279b48c92b76f6728deec23713a1ab85a2"
     "examples/culture-d4/components/11-contact-history.yml": "7b6932aff32871c587834ad7d42a237836b01e4188eee118b7203c6ddfddaa9c"
     "examples/culture-d4/components/12-provenance.yml": "540f7d2258f3a4000f1aa670742b88b440d2ce107ace49d4246f00c7726d8d69"
+    "examples/culture-d4/components/13-register-law.yml": "c0d77181ac567c4c4625540579b784df1781a3585c7675e1c046fe6f7bcf50b7"
   skipped_keys:
     acceptance_criteria:
       - "examples/culture-d4/components/01-brief.yml"
@@ -2662,6 +2756,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     canon:
       - "examples/culture-d4/components/01-brief.yml"
       - "examples/culture-d4/components/02-phonology.yml"
@@ -2675,6 +2770,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     canon_boundary:
       - "examples/culture-d4/components/01-brief.yml"
       - "examples/culture-d4/components/02-phonology.yml"
@@ -2688,6 +2784,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     collision_log:
       - "examples/culture-d4/components/07-symbolism.yml"
     comparators:
@@ -2705,6 +2802,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     compositional_rule:
       - "examples/culture-d4/components/07-symbolism.yml"
     consistency_checks:
@@ -2735,6 +2833,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     deliberate_blanks:
       - "examples/culture-d4/components/06-myth.yml"
     design_problem:
@@ -2778,6 +2877,8 @@ assembly:
       - "examples/culture-d4/components/02-phonology.yml"
     language_id:
       - "examples/culture-d4/components/01-brief.yml"
+    law_binding:
+      - "examples/culture-d4/components/13-register-law.yml"
     legibility:
       - "examples/culture-d4/components/09-costumes.yml"
     lexicon_requests:
@@ -2820,6 +2921,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     partition:
       - "examples/culture-d4/components/07-symbolism.yml"
     phonotactic_contract:
@@ -2850,6 +2952,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     scope_note:
       - "examples/culture-d4/components/01-brief.yml"
     seed_parameters:
@@ -2876,6 +2979,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     spine_coupling:
       - "examples/culture-d4/components/02-phonology.yml"
       - "examples/culture-d4/components/03-orthography.yml"
@@ -2888,6 +2992,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     status:
       - "examples/culture-d4/components/01-brief.yml"
       - "examples/culture-d4/components/02-phonology.yml"
@@ -2901,6 +3006,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     stranger_law:
       - "examples/culture-d4/components/11-contact-history.yml"
     stress_record:
@@ -2919,6 +3025,7 @@ assembly:
       - "examples/culture-d4/components/10-ritual-calendar.yml"
       - "examples/culture-d4/components/11-contact-history.yml"
       - "examples/culture-d4/components/12-provenance.yml"
+      - "examples/culture-d4/components/13-register-law.yml"
     verification_record:
       - "examples/culture-d4/components/01-brief.yml"
     verified_at:
@@ -2940,6 +3047,7 @@ assembly:
     "examples/culture-d4/components/10-ritual-calendar.yml": 2
     "examples/culture-d4/components/11-contact-history.yml": 2
     "examples/culture-d4/components/12-provenance.yml": 2
+    "examples/culture-d4/components/13-register-law.yml": 2
   normalizations:
     - "component files are parsed with the costume gate's stdlib YAML-subset reader (read-only); a component's own packet_keys declaration (or the PACKET_KEYS allowlist) fixes its packet contribution; every other component key is recorded under assembly.skipped_keys"
     - "packet-owned keys name/canon/assembly are constants of tools/assemble-culture-d4.py; component declarations of them are recorded under assembly.skipped_keys, never merged"

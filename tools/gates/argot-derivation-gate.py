@@ -52,9 +52,19 @@ Finding ids
 Calibration (craft policy, declaring what this implementation does)
 -------------------------------------------------------------------
 - The two operations and their algorithms are the round-17 design's, adopted
-  unchanged and cited; the maximal-onset reading of `head2` is load-bearing
+  unchanged and cited. The maximal-onset reading of `head2` is load-bearing
   because it is the one row where the maximal-coda reading disagrees
-  (`saalumi` -> `saalu`, never `saalum`; `design-language.md` §5).
+  (`saalumi` -> `saalu`, never `saalum`; `design-language.md` §5). The design's
+  rule is *legality-constrained* maximal onset, and the constraint is the whole
+  substance of it: round 26 measured that the delivered `syllabify` moved every
+  consonant run forward without checking the resulting syllable, so it read
+  `tikmes` as `ti.kme.s` and `ker` as `ke.r` — clusters and a dangling coda the
+  declared phonotactics (`(C)V(V)(C)`, `onset_clusters: false`) refuse. Round 27
+  makes the onset assignment legality-aware (`is_legal_syllable`), so the gate
+  implements the algorithm its own docstring cites. The change is scoped to
+  `head2`: no delivered `derived_from`/`derivation` record in any family names
+  `head2` (the D4 register stratum uses `reverse` and `lengthen`), so the
+  replayed verdicts over delivered packets are unchanged.
 - This gate is a **capability plus a replay**, not a clearance: exit 0 means
   "every register-scoped form that states its inputs re-derives", not that the
   stratum is complete or that any hold elsewhere is closed.
@@ -117,6 +127,14 @@ UNMARKED_REGISTERS = ("plain", "neutral", "standard", "ordinary")
 # --------------------------------------------------------------------------
 
 VOWELS = frozenset("aeiou")
+# The syllable template, quoted from the D4 design's own phonology
+# (`examples/culture-d4/components/02-phonology.yml:82,92`: `(C)V(V)(C)` with
+# `onset_clusters: false`). It is what "a legal syllable" in the maximal-onset
+# rule below is measured against, so it is stated here rather than left implicit
+# — the legality test is the whole difference between this implementation and a
+# naive maximal-onset scan.
+CODAS = frozenset("nmsklrtd")
+ONSET_CLUSTERS = False
 
 OPS = {
     "head2": {
@@ -135,29 +153,83 @@ OPS = {
 def syllabify(word):
     """Maximal-onset syllabification of a D4-shaped word (design §5).
 
-    A consonant run before a vowel is the onset of the *following* syllable, so
-    `saalumi` is `saa.lu.mi` and its `head2` is `saalu` — not `saalum`, which a
-    maximal-coda reading would give. The design states the algorithm precisely
-    because the two readings disagree on exactly this row.
+    The design's rule is: "a consonant is taken as the onset of the following
+    syllable **whenever that yields a legal syllable**"
+    (`reports/round-17/d4/design-language.md:191-196`). The legality clause is
+    load bearing, not decoration: `onset_clusters: false` means a *single*
+    consonant is the only legal onset, so a two-consonant run before a vowel
+    splits coda|onset — `tikmes` is `tik.mes`, never `ti.kme.s`, and its `head2`
+    is `tik`, never `tikme`. A naive maximal-onset scan that moves the whole run
+    forward manufactures a cluster-bearing "syllable" the language cannot
+    spell.
+
+    So: a single intervocalic consonant is the onset of the following syllable
+    (`saalumi` is `saa.lu.mi`, `head2` `saalu` — not `saalum`, which a
+    maximal-coda reading would give); a run of two or more keeps all but its
+    last consonant as the coda of the preceding syllable; a word-final run is
+    the last syllable's coda (`ker` is one syllable, `ker`, not `ke.r`).
     """
-    syllables, pending, index = [], "", 0
+    tokens, index = [], 0
     while index < len(word):
         char = word[index]
         if char in VOWELS:
             if index + 1 < len(word) and word[index + 1] == char:
-                pending += char * 2
+                tokens.append(("V", char * 2))
                 index += 2
             else:
-                pending += char
+                tokens.append(("V", char))
                 index += 1
-            syllables.append(pending)
-            pending = ""
         else:
-            pending += char
+            tokens.append(("C", char))
             index += 1
+
+    syllables, pending, position = [], "", 0
+    while position < len(tokens):
+        kind, text = tokens[position]
+        if kind == "V":
+            syllables.append(pending + text)
+            pending = ""
+            position += 1
+            continue
+        run = ""
+        while position < len(tokens) and tokens[position][0] == "C":
+            run += tokens[position][1]
+            position += 1
+        if position >= len(tokens):      # word-final run: a coda, never an onset
+            if syllables:
+                syllables[-1] += run
+            else:
+                syllables.append(run)
+            continue
+        onset = run[-1:]                 # onset_clusters: false — one consonant
+        coda = run[:-1]
+        if coda:
+            if syllables:
+                syllables[-1] += coda
+            else:
+                syllables.append(coda)
+        pending = onset
     if pending:
         syllables.append(pending)
     return syllables
+
+
+def is_legal_syllable(syllable):
+    """Is one syllable of the template `(C)V(V)(C)` with a licensed coda?"""
+    index, length = 0, len(syllable)
+    if index < length and syllable[index] not in VOWELS:
+        index += 1                       # a single onset consonant
+    if index >= length or syllable[index] not in VOWELS:
+        return False
+    if index + 1 < length and syllable[index + 1] == syllable[index]:
+        index += 2                       # a long vowel is one nucleus
+    else:
+        index += 1
+    if index < length:
+        if syllable[index] not in CODAS:
+            return False
+        index += 1
+    return index == length
 
 
 def op_head2(base):
@@ -715,6 +787,22 @@ def selftest():
     checks.append(("head2-maximal-onset", op_head2("saalumi") == "saalu"))
     checks.append(("head2-maximal-coda-differs", op_head2("saalumi") != "saalum"))
     checks.append(("head2-single-syllable", op_head2("min") == "min"))
+    # 2b. the maximal-onset rule is legality-constrained, and that clause is
+    #     the whole difference between this implementation and a naive scan:
+    #     a two-consonant run splits coda|onset because onset_clusters is false.
+    checks.append(("syllabify-cluster-splits-coda-onset",
+                   syllabify("tikmes") == ["tik", "mes"]))
+    checks.append(("syllabify-naive-scan-differs",
+                   syllabify("tikmes") != ["ti", "kme", "s"]))
+    checks.append(("syllabify-word-final-run-is-coda",
+                   syllabify("ker") == ["ker"] and syllabify("kalker") == ["kal", "ker"]))
+    checks.append(("syllabify-vowel-sequence-splits",
+                   syllabify("haitun") == ["ha", "i", "tun"]))
+    checks.append(("head2-cluster-base",
+                   op_head2("tumkalker") == "tumkal" and op_head2("tumkalker") != "tumka"))
+    checks.append(("legality-tests-the-template",
+                   is_legal_syllable("tik") and is_legal_syllable("kme") is False
+                   and is_legal_syllable("tuu") and is_legal_syllable("s") is False))
     checks.append(("reverse-involution", op_reverse(op_reverse("makun")) == "makun"))
     # 3. the operations are discriminating, not always-true.
     checks.append(("leg-discriminates",
