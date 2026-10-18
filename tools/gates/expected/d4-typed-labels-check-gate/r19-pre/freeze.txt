@@ -1,0 +1,95 @@
+baseline_id: r19-pre
+gate: d4-typed-labels-check-gate (tools/gates/d4-typed-labels-check-gate.py)
+gate_sha256: 05f99629d870280c55e15f46d799c29d7cfbc0645f0d0cd68a5fff1006181841
+frozen_by: lane kotodama-shokunin, round 19 claim O — baseline author seat (R29-O07..O09, d4-typed-labels-check-gate shard)
+frozen_at: 2026-10-18T08:36:00-03:00
+revision: 169c616613899f7ba86b8fb58ed808bdfd4b5ccd (HEAD at freeze)
+  the round-19 declared baseline_revision e5718945a1ab0a0c3db955338d2cae77d68fd348 grades the same bytes:
+  `git diff --stat e571894..HEAD` lists only reports/round-19/{claims,targets}.json (+46), and
+  `git diff --stat e571894..HEAD -- tools examples corpus` is empty (0 lines). Measured 2026-10-18.
+schema: kotodama-frozen-run-v1 (corpus/knowledge/verification/gate-frozen-run-standard.md §3/§4/§5/§6)
+
+what this gate is (and what it is not):
+  A thin, read-only adapter over the peer `tools/d2-typed-labels.py`: it runs the peer in `--check` mode
+  against the fixed D4 packet and the input path given on the command line, and forwards the peer's
+  stdout/stderr/exit unchanged. The adapter implements no --selftest of its own; its capability evidence is
+  the wrapped peer's. Note the measured CLI coincidence: `python3 tools/gates/d4-typed-labels-check-gate.py
+  --selftest` exits 0 with the peer's own 39/39 selftest line only because argparse treats the trailing
+  `--selftest` as a separate option, so `--check` falls back to its const projection; that is the peer's
+  CLI behaviour, not a selftest the adapter implements. Measured 2026-10-18 from the lane root:
+    python3 tools/d2-typed-labels.py --selftest -> exit 0
+      "selftest: 39/39 checks passed — the three shard control matrices, the loader/parser malformed
+       cases, the live-packet typing and reconciliation cases, and the CLI emit/check/tamper controls;
+       no file outside the temporary directory touched"
+  The adapter's own controls, measured: usage error exits 2
+  (`python3 tools/gates/d4-typed-labels-check-gate.py --help` -> exit 2; a second path argument -> exit 2);
+  drift exits 1 (receipt in reports/round-19/baselines/d4-typed-labels-check-gate/tamper.md).
+  Exit 0 asserts byte-identity of a NON-CANON projection, never a clearance.
+
+snapshot (byte copies taken at freeze time; every copy cmp-clean against the live path):
+  typed-labels.d4.yml                              <- examples/culture-d4/typed-labels.d4.yml
+                                                      sha256 a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d
+                                                      (the graded argv input; identical to the round-18 MANIFEST pin)
+  examples/culture-d4/packet.d4.yml                <- live  sha256 e7ecd2045ef0e5f9823ce0a067d21b8221b2ceb5e8f5799736981a1c88fa50d3
+  examples/culture-d2/components/11-costumes.yml   <- live  sha256 b6e2c5c29cc5d68900d6cde5a8487e64f27d85ecb3d2bd7f3f5beb1113483f22
+  examples/culture-d2/components/12-rank-rules.yml <- live  sha256 28696a5a70404984fbf1a453f66c9e7618e318ebf93f25bce461fdb7dfcd35a3
+  tools/d2-typed-labels.py                         <- live  sha256 0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802
+  tools/gates/costume-era-consistency-gate.py      <- live  sha256 e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f
+                                                      (the frozen reader both tools load by path)
+
+read set, measured (not assumed): a sys.addaudithook("open") trace over the graded command (scratch script,
+  not committed) recorded exactly the six files above as the non-stdlib reads of a graded run. The adapter
+  itself is pinned by gate_sha256, not by `inputs`; the python interpreter and stdlib are the trusted base.
+
+commands and observed results (lane root, 2026-10-18):
+  1. python3 tools/gates/d4-typed-labels-check-gate.py \
+       tools/gates/expected/d4-typed-labels-check-gate/r19-pre/typed-labels.d4.yml > <baseline>/run.log
+     -> exit 0; stdout one line
+        "tools/gates/expected/d4-typed-labels-check-gate/r19-pre/typed-labels.d4.yml: byte-identical
+         deterministic projection"; stderr 0 bytes; stdout sha256
+        3aa553930235d77bee021c044fdf4d626ab2389012c751cc8d5ad00d8cb7599a
+  2. determinism: three reruns -> stdout sha256 3aa55393... each time (== run.log)
+  3. pin check: every `inputs` digest recomputed from the committed copies equals its pin, and every copy
+     equals the live file it was copied from (6/6 copy == live == pin)
+  4. battery (tools/check-gate-battery.py, default roots; the round-19 extension registers the two D4
+     adapters): this baseline reads `pinned`, inputs_checked 6, gate_sha256 match, stdout_pin match,
+     findings []. Measured 08:36: default run summary coverage "9/9", pinned 17, unevaluable 0, battery
+     exit 0. Re-measured 2026-10-18T08:40 while the sibling O-battery seat was extending the gate-selftest
+     duty: this baseline still reads `pinned` (coverage "9/9", pinned 17, unevaluable 0) while the
+     gate-selftest duty reports pass 8 / unevaluable 1 / exit 2 — the one unevaluable gate is
+     `d4-assembly-check-gate.py --selftest` (exit 2, "assembly error: ... '--selftest'"), an open O leg
+     owned by that seat and not a baseline failure.
+
+expected verdict (written from the observed run, not from memory):
+  exit 0, class clean, findings [] (empty ID set; stdout order is not part of the contract)
+
+controls (full receipts in reports/round-19/baselines/d4-typed-labels-check-gate/):
+  drift: one comment line appended to a copy of the snapshot -> gate exit 1, "... differs from the
+    deterministic projection" (tampered digest 9426d00edff3fa294f4572ace5d8fd9c785a99a4767d52447bce3e21331313da)
+  tamper through the committed tooling: the same edit inside a copied baseline root read by
+    `python3 tools/check-gate-battery.py --baselines-root <copy>` -> exit 2, reading `snapshot_tampered`,
+    finding BASELINE-TAMPERED: "typed-labels.d4.yml: digest 9426d00e... does not match the pin a59990bb..."
+  gate revision: a gate copy with one appended comment line produced stdout byte-identical to run.log;
+    only gate_sha256 names the revision read (rerun fragment)
+  usage: --help and >1 path -> exit 2
+
+limits (honest bounds):
+  - the graded run reads the packet and the peer from the LIVE tree (the adapter hardcodes
+    ROOT/examples/culture-d4/packet.d4.yml); the baseline pins those bytes by copy, so a later edit to the
+    live packet is caught by this baseline's pin recomputation and by the re-run receipt, not by the
+    battery's digest step alone (that step compares the copy to the pin, never the copy to the live file).
+  - a missing or malformed TARGET path exits 1, not 2: the peer's `--check` answers byte-identity, so
+    "no such file" is reported as "differs from the deterministic projection". Fail-closed, but the
+    could-not-evaluate class is reachable only through a broken live packet or a usage error. Reported,
+    not fixed: no gate behavior was changed by this seat.
+  - digests are integrity, not truth: exit 0 is byte-identity of a NON-CANON projection — not a design
+    PASS, not a canon ruling, and not evidence that the projection's content is sound.
+
+integration notes (for the orchestrator; not a lane-local edit):
+  - .gitignore line 3 is `*.log`, so `run.log` is ignored by pattern:
+    `git check-ignore -v <baseline>/run.log` -> `.gitignore:3:*.log`. Commit it with
+    `git add -f tools/gates/expected/d4-typed-labels-check-gate/r19-pre/run.log`, or the baseline lands
+    without its verbatim stdout.
+  - round 18 recorded the same gate/input pair in tools/gates/frozen/round-18/MANIFEST.tsv — that is a
+    replay-frozen manifest, not a battery-discovered expected.json, and it is untouched by this baseline.
+  - this baseline pins bytes and a verdict; it is not a design PASS and never a canon ruling.

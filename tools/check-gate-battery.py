@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-"""Isolated battery for the seven legacy gate selftests, plus the baseline check.
+"""Isolated battery for the seven structural gate selftests, plus the baseline
+check over all nine registered gates.
 
 Two duties, one report.
 
-1. Gate selftests (unchanged). Stdlib only. Copies the seven tools/gates/*.py
+1. Gate selftests (unchanged; the seven structural gates). Stdlib only. Copies
+   the seven structural tools/gates/*.py
    scripts and their fixture tree into a disposable mirror directory, runs each
    ``--selftest`` there, and never invokes a gate on a live path. Before and
    after the run it snapshots the live tree (per-file sha256 AND the path set of
-   the seven scripts + fixture tree), so "originals preserved" is measured, not
-   assumed: modified bytes, added files and deleted files under the live gates
-   tree are all detected. Note what this proves: matching hashes prove byte
-   preservation, not absence of writes — a rewrite with identical bytes passes;
-   a new file or a deletion does not.
+   the nine registered gate scripts + the fixture tree), so "originals
+   preserved" is measured, not assumed: modified bytes, added files and deleted
+   files under those paths are all detected. Note what this proves: matching
+   hashes prove byte preservation, not absence of writes — a rewrite with
+   identical bytes passes; a new file or a deletion does not.
 
 2. Committed baseline validation (round 9, claim O15). Discovers every committed
    ``expected.json`` under the baseline roots (default ``tools/gates/expected/``,
@@ -20,18 +22,37 @@ Two duties, one report.
    ``corpus/knowledge/verification/gate-frozen-run-standard.md`` §4/§6: every
    declared input digest against the snapshot bytes inside the baseline, the
    ``gate_sha256`` pin against the live gate script, the declared gate against
-   the seven-name constant, and the shape of the ``expected`` verdict block.
+   the registered gate set, and the shape of the ``expected`` verdict block.
    A baseline is never re-executed here: reading ``pinned`` means the digests
    and pins hold, not that the verdict was compared — the comparison is the
    baseline's own re-run receipt. Tampered snapshot bytes, a missing or empty
    ``inputs`` map (``unpinned (legacy)``), an unnamed gate revision, an unknown
-   or unreadable baseline, an input resolved outside the baseline, and any of
-   the seven gates without a committed baseline all read could-not-evaluate and
+   or unreadable baseline, an input resolved outside the baseline, and any
+   registered gate without a committed baseline all read could-not-evaluate and
    force exit 2. A tampered baseline is never a silent pass.
 
+   Coverage is the registered nine (round 19, claim O): the seven structural
+   gates plus the two D4 adapters ``d4-typed-labels-check-gate.py`` and
+   ``d4-assembly-check-gate.py``, so a default run reports ``9/9`` coverage once
+   the D4 family carries committed baselines, beside the two counters a reader
+   needs to keep apart — ``pass`` (selftest legs executed) and ``coverage``
+   (registered gates with a pinned baseline). The two adapters are deliberately
+   not selftest legs here: each resolves ``ROOT`` from its own file location and
+   loads a peer (``tools/d2-typed-labels.py``, ``tools/assemble-culture-d4.py``)
+   plus the ``examples/culture-d4/`` packet that no mirror of ``tools/gates/``
+   can hold, so a mirrored ``--selftest`` launch could only report
+   could-not-evaluate. Their conformance evidence is the committed baseline this
+   duty verifies, and their capability evidence is their own ``--selftest``
+   where they carry one — a leg this battery does not fabricate and does not
+   substitute for: registering a gate never covers it, and a gate that cannot
+   answer is never read as one that did. Registering a gate makes the battery
+   *ask* for its baseline: without a committed ``expected.json`` it reads
+   ``BASELINE-GATE-UNCOVERED``, exit 2.
+
 Exit codes:
-  0  all seven gate selftests passed (exit 0), the original tree preserved, every
-     discovered baseline pinned, and all seven gates covered
+  0  all seven structural gate selftests passed (exit 0), the original tree
+     preserved, every discovered baseline pinned, and all nine registered gates
+     covered
   1  at least one gate selftest ran, exited 1, AND printed recognizable stable
      failure evidence (see below) — treated as a genuine test failure
   2  could-not-evaluate: gate file missing, copy mismatch, live tree changed,
@@ -61,8 +82,10 @@ statements, so a genuine selftest failure in those gates is crash-shaped and
 will classify as exit 2, not exit 1. The battery still reports a nonzero,
 not-green result either way; it only refuses to vouch for which kind.
 
-The gate list is a fixed constant in this file. Nothing is ever executed from
-a manifest and no shell string is built: each child is launched as
+The gate lists are fixed constants in this file: ``GATE_NAMES`` (seven
+structural gates, duty 1) and ``REGISTERED_GATE_NAMES`` (the nine-gate coverage
+set, duty 2). Nothing is ever executed from a manifest and no shell string is
+built: each child is launched as
 [sys.executable, <resolved gate path>, "--selftest"] with shell=False. No gate
 script is modified by, or reachable from, the baseline check (it reads bytes
 only), and baseline paths are never followed outside the baseline directory.
@@ -99,6 +122,16 @@ GATE_NAMES = (
     "phonology-sanity-gate.py",
     "provenance-audit.py",
 )
+# The two D4 adapters (round 18). Registered for duty-2 coverage only: each is a
+# gate-shaped entry point whose ROOT resolves from its own file location and
+# whose peer lives outside tools/gates/, so the duty-1 mirror cannot host it and
+# this battery does not launch it. Their conformance evidence is the committed
+# baseline duty 2 verifies.
+D4_GATE_NAMES = (
+    "d4-typed-labels-check-gate.py",
+    "d4-assembly-check-gate.py",
+)
+REGISTERED_GATE_NAMES = GATE_NAMES + D4_GATE_NAMES
 FIXTURE_DIRNAME = "fixtures"
 HERE = Path(__file__).resolve().parent
 GATES_DIR = HERE / "gates"
@@ -166,6 +199,50 @@ def battery_paths(base):
     paths = [base / name for name in GATE_NAMES]
     paths.extend(sorted(p for p in (base / FIXTURE_DIRNAME).rglob("*") if p.is_file()))
     return paths
+
+
+def leg_plan(mirror):
+    """(name, argv, cwd) for the seven structural selftest legs, in run order.
+
+    The plan is data so the selftest can assert it. It is deliberately seven and
+    deliberately mirror-rooted: the two D4 adapters are registered for duty-2
+    coverage, and a leg added here for them would be a leg whose ``ROOT``
+    resolves into the mirror where its peer and packet do not exist — a plan
+    that cannot run. A later refactor that tries it fails ``CTRL-D4-SURFACE``.
+    """
+    return [
+        (name, [sys.executable, str(mirror / name), "--selftest"], mirror)
+        for name in GATE_NAMES
+    ]
+
+
+def preservation_paths():
+    """Live paths the battery reads, keyed for the before/after diff.
+
+    The mirror holds only the seven structural scripts and the fixture tree;
+    duty 2 also hashes all nine registered gate scripts against their baselines'
+    ``gate_sha256`` pins, so the two D4 adapters belong in the snapshot as well.
+    """
+    paths = {str(p.relative_to(GATES_DIR)): p for p in battery_paths(GATES_DIR)}
+    for name in D4_GATE_NAMES:
+        paths[name] = GATES_DIR / name
+    return paths
+
+
+def preservation_snapshot():
+    """Per-file sha256 of every live path in ``preservation_paths``.
+
+    A path that disappears between listing and hashing is recorded as
+    ``unreadable: ...`` rather than crashing the run: it then reads as a
+    modification, which is exactly the finding a live-tree edit deserves.
+    """
+    snapshot = {}
+    for key, path in preservation_paths().items():
+        try:
+            snapshot[key] = sha256_file(path)
+        except OSError as exc:
+            snapshot[key] = f"unreadable: {exc}"
+    return snapshot
 
 
 def hash_snapshot(paths, base):
@@ -443,7 +520,7 @@ def verify_baseline_spec(spec, label, base_dir, gates_dir, repo_root, gate_names
     record["gate"] = gate_name
     if gate_name is None:
         add("gate_unknown", "BASELINE-GATE-UNKNOWN",
-            f"declared gate {declared_gate!r} is not one of the seven registered gates")
+            f"declared gate {declared_gate!r} is not one of the registered gates")
 
     if gate_name:
         script = gates_dir / gate_name
@@ -599,8 +676,13 @@ def inspect_baseline_file(path, label, gates_dir, repo_root, gate_names):
     return records
 
 
-def inspect_baselines(roots, gates_dir=GATES_DIR, repo_root=HERE.parent, gate_names=GATE_NAMES):
-    """Validate every committed expected.json under the roots; return a report dict."""
+def inspect_baselines(roots, gates_dir=GATES_DIR, repo_root=HERE.parent,
+                      gate_names=REGISTERED_GATE_NAMES):
+    """Validate every committed expected.json under the roots; return a report dict.
+
+    ``gate_names`` defaults to the nine-gate registered set: every registered
+    gate owes a committed baseline, so an uncovered one is could-not-evaluate.
+    """
     records = []
     findings = []
     covered = set()
@@ -657,6 +739,7 @@ def inspect_baselines(roots, gates_dir=GATES_DIR, repo_root=HERE.parent, gate_na
     for record in records:
         readings[record["reading"]] = readings.get(record["reading"], 0) + 1
     pinned = readings.get("pinned", 0)
+    covered_order = [name for name in gate_names if name in covered]
     return {
         "tool": "check-gate-battery",
         "mode": "baselines",
@@ -668,8 +751,10 @@ def inspect_baselines(roots, gates_dir=GATES_DIR, repo_root=HERE.parent, gate_na
             "pinned": pinned,
             "unevaluable": len(records) - pinned,
             "readings": readings,
-            "gates_covered": [name for name in gate_names if name in covered],
+            "gates_registered": len(gate_names),
+            "gates_covered": covered_order,
             "gates_uncovered": uncovered,
+            "coverage": f"{len(covered_order)}/{len(gate_names)}",
             "baseline_exit": 2 if findings else 0,
             "verdict_replay": "not-run: the battery verifies digests and pins; the verdict "
             "comparison belongs to the baseline's own re-run receipt",
@@ -679,12 +764,14 @@ def inspect_baselines(roots, gates_dir=GATES_DIR, repo_root=HERE.parent, gate_na
 
 def run_battery(timeout, keep_mirror, baseline_roots=BASELINE_ROOTS):
     baseline_report = inspect_baselines(
-        baseline_roots, gates_dir=GATES_DIR, repo_root=HERE.parent
+        baseline_roots, gates_dir=GATES_DIR, repo_root=HERE.parent,
+        gate_names=REGISTERED_GATE_NAMES,
     )
     baseline_code = baseline_report["summary"]["baseline_exit"]
     problems = []
     scripts = {name: GATES_DIR / name for name in GATE_NAMES}
-    for name, path in scripts.items():
+    for name in REGISTERED_GATE_NAMES:
+        path = GATES_DIR / name
         if not path.is_file():
             problems.append({"gate": name, "id": "GATE-FILE-MISSING", "detail": str(path)})
     fixture_root = GATES_DIR / FIXTURE_DIRNAME
@@ -705,7 +792,7 @@ def run_battery(timeout, keep_mirror, baseline_roots=BASELINE_ROOTS):
             "mirror": {"root": None, "removed": None},
         }, combined_exit(2, baseline_code)
 
-    before = hash_snapshot(battery_paths(GATES_DIR), GATES_DIR)
+    before = preservation_snapshot()
 
     mirror = Path(tempfile.mkdtemp(prefix="gate-battery-"))
     removed = False
@@ -726,22 +813,15 @@ def run_battery(timeout, keep_mirror, baseline_roots=BASELINE_ROOTS):
                     }
                 )
         if not problems:
-            for name in GATE_NAMES:
-                results.append(
-                    run_child(
-                        name,
-                        [sys.executable, str(mirror / name), "--selftest"],
-                        timeout=timeout,
-                        cwd=mirror,
-                    )
-                )
+            for name, argv, cwd in leg_plan(mirror):
+                results.append(run_child(name, argv, timeout=timeout, cwd=cwd))
         findings = flatten_findings(results) + problems
     finally:
         if not keep_mirror:
             shutil.rmtree(mirror, ignore_errors=True)
             removed = True
 
-    after = hash_snapshot(battery_paths(GATES_DIR), GATES_DIR)
+    after = preservation_snapshot()
     modified, added, deleted = diff_snapshots(before, after)
     preserved = not (modified or added or deleted)
     if not preserved:
@@ -957,6 +1037,123 @@ def run_selftest():
         if report["summary"]["pinned"] != len(required_roots):
             failures.append("CTRL-BASELINE-DEFAULT-ROOTS did not discover every required root")
 
+        # ---- D4 registration (round 19, claim O) --------------------------
+        # Two synthetic fixtures differing only in which gates carry a committed
+        # baseline. The partial fixture (the seven structural gates only) is the
+        # round-18 state: read under the pre-state seven-name set it is green
+        # while the D4 family is unpinned, and read under the registered nine it
+        # fails closed on exactly the two D4 gates.
+        nine_gates = root / "nine-gates"
+        nine_gates.mkdir()
+        for name in REGISTERED_GATE_NAMES:
+            (nine_gates / name).write_text(f"# synthetic {name}\n", encoding="utf-8")
+
+        def write_nine_fixture(fixture, gates_with_baselines):
+            for name in gates_with_baselines:
+                base = fixture / "tools" / "gates" / "expected" / name / "r19-pre"
+                base.mkdir(parents=True, exist_ok=True)
+                (base / "packet.yml").write_bytes(f"era: {name}\n".encode())
+                (base / "expected.json").write_text(json.dumps({
+                    "schema": BASELINE_SCHEMA,
+                    "gate": name,
+                    "gate_sha256": sha256_file(nine_gates / name),
+                    "inputs": {"packet.yml": sha256_file(base / "packet.yml")},
+                    "expected": {"exit": 0, "class": "clean", "findings": []},
+                }, indent=1), encoding="utf-8")
+            return tuple(fixture / path.relative_to(HERE.parent) for path in BASELINE_ROOTS)
+
+        def read_nine(roots, fixture, gate_names=None):
+            kwargs = {} if gate_names is None else {"gate_names": gate_names}
+            return inspect_baselines(roots, gates_dir=nine_gates, repo_root=fixture, **kwargs)
+
+        partial_fixture = root / "nine-partial"
+        partial_roots = write_nine_fixture(partial_fixture, GATE_NAMES)
+        report = rollup("CTRL-D4-PRESTATE-7-GREEN",
+                        read_nine(partial_roots, partial_fixture, GATE_NAMES),
+                        0, "pinned", set(),
+                        "the pre-state seven-name set reads green while the D4 family is unpinned")
+        if report["summary"]["coverage"] != "7/7" or report["summary"]["gates_uncovered"] != []:
+            failures.append("CTRL-D4-PRESTATE-7-GREEN coverage is %r (uncovered %s)"
+                            % (report["summary"]["coverage"],
+                               report["summary"]["gates_uncovered"]))
+
+        report = rollup("CTRL-D4-POSTSTATE-UNCOVERED",
+                        read_nine(partial_roots, partial_fixture),
+                        2, "pinned", {"BASELINE-GATE-UNCOVERED"},
+                        "the registered nine fails closed on the same tree, on exactly the D4 gates")
+        if report["summary"]["gates_uncovered"] != list(D4_GATE_NAMES):
+            failures.append("CTRL-D4-POSTSTATE-UNCOVERED uncovered %s, expected exactly %s"
+                            % (report["summary"]["gates_uncovered"], list(D4_GATE_NAMES)))
+        if report["summary"]["coverage"] != "7/9":
+            failures.append("CTRL-D4-POSTSTATE-UNCOVERED coverage is %r, expected '7/9'"
+                            % (report["summary"]["coverage"],))
+
+        full_fixture = root / "nine-full"
+        full_roots = write_nine_fixture(full_fixture, REGISTERED_GATE_NAMES)
+        report = rollup("CTRL-D4-DEFAULT-9-OF-9",
+                        read_nine(full_roots, full_fixture),
+                        0, "pinned", set(),
+                        "the default registered set covers all nine gates")
+        if report["summary"]["coverage"] != "9/9":
+            failures.append("CTRL-D4-DEFAULT-9-OF-9 coverage is %r, expected '9/9'"
+                            % (report["summary"]["coverage"],))
+        if report["summary"]["gates_uncovered"] != []:
+            failures.append("CTRL-D4-DEFAULT-9-OF-9 left %s uncovered"
+                            % (report["summary"]["gates_uncovered"],))
+        if set(report["summary"]["gates_covered"]) != set(REGISTERED_GATE_NAMES):
+            failures.append("CTRL-D4-DEFAULT-9-OF-9 did not cover every registered gate")
+
+        report = rollup("CTRL-D4-PRESTATE-REJECTS-D4",
+                        read_nine(full_roots, full_fixture, GATE_NAMES),
+                        2, "no baseline,pinned", {"BASELINE-GATE-UNKNOWN"},
+                        "the pre-state set cannot name a D4 gate: its baseline reads no baseline")
+        if report["summary"]["gates_covered"] != list(GATE_NAMES):
+            failures.append("CTRL-D4-PRESTATE-REJECTS-D4 covered %s, expected the seven structural"
+                            % (report["summary"]["gates_covered"],))
+
+        registry_ok = (
+            len(REGISTERED_GATE_NAMES) == 9
+            and len(set(REGISTERED_GATE_NAMES)) == 9
+            and all(name in REGISTERED_GATE_NAMES for name in D4_GATE_NAMES)
+            and not (set(D4_GATE_NAMES) & set(GATE_NAMES))
+            and all((GATES_DIR / name).is_file() for name in D4_GATE_NAMES)
+        )
+        if not registry_ok:
+            failures.append(
+                "CTRL-D4-REGISTRY: registered=%r missing_scripts=%r"
+                % (list(REGISTERED_GATE_NAMES),
+                   [n for n in D4_GATE_NAMES if not (GATES_DIR / n).is_file()])
+            )
+        controls.append({"id": "CTRL-D4-REGISTRY", "observed_exit": 0 if registry_ok else 1,
+                         "outcome": "-", "findings": []})
+
+        # The leg plan and the coverage surface, asserted as data: seven
+        # mirror-rooted selftest legs, nine registered gates, no D4 leg.
+        fake_mirror = root / "no-such-mirror"
+        plan = leg_plan(fake_mirror)
+        plan_names = [name for name, _, _ in plan]
+        plan_is_seven = plan_names == list(GATE_NAMES)
+        plan_mirrored = all(
+            Path(argv[1]).parent == fake_mirror and cwd == fake_mirror
+            for _, argv, cwd in plan
+        )
+        mirror_set = {str(p.relative_to(GATES_DIR)) for p in battery_paths(GATES_DIR)}
+        mirror_excludes_d4 = not (set(D4_GATE_NAMES) & mirror_set)
+        snapshot = set(preservation_paths())
+        snapshot_covers = set(REGISTERED_GATE_NAMES) <= snapshot
+        surface_ok = (
+            plan_is_seven and plan_mirrored and mirror_excludes_d4
+            and set(REGISTERED_GATE_NAMES) == set(GATE_NAMES) | set(D4_GATE_NAMES)
+            and snapshot_covers
+        )
+        if not surface_ok:
+            failures.append(
+                "CTRL-D4-SURFACE: names=%r mirrored=%s mirror_excludes=%s snapshot=%s"
+                % (plan_names, plan_mirrored, mirror_excludes_d4, snapshot_covers)
+            )
+        controls.append({"id": "CTRL-D4-SURFACE", "observed_exit": 0 if surface_ok else 1,
+                         "outcome": "-", "findings": []})
+
         tampered_root = root / "tampered-root"
         write_baseline(tampered_root / "fake-gate" / "r9-pre")
         with open(tampered_root / "fake-gate" / "r9-pre" / "packet.yml", "ab") as handle:
@@ -989,7 +1186,7 @@ def run_selftest():
         unknown_root = root / "unknown-root"
         write_baseline(unknown_root / "not-a-gate" / "r9-pre", gate="not-a-gate")
         rollup("CTRL-BASELINE-GATE-UNKNOWN", inspect(unknown_root), 2, "no baseline",
-               {"BASELINE-GATE-UNKNOWN"}, "a gate outside the seven-name constant fails closed")
+               {"BASELINE-GATE-UNKNOWN"}, "a gate outside the registered set fails closed")
 
         missing_root = root / "missing-root"
         write_baseline(missing_root / "fake-gate" / "r9-pre", inputs={"absent.yml": "0" * 64})
@@ -1109,7 +1306,8 @@ def run_selftest():
 
 def main(argv):
     parser = argparse.ArgumentParser(
-        description="Isolated battery for the seven gate selftests plus the committed baseline check"
+        description="Isolated battery for the seven structural gate selftests plus the "
+                    "committed baseline check over the nine registered gates"
     )
     parser.add_argument(
         "--timeout",

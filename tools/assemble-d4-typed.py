@@ -182,7 +182,7 @@ def build_typed_packet(packet, labels, packet_rel, packet_sha, projection_rel,
                 costume_ids.add(rid)
             slot = entry.get("form_slot")
             if isinstance(slot, str) and slot and rid:
-                slot_owner.setdefault(slot, rid)
+                slot_owner.setdefault(owed_slot(slot) or slot, rid)
 
     routing = []
     problems = []
@@ -196,8 +196,9 @@ def build_typed_packet(packet, labels, packet_rel, packet_sha, projection_rel,
             entries = by_record.get(rid, [])
             slot_labels = []
             slot = entry.get("form_slot")
-            if isinstance(slot, str) and slot:
-                slot_labels = by_record.get(slot, [])
+            slot_key = owed_slot(slot) if isinstance(slot, str) else None
+            if slot_key:
+                slot_labels = by_record.get(slot_key, [])
             all_labels = entries + slot_labels
             kinds = sorted({label.get("kind") for label in all_labels
                             if label.get("kind")})
@@ -208,8 +209,8 @@ def build_typed_packet(packet, labels, packet_rel, packet_sha, projection_rel,
                         "did not type (coverage gap)" % rid)
                 continue
             typed_ids.add(rid)
-            if isinstance(slot, str) and slot:
-                typed_ids.add(slot)
+            if slot_key:
+                typed_ids.add(slot_key)
             routed = [label for label in all_labels
                       if label.get("kind") in ROUTED_KINDS]
             if not routed:
@@ -236,7 +237,7 @@ def build_typed_packet(packet, labels, packet_rel, packet_sha, projection_rel,
                     # the owed slot is named once per costume — on the slot's
                     # own routing row; the gate compares slot sets
                     "owed_slot": (owed_slot(slot)
-                                  if isinstance(slot, str) and record_key == slot
+                                  if slot_key and record_key == slot_key
                                   else None),
                 })
     for record in sorted(by_record):
@@ -406,11 +407,15 @@ def selftest():
     with tempfile.TemporaryDirectory(prefix="assemble-d4-typed-") as tmpdir:
         mirror = Path(tmpdir) / "repo"
         (mirror / "tools/gates").mkdir(parents=True)
-        for name in ("assemble-d4-typed.py", "assemble-culture-d4.py", "d2-typed-labels.py"):
+        for name in ("assemble-d4-typed.py", "assemble-culture-d4.py", "d2-typed-labels.py", "assemble-d2.py"):
             shutil.copyfile(ROOT / "tools" / name, mirror / "tools" / name)
         shutil.copyfile(ROOT / "tools/gates/costume-era-consistency-gate.py",
                         mirror / "tools/gates/costume-era-consistency-gate.py")
         shutil.copytree(ROOT / "examples/culture-d4", mirror / "examples/culture-d4",
+                        ignore=shutil.ignore_patterns("__pycache__"))
+        # the projector's era-alias leg requires the D2 alias component even for
+        # D4 packets (documented wart; routed) — the mirror must be faithful
+        shutil.copytree(ROOT / "examples/culture-d2", mirror / "examples/culture-d2",
                         ignore=shutil.ignore_patterns("__pycache__"))
         tool = mirror / "tools/assemble-d4-typed.py"
 
@@ -474,7 +479,22 @@ def selftest():
               not problems and routed["costumes"][0].get("garment") is None
               and routed["costumes"][0].get("garment_gloss") == "gloss"
               and routing[0]["off_channel_field"] == "garment_gloss"
-              and routing[0]["owed_slot"] == "LEX-GAR-99", routing)
+              and routing[0]["owed_slot"] is None, routing)
+        # named-once rule: the owed slot rides the slot's own routing row
+        _, slot_routing, slot_problems = build_typed_packet(
+            {"costumes": [{"id": "GAR-99", "garment": "gloss",
+                           "form_slot": "LEX-GAR-99, (to-verify)"}]},
+            [{"kind": "translated-label", "label_id": "LEX-GAR-99",
+              "owner": "11-costumes", "source": {"record": "GAR-99"}},
+             {"kind": "translated-label", "label_id": "LEX-GAR-99",
+              "owner": "11-costumes", "source": {"record": "LEX-GAR-99"}}],
+            "p", "0" * 64, "j", "0" * 64, "0" * 64)
+        slot_rows = [row for row in slot_routing
+                     if row["record"] == "LEX-GAR-99"]
+        check("routing: the owed slot is named on the slot's own row, once",
+              not slot_problems and len(slot_routing) == 2 and len(slot_rows) == 1
+              and slot_rows[0]["owed_slot"] == "LEX-GAR-99",
+              slot_routing)
 
         # malformed packet: exit 2, no traceback
         broken = mirror / "examples/culture-d4/packet.d4.yml"

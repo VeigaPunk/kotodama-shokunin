@@ -1,0 +1,82 @@
+{
+ "round": 19,
+ "date": "2026-10-18",
+ "kind": "availability-record",
+ "lane": "kotodama-shokunin",
+ "state": "open-at-seat-close",
+ "regimen": "operator: loop 2 of 3, build round 3 of 4 (64 workers on hyper/deepseek-v4.1-flash - operator provider substitution)",
+ "baseline_revision": "e5718945a1ab0a0c3db955338d2cae77d68fd348",
+ "declaration_commit": "169c616613899f7ba86b8fb58ed808bdfd4b5ccd",
+ "route": "hyper/deepseek-v4.1-flash",
+ "route_source": "operator directive for this round; declared as requested_model in reports/round-19/claims.json (regimen field: 'operator provider substitution')",
+ "requested_workers": 64,
+ "launched_workers": 64,
+ "launched_workers_basis": "declared and dispatched: 64 seats named in reports/round-19/claims.json + targets.json; dispatch corroborated by distinct concurrent seat scratch roots under .scratch/ (a worker seat cannot read the host's per-seat launch receipt, so the count rests on the declaration plus observed concurrency)",
+ "observed_concurrent_seat_markers": 10,
+ "completed_workers": null,
+ "completed_workers_basis": "not observable from a worker seat; the round's own close artifact reports/round-19/validation.json had not landed when this seat's polling budget expired (see finalization_note)",
+ "result": "route resolved and the wave dispatched; claim C's landing target observed reached (verification 15->20, synthesis 24->29 = 9 new sourced entries, >=3 per partition); no provider-error receipt of any kind",
+ "observed_at_utc": "2026-10-18T11:50:11Z",
+ "polling_budget": "20 min from 11:32:30Z to 11:50:11Z, 60 s interval; ended with validation.json still absent",
+ "close_observation": "at 11:50:11Z reports/round-19/ holds adjacency.md, audit/ + audit-1..4.md, availability.json, baselines/, battery/, claims.json, entries/, gaps.md, integration/, knowledge/, regression.md, run-validation.py, scope-a20.md, scope.md, targets.json - the wave integrated a full artifact set but had not filed its acceptance verdict",
+ "recheck_at_utc": "2026-10-18T12:31:49Z",
+ "recheck_observation": "still no reports/round-19/validation.json 41 min after the polling budget expired; verification=20 synthesis=29 unchanged, so the round's acceptance was still pending at hand-off",
+ "counting_command": "find .scratch -maxdepth 1 -mindepth 1 -printf '%TH:%TM %f\\n' | sort",
+ "finalization_note": "Fields left open for the integrating parent: completed_workers and the acceptance verdict from reports/round-19/validation.json. Fill them from that artifact when it lands; do not restate this record's observed counts as the round's acceptance.",
+ "poll_log": ".scratch/x30/poll.log + .scratch/x30/poll2.log (seat census .scratch/x30/seat-census.txt, progress snapshot .scratch/x30/progress-snapshot.txt)",
+ "evidence": [
+  {
+   "claim": "round-19 wave declared before dispatch on the operator-designated route",
+   "source": "reports/round-19/claims.json",
+   "command": "cat reports/round-19/claims.json",
+   "observed": "state=declared-before-dispatch; requested_model=hyper/deepseek-v4.1-flash; workers=64; baseline_revision=e5718945a1ab0a0c3db955338d2cae77d68fd348"
+  },
+  {
+   "claim": "declaration is committed at the lane baseline's child",
+   "source": "git",
+   "command": "git log --oneline -1",
+   "observed": "169c616 round-19: declare claims D/C/O (D4 craft knowledge, thin-partition wave, D4 battery integration)"
+  },
+  {
+   "claim": "the wave launched on the declared route (distinct concurrent seat artifacts present in the same tree)",
+   "source": ".scratch/",
+   "command": "find .scratch -maxdepth 1 -mindepth 1 -printf '%TH:%TM %f\\n' | sort",
+   "observed": "10 distinct seat roots, all mtime 2026-10-18T11:32-11:33Z (local = 11:32Z UTC-3): x23-watch.*, x26/, r19d0607/, r19c/, r19-a19/, k19-watch.log, audit/, x29/, r19o-baselines/, x30/; plus typed-pipeline-gate-selftest-* and tmp* dirs; full list in .scratch/x30/seat-census.txt"
+  },
+  {
+   "claim": "thin-partition baseline measured for claim C",
+   "source": "corpus/knowledge",
+   "command": "ls corpus/knowledge/verification/*.md | wc -l ; ls corpus/knowledge/synthesis/*.md | wc -l",
+   "observed": "verification=15 synthesis=24 (matches claims.json before-state)"
+  },
+  {
+   "claim": "the wave produced landings during the observation window (claim C target reached)",
+   "source": "corpus/knowledge ; reports/round-19/",
+   "command": "ls corpus/knowledge/verification/*.md | wc -l ; ls corpus/knowledge/synthesis/*.md | wc -l ; ls reports/round-19/",
+   "observed": "verification 15->20 and synthesis 24->28 by 2026-10-18T11:37:30Z (9 new sourced entries, >=3 per partition = the claim C target); artifacts landed: entries/, gaps.md (10 declared gaps R19-C11..C20), knowledge/analyst-1.md + analyst-2.md, audit/, integration/, scope-a20.md, scope.md, run-validation.py"
+  },
+  {
+   "claim": "the declared route is a known, measured provider lane - not an unprovisioned alias of the round-10 kind",
+   "source": ".ufo/reports/round-18/kengaku.md:131 ; research/round-18-kimi-model-routing/routing/APPLY.md:118-121",
+   "command": "sed -n '131p' .ufo/reports/round-18/kengaku.md ; sed -n '118,121p' research/round-18-kimi-model-routing/routing/APPLY.md",
+   "observed": "FAST ladder: hyper/deepseek-v4.1-flash 2081 ms TTFT / 375.91 tok/s / 8-9 probes (fastest measured lane); APPLY.md names it the evidence-based low-latency default alternative (single provider, no fallback) and places hyper mid-chain in opencode-go -> hyper -> devin"
+  },
+  {
+   "claim": "route liveness has a committed re-probe path",
+   "source": "research/round-18-kimi-model-routing/census/scripts/probe_chat.py",
+   "command": "python3 research/round-18-kimi-model-routing/census/scripts/probe_chat.py ~/.kimi-code/config.toml hyper",
+   "observed": "not run by this seat: quota is scarce and the in-flight wave already demonstrates the route resolves; recorded as the reproduction path if availability is ever doubted"
+  },
+  {
+   "claim": "no provider-failure receipt of the round-10 kind (402 insufficient funds) exists for this round",
+   "source": "reports/round-19/",
+   "command": "ls reports/round-19/",
+   "observed": "at 2026-10-18T11:37:30Z the directory holds claims.json, targets.json, availability.json, audit/, entries/, gaps.md, integration/, knowledge/, run-validation.py, scope-a20.md, scope.md; no availability-attempt-*.json failure receipt and no error text in any of them"
+  }
+ ],
+ "notes": [
+  "Unlike round-5 (native model-registry rejection) and round-10 (402 insufficient funds), this round produced live concurrent worker artifacts and landed corpus entries, so the route resolved, dispatched, and returned work.",
+  "This record is written by the availability seat (X30). It records the route and the observed result at this seat's close; the round's own acceptance verdict is the integrator's, from reports/round-19/validation.json (see finalization_note).",
+  "Provenance of this seat: one of the 64 workers dispatched for round 19; its own presence is itself part of the dispatch evidence."
+ ]
+}

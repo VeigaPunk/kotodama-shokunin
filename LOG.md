@@ -3254,3 +3254,18 @@ certification or lore/world-bible ownership is claimed.
   routing model = one row per translated label (garment + slot), owed slot
   named once; repin-d2 manifest re-pinned to the post-L2 gate sha.
 - **Evidence:** `reports/round-18/validation.json` acceptance true.
+
+## 2026-10-18 — Round 19 admitted (loop 2, build 3 of 4; hyper provider per operator)
+
+- **Trigger:** regimen + operator provider substitution
+  (`hyper/deepseek-v4.1-flash`); baseline `169c616`; 17/64 completed (slow
+  route); integrator-authored validation.
+- **D (verified):** SKILL.md slot-label routing + derivation-replay subsections
+  (drafts errata'd; review blockers were pre-repair states, superseded).
+- **C (verified):** verification 15->20, synthesis 24->29; zero-defect audit.
+- **O (verified):** battery registers 9 gates (2 D4 duty-2 inspected; mode
+  documented); D4 baselines committed and valid; 35/35 selftest.
+- **Integrator acts:** adapter selftest repaired to 12/12 (mirror faithfulness
+  for the projector's D2 alias-component dependency — documented wart routed;
+  named-once fixture); availability record closed.
+- **Evidence:** `reports/round-19/validation.json` acceptance true.

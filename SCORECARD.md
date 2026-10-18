@@ -189,6 +189,25 @@ Admission: O/D/C verify, no axis harmed. The round-17 D-rejection stands on
 record; its artifacts are now fully verified. Capabilities addendum:
 `assemble-d4-typed` (D4 typed-packet adapter, text-transform architecture).
 
+## Axes — round 19 (2026-10-18), admitted (build 3 of 4 — hyper provider)
+
+Baseline `169c616`; one 64-worker `hyper/deepseek-v4.1-flash` batch (17/64
+completed — hyper route is slow; integrator-authored validation after the
+scribe seat failed). Acceptance:
+`python3 reports/round-19/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D) | D4 craft uncodified -> SKILL.md gains two subsections (slot-label routing: one row per translated label, owed slot named once on the slot's row; derivation-replay discipline: machine-readable pattern/output pairs + the round-trip corruption class); 3 analyst + 2 reviewer fragments; reviews' pre-repair red measurements superseded with errata; Defects A/B corrected | `python3 reports/round-19/run-validation.py` | `reports/round-19/knowledge/` |
+| coverage | improved (claim C) | verification 15 / synthesis 24 -> 20 / 29 (10 new sourced entries, integrator-audited zero defects: gap-named, frontmatter-complete, decision-record carrying) | `python3 reports/round-19/run-validation.py` | `git status` new entries + audit |
+| operability | improved (claim O) | D4 gates outside the battery -> registered (9 registered: 7 executed + 2 D4 duty-2 baseline-inspected — mirror cannot host peer-dependent gates, mode documented); committed expected.json baselines for both D4 gates (17 valid baseline rows); battery selftest 35/35 | `python3 tools/check-gate-battery.py` | `reports/round-19/battery/`, `baselines/` |
+| calibration | improved (unclaimed observation) | Review blockers traced to pre-repair states and dispositioned with errata, not re-rolled; the projector era-alias leg's D2-component dependency for D4 packets documented and routed | — | review errata; routed wart |
+| freshness / adjacency | unchanged | Pause in force; scope clean | — | `reports/round-19/adjacency.md` |
+
+Admission: D/C/O verify, no axis harmed. Integrator acts: errata + SKILL
+landings; adapter selftest repaired (12/12: mirror faithfulness + named-once
+fixture); availability record closed.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

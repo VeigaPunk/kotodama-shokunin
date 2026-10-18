@@ -1,0 +1,187 @@
+{
+ "round": 19,
+ "assignment": "SCRIBE X23..X25 — report scribe + independent validation rerun + fragment index",
+ "status": "in-flight-at-deadline-d-not-landed-o-not-green",
+ "axes": {
+  "D": "depth — D4 craft codification into SKILL.md (orchestrator landing) + corpus/lessons entry",
+  "C": "coverage — >=8 sourced entries across verification + synthesis (measured PASS)",
+  "O": "operability — battery default covers the D4 gates 9/9 with committed baselines"
+ },
+ "declared_round_date": "2026-10-18",
+ "record_date_utc": "2026-10-18",
+ "baseline_revision": "e5718945a1ab0a0c3db955338d2cae77d68fd348",
+ "observed_head": "169c616613899f7ba86b8fb58ed808bdfd4b5ccd",
+ "head_is_declare_commit": true,
+ "write_scope": [
+  "reports/round-19/report-draft.md",
+  "reports/round-19/rerun.json",
+  "reports/round-19/fragment-index.md"
+ ],
+ "environment": {
+  "TMPDIR": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch",
+  "PYTHONDONTWRITEBYTECODE": "1",
+  "REFRESH_RECEIPTS": "unset for every child process",
+  "date_note": "All timestamps in this record are UTC; the lane-local clock is UTC-03:00, so the declared round date 2026-10-18 is the same calendar day."
+ },
+ "dependency_wait": {
+  "command": "Read-only Python watcher: sha256 inventory of reports/round-19/** at 60-second intervals, 21 polls (0..20), appended to .scratch/x23-watch.jsonl",
+  "started_at_utc": "2026-10-18T11:32:05.835169+00:00",
+  "ended_at_utc": "2026-10-18T11:52:05.853748+00:00",
+  "poll_interval_seconds": 60,
+  "maximum_wait_seconds": 1200,
+  "observed_wait_seconds": 1200.0,
+  "polls": 21,
+  "result": "timeout-after-20-minutes; the declared D dependency never appeared inside the window",
+  "required": [
+   "reports/round-19/run-validation.py",
+   "SKILL.md#<D4 decision-table subsection>",
+   "the battery default run green at 9/9 (7 structural + 2 D4)"
+  ],
+  "present_at_deadline": [
+   "reports/round-19/run-validation.py (arrived ~11:34:55Z; revised at least once inside and after the window; sha256 92093b55e394bbe4f6e761f84ee98f3698a423cdbbecdc3bee206f46f4a992f6 at the final observation)",
+   "corpus/lessons/round-19.md (arrived ~11:35:50Z)",
+   "all ten C entries reports/round-19/entries/R19-C11.md..R19-C20.md",
+   "corpus/README.md reconciled to revision 1.4 (~11:41Z)",
+   "the two D4 committed baselines tools/gates/expected/d4-typed-labels-check-gate/r19-pre/expected.json and tools/gates/expected/d4-assembly-check-gate/r19-pre/expected.json"
+  ],
+  "missing_at_deadline": [
+   "SKILL.md#<D4 decision-table subsection> — SKILL.md was byte-unchanged through the whole window (sha256 e8d238a6377bc4135027c06b4320e3ab7b6937c1276164be986cf670db6d23f8 = the baseline; 0 occurrences of 'D4')",
+   "a green battery default run (exit was 2 at every observation, 11:33Z..12:32Z)"
+  ],
+  "post_deadline_control": {
+   "command": "read-only re-measurement of the same subjects at 2026-10-18T12:32:23Z",
+   "SKILL.md_changed": false,
+   "battery_exit": 2,
+   "note": "The 40-minute gap between the watcher's last poll (11:52:05Z) and the final measurement (12:32:23Z) is real wall-clock; the wave remained in flight and neither required D artifact landed in it."
+  }
+ },
+ "post_settle_validation": null,
+ "completion": {
+  "bounded_evidence_record_filed": true,
+  "required_post_integration_rerun_complete": false,
+  "acceptance_claimed": false,
+  "reason": "Claim C settled and passes the round-19 runner. Claims D and O did not settle: SKILL.md never received the D4 decision-table subsection (orchestrator/parent landing), and the battery default run never reached a green 9/9 because the D4 assembly adapter ships no --selftest and its duty-1 leg reads GATE-UNEVALUABLE-EXIT. The measured state is an in-flight tree, not a settled round; this seat did not write the primary validation.json.",
+  "parent_follow_up": [
+   "Land the D4 decision-table subsection into SKILL.md from the worker drafts (reports/round-19/knowledge/skill-draft-a.md, skill-draft-b.md; reviews review-1.md, review-2.md; the D4 lesson entry reports/round-19/integration/d4-lessons-entry.md). The runner measures: SKILL.md changed vs baseline AND a new decision-table subsection covering the D4 craft with D4-artifact citations. Until it lands, claim D cannot pass.",
+   "Resolve the O battery leg: tools/gates/d4-assembly-check-gate.py ships no --selftest, so its duty-1 selftest leg reads exit 2 (GATE-UNEVALUABLE-EXIT). Either give the adapter a --selftest contract or move the D4 legs to a coverage-only duty; then re-run python3 tools/check-gate-battery.py to a green 9/9 (7 structural + 2 D4) with selftest controls.",
+   "Re-run python3 reports/round-19/run-validation.py --check after both land, then publish the primary receipt through its authorized owner.",
+   "Reconcile reports/round-19/regression.md (the O seat's own receipt) with this rerun before LOG/SCORECARD integration; this seat's regression inventory is the independent one.",
+   "Do not run historical round validators in the live tree; do not use REFRESH_RECEIPTS to bypass receipt preservation."
+  ]
+ },
+ "final_available_battery": {
+  "command": "python3 .scratch/x23-rerun.py (orchestrates the subprocess children listed below; full payload at .scratch/x23-measurements.json)",
+  "observed_at_utc": "2026-10-18T12:32:23.053264+00:00",
+  "head_at_run": "169c616613899f7ba86b8fb58ed808bdfd4b5ccd",
+  "runner_sha256": "92093b55e394bbe4f6e761f84ee98f3698a423cdbbecdc3bee206f46f4a992f6",
+  "regression_green": 17,
+  "regression_total": 19,
+  "regression_stderr_note": "stderr sha256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 (empty) on every child except assemble-d4-typed.py --selftest (77b1d9b09971e4c8b800609b211d0e68a92080815a0f2c25ef746674e2a8846e)",
+  "regressions": [
+   {"command": "python3 tools/check-gate-battery.py --selftest", "exit": 0, "stdout_sha256": "5beae67e79f425f2e4e7bc81a2d40fff49df500a7950185ef03bb851664a7738"},
+   {"command": "python3 tools/check-gate-battery.py", "exit": 2, "stdout_sha256": "89b94e3729f5543b1ef020880716cdbf9bda9d5758188e9eb3ec236d59a27bb8", "note": "not green: duty-1 D4 assembly leg GATE-UNEVALUABLE-EXIT"},
+   {"command": "python3 tools/check-craft-exercise.py --selftest", "exit": 0, "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"},
+   {"command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json", "exit": 0, "stdout_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650"},
+   {"command": "python3 tools/assemble-d2.py --selftest", "exit": 0, "stdout_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336"},
+   {"command": "python3 tools/assemble-d2.py --check", "exit": 0, "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"},
+   {"command": "python3 tools/d2-typed-labels.py --selftest", "exit": 0, "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252"},
+   {"command": "python3 tools/d2-typed-labels.py --check", "exit": 0, "stdout_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427"},
+   {"command": "python3 tools/assemble-culture-d3.py --selftest", "exit": 0, "stdout_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b"},
+   {"command": "python3 tools/assemble-culture-d3.py --check", "exit": 0, "stdout_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a"},
+   {"command": "python3 tools/check-evidence-coupling.py --selftest", "exit": 0, "stdout_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce"},
+   {"command": "python3 tools/assemble-d2-typed.py --check", "exit": 0, "stdout_sha256": "e3b16d3bae56cce5760cbde277716263636a4d9fad83c5c5f2f9a05b181bc924"},
+   {"command": "python3 tools/gates/typed-pipeline-gate.py --json", "exit": 0, "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62"},
+   {"command": "python3 tools/assemble-culture-d4.py --selftest", "exit": 0, "stdout_sha256": "0182f7178e24616d8adb6b9360782363e12f9ae2561ea22047e3b6889fe53022"},
+   {"command": "python3 tools/assemble-culture-d4.py --check", "exit": 0, "stdout_sha256": "293bf19f7e6e9c709f3dbda248bbb74fbfd2a3daf4e1bf526154529e697581bb"},
+   {"command": "python3 tools/assemble-d4-typed.py --selftest", "exit": 1, "stdout_sha256": "99966093576b1a25e9d2756188b928c5beefe10b7856c295436bbdd7adec9177", "note": "real selftest failures: 'tamper: restored build passes', 'stale projection: exit 2 and the pin is named' (a missing tools/assemble-d2.py in the isolated fixture), 'routing: the checked field is moved, not flagged'. D-seat artifact; not edited by this seat."},
+   {"command": "python3 tools/assemble-d4-typed.py --check", "exit": 0, "stdout_sha256": "692d476ad07f1ca6a9f0b8315862fb0e0a09005ee53ed171f9deab25817e40e5"},
+   {"command": "python3 tools/gates/d4-typed-labels-check-gate.py", "exit": 0, "stdout_sha256": "1c8add321259a9f026d6e37b0dbd95b0f548f31fe0a10c56098911c21532a6fe"},
+   {"command": "python3 tools/gates/d4-assembly-check-gate.py", "exit": 0, "stdout_sha256": "c60820a54742ecaa1edef972c6c94cce3f88313fbace8ef19eaeddd9a42572a7"}
+  ],
+  "default_battery": {
+   "command": "python3 tools/check-gate-battery.py",
+   "exit": 2,
+   "summary": {"battery_exit": 2, "fail": 0, "pass": 8, "unevaluable": 1},
+   "coverage": "9/9",
+   "baselines_found": 17,
+   "baselines_pinned": 17,
+   "gates_uncovered": [],
+   "d4_baselines": {
+    "d4-typed-labels-check-gate.py": ["tools/gates/expected/d4-typed-labels-check-gate/r19-pre/expected.json"],
+    "d4-assembly-check-gate.py": ["tools/gates/expected/d4-assembly-check-gate/r19-pre/expected.json"]
+   },
+   "finding": {"id": "GATE-UNEVALUABLE-EXIT", "gate": "d4-assembly-check-gate.py", "detail": "selftest exited 2"},
+   "limit": "Coverage (the digest/pin layer) is 9/9 with 0 uncovered gates; the duty-1 selftest layer is 8 pass / 1 unevaluable because d4-assembly-check-gate.py ships no --selftest, so its leg exits 2. The battery exit is the worse of the two duties."
+  },
+  "preservation_control": {
+   "command": "Python sha256 manifest over reports/round-8..18 (excluding __pycache__ and *.log) before and after the whole regression inventory, plus the runner selftest/check",
+   "files_before": 821,
+   "files_after": 821,
+   "manifest_sha256_before_and_after": "bd02b029999c12296cfa28ef65c059fa7bf04c02834c88185a5a68b89d35774e",
+   "changed_paths": [],
+   "added_paths": [],
+   "removed_paths": [],
+   "originals_preserved": true,
+   "limit": "This is byte preservation of the filed rounds 8-18 surface, not a verdict replay of their baselines."
+  }
+ },
+ "final_available_runner_runs": {
+  "runner": "reports/round-19/run-validation.py",
+  "runner_sha256": "92093b55e394bbe4f6e761f84ee98f3698a423cdbbecdc3bee206f46f4a992f6",
+  "selftest": {
+   "command": "python3 reports/round-19/run-validation.py --selftest",
+   "observed_at_utc": "2026-10-18T12:32:24Z",
+   "exit": 0,
+   "selftest_passed": true,
+   "controls_passed": 26,
+   "controls_total": 26,
+   "stdout_sha256": "566074c805d45582f2442fe3cbb86b948380a762e9c3978088b754e96375c952"
+  },
+  "check": {
+   "command": "python3 reports/round-19/run-validation.py --check",
+   "observed_at_utc": "2026-10-18T12:32:25Z",
+   "exit": 1,
+   "receipt_written": false,
+   "acceptance_checks_passed": false,
+   "claim_passed": {"C": true, "D": false, "O": false},
+   "stdout_sha256": "17aa2f6b1ac338a2a1a14f67f6551afd7f8a7eaf0d8949a332401b8077b7f6cf",
+   "missing_dependencies": ["SKILL.md#<D4 decision-table subsection>"],
+   "failures": {
+    "C": [],
+    "D": [
+     "SKILL.md did not change: the D4 decision-table subsection did not land",
+     "SKILL.md carries no new decision-table subsection covering the D4 craft"
+    ],
+    "O": [
+     "the battery default run exited 2 (expected 0)",
+     "the battery default run passes 8 gate selftests, neither 7 (structural) nor 9 (all)",
+     "the battery executed 9 gates but passed 8",
+     "the battery default run reports unevaluable=1"
+    ]
+   },
+   "scope": "Check mode writes no receipt. C is measured PASS; D and O are blocked exactly on the missing/incomplete integration artifacts, not on a measured defect of the landed C evidence."
+  },
+  "primary_receipt_observed": {
+   "path": "reports/round-19/validation.json",
+   "sha256": "efdb1b429d652eed",
+   "note": "A primary validation.json exists (320230 bytes) written by some seat's default-mode run at runner sha 92093b55; it reports the same claim verdicts (C pass, D/O fail). This seat did not write or overwrite it."
+  },
+  "post_measurement_revision_churn": {
+   "observed_at_utc": "2026-10-18T12:34:55Z",
+   "runner_sha256_before": "92093b55e394bbe4f6e761f84ee98f3698a423cdbbecdc3bee206f46f4a992f6",
+   "runner_sha256_after": "ffee0643b9a77780eab6e375f0186aca475b3293e495b2213b30c3ae420b5dd8",
+   "claim_verdicts_unchanged": {"C": true, "D": false, "O": false},
+   "SKILL.md_changed": false,
+   "battery_exit": 2,
+   "note": "The runner's owner revised it again after this seat's final measurement; the claim verdicts are unchanged. Every measurement in this record stays bound to sha 92093b55; the later revision is disclosed, not inherited."
+  }
+ },
+ "limits": [
+  "This is X23..X25's bounded evidence record at the 20-minute dependency deadline. The post-settle rerun did not happen because claims D and O did not settle; no round admission, axis verdict, or promotion verification is claimed.",
+  "The runner was revised during and after the observation window; every observation is hash-bound to the revision named (92093b55 at the final measurement) and none is asserted settled.",
+  "Claim C passes on the delivered tree; D and O failures are named with the exact missing artifacts, not silently absorbed.",
+  "The D-seat tool tools/assemble-d4-typed.py --selftest is red (three named controls) at the final observation; recorded as a named gap, not edited by this seat.",
+  "No historical round validator was run; no filed round-8..18 artifact was read as writable; no git commit or push was performed by this seat.",
+  "All round-19 artifacts are NON-CANON: nothing here certifies truth, canon, lore receipt, cultural permission, or any real-world clearance."
+ ]
+}

@@ -128,6 +128,119 @@ its witness must resolve, and a basis that restates the status word is
 rejected (`worldbible-integration-contract.md:183`; v2-design §2.3).
 ````
 
+### Slot-label routing — one row per moved record, the owed slot named once
+
+A typed pipeline protects the checked channel by **moving** a form, never by
+flagging it: a record the projector types `translated-label` with no supplied
+native/borrowed form has its checked field renamed (moved off the sound-and-identity
+channel), one routing row is written for it, and one hold names it. The routing
+row set and the `FORM-UNRESOLVED` hold set are the same set — an equality the gate
+asserts, not an intention. Executable authority
+`tools/gates/typed-pipeline-gate.py` (`L3-routing-consistency`, `:736-753`; the
+`L1-routing`/`L2-channel` legs) and `tools/assemble-d4-typed.py` (`ROUTED_KINDS`,
+`:65`); design authority `reports/round-17/d4/typed-support-1.md` §5.2-§5.3 and
+`reports/round-17/d4/typed-support-2.md` §3 ("One hold per owed slot"); worked
+instance `examples/culture-d4/packet.d4.typed.yml` (`typed_channel:`) with
+`examples/culture-d4/expected-holds.json`.
+
+| Condition on the record | Routing row | Hold it carries | Never | Wrong-shape consequence |
+|---|---|---|---|---|
+| A checked field holds a reader-facing gloss (kind `translated-label`) and no native/borrowed form is supplied | **exactly one** row naming the record: `source_field` → the moved field, `off_channel_field` → its `_gloss` rename, `channel: off-sound-and-identity` | one `FORM-UNRESOLVED` hold whose `where` is the record id | delete the gloss to "clean" the gate — the gloss is moved and still rides in the typed packet; a row without its hold; a hold without its row | the gate's `L3-routing-consistency` fails, naming `holds … vs routed …`; a deleted hold is caught by `L3-holds`/`L3-counts`/`L3-baseline-set` naming the record (`reports/round-18/d4/neg-1.md` §3.1-§3.2) |
+| The owed slot is itself a projected record (the packet's `form_slots` block) | a **second** row naming the slot record, with `owed_slot` set to that slot id and the same `source_field`/`off_channel_field` | a second `FORM-UNRESOLVED` hold whose `where` is the slot id, with the **identical** `detail` | count the two rows as two obligations — they are one obligation seen from the slot side (`reports/round-18/d4/review-1.md` §0-§1 derives six obligations from six costumes) | an under- or over-counted set; the gate's slot comparison (`hold_slots == routed_slots`) fails |
+| The record carries a `register` (or any social/stylistic) field but its form is on-channel | **no** row: the record keeps its checked form | none from this field | promote the register value into `off_channel_field`; let a register label remove a string from the checked channel | a register-scoped exemption is the round-8 T1 violation at a new address — `adding typing fields cannot exempt a string` (`SKILL.md:47`) |
+| A hold is laundered (downgraded to a note, or deleted) while the artifact still assembles | unchanged | the hold must still be present at `hold` severity | accept a shorter/quieter hold set as clean | four legs fail naming the record: `L3-holds`, `L3-notes`, `L3-counts`, `L3-baseline-set` (`reports/round-18/d4/neg-1.md` §3.1) |
+| The family's design names a register hold class the engine cannot prove | no row; the class is reported, not written | the **emitted** vocabulary governs the expectation file | assume a `D4L-REGISTER-UNRESOLVED` (or any) id the delivered projector never emits | an expectation naming an unprovable class cannot equal the emitted set; the freeze rule excludes a row the gate cannot prove (`reports/round-17/d4/typed-support-2.md` §4 freeze rule 2; `reports/round-18/d4/holds.md` §3) |
+| A label is retyped from `translated-label` to `native-form` to make the row disappear | the row must disappear **only** when a supplied native form exists | the hold clears only on a supplied form | retype a gloss as native to drop its routing row | the sound channel then grades translated text as a surface form; the naming kernel reads it as a `PHON-INVENTORY` artifact and the channel differential names the record (`reports/round-18/d4/neg-2.md` §3.1) |
+```
+
+Thresholds and cautions that are part of the rule:
+
+- **T1 — the routing predicate is the label kind, not the field name.** The
+  delivered adapter routes `ROUTED_KINDS = ("translated-label",)`
+  (`tools/assemble-d4-typed.py:65`); a record of another kind that happens to sit
+  in a costume block is not routed, and a `translated-label` anywhere is. Field
+  names (`garment`, `garment_gloss`) are the *consequence* of the move, not its
+  trigger.
+- **T2 — the move is a rename, never a delete.** `text_payload` rewrites
+  `^(\s*)garment:` → `garment_gloss:` in place (`tools/assemble-d4-typed.py:296-310`);
+  the gloss stays in the document under its new key. A pipeline that deletes the
+  gloss has removed evidence, not protected a channel.
+- **T3 — one obligation, two record names.** The delivered instance keys the same
+  six owed forms twice (`GAR-0n` and `LEX-GAR-0n`) because the projector projects
+  every `form_slots` entry as a label and each owed slot then emits its own hold
+  (`tools/d2-typed-labels.py:622`, `:793`; `reports/round-18/d4/holds.md` §4.2).
+  The hand re-derivation counts **six** obligations for six costumes
+  (`reports/round-18/d4/review-1.md` §0-§1). Both readings are correct; the
+  craft statement is that the *count of obligations* is a property of the
+  design, and the *count of rows* is a property of the projection.
+- **T4 — a register field is a claim about who says a form, not whether it is a
+  form.** Real registers are chosen, not inherited (`corpus/knowledge/linguistics/sociolinguistics-registers.md:58`),
+  and professional registers resist paraphrase by design
+  (`sociolinguistics-registers.md:83`). A register-scoped *slot* is therefore a
+  design statement about a form's social distribution; it never licenses moving
+  that form off the identity channel.
+- Cautions that are part of the rule: a register label is not a channel
+  (`SKILL.md:47`, `corpus/knowledge/synthesis/era-language-staging.md:114`
+  "type every label"); the routing set is not the obligation set (T3); a green
+  routing leg is not a clearance — exit 0 means "the emitted findings equal the
+  frozen expected set", and every hold is still open design debt
+  (`reports/round-18/d4/manifest.md` §6; `tools/gates/typed-pipeline-gate.py` banner).
+
+### Derivation replay — replay the family's own build, by text transform
+
+A typed derivation is replayable only when three things are true at once: the
+identity leg calls the *family's* own assembler, the derived artifact is built by
+a text transform of the source bytes (never by re-serializing foreign content),
+and the replay names every input. The D4 chain is the worked instance.
+Executable authorities `tools/assemble-d4-typed.py` (`SERIALIZER`, `:62`;
+`text_payload`, `:296-310`) and `tools/gates/typed-pipeline-gate.py`
+(`L1-profile`/`L1-assembler`/`L1-projection_freshness`/`L1-coverage`/`L1-build`,
+`L2-channel`, `L3-*`, `L4-pins`); flagless resolution
+`tools/gates/typed-pipelines.json`; design authority
+`reports/round-18/gate/design.md` §0/§1.3/§11 and
+`reports/round-17/d4/typed-support-1.md` §4-§5; measured instance
+`reports/round-18/d4/determinism.md` §3, `reports/round-18/d4/manifest.md` §2,
+`reports/round-18/d4/interop-1.md` §0.
+
+| Replay requirement | Correct shape | Never | Consequence if violated | Citation |
+|---|---|---|---|---|
+| Assembler identity | the adapter's identity leg calls the family's own assembler build path (`assemble()` on `tools/assemble-culture-d4.py`), and the identity message names the assembler it actually checked | hard-bind the leg to another family's serializer, or re-implement the build inside the adapter | a correct foreign packet is refused (exit 2) and the default family's bytes move | `tools/assemble-d4-typed.py:62`; `reports/round-17/d4/typed-support-1.md` §4 B4 (receipt P3); `reports/round-18/gate/design.md` §1.3 |
+| Named inputs | every input is named on the command line (`--packet` **and** the artifact), so the comparison is the pair the caller meant | run `--check <artifact>` alone against a multi-family tool | a false difference: exit 1 "differs" where the named pair exits 0 — measured 2026-10-18T11:32Z | `tools/d2-typed-labels.py --check` measured control (§4) |
+| Machine-readable pattern/output pairs | the committed expectation is a machine-readable document: schema, `counts`, the row list, and the digests it is pinned to | a prose or hand-typed expectation; a pinned count with no row list; a row list with no pins | the equality leg cannot be re-run by a stranger, and a re-pin cannot be distinguished from a re-bless | `examples/culture-d4/expected-holds.json` keys `counts, holds, notes, packet_sha256, projection_sha256, projector_sha256, schema`; `reports/round-17/d4/typed-support-2.md` §2 (comparison key `(id, severity, where)` as a set, `detail` strings pinned); `tools/gates/typed-pipeline-gate.py:696-734` |
+| Round-trip corruption class | derive by **text transform**: rewrite the one moved key in place, append adapter-owned blocks serialized from adapter-generated data alone | re-serialize the whole foreign document through a round-trip serializer | regex backslashes, booleans and nulls are mangled; the derived artifact stops matching its source's semantics while still assembling | `tools/assemble-d4-typed.py:296-310`; `SCORECARD.md:176-177,185`; `LOG.md:3252-3253` |
+| Text-transform rule | the transform touches exactly the declared key set (`garment` → `garment_gloss`) and nothing else; the moved value stays in the document | a general "normalizer" that rewrites unrelated lines | the transform becomes an unreviewable second assembler; a byte diff cannot localize a change | `tools/assemble-d4-typed.py:296-310` (the loop renames only `^(\s*)garment:` inside `costumes:`) |
+| Flagless resolution | a frozen replay row cannot carry flags (`tools/replay-frozen.py` launches `[python3, <gate>, <input>]`), so the family must resolve flaglessly from a sha-pinned profile matched on the packet's declared `assembly.generator` | a family that can only be graded with CLI flags | the row cannot be frozen; a flag-only path is un-replayable by design | `reports/round-18/d4/manifest.md` §2; `tools/gates/typed-pipelines.json` (`schema kotodama-typed-pipelines-v1`, profile `d4`, every field digest-pinned); `tools/gates/typed-pipeline-gate.py:481-485` (a stale pin refuses, exit 2, `L1-profile`) |
+| Determinism | two consecutive builds are byte-identical, and `--check` compares bytes without writing | a build whose output embeds a path, a timestamp, or a host name | the artifact is not replayable; a frozen pin moves under an unrelated edit | `tools/assemble-d4-typed.py:369` (`two consecutive builds are not byte-identical`); `reports/round-18/d4/determinism.md` §3 |
+| Pre-registration | the expected set is decided elsewhere **before** the tool runs (design table, design-doc union, or a declared acceptance criterion) and any delta is dispositioned in a filed reconciliation | write the expectation from the tool's own printed output | the equality leg has drift teeth but no content teeth — it cannot distinguish "the set is right" from "the set is a copy of the producer" | `reports/round-18/d4/review-2.md` §0/§2 (the landed D4 file equals the projector's live output verbatim); `reports/round-18/d4/holds.md` §3-§4; `corpus/knowledge/verification/verification-independence-anti-circularity.md` §2 (the circularity catalog) |
+| Passenger rows | a row emitted by a shared engine for any packet is attributed **per packet** in the expectation, or excluded | let a packet-independent block silently enter a new family's debt set | the equality leg is described as verifying the new family's design debt while the row names records that occur zero times in its packet | measured: the D4 expected file carries 3 `D2L-RANK` holds + 1 note naming `TR-04#a\|TR-06#a`, `WR-02#g\|WR-09#g`, `WR-08#g\|WR-09#g`, `SR-01#a\|SR-01#b`, each **0** hits in `examples/culture-d4/packet.d4.yml` (2026-10-18T11:32Z); `reports/round-18/d4/review-4.md` §2; `reports/round-18/d4/holds.md` §5 |
+| Freeze-artifact naming | a freeze receipt that is not a battery baseline is not named `expected.json` under a battery root | land a `freeze-receipt.json` under a name the battery discovers as a baseline | the standing battery fails closed on a gate outside its name constant | `reports/round-18/d4/manifest.md` §6 |
+```
+
+Thresholds and cautions that are part of the rule:
+
+- **T1 — identity is checked against the declared assembler, and the message
+  names it.** An identity leg that still says "assemble-d2.py" while grading a D4
+  packet is the round-17 rejection reproduced at a new address
+  (`reports/round-18/gate/design.md` §1.1, §11 item 4).
+- **T2 — a skipped leg is not an implementation.** A packet declaring no assembler
+  must resolve to the documented default, not to "identity not checked"; a
+  `return True` branch for non-default input is a laundering channel of the same
+  class as a laundered hold (`reports/round-18/gate/design.md` §1.3).
+- **T3 — the round-trip class is about *content*, not about determinism.** A
+  serializer can be perfectly deterministic and still corrupt a regex backslash;
+  determinism (two runs equal) and fidelity (the derived artifact preserves the
+  source's content) are separate checks and neither implies the other.
+- **T4 — a projection embeds its packet path.** The D2 projection differs from a
+  scratch-path emission in exactly two lines (`assembly.packet`, `canon`), so a
+  family's projection must be emitted from its canonical path
+  (`reports/round-17/d4/typed-support-1.md` §3 P1, F-D18-5).
+- Cautions that are part of the rule: exit 0 is not a clearance — it means "the
+  emitted findings equal the frozen expected set" and every hold stays open
+  (`reports/round-18/d4/manifest.md` §6); a re-pin that changes the hold set is a
+  finding, not a pass (`corpus/knowledge/verification/verification-independence-anti-circularity.md`
+  §2, §6); a green self-test is capability, not measurement
+  (`corpus/knowledge/verification/gate-frozen-run-standard.md` §1).
+
 ## Error patterns
 
 | Observation | Reading |
