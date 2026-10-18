@@ -16,10 +16,18 @@ O-impl fragment that makes those relations resolvable instead of asserted:
   resolved — an escape outside the repo is a finding, not a crash;
 - `#token` must match the file bytes: exact key, string value, or list
   element in a `.json` file; a word-boundary match in any other text file;
+- `#L<n>` is a line anchor on non-JSON artifacts only; on a `.json`
+  artifact an `L<n>`-shaped token is a record id (the D3 lexeme namespace
+  L01–L20 shares the anchor shape) and must resolve through the JSON
+  bytes — a dangling `#L99` there is `L-SELECTOR-UNRESOLVED`, not a line
+  hit (v2-design §3.1 "Line anchors for non-JSON bytes"; round-15
+  `review-9.md` F9-1);
 - coupling edges are checked against the `artifact_manifest` record index:
-  every `target_ids` entry must be a concrete record ID that resolves to a
-  real path, so range tokens like `L-01–L-40` or aggregate rows fail
-  (`E-TARGET-UNKNOWN`) instead of passing as an aggregate edge.
+  every `source` and `target_ids` entry must be a concrete record ID that
+  resolves to a real path, so range tokens like `L-01–L-40`, aggregate rows,
+  or a v1-style prose source ("29 coupling_note fields over ...") fail
+  (`E-SOURCE-UNKNOWN` / `E-TARGET-UNKNOWN`) instead of passing as an
+  aggregate edge (round-15 `review-10.md` F10-1).
 
 Findings are stable-ID rows (`L-...` / `E-...`); exit 0 means no findings,
 1 means findings, 2 means usage or IO errors. Output is deterministic (no
@@ -164,7 +172,8 @@ def resolve_link(spec, repo_root, record_index=None):
     Spec forms: `<path>`, `<path>#<token>`, `<path>:LINE[-LINE]`, and the
     v2-design §3.1 artifact form `<artifact_id>#<selector>` where the id is
     a row of the packet's artifact_manifest (`record_index`) and the
-    selector is `L<n>`, a dotted JSON key path, or a literal token.
+    selector is `L<n>` (line anchor, non-JSON artifacts only), a dotted
+    JSON key path, or a literal token.
     """
     row = {"spec": spec, "ok": False, "code": None, "detail": None}
     root = Path(os.path.realpath(repo_root))
@@ -209,7 +218,11 @@ def resolve_link(spec, repo_root, record_index=None):
         return row
     if token is not None:
         line_anchor = LINE_ANCHOR_RE.match(token)
-        if line_anchor:
+        # An L<n> token is a line anchor only on non-JSON bytes; on a .json
+        # artifact it is a record id (D3 lexemes L01-L20) and falls through
+        # to the JSON selector branch, so a dangling #L99 cannot ride a line
+        # count (v2-design §3.1; round-15 review-9 F9-1).
+        if line_anchor and real.suffix != ".json":
             first = last = int(line_anchor.group(1))
             token = None
         elif real.suffix == ".json":
@@ -297,10 +310,16 @@ def build_record_index(manifest_rows):
 
 
 def resolve_edges(edges, record_index, repo_root, claim_ids=None):
-    """Resolve coupling-edge target IDs against the record index.
+    """Resolve coupling-edge source and target IDs against the record index.
 
     Every target must be one concrete record ID present in the index and its
     path must resolve inside the repo; range tokens or invented IDs fail.
+    The `source` column resolves the same way (round-15 review-10 F10-1):
+    a missing or empty source fails `E-EDGE-NO-SOURCE`, a source naming no
+    concrete record ID — e.g. a v1-style prose aggregate like "29
+    coupling_note fields over examples/culture-d2/packet.d2.yml" — fails
+    `E-SOURCE-UNKNOWN`, and a source whose record path does not resolve
+    fails `E-SOURCE-UNRESOLVED`.
     An edge declaring `aggregate: true` is flagged outright. With
     `claim_ids`, an edge naming no existing claim id (`claim`/`claims`
     column, v2-design §3.1) fails E-EDGE-NO-CLAIM.
@@ -319,6 +338,23 @@ def resolve_edges(edges, record_index, repo_root, claim_ids=None):
             findings.append(Finding(
                 "E-EDGE-AGGREGATE", edge_id,
                 "edge declares itself an aggregate row"))
+        source = edge.get("source")
+        if source is None or not str(source).strip():
+            findings.append(Finding(
+                "E-EDGE-NO-SOURCE", edge_id,
+                "edge names no source record"))
+        elif str(source) not in record_index:
+            findings.append(Finding(
+                "E-SOURCE-UNKNOWN", edge_id,
+                f"source {source!r} is not a concrete record ID in the "
+                f"artifact_manifest index"))
+        else:
+            row = resolve_link(record_index[str(source)], repo_root)
+            if not row["ok"]:
+                findings.append(Finding(
+                    "E-SOURCE-UNRESOLVED", edge_id,
+                    f"source {source!r} path did not resolve: "
+                    f"{row['code']} {row['detail']}"))
         if claim_ids is not None:
             named = edge.get("claims", edge.get("claim"))
             named = ([str(value) for value in named]
@@ -517,6 +553,7 @@ def _selftest():
             ("docs/contract.md", True),
             ("docs/contract.md:53-70", True),
             ("docs/contract.md:90", True),
+            ("docs/contract.md#L90", True),
         ]
         for spec, expected_ok in good:
             row = resolve_link(spec, root)
@@ -524,6 +561,7 @@ def _selftest():
                 failures.append(f"{spec}: expected ok={expected_ok}, got {row}")
         bad = [
             ("data/packet.json#NOPE", "L-SELECTOR-UNRESOLVED"),
+            ("data/packet.json#L99", "L-SELECTOR-UNRESOLVED"),
             ("data/missing.json", "L-PATH-MISSING"),
             ("docs/contract.md#NOT-ANYWHERE", "L-TOKEN-MISSING"),
             ("docs/contract.md:91", "L-LINE-RANGE"),
@@ -548,18 +586,21 @@ def _selftest():
              "digest": con_digest, "record_id": "CONTRACT"},
             {"artifact_id": "A-STALE", "path": "docs/contract.md",
              "digest": "sha256:" + "0" * 64, "record_ids": ["STALE"]},
+            {"artifact_id": "A-SRC", "path": "data/packet.json",
+             "digest": d3_digest, "record_id": "S01"},
         ]
         index, index_findings = build_record_index(manifest)
         if index_findings:
             failures.append(f"index findings on clean manifest: "
                             f"{index_findings}")
         if set(index) != {"SC1", "L01", "L02", "CONTRACT", "A-D3",
-                          "A-CON", "STALE", "A-STALE"}:
+                          "A-CON", "STALE", "A-STALE", "S01", "A-SRC"}:
             failures.append(f"index wrong: {sorted(index)}")
 
         artifact_good = [
             ("A-D3#sound_changes[0]", True),
             ("A-D3#beliefs.B01", True),
+            ("A-D3#L01", True),
             ("A-CON#L90", True),
             ("A-CON#fixture", True),
         ]
@@ -572,6 +613,7 @@ def _selftest():
             ("GHOST#SC1", "L-ARTIFACT-UNKNOWN"),
             ("A-D3#beliefs.GHOST", "L-SELECTOR-UNRESOLVED"),
             ("A-D3#sound_changes[7]", "L-SELECTOR-UNRESOLVED"),
+            ("A-D3#L99", "L-SELECTOR-UNRESOLVED"),
             ("A-CON#L91", "L-LINE-RANGE"),
         ]
         for spec, expected_code in artifact_bad:
@@ -586,20 +628,22 @@ def _selftest():
 
         edges_ok = [
             {"edge_id": "BR01", "relation": "method-transfer",
-             "target_ids": ["SC1", "L01"], "claims": ["CL-1"]},
+             "source": "S01", "target_ids": ["SC1", "L01"],
+             "claims": ["CL-1"]},
             {"edge_id": "BR02", "relation": "analogy",
-             "target_ids": ["CONTRACT"], "claim": "CL-1"},
+             "source": "S01", "target_ids": ["CONTRACT"], "claim": "CL-1"},
         ]
         clean = resolve_edges(edges_ok, index, root, claim_ids={"CL-1"})
         if clean:
             failures.append(f"clean edges flagged: {clean}")
 
         aggregate_like = [
-            {"edge_id": "D2-EDGES", "relation": "dependency",
+            {"edge_id": "D2-EDGES", "relation": "dependency", "source": "S01",
              "target_ids": ["L-01–L-40", "NM-01–NM-08"]},
-            {"edge_id": "AGG", "aggregate": True, "target_ids": ["SC1"]},
-            {"edge_id": "EMPTY", "target_ids": []},
-            {"edge_id": "BROKEN", "target_ids": ["GHOST"]},
+            {"edge_id": "AGG", "aggregate": True, "source": "S01",
+             "target_ids": ["SC1"]},
+            {"edge_id": "EMPTY", "source": "S01", "target_ids": []},
+            {"edge_id": "BROKEN", "source": "S01", "target_ids": ["GHOST"]},
         ]
         codes = sorted(f.code for f in
                        resolve_edges(aggregate_like, index, root))
@@ -611,8 +655,8 @@ def _selftest():
                             f"got {codes}")
 
         claim_crosswalk = [
-            {"edge_id": "NOCLAIM", "target_ids": ["SC1"]},
-            {"edge_id": "ORPHAN", "target_ids": ["SC1"],
+            {"edge_id": "NOCLAIM", "source": "S01", "target_ids": ["SC1"]},
+            {"edge_id": "ORPHAN", "source": "S01", "target_ids": ["SC1"],
              "claims": ["NO-SUCH-CLAIM"]},
         ]
         codes = sorted(f.code for f in
@@ -622,13 +666,63 @@ def _selftest():
             failures.append(f"claim crosswalk: expected two NO-CLAIM, "
                             f"got {codes}")
 
+        # F10-1 (round-15 review-10): the edge `source` resolves through the
+        # record index exactly like targets — the v1-style prose aggregate
+        # survivor must fail, as must a missing source and an aggregate
+        # edge-id reused as a source label.
+        survivor = resolve_edges(
+            [{"edge_id": "E-AGG-SURVIVOR", "relation": "dependency",
+              "source": "29 coupling_note fields over "
+                        "examples/culture-d2/packet.d2.yml",
+              "target_ids": ["L01", "L02"], "claims": ["CL-1"]}],
+            index, root, claim_ids={"CL-1"})
+        if [f.code for f in survivor] != ["E-SOURCE-UNKNOWN"]:
+            failures.append(f"prose aggregate source: expected "
+                            f"E-SOURCE-UNKNOWN, got {survivor}")
+
+        nosrc = resolve_edges(
+            [{"edge_id": "NOSRC", "relation": "dependency",
+              "target_ids": ["SC1"], "claims": ["CL-1"]}],
+            index, root, claim_ids={"CL-1"})
+        if [f.code for f in nosrc] != ["E-EDGE-NO-SOURCE"]:
+            failures.append(f"missing source: expected E-EDGE-NO-SOURCE, "
+                            f"got {nosrc}")
+
+        aggid = resolve_edges(
+            [{"edge_id": "AGG-ID", "relation": "dependency",
+              "source": "D2-EDGES", "target_ids": ["SC1"],
+              "claims": ["CL-1"]}],
+            index, root, claim_ids={"CL-1"})
+        if [f.code for f in aggid] != ["E-SOURCE-UNKNOWN"]:
+            failures.append(f"aggregate-id source: expected "
+                            f"E-SOURCE-UNKNOWN, got {aggid}")
+
+        broken_index = dict(index)
+        broken_index["GHOSTSRC"] = "docs/ghost.md"
+        srcpath = resolve_edges(
+            [{"edge_id": "SRCPATH", "relation": "dependency",
+              "source": "GHOSTSRC", "target_ids": ["SC1"],
+              "claims": ["CL-1"]}],
+            broken_index, root, claim_ids={"CL-1"})
+        if [f.code for f in srcpath] != ["E-SOURCE-UNRESOLVED"]:
+            failures.append(f"unresolvable source path: expected "
+                            f"E-SOURCE-UNRESOLVED, got {srcpath}")
+
     if failures:
         for failure in failures:
             print(f"selftest: FAIL {failure}", file=sys.stderr)
         return 1
-    print("selftest: 31 checks passed (path/token/line specs, artifact-id "
-          "refs, JSON key paths, L-anchors, symlink escape, digests, "
-          "record index, aggregate+claim crosswalk rejection)")
+    # Loop fixtures + the 12 non-loop checks (record index findings/set,
+    # digest verify, clean edges, aggregate fixtures, claim crosswalk, and
+    # the six edge-source rejections).
+    checks = (len(good) + len(bad) + len(artifact_good) + len(artifact_bad)
+              + 12)
+    print(f"selftest: {checks} checks passed (path/token/line specs, "
+          "artifact-id refs, JSON key paths, L-anchors vs JSON record ids, "
+          "symlink escape, digests, record index, aggregate+claim "
+          "crosswalk rejection, edge-source "
+          "resolution: prose aggregate / missing / aggregate-id / "
+          "unresolvable source rejected)")
     return 0
 
 

@@ -130,6 +130,23 @@ Admission: O/D verify, no axis harmed. Routed to round 16: reviewer findings
 F9-1/F9-2/F10-1; packet canonical rename note; lore-owned items (bilateral
 read, L0 digest) stay open.
 
+## Axes — round 16 (2026-10-18), admitted (GLM round 2 of 2 — loop 1 complete)
+
+Baseline `0ce7714`; one 16-worker `zai-coding-plan/glm-5.3-flash-low` (zai MAX
+effort) batch (16/16 completed). Acceptance:
+`python3 reports/round-16/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | 94-entry civ partition unmapped → civ-map.json 94/94 receipted (82 current / 12 stale-documented, named reasons, 0 unreceipted); auditor independently re-derived + 20 spot-checks + all 12 stale reasons re-verified; 2 map defects (dangling evidence paths, missing row dates/reasons) found by the auditor and fixed by the integrator | `python3 reports/round-16/run-validation.py` | `reports/round-16/civ-map.json`, `civ/` shard receipts, `map-audit.md` |
+| operability | improved (claim O) | Three routed reviewer findings → all fixed with controls: edge-source validation (selftests 31→38, aggregate rejected E-SOURCE-UNKNOWN); L-anchor collision closed (dangling #L99 rejected, real ids resolve); link coverage 33 orphans → 0 via keyed packet-v2-07 (83/83 links; gate 16/16 + 20/20; frozen baseline re-frozen with the landed recipe after the verify seat pinned a canonicalization divergence) | `python3 reports/round-16/run-validation.py` | `reports/round-16/fixes/`, `verify.md`, `handoff/packet-v2-07.*` |
+| calibration | improved (unclaimed observation) | Auditor filed 7 findings incl. 2 map defects + a validator routing conflict; verify seat caught the freeze-recipe divergence; all dispositioned with evidence, none absorbed | — | `civ/map-audit.md`, `verify.md` |
+| depth / freshness / adjacency | unchanged | Freshness pause respected (C07 rows: zero live fetches, in-repo verification only); filed rounds 8-15 byte-preserved | — | `reports/round-16/scope.md` |
+
+Admission: C/O verify, no axis harmed. Integrator acts: map repoint + row
+annotation (3 defect classes); v2-07 baseline re-frozen; validation rerun on
+the settled tree. Loop 1 is complete: rounds 8-16 (r13 operator-skipped).
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

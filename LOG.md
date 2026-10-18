@@ -3204,3 +3204,18 @@ certification or lore/world-bible ownership is claimed.
   SKILL landing repaired after a slicing defect (BLOCK A initially missed);
   three reviewer findings routed to round 16.
 - **Evidence:** `reports/round-15/validation.json` acceptance true.
+
+## 2026-10-18 — Round 16 admitted (loop 1, GLM round 2 of 2; 16w zai flash MAX)
+
+- **Trigger:** regimen; claims C/O in `reports/round-16/claims.json`; baseline
+  `0ce7714`; 16/16 completed.
+- **C (verified):** civ-map 94/94 (82 current / 12 stale-documented with named
+  reasons); auditor re-derived independently (20 spot-checks); integrator
+  fixed 2 map defects + row-annotation gaps found in audit.
+- **O (verified):** F10-1 edge-source validation (38 selftests), F9-1 L-anchor
+  collision closed, F9-2 link coverage 33 orphans -> 0 (packet-v2-07,
+  83/83 links, frozen baseline re-frozen after the verify seat pinned the
+  canonicalization divergence).
+- **Loop 1 complete:** rounds 8-16 closed (13 operator-skipped; 11 admitted,
+  1 rejected). Loop 2 = rounds 17-24 (r19 on hyper provider per operator).
+- **Evidence:** `reports/round-16/validation.json` acceptance true.
