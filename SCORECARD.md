@@ -388,6 +388,24 @@ Admission: C/O/A verify, no axis harmed. Routed to round 30 with owners: the
 QREG-05..08 dangling-register fix, the law-gate battery registration, X63-F2,
 the register-law selftest speaker-tamper tail, telemetry durability.
 
+## Axes — round 30 (2026-10-18), admitted (loop 3 integrate round)
+
+Baseline `44145d5`; one 32-worker `openai-codex/gpt-6.1-sol` (max effort)
+integrate batch (19/32 completed; the orchestrator executed the seats'
+explicit parent-action list). Acceptance:
+`python3 reports/round-30/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | Five round-29 routed items resolved: QREG-05..08 land (law gate clean 4->0 findings; 7/7 linkage controls); the speaker candidate lands (selftest 29/33->45/45; law-block tamper verified -> named D4L-LAW-SPEAKER); the register-law gate registered in the battery (10/10; r30-post baseline under the standard mirrored layout); X63-F2 append-only amendment; the telemetry durability convention lands in AGENTS.md + a demonstrated round-30 telemetry dir. Regressions green (the v3 default chain re-pointed to declared-in-r6 after diagnosing the profile-row baseline drift) | `python3 reports/round-30/run-validation.py` | `reports/round-30/fixes/`, `routed-resolution.json` |
+| calibration | improved (claim C) | reports/round-30/loop3-retrospective.md: the register program assessed end-to-end (forecast -> leg -> stratum -> law -> replay); three-loop regimen summary (18 admissions / 3 rejections / 1 skip through r29); the freshness-threshold question restated with full-regimen data + a concrete recommendation (settled-tree >=95% raw replay, all preregistered rows in the denominator, build-change accounting) | `python3 reports/round-30/run-validation.py` | retrospective + audits |
+| depth | improved (claim D) | SKILL.md gains the unified Register-craft subsection (17,829 chars; stratum discipline + law discipline + composition with label typing and the typed pipeline; every row cited); the round-24 box-1 condition CLOSED — post-landing survey 28/28 named executables resolve, digest-pinned | `python3 reports/round-30/run-validation.py` | `reports/round-30/craft/` |
+| coverage / freshness / adjacency | unchanged | Pause in force; scope clean at recorded observations | — | — |
+
+Admission: O/C/D verify, no axis harmed. LOOP 3 integration complete.
+Routed to rounds 31-32: nothing blocking; the freshness-threshold ruling
+remains the operator's.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

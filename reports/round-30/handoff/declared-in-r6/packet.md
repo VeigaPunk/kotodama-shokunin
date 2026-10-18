@@ -292,7 +292,7 @@ Observed rows only: what this run actually measured, with the command shapes it 
 - d4 leg: `python3 tools/d2-typed-labels.py --selftest` — exit 0; observed: selftest: 163/163 checks passed — the three shard control matrices, the loader/parser malformed cases, the live-packet typing and reconciliation cases, and…
 - d4 leg: `python3 tools/assemble-d4-typed.py --selftest` — exit 0; observed: selftest: 12/12 checks passed — build/determinism/--check/tamper plus stale-projection, coverage-gap and malformed-packet controls; no file outside the…
 - d4 alias evidence state: `landed` — the D4-CL08 row's status is keyed to this state; the O seat's two adapter gates and its negative control remain its own receipt surface (pinned read-only here, not asserted)
-- gate: `python3 tools/gates/handoff-packet-check.py packet.md` over the isolated copy, run from a directory outside the repository; declared expectation, checked after the run — exit 0, fields=16/16, glossary-entries=20, findings=0; the observed values are compared against the frozen baseline in `reports/round-28/pinsweep/v3-baseline-r28/expected.json`, whose run log records the verdict of the run it froze
+- gate: `python3 tools/gates/handoff-packet-check.py packet.md` over the isolated copy, run from a directory outside the repository; declared expectation, checked after the run — exit 0, fields=16/16, glossary-entries=20, findings=0; the observed values are compared against the frozen baseline in `reports/round-30/handoff/declared-in-r6/expected.json`, whose run log records the verdict of the run it froze
 
 ## open_questions
 

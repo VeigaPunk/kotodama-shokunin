@@ -3418,3 +3418,16 @@ designation (provider test), not a silent substitution.
 - **O (verified):** 24-entry defect queue; bounded fixes; routed to r30.
 - **A (verified):** zero unfiled bleed; PROVINCE byte-identical.
 - **Evidence:** `reports/round-29/validation.json` acceptance true.
+
+## 2026-10-18 — Round 30 admitted (loop 3 integrate round)
+
+- **Trigger:** regimen; claims O/C/D in `reports/round-30/claims.json`; baseline
+  `44145d5`; 19/32 completed; orchestrator executed the parent-action list.
+- **O (verified):** 5/5 routed items resolved (QREG, speaker candidate, battery
+  registration 10/10, X63-F2, telemetry convention); v3 default chain
+  re-pointed to declared-in-r6.
+- **C (verified):** loop-3 retrospective + three-loop summary + the
+  freshness-threshold restatement with a recommendation.
+- **D (verified):** the Register-craft subsection landed; box-1 survey 28/28
+  digest-pinned.
+- **Evidence:** `reports/round-30/validation.json` acceptance true.

@@ -1930,8 +1930,8 @@ def v2_verify(root=ROOT):
 V3_PROFILE = "kotodama-handoff-e2e/3"
 V3_PACKET_ID = "kotodama.handoff.d2d3d4-e2e"
 V3_PACKET_VERSION = "3.1.1"
-V3_BASELINE_DEFAULT = "reports/round-28/pinsweep/v3-baseline-r28/expected.json"
-V3_FROZEN_DIR_DEFAULT = "reports/round-28/pinsweep/v3-baseline-r28"
+V3_BASELINE_DEFAULT = "reports/round-30/handoff/declared-in-r6/expected.json"
+V3_FROZEN_DIR_DEFAULT = "reports/round-30/handoff/declared-in-r6"
 V3_READ_SET = (
     *V1_READ_SET,
     V2_PACKET_MD,

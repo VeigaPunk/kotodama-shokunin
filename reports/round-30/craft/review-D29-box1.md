@@ -152,3 +152,16 @@ PY
 3. The old dossier's other box-1 conditions—loanword-dating pointers, boilerplate-basis citation, dangling legacy symbol anchors and the duplicated uncertainty block—are not collectively disposed by this inventory re-survey. No whole-SKILL staleness audit or promotion claim is made here.
 4. The draft's rows are file/symbol/section cited; this worker checks local resolution and the load-bearing semantics it synthesizes, not every source's primary-text merits or real-world permission status.
 5. Final round-30 validation, regressions and the post-landing citation/box-1 checks must run on the actual integrated deliverable. No filed round-8–29 artifact, SHONEN mark or canon record is rewritten.
+
+## Landed-mode re-survey (orchestrator, 2026-10-18)
+
+Command: `REGISTER_CRAFT_SURVEY_MODE=landed python3 reports/round-30/craft/box1-survey.py`
+(equivalent inventory re-derived by the orchestrator; receipt:
+`reports/round-30/craft/box1-landed-survey.json`).
+
+- Post-landing SKILL.md sha256: `83b0a78ae7a0e09f5d12a686ac01b23f2ff10b312644fbc3b534a232a666f091` — this document is pinned to those bytes.
+- Executable inventory: 28/28 scripts named in SKILL.md resolve (28 named, 28 resolvable,
+  zero unnamed executables in the scoped surface); the inventory language and the
+  named/unnamed accounting are carried in the receipt above.
+- The round-24 box-1 condition (7 unnamed executables) is CLOSED by the Register-craft
+  landing: the subsection names the whole scoped surface.
