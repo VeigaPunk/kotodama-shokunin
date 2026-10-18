@@ -131,6 +131,45 @@
    "before": "sweep looked in-repo; the filed report lives at the fleet root",
    "after": "fleet report .ufo/reports/round-11/kotodama.md confirmed present (fleet commit 2421e00)",
    "control": "fleet git log 2421e00"
+  },
+  {
+   "id": "FRR-14-EXPOSURE",
+   "round_recorded": 14,
+   "date": "2026-10-17",
+   "author": "R14-D08",
+   "supplements": ["FRR-10", "FRR-12a", "FRR-12b"],
+   "defect": "filed-rounds exposure: restoring clobbered validation receipts did not make their legacy runners safe to re-run in the live lane",
+   "status": "resolved-by-documentation",
+   "bounded": true,
+   "fix_scope": "append-only exposure erratum; historical runner and receipt bytes unchanged",
+   "before": "FRR-12a/FRR-12b document byte restoration only. The retained rounds 8-11 validators still write their own validation.json without consulting a receipt guard; stable stdout or a restored receipt does not prevent another overwrite.",
+   "after": "Historical restoration controls remain valid, but are not preventive controls. Rounds 8-11 runners stay filed and unmodified; direct live-tree execution remains unsafe. Round 14 introduces a successor guard and wiring, not a retrofit or authorization to refresh rounds 8-12.",
+   "legacy_exposure": "retained-by-design; no historical runner repair claimed",
+   "control": "Do not execute filed round validators in the live lane. Use read-only source/commit comparisons; if execution is required, use a disposable independent full-tree copy with all writer destinations confined to that copy and compare original filed-path hashes before/after. REFRESH_RECEIPTS=1 belongs only to explicitly authorized guard-enabled writers; it neither protects unguarded legacy runners nor overrides the rounds 8-12 preservation rule.",
+   "successor_control": "tools/harness/receipt_guard.py plus round-14 runner wiring and their controls are owned by the other D seats; the capability-row draft in reports/round-14/guard/scribe.md is not an admission or a claim of completed integration.",
+   "evidence": [
+    "reports/round-8/run-validation.py:1485-1487",
+    "reports/round-9/run-validation.py:1909-1911",
+    "reports/round-10/run-validation.py:1053-1056",
+    "reports/round-11/run-validation.py:1738-1742",
+    "reports/round-11/adjacency.md:39-67",
+    "reports/round-12/defects/sweep-r8.md:13-25",
+    "reports/round-12/defects/routed.md:10-16",
+    "reports/round-14/guard/design.md:136-155",
+    "reports/round-14/guard/scribe.md"
+   ],
+   "measurement": {
+    "observed_at": "2026-10-18T00:01:27Z",
+    "command": "python3 -B -c 'import pathlib; p=pathlib.Path(\"reports/round-14/guard/scribe.md\"); exec(compile(p.read_text().split(\"```python\\n\",1)[1].split(\"\\n```\",1)[0], str(p), \"exec\"))'",
+    "reference_revision": "a7bc9e9ff05a57515c5efaaa7e50116eb30938ff",
+    "legacy_runner_count": 4,
+    "runner_and_receipt_paths_matching_reference": 8,
+    "legacy_runners_with_receipt_guard_reference": 0,
+    "admission_byte_controls": [
+     "2026-10-17T23:58:02Z: git diff --quiet e1694ba -- reports/round-8/validation.json => exit 0",
+     "2026-10-17T23:58:02Z: git diff --quiet 9dc18ec -- reports/round-9/validation.json => exit 0"
+    ]
+   }
   }
  ]
 }

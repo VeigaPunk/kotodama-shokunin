@@ -1,0 +1,404 @@
+{
+  "round": 14,
+  "assignment": "SCRIBE X08",
+  "status": "blocked-missing-integration-after-20m",
+  "axes": {
+    "O": "independent operability and regression verification",
+    "D": "receipt-preservation controls",
+    "C": "honest final-state reporting"
+  },
+  "declared_round_date": "2026-10-17",
+  "record_date_utc": "2026-10-18",
+  "baseline_revision": "926c86f8be3cc9307f8f10dce55768c290b6f94d",
+  "observed_head": "a7bc9e9ff05a57515c5efaaa7e50116eb30938ff",
+  "write_scope": ["reports/round-14/rerun.json"],
+  "environment": {
+    "TMPDIR": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "REFRESH_RECEIPTS": "unset for independent child processes",
+    "measurement_dates_note": "The runner prints local date 2026-10-17; explicit UTC timestamps cross into 2026-10-18. Both channels are retained."
+  },
+  "dependency_wait": {
+    "command": "Read-only Python monitor: SHA-256 inventory of four required paths at 60-second intervals, polls 0 through 20 inclusive",
+    "started_at_utc": "2026-10-17T23:58:03.131145+00:00",
+    "ended_at_utc": "2026-10-18T00:18:03.146094+00:00",
+    "poll_interval_seconds": 60,
+    "maximum_wait_seconds": 1200,
+    "observed_wait_seconds": 1200.0,
+    "polls": 21,
+    "result": "timeout-after-20-minutes",
+    "required": [
+      "reports/round-14/run-validation.py",
+      "tools/harness/receipt_guard.py",
+      "reports/round-14/routed-resolution.json",
+      "reports/round-14/loop1-retrospective.md"
+    ],
+    "missing_at_deadline": ["reports/round-14/routed-resolution.json"],
+    "post_deadline_control": {
+      "command": "Python SHA-256/dependency comparison to final available-input check",
+      "observed_at_utc": "2026-10-18T00:18:26.341924+00:00",
+      "changed_subjects": [],
+      "routed_resolution_present": false,
+      "primary_validation_present": false
+    }
+  },
+  "post_settle_validation": null,
+  "completion": {
+    "bounded_evidence_record_filed": true,
+    "required_post_integration_rerun_complete": false,
+    "acceptance_claimed": false,
+    "reason": "Available inputs settled, but the required routed-resolution ledger and SCORECARD loop-summary integration were not delivered within the bounded window.",
+    "parent_follow_up": [
+      "Integrate reports/round-14/routed-resolution.json with all eight declared dispositions and controls.",
+      "Integrate the loop-1 SCORECARD summary and pointer to reports/round-14/loop1-retrospective.md.",
+      "After integration settles, rerun python3 reports/round-14/run-validation.py --check, then publish the primary receipt through its authorized owner.",
+      "Do not rerun historical round validators in the live tree or use REFRESH_RECEIPTS to bypass the historical preservation rule."
+    ]
+  },
+  "available_inputs_quiet_control": {
+    "command": "Python hashlib snapshots of round-14 artifacts, tools, SCORECARD and LOG at 60-second interval; rerun.json/validation.json and bytecode excluded",
+    "started_at_utc": "2026-10-18T00:16:01.129370+00:00",
+    "finished_at_utc": "2026-10-18T00:17:01.140270+00:00",
+    "files_before": 172,
+    "files_after": 172,
+    "manifest_sha256_before_and_after": "5948d9c8196bcbd3d94979c5868c8a6cd194496cdffdc44409fd9cbd782d0824",
+    "changed_paths": [],
+    "required_dependency_present_after": false,
+    "limit": "Quiescence of delivered files does not satisfy a missing required integration artifact."
+  },
+  "final_available_validation": {
+    "command": "python3 reports/round-14/run-validation.py --check",
+    "started_at_utc": "2026-10-18T00:17:23.728026+00:00",
+    "finished_at_utc": "2026-10-18T00:17:26.305067+00:00",
+    "runner_sha256": "b06bf6b12cf87377c52d245e6b1da413aab2ab17620d98dd7bc2a6ce467273b8",
+    "stdout_sha256": "36cc059ce3ed746d5508528aa0b761e74a8e0fdf01f09ac8baa727dde7bbfcee",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit": 1,
+    "acceptance_checks_passed": false,
+    "claim_passed": {"O": false, "D": true, "C": false},
+    "failures": {
+      "O": [
+        "Missing routed disposition: R9-BATROOT",
+        "Missing routed disposition: R8-AUDCNT",
+        "Missing routed disposition: R10-F04",
+        "Missing routed disposition: R10-F05",
+        "Missing routed disposition: R10-RUNHASH",
+        "Missing routed disposition: R10-IXCLS",
+        "Missing routed disposition: R10-STATCONFL",
+        "Missing routed disposition: R11-DRAFT",
+        "Routed resolution must contain exactly eight rows, found 0"
+      ],
+      "D": [],
+      "C": [
+        "SCORECARD lacks the loop-1 summary row",
+        "SCORECARD does not point to the loop-1 retrospective",
+        "reports/round-14/routed-resolution.json: [Errno 2] No such file or directory: '/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-14/routed-resolution.json'"
+      ]
+    },
+    "missing_dependencies": ["reports/round-14/routed-resolution.json"],
+    "regression_green": 13,
+    "regression_total": 13,
+    "regression_date_local": "2026-10-17",
+    "regression_utc_window": ["2026-10-18T00:17:23.728026+00:00", "2026-10-18T00:17:26.305067+00:00"],
+    "regressions": [
+      {"command": "python3 tools/check-gate-battery.py --selftest", "exit": 0, "stdout_sha256": "2812a3270ce97583eaa9a7a16f78f95c60e703b00076fd2fc95f0802783442c2"},
+      {"command": "python3 tools/check-gate-battery.py", "exit": 0, "stdout_sha256": "7b1485cb599111f98a3de8892891bfb6ebdf939c8ed43446d310113e2ef0a27a"},
+      {"command": "python3 tools/check-craft-exercise.py --selftest", "exit": 0, "stdout_sha256": "77d408e10a494fa58fcaa5872d7ad20b6daaa9c5725329d1a0ae65ab8f0e7d32"},
+      {"command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json", "exit": 0, "stdout_sha256": "18128adfc703fd268ec70684f35a2a05b3257faf4b31add8f21b3313ad4a2650"},
+      {"command": "python3 tools/assemble-d2.py --selftest", "exit": 0, "stdout_sha256": "a81294c0347660d9b46952146bac967fc80c79c9d629d7f34e69d0411bec0336"},
+      {"command": "python3 tools/assemble-d2.py --check", "exit": 0, "stdout_sha256": "2fa0c8c197459f549de2f0822b8895477e27dcce38def75e18346ba6d672e386"},
+      {"command": "python3 tools/d2-typed-labels.py --selftest", "exit": 0, "stdout_sha256": "7231139c5b06089866270f4869caa1ffe04a4011502014979c996c9b1ab83252"},
+      {"command": "python3 tools/d2-typed-labels.py --check", "exit": 0, "stdout_sha256": "17064af53c48304def6b2a5f5c80c10161182b5715678a61d6d5b0d80e1ef427"},
+      {"command": "python3 tools/assemble-culture-d3.py --selftest", "exit": 0, "stdout_sha256": "91a0653948d48a10f6bd84af7adb3dd4cda3b25e8a15a77a3bf2cd92a4deac2b"},
+      {"command": "python3 tools/assemble-culture-d3.py --check", "exit": 0, "stdout_sha256": "e20620fabdf285323c021ae11cad32b1ece58a28d59dd74f7df237578ffb560a"},
+      {"command": "python3 tools/check-evidence-coupling.py --selftest", "exit": 0, "stdout_sha256": "cf62bc50e303b793b6b930c83a5ddd7d462c39cc39fef133385db830c1d380ce"},
+      {"command": "python3 tools/assemble-d2-typed.py --check", "exit": 0, "stdout_sha256": "e3b16d3bae56cce5760cbde277716263636a4d9fad83c5c5f2f9a05b181bc924"},
+      {"command": "python3 tools/gates/typed-pipeline-gate.py --json", "exit": 0, "stdout_sha256": "19765ddf2c36a7db5d71bd262079d6164b24f6222d9df83d0cefdeaeb8f47e62"}
+    ],
+    "regression_stderr_sha256_each": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "default_battery": {
+      "exit": 0,
+      "gate_selftests_passed": 7,
+      "gate_selftests_failed": 0,
+      "baselines_found": 8,
+      "baselines_pinned": 8,
+      "baselines_unevaluable": 0,
+      "gates_uncovered": [],
+      "original_files_hashed_before_and_after": 28,
+      "originals_preserved": true,
+      "limit": "The battery verifies digest/pin coverage, not frozen baseline verdict replay."
+    },
+    "input_files_hashed": 70,
+    "input_manifest_sha256": "ba7bbcac762e5a50f1555562708011308ec787d52a4b8df5b9fb44987fb189cd",
+    "input_sha256_mismatches_after_run": [],
+    "input_binds_rerun_output": false,
+    "primary_validation_sha256_before": null,
+    "primary_validation_sha256_after": null,
+    "limit": "This is a full supported --check execution on stable available inputs, not completion of the missing post-integration acceptance scenario. The primary validation.json was neither created nor overwritten."
+  },
+  "final_selftests": [
+    {
+      "command": "python3 reports/round-14/run-validation.py --selftest",
+      "started_at_utc": "2026-10-18T00:17:23.728140+00:00",
+      "finished_at_utc": "2026-10-18T00:17:23.765068+00:00",
+      "subject_sha256": "b06bf6b12cf87377c52d245e6b1da413aab2ab17620d98dd7bc2a6ce467273b8",
+      "exit": 0,
+      "selftest_passed": true,
+      "controls_passed": 38,
+      "controls_total": 38,
+      "failed_controls": [],
+      "stdout_sha256": "f57c077ac63752384f7206d42d2e97f40ed5e56615e423d6e449289e44470e1b"
+    },
+    {
+      "command": "python3 tools/harness/receipt_guard.py --selftest",
+      "started_at_utc": "2026-10-18T00:17:23.728486+00:00",
+      "finished_at_utc": "2026-10-18T00:17:25.096229+00:00",
+      "subject_sha256": "d2297da4e6ceabb2eab84bb6e3beab16d82132aca0e313f0bdf21243304123a1",
+      "exit": 0,
+      "selftest_passed": true,
+      "controls_passed": 45,
+      "controls_total": 45,
+      "failed_controls": [],
+      "stdout_sha256": "58bcce6db7a3e3dbadccdc161d4f6ad10193d5eff33bcc947c560c82d5d7e204"
+    }
+  ],
+  "final_preservation_control": {
+    "command": "Python SHA-256 snapshots of all round-8..12 files except __pycache__, before/after the parallel final --check and selftests; compare baseline through the new round-14 validator",
+    "observed_at_utc": "2026-10-18T00:17:26.324975+00:00",
+    "files_before": 614,
+    "files_after": 614,
+    "manifest_sha256_before_and_after": "71aa24ce0088ca5a22b2de2ee07a3b6bc74f6bbed37eea5b7cccb4efc01a3b71",
+    "changed_paths_during_final_checks": [],
+    "five_filed_receipts_match_initial_control": true,
+    "baseline_tracked_report_files": 609,
+    "baseline_byte_identical": 607,
+    "baseline_append_only_json_entries": 2,
+    "baseline_preservation_violations": 0,
+    "additive_paths": ["reports/round-10/findings-tracker.json", "reports/round-12/defects/ledger.json"],
+    "limit": "The two authorized new-key/list-entry additions preserve original payloads under the runner's append-only control; they are not whole-file byte equality to the baseline."
+  },
+  "final_subject_sha256_before_equals_after": {
+    "reports/round-14/run-validation.py": "b06bf6b12cf87377c52d245e6b1da413aab2ab17620d98dd7bc2a6ce467273b8",
+    "tools/harness/receipt_guard.py": "d2297da4e6ceabb2eab84bb6e3beab16d82132aca0e313f0bdf21243304123a1",
+    "reports/round-14/loop1-retrospective.md": "c1457e85320f3d4616e5029fed107f0ed4a12f49b41bb2b2d1927f5c3b0d413b",
+    "reports/round-14/routed-resolution.json": null,
+    "SCORECARD.md": "9b5e6436a62f30601565f359aff6dc31337dec509afae9378ca16d6c681e1818",
+    "LOG.md": "714fe95089ba4e050beadf7a3ec8136c60ca1a2fee01f461512ecb51f6ccb1e6"
+  },
+  "final_diff_check": {
+    "command": "git diff --check",
+    "observed_at_utc": "2026-10-18T00:17:26.325396+00:00",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "supersedes": "The earlier appended-entry trailing-whitespace observation no longer reproduces; X08 did not edit that path."
+  },
+  "live_receipt_guard_probes": {
+    "command": "ThreadPoolExecutor invokes python3 tools/harness/receipt_guard.py --repo-root /home/vgpnk/Projects/shokunin/kotodama-shokunin <path>; paths and observed exits listed below",
+    "started_at_utc": "2026-10-18T00:10:26.024089+00:00",
+    "finished_at_utc": "2026-10-18T00:10:26.059203+00:00",
+    "guard_sha256_before_and_after": "d2297da4e6ceabb2eab84bb6e3beab16d82132aca0e313f0bdf21243304123a1",
+    "REFRESH_RECEIPTS": "unset in every child",
+    "controls_passed": 6,
+    "controls_total": 6,
+    "observed_exits": {
+      "reports/round-8/validation.json": 3,
+      "reports/round-9/validation.json": 3,
+      "reports/round-10/validation.json": 3,
+      "reports/round-11/validation.json": 3,
+      "reports/round-12/validation.json": 3,
+      "reports/round-14/validation.json": 0
+    },
+    "committed_refusals": {
+      "diagnostic": "RECEIPT-GUARD-COMMITTED",
+      "committed_sha": "a7bc9e9ff05a57515c5efaaa7e50116eb30938ff",
+      "committed_blob_by_round": {
+        "8": "ca49c2e81c0215abd334bfa4073f907be7fe579e",
+        "9": "303d26872c27f3f393b602a8446b6c90a4a97d98",
+        "10": "23109a725caaf3bd78051e5b7d450eb224b7c30b",
+        "11": "92ab16aefae6e31afa9199e3a4efbdf419171961",
+        "12": "09caaddb00230605148d195f1cb97e6b1dafbe01"
+      }
+    },
+    "filed_receipts_before_equal_after_and_initial_control": true,
+    "scope": "Read-only CLI permission probes only. The round-14 output is not yet committed, so permission exit 0 is expected; no probe writes a receipt. This does not retrofit guard protection into historical runners."
+  },
+  "latest_inflight_check": {
+    "command": "python3 reports/round-14/run-validation.py --check",
+    "started_at_utc": "2026-10-18T00:09:52.413491+00:00",
+    "finished_at_utc": "2026-10-18T00:09:54.983317+00:00",
+    "runner_sha256_before_and_after": "4de2b6b826b25d685445e7611a20d40baa74394b27511d37642ff7facd435e6e",
+    "stdout_sha256": "d2df3ee26bf189ef5cff93b299c1d290a8c98fab48949c187c479fddb5a404e8",
+    "exit": 1,
+    "acceptance_checks_passed": false,
+    "claim_passed": {"O": false, "D": true, "C": false},
+    "regression_green": 13,
+    "regression_total": 13,
+    "guard_controls_passed": 45,
+    "guard_controls_total": 45,
+    "filed_preservation_violations": 0,
+    "filed_changed_during_validation": [],
+    "input_sha256_mismatches_after_run": [],
+    "missing_dependencies": ["reports/round-14/routed-resolution.json"],
+    "remaining_integration_failures": [
+      "All eight declared routed-resolution IDs are absent because routed-resolution.json is not yet filed.",
+      "SCORECARD lacks the loop-1 summary row and retrospective pointer."
+    ],
+    "scope": "The available runtime/control evidence is green, including D. This is still not a post-settle result: resolver and shared SCORECARD integration are pending."
+  },
+  "preliminary_regressions": {
+    "phase": "pre-consolidation; must be repeated by post-settle full validation",
+    "command": "Python ThreadPoolExecutor runs fixed 13-command round-14 regression inventory; child commands listed below",
+    "started_at_utc": "2026-10-18T00:03:42.778262+00:00",
+    "finished_at_utc": "2026-10-18T00:03:44.339084+00:00",
+    "green": 13,
+    "total": 13,
+    "exit_each": 0,
+    "commands": [
+      "python3 tools/check-gate-battery.py --selftest",
+      "python3 tools/check-gate-battery.py",
+      "python3 tools/check-craft-exercise.py --selftest",
+      "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json",
+      "python3 tools/assemble-d2.py --selftest",
+      "python3 tools/assemble-d2.py --check",
+      "python3 tools/d2-typed-labels.py --selftest",
+      "python3 tools/d2-typed-labels.py --check",
+      "python3 tools/assemble-culture-d3.py --selftest",
+      "python3 tools/assemble-culture-d3.py --check",
+      "python3 tools/check-evidence-coupling.py --selftest",
+      "python3 tools/assemble-d2-typed.py --check",
+      "python3 tools/gates/typed-pipeline-gate.py --json"
+    ],
+    "default_battery": {
+      "gate_selftests_passed": 7,
+      "gate_selftests_failed": 0,
+      "baselines_found": 8,
+      "baselines_pinned": 8,
+      "gates_uncovered": [],
+      "originals_preserved": true,
+      "limit": "Digest/pin validation is not baseline-verdict replay."
+    },
+    "filed_files_checked": 614,
+    "filed_files_changed_during_run": [],
+    "tool_sha256_before_equals_after": true,
+    "tool_sha256": {
+      "tools/assemble-culture-d3.py": "ba8d19d5855fe670e5a828f0aca8133fb2cbf54ee865927917c9f20d5d17f014",
+      "tools/assemble-d2-typed.py": "c7e5a7493601d3312f2eb55185ac4d081139cdaa0e11f67dd69f67250b037071",
+      "tools/assemble-d2.py": "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d",
+      "tools/check-craft-exercise.py": "b5b890b4b9c9953be5ed5f5453a2b60bc9c856616b0a5b28cb2b5bca6ffdf7b5",
+      "tools/check-evidence-coupling.py": "849494b0c4113885223f6d865110cd34ed6bb3aeec8b449d020f7b571eb2197e",
+      "tools/check-gate-battery.py": "7aa898d627fe361517d2942a0fe2b337f15d8cdc1fcb4061b394eee60f03d574",
+      "tools/d2-typed-labels.py": "0da0015f700345c938184cb45ca07178c33e98f798c3c09729007487fb89c802",
+      "tools/gates/typed-pipeline-gate.py": "d102fd1dd1bae3cc4c9d0ea33844b2f706a2098707938c82c75ce9fb6368e27d"
+    }
+  },
+  "preliminary_observations": [
+    {
+      "command": "python3 reports/round-14/run-validation.py --selftest",
+      "observed_at_utc": "2026-10-18T00:02:44.012824+00:00",
+      "runner_sha256": "b7cd16b7bb418898eef0ab7d7b2e1814994d72e7105f0c2902b7dd9c1beb8575",
+      "exit": 0,
+      "controls_passed": 25,
+      "controls_total": 25,
+      "selftest_passed": true,
+      "scope": "Preliminary version only; not the later changed runner."
+    },
+    {
+      "command": "python3 reports/round-14/run-validation.py --check",
+      "started_at_utc": "2026-10-18T00:02:59.584831+00:00",
+      "finished_at_utc": "2026-10-18T00:02:59.642430+00:00",
+      "runner_sha256": "e0b1133083702220cdf5e4a507ee6cab0200d63d2debe55d7f50b02052c689cf",
+      "exit": 1,
+      "receipt_produced": false,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "error": "NameError: name 'round14_markdown' is not defined",
+      "location": "reports/round-14/run-validation.py:553 (validate); :659 (main); :674 (__main__)",
+      "scope": "In-flight failure before consolidation; no settled acceptance verdict inferred."
+    },
+    {
+      "command": "python3 tools/harness/receipt_guard.py --selftest",
+      "observed_at_utc": "2026-10-18T00:01:14.957357+00:00",
+      "guard_sha256_after": "82eec760c45a81bb12a71423ba3137797a5a84f5c70d7f400c02b236dfd60c5e",
+      "exit": 0,
+      "controls_passed": 20,
+      "controls_total": 20,
+      "selftest_passed": true,
+      "scope": "Preliminary guard check; exact post-settle version will be rechecked."
+    },
+    {
+      "commands": [
+        "python3 tools/harness/receipt_guard.py --repo-root /home/vgpnk/Projects/shokunin/kotodama-shokunin reports/round-8/validation.json",
+        "python3 tools/harness/receipt_guard.py --repo-root /home/vgpnk/Projects/shokunin/kotodama-shokunin reports/round-9/validation.json"
+      ],
+      "observed_at_utc": "2026-10-18T00:01:14.957657+00:00",
+      "expected_exit_each": 3,
+      "observed_exit_each": 3,
+      "named_diagnostic_each": "RECEIPT-GUARD-COMMITTED",
+      "filed_receipts_8_through_12_unchanged": true,
+      "scope": "The guard CLI is a read-only permission probe, not historical runner execution."
+    },
+    {
+      "command": "git diff --check",
+      "date": "2026-10-17 (local), observed between 2026-10-18T00:02:44Z and 2026-10-18T00:02:59Z",
+      "exit": 2,
+      "diagnostic": "reports/round-12/defects/ledger.json:163: trailing whitespace",
+      "scope": "A concurrent appended entry outside X08's assigned write scope; not edited by X08."
+    }
+  ],
+  "preliminary_full_check_after_crash_fix": {
+    "command": "python3 reports/round-14/run-validation.py --check",
+    "started_at_utc": "2026-10-18T00:05:41.809832+00:00",
+    "finished_at_utc": "2026-10-18T00:05:44.358202+00:00",
+    "runner_sha256_before_and_after": "dab3b71de2b3cbda821effb584a16d406255eb66e192763615e8844636d061fd",
+    "stdout_sha256": "2a791fd1ec7826d1eb7170a4b327deb672117c30ec32e359787e78d1cfece118",
+    "exit": 1,
+    "receipt_produced_on_stdout": true,
+    "crash_resolved": true,
+    "acceptance_checks_passed": false,
+    "claim_passed": {"O": false, "D": false, "C": false},
+    "regression_green": 13,
+    "regression_total": 13,
+    "filed_preservation_violations": 0,
+    "filed_changed_during_validation": [],
+    "input_sha256_mismatches_after_run": [],
+    "missing_dependencies": [
+      "reports/round-14/<operability verifiers>",
+      "reports/round-14/routed-resolution.json"
+    ],
+    "remaining_failures": {
+      "O": [
+        "No routed-resolution rows present: eight required IDs missing.",
+        "Operability verifiers: need four, found two."
+      ],
+      "D": [
+        "Guard negative receipt lacks dated command-carried green result: reports/round-14/guard/neg-05.md",
+        "Guard retro-test receipt lacks dated command-carried green result: reports/round-14/guard/retro-tests.md"
+      ],
+      "C": [
+        "Retrospective pointer is classified broken: reports/round-13/run-validation.py (the retrospective explicitly calls this declared runner absent).",
+        "Retrospective auditors C07/C08 do not yet report dated command-carried green results bound to the current retrospective SHA-256.",
+        "SCORECARD lacks the loop-1 summary row and retrospective pointer.",
+        "routed-resolution.json is absent."
+      ]
+    },
+    "scope": "Pre-consolidation checkpoint, not the required post-settle result. No owner files were modified to force acceptance."
+  },
+  "initial_filed_receipt_control": {
+    "command": "Python pathlib/hashlib read-only SHA-256 inventory of reports/round-{8..12}/validation.json",
+    "observed_at_utc": "2026-10-17T23:57:47.846010+00:00",
+    "sha256": {
+      "reports/round-8/validation.json": "359932a7debf6ec39f3182ac078ae3e900860efd97831f6b41bfe818b96ccfba",
+      "reports/round-9/validation.json": "036f84278c4817901413d97839ceba78aa8a367f91579de7505c92800611e418",
+      "reports/round-10/validation.json": "e8571db918b2c3237256342bd95f241be5661a96019e460990c7d1fe2fc32f94",
+      "reports/round-11/validation.json": "b5a7841dd427885c599d8a3ca01d5e5bb96470239fab38e52cd7d4d0bba0cab6",
+      "reports/round-12/validation.json": "773183b2d800c7c19e18b5dba09eb7e9a83e27f621560e6cdd79122baad9af5d"
+    }
+  },
+  "limits": [
+    "This is X08's final bounded evidence record. The complete post-integration rerun remains blocked; no admission, completed acceptance, or promotion verification is claimed.",
+    "Only reports/round-14/rerun.json is authored by X08; tool selftests use disposable in-repo .scratch storage.",
+    "No historical round validator, git commit, or git push is run by X08.",
+    "Use the successor runner's supported --check mode for full verification without replacing its primary validation.json.",
+    "Concurrent append-only historical correction keys/entries are distinct from an assertion that every historical file is byte-identical."
+  ]
+}

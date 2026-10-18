@@ -14,8 +14,9 @@ Two duties, one report.
    a new file or a deletion does not.
 
 2. Committed baseline validation (round 9, claim O15). Discovers every committed
-   ``expected.json`` under the baseline roots (default ``tools/gates/expected/``
-   and ``tools/gates/frozen/``) and verifies, per
+   ``expected.json`` under the baseline roots (default ``tools/gates/expected/``,
+   ``tools/gates/frozen/``, and the preserved legacy ``reports/round-9/baselines/``)
+   and verifies, per
    ``corpus/knowledge/verification/gate-frozen-run-standard.md`` §4/§6: every
    declared input digest against the snapshot bytes inside the baseline, the
    ``gate_sha256`` pin against the live gate script, the declared gate against
@@ -111,7 +112,11 @@ FAILURE_MARKER_RES = (
     re.compile(r"^failed: \S", re.MULTILINE),
 )
 BASELINE_SCHEMA = "kotodama-frozen-run-v1"
-BASELINE_ROOTS = (GATES_DIR / "expected", GATES_DIR / "frozen")
+BASELINE_ROOTS = (
+    GATES_DIR / "expected",
+    GATES_DIR / "frozen",
+    HERE.parent / "reports" / "round-9" / "baselines",
+)
 HEX64_RE = re.compile(r"^[0-9a-f]{64}$")
 # Value-bearing reading per gate-frozen-run-standard.md §6; earlier wins.
 BASELINE_READING_ORDER = (
@@ -932,6 +937,25 @@ def run_selftest():
                         "digests and pins hold -> pinned, exit 0")
         if report["summary"]["pinned"] != 1 or report["summary"]["gates_covered"] != ["fake-gate.py"]:
             failures.append("CTRL-BASELINE-PINNED coverage/count differ")
+
+        default_root_fixture = root / "default-roots"
+        required_roots = (
+            "tools/gates/expected",
+            "tools/gates/frozen",
+            "reports/round-9/baselines",
+        )
+        for relative in required_roots:
+            write_baseline(default_root_fixture / relative / "fake-gate" / "r14-control")
+        mirrored_roots = tuple(
+            default_root_fixture / path.relative_to(HERE.parent) for path in BASELINE_ROOTS
+        )
+        report = rollup("CTRL-BASELINE-DEFAULT-ROOTS",
+                        inspect_baselines(mirrored_roots, gates_dir=gates_root,
+                                          repo_root=default_root_fixture,
+                                          gate_names=("fake-gate.py",)),
+                        0, "pinned", set(), "default discovery includes all preserved roots")
+        if report["summary"]["pinned"] != len(required_roots):
+            failures.append("CTRL-BASELINE-DEFAULT-ROOTS did not discover every required root")
 
         tampered_root = root / "tampered-root"
         write_baseline(tampered_root / "fake-gate" / "r9-pre")

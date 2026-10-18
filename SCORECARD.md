@@ -97,6 +97,21 @@ axis verdict or new capability is admitted at declaration. Old D1/D2,
 source uncertainty and round-6 evidence remain unchanged; D3 is not an
 implicit repair of D2. Dispatch is exactly one 16-worker Flash MAX batch.
 
+## Axes — round 14 (2026-10-17), admitted (integrate round)
+
+Baseline `a7bc9e9`; one 32-worker `openai-codex/gpt-6.1-sol` (max effort)
+batch (27/32 completed; 5 scribe seats failed — consolidation completed by the
+integrator). Acceptance: `python3 reports/round-14/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | 8 routed items open → 8/8 dispositioned in routed-resolution.json: 3 applied-with-control (battery roots: default run exit 0 / 7/7 gates / 29/29 controls; tracker verifier pointer appended with byte-identical rows; status-conflict single-status entry), 5 resolved-by-documentation with controls; filed bytes of rounds 8-12 untouched | `python3 reports/round-14/run-validation.py` | `reports/round-14/routed-resolution.json`, fix-*.md, verify-*.md, regression.md |
+| depth | improved (claim D, capability `receipt-guard`) | Unmitigated clobber root cause → `tools/harness/receipt_guard.py`: overwrites of committed validation.json refused unless REFRESH_RECEIPTS=1 (exit 3, named diagnostic); selftest both modes; retro-tests prove it catches the r8/r9 clobber pattern; rounds 8-11 runners untouched | `python3 tools/harness/receipt_guard.py --selftest` | `reports/round-14/guard/` |
+| calibration | improved (claim C) | No loop view → loop-1 retrospective: 4 admitted / 1 rejected / 1 operator-skipped; claim flags 14 passed / 1 failed (filed harness decisions, not recertification); round-11 denominators explicit (147/189 = 0.778; 147/192 = 0.7656; both < 0.95); freshness-threshold question restated for the operator | `reports/round-14/loop1-retrospective.md` | retrospective + audits + retro-consistency.md |
+
+Admission: O/D/C verify, no axis harmed. Integrator acts: routed-resolution.json
+authored; SCORECARD/LOG drafts landed; 5 failed scribe seats' coverage folded.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker
