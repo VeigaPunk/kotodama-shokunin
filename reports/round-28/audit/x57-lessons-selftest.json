@@ -1,0 +1,415 @@
+{
+ "schema": "kotodama-lessons-audit-x57-v2-selftest",
+ "checks": [
+  {
+   "name": "filed index is read",
+   "pass": true,
+   "observed": "ec7469dadf87df3e"
+  },
+  {
+   "name": "newest revision is resolved",
+   "pass": true,
+   "observed": "reports/round-26/zzz-lessons-index-revision-4.md"
+  },
+  {
+   "name": "partition is 28 md files (round-28 control)",
+   "pass": true,
+   "observed": 28
+  },
+  {
+   "name": "filed rows are 26",
+   "pass": true,
+   "observed": 26
+  },
+  {
+   "name": "filed pins re-derive (live control)",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "filed orphan is exactly round-26.md and round-27.md (live control)",
+   "pass": true,
+   "observed": [
+    "round-26.md",
+    "round-27.md"
+   ]
+  },
+  {
+   "name": "filed queue is 49 rows (live control)",
+   "pass": true,
+   "observed": 49
+  },
+  {
+   "name": "revision orphan is exactly round-27.md (live control)",
+   "pass": true,
+   "observed": [
+    "round-27.md"
+   ]
+  },
+  {
+   "name": "revision pins drift on exactly one row (live control)",
+   "pass": true,
+   "observed": [
+    "round-26.md"
+   ]
+  },
+  {
+   "name": "A1 fires on a deleted filed row",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "A2 fires on a revision that omits a lesson file",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "A2 is red on the live revision (round-27.md is omitted)",
+   "pass": true,
+   "observed": [
+    "round-27.md"
+   ]
+  },
+  {
+   "name": "B2 fires on a falsified revision pin",
+   "pass": true,
+   "observed": [
+    "round-26.md"
+   ]
+  },
+  {
+   "name": "B3 classifier separates gate-keeper from fragment-index",
+   "pass": true,
+   "observed": "gate-keeper"
+  },
+  {
+   "name": "B3 reads the round-27 lesson as gate-keeper (round-28 control)",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "D fires on an undeclared dead pointer",
+   "pass": true,
+   "observed": [
+    "reports/round-4*",
+    "reports/round-8/nope-xyz"
+   ]
+  },
+  {
+   "name": "D exempts a declared-absent pointer",
+   "pass": true,
+   "observed": 5
+  },
+  {
+   "name": "E fires on a queue orphan",
+   "pass": true,
+   "observed": [
+    "Q-08-1"
+   ]
+  },
+  {
+   "name": "E2 accepts `operator` and `parent` as role tokens",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "E2 fires on a fabricated path owner",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "F fires on drifted prose",
+   "pass": true,
+   "observed": [
+    26,
+    48
+   ]
+  },
+  {
+   "name": "G1 reproduces exactly six instances",
+   "pass": true,
+   "observed": 6
+  },
+  {
+   "name": "G1 surfaces are the six X63-G1 names",
+   "pass": true,
+   "observed": [
+    "Q-04-1",
+    "Q-23-1",
+    "Q-23-2",
+    "Q-23-3",
+    "round-12.md",
+    "round-21.md"
+   ]
+  },
+  {
+   "name": "G1 silent when the receipt is absent",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "G1 fires when the receipt is present",
+   "pass": true,
+   "observed": [
+    "round-12.md",
+    "round-21.md"
+   ]
+  },
+  {
+   "name": "G2 carries the drifted revision pin",
+   "pass": true,
+   "observed": [
+    "revision pin for round-26.md",
+    "revision \u00a71 row for round-25.md",
+    "revision \u00a71 row for round-26.md",
+    "revision \u00a74 disposition Q-18-3"
+   ]
+  },
+  {
+   "name": "G2 silent when the revision pin matches the live bytes",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "G3 fires on the filed row-level pending cell",
+   "pass": true,
+   "observed": [
+    "filed \u00a72 row for round-25.md"
+   ]
+  },
+  {
+   "name": "G3 names exactly the round-25 row (live control)",
+   "pass": true,
+   "observed": [
+    "filed \u00a72 row for round-25.md"
+   ]
+  },
+  {
+   "name": "G3 stays silent when the round's receipt is absent",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "G2 \u00a74 silent when no next-touch round has closed",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "G2 \u00a74 fires on the live revision's closed next-touch row",
+   "pass": true,
+   "observed": [
+    "revision \u00a74 disposition Q-18-3"
+   ]
+  },
+  {
+   "name": "G4 is green on the live newest lesson",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "G4 reads the round-27 lesson as the newest",
+   "pass": true,
+   "observed": "round-27.md"
+  },
+  {
+   "name": "G4 fires on a fabricated dead source token",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "G4 brace-expands a group token",
+   "pass": true,
+   "observed": [
+    "reports/round-27/law/design.md",
+    "reports/round-27/law/rules.md",
+    "reports/round-27/law/review.md"
+   ]
+  },
+  {
+   "name": "G5 finds the round-27 lesson's stale control claim",
+   "pass": true,
+   "observed": [
+    [
+     "reports/round-27/audit/x57-lessons-audit.py",
+     [
+      37,
+      37
+     ],
+     [
+      34,
+      37
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "G5 records the measured figure for the round-27 tool",
+   "pass": true,
+   "observed": [
+    [
+     "tools/gates/argot-derivation-gate.py",
+     [
+      27,
+      27
+     ]
+    ],
+    [
+     "reports/round-27/readme/sweep.py",
+     [
+      9,
+      9
+     ]
+    ],
+    [
+     "reports/round-27/audit/x61-pin-sweep.py",
+     [
+      21,
+      21
+     ]
+    ],
+    [
+     "reports/round-27/audit/x57-lessons-audit.py",
+     [
+      34,
+      37
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "G5 counts a claim that holds as not-stale",
+   "pass": true,
+   "observed": [
+    [
+     "tools/gates/argot-derivation-gate.py",
+     [
+      27,
+      27
+     ],
+     [
+      27,
+      27
+     ]
+    ],
+    [
+     "reports/round-27/readme/sweep.py",
+     [
+      9,
+      9
+     ],
+     [
+      9,
+      9
+     ]
+    ],
+    [
+     "reports/round-27/audit/x61-pin-sweep.py",
+     [
+      21,
+      21
+     ],
+     [
+      21,
+      21
+     ]
+    ],
+    [
+     "reports/round-27/audit/x57-lessons-audit.py",
+     [
+      37,
+      37
+     ],
+     [
+      34,
+      37
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "G6 reads the four loop-era runners",
+   "pass": true,
+   "observed": [
+    "reports/round-25/run-validation.py",
+    "reports/round-26/run-validation.py",
+    "reports/round-27/run-validation.py",
+    "reports/round-28/run-validation.py"
+   ]
+  },
+  {
+   "name": "G6 records rounds 25-26 as grading the ledger",
+   "pass": true,
+   "observed": {
+    "reports/round-25/run-validation.py": true,
+    "reports/round-26/run-validation.py": true,
+    "reports/round-27/run-validation.py": false,
+    "reports/round-28/run-validation.py": false
+   }
+  },
+  {
+   "name": "G6 records rounds 27-28 as not grading the ledger (live finding)",
+   "pass": true,
+   "observed": true
+  },
+  {
+   "name": "G6 fires on a runner body that names corpus/lessons",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "G6 stays silent on a runner body that does not",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "I reads 49 queue ids and 49 disposition rows",
+   "pass": true,
+   "observed": [
+    49,
+    49
+   ]
+  },
+  {
+   "name": "I is green on the live revision",
+   "pass": true,
+   "observed": []
+  },
+  {
+   "name": "I fires on a dropped disposition row",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "I fires on an out-of-vocabulary class",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "J records all four peer tools",
+   "pass": true,
+   "observed": [
+    "c31",
+    "r27x57",
+    "x45",
+    "x63"
+   ]
+  },
+  {
+   "name": "J records a live exit code per peer",
+   "pass": true,
+   "observed": ""
+  },
+  {
+   "name": "J records the round-26 auditor's selftest state (its controls pin the pre-round-26 partition)",
+   "pass": true,
+   "observed": 1
+  },
+  {
+   "name": "J records the round-27 auditor's selftest state (its controls pin the pre-round-28 partition)",
+   "pass": true,
+   "observed": 1
+  }
+ ],
+ "passed": 52,
+ "total": 52
+}

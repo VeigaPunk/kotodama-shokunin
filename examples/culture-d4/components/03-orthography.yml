@@ -8,7 +8,20 @@ component: 03-orthography
 culture: D4
 canon: not canonized (D4 design drill)
 title: "03-orthography — the stamp hand. D4's native stamp-derived script, its sign inventory, and the writing rules"
-status: "round-17 component write, 2026-10-18; supersede-by-new-file only"
+status: "round-17 component write, 2026-10-18; round-28 packet_keys declaration added; supersede-by-new-file only"
+# Round-28 (R28-D05..D12, claim D) RL-4 fix: this component declared no
+# top-level `packet_keys`, so the assembler fell back to its PACKET_KEYS
+# allowlist and recorded `records` and `literacy_institutions` under
+# assembly.skipped_keys — OR-01..OR-03 and LI-01..LI-03 were legal in this
+# component and invisible to every gate that reads the packet
+# (reports/round-27/law/review.md section 5, RL-4). The declaration below names
+# this file's packet contribution exactly. `orthography` is unchanged (it was
+# the allowlist's one hit for this file); `records` and `literacy_institutions`
+# are new packet blocks. `signs`, `orthography_rules`, `numeral_register`,
+# `lexicon_requests` and `consistency_checks` stay component-only: no delivered
+# record cites them by id, and widening the packet surface is a separate
+# decision this seat does not take.
+packet_keys: [orthography, records, literacy_institutions]
 scope: >
   The D4 script from the E0 count-stamp inventory to the E2 literate league
   hand. One script, three stages: E0 stamp tallies on ingots and seals; E1 the

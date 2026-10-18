@@ -1,5 +1,39 @@
 # kotodama-shokunin corpus index
 
+revision: 1.9 — Round-28 register-lexicon-ceiling landing (2026-10-18): the
+round-28 C entry landed (`linguistics/register-lexicon-ceilings.md`, what a
+register's derivation operation cannot say) and the index was reconciled to it.
+`## linguistics/` moved 20 → **21**; its row was added in filename order with the
+entry's own `- topic:` text byte-equal; the totals line and the counts footer
+moved 200 → **201** and the footer vector 20/19/18/29/20/94 → **21/19/18/29/20/94**.
+Re-measured with `reports/round-28/readme/sweep.py`: 201 rows vs 201 files, 0
+missing, 0 ghosts, 0 duplicate rows, 0 header drift, 0 topic mismatches, totals
+line 201, footer `201` / `21/19/18/29/20/94`. The round-28 amendment section in
+`linguistics/register-strata-attestation.md` (§13) is a new section in an existing
+entry and adds no index row; the revision 1.7 note recording that entry's landing
+remains below as the dated reading it was. Non-canon examples and passing
+structural gates do not certify historical truth.
+
+revision: 1.8 — Round-28 counts-footer reconciliation (2026-10-18): the
+`Counts checked` footer at the end of this file was still a **present-tense**
+claim reading `(total 199 files; directory totals 19/19/18/29/20/94)` — it was
+not updated when revision 1.7 moved `## linguistics/` 19 → 20 and the totals
+line 199 → 200 in the same file. The footer now reads **200** files and
+`20/19/18/29/20/94`, re-measured by the command it names
+(`python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
+→ `totals.files 200`, directory totals 20/19/18/29/20/94), cross-checked with a
+plain `find` count. The superseded 199/19 reading is preserved below as the
+dated record it was, per this file's revision convention. **This defect is the
+reason round 28's sweep is a new instrument:** round 27's
+`reports/round-27/readme/sweep.py` checks rows, section headers, row topics and
+the totals line, but never reads the counts footer, so it went green over a
+stale claim. `reports/round-28/readme/sweep.py` adds the footer leg (two new
+controls: a stale total, and a stale directory vector with a matching total) and
+reads this revision clean: 200 rows vs 200 files, 0 missing, 0 ghosts, 0
+duplicate rows, 0 header drift, 0 topic mismatches, totals line 200, footer
+`200` / `20/19/18/29/20/94`. Non-canon examples and passing structural gates do
+not certify historical truth.
+
 revision: 1.7 — Round-27 register-strata landing (2026-10-18): the round-27 C
 entry landed (`linguistics/register-strata-attestation.md`, the register law for
 attestation speech) and the index was reconciled to it. `## linguistics/` moved
@@ -86,7 +120,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (20)
+## linguistics/ (21)
 
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
@@ -101,6 +135,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `orality-formulaic-language.md` — Oral tradition linguistics — how extended verbal art is composed, performed, and remembered without writing: the Parry–Lord oral-formulaic theory, meter as mnemonic engineering, epithet and praise-name systems, type-scenes and ring composition, kennings and myth-locked diction, proverbs and riddles as compressed cultural knowledge, and a design checklist for an oral-formulaic register ("singer's speech") in a fictional culture
 - `phonetics-phonology.md` — speech sounds and sound systems for fictional cultures — IPA categories, inventory design, phonotactics, markedness, allophony, prosody/tone, environment & anatomy effects, conlang pitfalls
 - `politeness-taboo-euphemism.md` — How cultures regulate saying — politeness theory (Brown & Levinson and its critics), honorific systems as grammar (Japanese, Korean, Javanese, Thai/Vietnamese), taboo vocabulary and its sanctions, euphemism cycles and the euphemism treadmill, and the fossil strata taboo leaves in lexicon, calendar, and law — with construction procedures for fictional cultures
+- `register-lexicon-ceilings.md` — Why a marked register built by a **mechanical operation** (reversal, truncation, lengthening, reduplication) can only spell some of the semantic fields its own institution needs — and how to measure the ceiling before it is designed into a law. States the general craft rule (**a register's derivation operation constrains which semantic fields it can natively spell**), gives the measurement procedure over a syllable template, works the NON-CANON D4 stamp register as a measured case (four of five legal/institutional abstractions refuse `reverse`), and supplies the three dispositions (hand-pick the base list, choose an operation whose domain covers the needed fields, or accept the ceiling and write the law inside it) plus the calibration shelf for the real-world analogues (verlan, anti-languages, avoidance registers) and their limits. Reference knowledge and method only; canon decisions belong to lore-shokunin.
 - `register-strata-attestation.md` — How to design the **attestation register** — the marked speech a culture uses when a spoken word is being made to bind, as against its unmarked everyday speech — and, separately, the **register law** that governs it: which acts may be spoken in-register, by whom, with what illocutionary force, and with what record consequence. Supplies the speech-act framework (Austin's felicity conditions and misfires, Searle's five classes and the declaration/status-function machinery, Searle's constitutive rules and deontic powers), the anthropological spine for ritually binding speech (Tambiah on the magical power of words; Rappaport on invariance as the engine of liturgical authority), the social conditions that authorise a speaker (Bourdieu's authorized language and delegation; Irvine's honorific ideology), the documentary-institution side that makes an oral act a record (Clanchy; Clanchy's "from memory to written record" transition), a register-law design procedure with worked rows, the boundary against costume/rank rules, and the calibration shelf for what is contested. Reference knowledge and method only; canon decisions belong to lore-shokunin.
 - `semantic-fields-lexicon-building.md` — engineering a fictional lexicon by semantic field — core-vocabulary floors (Swadesh–Yakhontov lineages and their limits), field-by-field elaboration briefs (body, kin, weather, landscape, subsistence, war, religion), borrowability strata, and what cultural vocabulary can and cannot prove about worldview
 - `semantics-pragmatics.md` — how languages package meaning (semantic fields, polysemy, classifiers) and act through it (evidentials, implicature, speech acts, deixis) — named frameworks, comparative data, and design levers for a fictional culture's "meaning economy"
@@ -431,12 +466,18 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
 
-Total knowledge entries: 200.
+Total knowledge entries: 201.
 
 Counts checked 2026-10-18 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
-(total 199 files; directory totals 19/19/18/29/20/94).
+(total 201 files; directory totals 21/19/18/29/20/94).
 The inventory counts markers, not verified facts.
+Superseded reading, preserved as the dated record it was: this footer read
+`(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
+revision 1.7, which moved `## linguistics/` 19 → 20 and the totals line
+199 → 200 in the same file without updating it; corrected in revision 1.8 and
+re-measured by the command above and a plain `find` count. Revision 1.9 moved
+the totals 200 → 201 and `## linguistics/` 20 → 21 with the ceiling entry.
 
 Index rows checked 2026-10-17 by the round-10 R10-C21 sweep (189 rows vs 189
 files; 0 missing, 0 topic mismatches after two repairs); command, receipts and

@@ -311,3 +311,126 @@ This is the boundary the lane's own forecast got wrong, and it is worth stating 
 - Nothing here decides what is true in any world. The register, its law rows and its consequences are **systems this lane generates**; which of them exist in a given world, and which factions they bind, are lore-shokunin's decisions (`PROVINCE.md`; `AGENTS.md`).
 - **Handoff shape.** Ship the law as a row set (six columns per act) with each row naming its authorising rank/rite row by ID, plus the declared enforcement gap and its price. Ship the register's forms with their derivation and era window. Never ship a law row without its era and its authorising row.
 - **Contested scope → report, never absorb.** If the receiving lane expects the law inside the costume-rank ledger, or expects a green register gate to certify the law, that is reported to the integrator — this entry's §7 and `RSA-7` state why the merge fails mechanically, and the decision is not this lane's to make unilaterally.
+
+## 13. Amendment (round 28): the register-lexicon ceiling, re-measured, with its mechanism
+
+**Append-only.** This section is added by round 28's C seat under this entry's own
+`RSA-10`/§10 clause. Nothing above it was rewritten; every earlier reading keeps
+its bytes and its date. Where this section disagrees with a number above, the
+number above is the *round-27 reading at its stamp* and this section is the
+round-28 re-measurement — both are kept, and the disagreement is the finding.
+
+### 13.1 What round 27 measured, and what it declared
+
+Round 27 named the ceiling **RL-3** and filed it in three places
+(`reports/round-27/law/design.md` §3.2, `reports/round-27/law/rules.md` §3.3,
+`reports/round-27/law/review.md` §4) with this arithmetic:
+
+```
+mark-axis plain words: 27   reverse-legal: 18   reverse-ILLEGAL: 9
+   material  reverse-legal= 8  reverse-ILLEGAL= 2
+   abstract  reverse-legal= 0  reverse-ILLEGAL= 5
+```
+
+The design declared the consequence as two named limits — **`LL-1`** (the law
+cannot licence an act whose vocabulary the register cannot spell) and **`LL-2`**
+(the landed register's forms are 100 % material-presence bases) — and then
+**designed around the ceiling rather than repairing it**, on the recorded ground
+that the repair would be an operation-rule amendment round 26 had already priced
+(`reports/round-26/register/review.md` §3). That disposition stands and this
+section does not reopen it.
+
+### 13.2 The re-measurement: the filed count does not reproduce, and why
+
+Re-run at lane HEAD `69cecbc` on 2026-10-18 with the round-28 instrument
+`reports/round-28/ceiling/measure-ceiling.py` (10/10 controls), against the
+delivered packet `examples/culture-d4/packet.d4.yml` (sha256 `543d68a8…`) and the
+delivered gate `tools/gates/argot-derivation-gate.py` (sha256 `b5406bcd…`):
+
+```
+$ export TMPDIR=$PWD/.scratch
+$ python3 -B reports/round-28/ceiling/measure-ceiling.py
+population: mark-axis plain words = 27
+delivered gate (b5406bcd)  legal=19 illegal=8
+  illegal: L-08, L-15, L-17, L-24, L-26, L-30, L-44, L-51
+  cross-tab: {"abstract/illegal": 4, "abstract/legal": 1,
+              "material/other/illegal": 4, "material/other/legal": 18}
+pre-fix gate (5b5abe78) legal=18 illegal=9
+  delta vs delivered: {'L-45'}
+```
+
+**The filed 18/9 is the pre-fix reader's reading.** It reproduces exactly with the
+syllabification that never splits a consonant run — the scan the round-27 D seat
+replaced mid-round (`5b5abe78…` → `d7a3ad1a…` → `b5406bcd…`, `reports/round-27/law/impl-3.md`
+§3.2, selftest 21/21 → 27/27). The single row that moves is **`L-45 tikmes`**
+("stamped account; the script"): the pre-fix scan read `semkit` as `se.mki.t`
+(`mki` and the bare `t` are not syllables), the delivered gate reads it `sem.kit`
+(both syllables legal). So the delivered reading is **19 legal / 8 illegal** and the abstract class
+is **1 legal / 4 illegal**, not 0/5.
+
+The correction does not weaken the ceiling. It sharpens it: **four of the five
+legal/institutional abstractions still refuse `reverse`**, including `L-30 gis`
+("oath, sworn word") → `sig`, and the one that does not (`L-45`) is a *compound*
+whose reversal happens to land on a licensed coda. The ceiling is real; one of its
+five cited members was miscounted.
+
+### 13.3 The mechanism, measured: why the ceiling exists at all
+
+Round 27 stated the ceiling as a fact about the lexicon. Round 28 measured the
+**cause**, and it is a property of the phonology, not of the word list:
+
+```
+$ python3 -B reports/round-28/ceiling/measure-ceiling.py
+mechanism: reverse is legal <=> the base-initial consonant is a licensed coda
+           -> True (27/27)
+  onsets=14 codas=8 never-coda=b,g,h,j,p,w
+```
+
+The template is `(C)V(V)(C)` (`examples/culture-d4/components/02-phonology.yml:82`):
+**14 onset consonants** (`:61-75`) but only **8 licensed codas** (`:119`,
+`n s k l r t d m`). A reversal moves the base-initial consonant into final
+position, where it must be a coda. Therefore a base may be reversed **iff** it
+begins with one of the eight codas — and the six consonants that are onsets but
+never codas (`b g h j p w`) are precisely the refusals. Verified 27/27 over the
+delivered mark-axis plain words, with no counterexample.
+
+This is the general lesson the new entry
+`corpus/knowledge/linguistics/register-lexicon-ceilings.md` states: **a register's
+derivation operation constrains which semantic fields it can natively spell**, and
+for a reversal the constraint is one consonant position — the base's initial
+segment must belong to the coda set. The ceiling is not a lexical accident that
+more coinages would fix; it is arithmetic over the syllable template.
+
+### 13.4 What this changes in the sections above
+
+| reading above | round-27 value | round-28 value | status |
+|---|---|---|---|
+| `reverse-legal` / `reverse-ILLEGAL` (§6, §10 `RSA-4`) | 18 / 9 | **19 / 8** | **superseded** — the 18/9 is the pre-fix reader's |
+| abstract class cross-tab (§6) | 0 legal / 5 illegal | **1 legal / 4 illegal** | **superseded** |
+| the five named abstractions (§6) | all five refuse | **four refuse** (`L-15`, `L-30`, `L-44`, `L-51`); `L-45` does not | **corrected** |
+| `LL-1` / `LL-2` (the design constraint) | declared | declared, **unchanged and still binding** | stands |
+| the eight landed register forms are material-presence bases | 8 of 8 | **8 of 8** (re-measured) | stands |
+
+**No decision in §10 changes.** `RSA-4` ("the derivational operation picks the
+register's semantic profile; verify the classes that must be sayable before
+choosing it") is if anything better supported: the mechanism in §13.3 says *why*
+to run that check and *where* to look — at the coda set, before the word list.
+
+### 13.5 Limits of this amendment
+
+- **One reader, one tree.** The 19/8 reading is the delivered gate's
+  (`b5406bcd…`) against the delivered packet (`543d68a8…`). Both move; the
+  instrument re-derives them and prints both digests on every run.
+- **The pre-fix reader is reconstructed, not recovered.** The pre-fix gate kept
+  at `.scratch/r27-d13/oldg/` declares no legality predicate, so the 18/9 was
+  reproduced with a locally stated template over its `syllabify`. It matches the
+  filed count exactly (including the `L-45` delta), which is the evidence that it
+  is the right reconstruction; it is still a reconstruction, and it is labelled as
+  one rather than presented as a recovered instrument.
+- **The mechanism is stated over this template.** `reverse is legal iff the
+  base-initial consonant is a coda` is true for `(C)V(V)(C)` with a single
+  licensed coda and no onset clusters. A register whose phonology licenses onset
+  clusters, or long codas, would have a different constraint; the check (§13.3) is
+  the transferable part, not the consonant list.
+- **Nothing here is canon.** The drill remains NON-CANON engineering evidence
+  (§11); this amendment adds measurements, not world facts.

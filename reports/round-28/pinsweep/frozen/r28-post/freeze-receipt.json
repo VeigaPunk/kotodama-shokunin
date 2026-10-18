@@ -1,0 +1,26 @@
+{
+ "frozen_at": "2026-10-18",
+ "frozen_by": "kotodama-shokunin R28-O25..O32 (final pin sweep)",
+ "generation": "round-28 pinsweep frozen r28-post (R28-O25..O32)",
+ "input_pins": {
+  "examples/culture-d4/packet.d4.typed.yml": "15c81ec11b42efaa7d683dd9320bfc7cd9b5d1e812e042d99dbf8d8726ec5da6",
+  "examples/culture-d4/packet.d4.yml": "543d68a82640e1b0c53b9cb7cb26c4dc60fce5878c2bf487050ead3af0945c4f",
+  "examples/culture-d4/typed-labels.d4.yml": "339bfd83bf66832479b5b8ffbbce708c8be15e13b08967fa7049b848661a3cf8"
+ },
+ "pins": {
+  "tools/gates/d4-assembly-check-gate.py": "df1a364b3970365c217a9b6a16f075bab854ee87aefab831de50df4a9d71544a",
+  "tools/gates/d4-typed-labels-check-gate.py": "05f99629d870280c55e15f46d799c29d7cfbc0645f0d0cd68a5fff1006181841",
+  "tools/gates/typed-pipeline-gate.py": "b749ad07cf1710279aea557c071587cf4b3a228a9fb4d03398b4b94d2f32ad85"
+ },
+ "reason": "the round-28 law-replay landing and the RL-4 packet_keys fix moved the D4 packet, its projection and its hold set; every earlier D4-adapter row pins the pre-fix digests. This generation also extends the re-pin surface to the typed-pipeline gate's two D4 rows, which round-27's generation and this sweep's first pass both left without a successor (X61R28-A2). A re-freeze is a new generation, never an in-place edit.",
+ "replay": "TMPDIR must sit outside the repository: python3 tools/replay-frozen.py reports/round-28/pinsweep/frozen/r28-post/MANIFEST.tsv",
+ "revision": "69cecbc7dcf575a29f29660ecac470e05260fd86",
+ "rows": 4,
+ "schema": "kotodama-r28-d4-leg-freeze-v1",
+ "supersedes": [
+  "reports/round-27/pinsweep/frozen/r27-post/MANIFEST.tsv rows 2-3 (round-27 stamp, moved by the round-28 landing)",
+  "tools/gates/frozen/round-18/MANIFEST.tsv rows 2-3 (replay mismatch, exit 1)",
+  "tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv rows 2-3 (replay mismatch, exit 1)",
+  "tools/gates/frozen/round-{22,25,26}/*/MANIFEST.tsv typed-pipeline-gate.py D4 rows (no successor existed before this generation; round-28 audit X61 finding X61R28-A2)"
+ ]
+}

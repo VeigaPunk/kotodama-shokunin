@@ -1,0 +1,127 @@
+# reports/round-17/d4/components/08-eras.yml
+# D4 design drill — component 08 of the round-17 registry.
+# NON-CANON: this file proposes a design; it records nothing about any world.
+#
+# Write seat: R17-D12 (D-components, seat 8 of 12). Round 17, 2026-10-18.
+# The `eras`, `named_eras`, `era_dates`, `source_era_dates` and `era_records`
+# blocks below are the packet blocks the assembler extracts.
+component: 08-eras
+culture: D4
+canon: not canonized (D4 design drill)
+title: "08-eras — the kept fire. D4's four stages, their seams, and the dating conventions"
+status: "round-17 component write, 2026-10-18; supersede-by-new-file only"
+packet_keys: [eras, era_tags, named_eras, era_dates, source_era_dates, era_records]
+scope: >
+  The D4 era model: four contract tags E0-E3, four named eras ER-01..ER-04, the
+  dating conventions (turns of the kept fire), and the seams between stages.
+  Era names and dates are this component's; no other component asserts them.
+spine_coupling: "fire — the era names are heat states (the stamp era, the mark hand, the league, the cold fire) and the dating unit is the turn of the kept fire; the seams are furnace events (the first written charge, the league's charter). mark — each seam is marked by a record change: tally-stamps give way to the stamp hand, and the hand gives way to the league's roll"
+spine_check: "no D1 or D2 imagery is imported. No ascent/descent reckoning, no seasonal pasture poles, no river or binding imagery. The D2 descent-coordinate convention is not reused: D4 dates in turns of the kept fire, and the numeric gate-facing era_dates are a separate, declared convention."
+
+follows:
+  - {id: F-1, path: "corpus/knowledge/culture-material/era-periodization-models.md", section: "§1 periodization as legitimacy technology, §2 two layers at once, §3 era-name craft, §4 seam logistics, §12 calibration, §13 build order", use: "era names are in-world claims by their namers; the register keeps emic names separate from the tag space"}
+  - {id: F-2, path: "corpus/knowledge/synthesis/era-language-staging.md", section: "§4 stage packets, §7 synchronize without determinism, §8 type every label", use: "institutions, language stages, records and costume seams are dated independently, not moved as one block"}
+  - {id: F-3, path: "corpus/knowledge/verification/lexicon-coverage-audit.md", section: "§7 era-staging audit coordinates", use: "the tag space and the named-era mapping this component fixes for the lexicon's stage checks"}
+  - {id: F-4, path: "corpus/knowledge/verification/costume-era-consistency-gate.md", section: "§2 freeze the claim before reviewing it", use: "the numeric era_dates convention below is declared for the gate's date arithmetic; the in-world spans live in source_era_dates and are never converted silently"}
+
+eras:
+  - {id: E0, name: E0, tag: E0, label: "the stamp era", span: "before T1 to T18", axis: mark, evidence: design-choice, follows: [F-2]}
+  - {id: E1, name: E1, tag: E1, label: "the mark hand", span: "T18 to T34", axis: mark, evidence: design-choice, follows: [F-2]}
+  - {id: E2, name: E2, tag: E2, label: "the league", span: "T34 to T60", axis: fire, evidence: design-choice, follows: [F-2]}
+  - {id: E3, name: E3, tag: E3, label: "the cold fire (reserved)", span: "undated", axis: fire, evidence: design-choice, follows: [F-1]}
+
+era_tags: [E0, E1, E2, E3]
+era_tags_note: "the flat tag list, for consumers that read the D2-shaped `eras` tag list; the `eras` block above carries the same four tags as records (id/name/tag) because the D4 assembler requires mapping records there. The measured deviation is recorded in 12-provenance (SW-07) and was reported by the typed-label lead (typed-run.md 0): the D2 projector family refuses the mapping shape with 'packet.eras: expected a non-empty list of era tags', so a D4 projector must accept this component's shape or read era_tags."
+
+named_eras:
+  - {id: ER-01, name: "the stamp era", tag: E0, note: "pre-script; tally-stamps on ingots and seals; no connected text"}
+  - {id: ER-02, name: "the mark hand", tag: E1, note: "the stamp inventory extended into the native hand; the first written charges"}
+  - {id: ER-03, name: "the league", tag: E2, note: "the literate anchor; the furnace roll and the league council"}
+  - {id: ER-04, name: "the cold fire (reserved)", tag: E3, note: "reserved and unoccupied; the prospective fallow stratum"}
+
+era_dates:
+  E0: [0, 18]
+  E1: [18, 34]
+  E2: [34, 60]
+era_dates_note: "numeric gate-facing windows in turns of the kept fire (T-coordinates, fixture-relative, never BCE/CE); E3 is undated and omitted rather than guessed"
+
+source_era_dates:
+  "the stamp era": ["before T1", "T18"]
+  "the mark hand": ["T18", "T34"]
+  "the league": ["T34", "T60"]
+  "the cold fire (reserved)": [null, null]
+source_era_dates_note: "half-open [from, to) in in-world turn coordinates; the numeric era_dates above is a declared convention for gate arithmetic, not a conversion"
+
+era_records:
+  - id: ER-01
+    tag: E0
+    name: "the stamp era"
+    span: "before T1 to T18; reckoned in furnace turns and hearth generations"
+    institution_seam: "none; the era before the first written charge has no seam rite"
+    language_stage: "the E0 vernacular; the stamp inventory carries counts and maker's marks only"
+    record_stage: "tally-stamps on ingots and seal bars (03's OR-01); no connected text"
+    costume_seam: "requirement only: hide and wool working dress dates from this stratum; garment records belong to 09-costumes"
+    axis: mark
+    evidence: design-choice
+    follows: [F-1, F-2]
+    notes: "retrospective label applied by the league's chroniclers; in-world called 'the turns they stamped and did not write'"
+  - id: ER-02
+    tag: E1
+    name: "the mark hand"
+    span: "[T18, T34); 16 turns"
+    institution_seam: "the first written charge: a furnace-master's account incised rather than stamped; announced at the league's first assembly and effective at the turn's close"
+    language_stage: "the E1 vernacular; the script's sign inventory derives from the stamp shapes (03's OR-02)"
+    record_stage: "the extended stamp hand; accounts, names, short dedications"
+    costume_seam: "requirement only: the league cloak's shoulder stamp dates from this stratum; garment records belong to 09-costumes"
+    axis: mark
+    evidence: design-choice
+    follows: [F-2]
+    notes: "the script seam and the sound changes are independent: neither SC-1 nor SC-2 coincides with T18"
+  - id: ER-03
+    tag: E2
+    name: "the league"
+    span: "[T34, T60); 26 turns"
+    institution_seam: "the league charter: the furnace roll opened and the council of furnace-masters seated; the seam is a dated assembly"
+    language_stage: "the E2 vernacular; the hand is normal and the roll is kept"
+    record_stage: "the league hand (03's OR-03); the furnace roll is the league's legal memory"
+    costume_seam: "requirement only: the market-day coat's salt-road facing dates from the E1/E2 seam, not earlier"
+    axis: fire
+    evidence: design-choice
+    follows: [F-2]
+    notes: "the sample present is inside this era; no absolute date is claimed"
+  - id: ER-04
+    tag: E3
+    name: "the cold fire (reserved)"
+    span: "undated"
+    institution_seam: "reserved; no institution is assigned"
+    language_stage: "reserved"
+    record_stage: "reserved"
+    costume_seam: "reserved"
+    axis: fire
+    evidence: design-choice
+    follows: [F-1]
+    notes: "the fourth slot is declared and left empty by design; assigning it is a later round's decision"
+
+era_law:
+  - {id: EL-01, rule: "Era names are in-world claims by their namers; the register keeps the tag space separate and no component renames an era.", axis: mark, evidence: design-choice}
+  - {id: EL-02, rule: "A seam is announced at the assembly that closes a turn; nothing is backdated to a seam it predates.", axis: fire, evidence: design-choice}
+  - {id: EL-03, rule: "Institutions, language stages, records and costume seams are dated independently; no component moves another's dates.", axis: mark, evidence: design-choice}
+
+cross_refs:
+  - {id: XR-E1, to: "04-lexicon", need: "stage tags E0-E2 on lexicon records resolve against this component's tag space"}
+  - {id: XR-E2, to: "09-costumes", need: "costume era tags E0-E2 resolve; era_dates supplies the numeric windows"}
+  - {id: XR-E3, to: "10-ritual-calendar", need: "the calendar's units and festivals date against these eras; the turn is the shared unit"}
+
+open_questions:
+  - {id: OQ-E1, text: "The exact turn at which the stamp inventory became a full hand is undated; T18 is a declared convention (to-verify)."}
+  - {id: OQ-E2, text: "Whether the cold fire stratum will be assigned content is a later round's decision (to-verify)."}
+
+calibration:
+  - {id: CAL-E1, status: design-choice, note: "era spans are fixture-relative conventions, not measurements; no CE date is synthesized"}
+  - {id: CAL-E2, status: to-verify, note: "the in-world turn unit is not convertible to any external chronology without a convention this drill does not declare"}
+
+canon_boundary: |
+  This component designs an era model; it records nothing about any world. Canon,
+  chronology, and in-world historiography are lore-shokunin's. No sibling
+  component was edited; sibling content is referenced only by contract field path.
+  No real-world chronology, culture, or rights question is decided or implied here.

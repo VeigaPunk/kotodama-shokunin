@@ -352,6 +352,24 @@ Admission: D/O/C verify, no axis harmed. Routed: the law replay leg (RL-1),
 the orthography packet_keys gap (RL-4), the register-lexicon ceiling (RL-3 —
 a design constraint, not a defect).
 
+## Axes — round 28 (2026-10-18), admitted (loop 3 build 4 of 4 — builds complete)
+
+Baseline `69cecbc`; one 64-worker `devin/deepseek-v4-1-flash-high` batch
+(24/64 completed). Acceptance: `python3 reports/round-28/run-validation.py`
+exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D, capability `register-law-replay`) | The law gains a replay leg (tools/gates/register-law-gate.py): six D4L-LAW-* classes over four resolutions (speaker by exact token with polarity in kind — the substring trap where 'stamp-holder only' would grant master/delegate is designed out; force vocabulary; consequence vs roll/rank; register by names); RL-4 fixed (8 records now reach the packet; four-site pin cascade); the leg immediately earned its keep — 4 real D4L-LAW-DANGLING findings on the clean packet (every design_row names registers records QREG-05..08 that do not exist; the design's own defect surfaced, priced for round 30) | `python3 reports/round-28/run-validation.py` | `reports/round-28/law/` |
+| operability | improved (claim O) | The final build-round sweep: all frozen/baseline/replay surfaces re-verified against the amended packet; drifted rows re-pinned as new rows; battery 9/9; all replays green | `python3 reports/round-28/run-validation.py` | `reports/round-28/sweep/` |
+| coverage | improved (claim C) | The RL-3 ceiling recorded in the register-strata entry (append-only amendment) + the register-lexicon-ceilings knowledge entry (sourced, gap-named); README reconciled; entry audits clean (one one-line fix routed) | `python3 reports/round-28/run-validation.py` | `reports/round-28/ceiling/` |
+| calibration | improved (unclaimed observation) | The leg's calibration honesty: it reports 6 findings on the clean packet and says why (4 real dangles + 2 saturated classes); controls inert on two classes reported as such — a leg reporting 0 would have hidden both | — | law/design.md calibration section |
+| freshness / adjacency | unchanged | Pause in force; scope clean | — | — |
+
+Admission: D/O/C verify, no axis harmed. LOOP 3 BUILDS COMPLETE (rounds
+25-28, all on the devin provider). Routed to round 30: the QREG-05..08
+dangling-register fix, the battery registration of the law gate, X63-F2.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

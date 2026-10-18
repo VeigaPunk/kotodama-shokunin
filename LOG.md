@@ -3394,3 +3394,16 @@ designation (provider test), not a silent substitution.
 - **O (verified):** the D4 pin sweep complete; regressions green.
 - **C (verified):** register-strata knowledge entry + README.
 - **Evidence:** `reports/round-27/validation.json` acceptance true.
+
+## 2026-10-18 — Round 28 admitted (loop 3 build 4 of 4; devin)
+
+- **Trigger:** regimen; claims D/O/C in `reports/round-28/claims.json`; baseline
+  `69cecbc`; 24/64 completed.
+- **D (verified):** the register-law replay leg lands (6 D4L-LAW-* classes; the
+  substring trap designed out); RL-4 fixed; the leg surfaces 4 real
+  D4L-LAW-DANGLING findings on the clean packet (design defect, priced for r30).
+- **O (verified):** final pin sweep; regressions green.
+- **C (verified):** ceiling knowledge recorded; ceilings entry; README.
+- **LOOP 3 BUILDS COMPLETE (rounds 25-28).** Remaining: r29 verify (luna),
+  r30 integrate (sol), r31-32 GLM (zai).
+- **Evidence:** `reports/round-28/validation.json` acceptance true.

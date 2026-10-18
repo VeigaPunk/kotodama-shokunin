@@ -1,0 +1,43 @@
+{
+ "append_only_note": "New baseline id only. Every filed baseline and every filed round-8..27 byte stays unchanged; a re-pin is a new row, never an in-place edit (gate-frozen-run-standard.md section 3).",
+ "baseline_id": "r28-post",
+ "command": "python3 tools/gates/d4-assembly-check-gate.py examples/culture-d4/packet.d4.yml",
+ "expected": {
+  "class": "clean",
+  "exit": 0,
+  "findings": []
+ },
+ "frozen_at": "2026-10-18",
+ "frozen_by": "kotodama-shokunin R28-O25..O32 (final pin sweep)",
+ "gate": "d4-assembly-check-gate.py",
+ "gate_script": "tools/gates/d4-assembly-check-gate.py",
+ "gate_sha256": "df1a364b3970365c217a9b6a16f075bab854ee87aefab831de50df4a9d71544a",
+ "input_class": "NON-CANON post-law-replay / post-packet_keys D4 packet.d4.yml (the graded argv input), byte copy of the live artifact",
+ "inputs": {
+  "examples/culture-d4/components/01-brief.yml": "649aa111db2e57a737234330690ea4fbb197039ba8ecf92d6248d1bed8ea793b",
+  "examples/culture-d4/components/02-phonology.yml": "7aa9cac5c030dfb39fbe5a90d04ea5d94f130f7a7e28b5bbb17ff2773ab0a42a",
+  "examples/culture-d4/components/03-orthography.yml": "0f2ff45439fd7db3e9014bd1012bd917e42d042f457b8cef2bed2c9a791d4e1b",
+  "examples/culture-d4/components/04-lexicon.yml": "d0d4e17cc3c43a11e598259271fe16f18539c8bce3c3a30a40b6d2554b6c7240",
+  "examples/culture-d4/components/05-naming.yml": "b154d80700c47719dcf8395f6017f68c00c21a5eea79965d205df4bdbb688e0c",
+  "examples/culture-d4/components/06-myth.yml": "2ca4935d8dc33899a98ebfe2212f73ca5efadee56e7720b59a592416fd3a6b9d",
+  "examples/culture-d4/components/07-symbolism.yml": "5da857dc832c69b71fe1ac51f80232b63527e8e953abe6d93e26836c28c1c80c",
+  "examples/culture-d4/components/08-eras.yml": "1c9202e3730530a5e82dc57b3e1622b13f94cfd27c4581d90a0b95d8c11f50a0",
+  "examples/culture-d4/components/09-costumes.yml": "f61cc6845518d44f50e5179339a1a2fda2c5290efb52d6badb28cbec87768c23",
+  "examples/culture-d4/components/10-ritual-calendar.yml": "5a8d41b4bc58997a8181c8f5ae8f2c279b48c92b76f6728deec23713a1ab85a2",
+  "examples/culture-d4/components/11-contact-history.yml": "7b6932aff32871c587834ad7d42a237836b01e4188eee118b7203c6ddfddaa9c",
+  "examples/culture-d4/components/12-provenance.yml": "540f7d2258f3a4000f1aa670742b88b440d2ce107ace49d4246f00c7726d8d69",
+  "examples/culture-d4/components/13-register-law.yml": "c0d77181ac567c4c4625540579b784df1781a3585c7675e1c046fe6f7bcf50b7",
+  "examples/culture-d4/packet.d4.yml": "543d68a82640e1b0c53b9cb7cb26c4dc60fce5878c2bf487050ead3af0945c4f",
+  "tools/assemble-culture-d4.py": "943f487ba991d45d369eb8fb6e9bb686046df165424d101cfa2670f79bb844b2",
+  "tools/assemble-d2.py": "8ea6bdde9514ee966fe58cf219d4d0228ecc3b041e30549c68073cc822c8655d",
+  "tools/gates/costume-era-consistency-gate.py": "e6bffd7020c0b1168828902853320bbf37e903457c83dae5477820aeceec478f"
+ },
+ "read_set_note": "Read set re-measured at this stamp with a sys.addaudithook('open') trace over the graded command (scratch script, not committed); every pinned copy equals its pin and the live file it was copied from.",
+ "revision": "69cecbc7dcf575a29f29660ecac470e05260fd86",
+ "revision_note": "round-28 O claim (R28-O25..O32 final pin sweep). Baseline lands as uncommitted round-28 worker output; the digests below, not the commit alone, bind the measured bytes. No commit/push performed.",
+ "schema": "kotodama-frozen-run-v1",
+ "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+ "stdout_sha256": "c60820a54742ecaa1edef972c6c94cce3f88313fbace8ef19eaeddd9a42572a7",
+ "supersedes": "the same gate's r19-pre / r20-post / r22-post / r27-post rows",
+ "why_repinned": "the round-28 D claim fixed RL-4 (`03-orthography.yml` and `09-costumes.yml` now declare packet_keys covering `records`, `literacy_institutions` and `enforcement`) and landed the law replay leg (RL-1), which moved the D4 packet, its typed packet, its projection and its hold set; the earlier rows pin the pre-fix digests and refuse with exit 1 (drift)"
+}

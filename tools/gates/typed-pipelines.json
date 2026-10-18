@@ -9,7 +9,7 @@
    },
    "packet": {
     "path": "examples/culture-d4/packet.d4.yml",
-    "sha256": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc"
+    "sha256": "543d68a82640e1b0c53b9cb7cb26c4dc60fce5878c2bf487050ead3af0945c4f"
    },
    "assembler": {
     "path": "tools/assemble-culture-d4.py",
@@ -17,25 +17,25 @@
    },
    "projection": {
     "path": "examples/culture-d4/typed-labels.d4.yml",
-    "sha256": "88a94422b4123f6b436f9935590d69f081f90e688655ee605f33e0c1305fb68d",
-    "superseded": "c5441e3d0b237f331cfabe8002ad3bf4db7694e2666c21ba8c723ac66bf21f6a-paired build (round-27 register-law revision 1, superseded by revision 2 the same round when the rows were reconciled with the sibling design seats' speech-act vocabulary); d03f6391fb8dc2b4d2b2ad05e08547455bc96c580050d830ce0c7c22bb75e580 (round-26 register-stratum build); 60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092 (round-22 family-clean build); cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f (round-20 build); earlier a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d (round-18/19 build)"
+    "sha256": "339bfd83bf66832479b5b8ffbbce708c8be15e13b08967fa7049b848661a3cf8",
+    "superseded": "88a94422b4123f6b436f9935590d69f081f90e688655ee605f33e0c1305fb68d (round-27 register-law revision 2, superseded by the round-28 RL-4 packet_keys repair); c5441e3d0b237f331cfabe8002ad3bf4db7694e2666c21ba8c723ac66bf21f6a-paired build (round-27 register-law revision 1, superseded by revision 2 the same round when the rows were reconciled with the sibling design seats' speech-act vocabulary); d03f6391fb8dc2b4d2b2ad05e08547455bc96c580050d830ce0c7c22bb75e580 (round-26 register-stratum build); 60b526b0b3d07141875d20c472451cdf6658f61936d39fe18af4f3d981981092 (round-22 family-clean build); cbcf997f5f38fac89b0fb1b6a6841ec42c9041a2599df44083ddefc5c22cfb4f (round-20 build); earlier a59990bbfe5a8992ffa6e67e9b3e43e7ff477df9fc754e5af92b6f40d23fe11d (round-18/19 build)"
    },
    "adapter": {
     "path": "tools/assemble-d4-typed.py",
     "sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
-    "note": "round-20 revision: the selftest mirror no longer copies the foreign examples/culture-d2 tree (the round-19 wart's closure), and --emit now writes the three input pins into the typed packet's assembly block (the D2 typed-packet idiom). Supersedes 1ddad6a7da1f\u2026, pinned earlier the same day before those two edits."
+    "note": "round-20 revision: the selftest mirror no longer copies the foreign examples/culture-d2 tree (the round-19 wart's closure), and --emit now writes the three input pins into the typed packet's assembly block (the D2 typed-packet idiom). Supersedes 1ddad6a7da1f…, pinned earlier the same day before those two edits."
    },
    "expected": {
     "path": "examples/culture-d4/expected-holds.json",
-    "sha256": "857417e949fb5cb9b265918b8982ca86e47a820d136ba7b009414d84aa4ec28f",
-    "note": "round-27 register-law re-pin (revision 2): fail 0 / hold 12 / note 0, UNCHANGED from round 22. The register's law rows are not forms, so the six garment-form obligations still hold under their twelve record/slot rows. The round-26 and round-27-revision-1 pins are recorded in the holds file's own supersedes_pins rather than overwritten in place. This expected file binds combined projector 2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3. Receipt: reports/round-27/law/impl-1.md."
+    "sha256": "65f5a03e092fb4bb1e04f26d73180ca411c1f91bd29d2f1912d275407e15e423",
+    "note": "round-28 law-replay re-pin: fail 0 / hold 12 / note 0, UNCHANGED from round 22. The RL-4 packet_keys repair moved the packet and the projection, so this file's own packet/projection pins were re-pointed and its revision_note now names the round-28 landing and the RL-4 fix; the hold set itself is untouched because a law row is not a form. The round-27 pins are recorded in the holds file's own supersedes_pins (r27_* keys) and in this profile's repin_history. This expected file binds combined projector 2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3. Receipt: reports/round-28/law/impl-1.md."
    },
    "repin": {
-    "round": 27,
-    "claim": "D (R27-D05..D12 register law + syllabify)",
+    "round": 28,
+    "claim": "D (R28-D05..D12 law replay leg + RL-4 packet_keys fix)",
     "date": "2026-10-18",
     "command": "sha256sum examples/culture-d4/packet.d4.yml examples/culture-d4/typed-labels.d4.yml examples/culture-d4/expected-holds.json",
-    "recorded_in": "reports/round-27/law/impl-1.md"
+    "recorded_in": "reports/round-28/law/impl-1.md"
    },
    "repin_history": [
     {
@@ -95,6 +95,16 @@
      "expected_sha256": "857417e949fb5cb9b265918b8982ca86e47a820d136ba7b009414d84aa4ec28f",
      "adapter_sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
      "reason": "revision 2 of the round-27 register-law build: the RGL rows gained `speaker`/`force`/`design_row` and the block was declared in the contract (01-brief.yml C-13 + record_fields.register_law); the packet and projection pins moved together, the hold set is unchanged (12/0/0), and the adapter bytes are untouched",
+     "recorded_in": "reports/round-27/law/impl-1.md"
+    },
+    {
+     "round": 27,
+     "date": "2026-10-18",
+     "packet_sha256": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc",
+     "projection_sha256": "88a94422b4123f6b436f9935590d69f081f90e688655ee605f33e0c1305fb68d",
+     "expected_sha256": "857417e949fb5cb9b265918b8982ca86e47a820d136ba7b009414d84aa4ec28f",
+     "adapter_sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0",
+     "reason": "round-27 register-law build (revision 2) pins, recorded as a NEW row when the round-28 law-replay build re-pointed the same five fields. Superseded by the round-28 row below; no historical generation is overwritten in place.",
      "recorded_in": "reports/round-27/law/impl-1.md"
     }
    ]

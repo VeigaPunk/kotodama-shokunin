@@ -1,0 +1,167 @@
+# reports/round-17/d4/components/09-costumes.yml
+# D4 design drill — component 09 of the round-17 registry.
+# NON-CANON: this file proposes a design; it records nothing about any world.
+#
+# Write seat: R17-D13 (D-components, seat 9 of 12). Round 17, 2026-10-18.
+# The `costumes`, `materials`, `cloth_sources`, `rank_rules` and `form_slots`
+# blocks below are the packet blocks the assembler extracts. The six garment
+# form slots LEX-GAR-01..06 are deliberately unfilled: they are the six named
+# holds of contract.hold_set_declaration (01-brief.yml).
+component: 09-costumes
+culture: D4
+canon: not canonized (D4 design drill)
+title: "09-costumes — the two-wardrobe year: forge dress and league dress, and what may be worn at each"
+status: "round-17 component write, 2026-10-18; supersede-by-new-file only"
+# Round-28 (R28-D05..D12, claim D) RL-4 fix: `enforcement` was declared by this
+# file and left out of the packet_keys list, so EN-01/EN-02 — the delivered
+# tree's only two enforcement mechanisms — were recorded under
+# assembly.skipped_keys and reached no gate
+# (reports/round-27/law/review.md section 5, RL-4). The declaration below names
+# the block, so a law row that cites EN-01 now cites a packet record.
+# `legibility` and `rank_rules_note` stay component-only.
+packet_keys: [costumes, materials, cloth_sources, rank_rules, form_slots, enforcement]
+scope: >
+  Six delivered garments (GAR-01..06), five materials (CMAT-01..05), two cloth
+  sources (CS-01..02), four rank rules (RK-01..04), and the six owed form slots
+  (LEX-GAR-01..06). This file coins no surface form: every garment carries an
+  English translated label and an unfilled form slot, which is the named design
+  debt. The garment set follows the cross-seat costume design's furnace-frame
+  re-map (design-costume.md §9.3) so the slice agrees with the landed registry.
+spine_coupling: "fire — the forge wardrobe is protection from heat and slag (hide apron, quench smock, kiln hood), and the materials are the furnace's own products and by-products (hide, wool, felt, charcoal pigment). mark — the league wardrobe carries attestation (the cloak's shoulder stamp, the stamp-belt's maker's mark), and rank rules are rights to wear a mark, not rights to a fabric"
+spine_check: "no D1 or D2 imagery is imported. No bast/flax/reed fiber chain (D1B-03): the fiber chain is wool and hide with one declared import. No herd-pasture rank (D2B-01): rank here is furnace right and the league's charter. No knot or cord: the belt carries a stamp and tokens, never a tied obligation."
+
+follows:
+  - {id: F-1, path: "corpus/knowledge/culture-material/textile-technology.md", section: "§2 fiber hierarchy, §6 the vocabulary ceiling", use: "a culture cannot have a basic costume term for a cloth its four gates cannot make; the chain here is hide and wool, felt by fulling"}
+  - {id: F-2, path: "corpus/knowledge/synthesis/costume-language-coupling-table.md", section: "§2 relation model, §8 blank template", use: "the term/wearer/era field model; the garment term is owed, the wearer relation is declared"}
+  - {id: F-3, path: "corpus/knowledge/verification/costume-era-consistency-gate.md", section: "§4 material availability, §5 textile bounds, §6 rank rules, §7 anachronism sweep", use: "material routes carry eras; rank rules carry authority and effect; no process is dated past its era"}
+  - {id: F-4, path: "corpus/knowledge/culture-material/sumptuary-law-rank-display.md", section: "§8 the language of regulation, §10 build sequence", use: "rank rules are written as license and prohibition with named authority, not as taste"}
+  - {id: F-5, path: "corpus/knowledge/culture-material/dress-through-eras.md", section: "§1 the three-slot grammar, §10 enforcement mechanisms", use: "two enforcement mechanisms only: the council's fine and the stamp-holder's refusal to mark"}
+
+materials:
+  - {id: CMAT-01, material: "local hide", composition: "cattle and goat hide, tanned with oak and ash lye", stage: cloth, eras: [E0, E1, E2], routes: [{name: "the yard tannery", kind: local, stage: preparation, eras: [E0, E1, E2]}], axis: fire, evidence: design-choice, follows: [F-1]}
+  - {id: CMAT-02, material: "upland wool", composition: "wool from the hill flock, spun and woven on the valley loom", stage: cloth, eras: [E0, E1, E2], routes: [{name: "the hill flock and the valley loom", kind: local, stage: yarn, eras: [E0, E1, E2]}], axis: mark, evidence: design-choice, follows: [F-1]}
+  - {id: CMAT-03, material: "felted wool", composition: "upland wool fulled at the furnace's warm water; no loom bound", stage: cloth, eras: [E0, E1, E2], routes: [{name: "fulling at the furnace water", kind: local, stage: cloth, eras: [E0, E1, E2]}], axis: fire, evidence: design-choice, follows: [F-1]}
+  - {id: CMAT-04, material: "salt-road cloth", composition: "imported woven cloth, traded up the salt road; fibre unmodelled (to-verify)", stage: cloth, eras: [E1, E2], routes: [{name: "the salt-road import", kind: import, stage: cloth, eras: [E1, E2]}], axis: mark, evidence: design-choice, follows: [F-3]}
+  - {id: CMAT-05, material: "charcoal pigment", composition: "charcoal black bound with hide glue; the stamp pad and the mark ink", stage: dye, eras: [E0, E1, E2], routes: [{name: "the burn ground charcoal", kind: local, stage: dye, eras: [E0, E1, E2]}], axis: mark, evidence: design-choice, follows: [F-1]}
+
+cloth_sources:
+  - {id: CS-01, name: "the valley weave", max_width_m: 1.4, eras: [E0, E1, E2], axis: mark, evidence: design-choice, follows: [F-1]}
+  - {id: CS-02, name: "the salt-road import", max_width_m: 1.8, eras: [E1, E2], axis: mark, evidence: design-choice, follows: [F-3]}
+
+costumes:
+  - id: GAR-01
+    garment: "forge apron (thick hide; spark and slag protection)"
+    form_slot: LEX-GAR-01
+    material: "local hide"
+    material_ref: CMAT-01
+    era: E0
+    wearer_rank: smith
+    wearer_ranks: [smith, furnace-master]
+    rite: "forge work"
+    axis: fire
+    evidence: design-choice
+    follows: [F-2, F-5]
+    notes: "the working dress of the forge; the apron carries no mark and confers no rank"
+  - id: GAR-02
+    garment: "quench smock (coarse wool, soaked at the quench)"
+    form_slot: LEX-GAR-02
+    material: "upland wool"
+    material_ref: CMAT-02
+    era: E0
+    wearer_rank: smith
+    wearer_ranks: [smith, furnace-master]
+    rite: "the quench"
+    axis: fire
+    evidence: design-choice
+    follows: [F-2, F-5]
+    notes: "worn wet; a smock that dries stiff is re-soaked, not replaced"
+  - id: GAR-03
+    garment: "league cloak (fulled wool; town stamp at the shoulder)"
+    form_slot: LEX-GAR-03
+    material: "upland wool"
+    material_ref: CMAT-02
+    era: E1
+    wearer_rank: "league delegate"
+    wearer_ranks: ["league delegate", "furnace-master"]
+    rite: "the league assembly"
+    axis: mark
+    evidence: design-choice
+    follows: [F-2, F-4]
+    notes: "the shoulder stamp is the town's mark; the cloak is the league's public dress"
+  - id: GAR-04
+    garment: "stamp-belt (hide; carries the maker's stamp and charge tokens)"
+    form_slot: LEX-GAR-04
+    material: "local hide"
+    material_ref: CMAT-01
+    era: E0
+    wearer_rank: "stamp-holder"
+    wearer_ranks: ["stamp-holder", "furnace-master"]
+    rite: "attesting work"
+    axis: mark
+    evidence: design-choice
+    follows: [F-2, F-4]
+    notes: "carries the maker's stamp and the charge tokens; it is the wearer's license made portable"
+  - id: GAR-05
+    garment: "kiln hood (felted wool; charcoal burners, kiln tenders)"
+    form_slot: LEX-GAR-05
+    material: "felted wool"
+    material_ref: CMAT-03
+    era: E0
+    wearer_rank: "kiln tender"
+    wearer_ranks: ["kiln tender", "charcoal burner"]
+    rite: "the burn"
+    axis: fire
+    evidence: design-choice
+    follows: [F-2, F-5]
+    notes: "felt, not woven: no loom bound, worked on the table at the burn ground"
+  - id: GAR-06
+    garment: "market-day coat (valley wool with salt-road cloth facing)"
+    form_slot: LEX-GAR-06
+    material: "salt-road cloth"
+    material_ref: CMAT-04
+    era: E1
+    wearer_rank: "market-goer"
+    wearer_ranks: ["market-goer", "broker"]
+    rite: "market days"
+    axis: both
+    evidence: design-choice
+    follows: [F-2, F-3]
+    notes: "the only imported-cloth garment; the import dates from the E1 seam and is not worn earlier"
+
+form_slots:
+  - {id: LEX-GAR-01, owner: GAR-01, status: unfilled, kind_owed: native-form, note: "the forge apron's D4 term is owed; the gloss is a translated label, off the sound channel"}
+  - {id: LEX-GAR-02, owner: GAR-02, status: unfilled, kind_owed: native-form, note: "the quench smock's D4 term is owed"}
+  - {id: LEX-GAR-03, owner: GAR-03, status: unfilled, kind_owed: native-form, note: "the league cloak's D4 term is owed"}
+  - {id: LEX-GAR-04, owner: GAR-04, status: unfilled, kind_owed: native-form, note: "the stamp-belt's D4 term is owed"}
+  - {id: LEX-GAR-05, owner: GAR-05, status: unfilled, kind_owed: native-form, note: "the kiln hood's D4 term is owed"}
+  - {id: LEX-GAR-06, owner: GAR-06, status: unfilled, kind_owed: borrowed-strata, note: "the market-day coat's D4 term is owed; as an imported-cloth garment its term may arrive as a salt-road loan, which is a lexicon decision"}
+form_slots_note: "this file coins no surface form; the six owed slots are the named holds of 01-brief.yml contract.hold_set_declaration. Filling any of them is a later round's decision and must respect 02's phonology."
+
+rank_rules:
+  - {id: RK-01, authority: "the furnace right", jurisdiction: "the forge and the furnace yard", eras: [E0, E1, E2], rites: ["forge work"], property: {kind: material, value: "local hide"}, effect: permit, wearer_ranks: [smith, furnace-master], axis: fire, evidence: design-choice, follows: [F-4]}
+  - {id: RK-02, authority: "the league charter", jurisdiction: "the league assembly", eras: [E1, E2], rites: ["the league assembly"], property: {kind: badge, value: "the shoulder town stamp"}, effect: permit, wearer_ranks: ["league delegate", "furnace-master"], axis: mark, evidence: design-choice, follows: [F-4]}
+  - {id: RK-03, authority: "the stamp-house", jurisdiction: "the market and the weigh-stone", eras: [E0, E1, E2], rites: ["attesting work"], property: {kind: badge, value: "the maker's stamp"}, effect: permit, wearer_ranks: ["stamp-holder", "furnace-master"], axis: mark, evidence: design-choice, follows: [F-4]}
+  - {id: RK-04, authority: "the league charter", jurisdiction: "market days", eras: [E1, E2], rites: ["market days"], property: {kind: material, value: "imported salt-road cloth"}, effect: permit, wearer_ranks: ["market-goer", "broker", "furnace-master"], axis: both, evidence: design-choice, follows: [F-4]}
+rank_rules_note: "rank is furnace right and charter license, never wealth alone; the four rules are permits, and no two rules claim the same property and rite pair"
+
+enforcement:
+  - {id: EN-01, mechanism: "the council's fine", detail: "wearing a mark or a stamp without the right is fined by the league council", axis: mark, evidence: design-choice, follows: [F-4]}
+  - {id: EN-02, mechanism: "the stamp-holder's refusal", detail: "a stamp-holder refuses to mark work presented in dress the presenter has no right to wear; the refusal is itself the record", axis: mark, evidence: design-choice, follows: [F-4]}
+
+legibility:
+  - {id: LEG-01, note: "at the forge, dress reads by protection (hide, wet wool); at the assembly it reads by mark (shoulder stamp, belt stamp); the two wardrobes are not interchangeable and no garment claims both", axis: both, evidence: design-choice}
+
+open_questions:
+  - {id: OQ-C1, text: "The imported cloth's fibre is unmodelled (CMAT-04 to-verify); the salt-road towns' textile chain is out of scope."}
+  - {id: OQ-C2, text: "Whether a later round fills the six owed garment slots as native forms or as one salt-road loan is open (see form_slots)."}
+
+calibration:
+  - {id: CAL-C1, status: design-choice, note: "the wardrobe is an invented design; no real craft, guild, or dress practice is described"}
+  - {id: CAL-C2, status: to-verify, note: "no textile measurement or wear study backs the garment set; the cloth-source widths are design conventions"}
+
+canon_boundary: |
+  This component designs a wardrobe and a rank-law slice; it records nothing
+  about any world. Canon, entity identity, and in-world dress practice are
+  lore-shokunin's. No sibling component was edited; sibling content is referenced
+  only by contract field path. No real-world craft, community, or rights question
+  is decided or implied here.

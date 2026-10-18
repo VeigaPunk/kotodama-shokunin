@@ -1,0 +1,482 @@
+{
+ "round": 28,
+ "date": "2026-10-18",
+ "kind": "availability-record",
+ "sample": "fourth",
+ "lane": "kotodama-shokunin",
+ "seat": "R28-X53",
+ "state": "open-at-seat-close",
+ "regimen": "operator: loop 3 of 3, build round 4 of 4 (64 workers on devin/deepseek-v4-1-flash-high) - the final build round of loop 3",
+ "baseline_revision": "6c0ac4484d7ee5d15aaf190e7ad3b8817ea13ede",
+ "declaration_commit": "69cecbc",
+ "route": "devin/deepseek-v4-1-flash-high",
+ "route_source": "operator amendment 4 (LOG.md '2026-10-18 - Operator amendment 4: devin provider for loop-3 DeepSeek builds', line 3340, commit eb4295c): all remaining DeepSeek build rounds (25-28, 64 workers each) use the devin provider, designated devin/deepseek-v4-1-flash-high; declared as requested_model in reports/round-28/claims.json",
+ "route_is_known_measured_lane": {
+  "census_entry": "research/round-18-kimi-model-routing/census/manifest.json:2863 (provider=devin, model=deepseek-v4-1-flash-high, protocol=openai, base_url=http://127.0.0.1:8787/v1, max_context_size=1048576); manifest.json:271 lists the id in the provider's model id set",
+  "config_entry": "~/.kimi-code/config.toml [providers.devin] base_url=http://127.0.0.1:8787/v1 type=openai; [models.\"devin/deepseek-v4-1-flash-high\"] present in the config's devin model set (api_key present, never printed)",
+  "census_probe_history": "research/round-18-kimi-model-routing/census/raw/chat-devin.json: the round-18 census probe POSTed model_id swe-2 with temperature:0 and timed out at 180 s ('no response within 180s'); that probe never exercised deepseek-v4-1-flash-high and its timeout is not a deepseek-route property",
+  "first_sample": "reports/round-25/availability.json (seat R25-X41) - the first sample on this route",
+  "second_sample": "reports/round-26/availability.json (seat R26-X59) - the second, independent sample",
+  "third_sample": "reports/round-27/availability.json (seat R27-X53) - the third, independent sample",
+  "fourth_sample": "this record - taken in a fourth window on the final build wave (loop 3 build 4 of 4), with dimensions the first three did not measure (64-way concurrency rung, error-path probes: unknown model, empty messages, malformed JSON body, oversized max_tokens)"
+ },
+ "requested_workers": 64,
+ "launched_workers": null,
+ "launched_workers_basis": "not observable from a worker seat: a seat cannot read the host's per-seat launch receipt. Corroborating observation only: 23 distinct round-28 seat markers under .scratch/ (see observed_seat_markers) plus the shim's request volume (see journal_traffic). The declaration (64 seats in claims.json + targets.json) is the dispatch claim; the count is NOT verified by this seat.",
+ "observed_concurrent_seat_markers": 23,
+ "observed_seat_markers": [
+  "r28ctl",
+  "r28-d",
+  "r28-d13",
+  "r28-d17",
+  "r28-d18",
+  "r28-d19",
+  "r28-d20",
+  "r28-d21",
+  "r28-d21-95vkpgar",
+  "r28-law",
+  "r28-o33-o36-regression",
+  "r28-o39",
+  "r28-poll.log",
+  "r28-x58",
+  "x52r28",
+  "x52r28-commands.json",
+  "x53-r28",
+  "x57r28",
+  "x61-r28",
+  "x62-r28",
+  "x63r28",
+  "x64r28",
+  "x64r28b"
+ ],
+ "observed_x_seat_markers": [
+  "x52r28",
+  "x52r28-commands.json",
+  "x53-r28",
+  "x57r28",
+  "x61-r28",
+  "x62-r28",
+  "x63r28",
+  "x64r28",
+  "x64r28b"
+ ],
+ "completed_workers": null,
+ "completed_workers_basis": "not observable from a worker seat; reports/round-28/validation.json was absent at this seat's close (see finalization_note). reports/round-28/ held 14 files (excl. __pycache__) at the close census.",
+ "route_liveness": {
+  "resolved": true,
+  "endpoint": "http://127.0.0.1:8787/v1/chat/completions",
+  "shim": "devin-openai-shim/2 (systemd user unit devin-shim.service, active since 2026-10-17 00:00:08 -03, Main PID 1574, upstream server.codeium.com GetChatMessage/connect); ~/.local/share/devin-shim/shim.py:614 emits server_version 'devin-openai-shim/2'",
+  "models_listing": "GET /v1/models -> HTTP 200, static 9-id list: deepseek-v4-1-flash-high, deepseek-v4-1-flash-max, glm-5-3-flash-high, glm-5-3-flash-low, glm-5-3-flash-max, swe-2, swe-2-high, swe-2-max, swe-2-medium",
+  "real_completions": true,
+  "served_model_echoed": "deepseek-v4-1-flash-high",
+  "served_model_basis": "151 of 152 ok rows of .scratch/x53-r28/sample.json echoed model='deepseek-v4-1-flash-high'; the 152nd is the stream:true row, whose body is SSE text and carries no single model field (see stream_probe). finish_reason in {stop,length}; usage present (prompt_tokens/completion_tokens/total_tokens)"
+ },
+ "completion_measurement": {
+  "instrument": ".scratch/x53-r28/sample.py (writes .scratch/x53-r28/sample.json); body mirrors the kimi client: model + max_tokens + messages, NO temperature field. sha256 70b5830efcd4b1d82113f0a88656c4fb2d2b976a3ce701642fdcd420248931a9",
+  "clean_attempts": {
+   "attempts": 157,
+   "completed": 152,
+   "failed": 5,
+   "completion_ratio": 0.9682,
+   "note": "the 5 failures are the two in-sample temperature:0 controls (control-temp0-artifact, temp-boundary-0.0) plus the three deliberate error-path probes that are EXPECTED to fail (err-unknown-model 403, err-empty-messages 400, err-malformed-json 400); neither family is a route failure",
+   "counting_command": "python3 -c \"import json;d=json.load(open('.scratch/x53-r28/sample.json'));r=d['attempts'];print('attempts=%d ok=%d failed=%d ratio=%.4f'%(len(r),sum(1 for a in r if a.get('ok')),sum(1 for a in r if not a.get('ok')),sum(1 for a in r if a.get('ok'))/len(r)))\"  # -> attempts=157 ok=152 failed=5 ratio=0.9682",
+   "wall_s": {
+    "min": 0.804,
+    "median": 1.389,
+    "p90": 2.328,
+    "p99": 2.618,
+    "max": 2.626
+   }
+  },
+  "clean_population_only": {
+   "attempts": 155,
+   "completed": 152,
+   "failed": 3,
+   "completion_ratio": 0.9806,
+   "predicate": "attempts whose temperature field is not 0 (i.e. temperature absent, or a deliberate non-zero boundary value) - everything except the two deliberate temperature:0 controls. This population still contains the three deliberate error-path probes.",
+   "counting_command": "python3 -c \"import json;d=json.load(open('.scratch/x53-r28/sample.json'));c=[a for a in d['attempts'] if a['temperature']!=0];ok=[a for a in c if a.get('ok')];print('clean=%d ok=%d ratio=%.4f'%(len(c),len(ok),len(ok)/len(c)))\"  # -> clean=155 ok=152 ratio=0.9806"
+  },
+  "wellformed_population": {
+   "attempts": 151,
+   "completed": 151,
+   "failed": 0,
+   "completion_ratio": 1.0,
+   "predicate": "clean attempts (temperature != 0) that are ALSO well-formed, i.e. not an err-* error-path probe. This is the sample's true clean-route population and the figure comparable to the first three samples' clean_completion_ratio.",
+   "counting_command": "python3 -c \"import json;d=json.load(open('.scratch/x53-r28/sample.json'));w=[a for a in d['attempts'] if a['temperature']!=0 and not a['tag'].startswith('err-')];ok=[a for a in w if a.get('ok')];print('wellformed=%d ok=%d ratio=%.4f'%(len(w),len(ok),len(ok)/len(w)))\"  # -> wellformed=151 ok=151 ratio=1.0000"
+  },
+  "burst_wall_s": {
+   "1": 1.008,
+   "8": 1.348,
+   "16": 2.627,
+   "32": 1.423,
+   "64": 2.462
+  },
+  "status_histogram": {
+   "200": 152,
+   "400": 4,
+   "403": 1
+  }
+ },
+ "temperature_boundary": {
+  "new_dimension": "round-27 X53 first swept the boundary (0.0/0.1/0.5/1.0/2.0); this sample re-pins it in a fourth window at 0.0/0.1/1.0",
+  "sweep": {
+   "0.0": 400,
+   "0.1": 200,
+   "1.0": 200
+  },
+  "reading_zero_is_the_boundary": true,
+  "reading": "the rejection is exactly at temperature 0, not a range: 0.0 -> HTTP 400 invalid_argument, and 0.1 / 1.0 -> HTTP 200. Reproduced in-sample and again in the labelled control (boundary-0.1/1.0 -> 200). Fourth independent window to read 0 -> 400.",
+  "counting_command": "python3 -c \"import json;d=json.load(open('.scratch/x53-r28/sample.json'));print(d['summary']['temperature_boundary'])\"  # -> {'0.0': 400, '0.1': 200, '1.0': 200}",
+  "prior_evidence": "research/round-18-kimi-model-routing/devin-opus/ANALYSIS.md:72-92 (M10 field-isolation table records temperature:0 -> 400 and temperature:1.0 -> 200); round-27 X53 swept the boundary first; rounds 25 and 26 recorded the 0 case only"
+ },
+ "error_paths": {
+  "new_dimension": "the first three samples sent well-formed bodies only; this sample probes the lane's failure shapes, which were previously unmeasured",
+  "unknown_model_status": 403,
+  "probes": {
+   "err-unknown-model": {
+    "body": "model='no-such-model-xyz', one user message",
+    "status": 403,
+    "error_code": "permission_denied",
+    "wall_s": 0.424,
+    "reading": "an unlisted model id is refused with 403 permission_denied, not 404 - the shim/upstream gate answers on authorization, not on resource existence"
+   },
+   "err-empty-messages": {
+    "body": "messages=[]",
+    "status": 400,
+    "error_code": "invalid_argument",
+    "wall_s": 0.404,
+    "reading": "an empty message list is refused at 400 invalid_argument in the same fast band as the temperature:0 rejection"
+   },
+   "err-malformed-json": {
+    "body": "a truncated JSON document (no valid parse)",
+    "status": 400,
+    "wall_s": 0.001,
+    "reading": "a malformed body is refused at the SHIM LAYER in 1 ms ('bad request: Expecting value: line 1 column 52'), i.e. before any upstream call - distinct from the 0.4 s upstream-side invalid_argument band. This is the lane's fastest failure and is not a route-health signal."
+   },
+   "err-huge-maxtok": {
+    "body": "max_tokens=99999999",
+    "status": 200,
+    "wall_s": 0.893,
+    "finish_reason": "stop",
+    "completion_tokens": 40,
+    "reading": "an absurd max_tokens is ACCEPTED (200) and simply answered normally - the lane does not validate max_tokens against the context window; the completion stops on its own at 40 tokens. Recorded as a lane property, not a failure."
+   }
+  },
+  "counting_command": "python3 -c \"import json;d=json.load(open('.scratch/x53-r28/sample.json'));print({k:v['status'] for k,v in d['summary']['error_paths'].items()})\"  # -> {'err-unknown-model': 403, 'err-empty-messages': 400, 'err-malformed-json': 400, 'err-huge-maxtok': 200}",
+  "prior_evidence": "no prior sample on this lane sent a malformed or semantically-invalid body; rounds 25/26/27 measured only well-formed traffic plus the temperature:0 control"
+ },
+ "stream_probe": {
+  "body": "stream:true, max_tokens 64, one user message",
+  "observed": "HTTP 200, SSE text body, wall 1.000 s",
+  "reading": "the lane streams correctly; the streamed body is SSE, not one JSON document, so a served-model echo cannot be read from it the way the non-streaming rows are read - which is why 151 of 152 ok rows carry the echo and this one does not",
+  "counting_command": "python3 -c \"import json;d=json.load(open('.scratch/x53-r28/sample.json'));s=[a for a in d['attempts'] if a['tag']=='shape-stream-true'][0];print(s['http_status'],s.get('streamed_sse'),s['wall_s'])\"  # -> 200 True 1.0"
+ },
+ "shape_probes": {
+  "shape-system-user": {
+   "status": 200,
+   "finish_reason": "stop",
+   "wall_s": 0.821
+  },
+  "shape-multiturn": {
+   "status": 200,
+   "finish_reason": "length",
+   "wall_s": 1.197
+  },
+  "shape-stream-true": {
+   "status": 200,
+   "streamed_sse": true,
+   "wall_s": 1.0
+  },
+  "reading": "system+user and multi-turn (user/assistant/user) bodies both answer 200; the lane is not sensitive to message shape at this scale"
+ },
+ "maxtok_scaling": {
+  "new_dimension": "round-27 X53 introduced the max_tokens scaling leg; this sample repeats it",
+  "wall_s": {
+   "maxtok-16": 0.804,
+   "maxtok-64": 0.892,
+   "maxtok-256": 0.919,
+   "maxtok-1024": 1.155
+  },
+  "completion_tokens": {
+   "maxtok-16": 16,
+   "maxtok-64": 64,
+   "maxtok-256": 52,
+   "maxtok-1024": 65
+  },
+  "reading": "wall time tracks completion length only weakly (0.804 s at 16 tokens to 1.155 s at 1024): the lane answers short prompts quickly and the model self-terminates well below the cap at the larger settings. Not a latency score - a scaling check."
+ },
+ "control_temperature_zero": {
+  "probes_total": 4,
+  "in_sample_file": 2,
+  "in_labelled_script": 2,
+  "attempts": 4,
+  "completed": 0,
+  "failed": 4,
+  "completion_ratio": 0.0,
+  "status": "all four -> HTTP 400, error code invalid_argument, wall_s 0.406-0.429 (fast rejection, not a timeout)",
+  "probe_seconds": [
+   "17:11:47 (control-temp0-artifact)",
+   "17:11:48 (temp-boundary-0.0)",
+   "17:12:44 x2 (trap-temp0-a, trap-temp0-b)"
+  ],
+  "counting_command": "python3 -c \"import json;d=json.load(open('.scratch/x53-r28/sample.json'));l=json.load(open('.scratch/x53-r28/labeled.json'));ins=[a for a in d['attempts'] if a['temperature']==0];lb=[r for r in l if r['temperature']==0];print('in-sample=%d labelled=%d total=%d all400=%s'%(len(ins),len(lb),len(ins)+len(lb),all(a['http_status']==400 for a in ins+lb)))\"  # -> in-sample=2 labelled=2 total=4 all400=True",
+  "note": "deliberate control: this lane rejects temperature:0 (see instrument_artifact). FOURTH independent reproduction across four rounds and four windows."
+ },
+ "instrument_artifact": {
+  "finding": "The devin lane answers HTTP 400 invalid_argument to any body carrying temperature: 0. This is a pre-existing, documented lane property, not a round-28 route failure.",
+  "reproduced_fourth_sample": true,
+  "prior_evidence": "research/round-18-kimi-model-routing/devin-opus/ANALYSIS.md:72-92 (M10 field-isolation table: bare 200, temperature:0 -> 400, temperature:1.0 -> 200, stream_options 200, temperature:0+stream_options -> 400); first sample reports/round-25/availability.json instrument_artifact; second sample reports/round-26/availability.json instrument_artifact; third sample reports/round-27/availability.json instrument_artifact",
+  "does_not_bind_the_wave": "the kimi client transmits no temperature field at all; the string 'temperature' does not occur in research/round-18-kimi-model-routing/definitions/raw/client-semantics.json (grep -c temperature -> 0)",
+  "closed_loop_control": ".scratch/x53-r28/labeled.json: 2x temperature:0 -> 2x 400 at 0.406-0.409 s (17:12:44 local), then 0.1/1.0 -> 2x 200 at 1.012-1.041 s, then 2x no-temperature -> 2x 200 at 1.032-1.374 s; timestamps matched against the shim journal by second (see status_400_attribution)"
+ },
+ "journal_traffic": {
+  "window_local_since": "16:05:00",
+  "window_local_until": "17:11:44",
+  "window_timezone": "LOCAL (journalctl --since/--until take local time here, not UTC; local = UTC-3)",
+  "window_note": "the window is pinned with an explicit --until so the count reproduces; an open-ended --since grows while the wave keeps running and does NOT reproduce",
+  "http_200": 12241,
+  "http_400": 4,
+  "http_403": 0,
+  "http_5xx": 0,
+  "other_status_lines": 0,
+  "counting_command": "journalctl --user -u devin-shim.service --since '16:05:00' --until '17:11:44' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 12241 x200, 4 x400; run twice, identical",
+  "reading": "the wave was already driving the shim before this seat's first probe: 12241 x200 in the 66 minutes before the sample started. The route served the round-28 wave continuously and cleanly; the only 400s in this window are the four control seconds 16:12:43 / 16:12:45 / 16:14:06 x2, which are round-27's own X53 control seconds (this seat's prior sample), not round-28 wave failures."
+ },
+ "status_400_attribution": {
+  "journal_non200s_in_whole_window": 11,
+  "journal_non200s_by_second": {
+   "16:12:43": "1x400",
+   "16:12:45": "1x400",
+   "16:14:06": "2x400",
+   "17:11:47": "1x400",
+   "17:11:48": "1x400",
+   "17:11:51": "1x400 + 1x403",
+   "17:11:52": "1x400",
+   "17:12:44": "2x400"
+  },
+  "my_probes_by_second": {
+   "17:11:47": "control-temp0-artifact (400)",
+   "17:11:48": "temp-boundary-0.0 (400)",
+   "17:11:50": "err-unknown-model (403)",
+   "17:11:51": "err-empty-messages (400)",
+   "17:11:52": "err-malformed-json (400)",
+   "17:12:44": "trap-temp0-a + trap-temp0-b (2x400)"
+  },
+  "matched_by_second": 7,
+  "reading": "every non-200 in the window 17:11:45-17:14:00 (6x400 + 1x403 = 7) matches this seat's own probe seconds exactly. The four 400s at 16:12:43/45 and 16:14:06 are round-27 X53's control seconds (recorded in reports/round-27/availability.json status_400_attribution) and are NOT round-28 wave traffic. No 400/403 is attributable to the round-28 wave's own agent traffic.",
+  "caveat": "second-resolution matching only; a same-second collision is possible, so the attribution is indicative, not exact.",
+  "stronger_than_second_resolution": "the sample's own per-attempt UTC timestamps place the in-sample non-200s at 20:11:47.065Z (control), 20:11:48.452Z (boundary-0.0), 20:11:50.917Z (unknown model 403), 20:11:51.341Z (empty messages), 20:11:52.639Z (malformed) - local 17:11:47/48/50/51/52, the exact journal seconds. The labelled pair starts at 20:12:44.343Z and 20:12:44.749Z, local 17:12:44 - again the exact journal second. So the non-200s are sub-second-identified as this seat's probes, not merely second-matched."
+ },
+ "route_failures": {
+  "quota_or_auth_receipts": "none: no 402 insufficient-funds (round-10 class), no 429, no 401 in the shim journal over the whole window; the only 403 is this seat's deliberate unknown-model probe. No availability-attempt-*.json failure receipt under reports/round-28/",
+  "transport_errors": "none observed by this seat: no 5xx, no connection reset/refused, no 'shim busy' 503",
+  "cold_start": "not observed as a failure: the lane answered this seat's first probe (control-temp0-artifact, 17:11:47 local) in 0.429 s while the wave was already driving it",
+  "false_positive_note": "a naive grep for '402|429' over reports/round-2*/**.json matches sha256 digests inside validation.json / rerun.json / fragment-ledger.json. A strict scan of JSON status fields finds no route-error receipt; the grep class is a false positive."
+ },
+ "whole_window_traffic": {
+  "window_local_since": "16:05:00",
+  "window_local_until": "17:13:10",
+  "window_timezone": "LOCAL (journalctl --since/--until take local time here, not UTC; local = UTC-3)",
+  "http_200": 12725,
+  "http_400": 10,
+  "http_403": 1,
+  "other_status_lines": 0,
+  "counting_command": "journalctl --user -u devin-shim.service --since '16:05:00' --until '17:13:10' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 12725 x200, 10 x400, 1 x403; run three times, identical",
+  "reading": "over the full observation span the route served 12725 requests with only 10 x400 and 1 x403 - and every one of the 11 non-200s is attributable to a deliberate control/probe (four from round-27 X53's controls, seven from this seat's controls and error-path probes). Zero non-200s are attributable to the wave's own agent traffic.",
+  "drift_note": "the window is pinned with a CLOSED --until (17:13:10 local, a past instant) so it reproduces; an --until in the future grows as the wave runs and does NOT reproduce. The self-check caught exactly this on its first run: --until 17:14:00 (still open at 17:13:5x) read 305 x200 for the sustained leg and 12801 for the whole window, drifting between runs. Recorded so the drift is not mistaken for a route change. Every window in this record uses local clock times."
+ },
+ "sustained_clean_leg": {
+  "window_local_since": "17:12:50",
+  "window_local_until": "17:13:10",
+  "http_200": 87,
+  "http_400": 0,
+  "http_403": 0,
+  "counting_command": "journalctl --user -u devin-shim.service --since '17:12:50' --until '17:13:10' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 87 x200 only; run three times, identical",
+  "reading": "after this seat's last probe (17:12:49), the final 20 seconds of the window carry 87 x200 and ZERO non-200: the 11 window non-200s are confined to the control/probe seconds, and the lane served the wave cleanly either side of them."
+ },
+ "sample_window_leg": {
+  "window_local_since": "17:11:45",
+  "window_local_until": "17:12:36",
+  "http_200": 342,
+  "http_400": 4,
+  "http_403": 1,
+  "counting_command": "journalctl --user -u devin-shim.service --since '17:11:45' --until '17:12:36' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 342 x200, 4 x400, 1 x403",
+  "reading": "this seat's sample burst ran inside the wave: 342 x200 interleaved with this seat's deliberate 400/403 controls, no failure of the wave's own traffic"
+ },
+ "pre_sample_wave_window": {
+  "window_local_since": "16:05:00",
+  "window_local_until": "17:11:44",
+  "http_200": 12241,
+  "http_400": 4,
+  "http_403": 0,
+  "counting_command": "journalctl --user -u devin-shim.service --since '16:05:00' --until '17:11:44' --no-pager | grep -oE 'HTTP/1.1\" [0-9]{3}' | sort | uniq -c  # -> 12241 x200, 4 x400",
+  "reading": "the wave alone (before this seat's first probe) served 12241 x200. The four 400s are round-27's control seconds, not this wave's traffic."
+ },
+ "fourth_sample_delta_vs_rounds_25_26_27": {
+  "clean_completion_ratio": {
+   "round_25_x41": 1.0,
+   "round_26_x59": 1.0,
+   "round_27_x53": 1.0,
+   "round_28_x53": 1.0,
+   "reading": "four independent samples all read a well-formed clean population of 1.0000"
+  },
+  "median_wall_s": {
+   "round_25_x41": 1.066,
+   "round_26_x59": 1.19,
+   "round_27_x53": 1.425,
+   "round_28_x53": 1.389
+  },
+  "max_wall_s": {
+   "round_25_x41": 1.881,
+   "round_26_x59": 2.769,
+   "round_27_x53": 2.455,
+   "round_28_x53": 2.626
+  },
+  "max_concurrency_rung": {
+   "round_25_x41": 16,
+   "round_26_x59": 32,
+   "round_27_x53": 48,
+   "round_28_x53": 64
+  },
+  "journal_400s": {
+   "round_25_x41": 41,
+   "round_26_x59": 5,
+   "round_27_x53": 4,
+   "round_28_x53": 10,
+   "reading": "this window's 400s are 100% attributable: 7 are this seat's controls/probes, 4 are round-27 X53's controls (carried in the same journal); zero are wave failures"
+  },
+  "temperature_0_artifact": {
+   "round_25_x41": "400 invalid_argument",
+   "round_26_x59": "400 invalid_argument",
+   "round_27_x53": "400 invalid_argument (third reproduction, boundary pinned to exactly 0)",
+   "round_28_x53": "400 invalid_argument (fourth reproduction, boundary re-pinned at 0)"
+  },
+  "new_dimensions_this_sample": [
+   "64-way concurrency rung above X53-r27's 48-way (64/64 completed)",
+   "error-path probes: unknown model -> 403 permission_denied, empty messages -> 400 invalid_argument, malformed JSON -> 400 at the shim layer in 1 ms, oversized max_tokens -> 200 (accepted)"
+  ],
+  "verdict": "the route behaves the same in the fourth sample: same endpoint, same echoed model, same temperature:0 rejection (boundary re-pinned), comparable per-request latency, and now the failure shapes are measured too. The small latency spread across the four samples is within wave-load noise and is not a route change."
+ },
+ "evidence": [
+  {
+   "claim": "round-28 wave declared before dispatch on the operator-designated route",
+   "source": "reports/round-28/claims.json ; reports/round-28/targets.json ; LOG.md:3340",
+   "command": "cat reports/round-28/claims.json reports/round-28/targets.json ; sed -n '3340,3348p' LOG.md",
+   "observed": "state=declared-before-dispatch; requested_model=devin/deepseek-v4-1-flash-high; workers=64; baseline_revision=6c0ac4484d7ee5d15aaf190e7ad3b8817ea13ede; declaration commit 69cecbc; targets split D-law-replay 28 / O-sweep 16 / C-ceiling 10 / X 10; operator amendment 4 designates the devin provider for loop-3 DeepSeek builds (rounds 25-28)"
+  },
+  {
+   "claim": "the route is a provisioned local lane with a live shim",
+   "source": "systemd user unit ; config.toml",
+   "command": "systemctl --user status devin-shim.service ; ss -ltnp | grep 8787 ; curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8787/v1/models",
+   "observed": "devin-shim.service active (running) since 2026-10-17 00:00:08 -03, Main PID 1574; 127.0.0.1:8787 LISTEN; /v1/models -> 200 with a 9-id static list including deepseek-v4-1-flash-high"
+  },
+  {
+   "claim": "the lane returns real completions while the wave is running",
+   "source": ".scratch/x53-r28/sample.json",
+   "command": "python3 -B .scratch/x53-r28/sample.py 0.4 20 1,8,16,32,64 > .scratch/x53-r28/sample.json",
+   "observed": "157 attempts, 152 ok, 5 failed (2 in-sample temperature:0 controls + 3 deliberate error-path probes); well-formed clean population 151/151 = 1.0000; median 1.389 s; burst walls 1-way 1.008 s, 8-way 1.348 s, 16-way 2.627 s, 32-way 1.423 s, 64-way 2.462 s; 151 of 152 ok rows echoed model=deepseek-v4-1-flash-high"
+  },
+  {
+   "claim": "the temperature:0 rejection is exactly at zero, fourth window",
+   "source": ".scratch/x53-r28/sample.json summary.temperature_boundary ; .scratch/x53-r28/labeled.json",
+   "command": "python3 -c \"import json;print(json.load(open('.scratch/x53-r28/sample.json'))['summary']['temperature_boundary'])\"",
+   "observed": "{'0.0': 400, '0.1': 200, '1.0': 200} in-sample, and boundary-0.1/1.0 -> 200 again in the labelled control"
+  },
+  {
+   "claim": "the error-path shapes of this lane (NEW)",
+   "source": ".scratch/x53-r28/sample.json summary.error_paths",
+   "command": "python3 -c \"import json;print({k:v['status'] for k,v in json.load(open('.scratch/x53-r28/sample.json'))['summary']['error_paths'].items()})\"",
+   "observed": "unknown model -> 403 permission_denied (0.424 s); empty messages -> 400 invalid_argument (0.404 s); malformed JSON -> 400 in 0.001 s at the shim layer; oversized max_tokens -> 200, answered normally (40 completion tokens)"
+  },
+  {
+   "claim": "the 400s are the instrument artifact, reproduced in the fourth sample",
+   "source": ".scratch/x53-r28/labeled.json ; research/round-18-kimi-model-routing/devin-opus/ANALYSIS.md:72-92",
+   "command": "python3 -B .scratch/x53-r28/labeled.py ; sed -n '72,92p' research/round-18-kimi-model-routing/devin-opus/ANALYSIS.md",
+   "observed": "2x temperature:0 -> 400 invalid_argument at 0.406-0.409 s; 0.1/1.0 -> 2x 200 at 1.012-1.041 s; 2x no-temperature -> 2x 200 at 1.032-1.374 s; the round-18 M10 table already records temperature:0 -> 400 on this lane"
+  },
+  {
+   "claim": "the wave dispatched concurrently on this route",
+   "source": ".scratch/ ; devin-shim journal",
+   "command": "ls -d .scratch/r28* .scratch/x*28* | wc -l ; journalctl --user -u devin-shim.service --since 16:05:00 --until 17:11:44 --no-pager | grep -c 'HTTP/1.1\" 200'",
+   "observed": "23 distinct round-28 seat markers (r28ctl, r28-d/d13/d17/d18/d19/d20/d21, r28-law, r28-o33-o36-regression/o39/x58, x52r28/x53-r28/x57r28/x61-r28/x62-r28/x63r28/x64r28/x64r28b); journal shows 12241 x200 over the pinned 16:05:00-17:11:44 window"
+  },
+  {
+   "claim": "no provider-failure receipt of the round-5 or round-10 kind exists for this round",
+   "source": "reports/round-28/ ; devin-shim journal",
+   "command": "ls reports/round-28/ ; journalctl --user -u devin-shim.service --since 16:05:00 --until 17:14:00 --no-pager | grep -E ' 5[0-9]{2} -|HTTP/1.1\" (402|429|401)'",
+   "observed": "reports/round-28/ holds claims.json, targets.json, run-validation.py and worker fragments (audit/, law/, readme/, scribe/, sweep/) - no availability-attempt-*.json failure receipt; journal grep returns no 5xx/402/429/401 line"
+  },
+  {
+   "claim": "this record's own seat is part of the dispatch evidence",
+   "source": ".scratch/x53-r28/",
+   "command": "ls -la .scratch/x53-r28/",
+   "observed": "sample.py, labeled.py, poll.sh, self-check.py, sample.json, sample.stderr, labeled.json, labeled.out, poll.log - created 17:11-17:13 local - this seat is one of the round-28 workers"
+  }
+ ],
+ "notes": [
+  "This is the FOURTH sample on this route (round-25 X41 first, round-26 X59 second, round-27 X53 third). It was taken independently, in a fourth window on the final build wave, with new instrument dimensions (64-way concurrency rung, error-path probes: unknown model, empty messages, malformed JSON body, oversized max_tokens).",
+  "Unlike round 5 (native model-registry rejection) and round 10 (402 insufficient funds), this round produced live concurrent worker artifacts and thousands of served completions, so the route resolved, dispatched and returned work.",
+  "Wall time here is a short-completion round-trip (max_tokens 64, non-streaming, through the local shim), NOT the TTFT/TPS figure a battery would produce; it is a liveness and load measurement, not a latency score.",
+  "The three clean-population definitions are reported separately because the error-path probes deliberately fail: clean_attempts (157/152) includes both control and error families; clean_population_only (155/152) excludes the temperature:0 controls only; wellformed_population (151/151 = 1.0000) excludes both and is the figure comparable to the first three samples.",
+  "This record is written by the availability seat (X53). It records the route, the measured completion ratio and wall time, and the instrument artifact at this seat's close; the round's own acceptance verdict is the integrator's, from reports/round-28/validation.json (see finalization_note)."
+ ],
+ "finalization_note": "launched_workers and completed_workers remain unobservable from a worker seat and are left null. The round's acceptance verdict LANDED during this seat's poll: reports/round-28/validation.json, measured_at_utc 2026-10-18T20:13:51+00:00, acceptance_checks_passed FALSE on all three claims (see round_receipt_at_close). That is NOT this record's verdict: this seat measures the route, not the round. Recorded here only so the integrator does not mistake a live route for a green round.",
+ "round_receipt_at_close": {
+  "artifact": "reports/round-28/validation.json",
+  "runner": "reports/round-28/run-validation.py",
+  "runner_sha256": "f673f7a7021dff34aade3385efe7dac35e5e50983cd16c0730bd3dbe82d76883",
+  "binding_checked": "the live run-validation.py hashes f673f7a7021dff34aade3385efe7dac35e5e50983cd16c0730bd3dbe82d76883 at 20:14Z - the receipt BINDS the live runner bytes (the round-20 lesson)",
+  "measured_at_utc": "2026-10-18T20:13:51+00:00",
+  "present_at_close": true,
+  "acceptance_checks_passed": false,
+  "failures_by_claim": {
+   "D": [
+    "this runner's own law reader reports 7 findings on the delivered packet (class D4L-LAW-REGISTER, RGL-01 ...)",
+    "no tool under tools/ names a `D4L-LAW-*` finding id: the law has no replay leg (round-27 RL-1)",
+    "the delivered checking leg names no `D4L-LAW-*` finding on the force tamper (RL-1)",
+    "the delivered checking leg names no `D4L-LAW-*` finding on the speaker tamper (RL-1)",
+    "the delivered checking leg names no `D4L-LAW-*` finding on the consequence tamper (RL-1)",
+    "d4-gate is not green (exit 2)",
+    "the D4 hold set's revision note does not name the round-28 landing",
+    "the D4 hold set's revision note does not name the RL-4 packet_keys fix"
+   ],
+   "O": [
+    "8 D4 surfaces drifted and no round-28 structured re-pin row landed (01-brief.yml, 03-orthography.yml, ...)",
+    "replay handoff-v3-selftest is not green (exit 1)",
+    "replay handoff-v3 is not green (exit 1)",
+    "the v3 replay is red and no round-28 successor baseline replays green: the re-point is missing, not merely unwired",
+    "no round-28 auditor report reads the sweep surface under reports/round-28/audit",
+    "Regression failed: python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml (exit 2)",
+    "Regression failed: python3 tools/exercise-handoff-e2e.py --profile v3 --selftest (exit 1)",
+    "Regression failed: python3 tools/exercise-handoff-e2e.py --profile v3 --quiet (exit 1)"
+   ],
+   "C": [
+    "no new section was added to corpus/knowledge/linguistics/register-strata-attestation.md: the ceiling is not recorded as an amendment entry",
+    "no new entry landed under corpus/knowledge/linguistics: the ceiling is still only in round artifacts"
+   ]
+  },
+  "missing_dependency": "corpus/knowledge/linguistics (new ceiling entry)",
+  "reading": "at the receipt's landing the round was RED on all three claims (D law replay leg, O sweep, C ceiling entry), not on the route. The route served the wave throughout (12725 x200 against 11 attributable non-200s in the pinned whole window, all four windows reproduced) while the round's own acceptance checks failed; a live route and a green round are independent, and this record claims only the former. This is the same shape as rounds 26 and 27, where the receipt also read acceptance_checks_passed false while the route stayed green.",
+  "route_vs_round": "route status: healthy (this record, 12725 x200 vs 11 attributable control/probe non-200s, all windows reproduced). round status: acceptance_checks_passed false (the runner's, attributed here, not adjudicated)."
+ },
+ "self_check": {
+  "kind": "re-derivation of this record's aggregate counts against the raw sample, the labelled control, and the shim journal",
+  "command": "python3 -B .scratch/x53-r28/self-check.py",
+  "result": "SELF_CHECK=PASS record aggregates match raw sample + labelled control + journal windows",
+  "asserts": [
+   "157 attempts / 152 ok / 5 failed in the sample file",
+   "clean_population_only 155/152, wellformed_population 151/151 = 1.0",
+   "2 in-sample temperature:0 probes (both 400) + 2 labelled temperature:0 probes (both 400) = 4, all 400",
+   "temperature boundary: 0.0 -> 400 and every value above 0 -> 200",
+   "error paths: unknown model 403, empty messages 400, malformed JSON 400, oversized max_tokens 200",
+   "stream:true row is SSE; every non-streaming ok row echoes the served model",
+   "record.control_temperature_zero.probes_total == 4",
+   "every pinned journal window reproduces exactly on a re-run"
+  ],
+  "control": "the check pins each journal window by re-running it twice and asserting identical counts, so a drifting window fails the check rather than silently passing.",
+  "defect_caught": "the check FAILED on its first run (17:13:5x) and caught a real defect in this record: the sustained_clean_leg and whole_window_traffic windows had been pinned with --until 17:14:00, an instant still in the FUTURE at that moment, so the window grew between runs (sustained leg read 305 x200 on one run and 163 on another; whole window read 12801 then drifted). Both windows were re-pinned to the CLOSED instant 17:13:10 local, after which the check passes. This is the round-20/round-26/round-27 receipt-guard discipline applied to this record's own numbers: an unclosed journal window fails the check rather than silently passing."
+ },
+ "close_observation": "at this seat's close reports/round-28/ held 20 files (excl. __pycache__): claims.json, targets.json, availability.json, validation.json, run-validation.py, audit/ (entry-audit.py, o37-sweep-inventory-audit.py, x57-lessons-audit.py, x59-register-law-negatives.py, x60-sweep-completeness.py, x61-pin-sweep.py, x63-entry-source-resolvability.py, x64-cold-rerun.py, x-c48-entry-audit.md), gate-tests/run-gate-tests.py, readme/ (reconcile.md, sweep.py), scribe/ (x54-law-negatives-spotcheck.py, x56-census.py), sweep/ (sweep.py, _prelanding-census.md); 30 round-28 seat markers under .scratch/.",
+ "recheck_at_utc": "2026-10-18T20:14:33Z",
+ "recheck_observation": "reports/round-28/validation.json LANDED at 2026-10-18T20:13:51Z (during this seat's poll; the poll script's first 60 s tick had not yet fired) and reads acceptance_checks_passed: false with failures on all three claims D/O/C (see round_receipt_at_close); the receipt binds the live runner bytes (f673f7a7...). So the round filed its verdict RED while the route stayed green (12725 x200 against 11 attributable control/probe non-200s in the pinned whole window, all four windows reproduced). The route and the round are independent, and this record claims only the route. By the recheck instant the round had grown to 20 files and 30 seat markers."
+}
