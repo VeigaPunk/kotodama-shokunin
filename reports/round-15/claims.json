@@ -1,0 +1,25 @@
+{
+ "round": 15,
+ "state": "declared-before-dispatch",
+ "date": "2026-10-17",
+ "baseline_revision": "b02cfbc9468aa906f0ff8301ec643770fb2bcfd8",
+ "regimen": "operator 2026-10-17: loop 1, GLM round 1 of 2 (16w zai glm-5.3-flash MAX)",
+ "requested_model": "zai-coding-plan/glm-5.3-flash-low (host-pinned MAX thinking effort)",
+ "workers": 16,
+ "claims": [
+  {
+   "id": "O",
+   "axis": "operability",
+   "before": "Round-12 adjacency audit rejected the handoff packet on semantics: claim ledger lacks an uncertainty dimension; D2 couplings aggregated rather than claim-to-record linked; bilateral acknowledgment pending. The round-11 exercise passes only shape (16/16, 20/20).",
+   "after_required": "Handoff packet v2 (reports/round-15/handoff/packet-v2.yml) adds: (a) per-claim uncertainty {status: supported|partial|unresolved, basis} populated for every claim (zero boilerplate), (b) claim-to-record links resolving to real repo records; handoff-packet-check still passes 16/16 + 20/20; the round-12 contract audit re-run over v2 yields a semantic PASS verdict (or the remaining gaps are named with owner notes); a durable builder tool with --selftest and a frozen expected.json baseline lands.",
+   "counting_command": "python3 reports/round-15/run-validation.py"
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "before": "The lane's craft knowledge has no decision-table treatment of uncertainty typing for handoff claims; reviewers rejected v1 for the gap but the fix recipe lives only in the round-12 audit.",
+   "after_required": "SKILL.md gains a label-uncertainty decision table (drafted by workers, landed by orchestrator): when a claim is supported vs partial vs unresolved, what basis field is required, cross-referenced to the verification partition; every rule cited to corpus paths or round-12/15 artifacts.",
+   "counting_command": "python3 reports/round-15/run-validation.py"
+  }
+ ]
+}
