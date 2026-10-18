@@ -1,0 +1,506 @@
+{
+  "acceptance_checks_passed": true,
+  "baseline_revision": "b5d9844615b32b145fc263e3bd37062dce703b3b",
+  "claims": {
+    "C": {
+      "failures": [],
+      "measurement": {
+        "box1_skill_citations": {
+          "problems": [],
+          "problems_total": {
+            "command": "python3 reports/round-24/run-validation.py (unresolved SKILL.md citations)",
+            "date": "2026-10-18",
+            "value": 0
+          },
+          "resolved": {
+            "command": "python3 reports/round-24/run-validation.py (repo-path citations resolved in SKILL.md)",
+            "date": "2026-10-18",
+            "value": 186
+          }
+        },
+        "box2_chain_logged": {
+          "command": "python3 reports/round-24/run-validation.py (D2/D4/handoff logged in LOG.md)",
+          "date": "2026-10-18",
+          "value": true
+        },
+        "box2_chain_rerun": {
+          "failures": [],
+          "handoff": {
+            "d2-gate": {
+              "command": "python3 tools/gates/typed-pipeline-gate.py",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-gate": {
+              "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "handoff-v2": {
+              "command": "python3 tools/exercise-handoff-e2e.py --profile v2 --quiet",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "handoff-v3": {
+              "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet",
+              "date": "2026-10-18",
+              "exit": 0
+            }
+          },
+          "runs_total": {
+            "command": "python3 reports/round-24/run-validation.py (fixed regression command inventory)",
+            "date": "2026-10-18",
+            "value": 28
+          }
+        },
+        "box4_province_pointers": {
+          "total": {
+            "command": "python3 reports/round-24/run-validation.py (repo paths named in PROVINCE.md)",
+            "date": "2026-10-18",
+            "value": 1
+          },
+          "unresolved": []
+        },
+        "boxes": {
+          "1": {
+            "conditions": [
+              "**Inventory condition (r24-box1b):** seven live executables are absent from",
+              "**Loanword-dating cite cluster (both reviewers; re-confirmed by this scribe",
+              "**`worldbible-integration-contract.md:183` mis-cite (r24-audit2):** the",
+              "**Dangling tool anchors (r24-audit2):** `TL-01`, `TL-02`, `FIELD_DEFAULTS`",
+              "**Duplicated uncertainty status block (r24-audit2):** the three status rows"
+            ],
+            "evidence_pointers": [
+              "SHONEN.md:6",
+              "SKILL.md",
+              "SKILL.md:20",
+              "SKILL.md:356",
+              "SKILL.md:408",
+              "SKILL.md:501",
+              "reports/round-24/audit-fixes.md",
+              "reports/round-24/audit-typed.md",
+              "reports/round-24/box1-craft.md",
+              "reports/round-24/box1-craft.md:9-71",
+              "reports/round-24/box1-tables.md",
+              "reports/round-24/box1-tables.md:15-66"
+            ],
+            "reviewers": [
+              "r24-box1a",
+              "r24-box1b"
+            ],
+            "verdict": "verified-with-conditions"
+          },
+          "2": {
+            "conditions": [
+              "**LOG.md:3278 misquote (r24-box2b; re-confirmed by this scribe against the",
+              "**Round-7 acceptance aggregate (r24-box2a F-2):** re-running",
+              "**Round-21 recount byte-pin drift (r24-box2b F-2, note):** the r18 recount's"
+            ],
+            "evidence_pointers": [
+              "LOG.md",
+              "LOG.md:1967",
+              "LOG.md:2706",
+              "LOG.md:3010",
+              "LOG.md:3273",
+              "LOG.md:3278",
+              "LOG.md:3286",
+              "LOG.md:3312",
+              "SKILL.md",
+              "reports/round-24/box2-chain.md",
+              "reports/round-24/box2-chain.md:87-99",
+              "reports/round-24/box2-d4.md"
+            ],
+            "reviewers": [
+              "r24-box2a",
+              "r24-box2b"
+            ],
+            "verdict": "verified-with-conditions"
+          },
+          "3": {
+            "conditions": [
+              "**N1 (major):** dated expected-verdict errata for the round-5/6/7 acceptance",
+              "**N2 (major):** the three acceptance scripts rewrite filed tracked receipts",
+              "**N3 (major):** repairing the typed-input direction itself (null-ish",
+              "**N4 (major):** no real costume/era artifact set and no real handoff packet",
+              "**N5 (minor):** \"isolated repo export\" must be defined as history-retaining",
+              "**N6 (minor):** D3 replay step 2's \"snapshot mode\" names no manifest and",
+              "**N7 (process):** the parent should pin which reading of \"the SKILL.md"
+            ],
+            "evidence_pointers": [
+              "SKILL.md",
+              "SKILL.md:408",
+              "SKILL.md:501",
+              "reports/round-24/cold-run-a.md:146",
+              "reports/round-24/cold-run-b.md:162",
+              "reports/round-24/cold-run-conditions.md:194",
+              "reports/round-24/cold-run-fixes.md:138"
+            ],
+            "reviewers": [
+              "r24-coldrun-3",
+              "r24-coldrun-4",
+              "r24-coldrun-a",
+              "r24-coldrun-b"
+            ],
+            "verdict": "verified-with-conditions"
+          },
+          "4": {
+            "conditions": [
+              "**3a:** the fix must not be read as resolving D2's historical rank debts or",
+              "**3b:** the r22 ledger row of record still reads \"never implemented\"; it",
+              "**3c:** exactly one `examples/culture-d2/` string survives in the live"
+            ],
+            "evidence_pointers": [
+              "LOG.md",
+              "LOG.md:1967",
+              "LOG.md:3286",
+              "PROVINCE.md",
+              "PROVINCE.md:16",
+              "PROVINCE.md:9",
+              "SHONEN.md",
+              "SKILL.md",
+              "corpus/knowledge/synthesis/worldbible-integration-contract.md",
+              "reports/round-24/box4-bleed.md",
+              "reports/round-24/box4-province.md",
+              "reports/round-24/claims.json"
+            ],
+            "reviewers": [
+              "r24-box4-bleed",
+              "r24-box4-province"
+            ],
+            "verdict": "verified-with-conditions"
+          }
+        },
+        "distinct_reviewers": {
+          "command": "python3 reports/round-24/run-validation.py (distinct named non-author reviewers)",
+          "date": "2026-10-18",
+          "value": 10
+        }
+      },
+      "missing_dependencies": [],
+      "passed": true
+    },
+    "D": {
+      "failures": [],
+      "measurement": {
+        "audit": {
+          "data_rows_covered": {
+            "command": "python3 reports/round-24/run-validation.py (audit coverage over data rows)",
+            "date": "2026-10-18",
+            "value": 110
+          },
+          "silent_stale": [],
+          "skill_pin": null,
+          "sources": [
+            "reports/round-24/audit-fixes.md",
+            "reports/round-24/audit-gates.md",
+            "reports/round-24/audit-typed.md",
+            "reports/round-24/skill-audit.md"
+          ],
+          "stale_fixed_rows": [],
+          "uncovered_first": [],
+          "uncovered_total": {
+            "command": "python3 reports/round-24/run-validation.py (data rows with no evidenced disposition)",
+            "date": "2026-10-18",
+            "value": 0
+          },
+          "undated_errata": [],
+          "unevidenced_rows": []
+        },
+        "skill_rows": {
+          "data_rows": {
+            "command": "python3 reports/round-24/run-validation.py (SKILL.md table data rows)",
+            "date": "2026-10-18",
+            "value": 110
+          },
+          "header_rows_excluded": {
+            "command": "python3 reports/round-24/run-validation.py (SKILL.md table header rows excluded by declaration)",
+            "date": "2026-10-18",
+            "value": 14
+          },
+          "separator_rows_excluded": {
+            "command": "python3 reports/round-24/run-validation.py (SKILL.md table separator rows excluded by declaration)",
+            "date": "2026-10-18",
+            "value": 13
+          }
+        }
+      },
+      "missing_dependencies": [],
+      "passed": true
+    },
+    "O": {
+      "failures": [],
+      "measurement": {
+        "cold_run": {
+          "commands": [
+            "python3 tools/check-gate-battery.py",
+            "python3 tools/d2-typed-labels.py --selftest",
+            "python3 tools/assemble-d2.py --check",
+            "python3 tools/assemble-culture-d3.py --check",
+            "python3 tools/assemble-culture-d4.py --check",
+            "python3 tools/assemble-d4-typed.py --selftest",
+            "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+            "python3 tools/gates/typed-pipeline-gate.py",
+            "python3 tools/exercise-handoff-e2e.py --profile v3",
+            "python3 tools/exercise-handoff-e2e.py --profile v2",
+            "python3 tools/replay-frozen.py tools/gates/frozen/round-3/MANIFEST.tsv"
+          ],
+          "commands_total": {
+            "command": "python3 reports/round-24/run-validation.py (executed cold-run commands)",
+            "date": "2026-10-18",
+            "value": 11
+          },
+          "conditions": [
+            "- F1 (break, major): SKILL.md:501 battery row inverted — fixed by F3 with controls (reports/round-24/audit-fixes.md, dated 2026-10-18).",
+            "- F2 (break): d4-repin replay needs TMPDIR outside the repo — precondition documented by fixer fix 5.",
+            "- F3 (break): round-5/6/7 run-validation.py exit 1 undocumented — named condition N-class.",
+            "- F4 (hazard): those scripts overwrite filed receipts in place — condition (receipt-guard class).",
+            "- F5 (break): D4 gate input unnamed (typed packet input = false red) — condition N2, fix drafted.",
+            "All documented steady states reproduce; seven box-3 conditions named in",
+            "cold-run-conditions.md; seven wording-level SKILL.md fixes landed with controls."
+          ],
+          "findings_total": {
+            "command": "python3 reports/round-24/run-validation.py (recorded breaks/ambiguities)",
+            "date": "2026-10-18",
+            "value": 1
+          },
+          "missing_tools": [],
+          "no_breaks_declared": false,
+          "seats": [
+            "a",
+            "b",
+            "fixer",
+            "four",
+            "fragments"
+          ]
+        },
+        "regressions": {
+          "failures": [],
+          "labels": {
+            "battery": {
+              "command": "python3 tools/check-gate-battery.py",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "battery-selftest": {
+              "command": "python3 tools/check-gate-battery.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "coupling-selftest": {
+              "command": "python3 tools/check-evidence-coupling.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "craft": {
+              "command": "python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "craft-selftest": {
+              "command": "python3 tools/check-craft-exercise.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d2-adapter": {
+              "command": "python3 tools/assemble-d2-typed.py --check",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d2-adapter-selftest": {
+              "command": "python3 tools/assemble-d2-typed.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d2-assembly": {
+              "command": "python3 tools/assemble-d2.py --check",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d2-assembly-selftest": {
+              "command": "python3 tools/assemble-d2.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d2-gate": {
+              "command": "python3 tools/gates/typed-pipeline-gate.py",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d2-projection": {
+              "command": "python3 tools/d2-typed-labels.py --check",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d3-assembly": {
+              "command": "python3 tools/assemble-culture-d3.py --check",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d3-assembly-selftest": {
+              "command": "python3 tools/assemble-culture-d3.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-adapter": {
+              "command": "python3 tools/assemble-d4-typed.py --check",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-adapter-selftest": {
+              "command": "python3 tools/assemble-d4-typed.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-assembly": {
+              "command": "python3 tools/assemble-culture-d4.py --check",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-assembly-gate": {
+              "command": "python3 tools/gates/d4-assembly-check-gate.py",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-assembly-selftest": {
+              "command": "python3 tools/assemble-culture-d4.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-gate": {
+              "command": "python3 tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-label-gate": {
+              "command": "python3 tools/gates/d4-typed-labels-check-gate.py",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "d4-projection": {
+              "command": "python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "handoff-v2": {
+              "command": "python3 tools/exercise-handoff-e2e.py --profile v2 --quiet",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "handoff-v3": {
+              "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "handoff-v3-selftest": {
+              "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "projector-selftest": {
+              "command": "python3 tools/d2-typed-labels.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "replay-selftest": {
+              "command": "python3 tools/replay-frozen.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "typed-pipeline-generalized-selftest": {
+              "command": "python3 tools/gates/typed-pipeline-gate.py --selftest-generalized",
+              "date": "2026-10-18",
+              "exit": 0
+            },
+            "typed-pipeline-selftest": {
+              "command": "python3 tools/gates/typed-pipeline-gate.py --selftest",
+              "date": "2026-10-18",
+              "exit": 0
+            }
+          },
+          "runs_total": {
+            "command": "python3 reports/round-24/run-validation.py (fixed regression command inventory)",
+            "date": "2026-10-18",
+            "value": 28
+          }
+        }
+      },
+      "missing_dependencies": [],
+      "passed": true
+    }
+  },
+  "claims_declared": {
+    "C": "calibration",
+    "D": "depth",
+    "O": "operability"
+  },
+  "counting_command": "python3 reports/round-24/run-validation.py",
+  "date": "2026-10-18",
+  "failures": [],
+  "input_sha256": {
+    "LOG.md": "99d7d9eeab9a7adbedc397a154c851ec07dd4937f1311adb23f6efb3a9def337",
+    "PROVINCE.md": "05b34a579c5d4f4ec78957cdedb658246ff292df3e21181c66186403f2b942d6",
+    "SHONEN.md": "7999d09b6b8e6f891947390207f171987bf662fb2bd91b2d1c7719ae1cf765ce",
+    "SKILL.md": "2d85bfea6e6a7503b4267b84fda5f393ed14e1a3f5eae108940e7fad8adb6048",
+    "reports/round-24/audit-fixes.md": "cad806bff26e0a226e202fbccbdc8ea77e7779fefcdb972958f95010d0080a0a",
+    "reports/round-24/audit-gates.md": "e672ebd05092fca4a1915c3abe4a075930dca163deb95a65c6ca4d0158ae167a",
+    "reports/round-24/audit-typed.md": "316954cb1e8ab9e47b29afb7b69582e71a90dfea83499c515353f223d5e7fe05",
+    "reports/round-24/claims.json": "28802b7514192673491a1a9096a02ede3f541bdf6acbbb8242dfe47cdb961511",
+    "reports/round-24/cold-run.md": "b87b1f675773f176f5bac7dd7c28e51b4c24d5c6e3e9dbb06dc288c533bf14bc",
+    "reports/round-24/promotion-review.md": "9492c30ba10061e95afa6bf79280d894fa0eda0309fc5a89a9ce000141840cef",
+    "reports/round-24/skill-audit.md": "856d7e3d3273b29d9ef1942d807d8bd48ba9547f03273221343be475c184c320",
+    "reports/round-24/targets.json": "eff801477df28f1221f51ab69c044fb9e9c116d1210ecf5e4601bdbf00587021"
+  },
+  "limits": [
+    "Run this round validator only in an isolated repository clone under the lane's .scratch with TMPDIR below that clone's .scratch. It never edits filed bytes, never commits, and never pushes.",
+    "Claim C is measured from reports/round-24/promotion-review.md: four boxes, verdicts in the declared vocabulary, named non-author reviewers (>=2 distinct across the dossier), resolvable evidence with per-box anchors (SKILL.md, LOG.md, cold-run.md, PROVINCE.md), and conditions required for verified-with-conditions. The promotion decision itself stays operator-owned.",
+    "Box 1 gets independent teeth here: every repo-path citation in SKILL.md is existence- and line-bound-resolved. Box 2 gets the fixed round-23 regression inventory re-run (D2->D3->D4->handoff), plus a LOG.md chain-presence check. Box 4 gets PROVINCE.md path resolution. No recorded command string from any evidence file is executed.",
+    "Claim O is measured from reports/round-24/cold-run.md: >=2 distinct named seats, >=6 executed commands, invoked repo tools must exist, every break fixed-with-control (pointer + named control) or named as a box-3 condition, and an explicit no-breaks declaration otherwise.",
+    "Claim D is measured from reports/round-24/skill-audit.md plus the audit-*.md fragments it consolidates (the fragments carry the per-row line refs) against every SKILL.md table data row; header and separator rows carry no executable claims and are excluded by declaration (counts in the receipt). Coverage requires an evidenced disposition (current | fixed | erratum) keyed on explicit SKILL.md:N, (:N), 'line N' and evidenced-table-range references; fixed names a control (or a fix-ledger id present in the document's own fix-ledger sections); a row whose sole disposition is erratum carries a date in the audit row or at the SKILL.md line it cites; an uppercase STALE verdict without fix or erratum is silent staleness and fails; a SKILL.md digest pin in the audit, if present, must match the measured bytes.",
+    "Protected reports and frozen generations of rounds 8-23 must match the round-24 declared baseline; new round-24 files live under reports/round-24 only."
+  ],
+  "missing_dependencies": [],
+  "protected_bytes_unchanged_during_run": {
+    "command": "python3 reports/round-24/run-validation.py (protected inventory is a single snapshot against the declared baseline)",
+    "date": "2026-10-18",
+    "value": true
+  },
+  "protected_filed_artifacts": {
+    "failures": [],
+    "measurement": {
+      "baseline_revision": "b5d9844615b32b145fc263e3bd37062dce703b3b",
+      "differences": [],
+      "differences_total": {
+        "command": "python3 reports/round-24/run-validation.py (compare protected Git blobs to working bytes)",
+        "date": "2026-10-18",
+        "value": 0
+      },
+      "protected_paths": {
+        "command": "python3 reports/round-24/run-validation.py (git ls-tree of protected baseline)",
+        "date": "2026-10-18",
+        "value": 1227
+      },
+      "protected_status_rows": {
+        "command": "python3 reports/round-24/run-validation.py (git status over protected paths)",
+        "date": "2026-10-18",
+        "value": 0
+      }
+    },
+    "missing_dependencies": [],
+    "passed": true
+  },
+  "round": 24,
+  "runner": "reports/round-24/run-validation.py",
+  "runner_sha256": "ba3b18a79e9b0dbbe9fae70b7bc4b27f50d670ff025b1b24cf7f14b1ac6d43ad",
+  "synced_from_live": {
+    "LOG.md": "99d7d9eeab9a7adbedc397a154c851ec07dd4937f1311adb23f6efb3a9def337",
+    "PROVINCE.md": "05b34a579c5d4f4ec78957cdedb658246ff292df3e21181c66186403f2b942d6",
+    "SCORECARD.md": "bb46b9d9db06b17701974a5609a8e0eb67ab5eb5e22c1009a522792eb321baa7",
+    "SHONEN.md": "7999d09b6b8e6f891947390207f171987bf662fb2bd91b2d1c7719ae1cf765ce",
+    "SKILL.md": "2d85bfea6e6a7503b4267b84fda5f393ed14e1a3f5eae108940e7fad8adb6048",
+    "corpus": "tree",
+    "examples": "tree",
+    "reports/round-24": "tree",
+    "tools": "tree"
+  },
+  "targets_date": "2026-10-18"
+}

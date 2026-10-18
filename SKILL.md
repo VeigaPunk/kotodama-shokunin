@@ -126,7 +126,6 @@ node does not upgrade an uncertain relationship",
 `unresolved`, v2-design §2.2). Basis is never boilerplate: unique per claim,
 its witness must resolve, and a basis that restates the status word is
 rejected (`worldbible-integration-contract.md:183`; v2-design §2.3).
-````
 
 ### Slot-label routing — one row per moved record, the owed slot named once
 
@@ -141,7 +140,7 @@ asserts, not an intention. Executable authority
 `:65`); design authority `reports/round-17/d4/typed-support-1.md` §5.2-§5.3 and
 `reports/round-17/d4/typed-support-2.md` §3 ("One hold per owed slot"); worked
 instance `examples/culture-d4/packet.d4.typed.yml` (`typed_channel:`) with
-`examples/culture-d4/expected-holds.json`.
+`examples/culture-d4/expected-holds.json`. Gate input is the source packet (`packet.d4.yml`), never the typed packet — feeding it back reads a false red (exit 1, 14/16 legs, measured 2026-10-18 round-24 cold run).
 
 | Condition on the record | Routing row | Hold it carries | Never | Wrong-shape consequence |
 |---|---|---|---|---|
@@ -151,7 +150,6 @@ instance `examples/culture-d4/packet.d4.typed.yml` (`typed_channel:`) with
 | A hold is laundered (downgraded to a note, or deleted) while the artifact still assembles | unchanged | the hold must still be present at `hold` severity | accept a shorter/quieter hold set as clean | four legs fail naming the record: `L3-holds`, `L3-notes`, `L3-counts`, `L3-baseline-set` (`reports/round-18/d4/neg-1.md` §3.1) |
 | The family's design names a register hold class the engine cannot prove | no row; the class is reported, not written | the **emitted** vocabulary governs the expectation file | assume a `D4L-REGISTER-UNRESOLVED` (or any) id the delivered projector never emits | an expectation naming an unprovable class cannot equal the emitted set; the freeze rule excludes a row the gate cannot prove (`reports/round-17/d4/typed-support-2.md` §4 freeze rule 2; `reports/round-18/d4/holds.md` §3) |
 | A label is retyped from `translated-label` to `native-form` to make the row disappear | the row must disappear **only** when a supplied native form exists | the hold clears only on a supplied form | retype a gloss as native to drop its routing row | the sound channel then grades translated text as a surface form; the naming kernel reads it as a `PHON-INVENTORY` artifact and the channel differential names the record (`reports/round-18/d4/neg-2.md` §3.1) |
-```
 
 Thresholds and cautions that are part of the rule:
 
@@ -168,7 +166,9 @@ Thresholds and cautions that are part of the rule:
 - **T3 — one obligation, two record names.** The delivered instance keys the same
   six owed forms twice (`GAR-0n` and `LEX-GAR-0n`) because the projector projects
   every `form_slots` entry as a label and each owed slot then emits its own hold
-  (`tools/d2-typed-labels.py:622`, `:793`; `reports/round-18/d4/holds.md` §4.2).
+  (`tools/d2-typed-labels.py:639`, `:808-814` at the round-24 baseline `8fbcee9`;
+  cited `:622`, `:793` at the round-18 bytes `e571894` — the round-22 family-dispatch
+  edits shifted both blocks down; `reports/round-18/d4/holds.md` §4).
   The hand re-derivation counts **six** obligations for six costumes
   (`reports/round-18/d4/review-1.md` §0-§1). Both readings are correct; the
   craft statement is that the *count of obligations* is a property of the
@@ -180,7 +180,7 @@ Thresholds and cautions that are part of the rule:
   design statement about a form's social distribution; it never licenses moving
   that form off the identity channel.
 - Cautions that are part of the rule: a register label is not a channel
-  (`SKILL.md:47`, `corpus/knowledge/synthesis/era-language-staging.md:114`
+  (`SKILL.md:47`, `corpus/knowledge/synthesis/era-language-staging.md:111`
   "type every label"); the routing set is not the obligation set (T3); a green
   routing leg is not a clearance — exit 0 means "the emitted findings equal the
   frozen expected set", and every hold is still open design debt
@@ -210,11 +210,10 @@ Executable authorities `tools/assemble-d4-typed.py` (`SERIALIZER`, `:62`;
 | Round-trip corruption class | derive by **text transform**: rewrite the one moved key in place, append adapter-owned blocks serialized from adapter-generated data alone | re-serialize the whole foreign document through a round-trip serializer | regex backslashes, booleans and nulls are mangled; the derived artifact stops matching its source's semantics while still assembling | `tools/assemble-d4-typed.py:296-310`; `SCORECARD.md:176-177,185`; `LOG.md:3252-3253` |
 | Text-transform rule | the transform touches exactly the declared key set (`garment` → `garment_gloss`) and nothing else; the moved value stays in the document | a general "normalizer" that rewrites unrelated lines | the transform becomes an unreviewable second assembler; a byte diff cannot localize a change | `tools/assemble-d4-typed.py:296-310` (the loop renames only `^(\s*)garment:` inside `costumes:`) |
 | Flagless resolution | a frozen replay row cannot carry flags (`tools/replay-frozen.py` launches `[python3, <gate>, <input>]`), so the family must resolve flaglessly from a sha-pinned profile matched on the packet's declared `assembly.generator` | a family that can only be graded with CLI flags | the row cannot be frozen; a flag-only path is un-replayable by design | `reports/round-18/d4/manifest.md` §2; `tools/gates/typed-pipelines.json` (`schema kotodama-typed-pipelines-v1`, profile `d4`, every field digest-pinned); `tools/gates/typed-pipeline-gate.py:481-485` (a stale pin refuses, exit 2, `L1-profile`) |
-| Determinism | two consecutive builds are byte-identical, and `--check` compares bytes without writing | a build whose output embeds a path, a timestamp, or a host name | the artifact is not replayable; a frozen pin moves under an unrelated edit | `tools/assemble-d4-typed.py:369` (`two consecutive builds are not byte-identical`); `reports/round-18/d4/determinism.md` §3 |
+| Determinism | two consecutive builds are byte-identical, and `--check` compares bytes without writing | a build whose output embeds a path, a timestamp, or a host name | the artifact is not replayable; a frozen pin moves under an unrelated edit | `tools/assemble-d4-typed.py:387` (`two consecutive builds are not byte-identical`; cited `:369` before the round-22 `carry_findings` block landed above it); `reports/round-18/d4/determinism.md` §3 |
 | Pre-registration | the expected set is decided elsewhere **before** the tool runs (design table, design-doc union, or a declared acceptance criterion) and any delta is dispositioned in a filed reconciliation | write the expectation from the tool's own printed output | the equality leg has drift teeth but no content teeth — it cannot distinguish "the set is right" from "the set is a copy of the producer" | `reports/round-18/d4/review-2.md` §0/§2 (the landed D4 file equals the projector's live output verbatim); `reports/round-18/d4/holds.md` §3-§4; `corpus/knowledge/verification/verification-independence-anti-circularity.md` §2 (the circularity catalog) |
-| Passenger rows | a row emitted by a shared engine for any packet is attributed **per packet** in the expectation, or excluded | let a packet-independent block silently enter a new family's debt set | the equality leg is described as verifying the new family's design debt while the row names records that occur zero times in its packet | measured: the D4 expected file carries 3 `D2L-RANK` holds + 1 note naming `TR-04#a\|TR-06#a`, `WR-02#g\|WR-09#g`, `WR-08#g\|WR-09#g`, `SR-01#a\|SR-01#b`, each **0** hits in `examples/culture-d4/packet.d4.yml` (2026-10-18T11:32Z); `reports/round-18/d4/review-4.md` §2; `reports/round-18/d4/holds.md` §5 |
+| Passenger rows | a row emitted by a shared engine for any packet is attributed **per packet** in the expectation, or excluded | let a packet-independent block silently enter a new family's debt set | the equality leg is described as verifying the new family's design debt while the row names records that occur zero times in its packet | measured: the D4 expected file carries 3 `D2L-RANK` holds + 1 note naming `TR-04#a\|TR-06#a`, `WR-02#g\|WR-09#g`, `WR-08#g\|WR-09#g`, `SR-01#a\|SR-01#b`, each **0** hits in `examples/culture-d4/packet.d4.yml` (2026-10-18T11:32Z; **erratum 2026-10-18, round-24 audit:** the committed `expected-holds.json` post-repin carries counts hold:12 / note:0 / fail:0 with zero `D2L-RANK` rows and zero notes — the 3+1 passenger set is the superseded pre-fix expectation, preserved at `reports/round-22/bleed/analysis.md:101` and in the file's `revision_note`/`supersedes_pins`, see T4 below); `reports/round-18/d4/review-4.md` §2; `reports/round-18/d4/holds.md` §5 |
 | Freeze-artifact naming | a freeze receipt that is not a battery baseline is not named `expected.json` under a battery root | land a `freeze-receipt.json` under a name the battery discovers as a baseline | the standing battery fails closed on a gate outside its name constant | `reports/round-18/d4/manifest.md` §6 |
-```
 
 Thresholds and cautions that are part of the rule:
 
@@ -292,7 +291,7 @@ family leg on the family side of that line.
 | Owner-qualified citations | an absolute foreign citation, a short component citation, or a foreign owner/scheme injected into a family-owned field is rejected, while genuine `WR-*` orthography IDs and shared tool/schema references pass | a whole-document substring ban on the family token (it would reject method provenance and the packet's own contrast declarations) and any unqualified foreign citation passing | `boundary control: deterministic D2-owned label metadata is rejected`; `boundary control: foreign label … rejected`; `boundary: D4 WR writing ids and shared engine references are not substring-banned` | `tools/d2-typed-labels.py:3011,:3024,:3032`; `WR-*` are D4's own rules, `examples/culture-d4/components/03-orthography.yml:83-90` |
 | No ID-based reinterpretation | same-ID foreign records fail ownership checks while the six local owed slots still route to their garments; ordinary era tags never import foreign eras | treating a shared ID or era tag as ownership evidence (D4 `GAR-01`/`GAR-06` keep D4 ranks/text, never a foreign `RANK_RESOLUTIONS`) | `boundary explicit same-id foreign label: emit refuses and preserves … output` | `tools/d2-typed-labels.py:3109`; identity definition `reports/round-22/bleed/design.md` §Decision |
 | Honest borrowed language | the six `borrowed-strata` labels keep packet-declared donors, layer refs and adaptation rules; an undeclared donor in an owned source field stays a failure | legalizing an embedded fixture block by relabeling the ledger borrowed | `boundary: label texts, kinds, owed slots and all six borrow ledgers unchanged`; D4 no-import rows `D2B-01..04` | `tools/d2-typed-labels.py:2989`; `examples/culture-d4/components/01-brief.yml:111-121` |
-| Propagation/tamper | a stale projection pin, a stale expected-hold set, or one changed typed routing byte fails the gate/adapter checks; a clean regeneration passes with new rows | re-blessing pins in place, freezing while upstream moves, or letting inherited findings ride into consumers | consumers copy the projector's own finding set (`carry_findings`); frozen generation `tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv` (3 rows, exit 0; deployed replay 33 peer pairs, 2026-10-18T14:56:01Z); profile row `$.profiles[0]` with `repin_history[2]` binding projector+expected; stale pins refuse exit 2 `L1-profile` | `tools/assemble-d4-typed.py:276-288`; `reports/round-22/bleed/evidence/deployed-replay.json`; `tools/gates/typed-pipelines.json`; `reports/round-22/bleed/impl.md:60` |
+| Propagation/tamper | a stale projection pin, a stale expected-hold set, or one changed typed routing byte fails the gate/adapter checks; a clean regeneration passes with new rows | re-blessing pins in place, freezing while upstream moves, or letting inherited findings ride into consumers | consumers copy the projector's own finding set (`carry_findings`); frozen generation `tools/gates/frozen/round-22/d4-repin/MANIFEST.tsv` (3 rows, exit 0 — requires TMPDIR outside the repo, `mirror_unsafe` exit 2 otherwise, measured 2026-10-18 round-24 cold run; deployed replay 33 peer pairs, 2026-10-18T14:56:01Z); profile row `$.profiles[0]` with `repin_history[2]` binding projector+expected; stale pins refuse exit 2 `L1-profile` | `tools/assemble-d4-typed.py:276-288`; `reports/round-22/bleed/evidence/deployed-replay.json`; `tools/gates/typed-pipelines.json`; `reports/round-22/bleed/impl.md:60` |
 
 Thresholds and cautions that are part of the rule:
 
@@ -328,7 +327,8 @@ Thresholds and cautions that are part of the rule:
   sentence; `reports/round-22/bleed/analysis.md` §Handoff limitation). A
   family-local leg the packet does not declare is reported as an explicit
   skip, never counted as evaluated (`tools/d2-typed-labels.py:3343`;
-  `reports/round-22/bleed/design.md` §3).
+  `reports/round-22/bleed/design.md` "Source-level change contract" item 3, :17 —
+  cited §3 before the round-24 audit; the file has no numbered sections).
 
 **Round-25 implementation commitment.** Round 22 closed REJECTED on D and
 routed the remaining integration to round 25 with the full recipe
@@ -370,13 +370,13 @@ green — and filed historical wording is not rewritten
 | `compare_only` set while the typed label is unresolved | misuse, not a pass — the unresolved hold stands (design spec R3) |
 | A borrowed form judged only against the native stratum | misfile: loans pass through the recipient's phonotactic filter and carry donor provenance (`language-contact.md:78-79`) |
 | A loan's oldest form used to date the referent's arrival | clock conflation; keep word-entry and object-arrival intervals separate (`loanword-material-dating.md:26,60`; executable B4) |
-| A loanword that switched referent in transit | keep both coexisting names; date the sense–referent pairing (`garment-lexicon-crosslinguistic.md:26`) |
+| A loanword that switched referent in transit | keep both coexisting names; date the sense–referent pairing (`corpus/knowledge/culture-material/garment-lexicon-crosslinguistic.md:28,30`) |
 | Imported prestige terminology for locally made goods read as evidence of import | dictionary/selection bias; check local manufacture under imported labels (`loanword-material-dating.md:57`) |
 | A modern/curatorial label promoted to an attested historical native word | reject or split: the label is typed as a label; the term keeps its own record (`costume-language-coupling-table.md:43`) |
-| A translation, exonym, or official replacement run through the inherited-form sound laws | track separately: sound laws apply to the inherited spoken label, not its translation or replacement (`era-language-staging.md:124`) |
+| A translation, exonym, or official replacement run through the inherited-form sound laws | track separately: sound laws apply to the inherited spoken label, not its translation or replacement (`era-language-staging.md:127`) |
 | Era tags or slot glosses graded on the name/sound channel | type them `fictional-coordinate` / `descriptive-gloss`; neither enters the sound channel (tool `FIELD_DEFAULTS`) |
-| A transliteration collision read as native-script identity | compare per declared scheme; a collision in that output channel is not native identity (`naming-collision-gate.md:69-70`) |
-| A shared garment label across cultures read as identical cut or status | labels are neither cut nor status (`naming-collision-gate.md:52`) |
+| A transliteration collision read as native-script identity | compare per declared scheme; a collision in that output channel is not native identity (`naming-collision-gate.md:72`) |
+| A shared garment label across cultures read as identical cut or status | labels are neither cut nor status (`naming-collision-gate.md:54`) |
 
 | Status | Assign when (necessary condition) | Required basis | Never |
 | `supported` | every element of the claim-as-worded is grounded by a named record in the packet's manifest or a named check with an observed result; nothing open narrows the wording | the resolving `grounding:` witness; residual limits are named even here — scoped-supported is "bounded and revisable, not certainty" (`corpus/knowledge/verification/to-verify-triage-protocol.md:18`) | upgrade a node's support onto its coupling edge (`to-verify-triage-protocol.md:97`); cite a shape-gate pass or digest match as the basis of a semantics claim (`reports/round-12/adjacency/contract.md:9-10,23`) |
@@ -412,12 +412,12 @@ green — and filed historical wording is not rewritten
       item — prose gap, recorded in `reports/round-10/drift/shard-06.md` §06-G.
 - [ ] Every mythic/symbolic claim names its framework and its calibration
       status (per-claim set S/C/H/R/U/V — see
-      synthesis/source-discipline-calibration.md:67; `provenance-audit`'s
-      `missing-calibration` family checks the declared shape only).
+      synthesis/source-discipline-calibration.md:67; `provenance-audit
+      corpus/knowledge`: `missing-calibration` checks declared shape only).
 - [ ] Every costume/era claim couples to a term, a material, and a rule of
-      who may wear it.
+      who may wear it — prose gap (machinery: `costume-era-consistency-gate`).
 - [ ] Every handoff to the world bible names the recipient (lore) and the
-      open questions; canon decisions are never made here.
+      open questions — `handoff-packet-check` enforces per packet; no canon here.
 
 ## Corpus map
 
@@ -498,7 +498,7 @@ output files alone remain unpinned legacy evidence.
 | uncertainty-inventory | probe | `python3 tools/source-audit-inventory.py --json` | 0 inventory produced, not scholarship verified / 2 could-not-evaluate | `--selftest` | exact-count fixture constants in script | read-only; selftest scratch | kotodama-shokunin |
 | D2 assembly drift | gate | `python3 tools/assemble-d2.py --check` | 0 byte-identical / 1 drift / 2 could-not-evaluate | `--selftest` | committed packet, component hashes and synthetic controls in script | default mode regenerates packet; check read-only; selftest scratch | kotodama-shokunin |
 | contrastive craft example | gate (bounded example) | `python3 tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json` | 0 checks pass / 1 findings / 2 could-not-evaluate for declared input errors | `--selftest` (committed example plus isolated subprocess controls; foreign cwd supported) | committed exercise and tamper/CLI expectations in script | read-only, including optional `--report <existing-report.md>` | kotodama-shokunin |
-| isolated legacy selftest battery | gate | `python3 tools/check-gate-battery.py` | duty 1 (selftests): 0 seven selftests pass / 1 recognized selftest failure / 2 could-not-evaluate; duty 2 (baselines): 0 every discovered pin verifies / 2 tampered, revised or uncovered gate — exit is the worse of the two, and the committed default currently exits 2 with `BASELINE-GATE-UNCOVERED` for myth and naming, whose pins live under `reports/round-9/baselines/`; add that root via `--baselines-root` to reach 0 (`reports/round-9/baselines/registry.md` §5 item 6; `reports/round-10/drift/fix-21.md`) | `--selftest` (isolated synthetic children) | fixed seven-gate list and control expectations in script | disposable copied scripts/fixtures; optional retained mirror only when requested | kotodama-shokunin |
+| isolated legacy selftest battery | gate | `python3 tools/check-gate-battery.py` | duty 1 (selftests): 0 seven selftests pass / 1 recognized selftest failure / 2 could-not-evaluate; duty 2 (baselines): 0 every discovered pin verifies / 2 tampered, revised or uncovered gate — exit is the worse of the two; the committed default roots already include `reports/round-9/baselines/` (`tools/check-gate-battery.py:151`), so the default run exits 0 (measured 2026-10-18, round-24 audit: 7/7 selftests, 0 uncovered; supersedes the earlier "default exits 2 for myth and naming" wording once `--baselines-root` was folded into the defaults), and `--baselines-root` replaces the roots for one run (`tools/check-gate-battery.py:100`), so passing only `reports/round-9/baselines` now exits 2 with `BASELINE-GATE-UNCOVERED` for the frozen-root gates (`reports/round-9/baselines/registry.md` §5 item 6; `reports/round-10/drift/fix-21.md`; controls in `reports/round-24/audit-fixes.md`) | `--selftest` (isolated synthetic children) | fixed seven-gate list and control expectations in script | disposable copied scripts/fixtures; optional retained mirror only when requested | kotodama-shokunin |
 
 The contrastive checker is example-specific, not a general culture validator.
 Its subprocess controls complement the ten domain mutations and a real positive
@@ -568,7 +568,7 @@ translated display labels do not enter a phonotactic test.
 | A visitor wears prohibited imported cloth at the E1 hall assembly | Record C03 as a declared violation; reject only the false lawful entitlement (`D3-RANK`). Legacy R-01 must remain visible | RR1 is fictional. A clean new guard does not erase an honest scene violation or supply a historical dress law |
 | A belief is promoted to narrator-certified truth, or screening is claimed without work | `D3-MYTH` protects attributed B01/B02; `D3-SCOPE` protects unresolved/unperformed real-language screening | Source analogy does not confer canon or community permission. The handoff stays prepared-not-accepted |
 
-### D3 replay checklist
+### D3 replay checklist (executable where a tool exists)
 
 1. Run assembler `--check` and its isolated `--selftest`; drift or malformed
    components are not a passed culture task.

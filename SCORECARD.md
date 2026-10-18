@@ -282,6 +282,23 @@ REFRESH_RECEIPTS=1).
 Admission: O/D verify, no axis harmed. SHONEN-box evidence survey prepared for
 round 24's promotion review (`reports/round-23/shonen-survey.md`).
 
+## Axes — round 24 (2026-10-18), admitted (loop 2 GLM round 2 — promotion-review round)
+
+Baseline `8fbcee9`; one 16-worker `zai-coding-plan/glm-5.3-flash-low` (MAX
+effort) batch (16/16 completed). Acceptance:
+`python3 reports/round-24/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| calibration | improved (claim C) | SHONEN boxes never non-author-verified -> promotion-review dossier: boxes 1-4 each verified-with-conditions by 10+ named non-author reviewers (swarm seats that authored none of the lane's artifacts); per-box verdicts + 18 traced conditions; the promotion DECISION stays operator-owned | `python3 reports/round-24/run-validation.py` | `reports/round-24/promotion-review.md` |
+| operability | improved (claim O) | Cold-run never tested -> 4 fresh-context seats execute the SKILL.md surface (~80 invocations): every documented steady state reproduces (163/163, 7/7 pinned replay, 19/19 D4); 7 breaks/conditions found and dispositioned (7 wording-level SKILL.md fixes landed with controls; 7 named box-3 conditions) | `python3 reports/round-24/run-validation.py` | `reports/round-24/cold-run*.md` |
+| depth | improved (claim D) | No SKILL.md staleness audit ever -> adversarial audit: every executable claim re-run green; 8 stale spots fixed with controls/dated errata (line-drifts, inverted battery row, superseded passenger measurement, unresolvable anchors, corpus pointers, stray fences); 123-row per-row disposition table; zero silent staleness | `python3 reports/round-24/run-validation.py` | `reports/round-24/skill-audit.md` + audit fragments |
+| coverage / freshness / adjacency | unchanged | Pause in force; scope clean | — | — |
+
+Admission: C/O/D verify, no axis harmed. LOOP 2 IS COMPLETE (rounds 17-24).
+The promotion dossier stands for the operator's decision. Loop 3 (rounds
+25-32) runs the DeepSeek builds on the devin provider per operator directive.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker

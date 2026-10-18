@@ -3344,3 +3344,17 @@ devin provider — designated `devin/deepseek-v4-1-flash-high` for loop-3 builds
 (rounds 25-28, 64 workers each). This replaces the opencode-go key rotation and
 the hyper substitution for those rounds; it is an explicit operator route
 designation (provider test), not a silent substitution.
+
+## 2026-10-18 — Round 24 admitted (loop 2 GLM round 2; promotion-review round)
+
+- **Trigger:** regimen; claims C/O/D in `reports/round-24/claims.json`; baseline
+  `8fbcee9`; 16/16 completed.
+- **C (verified):** promotion-review dossier — boxes 1-4 verified-with-conditions
+  by named non-author reviewers; decision operator-owned.
+- **O (verified):** box-3 cold-run by four fresh-context seats; 7 fixes landed
+  with controls; 7 named conditions.
+- **D (verified):** SKILL.md staleness audit complete; F1-F8 fixed; 123-row
+  per-row disposition table; zero silent staleness.
+- **LOOP 2 COMPLETE (rounds 17-24).** Loop 3 = rounds 25-32 with DeepSeek
+  builds on `devin/deepseek-v4-1-flash-high` (operator provider test).
+- **Evidence:** `reports/round-24/validation.json` acceptance true.
