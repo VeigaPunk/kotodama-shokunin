@@ -1,0 +1,72 @@
+{
+  "round": 30,
+  "date": "2026-10-18",
+  "counts_date": "2026-10-18",
+  "observed_at_utc": "2026-10-18T21:52:48.835316+00:00",
+  "kind": "dispatch-telemetry",
+  "lane": "kotodama-shokunin",
+  "seat": "R30-X37",
+  "owner": "R30-X37",
+  "state": "declaration-snapshot-runtime-could-not-evaluate",
+  "scope": "Durability and declaration consistency only; not worker-launch, completion, provider-liveness, or round-acceptance verification.",
+  "counting_command": "python3 -B reports/round-30/telemetry/check-dispatch.py",
+  "control_command": "python3 -B reports/round-30/telemetry/check-dispatch.py --selftest",
+  "source_observation_method": "Read reports/round-30/claims.json and targets.json with Python json.loads; sum(targets['workers'].values()); hashlib.sha256(path.read_bytes()); git rev-parse HEAD",
+  "baseline_revision": "87bfc9956f0fc60e6821fe53b622d0043e28be10",
+  "observed_lane_head": "44145d5f337dea425c20dccafee98e0882678660",
+  "declaration_state": "declared-before-dispatch",
+  "requested_model": "openai-codex/gpt-6.1-sol (max effort)",
+  "requested_provider": "openai-codex",
+  "requested_model_id": "gpt-6.1-sol",
+  "requested_effort": "max",
+  "requested_workers": 32,
+  "worker_allocations": {
+    "O-routed": 12,
+    "C-retro": 10,
+    "D-craft": 10
+  },
+  "allocation_total": 32,
+  "population_definition": "All declared round-30 worker allocations in targets.json; no telemetry/scribe seat is added to or subtracted from that declared population.",
+  "raw_evidence": [
+    {
+      "path": "reports/round-30/claims.json",
+      "kind": "operator-declaration-not-host-dispatch-receipt",
+      "sha256": "d506b87b5ff09a81f0d01e6db1052d084165088f427f5281307643d936ff2e8c",
+      "bytes": 2987
+    },
+    {
+      "path": "reports/round-30/targets.json",
+      "kind": "operator-allocation-not-worker-launch-receipt",
+      "sha256": "c03e9c9563a9d9aa0bac1607131273b69e9507b2a62554adae5caa796d71b047",
+      "bytes": 174
+    }
+  ],
+  "runtime": {
+    "status": "could-not-evaluate",
+    "host_dispatch_receipt": null,
+    "host_completion_receipt": null,
+    "launched_workers": null,
+    "completed_workers": null,
+    "failed_workers": null,
+    "cancelled_workers": null,
+    "dispatch_attempts": null,
+    "retries": null,
+    "provider_substitutions": null,
+    "max_concurrent_workers": null,
+    "wall_s": null,
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "served_provider": null,
+    "served_model": null,
+    "served_effort": null,
+    "basis": "No host per-seat launch/completion receipt or provider traffic trace is exposed to R30-X37 inside this lane. The declaration, this assignment, report-file counts, scratch markers, and request volume are not worker-population or served-model evidence.",
+    "owner": "round-30 parent orchestrator",
+    "follow_up": "Land a new dated host dispatch/completion receipt and sanitized raw trace under reports/round-30/telemetry/ with the counting command, provider/model/effort actually observed, per-seat attempt IDs and outcomes, retries/substitutions, and elapsed-time boundaries. Preserve this observation as a snapshot; add a new record rather than changing an earlier filed round. Do not use null as zero."
+  },
+  "durability": {
+    "directory": "reports/round-30/telemetry/",
+    "scratch_dependencies": [],
+    "historical_recovery_claimed": false,
+    "boundary": "This record remedies the scratch-only storage pattern for the declarations available in this round. It neither recovers the missing rounds-25..28 provider samples nor turns their could-not-evaluate disposition into a pass. AGENTS.md convention integration and final round admission belong to the parent orchestrator."
+  }
+}

@@ -4,6 +4,41 @@
  "profiles": [
   {
    "id": "d4",
+   "generation": "round-30-qreg-records",
+   "match": {
+    "assembly_generator": "tools/assemble-culture-d4.py"
+   },
+   "packet": {
+    "path": "examples/culture-d4/packet.d4.yml",
+    "sha256": "aac91246cede8840a52b710e8d17a6254c68ff7d93f6720c4a4a458b6c76eee3"
+   },
+   "assembler": {
+    "path": "tools/assemble-culture-d4.py",
+    "sha256": "943f487ba991d45d369eb8fb6e9bb686046df165424d101cfa2670f79bb844b2"
+   },
+   "projection": {
+    "path": "examples/culture-d4/typed-labels.d4.yml",
+    "sha256": "c23b0ab532cfb9d4bb403405c6996982a447098048e08facbbc9f341ea13f82e"
+   },
+   "adapter": {
+    "path": "tools/assemble-d4-typed.py",
+    "sha256": "92f5460bcc34ffbb43a771504d213d23aafd818b39c7017c823a363e99063fd0"
+   },
+   "expected": {
+    "path": "examples/culture-d4/expected-holds.json",
+    "sha256": "e6ae9828d6c82aa6e14431a02840ad565f9f7c30a660afcbed1b1079166bfba3"
+   },
+   "repin": {
+    "round": 30,
+    "claim": "O (R30-O01..O03 QREG dangling-record repair)",
+    "date": "2026-10-18T21:59:59Z",
+    "command": "sha256sum examples/culture-d4/packet.d4.yml examples/culture-d4/typed-labels.d4.yml examples/culture-d4/packet.d4.typed.yml examples/culture-d4/expected-holds.json tools/assemble-culture-d4.py tools/assemble-d4-typed.py tools/d2-typed-labels.py",
+    "recorded_in": "reports/round-30/fixes/qreg-dangles.md"
+   },
+   "note": "New first-match generation row: resolves QREG-05..08, preserves the delivered oath exclusion and the 12/0/0 typed hold set. The previous d4 profile remains as the next row without modification. expected-holds.json carries predecessor and successor pin_generations rows while its current top-level pin pointers retain compatibility with the v3 handoff reader. Profile matching is first-match by the packet's declared assembler."
+  },
+  {
+   "id": "d4",
    "match": {
     "assembly_generator": "tools/assemble-culture-d4.py"
    },

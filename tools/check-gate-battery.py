@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Isolated battery for the seven structural gate selftests, plus the baseline
-check over all nine registered gates.
+check over all ten registered gates.
 
 Two duties, one report.
 
@@ -9,7 +9,7 @@ Two duties, one report.
    scripts and their fixture tree into a disposable mirror directory, runs each
    ``--selftest`` there, and never invokes a gate on a live path. Before and
    after the run it snapshots the live tree (per-file sha256 AND the path set of
-   the nine registered gate scripts + the fixture tree), so "originals
+   the ten registered gate scripts + the fixture tree), so "originals
    preserved" is measured, not assumed: modified bytes, added files and deleted
    files under those paths are all detected. Note what this proves: matching
    hashes prove byte preservation, not absence of writes — a rewrite with
@@ -31,27 +31,27 @@ Two duties, one report.
    registered gate without a committed baseline all read could-not-evaluate and
    force exit 2. A tampered baseline is never a silent pass.
 
-   Coverage is the registered nine (round 19, claim O): the seven structural
-   gates plus the two D4 adapters ``d4-typed-labels-check-gate.py`` and
-   ``d4-assembly-check-gate.py``, so a default run reports ``9/9`` coverage once
-   the D4 family carries committed baselines, beside the two counters a reader
-   needs to keep apart — ``pass`` (selftest legs executed) and ``coverage``
-   (registered gates with a pinned baseline). The two adapters are deliberately
-   not selftest legs here: each resolves ``ROOT`` from its own file location and
-   loads a peer (``tools/d2-typed-labels.py``, ``tools/assemble-culture-d4.py``)
-   plus the ``examples/culture-d4/`` packet that no mirror of ``tools/gates/``
-   can hold, so a mirrored ``--selftest`` launch could only report
-   could-not-evaluate. Their conformance evidence is the committed baseline this
-   duty verifies, and their capability evidence is their own ``--selftest``
-   where they carry one — a leg this battery does not fabricate and does not
-   substitute for: registering a gate never covers it, and a gate that cannot
-   answer is never read as one that did. Registering a gate makes the battery
-   *ask* for its baseline: without a committed ``expected.json`` it reads
-   ``BASELINE-GATE-UNCOVERED``, exit 2.
+   Coverage is the registered ten (round 30): the seven structural gates, the
+   two D4 adapters ``d4-typed-labels-check-gate.py`` and
+   ``d4-assembly-check-gate.py``, and ``register-law-gate.py``. A default run
+   reports ``10/10`` coverage once all ten carry committed baselines, beside the
+   two counters a reader needs to keep apart — ``pass`` (selftest legs executed)
+   and ``coverage`` (registered gates represented by a baseline; its pins must
+   also verify). The adapters and law gate are deliberately not selftest legs
+   here: they resolve ``ROOT`` from their own file location and depend on peers
+   or the ``examples/culture-d4/`` packet outside the structural-only mirror.
+   The law selftest specifically requires the delivered packet; launching it
+   without that packet would test an incomplete mirror, not the law. Their
+   conformance evidence is the committed baseline this duty verifies, and their
+   capability evidence is their own ``--selftest`` where they carry one — a leg
+   this battery does not fabricate or substitute for. Registering a gate makes
+   the battery *ask* for its baseline: without a committed ``expected.json`` it
+   reads ``BASELINE-GATE-UNCOVERED``, exit 2. It never blesses a historical
+   finding-bearing baseline as a zero-finding packet.
 
 Exit codes:
   0  all seven structural gate selftests passed (exit 0), the original tree
-     preserved, every discovered baseline pinned, and all nine registered gates
+     preserved, every discovered baseline pinned, and all ten registered gates
      covered
   1  at least one gate selftest ran, exited 1, AND printed recognizable stable
      failure evidence (see below) — treated as a genuine test failure
@@ -83,9 +83,10 @@ will classify as exit 2, not exit 1. The battery still reports a nonzero,
 not-green result either way; it only refuses to vouch for which kind.
 
 The gate lists are fixed constants in this file: ``GATE_NAMES`` (seven
-structural gates, duty 1) and ``REGISTERED_GATE_NAMES`` (the nine-gate coverage
-set, duty 2). Nothing is ever executed from a manifest and no shell string is
-built: each child is launched as
+structural gates, duty 1), ``BASELINE_ONLY_GATE_NAMES`` (the two D4 adapters and
+law gate), and ``REGISTERED_GATE_NAMES`` (the ten-gate coverage set, duty 2).
+Nothing is ever executed from a manifest and no shell string is built: each
+child is launched as
 [sys.executable, <resolved gate path>, "--selftest"] with shell=False. No gate
 script is modified by, or reachable from, the baseline check (it reads bytes
 only), and baseline paths are never followed outside the baseline directory.
@@ -122,16 +123,13 @@ GATE_NAMES = (
     "phonology-sanity-gate.py",
     "provenance-audit.py",
 )
-# The two D4 adapters (round 18). Registered for duty-2 coverage only: each is a
-# gate-shaped entry point whose ROOT resolves from its own file location and
-# whose peer lives outside tools/gates/, so the duty-1 mirror cannot host it and
-# this battery does not launch it. Their conformance evidence is the committed
-# baseline duty 2 verifies.
 D4_GATE_NAMES = (
     "d4-typed-labels-check-gate.py",
     "d4-assembly-check-gate.py",
 )
-REGISTERED_GATE_NAMES = GATE_NAMES + D4_GATE_NAMES
+REGISTER_LAW_GATE_NAMES = ("register-law-gate.py",)
+BASELINE_ONLY_GATE_NAMES = D4_GATE_NAMES + REGISTER_LAW_GATE_NAMES
+REGISTERED_GATE_NAMES = GATE_NAMES + BASELINE_ONLY_GATE_NAMES
 FIXTURE_DIRNAME = "fixtures"
 HERE = Path(__file__).resolve().parent
 GATES_DIR = HERE / "gates"
@@ -205,10 +203,10 @@ def leg_plan(mirror):
     """(name, argv, cwd) for the seven structural selftest legs, in run order.
 
     The plan is data so the selftest can assert it. It is deliberately seven and
-    deliberately mirror-rooted: the two D4 adapters are registered for duty-2
-    coverage, and a leg added here for them would be a leg whose ``ROOT``
-    resolves into the mirror where its peer and packet do not exist — a plan
-    that cannot run. A later refactor that tries it fails ``CTRL-D4-SURFACE``.
+    deliberately mirror-rooted: the D4 adapters and law gate need peers or a
+    delivered packet outside this mirror. Adding their selftest legs would
+    test an incomplete mirror; ``CTRL-D4-SURFACE`` and ``CTRL-LAW-SURFACE``
+    enforce that boundary.
     """
     return [
         (name, [sys.executable, str(mirror / name), "--selftest"], mirror)
@@ -220,11 +218,11 @@ def preservation_paths():
     """Live paths the battery reads, keyed for the before/after diff.
 
     The mirror holds only the seven structural scripts and the fixture tree;
-    duty 2 also hashes all nine registered gate scripts against their baselines'
-    ``gate_sha256`` pins, so the two D4 adapters belong in the snapshot as well.
+    duty 2 also hashes all ten registered gate scripts against their baselines'
+    ``gate_sha256`` pins, including the D4 adapters and law gate.
     """
     paths = {str(p.relative_to(GATES_DIR)): p for p in battery_paths(GATES_DIR)}
-    for name in D4_GATE_NAMES:
+    for name in BASELINE_ONLY_GATE_NAMES:
         paths[name] = GATES_DIR / name
     return paths
 
@@ -680,7 +678,7 @@ def inspect_baselines(roots, gates_dir=GATES_DIR, repo_root=HERE.parent,
                       gate_names=REGISTERED_GATE_NAMES):
     """Validate every committed expected.json under the roots; return a report dict.
 
-    ``gate_names`` defaults to the nine-gate registered set: every registered
+    ``gate_names`` defaults to the ten-gate registered set: every registered
     gate owes a committed baseline, so an uncovered one is could-not-evaluate.
     """
     records = []
@@ -1037,102 +1035,86 @@ def run_selftest():
         if report["summary"]["pinned"] != len(required_roots):
             failures.append("CTRL-BASELINE-DEFAULT-ROOTS did not discover every required root")
 
-        # ---- D4 registration (round 19, claim O) --------------------------
-        # Two synthetic fixtures differing only in which gates carry a committed
-        # baseline. The partial fixture (the seven structural gates only) is the
-        # round-18 state: read under the pre-state seven-name set it is green
-        # while the D4 family is unpinned, and read under the registered nine it
-        # fails closed on exactly the two D4 gates.
-        nine_gates = root / "nine-gates"
-        nine_gates.mkdir()
+        pre_law_gate_names = GATE_NAMES + D4_GATE_NAMES
+        registered_gates = root / "registered-gates"
+        registered_gates.mkdir()
         for name in REGISTERED_GATE_NAMES:
-            (nine_gates / name).write_text(f"# synthetic {name}\n", encoding="utf-8")
+            (registered_gates / name).write_text(f"# synthetic {name}\n", encoding="utf-8")
 
-        def write_nine_fixture(fixture, gates_with_baselines):
+        def write_registry_fixture(fixture, gates_with_baselines, law_findings=()):
             for name in gates_with_baselines:
-                base = fixture / "tools" / "gates" / "expected" / name / "r19-pre"
+                base = fixture / "tools" / "gates" / "expected" / name / "registration-control"
                 base.mkdir(parents=True, exist_ok=True)
                 (base / "packet.yml").write_bytes(f"era: {name}\n".encode())
+                ids = list(law_findings) if name in REGISTER_LAW_GATE_NAMES else []
                 (base / "expected.json").write_text(json.dumps({
                     "schema": BASELINE_SCHEMA,
                     "gate": name,
-                    "gate_sha256": sha256_file(nine_gates / name),
+                    "gate_sha256": sha256_file(registered_gates / name),
                     "inputs": {"packet.yml": sha256_file(base / "packet.yml")},
-                    "expected": {"exit": 0, "class": "clean", "findings": []},
+                    "expected": {"exit": 1 if ids else 0,
+                                 "class": "findings" if ids else "clean", "findings": ids},
                 }, indent=1), encoding="utf-8")
             return tuple(fixture / path.relative_to(HERE.parent) for path in BASELINE_ROOTS)
 
-        def read_nine(roots, fixture, gate_names=None):
+        def read_registry(roots, fixture, gate_names=None):
             kwargs = {} if gate_names is None else {"gate_names": gate_names}
-            return inspect_baselines(roots, gates_dir=nine_gates, repo_root=fixture, **kwargs)
+            return inspect_baselines(roots, gates_dir=registered_gates,
+                                     repo_root=fixture, **kwargs)
+
+        def expect_coverage(control_id, report, gate_names, covered_names):
+            covered = [name for name in gate_names if name in covered_names]
+            uncovered = [name for name in gate_names if name not in covered_names]
+            summary = report["summary"]
+            if (summary["gates_registered"] != len(gate_names)
+                    or summary["gates_covered"] != covered
+                    or summary["gates_uncovered"] != uncovered
+                    or summary["coverage"] != f"{len(covered)}/{len(gate_names)}"):
+                failures.append(f"{control_id} coverage/count differ: {summary!r}")
 
         partial_fixture = root / "nine-partial"
-        partial_roots = write_nine_fixture(partial_fixture, GATE_NAMES)
+        partial_roots = write_registry_fixture(partial_fixture, GATE_NAMES)
         report = rollup("CTRL-D4-PRESTATE-7-GREEN",
-                        read_nine(partial_roots, partial_fixture, GATE_NAMES),
+                        read_registry(partial_roots, partial_fixture, GATE_NAMES),
                         0, "pinned", set(),
                         "the pre-state seven-name set reads green while the D4 family is unpinned")
-        if report["summary"]["coverage"] != "7/7" or report["summary"]["gates_uncovered"] != []:
-            failures.append("CTRL-D4-PRESTATE-7-GREEN coverage is %r (uncovered %s)"
-                            % (report["summary"]["coverage"],
-                               report["summary"]["gates_uncovered"]))
+        expect_coverage("CTRL-D4-PRESTATE-7-GREEN", report, GATE_NAMES, GATE_NAMES)
 
         report = rollup("CTRL-D4-POSTSTATE-UNCOVERED",
-                        read_nine(partial_roots, partial_fixture),
+                        read_registry(partial_roots, partial_fixture, pre_law_gate_names),
                         2, "pinned", {"BASELINE-GATE-UNCOVERED"},
-                        "the registered nine fails closed on the same tree, on exactly the D4 gates")
-        if report["summary"]["gates_uncovered"] != list(D4_GATE_NAMES):
-            failures.append("CTRL-D4-POSTSTATE-UNCOVERED uncovered %s, expected exactly %s"
-                            % (report["summary"]["gates_uncovered"], list(D4_GATE_NAMES)))
-        if report["summary"]["coverage"] != "7/9":
-            failures.append("CTRL-D4-POSTSTATE-UNCOVERED coverage is %r, expected '7/9'"
-                            % (report["summary"]["coverage"],))
+                        "the historical nine-name set fails closed on exactly the D4 gates")
+        expect_coverage("CTRL-D4-POSTSTATE-UNCOVERED", report, pre_law_gate_names, GATE_NAMES)
 
         full_fixture = root / "nine-full"
-        full_roots = write_nine_fixture(full_fixture, REGISTERED_GATE_NAMES)
-        report = rollup("CTRL-D4-DEFAULT-9-OF-9",
-                        read_nine(full_roots, full_fixture),
-                        0, "pinned", set(),
-                        "the default registered set covers all nine gates")
-        if report["summary"]["coverage"] != "9/9":
-            failures.append("CTRL-D4-DEFAULT-9-OF-9 coverage is %r, expected '9/9'"
-                            % (report["summary"]["coverage"],))
-        if report["summary"]["gates_uncovered"] != []:
-            failures.append("CTRL-D4-DEFAULT-9-OF-9 left %s uncovered"
-                            % (report["summary"]["gates_uncovered"],))
-        if set(report["summary"]["gates_covered"]) != set(REGISTERED_GATE_NAMES):
-            failures.append("CTRL-D4-DEFAULT-9-OF-9 did not cover every registered gate")
+        full_roots = write_registry_fixture(full_fixture, pre_law_gate_names)
+        report = rollup("CTRL-D4-9-OF-9",
+                        read_registry(full_roots, full_fixture, pre_law_gate_names),
+                        0, "pinned", set(), "the historical D4 coverage slice remains nine gates")
+        expect_coverage("CTRL-D4-9-OF-9", report, pre_law_gate_names, pre_law_gate_names)
 
         report = rollup("CTRL-D4-PRESTATE-REJECTS-D4",
-                        read_nine(full_roots, full_fixture, GATE_NAMES),
+                        read_registry(full_roots, full_fixture, GATE_NAMES),
                         2, "no baseline,pinned", {"BASELINE-GATE-UNKNOWN"},
                         "the pre-state set cannot name a D4 gate: its baseline reads no baseline")
-        if report["summary"]["gates_covered"] != list(GATE_NAMES):
-            failures.append("CTRL-D4-PRESTATE-REJECTS-D4 covered %s, expected the seven structural"
-                            % (report["summary"]["gates_covered"],))
+        expect_coverage("CTRL-D4-PRESTATE-REJECTS-D4", report, GATE_NAMES, GATE_NAMES)
 
         registry_ok = (
-            len(REGISTERED_GATE_NAMES) == 9
-            and len(set(REGISTERED_GATE_NAMES)) == 9
-            and all(name in REGISTERED_GATE_NAMES for name in D4_GATE_NAMES)
+            len(pre_law_gate_names) == 9
+            and len(set(pre_law_gate_names)) == 9
+            and all(name in REGISTERED_GATE_NAMES for name in pre_law_gate_names)
             and not (set(D4_GATE_NAMES) & set(GATE_NAMES))
             and all((GATES_DIR / name).is_file() for name in D4_GATE_NAMES)
         )
         if not registry_ok:
-            failures.append(
-                "CTRL-D4-REGISTRY: registered=%r missing_scripts=%r"
-                % (list(REGISTERED_GATE_NAMES),
-                   [n for n in D4_GATE_NAMES if not (GATES_DIR / n).is_file()])
-            )
+            failures.append(f"CTRL-D4-REGISTRY: registered={REGISTERED_GATE_NAMES!r}")
         controls.append({"id": "CTRL-D4-REGISTRY", "observed_exit": 0 if registry_ok else 1,
                          "outcome": "-", "findings": []})
 
-        # The leg plan and the coverage surface, asserted as data: seven
-        # mirror-rooted selftest legs, nine registered gates, no D4 leg.
         fake_mirror = root / "no-such-mirror"
         plan = leg_plan(fake_mirror)
         plan_names = [name for name, _, _ in plan]
-        plan_is_seven = plan_names == list(GATE_NAMES)
+        plan_is_seven = len(plan) == 7 and plan_names == list(GATE_NAMES)
         plan_mirrored = all(
             Path(argv[1]).parent == fake_mirror and cwd == fake_mirror
             for _, argv, cwd in plan
@@ -1141,17 +1123,109 @@ def run_selftest():
         mirror_excludes_d4 = not (set(D4_GATE_NAMES) & mirror_set)
         snapshot = set(preservation_paths())
         snapshot_covers = set(REGISTERED_GATE_NAMES) <= snapshot
-        surface_ok = (
-            plan_is_seven and plan_mirrored and mirror_excludes_d4
-            and set(REGISTERED_GATE_NAMES) == set(GATE_NAMES) | set(D4_GATE_NAMES)
-            and snapshot_covers
-        )
+        surface_ok = plan_is_seven and plan_mirrored and mirror_excludes_d4 and snapshot_covers
         if not surface_ok:
             failures.append(
                 "CTRL-D4-SURFACE: names=%r mirrored=%s mirror_excludes=%s snapshot=%s"
                 % (plan_names, plan_mirrored, mirror_excludes_d4, snapshot_covers)
             )
         controls.append({"id": "CTRL-D4-SURFACE", "observed_exit": 0 if surface_ok else 1,
+                         "outcome": "-", "findings": []})
+
+        report = rollup("CTRL-LAW-PRESTATE-9-GREEN",
+                        read_registry(full_roots, full_fixture, pre_law_gate_names),
+                        0, "pinned", set(), "the pre-law registry reads green without a law baseline")
+        expect_coverage("CTRL-LAW-PRESTATE-9-GREEN", report, pre_law_gate_names, pre_law_gate_names)
+
+        report = rollup("CTRL-LAW-POSTSTATE-UNCOVERED",
+                        read_registry(full_roots, full_fixture),
+                        2, "pinned", {"BASELINE-GATE-UNCOVERED"},
+                        "the default ten-name set fails closed on the same nine-baseline tree")
+        expect_coverage("CTRL-LAW-POSTSTATE-UNCOVERED", report,
+                        REGISTERED_GATE_NAMES, pre_law_gate_names)
+        if [(f["gate"], f["id"]) for f in report["findings"]] != [
+                ("register-law-gate.py", "BASELINE-GATE-UNCOVERED")]:
+            failures.append("CTRL-LAW-POSTSTATE-UNCOVERED did not isolate the law gate")
+
+        ten_fixture = root / "ten-full"
+        ten_roots = write_registry_fixture(ten_fixture, REGISTERED_GATE_NAMES)
+        report = rollup("CTRL-LAW-DEFAULT-10-OF-10",
+                        read_registry(ten_roots, ten_fixture),
+                        0, "pinned", set(), "the default registry requires and covers all ten gates")
+        expect_coverage("CTRL-LAW-DEFAULT-10-OF-10", report,
+                        REGISTERED_GATE_NAMES, REGISTERED_GATE_NAMES)
+        if report["findings"] or report["summary"]["pinned"] != 10:
+            failures.append("CTRL-LAW-DEFAULT-10-OF-10 did not pin ten clean baselines")
+
+        report = rollup("CTRL-LAW-PRESTATE-REJECTS-LAW",
+                        read_registry(ten_roots, ten_fixture, pre_law_gate_names),
+                        2, "no baseline,pinned", {"BASELINE-GATE-UNKNOWN"},
+                        "the old registry cannot silently accept a law baseline")
+        expect_coverage("CTRL-LAW-PRESTATE-REJECTS-LAW", report,
+                        pre_law_gate_names, pre_law_gate_names)
+        unknown = [r for r in report["baselines"] if r["gate"] is None]
+        if len(unknown) != 1 or "register-law-gate.py" not in unknown[0]["baseline"]:
+            failures.append("CTRL-LAW-PRESTATE-REJECTS-LAW did not isolate the law baseline")
+
+        finding_fixture = root / "law-findings"
+        finding_roots = write_registry_fixture(
+            finding_fixture, REGISTERED_GATE_NAMES, law_findings=("D4L-LAW-DANGLING",))
+        report = rollup("CTRL-LAW-FINDING-BASELINE",
+                        read_registry(finding_roots, finding_fixture),
+                        0, "pinned", set(), "pin inspection preserves a finding-bearing verdict")
+        law_record = next(r for r in report["baselines"] if r["gate"] == "register-law-gate.py")
+        if law_record["expected"] != {
+                "exit": 1, "class": "findings", "findings": ["D4L-LAW-DANGLING"]}:
+            failures.append("CTRL-LAW-FINDING-BASELINE silently changed the declared verdict")
+        if not law_record["verdict_replay"].startswith("not-run:"):
+            failures.append("CTRL-LAW-FINDING-BASELINE falsely claimed a verdict replay")
+
+        law_base = (ten_fixture / "tools/gates/expected/register-law-gate.py"
+                    / "registration-control")
+        packet_path = law_base / "packet.yml"
+        packet_bytes = packet_path.read_bytes()
+        packet_path.write_bytes(packet_bytes + b"# tampered byte\n")
+        report = rollup("CTRL-LAW-BASELINE-TAMPERED",
+                        read_registry(ten_roots, ten_fixture),
+                        2, "pinned,snapshot_tampered", {"BASELINE-TAMPERED"},
+                        "a law snapshot edit fails closed even with nominal ten-gate coverage")
+        if [(f["gate"], f["id"]) for f in report["findings"]] != [
+                ("register-law-gate.py", "BASELINE-TAMPERED")]:
+            failures.append("CTRL-LAW-BASELINE-TAMPERED did not isolate the law snapshot")
+        expect_coverage("CTRL-LAW-BASELINE-TAMPERED", report,
+                        REGISTERED_GATE_NAMES, REGISTERED_GATE_NAMES)
+        packet_path.write_bytes(packet_bytes)
+
+        law_script = registered_gates / "register-law-gate.py"
+        law_script.write_bytes(law_script.read_bytes() + b"# revised gate\n")
+        report = rollup("CTRL-LAW-GATE-REVISED", read_registry(ten_roots, ten_fixture),
+                        2, "gate_revised,pinned", {"BASELINE-GATE-REVISED"},
+                        "a law gate revision cannot reuse a prior pin")
+        if [(f["gate"], f["id"]) for f in report["findings"]] != [
+                ("register-law-gate.py", "BASELINE-GATE-REVISED")]:
+            failures.append("CTRL-LAW-GATE-REVISED did not isolate the law revision")
+
+        law_registry_ok = (
+            REGISTER_LAW_GATE_NAMES == ("register-law-gate.py",)
+            and len(REGISTERED_GATE_NAMES) == len(set(REGISTERED_GATE_NAMES)) == 10
+            and set(REGISTERED_GATE_NAMES) == set(pre_law_gate_names) | set(REGISTER_LAW_GATE_NAMES)
+            and not (set(REGISTER_LAW_GATE_NAMES) & set(GATE_NAMES))
+            and (GATES_DIR / "register-law-gate.py").is_file()
+        )
+        if not law_registry_ok:
+            failures.append(f"CTRL-LAW-REGISTRY: registered={REGISTERED_GATE_NAMES!r}")
+        controls.append({"id": "CTRL-LAW-REGISTRY", "observed_exit": 0 if law_registry_ok else 1,
+                         "outcome": "-", "findings": []})
+
+        law_surface_ok = (
+            plan_is_seven and plan_mirrored and snapshot_covers
+            and not (set(REGISTER_LAW_GATE_NAMES) & (mirror_set | set(plan_names)))
+            and set(BASELINE_ONLY_GATE_NAMES) == set(D4_GATE_NAMES) | set(REGISTER_LAW_GATE_NAMES)
+            and set(REGISTERED_GATE_NAMES) == set(GATE_NAMES) | set(BASELINE_ONLY_GATE_NAMES)
+        )
+        if not law_surface_ok:
+            failures.append("CTRL-LAW-SURFACE: law execution/mirror exclusion or snapshot coverage differs")
+        controls.append({"id": "CTRL-LAW-SURFACE", "observed_exit": 0 if law_surface_ok else 1,
                          "outcome": "-", "findings": []})
 
         tampered_root = root / "tampered-root"
@@ -1307,7 +1381,7 @@ def run_selftest():
 def main(argv):
     parser = argparse.ArgumentParser(
         description="Isolated battery for the seven structural gate selftests plus the "
-                    "committed baseline check over the nine registered gates"
+                    "committed baseline check over the ten registered gates"
     )
     parser.add_argument(
         "--timeout",

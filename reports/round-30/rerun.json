@@ -1,0 +1,487 @@
+{
+  "round": 30,
+  "seat": "SCRIBE X36",
+  "assignment": "report scribe + settled-tree rerun",
+  "state": "core-evidence-ready-blocked-on-parent-integration-and-moving-read-set",
+  "date": "2026-10-18",
+  "baseline_revision": "87bfc9956f0fc60e6821fe53b622d0043e28be10",
+  "write_scope": [
+    "reports/round-30/report-draft.md",
+    "reports/round-30/rerun.json"
+  ],
+  "declared_counting_command": "python3 reports/round-30/run-validation.py",
+  "poll_interval_seconds": 60,
+  "maximum_dependency_wait_seconds": 1200,
+  "pending_dependencies": [
+    "tools/gates/register-law-gate.py: orchestrator-owned speaker/clean-state candidate landing",
+    "new default-root register-law expected.json binding final gate, peers and packet",
+    "v3 authorized successor hold-set/read-set path and newly frozen baseline",
+    "reports/round-30/routed-resolution.json: resolve its now-missing expected-holds.r30-qreg.json citation without rewriting history",
+    "SKILL.md: orchestrator-owned Register craft landing",
+    "reports/round-30/craft/review-D29-box1.md: actual landed-mode receipt bound to final skill hash",
+    "post-integration validator run with no evidence motion; final current-hash audits and parent-owned receipt publication"
+  ],
+  "protected_surface_samples": [
+    {
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:53:03.414898+00:00",
+      "baseline_revision": "87bfc9956f0fc60e6821fe53b622d0043e28be10",
+      "head": "44145d5f337dea425c20dccafee98e0882678660",
+      "command": "export TMPDIR=\"$PWD/.scratch\" PYTHONDONTWRITEBYTECODE=1; python3 -B heredoc: git ls-tree -rz baseline -- reports/round-{8..29} tools/gates/frozen/round-{8..29}; compare every working file's Git blob with the baseline blob; sha256 ordered path+sha256 manifest; git status --porcelain=v1 -uall -- protected paths",
+      "protected_tracked_paths": 1764,
+      "missing": [],
+      "mismatches": [],
+      "working_sha256_manifest": "b025c88925680271963cfdfb4efe0e04de5a71b6bdf199800d31061d4afb1cc9",
+      "protected_status_exit": 0,
+      "protected_status": "",
+      "passed": true,
+      "scope_note": "Reports and frozen surfaces for filed rounds 8-29 only. Sampled byte equality does not prove no transient writes or fleet-root cleanliness."
+    }
+  ],
+  "runs": [
+    {
+      "phase": "pre-integration baseline; not a settled-tree acceptance",
+      "name": "law-clean-before",
+      "date": "2026-10-18",
+      "started_at_utc": "2026-10-18T21:53:37.949116+00:00",
+      "finished_at_utc": "2026-10-18T21:53:37.984603+00:00",
+      "command": "python3 -B tools/gates/register-law-gate.py --packet examples/culture-d4/packet.d4.yml",
+      "gate_sha256": "bbad35784bfb463d41912908748ebb711f72109d811d0dc8f0110657e3b4c026",
+      "packet_sha256": "543d68a82640e1b0c53b9cb7cb26c4dc60fce5878c2bf487050ead3af0945c4f",
+      "exit_code": 1,
+      "finding_ids": ["D4L-LAW-DANGLING", "D4L-LAW-DANGLING", "D4L-LAW-DANGLING", "D4L-LAW-DANGLING"],
+      "coverage_line": "coverage: examples/culture-d4/packet.d4.yml law_rows=5 identity_rows=4 record_ids=179 registers=9 speaker_tokens=3 force_failures=0 consequence_failures=0 dangling=4 findings=4",
+      "stderr": ""
+    },
+    {
+      "phase": "pre-integration baseline; not a settled-tree acceptance",
+      "name": "law-selftest-before",
+      "date": "2026-10-18",
+      "started_at_utc": "2026-10-18T21:53:46.479208+00:00",
+      "finished_at_utc": "2026-10-18T21:53:46.551908+00:00",
+      "command": "python3 -B tools/gates/register-law-gate.py --selftest",
+      "runner_sha256_before": "bbad35784bfb463d41912908748ebb711f72109d811d0dc8f0110657e3b4c026",
+      "runner_sha256_after": "bbad35784bfb463d41912908748ebb711f72109d811d0dc8f0110657e3b4c026",
+      "runner_unchanged": true,
+      "exit_code": 0,
+      "summary": "selftest: 33/33 checks passed; the existing delivered speaker probe has a ZZ-99 token, not the tokenless tail",
+      "stderr": ""
+    },
+    {
+      "phase": "pre-integration baseline; not a settled-tree acceptance",
+      "name": "battery-selftest-before",
+      "date": "2026-10-18",
+      "started_at_utc": "2026-10-18T21:53:46.479544+00:00",
+      "finished_at_utc": "2026-10-18T21:53:47.593015+00:00",
+      "command": "python3 -B tools/check-gate-battery.py --selftest",
+      "runner_sha256_before": "cd8c0ec291b6b986744ff132991abff717cbc085a86f095378189e15d6df13e5",
+      "runner_sha256_after": "cd8c0ec291b6b986744ff132991abff717cbc085a86f095378189e15d6df13e5",
+      "runner_unchanged": true,
+      "exit_code": 0,
+      "summary": "SELFTEST OK 35/35 controls behaved as expected",
+      "stderr": ""
+    },
+    {
+      "phase": "pre-integration baseline; not a settled-tree acceptance",
+      "name": "battery-before",
+      "date": "2026-10-18",
+      "started_at_utc": "2026-10-18T21:53:46.479570+00:00",
+      "finished_at_utc": "2026-10-18T21:53:46.867810+00:00",
+      "command": "python3 -B tools/check-gate-battery.py",
+      "runner_sha256_before": "cd8c0ec291b6b986744ff132991abff717cbc085a86f095378189e15d6df13e5",
+      "runner_sha256_after": "cd8c0ec291b6b986744ff132991abff717cbc085a86f095378189e15d6df13e5",
+      "runner_unchanged": true,
+      "exit_code": 0,
+      "summary": {
+        "duty_1_pass": 7,
+        "duty_1_fail": 0,
+        "duty_1_unevaluable": 0,
+        "coverage": "9/9",
+        "baselines_found": 19,
+        "pinned": 19,
+        "gates_uncovered": [],
+        "law_registered": false,
+        "originals_preserved": true,
+        "verdict_replay": "not-run: the battery verifies digests and pins; the verdict comparison belongs to the baseline's own re-run receipt"
+      },
+      "stderr": ""
+    },
+    {
+      "phase": "pre-integration baseline; not a settled-tree acceptance",
+      "name": "argot-clean-before",
+      "date": "2026-10-18",
+      "started_at_utc": "2026-10-18T21:53:46.479683+00:00",
+      "finished_at_utc": "2026-10-18T21:53:46.517133+00:00",
+      "command": "python3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml",
+      "runner_sha256_before": "b5406bcdaf41c5950438bacd9ccf73ca2e97c044f631f505129cdd0e7e2352fb",
+      "runner_sha256_after": "b5406bcdaf41c5950438bacd9ccf73ca2e97c044f631f505129cdd0e7e2352fb",
+      "runner_unchanged": true,
+      "exit_code": 0,
+      "coverage_line": "coverage: examples/culture-d4/packet.d4.yml records=183 register_scoped=14 derived_pairs=8 claimed_chains=8 borrow_pairs=6 violations=0 rule_holds=0",
+      "stderr": ""
+    }
+  ],
+  "integration_observations": [
+    {
+      "id": "X36-TELEMETRY-SCHEMA",
+      "state": "in-flight; rerun after integration",
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:54:39.458085+00:00",
+      "command": "python3 -B reports/round-30/telemetry/check-dispatch.py --selftest",
+      "inputs_before_and_after": {
+        "reports/round-30/telemetry/check-dispatch.py": "51b8c8348a9e649e8ab9a792f513a8df6cfa0ef52bae128fcd5b9ea273220f63",
+        "reports/round-30/telemetry/dispatch-stats.json": "291fcbeed7ed8abb24ee269288ea6648afe1f24496b803a591e5fbda3d934ae2"
+      },
+      "inputs_stable": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr_summary": "Traceback: check-dispatch.py:34 date.fromisoformat(record[date]); KeyError: 'date'",
+      "owner": "telemetry owner / round-30 orchestrator",
+      "required_disposition": "Reconcile public producer/checker filenames or schemas as new snapshots; retain partial scope and null runtime counters; rerun both checker surfaces."
+    },
+    {
+      "id": "X36-SPEAKER-TAIL-BEFORE",
+      "state": "pre-fix paired control; not settled acceptance",
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:54:32.086163+00:00",
+      "command": "python3 -B heredoc: runpy load register-law-gate.py; evaluate delivered packet, RGL-01 speaker=\"nobody-nowhere\", and RGL-01 speaker=\"nobody-nowhere (ZZ-99)\" in memory",
+      "inputs_before_and_after": {
+        "tools/gates/register-law-gate.py": "bbad35784bfb463d41912908748ebb711f72109d811d0dc8f0110657e3b4c026",
+        "tools/gates/naming-collision-gate.py": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d",
+        "examples/culture-d4/packet.d4.yml": "aac91246cede8840a52b710e8d17a6254c68ff7d93f6720c4a4a458b6c76eee3"
+      },
+      "inputs_stable": true,
+      "runs": [
+        {"name": "clean", "exit_code": 0, "findings": []},
+        {"name": "tokenless", "exit_code": 0, "findings": []},
+        {"name": "token-bearing", "exit_code": 1, "findings": [{"id": "D4L-LAW-SPEAKER", "level": "FAIL", "message": "RGL-01 speaker names agent id ZZ-99, which resolves to no delivered record: the office is cited where the packet cannot see it (RL-4 class)"}]}
+      ]
+    }
+  ],
+  "calibration_check": {
+    "date": "2026-10-18",
+    "measured_at_utc": "2026-10-18T21:55:11.108451+00:00",
+    "command": "python3 -B reports/round-30/retrospective-audit-C23-C25.py --numbers --selftest",
+    "exit_code": 0,
+    "runner_sha256": "bddad9c2f04a503f1e3fa4b5c23695632ae199163e6ec850bf4a8d2cf2c9befe",
+    "stdout_sha256": "12d9c345aef4a6ece21bf469951509bb2ad6ad38cda33cc1b9bbd61308390275",
+    "closed_states_through_round_29": {"admitted": 18, "rejected": 3, "operator_skipped": 1},
+    "loop_states": {"1": {"admitted": 7, "rejected": 1, "operator_skipped": 1}, "2": {"admitted": 6, "rejected": 2}, "3_completed_25_29": {"admitted": 5}},
+    "receipt_count": 20,
+    "receipt_claim_flags": {"true": 55, "false": 2},
+    "r22_authority": "LOG.md:3298-3324; no lane-local validation receipt",
+    "declared_requested_workers_excluding_skip_8_29": 1088,
+    "parent_reported_completions_25_29": {"25": 26, "26": 24, "27": 24, "28": 24, "29": 17},
+    "parent_reported_completion_sum_25_29": 115,
+    "freshness": {"rows": 192, "comparable": 189, "stable": 147, "all_row_ratio": 0.765625, "comparable_ratio": 0.7777777777777778, "original_threshold": 0.95},
+    "r29_defect_statuses": {"closed": 3, "observation": 3, "open": 16, "superseded": 2},
+    "r30_scoped_routed_items": 5,
+    "numeric_negative_controls_passed": 9,
+    "locator_controls_passed": 12,
+    "scope_note": "Historical receipts and parent dispositions only; not new admissions, provider sample verification, or a freshness policy change."
+  },
+  "telemetry_durability_checks": [
+    {
+      "date": "2026-10-18",
+      "started_at_utc": "2026-10-18T21:55:02.066320+00:00",
+      "finished_at_utc": "2026-10-18T21:55:02.095337+00:00",
+      "command": "python3 -B reports/round-30/telemetry/dispatch-telemetry.py --check",
+      "exit_code": 0,
+      "passed": true,
+      "findings": [],
+      "full_wave_status": "could-not-evaluate"
+    },
+    {
+      "date": "2026-10-18",
+      "started_at_utc": "2026-10-18T21:55:02.066502+00:00",
+      "finished_at_utc": "2026-10-18T21:55:02.096919+00:00",
+      "command": "python3 -B reports/round-30/telemetry/dispatch-telemetry.py --selftest",
+      "exit_code": 0,
+      "passed": true,
+      "passed_controls": 10,
+      "total_controls": 10,
+      "scope_note": "Includes replay after scratch removal, missing/tampered raw evidence, requested-not-completed, and unsupported full-wave pass controls; does not repair the separate check-dispatch.py schema mismatch."
+    }
+  ],
+  "box1_prelanding_inventory": {
+    "date": "2026-10-18",
+    "measured_at_utc": "2026-10-18T21:54:24.728998+00:00",
+    "command": "python3 -B heredoc: enumerate tools/*.py, tools/gates/*.py, tools/harness/*.py; subtract re.findall(r'tools/[A-Za-z0-9./_-]*\\.py', SKILL.md)",
+    "skill_sha256": "2d85bfea6e6a7503b4267b84fda5f393ed14e1a3f5eae108940e7fad8adb6048",
+    "executable_paths": 28,
+    "distinct_full_path_mentions": 19,
+    "unnamed_count": 9,
+    "unnamed": ["tools/assemble-d2-typed.py", "tools/exercise-handoff-e2e.py", "tools/gates/argot-derivation-gate.py", "tools/gates/d4-assembly-check-gate.py", "tools/gates/d4-typed-labels-check-gate.py", "tools/gates/register-law-gate.py", "tools/harness/packet_links.py", "tools/harness/r8_checks.py", "tools/harness/receipt_guard.py"],
+    "register_craft_heading_present": false,
+    "scope_note": "Full-path mention census; pre-landing only; not independent promotion verification."
+  },
+  "integration_follow_up_checks": [
+    {
+      "id": "X36-TELEMETRY-SCHEMA",
+      "disposition": "resolved by distinct durable snapshot path; retains original failure measurement",
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:55:55.829613+00:00",
+      "command": "python3 -B reports/round-30/telemetry/check-dispatch.py --selftest",
+      "checker_sha256": "c13a04051846b37a833b9c036ef3429408b5e625ef5d574cae7211965ed2b822",
+      "snapshot_path": "reports/round-30/telemetry/dispatch-declaration-x37.json",
+      "snapshot_sha256": "4b7a9c13f1e42c1aef394101724855d48e7f2bd5f89379adcd6a5a487a9526db",
+      "exit_code": 0,
+      "status": "passed",
+      "negative_controls": 11,
+      "runtime_status": "could-not-evaluate",
+      "launched_workers": null,
+      "completed_workers": null
+    },
+    {
+      "id": "round30-validator-selftest",
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:55:55.769945+00:00",
+      "command": "python3 -B reports/round-30/run-validation.py --selftest",
+      "runner_sha256_before_and_after": "84b3fb8f8ccc2a1b3431a656679c4ab40996e8843d4dd2906baea8f16230aab5",
+      "exit_code": 0,
+      "passed_controls": 30,
+      "total_controls": 30,
+      "scope_note": "Dependency-free classifier and targeting controls, not whole-round acceptance."
+    }
+  ],
+  "aggregate_runs": [
+    {
+      "phase": "in-flight aggregate check; NOT a settled-tree result",
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:56:14+00:00",
+      "command": "python3 -B reports/round-30/run-validation.py --check",
+      "exit_code": 1,
+      "runner_sha256": "84b3fb8f8ccc2a1b3431a656679c4ab40996e8843d4dd2906baea8f16230aab5",
+      "stdout_sha256": "0c00400323f64c19c244b9986e1f6b4a1b9c997b5e167ffc18885dc05ff0ad6f",
+      "scratch_raw_output": ".scratch/r30-x36/precheck.json",
+      "acceptance_checks_passed": false,
+      "claims": {"O": false, "C": false, "D": false},
+      "regression_total": 30,
+      "regression_exit_zero": 26,
+      "nonzero_regressions": [
+        {"name": "battery", "command": "python3 -B tools/check-gate-battery.py", "exit_code": 2},
+        {"name": "law-selftest", "command": "python3 -B tools/gates/register-law-gate.py --selftest", "exit_code": 1},
+        {"name": "handoff-v3-selftest", "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --selftest", "exit_code": 1},
+        {"name": "handoff-v3", "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet", "exit_code": 1}
+      ],
+      "law_control_results": [
+        {"name": "force", "exit_code": 1, "passed": true},
+        {"name": "speaker-token", "exit_code": 1, "passed": true},
+        {"name": "speaker-tokenless", "exit_code": 0, "passed": false},
+        {"name": "consequence", "exit_code": 1, "passed": true},
+        {"name": "dangling", "exit_code": 2, "passed": false, "observation": "D4L-LAW-DATA: unexpected indentation at input line 3; mutation did not reach the intended dangling-reference semantic control"},
+        {"name": "kind", "exit_code": 1, "passed": true}
+      ],
+      "missing_dependencies": ["SKILL.md (orchestrator-owned Register craft landing)", "reports/round-30/ (box-1 re-survey)", "reports/round-30/routed-resolution.json"],
+      "evidence_invalidated": ["reports/round-30/run-validation.py changed during measurement"],
+      "scope_note": "Also lacked the routed ledger, landed subsection, current box-1 survey, and resolving retrospective citations at the reader's cut. Never substitute this in-flight result for final admission."
+    }
+  ],
+  "retrospective_follow_up": {
+    "literal_pointer_check": {
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:56:53.225704+00:00",
+      "command": "python3 -B reports/round-30/retrospective-audit-C23-C25.py --pointers reports/round-30/loop3-retrospective.md",
+      "exit_code": 0,
+      "document_sha256": "d49c07102db9ca7326fbf60b85041b9703c0aa421c8cb0abd58c1d5a48f141d7",
+      "document_lines": 475,
+      "literal_citations": 31,
+      "literal_paths": 30,
+      "missing_paths": [],
+      "bad_ranges": [],
+      "bad_revisions": [],
+      "passed": true,
+      "scope_note": "Literal resolvability only; not claim-meaning agreement or promotion verification."
+    },
+    "C24-F05_independent_control": {
+      "date": "2026-10-18",
+      "measured_at_utc": "2026-10-18T21:57:01.729569+00:00",
+      "command": "python3 -B heredoc: load reports/round-29/recount/r27-full-sweep-reproduction.json; print date, revision, summary and len(findings)",
+      "source_sha256": "8044af93b0230c88f07e802da3d84927b5f3d97d0ac9593b6f1662bcc400e5fc",
+      "source_date": "2026-10-18",
+      "revision": "e923d6ecaf5fd9d256e4b377745bd3d24f5e2d47",
+      "summary": {"exit": 1, "findings": 31, "surfaces_enumerated": 117},
+      "findings_rows": 31,
+      "incompatible_prose_source": "reports/round-29/recount/C11.md:51-57 says 41 findings over 41 drifted surfaces",
+      "correctly_qualified_shard": "reports/round-30/retro/r29.md:44-52",
+      "owner": "retrospective author / round-30 orchestrator",
+      "required_disposition": "Qualify the consolidation with both source channels or add a new correction; preserve filed R29 bytes."
+    }
+  },
+  "delivered_tree_recheck": {
+    "date": "2026-10-18",
+    "measured_at_utc": "2026-10-18T21:59:37+00:00",
+    "command": "python3 -B reports/round-30/run-validation.py --check",
+    "exit_code": 1,
+    "head": "44145d5f337dea425c20dccafee98e0882678660",
+    "runner_sha256": "54322d9f975c2ba1bf663e953c24ec9ed51638a334e256541a4012f3b35cf54a",
+    "stdout_sha256": "ec00193d42f14d25711c08540ddc2599ec6b487d0c2245435567e11411a775b8",
+    "scratch_raw_output": ".scratch/r30-x36/delivered-check.json",
+    "acceptance_checks_passed": false,
+    "claims": {"O": false, "C": false, "D": false},
+    "registered_evidence_inputs": 43,
+    "registered_evidence_changed_during_or_immediately_after": [],
+    "input_bindings": {
+      "AGENTS.md": "e03fc01b61d94d53aef1889ddb271f98719dd287c56798a2431e4a123a165aed",
+      "SKILL.md": "2d85bfea6e6a7503b4267b84fda5f393ed14e1a3f5eae108940e7fad8adb6048",
+      "corpus/knowledge/linguistics/register-lexicon-ceilings.md": "bb579d51cea0a900571e77b6690978256a607ec08f500923674738107dc1bffe",
+      "examples/culture-d4/packet.d4.yml": "aac91246cede8840a52b710e8d17a6254c68ff7d93f6720c4a4a458b6c76eee3",
+      "reports/round-30/loop3-retrospective.md": "edda7ba51a6793e88f7ce30500cc7ee4e7065cbd2550640c2d7b45d260a7a6f2",
+      "reports/round-30/routed-resolution.json": "c53c11d41d4daecbac1bf2d060bac46f70f62685258fb52045d957ddecdaf74e",
+      "reports/round-30/run-validation.py": "54322d9f975c2ba1bf663e953c24ec9ed51638a334e256541a4012f3b35cf54a",
+      "reports/round-30/report-draft.md": "489fa2c1e4e486c7316cde38a6f43f724d6c86e12cb7e1b4fb5760d1408ef776",
+      "reports/round-30/retrospective-audit-C23.md": "d4a676b8c4ed73f3810d21a84a5e143541a2dc467f9dbcec695c3554660877c2",
+      "reports/round-30/retrospective-audit-C24.md": "6545c0a0d925e991fe084e3e84bc6b2a2dcdf825740144760550c4761f820c34",
+      "reports/round-30/retrospective-audit-C25.md": "ebfcf37a82207efab201fec1db3313c70e0ba8878861a1354bc7fb2a7dd96df6"
+    },
+    "input_binding_scope": "Critical subset of the 43 registered evidence hashes; full machine output was captured in the named scratch stream. Later report amendments are newer than this read; parent must rerun after final integration.",
+    "route_dispositions": {
+      "supported": 5,
+      "required": 5,
+      "fixed_with_control": ["qreg-dangles", "x63-f2", "telemetry-durability"],
+      "documented_with_owner_reason": ["law-battery", "speaker-tail"]
+    },
+    "law_clean": {
+      "command": "python3 -B tools/gates/register-law-gate.py --packet examples/culture-d4/packet.d4.yml",
+      "exit_code": 0,
+      "coverage_line": "coverage: examples/culture-d4/packet.d4.yml law_rows=5 identity_rows=8 record_ids=183 registers=17 speaker_tokens=3 force_failures=0 consequence_failures=0 dangling=0 findings=0",
+      "stdout_sha256": "be9e054d7b4e8dd78ddbf3390c78eec056825e8036faa12187a49dedaa6d0a1a"
+    },
+    "law_controls": [
+      {"name": "force", "exit_code": 1, "passed": true, "finding": "D4L-LAW-FORCE"},
+      {"name": "speaker-token", "exit_code": 1, "passed": true, "finding": "D4L-LAW-SPEAKER"},
+      {"name": "speaker-tokenless", "exit_code": 0, "passed": false, "added_finding_lines": []},
+      {"name": "consequence", "exit_code": 1, "passed": true, "finding": "D4L-LAW-CONSEQUENCE"},
+      {"name": "dangling", "exit_code": 1, "passed": true, "finding_line": "FINDING D4L-LAW-DANGLING: HOLD — RGL-01 design_row names QREG-99, which no delivered record carries: the sibling design row never landed as a packet record", "supersedes": "The initial malformed mutation's parser refusal is retained as an earlier instrument defect, not semantic closure."},
+      {"name": "kind", "exit_code": 1, "passed": true, "finding": "D4L-LAW-KIND"}
+    ],
+    "regressions_total": 30,
+    "regressions_exit_zero": 26,
+    "regression_results": [
+      {"name": "battery-selftest", "command": "python3 -B tools/check-gate-battery.py --selftest", "exit_code": 0, "stdout_sha256": "1ba4d2a8040dd767ebc2ebb6205535f6ed2e644054400510f363d2dc1c06dd9e"},
+      {"name": "battery", "command": "python3 -B tools/check-gate-battery.py", "exit_code": 2, "stdout_sha256": "a2e7da792a2b8259cf07dcdeccecc31f147bd190bc941400643ad48c1e409e67"},
+      {"name": "d2-assembly", "command": "python3 -B tools/assemble-d2.py --check", "exit_code": 0},
+      {"name": "d2-adapter", "command": "python3 -B tools/assemble-d2-typed.py --check", "exit_code": 0},
+      {"name": "d3-assembly", "command": "python3 -B tools/assemble-culture-d3.py --check", "exit_code": 0},
+      {"name": "d4-assembly-selftest", "command": "python3 -B tools/assemble-culture-d4.py --selftest", "exit_code": 0},
+      {"name": "d4-assembly", "command": "python3 -B tools/assemble-culture-d4.py --check", "exit_code": 0},
+      {"name": "d4-adapter-selftest", "command": "python3 -B tools/assemble-d4-typed.py --selftest", "exit_code": 0},
+      {"name": "d4-adapter", "command": "python3 -B tools/assemble-d4-typed.py --check examples/culture-d4/packet.d4.typed.yml", "exit_code": 0},
+      {"name": "projector-selftest", "command": "python3 -B tools/d2-typed-labels.py --selftest", "exit_code": 0},
+      {"name": "d2-projection", "command": "python3 -B tools/d2-typed-labels.py --check", "exit_code": 0},
+      {"name": "d4-projection", "command": "python3 -B tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml", "exit_code": 0},
+      {"name": "typed-selftest", "command": "python3 -B tools/gates/typed-pipeline-gate.py --selftest", "exit_code": 0},
+      {"name": "typed-generalized-selftest", "command": "python3 -B tools/gates/typed-pipeline-gate.py --selftest-generalized", "exit_code": 0},
+      {"name": "typed-d2", "command": "python3 -B tools/gates/typed-pipeline-gate.py", "exit_code": 0},
+      {"name": "typed-d4", "command": "python3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml", "exit_code": 0},
+      {"name": "typed-d4-typed", "command": "python3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml", "exit_code": 0},
+      {"name": "d4-label-gate", "command": "python3 -B tools/gates/d4-typed-labels-check-gate.py examples/culture-d4/typed-labels.d4.yml", "exit_code": 0},
+      {"name": "d4-assembly-gate", "command": "python3 -B tools/gates/d4-assembly-check-gate.py examples/culture-d4/packet.d4.yml", "exit_code": 0},
+      {"name": "argot-selftest", "command": "python3 -B tools/gates/argot-derivation-gate.py --selftest", "exit_code": 0},
+      {"name": "argot-d4", "command": "python3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml", "exit_code": 0},
+      {"name": "law-selftest", "command": "python3 -B tools/gates/register-law-gate.py --selftest", "exit_code": 1, "stdout_sha256": "5f7eb294813e8cc3e77213449dc6bd4c48a7aac767fba508c8091125d5d15e42"},
+      {"name": "replay-selftest", "command": "python3 -B tools/replay-frozen.py --selftest", "exit_code": 0},
+      {"name": "handoff-v2", "command": "python3 -B tools/exercise-handoff-e2e.py --profile v2 --quiet", "exit_code": 0},
+      {"name": "handoff-v3-selftest", "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --selftest", "exit_code": 1, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "bc6d58370f1a0cc58a2a9be0ab9339c31d13a41783cc8f023b9d5e815582278d"},
+      {"name": "handoff-v3", "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet", "exit_code": 1, "stdout_sha256": "5b7b5cc08609c571fce070dc669b28654e54d06c168d12c050bae03e3effb366"},
+      {"name": "craft-selftest", "command": "python3 -B tools/check-craft-exercise.py --selftest", "exit_code": 0},
+      {"name": "craft", "command": "python3 -B tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json", "exit_code": 0},
+      {"name": "links-selftest", "command": "python3 -B tools/harness/packet_links.py --selftest", "exit_code": 0},
+      {"name": "uncertainty-selftest", "command": "python3 -B tools/harness/packet_uncertainty.py --selftest", "exit_code": 0}
+    ],
+    "regression_causes": {
+      "battery": "10 registered, 7 structural selftests pass, 9/10 coverage, 19/19 discovered pins valid; register-law baseline absent",
+      "law-selftest": "29/33: clean baseline bool(base) and unscoped delivered force/speaker/consequence mutations remain unrepaired",
+      "handoff-v3-selftest": "v3_verify_d4_pins reads old expected-holds.json: recorded packet 543d68a8… versus live aac91246…; traceback",
+      "handoff-v3": "same old hold-set/read-set pin dependency; packet not assembled"
+    },
+    "calibration_failure": "Fewer than two dated retrospective auditors bind current document digest edda7ba51a6793e88f7ce30500cc7ee4e7065cbd2550640c2d7b45d260a7a6f2",
+    "depth_failure": "SKILL Register craft landing and its actual skill-hash-bound box-1 survey remain parent-owned and absent",
+    "protected_before_and_after": {"tracked_paths": 1764, "differences": [], "new_protected_paths": [], "passed": true},
+    "scope_note": "Stable registered evidence cut, not completed post-integration settlement or admission. The reader did not certify every transitive regression dependency; the parent must rerun after final landings and newer report/auditor edits."
+  },
+  "latest_validator_capability_check": {
+    "date": "2026-10-18",
+    "measured_at_utc": "2026-10-18T22:00:00.902834+00:00",
+    "command": "python3 -B reports/round-30/run-validation.py --selftest",
+    "runner_sha256_before_and_after": "ef7a5478355fb13ecd869f91f6af298e6933c1244f2d4c2f35c7b02f1b801bc3",
+    "exit_code": 0,
+    "passed_controls": 30,
+    "total_controls": 30,
+    "failed_controls": [],
+    "scope_note": "Newer runner than the 21:59:37Z aggregate cut; selftest is capability, not whole-round acceptance."
+  },
+  "dependency_watch": {
+    "started_at_utc": "2026-10-18T21:52:51.195827+00:00",
+    "completed_at_utc": "2026-10-18T21:58:51.196841+00:00",
+    "poll_interval_seconds": 60,
+    "elapsed_seconds": 360.016,
+    "polls": 7,
+    "maximum_seconds": 1200,
+    "ready_paths": ["reports/round-30/run-validation.py", "reports/round-30/routed-resolution.json", "reports/round-30/loop3-retrospective.md"],
+    "scope_note": "Core evidence ready; parent-only law/baseline/skill landings cannot be completed by this scribe withholding its handoff."
+  },
+  "handoff_follow_up": {
+    "date": "2026-10-18",
+    "measured_at_utc": "2026-10-18T22:02:39+00:00",
+    "command": "python3 -B reports/round-30/run-validation.py --check",
+    "exit_code": 1,
+    "runner_sha256": "26319fc0437b806f1a47392abe7cfde5574d8d163cf8bab575716e5e57459358",
+    "stdout_sha256": "739cea742bbf1aa4f1cd727cc85f779418c9f90bda913f20add480afd7f88137",
+    "scratch_raw_output": ".scratch/r30-x36/handoff-check.json",
+    "acceptance_checks_passed": false,
+    "claims": {"C": true, "D": false, "O": false},
+    "registered_input_count": 249,
+    "evidence_changed_during_and_immediately_after": ["reports/round-30/audit/x38-law-gate-clean-state.md", "reports/round-30/run-validation.py"],
+    "result_valid_for_admission": false,
+    "regression_total": 30,
+    "regression_exit_zero": 27,
+    "nonzero_regressions": [
+      {"name": "battery", "command": "python3 -B tools/check-gate-battery.py", "exit_code": 2},
+      {"name": "law-selftest", "command": "python3 -B tools/gates/register-law-gate.py --selftest", "exit_code": 1},
+      {"name": "handoff-v3", "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet", "exit_code": 1}
+    ],
+    "newly_green_control": {
+      "name": "handoff-v3-selftest",
+      "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --selftest",
+      "exit_code": 0,
+      "stdout_sha256": "49110716cba565e0d16c3339e7eb4e460809195891aafeffc8e34e7cc7ef550d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "route_dispositions_supported": 4,
+    "route_dispositions_required": 5,
+    "new_integration_reference_break": {
+      "route": "qreg-dangles",
+      "missing_reference": "examples/culture-d4/expected-holds.r30-qreg.json",
+      "source": "reports/round-30/routed-resolution.json",
+      "owner": "QREG/pin owner and orchestrator",
+      "next_action": "Restore the intended new successor or correct this ledger to the actual authorized successor with a control; preserve prior generations."
+    },
+    "calibration": {"current_hash_auditors": 2, "retrospective_sha256": "edda7ba51a6793e88f7ce30500cc7ee4e7065cbd2550640c2d7b45d260a7a6f2", "claim_flag": true, "scope_note": "The current hash-bound audit dependency has advanced since 21:59:37Z; whole-run evidence motion still invalidates admission."},
+    "missing_dependencies": ["SKILL.md (orchestrator-owned Register craft landing)"],
+    "skill_sha256": "2d85bfea6e6a7503b4267b84fda5f393ed14e1a3f5eae108940e7fad8adb6048",
+    "scope_note": "Later moving cut, not a replacement for the earlier stable registered-evidence cut. Changed command outcomes and the new missing reference are preserved rather than reconciled by guessing."
+  },
+  "final_independent_preservation_sample": {
+    "date": "2026-10-18",
+    "measured_at_utc": "2026-10-18T22:01:55.088043+00:00",
+    "baseline_revision": "87bfc9956f0fc60e6821fe53b622d0043e28be10",
+    "command": "export TMPDIR=\"$PWD/.scratch\" PYTHONDONTWRITEBYTECODE=1; python3 -B heredoc: git ls-tree -rz baseline -- reports/round-{8..29} tools/gates/frozen/round-{8..29}; compare working Git blobs; sha256 ordered path+sha256 manifest; git status --porcelain=v1 -uall -- protected paths",
+    "protected_tracked_paths": 1764,
+    "missing": [],
+    "mismatches": [],
+    "working_sha256_manifest": "b025c88925680271963cfdfb4efe0e04de5a71b6bdf199800d31061d4afb1cc9",
+    "protected_status_exit": 0,
+    "protected_status": "",
+    "passed": true
+  },
+  "artifact_contract_check": {
+    "date": "2026-10-18",
+    "command": "python3 -B heredoc: strict JSON duplicate-key parse; assigned write-scope and dated regression arithmetic assertions; relative report-link resolution; trailing whitespace and FILES/SUMMARY contract; git diff --check -- assigned files",
+    "checks": ["JSON unique keys", "assigned scope exactly two report artifacts", "stable cut 30 rows and 26 exit zero", "moving cut 30 rows and 27 exit zero", "relative Markdown links resolve", "no trailing whitespace", "FILES/SUMMARY final-line contract", "git diff --check"],
+    "scope_note": "Artifact format checks are distinct from round validation; they do not turn implementation or integration failures green."
+  },
+  "final_settlement_state": "blocked-on-parent-owned-landings-and-moving-read-set",
+  "acceptance_checks_passed": false,
+  "admission_verdict": "parent-owned; not asserted by this scribe"
+}

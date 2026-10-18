@@ -1,0 +1,91 @@
+{
+  "round": 30,
+  "date": "2026-10-18",
+  "observed_at_utc": "2026-10-18T21:53:59.821934+00:00",
+  "command": "python3 -B reports/round-30/telemetry/check-dispatch.py --selftest",
+  "status": "passed",
+  "scope": "Durable declaration telemetry and fail-closed controls only; runtime remains could-not-evaluate.",
+  "summary": {
+    "requested_model": "openai-codex/gpt-6.1-sol (max effort)",
+    "requested_workers": 32,
+    "worker_allocations": {
+      "O-routed": 12,
+      "C-retro": 10,
+      "D-craft": 10
+    },
+    "allocation_total": 32,
+    "runtime_status": "could-not-evaluate",
+    "launched_workers": null,
+    "completed_workers": null,
+    "raw_evidence_paths": [
+      "reports/round-30/claims.json",
+      "reports/round-30/targets.json"
+    ],
+    "scratch_dependencies": []
+  },
+  "negative_controls": [
+    {
+      "control": "declared_count_inflation",
+      "rejected": true,
+      "finding": "requested/allocation count mismatch"
+    },
+    {
+      "control": "allocation_drift",
+      "rejected": true,
+      "finding": "worker allocation mismatch"
+    },
+    {
+      "control": "invented_completion_count",
+      "rejected": true,
+      "finding": "unsupported runtime measurement: completed_workers"
+    },
+    {
+      "control": "invented_served_model",
+      "rejected": true,
+      "finding": "unsupported runtime measurement: served_model"
+    },
+    {
+      "control": "null_to_zero",
+      "rejected": true,
+      "finding": "unsupported runtime measurement: failed_workers"
+    },
+    {
+      "control": "scratch_only_dependency",
+      "rejected": true,
+      "finding": "scratch-only telemetry dependency"
+    },
+    {
+      "control": "scratch_evidence_path",
+      "rejected": true,
+      "finding": "non-durable or unexpected evidence path"
+    },
+    {
+      "control": "raw_evidence_tamper",
+      "rejected": true,
+      "finding": "raw evidence hash mismatch"
+    },
+    {
+      "control": "duplicate_evidence",
+      "rejected": true,
+      "finding": "duplicate evidence path"
+    },
+    {
+      "control": "runtime_promoted_to_pass",
+      "rejected": true,
+      "finding": "runtime status was promoted"
+    },
+    {
+      "control": "historical_recovery_overclaim",
+      "rejected": true,
+      "finding": "historical telemetry was not recovered"
+    }
+  ],
+  "owner": "R30-X37",
+  "replayed_at_utc": "2026-10-18T21:55:03.444021+00:00",
+  "collision_disposition": "At 2026-10-18T21:54:15.986939+00:00 the O11..O12 telemetry worker replaced the shared dispatch-stats.json with a different schema; final replay caught KeyError: date. That peer record was left intact and passes its own --check. X37 preserved its original declaration observation at dispatch-declaration-x37.json and retargeted check-dispatch.py; replay reproduced the summary and all negative-control outcomes below the original run timestamp.",
+  "artifact_hashing_method": "hashlib.sha256(Path(path).read_bytes()).hexdigest()",
+  "artifact_sha256": {
+    "reports/round-30/telemetry/dispatch-declaration-x37.json": "4b7a9c13f1e42c1aef394101724855d48e7f2bd5f89379adcd6a5a487a9526db",
+    "reports/round-30/telemetry/check-dispatch.py": "c13a04051846b37a833b9c036ef3429408b5e625ef5d574cae7211965ed2b822"
+  }
+}

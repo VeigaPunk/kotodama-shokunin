@@ -22,9 +22,9 @@ tree resolved a law row's own fields against anything.
 This gate is that resolution. It reads the law rows off the packet and replays
 each clause against the packet's *other* blocks:
 
-    speaker      every agent token `Name (ID)` must name an id the packet carries
-                 as a record — the RL-4 `mold-keeper (OR-02, component-only)`
-                 shape, which became resolvable when RL-4 was repaired
+    speaker      every speaker/holder clause must name a declared expression
+                 and its delivered records; explicit `Name (ID)` tokens
+                 must independently resolve to delivered records
     force        every value must name a declared illocutionary class and a
                  declared modifier (or the literal `none`, which the design's
                  sound-channel and dating constraints carry)
@@ -41,7 +41,7 @@ Finding ids
 -----------
     D4L-LAW-DATA         input could not be evaluated                    [exit 2]
     D4L-LAW-ROW          a declared law row is absent from the block      [HOLD]
-    D4L-LAW-SPEAKER      an agent id resolves to no delivered record      [FAIL]
+    D4L-LAW-SPEAKER      a clause or its record references do not resolve [FAIL]
     D4L-LAW-FORCE        a force value names no declared class            [FAIL]
     D4L-LAW-CONSEQUENCE  a binding act's consequence names no machinery   [FAIL]
     D4L-LAW-REGISTER     a register names no declared register            [FAIL]
@@ -61,13 +61,13 @@ Calibration (craft policy, declaring what this implementation does)
   audit X59-F5 measured `force_vocabulary=0`), so a leg that resolved `force`
   against the packet alone could not fire at all. The set is stated here, cited,
   and is a *closed* list: a fifth class would be a rule change (RU-L2).
-- **A clean packet may carry findings, and does.** The delivered rows' `design_row`
-  tokens `QREG-05..08` name the sibling design seats' proposed rows, which never
-  landed as packet records (the landed rows are `RGL-01..05`). That is four honest
-  `D4L-LAW-DANGLING` HOLDs, reported rather than repaired: the citing component is
-  a filed round-27 artifact and is not this gate's to rewrite. Exit 0 here means
-  "every resolution the gate performs found nothing to report", not "the law is
-  complete" — the design's own position (`review.md` section 9).
+- **A clean packet may carry findings.** At round-28 landing, `design_row`
+  tokens `QREG-05..08` named proposed records that had not landed, giving four
+  `D4L-LAW-DANGLING` HOLDs. Round 30 adds those records rather than rewriting the
+  filed law rows. The selftest accepts either evaluated baseline and measures a
+  tamper's delta over emitted finding lines. Exit 0 means every resolution this
+  gate performs found nothing to report, not that the law is complete
+  (`reports/round-27/law/review.md` section 9).
 - **This gate is not wired into the typed pipeline**, and that is a declared
   choice: `tools/gates/typed-pipeline-gate.py` is byte-pinned GREEN in the filed
   round-26 manifests, so adding a sibling invocation would drift a replay surface
@@ -75,8 +75,8 @@ Calibration (craft policy, declaring what this implementation does)
   runner, which walks every `tools/**/*.py` naming the class. Recorded as a limit
   in the round-28 fragments, not left implicit.
 - Scope limits, declared rather than silently skipped:
-  * the speaker resolution reads the `Name (ID)` shape only; a bare office name
-    with no id token is not resolved (there is no roster to resolve it against);
+  * speaker resolution uses a declared closed clause vocabulary and record
+    existence, not arbitrary prose interpretation or utterance admissibility;
   * `consequence` is free prose (RU-L3) and is resolved by stem, so a consequence
     that names machinery in words this list does not carry reads as a finding —
     the list is the gate's contract, printed in `coverage:`;
@@ -132,6 +132,24 @@ CONSEQUENCE_STEMS = ("roll", "rk-", "rank", "tally", "rite", "rit-", "entry",
                      "written", "record", "void", "binds", "binding", "no entry")
 
 # An agent token in a law row: `Name (ID)` where ID is a delivered record id.
+# Closed clauses: components/13-register-law.yml RGL-01..05; record bindings:
+# components/09-costumes.yml RK-03/RK-04, components/03-orthography.yml OR-02.
+DECLARED_SPEAKER_CLAUSES = {
+    "stamp-holder": ("RK-03",),
+    "furnace-master": ("RK-03",),
+    "mold-keeper": ("OR-02",),
+    "broker": ("RK-04",),
+    "market-goer": ("RK-04",),
+    "stamp-holder, furnace-master, mold-keeper": ("RK-03", "OR-02"),
+    "stamp-holder only — no master, no delegate": ("RK-03",),
+    "broker, market-goer, at market days": ("RK-04",),
+    "any speaker admitted by rgl-01 or rgl-03": ("RGL-01", "RGL-03"),
+    "a stamp-holder, or a speaker the stamp-holder is attesting": ("RK-03",),
+    "none — the register admits no binding oath": (),
+    "a guest broker, speaking under a stamp-name": ("RK-04",),
+}
+AGENT_ANNOTATION_RE = re.compile(
+    r"\s*\(\s*[A-Z]{2,4}-\d{2,3}(?:\s*,\s*component-only)?\s*\)")
 AGENT_ID_RE = re.compile(r"\(\s*([A-Z]{2,4}-\d{2,3})\b")
 RECORD_ID_RE = re.compile(r"^[A-Z]{2,4}-\d{2,3}$")
 # The declared non-force: the literal `none`, optionally followed by a gloss
@@ -275,7 +293,26 @@ def evaluate_packet(packet):
                        "/".join(DECLARED_FORCE_MODIFIERS))))
 
         for field in ("speaker", "holder"):
+            if field == "holder" and field not in row:
+                continue
             value = text_of(row.get(field))
+            clause = " ".join(AGENT_ANNOTATION_RE.sub("", value).lower().split())
+            required = DECLARED_SPEAKER_CLAUSES.get(clause)
+            counters["speaker_clauses"] += 1
+            if required is None:
+                counters["speaker_failures"] += 1
+                findings.append(finding(
+                    "D4L-LAW-SPEAKER", "FAIL",
+                    "%s %s clause %r is outside the declared speaker/holder vocabulary"
+                    % (rid, field, value)))
+            else:
+                missing = sorted(set(required) - record_ids)
+                if missing:
+                    counters["speaker_failures"] += 1
+                    findings.append(finding(
+                        "D4L-LAW-SPEAKER", "FAIL",
+                        "%s %s clause %r requires absent delivered records %s"
+                        % (rid, field, value, "/".join(missing))))
             for token in AGENT_ID_RE.findall(value):
                 counters["speaker_tokens"] += 1
                 if token not in record_ids:
@@ -375,13 +412,24 @@ def _packet(force="directive-binding for the charge",
                             design_row))
         else:
             lines.append('  - {id: %s, register: stamp, axis: mark, kind: era, '
-                         'force: "none — a dating constraint", speaker: "any speaker", '
+                         'force: "none — a dating constraint", speaker: "any speaker admitted by RGL-01 or RGL-03", '
                          'consequence: "a constraint statement", design_row: []}' % rid)
     return "\n".join(lines) + "\n"
 
 
 def _classes(findings, name):
     return [item for item in findings if item["id"] == name]
+
+
+def _tamper_law_field(text, field, value):
+    block = re.search(r"(?m)^register_law:\n(?:[ \t]+[^\n]*(?:\n|$)|\n)*", text)
+    if block is None:
+        return text, 0
+    pattern = r"(?m)^([ \t]+)%s:[ \t]*[^\n]*$" % re.escape(field)
+    altered, count = re.subn(
+        pattern, lambda match: '%s%s: "%s"' % (match.group(1), field, value),
+        block.group(), count=1)
+    return text[:block.start()] + altered + text[block.end():], count
 
 
 def selftest():
@@ -409,10 +457,35 @@ def selftest():
     checks.append(("force-tamper-names-the-row", bool(fired) and "RGL-01" in fired[0]["message"]))
     checks.append(("force-tamper-names-the-value", bool(fired) and "no-such-force" in fired[0]["message"]))
 
-    _, tampered, _ = run(_packet(speaker="nobody-nowhere (ZZ-99)"))
+    _, tampered, _ = run(_packet(speaker="stamp-holder (ZZ-99)"))
     fired = _classes(tampered, "D4L-LAW-SPEAKER")
     checks.append(("speaker-tamper-fires", len(fired) == 1))
     checks.append(("speaker-tamper-names-the-agent", bool(fired) and "ZZ-99" in fired[0]["message"]))
+
+    clean_lines = {format_finding(item) for item in run(_packet())[1]}
+    for name, value in (
+        ("tokenless", "no-such-speaker"),
+        ("mixed", "stamp-holder, no-such-speaker"),
+        ("known-id", "no-such-speaker (RK-03)"),
+        ("empty", ""),
+    ):
+        code, tampered, _ = run(_packet(speaker=value))
+        fired = _classes(tampered, "D4L-LAW-SPEAKER")
+        added = {format_finding(item) for item in tampered} - clean_lines
+        checks.append(("speaker-class-%s-changes-finding-lines" % name,
+                       code == EXIT_FINDINGS and len(fired) == 1
+                       and "RGL-01 speaker" in fired[0]["message"]
+                       and repr(value) in fired[0]["message"]
+                       and added == {format_finding(item) for item in fired}))
+    code, clean_class, _ = run(_packet(speaker="stamp-holder"))
+    checks.append(("declared-tokenless-speaker-resolves",
+                   code == EXIT_CLEAN and not clean_class))
+    missing = _packet(speaker="stamp-holder").replace(
+        "  - {id: RK-03}", "  - {id: RK-99}")
+    fired = _classes(run(missing)[1], "D4L-LAW-SPEAKER")
+    checks.append(("declared-speaker-requires-delivered-record",
+                   len(fired) == 1 and "RK-03" in fired[0]["message"]
+                   and "requires absent delivered records" in fired[0]["message"]))
 
     _, tampered, _ = run(_packet(consequence="the act evaporates silently"))
     fired = _classes(tampered, "D4L-LAW-CONSEQUENCE")
@@ -478,21 +551,36 @@ def selftest():
     # ---- the teeth control: the DELIVERED packet, tampered the way round 27 did
     live = ROOT / "examples/culture-d4/packet.d4.yml"
     if live.is_file():
-        import re as _re
         text = live.read_text(encoding="utf-8")
-        base = set(item["message"] for item in run(text)[1]
-                   if item["id"].startswith("D4L-LAW-"))
-        checks.append(("delivered-packet-replays", bool(base)))
-        for name, pattern, replacement in (
-            ("force", r"(?m)^(\s*)force:\s*(.+)$", r'\1force: "no-such-force"'),
-            ("speaker", r"(?m)^(\s*)speaker:\s*(.+)$", r'\1speaker: "nobody-nowhere (ZZ-99)"'),
-            ("consequence", r"(?m)^(\s*)consequence:\s*(.+)$", r'\1consequence: "the act evaporates silently"'),
+        base_code, base_findings, base_counters = run(text)
+        base = {format_finding(item) for item in base_findings}
+        original = naming["load_yaml"](text)
+        checks.append(("delivered-packet-replays",
+                       base_code in (EXIT_CLEAN, EXIT_FINDINGS)
+                       and base_counters["law_rows"] == len(LAW_DECLARED_ROWS)))
+        for name, field, value, fid in (
+            ("force", "force", "no-such-force", "D4L-LAW-FORCE"),
+            ("speaker", "speaker", "no-such-speaker", "D4L-LAW-SPEAKER"),
+            ("speaker-id", "speaker", "stamp-holder (ZZ-99)", "D4L-LAW-SPEAKER"),
+            ("consequence", "consequence", "the act evaporates silently",
+             "D4L-LAW-CONSEQUENCE"),
         ):
-            tampered_text = _re.sub(pattern, replacement, text, count=1)
-            added = set(item["message"] for item in run(tampered_text)[1]
-                        if item["id"].startswith("D4L-LAW-")) - base
+            tampered_text, count = _tamper_law_field(text, field, value)
+            actual = naming["load_yaml"](tampered_text)
+            first = original["register_law"][0]
+            expected = {**original, "register_law": [
+                {**first, field: value}, *original["register_law"][1:]]}
+            checks.append(("delivered-%s-changes-only-law-field" % name,
+                           count == 1 and first.get("id") == "RGL-01"
+                           and actual == expected))
+            code, changed, _ = run(tampered_text)
+            added = {format_finding(item) for item in changed} - base
             checks.append(("delivered-%s-tamper-adds-a-line" % name,
-                           tampered_text != text and bool(added)))
+                           code == EXIT_FINDINGS and len(added) == 1
+                           and all(line.startswith("FINDING %s:" % fid)
+                                   and "RGL-01" in line for line in added)))
+        checks.append(("delivered-unchanged-control-identical-lines",
+                       {format_finding(item) for item in run(text)[1]} == base))
     else:
         checks.append(("delivered-packet-present", False))
 

@@ -1,0 +1,133 @@
+{
+  "round": 30,
+  "assignment": "R30-O15",
+  "date": "2026-10-18",
+  "baseline_revision": "87bfc9956f0fc60e6821fe53b622d0043e28be10",
+  "state": "dependency-watch-ended-integration-blocked-not-round-acceptance",
+  "observed_at_utc": "2026-10-18T22:07:27+00:00",
+  "counting_command": "python3 -B reports/round-30/verify-operability.py --wait 180",
+  "summary": {
+    "routes_dispositioned": {"value": 5, "command": "python3 -B reports/round-30/run-validation.py (validate_resolution replay)", "date": "2026-10-18"},
+    "fixed_with_control": {"value": 3, "command": "python3 -B reports/round-30/verify-operability.py --wait 180", "date": "2026-10-18"},
+    "documented_with_owner_and_reason": {"value": 2, "command": "python3 -B reports/round-30/verify-operability.py --wait 180", "date": "2026-10-18"}
+  },
+  "independent_verification": "reports/round-30/operability-verification.json",
+  "regression_evidence": "reports/round-30/regression.json",
+  "regressions_green": false,
+  "source": "reports/round-30/claims.json",
+  "resolutions": [
+    {
+      "id": "R30-QREG-DANGLES",
+      "title": "QREG-05..08 dangling design-row references",
+      "source_id": "R28-LAW-DANGLING-DESIGN-ROW-REFERENCES",
+      "disposition": "fixed-with-control",
+      "owner": "R30-O01..O03 register-law packet owner; orchestrator owns downstream integration",
+      "before": "The delivered packet had four dangling design_row HOLDs for QREG-05..08.",
+      "after": "The four cited records now exist in the register block; the clean law CLI exits 0 with zero finding lines. The new QREG-06 record preserves the delivered stamp-oath exclusion.",
+      "evidence": [
+        "reports/round-30/fixes/qreg-dangles.md",
+        "examples/culture-d4/components/04-lexicon.yml",
+        "examples/culture-d4/packet.d4.yml",
+        "examples/culture-d4/expected-holds.json",
+        "tools/gates/typed-pipelines.json",
+        "reports/round-30/operability-verification.json"
+      ],
+      "control": {
+        "command": "python3 -B reports/round-30/verify-operability.py (law_probes)",
+        "date": "2026-10-18",
+        "result": "Clean CLI exit 0; one independently mutated law design_row references absent QREG-99 and produces a new D4L-LAW-DANGLING finding at exit 1.",
+        "receipt_selector": "law.clean + law.dangling"
+      },
+      "limits": "This closes record resolution, not every historical law-admissibility or consequence-prose issue. The conventional hold-file current pointers advance through new predecessor/successor pin_generations rows, preserving the former pointers and complete former-file digest; the old profile object is retained. V3 selftest now passes, but its default frozen read-set is superseded and still needs a new durable baseline and default-pointer integration."
+    },
+    {
+      "id": "R30-LAW-BATTERY",
+      "title": "Register-law gate registration in the default battery",
+      "source_id": "R28-LAW-GATE-ABSENT-FROM-REGRESSION-LABELS",
+      "disposition": "documented-with-owner-and-reason",
+      "owner": "R30-O04..O06 battery registration owner; orchestrator owns final default-root law baseline",
+      "reason": "Registration and 44/44 battery selftest controls have landed. The measured default run still has no register-law expected.json under a default root, so it correctly returns exit 2 and 9/10 coverage. Freeze a new baseline against the final speaker-fixed gate and settled packet; do not amend an older generation.",
+      "evidence": [
+        "reports/round-30/fixes/battery-registration.md",
+        "tools/check-gate-battery.py",
+        "reports/round-30/regression.json",
+        "reports/round-30/operability-verification.json"
+      ],
+      "control": {
+        "command": "python3 -B reports/round-30/verify-operability.py (battery_probe)",
+        "date": "2026-10-18",
+        "result": "An independently built nine-baseline fixture omitting only register-law returns exit 2, 9/10 coverage, and exactly register-law-gate.py uncovered.",
+        "receipt_selector": "battery_omission"
+      },
+      "limits": "Ten registered gates are not ten structural selftests: seven mirror selftests run; default-root conformance pins cover the registered set. Pinned is not a frozen-verdict replay."
+    },
+    {
+      "id": "R30-X63-F2",
+      "title": "X63-F2 false phrase-zero evidence assertion",
+      "source_id": "X63-F2",
+      "disposition": "fixed-with-control",
+      "owner": "R30-O07..O08 ceilings amendment owner; orchestrator owns any in-corpus cross-link",
+      "before": "The filed ceilings entry's line-4 sweep asserted zero files containing which semantic fields even though its authoring baseline contained sound-symbolism.md:106.",
+      "after": "A new companion amendment explicitly withdraws that phrase-zero inference, names the preexisting ideophone-field witness, and preserves the original corpus bytes. No substantive ceiling claim is inferred from phrase counts.",
+      "evidence": [
+        "reports/round-30/fixes/x63-f2.md",
+        "corpus/knowledge/linguistics/register-lexicon-ceilings.md",
+        "corpus/knowledge/linguistics/sound-symbolism.md",
+        "reports/round-30/operability-verification.json"
+      ],
+      "control": {
+        "command": "python3 -B reports/round-30/verify-operability.py (ceiling_probe; git show 6c0ac4484d7ee5d15aaf190e7ad3b8817ea13ede:corpus/knowledge/linguistics/sound-symbolism.md)",
+        "date": "2026-10-18",
+        "result": "The historical witness re-derives at line 106, rejecting the original zero assertion; preserved original bytes plus the companion's explicit withdrawal pass the successor amendment check.",
+        "receipt_selector": "ceilings"
+      },
+      "limits": "The original historical auditor does not consume companion amendments and must retain its finding-bearing verdict. This is the authorized new-file amendment form; it is not an unauthorized rewrite of the entry."
+    },
+    {
+      "id": "R30-SPEAKER-TAMPER",
+      "title": "Tokenless speaker-tamper tail",
+      "source_id": "R28-LAW-CONSEQUENCE-AND-SPEAKER-BLINDNESS",
+      "disposition": "documented-with-owner-and-reason",
+      "owner": "R30-O09..O10 candidate author; orchestrator owns tools/gates/register-law-gate.py and runner integration",
+      "reason": "The candidate is specified and verified in memory, but the delivered tool at the independent observation still accepts speaker no-such-speaker without a new finding and its selftest is 29/33 after the QREG landing. Land the closed-clause resolver and law-block-scoped clean/tamper controls; then replay the delivered CLI. An unlanded candidate is not a fixed-with-control disposition.",
+      "evidence": [
+        "reports/round-30/fixes/speaker-tamper.md",
+        "tools/gates/register-law-gate.py",
+        "reports/round-30/operability-verification.json",
+        "reports/round-30/regression.json"
+      ],
+      "control": {
+        "command": "python3 -B reports/round-30/verify-operability.py (law_probes)",
+        "date": "2026-10-18",
+        "result": "Tokenless law-row tamper still exits 0 with unchanged finding lines; separate ID-bearing tamper exits 1. This is an observed open tail, not substituted ID-token closure.",
+        "receipt_selector": "law.tokenless-speaker + law.token-speaker"
+      },
+      "limits": "The source defect also mentions empty/polarity-inverted consequences; that broader semantic issue is not silently closed by a bounded speaker-class repair."
+    },
+    {
+      "id": "R30-TELEMETRY-DURABILITY",
+      "title": "Availability-telemetry durability convention",
+      "disposition": "fixed-with-control",
+      "owner": "R30-O11..O12 telemetry convention owner; parent owns any full-wave execution census",
+      "before": "Earlier raw availability samples existed only under scratch and could not be independently recovered after cleanup.",
+      "after": "AGENTS.md requires durable raw evidence in reports/round-<N>/telemetry/ with dates, commands, source paths/digests and honest partial/null observations. Round-30 partial worker and declaration snapshots have distinct durable paths and real checkers.",
+      "evidence": [
+        "AGENTS.md",
+        "reports/round-30/fixes/telemetry-convention.md",
+        "reports/round-30/telemetry/dispatch-stats.json",
+        "reports/round-30/telemetry/dispatch-declaration-x37.json",
+        "reports/round-30/telemetry/dispatch-telemetry.py",
+        "reports/round-30/telemetry/check-dispatch.py",
+        "reports/round-30/operability-verification.json"
+      ],
+      "control": {
+        "command": "python3 -B reports/round-30/verify-operability.py (telemetry_probe)",
+        "date": "2026-10-18",
+        "result": "Both owner checkers replay green. An independent durable mirror remains reproducible after its scratch directory is deleted; scratch-only evidence references and changed raw bytes both return exit 1 with named findings.",
+        "receipt_selector": "telemetry.commands + telemetry.independent_controls"
+      },
+      "limits": "Durability is fixed, not historical raw-data recovery or measured provider liveness. Full-wave launches/completions/actual-route values remain could-not-evaluate/null with the parent named as owner; requested 32 is not observed completed 32."
+    }
+  ],
+  "scope_note": "Exactly the five routes from round-30 claims.json are dispositioned. This ledger does not close the entire round-29 defect backlog, infer canon clearance, or admit round 30. Final regression and two landing dependencies remain explicitly open."
+}

@@ -1,8 +1,34 @@
 {
  "schema": "kotodama-typed-pipeline-holds-v1",
- "packet_sha256": "543d68a82640e1b0c53b9cb7cb26c4dc60fce5878c2bf487050ead3af0945c4f",
- "projection_sha256": "339bfd83bf66832479b5b8ffbbce708c8be15e13b08967fa7049b848661a3cf8",
+ "packet_sha256": "aac91246cede8840a52b710e8d17a6254c68ff7d93f6720c4a4a458b6c76eee3",
+ "projection_sha256": "c23b0ab532cfb9d4bb403405c6996982a447098048e08facbbc9f341ea13f82e",
  "projector_sha256": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+ "active_pin_generation": "round-30-qreg-records",
+ "pin_generations": [
+  {
+   "round": 28,
+   "date": "2026-10-18",
+   "packet_sha256": "543d68a82640e1b0c53b9cb7cb26c4dc60fce5878c2bf487050ead3af0945c4f",
+   "projection_sha256": "339bfd83bf66832479b5b8ffbbce708c8be15e13b08967fa7049b848661a3cf8",
+   "projector_sha256": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+   "expected_holds_sha256": "65f5a03e092fb4bb1e04f26d73180ca411c1f91bd29d2f1912d275407e15e423",
+   "revision_note_field": "revision_note (the unchanged round-28 historical note below)",
+   "command": "sha256sum examples/culture-d4/packet.d4.yml examples/culture-d4/typed-labels.d4.yml examples/culture-d4/expected-holds.json tools/d2-typed-labels.py",
+   "recorded_in": "reports/round-30/fixes/qreg-dangles.md"
+  },
+  {
+   "id": "round-30-qreg-records",
+   "round": 30,
+   "date": "2026-10-18",
+   "packet_sha256": "aac91246cede8840a52b710e8d17a6254c68ff7d93f6720c4a4a458b6c76eee3",
+   "projection_sha256": "c23b0ab532cfb9d4bb403405c6996982a447098048e08facbbc9f341ea13f82e",
+   "projector_sha256": "2819f68769dfc0b57f46cdaeb4c9a96324c5711c46348f5a8308382dfd7053c3",
+   "typed_packet_sha256": "d581e0ad5384ce56622839b6ae4d6cf8b5a4447300cf7d8cd295f3efea0c9182",
+   "revision_note": "QREG-05..08 land as register records, resolving the four law design_row dangles. QREG-06 retains RGL-02's stamp-oath exclusion. The hold set is unchanged at 12 holds, zero notes, zero fails. Only the current top-level pin pointers move; the previous generation and historical notes remain as new history rows, and no filed round-8..29 artifact is rewritten.",
+   "command": "sha256sum examples/culture-d4/packet.d4.yml examples/culture-d4/typed-labels.d4.yml examples/culture-d4/packet.d4.typed.yml tools/d2-typed-labels.py",
+   "recorded_in": "reports/round-30/fixes/qreg-dangles.md"
+  }
+ ],
  "revision_note": "round-28 law-replay build (2026-10-18): two repairs landed. (1) RL-4, the packet_keys gap: examples/culture-d4/components/03-orthography.yml now declares `packet_keys: [orthography, records, literacy_institutions]` and examples/culture-d4/components/09-costumes.yml gains `enforcement`, so OR-01..OR-03, LI-01..LI-03 and EN-01..EN-02 reach the packet as records instead of riding assembly.skipped_keys. (2) RL-1, the missing replay leg: tools/gates/register-law-gate.py (new) replays the register_law rows' speaker/force/consequence/register/axis/kind/design_row clauses against the packet's own blocks and emits the D4L-LAW-* finding class, so a tampered row (force: no-such-force, an unresolvable speaker id, a consequence naming no machinery) now adds a named finding where round 27 measured an identical set. The hold set is UNCHANGED at 12 holds / 0 notes / 0 fails: a law row is not a form, so the six garment-form obligations still route to their twelve record/slot rows and the register stratum owes no form slot. Command: python3 tools/assemble-culture-d4.py; python3 tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --emit examples/culture-d4/typed-labels.d4.yml; evidence: reports/round-28/law/impl-1.md. The round-27 pins are recorded under supersedes_pins; no historical generation is overwritten in place.",
  "supersedes_pins": {
   "r27_packet_sha256": "86079a6708a0d360bedfed60306274c09ec4f4e76a5912b94a05f762d17caebc",

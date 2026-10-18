@@ -1,0 +1,29 @@
+{
+ "schema": "kotodama-frozen-run-v1",
+ "baseline_id": "r30-post",
+ "revision": "r30-post-1",
+ "revision_note": "first law baseline under a default battery root; clean replay post-QREG+speaker-candidate",
+ "frozen_at": "2026-10-18",
+ "frozen_by": "kotodama-shokunin (orchestrator integration)",
+ "gate": "register-law",
+ "gate_script": "tools/gates/register-law-gate.py",
+ "gate_sha256": "15f8b23251ca2ad0a203bb1ed5fda2611dff9514e6a1af8120f520b1e7ec4169",
+ "command": "python3 tools/gates/register-law-gate.py examples/culture-d4/packet.d4.yml",
+ "expected": {
+  "class": "clean",
+  "exit": 0,
+  "findings": []
+ },
+ "stdout_sha256": "be9e054d7b4e8dd78ddbf3390c78eec056825e8036faa12187a49dedaa6d0a1a",
+ "inputs": {
+  "examples/culture-d4/packet.d4.yml": "aac91246cede8840a52b710e8d17a6254c68ff7d93f6720c4a4a458b6c76eee3",
+  "tools/gates/register-law-gate.py": "15f8b23251ca2ad0a203bb1ed5fda2611dff9514e6a1af8120f520b1e7ec4169",
+  "tools/gates/naming-collision-gate.py": "d9e4e8f4f93a21b3b8574856a7d8bc6b93d224eee490ab37ed5f98741a630a1d"
+ },
+ "input_class": "live-read-set",
+ "input_origin": "repo-relative mirror committed inside the baseline dir (section 3); byte copies of the live read set at freeze; cmp clean",
+ "read_set_note": "mirrored copies pin the read set; the live tree may move under them",
+ "layout_note": "expected.json + freeze.txt only; inputs resolve live",
+ "supersedes": null,
+ "append_only_note": "never rewritten: a gate/input revision produces a NEW baseline id (gate-frozen-run-standard.md section 3)"
+}
