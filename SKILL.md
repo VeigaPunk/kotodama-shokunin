@@ -554,6 +554,8 @@ lore-acceptance claim (`corpus/knowledge/linguistics/register-strata-attestation
   `mesoamerica-primary-sources.md`), each
   coupling that tradition's language, writing, myth, symbols, era model,
   costume, and naming, with provenance cautions.
+- `corpus/SOURCES.md` — where the lane learns: the opened, tier-scoped
+  source registry with study paths, search log and unopened leads.
 
 ## Using the evidence
 

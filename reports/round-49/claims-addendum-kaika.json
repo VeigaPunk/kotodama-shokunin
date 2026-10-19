@@ -1,0 +1,27 @@
+{
+ "round": 49,
+ "schema": "kotodama-claims-addendum-v1",
+ "parent": "reports/round-49/claims.json",
+ "parent_note": "parent is filed bytes (declared 2026-10-19T20:20Z at baseline 78f77a6) and is not edited; this addendum fills the third claim slot under the kaika campaign binding",
+ "authority": "/home/vgpnk/Projects/shokunin/.tower/worktrees/kaika/fleet-ledger/.ufo/prompts/kotodama-round-49.md §6.4 ('A declared open round keeps its declared claims first; campaign items fill the remaining slots inside the 1–3 cap')",
+ "declared_at": "2026-10-19, before any SOURCES fragment was merged into corpus/",
+ "baseline_commit": "c42d675",
+ "baseline_note": "c42d675 differs from the declared baseline 78f77a6 only in reports/round-49/{claims.json,targets.json,calib/r49-checks.json,telemetry/dispatch-declared.json}; `git diff --name-only 78f77a6 c42d675 -- corpus tools SKILL.md` prints nothing, so C and Ca premises transfer unchanged",
+ "claims": [
+  {
+   "id": "S",
+   "axis": "depth",
+   "type": "capability acquisition",
+   "capability": "sources-registry",
+   "claim": "Create corpus/SOURCES.md per SOURCES-CONTRACT-v1 (fleet-ledger .ufo/waves/kaika/SOURCES-CONTRACT-v1.md): every row opened this round with a <=25-word verbatim quote recorded in corpus/lessons/round-49.md ## Gate; honest scoped tiers; >=1 rejected row with reason and flip; ## Paths, ## Search log, ## Leads (unopened). QUALITY.md gains a one-line pointer to SOURCES.md for tier definitions (contract rule 3).",
+   "before": "corpus/SOURCES.md absent (ls → No such file); 0 registry rows; source curation lives only in per-entry prose and the unfiled ART dossier draft",
+   "after_required": "corpus/SOURCES.md exists; all seven contract census commands run clean (malformed 0, no duplicate ids, no enum/tier-inflation violations, no missing used-by paths); >=1 rejected row; every registry id appears in round-49.md ## Gate with URL, access date and quote",
+   "counting_commands": [
+    "grep -cE '^\\|[[:space:]]*S[0-9]{3,}[[:space:]]*\\|' corpus/SOURCES.md",
+    "the seven census commands in SOURCES-CONTRACT-v1.md lines 66-81",
+    "python3 reports/round-49/run-validation.py"
+   ],
+   "separability": "S verifies on corpus/SOURCES.md + corpus/lessons/round-49.md alone; if C did not land, rows citing the hunting entry would read queued with used-by — and the census would still run. C verifies without SOURCES.md because the entry's - source: line carries each load-bearing URL and anchor inline."
+  }
+ ]
+}

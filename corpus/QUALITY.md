@@ -21,3 +21,7 @@ An entry is admitted into `corpus/knowledge/` only when it clears all of:
 
 Rejections are kept with their rejection reason (see `lessons/`) — a
 rejection is evidence of taste.
+
+Source tiers (A/B/C, each scoped to a claim) are defined in `SOURCES.md`,
+the lane's opened source registry; a tier-C row is a lead, never sole
+support for an admitted claim.

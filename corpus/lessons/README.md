@@ -101,8 +101,9 @@ Columns: **file** · **format** (§3) · **contract** (`source:`/`verified-at:`/
 | `corpus/lessons/round-30.md` | gate-keeper | 3/4 | Q-30-1..5 | `reports/round-30/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T22:32:36Z) | bytes=30665 lines=181 sha8=56e77835 |
 | `corpus/lessons/round-31.md` | gate-keeper | 4/4 | Q-31-1..4 | `reports/round-31/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:28:05Z) | bytes=16637 lines=73 sha8=8870bbdd |
 | `corpus/lessons/round-32.md` | gate-keeper | 4/4 | Q-32-1..6 | `reports/round-32/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:59:27Z) | bytes=12879 lines=66 sha8=8aacfc2b |
+| `corpus/lessons/round-49.md` | gate-keeper | 4/4 | none (frontier bullets carry no Q ids) | `reports/round-49/validation.json` | bytes=35993 lines=293 sha8=272eab2e |
 
-**Rows: 33. Files: 33.** The count is the runner's own partition glob
+**Rows: 34. Files: 34.** The count is the runner's own partition glob
 (`corpus/lessons/*.md`), which includes **this README** and the round-25
 lesson that landed while this index was being written. Seven rows were added
 by the round-33 revision-3 reconciliation for the lessons of rounds 26–32
@@ -446,3 +447,21 @@ measurement must fail C34b).
 
 Superseding edits land as a new revision block here, never as an in-place
 rewrite of the per-round rows' provenance claims.
+
+## Revision 4 — round-49 lesson row (2026-10-19)
+
+The round-49 integrator (kaika wave 2) landed `corpus/lessons/round-49.md`, the
+first lesson file since round 32, because the fleet sources contract asks every
+new `corpus/SOURCES.md` row for a round-lesson `## Gate` record. **What this
+revision adds:** one §2 row for that lesson, pinned from the live bytes by
+`reports/round-25/audit/c31-lessons-index-audit.py --json`
+(`bytes=35993 lines=293 sha8=272eab2e`, format `gate-keeper`, contract 4/4).
+**In-place correction:** §2's count line 33/33 → 34/34, the same machine-read
+line revision 3 corrected. §3's histogram prose stays as the dated record it
+is; the live histogram is now gate-keeper **22**, fragment-index **5**, plain
+**7** (total 34). **Counting command:** before this revision the audit exited
+with `C31-1 unindexed-file: ['round-49.md']` and `C34-2 prose-arithmetic-drift`
+(stated 33/33, measured 33/34); after it, `findings: 0`. Rounds 33–48 still
+have no lesson file — their scribe records live under
+`reports/round-N/scribe/`; that convention gap is recorded in the round-49
+lesson's `## Mistakes` and left for an owner decision, not settled here.
