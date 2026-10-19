@@ -3943,3 +3943,43 @@ actual route stay recorded per round. Prior rounds stand as filed.
   replay (`.scratch/r48-replay`), no in-tree execution.
 - **Residual note (not a blocker):** X01 flagged a second `revision: 2.0`
   duplicate-header pattern in README prose — recorded for a later Ca round.
+
+## 2026-10-19 — Round 49 ADMITTED by runner, pending non-author verification (loop 2, position 3; kaika wave 2; C+Ca+S improved)
+
+- **Trigger:** kaika wave-2 steer to the declared, dispatch-blocked round 49
+  (`reports/round-49/claims.json`, C+Ca, declared FRESH; the 64-seat opencode-go key-3
+  batch had 402'd). The third slot carries the campaign's sources capability, declared
+  before any merge in `reports/round-49/claims-addendum-kaika.json` (S, depth). Base
+  `c42d675`; `git diff --name-only 78f77a6 c42d675 -- corpus tools SKILL.md` prints
+  nothing, so the declared premises transfer. One batched 11-seat L2 swarm (planner,
+  connector, scout, executors ×4, scribe, reviewer, critic); the entry and runner seats
+  died on a provider rate limit (`resource_exhausted`, executor route) and were
+  re-dispatched as fresh seats; the replacement entry seat hit a second provider limit
+  (`turn_rate_limit_exceeded`), so the integrator opened and wrote rows S031–S043 itself.
+- **C (verified + landed):** `corpus/knowledge/culture-material/hunting-foraging-subsistence.md`
+  — 205 lines, the 8-field head, a five-link production chain, mobility, sharing,
+  gendered labour with the live Anderson/Venkataraman exchange, a decision table, build
+  order, decision record, NON-CANON example and a 12-row calibration bank. Premise
+  narrowed on evidence: two partial topic owners exist (`algonquian.md:3`,
+  `semantic-fields-lexicon-building.md:3`); no cross-cultural production-system owner.
+  Claims resting on bibliographic-record-only rows (S032, S035, S036) are marked
+  `(to-verify)`. README rev 2.6: row in filename order, 26 → 27, totals 225, footer
+  `25/26/27/29/24/94`; sweep `rows 225 files 225`.
+- **Ca (verified + landed):** the dangling `revision: 2.0` stub deleted (2 → 1) — the
+  r49 framing's "delete the second block" instruction (`targets.json:137`) was inverted
+  and not followed; `tools/check-readme-revisions.py` (selftest 11/11) catches the class
+  and exits 1 on the base README. Residual routed: the rev-1.9 body has no label.
+- **S (verified + landed, capability `sources registry`):** `corpus/SOURCES.md`, 43
+  opened rows, census clean; Gate in `corpus/lessons/round-49.md`; `QUALITY.md` and
+  `SKILL.md` gain one pointer line each. Critic/reviewer findings applied before landing:
+  bibliographic-record-only citations removed from `used-by` (S001, S002, S004 → queued,
+  S007, S013), S003 quote trimmed, undated anchors dated, S013 tier A → B.
+- **Learning:** `corpus/lessons/round-49.md` `## Mistakes` mines the lane's rejected and
+  incident rounds (21 classes; uncaptured: r11 threshold, r35 placeholder tokens, r42
+  overwrite gate, r44 carried-candidate, r47 size criterion, r9 write boundary, the
+  r33–r48 lessons convention). New class: a substring hit on a site name is not a
+  citation of the row's scope.
+- **Evidence:** measured commit `8c78e6b` in a fresh clone,
+  `python3 reports/round-49/run-validation.py` → admitted, exit 0
+  (`reports/round-49/validation.json`); lessons index audit `findings: 0`; seat
+  fragments in `reports/round-49/integration/`. No push (operator rule).

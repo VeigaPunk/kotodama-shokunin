@@ -1,0 +1,353 @@
+{
+  "acceptance_checks_passed": true,
+  "baseline_revision": "c42d675",
+  "claims": {
+    "C": {
+      "command": "python3 reports/round-49/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "culture_material": 27,
+        "entry_h1": 1,
+        "entry_h3": 0,
+        "entry_landed": true,
+        "entry_lines": 205,
+        "gap_owners": [
+          "corpus/knowledge/culture-material/hunting-foraging-subsistence.md"
+        ],
+        "gap_ownership_ok": true,
+        "head_field_positions": [
+          2,
+          3,
+          4,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "head_fields_ordered": true,
+        "knowledge_changed_vs_baseline": [
+          "corpus/knowledge/culture-material/hunting-foraging-subsistence.md"
+        ],
+        "no_existing_entry_modified": true,
+        "sweep_green": true,
+        "topic_lines": 1,
+        "total": 225
+      },
+      "passed": true,
+      "verdict": "improved"
+    },
+    "Ca": {
+      "command": "python3 reports/round-49/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "heading_tool_landed": true,
+        "heading_tool_rc": 0,
+        "readme_revision_2_0_count": 1,
+        "revisions_tool_landed": true,
+        "revisions_tool_rc": 0,
+        "revisions_tool_rc_stderr": "",
+        "revisions_tool_selftest_rc": 0,
+        "revisions_tool_selftest_tail": "ol: orphan paragraph warned at [4, 5], verdict clean [{\"class\": \"REVISION-ORPHAN\", \"detail\": \"unheaded paragraph inside revisions span (starts 'round-28 C entry landed (orphan body)')\", \"lines\": [4, 5]}]\nPASS control: minor gap warned [{\"class\": \"REVISION-GAP\", \"detail\": \"label sequence '2.3' (line 1) -> '2.1' (line 4) skips a minor\", \"lines\": [1, 4]}]\nselftest skips: 0\nselftest: all checks passed",
+        "sweep_green": true
+      },
+      "passed": true,
+      "verdict": "improved"
+    },
+    "S": {
+      "command": "python3 reports/round-49/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "census": [
+          {
+            "command": "grep -cE '^\\|[[:space:]]*S[0-9]{3,}[[:space:]]*\\|' corpus/SOURCES.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "43"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ && NF!=13 {n++} END{print n+0}' corpus/SOURCES.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "0"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ {t=$5; gsub(/[[:space:]]/,\"\",t); n[t]++} END{for(k in n) printf \"%s=%d \", k, n[k]; print \"\"}' corpus/SOURCES.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "A=34 B=3 C=6"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ {s=$9; gsub(/[[:space:]]/,\"\",s); n[s]++} END{for(k in n) printf \"%s=%d \", k, n[k]; print \"\"}' corpus/SOURCES.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "mined=20 queued=19 rejected=4"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ {i=$2; gsub(/[[:space:]]/,\"\",i); print i}' corpus/SOURCES.md | sort | uniq -d",
+            "rc": 0,
+            "stderr": "",
+            "stdout": ""
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ && NF==13 {i=$2;k=$4;t=$5;s=$9; gsub(/[[:space:]]/,\"\",i); gsub(/[[:space:]]/,\"\",k); gsub(/[[:space:]]/,\"\",t); gsub(/[[:space:]]/,\"\",s); if (t !~ /^[ABC]$/) print \"tier\", i, t; if (s !~ /^(queued|mined|rejected)$/) print \"status\", i, s; if (k !~ /^(spec|docs|paper|code|tool|dataset|talk|book|community|own-work)$/) print \"kind\", i, k; if (t==\"A\" && k==\"community\") print \"tier-inflation\", i}' corpus/SOURCES.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": ""
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ && NF==13 {s=$9; gsub(/[[:space:]]/,\"\",s); if (s==\"mined\") {n=split($12, a, /[,;]/); for (j=1;j<=n;j++) {p=a[j]; gsub(/^[[:space:]]+|[[:space:]]+$/,\"\",p); if (p!=\"\" && p!=\"—\") print p}}}' corpus/SOURCES.md | while read -r p; do [ -e \"$p\" ] || echo \"missing: $p\"; done",
+            "rc": 0,
+            "stderr": "",
+            "stdout": ""
+          }
+        ],
+        "duplicate_ids_output": "",
+        "enum_violations_output": "",
+        "gate_covers_all_ids": true,
+        "gate_missing_ids": [],
+        "gate_section_present": true,
+        "headings": {
+          "## Leads (unopened)": true,
+          "## Paths": true,
+          "## Registry": true,
+          "## Search log": true
+        },
+        "headings_ok": true,
+        "lesson_landed": true,
+        "malformed": 0,
+        "missing_usedby_output": "",
+        "opened_all_2026_10_19": true,
+        "opened_cells": [
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19",
+          "2026-10-19"
+        ],
+        "registry_ids": [
+          "S001",
+          "S002",
+          "S003",
+          "S004",
+          "S005",
+          "S006",
+          "S007",
+          "S008",
+          "S009",
+          "S010",
+          "S011",
+          "S012",
+          "S013",
+          "S014",
+          "S015",
+          "S016",
+          "S017",
+          "S018",
+          "S019",
+          "S020",
+          "S021",
+          "S022",
+          "S023",
+          "S024",
+          "S025",
+          "S026",
+          "S027",
+          "S028",
+          "S029",
+          "S030",
+          "S031",
+          "S032",
+          "S033",
+          "S034",
+          "S035",
+          "S036",
+          "S037",
+          "S038",
+          "S039",
+          "S040",
+          "S041",
+          "S042",
+          "S043"
+        ],
+        "rejected_rows": 4,
+        "rows": 43,
+        "sources_landed": true,
+        "status_histogram": "mined=20 queued=19 rejected=4",
+        "tier_histogram": "A=34 B=3 C=6"
+      },
+      "passed": true,
+      "verdict": "improved"
+    },
+    "cross": {
+      "command": "python3 reports/round-49/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "existing_knowledge_modified": [],
+        "existing_knowledge_status_lines": [],
+        "git_status_rc": 0,
+        "knowledge_diff_vs_baseline": [
+          "corpus/knowledge/culture-material/hunting-foraging-subsistence.md"
+        ],
+        "new_entry_status": [],
+        "porcelain_lines": []
+      },
+      "passed": true,
+      "verdict": "measured"
+    },
+    "separability": {
+      "c_without_s": {
+        "cited": [
+          "S031",
+          "S032",
+          "S033",
+          "S034",
+          "S035",
+          "S036",
+          "S037",
+          "S038",
+          "S039",
+          "S040",
+          "S041",
+          "S042"
+        ],
+        "no_inline_url": [],
+        "passed": true,
+        "url_ids": [
+          "S031",
+          "S032",
+          "S033",
+          "S034",
+          "S035",
+          "S036",
+          "S037",
+          "S038",
+          "S039",
+          "S040",
+          "S041",
+          "S042"
+        ]
+      },
+      "s_without_c": {
+        "census": [
+          {
+            "command": "grep -cE '^\\|[[:space:]]*S[0-9]{3,}[[:space:]]*\\|' .scratch/r49-s-without-c-nhfoehdu.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "43"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ && NF!=13 {n++} END{print n+0}' .scratch/r49-s-without-c-nhfoehdu.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "0"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ {t=$5; gsub(/[[:space:]]/,\"\",t); n[t]++} END{for(k in n) printf \"%s=%d \", k, n[k]; print \"\"}' .scratch/r49-s-without-c-nhfoehdu.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "A=34 B=3 C=6"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ {s=$9; gsub(/[[:space:]]/,\"\",s); n[s]++} END{for(k in n) printf \"%s=%d \", k, n[k]; print \"\"}' .scratch/r49-s-without-c-nhfoehdu.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": "mined=8 queued=31 rejected=4"
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ {i=$2; gsub(/[[:space:]]/,\"\",i); print i}' .scratch/r49-s-without-c-nhfoehdu.md | sort | uniq -d",
+            "rc": 0,
+            "stderr": "",
+            "stdout": ""
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ && NF==13 {i=$2;k=$4;t=$5;s=$9; gsub(/[[:space:]]/,\"\",i); gsub(/[[:space:]]/,\"\",k); gsub(/[[:space:]]/,\"\",t); gsub(/[[:space:]]/,\"\",s); if (t !~ /^[ABC]$/) print \"tier\", i, t; if (s !~ /^(queued|mined|rejected)$/) print \"status\", i, s; if (k !~ /^(spec|docs|paper|code|tool|dataset|talk|book|community|own-work)$/) print \"kind\", i, k; if (t==\"A\" && k==\"community\") print \"tier-inflation\", i}' .scratch/r49-s-without-c-nhfoehdu.md",
+            "rc": 0,
+            "stderr": "",
+            "stdout": ""
+          },
+          {
+            "command": "awk -F'|' '/^\\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\\|/ && NF==13 {s=$9; gsub(/[[:space:]]/,\"\",s); if (s==\"mined\") {n=split($12, a, /[,;]/); for (j=1;j<=n;j++) {p=a[j]; gsub(/^[[:space:]]+|[[:space:]]+$/,\"\",p); if (p!=\"\" && p!=\"—\") print p}}}' .scratch/r49-s-without-c-nhfoehdu.md | while read -r p; do [ \"$p\" != \"corpus/knowledge/culture-material/hunting-foraging-subsistence.md\" ] && [ -e \"$p\" ] || echo \"missing: $p\"; done",
+            "rc": 0,
+            "stderr": "",
+            "stdout": ""
+          }
+        ],
+        "duplicate_ids_output": "",
+        "entry_path_assumed_absent": "corpus/knowledge/culture-material/hunting-foraging-subsistence.md",
+        "enum_violations_output": "",
+        "malformed": 0,
+        "missing_usedby_output": "",
+        "passed": true,
+        "sources_landed": true,
+        "temporary_sources_path": ".scratch/r49-s-without-c-nhfoehdu.md"
+      }
+    }
+  },
+  "claims_declared": {
+    "C": "coverage",
+    "Ca": "calibration",
+    "S": "depth"
+  },
+  "counting_command": "python3 reports/round-49/run-validation.py",
+  "date": "2026-10-19",
+  "failures": [],
+  "input_sha256": {
+    "corpus/README.md": "666fb794c71f94867b923152f747a105ee28ecb1bb2cc7fd5bd9cdffe79e3a35",
+    "corpus/SOURCES.md": "933013a15162008b4798cc1134577d19ff8155e6cb0f9ede378a79d55440b769",
+    "corpus/knowledge/culture-material/hunting-foraging-subsistence.md": "64cb0d555d1970797f0fbff808afe7fda0c776da706fb55cf2fb934bc8a7b590",
+    "corpus/lessons/round-49.md": "272eab2e543a59c5419931669e2737d718213c381168d81bc595b780a144ea37",
+    "reports/round-49/claims-addendum-kaika.json": "7171f5f1aac20626aca5e975a3fa4520e602b7f8f5f9a7a35f28fd687a0a465a",
+    "reports/round-49/claims.json": "501eb76014ce1b7153d1578411fa08ecc79ca6e085452e3d3ab6661a9af4e11b",
+    "reports/round-49/run-validation.py": "9f5f7a2e7b537778b180ff4968c48c3c6376ae56ab9103cd3a5917828bbc4080",
+    "reports/round-49/targets.json": "6b1bb4c5af75f951deac043e8a2b929800382f25a3eac19442261f3d94e63df6",
+    "tools/check-readme-heading.py": "d4b4ff2a0ba895192fa9f13dc940b653862a6bb79dc7884afda3e70ccf799dd5",
+    "tools/check-readme-revisions.py": "d49fdf1c9524c457c2a5fb9c647442e682c6a3de98030d3c778b5f33740cdeb7"
+  },
+  "limits": [],
+  "partial": "C (hunting/foraging entry, sweep 225 green) + Ca (README revision dedupe + revisions control) + S (SOURCES.md registry landed) — per-claim verdicts computed",
+  "round": 49,
+  "verdict": "admitted"
+}

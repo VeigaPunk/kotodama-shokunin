@@ -51,6 +51,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | corpus apparatus audit | Inspect declared metadata and ledger scope without equating it to factual truth | `corpus/lessons/round-4-audit/` (16 reports), supplemental reviews | round 4 |
 | isolated gate battery | Standalone copied-tree seven-gate runner; stable failure versus could-not-evaluate mapping, byte/path preservation checks and ten controls | `python3 tools/check-gate-battery.py`; `--selftest`; `reports/round-5/battery-mutation.json` | round 5 |
 | bounded typed craft CLI | Six original malformed controls and reviewed nested/argument cases return exit 2 without tracebacks; genuine findings still exit 1 | `python3 tools/check-craft-exercise.py --selftest` (10 domain + 18 CLI); actual calls in `reports/round-5/validation.json` | round 5 |
+| sources registry | Keep a curated, append-only registry of opened sources — tier scoped per claim, anchored to a revision, rejections kept with reason and flip, study paths and a search log — and census it with the fleet contract's seven commands | `corpus/SOURCES.md` (43 rows: A 34 / B 3 / C 6; mined 20 / queued 19 / rejected 4); `corpus/lessons/round-49.md` `## Gate`; `python3 reports/round-49/run-validation.py` S leg, measured at `8c78e6b` | round 49 |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -950,3 +951,29 @@ admitting the star chart + the cosmogram as a doctrinal-correspondence boundary
 form); the residual `revision: 2.0` duplicate-header note (X01, not a blocker);
 in-flight seat audits ran on non-final bytes — the integrator re-verified on the
 assembled landed bytes (sweep + heading control + run-validation).
+
+## Axes — round 49 (2026-10-19), ADMITTED by runner, pending non-author verification (loop 2, position 3; kaika wave 2)
+
+Baseline `c42d675` (differs from the declared `78f77a6` only in round-49 framing files:
+`git diff --name-only 78f77a6 c42d675 -- corpus tools SKILL.md` prints nothing).
+Measured commit **`8c78e6b`** (work commits `c6a174d` + `8c78e6b`), replayed in a fresh
+clone: `python3 reports/round-49/run-validation.py` → `verdict: admitted`, exit 0
+(`reports/round-49/validation.json`). Dispatch: the declared 64-seat opencode-go key-3
+batch had 402'd; this round ran one batched 11-seat L2 swarm (planner, connector, scout,
+4 executors, scribe, reviewer, critic) plus 2 replacement executor seats after a provider
+rate limit. Claims C/Ca declared in `claims.json`; S declared in
+`claims-addendum-kaika.json` (kaika campaign slot).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | hunting/foraging production register unowned (0 filename owners; 2 partial topic owners — `algonquian.md:3` regional round, `semantic-fields-lexicon-building.md:3` lexicon field — the declared "0 true topic owners" was narrowed, critic finding) → `culture-material/hunting-foraging-subsistence.md` landed: 205 lines, 1 H1, 0 H3, 1 `- topic:`, 8-field head in order, 12 opened external rows + 53 in-corpus anchors; total 224 → 225, culture-material 26 → 27; sweep `rows 225 files 225`, topic_mismatch 0; no existing entry modified | `find corpus/knowledge -name '*.md' \| wc -l`; `ls corpus/knowledge/culture-material/*.md \| wc -l`; `python3 -B reports/round-28/readme/sweep.py`; `python3 reports/round-49/run-validation.py` | `validation.json` claims.C; R49Reviewer PASS, R49Critic survives-with-conditions (`reports/round-49/integration/README.md`) |
+| calibration | improved (claim Ca) | dangling `revision: 2.0` stub (README:55, introduced `57c8409`) → deleted, `grep -c '^revision: 2\.0' corpus/README.md` 2 → 1; class control `tools/check-readme-revisions.py` (dup/stub/order legs, selftest 11/11) exits 1 on base bytes, 0 now; the headless rev-1.9 body is a routed residual (`REVISION-ORPHAN` warning only) | `grep -c '^revision: 2\.0' corpus/README.md`; `python3 -B tools/check-readme-revisions.py --selftest`; `python3 -B tools/check-readme-heading.py` | `reports/round-49/integration/Ca-evidence.md`; `validation.json` claims.Ca |
+| depth | improved (claim S, capability `sources registry`) | `corpus/SOURCES.md` absent, 0 rows → 43 opened rows (A 34 / B 3 / C 6; mined 20 / queued 19 / rejected 4), all seven contract census commands clean (malformed 0, no dup ids, no enum/tier-inflation, no missing used-by); `## Paths` 15 sequences, `## Search log` 3 notes, `## Leads (unopened)`; every row's URL/date/≤25-word quote in `corpus/lessons/round-49.md` `## Gate` | the seven census commands of `SOURCES-CONTRACT-v1.md`; `python3 reports/round-49/run-validation.py` | `validation.json` claims.S; Critic re-opened all 13 of S031–S043 |
+| operability | unchanged, not harmed | `reports/round-25/audit/c31-lessons-index-audit.py` would have gone red on the new lesson (C31 unindexed + C34b drift) → lessons README revision 4 indexes it, `findings: 0`, selftest 28/28 | `python3 -B reports/round-25/audit/c31-lessons-index-audit.py` | `corpus/lessons/README.md` revision 4 |
+| freshness / adjacency | unchanged | not claimed; freshness pause in force; connector found 0 sibling owners of the register (fleet-wide `topic:` sweep) | — | — |
+
+Separability (recorded, not gating): `c_without_s` passed (every cited row id carries an
+inline URL in the entry's `- source:` line); `s_without_c` passed (census clean with the
+entry path removed from every `used-by`). Coupling named: 12 S rows list the entry as
+`used-by`; the entry points to `corpus/SOURCES.md` at its shelf and recheck lines.
+Non-author verification of the three verdicts is the orchestrator's (§6.6).
