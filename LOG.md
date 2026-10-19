@@ -3914,3 +3914,32 @@ actual route stay recorded per round. Prior rounds stand as filed.
   acceptance false (exit 1 by design); O+Ca improved recorded without averaging the
   C shortfall into an accept; telemetry closed via `availability-close-47.json`;
   runner reproduced in isolated git-archive replay.
+
+## 2026-10-19 — Round 48 ADMITTED (loop 2, position 2; C+Ca improved)
+
+- **Trigger:** regimen; claims C/Ca; `opencode-go/deepseek-v4.1-flash` 64 seats
+  (key-2 round-robin), clean single-batch 64/64. O dropped at declaration — the
+  freshness gate's first live use flagged its candidate premise stale.
+- **C (verified + landed):** the right-sized cartography entry landed on the
+  verified-fresh gap (0 owners, gate-confirmed). `corpus/knowledge/culture-material/
+  cartography-and-mapmaking.md` — 239 lines (C02 23-line head, topic byte-equal to
+  the r44 seed; C01 215-line body with R03's fixes), 1 H1/14 H2/0 H3, inside ≤250
+  tolerance (1.08× partition max 221). R03's nine r47 blocking defects absent on
+  the assembled bytes; the D1 register-test/form-typology contradiction resolved
+  (star chart + cosmogram admitted, the latter as a doctrinal-correspondence
+  boundary form). README rev 2.5 landed in the same edit: new row in filename
+  order, `## culture-material/` 25→26, totals 223→224, footer vector
+  `25/26/25/29/24/94`→`25/26/26/29/24/94`, and the rev-2.4 transposed prose vector
+  repaired. Sweep `rows 224 files 224`, topic_mismatch 0, footer_ok, exit 0.
+- **Ca (verified + landed):** the live README duplicate H1 (lines 1/3, grep 2)
+  removed (grep 1) as a recorded act; the r47 over-build defect class
+  dispositioned into `calib/queue-successor-r48.json` as **fixed-with-evidence**
+  (the r48 landing satisfies Ca02's reclass gates; parent `defect-queue-v2.json`
+  sha-pinned, not edited); the sweep's heading blind-spot closed by
+  `tools/check-readme-heading.py` (selftest 8/8, green on the fixed README).
+- **Evidence:** `reports/round-48/validation.json` verdict `admitted`,
+  acceptance true (exit 0); telemetry closed via `observed-dispatch.json` +
+  `availability-close-48.json`; runner reproduced in isolated git-archive
+  replay (`.scratch/r48-replay`), no in-tree execution.
+- **Residual note (not a blocker):** X01 flagged a second `revision: 2.0`
+  duplicate-header pattern in README prose — recorded for a later Ca round.

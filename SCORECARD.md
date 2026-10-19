@@ -929,3 +929,24 @@ The old availability report remains historical, not a current blocker.
 
 No retirement. Legacy saturation line 8 and stagnation window 3 remain
 historical policy; the nudge is not invoked without calibrated scores.
+
+## Axes — round 48 (2026-10-19), ADMITTED (loop 2, position 2)
+
+Baseline `a01405d`; `opencode-go/deepseek-v4.1-flash` 64 seats (key-2 round-robin),
+clean single-batch 64/64. Claims C + Ca (O dropped at declaration — the freshness
+gate's first live use flagged its candidate premise stale). Acceptance receipt:
+`python3 reports/round-48/run-validation.py` exit 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | verified-fresh cartography gap (0 owners, gate-confirmed at declaration) → `corpus/knowledge/culture-material/cartography-and-mapmaking.md` landed: 239 lines (C02 head + C01 body with R03's D1/D3/P2 fixes), 1 H1/14 H2/0 H3, inside ≤250 tolerance; nine r47 B-defects absent on assembled bytes; total 223 → 224, culture-material 25 → 26, sweep `rows 224 files 224`, topic_mismatch 0 | `python3 -B reports/round-28/readme/sweep.py`; `wc -l corpus/knowledge/culture-material/cartography-and-mapmaking.md` | `cov/C01-entry.md`; `cov/C02-header.md`; `review/R03-c-content.md`; `cross/X03-overbuild.md` |
+| calibration | improved (claim Ca) | live README duplicate H1 (lines 1/3, grep 2) → removed (grep 1) as a recorded act; the r47 over-build defect class → `calib/queue-successor-r48.json` fixed-with-evidence (parent `defect-queue-v2.json` sha-pinned, not edited); the sweep's heading blind-spot → `tools/check-readme-heading.py` (selftest 8/8, green on fixed README); rev-2.4 transposed prose vector repaired | `grep -c '^# kotodama-shokunin corpus index' corpus/README.md`; `python3 -B tools/check-readme-heading.py`; `python3 -B tools/check-readme-heading.py --selftest` | `calib/Ca01-readme-fix.md`; `calib/Ca02-overbuild.md`; `calib/Ca05-heading-control.md`; `calib/queue-successor-r48.json` |
+| operability | unchanged | Not claimed; the freshness gate (r47 deliverable) ran its first live use at declaration and dropped the stale O candidate — recorded as a gate success, not a round claim | `python3 tools/harness/claims-freshness.py --selftest` | `claims.json`; `telemetry/dispatch-declared.json` |
+| depth / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Round status: ADMITTED — both claims verify on the landed bytes and no axis is
+harmed. Named: the D1 register-test/form-typology contradiction (resolved by
+admitting the star chart + the cosmogram as a doctrinal-correspondence boundary
+form); the residual `revision: 2.0` duplicate-header note (X01, not a blocker);
+in-flight seat audits ran on non-final bytes — the integrator re-verified on the
+assembled landed bytes (sweep + heading control + run-validation).

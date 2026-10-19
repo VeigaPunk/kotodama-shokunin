@@ -1,0 +1,65 @@
+{
+ "round": 48,
+ "regimen": "REGIMEN.md",
+ "loop": 2,
+ "position": "position 2 (opencode-go deepseek-v4.1-flash, 64 seats, key round-robin key-2)",
+ "declared_at_utc": "2026-10-19T19:45:00Z",
+ "baseline_commit": "a01405d",
+ "dispatch": {
+  "provider_lane": "opencode-go",
+  "model": "deepseek-v4.1-flash",
+  "key": "key-2 (round-robin)",
+  "requested_workers": 64,
+  "batched_calls": 1
+ },
+ "axes_in_play": [
+  "coverage",
+  "calibration"
+ ],
+ "lowest_axis_reasoning": "Coverage is the lowest non-retired axis (223 total; cartography is a verified-fresh gap but r47's 790-line draft was over-built — the successor path is a disciplined right-sized draft). Calibration takes the live README duplicate-heading defect + the r47 build-quality defect class. The freshness gate was run at declaration (its first live use): it flagged the candidate O claim STALE (its 'resolver drops hyphen soft-wrap' premise was false as framed — the resolver yields wrapped=False tokens=1, a different edge), so O rests this round rather than dispatch a stale claim. Depth/adjacency/freshness/operability rest; freshness paused.",
+ "freshness_pause_in_force": true,
+ "declared_after_freshness_gate": {
+  "command": "python3 tools/harness/claims-freshness.py --claims <candidates> --checks <overlay>",
+  "result": "C FRESH (cartography unowned + culture-material 25 hold), Ca FRESH (README duplicate-heading holds), O STALE (candidate premise false — dropped from the round rather than dispatched stale)"
+ },
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "claim": "Land ONE right-sized cartography entry on the verified-fresh gap (0 owners at a01405d, confirmed fresh by the gate at declaration): corpus/knowledge/culture-material/cartography-and-mapmaking.md written to the established entry contract AND the partition's length discipline (<= ~250 lines / the live max is 221 — NOT r47's 790-line over-build). It must avoid every one of R03's r47 blocking defects (correct arithmetic, no false source-accusations, correctly-anchored citations, a self-consistent worked example). Total 223 -> 224, culture-material 25 -> 26; README rev 2.5 (224) with the row added in filename order AND the rev-2.4 prose-vector defect repaired in the same edit.",
+   "before": "total 223; cartography verified-fresh unowned (gate-confirmed at declaration); r47's draft was over-built + defective and was correctly not landed",
+   "after_required": "cartography-and-mapmaking.md landed per the entry contract at partition length (<=~250 lines); total 224, culture-material 26; README rev 2.5 sweep-green 224==224 AND prose vector sums 224; audits PASS; zero existing entries overwritten; gap re-verified unowned at landing",
+   "counting_commands": [
+    "find corpus/knowledge -name '*.md' | wc -l",
+    "wc -l corpus/knowledge/culture-material/cartography-and-mapmaking.md",
+    "ls corpus/knowledge/culture-material/*.md | wc -l",
+    "python3 -B reports/round-28/readme/sweep.py"
+   ],
+   "thresholds": "sweep green 224==224; entry length <=~250 lines (the partition discipline, not a hard cap); audits clean incl. arithmetic + citation-anchor + worked-example legs; gap re-verified unowned at landing (not carried); README prose vector sums 224"
+  },
+  {
+   "id": "Ca",
+   "axis": "calibration",
+   "claim": "Fix the live README duplicate-heading defect (R36-README-DUPLICATE-HEADING, re-verified: `grep -c '^# kotodama-shokunin corpus index' corpus/README.md` = 2) — remove the redundant second title as a recorded act and re-run the sweep plus a heading-count control the sweep lacks. AND disposition the r47 build-quality defect class (the over-built entry pattern: draft > partition length discipline + unreviewed arithmetic/citation defects) into a queue-successor record — the freshness gate's C-claim checks now guard topic-ownership but not entry quality, so the over-build class needs its own durable note or gate extension.",
+   "before": "README carries a duplicate H1 (lines 1 and 3, verified grep count 2); the r47 over-build defect (draft 790 lines + R03 B1-B9) is undispositioned; no heading-count control exists in the sweep",
+   "after_required": "the README duplicate heading removed (grep count -> 1) as a recorded act, sweep still green; a queue-successor row dispositioning the r47 over-build defect class (owner + next_touch + evidence); the heading-count control added to the sweep or a durable note filed",
+   "counting_commands": [
+    "grep -c '^# kotodama-shokunin corpus index' corpus/README.md",
+    "python3 -B reports/round-28/readme/sweep.py",
+    "python3 reports/round-48/run-validation.py"
+   ],
+   "thresholds": "README heading count 2 -> 1, sweep green after; the over-build defect class dispositioned into the queue successor with owner+evidence; the heading-count control lands or is named as a durable note with owner"
+  }
+ ],
+ "non_goals": [
+  "no freshness axis-move",
+  "no operability claim (the candidate O premise was flagged stale by the freshness gate at declaration — dropped, not dispatched)",
+  "no promotion/canon/clearance/closure",
+  "no filed byte rewrites (the README duplicate-heading removal is a live defect fix on the index, not a rewrite of a closed round's filed bytes; queue successors are successor records)",
+  "no in-tree round-runner execution",
+  "no re-freeze of declared-in-r7",
+  "no packet-surface changes",
+  "no corpus staging by seats (integrator applies the single C landing only)",
+  "the cartography entry must be right-sized — not a copy of r47's 790-line over-build"
+ ]
+}

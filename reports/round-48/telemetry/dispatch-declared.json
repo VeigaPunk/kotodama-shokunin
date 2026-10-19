@@ -1,0 +1,23 @@
+{
+ "round": 48,
+ "kind": "dispatch-declared",
+ "owner": "kotodama-shokunin (integrator)",
+ "recorded_at_utc": "2026-10-19T19:45:00Z",
+ "provider_lane": "opencode-go",
+ "model": "deepseek-v4.1-flash",
+ "key": "key-2 (round-robin)",
+ "requested_workers": 64,
+ "batched_calls": 1,
+ "baseline_commit": "a01405d",
+ "loop": 2,
+ "position": 2,
+ "declared_artifacts": {
+  "reports/round-48/claims.json": {"sha256": "bf8df21b641c1a49a7b71eb46504210a58096dda3f2cefa6c7618b1200535292"},
+  "reports/round-48/targets.json": {"sha256": "d029eaa1e37481918c10c20bb7ced3e3e31a8886a207cca05cb55ee3aaa20446", "seat_count": 64}
+ },
+ "freshness_gate_first_live_use": {
+  "command": "python3 tools/harness/claims-freshness.py --claims <candidates> --checks <overlay>",
+  "result": "O STALE (candidate premise false — dropped from the round, not dispatched); C FRESH; Ca FRESH. The r47 gate caught a stale premise at declaration for the first time."
+ },
+ "notes": "loop-2 position 2. C = right-sized cartography (learn from r47's 790-line over-build; <=~250 lines). Ca = live README duplicate-heading fix + r47 over-build defect disposition. O rests (freshness gate flagged its candidate premise stale). Claims reduced to 2 (C+Ca) after the gate dropped O."
+}
