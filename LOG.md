@@ -4001,3 +4001,9 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Separability correction:** C and S are coupled. `c_without_s.passed` only
   tests inline URLs; it does not test the required `S###` registry rows and is
   an incomplete counterfactual, not evidence that C verifies without S.
+
+- **Recount command erratum:** the command above carried a doubled backslash
+  before `|`; the corrected command is recorded in
+  `corpus/lessons/round-49.md#dated-correction-recount-command-escaping` and
+  re-executes to 23. The count is unchanged; this supersedes the command text,
+  not the append-only round record.

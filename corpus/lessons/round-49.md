@@ -311,3 +311,7 @@ The non-author review's tier disagreement is accepted and recorded as a lesson; 
 Mistakes-row count correction: the original `## Mistakes` table has 23 data rows, not 22 (report) or 21 (LOG). Recount command: `awk '/^## Mistakes/{m=1;next} /^## Frontier/{m=0} m && /^\\| / && !/^\\| class/ {n++} END{print n+0}' corpus/lessons/round-49.md` → 23. This appended correction table is outside that count.
 
 Quality-trend correction: `unchanged` per `LEARNING.md`'s trend vocabulary and observable; no stale knowledge entry was re-verified and no weaker entry was superseded by a stronger one. The report's earlier non-vocabulary wording is superseded by its post-review correction.
+
+### Dated correction — recount command escaping
+
+The preceding recount snippets in this lesson and `LOG.md` carried a doubled backslash before `|`; those snippets do not count table rows. Corrected command, re-executed after `8cee755`: `awk '/^## Mistakes/{m=1;next} /^## Frontier/{m=0} m && /^\| / && !/^\| class/ {n++} END{print n+0}' corpus/lessons/round-49.md` → 23. This corrects the command text only; the row count remains 23.
