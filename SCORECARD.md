@@ -778,6 +778,24 @@ Named: the C05 completion re-dispatch; the stray C03 staging file (removed,
 digest-proven); K01's gaps G2-G4 routed; Ca04's two one-sentence defects;
 R01-1's replay-mechanism ruling recorded in the successor ledger.
 
+## Axes — round 40 (2026-10-19), ADMITTED (regimen 2, loop 1 position 8)
+
+Baseline `fd55e1f`; one 24-seat `zai-coding-plan/glm-5.3-flash` batch, 24/24.
+Acceptance: `python3 reports/round-40/run-validation.py` exits 0 (receipt
+sha256 `8b7b4508…`; the runner is the O12 relative-ROOT cure with non-null
+`runner_sha256` — the N7 receipt-fidelity cure).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | linguistics 21 → 25, total 216 → 220: K01-r39's routed gaps G2-G4 landed; audits 4/4 PASS pre-landing (C05 + C07 independent); README rev 2.3 sweep-green 220==220 | census + sweep | `corpus/knowledge/linguistics/`; `cov/C05-audit.md` |
+| calibration | improved (claim Ca) | r37-aged 24-row queue → 38-row owner-complete defect-queue-v2 (r38/r39 findings folded; the reviewers' five mandated rows + locator + ruling applied; 72.7% sample match) | `python3 reports/round-40/run-validation.py` | `op/defect-queue-v2.json` |
+| adjacency | improved (claim A) | no consolidated r37-40 pass → every surface verdict-filed; PROVINCE byte-accurate; contested routed | `python3 reports/round-40/run-validation.py` | `adj/A03-verify-assembly.md` |
+| depth / operability / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Named: the queue-v2 completeness catch (folded); N7 cured in this runner;
+F-A02-1 routed (packet surface); the r39-runner root-regression finding
+(O12 streak r34-r39, cured here); K02's fold cross-check carried to r41.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was

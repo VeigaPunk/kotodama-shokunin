@@ -1,0 +1,490 @@
+- Seat: Ca01 | executor | Ca | date 2026-10-19 | baseline fd55e1f
+
+# Ca01 — defect-queue-v2: the r37 queue with r38/r39 findings folded, every row re-verified
+
+**Mission** (`reports/round-40/targets.json` seat `Ca01`): *"Assemble defect-queue-v2.json from
+K02: fold r38/r39 findings, re-verify every row's owner/reason/next-touch, align next-touches
+with loop-1 positions 41-46."*
+
+**Dependency state at seat start.** K02's scout (`scout/K02-queue-scout.md`) had **not landed**
+(`ls reports/round-40/scout/` → absent, checked twice this seat). Per the missing-dependency rule
+this seat built the census first-hand from the filed records — which the mission requires anyway
+("re-verify every row") — and the K02 cross-check is carried under `## Owed` and in
+`census_coverage`. Every statement below cites a filed path, a command output, or a HEAD
+measurement taken by this seat (2026-10-19, lane root, HEAD `fd55e1f`,
+`export TMPDIR=$PWD/.scratch PYTHONDONTWRITEBYTECODE=1`). No filed byte was read as writable; no
+`reports/round-*/run-validation.py` was executed; no corpus byte was staged; no git/git-mutating,
+network or install action was taken.
+
+**Source set read in full or in the cited sections:** `reports/round-37/op/defect-queue.json` (the
+24 filed rows), `reports/round-37/op/O01-queue-draft.md` (per-row summaries + the five
+`id: null` unresolved-candidate rows), LOG.md rounds 33–39 entries (`:3501-3771`), SCORECARD.md
+r37/r38/r39 axis tables and the r37 integration-repairs record (`:676-685`, `:746-779`,
+`:781-795`), `reports/round-38/op/O03-verify.md` (G5/row-blindness/D-1..D-4), LOG/SCORECARD r38
+named-findings lists, `reports/round-38/scribe/S01-integration-draft.md` Owed block, r38
+`X01-trades.md:365-370`, r38 `X02-honesty.md` section map, r38 `K01-residue.md` (design-time
+findings, adjudicated in-round), `reports/round-39/scribe/S01-integration-draft.md` (full),
+`reports/round-39/cross/X00-connector.md` (X00-1..7), `reports/round-39/calib/Ca04-verify.md`
+(D1/D2), `reports/round-39/review/R01-review.md` (verdict table), and HEAD measurements listed
+per row.
+
+## What moved since r37 (the v2's headline deltas)
+
+- **Fixed with evidence (8 r37 rows close):** R36-D-DECLARATION, R36-D-F6, R36-D-RL8 (all by the
+  admitted r38 claim D — SCORECARD.md:755, LOG.md:3732-3735); R36-README-E3-PLACEHOLDERS (removed
+  at r37 integration, SCORECARD.md:681-684; HEAD `grep __E3_PLACEHOLDER__ corpus/README.md` → no
+  match); R36-README-ORDER-CONTIGUITY-REVERIFY (the r28 sweep green 216/216 at the r39 rev-2.2
+  landing is the independent control r37 lacked); `basename-couples-policy` (policy documented +
+  Ca04-verified, SCORECARD r39 Ca row); `readme-prediction-vs-delivery` (adopted as standing
+  practice in r39's leg C6 + X00-3); R37-O01-CAND-HISTORICAL (exclusion affirmed by the filed
+  queue's own notes + O01's explicit exclusion + SCORECARD.md:781-795).
+- **Worsened evidence (2 r37 rows):** `O10-runner-sha256-null` — now **three** receipts carry
+  `runner_sha256: null` (r36 carried; r38 `validation.json:130`; r39 `validation.json:126`); and
+  `R36-ABSOLUTE-ROOT`/`O12-runner-isolation-hazard` — the absolute-ROOT streak grew to **six**
+  runners (r34–r39): the r39 runner re-carried `ROOT = "/home/vgpnk/…"` + `os.chdir(ROOT)`
+  (`reports/round-39/run-validation.py:5,12`) **against its own dossier's load-bearing spec**
+  (r39 S01 §5) and r38's own ruling (`X01-trades.md:367-369`). The r39 protocol
+  (`calib/isolation-replay-protocol.md`) and successor ledger make safe *replays* possible — the
+  *runner shape* is still un-remediated. This is claim Ca's before→after substance.
+- **New defect rows (9):** r38 — `r38-guard-row-blindness`, `r38-frozen-row-asymmetry-census`
+  (r27/r28 newly join r6/r7), `r38-O02-fragment-defects` (D-1..D-3), `r38-O08-fragment-defect`
+  (D-4), `r38-O07-empty-fragment` (0 bytes, measured `wc -c` → 0); r39 —
+  `r39-runner-root-regression`, `r39-basename-successor-instrument` (Ca04 D1/D2 — the policy
+  landed **verbatim** without them: grep of the landed file for blocker/disposition/block
+  extraction → no match — plus the r19 instrument FAILing the admitted sacred-kingship entry),
+  `r39-stray-corpus-staging`, `r39-review-findings-disposition` (R01-2..R01-14 tabled but their
+  individual dispositions are in no round record — grep `R01-` in r39 `validation.json` → 0).
+- **Row count 24 → 33** (≥ 28 threshold). New class `fixed-with-evidence` recorded in `notes`
+  with reason (the r37 vocabulary was `carried-with-owner` only because r37 had no verified
+  fixes; evidence now exists). The five `id: null` r37 rows get stable minted ids
+  (`R37-O01-CAND-*`) — provenance in `notes`; filed bytes untouched.
+
+## defect-queue-v2.json (fenced block — integrator lands at `reports/round-40/op/defect-queue-v2.json`)
+
+```json
+{
+ "schema": "kotodama-defect-queue-v2",
+ "round": 40,
+ "date": "2026-10-19",
+ "parent": "reports/round-37/op/defect-queue.json",
+ "parent_sha256_at_assembly": "5cf827e2dd17b638acf023b1c6423b0602ba88e3c08d9698b68bae6c6cc60d5d",
+ "baseline_commit": "fd55e1f",
+ "notes": "Field set per row is identical to the r37 queue (id/origin/class/owner/reason/next_touch/evidence/verification). Class vocabulary: 'carried-with-owner' (r37) plus NEW class 'fixed-with-evidence' — reason: the r37 queue carried no verified fixes (O01's draft: 'No item is marked fixed-with-evidence'); r37-integration/r38/r39 evidence now closes 8 rows, each with verification populated. The five r37 rows filed with id:null (origin 'r37 O01 unresolved') carry minted ids R37-O01-CAND-* for v2 uniqueness — the mapping to the filed queue rows is 1:1 by next_touch text (defect-queue.json:133-181); original filed bytes are untouched; K02/Ca02 verify the mapping. Canonical-id dedupe per r37 R07-cross-review:13 and r39 X00-4: O12-runner-isolation-hazard is canonical, R36-ABSOLUTE-ROOT is its census alias (kept as separate filed rows, cross-referenced in reason); r37-A01-readset-roster-defect and R36-R7-READSET-13 are one lifecycle (origin row + census alias). Telemetry deviations deliberately NOT defect rows (r37 practice: rule breaches only): the r38 grok→devin fallback + interrupted 32-seat dispatch (LOG.md:3728-3731), the RL-8 argot-host decision (declared, X01 T1), the r39 C05 concurrency-failure + completion re-dispatch (LOG.md:3747-3749) — recovery-complete, recorded in round records. next_touch values are lane-round-aligned: r41 = mid-loop verify (openai-codex 32-64), r42/r44 = build (devin / antigravity-3.8), r43 = build (zai low), r45 = deep/hard build (antigravity-4-argon), r46 = read-only audit (devin swe-2); REGIMEN.md:13-23.",
+ "census_coverage": {
+  "K02_r40_census_rows_seen": null,
+  "r37_queue_rows": 24,
+  "r37_rows_accounted": 24,
+  "new_rows_r38": 5,
+  "new_rows_r39": 4,
+  "queue_rows_v2": 33,
+  "explanation": "K02's round-40 scout (scout/K02-queue-scout.md) was ABSENT at this seat's assembly cut (ls reports/round-40/scout/ -> absent, 2026-10-19) — K02_r40_census_rows_seen stays null with that reason, never an inferred count. All 24 r37 filed rows are accounted above (12 named census rows, 5 id:null unresolved rows -> minted ids, 7 later-origin rows); 9 new rows fold the r38/r39 named findings (sources per row). Set-equality is CARRIED, not claimed: Ca02 samples >=30% of v2 rows to origins and R02 runs the completeness hunt (targets.json Ca02/R02), per claims.json Ca.",
+  "owner": "Ca02 (sample) + K02 (scout cross-check when it lands) + R02 (hunt)"
+ },
+ "rows": [
+  {
+   "id": "F-C13-1",
+   "origin": "r33-36 census (K02); incident LOG.md:3548-3567, recurrence LOG.md:3695-3698",
+   "class": "carried-with-owner",
+   "owner": "integrator + future runner maintainer (round-40 runner author first)",
+   "reason": "historical in-tree receipt writes/restores; filed runners/receipts immutable so restoration is not prevention; per-write actor attribution remains to-verify; the r39 isolation-replay protocol gives a mechanical replay-containment route but NO relative-ROOT runner has landed yet (the r39 runner re-carried the absolute shape), so publish-mode safety is still promissory",
+   "next_touch": "r40 close: the round-40 runner carries the relative ROOT (Path(__file__).resolve().parents[2], r33 shape, reports/round-33/run-validation.py:23) and parses flags before any chdir; every publish-mode replay follows calib/isolation-replay-protocol.md; standing rule re-affirmed each round",
+   "evidence": "LOG.md:3548-3567,3695-3698; reports/round-39/calib/isolation-replay-protocol.md; reports/round-39/run-validation.py:5,12",
+   "verification": "no recurrence observed at r38 (O03 §6: no in-tree runner executed) or r39 (S01 §1: none executed anywhere)"
+  },
+  {
+   "id": "F-C15-1",
+   "origin": "r33-36 census (K02); reports/round-33/calib/open-items-ledger.json:417-424",
+   "class": "carried-with-owner",
+   "owner": "integrator / C13 / R05 (source reconciliation)",
+   "reason": "the '12 standing open items' numeral is reconstructed from a nine-row source table; no filed source establishes the expansion rule; no movement at r38/r39 (no verify round ran in between)",
+   "next_touch": "r41 (mid-loop verify): reconcile the numeral against its cited source table; file a dated correction or retain the uncertainty; never rewrite the filed r33 record",
+   "evidence": "reports/round-33/calib/open-items-ledger.json:417-424; SCORECARD.md:593-600",
+   "verification": null
+  },
+  {
+   "id": "RC-4",
+   "origin": "r33-36 census (K02); reports/round-36/calib/recount-ledger.json:239-245",
+   "class": "carried-with-owner",
+   "owner": "integrator + future owner of the r33 A3 gate/runner",
+   "reason": "the r33 A3 gate pins a lane-open census literal (2655) and asserts equality after admission — self-invalidating as the tree grows; the defect lives in filed bytes; a recount does not repair it",
+   "next_touch": "next runner/gate-generation claim in the r42-r44 build window: replace the literal-equality predicate with a durable non-self-referential check, verified on an isolated copy",
+   "evidence": "reports/round-36/calib/recount-ledger.json:239-245; reports/round-36/scout/K03-recount-scout.md:346-348",
+   "verification": null
+  },
+  {
+   "id": "R36-D-DECLARATION",
+   "origin": "r33-36 census (K02); r36 D rejected as declared (stale before-state)",
+   "class": "fixed-with-evidence",
+   "owner": "r38 integrator (landed claim D was the truthful scoped re-claim)",
+   "reason": "the corrected, scoped claim the row demanded is the admitted r38 claim D on the r36 register residue; the rejected r36 validation evidence is untouched",
+   "next_touch": "none — fixed; re-verify at the next census (r41)",
+   "evidence": "SCORECARD.md:746-757 (r38 depth row); LOG.md:3725-3738",
+   "verification": "r38 validation.json acceptance true (receipt 88db61bf…); LOG.md:3742-3743"
+  },
+  {
+   "id": "R36-D-F6",
+   "origin": "r33-36 census (K02); forecast counters missing from the register coverage block",
+   "class": "fixed-with-evidence",
+   "owner": "r38 integrator (D01 patch byte-exact)",
+   "reason": "derived_forms/derived_ok landed live (8/8) with the corrected derived_failures formula and a consumer visibility control (planted-probe) — the non-vacuous producer/consumer pair the row required",
+   "next_touch": "none — fixed; r41 recheck",
+   "evidence": "SCORECARD.md:755; LOG.md:3732-3735",
+   "verification": "r38 validation.json acceptance true; live counters measured in the r38 record"
+  },
+  {
+   "id": "OI-02",
+   "origin": "r33-36 census (K02); reports/round-33/calib/open-items-ledger.json:90-115",
+   "class": "carried-with-owner",
+   "owner": "operator (design/acceptance decision) + integrator (scoping); round-45 executor if implementation approved",
+   "reason": "head2 remains declared with no delivered proper domain; the operation is identity on the delivered tree and the condition is explicitly disclosed; neither a rejected D claim nor the declaration resolves author-vs-accept-vs-retire; carried as a box-2 debt in r39's SHONEN last-recorded note (S01 r39 §4)",
+   "next_touch": "operator scoping owed; if retained, the implementation slot is r45 (deep/hard build — the round the r37 routing designated for the executor)",
+   "evidence": "reports/round-33/calib/open-items-ledger.json:90-115; reports/round-37/op/O01-queue-draft.md:134-149; reports/round-39/scribe/S01-integration-draft.md:363-367",
+   "verification": null
+  },
+  {
+   "id": "R36-D-RL8",
+   "origin": "r33-36 census (K02); RL-8 era check unimplemented at r36",
+   "class": "fixed-with-evidence",
+   "owner": "r38 integrator (era leg on the argot gate)",
+   "reason": "the RL-8 era leg landed as D4L-ARGOT-ERA on the argot gate host (X01 T1 decision), selftest 39/39, zero pins moved — with the negative-control shape the row required",
+   "next_touch": "none — fixed; r41 recheck",
+   "evidence": "SCORECARD.md:755,759-762; LOG.md:3733-3735",
+   "verification": "r38 validation.json acceptance true; 39/39 controls in the r38 record"
+  },
+  {
+   "id": "R36-R7-READSET-13",
+   "origin": "r33-36 census (K02); A01 r37 adjudication (roster defect, not integrity bypass)",
+   "class": "carried-with-owner",
+   "owner": "integrator/renderer maintainer (successor-baseline owner)",
+   "reason": "the r7 frozen read set omits examples/culture-d4/components/13-register-law.yml (13 manifest members vs 58 read-set members); r38 landed the manifest-roster guard that NAMES the omission (sha e5812751…, naming-not-detection limit recorded) and documented the successor-baseline fix route (O04 §5); the filed r7 pair stays immutable and no re-freeze-owning round is scheduled in loop-1 positions 41-46",
+   "next_touch": "loop 2 (47+): a successor baseline adds direct read-set membership or documents the transitive-read-set contract, keeping the component-digest control; guard names the member meanwhile; census alias of r37-A01-readset-roster-defect (one lifecycle, two filed rows)",
+   "evidence": "reports/round-38/op/O03-verify.md §1; SCORECARD.md:756; reports/round-38/scribe/S01-integration-draft.md:710-711",
+   "verification": "r38 O03 §1 re-derived the guard verdicts on a fresh archive (r7 chain exit 0, packet 45f57132… byte-identical)"
+  },
+  {
+   "id": "R36-ABSOLUTE-ROOT",
+   "origin": "r33-36 census (K02); r34/r35 runner ROOT mechanism",
+   "class": "carried-with-owner",
+   "owner": "round-40 runner author, then each future runner-generation round",
+   "reason": "absolute ROOT + import-time os.chdir defeats plain-copy containment; census now SIX absolute runners (r34-r39) — r39's own runner re-carried the shape at :5,:12 despite its dossier spec (S01 §5 'the ROOT line is the load-bearing one') and r38's X01 ruling (:367-369); filed runners are never edited; canonical id for the hazard class is O12-runner-isolation-hazard (r37 R07-cross-review:13; r39 X00-4) — this row is the census alias",
+   "next_touch": "r40 close (hard): the round-40 runner clones the r33 relative-ROOT shape and parses flags before any chdir, verified in an isolated copy only; later runner-generation rounds (r42-r44) repeat the check at authoring",
+   "evidence": "reports/round-39/run-validation.py:2,5,12; reports/round-39/scribe/S01-integration-draft.md §3.2,§5; reports/round-38/cross/X01-trades.md:365-370",
+   "verification": "this seat's HEAD read of reports/round-39/run-validation.py:5,12 (2026-10-19, fd55e1f)"
+  },
+  {
+   "id": "R36-README-DUPLICATE-HEADING",
+   "origin": "r33-36 census (K02); live corpus README title repeated at lines 1 and 3",
+   "class": "carried-with-owner",
+   "owner": "integrator to assign a corpus-index editor (a round owning corpus-surface repair)",
+   "reason": "re-verified LIVE at HEAD fd55e1f: grep -c '^# kotodama-shokunin corpus index' corpus/README.md -> 2; sweep-blind (the r28 sweep checks sections/rows/totals/footer, not headings — r39 X00-7); do-not-touch inside any corpus delta (r39 X00-7, r38 A01 §5): repair must be a separate recorded correction",
+   "next_touch": "r42 or r44 (corpus-owning build round): remove the redundant title as a separate recorded act, then re-run the sweep plus a heading-count control the sweep lacks",
+   "evidence": "corpus/README.md:1,3 (this seat's grep, 2026-10-19); reports/round-39/cross/X00-connector.md:252-256; reports/round-38/scribe/S01-integration-draft.md:718",
+   "verification": "measured at HEAD by this seat (grep count 2) and by r39 X00 (2 at dfb0719)"
+  },
+  {
+   "id": "R36-README-E3-PLACEHOLDERS",
+   "origin": "r33-36 census (K02); two __E3_PLACEHOLDER__ lines left by the r35 apply",
+   "class": "fixed-with-evidence",
+   "owner": "r37 integrator (removed; root cause recorded)",
+   "reason": "removed at r37 integration with the sweep re-greened (the r35 prediction-vs-delivery nuance's root cause); this seat's HEAD re-check: grep __E3_PLACEHOLDER__ corpus/README.md -> no match",
+   "next_touch": "none — fixed; r41 re-census re-confirms",
+   "evidence": "SCORECARD.md:681-685 (integration repairs); this seat's grep at fd55e1f (2026-10-19)",
+   "verification": "HEAD grep exit 1 (no match), 2026-10-19"
+  },
+  {
+   "id": "R36-README-ORDER-CONTIGUITY-REVERIFY",
+   "origin": "r33-36 census (K02); r36 repair needed an independent recheck r37 never ran",
+   "class": "fixed-with-evidence",
+   "owner": "r39 integrator (sweep-green landing supplies the control)",
+   "reason": "the r37 O02 recheck ran zero controls (could-not-evaluate); superseded by the r39 rev-2.2 landing where the r28 sweep — an independent mechanical control checking order, contiguity, header drift, ghost and missing rows — ran green 216 rows == 216 files, C06/C07 verified, validation accepted",
+   "next_touch": "none — fixed; the sweep runs at every corpus landing by standing practice (r39 leg C6)",
+   "evidence": "SCORECARD.md:773 (r39 coverage row, sweep-green 216==216); LOG.md:3750-3751; reports/round-39/cross/X00-connector.md:97 (sweep legs)",
+   "verification": "r39 validation.json acceptance true (receipt 0fefcd56…)"
+  },
+  {
+   "id": "R37-O01-CAND-TIMEKEEPING",
+   "origin": "r37 queue id:null row 1 ('A02 rechecks the landed entry'); candidates C01-F1..F6 + C03-couples-fire-fuel from r36 C01/C03",
+   "class": "carried-with-owner",
+   "owner": "a corpus-owning build round's entry maintainer (r42/r44)",
+   "reason": "the timekeeping entry's dated absence sweep still reads '201 files at HEAD 4a7aede' while the corpus is now 216 files (220 after claim C lands); the r36 findings were routed to an r37 A02 recheck that never confirmed them; the sweep snapshot is a dated record, so the open question is a re-run + dated correction, not a silent edit",
+   "next_touch": "r42 or r44: re-run the absence sweep at the current file total and file a dated correction row or confirm the entry current; route survivors through the finding-disposition workflow",
+   "evidence": "reports/round-37/op/O01-queue-draft.md:258-265; corpus/knowledge/culture-material/timekeeping-instruments.md:4,8 (this seat's read at fd55e1f, 2026-10-19)",
+   "verification": null
+  },
+  {
+   "id": "R37-O01-CAND-R35-AUDIT-F1-F13",
+   "origin": "r37 queue id:null row 2; reports/round-35/adj/audit-assembled.md:192-318 findings F1-F13",
+   "class": "carried-with-owner",
+   "owner": "K02 (this round's queue scout) + Ca02 (>=30% sample)",
+   "reason": "the reconciliation of each r35 census ID to its audit finding and later resolution evidence has never run — no defect-queue census landed at r37 (census missing-at-draft-cut), r38 or r39; r40 is the first round with a queue-scout seat",
+   "next_touch": "r40: K02's scout + Ca02's sample constitute the first reconciliation pass; unresolved rows route at r40 integration; the remainder re-census at r41 verify",
+   "evidence": "reports/round-37/op/O01-queue-draft.md:266-272,316-323; reports/round-35/adj/audit-assembled.md:192-318",
+   "verification": null
+  },
+  {
+   "id": "R37-O01-CAND-OI-LEDGER",
+   "origin": "r37 queue id:null row 3; reports/round-33/calib/open-items-ledger.json:59-415 (OI-01..OI-12)",
+   "class": "carried-with-owner",
+   "owner": "K02 (this round) + Ca02 (sample); independent verifier for any proposed fixed row",
+   "reason": "the ledger mixes design debts, a constraint-not-defect, operator/lore-owned items, carried rows and four rows historically labelled fixed-with-evidence; none may import into this queue as fixes without fresh independent verification; OI-02 is already its own row and must not duplicate",
+   "next_touch": "r40: the K02/Ca02 reconciliation pass classifies each OI candidate against its underlying source; any fixed disposition requires a fresh independent verifier before the class changes",
+   "evidence": "reports/round-37/op/O01-queue-draft.md:273-279; reports/round-33/calib/open-items-ledger.json:59-415",
+   "verification": null
+  },
+  {
+   "id": "R37-O01-CAND-RC-README-PRED",
+   "origin": "r37 queue id:null row 4; RC-2/RC-3/RC-34-3/RC-34-5 recount measurements + the README prediction/delivery candidate",
+   "class": "carried-with-owner",
+   "owner": "Ca02 (this round's sampler)",
+   "reason": "the classification task is now mostly settled: the README prediction/delivery candidate became its own filed row (readme-prediction-vs-delivery, updated below) and the recount rows stay in the recount ledgers by design — r39's successor ledger re-dispositioned R37-Ca-05..08 with evidence, confirming the recount/defect separation",
+   "next_touch": "r40: Ca02 confirms the recount-only classification against the r38/r39 recount artifacts (successor ledger + the filed r37 ledger at sha 73d2d48d…, untouched)",
+   "evidence": "reports/round-37/op/O01-queue-draft.md:280-286; reports/round-39/calib/recount-ledger-successor.json; reports/round-39/scribe/S01-integration-draft.md:73,288-299",
+   "verification": null
+  },
+  {
+   "id": "R37-O01-CAND-HISTORICAL",
+   "origin": "r37 queue id:null row 5; R34-N1 / CO4 / r35-r36 402 route records",
+   "class": "fixed-with-evidence",
+   "owner": "r37 O01 + the filed queue's own notes (exclusion recorded)",
+   "reason": "the exclusion is affirmed: R34-N1 was closed at r35, CO4 is a named recorded deviation, the 402 observations were declared fallback routes — SCORECARD's routing history states the old availability report 'remains historical, not a current blocker'; nothing to classify remains",
+   "next_touch": "none — preserve the historical r34/r35/r36 records and their declared route/status; do not reopen",
+   "evidence": "reports/round-37/op/O01-queue-draft.md:287-293; reports/round-37/op/defect-queue.json:5-10; SCORECARD.md:781-795",
+   "verification": "exclusion text read at the cited lines by this seat (2026-10-19)"
+  },
+  {
+   "id": "O10-runner-sha256-null",
+   "origin": "r36 receipt (O10-gap-fill)",
+   "class": "carried-with-owner",
+   "owner": "round-40 integrator (runner author)",
+   "reason": "WORSENED: the r36 runner's rec() returned nothing so receipt.runner_sha256 was null, and the 'fix in a future round's own runner' next-touch has now been missed twice — reports/round-38/validation.json:130 and reports/round-39/validation.json:126 both carry runner_sha256: null; filed receipts are never edited",
+   "next_touch": "r40 close: the round-40 runner's schema leg records its own sha256 into its receipt; future runners inherit the leg at authoring",
+   "evidence": "reports/round-37/op/O10-gap-fill.md; reports/round-38/validation.json:130; reports/round-39/validation.json:126 (this seat's grep, 2026-10-19)",
+   "verification": "two new null instances measured at HEAD by this seat"
+  },
+  {
+   "id": "O12-runner-isolation-hazard",
+   "origin": "r37 recounts (Ca02 + O12); canonical id per r37 R07-cross-review:13 and r39 X00-4",
+   "class": "carried-with-owner",
+   "owner": "round-40 runner author + every future publish-mode replay owner",
+   "reason": "PARTIALLY ADDRESSED: the r39 isolation-replay protocol (bwrap mount-namespace, Tier A/B/C) and the successor ledger (4 c-n-r rows re-dispositioned reproduced-under-protocol, Ca02-verified) make safe REPLAYS possible — but the hazard shape persists in the runner fleet itself (six absolute-ROOT runners r34-r39, including r39's own), so unmodified invocations still escape copies; the protocol addresses the procedure, not the artifacts",
+   "next_touch": "r40 close: relative-ROOT runner + flags-before-chdir (with R36-ABSOLUTE-ROOT, one fix, two filed rows); publish-mode invocations only under the protocol; X00-4 dedupe held — no third id",
+   "evidence": "reports/round-39/calib/isolation-replay-protocol.md; reports/round-39/calib/recount-ledger-successor.json; reports/round-39/run-validation.py:5,12; reports/round-39/cross/X00-connector.md:117-161,236-239",
+   "verification": "Ca02-replay-verify.md (reproduced-under-protocol, 4/4); SCORECARD.md:774"
+  },
+  {
+   "id": "basename-couples-policy",
+   "origin": "r37 A-block (K04/A06/A12)",
+   "class": "fixed-with-evidence",
+   "owner": "r39 integrator + Ca03/Ca04 (policy documented and verified)",
+   "reason": "the resolution order and the unique-basename fallback are documented policy with limits and non-guarantees, Ca04-verified against the resolver instruments and A12's cross-check; the queue row's verification:null is superseded by r39 records; residual extractor/disposition defects are NOT folded here — they are the new r39-basename-successor-instrument row",
+   "next_touch": "none for this row — the successor-instrument work carries forward under its own row",
+   "evidence": "reports/round-39/calib/basename-couples-policy.md; reports/round-39/calib/Ca04-verify.md; SCORECARD.md:774",
+   "verification": "Ca04 §1-§5 verified against code; r39 validation.json acceptance true"
+  },
+  {
+   "id": "r37-A01-readset-roster-defect",
+   "origin": "r37 A01 adjudication (origin row of the R36-R7-READSET-13 census alias)",
+   "class": "carried-with-owner",
+   "owner": "integrator/renderer maintainer (successor-baseline owner; shared with R36-R7-READSET-13)",
+   "reason": "same lifecycle as R36-R7-READSET-13 (one defect, two filed rows): the omission is real (A01 r37 adjudication; 'a roster/documentation defect, not packet corruption'), r38's guard names it while the pair re-renders faithfully (r7 chain exit 0, packet 45f57132… byte-identical), and the fix route is the loop-2 successor baseline",
+   "next_touch": "loop 2 (47+): successor baseline at the next re-freeze-owning round; rows R36-R7-READSET-13 and this one close together",
+   "evidence": "reports/round-37/adj/A01-freeze-adjudication.md; reports/round-37/op/defect-queue.json:213-221; reports/round-38/op/O03-verify.md §1",
+   "verification": "r38 O03 §1 + O08 independent reproductions"
+  },
+  {
+   "id": "contract-digest-lore-drift",
+   "origin": "r37 A04",
+   "class": "carried-with-owner",
+   "owner": "lore-shokunin / operator (external; not lane-assignable)",
+   "reason": "the live contract digest differs from lore's informational read; contested scope stays routed-not-absorbed; no bilateral read is recorded at r38/r39, so the state is unchanged",
+   "next_touch": "next bilateral read / L0 row 45 answer (external owner; deliberately not aligned to lane rounds 41-46)",
+   "evidence": "reports/round-37/adj/A04-contested.md; reports/round-37/op/defect-queue.json:223-231",
+   "verification": null
+  },
+  {
+   "id": "r36-in-tree-runner-incident",
+   "origin": "r36 wave (recorded r36)",
+   "class": "carried-with-owner",
+   "owner": "integrator (prevention record-keeping)",
+   "reason": "a seat briefly executed the r35 runner in-tree; bytes restored byte-identical; the absolute rule was breached once; no recurrence at r38 (O03 §6) or r39 (S01 §1: no runner executed anywhere, in-tree or in a copy); the repeat-prevention note is in force in every round's shared_rules (r40 targets.json shared_rules carries the ABSOLUTE rule)",
+   "next_touch": "standing: the rule restates in every round's targets; r40's integration census re-checks git status for runner/corpus strays before close",
+   "evidence": "LOG.md 2026-10-19 r36 entry; reports/round-37/op/defect-queue.json:233-241; reports/round-40/targets.json shared_rules",
+   "verification": "r38 O03 §6 and r39 S01 §1 no-execution statements read at the cited files"
+  },
+  {
+   "id": "readme-prediction-vs-delivery",
+   "origin": "r36 C landing",
+   "class": "fixed-with-evidence",
+   "owner": "r39 integrator (adopted as standing practice)",
+   "reason": "the row's ask ('note for future delta audits: predict by staged-tree sha, cite post-apply sweep') is now durable practice: r39's leg spec C6 and X00-3 codify staged-sha prediction + landed-bytes diff + post-apply sweep, and the r39 rev-2.2 landing ran exactly that chain green",
+   "next_touch": "none — standing practice at every corpus README delta (the r40 C06 delta audit is its next consumer)",
+   "evidence": "reports/round-39/cross/X00-connector.md:230-234; reports/round-39/scribe/S01-integration-draft.md:428 (leg C6); SCORECARD.md:773",
+   "verification": "r39 landing record (sweep green 216/216); validation accepted"
+  },
+  {
+   "id": "r38-guard-row-blindness",
+   "origin": "r38 O03 §3/§3.4 + O08 §0(a) (named in LOG.md:3739-3740 and SCORECARD.md:761-762)",
+   "class": "carried-with-owner",
+   "owner": "future operability round planner; r41 verify can adjudicate the formulation",
+   "reason": "the landed manifest-roster guard reads the LIVE V3_READ_SET, so it names 13-register-law.yml identically on all 10 filed v3 rows and cannot distinguish rows carrying the frozen-row defect (r27/r28/r6/r7) from clean ones (r20/r2/r5) — naming-not-detection; the G5 frozen-row self-consistency formulation (names exactly the 4 defective rows, keeps the r7 chain green and freeze-safe) is measured at r38 but is NOT what landed and would be a new claim",
+   "next_touch": "r41 (mid-loop verify): adjudicate G5-vs-live as the successor sweep threshold; a guard patch, if claimed, belongs to a build round (r42+)",
+   "evidence": "reports/round-38/op/O03-verify.md:134-231; reports/round-38/op/O08-regression.md §0(a); LOG.md:3739-3741",
+   "verification": "O03 and O08 independently measured the same row-blindness from separately built trees"
+  },
+  {
+   "id": "r38-frozen-row-asymmetry-census",
+   "origin": "r38 O03 §3.2 + O08 §0(b) + X02 §4a (named SCORECARD.md:761-762)",
+   "class": "carried-with-owner",
+   "owner": "renderer/freeze maintainers (successor-baseline owner, shared with the R36-R7-READSET-13 lifecycle)",
+   "reason": "FOUR filed v3 rows carry the frozen-prose-13-vs-frozen-inputs-12 D4 asymmetry: r27/pinsweep, r28/pinsweep (NEW at r38), r6, r7; filed rows are immutable and the bytes remain digest-checked; the r6 freeze's own history stays to-verify (X02 §4b)",
+   "next_touch": "loop 2 (47+): successor baselines at the next re-freeze-owning rounds; the G5 formulation is the instrument that discriminates these rows until then",
+   "evidence": "reports/round-38/op/O03-verify.md:171-196; reports/round-38/op/O08-regression.md §0(b); reports/round-38/cross/X02-honesty.md §4a/§4b",
+   "verification": "three independent measurements agree (O03, O08, X02)"
+  },
+  {
+   "id": "r38-O02-fragment-defects",
+   "origin": "r38 O03 §4.1-4.3 (filed corrections owed)",
+   "class": "carried-with-owner",
+   "owner": "integrator correction record (r40/r41)",
+   "reason": "three measured defects in the filed O02 fragment: D-1 selftest count 44 is wrong (artifact yields 45); D-2 the m15b description contradicts O01's landed assertion ('names nothing' vs 'names the member, green'); D-3 §7's tamper prediction names the wrong leg (the per-component digest leg fires, not the frozen-packet leg); the fragment's conclusions stand and filed bytes are never edited",
+   "next_touch": "r40/r41 integration files correction rows citing O03 §4 (new records, never edits); consumed by any future fragment citing O02's numbers",
+   "evidence": "reports/round-38/op/O03-verify.md:255-306",
+   "verification": "O03 measured each defect on the filed artifacts (command outputs at O03 §4)"
+  },
+  {
+   "id": "r38-O08-fragment-defect",
+   "origin": "r38 O03 §4.4",
+   "class": "carried-with-owner",
+   "owner": "integrator correction record (r40/r41)",
+   "reason": "O08 §1/§8's claim that its patched digest ae22013b… 'is exactly the digest O01 §6 declares' is false — it is O08's own m15b-string variant of O01's patch (O01 declares e5812751…); O08's readings and census stand; only the provenance claim is wrong",
+   "next_touch": "r40/r41 correction rows: the digest attribution should read 'a variant of O01 §6 with the m15b string adjusted'",
+   "evidence": "reports/round-38/op/O03-verify.md:308-341",
+   "verification": "O03 diffed O08's tree against O01's declared patch (one hunk)"
+  },
+  {
+   "id": "r38-O07-empty-fragment",
+   "origin": "r38 wave (LOG.md:3741; SCORECARD.md:761-762)",
+   "class": "carried-with-owner",
+   "owner": "integrator (recorded); future scribe seats hold the prevention",
+   "reason": "the O07 scribe fragment landed 0 bytes (this seat measured wc -c -> 0 at fd55e1f); filed bytes immutable so the fragment stays as an empty record",
+   "next_touch": "r40+ integration census: a non-empty check on every declared out path (the census already counts presence; add min-bytes)",
+   "evidence": "LOG.md:3741; reports/round-38/op/O07-scribe.md (wc -c -> 0, 2026-10-19)",
+   "verification": "measured at HEAD by this seat"
+  },
+  {
+   "id": "r39-runner-root-regression",
+   "origin": "this seat's HEAD measurement at fd55e1f (2026-10-19); spec conflict r39 S01 §5 + r38 X01-trades.md:367-369",
+   "class": "carried-with-owner",
+   "owner": "round-40 runner author",
+   "reason": "the r39 runner re-carried ROOT = \"/home/vgpnk/Projects/shokunin/kotodama-shokunin\" + os.chdir(ROOT) (:5,:12) — the exact O12 hazard shape its own dossier spec'd against ('the ROOT line is the load-bearing one', S01 §5; r38's ruling: 'copy the r33 relative-ROOT shape, never the r34/r35 absolute os.chdir shape') — plus a stale 'Round-38 acceptance runner' docstring (:2); the streak is six (r34-r39); the r39 record's own Ca claim ('the protocol addresses O12') must not be read as the runner being remediated",
+   "next_touch": "r40 close (hard gate for this round's own artifact): relative ROOT = Path(__file__).resolve().parents[2], flags parsed before any chdir, round-correct docstring/constants; verified in an isolated copy only, per the r39 isolation-replay protocol",
+   "evidence": "reports/round-39/run-validation.py:2,5,12 (this seat's head -14, 2026-10-19); reports/round-39/scribe/S01-integration-draft.md:371-396; reports/round-38/cross/X01-trades.md:365-370",
+   "verification": "HEAD read by this seat at fd55e1f"
+  },
+  {
+   "id": "r39-basename-successor-instrument",
+   "origin": "r39 Ca04 D1+D2 (Ca04-verify.md:78-105) + Ca04 §6 gate-consequence observation",
+   "class": "carried-with-owner",
+   "owner": "successor-instrument author (a build round owning corpus/audit tooling, r43/r44)",
+   "reason": "the basename policy landed VERBATIM without Ca04's two one-sentence fixes (this seat's grep of the landed file for blocker/disposition/block-extraction -> no match, 2026-10-19): D1 the single-line extractor silently zeroes wrapped couples fields (live instance corpus/knowledge/linguistics/phonetics-phonology.md:72-77 — 4 tokens, 2 phantoms sound-change.md/tone-prosody.md); D2 the policy lacks the C12-row-2 blocker/document disposition leg for unresolved couples tokens; and the filed r19 instrument FAILs the admitted sacred-kingship entry today (15 unresolved, exit 2) until a successor instrument implements the policy",
+   "next_touch": "r43 or r44: author the successor instrument (block extraction through the next header field, the disposition leg, policy conformance) and re-run corpus-wide; r41 may carry the disposition mapping as a verify item; Ca04's to-verify full block-parser recount folds there",
+   "evidence": "reports/round-39/calib/Ca04-verify.md:54-63,78-105,107-115; reports/round-39/calib/basename-couples-policy.md (grep, 2026-10-19)",
+   "verification": "Ca04 reproduced D1 live; R01 r39 independently reproduced D1 (R01-review.md verdict table, 'Ca04 verify — D1 reproduced live by this seat')"
+  },
+  {
+   "id": "r39-stray-corpus-staging",
+   "origin": "r39 wave (LOG.md:3752-3754)",
+   "class": "carried-with-owner",
+   "owner": "integrator (prevention record-keeping); all seats hold the never-stage rule",
+   "reason": "a r39 seat staged corpus/knowledge/verification/C03-draft.md in-tree; removed at integration with digest-proven provenance — incident closed, row carried because corpus staging by seats is now a twice-observed hazard class (the r36 runner analogue is r36-in-tree-runner-incident); the r39 record names it so the class stays visible",
+   "next_touch": "standing: every round's integration census re-checks git status for corpus strays before close (r40 shared_rules carry 'NEVER stage anything under corpus/'); a third instance escalates to the operator",
+   "evidence": "LOG.md:3750-3754; reports/round-40/targets.json shared_rules",
+   "verification": "LOG r39 entry read at the cited lines"
+  },
+  {
+   "id": "r39-review-findings-disposition",
+   "origin": "r39 R01-review.md verdict table (:25-34) — findings R01-2..R01-14",
+   "class": "carried-with-owner",
+   "owner": "r40 integrator (disposition fold) + r41 verify (recovery if unrecorded)",
+   "reason": "R01 filed findings for integrator disposition ('fixed, routed-with-owner, or recorded') and the round records name only R01-1's disposition (the replay-mechanism ruling, recorded in the successor ledger) — grep 'R01-' in reports/round-39/validation.json returns 0 matches and the LOG entry names R01-1 alone, so the individual dispositions of R01-2..R01-14 (protocol items R01-2/3/5/6, R01-7, the C02 provenance label R01-8, the C04 staged-size pin R01-9, fence-shape R01-10, counting-unit R01-11, R01-14's self-filed anomaly) are unrecorded (to-verify, not presumed done)",
+   "next_touch": "r40 integration: fold a per-finding disposition list (fixed-with-evidence / routed-with-owner / recorded) or record could-not-recover per finding; r41 re-audits the list",
+   "evidence": "reports/round-39/review/R01-review.md:25-34,93; LOG.md:3745-3761 (R01-1 only); grep -c 'R01-' reports/round-39/validation.json -> 0 (this seat, 2026-10-19)",
+   "verification": "this seat's grep at HEAD; R01 verdict table read"
+  }
+ ]
+}
+```
+
+## Per-row re-verification summary (the 24 r37 rows)
+
+| r37 row | v2 class | what moved | evidence added |
+|---|---|---|---|
+| F-C13-1 | carried | r39 protocol = mechanical replay route; no relative-ROOT runner yet | isolation-replay-protocol.md; r39 runner :5,:12 |
+| F-C15-1 | carried | no movement | — |
+| RC-4 | carried | no movement | — |
+| R36-D-DECLARATION | **fixed (r38)** | claim D = the truthful re-claim | SCORECARD :746-757 |
+| R36-D-F6 | **fixed (r38)** | counters live 8/8 + consumer | SCORECARD :755 |
+| OI-02 | carried | box-2 debt re-noted at r39 | S01 r39 §4 |
+| R36-D-RL8 | **fixed (r38)** | D4L-ARGOT-ERA 39/39 | SCORECARD :755 |
+| R36-R7-READSET-13 | carried | guard names it; fix route documented | O03 §1; S01 r38 Owed |
+| R36-ABSOLUTE-ROOT | carried (worsened) | streak 4 → 6 runners | r39 runner :5,:12 |
+| R36-README-DUPLICATE-HEADING | carried | live re-verified (grep 2) | this seat + X00-7 |
+| R36-README-E3-PLACEHOLDERS | **fixed (r37 integration)** | removed; HEAD grep clean | SCORECARD :681-685 |
+| R36-README-ORDER-CONTIGUITY-REVERIFY | **fixed (r39)** | sweep-green landing = the missing control | SCORECARD :773 |
+| 5 × id:null rows | carried → 4 carried + 1 fixed | minted ids; r40 = first census pass | O01-queue-draft :258-293 |
+| O10-runner-sha256-null | carried (worsened) | 2 new null receipts (r38 :130, r39 :126) | this seat's grep |
+| O12-runner-isolation-hazard | carried (partially addressed) | protocol + successor ledger landed; fleet shape persists | r39 calib/* |
+| basename-couples-policy | **fixed (r39)** | policy + Ca04 verification | SCORECARD :774 |
+| r37-A01-readset-roster-defect | carried | guard evidence folded; alias noted | O03 §1 |
+| contract-digest-lore-drift | carried | no movement (external owner) | — |
+| r36-in-tree-runner-incident | carried | no recurrence r38/r39 | O03 §6; S01 r39 §1 |
+| readme-prediction-vs-delivery | **fixed (r39)** | standing practice adopted (leg C6, X00-3) | X00 :230-234 |
+
+## Next-touch alignment (loop-1 positions 41–46, REGIMEN.md:13-23)
+
+- **r41** (mid-loop verify, codex 32–64): F-C15-1 numeral reconciliation; the R35-audit/OI-ledger
+  re-census survivors; the G5-vs-live guard-formulation adjudication; the basename disposition
+  mapping as a verify item; the R01-disposition list re-audit.
+- **r42/r44** (build): corpus-surface repair (duplicate H1; timekeeping re-sweep + dated
+  correction); runner-generation repeats the relative-ROOT + runner_sha256 checks at authoring.
+- **r43** (zai low build): basename successor instrument (if tooling scope lands there).
+- **r45** (deep/hard build): OI-02 implementation slot if the operator retains head2.
+- **r46** (read-only audit, swe-2): natural auditor for this queue's own close-out state.
+- **r40 close** (this round): the relative-ROOT runner + runner_sha256 leg (three rows point here:
+  F-C13-1, R36-ABSOLUTE-ROOT/O12, O10, r39-runner-root-regression).
+- **Loop 2 (47+)**, not 41–46 by design: any re-freeze-owning successor baseline
+  (R36-R7-READSET-13 / r37-A01-readset-roster-defect / r38-frozen-row-asymmetry-census); the
+  external lore bilateral read (contract-digest-lore-drift).
+
+## Owed
+
+- **`scout/K02-queue-scout.md`** — absent at this seat's cut (checked twice). `census_coverage`
+  carries `K02_r40_census_rows_seen: null` with that reason; the K02 cross-check of this census
+  (especially the minted-id mapping and the r38/r39 finding count) is owed to the integrator.
+  Owner: K02, then Ca02.
+- **Landing** — the fenced block above lands as `reports/round-40/op/defect-queue-v2.json`
+  (integrator-only; this seat writes only its own out path). Owner: integrator.
+- **`calib/Ca02-verify.md`** — the ≥30% origin sample of v2 rows (≥10 of 33), disagreements filed
+  not silently fixed. Owner: Ca02.
+- **`calib/Ca04-consistency.md`** — strict JSON parse of the landed file; row count ≥28 (33
+  declared); class vocabulary check (two classes, the new one recorded in `notes`); zero duplicate
+  ids; owner-completeness re-checked mechanically. Owner: Ca04.
+- **`calib/Ca03-receipt.md`** — the calibration receipt: before 24 r37-aged rows → after 33
+  current rows with next-touches mapped; census_coverage disposition stated. Owner: Ca03.
+- **to-verify**: whether the r39 integration recorded per-finding dispositions for R01-2..R01-14
+  anywhere outside the files this seat grepped (validation.json, LOG.md, SCORECARD.md) — if a
+  durable record surfaces, row `r39-review-findings-disposition` updates at the next census, never
+  in place.
+- Not claimed by this seat: no freshness axis-move, no filed-byte rewrite, no in-tree runner
+  execution, no re-freeze of declared-in-r7, no corpus staging.
+
+## Citations
+
+- `reports/round-40/targets.json` (seat Ca01 mission/out; shared_rules); `reports/round-40/claims.json` (claim Ca: before/after_required/counting/thresholds; non_goals); `REGIMEN.md:13-23` (position table for next-touch alignment), `:42-43` (never force a pass).
+- `reports/round-37/op/defect-queue.json` — all 24 filed rows (`:11-252`); parent digest measured by r39 S01 §1 (`5cf827e2…`) and r39 X00 (`:288`).
+- `reports/round-37/op/O01-queue-draft.md:38-313` — per-row summaries, unresolved_candidates, the fixed-with-evidence bar; `:316-323` Owed.
+- LOG.md — `:3548-3567` (F-C13-1 incident), `:3695-3698` (recurrence), `:3725-3743` (r38 entry: named findings, D/O verdicts), `:3745-3761` (r39 entry: C/Ca verdicts, stray C03 staging file, R01-1), `:3763-3771` (amendment 7).
+- SCORECARD.md — `:676-685` (r37 O/Ca/A rows + integration repairs: E3 placeholders removed, O10 carried), `:746-762` (r38 row + named findings), `:764-779` (r39 row + named findings), `:781-795` (r5 routing history).
+- `reports/round-38/op/O03-verify.md` — §1 (guard thresholds, 13-vs-58), §3.1-§3.5 (row-blindness, G5 four-row census), §4.1-4.4 (D-1..D-4); `reports/round-38/op/O08-regression.md` §0(a)(b) (independent confirmation); `reports/round-38/cross/X02-honesty.md` §4a/§4b; `reports/round-38/cross/X01-trades.md:365-370` (relative-ROOT ruling); `reports/round-38/scribe/S01-integration-draft.md:690-723` (Owed: successor-baseline route, duplicate H1); `reports/round-38/scout/K01-residue.md` §0 (design-time findings, adjudicated in-round at r38).
+- `reports/round-39/scribe/S01-integration-draft.md` — §1 digests, §3.2 (five-runner census through r38), §5 (runner constants table), §6.2 leg C6, §8 (routed ambiguities), Owed; `reports/round-39/cross/X00-connector.md` §3 (X00-2/4), §6 (X00-1..7), Citations; `reports/round-39/calib/Ca04-verify.md` (D1/D2, r19-gate FAIL); `reports/round-39/calib/recount-ledger-successor.json`; `reports/round-39/review/R01-review.md:25-34` (verdict table); `reports/round-39/calib/isolation-replay-protocol.md`; `reports/round-39/calib/basename-couples-policy.md`.
+- This seat's HEAD measurements (2026-10-19, fd55e1f): `grep -c '^# kotodama-shokunin corpus index' corpus/README.md` → 2; `grep -n __E3_PLACEHOLDER__ corpus/README.md` → no match (exit 1); `head -10 corpus/knowledge/culture-material/timekeeping-instruments.md` (dated 201-file sweep at :4,:8); `head -14 reports/round-39/run-validation.py` (absolute ROOT :5, chdir :12, stale docstring :2); `grep -n runner_sha256 reports/round-38/validation.json reports/round-39/validation.json` → :130 / :126 both null; `wc -c reports/round-38/op/O07-scribe.md` → 0; `grep -c 'R01-' reports/round-39/validation.json` → 0; `grep -n 'block extraction\|blocker\|C12\|disposition' reports/round-39/calib/basename-couples-policy.md` → no match; `ls reports/round-40/scout/` → absent (twice).

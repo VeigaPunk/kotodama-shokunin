@@ -3759,3 +3759,31 @@ does not by itself falsify the rule.
   fallback is documented policy (Ca04 verified; two one-sentence defects filed).
 - **Evidence:** `reports/round-39/validation.json` acceptance true (receipt
   `0fefcd56…`); telemetry closed via `availability-close-39.json`.
+
+## 2026-10-19 — Operator amendment 7 (devin authorized for deepseek-v4.1-flash waves)
+
+Operator directive this session: "you can also use devin for the deepseek v4.1
+flash waves." Devin (`devin/deepseek-v4-1-flash-high`) is now an AUTHORIZED
+route for any round whose declared model is deepseek-v4.1-flash — not only as
+the position-4 hyper fallback. Practical effect: the opencode-go round-robin
+(keys 1-2 live, 3-7 returning 402 per the r35 census) may be supplemented or
+substituted by devin without a named-deviation ruling, though attempts and
+actual route stay recorded per round. Prior rounds stand as filed.
+
+## 2026-10-19 — Round 40 ADMITTED (loop 1 position 8 — midpoint consolidation)
+
+- **Trigger:** regimen; claims C/Ca/A (`reports/round-40/claims.json`); one
+  24-seat zai glm-flash batch, 24/24.
+- **C (verified):** linguistics 21 → 25 (total 220); G2-G4 routed gaps landed;
+  audits 4/4; README rev 2.3 sweep-green.
+- **Ca (verified):** defect-queue-v2 (38 rows) with the r38/r39 folds, the
+  reviewers' five mandated rows, the R36-D-DECLARATION ruling, the chdir
+  locator fix; Ca02's 72.7% sample 24/24 match.
+- **A (verified):** the consolidated r37-40 audit (A01/A02, A03 re-run):
+  zero unfiled bleed; PROVINCE byte-accurate.
+- **N7 self-cure recorded:** the r40 runner is the first relative-ROOT runner
+  since the streak began and the first with non-null runner_sha256 — the
+  receipt-fidelity defect class closes here (the r39 runner's absolute ROOT +
+  stale findings were found by the r40 wave).
+- **Evidence:** `reports/round-40/validation.json` acceptance true (receipt
+  `8b7b4508…`); telemetry closed via `availability-close-40.json`.
