@@ -648,6 +648,28 @@ deviation** (opencode-go-3 → key 1; key census 1-2 live, 3-5 dry); the
 the **timekeeping spare**; the integration repair (bad first control insertion
 reverted and re-applied).
 
+## Axes — round 36 (2026-10-19), NOT ADMITTED on D (loop 1, position 4)
+
+Baseline `ce103bf`; declared hyper 32w -> observed devin fallback (hyper 402
+out-of-credits; declared fallback) 32/32. Rejection receipt: `python3
+reports/round-36/run-validation.py` exit 1 by design (`reports/round-36/validation.json`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | unchanged (claim D FAILED as declared) | Premise falsified: the register-form domain was already closed by r26/r27 (argot derived_pairs=8, law findings=0) — nothing landed under the failed claim; residue routed with K01's recipe | `reports/round-36/run-validation.py` (D leg carries the evidence) | `scout/K01-register-scout.md`; `validation.json` |
+| coverage | improved (claim C) | 211 -> 212 (CM 24 -> 25): the routed timekeeping spare landed; README rev 2.1 sweep-green; named defects filed; rev-2.0 order repair | census + `python3 -B reports/round-28/readme/sweep.py` | `corpus/knowledge/culture-material/timekeeping-instruments.md`; `cov/` audits |
+| calibration | improved (claim Ca) | No cross-round recount -> 17-row ledger: 15 match / 2 dispositioned mismatch | `reports/round-36/run-validation.py` | `calib/recount-ledger.json` |
+| operability / freshness / adjacency | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Round status: REJECTED on D per the honest-stop rule (rounds 11/17/22
+precedent). Named: the route deviation, the conformance incident (in-tree r35
+runner execution, restored), the README prediction-vs-delivery nuance.
+
+## Planned
+
+- Round 36 REJECTED on D (C/Ca verified). Next: round 37 — loop 1 position 5,
+  one 64-worker verify batch on `openai-codex/gpt-6-luna-max` auditing rounds
+  33-36 (REGIMEN.md).
 ## Planned
 
 - Round 35 ADMITTED — loop 1's opencode-go build trio is complete (r33-r35).

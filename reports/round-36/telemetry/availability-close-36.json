@@ -1,0 +1,23 @@
+{
+  "schema": "kotodama-availability-closing-snapshot-v1",
+  "round": 36,
+  "date": "2026-10-19",
+  "closes": "reports/round-36/telemetry/dispatch-declared.json",
+  "closes_sha256": "48cbee5a4b723dd4eb38230a30086853ed9962d82cc10a7be578434eb72fab16",
+  "closed_fields": {
+    "observed_launches": "32 (observed-dispatch.json; devin fallback route)",
+    "observed_completions": "32 (observed-dispatch.json)",
+    "observed_failures": "0 on the completed batch; 1 pre-batch attempt (hyper 402 out-of-credits, zero launched) in availability-attempt-1.json",
+    "observed_window_utc": "2026-10-19T09:25:00Z/2026-10-19T09:41:30Z",
+    "actual_route": "devin lane, wire model deepseek-v4-1-flash-high (declared fallback; hyper exhausted)",
+    "runtime_concurrency": "could-not-recover as a measured counter: null with owner orchestrator (observed-dispatch.json)"
+  },
+  "could_not_recover": ["runtime_concurrency: not observable from the parent"],
+  "owner": "integrator (goal-mode parent), for the lane",
+  "reason": "closing snapshot filed once reports/round-36/validation.json landed (the rejection receipt); every open field filled citing its durable artifact",
+  "sources": [
+    "reports/round-36/telemetry/dispatch-declared.json (sha256 re-verified at close)",
+    "reports/round-36/telemetry/observed-dispatch.json",
+    "reports/round-36/validation.json (rejection receipt: C/Ca verify, D failed-as-declared, acceptance false)"
+  ]
+}

@@ -3672,3 +3672,30 @@ does not by itself falsify the rule.
   receipt sha256 `328e97b3…`); fleet report `.ufo/reports/round-35/kotodama.md`;
   telemetry closed via `availability-close-35.json` (closes
   `dispatch-declared.json`, sha256 `93e205a2…`).
+
+## 2026-10-19 — Round 36 NOT ADMITTED on D (loop 1, position 4; honest stop)
+
+- **Trigger:** regimen; claims D/C/Ca at baseline `ce103bf` (`reports/round-36/claims.json`).
+- **Route:** declared hyper/deepseek-v4.1-flash 32w; hyper returned 402 out-of-credits
+  on all 32 seats (`telemetry/availability-attempt-1.json`); the REGIMEN-declared
+  devin fallback (`devin/deepseek-v4-1-flash-high`) carried the batch 32/32.
+- **D (FAILED as declared):** K01's re-read falsified the premise — the
+  register-form domain was already closed by rounds 26/27 (argot gate
+  derived_pairs=8, law findings=0, both exit 0). Nothing landed under the failed
+  claim. Residue routed to a future round with a corrected claim: F-6 counters,
+  the `head2` domain, RL-8's era leg, the 13-vs-12 component read-set asymmetry
+  (`examples/culture-d4/components/13-register-law.yml` in the packet manifest but
+  not the r7 freeze read set — X00/R03's freeze-drift question stays open for the
+  next integrate round).
+- **C (verified):** the routed timekeeping spare landed (212 total, CM 25);
+  README rev 2.1 sweep-green; named defects F1-F5 on file; rev-2.0 row-order
+  repair included. Observation: delivered README digest differs from the audit's
+  staged prediction with the sweep green — recorded, not smoothed.
+- **Ca (verified):** 17-row recount ledger (15 match / 2 dispositioned mismatch).
+- **Conformance incident:** a seat briefly executed reports/round-35/run-validation.py
+  in-tree during the wave (receipt modified, then byte-identical to HEAD
+  `328e97b3…` within ~25 s). The absolute F-C13-1 rule was breached; final state
+  clean. Repeat-prevention note re-issued to all future seat prompts.
+- **Evidence:** `reports/round-36/validation.json` (exit 1 by design; the receipt
+  records the rejection); fleet report `.ufo/reports/round-36/kotodama.md`;
+  telemetry closed via `availability-close-36.json`.

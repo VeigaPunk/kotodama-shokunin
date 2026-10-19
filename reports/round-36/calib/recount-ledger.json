@@ -1,0 +1,254 @@
+{
+ "ledger": "kotodama-recount-ledger/1",
+ "revision": 2,
+ "round": 36,
+ "claim": "Ca",
+ "axis": "calibration",
+ "seat": "Ca03",
+ "date": "2026-10-19",
+ "baseline_commit": "ce103bf",
+ "observed_at_utc": "2026-10-19T09:35Z",
+ "census": {
+  "convention": "table_rows is the ledger table's row count; distinct_commands is the number of distinct shell commands",
+  "table_rows": 21,
+  "distinct_commands": 17,
+  "note": "the `rows` array below carries one entry per distinct command, so its length equals `distinct_commands` (17), not `table_rows` (21). The two differ because r34's own runner is split into four leg-scope rows and because a handful of commands are filed by more than one claim.",
+  "by_round": {
+   "33": {
+    "rows": 5,
+    "distinct": 4
+   },
+   "34": {
+    "rows": 9,
+    "distinct": 6
+   },
+   "35": {
+    "rows": 7,
+    "distinct": 7
+   }
+  },
+  "alternative_convention": {
+   "source": "claims.json counting_commands (K03 \u00a71)",
+   "entries": 20,
+   "distinct": 15,
+   "by_round": {
+    "33": {
+     "entries": 5,
+     "distinct": 4
+    },
+    "34": {
+     "entries": 8,
+     "distinct": 5
+    },
+    "35": {
+     "entries": 7,
+     "distinct": 5
+    }
+   }
+  },
+  "delta_cause": "r34's own runner is split by leg scope into 4 rows here vs 3 claims.json declarations; box1-survey.py counted once here"
+ },
+ "dispositions": {
+  "match": 19,
+  "dispositioned-mismatch": 1,
+  "could-not-reproduce": 0,
+  "pending": 0,
+  "reconstruction-artifact": 1
+ },
+ "isolation": {
+  "in_tree_runner_executions": 0,
+  "r33_method": "self-contained git clone @da68a6d, git reset --mixed 139e3b662900557afe54f632b468619593dc9fcb (declaration-time tree; index-tracked 2655 == filed baseline_paths), fleet inputs mirrored read-only beside the copy; runner derives ROOT from __file__ (run-validation.py:23)",
+  "r34_r35_method": "unshare -rm --propagation private + bind-mount of a self-contained clone over the lane path; the runners hardcode absolute ROOT (r34:10, r35:9) and os.chdir(ROOT) (r34:26, r35:36); a --shared clone breaks git inside the namespace via objects/info/alternates",
+  "tmpdir": ".scratch \u2014 /tmp is a tmpfs at 80% and redirected runs die with exit 120 (independently measured by Ca01 \u00a71, K03)",
+  "concurrency": "r35 O-legs require the sole v3-selftest consumer (Ca01 \u00a74); the recorded r35 run was serial"
+ },
+ "rows": [
+  {
+   "id": "RC-33-1",
+   "source_round": 33,
+   "command": "python3 -B reports/round-25/audit/c31-lessons-index-audit.py",
+   "filed": "exit 0; 33 files == 33 rows; 78 queue rows; formats {gate-keeper 21, fragment-index 5, plain 7}; findings 0",
+   "observed": "exit 0; 33/33/78; same formats; findings 0",
+   "disposition": "match",
+   "evidence": "reports/round-33/validation.json claims.O.legs.O1; command output 2026-10-19"
+  },
+  {
+   "id": "RC-33-2",
+   "source_round": 33,
+   "command": "python3 -B reports/round-25/audit/c31-lessons-index-audit.py --selftest",
+   "filed": "SELFTEST OK: 28/28",
+   "observed": "SELFTEST OK: 28/28 (exit 0)",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-33-3",
+   "source_round": 33,
+   "command": "test -s reports/round-33/op/O05-falsifier-disposition.md",
+   "filed": "disposition landed",
+   "observed": "exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-33-4",
+   "source_round": 33,
+   "command": "python3 reports/round-33/run-validation.py",
+   "filed": "acceptance true; failures []; A/C/O/cross passed",
+   "observed": "isolated reconstruction --check: exit 0; acceptance true; failures []; A/C/O/cross true",
+   "disposition": "match",
+   "snapshot": "clone @da68a6d reset --mixed 139e3b66"
+  },
+  {
+   "id": "RC-34-1",
+   "source_round": 34,
+   "command": "python3 tools/gates/handoff-packet-check.py reports/round-34/handoff/declared-in-r7/packet.md",
+   "filed": "16/16 fields; 20 glossary; findings 0",
+   "observed": "INFO scan: fields=16/16 glossary-entries=20 findings=0; exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-34-2",
+   "source_round": 34,
+   "command": "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet",
+   "filed": "exit 0; packet_sha256 45f57132\u2026",
+   "observed": "exit 0; packet_sha256=45f5713261762a959ba77b057654c8db06d140e12e2236ef9bc8ad676e7fac19; links 105/105; claims 27",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-34-3",
+   "source_round": 34,
+   "command": "python3 reports/round-34/run-validation.py",
+   "filed": "acceptance true; failures []",
+   "observed": "isolated: D/O/cross byte-identical to filed (45f57132\u2026, tamper exit 1, 18/11, baseline_expanded da68a6d705\u2026); C leg failed on C3 filed-row-edit detection",
+   "disposition": "match (D/O/cross); dispositioned-mismatch (C)",
+   "class": "reconstruction-artifact",
+   "cause": "clone retained the round-34 SCORECARD.md edit; run-validation.py:258 greps git status -- corpus/lessons SCORECARD.md",
+   "owner": "seat Ca03"
+  },
+  {
+   "id": "RC-34-4",
+   "source_round": 34,
+   "command": "python3 tools/harness/receipt_guard_adoption.py --selftest",
+   "filed": "selftest green (op/O02-tool-source.md:41: 38/38)",
+   "observed": "selftest_passed true; controls 38/38; exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-34-5",
+   "source_round": 34,
+   "command": "python3 tools/harness/receipt_guard_adoption.py --json",
+   "filed": "class_counts {guarded-refresh 18, unguarded-in-place 11}",
+   "observed": "class_counts {guarded-refresh 19, unguarded-in-place 11}; live_runner_count 30; findings 2; hazard_count 11; gaps 0; census_complete true",
+   "disposition": "dispositioned-mismatch",
+   "class": "environmental",
+   "cause": "measurement instant: reports/round-35/run-validation.py landed after r34's census (git ls-tree da68a6d \u2192 28 runners, +r34's own = 29 filed; ce103bf \u2192 30); r34-time 18/11 reproduces in the r34 reconstruction and still reads 18/11 in the live r34 validation.json"
+  },
+  {
+   "id": "RC-34-6",
+   "source_round": 34,
+   "command": "python3 -B reports/round-30/craft/box1-survey.py",
+   "filed": "28 named / 28 resolvable at skill_sha256 f9bd07c2\u2026",
+   "observed": "named 28; resolvable 28; unnamed_in_skill []; skill_sha256 f9bd07c2bd13462367be20e8d775cec1c5569eb2e575dc5d078519ecc72e5a9b; exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-35-1",
+   "source_round": 35,
+   "command": "for p in linguistics myth-symbol culture-material synthesis verification civilizations; do ls corpus/knowledge/$p/*.md | wc -l; done",
+   "filed": "21 / 23 / 24 / 29 / 20 / 94",
+   "observed": "21 / 23 / 24 / 29 / 20 / 94",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-35-2",
+   "source_round": 35,
+   "command": "python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+   "filed": "inventory_files 211",
+   "observed": "totals.files 211; lines 38353; exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-35-3",
+   "source_round": 35,
+   "command": "python3 -B reports/round-28/readme/sweep.py",
+   "filed": "totals 211 totals_ok True; footer_ok True; readme_sha256 51b966af\u2026",
+   "observed": "totals_ok True; footer_findings []; footer_ok True; readme_sha256 51b966af20483328c3e221d2ab0f766aa5cf0f5a0b140650b95eb841d6bea6f0; exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-35-4",
+   "source_round": 35,
+   "command": "python3 -B tools/exercise-handoff-e2e.py --selftest",
+   "filed": "exit 0",
+   "observed": "exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-35-5",
+   "source_round": 35,
+   "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet --baseline reports/round-30/handoff/declared-in-r6/expected.json",
+   "filed": "exit 1; named; traceback false",
+   "observed": "exit 1; E2E-READSET naming reports/round-20/handoff/claims-map.md",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-35-6",
+   "source_round": 35,
+   "command": "python3 -B tools/exercise-handoff-e2e.py --profile v3 --selftest",
+   "filed": "v3_controls 44",
+   "observed": "44 lines matching '^  - '; exit 0",
+   "disposition": "match"
+  },
+  {
+   "id": "RC-35-7",
+   "source_round": 35,
+   "command": "python3 reports/round-35/run-validation.py",
+   "filed": "acceptance true; failures []; missing_dependencies []",
+   "observed": "namespace-isolated clone@ce103bf --check (serial, TMPDIR=.scratch): exit 0; acceptance true; failures []; missing_dependencies []; A/C/O/cross all true; every leg measurement byte-identical to filed",
+   "disposition": "match",
+   "snapshot": "self-contained clone @ce103bf bind-mounted over the lane path under unshare -rm"
+  }
+ ],
+ "findings": [
+  {
+   "id": "RC-1",
+   "kind": "filed-byte-drift",
+   "artifact": "reports/round-35/validation.json",
+   "detail": "dirty vs HEAD ce103bf: X1-X3 measurement emptied; measured_at_utc 06:19:14.685566-03:00 -> 06:33:23.601283-03:00; mtime 06:33:23",
+   "attribution": "not this seat: my r35 --check wrote only under .scratch",
+   "corroboration": "K03 \u00a74, Ca01 \u00a75, Ca02 \u00a75, Ca04 \u00a77 (independent, same attribution); Ca04 \u00a75 discloses a separate self-repaired r34 clobber",
+   "owner": "integrator",
+   "status": "recorded-not-edited",
+   "cause": "to-verify"
+  },
+  {
+   "id": "RC-2",
+   "kind": "prose-vs-live-count",
+   "artifact": "SCORECARD.md:616",
+   "detail": "prose 'all 29 filed runners' vs live 30 (reports/round-35/run-validation.py landed later)",
+   "owner": "integrator",
+   "status": "recorded-not-edited"
+  },
+  {
+   "id": "RC-3",
+   "kind": "reading-consistency",
+   "artifact": "reports/round-34/validation.json",
+   "detail": "O leg reads 18/11 with empty failures; r34-time measurement, reproduced in the r34 reconstruction",
+   "status": "no-action"
+  },
+  {
+   "id": "RC-4",
+   "kind": "self-invalidating-gate",
+   "artifact": "reports/round-33/run-validation.py:943-944",
+   "detail": "A3 pins the lane-open census literal 2655 and asserts live equality; unreachable after admission. unexpected_paths [] still passes; +248/-0 growth fully accounted",
+   "source": "K03-recount-scout.md \u00a73.1 (routed, not absorbed)",
+   "owner": "integrator",
+   "status": "recorded-not-edited"
+  }
+ ],
+ "limits": [
+  "The r33 reconstruction cannot carry the cross (X1) leg without the fleet-root report; I mirrored the fleet report read-only beside the copy, and it is outside this seat's write scope.",
+  "r34's C3 leg is not reproducible by construction in any clone that carries the round's own SCORECARD edit.",
+  "r34/r35 counts are read from --check stdout, never from a published receipt.",
+  "AgentSwarm/provider transport commands (telemetry observed-dispatch) are could-not-reproduce with owner orchestrator; they are counted by K03/Ca02/Ca04, not re-run here."
+ ]
+}

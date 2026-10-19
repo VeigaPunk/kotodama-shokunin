@@ -1,0 +1,43 @@
+{
+ "record": "observed-dispatch",
+ "round": 36,
+ "state": "open-at-seat-close",
+ "owner": "orchestrator (goal-mode parent)",
+ "reason": "counters filled from the batched-dispatch result; closes when availability-close-36.json lands (AGENTS.md close-what-you-open)",
+ "observed_window_utc": "2026-10-19T09:25:00Z/2026-10-19T09:41:30Z",
+ "window_basis": "the devin fallback batch measured 984.742 s; hyper attempt failed at launch (402 out of credits, availability-attempt-1.json)",
+ "requested_allocation": {
+  "provider_lane": "hyper",
+  "model": "deepseek-v4.1-flash",
+  "requested_workers": 32,
+  "batched_calls": 1
+ },
+ "route_deviation": {
+  "declared": "hyper",
+  "observed": "devin/deepseek-v4-1-flash-high",
+  "owner": "orchestrator",
+  "reason": "hyper 402 out-of-credits on all 32 seats; devin is the REGIMEN-declared fallback for this condition"
+ },
+ "launched_workers": 32,
+ "completed_workers": 32,
+ "failed_workers": 0,
+ "runtime_concurrency": null,
+ "runtime_concurrency_owner": "orchestrator",
+ "runtime_concurrency_reason": "not observable from the parent; null per AGENTS.md",
+ "actual_route": "devin lane, wire model deepseek-v4-1-flash-high",
+ "conformance_note": "a seat briefly executed reports/round-35/run-validation.py in-tree during the wave (receipt modified then byte-identical to HEAD 328e97b3\u2026 within ~25s); the absolute rule was breached; final state clean; recorded in LOG.md",
+ "durable_sources": [
+  {
+   "path": "reports/round-36/claims.json",
+   "sha256": "b8d1af8fd1fb3814e707e24965a6bd404e83158ae26d48d852118d7abec470b8"
+  },
+  {
+   "path": "reports/round-36/targets.json",
+   "sha256": "39ddbc72345d15bc9ec3aa272e161b9e9c7ce652301abca3f55a9c3e28c343d8"
+  },
+  {
+   "path": "reports/round-36/telemetry/dispatch-declared.json",
+   "sha256": "48cbee5a4b723dd4eb38230a30086853ed9962d82cc10a7be578434eb72fab16"
+  }
+ ]
+}
