@@ -1,0 +1,41 @@
+- Seat: X00 | connector | cross | date 2026-10-19 | baseline 456674d
+
+# Collision matrix + integration order
+
+Axes in play: **operability (O)** and **calibration (Ca)** only; freshness remains paused (`claims.json:9,26`). This is a dependency and scope map, not a claim verdict.
+
+## Collision matrix
+
+| Surface | Ownership / collision | Integration gate |
+|---|---|---|
+| Runner contract and checker | O01 drafts the full template; O02 drafts the checker; O03 predicts the 7-runner census; O04 compares checker output row-for-row; O05 supplies adversarial fake runners; O09 checks r40; O11 proposes a dominance-specific gap-fill. Their `out` paths are distinct, but their contract/schema is shared. | Integrate the template before the checker. Define one finding-class vocabulary and JSON row schema against the five claim points. O11's key guard: a publishing path must be dominated by `guard_receipt()` before the write; early-return non-publishing `--check`/`--selftest` paths are exempt. Test bypass branches, dead/uninvoked helpers and guard-after-write cases. Do not count token presence as dominance. (`claims.json:13-18`; `targets.json:41-74,96-101,111-115`; `op/O11-gap-fill.md:3-7,15-17`) |
+| Census, reference check, and queue evidence | O03's predicted rows and O04's checker rows must agree; O05 independently attacks false greens; O09 is only a source-level precheck and says it cannot establish r40 conformance before O02 lands. O06's queue classifications consume those results. | Run checker selftest; compare O03/O04 row-for-row; run O05's pair; then check r40 with the checker (static analysis only, never execute its runner). Mark O06 fixed only after the landed template/checker and evidence exist. O09 remains explicitly owed until then. (`targets.json:55-58,63-74,76-80,96-101`; `op/O09-r40-verify.md:3-9`) |
+| N7 and r39 root-regression queue rows | O06's draft targets `N7-receipt-fidelity` and `r39-runner-root-regression`; both currently appear in the filed r40 `op/defect-queue-v2.json` (`:312-319,370-376`). The claim asks for updated statuses, while shared rules forbid editing any r1-r40 bytes. | Hard integration conflict: preserve the r40 queue byte-for-byte. Apply the verified status changes only in a new round-41 successor artifact, with old row IDs/origins and evidence pointers retained; the successor version/path is not assigned and must be chosen by the integrator. Do not describe the filed v2 bytes as updated. (`claims.json:16`; `targets.json:6-8,76-80`; `reports/round-40/op/defect-queue-v2.json:2-8,312-319,370-376`) |
+| Argot pin supersession | K02 scouts stale-digest occurrences; Ca01 drafts the inventory/supersession record; Ca02 drafts only SKILL.md blocks; Ca03 drafts only SCORECARD.md blocks; Ca04 checks exact anchors/history; Ca05 independently re-greps. These are separate outputs, but the record and deltas depend on one shared census. | K02's census first; Ca01/Ca02/Ca03 can then proceed without writing live surfaces. Ca04 and Ca05 verify independently. The integrator applies only verified exact blocks, then re-greps the live files and records remaining hits as historical only when explicitly marked. Never rewrite filed round readings. (`claims.json:19-24`; `targets.json:22-24,125-157`; `targets.json:6-8`) |
+| Ca census coverage gap | Ca claim includes live claims/validation cross-references, while K02's named scan is SKILL.md, SCORECARD.md, corpus README and AGENTS.md. Ca02/Ca03 have no assigned delta for README/AGENTS or any other live hit outside their two named files. | Ca01 must enumerate every surface, including explicit zero-hit results; the integrator must own a separate exact draft/application for any stale hit outside SKILL/SCORECARD. Expand the census to live claims/validation references or mark coverage `to-verify`; don't silently infer absence from K02's narrower mission. (`claims.json:20-24`; `targets.json:22-24,125-143`) |
+| Shared bookkeeping and validation | All workers write only their declared fragment. LOG/SCORECARD/manifest/fleet records and telemetry closure are parent integration work; the round-41 claim names `reports/round-41/run-validation.py`, but shared rules absolutely prohibit running any round runner in-tree. | Integrate artifacts first; run any validation leg only in an isolated copy and never re-freeze `declared-in-r7`. Close telemetry only after `validation.json` exists, then parent applies final scorecard/log/manifest/report records. No LOG admission while a closing snapshot is owed. (`targets.json:4-9`; `claims.json:23,26-27`; `AGENTS.md:5-9,32-39`) |
+
+## Integration order
+
+1. **Parallel evidence and drafts:** O01/O02 align on the five-point contract (template first at application); K02 completes the pin census. Keep each worker confined to its assigned fragment; the fenced full files and exact SKILL/SCORECARD deltas are integrator-applied, not seat writes. (`targets.json:41-58,22-24,125-143`)
+2. **Close O's evidence chain:** checker selftest; O03 predicted census against O04 extracted-checker `--json`, exact row-for-row; O05 adversarial pair including O11's dominance cases; O09 checker run on r40. O09's current inspection is not a pass. No round runner is executed. (`claims.json:13-18`; `op/O09-r40-verify.md:5-9`; `op/O11-gap-fill.md:3-7`)
+3. **Close Ca's evidence chain:** freeze K02's census; Ca01 builds the complete supersession inventory and filed-reading list; Ca02/Ca03 exact deltas; Ca04 checks anchors and historical classifications; Ca05 re-greps independently. After integrator application, both verifiers' zero-stale-live-hit result must be tied to the applied tree, not just draft text. (`targets.json:22-24,125-157`; `claims.json:19-24`)
+4. **Cross-review and disposition:** R01 hunts checker false greens and pin-census omissions; R02 performs its second review. Resolve/disclose disagreements before O06's fixed-with-evidence draft is applied. O07/O06 receipts must cite measured evidence; O12 folds only after review. (`targets.json:76-87,188-205,119-123,162-193`)
+5. **Integrator close:** create a non-mutating r41 queue successor for the two O rows; run round-41 validation only in an isolated copy; persist telemetry/closing snapshot after `validation.json`; then update parent-owned records. Do not admit the round while claims or telemetry remain unverified. (`claims.json:16-24`; `targets.json:6-9`; `AGENTS.md:32-39`; `REGIMEN.md:37-50,71-77`)
+
+## Owed
+
+- Integrator must choose and file a round-41 successor artifact/path for the queue update; editing `reports/round-40/op/defect-queue-v2.json` is prohibited. Until the successor exists and cites landed/checker evidence, the O queue row update is not complete.
+- Ca census/delta ownership for stale hits outside SKILL.md and SCORECARD.md is unassigned. K02 must explicitly cover live claims/validation references or mark them `to-verify`; any README/AGENTS hit needs an integrator-owned exact draft/application.
+- O09's r40 verification is pending O02's checker; O11's dominance cases are recommendations, not tested checker results. No round-41 markdown/code other than O09 and O11 had surfaced in the connector's final glob snapshot; this is not a full seat-completion census.
+- This seat did not execute a round runner or apply code, queue, or live-file changes.
+
+## Citations
+
+- `reports/round-41/claims.json:9-27` — axes, claims, required census, queue, and no-runner non-goals.
+- `reports/round-41/targets.json:4-9,22-24,34-38,41-123,125-193,195-234` — binding scope, shared rules, missions and distinct output ownership.
+- `reports/round-40/op/defect-queue-v2.json:2-8,312-319,370-376` — filed queue version and current regression/N7 rows.
+- `reports/round-41/op/O09-r40-verify.md:3-9` — r40 static inspection and pending checker verification.
+- `reports/round-41/op/O11-gap-fill.md:3-7,13-17` — guard-dominance adversarial cases and cited r40 control flow.
+- `AGENTS.md:5-9,32-39`; `REGIMEN.md:37-50,71-77` — worker/integrator boundary, telemetry closure, and admission constraints.
+- Connector-cut observations: `Glob reports/round-41/**/*.md` returned `op/O09-r40-verify.md` and `op/O11-gap-fill.md`; `git status --short` returned `?? reports/round-41/` (2026-10-19). The glob is a partial-time snapshot, not a completion claim.

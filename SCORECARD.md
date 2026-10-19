@@ -796,6 +796,21 @@ Named: the queue-v2 completeness catch (folded); N7 cured in this runner;
 F-A02-1 routed (packet surface); the r39-runner root-regression finding
 (O12 streak r34-r39, cured here); K02's fold cross-check carried to r41.
 
+## Axes — round 41 (2026-10-19), ADMITTED (regimen 2, loop 1 position 9)
+
+Baseline `456674d`; one 32-seat `openai-codex/gpt-6-luna-max` batch, 32/32 in
+~7 min. Acceptance: `python3 reports/round-41/run-validation.py` exits 0
+(receipt sha256 `1d3735d9…`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | no runner template/checker -> both durable; the 7-runner census classifies the r34-r39 streak per-runner (r39 mechanically caught duplicating r38's findings); r40 conformant as the reference | `python3 -B tools/harness/round_runner_conformance.py --selftest/--json` | `templates/round-runner-template.py`; `op/runner-census.json` |
+| calibration | improved (claim Ca) | N3: multiple presumed stale live pins -> one self-marking historical hit (SKILL.md:383), ruled; N7 + r39-runner-root-regression re-classed fixed-with-evidence | `python3 reports/round-41/run-validation.py` | `calib/pin-supersession.json`; the queue update |
+| depth / coverage / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Named: the seven-vs-eight census scope (r33 = precedent, streak = r34-r39);
+the trap-output ambiguity; Ca02's optional SKILL delta carried.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was

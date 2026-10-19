@@ -1,0 +1,22 @@
+- Seat: X02 | critic | cross | date 2026-10-19 | baseline 456674d
+
+## Honesty review
+
+- **Census scope is internally inconsistent.** `claims.json:14,16` sets the seven-runner cohort to r34–r40, but `claims.json:18` requires `reports/round-3[3-9]/run-validation.py` plus r40, which selects r33–r39 plus r40: eight runners. The extra r33 runner exists and already uses relative `ROOT` (`reports/round-33/run-validation.py:23`), so it should not silently be mixed into the r34–r40 defect census. Resolve the cohort before accepting a count or comparing predicted rows.
+- **The filed receipt null count is confirmed as four.** Grep of filed receipts found `runner_sha256:null` for r36–r39 (`reports/round-36/validation.json:167`, `reports/round-37/validation.json:148`, `reports/round-38/validation.json:130`, `reports/round-39/validation.json:126`); r34, r35, r40 have non-null values (`reports/round-34/validation.json:196`, `reports/round-35/validation.json:222`, `reports/round-40/validation.json:143`). This matches the baseline wording in `claims.json:15`.
+- **Reference shape evidence:** r34–r39 each show absolute `ROOT` and `os.chdir` (`reports/round-34/run-validation.py:10,26`; r35:9,36; r36:8,13; r37:5,10; r38:5,13; r39:5,13). r40 has relative `ROOT` (`reports/round-40/run-validation.py:5`), calls `guard_receipt()` before its receipt write (`:242-244`), records `runner_sha256` (`:197`), and has named round findings/limits (`:204-209`). Its docstring still says “Round-38” (`:2`), so a checker must not treat a matching path/shape as proof that all round-specific metadata is correct.
+- **Self-application must not be circular.** The checker is a harness, not a `reports/round-N/run-validation.py`; it should be explicitly `not-applicable` to the runner template, not reported as conformant or as a failed runner. Its tests should instead demonstrate each of the five template checks, including a positive and negative case for guard dominance and a non-null digest. The checker draft is still unavailable (Glob output: `reports/round-41/op/O02-checker.md` returned “No matches found”), so no checker self-application verdict is claimed.
+- **Template self-assessment:** O01's draft documents relative `ROOT`, guard, digest, and per-round findings/limits (`reports/round-41/op/O01-template.md:20-27,54-76,90-100`). However, executable checks only require `named_findings` and `limits` to be nonempty strings (`:47-52`); the current-round accuracy is a documentation requirement (`:35-37`), not machine-verified. The conformance checker must not label semantic currency as verified from mere nonempty fields; mark it `to-verify` or outside static-check scope. The template is an unimplemented starter (`:3-5,31-39`) whose `parents[2]` root is intended for its installed `reports/round-N/run-validation.py` location, not execution at `templates/round-runner-template.py`.
+- **Unknowns stay unknown.** Until the checker is available, the eight-versus-seven scope, per-runner classifications/defect classes, and treatment of unreadable or unparseable inputs remain unverified. A partial census must report explicit `could-not-evaluate` rows and must not turn missing runners into zero findings or a complete census.
+
+## Owed
+
+- `reports/round-41/op/O02-checker.md`: re-review its unknown handling, five contract checks, and non-circular self-application once filed; compare its output with `reports/round-41/op/O03-predicted.md`.
+- `reports/round-41/op/O03-predicted.md`: row-for-row predicted census comparison is to-verify until available.
+
+## Citations
+
+- `reports/round-41/claims.json:14-18` — declared cohort, threshold glob, before/after requirements.
+- `reports/round-41/targets.json:230-234` — X02 mission and assigned output.
+- `reports/round-33/run-validation.py:23`; `reports/round-34/run-validation.py:10,26`; `reports/round-35/run-validation.py:9,36`; `reports/round-36/run-validation.py:8,13`; `reports/round-37/run-validation.py:5,10`; `reports/round-38/run-validation.py:5,13`; `reports/round-39/run-validation.py:5,13`; `reports/round-40/run-validation.py:2,5,197,204-209,242-244`.
+- Filed receipt grep output: `reports/round-34/validation.json:196`, `reports/round-35/validation.json:222`, `reports/round-36/validation.json:167`, `reports/round-37/validation.json:148`, `reports/round-38/validation.json:130`, `reports/round-39/validation.json:126`, `reports/round-40/validation.json:143`.

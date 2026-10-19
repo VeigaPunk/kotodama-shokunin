@@ -1,0 +1,37 @@
+- Seat: X01 | critic | cross | date 2026-10-19 | baseline 456674d
+
+## Trade and conformance findings
+
+### Operability: shape checks can miss stale receipt facts
+
+- **Census roster conflict.** The claim declares seven regimen-2 runners, r34–r40 (`reports/round-41/claims.json:14,16`), but its threshold glob `reports/round-3[3-9]/run-validation.py` plus r40 selects r33–r39 plus r40: eight paths (`claims.json:18`). r33 exists and is a different, relative-root reference (`reports/round-33/run-validation.py:23`). Keep the census at the declared r34–r40 cohort, or explicitly revise the roster/count before treating it as complete. O03 uses seven rows; O06 and X02 also identify the mismatch (`reports/round-41/op/O03-predicted.md:5,16-24`; `op/O06-queue-update.md:60-61`; `cross/X02-honesty.md:5-9`).
+- **The r40 reference has a stale-content defect not reflected in O03's prediction.** r40 declares `zai-coding-plan/glm-5.3-flash`, 24 workers (`reports/round-40/claims.json:5,8`), but its runner records a Grok→Devin fallback (`run-validation.py:84-85`), retains the r38 RL-8 finding (`:207`) and the r38-era RL-8 limit (`:208-209`), and has a Round-38 docstring (`:2`). Its receipt repeats the stale route and three old findings (`reports/round-40/validation.json:66-71,135-139`). O03 predicts r40 has no defects, “round-specific_limits: true”, and “named_findings: distinct” (`reports/round-41/op/O03-predicted.md:23,28`); distinct list content is not proof that the list is accurate, and the limits are not round-specific. Add explicit stale-route/copied-finding/copied-limit checks or mark these properties unverified; correct O03's row. Do not alter the filed r40 runner or receipt.
+- **The template's fifth contract point is advisory, not enforced.** `make_receipt()` checks only that `named_findings` and `limits` are nonempty strings/lists (`reports/round-41/op/O01-template.md:42-52`); the round-specific requirement is otherwise a docstring/comment (`:31-39,98-100`). A runner can satisfy this shape while publishing the stale r40 text above. The checker must make its claim about this point falsifiable, or explicitly report a content-review limit instead of a conformance green.
+- **ROOT portability remains a separate uncertainty.** O08 finds r40 declares the relative ROOT but its paths remain cwd-relative; invocation from outside the repository is untested and prohibited in-tree (`reports/round-41/op/O08-gap-fill.md:3-7`). The specified shape may still satisfy the literal contract, but do not claim the ROOT anchors all I/O or proves arbitrary-cwd portability without a permitted isolated test.
+- **Dominance requires control-flow evidence.** O11's proposed tests correctly distinguish a reachable pre-write guard from a dead branch, uncalled helper, post-write guard, or unguarded publishing branch, while permitting non-publishing early returns (`reports/round-41/op/O11-gap-fill.md:3-7`). Presence of `guard_receipt` text alone is insufficient.
+
+### Calibration: preserve measurement history and bound the scope
+
+- The proposed SKILL delta preserves the dated `b5406bcd…` measurement and appends a dated current-digest supersession (`reports/round-41/calib/Ca02-skill-delta.md:30-55`); this is safer than replacing the old reading. That old digest is independently identified as the delivered `tools/gates/argot-derivation-gate.py` SHA in the historical source (`corpus/knowledge/linguistics/register-lexicon-ceilings.md:18-20` and `:345-354`), while the current gate hashes to `10c884337fbb2b8f5cc64bedb70e2ddbc34b84c17aaa29fb9be15d049b324a75` (command output, `sha256sum tools/gates/argot-derivation-gate.py`). Avoid wording that could confuse the old gate digest with the ceiling-measurement script's own digest.
+- Ca03's no-change SCORECARD disposition is supported: the line already cites current `10c88433…` (`reports/round-41/calib/Ca03-scorecard-delta.md:5-10`; `SCORECARD.md:755`). The unchanged law-gate SHA is `15f8b23251ca2ad0a203bb1ed5fda2611dff9514e6a1af8120f520b1e7ec4169` (same `sha256sum` command); do not reclassify it as an argot-gate stale pin or re-freeze anything.
+- The scoped live-surface grep's single old hit is the dated historical SKILL measurement (`reports/round-41/calib/Ca05-verify.md:3-7`; `SKILL.md:382-389`). A broader search also finds historical values in corpus knowledge (`reports/round-41/calib/Ca07-gap-fill.md:5-7`); corpus edits are prohibited (`reports/round-41/targets.json:6-8,26`). State the exact census scope; do not report a repository-wide stale-pin sweep. Live validation cross-references remain unverified because `reports/round-41/validation.json` is not present at this review cut (`Ca05-verify.md:7,10-12`; `Ca08-gap-fill.md:9,13`).
+
+### Queue/integration boundary
+
+O06's proposed forward-only fixes can close the N7/root-generation process defects without claiming historical r34–r39 bytes are repaired, but the filed r40 queue cannot itself be updated. Use an append-only r41 successor queue and attach actual checker/verifier evidence before any `fixed-with-evidence` classification (`reports/round-41/op/O06-queue-update.md:5,20-29,46-60`; `reports/round-41/cross/X00-connector.md:13,24,28`).
+
+## Owed
+
+- `reports/round-41/op/O02-checker.md` and `tools/harness/round_runner_conformance.py` were absent from the latest inventory; checker selftest, actual JSON census, false-green controls, O03 row reconciliation, and O09's r40 checker result remain to-verify. No round runner was executed.
+- `reports/round-41/calib/Ca01-supersession.md` and `reports/round-41/validation.json` were absent at the latest review cut; verify the complete supersession inventory and any live validation references once available. Do not run the in-tree validation runner.
+- Integrator: resolve the r33–r40 roster/glob discrepancy and place any queue change in a new r41 artifact, not the filed r40 queue.
+
+## Citations
+
+- `reports/round-41/claims.json:13-24`; `reports/round-41/targets.json:3-9,69-80,125-157` — binding O/Ca claim, scope and restrictions.
+- `reports/round-40/claims.json:5,8`; `reports/round-40/run-validation.py:2,5,84-85,204-209`; `reports/round-40/validation.json:66-71,135-143` — declared dispatch versus stale route/findings/limits and recorded receipt.
+- `reports/round-41/op/O01-template.md:31-52,90-103`; `reports/round-41/op/O03-predicted.md:5,16-28`; `reports/round-41/op/O08-gap-fill.md:3-7`; `reports/round-41/op/O11-gap-fill.md:3-7` — template checks, predicted row and portability/dominance risks.
+- `reports/round-41/op/O06-queue-update.md:5-29,46-60`; `reports/round-41/cross/X00-connector.md:13,24,28-30` — forward-only queue draft and immutable-file boundary.
+- `reports/round-41/calib/Ca02-skill-delta.md:30-55`; `Ca03-scorecard-delta.md:5-10`; `Ca05-verify.md:3-12`; `Ca07-gap-fill.md:5-11`; `Ca08-gap-fill.md:9-13`; `SKILL.md:382-389`; `SCORECARD.md:755`; `corpus/knowledge/linguistics/register-lexicon-ceilings.md:18-20,345-354` — digest scope, historical evidence and proposed supersession.
+- Command output: `sha256sum tools/gates/argot-derivation-gate.py tools/gates/register-law-gate.py` → argot `10c884337fbb2b8f5cc64bedb70e2ddbc34b84c17aaa29fb9be15d049b324a75`; law `15f8b23251ca2ad0a203bb1ed5fda2611dff9514e6a1af8120f520b1e7ec4169`.
+- Latest `Glob reports/round-41/op/*.md` and `Glob reports/round-41/calib/*.md` did not include O02 or Ca01; no `reports/round-41/validation.json` observed. Checker/validation conclusions remain pending, not failed.

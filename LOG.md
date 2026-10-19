@@ -3787,3 +3787,16 @@ actual route stay recorded per round. Prior rounds stand as filed.
   stale findings were found by the r40 wave).
 - **Evidence:** `reports/round-40/validation.json` acceptance true (receipt
   `8b7b4508…`); telemetry closed via `availability-close-40.json`.
+
+## 2026-10-19 — Round 41 ADMITTED (loop 1 position 9)
+
+- **Trigger:** regimen; claims O/Ca; one 32-seat luna-max batch, 32/32 in ~7 min.
+- **O (verified):** the round-runner template + conformance checker landed;
+  the census classifies the streak per-runner with evidence (r39's verbatim
+  r38-findings duplication caught mechanically); r40 is the conformant
+  reference; loops 2-3 runners inherit the template.
+- **Ca (verified):** the N3 pin census converged on one self-marking
+  historical hit (integrator ruling, no edit required); the queue's N7 +
+  r39-runner-root-regression rows re-classed fixed-with-evidence.
+- **Evidence:** `reports/round-41/validation.json` acceptance true (receipt
+  `1d3735d9…`); telemetry closed via `availability-close-41.json`.
