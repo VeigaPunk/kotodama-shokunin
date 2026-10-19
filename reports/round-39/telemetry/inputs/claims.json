@@ -1,0 +1,28 @@
+{
+  "round": 39,
+  "regimen": "REGIMEN.md",
+  "loop": 1,
+  "position": "position 7 (zai glm-5.3-flash, 16 seats)",
+  "declared_at_utc": "2026-10-19T11:57:35Z",
+  "baseline_commit": "dfb0719",
+  "dispatch": {"provider_lane": "zai-coding-plan", "model": "glm-5.3-flash", "requested_workers": 16, "batched_calls": 1},
+  "axes_in_play": ["coverage", "calibration"],
+  "lowest_axis_reasoning": "Coverage is the least-claimed non-paused axis (2); calibration follows (3). Depth rests after r38.",
+  "freshness_pause_in_force": true,
+  "claims": [
+    {"id": "C", "axis": "coverage",
+     "claim": "+4 sourced entries to the verification partition (20 -> 24) on gap-named topics, each with the round-35/36 entry contract (head-block fields, sources, gap statement, decision record); corpus README reconciled to revision 2.2 (216 total).",
+     "before": "verification partition = 20 files (thinnest after r35/r36); total 212",
+     "after_required": "verification 24, total 216; README rev 2.2 sweep-green (216 rows == 216 files); entries audited before landing",
+     "counting_commands": ["ls corpus/knowledge/verification/*.md | wc -l", "python3 -B reports/round-28/readme/sweep.py"],
+     "thresholds": "audit clean (named defects allowed); sweep green"},
+    {"id": "Ca", "axis": "calibration",
+     "claim": "The isolation-replay protocol + the r37 recount closure: (a) author the safe-replay protocol for filed runners (git worktree at the round's close commit, relative-root requirement, TMPDIR isolation) addressing O12; (b) disposition the r37 recount's 4 could-not-reproduce rows under it (reproduced-under-protocol or confirmed-could-not-reproduce with owner); (c) document the basename-couples fallback as policy (the r37 queue item).",
+     "before": "4 c-n-r rows in calib/recount-ledger.json (the O12 hazard); the basename fallback undocumented",
+     "after_required": "the protocol durable at reports/round-39/calib/isolation-replay-protocol.md; the 4 rows re-dispositioned in a successor ledger with evidence; the basename policy documented at reports/round-39/calib/basename-couples-policy.md",
+     "counting_commands": ["python3 reports/round-39/run-validation.py"],
+     "thresholds": "the protocol replay-verified by an independent seat (r34's runner reproduced under it); zero filed byte edits"}
+  ],
+  "non_goals": ["no freshness axis-move", "no promotion/canon/clearance/closure", "no filed byte rewrites",
+                "no in-tree round-runner execution", "no re-freeze of declared-in-r7"]
+}

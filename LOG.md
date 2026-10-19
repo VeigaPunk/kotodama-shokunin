@@ -3741,3 +3741,21 @@ does not by itself falsify the rule.
   O07's 0-byte fragment recorded.
 - **Evidence:** `reports/round-38/validation.json` acceptance true (receipt
   `88db61bf…`); telemetry closed via `availability-close-38.json`.
+
+## 2026-10-19 — Round 39 ADMITTED (loop 1 position 7)
+
+- **Trigger:** regimen; claims C/Ca (`reports/round-39/claims.json`); one 16-seat
+  zai glm-flash batch as declared; C05 concurrency-failed and was re-dispatched
+  as the completion seat (16/16).
+- **C (verified):** verification partition 20 → 24 (total 212 → 216); four
+  sourced entries audited 4/4 PASS pre-landing (C05; zero fabrication in 137
+  re-resolved citations); README rev 2.2 sweep-green; a seat's stray
+  corpus/knowledge/verification/C03-draft.md removed at integration
+  (digest-proven provenance).
+- **Ca (verified):** the isolation-replay protocol (bwrap mount-namespace,
+  Tier A/B/C) addresses O12; Ca02 reproduced all four r37 c-n-r rows
+  normalized-identical; the successor ledger re-dispositions them
+  reproduced-under-protocol with R01-1's mechanism ruling; the basename-couples
+  fallback is documented policy (Ca04 verified; two one-sentence defects filed).
+- **Evidence:** `reports/round-39/validation.json` acceptance true (receipt
+  `0fefcd56…`); telemetry closed via `availability-close-39.json`.

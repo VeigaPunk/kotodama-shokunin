@@ -761,6 +761,23 @@ Named: the grok→devin route deviation; the interrupted-batch completion; the
 host's battery pin cascade declined); the guard's row-blindness + O03's G5
 four-row finding filed to the defect queue's successor.
 
+## Axes — round 39 (2026-10-19), ADMITTED (regimen 2, loop 1 position 7)
+
+Baseline `dfb0719`; one 16-seat `zai-coding-plan/glm-5.3-flash` batch as
+declared (C05 concurrency-failed, re-dispatched; 16/16). Acceptance:
+`python3 reports/round-39/run-validation.py` exits 0 (receipt sha256
+`0fefcd56…`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | verification 20 → 24, total 212 → 216: four sourced entries (worked-example, index-sweep, contact-strata gate, append-only-record), each audited pre-landing 4/4 PASS by C05; README rev 2.2 sweep-green 216==216 | census + `python3 -B reports/round-28/readme/sweep.py` | `corpus/knowledge/verification/`; `cov/C05-audit.md` |
+| calibration | improved (claim Ca) | 4 could-not-reproduce recount rows → reproduced-under-protocol (the isolation-replay protocol: bwrap mount-namespace replay at close commit; Ca02 verified, successor ledger filed); the basename-couples fallback documented as policy | `python3 reports/round-39/run-validation.py` | `calib/isolation-replay-protocol.md`; `calib/recount-ledger-successor.json`; `calib/basename-couples-policy.md` |
+| depth / operability / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Named: the C05 completion re-dispatch; the stray C03 staging file (removed,
+digest-proven); K01's gaps G2-G4 routed; Ca04's two one-sentence defects;
+R01-1's replay-mechanism ruling recorded in the successor ledger.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was
