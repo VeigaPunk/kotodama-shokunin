@@ -1,0 +1,21 @@
+{
+ "round": 46,
+ "seat_count": 8,
+ "shared_rules": [
+  "work only inside the repo; write only your out path under reports/round-46/",
+  "READ-ONLY AUDIT: never run git commit/push/merge/rebase/checkout; never edit any byte (filed or live); only read git history and write your declared out path",
+  "no installs/network; export TMPDIR=$PWD/.scratch PYTHONDONTWRITEBYTECODE=1",
+  "never run reports/round-*/run-validation.py in-tree",
+  "every claim cites a commit sha / file:line / command output; unknowns to-verify; never fabricate"
+ ],
+ "seats": [
+  {"id": "A01", "role": "auditor", "claim": "A", "mission": "Commit-chain census: for each loop-1 round 33-44, list its lane commit(s) (author must be kotodama-shokunin <kotodama@shokunin.local>) and its fleet-side ledger commit; confirm zero lane->fleet or fleet->lane byte writes and zero pushes/merges. File the per-round mapping at audit/A01-commit-chain.md.", "out": "audit/A01-commit-chain.md"},
+  {"id": "A02", "role": "auditor", "claim": "A", "mission": "Cross-repo boundary verifier: independently confirm no lane commit modified MANIFEST.json or .ufo/, and no fleet commit modified lane corpus/tools/reports. Check the remote: any unpushed local commits (name them), any push in the window. Report at audit/A02-boundary.md.", "out": "audit/A02-boundary.md"},
+  {"id": "O01", "role": "auditor", "claim": "O", "mission": "Append-only leg: for each closed round 33-44, prove reports/round-<N>/ has no post-landing modification/deletion commit (use git log --follow / --diff-filter=MD on each round dir). File violations (or the clean bill) at audit/O01-append-only.md.", "out": "audit/O01-append-only.md"},
+  {"id": "O02", "role": "auditor", "claim": "O", "mission": "Receipt-integrity leg: every reports/round-<N>/validation.json for 33-44 is present, committed, and its sha256 recoverable; list each receipt's verdict + sha. Report at audit/O02-receipts.md.", "out": "audit/O02-receipts.md"},
+  {"id": "Ca01", "role": "auditor", "claim": "Ca", "mission": "MANIFEST fidelity: for each loop-1 MANIFEST rounds[] entry (33-44), reconcile recorded verdict/admitted/baseline+close commits against the lane validation.json + LOG.md. File the reconciliation table at audit/Ca01-manifest.md.", "out": "audit/Ca01-manifest.md"},
+  {"id": "R01", "role": "reviewer", "claim": "cross", "mission": "Non-author review of the whole audit: re-run the three claims' checks independently; confirm the boundary, append-only, receipt, and MANIFEST findings; named-verifier judgment per claim.", "out": "review/R01-review.md"},
+  {"id": "S01", "role": "scribe", "claim": "cross", "mission": "Integration scribe: assemble the audit's evidence chains + per-axis verdict candidates + SHONEN into the integration draft the parent uses.", "out": "scribe/S01-integration-draft.md"},
+  {"id": "S02", "role": "scribe", "claim": "cross", "mission": "Telemetry scribe: draft observed-dispatch + availability-close-46 skeletons.", "out": "scribe/S02-telemetry-draft.md"}
+ ]
+}

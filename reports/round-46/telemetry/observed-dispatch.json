@@ -1,0 +1,18 @@
+{
+ "round": 46,
+ "kind": "observed-dispatch",
+ "owner": "kotodama-shokunin (integrator)",
+ "recorded_at_utc": "2026-10-19T17:45:40Z",
+ "provider_lane": "devin",
+ "model": "swe-2",
+ "requested_workers": 8,
+ "batched_calls": 1,
+ "observed": {
+  "route": "read-only audit executed by the integrator directly (mechanical git census) + one Devin-CLI swe-2 seat as the non-author reviewer (dispatched via devin --print, permission-mode dangerous)",
+  "note": "devin/swe-2 is not a registered AgentSwarm model alias; the audit was run as real git commands by the integrator, with a Devin-CLI swe-2 independent reviewer dispatched for the non-author verification gate",
+  "audit_fragments": ["audit/A01-commit-chain.md", "audit/O01-append-only.md", "audit/Ca01-manifest.md"],
+  "counting_command": "git log --format='%an <%ae>'; git log --diff-filter=MD -- reports/round-<N>; ls reports/round-<N>/validation.json; parse MANIFEST.json"
+ },
+ "deviation": "the scheduled swe-2 swarm was not dispatchable as an AgentSwarm model; the read-only audit ran as integrator mechanical census + a Devin-CLI swe-2 reviewer seat",
+ "partial_observation": true
+}

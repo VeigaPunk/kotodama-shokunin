@@ -1,0 +1,153 @@
+{
+  "acceptance_checks_passed": true,
+  "baseline_revision": "1dfb87f",
+  "claims": {
+    "A": {
+      "command": "python3 reports/round-46/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "fleet_to_lane_writes": 0,
+        "foreign_authors_on_round_commits": [
+          "João Pedro Veiga <jpveigao10@gmail.com>"
+        ],
+        "lane_id_present": true,
+        "unpushed_ahead": true
+      },
+      "passed": true,
+      "verdict": "improved"
+    },
+    "Ca": {
+      "command": "python3 reports/round-46/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "discrepancies": [],
+        "reconciliation": [
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 33
+          },
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 34
+          },
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 35
+          },
+          {
+            "lane": false,
+            "ledger_admitted": false,
+            "reconciles": true,
+            "round": 36
+          },
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 37
+          },
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 38
+          },
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 39
+          },
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 40
+          },
+          {
+            "lane": true,
+            "ledger_admitted": true,
+            "reconciles": true,
+            "round": 41
+          },
+          {
+            "lane": false,
+            "ledger_admitted": false,
+            "reconciles": true,
+            "round": 42
+          },
+          {
+            "lane": "rejected-honest-stop",
+            "ledger_admitted": false,
+            "reconciles": true,
+            "round": 43
+          },
+          {
+            "lane": "rejected-honest-stop",
+            "ledger_admitted": false,
+            "reconciles": true,
+            "round": 44
+          }
+        ]
+      },
+      "passed": true,
+      "verdict": "improved"
+    },
+    "O": {
+      "command": "python3 reports/round-46/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "post_landing_mods_except_r40": {},
+        "r40_supersession_commits": [],
+        "receipts": {
+          "33": true,
+          "34": true,
+          "35": true,
+          "36": true,
+          "37": true,
+          "38": true,
+          "39": true,
+          "40": true,
+          "41": true,
+          "42": true,
+          "43": true,
+          "44": true
+        },
+        "receipts_present": true
+      },
+      "passed": true,
+      "verdict": "improved"
+    }
+  },
+  "claims_declared": {
+    "A": "adjacency",
+    "Ca": "calibration",
+    "O": "operability"
+  },
+  "counting_command": "python3 reports/round-46/run-validation.py",
+  "date": "2026-10-19",
+  "failures": [],
+  "input_sha256": {
+    "reports/round-46/claims.json": "7aacf5b11dc4cb3a452bcdcbddac209202f1c10d793c1bf5af01c2de7d40c928",
+    "reports/round-46/run-validation.py": "da4950b85ad38d942b58b09a0b46a6a7f0585765de450ce59a0e038492ea6fad",
+    "reports/round-46/targets.json": "dc6293c1bf8105fc77d87b531f8b32dee58d887bb3e6bdc3091fdf6ac7f4ab49"
+  },
+  "limits": [
+    "Audit is read-only on history; it performs no commits/pushes/merges itself. The lane is ahead of origin — that is the operator's pending push, not a violation.",
+    "r40's two post-landing edits are recorded supersessions (REFRESH_RECEIPTS receipt supersession + r41's documented in-place defect-queue amendment, now sha-pinned by the r43 queue successor).",
+    "MANIFEST uses two schemas: closure rows (33-42, lanes.kotodama='ok') and per-lane rows (43-44). Both reconcile; the schema evolution is noted, not a discrepancy.",
+    "Named non-author reviewer: a Devin-CLI swe-2 seat re-verifies independently; its review lands at review/R01-review.md."
+  ],
+  "read_only_audit": true,
+  "round": 46,
+  "verdict": "admitted"
+}

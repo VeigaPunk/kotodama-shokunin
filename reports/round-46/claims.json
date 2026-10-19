@@ -1,0 +1,71 @@
+{
+ "round": 46,
+ "regimen": "REGIMEN.md",
+ "loop": 1,
+ "position": "position 14 (devin swe-2, 8 seats — read-only git commit/push/merge correctness audit; performs no pushes/merges)",
+ "declared_at_utc": "2026-10-19T17:45:00Z",
+ "baseline_commit": "1dfb87f",
+ "dispatch": {
+  "provider_lane": "devin",
+  "model": "swe-2",
+  "requested_workers": 8,
+  "batched_calls": 1
+ },
+ "axes_in_play": [
+  "adjacency",
+  "operability",
+  "calibration"
+ ],
+ "lowest_axis_reasoning": "This is the loop-1 hygiene/audit seat (position 14). Adjacency is the natural axis — the audit verifies the lane<->fleet boundary and the two-repo commit contract holds. Operability checks the git machinery itself (lane identity on every commit, the two-commit pattern, the receipt/push contract). Calibration verifies MANIFEST's ledger is faithful to the lane git history. Coverage/depth/freshness rest; freshness paused.",
+ "freshness_pause_in_force": true,
+ "read_only_audit": true,
+ "claims": [
+  {
+   "id": "A",
+   "axis": "adjacency",
+   "claim": "Audit the lane<->fleet commit boundary over the loop-1 rounds (33-44): every lane round-commit carries the lane git identity `kotodama-shokunin <kotodama@shokunin.local>`; every round produces exactly the lane commit + the fleet-side ledger/report commit (the two-commit pattern); no lane commit touches the fleet MANIFEST.json or .ufo/; no fleet commit touches lane corpus/tools/reports; no push or merge occurred (the audit performs none and confirms none happened). File the per-round commit-chain census.",
+   "before": "12 loop-1 round-commits + fleet ledger commits exist (HEAD 1dfb87f) but the boundary between lane authorship and fleet bookkeeping has never been audited as a census",
+   "after_required": "a per-round commit-chain census at reports/round-46/audit/ mapping each loop-1 round to its lane commit (author=lane identity), its fleet ledger commit, and confirming zero cross-repo writes and zero pushes/merges; any boundary violation named with commit sha",
+   "counting_commands": [
+    "git log --format='%h %an <%ae> %s' --reverse ac47c78..HEAD",
+    "git -C /home/vgpnk/Projects/shokunin log --format='%h %an %s' --reverse",
+    "python3 reports/round-46/run-validation.py"
+   ],
+   "thresholds": "every loop-1 round's lane commit authored by the lane identity; each round maps to its lane commit + fleet ledger commit; zero lane->fleet or fleet->lane byte writes; zero pushes/merges in the window"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "claim": "Verify the git machinery contract: (a) no filed byte was ever rewritten by a later commit — git log shows reports/round-<N>/ for N in the closed set has no modification/deletion commits after its landing commit (append-only invariant); (b) every validation.json receipt is intact (committed, sha recoverable); (c) the working tree is clean and the remote has no unpushed local commits that violate local-first (or name them). File the append-only + receipt-integrity + local-first legs.",
+   "before": "the append-only ledger and receipt integrity are asserted round-by-round but never audited across the whole loop-1 history as a single mechanical check",
+   "after_required": "a mechanical census: for each closed round 33-44, prove its reports/round-<N>/ tree has no post-landing modification commit; every validation.json present + committed; the local-first invariant (no unexplained unpushed state) holds; any violation named",
+   "counting_commands": [
+    "git log --follow --format='%h %s' -- reports/round-33/ | head -3",
+    "git status --porcelain",
+    "git log origin/master..HEAD --oneline 2>/dev/null || git log --oneline -1",
+    "python3 reports/round-46/run-validation.py"
+   ],
+   "thresholds": "zero post-landing modification/deletion commits against any closed round's reports/ tree; all validation.json present+committed; working tree clean; local-first state explained"
+  },
+  {
+   "id": "Ca",
+   "axis": "calibration",
+   "claim": "Verify MANIFEST.json's rounds[] ledger is faithful to the lane git history: for each loop-1 round entry (33-44), the recorded verdict/admitted flag/baseline+close commits match the lane's own LOG.md entry and validation.json receipt. Name any ledger row whose recorded verdict disagrees with the lane receipt.",
+   "before": "MANIFEST.json rounds[] accumulated 12 loop-1 entries written by the integrator at each close; fidelity to the lane receipts has never been audited",
+   "after_required": "a per-entry reconciliation: MANIFEST verdict == lane validation.json verdict, MANIFEST close_commit == the lane commit that closed the round, admitted flag consistent; file the reconciliation table at reports/round-46/audit/",
+   "counting_commands": [
+    "python3 reports/round-46/run-validation.py"
+   ],
+   "thresholds": "every loop-1 MANIFEST row reconciles to the lane receipt (verdict, commits, admitted); zero unexplained discrepancies; each discrepancy found is named with the correct value"
+  }
+ ],
+ "non_goals": [
+  "no pushes or merges (the audit is read-only and performs none; confirming their absence is the work)",
+  "no filed byte rewrites",
+  "no in-tree round-runner execution",
+  "no re-freeze of declared-in-r7",
+  "no corpus delta (audit round, no coverage claim)",
+  "no freshness axis-move",
+  "the audit must not itself create commits — it only reads history and files reports under reports/round-46/ (the integrator commits them as the round's own commit, which is allowed)"
+ ]
+}

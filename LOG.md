@@ -3871,3 +3871,23 @@ actual route stay recorded per round. Prior rounds stand as filed.
   acceptance false (exit 1 by design); O improved recorded without averaging the C/Ca
   shortfalls into an accept; telemetry closed via `availability-close-44.json`; runner
   reproduced in isolated git-archive replay, no in-tree execution.
+
+## 2026-10-19 — Round 46 ADMITTED (loop 1, position 14 — git-hygiene audit)
+
+- **Trigger:** regimen; claims A/O/Ca; scheduled `devin/swe-2` 8-seat read-only audit.
+  Run as an integrator mechanical git census + a Devin-CLI swe-2 non-author reviewer
+  (swe-2 is not an AgentSwarm alias; dispatched via `devin --print`).
+- **A (verified):** 14/14 loop-1 commits carry the lane identity
+  `kotodama-shokunin <kotodama@shokunin.local>`; zero lane→fleet or fleet→lane writes;
+  zero pushes/merges (lane ahead of origin = operator's pending push, local-first holds).
+- **O (verified):** append-only holds — the only post-landing edits are r40's two
+  recorded supersessions (REFRESH_RECEIPTS + r41's documented defect-queue amendment,
+  sha-pinned by the r43 successor); all 12 `validation.json` receipts present +
+  committed + parse.
+- **Ca (verified):** `MANIFEST.json` rounds[] reconciles row-for-row to the lane
+  receipts across both ledger schemas (closure rows 33-42 `lanes.kotodama='ok'` +
+  per-lane rows 43-44): 8 admitted / 2 rejected (r36, r42) / 2 honest-stop (r43, r44);
+  zero discrepancies.
+- **Evidence:** `reports/round-46/validation.json` verdict `admitted`, acceptance true
+  (exit 0); telemetry closed via `availability-close-46.json`; runner reproduced in
+  isolated git-archive replay, no in-tree execution.

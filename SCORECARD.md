@@ -871,6 +871,25 @@ collision (dream = r42 R2, the r43 defect class one level up); the 'not carried'
 clause ruled strict per R01-44-09; the antigravity-lane outage deviation; the
 opencode-go `reasoning_content` provider defect (18 failed seats).
 
+## Axes — round 46 (2026-10-19), ADMITTED (loop 1, position 14 — git-hygiene audit)
+
+Baseline `1dfb87f`; scheduled `devin/swe-2` (8-seat read-only audit). Run as an
+integrator mechanical git census + a Devin-CLI swe-2 non-author reviewer. Acceptance
+receipt: `python3 reports/round-46/run-validation.py` exit 0
+(`reports/round-46/validation.json`, `admitted`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| adjacency | improved (claim A) | lane<->fleet boundary never audited → 14/14 loop-1 commits carry the lane identity; zero lane→fleet or fleet→lane writes; zero pushes/merges (lane ahead of origin = operator's pending push, local-first holds) | `git log --format='%an <%ae>'`; `git -C ../.. log --name-only -- kotodama-shokunin/{corpus,tools,reports}` | `audit/A01-commit-chain.md`; `audit/A02-boundary` (integrator census) |
+| operability | improved (claim O) | append-only + receipt integrity never audited across the loop → zero post-landing edits except r40's two recorded supersessions (REFRESH_RECEIPTS + r41 defect-queue amendment, sha-pinned); all 12 validation.json present + committed + parse | `git log --diff-filter=MD -- reports/round-<N>`; `ls reports/round-<N>/validation.json` | `audit/O01-append-only.md`; `audit/O02-receipts` |
+| calibration | improved (claim Ca) | MANIFEST fidelity never audited → all 12 loop-1 rows reconcile row-for-row to the lane receipts across both ledger schemas (8 admitted / 2 rejected / 2 honest-stop); zero discrepancies | parse `MANIFEST.json` + each `validation.json` | `audit/Ca01-manifest.md` |
+| depth / coverage / freshness | unchanged | Read-only audit; freshness paused; no corpus delta | — | — |
+
+Round status: ADMITTED — all three audit claims verify and no axis is harmed.
+Named: the r40 supersession edits (recorded, sha-pinned); the two MANIFEST
+ledger schemas (closure rows + per-lane rows); the swe-2 reviewer dispatched
+as a successor artifact.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was
