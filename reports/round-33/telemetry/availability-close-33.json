@@ -1,0 +1,25 @@
+{
+  "schema": "kotodama-availability-closing-snapshot-v1",
+  "round": 33,
+  "date": "2026-10-19",
+  "closes": "reports/round-33/telemetry/dispatch-declared.json",
+  "closes_sha256": "139b964ead124364443d208cb858967b12a108532eab01b22229dfea1c1ad9ac",
+  "closed_fields": {
+    "observed_launches": "64 (read from reports/round-33/telemetry/observed-dispatch.json launched_workers, basis: AgentSwarm completed: 64 / 64 queued seats)",
+    "observed_completions": "64 (observed-dispatch.json completed_workers)",
+    "observed_failures": "0 (observed-dispatch.json failed_workers)",
+    "observed_window_utc": "2026-10-19T03:49:01Z/2026-10-19T04:19:00Z (observed-dispatch.json observed_window_utc)",
+    "actual_route": "opencode-go lane key 1, wire model deepseek-v4.1-flash (observed-dispatch.json actual_route)",
+    "runtime_concurrency": "could-not-recover as a measured counter: null with owner orchestrator and reason recorded in observed-dispatch.json (AGENTS.md: unknown counters stay null, not inferred)"
+  },
+  "could_not_recover": [
+    "runtime_concurrency: seat-level launch telemetry is not observable from the parent process"
+  ],
+  "owner": "integrator (goal-mode parent), for the lane",
+  "reason": "closing snapshot filed once reports/round-33/validation.json landed; every field the declaration left open is filled above, each citing the durable artifact it was read from",
+  "sources": [
+    "reports/round-33/telemetry/dispatch-declared.json (sha256 139b964ead124364443d208cb858967b12a108532eab01b22229dfea1c1ad9ac, unchanged since declaration — digest re-verified at close)",
+    "reports/round-33/telemetry/observed-dispatch.json",
+    "reports/round-33/validation.json (acceptance run: exit 0, acceptance_checks_passed true, receipt sha256 cd4f6d85994e6377389322aaa2a850408231e137929b77b90da9e1803ff31a10 — the run preceding this snapshot; a final re-run follows so the receipt's input set covers this file)"
+  ]
+}

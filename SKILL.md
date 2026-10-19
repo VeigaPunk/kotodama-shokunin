@@ -125,7 +125,7 @@ node does not upgrade an uncertain relationship",
 `to-verify-triage-protocol.md:97`; severity `supported` < `partial` <
 `unresolved`, v2-design §2.2). Basis is never boilerplate: unique per claim,
 its witness must resolve, and a basis that restates the status word is
-rejected (`worldbible-integration-contract.md:183`; v2-design §2.3).
+rejected (`tools/harness/packet_uncertainty.py:205,209`; v2-design §2.3 = `reports/round-15/handoff/v2-design.md:126,131-139`; erratum 2026-10-19: contract `:183` carries the delivered-record checklist item, not basis hygiene).
 
 ### Slot-label routing — one row per moved record, the owed slot named once
 
@@ -476,19 +476,19 @@ lore-acceptance claim (`corpus/knowledge/linguistics/register-strata-attestation
 | names with no derivational morphology | naming-systems pipeline skipped; names should carry etymology |
 | myth that explains nothing in daily life | myth is detached from ritual, calendar, and taboo; re-couple via ritual-liminality |
 | An English garment label fails the native inventory | representation-channel artifact, not a name violation; type the record or hold the owed form — never rename the garment to "fix" the gate (frozen round-4 output 10/10 `GAR-*`; `reports/supplement-opencode-1/22-label-representation.md` §1) |
-| A label-only record passes silently | forbidden: label-only → off the sound channel **and** a hold, so the aggregate stays red (`22-label-representation.md:126-128`; executable `TL-01`) |
+| A label-only record passes silently | forbidden: label-only → off the sound channel **and** a hold, so the aggregate stays red (`22-label-representation.md:126-128`; live hold `D2L-FORM-UNRESOLVED`, `tools/d2-typed-labels.py:422,:810-814`; erratum 2026-10-19: retired anchor `TL-01`) |
 | A translation claim made over a violating native form | cannot waive: native bytes govern, still FAIL (`22-label-representation.md:129-130`) |
-| A sound kind declared with no bytes supplied | HOLD, not clean (`22-label-representation.md:131-132`; executable `TL-01`) |
+| A sound kind declared with no bytes supplied | not clean: a `supplied` sound kind with no text is a `D2L-DATA` FAIL (exit 2, `tools/d2-typed-labels.py:694-695,:774-775`); carried `to-verify` with its owed slot, the `D2L-FORM-UNRESOLVED` hold stands (`:810-814`) (`22-label-representation.md:131-132`; erratum 2026-10-19: retired anchor `TL-01`) |
 | An untyped legacy label | still checked; typing fields cannot exempt a string (`22-label-representation.md:133-134`) |
-| A record with no declared kind at all | hold with a stable reason — the kind is never guessed from the text's language (`tools/d2-typed-labels.py` `TL-02`) |
+| A record with no declared kind at all | refused with a stable reason: `D2L-DATA` FAIL, exit 2 — the kind is never guessed from the text's language; it is assigned by declaration/component or refused (`tools/d2-typed-labels.py:768-769`; projection `:500,:549,:565`; erratum 2026-10-19: retired anchor `TL-02`) |
 | `compare_only` set while the typed label is unresolved | misuse, not a pass — the unresolved hold stands (design spec R3) |
 | A borrowed form judged only against the native stratum | misfile: loans pass through the recipient's phonotactic filter and carry donor provenance (`language-contact.md:78-79`) |
-| A loan's oldest form used to date the referent's arrival | clock conflation; keep word-entry and object-arrival intervals separate (`loanword-material-dating.md:26,60`; executable B4) |
+| A loan's oldest form used to date the referent's arrival | clock conflation; keep word-entry and object-arrival intervals separate (`loanword-material-dating.md:30-31,63`; executable B4) |
 | A loanword that switched referent in transit | keep both coexisting names; date the sense–referent pairing (`corpus/knowledge/culture-material/garment-lexicon-crosslinguistic.md:28,30`) |
-| Imported prestige terminology for locally made goods read as evidence of import | dictionary/selection bias; check local manufacture under imported labels (`loanword-material-dating.md:57`) |
+| Imported prestige terminology for locally made goods read as evidence of import | dictionary/selection bias; check local manufacture under imported labels (`loanword-material-dating.md:59,63`) |
 | A modern/curatorial label promoted to an attested historical native word | reject or split: the label is typed as a label; the term keeps its own record (`costume-language-coupling-table.md:43`) |
 | A translation, exonym, or official replacement run through the inherited-form sound laws | track separately: sound laws apply to the inherited spoken label, not its translation or replacement (`era-language-staging.md:127`) |
-| Era tags or slot glosses graded on the name/sound channel | type them `fictional-coordinate` / `descriptive-gloss`; neither enters the sound channel (tool `FIELD_DEFAULTS`) |
+| Era tags or slot glosses graded on the name/sound channel | type them off the sound channel: costume labels project `translated-label` (`tools/d2-typed-labels.py:500`) and slot glosses ride as `gloss`/`representation`, never as a form (`:520,:529`), so neither enters the sound channel (retired anchor `FIELD_DEFAULTS`; the five-kind superset `fictional-coordinate`/`descriptive-gloss` remains proposed-only, `reports/round-11/depth/shard-gate-adapter.md:120-125`; selftest `no GAR label is graded on the sound channel`, `:3195`; erratum 2026-10-19) |
 | A transliteration collision read as native-script identity | compare per declared scheme; a collision in that output channel is not native identity (`naming-collision-gate.md:72`) |
 | A shared garment label across cultures read as identical cut or status | labels are neither cut nor status (`naming-collision-gate.md:54`) |
 
@@ -498,7 +498,7 @@ lore-acceptance claim (`corpus/knowledge/linguistics/register-strata-attestation
 | `unresolved` | a named open question blocks the claim as worded: unperformed work, an external authority still pending, or contested alternatives that must coexist | `grounding:` + `open:` question + `owner:` lane — "a naked marker without a research question is not a usable queue item" (`to-verify-triage-protocol.md:32`) | let a deadline or failed search force closure (`:80`); present open as a fourth verdict — it is a queue state (`:80,181`); read absence as disproof ("silence is not proof of absence", `worldbible-integration-contract.md:179`) |
 | A claim's status rides as prose inside `evidence_status` or `kind` | no per-claim uncertainty carrier — the round-12 reject (`reports/round-12/adjacency/contract.md:27`; v1 rows `reports/round-11/handoff/packet.md:82,88,95`); fill the dedicated `uncertainty` field, don't decorate another column |
 | The packet passes `16/16 + 20/20` with no uncertainty column anywhere | shape-clean is not uncertainty-populated: the gate has zero uncertainty checks (`grep -ci uncertainty tools/gates/handoff-packet-check.py` → 0, 2026-10-17) and its fixture ledger has five columns, none of them uncertainty (`tools/gates/handoff-packet-check.py:651`) |
-| Two claims share one basis sentence, or a basis restates the status word | boilerplate basis: basis is per-claim evidence whose witness resolves (`reports/round-15/claims.json:14`; `worldbible-integration-contract.md:183`) |
+| Two claims share one basis sentence, or a basis restates the status word | boilerplate basis: basis is per-claim evidence whose witness resolves (`reports/round-15/claims.json:14`; `tools/harness/packet_uncertainty.py:205,209`; erratum 2026-10-19: contract `:183` carried the delivered-record checklist item) |
 | A digest match or gate exit 0 offered as a claim's basis | byte identity is not meaning: the audit matched 21/21 digests and still declined the count-semantics claim (`reports/round-12/adjacency/contract.md:11,23`) |
 | A claim-to-record link present but not resolving | same defect class as an absent basis (`reports/round-15/claims.json:14`); existence-check every link at freeze and digest-pin the bytes |
 | An edge or record inherits its source node's `supported` | nodes do not upgrade arrows: each source→target row is typed with its own status, applicability and justification (`to-verify-triage-protocol.md:97`; `worldbible-integration-contract.md:64`) |
@@ -581,7 +581,9 @@ legacy selftests pass, and five of them write only inside their own fixture
 directories: a present fixture is verified byte-for-byte, a divergent one is
 refused and left untouched, and only a missing one is regenerated atomically
 (phonology, lexicon, myth, costume, provenance). Run that battery in an
-isolated repo export; byte equality after a run does not prove no writes.
+isolated repo export — a history-retaining copy (clone or worktree; the
+round-3 restore-and-replay leg reads `291c714` from `.git`, which a plain tree
+export lacks); byte equality after a run does not prove no writes.
 See `reports/supplement-opencode-1/29-local-boundaries.md` §F1 for the
 finding that motivated the repair, and
 `reports/round-8/operability/neg-controls/neg-13/neg-13-report.md` for the
@@ -691,17 +693,31 @@ translated display labels do not enter a phonotactic test.
    boolean exit labels and unsafe manifest paths are rejected. The committed
    manifest is deliberately comprehensive; the generic reader requires only
    packet coverage and does not infer artifact roles for the caller.
-3. Run legacy naming and costume checks on `packet.gates.yml`. Keep naming's
-   CROSS-HOLD (and E0/E1 similarity review) and C03's costume R-01 finding;
-   neither is a green clearance gate. Verify the native coda adapter, not
-   merely a permissive synthetic fixture.
+3. Run legacy naming and costume checks on
+   `examples/culture-d3/packet.gates.yml`. Keep naming's CROSS-HOLD (and E0/E1
+   similarity review) and C03's costume R-01 finding; neither is a green
+   clearance gate. Verify the native coda adapter, not merely a permissive
+   synthetic fixture.
 4. Compare the handoff's glossary, names, source bridges and digest rows
-   against actual packet bytes, then run its structural envelope check.
-   Sixteen fields and twenty glossary rows alone cannot prove content agrees.
+   against actual packet bytes (`examples/culture-d3/handoff.md` against
+   `examples/culture-d3/packet.gates.yml`), then run its structural envelope
+   check. Sixteen fields and twenty glossary rows alone cannot prove content
+   agrees.
 5. Run `python3 reports/round-7/run-validation.py` for the original F/O
    thresholds, input preservation and old-surface regressions. It writes its
    own receipt, not historical receipts. Fresh source access and invented
-   model consistency are causally separate checks.
+   model consistency are causally separate checks. **Expected verdicts at HEAD
+   (dated 2026-10-19; each exits 1 by design — a regression is a different
+   output, not this), and run them in a disposable clone: round 5 and round 7
+   rewrite their own filed `validation.json` in place (round 6 is byte-stable).**
+   round-5 `run-validation.py` → `acceptance_checks_passed: false` with F =
+   non-append corpus edit (`supplement-opencode-1/sources/ottoman.json`, OTT-06)
+   and O = seven `gate_digest_mismatch` could-not-evaluate rows replaying
+   `tools/gates/frozen/round-3/MANIFEST.tsv` against gates repaired after round 3;
+   round-6 `run-validation.py` → `historical file changed: .gitignore` vs its
+   BASE; round-7 `run-validation.py` → preservation (`.gitignore`), historical
+   knowledge-inventory totals, one claim-F rejection, and the round-6 predecessor
+   check, while its O leg passes (5/5, 16/16, 4/4, frozen 5/5).
 
 The frozen reader ignores extra metadata keys, compares finding IDs as a set
 and allows symlinks whose resolved target remains inside the repo. These are
@@ -711,5 +727,6 @@ Read `reports/round-7/integration-attempts.json` for corrected failures and
 `native-request-binding.json` for the actual prompt's non-verbatim step-6
 defect; passing example checks do not erase protocol-conformance debt.
 - [ ] Every availability/dispatch record filed `open-at-seat-close` whose round's
-      validation.json has landed carries a closing snapshot in that round's telemetry/
-      (audit: `python3 -c "import json,glob,os; [print(f) for f in sorted(glob.glob('reports/round-*/availability*.json')) if json.load(open(f)).get('state')=='open-at-seat-close' and os.path.exists(os.path.join('reports',f.split('/')[1],'validation.json')) and not os.path.exists(os.path.join('reports',f.split('/')[1],'telemetry','closing-snapshot.json'))]"` — must print nothing once the round's records are closed)
+      validation.json has landed carries a closing snapshot in that round's telemetry/ whose
+      `closes` names that record and whose `closes_sha256` matches the record's live bytes
+      (audit: `python3 -c "import glob,hashlib,json,os; [print(f) for f in sorted(glob.glob('reports/round-*/availability*.json')) if json.load(open(f)).get('state')=='open-at-seat-close' and os.path.exists(os.path.join('reports',f.split('/')[1],'validation.json')) and not any((lambda d: isinstance(d,dict) and d.get('closes')==f and d.get('closes_sha256')==hashlib.sha256(open(f,'rb').read()).hexdigest())(json.load(open(s))) for s in glob.glob(os.path.join('reports',f.split('/')[1],'telemetry','availability-close-*.json')))]"` — must print nothing once the round's records are closed)

@@ -101,7 +101,7 @@ matches `reports/round-7/baseline.json`):
 sha256sum corpus/lessons/round-6-sources/05.json corpus/lessons/round-6-sources/03.json \
           corpus/lessons/round-6-sources/13.json corpus/lessons/round-6-sources/09.json \
           corpus/knowledge/synthesis/worldbible-integration-contract.md
-# a00a5dc4… / adb22c9a… / 69504356… / 0dd2820d… / 50c4c2f2…
+# a00a5dc4… / adb22c9a… / 69504356… / 0dd2820d… / 5f4c02bf…
 ```
 
 ## Source bindings (closed; S01–S05)

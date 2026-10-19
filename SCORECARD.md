@@ -575,8 +575,37 @@ defect corrected in records. Conformance defects carried to round 14:
 battery baseline roots, audit-count erratum, tracker verifier pointer,
 draft-status reconciliations.
 
+## Axes — round 33 (2026-10-19), ADMITTED (regimen 2, loop 1 build 1 of 3)
+
+Baseline `139e3b662900557afe54f632b468619593dc9fcb`; one 64-worker
+`opencode-go/deepseek-v4.1-flash` batch (key 1 of the round-robin; observed
+64/64 completed — `reports/round-33/telemetry/observed-dispatch.json`).
+Acceptance: `python3 reports/round-33/run-validation.py` exits 0
+(`reports/round-33/validation.json`, receipt sha256 `93b28f36…`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | c31 audit exit 1 (33 files vs 26 rows; findings `C31-1` + `C34-2`) → exit 0 (33/33/78, findings 0); README revision-3 bytes byte-equal the seats' verified reconstruction `f752e1d7…`; the round-32 falsifier debt (F-X16-3): `SKILL.md` one-liner false-fired 5 rows → content-keyed re-key prints 0 rows live + 11/11 isolated controls | `python3 -B reports/round-25/audit/c31-lessons-index-audit.py`; `python3 reports/round-33/run-validation.py` | `reports/round-33/op/lessons-reconciliation-receipt.json`; `op/O05-falsifier-disposition.md`; `validation.json` |
+| calibration | improved (claim C) | No ledger, dossier items open → `calib/open-items-ledger.json` 12/12 rows dispositioned (OI-04/05/06/12 `fixed-with-evidence` with integrator-applied drafts + green controls: d2-typed-labels 163/163, box1-survey 28/28, packet_uncertainty 19/19; 8 carried with owner+reason+next-touch); the numeral "12" is reconstructed, not quoted — caveat carried (F-C15-1) | `python3 reports/round-33/run-validation.py` | `calib/open-items-ledger.json`; `calib/C13-consistency.md`; `calib/C14-fix-drafts.md` |
+| adjacency | improved (claim A — lowest non-paused axis) | No consolidated audit since r29 → `adj/audit-assembled.md`: A01–A14 verdicts filed (green / named-finding with owner); handoff gate live re-run 16/16 + 20/20 + findings 0; scope watch clean at close (2655 tracked, protected roots 0 rows); zero unfiled bleed; contested items restated routed-not-absorbed | `python3 reports/round-33/run-validation.py` | `adj/audit-assembled.md`; `validation.json` |
+| depth / coverage / freshness | unchanged | Freshness pause in force (operator ruling pending since r11); depth/coverage not claimed this round; no axis harmed | — | `claims.json` non_goals |
+
+Admission: O/C/A verify and no axis is harmed. Findings on record: **F-C13-1**
+(r5/r6/r7 receipts written in-tree 03:53:25Z–03:55:27Z and restored byte-exact;
+guard-adoption gap; incident recorded in LOG.md); **F-C13-4** (membership
+ruling: K03's twelve canonical; box-4 readings 3a/3b/3c out-of-set);
+**F-C15-1** (the "12" is a reconstructed numeral). Supersessions recorded as
+new rows: r26 runner README blob pin and r25 receipt `input_sha256` (revision-3
+bytes); SKILL.md digest `79fe91d3…` → `f9bd07c2…`; AGENTS.md drafting residue
+excised (42 → 40 lines). No new domain capability this round
+(bookkeeping/instrument round). Operator directive recorded: outlined batch
+counts per round (concurrency); integrator seats recorded in telemetry.
+
 ## Planned
 
+- Round 33 ADMITTED (regimen 2 opening round; see its table above). Next:
+  round 34 — loop 1 build 2 of 3, one 64-worker batch on `opencode-go-2/
+  deepseek-v4.1-flash` (key 2 of the round-robin) per REGIMEN.md.
 - Rounds 8-10 + round 12 (verify) admitted; round 11 REJECTED (F threshold).
   Next: round 13, loop 1 expand round — 128 workers on `xai-oauth/grok-4.7-fast`.
   Candidate claims: D4 culture packet (typed pipeline on a fresh build),

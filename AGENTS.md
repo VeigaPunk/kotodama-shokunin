@@ -37,6 +37,4 @@
   and reason. A round is not admitted to `LOG.md` while its own availability record still owes
   a closing snapshot. The snapshot names the record it closes and that record's SHA-256 at
   close time, so any later in-place edit is detectable as a digest mismatch.
-```
 
-### 2.2 `SKILL.md` — append one item to "## Checklist (executable where a tool exists)" (after :534)

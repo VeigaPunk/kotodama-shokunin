@@ -1,0 +1,50 @@
+{
+  "record": "observed-dispatch",
+  "round": 33,
+  "state": "open-at-seat-close",
+  "owner": "orchestrator (goal-mode parent)",
+  "reason": "counters are filled from the batched-dispatch result; the record closes when reports/round-33/telemetry/availability-close-33.json lands in the same integrating pass (AGENTS.md close-what-you-open)",
+  "observed_window_utc": "2026-10-19T03:49:01Z/2026-10-19T04:19:00Z",
+  "window_basis": "the single batched AgentSwarm dispatch call measured 1788.360 s from the 03:49:01Z declaration stamp to the batch result",
+  "counting_command": "AgentSwarm result summary '<summary>completed: 64</summary>' and per-seat outcome attribute 'completed'; date -u +%FT%TZ at declaration and close",
+  "counting_date": "2026-10-19",
+  "requested_allocation": {
+    "provider_lane": "opencode-go",
+    "model": "deepseek-v4.1-flash",
+    "lane_key": "opencode-go key 1 (first of the per-round round-robin)",
+    "requested_workers": 64,
+    "batched_calls": 1
+  },
+  "launched_workers": 64,
+  "completed_workers": 64,
+  "failed_workers": 0,
+  "launched_workers_basis": "AgentSwarm launched exactly the 64 queued item seats (the summary reports completed: 64 and no seat returned a failure outcome); treat as the observed launch count for this batch shape",
+  "failed_workers_note": "zero seat failures; several seats filed named review/critic findings, which are round content, not dispatch failures",
+  "runtime_concurrency": null,
+  "runtime_concurrency_owner": "orchestrator",
+  "runtime_concurrency_reason": "seat-level launch telemetry is not observable from the parent; AgentSwarm queues launches automatically. Unknown counters stay null per AGENTS.md, not inferred.",
+  "actual_route": "opencode-go lane, wire model deepseek-v4.1-flash, lane key 1",
+  "post_batch_integration": "after the 64-seat batch the integrator landed drafts in-session and dispatched integrator-only seats: 1 application seat (8 drafted fixes + controls), 1 completion seat (2 remaining drafts), and a 2-seat assembly/authoring wave (adjacency audit assembly; acceptance-runner authoring — one seat interrupted by the operator and completed in-session by the parent). Integration acts recorded per the operator's concurrency directive (outlined batch counts per round); NOT additional craft batches.",
+  "durable_sources": [
+    {
+      "path": "reports/round-33/claims.json",
+      "sha256": "ba69090f90c007064fb9c08d04b2fc07ec1514eddf09937bc190021684b3fb12"
+    },
+    {
+      "path": "reports/round-33/targets.json",
+      "sha256": "342c8f80eb857f96109fc7fcc3d1b816be1264898a25c3f4f8786451f27df13f"
+    },
+    {
+      "path": "reports/round-33/telemetry/dispatch-declared.json",
+      "sha256": "139b964ead124364443d208cb858967b12a108532eab01b22229dfea1c1ad9ac"
+    },
+    {
+      "path": "reports/round-33/telemetry/inputs/claims.json",
+      "sha256": "ba69090f90c007064fb9c08d04b2fc07ec1514eddf09937bc190021684b3fb12"
+    },
+    {
+      "path": "reports/round-33/telemetry/inputs/targets.json",
+      "sha256": "342c8f80eb857f96109fc7fcc3d1b816be1264898a25c3f4f8786451f27df13f"
+    }
+  ]
+}

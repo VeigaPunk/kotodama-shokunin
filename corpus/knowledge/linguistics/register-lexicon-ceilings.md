@@ -287,3 +287,31 @@ operation inherits them.
   register gate to certify that the law is enforceable, that is reported to the
   integrator: a legality leg over forms does not check a law over acts, and the
   decision is not this lane's to make unilaterally.
+
+## 12. Errata (round 33): the absence sweeps in the head block, re-measured
+
+**Append-only.** Nothing above is rewritten. The `- gap filled:` cell states five
+absence sweeps, each returning 0 over `corpus/knowledge/` at 2026-10-18. Re-run at
+lane HEAD `139e3b6` on 2026-10-19, **all five now return ≥ 1**:
+
+| pattern | hits at HEAD | files | class |
+|---|---|---|---|
+| `lexicon ceiling` | 2 | `register-strata-attestation.md` §13; this entry | sibling landing (r28 wave) |
+| `register ceiling` | 1 | this entry | self-match after landing |
+| `derivational ceiling` | 1 | this entry | self-match after landing |
+| `operation-constrained` | 1 | this entry | self-match after landing |
+| `which semantic fields` | 3 | `sound-symbolism.md:106`; `register-strata-attestation.md` §13; this entry | **one pre-existing hit** |
+
+The last row is the finding. `sound-symbolism.md:106` ("assign **which semantic
+fields** carry ideophones") existed at the round-28 baseline commit `6c0ac448`
+(that file last moved in round 10), so that sweep was **false when written** —
+reported as `X63-F2`, an authoring defect, in
+`reports/round-28/audit/x63-entry-source-resolvability.md` §3.4 and routed, never
+repaired. The other four rows are the wave's own landings (this entry and the
+strata §13 amendment), the sibling-landing class of the same audit.
+
+**Corrected reading, for any future consumer of the head block:** of the five
+patterns, the phrase `which semantic fields` occurs once in the pre-existing
+corpus, in `sound-symbolism.md`, in the ideophone sense — a different sense from
+this entry's ceiling sense. The claim that survives is the narrower one: no entry
+before this one measured what an operation-constrained register cannot say.

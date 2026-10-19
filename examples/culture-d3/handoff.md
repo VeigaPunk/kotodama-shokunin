@@ -24,7 +24,7 @@ permission is claimed, performed, or granted.
 |---|---|
 | packet_id | kotodama.handoff.d3-source-bounded-drill |
 | packet_version | 0.3.0-draft.md (supersedes the 0.1.0/0.2.0 scribe drafts; freeze manifest expected.json present and the packet-vs-frozen guard run observed exit 0 — see artifact_manifest and validation; final acceptance-run receipt pending) |
-| contract_ref | kotodama-lore-adjacency 1.0.0, contract digest sha256:50c4c2f25a728e69260b76d42f0d838a398cc4683a6149f74cceeec8fb7268c1 (§1 pin, re-measured 2026-10-17 from current bytes; bilateral read pending per contract §1/§8) |
+| contract_ref | kotodama-lore-adjacency 1.0.0, contract digest sha256:5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 (§1 pin, re-measured 2026-10-17 from current bytes; bilateral read pending per contract §1/§8) |
 | producer | kotodama-shokunin (round-7 D3 workstream; generative craft, evidence-coupling records, and design only) |
 | recipient | lore-shokunin (canon, world-bible entities, chronology, bible-wide consistency) |
 | request_ref | none — no lore brief exists; assembled as a deliberately unbound research drill (contract §4) |
@@ -71,7 +71,7 @@ acceptance pins their final hashes.
 | A-S03+S04 | corpus/lessons/round-6-sources/13.json | closed source ledger, audits R6-13-A and R6-13-B | `695043562e7e0caeda6693384baca060009c9e3feb2c108f5e8ea6bfc282d71a` |
 | A-S05 | corpus/lessons/round-6-sources/09.json | closed source ledger, audit R6-09-A | `0dd2820d1e837b9ab5e503d21f1a891d367d873c9335f9dad80bef3c2da6ac94` |
 | A-RECON | reports/round-6/parent-reconciliation.json | effective round-6 scope/kind/URL authority for S01–S05 | `1b9b16710ae128185b5f1cdb339e4afd3dd09063b59974128271d23287892162` |
-| A-CONTRACT | corpus/knowledge/synthesis/worldbible-integration-contract.md | pinned adjacency contract (read-only) | `50c4c2f25a728e69260b76d42f0d838a398cc4683a6149f74cceeec8fb7268c1` |
+| A-CONTRACT | corpus/knowledge/synthesis/worldbible-integration-contract.md | pinned adjacency contract (read-only) | `5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069` |
 
 ## dependency-manifest
 

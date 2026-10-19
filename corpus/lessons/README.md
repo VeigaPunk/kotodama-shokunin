@@ -4,9 +4,10 @@ This directory is the lane's append-only lesson record: one file per round that
 ran, written by the round's gate-keeper (SCRIBE) seat. At this seat's opening
 it had **24 filed lessons, three census formats and no index**. This README is
 that index: one row per file the runner's partition glob returns (26 at the
-final stamp — the 24 filed lessons, the round-25 lesson that landed mid-audit,
-and this file itself), the open-question queue with an owner per item, and the
-three formats documented.
+revision-1 stamp — the 24 filed lessons, the round-25 lesson that landed
+mid-audit, and this file itself; **33 at the revision-3 stamp of 2026-10-19**,
+see the revision-3 block at the foot of this file), the open-question queue
+with an owner per item, and the three formats documented.
 
 - **Owner of this file:** the C seat of round 25 (claims `R25-C31..C34` in
   `reports/round-25/claims.json`). The round's counting command is
@@ -32,12 +33,12 @@ three formats documented.
 
 ```sh
 export TMPDIR=$PWD/.scratch PYTHONDONTWRITEBYTECODE=1
-python3 -B reports/round-25/audit/c31-lessons-index-audit.py --selftest  # 26/26, exit 0
+python3 -B reports/round-25/audit/c31-lessons-index-audit.py --selftest  # 28/28, exit 0
 python3 -B reports/round-25/audit/c31-lessons-index-audit.py             # census + findings
 python3 -B reports/round-25/audit/c31-lessons-index-audit.py --json      # receipt
 
-ls corpus/lessons/*.md | wc -l                                          # 26 (2026-10-18)
-find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 26 (same set)
+ls corpus/lessons/*.md | wc -l                                          # 33 (2026-10-19)
+find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 33 (same set)
 ```
 
 The tool answers one question per claim id, plus two self-consistency checks
@@ -93,10 +94,20 @@ Columns: **file** · **format** (§3) · **contract** (`source:`/`verified-at:`/
 | `corpus/lessons/round-23.md` | gate-keeper | 4/4 | Q-23-1..3 | `reports/round-23/integration/fragment-ledger.md` | bytes=14179 lines=51 sha8=b567a60a |
 | `corpus/lessons/round-25.md` | gate-keeper | 4/4 | — (this round's own O/D/C claims are pending, not carried) | `reports/round-25/claims.json` | bytes=38520 lines=205 sha8=08f0337e |
 | `corpus/lessons/supplement-opencode-1.md` | gate-keeper | 3/4 | Q-S1-1 | `reports/supplement-opencode-1` | bytes=5445 lines=89 sha8=f235fc0a |
+| `corpus/lessons/round-26.md` | gate-keeper | 4/4 | Q-26-1, Q-26-2 | `reports/round-26/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T19:09:32Z; the lesson's own closing read was `false` at 18:28:22Z, `corpus/lessons/round-26.md:178-186`) | bytes=60054 lines=222 sha8=cae06660 |
+| `corpus/lessons/round-27.md` | gate-keeper | 4/4 | Q-27-1..4 | `reports/round-27/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T20:08:49Z; the lesson read two earlier receipts `false` at 19:27:19Z / 19:28:22Z, `corpus/lessons/round-27.md:165-193`) | bytes=54972 lines=203 sha8=f15e285b |
+| `corpus/lessons/round-28.md` | gate-keeper | 4/4 | Q-28-1..5 | `reports/round-28/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T20:50:17Z) | bytes=50419 lines=145 sha8=dd832ff7 |
+| `corpus/lessons/round-29.md` | gate-keeper | 3/4 | Q-29-1..3 | `reports/round-29/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T21:50:07Z; the lesson's closing read had no receipt at 21:13:09Z, `corpus/lessons/round-29.md:110`) | bytes=17847 lines=118 sha8=b6765d33 |
+| `corpus/lessons/round-30.md` | gate-keeper | 3/4 | Q-30-1..5 | `reports/round-30/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T22:32:36Z) | bytes=30665 lines=181 sha8=56e77835 |
+| `corpus/lessons/round-31.md` | gate-keeper | 4/4 | Q-31-1..4 | `reports/round-31/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:28:05Z) | bytes=16637 lines=73 sha8=8870bbdd |
+| `corpus/lessons/round-32.md` | gate-keeper | 4/4 | Q-32-1..6 | `reports/round-32/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:59:27Z) | bytes=12879 lines=66 sha8=8aacfc2b |
 
-**Rows: 26. Files: 26.** The count is the runner's own partition glob
+**Rows: 33. Files: 33.** The count is the runner's own partition glob
 (`corpus/lessons/*.md`), which includes **this README** and the round-25
-lesson that landed while this index was being written. Round 5 contributes two
+lesson that landed while this index was being written. Seven rows were added
+by the round-33 revision-3 reconciliation for the lessons of rounds 26–32
+(measured 2026-10-19T03:58Z; see the revision-3 block at the foot of this
+file). Round 5 contributes two
 rows on purpose (the availability preflight and the round itself); round 13
 contributes no row because no lesson file exists; `supplement-opencode-1.md`
 is not round-numbered and is indexed as its own row. Round 24 has no lesson
@@ -115,11 +126,13 @@ before quoting a lesson's verdict.
 
 1. **gate-keeper survey** — a `## Gate` section with the marker vocabulary
    `Opening <axis> reading:` candidates, `Admitted` / `Rejected` lines and a
-   `spot-check` sentence, plus the four contract lines. **14 files.**
+   `spot-check` sentence, plus the four contract lines. **21 files.**
    Sub-shape: rounds 19–20 carry the older three-candidate marker vocabulary;
    rounds 21–23 carry the newer `### Rule` + per-axis-section shape with no
-   marker vocabulary. Both are counted as gate-keeper; a round-21/22/23 lesson
-   is the current norm, not a contract regression.
+   marker vocabulary; rounds 26–28 carry that newer shape too, and rounds
+   29–32 carry `### Rule` plus per-axis sections at `## <axis> —` level. All
+   are counted as gate-keeper; a round-21/22/23 lesson is the current norm,
+   not a contract regression.
 2. **fragment-index** — the gate-keeper survey **plus** a `## Fragment index`
    section enumerating the round's report fragments. **5 files** (rounds
    8–12).
@@ -132,14 +145,18 @@ before quoting a lesson's verdict.
    the index's own row labels it `index (this file)`.
 
 Contract-line coverage tracks the round, not the format: rounds 1–4 carry
-**0/4** (pre-contract seeds). Of the loop-era files, **rounds 17–23 carry 4/4**
-and the rest — rounds 5 (both), 6, 7, 8, 9, 10, 11, 12, 14, 15 and the
-supplement — carry **3/4**: each has `source:`, `verified-at:` and `recheck:`
-but no `scope:` line. Histogram arithmetic: gate-keeper **14** = the 13 filed
-plus the round-25 lesson; fragment-index **5** = rounds 8–12; plain **7** =
-rounds 1–4, 7, 16 and this README. Total 26 = the runner's file set. Round 16 is the outlier: `source:`, `verified-at:` and
-`scope:` but **no `recheck:`** (3/4, and no `## Gate`). This is the state the
-round-20 X24 and round-23 X09 audits recorded, unchanged.
+**0/4** (pre-contract seeds). Of the loop-era files, **rounds 17–23 and 26–28
+and 31–32 carry 4/4** and the rest — rounds 5 (both), 6, 7, 8, 9, 10, 11, 12,
+14, 15, 29, 30 and the supplement — carry **3/4**: each has `source:`,
+`verified-at:` and `recheck:` but no `scope:` line, except rounds 16, 29 and
+30, which carry `source:`, `verified-at:` and `scope:` but **no `recheck:`**.
+Histogram arithmetic: gate-keeper **21** = the 14 rows of revision 1 plus the
+lessons of rounds 26–32; fragment-index **5** = rounds 8–12; plain **7** =
+rounds 1–4, 7, 16 and this README. Total 33 = the runner's file set
+(2026-10-19). Round 16 is the outlier: `source:`, `verified-at:` and
+`scope:` but **no `recheck:`** (3/4, and no `## Gate`), and rounds 29–30 join
+it in the 3/4-without-`recheck:` class. This is the state the
+round-20 X24, round-23 X09 and round-33 revision-3 measurements recorded.
 
 ## 4. Open-question queue (one owner per item)
 
@@ -199,18 +216,50 @@ close it. **Owner must resolve**: a live path in this repo, the literal
 | Q-23-3 | **committed to round 25:** any combined-source successor row (D2 live/frozen pins, v2) not landed under round 23's O claim | `reports/round-25/claims.json` | **in flight round 25** (claim O) |
 | Q-S1-1 | the 20 unresolved supplemental outcomes must be preserved, not hidden; all promotion boxes remain unverified by a non-author | `reports/supplement-opencode-1` | open at filing; round 24 promotion review addresses the boxes |
 
+| Q-26-1 | the ledger auditors (`X63`, `C31`) must be re-run against the settled round-26 bytes; this lesson's own write moved them | `reports/round-26/audit/x63-lessons-audit.py` | open at filing (`corpus/lessons/round-26.md:196,206`); superseded in part by the round-31/32 readings (`corpus/lessons/round-31.md:53`, `round-32.md:45`) that count r26–r32 unindexed |
+| Q-26-2 | the round-25 derivation-relations `SKILL.md` rule never landed, while round-26 D seats drafted a capability row and a rule row on top of it | `SKILL.md` | open at filing (`corpus/lessons/round-26.md:216-218`); the lesson records the D scribe's reading, not its own re-measurement |
+| Q-27-1 | the law has no teeth: a tampered law value is not a finding in any delivered gate (`L6b-HOLD`), and five of six `RLAW-*` rules have no executable owner | `tools/gates/register-law-gate.py` | partially closed by round 28 — the vocabulary leg landed and `L6b-HOLD` was closed at that round's final tree (`corpus/lessons/round-28.md:50`); the meaning leg stays open (`round-28.md:94,126`) |
+| Q-27-2 | the syllabify acceptance surface: the delivered gate reads 6/8 on the packet's own declared `syllables:` witness and 1 head2 disagreement of 62 remains; the runner's `disagreements 0` is a self-comparison | `examples/culture-d4/packet.d4.yml` | open at filing (`corpus/lessons/round-27.md:17,88,194`) |
+| Q-27-3 | the declared v3 baseline path `reports/round-27/handoff/declared-in-r5/expected.json` was declared and never delivered (the runner's `missing_dependencies`) | `reports/round-27` | open at filing; the round-27 v3 baseline landed at `reports/round-27/pinsweep/v3-baseline-r27/expected.json` (`corpus/lessons/round-27.md:123,165`) |
+| Q-27-4 | the round-27 runner's control defects (list-vs-string `SYLLABLE_CONTROLS`, null battery parse, shared diphthong bug, expectations moved onto the artifact) must be fixed before its D verdict can be trusted | `reports/round-27/run-validation.py` | open at filing (`corpus/lessons/round-27.md:141,194`) |
+| Q-28-1 | the lessons ledger was off the acceptance surface for two rounds (`grep -c "corpus/lessons"` reads 0 in the round-27 and round-28 runners): put it back on an acceptance surface or explicitly retire it | `parent` | open at filing (`corpus/lessons/round-28.md:86,126,139`) |
+| Q-28-2 | the register-law leg refuses out-of-vocabulary forces but not meaning-inverting ones (four semantic tampers silent) | `tools/gates/register-law-gate.py` | open at filing (`corpus/lessons/round-28.md:50,94,96,126`) |
+| Q-28-3 | `L9-HOLD`/`L10-HOLD`: the assembler declares `register_law` in neither `PACKET_KEYS` nor `RECORD_FIELDS`, and the law's five `force` values have no declared vocabulary to check against | `tools/assemble-culture-d4.py` | open at filing; `x59` explicitly declines to fold `L9` into the closed RL-4 gap (`corpus/lessons/round-28.md:50,96,126`) |
+| Q-28-4 | the round-26 revision's `round-26.md` pin is stale (`bytes=46745 lines=190 sha8=cf7461fe` against live `60054/222/cae06660`): re-pin as a new row, never an edit | `reports/round-26/zzz-lessons-index-revision-3.md` | open at filing (`X57-B2`/`G2`, `corpus/lessons/round-28.md:88`) |
+| Q-28-5 | the `handoff-v3` exit-code divergence (the runner's regression run reads exit 2, this seat's own run exit 0) is unresolved by the lesson and reported as such | `parent` | open at filing (`corpus/lessons/round-28.md:132`) |
+| Q-29-1 | `C` remains incomplete: the six-versus-four clean-law calibration is unresolved | `reports/round-29` | open at filing (`corpus/lessons/round-29.md:102,110`); the filed receipt's later `acceptance_checks_passed: true` does not answer the calibration question |
+| Q-29-2 | provider worker launches are unobservable and the visible recount set does not establish every R25–R28 counting command | `parent` | open at filing (`corpus/lessons/round-29.md:110`) |
+| Q-29-3 | the source-sweep evidence defect is preserved (4 quoted sweeps did not reproduce: one authoring defect, three later landings) and the older R21 `typed-labels.d4.yml` boundary finding is not closed by the scoped adjacency pass | `reports/round-28/audit/x63-entry-source-resolvability.py` | open at filing (`corpus/lessons/round-29.md:99,107`) |
+| Q-30-1 | prospective freshness measurement contract and threshold remain operator-owned; a recommendation is not adoption — retain the historical rejections and the pause | `operator` | open at filing (`corpus/lessons/round-30.md:103,173`) |
+| Q-30-2 | lesson-index coverage: a new lesson changes the partition; do not amend filed indices — explicitly disposition the live-ledger coverage if it remains outside acceptance | `parent` | open at filing (`corpus/lessons/round-30.md:104,173`); carried into Q-31-3 and Q-32-5 |
+| Q-30-3 | semantic ceiling: named-ID speaker resolution and vocabulary/stem checks leave the controlled residues; a bounded round-30 repair must not be described as complete enforcement | `tools/gates/` (the lesson's own label: gate owner) | open at filing (`corpus/lessons/round-30.md:105,173`) |
+| Q-30-4 | telemetry owners: choose or reconcile the canonical contract, re-run its consumers and negative controls, and disposition the incompatible reader rather than letting one green stand for both | `reports/round-30/telemetry` | resolved in the same file's dated recheck (distinct telemetry paths; 11/11 negative controls, `corpus/lessons/round-30.md:138,173`) |
+| Q-30-5 | bind the R27 late-sweep number to its actual artifact: the C11 prose reads 41 findings while the receipt reads `exit 1 / findings 31 / surfaces 117` — preserve the discrepancy, do not present 41 as that JSON's reproduced count | `reports/round-29/recount/r27-full-sweep-reproduction.json` | closed as a current-retrospective attribution defect in the same file's dated recheck (`corpus/lessons/round-30.md:142,146,173`); the historical prose/receipt disagreement remains |
+| Q-31-1 | D landing anchor: apply the AGENTS.md bullet after line 31 (end of the wrapped final telemetry bullet), not "after :30" | `AGENTS.md` | closed by round 32 — the hunk landed after old line 31, rule at `AGENTS.md:32-39` (`corpus/lessons/round-31.md:57`, `round-32.md:31`) |
+| Q-31-2 | the sweep denominator: `final-sweep.md` must name its own capability denominator and relate it to both measured bounds (SCORECARD table 9 rows, newest round 5; live surface 121/40/10) | `reports/round-32/final-sweep.md` | narrowed at filing — the sweep does name its denominator (50 green-surface rows + 13 expected-red controls); what remains is that the manifest derive from the SCORECARD surface (`corpus/lessons/round-31.md:58,68`) |
+| Q-31-3 | lesson indexing: six lessons (r26–r30 and r31) sat outside the README index; add rows as new parent-owned rows | `parent` | carried into Q-32-5 and this round's claim O (`corpus/lessons/round-31.md:53,59`) |
+| Q-31-4 | the closure ledger's evidence commands are fleet-root-relative by the runner's own design; a lane-root re-execution cannot falsify a ledger row | `reports/round-31` | carried into Q-32-6 (`corpus/lessons/round-31.md:30,60`, `round-32.md:25`) |
+| Q-32-1 | falsifier disposition (F-X16-3): the recorded falsification condition (i) has fired instrumentally — re-key the `SKILL.md:715` audit to the landed snapshot convention or reword the clause | `SKILL.md` | open at filing (`corpus/lessons/round-32.md:55`) |
+| Q-32-2 | AGENTS residue (F-X16-1): excise `AGENTS.md:40-42` as a logged change; the bytes are `draft.md:35,37` residue, not rules | `AGENTS.md` | open at filing (`corpus/lessons/round-32.md:56`) |
+| Q-32-3 | checklist position (F-X16-2): the executable item at `SKILL.md:713-715` sits outside `## Checklist` (`:522-534`); move it or cross-reference it | `SKILL.md` | open at filing (`corpus/lessons/round-32.md:57`) |
+| Q-32-4 | draft-vs-landing (F-X16-4): the `patch-draft.md` erratum leg (the `SKILL.md:294`-class cell) never landed; disposition optional, record kept | `SKILL.md` | open at filing (`corpus/lessons/round-32.md:58`) |
+| Q-32-5 | lesson indexing: Q-30-2/Q-31-3 carried — 7 unindexed lessons (r26–r32); add parent-owned rows using the §Ledger pins | `parent` | carried into this round's claim O (`corpus/lessons/round-32.md:59`) |
+| Q-32-6 | inherited remainders: Q-31-2's narrowed remainder and Q-31-4's boundary transfer to this round's C/O reading; read the ledger's rows, not its verdict prose | `reports/round-32/run-validation.py` | open at filing (`corpus/lessons/round-32.md:60`) |
+
 ### Queue arithmetic
 
 Measured 2026-10-18T17:4xZ by the §1 tool over the table above; re-run it
 rather than inheriting these numbers.
 
-- Rows: **49**. Of the 26 index rows, **23 carry at least one question**;
+- Rows: **78**. Of the 33 index rows, **30 carry at least one question**;
   the three that carry none are `round-1-gates-and-triage.md` (its lessons
   were closed within round 1), `round-25.md` (this round's own claims are
   pending, not carried) and this README's self-row.
-- Owner classes: **path** (an in-repo surface that can close the item) — **37**;
-  **role token** — **12** (`parent` 9, `operator` 3). No row has an empty or
-  unresolvable owner; that is the C32 check.
+- Owner classes: **path** (an in-repo surface that can close the item) — **59**;
+  **role token** — **19** (`parent` 15, `operator` 4). No row has an empty or
+  unresolvable owner; that is the C32 check. (Recounted 2026-10-19 by the §1
+  tool's own `resolves()` over the 78 rows: 22 of the 29 round-33 additions
+  resolve as paths, 7 as role tokens — `parent` 6, `operator` 1.)
 - The `parent` rows are the integration and protection-discipline items
   `AGENTS.md` assigns to the parent (LOG/SCORECARD integration, filed-surface
   protection, the round-19 path collision, the authority question, the
@@ -254,7 +303,7 @@ rather than inheriting these numbers.
   after this stamp adds a row rather than changing one.
 - **Nine evidence subdirectories are part of the partition and are NOT
   indexed above.** `corpus/lessons/` carries 146 files under nine directories
-  beside the 26 `*.md` lesson files, and the §2 rows cover only the `*.md`
+  beside the 33 `*.md` lesson files, and the §2 rows cover only the `*.md`
   files. They are the per-round source/triage/audit material the lessons cite:
 
   | directory | files | carries |
@@ -282,7 +331,7 @@ rather than inheriting these numbers.
   (+ its receipt via stdout redirect). No `corpus/lessons/round-*.md` byte was
   touched, no filed round 8–24 artifact was edited, no tool or gate was
   changed. No commit, no push.
-- **Controls:** the tool's `--selftest` is 26/26 in-memory checks, including
+- **Controls:** the tool's `--selftest` is 28/28 in-memory checks, including
   the negative controls (a non-row line and a header row must not parse as
   index rows; a missing path and an empty owner must not resolve; the
   fragment-index classifier must win over gate-keeper). The before-control for
@@ -300,9 +349,10 @@ rather than inheriting these numbers.
   against the round-2 `## Open questions` block and the residual/queue sections
   of rounds 4–7, 14–23 and the supplement.
 
-Index revision 1 (2026-10-18, round 25). Superseding edits land as a new
-revision block here, never as an in-place rewrite of the per-round rows'
-provenance claims.
+Index revision 1 (2026-10-18, round 25); revision 2 appended below (round 25,
+C35); revision 3 appended below (round 33, seat O02). Superseding edits land
+as a new revision block here, never as an in-place rewrite of the per-round
+rows' provenance claims.
 
 ## Revision 2 — C35 final pass (2026-10-18)
 
@@ -344,3 +394,55 @@ Boundary: this revision writes only this file. No `corpus/lessons/round-*.md`
 byte, no filed round 8–24 artifact, no tool and no gate was touched. The
 revision-1 rows' provenance claims stand unedited; this block is appended, per
 the file's own closing rule.
+
+## Revision 3 — round-33 reconciliation (2026-10-19)
+
+Seat **O02** (round 33, claim O, `reports/round-33/op/O02-readme-delta.md`) read
+the settled revision-2 bytes and drafted the reconciliation the round-32 lesson
+routed as Q-30-2 / Q-31-3 / Q-32-5. Revision 1 (round 25) and revision 2
+(round 25, C35) are filed bytes; their per-round rows' provenance claims and
+their two stamps stand unedited. This block records what changed and why.
+
+**What this revision adds.** Seven rows in §2 for the lessons that landed after
+the round-25 stamp — rounds 26, 27, 28, 29, 30, 31, 32 — each with its
+`format`, `contract`, open-questions, disposition-pointer and `pin` cells
+re-measured from the live bytes at **2026-10-19T03:58Z** by
+`reports/round-25/audit/c31-lessons-index-audit.py`'s own functions. Twenty-nine
+rows in §4 for the open items those seven lessons name, each carrying its
+lesson's own id where the lesson declared one (rounds 30–32) and a first-assigned
+id where it did not (rounds 26–29, whose prose names the items without ids).
+
+**Counting command, before and after.** Before this revision
+`python3 -B reports/round-25/audit/c31-lessons-index-audit.py` exited **1** with
+two findings: `C31-1 unindexed-file: ['round-26.md', 'round-27.md', 'round-28.md',
+'round-29.md', 'round-30.md', 'round-31.md', 'round-32.md']` and
+`C34-2 prose-arithmetic-drift: {'table_rows_vs_files': {'stated': [26, 26],
+'measured': [26, 33]}}` (33 lesson files, 26 index rows, 49 queue rows,
+`formats {'gate-keeper': 21, 'fragment-index': 5, 'plain': 7}`). After it, the
+same command must exit **0** with `findings: 0` and the six checks PASS at
+`index rows: 33  lesson files: 33  queue rows: 78`. The round-33 integrator runs
+that command after applying this revision and files its output as the
+operability receipt.
+
+**In-place corrections, and why they are not provenance rewrites.** Four
+machine- or reader-visible arithmetic statements were corrected in place because
+a revision block cannot supersede them: §2's row/file count line (it read 26 and
+26), §4's queue-arithmetic row count (it read 49) — the audit tool reads the
+*first* queue-row count in the file and the *last* table count, so neither can be
+superseded by an appended restatement — §3's histogram and contract-coverage
+paragraph, and §1's three counting-command annotations. Revision 2 corrected the
+round-4 row's disposition pointer in the same way and recorded it; the rule this
+file states — per-round rows' provenance claims are never rewritten — is
+honored: no `bytes`/`lines`/`sha8` cell of revisions 1–2 was touched, and the
+seven new rows are new rows.
+
+**Boundary.** This revision writes this file only. No `corpus/lessons/round-*.md`
+byte, no filed round 1–32 artifact, no tool, gate, index, receipt or pin was
+edited. Applied by the round-33 integrator; drafted, measured and controlled by
+seat O02 under `reports/round-33/op/O02-readme-delta.md`, which also carries the
+negative controls (a fake unindexed file must fail C31; a row naming a
+nonexistent file must fail C31; a stated count that disagrees with the
+measurement must fail C34b).
+
+Superseding edits land as a new revision block here, never as an in-place
+rewrite of the per-round rows' provenance claims.

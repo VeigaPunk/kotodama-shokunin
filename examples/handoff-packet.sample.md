@@ -18,7 +18,7 @@ fixture-arbitrary, not BCE/CE (§7).
 |---|---|
 | packet_id | kotodama.handoff.d1-retied-houses.sample |
 | packet_version | 1.0.0-sample.md (supersedes the YAML serialization of the same envelope; pre-freeze sample) |
-| contract_ref | kotodama-lore-adjacency 1.0.0, contract digest sha256:50c4c2f25a728e69260b76d42f0d838a398cc4683a6149f74cceeec8fb7268c1 (§1 pin; bilateral read pending per OQ-08) |
+| contract_ref | kotodama-lore-adjacency 1.0.0, contract digest sha256:5f4c02bfc4e6e4e943c2dd6983750ba34538219a6e239e451c81dc3fd4f79069 (§1 pin; bilateral read pending per OQ-08) |
 | producer | kotodama-shokunin (round-2 adjacency workstream; generative craft and design records only) |
 | recipient | lore-shokunin (canon, world-bible entities, chronology, bible-wide consistency) |
 | request_ref | none — no lore brief existed; assembled as an unbound drill (§4, §12) |

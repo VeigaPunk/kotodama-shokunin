@@ -3497,3 +3497,96 @@ does not by itself falsify the rule.
   every round carries a content-valid fleet report, SCORECARD/LOG records,
   and a MANIFEST closure entry. Rounds 1-7 closed retroactively at the start.
 - **Evidence:** `reports/round-32/validation.json` acceptance true.
+
+## 2026-10-19 — Regimen 2 contracted by operator directive (rounds 33–74)
+
+- **Trigger:** operator directive in session (verbatim approved goal text now
+  durable at `REGIMEN.md`); goal-mode objective filed against REGIMEN.md the
+  same day. Supersedes no closed round; rounds 1–32 stand as filed.
+- **Contract:** 3 loops × 14 rounds = 42 lane rounds, numbered 33–74,
+  schedule/provider/worker-count table in REGIMEN.md (opencode-go builds with
+  per-round key round-robin across live keys, hyper→devin fallback at
+  position 4, luna-max verify at positions 5 and 9, swe-2 read-only git audit
+  at position 14). Freshness axis-move claims remain paused pending the
+  operator ruling queued since round 11.
+- **Standing inputs from the closed regimen:** round-32 routed debt (falsifier
+  audit filename mismatch, 7 unindexed lessons, 12 standing open items in the
+  dossier) is the starting queue for round 33's claim declaration.
+- **Evidence:** `REGIMEN.md`; prior regimen close at
+  `reports/round-32/validation.json` (admission true); freshness pause
+  recorded in `SCORECARD.md` round-11 section.
+
+## 2026-10-19 — Round 33 ADMITTED (regimen 2, loop 1 build 1 of 3)
+
+- **Trigger:** operator regimen (REGIMEN.md; goal filed 2026-10-19); claims
+  O/C/A declared at baseline `139e3b6` against the round-32 routed debt
+  (`reports/round-33/claims.json`); one 64-worker
+  `opencode-go/deepseek-v4.1-flash` batch, observed 64/64
+  (`telemetry/observed-dispatch.json`).
+- **O (verified):** lessons index reconciled to revision 3 — audit exit 1
+  (33 files vs 26 rows; `C31-1`+`C34-2`) → exit 0 (33/33/78, findings 0);
+  applied bytes == the seats' verified reconstruction `f752e1d7…`
+  (`op/lessons-reconciliation-receipt.json`). The round-32 falsifier debt
+  (F-X16-3) located and fixed: the `SKILL.md` close-what-you-open one-liner
+  tested `telemetry/closing-snapshot.json` (exists nowhere) and false-fired on
+  five closed records; re-keyed content-keyed (`closes` + `closes_sha256`),
+  0 rows live, 7/7 fixture scenarios (`op/O05-falsifier-disposition.md` §4).
+- **C (verified):** the dossier's twelve standing open items dispositioned
+  12/12 (`calib/open-items-ledger.json`); OI-04/05/06/12 fixed-with-evidence
+  (C14 Fixes 1-4 + FD-N4/N5 applied, controls green); eight carried with
+  owners. The numeral "12" is reconstructed, not quoted (F-C15-1 carried).
+  Membership ruling F-C13-4: K03's twelve stand; box-4 readings 3a/3b/3c are
+  out-of-set corroboration.
+- **A (verified):** consolidated opening boundary audit (`adj/audit-assembled.md`),
+  A01-A14 with independent re-runs; scope clean; zero unfiled bleed;
+  contested items routed-not-absorbed.
+- **Evidence:** `reports/round-33/validation.json` acceptance true (exit 0,
+  receipt sha256 `93b28f36…`); fleet report `.ufo/reports/round-33/kotodama.md`;
+  telemetry closed via `availability-close-33.json` (closes
+  `dispatch-declared.json`, sha256 `139b964e…`).
+
+## 2026-10-19 — F-C13-1 incident record: filed receipts written in-tree during round 33 (restored; record owed, now filed)
+
+- **What:** during the round-33 wave, `reports/round-{5,6,7}/validation.json`
+  were rewritten in the working tree (window 03:53:25Z-03:55:27Z; r5/r7
+  content-differing, r6 mtime-only) and restored byte-exact by 03:55:27Z
+  (`git hash-object` == `git rev-parse HEAD:<path>` for all three at
+  04:15:47Z; r5 mutant digest `fe926984…` reproduced byte-identically by an
+  isolated `git archive` run — `.scratch/c05-iso/` per `adj/A11` §4).
+- **Mechanism:** the historical runners write their own receipt in place
+  (`reports/round-5/run-validation.py:194`, `reports/round-7/run-validation.py:1171`,
+  `reports/round-6/run-validation.py:336`) and never adopted the round-14
+  receipt-guard — a guard-adoption gap, not a guard defect. The r26 runner
+  carries the same hazard (`:90`, `:1909`); no round-33 counting command runs
+  it in-tree. Probable writer: seat C05, `to-verify` (isolated-run artifacts
+  corroborate; attribution not provable).
+- **Status:** breached in flight, restored, PREVENTION recorded: no
+  historical `run-validation.py` is executed in-tree (isolated copies only);
+  the guard-adoption gap is routed as a standing operability debt (owners:
+  future integrate rounds; the runners are filed bytes and are not repaired
+  in place).
+
+## 2026-10-19 — Supersession records (new rows; no filed byte rewritten)
+
+- **Lessons README pins:** `reports/round-26/run-validation.py:97`
+  `README_BASELINE_BLOB = a3187055…` and `reports/round-25/validation.json`
+  `input_sha256 = ec7469da…` are superseded by the round-33 revision-3 bytes
+  (sha256 `f752e1d7…`), per `op/O02-readme-delta.md` §6g. Affected filed
+  runners go red **if re-run**; no round-33 counting command re-runs them.
+  Re-pin cascade owner: a future round that re-verifies r25/r26 receipts.
+- **SKILL.md digest:** `79fe91d3…` → `f9bd07c2…` (O05 re-key + C14 Fixes
+  1-4 + FD-N4/N5). Box-1 survey re-verified green 28/28 at the new digest;
+  prior line anchors shift (715 → 732 lines) — A09's R1-R8 exposure list
+  stands as the re-survey worklist.
+- **AGENTS.md:** round-31 drafting residue (orphan fence line + orphan
+  `### 2.2 SKILL.md` heading at old :40/:42) excised per A07-F1 — 42 → 40
+  lines, `grep -c '^```'` = 0. Live instruction file repaired; logged here.
+
+## 2026-10-19 — Operator directive recorded (concurrency)
+
+- Operator directive this session: use the outlined number of subagents per
+  round (one batch per round at the declared worker count; REGIMEN.md
+  schedule). Round 33's post-batch integrator seats (4) are recorded in
+  `telemetry/observed-dispatch.json` as integration acts, not craft batches.
+  Future rounds: integrator work defaults to in-session unless a round's
+  declared shape says otherwise.

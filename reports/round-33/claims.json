@@ -1,0 +1,72 @@
+{
+  "round": 33,
+  "regimen": "REGIMEN.md (operator-approved 2026-10-19)",
+  "loop": 1,
+  "position": "build 1 of 3 (opencode-go key 1 of the round-robin)",
+  "declared_at_utc": "2026-10-19T03:49:01Z",
+  "declared_by": "orchestrator (goal-mode parent), in-session",
+  "baseline_commit": "139e3b662900557afe54f632b468619593dc9fcb",
+  "dispatch": {
+    "provider_lane": "opencode-go",
+    "model": "deepseek-v4.1-flash",
+    "requested_workers": 64,
+    "batched_calls": 1,
+    "key_rotation_note": "key lane opencode-go (key 1) this round; rotate to opencode-go-2 at round 34"
+  },
+  "axes_in_play": ["operability", "calibration", "adjacency"],
+  "lowest_axis_reasoning": "Freshness is historically the lowest non-retired axis but its axis-move claims are paused since round 11 (operator ruling pending; REGIMEN.md keeps the pause). Of the non-paused axes, adjacency is the least-worked: exactly one claimed move on record (round 21). Claim A works adjacency this round.",
+  "freshness_pause_in_force": true,
+  "claims": [
+    {
+      "id": "O",
+      "axis": "operability",
+      "claim": "Land the round-32 routed operability debt: (a) reconcile the corpus/lessons index for the seven round-26..32 lessons files so the round-25 census tool passes clean; (b) locate and disposition 'the falsifier audit's filename mismatch (substance 5/5)' named as round-32 routed debt.",
+      "before": {
+        "a_lessons": "python3 -B reports/round-25/audit/c31-lessons-index-audit.py at declaration: FAIL C31_index_rows_eq_files and FAIL C34b_prose_arithmetic; findings C31-1 unindexed-file [round-26.md..round-32.md = exactly 7] and C34-2 prose-arithmetic-drift {stated [26,26], measured [26,33]}; 33 lesson files vs 26 index rows.",
+        "b_falsifier": "SCORECARD.md round-32 record: 'Routed debt recorded for the operator: the falsifier audit's filename mismatch (substance 5/5)'. Exact artifact not located at declaration; scout seat K01 is assigned to locate and quote it or report could-not-locate with searched paths."
+      },
+      "after_required": {
+        "a_lessons": "The lessons README index carries one row per corpus/lessons/*.md file (33/33), prose arithmetic states 33, every new row's bytes/lines/sha8 cells re-measured from live bytes, owners resolve, format classes documented; filed lesson files themselves untouched (append-only).",
+        "b_falsifier": "A dated disposition record at reports/round-33/op/O05-falsifier-disposition.md: either the mismatch is located and a bounded fix draft + control lands (integrator-applied; no filed-byte rewrites), or it is carried with owner + reason per the append-only rule."
+      },
+      "counting_commands": [
+        "python3 -B reports/round-25/audit/c31-lessons-index-audit.py  # exit 0, zero findings, 33 rows == 33 files",
+        "python3 -B reports/round-25/audit/c31-lessons-index-audit.py --selftest  # still green",
+        "test -s reports/round-33/op/O05-falsifier-disposition.md  # disposition landed"
+      ],
+      "thresholds": "lessons leg: C31/C34b PASS + findings == 0 + selftest green; falsifier leg: disposition record exists and names either fix+control or owner+reason; zero regressions vs the O07 baseline receipt (battery 10/10, craft selftests, gate selftests, c31 selftest)."
+    },
+    {
+      "id": "C",
+      "axis": "calibration",
+      "claim": "Disposition the twelve standing open items recorded in the round-32 dossier: 100% land in reports/round-33/calib/open-items-ledger.json as either fixed-with-evidence or carried-with-owner+reason+next-touch, with bounded fix drafts produced for every in-scope fixable item (no source edits by seats; integrator applies).",
+      "before": {
+        "items": "SCORECARD.md round-32 record: '12 standing open items in the dossier'. Sources: reports/round-32/dossier-d13-operator-decisions.md Decision 4 table (design debts: 12 D4 garment-form holds, head2 empty domain, RL-3 ceiling; box-1 citation conditions; cold-run N1/N4/N5/N7; lore-owned items; rubric gap; devin-telemetry could-not-evaluate; r18 adapter supersession semantics) plus dossier-d11-shonen-boxes.md open conditions. Scout seat K03 canonicalizes exactly the 12 with ids, origins and pointers."
+      },
+      "after_required": "open-items-ledger.json rows == K03's canonicalized 12 (cross-checked against SCORECARD's '12'); every row: status-quo pointer re-verified at HEAD, disposition class in {fixed-with-evidence, carried-with-owner+reason+next-touch}, evidence citations file:line or command output; C13 consistency check green (no duplicate/contradictory dispositions); bounded-fix drafts (e.g. the three box-1 citation pointer fixes, N1 errata) at calib/C14-fix-drafts.md for integrator application.",
+      "counting_commands": [
+        "python3 reports/round-33/run-validation.py  # C legs: ledger row count == 12, required fields present, classes valid, K03 cross-check, consistency receipt green"
+      ],
+      "thresholds": "12/12 rows dispositioned, zero unassigned; every 'fixed' row names the fix draft and its verification; every 'carried' row names owner + reason + next touch; no filed bytes edited by seats."
+    },
+    {
+      "id": "A",
+      "axis": "adjacency",
+      "claim": "Land the consolidated regimen-2 opening boundary audit: PROVINCE accuracy, handoff contract, scope watch, bleed scan and contested-scope posture re-verified at the round-33 tree, with every check green or named-finding.",
+      "before": {
+        "state": "No consolidated adjacency audit since round 29 (r21/r29 pattern on record). PROVINCE.md last touched c53782a (pre-round-8) per r32 dossier D11. Tracked-path baseline for regimen 2 opening: git ls-files | wc -l = 2655 at baseline commit 139e3b6 (2026-10-19T03:49Z)."
+      },
+      "after_required": "reports/round-33/adj/audit-assembled.md (integrator) backed by A01-A10 fragments + A11-A14 verification: PROVINCE accuracy re-verified at HEAD; handoff gate green on the current packet pair; zero unfiled cross-domain bleed; scope watch clean (all round-33 writes inside reports/round-33/ plus integrator-assigned files); contested-scope items (bilateral read, L0 contract digest) restated routed-not-absorbed with current pointers; no promotion/canon/closure language anywhere in round-33 artifacts.",
+      "counting_commands": [
+        "python3 reports/round-33/run-validation.py  # A legs: audit checks present with verdicts, handoff gate exit 0 re-run, scope-watch counts, language grep clean"
+      ],
+      "thresholds": "every A01-A10 check verdict filed (green or named finding with owner); zero unfiled bleed; scope delta fully explained by reports/round-33/ + REGIMEN.md/LOG.md append entries."
+    }
+  ],
+  "non_goals": [
+    "no freshness axis-move (pause in force)",
+    "no promotion, canon, clearance, or closure verdicts (operator-owned)",
+    "no re-dispatch or repair of filed rounds 1-32 bytes",
+    "no git push/merge; no commits by seats (integrator commits under lane identity at round close)"
+  ]
+}
