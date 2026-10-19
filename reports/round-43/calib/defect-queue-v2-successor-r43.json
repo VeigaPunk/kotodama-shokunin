@@ -1,0 +1,250 @@
+{
+ "schema": "kotodama-defect-queue-successor-v1",
+ "round": 43,
+ "date": "2026-10-19",
+ "artifact": "defect-queue-v2 successor delta - four r38/r39 disposition rows",
+ "parent": "reports/round-40/op/defect-queue-v2.json",
+ "parent_sha256_at_assembly": "dfc9265d094aad50c3dedaadc301eda5b1a3aa3e557ed2c67f3833f0a3253907",
+ "parent_history": "Committed at 13a1657 with sha256 fe596a9d13d48401f87d545964ed1d969cf64bac65f3ce90522f68ebd6ae4b98; ac47c78 (r41) edited 20 lines in place to flip N7-receipt-fidelity and r39-runner-root-regression and append r41_update - recorded by reports/round-42/op/O08-queue-update.md:206-216. This successor does not edit the parent; the pinned sha makes any further in-place edit detectable.",
+ "baseline_commit": "7ceff59",
+ "source_dispositions": {
+  "path": "reports/round-43/calib/dispositions-r38-r39.json",
+  "sha256": "ade06209cea45a6f80dfc10e4cc6e910dd8fc1315a04e25f4af1ce93dcb6c155",
+  "owner": "integrator (applied; Ca01 authored base, integrator applied Ca02's measured amendments, Ca02 verified)"
+ },
+ "class_vocabulary": {
+  "fixed-with-evidence": "A landed artifact plus a measured verification output closes the finding.",
+  "routed-with-owner": "No fix is claimed; the finding has a named owner and a next touch.",
+  "recorded": "The measured fact or correction is recorded; filed bytes are immutable or no action is owed.",
+  "could-not-recover": "The evidence the finding depends on cannot be recovered; a named reason and owner are recorded.",
+  "v2_mapping": "fixed-with-evidence -> fixed-with-evidence; routed-with-owner -> carried-with-owner (owner + next_touch); recorded -> carried-with-owner with next_touch 'none - recorded'; could-not-recover -> carried-with-owner with the named reason. The `class` field here is authoritative; `v2_class_equivalent` is the merge hint."
+ },
+ "rows": [
+  {
+   "id": "r39-review-findings-disposition",
+   "origin": "r39 R01-review.md verdict table (:25-34) - findings R01-1..R01-14",
+   "class": "fixed-with-evidence",
+   "v2_class_equivalent": "fixed-with-evidence",
+   "owner": "r43 integrator (files the pass) + Ca01 (author) + Ca02 (verify)",
+   "reason": "The row's defect is the absence of a per-finding disposition record for R01-1..R01-14. The r43 disposition pass, once filed at source_dispositions, records one row per finding with class, owner, and evidence. Measured composition: 2 fixed-with-evidence (R01-4, R01-13), 5 routed-with-owner (R01-2, R01-3, R01-5, R01-6, R01-7), 6 recorded (R01-1, R01-8, R01-9, R01-10, R01-11, R01-12), 1 could-not-recover (R01-14); total 14/14, zero undecided. This closes the disposition debt only; the routed underlying items remain open under their named owners and are not claimed fixed.",
+   "next_touch": "none for the disposition debt. The five routed findings carry their own next touches: a successor protocol document for R01-2/R01-3/R01-5/R01-6, and the r43 O claim for R01-7.",
+   "evidence": "reports/round-39/review/R01-review.md:25-34 and the finding sections :75,93,128,140-146,147,182,191,203,208,226-244,265-274,278-299; reports/round-40/cov/C05-audit.md:26-27,38,387-388; reports/round-39/calib/isolation-replay-protocol.md:10-13 (52 lines, sha256 bd5b4e3d695ae5c7532b6d10dc076f1bbf9051a378ee2c88607e9110079b6b81); reports/round-39/calib/Ca01-protocol.md:76-77,117-125,166; reports/round-39/calib/recount-ledger-successor.json:8; LOG.md:3758,3773-3789; SCORECARD.md:779,790; reports/round-40/claims.json:14.",
+   "verification": "OWED at application (gate G2): parse source_dispositions and assert 14 findings, every class in the four-class vocabulary, every owner and evidence non-empty; expected output '14/14 dispositioned, 0 undecided'. No Ca01 dispositions artifact existed when this seat checked (ls reports/round-43/calib/ -> empty before this seat's write), so this seat could not run the assertion; the integrator runs it before applying.",
+   "fixed_at": "round-43",
+   "findings": [
+    {
+     "id": "R01-1",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "reports/round-39/calib/recount-ledger-successor.json:8; LOG.md:3758; SCORECARD.md:779",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-2",
+     "class": "routed-with-owner",
+     "owner": "successor-protocol author (integrator-designated, r44+)",
+     "evidence": "landed protocol :10-13 names three absolute runners (r34/r35/r36); measured five absolute ROOT lines: reports/round-34/run-validation.py:10, round-35:9, round-36:8, round-37:5, round-38:5",
+     "next_touch": "name all five, or scope the hazard to the pre-flight absolute-ROOT class"
+    },
+    {
+     "id": "R01-3",
+     "class": "routed-with-owner",
+     "owner": "successor-protocol author",
+     "evidence": "grep -ci discriminator reports/round-39/calib/isolation-replay-protocol.md -> 0; no Tier B body in the landed 52-line file",
+     "next_touch": "require a recorded post-run tree discriminator in Tiers A and B; a replay without it is void"
+    },
+    {
+     "id": "R01-4",
+     "class": "fixed-with-evidence",
+     "owner": "r40 integrator/C05",
+     "evidence": "reports/round-40/cov/C05-audit.md:26-27 (4/4 PASS); LOG.md:3773-3789",
+     "fixed_at": "round-40",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-5",
+     "class": "routed-with-owner",
+     "owner": "integrator",
+     "evidence": "rationale at reports/round-39/calib/Ca01-protocol.md:117-125; grep -rn 'declared deviation' reports/round-40 -> no match",
+     "next_touch": "record the Tier A clone-vs-worktree substrate as a declared deviation with A.0 as rationale"
+    },
+    {
+     "id": "R01-6",
+     "class": "routed-with-owner",
+     "owner": "successor-protocol author",
+     "evidence": "reports/round-39/calib/Ca01-protocol.md:166 still ends the T3 probe with 'or True'; line pins at :76-77 per R01-review.md:208-212",
+     "next_touch": "drop the vacuous assert and correct the line pins in the successor protocol; filed bytes are immutable"
+    },
+    {
+     "id": "R01-7",
+     "class": "routed-with-owner",
+     "owner": "r43 integrator + O claim",
+     "evidence": "R01-review.md:265-274; the r43 O claim builds the successor instrument with block extraction and the disposition leg",
+     "next_touch": "close with the O resolver selftest+census; also closes r39-basename-successor-instrument and N6-couples-extractor-wrapped-field"
+    },
+    {
+     "id": "R01-8",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "R01-review.md:75-81; r40 C05 audited with the filed I-C12/I-C05 instruments (C05-audit.md:38,387-388)",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-9",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "R01-review.md:128-132; mitigation is the C06 §6 whole-fragment digest pin",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-10",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "R01-review.md:140-143; r40 C05 extractor handles 3/4+ backtick fences (C05-audit.md:40)",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-11",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "R01-review.md:144-146 (C01 head-block note; executable bar unaffected)",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-12",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "R01-review.md:278-287 (taboo count 10 vs 9; conclusion 'no dedicated taboo entry' stands)",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-13",
+     "class": "fixed-with-evidence",
+     "owner": "r40 integrator",
+     "evidence": "reports/round-40/claims.json:14 (G2-G4 landed as four sourced entries, linguistics 21->25); SCORECARD.md:790",
+     "fixed_at": "round-40",
+     "next_touch": "none"
+    },
+    {
+     "id": "R01-14",
+     "class": "could-not-recover",
+     "owner": "R01/integrator",
+     "evidence": "R01-review.md:292-299 records the +2 sweep anomaly as an unreproduced reviewer-side observation with no durable artifact; filed against no seat",
+     "next_touch": "none unless the integrator chooses to chase the transient tree state"
+    }
+   ]
+  },
+  {
+   "id": "r38-O02-fragment-defects",
+   "origin": "r38 O03 §4.1-4.3 (filed corrections owed)",
+   "class": "recorded",
+   "v2_class_equivalent": "carried-with-owner",
+   "owner": "integrator (correction record, filed here)",
+   "reason": "The row's three asserted defects are re-measured against the only committed O02 fragment (sha256 e314dbf3e54f9e846c4fed68be6811fcb9dfd4e6589ede0554ae6d9ade066f9d, 15,308 bytes). D-1 and D-2 do not reproduce: the quoted '44 controls' and '58-member' text appears in no committed version (git log -S -> empty; grep -c -> 0), and the only 'names nothing' hit (O02:99) describes the rejected rendered-text guard, not m15b; the filed O02:20,62 read 45 controls and describe m15b as green. The reviewed draft was amended at 08:27, O03 was written at 08:35, and the pre-commit draft is unrecoverable. D-3 survives in weaker form: the quoted frozen-packet error string is absent, but O02:164 still says a tampered 13th component 'surfaces through the assembled-vs-frozen packet compare (:3951-3957)', while O03 §4.3 measured the per-component digest leg firing instead. Corrections are recorded; filed bytes are immutable.",
+   "next_touch": "none - corrections recorded. Any future citation of D-1/D-2 must cite this row's could-not-recover, not O03 §4.1-4.2 as a live defect; any citation of O02 §7's mechanism must use the component-digest leg.",
+   "evidence": "reports/round-38/op/O02-isolated.md:20,62,99,164 (sha256 e314dbf3...); reports/round-38/op/O03-verify.md:255-306; git log -S'44 controls' -- reports/round-38/op/O02-isolated.md -> no output; mtimes O02 08:27, O03 08:35.",
+   "verification": "Commands run this seat: grep -c '44 controls' -> 0; grep -c '58-member' -> 0; grep -c 'does not match the frozen packet digest' -> 0; grep -c 'names nothing' -> 1 (O02:99, rendered-text guard); grep -c 'assembled-vs-frozen' -> 1 (O02:164).",
+   "findings": [
+    {
+     "id": "D-1",
+     "class": "could-not-recover",
+     "owner": "r38 O03/integrator",
+     "evidence": "quoted 44/58-member text is in no committed O02 version (grep -c -> 0; git log -S -> empty); filed O02:62 reads 45; the reviewed pre-commit draft is unrecoverable",
+     "next_touch": "none - record only"
+    },
+    {
+     "id": "D-2",
+     "class": "could-not-recover",
+     "owner": "r38 O03/integrator",
+     "evidence": "the only 'names nothing' hit is O02:99 about the rejected rendered-text guard; O02:62 describes m15b as in-sync roster green; the quoted description is absent",
+     "next_touch": "none - record only"
+    },
+    {
+     "id": "D-3",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "specific prediction string absent (grep -c -> 0); O02:164 still names the assembled-vs-frozen compare; O03 §4.3 measured the per-component digest leg (v3_verify_component_digests, :2208-2222) firing instead",
+     "next_touch": "read O02 §7's mechanism sentence as the component-digest leg; the naming-not-detection conclusion stands"
+    }
+   ]
+  },
+  {
+   "id": "r38-O08-fragment-defect",
+   "origin": "r38 O03 §4.4",
+   "class": "recorded",
+   "v2_class_equivalent": "carried-with-owner",
+   "owner": "integrator (correction record, filed here)",
+   "reason": "D-4 reproduces at HEAD: O08-regression.md:83 asserts that ae22013b... is exactly the digest O01 §6 declares, while O01-guard-design.md:144,309 declare e5812751... and O08:80 prints its own ae22013b.... O03 §4.4 measured the two trees differ by exactly the m15b result string. Correction recorded: ae22013b... is O08's own variant of O01's patch with the m15b string adjusted; O08's readings and census stand; only the provenance claim is wrong. Filed bytes are immutable; no edit.",
+   "next_touch": "none - correction recorded. Any future citation of O08's patched digest must carry the variant label, not the false identity.",
+   "evidence": "reports/round-38/op/O08-regression.md:18,80,83,241,250 (sha256 3818df945e4a1850d34e7147d4d4b9c4255adabf5f3cff8578e6fd33dc4b2539); reports/round-38/op/O01-guard-design.md:144,309 (sha256 d863af319395a4df6a32b6ac1f6956e7cb637c8bdcee0b46dab5401d08d458d0); reports/round-38/op/O03-verify.md:308-341.",
+   "verification": "Commands run this seat: grep -n 'is exactly the digest O01' reports/round-38/op/O08-regression.md -> 83; grep -n 'e5812751' reports/round-38/op/O01-guard-design.md -> 144,309; grep -n 'ae22013b' reports/round-38/op/O08-regression.md -> 18,80,83,241,250."
+  },
+  {
+   "id": "r38-O07-empty-fragment",
+   "origin": "r38 wave (LOG.md:3741; SCORECARD.md:761-762)",
+   "class": "recorded",
+   "v2_class_equivalent": "carried-with-owner",
+   "owner": "future runner maintainer (live min-bytes gate) + integrator (record)",
+   "reason": "Measured at HEAD: reports/round-38/op/O07-scribe.md is 0 bytes (wc -c -> 0; sha256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855). Filed bytes are immutable, so the fragment stays as an empty historical record. The prevention leg is only partially landed: r40's integration census ran a manual non-empty check and passed (S01-integration-draft.md:391, CO4), but the r41/r42 runners cannot enforce it - 'empty' is filtered from 'missing', which contains only non-existent paths (r41/run-validation.py:168-173; r42:177-182), so the intersection is empty by construction, and the r38 O07 named finding is a hard-coded string (r41:183; r42:192). No durable automated min-bytes gate exists. This row must not be re-classed fixed-with-evidence until one lands.",
+   "next_touch": "next runner-authoring round (r44+): make the empty list a receipt field and an acceptance check (non-empty for every declared out), with the r38 O07 path as the named historical exception; see observation OBS-1.",
+   "evidence": "reports/round-38/op/O07-scribe.md (0 bytes, sha256 e3b0c442...); reports/round-40/scribe/S01-integration-draft.md:391; reports/round-41/run-validation.py:168-173,183; reports/round-42/run-validation.py:177-182,192; LOG.md:3741; SCORECARD.md:761-762.",
+   "verification": "Commands run this seat: wc -c reports/round-38/op/O07-scribe.md -> 0; sha256sum -> e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855; grep -n 'empty' reports/round-41/run-validation.py -> :173 (assignment), :183 (hard-coded named finding) - no read of the list."
+  }
+ ],
+ "application_gates": [
+  "G1: Apply row r39-review-findings-disposition as fixed-with-evidence only after reports/round-43/calib/dispositions-r38-r39.json (or .md) lands and Ca02's independent verification is filed.",
+  "G2: The integrator runs the parse assertion (14 findings, classes in vocabulary, non-empty owner/evidence) and pastes the output into this successor artifact; a fixed claim without that output is not admissible.",
+  "G3: If Ca01's durable evidence contradicts this draft's D-1/D-2 could-not-recover, Ca01 wins only if it names committed bytes; otherwise the row stands as measured here.",
+  "G4: Apply this as a new artifact. reports/round-40/op/defect-queue-v2.json stays byte-identical at sha256 dfc9265d094aad50c3dedaadc301eda5b1a3aa3e557ed2c67f3833f0a3253907.",
+  "G5: If the queue keeps v2's two-class vocabulary, map routed-with-owner/recorded/could-not-recover to carried-with-owner and preserve the four-class value in a disposition field.",
+  "G6: Do not re-class r38-O07-empty-fragment fixed-with-evidence until a live min-bytes check lands (OBS-1); the current evidence supports only partial prevention."
+ ],
+ "observations": [
+  {
+   "id": "OBS-1",
+   "proposed_row_id": "r41-empty-output-check-vacuous",
+   "status": "candidate - integrator decides whether to mint; canonical-id dedupe per r37 R07-cross-review:13 and r39 X00-4",
+   "owner": "future runner maintainer",
+   "finding": "The r41/r42 runners compute 'empty' from a list that only contains non-existent paths: missing is built at r41:168-170 from not os.path.isfile(...), then empty filters that same list for existing zero-byte files at :173 - an empty intersection. The list is never read; the only O07 signal is the hard-coded named finding at :183 (r42:192). The r40 CO4 min-bytes check was manual, not runner-enforced.",
+   "evidence": "reports/round-41/run-validation.py:168-173,183; reports/round-42/run-validation.py:177-182,192; reports/round-40/scribe/S01-integration-draft.md:391."
+  },
+  {
+   "id": "OBS-2",
+   "proposed_row_id": "r39-protocol-landing-truncated",
+   "status": "candidate + to-verify (truncation vs intentional excerpt) - integrator decides",
+   "owner": "integrator / successor-protocol author",
+   "finding": "The landed isolation-replay protocol is 52 lines / 2,829 bytes, sha256 bd5b4e3d695ae5c7532b6d10dc076f1bbf9051a378ee2c88607e9110079b6b81. It ends at '## 3. Step 0 - determine the close commit' (tail -4), refers at I6 to a '§9 vocabulary' absent from the file, and contains no Tier A/B/C body, no §5, no §7. The full protocol lives only in the author fragment reports/round-39/calib/Ca01-protocol.md. Consequence for the dispositions: R01-2 reproduces in the landed bytes (:10-13 names three runners); R01-3/R01-5/R01-6 target fragment bytes that never landed, so they are routed, not fixable in place.",
+   "evidence": "reports/round-39/calib/isolation-replay-protocol.md:10-13,40-50 (52 lines; tail shows the cut); reports/round-39/calib/Ca01-protocol.md:76-77,117-125,166; wc -l -> 52."
+  },
+  {
+   "id": "OBS-3",
+   "proposed_row_id": null,
+   "status": "recorded - no new row; context for the parent pin",
+   "owner": "integrator",
+   "finding": "The r40 queue was edited in place at r41: committed at 13a1657 with sha256 fe596a9d..., current sha256 dfc9265d... after ac47c78. This successor artifact is the correct home for further updates; the parent must not be edited again. The parent sha is pinned above.",
+   "evidence": "git log --oneline -- reports/round-40/op/defect-queue-v2.json; git show 13a1657:... | sha256sum; sha256sum reports/round-40/op/defect-queue-v2.json; reports/round-42/op/O08-queue-update.md:206-216."
+  }
+ ],
+ "provenance": {
+  "seat": "Ca03",
+  "out": "reports/round-43/calib/Ca03-queue-update.md",
+  "date": "2026-10-19",
+  "baseline_commit": "7ceff59",
+  "commands": [
+   "sed -n '282,310p;343,351p' reports/round-40/op/defect-queue-v2.json",
+   "sha256sum reports/round-40/op/defect-queue-v2.json reports/round-38/op/O02-isolated.md reports/round-38/op/O08-regression.md reports/round-38/op/O01-guard-design.md reports/round-38/op/O07-scribe.md reports/round-39/review/R01-review.md reports/round-39/calib/isolation-replay-protocol.md",
+   "wc -c reports/round-38/op/O07-scribe.md",
+   "grep -c '44 controls' / '58-member' / 'does not match the frozen packet digest' reports/round-38/op/O02-isolated.md",
+   "git log -S'44 controls' --oneline -- reports/round-38/op/O02-isolated.md",
+   "grep -n 'is exactly the digest O01' reports/round-38/op/O08-regression.md",
+   "grep -n 'e5812751' reports/round-38/op/O01-guard-design.md",
+   "grep -ci discriminator reports/round-39/calib/isolation-replay-protocol.md",
+   "grep -n '^ROOT' reports/round-3{4,5,6,7,8}/run-validation.py",
+   "grep -n 'empty' reports/round-41/run-validation.py reports/round-42/run-validation.py",
+   "git show 13a1657:reports/round-40/op/defect-queue-v2.json | sha256sum",
+   "git status --porcelain"
+  ],
+  "boundary": "Only this out path written; no filed byte edited or staged; no round runner executed; no corpus staging; no git mutation, network, or install."
+ },
+ "application_gates_filed_by": "integrator"
+}

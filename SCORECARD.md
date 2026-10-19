@@ -828,6 +828,28 @@ the overwrite-restore incident (caught by census arithmetic); the r39
 truncation (corrected append-only); K01's D1b/D1c/D1d finding family filed to
 the queue's successor.
 
+## Axes — round 43 (2026-10-19), NOT ADMITTED on O+C (loop 1, position 11)
+
+Baseline `7ceff59`; scheduled `zai-coding-plan/glm-5.3-flash-low`, operator-
+redirected to `opencode-go/deepseek-v4.1-flash` after three pre-completion
+interruptions (a named deviation). One 32-seat batch, 16/32 filed. Rejection
+receipt: `python3 reports/round-43/run-validation.py` exit 1 by design
+(`reports/round-43/validation.json`, `rejected-honest-stop`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | unchanged (claim O FAILED as declared) | durable green resolver already exists at HEAD (`couples-reference-extractor.py` 8/8, census 223/2730); minting the claim-named `basename-couples-resolver.py` would fork the parser — the `before` was false. Residual hardening (blank-line terminator, ambiguous control, four-class census, disposition leg) is real but un-landed → could-not-evaluate / unprovable-but-better | `python3 tools/harness/couples-reference-extractor.py --selftest/--census`; `python3 reports/round-43/run-validation.py` | `scout/K01-resolver-scout.md`; `op/O09-scribe.md` (515-line verified successor draft, 27/27) |
+| coverage | unchanged (claim C BLOCKED by collision) | lithic slot already owned by `mineral-stone-symbolism.md` (r42 C04); landing the C01 spare overwrites or duplicates → no corpus delta. myth-symbol 26, total 223, README stays rev 2.4 | census + `python3 -B reports/round-28/readme/sweep.py` | `cov/C06-collision.md`; `review/R01-review.md` §3 |
+| calibration | improved (claim Ca) | four carried r38/r39 rows each reach a class with citation, zero dropped (19 findings / 22+ legs); filed with independent-verifier Ca02's measured amendments (D-3 recorded, R01-13 fixed at r40, R01-4 r39 citation) — no filed byte edited, all successor records | `python3 reports/round-43/run-validation.py` | `calib/dispositions-r38-r39.json`; `calib/defect-queue-v2-successor-r43.json` |
+| depth / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Round status: REJECTED on O+C (honest stop; the second consecutive such).
+Named: the stale-premises process defect (claims not re-measured at baseline
+before dispatch — R01-43-12); the claims.json digest drift from three provider
+redirects (re-pinned in `telemetry/availability-close-43.json`); the O09
+verified successor draft carried to a future hardening round; the C01 spare
+retired as superseded. Absent seats O01/O08/R02 recorded could-not-evaluate.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was

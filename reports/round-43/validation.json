@@ -1,0 +1,98 @@
+{
+  "acceptance_checks_passed": false,
+  "baseline_revision": "7ceff59",
+  "claims": {
+    "C": {
+      "command": "python3 reports/round-43/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [
+        "C: BLOCKED — the lithic slot is already owned by mineral-stone-symbolism.md (myth-symbol 26, total 223; r42 C04 landing). Landing the r42 C01 spare at its declared path would overwrite a tracked entry; landing under a new slug duplicates the topic and lands the spare's stale head block. Correct outcome: no corpus delta; coverage unchanged at 26/223, README stays rev 2.4."
+      ],
+      "measurement": {
+        "lithic_owner_exists": true,
+        "lithic_owner_sha256": "c99f44ca79a7c50306259c1c9038cefd92787d9a5e0dd66910f46dda95adb99f",
+        "myth_symbol": 26,
+        "total": 223
+      },
+      "passed": false,
+      "verdict": "blocked-by-topic-collision"
+    },
+    "Ca": {
+      "command": "python3 reports/round-43/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "amendments": 4,
+        "dispositions_filed": true,
+        "dispositions_sha256": "ade06209cea45a6f80dfc10e4cc6e910dd8fc1315a04e25f4af1ce93dcb6c155",
+        "queue_successor_filed": true,
+        "row_classes": {
+          "fixed-with-evidence": 1,
+          "recorded": 3
+        }
+      },
+      "passed": true,
+      "verdict": "improved"
+    },
+    "O": {
+      "command": "python3 reports/round-43/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [
+        "O: claim FAILED as declared — its `before` is false (durable green resolver couples-reference-extractor.py exists at HEAD, selftest 8/8 PASS) and the claim-named path basename-couples-resolver.py is absent (O01 seat failed; O09's 515-line successor body remains a fenced draft). Minting beside the existing tool would fork the parser. The residual hardening work (blank-line terminator, ambiguous control, four-class census + disposition leg) is real but un-landed -> could-not-evaluate / unprovable-but-better, NOT improved."
+      ],
+      "measurement": {
+        "claim_named_path_exists": false,
+        "existing_extractor_sha256": "d8d23a265d12d290de69a6eb50454273af4ca699986812c6e203a030f4679cf1",
+        "existing_selftest_pass": 8,
+        "existing_selftest_rc": 0,
+        "o01_draft_absent": true,
+        "o09_draft_present": true
+      },
+      "passed": false,
+      "verdict": "failed-as-declared"
+    },
+    "cross": {
+      "command": "python3 reports/round-43/run-validation.py",
+      "date": "2026-10-19",
+      "failures": [],
+      "measurement": {
+        "absent_seats": [
+          "op/O01-tool-draft.md",
+          "op/O08-policy-check.md",
+          "review/R02-review.md"
+        ],
+        "declared_outs": 32,
+        "fragments_present": 29,
+        "git_status_corpus_lines": []
+      },
+      "passed": true,
+      "verdict": "measured"
+    }
+  },
+  "claims_declared": {
+    "C": "coverage",
+    "Ca": "calibration",
+    "O": "operability"
+  },
+  "counting_command": "python3 reports/round-43/run-validation.py",
+  "date": "2026-10-19",
+  "failures": [
+    "claim O: O: claim FAILED as declared — its `before` is false (durable green resolver couples-reference-extractor.py exists at HEAD, selftest 8/8 PASS) and the claim-named path basename-couples-resolver.py is absent (O01 seat failed; O09's 515-line successor body remains a fenced draft). Minting beside the existing tool would fork the parser. The residual hardening work (blank-line terminator, ambiguous control, four-class census + disposition leg) is real but un-landed -> could-not-evaluate / unprovable-but-better, NOT improved.",
+    "claim C: C: BLOCKED — the lithic slot is already owned by mineral-stone-symbolism.md (myth-symbol 26, total 223; r42 C04 landing). Landing the r42 C01 spare at its declared path would overwrite a tracked entry; landing under a new slug duplicates the topic and lands the spare's stale head block. Correct outcome: no corpus delta; coverage unchanged at 26/223, README stays rev 2.4."
+  ],
+  "input_sha256": {
+    "reports/round-43/calib/dispositions-r38-r39.json": "ade06209cea45a6f80dfc10e4cc6e910dd8fc1315a04e25f4af1ce93dcb6c155",
+    "reports/round-43/claims.json": "9662e2bdaa73d3dd075e68148ae55c8c35d6fbdab527fc2602083745dcbc174b",
+    "reports/round-43/run-validation.py": "c6f4769d908e52c9565ac9912f71b83a0821d247cd018acff0e8d99aeee9da33",
+    "reports/round-43/targets.json": "44d1f7ce1de23be7f92da6b5915770d05aab448b722acb33c0f8c0447f0f99cc"
+  },
+  "limits": [
+    "O and C were declared on premises false at baseline 7ceff59 (durable green resolver; owned lithic slot). The honest outcome is rejection, not admission: minting O's named path forks the parser; landing C's spare overwrites/duplicates a tracked entry.",
+    "O's residual hardening (blank-line terminator, ambiguous control, four-class census, disposition leg) is real but un-landed — a successor round re-scopes it as hardening, not minting.",
+    "C's spare is retired as superseded (topic owned); a future re-scope needs a fresh draft + fresh absence sweep, not these bytes.",
+    "Ca's disposition artifacts are filed with the independent verifier Ca02's measured amendments; the parent defect-queue-v2.json is pinned, never edited.",
+    "Absent seats O01/O08/R02 recorded could-not-evaluate with owner, not scored as pass."
+  ],
+  "round": 43,
+  "verdict": "rejected-honest-stop"
+}

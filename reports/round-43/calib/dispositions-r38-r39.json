@@ -1,0 +1,288 @@
+{
+ "schema": "kotodama-finding-dispositions-v1",
+ "round": 43,
+ "date": "2026-10-19",
+ "kind": "successor",
+ "baseline_commit": "7ceff59",
+ "head_at_measurement": "7ceff59",
+ "source": {
+  "parent_rows": "reports/round-40/op/defect-queue-v2.json",
+  "parent_sha256": "dfc9265d094aad50c3dedaadc301eda5b1a3aa3e557ed2c67f3833f0a3253907",
+  "review": "reports/round-39/review/R01-review.md",
+  "review_sha256": "4fe294ae213a353d504555228d2dd93005558f90364bfe4dc5f59cfa1339dfde",
+  "audit": "reports/round-39/cov/C05-audit.md",
+  "audit_sha256": "e5f3b5852dfb453d8b8f7ab48069f53d0e696a1cb2ac753c02071c6755c9801f"
+ },
+ "class_vocabulary": [
+  "fixed-with-evidence",
+  "routed-with-owner",
+  "recorded",
+  "could-not-recover"
+ ],
+ "constraints": {
+  "filed_bytes_edited": false,
+  "runner_executed": false,
+  "corpus_staged": false,
+  "writes": [
+   "reports/round-43/calib/Ca01-dispositions.md"
+  ]
+ },
+ "rows": [
+  {
+   "id": "r38-O02-fragment-defects",
+   "parent_row": "reports/round-40/op/defect-queue-v2.json:282-291",
+   "class": "recorded",
+   "owner": "integrator correction record",
+   "reason": "D-1/D-2 do not reproduce (filed O02 says 45 controls, not 44; 'names nothing' is :99 the rejected rendered-text guard); D-3 partially reproduces — O02:164's second sentence mis-attributes the firing leg. The quoted intermediate-draft readings are unrecoverable; the surviving weaker error is corrected by record.",
+   "evidence": [
+    "reports/round-38/op/O02-isolated.md sha256 e314dbf3e54f9e846c4fed68be6811fcb9dfd4e6589ede0554ae6d9ade066f9d",
+    "git show dfb0719:reports/round-38/op/O02-isolated.md sha256 e314dbf3e54f9e846c4fed68be6811fcb9dfd4e6589ede0554ae6d9ade066f9d",
+    "grep -Fn 'plus 44 controls' -> no match (exit 1)",
+    "grep -Fn 'green and names nothing' -> no match (exit 1)",
+    "grep -Fn 'does not match the frozen packet digest' -> no match (exit 1)",
+    "filed O02:62,:203 read 'plus 45 controls' and 'm15b in-sync roster green'",
+    "reports/round-38/op/O03-verify.md:255-306"
+   ],
+   "findings": [
+    {
+     "fid": "D-1",
+     "class": "could-not-recover",
+     "claim": "O02 records 'plus 44 controls'; the artifact yields 45",
+     "measured": "filed O02:20,:62,:203 record 45; the string 'plus 44 controls' is absent",
+     "action": "correct the queue row; no correction row against O02 is owed"
+    },
+    {
+     "fid": "D-2",
+     "class": "could-not-recover",
+     "claim": "O02 describes m15b as green and 'names nothing'",
+     "measured": "filed O02:62 records 'm15b in-sync roster green'; O01:228 asserts the member is named",
+     "action": "correct the queue row; no correction row against O02 is owed"
+    },
+    {
+     "fid": "D-3",
+     "class": "recorded",
+     "claim": "O02 predicts the assembled-vs-frozen leg fires",
+     "measured": "filed O02:160-166 names v3_verify_component_digests (:161) as the firing leg but its second sentence still asserts the tamper 'surfaces through the assembled-vs-frozen packet compare (:3951-3957)'; O03 measured the per-component leg firing, not the frozen compare — the quoted prediction string is absent AND the surviving mechanism sentence is wrong",
+     "action": "correct the surviving O02:164 second-sentence mechanism claim (component-digest leg); the quoted D-3 prediction string remains unrecoverable"
+    }
+   ]
+  },
+  {
+   "id": "r38-O08-fragment-defect",
+   "parent_row": "reports/round-40/op/defect-queue-v2.json:292-301",
+   "class": "recorded",
+   "owner": "integrator correction record",
+   "reason": "D-4 reproduces: O08's ae22013b... is its own m15b-string variant, not O01's declared e5812751...",
+   "evidence": [
+    "reports/round-38/op/O08-regression.md:83,:241 (the false identity claim)",
+    "reports/round-38/op/O01-guard-design.md:144,:309 (e581275129eb...)",
+    "reports/round-38/op/O03-verify.md:308-341 (one-hunk diff)",
+    "sha256 reports/round-38/op/O08-regression.md 3818df945e4a1850d34e7147d4d4b9c4255adabf5f3cff8578e6fd33dc4b2539"
+   ],
+   "corrected_attribution": "ae22013b5ddd77aa1b598cef1f5a57f0fb76bfc6eb8541d56e180fe70abcf6c2 is O08's own m15b-string variant of O01 section 6's patch; O01 declares e581275129eb765399355374e8c5e29b50399fb98cbf860012b333b3eb02a553. Functionally equivalent for the claim's thresholds; not the same artifact.",
+   "filed_bytes_edited": false
+  },
+  {
+   "id": "r38-O07-empty-fragment",
+   "parent_row": "reports/round-40/op/defect-queue-v2.json:302-311",
+   "class": "recorded",
+   "owner": "integrator (record); r44 runner work (prevention)",
+   "reason": "the fragment is 0 bytes; the prevention leg has no durable instrument",
+   "evidence": [
+    "wc -c reports/round-38/op/O07-scribe.md -> 0",
+    "sha256 reports/round-38/op/O07-scribe.md -> e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "grep -rn 'min_bytes|min-bytes|MIN_BYTES' reports/round-4[0-2]/run-validation.py tools/harness/ -> exit 1"
+   ],
+   "legs": [
+    {
+     "leg": "record",
+     "class": "recorded",
+     "action": "none; filed bytes immutable"
+    },
+    {
+     "leg": "prevention",
+     "class": "routed-with-owner",
+     "owner": "r44 runner / templates/round-runner-template.py",
+     "action": "add a min-bytes assertion to the declared-out-path census"
+    }
+   ]
+  },
+  {
+   "id": "r39-review-findings-disposition",
+   "parent_row": "reports/round-40/op/defect-queue-v2.json:343-352",
+   "class": "fixed-with-evidence",
+   "owner": "integrator (apply this successor record)",
+   "reason": "the missing per-finding list now exists; 14 numbered findings plus one unnumbered minor are dispositioned",
+   "evidence": [
+    "grep -c 'R01-' reports/round-39/validation.json -> 0 (the original defect)",
+    "reports/round-39/cov/C05-audit.md:150-180 (R01-4 and R01-8..R01-14 already folded)",
+    "reports/round-39/calib/recount-ledger-successor.json:8 (R01-1 ruling)"
+   ],
+   "findings": [
+    {
+     "fid": "R01-1",
+     "class": "recorded",
+     "owner": "integrator",
+     "evidence": "recount-ledger-successor.json:8; Ca02-replay-verify.md:31,:122",
+     "residual": {
+      "class": "routed-with-owner",
+      "owner": "protocol successor",
+      "action": "write the adapted-copy ruling into the protocol text, not only the ledger"
+     }
+    },
+    {
+     "fid": "R01-2",
+     "class": "routed-with-owner",
+     "owner": "integrator / protocol successor",
+     "evidence": "isolation-replay-protocol.md:10 names 34/35/36; r37:5 and r38:5 are also absolute",
+     "action": "name all five absolute runners or scope to the absolute-ROOT class"
+    },
+    {
+     "fid": "R01-3",
+     "class": "routed-with-owner",
+     "owner": "integrator / protocol successor",
+     "evidence": "canonical protocol 2829 B, 3 H2 sections, ends at '## 3. Step 0'",
+     "action": "add the mandatory post-run tree-discriminator to Tiers A and B"
+    },
+    {
+     "fid": "R01-4",
+     "class": "fixed-with-evidence",
+     "owner": "C05 seat / integrator",
+     "evidence": "reports/round-39/cov/C05-audit.md (28,221 B; :46 4/4 PASS) — the r39 audit is the on-point artifact, not the r40 C05-audit"
+    },
+    {
+     "fid": "R01-5",
+     "class": "routed-with-owner",
+     "owner": "integrator",
+     "evidence": "Ca01-protocol.md:111-130; grep -c clone reports/round-39/validation.json -> 0",
+     "action": "record the clone-vs-worktree substrate as a declared deviation with A.0"
+    },
+    {
+     "fid": "R01-6",
+     "class": "routed-with-owner",
+     "owner": "integrator / protocol successor",
+     "evidence": "Ca01-protocol.md:166 'or True'; line nits per R01-review.md:208-212",
+     "action": "tighten or delete the vacuous assert and fix the three line numbers"
+    },
+    {
+     "fid": "R01-7",
+     "class": "routed-with-owner",
+     "owner": "r43 claim O (D1 instrument) + policy successor (D1 text, D2)",
+     "evidence": [
+      "basename-couples-policy.md:16 and basename-couples-policy-full.md:16 still say 'single physical line'",
+      "corpus/knowledge/linguistics/phonetics-phonology.md:72-77 (wrapped field, 4 named targets)",
+      "grep -c to-verify in both policy docs -> 0",
+      "basename-couples-policy-full.md:232-235 names one phantom carrier only"
+     ],
+     "action": "amend the policy to read wrapped continuation lines; add the blocker/(to-verify mapping and the second phantom carrier"
+    },
+    {
+     "fid": "R01-8",
+     "class": "recorded",
+     "owner": "C02 / integrator",
+     "evidence": "C05-audit.md:169-174"
+    },
+    {
+     "fid": "R01-9",
+     "class": "recorded",
+     "owner": "C04 / integrator",
+     "evidence": "C05-audit.md:165 (F5)"
+    },
+    {
+     "fid": "R01-10",
+     "class": "recorded",
+     "owner": "integrator (staging)",
+     "evidence": "C05-audit.md:175-176; r39 landing 4/4 PASS"
+    },
+    {
+     "fid": "R01-11",
+     "class": "recorded",
+     "owner": "C01 / integrator",
+     "evidence": "C05-audit.md:176-177"
+    },
+    {
+     "fid": "R01-12",
+     "class": "recorded",
+     "owner": "K01 / integrator",
+     "evidence": "C05-audit.md:177-179; HEAD re-measure 11 over 24 files = 10 + the r39 worked-example entry's single taboo mention",
+     "head_recheck": 11
+    },
+    {
+     "fid": "R01-13",
+     "class": "fixed-with-evidence",
+     "owner": "lane planner / coverage rounds",
+     "evidence": "reports/round-40/claims.json claim C: G2-G4 landed as four sourced entries, linguistics 21 -> 25; SCORECARD.md cost row",
+     "fixed_at": "round-40"
+    },
+    {
+     "fid": "R01-14",
+     "class": "could-not-recover",
+     "owner": "integrator",
+     "evidence": "R01-review.md:292-299; C05-audit.md:150-153; no durable artifact or attribution"
+    },
+    {
+     "fid": "R01-minor",
+     "class": "recorded",
+     "owner": "protocol successor",
+     "evidence": "R01-review.md:245-247",
+     "action": "name the bounded .scratch side effect in the escape-demonstration section"
+    }
+   ]
+  }
+ ],
+ "counts": {
+  "named_rows": 4,
+  "row_classes": {
+   "recorded": 3,
+   "fixed-with-evidence": 1
+  },
+  "sub_legs_total": 25,
+  "sub_leg_classes": {
+   "fixed-with-evidence": 3,
+   "recorded": 12,
+   "routed-with-owner": 7,
+   "could-not-recover": 3
+  },
+  "findings_dispositioned": 19,
+  "findings_dropped": 0
+ },
+ "queue_successor_entries": [
+  {
+   "parent_id": "r38-O02-fragment-defects",
+   "successor_class": "recorded",
+   "owner": "integrator correction record",
+   "correction": "D-1/D-2 do not reproduce in filed O02 (e314dbf3...; filed O02 carries 45 controls and the in-sync m15b row); the quoted prediction strings are unrecoverable intermediate-draft readings. D-3 partially reproduces: O02:164's second sentence still mis-attributes the tamper leg to the assembled-vs-frozen compare where O03 measured the per-component digest leg — corrected by record."
+  },
+  {
+   "parent_id": "r38-O08-fragment-defect",
+   "successor_class": "recorded",
+   "owner": "integrator correction record",
+   "correction": "D-4 stands. ae22013b... is O08's m15b-string variant; O01 declares e5812751... Corrected attribution filed."
+  },
+  {
+   "parent_id": "r38-O07-empty-fragment",
+   "successor_class": "recorded",
+   "owner": "integrator (record); r44 runner work (prevention)",
+   "correction": "0-byte fragment remains immutable and recorded. Prevention leg (min-bytes census check) is unlanded and routed to r44."
+  },
+  {
+   "parent_id": "r39-review-findings-disposition",
+   "successor_class": "fixed-with-evidence",
+   "owner": "integrator (apply)",
+   "correction": "Per-finding dispositions filed in reports/round-43/calib/dispositions-r38-r39.json. R01-4 and R01-13 verified fixed-with-evidence (r39 audit on-point; r40 G2-G4 landing respectively). Remaining routed legs: R01-1 protocol-text, R01-2, R01-3, R01-5, R01-6, R01-7."
+  }
+ ],
+ "limits": [
+  "O03's D-1/D-2/D-3 quotes cannot be traced to any durable artifact; this pass does not assert what O03 saw, only what the filed bytes contain.",
+  "R01-12's original 10 was measured over the 20-file pre-landing verification partition; the HEAD reading of 11 is not a contradiction and is not a new defect.",
+  "The r42 lithic collision (section 7 of Ca01-dispositions.md) is outside claim Ca and is reported for the C seats; no filename was chosen and no byte was staged."
+ ],
+ "integrator_amendments": [
+  "D-3 reclassed could-not-recover -> recorded (Ca02/Ca03; O02:164 survives)",
+  "row r38-O02-fragment-defects reclassed could-not-recover -> recorded (D-3 survives weaker)",
+  "R01-4 citation corrected to the r39 C05-audit (Ca02; r40 artifact is a different audit)",
+  "R01-13 reclassed recorded -> fixed-with-evidence at r40 (Ca03/Ca02; r40 claims:14)"
+ ],
+ "amendment_source": "Ca02-verify.md §6 five-amendment gate (independent non-author verifier); R01-review.md §4; X01-trades.md T6; X02-honesty.md §1.3",
+ "note": "Integrator-filed corrected artifact: Ca01 authored the base dispositions (calib/Ca01-dispositions.md fenced JSON); this file applies the independent verifier Ca02's measured amendments. No filed byte (r37-r42) edited; all dispositions are successor records."
+}

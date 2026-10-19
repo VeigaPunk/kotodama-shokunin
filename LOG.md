@@ -3817,3 +3817,30 @@ actual route stay recorded per round. Prior rounds stand as filed.
   HEAD before commit.
 - **Evidence:** `reports/round-42/validation.json` (rejection receipt
   `0a0b20f6…` class); telemetry closed via `availability-close-42.json`.
+
+## 2026-10-19 — Round 43 NOT ADMITTED on O+C (loop 1, position 11; honest stop)
+
+- **Trigger:** regimen; claims O/C/Ca; one 32-seat `opencode-go/deepseek-v4.1-flash`
+  batch after three pre-completion interruptions of the scheduled zai lane (named
+  deviation). 16/32 seats filed real content; O01/O08/R02 absent (could-not-evaluate).
+- **O (FAILED as declared):** the claim's `before` was false — a durable, selftest-green
+  resolver (`tools/harness/couples-reference-extractor.py`, 8/8, census 223/2730) already
+  exists at HEAD; minting the claim-named `basename-couples-resolver.py` would fork the
+  parser. Residual hardening (blank-line terminator, ambiguous control, four-class census,
+  disposition leg) is real but un-landed → could-not-evaluate / unprovable-but-better.
+  O09's verified 515-line successor draft (27/27 selftest) is carried to a re-scoped round.
+- **C (BLOCKED by topic collision):** the lithic slot is already owned by
+  `mineral-stone-symbolism.md` (r42 C04). Landing the C01 spare would overwrite or
+  duplicate → no corpus delta; coverage unchanged 26/223, README stays rev 2.4. The
+  spare is retired as superseded; a future re-scope needs a fresh draft + fresh sweep.
+- **Ca (verified):** the four r38/r39 carried rows each reach a class with citation,
+  zero findings dropped (19 findings, 22+ legs); filed with independent-verifier Ca02's
+  measured amendments — D-3 `recorded`, R01-13 `fixed-with-evidence` at r40, R01-4 the
+  r39 audit. No filed byte edited; all successor records
+  (`calib/dispositions-r38-r39.json`, `calib/defect-queue-v2-successor-r43.json`).
+- **Process defect:** claims O and C were declared on premises false at baseline
+  `7ceff59` (not re-measured before dispatch) — R01-43-12. claims.json digest drifted
+  under three provider redirects; re-pinned in `telemetry/availability-close-43.json`.
+- **Evidence:** `reports/round-43/validation.json` verdict `rejected-honest-stop`,
+  acceptance false (exit 1 by design); telemetry closed via `availability-close-43.json`;
+  runner reproduced in isolated git-archive replay, no in-tree execution.
