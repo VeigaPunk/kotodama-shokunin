@@ -890,6 +890,25 @@ Named: the r40 supersession edits (recorded, sha-pinned); the two MANIFEST
 ledger schemas (closure rows + per-lane rows); the swe-2 reviewer dispatched
 as a successor artifact.
 
+## Axes — round 47 (2026-10-19), NOT ADMITTED on C; O+Ca improved (loop 2, position 1)
+
+Baseline `6e9a30d`; `opencode-go/deepseek-v4.1-flash` 64 seats — key-1 batch (50/64
+filed) + operator-directed key-6 refire of the 14 missing seats (64/64 total).
+Rejection receipt: `python3 reports/round-47/run-validation.py` exit 1 by design.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | unchanged (claim C BLOCKED) | verified-fresh cartography gap (0 owners) but the assembled entry is 790 lines vs live partition max 221 with 9 blocking defects (arithmetic, false source-accusation, mis-anchored cites, worked-example FAIL). Not landing-ready; repeats the r42/r44 collision if forced. total 223, README rev 2.4 | census + `python3 -B reports/round-28/readme/sweep.py` | `scout/K01-gap-recheck.md`; `review/R03-c-content.md` |
+| operability | improved (claim O) | the R01-43-12 stale-premises defect closed: `tools/harness/claims-freshness.py` landed durable — selftest 62/62 (registry 43 + seam 19), r43 regression (O STALE 2/2, C STALE, Ca FRESH, exit 1 + REFUSE), negative control green (r47 3 FRESH, exit 0), anti-theater verified | `python3 tools/harness/claims-freshness.py --selftest` + `--claims … --checks …` | `tools/harness/claims-freshness.py`; `calib/r43-checks.json`; `calib/r47-checks.json`; `op/W01-landing-spec.md` |
+| calibration | improved (claim Ca) | loop-1 defect reconciliation filed (3 defect rows + 2 provider amendments) with integrator corrections (zai-sentence fix, Ca05 re-pin); successor records only, parent sha-pinned | `python3 reports/round-47/run-validation.py` | `calib/queue-successor-r47.json` |
+| depth / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Round status: NOT ADMITTED on C; O+Ca improved and landed (recorded without
+averaging the C shortfall into an accept). Named: the coverage-over-build
+defect (790-line entry, 3.6× partition max — the stale-premises class one level
+up, now a build-quality miss); the freshness gate as the durable cure for
+R01-43-12; the key-1/key-6 split dispatch.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was

@@ -1,0 +1,53 @@
+{
+  "round": 44,
+  "baseline_commit": "c9f4eaa",
+  "control": {
+    "kind": "negative-control-o08-rendering",
+    "owner_seat": "O06",
+    "note": "Identical premises to negative-control.claims.json, rendered in the O08 reference oracle's schema (`probe` + kind-specific fields; `expect` is the asserted condition, default true). Filed only because the r47 contract leaves the JSON key names to O02; see the artifact's integration note."
+  },
+  "claims": [
+    {
+      "id": "O",
+      "axis": "operability",
+      "before": "no four-class census authority exists; the r42 six-class extractor is the only tool (223/2730 -> 2556/166/2/5/1), it over-captures blank-line-separated indented prose (couples-reference-extractor.py:64-65 continue), lacks an ambiguous control and an indented-prose control, lists no fallback mappings and names no per-token reason; the r43 O claim to mint this was rejected as fork-risk because the re-scope was missing",
+      "before_checks": [
+        {"clause": "no four-class census authority exists", "probe": "path_absent",
+         "path": "tools/harness/basename-couples-resolver.py"},
+        {"clause": "the r42 six-class extractor is the only tool", "probe": "count_eq",
+         "glob": "tools/harness/*couples*.py", "value": 1},
+        {"clause": "the r42 six-class extractor (the witness bytes are the baseline bytes)",
+         "probe": "sha256_eq", "path": "tools/harness/couples-reference-extractor.py",
+         "value": "d8d23a265d12d290de69a6eb50454273af4ca699986812c6e203a030f4679cf1"},
+        {"clause": "lacks a four-class census", "probe": "capability_present",
+         "glob": "tools/harness/couples-reference-extractor.py",
+         "markers": ["four_class_totals"], "expect": false},
+        {"clause": "223 entries at baseline (the census denominator in 223/2730)",
+         "probe": "count_eq", "glob": "corpus/knowledge/*/*.md", "value": 223}
+      ]
+    },
+    {
+      "id": "C",
+      "axis": "coverage",
+      "before": "total 223; the r43 lithic claim was blocked because its topic was already owned — the correct coverage move is a fresh, verified-unowned gap",
+      "before_checks": [
+        {"clause": "total 223", "probe": "count_eq",
+         "glob": "corpus/knowledge/*/*.md", "value": 223},
+        {"clause": "the r43 lithic claim was blocked because its topic was already owned",
+         "probe": "topic_owner_absent", "partition": "myth-symbol",
+         "terms": ["lithic"], "expect": false}
+      ]
+    },
+    {
+      "id": "Ca",
+      "axis": "calibration",
+      "before": "r43 declared O and C on stale premises (a green resolver existed; the lithic slot was owned); no mechanical pre-dispatch freshness check exists — the defect is R01-43-12",
+      "before_checks": [
+        {"clause": "no mechanical pre-dispatch freshness check exists", "probe": "path_absent",
+         "path": "tools/harness/claims-freshness.py"},
+        {"clause": "a green resolver existed", "probe": "path_present",
+         "path": "tools/harness/couples-reference-extractor.py"}
+      ]
+    }
+  ]
+}

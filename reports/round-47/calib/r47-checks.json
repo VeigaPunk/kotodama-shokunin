@@ -1,0 +1,46 @@
+{
+ "schema": "kotodama-claims-freshness-checks-v1",
+ "round": 47,
+ "baseline_commit": "6e9a30d",
+ "checks": {
+  "O": [
+   {
+    "id": "no-gate",
+    "probe_kind": "path_absent",
+    "target": {
+     "path": "tools/harness/claims-freshness.py"
+    },
+    "expect": true,
+    "evidence_command": "ls tools/harness/claims-freshness.py"
+   }
+  ],
+  "C": [
+   {
+    "id": "cartography-unowned",
+    "probe_kind": "topic_owner_absent",
+    "target": {
+     "topics": [
+      "cartograph",
+      "mapmaking",
+      "portolan",
+      "cadastral"
+     ],
+     "partition": "culture-material"
+    },
+    "expect": true,
+    "evidence_command": "grep -rniE '^- topic:.*(cartograph|mapmak|portolan|cadastr)' corpus/knowledge/"
+   }
+  ],
+  "Ca": [
+   {
+    "id": "successor-absent",
+    "probe_kind": "path_absent",
+    "target": {
+     "path": "reports/round-47/calib/queue-successor-r47.json"
+    },
+    "expect": true,
+    "evidence_command": "ls reports/round-47/calib/queue-successor-r47.json"
+   }
+  ]
+ }
+}

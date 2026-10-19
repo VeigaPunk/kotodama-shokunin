@@ -1,0 +1,56 @@
+{
+  "schema": "kotodama-claims-freshness-checks-v1",
+  "round": 43,
+  "baseline_commit": "7ceff59",
+  "claims_sha256": "9662e2bdaa73d3dd075e68148ae55c8c35d6fbdab527fc2602083745dcbc174b",
+  "checks": {
+    "O": [
+      {
+        "clause": "no durable instrument implements the r39 basename-couples policy",
+        "probe_kind": "capability_present",
+        "target": {"capability": "couples_census", "scope": "tools/**.py"},
+        "expect": false,
+        "evidence_command": "git ls-tree -r -z --name-only 7ceff59 -- tools/"
+      },
+      {
+        "clause": "the only resolver that ever ran (r39 I-C05) lives in ephemeral .scratch",
+        "probe_kind": "capability_present",
+        "target": {"capability": "couples_census", "scope": "tools/**.py"},
+        "expect": false,
+        "evidence_command": "git show 7ceff59:tools/harness/couples-reference-extractor.py | grep -n add_argument"
+      }
+    ],
+    "C": [
+      {
+        "clause": "myth-symbol 26",
+        "probe_kind": "count_eq",
+        "target": {"glob": "corpus/knowledge/myth-symbol/*.md", "value": 26},
+        "expect": true,
+        "evidence_command": "git ls-tree -r --name-only 7ceff59 -- corpus/knowledge/myth-symbol | wc -l"
+      },
+      {
+        "clause": "lithic slot named but unbuilt",
+        "probe_kind": "topic_owner_absent",
+        "target": {"topics": ["lithic"], "partition": "myth-symbol", "fields": ["H1", "topic", "gap filled"]},
+        "expect": true,
+        "evidence_command": "git grep -n -i lithic 7ceff59 -- 'corpus/knowledge/myth-symbol/*.md'"
+      },
+      {
+        "clause": "total 223",
+        "probe_kind": "count_eq",
+        "target": {"glob": "corpus/knowledge/*/*.md", "value": 223},
+        "expect": true,
+        "evidence_command": "git ls-tree -r --name-only 7ceff59 -- corpus/knowledge | wc -l"
+      }
+    ],
+    "Ca": [
+      {
+        "clause": "have no per-finding disposition on record",
+        "probe_kind": "path_absent",
+        "target": {"path": "reports/round-43/calib/dispositions-r38-r39.json"},
+        "expect": true,
+        "evidence_command": "git ls-tree -r --name-only 7ceff59 -- reports/round-43/calib/"
+      }
+    ]
+  }
+}

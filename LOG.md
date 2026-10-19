@@ -3891,3 +3891,26 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Evidence:** `reports/round-46/validation.json` verdict `admitted`, acceptance true
   (exit 0); telemetry closed via `availability-close-46.json`; runner reproduced in
   isolated git-archive replay, no in-tree execution.
+
+## 2026-10-19 — Round 47 NOT ADMITTED on C; O+Ca improved (loop 2, position 1; honest stop)
+
+- **Trigger:** regimen; claims C/O/Ca; `opencode-go/deepseek-v4.1-flash` 64 seats —
+  key-1 batch (50/64 filed) + operator-directed key-6 refire of the 14 missing seats.
+- **O (verified + landed):** the R01-43-12 stale-premises defect closed —
+  `tools/harness/claims-freshness.py` durable: selftest 62/62 (registry 43 + seam 19),
+  r43 regression reproduces exactly (O STALE 2/2, C STALE, Ca FRESH, exit 1 + REFUSE),
+  negative control green (r47 3 FRESH, exit 0), anti-theater verified (flags from
+  capability/ownership, not literal text). Its could-not-evaluate-on-no-checks
+  contract is the anti-theater guarantee.
+- **C (BLOCKED / unchanged):** verified-fresh cartography gap (0 owners) but the
+  assembled entry is 790 lines vs live partition max 221 with 9 blocking defects
+  (R03 B1-B9: arithmetic, false source-accusation, mis-anchored cites, worked-example
+  FAIL). Not landing-ready — repeats the r42/r44 collision if forced. No corpus delta;
+  223 holds.
+- **Ca (verified):** loop-1 defect reconciliation filed with integrator corrections
+  (zai-verification sentence fixed, Ca05 re-pinned to live sha); successor records
+  only, parent `defect-queue-v2.json` sha-pinned not edited.
+- **Evidence:** `reports/round-47/validation.json` verdict `rejected-honest-stop`,
+  acceptance false (exit 1 by design); O+Ca improved recorded without averaging the
+  C shortfall into an accept; telemetry closed via `availability-close-47.json`;
+  runner reproduced in isolated git-archive replay.

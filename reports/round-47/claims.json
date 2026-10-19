@@ -1,0 +1,71 @@
+{
+ "round": 47,
+ "regimen": "REGIMEN.md",
+ "loop": 2,
+ "position": "position 1 (opencode-go deepseek-v4.1-flash, 64 seats, key round-robin key-1)",
+ "declared_at_utc": "2026-10-19T17:46:52Z",
+ "baseline_commit": "6e9a30d",
+ "dispatch": {
+  "provider_lane": "opencode-go",
+  "model": "deepseek-v4.1-flash",
+  "key": "key-1 (round-robin start)",
+  "requested_workers": 64,
+  "batched_calls": 1
+ },
+ "axes_in_play": [
+  "coverage",
+  "operability",
+  "calibration"
+ ],
+ "lowest_axis_reasoning": "Coverage is the lowest non-retired axis (223 total; the r44 C claim was blocked because its only drafted candidate was a carried topic). r44 K02 scouted a VERIFIED-fresh gap (cartography — 0 filename/topic owners, no prior-round proposal). Operability carries the R01-43-12 freshness-gate (method proven at r44, no durable tool). Calibration takes the loop-1 retrospective's carried stale-premises lesson as a durable pre-dispatch check. Depth/adjacency/freshness rest; freshness paused.",
+ "freshness_pause_in_force": true,
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "claim": "Land ONE new entry on the verified-fresh cartography gap (reports/round-44/scout/K02-gap-scout.md — 0 filename owners, 0 topic-line owners, no prior-round proposal; NOT a carried topic like the r44 dream candidate). Draft it under culture-material's naming + entry contract, audits pre-landing, collision-checked at the live 223 total. Total 223 -> 224, culture-material 25 -> 26; README rev 2.5 (224) with the row added in filename order AND the pre-existing rev-2.4 prose-vector defect (sums 217 not 223) repaired in the same edit.",
+   "before": "total 223; cartography is a verified-fresh unowned gap (K02-r44: no owner, no prior proposal, not carried)",
+   "after_required": "corpus/knowledge/culture-material/cartography-and-mapmaking.md landed per the entry contract; total 224, culture-material 26; README rev 2.5 sweep-green 224==224 AND the prose vector corrected to sum 224; audits PASS; zero existing entries overwritten; the gap's freshness re-verified at landing (still unowned)",
+   "counting_commands": [
+    "find corpus/knowledge -name '*.md' | wc -l",
+    "ls corpus/knowledge/culture-material/*.md | wc -l",
+    "python3 -B reports/round-28/readme/sweep.py"
+   ],
+   "thresholds": "sweep green 224==224; audits clean; gap verified unowned by a fresh sweep at landing (not carried — confirmed 0 prior-round proposals); the README prose vector sums 224"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "claim": "Land the durable pre-dispatch claims-freshness gate the R01-43-12 defect is owed: tools/harness/claims-freshness.py that, given a claims.json + its baseline_commit, re-derives each claim's `before` at that commit (via git show/ls-tree on the baseline, not the worktree) using typed per-clause probes (path_absent/path_present/grep_absent/count_eq/sha256_eq/topic_owner_absent/capability_present) with declared polarity; flags a claim STALE if any declared clause's measured value contradicts the asserted `before`; exits non-zero on stale. Demonstrate on reports/round-43/claims.json (must flag O and C stale, NOT Ca) as the positive regression + a fresh-claim negative control + an anti-theater mutation test.",
+   "before": "r43 and r44 both declared claims on stale premises (green resolver existed; owned/carried topics) — the R01-43-12 defect; a scratch prototype proved the method but is red-selftest and non-durable",
+   "after_required": "tools/harness/claims-freshness.py durable with a green selftest; it flags r43 O and C stale + Ca fresh (the positive regression), does not flag a fresh claim (negative control), and still flags under an anti-theater mutation (rename the tool/live values — flags from capability/ownership not literal text); a filed demonstration at reports/round-47/calib/; exit non-zero on stale",
+   "counting_commands": [
+    "python3 tools/harness/claims-freshness.py --selftest",
+    "python3 tools/harness/claims-freshness.py --claims reports/round-43/claims.json",
+    "python3 reports/round-47/run-validation.py"
+   ],
+   "thresholds": "selftest green; correctly flags r43 O and C stale + Ca fresh; negative control not flagged; anti-theater mutation still flags; durable not .scratch; could-not-evaluate != green (exits non-zero when no checks declared)"
+  },
+  {
+   "id": "Ca",
+   "axis": "calibration",
+   "claim": "Reconcile the loop-1 retrospective's named defects into the durable defect ledger: file a defect-queue-v2 successor for the loop-1 closes — the stale-premises class (R01-43-12) now routed to the O freshness gate; the resolver latent edge (blank-separated hyphen soft-wrap drops tokens, 0 live incidence) recorded as a successor note; the two MANIFEST ledger schemas documented; the antigravity-lane outage + zai-exhaustion provider amendments recorded. Each a class + owner + evidence, successor records never editing filed bytes.",
+   "before": "loop-1 retrospective names 5 carried defects/amendments not yet dispositioned into the queue successor",
+   "after_required": "reports/round-47/calib/queue-successor-r47.json (or .md) files one row per loop-1 carried item: class + owner + cited evidence; the r40 defect-queue-v2.json pinned (not edited); each 'fixed' claim carries a re-run command",
+   "counting_commands": [
+    "python3 reports/round-47/run-validation.py"
+   ],
+   "thresholds": "every loop-1 carried item reaches a class with a citation; zero silently dropped; the freshness-gate row routes to the O claim's tool; provider amendments recorded as named deviations"
+  }
+ ],
+ "non_goals": [
+  "no freshness axis-move",
+  "no promotion/canon/clearance/closure",
+  "no filed byte rewrites (queue successors are successor records; README prose-vector fix is a forward correction, not a rewrite of a closed round's filed bytes)",
+  "no in-tree round-runner execution",
+  "no re-freeze of declared-in-r7",
+  "no packet-surface changes",
+  "no corpus staging by seats (integrator applies the single C landing only)",
+  "the cartography entry must not be a carried-topic duplicate — verified fresh at landing"
+ ]
+}

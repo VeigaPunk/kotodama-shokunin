@@ -1,0 +1,250 @@
+# C09 — README rev 2.5 draft (claim C, coverage)
+
+- **Seat:** `C09` · role `executor` · claim `C`
+- **Out path:** `reports/round-47/cov/C09-readme.md` (this file)
+- **Filed:** 2026-10-19
+- **Baseline:** `6e9a30d` (`reports/round-47/claims.json:7`); `git rev-parse --short HEAD` → `6e9a30d`
+- **Live pre-state:** `corpus/README.md` 575 lines, sha256 `7c788a1d4c29718f6d2df446125ee2516c1c76210792f11b5a81a001ef31cdcd`; 223 `.md` files; `culture-material/` 25
+- **Status:** DRAFT. Nothing under `corpus/` was written. The change is a fenced diff for the integrator (§3), verified against a staged 224 tree (§5).
+
+---
+
+## 1. Inputs and measured pre-state
+
+| Item | Value | Evidence |
+|---|---|---|
+| Index file | `corpus/README.md` (not the lane root `README.md`, which is 14 lines) | `wc -l corpus/README.md` → 575 |
+| Live total | 223 | `find corpus/knowledge -name '*.md' \| wc -l` → `223` |
+| Live `culture-material/` | 25 | `ls corpus/knowledge/culture-material/*.md \| wc -l` → `25` |
+| Live partition vector | `[25, 26, 25, 29, 24, 94]` = 223 | `sweep.py` `footer_live`; order is `linguistics, myth-symbol, culture-material, synthesis, verification, civilizations` (`reports/round-28/readme/sweep.py:50-56`) |
+| Baseline sweep | rows 223 == files 223, 0 missing/ghosts/mismatches/drift, footer 223 / `25/26/25/29/24/94`, exit 0 | `python3 -B reports/round-28/readme/sweep.py` |
+| Target path | absent | `test -e corpus/knowledge/culture-material/cartography-and-mapmaking.md` → `path_absent OK` |
+| Target topic ownership | none | `grep -rn "cartography-and-mapmaking" corpus/ --include='*.md'` → no hits; K02's fresh sweep at `reports/round-44/scout/K02-gap-scout.md:100-105`, `:119` |
+| Seed slug / position / count effect | `cartography-and-mapmaking.md`; between `calendar-festival-systems.md` and `costume-semiotics.md`; culture-material 25→26, total 223→224 | `reports/round-44/scout/K02-gap-scout.md:218-220` |
+| Seed `- topic:` | 766 chars, sha256 `bc7274f411cc6977032ab2754ebff19def4a1f5240fe5882624fc76e744f4495` | `reports/round-44/scout/K02-gap-scout.md:227` |
+| Filed header `- topic:` | byte-equal to the seed: 766 chars, same sha256 | `reports/round-47/cov/C04-entry-header.md:114` (extracted and compared; `== seed True`) |
+
+The live filename order in `culture-material/` is positions 5, 6, 7 = `calendar-festival-systems.md`, `costume-semiotics.md`, `craft-artisan-lexicon.md`; the insert lands at position 6. Live README row order matches the disk sort for the 25 existing rows (`ORDER LIVE 25 sorted True`).
+
+## 2. The rev-2.4 prose-vector defect
+
+### 2.1 What the file says, and what the footer says
+
+- `corpus/README.md:10-11` (revision 2.4) reads, after the myth-symbol move 23 → 26:
+  `the vector 25/23/25/29/24/94 → **25/23/26/25/24/94**`.
+- `corpus/README.md:548` (the present-tense counts footer) reads:
+  `(total 223 files; directory totals 25/26/25/29/24/94)`.
+
+With the slot order fixed by `sweep.py:50-56`, the correct post-2.4 vector is:
+`linguistics 25 / myth-symbol 26 / culture-material 25 / synthesis 29 / verification 24 / civilizations 94` = **223**. The footer is correct. The revision prose is not.
+
+### 2.2 Arithmetic and the mis-slot
+
+| Vector | Sum | Status |
+|---|---|---|
+| rev-2.3 close (`README:20`) | `25/23/25/29/24/94` | 220 |
+| rev-2.4 as first filed (`README:11`) | `25/23/26/25/24/94` | **217** (6 short) |
+| rev-2.4 corrected | `25/26/25/29/24/94` | 223 |
+| rev-2.5 landing (§3) | `25/26/26/29/24/94` | **224** |
+
+The defect is a one-position slip plus a dropped value, not a stale count: myth-symbol's new `26` was written into slot 3 (culture-material), the old culture-material `25` was pushed into slot 4 (synthesis), and synthesis's `29` disappeared; slot 2 stayed `23`. Delta from correct: `-3 +1 -4 = -6`, i.e. 223 → 217.
+
+### 2.3 Why the sweep never caught it
+
+Control: re-insert the defective rev-2.4 token into the staged post-landing README and re-run the same sweep. It stays green:
+
+```
+CTL_revert_rev24_vector {"ok": true, "totals_ok": true, "footer_findings": [], "mismatch": []}
+```
+
+The sweep reads the `Total knowledge entries:` line (`sweep.py:160-161`) and the `Counts checked` footer block (`sweep.py:106-116`); it never parses revision-block prose vectors. So the 217-sum could survive an arbitrary number of green sweeps. This is the defect class the C claim asks to repair — and the reason the repair is done by arithmetic, not by trusting a green sweep.
+
+### 2.4 The repair
+
+Minimal in-place token fix at `README:11` (the rest of rev 2.4 is untouched):
+
+```
+-the vector 25/23/25/29/24/94 → **25/23/26/25/24/94**. Re-measured with
++the vector 25/23/25/29/24/94 → **25/26/25/29/24/94**. Re-measured with
+```
+
+The defective reading is preserved as a quoted dated record inside the new rev-2.5 block, following the file's own "superseded reading preserved as the dated record it was" convention (`README:550`).
+
+## 3. The edit — fenced diff (integrator applies)
+
+Generated by `diff -u --label a/corpus/README.md --label b/corpus/README.md corpus/README.md .scratch/c09/README.post.md`; normalized diff sha256 `ebe78e8ef4d550758974451657d941d69342ac70edf32e9117e3e0811bb317b0`. Four hunks. `git apply --check` exits 0 against the live tree.
+
+```diff
+--- a/corpus/README.md
++++ b/corpus/README.md
+@@ -2,13 +2,34 @@
+ 
+ # kotodama-shokunin corpus index
+ 
++revision: 2.5 — Round-47 cartography expansion (2026-10-19): one culture-material
++entry landed (`cartography-and-mapmaking.md`, the map as an instrument and a
++claim about space; gap scouted fresh at `reports/round-44/scout/K02-gap-scout.md`
++§3 — 0 filename owners and 0 topic-line owners at the 223 census); its row was
++added in filename order between `calendar-festival-systems.md` and
++`costume-semiotics.md`, carrying the entry's own `- topic:` text byte-equal.
++`## culture-material/` moved 25 → **26**; the totals line and the counts footer
++moved 223 → **224** and the footer vector 25/26/25/29/24/94 →
++**25/26/26/29/24/94**. This revision also repairs the rev-2.4 prose-vector
++defect in place: rev 2.4's first-filed after-vector read `25/23/26/25/24/94`
++(sum 217): myth-symbol's new 26 sat in the culture-material slot, the old
++culture-material 25 was pushed into the synthesis slot, and synthesis's 29 was
++dropped; the token now reads `25/26/25/29/24/94` (sum 223), the
++value the footer already carried, and this landing's vector sums 224.
++Re-measured against a staged 224 tree with
++`python3 reports/round-28/readme/sweep.py` (its `root_override` leg): 224 rows
++vs 224 files, 0 missing, 0 ghosts, 0 duplicate rows, 0 header drift, 0 topic
++mismatches, totals line 224, footer `224` / `25/26/26/29/24/94`, exit 0; staged
++sha and receipt in `reports/round-47/cov/C09-readme.md` §5. Non-canon examples
++and passing structural gates do not certify historical truth.
++
+ revision: 2.4 — Round-42 myth-symbol expansion (2026-10-19): three
+ myth-symbol entries landed (`mineral-stone-symbolism.md`,
+ `purity-pollution-boundary-systems.md`, `sacred-topography-pilgrimage.md`),
+ each audited (`reports/round-42/cov/C05-audit.md`); a fourth draft (C01's lithic
+ register) collided with C04's and is routed as a named spare by integrator ruling.
+ `## myth-symbol/` moved 23 → **26**; the totals and footer moved 220 → **223** and
+-the vector 25/23/25/29/24/94 → **25/23/26/25/24/94**. Re-measured with
++the vector 25/23/25/29/24/94 → **25/26/25/29/24/94**. Re-measured with
+ `python3 reports/round-28/readme/sweep.py`: 223 rows vs 223 files, exit 0.
+ 
+ revision: 2.3 — Round-40 linguistics-partition expansion (2026-10-19): four
+@@ -231,13 +252,14 @@
+ - `trickster.md` — the trickster as a cross-cultural figure class (Wakdjunkaga, Coyote, Raven, Anansi, Loki, Sun Wukong, Èṣù/Legba, Hermes, Br'er Rabbit) — Hynes's feature set, Radin's Winnebago cycle and its contested evolutionary reading, Hyde's boundary-crosser interpretation, structural and liminal analyses (Lévi-Strauss, Turner, Babcock-Abrahams), institutionalized sacred clowns, and how trickster tales encode the critique of the weak under durable power asymmetry; typology table, design protocol, and calibration flags for building a fictional culture's trickster
+ 
+ 
+-## culture-material/ (25)
++## culture-material/ (26)
+ 
+ - `adornment-body-codes.md` — the inscribed body as a legible system for fictional cultures — the master claim is that every body code sits in one of three columns, WEALTH (assayable, alienable: jewelry as walking bank account, from Norse hacksilver and ring-giving to bead economies, inalienable heirlooms like the kula shells and pounamu, seal-rings as documents), RITE (inalienable: Polynesian tattoo with its tapu protocol, Māori moko as legal signature, Nuer gar and Yoruba ila lineage scars, Khalsa kesh, mourning hair), and PUNISHMENT (administered by authority: Chinese mò 黥 and Roman stigma, Song convict-soldier face marks, Meiji bans) — and the craft is keeping the columns distinct while designing their leaks; secondary claims: hair is the most regulable body part and therefore the state's favorite (Qing queue, 1871 danpatsu-rei, Merovingian tonsure-deposition, Mexica warrior hair); cosmetics is a vocabulary before it is a pigment (Egyptian kohl → Arabic *al-kuḥl* → English *alcohol*; Greek kosmētikē vs kommotikē; Heian oshiroi/ohaguro; sindoor); greeting and posture are engineered honorific gradients (bow degrees, wai/sampeah, proskynesis, kowtow diplomacy, Byzantine adoratio, homage's immixtio manuum) that fail legibly at embassy scenes.
+ - `agrarian-field-system-lexicon.md` — the field system as the substrate under every other material register — the FOUR INSTITUTIONS (parcel, implement, water, claim) that any fictional agrarian economy must name, and the vocabulary each one generates. Master claim: a culture's agrarian lexicon is generated at the seams where three quantities (yield per unit area, water control, labor calendar) meet four institutions, so an author who fixes the peak-labor month, the water source, and the harvest claim first gets the field, plough, measure, and status words almost for free. The entry supplies: a ten-system field typology with labor/tenure/lexical signatures; the plough family (ard, coultered mouldboard, wheeled) as a capacity chain, not a progress ladder; the water chain (source → lift → deliver → right) with the baray/qanat/acequia/paddy cases; rotation and crop-loanword clocks; the harvest tool-and-share vocabulary; the work-unit land measures (jugerum, morgen, acre, hide, carucate); a calibration shelf of the framework's contested claims (heavy-plough revolution, plough→gender, hydraulic despotism, rice culture); and a decision record for authors
+ - `architecture-settlement-lexicon.md` — built-environment vocabulary across real cultures — how houses, roofs, thresholds, sacred buildings, and cities are named; the semantic logic of house parts (Roman domus, Japanese moya/hisashi/engawa/doma, Chinese siheyuan, Arab dār, the English hall and its storage rooms, Mongolian ger); roof-form typology vs climate (gasshō, badgir, ondol/kang); the courtyard / hall / stilt design arcs; why temple, church, shrine, mosque, synagogue are conceptually distinct words; planning lexica (cardo/decumanus, Hippodamian grid, Kao Gong Ji, feng shui schools, jōkamachi/machiya, madina/khittaṭ); and how settlement vocabulary fossilizes worldview (lord/lady, town/Zaun, villain, þing→thing, 家, tatemae, paradise) — with design levers for coining a fictional culture's built-environment lexicon
+ - `bathing-and-body-hygiene.md` — the bath as a material institution for fictional cultures — the five bathing regimes (Roman thermae and balnea, the Islamic hammam, the East Asian sentō/onsen, the sweat-lodge family, and domestic/personal washing) compared on sequence, heating, staffing, social function and relation to purity; the bath sequence as designed space (undress → warm → hot/steam → cool/immersion → rest) and what each stage demands in water, fuel and staff; the load-bearing **purity vs hygiene** distinction (ritual immersion families: mikveh, ghusl/wudu, baptismal and river bathing) with the rule that the two systems stay separate and their *leaks* are the design work; the water-and-heat infrastructure decision (aqueduct, well, cistern, river, water-carrier; hypocaust, stove, kettle; drainage and the latrine) and who pays for it (evergetism, waqf, taxation, household); who bathes where and when (privacy and gender regimes, the bath as sociability, the weekly bath, the bath as gift and as tax); the kit and its trade (soap chemistry and the Aleppo/Marseille/Castile families, oil and strigil, whisk and loofah, towels, basins) with the loan-word strata that date contact (*hammam*, *sauna*, *onsen*, *temazcal*, *shampoo*, *spa*); hygiene's move from emic doctrine to evidence-based practice (hydrotherapy, the public-bath and wash-house acts, Semmelweis and Snow as the calibration spine); and a calibration bank that dates both "Romans were clean" and "medieval people never washed". Reference knowledge and method only; canon decisions belong to lore-shokunin.
+ - `calendar-festival-systems.md` — The civil machinery of time — how cultures square the 29.53-day moon against the 365.2422-day year (observation, fixed cycle, and doctrinal-prohibition intercalation strategies), the Egyptian 365-day design that walks through the seasons (Sothic cycle, Canopus fix, Coptic/Ethiopian children), calendar reform as political act from Caesar and Gregory to the French Republican, Soviet, and corporate 13-month experiments, week systems (the seven-day empire and its 3/5/6/8/10/13-day rivals), festival-cycle engineering (new-year placement, carnival polarity, seasons of the dead, four-new-years systems, sabbatical/jubilee economies), era and epoch as statute, the working vocabulary of timekeeping for in-world coinage; calibration flags throughout.
++- `cartography-and-mapmaking.md` — the map as an instrument and a claim for fictional cultures — the survey → projection → drawing → reproduction chain that makes a map authoritative; the map-form typology (itinerary/strip, cadastral, chorographic, portolan, celestial, cosmographic, thematic, and the cartographic history/lienzo); projection and scale as claims about what matters; the symbol grammar (orientation, compass rose, scale bar, legend, boundary, blank); the reproduction economics (manuscript, woodblock, copperplate, the atlas); the map's silences and its use as a legal/territorial instrument; a build order, a decision record, a NON-CANON worked example, and a calibration bank (the neutral-map claim, the flat-earth myth, portolan accuracy, the primitive-map fallacy, map = territory)
+ - `costume-semiotics.md` — clothing as a sign system — Barthes' fashion semiotics calibrated against what dress actually encodes (rank, rite, region, gender, occupation, faction, age), sumptuary display and its enforcement economies, modesty codes as legible-and-deniable systems, the legibility dial from engineered uniforms to fashion noise, and cross-era signaling drift (scarcity collapse, production tech, invented tradition) — the meaning-of-color side lives in myth-symbol/color-symbolism.md, the lexicon side in linguistics files; this file owns the code structure, reading mechanics, and drift
+ - `craft-artisan-lexicon.md` — the workshop as a speech community — a closed technical register with five banks of terms: (1) tool names and etymologies (Japanese pull-cut carpentry nomenclature — ryōba "both-edge", kugihiki "nail-pull", the sumitsubo "ink-pot" with its makigitsune "winding-fox" crank, the adze whose kanji say "hand-axe", yasurime file-marks as smith handwriting; the body-metaphor grammar of tool anatomy; the homonym traps of fuller/bickern/hardie); (2) material-grading vocabularies (tamahagane "jewel-steel", kawagane/shingane "skin/heart metal", the hada grain words masame/itame/mokume shared with wood via the -me 目 "grain/eye" classifier, nie "boiling" and nioi "scent" in the temper line, NHLA timber grades, karat/fineness, GIA's 4Cs, the Kaogongji four-factor quality formula and qiao/zhuo aesthetic inversion); (3) workshop organization across seven systems (Lehrling–Geselle–Meister with Meisterstück and Wanderjahre; London apprentice→journeyman→freedom→livery with three entry routes; Ottoman çırak–kalfa–usta with gedik and şed investiture; Persian ustād–shāgird; Chinese shifu–xuetu under hang/huiguan; Japanese shishō–deshi under za→kabunakama; Indian śreṇī guilds and Roman collegia with Egyptian papyrus contracts; Benin's royal hereditary ateliers as the non-guild model); (4) signatures and marks as a six-type typology (authorship, assay, brand, license/proof, registry celebrity, attribution forensics — from the 1300 leopard's head through Dürer's monogram lawsuit to Morelli's clue paradigm); and (5) craft deity and ritual (Ptah's heart-and-tongue creation, Athena's kiln prayer, Viśvakarman, Lu Ban's hidden build-curses, Kanayago-kami, Ottoman pîrs, hari-kuyō needle funerals, tsukumogami), plus the anti-fraud machine (assize, jurés, hallmarks, proof marks) that quality vocabulary is really about
+ - `cuisine-food-lexicon.md` — Food as the most daily of cultural systems — how a staple grain organizes labor, landscape, and lexicon (meal=staple lexicalization in East/Southeast Asian languages vs bread-based companionship etyma in Europe); the Lévi-Straussian culinary triangle read as generator rather than law, with flavor principles (Rozin) and meal grammar (Douglas) as the surviving craft tools; the feast/famine cycle (omen and homophone foods, fast calendars, mourning meals, Sen's entitlement theory of famine, famine foods); fermentation as inheritable heritage (koji, garum, Ninkasi, chicha, kimjang, sourdough mothers); dietary law as identity boundary with kashrut and halal as the calibration case studies (Douglas vs Milgrom vs Harris); etiquette as table grammar (fork history, chopstick taboos, guest-right of bread and salt, pre/post-meal formulas); and the social registers of eating from palace kitchen to night market (Song dynasty restaurants, the Parisian invention of the restaurant, street-food institutions, menu-language drift) — all as worldbuilder method with calibration flags.
+@@ -541,11 +563,11 @@
+   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
+   do not edit the old runners.
+ 
+-Total knowledge entries: 223.
++Total knowledge entries: 224.
+ 
+ Counts checked 2026-10-19 from the repo root:
+ `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
+-(total 223 files; directory totals 25/26/25/29/24/94).
++(total 224 files; directory totals 25/26/26/29/24/94).
+ The inventory counts markers, not verified facts.
+ Superseded reading, preserved as the dated record it was: this footer read
+ `(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
+@@ -554,7 +576,12 @@
+ re-measured by the command above and a plain `find` count. Revision 1.9 moved
+ the totals 200 → 201 and `## linguistics/` 20 → 21 with the ceiling entry.
+ Revision 2.0 moved the totals 201 → 211, `## myth-symbol/` 19 → 23 and
+-`## culture-material/` 18 → 24 with the ten round-35 entries.
++`## culture-material/` 18 → 24 with the ten round-35 entries. Revision 2.1 moved
++`## culture-material/` 24 → 25 and the totals 211 → 212; revision 2.2 moved
++`## verification/` 20 → 24 and the totals 212 → 216; revision 2.3 moved
++`## linguistics/` 21 → 25 and the totals 216 → 220; revision 2.4 moved
++`## myth-symbol/` 23 → 26 and the totals 220 → 223; revision 2.5 moved
++`## culture-material/` 25 → 26 and the totals 223 → 224.
+ 
+ Index rows checked 2026-10-17 by the round-10 R10-C21 sweep (189 rows vs 189
+ files; 0 missing, 0 topic mismatches after two repairs); command, receipts and
+```
+
+### 3.1 The new row (generated, never hand-typed)
+
+The README row must be byte-equal to the landed entry's `- topic:` text. The seed text (766 chars, sha256 `bc7274f4…`) yields this row:
+
+```text
+- `cartography-and-mapmaking.md` — the map as an instrument and a claim for fictional cultures — the survey → projection → drawing → reproduction chain that makes a map authoritative; the map-form typology (itinerary/strip, cadastral, chorographic, portolan, celestial, cosmographic, thematic, and the cartographic history/lienzo); projection and scale as claims about what matters; the symbol grammar (orientation, compass rose, scale bar, legend, boundary, blank); the reproduction economics (manuscript, woodblock, copperplate, the atlas); the map's silences and its use as a legal/territorial instrument; a build order, a decision record, a NON-CANON worked example, and a calibration bank (the neutral-map claim, the flat-earth myth, portolan accuracy, the primitive-map fallacy, map = territory)
+```
+
+Regenerate it from the landed entry (this reproduces `sweep.py:74-82` exactly, including space-joining of continuation lines):
+
+```bash
+python3 -B - <<'PY'
+import re
+p = 'corpus/knowledge/culture-material/cartography-and-mapmaking.md'
+t = open(p, encoding='utf-8').read()
+m = re.search(r'^- topic:(.*?)(?=\n- \w)', t, re.M | re.S)
+topic = ' '.join(x.strip() for x in m.group(1).strip('\n').splitlines() if x.strip())
+print('- `cartography-and-mapmaking.md` — ' + topic)
+PY
+```
+
+If C04/C01 refine the seed topic, the regenerated row replaces the `+` line in hunk 2; do not edit the row by hand.
+
+## 4. Apply order and live checks
+
+1. **Entry first.** Land `corpus/knowledge/culture-material/cartography-and-mapmaking.md` (C01–C04 assembled draft). Do not apply the README first: the sweep would report a ghost/missing row and footer drift.
+2. **Check the topic.** Run the §3.1 generator. If its output differs from the `+` row in the diff, regenerate the diff's row line from the entry, not from the seed.
+3. **Apply the README diff** from the repo root: `git apply <this-file's §3 diff>` (or `patch -p1`). `git apply --check` already exits 0 against the live tree at `6e9a30d`.
+4. **Re-measure live:**
+
+```bash
+find corpus/knowledge -name '*.md' | wc -l                                  # expect 224
+ls corpus/knowledge/culture-material/*.md | wc -l                          # expect 26
+python3 -B reports/round-28/readme/sweep.py                                # expect exit 0
+python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge  # totals.files 224
+```
+
+5. **Date.** The footer and rev-2.5 block carry `2026-10-19`. If application happens after that date, change the date to the actual measurement date; the sweep does not check it, but the footer is a dated present-tense claim.
+
+## 5. Verification receipts (staged 224 tree)
+
+Method: a hardlink clone of `corpus/knowledge` plus one new file — no existing entry byte was touched — and the README text built by applying §3's replacements with one-occurrence assertions. The sweep was imported from `reports/round-28/readme/sweep.py` and called with its own `root_override` leg (the CLI measures only the live tree). No `run-validation.py` was executed; no file under `corpus/` was written.
+
+| Reading | Result |
+|---|---|
+| Staged tree | `find .scratch/c09/tree224 -name '*.md'` → 224; `culture-material/*.md` → 26 |
+| Staged README sha256 | `73985f68e48cbc7015eb00b1080796a5b93632eeb9b7ad76290074bf8de95afc` |
+| Normalized diff sha256 | `ebe78e8ef4d550758974451657d941d69342ac70edf32e9117e3e0811bb317b0` (4 hunks) |
+| `git apply --check` | exit 0 (`Checking patch corpus/README.md...`) |
+| Staged sweep | rows **224** == files **224**; totals line 224; footer `224` / `25/26/26/29/24/94`; 0 missing, 0 ghosts, 0 duplicate rows, 0 topic mismatches, 0 header drift, footer findings `[]`; `ok: true`, exit 0 |
+| Inventory cross-check | `--json --summary` → `totals.files` 224; text mode INFO → civilizations 94, culture-material 26, linguistics 25, myth-symbol 26, synthesis 29, verification 24 |
+| Filename order | post rows 26, `rows == sorted(rows)` true; neighbors `calendar-festival-systems.md` → `cartography-and-mapmaking.md` → `costume-semiotics.md` |
+| Row/topic equality | row present in post README, 801 chars; topic 766 chars, sha256 `bc7274f4…` |
+| Only one new entry | diff shows exactly one added row and no deleted row |
+
+Negative/positive controls, same staged tree:
+
+| Control | Expected | Measured |
+|---|---|---|
+| Footer vector one low (`25/26/25/29/24/94`) | RED | `ok: false`, `FOOTER_DIR_TOTALS` |
+| Totals line stale (`223`) | RED | `ok: false`, `totals_ok: false` |
+| Row paraphrased (drops "and a claim for…") | RED | `ok: false`, mismatch `culture-material/cartography-and-mapmaking.md` |
+| Rev-2.4 vector reverted to the defect | sweep blind | `ok: true` — proves §2.3, not a pass for the defect |
+
+Live pre-state for comparison: 223 == 223, footer `25/26/25/29/24/94`, `ok: true`, sha256 `7c788a1d…`.
+
+## 6. Threshold checklist (claim C)
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| New culture-material row in filename order | PASS (staged) | §5 order check; one added row between calendar and costume |
+| Total 223 → 224 | PASS (staged) | rows 224 == files 224; totals line 224 |
+| Footer `culture-material` 25 → 26, vector sums 224 | PASS (staged) | footer `224` / `25/26/26/29/24/94` |
+| Revision header rev 2.5 | PASS | §3 hunk 1 |
+| Rev-2.4 prose vector repaired to sum 223 | PASS | §2.2–2.4; control proves the sweep cannot verify it |
+| README rev 2.5 sweep-green 224 == 224 | PASS (staged); live pending integrator | §5 |
+| Zero existing entries overwritten | PASS (draft) | only one added row; staged tree hardlink-only; `git status --porcelain corpus/` clean |
+| Target path unowned / no collision | PASS | `path_absent OK`; no corpus reference |
+| Entry audits PASS | **to-verify** | owned by C06 (sources), C07 (contract), C08 (boundary) — not my seat |
+| Final `- topic:` byte-equality | **PASS** | C04's filed head line is byte-equal to the seed (`reports/round-47/cov/C04-entry-header.md:114`; 766 chars, sha256 `bc7274f4…`); re-check with §3.1 if C04 is revised |
+
+## 7. Findings, to-verify, and scope notes
+
+- **Instrument gap (successor candidate).** The sweep has no vector-arithmetic leg for revision prose; §2.3 proves it goes green over a 217-sum. A future `--vectors` leg (or a check that every `a/b/c/d/e/f` token in a revision block sums to the round's stated total, ignoring tokens explicitly quoted as superseded) would close the class. Owner: operability lane, round 48. Not built this round.
+- **Duplicate H1.** `corpus/README.md:1` and `:3` both read `# kotodama-shokunin corpus index`. Pre-existing, out of this claim's scope, left untouched. Flagged for README hygiene.
+- **Footer command nuance (pre-existing).** The footer names `source-audit-inventory.py --json --summary`, whose JSON emits `totals.files` but not the six directory totals; those appear in text mode's `INFO directory …` lines. The numbers used here are independently confirmed by the sweep's `footer_live`. The footer wording was not changed beyond the numbers to avoid expanding this claim.
+- **Topic dependency resolved.** §5 proved the mechanics with the seed topic; C04's filed head line (`reports/round-47/cov/C04-entry-header.md:114`) is now measured byte-equal to it (766 chars, sha256 `bc7274f4…`), so the §3.1 row is the final row unless C04 is revised. At apply time the live `sweep.py` still flags a `REWRITE` mismatch if the assembled entry's topic differs — regenerate the row, never hand-edit it.
+- **Independent corroboration.** C05 re-verified the path unowned at `6e9a30d` (`reports/round-47/cov/C05-freshness.md:6`), and C10's independently staged fixture also measured 224 rows == 224 files with footer `224` / `25/26/26/29/24/94` (`reports/round-47/cov/C10-sweep.md:6`). Neither substitutes for the integrator's live sweep after the real bytes land.
+- **No corpus writes.** All work was under `.scratch/c09/` and this file. `reports/round-1..46/**`, `corpus/lessons/*.md`, `tools/gates/frozen/**`, and `.ufo/**` were read-only throughout.
