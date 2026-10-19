@@ -811,6 +811,23 @@ Baseline `456674d`; one 32-seat `openai-codex/gpt-6-luna-max` batch, 32/32 in
 Named: the seven-vs-eight census scope (r33 = precedent, streak = r34-r39);
 the trap-output ambiguity; Ca02's optional SKILL delta carried.
 
+## Axes — round 42 (2026-10-19), NOT ADMITTED on C (loop 1, position 10)
+
+Baseline `ac47c78`; one 32-seat `devin/deepseek-v4-1-flash-high` batch (31/32 +
+C05 completion). Rejection receipt: `python3 reports/round-42/run-validation.py`
+exit 1 by design (`reports/round-42/validation.json`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | the wrapped couples field read as empty -> read whole (4/4 targets, successor extractor durable at tools/harness/, selftest green); the corrected census (223 entries / 2730 refs); the r39 policy truncation corrected by the full successor document | extractor --selftest; `python3 reports/round-42/run-validation.py` | `tools/harness/couples-reference-extractor.py`; `op/couples-extractor-census.json` |
+| coverage | unchanged (claim C FAILED as declared) | myth-symbol 23 -> 26 (not 27), total 220 -> 223 (not 224): C01/C04 collided on the lithic register; C04 lands, C01 routed as the named spare; two existing entries momentarily overwritten by stale paths, restored byte-exact from HEAD; audits 4/4 PASS-with-defects | census + sweep | `cov/C05-audit.md`; `cov/C01-mineral-spare.md` |
+| depth / calibration / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Round status: REJECTED on C (the r36 precedent). Named: the collision ruling;
+the overwrite-restore incident (caught by census arithmetic); the r39
+truncation (corrected append-only); K01's D1b/D1c/D1d finding family filed to
+the queue's successor.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was

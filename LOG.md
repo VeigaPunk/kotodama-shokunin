@@ -3800,3 +3800,20 @@ actual route stay recorded per round. Prior rounds stand as filed.
   r39-runner-root-regression rows re-classed fixed-with-evidence.
 - **Evidence:** `reports/round-41/validation.json` acceptance true (receipt
   `1d3735d9…`); telemetry closed via `availability-close-41.json`.
+
+## 2026-10-19 — Round 42 NOT ADMITTED on C (loop 1, position 10; honest stop)
+
+- **Trigger:** regimen; claims O/C; one 32-seat devin batch (amendment-7
+  authorized), 31/32 + C05 completion.
+- **O (verified):** the N6 successor extractor durable (selftest green; the
+  wrapped field reads whole; corrected census 223/2730); the true host traced
+  to the filed r19 instrument ($ under re.M; r27/r28 successors) — filed bytes
+  untouched; the r39 policy truncation corrected by the full successor doc.
+- **C (FAILED as declared):** three entries landed (26/223) but the declared
+  27/224 failed — C01/C04 authored the same lithic register; integrator ruling
+  lands C04, routes C01 as the named spare. **Incident:** two existing entries
+  (animal-symbolism, plant-symbolism) momentarily overwritten by stale path
+  proposals; the census arithmetic caught it; both restored byte-exact from
+  HEAD before commit.
+- **Evidence:** `reports/round-42/validation.json` (rejection receipt
+  `0a0b20f6…` class); telemetry closed via `availability-close-42.json`.
