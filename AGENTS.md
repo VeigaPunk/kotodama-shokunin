@@ -29,3 +29,14 @@
   rounds. Corrections and final-wave updates are new snapshots or rows with
   their own provenance. Never persist credentials, authorization headers or
   private prompt payloads in telemetry.
+- Close what you open: a record filed `open-at-seat-close` with a finalization note is not
+  complete. When the round's `validation.json` lands, the integrating parent files a closing
+  snapshot under the same round's `telemetry/` — a new append-only file, never an in-place
+  edit of the original record — filling each field the note left open, each filled value
+  citing the durable artifact it was read from, or recording `could-not-recover` with an owner
+  and reason. A round is not admitted to `LOG.md` while its own availability record still owes
+  a closing snapshot. The snapshot names the record it closes and that record's SHA-256 at
+  close time, so any later in-place edit is detectable as a digest mismatch.
+```
+
+### 2.2 `SKILL.md` — append one item to "## Checklist (executable where a tool exists)" (after :534)

@@ -1,0 +1,63 @@
+# R31-O11 final green sweep — the deterministic command manifest
+# re-runnable from these commands alone; order = manifest order
+# TMPDIR: scratch legs .scratch, mirror-safety replay legs /var/tmp/kotodama-r31-sweep
+
+# assemblers
+python3 -B tools/assemble-d2.py --check
+python3 -B tools/assemble-d2.py --selftest
+python3 -B tools/assemble-d2-typed.py --check
+python3 -B tools/assemble-d2-typed.py --selftest
+python3 -B tools/assemble-culture-d3.py --check
+python3 -B tools/assemble-culture-d3.py --selftest
+python3 -B tools/assemble-culture-d4.py --check
+python3 -B tools/assemble-culture-d4.py --selftest
+python3 -B tools/assemble-d4-typed.py --check examples/culture-d4/packet.d4.typed.yml
+python3 -B tools/assemble-d4-typed.py --selftest
+python3 -B tools/d2-typed-labels.py --selftest
+python3 -B tools/d2-typed-labels.py --check
+python3 -B tools/d2-typed-labels.py --packet examples/culture-d4/packet.d4.yml --check examples/culture-d4/typed-labels.d4.yml
+# typed-gates
+python3 -B tools/gates/d4-typed-labels-check-gate.py examples/culture-d4/typed-labels.d4.yml
+python3 -B tools/gates/d4-assembly-check-gate.py examples/culture-d4/packet.d4.yml
+python3 -B tools/gates/typed-pipeline-gate.py --selftest
+python3 -B tools/gates/typed-pipeline-gate.py --selftest-generalized
+python3 -B tools/gates/typed-pipeline-gate.py examples/culture-d2/packet.d2.yml
+python3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.yml
+python3 -B tools/gates/typed-pipeline-gate.py examples/culture-d4/packet.d4.typed.yml
+# gate-selftests
+python3 -B tools/gates/naming-collision-gate.py --selftest
+python3 -B tools/gates/phonology-sanity-gate.py --selftest
+python3 -B tools/gates/costume-era-consistency-gate.py --selftest
+python3 -B tools/gates/myth-consistency-gate.py --selftest
+python3 -B tools/gates/lexicon-coverage-audit.py --selftest
+python3 -B tools/gates/provenance-audit.py --selftest
+python3 -B tools/gates/handoff-packet-check.py --selftest
+# argot-law
+python3 -B tools/gates/argot-derivation-gate.py --selftest
+python3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml
+python3 -B tools/gates/register-law-gate.py --selftest
+python3 -B tools/gates/register-law-gate.py --packet examples/culture-d4/packet.d4.yml
+# handoff
+python3 -B tools/exercise-handoff-e2e.py --profile v2 --quiet
+python3 -B tools/exercise-handoff-e2e.py --profile v2 --selftest --quiet
+python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet
+python3 -B tools/exercise-handoff-e2e.py --profile v3 --selftest --quiet
+# battery
+python3 -B tools/check-gate-battery.py
+python3 -B tools/check-gate-battery.py --selftest
+# craft
+python3 -B tools/check-craft-exercise.py --selftest
+python3 -B tools/check-craft-exercise.py examples/supplement-opencode-1/sound-change-vs-taboo.json
+# validators
+python3 -B tools/harness/packet_links.py --selftest
+python3 -B tools/harness/packet_uncertainty.py --selftest
+python3 -B tools/check-evidence-coupling.py --selftest
+python3 -B tools/check-evidence-coupling.py examples/culture-d3/packet.json
+python3 -B tools/replay-frozen.py --selftest
+python3 -B reports/round-26/remainders/pin-repoint-check.py --selftest
+python3 -B reports/round-28/ceiling/measure-ceiling.py --selftest
+python3 -B reports/round-28/ceiling/measure-ceiling.py
+python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge
+# frozen-replays
+python3 -B tools/replay-frozen.py reports/round-17/tests/frozen/MANIFEST.tsv
+python3 -B tools/replay-frozen.py reports/round-31/sweep/frozen/r31-post/MANIFEST.tsv

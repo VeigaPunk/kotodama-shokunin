@@ -710,3 +710,6 @@ validation. Legacy parsers and D2's twenty expected findings remain unchanged.
 Read `reports/round-7/integration-attempts.json` for corrected failures and
 `native-request-binding.json` for the actual prompt's non-verbatim step-6
 defect; passing example checks do not erase protocol-conformance debt.
+- [ ] Every availability/dispatch record filed `open-at-seat-close` whose round's
+      validation.json has landed carries a closing snapshot in that round's telemetry/
+      (audit: `python3 -c "import json,glob,os; [print(f) for f in sorted(glob.glob('reports/round-*/availability*.json')) if json.load(open(f)).get('state')=='open-at-seat-close' and os.path.exists(os.path.join('reports',f.split('/')[1],'validation.json')) and not os.path.exists(os.path.join('reports',f.split('/')[1],'telemetry','closing-snapshot.json'))]"` — must print nothing once the round's records are closed)

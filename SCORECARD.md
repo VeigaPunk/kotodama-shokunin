@@ -406,6 +406,24 @@ Admission: O/C/D verify, no axis harmed. LOOP 3 integration complete.
 Routed to rounds 31-32: nothing blocking; the freshness-threshold ruling
 remains the operator's.
 
+## Axes — round 31 (2026-10-18), admitted (loop 3 GLM round 1 of 2 — regimen close-out)
+
+Baseline `e8d2d0d`; one 16-worker `zai-coding-plan/glm-5.3-flash-low` (MAX
+effort) close-out batch (12/16 + late scribes; orchestrator landings: the
+jin'i-ryu rule, the five closing snapshots, the validator reconciliations).
+Acceptance: `python3 reports/round-31/run-validation.py` exits 0.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| calibration | improved (claim C) | No single closure artifact -> closure-ledger.json: 32/32 lane rounds audited, zero missing; 22/22 filed reports commit-ancestor-valid; two honest findings (r23's missing Landed-changes heading; r13's documented operator-skip); two independent auditors, 13 rows re-verified, zero mismatches | `python3 reports/round-31/run-validation.py` | `reports/round-31/closure-ledger.json` + C04/C05 |
+| operability | improved (claim O) | Piecemeal sweep -> the final green sweep: 50/50 capability rows exit 0, 13 filed-red historical controls at their codes, battery 10/10, the r31-post frozen generation replaying 4/4 (the r28-post supersession gap closed), all 50 recorded commands re-executed green | `python3 reports/round-31/run-validation.py` | `reports/round-31/final-sweep.md` + sweep/ |
+| depth | improved (claim D — the jin'i-ryu self-improvement round) | The gate's required round: given the telemetry (5/5 availability records open-at-seat-close, 0 finalized; the r29 restate hazard), the lane proposed and landed ONE falsifiable improvement to its own operating files — the telemetry finalization-closure rule (AGENTS.md 'Close what you open' + SKILL.md checklist audit + five retroactive closing snapshots, append-only, digest-pinned) with a three-leg falsification condition recorded in LOG.md | `python3 reports/round-31/run-validation.py` | `reports/round-31/jinii/` + LOG.md gate entry |
+| coverage / freshness / adjacency | unchanged | Pause in force; scope clean | — | — |
+
+Admission: C/O/D verify, no axis harmed. Operator amendments 5-6 recorded
+(Grok reaffirmed-skipped; sol->luna preference for future regimens). ONE ROUND
+REMAINS: round 32 — the regimen's close.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker
@@ -554,6 +572,12 @@ draft-status reconciliations.
   **Loop-3 DeepSeek builds (rounds 25-28) run on the devin provider**
   (`devin/deepseek-v4-1-flash-high`) per operator directive 2026-10-18 —
   a provider test replacing the opencode-go/hyper lanes for those rounds.
+  Amendments 5-6 (operator 2026-10-18): (5) the 128-worker xai-grok expand
+  rounds remain SKIPPED (reaffirmed — none exist in the amended regimen);
+  (6) where the regimen names a sol-max integrate round, luna max is the
+  operator's preferred substitute — recorded for future regimens; the three
+  integrate rounds of this regimen (r14/r22/r30) already ran on gpt-6.1-sol
+  per the prior spec and closed rounds are never re-dispatched.
   **Expand (Grok) rounds cancelled by operator.** Lane rounds: loop 1 = 8–16
   (r13 operator-skipped), loop 2 = 17–24, loop 3 = 25–32 (24 dispatched +
   r13 skipped). Round-13 claims deferred: handoff-v2 + civ-map -> GLM rounds

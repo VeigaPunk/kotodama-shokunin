@@ -1,0 +1,306 @@
+{
+ "acceptance_checks_passed": false,
+ "artifact_contract_check": {
+  "command": "python3 -B heredoc: strict JSON duplicate-key parse of rerun.json; write-scope assertion (exactly the two assigned artifacts); relative report-link resolution in report-draft.md; trailing-whitespace scan; FILES/SUMMARY final-line contract; git diff --check -- assigned files",
+  "date": "2026-10-18",
+  "scope_note": "artifact format checks are distinct from round validation; they do not turn O or D green"
+ },
+ "assignment": "report scribe + settled-tree rerun",
+ "baseline_binding": {
+  "baseline_commit": "71cd9d376ebd144e94e4f12d997f73e5d2839aa9",
+  "baseline_committed_at": "2026-10-18T19:33:05-03:00 (22:33:05Z)",
+  "command": "git show -s --format='%H %P %cI %s' <baseline> HEAD; git merge-base --is-ancestor <baseline> HEAD; git diff-tree --no-commit-id --name-status -r HEAD",
+  "date": "2026-10-18",
+  "head_committed_at": "2026-10-18T19:34:08-03:00 (22:34:08Z)",
+  "head_diff": [
+   "A reports/round-31/claims.json",
+   "A reports/round-31/targets.json"
+  ],
+  "head_parent_is_baseline": true,
+  "measured_at_utc": "2026-10-18T22:36:25Z",
+  "merge_base_ancestor_exit": 0
+ },
+ "baseline_revision": "71cd9d376ebd144e94e4f12d997f73e5d2839aa9",
+ "date": "2026-10-18",
+ "declaration_head": "e8d2d0dadd3ccd1fbb7481793cfaf9bcd761826c",
+ "declared_counting_command": "python3 reports/round-31/run-validation.py",
+ "dependency_watch": {
+  "extension_window_2": {
+   "deadline_utc": "2026-10-18T23:02:21.821322+00:00",
+   "outcome": {
+    "elapsed": 900.0066812038422,
+    "polls": 16,
+    "ready": [
+     "reports/round-31/run-validation.py",
+     "reports/round-31/closure-ledger.json"
+    ],
+    "state": "timeout",
+    "timed_out_at_utc": "2026-10-18T23:02:21.821322+00:00"
+   },
+   "polls": 16,
+   "rationale": "the round's sole declared counting command (all three claims) was the missing dependency; extended once, bounded to the already-running watcher's own 900s deadline"
+  },
+  "window_1": {
+   "cap_honored": true,
+   "cap_seconds": 900,
+   "final_poll_utc": "2026-10-18T22:51:57Z",
+   "poll_interval_seconds": 60,
+   "started_at_utc": "2026-10-18T22:47:21.814662+00:00",
+   "state_at_cap": "run-validation.py and final-sweep.md absent; closure-ledger.json present since 22:43:56Z"
+  }
+ },
+ "final_settlement_state": "C verified; O red on final-sweep/runner format contract (substance green by four independent measurements); D red on the not-yet-landed orchestrator-owned patch; both reds precisely located and parent-owned",
+ "fragment_verification": {
+  "C_closure_ledger": {
+   "command": "python3 -B heredoc: per-round verdict tally from ledger rows; fleet-root .ufo/reports/round-N/kotodama.md existence + 4-section grep; every row-cited commit git cat-file -e + merge-base --is-ancestor HEAD",
+   "independent_reexecution_utc": "2026-10-18T22:44-22:46Z",
+   "path": "reports/round-31/closure-ledger.json",
+   "reproduced": {
+    "ancestry_failures": 0,
+    "fleet_reports_present": 22,
+    "only_section_gap": {
+     "missing": "Landed changes",
+     "round": 23
+    },
+    "round_31_fleet_dir": "absent at 22:46Z (in-flight, as ledger records)",
+    "round_32_fleet_dir_contents": [
+     "kumitate.md"
+    ],
+    "row_verdicts": {
+     "closed-admitted": 18,
+     "closed-rejected": 3,
+     "closed-with-finding": 1,
+     "in-flight": 1,
+     "skipped-operator": 1
+    },
+    "sections_fully_valid": 21
+   },
+   "scribe_finding": {
+    "disposition": "recorded, not repaired: the ledger is a C-worker artifact; correction belongs to a new C row or the parent integration",
+    "finding": "ledger verdict statement says '19 admitted' but its own rows and counts_summary record 18 closed-admitted (18+3+1+1+1=24 rows 8-31); the counts are self-consistent, the prose is off by one",
+    "id": "F-X18-1",
+    "severity": "content"
+   },
+   "sha256": "b9a66c2dbf092bb58788ae3025b7d62e5118371106e00feccc72efc768988ca7"
+  },
+  "C_independent_auditors": {
+   "C04": {
+    "method": "raw-source re-verification incl. non-commit hex classification",
+    "rows": [
+     8,
+     11,
+     17,
+     23,
+     29,
+     30
+    ],
+    "verdict": "verify"
+   },
+   "C05": {
+    "method": "field-by-field re-derivation diffed against ledger (0 mismatches), disjoint from C04, overlap r30",
+    "rows": [
+     9,
+     12,
+     22,
+     25,
+     28,
+     30,
+     31
+    ],
+    "verdict": "verify"
+   },
+   "union_coverage": "11 of 24 rounds 8-31 rows independently re-verified + r31 in-flight agreement; X18 adds all-rows verdict/sections/ancestry re-execution"
+  },
+  "D_jiniryu": {
+   "analysis": "reports/round-31/jinii/analysis.md",
+   "analysis_sha256": "11f3c481c010e287495824492495d996b2c7d0bce19c97e7d797266ee3708f1f",
+   "before_state_hashes_utc_2026-10-18T22:48:54Z": {
+    "AGENTS.md": "e03fc01b61d94d53aef1889ddb271f98719dd287c56798a2431e4a123a165aed",
+    "PROVINCE.md": "05b34a579c5d4f4ec78957cdedb658246ff292df3e21181c66186403f2b942d6",
+    "SKILL.md": "83b0a78ae7a0e09f5d12a686ac01b23f2ff10b312644fbc3b534a232a666f091"
+   },
+   "draft": "reports/round-31/jinii/draft.md",
+   "draft_sha256": "995d12efda6a8cb49330df7163ff880e9fde4907450a0b550699791cbbf2ffaf",
+   "landing_state": "DRAFT; orchestrator-owned per dispatch rule — X18 did not and will not land it",
+   "matches_draft_claim": "5/5 open records with landed receipts, exactly as drafted (pre-state)",
+   "x18_census_command": "the draft's own S2.2 audit one-liner (json+glob+os)",
+   "x18_census_output": [
+    "reports/round-19/availability.json",
+    "reports/round-25/availability.json",
+    "reports/round-26/availability.json",
+    "reports/round-27/availability.json",
+    "reports/round-28/availability.json"
+   ],
+   "x18_census_reexecution_utc": "2026-10-18T22:48:54Z"
+  },
+  "O_final_sweep_receipt": {
+   "battery": "10/10, pinned 20, uncovered none",
+   "commands_manifest": "reports/round-31/sweep/commands.txt (63 rows)",
+   "control_rows": "13/13 at expected filed-red codes",
+   "green_rows": "50/50 exit 0",
+   "law_clean_findings": 0,
+   "path": "reports/round-31/sweep/sweep-receipt.json",
+   "replays": [
+    "replay-r31-post exit 0",
+    "replay-round-17 exit 0",
+    "replay-selftest exit 0"
+   ],
+   "runtime_inputs": "628 files walked, drifted_during_run: []",
+   "sha256": "38ada3b6b3553131195a04efe48bb261dda46a0a9a3874ccfb335a8b8d5dcbb1"
+  },
+  "O_frozen_generation": {
+   "frozen_at_utc": "2026-10-18T23:12:30Z",
+   "path": "reports/round-31/sweep/frozen/r31-post/",
+   "rows": "4/4 reproduced exit 0 (reproduction only; a reproduced red stays red)",
+   "stability_window": "20s, 23 files, digest fc1ccdaf21dd562ec852aab765ae829f186f902d312bd510dcf3526b1a997c03",
+   "supersedes": "reports/round-28/pinsweep/frozen/r28-post/ (D4-leg superseded 4/4 by r30 QREG landing)",
+   "tmpdir": "/var/tmp/kotodama-r31-sweep (mirror-safety leg)"
+  },
+  "O_sweep_audits": {
+   "benign_per_runner": "run-validation.py accepts digest-mismatch-between-passes findings as benign",
+   "cross_pass_findings": 2,
+   "legs": "O09 22:51:16-22:51:54Z, O10 22:51:54-22:52:35Z",
+   "result": "40/40 exit 0 on both legs; source_drift_during_audit: []",
+   "x18_byte_diff": "both stdout digest mismatches are timing metadata only: battery embeds per-gate 'seconds' floats (14 diff lines), pin-repoint-selftest embeds one 'date' field (2 diff lines); semantics and exit codes identical"
+  },
+  "telemetry": {
+   "dispatch_stats": "reports/round-31/telemetry/dispatch-stats.json: full_wave_status could-not-evaluate, null counters with owner+reason, declared-claims digest matches live claims.json sha256",
+   "scope_watch": "reports/round-31/scope.md (X16): 4 samples 22:41-22:44Z, 1,823 paths, zero anomalies — matches X18 samples 1-2"
+  }
+ },
+ "moving_evidence_generations": {
+  "generation_1_2026-10-18T22:47:32Z": {
+   "reports/round-31/sweep-audit-O09.json": "5c6532b8a66efc91bc9e9502d095f696f42a27b93da9f66b30ab62b04aa1c7c6",
+   "reports/round-31/sweep-audit-O10.json": "c195a7bcabf7bd0ab20c516d7ea56cda67d1073ed672368d56866b64d120f08d",
+   "reports/round-31/sweep-audit.py": "627d76e57d928865d4d37f9ad7601c8e3198600a1e025a6d7805962ae5c5d108"
+  },
+  "generation_2_landed_22:51-22:52Z": {
+   "reports/round-31/sweep-audit-O09.json": "1241ab160912c0586b48068839e6c1ecccdbbb0cd22a56d972ab5152de3688e8",
+   "reports/round-31/sweep-audit-O09O10.json": "83ae08c96b44be97ad78b31bdfe3f5eca1a416442e79075cf4387571f351f7c3",
+   "reports/round-31/sweep-audit-O10.json": "985373d6e7026b02f52429e52428cd3bea7c0e3080b9ee46dc5eec67c627a3b2",
+   "reports/round-31/sweep-audit.py": "c6d726b293d3d9fdd911fbcc57f7c34abf59f5e9270cb00ffa3a02c3b45e00cc"
+  },
+  "note": "round-31 O-audit files are same-seat round-31 artifacts, not protected surface; both generations recorded"
+ },
+ "post_run_state": {
+  "agents_md_sha256": "e03fc01b61d94d53aef1889ddb271f98719dd287c56798a2431e4a123a165aed",
+  "final_preservation_sample_utc": "2026-10-18T23:32:58Z",
+  "log_md_sha256": "2db2858854d781740669b431cb88592c6620afac5684f4f9992e6a197be710f2",
+  "note": "identical to the 22:48:54Z before-state hashes: the D landing had not occurred as of this instant; a later landing supersedes this cut by design",
+  "protected_surface_unchanged": true,
+  "province_md_sha256": "05b34a579c5d4f4ec78957cdedb658246ff292df3e21181c66186403f2b942d6",
+  "skill_md_sha256": "83b0a78ae7a0e09f5d12a686ac01b23f2ff10b312644fbc3b534a232a666f091"
+ },
+ "protected_surface_samples": [
+  {
+   "baseline_to_head_diff_rows": 0,
+   "mismatches": 0,
+   "missing": 0,
+   "mode_mismatches": 0,
+   "newer_mtimes": 0,
+   "protected_status_rows": 0,
+   "protected_tracked_paths": 1823,
+   "sample": 1,
+   "working_sha256_manifest": "0e9b66e1abb0b4b8fe2eb02c81349c862cde137da98ce292e82e7fffcfc42a70"
+  },
+  {
+   "baseline_to_head_diff_rows": 0,
+   "mismatches": 0,
+   "missing": 0,
+   "mode_mismatches": 0,
+   "newer_mtimes": 0,
+   "protected_status_rows": 0,
+   "protected_tracked_paths": 1823,
+   "sample": 2,
+   "working_sha256_manifest": "0e9b66e1abb0b4b8fe2eb02c81349c862cde137da98ce292e82e7fffcfc42a70"
+  },
+  {
+   "baseline_to_head_diff_rows": 0,
+   "mismatches": 0,
+   "missing": 0,
+   "mode_mismatches": 0,
+   "newer_mtimes": 0,
+   "protected_status_rows": 0,
+   "protected_tracked_paths": 1823,
+   "sample": 3,
+   "working_sha256_manifest": "0e9b66e1abb0b4b8fe2eb02c81349c862cde137da98ce292e82e7fffcfc42a70"
+  },
+  {
+   "baseline_to_head_diff_rows": 0,
+   "mismatches": 0,
+   "missing": 0,
+   "mode_mismatches": 0,
+   "newer_mtimes": 0,
+   "protected_status_rows": 0,
+   "protected_tracked_paths": 1823,
+   "sample": 4,
+   "working_sha256_manifest": "0e9b66e1abb0b4b8fe2eb02c81349c862cde137da98ce292e82e7fffcfc42a70"
+  }
+ ],
+ "round": 31,
+ "seat": "SCRIBE X18",
+ "settled_tree_rerun": {
+  "acceptance_checks_passed": false,
+  "admission_verdict": "parent-owned; not asserted by this scribe",
+  "claims": {
+   "C": {
+    "failures": [],
+    "passed": true
+   },
+   "D": {
+    "failures": [
+     "LOG.md has no round-31 jin'i-ryu entry naming the move and its falsification condition (orchestrator landing)"
+    ],
+    "passed": false
+   },
+   "O": {
+    "failures": [
+     "final-sweep.md records no dated exit-0 command for: argot-derivation-gate.py, assemble-culture-d3.py, assemble-culture-d4.py, assemble-d2-typed.py, assemble-d2.py, assemble-d4-typed.py, check-craft-exercise.py, check-evidence-coupling.py, check-gate-battery.py, d2-typed-labels.py, d4-assembly-check-gate.py, d4-typed-labels-check-gate.py, exercise-handoff-e2e.py, measure-ceiling.py, packet_links.py, packet_uncertainty.py, pin-repoint-check.py, register-law-gate.py, replay-frozen.py, typed-pipeline-gate.py",
+     "4 recorded sweep command(s) carry no date",
+     "no recorded sweep command was re-executed"
+    ],
+    "passed": false
+   }
+  },
+  "command": "python3 -B reports/round-31/run-validation.py --check --wait 900",
+  "exit_code": 1,
+  "finished_at_utc": "2026-10-18T23:31:42.933357535Z",
+  "input_registry_count": 40,
+  "key_measurements": {
+   "C": "all recounts reproduce the ledger: 7 retro rows, 23 rows for rounds 8-30, verdicts 18/3/1/1, 22 fleet reports present, 21 fully valid, 22 ancestry rows, 23 MANIFEST closure entries, 2 ledger findings; claim C passed with zero failures",
+   "D_red_cause": "the jin'i-ryu patch is a DRAFT by dispatch rule: rule_landed=false (AGENTS.md bullet + SKILL.md checklist item absent at 83b0a78a/e03fc01b), 5 open availability records (pre-state intact), 0 qualified round-31 LOG entries; analysis grounds all 5 telemetry classes and the draft carries all 12 required features",
+   "O_red_cause": "final-sweep.md format contract: the runner parsed 4 recorded commands (0 of the 20 expected matrix tool families covered, 0 re-executed, 20 families reported as having no dated exit-0 record); O11 rendered markdown tables + commands.txt + sweep-receipt.json, while the runner's parser accepts fenced '$'-command/exit/date-sha256 blocks and refuses inline '#' comments",
+   "O_substance_green": "runner re-ran the canonical 40-command matrix itself: 40/40 exit 0; battery 10/10 with all gates covered (20 baselines pinned); three sweep-audit legs green; cross-pass OK with exactly two digest mismatches, both classified nondeterministic-stdout (timing metadata; matches X18's independent byte-diff)"
+  },
+  "missing_dependencies": [
+   "LOG.md round-31 entry (orchestrator)"
+  ],
+  "parent_reconciliation_order": [
+   "reconcile the final-sweep.md <-> run-validation.py record-format contract (render the fenced per-command blocks the parser accepts, or extend the parser to the table+commands.txt manifest form; both files are parent/builder-owned, not X18 write scope)",
+   "land the jin'i-ryu patch per reports/round-31/jinii/draft.md S7 (AGENTS.md bullet, SKILL.md checklist item, five closing snapshots with live digests) and append the S6 LOG entry",
+   "re-run python3 reports/round-31/run-validation.py only after writers settle; any evidence motion invalidates the cut as in round 30"
+  ],
+  "phase": "settled-tree rerun (the seat's declared task)",
+  "publishes_receipt": false,
+  "result_valid_for_admission": false,
+  "runner_generations": {
+   "measure_generation": {
+    "note": "the runner was edited by its builder between the X18 selftest and the measure phase; the receipt self-reports this digest and X18's post-run hash matches it",
+    "sha256": "26eeddd3d5f11bffb4105f695f9abda7255f107a5c720a334f9a0b28dc29e7d1"
+   },
+   "selftest_generation": {
+    "at_utc": "2026-10-18T23:15:57Z",
+    "selftest_exit": 0,
+    "sha256": "8694b9c05dce80772921e24b306b5159f2aa0a6c4c5f924684c61516a39418fe"
+   }
+  },
+  "scratch_raw_output": ".scratch/r31-x18/check-out.json",
+  "started_at_utc": "2026-10-18T23:16:04.236082497Z",
+  "stderr_tail": "waiting on dependencies: LOG.md round-31 entry (orchestrator) [repeated each 60s poll, 15 polls]",
+  "stdout_sha256": "70d6c4981c2642e46a25a1113ea4c71ccfb230f545b8b6e2dbed206d08ca2401"
+ },
+ "write_scope": [
+  "reports/round-31/report-draft.md",
+  "reports/round-31/rerun.json"
+ ]
+}

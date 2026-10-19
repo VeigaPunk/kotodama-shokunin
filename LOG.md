@@ -3431,3 +3431,53 @@ designation (provider test), not a silent substitution.
 - **D (verified):** the Register-craft subsection landed; box-1 survey 28/28
   digest-pinned.
 - **Evidence:** `reports/round-30/validation.json` acceptance true.
+
+## 2026-10-18 — Operator amendments 5-6 (regimen spec notes)
+
+- (5) The 128-worker xai-grok expand rounds remain skipped (reaffirming
+  amendment 3); no grok round exists in the amended regimen.
+- (6) Sol-max -> luna-max: where the regimen names a sol-max integrate round,
+  luna max is the operator's stated preference. The three integrate rounds of
+  THIS regimen (r14, r22, r30) already ran on `openai-codex/gpt-6.1-sol` per
+  the earlier explicit spec ("1 last round using openai codex 6.1 sol max")
+  and are closed; closed rounds are never re-dispatched. The preference is
+  recorded for any future regimen.
+
+## 2026-10-18 — Round 31: the jin'i-ryu self-improvement round (logged per the gate)
+
+Given the round telemetry, the lane proposed and landed ONE falsifiable
+improvement to its own operating files: **the telemetry finalization-closure
+rule** (`reports/round-31/jinii/draft.md`; analysis at `jinii/analysis.md` —
+five availability records filed `open-at-seat-close` in every modern round,
+0/5 finalized despite every receipt landing; the r29 restate-hazard where the
+disposition cited counts that appear in no record).
+
+Delta landed: AGENTS.md gains the "Close what you open" bullet; SKILL.md's
+executable checklist gains the closing-snapshot audit item; five retroactive
+closing snapshots land under `reports/round-{19,25,26,27,28}/telemetry/`
+(append-only, each naming the record it closes + that record's SHA-256).
+
+Falsification condition (per the gate): (i) the audit leg — if the checklist
+audit (`open-at-seat-close` + validation-landed + no closing snapshot) prints
+a non-empty list after this round for a round admitted to LOG.md, the rule is
+falsified and reverts; (ii) the integrity leg — if a closing snapshot's
+`closes_sha256` mismatches its record's current bytes (an in-place edit of a
+filed record), the rule is falsified; (iii) the malformed-rule leg — if
+compliance is only possible by editing a filed record in place, the rule is
+reworded or reverted. Later-round non-compliance fails that round's audit; it
+does not by itself falsify the rule.
+
+## 2026-10-18 — Round 31 admitted (loop 3 GLM round 1 of 2; regimen close-out)
+
+- **Trigger:** regimen; claims C/O/D in `reports/round-31/claims.json`; baseline
+  `e8d2d0d`; 12/16 completed (+1 seat collision, +3 late scribes).
+- **C (verified):** closure-ledger.json — 32/32 lane rounds audited, zero
+  missing; 22/22 filed reports commit-ancestor-valid; two honest findings
+  (r23's missing Landed-changes heading; r13's documented operator-skip);
+  two independent auditors re-verified 13 rows with zero mismatches.
+- **O (verified):** the final green sweep — 50/50 capability rows exit 0,
+  13 filed-red historical controls at their codes, battery 10/10, the
+  r31-post frozen generation replaying 4/4 (the r28-post supersession gap
+  closed), all 50 recorded commands re-executed green.
+- **D (verified):** the jin'i-ryu delta landed as recorded above.
+- **Evidence:** `reports/round-31/validation.json` acceptance true.
