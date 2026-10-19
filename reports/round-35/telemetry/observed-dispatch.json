@@ -1,0 +1,45 @@
+{
+  "record": "observed-dispatch",
+  "round": 35,
+  "state": "open-at-seat-close",
+  "owner": "orchestrator (goal-mode parent)",
+  "reason": "counters are filled from the batched-dispatch result; the record closes when reports/round-35/telemetry/availability-close-35.json lands in the same integrating pass (AGENTS.md close-what-you-open)",
+  "observed_window_utc": "2026-10-19T08:16:00Z/2026-10-19T08:51:40Z",
+  "window_basis": "the key-1 fallback batch measured 2137.665 s from the fallback dispatch (~08:16Z, after three 402 attempts recorded in availability-attempt-1..3.json) to the batch result",
+  "counting_command": "AgentSwarm result summary '<summary>completed: 64</summary>'; three prior summaries 'failed: 64' with 402; date -u at declaration and close",
+  "counting_date": "2026-10-19",
+  "requested_allocation": {
+    "provider_lane": "opencode-go-3",
+    "model": "deepseek-v4.1-flash",
+    "lane_key": "opencode-go key 3 (declared)",
+    "requested_workers": 64,
+    "batched_calls": 1
+  },
+  "pre_batch_attempts": [
+    {"attempt": 1, "route": "opencode-go-3", "result": "64/64 failed at launch: 402 Insufficient account funds", "record": "reports/round-35/telemetry/availability-attempt-1.json"},
+    {"attempt": 2, "route": "opencode-go-4", "result": "64/64 failed at launch: 402", "record": "reports/round-35/telemetry/availability-attempt-2.json"},
+    {"attempt": 3, "route": "opencode-go-5", "result": "64/64 failed at launch: 402", "record": "reports/round-35/telemetry/availability-attempt-3.json"}
+  ],
+  "route_deviation": {
+    "declared_lane": "opencode-go-3",
+    "observed_route": "opencode-go key 1 (live-key fallback)",
+    "owner": "orchestrator",
+    "reason": "keys 3/4/5 returned 402 with zero launched; AGENTS.md: rotation uses live keys, failures recorded not retried; claims.json digest-pinned so the deviation is recorded, not edited",
+    "live_key_census": "keys 1-2 funded (r33/r34 carried 64/64 and 63/63), keys 3-5 dry, 6-7 presumed dry by pattern (inference, not probed)"
+  },
+  "launched_workers": 64,
+  "completed_workers": 64,
+  "failed_workers": 0,
+  "runtime_concurrency": null,
+  "runtime_concurrency_owner": "orchestrator",
+  "runtime_concurrency_reason": "seat-level launch telemetry is not observable from the parent; AgentSwarm queues launches automatically. Unknown counters stay null per AGENTS.md.",
+  "actual_route": "opencode-go lane key 1, wire model deepseek-v4.1-flash",
+  "post_batch_integration": "integrator (parent) in-session: allocation reconciliation + ten corpus entries landed, README reconciliation (sweep green), renderer patch A + four controls (after reverting a bad first insert), adjacency audit assembly, acceptance runner authored, record set; no post-batch subagent waves (operator concurrency directive)",
+  "durable_sources": [
+    {"path": "reports/round-35/claims.json", "sha256": "ccfaafc363981d16729c351fa11135e8082b1b0695dc399884d5c91bcc9e26e4"},
+    {"path": "reports/round-35/targets.json", "sha256": "56ad03927c7063a3616af2ed0e78ab7b1ca1f3ea43fdf67f2ecf60a7f1b63215"},
+    {"path": "reports/round-35/telemetry/dispatch-declared.json", "sha256": "93e205a2c3dfb8f39b027ae9a50d7bb28459746ce893fc690789d2d8a4bfcd83"},
+    {"path": "reports/round-35/telemetry/inputs/claims.json", "sha256": "ccfaafc363981d16729c351fa11135e8082b1b0695dc399884d5c91bcc9e26e4"},
+    {"path": "reports/round-35/telemetry/inputs/targets.json", "sha256": "56ad03927c7063a3616af2ed0e78ab7b1ca1f3ea43fdf67f2ecf60a7f1b63215"}
+  ]
+}

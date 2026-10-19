@@ -625,12 +625,36 @@ coverage folded by siblings, recorded in `missing_dependencies`. Supersessions
 as new rows: renderer default pair r6→r7, CLAIMS_MAP r20→r7 successor; the
 filed r2..r6 packet rows and round-20 map stay byte-identical.
 
+## Axes — round 35 (2026-10-19), ADMITTED (regimen 2, loop 1 build 3 of 3)
+
+Baseline `4a7aede` (expands to `4a7aede22cd8395b01ce6dd9f46bcae364ca24e4`);
+declared 64 workers on `opencode-go-3`, **observed route opencode-go key 1** —
+keys 3/4/5 returned 402 insufficient funds (three recorded attempts, zero
+launched; `telemetry/availability-attempt-{1,2,3}.json`); the batch completed
+64/64 on the live-key fallback. Acceptance:
+`python3 reports/round-35/run-validation.py` exits 0
+(`reports/round-35/validation.json`, receipt sha256 `328e97b3…`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | 201 entries (CM 18 / MS 19) → 211 (CM 24 / MS 23): ten sourced entries landed after the mid-wave allocation reconciliation (swap chain recorded); README revision 2.0 sweep-green (211 rows == 211 files); 10/10 entries audited by three independent seat auditors; C04's timekeeping alternate routed as a named spare | partition census; `python3 -B reports/round-28/readme/sweep.py`; `python3 reports/round-35/run-validation.py` | `corpus/knowledge/{culture-material,myth-symbol}/`; `cov/C13/C14/C17` audits; `validation.json` |
+| operability | improved (claim O) | R34-N1 closed: superseded-row replay = unhandled KeyError → exit 1 `E2E-READSET` naming `reports/round-20/handoff/claims-map.md` (no traceback); m13a/m13b/m14a/m14b green; E2E-DIGEST/E2E-BASELINE paths preserved; r7 chain exit 0, packet `45f57132…` — zero freeze bytes moved | `python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet --baseline reports/round-30/handoff/declared-in-r6/expected.json`; `--profile v3 --selftest` | `op/O01/O02` drafts + applied bytes; `validation.json` |
+| adjacency | improved (claim A) | No consolidated r33/34-surface audit → 13-surface assembled audit: zero unfiled bleed, PROVINCE accurate at HEAD (`c53782a`), findings F1-F13 owner-assigned; contested items routed-not-absorbed | `python3 reports/round-35/run-validation.py` | `adj/audit-assembled.md` |
+| depth / freshness | unchanged | Freshness pause in force; depth not claimed; no axis harmed | — | `claims.json` non_goals |
+
+Admission: C/O/A verify and no axis is harmed. Named records: the **route
+deviation** (opencode-go-3 → key 1; key census 1-2 live, 3-5 dry); the
+**allocation reconciliation** (P01 swap-rule swap chain, C03's placement);
+the **timekeeping spare**; the integration repair (bad first control insertion
+reverted and re-applied).
+
 ## Planned
 
-- Round 34 ADMITTED (see its table above). Next: round 35 — loop 1 build 3 of 3,
-  one 64-worker batch on `opencode-go-3/deepseek-v4.1-flash` (key 3) per
-  REGIMEN.md, completing loop 1's opencode-go build trio.
-- Round 33 ADMITTED (regimen 2 opening round).
+- Round 35 ADMITTED — loop 1's opencode-go build trio is complete (r33-r35).
+  Next: round 36 — loop 1 position 4, one batch of 32-64 workers on
+  `hyper/deepseek-v4.1-flash` with the declared devin fallback
+  (`devin/deepseek-v4-1-flash-high`) if hyper is exhausted (REGIMEN.md).
+- Round 34 ADMITTED (see its table above).
 - Rounds 8-10 + round 12 (verify) admitted; round 11 REJECTED (F threshold).
   Next: round 13, loop 1 expand round — 128 workers on `xai-oauth/grok-4.7-fast`.
   Candidate claims: D4 culture packet (typed pipeline on a fresh build),

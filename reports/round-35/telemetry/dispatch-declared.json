@@ -1,0 +1,31 @@
+{
+  "record": "dispatch-declared",
+  "round": 35,
+  "owner": "orchestrator (goal-mode parent)",
+  "declared_at_utc": "2026-10-19T08:05:00Z",
+  "observation": "pre-dispatch declaration; observed launches/completions/failures are recorded in a separate observed-dispatch record after the batch returns",
+  "allocation": {
+    "provider_lane": "opencode-go-3",
+    "model": "deepseek-v4.1-flash",
+    "lane_key": "opencode-go key 3 (third of the per-round round-robin across live keys)",
+    "requested_workers": 64,
+    "batched_agentswarm_calls": 1,
+    "seat_composition": "4 scouts, 2 planners, 1 connector, 17 C-seats (10 authors, 3 auditors, 1 runbook, 2 scribes +1 README... exact role census: authors 10, verifiers 11 incl. C13/C14/C17/O05/O08/O11/A07/A11, executors otherwise), 11 O-seats, 11 A-seats, 9 reviewers, 4 critics, 5 scribes — role/claim census measured by the round-35 validator"
+  },
+  "counting_command": "date -u +%FT%TZ; sha256sum reports/round-35/claims.json reports/round-35/targets.json; python3 -c 'len(json.load(open(\"reports/round-35/targets.json\"))[\"seats\"])'",
+  "counting_date": "2026-10-19",
+  "baseline_commit": "4a7aede22cd8395b01ce6dd9f46bcae364ca24e4",
+  "durable_sources": [
+    {
+      "path": "reports/round-35/claims.json",
+      "sha256": "ccfaafc363981d16729c351fa11135e8082b1b0695dc399884d5c91bcc9e26e4"
+    },
+    {
+      "path": "reports/round-35/targets.json",
+      "sha256": "56ad03927c7063a3616af2ed0e78ab7b1ca1f3ea43fdf67f2ecf60a7f1b63215"
+    }
+  ],
+  "authoring_note": "targets.json was first authored with 60 seats and corrected to exactly 64 (adding C17/O11/A11/R09) before dispatch; the corrected digest is the pinned one",
+  "standing_rules_of_note": "no in-tree execution of any filed round runner (F-C13-1 prevention); corpus entries and the renderer patch are drafted by seats and applied by the integrator",
+  "closing_snapshot": "open-at-seat-close: closing snapshot owed once validation.json lands (AGENTS.md 'Close what you open')"
+}

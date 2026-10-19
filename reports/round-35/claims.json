@@ -1,0 +1,74 @@
+{
+  "round": 35,
+  "regimen": "REGIMEN.md (operator-approved 2026-10-19)",
+  "loop": 1,
+  "position": "build 3 of 3 (opencode-go key 3 of the round-robin)",
+  "declared_at_utc": "2026-10-19T08:05:00Z",
+  "declared_by": "orchestrator (goal-mode parent), in-session",
+  "baseline_commit": "4a7aede",
+  "baseline_expanded": "4a7aede22cd8395b01ce6dd9f46bcae364ca24e4",
+  "dispatch": {
+    "provider_lane": "opencode-go-3",
+    "model": "deepseek-v4.1-flash",
+    "requested_workers": 64,
+    "batched_calls": 1,
+    "key_rotation_note": "key lane opencode-go-3 (key 3); round 36 moves to the hyper provider per REGIMEN.md"
+  },
+  "axes_in_play": ["coverage", "operability", "adjacency"],
+  "lowest_axis_reasoning": "Coverage has zero regimen-2 claims and is the least-worked non-paused axis; claim C works it. Depth (1 claim, r34) and adjacency (1 claim, r33) are next-lowest; operability carries the routed R34-N1 hardening.",
+  "freshness_pause_in_force": true,
+  "claims": [
+    {
+      "id": "C",
+      "axis": "coverage",
+      "claim": "Expand the two thinnest knowledge partitions with ten new sourced entries: +6 culture-material (18 -> 24) and +4 myth-symbol (19 -> 23), each entry gap-named, frontmatter-complete (source / verified-at / recheck / scope), decision-record carrying, and source-resolving; corpus README index reconciled to the new counts.",
+      "before": {
+        "partition_counts": "linguistics 21 / myth-symbol 19 / culture-material 18 / synthesis 29 / verification 20 / civilizations 94 = 201 files (measured 2026-10-19T08:02Z at HEAD 4a7aede by direct census; matches A11's reading)",
+        "total": 201
+      },
+      "after_required": "culture-material 24, myth-symbol 23, total 211; every new entry passes the entry audit (frontmatter 4/4 or documented 3/4 class, source pointers resolve, decision record present, gap named in-file); corpus/README.md partition counts and index rows reconciled by the counting command; zero fabricated sources (every citation resolves or is marked to-verify in-file).",
+      "counting_commands": [
+        "for p in linguistics myth-symbol culture-material synthesis verification civilizations; do ls corpus/knowledge/$p/*.md | wc -l; done",
+        "python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge",
+        "python3 reports/round-35/run-validation.py"
+      ],
+      "thresholds": "10/10 new entries audited clean (two independent auditors); README counts == live census; inventory total 211."
+    },
+    {
+      "id": "O",
+      "axis": "operability",
+      "claim": "Land the R34-N1 hardening: the v3 e2e replay of a superseded baseline row raises a named diagnostic (E2E-READSET naming the unresolvable member) instead of an unhandled KeyError, with renderer selftest controls covering both the superseded-row refusal and the preserved E2E-DIGEST digest-mismatch path.",
+      "before": {
+        "defect": "R34-N1 (repin.json): replaying the r6 row after the CLAIMS_MAP move dies with KeyError: 'reports/round-20/handoff/claims-map.md' — the refusal is correct but the mechanism is an unhandled exception",
+        "site": "tools/exercise-handoff-e2e.py v3 replay path (read-set member resolution)"
+      },
+      "after_required": "the r6-row replay exits non-zero with a named diagnostic carrying the unresolvable path (E2E-READSET or the renderer's existing diagnostic convention); the designed E2E-DIGEST path for digest mismatches is unchanged (negative control: a flipped-sha expectation still exits 2 E2E-BASELINE, and a content-tampered read-set member still trips its leg); renderer selftest green incl. the two new controls.",
+      "counting_commands": [
+        "python3 -B tools/exercise-handoff-e2e.py --selftest",
+        "python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet --baseline reports/round-30/handoff/declared-in-r6/expected.json (expect: exit 1, named diagnostic)",
+        "python3 reports/round-35/run-validation.py"
+      ],
+      "thresholds": "named diagnostic at the r6 replay; selftest N/N; regression: the r7 default chain still exits 0; no freeze bytes move."
+    },
+    {
+      "id": "A",
+      "axis": "adjacency",
+      "claim": "Bleed-scope audit of the rounds-33/34 touched surfaces: every artifact the last two rounds created or edited (declared-in-r7 packet + claims-map + repin.json, receipt_guard_adoption tool + inventory, examples digest repoints, the round-33/34 SKILL.md and AGENTS.md and ceilings edits, the box-1/reissue records) re-scanned for cross-domain language, ownership drift, and PROVINCE conformance, with PROVINCE itself re-verified against the post-edit tree.",
+      "before": {
+        "state": "Rounds 33-34 edited shared/live files (SKILL.md, AGENTS.md, tools/exercise-handoff-e2e.py, examples/*, ceilings entry) and created new durable artifacts; no consolidated adjacency pass has covered those surfaces (the r33 audit predates the r34 edits)"
+      },
+      "after_required": "an audit document with per-surface verdicts (green or named-finding with owner): zero unfiled cross-domain bleed on the new/changed surfaces; PROVINCE owns/refuses lists still accurate against the tree (the new tool, the r7 packet, the repointed renderer all in-lane); contested items remain routed-not-absorbed; no promotion/canon/clearance/closure language in the new artifacts outside negations.",
+      "counting_commands": [
+        "python3 reports/round-35/run-validation.py"
+      ],
+      "thresholds": "every touched surface verdict-filed; zero unfiled bleed; PROVINCE accuracy re-verified at HEAD."
+    }
+  ],
+  "non_goals": [
+    "no freshness axis-move (pause in force)",
+    "no promotion, canon, clearance, or closure verdicts (operator-owned)",
+    "no re-freeze of declared-in-r7 (freeze bytes stay pinned)",
+    "no edits to filed rounds 1-34 bytes other than the two named claim artifacts (new entries under corpus/knowledge; the renderer hardening)",
+    "no git push/merge; no commits by seats; no in-tree execution of any filed round runner"
+  ]
+}

@@ -3644,3 +3644,31 @@ does not by itself falsify the rule.
   telemetry closed via `availability-close-34.json` (closes
   `dispatch-declared.json`, sha256 `53e2bb01…`). Two seats (D17, X00) never
   landed; coverage folded by siblings; recorded in `missing_dependencies`.
+
+## 2026-10-19 — Round 35 ADMITTED (regimen 2, loop 1 build 3 of 3)
+
+- **Trigger:** operator regimen (REGIMEN.md); claims C/O/A declared at baseline
+  `4a7aede` (`reports/round-35/claims.json`).
+- **Route (named deviation):** declared 64 workers on `opencode-go-3`; keys
+  3/4/5 returned `402 Insufficient account funds` with zero seats launched
+  (three attempts recorded in `telemetry/attempt-availability-{1,2,3}.json`);
+  per the live-key rule the batch dispatched on opencode-go key 1 and completed
+  64/64. Live-key census recorded: 1-2 funded, 3-5 dry, 6-7 presumed dry.
+- **C (verified):** 201 → 211 entries (CM 18→24, MS 19→23) after the mid-wave
+  allocation reconciliation (P01 swap-rule; swap chain C01↔C06↔C05 + C03's
+  placement recorded in the C receipt material); README revision 2.0,
+  sweep-green 211==211; ten entries audited by C13/C14/C17; C04's timekeeping
+  alternate routed as a named spare (`reports/round-35/cov/C04-timekeeping-spare.md`).
+- **O (verified):** R34-N1 closed — the superseded-row replay now exits 1 with
+  the named `E2E-READSET` diagnostic (patch A + controls m13a/m13b/m14a/m14b);
+  preserved E2E-DIGEST/E2E-BASELINE paths control-verified; r7 chain exit 0,
+  packet `45f57132…`, zero freeze bytes moved. Integration repair recorded: a
+  first control insertion that included a driver fence was reverted and
+  correctly re-applied.
+- **A (verified):** 13-surface assembled audit (`adj/audit-assembled.md` from
+  A08 with A07/A11 verifications): zero unfiled bleed; PROVINCE accurate;
+  findings F1-F13 owner-assigned.
+- **Evidence:** `reports/round-35/validation.json` acceptance true (exit 0,
+  receipt sha256 `328e97b3…`); fleet report `.ufo/reports/round-35/kotodama.md`;
+  telemetry closed via `availability-close-35.json` (closes
+  `dispatch-declared.json`, sha256 `93e205a2…`).

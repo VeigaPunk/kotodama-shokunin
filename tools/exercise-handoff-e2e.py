@@ -60,7 +60,9 @@ Read sets
 
 Assertions the v3 run makes
 
-  1. read-set digests match the frozen v3 baseline (drift names the file);
+  1. read-set digests match the frozen v3 baseline (drift names the file; a
+     baseline naming a read-set member the live read set no longer carries is
+     refused as `E2E-READSET` by name — the row is superseded);
   2. preflight: 16 fields, non-canon marker, licensed glossary vocabulary, no
      floating version, and the uncertainty/link grammar below;
   3. v2-subset equality: the 15 v2 claims parsed out of the v3 ledger are
@@ -88,7 +90,9 @@ Assertions the v3 run makes
 
 Exit codes (stable messages, no traceback): 0 clean; 1 mismatch —
 `E2E-DIGEST`, `E2E-COUNT`, `E2E-GATE`, `E2E-SCAN`, `E2E-UNC` (uncertainty
-findings), `E2E-LINK` (link findings); 2 could-not-evaluate — `E2E-ARTIFACT`
+findings), `E2E-LINK` (link findings), `E2E-READSET` (a frozen baseline names a
+read-set member the live read set no longer carries — the row is superseded and
+cannot be replayed); 2 could-not-evaluate — `E2E-ARTIFACT`
 (missing/unreadable read-set file), `E2E-BASELINE` (absent or edited baseline),
 `E2E-DATA` (malformed input). Writes go only to a fresh directory under
 `TMPDIR` (plus `--freeze DIR`); the read set is never modified, there is no
@@ -3816,6 +3820,20 @@ def v3_exercise(root=ROOT, baseline_rel=V3_BASELINE_DEFAULT):
         snapshot_before = {rel: measure(root, rel)[0] for rel in V3_READ_SET}
         assembly = V3Assembly(root)
 
+        dropped = sorted(rel for rel in baseline["inputs"] if rel not in assembly.digests)
+        if dropped:
+            for rel in dropped:
+                record(
+                    "read-set-roster",
+                    False,
+                    f"{rel}: frozen {str(baseline['inputs'][rel])[:12]}… not in the live read set "
+                    f"({len(V3_READ_SET)} members)",
+                )
+            raise Failed(
+                "E2E-READSET",
+                f"{len(dropped)} read-set member(s) named by the frozen baseline are not in the live read set: "
+                f"{', '.join(dropped[:3])} — the baseline row is superseded (re-point or re-freeze it)",
+            )
         drifted = [rel for rel, digest in baseline["inputs"].items() if assembly.digests.get(rel) != digest]
         if drifted:
             for rel in drifted:
@@ -4429,6 +4447,69 @@ def v3_selftest():
         assert (code, err) == (EXIT_FAIL, "E2E-DIGEST"), (code, err, records)
         results.append("m12b tamper read-set (D4 projection): exit 1 E2E-DIGEST naming the changed file")
 
+        r6_row_rel = "reports/round-30/handoff/declared-in-r6/expected.json"
+        r6_stale_member = "reports/round-20/handoff/claims-map.md"
+        assert r6_stale_member not in V3_READ_SET and CLAIMS_MAP in V3_READ_SET, (r6_stale_member, CLAIMS_MAP)
+
+        with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
+            superseded_root, _ = v3_freezed_copy(fixture, control_dir, "superseded-row")
+            victim = superseded_root / baseline_rel
+            edited = json.loads(victim.read_text(encoding="utf-8"))
+            assert sorted(edited["inputs"]) == sorted(V3_READ_SET), "a fresh freeze does not pin the live read set"
+            edited["inputs"][r6_stale_member] = edited["inputs"].pop(CLAIMS_MAP)
+            edited["baseline_digest"] = v3_baseline_digest(edited)
+            victim.write_text(json.dumps(edited, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+            code, err, records = v3_exercise(root=superseded_root, baseline_rel=baseline_rel)
+        assert (code, err) == (EXIT_FAIL, "E2E-READSET"), (code, err, records)
+        assert any(not row["ok"] and r6_stale_member in row["detail"] for row in records), records
+        assert not any(row["check"] == "input-digest" and not row["ok"] for row in records), records
+        results.append(
+            f"m13a superseded row (a member moved out of the live read set): exit {code} {err} "
+            f"naming {r6_stale_member}"
+        )
+
+        with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
+            r6_root, _ = v3_freezed_copy(fixture, control_dir, "r6-row-replay")
+            source = ROOT / r6_row_rel
+            if not source.is_file():
+                raise MissingArtifact(f"selftest fixture source missing: {r6_row_rel}")
+            target = r6_root / r6_row_rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+            code, err, records = v3_exercise(root=r6_root, baseline_rel=r6_row_rel)
+        assert (code, err) == (EXIT_FAIL, "E2E-READSET"), (code, err, records)
+        assert any(not row["ok"] and r6_stale_member in row["detail"] for row in records), records
+        results.append(
+            f"m13b filed r6 row replay against the live tree: exit {code} {err} naming {r6_stale_member} "
+            "(the R34-N1 KeyError path is a named refusal, never a traceback)"
+        )
+
+        with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
+            flipped_root, _ = v3_freezed_copy(fixture, control_dir, "flipped-sha")
+            victim = flipped_root / baseline_rel
+            edited = json.loads(victim.read_text(encoding="utf-8"))
+            edited["inputs"][CLAIMS_MAP] = "0" * 64
+            victim.write_text(json.dumps(edited, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+            code, err, records = v3_exercise(root=flipped_root, baseline_rel=baseline_rel)
+        assert (code, err) == (EXIT_UNEVALUATED, "E2E-BASELINE"), (code, err, records)
+        results.append(
+            "m14a flipped read-set sha in the baseline without re-signing: exit 2 E2E-BASELINE "
+            "(integrity digest mismatch), never a pass"
+        )
+
+        with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
+            tampered_root, _ = v3_freezed_copy(fixture, control_dir, "tampered-member")
+            victim = tampered_root / CLAIMS_MAP
+            victim.write_text(victim.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+            code, err, records = v3_exercise(root=tampered_root, baseline_rel=baseline_rel)
+        assert (code, err) == (EXIT_FAIL, "E2E-DIGEST"), (code, err, records)
+        assert err != "E2E-READSET", err
+        assert any(not row["ok"] and CLAIMS_MAP in row["detail"] for row in records), records
+        results.append(
+            f"m14b content-tampered live member {CLAIMS_MAP}: exit {code} {err} naming the changed file "
+            "(resolvable drift keeps its own leg; the read-set guard does not swallow it)"
+        )
+
         with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
             v2_root, _ = v3_freezed_copy(fixture, control_dir, "retouched-v2")
             victim = v2_root / V2_PACKET_YML
@@ -4600,7 +4681,7 @@ def main(argv=None):
         f"v2_subset={subset} alias_leg={alias} "
         f"packet_sha256={matches.group(1) if matches else '(not assembled)'}"
     )
-    if err and not args.quiet:
+    if err:
         print(f"handoff-v3: {err}: {records[-1]['detail'] if records else ''}")
     if args.json:
         print(json.dumps({"profile": "v3", "root": str(root), "baseline": args.baseline or baseline_default,
