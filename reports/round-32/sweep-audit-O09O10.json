@@ -1,0 +1,216 @@
+{
+ "assignment": "R32-O09..O10 (sweep auditors x2): independent re-runs >=10 of the r31 final-sweep surface; mismatches = findings",
+ "counting_command": "python3 -B reports/round-32/sweep-audit.py",
+ "date": "2026-10-19",
+ "baseline_revision": "17e90b9047b289d7a63180a1dc1bebb074137e29",
+ "head": "4d500501a286d96f2eea8a6188c649255581301a",
+ "tree_clean_at_start": false,
+ "matrix_provenance": {
+  "source": "reports/round-31/sweep/sweep-receipt.json",
+  "sha256": "38ada3b6b3553131195a04efe48bb261dda46a0a9a3874ccfb335a8b8d5dcbb1",
+  "rows_loaded": 64,
+  "green_rows": 51,
+  "historical_controls": 13,
+  "control_codes_filed_table_agree": true,
+  "adopted_from_r32_receipt": [
+   "reports/round-32/run-validation.py"
+  ]
+ },
+ "claims_json_sha256": "043dcc6c5aa8cc561dc0bd7971bbcf57e2fc722e48345e9bd28dcad4d7d727de",
+ "targets_json_sha256": "906c23a2e1dfdbe86b1a23d3a4f741d95040be974493d3e51e326f04aa1c0dd4",
+ "external_tmp_legs": [
+  "tools/replay-frozen.py"
+ ],
+ "volatile_rows_whitelist": [
+  "battery",
+  "pin-repoint-selftest"
+ ],
+ "passes": {
+  "O09": {
+   "started_at_utc": "2026-10-19T00:55:19+00:00",
+   "finished_at_utc": "2026-10-19T00:55:56+00:00",
+   "commands_executed": 64,
+   "green_rows": 51,
+   "green_exit0": 51,
+   "green_nonzero": [],
+   "controls_at_expected_code": 13,
+   "controls_off_code": []
+  },
+  "O10": {
+   "started_at_utc": "2026-10-19T00:55:56+00:00",
+   "finished_at_utc": "2026-10-19T00:56:34+00:00",
+   "commands_executed": 64,
+   "green_rows": 51,
+   "green_exit0": 51,
+   "green_nonzero": [],
+   "controls_at_expected_code": 13,
+   "controls_off_code": []
+  }
+ },
+ "cross_pass_findings": [],
+ "expected_cross_pass_volatility": [
+  {
+   "kind": "stdout-digest-mismatch-between-passes",
+   "id": "battery",
+   "volatile_tool": true,
+   "diff_excerpt": [
+    "--- o09",
+    "+++ o10",
+    "@@ -635 +635 @@",
+    "-      \"stdout_head\": \"self-test: 10/10 checks passed; fixture exit 1 with 21 planted finding IDs\\nfixture:  /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/gate-battery-_fhhvf96/fixtures/costume-era-consistency-gate.yml\\nexpected: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/gate-battery-_fhhvf96/fixtures/costume-era-consistency-gate.expected\\n\",",
+    "+      \"stdout_head\": \"self-test: 10/10 checks passed; fixture exit 1 with 21 planted finding IDs\\nfixture:  /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/gate-battery-jg7or4z9/fixtures/costume-era-consistency-gate.yml\\nexpected: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch/gate-battery-jg7or4z9/fixtures/costume-era-consistency-gate.expected\\n\",",
+    "@@ -648 +648 @@",
+    "-      \"seconds\": 0.169,",
+    "+      \"seconds\": 0.17,",
+    "@@ -665 +665 @@",
+    "-      \"seconds\": 0.046,",
+    "+      \"seconds\": 0.044,",
+    "@@ -737 +737 @@"
+   ]
+  },
+  {
+   "kind": "stdout-digest-mismatch-between-passes",
+   "id": "pin-repoint-selftest",
+   "volatile_tool": true,
+   "diff_excerpt": [
+    "--- o09",
+    "+++ o10",
+    "@@ -29 +29 @@",
+    "-  \"date\": \"2026-10-19T00:55:21.037277+00:00\",",
+    "+  \"date\": \"2026-10-19T00:55:58.583805+00:00\","
+   ]
+  }
+ ],
+ "source_drift_during_audit": [],
+ "r31_receipt_cross_check_o09": {
+  "receipt": "reports/round-31/sweep/sweep-receipt.json",
+  "rows_compared": 64,
+  "rows_matched": 61,
+  "no_receipt_row": [
+   "reports/round-32/run-validation.py"
+  ],
+  "exit_mismatches": [],
+  "stdout_digest_mismatches": [],
+  "expected_volatile_digest_only": [
+   {
+    "id": "battery"
+   },
+   {
+    "id": "pin-repoint-selftest"
+   }
+  ]
+ },
+ "r31_receipt_cross_check_o10": {
+  "receipt": "reports/round-31/sweep/sweep-receipt.json",
+  "rows_compared": 64,
+  "rows_matched": 61,
+  "no_receipt_row": [
+   "reports/round-32/run-validation.py"
+  ],
+  "exit_mismatches": [],
+  "stdout_digest_mismatches": [],
+  "expected_volatile_digest_only": [
+   {
+    "id": "battery"
+   },
+   {
+    "id": "pin-repoint-selftest"
+   }
+  ]
+ },
+ "r32_receipt_sha256_at_comparison": "f7ea154bc51a5cad0ad9f2bab7a4d49fe9771d13c148a1caa5c0200143d304b3",
+ "r32_receipt_cross_check_o09": {
+  "receipt": "reports/round-32/sweep/sweep-receipt.json",
+  "rows_compared": 64,
+  "rows_matched": 62,
+  "no_receipt_row": [],
+  "exit_mismatches": [],
+  "stdout_digest_mismatches": [],
+  "expected_volatile_digest_only": [
+   {
+    "id": "battery"
+   },
+   {
+    "id": "pin-repoint-selftest"
+   }
+  ]
+ },
+ "r32_receipt_cross_check_o10": {
+  "receipt": "reports/round-32/sweep/sweep-receipt.json",
+  "rows_compared": 64,
+  "rows_matched": 62,
+  "no_receipt_row": [],
+  "exit_mismatches": [],
+  "stdout_digest_mismatches": [],
+  "expected_volatile_digest_only": [
+   {
+    "id": "battery"
+   },
+   {
+    "id": "pin-repoint-selftest"
+   }
+  ]
+ },
+ "r32_receipt_only_rows": [],
+ "audit_only_rows": [],
+ "r32_final_sweep_md": {
+  "present": true,
+  "sha256": "7dedafb55b0417f413eb69d991896157e08fa8d60da3808cc8e159a9e90d1937",
+  "table_cross_check_o09": {
+   "rows_in_table": 51,
+   "rows_matched": 51,
+   "exit_mismatches": [],
+   "stdout_digest_mismatches": [],
+   "absent_from_audit": [],
+   "volatile_rows_exit_only": [
+    "battery",
+    "pin-repoint-selftest"
+   ]
+  },
+  "table_cross_check_o10": {
+   "rows_in_table": 51,
+   "rows_matched": 51,
+   "exit_mismatches": [],
+   "stdout_digest_mismatches": [],
+   "absent_from_audit": [],
+   "volatile_rows_exit_only": [
+    "battery",
+    "pin-repoint-selftest"
+   ]
+  },
+  "recorded_command_lines": 5,
+  "verbatim_reruns": [
+   {
+    "command": "python3 -B tools/check-gate-battery.py` over the default roots",
+    "executed": false,
+    "reason": "prose artifact (embedded backtick), not a recorded command; not executed"
+   },
+   {
+    "command": "python3 reports/round-32/sweep/run-sweep.py --selftest   # the runner's own controls",
+    "executed": false,
+    "reason": "unparseable command line (No closing quotation); not executed"
+   },
+   {
+    "command": "python3 reports/round-32/sweep/run-sweep.py --check      # receipt JSON without writing",
+    "executed": false,
+    "reason": "writes-or-may-write-a-non-audit-seat-artifact; not executed"
+   },
+   {
+    "command": "python3 reports/round-32/sweep/run-sweep.py              # 3 passes + receipts + this table",
+    "executed": false,
+    "reason": "writes-or-may-write-a-non-audit-seat-artifact; not executed"
+   },
+   {
+    "command": "python3 reports/round-32/run-validation.py               # claim-O counting command (orchestrator-owned)",
+    "executed": false,
+    "reason": "writes-or-may-write-a-non-audit-seat-artifact; not executed"
+   }
+  ]
+ },
+ "r32_round_runner": {
+  "present": true,
+  "sha256": "6fd1b96e682fde67e85f52c01573c175ac047b014f9f1c79ad8d72c061f8e6dd",
+  "executed_by_this_audit": false,
+  "note": "orchestrator-owned counting command; not executed here so its writes (validation.json) stay the integrating parent's"
+ }
+}

@@ -3481,3 +3481,19 @@ does not by itself falsify the rule.
   closed), all 50 recorded commands re-executed green.
 - **D (verified):** the jin'i-ryu delta landed as recorded above.
 - **Evidence:** `reports/round-31/validation.json` acceptance true.
+
+## 2026-10-18 — Round 32 admitted — THE REGIMEN IS COMPLETE
+
+- **Trigger:** regimen; final claims C/O/D in `reports/round-32/claims.json`;
+  baseline `4d50050`; 12/16 completed.
+- **C (verified):** the completion criterion certified end-to-end (audit +
+  two independent auditors).
+- **O (verified):** the r32 final sweep 51/51 green x3 + 128 auditor
+  re-executions zero-findings.
+- **D (verified):** the final dossier — box 1 closed, capability inventory,
+  operator decision materials.
+- **THE REGIMEN:** lane rounds 8-32 = 25 rounds (21 admitted, 3 rejected
+  honestly, 1 operator-skipped) across 3 loops with 6 operator amendments;
+  every round carries a content-valid fleet report, SCORECARD/LOG records,
+  and a MANIFEST closure entry. Rounds 1-7 closed retroactively at the start.
+- **Evidence:** `reports/round-32/validation.json` acceptance true.

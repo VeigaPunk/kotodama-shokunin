@@ -424,6 +424,26 @@ Admission: C/O/D verify, no axis harmed. Operator amendments 5-6 recorded
 (Grok reaffirmed-skipped; sol->luna preference for future regimens). ONE ROUND
 REMAINS: round 32 — the regimen's close.
 
+## Axes — round 32 (2026-10-18), admitted (THE REGIMEN'S FINAL ROUND)
+
+Baseline `4d50050`; one 16-worker `zai-coding-plan/glm-5.3-flash-low` (MAX
+effort) final batch (12/16; late scribes landed before integration).
+Acceptance: `python3 reports/round-32/run-validation.py` exits 0 — C/O/D PASS
+(receipt at `reports/round-32/validation.json`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| calibration | improved (claim C) | No end-to-end criterion certification -> completion-audit.md + completion-ledger.json: the completion criterion verified through round 31 — 24/24 rounds closed (20 admitted incl. r23 with its carried heading finding; 3 rejections r11/r17/r22 on record; r13 operator-skipped); 73 commit citations all ancestors of HEAD; rounds 1-7 retro re-confirmed; r32 by-construction; two independent auditors green; findings F-C32-1/F-C32-2 carried un-repaired | `python3 reports/round-32/run-validation.py` | `reports/round-32/completion-audit.md` + C04/C05 |
+| operability | improved (claim O) | The r31 sweep predated r32 -> the r32 final sweep: the 50-command matrix + the r32 harness selftest, 51/51 green x3 passes, 13 filed-red controls at codes, battery 10/10, replays r17 5/5 + r31-post 4/4; sweep auditors: 128 independent re-executions, zero findings | `python3 reports/round-32/run-validation.py` | `reports/round-32/final-sweep.md` + sweep/ + audit files |
+| depth | improved (claim D) | The dossier predated the Register-craft landing -> final-dossier.md: box 1's inventory condition CLOSED (28/28 at the current SKILL bytes); boxes 2-4 restated with r24 verdicts + loop-3 evidence; the full capability inventory (every SCORECARD capability with its demonstrated command); the operator's four decision materials — the dossier claims no promotion, it IS the decision's evidence | `python3 reports/round-32/run-validation.py` | `reports/round-32/final-dossier.md` + d11-d13 |
+| coverage / freshness / adjacency | unchanged | Pause in force to the end; final scope watch clean (1,870 tracked paths) | — | `reports/round-32/scope.md` |
+
+Admission: C/O/D verify, no axis harmed. THE REGIMEN IS COMPLETE: lane rounds
+8-32 (25 rounds: 21 admitted, 3 rejected, 1 operator-skipped) + rounds 1-7
+retroactive closure. Routed debt recorded for the operator: the falsifier
+audit's filename mismatch (substance 5/5), 7 unindexed lessons, 12 standing
+open items in the dossier, the promotion + freshness decisions.
+
 ## Axes — round 8 (2026-10-17), admitted
 
 Baseline `cf338a713060f274269cdacb18cdc0085bb06aeb`; one 64-worker
