@@ -850,6 +850,27 @@ redirects (re-pinned in `telemetry/availability-close-43.json`); the O09
 verified successor draft carried to a future hardening round; the C01 spare
 retired as superseded. Absent seats O01/O08/R02 recorded could-not-evaluate.
 
+## Axes — round 44 (2026-10-19), NOT ADMITTED on C+Ca (loop 1, position 12; O improved)
+
+Baseline `c9f4eaa`; scheduled `antigravity/gemini-3.8-flash`, operator-redirected to
+`opencode-go/deepseek-v4.1-flash` after the antigravity lane aborted twice with zero
+seat output ('skip the gemini and argon rounds'). One 32-seat batch, 14/32 filed —
+18 seats failed on an opencode-go `reasoning_content` API error (provider defect).
+Rejection receipt: `python3 reports/round-44/run-validation.py` exit 1 by design.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O) | no four-class census authority → `tools/harness/basename-couples-resolver.py` landed byte-exact (sha `43ce341f…`, the r43 O09 successor): 27/27 selftest, four-class census 2556+166+0+7=2729 +1 glob, 50 fallback mappings + 7 reasoned unresolved rows, 0-diff parity with the r42 witness (demoted-by-record, bytes `d8d23a26…` untouched); fixes blank-line over-capture + ambiguous/indented-prose/glob-precedence controls | `python3 tools/harness/basename-couples-resolver.py --selftest/--census` | `op/O02-verify.md`; `calib/couples-census-r44.json`; `op/O07-parity.md`; `op/instrument-of-record.md` |
+| coverage | unchanged (claim C BLOCKED) | the only drafted gap candidate (dream/vision/trance) was already named at `reports/round-42/scout/K02-myth-gaps.md:216` (same slug) — 'not carried' fails under the strict reading; the fresh gap (cartography, K02) has no entry body. No landing; total 223, README rev 2.4 | census + `python3 -B reports/round-28/readme/sweep.py` | `scout/K02-gap-scout.md`; `review/R01-review.md` §3 |
+| calibration | unprovable-but-better (claim Ca) | R01-43-12 stale-premises defect confirmed; scratch prototype flags r43 O/C stale + Ca fresh (exit 2 + REFUSE) but no durable gate exists and its selftest is red (17/19); all three Ca seats failed | — | `review/R01-review.md` §4; `cross/X01-trades.md` |
+| depth / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Round status: NOT ADMITTED on C+Ca (O improved and landed — recorded without
+averaging the C/Ca shortfalls into an accept). Named: the carried-candidate
+collision (dream = r42 R2, the r43 defect class one level up); the 'not carried'
+clause ruled strict per R01-44-09; the antigravity-lane outage deviation; the
+opencode-go `reasoning_content` provider defect (18 failed seats).
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was

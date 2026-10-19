@@ -3844,3 +3844,30 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Evidence:** `reports/round-43/validation.json` verdict `rejected-honest-stop`,
   acceptance false (exit 1 by design); telemetry closed via `availability-close-43.json`;
   runner reproduced in isolated git-archive replay, no in-tree execution.
+
+## 2026-10-19 — Round 44 NOT ADMITTED on C+Ca; O improved (loop 1, position 12; honest stop)
+
+- **Trigger:** regimen; claims O/C/Ca; scheduled `antigravity/gemini-3.8-flash`,
+  operator-redirected to `opencode-go/deepseek-v4.1-flash` after the antigravity lane
+  aborted twice with zero seat output ('skip the gemini and argon rounds'). One 32-seat
+  batch, 14/32 filed; 18 seats failed on an opencode-go `reasoning_content` API defect.
+- **O (verified + landed):** the r43 O09 verified successor body landed byte-exact at
+  `tools/harness/basename-couples-resolver.py` (sha `43ce341f…`): 27/27 selftest,
+  four-class census `2556+166+0+7=2729` +1 glob, 50 fallback mappings + 7 reasoned
+  unresolved rows, 0-diff parity with the r42 witness (`d8d23a26…` demoted-by-record,
+  bytes untouched). Fixes the blank-line over-capture + adds the ambiguous/
+  indented-prose/glob-precedence controls the r42 selftest lacked. Census artifact
+  `calib/couples-census-r44.json`; demotion record `op/instrument-of-record.md`.
+- **C (BLOCKED / unchanged):** the only drafted gap candidate (dream/vision/trance)
+  was already named at `reports/round-42/scout/K02-myth-gaps.md:216` with the same
+  slug — 'not carried from a prior round' fails under the strict reading (R01-44-09);
+  the fresh gap (cartography, K02) has no entry body. No landing; total 223, README
+  rev 2.4. The r43 defect class one level up: a carried *proposal*, not a carried owner.
+- **Ca (unprovable-but-better):** the R01-43-12 stale-premises defect is confirmed and
+  a scratch prototype flags r43 O/C stale + Ca fresh (exit 2 + REFUSE), but no durable
+  gate exists (all three Ca seats failed; prototype selftest red 17/19). Method proven;
+  not delivered. Defect stays open, owner integrator.
+- **Evidence:** `reports/round-44/validation.json` verdict `rejected-honest-stop`,
+  acceptance false (exit 1 by design); O improved recorded without averaging the C/Ca
+  shortfalls into an accept; telemetry closed via `availability-close-44.json`; runner
+  reproduced in isolated git-archive replay, no in-tree execution.
