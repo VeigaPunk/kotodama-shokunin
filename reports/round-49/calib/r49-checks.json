@@ -1,0 +1,48 @@
+{
+ "schema": "kotodama-claims-freshness-checks-v1",
+ "round": 49,
+ "baseline_commit": "78f77a6",
+ "checks": {
+  "C": [
+   {
+    "id": "hunting-foraging-unowned",
+    "clause": "no corpus entry owns the hunting/foraging subsistence-production register",
+    "probe_kind": "topic_owner_absent",
+    "target": {
+     "topic": ["hunting", "foraging", "hunter-gatherer", "subsistence hunt"],
+     "partitions": ["culture-material", "civilizations", "linguistics", "myth-symbol", "synthesis", "verification"],
+     "fields": ["topic"],
+     "mode": "word"
+    },
+    "expect": true,
+    "evidence_command": "grep -rniE '^- topic:.*(hunt|forag|subsisten)' corpus/knowledge/"
+   },
+   {
+    "id": "no-hunting-file",
+    "clause": "no filename under corpus/knowledge names the hunting/foraging register",
+    "probe_kind": "count_eq",
+    "target": {"glob": "corpus/knowledge/**/*hunt*.md"},
+    "expect": 0,
+    "evidence_command": "find corpus/knowledge -iname '*hunt*' -o -iname '*forag*' -o -iname '*subsist*'"
+   },
+   {
+    "id": "no-foraging-file",
+    "clause": "no filename under corpus/knowledge names foraging or subsistence",
+    "probe_kind": "count_eq",
+    "target": {"glob": "corpus/knowledge/**/*forag*.md"},
+    "expect": 0,
+    "evidence_command": "find corpus/knowledge -iname '*forag*' -o -iname '*subsist*'"
+   }
+  ],
+  "Ca": [
+   {
+    "id": "revision-2.0-dup-present",
+    "clause": "the live README still carries the duplicate 'revision: 2.0' block (the residual defect the r48 Ca round named)",
+    "probe_kind": "grep_absent",
+    "target": {"glob": "corpus/README.md", "regex": "^revision: 2\\.0"},
+    "expect": false,
+    "evidence_command": "grep -c '^revision: 2\\.0' corpus/README.md"
+   }
+  ]
+ }
+}

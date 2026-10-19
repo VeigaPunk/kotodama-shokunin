@@ -1,0 +1,60 @@
+{
+ "round": 49,
+ "regimen": "REGIMEN.md",
+ "loop": 2,
+ "position": "position 3 (opencode-go deepseek-v4.1-flash, 64 seats, key round-robin key-3)",
+ "declared_at_utc": "2026-10-19T20:20:00Z",
+ "baseline_commit": "78f77a6",
+ "dispatch": {
+  "provider_lane": "opencode-go",
+  "model": "deepseek-v4.1-flash",
+  "key": "key-3 (round-robin)",
+  "requested_workers": 64,
+  "batched_calls": 1
+ },
+ "axes_in_play": [
+  "coverage",
+  "calibration"
+ ],
+ "lowest_axis_reasoning": "Coverage is the lowest non-retired axis (224 total; hunting/foraging subsistence-production is a verified-fresh gap — 0 filename owners, 0 true topic owners, gate-confirmed at declaration). Calibration takes the residual README 'revision: 2.0' duplicate block (the second structural duplicate X01 flagged after the r48 H1 fix) plus the durable control note. Depth/adjacency/freshness/operability rest; freshness pause in force.",
+ "freshness_pause_in_force": true,
+ "declared_after_freshness_gate": {
+  "command": "python3 tools/harness/claims-freshness.py --claims .scratch/r49-claims-candidates.json --checks reports/round-49/calib/r49-checks.json --json",
+  "result": "C FRESH (3/3 clauses hold: 0 topic owners, 0 filename owners), Ca FRESH (1/1 clause holds: duplicate 'revision: 2.0' present, grep_absent expect=false satisfied). exit 0."
+ },
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "claim": "Land ONE right-sized hunting-and-foraging entry on the verified-fresh subsistence-production gap (0 filename owners, 0 true topic owners, gate-confirmed at declaration): corpus/knowledge/culture-material/hunting-foraging-subsistence.md written to the established entry contract AND the partition's length discipline (<= ~250 lines; the r48 cartography entry set the right-size precedent — NOT r47's 790-line over-build). It must learn the r48 seam lessons: one conforming head (topic byte-equal to the seed), a self-consistent method, no register-test/typology contradiction. Total 224 -> 225, culture-material 26 -> 27; README rev 2.6 (225) with the row added in filename order.",
+   "before": "total 224; hunting/foraging subsistence-production is unowned (0 filename owners, 0 true topic owners; the 2 'subsisten' topic hits are a lexicon field and a seasonal-cycle row, not the production register); adjacent registers own agrarian, animal, cuisine, pastoral but not the hunting/foraging subsistence mode",
+   "after_required": "hunting-foraging-subsistence.md landed per the entry contract; total 225, culture-material 27; README rev 2.6 sweep-green 225==225; audits PASS on the assembled bytes; zero existing entries overwritten; the gap's freshness re-verified at landing (still unowned)",
+   "counting_commands": [
+    "find corpus/knowledge -name '*.md' | wc -l",
+    "ls corpus/knowledge/culture-material/*.md | wc -l",
+    "python3 -B reports/round-28/readme/sweep.py",
+    "python3 reports/round-49/run-validation.py"
+   ],
+   "thresholds": "sweep green 225==225; entry <=~250 lines; audits clean on assembled bytes; gap verified unowned by a fresh sweep at landing; one H1, one - topic:, topic byte-equal to the README row"
+  },
+  {
+   "id": "Ca",
+   "axis": "calibration",
+   "claim": "Remove the residual duplicate 'revision: 2.0' block in corpus/README.md (lines ~55 and ~57, the second structural duplicate X01 flagged after the r48 H1 fix) as a recorded act — the grep count drops 2 -> 1 and the file keeps one revision-2.0 record; sweep + heading-control stay green. AND disposition the duplicate-structural-header defect class so it cannot recur silently: extend tools/check-readme-heading.py (or a sibling control) to catch duplicate 'revision:' prose blocks, OR file a durable note in the defect queue naming the residual class with an owner.",
+   "before": "README carries a duplicate 'revision: 2.0' block (grep count 2 at lines ~55 and ~57); the r48 heading-control covers ATX headings (^# , ^## ) but not duplicate revision-prose blocks",
+   "after_required": "the duplicate 'revision: 2.0' block removed (grep count 2 -> 1) as a recorded act, sweep + heading-control green after; the duplicate-structural-header class dispositioned (a control leg that catches duplicate revision blocks, or a durable note with owner+next_touch+evidence)",
+   "counting_commands": [
+    "grep -c '^revision: 2\\.0' corpus/README.md",
+    "python3 -B reports/round-28/readme/sweep.py",
+    "python3 -B tools/check-readme-heading.py",
+    "python3 reports/round-49/run-validation.py"
+   ],
+   "thresholds": "'revision: 2.0' grep count 2 -> 1, sweep green after, heading-control green; the duplicate-revision-block class covered by a control leg or a durable note with owner+evidence"
+  }
+ ],
+ "non_goals": [
+  "no operability claim this round (the freshness gate covered the resolver edge in r47; no live O premise verified)",
+  "no freshness/depth/adjacency claims; freshness pause in force",
+  "no edit to filed bytes: defect-queue-v2.json, queue-successor-r47/r48.json, prior reports; corrections are successor records only"
+ ]
+}

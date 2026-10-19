@@ -1,0 +1,463 @@
+{
+ "round": 49,
+ "seat_count": 64,
+ "shared_rules": [
+  "work only inside the repo; write only your out path under reports/round-48/",
+  "never edit filed bytes: reports/round-1..47/**, corpus/lessons/*.md, tools/gates/frozen/**, fleet .ufo/**; corpus/instrument changes are DRAFTED as fenced blocks, integrator-applied; NEVER stage under corpus/ directly",
+  "no git commits/pushes/installs/network; export TMPDIR=$PWD/.scratch PYTHONDONTWRITEBYTECODE=1",
+  "ABSOLUTE: never run reports/round-*/run-validation.py in-tree; NO re-freeze of declared-in-r7; no packet-surface changes",
+  "before proposing any corpus landing path, verify it against the live partition — never overwrite an existing entry; report collisions, don't route around them",
+  "the cartography entry must be RIGHT-SIZED (<=~250 lines) — learn from r47's 790-line over-build; every arithmetic/citation must be verified before drafting",
+  "every claim cites file:line or command output; unknowns to-verify; never fabricate"
+ ],
+ "seats": [
+  {
+   "id": "K01",
+   "role": "scout",
+   "claim": "C",
+   "mission": "Re-confirm hunting/foraging is still unowned at HEAD 78f77a6 (fresh filename+topic sweep at 224 — the 2 'subsisten' topic hits are a lexicon field and a seasonal-cycle row, not the production register). Find the source seed (r44 K02 alternates named hunting/foraging at reports/round-44/scout/K02-gap-scout.md:84,:363). Produce the RIGHT-SIZED entry spec (<=250 lines like the r48 cartography entry): which sections (register property, one-owner boundary, the production chain — stalk/drive/trap/net/preserve, seasonal round, toolkit, sharing/distribution, taboo/ritual boundary, decision record, NON-CANON worked example, calibration bank), which neighbors to bound (agrarian-field-system, animal-domestication, cuisine-food-lexicon, pastoral if present, foraging vs hunting).",
+   "out": "scout/K01-rightsized-spec.md"
+  },
+  {
+   "id": "K02",
+   "role": "scout",
+   "claim": "Ca",
+   "mission": "Verify the residual README 'revision: 2.0' duplicate block is live at 78f77a6 (grep -c '^revision: 2\\.0' corpus/README.md = 2 at lines ~55 and ~57). Re-read X01's T6 finding (reports/round-48/cross/X01-trades.md:186+). Produce the surgical fix: which lines constitute the second (redundant) revision-2.0 block to delete, and what the file looks like after.",
+   "out": "scout/K02-readme-defect.md"
+  },
+  {
+   "id": "P01",
+   "role": "planner",
+   "claim": "cross",
+   "mission": "Plan the r49 integration: the C entry (hunting-foraging-subsistence.md, <=250 lines, one head + body with a self-consistent register method) and the Ca README revision-2.0 dedup + a durable control/note. Order of operations, who owns which artifact, the seam-risk checklist carried from r48 (one head, byte-equal topic, audits on assembled bytes).",
+   "out": "plan/P01-plan.md"
+  },
+  {
+   "id": "X00",
+   "role": "connector",
+   "claim": "cross",
+   "mission": "Connector: map the r49 claim set. C = coverage (new fresh entry). Ca = calibration (revision-2.0 dedup + control). No O. Identify cross-claim interference (the README row insertion for C vs the revision-2.0 deletion for Ca touch the same file — line anchors must be computed after both edits, not before).",
+   "out": "cross/X00-connector.md"
+  },
+  {
+   "id": "C01",
+   "role": "executor",
+   "claim": "C",
+   "mission": "Draft the hunting-foraging-subsistence.md ENTRY BODY (sections only, no head — the head belongs to C02). Self-consistent register method like the r48 cartography body. Sections: register property (subsistence production as an argument about landscape+season), one-owner boundary table, the production chain (locate -> acquire -> process -> preserve -> distribute), the toolkit and its materials, the seasonal round / mobility pattern, the sharing-and-distribution rule, the taboo/ritual boundary, build order, decision record, NON-CANON worked example, calibration bank (primitive/harmonious-hunter myths, man-the-hunter, calorie return). Cite in-corpus neighbors with path:line; mark external (to-verify). ~215 lines, 0 H3.",
+   "out": "cov/C01-entry.md"
+  },
+  {
+   "id": "C02",
+   "role": "executor",
+   "claim": "C",
+   "mission": "Draft the hunting-foraging-subsistence.md HEAD block ONLY (H1, - topic: seed text, - gap filled:, - sources:, - couples:, - source:, - verified-at:, - recheck:, - scope:) following the r48 C02 shape: 8 fields, house order, seed-verbatim - topic:, 0 owners measured at 78f77a6, couples targets resolve. The - topic: must be byte-equal across the head and the README row.",
+   "out": "cov/C02-header.md"
+  },
+  {
+   "id": "C03",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Arithmetic verify for C: recompute every numeric figure in the assembled entry (calorie returns, seasonal intervals, toolkit counts, distances, percentages); flag any that does not recompute.",
+   "out": "cov/C03-arithmetic.md"
+  },
+  {
+   "id": "C04",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Citation verify for C: re-read every in-corpus path:line in the entry and confirm each resolves to the described content; flag any miscite.",
+   "out": "cov/C04-citations.md"
+  },
+  {
+   "id": "C05",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Length-contract verify for C: measure the assembled entry lines/words/H2/H3/table-rows and confirm inside the <=250 band; report the exact numbers.",
+   "out": "cov/C05-length-contract.md"
+  },
+  {
+   "id": "C06",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Collision verify for C: confirm hunting-foraging-subsistence.md does not collide with any existing file or any other seat's output.",
+   "out": "cov/C06-collision.md"
+  },
+  {
+   "id": "C07",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Boundary verify for C: confirm the entry's boundary table honors each neighbor's ownership and no register is restated.",
+   "out": "cov/C07-boundary.md"
+  },
+  {
+   "id": "C08",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Shelf verify for C: the external shelf is honestly unread and every item marked (to-verify); no unread work presented as inspected.",
+   "out": "cov/C08-shelf.md"
+  },
+  {
+   "id": "C09",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Couples verify for C: every '- couples:' target resolves relative to corpus/knowledge/culture-material/.",
+   "out": "cov/C09-couples.md"
+  },
+  {
+   "id": "C10",
+   "role": "executor",
+   "claim": "C",
+   "mission": "Draft the README rev-2.6 row for hunting-foraging-subsistence.md: row text = the entry's - topic: byte-equal; inserted in filename order within culture-material (between which two files?); section count 26 -> 27; totals 224 -> 225; footer vector 25/26/26/29/24/94 -> 25/26/27/29/24/94. Coordinate with the Ca revision-2.0 edit so line anchors are computed on the post-edit file.",
+   "out": "cov/C10-readme.md"
+  },
+  {
+   "id": "C11",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Sweep verify for C: run the staged-225 sweep and confirm rows 225 files 225, topic_mismatch 0, totals_ok, footer_ok.",
+   "out": "cov/C11-sweep.md"
+  },
+  {
+   "id": "C12",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Content verify for C: each section carries decision content (a rule, lever, table, or decision row), matching corpus/QUALITY.md.",
+   "out": "cov/C12-content.md"
+  },
+  {
+   "id": "C13",
+   "role": "scribe",
+   "claim": "C",
+   "mission": "Scribe cross-check for C: confirm the assembled entry (C02 head + C01 body) has exactly one H1, one - topic:, 0 H3, <=250 lines, couples resolve, and the README row is byte-equal to - topic:. Report assembled line count + sha.",
+   "out": "cov/C13-scribe.md"
+  },
+  {
+   "id": "Ca01",
+   "role": "executor",
+   "claim": "Ca",
+   "mission": "The surgical README revision-2.0 fix: identify the exact redundant block (the SECOND 'revision: 2.0' paragraph, lines ~57+ vs the first at ~55), draft the exact deletion, and show the resulting grep count = 1. Preserve the FIRST block (it is the dated record).",
+   "out": "calib/Ca01-readme-fix.md"
+  },
+  {
+   "id": "Ca02",
+   "role": "executor",
+   "claim": "Ca",
+   "mission": "Disposition the duplicate-structural-header defect class: the r48 H1 fix + this revision-2.0 dedup are one family (duplicate structural header/prose the ATX-heading control partially misses). Draft a queue-successor row OR a control-leg extension for tools/check-readme-heading.py (or a sibling) that catches duplicate '^revision:' blocks — name the owner + next_touch + evidence.",
+   "out": "calib/Ca02-overbuild.md"
+  },
+  {
+   "id": "Ca03",
+   "role": "verifier",
+   "claim": "Ca",
+   "mission": "Verify the README revision-2.0 fix: re-run grep count (2 -> 1), sweep green, heading-control green after the edit; confirm no other 'revision:' block is duplicated (grep -n '^revision:' corpus/README.md has unique numbers).",
+   "out": "calib/Ca03-readme-verify.md"
+  },
+  {
+   "id": "Ca04",
+   "role": "verifier",
+   "claim": "Ca",
+   "mission": "Independent verify of the revision-2.0 deletion: confirm the FIRST block is preserved verbatim and only the redundant second is removed; check the file still reads as a clean revision log (no dangling half-paragraph).",
+   "out": "calib/Ca04-verify.md"
+  },
+  {
+   "id": "Ca05",
+   "role": "executor",
+   "claim": "Ca",
+   "mission": "Extend or sibling the control: add a duplicate-'revision:'-block leg to tools/check-readme-heading.py (or draft tools/check-readme-revision-blocks.py) so a duplicate revision-prose block is caught; selftest it red on the live README, green on the fixed copy.",
+   "out": "calib/Ca05-heading-control.md"
+  },
+  {
+   "id": "R01",
+   "role": "reviewer",
+   "claim": "cross",
+   "mission": "Review the r49 round record: claims freshness, dispatch fidelity, the integration diff, the validation receipt, and the bookkeeping (LOG/SCORECARD/telemetry).",
+   "out": "review/R01-review.md"
+  },
+  {
+   "id": "R02",
+   "role": "reviewer",
+   "claim": "cross",
+   "mission": "Review the r49 round record (second reviewer): independent pass on the same surfaces — flag any unverified claim, missing evidence pointer, or boundary overreach.",
+   "out": "review/R02-review.md"
+  },
+  {
+   "id": "R03",
+   "role": "reviewer",
+   "claim": "C",
+   "mission": "Content review of the assembled hunting-foraging entry (non-author): is it a real register method, self-consistent (no register-test/typology contradiction like r48's D1), right-sized, boundary-clean; name any blocking defect and the fix.",
+   "out": "review/R03-c-content.md"
+  },
+  {
+   "id": "X01",
+   "role": "critic",
+   "claim": "cross",
+   "mission": "Trades critic: does the r49 landing trade one axis against another (e.g., a coverage entry that restates a neighbor's register, or a calibration fix that breaks a line anchor)?",
+   "out": "cross/X01-trades.md"
+  },
+  {
+   "id": "X02",
+   "role": "critic",
+   "claim": "cross",
+   "mission": "Honesty critic: are all claimed improvements measured (not asserted), and is any unverifiable claim honestly marked unprovable?",
+   "out": "cross/X02-honesty.md"
+  },
+  {
+   "id": "A01",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Scope audit: did the round stay inside culture-material + README + tools + reports/round-49; no sibling/fleet bleed?",
+   "out": "adj/A01-scope.md"
+  },
+  {
+   "id": "A02",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Ownership audit: the entry is the sole owner of hunting/foraging-production; confirm no neighbor register is re-owned.",
+   "out": "adj/A02-ownership.md"
+  },
+  {
+   "id": "A03",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Write-surface audit: seat fragments wrote only their out under reports/round-49; integrator applied corpus/tool changes; no seat staged under corpus/.",
+   "out": "adj/A03-write-surface.md"
+  },
+  {
+   "id": "S01",
+   "role": "scribe",
+   "claim": "cross",
+   "mission": "Scribe: draft the r49 integration summary — landed artifacts, the diff, the verdicts.",
+   "out": "scribe/S01-integration-draft.md"
+  },
+  {
+   "id": "S02",
+   "role": "scribe",
+   "claim": "cross",
+   "mission": "Scribe: draft the telemetry records (observed-dispatch + availability-close) for r49.",
+   "out": "scribe/S02-telemetry-draft.md"
+  },
+  {
+   "id": "S03",
+   "role": "scribe",
+   "claim": "cross",
+   "mission": "Scribe: draft the SHONEN assessment lines for the round report.",
+   "out": "scribe/S03-shonen.md"
+  },
+  {
+   "id": "V01",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Post-landing verify for C: the landed entry file exists, <=250 lines, sweep 225 green, couples resolve.",
+   "out": "cov/V01-post-landing.md"
+  },
+  {
+   "id": "W01",
+   "role": "executor",
+   "claim": "C",
+   "mission": "Write the landing spec for the C entry: assembly order (C02 head + C01 body), the fixes to apply, the audits to re-run on the assembled bytes (arithmetic, citations, couples, structure, length), and the staged-225 sweep expectation.",
+   "out": "cov/W01-landing-spec.md"
+  },
+  {
+   "id": "W02",
+   "role": "executor",
+   "claim": "Ca",
+   "mission": "Write the landing spec for the Ca revision-2.0 fix: the exact lines to delete, the post-edit grep count (1), the sweep + heading-control green requirement, and the disposition path for the duplicate-structural-header class (control leg vs durable note).",
+   "out": "calib/W02-landing-spec.md"
+  },
+  {
+   "id": "Q01",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Final gate: re-run the sweep, the heading control, and the run-validation; confirm all green and the verdicts hold on landed bytes.",
+   "out": "cross/Q01-final-gate.md"
+  },
+  {
+   "id": "C14",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Example verify for C: the worked example is NON-CANON, has one rule stated once, DR- tags present, inside <=25 lines.",
+   "out": "cov/C14-example.md"
+  },
+  {
+   "id": "C15",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Neighbors verify for C: the boundary table names every neighbor this entry could overreach, each with a live anchor.",
+   "out": "cov/C15-neighbors.md"
+  },
+  {
+   "id": "O01",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Operability scout: is there a live O premise for a future round (a tool gap, a gate extension, a resolver edge)? Report findings only — no claim this round.",
+   "out": "op/O01-gate-live.md"
+  },
+  {
+   "id": "O02",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Operability scout (second): the duplicate-structural-header class — does it need a durable gate leg, or is the queue-successor + note enough?",
+   "out": "op/O02-resolver-edge.md"
+  },
+  {
+   "id": "O03",
+   "role": "scout",
+   "claim": "cross",
+   "mission": "Operability scout: check the heading/revision control coverage — what structural-duplicate shapes remain uncaught (revision blocks, section headers, footer blocks)?",
+   "out": "op/O03-next-o.md"
+  },
+  {
+   "id": "R04",
+   "role": "reviewer",
+   "claim": "Ca",
+   "mission": "README review: confirm the rev-2.6 row is byte-equal, the revision-2.0 dedup is clean, and the index is internally consistent after both edits.",
+   "out": "review/R04-readme.md"
+  },
+  {
+   "id": "X03",
+   "role": "critic",
+   "claim": "C",
+   "mission": "Over-build critic: is the r49 entry inside the partition length discipline (<=250 lines, ~5k words), 0 H3, self-consistent; or is it the r47 over-build pattern renamed? Run the detector on the assembled bytes.",
+   "out": "cross/X03-overbuild.md"
+  },
+  {
+   "id": "X04",
+   "role": "critic",
+   "claim": "cross",
+   "mission": "Baseline-drift critic: is the round measured against HEAD 78f77a6 and the live 224 tree, not carried counts?",
+   "out": "cross/X04-baseline-drift.md"
+  },
+  {
+   "id": "M01",
+   "role": "executor",
+   "claim": "C",
+   "mission": "Draft the NON-CANON worked example for the hunting-foraging entry (a single invented culture/landscape demonstrating the production chain + one rule stated once + a labeled counterfactual), with DR- tags on its decisions. ~25 lines, at the <=25 ceiling.",
+   "out": "cov/M01-example.md"
+  },
+  {
+   "id": "M02",
+   "role": "executor",
+   "claim": "C",
+   "mission": "Draft the calibration bank for the hunting-foraging entry (the contested claims: man-the-hunter protein myth, harmonious-forager, primitive-subsistence, immediate-return vs delayed-return, optimal foraging as law vs heuristic) with R/C/B/H/T statuses and in-corpus/external anchors.",
+   "out": "cov/M02-calibration.md"
+  },
+  {
+   "id": "M03",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Method-fidelity verifier: does the entry teach the register METHOD (property->mechanism->classes->scarcity->trade) or just describe maps? Judge it does what a register entry must.",
+   "out": "cov/M03-method.md"
+  },
+  {
+   "id": "N01",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Numbers audit for C: recompute every arithmetic claim in the assembled entry (calorie returns, seasonal dates, toolkit counts, distance figures) and confirm each is either arithmetic-clean or marked (to-verify).",
+   "out": "cross/N01-numbers.md"
+  },
+  {
+   "id": "N02",
+   "role": "verifier",
+   "claim": "Ca",
+   "mission": "Integrity check across both README edits (C row insert + Ca revision-2.0 delete): compute the post-edit line anchors, confirm no edit references a pre-edit line number, and that totals/vector/section-count are internally consistent.",
+   "out": "calib/N02-integrity.md"
+  },
+  {
+   "id": "N03",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Landing-safety check for C: confirm the entry does not overwrite any existing file, the README row is byte-equal, the couples resolve, and no neighbor register is absorbed.",
+   "out": "cov/N03-landing-safety.md"
+  },
+  {
+   "id": "D01",
+   "role": "executor",
+   "claim": "cross",
+   "mission": "Delta-receipt scribe: produce the append-only delta record for the round (what was added/changed, with shas).",
+   "out": "cross/D01-delta-receipt.md"
+  },
+  {
+   "id": "C16",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Topic verify for C: the entry's - topic: is byte-equal between head and README row, and names the hunting/foraging register.",
+   "out": "cov/C16-topic.md"
+  },
+  {
+   "id": "C17",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Structure verify for C: 1 H1, 1 - topic:, 8-field head, 0 H3, sections follow the house shape.",
+   "out": "cov/C17-structure.md"
+  },
+  {
+   "id": "C18",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Provenance verify for C: every external claim is (to-verify) or anchored; no fabricated source.",
+   "out": "cov/C18-provenance.md"
+  },
+  {
+   "id": "Ca06",
+   "role": "executor",
+   "claim": "Ca",
+   "mission": "Process-row disposition: mint or cite the canonical id for the duplicate-structural-header class in the defect queue (do not double-count with Ca02's row); record which row is canonical.",
+   "out": "calib/Ca06-process-row.md"
+  },
+  {
+   "id": "Ca07",
+   "role": "verifier",
+   "claim": "Ca",
+   "mission": "Integrity check on the Ca fix: the deletion removes only redundant bytes, the first revision-2.0 record is intact, the sweep/heading control confirm no regression, and the class disposition names an owner.",
+   "out": "calib/Ca07-integrity.md"
+  },
+  {
+   "id": "R05",
+   "role": "reviewer",
+   "claim": "cross",
+   "mission": "Gate-use review: did the freshness gate run correctly at declaration (2 FRESH), and did the round honor its verdicts?",
+   "out": "review/R05-gate-use.md"
+  },
+  {
+   "id": "X05",
+   "role": "critic",
+   "claim": "Ca",
+   "mission": "README critic: does the rev-2.6 edit + revision-2.0 dedup produce a consistent index, or a new drift?",
+   "out": "cross/X05-readme.md"
+  },
+  {
+   "id": "A04",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Post-landing audit: the landed bytes match the verified draft; the sweep + controls are green; nothing outside the intended writes changed.",
+   "out": "adj/A04-post-landing.md"
+  },
+  {
+   "id": "O04",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Operability verify: replay the freshness-gate declaration for r49 and confirm the 2-FRESH verdict reproduces.",
+   "out": "op/O04-gate-replay.md"
+  },
+  {
+   "id": "E01",
+   "role": "executor",
+   "claim": "C",
+   "mission": "Draft the one-owner boundary table for hunting-foraging (neighbors: agrarian-field-system, animal-domestication if present, cuisine-food-lexicon, pastoral/nomad if present, transport-mobility for movement, myth-symbol food/ritual registers, sacred-hunt if present), each with live anchor and the line this entry does not cross.",
+   "out": "cov/E01-boundary.md"
+  },
+  {
+   "id": "E02",
+   "role": "verifier",
+   "claim": "C",
+   "mission": "Register-fit check: is 'hunting-and-foraging-subsistence' the right partition (culture-material) and the right scope (production system, not cuisine, not animal domestication, not pastoral nomadism)? Name the exact boundary sentences.",
+   "out": "cov/E02-register.md"
+  },
+  {
+   "id": "F01",
+   "role": "verifier",
+   "claim": "cross",
+   "mission": "Final census: confirm the corpus is 225, culture-material 27, README rev 2.6, all receipts filed, and the round is closure-ready.",
+   "out": "cross/F01-final-census.md"
+  }
+ ]
+}
