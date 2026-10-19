@@ -1,0 +1,31 @@
+- Seat: Ca05 | executor | Ca | date 2026-10-19 | baseline 57c8409
+
+# Ca05 — cross-cutting command recount
+
+Current observations were taken at HEAD `57c8409ba16d9f9e692297198d95e8f2ce5a1937` (`git rev-parse HEAD`). All Python commands below used `TMPDIR=$PWD/.scratch PYTHONDONTWRITEBYTECODE=1`. No `reports/round-*/run-validation.py` was executed.
+
+## Results
+
+- **C31 lessons audit** — Filed r33: 33 lesson files / 33 index rows / 78 queue rows, six checks pass, findings 0 (`reports/round-33/validation.json:705-727`). Re-ran exact filed command `python3 -B -B reports/round-25/audit/c31-lessons-index-audit.py`: exit 0, same 33/33/78, formats `{gate-keeper: 21, fragment-index: 5, plain: 7}`, six PASS, findings 0. **Match.**
+- **C31 selftest** — Filed `SELFTEST OK: 28/28` (`reports/round-33/validation.json:733-745`). Exact command with `--selftest`: `SELFTEST OK: 28/28 checks passed`, exit 0. **Match.**
+- **Box-1 survey** — Filed after-state is 28/28 at `f9bd07c2…` (`reports/round-34/claims.json:56-65`; durable reading at `reports/round-34/craft/box1-resurvey-durable.json:12-30`). Re-run `python3 -B reports/round-30/craft/box1-survey.py`: named 28, resolvable 28, `unnamed_in_skill: []`, same full `skill_sha256` `f9bd07c2bd13462367be20e8d775cec1c5569eb2e575dc5d078519ecc72e5a9b`, exit 0. **Match.** Its printed `date: 2026-10-18` is the hard-coded tool date, not this run date; the durable receipt explicitly documents that (`box1-survey.py:8`; durable receipt `:25`).
+- **README sweep** — R35 filed 211 rows/files, footer green, digest `51b966af…` (`reports/round-35/validation.json:46-60`; `reports/round-36/calib/Ca04-verify.md:101`). Re-run `python3 -B reports/round-28/readme/sweep.py`: 212 rows/files; parts `{civilizations: 94, culture-material: 25, linguistics: 21, myth-symbol: 23, synthesis: 29, verification: 20}`; no missing rows, topic mismatches, orphan rows, header drift, or footer findings; `totals_ok True`, `footer_ok True`, digest `c3b872c46a170b355c3ecd20456794077f3c9fcfbd851cb1df940884844f87e4`, exit 0. **Expected tree advance, not unexplained drift:** r36 explicitly requires CM 25 / total 212 and sweep-green (`reports/round-36/claims.json:22-27`).
+- **README sweep selftest** — Filed support result 12/12, exit 0 (`reports/round-36/calib/Ca04-verify.md:55,104`). Re-run `python3 -B reports/round-28/readme/sweep.py --selftest`: `selftest: 12/12 checks passed`, exit 0. **Match.**
+- **Receipt-guard adoption inventory (`--json`)** — R34 filed 29 runners / 18 guarded-refresh / 11 unguarded-in-place (`SCORECARD.md:616`); r36 recount observed 30 / 19 / 11 (`reports/round-36/calib/Ca04-verify.md:109-110`). Current `python3 tools/harness/receipt_guard_adoption.py --json`: 31 runners / 20 guarded-refresh / 11 unguarded-in-place, census complete, gaps 0, hazard count 11, findings `[RGA-1-round-26, RGA-2]`. Its rows identify both added runners, `reports/round-35/run-validation.py` and `reports/round-36/run-validation.py`, as `guarded-refresh` (sha256s `4ed1ae59…` and `dd52c580…`). **Disposition: temporal count increase;** the two rounds added one guarded runner each, while the 11 in-place hazards and two already-filed findings remain. `git diff --name-status 4a7aede..HEAD -- reports tools` lists both runner files as `A`.
+- **Receipt-guard adoption selftest** — Filed 38/38 controls (`reports/round-34/op/O02-tool-source.md:33-41`; independently rechecked at `reports/round-36/calib/Ca04-verify.md:109`). Re-run `python3 tools/harness/receipt_guard_adoption.py --selftest`: `selftest_passed: true`, 38/38 controls, 11 fixtures, live census 31 runners / 20 guarded / 11 unguarded, same findings `[RGA-1-round-26, RGA-2]`. **Match on controls;** live count is the current-tree increase above.
+- **Receipt-guard repo sweep (`--sweep-repo --json`)** — R35 filed 246 Python files scanned, 27 writers, zero non-runner writers, zero parse gaps (`reports/round-35/adj/A02-adoption-tool.md:195-204`). Current output: 248 scanned, 27 writers, 0 non-runner writers, 0 parse gaps, `sweep_complete: true`. **Disposition: temporal count increase.** The r35 and r36 runner paths are the two added `.py` paths between the r35 snapshot and current tree (see the read-only `git diff --name-status 4a7aede..HEAD -- reports tools` output); writer/gap counts stay clean. The tool is an AST census and does not run any runner (`tools/harness/receipt_guard_adoption.py:797-862`).
+- **Renderer default selftest** — R35 claims require a green `python3 -B tools/exercise-handoff-e2e.py --selftest` (`reports/round-35/claims.json:38-51`). Re-run: exit 0, human summary `plus 17 controls`. **Green.**
+- **Renderer v3 selftest** — R35 filed `v3_controls: 44` (`reports/round-35/validation.json:75-88`). Re-run `python3 -B tools/exercise-handoff-e2e.py --profile v3 --selftest`: exit 0, summary `plus 43 controls`; **match after accounting for the filed counting convention**: r36 recount confirms the runner counts 44 `^  - ` lines, with the first “selftest witnesses” bullet not a numbered control (`reports/round-36/calib/Ca02-recount-35.md:37,71-77`).
+
+## Owed
+
+None.
+
+## Citations
+
+- `reports/round-33/validation.json:705-727,733-745`; live command outputs recorded in the C31 rows above.
+- `reports/round-34/claims.json:56-65`; `reports/round-34/craft/box1-resurvey-durable.json:12-30`; `reports/round-30/craft/box1-survey.py:6-10`; live box-1 output recorded above.
+- `reports/round-35/validation.json:46-60,75-88`; `reports/round-36/claims.json:22-27`; `reports/round-36/calib/Ca04-verify.md:55,101,104,109-110`; live sweep outputs recorded above.
+- `SCORECARD.md:616`; `reports/round-34/op/O02-tool-source.md:31-41`; `reports/round-35/adj/A02-adoption-tool.md:195-204`; `reports/round-36/calib/Ca02-recount-35.md:71-77`; `tools/harness/receipt_guard_adoption.py:797-862`; live adoption outputs and Git diff excerpt recorded above.
+- `reports/round-35/claims.json:38-51`; `reports/round-35/run-validation.py:199-212`; `reports/round-36/calib/Ca02-recount-35.md:37,71-77`; `tools/exercise-handoff-e2e.py:1789,4542,4557-4645`; live renderer outputs recorded above.
+- Read-only Git output: `git diff --name-status 4a7aede..HEAD -- reports tools` → `A reports/round-35/run-validation.py`, `A reports/round-36/run-validation.py`, `M tools/exercise-handoff-e2e.py` (among the listed round artifacts).

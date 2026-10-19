@@ -3699,3 +3699,25 @@ does not by itself falsify the rule.
 - **Evidence:** `reports/round-36/validation.json` (exit 1 by design; the receipt
   records the rejection); fleet report `.ufo/reports/round-36/kotodama.md`;
   telemetry closed via `availability-close-36.json`.
+
+## 2026-10-19 — Round 37 ADMITTED (loop 1 position 5 — verify round)
+
+- **Trigger:** regimen; claims Ca/O/A (`reports/round-37/claims.json`); one
+  64-worker luna-max batch, 64/64.
+- **Ca (verified):** 34-row verify recount of rounds 33-36 (25 match / 5 named
+  mismatch / 4 could-not-reproduce); samplers Ca07/Ca08 green.
+- **O (verified):** 24-row defect queue; R34-N1 stays closed; new findings
+  O10/O12 + the A01 roster defect + the contract-digest lore drift + the
+  basename-couples policy question.
+- **A (verified):** the freeze-drift question adjudicated — a read-set roster
+  defect (13-register-law.yml), pair re-renders faithfully; 334/334 couples
+  resolve; r36 rejection preserved (sentinel X04).
+- **Integrator repairs (logged against the integrator):** the round-35 README
+  apply left two `__E3_PLACEHOLDER__` lines (removed at r37; sweep re-green);
+  the r36 receipt's `runner_sha256: null` carried as O10 (filed bytes untouched).
+- **Conformance:** one completion subagent (ledger assembly) was
+  operator-stopped; the work was completed in-session instead — recorded in
+  telemetry. Two seats filed declared-out name variants (recorded in
+  missing_dependencies).
+- **Evidence:** `reports/round-37/validation.json` acceptance true (receipt
+  `616c1c14…`); telemetry closed via `availability-close-37.json`.
