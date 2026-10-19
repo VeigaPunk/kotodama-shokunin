@@ -184,7 +184,7 @@ def measure():
         if inputs.get(srcd["path"]) != srcd["sha256"]: f.append(f"X3: digest {srcd['path']}")
     if read(f"{ROUND}/telemetry/observed-dispatch.json", optional=True) is None:
         m["observed"] = "owed: owner orchestrator"
-    if read(f"{ROUND}/telemetry/availability-close-39.json", optional=True) is None:
+    if read(f"{ROUND}/telemetry/availability-close-40.json", optional=True) is None:
         m["closing"] = "owed: filed once validation.json lands"
     add("cross", "X1-X3", f, m)
 
@@ -218,7 +218,7 @@ def measure():
             it.get("status") == GREEN for g in legs.values() for it in g.values() if it.get("status") != CNE) else ["X4: inconsistent"]
         legs["cross"]["X4"] = leg(xf, {})
         if not xf: break
-    for p in (f"{ROUND}/telemetry/observed-dispatch.json", f"{ROUND}/telemetry/availability-close-39.json"):
+    for p in (f"{ROUND}/telemetry/observed-dispatch.json", f"{ROUND}/telemetry/availability-close-40.json"):
         rec(p)
     receipt["input_sha256"] = dict(sorted(inputs.items()))
     return receipt
