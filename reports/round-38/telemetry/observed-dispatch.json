@@ -1,0 +1,43 @@
+{
+ "record": "observed-dispatch",
+ "round": 38,
+ "state": "open-at-seat-close",
+ "owner": "orchestrator (goal-mode parent)",
+ "reason": "counters filled; closes when availability-close-38.json lands",
+ "observed_window_utc": "2026-10-19T11:01:56Z/2026-10-19T11:30:00Z",
+ "window_basis": "grok attempt failed at launch (19s); devin dispatch ran until operator interruption (~22 seats in ~11 min), then the 10-seat completion dispatch (~1299s)",
+ "requested_allocation": {
+  "provider_lane": "xai-oauth",
+  "model": "grok-4.7-fast",
+  "requested_workers": 32,
+  "batched_calls": 1
+ },
+ "route_deviation": {
+  "declared": "xai-oauth/grok-4.7-fast",
+  "observed": "devin/deepseek-v4-1-flash-high",
+  "owner": "orchestrator",
+  "reason": "grok 403 out-of-credits on all 32 seats; position 6 has no declared fallback; named live-lane deviation per the r35/r36 precedent"
+ },
+ "launched_workers": 32,
+ "completed_workers": 32,
+ "failed_workers": 0,
+ "runtime_concurrency": null,
+ "runtime_concurrency_owner": "orchestrator",
+ "runtime_concurrency_reason": "not observable from the parent",
+ "actual_route": "devin lane, wire model deepseek-v4-1-flash-high",
+ "wave_shape": "one interrupted 32-seat dispatch (22 landed) + one 10-seat completion dispatch = 32/32; both recorded",
+ "durable_sources": [
+  {
+   "path": "reports/round-38/claims.json",
+   "sha256": "45ff6f202a56704209144a6f5031a8c2f44a6dfd6ecd3d608cf26db8f793615d"
+  },
+  {
+   "path": "reports/round-38/targets.json",
+   "sha256": "fe3091b91623f47211d673070f7c3d9fac3711c1375361cd27de246c10f7c601"
+  },
+  {
+   "path": "reports/round-38/telemetry/dispatch-declared.json",
+   "sha256": "7112af756da589ea359111feb5b2e9ef4b5266566672e16d4e46c2fca8f4599f"
+  }
+ ]
+}

@@ -565,10 +565,17 @@ def evaluate_packet(packet, naming):
             if derivation is not None:
                 op, base = derivation
                 counters["derived_pairs"] += 1
+                # F-6 (reports/round-17/d4/design-brief.md:306-307) needs the
+                # derivation class counted on its own. The shared `violations`
+                # total also counts claimed-chain (:626) and borrow (:652)
+                # failures, so `derived_pairs - violations` is NOT the
+                # derivation pass count. K01 section 8 owed this decision and
+                # reports/round-38/depth/D01-f6-design.md measures it.
                 if op in OP_FUNCTIONS:
                     replayed = apply_op(op, base)
                     if norm(replayed) != norm(form):
                         counters["violations"] += 1
+                        counters["derived_failures"] += 1
                         findings.append(finding(
                             "D4L-ARGOT-DERIV", "FAIL",
                             "register-scoped form %s %r (register %r): declared chain %r applied to "
@@ -585,6 +592,7 @@ def evaluate_packet(packet, naming):
                             % (eid, form, op, detail)))
                     elif verdict is False:
                         counters["violations"] += 1
+                        counters["derived_failures"] += 1
                         findings.append(finding(
                             "D4L-ARGOT-DERIV", "FAIL",
                             "register-scoped form %s %r (register %r): declared chain %r applied to "
@@ -657,6 +665,35 @@ def evaluate_packet(packet, naming):
                             "candidate"
                             % (eid, form, scoped, layer_label,
                                text_of(entry.get("donor_form")).strip(), replayed)))
+
+    # F-6 (reports/round-17/d4/design-brief.md:306-307): the coverage block
+    # ---- RL-8 era leg (round 38): a `stamp` form dated before the register
+    # exists (REGISTER-ERA-01, reports/round-26/register/rules.md:110-112).
+    # Emitted as D4L-ARGOT-ERA so the typed pipeline's L3b leg (which reads
+    # `FINDING D4L-ARGOT-`) sees it; the r26 token D4L-ERA is named in-message.
+    # Law/identity stamp rows carry no `stage` key and are skipped by design.
+    era_floor = "E1"
+    for _block, _entries in record_blocks(packet):
+        for _entry in _entries:
+            if not isinstance(_entry, dict):
+                continue
+            if text_of(_entry.get("register")).strip() != "stamp":
+                continue
+            _stage = text_of(_entry.get("stage")).strip()
+            if not _stage:
+                continue
+            if _stage < era_floor:
+                counters["era_failures"] += 1
+                findings.append(finding(
+                    "D4L-ARGOT-ERA", "FAIL",
+                    "%s is a `stamp` form dated %s; RGL-05 dates every stamp form "
+                    "available_from %s (03-orthography); the r26 token is D4L-ERA"
+                    % (text_of(_entry.get("id")).strip() or "?", _stage, era_floor)))
+
+    # reports `derived_forms` and `derived_ok` counts that agree. The pair is
+    # materialised here, not at the print, so a consumer can assert it.
+    counters["derived_forms"] = counters["derived_pairs"]
+    counters["derived_ok"] = counters["derived_pairs"] - counters["derived_failures"]
 
     declared_ops = packet_declares_ops(packet)
     if declared_ops and counters["register_scoped"] and not counters["derived_pairs"]:
@@ -776,6 +813,81 @@ names:
 """
 
 
+def _recount_derivations(text):
+    """Re-derive (forms, failures) from packet bytes, sharing no gate code.
+
+    Counts every mapping that declares a `derivation` key, in either of the two
+    styles the tree uses: block style (`  derivation: head2` on its own line,
+    the delivered packets) and flow style (`, derivation: head2}` inside a
+    `{...}` record, the committed fixture). The `derivation_rules:` key is not a
+    match, because the token must be followed directly by a colon. This is
+    deliberately not the gate's own reader — a recount that reused the gate's
+    parse could not catch a wrong count. The failure half is not inferable from
+    bytes alone (it needs the replay), so it is returned as zero and the failing
+    control asserts it separately.
+    """
+    return len(DERIVATION_KEY_RE.findall(text)), 0
+
+
+DERIVATION_KEY_RE = re.compile(r"(?:^|[,{]\s*)\s*derivation\s*:")
+
+
+def _printed_pair(text):
+    """The (derived_forms, derived_ok) pair the CLI prints for a packet text.
+
+    Runs the gate as a subprocess over a temporary copy of `text` and parses its
+    own `coverage:` line, so the assertion is on the delivered output rather
+    than on the counter object.
+    """
+    import subprocess
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".yml", delete=False,
+                                     encoding="utf-8") as handle:
+        handle.write(text)
+        temp = handle.name
+    try:
+        proc = subprocess.run([sys.executable, "-B", str(Path(__file__).resolve()),
+                               temp], capture_output=True, text=True, check=False)
+    finally:
+        Path(temp).unlink()
+    for line in proc.stdout.splitlines():
+        if line.startswith("coverage:"):
+            fields = dict(re.findall(r"(\w+)=(\d+)", line))
+            return int(fields["derived_forms"]), int(fields["derived_ok"])
+    return None
+
+
+RULE_MISMATCH_CONTROL = """\
+name: F-argot-rulemismatch
+morphology:
+  derivation_rules:
+    - id: CX-01
+      pattern: "^(?P<a>.+)[+](?P<b>.+)$"
+      output: "{a}{b}"
+lexicon:
+  - {id: Q-01, term: wrong, register: quote, derived_from: nope, derivation: CX-01}
+"""
+
+TWO_MIXED_CONTROL = """\
+name: F-argot-mixed
+morphology:
+  derivation_rules:
+    - id: CX-01
+      pattern: "^(?P<a>.+)[+](?P<b>.+)$"
+      output: "{a}{b}"
+    - id: UP-COMPOUND
+      pattern: "^(?P<B1>[a-z]+)[+](?P<B2>[a-z]+)$"
+      output: "{B1}{B2}"
+layers:
+  - {id: LY-01, name: "West layer", register: trade, substitutions: {sh: s}}
+lexicon:
+  - {id: Q-01, term: nim, register: quote, derived_from: min, derivation: reverse}
+  - {id: Q-02, term: wrong, register: quote, derived_from: nope, derivation: CX-01}
+  - {id: Q-03, term: bad, register: quote, formation: {stem: "su+bel", bases: [su, nel], rule: UP-COMPOUND}}
+  - {id: B-01, term: res, route: borrowed, layer: LY-01, loan_layer: "West layer", donor_form: resk}
+"""
+
+
 def selftest():
     checks = []
 
@@ -857,6 +969,52 @@ def selftest():
                    cov_code == EXIT_FINDINGS
                    and [item["id"] for item in cov_findings] == ["D4L-ARGOT-COVERAGE"]))
 
+    # 6b. F-6 (reports/round-17/d4/design-brief.md:306-307): the coverage
+    #     block reports `derived_forms` and `derived_ok` counts that agree, and
+    #     the pair is CONSUMED, not merely printed. These controls re-derive
+    #     both numbers from the committed fixture bytes by an independent line
+    #     scan and assert the emitter's own relation against that recount — the
+    #     vacuous-pass guard D10b's mission requires. The projector's
+    #     byte-identity check provably accepts a lying value, so byte-equality
+    #     cannot stand in for this.
+    fixture_forms, fixture_failures = _recount_derivations(fixture_text)
+    checks.append(("f6-recount-matches-the-fixture",
+                   fixture_forms == _totals["derived_pairs"]))
+    checks.append(("f6-counters-agree-on-clean-control",
+                   pos_totals["derived_forms"] == pos_totals["derived_ok"]
+                   and pos_totals["derived_forms"] == 4))
+    checks.append(("f6-counters-are-non-vacuous",
+                   pos_totals["derived_forms"] > 0))
+    # the discriminating control: a record whose declared chain does not replay
+    # moves `derived_ok` and leaves `derived_forms` alone.
+    _rm_code, _rm_findings, rm_totals = evaluate_text(RULE_MISMATCH_CONTROL, naming)
+    checks.append(("f6-counters-disagree-on-a-failing-record",
+                   _rm_code == EXIT_FINDINGS
+                   and rm_totals["derived_forms"] == 1
+                   and rm_totals["derived_ok"] == 0
+                   and rm_totals["derived_failures"] == 1))
+    # the domain control: `violations` also counts claimed-chain and borrow
+    # failures, so the shared total must NOT be the emitter's source. On this
+    # control violations (3) exceeds derived_pairs (2), so the formula the block
+    # drafted (`derived_pairs - violations`) yields -1 — a negative count.
+    _mx_code, _mx_findings, mx_totals = evaluate_text(TWO_MIXED_CONTROL, naming)
+    checks.append(("f6-derived-ok-ignores-non-derivation-violations",
+                   mx_totals["derived_pairs"] == 2
+                   and mx_totals["violations"] == 3
+                   and mx_totals["derived_forms"] == 2
+                   and mx_totals["derived_ok"] == 1))
+    checks.append(("f6-shared-violations-total-is-not-the-emitters-source",
+                   mx_totals["derived_ok"]
+                   != mx_totals["derived_pairs"] - mx_totals["violations"]))
+    checks.append(("f6-derived-forms-is-a-recount-not-a-constant",
+                   fixture_forms > 0
+                   and fixture_forms != pos_totals["derived_forms"]))
+    # the printed line itself is asserted against the recount, so a print that
+    # lies about the pair is caught here (D10b's C3 control).
+    checks.append(("f6-printed-line-agrees-with-an-independent-recount",
+                   _printed_pair(fixture_text) == (fixture_forms,
+                                                   fixture_forms - _totals["derived_failures"])))
+
     # 7. malformed input exits 2 with D4L-ARGOT-DATA, never a traceback.
     for label, text in (("root-is-a-string", "just a string"),
                         ("unclosed-flow", "name: F\nlexicon: [\n"),
@@ -869,6 +1027,30 @@ def selftest():
     #    gate's own terms: apply(op, base) != form must be rejected.
     checks.append(("c-02-negative-control-rejected",
                    apply_op("head2", "saalumi") != "saalum"))
+
+    # RL-8 era leg controls (round 38): fires on an E0-dated stamp form, names
+    # row+stage, stays silent on E1, and is not masked by a missing law block.
+    era_text = ("registers:\n  - {id: QREG-02, register: stamp}\n"
+                "register_law:\n  - {id: RGL-05, register: stamp, axis: mark, kind: era, "
+                'force: "none \u2014 a dating constraint", speaker: "any speaker", '
+                'consequence: "a constraint statement", design_row: []}\n'
+                "lexicon:\n"
+                "  - {id: L-99, term: tuum, register: stamp, stage: E0}\n"
+                "  - {id: L-98, term: kit, register: stamp, stage: E1}\n")
+    era_findings = [f for f in evaluate_text(era_text, naming)[1]
+                    if f["id"] == "D4L-ARGOT-ERA"]
+    checks.append(("era-leg-fires-on-early-stamp-form", len(era_findings) == 1))
+    checks.append(("era-leg-names-the-row-and-the-stage",
+                   bool(era_findings) and "L-99" in era_findings[0]["message"]
+                   and "E0" in era_findings[0]["message"]))
+    checks.append(("era-leg-silent-on-e1-stamp-form",
+                   not [f for f in evaluate_text(
+                       era_text.replace("stage: E0", "stage: E1"), naming)[1]
+                       if f["id"] == "D4L-ARGOT-ERA"]))
+    checks.append(("era-leg-not-masked-by-missing-law-block",
+                   bool([f for f in evaluate_text(
+                       "lexicon:\n  - {id: L-99, term: tuum, register: stamp, stage: E0}\n",
+                       naming)[1] if f["id"] == "D4L-ARGOT-ERA"])))
 
     failed = [name for name, ok in checks if not ok]
     for name, ok in checks:
@@ -915,10 +1097,10 @@ def main(argv):
     except ValueError:
         shown = str(path)
     print("coverage: %s records=%d register_scoped=%d derived_pairs=%d claimed_chains=%d "
-          "borrow_pairs=%d violations=%d rule_holds=%d"
+          "borrow_pairs=%d violations=%d rule_holds=%d derived_forms=%d derived_ok=%d"
           % (shown, totals["records"], totals["register_scoped"], totals["derived_pairs"],
              totals["claimed_chains"], totals["borrow_pairs"], totals["violations"],
-             totals["rule_holds"]))
+             totals["rule_holds"], totals["derived_forms"], totals["derived_ok"]))
     print("dependency: %s sha256 %s"
           % (NAMING.relative_to(ROOT), sha256_file(NAMING)))
     return code

@@ -743,6 +743,24 @@ prediction-vs-delivery nuance's root cause); the r36 receipt's
   remains incomplete (31 returns, no durable original request); do not
   fabricate it.
 
+## Axes — round 38 (2026-10-19), ADMITTED (regimen 2, loop 1 position 6)
+
+Baseline `9bccc9b`; declared grok-4.7-fast 32w → observed devin fallback
+(grok 403 out-of-credits; named deviation) 32/32 across an interrupted dispatch
+plus its 10-seat completion. Acceptance: `python3
+reports/round-38/run-validation.py` exits 0 (receipt sha256 `88db61bf…`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D) | r36 register residue landed: F-6 counters (derived_forms=8/derived_ok=8 live; corrected derived_failures formula; argot selftest 35) + the RL-8 era leg on the argot host emitting D4L-ARGOT-ERA (39/39 controls; planted-probe pipeline visibility; typed pipeline 20/20) | argot/law gates; typed pipeline; `python3 reports/round-38/run-validation.py` | `tools/gates/argot-derivation-gate.py` (sha 10c88433…); round-38 depth fragments |
+| operability | improved (claim O) | the r7 read-set omission invisible → a named `manifest-roster` row on the r7 class (guard patch sha e5812751…; m15a/m15b controls; r7 chain exit 0, packet 45f57132… byte-identical); naming-not-detection recorded as the limit | `python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet` | round-38 op fragments (O01/O02/O03/O08) |
+| coverage / calibration / adjacency / freshness | unchanged | Not claimed; freshness paused; no axis harmed | — | — |
+
+Named: the grok→devin route deviation; the interrupted-batch completion; the
+0-byte O07 fragment; the RL-8 host decision (argot, per X01 T1 — the law-gate
+host's battery pin cascade declined); the guard's row-blindness + O03's G5
+four-row finding filed to the defect queue's successor.
+
 ## Round 5 routing history
 
 The earlier request for native non-flash `zai-coding-plan/glm-5.3` was

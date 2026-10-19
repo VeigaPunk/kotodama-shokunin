@@ -3721,3 +3721,23 @@ does not by itself falsify the rule.
   missing_dependencies).
 - **Evidence:** `reports/round-37/validation.json` acceptance true (receipt
   `616c1c14…`); telemetry closed via `availability-close-37.json`.
+
+## 2026-10-19 — Round 38 ADMITTED (loop 1 position 6)
+
+- **Trigger:** regimen; claims D/O (`reports/round-38/claims.json`).
+- **Route (named deviation):** grok 403 out-of-credits on all 32 seats
+  (availability-attempt-1.json); devin fallback carried the round: one
+  interrupted 32-seat dispatch (22 landed) + one 10-seat completion dispatch =
+  32/32.
+- **D (verified):** F-6 counters (D01's fenced patch, byte-exact; corrected
+  derived_failures formula) + the RL-8 era leg adapted to the argot gate as
+  D4L-ARGOT-ERA (X01 T1: the only pipeline-visible, pin-free host/id); selftest
+  39/39; live counters 8/8; planted-probe visibility verified; zero pins moved.
+- **O (verified):** the manifest-roster guard (O01's patch, sha e5812751…,
+  triple-verified pre-application); r7 chain exit 0, packet 45f57132…
+  byte-identical; m15a/m15b controls; naming-not-detection recorded.
+- **Named findings:** the guard's row-blindness (O03 G5: four asymmetric filed
+  rows, not two) filed to the queue's successor; O02/O08 doc defects folded;
+  O07's 0-byte fragment recorded.
+- **Evidence:** `reports/round-38/validation.json` acceptance true (receipt
+  `88db61bf…`); telemetry closed via `availability-close-38.json`.

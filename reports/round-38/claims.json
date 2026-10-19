@@ -1,0 +1,28 @@
+{
+  "round": 38,
+  "regimen": "REGIMEN.md",
+  "loop": 1,
+  "position": "position 6 (grok-4.7-fast xhigh)",
+  "declared_at_utc": "2026-10-19T11:01:56Z",
+  "baseline_commit": "9bccc9b",
+  "dispatch": {"provider_lane": "xai-oauth", "model": "grok-4.7-fast", "requested_workers": 32, "batched_calls": 1},
+  "axes_in_play": ["depth", "operability"],
+  "lowest_axis_reasoning": "Depth and coverage are tied lowest (2 regimen-2 claims each; the r36 D failed). Claim D works depth with the r36 residue under a corrected claim (K01's recipe); coverage rests. Claim O works the read-set roster defect.",
+  "freshness_pause_in_force": true,
+  "claims": [
+    {"id": "D", "axis": "depth",
+     "claim": "Land the r36 register residue, correctly claimed: (a) the register F-6 counters — an emitter for derived_forms/derived_ok exists nowhere (K01 r36 census), so the argot/typed legs cannot count them; (b) the RL-8 era leg (the register-law gate's era check). Re-run the register legs (argot, law, typed pipeline) and record pins as new rows.",
+     "before": "r36 K01: no derived_forms/derived_ok emitter anywhere in examples/ or tools/; RL-8 era leg missing; both named as residue when the stale r36 claim was rejected",
+     "after_required": "the counters emit from the packet/components (or a documented equivalent the legs can count); the era leg runs; argot/law/typed legs green with the new coverage named; pins updated as new rows; filed bytes untouched except the two named tool/example artifacts",
+     "counting_commands": ["python3 -B tools/gates/argot-derivation-gate.py examples/culture-d4/packet.d4.yml", "python3 -B tools/gates/register-law-gate.py examples/culture-d4/packet.d4.yml", "python3 reports/round-38/run-validation.py"],
+     "thresholds": "two independent verifiers; legs green; the new coverage named (no vacuous-pass)"},
+    {"id": "O", "axis": "operability",
+     "claim": "Fix the r37-adjudicated read-set roster defect at the instrument level: land a renderer guard (v3 manifest-vs-read-set completeness check, selftest-controlled) that refuses or names when a frozen baseline's read set and the packet's own component manifest disagree; document the re-freeze absorption as the fix route for the r7 row (no re-freeze this round).",
+     "before": "r37 A01: the r7 freeze read set omits examples/culture-d4/components/13-register-law.yml that the packet manifest records; nothing detects the class",
+     "after_required": "the guard lands in the renderer with >=2 selftest controls (manifest-member-not-in-readset named; in-sync green); the r7 default chain still exits 0 unchanged; the fix route (next re-freeze absorbs the member) documented; zero freeze bytes moved",
+     "counting_commands": ["python3 -B tools/exercise-handoff-e2e.py --profile v3 --quiet", "python3 reports/round-38/run-validation.py"],
+     "thresholds": "selftest green with the new controls; r7 packet sha unchanged 45f57132…"}
+  ],
+  "non_goals": ["no freshness axis-move", "no re-freeze of declared-in-r7", "no promotion/canon/clearance/closure",
+                "no filed byte rewrites beyond the two named artifacts", "no in-tree round-runner execution"]
+}

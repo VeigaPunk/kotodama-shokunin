@@ -168,6 +168,7 @@ D4_COMPONENTS = (
     "examples/culture-d4/components/11-contact-history.yml",
     "examples/culture-d4/components/12-provenance.yml",
 )
+D4_ROSTER_MEMBER = "examples/culture-d4/components/13-register-law.yml"
 D4_ASSEMBLER = "tools/assemble-culture-d4.py"
 D4_TYPED_TOOL = "tools/assemble-d4-typed.py"
 D4_TYPED_GATE = "tools/gates/d4-typed-labels-check-gate.py"
@@ -3808,6 +3809,17 @@ def v3_load_baseline(root, baseline_rel):
     return path, baseline
 
 
+def v3_manifest_roster_gap(manifest, read_set):
+    """Members of a packet component manifest that the live read set does not carry.
+
+    The packet's own `assembly.source_sha256` block is the authored roster; the
+    artifact_manifest is read-set-derived and therefore always agrees with it, so
+    this pair is the only non-vacuous one. Direction is manifest -> read set (the
+    opposite of the superseded-row check, which reads baseline -> live read set).
+    """
+    return sorted(set(manifest) - set(read_set))
+
+
 def v3_exercise(root=ROOT, baseline_rel=V3_BASELINE_DEFAULT):
     """Run the v3 exercise; return (exit code, code-or-None, records)."""
     records = []
@@ -3819,6 +3831,23 @@ def v3_exercise(root=ROOT, baseline_rel=V3_BASELINE_DEFAULT):
         baseline_path, baseline = v3_load_baseline(root, baseline_rel)
         snapshot_before = {rel: measure(root, rel)[0] for rel in V3_READ_SET}
         assembly = V3Assembly(root)
+
+        roster_gap = v3_manifest_roster_gap(assembly.d4["components"], V3_READ_SET)
+        for rel in roster_gap:
+            record(
+                "manifest-roster",
+                False,
+                f"{rel}: in the packet component manifest ({len(assembly.d4['components'])} members, "
+                f"packet.d4.yml assembly.source_sha256) but not in the live read set "
+                f"({len(V3_READ_SET)} members) — the roster is incomplete; the bytes are still digest-checked",
+            )
+        if not roster_gap:
+            record(
+                "manifest-roster",
+                True,
+                f"the packet component manifest ({len(assembly.d4['components'])} members) is carried by the "
+                f"live read set ({len(V3_READ_SET)} members)",
+            )
 
         dropped = sorted(rel for rel in baseline["inputs"] if rel not in assembly.digests)
         if dropped:
@@ -4508,6 +4537,37 @@ def v3_selftest():
         results.append(
             f"m14b content-tampered live member {CLAIMS_MAP}: exit {code} {err} naming the changed file "
             "(resolvable drift keeps its own leg; the read-set guard does not swallow it)"
+        )
+
+        with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
+            sync_root, _ = v3_freezed_copy(fixture, control_dir, "roster-sync")
+            live_gap = v3_manifest_roster_gap(V3Assembly(sync_root).d4["components"], V3_READ_SET)
+            assert live_gap == [D4_ROSTER_MEMBER], live_gap
+            code, err, records = v3_exercise(root=sync_root, baseline_rel=baseline_rel)
+            named = [row for row in records if row["check"] == "manifest-roster" and not row["ok"]]
+        assert code == EXIT_PASS, (code, err)
+        assert [row["detail"].split(":")[0] for row in named] == [D4_ROSTER_MEMBER], named
+        results.append(
+            f"m15a roster gap named, not raised: exit {code} {err} with a manifest-roster row naming "
+            f"{D4_ROSTER_MEMBER} (the r7 class; the read set still carries every frozen member)"
+        )
+
+        with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
+            expanded = (*V3_READ_SET, D4_ROSTER_MEMBER)
+            original_read_set = V3_READ_SET
+            globals()["V3_READ_SET"] = expanded
+            try:
+                synced_root, _ = v3_freezed_copy(fixture, control_dir, "roster-in-sync")
+                code, err, records = v3_exercise(root=synced_root, baseline_rel=baseline_rel)
+            finally:
+                globals()["V3_READ_SET"] = original_read_set
+            green = [row for row in records if row["check"] == "manifest-roster"]
+        assert code == EXIT_PASS, (code, err)
+        assert green and all(row["ok"] for row in green), green
+        assert D4_ROSTER_MEMBER in str(green[-1]["detail"]) or "carried by the" in green[-1]["detail"], green
+        results.append(
+            "m15b in-sync roster green: the read set carries every manifest member, exit 0 with the "
+            "manifest-roster row green"
         )
 
         with tempfile.TemporaryDirectory(prefix="handoff-control-") as control_dir:
