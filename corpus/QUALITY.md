@@ -25,3 +25,5 @@ rejection is evidence of taste.
 Source tiers (A/B/C, each scoped to a claim) are defined in `SOURCES.md`,
 the lane's opened source registry; a tier-C row is a lead, never sole
 support for an admitted claim.
+
+6. **Source authority stays claim-scoped** — publisher descriptions and abstracts are tier B for substantive claims about a work, even when accurate; reserve tier A for sources primary or authoritative for the exact scope. Correct a filed tier with a superseding SOURCES row, never an in-place tier edit. Grounded in the reviewer disagreement and correction at `corpus/lessons/round-49.md#post-review-corrections` (S034, S038, S039 → S044–S046).

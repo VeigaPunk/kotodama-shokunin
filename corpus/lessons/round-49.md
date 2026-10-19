@@ -74,6 +74,13 @@ All accessed 2026-10-19 by the L1 integrator; quotes verbatim, ≤25 words.
 - S042 — https://d-place.org/parameters/EA001 — accessed 2026-10-19 — Description: "Dependence on the gathering of wild plants and small land fauna, relative to other subsistence activities." Values table: 722 / 265 / 118 / 62 / 48 / 35 / 31 / 6 / 3 / 0 (sum 1290).
 - S043 — https://www.sciencedaily.com/releases/2023/10/231020145921.htm — accessed 2026-10-19 — full story para. 3: "Through a review of current archaeological evidence and literature, they found little evidence to support the idea that roles were assigned specifically to each sex." Grounds the rejection: a summary, not the evidence.
 
+### Post-review supersession rows — opened 2026-10-19
+
+- S044 — https://api.crossref.org/works/10.1017/CBO9781139176132 — accessed 2026-10-19 — publisher abstract: "In this book, Robert L. Kelly challenges the preconceptions that hunter-gatherers were Paleolithic relics living in a raw state of nature". Grounds the publisher's summary; supersedes S034 at tier B.
+- S045 — https://www.routledge.com/Stone-Age-Economics/Sahlins/p/book/9781138702615 — accessed 2026-10-19 — Description: "Sahlins concludes, controversially, that the experiences of those living in subsistence economies may actually have been better, healthier and more fulfilled". Grounds the publisher's description; supersedes S038 at tier B.
+- S046 — https://press.princeton.edu/books/paperback/9780691084428/foraging-theory — accessed 2026-10-19 — description paragraph 1: "present the basic “average-rate maximizing” models and their extensions." Grounds the publisher's description; supersedes S039 at tier B.
+- S047 — https://aras.org/ — accessed 2026-10-19 — Archive Search: "Available to our members"; Supporting ARAS: "universal connections that symbols allow us to make". Grounds the member-access and universal-framing rejection; supersedes S029.
+
 ## Registry changes before landing (integrator normalizations, logged per contract rule 2)
 
 The registry is new this round, so these are not in-place edits of filed rows; they are
@@ -291,3 +298,16 @@ sed -n '510,511p' corpus/README.md                     # r7 "preservation failur
 git show HEAD:corpus/README.md > .scratch/r49/README-base.md
 python3 -B tools/check-readme-revisions.py --readme .scratch/r49/README-base.md  # exit 1: REVISION-DUP [55,57] + REVISION-STUB [55]
 ```
+
+## Post-review corrections (2026-10-19)
+
+The non-author review's tier disagreement is accepted and recorded as a lesson; the reviewer found that publisher descriptions support what publishers say about a work but are not primary or authoritative for its substantive claims (SOURCES-CONTRACT-v1.md §Shape; reopened sources in `## Gate` above).
+
+| class | evidence pointer | lesson / correction |
+|---|---|---|
+| Publisher-description tier inflation | Non-author W3ReviewKotodama §5; SOURCES-CONTRACT-v1.md §Shape; Gate S044–S046 | Accurate publisher blurbs remain secondary for substantive claims: superseding rows tier B, plus the grounded `corpus/QUALITY.md` criterion 6. |
+| Rejection rationale outran its Gate quote | Non-author W3CriticKotodama §S; Gate S029 and reopened S047 | Keep S029 unchanged; S047 records the exact "Archive Search" member-access and "Supporting ARAS" universal-framing evidence and supersedes S029. |
+
+Mistakes-row count correction: the original `## Mistakes` table has 23 data rows, not 22 (report) or 21 (LOG). Recount command: `awk '/^## Mistakes/{m=1;next} /^## Frontier/{m=0} m && /^\\| / && !/^\\| class/ {n++} END{print n+0}' corpus/lessons/round-49.md` → 23. This appended correction table is outside that count.
+
+Quality-trend correction: `unchanged` per `LEARNING.md`'s trend vocabulary and observable; no stale knowledge entry was re-verified and no weaker entry was superseded by a stronger one. The report's earlier non-vocabulary wording is superseded by its post-review correction.

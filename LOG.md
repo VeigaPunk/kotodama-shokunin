@@ -3983,3 +3983,21 @@ actual route stay recorded per round. Prior rounds stand as filed.
   `python3 reports/round-49/run-validation.py` → admitted, exit 0
   (`reports/round-49/validation.json`); lessons index audit `findings: 0`; seat
   fragments in `reports/round-49/integration/`. No push (operator rule).
+
+## 2026-10-19 — Round 49 post-review corrections (same round; no new claims)
+
+- **S registry corrections:** after reopening the cited publisher pages, appended
+  tier-B supersession rows S044–S046 for S034/S038/S039; the original tier cells
+  remain untouched. Reopened aras.org and appended S047 to supersede S029 with
+  the exact Archive Search member-access and Supporting ARAS universal-framing
+  evidence. Gate quotations and locators are appended in
+  `corpus/lessons/round-49.md`; `corpus/QUALITY.md` criterion 6 records the
+  reviewer disagreement and the source-authority rule.
+- **Mistakes count correction:** the original `## Mistakes` table has 23 data
+  rows, not 21 as this LOG's earlier entry says (nor 22 in the initial report).
+  Recount: `awk '/^## Mistakes/{m=1;next} /^## Frontier/{m=0} m && /^\\| / && !/^\\| class/ {n++} END{print n+0}' corpus/lessons/round-49.md` → 23.
+- **Trend correction:** quality is `unchanged` in LEARNING.md's vocabulary;
+  the earlier report phrase "improved locally, flat corpus-wide" is superseded.
+- **Separability correction:** C and S are coupled. `c_without_s.passed` only
+  tests inline URLs; it does not test the required `S###` registry rows and is
+  an incomplete counterfactual, not evidence that C verifies without S.
