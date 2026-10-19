@@ -665,6 +665,24 @@ Round status: REJECTED on D per the honest-stop rule (rounds 11/17/22
 precedent). Named: the route deviation, the conformance incident (in-tree r35
 runner execution, restored), the README prediction-vs-delivery nuance.
 
+## Axes — round 37 (2026-10-19), ADMITTED (regimen 2, loop 1 position 5 — verify round)
+
+Baseline `57c8409`; one 64-worker `openai-codex/gpt-6-luna-max` batch, 64/64
+completed. Acceptance: `python3 reports/round-37/run-validation.py` exits 0
+(receipt sha256 `616c1c14…`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| calibration | improved (claim Ca) | No cross-round recount of r33-36 → 34-row verify ledger: 25 match / 5 named mismatch (all legitimate later-tree or environmental deltas) / 4 could-not-reproduce (the O12 isolation hazard); two independent samplers | `python3 reports/round-37/run-validation.py` | `calib/recount-ledger.json`; Ca07/Ca08 |
+| operability | improved (claim O) | Defects scattered across four rounds → 24-row dispositioned queue (fixed-with-evidence or carried-with-owner); new findings: A01 roster defect, contract-digest lore drift, O10 runner-sha256 null, O12 isolation hazard, basename-couples policy | `python3 reports/round-37/run-validation.py` | `op/defect-queue.json` |
+| adjacency | improved (claim A) | The freeze-drift question adjudicated: 13-register-law.yml missing from the r7 read set = a roster defect (not a skip); pair re-renders faithfully; 334/334 couples resolve, zero bleed; r36 rejection preserved | `python3 reports/round-37/run-validation.py` | `adj/A01-freeze-adjudication.md`; A02/A06/A08 |
+| depth / coverage / freshness | unchanged | Not claimed (verify round); no axis harmed | — | — |
+
+Integration repairs recorded against the integrator: the round-35 README apply
+left two `__E3_PLACEHOLDER__` lines (removed; sweep re-green — the r35
+prediction-vs-delivery nuance's root cause); the r36 receipt's
+`runner_sha256: null` (carried as O10; filed bytes never edited).
+
 ## Planned
 
 - Round 36 REJECTED on D (C/Ca verified). Next: round 37 — loop 1 position 5,
