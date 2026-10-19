@@ -3590,3 +3590,57 @@ does not by itself falsify the rule.
   `telemetry/observed-dispatch.json` as integration acts, not craft batches.
   Future rounds: integrator work defaults to in-session unless a round's
   declared shape says otherwise.
+
+## 2026-10-19 — Round 34 (loop 1 build 2 of 3) — integration in progress; errata to the round-33 F-C13-1 record
+
+- **Errata (append-only correction):** the round-33 F-C13-1 LOG entry and the
+  round-33 routed-debt record named `reports/round-26/run-validation.py` as an
+  unguarded receipt writer (`:90`, `:1909`). Seat K03's round-34 census
+  (`reports/round-34/scout/K03-guard-pattern.md`, evidence at
+  `reports/round-26/run-validation.py:1855`, `:1906`) shows r26 **is**
+  guard-adopted: the r5/r6/r7 runners remain the unguarded class
+  (`reports/round-{5,6,7}/run-validation.py:194,:336,:1171`). The round-33
+  record stands with this correction pointer; filed bytes are untouched.
+- **Adoption census landed:** `tools/harness/receipt_guard_adoption.py`
+  (selftest green) + `reports/round-34/op/adoption-inventory.json`: 28 filed
+  runners — 17 `guarded-refresh`, 11 `unguarded-in-place` (r5/r6/r7 among
+  them). The 11-runner unguarded class is the standing adoption-gap debt
+  (owner: future integrate rounds; protocol: isolated-copy-only re-runs).
+- **Claim D progress:** `declared-in-r7` frozen (packet `45f57132…`), gate
+  16/16 + 20/20 + 0, links 105/105, claims 27 (16/7/4), d4_stale_audit CLEAN,
+  preservation 0 rows; `repin.json` records the cascade with measured values;
+  named finding R34-N1 (r6-row refusal surfaces as KeyError, not E2E-DIGEST;
+  routed to renderer hardening). Full admission record follows the round's
+  validation run.
+
+## 2026-10-19 — Round 34 ADMITTED (regimen 2, loop 1 build 2 of 3)
+
+- **Trigger:** operator regimen (REGIMEN.md); claims D/O/C declared at baseline
+  `da68a6d` (`reports/round-34/claims.json`); one batch on
+  `opencode-go-2/deepseek-v4.1-flash`, key 2 of the round-robin — 63 seats
+  authored/dispatched/completed (the declared `seat_count: 64` vs 63 rows is the
+  named CO4 deviation, recorded not edited).
+- **D (verified):** A02-H1 closed — the wave proved the packet staleness is
+  structural (the renderer verbatim-carries the twelve D4 claim rows from filed
+  round-20 and hard-codes OQ-V3-05; a re-render reproduces the stale packet
+  byte-for-byte). Landed: successor claims-map at
+  `declared-in-r7/claims-map.md` (ten replacements + three sweep-finds, 12 rows
+  re-parsing under the renderer's own regex) + six renderer edits; frozen packet
+  `45f57132…`; live-truth audit CLEAN; gate 16/16 + 20/20 + 0; links 105/105;
+  r6 row refuses replay (exit 1, KeyError mechanism — finding R34-N1 routed to
+  renderer hardening); `handoff/repin.json` records the cascade; filed r2..r6
+  bytes untouched (P1: 0 moved protected paths).
+- **O (verified, capability `receipt-guard-adoption-audit`):**
+  `tools/harness/receipt_guard_adoption.py` + `op/adoption-inventory.json`:
+  29 filed runners — 18 guarded-refresh / 11 unguarded-in-place (r5-r12, r19,
+  r21, r29); routing receipt covers the unguarded class (isolated-copy-only
+  protocol); zero in-tree runner execution; r26 errata (guard-adopted) filed
+  against the round-33 F-C13-1 record.
+- **C (verified):** box-1 durable receipt 28/28 at the new digest `f9bd07c2…`
+  + A09 anchor reissue table from the citation census (C09-F2 phantom-row
+  guard); zero filed-row edits.
+- **Evidence:** `reports/round-34/validation.json` acceptance true (exit 0,
+  receipt sha256 `ba2fa4dc…`); fleet report `.ufo/reports/round-34/kotodama.md`;
+  telemetry closed via `availability-close-34.json` (closes
+  `dispatch-declared.json`, sha256 `53e2bb01…`). Two seats (D17, X00) never
+  landed; coverage folded by siblings; recorded in `missing_dependencies`.

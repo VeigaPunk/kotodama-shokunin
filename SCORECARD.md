@@ -601,11 +601,36 @@ excised (42 → 40 lines). No new domain capability this round
 (bookkeeping/instrument round). Operator directive recorded: outlined batch
 counts per round (concurrency); integrator seats recorded in telemetry.
 
+## Axes — round 34 (2026-10-19), ADMITTED (regimen 2, loop 1 build 2 of 3)
+
+Baseline `da68a6d` (short id; expands to `da68a6d705e41f369f21e8607bfaab5b54077f84`);
+one batch on `opencode-go-2/deepseek-v4.1-flash` (key 2 of the round-robin):
+63 seats authored/dispatched/completed — the declared `seat_count: 64` vs 63
+rows is recorded as the named CO4 deviation (digest-pinned, not edited).
+Acceptance: `python3 reports/round-34/run-validation.py` exits 0
+(`reports/round-34/validation.json`, receipt sha256 `ba2fa4dc…`).
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D) | A02-H1 closed: the v3 default pair was shape-green but semantically stale (renderer verbatim-carried the 12 D4 claim rows from filed round-20 + a hard-coded OQ literal) → `declared-in-r7` built from live bytes (successor claims-map + six renderer edits); every D4/OQ figure equals a measured live value (d4_stale_audit CLEAN); gate 16/16 + 20/20 + 0; links 105/105; claims 27 (16/7/4); e2e exit 0, packet `45f57132…` == freeze.txt; r6 row refuses replay (exit 1, KeyError mechanism — named R34-N1) | `python3 reports/round-34/run-validation.py`; `python3 tools/exercise-handoff-e2e.py --profile v3 --quiet` | `reports/round-34/handoff/declared-in-r7/`, `handoff/repin.json`, `validation.json` |
+| operability | improved (claim O, capability `receipt-guard-adoption-audit`) | No adoption inventory (the F-C13-1 gap uninstrumented) → `tools/harness/receipt_guard_adoption.py` durable (selftest green) + inventory of all 29 filed runners: 18 guarded-refresh / 11 unguarded-in-place (r5-r12, r19, r21, r29), routing receipt covers every unguarded runner with the isolated-copy protocol; zero in-tree runner execution (r5/r6/r7 receipts == HEAD); r26 correction errata filed (it is guard-adopted) | `python3 tools/harness/receipt_guard_adoption.py --selftest`; `python3 reports/round-34/run-validation.py` | `op/adoption-inventory.json`; `op/O05-routing.md`; LOG.md errata |
+| calibration | improved (claim C) | Box-1 evidence current only as console output at the old digest → durable receipt 28/28 at `f9bd07c2…` + A09 anchor reissue table built from the citation census (seven live stale cites re-issued as superseded readings; C09-F2 phantom-row guard); zero filed-row edits | `python3 -B reports/round-30/craft/box1-survey.py`; `python3 reports/round-34/run-validation.py` | `craft/box1-resurvey-durable.json`; `craft/anchor-reissue.md` |
+| coverage / freshness / adjacency | unchanged | Freshness pause in force; coverage/adjacency not claimed; no axis harmed | — | `claims.json` non_goals |
+
+Admission: D/O/C verify and no axis is harmed. Findings on record: **R34-N1**
+(r6-row refusal surfaces as an unhandled KeyError, not E2E-DIGEST — routed to
+renderer hardening); the **CO4 seat-count deviation** (64 declared vs 63
+authored/dispatched — recorded, not edited); two seats (D17, X00) never landed —
+coverage folded by siblings, recorded in `missing_dependencies`. Supersessions
+as new rows: renderer default pair r6→r7, CLAIMS_MAP r20→r7 successor; the
+filed r2..r6 packet rows and round-20 map stay byte-identical.
+
 ## Planned
 
-- Round 33 ADMITTED (regimen 2 opening round; see its table above). Next:
-  round 34 — loop 1 build 2 of 3, one 64-worker batch on `opencode-go-2/
-  deepseek-v4.1-flash` (key 2 of the round-robin) per REGIMEN.md.
+- Round 34 ADMITTED (see its table above). Next: round 35 — loop 1 build 3 of 3,
+  one 64-worker batch on `opencode-go-3/deepseek-v4.1-flash` (key 3) per
+  REGIMEN.md, completing loop 1's opencode-go build trio.
+- Round 33 ADMITTED (regimen 2 opening round).
 - Rounds 8-10 + round 12 (verify) admitted; round 11 REJECTED (F threshold).
   Next: round 13, loop 1 expand round — 128 workers on `xai-oauth/grok-4.7-fast`.
   Candidate claims: D4 culture packet (typed pipeline on a fresh build),

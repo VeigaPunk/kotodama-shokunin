@@ -1,0 +1,1825 @@
+{
+  "census_complete": true,
+  "class_counts": {
+    "guarded-refresh": 17,
+    "unguarded-in-place": 11
+  },
+  "date": "2026-10-19",
+  "declared_hazards": [
+    {
+      "agrees": true,
+      "declared_by": "LOG.md:3556-3558",
+      "declared_class": "unguarded-in-place",
+      "declared_lines": ":194",
+      "evidence": [
+        "reports/round-5/run-validation.py:194"
+      ],
+      "observed_class": "unguarded-in-place",
+      "runner": "reports/round-5/run-validation.py"
+    },
+    {
+      "agrees": true,
+      "declared_by": "LOG.md:3556-3558",
+      "declared_class": "unguarded-in-place",
+      "declared_lines": ":336",
+      "evidence": [
+        "reports/round-6/run-validation.py:336"
+      ],
+      "observed_class": "unguarded-in-place",
+      "runner": "reports/round-6/run-validation.py"
+    },
+    {
+      "agrees": true,
+      "declared_by": "LOG.md:3556-3558",
+      "declared_class": "unguarded-in-place",
+      "declared_lines": ":1171",
+      "evidence": [
+        "reports/round-7/run-validation.py:1171"
+      ],
+      "observed_class": "unguarded-in-place",
+      "runner": "reports/round-7/run-validation.py"
+    },
+    {
+      "agrees": false,
+      "declared_by": "LOG.md:3559-3560",
+      "declared_class": "unguarded-in-place",
+      "declared_lines": ":90, :1909",
+      "evidence": [
+        "reports/round-26/run-validation.py:1909",
+        "reports/round-26/run-validation.py:1857 (guard call)",
+        "reports/round-26/run-validation.py:1906 (guard call)"
+      ],
+      "observed_class": "guarded-refresh",
+      "runner": "reports/round-26/run-validation.py"
+    }
+  ],
+  "findings": [
+    {
+      "detail": "F-C13-1 (LOG.md:3559-3560) names :90, :1909 as carrying the same unguarded in-place hazard; the live bytes classify as guarded-refresh",
+      "evidence": [
+        "reports/round-26/run-validation.py:1909",
+        "reports/round-26/run-validation.py:1857 (guard call)",
+        "reports/round-26/run-validation.py:1906 (guard call)"
+      ],
+      "id": "RGA-1-round-26",
+      "kind": "declared-hazard-mismatch",
+      "owner": "integrator (round 34) — filed LOG.md bytes are not edited; this row is the new-record correction",
+      "runner": "reports/round-26/run-validation.py"
+    },
+    {
+      "detail": "8 runner(s) write their own receipt without a dominating guard call and are not in the F-C13-1 declared set",
+      "evidence": [
+        "reports/round-8/run-validation.py",
+        "reports/round-9/run-validation.py",
+        "reports/round-10/run-validation.py",
+        "reports/round-11/run-validation.py",
+        "reports/round-12/run-validation.py",
+        "reports/round-19/run-validation.py",
+        "reports/round-21/run-validation.py",
+        "reports/round-29/run-validation.py"
+      ],
+      "id": "RGA-2",
+      "kind": "undeclared-unguarded-writer",
+      "owner": "integrator (round 34) — routing row per runner below",
+      "runner": null
+    }
+  ],
+  "gaps": [],
+  "glob": "reports/round-*/run-validation.py",
+  "guard_tool": {
+    "path": "tools/harness/receipt_guard.py",
+    "present": true,
+    "sha256": "d2297da4e6ceabb2eab84bb6e3beab16d82132aca0e313f0bdf21243304123a1"
+  },
+  "hazard_count": 11,
+  "limits": [
+    "Static AST/text analysis at read time, not execution: a runner's runtime behaviour, aliasing beyond the resolved constant map, or a write performed by a helper it calls can differ from this census, which is why could-not-evaluate rows are never greened.",
+    "Recognized write idioms are write_text/write_bytes, open() in a write mode, os.replace/os.rename/shutil.move, Path.replace with a resolvable receiver, and receipt writes embedded in string literals; other publication idioms are recorded only when their destination resolves.",
+    "Row digests pin the bytes read during this census, not HEAD at commit time; re-run after any landing that touches a runner.",
+    "This tool executes no round runner and writes no filed receipt; --out refuses absolute paths, path escapes, and validation.json destinations."
+  ],
+  "mode": "runner-census",
+  "protocols": {
+    "could-not-evaluate": "manual review required: the census could not resolve this runner's receipt write or guard status; no protocol is inferred",
+    "guard-referenced-only": "isolated-copy-only: the guard is referenced but no call guards its own receipt write; never execute in-tree",
+    "guarded-refresh": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+    "no-receipt-write": "no in-place write to the runner's own receipt was found; other writes remain possible — read the row's write evidence before running it",
+    "unguarded-in-place": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)"
+  },
+  "root": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "runner_count": 28,
+  "runners": [
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 211,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-5/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 194,
+          "resolution": "join",
+          "resolved": "reports/round-5/validation.json",
+          "src": "(HERE / 'validation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\\n', encoding='utf-8')",
+          "target": "HERE / 'validation.json'"
+        }
+      ],
+      "round": 5,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-5/run-validation.py",
+      "sha256": "5fd5cb4198bdf1d01240ef13fbf6f59ae5ae18182c9afd0d865b619292f83676",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 350,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-6/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 336,
+          "resolution": "join",
+          "resolved": "reports/round-6/validation.json",
+          "src": "(HERE / 'validation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\\n', encoding='utf-8')",
+          "target": "HERE / 'validation.json'"
+        }
+      ],
+      "round": 6,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-6/run-validation.py",
+      "sha256": "c53f100927b8723bea25eeaa06048ace68fdfa3e763811a64e1104323e535c6e",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 1193,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-7/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 1171,
+          "resolution": "join",
+          "resolved": "reports/round-7/validation.json",
+          "src": "(HERE / 'validation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + '\\n', encoding='utf-8')",
+          "target": "HERE / 'validation.json'"
+        }
+      ],
+      "round": 7,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-7/run-validation.py",
+      "sha256": "c3b8418445d03bee2ba394ab6e4e4767e5ef07168c1a70dc904b3813e878c1e7",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 1499,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-8/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 1486,
+          "resolution": "const",
+          "resolved": "reports/round-8/validation.json",
+          "src": "output.write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "output"
+        }
+      ],
+      "round": 8,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-8/run-validation.py",
+      "sha256": "7eaa36789b4d71ce94ffadc93d2f5e10d6e0ca353df1c233d0ba94f29bff8369",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 1944,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-9/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 1910,
+          "resolution": "const",
+          "resolved": "reports/round-9/validation.json",
+          "src": "output.write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "output"
+        }
+      ],
+      "round": 9,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-9/run-validation.py",
+      "sha256": "8e4881309afaacc96f8f6e68f0c31041a9b2accc1c26bb1b20403f563364f5dd",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 1070,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-10/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 1054,
+          "resolution": "const",
+          "resolved": "reports/round-10/validation.json",
+          "src": "output.write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "output"
+        }
+      ],
+      "round": 10,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-10/run-validation.py",
+      "sha256": "23d6dc09002fe18c46778ac57d2c34246ab970a9371e7382950ca737d4019b0e",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 1756,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-11/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 1740,
+          "resolution": "const",
+          "resolved": "reports/round-11/validation.json",
+          "src": "output.write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "output"
+        }
+      ],
+      "round": 11,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-11/run-validation.py",
+      "sha256": "fab68287e74abc62d0681a1389bd0450d90020b65d7896ba2ab679e195acd9bd",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 1083,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-12/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 1071,
+          "resolution": "const",
+          "resolved": "reports/round-12/validation.json",
+          "src": "out.write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "out"
+        }
+      ],
+      "round": 12,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-12/run-validation.py",
+      "sha256": "2831c95c232c057361404c1860b82e88088b19c94b3ae26ec36be9e46fc6563c",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "module.guard_receipt(ROOT / OUTPUT, repo_root=ROOT)",
+            "form": "call:module.guard_receipt",
+            "line": 420,
+            "receipt_arg": "reports/round-14/validation.json"
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 25
+          },
+          {
+            "detail": "round14_receipt_guard",
+            "form": "guard-path-string",
+            "line": 414
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              420
+            ],
+            "line": 413,
+            "name": "guard_preflight"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 728,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:716)",
+        "guard entry calls at :420"
+      ],
+      "receipt": "reports/round-14/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_preflight"
+            ],
+            "kind": "proxy:guard_preflight",
+            "line": 716
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 717,
+          "resolution": "join",
+          "resolved": "reports/round-14/validation.json",
+          "src": "(ROOT / OUTPUT).write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "ROOT / OUTPUT"
+        }
+      ],
+      "round": 14,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-14/run-validation.py",
+      "sha256": "b06bf6b12cf87377c52d245e6b1da413aab2ab17620d98dd7bc2a6ce467273b8",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "module.guard_receipt(ROOT / OUTPUT, repo_root=ROOT)",
+            "form": "call:module.guard_receipt",
+            "line": 1044,
+            "receipt_arg": "reports/round-15/validation.json"
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 44
+          },
+          {
+            "detail": "round15_receipt_guard",
+            "form": "guard-path-string",
+            "line": 1038
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1044
+            ],
+            "line": 1037,
+            "name": "guard_preflight"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1358,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1345)",
+        "guard entry calls at :1044"
+      ],
+      "receipt": "reports/round-15/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_preflight"
+            ],
+            "kind": "proxy:guard_preflight",
+            "line": 1345
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1346,
+          "resolution": "join",
+          "resolved": "reports/round-15/validation.json",
+          "src": "(ROOT / OUTPUT).write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "ROOT / OUTPUT"
+        }
+      ],
+      "round": 15,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-15/run-validation.py",
+      "sha256": "5323a8d36ada8addcbcba90e1a874e118bb7099720c345cd4974c7bed7418b67",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "module.guard_receipt(ROOT / OUTPUT, repo_root=ROOT)",
+            "form": "call:module.guard_receipt",
+            "line": 1005,
+            "receipt_arg": "reports/round-16/validation.json"
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 57
+          },
+          {
+            "detail": "round16_receipt_guard",
+            "form": "guard-path-string",
+            "line": 999
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1005
+            ],
+            "line": 998,
+            "name": "guard_preflight"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1277,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1264)",
+        "guard entry calls at :1005"
+      ],
+      "receipt": "reports/round-16/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_preflight"
+            ],
+            "kind": "proxy:guard_preflight",
+            "line": 1264
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1265,
+          "resolution": "join",
+          "resolved": "reports/round-16/validation.json",
+          "src": "(ROOT / OUTPUT).write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "ROOT / OUTPUT"
+        }
+      ],
+      "round": 16,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-16/run-validation.py",
+      "sha256": "295629ae128347b854759bda9d1e41b0497bc2c269267ac920146f6b5aa891d6",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "module.guard_receipt(ROOT / OUTPUT, repo_root=ROOT)",
+            "form": "call:module.guard_receipt",
+            "line": 1124,
+            "receipt_arg": "reports/round-17/validation.json"
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 68
+          },
+          {
+            "detail": "round17_receipt_guard",
+            "form": "guard-path-string",
+            "line": 1118
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1124
+            ],
+            "line": 1117,
+            "name": "guard_preflight"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1443,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1430)",
+        "guard entry calls at :1124"
+      ],
+      "receipt": "reports/round-17/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_preflight"
+            ],
+            "kind": "proxy:guard_preflight",
+            "line": 1430
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1431,
+          "resolution": "join",
+          "resolved": "reports/round-17/validation.json",
+          "src": "(ROOT / OUTPUT).write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "ROOT / OUTPUT"
+        }
+      ],
+      "round": 17,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-17/run-validation.py",
+      "sha256": "6b98abadef9951be7cfce006f339dad036f7b341cee6713ecc00be6e5f9095ec",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "module.guard_receipt(ROOT / OUTPUT, repo_root=ROOT)",
+            "form": "call:module.guard_receipt",
+            "line": 1518,
+            "receipt_arg": "reports/round-18/validation.json"
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 67
+          },
+          {
+            "detail": "round18_receipt_guard",
+            "form": "guard-path-string",
+            "line": 1512
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1518
+            ],
+            "line": 1511,
+            "name": "guard_preflight"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1863,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1850)",
+        "guard entry calls at :1518"
+      ],
+      "receipt": "reports/round-18/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_preflight"
+            ],
+            "kind": "proxy:guard_preflight",
+            "line": 1850
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1851,
+          "resolution": "join",
+          "resolved": "reports/round-18/validation.json",
+          "src": "(ROOT / OUTPUT).write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "ROOT / OUTPUT"
+        }
+      ],
+      "round": 18,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-18/run-validation.py",
+      "sha256": "01b138500ce30ad25cc8f0078110d6b2afeb9bf8ca79f5903deae3746c19bca8",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "embedded:write_text",
+          "line": 21,
+          "literal_line": 5,
+          "note": "receipt write embedded in a subprocess script string; no in-file guard call can dominate it",
+          "resolution": "embedded-script",
+          "resolved": "reports/round-19/validation.json",
+          "src": "pathlib.Path('reports/round-19/validation.json').write_text(json.dumps(v, indent=1, ensure_ascii=False))",
+          "target": "pathlib.Path('reports/round-19/validation.json')"
+        }
+      ],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 25,
+      "parse": "ok",
+      "reasons": [
+        "receipt write embedded in a script string: :21",
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-19/validation.json",
+      "receipt_writes": [],
+      "round": 19,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-19/run-validation.py",
+      "sha256": "5b27a80de1f4b11012061e7ed3e835734049661ace295b39878afd9f71454d3a",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "module.guard_receipt(ROOT / OUTPUT, repo_root=ROOT)",
+            "form": "call:module.guard_receipt",
+            "line": 1285,
+            "receipt_arg": "reports/round-20/validation.json"
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 57
+          },
+          {
+            "detail": "round20_receipt_guard",
+            "form": "guard-path-string",
+            "line": 1279
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1285
+            ],
+            "line": 1278,
+            "name": "guard_preflight"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1499,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1484)",
+        "guard entry calls at :1285"
+      ],
+      "receipt": "reports/round-20/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_preflight"
+            ],
+            "kind": "proxy:guard_preflight",
+            "line": 1484
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1485,
+          "resolution": "join",
+          "resolved": "reports/round-20/validation.json",
+          "src": "(ROOT / OUTPUT).write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "ROOT / OUTPUT"
+        }
+      ],
+      "round": 20,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-20/run-validation.py",
+      "sha256": "2b7a252b5449415dddac2e667ed2e192df800a80173849989fa72423961646da",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": [
+          {
+            "form": "refresh-env-string",
+            "line": 474
+          }
+        ]
+      },
+      "hazard": true,
+      "lines": 1127,
+      "parse": "ok",
+      "reasons": [
+        "only REFRESH_RECEIPTS references, which gate other runners' refresh runs, not this runner's own write"
+      ],
+      "receipt": "reports/round-21/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 1115,
+          "resolution": "const",
+          "resolved": "reports/round-21/validation.json",
+          "src": "output.write_text(json.dumps(receipt, indent=2, sort_keys=True, ensure_ascii=False) + '\\n', encoding='utf-8')",
+          "target": "output"
+        }
+      ],
+      "round": 21,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-21/run-validation.py",
+      "sha256": "938cddeed86dedf52a4904c9c6a81248d6dc719c1330d4f3b64bcd8f3be896b0",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 829,
+            "receipt_arg": "reports/round-22/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 911,
+            "receipt_arg": null
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 921,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 828
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              829
+            ],
+            "line": 827,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              911,
+              921
+            ],
+            "line": 895,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 933,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:921)",
+        "guard entry calls at :829, :911, :921"
+      ],
+      "receipt": "reports/round-22/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "call:guard_receipt",
+            "line": 921
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 922,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-22/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 22,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-22/run-validation.py",
+      "sha256": "3af74c2b40f007c21581b037c9059512bd745d4fe8645dd9e4364818a4e463dd",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1066,
+            "receipt_arg": "reports/round-23/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1094,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1065
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1066
+            ],
+            "line": 1064,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1094
+            ],
+            "line": 1069,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1108,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1093)",
+        "guard entry calls at :1066, :1094"
+      ],
+      "receipt": "reports/round-23/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "call_lines": [
+              1094
+            ],
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "try-guard",
+            "line": 1093
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1097,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-23/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 23,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-23/run-validation.py",
+      "sha256": "ae897cb8d808f0c1432948154d440f9c86730685b32b91442d9714dc27692cb2",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1153,
+            "receipt_arg": "reports/round-24/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1181,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1152
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1153
+            ],
+            "line": 1151,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1181
+            ],
+            "line": 1156,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1195,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1180)",
+        "guard entry calls at :1153, :1181"
+      ],
+      "receipt": "reports/round-24/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "call_lines": [
+              1181
+            ],
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "try-guard",
+            "line": 1180
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1184,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-24/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 24,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-24/run-validation.py",
+      "sha256": "ba3b18a79e9b0dbbe9fae70b7bc4b27f50d670ff025b1b24cf7f14b1ac6d43ad",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1110,
+            "receipt_arg": "reports/round-25/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1142,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 173
+          },
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1109
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1110
+            ],
+            "line": 1108,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1142
+            ],
+            "line": 1113,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1156,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1141)",
+        "guard entry calls at :1110, :1142"
+      ],
+      "receipt": "reports/round-25/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "call_lines": [
+              1142
+            ],
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "try-guard",
+            "line": 1141
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1145,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-25/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 25,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-25/run-validation.py",
+      "sha256": "d19435251dccb738e456c01fe7fb94498c27bae7f70704a96f94ec9324ce35af",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1857,
+            "receipt_arg": "reports/round-26/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1906,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 199
+          },
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1856
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1857
+            ],
+            "line": 1855,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1906
+            ],
+            "line": 1867,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1920,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1905)",
+        "guard entry calls at :1857, :1906"
+      ],
+      "receipt": "reports/round-26/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "call_lines": [
+              1906
+            ],
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "try-guard",
+            "line": 1905
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1909,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-26/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 26,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-26/run-validation.py",
+      "sha256": "73297683d552b1673f2064a1a1ec76bf359f4add1bf8be4411ee77caa7f0be55",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1855,
+            "receipt_arg": "reports/round-27/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1904,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 222
+          },
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1854
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1855
+            ],
+            "line": 1853,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1904
+            ],
+            "line": 1865,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1918,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1903)",
+        "guard entry calls at :1855, :1904"
+      ],
+      "receipt": "reports/round-27/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "call_lines": [
+              1904
+            ],
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "try-guard",
+            "line": 1903
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1907,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-27/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 27,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-27/run-validation.py",
+      "sha256": "36b597068d59a88156090e5c179e1ab2c68fe4ce7735d7b1bb6f67d82babe08a",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1998,
+            "receipt_arg": "reports/round-28/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 2095,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 231
+          },
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1997
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1998
+            ],
+            "line": 1996,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              2095
+            ],
+            "line": 2056,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 2109,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:2094)",
+        "guard entry calls at :1998, :2095"
+      ],
+      "receipt": "reports/round-28/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "call_lines": [
+              2095
+            ],
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "try-guard",
+            "line": 2094
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 2098,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-28/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 28,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-28/run-validation.py",
+      "sha256": "20e09ea8db7bcb306b0c8948c7b8afb62eca5e0d47f674ebfea9643f2f6add77",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "unguarded-in-place",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [],
+        "loads": [],
+        "proxy_defs": [],
+        "refresh_references": []
+      },
+      "hazard": true,
+      "lines": 932,
+      "parse": "ok",
+      "reasons": [
+        "no guard reference of any kind in this file"
+      ],
+      "receipt": "reports/round-29/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": null,
+          "guarded": false,
+          "kind": "write_text",
+          "line": 922,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-29/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 29,
+      "route": "isolated-copy-only: never execute in-tree; work from a git archive or clone under .scratch (F-C13-1 prevention)",
+      "runner": "reports/round-29/run-validation.py",
+      "sha256": "59df391b2f80260ddfefe7a72651e1c67062bf376615ba7f21a1dd5bc5cf0ece",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 885,
+            "receipt_arg": "reports/round-30/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 903,
+            "receipt_arg": null
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 922,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 884
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              885
+            ],
+            "line": 883,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              903,
+              922
+            ],
+            "line": 888,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 935,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:922)",
+        "guard entry calls at :885, :903, :922"
+      ],
+      "receipt": "reports/round-30/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "call:guard_receipt",
+            "line": 922
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 923,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-30/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 30,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-30/run-validation.py",
+      "sha256": "2f447223ece3f48195bf4c2d7f026b37b2e5cc88924c002408f8bd663e7a3e31",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1120,
+            "receipt_arg": "reports/round-31/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1139,
+            "receipt_arg": null
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1158,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1119
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1120
+            ],
+            "line": 1118,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1139,
+              1158
+            ],
+            "line": 1123,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1171,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1158)",
+        "guard entry calls at :1120, :1139, :1158"
+      ],
+      "receipt": "reports/round-31/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "call:guard_receipt",
+            "line": 1158
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1159,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-31/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 31,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-31/run-validation.py",
+      "sha256": "9e01c4274c1afc0be983ba3c7610fc44212ab2d3e934f747b57ef6b9584488dc",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1104,
+            "receipt_arg": "reports/round-32/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1123,
+            "receipt_arg": null
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1142,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1103
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1104
+            ],
+            "line": 1102,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1123,
+              1142
+            ],
+            "line": 1107,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1155,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1142)",
+        "guard entry calls at :1104, :1123, :1142"
+      ],
+      "receipt": "reports/round-32/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "call:guard_receipt",
+            "line": 1142
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1143,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-32/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 32,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-32/run-validation.py",
+      "sha256": "6fd1b96e682fde67e85f52c01573c175ac047b014f9f1c79ad8d72c061f8e6dd",
+      "unresolved_write_targets": []
+    },
+    {
+      "class": "guarded-refresh",
+      "embedded_receipt_writes": [],
+      "embedded_unparsed_literals": [],
+      "guard": {
+        "calls": [
+          {
+            "detail": "namespace['guard_receipt'](OUTPUT, repo_root=ROOT)",
+            "form": "subscript:namespace['guard_receipt']",
+            "line": 1443,
+            "receipt_arg": "reports/round-33/validation.json"
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1459,
+            "receipt_arg": null
+          },
+          {
+            "detail": "guard_receipt()",
+            "form": "call:guard_receipt",
+            "line": 1470,
+            "receipt_arg": null
+          }
+        ],
+        "loads": [
+          {
+            "detail": "tools/harness/receipt_guard.py",
+            "form": "guard-path-string",
+            "line": 1442
+          }
+        ],
+        "proxy_defs": [
+          {
+            "guard_call_lines": [
+              1443
+            ],
+            "line": 1441,
+            "name": "guard_receipt"
+          },
+          {
+            "guard_call_lines": [
+              1459,
+              1470
+            ],
+            "line": 1446,
+            "name": "main"
+          }
+        ],
+        "refresh_references": []
+      },
+      "hazard": false,
+      "lines": 1479,
+      "parse": "ok",
+      "reasons": [
+        "every resolved receipt write is dominated by a guard call (:1470)",
+        "guard entry calls at :1443, :1459, :1470"
+      ],
+      "receipt": "reports/round-33/validation.json",
+      "receipt_writes": [
+        {
+          "guard_provider": {
+            "entries": [
+              "guard_receipt"
+            ],
+            "kind": "call:guard_receipt",
+            "line": 1470
+          },
+          "guarded": true,
+          "kind": "write_text",
+          "line": 1471,
+          "resolution": "wrapper:safe_path",
+          "resolved": "reports/round-33/validation.json",
+          "src": "safe_path(OUTPUT).write_text(rendered, encoding='utf-8')",
+          "target": "safe_path(OUTPUT)"
+        }
+      ],
+      "round": 33,
+      "route": "guard-adopted: in-tree re-run is refused by the guard once the receipt is committed (REFRESH_RECEIPTS=1 is the only override); refresh runs belong in an isolated clone under the lane's .scratch",
+      "runner": "reports/round-33/run-validation.py",
+      "sha256": "17ccd5af6f53c5e5ffa3a9da8e3a26ebbbb18215b3b884d1c9fe6fe28f4ea10b",
+      "unresolved_write_targets": []
+    }
+  ],
+  "schema": "receipt-guard-adoption/1",
+  "tool": "tools/harness/receipt_guard_adoption.py"
+}

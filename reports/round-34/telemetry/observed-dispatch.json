@@ -1,0 +1,51 @@
+{
+  "record": "observed-dispatch",
+  "round": 34,
+  "state": "open-at-seat-close",
+  "owner": "orchestrator (goal-mode parent)",
+  "reason": "counters are filled from the batched-dispatch result; the record closes when reports/round-34/telemetry/availability-close-34.json lands in the same integrating pass (AGENTS.md close-what-you-open)",
+  "observed_window_utc": "2026-10-19T06:57:28Z/2026-10-19T07:26:40Z",
+  "window_basis": "the single batched AgentSwarm dispatch call measured 1744.162 s from the 06:57:28Z declaration stamp to the batch result",
+  "counting_command": "AgentSwarm result summary '<summary>completed: 63</summary>' and per-seat outcome attribute 'completed'; date -u +%FT%TZ at declaration and close",
+  "counting_date": "2026-10-19",
+  "requested_allocation": {
+    "provider_lane": "opencode-go-2",
+    "model": "deepseek-v4.1-flash",
+    "lane_key": "opencode-go key 2 (second of the per-round round-robin)",
+    "requested_workers": 64,
+    "batched_calls": 1,
+    "declared_note": "targets.json declares seat_count 64 but authors 63 seat rows; 63 items were dispatched and 63 completed — the deviation is recorded in the validator's CO leg and here, not edited (digest-pinned)"
+  },
+  "launched_workers": 63,
+  "completed_workers": 63,
+  "failed_workers": 1,
+  "failed_workers_note": "one dispatched seat returned a non-completion (D17-verify-gates never landed; its verification class was covered by D18-D20 and the R01-R03 reviewers — recorded in validation.json missing_dependencies alongside X00-connector)",
+  "launched_workers_basis": "AgentSwarm launched exactly the 63 queued item seats (summary completed: 63; 63 per-seat completion records)",
+  "runtime_concurrency": null,
+  "runtime_concurrency_owner": "orchestrator",
+  "runtime_concurrency_reason": "seat-level launch telemetry is not observable from the parent; AgentSwarm queues launches automatically. Unknown counters stay null per AGENTS.md, not inferred.",
+  "actual_route": "opencode-go-2 lane, wire model deepseek-v4.1-flash, lane key 2",
+  "post_batch_integration": "integrator (parent) applied the reconciled seat drafts in-session: successor claims-map + six renderer edits + freeze + re-pin cascade, the guard-adoption tool landing, the box-1 receipt + anchor reissue, the round-34 acceptance runner authoring, leg repairs, and the record set — no post-batch subagent waves (operator concurrency directive)",
+  "durable_sources": [
+    {
+      "path": "reports/round-34/claims.json",
+      "sha256": "f2b87ddb37d8def04c6479a4ac6831ebf5c07514f91efe453247b84a0f9fcff0"
+    },
+    {
+      "path": "reports/round-34/targets.json",
+      "sha256": "76d9652497c9b50ff484238e812c0597195db752786913cb7a6201b4b19eea1d"
+    },
+    {
+      "path": "reports/round-34/telemetry/dispatch-declared.json",
+      "sha256": "53e2bb01071a3f97ae015ed7259d6539c5e281fc6a2a2699ff7168d7837dff44"
+    },
+    {
+      "path": "reports/round-34/telemetry/inputs/claims.json",
+      "sha256": "f2b87ddb37d8def04c6479a4ac6831ebf5c07514f91efe453247b84a0f9fcff0"
+    },
+    {
+      "path": "reports/round-34/telemetry/inputs/targets.json",
+      "sha256": "76d9652497c9b50ff484238e812c0597195db752786913cb7a6201b4b19eea1d"
+    }
+  ]
+}

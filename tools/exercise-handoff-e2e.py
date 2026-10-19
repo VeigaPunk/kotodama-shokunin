@@ -181,7 +181,7 @@ HARNESS = (UNCERTAINTY_TOOL, LINKS_TOOL)
 V2_PACKET_MD = "reports/round-15/handoff/packet-v2-05.md"
 V2_PACKET_YML = "reports/round-15/handoff/packet-v2-05.yml"
 V2_BASELINE = "reports/round-15/handoff/expected.json"
-CLAIMS_MAP = "reports/round-20/handoff/claims-map.md"
+CLAIMS_MAP = "reports/round-34/handoff/declared-in-r7/claims-map.md"
 
 FIELD_NAMES = (
     "packet_id",
@@ -1930,8 +1930,8 @@ def v2_verify(root=ROOT):
 V3_PROFILE = "kotodama-handoff-e2e/3"
 V3_PACKET_ID = "kotodama.handoff.d2d3d4-e2e"
 V3_PACKET_VERSION = "3.1.1"
-V3_BASELINE_DEFAULT = "reports/round-30/handoff/declared-in-r6/expected.json"
-V3_FROZEN_DIR_DEFAULT = "reports/round-30/handoff/declared-in-r6"
+V3_BASELINE_DEFAULT = "reports/round-34/handoff/declared-in-r7/expected.json"
+V3_FROZEN_DIR_DEFAULT = "reports/round-34/handoff/declared-in-r7"
 V3_READ_SET = (
     *V1_READ_SET,
     V2_PACKET_MD,
@@ -2287,7 +2287,7 @@ D4_ROW_RE = re.compile(r"^### (D4-CL\d\d) — (.+?) — (.+?) — `([a-z]+)`\s*$
 
 
 def v3_parse_claims_map(root):
-    """The twelve D4 rows as filed in reports/round-20/handoff/claims-map.md."""
+    """The twelve D4 rows as declared in this round's handoff source."""
     text = read_text(root, CLAIMS_MAP)
     matches = list(D4_ROW_RE.finditer(text))
     if len(matches) != 12:
@@ -2563,7 +2563,7 @@ def v3_manifest_rows(root, digests, sizes, d2, d3, typed, contract, d3_expected,
         D4_READER: "d4 reader gate named by the packet's own assembly block",
         UNCERTAINTY_TOOL: "this run's uncertainty judge (round-15 harness validator, read-only here)",
         LINKS_TOOL: "this run's link judge (round-15 harness validator, read-only here)",
-        CLAIMS_MAP: "the twelve D4 claim rows as filed; this packet carries them verbatim",
+        CLAIMS_MAP: "the twelve D4 claim rows as declared in this round's handoff source; this packet carries them verbatim",
     }
     for rel in SOURCE_LEDGERS:
         obj = json_file(root, rel)
@@ -2776,7 +2776,7 @@ def v3_build_packet(root, d2, d3, typed, d4, d4_typed, d4_labels, d4_holds, cont
         f"({', '.join(d4['era_tags'])} fixture-relative tags with E3 declared reserved, {counts['lexicon']} "
         f"lexicon records, {counts['names']} names, {counts['symbols']} symbols, {counts['costumes']} "
         f"costumes — each owing an unfilled form slot — {counts['rank_rules']} rank rules, "
-        f"{counts['contact']} contact layers, twelve authored components); all native spellings are "
+        f"{counts['contact']} contact layers, thirteen authored components); all native spellings are "
         "constructed ASCII-lowercase, unscreened, with no ISO code or real language family claimed |"
     )
     add("")
@@ -3523,10 +3523,11 @@ class V3Assembly:
             {
                 "id": "OQ-V3-05",
                 "question": (
-                    "D4's inherited and own holds stay open: twelve form holds + three rank holds + one "
-                    "note, thirteen unresolved rank items, three quarantine handles and four conflicts — "
-                    "kotodama; blocking for the affected D2 rank records and the six garment terms, not for "
-                    "this envelope"
+                    "D4's own holds stay open: twelve form holds, zero notes and zero fails, and the "
+                    "projection counts zero unresolved rank items, zero quarantine handles and zero conflicts "
+                    "(the thirteen unresolved rank items, three quarantine handles and four conflicts are the "
+                    "D2 channel's residuals, counted on the D2 row) — kotodama; blocking for the affected D2 "
+                    "rank records and the six garment terms, not for this envelope"
                 ),
                 "unresolved_claims": "D4-CL09",
             },

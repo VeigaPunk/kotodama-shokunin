@@ -1,0 +1,75 @@
+{
+  "round": 34,
+  "regimen": "REGIMEN.md (operator-approved 2026-10-19)",
+  "loop": 1,
+  "position": "build 2 of 3 (opencode-go key 2 of the round-robin)",
+  "declared_at_utc": "2026-10-19T06:35:00Z",
+  "declared_by": "orchestrator (goal-mode parent), in-session",
+  "baseline_commit": "da68a6d",
+  "baseline_note": "round-33 admission commit; baseline fields below were measured at this tree",
+  "dispatch": {
+    "provider_lane": "opencode-go-2",
+    "model": "deepseek-v4.1-flash",
+    "requested_workers": 64,
+    "batched_calls": 1,
+    "key_rotation_note": "key lane opencode-go-2 (key 2); round 35 rotates to opencode-go-3"
+  },
+  "axes_in_play": ["depth", "operability", "calibration"],
+  "lowest_axis_reasoning": "After round 33, depth and coverage have zero regimen-2 claims; freshness is paused. Claim D works depth (tied lowest); coverage is intentionally deferred to a later round (domain-content work does not fit this build round's debt-queue shape).",
+  "freshness_pause_in_force": true,
+  "claims": [
+    {
+      "id": "D",
+      "axis": "depth",
+      "claim": "Close A02-H1: build handoff packet v-next (declared-in-r7) from live bytes — the current default pair (r30 declared-in-r6) is shape-green but semantically stale (packet.md:148-152,:307 cite typed_labels 74/native-form 56/findings 16/hold 15+note 1/conflicts 4/quarantine 3 vs live 82/64/12/12+0/0/0/0 per adj/A02-handoff.md and A11). The new revision regenerates the packet from the current D2/D3/D4 artifacts, rewrites the claim-ledger/OQ prose to live numbers, freezes with expected.json + freeze.txt + tamper control, and moves the renderer default to the new revision with the re-pin cascade landed as NEW rows (filed r2-r6 bytes stay frozen).",
+      "before": {
+        "renderer_default": "tools/exercise-handoff-e2e.py:1933-1934 pins V3_BASELINE_DEFAULT/V3_FROZEN_DIR_DEFAULT to reports/round-30/handoff/declared-in-r6",
+        "stale_numbers": "packet.md:148 D4-CL05 (74/56/16/15), :149 D4-CL06 (hold 15 note 1), :150,:152 D4-CL07/09 (conflicts 4, quarantine 3), :307 OQ-V3-05; live: typed-labels.d4.yml coverage 82/64/12/12, conflicts 0, rank_quarantine_handles 0, expected-holds.json hold 12 note 0 fail 0",
+        "self_contradiction": "packet.md:68-69 manifest rows already agree with live bytes while :148-152,:307 do not"
+      },
+      "after_required": "reports/round-34/handoff/declared-in-r7/ lands (packet.md + twin + expected.json + freeze.txt + run.log) with every claim-ledger/OQ number equal to a measured live value; gate green on the new pair (16/16 + 20/20 + findings 0); links resolve; e2e --quiet exit 0 with packet_sha256 == freeze.txt; renderer default moved to declared-in-r7; every surface that pinned declared-in-r6 re-pointed as new supersession rows; filed rounds 8-33 and r2/r4/r5/r6 packet bytes untouched.",
+      "counting_commands": [
+        "python3 tools/gates/handoff-packet-check.py reports/round-34/handoff/declared-in-r7/packet.md",
+        "python3 tools/exercise-handoff-e2e.py --profile v3 --quiet",
+        "python3 reports/round-34/run-validation.py"
+      ],
+      "thresholds": "zero stale figures in the new packet (audited against live bytes by two independent seats); byte-preservation of all filed rounds; re-pin cascade green (old rows replay red or are named superseded, new rows green)."
+    },
+    {
+      "id": "O",
+      "axis": "operability",
+      "claim": "Capability acquisition: land tools/harness/receipt_guard_adoption.py — an audit instrument that inventories every filed round runner, classifies whether it writes its own validation.json in place and whether it adopts tools/harness/receipt_guard.py, and files the durable adoption inventory (the F-C13-1 routing artifact). Known hazards to classify: reports/round-{5,6,7}/run-validation.py and reports/round-26/run-validation.py.",
+      "before": {
+        "gap": "F-C13-1 (round-33 LOG): r5/r6/r7 runners rewrite their filed receipts in place with no guard; r26 carries the same hazard (:90,:1909); no inventory instrument exists; the guard exists since round 14 but adoption was never audited"
+      },
+      "after_required": "the tool is durable with selftest green (positive: the r32 runner's guarded refresh pattern is recognized as adopted; negative: a guarded runner is NOT flagged, a non-runner writing JSON is NOT flagged); the inventory JSON names every reports/round-*/run-validation.py with its adoption class and the four known hazards classified; a receipt draft names the routing (guarded re-run protocol for adopted runners; isolated-copy-only for unguarded ones).",
+      "counting_commands": [
+        "python3 tools/harness/receipt_guard_adoption.py --selftest",
+        "python3 tools/harness/receipt_guard_adoption.py --json",
+        "python3 reports/round-34/run-validation.py"
+      ],
+      "thresholds": "selftest N/N green; inventory covers 100% of filed runners; the four named hazards classified; zero false positives on guarded/non-runner fixtures."
+    },
+    {
+      "id": "C",
+      "axis": "calibration",
+      "claim": "Pin the box-1 executable-surface evidence durable at the new SKILL digest: land a dated box-1 re-survey receipt at SKILL.md sha256 f9bd07c2… (28/28 named executables resolve at the post-round-33 bytes) and file the A09 R1–R8 SKILL anchor reissue as new rows (old anchors recorded as superseded readings, filed rows untouched).",
+      "before": {
+        "state": "SKILL.md digest moved 79fe91d3… → f9bd07c2… (O05 re-key + C14 Fixes 1-4 + FD-N4/N5; 715 → 732 lines); the round-30 box-1 survey is green only as console output at the old digest; A09-pins names the stale line anchors (its R1–R8 list) with no durable reissue"
+      },
+      "after_required": "reports/round-34/craft/box1-resurvey-durable.json + receipt: 28/28 executables resolve at f9bd07c2…, digest-pinned, dated, re-runnable; the R1–R8 anchor reissue lands as a table of old anchor → new anchor → owning row, each verified by grep; the promotion-dossier box-1 evidence is current at HEAD.",
+      "counting_commands": [
+        "python3 -B reports/round-30/craft/box1-survey.py",
+        "python3 reports/round-34/run-validation.py"
+      ],
+      "thresholds": "28/28 at the new digest; the reissue table covers every A09 R1–R8 row; zero filed-row edits."
+    }
+  ],
+  "non_goals": [
+    "no freshness axis-move (pause in force)",
+    "no promotion, canon, clearance, or closure verdicts (operator-owned)",
+    "no in-tree execution of any filed round runner (F-C13-1 prevention; isolated copies only)",
+    "no edits to filed packet revisions r2/r4/r5/r6 or any filed round bytes",
+    "no git push/merge; no commits by seats"
+  ]
+}
