@@ -28,10 +28,10 @@ Dependence varies: the Ethnographic Atlas codes only a small minority of its soc
 
 | Neighbour (anchor) | What it owns | This entry's boundary |
 |---|---|---|
-| `agrarian-field-system-lexicon.md:56,:62` | parcel, plough, stubble grazing, manure contract | herd calendar, transhumance movement logic, herd composition |
-| `hunting-foraging-subsistence.md:36,:116` | wild acquisition; meat-for-crops at a farming edge | the herded counterpart only |
+| `agrarian-field-system-lexicon.md:56,:62` | parcel, plough, manure contract; the agropastoral calendar and routes | cite that calendar; this entry adds comparative herd composition and management, not a second calendar owner |
+| `hunting-foraging-subsistence.md:36,:116` | wild acquisition; meat-for-crops at a farming edge `(to-verify)` | the herded counterpart only |
 | `cuisine-food-lexicon.md:67,:81,:152` | yogurt lineages, milk+meat law, Harris's cow economics (contested) | milking, churning and the dairy chain up to the product |
-| `transport-mobility-lexicon.md:92,:95` | route class; draught capacity chain and load figures | husbandry of riding and pack animals (feed, training, herd share) |
+| `transport-mobility-lexicon.md:92,:95` | route class; draught capacity, load figures, harness and feed vocabulary | herd composition and breeding of riding and pack animals, not a second load/feed vocabulary |
 | `trade-economy-lexicon.md:69` | cattle-root money words | herd-as-wealth composition and transfer rules |
 | `textile-technology.md:22,:27` | fibre-to-cloth chain; worsted/woollen fork | flock management and shearing season |
 | `semantic-fields-lexicon-building.md:70,:105` | the pastoral vocabulary field and the steppe field-bundle | the herd facts the field lexicalizes (§5 supplies inputs) |
@@ -76,11 +76,11 @@ A herd vocabulary is a property index: each term answers what an owner must coun
 
 | Dimension | Attested pattern | Conlang design rule |
 |---|---|---|
-| Colour × distribution | Nuer cow names follow "its colours and the way in which they are distributed on its body" (S052, ch. I §VIII) | base colour roots + a placement affix set, not a flat list |
+| Colour × distribution | "In naming a Nuer cow one has to notice its colours and the way in which they are distributed on its body." (S052, ch. I §VIII) | design heuristic (**H**): base colour roots + a placement affix set, not a flat list |
 | Age × sex | Nuer separate bull, cow, ox, heifer and calf terms (S052) | an age × sex grid of prefixes |
-| Ownership mark | a Swedish Sámi earmark is a combination of cuts in both ears and names the owner (S059) | mark = lineage + cut + side; a mark change is a dated event |
+| Ownership mark | a Swedish Sámi earmark is a combination of cuts in both ears and names the owner (S059) | distinguish the owner, cut pattern and registration; do not infer lineage ownership from this source |
 | Species set | "five snouts" as one collective term (S060) | one collective noun; species stay separate roots |
-| Livestock → wealth | PIE *peku- glossed "wealth, movable property" (S065); Latin *pecūnia* (`trade-economy-lexicon.md:69`) | model as a documented change path; never print the root as settled social history |
+| Wealth vocabulary | PIE *peku- glossed "wealth, movable property" (S065); Latin *pecūnia* (`trade-economy-lexicon.md:69`) | neither this gloss nor a similar-looking word establishes a livestock→wealth change or PIE social history |
 
 Counts of herd terms in ethnographies are estimates, not lexicon sizes: write "a very large set", never a number.
 
@@ -137,15 +137,15 @@ Bias flags: Chinese dynastic histories are indispensable and not neutral (`turki
 
 ## 10. Ritual, myth and symbol of the herd
 
-One flock is ledger, offering and metaphor at once: write the rite from the herd's books outward (`ritual-liminality.md:63`).
+The herd is ledger, offering and metaphor at once (design frame, **H**): write the rite from the herd's books outward (`ritual-liminality.md:63`).
 
 | Register | Mechanism | Anchor |
 |---|---|---|
 | Herd accounting as poetry | the farmer taunts the herder: "Every night your count is made and your tally-stick put into the ground" (S064) | the count is a literary fact before it is a ritual one |
 | Rival economies | the Sumerian disputation sets Sheep against Grain as rival sisters (S064) | a theological ranking, not evidence of practice |
 | Shepherd-king | the ruler as shepherd, audited by the gods (`sacred-kingship-mythic-charter.md:65`) | self-presentation, not administration |
-| Sacrifice economy | offerings drawn from the herd's surplus males | an animal taboo implies a rite (`symbolism-synthesis-method.md:69`) |
-| Sky figures | pastoralists read milk and river figures (`celestial-symbolism-calendars.md:28`) | a subsistence input to sky lore, not a creed |
+| Sacrifice economy | offerings drawn from the herd's surplus males `(to-verify)` | an animal taboo implies a rite (`symbolism-synthesis-method.md:69`); sacrifice belongs to myth-symbol |
+| Sky figures | pastoralists read milky/river figures (`celestial-symbolism-calendars.md:28`) | a subsistence input to sky lore, not a creed |
 
 The herd's signs belong to `animal-symbolism.md:73,:110`; this entry supplies the ledger they rest on.
 
