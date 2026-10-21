@@ -1,0 +1,309 @@
+{
+  "schema": "kotodama-r51-reference-oracle-v1",
+  "base": "bff83ba65bf9559af4d7567e81703059667a0005",
+  "expectation_status": "Proposed expectations derived from reference identity and the pinned CLI/error contract, not measured output. Must be frozen by Main before execution/candidate implementation.",
+  "grammar": "Complete slash-bearing local-reference tokens, including inline-code and Markdown-link destinations, repository-root form or lexically relative to the citing file directory. Strip a numeric :line locator or #fragment only after identifying the complete token. Explicit ./ and contained ../ segments normalize lexically. No filesystem traversal or link fetching. Any supported local reference that lexically crosses the repository root MUST return input error / exit2 with stable REFERENCE_OUTSIDE_REPOSITORY and the citing location. Multiple eligible canonical interpretations MUST return input error / exit2 with stable REFERENCE_AMBIGUOUS and the citing location. Neither becomes a clean zero; no host path is followed or fetched.",
+  "limits": [
+    "arbitrary bare-basename resolution",
+    "semantic dependency inference",
+    "unowned-path detection",
+    "acceptance-write policing",
+    "new export-regex semantics",
+    "retroactively accepting original R50 claims.json"
+  ],
+  "cases": [
+    {
+      "id": "root-path",
+      "citer": "corpus/SOURCES.md",
+      "reference": "corpus/lessons/evidence.md",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 1,
+        "classification": "findings",
+        "declared_findings": 1,
+        "findings": [
+          {
+            "finding_class": "SEPARABILITY_DEPENDENCY",
+            "owner": "C",
+            "dependency_owner": "REC",
+            "canonical_target": "corpus/lessons/evidence.md",
+            "citing_path": "corpus/SOURCES.md",
+            "citing_line": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "relative-old-class",
+      "citer": "corpus/SOURCES.md",
+      "reference": "lessons/evidence.md",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 1,
+        "classification": "findings",
+        "declared_findings": 1,
+        "findings": [
+          {
+            "finding_class": "SEPARABILITY_DEPENDENCY",
+            "owner": "C",
+            "dependency_owner": "REC",
+            "canonical_target": "corpus/lessons/evidence.md",
+            "citing_path": "corpus/SOURCES.md",
+            "citing_line": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "markdown-fragment",
+      "citer": "corpus/SOURCES.md",
+      "reference": "[Gate](lessons/evidence.md#gate)",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 1,
+        "classification": "findings",
+        "declared_findings": 1,
+        "findings": [
+          {
+            "finding_class": "SEPARABILITY_DEPENDENCY",
+            "owner": "C",
+            "dependency_owner": "REC",
+            "canonical_target": "corpus/lessons/evidence.md",
+            "citing_path": "corpus/SOURCES.md",
+            "citing_line": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "dot-line-locator",
+      "citer": "corpus/SOURCES.md",
+      "reference": "`./lessons/evidence.md:7`",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 1,
+        "classification": "findings",
+        "declared_findings": 1,
+        "findings": [
+          {
+            "finding_class": "SEPARABILITY_DEPENDENCY",
+            "owner": "C",
+            "dependency_owner": "REC",
+            "canonical_target": "corpus/lessons/evidence.md",
+            "citing_path": "corpus/SOURCES.md",
+            "citing_line": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "parent-normalization",
+      "citer": "corpus/knowledge/culture-material/entry.md",
+      "reference": "../../lessons/evidence.md",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 1,
+        "classification": "findings",
+        "declared_findings": 1,
+        "findings": [
+          {
+            "finding_class": "SEPARABILITY_DEPENDENCY",
+            "owner": "C",
+            "dependency_owner": "REC",
+            "canonical_target": "corpus/lessons/evidence.md",
+            "citing_path": "corpus/knowledge/culture-material/entry.md",
+            "citing_line": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "different-citer",
+      "citer": "reports/notes.md",
+      "reference": "lessons/evidence.md",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 0,
+        "classification": "findings",
+        "declared_findings": 0,
+        "findings": []
+      }
+    },
+    {
+      "id": "external-url",
+      "citer": "corpus/SOURCES.md",
+      "reference": "https://example.invalid/corpus/lessons/evidence.md",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 0,
+        "classification": "findings",
+        "declared_findings": 0,
+        "findings": []
+      }
+    },
+    {
+      "id": "longer-prefix",
+      "citer": "corpus/SOURCES.md",
+      "reference": "old-corpus/lessons/evidence.md",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 0,
+        "classification": "findings",
+        "declared_findings": 0,
+        "findings": []
+      }
+    },
+    {
+      "id": "longer-suffix",
+      "citer": "corpus/SOURCES.md",
+      "reference": "corpus/lessons/evidence.md.bak",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 0,
+        "classification": "findings",
+        "declared_findings": 0,
+        "findings": []
+      }
+    },
+    {
+      "id": "base-existing",
+      "citer": "corpus/SOURCES.md",
+      "reference": "lessons/round-50.md",
+      "target": "corpus/lessons/round-50.md",
+      "expected": {
+        "exit": 0,
+        "classification": "findings",
+        "declared_findings": 0,
+        "findings": []
+      }
+    },
+    {
+      "id": "own-reference",
+      "citer": "corpus/SOURCES.md",
+      "reference": "lessons/evidence.md",
+      "same_owner": true,
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 0,
+        "classification": "findings",
+        "declared_findings": 0,
+        "findings": []
+      }
+    },
+    {
+      "id": "record-depender",
+      "citer": "corpus/SOURCES.md",
+      "reference": "lessons/evidence.md",
+      "citer_role": "record",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 0,
+        "classification": "findings",
+        "declared_findings": 0,
+        "findings": []
+      }
+    },
+    {
+      "id": "internal-dot",
+      "citer": "corpus/SOURCES.md",
+      "reference": "`lessons/./evidence.md`",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 1,
+        "classification": "findings",
+        "declared_findings": 1,
+        "findings": [
+          {
+            "finding_class": "SEPARABILITY_DEPENDENCY",
+            "owner": "C",
+            "dependency_owner": "REC",
+            "canonical_target": "corpus/lessons/evidence.md",
+            "citing_path": "corpus/SOURCES.md",
+            "citing_line": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "internal-parent",
+      "citer": "corpus/SOURCES.md",
+      "reference": "`lessons/../lessons/evidence.md`",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 1,
+        "classification": "findings",
+        "declared_findings": 1,
+        "findings": [
+          {
+            "finding_class": "SEPARABILITY_DEPENDENCY",
+            "owner": "C",
+            "dependency_owner": "REC",
+            "canonical_target": "corpus/lessons/evidence.md",
+            "citing_path": "corpus/SOURCES.md",
+            "citing_line": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "root-underflow",
+      "citer": "corpus/SOURCES.md",
+      "reference": "`../../corpus/lessons/evidence.md`",
+      "target": "corpus/lessons/evidence.md",
+      "expected": {
+        "exit": 2,
+        "classification": "input_error",
+        "finding_class": "SEPARABILITY_INPUT_ERROR",
+        "error_id": "REFERENCE_OUTSIDE_REPOSITORY",
+        "citing_path": "corpus/SOURCES.md",
+        "citing_line": 8
+      }
+    },
+    {
+      "id": "schema-missing-base",
+      "citer": "corpus/SOURCES.md",
+      "reference": "no dependency",
+      "target": "corpus/lessons/evidence.md",
+      "manifest_error": "missing-base",
+      "expected": {
+        "exit": 2,
+        "classification": "input_error",
+        "finding_class": "SEPARABILITY_INPUT_ERROR"
+      }
+    },
+    {
+      "id": "schema-unknown-key",
+      "citer": "corpus/SOURCES.md",
+      "reference": "no dependency",
+      "target": "corpus/lessons/evidence.md",
+      "manifest_error": "unknown-key",
+      "expected": {
+        "exit": 2,
+        "classification": "input_error",
+        "finding_class": "SEPARABILITY_INPUT_ERROR"
+      }
+    },
+    {
+      "id": "schema-noncanonical-land",
+      "citer": "corpus/SOURCES.md",
+      "reference": "no dependency",
+      "target": "corpus/lessons/evidence.md",
+      "manifest_error": "noncanonical-land",
+      "expected": {
+        "exit": 2,
+        "classification": "input_error",
+        "finding_class": "SEPARABILITY_INPUT_ERROR"
+      }
+    }
+  ],
+  "revision": 3,
+  "supersedes_unlanded": {
+    "ruler_sha256": "d6e85166338db0093b9d89c43a75a1b4055f15e70efb1bea6363c6193c9199a0",
+    "oracle_sha256": "f802d0aae8e572ffca556489fa52740397b9a9e8afe2a408e97c239c5fb979b0",
+    "reason": "Parent static review of the BASE protocol: SEPARABILITY_NOTE is informational, not an error. Add only bounded instrument guards against empty/duplicate/empty-expectation greens, preserve interrupted/unstarted cases, and authenticate real BASE/tool source pins. All 18 semantic inputs and v2 expectations are unchanged; no execution informed this revision."
+  },
+  "semantic_inputs_sha256": "f8ab48b76e6786fbba250ccc622a018b635c7bce146c5f373c19dd1b7f3e8a49",
+  "semantic_output_contract": "Grade exit plus stable finding/error classification, owner edge, canonical target and citing location, or an explicit numeric zero-findings declaration. Human explanations, whitespace and summary wording are not expected values. SEPARABILITY_NOTE is known non-error information; retain it raw without grading its wording. Unknown, contradictory or unparseable output makes the ruler unevaluable (exit2), never green. Empty case sets, duplicate identities and empty/underspecified expectations are input errors. On Timeout/OSError preserve completed cases, the unsettled current case and remaining notObserved cases, emit exit2 and never retry. Ambiguity fail-closed is a specification requirement; these 18 inputs do not independently exercise every possible ambiguity.",
+  "measurement_preconditions": "Resolve the oracle BASE as an actual commit through --lane's read-only Git object store before creating cases. Keep the resolved BASE distinct from the Parent-selected checker revision, expected SHA-256 and actual selected bytes; verify selected checker bytes against both the Parent digest and its landed Git blob. Plain-file WORKTREE inputs do not replace the real BASE store.",
+  "prior_path_control": "The unchanged base-existing case names corpus/lessons/round-50.md, which exists in the real BASE Git tree. Its expected0 genuinely exercises the prior-path naming exemption even though the plain WORKTREE input changes that file's contents. It does not certify semantic independence of newly changed contents in a prior file."
+}
