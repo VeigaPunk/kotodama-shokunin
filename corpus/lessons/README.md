@@ -37,8 +37,8 @@ python3 -B reports/round-25/audit/c31-lessons-index-audit.py --selftest  # 28/28
 python3 -B reports/round-25/audit/c31-lessons-index-audit.py             # census + findings
 python3 -B reports/round-25/audit/c31-lessons-index-audit.py --json      # receipt
 
-ls corpus/lessons/*.md | wc -l                                          # 36 (2026-10-21)
-find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 36 (same set)
+ls corpus/lessons/*.md | wc -l                                          # 37 (verifier integration, 2026-10-21)
+find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 37 (same set)
 ```
 
 The tool answers one question per claim id, plus two self-consistency checks
@@ -104,8 +104,9 @@ Columns: **file** · **format** (§3) · **contract** (`source:`/`verified-at:`/
 | `corpus/lessons/round-49.md` | gate-keeper | 4/4 | none (frontier bullets carry no Q ids) | `reports/round-49/validation.json` | bytes=39223 lines=317 sha8=51ab6a5c |
 | `corpus/lessons/round-49-verifier-spotcheck.md` | plain | 0/4 | none (the adjudication names no open item id) | `corpus/lessons/round-49.md` (outside-review record) | bytes=1880 lines=17 sha8=b1169c50 |
 | `corpus/lessons/round-50.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-50/claims.json` | bytes=24235 lines=151 sha8=c421b84c |
+| `corpus/lessons/round-50-verifier-spotcheck.md` | plain | 0/4 | none (no new Q ids) | non-author closure record; fleet MANIFEST kotodama r50 | bytes=7670 lines=102 sha8=db6d4725 |
 
-**Rows: 36. Files: 36.** The count is the runner's own partition glob
+**Rows: 37. Files: 37.** The count is the runner's own partition glob
 (`corpus/lessons/*.md`), which includes **this README** and the round-25
 lesson that landed while this index was being written. Seven rows were added
 by the round-33 revision-3 reconciliation for the lessons of rounds 26–32
@@ -254,11 +255,12 @@ close it. **Owner must resolve**: a live path in this repo, the literal
 Measured 2026-10-18T17:4xZ by the §1 tool over the table above; re-run it
 rather than inheriting these numbers.
 
-- Rows: **78**. Of the 36 index rows, **30 carry at least one question**;
-  the six that carry none are `round-1-gates-and-triage.md` (its lessons
+- Rows: **78**. Of the 37 index rows, **30 carry at least one question**;
+  the seven that carry none are `round-1-gates-and-triage.md` (its lessons
   were closed within round 1), `round-25.md` (this round's own claims are
   pending, not carried), `round-49.md`, `round-49-verifier-spotcheck.md`,
-  `round-50.md` (no Q ids), and this README's self-row.
+  `round-50.md`, `round-50-verifier-spotcheck.md` (no new Q ids), and this
+  README's self-row.
 - Owner classes: **path** (an in-repo surface that can close the item) — **59**;
   **role token** — **19** (`parent` 15, `operator` 4). No row has an empty or
   unresolvable owner; that is the C32 check. (Recounted 2026-10-19 by the §1
@@ -485,3 +487,18 @@ C31-1 unindexed files, C34-1 round-49 pin drift, and C34-2 count drift.
 Re-run `python3 -B reports/round-25/audit/c31-lessons-index-audit.py` for
 the current index verdict; `--selftest` exercises 28 controls.
 
+
+## Revision 6 — non-author round-50 verifier index integration (2026-10-21)
+
+Main added `round-50-verifier-spotcheck.md` as the outside closure record, not a
+new lane-authored claim or promotion. Its measured pin is in the new §2 row.
+Only that row and current machine-read count cells are changed; no filed lesson
+bytes or prior per-round pins are rewritten. The question queue still has 78
+rows and 30 indexed files carry a question; seven now carry none. Current
+formats are gate-keeper 23, fragment-index 5 and plain 9 (37 files total).
+
+This mechanically required index change prevents the integrator's own new
+artifact from introducing an unindexed-file defect. The producer's revision-5
+36/36 state above remains its dated history. The parent checked the actual
+file/row bijection and new file pin independently; no sibling-owned gate or
+selftest was executed for this integration.
