@@ -1,0 +1,56 @@
+{
+  "schema": "kotodama-separability-manifest-v1",
+  "base": "c42d675be96b6b3957e6e5c00ab192080cb70083",
+  "claims": [
+    {
+      "id": "C",
+      "tree": "8c78e6bee93a5b1a257d8b98e3d70b2281b35d71",
+      "lands": [
+        "corpus/knowledge/culture-material/hunting-foraging-subsistence.md",
+        "corpus/README.md"
+      ],
+      "exports": [],
+      "acceptance": [
+        "python3",
+        "-B",
+        "-c",
+        "import pathlib;p=pathlib.Path('corpus/knowledge/culture-material/hunting-foraging-subsistence.md');L=p.read_text().splitlines();assert len(L)==205 and sum(1 for l in L if l.startswith('# '))==1 and sum(1 for l in L if l.startswith('- topic:'))==1"
+      ]
+    },
+    {
+      "id": "S",
+      "tree": "d91c632fe71515acc8e133a804ed2fcfbbe31264",
+      "lands": [
+        "corpus/SOURCES.md",
+        "corpus/lessons/round-49.md",
+        "corpus/QUALITY.md",
+        "SKILL.md"
+      ],
+      "exports": [
+        "\\bS0(3[1-9]|4[0-7])\\b"
+      ],
+      "acceptance": [
+        "python3",
+        "-B",
+        "-c",
+        "import re,pathlib;ids=re.findall(r'^\\|\\s*(S\\d{3,})\\s*\\|',pathlib.Path('corpus/SOURCES.md').read_text(),re.M);assert len(ids)==47 and len(set(ids))==47"
+      ]
+    },
+    {
+      "id": "Ca",
+      "tree": "8c78e6bee93a5b1a257d8b98e3d70b2281b35d71",
+      "lands": [
+        "corpus/README.md",
+        "tools/check-readme-revisions.py",
+        "reports/round-49/integration/Ca-evidence.md"
+      ],
+      "exports": [],
+      "acceptance": [
+        "python3",
+        "-B",
+        "-c",
+        "import pathlib;assert pathlib.Path('tools/check-readme-revisions.py').exists();L=pathlib.Path('corpus/README.md').read_text().splitlines();assert sum(1 for l in L if l.startswith('revision: 2.0'))==1"
+      ]
+    }
+  ]
+}

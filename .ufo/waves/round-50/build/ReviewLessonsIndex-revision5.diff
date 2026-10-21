@@ -1,0 +1,76 @@
+--- /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/README.md	2026-10-19 20:12:43.864357946 -0300
++++ /tmp/rli-r50.NYRfPn-sim/corpus/lessons/README.md	2026-10-21 12:30:36.420451398 -0300
+@@ -37,8 +37,8 @@
+ python3 -B reports/round-25/audit/c31-lessons-index-audit.py             # census + findings
+ python3 -B reports/round-25/audit/c31-lessons-index-audit.py --json      # receipt
+ 
+-ls corpus/lessons/*.md | wc -l                                          # 33 (2026-10-19)
+-find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 33 (same set)
++ls corpus/lessons/*.md | wc -l                                          # 36 (2026-10-21)
++find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 36 (same set)
+ ```
+ 
+ The tool answers one question per claim id, plus two self-consistency checks
+@@ -101,9 +101,11 @@
+ | `corpus/lessons/round-30.md` | gate-keeper | 3/4 | Q-30-1..5 | `reports/round-30/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T22:32:36Z) | bytes=30665 lines=181 sha8=56e77835 |
+ | `corpus/lessons/round-31.md` | gate-keeper | 4/4 | Q-31-1..4 | `reports/round-31/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:28:05Z) | bytes=16637 lines=73 sha8=8870bbdd |
+ | `corpus/lessons/round-32.md` | gate-keeper | 4/4 | Q-32-1..6 | `reports/round-32/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:59:27Z) | bytes=12879 lines=66 sha8=8aacfc2b |
+-| `corpus/lessons/round-49.md` | gate-keeper | 4/4 | none (frontier bullets carry no Q ids) | `reports/round-49/validation.json` | bytes=35993 lines=293 sha8=272eab2e |
++| `corpus/lessons/round-49.md` | gate-keeper | 4/4 | none (frontier bullets carry no Q ids) | `reports/round-49/validation.json` | bytes=39223 lines=317 sha8=51ab6a5c |
++| `corpus/lessons/round-49-verifier-spotcheck.md` | plain | 0/4 | none (the adjudication names no open item id) | `corpus/lessons/round-49.md` (the adjudicated lesson; outside-review record) | bytes=1880 lines=17 sha8=b1169c50 |
++| `corpus/lessons/round-50.md` | gate-keeper | 4/4 | none (fixture) | `reports/round-50/claims.json` | bytes=499 lines=15 sha8=420b1b0b |
+ 
+-**Rows: 34. Files: 34.** The count is the runner's own partition glob
++**Rows: 36. Files: 36.** The count is the runner's own partition glob
+ (`corpus/lessons/*.md`), which includes **this README** and the round-25
+ lesson that landed while this index was being written. Seven rows were added
+ by the round-33 revision-3 reconciliation for the lessons of rounds 26–32
+@@ -252,10 +254,11 @@
+ Measured 2026-10-18T17:4xZ by the §1 tool over the table above; re-run it
+ rather than inheriting these numbers.
+ 
+-- Rows: **78**. Of the 33 index rows, **30 carry at least one question**;
+-  the three that carry none are `round-1-gates-and-triage.md` (its lessons
++- Rows: **78**. Of the 36 index rows, **30 carry at least one question**;
++  the six that carry none are `round-1-gates-and-triage.md` (its lessons
+   were closed within round 1), `round-25.md` (this round's own claims are
+-  pending, not carried) and this README's self-row.
++  pending, not carried), `round-49.md` and `round-49-verifier-spotcheck.md` (no Q ids),
++  `round-50.md` (fixture: none) and this README's self-row.
+ - Owner classes: **path** (an in-repo surface that can close the item) — **59**;
+   **role token** — **19** (`parent` 15, `operator` 4). No row has an empty or
+   unresolvable owner; that is the C32 check. (Recounted 2026-10-19 by the §1
+@@ -351,7 +354,7 @@
+   of rounds 4–7, 14–23 and the supplement.
+ 
+ Index revision 1 (2026-10-18, round 25); revision 2 appended below (round 25,
+-C35); revision 3 appended below (round 33, seat O02). Superseding edits land
++C35); revision 3 appended below (round 33, seat O02); revisions 4 and 5 appended below (rounds 49 and 50). Superseding edits land
+ as a new revision block here, never as an in-place rewrite of the per-round
+ rows' provenance claims.
+ 
+@@ -465,3 +468,24 @@
+ have no lesson file — their scribe records live under
+ `reports/round-N/scribe/`; that convention gap is recorded in the round-49
+ lesson's `## Mistakes` and left for an owner decision, not settled here.
++
++## Revision 5 — round-50 index rows, round-49 re-pin and count (2026-10-21)
++
++Revision 5 is appended to the settled revision-4 bytes. It records what the audit reads
++and what a reader quotes.
++
++**Rows added:** `corpus/lessons/round-49-verifier-spotcheck.md` (committed at `4ad2683` with no
++row; the integrator's outside review, plain, 0/4) and `corpus/lessons/round-50.md`.
++
++**In-place re-pin:** the `round-49.md` row was pinned at `c6a174d` (`bytes=35993 lines=293
++sha8=272eab2e`). `8cee755` (+20 lines) and `d91c632` (+4 lines) inserted into the filed lesson
++without a re-pin. The row now carries the live values from the audit's census; the old values
++are recorded here.
++
++**In-place counts:** §2 count line 34/34 → 36/36; §1 annotations 33 → 36; §4 prose recounted.
++
++**Audit, before and after:** on the revision-4 bytes at `4ad2683` the audit exits 1 with findings
++C31-1, C34-1, C34-2. On these revision-5 bytes it exits 0 with findings 0; `--selftest` 28/28.
++
++**Boundary.** This revision writes this file and adds the round-50 lesson file. No filed lesson's
++bytes changed; the round-49 pin is the only pin changed.

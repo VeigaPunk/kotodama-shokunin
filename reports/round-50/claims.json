@@ -1,0 +1,61 @@
+{
+ "round": 50,
+ "campaign": "hyaku phase 2 (inline L1; first kotodama hyaku round; lane jj-colocated by dispatch)",
+ "coordinator": "ChousaR27R2 (reused idle agent; Main spawn job-capped)",
+ "declared_at_utc": "2026-10-21T15:15:00Z",
+ "baseline_commit": "4ad26836552462d28a946ca3b067cab0b5ce3532",
+ "axes_in_play": ["coverage", "operability", "calibration"],
+ "lowest_axis_reasoning": "Freshness is historically the lowest non-retired axis but freshness axis-move claims remain paused pending the open L0 (l0-questions.md, kotodama round-11 drift-threshold calibration; unruled). Following the r48/r49 recorded reasoning, coverage is the lowest claimable axis: pastoralism/animal husbandry is a verified-fresh register gap (0 filename owners, 0 topic owners; existing mentions are cross-references in agrarian, fire-fuel, semantic-fields, civilizations entries). Claim C works it.",
+ "freshness_pause_in_force": true,
+ "separability_contract": "Each claim lands disjoint paths and verifies against base 4ad2683 plus only its own paths. C's entry cites SOURCES rows opened by the frontier step (not a claim). Ca's checker verifies on the frozen r49 fixture, not on C or O. O's probe builds synthetic git sandboxes from the tool bytes only. The r49 REJECTED-HONEST-STOP (C cited the registry S created) is the motivating mistake.",
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "claim": "Land ONE right-sized (<=~250 lines) pastoralism and animal-husbandry entry corpus/knowledge/culture-material/pastoralism-animal-husbandry.md on the verified-fresh herding/husbandry register, to the established entry contract (8-field head in order, 1 H1, 0 H3, one '- topic:' line, decision tables, calibration flags, lore handoff), citing SOURCES rows opened this round. Total 225 -> 226, culture-material 27 -> 28; README index row in filename order; sweep green.",
+   "before": "total 225 knowledge entries, culture-material 27; no filename or topic owner for pastoralism/herding/husbandry/transhumance",
+   "after_required": "entry landed per contract; find corpus/knowledge -name '*.md' | wc -l = 226; culture-material 28; python3 -B reports/round-28/readme/sweep.py rows 226 files 226 topic_mismatch 0; every cited S-id resolves to a SOURCES row whose used-by names the entry",
+   "lands": ["corpus/knowledge/culture-material/pastoralism-animal-husbandry.md", "corpus/README.md"],
+   "before_checks": [
+    {"id": "pastoral-unowned", "clause": "no corpus entry owns the pastoralism/husbandry register", "probe_kind": "topic_owner_absent",
+     "target": {"topic": ["pastoralism", "pastoral", "herding", "husbandry", "transhumance", "livestock"], "partitions": ["culture-material", "civilizations", "linguistics", "myth-symbol", "synthesis", "verification"], "fields": ["topic"], "mode": "word"},
+     "expect": true, "evidence_command": "grep -rniE '^- topic:.*(pastoral|herd|husbandr|transhuman|livestock)' corpus/knowledge/"},
+    {"id": "no-pastoral-file", "clause": "no filename names pastoralism", "probe_kind": "count_eq", "target": {"glob": "corpus/knowledge/**/*pastoral*.md"}, "expect": 0,
+     "evidence_command": "find corpus/knowledge -iname '*pastoral*'"},
+    {"id": "no-husbandry-file", "clause": "no filename names husbandry", "probe_kind": "count_eq", "target": {"glob": "corpus/knowledge/**/*husband*.md"}, "expect": 0,
+     "evidence_command": "find corpus/knowledge -iname '*husband*'"},
+    {"id": "no-herd-file", "clause": "no filename names herding", "probe_kind": "count_eq", "target": {"glob": "corpus/knowledge/**/*herd*.md"}, "expect": 0,
+     "evidence_command": "find corpus/knowledge -iname '*herd*'"}
+   ]
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "claim": "Make the lane's two git-reading gates correct under jj colocation (JjAuditKotodama R1-R3): tools/harness/receipt_guard.py detects a receipt committed on refs/heads/main or refs/remotes/origin/main even when HEAD is anchored below the tip, and reports a landed (branch/remote) sha distinct from the local HEAD; tools/check-readme-revisions.py fails closed (nonzero) when its pinned BASE_COMMIT is unresolvable instead of SKIP+exit0. Existing selftests keep every control; new controls added.",
+   "before": "receipt_guard probes only HEAD (ls-tree HEAD) and cites HEAD as committed_sha; check-readme-revisions skips (exit 0) on an unreachable pinned base. Counting probe reports-50 jj-colocation false negatives = 3 (R1 cited-sha-not-landed, R2 overwrite-allowed, R3 skip-pass).",
+   "after_required": "python3 reports/round-50/jj-colocation-probe.py --tools-root <tree> reports 0/3 false negatives on the landed tools and 3/3 on base tool bytes; receipt_guard --selftest and check-readme-revisions --selftest pass with all prior controls retained",
+   "lands": ["tools/harness/receipt_guard.py", "tools/check-readme-revisions.py", "reports/round-50/jj-colocation-probe.py"],
+   "before_checks": [
+    {"id": "guard-head-only", "clause": "receipt_guard never probes the remote-tracking branch", "probe_kind": "grep_absent", "target": {"glob": "tools/harness/receipt_guard.py", "regex": "refs/remotes/origin"}, "expect": true,
+     "evidence_command": "grep -c 'refs/remotes/origin' tools/harness/receipt_guard.py"},
+    {"id": "readme-rev-skip-present", "clause": "check-readme-revisions still skips on an unreachable base", "probe_kind": "grep_absent", "target": {"glob": "tools/check-readme-revisions.py", "regex": "base object unreachable"}, "expect": false,
+     "evidence_command": "grep -n 'base object unreachable' tools/check-readme-revisions.py"}
+   ]
+  },
+  {
+   "id": "Ca",
+   "axis": "calibration",
+   "claim": "Turn the round-49 outside spot-check disagreement (REJECTED-HONEST-STOP on claim separability: C cited the registry S created; the c_without_s leg kept inline URLs instead of removing S's rows) into an executable control: tools/check-claim-separability.py reads a claims manifest (per-claim lands + identifier exports), builds per-claim counterfactual trees (base + only that claim's lands) and flags any claim whose landed bytes cite identifiers/paths another claim lands; plus QUALITY.md criterion 7 grounded in corpus/lessons/round-49-verifier-spotcheck.md.",
+   "before": "no lane control detects cross-claim dependency; the r49 runner reported c_without_s passed (0/1 known inseparable pair detected); QUALITY has no separability criterion",
+   "after_required": "python3 -B tools/check-claim-separability.py reports/round-50/separability/r49-fixture.json exits 1 naming the C->S dependency (1/1 detected); its --selftest passes with negative and positive controls; run on reports/round-50/claims.json exits 0; QUALITY criterion 7 cites the spot-check",
+   "lands": ["tools/check-claim-separability.py", "reports/round-50/separability/r49-fixture.json", "corpus/QUALITY.md"],
+   "before_checks": [
+    {"id": "no-separability-tool", "clause": "no separability checker exists in the lane", "probe_kind": "count_eq", "target": {"glob": "tools/**/*separab*"}, "expect": 0,
+     "evidence_command": "find tools -iname '*separab*'"},
+    {"id": "no-separability-criterion", "clause": "QUALITY.md has no separability criterion", "probe_kind": "grep_absent", "target": {"glob": "corpus/QUALITY.md", "regex": "(?i)separab"}, "expect": true,
+     "evidence_command": "grep -ci separab corpus/QUALITY.md"}
+   ]
+  }
+ ],
+ "non_goals": ["freshness axis move (paused, L0 open)", "depth/adjacency moves", "editing filed r49 receipts", "any r51 work"]
+}

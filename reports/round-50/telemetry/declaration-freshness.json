@@ -1,0 +1,171 @@
+{
+  "baseline_commit": "4ad26836552462d28a946ca3b067cab0b5ce3532",
+  "baseline_sha": "4ad26836552462d28a946ca3b067cab0b5ce3532",
+  "claims": [
+    {
+      "axis": "coverage",
+      "before": "total 225 knowledge entries, culture-material 27; no filename or topic owner for pastoralism/herding/husbandry/transhumance",
+      "checks_declared": 4,
+      "checks_evaluated": 4,
+      "clauses": [
+        {
+          "clause": "no corpus entry owns the pastoralism/husbandry register",
+          "evidence": "grep -rniE '^- topic:.*(pastoral|herd|husbandr|transhuman|livestock)' corpus/knowledge/",
+          "expected": true,
+          "index": 0,
+          "measured": true,
+          "probe": "topic_owner_absent",
+          "reason": "0 owner(s): none",
+          "status": "HOLDS",
+          "target": "{\"fields\": [\"topic\"], \"mode\": \"word\", \"partitions\": [\"culture-material\", \"civilizations\", \"linguistics\", \"myth-symbol\", \"synthesis\", \"verification\"], \"topic\": [\"pastoralism\", \"pastoral\", \"herding\", \"husbandry\", \"transhumance\", \"livestock\"]}"
+        },
+        {
+          "clause": "no filename names pastoralism",
+          "evidence": "find corpus/knowledge -iname '*pastoral*'",
+          "expected": 0,
+          "index": 1,
+          "measured": 0,
+          "probe": "count_eq",
+          "reason": "corpus/knowledge/**/*pastoral*.md -> 0 file(s); paths_sha256=e3b0c44298fc1c14",
+          "status": "HOLDS",
+          "target": "{\"glob\": \"corpus/knowledge/**/*pastoral*.md\"}"
+        },
+        {
+          "clause": "no filename names husbandry",
+          "evidence": "find corpus/knowledge -iname '*husband*'",
+          "expected": 0,
+          "index": 2,
+          "measured": 0,
+          "probe": "count_eq",
+          "reason": "corpus/knowledge/**/*husband*.md -> 0 file(s); paths_sha256=e3b0c44298fc1c14",
+          "status": "HOLDS",
+          "target": "{\"glob\": \"corpus/knowledge/**/*husband*.md\"}"
+        },
+        {
+          "clause": "no filename names herding",
+          "evidence": "find corpus/knowledge -iname '*herd*'",
+          "expected": 0,
+          "index": 3,
+          "measured": 0,
+          "probe": "count_eq",
+          "reason": "corpus/knowledge/**/*herd*.md -> 0 file(s); paths_sha256=e3b0c44298fc1c14",
+          "status": "HOLDS",
+          "target": "{\"glob\": \"corpus/knowledge/**/*herd*.md\"}"
+        }
+      ],
+      "counts": {
+        "contradicted": 0,
+        "holds": 4,
+        "not_evaluated": 0
+      },
+      "errors": [],
+      "failing_clauses": [],
+      "id": "C",
+      "not_evaluated_clauses": [],
+      "owner": "C",
+      "verdict": "fresh"
+    },
+    {
+      "axis": "operability",
+      "before": "receipt_guard probes only HEAD (ls-tree HEAD) and cites HEAD as committed_sha; check-readme-revisions skips (exit 0) on an unreachable pinned base. Counting probe reports-50 jj-colocation false negatives = 3 (R1 cited-sha-not-landed, R2 overwrite-allowed, R3 skip-pass).",
+      "checks_declared": 2,
+      "checks_evaluated": 2,
+      "clauses": [
+        {
+          "clause": "receipt_guard never probes the remote-tracking branch",
+          "evidence": "grep -c 'refs/remotes/origin' tools/harness/receipt_guard.py",
+          "expected": true,
+          "index": 0,
+          "measured": true,
+          "probe": "grep_absent",
+          "reason": "tools/harness/receipt_guard.py /refs/remotes/origin/ -> 0 hit(s)",
+          "status": "HOLDS",
+          "target": "{\"glob\": \"tools/harness/receipt_guard.py\", \"regex\": \"refs/remotes/origin\"}"
+        },
+        {
+          "clause": "check-readme-revisions still skips on an unreachable base",
+          "evidence": "grep -n 'base object unreachable' tools/check-readme-revisions.py",
+          "expected": false,
+          "index": 1,
+          "measured": false,
+          "probe": "grep_absent",
+          "reason": "tools/check-readme-revisions.py /base object unreachable/ -> 1 hit(s)",
+          "status": "HOLDS",
+          "target": "{\"glob\": \"tools/check-readme-revisions.py\", \"regex\": \"base object unreachable\"}"
+        }
+      ],
+      "counts": {
+        "contradicted": 0,
+        "holds": 2,
+        "not_evaluated": 0
+      },
+      "errors": [],
+      "failing_clauses": [],
+      "id": "O",
+      "not_evaluated_clauses": [],
+      "owner": "O",
+      "verdict": "fresh"
+    },
+    {
+      "axis": "calibration",
+      "before": "no lane control detects cross-claim dependency; the r49 runner reported c_without_s passed (0/1 known inseparable pair detected); QUALITY has no separability criterion",
+      "checks_declared": 2,
+      "checks_evaluated": 2,
+      "clauses": [
+        {
+          "clause": "no separability checker exists in the lane",
+          "evidence": "find tools -iname '*separab*'",
+          "expected": 0,
+          "index": 0,
+          "measured": 0,
+          "probe": "count_eq",
+          "reason": "tools/**/*separab* -> 0 file(s); paths_sha256=e3b0c44298fc1c14",
+          "status": "HOLDS",
+          "target": "{\"glob\": \"tools/**/*separab*\"}"
+        },
+        {
+          "clause": "QUALITY.md has no separability criterion",
+          "evidence": "grep -ci separab corpus/QUALITY.md",
+          "expected": true,
+          "index": 1,
+          "measured": true,
+          "probe": "grep_absent",
+          "reason": "corpus/QUALITY.md /(?i)separab/ -> 0 hit(s)",
+          "status": "HOLDS",
+          "target": "{\"glob\": \"corpus/QUALITY.md\", \"regex\": \"(?i)separab\"}"
+        }
+      ],
+      "counts": {
+        "contradicted": 0,
+        "holds": 2,
+        "not_evaluated": 0
+      },
+      "errors": [],
+      "failing_clauses": [],
+      "id": "Ca",
+      "not_evaluated_clauses": [],
+      "owner": "Ca",
+      "verdict": "fresh"
+    }
+  ],
+  "decision_sha256": "2f813823ef97f5458526357b3545a92281897a0df7f23f064a7e085109d0d1a4",
+  "errors": [],
+  "exit_code": 0,
+  "refusal": null,
+  "refuse": false,
+  "round": 50,
+  "run_verdict": "fresh",
+  "schema": "kotodama-claims-freshness-report-v1",
+  "summary": {
+    "claims": 3,
+    "clauses": 8,
+    "contradicted": 0,
+    "could_not_evaluate": 0,
+    "document_errors": 0,
+    "fresh": 3,
+    "holds": 8,
+    "malformed": 0,
+    "not_evaluated": 0,
+    "stale": 0
+  }
+}

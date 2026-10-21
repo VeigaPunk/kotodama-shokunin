@@ -1,0 +1,133 @@
+diff --git i/reports/round-50/separability/r49-fixture.json w/reports/round-50/separability/r49-fixture.json
+new file mode 100644
+index 0000000..e5d6e43
+--- /dev/null
++++ w/reports/round-50/separability/r49-fixture.json
+@@ -0,0 +1,64 @@
++{
++  "schema": "kotodama-separability-manifest-v1",
++  "base": "c42d675be96b6b3957e6e5c00ab192080cb70083",
++  "expected_findings": [
++    "SEPARABILITY_DEPENDENCY C->Ca via land path tools/check-readme-revisions.py x1",
++    "SEPARABILITY_DEPENDENCY C->S via export \\bS0(3[1-9]|4[0-7])\\b matched S031,S032,S033,S034,S035,S036,S037,S038,S039,S040,S041,S042",
++    "SEPARABILITY_DEPENDENCY C->S via land path corpus/SOURCES.md x2",
++    "SEPARABILITY_DEPENDENCY S->C via land path corpus/knowledge/culture-material/hunting-foraging-subsistence.md x12",
++    "SEPARABILITY_DEPENDENCY S->Ca via land path tools/check-readme-revisions.py x9",
++    "SEPARABILITY_OVERLAP C/Ca corpus/README.md"
++  ],
++  "claims": [
++    {
++      "id": "C",
++      "tree": "8c78e6bee93a5b1a257d8b98e3d70b2281b35d71",
++      "lands": [
++        "corpus/knowledge/culture-material/hunting-foraging-subsistence.md",
++        "corpus/README.md"
++      ],
++      "exports": [],
++      "acceptance": [
++        "python3",
++        "-B",
++        "-c",
++        "import pathlib;p=pathlib.Path('corpus/knowledge/culture-material/hunting-foraging-subsistence.md');L=p.read_text().splitlines();assert len(L)==205 and sum(1 for l in L if l.startswith('# '))==1 and sum(1 for l in L if l.startswith('- topic:'))==1"
++      ]
++    },
++    {
++      "id": "S",
++      "tree": "d91c632fe71515acc8e133a804ed2fcfbbe31264",
++      "lands": [
++        "corpus/SOURCES.md",
++        "corpus/lessons/round-49.md",
++        "corpus/QUALITY.md",
++        "SKILL.md"
++      ],
++      "exports": [
++        "\\bS0(3[1-9]|4[0-7])\\b"
++      ],
++      "acceptance": [
++        "python3",
++        "-B",
++        "-c",
++        "import re,pathlib;ids=re.findall(r'^\\|\\s*(S\\d{3,})\\s*\\|',pathlib.Path('corpus/SOURCES.md').read_text(),re.M);assert len(ids)==47 and len(set(ids))==47"
++      ]
++    },
++    {
++      "id": "Ca",
++      "tree": "8c78e6bee93a5b1a257d8b98e3d70b2281b35d71",
++      "lands": [
++        "corpus/README.md",
++        "tools/check-readme-revisions.py",
++        "reports/round-49/integration/Ca-evidence.md"
++      ],
++      "exports": [],
++      "acceptance": [
++        "python3",
++        "-B",
++        "-c",
++        "import pathlib;assert pathlib.Path('tools/check-readme-revisions.py').exists();L=pathlib.Path('corpus/README.md').read_text().splitlines();assert sum(1 for l in L if l.startswith('revision: 2.0'))==1"
++      ]
++    }
++  ]
++}
+diff --git i/reports/round-50/separability/r50-manifest.json w/reports/round-50/separability/r50-manifest.json
+new file mode 100644
+index 0000000..7a273ee
+--- /dev/null
++++ w/reports/round-50/separability/r50-manifest.json
+@@ -0,0 +1,57 @@
++{
++  "schema": "kotodama-separability-manifest-v1",
++  "base": "4ad26836552462d28a946ca3b067cab0b5ce3532",
++  "expected_findings": [],
++  "claims": [
++    {
++      "id": "C",
++      "tree": "WORKTREE",
++      "lands": [
++        "corpus/knowledge/culture-material/pastoralism-animal-husbandry.md",
++        "corpus/README.md",
++        "corpus/SOURCES.md"
++      ],
++      "exports": [
++        "\\bS0(4[89]|[5-9]\\d)\\b"
++      ],
++      "acceptance": []
++    },
++    {
++      "id": "O",
++      "tree": "WORKTREE",
++      "lands": [
++        "tools/harness/receipt_guard.py",
++        "tools/check-readme-revisions.py",
++        "reports/round-50/jj-colocation-probe.py"
++      ],
++      "exports": [],
++      "acceptance": []
++    },
++    {
++      "id": "Ca",
++      "tree": "WORKTREE",
++      "lands": [
++        "tools/check-claim-separability.py",
++        "reports/round-50/separability/*.json",
++        "corpus/QUALITY.md"
++      ],
++      "exports": [],
++      "acceptance": []
++    },
++    {
++      "id": "REC",
++      "role": "record",
++      "tree": "WORKTREE",
++      "lands": [
++        "corpus/lessons/round-50.md",
++        "corpus/lessons/README.md",
++        "LOG.md",
++        "SCORECARD.md",
++        "reports/round-50/run-validation.py",
++        "reports/round-50/claims.json"
++      ],
++      "exports": [],
++      "acceptance": []
++    }
++  ]
++}

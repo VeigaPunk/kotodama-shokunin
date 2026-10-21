@@ -1,0 +1,327 @@
+diff --git i/tools/check-readme-revisions.py w/tools/check-readme-revisions.py
+index b897204..ad19c2c 100755
+--- i/tools/check-readme-revisions.py
++++ w/tools/check-readme-revisions.py
+@@ -24,16 +24,26 @@ pre-existing round-35 rev-1.9 orphan at lines 69-80) and REVISION-GAP (a
+ skipped minor within one major, e.g. 2.3 -> 2.1). Warnings report debt a
+ round may legitimately carry; they never turn a clean verdict red.
+ 
+-Stdlib only. Read-only: no network, no writes, no eval/exec.
++Stdlib only. Read-only: no network, no writes to the lane, no eval/exec. The
++selftest builds its git fixtures in a TMPDIR scratch directory, removed on exit.
+ 
+ Usage:
+   python3 tools/check-readme-revisions.py
+   python3 tools/check-readme-revisions.py --readme <path> [--json]
+-  python3 tools/check-readme-revisions.py --selftest
++  python3 tools/check-readme-revisions.py --selftest [--lane <path>]
++      [--base-commit <sha>]
+ 
+-Exit codes: 0 = clean, 1 = finding present, 2 = could-not-evaluate (missing or
+-unreadable input, usage error). Unexpected internal failures print a JSON
+-object with `ok: null` and exit 2; no traceback is printed.
++Exit codes: 0 = clean (or all selftest controls passed), 1 = finding present
++(or a selftest control failed), 2 = could-not-evaluate (missing or unreadable
++input, usage error, or a selftest control whose pinned base cannot be
++evaluated). Unexpected internal failures print a JSON object with `ok: null`
++and exit 2; no traceback is printed.
++
++The selftest's committed-fixture control (the pinned r49 defect commit) never
++skips. It resolves `<BASE_COMMIT>^{commit}` in the lane's own object store with
++GIT_* scrubbed, so an inherited GIT_DIR cannot mask a missing pin. An
++unresolvable pin prints an ERROR line and exits 2. `--lane`/`--base-commit`
++name the object store and the pin for selftests.
+ """
+ import argparse
+ import contextlib
+@@ -44,6 +54,7 @@ import os
+ import re
+ import subprocess
+ import sys
++import tempfile
+ 
+ HERE = os.path.dirname(os.path.abspath(__file__))
+ LANE = os.path.abspath(os.path.join(HERE, ".."))
+@@ -62,8 +73,10 @@ REVISION_ORPHAN = "REVISION-ORPHAN"
+ REVISION_GAP = "REVISION-GAP"
+ 
+ # The pre-fix commit whose README carried the real round-49 defect: a
+-# truncated duplicate `revision: 2.0` stub at line 55. Selftest uses it as a
+-# committed fixture (SKIP, not FAIL, when the object is unreachable).
++# truncated duplicate `revision: 2.0` stub at line 55. The selftest uses it
++# as a committed fixture and fails closed when the pin cannot resolve
++# (asserted with `git cat-file -e <sha>^{commit}`); --lane/--base-commit
++# override the object store and the pin in selftests.
+ BASE_COMMIT = "c42d675be96b6b3957e6e5c00ab192080cb70083"
+ 
+ 
+@@ -220,19 +233,140 @@ def receipt(path, text, result):
+     return result
+ 
+ 
+-def selftest():
+-    ok = True
+-    skips = []
++def _git_env():
++    """Environment for the base-pin probes: GIT_* scrubbed, as receipt_guard._git
++    does, so the pin resolves in the lane's own object store, never in an
++    inherited GIT_DIR, alternate object store or replace ref."""
++    env = {key: value for key, value in os.environ.items()
++           if not key.startswith("GIT_")}
++    env.update(GIT_OPTIONAL_LOCKS="0", GIT_NO_REPLACE_OBJECTS="1", LC_ALL="C")
++    return env
++
++
++def _git_run(lane, *args):
++    """One lane-scoped git probe. GIT_* is scrubbed, so the pin is read from
++    `lane`'s own object store and no inherited GIT_DIR can stand in for it."""
++    return subprocess.run(
++        ["git", "-C", str(lane), *args],
++        capture_output=True,
++        env=_git_env(),
++        timeout=30,
++    )
++
++
++def _stderr(proc):
++    text = proc.stderr.decode("utf-8", "replace").strip()
++    return text or ("exit %d" % proc.returncode)
++
++
++def base_readme_verdict(lane, base_commit):
++    """Evaluate the pinned base README's r49 defect in `lane`, fail-closed.
++
++    Returns (name, status, detail). PASS: the base README still carries
++    REVISION-DUP and REVISION-STUB. FAIL: it no longer does. ERROR: the pin
++    cannot be evaluated (absent from the lane's object store, including a
++    shallow clone or a non-repository; no corpus/README.md at that commit; or
++    git unusable). ERROR is could-not-evaluate (exit 2), never a skip
++    (JjAuditKotodama R3).
++    """
++    name = "control: base %s README flagged (r49 defect)" % base_commit[:7]
++    try:
++        probe = _git_run(lane, "cat-file", "-e", "%s^{commit}" % base_commit)
++        if probe.returncode != 0:
++            return (
++                name,
++                "ERROR",
++                "pinned BASE_COMMIT %s unreachable in %s: %s"
++                % (base_commit, lane, _stderr(probe)),
++            )
++        proc = _git_run(lane, "show", "%s:corpus/README.md" % base_commit)
++        if proc.returncode != 0:
++            return (
++                name,
++                "ERROR",
++                "git show %s:corpus/README.md failed: %s"
++                % (base_commit, _stderr(proc)),
++            )
++        findings = evaluate_text(proc.stdout.decode("utf-8"))["findings"]
++    except (OSError, ValueError, subprocess.SubprocessError) as exc:
++        return (
++            name,
++            "ERROR",
++            "pinned BASE_COMMIT %s could not be read in %s: %r"
++            % (base_commit, lane, exc),
++        )
++    classes = {x["class"] for x in findings}
++    if REVISION_DUP in classes and REVISION_STUB in classes:
++        return (name, "PASS", json.dumps(findings))
++    return (name, "FAIL", json.dumps(findings))
++
++
++def _fixture_repo(root, readmes):
++    """Commit one corpus/README.md per entry of `readmes` into a new repository
++    at `root` (selftest fixture; `root` must be a scratch directory). Returns
++    the commit shas, oldest first. Identity and signing are pinned on the
++    command line, so no user configuration is needed."""
++
++    def git(*args):
++        return subprocess.run(
++            ["git", "-C", str(root), "-c", "user.name=selftest",
++             "-c", "user.email=selftest@invalid", "-c", "commit.gpgsign=false",
++             *args],
++            capture_output=True,
++            env=_git_env(),
++            timeout=30,
++            check=True,
++        )
++
++    git("init", "-q")
++    shas = []
++    for text in readmes:
++        os.makedirs(os.path.join(root, "corpus"), exist_ok=True)
++        readme = os.path.join(root, "corpus", "README.md")
++        with open(readme, "w", encoding="utf-8") as fh:
++            fh.write(text)
++        git("add", "corpus/README.md")
++        git("commit", "-q", "-m", "fixture")
++        shas.append(git("rev-parse", "HEAD").stdout.decode("utf-8").strip())
++    return shas
++
++
++def _shallow_fixture(tmp):
++    """Return (shallow_clone, older_sha): a depth-1 clone of a two-commit
++    fixture under `tmp`. The older commit is the pin, beyond the clone's depth."""
++    origin = os.path.join(tmp, "origin")
++    os.mkdir(origin)
++    older, _newer = _fixture_repo(origin, ["# older\n", "# newer\n"])
++    shallow = os.path.join(tmp, "shallow")
++    subprocess.run(
++        ["git", "clone", "-q", "--depth", "1", "file://" + origin, shallow],
++        capture_output=True,
++        env=_git_env(),
++        timeout=60,
++        check=True,
++    )
++    return shallow, older
++
++
++def selftest(lane=LANE, base_commit=BASE_COMMIT):
++    failed = []
++    errored = []
+ 
+     def check(name, cond, detail=""):
+-        nonlocal ok
+-        if not cond:
+-            ok = False
+         print(("PASS " if cond else "FAIL ") + name + (" " + detail if detail else ""))
++        if not cond:
++            failed.append(name)
+ 
+-    def skip(name, detail=""):
+-        skips.append(name)
+-        print("SKIP " + name + (" " + detail if detail else ""))
++    def error(name, detail=""):
++        print("ERROR " + name + (" " + detail if detail else ""))
++        errored.append(name)
++
++    def record(name, status, detail):
++        """Print one base_readme_verdict outcome as PASS, FAIL or ERROR."""
++        if status == "ERROR":
++            error(name, detail)
++        else:
++            check(name, status == "PASS", detail)
+ 
+     # 1. newest-first unique labels, each with a body -> clean
+     r = evaluate_text(
+@@ -300,25 +434,8 @@ def selftest():
+     check("control: missing file exits 2", code == 2, buf.getvalue().strip())
+ 
+     # 9. the real r49 defect: base commit's README -> REVISION-DUP + REVISION-STUB
+-    name = "control: base %s README flagged (r49 defect)" % BASE_COMMIT[:7]
+-    try:
+-        proc = subprocess.run(
+-            ["git", "-C", LANE, "show", "%s:corpus/README.md" % BASE_COMMIT],
+-            capture_output=True,
+-            timeout=30,
+-        )
+-        if proc.returncode != 0:
+-            skip(name, "(base object unreachable)")
+-        else:
+-            r = evaluate_text(proc.stdout.decode("utf-8"))
+-            classes = {x["class"] for x in r["findings"]}
+-            check(
+-                name,
+-                REVISION_DUP in classes and REVISION_STUB in classes,
+-                json.dumps(r["findings"]),
+-            )
+-    except (OSError, subprocess.SubprocessError) as exc:
+-        skip(name, "(%r)" % exc)
++    #    An unresolvable pin is ERROR (could-not-evaluate, exit 2), never a skip.
++    record(*base_readme_verdict(lane, base_commit))
+ 
+     # 10. detached body (lost header) -> REVISION-ORPHAN warning, still ok
+     r = evaluate_text(
+@@ -341,8 +458,60 @@ def selftest():
+         json.dumps(r["warnings"]),
+     )
+ 
+-    print("selftest skips: %d" % len(skips))
+-    return ok
++    # 12. seam: a pin absent from the object store is ERROR, never a skip.
++    #     --lane names the object store; an all-zero sha cannot resolve in any store.
++    _, status, detail = base_readme_verdict(lane, "0" * 40)
++    check(
++        "control: unreachable base pin fails closed (never skips)",
++        status == "ERROR" and "unreachable" in detail,
++        detail,
++    )
++
++    # 13. seam: a git-free tree (the counterfactual-leg environment) is ERROR.
++    with tempfile.TemporaryDirectory() as bare_tree:
++        _, status, detail = base_readme_verdict(bare_tree, base_commit)
++    check(
++        "control: git-free tree fails closed (never skips)",
++        status == "ERROR" and "unreachable" in detail,
++        detail,
++    )
++
++    # 14. seam: a shallow clone (CI-style depth 1) whose pin lies beyond depth.
++    name = "control: shallow clone with unreachable pin fails closed (never skips)"
++    try:
++        with tempfile.TemporaryDirectory() as tmp:
++            shallow, pin = _shallow_fixture(tmp)
++            _, status, detail = base_readme_verdict(shallow, pin)
++        check(name, status == "ERROR" and "unreachable" in detail, detail)
++    except (OSError, subprocess.SubprocessError) as exc:
++        error(name, "fixture could not be built: %r" % (exc,))
++
++    # 15. GIT_DIR cannot mask: a foreign repo holding the pin, named by GIT_DIR,
++    #     must not make an unreachable lane resolve (GIT_* is scrubbed).
++    name = "control: GIT_DIR override cannot mask an unreachable pin"
++    try:
++        with tempfile.TemporaryDirectory() as tmp:
++            foreign = os.path.join(tmp, "foreign")
++            os.mkdir(foreign)
++            (pin,) = _fixture_repo(foreign, ["# foreign\n"])
++            bare_lane = os.path.join(tmp, "lane")
++            os.mkdir(bare_lane)
++            saved = os.environ.get("GIT_DIR")
++            os.environ["GIT_DIR"] = os.path.join(foreign, ".git")
++            try:
++                _, status, detail = base_readme_verdict(bare_lane, pin)
++            finally:
++                if saved is None:
++                    del os.environ["GIT_DIR"]
++                else:
++                    os.environ["GIT_DIR"] = saved
++        check(name, status == "ERROR" and "unreachable" in detail, detail)
++    except (OSError, subprocess.SubprocessError) as exc:
++        error(name, "fixture could not be built: %r" % (exc,))
++
++    if errored:
++        return 2
++    return 1 if failed else 0
+ 
+ 
+ def main(argv=None):
+@@ -350,12 +519,25 @@ def main(argv=None):
+     ap.add_argument("--readme", default=DEFAULT_README)
+     ap.add_argument("--json", action="store_true")
+     ap.add_argument("--selftest", action="store_true")
++    ap.add_argument(
++        "--lane",
++        default=LANE,
++        help="object store that must resolve the pinned base commit "
++        "(selftest seam; default: the lane this tool lives in)",
++    )
++    ap.add_argument(
++        "--base-commit",
++        default=BASE_COMMIT,
++        help="pinned pre-fix commit used by the selftest fixture "
++        "(selftest seam; default: the r49 defect commit)",
++    )
+     args = ap.parse_args(argv)
+ 
+     if args.selftest:
+-        passed = selftest()
+-        print("selftest: %s" % ("all checks passed" if passed else "FAILED"))
+-        return 0 if passed else 1
++        code = selftest(lane=args.lane, base_commit=args.base_commit)
++        print({0: "selftest: all checks passed", 1: "selftest: FAILED",
++               2: "selftest: could not evaluate (ERROR)"}[code])
++        return code
+ 
+     try:
+         with open(args.readme, encoding="utf-8") as fh:

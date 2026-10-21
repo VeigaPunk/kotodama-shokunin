@@ -1,0 +1,503 @@
+{
+ "wave": "kotodama-r50-build",
+ "milestone": "Round 50: C pastoralism entry, O jj-safe gates, Ca separability control",
+ "reportDir": ".ufo/waves/round-50/build",
+ "axes": [
+  "coverage",
+  "operability",
+  "calibration"
+ ],
+ "context": "# Goal\nKotodama round 50 attempt1 ONLY (hyaku phase 2). Lane repo /home/vgpnk/Projects/shokunin/kotodama-shokunin (branch main, base 4ad26836552462d28a946ca3b067cab0b5ce3532, jj-colocated). Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-50/claims.json first. Three declared, causally separable claims:\n- C coverage: one right-sized (<=~250 lines) entry corpus/knowledge/culture-material/pastoralism-animal-husbandry.md on the verified-fresh pastoralism/animal-husbandry register, to the lane entry contract (model: /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md and cartography-and-mapmaking.md), citing corpus/SOURCES.md rows opened THIS round (new ids from S048 upward, assigned by L1).\n- O operability: make tools/harness/receipt_guard.py and tools/check-readme-revisions.py correct under jj colocation (fleet report /home/vgpnk/Projects/shokunin/.ufo/waves/hyaku/jj-w1/reports/JjAuditKotodama.md risks R1-R3), plus counting probe reports/round-50/jj-colocation-probe.py.\n- Ca calibration: tools/check-claim-separability.py + frozen fixture reports/round-50/separability/r49-fixture.json + QUALITY.md criterion 7, from the round-49 outside spot-check /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-49-verifier-spotcheck.md (REJECTED-HONEST-STOP on separability: claim C cited the SOURCES registry claim S created).\nFrontier step (not a claim): SOURCES rows opened this round with URL, access date 2026-10-21 and <=25-word located quote; mined mistake in corpus/lessons/round-50.md.\n\n# Shared contract (Ca)\nSeparability manifest JSON: {\"schema\":\"kotodama-separability-manifest-v1\",\"base\":\"<commit>\",\"claims\":[{\"id\":\"C\",\"tree\":\"<commit holding this claim's landed bytes>\",\"lands\":[\"repo-relative path\",...],\"exports\":[\"python regex matching identifiers this claim's landed bytes define, e.g. \\\\bS0(3[1-9]|4[0-3])\\\\b\"],\"acceptance\":[\"optional argv run in the counterfactual tree\"]}]}. Tool semantics: for each ordered pair X!=Y, X depends on Y if X's landed bytes (read at X.tree) match any Y export regex or name any Y land path; optional dynamic leg materializes base + X.lands only (others at base bytes) in a temp git-free dir and runs X.acceptance there; exit 0 separable, 1 dependency/acceptance failure (each finding printed as `SEPARABILITY_DEPENDENCY X->Y via <evidence>`), 2 input error. Read-only git (git -C LANE show/cat-file) only.\n\n# Ownership and bounds\nL1 (ChousaR27R2) is the sole integration owner and holds the canonical planner seat. Every seat is a leaf: no delegation, no background jobs, no swarms (executors may spawn at most one read-only labrat). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kotodama-shokunin — write it at /home/vgpnk/Projects/shokunin/kotodama-shokunin/<that path>; never write under /home/vgpnk/Projects/shokunin/.ufo. Seats write ONLY their own report; executors additionally a private clone at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-50/work/<NAME> (`git clone -q /home/vgpnk/Projects/shokunin/kotodama-shokunin /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-50/work/<NAME>` then `git -C ... checkout -q 4ad26836552462d28a946ca3b067cab0b5ce3532`) and a patch at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-50/patches/<NAME>.patch (`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-50/work/<NAME> diff` output). NEVER edit production files in /home/vgpnk/Projects/shokunin/kotodama-shokunin itself, never run git add/commit/stash/checkout/reset or any mutating jj command in /home/vgpnk/Projects/shokunin/kotodama-shokunin, never touch the lane jj state or git index, the fleet repo, sibling lanes, MANIFEST.json, .ufo/state or the watchdog log. Lane selftests that create git repos run only in your clone or a temp dir. No credentials, no live-process probing.\n\n# Sources\nExternal web reading is allowed for source seats (read-only; no logins, no downloads into the lane over 1 MiB). A source counts only if you actually opened it this session: give URL, access date 2026-10-21, a verbatim <=25-word quote with its location (section/page/paragraph), tier per QUALITY criterion 6 (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md: publisher blurbs/abstracts are tier B for claims about a work; A only if primary/authoritative for the exact scope; C is a lead, never sole support), scope, suggested recheck cadence. Never invent a source, quote or page; if a URL fails, say so and stop on that source.\n\n# Tooling\nYou may install tools that help the task; read /home/vgpnk/.omp/agent/RULES.md first and record tool/version/channel/reason. All pacman transactions are PAUSED host-wide (never -S/-Sy/-Syu/-U/-R, downgrade, or service restart); use uv tool/npx/official binary into ~/.local/bin only if needed, or report the need. Prefer no installs.\n\n# Output\nConcise report at your Report path: assigned item, exact file:line or URL evidence, result, unrun checks. Author-lane advice, never admission. Never weaken a test or delete a control to get green.",
+ "items": [
+  {
+   "name": "ExecGuard",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O, R1+R2. In your clone, change /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/harness/receipt_guard.py (clone copy) so committed-receipt detection probes HEAD's tree AND refs/heads/<branch> AND refs/remotes/origin/<branch> (branch from symbolic-ref when attached, else main; missing refs tolerated) and refuses the overwrite if the path exists in ANY of them; on refusal print the ref that holds it and a separate `landed_sha=` (the branch/remote commit) distinct from the local `head_sha=`, never presenting a local-only HEAD as landed. Keep every existing selftest control (45) byte-identical in name and order; append new controls: (a) detached HEAD at an older commit while main/origin main holds the receipt -> refused exit 3; (b) local unpushed commit ahead of origin -> landed_sha names origin's commit; (c) no remote ref -> still works. Run its --selftest in the clone. Patch at the patches path.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "ExecReadmeRev",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O, R3. In your clone, change tools/check-readme-revisions.py so the pinned BASE_COMMIT control asserts `git cat-file -e <sha>^{commit}` and FAILS (nonzero exit, explicit message) when the base object is unreachable, instead of SKIP with exit 0 (see JjAuditKotodama.md R3 and CR:233/CR:306). Provide a test seam (env var or argument naming the LANE/base) so a selftest control proves the unreachable case now fails; keep every existing control name/order. Run --selftest in the clone. Patch at the patches path.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "ExecProbe",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O counting command. Write reports/round-50/jj-colocation-probe.py (in your clone) with `--tools-root DIR` (a tree containing tools/harness/receipt_guard.py and tools/check-readme-revisions.py). It builds synthetic git repos in a temp dir (plain git; `git checkout --detach <older>` reproduces jj's anchored HEAD; use jj only if present AND optional) and evaluates three cases: R1 receipt guard cites a local-only HEAD as the committed/landed sha; R2 guard ALLOWS overwrite of a receipt committed on main/origin main while HEAD is detached below it; R3 check-readme-revisions --selftest exits 0 although its pinned base is unreachable. Print one JSON line per case and final `JJ_COLOCATION_FALSE_NEGATIVES=<n>/3`; exit 0 always on completed measurement, 2 on setup error. It must report 3/3 on base bytes (`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin archive 4ad2683 tools | tar -x -C <tmp>`) — run that and include the output. Never touch the live lane. Patch at the patches path.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "ExecSepTool",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca. Write tools/check-claim-separability.py (in your clone) implementing the Shared contract (Ca) exactly, with --selftest containing negative controls (a pair where X cites Y's export -> exit1; X names Y's land path -> exit1; acceptance failing only without Y's lands -> exit1) and positive controls (disjoint claims -> exit0; self-citation not a dependency; malformed manifest -> exit2). Stdlib only, read-only git. Run --selftest. Patch at the patches path.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ExecSepFixture",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca fixture. Build reports/round-50/separability/r49-fixture.json (in your clone) per the Shared contract (Ca), from round-49 evidence: /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-49/claims.json, claims-addendum-kaika.json, run-validation.py, validation.json, and git history (`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin log --oneline -15`, work commits c6a174d and 8c78e6b, base c42d675). Claims C (entry corpus/knowledge/culture-material/hunting-foraging-subsistence.md + README row) and S (corpus/SOURCES.md, its lesson) and Ca (README revision fix + tools/check-readme-revisions.py). Exports: S defines row ids S031-S043 (check exact range in SOURCES.md at 8c78e6b). Also write reports/round-50/separability/r50-manifest.json for round 50 from /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-50/claims.json (C/O/Ca lands, base 4ad2683, tree placeholder \"WORKTREE\" documented). Record every sha you used and how you verified it.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ExecRunner",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMeasurement runner. Write reports/round-50/run-validation.py (in your clone) that, given --tree DIR (an extracted lane tree) and --base-tree DIR, computes each claim's before/after: C: `find corpus/knowledge -name '*.md' | wc -l`, culture-material count, `python3 -B reports/round-28/readme/sweep.py` result, entry line/H1/H3/topic counts; O: runs reports/round-50/jj-colocation-probe.py --tools-root on both trees; Ca: runs tools/check-claim-separability.py on reports/round-50/separability/r49-fixture.json (expect exit1) and r50-manifest.json and its --selftest, plus `grep -ci separab corpus/QUALITY.md`. Missing files are reported as absent, never crash. Writes JSON to stdout. Study /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-49/run-validation.py for the lane's existing shape. Patch at the patches path.",
+   "axes": [
+    "coverage",
+    "operability",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ReviewGuardSemantics",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: read tools/harness/receipt_guard.py fully (RG:54-140) and JjAuditKotodama.md R1/R2. Specify the exact correct refusal semantics under detached HEAD, unborn branch, missing origin ref and REFRESH_RECEIPTS=1; list every fail-open path a fix could introduce. Concrete acceptance oracle."
+  },
+  {
+   "name": "ReviewGuardControls",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: enumerate the existing receipt_guard --selftest control names and order (run it in a temp copy, not the lane) so the integrator can prove all 45 survive; output the ordered list and its sha256."
+  },
+  {
+   "name": "ReviewReadmeRev",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: read tools/check-readme-revisions.py; enumerate all controls (run --selftest in a temp copy) and specify how an unreachable BASE_COMMIT must fail closed without breaking existing PASS/FAIL semantics; ordered control list + sha256."
+  },
+  {
+   "name": "ReviewProbeDesign",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: independently design how to reproduce R1, R2, R3 with plain git in a temp dir against base tool bytes (git -C LANE archive 4ad2683 tools). Actually run your minimal reproduction in /tmp and report whether each defect reproduces on base bytes, with exact commands and exits."
+  },
+  {
+   "name": "ReviewSepSemantics",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca: from corpus/lessons/round-49-verifier-spotcheck.md and reports/round-49/run-validation.py (its c_without_s / s_without_c legs), state precisely what counterfactual the outside verifier required and why the r49 leg failed it; give a test case the new checker must flag."
+  },
+  {
+   "name": "ReviewSepFixtureFacts",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca: verify the round-49 facts the fixture will freeze: exact commits (c42d675, c6a174d, 8c78e6b, d91c632), which paths each claim landed (git show --stat), the S-id range the r49 entry cites (grep -o 'S0[0-9][0-9]' in the entry at 8c78e6b), and SOURCES rows defined at 8c78e6b. Read-only git only."
+  },
+  {
+   "name": "ReviewEntryContract",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: derive the exact entry contract from corpus/knowledge/culture-material/hunting-foraging-subsistence.md, cartography-and-mapmaking.md, corpus/QUALITY.md and reports/round-28/readme/sweep.py: required head fields in order, heading rules (1 H1, H2 numbering, 0 H3), topic-line rules, line budget, couples/source/verified-at/recheck formats. Output a checklist the integrator can apply mechanically."
+  },
+  {
+   "name": "ReviewSourcesContract",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier: read /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns' and corpus/SOURCES.md; output the exact row grammar (11 columns), allowed kind/tier/status values, used-by rules, lesson ## Gate format and the census commands; list the next free id and any r49 rows whose used-by would change if the new entry cites them."
+  },
+  {
+   "name": "ReviewReadmeIndex",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: from corpus/README.md, tools/check-readme-heading.py, tools/check-readme-revisions.py and reports/round-28/readme/sweep.py, specify exactly how to add one culture-material row (placement, revision record format, counts to bump 225->226 and 27->28) so all three checks stay green. Run them read-only on a temp copy to confirm current green."
+  },
+  {
+   "name": "ReviewLessonsIndex",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier: from corpus/lessons/README.md and reports/round-25/audit/c31-lessons-index-audit.py, specify what a new corpus/lessons/round-50.md requires to keep the audit at findings 0 (index row, revision bump). Run the audit read-only on a temp copy to record current state."
+  },
+  {
+   "name": "ReviewR50Separability",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaims C/O/Ca: attack the declared separability of round 50 in reports/round-50/claims.json. Does C's entry citing SOURCES rows opened by the (non-claim) frontier step repeat the r49 defect? Do O and Ca share any path or identifier? Give a verdict per pair with reasons."
+  },
+  {
+   "name": "ReviewQuality7",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca: draft-review: propose the exact wording of corpus/QUALITY.md criterion 7 (separability: each claim verifies on base + its own lands only; a claim may not cite identifiers another claim lands) grounded in corpus/lessons/round-49-verifier-spotcheck.md, matching the style of criterion 6. Keep it <= 6 lines."
+  },
+  {
+   "name": "CriticGapPremise",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: falsify 'pastoralism/animal husbandry is unowned'. Sweep topic lines, H1s, section headings and tables in all six partitions (e.g. linguistics/semantic-fields-lexicon-building.md:70,105; culture-material/agrarian-field-system-lexicon.md:62; fire-fuel-light.md:37; civilizations mongol/turkic/scythian). Distinguish partial owners from cross-references, as the r49 critic did for hunting. Verdict + exact narrowing the claim needs."
+  },
+  {
+   "name": "CriticOperability",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: attack whether fixing receipt_guard/check-readme-revisions under jj is a real operability move or bookkeeping; is the 3/3 -> 0/3 probe circular (written to pass)? Name the evidence that would falsify O."
+  },
+  {
+   "name": "CriticCalibration",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca: attack whether a static citation scan + optional acceptance rerun is a genuine separability control; construct inputs where it gives false separable / false dependent verdicts (e.g. shared generic ids, path mentions in prose). Required controls list."
+  },
+  {
+   "name": "CriticMeasurement",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAll claims: attack each counting command in reports/round-50/claims.json for before/after validity, circularity and base-run safety; specify the exact base vs final commands the report must paste."
+  },
+  {
+   "name": "CriticFrontier",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier: the mined mistake will be r49's separability rejection with fix = Ca's checker shown to fail on the r49 fixture. Attack whether that satisfies 'a fix counts only once shown able to fail' and whether any other mistake (lessons r42-r49, rejected rounds 36/42/43/44/47) is more pressing. Concrete pointers."
+  },
+  {
+   "name": "SentinelGuard",
+   "role": "sentinel",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: adversarial review of the receipt_guard change direction: must never loosen any refusal (REFRESH_RECEIPTS permit, env scrubbing GIT_*, --literal-pathspecs, symlink/out-of-root paths). List invariants the patch must keep and fixtures proving each. Read-only."
+  },
+  {
+   "name": "RevengerR49Runner",
+   "role": "revenger",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca: reverse-engineer reports/round-49/run-validation.py's separability legs (c_without_s, s_without_c): exactly what they removed and checked, and why they passed. Cite lines."
+  },
+  {
+   "name": "RevengerGuardIntent",
+   "role": "revenger",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: reconstruct receipt_guard.py's original intent and invariants from LOG.md, SCORECARD.md and git log -- tools/harness/receipt_guard.py (read-only). Which callers cite committed_sha? (grep reports/ and tools/)."
+  },
+  {
+   "name": "RevengerReadmeRevIntent",
+   "role": "revenger",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: reconstruct why tools/check-readme-revisions.py pins BASE_COMMIT c42d675 and what its skip() was meant to tolerate; would fail-closed break any documented workflow? Cite lines and LOG entries."
+  },
+  {
+   "name": "ConnectSiblingPastoral",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C sibling-overlap: sweep sibling lanes under /home/vgpnk/Projects/shokunin/*-shokunin (read-only) for entries owning pastoralism/herding/husbandry/transhumance (esp. lore, any history/ecology lanes). Report owners and the handoff boundary kotodama must respect."
+  },
+  {
+   "name": "ConnectSiblingSeparability",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca: sweep sibling lanes' tools/ and lessons (read-only) for existing claim-separability checkers or counterfactual runners; report reusable patterns and any lane whose rounds were rejected on separability."
+  },
+  {
+   "name": "ConnectSiblingJj",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O: sweep sibling lanes and /home/vgpnk/Projects/shokunin/.ufo/waves/hyaku/jj-w1/reports/ (read-only) for receipt guards or pinned-base checks already fixed for jj colocation; report the patterns and their tests."
+  },
+  {
+   "name": "SrcSherratt",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Andrew Sherratt's 'secondary products revolution' (1981/1983): find an openable authoritative page (publisher/DOI landing, Cambridge/Wiley/JSTOR abstract, or a scholarly review) stating the thesis (milk, wool, traction). Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcHerskovits",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Melville Herskovits 1926 'The Cattle Complex in East Africa', American Anthropologist 28: open the DOI/landing page (Wiley AnthroSource) and quote its scope; note later critique if found on the same page. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcEvansPritchard",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). E. E. Evans-Pritchard, The Nuer (1940): open a full-text scan (archive.org) and quote a located passage on cattle names/colour terms or cattle as idiom (chapter/page). Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcKhazanov",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Anatoly Khazanov, Nomads and the Outside World (2nd ed. 1994, Univ. of Wisconsin Press): open the publisher page and quote its description of nomad-sedentary interdependence (tier B blurb). Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcBarfield",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Thomas Barfield, The Nomadic Alternative (1993) or The Perilous Frontier (1989): open publisher/library page and quote the scope statement. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcDysonHudson",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Dyson-Hudson & Dyson-Hudson 1980 'Nomadic Pastoralism', Annual Review of Anthropology 9 (doi 10.1146/annurev.an.09.100180.000311): open the landing page and quote the abstract. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcHardin",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Garrett Hardin 1968 'The Tragedy of the Commons', Science 162:1243 (doi 10.1126/science.162.3859.1243): open it and quote the pasture-open-to-all passage (located). Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcOstrom",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Elinor Ostrom, Governing the Commons (1990): open the Cambridge page or Nobel lecture (nobelprize.org 2009) and quote a located passage on common-pool resources/pastures. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcFaoPastoralism",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). FAO Pastoralist Knowledge Hub (fao.org/pastoralist-knowledge-hub): open and quote its definition/scope of pastoralism (located). Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcUnescoTranshumance",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). UNESCO Intangible Cultural Heritage inscription 'Transhumance, the seasonal droving of livestock' (2019 Austria/Greece/Italy; 2023 extension): open ich.unesco.org element page and quote the description. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcUnescoGer",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). UNESCO ICH 'Traditional craftsmanship of the Mongol Ger and its associated customs' (2013): open the element page and quote the located description of mobile dwelling and herding life. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcMongolFiveSnouts",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Mongolian 'five snouts' (tavan khošuu mal: horse, camel, cattle/yak, sheep, goat): find an authoritative openable source (UNESCO, FAO, academic article, national statistics office) and quote it. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcSamiReindeer",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Sámi reindeer herding and earmarks: open an authoritative page (Sámi Parliament of Norway/Sweden, Arctic Council, or Swedish Sámediggi 'renskötsel'/earmark register) and quote a located passage on reindeer husbandry rights or earmarks. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcAndeanCamelids",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Andean camelid pastoralism (llama/alpaca herding): open FAO or a peer-reviewed open-access article and quote a located passage. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcFulani",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Fulani/WoDaaBe transhumance in the Sahel: open FAO/ILRI/peer-reviewed open source and quote a located passage on seasonal mobility. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcPeku",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Proto-Indo-European *peku- 'livestock, wealth' (Latin pecus/pecunia): open an authoritative etymology page (Watkins AHD Indo-European roots appendix, Wiktionary reconstruction page as tier C lead, or Etymonline as tier B/C) and quote it. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcZederDomestication",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Melinda Zeder 2008 PNAS 'Domestication and early agriculture in the Mediterranean Basin' (doi 10.1073/pnas.0801317105) or equivalent: open and quote located passage on sheep/goat/cattle domestication timing. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcBedouin",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Bedouin camel pastoralism: open UNESCO ICH (e.g. 'Al Sadu weaving' or 'Bedouin culture in Petra and Wadi Rum' Proclamation) or academic page; quote located passage tying herding to social life. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcGalatyJohnson",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Galaty & Johnson (eds.) The World of Pastoralism (Guilford 1990) or Salzman 'Pastoralists: Equality, Hierarchy, and the State' (2004): open a publisher/library page; quote scope (tier B). Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcDumuzi",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Sumerian shepherd-god Dumuzi / shepherd-farmer debate: open the Oxford ETCSL text 'The debate between Sheep and Grain' or 'Dumuzid and Enkimdu' and quote a located line (tier A for the text). Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcMaasaiCattle",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Maasai cattle and pastoral society: open UNESCO ICH (e.g. 'Enkipaata, Eunoto and Olng'esherr' 2018) or an authoritative page; quote located passage. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "SrcYak",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier source opening for claim C (pastoralism entry). Yak pastoralism on the Tibetan plateau: open FAO or a peer-reviewed open-access source and quote located passage on herding mobility/products. Return a SOURCES candidate: URL, access date 2026-10-21, kind, tier with reason, scope, <=25-word verbatim quote with location, what it teaches the entry (which section), recheck cadence. Open it for real; if unreachable, report the failure and stop.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutCensus",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier: run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama` (read-only) and the seven manual census commands from /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns' against corpus/SOURCES.md; paste outputs and exit codes; rows by tier/status."
+  },
+  {
+   "name": "ScoutLaneState",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRecon: report lane state read-only: `scripts/hyaku/jj-lane.sh state /home/vgpnk/Projects/shokunin/kotodama-shokunin`, `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin status --porcelain`, jj config `jj --ignore-working-copy -R /home/vgpnk/Projects/shokunin/kotodama-shokunin config list --repo`, largest tracked files (>900 KB), .gitignore coverage of .ufo/waves; list hazards for committing round-50 evidence (1 MiB new-file refusal, auto-track none)."
+  },
+  {
+   "name": "ScoutMistakeSweep",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier: sweep corpus/lessons/round-4*.md, round-49-verifier-spotcheck.md and SCORECARD rejected rounds (36, 42, 43, 44, 47, 49) for mistakes not yet captured by a QUALITY criterion or gate; list class, pointer, captured-by, candidate fix."
+  },
+  {
+   "name": "ScoutCouplings",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: list the in-corpus entries the pastoralism entry must couple to and cite with exact path:line (agrarian-field-system-lexicon, hunting-foraging-subsistence, fire-fuel-light, cuisine-food-lexicon, transport-mobility-lexicon, trade-economy-lexicon, textile-technology, semantic-fields-lexicon-building, animal-symbolism, sacred-kingship..., civilizations mongol/turkic-steppe/scythian-saka/finnic-sami/inca/dine-navajo/india-tamil-sangam). Give sha256 of each file and the line + what it owns."
+  },
+  {
+   "name": "ScoutCalibrationRegistry",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: read corpus/knowledge/verification/calibration-registry.md and the hunting entry's §13 calibration bank; list the codes and format the pastoralism calibration bank must use, and candidate mainstream/contested/discredited items for pastoralism (e.g. nomadism as an evolutionary stage; Herskovits cattle complex; Hardin's tragedy applied to rangelands)."
+  },
+  {
+   "name": "ScribeSec01Register",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §1 The register property: pastoralism as an argument about grass, water, animals and mobility (what makes it a distinct production register; herd as living capital). for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec02Boundary",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §2 One-owner boundary table: what this entry owns vs agrarian-field-system-lexicon (agropastoral row), hunting-foraging-subsistence, cuisine-food-lexicon (dairy dishes), transport-mobility-lexicon (pack/riding animals), trade-economy-lexicon, textile-technology (wool), semantic-fields-lexicon-building (pastoral vocabulary field), civilizations entries. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec03Typology",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §3 Pastoral systems typology table: nomadic, semi-nomadic, transhumant (vertical/horizontal), agro-pastoral, enclosed/ranching, with mobility pattern, settlement, labour, risk strategy. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec04Species",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §4 Species and ecology decision table: cattle, sheep/goat, camel, horse, yak, reindeer, llama/alpaca: ecology, products, mobility, labour, symbolic weight. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec05Lexicon",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §5 Herd lexicon design: age/sex/colour/condition/ownership-mark terms (Nuer cattle colour terms; Mongolian five snouts; earmarks; PIE *peku- livestock=wealth); how to build a pastoral vocabulary for a conlang. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec06Products",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §6 Products: meat vs secondary products (milk, wool/hair, traction, dung, blood), dairy processing chain, storage; Sherratt thesis status. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec07Wealth",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §7 Herd as wealth and exchange: bridewealth, loans/stock partnerships, herd-splitting as insurance, raiding economy; cattle-complex critique. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec08Tenure",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §8 Tenure, commons and mobility rights: seasonal routes, wells, pasture rights, Hardin vs Ostrom calibration, enclosure/state sedentarization. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec09Relations",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §9 Pastoral-sedentary relations: interdependence (Khazanov), trade, tribute, conquest states, raiding; avoid 'barbarian' stereotyping. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec10Ritual",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §10 Ritual, myth and symbol of herding: sacrifice economics, shepherd-ruler imagery (Dumuzi; shepherd-king), herd animals in cosmology; handoff to myth-symbol entries. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec11Decision",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §11 Decision table + build order for a fictional pastoral culture (ecology -> species -> mobility -> tenure -> wealth -> lexicon -> ritual), plus error patterns. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec12Example",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §12 NON-CANON worked micro-example (clearly disposable; canon belongs to lore-shokunin): a fictional transhumant highland herding people, 8-12 lines, applying the decision table. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeSec13Calibration",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C: draft section §13 Calibration bank: mainstream / contested / discredited items with reasons (nomadism-as-stage discredited; Herskovits cattle complex contested; Hardin's tragedy contested for managed commons; 'pure nomad' myth), formatted like the hunting entry's §13. for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md. Match the voice and table-heavy format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md (H2 '## N. Title', no H3, decision tables not essays, calibration flags per corpus/QUALITY.md). Budget 12-20 lines. Cite in-corpus anchors as path:line (verify each line exists) and external sources you ACTUALLY opened this session as [SRC: URL | located <=25-word quote] (placeholders the integrator converts to S-ids). Mark anything you could not verify as (to-verify). Deliver the section text in a fenced block plus a source list (URL, access date 2026-10-21, quote+location, suggested tier).",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScribeLesson",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier: draft /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-50.md skeleton in the lane's lesson style (see corpus/lessons/round-49.md): intake of corpus/lessons/round-49-verifier-spotcheck.md, ## Mistakes table (class · evidence pointer · captured-by · fix) with M1 = r49 claim-separability rejection (fix: tools/check-claim-separability.py shown failing on reports/round-50/separability/r49-fixture.json), ## Gate table placeholder for new S-rows, status/used-by change log section. Deliver text in your report only."
+  },
+  {
+   "name": "ScribeSkillRow",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim Ca/O: propose a minimal SKILL.md addition (decision-table row or checklist line) for 'declare claims separably: each claim verifies on base + its own lands; run tools/check-claim-separability.py before dispatch', and one line on jj colocation (cite landed branch sha, never local HEAD). Give exact insertion anchors in /home/vgpnk/Projects/shokunin/kotodama-shokunin/SKILL.md."
+  },
+  {
+   "name": "ScribeLogEntry",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nDraft the LOG.md round-50 entry skeleton in the style of the latest /home/vgpnk/Projects/shokunin/kotodama-shokunin/LOG.md entries (trigger, claims C/O/Ca, frontier, integrator acts, consequence) with placeholders for measured numbers; report only."
+  }
+ ]
+}
