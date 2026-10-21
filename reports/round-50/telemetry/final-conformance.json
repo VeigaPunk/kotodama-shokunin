@@ -1,0 +1,47 @@
+{
+  "work_commit": "1923bfe2a215cd470d905cfd42d9984f41e3ed9d",
+  "overlay_for_index": [
+    "corpus/lessons/README.md",
+    "corpus/lessons/round-50.md"
+  ],
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "reports/round-25/audit/c31-lessons-index-audit.py"
+      ],
+      "exit": 0,
+      "stdout": "index present: True\nlesson files:  36\nindex rows:    36\nqueue rows:    78\nformats:       {'gate-keeper': 23, 'fragment-index': 5, 'plain': 8}\n  PASS C31_index_rows_eq_files\n  PASS C32_owners_resolve\n  PASS C33_formats_documented\n  PASS C34_pins_rederived\n  PASS C34c_shape_cells_rederived\n  PASS C34b_prose_arithmetic\nfindings:      0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "reports/round-25/audit/c31-lessons-index-audit.py",
+        "--selftest"
+      ],
+      "exit": 0,
+      "stdout": "  PASS row regex captures name\n  PASS cell regex captures bytes/lines/sha8\n  PASS row regex matches the runner's row contract\n  PASS self-row sha8 token parses\n  PASS non-row rejected\n  PASS header row rejected\n  PASS fragment-index wins over gate-keeper\n  PASS gate-keeper class\n  PASS plain class\n  PASS prose Gate heading is not a gate section\n  PASS contract scan is whole-file\n  PASS contract scan is line-anchored\n  PASS owner path resolves\n  PASS operator token resolves\n  PASS round pointer resolves\n  PASS empty owner does not resolve\n  PASS missing path does not resolve\n  PASS owner with parenthetical annotation resolves\n  PASS owner cell immune to a properly escaped inner pipe\n  PASS owner cell on a well-formed row\n  PASS owner cell absent on a short row\n  PASS malformed row (unescaped inner pipe) refused\n  PASS census non-empty\n  PASS sha8 well-formed\n  PASS README is in the census (partition = the runner's glob)\n  PASS bytes re-derivation stable\n  PASS arithmetic regexes fire\n  PASS arithmetic drift detectable\nSELFTEST OK: 28/28 checks passed\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "tools/check-claim-separability.py",
+        "reports/round-50/claims.json"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "SEPARABILITY_INPUT_ERROR manifest is missing base, schema\n"
+    }
+  ],
+  "final_lesson_sha256": "c421b84c4b34a4fc959c7c55757d791aff3a45a71ecd7a9e2a4bdfd9594df823",
+  "final_index": {
+    "exit": 0,
+    "stdout": "index present: True\nlesson files:  36\nindex rows:    36\nqueue rows:    78\nformats:       {'gate-keeper': 23, 'fragment-index': 5, 'plain': 8}\n  PASS C31_index_rows_eq_files\n  PASS C32_owners_resolve\n  PASS C33_formats_documented\n  PASS C34_pins_rederived\n  PASS C34c_shape_cells_rederived\n  PASS C34b_prose_arithmetic\nfindings:      0\n",
+    "stderr": ""
+  }
+}

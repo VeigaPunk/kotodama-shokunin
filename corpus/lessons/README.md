@@ -37,8 +37,8 @@ python3 -B reports/round-25/audit/c31-lessons-index-audit.py --selftest  # 28/28
 python3 -B reports/round-25/audit/c31-lessons-index-audit.py             # census + findings
 python3 -B reports/round-25/audit/c31-lessons-index-audit.py --json      # receipt
 
-ls corpus/lessons/*.md | wc -l                                          # 33 (2026-10-19)
-find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 33 (same set)
+ls corpus/lessons/*.md | wc -l                                          # 36 (2026-10-21)
+find corpus/lessons -maxdepth 1 -name '*.md' | wc -l                    # 36 (same set)
 ```
 
 The tool answers one question per claim id, plus two self-consistency checks
@@ -101,9 +101,11 @@ Columns: **file** · **format** (§3) · **contract** (`source:`/`verified-at:`/
 | `corpus/lessons/round-30.md` | gate-keeper | 3/4 | Q-30-1..5 | `reports/round-30/validation.json` (`acceptance_checks_passed: true`, 2026-10-18T22:32:36Z) | bytes=30665 lines=181 sha8=56e77835 |
 | `corpus/lessons/round-31.md` | gate-keeper | 4/4 | Q-31-1..4 | `reports/round-31/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:28:05Z) | bytes=16637 lines=73 sha8=8870bbdd |
 | `corpus/lessons/round-32.md` | gate-keeper | 4/4 | Q-32-1..6 | `reports/round-32/validation.json` (`acceptance_checks_passed: true`, 2026-10-19T00:59:27Z) | bytes=12879 lines=66 sha8=8aacfc2b |
-| `corpus/lessons/round-49.md` | gate-keeper | 4/4 | none (frontier bullets carry no Q ids) | `reports/round-49/validation.json` | bytes=35993 lines=293 sha8=272eab2e |
+| `corpus/lessons/round-49.md` | gate-keeper | 4/4 | none (frontier bullets carry no Q ids) | `reports/round-49/validation.json` | bytes=39223 lines=317 sha8=51ab6a5c |
+| `corpus/lessons/round-49-verifier-spotcheck.md` | plain | 0/4 | none (the adjudication names no open item id) | `corpus/lessons/round-49.md` (outside-review record) | bytes=1880 lines=17 sha8=b1169c50 |
+| `corpus/lessons/round-50.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-50/claims.json` | bytes=24235 lines=151 sha8=c421b84c |
 
-**Rows: 34. Files: 34.** The count is the runner's own partition glob
+**Rows: 36. Files: 36.** The count is the runner's own partition glob
 (`corpus/lessons/*.md`), which includes **this README** and the round-25
 lesson that landed while this index was being written. Seven rows were added
 by the round-33 revision-3 reconciliation for the lessons of rounds 26–32
@@ -252,10 +254,11 @@ close it. **Owner must resolve**: a live path in this repo, the literal
 Measured 2026-10-18T17:4xZ by the §1 tool over the table above; re-run it
 rather than inheriting these numbers.
 
-- Rows: **78**. Of the 33 index rows, **30 carry at least one question**;
-  the three that carry none are `round-1-gates-and-triage.md` (its lessons
+- Rows: **78**. Of the 36 index rows, **30 carry at least one question**;
+  the six that carry none are `round-1-gates-and-triage.md` (its lessons
   were closed within round 1), `round-25.md` (this round's own claims are
-  pending, not carried) and this README's self-row.
+  pending, not carried), `round-49.md`, `round-49-verifier-spotcheck.md`,
+  `round-50.md` (no Q ids), and this README's self-row.
 - Owner classes: **path** (an in-repo surface that can close the item) — **59**;
   **role token** — **19** (`parent` 15, `operator` 4). No row has an empty or
   unresolvable owner; that is the C32 check. (Recounted 2026-10-19 by the §1
@@ -351,7 +354,7 @@ rather than inheriting these numbers.
   of rounds 4–7, 14–23 and the supplement.
 
 Index revision 1 (2026-10-18, round 25); revision 2 appended below (round 25,
-C35); revision 3 appended below (round 33, seat O02). Superseding edits land
+C35); revision 3 appended below (round 33, seat O02); revisions 4 and 5 below (rounds 49 and 50). Superseding edits land
 as a new revision block here, never as an in-place rewrite of the per-round
 rows' provenance claims.
 
@@ -465,3 +468,20 @@ with `C31-1 unindexed-file: ['round-49.md']` and `C34-2 prose-arithmetic-drift`
 have no lesson file — their scribe records live under
 `reports/round-N/scribe/`; that convention gap is recorded in the round-49
 lesson's `## Mistakes` and left for an owner decision, not settled here.
+
+## Revision 5 — round-50 index rows and round-49 re-pin (2026-10-21)
+
+Adds rows for the outside `round-49-verifier-spotcheck.md` and `round-50.md`.
+The round-49 row's stale pin (`bytes=35993 lines=293 sha8=272eab2e`) is
+replaced by its current bytes (`39223/317/51ab6a5c`); no round-49 lesson
+bytes are edited. The round-50 pin is measured after its falsify-wave addendum.
+The build seat's stored revision-5 diff had fixture pins and was not applied.
+Counts and question-row prose above are reconciled to 36 files / 36 rows,
+30 with Q ids / six without. Live histogram: gate-keeper 23,
+fragment-index 5, plain 8 (total 36); earlier histogram prose is dated history.
+
+The audit at base and at the build landing exits 1 with three findings:
+C31-1 unindexed files, C34-1 round-49 pin drift, and C34-2 count drift.
+Re-run `python3 -B reports/round-25/audit/c31-lessons-index-audit.py` for
+the current index verdict; `--selftest` exercises 28 controls.
+

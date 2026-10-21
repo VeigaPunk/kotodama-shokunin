@@ -4007,3 +4007,31 @@ actual route stay recorded per round. Prior rounds stand as filed.
   `corpus/lessons/round-49.md#dated-correction-recount-command-escaping` and
   re-executes to 23. The count is unchanged; this supersedes the command text,
   not the append-only round record.
+
+## 2026-10-21 — Round 50 NOT ADMITTED as declared (C and O improved; Ca self-application leg unmet) — hyaku phase 2, first jj-colocated kotodama round
+
+- **Trigger:** hyaku phase 2 round 50; claims C (coverage), O (operability), Ca (calibration)
+  declared in `reports/round-50/claims.json` (baseline `4ad2683`). Freshness stays paused (L0
+  round-11). Coordinator ChousaR27R2 (reused idle agent; Main spawn job-capped) ran the
+  73-seat build wave and landed `1c779e4`; it died with the host session (SIGHUP 13:10:51 -03)
+  while retrying the validated 66-seat falsify wave. Replacement L1 KotodamaR50-2 dispatched
+  that payload unchanged at 13:32:27 (`.ufo/waves/round-50/falsify-attempts.json`).
+- **C (verified + landed):** `corpus/knowledge/culture-material/pastoralism-animal-husbandry.md`;
+  225 → 226 entries, culture-material 27 → 28, sweep rows 226 files 226, topic_mismatch 0.
+  Falsify seats re-opened all 22 rows (S048–S069) and reviewed every section; scope transfers,
+  uncited cells, wrong anchors and miscoded calibrations were repaired in `c8865c7`.
+- **O (verified + landed):** probe v3 false negatives 3/3 → 0/3, false positives 0/4;
+  receipt_guard 71/71 controls, check-readme-revisions 15/15. Falsify-driven fixes: symref
+  outside heads/remotes fails closed; `refs/jj/root` HEAD; bounded git discovery; probe R1
+  hardened after v2 accepted fakes (v1/v2/v3 receipts kept).
+- **Ca (partial):** r49 fixture 0/1 → 1/1 detected; selftest 56/56; QUALITY criterion 7. The
+  declared leg "run on `claims.json` exits 0" exits 2; the manifest substitute's 0 is
+  path-spelling dependent (C→REC). Reported unmet.
+- **Frontier:** SOURCES 47 → 70 rows (S048–S069 mined, S070 supersedes S060's pages);
+  census exit 0 before and after. Lesson `corpus/lessons/round-50.md` mines R50-M1…M9.
+- **Evidence:** `reports/round-50/validation.json` (measured `1923bfe`, exit 0; code/input hashes in `reports/round-50/measurement-provenance.json`);
+  `.ufo/waves/round-50/build/`, `.ufo/waves/round-50/falsify/` (66/66 seats reported).
+- **Final entry reconciliation:** `1923bfe` carries the late §2/§5/§10 boundary,
+  lexicon and ritual corrections; the final receipt is measured against that commit.
+  The lesson's final reconciliation retains unresolved commissioning targets and
+  checker/registry limitations rather than declaring every review finding repaired.

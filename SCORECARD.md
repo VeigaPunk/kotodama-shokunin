@@ -977,3 +977,27 @@ inline URL in the entry's `- source:` line); `s_without_c` passed (census clean 
 entry path removed from every `used-by`). Coupling named: 12 S rows list the entry as
 `used-by`; the entry points to `corpus/SOURCES.md` at its shelf and recheck lines.
 Non-author verification of the three verdicts is the orchestrator's (§6.6).
+
+## Axes — round 50 (2026-10-21), NOT ADMITTED as declared: C and O improved, Ca one acceptance leg unmet (hyaku phase 2, first jj-colocated kotodama round)
+
+Baseline `4ad2683`. Build wave landed at `1c779e4`; post-falsify fixes landed at
+**`c8865c7`**, with final entry-only corrections at **`1923bfe`** (measured commit).
+Receipt: `python3 -B reports/round-50/run-validation.py --tree <clone of 1923bfe> --base-tree <clone of 4ad2683>` → `acceptance_passed: true`, exit 0
+(`reports/round-50/validation.json`). The runner's own acceptance passes for all three
+claims, but Ca's declared leg "run on `reports/round-50/claims.json` exits 0" exits **2**
+(`SEPARABILITY_INPUT_ERROR manifest is missing base, schema`); the runner measured the
+substitute `separability/r50-manifest.json`, whose 0 findings depend on path spelling
+(lesson R50-M6). The frozen claim is reported unmet, not redefined. Waves: build 73 seats
+(ChousaR27R2), falsify 66 seats (validated payload dispatched unchanged by the replacement
+L1 after the host crash); round total 139.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C) | pastoralism/husbandry register unowned (0 filename owners, 0 word-bounded topic owners) → `culture-material/pastoralism-animal-husbandry.md` (204 lines, 1 H1, 0 H3, one `- topic:`, 22 opened rows S048–S069 cited); total 225 → 226, culture-material 27 → 28; sweep rows 226 files 226, topic_mismatch 0; falsify-wave calibration/anchor repairs landed in `c8865c7` | `find corpus/knowledge -name '*.md' \| wc -l`; `ls corpus/knowledge/culture-material/*.md \| wc -l`; `python3 -B reports/round-28/readme/sweep.py` | `validation.json` claims.C; `.ufo/waves/round-50/falsify/Review*`, `Reopen*` |
+| operability | improved (claim O) | jj-colocation probe (v3: landed sha must equal the origin/main tip and the guard must refuse) false negatives 3/3 on base tools → 0/3 on `c8865c7` tools; false positives 0/4 both; receipt_guard selftest 45 → 71 controls (71/71), check-readme-revisions 11 → 15 (15/15); post-falsify: symref-outside-namespace fails closed, jj `refs/jj/root` HEAD handled, readme-revisions discovery bounded | `python3 -B reports/round-50/jj-colocation-probe.py --tools-root <tree>`; `python3 -B tools/harness/receipt_guard.py --selftest`; `python3 -B tools/check-readme-revisions.py --selftest` | `reports/round-50/telemetry/jj-probe-v1.txt`, `-v2.txt`, `-v3.txt`; `validation.json` claims.O |
+| calibration | not verified as declared (claim Ca) | round-49 inseparable pair detected 0/1 → 1/1 (`check-claim-separability.py` on `r49-fixture.json` exits 1 naming C→S; selftest 56/56; QUALITY criterion 7 grounded in the r49 spot-check) — **but** the declared self-application leg on `claims.json` exits 2, and the substitute manifest's 0 hides a real C→REC (Gate-in-lesson) coupling | `python3 -B tools/check-claim-separability.py reports/round-50/separability/r49-fixture.json`; `... reports/round-50/claims.json` | `validation.json` claims.Ca; falsify CriticR50Manifest, ReviewSepTool, ScoutCaCount, ReviewCriterion7 |
+| depth / adjacency / freshness | unchanged | not claimed; freshness pause (L0 round-11) in force; no axis harmed — lessons-index audit 3 findings at base → 0 after revision 5 | `python3 -B reports/round-25/audit/c31-lessons-index-audit.py` | `corpus/lessons/README.md` revision 5 |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 47 → 70 rows (A 34 → 51, B 6 → 12, C 7);
+census `scripts/sources-census.sh validate kotodama` exit 0 at start and end. Non-author
+verification of these verdicts is the hyaku closure's.
