@@ -78,6 +78,10 @@ def _head_state(root):
     symbolic = _git(root, "symbolic-ref", "--quiet", "HEAD")
     if symbolic.returncode == 0:
         branch = os.fsdecode(symbolic.stdout).strip()
+        if branch == "refs/jj/root":
+            # jj's virtual root working copy (`jj new 'root()'`): no commit, no branch;
+            # the receipt is then committed only if a probed ref holds it.
+            return None, None
         if not branch.startswith("refs/heads/") or branch == "refs/heads/":
             raise ReceiptGuardError("RECEIPT-GUARD-GIT", "cannot determine committed status: "
                                     f"HEAD names {branch!r}, not a local branch")
@@ -96,7 +100,9 @@ def _head_state(root):
 def _enumerate_refs(root):
     """Return sorted (name, commit) pairs for direct refs/heads/* and refs/remotes/*, and every listed name.
 
-    Symbolic refs are skipped because they duplicate their targets. Anything git
+    Symbolic refs whose target is itself under refs/heads/* or refs/remotes/* are
+    skipped because they duplicate their targets; a symbolic ref pointing anywhere
+    else fails closed, since its tip would otherwise go unprobed. Anything git
     cannot resolve to a commit fails closed: a warning, a non-zero exit, a
     non-commit type, or a name that is not UTF-8.
     """
@@ -121,7 +127,12 @@ def _enumerate_refs(root):
                                     f"ref name is not UTF-8: {name!r}") from None
         listed.add(text)
         if symref:
-            continue
+            if symref.startswith((b"refs/heads/", b"refs/remotes/")):
+                continue
+            raise ReceiptGuardError("RECEIPT-GUARD-GIT", "cannot determine committed status: "
+                                    f"{text} is a symbolic ref to "
+                                    f"{symref.decode('utf-8', 'replace')}, outside "
+                                    "refs/heads and refs/remotes")
         if not OID_RE.fullmatch(commit) or kind != b"commit":
             kind_text = kind.decode("ascii", "replace") or "missing"
             raise ReceiptGuardError("RECEIPT-GUARD-GIT", "cannot determine committed status: "
@@ -467,6 +478,22 @@ def _landing_controls(work, controls, env, script):
     _write_ref(root, "refs/remotes/origin/HEAD", "ref: refs/remotes/origin/nope")
     _write_ref(root, "refs/remotes/origin/main", o["c1"])
     control("r50-dangling-origin-head", root, receipt, 0, must_not=("RECEIPT-GUARD",))
+
+    root, receipt, o = _landing_fixture(work, "r50-symref-outside-namespace")
+    _set_head(root, o["c1"])
+    _write_ref(root, "refs/tags/v1", o["c2"])
+    _write_ref(root, "refs/remotes/origin/main", "ref: refs/tags/v1")
+    control("r50-symref-outside-namespace", root, receipt, 3,
+            must=("RECEIPT-GUARD-GIT", "refs/tags/v1"),
+            must_not=("RECEIPT-GUARD-COMMITTED",))
+
+    root, receipt, o = _landing_fixture(work, "r50-jj-root-head")
+    _set_head(root, "ref: refs/jj/root")
+    _write_ref(root, "refs/heads/main", o["c2"])
+    _write_ref(root, "refs/remotes/origin/main", o["c2"])
+    control("r50-jj-root-head", root, receipt, 3, must=(
+        "RECEIPT-GUARD-COMMITTED", "committed_sha=none",
+        "landed_ref=refs/remotes/origin/main", f"landed_sha={o['c2']}"))
 
     root, receipt, o = _landing_fixture(work, "r50-refresh-landed")
     _set_head(root, o["c1"])

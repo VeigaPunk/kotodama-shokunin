@@ -66,7 +66,9 @@ HEAD_FIELDS = ["- topic:", "- gap filled:", "- sources:", "- couples:",
                "- source:", "- verified-at:", "- recheck:", "- scope:"]
 ROW_RE = re.compile(r"^\|\s*S\d{3,}\s*\|")
 CITED_RE = re.compile(r"\bS\d{3}\b")
-TOPIC_OWNER_RE = re.compile(r"^- topic:.*(pastoral|herd|husbandr|transhuman|livestock)",
+# Word-bounded (R50-M2): the declared substring command also matched "sherd" at
+# culture-material/writing-media-surface-economy.md:3, a non-owner.
+TOPIC_OWNER_RE = re.compile(r"^- topic:.*\b(pastoral|herd|husbandr|transhuman|livestock)",
                             re.IGNORECASE)
 FINDING_RE = re.compile(r"SEPARABILITY_DEPENDENCY\s+(\S+?)->(\S+)\s+via")
 FALSE_NEG_RES = (
@@ -209,7 +211,7 @@ def find_count(root, rel, glob, ignore_case=False):
 
 
 def topic_owner_lines(root):
-    """grep -rniE '^- topic:.*(pastoral|herd|husbandr|transhuman|livestock)' corpus/knowledge."""
+    """grep -rniP '^- topic:.*\\b(pastoral|herd|husbandr|transhuman|livestock)' corpus/knowledge."""
     base = root / KNOWLEDGE
     if not base.is_dir():
         return None

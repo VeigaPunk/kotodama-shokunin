@@ -5,7 +5,7 @@ what each source teaches, how far to trust it for which scope, and when to
 look again. Shape and rules: fleet contract `SOURCES-CONTRACT-v1`
 (kaika, 2026-10-19). Claim admission stays in `QUALITY.md`; the research
 method stays chousa's. Every row was opened in the round that wrote it —
-the round lesson's `## Gate` (`lessons/round-49.md` for S001–S047, `lessons/round-50.md` for S048–S069) holds
+the round lesson's `## Gate` (`lessons/round-49.md` for S001–S047, `lessons/round-50.md` for S048–S070) holds
 each row's URL, access date and verbatim quote. Append-only: only
 `status`, `recheck` and `used-by` change in place, each change logged
 old→new in a round lesson; a correction is a new row whose `teaches`
@@ -96,6 +96,7 @@ Census (from the lane root): the seven commands in the contract's
 | S067 | Librado et al. 2021, The origins and spread of domestic horses from the Western Eurasian steppes, Nature 598:634–640 — https://www.nature.com/articles/s41586-021-04018-9 | paper | A | origins of modern domestic horses (DOM2) and the riding/Yamnaya question as stated in the abstract | Abstract | modern domestic horses do not descend from the Botai lineage; DOM2 spreads from the lower Volga-Don from about 2000 BC | mined | 2026-10-21 | 365d | corpus/knowledge/culture-material/pastoralism-animal-husbandry.md |
 | S068 | Yacobaccio 2021, The domestication of South American camelids: a review, Animal Frontiers 11(3):43–51, doi 10.1093/af/vfaa065 — https://doi.org/10.1093/af/vfaa065 (full text PMC8214430) | paper | A | the author's own synthesis of South-Andean camelid domestication evidence; reported site details are B | Introduction ¶1 | camelids are the only domesticated ungulates of the Americas; the Andes sustained the only pre-Hispanic pastoral societies | mined | 2026-10-21 | 365d | corpus/knowledge/culture-material/pastoralism-animal-husbandry.md |
 | S069 | UNESCO ICH, decision 14.COM 10.b.2 inscribing Transhumance, the seasonal droving of livestock (Austria, Greece, Italy, 2019; extended 2023 as element 01964) — https://ich.unesco.org/en/decisions/14.COM/10.B.2 | docs | A | the Committee's own inscription decision and element description; Representative List record, not a survey of transhumant practice | decision text, sentence 4; element page https://ich.unesco.org/en/RL/transhumance-the-seasonal-droving-of-livestock-01964 sentence 1 | transhumance is the seasonal movement of people with their livestock between regions; horizontal (plain or plateau) and vertical (mountain) types | mined | 2026-10-21 | 365d | corpus/knowledge/culture-material/pastoralism-animal-husbandry.md |
+| S070 | Crossref REST metadata record for Ahearn 2018, Natural Hazards 92(Suppl 1), doi 10.1007/s11069-017-3128-4 — https://api.crossref.org/works/10.1007/s11069-017-3128-4 | docs | A | the publisher-deposited bibliographic metadata of the S060 article (title, journal, volume, issue, pages, DOI); not the article's content | `message.page`, `message.volume`, `message.issue` | supersedes S060 — the article's pages are 165–181 in volume 92 issue S1, not 95–107; and S060's quoted aggregate supports "five snouts" as a reported herd aggregate, not an attested emic term | queued | 2026-10-21 | 365d | — |
 
 ## Paths
 

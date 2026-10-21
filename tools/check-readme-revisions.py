@@ -245,11 +245,15 @@ def _git_env():
 
 def _git_run(lane, *args):
     """One lane-scoped git probe. GIT_* is scrubbed, so the pin is read from
-    `lane`'s own object store and no inherited GIT_DIR can stand in for it."""
+    `lane`'s own object store and no inherited GIT_DIR can stand in for it;
+    GIT_CEILING_DIRECTORIES stops discovery at the lane's parent, so a git-free
+    lane nested in another repository cannot borrow that repository's objects."""
+    env = _git_env()
+    env["GIT_CEILING_DIRECTORIES"] = os.path.dirname(os.path.abspath(str(lane)))
     return subprocess.run(
         ["git", "-C", str(lane), *args],
         capture_output=True,
-        env=_git_env(),
+        env=env,
         timeout=30,
     )
 

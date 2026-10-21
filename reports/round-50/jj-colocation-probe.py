@@ -7,9 +7,11 @@ GIT_CEILING_DIRECTORIES=/tmp stops repository discovery at the sandbox, so a
 tree under the lane cannot borrow the lane's repository. jj is never invoked.
 
 Defect states (flagged = false negative: the risk is present):
-  R1 cited-sha-not-landed  receipt committed on main and origin/main, HEAD a
-     local-only commit above the tip. Flagged when receipt_guard presents a sha
-     as committed or landed that is not an ancestor of refs/remotes/origin/main.
+  R1 cited-sha-not-landed  receipt committed on main and origin/main above a
+     receipt-free base commit, HEAD two local-only commits above the tip.
+     Flagged (v3) when receipt_guard exits 0, presents no landed-labelled sha,
+     or presents a landed-labelled sha that is not exactly the
+     refs/remotes/origin/main tip.
   R2 overwrite-allowed     receipt committed on main and origin/main, HEAD
      detached one commit below the tip. Flagged when receipt_guard exits 0.
   R3 skip-pass             repository without the pinned BASE_COMMIT object.
@@ -226,11 +228,14 @@ def _row(case, name, kind, result, flagged, detail, evidence=None, **fields):
 
 def case_r1(box, tools_root):
     repo = box.init("r1-cited-local")
+    write(repo, "base.txt", "base\n")
+    box.commit(repo, "C-1: receipt-free base")
     write(repo, RECEIPT, "R1 receipt\n")
     box.commit(repo, "C0: receipt committed on main")
     box.git(repo, "update-ref", "refs/remotes/origin/main", box.rev(repo, "refs/heads/main"))
     box.git(repo, "checkout", "-q", "--detach")
     box.commit(repo, "C1: local-only working-copy commit", empty=True)
+    box.commit(repo, "C2: second local-only commit", empty=True)
     local = box.rev(repo, "HEAD")
     if (local == box.rev(repo, "refs/remotes/origin/main")
             or not box.has(repo, f"refs/remotes/origin/main:{RECEIPT}")):
@@ -244,22 +249,29 @@ def case_r1(box, tools_root):
     # refs/remotes/origin/main. v1 also flagged the committed_sha=<HEAD> field that the
     # guard's design contract (reports/round-14/guard/design.md) keeps; that stricter view
     # is still reported in `committed_local_only`, informational, outside the count.
+    # v3 (round-50 replacement L1, after falsify seats CriticProbeV2 / CriticMeasurementAll /
+    # ScoutOCount showed v2 accepted fakes such as landed_sha=<HEAD^> or <root commit>, and
+    # never asserted the refusal): a landed-labelled sha must equal the origin/main tip
+    # exactly, and the guard must refuse. The fixture gains a receipt-free base below the
+    # tip and a second local commit above it, so neither the root nor HEAD^ is the tip.
+    tip = box.rev(repo, "refs/remotes/origin/main")
     landed = [(label, sha) for label, sha in cited if "landed" in label]
-    stray = [(label, sha) for label, sha in landed
-             if not box.is_ancestor(repo, sha, "refs/remotes/origin/main")]
+    stray = [(label, sha) for label, sha in landed if sha != tip]
     committed_local = [f"{label}={sha}" for label, sha in cited if "landed" not in label
                        and not box.is_ancestor(repo, sha, "refs/remotes/origin/main")]
-    flagged = bool(stray) or not landed
+    flagged = bool(stray) or not landed or result.returncode == 0
     if stray:
         names = ", ".join(f"{label}={sha}" for label, sha in stray)
-        detail = (f"guard presents {names} as landed, but it is not an ancestor of "
-                  f"refs/remotes/origin/main; the local-only HEAD is {local}")
+        detail = (f"guard presents {names} as landed, but it is not the "
+                  f"refs/remotes/origin/main tip {tip}; the local-only HEAD is {local}")
     elif not landed:
         detail = (f"guard reports no landed sha distinct from the local HEAD {local} "
                   f"(presented: {', '.join(f'{l}={s}' for l, s in cited) or 'none'}; "
                   f"exit {result.returncode})")
+    elif result.returncode == 0:
+        detail = "guard reports the landed tip but permits the overwrite (exit 0)"
     else:
-        detail = "every landed-labelled sha is an ancestor of refs/remotes/origin/main"
+        detail = "every landed-labelled sha is the refs/remotes/origin/main tip; guard refuses"
     return _row("R1", "cited-sha-not-landed", "defect", result, flagged, detail,
                 presented=[f"{label}={sha}" for label, sha in cited], local_head=local,
                 committed_local_only=committed_local)
