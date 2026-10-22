@@ -1,0 +1,56 @@
+# round-56 declaration dry run (pre-dispatch) 2026-10-22T21:17:39Z
+# measured-revision b4b7db91a38447bb2c07b0ef436fc9654dcec89c (sandbox clone /fast/scratch/hyaku/kotodama-r56-measure-b4b7db91-a1fg85u6)
+$ python3 -B reports/round-56/accept-c.py
+SET FAIL count=231 required=232 added=[] removed=[]
+SWEEP FAIL exit=0 rows 231 files 231 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+/fast/scratch/hyaku/kotodama-r56-measure-b4b7db91-a1fg85u6/reports/round-56/accept-c.py:18: SyntaxWarning: "\|" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\|"? A raw string is also an option.
+  row (a row is any line matching `^\|\s*(S\d{3,})\s*\|`, the access checker's grammar) (a cited id with no row or with two or more rows fails); the entry carries no
+exit 1
+# role: C counting; expected pre-landing: exit 1: SET FAIL (count=231 added=[] removed=[]), SWEEP FAIL (exit 0 but rows 231 files 231), FLOOR FAIL (cited=0); RANGE, STATUS, USEDBY PASS vacuously; ACCESS PASS
+$ python3 -B reports/round-56/accept-c.py
+SET FAIL count=231 required=232 added=[] removed=[]
+SWEEP FAIL exit=0 rows 231 files 231 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+/fast/scratch/hyaku/kotodama-r56-measure-b4b7db91-a1fg85u6/reports/round-56/accept-c.py:18: SyntaxWarning: "\|" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\|"? A raw string is also an option.
+  row (a row is any line matching `^\|\s*(S\d{3,})\s*\|`, the access checker's grammar) (a cited id with no row or with two or more rows fails); the entry carries no
+exit 1
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at all seven legs PASS (exit 0): count 232, added [corpus/knowledge/civilizations/kongo-kingdom.md], removed [], rows 232 files 232, missing_from_index 0, cited >= 20, no bad S-id
+$ python3 -B reports/round-56/accept-o.py
+ENTITY FAIL count=0 missing=[('corpus/lessons/round-55.md', 72, 'S288', 'html-entity'), ('corpus/lessons/round-55.md', 82, 'S298', 'html-entity'), ('corpus/lessons/round-55.md', 88, 'S304', 'html-entity'), ('corpus/lessons/round-55.md', 89, 'S305', 'html-entity'), ('corpus/lessons/round-55.md', 93, 'S309', 'html-entity'), ('corpus/lessons/round-55.md', 96, 'S312', 'html-entity'), ('corpus/lessons/round-55.md', 110, 'S326', 'html-entity'), ('corpus/lessons/round-55.md', 113, 'S329', 'html-entity'), ('corpus/lessons/round-55.md', 125, 'S341', 'html-entity'), ('corpus/lessons/round-55.md', 127, 'S343', 'html-entity'), ('corpus/lessons/round-55.md', 131, 'S347', 'html-entity'), ('corpus/lessons/round-55.md', 132, 'S348', 'html-entity'), ('corpus/lessons/round-55.md', 134, 'S350', 'html-entity'), ('corpus/lessons/round-55.md', 138, 'S354', 'html-entity'), ('corpus/lessons/round-55.md', 140, 'S356', 'html-entity'), ('corpus/lessons/round-55.md', 141, 'S357', 'html-entity')] extra=[]
+NOFALSE PASS stray=[]
+EXIT FAIL round55=0 fixture=0
+DECODE FAIL missing=[('reports/round-56/fixtures/lessons/entities.md', 8, 'S951', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 8, 'S951', 'truncated-grounds'), ('reports/round-56/fixtures/lessons/entities.md', 9, 'S952', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 11, 'S954', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 12, 'S955', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 12, 'S955', 'words=26'), ('reports/round-56/fixtures/lessons/entities.md', 14, 'S958', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 15, 'S959', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 16, 'S960', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 16, 'S960', 'words=5')] extra=[] moved_exit=0 moved_missing=10 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 FAIL exit=1 stderr_first='Traceback (most recent call last):' traceback=True
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+exit 1
+# role: O counting; expected pre-landing: exit 1: ENTITY FAIL (count=0), EXIT FAIL (round55=0 fixture=0), DECODE FAIL (missing all ten; moved_exit=0), BADUTF8 FAIL (exit=1, Traceback); NOFALSE, KEEP, FORMAT, SELFTEST PASS
+$ python3 -B reports/round-56/accept-o.py
+ENTITY FAIL count=0 missing=[('corpus/lessons/round-55.md', 72, 'S288', 'html-entity'), ('corpus/lessons/round-55.md', 82, 'S298', 'html-entity'), ('corpus/lessons/round-55.md', 88, 'S304', 'html-entity'), ('corpus/lessons/round-55.md', 89, 'S305', 'html-entity'), ('corpus/lessons/round-55.md', 93, 'S309', 'html-entity'), ('corpus/lessons/round-55.md', 96, 'S312', 'html-entity'), ('corpus/lessons/round-55.md', 110, 'S326', 'html-entity'), ('corpus/lessons/round-55.md', 113, 'S329', 'html-entity'), ('corpus/lessons/round-55.md', 125, 'S341', 'html-entity'), ('corpus/lessons/round-55.md', 127, 'S343', 'html-entity'), ('corpus/lessons/round-55.md', 131, 'S347', 'html-entity'), ('corpus/lessons/round-55.md', 132, 'S348', 'html-entity'), ('corpus/lessons/round-55.md', 134, 'S350', 'html-entity'), ('corpus/lessons/round-55.md', 138, 'S354', 'html-entity'), ('corpus/lessons/round-55.md', 140, 'S356', 'html-entity'), ('corpus/lessons/round-55.md', 141, 'S357', 'html-entity')] extra=[]
+NOFALSE PASS stray=[]
+EXIT FAIL round55=0 fixture=0
+DECODE FAIL missing=[('reports/round-56/fixtures/lessons/entities.md', 8, 'S951', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 8, 'S951', 'truncated-grounds'), ('reports/round-56/fixtures/lessons/entities.md', 9, 'S952', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 11, 'S954', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 12, 'S955', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 12, 'S955', 'words=26'), ('reports/round-56/fixtures/lessons/entities.md', 14, 'S958', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 15, 'S959', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 16, 'S960', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 16, 'S960', 'words=5')] extra=[] moved_exit=0 moved_missing=10 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 FAIL exit=1 stderr_first='Traceback (most recent call last):' traceback=True
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+exit 1
+# role: O acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at all eight legs PASS (exit 0)
+$ python3 -B tools/check-claim-separability.py reports/round-56/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/civilizations/kongo-kingdom.md', which is absent from the worktree under '/fast/scratch/hyaku/kotodama-r56-measure-b4b7db91-a1fg85u6'
+exit 2
+# role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land; checker stops at its first absent land, so later legs are unevaluated
+$ python3 -B reports/round-56/claims-agree.py
+AGREE claims=['C', 'O']
+exit 0
+# role: agreement; expected pre-landing: AGREE, exit 0

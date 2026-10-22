@@ -1,0 +1,252 @@
+measured-revision b4b7db91a38447bb2c07b0ef436fc9654dcec89c (git archive into a mktemp directory)
+sha256 493e7d2586ab37af124188fcdb477202c9d25c8d8f69244073f9253c56bd0a97  reports/round-56/accept-o.py
+sha256 607acba7e6498724d2a35de2339f4a5fca259faf97c310d5d07d8a423d9de899  tools/check-gate-quotes.py
+sha256 803fff4e8c064d42ebdd3cc57b5e195047ca51176b1b57f798e88a09dfd1c876  reports/round-56/fixtures/lessons/entities.md
+sha256 0a82a6ab4a62d9dce960f3e1a983ab62c3544d81088c0be396038aa148680f8a  reports/round-56/fixtures/SOURCES.md
+sha256 230dbacd02064acff38850020d6022ac6af89c0a2d4139cd3bf65228e3611a58  reports/round-56/fixtures/lessons/bad-utf8.md
+sha256 fa289d07750e97f3cb9bbe4fa4b7ca87a9abfd54fc892d7dfa750abdd76290a7  reports/round-56/base-gate-keep.txt
+sha256 1bbf70814548295c6e6bd2d916ea15a4b27d43a91a4af40e19062fee65fbc8ff  corpus/lessons/round-55.md
+sha256 d5f6196af14498ef7f352570cdf93d0368b2f0dc35520adc013c622bd855c43d  reports/round-56/criterion11-controls-o.py
+argv (run from each copy's root): python3 -B reports/round-56/accept-o.py
+
+## BASE (all-false where the claim adds behaviour; not a control): exit 1
+ENTITY FAIL count=0 missing=[('corpus/lessons/round-55.md', 72, 'S288', 'html-entity'), ('corpus/lessons/round-55.md', 82, 'S298', 'html-entity'), ('corpus/lessons/round-55.md', 88, 'S304', 'html-entity'), ('corpus/lessons/round-55.md', 89, 'S305', 'html-entity'), ('corpus/lessons/round-55.md', 93, 'S309', 'html-entity'), ('corpus/lessons/round-55.md', 96, 'S312', 'html-entity'), ('corpus/lessons/round-55.md', 110, 'S326', 'html-entity'), ('corpus/lessons/round-55.md', 113, 'S329', 'html-entity'), ('corpus/lessons/round-55.md', 125, 'S341', 'html-entity'), ('corpus/lessons/round-55.md', 127, 'S343', 'html-entity'), ('corpus/lessons/round-55.md', 131, 'S347', 'html-entity'), ('corpus/lessons/round-55.md', 132, 'S348', 'html-entity'), ('corpus/lessons/round-55.md', 134, 'S350', 'html-entity'), ('corpus/lessons/round-55.md', 138, 'S354', 'html-entity'), ('corpus/lessons/round-55.md', 140, 'S356', 'html-entity'), ('corpus/lessons/round-55.md', 141, 'S357', 'html-entity')] extra=[]
+NOFALSE PASS stray=[]
+EXIT FAIL round55=0 fixture=0
+DECODE FAIL missing=[('reports/round-56/fixtures/lessons/entities.md', 8, 'S951', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 8, 'S951', 'truncated-grounds'), ('reports/round-56/fixtures/lessons/entities.md', 9, 'S952', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 11, 'S954', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 12, 'S955', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 12, 'S955', 'words=26'), ('reports/round-56/fixtures/lessons/entities.md', 14, 'S958', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 15, 'S959', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 16, 'S960', 'html-entity'), ('reports/round-56/fixtures/lessons/entities.md', 16, 'S960', 'words=5')] extra=[] moved_exit=0 moved_missing=10 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 FAIL exit=1 stderr_first='Traceback (most recent call last):' traceback=True
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## GREEN: exit 0 (expected 0); failing legs []; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-ENTITY: exit 1 (expected 1); failing legs ['ENTITY']; AS EXPECTED
+ENTITY FAIL count=15 missing=[('corpus/lessons/round-55.md', 141, 'S357', 'html-entity')] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-ENTITY-LINE: exit 1 (expected 1); failing legs ['ENTITY']; AS EXPECTED
+ENTITY FAIL count=16 missing=[('corpus/lessons/round-55.md', 72, 'S288', 'html-entity')] extra=[('corpus/lessons/round-55.md', 73, 'S288', 'html-entity')]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-ENTITY-EXTRA: exit 1 (expected 1); failing legs ['ENTITY']; AS EXPECTED
+ENTITY FAIL count=17 missing=[] extra=[('corpus/lessons/round-55.md', 73, 'S289', 'html-entity')]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-NOFALSE: exit 1 (expected 1); failing legs ['NOFALSE']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE FAIL stray=[('corpus/lessons/round-55.md', 73, 'S289', 'words=26')]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-EXIT: exit 1 (expected 1); failing legs ['EXIT']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT FAIL round55=0 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-EXIT-FIX: exit 1 (expected 1); failing legs ['EXIT']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT FAIL round55=1 fixture=0
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-DECODE: exit 1 (expected 1); failing legs ['DECODE']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE FAIL missing=[('reports/round-56/fixtures/lessons/entities.md', 8, 'S951', 'truncated-grounds')] extra=[] moved_exit=1 moved_missing=1 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-DECODE-ESC: exit 1 (expected 1); failing legs ['DECODE']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE FAIL missing=[('reports/round-56/fixtures/lessons/entities.md', 12, 'S955', 'words=26')] extra=[] moved_exit=1 moved_missing=1 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-DECODE-FP: exit 1 (expected 1); failing legs ['DECODE']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE FAIL missing=[] extra=[('reports/round-56/fixtures/lessons/entities.md', 10, 'S953', 'html-entity')] moved_exit=1 moved_missing=0 moved_extra=1
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-ENTITY-DOUBLE: exit 1 (expected 1); failing legs ['ENTITY']; AS EXPECTED
+ENTITY FAIL count=17 missing=[] extra=[('corpus/lessons/round-55.md', 72, 'S288', 'html-entity')]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-DECODE-MOVED: exit 1 (expected 1); failing legs ['DECODE']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE FAIL missing=[] extra=[] moved_exit=0 moved_missing=10 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-DECODE-HEX: exit 1 (expected 1); failing legs ['DECODE']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE FAIL missing=[('reports/round-56/fixtures/lessons/entities.md', 14, 'S958', 'html-entity')] extra=[] moved_exit=1 moved_missing=1 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-DECODE-ELLIPSIS: exit 1 (expected 1); failing legs ['DECODE']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE FAIL missing=[('reports/round-56/fixtures/lessons/entities.md', 16, 'S960', 'words=5')] extra=[] moved_exit=1 moved_missing=1 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-KEEP: exit 1 (expected 1); failing legs ['KEEP']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP FAIL changed=['corpus/lessons/round-53.md']
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-KEEP-EXIT: exit 1 (expected 1); failing legs ['KEEP']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP FAIL changed=['corpus/lessons/round-52.md']
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-BADUTF8: exit 1 (expected 1); failing legs ['BADUTF8']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 FAIL exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=True
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-BADUTF8-EXIT: exit 1 (expected 1); failing legs ['BADUTF8']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 FAIL exit=1 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-BADUTF8-PATH: exit 1 (expected 1); failing legs ['BADUTF8']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 FAIL exit=2 stderr_first='GATE_QUOTES_ERROR: lesson: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-FORMAT-COUNT: exit 1 (expected 1); failing legs ['FORMAT']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT FAIL malformed_runs=['round55']
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-FORMAT: exit 1 (expected 1); failing legs ['FORMAT']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT FAIL malformed_runs=['round55']
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-FORMAT-CRASH: exit 1 (expected 1); failing legs ['FORMAT']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT FAIL malformed_runs=['fixture']
+SELFTEST PASS exit=0 SELFTEST: 27/27 pass
+
+## RED-SELFTEST: exit 1 (expected 1); failing legs ['SELFTEST']; AS EXPECTED
+ENTITY PASS count=16 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round55=1 fixture=1
+DECODE PASS missing=[] extra=[] moved_exit=1 moved_missing=0 moved_extra=0
+KEEP PASS changed=[]
+BADUTF8 PASS exit=2 stderr_first='GATE_QUOTES_ERROR: reports/round-56/fixtures/lessons/bad-utf8.md: not valid UTF-8' traceback=False
+FORMAT PASS malformed_runs=[]
+SELFTEST FAIL exit=1 SELFTEST stand-in FAIL
+
+CONTROLS 23/23 as expected
