@@ -1,0 +1,63 @@
+{
+ "round": 54,
+ "attempt": 1,
+ "campaign": "hyaku phase 3, 2026-10-22 (in-session L1 lane subagent KotodamaR54)",
+ "declared_at": "2026-10-22T17:20Z",
+ "base": "4b2299b1b7c7cb15758958da856fb60e09702831",
+ "base_note": "4b2299b commits the claim instruments (reports/round-54/accept-c.py, base-knowledge-files.txt, criterion11-controls.py, telemetry/census-start.txt) on top of the round-54 prerequisite d761ee8, which sits on the round-53 tip e0bfb13. The prerequisite applies the round-53 closure's routed fixes (gesture entry lines 68, 133, 150 and 199; speech-surrogates line 75 re-cited from S145 to S185, S185 queued -> mined, S145 mined -> rejected as superseded; S225 access note; corpus/lessons/README.md row for round-53-verifier-spotcheck.md). Neither commit is a claim; claim C measures from 4b2299b.",
+ "single_claim_note": "One claim. The drift sentinel (claim sizing three rounds running, round-53 closure routed defect 1) requires a different frontier area: C works culture-material (costume and ritual object) ground, where rounds 51 to 53 worked linguistics. A second claim was not declared: the cheap independent candidates either repeat the depth-repair surface on linguistics entries (the routed fixes are landed as the unclaimed prerequisite instead) or depend on C's lands, which QUALITY criterion 7 forbids.",
+ "separability_manifest": "reports/round-54/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-54/separability-manifest.json",
+ "agreement_command": "python3 -B reports/round-54/claims-agree.py",
+ "lowest_axis_note": "No calibrated numeric axis scores exist (SCORECARD preamble); freshness is historically lowest and stays paused by the open round-11 L0 question. C works coverage on ground with 0 filename owners.",
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "kind": "measured; learning claim (admitted knowledge on uncovered ground) and the round's sourced claim",
+   "statement": "Knowledge files go from 229 to 230: the one file added under corpus/knowledge is corpus/knowledge/culture-material/masks-masquerade.md and no file is removed. reports/round-54/accept-c.py exits 0, with its seven legs passing: SET (the corpus/knowledge *.md set is the 229 paths in reports/round-54/base-knowledge-files.txt plus the entry), SWEEP (python3 -B reports/round-28/readme/sweep.py run on its own exits 0 and prints rows 230 files 230 and missing_from_index 0), FLOOR (the entry cites at least 20 distinct S-ids), RANGE (every cited S-id is S239 or above and is a corpus/SOURCES.md row), STATUS (every cited row is mined), USEDBY (every cited row names the entry in its used-by cell) and ACCESS (python3 -B tools/check-source-access.py exits 0).",
+   "clauses": [
+    {"id": "C-count", "words": "Knowledge files go from 229 to 230", "kind": "mechanical", "leg": "SET", "red_control": "RED-SET is the nearest near-miss for the count and the set together: a second new file added and a base file removed keeps the count at 230 and fails SET"},
+    {"id": "C-one-new-file", "words": "the one file added under corpus/knowledge is corpus/knowledge/culture-material/masks-masquerade.md and no file is removed", "kind": "mechanical", "leg": "SET", "red_control": "RED-SET"},
+    {"id": "C-index", "words": "SWEEP ... rows 230 files 230 and missing_from_index 0", "kind": "mechanical", "leg": "SWEEP", "red_control": "RED-SWEEP (index row names masks-masquerades.md)"},
+    {"id": "C-floor", "words": "the entry cites at least 20 distinct S-ids", "kind": "mechanical", "leg": "FLOOR", "red_control": "RED-FLOOR (19 cited)"},
+    {"id": "C-range", "words": "every cited S-id is S239 or above and is a corpus/SOURCES.md row", "kind": "mechanical", "leg": "RANGE", "red_control": "RED-RANGE (S238 cited in place of S258, still 20 cited)"},
+    {"id": "C-status", "words": "every cited row is mined", "kind": "mechanical", "leg": "STATUS", "red_control": "RED-STATUS (S258 queued)"},
+    {"id": "C-usedby", "words": "every cited row names the entry in its used-by cell", "kind": "mechanical", "leg": "USEDBY", "red_control": "RED-USEDBY (S258 used-by names ritual-garments.md)"},
+    {"id": "C-access", "words": "python3 -B tools/check-source-access.py exits 0", "kind": "mechanical", "leg": "ACCESS", "red_control": "RED-ACCESS (S258 anchor records a headless browser)"}
+   ],
+   "review_only": [
+    "the topic: masks and masquerade as worn object, embodied presence and licensed voice (ritual, funerary, theatrical and festival masking, masquerade societies and their access rules) as a worldbuilding method; no command checks a topic, and the README sweep's topic-equality leg only checks that the index row and the entry agree",
+    "each factual sentence of the entry is carried by the page of the row it cites, at the strength stated",
+    "every cited row was opened this round by ordinary means (the ACCESS leg reads only the marker words a row records)",
+    "the entry points to partial owners one-way rather than restating their registers",
+    "the gap: 0 filename owners and 1 civilization-specific topic-line owner at base (below); whether the ground is uncovered in substance is a review judgment"
+   ],
+   "criterion11_receipt": "reports/round-54/telemetry/criterion11-controls.txt (GREEN exit 0; seven REDs each exit 1 with exactly its own leg failing), built by reports/round-54/criterion11-controls.py on 4b2299b; instrument sha256 listed in the receipt",
+   "gap_evidence_at_base": "find corpus/knowledge -iname '*mask*' -> 0 files; grep -rlE '^- topic:.*(mask|masquerad)' corpus/knowledge -> 1 file, civilizations/siam-thai.md (a single civilization entry); grep -rliE '\\bmask(s|ed|ing)?\\b|masquerade' corpus/knowledge -> 41 files with passing mentions (partial owners include myth-symbol/ritual-liminality.md:117 (mask as a liminal medium), culture-material/funerary-material-culture.md, culture-material/costume-semiotics.md and civilization entries)",
+   "lands": [
+    "corpus/knowledge/culture-material/masks-masquerade.md",
+    "corpus/README.md",
+    "corpus/SOURCES.md"
+   ],
+   "counting_command": "python3 -B reports/round-54/accept-c.py",
+   "before": "SET FAIL count=229, SWEEP FAIL rows 229 files 229, FLOOR FAIL cited=0; RANGE, STATUS and USEDBY PASS vacuously (no S-id cited); ACCESS PASS (exit 1)",
+   "after_required": "all seven legs PASS (exit 0): count 230, added [masks-masquerade.md], removed [], rows 230 files 230, missing_from_index 0, cited >= 20, no bad S-id",
+   "expected_pre_landing_counting": "exit 1: SET FAIL (count=229 added=[] removed=[]), SWEEP FAIL (exit 0 but rows 229 files 229), FLOOR FAIL (cited=0); RANGE, STATUS, USEDBY PASS vacuously; ACCESS PASS",
+   "falsifier": "accept-c.py exiting non-zero after landing; or a non-author review finding that the entry states a claim its cited row's page does not carry (without a (to-verify) mark), that a cited row was opened past an access control, or that the entry restates a partial owner's register instead of pointing to it.",
+   "must_not_cite": [
+    "corpus/lessons/round-54.md"
+   ]
+  }
+ ],
+ "records_not_claims": [
+  "corpus/lessons/round-54.md",
+  "corpus/lessons/README.md",
+  "SCORECARD.md",
+  "LOG.md",
+  "SHONEN.md",
+  "reports/round-54/* other than lands",
+  ".ufo/waves/round-54/*"
+ ],
+ "dry_run_rule": "QUALITY criterion 9: reports/round-54/dry-run.py runs every declared counting, acceptance, separability and agreement command and writes reports/round-54/telemetry/declaration-dry-run.txt; its check mode compares receipt and declarations both ways. QUALITY criterion 11: the clause list above is checked by a non-author critic seat before the build wave dispatches; the controls receipt was built before dispatch."
+}
