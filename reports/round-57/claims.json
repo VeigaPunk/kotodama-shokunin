@@ -3,8 +3,8 @@
  "attempt": 1,
  "campaign": "hyaku phase 4 twelve-hour leg, 2026-10-22 (in-session L1 lane subagent KotodamaR57)",
  "declared_at": "2026-10-22 (UTC), before any wave dispatch and before any seat scored; instruments at the claim base below",
- "base": "6f08c494a175e5845879ba52d5cbb00f2f3ca6d5",
- "base_note": "The claim base is the round-57 instruments commit on the round-56 closure tip 86d08883. Instruments: reports/round-57/accept-c.py, accept-o.py, reopen-quote.py, controls-c.py, controls-o.py, base-gate-keep.txt (base tool output on lessons 49-56, sha256 817b0008...), base-knowledge-files.txt (232 paths), controls/sidcheat-tool.py (byte copy of the round-56 critic's S-id-keyed checker, sha256 e3060c1c...), dry-run.py, claims-agree.py.",
+ "base": "0314aa981071220d206760b5263467faeea05b60",
+ "base_note": "The claim base is the round-57 instruments commit on the round-56 closure tip 86d08883. Instruments: reports/round-57/accept-c.py, accept-o.py, reopen-quote.py, controls-c.py, controls-o.py, base-gate-keep.txt (base tool output on lessons 49-56, sha256 817b0008...), base-knowledge-files.txt (232 paths), controls/sidcheat-tool.py (byte copy of the round-56 critic's S-id-keyed checker, sha256 e3060c1c...), dry-run.py, claims-agree.py. Revised after the two pre-dispatch critics, before any data or seat scored (.ufo/waves/round-57/predispatch/): CriticClauseListO57 met the first accept-o with a seed-replay checker, a `Seat: Gen.`-keyed checker and a function-identity selftest -> random temporary directories, randomised generator text, filler from lesson prose, a REAL leg on injected copies of corpus/lessons/round-56.md, neutral patches in MUTANTS, and the critic's green and single-leg red checkers committed as controls; CriticClauseListC57 met the first LOCATE with echo/search URLs and the quotes \"a\" and \"of the\" -> an 8-word minimum quote, refused search, echo, code-hosting and self-naming URLs, a reflection guard, retries honouring Retry-After, balanced-parenthesis URL trimming, and a FRESH leg (no cited row reuses a URL of a row below S413).",
  "two_claim_note": "Two claims on two axes, each verifiable on the base plus its own lands. C moves frontier ground into core: a myth-symbol reference entry on heraldry, emblems and inherited identity marks, a topic with 0 filename owners at base. O repairs what the round-56 closure ruled (corpus/lessons/round-56-verifier-spotcheck.md §2 Claim O and §5 items 1-2): its acceptance is rebuilt so that no S-id-, fixture-text-, short-list- or file-hash-keyed shortcut can pass, and its target is a checker change the base tool does not meet.",
  "predicate_rule": "Each claim has one frozen predicate, written as the same sentence here, as the same condition in its counter's code (the last stdout line `ACCEPT-<id>-57: PASS|FAIL` and the exit status) and as the same label in every receipt. A miss under that predicate is reported, never amended or re-scaled.",
  "separability_manifest": "reports/round-57/separability-manifest.json",
@@ -18,26 +18,104 @@
    "axis": "coverage",
    "surface": "frontier -> core: one new myth-symbol topic file (heraldry, emblems and inherited identity marks); the command that shows it unmoved: `git ls-tree -r --name-only <rev> corpus/knowledge | grep -ciE 'herald|emblem|kamon|tamga|insign'` stays 0 and accept-c SET fails",
    "kind": "measured; learning claim (admitted knowledge on uncovered ground) and the round's sourced claim",
-   "predicate": "ACCEPT-C-57: python3 -B reports/round-57/accept-c.py exits 0 and prints `ACCEPT-C-57: PASS`, every leg PASS: SET (the files under corpus/knowledge are the 232 base paths plus corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md, count 233), SWEEP (rows 233 files 233, missing_from_index 0), FLOOR (at least 20 distinct cited S-ids), RANGE (every cited S-id in S413-S480 with exactly one corpus/SOURCES.md row; no range notation), STATUS (mined), USEDBY (the entry is an item of each cited row's used-by cell), ACCESS (tools/check-source-access.py exits 0), LOCATE (at least one id cited, and for at least ceil(0.8 x cited) cited rows reports/round-57/reopen-quote.py, fetching the row's source-cell URLs live by an ordinary GET, locates the first quoted span of the row's anchor cell).",
+   "predicate": "ACCEPT-C-57: python3 -B reports/round-57/accept-c.py exits 0 and prints `ACCEPT-C-57: PASS`, every leg PASS: SET (the files under corpus/knowledge are the 232 base paths plus corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md, count 233), SWEEP (rows 233 files 233, missing_from_index 0), FLOOR (at least 20 distinct cited S-ids), RANGE (every cited S-id in S413-S480 with exactly one corpus/SOURCES.md row; no range notation), STATUS (mined), USEDBY (the entry is an item of each cited row's used-by cell), ACCESS (tools/check-source-access.py exits 0), LOCATE (at least one id cited, and for at least ceil(0.8 x cited) cited rows reports/round-57/reopen-quote.py, fetching the row's source-cell URLs (at most four) live by an ordinary GET, finds the first quoted span of the row's anchor cell (at least 8 words) in the response one of those URLs serves, search, echo, code-hosting and self-naming URLs and URLs carrying the quote's words refused), FRESH (no cited row names a source URL that a row below S413 names).",
    "statement": "Knowledge files go from 232 to 233: the one file added under corpus/knowledge is corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md and no file is removed; ACCEPT-C-57 holds (see predicate).",
    "clauses": [
-    {"id": "C-count", "words": "Knowledge files go from 232 to 233 ... no file is removed", "kind": "mechanical", "legs": ["SET", "SWEEP"], "red_control": "controls-c base: SET FAIL count=232, SWEEP FAIL rows 232"},
-    {"id": "C-floor", "words": "at least 20 distinct cited S-ids", "kind": "mechanical", "legs": ["FLOOR"], "red_control": "controls-c base: FLOOR FAIL cited=0"},
-    {"id": "C-range", "words": "every cited S-id in S413-S480, one row each, no range notation", "kind": "mechanical", "legs": ["RANGE"], "red_control": "logic unchanged from round 56 (criterion-11 receipt reports/round-56/telemetry/criterion11-controls.txt, C 18/18); bounds now 413/480"},
-    {"id": "C-status", "words": "mined", "kind": "mechanical", "legs": ["STATUS"], "red_control": "logic unchanged from round 56 (same receipt)"},
-    {"id": "C-usedby", "words": "the entry is an item of each cited row's used-by cell", "kind": "mechanical", "legs": ["USEDBY"], "red_control": "logic unchanged from round 56 (same receipt)"},
-    {"id": "C-access", "words": "tools/check-source-access.py exits 0", "kind": "mechanical", "legs": ["ACCESS"], "red_control": "logic unchanged from round 56 (same receipt)"},
-    {"id": "C-locate", "words": "for at least ceil(0.8 x cited) cited rows the quote is located live in the source", "kind": "mechanical", "legs": ["LOCATE"], "red_control": "controls-c stub-invalid and stub-realurl: the skip-the-work shortcut (entry stub, README moved, 20 mined rows with invented quotes) passes every other leg and fails LOCATE (located 0 of 20)"}
+    {
+     "id": "C-count",
+     "words": "Knowledge files go from 232 to 233: the one file added is corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md and no file is removed",
+     "kind": "mechanical",
+     "legs": [
+      "SET",
+      "SWEEP"
+     ],
+     "red_control": "controls-c base: SET FAIL count=232, SWEEP FAIL rows 232"
+    },
+    {
+     "id": "C-floor",
+     "words": "at least 20 distinct cited S-ids",
+     "kind": "mechanical",
+     "legs": [
+      "FLOOR"
+     ],
+     "red_control": "controls-c base: FLOOR FAIL cited=0"
+    },
+    {
+     "id": "C-range",
+     "words": "every cited S-id in S413-S480, one row each, no range notation",
+     "kind": "mechanical",
+     "legs": [
+      "RANGE"
+     ],
+     "red_control": "per-leg mutation at 51726fa6 by the pre-dispatch critic (.ufo/waves/round-57/predispatch/CriticClauseListC57.md section (b)): each fails alone; logic unchanged since"
+    },
+    {
+     "id": "C-status",
+     "words": "mined",
+     "kind": "mechanical",
+     "legs": [
+      "STATUS"
+     ],
+     "red_control": "per-leg mutation at 51726fa6 by the pre-dispatch critic (.ufo/waves/round-57/predispatch/CriticClauseListC57.md section (b)): each fails alone; logic unchanged since"
+    },
+    {
+     "id": "C-usedby",
+     "words": "the entry is an item of each cited row's used-by cell",
+     "kind": "mechanical",
+     "legs": [
+      "USEDBY"
+     ],
+     "red_control": "per-leg mutation at 51726fa6 by the pre-dispatch critic (.ufo/waves/round-57/predispatch/CriticClauseListC57.md section (b)): each fails alone; logic unchanged since"
+    },
+    {
+     "id": "C-access",
+     "words": "tools/check-source-access.py exits 0",
+     "kind": "mechanical",
+     "legs": [
+      "ACCESS"
+     ],
+     "red_control": "per-leg mutation at 51726fa6 by the pre-dispatch critic (.ufo/waves/round-57/predispatch/CriticClauseListC57.md section (b)): each fails alone; logic unchanged since"
+    },
+    {
+     "id": "C-locate",
+     "words": "for at least ceil(0.8 x cited) cited rows the anchor quote (8+ words) is found in the response one of the row's source-cell URLs serves now, refused URL kinds excepted",
+     "kind": "mechanical",
+     "legs": [
+      "LOCATE"
+     ],
+     "red_control": "controls-c stub-invalid, stub-short, stub-echo, stub-selfhost: each passes every other leg and fails exactly LOCATE"
+    },
+    {
+     "id": "C-fresh",
+     "words": "no cited row names a source URL a row below S413 names",
+     "kind": "mechanical",
+     "legs": [
+      "FRESH"
+     ],
+     "red_control": "controls-c stub-copied (20 round-56 rows under new ids): FRESH FAIL; stub-realurl: exactly LOCATE and FRESH"
+    }
    ],
-   "review_only": ["the entry's topic and that it serves worldbuilding (decision tables, a lore handoff section)", "whether each sentence is carried by its cited row's page", "whether each row was opened this round by ordinary means (ACCESS reads only the marker words a row records; LOCATE shows only that the quote is on the page now)", "whether the entry points one-way to partial owners (animal-symbolism crest heraldry, color-symbolism, costume-semiotics, naming-systems)", "whether the ground is uncovered in substance"],
-   "shortcut_controls": "reports/round-57/telemetry/controls-c.txt (committed with this declaration): base, stub-invalid and stub-realurl each exit 1 with ACCEPT-C-57: FAIL",
+   "review_only": [
+    "the entry's topic and that it serves worldbuilding (decision tables, a lore handoff section)",
+    "whether each sentence is carried by its cited row's page",
+    "whether each row was opened this round by ordinary means (ACCESS reads only the marker words a row records; LOCATE shows only that the quote is in the response one of the row's URLs serves at measurement time, and that the URL is not a refused kind; whether that URL is an independent publication is review-only)",
+    "whether the entry points one-way to partial owners (animal-symbolism crest heraldry, color-symbolism, costume-semiotics, naming-systems)",
+    "whether the ground is uncovered in substance"
+   ],
+   "shortcut_controls": "reports/round-57/telemetry/controls-c.txt: base, stub-invalid, stub-realurl, stub-short, stub-echo, stub-selfhost and stub-copied each exit 1 with ACCEPT-C-57: FAIL",
    "locator_calibration": "reports/round-57/telemetry/locator-calibration.txt: the locator run on the 54 round-56 rows S359-S412 before data (an instrument check, not a control: those rows are not new)",
-   "lands": ["corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md", "corpus/README.md", "corpus/SOURCES.md"],
-   "exports": ["\\bS(41[3-9]|4[2-7][0-9]|480)\\b"],
+   "lands": [
+    "corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md",
+    "corpus/README.md",
+    "corpus/SOURCES.md"
+   ],
+   "exports": [
+    "\\bS(41[3-9]|4[2-7][0-9]|480)\\b"
+   ],
    "counting_command": "python3 -B reports/round-57/accept-c.py",
    "before": "exit 1, ACCEPT-C-57: FAIL (SET count=232, SWEEP rows 232, FLOOR cited=0, LOCATE cited=0)",
-   "after_required": "exit 0, ACCEPT-C-57: PASS (all eight legs PASS)",
-   "expected_pre_landing_counting": "exit 1: SET FAIL (count=232), SWEEP FAIL (rows 232 files 232), FLOOR FAIL (cited=0), LOCATE FAIL (cited=0); RANGE, STATUS, USEDBY PASS vacuously; ACCESS PASS; last line ACCEPT-C-57: FAIL",
+   "after_required": "exit 0, ACCEPT-C-57: PASS (all nine legs PASS)",
+   "expected_pre_landing_counting": "exit 1: SET FAIL (count=232), SWEEP FAIL (rows 232 files 232), FLOOR FAIL (cited=0), LOCATE FAIL (cited=0); RANGE, STATUS, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-57: FAIL",
    "falsifier": "any leg FAIL at the landed revision; LOCATE below ceil(0.8 x cited) when re-run live",
    "must_not_cite": "any id outside S413-S480; O's tool path"
   },
@@ -46,24 +124,87 @@
    "axis": "operability",
    "surface": "tools/check-gate-quotes.py: its reference grammar gains one edge class (numeric references without the closing `;`) and its selftest gains the power to fail on three behaviours (decode once, continue past an unreadable file, the printed html-entity label) that the base selftest does not test",
    "kind": "measured; repair of the round-56 closure's ruling on claim O (routed defects 1 and 2)",
-   "predicate": "ACCEPT-O-57: python3 -B reports/round-57/accept-o.py exits 0 and prints `ACCEPT-O-57: PASS`, every leg PASS on tools/check-gate-quotes.py: GEN (five lessons generated at run time with random S-ids, file names, line offsets, row order, filler words and random HTML5 named references drawn from the whole table: the checker's (line, S-id, detail) multiset equals the generator's own expected multiset, exit 1, well-formed output; the templates include numeric references without `;`, a double-encoded ellipsis, invalid code points, bare ampersands and semicolon-free names), MULTI (an invalid-UTF-8 lesson before and after a generated lesson: exit 2, the error line names the invalid file, the valid lesson's own findings still print), MUTANTS (the selftest exits non-zero under each in-process mutant double-decode, stop-at-first-bad-file, label-rename, and exits 0 unmutated), KEEP (lessons 49-56 output equals the base pin), FORMAT, SELFTEST (exit 0).",
-   "statement": "tools/check-gate-quotes.py reports a numeric character reference written without its closing `;` (decimal or hexadecimal) as html-entity, and its --selftest fails under each of the three round-56 survivor mutants; ACCEPT-O-57 holds (see predicate).",
+   "predicate": "ACCEPT-O-57: python3 -B reports/round-57/accept-o.py, run without --seed, exits 0 and prints `ACCEPT-O-57: PASS`, every leg PASS on tools/check-gate-quotes.py: GEN (five lessons generated at run time under random temporary directories, with random S-ids, file names, titles, URL hosts, Seat labels, dates, line offsets, row order, filler words drawn from lesson prose and random HTML5 named references: the checker's (line, S-id, detail) multiset equals the generator's own expected multiset, exit 1, well-formed output; the templates include numeric references without `;`, a double-encoded ellipsis, invalid code points, bare ampersands and semicolon-free names), REAL (three copies of corpus/lessons/round-56.md in which six random Gate rows get one Grounds letter replaced by a numeric reference without `;`: exactly one html-entity per injected row on top of the pinned base findings), MULTI (an invalid-UTF-8 lesson before and after a generated lesson: exit 2, the error line names the invalid file, the valid lesson's own findings still print), MUTANTS (the selftest exits non-zero under each in-process mutant double-decode, stop-at-first-bad-file, label-rename, and exits 0 unmutated and under three behaviour-preserving neutral patches of the same shape), KEEP (lessons 49-56 output equals the base pin), FORMAT (empty stderr, every stdout line a finding or the summary, the count matching), SELFTEST (--selftest exits 0).",
+   "statement": "tools/check-gate-quotes.py reports a numeric character reference written without its closing `;` (decimal or hexadecimal) as html-entity, and its selftest (run in-process) fails under each of the three round-56 survivor mutants while passing unmutated and under neutral patches; ACCEPT-O-57 holds (see predicate).",
    "clauses": [
-    {"id": "O-gen", "words": "the checker's multiset equals the generator's on five run-time lessons", "kind": "mechanical", "legs": ["GEN"], "red_control": "controls-o base (bare numeric rows missing), sidcheat (S-id-keyed: random ids), shortlist (thirteen names), anyamp (every &name;)"},
-    {"id": "O-multi", "words": "continues past an unreadable file in either order", "kind": "mechanical", "legs": ["MULTI"], "red_control": "controls-o sidcheat: MULTI FAIL"},
-    {"id": "O-mutants", "words": "selftest fails under each of the three mutants and passes unmutated", "kind": "mechanical", "legs": ["MUTANTS"], "red_control": "controls-o base (three survivors) and hashpin (a file-hash selftest with the whole GEN fix: GEN PASS, MUTANTS FAIL with three survivors)"},
-    {"id": "O-keep", "words": "lessons 49-56 output unchanged", "kind": "mechanical", "legs": ["KEEP"], "red_control": "controls-o keepbreak: KEEP FAIL"},
-    {"id": "O-format", "words": "well-formed output, empty stderr", "kind": "mechanical", "legs": ["FORMAT"], "red_control": "controls-o keepbreak and stderrnoise: FORMAT FAIL"},
-    {"id": "O-selftest", "words": "--selftest exits 0", "kind": "mechanical", "legs": ["SELFTEST"], "red_control": "controls-o anyamp: SELFTEST FAIL 37/38"}
+    {
+     "id": "O-gen",
+     "words": "the checker's multiset equals the generator's on five run-time lessons",
+     "kind": "mechanical",
+     "legs": [
+      "GEN"
+     ],
+     "red_control": "controls-o red-gen (exactly GEN, REAL); also base, sidcheat, shortlist, anyamp, cheat-replay-identity, cheat-seatgen-identity"
+    },
+    {
+     "id": "O-real",
+     "words": "one html-entity per injected row in copies of round-56.md",
+     "kind": "mechanical",
+     "legs": [
+      "REAL"
+     ],
+     "red_control": "controls-o red-gen (exactly GEN, REAL), cheat-seatgen-identity and cheat-replay-identity (GEN, REAL, MUTANTS), base"
+    },
+    {
+     "id": "O-multi",
+     "words": "continues past an unreadable file in either order",
+     "kind": "mechanical",
+     "legs": [
+      "MULTI"
+     ],
+     "red_control": "controls-o red-multi: exactly MULTI"
+    },
+    {
+     "id": "O-mutants",
+     "words": "selftest fails under each of the three mutants, passes unmutated and under neutral patches",
+     "kind": "mechanical",
+     "legs": [
+      "MUTANTS"
+     ],
+     "red_control": "controls-o cheat-identity: exactly MUTANTS (fails the neutral patches); hashpin: MUTANTS (three survivors); base"
+    },
+    {
+     "id": "O-keep",
+     "words": "lessons 49-56 output unchanged",
+     "kind": "mechanical",
+     "legs": [
+      "KEEP"
+     ],
+     "red_control": "controls-o red-keep: exactly KEEP"
+    },
+    {
+     "id": "O-format",
+     "words": "empty stderr, findings or summary only, count matching",
+     "kind": "mechanical",
+     "legs": [
+      "FORMAT"
+     ],
+     "red_control": "controls-o red-format: exactly FORMAT, REAL"
+    },
+    {
+     "id": "O-selftest",
+     "words": "--selftest exits 0",
+     "kind": "mechanical",
+     "legs": [
+      "SELFTEST"
+     ],
+     "red_control": "controls-o red-selftest: exactly SELFTEST"
+    }
    ],
-   "review_only": ["the tool docstring states the semicolon policy (numeric references bind with or without `;`; named references only with `;`) and the U+FFFD handling of invalid code points", "the new selftest cases are behavioural, not file inspection", "residual: a selftest that detects run-time patching (for example by inspecting function identity) could kill the in-process mutants without testing behaviour; the patches are compiled under the tool's own file name and executed in the module's namespace to make that harder, and the falsify wave reviews the landed selftest for it"],
-   "shortcut_controls": "reports/round-57/telemetry/controls-o.txt (committed with this declaration): base, sidcheat, shortlist, anyamp, hashpin, keepbreak and stderrnoise each exit 1 with ACCEPT-O-57: FAIL",
-   "lands": ["tools/check-gate-quotes.py"],
+   "review_only": [
+    "the tool docstring states the semicolon policy (numeric references bind with or without `;`; named references only with `;`, a departure from HTML5's legacy names) and the U+FFFD handling of invalid code points",
+    "the new selftest cases are behavioural, not file or patch inspection",
+    "residual: a selftest that tells the mutant patches from the neutral ones by inspecting the patch code could still kill without testing behaviour; patch helper names are random per run and the falsify wave reviews the landed selftest for it; a checker that reads accept-o's --seed from its parent's command line is possible only for replays run with --seed, never for the counting command"
+   ],
+   "shortcut_controls": "reports/round-57/telemetry/controls-o.txt: seven built controls and the pre-dispatch critic's nine checkers (reports/round-57/controls/critic-o/): every red exits 1 with ACCEPT-O-57: FAIL and its named legs, the critic's honest green exits 0 with ACCEPT-O-57: PASS (meetability)",
+   "lands": [
+    "tools/check-gate-quotes.py"
+   ],
    "exports": [],
    "counting_command": "python3 -B reports/round-57/accept-o.py",
-   "before": "exit 1, ACCEPT-O-57: FAIL (GEN 5 of 5 lessons failing on the two bare-numeric rows; MUTANTS survivors double-decode, stop-at-first-bad-file, label-rename)",
-   "after_required": "exit 0, ACCEPT-O-57: PASS (all six legs PASS)",
-   "expected_pre_landing_counting": "exit 1: GEN FAIL (failing=5, missing only the numeric-bare and hex-bare html-entity triples), MUTANTS FAIL (three survivors); MULTI, KEEP, FORMAT, SELFTEST PASS; last line ACCEPT-O-57: FAIL",
+   "before": "exit 1, ACCEPT-O-57: FAIL (GEN and REAL failing on the bare-numeric rows; MUTANTS survivors double-decode, stop-at-first-bad-file, label-rename)",
+   "after_required": "exit 0, ACCEPT-O-57: PASS (all seven legs PASS)",
+   "expected_pre_landing_counting": "exit 1: GEN FAIL (failing=5, missing only the numeric-bare and hex-bare html-entity triples), REAL FAIL (failing=3), MUTANTS FAIL (three survivors); MULTI, KEEP, FORMAT, SELFTEST PASS; last line ACCEPT-O-57: FAIL",
    "falsifier": "any leg FAIL at the landed revision under any seed",
    "must_not_cite": "C's id block and C's paths"
   }
