@@ -1,0 +1,66 @@
+# declaration dry run, tree a9cf95f plus the uncommitted claims.json and separability-manifest.json 2026-10-22T14:00:12Z
+$ python3 -B reports/round-53/d-count.py
+OPEN 18
+  OVER1 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:54
+  OVER2 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:54
+  OVER3 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:76
+  OVER4 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:79
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:106 ', -6'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:107 ', -6'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:113 ', -4'
+  OVER5 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:121
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:174 ', -5'
+  OVER6 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:176
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:177 ', -5'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:177 ', -6'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:177 ', -7'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:179 ', -12'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:181 ', -2'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:181 ', -12'
+  WROW1 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:[106] 'working their farms' not cited to S162
+  WROW2 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:[113] mobile-phone decline not cited to S159 alone
+SID_BAD 0 [] cited 50
+exit 1
+# role: D counting; expected pre-landing: OPEN 18 and SID_BAD 0, exit 1 (the before value; the counter exits 1 while any instance is open)
+$ python3 -B reports/round-53/d-count.py
+OPEN 18
+  OVER1 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:54
+  OVER2 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:54
+  OVER3 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:76
+  OVER4 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:79
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:106 ', -6'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:107 ', -6'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:113 ', -4'
+  OVER5 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:121
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:174 ', -5'
+  OVER6 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:176
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:177 ', -5'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:177 ', -6'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:177 ', -7'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:179 ', -12'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:181 ', -2'
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:181 ', -12'
+  WROW1 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:[106] 'working their farms' not cited to S162
+  WROW2 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:[113] mobile-phone decline not cited to S159 alone
+SID_BAD 0 [] cited 50
+exit 1
+# role: D acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at OPEN 0 and SID_BAD 0 (exit 0)
+$ find corpus/knowledge -name '*.md' | wc -l
+228
+exit 0
+# role: C counting; expected pre-landing: 228, exit 0 (the before value)
+$ python3 -B reports/round-53/accept-c.py
+COUNT FAIL knowledge_files=228 required=229
+ENTRY FAIL corpus/knowledge/linguistics/gesture-co-speech-pointing.md
+SWEEP FAIL exit=0 rows 228 files 228 missing_from_index 0 []
+SIDS FAIL cited=0 bad=['entry absent']
+exit 1
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at 229, with python3 -B reports/round-53/accept-c.py exiting 0
+$ python3 -B tools/check-claim-separability.py reports/round-53/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/linguistics/gesture-co-speech-pointing.md', which is absent from the worktree under '/home/vgpnk/Projects/shokunin/kotodama-shokunin'
+exit 2
+# role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land; checker stops at its first absent land, so later legs are unevaluated
+$ python3 -B reports/round-53/claims-agree.py
+AGREE claims=['C', 'D']
+exit 0
+# role: agreement; expected pre-landing: AGREE, exit 0

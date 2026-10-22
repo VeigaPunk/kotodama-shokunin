@@ -1,0 +1,68 @@
+{
+ "round": 53,
+ "attempt": 1,
+ "campaign": "hyaku phase 3, 2026-10-22 (in-session L1 lane subagent KotodamaR53)",
+ "declared_at": "2026-10-22T14:10Z",
+ "base": "a9cf95fe47a82b516f6c2487cb76b89c3a71c493",
+ "base_note": "a9cf95f commits the claim instruments (reports/round-53/d-count.py, accept-c.py, dry-run.py, claims-agree.py) on top of the round-53 prerequisite 9ae5af9, which sits on the round-52 tip 6524184. The prerequisite records the round-52 closure's routed source defects: S184 registers the UNESCO 00172 nomination file and entry line 104 now cites it for the five-kilometre range; S185 supersedes S145's page and quote; S186 supersedes S157 with the captcha access note; SHONEN line 8's split is corrected. Neither commit is a claim; both claims measure from a9cf95f.",
+ "separability_manifest": "reports/round-53/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-53/separability-manifest.json",
+ "agreement_command": "python3 -B reports/round-53/claims-agree.py",
+ "lowest_axis_note": "No calibrated numeric axis scores exist (SCORECARD preamble); freshness is historically lowest and stays paused by the open round-11 L0 question. D works depth as a repair-first move routed by the round-52 closure.",
+ "claims": [
+  {
+   "id": "D",
+   "axis": "depth",
+   "kind": "measured; repair-first (round-52 closure routed defect 1: citation defects in the speech-surrogates entry)",
+   "statement": "In corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md, reports/round-53/d-count.py prints OPEN 0 and SID_BAD 0, down from OPEN 18 at base: its 18 instances are the 10 draft-id fragments, the 2 wrong-row citations (lines 106 and 113) and the 6 over-read phrases on lines 54 (two), 76, 79, 121 and 176 that the round-52 closure routed.",
+   "method_not_statement": "Each fragment is replaced by the registered S-id its round-52 seat draft-id maps to (seat reports under .ufo/waves/round-52/build/) or dropped where the S-id is already on the line; line 106 cites S162 for the farms quote, line 113 cites S159 for the mobile-phone decline; each over-read is cut back to what the cited row's re-opened page says or marked (to-verify). The counter only shows the routed wording is gone; whether each replacement is supported is a review question for the falsify wave and the closure.",
+   "lands": [
+    "corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md"
+   ],
+   "counting_command": "python3 -B reports/round-53/d-count.py",
+   "before": "OPEN 18, SID_BAD 0 (exit 1)",
+   "after_required": "OPEN 0 and SID_BAD 0 (exit 0)",
+   "expected_pre_landing_counting": "OPEN 18 and SID_BAD 0, exit 1 (the before value; the counter exits 1 while any instance is open)",
+   "falsifier": "Any OPEN or SID_BAD value other than 0; a cited S-id from S187 upward; or a non-author review finding that a repaired line now states something its cited row's page does not carry, without a (to-verify) mark, or that a fragment was dropped where its source detail lost all support.",
+   "must_not_cite": [
+    "corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+    "any S-id from S187 upward",
+    "corpus/lessons/round-53.md"
+   ]
+  },
+  {
+   "id": "C",
+   "axis": "coverage",
+   "kind": "measured; learning claim (admitted knowledge on uncovered ground) and the round's sourced claim",
+   "statement": "Knowledge files go from 228 to 229: one new entry, corpus/knowledge/linguistics/gesture-co-speech-pointing.md, on co-speech gesture, pointing and quotable gestures as conlang and worldbuilding method. reports/round-53/accept-c.py exits 0: the count is 229, the README sweep run on its own exits 0 with rows 229 files 229 and missing_from_index 0, and every S-id the entry cites is S187 or above and is a mined corpus/SOURCES.md row whose used-by cell names the entry.",
+   "gap_evidence_at_base": "find corpus/knowledge -iname '*gestur*' -o -iname '*pointing*' -o -iname '*kinesic*' -> 0 files; grep -rliE '^- topic:.*(gestur|pointing|kinesic)' corpus/knowledge -> 0 files; partial owners: culture-material/adornment-body-codes.md section 7 (lines 77-93: emblem taxonomy, posture and bow gradients), linguistics/sign-languages-manual-modality.md:64 and :161 (co-speech gesture as the boundary row of the manual modality), linguistics/numerals-and-measures.md:107 (finger counting), myth-symbol/direction-symbolism.md:6 and :36 (Guugu Yimithirr absolute directions, citing Haviland 1993 on pointing).",
+   "lands": [
+    "corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+    "corpus/README.md",
+    "corpus/SOURCES.md"
+   ],
+   "counting_command": "find corpus/knowledge -name '*.md' | wc -l",
+   "before": "228",
+   "after_required": "229, with python3 -B reports/round-53/accept-c.py exiting 0",
+   "expected_pre_landing_counting": "228, exit 0 (the before value)",
+   "falsifier": "Any count other than 229; accept-c.py exiting non-zero (a missing README row fails its SWEEP leg because the sweep's own exit code is read); any cited S-id below S187, missing from corpus/SOURCES.md, not mined, or lacking the entry in its used-by cell; any cited row opened by getting past an access control (QUALITY criterion 10); a non-author review finding that the entry restates a partial owner's register instead of citing it one-way, or states a claim its cited row's page does not carry.",
+   "must_not_cite": [
+    "corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md lines changed by D",
+    "corpus/lessons/round-53.md"
+   ]
+  }
+ ],
+ "records_not_claims": [
+  "corpus/lessons/round-53.md",
+  "corpus/lessons/README.md",
+  "corpus/QUALITY.md",
+  "tools/check-draft-ids.py",
+  "SCORECARD.md",
+  "LOG.md",
+  "SHONEN.md",
+  "reports/round-53/* other than lands",
+  ".ufo/waves/round-53/*"
+ ],
+ "red_before_rule": "Session drift guard (Main note 2): each acceptance command is run on a scratch copy with the claim made false and shown to exit non-zero for the stated reason. Before landing, the base is that copy (receipt: reports/round-53/telemetry/declaration-dry-run.txt). After landing, scratch copies of the landed tree with one instance re-opened (D) and with the README index row removed (C) are run in reports/round-53/telemetry/final-measures.txt.",
+ "dry_run_rule": "QUALITY criterion 9: reports/round-53/dry-run.py runs every declared counting, acceptance, separability and agreement command and writes the receipt; its check mode compares receipt and declarations both ways."
+}
