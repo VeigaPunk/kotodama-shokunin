@@ -1,0 +1,90 @@
+tree d44309a1031431506bded6a252d64805f234c94d
+sha256 ed77cc0b9b71230fd729e0b31f0c2843be8826110be1546cdbe12aa702d6d473  reports/round-55/accept-o.py
+sha256 81bbef86b3bc4a7424f34cd1560f84c31e8be2aa90c503daa88d668d31bff2bf  tools/check-gate-quotes.py
+sha256 e31e602f9e1e069b1fef4eff9652320c541ce2ab6f34442154770cd22ffaa01b  reports/round-55/fixtures/adversarial.md
+sha256 77fd00f478136724b24a12cb4b798f8e841800c0b0475547f2fa402870a57076  reports/round-55/base-gate-r53.txt
+sha256 0d20290cbec79d6da18005a6790d4dfac9add0a5389b5371d6f3fef12546ebcd  reports/round-55/criterion11-controls-o.py
+argv (run from each copy's root): python3 -B reports/round-55/accept-o.py
+
+## BASE (all-false where the claim adds behaviour; not a control): exit 1
+DOUBLED FAIL count=0 missing=['S239', 'S240', 'S243', 'S246', 'S249', 'S259', 'S262', 'S265', 'S266', 'S267', 'S268', 'S275', 'S277'] extra=[]
+TRUNC FAIL count=0 missing=['S241', 'S242', 'S244', 'S248', 'S250', 'S251', 'S253', 'S255', 'S259', 'S263', 'S264', 'S265', 'S275', 'S276', 'S277', 'S278', 'S279'] extra=[]
+NOFALSE PASS stray=[]
+EXIT FAIL round54=0 adversarial=0
+ESCAPE FAIL found=[] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## GREEN: exit 0 (expected 0); failing legs []; AS EXPECTED
+DOUBLED PASS count=13 missing=[] extra=[]
+TRUNC PASS count=17 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round54=1 adversarial=1
+ESCAPE PASS found=['S901', 'S902', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## RED-DOUBLED: exit 1 (expected 1); failing legs ['DOUBLED']; AS EXPECTED
+DOUBLED FAIL count=12 missing=['S277'] extra=[]
+TRUNC PASS count=17 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round54=1 adversarial=1
+ESCAPE PASS found=['S901', 'S902', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## RED-TRUNC: exit 1 (expected 1); failing legs ['TRUNC']; AS EXPECTED
+DOUBLED PASS count=13 missing=[] extra=[]
+TRUNC FAIL count=18 missing=[] extra=['S239']
+NOFALSE PASS stray=[]
+EXIT PASS round54=1 adversarial=1
+ESCAPE PASS found=['S901', 'S902', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## RED-NOFALSE: exit 1 (expected 1); failing legs ['NOFALSE']; AS EXPECTED
+DOUBLED PASS count=13 missing=[] extra=[]
+TRUNC PASS count=17 missing=[] extra=[]
+NOFALSE FAIL stray=['S245']
+EXIT PASS round54=1 adversarial=1
+ESCAPE PASS found=['S901', 'S902', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## RED-EXIT: exit 1 (expected 1); failing legs ['EXIT']; AS EXPECTED
+DOUBLED PASS count=13 missing=[] extra=[]
+TRUNC PASS count=17 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT FAIL round54=0 adversarial=1
+ESCAPE PASS found=['S901', 'S902', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## RED-ESCAPE: exit 1 (expected 1); failing legs ['ESCAPE']; AS EXPECTED
+DOUBLED PASS count=13 missing=[] extra=[]
+TRUNC PASS count=17 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round54=1 adversarial=1
+ESCAPE FAIL found=['S901', 'S902', 'S903', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## RED-KEEP53: exit 1 (expected 1); failing legs ['KEEP53']; AS EXPECTED
+DOUBLED PASS count=13 missing=[] extra=[]
+TRUNC PASS count=17 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round54=1 adversarial=1
+ESCAPE PASS found=['S901', 'S902', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 FAIL lines=11 base=12
+SELFTEST PASS exit=0 SELFTEST: 12/12 pass
+
+## RED-SELFTEST: exit 1 (expected 1); failing legs ['SELFTEST']; AS EXPECTED
+DOUBLED PASS count=13 missing=[] extra=[]
+TRUNC PASS count=17 missing=[] extra=[]
+NOFALSE PASS stray=[]
+EXIT PASS round54=1 adversarial=1
+ESCAPE PASS found=['S901', 'S902', 'S904', 'S905'] want=['S901', 'S902', 'S904', 'S905']
+KEEP53 PASS lines=12 base=12
+SELFTEST FAIL exit=1 SELFTEST stand-in FAIL
+
+CONTROLS 8/8 as expected
