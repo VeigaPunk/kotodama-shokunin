@@ -101,7 +101,7 @@ Rate cost: the channel carries less than the voice — whistled languages "encod
 
 | Condition that favours a surrogate | Cited case | Design consequence |
 |---|---|---|
-| Mountain, ravine and dense-forest terrain | Silbo Gomero, La Gomera (inscribed 2009): a range of "up to five kilometres" with hamlets in the ravines (S157, -2); whistled languages are "mostly used in mountains or dense forests" (S158) | Set the reach budget before the phonology: the distance decides how many contrasts the channel can carry |
+| Mountain, ravine and dense-forest terrain | Silbo Gomero, La Gomera (inscribed 2009): messages carried "over a distance of up to five kilometres" on an island cut by "a network of very deep ravines" between "population clusters" (S184); whistled languages are "mostly used in mountains or dense forests" (S158) | Set the reach budget before the phonology: the distance decides how many contrasts the channel can carry |
 | Dispersed settlement | Turkish Black Sea villages, whose houses are "remote and inaccessible from one another" (S159) | Map the settlement scatter first; the channel exists exactly where face-to-face contact fails |
 | Herding and farming at distance | Turkish whistling now survives in "a few words spoken by shepherds"; Banda-Linda drums reach people "working their farms" (S159, -6) | Give the channel a working vocabulary (weather, livestock, harvest) before any elegance; the register link itself is owned by phonetics-phonology.md:197-199 |
 | Hunting | Drum messages organise "assistance after a hunting accident" and carry instructions when "someone gets lost in the bush" (S160, -6) | Write the emergency set as fixed formulae; a free-text channel fails under panic |
