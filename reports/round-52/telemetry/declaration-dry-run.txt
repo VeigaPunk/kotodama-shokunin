@@ -1,0 +1,34 @@
+# declaration dry run, tree = 147cfde85eb13256438c1ed04d92e8d2ad09b76e + uncommitted round-52 declaration files 2026-10-22T10:39:47Z
+$ awk '/S094/{n++} END{print n+0}' corpus/knowledge/linguistics/sign-languages-manual-modality.md
+5
+exit 0
+# role: D counting; expected pre-landing: before value 5 (lines 83, 87, 90, 92, 93 at base) (exit 0)
+$ sh -c 'n=$(awk '"'"'/S094/{n++} END{print n+0}'"'"' corpus/knowledge/linguistics/sign-languages-manual-modality.md); echo S094_lines=$n; test "$n" -eq 0 && ! grep -qE '"'"'\bS(13[4-9]|1[4-9][0-9]|[2-9][0-9][0-9])\b'"'"' corpus/knowledge/linguistics/sign-languages-manual-modality.md'
+S094_lines=5
+exit 1
+# role: D acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at 0
+$ find corpus/knowledge -name '*.md' | wc -l
+227
+exit 0
+# role: C counting; expected pre-landing: before value 227 (exit 0)
+$ sh -c 'n=$(find corpus/knowledge -name '"'"'*.md'"'"' | wc -l); echo knowledge_files=$n; test "$n" -eq 228 && python3 -B reports/round-28/readme/sweep.py | grep -q '"'"'"total": 228'"'"' && python3 -c "$0"' 'import re,sys;p='"'"'corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md'"'"';e=open(p).read();ids=set(re.findall(r'"'"'\bS\d{3}\b'"'"',e));rows={l.split('"'"'|'"'"')[1].strip():l.split('"'"'|'"'"')[11] for l in open('"'"'corpus/SOURCES.md'"'"') if re.match(r'"'"'^\| S\d{3} '"'"',l)};bad=[i for i in sorted(ids) if int(i[1:])<134 or i not in rows or p not in rows[i]];print('"'"'C_SID_BAD'"'"',len(bad),bad,'"'"'cited'"'"',len(ids));sys.exit(1 if bad or not ids else 0)'
+knowledge_files=227
+exit 1
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at 228, with the acceptance command exiting 0
+$ python3 -B tools/check-claim-separability.py reports/round-52/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md', which is absent from the worktree under '/home/vgpnk/Projects/shokunin/kotodama-shokunin'
+exit 2
+# role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land; checker stops at its first absent land, so later legs are unevaluated
+$ python3 -B reports/round-52/claims-agree.py
+AGREE claims=['C', 'D']
+exit 0
+# role: agreement; expected pre-landing: AGREE, exit 0
+
+$$ two-way check of this receipt (separate command, not a declared one)
+MISSING_FROM_RECEIPT []
+UNDECLARED_IN_RECEIPT []
+exit 0
+$$ control: the same check on the round-51 receipt fails
+MISSING_FROM_RECEIPT ["awk '/S094/{n++} END{print n+0}' corpus/knowledge/linguistics/sign-languages-manual-modality.md", 'python3 -B reports/round-52/claims-agree.py', 'python3 -B tools/check-claim-se
+UNDECLARED_IN_RECEIPT ['(historical control) python3 -B tools/check-claim-separability.py reports/round-50/claims.json', '/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/
+exit 1

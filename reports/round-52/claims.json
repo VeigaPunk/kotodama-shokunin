@@ -1,0 +1,63 @@
+{
+ "round": 52,
+ "attempt": 1,
+ "campaign": "hyaku phase 3, 2026-10-22 (in-session L1 lane subagent KotodamaR52)",
+ "declared_at": "2026-10-22T10:47Z",
+ "base": "147cfde85eb13256438c1ed04d92e8d2ad09b76e",
+ "base_note": "147cfde is the round-52 prerequisite commit on top of the round-51 tip 2b956d7: QUALITY criterion 10 (ordinary access), tools/check-source-access.py, S094 status mined -> rejected and used-by entry -> '—' with superseding rejected row S132, superseding locator row S133 for S097, and the signed-language study path. It is a record of the round-51 outside ruling, not a claim; both claims measure from it.",
+ "separability_manifest": "reports/round-52/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-52/separability-manifest.json",
+ "agreement_command": "python3 -B reports/round-52/claims-agree.py",
+ "lowest_axis_note": "No calibrated numeric axis scores exist (SCORECARD preamble); freshness is historically lowest and stays paused by the open round-11 L0 question. D works depth as a repair-first move routed by the round-51 closure.",
+ "claims": [
+  {
+   "id": "D",
+   "axis": "depth",
+   "kind": "measured; repair-first (round-51 closure routed defect 2: S094 sole-support details)",
+   "statement": "The sign-language entry corpus/knowledge/linguistics/sign-languages-manual-modality.md has 0 lines that cite S094.",
+   "method_not_statement": "Each detail that leaned on S094 is re-cited to a corpus/SOURCES.md row present at base whose re-open this round shows it carries the detail (Gate quote in the round-52 lesson), or keeps an author-year mention with an inline (to-verify) mark, or is cut.",
+   "lands": [
+    "corpus/knowledge/linguistics/sign-languages-manual-modality.md"
+   ],
+   "counting_command": "awk '/S094/{n++} END{print n+0}' corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+   "before": "5 (lines 83, 87, 90, 92, 93 at base)",
+   "after_required": "0",
+   "falsifier": "Any value other than 0; the entry citing an S-id from S134 upward; or a non-author review finding a detail that lost its S094 citation and now rests on a row whose re-opened page does not carry it, without a (to-verify) mark.",
+   "must_not_cite": [
+    "corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md",
+    "any S-id from S134 upward",
+    "corpus/lessons/round-52.md"
+   ]
+  },
+  {
+   "id": "C",
+   "axis": "coverage",
+   "kind": "measured; learning claim (admitted knowledge on uncovered ground) and the round's sourced claim",
+   "statement": "Knowledge files go from 227 to 228: one new entry, corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md, on speech surrogates (whistled, drummed and other instrument-borne speech) as conlang and worldbuilding method. It is indexed in corpus/README.md (sweep footer total 228), and every S-id it cites is S134 or above and is a corpus/SOURCES.md row whose used-by cell names the entry.",
+   "gap_evidence_at_base": "find corpus/knowledge -iname '*whistl*' -o -iname '*surrogat*' -o -iname '*drum*' -> 0 files; grep -rliE '^- topic:.*(whistl|surrogat|drum language|talking drum)' corpus/knowledge -> 1 file (culture-material/music-instrument-lexicon.md, whose topic lists talking drums among music-myth links); partial owners, one to three lines each: linguistics/phonetics-phonology.md:197-199, culture-material/music-instrument-lexicon.md:98-100, linguistics/orality-formulaic-language.md:114 and :124, linguistics/sound-symbolism.md:121; the same topic grep over the sibling lanes' corpus/knowledge -> 0 files.",
+   "lands": [
+    "corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md",
+    "corpus/README.md",
+    "corpus/SOURCES.md"
+   ],
+   "counting_command": "find corpus/knowledge -name '*.md' | wc -l",
+   "before": "227",
+   "after_required": "228, with the acceptance command exiting 0",
+   "falsifier": "Any count other than 228; sweep footer not 228; any cited S-id below S134, missing from corpus/SOURCES.md, or lacking the entry in its used-by cell; any cited row opened by getting past an access control (QUALITY criterion 10); a non-author review finding that the entry restates a partial owner's register rather than citing it one-way.",
+   "must_not_cite": [
+    "corpus/knowledge/linguistics/sign-languages-manual-modality.md lines changed by D",
+    "corpus/lessons/round-52.md"
+   ]
+  }
+ ],
+ "records_not_claims": [
+  "corpus/lessons/round-52.md",
+  "corpus/lessons/README.md",
+  "SCORECARD.md",
+  "LOG.md",
+  "SHONEN.md",
+  "reports/round-52/* other than lands",
+  ".ufo/waves/round-52/*"
+ ],
+ "dry_run_rule": "QUALITY criterion 9: reports/round-52/dry-run.py runs every declared counting, acceptance, separability and agreement command and writes the receipt; its --check mode compares receipt and declarations both ways."
+}

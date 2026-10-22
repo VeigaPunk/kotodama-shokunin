@@ -1,0 +1,53 @@
+{
+ "schema": "kotodama-separability-manifest-v1",
+ "base": "147cfde85eb13256438c1ed04d92e8d2ad09b76e",
+ "claims": [
+  {
+   "id": "D",
+   "tree": "WORKTREE",
+   "lands": [
+    "corpus/knowledge/linguistics/sign-languages-manual-modality.md"
+   ],
+   "exports": [],
+   "acceptance": [
+    "sh",
+    "-c",
+    "n=$(awk '/S094/{n++} END{print n+0}' corpus/knowledge/linguistics/sign-languages-manual-modality.md); echo S094_lines=$n; test \"$n\" -eq 0 && ! grep -qE '\\bS(13[4-9]|1[4-9][0-9]|[2-9][0-9][0-9])\\b' corpus/knowledge/linguistics/sign-languages-manual-modality.md"
+   ]
+  },
+  {
+   "id": "C",
+   "tree": "WORKTREE",
+   "lands": [
+    "corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md",
+    "corpus/README.md",
+    "corpus/SOURCES.md"
+   ],
+   "exports": [
+    "\\bS(13[4-9]|1[4-9][0-9]|[2-9][0-9][0-9])\\b"
+   ],
+   "acceptance": [
+    "sh",
+    "-c",
+    "n=$(find corpus/knowledge -name '*.md' | wc -l); echo knowledge_files=$n; test \"$n\" -eq 228 && python3 -B reports/round-28/readme/sweep.py | grep -q '\"total\": 228' && python3 -c \"$0\"",
+    "import re,sys;p='corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md';e=open(p).read();ids=set(re.findall(r'\\bS\\d{3}\\b',e));rows={l.split('|')[1].strip():l.split('|')[11] for l in open('corpus/SOURCES.md') if re.match(r'^\\| S\\d{3} ',l)};bad=[i for i in sorted(ids) if int(i[1:])<134 or i not in rows or p not in rows[i]];print('C_SID_BAD',len(bad),bad,'cited',len(ids));sys.exit(1 if bad or not ids else 0)"
+   ]
+  },
+  {
+   "id": "REC",
+   "role": "record",
+   "tree": "WORKTREE",
+   "lands": [
+    "corpus/lessons/round-52.md",
+    "corpus/lessons/README.md",
+    "SCORECARD.md",
+    "LOG.md",
+    "SHONEN.md",
+    "reports/round-52/claims.json",
+    "reports/round-52/claims-agree.py",
+    "reports/round-52/dry-run.py"
+   ],
+   "exports": []
+  }
+ ]
+}
