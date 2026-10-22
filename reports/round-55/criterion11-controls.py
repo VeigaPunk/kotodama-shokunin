@@ -13,11 +13,15 @@ GREEN  every mechanical clause holds through a stand-in landing that is never la
 One RED per mechanical clause, each the GREEN copy with that clause alone changed by its nearest
 near-miss; expected exit 1 with that clause's leg FAIL and every other leg PASS (RED-COUNT is the
 one two-leg control: the count 231 is pinned by both SET and SWEEP, so a count-only miss fails both):
-  COUNT     a second new .md file with its own README row (count 232): SET and SWEEP fail
+  COUNT     a second new .md file with its own README row, and the section header, totals line and
+            footer all moved to 232 so the sweep itself exits 0 (count 232): SET and SWEEP fail,
+            SWEEP through the 231 pin alone
   SET       a second new file (with its own README row) added and a base file (with its README
             row) removed, so the count stays 231
   SET-EXT   a second new file that is not *.md (`monsters-hybrid-beings.notes.txt`) beside the entry
   SWEEP     the entry's README row names `monsters-hybrid-being.md` (one letter off)
+  SWEEP-EXIT the counts footer left at 230 files / myth-symbol 26 (rows 231 files 231, missing 0,
+            the sweep exits 1)
   FLOOR     the entry's S304 citation becomes S303: 20 citations, 19 distinct ids
   RANGE     the entry cites S284 in place of S304 (20 distinct) and S284's used-by names the entry
   RANGE-NOROW the entry cites S305, which has no row, in place of S304
@@ -91,9 +95,14 @@ def red_set(root):
 def red_count(root):
     extra = "corpus/knowledge/myth-symbol/monsters-hybrid-beings-notes.md"
     open(os.path.join(root, extra), "w", encoding="utf-8").write("# notes\n\n- topic: stand-in notes\n- couples: stand-in\n")
-    edit(os.path.join(root, "corpus/README.md"), lambda t: re.sub(
-        r"(^- `monsters-hybrid-beings\.md` — .*\n)",
-        lambda m: m.group(1) + "- `monsters-hybrid-beings-notes.md` — stand-in notes\n", t, count=1, flags=re.M))
+    def readme(t):
+        t = re.sub(r"(^- `monsters-hybrid-beings\.md` — .*\n)",
+                   lambda m: m.group(1) + "- `monsters-hybrid-beings-notes.md` — stand-in notes\n", t, count=1, flags=re.M)
+        t = t.replace("## myth-symbol/ (27)", "## myth-symbol/ (28)", 1)
+        t = t.replace("Total knowledge entries: 231.", "Total knowledge entries: 232.", 1)
+        return t.replace("(total 231 files; directory totals 28/27/29/29/24/94).",
+                         "(total 232 files; directory totals 28/28/29/29/24/94).", 1)
+    edit(os.path.join(root, "corpus/README.md"), readme)
 
 
 def red_set_ext(root):
@@ -106,6 +115,12 @@ def red_sweep(root):
          lambda t: t.replace("- `monsters-hybrid-beings.md` — ", "- `monsters-hybrid-being.md` — ", 1))
 
 
+def red_sweep_exit(root):
+    edit(os.path.join(root, "corpus/README.md"), lambda t: t.replace(
+        "(total 231 files; directory totals 28/27/29/29/24/94).",
+        "(total 230 files; directory totals 28/26/29/29/24/94).", 1))
+
+
 def red_floor(root):
     edit(os.path.join(root, ENTRY), lambda t: t.replace("(S304)", "(S303)", 1))
 
@@ -113,12 +128,12 @@ def red_floor(root):
 def red_range(root):
     edit(os.path.join(root, ENTRY), lambda t: t.replace("(S304)", "(S284)", 1))
 
-    def s238(t):
+    def s284(t):
         line = re.search(r"^\| S284 .*$", t, re.M).group(0)
         cells = line.split("|")
         cells[11] = cells[11].rstrip() + "; " + ENTRY + " "
         return t.replace(line, "|".join(cells), 1)
-    edit(os.path.join(root, "corpus/SOURCES.md"), s238)
+    edit(os.path.join(root, "corpus/SOURCES.md"), s284)
 
 
 def red_range_norow(root):
@@ -149,7 +164,8 @@ def red_access(root):
 
 CONTROLS = [("GREEN", None, 0, []), ("RED-COUNT", red_count, 1, ["SET", "SWEEP"]),
             ("RED-SET", red_set, 1, ["SET"]), ("RED-SET-EXT", red_set_ext, 1, ["SET"]),
-            ("RED-SWEEP", red_sweep, 1, ["SWEEP"]), ("RED-FLOOR", red_floor, 1, ["FLOOR"]),
+            ("RED-SWEEP", red_sweep, 1, ["SWEEP"]), ("RED-SWEEP-EXIT", red_sweep_exit, 1, ["SWEEP"]),
+            ("RED-FLOOR", red_floor, 1, ["FLOOR"]),
             ("RED-RANGE", red_range, 1, ["RANGE"]), ("RED-RANGE-NOROW", red_range_norow, 1, ["RANGE"]),
             ("RED-RANGE-DUP", red_range_dup, 1, ["RANGE"]), ("RED-RANGE-SPAN", red_range_span, 1, ["RANGE"]), ("RED-STATUS", red_status, 1, ["STATUS"]),
             ("RED-USEDBY", red_usedby, 1, ["USEDBY"]), ("RED-ACCESS", red_access, 1, ["ACCESS"])]
