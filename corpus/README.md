@@ -1,5 +1,15 @@
 # kotodama-shokunin corpus index
 
+revision: 2.10 — Round-53 linguistics landing (2026-10-22): one linguistics entry
+landed (`gesture-co-speech-pointing.md`, co-speech gesture, pointing and
+quotable gestures as conlang and worldbuilding method; before it, 0 filename
+owners and 0 topic-line owners, with partial owners cited one-way in its §2),
+its row added in filename order between `dialect-register-consistency.md` and
+`historical-linguistics.md` with the entry's `- topic:` text byte-equal;
+`## linguistics/` moved 27 → **28**, totals line 228 → **229**, footer vector
+`27/26/28/29/24/94` → `28/26/28/29/24/94`. Re-measured with
+`python3 reports/round-28/readme/sweep.py`: 229 rows vs 229 files, exit 0.
+
 revision: 2.9 — Round-52 linguistics landing (2026-10-22): one linguistics entry
 landed (`speech-surrogates-whistled-drummed.md`, speech surrogates — whistled,
 drummed and instrument-borne speech — as conlang and worldbuilding method; before
@@ -239,10 +249,11 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (27)
+## linguistics/ (28)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
+- `gesture-co-speech-pointing.md` — co-speech gesture, pointing and quotable gestures as a conlang and worldbuilding method — gesture as part of the utterance, what each gesture type carries, pointing in space and time, what a language packages into its speakers' hands, emblem repertoires, the social control of gesture, acquisition, and the calibration traps of reading kinesics as a universal script
 - `historical-linguistics.md` — language change as a worldbuilding tool — the comparative method, regular sound change (Grimm's and Verner's laws as worked examples), analogy, the grammaticalization cycle, dating language stages, constructing proto-languages and daughter languages
 - `kinship-terminology.md` — Murdock's six kinship-terminology types (Eskimo/lineal, Hawaiian, Iroquois, Omaha, Crow, Sudanese) with their exact merging fingerprints; what each encodes (weakly) about descent, residence, and marriage rules; Lounsbury's generative skewing rules for building consistent systems; affinal/alliance logic; kin terms borrowed into address systems (fictive kin, kin-pronouns, teknonymy, register strata); and the inverse method — reading a lexicon or an in-world document as evidence of social structure
 - `language-contact.md` — how languages converge — borrowing scales and hierarchies, loanword adaptation, pidgins/creoles/mixed languages, Sprachbund (linguistic-area) features, and using strata of loans to date fictional history
@@ -611,11 +622,11 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
 
-Total knowledge entries: 228.
+Total knowledge entries: 229.
 
 Counts checked 2026-10-22 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
-(total 228 files; directory totals 27/26/28/29/24/94).
+(total 229 files; directory totals 28/26/28/29/24/94).
 The inventory counts markers, not verified facts.
 Superseded reading, preserved as the dated record it was: this footer read
 `(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
