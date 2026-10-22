@@ -26,6 +26,8 @@ Dependence varies: the Ethnographic Atlas codes only a small minority of its soc
 
 ## 2. One-owner boundary
 
+Each row names one neighbour and the line that shows what it owns; this entry keeps only the herd side of each seam, and the body section named in the boundary cell develops it.
+
 | Neighbour (anchor) | What it owns | This entry's boundary |
 |---|---|---|
 | `agrarian-field-system-lexicon.md:56,:62` | parcel, plough, manure contract; the agropastoral calendar and routes | cite that calendar; this entry adds comparative herd composition and management, not a second calendar owner |
@@ -37,8 +39,12 @@ Dependence varies: the Ethnographic Atlas codes only a small minority of its soc
 | `semantic-fields-lexicon-building.md:70,:105` | the pastoral vocabulary field and the steppe field-bundle | the herd facts the field lexicalizes (§5 supplies inputs) |
 | `fire-fuel-light.md:37` | dung as fuel versus manure | the herd as dung source |
 | `animal-symbolism.md:73,:110` | the herd's signs; the livestock-as-wealth idiom (Nuer cattle, Mongol five livestock) | the herd composition and transfer rules the idiom rests on (§7, §10) |
-| `sacred-kingship-mythic-charter.md:65` | the shepherd-king office | the herd ledger that office audits (§10) |
+| `sacred-kingship-mythic-charter.md:65` | the shepherd-king office, audited by omens and the gods | the herd the shepherd image draws on; self-presentation, not administration (§10) |
 | `civilizations/` regional entries | Mongol, Turkic, Scythian, Sámi, Diné, Inca cases and their warnings | general method only; regional herds are cited, never restated |
+| `ritual-liminality.md:63` | sacrifice typology, including calendrical rites that consume herd products (the Vedic milk oblation, the royal horse rite) | which animals and products the herd can spare; the rite's form, meaning and budget stay there (§10) |
+| `symbolism-synthesis-method.md:69` | the consistency rule that an animal taboo implies a rite, and the symbol grammar that enforces it | the herd-side cost of each paired taboo and rite (§10); no second symbol grammar |
+| `celestial-symbolism-calendars.md:28` | sky figures chosen by subsistence (pastoralists on milky or river figures) and the star calendar | the herd as the subsistence input that selects a sky reading (§10); no second sky-lore or calendar owner |
+| `numerals-and-measures.md:101` | counting words and mensural classifiers, including the unit "head of cattle" | what a herd count records — composition, age and sex, ownership (§5); not the counting system |
 
 ## 3. Pastoral systems typology: mobility as the design dial
 
@@ -83,6 +89,8 @@ A herd vocabulary is a property index: each term answers what an owner must coun
 | Wealth vocabulary | PIE *peku- glossed "wealth, movable property" (S065); Latin *pecūnia* (`trade-economy-lexicon.md:69`) | neither this gloss nor a similar-looking word establishes a livestock→wealth change or PIE social history |
 
 Counts of herd terms in ethnographies are estimates, not lexicon sizes: write "a very large set", never a number.
+
+Counting words and classifiers such as "head of cattle" belong to `numerals-and-measures.md:101`; this entry supplies what a herd count records — composition, age and sex, ownership marks — never the counting system itself.
 
 ## 6. Products: meat, milk, fibre, traction, dung
 
