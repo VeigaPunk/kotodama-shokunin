@@ -4073,3 +4073,12 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Drift sentinel:** the round worked culture-material ground (masks) instead of linguistics; the claim shape repeats round 53's (`.ufo/waves/round-54/build-a2/CriticSingleClaim.md`).
 - **Evidence:** `reports/round-54/telemetry/final-measures.txt`; `.ufo/waves/round-54/`; `corpus/lessons/round-54.md`.
 
+## 2026-10-22 — Round 55 (attempt 1): claims C (coverage) and O (operability); author-side, pending non-author closure — hyaku phase 4
+
+- **Trigger:** the round-54 closure (`corpus/lessons/round-54-verifier-spotcheck.md`) routed 17 truncated Gate grounds, 13 doubled locators, an untracked seat report and carried registry items; monsters and hybrid beings had 0 filename owners at `f4015e7`; the drift sentinel asked for ground other than linguistics and culture-material.
+- **Declaration:** instruments `d44309a` (with the round-54 late seat report committed as evidence), revised at `f4015e7` after two pre-dispatch critics (C controls 14/14, O 16/16), declaration `8eda954`.
+- **C:** `myth-symbol/monsters-hybrid-beings.md`; 230 → 231 files (`eb0a331`); 73 rows opened this round cited (S285–S357); falsify fixes in the records commit.
+- **O:** `tools/check-gate-quotes.py` gains `doubled-locator` and registry-backed `truncated-grounds` and four escape shapes (`454a2dc`); `accept-o.py` exit 1 → 0; hardened in the records commit (selftest 27/27).
+- **Routed fixes (not claims):** `b9c44a2`, `81178c8`, `d52c9df` (gesture 68, speech-surrogates 79, divination 72, anchors S248/S254/S275); S358 supersedes S256's tier; round-54 Gate errata in the lesson.
+- **Waves:** build 51 seats, falsify 33 seats (5 cancelled unreported at wrap-up); round total 86 including 2 pre-dispatch critics. Mistakes R55-M1 to R55-M6. The declared separability command exits 1 on a false export match (R55-M5).
+- **Evidence:** `reports/round-55/telemetry/final-measures.txt`; `.ufo/waves/round-55/`; `corpus/lessons/round-55.md`.

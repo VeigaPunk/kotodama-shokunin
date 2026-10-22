@@ -7,8 +7,8 @@ from collections import Counter
 LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"
 W = f"{LANE}/.ufo/waves/round-55"
 SCR = "/fast/scratch/hyaku/kotodama-r55"
-BASE = "d44309a1031431506bded6a252d64805f234c94d"
-DECL = "662239d2c8fcb9a2b7f9ac297ca2283f36397c14"
+BASE = "f4015e70b829523ed81e14ce4279bfab0e0233e4"
+DECL = "8eda9543e940bdc4938fad90182ee6a6fe271d0f"
 GOD = pathlib.Path.home().joinpath(".agents/skills/godspeed/directive.md").read_text()
 LEAD = "/skill:godspeed\n" + GOD + "\n"
 EC = "corpus/knowledge/myth-symbol/monsters-hybrid-beings.md"

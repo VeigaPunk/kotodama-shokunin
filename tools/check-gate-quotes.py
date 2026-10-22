@@ -15,7 +15,8 @@ What it reads
   * Only the `## Gate` section of each file: from the `## Gate` heading up to
     (not including) the next `## ` heading. `### ` sub-headings stay inside the
     section; nothing outside it is read.
-  * Only `- S### ` rows inside that section, including `- * S### ` rows.
+  * Only `- S### ` and `* S### ` rows inside that section, including `- * S### `
+    rows.
     Indented continuation lines are joined to the row before its quotes are checked.
 
 How a quotation is found
@@ -42,14 +43,22 @@ Word count rule
     between spans of one run; a leading or trailing omission marker is not
     reported.
   * `doubled-locator` reports a first cited span whose text also appears in the
-    locator after the `accessed <date> — ` field, when another quoted span
+    locator after the `accessed <date> — ` field (an access note between the date
+    and the dash, such as `via Wayback <id>`, is allowed; rows with no `accessed`
+    field are not read by this class), when another quoted span
     follows. This catches repeated single- or double-quoted locator text without
-    mistaking escaped quotes inside one span for a repeated locator.
+    mistaking escaped quotes inside one span for a repeated locator. The test is
+    a plain substring test, so a one-word quote that also occurs inside the
+    section title is reported.
   * `truncated-grounds` reports Grounds text that is a proper prefix (shorter,
     not equal) of the same S-id's registry `teaches` cell, ignoring quote
     delimiters and trailing full stops or whitespace. Missing registry files or
-    rows are skipped. A complete Grounds sentence, including one ending in a
-    single full stop, is not reported.
+    rows are skipped. A Grounds equal to the whole teaches cell, ending in a
+    single or a double full stop, is not reported; a complete sentence that
+    copies only the opening sentence or clause of a longer teaches cell is
+    reported. Only the text from the first `Grounds:` to the row's `. Seat:` is
+    compared, as one string; in a row carrying two Grounds (the round-51
+    ` ; same URL` shape) a truncated first Grounds is not reported.
   * A row is reported once per offending run and once per new shape; if a run
     has two quote findings, the over-cap count takes precedence.
 
@@ -77,7 +86,7 @@ MAX_WORDS = 25
 GATE_HEADING = re.compile(r"^##\s+Gate\b")
 NEXT_H2 = re.compile(r"^##\s")
 # A Gate row: `- S187 — https://...`.
-ROW = re.compile(r"^-\s+(?:\*\s+)?(S\d+)\b")
+ROW = re.compile(r"^(?:-\s+(?:\*\s+)?|\*\s+)(S\d+)\b")
 # A quoted span: straight, curly, or guillemet quote pairs.
 QUOTE = re.compile(r'"(?:\\.|[^"\\\n])*"|“[^“”\n]*”|«[^«»\n]*»')
 # Any letter, digit or underscore: prose between two spans breaks a run.
@@ -173,7 +182,7 @@ def registry_teaches(path):
 
 def doubled_locator(line):
     """True when the first cited span repeats text from its accessed locator."""
-    accessed = re.search(r" — accessed \d{4}-\d{2}-\d{2} — ", line)
+    accessed = re.search(r" — accessed \d{4}-\d{2}-\d{2}[^—]* — ", line)
     if accessed is None:
         return False
     spans = [span for span in quoted_spans(line) if span[0] >= accessed.end()]
@@ -384,6 +393,15 @@ def selftest():
         ("truncated-grounds-double-stop-green",
          lesson("- S900 — p. 1: \"short\". Grounds: the keeper was owed.. Seat: Scout.\n"),
          {"S900": "the keeper was owed."}, None),
+        ("truncated-grounds-shorter-not-prefix-green",
+         lesson("- S900 — p. 1: \"short\". Grounds: the guardian kept the ga. Seat: Scout.\n"),
+         {"S900": "the keeper was a guardian of the gate."}, None),
+        ("doubled-locator-single-span-green",
+         lesson("- S900 — URL — accessed 2026-10-22 — Section 'Results', ¶1: \"Results\".\n"),
+         None, None),
+        ("doubled-locator-wayback-note-red",
+         lesson("- S900 — URL — accessed 2026-10-21 via Wayback 20260605210113 — §2 'Methods': \"Methods\": \"the real quote\".\n"),
+         None, "doubled-locator"),
     ]
     for name, body, source_teaches, want in class_cases:
         findings = scan_text(body, source_teaches)

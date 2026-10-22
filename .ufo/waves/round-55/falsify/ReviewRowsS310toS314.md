@@ -1,0 +1,26 @@
+# ReviewRowsS310toS314 — Falsify report (round 55, claim C)
+
+Verdict: rows S310–S314 CARRIED. Every anchor quote is verbatim at its stated locator; every monsters-entry sentence citing these rows is carried at the stated strength. Two over-reads in S311 (entry sentence, Gate grounds) with exact replacement text below. One informational note on the S311 scope cell, same repair as the Gate.
+
+Checked items:
+
+- S310 | Perseus `.../book%3D3%3Achapter%3D116` | anchors 3.116.1/2/3 — CARRIED. Verbatim: "it is said that one-eyed men called Arimaspians steal it from griffins", "But I do not believe this, that there are one-eyed men who have a nature otherwise the same as other men", "are likely to have those things which we think the finest and the rarest".
+- S310 | Perseus `.../book%3D4%3Achapter%3D13` | anchor 4.13.1 — CARRIED. Verbatim: "beyond these (he said) live the one-eyed Arimaspians, beyond whom are the griffins that guard gold"; sequence Issedones → Arimaspians → griffins → Hyperboreans reaching the sea confirmed in the same passage (scope cell carried).
+- S310 | Perseus `.../book%3D4%3Achapter%3D27` | gloss claim — CARRIED. "for in the Scythian tongue 'arima' is one, and 'spou' is the eye".
+- S310 | corpus/knowledge/myth-symbol/monsters-hybrid-beings.md:69 — CARRIED. Both clauses match 4.13.1 and 3.116.3 at strength.
+- S310 | corpus/lessons/round-55.md:94 Gate — CARRIED. Anchor 3.116.1 verbatim; grounds match 3.116.2 (refusal) and 4.13 (second-hand lore).
+- S311 | Perseus `.../book=7:chapter=2` | all 19 anchor quotes — CARRIED. Four apparent mismatches are only footnote-superscript insertions in the HTML text ("who are known as Monocoli, 42 who have only one leg…", "the heads of dogs, 41 and clothe themselves…", "as they are commonly 7 represented", "the Trispithami 54 and the Pygmies…"); displayed text carries each quote verbatim.
+- S311 | monsters-hybrid-beings.md:69 — OVER-READ. Old: "Pliny files monstrous peoples as nations at "the very extremity of India" (S311, Book 7, ch. 2)." The quoted phrase belongs to the Astomi paragraph alone; Pliny files monstrous peoples across Scythia, mountains, Ethiopia and India. Replacement: "Pliny files monstrous peoples as nations at the world's edges — the Astomi at "the very extremity of India" (S311, Book 7, ch. 2)."
+- S311 | lessons/round-55.md:95 Gate grounds — OVER-READ. "names an authority for each" — the chapter names authorities for many items but not for the Astomi, Hirpi, the neckless, the Satyr, the introductory Scythian cannibals, the Calingæ, the Oritæ, or the desert phantoms. Replacement: "Pliny lists monstrous peoples as nations, names authorities for many of them, places them at the world's edges, and calls them Nature's amusements."
+- S311 | corpus/SOURCES.md:340 scope cell — same over-read ("the named authority Pliny attaches to each item"); same repair as the Gate grounds line.
+- S312 | Wayback capture 20250714121333 (blogs.bl.uk) | all 4 anchors — CARRIED. "Belief in the existence of monstrous races" paragraph, second sentence, verbatim; "The text of the Marvels begins without preface" paragraph, four-facts sentence verbatim; donestre paragraph verbatim. Live URL confirmed 404 after redirect to blogs-archive.bl.uk (access note correct).
+- S312 | monsters-hybrid-beings.md:69,90 — CARRIED. "the one trait on which belief agreed" matches "The only characteristic universally agreed upon…"; "four facts — name, where found, appearance, diet" matches "the name… where it can be found, what it looks like, and finally, what it eats".
+- S312 | lessons/round-55.md:96 Gate — CARRIED (anchor verbatim; grounds supported: four facts per being, listed deformities, every race beyond the known world).
+- S313 | www.themappamundi.co.uk/mappa-mundi/ | all 4 anchors + section ids — CARRIED. Blemmyes/Sciapods bodies verbatim; Camp of Alexander: "the restraining wall Alexander is reputed to have built to save the world from the destructive evil of the Sons of Cain". Scope claims carried: Troglodites "four Troglodites are drawn in Africa"; Cynocephali body names no map location.
+- S313 | monsters-hybrid-beings.md:70 — CARRIED at strength (author's "reputed" hedge preserved; entry only asserts the map shows the wall).
+- S313 | lessons/round-55.md:97 Gate — CARRIED (anchor verbatim; grounds match the page).
+- S314 | www.herefordcathedral.org/mappa-mundi | all 4 anchors — CARRIED. Opening description verbatim; drawings paragraph "These 500 or so drawings include… 33 plants, animals, birds and strange creatures, 32 images of the peoples of the world"; "drawn on a single sheet of vellum (calf skin) measuring 64 × 52 inches"; "The map bears the name of its author, 'Richard of Haldingham or Lafford'".
+- S314 | monsters-hybrid-beings.md:70 — CARRIED ("33… strange creatures in one number and 32 peoples in another" matches the drawings paragraph).
+- S314 | lessons/round-55.md:98 Gate — CARRIED ("about 500 drawings" supported by "These 500 or so drawings"; calfskin sheet and spiritual/geographical reading both on page).
+
+Unrun checks: map images not visually inspected (the guide's textual statements carry the cited claims); Latin of Pliny chapter 7 not read (row's own tier note already says so). No tools installed — plain curl and python3 stdlib; no pacman/npx/cargo actions.
