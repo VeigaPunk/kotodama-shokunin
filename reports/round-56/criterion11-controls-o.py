@@ -23,10 +23,17 @@ its nearest near-miss; expected exit 1 with that clause's leg FAIL and every oth
   DECODE         the fixture's S951 truncated-grounds finding is missing (decoded comparison absent)
   DECODE-ESC     the fixture's S955 words=26 finding is missing (entity-quoted span not counted)
   DECODE-FP      the fixture's S953 boundary row (`AT&T;`, `R&D;`) reported html-entity
+  ENTITY-DOUBLE  the 16 triples plus a second S288 line-72 finding (one finding per reference)
+  DECODE-MOVED   the run-time moved copy of the fixture prints no findings and exits 0 (a checker keyed
+                 on the fixture's path)
+  DECODE-HEX     the fixture's S958 (hexadecimal references) unreported
+  DECODE-ELLIPSIS the fixture's S960 words=5 (decoded &hellip; joining fragments) missing
   KEEP           the round-53 run's last words= line reads one more word (round 54 has no words= line)
   KEEP-EXIT      the round-52 run prints the base output and exits 0
   BADUTF8        the bad-UTF-8 run writes a Traceback after its GATE_QUOTES_ERROR line (exit 2)
   BADUTF8-EXIT   the bad-UTF-8 run prints its GATE_QUOTES_ERROR line and exits 1
+  BADUTF8-PATH   the bad-UTF-8 error line does not name the path
+  FORMAT-COUNT   the round-55 run's summary counts one finding more than it prints
   FORMAT         the round-55 run adds an unparseable line `<path>:5-6 S903 words=26`
   FORMAT-CRASH   the fixture run writes a traceback to stderr, stdout unchanged
   SELFTEST       `--selftest` exits 1
@@ -51,7 +58,9 @@ ENT = [[72, "S288"], [82, "S298"], [88, "S304"], [89, "S305"], [93, "S309"], [96
        [110, "S326"], [113, "S329"], [125, "S341"], [127, "S343"], [131, "S347"], [132, "S348"],
        [134, "S350"], [138, "S354"], [140, "S356"], [141, "S357"]]
 FIXW = [[8, "S951", "html-entity"], [8, "S951", "truncated-grounds"], [9, "S952", "html-entity"],
-        [11, "S954", "html-entity"], [12, "S955", "html-entity"], [12, "S955", "words=26"]]
+        [11, "S954", "html-entity"], [12, "S955", "html-entity"], [12, "S955", "words=26"],
+        [14, "S958", "html-entity"], [15, "S959", "html-entity"], [16, "S960", "html-entity"],
+        [16, "S960", "words=5"]]
 
 STANDIN = r"""#!/usr/bin/env python3
 # Stand-in landing for a criterion-11 control copy only; never landed.
@@ -68,7 +77,10 @@ if args and args[0].endswith("round-55.md"):
     out = [f"{args[0]}:{n} {s} html-entity" for n, s in CFG["ent"]]
     out += [f"{args[0]}:{n} {s} {d}" for n, s, d in CFG["stray"]]
     extra = [f"{args[0]}:5-6 S903 words=26"] if CFG["badline"] else []
-    print("\n".join(out + extra)); print(f"GATE_QUOTES: {len(out)} findings"); sys.exit(CFG["exit55"])
+    print("\n".join(out + extra)); print(f"GATE_QUOTES: {len(out) + CFG['count_off']} findings"); sys.exit(CFG["exit55"])
+if args and args[0].endswith("moved-copy.md"):
+    out = [] if CFG["moved_blind"] else [f"{args[0]}:{n + 2} {s} {d}" for n, s, d in CFG["fix"]]
+    print("\n".join(out)); print(f"GATE_QUOTES: {len(out)} findings"); sys.exit(1 if out else 0)
 if args and args[0].endswith("entities.md"):
     out = [f"{args[0]}:{n} {s} {d}" for n, s, d in CFG["fix"]]
     print("\n".join(out)); print(f"GATE_QUOTES: {len(out)} findings")
@@ -76,7 +88,7 @@ if args and args[0].endswith("entities.md"):
         sys.stderr.write("Traceback (most recent call last):\n  stand-in crash\n")
     sys.exit(CFG["exitfix"])
 if args and args[0].endswith("bad-utf8.md"):
-    sys.stderr.write(f"GATE_QUOTES_ERROR: {args[0]}: not valid UTF-8\n")
+    sys.stderr.write(f"GATE_QUOTES_ERROR: {'lesson' if CFG['nopath'] else args[0]}: not valid UTF-8\n")
     if CFG["badtrace"]:
         sys.stderr.write("Traceback (most recent call last):\n  stand-in crash\n")
     print("GATE_QUOTES: 0 findings"); sys.exit(CFG["exitbad"])
@@ -92,7 +104,7 @@ sys.exit(CFG["exit52"] if CFG["exit52"] is not None and args and args[0].endswit
 
 GREEN = {"ent": ENT, "stray": [], "badline": False, "exit55": 1, "fix": FIXW, "crash": False,
          "exitfix": 1, "badtrace": False, "exitbad": 2, "bump53": False, "exit52": None,
-         "selftest_fail": False}
+         "selftest_fail": False, "moved_blind": False, "count_off": 0, "nopath": False}
 CONTROLS = [
     ("GREEN", {}, 0, []),
     ("RED-ENTITY", {"ent": [e for e in ENT if e[1] != "S357"]}, 1, ["ENTITY"]),
@@ -104,10 +116,16 @@ CONTROLS = [
     ("RED-DECODE", {"fix": [f for f in FIXW if f[2] != "truncated-grounds"]}, 1, ["DECODE"]),
     ("RED-DECODE-ESC", {"fix": [f for f in FIXW if f[2] != "words=26"]}, 1, ["DECODE"]),
     ("RED-DECODE-FP", {"fix": FIXW + [[10, "S953", "html-entity"]]}, 1, ["DECODE"]),
+    ("RED-ENTITY-DOUBLE", {"ent": ENT + [[72, "S288"]]}, 1, ["ENTITY"]),
+    ("RED-DECODE-MOVED", {"moved_blind": True}, 1, ["DECODE"]),
+    ("RED-DECODE-HEX", {"fix": [f for f in FIXW if f[1] != "S958"]}, 1, ["DECODE"]),
+    ("RED-DECODE-ELLIPSIS", {"fix": [f for f in FIXW if f[2] != "words=5"]}, 1, ["DECODE"]),
     ("RED-KEEP", {"bump53": True}, 1, ["KEEP"]),
     ("RED-KEEP-EXIT", {"exit52": 0}, 1, ["KEEP"]),
     ("RED-BADUTF8", {"badtrace": True}, 1, ["BADUTF8"]),
     ("RED-BADUTF8-EXIT", {"exitbad": 1}, 1, ["BADUTF8"]),
+    ("RED-BADUTF8-PATH", {"nopath": True}, 1, ["BADUTF8"]),
+    ("RED-FORMAT-COUNT", {"count_off": 1}, 1, ["FORMAT"]),
     ("RED-FORMAT", {"badline": True}, 1, ["FORMAT"]),
     ("RED-FORMAT-CRASH", {"crash": True}, 1, ["FORMAT"]),
     ("RED-SELFTEST", {"selftest_fail": True}, 1, ["SELFTEST"]),

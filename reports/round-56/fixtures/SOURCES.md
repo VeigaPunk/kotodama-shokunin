@@ -8,3 +8,7 @@
 | S954 | fixture 954 — https://example.invalid/954 | paper | A | fixture | p. 4 | A row whose quote carries numeric references | mined | 2026-10-22 | 2027-10-22 | — |
 | S955 | fixture 955 — https://example.invalid/955 | paper | A | fixture | p. 5 | A row whose quotation marks are numeric references | mined | 2026-10-22 | 2027-10-22 | — |
 | S956 | fixture 956 — https://example.invalid/956 | paper | A | fixture | p. 6 | A clean row | mined | 2026-10-22 | 2027-10-22 | — |
+| S958 | fixture 958 — https://example.invalid/958 | paper | A | fixture | p. 8 | A row whose quote carries hexadecimal references | mined | 2026-10-22 | 2027-10-22 | — |
+| S959 | fixture 959 — https://example.invalid/959 | paper | A | fixture | p. 9 | A row whose quote carries another named reference | mined | 2026-10-22 | 2027-10-22 | — |
+| S960 | fixture 960 — https://example.invalid/960 | paper | A | fixture | p. 10 | A row whose quote joins fragments with an encoded ellipsis | mined | 2026-10-22 | 2027-10-22 | — |
+| S961 | fixture 961 — https://example.invalid/961 | paper | A | fixture | p. 11 | A boundary row whose URL carries semicolon-free names | mined | 2026-10-22 | 2027-10-22 | — |

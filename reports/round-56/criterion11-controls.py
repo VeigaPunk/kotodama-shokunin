@@ -23,12 +23,16 @@ one two-leg control: the count 232 is pinned by both SET and SWEEP, so a count-o
   SWEEP-EXIT the counts footer left at 231 files / civilizations 94 (rows 232 files 232, missing 0,
             the sweep exits 1)
   FLOOR     the entry's S378 citation becomes S377: 20 citations, 19 distinct ids
-  RANGE     the entry cites S357 in place of S378 (20 distinct) and S357's used-by names the entry
+  RANGE     the entry cites S358 (one below the block; queued at base, which STATUS never reads for a
+            RANGE-bad row) in place of S378 (20 distinct) and S358's used-by names the entry
   RANGE-HIGH the entry cites S419 (one above the reserved block S359-S418) in place of S378, and a
             stand-in S419 row (mined, used-by the entry) is added after S378
   RANGE-NOROW the entry cites S379, which has no row, in place of S378
   RANGE-DUP a second, queued S378 row placed before the mined one
   RANGE-SPAN the entry's (S378) citation written as the range (S377–S378)
+  RANGE-DUP2 a second, queued S378 row written `|S378 |` (no space) placed before the mined one
+  RANGE-THROUGH the entry's (S378) citation written as (S377 through S378)
+  USEDBY-SUBSTR row S378's used-by names `<entry>.bak`
   STATUS    row S378 is `queued`
   USEDBY  row S378's used-by names a neighbouring entry instead
   ACCESS  row S378's anchor records reaching the page through a headless browser
@@ -128,10 +132,10 @@ def red_floor(root):
 
 
 def red_range(root):
-    edit(os.path.join(root, ENTRY), lambda t: t.replace("(S378)", "(S357)", 1))
+    edit(os.path.join(root, ENTRY), lambda t: t.replace("(S378)", "(S358)", 1))
 
     def s284(t):
-        line = re.search(r"^\| S357 .*$", t, re.M).group(0)
+        line = re.search(r"^\| S358 .*$", t, re.M).group(0)
         cells = line.split("|")
         cells[11] = cells[11].rstrip() + "; " + ENTRY + " "
         return t.replace(line, "|".join(cells), 1)
@@ -145,6 +149,19 @@ def red_range_high(root):
 
 def red_range_norow(root):
     edit(os.path.join(root, ENTRY), lambda t: t.replace("(S378)", "(S379)", 1))
+
+
+def red_range_dup2(root):
+    edit(os.path.join(root, "corpus/SOURCES.md"), lambda t: t.replace(row("S378"), row("S378", status="queued", used_by="—").replace("| S378 |", "|S378 |", 1) + row("S378"), 1))
+
+
+def red_range_through(root):
+    edit(os.path.join(root, ENTRY), lambda t: t.replace("(S378)", "(S377 through S378)", 1))
+
+
+def red_usedby_substr(root):
+    edit(os.path.join(root, "corpus/SOURCES.md"), lambda t: t.replace(
+        row("S378"), row("S378", used_by=ENTRY + ".bak"), 1))
 
 
 def red_range_span(root):
@@ -175,7 +192,9 @@ CONTROLS = [("GREEN", None, 0, []), ("RED-COUNT", red_count, 1, ["SET", "SWEEP"]
             ("RED-FLOOR", red_floor, 1, ["FLOOR"]),
             ("RED-RANGE", red_range, 1, ["RANGE"]), ("RED-RANGE-HIGH", red_range_high, 1, ["RANGE"]),
             ("RED-RANGE-NOROW", red_range_norow, 1, ["RANGE"]),
-            ("RED-RANGE-DUP", red_range_dup, 1, ["RANGE"]), ("RED-RANGE-SPAN", red_range_span, 1, ["RANGE"]), ("RED-STATUS", red_status, 1, ["STATUS"]),
+            ("RED-RANGE-DUP", red_range_dup, 1, ["RANGE"]),
+            ("RED-RANGE-DUP2", red_range_dup2, 1, ["RANGE"]), ("RED-RANGE-THROUGH", red_range_through, 1, ["RANGE"]),
+            ("RED-USEDBY-SUBSTR", red_usedby_substr, 1, ["USEDBY"]), ("RED-RANGE-SPAN", red_range_span, 1, ["RANGE"]), ("RED-STATUS", red_status, 1, ["STATUS"]),
             ("RED-USEDBY", red_usedby, 1, ["USEDBY"]), ("RED-ACCESS", red_access, 1, ["ACCESS"])]
 
 

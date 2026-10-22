@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Round-56 claim C acceptance (adapted from reports/round-56/accept-c.py: entry path, totals, and RANGE now bounded above by C's reserved block). Run from the lane root:
+"""Round-56 claim C acceptance (adapted from reports/round-55/accept-c.py: entry path, totals, and RANGE now bounded above by C's reserved block). Run from the lane root:
 
   python3 -B reports/round-56/accept-c.py [--root DIR]
 
@@ -15,10 +15,11 @@ with PASS or FAIL:
   FLOOR     the entry cites at least 20 distinct S-ids
   RANGE     every S-id the entry cites lies in claim C's reserved block S359-S418 (no id below
             S359 and none above S418) and is exactly one corpus/SOURCES.md
-            row (a cited id with no row or with two or more rows fails); the entry carries no
-            S-id range notation such as `S250–S255` (a range would hide the ids inside it)
+            row (a row is any line matching `^\|\s*(S\d{3,})\s*\|`, the access checker's grammar) (a cited id with no row or with two or more rows fails); the entry carries no
+            S-id range notation such as `S250–S255`, `S250 to S255`, `S250 through S255`, `S250…S255`,
+            `S250−S255` (U+2212), `S250..S255` or a two-digit tail `S250–55` (a range would hide the ids inside it)
   STATUS    every cited row has status `mined`
-  USEDBY    every cited row names ENTRY in its used-by cell
+  USEDBY    every cited row names ENTRY as one whole comma- or semicolon-separated item of its used-by cell
   ACCESS    python3 -B tools/check-source-access.py exits 0 (QUALITY criterion 10)
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
 Review-only (no leg; the claims file lists them): the entry's topic; whether each sentence is
@@ -61,7 +62,7 @@ def main():
         print(f"ACCEPT_C_INPUT_ERROR base list has {len(base)} paths, expected {TOTAL - 1}", file=sys.stderr)
         return 2
     live = {os.path.relpath(os.path.join(d, f), root)
-            for d, _, fs in os.walk(os.path.join(root, "corpus/knowledge")) for f in fs}
+            for d, _, fs in os.walk(os.path.join(root, "corpus/knowledge"), followlinks=True) for f in fs}
     added, removed = sorted(live - base), sorted(base - live)
     legs = [("SET", len(live) == TOTAL and added == [ENTRY] and removed == [],
              f"count={len(live)} required={TOTAL} added={added} removed={removed}")]
@@ -81,12 +82,13 @@ def main():
         if os.path.isfile(path):
             text = open(path, encoding="utf-8").read()
             cited = sorted(set(re.findall(r"\bS\d{3}\b", text)))
-            spans = re.findall(r"\bS\d{3}\s*(?:[–—-]|to)\s*S?\d{3}\b", text)
+            spans = re.findall(r"\bS\d{3}\s*(?:[-‐‑‒–—―−~…]|\.{2,3}|to|through|thru)\s*S?\d{2,3}\b", text)
         for line in open(os.path.join(root, "corpus/SOURCES.md"), encoding="utf-8"):
-            if re.match(r"^\| S\d{3} ", line):
+            row = re.match(r"^\|\s*(S\d{3,})\s*\|", line)
+            if row:
                 cells = line.split("|")
-                table[cells[1].strip()] = cells
-                rows_per_id[cells[1].strip()] = rows_per_id.get(cells[1].strip(), 0) + 1
+                table[row.group(1)] = cells
+                rows_per_id[row.group(1)] = rows_per_id.get(row.group(1), 0) + 1
     except (OSError, UnicodeDecodeError) as error:
         print(f"ACCEPT_C_INPUT_ERROR {error}", file=sys.stderr)
         return 2
@@ -96,7 +98,7 @@ def main():
     ok_rows = [s for s in cited if s not in range_bad]
     status_bad = [f"{s}:{table[s][8].strip()}" for s in ok_rows if table[s][8].strip() != "mined"]
     legs.append(("STATUS", not status_bad, f"bad={status_bad}"))
-    used_bad = [s for s in ok_rows if ENTRY not in table[s][11]]
+    used_bad = [s for s in ok_rows if ENTRY not in [u.strip() for u in re.split(r"[,;]", table[s][11])]]
     legs.append(("USEDBY", not used_bad, f"bad={used_bad}"))
     access = run(root, [sys.executable, "-B", "tools/check-source-access.py"])
     if access is None:

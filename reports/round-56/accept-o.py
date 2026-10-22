@@ -13,18 +13,27 @@ Routed by the round-55 verifier spot-check (corpus/lessons/round-55-verifier-spo
 Gate Grounds carry HTML entities the checker does not decode.
 One leg per mechanical clause of claim O (reports/round-56/claims.json), each printed with PASS or
 FAIL:
-  ENTITY    on corpus/lessons/round-55.md the html-entity triples are exactly the 16 in ENTITY_WANT
-            (the Gate rows that carry an HTML character reference: lines 72 S288 ... 141 S357)
+  ENTITY    on corpus/lessons/round-55.md the html-entity triples are exactly the 16 in ENTITY_WANT,
+            each once (the Gate rows that carry an HTML character reference: lines 72 S288 ... 141
+            S357); triples are compared as multisets, so a finding per reference rather than per row
+            fails
   NOFALSE   on corpus/lessons/round-55.md no finding of any class other than html-entity (the
             html-entity triples themselves are ENTITY's)
   EXIT      the round-55 run and the entities-fixture run each exit 1 (findings), not 0 or 2
   DECODE    on reports/round-56/fixtures/lessons/entities.md (its registry is
-            reports/round-56/fixtures/SOURCES.md) the triples are exactly FIX_WANT: S951 html-entity
+            reports/round-56/fixtures/SOURCES.md) the triples are exactly FIX_WANT (multiset), and on a
+            copy of it written at run time under another name with two blank lines inserted after its
+            title (beside a copy of its registry) the run exits 1 and the triples are the same rows
+            under the copy's path at line + 2. FIX_WANT: S951 html-entity
             and truncated-grounds (an entity-encoded Grounds that is a proper prefix of its teaches
             cell once decoded), S952 html-entity only (an entity-encoded whole Grounds), S954
             html-entity (numeric references inside a quote), S955 html-entity and words=26 (a
-            26-word quotation whose marks are numeric references &#8220; &#8221;); S953 (`AT&T;`,
-            `R&D;`, a URL `&b=2`: no character reference) and S956 (clean) are unreported
+            26-word quotation whose marks are numeric references &#8220; &#8221;), S958 html-entity
+            (hexadecimal references), S959 html-entity (another HTML5 named reference, &rsquo;), S960
+            html-entity and words=5 (an &hellip; that joins two fragments inside one span: the
+            ellipsis-joined rule on the decoded row); S953 (`AT&T;`, `R&D;`, a URL `&b=2`), S961 (a URL
+            `&region=eu&copy=2&reg`: names without `;` are no reference) and S956 (clean) are
+            unreported
   KEEP      on corpus/lessons/round-49.md ... round-54.md each run's stdout and exit status equal
             the base tool's, as pinned in reports/round-56/base-gate-keep.txt
   BADUTF8   on reports/round-56/fixtures/lessons/bad-utf8.md (a Gate row with invalid UTF-8 bytes)
@@ -45,8 +54,11 @@ import argparse
 import hashlib
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
+from collections import Counter
 
 TOOL = "tools/check-gate-quotes.py"
 R55 = "corpus/lessons/round-55.md"
@@ -54,18 +66,21 @@ FIX = "reports/round-56/fixtures/lessons/entities.md"
 FIXREG = "reports/round-56/fixtures/SOURCES.md"
 BAD = "reports/round-56/fixtures/lessons/bad-utf8.md"
 KEEPFILE = "reports/round-56/base-gate-keep.txt"
-PINS = {FIX: "7cda842891bf9aedc391ff30b217ebee9f9fbc659f713aaf9f3bf8d35d0e405a",
-        FIXREG: "99c1e5c15b48348369e9104afdb8561fecfaaebac3797f86bf68725b587673ab",
+PINS = {FIX: "803fff4e8c064d42ebdd3cc57b5e195047ca51176b1b57f798e88a09dfd1c876",
+        FIXREG: "0a82a6ab4a62d9dce960f3e1a983ab62c3544d81088c0be396038aa148680f8a",
         BAD: "230dbacd02064acff38850020d6022ac6af89c0a2d4139cd3bf65228e3611a58",
         KEEPFILE: "fa289d07750e97f3cb9bbe4fa4b7ca87a9abfd54fc892d7dfa750abdd76290a7",
         R55: "1bbf70814548295c6e6bd2d916ea15a4b27d43a91a4af40e19062fee65fbc8ff"}
-ENTITY_WANT = {(R55, n, s, "html-entity") for n, s in (
+ENTITY_WANT = Counter((R55, n, s, "html-entity") for n, s in (
     (72, "S288"), (82, "S298"), (88, "S304"), (89, "S305"), (93, "S309"), (96, "S312"),
     (110, "S326"), (113, "S329"), (125, "S341"), (127, "S343"), (131, "S347"), (132, "S348"),
-    (134, "S350"), (138, "S354"), (140, "S356"), (141, "S357"))}
-FIX_WANT = {(FIX, 8, "S951", "html-entity"), (FIX, 8, "S951", "truncated-grounds"),
-            (FIX, 9, "S952", "html-entity"), (FIX, 11, "S954", "html-entity"),
-            (FIX, 12, "S955", "html-entity"), (FIX, 12, "S955", "words=26")}
+    (134, "S350"), (138, "S354"), (140, "S356"), (141, "S357")))
+FIX_ROWS = [(8, "S951", "html-entity"), (8, "S951", "truncated-grounds"), (9, "S952", "html-entity"),
+            (11, "S954", "html-entity"), (12, "S955", "html-entity"), (12, "S955", "words=26"),
+            (14, "S958", "html-entity"), (15, "S959", "html-entity"), (16, "S960", "html-entity"),
+            (16, "S960", "words=5")]
+FIX_WANT = Counter((FIX,) + r for r in FIX_ROWS)
+SHIFT = 2
 FINDING = re.compile(r"^(\S+):(\d+) (S\d+) (\S+)$")
 SUMMARY = re.compile(r"^GATE_QUOTES: (\d+) findings$")
 KEEPHEAD = re.compile(r"^## (\S+) exit (\d+)$")
@@ -81,8 +96,19 @@ def run(root, argv):
 
 
 def triples(result):
-    return {(m.group(1), int(m.group(2)), m.group(3), m.group(4))
-            for m in map(FINDING.match, result.stdout.splitlines()) if m}
+    return Counter((m.group(1), int(m.group(2)), m.group(3), m.group(4))
+                   for m in map(FINDING.match, result.stdout.splitlines()) if m)
+
+
+def moved_copy(root, tmp):
+    """The fixture under another name with SHIFT blank lines inserted after its title, beside a
+    copy of its registry, so no output keyed on the fixture's path or line numbers can pass."""
+    os.makedirs(os.path.join(tmp, "lessons"))
+    shutil.copyfile(os.path.join(root, FIXREG), os.path.join(tmp, "SOURCES.md"))
+    lines = open(os.path.join(root, FIX), encoding="utf-8").read().split("\n")
+    path = os.path.join(tmp, "lessons", "moved-copy.md")
+    open(path, "w", encoding="utf-8").write("\n".join(lines[:1] + [""] * SHIFT + lines[1:]))
+    return path
 
 
 def well_formed(result):
@@ -124,15 +150,23 @@ def main():
     if sorted(keep) != [f"corpus/lessons/round-{n}.md" for n in range(49, 55)]:
         print(f"ACCEPT_O_INPUT_ERROR {KEEPFILE} names {sorted(keep)}", file=sys.stderr)
         return 2
+    tmp = tempfile.mkdtemp(prefix="kotodama-r56-accept-o-")
+    try:
+        moved = moved_copy(root, tmp)
+        mov = run(root, [TOOL, moved])
+    finally:
+        shutil.rmtree(tmp)
     r55, fix, bad, st = (run(root, [TOOL, R55]), run(root, [TOOL, FIX]), run(root, [TOOL, BAD]),
                          run(root, [TOOL, "--selftest"]))
     keeps = {path: run(root, [TOOL, path]) for path in sorted(keep)}
-    if None in (r55, fix, bad, st) or None in keeps.values():
+    if None in (r55, fix, bad, st, mov) or None in keeps.values():
         return 2
     t55 = triples(r55)
-    ent = {t for t in t55 if t[3] == "html-entity"}
+    ent = Counter({t: n for t, n in t55.items() if t[3] == "html-entity"})
     stray = sorted(t for t in t55 if t[3] != "html-entity")
     tfix = triples(fix)
+    tmov = triples(mov)
+    mov_want = Counter((moved, n + SHIFT, s, d) for n, s, d in FIX_ROWS)
     keep_bad = [p for p, r in keeps.items()
                 if r.returncode != keep[p][0] or r.stdout.splitlines() != keep[p][1]]
     first = (bad.stderr.splitlines() or [""])[0]
@@ -140,10 +174,14 @@ def main():
                   if not well_formed(r)]
     legs = [
         ("ENTITY", ent == ENTITY_WANT,
-         f"count={len(ent)} missing={sorted(ENTITY_WANT - ent)} extra={sorted(ent - ENTITY_WANT)}"),
+         f"count={sum(ent.values())} missing={sorted((ENTITY_WANT - ent).elements())} "
+         f"extra={sorted((ent - ENTITY_WANT).elements())}"),
         ("NOFALSE", not stray, f"stray={stray}"),
         ("EXIT", r55.returncode == 1 and fix.returncode == 1, f"round55={r55.returncode} fixture={fix.returncode}"),
-        ("DECODE", tfix == FIX_WANT, f"missing={sorted(FIX_WANT - tfix)} extra={sorted(tfix - FIX_WANT)}"),
+        ("DECODE", tfix == FIX_WANT and tmov == mov_want and mov.returncode == 1,
+         f"missing={sorted((FIX_WANT - tfix).elements())} extra={sorted((tfix - FIX_WANT).elements())} "
+         f"moved_exit={mov.returncode} moved_missing={len(list((mov_want - tmov).elements()))} "
+         f"moved_extra={len(list((tmov - mov_want).elements()))}"),
         ("KEEP", not keep_bad, f"changed={keep_bad}"),
         ("BADUTF8", bad.returncode == 2 and first.startswith("GATE_QUOTES_ERROR: ") and BAD in first
          and "Traceback" not in bad.stderr, f"exit={bad.returncode} stderr_first={first[:120]!r} "
