@@ -171,7 +171,7 @@ report path. Attempt 2 adds six seats the round had not had: four executors (`Ex
 
 ## Falsify (residual call, after the scope freeze)
 
-The scope freeze (18:41Z) came before a 32-seat falsify wave could be built, so the falsify step ran as one residual `task` call of 8 seats (7 reviewer, 1 critic), payload `.ufo/waves/round-54/residual-sent-payload.json`, attacking the landed bytes at `6a658ca`. Fixes landed at `58b2fae`; `accept-c.py` exit 0 before and after the fixes.
+The scope freeze (18:41Z) came before a 32-seat falsify wave could be built, so the falsify step ran as one residual `task` call of 8 seats (7 reviewer, 1 critic), payload `.ufo/waves/round-54/residual-sent-payload.json`, attacking the landed bytes at `6a658ca`. Fixes landed at `58b2fae` and, for the late ReviewRows247to254 slice, in the following fix commit; `accept-c.py` exit 0 before and after the fixes.
 
 | Seat | Verdict | Fixed at `58b2fae` |
 |---|---|---|
@@ -182,7 +182,7 @@ The scope freeze (18:41Z) came before a 32-seat falsify wave could be built, so 
 | ReviewRows271to278 | CARRIED 8/8, 0 entry defects; S275 anchor locator nit | carried to Frontier |
 | ReviewRows279to284 | CARRIED 10/10 | — |
 | ReviewGateQuoteTool | ABLE TO FAIL: yes (3 mutants killed); five escape classes (hard-wrapped quote, guillemets, hyphenated compounds, inter-span ellipsis, `* ` bullets); its scan of the first-draft Gate lines found the S255, S259, S262 runs that were fixed before filing | escapes carried to Frontier |
-| ReviewRows247to254 | see its report if filed; not integrated before the report deadline | — |
+| ReviewRows247to254 | CARRIED 16 of 21, WRONG-LOCATOR 3 (S251 section name ×2, S248 ¶3), OVER-READ 2 (S247 "for the rest of the year", S253 hedge dropped); S254 anchor lacks locators for the Come Home quotes; S248 anchor repeats the ¶2 error | entry items fixed at the post-report fix commit; the S248 and S254 registry cells are carried to Frontier |
 
 ## Mistakes
 

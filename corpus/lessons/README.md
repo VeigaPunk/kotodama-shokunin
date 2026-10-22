@@ -111,7 +111,7 @@ Columns: **file** · **format** (§3) · **contract** (`source:`/`verified-at:`/
 | `corpus/lessons/round-52-verifier-spotcheck.md` | plain | 0/4 | none (routed defects carry no Q ids) | non-author closure record; fleet MANIFEST kotodama r52 | bytes=19714 lines=157 sha8=0c9bccc9 |
 | `corpus/lessons/round-53.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-53/claims.json` | bytes=70567 lines=217 sha8=5c0413a7 |
 | `corpus/lessons/round-53-verifier-spotcheck.md` | plain | 0/4 | none (routed defects carry no Q ids) | non-author closure record; fleet MANIFEST kotodama r53 | bytes=19687 lines=185 sha8=397f2203 |
-| `corpus/lessons/round-54.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-54/claims.json` | bytes=40625 lines=200 sha8=71de1b8e |
+| `corpus/lessons/round-54.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-54/claims.json` | bytes=40955 lines=200 sha8=5b685de2 |
 
 **Rows: 43. Files: 43.** The count is the runner's own partition glob
 (`corpus/lessons/*.md`), which includes **this README** and the round-25
