@@ -1,0 +1,143 @@
+# final measures on export of 0ef3a4a 2026-10-22T15:36:13Z tree=/fast/scratch/hyaku/kotodama-r53/final
+
+## After-commands
+$ python3 -B reports/round-53/d-count.py
+OPEN 0
+SID_BAD 0 [] cited 50
+exit 0
+$ find corpus/knowledge -name '*.md' | wc -l
+229
+exit 0
+$ python3 -B reports/round-53/accept-c.py
+COUNT PASS knowledge_files=229 required=229
+ENTRY PASS corpus/knowledge/linguistics/gesture-co-speech-pointing.md
+SWEEP PASS exit=0 rows 229 files 229 missing_from_index 0 []
+SIDS PASS cited=51 bad=[]
+exit 0
+$ python3 -B reports/round-28/readme/sweep.py
+parts {"civilizations": 94, "culture-material": 28, "linguistics": 28, "myth-symbol": 26, "synthesis": 29, "verification": 24}
+rows 229 files 229
+missing_from_index 0 []
+topic_mismatch 0 []
+orphan_rows 0 []
+header_drift {}
+totals_line 229 totals_ok True
+footer {"date": "2026-10-22", "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge", "total": 229, "dir_totals": [28, 26, 28, 29, 24, 94]}
+footer_live {"total": 229, "dir_totals": [28, 26, 28, 29, 24, 94], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [] footer_ok True
+readme_sha256 9c2d10d15b73d2c4c562f24939b0a3d08ca9504ff3344c09efd73eceb139e7ec
+exit 0
+$ python3 -B tools/check-claim-separability.py reports/round-53/separability-manifest.json --lane /home/vgpnk/Projects/shokunin/kotodama-shokunin --root .
+SEPARABILITY: 0 findings
+SEPARABILITY_NOTE units=3 ordered_pairs=6 acceptance_runs=2
+exit 0
+$ python3 -B reports/round-53/claims-agree.py
+AGREE claims=['C', 'D']
+exit 0
+$ python3 -B reports/round-53/dry-run.py check reports/round-53/telemetry/declaration-dry-run.txt
+MISSING_FROM_RECEIPT []
+UNDECLARED_IN_RECEIPT []
+exit 0
+$ python3 -B tools/check-source-access.py
+ACCESS: 2 flagged rows, 0 findings
+exit 0
+$ python3 -B tools/check-draft-ids.py
+DRAFT_IDS: 0 findings
+exit 0
+$ python3 -B reports/round-53/clauses.py --base-tree /fast/scratch/hyaku/kotodama-r53/base
+C1 PASS added=['corpus/knowledge/linguistics/gesture-co-speech-pointing.md'] removed=[]
+C2 PASS topic_chars=375 phrase_ok=True
+C3 PASS draft_tokens=[]
+D1 PASS lines=196 base=196
+D2 PASS lost=[]
+exit 0
+
+## Red-before controls (scratch copies of the tree, claim made false)
+
+### D-red-1: expect non-zero exit with 'FRAG'
+$ python3 -B reports/round-53/d-count.py
+OPEN 1
+  FRAG corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:106 ', -6'
+SID_BAD 0 [] cited 50
+exit 1
+# D-red-1 RED-AS-STATED
+
+### D-red-2: expect non-zero exit with 'WROW2'
+$ python3 -B reports/round-53/d-count.py
+OPEN 1
+  WROW2 corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md:[113] mobile-phone decline not cited to S159 alone
+SID_BAD 0 [] cited 50
+exit 1
+# D-red-2 RED-AS-STATED
+
+### D-red-3: expect non-zero exit with 'D1 FAIL'
+$ python3 -B reports/round-53/clauses.py --base-tree /fast/scratch/hyaku/kotodama-r53/base
+C1 PASS added=['corpus/knowledge/linguistics/gesture-co-speech-pointing.md'] removed=[]
+C2 PASS topic_chars=375 phrase_ok=True
+C3 PASS draft_tokens=[]
+D1 FAIL lines=195 base=196
+D2 PASS lost=[]
+exit 1
+# D-red-3 RED-AS-STATED
+
+### C-red-1: expect non-zero exit with 'SWEEP FAIL'
+$ python3 -B reports/round-53/accept-c.py
+COUNT PASS knowledge_files=229 required=229
+ENTRY PASS corpus/knowledge/linguistics/gesture-co-speech-pointing.md
+SWEEP FAIL exit=1 rows 228 files 229 missing_from_index 1 ['linguistics/gesture-co-speech-pointing.md']
+SIDS PASS cited=51 bad=[]
+exit 1
+# C-red-1 RED-AS-STATED
+
+### C-red-2: expect non-zero exit with 'SIDS FAIL'
+$ python3 -B reports/round-53/accept-c.py
+COUNT PASS knowledge_files=229 required=229
+ENTRY PASS corpus/knowledge/linguistics/gesture-co-speech-pointing.md
+SWEEP PASS exit=0 rows 229 files 229 missing_from_index 0 []
+SIDS FAIL cited=51 bad=['S187:used-by']
+exit 1
+# C-red-2 RED-AS-STATED
+
+### C-red-3: expect non-zero exit with 'ENTRY FAIL'
+$ python3 -B reports/round-53/accept-c.py
+COUNT FAIL knowledge_files=228 required=229
+ENTRY FAIL corpus/knowledge/linguistics/gesture-co-speech-pointing.md
+SWEEP FAIL exit=1 rows 229 files 228 missing_from_index 0 []
+SIDS FAIL cited=0 bad=['entry absent']
+exit 1
+# C-red-3 RED-AS-STATED
+
+### C-red-4: expect non-zero exit with 'C1 FAIL'
+$ python3 -B reports/round-53/clauses.py --base-tree /fast/scratch/hyaku/kotodama-r53/base
+C1 FAIL added=['corpus/knowledge/linguistics/gesture-co-speech-pointing.md', 'corpus/knowledge/linguistics/zz-probe.md'] removed=['corpus/knowledge/linguistics/numerals-and-measures.md']
+C2 PASS topic_chars=375 phrase_ok=True
+C3 PASS draft_tokens=[]
+D1 PASS lines=196 base=196
+D2 PASS lost=[]
+exit 1
+# C-red-4 RED-AS-STATED
+
+### C-red-5: expect non-zero exit with 'C2 FAIL'
+$ python3 -B reports/round-53/clauses.py --base-tree /fast/scratch/hyaku/kotodama-r53/base
+C1 PASS added=['corpus/knowledge/linguistics/gesture-co-speech-pointing.md'] removed=[]
+C2 FAIL topic_chars=26 phrase_ok=False
+C3 PASS draft_tokens=[]
+D1 PASS lines=196 base=196
+D2 PASS lost=[]
+exit 1
+# C-red-5 RED-AS-STATED
+
+FINAL PASS
+
+# census at round end 2026-10-22T15:36:16Z
+kotodama	W04	S127 duplicate url voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement across scopes
+kotodama	W04	S128 duplicate url pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf across scopes
+kotodama	W04	S129 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC10622114 across scopes
+kotodama	W04	S130 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC6818964 across scopes
+kotodama	W04	S131 duplicate url link.springer.com/article/10.1186/1477-7517-9-16 across scopes
+kotodama	W04	S132 duplicate url ida.gallaudet.edu/cgi/viewcontent.cgi?article=1004&context=sls across scopes
+kotodama	W04	S133 duplicate url www.cslds.org/apsl-consortium/sign-linguistics/module-7-sign-phonetics-and-phonology-symmetry-and-dominance-condition across scopes
+kotodama	W04	S185 duplicate url www.internationalphoneticassociation.org/icphs-proceedings/ICPhS2003/papers/p15_2131.pdf across scopes
+kotodama	W04	S186 duplicate url ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-canary-islands-the-silbo-gomero-00172 across scopes
+kotodama	ok	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+exit 0
