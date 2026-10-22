@@ -1,0 +1,28 @@
+# round-52 prerequisite receipt 2026-10-22T10:38:02Z tree=main 2b956d7c (QUALITY criterion 10 checker, before any registry change)
+$ python3 -B tools/check-source-access.py --selftest
+PASS clean exit=0 findings=0
+PASS headless-mined exit=1 findings=1
+PASS headless-rejected-uncited exit=0 findings=0
+PASS headless-rejected-cited exit=1 findings=2
+PASS wayback-after-challenge exit=0 findings=0
+PASS wayback-after-live-captcha exit=0 findings=0
+PASS captcha-in-teaches exit=1 findings=1
+PASS bypass-in-anchor exit=1 findings=1
+PASS prefix-id-not-cited exit=0 findings=0
+ACCESS_INPUT_ERROR row S001 at line 3 has 3 cells, not 11
+PASS malformed-row exit=2
+SELFTEST: 10/10 pass
+exit 0
+$ python3 -B tools/check-source-access.py
+ACCESS_FINDING status S094 mined
+ACCESS_FINDING cited S094 corpus/knowledge/linguistics/sign-languages-manual-modality.md:83
+ACCESS_FINDING cited S094 corpus/knowledge/linguistics/sign-languages-manual-modality.md:87
+ACCESS_FINDING cited S094 corpus/knowledge/linguistics/sign-languages-manual-modality.md:90
+ACCESS_FINDING cited S094 corpus/knowledge/linguistics/sign-languages-manual-modality.md:92
+ACCESS_FINDING cited S094 corpus/knowledge/linguistics/sign-languages-manual-modality.md:93
+ACCESS: 1 flagged rows, 6 findings
+exit 1
+$ curl -s -o /dev/null -w ... -A Mozilla/5.0 https://ida.gallaudet.edu/cgi/viewcontent.cgi?article=1004&context=sls (ordinary re-open of S094)
+2026-10-22T10:38:03Z
+http=403 server=cloudflare cf-mitigated=challenge
+exit 0
