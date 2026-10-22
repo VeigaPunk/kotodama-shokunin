@@ -3,7 +3,7 @@
 Promotion to shokunin requires all of:
 
 - [~] SKILL.md contains real decision tables, error patterns, checklists, cited sources
-  asserted: `SKILL.md:20` (Decision table), `:468` (Error patterns), `:522` (Checklist); sources registered in `corpus/SOURCES.md` (183 rows after round 52 — 142 mined, 33 queued, 8 rejected, S094 rejected via S132 — census exit 0 in `reports/round-52/telemetry/final-measures.txt`); no non-author verifier on record.
+  asserted: `SKILL.md:20` (Decision table), `:468` (Error patterns), `:522` (Checklist); sources registered in `corpus/SOURCES.md` (238 rows after round 53 — 194 mined, 35 queued, 9 rejected — census exit 0 in `reports/round-53/telemetry/final-measures.txt`); no non-author verifier on record.
 - [~] At least one end-to-end domain task executed and logged in LOG.md
   asserted: round 51 gap sweep → 61 new SOURCES rows (52 mined, 9 queued at `2b956d7`: S081, S123–S125 and S127–S131 queued; the build wave admitted 54, the falsify wave added S125–S131) → sign-language entry → 41-seat falsify wave → repairs at `364eeff` → final receipt `reports/round-51/telemetry/final-measures.txt` (`LOG.md` round-51 entry); no non-author verifier on record. Corrected in round 53 from "53 mined, 8 queued" (round-52 closure, routed defect 3).
 - [~] Instructions executable by an agent without oral context

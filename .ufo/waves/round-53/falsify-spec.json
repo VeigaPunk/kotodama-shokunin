@@ -1,0 +1,270 @@
+{
+ "wave": "kotodama-r53-falsify",
+ "milestone": "Round 53 falsify: attack D's landed repair and C's gesture entry, rows, gates and tools",
+ "reportDir": ".ufo/waves/round-53/falsify",
+ "axes": [
+  "depth",
+  "coverage"
+ ],
+ "context": "# Goal\nKotodama round 53, attempt 1, FALSIFY wave (hyaku phase 3, 2026-10-22). Lane repo /home/vgpnk/Projects/shokunin/kotodama-shokunin (branch main). Every item attacks bytes that already landed; you are a non-author of them. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/claims.json first. Claim base `a9cf95fe47a82b516f6c2487cb76b89c3a71c493`. Two claims landed:\n- D (depth, repair-first) landed at `374ae5a4e4376049e45a7f597e740d09bf94cbc4`: in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md, `python3 -B reports/round-53/d-count.py` now prints OPEN 0, SID_BAD 0 (was OPEN 18). The repairs: 10 draft-id fragments mapped to registered rows; line 106 cites S162 for \"working their farms\"; line 113 cites S159 and quotes it; S163 moved to line 105 with its own quote; over-reads on lines 54, 58, 76, 79, 121 and 176 rewritten to what re-opened pages carry. See `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff a9cf95fe47a82b516f6c2487cb76b89c3a71c493 374ae5a4e4376049e45a7f597e740d09bf94cbc4 -- corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`.\n- C (coverage, learning claim) landed at `47ec825f11543b5ba457e21772d587b3f529e756`: new entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md (222 lines, 14 sections), 52 new rows S187-S238 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md (all `mined`, used-by the entry), README index row. `python3 -B reports/round-53/accept-c.py` exits 0. The integrator merged duplicate works and mapped seat draft ids to S-ids; the map is /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the wave-1 seat reports (with the quotes and locations each seat saw) are under /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/.\nA falsifier finding is concrete: file:line, what the text says, what the opened source says (verbatim quote of at most 25 words with its location), and the fix. Report \"no defect found\" only after you checked, with what you checked.\n\n# Ownership and bounds\nThe L1 (KotodamaR53) is the sole integration owner. Every seat is a leaf: no delegation, no background jobs, no swarms (an executor or mutation-tester may spawn at most one read-only labrat). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kotodama-shokunin — write it at /home/vgpnk/Projects/shokunin/kotodama-shokunin/<that path>; never write under /home/vgpnk/Projects/shokunin/.ufo or anywhere else in the fleet repo. Seats write ONLY their own report file. Executors and mutation-testers may use a private sandbox at /fast/scratch/hyaku/kotodama-r53/falsify/<SeatName> (`git clone -q --shared /home/vgpnk/Projects/shokunin/kotodama-shokunin /fast/scratch/hyaku/kotodama-r53/falsify/<SeatName>`). NEVER edit, create or delete any other file in /home/vgpnk/Projects/shokunin/kotodama-shokunin, a sibling lane, or the fleet repo /home/vgpnk/Projects/shokunin. Never run any jj command at the fleet root /home/vgpnk/Projects/shokunin; in the lane only read-only jj with --ignore-working-copy. Seats never commit, push, fetch, update refs or touch the lane's jj state or Git index (no git add/commit/stash/checkout/switch/reset/pull/push in /home/vgpnk/Projects/shokunin/kotodama-shokunin); read-only git is fine. The `kotodama51-prereg-critic` item is held: never retry, reroute or reproduce it.\n\n# Sources\nRe-open sources by ORDINARY MEANS ONLY: plain requests (read tool, curl), public copies, archive.org or Wayback captures, open repositories. NEVER use a headless browser or any tool to get past a bot challenge, captcha, paywall, login or other access control (QUALITY criterion 10); a challenge met and routed around by an ordinary copy is reported as \"challenge met, not passed\". Copy quotes character for character and give the printed page or section.\n\n# Tooling\nYou and every seat may install or upgrade tools that help the task; read /home/vgpnk/.omp/agent/RULES.md first and record tool, version, channel and reason. All pacman transactions are PAUSED host-wide: never pacman -S/-Sy/-Syu/-U/-R, never downgrade, never restart a host service; use uv tool, npx or an official binary in ~/.local/bin, or report the need. Prefer no installs.\n\n# Output\nA concise Markdown report at your Report path: item attacked, checks run (commands, URLs, outputs), findings with severity (high = a statement the source does not carry or a gate that passes a false claim; medium = imprecise or mis-cited; low = wording), each with a paste-ready fix. Never weaken a test. Write plain English: no run-together words, no private jargon.",
+ "items": [
+  {
+   "name": "ReviewCSec01",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 1-27: section 1 (register property) and section 2 (one-owner boundary): for section 2, re-read every backticked path:line anchor at the lane and say whether it supports the ownership cell. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec03",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 46-61: section 3 (gesture types). For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec04",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 62-79: section 4 (pointing). For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec05",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 80-94: section 5 (gesture in space and time); also check it does not restate semantics-pragmatics.md:113-120 or direction-symbolism.md:33-44. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec06",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 95-109: section 6 (language shapes gesture). For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec07",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 110-125: section 7 (quotable gestures and emblem repertoires); also check it does not restate adornment-body-codes.md:79-93. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec08",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 126-140: section 8 (social control); also check it does not restate direction-symbolism.md:91-102 or politeness-taboo-euphemism.md:71-79. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec09",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 141-153: section 9 (acquisition and learning); flag any drift into clinical or developmental-norm claims. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec10",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 154-178: section 10 (decision table, build order, DR-GES records): every cited anchor and S-id. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec11",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 179-188: section 11 (NON-CANON worked example): invented content stays invented, real claims are sourced. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCSec12",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 189-207: section 12 (calibration bank, living-practice flag, precision traps): each status code against calibration-registry.md:35-39 and each row against its sources. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewCHead",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md lines 1-13 and 208-222: the head fields (topic, gap filled, sources, couples, source, verified-at, recheck, scope) and sections 13-14: re-run the two gap sweeps on the base tree (`git -C LANE archive a9cf95fe47a82b516f6c2487cb76b89c3a71c493`), check every anchor, and check that the head's statements about the rows and counts match the landed bytes. For every factual sentence or table cell, find the S-id it cites, read that row in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md, and re-open the row's URL by ordinary means; say whether the opened page carries the claim at the stated strength. Use /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json and the seat reports in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ to see which quote and location the drafting seat relied on. Count sentences checked, supported, partly supported and not supported; list each defect with a fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewDLines54to58",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim D falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md lines 50-62 (the typology table; repairs on lines 54 and 58) at the lane, and the diff `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff a9cf95fe47a82b516f6c2487cb76b89c3a71c493 374ae5a4e4376049e45a7f597e740d09bf94cbc4 -- corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`. Re-open by ordinary means the rows S135 (http://www.lemondesiffle.free.fr/media/WhistledLanguages_and_Whistled_Speech_Encyclopedy.pdf), S140, S141 (URLs in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md). For every changed line: does each clause now say only what the cited row's page carries? Did any repair drop a supported detail or move a citation away from the clause it supports? Is each former draft-id fragment's source detail still supported by a cited row? Quote what you saw (at most 25 words, with location).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ReviewDLines76to79",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim D falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md lines 73-80 (repairs on lines 76 and 79) at the lane, and the diff `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff a9cf95fe47a82b516f6c2487cb76b89c3a71c493 374ae5a4e4376049e45a7f597e740d09bf94cbc4 -- corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`. Re-open by ordinary means the rows S146, S147, S151 (URLs in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md). For every changed line: does each clause now say only what the cited row's page carries? Did any repair drop a supported detail or move a citation away from the clause it supports? Is each former draft-id fragment's source detail still supported by a cited row? Quote what you saw (at most 25 words, with location).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ReviewDLines104to113",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim D falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md lines 100-113 (line 104 from the prerequisite, repairs on 105, 106, 107, 113) at the lane, and the diff `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff a9cf95fe47a82b516f6c2487cb76b89c3a71c493 374ae5a4e4376049e45a7f597e740d09bf94cbc4 -- corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`. Re-open by ordinary means the rows S184, S158, S159, S160, S162, S163 (URLs in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md). For every changed line: does each clause now say only what the cited row's page carries? Did any repair drop a supported detail or move a citation away from the clause it supports? Is each former draft-id fragment's source detail still supported by a cited row? Quote what you saw (at most 25 words, with location).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ReviewDLines121",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim D falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md lines 115-127 (repair on line 121) at the lane, and the diff `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff a9cf95fe47a82b516f6c2487cb76b89c3a71c493 374ae5a4e4376049e45a7f597e740d09bf94cbc4 -- corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`. Re-open by ordinary means the rows S164, S165, S166 (URLs in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md). For every changed line: does each clause now say only what the cited row's page carries? Did any repair drop a supported detail or move a citation away from the clause it supports? Is each former draft-id fragment's source detail still supported by a cited row? Quote what you saw (at most 25 words, with location).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ReviewDLines172to181",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim D falsifier. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md lines 164-181 (repairs on 174, 176, 177, 179, 181) at the lane, and the diff `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff a9cf95fe47a82b516f6c2487cb76b89c3a71c493 374ae5a4e4376049e45a7f597e740d09bf94cbc4 -- corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`. Re-open by ordinary means the rows S139, S152, S157, S173, S174, S175, S176, S179, S180, S181, S182, S183 (URLs in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md). For every changed line: does each clause now say only what the cited row's page carries? Did any repair drop a supported detail or move a citation away from the clause it supports? Is each former draft-id fragment's source detail still supported by a cited row? Quote what you saw (at most 25 words, with location).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CriticDEvasion",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack claim D's landed repair at `374ae5a4e4376049e45a7f597e740d09bf94cbc4`. d-count.py's phrase legs pass once the routed wording is gone; a rewording could keep the same over-read. For each of the 18 base instances (list: `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show a9cf95fe47a82b516f6c2487cb76b89c3a71c493:reports/round-53/telemetry/declaration-dry-run.txt`... the instance list is in /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/telemetry/declaration-dry-run.txt), compare the base line with the landed line and judge: repaired, reworded-but-same-defect, or deleted-without-support. Note that the routed item for line 176 ('primitive peoples') was itself wrong: the phrase is on S181's page in the Collins sense; judge whether the landed line 176 lost supported content and whether that harms depth. Run `python3 -B reports/round-53/d-count.py` and `python3 -B reports/round-53/clauses.py --base-tree <an export of a9cf95fe47a82b516f6c2487cb76b89c3a71c493>` and paste outputs.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CriticCRestatement",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack claim C for restatement and wrong ownership. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md in full and the partial owners /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/adornment-body-codes.md:77-93, linguistics/sign-languages-manual-modality.md:55-70 and :155-165, linguistics/numerals-and-measures.md:100-112, myth-symbol/direction-symbolism.md:30-45 and :88-102, linguistics/semantics-pragmatics.md:110-122, linguistics/politeness-taboo-euphemism.md:70-80. List every place where the new entry restates a register another entry owns instead of pointing to it one-way, and every place where it claims ground (emblem meanings, left-right polarity, frames of reference, taboo sanctions) another entry owns. Also check PROVINCE fit (/home/vgpnk/Projects/shokunin/kotodama-shokunin/PROVINCE.md): any drift into clinical, developmental-norm, neuroscience or animation material?",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "CriticCClaimSizing",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack claim C's statement against its commands, at `47ec825f11543b5ba457e21772d587b3f529e756`. Statement in /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/claims.json; acceptance /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/accept-c.py; extra clause legs /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/clauses.py (a record added after the build wave found that accept-c does not check 'one new entry' or the topic). For each clause of the statement name the command that checks it and run it at the lane (paste output); say which clause, if any, is still checked by no command, and whether the closure can re-derive it with one plain command over committed bytes. Also judge the session drift guard: is round 53's C statement wider than its counting command (the class that has now appeared in rounds 51 and 52)? Be exact.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewRowsA",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C registry rows S187-S212 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md. For each row: re-open the URL by ordinary means (HTTP status, route); check tier against QUALITY criterion 6 (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md: publisher pages and abstracts are tier B for claims about a work), kind, scope, anchor (does the anchored passage exist where stated?), teaches (is it carried?), status `mined` and used-by naming corpus/knowledge/linguistics/gesture-co-speech-pointing.md; check the entry actually cites the row. Rows were merged from several seats' drafts by the integrator (map /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json); flag any row whose cells mix two works. Report per row: ok or defect with fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewRowsB",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C registry rows S213-S238 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md. For each row: re-open the URL by ordinary means (HTTP status, route); check tier against QUALITY criterion 6 (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md: publisher pages and abstracts are tier B for claims about a work), kind, scope, anchor (does the anchored passage exist where stated?), teaches (is it carried?), status `mined` and used-by naming corpus/knowledge/linguistics/gesture-co-speech-pointing.md; check the entry actually cites the row. Rows were merged from several seats' drafts by the integrator (map /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json); flag any row whose cells mix two works. Report per row: ok or defect with fix.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewDuplicateRows",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nDuplicate and access check for rows S184-S238 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md. (1) Does any new row register a work already registered in S001-S183 (same work under another URL: compare authors, titles, DOIs; for example Goldin-Meadow, Kita, Cooperrider, Haviland, Levinson rows)? (2) Does any new row's own cells record getting past an access control, or omit that a challenge was met (QUALITY criterion 10)? Run `python3 -B tools/check-source-access.py` and `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama` at the lane and paste outputs. (3) Do any two new rows register the same work?",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "CriticLearningClaim",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack whether claim C is a learning claim on uncovered ground (session quality bar: admitted knowledge on ground the coverage map did not hold). At the base `a9cf95fe47a82b516f6c2487cb76b89c3a71c493`: did any entry already own co-speech gesture or pointing as a register (read adornment-body-codes.md section 7 and its H1 title, sign-languages-manual-modality.md lines 1-15 and 60-70)? Is the new entry usable by a worldbuilder (decision tables, checklists, worked example) or an essay? Would a non-author closure call expansion 'improved'? Give the strongest case against and the evidence.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ReviewEntryContract",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMechanical entry contract for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md at `47ec825f11543b5ba457e21772d587b3f529e756`: apply the checklist in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ReviewEntryContractC.md (head fields and order, one H1 with an em dash, numbered H2s 1-14 ending Recheck then Scope, zero H3, table shapes, calibration codes R/C/B/H/T, NON-CANON paragraph, DR-GES ids unique, handoff sentence, length at most 230). Run `python3 -B tools/gates/provenance-audit.py corpus/knowledge/linguistics/gesture-co-speech-pointing.md`, `python3 -B tools/check-draft-ids.py`, `python3 -B reports/round-28/readme/sweep.py`, `python3 -B tools/check-readme-revisions.py`, `python3 -B tools/check-readme-heading.py` at the lane; paste outputs. Also check whether any section's internal `§N` cross-reference points at the wrong section after integration.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ExecFinalMeasures",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRun the round's after-measurements independently. In a sandbox: `git clone -q --shared /home/vgpnk/Projects/shokunin/kotodama-shokunin /fast/scratch/hyaku/kotodama-r53/falsify/ExecFinalMeasures && git -C /fast/scratch/hyaku/kotodama-r53/falsify/ExecFinalMeasures checkout -q 47ec825f11543b5ba457e21772d587b3f529e756`; export the base: `mkdir -p /fast/scratch/hyaku/kotodama-r53/falsify/base && git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin archive a9cf95fe47a82b516f6c2487cb76b89c3a71c493 | tar -x -C /fast/scratch/hyaku/kotodama-r53/falsify/base`. From the sandbox root run `python3 -B reports/round-53/final-measures.py --tree . --lane /home/vgpnk/Projects/shokunin/kotodama-shokunin --base-tree /fast/scratch/hyaku/kotodama-r53/falsify/base --label falsify-rerun` (the script is in the lane's working copy, not yet committed: copy /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/final-measures.py and /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/clauses.py and /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-draft-ids.py into the sandbox first, and say so). Paste the full output. Then check each red control really failed for its stated reason, and add two red controls of your own per claim (sandbox only) that the script does not have. Report every command, output and exit code.",
+   "axes": [
+    "coverage",
+    "depth"
+   ]
+  },
+  {
+   "name": "ReviewSeparability",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRun at the lane, at `47ec825f11543b5ba457e21772d587b3f529e756` plus the uncommitted records: `python3 -B tools/check-claim-separability.py reports/round-53/separability-manifest.json`, `python3 -B reports/round-53/claims-agree.py`, `python3 -B reports/round-53/dry-run.py check reports/round-53/telemetry/declaration-dry-run.txt`. Paste outputs. Then check by hand: does D's landed diff (`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff a9cf95fe47a82b516f6c2487cb76b89c3a71c493 374ae5a4e4376049e45a7f597e740d09bf94cbc4`) cite any S-id from S187 up, name the gesture entry or the round-53 lesson? Does C's landed diff (`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff 374ae5a4e4376049e45a7f597e740d09bf94cbc4 47ec825f11543b5ba457e21772d587b3f529e756`) touch D's lines or cite D's changed lines? Is the commit order (prerequisite 9ae5af9, instruments a9cf95f, declaration 60f1d2a, D 374ae5a, C 47ec825) consistent with the declaration being frozen before landing (`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff 60f1d2a 47ec825f11543b5ba457e21772d587b3f529e756 -- reports/round-53/claims.json reports/round-53/separability-manifest.json` must be empty)?",
+   "axes": [
+    "coverage",
+    "depth"
+   ]
+  },
+  {
+   "name": "MutateAcceptC",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutation-test /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/accept-c.py in a sandbox clone at /fast/scratch/hyaku/kotodama-r53/falsify/MutateAcceptC checked out at `47ec825f11543b5ba457e21772d587b3f529e756` (never edit the lane). At least 10 single-point mutants (drop the sweep exit-code test, drop the missing_from_index test, accept rows!=files, drop the status==mined test, use substring for the S-id lower bound, skip the used-by test, count only top-level files, return 0 on failure, read the wrong SOURCES column, accept an empty citation set). Run each on the landed tree (expect exit 0) and on red copies (README row removed; cited row queued; used-by emptied; a 230th file). Report killed and surviving mutants and the controls that kill survivors.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "MutateDraftIds",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutation-test /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-draft-ids.py (a new record tool this round; run `python3 -B tools/check-draft-ids.py --selftest` first). In a sandbox at /fast/scratch/hyaku/kotodama-r53/falsify/MutateDraftIds (copy the tool and the lane corpus; never edit the lane): at least 10 single-point mutants (drop each of the three rules F1-F3, loosen the registry-id predicate, drop the citation-parenthesis requirement, ignore NEW- ids, return 0 on findings, skip non-linguistics files). Run each with --selftest, on the round-52 tip entry (`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 6524184e:corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`, expect 11 findings) and on the landed corpus (expect 0). Also try disguised forms the tool may miss (`(S160,-6)`, `(S160 -6)`, `; -6`, en dash). Report killed and surviving mutants and missed forms.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "MutateClauses",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutation-test /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-53/clauses.py (uncommitted record script; copy it into a sandbox clone at /fast/scratch/hyaku/kotodama-r53/falsify/MutateClauses checked out at `47ec825f11543b5ba457e21772d587b3f529e756`, with a base export of `a9cf95fe47a82b516f6c2487cb76b89c3a71c493`). At least 8 single-point mutants (C1 ignores removed files, C1 accepts any added path, C2 checks only 'gesture', C3 misses NEW- ids, D1 compares to the wrong file, D2 checks only added ids, return 0 on FAIL). Run each on the landed tree (expect exit 0) and on red copies (an extra file plus a removed one; topic changed; a NEW- token inserted; a D line deleted; a D S-id dropped). Report killed and surviving mutants.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScribeGateLines",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRecords: assemble the `## Gate` lines for rows S187-S238 for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-53.md, in the format of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-52.md:41-120 (`- S### — URL — accessed 2026-10-22 — location: \"quote\". Grounds: ... Seat: <SeatName>.`). Source material: the Gate-line drafts in each wave-1 seat report under /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/Scribe*.md and ScoutSourceAccess.md, renumbered with /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/integration-map.json. One line per quote; keep each quote verbatim and at most 25 words (drop any longer one and say so); one 'Seat:' tag per line; record every challenge met as 'challenge met, not passed' and the route used. List any row with no Gate quote. Output the block ready to paste, then a one-paragraph search-log note (question, where searched, identified and screened, included, excluded with reasons) in the style of round-52.md's `## Search log`.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "CriticCriterion11Text",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack the new QUALITY criterion 11 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md (uncommitted, last paragraph; read criteria 7-10 first). Is it grounded in a lesson (R52-M3 at /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-52.md, R53-M2 drafted at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-53/build/ScribeMistake.md)? Would it have caught round 51's directory-token counter and round 52's piped grep, concretely? Is it checkable from committed bytes? Does it conflict with criterion 9? Does round 53 itself satisfy it (round 53's per-clause red controls ran in the build wave and after landing, not before dispatch; the criterion says it applies from round 54 — is that honest or a loophole)? What is the cheapest paper compliance? Output wording fixes.",
+   "axes": [
+    "calibration"
+   ]
+  }
+ ]
+}

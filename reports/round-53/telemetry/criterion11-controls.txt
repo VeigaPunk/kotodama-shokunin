@@ -1,0 +1,18 @@
+## 1. round-51 claim D (pastoralism boundary table), tree 2b956d7
+$ (unmodified) sh -c 'test "$(python3 -B reports/round-51/boundary-count.py)" = "rows=15 resolved=15 distinct=15"'
+rows=15 resolved=15 distinct=15
+exit 0
+anchor occurrences: 2
+$ (one path:line anchor replaced by `linguistics/`; the statement says every row has a path:line anchor) same command
+rows=15 resolved=15 distinct=15
+exit 0 (0 = the clause was not checked)
+
+## 2. round-52 claim C (speech-surrogates entry indexed in README), tree 6524184
+$ (README index row removed; the statement says the entry is indexed) the round-52 declared C argv
+knowledge_files=228
+C_SID_BAD 0 [] cited 49
+exit 0 (0 = the clause was not checked)
+$ python3 -B reports/round-28/readme/sweep.py   (run on its own)
+rows 227 files 228
+missing_from_index 1 ['linguistics/speech-surrogates-whistled-drummed.md']
+exit 1

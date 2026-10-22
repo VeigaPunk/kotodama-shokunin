@@ -1016,6 +1016,8 @@ Claim base `bff83ba`; declaration `1f97472`; D landed `35f0d49`, falsify fixes `
 
 Frontier step (not a claim): `corpus/SOURCES.md` 70 → 131 rows (S071–S122 mined, S123–S125 and S127–S131 queued, S126 mined); census exit 0 at start and end. Non-author verification is the hyaku closure's.
 
+Correction (appended in round 53, 2026-10-22; round-52 closure, routed defect 3, `corpus/lessons/round-52-verifier-spotcheck.md:138-140`). The frontier line above was filed in the round-51 records commit `10f433c`, the same commit that flipped S081 `mined` → `queued` (`corpus/lessons/round-51.md:127`), and it was not updated to match. At the round-51 tip `2b956d7` the split for S071–S131 is 52 mined and 9 queued: S071–S122 except S081, plus S126, are mined; S081, S123–S125 and S127–S131 are queued. Re-measure: `git show 2b956d7:corpus/SOURCES.md | awk -F'|' '/^\| S(07[1-9]|0[89][0-9]|1[0-2][0-9]|13[01]) /{s=$9; gsub(/ /,"",s); c[s]++} END{for(k in c) print k, c[k]}'`. The line above stays as filed; `SHONEN.md:8` carries the corrected split since `9ae5af9`.
+
 ## Axes — round 52 (2026-10-22), author-side verdicts, pending non-author closure (hyaku phase 3, attempt 1)
 
 Prerequisite `147cfde` (QUALITY criterion 10, `tools/check-source-access.py`, S094 rejected via S132, S133); declaration `d9f73c8`; D landed `dea5ece`, wording fixes `5b7ecfb`; C landed `7cee23b`; records in the closing records commit. Receipts: `reports/round-52/telemetry/declaration-dry-run.txt` (before), `reports/round-52/telemetry/final-measures.txt` (after). Wave: one build wave of 35 seats (`.ufo/waves/round-52/`); no falsify wave (seat gate timeouts, then Main's freeze).
@@ -1028,3 +1030,17 @@ Prerequisite `147cfde` (QUALITY criterion 10, `tools/check-source-access.py`, S0
 | operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
 
 Frontier step (not a claim): `corpus/SOURCES.md` 131 → 183 rows (S132 rejected, S133 queued, S134–S183 opened this round with S178 rejected); census exit 0 at start and end. Non-author verification is the hyaku closure's.
+
+
+## Axes — round 53 (2026-10-22), author-side verdicts, pending non-author closure (hyaku phase 3, attempt 1)
+
+Prerequisite `9ae5af9` (S184 registers the UNESCO 00172 nomination file and entry line 104 cites it; S185 and S186 supersede S145's locator and S157's access note; SHONEN line 8); claim instruments `a9cf95f`; declaration `60f1d2a`; D landed `374ae5a`; C landed `47ec825`, falsify fixes `e0f9505`; records in the closing records commit. Receipts: `reports/round-53/telemetry/declaration-dry-run.txt` (before), `reports/round-53/telemetry/final-measures.txt` (after, with per-clause red controls). Waves: build 39 seats, falsify 32 seats (5 died at spawn with "No model selected"); round total 71 (`.ufo/waves/round-53/`).
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| depth | improved, bounded (claim D, repair-first) | speech-surrogates entry: `d-count.py` OPEN 18 → 0, SID_BAD 0 → 0 (10 draft-id fragments, 2 wrong-row citations, 6 over-read phrases routed by the round-52 closure); line count and cited S-id set kept (`clauses.py` D1, D2). Disclosed: the routed "primitive peoples" item was itself wrong (R53-M3) | `python3 -B reports/round-53/d-count.py` | `.ufo/waves/round-53/build/ReviewDS*.md`, `ReviewDWrongRows.md`; falsify `ReviewDLines*.md` |
+| coverage | improved (claim C, learning claim, sourced claim) | knowledge files 228 → 229; linguistics 27 → 28; `accept-c.py` exit 0 (README sweep exit 0, rows 229 files 229, missing 0; 51 cited S-ids, all S187 or above, mined, used-by the entry). Disclosed: "one new entry" and the topic are checked only by the record script `clauses.py`, not by the declared commands (R53-M2; the claim-sizing class for the third round running) | `find corpus/knowledge -name '*.md' \| wc -l`; `python3 -B reports/round-53/accept-c.py` | `corpus/knowledge/linguistics/gesture-co-speech-pointing.md`; falsify `CriticLearningClaim.md`, `CriticCRestatement.md`, `CriticCClaimSizing.md` |
+| calibration | not claimed; recorded | SHONEN line 8 and the round-51 frontier line corrected (appended note); QUALITY criterion 11 added from R52-M3 and R53-M2; `tools/check-draft-ids.py` (11 findings at the round-52 tip, 0 now) | `python3 -B tools/check-draft-ids.py` | `corpus/lessons/round-53.md` mistakes R53-M1 to R53-M3 |
+| operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 183 → 238 rows (S184–S238 opened this round; S233 retired as a duplicate of S219); census exit 0 at start and end. Non-author verification is the hyaku closure's.

@@ -4053,3 +4053,14 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **C:** `linguistics/speech-surrogates-whistled-drummed.md`; 227 → 228 files, linguistics 26 → 27 (`7cee23b`); 49 rows opened this round cited (S134–S183, S178 rejected).
 - **Wave:** one build wave of 35 seats after two seat-gate timeouts (3600 s, 1800 s); four section seats had not returned at integration and were cancelled. No falsify wave (Main's freeze at 12:32Z). Mistakes R52-M1 to R52-M3 mined.
 - **Evidence:** `reports/round-52/telemetry/final-measures.txt`; `.ufo/waves/round-52/build/`.
+
+
+## 2026-10-22 — Round 53 (attempt 1): claims D (depth, repair-first) and C (coverage); author-side, pending non-author closure — hyaku phase 3
+
+- **Trigger:** the round-52 closure (`corpus/lessons/round-52-verifier-spotcheck.md`) routed citation defects in the speech-surrogates entry; co-speech gesture and pointing had no owner (filename and topic sweeps 0 at `a9cf95f`; adornment-body-codes owns emblems and posture).
+- **Prerequisite (`9ae5af9`):** S184–S186; line 104 re-cited to S184; SHONEN line 8.
+- **D:** `d-count.py` OPEN 18 → 0 (`374ae5a`).
+- **C:** `linguistics/gesture-co-speech-pointing.md`; 228 → 229 files (`47ec825`, falsify fixes `e0f9505`); 51 rows opened this round cited.
+- **Waves:** build 39 seats, falsify 32 seats (5 dead at spawn: "No model selected"); round total 71. Mistakes R53-M1 to R53-M3; QUALITY criterion 11; `tools/check-draft-ids.py`.
+- **Drift sentinel:** the claim-sizing class (statement wider than its declared commands) recurs a third round running (R53-M2).
+- **Evidence:** `reports/round-53/telemetry/final-measures.txt`; `.ufo/waves/round-53/`.
