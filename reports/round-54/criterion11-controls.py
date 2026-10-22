@@ -11,13 +11,19 @@ GREEN  every mechanical clause holds through a stand-in landing that is never la
        entry) and a README index row with the section header, totals line and footer moved by one.
        Expected exit 0.
 One RED per mechanical clause, each the GREEN copy with that clause alone changed by its nearest
-near-miss; expected exit 1 with that clause's leg FAIL and every other leg PASS:
-  SET     a second new file (with its own README row) added and a base file (with its README
-          row) removed, so the count stays 230
-  SWEEP   the entry's README row names `masks-masquerades.md` (one letter off)
-  FLOOR   the entry cites 19 S-ids (S258 dropped)
-  RANGE   the entry cites S238 instead of S258 (still 20 cited)
-  STATUS  row S258 is `queued`
+near-miss; expected exit 1 with that clause's leg FAIL and every other leg PASS (RED-COUNT is the
+one two-leg control: the count 230 is pinned by both SET and SWEEP, so a count-only miss fails both):
+  COUNT     a second new .md file with its own README row (count 231): SET and SWEEP fail
+  SET       a second new file (with its own README row) added and a base file (with its README
+            row) removed, so the count stays 230
+  SET-EXT   a second new file that is not *.md (`masks-masquerade.notes.txt`) beside the entry
+  SWEEP     the entry's README row names `masks-masquerades.md` (one letter off)
+  FLOOR     the entry's S258 citation becomes S257: 20 citations, 19 distinct ids
+  RANGE     the entry cites S238 in place of S258 (20 distinct) and S238's used-by names the entry
+  RANGE-NOROW the entry cites S259, which has no row, in place of S258
+  RANGE-DUP a second, queued S258 row placed before the mined one
+  RANGE-SPAN the entry's (S258) citation written as the range (S257–S258)
+  STATUS    row S258 is `queued`
   USEDBY  row S258's used-by names a neighbouring entry instead
   ACCESS  row S258's anchor records reaching the page through a headless browser
 The script prints sha256 of each instrument it ran. Lines carry no `$ ` prefix, so criterion 9's
@@ -35,7 +41,7 @@ ENTRY = "corpus/knowledge/culture-material/masks-masquerade.md"
 TOPIC = ("masks and masquerade as worn object, embodied presence and licensed voice: ritual, funerary, "
          "theatrical and festival masking, masquerade societies and their access rules, as a "
          "worldbuilding method")
-ARGV = [sys.executable, "-B", "reports/round-54/accept-c.py"]
+ARGV = ["python3", "-B", "reports/round-54/accept-c.py"]
 SIDS = [f"S{n}" for n in range(239, 259)]
 INSTRUMENTS = ["reports/round-54/accept-c.py", "reports/round-54/base-knowledge-files.txt",
                "reports/round-28/readme/sweep.py", "tools/check-source-access.py",
@@ -84,17 +90,49 @@ def red_set(root):
     edit(os.path.join(root, "corpus/README.md"), readme)
 
 
+def red_count(root):
+    extra = "corpus/knowledge/culture-material/masks-masquerade-notes.md"
+    open(os.path.join(root, extra), "w", encoding="utf-8").write("# notes\n\n- topic: stand-in notes\n- couples: stand-in\n")
+    edit(os.path.join(root, "corpus/README.md"), lambda t: re.sub(
+        r"(^- `masks-masquerade\.md` — .*\n)",
+        lambda m: m.group(1) + "- `masks-masquerade-notes.md` — stand-in notes\n", t, count=1, flags=re.M))
+
+
+def red_set_ext(root):
+    open(os.path.join(root, "corpus/knowledge/culture-material/masks-masquerade.notes.txt"), "w",
+         encoding="utf-8").write("stand-in notes\n")
+
+
 def red_sweep(root):
     edit(os.path.join(root, "corpus/README.md"),
          lambda t: t.replace("- `masks-masquerade.md` — ", "- `masks-masquerades.md` — ", 1))
 
 
 def red_floor(root):
-    edit(os.path.join(root, ENTRY), lambda t: t.replace("- stand-in sentence (S258).\n", "", 1))
+    edit(os.path.join(root, ENTRY), lambda t: t.replace("(S258)", "(S257)", 1))
 
 
 def red_range(root):
     edit(os.path.join(root, ENTRY), lambda t: t.replace("(S258)", "(S238)", 1))
+
+    def s238(t):
+        line = re.search(r"^\| S238 .*$", t, re.M).group(0)
+        cells = line.split("|")
+        cells[11] = cells[11].rstrip() + "; " + ENTRY + " "
+        return t.replace(line, "|".join(cells), 1)
+    edit(os.path.join(root, "corpus/SOURCES.md"), s238)
+
+
+def red_range_norow(root):
+    edit(os.path.join(root, ENTRY), lambda t: t.replace("(S258)", "(S259)", 1))
+
+
+def red_range_span(root):
+    edit(os.path.join(root, ENTRY), lambda t: t.replace("(S258)", "(S257–S258)", 1))
+
+
+def red_range_dup(root):
+    edit(os.path.join(root, "corpus/SOURCES.md"), lambda t: t.replace(row("S258"), row("S258", status="queued", used_by="—") + row("S258"), 1))
 
 
 def red_status(root):
@@ -111,9 +149,12 @@ def red_access(root):
         row("S258"), row("S258", anchor="page reached through a headless browser"), 1))
 
 
-CONTROLS = [("GREEN", None, 0), ("RED-SET", red_set, 1), ("RED-SWEEP", red_sweep, 1),
-            ("RED-FLOOR", red_floor, 1), ("RED-RANGE", red_range, 1), ("RED-STATUS", red_status, 1),
-            ("RED-USEDBY", red_usedby, 1), ("RED-ACCESS", red_access, 1)]
+CONTROLS = [("GREEN", None, 0, []), ("RED-COUNT", red_count, 1, ["SET", "SWEEP"]),
+            ("RED-SET", red_set, 1, ["SET"]), ("RED-SET-EXT", red_set_ext, 1, ["SET"]),
+            ("RED-SWEEP", red_sweep, 1, ["SWEEP"]), ("RED-FLOOR", red_floor, 1, ["FLOOR"]),
+            ("RED-RANGE", red_range, 1, ["RANGE"]), ("RED-RANGE-NOROW", red_range_norow, 1, ["RANGE"]),
+            ("RED-RANGE-DUP", red_range_dup, 1, ["RANGE"]), ("RED-RANGE-SPAN", red_range_span, 1, ["RANGE"]), ("RED-STATUS", red_status, 1, ["STATUS"]),
+            ("RED-USEDBY", red_usedby, 1, ["USEDBY"]), ("RED-ACCESS", red_access, 1, ["ACCESS"])]
 
 
 def main():
@@ -130,7 +171,7 @@ def main():
             print(f"sha256 {hashlib.sha256(open(os.path.join(base, p), 'rb').read()).hexdigest()}  {p}")
         print("argv (run from each copy's root): python3 -B reports/round-54/accept-c.py")
         failures = 0
-        for name, fn, want in CONTROLS:
+        for name, fn, want, expect in CONTROLS:
             copy = os.path.join(tmp, name)
             shutil.copytree(base, copy)
             green(copy)
@@ -139,8 +180,7 @@ def main():
             r = subprocess.run(ARGV, cwd=copy, capture_output=True, text=True)
             legs = re.findall(r"^(\w+) (PASS|FAIL)", r.stdout, re.M)
             failing = [l for l, v in legs if v == "FAIL"]
-            expect_leg = name.split("-", 1)[1] if fn else None
-            ok = r.returncode == want and failing == ([expect_leg] if expect_leg else []) and len(legs) == 7
+            ok = r.returncode == want and failing == expect and len(legs) == 7
             failures += not ok
             print(f"\n## {name}: exit {r.returncode} (expected {want}); failing legs {failing}; "
                   f"{'AS EXPECTED' if ok else 'NOT AS EXPECTED'}")

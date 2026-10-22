@@ -5,20 +5,25 @@
 
 One leg per mechanical clause of claim C (reports/round-54/claims.json), each printed
 with PASS or FAIL:
-  SET       the *.md files under corpus/knowledge are exactly the 229 paths listed in
-            reports/round-54/base-knowledge-files.txt plus ENTRY: count 230, added [ENTRY],
-            removed [] (a second added file with a base file removed fails this leg)
+  SET       the files under corpus/knowledge (every file, not only *.md; at base all 229 are
+            *.md) are exactly the 229 paths listed in reports/round-54/base-knowledge-files.txt
+            plus ENTRY: count 230, added [ENTRY], removed [] (a second added file of any
+            extension, or one added with a base file removed, fails this leg)
   SWEEP     python3 -B reports/round-28/readme/sweep.py, run on its own, exits 0 and prints
             `rows 230 files 230` and `missing_from_index 0 []`; its exit status is read
             directly (no pipe), so a missing or misnamed README index row fails this leg
   FLOOR     the entry cites at least 20 distinct S-ids
-  RANGE     every S-id the entry cites is S239 or above and is a corpus/SOURCES.md row
+  RANGE     every S-id the entry cites is S239 or above and is exactly one corpus/SOURCES.md
+            row (a cited id with no row or with two or more rows fails); the entry carries no
+            S-id range notation such as `S250–S255` (a range would hide the ids inside it)
   STATUS    every cited row has status `mined`
   USEDBY    every cited row names ENTRY in its used-by cell
   ACCESS    python3 -B tools/check-source-access.py exits 0 (QUALITY criterion 10)
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
-Review-only (no leg): the entry's topic and whether each sentence is carried by its cited
-row's page.
+Review-only (no leg; the claims file lists them): the entry's topic; whether each sentence is
+carried by its cited row's page; whether each cited row was opened this round by ordinary means
+(ACCESS reads only the marker words a row records); whether the entry points to partial owners
+one-way; whether the ground is uncovered in substance.
 """
 import argparse
 import os
@@ -54,7 +59,7 @@ def main():
         print(f"ACCEPT_C_INPUT_ERROR base list has {len(base)} paths, expected {TOTAL - 1}", file=sys.stderr)
         return 2
     live = {os.path.relpath(os.path.join(d, f), root)
-            for d, _, fs in os.walk(os.path.join(root, "corpus/knowledge")) for f in fs if f.endswith(".md")}
+            for d, _, fs in os.walk(os.path.join(root, "corpus/knowledge")) for f in fs}
     added, removed = sorted(live - base), sorted(base - live)
     legs = [("SET", len(live) == TOTAL and added == [ENTRY] and removed == [],
              f"count={len(live)} required={TOTAL} added={added} removed={removed}")]
@@ -69,20 +74,23 @@ def main():
     legs.append(("SWEEP", sweep_ok, f"exit={sweep.returncode} {rows.group(0) if rows else 'rows ?'} "
                  f"{missing.group(0) if missing else 'missing_from_index ?'}"))
     path = os.path.join(root, ENTRY)
-    cited, table = [], {}
+    cited, table, rows_per_id, spans = [], {}, {}, []
     try:
         if os.path.isfile(path):
-            cited = sorted(set(re.findall(r"\bS\d{3}\b", open(path, encoding="utf-8").read())))
+            text = open(path, encoding="utf-8").read()
+            cited = sorted(set(re.findall(r"\bS\d{3}\b", text)))
+            spans = re.findall(r"\bS\d{3}\s*(?:[–—-]|to)\s*S?\d{3}\b", text)
         for line in open(os.path.join(root, "corpus/SOURCES.md"), encoding="utf-8"):
             if re.match(r"^\| S\d{3} ", line):
                 cells = line.split("|")
                 table[cells[1].strip()] = cells
-    except OSError as error:
+                rows_per_id[cells[1].strip()] = rows_per_id.get(cells[1].strip(), 0) + 1
+    except (OSError, UnicodeDecodeError) as error:
         print(f"ACCEPT_C_INPUT_ERROR {error}", file=sys.stderr)
         return 2
     legs.append(("FLOOR", len(cited) >= FLOOR, f"cited={len(cited)} floor={FLOOR}"))
-    range_bad = [s for s in cited if int(s[1:]) < FIRST_SID or s not in table or len(table[s]) < 13]
-    legs.append(("RANGE", not range_bad, f"bad={range_bad}"))
+    range_bad = [s for s in cited if int(s[1:]) < FIRST_SID or rows_per_id.get(s, 0) != 1 or len(table[s]) < 13]
+    legs.append(("RANGE", not range_bad and not spans, f"bad={range_bad} range_notation={spans}"))
     ok_rows = [s for s in cited if s not in range_bad]
     status_bad = [f"{s}:{table[s][8].strip()}" for s in ok_rows if table[s][8].strip() != "mined"]
     legs.append(("STATUS", not status_bad, f"bad={status_bad}"))
