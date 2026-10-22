@@ -1,5 +1,16 @@
 # kotodama-shokunin corpus index
 
+revision: 2.9 — Round-52 linguistics landing (2026-10-22): one linguistics entry
+landed (`speech-surrogates-whistled-drummed.md`, speech surrogates — whistled,
+drummed and instrument-borne speech — as conlang and worldbuilding method; before
+it, 0 filename owners and 1 topic-line mention that is not an owner,
+`music-instrument-lexicon.md:3`, with partial owners cited one-way in its §2),
+its row added in filename order between `sound-symbolism.md` and
+`syntax-typology.md` with the entry's `- topic:` text byte-equal;
+`## linguistics/` moved 26 → **27**, totals line 227 → **228**, footer vector
+`26/26/28/29/24/94` → `27/26/28/29/24/94`. Re-measured with
+`python3 reports/round-28/readme/sweep.py`: 228 rows vs 228 files, exit 0.
+
 revision: 2.8 — Round-51 linguistics landing (2026-10-22): one linguistics entry
 landed (`sign-languages-manual-modality.md`, sign languages and other manual
 communication systems as conlang and worldbuilding method; before it, 0 filename
@@ -228,7 +239,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (26)
+## linguistics/ (27)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -251,6 +262,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `sign-languages-manual-modality.md` — sign languages and other manual communication systems as a conlang and worldbuilding method — deaf-community, shared or village and emerging sign languages, homesign, alternate sign languages used by hearing people, manual codes and contact signing, fingerspelling and notation; the register test that separates a sign language from a body code, a manual code and a writing system; sublexical parameters, grammar in space, iconicity, emergence and families; and the calibration traps (one universal sign language, sign as pantomime, the village idyll, bare counts of sign languages)
 - `sociolinguistics-registers.md` — Sociolinguistic stratification within a single language — dialect geography, diglossia, registers by class/caste/profession, gendered speech, age-grading — and how register maps to era and social structure in a fictional world
 - `sound-symbolism.md` — how sound and meaning couple non-arbitrarily, and how to engineer that coupling for a fictional culture — the three-way map (arbitrariness / iconicity / systematicity, Dingemanse et al. 2015); the audited cross-linguistic bias evidence (Blasi et al. 2016: 74 signals, small↔i, tongue↔l, round↔r, plus the big/large null; Haynie et al. 2014 on position-conditioning and the failed F2-gradient account); the bouba/kiki complex across 25 languages (Ćwiek et al. 2022) with the Himba calibration (Bremner et al. 2013); the frequency code (Ohala 1994); phonesthemes (Firth 1930; Bergen 2004); ideophones as a depictive word class (Dingemanse 2012, 2018; Japanese mimetics); plus decision tables, an ideophone-register design procedure, a phonestheme-bank protocol with nonmember controls, and a calibration shelf separating bias from law
+- `speech-surrogates-whistled-drummed.md` — speech surrogates as a conlang and worldbuilding method — whistled speech in non-tonal and tonal languages, drummed speech (slit gongs, log drums, membrane talking drums), horn, reed-pipe, jaw-harp and xylophone speech, and the boundary with signal codes; what each channel keeps and drops, how ambiguity is repaired with stock phrases, the ecology that favours a surrogate, who may use the channel, and the calibration traps (a separate language, the bush telegraph, tonal-only whistling)
 - `syntax-typology.md` — word-order typology (Greenberg universals; the six basic orders), alignment systems (nominative-accusative, ergative-absolutive, split, direct-inverse, Austronesian/Philippine symmetrical voice), relative-clause and embedding strategies, and the cultural signals carried by grammar (evidentials, honorifics, discourse structure, contact) — plus which popular frameworks are contested or discredited. Reference and method only: canon decisions belong to lore-shokunin.
 - `taboo-strata-lifecycle.md` — the lexical-diachronic lifecycle of a forbidden word as a **form-history**: the inventory of form-building operations a taboo substitution can be minted with (mincing, compound circumlocution and its univerbation, semantic shift, borrowing, graphic substitution, reading substitution, understatement, clipping/initialism); the word-level lifecycle states (plain → charged → substituted → fossil or live rung → replaced or reanalyzed) as a branching state graph, never a universal ladder; and the **read-off** — the procedure for ordering the strata a taboo deposits in a lexicon against each other and against the language's other dated strata, using four bracketing tests (sound-law bracketing, loan bracketing, legal/orthographic bracketing, semantic-chain bracketing), the false-fossil exclusion checklist, and negative strata. Method and lane policy only; canon decisions belong to lore-shokunin.
 - `translation-protocol-fidelity.md` — The linguistics of **glossing and translation commentary as cultural practice**, and the fidelity criteria a built packet's translation apparatus is audited against. Supplies: the three objects a reader of a rendered text meets (the lexicographic gloss, the apparatus translation note, the equivalence claim) and why they must not be merged; the anatomy of a translation note (its provenance type, its skeleton fields, its anchor, its one dominant job); the assert/license split — what a gloss states, what it licenses a reader to infer, and the laundering classes that collapse the two; thick translation (Appiah) as the reference frame and paratext layers (Genette) as the carriers — preface, glossary, footnote, interlinear, tooltip; domestication vs foreignization (Venuti) as a declared design axis rather than a fidelity binary; the interpreter/mediator as a register office and power class; and the ten fidelity criteria (note-presence, context-field completeness, assertion licensing, translation-vs-original separation, apparatus attribution, mediation recording, era-of-rendering, register equivalence, name-first conformance, skip-test survival) that a fidelity check reads against the packet's own declared protocol. Reference and method only; canon decisions belong to lore-shokunin.
@@ -599,11 +611,11 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
 
-Total knowledge entries: 227.
+Total knowledge entries: 228.
 
 Counts checked 2026-10-22 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
-(total 227 files; directory totals 26/26/28/29/24/94).
+(total 228 files; directory totals 27/26/28/29/24/94).
 The inventory counts markers, not verified facts.
 Superseded reading, preserved as the dated record it was: this footer read
 `(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
