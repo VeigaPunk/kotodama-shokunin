@@ -30,8 +30,17 @@ import tempfile
 
 ROW = re.compile(r"^\|\s*(S\d{3,})\s*\|")
 BYPASS = re.compile(
-    r"\bheadless\b|\bbypass(?:ed|ing)?\b|\bsolved (?:a |the )?(?:bot )?(?:captcha|challenge)\b",
-    re.IGNORECASE,
+    r"""\bheadless\b|\bbypass(?:ed|ing)?\b|\bsolved\ (?:a\ |the\ )?(?:bot\ )?(?:captcha|challenge)\b
+| \b(?:undetected-chromedriver|flaresolverr|cloudscraper|curl-impersonate|ez-?proxy)\b
+| \b(?:open|fetch|load|render|retriev|scrap|access|download|captur|driv|automat)\w*\s+(?:\S+\s+){0,2}?(?:with|via|through|using|by|in)\s+(?:a\s+|an\s+|the\s+)?(?:playwright|puppeteer|selenium|webdriver|chromedriver)\b
+| \b(?:playwright|puppeteer|selenium)(?:[\s-]+webdriver)?[\s-]+(?:browser|session|script|chrom\w*|firefox|webkit)\b
+| (?<!\bnot\ )(?<!\bno\ )(?<!\bnever\ )\b(?:bypass(?:ed|es|ing)?|by-pass(?:ed|es|ing)?|circumvent(?:ed|s|ing)?|evad(?:ed|es|ing)|defeat(?:ed|s|ing)?|solv(?:ed|es|ing)|pass(?:ed|es|ing)?|clear(?:ed|s|ing)?|g[eo]t(?:ting)?\s+(?:past|around|round|through))\s+(?:\S+\s+){0,3}?(?:pay-?walls?|log-?ins?|sign-?ins?|(?:re|h)?captchas?|turnstile|geo[\s-]?block(?:s|ed|ing)?|geo[\s-]?fenc(?:e|es|ing)|(?:bot|js|javascript|cloudflare|waf|anti-?bot|browser|security)[\s-](?:challenges?|checks?|blocks?|walls?|tests?)|challenge\s+pages?|access[\s-]controls?)\b
+| \b(?:pay-?wall|log-?in|(?:re|h)?captcha|geo[\s-]?block)s?\s+(?:was\s+|were\s+)?(?:bypass|by-pass|circumvent|evad|defeat|solv)\w*
+| \bvpns?\b
+| \blogged-in\b|\b(?:signed|logged)\s+in\s+(?:as|with|via|using|through)\b
+| \b(?:subscriber|subscription|paid|member)\s+(?:account|login|credentials|session|cookie)s?\b|\b(?:institutional|personal)\s+(?:login|credentials|session|cookie)s?\b|\bsession\s+cookies?\b|\bcookies?\s+(?:from|of)\s+(?:a|an|my|the)\b
+| \bspoof(?:ed|ing|s)?\s+(?:a\s+|an\s+|the\s+)?(?:browser\s+)?(?:user[\s-]agent|ip|location|referr?er|headers?)\b""",
+    re.IGNORECASE | re.VERBOSE,
 )
 
 
@@ -113,6 +122,11 @@ def selftest():
         ("captcha-in-teaches", row("S001", "A — https://a.example", "solved a captcha to read", "queued"), "x\n", 1, 1),
         ("bypass-in-anchor", row("S001", "A — https://a.example", "t", "mined", anchor="paywall bypassed, p. 3"), "x\n", 1, 1),
         ("prefix-id-not-cited", row("S001", "A — https://a.example (headless)", "t", "rejected"), "x S0011 and S00\n", 0, 0),
+        ("two-ids-one-line", row("S001", "A — https://a.example (headless)", "t", "rejected") + row("S002", "B — https://b.example (opened via headless browser)", "t", "rejected"), "x (S001) (S002)\n", 1, 2),
+        ("glued-id-not-an-id", row("S001", "A — https://a.example (headless)", "t", "rejected"), "xS001\n", 0, 0),
+        ("capitalised-bypass", row("S001", "A — https://a.example (Headless browser)", "t", "mined"), "x\n", 1, 1),
+        ("playwright-access", row("S001", "A — https://a.example (opened with Playwright browser)", "t", "mined"), "x\n", 1, 1),
+        ("vpn-geo-block", row("S001", "A — https://a.example (through a VPN to get past a geo block)", "t", "mined"), "x\n", 1, 1),
     ]
     failures = 0
     for name, body, knowledge, want_exit, want_n in cases:
@@ -135,7 +149,7 @@ def selftest():
         ok = got == 2
         failures += not ok
         print(f"{'PASS' if ok else 'FAIL'} malformed-row exit={got}")
-    print(f"SELFTEST: {10 - failures}/10 pass")
+    print(f"SELFTEST: {15 - failures}/15 pass")
     return 1 if failures else 0
 
 

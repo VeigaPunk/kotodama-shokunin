@@ -1015,3 +1015,16 @@ Claim base `bff83ba`; declaration `1f97472`; D landed `35f0d49`, falsify fixes `
 | operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
 
 Frontier step (not a claim): `corpus/SOURCES.md` 70 → 131 rows (S071–S122 mined, S123–S125 and S127–S131 queued, S126 mined); census exit 0 at start and end. Non-author verification is the hyaku closure's.
+
+## Axes — round 52 (2026-10-22), author-side verdicts, pending non-author closure (hyaku phase 3, attempt 1)
+
+Prerequisite `147cfde` (QUALITY criterion 10, `tools/check-source-access.py`, S094 rejected via S132, S133); declaration `d9f73c8`; D landed `dea5ece`, wording fixes `5b7ecfb`; C landed `7cee23b`; records in the closing records commit. Receipts: `reports/round-52/telemetry/declaration-dry-run.txt` (before), `reports/round-52/telemetry/final-measures.txt` (after). Wave: one build wave of 35 seats (`.ufo/waves/round-52/`); no falsify wave (seat gate timeouts, then Main's freeze).
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| depth | improved, bounded (claim D, repair-first) | sign-language entry lines citing S094: 5 → 0, exit 0; the movement and orientation pairs re-sourced to S096 (NAME/SHORT, CHAIR/NAME), the passive-hand set to S097 (seven shapes, Type-3 signs); the unverifiable 1974 set marked `(to-verify)` | `awk '/S094/{n++} END{print n+0}' corpus/knowledge/linguistics/sign-languages-manual-modality.md` | `.ufo/waves/round-52/build/ReviewDLines.md` (5 of 5 lines PASS), `CriticClaimD.md` (two wording fixes landed in `5b7ecfb`) |
+| coverage | improved (claim C, learning claim, sourced claim) | knowledge files 227 → 228; linguistics 26 → 27; C acceptance exit 0 (49 cited S-ids, all S134 or above, each with the entry in `used-by`); the sweep run on its own exits 0 with 228 rows vs 228 files | `find corpus/knowledge -name '*.md' \| wc -l`; `python3 -B reports/round-28/readme/sweep.py` | `corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md`; `reports/round-52/telemetry/final-measures.txt`. Disclosed: the acceptance argv's sweep leg is weaker than the statement (R52-M3) |
+| calibration | not claimed; recorded | QUALITY criterion 10 added from the round-51 outside disagreement; SHONEN lines 6 and 8 corrected after a seat found 2 mismatches with observed state (`ReviewShonenScorecard.md` M1, M2) | `python3 -B tools/check-source-access.py` | `corpus/lessons/round-52.md` R52-M1 to R52-M3 |
+| operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 131 → 183 rows (S132 rejected, S133 queued, S134–S183 opened this round with S178 rejected); census exit 0 at start and end. Non-author verification is the hyaku closure's.

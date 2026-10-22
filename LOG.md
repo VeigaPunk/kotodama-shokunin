@@ -4044,3 +4044,12 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **C:** `linguistics/sign-languages-manual-modality.md`; 226 → 227 files, linguistics 25 → 26 (`da31d3c`, fixes `364eeff`); 52 opened rows cited plus S126.
 - **Falsify wave (41 seats):** found cell-level over-reads of sources in C and two weak D rows; all fixed inside each claim's lands, with superseding SOURCES rows S125–S131 for tier and identity corrections. Mistakes R51-M1…M5 mined; QUALITY criteria 8 and 9 added.
 - **Evidence:** `reports/round-51/telemetry/final-measures.txt`; `.ufo/waves/round-51/build/` (36 reports), `.ufo/waves/round-51/falsify/` (41 seats); one misrooted seat report moved from the fleet root into the lane byte-exact (`cmp` and sha256 matched).
+
+## 2026-10-22 — Round 52 (attempt 1): claims D (depth, repair-first) and C (coverage); author-side, pending non-author closure — hyaku phase 3
+
+- **Trigger:** the round-51 closure (`corpus/lessons/round-51-verifier-spotcheck.md`) disagreed with the gate on S094, a source opened through a bot challenge, and routed five defects. Speech surrogates had no owner (filename sweep 0, one topic-line mention that is not an owner, at `d9f73c8`).
+- **Prerequisite (`147cfde`):** QUALITY criterion 10 (sources are opened by ordinary means) with `tools/check-source-access.py`, shown able to fail (6 findings at `2b956d7`); S094 rejected through S132; S133 corrects S097's locator.
+- **D:** sign-language entry lines citing S094, 5 → 0 (`dea5ece`, fixes `5b7ecfb`).
+- **C:** `linguistics/speech-surrogates-whistled-drummed.md`; 227 → 228 files, linguistics 26 → 27 (`7cee23b`); 49 rows opened this round cited (S134–S183, S178 rejected).
+- **Wave:** one build wave of 35 seats after two seat-gate timeouts (3600 s, 1800 s); four section seats had not returned at integration and were cancelled. No falsify wave (Main's freeze at 12:32Z). Mistakes R52-M1 to R52-M3 mined.
+- **Evidence:** `reports/round-52/telemetry/final-measures.txt`; `.ufo/waves/round-52/build/`.
