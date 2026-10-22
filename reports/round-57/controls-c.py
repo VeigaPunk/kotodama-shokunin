@@ -14,9 +14,17 @@ the lane), edited as below and scored with `python3 -B reports/round-57/accept-c
                 S-ids S413-S432, its README index row, section count, totals line and footer
                 moved, and 20 registry rows (mined, used-by the entry, opened 2026-10-22) whose
                 source cells name https://example.invalid/ URLs and whose anchors quote invented
-                text -> LOCATE only
-  stub-realurl  the same, but each source cell names a real URL a round-56 row was read from
-                (S359-S378 order) and each anchor quotes invented text -> LOCATE only
+                text -> exactly LOCATE
+  stub-realurl  the same, but each source cell names a real URL a round-56 row was read from and
+                each anchor quotes invented text -> exactly LOCATE, FRESH
+  stub-short    fresh real URLs (UNESCO list pages 1-20) with the anchor quote "of the"
+                -> exactly LOCATE (quote under 8 words)
+  stub-echo     an archive.org advancedsearch URL whose query carries the invented quote (a page
+                that reflects its request) -> exactly LOCATE (search URL)
+  stub-selfhost the lane's own registry on raw.githubusercontent.com with real round-56 anchor
+                quotes -> exactly LOCATE (denied host)
+  stub-copied   twenty round-56 rows (8-word-or-longer anchor quotes) copied under the new ids with
+                their real URLs and quotes -> at least FRESH
 Exit 0 when every control fails as expected; 1 otherwise.
 """
 import os
@@ -28,7 +36,11 @@ import sys
 SCRATCH = "/fast/scratch/hyaku/kotodama-r57/controls-c"
 ENTRY = "corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md"
 TOPIC = "control stub on emblems, never a real entry"
-EXPECT = {"base": ["SET", "SWEEP", "FLOOR", "LOCATE"], "stub-invalid": ["LOCATE"], "stub-realurl": ["LOCATE"]}
+EXPECT = {"base": ["FLOOR", "LOCATE", "SET", "SWEEP"], "stub-invalid": ["LOCATE"],
+          "stub-realurl": ["FRESH", "LOCATE"], "stub-short": ["LOCATE"], "stub-echo": ["LOCATE"],
+          "stub-selfhost": ["LOCATE"], "stub-copied": ["FRESH"]}
+AT_LEAST = {"stub-copied"}
+INVENTED = "the banner of the ninth river house shows a silver heron on a field of {} stars"
 URL = re.compile(r"https?://[^\s<>\"|`]+")
 
 
@@ -37,7 +49,7 @@ def git(*args, cwd=None):
     return subprocess.run(["git"] + list(args), cwd=cwd, env=env, capture_output=True, text=True, check=True).stdout
 
 
-def stub(clone, real_urls):
+def stub(clone, mode, real):
     ids = [f"S{n}" for n in range(413, 433)]
     body = ["# Control stub", "", f"- topic: {TOPIC}", "- couples: none (control)", "",
             "## Body", ""] + [f"- Claim {i} rests on {sid}." for i, sid in enumerate(ids)]
@@ -52,10 +64,22 @@ def stub(clone, real_urls):
     open(readme, "w", encoding="utf-8").write(text)
     rows = []
     for i, sid in enumerate(ids):
-        url = real_urls[i] if real_urls else f"https://example.invalid/{sid.lower()}"
+        quote = INVENTED.format(i)
+        if mode == "invalid":
+            url = f"https://example.invalid/{sid.lower()}"
+        elif mode == "realurl":
+            url = real[i][0]
+        elif mode == "short":
+            url, quote = f"https://whc.unesco.org/en/list/{i + 1}/", "of the"
+        elif mode == "echo":
+            url = "https://archive.org/advancedsearch.php?q=" + quote.replace(" ", "+") + "&output=json"
+        elif mode == "selfhost":
+            url = "https://raw.githubusercontent.com/vgpnk/kotodama-shokunin/main/corpus/SOURCES.md"
+            quote = real[i][1]
+        else:
+            url, quote = real[i]
         rows.append(f"| {sid} | Control source {i} — {url} | paper | A | control | p. {i + 1}: "
-                    f"\"the banner of the ninth river house shows a silver heron on a field of {i} stars\" "
-                    f"| control teaching {i} | mined | 2026-10-22 | 2027-10-22 | {ENTRY} |")
+                    f"\"{quote}\" | control teaching {i} | mined | 2026-10-22 | 2027-10-22 | {ENTRY} |")
     with open(os.path.join(clone, "corpus/SOURCES.md"), "a", encoding="utf-8") as handle:
         handle.write("\n".join(rows) + "\n")
 
@@ -66,8 +90,13 @@ def main():
     real = []
     for line in open(os.path.join(lane, "corpus/SOURCES.md"), encoding="utf-8"):
         match = re.match(r"^\|\s*S(\d{3})\s*\|", line)
-        if match and 359 <= int(match.group(1)) <= 378:
-            real.append(URL.findall(line.split("|")[2])[0].rstrip(").,;:'"))
+        if match and 359 <= int(match.group(1)) <= 412:
+            cells = line.split("|")
+            quote = re.search(r'"([^"]+)"|“([^“”]+)”', cells[6])
+            quote = (quote.group(1) or quote.group(2)) if quote else ""
+            if len(re.findall(r"\w+", quote)) >= 8:
+                real.append((URL.findall(cells[2])[0].rstrip(").,;:'"), quote))
+    real = real[:20]
     shutil.rmtree(SCRATCH, ignore_errors=True)
     os.makedirs(SCRATCH)
     ok_all = True
@@ -76,15 +105,14 @@ def main():
         clone = os.path.join(SCRATCH, name)
         git("clone", "--quiet", lane, clone)
         git("checkout", "--quiet", "--detach", base, cwd=clone)
-        if name == "stub-invalid":
-            stub(clone, None)
-        elif name == "stub-realurl":
-            stub(clone, real)
+        if name != "base":
+            stub(clone, name[5:], real)
         done = subprocess.run([sys.executable, "-B", "reports/round-57/accept-c.py"], cwd=clone,
                               capture_output=True, text=True, timeout=1800)
         legs = dict(re.findall(r"^([A-Z]+) (PASS|FAIL)\b", done.stdout, re.M))
         failed = sorted(k for k, v in legs.items() if v == "FAIL")
-        ok = done.returncode == 1 and "ACCEPT-C-57: FAIL" in done.stdout and failed == sorted(EXPECT[name])
+        ok = (done.returncode == 1 and "ACCEPT-C-57: FAIL" in done.stdout
+              and (set(EXPECT[name]) <= set(failed) if name in AT_LEAST else failed == sorted(EXPECT[name])))
         ok_all &= ok
         print(f"## control {name} exit {done.returncode} failed_legs {failed} expected {sorted(EXPECT[name])} "
               f"-> {'AS-EXPECTED' if ok else 'UNEXPECTED'}")

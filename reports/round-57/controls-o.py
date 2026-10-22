@@ -2,14 +2,15 @@
 r"""Round-57 claim O pre-data controls (addendum §9: score the cheapest skip-the-work control and the
 cheapest shortcuts under the frozen counter before any data). Run from the lane root:
 
-  python3 -B reports/round-57/controls-o.py [--seed N]
+  python3 -B reports/round-57/controls-o.py
 
-Each control is a checker written into a scratch directory and scored with
-`python3 -B reports/round-57/accept-o.py --tool <control> --seed N`. Expected: every control exits 1
-with `ACCEPT-O-57: FAIL`, and its named failing leg prints FAIL.
+Each control is a checker scored with `python3 -B reports/round-57/accept-o.py --tool <control>`,
+without --seed (as the counting command runs). Expected: every red control exits 1 with
+`ACCEPT-O-57: FAIL` and its named legs print FAIL; the green control exits 0 with `ACCEPT-O-57: PASS`.
 
+Built here from the base tool (written under /fast/scratch/hyaku/kotodama-r57/controls-o):
   base       the base tool, tools/check-gate-quotes.py at 86d08883 unchanged (do nothing)
-             -> GEN (bare numeric references unreported) and MUTANTS (three survivors)
+             -> GEN, REAL (bare numeric references unreported) and MUTANTS (three survivors)
   sidcheat   the round-56 build critic's S-id-keyed checker (reports/round-57/controls/sidcheat-tool.py,
              a byte copy of /fast/scratch/hyaku/kotodama-r56/CriticClaimO56/variant-tool.py, sha256
              e3060c1c...), GQ_MODE=sidcheat: the shortcut that passed the round-56 counter -> GEN
@@ -21,7 +22,18 @@ with `ACCEPT-O-57: FAIL`, and its named failing leg prints FAIL.
              its own file's sha256 changes (kills every on-disk mutant, tests no behaviour) -> MUTANTS
   keepbreak  base with its summary line worded `finding(s)` (an output drift) -> KEEP, FORMAT
   stderrnoise base writing one note line to stderr on every lesson run -> FORMAT
-Exit 0 when every control fails as expected; 1 otherwise.
+Byte copies of the pre-dispatch critic's checkers (reports/round-57/controls/critic-o/, from
+/fast/scratch/hyaku/kotodama-r57/CriticClauseListO57/tools/), each with its EXACT failing-leg set:
+  honest                  base + `;?` grammar + five behavioural selftest cases -> GREEN (all PASS)
+  cheat-identity          function-identity selftest, no behavioural case      -> exactly MUTANTS
+  cheat-replay-identity   replays accept-o's generator from the seed in the path -> GEN, REAL, MUTANTS
+  cheat-seatgen-identity  bare numerics only on rows carrying `Seat: Gen.`      -> GEN, REAL, MUTANTS
+  red-gen                 honest with hex keeping its `;`                       -> exactly GEN, REAL
+  red-multi               honest dropping findings when the last path is unreadable -> exactly MULTI
+  red-keep                honest printing the ellipsis class name               -> exactly KEEP
+  red-format              honest with a stderr note on large registries         -> exactly FORMAT, REAL
+  red-selftest            honest whose --selftest also runs paths (exit 2)      -> exactly SELFTEST
+Exit 0 when every control behaves as expected; 1 otherwise.
 """
 import argparse
 import hashlib
@@ -41,7 +53,7 @@ SHORT = ('if reference.startswith("&#") or reference[1:] in {"quot;", "amp;", "h
          '"lsquo;", "ldquo;", "rdquo;", "mdash;", "ndash;", "nbsp;", "copy;", "eacute;", "mldr;"}:')
 ANY = 'if True:'
 SELFTEST_HEAD = 'def selftest():\n    """Cases exercising spans, row shapes, word counts, and ellipsis rules."""\n'
-EXPECT = {"base": ["GEN", "MUTANTS"], "sidcheat": ["GEN"], "shortlist": ["GEN"], "anyamp": ["GEN"],
+EXPECT = {"base": ["GEN", "REAL", "MUTANTS"], "sidcheat": ["GEN"], "shortlist": ["GEN"], "anyamp": ["GEN"],
           "hashpin": ["MUTANTS"], "keepbreak": ["KEEP", "FORMAT"], "stderrnoise": ["FORMAT"]}
 SUMMARY_LINE = 'print("GATE_QUOTES: %d findings" % total)'
 RUN_HEAD = '    results = check(paths)\n'
@@ -77,32 +89,49 @@ def build(root):
             "stderrnoise": swap(base, RUN_HEAD, RUN_HEAD + '    print("note: scanning", file=sys.stderr)\n')}
 
 
+CRITIC = "reports/round-57/controls/critic-o"
+EXACT = {"honest": [], "cheat-identity": ["MUTANTS"], "cheat-replay-identity": ["GEN", "MUTANTS", "REAL"],
+         "cheat-seatgen-identity": ["GEN", "MUTANTS", "REAL"], "red-gen": ["GEN", "REAL"],
+         "red-multi": ["MULTI"], "red-keep": ["KEEP"], "red-format": ["FORMAT", "REAL"],
+         "red-selftest": ["SELFTEST"]}
+
+
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--seed", type=int, default=5700)
-    seed = ap.parse_args().seed
     root = os.getcwd()
     os.makedirs(SCRATCH, exist_ok=True)
     ok_all = True
+    tools = {}
     for name, text in build(root).items():
         path = os.path.join(SCRATCH, f"{name}.py")
         open(path, "w", encoding="utf-8").write(text)
+        tools[name] = path
+    for name in EXACT:
+        tools[name] = os.path.join(root, CRITIC, f"{name}.py")
+    for name, path in tools.items():
+        text = open(path, encoding="utf-8").read()
         env = dict(os.environ, GQ_MODE="sidcheat") if name == "sidcheat" else dict(os.environ)
-        done = subprocess.run([sys.executable, "-B", "reports/round-57/accept-o.py", "--tool", path,
-                               "--seed", str(seed)], cwd=root, capture_output=True, text=True, env=env,
-                              timeout=900)
+        done = subprocess.run([sys.executable, "-B", "reports/round-57/accept-o.py", "--tool", path],
+                              cwd=root, capture_output=True, text=True, env=env, timeout=900)
         legs = dict(re.findall(r"^([A-Z]+) (PASS|FAIL)\b", done.stdout, re.M))
         failed = sorted(k for k, v in legs.items() if v == "FAIL")
-        ok = (done.returncode == 1 and "ACCEPT-O-57: FAIL" in done.stdout
-              and all(legs.get(leg) == "FAIL" for leg in EXPECT[name]))
+        if name == "honest":
+            ok = done.returncode == 0 and "ACCEPT-O-57: PASS" in done.stdout and not failed
+            want = "GREEN"
+        elif name in EXACT:
+            ok = done.returncode == 1 and "ACCEPT-O-57: FAIL" in done.stdout and failed == EXACT[name]
+            want = f"exactly {EXACT[name]}"
+        else:
+            ok = (done.returncode == 1 and "ACCEPT-O-57: FAIL" in done.stdout
+                  and all(legs.get(leg) == "FAIL" for leg in EXPECT[name]))
+            want = f"at least {EXPECT[name]}"
         ok_all &= ok
         print(f"## control {name} sha256 {hashlib.sha256(text.encode()).hexdigest()} exit {done.returncode} "
-              f"failed_legs {failed} expected_failing {EXPECT[name]} -> {'AS-EXPECTED' if ok else 'UNEXPECTED'}")
+              f"failed_legs {failed} expected {want} -> {'AS-EXPECTED' if ok else 'UNEXPECTED'}")
         for line in done.stdout.splitlines():
             print("   " + line[:400])
         if done.stderr.strip():
             print("   stderr: " + done.stderr.strip()[:400])
-    print(f"CONTROLS-O-57: {'all controls fail ACCEPT-O-57' if ok_all else 'a control did not fail as expected'}")
+    print(f"CONTROLS-O-57: {'every control as expected (reds fail, green passes)' if ok_all else 'a control did not behave as expected'}")
     return 0 if ok_all else 1
 
 

@@ -24,9 +24,15 @@ with PASS or FAIL:
   LOCATE    at least one S-id is cited, and for at least ceil(0.8 x cited) of the cited rows
             reports/round-57/reopen-quote.py (row mode: the http(s) URLs of the row's `source` cell,
             at most four, fetched live by an ordinary GET; the first double-quoted span of its
-            `anchor` cell; the match rule in that file's docstring) prints LOCATED. A row with a
-            fabricated quote, or a URL that serves no such text, is not located; a fetch error is
-            not located. Measured live at run time: the result names the run's UTC time
+            `anchor` cell, at least 8 words; search, echo, code-hosting and self-naming URLs and URLs
+            that carry the quote's words cannot vouch; the match rule in that file's docstring)
+            prints LOCATED: the quote is in the response one of the row's URLs serves now. A row
+            with a fabricated or too-short quote, or a URL that serves no such text, is not
+            located; a fetch error is not located. Measured live: the result names the run's UTC time
+  FRESH     no cited row names a source URL that a corpus/SOURCES.md row below S413 also names
+            (URLs compared lower-cased, without scheme, `www.`, trailing `/`, and with a Wayback
+            capture prefix `web.archive.org/web/<id>/` removed): a row copied from the registry under
+            a new id is not a source opened this round
 Frozen predicate (the same sentence in reports/round-57/claims.json and in the receipts):
   ACCEPT-C-57: every leg above prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
@@ -140,6 +146,16 @@ def main():
     legs.append(("LOCATE", bool(cited) and len(hits) >= need,
                  f"located={len(hits)} cited={len(cited)} need={need} "
                  f"at={datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%MZ')} not_located={misses}"))
+
+    def norm(url):
+        url = re.sub(r"^https?://", "", locator.trim(url).lower())
+        url = re.sub(r"^web\.archive\.org/web/[^/]+/(?:https?://)?", "", url)
+        return re.sub(r"^www\.", "", url).rstrip("/")
+
+    old = {norm(u) for s, cells in table.items() if int(s[1:]) < FIRST_SID
+           for u in locator.URL.findall(cells[2])}
+    stale = sorted(s for s in targets if any(norm(u) in old for u in targets[s][0]))
+    legs.append(("FRESH", not stale, f"rows_reusing_registry_urls={stale}"))
     for name, ok, detail in legs:
         print(f"{name} {'PASS' if ok else 'FAIL'} {detail}")
     verdict = all(ok for _, ok, _ in legs)
