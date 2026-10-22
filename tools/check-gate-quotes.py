@@ -61,6 +61,11 @@ Word count rule
     ` ; same URL` shape) a truncated first Grounds is not reported.
   * A row is reported once per offending run and once per new shape; if a run
     has two quote findings, the over-cap count takes precedence.
+  * `html-entity` reports once per row with at least one numeric reference
+    (`&#NNN;` or `&#xHH;`) or a semicolon-terminated named reference whose
+    exact `name;` is in `html.entities.html5`. Bare ampersands, names without
+    a semicolon, and unrecognized names are not references. Each recognized
+    reference is decoded once before the other rules run.
 
 Usage:
   python3 -B check-gate-quotes.py <lesson.md>...
@@ -68,17 +73,21 @@ Usage:
 
 Output: one line per finding on stdout, then a summary line. Existing quote
 findings retain their original detail; shape findings use their class name.
-  <path>:<line> <S-id> words=<n> | doubled-locator | truncated-grounds
+  <path>:<line> <S-id> words=<n> | html-entity | doubled-locator | truncated-grounds
 Exit codes: 0 no findings; 1 findings; 2 could not evaluate (a path is
-missing or unreadable, a file has no `## Gate` section, or no path was
-given; the reason goes to stderr as `GATE_QUOTES_ERROR:`). Read-only, Python
+missing or unreadable, has invalid UTF-8, has no `## Gate` section, or no path
+was given; the reason goes to stderr as `GATE_QUOTES_ERROR:`). Read-only, Python
 3 standard library only, no network.
 """
 
 import argparse
+import contextlib
+import html
+import io
 import os
 import re
 import sys
+import tempfile
 
 # The lane's quotation cap for a Gate quote.
 MAX_WORDS = 25
@@ -93,6 +102,25 @@ QUOTE = re.compile(r'"(?:\\.|[^"\\\n])*"|“[^“”\n]*”|«[^«»\n]*»')
 WORDISH = re.compile(r"[\w]", re.UNICODE)
 # An ellipsis: the single character or three dots.
 ELLIPSIS = re.compile(r"…|\.\.\.")
+# Supported references require a semicolon; named references are checked
+# against the exact HTML5 entity table before they are decoded.
+HTML_REFERENCE = re.compile(r"&(?:#[0-9]+;|#[xX][0-9A-Fa-f]+;|[A-Za-z][A-Za-z0-9]*;)")
+HTML5_ENTITIES = html.entities.html5
+
+
+def decode_html_references(line):
+    """Decode each supported HTML reference once and report whether any occurred."""
+    found = False
+
+    def decode(match):
+        nonlocal found
+        reference = match.group(0)
+        if reference.startswith("&#") or reference[1:] in HTML5_ENTITIES:
+            found = True
+            return html.unescape(reference)
+        return reference
+
+    return HTML_REFERENCE.sub(decode, line), found
 
 
 def gate_section(text):
@@ -226,16 +254,19 @@ def scan_line(line, number, teaches=None):
         return []
     s_id = row.group(1)
     teaches = teaches or {}
+    decoded_line, has_html_entity = decode_html_references(line)
     findings = []
-    for run, gap_ellipsis in quote_run_details(line):
+    if has_html_entity:
+        findings.append((number, s_id, 0, "html-entity"))
+    for run, gap_ellipsis in quote_run_details(decoded_line):
         words = run_words(run)
         if words > MAX_WORDS:
             findings.append((number, s_id, words, "over-cap"))
         elif gap_ellipsis or any(ellipsis_joins(text) for text in run):
             findings.append((number, s_id, words, "ellipsis-joined"))
-    if doubled_locator(line):
+    if doubled_locator(decoded_line):
         findings.append((number, s_id, 0, "doubled-locator"))
-    if truncated_grounds(line, s_id, teaches):
+    if truncated_grounds(decoded_line, s_id, teaches):
         findings.append((number, s_id, 0, "truncated-grounds"))
     return findings
 
@@ -281,6 +312,9 @@ def check(paths):
         try:
             with open(path, "r", encoding="utf-8") as handle:
                 text = handle.read()
+        except UnicodeDecodeError as exc:
+            results.append((path, None, "not valid UTF-8 (%s)" % exc))
+            continue
         except OSError as exc:
             results.append((path, None, "unreadable: %s" % exc.strerror))
             continue
@@ -307,7 +341,7 @@ def run(paths):
             print("GATE_QUOTES_ERROR: %s: %s" % (path, error), file=sys.stderr)
             continue
         for number, s_id, words, reason in findings:
-            detail = reason if reason in ("doubled-locator", "truncated-grounds") else "words=%d" % words
+            detail = reason if reason in ("html-entity", "doubled-locator", "truncated-grounds") else "words=%d" % words
             print("%s:%d %s %s" % (path, number, s_id, detail))
             reasons[reason] = reasons.get(reason, 0) + 1
         total += len(findings)
@@ -402,16 +436,74 @@ def selftest():
         ("doubled-locator-wayback-note-red",
          lesson("- S900 — URL — accessed 2026-10-21 via Wayback 20260605210113 — §2 'Methods': \"Methods\": \"the real quote\".\n"),
          None, "doubled-locator"),
+        ("html-entity-named-red",
+         lesson("- S900 — p. 1: &copy;.\n"), None, "html-entity"),
+        ("html-entity-once-per-row",
+         lesson("- S900 — p. 1: &copy; &amp;.\n"), None, ("html-entity",)),
+        ("html-entity-bare-ampersands-green",
+         lesson("- S900 — AT&T; R&D; https://example.test/?a=1&b=2 &notaref;\n"),
+         None, None),
+        ("decoded-truncated-grounds-red",
+         lesson("- S900 — p. 1: \"short\". Grounds: the keeper was a&hellip;. Seat: Scout.\n"),
+         {"S900": "the keeper was a… guardian."},
+         ("html-entity", "truncated-grounds")),
+        ("decoded-whole-grounds-green",
+         lesson("- S900 — p. 1: \"short\". Grounds: the keeper was owed&hellip;. Seat: Scout.\n"),
+         {"S900": "the keeper was owed…."}, ("html-entity",)),
+        ("decoded-quote-marks-over-cap-red",
+         lesson('- S900 — p. 1: &#8220;%s&#8221;.\n' % long_quotes),
+         None, ("html-entity", "over-cap")),
+        ("decoded-quote-marks-short-green",
+         lesson('- S900 — p. 1: &#8220;one two&#8221;.\n'),
+         None, ("html-entity",)),
+        ("decoded-ellipsis-red",
+         lesson('- S900 — p. 1: &quot;one two&hellip; three four&quot;.\n'),
+         None, ("html-entity", "ellipsis-joined")),
+        ("decoded-doubled-locator-red",
+         lesson('- S900 — URL — accessed 2026-10-22 — Section &quot;X&quot;: '
+                '&quot;X&quot;: &quot;real quote&quot;.\n'),
+         None, ("html-entity", "doubled-locator")),
     ]
     for name, body, source_teaches, want in class_cases:
         findings = scan_text(body, source_teaches)
         got = [] if findings is None else [reason for _, _, _, reason in findings]
-        expected = [] if want is None else [want]
+        expected = ([] if want is None else
+                    list(want) if isinstance(want, (tuple, list)) else [want])
         ok = got == expected
         failures += not ok
         print("%s %s want=%s got=%s" %
               ("PASS" if ok else "FAIL", name, want or "none", ",".join(got) or "none"))
-    total = len(cases) + len(class_cases)
+    with tempfile.TemporaryDirectory(prefix="check-gate-quotes-selftest-") as directory:
+        invalid_path = os.path.join(directory, "invalid-utf8.md")
+        valid_path = os.path.join(directory, "valid-utf8.md")
+        with open(invalid_path, "wb") as handle:
+            handle.write(b"## Gate\n\n- S900 \xff\n")
+        with open(valid_path, "w", encoding="utf-8") as handle:
+            handle.write(lesson('- S900 — p. 1: "café".\n'))
+
+        invalid_out = io.StringIO()
+        invalid_err = io.StringIO()
+        with contextlib.redirect_stdout(invalid_out), contextlib.redirect_stderr(invalid_err):
+            invalid_code = run([invalid_path])
+        invalid_error = invalid_err.getvalue().splitlines()
+        invalid_ok = (invalid_code == 2 and invalid_error
+                      and invalid_error[0].startswith(
+                          "GATE_QUOTES_ERROR: %s: not valid UTF-8 (" % invalid_path)
+                      and "Traceback" not in invalid_err.getvalue())
+        failures += not invalid_ok
+        print("%s utf8-invalid-red want=error-exit-2 got=%s" %
+              ("PASS" if invalid_ok else "FAIL", invalid_error[0] if invalid_error else "none"))
+
+        valid_out = io.StringIO()
+        valid_err = io.StringIO()
+        with contextlib.redirect_stdout(valid_out), contextlib.redirect_stderr(valid_err):
+            valid_code = run([valid_path])
+        valid_ok = (valid_code == 0 and not valid_err.getvalue()
+                    and valid_out.getvalue() == "GATE_QUOTES: 0 findings\n")
+        failures += not valid_ok
+        print("%s utf8-valid-green want=exit-0 got=%s" %
+              ("PASS" if valid_ok else "FAIL", valid_code))
+    total = len(cases) + len(class_cases) + 2
     print("SELFTEST: %d/%d pass" % (total - failures, total))
     return 1 if failures else 0
 
