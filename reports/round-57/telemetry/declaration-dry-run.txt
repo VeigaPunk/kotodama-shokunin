@@ -1,0 +1,58 @@
+# round-57 declaration dry run (pre-dispatch) 2026-10-22T23:08:09Z
+# measured-revision 51726fa6e0fc6ee028b54c74509a8fec1bc06186 (sandbox clone /fast/scratch/hyaku/kotodama-r57-measure-51726fa6-2irl7n1d)
+$ python3 -B reports/round-57/accept-c.py
+SET FAIL count=232 required=233 added=[] removed=[]
+SWEEP FAIL exit=0 rows 232 files 232 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE FAIL located=0 cited=0 need=0 at=2026-10-22T23:08Z not_located=[]
+ACCEPT-C-57: FAIL
+exit 1
+# role: C counting; expected pre-landing: exit 1: SET FAIL (count=232), SWEEP FAIL (rows 232 files 232), FLOOR FAIL (cited=0), LOCATE FAIL (cited=0); RANGE, STATUS, USEDBY PASS vacuously; ACCESS PASS; last line ACCEPT-C-57: FAIL
+$ python3 -B reports/round-57/accept-c.py
+SET FAIL count=232 required=233 added=[] removed=[]
+SWEEP FAIL exit=0 rows 232 files 232 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE FAIL located=0 cited=0 need=0 at=2026-10-22T23:08Z not_located=[]
+ACCEPT-C-57: FAIL
+exit 1
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-C-57: PASS (all eight legs PASS)
+$ python3 -B reports/round-57/accept-o.py
+# tool tools/check-gate-quotes.py sha256 3a13ab9cb93e211bd8c79bd2dfe78e6fb6cd76df0a87efebb315e68688bf6b67
+# seeds [3302846853, 3302846854, 3302846855, 3302846856, 3302846857]
+GEN FAIL lessons=5 failing=5 ["seed=3302846853 exit=1 missing=[('/tmp/kotodama-r57-accept-o-dz7mei80/3302846853/lessons/nega-29.md', 6, 'S361', 'html-entity'), ('/tmp/kotodama-r57-accept-o-dz7mei80/3302846853/lessons/nega-29.md', 15, 'S514', 'html-entity')] extra=[]", "seed=3302846854 exit=1 missing=[('/tmp/kotodama-r57-accept-o-dz7mei80/3302846854/lessons/podi-84.md', 13, 'S115', 'html-entity'), ('/tmp/kotodama-r57-accept-o-dz7mei80/3302846854/lessons/podi-84.md', 16, 'S994', 'html-entity')] extra=[]"]
+MULTI PASS runs=10 failing=[]
+MUTANTS FAIL unmutated_selftest_exit=0 survivors=['double-decode', 'stop-at-first-bad-file', 'label-rename'] unpatched=[] exits={'none': 0, 'double-decode': 0, 'stop-at-first-bad-file': 0, 'label-rename': 0}
+KEEP PASS changed=[]
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 38/38 pass
+ACCEPT-O-57: FAIL
+exit 1
+# role: O counting; expected pre-landing: exit 1: GEN FAIL (failing=5, missing only the numeric-bare and hex-bare html-entity triples), MUTANTS FAIL (three survivors); MULTI, KEEP, FORMAT, SELFTEST PASS; last line ACCEPT-O-57: FAIL
+$ python3 -B reports/round-57/accept-o.py
+# tool tools/check-gate-quotes.py sha256 3a13ab9cb93e211bd8c79bd2dfe78e6fb6cd76df0a87efebb315e68688bf6b67
+# seeds [2679520186, 2679520187, 2679520188, 2679520189, 2679520190]
+GEN FAIL lessons=5 failing=5 ["seed=2679520186 exit=1 missing=[('/tmp/kotodama-r57-accept-o-7gsho8xl/2679520186/lessons/dipo-29.md', 7, 'S524', 'html-entity'), ('/tmp/kotodama-r57-accept-o-7gsho8xl/2679520186/lessons/dipo-29.md', 12, 'S882', 'html-entity')] extra=[]", "seed=2679520187 exit=1 missing=[('/tmp/kotodama-r57-accept-o-7gsho8xl/2679520187/lessons/zetoto-45.md', 13, 'S973', 'html-entity'), ('/tmp/kotodama-r57-accept-o-7gsho8xl/2679520187/lessons/zetoto-45.md', 15, 'S779', 'html-entity')] extra=[]"]
+MULTI PASS runs=10 failing=[]
+MUTANTS FAIL unmutated_selftest_exit=0 survivors=['double-decode', 'stop-at-first-bad-file', 'label-rename'] unpatched=[] exits={'none': 0, 'double-decode': 0, 'stop-at-first-bad-file': 0, 'label-rename': 0}
+KEEP PASS changed=[]
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 38/38 pass
+ACCEPT-O-57: FAIL
+exit 1
+# role: O acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-O-57: PASS (all six legs PASS)
+$ python3 -B tools/check-claim-separability.py reports/round-57/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md', which is absent from the worktree under '/fast/scratch/hyaku/kotodama-r57-measure-51726fa6-2irl7n1d'
+exit 2
+# role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land (the checker stops at its first absent land, so later legs are unevaluated)
+$ python3 -B reports/round-57/claims-agree.py
+AGREE claims=['C', 'O']
+exit 0
+# role: agreement; expected pre-landing: AGREE, exit 0
