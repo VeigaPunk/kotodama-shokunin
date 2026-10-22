@@ -4035,3 +4035,12 @@ actual route stay recorded per round. Prior rounds stand as filed.
   lexicon and ritual corrections; the final receipt is measured against that commit.
   The lesson's final reconciliation retains unresolved commissioning targets and
   checker/registry limitations rather than declaring every review finding repaired.
+
+
+## 2026-10-22 — Round 51 (attempt 3): claims D (depth, repair-first) and C (coverage); author-side, pending non-author closure — hyaku phase 3
+
+- **Trigger:** the round-50 closure (`corpus/lessons/round-50-verifier-spotcheck.md`) ruled rejected-honest-stop and routed five debts; debt 2 commissioned 15 neighbour rows for the pastoralism entry. The sign-language register had no owner (gap sweeps 0 and 0 at `bff83ba`). Attempt 2 had been stood down for host capacity before any seat ran; its declaration was re-verified and re-declared unchanged (`1f97472`).
+- **D:** `rows=11 resolved=11 distinct=11` → `rows=15 resolved=15 distinct=15` (`35f0d49`, fixes `e6b6629`). Row-count leg only; the directory row and the other carried items are listed in the lesson.
+- **C:** `linguistics/sign-languages-manual-modality.md`; 226 → 227 files, linguistics 25 → 26 (`da31d3c`, fixes `364eeff`); 52 opened rows cited plus S126.
+- **Falsify wave (41 seats):** found cell-level over-reads of sources in C and two weak D rows; all fixed inside each claim's lands, with superseding SOURCES rows S125–S131 for tier and identity corrections. Mistakes R51-M1…M5 mined; QUALITY criteria 8 and 9 added.
+- **Evidence:** `reports/round-51/telemetry/final-measures.txt`; `.ufo/waves/round-51/build/` (36 reports), `.ufo/waves/round-51/falsify/` (41 seats); one misrooted seat report moved from the fleet root into the lane byte-exact (`cmp` and sha256 matched).

@@ -1,0 +1,57 @@
+# Falsify report — ReviewCSec02 (claim C entry, section 2)
+
+Attacked item: `corpus/knowledge/linguistics/sign-languages-manual-modality.md` §2 "One-owner boundary" (14 rows, entry lines 37–50, plus the §2 intro at line 33), landed by claim C. Author-lane attack; no admission implied.
+
+Diagnostics note: no LSP device in this seat's toolset and no language server applies to Markdown corpus files; every anchor and citation below was therefore pinned by exact-line `grep` (literal-text fallback), not presented as semantic proof. No tools installed (none needed; pacman stays paused).
+
+## Commands run (cwd = lane, all exit 0)
+
+| Command | Output |
+|---|---|
+| `grep -n "^## 2\. One-owner boundary" corpus/knowledge/linguistics/sign-languages-manual-modality.md` | line 31 (§2 spans to line 50) |
+| `grep -n "^\| \`" …sign-languages-manual-modality.md` | 14 rows at entry lines 37–50 |
+| anchor pins (one grep each) | `adornment-body-codes.md:79` = Ekman & Friesen toolkit bullet; `syntax-typology.md:99` = SOV-default line; `numerals-and-measures.md:107` = Finger-counting bullet; `politeness-taboo-euphemism.md:75` = domain inventory with names-of-dead + "hunters and fishers rename the quarry"; `writing-systems.md:21` = semasiography row; `phonetics-phonology.md:201` = sign-language-phonology bullet (runs :201–203); `conlang-methodology.md:43` = Damin bullet; `language-contact.md:105` = "a creole is a language like any other"; `language-shift-obsolescence-revival.md:48` = "badly documented … (many signed and minority languages)"; `sacred-registers-liturgical-language.md:28` = §1 ownership paragraph; `sound-symbolism.md:124` = "signed channels | iconicity is a general property, stronger in signed languages"; `morphological-typology.md:13` = Index of synthesis (fusion at :14); `sociolinguistics-registers.md:50` = Register/"chosen per setting" row; `worldbible-integration-contract.md:17` = "lore owns world-bible entities, relations, chronology, canon decisions" |
+| `find corpus/knowledge -name '*.md' \| wc -l` | `227` (matches C's after_required) |
+| `grep -n "S12[34]" …sign-languages-manual-modality.md` | no matches — the entry does not cite queued rows S123/S124 ✓ |
+| `grep -n "corpus/lessons/round-51\|boundary-count" …sign-languages-manual-modality.md` | no matches in §2 (entry head names neither forbidden path) ✓ |
+
+## Anchor verdicts (all 14 rows)
+
+Every backticked anchor resolves to the exact line that carries the "What it owns" cell. No off-by-N anchors were found in §2 (a renderer offset in the first read pass was corrected by grep before judging). Restatement check: no row re-claims a neighbour's register — each boundary cell hands off (emblem/etiquette → adornment:79, SOV frame → syntax:99, counting gestures → numerals:107, taboo mechanics → politeness:75, orthography/semasiography → writing-systems:21, phonological theory → phonetics:201, artlang pipeline/Damin → conlang:43, pidgin/creole machinery → contact:105, shift ladder → shift:48, sacred-register system → sacred-registers:28, iconicity biases → sound-symbolism:124, synthesis/fusion axes → morphology:13, register machinery → sociolinguistics:50, canon → worldbible-contract:17). Neighbour lines confirm the handoffs (e.g. syntax-typology:99 itself says the SOV-default claim is "suggestive, interpretively contested — don't assert it flat", and the entry's §6 row defers to it). No canon decision, no clinical, education-policy or rights ruling is made in §2 (row 50 explicitly leaves the canon call to lore; the education-of-deaf-students source S082 is used only to evidence that manual codes exist, not to rule on education). Terminology in §2 uses "deaf-community / Deaf community / village-shared"; no rejected labels.
+
+## Sources re-opened (access date 2026-10-22 for all)
+
+| Row | URL opened | Found at anchor | Quote/tier/scope hold? |
+|---|---|---|---|
+| S077 | https://www.un.org/en/observances/sign-languages-day | "Sign languages are fully fledged natural languages, structurally distinct from the spoken languages"; IS "considered a pidgin … limited lexicon"; >70M deaf, >300 sign languages | Quote ✓; tier B docs ✓; scope ✓. Page does NOT contain the words "grammar and lexicon" (finding F2) |
+| S078 | https://wfdeaf.org/resources/sign-language-rights/ | "Each sign language has its own structure, grammar, and lexicon, equaling spoken languages in every respect"; "sign language is a crucial part of deaf culture and identity"; hundreds of unique independent sign languages | ✓ all |
+| S079 | https://voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement/ | "The gestures that the children create are structured like the early communication systems that children develop when exposed to conventional language"; co-speech gesture "conveys substantive, task-related information" but is not a conventional system | Quote ✓; tier A ✓. Supports "structured like language", not flat "are language" (finding F3) |
+| S080 | https://pubmed.ncbi.nlm.nih.gov/15375269/ | "created by deaf Nicaraguans over the past 25 years"; "Successive cohorts … transforming Nicaraguan signing from its early gestural form into a linguistic system" | ✓; abstract-only tier B — §2 uses it as a pointer only, which is acceptable under QUALITY 6 |
+| S081 | https://books.google.com/books/about/Sign_Languages_of_Aboriginal_Australia.html?id=Aa34NAEACAAJ (redirected to books.google.com.br, same id) | Description: "first book-length study … sign language as a means of communication among Australian Aborigines"; "analysis of the structure of sign languages and their relationship to spoken languages"; nine years fieldwork. **No mention of speech bans, taboo, or mourning** | Quote ✓ (matches filed anchor); tier B publisher description ✓; scope cell itself limits S081 to the programme — but §2 row 40 leans on it for the speech-ban content (finding F1) |
+| S082 | https://gupress.gallaudet.edu/Books/M/Manual-Communication | Description: "first authoritative examination of sign systems used in the education of deaf students"; lists ASL, Pidgin Sign (Contact Sign), Signed English, Signing Exact English, Cued Speech; TOC ch. 1 "Manual Codes on English and American Sign Language" | Quote ✓; tier B publisher description ✓. Supports "manual codes on English", not literally "written forms" (finding F4) |
+| S083 | https://pure.hw.ac.uk/ws/portalfiles/portal/15283839/AT.pdf (peer-reviewed AAM) | p. 3: "letters from spoken-language alphabets are represented by conventionalized handshapes"; two families of manual alphabets for the Latin alphabet, one-handed (ASL, LIS) / two-handed (BSL, Auslan, NZSL = BANZSL); p. 6: initialization = first letter with (usually circular) movement plus mouthing | ✓ all; tier A correct |
+| S084 | https://www.signwriting.org/ | Banner/meta: "SignWriting: Read, write, type all Sign Languages of the Deaf. Sign Languages are written languages!" | Quote ✓; tier A maintainer-statement narrow scope ✓. Supports existence/use of a written form; the "transcription of the manual modality, not a script type" characterization is the entry's own boundary call anchored at `writing-systems.md:21`, not contradicted by the source |
+| S085 | https://www.nidcd.nih.gov/health/american-sign-language | "ASL is a complete, natural language … primary language of many North Americans who are deaf"; "There is no universal sign language"; fingerspelling letters = distinct handshapes | ✓; tier A ✓ |
+| S086 | https://pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf (publisher PDF) | Intro (book pp. 2–3): village languages "typically shared between deaf and hearing community members"; "All known village sign languages are endangered"; "emerging sign language" = last two–three generations; **"alternate sign languages are used in situations of speech taboos, for instance during mourning, or during hunting (Kendon 1988)"** | ✓; tier A ✓ — note this row, not S081, carries the speech-taboo content |
+
+## Findings
+
+**F1 — MEDIUM — citation at its anchor does not carry the claimed content.** `sign-languages-manual-modality.md:40` (§2 row 4, politeness): boundary cell says "alternate sign systems used while speech is banned (S081) are structured here". S081 is the Kendon 1988 Google Books publisher description (tier B, QUALITY criterion 6); the description I opened today says only "sign language as a means of communication among Australian Aborigines" and structure analysis — the speech-ban/mourning content appears in S086's editors' introduction (book p. 3, which itself cites Kendon 1988) and in S109. A publisher-description row is being ridden for a substantive claim its anchor does not state. Smallest fix: change `(S081)` to `(S086, S109)` at entry line 40 (both rows already in SOURCES with the entry in their used-by cells), or weaken the cell to "alternate sign systems (S081)".
+
+**F2 — LOW — attribution imprecision in the §2 intro.** `sign-languages-manual-modality.md:33`: "with their own grammar and lexicon (S077)". The UN page (S077) says "fully fledged natural languages, structurally distinct" — the "own grammar and lexicon" wording is S078's (WFD: "its own structure, grammar, and lexicon"). Smallest fix: cite `(S078)` for the grammar-and-lexicon clause (S078 also already carries the community-identity clause) or reword to "full natural languages (S077) with their own grammar and lexicon and their own community identity (S078)".
+
+**F3 — LOW — flat wording outruns the source.** `sign-languages-manual-modality.md:37` (row 1 boundary): "homesign (S079) and signed sentences are language". S079's opened text says homesign gestures "are structured like the early communication systems"; the entry's own §3 says "language-like structure without a model". Smallest fix: "are language-like systems" at line 37.
+
+**F4 — LOW — "written forms" exact for fingerspelling, loose for manual codes.** `sign-languages-manual-modality.md:41` (row 5): "fingerspelling and manual codes render a spoken language's written forms on the hands (S082, S083)". S083 supports it literally (letters of a spoken-language alphabet on the hands); S082's description supports "manual codes on English used in deaf education", not written forms as such. Smallest fix: "render a spoken language's words — in fingerspelling, its written-alphabet letters — on the hands (S082, S083)".
+
+No high-severity finding. No restatement of an existing owner's register found in §2; no overclaim beyond F2–F4; no canon, clinical, education-policy or rights ruling in §2; no forbidden citations; counts hold (227).
+
+## Verdict for the item
+
+**HOLDS-WITH-FIXES.** All 14 §2 anchors resolve to lines that support their ownership cells, the boundary genuinely hands off each neighbour's register, and every §2-cited source row exists in SOURCES.md with the entry in its used-by cell. Fix F1 (citation swap at line 40) before the entry is treated as fully clean; F2–F4 are one-word precision patches.
+
+## Unrun checks
+
+- `python3 -B reports/round-28/readme/sweep.py` (not run by this seat — reserved to the main agent; only the `find | wc -l` counter was re-run here: 227).
+- Sections 1, 3–15 of the entry and SOURCES rows S087–S124 beyond the §2-cited ten (S077–S086) — assigned to sibling seats; only S080's abstract was opened as a §2 pointer check.
+- NoWayback/secondary retrievals: none needed — every URL above served on first request (Google Books served via google.com.br redirect, same record id).

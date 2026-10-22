@@ -1001,3 +1001,17 @@ L1 after the host crash); round total 139.
 Frontier step (not a claim): `corpus/SOURCES.md` 47 → 70 rows (A 34 → 51, B 6 → 12, C 7);
 census `scripts/sources-census.sh validate kotodama` exit 0 at start and end. Non-author
 verification of these verdicts is the hyaku closure's.
+
+
+## Axes — round 51 (2026-10-22), author-side verdicts, pending non-author closure (hyaku phase 3, attempt 3)
+
+Claim base `bff83ba`; declaration `1f97472`; D landed `35f0d49`, falsify fixes `e6b6629`; C landed `da31d3c`, falsify fixes `364eeff`; records `9feb69e` and the closing records commit. Receipts: `reports/round-51/telemetry/declaration-dry-run.txt` (before), `reports/round-51/telemetry/final-measures.txt` (after, measured on `364eeff` plus uncommitted records). Waves: build 36 seats, falsify 41 seats; round total 77 (`.ufo/waves/round-51/`).
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| depth | improved, bounded (claim D, repair-first) | pastoralism §2 boundary table `rows=11 resolved=11 distinct=11` → `rows=15 resolved=15 distinct=15`, exit 0; repairs only the row-count leg of the round-50 routed debt 2. Disclosed: the inherited `civilizations/` row is a directory, so 14 of 15 rows carry a `path:line` anchor; falsify seats failed two new rows as first landed, fixed in `e6b6629` | `python3 -B reports/round-51/boundary-count.py` | `.ufo/waves/round-51/falsify/ReviewDRow*.md`, `RerunDCounter.md`, `CriticDRepairScope.md` |
+| coverage | improved (claim C, learning claim, sourced claim) | knowledge files 226 → 227; linguistics 25 → 26; sweep exit 0, footer total 227; every cited S-id resolves with the entry in `used-by`; sign languages and manual communication had 0 filename and 0 topic-line owners at base | `find corpus/knowledge -name '*.md' \| wc -l`; `python3 -B reports/round-28/readme/sweep.py` | `corpus/knowledge/linguistics/sign-languages-manual-modality.md`; falsify `RerunCCount.md`, `ReviewCSec*.md`, `Reopen*.md` |
+| calibration | not claimed; recorded | separability self-application on the round-51 manifest: 0 findings, exit 0 at `9feb69e` and `364eeff`; QUALITY criteria 8 and 9 (9 supersedes 8 after the falsify wave showed 8 was one-directional) | `python3 -B tools/check-claim-separability.py reports/round-51/separability-manifest.json` | `corpus/lessons/round-51.md` R51-M1, R51-M5 |
+| operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 70 → 131 rows (S071–S122 mined, S123–S125 and S127–S131 queued, S126 mined); census exit 0 at start and end. Non-author verification is the hyaku closure's.

@@ -105,8 +105,9 @@ Columns: **file** · **format** (§3) · **contract** (`source:`/`verified-at:`/
 | `corpus/lessons/round-49-verifier-spotcheck.md` | plain | 0/4 | none (the adjudication names no open item id) | `corpus/lessons/round-49.md` (outside-review record) | bytes=1880 lines=17 sha8=b1169c50 |
 | `corpus/lessons/round-50.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-50/claims.json` | bytes=24235 lines=151 sha8=c421b84c |
 | `corpus/lessons/round-50-verifier-spotcheck.md` | plain | 0/4 | none (no new Q ids) | non-author closure record; fleet MANIFEST kotodama r50 | bytes=7670 lines=102 sha8=db6d4725 |
+| `corpus/lessons/round-51.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-51/claims.json` | bytes=33888 lines=134 sha8=1e5f8117 |
 
-**Rows: 37. Files: 37.** The count is the runner's own partition glob
+**Rows: 38. Files: 38.** The count is the runner's own partition glob
 (`corpus/lessons/*.md`), which includes **this README** and the round-25
 lesson that landed while this index was being written. Seven rows were added
 by the round-33 revision-3 reconciliation for the lessons of rounds 26–32
@@ -255,12 +256,12 @@ close it. **Owner must resolve**: a live path in this repo, the literal
 Measured 2026-10-18T17:4xZ by the §1 tool over the table above; re-run it
 rather than inheriting these numbers.
 
-- Rows: **78**. Of the 37 index rows, **30 carry at least one question**;
-  the seven that carry none are `round-1-gates-and-triage.md` (its lessons
+- Rows: **78**. Of the 38 index rows, **30 carry at least one question**;
+  the eight that carry none are `round-1-gates-and-triage.md` (its lessons
   were closed within round 1), `round-25.md` (this round's own claims are
   pending, not carried), `round-49.md`, `round-49-verifier-spotcheck.md`,
-  `round-50.md`, `round-50-verifier-spotcheck.md` (no new Q ids), and this
-  README's self-row.
+  `round-50.md`, `round-50-verifier-spotcheck.md` (no new Q ids),
+  `round-51.md` (no Q ids), and this README's self-row.
 - Owner classes: **path** (an in-repo surface that can close the item) — **59**;
   **role token** — **19** (`parent` 15, `operator` 4). No row has an empty or
   unresolvable owner; that is the C32 check. (Recounted 2026-10-19 by the §1
@@ -502,3 +503,12 @@ artifact from introducing an unindexed-file defect. The producer's revision-5
 36/36 state above remains its dated history. The parent checked the actual
 file/row bijection and new file pin independently; no sibling-owned gate or
 selftest was executed for this integration.
+
+## Revision 7 — round-51 lesson row (2026-10-22)
+
+Adds one §2 row for `round-51.md`, pinned from the live bytes by
+`reports/round-25/audit/c31-lessons-index-audit.py --json`. §2's count line is
+38/38; the queue still has 78 rows and eight indexed files carry no question.
+Live histogram: gate-keeper 24, fragment-index 5, plain 9 (38 files total);
+earlier histogram prose is dated history. Re-run
+`python3 -B reports/round-25/audit/c31-lessons-index-audit.py` for the verdict.

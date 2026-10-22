@@ -1,0 +1,35 @@
+# final measures 2026-10-22T10:07:43Z worktree=364eeff0e42c1ed1ca0180f7c9a76121557568c4 (lane main tip plus uncommitted records only)
+$ python3 -B reports/round-51/boundary-count.py
+rows=15 resolved=15 distinct=15
+exit 0
+$ find corpus/knowledge -name '*.md' | wc -l
+227
+exit 0
+$ ls corpus/knowledge/linguistics/*.md | wc -l
+26
+exit 0
+$ python3 -B reports/round-28/readme/sweep.py | tail -3
+footer_live {"total": 227, "dir_totals": [26, 26, 28, 29, 24, 94], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [] footer_ok True
+readme_sha256 f425c6ffd378af55a4a35fe851a2ceb5dd3a3d17fd9bca0c4b45864be9436ac0
+exit 0
+$ python3 -B reports/round-51/claims-agree.py
+AGREE claims=['C', 'D']
+exit 0
+$ python3 -B tools/check-claim-separability.py reports/round-51/separability-manifest.json
+SEPARABILITY: 0 findings
+SEPARABILITY_NOTE units=3 ordered_pairs=6 acceptance_runs=2
+exit 0
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama
+kotodama	W04	S127 duplicate url voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement across scopes
+kotodama	W04	S128 duplicate url pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf across scopes
+kotodama	W04	S129 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC10622114 across scopes
+kotodama	W04	S130 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC6818964 across scopes
+kotodama	W04	S131 duplicate url link.springer.com/article/10.1186/1477-7517-9-16 across scopes
+kotodama	ok	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+exit 0
+$ grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+131
+exit 0
+$ receipt coverage (QUALITY criterion 9 two-way check): declared manifest acceptance argvs present in reports/round-51/telemetry/declaration-dry-run.txt?
+MISSING_FROM_RECEIPT ['D', 'C']
