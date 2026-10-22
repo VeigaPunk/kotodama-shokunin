@@ -84,13 +84,13 @@ Sign phonology is not gesture choreography: signs are built from a small set of 
 
 | Parameter | What the designer decides | Typical failure |
 |---|---|---|
-| Handshape | one inventory of contrastive shapes (Stokoe's dez, S071), not the whole natural hand space — the CSLDS module, reporting Battison 1978, counts 45 possible handshapes in ASL, of which only 7 can serve as the passive hand (S097) | letting every possible hand posture into the lexicon: contrasts blur |
+| Handshape | one inventory of contrastive shapes (Stokoe's dez, S071), not the whole natural hand space — the CSLDS module, reporting Battison 1978, counts 45 possible handshapes in ASL, of which only 7 can serve as the passive hand of a two-handed sign whose hands differ in handshape (S097) | letting every possible hand posture into the lexicon: contrasts blur |
 | Location | which body areas and planes are contrastive — four major regions with eight places each in the Prosodic Model (S095) | importing one signed language's location grid wholesale instead of fixing your own |
 | Movement | path versus internal change, direction, repetition; the Prosodic Model treats movement as the core of the sign, comparable to vowels (S095) | giving every sign a unique choreography — movement classes must be finite |
 | Palm orientation | whether orientation contrasts alone — fewer minimal pairs rest on orientation alone (S095); Battison (1978) adds it as a fourth parameter, with the ASL pair CHAIR/NAME (S096), while the 1978 Stokoe reprint argues against isolating it (S071) — status **C** | ignoring orientation so two signs collapse into homophony |
 | Nonmanual features | which face and body articulators are grammatical — eyebrows mark yes/no questions, a headshake marks negation (S098) | reducing nonmanuals to decoration and affect |
 | Two-handed constraints | symmetry condition: when both hands move, their specifications match; dominance condition: a passive hand is limited to a small unmarked set — seven shapes (A, S, B, 5, G, C, O) in the 1978 formulation the CSLDS module reports (S097); an earlier, smaller 1974 set is not checked here (to-verify) | designing two-handed signs whose hands freely differ (S097) |
-| Minimal pairs | change exactly one parameter and see whether meaning changes: APPLE/ONION (location), CAR/WHICH (handshape), NAME/SHORT (movement), CHAIR/NAME (orientation) — the ASL pairs the CSLDS module lists, after Battison 1978 (S096) | never testing contrast, so the inventory cannot be told apart in use |
+| Minimal pairs | change exactly one parameter and see whether meaning changes: APPLE/ONION (location), CAR/WHICH (handshape), NAME/SHORT (movement), CHAIR/NAME (orientation) — the ASL pairs the CSLDS module lists, all but APPLE/ONION credited to Battison 1978 (S096) | never testing contrast, so the inventory cannot be told apart in use |
 
 Build order (design heuristic, **H**): handshape inventory → locations → movement classes → orientation rule → grammatical nonmanuals → two-handed constraints; then verify every parameter by minimal-pair probes (S096).
 
