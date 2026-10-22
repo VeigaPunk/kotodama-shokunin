@@ -1,0 +1,54 @@
+{
+  "schema": "kotodama-separability-manifest-v1",
+  "base": "bff83ba65bf9559af4d7567e81703059667a0005",
+  "claims": [
+    {
+      "id": "D",
+      "tree": "WORKTREE",
+      "lands": [
+        "corpus/knowledge/culture-material/pastoralism-animal-husbandry.md",
+        "reports/round-51/boundary-count.py"
+      ],
+      "exports": [],
+      "acceptance": [
+        "sh",
+        "-c",
+        "test \"$(python3 -B reports/round-51/boundary-count.py)\" = 'rows=15 resolved=15 distinct=15'"
+      ]
+    },
+    {
+      "id": "C",
+      "tree": "WORKTREE",
+      "lands": [
+        "corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+        "corpus/README.md",
+        "corpus/SOURCES.md"
+      ],
+      "exports": [
+        "\\bS(07[1-9]|0[89]\\d|[1-9]\\d\\d)\\b"
+      ],
+      "acceptance": [
+        "sh",
+        "-c",
+        "test \"$(find corpus/knowledge -name '*.md' | wc -l)\" -eq 227 && python3 -B reports/round-28/readme/sweep.py >/dev/null && python3 -c \"$0\"",
+        "import re,sys;p='corpus/knowledge/linguistics/sign-languages-manual-modality.md';e=open(p).read();ids=set(re.findall(r'\\bS\\d{3}\\b',e));rows={l.split('|')[1].strip():l.split('|')[11] for l in open('corpus/SOURCES.md') if re.match(r'^\\| S\\d{3} ',l)};bad=[i for i in sorted(ids) if i not in rows or p not in rows[i]];print('C_SID_UNRESOLVED',len(bad),bad);sys.exit(1 if bad or not ids else 0)"
+      ]
+    },
+    {
+      "id": "REC",
+      "role": "record",
+      "tree": "WORKTREE",
+      "lands": [
+        "corpus/lessons/round-51.md",
+        "corpus/lessons/README.md",
+        "corpus/QUALITY.md",
+        "SCORECARD.md",
+        "LOG.md",
+        "SHONEN.md",
+        "reports/round-51/claims.json",
+        "reports/round-51/claims-agree.py"
+      ],
+      "exports": []
+    }
+  ]
+}

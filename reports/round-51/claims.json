@@ -1,0 +1,55 @@
+{
+  "round": 51,
+  "attempt": 3,
+  "campaign": "hyaku phase 3, 2026-10-22 (in-session L1 lane subagent KotodamaR51a3)",
+  "declared_at": "2026-10-22T08:31Z (attempt 2); re-verified and re-declared unchanged by attempt 3 at 2026-10-22T09:22Z",
+  "base": "bff83ba65bf9559af4d7567e81703059667a0005",
+  "branch_tip_at_declaration": "5ab36346bafbbf2d35d74073d248e2c8d8847804",
+  "base_note": "5ab3634 is attempt 1's prerequisite commit (reports/round-51/calibration/ruler.py and oracle.json). It changes no path either claim lands or measures (git diff --stat bff83ba 5ab3634: 2 files, both under reports/round-51/calibration/). Neither claim uses those files.",
+  "separability_manifest": "reports/round-51/separability-manifest.json",
+  "separability_command": ["python3", "-B", "tools/check-claim-separability.py", "reports/round-51/separability-manifest.json"],
+  "separability_required_exit": 0,
+  "separability_agreement": "claim ids and lands in this file and in the separability manifest must be identical; checked by reports/round-51/claims-agree.py (exit 0).",
+  "claims": [
+    {
+      "id": "D",
+      "axis": "depth",
+      "kind": "measured; repair-first (routed defect 2 of corpus/lessons/round-50-verifier-spotcheck.md: commissioned neighbour-boundary target 11 of at least 15, not met)",
+      "statement": "The pastoralism entry's section-2 one-owner boundary table grows from 11 to 15 data rows. Each row names one distinct in-corpus neighbour by a backticked path:line anchor that resolves, and the row's ownership cell is supported by the anchored line(s). The four new rows are developed or explicitly narrowed in the entry body. The existing 11 rows keep their neighbours.",
+      "lands": [
+        "corpus/knowledge/culture-material/pastoralism-animal-husbandry.md",
+        "reports/round-51/boundary-count.py"
+      ],
+      "counting_command": "python3 -B reports/round-51/boundary-count.py",
+      "before": "rows=11 resolved=11 distinct=11 (exit 0), measured on the declaration tree, whose entry bytes equal base bff83ba",
+      "after_required": "rows=15 resolved=15 distinct=15 (exit 0)",
+      "falsifier": "Any other printed value; or a non-author review finding that a new row's anchored line does not support its ownership cell, or that a new row names the round's new claim-C entry.",
+      "must_not_cite": ["corpus/knowledge/linguistics/sign-languages-manual-modality.md", "any S-id from S071 upward"]
+    },
+    {
+      "id": "C",
+      "axis": "coverage",
+      "kind": "measured; learning claim (admitted knowledge on uncovered ground) and the round's sourced claim",
+      "statement": "One new entry, corpus/knowledge/linguistics/sign-languages-manual-modality.md, owns sign languages and other manual communication systems (deaf-community, shared or village, emerging, alternate, homesign, manual codes) as conlang and worldbuilding method. It cites rows S071 upward of corpus/SOURCES.md, each opened this round, and is indexed in corpus/README.md.",
+      "gap_evidence_at_base": "find corpus/knowledge -iname '*sign-lang*' -o -iname '*gestur*' -o -iname '*kinesic*' -o -iname '*nonverbal*' -> 0 files; grep -rliP '^- topic:.*\\b(gestur|sign language|kinesic|nonverbal|non-verbal|body language|proxemic)' corpus/knowledge -> 0 files; the same topic grep over the 21 sibling lanes' corpus/knowledge -> 0 files. Partial owners named for the boundary table: culture-material/adornment-body-codes.md section 7 (gesture and posture as body code), linguistics/syntax-typology.md:99 (one sign-language word-order remark), linguistics/numerals-and-measures.md:107 (finger counting).",
+      "lands": [
+        "corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+        "corpus/README.md",
+        "corpus/SOURCES.md"
+      ],
+      "counting_command": "find corpus/knowledge -name '*.md' | wc -l",
+      "before": "226",
+      "after_required": "227; and python3 -B reports/round-28/readme/sweep.py exits 0 with footer total 227 and linguistics 26",
+      "falsifier": "Any count other than 227; sweep non-zero; any S-id cited by the entry missing from corpus/SOURCES.md or lacking the entry path in its used-by cell; a non-author review finding that the entry restates an existing owner's register.",
+      "must_not_cite": ["corpus/lessons/round-51.md", "reports/round-51/boundary-count.py"]
+    }
+  ],
+  "records_not_claims": [
+    "corpus/lessons/round-51.md (frontier step: Gate quotes, Mistakes, source changes)",
+    "corpus/lessons/README.md (lessons index)",
+    "corpus/QUALITY.md (criterion grounded in the round-50 spot-check, if landed)",
+    "SCORECARD.md, LOG.md, SHONEN.md",
+    "reports/round-51/* other than boundary-count.py, and .ufo/waves/round-51/*"
+  ],
+  "dry_run_rule": "Every declared counting command and the separability command run once on the declaration tree before wave 1; each must exit without an input error (receipt reports/round-51/telemetry/declaration-dry-run.txt)."
+}

@@ -1,0 +1,43 @@
+# declaration dry run 2026-10-22T08:21:28Z tree=5ab36346bafbbf2d35d74073d248e2c8d8847804 (worktree = main + uncommitted round-51 declaration files)
+$ python3 -B reports/round-51/boundary-count.py
+rows=11 resolved=11 distinct=11
+exit 0
+$ find corpus/knowledge -name '*.md' | wc -l
+226
+exit 0
+$ python3 -B reports/round-28/readme/sweep.py (tail 3)
+footer_live {"total": 226, "dir_totals": [25, 26, 28, 29, 24, 94], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [] footer_ok True
+readme_sha256 3ea247db6ae3719f1391a45072f3169b756a5e756d8cec609efa46ffa675d78c
+exit 0
+$ python3 -B reports/round-51/claims-agree.py
+AGREE claims=['C', 'D']
+exit 0
+$ python3 -B tools/check-claim-separability.py reports/round-51/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/linguistics/sign-languages-manual-modality.md', which is absent from the worktree under '/home/vgpnk/Projects/shokunin/kotodama-shokunin'
+exit 2
+$ (historical control) python3 -B tools/check-claim-separability.py reports/round-50/claims.json
+SEPARABILITY_INPUT_ERROR manifest is missing base, schema
+exit 2
+
+# attempt 3 re-run 2026-10-22T09:22:43Z tree=5ab36346bafbbf2d35d74073d248e2c8d8847804 (worktree = main + uncommitted round-51 declaration files; claims.json changed only in attempt/campaign/declared_at)
+$ python3 -B reports/round-51/boundary-count.py
+rows=11 resolved=11 distinct=11
+exit 0
+$ find corpus/knowledge -name '*.md' | wc -l
+226
+exit 0
+$ python3 -B reports/round-28/readme/sweep.py (tail 3)
+footer_live {"total": 226, "dir_totals": [25, 26, 28, 29, 24, 94], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [] footer_ok True
+readme_sha256 3ea247db6ae3719f1391a45072f3169b756a5e756d8cec609efa46ffa675d78c
+exit 0
+$ python3 -B reports/round-51/claims-agree.py
+AGREE claims=['C', 'D']
+exit 0
+$ python3 -B tools/check-claim-separability.py reports/round-51/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/linguistics/sign-languages-manual-modality.md', which is absent from the worktree under '/home/vgpnk/Projects/shokunin/kotodama-shokunin'
+exit 2
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama
+kotodama	ok	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+exit 0
