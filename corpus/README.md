@@ -1,5 +1,16 @@
 # kotodama-shokunin corpus index
 
+revision: 2.8 — Round-51 linguistics landing (2026-10-22): one linguistics entry
+landed (`sign-languages-manual-modality.md`, sign languages and other manual
+communication systems as conlang and worldbuilding method; before it, 0 filename
+owners and 0 topic-line owners, with partial owners cited one-way in its §2),
+its row added in filename order between `semantics-pragmatics.md` and
+`sociolinguistics-registers.md` with the entry's `- topic:` text byte-equal;
+`## linguistics/` moved 25 → **26**, totals line 226 → **227**, footer vector
+`25/26/28/29/24/94` → `26/26/28/29/24/94`. The routed rev-1.9
+`REVISION-ORPHAN` residual is carried, not repaired. Re-measured with
+`python3 reports/round-28/readme/sweep.py`: 227 rows vs 227 files, exit 0.
+
 revision: 2.7 — Round-50 culture-material landing (2026-10-21): one
 culture-material entry landed (`pastoralism-animal-husbandry.md`, the herding
 and animal-husbandry production register; before it, 0 filename owners and 0
@@ -217,7 +228,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (25)
+## linguistics/ (26)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -237,6 +248,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `sacred-registers-liturgical-language.md` — The linguistics of a register system whose high variety is reserved for the sacred: the sacred specialization of diglossia (H allocated to ritual events, learned without native acquisition, kept by institutions rather than speakers); the six-competence model of sacred-language skill (hearing recognition, recitation accuracy, liturgical literacy, comprehension, composition, authorization) and how ritual events map to the competences they require; the mechanics of liturgical fossilization, per layer, with the maintenance institutions each freeze needs; event-typed language rules (recitation, sermon, petition, hymn, naming, authorized translation differ in what competence they demand and what counts as a violation); recitation norms and chant as phonological objects; gatekeeping devices and their costs (the register's social closure in the sociolinguistic sense — never a lane action); and the register's own decay and revival ladder, orthogonal to the vernacular ladder. Reference knowledge and method only; canon and religion content stay out — whether any world has such a register, and what it is sacred *to*, belongs to lore-shokunin.
 - `semantic-fields-lexicon-building.md` — engineering a fictional lexicon by semantic field — core-vocabulary floors (Swadesh–Yakhontov lineages and their limits), field-by-field elaboration briefs (body, kin, weather, landscape, subsistence, war, religion), borrowability strata, and what cultural vocabulary can and cannot prove about worldview
 - `semantics-pragmatics.md` — how languages package meaning (semantic fields, polysemy, classifiers) and act through it (evidentials, implicature, speech acts, deixis) — named frameworks, comparative data, and design levers for a fictional culture's "meaning economy"
+- `sign-languages-manual-modality.md` — sign languages and other manual communication systems as a conlang and worldbuilding method — deaf-community, shared or village and emerging sign languages, homesign, alternate sign languages used by hearing people, manual codes and contact signing, fingerspelling and notation; the register test that separates a sign language from a body code, a manual code and a writing system; sublexical parameters, grammar in space, iconicity, emergence and families; and the calibration traps (one universal sign language, sign as pantomime, the village idyll, bare counts of sign languages)
 - `sociolinguistics-registers.md` — Sociolinguistic stratification within a single language — dialect geography, diglossia, registers by class/caste/profession, gendered speech, age-grading — and how register maps to era and social structure in a fictional world
 - `sound-symbolism.md` — how sound and meaning couple non-arbitrarily, and how to engineer that coupling for a fictional culture — the three-way map (arbitrariness / iconicity / systematicity, Dingemanse et al. 2015); the audited cross-linguistic bias evidence (Blasi et al. 2016: 74 signals, small↔i, tongue↔l, round↔r, plus the big/large null; Haynie et al. 2014 on position-conditioning and the failed F2-gradient account); the bouba/kiki complex across 25 languages (Ćwiek et al. 2022) with the Himba calibration (Bremner et al. 2013); the frequency code (Ohala 1994); phonesthemes (Firth 1930; Bergen 2004); ideophones as a depictive word class (Dingemanse 2012, 2018; Japanese mimetics); plus decision tables, an ideophone-register design procedure, a phonestheme-bank protocol with nonmember controls, and a calibration shelf separating bias from law
 - `syntax-typology.md` — word-order typology (Greenberg universals; the six basic orders), alignment systems (nominative-accusative, ergative-absolutive, split, direct-inverse, Austronesian/Philippine symmetrical voice), relative-clause and embedding strategies, and the cultural signals carried by grammar (evidentials, honorifics, discourse structure, contact) — plus which popular frameworks are contested or discredited. Reference and method only: canon decisions belong to lore-shokunin.
@@ -587,11 +599,11 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
 
-Total knowledge entries: 226.
+Total knowledge entries: 227.
 
-Counts checked 2026-10-21 from the repo root:
+Counts checked 2026-10-22 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
-(total 226 files; directory totals 25/26/28/29/24/94).
+(total 227 files; directory totals 26/26/28/29/24/94).
 The inventory counts markers, not verified facts.
 Superseded reading, preserved as the dated record it was: this footer read
 `(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
