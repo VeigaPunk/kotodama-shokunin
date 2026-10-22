@@ -2,9 +2,9 @@
  "round": 55,
  "attempt": 1,
  "campaign": "hyaku phase 4 twelve-hour leg, 2026-10-22 (in-session L1 lane subagent KotodamaR55)",
- "declared_at": "2026-10-22T19:58Z",
- "base": "d44309a1031431506bded6a252d64805f234c94d",
- "base_note": "The base commit carries the claim instruments (accept-c.py, accept-o.py, base-knowledge-files.txt with 230 paths, base-gate-r53.txt, fixtures/adversarial.md copied unchanged from the round-54 ReviewGateQuoteTool scratch, both criterion-11 control builders), the start census receipt, and the round-54 late seat report .ufo/waves/round-54/build-a2/ExecIntegrateRows.md committed as late-seat evidence (round-54 closure routed defect 3). It sits on the round-54 lane tip 89973ba7. Neither commit is a claim.",
+ "declared_at": "2026-10-22T19:56Z; instruments revised before dispatch at 2026-10-22T20:05Z after the pre-dispatch critic findings (.ufo/waves/round-55/predispatch/)",
+ "base": "f4015e70b829523ed81e14ce4279bfab0e0233e4",
+ "base_note": "Claim base f4015e7 revises the claim instruments after the two pre-dispatch critics (.ufo/waves/round-55/predispatch/): accept-o.py gains the FORMAT leg, sha256 pins and two-way legs; the C builder's RED-COUNT moves the README consistently to 232 and RED-SWEEP-EXIT is added; the O builder gains two-way, class, exit, format and crash reds. f4015e7 sits on the first declaration 662239d, which sits on the instruments commit d44309a (accept-c.py, accept-o.py, base-knowledge-files.txt with 230 paths, base-gate-r53.txt, fixtures/adversarial.md copied unchanged from the round-54 ReviewGateQuoteTool scratch, both control builders, the start census receipt, and the round-54 late seat report .ufo/waves/round-54/build-a2/ExecIntegrateRows.md committed as late-seat evidence, round-54 closure routed defect 3) on the round-54 lane tip 89973ba7. None of these commits is a claim.",
  "two_claim_note": "Two claims on two axes, each verifiable on the base plus its own lands. C works myth-symbol ground (drift sentinel, QUALITY criterion 11: rounds 51-54 worked linguistics and culture-material); O turns the round-54 closure's routed defects 1 and 2 (truncated Gate grounds, doubled locator spans) and the five carried escape classes into failing checks.",
  "separability_manifest": "reports/round-55/separability-manifest.json",
  "separability_command": "python3 -B tools/check-claim-separability.py reports/round-55/separability-manifest.json",
@@ -25,7 +25,7 @@
       "SET",
       "SWEEP"
      ],
-     "red_control": "RED-COUNT (a second new .md file with its README row, count 232): SET and SWEEP fail together, because both pin 231"
+     "red_control": "RED-COUNT (a second new .md file with its README row, section header, totals line and footer all moved to 232, so the sweep itself exits 0): SET and SWEEP fail together, SWEEP through the 231 pin alone"
     },
     {
      "id": "C-one-new-file",
@@ -43,7 +43,7 @@
      "legs": [
       "SWEEP"
      ],
-     "red_control": "RED-SWEEP (index row names monsters-hybrid-being.md)"
+     "red_control": "RED-SWEEP (index row names monsters-hybrid-being.md) and RED-SWEEP-EXIT (counts footer left at 230 / myth-symbol 26: rows 231 files 231, missing_from_index 0, the sweep exits 1)"
     },
     {
      "id": "C-floor",
@@ -117,8 +117,8 @@
   {
    "id": "O",
    "axis": "operability",
-   "kind": "measured; capability acquisition (Gate-line shape checker); repairs the round-54 closure's routed defects 1 and 2 as checks and the five carried escape classes",
-   "statement": "tools/check-gate-quotes.py reports the two Gate-line shapes the round-54 closure routed and four of the five carried escape shapes. reports/round-55/accept-o.py exits 0, with its seven legs passing: DOUBLED (on corpus/lessons/round-54.md the S-ids with a doubled-locator finding are exactly S239, S240, S243, S246, S249, S259, S262, S265, S266, S267, S268, S275, S277), TRUNC (on the same file the S-ids with a truncated-grounds finding are exactly S241, S242, S244, S248, S250, S251, S253, S255, S259, S263, S264, S265, S275, S276, S277, S278, S279), NOFALSE (no finding there names any other S-id), EXIT (the round-54 run and the adversarial-fixture run each exit 1), ESCAPE (on reports/round-55/fixtures/adversarial.md the S-ids with a finding are exactly S901, S902, S904, S905), KEEP53 (on corpus/lessons/round-53.md the words=<n> finding lines equal reports/round-55/base-gate-r53.txt), SELFTEST (--selftest exits 0).",
+   "kind": "measured; capability acquisition (Gate-line shape checker); turns the round-54 closure's routed defects 1 and 2 into checks (defect 1's errata filing stays a records item) and repairs four of the five carried escape classes",
+   "statement": "tools/check-gate-quotes.py reports the two Gate-line shapes the round-54 closure named in routed defects 1 and 2, and four of the five carried escape shapes. reports/round-55/accept-o.py exits 0, with its eight legs passing: DOUBLED (on corpus/lessons/round-54.md the S-ids with a doubled-locator finding are exactly S239, S240, S243, S246, S249, S259, S262, S265, S266, S267, S268, S275, S277), TRUNC (on the same file the S-ids with a truncated-grounds finding are exactly S241, S242, S244, S248, S250, S251, S253, S255, S259, S263, S264, S265, S275, S276, S277, S278, S279), NOFALSE (no finding there names any other S-id), EXIT (the round-54 run and the adversarial-fixture run each exit 1), ESCAPE (on reports/round-55/fixtures/adversarial.md the findings are exactly S901 words=26, S902 words=26, S904 words=22, S905 words=26), KEEP53 (on corpus/lessons/round-53.md the run exits 1 and its words=<n> finding lines equal reports/round-55/base-gate-r53.txt), FORMAT (those three runs write nothing to stderr, every stdout line is a finding line or the GATE_QUOTES summary, and the summary count equals the finding lines), SELFTEST (--selftest exits 0). The fixture and base-gate-r53.txt are pinned by sha256 (exit 2 on a mismatch).",
    "clauses": [
     {
      "id": "O-doubled",
@@ -127,7 +127,7 @@
      "legs": [
       "DOUBLED"
      ],
-     "red_control": "RED-DOUBLED (S277 dropped: 12 of 13)"
+     "red_control": "RED-DOUBLED (S277 dropped: 12) and RED-DOUBLED-EXTRA (S264 added: 14)"
     },
     {
      "id": "O-trunc",
@@ -136,7 +136,7 @@
      "legs": [
       "TRUNC"
      ],
-     "red_control": "RED-TRUNC (S239, a doubled-only row, gains a truncated finding: one extra)"
+     "red_control": "RED-TRUNC (S239 added: 18) and RED-TRUNC-MISS (S279 dropped: 16)"
     },
     {
      "id": "O-nofalse",
@@ -154,25 +154,34 @@
      "legs": [
       "EXIT"
      ],
-     "red_control": "RED-EXIT (same findings, exit 0)"
+     "red_control": "RED-EXIT (round-54 run exits 0) and RED-EXIT-FIX (fixture run exits 0)"
     },
     {
      "id": "O-escape",
-     "words": "on reports/round-55/fixtures/adversarial.md the S-ids with a finding are exactly S901, S902, S904, S905",
+     "words": "the findings are exactly S901 words=26, S902 words=26, S904 words=22, S905 words=26",
      "kind": "mechanical",
      "legs": [
       "ESCAPE"
      ],
-     "red_control": "RED-ESCAPE (S903 reported as well)"
+     "red_control": "RED-ESCAPE (S903 words=25 extra), RED-ESCAPE-MISS (S904 missing), RED-ESCAPE-CLASS (S904 as doubled-locator)"
     },
     {
      "id": "O-keep53",
-     "words": "on corpus/lessons/round-53.md the words=<n> finding lines equal reports/round-55/base-gate-r53.txt",
+     "words": "the run exits 1 and its words=<n> finding lines equal reports/round-55/base-gate-r53.txt",
      "kind": "mechanical",
      "legs": [
       "KEEP53"
      ],
-     "red_control": "RED-KEEP53 (last words= line, S236, dropped)"
+     "red_control": "RED-KEEP53 (S236 words=29 -> words=30, same line count) and RED-KEEP53-EXIT (same output, exit 2)"
+    },
+    {
+     "id": "O-format",
+     "words": "those three runs write nothing to stderr, every stdout line is a finding line or the summary, and the summary count equals the finding lines",
+     "kind": "mechanical",
+     "legs": [
+      "FORMAT"
+     ],
+     "red_control": "RED-FORMAT (an unparseable `:5-6` line) and RED-FORMAT-CRASH (traceback on stderr)"
     },
     {
      "id": "O-selftest",
@@ -194,9 +203,9 @@
     "tools/check-gate-quotes.py"
    ],
    "counting_command": "python3 -B reports/round-55/accept-o.py",
-   "before": "exit 1: DOUBLED FAIL (count=0), TRUNC FAIL (count=0), EXIT FAIL (round54=0 adversarial=0), ESCAPE FAIL (found=[]); NOFALSE PASS, KEEP53 PASS (12 lines), SELFTEST PASS (12/12)",
-   "after_required": "all seven legs PASS (exit 0)",
-   "expected_pre_landing_counting": "exit 1: DOUBLED FAIL (count=0), TRUNC FAIL (count=0), EXIT FAIL (round54=0 adversarial=0), ESCAPE FAIL (found=[]); NOFALSE, KEEP53, SELFTEST PASS",
+   "before": "exit 1: DOUBLED FAIL (count=0), TRUNC FAIL (count=0), EXIT FAIL (round54=0 adversarial=0), ESCAPE FAIL (4 missing); NOFALSE PASS, KEEP53 PASS (exit 1, 12 lines), FORMAT PASS, SELFTEST PASS (12/12)",
+   "after_required": "all eight legs PASS (exit 0)",
+   "expected_pre_landing_counting": "exit 1: DOUBLED FAIL (count=0), TRUNC FAIL (count=0), EXIT FAIL (round54=0 adversarial=0), ESCAPE FAIL (missing all four); NOFALSE, KEEP53, FORMAT, SELFTEST PASS",
    "falsifier": "any leg FAIL at the landed tip; a mutation of a new class rule that leaves --selftest at exit 0 is recorded as a gap",
    "must_not_cite": "no S-id row created by claim C"
   }
