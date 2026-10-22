@@ -4082,3 +4082,14 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Routed fixes (not claims):** `b9c44a2`, `81178c8`, `d52c9df` (gesture 68, speech-surrogates 79, divination 72, anchors S248/S254/S275); S358 supersedes S256's tier; round-54 Gate errata in the lesson.
 - **Waves:** build 51 seats, falsify 33 seats (5 cancelled unreported at wrap-up); round total 86 including 2 pre-dispatch critics. Mistakes R55-M1 to R55-M6. The declared separability command exits 1 on a false export match (R55-M5).
 - **Evidence:** `reports/round-55/telemetry/final-measures.txt`; `.ufo/waves/round-55/`; `corpus/lessons/round-55.md`.
+
+## 2026-10-22 — Round 56 (attempt 1): claims C (coverage) and O (operability); author-side, pending non-author closure — hyaku phase 4
+
+- **Trigger:** the round-55 closure (`corpus/lessons/round-55-verifier-spotcheck.md`) routed an over-broad separability export, SCORECARD nits, receipts without a revision, eight rows with no non-author re-open, the S309 access note and HTML entities in Gate lines; the Kingdom of Kongo had 0 filename owners at `045f458`; the drift sentinel asked for ground other than linguistics, culture-material and myth-symbol.
+- **Declaration:** instruments `052f145`, revised at `045f458` after two pre-dispatch critics (C 18/18, O 23/23 controls), declaration `b4b7db9` with C's exact export block S359-S418; dry-run receipt names `b4b7db9`.
+- **C:** `civilizations/kongo-kingdom.md`; 231 → 232 files (`767040e`); 54 rows opened this round cited (S359-S412); handoff section corrected after the falsify critic in the records commit.
+- **O:** `tools/check-gate-quotes.py` gains `html-entity`, decoded quote and Grounds rules and exit 2 on invalid UTF-8 (`7576fd4`); `accept-o.py` exit 1 → 0; selftest 38/38.
+- **Routed fixes (records):** S292, S293, S309 cells; `motif-index-usage.md:37`; `masks-masquerade.md:59,105`; QUALITY criterion 7; round-55 Gate errata; SCORECARD correction rows.
+- **Waves:** build 46 seats, falsify 37 seats, pre-dispatch 2 critics; round total 85. Mistakes R56-M1 to R56-M4.
+- **Evidence:** `reports/round-56/telemetry/final-measures.txt`; `.ufo/waves/round-56/`; `corpus/lessons/round-56.md`.
+

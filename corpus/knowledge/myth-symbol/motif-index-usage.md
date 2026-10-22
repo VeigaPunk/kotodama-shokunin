@@ -34,7 +34,7 @@ Six volumes, 23 lettered chapters; letters I, O and Y are unused (a common sourc
 | C | Tabu: prohibitions and their breach | C31 Tabu: looking (cf. C31.1.2 looking at the supernatural wife, the Melusine block); C900–C999 Punishment for breaking tabu | speech/diet/name tabu symmetry |
 | D | Magic: powers, transformations, magic objects | D672 Obstacle flight | magic-system rules and costs |
 | E | The Dead: ghosts, revenants, messengers | E323.2 Dead mother returns to help persecuted daughter | afterlife doctrine vs tale behavior |
-| F | Marvels: fantastic places, beings, objects | fairyland / wonder-object block | liminal geography |
+| F | Marvels: otherworld journeys, marvelous creatures, extraordinary places, things and occurrences | F200 Fairies (elves); F420 Water-spirits; F110 Journey to terrestrial otherworlds | marvelous beings; liminal geography |
 | G | Ogres: man-eaters and their ways | G310 Ogres with characteristic methods | predator theology |
 | H | Tests: riddles, quests, tasks | H80–H81 quest tests (inside ATU 551's string) | worth-and-credentials system |
 | J | The wise and the foolish | J641 Escaping before the enemy can strike | practical-reason values |

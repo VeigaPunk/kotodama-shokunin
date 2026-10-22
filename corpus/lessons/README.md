@@ -114,6 +114,8 @@ Columns: **file** · **format** (§3) · **contract** (`source:`/`verified-at:`/
 | `corpus/lessons/round-54.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-54/claims.json` | bytes=40955 lines=200 sha8=5b685de2 |
 | `corpus/lessons/round-54-verifier-spotcheck.md` | plain | 0/4 | none (routed defects carry no Q ids) | non-author closure record; fleet MANIFEST kotodama r54 | bytes=9689 lines=84 sha8=107deccd |
 | `corpus/lessons/round-55.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-55/claims.json` | bytes=71760 lines=242 sha8=1bbf7081 |
+| `corpus/lessons/round-55-verifier-spotcheck.md` | plain | 0/4 | none (no Q ids) | non-author closure record; fleet MANIFEST kotodama r55 | bytes=17959 lines=128 sha8=b482bb68 |
+| `corpus/lessons/round-56.md` | gate-keeper | 4/4 | none (no Q ids) | `reports/round-56/claims.json` | bytes=45915 lines=168 sha8=4360a76d |
 
 **Rows: 43. Files: 43.** The count is the runner's own partition glob
 (`corpus/lessons/*.md`), which includes **this README** and the round-25
@@ -546,3 +548,7 @@ Adds one §2 row, for `round-54.md`, pinned from the live bytes at the round-54 
 ## Revision 12
 
 Adds two §2 rows, for `round-54-verifier-spotcheck.md` (the non-author closure record, plain) and `round-55.md`, pinned from the live bytes at the round-55 records commit; rows 46, files 46 (measured with `grep -c` over §2 and `ls corpus/lessons/*.md`; the §2 count line above was not updated in revision 11 and is left as filed).
+
+## Revision 13
+
+Adds two §2 rows, for `round-55-verifier-spotcheck.md` (the non-author closure record, plain) and `round-56.md`, pinned from the live bytes at the round-56 records commit; rows 48, files 48 (the §2 count line above is left as filed).

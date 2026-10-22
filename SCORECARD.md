@@ -53,6 +53,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | bounded typed craft CLI | Six original malformed controls and reviewed nested/argument cases return exit 2 without tracebacks; genuine findings still exit 1 | `python3 tools/check-craft-exercise.py --selftest` (10 domain + 18 CLI); actual calls in `reports/round-5/validation.json` | round 5 |
 | sources registry | Keep a curated, append-only registry of opened sources — tier scoped per claim, anchored to a revision, rejections kept with reason and flip, study paths and a search log — and census it with the fleet contract's seven commands | `corpus/SOURCES.md` (43 rows: A 34 / B 3 / C 6; mined 20 / queued 19 / rejected 4); `corpus/lessons/round-49.md` `## Gate`; `python3 reports/round-49/run-validation.py` S leg, measured at `8c78e6b` | round 49 |
 | gate-line shape checker | Reports a lesson Gate row whose first quoted span repeats its locator (`doubled-locator`), whose Grounds is a proper prefix of the registry `teaches` cell (`truncated-grounds`), and quotes hidden by a hard wrap, guillemets, an ellipsis between spans or a `- * ` row; word rule stays a whitespace split | `python3 -B tools/check-gate-quotes.py <lesson.md>`; `--selftest` (24/24); `python3 -B reports/round-55/accept-o.py` exit 1 at `f4015e7`, exit 0 at `454a2dc` | round 55 |
+| gate-line character-reference checks | Reports, once per row, a lesson Gate row carrying an HTML character reference (numeric, or an HTML5 named reference ending in `;`) as `html-entity`; applies the quote and Grounds rules to the decoded row; answers a lesson that is not valid UTF-8 with exit 2 and a `GATE_QUOTES_ERROR` line, no traceback | `python3 -B tools/check-gate-quotes.py <lesson.md>`; `--selftest` (38/38 at `7576fd4`); `python3 -B reports/round-56/accept-o.py` exit 1 at `b4b7db9`, exit 0 at `7576fd4` | round 56 |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -1071,3 +1072,24 @@ Instruments `d44309a`, revised after the two pre-dispatch critics at `f4015e7` (
 | depth / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
 
 Frontier step (not a claim): `corpus/SOURCES.md` 284 → 358 rows (S285–S357 opened this round and cited by C; S358 supersedes S256, queued); statuses 240/34/10 → 313/35/10; census exit 0 at start (`reports/round-55/telemetry/census-start.txt`) and end. Non-author verification is the hyaku closure's.
+
+## Axes — round 56 (2026-10-22), author-side verdicts, pending non-author closure (hyaku phase 4, attempt 1)
+
+Instruments `052f145`, revised after the two pre-dispatch critics at `045f458` (claim base); declaration `b4b7db9`; pre-dispatch receipts `456f5ad` (each names the revision it measured); O landed `7576fd4`; C landed `767040e`; records in the closing records commit. Receipts: `reports/round-56/telemetry/declaration-dry-run.txt` (before, measured-revision `b4b7db9`), `criterion11-controls.txt` (C 18/18), `criterion11-controls-o.txt` (O 23/23), `final-measures.txt` (after, names its revision). Waves: build 46 seats, falsify 37 seats (`.ufo/waves/round-56/`).
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C, learning claim, sourced claim) | knowledge files 231 → 232; civilizations 94 → 95; `accept-c.py` exit 1 (SET, SWEEP, FLOOR FAIL) → exit 0, seven legs PASS at `767040e` (rows 232 files 232, missing 0; 54 cited S-ids, all in C's block S359-S418 (S359-S412 used), one row each, mined, used-by the entry; ACCESS exit 0). Gap at base: 0 filename owners, one passing mention. Disclosed: topic, sentence support and the lore handoff are review-only clauses; the falsify wave's row slices are listed in the lesson | `python3 -B reports/round-56/accept-c.py` | `corpus/knowledge/civilizations/kongo-kingdom.md`; `.ufo/waves/round-56/falsify/` |
+| operability | improved (claim O, capability `gate-line character-reference checks`) | `accept-o.py` exit 1 (ENTITY count 0, EXIT, DECODE FAIL, BADUTF8 exit 1 with traceback) at `b4b7db9` → exit 0, eight legs PASS at `7576fd4` (exactly the 16 round-55 entity rows, once each; ten fixture findings plus a run-time moved copy; rounds 49-54 output unchanged; invalid UTF-8 exit 2; selftest 38/38). Disclosed: the acceptance cannot tell a faithful decoder from an S-id-keyed shortcut (R56-M3); the falsify mutants left double decoding and stop-at-first-bad-file alive | `python3 -B reports/round-56/accept-o.py` | `tools/check-gate-quotes.py` at `7576fd4`; `.ufo/waves/round-56/build/ExecGateEntity.md` |
+| calibration | not claimed; recorded | round-55 closure routed defects 1-6 dispositioned (lesson intake table); QUALITY criterion 7 amended (exact export block); S292, S293, S309 registry cells corrected; mistakes R56-M1 to R56-M4 | `python3 -B tools/check-gate-quotes.py corpus/lessons/round-55.md` (16 html-entity findings) | `corpus/lessons/round-56.md` |
+| depth / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
+
+Correction rows for round 55 (routed defect 2 of `corpus/lessons/round-55-verifier-spotcheck.md`; the filed rows are not edited):
+
+| corrected row | correction | re-run command |
+|---|---|---|
+| round-55 calibration row ("mistakes R55-M1 to R55-M4") | the round-55 lesson carries six mistakes, R55-M1 to R55-M6 | `grep -c '^\| R55-M' corpus/lessons/round-55.md` → 6 |
+| round-55 capability row and operability row ("selftest 24/24") | 24/24 is the selftest at `454a2dc` only; 12/12 at `f4015e7`; 27/27 at `173cab6` and at the round-55 tip `2935c47` | `git show <rev>:tools/check-gate-quotes.py > /tmp/t.py && python3 -B /tmp/t.py --selftest` in a scratch copy (`.ufo/waves/round-56/build/ScribeScorecardNits.md`: 3 of 12 round-55 cells mismatched) |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 358 → 412 rows (S359-S412 opened this round and cited by C; S413-S418 of C's block unassigned); statuses 313/35/10 → 367/35/10; census exit 0 at start (`reports/round-56/telemetry/census-start.txt`) and end. Non-author verification is the hyaku closure's.
+
