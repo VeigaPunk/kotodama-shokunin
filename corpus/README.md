@@ -1,5 +1,13 @@
 # kotodama-shokunin corpus index
 
+revision: 2.13 — Round-56 civilizations landing (2026-10-22): one
+civilizations entry landed (`kongo-kingdom.md`, the Kingdom of Kongo as a
+linguistic-cultural reference base; before it, 0 filename owners and one
+passing mention in `linguistics/language-contact.md`), its row added in
+filename order between `khmer-angkor.md` and `korea-joseon.md` with the
+entry's `- topic:` text verbatim; `## civilizations/` moved 94 → **95**; the
+totals and footer moved 231 → **232**.
+
 revision: 2.12 — Round-55 myth-symbol landing (2026-10-22): one
 myth-symbol entry landed (`monsters-hybrid-beings.md`, monsters and hybrid
 beings as a cultural category; before it, 0 filename owners, with partial
@@ -418,7 +426,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `worked-example-verification.md` — the verification procedure for **worked examples**: every `corpus/knowledge/` entry that ends in a worked example, micro-example, fixture, or filled worksheet owes a check that the example does four things — instantiates the decision rules it names, derives each stated consequence from a named rule id, rejects at least one counterexample the rules actually forbid, and carries the right label (NON-CANON for invented examples, source + locator for attested-world ones) — with a receipt recording what was checked; covers the five example classes measured in this corpus, per-class obligations, negative-control and mutation discipline, freshness versus copying, the receipt schema, and the failure modes this lane's own examples exhibit (uncited consequences, under-citation, green-by-construction controls, label drift, dead rules, stale verdicts, canon bleed). Method and lane policy only; canon decisions belong to lore-shokunin.
 
 
-## civilizations/ (94)
+## civilizations/ (95)
 
 - `aegean-minoan-mycenaean.md` — Bronze Age Crete and mainland Greece as a coupled reference for language, administrative writing, cult, visual motifs, periodization, dress, and architectural vocabulary; method and reference only, not fictional canon.
 - `africa-primary-sources.md` — primary-source landscapes for sub-Saharan African linguistics, oral tradition, and material culture beyond the colonial chronicle: Arabic-script Ajami manuscripts, local script archives, oral-epic recording projects, language documentation, excavation reports, museum provenance, and colonial-record biases; a bounded source map and coupling method, not a continent-wide cultural profile or fictional canon.
@@ -472,6 +480,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `japan-yayoi-kofun.md` — Jōmon→Yayoi linguistic transition and the Ainu-substrate debate; magatama and jewel regalia; haniwa as costume evidence; uji and kabane as a language–ancestry–rank interface, for reference and fictional-system design, not canon.
 - `java-majapahit.md` — Javanese linguistic-cultural coupling, anchored in Majapahit-era East Java but explicitly separating medieval evidence from later court, performance, and heritage traditions; reference and generative method, not fictional canon.
 - `khmer-angkor.md` — Khmer/Angkor reference base coupling Old Khmer inscriptions, Sanskrit–Khmer bilingualism and actual digraphia, devarāja debates, hydraulic vocabulary, sacred images, era staging, naming, and costume evidence; method and reference only, not fictional canon.
+- `kongo-kingdom.md` — Kingdom of Kongo linguistic-cultural reference base: the Kikongo Language Cluster and the first Kikongo books, titles, provinces and contested succession, Kongo Christianity and the Antonian movement, minkisi and the contested cosmogram reading, mpu caps, raffia cloth and nzimbu shell money, and era staging from the founding traditions to the suppression of the kingship in 1914; reference and generative method, not fictional canon.
 - `korea-joseon.md` — Joseon linguistic-cultural reference base: han'gŭl/hangul and hanja–hanmun differentiation, Confucian ritual registers, gat/yangban dress, and gwageo vocabulary; methods and reference knowledge, never fictional canon.
 - `korea-three-kingdoms-goryeo.md` — A reference base for coupling language, founding narratives, hereditary status, Buddhist institutions, symbols, and material display in Three Kingdoms and Goryeo Korea; Sejong’s fifteenth-century alphabet reform is a deliberately separated Joseon comparison, not a Goryeo invention. Method and reference knowledge only; no fictional canon.
 - `lakota-plains.md` — Lakota-centered language–myth–symbol–era–costume coupling; Siouan comparison, wakȟáŋ discourse, Sun Dance structure, ledger drawings, and winter-count historiography; reference and method, not fictional canon.
@@ -642,11 +651,11 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
 
-Total knowledge entries: 231.
+Total knowledge entries: 232.
 
 Counts checked 2026-10-22 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
-(total 231 files; directory totals 28/27/29/29/24/94).
+(total 232 files; directory totals 28/27/29/29/24/95).
 The inventory counts markers, not verified facts.
 Superseded reading, preserved as the dated record it was: this footer read
 `(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
