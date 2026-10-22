@@ -4064,3 +4064,12 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Waves:** build 39 seats, falsify 32 seats (5 dead at spawn: "No model selected"); round total 71. Mistakes R53-M1 to R53-M3; QUALITY criterion 11; `tools/check-draft-ids.py`.
 - **Drift sentinel:** the claim-sizing class (statement wider than its declared commands) recurs a third round running (R53-M2).
 - **Evidence:** `reports/round-53/telemetry/final-measures.txt`; `.ufo/waves/round-53/`.
+
+## 2026-10-22 — Round 54 (attempt 2): claim C (coverage); author-side, pending non-author closure — hyaku phase 3
+
+- **Attempt 1** (17:09Z–17:26Z) pushed `d761ee8` (round-53 routed fixes), `4b2299b`, `1ec84db`, `260c68d`, `7fa37fb` (instruments and one-claim declaration) and dispatched a 36-seat build wave that died in the omp restart with no reports; its five untracked dispatch records were committed as dead-wave evidence at `5757c45`. Attempt 2 re-verified the declaration (ExecDryRunCensus 12/12 match; ExecControlsReplay byte-identical 13/13).
+- **C:** `culture-material/masks-masquerade.md`; 229 → 230 files (`6a658ca`); 46 rows opened this round cited (S239 and above).
+- **Waves:** build-a2 42 seats (26 scout, 4 critic, 4 reviewer, 4 executor, 2 connector, 2 scribe); scope freeze 18:41Z; residual falsify call 8 seats (7 reviewer, 1 critic); round total 50. Mistakes R54-M1 (Gate quote cap, `tools/check-gate-quotes.py`) and R54-M2 (pipe in a registry cell).
+- **Drift sentinel:** the round worked culture-material ground (masks) instead of linguistics; the claim shape repeats round 53's (`.ufo/waves/round-54/build-a2/CriticSingleClaim.md`).
+- **Evidence:** `reports/round-54/telemetry/final-measures.txt`; `.ufo/waves/round-54/`; `corpus/lessons/round-54.md`.
+

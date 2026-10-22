@@ -1,0 +1,69 @@
+# round-54 final measures, 2026-10-22T18:59:02Z, lane tip 58b2faed54b3a12dde3db0a6a3185b34e8b9e9a6 (C landed 6a658ca, falsify fixes 58b2fae)
+$ python3 -B reports/round-54/accept-c.py
+SET PASS count=230 required=230 added=['corpus/knowledge/culture-material/masks-masquerade.md'] removed=[]
+SWEEP PASS exit=0 rows 230 files 230 missing_from_index 0 []
+FLOOR PASS cited=46 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+exit=0
+$ python3 -B reports/round-28/readme/sweep.py
+parts {"civilizations": 94, "culture-material": 29, "linguistics": 28, "myth-symbol": 26, "synthesis": 29, "verification": 24}
+rows 230 files 230
+missing_from_index 0 []
+topic_mismatch 0 []
+orphan_rows 0 []
+header_drift {}
+totals_line 230 totals_ok True
+footer {"date": "2026-10-22", "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge", "total": 230, "dir_totals": [28, 26, 29, 29, 24, 94]}
+footer_live {"total": 230, "dir_totals": [28, 26, 29, 29, 24, 94], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [] footer_ok True
+readme_sha256 617279332bcf83239c6507d030ea9acfa8ee75e97343a9c1083f9f4d82df7e77
+exit=0
+$ python3 -B tools/check-source-access.py
+ACCESS: 2 flagged rows, 0 findings
+exit=0
+$ python3 -B tools/check-draft-ids.py
+DRAFT_IDS: 0 findings
+exit=0
+$ python3 -B tools/check-claim-separability.py reports/round-54/separability-manifest.json
+SEPARABILITY: 0 findings
+SEPARABILITY_NOTE units=2 ordered_pairs=2 acceptance_runs=1
+exit=0
+$ python3 -B tools/check-gate-quotes.py corpus/lessons/round-54.md
+GATE_QUOTES: 0 findings
+exit=0
+$ python3 -B tools/check-gate-quotes.py corpus/lessons/round-53.md
+corpus/lessons/round-53.md:42 S187 words=28
+corpus/lessons/round-53.md:49 S189 words=28
+corpus/lessons/round-53.md:58 S192 words=40
+corpus/lessons/round-53.md:62 S194 words=28
+corpus/lessons/round-53.md:84 S200 words=27
+corpus/lessons/round-53.md:109 S205 words=36
+corpus/lessons/round-53.md:110 S205 words=30
+corpus/lessons/round-53.md:111 S205 words=26
+corpus/lessons/round-53.md:128 S214 words=27
+corpus/lessons/round-53.md:133 S217 words=11
+corpus/lessons/round-53.md:160 S224 words=28
+corpus/lessons/round-53.md:181 S236 words=29
+GATE_QUOTES: 12 findings
+exit=1
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama
+kotodama	W04	S127 duplicate url voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement across scopes
+kotodama	W04	S128 duplicate url pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf across scopes
+kotodama	W04	S129 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC10622114 across scopes
+kotodama	W04	S130 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC6818964 across scopes
+kotodama	W04	S131 duplicate url link.springer.com/article/10.1186/1477-7517-9-16 across scopes
+kotodama	W04	S132 duplicate url ida.gallaudet.edu/cgi/viewcontent.cgi?article=1004&context=sls across scopes
+kotodama	W04	S133 duplicate url www.cslds.org/apsl-consortium/sign-linguistics/module-7-sign-phonetics-and-phonology-symmetry-and-dominance-condition across scopes
+kotodama	W04	S185 duplicate url www.internationalphoneticassociation.org/icphs-proceedings/ICPhS2003/papers/p15_2131.pdf across scopes
+kotodama	W04	S186 duplicate url ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-canary-islands-the-silbo-gomero-00172 across scopes
+kotodama	ok	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+exit=0
+$ find corpus/knowledge -type f | wc -l
+230
+exit=0
+$ wc -l corpus/knowledge/culture-material/masks-masquerade.md
+152 corpus/knowledge/culture-material/masks-masquerade.md
+exit=0

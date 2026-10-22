@@ -1044,3 +1044,17 @@ Prerequisite `9ae5af9` (S184 registers the UNESCO 00172 nomination file and entr
 | operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
 
 Frontier step (not a claim): `corpus/SOURCES.md` 183 → 238 rows (S184–S238 opened this round; S233 retired as a duplicate of S219); census exit 0 at start and end. Non-author verification is the hyaku closure's.
+
+
+## Axes — round 54 (2026-10-22), author-side verdicts, pending non-author closure (hyaku phase 3, attempt 2)
+
+Prerequisite `d761ee8` (attempt 1: round-53 routed fixes; not a claim); claim instruments `4b2299b`, revised `260c68d` (claim base); declaration `7fa37fb` (one claim); attempt-2 dispatch records `5757c45`; C landed `6a658ca`, falsify fixes `58b2fae`; records in the closing records commit. Receipts: `reports/round-54/telemetry/declaration-dry-run.txt` (before), `reports/round-54/telemetry/criterion11-controls.txt` (13/13, replayed byte-identical by ExecControlsReplay), `reports/round-54/telemetry/final-measures.txt` (after).
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C, learning claim, sourced claim) | knowledge files 229 → 230; culture-material 28 → 29; `accept-c.py` exit 1 (SET, SWEEP, FLOOR FAIL) → exit 0, seven legs PASS (rows 230 files 230, missing 0; 46 cited S-ids, all S239 or above, one row each, mined, used-by the entry; ACCESS exit 0). Gap at base: 0 filename owners, 1 topic-line owner (`civilizations/siam-thai.md`); the build-wave critic found section-level owners in civilization entries (igbo, haudenosaunee, hopi, yoruba, fon-dahomey, siam-thai), which §2 points to one-way. Disclosed: the topic, sentence support and one-way pointing are review-only clauses | `python3 -B reports/round-54/accept-c.py` | `corpus/knowledge/culture-material/masks-masquerade.md`; `.ufo/waves/round-54/residual/` |
+| depth / calibration | not claimed; recorded | prerequisite `d761ee8` repaired gesture and speech-surrogates lines (one locator over-corrected, see the lesson); `tools/check-gate-quotes.py` added (R54-M1): round-53 lesson 12 findings, round-54 lesson 0 | `python3 -B tools/check-gate-quotes.py corpus/lessons/round-54.md` | `corpus/lessons/round-54.md#mistakes` |
+| operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; no axis harmed by an observed check | — | — |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 238 → 284 rows (S239–S284 opened this round, all mined; statuses 194/34/10 → 240/34/10); census exit 0 at start (`reports/round-54/telemetry/census-start-a2.txt`) and end. Non-author verification is the hyaku closure's.
+
