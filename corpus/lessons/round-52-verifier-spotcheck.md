@@ -151,3 +151,7 @@ The sample agrees with the gate on three admits and two rejects. Census: `script
    - Index this file in `corpus/lessons/README.md`.
 
 SHONEN: all four boxes are `[~]` with asserted pointers and no named non-author verifier. This closure does not judge them fully checkable. Promotion is operator-owned.
+
+## Erratum (same closure, after commit `c3297ff`)
+
+Step 1 and routed defect 5 above describe `.ufo/waves/round-52/build/ScribeSec05Drummed.md` as modified in the working copy. That was observed at 10:05:29 -03:00 mtime. By the time this file was committed, the file on disk matched the blob at `2eb489fb` (`sha256 0ea801ea…` for both), with mtime 10:06:24 -03:00; this closure did not touch it. After commit `c3297ff`, `git status --porcelain` is empty. Routed defect 5 is therefore resolved; the late seat write and its revert stay recorded as a status-neutral note.
