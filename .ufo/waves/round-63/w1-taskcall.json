@@ -1,0 +1,1081 @@
+{
+  "schema": "ufo-swarm-wave-v1",
+  "wave": "kotodama-r63-w1",
+  "context": "# Goal\nKotodama round 63 (hyaku run 5, 2026-10-23 UTC), SINGLE WAVE: build + attack together. Lane repo /home/vgpnk/Projects/shokunin/kotodama-shokunin (branch main, jj-colocated), revision `80d53ffde7788299b69dbb0bd0436b2b7ddddb95` (the freeze; round base `65b393ef3a4d82bd693cc21b7f96a1231417d522`). Read first: /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-63/claims.json (both frozen predicates), the docstrings of /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-63/accept-o.py (sha256 a751efecccf623fcd4d2f348994933e34da892cf08132fa55b77f28c5fd8a5de) and /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-63/accept-c.py (sha256 3a5310342c9e17567964e8b20ea24126d0f31b9316cadccc0d2c41a80fe499ca), and /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-62-verifier-spotcheck.md section 5 (the routed defects this round closes). Two claims, each ONE frozen predicate:\n- O (operability, capability repair, GATING): repair /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/reopen-row.py per the round-62 closure: redirect targets re-validated against the private-host refusal (a redirect hop to an authority different from the fetching URL's is refused even under --allow-private; at most 5 requests per chain, each counted as an attempt), malformed registry URLs answer `ROW <ID> MALFORMED attempts=0 url=-` with no traceback (exit 1), gzip Content-Encoding decoded, 4 MiB truncation answered TRUNCATED when the quote is absent from the read bytes (LOCATED when inside), and a per-request wall budget via a new `--timeout SECONDS` flag (default 30). Label `ACCEPT-O-63: PASS|FAIL` (legs TOOL INDEP GEN ORDER BOUND EXIT PRIV DEFAULT ERR REDIRECT MALFORMED GZIP TRUNC TIMEOUT REVIEW). Judged ONLY on offline local fixtures; the safety hold lifts only on counter PASS plus the named independent review gate (RevToolA/B/C + residual RevHoldLift, fixed token `VERDICT: NO-OPEN-HIGH-MED`).\n- C (coverage, sourced): new entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/headgear-head-covering-codes.md (headgear as rank, ritual and identity code - crowns, wreaths, helmets, veils, wraps, caps, hoods) supported by exactly 24 new registry rows S694-S717 (tier A/B, mined, opened 2026-10-23, recheck 180d, used-by the entry, live URL then ` ; capture <web.archive.org id_ URL of the same page>`, anchor quote 8-25 normalised body-text words). Label `ACCEPT-C-63: PASS|FAIL` (legs FILE ROWS ONEID RESTATE LINK APPEND NOHARM SWEEP LIVE; the LIVE leg re-opens the frozen subset S694, S698, S702, S706, S710, S714 with the base locator reports/round-61/reopen-quote.py --row).\nThe L1 (KotodamaR63) is the sole integration owner and holds the planner seat; it alone writes the lane. Time box: return within 25 minutes of your start; a partial report with what you verified beats none.\n\n# Ownership and bounds (binding)\nEvery seat is a leaf: no delegation, no background jobs, no swarms (an executor may spawn at most one read-only labrat probe). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kotodama-shokunin - write it at /home/vgpnk/Projects/shokunin/kotodama-shokunin/<that path> with ONE write tool call (absolute path); never edit it afterwards. Seats write NOTHING else in /home/vgpnk/Projects/shokunin/kotodama-shokunin and nothing in the fleet repo /home/vgpnk/Projects/shokunin (never a relative path: your tools start at the fleet root). Every other file goes ONLY under /fast/scratch/hyaku/kotodama-r63/<YourName>/ (create it). Never run git or jj write commands in /home/vgpnk/Projects/shokunin/kotodama-shokunin or /home/vgpnk/Projects/shokunin; sandbox git only in clones under /fast/scratch/hyaku/kotodama-r63/<YourName>/ made with `git clone -q /home/vgpnk/Projects/shokunin/kotodama-shokunin /fast/scratch/hyaku/kotodama-r63/<YourName>/clone && git -C /fast/scratch/hyaku/kotodama-r63/<YourName>/clone checkout -q 80d53ffde7788299b69dbb0bd0436b2b7ddddb95`, with GIT_DIR/GIT_WORK_TREE... set for that clone only. Tooling authorization (operator, 2026-10-19): you and every seat may install or upgrade tools that help the task without asking; read /home/vgpnk/.omp/agent/RULES.md first and record each install (tool, version, channel, reason). All pacman transactions are PAUSED host-wide: never pacman -S/-Sy/-Syu/-U/-R, never downgrade, never restart a host service; use uv tool, npx or an official binary in ~/.local/bin, or report the need. Prefer no installs.\n\n# Sources\nExternal reading by ORDINARY MEANS ONLY: plain requests (read tool, curl, python urllib), public copies, archive.org captures. NEVER use a headless browser or anything that gets past a bot challenge, captcha, paywall or login; a challenge met and routed around by a Wayback capture of the same page is fine and is recorded as met-not-passed. Whether a quote locates is decided by `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py URL \"QUOTE\"` (prints LOCATED/NOT LOCATED) or `python3 -B reports/round-61/reopen-quote.py --row S###`. A Wayback capture of a page: query `https://web.archive.org/cdx/search/cdx?url=<url>&output=json&limit=-5&filter=statuscode:200` and use `https://web.archive.org/web/<timestamp>id_/<url>`. Do NOT run tools/reopen-row.py: it is under a safety hold (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md criterion 16).\n\n# Control receipts (Ctl*/Mut* seats)\nScore with the frozen counters from YOUR clone at 80d53ffde7788299b69dbb0bd0436b2b7ddddb95: `cd /fast/scratch/hyaku/kotodama-r63/<YourName>/clone && timeout 900 python3 -B reports/round-63/accept-o.py; echo exit=$?` (or accept-c.py). Paste every run's FULL stdout and exit code (never tail/head/cut). Never edit a counter except in a clearly labelled PROBE copy under your scratch dir (show its diff). One line per case: `RECEIPT <YourName>/<case> counter-sha256=<sha256 of the counter you ran> rev=80d53ffde7788299b69dbb0bd0436b2b7ddddb95 frozen=PASS|FAIL exit=<n> stopped-by=<legs that FAIL>`. Then one verdict line per item: `CONTROL-MET` (some cheap fixture that skips the claimed work gets PASS under the frozen counter) or `NONE-MET`, naming the fixture that met it and the smallest counter change that would stop it.\n\n# Row rules (claim C scribes)\nA new row has 11 columns mirroring S693 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md: `| S### | <title>, <publisher>, <date> - <live URL> ; capture <Wayback id_ URL of the same page>. | <kind> | <A|B> | <scope> | <location>, \"<verbatim body-text quote>\" | <teaches> | mined | 2026-10-23 | 180d | corpus/knowledge/culture-material/headgear-head-covering-codes.md |`. The quote is verbatim body text (never a caption, never alt/title attributes, never a search-results snippet), 8-25 normalised words, confirmed by the locator on BOTH the live URL and the capture. The entry line you draft is a `- ` bullet ending in ` (S###)`: exactly one S-id, >= 5 content words (>= 4 letters, not stopwords), >= 3 of them in the quote in the quote's order, at most 12 consecutive words copied verbatim. No URL already in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md may be reused (grep it); your URL must differ from every other scribe's (the subtopic list below is the coordination device; if your first choice is taken or fails, move to your second). Never invent or trim a quote to fit; a quote that locates only in a caption is rejected - pick another page.\n",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 16,
+    "waveMinLanes": 64,
+    "waveMaxLanes": 128,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 69,
+    "resume": 0,
+    "total": 69
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "dispatch": {
+    "calls": 1,
+    "kind": "task",
+    "note": "Issue exactly one batched task call carrying every spawn lane, plus one hub send per resume lane. Never split a wave into multiple task calls (one-swarm-per-wave)."
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-63/w1/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-63/w1",
+    "members": {
+      "ExecRepairTool": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "CtlODoNothing": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "CtlOShortCircuit": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "CtlORedirectEdge": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "MutToolNeutral": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevToolA": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevToolB": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevToolC": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevCounterO": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "MutCounterO": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS694": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS695": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS696": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS697": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS698": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS699": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS700": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS701": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS702": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS703": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS704": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS705": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS706": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS707": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS708": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS709": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS710": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS711": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS712": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS713": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS714": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS715": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS716": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeRowS717": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "CtlCJunkRow": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "CtlCLineScam": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "CtlCUrlReuse": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevCounterC": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "MutCounterC": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS694": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS695": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS696": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS697": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS698": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS699": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS700": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS701": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS702": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS703": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS704": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS705": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS706": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS707": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS708": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS709": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS710": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS711": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS712": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS713": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS714": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS715": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS716": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "RevRowS717": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScoutEntryOwners": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScoutSiblingO": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "operability",
+          "adjacency"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeLesson": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ScribeCensus": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "ConnectorOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "adjacency"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      },
+      "CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "calibration"
+        ],
+        "milestone": "Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records"
+      }
+    }
+  },
+  "priorRegistries": [],
+  "tasks": [
+    {
+      "name": "ExecRepairTool",
+      "agent": "executor",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim O). Write the repaired tool to /fast/scratch/hyaku/kotodama-r63/ExecRepairTool/reopen-row.py ONLY (the L1 copies it into the lane). Start from the committed source: `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 65b393ef3a4d82bd693cc21b7f96a1231417d522:tools/reopen-row.py > /fast/scratch/hyaku/kotodama-r63/ExecRepairTool/reopen-row.py`. Implement the full contract in the docstring of /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-63/accept-o.py: (1) redirect handling without urllib auto-follow - build the opener with a no-follow handler and follow manually: resolve each Location (urljoin), count every request as an attempt, follow at most 5 requests per chain (a redirect on the 5th response ends the URL as a fatal result), and before requesting a hop whose authority (lowercased host, effective port) differs from the current URL's - or ANY hop when --allow-private is not set - run the same private-host refusal used for listed URLs; a refused redirect ends the URL for the pass; a row with no 2xx answered and every URL pre-refused or redirect-refused prints REFUSED with the requests actually made counted; (2) malformed row URLs (urlsplit ValueError on port/bracketed IPv6, or empty hostname) give the row verdict MALFORMED, attempts=0, no request, no traceback, exit 1; (3) gzip: when the response carries Content-Encoding: gzip, decompress (bounded: gzip.decompress with a cap, e.g. reject expansion beyond 64 MiB) before the charset decode; (4) truncation: read at most MAX_BODY_BYTES+1 bytes; if the quote is found in the read bytes the verdict is LOCATED/CAPTION_ONLY as usual; if not and the body was cut at the cap, verdict TRUNCATED (VERDICT_RANK equal to ABSENT, prints like the other verdicts); (5) --timeout SECONDS (default 30; argparse: a positive number; invalid -> REOPEN_ERROR exit 2) is a per-request wall budget: wrap connect+headers+body read against a monotonic deadline and raise TransientFetch on expiry; (6) keep everything else byte-compatible: all round-62 classes, the schedule, output shape `ROW <ID> <VERDICT> attempts=<n> url=<u>`, summary, exit codes, and extend --selftest with a fixture per new behaviour. Stdlib only, Python 3, module docstring states the contract in your words; the text must not name `reports/`, `accept-o`, `round-63` or `Fixture`. Run your own extended selftest and paste full output. Also run your tool by hand against a local http.server you script in 30 lines: cross-port 302 (REFUSED, target untouched), gzip body (LOCATED), bad-port URL (MALFORMED), and paste outputs.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ExecRepairTool.md"
+    },
+    {
+      "name": "CtlODoNothing",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Do-nothing controls: (a) clone unchanged (the round-62 tool); (b) records-only edits (append a SCORECARD row, LOG line, lesson stub); (c) the tool's docstring edited to claim the repair while the code is untouched; (d) the tool chmod 644. Score each: report which legs pass (TOOL/INDEP pass vacuously: note it) and the smallest change that stops each.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/CtlODoNothing.md"
+    },
+    {
+      "name": "CtlOShortCircuit",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Short-circuit controls: implement a tool that cheats each new leg minimally: prints TRUNCATED for any 2xx body over 4 MiB without reading it; prints MALFORMED for any URL whose port is non-numeric only; follows cross-authority redirects when --allow-private but answers REFUSED when not (the inverse rule); decompresses gzip only when the body is under 1 MiB; honours --timeout only on the first attempt. Score each: which legs pass, and does GEN catch each cheat?\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/CtlOShortCircuit.md"
+    },
+    {
+      "name": "CtlORedirectEdge",
+      "agent": "executor",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Redirect-edge fixtures against the frozen counter (build each in your clone's tools/ as an honest attempt, or script the tool under test by hand with local servers): scheme-relative Location `//127.0.0.1:PORT/x`; Location with userinfo `http://u@127.0.0.1:PORT/x`; http->https downgrade to a closed TLS port (transient or fatal?); redirect to a malformed URL (bad port); relative Location without leading slash; 308 with POST-unsafe method (irrelevant for GET: note); chain of exactly 5 then a 200 (attempts=5, LOCATED?); chain where the 5th response is still a redirect (attempts=5, not located). Report which cases the frozen counter pins and any case it leaves unpinned.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/CtlORedirectEdge.md"
+    },
+    {
+      "name": "MutToolNeutral",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Neutral-patch kills: take the repaired artifact if present at {SCR}/ExecRepairTool/reopen-row.py (else wait-check once, then use your own minimal implementation of the contract): produce patched copies that each remove ONE defended behaviour - no redirect re-validation; no MALFORMED branch (ValueError propagates); no gzip; no TRUNCATED verdict (silent 4 MiB cap); no per-request deadline (socket timeout only); attempts counted per fetch() call not per request. Score each patched copy with the frozen counter: every patch must turn a PASS into a FAIL (paste the RECEIPT line each). Report any patch that still passes.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/MutToolNeutral.md"
+    },
+    {
+      "name": "RevToolA",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nINDEPENDENT REVIEW GATE item (claim O; the safety hold lifts only if your report ends with the fixed token `VERDICT: NO-OPEN-HIGH-MED`). Review the repaired row-re opener against the SSRF catalog: read {LANE}/tools/reopen-row.py at {BASE} (the held version) and, if it exists when you start, {SCR}/ExecRepairTool/reopen-row.py (the candidate repair). Catalog to check, each with a concrete exploit sketch: cross-host redirect to 127.0.0.1/::1/RFC1918/link-local/0.0.0.0; decimal (http://2130706433/), octal, hex and dotted-less IP literals; userinfo confusion (http://127.0.0.1@public.example/); scheme-relative Locations; https->http downgrade exposing the same path to a private listener; DNS-rebind limitation (honest: the policy is IP-based, note the residual); redirect loops and hop caps; the --allow-private semantics (same-authority hops allowed, cross-authority re-checked). For each item: CLOSED-by (line/function in the artifact you reviewed) or OPEN with severity. Write the report to your Report path; end with the token only if no HIGH or MEDIUM finding is open.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevToolA.md"
+    },
+    {
+      "name": "RevToolB",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nINDEPENDENT REVIEW GATE item (claim O; the safety hold lifts only if your report ends with the fixed token `VERDICT: NO-OPEN-HIGH-MED`). Review the malformed-URL and robustness surface, independent of RevToolA: bad port (99999, -1, empty), unbalanced bracketed IPv6, empty host, whitespace/control chars in the URL, IDNA/punycode hostnames, a URL that is only 'http://', a source cell whose first URL is fine but whose capture URL is malformed (what happens then?), plus interaction of MALFORMED with the pass/retry schedule (does a MALFORMED row stop later passes? it must not retry), and the exit-status contract (registry data error -> exit 1, invocation error -> exit 2). Also the per-request deadline: can a drip body still outlive 3 attempts x budget? can the deadline race the min(gap,5) wait? For each: CLOSED-by or OPEN with severity. End with the fixed token only if no HIGH or MEDIUM is open.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevToolB.md"
+    },
+    {
+      "name": "RevToolC",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nINDEPENDENT REVIEW GATE item (claim O; the safety hold lifts only if your report ends with the fixed token `VERDICT: NO-OPEN-HIGH-MED`). Review the data-integrity surface, independent of RevToolA/B: gzip handling (gzip.decompress cap vs zip-bomb; Content-Encoding case; multiple encodings), the 4 MiB truncation semantics (MAX+1 read; quote split across the cap boundary - is a quote starting before the cap and ending after it TRUNCATED even though its start is present? argue what the contract should say and whether the artifact matches), attempts counting across chains (transient raised mid-chain: are the hops before the failure counted?), the REFUSED-when-redirect-refused verdict against the round-62 verdict vocabulary, and regression risk: every round-62 GEN class must behave byte-identically (the repair must not change BODY/CAP_*/ARCHIVE behaviour). For each: CLOSED-by or OPEN with severity. End with the fixed token only if no HIGH or MEDIUM is open.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevToolC.md"
+    },
+    {
+      "name": "RevCounterO",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Counter robustness review of {LANE}/reports/round-63/accept-o.py itself: read for false verdicts - the REDIRECT leg's two-server setup (can the tool resolve 127.0.0.1 differently?), the TIMEOUT leg wall bound 45 s on a loaded host, TRUNC pad sizes vs MAX_BODY_BYTES, GEN's REDIRECT_LOOP expecting exactly l1=3/l2=2 (must the tool hit that interleaving?), INDEP's forbidden strings (can an honest tool accidentally contain 'Fixture'?), the REVIEW leg's fixed token (gameable? argue why presence + closure re-read suffices), DEFAULT's 100-600 s window. Report concrete defects with line numbers; mutate in a PROBE copy to demonstrate any false PASS.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevCounterO.md"
+    },
+    {
+      "name": "MutCounterO",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Counter mutation: PROBE-copy {LANE}/reports/round-63/accept-o.py under your scratch dir and mutate it - drop the REDIRECT leg; swap TRUNC_FAR to expect ABSENT; weaken TIMEOUT to wall<600; remove REVIEW - then re-score the base tool against each mutated copy. Report which mutations would let the base (unrepaired) tool pass, with RECEIPT lines. This measures whether the counter kills each defended behaviour.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/MutCounterO.md"
+    },
+    {
+      "name": "ScribeRowS694",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S694). Subtopic: pileus / liberty cap (Roman cap of freedom, given to freed slaves; later revolutionary icon). Suggested starting points: Britannica pileus; a university classics page on the pileus; Met Museum object page. THIS ROW IS IN THE FROZEN LIVE SUBSET: pick the most robust tier-A page you can (dictionary/encyclopaedia/museum with a stable URL and several Wayback captures), and re-verify the capture the same hour. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S694 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S694)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S694 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS694.md"
+    },
+    {
+      "name": "ScribeRowS695",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S695). Subtopic: laurel wreath / corona (Greco-Roman victory and honour crown). Suggested starting points: Britannica laurel wreath; Perseus/Pliny on coronae; a museum object page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S695 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S695)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S695 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS695.md"
+    },
+    {
+      "name": "ScribeRowS696",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S696). Subtopic: Roman military crowns: corona civica, corona muralis, corona obsidionalis (awarded valour). Suggested starting points: LacusCurtius/Smith dictionary entry; a classics department page; Britannica corona. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S696 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S696)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S696 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS696.md"
+    },
+    {
+      "name": "ScribeRowS697",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S697). Subtopic: Phrygian cap (soft conical cap of the East; Mithras; Marianne). Suggested starting points: Britannica Phrygian cap; a museum collection page; Smarthistory. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S697 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S697)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S697 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS697.md"
+    },
+    {
+      "name": "ScribeRowS698",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S698). Subtopic: crown as regalia (generic: the encircling headpiece of sovereignty and its materials). Suggested starting points: Britannica crown regalia; Met Heilbrunn timeline; Royal Collection Trust page. THIS ROW IS IN THE FROZEN LIVE SUBSET: pick the most robust tier-A page you can (dictionary/encyclopaedia/museum with a stable URL and several Wayback captures), and re-verify the capture the same hour. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S698 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S698)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S698 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS698.md"
+    },
+    {
+      "name": "ScribeRowS699",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S699). Subtopic: mitre (tall liturgical headdress of bishops; folding or stiff). Suggested starting points: Britannica mitre; a cathedral/museum page; Catholic Encyclopedia (newadvent). Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S699 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S699)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S699 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS699.md"
+    },
+    {
+      "name": "ScribeRowS700",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S700). Subtopic: turban / dastar (wrapped headcloth; honour, community, status across West and South Asia). Suggested starting points: Encyclopaedia Iranica turban entry; Britannica turban; V&A collection page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S700 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S700)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S700 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS700.md"
+    },
+    {
+      "name": "ScribeRowS701",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S701). Subtopic: tagelmust / indigo veil (Tuareg men's headwrap; indigo dyeing). Suggested starting points: Smithsonian/NMAfA page; a museum collection; Britannica Tuareg. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S701 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S701)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S701 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS701.md"
+    },
+    {
+      "name": "ScribeRowS702",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S702). Subtopic: veil as garment (covering for head/face; modesty, mourning, marriage, sanctuary). Suggested starting points: Britannica veil; V&A fashion page; an encyclopedia of clothing entry. THIS ROW IS IN THE FROZEN LIVE SUBSET: pick the most robust tier-A page you can (dictionary/encyclopaedia/museum with a stable URL and several Wayback captures), and re-verify the capture the same hour. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S702 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S702)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S702 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS702.md"
+    },
+    {
+      "name": "ScribeRowS703",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S703). Subtopic: flammeum (Roman bridal veil of yellow-orange; the flaminica's veil). Suggested starting points: academic article on Roman wedding dress; JSTOR-free classics page; university page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S703 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S703)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S703 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS703.md"
+    },
+    {
+      "name": "ScribeRowS704",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S704). Subtopic: kabuto (Japanese samurai helmet with crests; lacquered plates). Suggested starting points: Met Museum kabuto object page; Britannica; a museum collection page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S704 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S704)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S704 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS704.md"
+    },
+    {
+      "name": "ScribeRowS705",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S705). Subtopic: Corinthian helmet (Greek bronze hoplite helmet; evolution to Italic forms). Suggested starting points: British Museum collection; Britannica Corinthian helmet; academic page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S705 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S705)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S705 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS705.md"
+    },
+    {
+      "name": "ScribeRowS706",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S706). Subtopic: galea (Roman legionary helmet; types Gallic/Italic/Imperial). Suggested starting points: academic page on Roman helmets; a museum object page; Livius.org galea. THIS ROW IS IN THE FROZEN LIVE SUBSET: pick the most robust tier-A page you can (dictionary/encyclopaedia/museum with a stable URL and several Wayback captures), and re-verify the capture the same hour. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S706 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S706)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S706 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS706.md"
+    },
+    {
+      "name": "ScribeRowS707",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S707). Subtopic: chaperon / medieval hood (draped hood with liripipe; 14th-15th c. fashion). Suggested starting points: V&A medieval fashion page; a museum textile page; Britannica chaperon. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S707 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S707)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S707 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS707.md"
+    },
+    {
+      "name": "ScribeRowS708",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S708). Subtopic: gele (Yoruba women's headwrap; structured cloth architecture; occasion and status). Suggested starting points: Smithsonian page; Britannica gele; academic page on Yoruba dress. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S708 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S708)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S708 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS708.md"
+    },
+    {
+      "name": "ScribeRowS709",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S709). Subtopic: kufi (West African close-fitting cap; prayer and formal dress). Suggested starting points: Britannica kufi; a museum collection page; Smithsonian page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S709 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S709)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S709 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS709.md"
+    },
+    {
+      "name": "ScribeRowS710",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S710). Subtopic: tiara / diadem (encircling jewelled band; antiquity to modern pageant). Suggested starting points: Britannica tiara; a royal collection page; museum object page. THIS ROW IS IN THE FROZEN LIVE SUBSET: pick the most robust tier-A page you can (dictionary/encyclopaedia/museum with a stable URL and several Wayback captures), and re-verify the capture the same hour. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S710 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S710)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S710 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS710.md"
+    },
+    {
+      "name": "ScribeRowS711",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S711). Subtopic: mortarboard / academic cap (square cap of universities; the birretum lineage). Suggested starting points: Britannica mortarboard; a university archives page; academic dress society page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S711 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S711)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S711 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS711.md"
+    },
+    {
+      "name": "ScribeRowS712",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S712). Subtopic: wimple and veil (medieval European women's head and neck covering). Suggested starting points: V&A page; a museum textile entry; Britannica wimple. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S712 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S712)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S712 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS712.md"
+    },
+    {
+      "name": "ScribeRowS713",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S713). Subtopic: cloche hat (1920s close-fitting bell-shaped hat; couture line). Suggested starting points: V&A 1920s fashion page; Britannica cloche; a museum collection page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S713 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S713)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S713 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS713.md"
+    },
+    {
+      "name": "ScribeRowS714",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S714). Subtopic: ushanka (fur cap with ear flaps; cold-climate military and civilian). Suggested starting points: Britannica ushanka; a museum ethnography page; tier-B dictionary page. THIS ROW IS IN THE FROZEN LIVE SUBSET: pick the most robust tier-A page you can (dictionary/encyclopaedia/museum with a stable URL and several Wayback captures), and re-verify the capture the same hour. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S714 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S714)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S714 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS714.md"
+    },
+    {
+      "name": "ScribeRowS715",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S715). Subtopic: sombrero (wide-brimmed hat of Mexico; charro lineage). Suggested starting points: Britannica sombrero; a museum collection page; Smithsonian page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S715 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S715)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S715 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS715.md"
+    },
+    {
+      "name": "ScribeRowS716",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S716). Subtopic: bearskin cap (tall fur cap of guards regiments; British/French lineage). Suggested starting points: a regimental museum page; Britannica bearskin; Royal Collection page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S716 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S716)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S716 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS716.md"
+    },
+    {
+      "name": "ScribeRowS717",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim C, row S717). Subtopic: fez (red felt cap of the Ottoman world; tasselled). Suggested starting points: Britannica fez; a museum collection page; Smithsonian page. Tier A or B only. Open ONE page by ordinary means; extract a verbatim body-text quote of 8-25 normalised words about the subtopic; confirm it with `cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && timeout 300 python3 -B reports/round-61/reopen-quote.py '<live URL>' '<quote>'`; find a Wayback id_ capture of the same page via CDX and confirm the quote in it too; draft per the context's row rules: (1) the registry row line for S717 (11 columns, used-by corpus/knowledge/culture-material/headgear-head-covering-codes.md); (2) the entry bullet line `- <clause> (S717)` (one S-id, >= 5 content words, >= 3 in quote in order, <= 12 consecutive copied words, no defect marks); (3) a Gate line `## Gate`-ready: `- S717 | <live URL> | 2026-10-23 | <=25-word quote in double quotes`. Rejections: paste what failed and why (a quote that locates only in a caption/alt/title is rejected; a page that 403s ordinary requests is rejected unless its capture carries the quote - then record met-not-passed). Write all three artifacts plus your locator outputs to your scratch dir AND your Report path; the L1 assembles the entry and registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeRowS717.md"
+    },
+    {
+      "name": "CtlCJunkRow",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim C (accept-c.py). Junk-row controls: in your clone, invent rows that meet ROWS shape but cheat: (a) a real on-topic page with an invented quote that the page does not carry (which leg stops it?); (b) a real page whose quote is on-topic but copied from a DIFFERENT page; (c) a capture URL of a different page than the live URL; (d) a quote from page metadata (description meta); (e) an off-topic page using the word 'crown' (dental crown, chess king, crown ether). Score accept-c.py against each and report which leg stops each, plus the cheapest that passes most legs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/CtlCJunkRow.md"
+    },
+    {
+      "name": "CtlCLineScam",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim C. Entry-line controls in your clone: multi-id lines, id-only bullets `- (S694)`, quote-dump lines (the verbatim 25-word quote as the clause), clauses with 4 content words, clauses with 2 in-order words, 13+ consecutive copied words, lines with defect marks like `(to-verify)`, a table row carrying S-ids. Score and report which leg (ONEID/RESTATE) stops each and the cheapest that passes.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/CtlCLineScam.md"
+    },
+    {
+      "name": "CtlCUrlReuse",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim C. URL controls in your clone: a new row reusing an existing registry URL (e.g. S693 dictionary.com); a new row whose live URL differs only in query/fragment from an existing one; a new row whose capture embeds a DIFFERENT original URL (same-page check bypass); two new rows sharing one URL. Score and report whether LINK/ROWS stop each.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/CtlCUrlReuse.md"
+    },
+    {
+      "name": "RevCounterC",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim C. Counter robustness review of {LANE}/reports/round-63/accept-c.py: cells() splitting on `|` inside URLs or quotes; CAPTURE_RE against timestamps with letters (e.g. 2024id_ vs 20240101000000id_) and the rstrip comparison; the RESTATE subsequence check (can a 3-word accidental overlap pass a nonsense clause?); the copy-run window scan's complexity and correctness; APPEND's multiset logic against base rows that legitimately repeat; NOHARM comparing BASE..main (what if the measured tip moves past the claim commit? argue why main is right at receipt time); SWEEP's topic byte-equality against README wrapping; the LIVE leg's locator timeout of 1500 s (enough for 6 rows x 2 URLs x 3 attempts on slow hosts?). Report concrete defects with line numbers; demonstrate any false PASS with a PROBE copy.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevCounterC.md"
+    },
+    {
+      "name": "MutCounterC",
+      "agent": "mutation-tester",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim C. Counter mutation: PROBE-copy accept-c.py and mutate - drop RESTATE's copy-run check; weaken LIVE to 3 of 6 rows; drop LINK; relax ROWS to tier C allowed - then re-score against the base tree. Report which mutations let an empty/no-work tree pass, with RECEIPT lines.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/MutCounterC.md"
+    },
+    {
+      "name": "RevRowS694",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S694). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS694/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS694.md"
+    },
+    {
+      "name": "RevRowS695",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S695). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS695/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS695.md"
+    },
+    {
+      "name": "RevRowS696",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S696). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS696/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS696.md"
+    },
+    {
+      "name": "RevRowS697",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S697). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS697/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS697.md"
+    },
+    {
+      "name": "RevRowS698",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S698). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS698/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS698.md"
+    },
+    {
+      "name": "RevRowS699",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S699). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS699/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS699.md"
+    },
+    {
+      "name": "RevRowS700",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S700). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS700/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS700.md"
+    },
+    {
+      "name": "RevRowS701",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S701). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS701/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS701.md"
+    },
+    {
+      "name": "RevRowS702",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S702). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS702/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS702.md"
+    },
+    {
+      "name": "RevRowS703",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S703). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS703/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS703.md"
+    },
+    {
+      "name": "RevRowS704",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S704). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS704/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS704.md"
+    },
+    {
+      "name": "RevRowS705",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S705). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS705/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS705.md"
+    },
+    {
+      "name": "RevRowS706",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S706). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS706/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS706.md"
+    },
+    {
+      "name": "RevRowS707",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S707). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS707/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS707.md"
+    },
+    {
+      "name": "RevRowS708",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S708). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS708/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS708.md"
+    },
+    {
+      "name": "RevRowS709",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S709). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS709/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS709.md"
+    },
+    {
+      "name": "RevRowS710",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S710). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS710/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS710.md"
+    },
+    {
+      "name": "RevRowS711",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S711). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS711/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS711.md"
+    },
+    {
+      "name": "RevRowS712",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S712). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS712/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS712.md"
+    },
+    {
+      "name": "RevRowS713",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S713). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS713/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS713.md"
+    },
+    {
+      "name": "RevRowS714",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S714). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS714/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS714.md"
+    },
+    {
+      "name": "RevRowS715",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S715). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS715/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS715.md"
+    },
+    {
+      "name": "RevRowS716",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S716). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS716/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS716.md"
+    },
+    {
+      "name": "RevRowS717",
+      "agent": "reviewer",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBLIND SUPPORT item (claim C, row S717). Under /fast/scratch/hyaku/kotodama-r63/ScribeRowS717/ (or your own search if that scratch dir is empty when you start: then find an INDEPENDENT page for the same subtopic and say so), re-open the drafted row's live URL by ordinary means (never the held tool), extract the body text, and judge: does the page carry the drafted quote verbatim (8-25 normalised words, body text, not caption/alt/title/meta)? Does the capture URL show the same page with the quote? Does the drafted entry line restate ONLY what the quote carries (no invented claims: dates, peoples, uses beyond the words)? Verdict `SUPPORTED` or `NOT-SUPPORTED` with the pasted located span and reasons. You do not edit the registry or entry; write the verdict to your Report path.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/RevRowS717.md"
+    },
+    {
+      "name": "ScoutEntryOwners",
+      "agent": "scout",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECON item (claim C). In-corpus ownership recon for the headgear entry's `- gap filled:` section: enumerate every corpus/knowledge file that mentions headgear registers (ritual-garments.md, dress-through-eras.md, warrior-material-culture.md, sumptuary-law-rank-display.md, garment-lexicon-crosslinguistic.md, era-myth-language-costume-matrix.md in synthesis) with path:line evidence for each, and state in one line each what it owns that the new entry must NOT restate. Also run the filename/topic sweeps named in claims.json C.unmoved_command and paste outputs. Report only; no edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScoutEntryOwners.md"
+    },
+    {
+      "name": "ScoutSiblingO",
+      "agent": "scout",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECON item (claim O + frontier). Sibling-lane recon: read-only scan of sibling repos (never edit) for redirect-handling fetch code and headgear ownership: confirm chousa-shokunin/tools/quote-reopen.py exists and summarize its redirect policy in 5 lines; grep the fleet's sibling repos' tools/ for urlopen/redirect handling and name the strongest prior art; report whether any sibling owns headgear/crown/helmet/veil material culture (one line). Report only.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, adjacency\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScoutSiblingO.md"
+    },
+    {
+      "name": "ScribeLesson",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECORDS item (frontier step). Draft corpus/lessons/round-63.md under /fast/scratch/hyaku/kotodama-r63/ScribeLesson/ (the L1 lands it): sections `## Round` (one paragraph: claims O + C, wave shape), `## Mistakes` (skeleton table with candidate rows R63-M1..M5 you can already justify from the round-62 spotcheck routed defects 4-7: the LOG hash-citation gap, the resid filename prefix drift, the 28-vs-32 selftest wording, the S693 kind cell, the unrun separability - for each: class, evidence pointer, captured-by, and the fix this round applies), and `## Gate` (skeleton list for S694-S717, one `- S### | URL | 2026-10-23 | \"quote\"` line each, marked PLACEHOLDER-the-L1-fills-from-scribe-evidence). The L1 finalizes Gate from the scribes' confirmed rows and mistakes from the control receipts.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeLesson.md"
+    },
+    {
+      "name": "ScribeCensus",
+      "agent": "scribe",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECORDS item (frontier step). Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md `## Leads (unopened)` and `## Search log` sections plus CORPUS.md's SOURCES.md contract; propose in your report: (a) any rows whose recheck date forces a re-open in a later round, (b) two to four new candidate leads for the headgear follow-on rounds (names/URLs only, ordinary means check that they resolve, no quotes needed), (c) the exact end-of-round census command and its expected exit. No edits to the registry.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ScribeCensus.md"
+    },
+    {
+      "name": "ConnectorOverlap",
+      "agent": "connector",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nSIBLING-OVERLAP scan (mandatory connector seat). Fleet-wide: which lanes touch material-culture clothing registers (kake web properties, kama serving, kumitate orchestration are negative space - check quickly) and, specifically, whether any lane repo owns or is building headgear/crown/helmet/veil/turban content or a row-reopen/fetch tool this round; name the closest prior art for both claims' surfaces with repo/path evidence. One report, no edits.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: adjacency\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/ConnectorOverlap.md"
+    },
+    {
+      "name": "CriticClaims",
+      "agent": "critic",
+      "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nADVERSARIAL item. Attack both claims at the freeze level: (O) is the frozen predicate 'ACCEPT-O-63: every leg prints PASS' reachable by a do-nothing control (the round-62 tool)? Show the receipt math. Is the REVIEW leg's token check gameable by an empty report carrying the token, and does the kill rule plus closure re-read close that? (C) can a 24-row entry pass RESTATE with lines that say nothing substantive (argue the >= 5 content words + >= 3 in-order rule's weakest gap); is the six-row LIVE subset too small to vouch for 24 rows (state what would make it adequate); is '0 filename owners' true (run the sweeps). Name the single weakest point of each claim in one line each.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration\nMilestone: Round 63 single v2 wave (build+attack): reopen-row repair + independent review gate, 24 headgear rows + entry support, controls/counters/recon/records\n\nReport: write your scoped findings to .ufo/waves/round-63/w1/CriticClaims.md"
+    }
+  ]
+}
