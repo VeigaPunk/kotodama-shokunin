@@ -1,0 +1,111 @@
+{
+ "round": 62,
+ "attempt": 1,
+ "campaign": "hyaku phase 4 twelve-hour leg (in-session L1 lane subagent KotodamaR62)",
+ "declared_at": "2026-10-23 ~10:55Z, before any wave dispatch and before any seat or counter scored the claimed objects",
+ "round_base": "d42ffb890a54c8431fa891380b6c38bb608b8362",
+ "anti_loop": "Rounds 58-61 were rejected on new or rebuilt sourced entries judged by a live LOCATE leg or a blind SUPPORT leg (R61: one transient Wayback error on S671). Round 62 opens no new knowledge entry: claim D repairs, in place, the four footwear-entry lines the round-61 closure routed (S692 closed list, S665 caption quote, S666 dropped hedge, S687 tier-C sole support) and rests the talaria line on a tier A/B row opened this round; its only live leg covers that new row block, with a bounded retry (three passes, 60 s apart, over the base locator's three attempts per URL) and an archived capture listed in each new row (QUALITY 13), frozen before data. Claim O ships the bounded re-open as a lane tool judged only on an offline random fixture; no live fetch decides O.",
+ "separability_manifest": "reports/round-62/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-62/separability-manifest.json",
+ "predicate_rule": "Each claim has one frozen predicate, written as the same sentence here, as the same condition in its counter's code (the last stdout line `ACCEPT-<id>-62: PASS|FAIL` and the exit status) and as the same label in every receipt. A miss under that predicate is reported, never amended or re-scaled. A counter revision is allowed only before the first run of that counter on the claimed object (D: the repaired entry and new rows; O: tools/reopen-row.py), and each revision is committed with the control receipt that forced it.",
+ "claims": {
+  "D": {
+   "axis": "depth",
+   "surface": "the footwear entry's cited lines 63, 74, 75 and 93 (corpus/knowledge/culture-material/footwear-codes-terminology.md at d42ffb89): the wording of each restored to what its source carries (open list, caption attribution, hedge), and line 93's support moved from a tier-C row to a tier A/B row opened this round (S693-S699)",
+   "unmoved_command": "git show <rev>:corpus/knowledge/culture-material/footwear-codes-terminology.md | sed -n '63p;74p;75p;93p' (at d42ffb89: 'France, and Belgium.', no caption, 'comes from', '(S687)')",
+   "statement": "At the measured revision the footwear entry differs from d42ffb89 in exactly lines 63, 74, 75 and 93; each is a bullet with one S-id and no defect mark; line 63 (S692) keeps the open country list; line 75 (S666) keeps the source's hedge or attribution; line 74 cites S665 and names the caption, or cites a new row; line 93 cites one new tier A/B row S693-S699 whose quote names talaria or Hermes; the new rows are exactly the ids the entry cites from that block, mined, opened 2026-10-23, used-by the entry, each listing a live URL and a Wayback capture, and each is located by the base locator within three passes; corpus/SOURCES.md keeps every base line (S687 may change only its used-by cell); the four lines restate their quotes (LINK) without copying more than 12 consecutive words (COPY); check-source-access and check-cited-lines exit 0.",
+   "sourced_claim": true,
+   "counting_command": "python3 -B reports/round-62/accept-d.py",
+   "predicate": "ACCEPT-D-62: every leg above prints PASS.",
+   "legs": [
+    "SET",
+    "ONEID",
+    "NOMARK",
+    "OPEN",
+    "HEDGE",
+    "CAPTION",
+    "SOLE",
+    "ROWS",
+    "APPEND",
+    "LINK",
+    "COPY",
+    "LOCATE",
+    "ACCESS",
+    "LINT"
+   ],
+   "kill_rule": "Any leg FAIL on the first full run of accept-d.py at the measured revision (the lane branch tip that lands D) is a miss. The first full run is the receipt; it is not re-run to look for a pass. A row NOT_LOCATED after the frozen three passes fails the claim.",
+   "fetch_treatment": "QUALITY criterion 13, frozen before data: each new row lists its live URL then a Wayback capture of the same page; the base locator tries both with three attempts per URL on 429/5xx, and the counter runs up to three passes 60 s apart. No further allowance: an unreachable row fails.",
+   "review_only": [
+    "whether each repaired line's wording beyond the shared words is carried by its page",
+    "whether the new row's quote is page body text, not a caption",
+    "the lore handoff (unchanged)"
+   ],
+   "exports": "S693-S699 (regex \\bS69[3-9]\\b)",
+   "lands": [
+    "corpus/knowledge/culture-material/footwear-codes-terminology.md",
+    "corpus/SOURCES.md"
+   ]
+  },
+  "O": {
+   "axis": "operability",
+   "capability": "bounded row re-opener with archived fallback and caption verdict",
+   "surface": "a new lane tool, tools/reopen-row.py: re-opens SOURCES rows with a bounded retry (3 attempts per URL on transient results, up to N passes on transient-only failure), tries listed archived captures, and separates body-text location from caption-only and absent quotes (the S671 and S665 failure classes of round 61)",
+   "unmoved_command": "test -f tools/reopen-row.py (absent at d42ffb89)",
+   "statement": "tools/reopen-row.py exists, names none of reports/, accept-o, round-62, and, run as a copy outside the lane against a run-time random local fixture, prints for every row the contract's verdict and attempt count in argument order, makes exactly the contract's number of requests per URL, exits 1 on the mixed fixture and 0 on an all-body fixture, refuses private hosts without --allow-private, runs three passes 60 s apart by default, and exits 2 with REOPEN_ERROR and no traceback on five bad inputs.",
+   "contract": "see the docstring of reports/round-62/accept-o.py (Tool contract paragraph)",
+   "counting_command": "python3 -B reports/round-62/accept-o.py",
+   "predicate": "ACCEPT-O-62: every leg above prints PASS.",
+   "legs": [
+    "TOOL",
+    "INDEP",
+    "GEN",
+    "ORDER",
+    "BOUND",
+    "EXIT",
+    "PRIV",
+    "DEFAULT",
+    "ERR"
+   ],
+   "kill_rule": "Any leg FAIL on the first full run of accept-o.py at the measured revision is a miss; it is not re-run to look for a pass.",
+   "review_only": [
+    "the tool's behaviour on live rows (S665 expected CAPTION_ONLY, S671 expected LOCATED via its capture)",
+    "use of the tool by a later round's counter"
+   ],
+   "exports": "none",
+   "lands": [
+    "tools/reopen-row.py"
+   ]
+  }
+ },
+ "controls_required_before_data": {
+  "D": [
+   "do-nothing (base)",
+   "mark-only (defect marks on the four lines)",
+   "delete-or-blank the four lines",
+   "junk lines carrying the regex tokens (BBC, etc., caption)",
+   "off-topic real row for line 93",
+   "fabricated quote on a real URL for the new row",
+   "new row without a capture / capture first",
+   "tier-C or reused-registry row for line 93",
+   "edit of a base registry row or of an unrelated entry line",
+   "quote pasted as the line (COPY)",
+   "dead-host or echo URL row (LOCATE)"
+  ],
+  "O": [
+   "do-nothing (no tool)",
+   "always LOCATED / always exit 0",
+   "raw-HTML substring (no caption split)",
+   "no retry",
+   "unbounded or per-pass-unbounded retry",
+   "no archive fallback",
+   "retry on 4xx",
+   "keyed on fixture ids or classes",
+   "ignores argument order",
+   "imports or shells out to the counter",
+   "wrong exit on bad input",
+   "an honest independent implementation (positive calibration)"
+  ]
+ },
+ "lowest_axis_note": "No calibrated scalar exists (SCORECARD head); freshness, historically lowest, stays paused by the open round-11 L0 question, as in rounds 51-61. Depth has not been admitted since round 59 (round 60 D missed), so claim D works it.",
+ "frontier_step": "SOURCES rows S693-S699 opened this round (D's block); lesson corpus/lessons/round-62.md with Gate, Mistakes and the round-61 spot-check intake (routed defects 1-5)."
+}

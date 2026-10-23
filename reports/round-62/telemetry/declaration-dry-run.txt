@@ -1,0 +1,33 @@
+# declaration dry-run, revision 0 (uncommitted at run time; lane main d42ffb89), 2026-10-23T10:51:06Z
+$ python3 -B reports/round-62/accept-d.py
+SET FAIL lines=108 base=108 differ=[]
+ONEID PASS 63:['S692'] 74:['S665'] 75:['S666'] 93:['S687']
+NOMARK PASS marked=[]
+OPEN FAIL ids=['S692']
+HEDGE FAIL ids=['S666']
+CAPTION FAIL ids=['S665']
+SOLE FAIL id=S687 tier=C
+ROWS FAIL cited=[] registry=[] bad=[]
+APPEND PASS base_lines=746 matched=746 missing=[] inserted_rows=[]
+LINK PASS bad=[]
+COPY PASS bad=[]
+LOCATE FAIL located=0 cited=0 at=2026-10-23T10:51Z not_located=[]
+ACCESS PASS exit=0
+LINT PASS exit=0 CITED-LINES: 0 finding(s) in 1 file(s)
+ACCEPT-D-62: FAIL
+exit=1
+$ python3 -B reports/round-62/accept-o.py
+TOOL FAIL path=tools/reopen-row.py exists=False
+INDEP FAIL no tool
+GEN FAIL no tool
+ORDER FAIL no tool
+BOUND FAIL no tool
+EXIT FAIL no tool
+PRIV FAIL no tool
+DEFAULT FAIL no tool
+ERR FAIL no tool
+ACCEPT-O-62: FAIL
+exit=1
+$ python3 -B tools/check-claim-separability.py reports/round-62/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit O lands 'tools/reopen-row.py', which is absent from the worktree under '/home/vgpnk/Projects/shokunin/kotodama-shokunin'
+exit=2
