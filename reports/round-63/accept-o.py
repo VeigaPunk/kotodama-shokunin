@@ -323,7 +323,10 @@ def build(fx, cls, sid):
         route(fx, live, [302], b"", headers={"Location": other})
         route(fx, other, [303], b"", headers={"Location": live})
     elif cls == "GZIP_BODY":
-        route(fx, live, [200], gzip.compress(ok_html), headers={"Content-Encoding": "gzip"})
+        # pad past 1 MiB so a tool that decodes only small bodies cannot pass
+        pad = (" ".join(fx.words(12)) + ". ") * 12000
+        route(fx, live, [200], gzip.compress(html(f"<p>{pad}</p><p>{shown}</p>")),
+              headers={"Content-Encoding": "gzip"})
     elif cls == "TRUNC_FAR":
         pad = (" ".join(fx.words(12)) + ". ") * 70000
         body = html(f"<p>{pad}</p><p>{shown}</p>")
@@ -626,10 +629,11 @@ def main():
             gz_paths[sid] = p
             q = " ".join(fx.words(12))
             shown = q[0].upper() + q[1:] + "."
+            pad = (" ".join(fx.words(12)) + ". ") * 12000
             if caption:
-                body = html(f"<p>{' '.join(fx.words(20))}.</p><figure><figcaption>{shown}</figcaption></figure>")
+                body = html(f"<p>{pad}</p><figure><figcaption>{shown}</figcaption></figure>")
             else:
-                body = html(f"<p>{' '.join(fx.words(20))}.</p><p>{shown}</p>")
+                body = html(f"<p>{pad}</p><p>{shown}</p>")
             route(fx, p, [200], gzip.compress(body), headers={"Content-Encoding": "gzip"})
             gz_lines.append(f"| {sid} | gz page \u2014 {fx.url(p)} | docs | B | s | anchor: \"{shown}\" | "
                             "t | mined | 2026-10-23 | 180d | x |")
