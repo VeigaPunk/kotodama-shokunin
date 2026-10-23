@@ -549,7 +549,12 @@ class Fetcher(object):
         limit = MAX_BODY_BYTES + 1
         while total < limit:
             want = min(READ_CHUNK, limit - total)
-            chunk = answer.read(want)
+            # read1, not read: a buffered read blocks until `want` bytes or EOF,
+            # so a dripping body would outlive the budget (rev-hold-lift MEDIUM-1);
+            # read1 returns after at most one raw socket read, letting the
+            # deadline check run between chunks.
+            reader = getattr(answer, "read1", None)
+            chunk = reader(want) if reader is not None else answer.read(want)
             if not chunk:
                 break
             chunks.append(chunk)
