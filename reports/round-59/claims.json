@@ -1,0 +1,113 @@
+{
+ "round": 59,
+ "attempt": 1,
+ "campaign": "hyaku phase 4 twelve-hour leg, 2026-10-23 UTC (in-session L1 lane subagent KotodamaR59)",
+ "declared_at": "2026-10-23 UTC. Declaration revision 0 is the commit that first carries this file; it precedes the pre-data control wave and every data seat. If a control meets either counter before data, the counter is revised in a separate commit and the revision is listed in revision_note with the control that forced it; the final freeze is the commit named in freeze_note, which precedes every data seat. No rule changes after the first data seat.",
+ "base": "PENDING-INSTRUMENTS-COMMIT",
+ "base_note": "Lane base 1542f7a2 (round-58 closure). The claim base is the round-59 instruments commit; instruments: reports/round-59/accept-c.py, rowcheck.py, reopen-quote.py (byte copy of round 58's), accept-d.py, d-fixes.json, base-knowledge-files.txt, claims-agree.py, dry-run.py, separability-manifest.json.",
+ "predicate_rule": "Each claim has one frozen predicate, written as the same sentence here, as the same condition in its counter's code (the last stdout line `ACCEPT-C-59: PASS|FAIL` or `ACCEPT-D-59: PASS|FAIL` and the exit status) and as the same label in every receipt. A miss under that predicate is reported, never amended or re-scaled.",
+ "fetch_rule": "FETCH-59 (reports/round-59/rowcheck.py docstring), declared before data and never relaxed after: one fetch per URL per run, reused by every leg; a row's source cell lists its live URL first and may list one Wayback capture of the same page (web.archive.org/web/<14 digits>id_/<live URL>); a URL whose fetch raises an error (no response, TLS, timeout, any HTTP error after the locator's three attempts on 429/5xx/508) is skipped and never passes; BOILER's root falls back once to the capture root at the row's capture timestamp (2026 when none is listed). A row with no locating URL, or with both roots failing, fails. Unreachable pages are therefore treated as: live failure -> listed capture; no capture or capture failure -> FAIL.",
+ "separability_manifest": "reports/round-59/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-59/separability-manifest.json",
+ "agreement_command": "python3 -B reports/round-59/claims-agree.py",
+ "export_rule": "C's export is the reserved id block S600-S659, written as \\bS6[0-5][0-9]\\b (QUALITY criterion 7). D exports nothing: S570-S574 exist at the lane base. Records rows this round take ids S660-S699. Planted control rows carry no S-id; reviewers see packet labels P01.. only.",
+ "lowest_axis_note": "No calibrated numeric axis scores exist (SCORECARD preamble); freshness is historically lowest and stays paused by the open round-11 L0 question. The round-58 closure graded quality harmed for the third carry of the kongo-kingdom fixes; D is the depth move that lands them; C works coverage on ground with 0 filename owners.",
+ "records_not_claims": [
+  "round-58 spot-check §5 item 1: 11 stray files at the lane root (ExecReasonSweep58) removed; seat contexts forbid writes outside the seat's wave directory or scratch",
+  "item 2: revision count six (31cf8b6 TOPIC rule) - erratum in the round-59 lesson and a SCORECARD correction row",
+  "item 3: claims.json 'frozen before any seat scored' - erratum; round 59 separates declaration, control-forced revisions and final freeze (declared_at, revision_note, freeze_note)",
+  "item 4: '123 controls, 0 pass' qualified - erratum with the per-leg split",
+  "item 5: FETCH-59 declared before data; QUALITY criterion 13",
+  "item 6: separability - C's lands name every SUPPORT input path",
+  "item 7: kongo-kingdom fixes = claim D",
+  "item 8: census at round start run first (reports/round-59/telemetry/census-start.txt)",
+  "superseded-row status/used-by cells for S135, S141, S147, S151, S159 and S570-S574 (rides C's land path corpus/SOURCES.md; D's counter does not read it)"
+ ],
+ "revision_note": "none yet",
+ "freeze_note": "pending: the commit carrying the pre-data control receipts and reports/round-59/planted.sha256",
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "surface": "frontier -> core: one new myth-symbol topic file on amulets, talismans and apotropaic marks (protective objects and signs: types, materials, inscriptions, placement, makers and users, the evil eye complex, house and threshold marks); the command that shows it unmoved: `git ls-tree -r --name-only <rev> corpus/knowledge | grep -ciE 'amulet|talism|apotrop'` stays 0 (0 at 1542f7a2) and accept-c SET fails",
+   "kind": "measured; learning claim (admitted knowledge on uncovered ground) and the round's sourced claim",
+   "predicate": "ACCEPT-C-59: python3 -B reports/round-59/accept-c.py exits 0 and prints `ACCEPT-C-59: PASS`, every leg PASS: SET (234 base paths plus the entry, count 235), SWEEP (rows 235 files 235, missing 0), FLOOR (>=20 cited S-ids), RANGE (all cited ids in S600-S659, one row each, no range notation), STATUS mined, TIER A/B, USEDBY names the entry, ACCESS exit 0, LOCATE (every cited row, FETCH-59), BOILER, RELEVANCE, TOPIC (CHARM-GUARD windows), DISTINCT (>=10 hosts, no shared URL or quote), FRESH (no URL of a row below S600), SUPPORT (blind packets with P-labels; planted rows hash to reports/round-59/planted-rows.sha256, committed before any data seat, and the packet key to reports/round-59/planted-key.sha256, committed before the support task call; only registered reviewer seats that give NOT-SUPPORTED to every planted label of their packet count; a real label counts only when its packet quote equals the landed anchor quote; every cited row SUPPORTED by a qualified seat and NOT-SUPPORTED by none; >=2 qualified seats).",
+   "statement": "Knowledge files go from 234 to 235: the one file added under corpus/knowledge is corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md and no file is removed; ACCEPT-C-59 holds (see predicate).",
+   "review_only": [
+    "the entry's topic and that it serves worldbuilding (decision tables, a lore handoff section)",
+    "whether each sentence is carried by its cited row's page beyond the stem overlap (SUPPORT seats judge it; the falsify wave samples)",
+    "whether each row was opened this round by ordinary means (ACCESS reads only the marker words a row records)",
+    "whether the entry points one-way to partial owners",
+    "whether the ground is uncovered in substance"
+   ],
+   "shortcut_controls": "reports/round-59/telemetry/controls-c.txt: do-nothing base, junk, all-false, no-reader, off-topic echo, keyword-keyed, label-keyed (ids/labels), rubber-stamp and no-reader support reports, fabricated capture; each scored with the frozen counter and must exit 1 with ACCEPT-C-59: FAIL; the receipt names, per control, every failing leg, and counts separately the controls whose only failing leg is SUPPORT",
+   "lands": [
+    "corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md",
+    "corpus/README.md",
+    "corpus/SOURCES.md",
+    ".ufo/waves/round-59/support/registry.json",
+    ".ufo/waves/round-59/support/planted-key.json",
+    ".ufo/waves/round-59/support/planted-rows.md",
+    "reports/round-59/planted-key.sha256",
+    "reports/round-59/planted-rows.sha256",
+    ".ufo/waves/round-59/support/SupportA59.md",
+    ".ufo/waves/round-59/support/SupportB59.md",
+    ".ufo/waves/round-59/support/SupportC59.md",
+    ".ufo/waves/round-59/support/SupportD59.md",
+    ".ufo/waves/round-59/support/SupportE59.md",
+    ".ufo/waves/round-59/support/SupportF59.md",
+    ".ufo/waves/round-59/support/SupportG59.md",
+    ".ufo/waves/round-59/support/SupportH59.md",
+    ".ufo/waves/round-59/support/packet-SupportA59.md",
+    ".ufo/waves/round-59/support/packet-SupportB59.md",
+    ".ufo/waves/round-59/support/packet-SupportC59.md",
+    ".ufo/waves/round-59/support/packet-SupportD59.md",
+    ".ufo/waves/round-59/support/packet-SupportE59.md",
+    ".ufo/waves/round-59/support/packet-SupportF59.md",
+    ".ufo/waves/round-59/support/packet-SupportG59.md",
+    ".ufo/waves/round-59/support/packet-SupportH59.md"
+   ],
+   "exports": [
+    "\\bS6[0-5][0-9]\\b"
+   ],
+   "counting_command": "python3 -B reports/round-59/accept-c.py",
+   "before": "exit 1, ACCEPT-C-59: FAIL (SET count=234, SWEEP rows 234, FLOOR cited=0)",
+   "after_required": "exit 0, ACCEPT-C-59: PASS (all fifteen legs PASS)",
+   "expected_pre_landing_counting": "exit 1: SET FAIL (count=234), SWEEP FAIL (rows 234 files 234), FLOOR FAIL (cited=0), LOCATE, BOILER, RELEVANCE, TOPIC, DISTINCT and SUPPORT FAIL (no S-id cited); RANGE, STATUS, TIER, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-59: FAIL",
+   "falsifier": "any leg FAIL at the landed revision when re-run",
+   "must_not_cite": "any id outside S600-S659",
+   "support_seats": [
+    "SupportA59",
+    "SupportB59",
+    "SupportC59",
+    "SupportD59",
+    "SupportE59",
+    "SupportF59",
+    "SupportG59",
+    "SupportH59"
+   ]
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "surface": "sentence-level source fidelity of two existing knowledge entries: 14 sentence or locator fixes on 12 lines of corpus/knowledge/civilizations/kongo-kingdom.md (round-57/58 verified, carried three rounds) and 27 citations in corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md re-pointed from superseded rows S135/S141/S147/S151/S159 to S570-S574; the command that shows it unmoved: accept-d KONGO and SPEECH FAIL (the base keeps every old string and old id)",
+   "kind": "measured; quality-trend depth move (no new knowledge file)",
+   "predicate": "ACCEPT-D-59: python3 -B reports/round-59/accept-d.py exits 0 and prints `ACCEPT-D-59: PASS`, every leg PASS: KONGO (the entry equals its claim-base bytes with exactly the 14 frozen substitutions of reports/round-59/d-fixes.json applied, nothing else changed), SPEECH (the entry equals its claim-base bytes with S135/S141/S147/S151/S159 replaced by S570-S574 as whole words, none left), CARRY (each fix's frozen support quote located under FETCH-59).",
+   "statement": "kongo-kingdom.md carries the 14 frozen fixes and nothing else changed; speech-surrogates-whistled-drummed.md cites S570-S574 in place of the five superseded rows (16/2/3/2/4 tokens); ACCEPT-D-59 holds.",
+   "review_only": [
+    "whether each new sentence is the best reading of its page (round-58 reviewer verdicts; round-59 falsify sample)"
+   ],
+   "shortcut_controls": "reports/round-59/telemetry/controls-d.txt: do-nothing base, append-new-keep-old, ids-only swap, partial (13 of 14), junk edit, extra unrelated edit; each must exit 1 with ACCEPT-D-59: FAIL",
+   "lands": [
+    "corpus/knowledge/civilizations/kongo-kingdom.md",
+    "corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md"
+   ],
+   "exports": [],
+   "counting_command": "python3 -B reports/round-59/accept-d.py",
+   "before": "exit 1, ACCEPT-D-59: FAIL (KONGO equal=False, 14 old strings present; SPEECH equal=False, old ids 16/2/3/2/4)",
+   "after_required": "exit 0, ACCEPT-D-59: PASS (KONGO, SPEECH, CARRY PASS)",
+   "expected_pre_landing_counting": "exit 1: KONGO FAIL (old_still_present 14), SPEECH FAIL (old ids 16/2/3/2/4), CARRY PASS; last line ACCEPT-D-59: FAIL",
+   "falsifier": "any leg FAIL at the landed revision when re-run"
+  }
+ ]
+}

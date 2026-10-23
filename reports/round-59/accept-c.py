@@ -1,0 +1,284 @@
+#!/usr/bin/env python3
+r"""Round-59 claim C acceptance (adapted from reports/round-58/accept-c.py: entry path, totals, C's
+reserved block S600-S659, the round-59 topic sets and the FETCH-59 fetch rule in
+reports/round-59/rowcheck.py, and a SUPPORT leg whose reviewer seats must first reject blind planted
+control rows; all changes made before any round-59 data seat). Run from the
+lane root:
+
+  python3 -B reports/round-59/accept-c.py [--root DIR]
+
+One leg per mechanical clause of claim C (reports/round-59/claims.json), each printed
+with PASS or FAIL:
+  SET       the files under corpus/knowledge (every file, not only *.md) are exactly the 234 paths
+            listed in reports/round-59/base-knowledge-files.txt plus ENTRY: count 235, added
+            [ENTRY], removed []
+  SWEEP     python3 -B reports/round-28/readme/sweep.py, run on its own, exits 0 and prints
+            `rows 235 files 235` and `missing_from_index 0 []` (exit status read directly)
+  FLOOR     the entry cites at least 20 distinct S-ids
+  RANGE     every S-id the entry cites lies in claim C's reserved block S600-S659 and is exactly one
+            corpus/SOURCES.md row (`^\|\s*(S\d{3,})\s*\|`, at least 13 cells); the entry carries no
+            S-id range notation
+  STATUS    every cited row has status `mined`
+  TIER      every cited row's tier cell is `A` or `B` (QUALITY: a tier-C row is a lead, never
+            sole support)
+  USEDBY    every cited row names ENTRY as one whole comma- or semicolon-separated item of its used-by cell
+  ACCESS    python3 -B tools/check-source-access.py exits 0 (QUALITY criterion 10)
+  LOCATE    at least one S-id is cited and EVERY cited row is located: reports/round-59/reopen-quote.py
+            (a byte copy of reports/round-58/reopen-quote.py; rules in its docstring) finds the first
+            double-quoted span of the row's anchor cell, at least 8 words, in the text one of the
+            row's source URLs (at most four, in order) serves now, under FETCH-59 (rowcheck.py
+            docstring: one fetch per URL per run; a URL whose fetch fails is skipped, never a pass; a
+            Wayback capture of the same page listed after the live URL is an ordinary copy). No
+            slack: one unlocated row fails the leg. Measured live: the result names the run's UTC time
+  BOILER    at least one S-id is cited and for every cited row the located quote is NOT on the root
+            page of the site that located it (reports/round-59/rowcheck.py `boiler`: root fetched
+            once; when the live root fails, the capture root under FETCH-59; both failing,
+            source-is-root, or not located all fail): a site-wide footer, header, cookie or
+            navigation sentence fails
+  RELEVANCE at least one S-id is cited and every cited row's quote shares at least 2 content stems
+            with its `teaches` cell, its `teaches` cell copies no 6-word run of the quote, and both
+            its `teaches` cell and its quote share at least 2 content stems with the entry lines
+            that cite it (reports/round-59/rowcheck.py `relevance` (a)-(d); stems defined there)
+  TOPIC     at least one S-id is cited and for every cited row the quote holds at least 1
+            CHARM-GUARD window and at least 2 function words, and the page that located it
+            (its FETCH-59 cached body) at least 3 windows and at least 2 DISCIPLINE terms
+            (reports/round-59/rowcheck.py `topic`; sets, WINDOW, PAGE_HITS, PAGE_TERMS,
+            QUOTE_FUNCTION there): page-anchored text about something other than protective
+            objects and marks, or a heading or list fragment, cannot carry a row
+  DISTINCT  at least one S-id is cited; no two cited rows name the same source URL (normalised as
+            in FRESH) or the same quote (locator normalisation), and the cited rows' first source
+            URLs span at least 10 distinct hosts: one page or one site cannot stand in for many
+  FRESH     no cited row names a source URL that a corpus/SOURCES.md row below S600 also names
+            (URLs compared lower-cased, without scheme, `www.`, trailing `/`, and with a Wayback
+            capture prefix removed)
+  SUPPORT   at least one S-id is cited; reviewers judge blind packets whose rows carry packet labels
+            (P01, P02, ...), never S-ids. The planted rows file PLANTED_ROWS hashes to the sha256 in
+            reports/round-59/planted-rows.sha256 (committed before any data seat) and the packet key
+            PLANTED_KEY hashes to the sha256 in reports/round-59/planted-key.sha256 (committed before
+            the support task call is dispatched). The key maps, per seat, each label to a cited S-id or
+            to PLANTED. A reviewer seat listed in .ufo/waves/round-59/support/registry.json (members
+            with role `reviewer` and a non-empty agentId, as returned by the dispatching task call) is
+            QUALIFIED only when the key gives it at least one PLANTED label and its report
+            .ufo/waves/round-59/support/<Seat>.md carries a line-initial `VERDICT P## NOT-SUPPORTED`
+            and no `VERDICT P## SUPPORTED` for every PLANTED label of its packet (a planted row is a
+            shortcut row no diligent reader supports: a rubber stamp, an all-reject or a no-reader
+            report fails it). A real label counts only when the quote its packet
+            .ufo/waves/round-59/support/packet-<Seat>.md prints under `### P##` (`quote: "..."`)
+            equals, after locator normalisation, the landed row's anchor quote. Every cited row has at
+            least one counted `SUPPORTED` from a QUALIFIED seat and no counted `NOT-SUPPORTED` from any
+            registered seat; at least 2 distinct QUALIFIED seats give the cited rows' verdicts. A
+            reviewer judges, on the live page or its listed capture, whether the quote is about
+            protective objects or marks and carries the row's teaches cell and the entry sentences
+            citing it. Files that are not a registered seat's report do not count
+Frozen predicate (the same sentence in reports/round-59/claims.json and in the receipts):
+  ACCEPT-C-59: every leg above prints PASS.
+Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
+Review-only (no leg; the claims file lists them): the entry's topic; whether each sentence is
+carried by its cited row's page beyond the stem overlap (sampled by non-author reviewers);
+whether each cited row was opened this round by ordinary means; whether the entry points to
+partial owners one-way; whether the ground is uncovered in substance.
+"""
+import argparse
+import concurrent.futures
+import importlib.util
+import hashlib
+import json
+import math
+import os
+import re
+import subprocess
+import sys
+from datetime import datetime, timezone
+
+ENTRY = "corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md"
+BASE_LIST = "reports/round-59/base-knowledge-files.txt"
+TOTAL = 235
+MIN_SUPPORT_SEATS = 2
+SUPPORT_DIR = ".ufo/waves/round-59/support"
+VERDICT = re.compile(r"^VERDICT (P\d{2}) (SUPPORTED|NOT-SUPPORTED)\b", re.M)
+PACKET_QUOTE = re.compile(r"^### (P\d{2})\s*\n(?:.*\n)*?quote: \"(.*)\"\s*$", re.M)
+PLANTED_KEY = ".ufo/waves/round-59/support/planted-key.json"
+PLANTED_ROWS = ".ufo/waves/round-59/support/planted-rows.md"
+KEY_SHA = "reports/round-59/planted-key.sha256"
+ROWS_SHA = "reports/round-59/planted-rows.sha256"
+FIRST_SID = 600
+LAST_SID = 659
+FLOOR = 20
+MIN_HOSTS = 10
+ROWCHECK = "reports/round-59/rowcheck.py"
+
+
+def run(root, argv):
+    try:
+        return subprocess.run(argv, cwd=root, capture_output=True, text=True, timeout=300)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        print(f"ACCEPT_C_INPUT_ERROR {' '.join(argv)} {error}", file=sys.stderr)
+        return None
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--root", default=".")
+    root = os.path.abspath(ap.parse_args().root)
+    try:
+        base = {l.strip() for l in open(os.path.join(root, BASE_LIST), encoding="utf-8") if l.strip()}
+    except OSError as error:
+        print(f"ACCEPT_C_INPUT_ERROR {error}", file=sys.stderr)
+        return 2
+    if len(base) != TOTAL - 1:
+        print(f"ACCEPT_C_INPUT_ERROR base list has {len(base)} paths, expected {TOTAL - 1}", file=sys.stderr)
+        return 2
+    live = {os.path.relpath(os.path.join(d, f), root)
+            for d, _, fs in os.walk(os.path.join(root, "corpus/knowledge"), followlinks=True) for f in fs}
+    added, removed = sorted(live - base), sorted(base - live)
+    legs = [("SET", len(live) == TOTAL and added == [ENTRY] and removed == [],
+             f"count={len(live)} required={TOTAL} added={added} removed={removed}")]
+    sweep = run(root, [sys.executable, "-B", "reports/round-28/readme/sweep.py"])
+    if sweep is None:
+        return 2
+    rows = re.search(r"^rows (\d+) files (\d+)$", sweep.stdout, re.M)
+    missing = re.search(r"^missing_from_index (\d+) (.*)$", sweep.stdout, re.M)
+    sweep_ok = (sweep.returncode == 0 and rows is not None and missing is not None
+                and int(rows.group(1)) == TOTAL and int(rows.group(2)) == TOTAL
+                and int(missing.group(1)) == 0)
+    legs.append(("SWEEP", sweep_ok, f"exit={sweep.returncode} {rows.group(0) if rows else 'rows ?'} "
+                 f"{missing.group(0) if missing else 'missing_from_index ?'}"))
+    path = os.path.join(root, ENTRY)
+    cited, table, rows_per_id, spans = [], {}, {}, []
+    try:
+        if os.path.isfile(path):
+            text = open(path, encoding="utf-8").read()
+            cited = sorted(set(re.findall(r"\bS\d{3}\b", text)))
+            spans = re.findall(r"\bS\d{3}\s*(?:[-‐‑‒–—―−~…]|\.{2,3}|to|through|thru)\s*S?\d{2,3}\b", text)
+        for line in open(os.path.join(root, "corpus/SOURCES.md"), encoding="utf-8"):
+            row = re.match(r"^\|\s*(S\d{3,})\s*\|", line)
+            if row:
+                cells = line.split("|")
+                table[row.group(1)] = cells
+                rows_per_id[row.group(1)] = rows_per_id.get(row.group(1), 0) + 1
+    except (OSError, UnicodeDecodeError) as error:
+        print(f"ACCEPT_C_INPUT_ERROR {error}", file=sys.stderr)
+        return 2
+    legs.append(("FLOOR", len(cited) >= FLOOR, f"cited={len(cited)} floor={FLOOR}"))
+    range_bad = [s for s in cited if not FIRST_SID <= int(s[1:]) <= LAST_SID or rows_per_id.get(s, 0) != 1 or len(table[s]) < 13]
+    legs.append(("RANGE", not range_bad and not spans, f"bad={range_bad} range_notation={spans}"))
+    ok_rows = [s for s in cited if s not in range_bad]
+    status_bad = [f"{s}:{table[s][8].strip()}" for s in ok_rows if table[s][8].strip() != "mined"]
+    legs.append(("STATUS", not status_bad, f"bad={status_bad}"))
+    tier_bad = [f"{s}:{table[s][4].strip()}" for s in ok_rows if table[s][4].strip() not in ("A", "B")]
+    legs.append(("TIER", not tier_bad, f"bad={tier_bad}"))
+    used_bad = [s for s in ok_rows if ENTRY not in [u.strip() for u in re.split(r"[,;]", table[s][11])]]
+    legs.append(("USEDBY", not used_bad, f"bad={used_bad}"))
+    access = run(root, [sys.executable, "-B", "tools/check-source-access.py"])
+    if access is None:
+        return 2
+    legs.append(("ACCESS", access.returncode == 0, f"exit={access.returncode} "
+                 f"{(access.stdout.strip().splitlines() or ['?'])[-1]}"))
+    try:
+        spec = importlib.util.spec_from_file_location("rowcheck_59", os.path.join(root, ROWCHECK))
+        rowcheck = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(rowcheck)
+        locator = rowcheck.locator
+        entry_text = open(path, encoding="utf-8").read() if os.path.isfile(path) else ""
+    except (OSError, SyntaxError, UnicodeDecodeError) as error:
+        print(f"ACCEPT_C_INPUT_ERROR {ROWCHECK} {error}", file=sys.stderr)
+        return 2
+    rowsok = {s: table[s] for s in cited if s in table and len(table[s]) >= 13}
+    targets = {s: locator.row_target(cells) for s, cells in rowsok.items()}
+
+    def probe(sid):
+        return sid, rowcheck.check_row(rowsok[sid], entry_text)
+
+    with concurrent.futures.ThreadPoolExecutor(8) as pool:
+        checked = dict(pool.map(probe, sorted(rowsok)))
+    stamp = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%MZ')
+    for leg in ("LOCATE", "BOILER", "RELEVANCE", "TOPIC"):
+        hits = [s for s in cited if s in checked and checked[s][leg][0]]
+        misses = [f"{s}: {checked[s][leg][1][:160] if s in checked else 'no row'}" for s in cited if s not in hits]
+        legs.append((leg, bool(cited) and len(hits) == len(cited),
+                     f"passing={len(hits)} cited={len(cited)} at={stamp} failing={misses}"))
+
+    def norm(url):
+        url = re.sub(r"^https?://", "", locator.trim(url).lower())
+        url = re.sub(r"^web\.archive\.org/web/[^/]+/(?:https?://)?", "", url)
+        return re.sub(r"^www\.", "", url).rstrip("/")
+
+    old = {norm(u) for s, cells in table.items() if int(s[1:]) < FIRST_SID
+           for u in locator.URL.findall(cells[2])}
+    stale = sorted(s for s in targets if any(norm(u) in old for u in targets[s][0]))
+    legs.append(("FRESH", not stale, f"rows_reusing_registry_urls={stale}"))
+    seen_urls, seen_quotes, shared = {}, {}, []
+    hosts = set()
+    for s in sorted(targets):
+        urls, quote = targets[s]
+        for u in sorted({norm(u) for u in urls}):
+            if u in seen_urls:
+                shared.append(f"{s}=url:{seen_urls[u]}")
+            seen_urls.setdefault(u, s)
+        q = locator.normalise(quote or "")
+        if q in seen_quotes:
+            shared.append(f"{s}=quote:{seen_quotes[q]}")
+        seen_quotes.setdefault(q, s)
+        if urls:
+            hosts.add(norm(urls[0]).split("/")[0])
+    legs.append(("DISTINCT", bool(cited) and not shared and len(hosts) >= MIN_HOSTS,
+                 f"shared={shared} hosts={len(hosts)} need={MIN_HOSTS}"))
+    verdicts, seats_used, notes = {}, set(), []
+    try:
+        registry = json.load(open(os.path.join(root, SUPPORT_DIR, "registry.json"), encoding="utf-8"))
+        seats = {m["name"] for m in registry.get("members", []) if m.get("agentId") and m.get("role") == "reviewer"}
+    except (OSError, ValueError, AttributeError, TypeError) as error:
+        seats = set()
+        notes.append(f"no registry: {type(error).__name__}")
+    key, key_ok = {}, False
+    try:
+        hashes_ok = True
+        for path, declared_file in ((PLANTED_KEY, KEY_SHA), (PLANTED_ROWS, ROWS_SHA)):
+            declared = open(os.path.join(root, declared_file), encoding="utf-8").read().split()[0]
+            actual = hashlib.sha256(open(os.path.join(root, path), "rb").read()).hexdigest()
+            if declared != actual:
+                hashes_ok = False
+                notes.append(f"hash-mismatch {path} declared={declared[:12]} actual={actual[:12]}")
+        key = json.load(open(os.path.join(root, PLANTED_KEY), encoding="utf-8")).get("seats", {})
+        key_ok = hashes_ok and isinstance(key, dict)
+    except (OSError, ValueError, AttributeError, TypeError, IndexError) as error:
+        notes.append(f"no planted key: {type(error).__name__}")
+    anchor = {s: locator.normalise(targets[s][1] or "") for s in targets}
+    qualified, planted_seen = set(), []
+    for seat in sorted(seats):
+        report = os.path.join(root, SUPPORT_DIR, f"{seat}.md")
+        packet = os.path.join(root, SUPPORT_DIR, f"packet-{seat}.md")
+        labels = key.get(seat) if key_ok and isinstance(key.get(seat), dict) else {}
+        if not os.path.isfile(report) or not os.path.isfile(packet) or not labels:
+            planted_seen.append(f"{seat}:missing")
+            continue
+        found = VERDICT.findall(open(report, encoding="utf-8", errors="replace").read())
+        shown = {label: locator.normalise(q) for label, q in
+                 PACKET_QUOTE.findall(open(packet, encoding="utf-8", errors="replace").read())}
+        planted = [label for label, target in labels.items() if target == "PLANTED"]
+        if planted and all((p, "NOT-SUPPORTED") in found and (p, "SUPPORTED") not in found for p in planted):
+            qualified.add(seat)
+        planted_seen.append(f"{seat}:{'Q' if seat in qualified else 'X'}{len(planted)}")
+        for label, verdict in found:
+            sid = labels.get(label)
+            if sid and sid != "PLANTED" and shown.get(label) and shown.get(label) == anchor.get(sid):
+                verdicts.setdefault(sid, []).append((verdict, seat))
+    unsupported = []
+    for s in cited:
+        given = verdicts.get(s, [])
+        if (not any(v == "SUPPORTED" and seat in qualified for v, seat in given)
+                or any(v == "NOT-SUPPORTED" for v, _ in given)):
+            unsupported.append(f"{s}:{','.join(f'{v}/{seat}' for v, seat in given) or 'no verdict'}")
+        seats_used.update(seat for v, seat in given if seat in qualified)
+    legs.append(("SUPPORT", bool(cited) and key_ok and not unsupported and len(seats_used) >= MIN_SUPPORT_SEATS,
+                 f"unsupported={unsupported} qualified_seats={sorted(seats_used)} need_seats={MIN_SUPPORT_SEATS} "
+                 f"planted={planted_seen} {' '.join(notes)}".rstrip()))
+    for name, ok, detail in legs:
+        print(f"{name} {'PASS' if ok else 'FAIL'} {detail}")
+    verdict = all(ok for _, ok, _ in legs)
+    print(f"ACCEPT-C-59: {'PASS' if verdict else 'FAIL'}")
+    return 0 if verdict else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
