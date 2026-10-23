@@ -37,7 +37,8 @@ Run from the lane root:
   python3 -B reports/round-63/accept-o.py [--root DIR]
 
 Legs, each printed PASS or FAIL:
-  TOOL     tools/reopen-row.py exists at --root (the round-62 version does at 65b393e)
+  TOOL     tools/reopen-row.py exists at --root and is executable (the round-62
+           version does at 65b393e)
   INDEP    the tool's text names none of `reports/`, `accept-o`, `round-63`, `Fixture`;
            every run below uses a copy of the tool in a fresh temporary directory
   GEN      the round-62 class battery (BODY..NOROW, 2 of each) plus one fixture of each
@@ -384,8 +385,8 @@ def main():
         print(f"{name} {'PASS' if ok else 'FAIL'} {detail}")
 
     src = os.path.join(root, TOOL)
-    have = os.path.isfile(src)
-    leg("TOOL", have, f"path={TOOL} exists={have}")
+    have = os.path.isfile(src) and os.access(src, os.X_OK)
+    leg("TOOL", have, f"path={TOOL} exists={os.path.isfile(src)} executable={have and os.access(src, os.X_OK)}")
     if not have:
         for name in ("INDEP", "GEN", "ORDER", "BOUND", "EXIT", "PRIV", "DEFAULT", "ERR",
                      "REDIRECT", "MALFORMED", "GZIP", "TRUNC", "TIMEOUT", "REVIEW"):
