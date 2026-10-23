@@ -1,5 +1,5 @@
-# declaration dry run at revision 4 (do-nothing base control) 2026-10-23T01:20:42Z
-# measured-revision 25919ac42e7cf260644ac5a1d44d8cdabb9db46a (sandbox clone /fast/scratch/hyaku/kotodama-r58-measure-25919ac4-9jsmrefi)
+# declaration dry run at revision 5 (do-nothing base control) 2026-10-23T01:48:26Z
+# measured-revision 97577f6c3a982d40903549c28b52564fee3fb73f (sandbox clone /fast/scratch/hyaku/kotodama-r58-measure-97577f6c-1rhr2t20)
 $ python3 -B reports/round-58/accept-c.py
 SET FAIL count=233 required=234 added=[] removed=[]
 SWEEP FAIL exit=0 rows 233 files 233 missing_from_index 0 []
@@ -9,15 +9,16 @@ STATUS PASS bad=[]
 TIER PASS bad=[]
 USEDBY PASS bad=[]
 ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
-LOCATE FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
-BOILER FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
-RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
-TOPIC FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
+LOCATE FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
+BOILER FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
+RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
+TOPIC FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
 FRESH PASS rows_reusing_registry_urls=[]
 DISTINCT FAIL shared=[] hosts=0 need=10
+SUPPORT FAIL unsupported=[] seats=[] need_seats=2 no registry: FileNotFoundError
 ACCEPT-C-58: FAIL
 exit 1
-# role: C counting; expected pre-landing: exit 1: SET FAIL (count=233), SWEEP FAIL (rows 233 files 233), FLOOR FAIL (cited=0), LOCATE, BOILER, RELEVANCE, TOPIC and DISTINCT FAIL (no S-id cited); RANGE, STATUS, TIER, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-58: FAIL
+# role: C counting; expected pre-landing: exit 1: SET FAIL (count=233), SWEEP FAIL (rows 233 files 233), FLOOR FAIL (cited=0), LOCATE, BOILER, RELEVANCE, TOPIC, DISTINCT and SUPPORT FAIL (no S-id cited); RANGE, STATUS, TIER, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-58: FAIL
 $ python3 -B reports/round-58/accept-c.py
 SET FAIL count=233 required=234 added=[] removed=[]
 SWEEP FAIL exit=0 rows 233 files 233 missing_from_index 0 []
@@ -27,17 +28,18 @@ STATUS PASS bad=[]
 TIER PASS bad=[]
 USEDBY PASS bad=[]
 ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
-LOCATE FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
-BOILER FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
-RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
-TOPIC FAIL passing=0 cited=0 at=2026-10-23T01:20Z failing=[]
+LOCATE FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
+BOILER FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
+RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
+TOPIC FAIL passing=0 cited=0 at=2026-10-23T01:48Z failing=[]
 FRESH PASS rows_reusing_registry_urls=[]
 DISTINCT FAIL shared=[] hosts=0 need=10
+SUPPORT FAIL unsupported=[] seats=[] need_seats=2 no registry: FileNotFoundError
 ACCEPT-C-58: FAIL
 exit 1
-# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-C-58: PASS (all fourteen legs PASS)
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-C-58: PASS (all fifteen legs PASS)
 $ python3 -B tools/check-claim-separability.py reports/round-58/separability-manifest.json
-SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/linguistics/toponymy-place-names.md', which is absent from the worktree under '/fast/scratch/hyaku/kotodama-r58-measure-25919ac4-9jsmrefi'
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/linguistics/toponymy-place-names.md', which is absent from the worktree under '/fast/scratch/hyaku/kotodama-r58-measure-97577f6c-1rhr2t20'
 exit 2
 # role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land
 $ python3 -B reports/round-58/claims-agree.py
