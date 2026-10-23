@@ -30,10 +30,12 @@ reopen-quote.py `row_target`):
              stems(text): the locator's normalisation (NFKC, casefold, non-letters and non-digits
              to spaces), words of at least 4 characters not in STOP, a final `s` dropped when the
              word is longer than 4 characters, then the first 5 characters.
-  TOPIC      the quote itself (page-anchored text, not a cell the author writes) is about place
-             names: stems(QUOTE) contains at least one NAMING stem and at least one PLACE stem
-             (both sets below; a stem in BOTH, such as `topon` or `hydro`, satisfies both). An
-             on-page sentence that names no naming term and no place term cannot carry the row.
+  TOPIC      the quote and the page that located it are about place names (page-anchored text,
+             not a cell the author writes): a NAMING-PLACE window is a word whose stem is in
+             NAMING with a word whose stem is in PLACE at most WINDOW (3) normalised words away
+             (the same word counts when its stem is in both sets, such as `topon` or `hydro`; sets
+             below). The quote holds at least 1 window and the text LOC_URL serves (fetched live
+             again) at least PAGE_HITS (3). Not located or an unfetchable page fails.
 
 Prints one line per row: `S### LOCATE <ok> BOILER <ok> RELEVANCE <ok> TOPIC <ok> <details>`
 (ok = PASS|FAIL). Exit 0 when every checked leg passes for every row, 1 otherwise, 2 on usage or
@@ -52,6 +54,8 @@ _spec.loader.exec_module(locator)
 
 MIN_SHARED = 2
 COPY_RUN = 6
+WINDOW = 3
+PAGE_HITS = 3
 STOP = set("""
 about above across after again against also although among an and another any are around because
 been before being below between both but by can cannot could did does doing done down during each
@@ -144,11 +148,49 @@ PLACE = {"place", "topon", "hydro", "orony", "endon", "exony", "gazet", "river",
          "provi", "natio", "strea", "creek", "brook", "fores", "harbo", "cape", "penin"}
 
 
-def topic(quote):
-    found = stems(quote)
-    naming, place = sorted(found & NAMING), sorted(found & PLACE)
-    ok = bool(naming) and bool(place)
-    return ok, f"naming={naming} place={place}"
+def stem_seq(text):
+    """One entry per normalised word: its stem (as in stems()) or None for a short or stop word."""
+    out = []
+    for word in locator.normalise(text).split():
+        if len(word) < 4 or word in STOP:
+            out.append(None)
+            continue
+        if len(word) > 4 and word.endswith("s"):
+            word = word[:-1]
+        out.append(word[:5])
+    return out
+
+
+def window_hits(text):
+    """Number of word positions holding a NAMING stem with a PLACE stem at most WINDOW words away."""
+    seq = stem_seq(text)
+    hits = 0
+    for i, stem in enumerate(seq):
+        if stem in NAMING and any(seq[j] in PLACE for j in range(max(i - WINDOW, 0), min(i + WINDOW + 1, len(seq)))):
+            hits += 1
+    return hits
+
+
+def page_text(url):
+    if "web.archive.org" in url:
+        with locator._WAYBACK:
+            body, ctype = locator.fetch(url)
+    else:
+        body, ctype = locator.fetch(url)
+    return locator.to_text(body, ctype)
+
+
+def topic(quote, loc_url):
+    """(ok, detail): the quote and the page that located it are about place names."""
+    quote_hits = window_hits(quote)
+    if not loc_url:
+        return False, f"quote_hits={quote_hits} not-located"
+    try:
+        page_hits = window_hits(page_text(loc_url))
+    except Exception as error:  # an unfetchable page cannot show its topic
+        return False, f"quote_hits={quote_hits} page-unfetchable {type(error).__name__}"
+    ok = quote_hits >= 1 and page_hits >= PAGE_HITS
+    return ok, f"quote_hits={quote_hits} page_hits={page_hits} need=1/{PAGE_HITS}"
 
 
 def check_row(cells, entry_text=None):
@@ -162,7 +204,7 @@ def check_row(cells, entry_text=None):
     result = {"LOCATE": (located, detail)}
     result["BOILER"] = boiler(detail if located else "", quote)
     result["RELEVANCE"] = relevance(sid, quote, cells[7] if len(cells) > 7 else "", entry_text)
-    result["TOPIC"] = topic(quote)
+    result["TOPIC"] = topic(quote, detail if located else "")
     return result
 
 

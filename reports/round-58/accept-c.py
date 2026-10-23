@@ -33,10 +33,10 @@ with PASS or FAIL:
             with its `teaches` cell, its `teaches` cell copies no 6-word run of the quote, and both
             its `teaches` cell and its quote share at least 2 content stems with the entry lines
             that cite it (reports/round-58/rowcheck.py `relevance` (a)-(d); stems defined there)
-  TOPIC     at least one S-id is cited and every cited row's quote (page-anchored text) carries at
-            least one naming stem and one place stem (reports/round-58/rowcheck.py `topic`, sets
-            NAMING and PLACE there): an on-page sentence about something other than place names
-            cannot carry a row
+  TOPIC     at least one S-id is cited and for every cited row the quote holds at least 1
+            NAMING-PLACE window and the page that located it (fetched live again) at least 3
+            (reports/round-58/rowcheck.py `topic`; sets NAMING and PLACE, WINDOW 3, PAGE_HITS 3
+            there): page-anchored text about something other than place names cannot carry a row
   FRESH     no cited row names a source URL that a corpus/SOURCES.md row below S500 also names
             (URLs compared lower-cased, without scheme, `www.`, trailing `/`, and with a Wayback
             capture prefix removed)
