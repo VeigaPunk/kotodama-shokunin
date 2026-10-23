@@ -6,7 +6,10 @@ r"""Round-58 control re-score: score every pre-data control fixture with the fro
 A FIXTURE_DIR holds `fixture.patch` (a `git diff` of the seat's sandbox clone against the declaration it
 built on). For each, a fresh clone of the lane is checked out at REV under /fast/scratch/hyaku/
 (GIT_DIR, GIT_WORK_TREE, GIT_INDEX_FILE unset), the patch is applied with `git apply`; when the patch does
-not carry the entry file, the dir's `untracked/` or `corpus/` tree is copied over the clone root. A patch
+not carry the entry file, the dir's `untracked/` or `corpus/` tree is copied over the clone root. Any
+support directory at REV is removed from the clone; when the fixture dir has `support/` (a registry.json
+and the reviewer verdict files judged for that fixture's rows), it is installed as
+.ufo/waves/round-58/support/, so the SUPPORT leg reads only that fixture's own verdicts. A patch
 that touches reports/round-58/*.py (an instrument mutant) is not a claim control and is skipped with
 `SKIP mutant`. Then `timeout 1200 python3 -B reports/round-58/accept-c.py` runs in the clone.
 
@@ -47,6 +50,12 @@ def score(rev, fixture):
                 dst = clone if extra == "untracked" else os.path.join(clone, "corpus")
                 shutil.copytree(src, dst, dirs_exist_ok=True)
                 notes.append(f"copied {extra}/")
+    support = os.path.join(fixture, "support")
+    target = os.path.join(clone, ".ufo/waves/round-58/support")
+    shutil.rmtree(target, ignore_errors=True)
+    if os.path.isdir(support):
+        shutil.copytree(support, target)
+        notes.append("installed support/ (the fixture's own registered verdicts)")
     run = subprocess.run(["timeout", "1200", sys.executable, "-B", "reports/round-58/accept-c.py"], cwd=clone,
                          env=ENV, capture_output=True, text=True)
     shutil.rmtree(clone, ignore_errors=True)

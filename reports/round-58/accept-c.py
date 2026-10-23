@@ -47,6 +47,14 @@ with PASS or FAIL:
   FRESH     no cited row names a source URL that a corpus/SOURCES.md row below S500 also names
             (URLs compared lower-cased, without scheme, `www.`, trailing `/`, and with a Wayback
             capture prefix removed)
+  SUPPORT   at least one S-id is cited, and every cited row has at least one `VERDICT S### SUPPORTED`
+            line and no `VERDICT S### NOT-SUPPORTED` line (line-initial) in the report files
+            .ufo/waves/round-58/support/<Seat>.md of the non-author reviewer seats listed in
+            .ufo/waves/round-58/support/registry.json (members with role `reviewer` and a non-empty
+            agentId, as returned by the dispatching task call); at least 2 distinct seats give the
+            verdicts. A reviewer judges, on the live page, whether the quote is about place names and
+            carries the row's teaches cell and the entry sentences citing it. Files that are not a
+            registered seat's report do not count
 Frozen predicate (the same sentence in reports/round-58/claims.json and in the receipts):
   ACCEPT-C-58: every leg above prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
@@ -58,6 +66,7 @@ partial owners one-way; whether the ground is uncovered in substance.
 import argparse
 import concurrent.futures
 import importlib.util
+import json
 import math
 import os
 import re
@@ -68,6 +77,9 @@ from datetime import datetime, timezone
 ENTRY = "corpus/knowledge/linguistics/toponymy-place-names.md"
 BASE_LIST = "reports/round-58/base-knowledge-files.txt"
 TOTAL = 234
+MIN_SUPPORT_SEATS = 2
+SUPPORT_DIR = ".ufo/waves/round-58/support"
+VERDICT = re.compile(r"^VERDICT (S\d{3}) (SUPPORTED|NOT-SUPPORTED)\b", re.M)
 FIRST_SID = 500
 LAST_SID = 559
 FLOOR = 20
@@ -190,6 +202,26 @@ def main():
             hosts.add(norm(urls[0]).split("/")[0])
     legs.append(("DISTINCT", bool(cited) and not shared and len(hosts) >= MIN_HOSTS,
                  f"shared={shared} hosts={len(hosts)} need={MIN_HOSTS}"))
+    verdicts, seats_used, support_note = {}, set(), ""
+    try:
+        registry = json.load(open(os.path.join(root, SUPPORT_DIR, "registry.json"), encoding="utf-8"))
+        seats = {m["name"] for m in registry.get("members", []) if m.get("agentId") and m.get("role") == "reviewer"}
+    except (OSError, ValueError, AttributeError, TypeError) as error:
+        seats, support_note = set(), f"no registry: {type(error).__name__}"
+    for seat in sorted(seats):
+        report = os.path.join(root, SUPPORT_DIR, f"{seat}.md")
+        if not os.path.isfile(report):
+            continue
+        for sid, verdict in VERDICT.findall(open(report, encoding="utf-8", errors="replace").read()):
+            verdicts.setdefault(sid, []).append((verdict, seat))
+    unsupported = []
+    for s in cited:
+        given = verdicts.get(s, [])
+        if not any(v == "SUPPORTED" for v, _ in given) or any(v == "NOT-SUPPORTED" for v, _ in given):
+            unsupported.append(f"{s}:{','.join(f'{v}/{seat}' for v, seat in given) or 'no verdict'}")
+        seats_used.update(seat for _, seat in given)
+    legs.append(("SUPPORT", bool(cited) and not unsupported and len(seats_used) >= MIN_SUPPORT_SEATS,
+                 f"unsupported={unsupported} seats={sorted(seats_used)} need_seats={MIN_SUPPORT_SEATS} {support_note}".rstrip()))
     for name, ok, detail in legs:
         print(f"{name} {'PASS' if ok else 'FAIL'} {detail}")
     verdict = all(ok for _, ok, _ in legs)
