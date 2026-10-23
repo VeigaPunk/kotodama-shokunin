@@ -291,7 +291,7 @@ CONFINE_DENY = re.compile(
     r"|\$\{?(?:HOME|OLDPWD|XDG_[A-Z_]+|TMPDIR)\b"         # home-like variables
     r"|\b(?:pushd|popd|chdir|expanduser|getenv|environ|xxd|base64|b64decode|fromhex)\b"
     r"|(?:^|[;&|(`]|\n)\s*eval\b"                        # revision 7: shell eval in command position only
-    r"|Path\.home|chr\(|\\x2f|\\057|\\u002f|\$'|(?-i:(?:^|\s)-C\s)",
+    r"|Path\.home|chr\(|\\x2f|\\057|\\u002f|\\/|\$'|(?-i:(?:^|\s)-C\s)",  # revision 9: `\/` (RescoreConfineA3)
     re.I)
 
 
