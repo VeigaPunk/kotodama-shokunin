@@ -1120,3 +1120,19 @@ Instruments `91fb8fd9`, revised five times before any data seat (`a43f5336`, `c4
 | depth / operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; the kongo-kingdom and speech-surrogates fixes were re-verified but not applied (carried) | — | — |
 
 Frontier step (not a claim): `corpus/SOURCES.md` 465 → 525 rows (S500-S543 opened this round and cited by C; S560-S562, S564-S576 records rows); census exit 0 at the base (run late on a base clone) and at the end after the kind-enum correction (`reports/round-58/telemetry/census-*.txt`).
+
+
+## Axes — round 59 (2026-10-23), author-side verdicts, pending non-author closure (hyaku phase 4, attempt 1)
+
+Instruments `39c9ce8a` (revision 0), declaration `1b80ee41`, revision 1 and freeze `d4795abd` after an 8-seat pre-data control wave (one control met revision 0; `reports/round-59/telemetry/controls-c.txt`), claim base set `ff802cc3`; D landed `b2b2bde9`; packet-key hash `f7375cec`; C landed `4abfb63d`. Final receipt `reports/round-59/telemetry/final-measures.txt` (measured revision `4abfb63d`).
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| coverage | author: PASS on the landed revision, with a disclosed post-review removal (claim C, learning claim, sourced claim) | knowledge files 234 → 235; myth-symbol 28 → 29; ACCEPT-C-59 FAIL at `ff802cc3` → PASS at `4abfb63d`, 15 legs (43 cited rows S600-S647, 40 hosts; SUPPORT: 8/8 seats qualified, 24/24 planted blocks rejected). The as-reviewed entry citing 47 rows printed FAIL on SUPPORT only (4 rows each rejected by one reviewer); those 4 rows were filed `rejected` and their lines removed after the verdicts. The operator rules whether that removal is admissible curation or a post-data narrowing. Surface: frontier → core, protective objects (`git ls-tree -r --name-only <rev> corpus/knowledge \| grep -ciE 'amulet\|talism\|apotrop'` 0 → 1) | `python3 -B reports/round-59/accept-c.py` | `corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md`; `reports/round-59/telemetry/as-reviewed-c.txt` |
+| depth | improved (claim D) | ACCEPT-D-59 FAIL (14 old strings, old ids 16/2/3/2/4) at `ff802cc3` → PASS at `b2b2bde9` (first run) and at `4abfb63d`: kongo-kingdom.md carries the 14 frozen fixes (third carry closed), speech-surrogates cites S570-S574 | `python3 -B reports/round-59/accept-d.py` | `reports/round-59/telemetry/final-measures-d.txt`, `final-measures.txt` |
+| calibration | not claimed; recorded | round-58 closure defects 1-8 dispositioned (lesson intake); errata for revision count, freeze wording, control count, separability; QUALITY criterion 13 | `grep -c '^| R59-M' corpus/lessons/round-59.md` | `corpus/lessons/round-59.md` |
+| operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question | — | — |
+
+Correction rows for round 58 (filed rows not edited): the round-58 instrument was revised six times before data, not five (`31cf8b6` added TOPIC); its "123 fixtures, 0 pass" holds only as a whole-predicate count — 18 failed only SUPPORT, 17 of them for a missing registry (`corpus/lessons/round-59.md` Errata).
+
+Frontier step (not a claim): `corpus/SOURCES.md` 525 → 573 rows (S600-S647 opened this round; 43 mined, 1 queued, 4 rejected); census exit 0 at start (`reports/round-59/telemetry/census-start.txt`) and end.

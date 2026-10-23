@@ -4110,3 +4110,11 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Routed fixes (records):** QUALITY criterion 12; S560-S562, S564-S574 superseding rows; S575 (heraldry :41); S576 (CODH); errata; kongo/speech-surrogates fixes re-verified and carried.
 - **Waves:** control 8, support-control 3, build 41 (3 executors cancelled at the cut), support 6; round total 58. Mistakes R58-M1 to R58-M6.
 - **Evidence:** `reports/round-58/telemetry/`; `.ufo/waves/round-58/`; `corpus/lessons/round-58.md`.
+
+
+## Round 59 — 2026-10-23 (hyaku phase 4, attempt 1, L1 KotodamaR59)
+
+- Claims: C (coverage) new entry `corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md` — ACCEPT-C-59 PASS at `4abfb63d` after removing 4 rows rejected by blind SUPPORT (as-reviewed: FAIL on SUPPORT only); D (depth) kongo-kingdom 14 fixes + speech-surrogates re-points — ACCEPT-D-59 PASS at `b2b2bde9` and `4abfb63d`.
+- Evidence: control wave 8 seats (1 refused, CtlKeyedLabels59, hold), build wave 35 seats, support call 8 seats; receipts under `reports/round-59/telemetry/`; lesson `corpus/lessons/round-59.md`.
+- Re-verification: the round-58 kongo fixes were re-read on their sources by ReviewDKongoA59/B59/C59 (14/14 agree).
+- Routed round-58 defects: stray files deleted; census at start; FETCH-59 + QUALITY criterion 13; C lands name every SUPPORT input.
