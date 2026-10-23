@@ -78,14 +78,16 @@ Legs, each printed PASS or FAIL:
            figcaption prints CAPTION_ONLY attempts=1
   TRUNC    a row whose quote sits past the 4 MiB cap prints TRUNCATED attempts=1 url=-;
            a row whose quote sits inside a body that overruns the cap prints LOCATED
-  TIMEOUT  with `--timeout 4 --passes 1 --gap 0`, a row whose endpoint answers headers
-           then stalls the body prints UNREACHABLE attempts=3 with no Traceback, and the
-           wall time is < 45 s
+  TIMEOUT  with `--timeout 2 --passes 1 --gap 0`, a row whose endpoint answers headers
+           then stalls the body prints UNREACHABLE attempts=3 with no Traceback, the wall
+           time is < 20 s, and the three stall requests span >= 3.0 s - pinning that the
+           requested per-request budget, not just an unrequested socket default, is what
+           waited
   REVIEW   the independent review gate: .ufo/waves/round-63/w1/RevToolA.md, RevToolB.md
-           and RevToolC.md each exist and contain the fixed token
-           `VERDICT: NO-OPEN-HIGH-MED`, and reports/round-63/telemetry/rev-hold-lift.md
-           (the residual review of the LANDED bytes) contains it too; a review that
-           records an open finding, or a missing/dead review, fails this leg
+           and RevToolC.md plus reports/round-63/telemetry/rev-hold-lift.md each exist,
+           carry >= 400 bytes, contain no `OPEN (HIGH|MEDIUM|MED)` finding marker, and
+           end with the fixed token `VERDICT: NO-OPEN-HIGH-MED`; a missing, thin,
+           token-only or finding-tainted review fails this leg
 Frozen predicate (the same sentence in reports/round-63/claims.json and in every
 receipt): ACCEPT-O-63: every leg of reports/round-63/accept-o.py prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
@@ -683,6 +685,16 @@ def main():
                 pass
 
         stall_server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), StallHandler)
+        stall_times = []
+        stall_lock = threading.Lock()
+
+        class TimedStallHandler(StallHandler):
+            def do_GET(self):
+                with stall_lock:
+                    stall_times.append(time.monotonic())
+                super().do_GET()
+
+        stall_server.RequestHandlerClass = TimedStallHandler
         threading.Thread(target=stall_server.serve_forever, daemon=True).start()
         try:
             reg_st = os.path.join(work, "STALL.md")
@@ -692,12 +704,14 @@ def main():
                 f"anchor: \"{sq}\" | t | mined | 2026-10-23 | 180d | x |\n")
             stc, stout, sterr, wall = run_tool(tool, work,
                                                ["--registry", reg_st, "--passes", "1", "--gap", "0",
-                                                "--timeout", "4", "--allow-private", stall_sid],
+                                                "--timeout", "2", "--allow-private", stall_sid],
                                                timeout=120)
             stgot = parse(stout)
-            leg("TIMEOUT", stc == 1 and stgot == [(stall_sid, "UNREACHABLE", 3)] and wall < 45
+            span = (stall_times[-1] - stall_times[0]) if len(stall_times) >= 2 else 0.0
+            leg("TIMEOUT", stc == 1 and stgot == [(stall_sid, "UNREACHABLE", 3)] and wall < 20
+                and len(stall_times) == 3 and span >= 3.0
                 and "Traceback" not in (stout + sterr),
-                f"exit={stc} rows={stgot} wall={wall:.1f}s")
+                f"exit={stc} rows={stgot} wall={wall:.1f}s stall_hits={len(stall_times)} span={span:.1f}s")
         finally:
             stall_server.shutdown()
             stall_server.server_close()
@@ -705,16 +719,24 @@ def main():
         # ---- REVIEW (independent review gate) ----
         reviews = [os.path.join(lane, ".ufo", "waves", "round-63", "w1", f"RevTool{n}.md") for n in "ABC"]
         reviews.append(os.path.join(lane, "reports", "round-63", "telemetry", "rev-hold-lift.md"))
-        missing, verdicts = [], []
+        missing, thin, tainted = [], [], []
+        tokens = 0
         for path in reviews:
             try:
                 body = open(path, encoding="utf-8").read()
             except OSError:
                 missing.append(os.path.basename(path))
                 continue
-            verdicts.append("VERDICT: NO-OPEN-HIGH-MED" in body)
-        leg("REVIEW", not missing and all(verdicts),
-            f"reports={len(reviews)} missing={missing} clean={sum(verdicts)}")
+            if len(body) < 400:
+                thin.append(os.path.basename(path))
+                continue
+            if re.search(r"\bOPEN\s*[\(\-:]?\s*(HIGH|MEDIUM|MED)\b", body):
+                tainted.append(os.path.basename(path))
+                continue
+            if "VERDICT: NO-OPEN-HIGH-MED" in body:
+                tokens += 1
+        leg("REVIEW", not missing and not thin and not tainted and tokens == 4,
+            f"reports=4 token={tokens} missing={missing} thin={thin} open_findings={tainted}")
     finally:
         try:
             fx.close()

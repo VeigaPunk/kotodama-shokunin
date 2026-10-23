@@ -35,7 +35,7 @@
     "TIMEOUT",
     "REVIEW"
    ],
-   "kill_rule": "Any leg FAIL on the first full run of accept-o.py at the measured revision (the lane branch tip carrying the repair) is a miss. The first full run is the receipt; it is not re-run to look for a pass. The REVIEW leg requires the three named review reports and the residual RevHoldLift report to carry the fixed token `VERDICT: NO-OPEN-HIGH-MED`; a finding left open, or a review seat dead without relay, fails the claim.",
+   "kill_rule": "Any leg FAIL on the first full run of accept-o.py at the measured revision (the lane branch tip carrying the repair) is a miss. The first full run is the receipt; it is not re-run to look for a pass. The REVIEW leg requires the three named review reports and the residual RevHoldLift report to be present, each >= 400 bytes, free of any OPEN (HIGH|MEDIUM|MED) finding marker, and carrying the fixed token `VERDICT: NO-OPEN-HIGH-MED`; a finding left open, a token-only stub, or a review seat dead without relay, fails the claim.",
    "fetch_treatment": "No live fetch decides this claim: every leg runs against offline localhost fixtures or file bytes. The review gate is read-only code review, never an execution on live URLs; per the hold, the repaired tool is first run on live rows only by the closure after admission.",
    "review_only": [
     "whether the redirect re-validation covers scheme-relative Locations, userinfo hosts, IPv6 literals and IDNA forms (review catalog, not counter fixtures)",
