@@ -18,6 +18,8 @@ with PASS or FAIL:
             corpus/SOURCES.md row (`^\|\s*(S\d{3,})\s*\|`, at least 13 cells); the entry carries no
             S-id range notation
   STATUS    every cited row has status `mined`
+  TIER      every cited row's tier cell is `A` or `B` (QUALITY: a tier-C row is a lead, never
+            sole support)
   USEDBY    every cited row names ENTRY as one whole comma- or semicolon-separated item of its used-by cell
   ACCESS    python3 -B tools/check-source-access.py exits 0 (QUALITY criterion 10)
   LOCATE    at least one S-id is cited and EVERY cited row is located: reports/round-58/reopen-quote.py
@@ -130,6 +132,8 @@ def main():
     ok_rows = [s for s in cited if s not in range_bad]
     status_bad = [f"{s}:{table[s][8].strip()}" for s in ok_rows if table[s][8].strip() != "mined"]
     legs.append(("STATUS", not status_bad, f"bad={status_bad}"))
+    tier_bad = [f"{s}:{table[s][4].strip()}" for s in ok_rows if table[s][4].strip() not in ("A", "B")]
+    legs.append(("TIER", not tier_bad, f"bad={tier_bad}"))
     used_bad = [s for s in ok_rows if ENTRY not in [u.strip() for u in re.split(r"[,;]", table[s][11])]]
     legs.append(("USEDBY", not used_bad, f"bad={used_bad}"))
     access = run(root, [sys.executable, "-B", "tools/check-source-access.py"])

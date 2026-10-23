@@ -26,7 +26,8 @@ reopen-quote.py `row_target`):
              (c) with --entry, stems(teaches) and stems(L) share at least 2 stems, where L is every
                  line of the entry that cites the row's id as a whole word (`\bS###\b`), joined,
                  S-ids removed; a row the entry does not cite fails (c);
-             (d) with --entry, stems(QUOTE) and stems(L) share at least 2 stems.
+             (d) with --entry, stems(QUOTE) and stems(L) share at least 2 stems;
+             (e) teaches is a sentence: at least TEACHES_WORDS (8) whitespace words, ending with `.`.
              stems(text): the locator's normalisation (NFKC, casefold, non-letters and non-digits
              to spaces), words of at least 4 characters not in STOP, a final `s` dropped when the
              word is longer than 4 characters, then the first 5 characters.
@@ -34,7 +35,7 @@ reopen-quote.py `row_target`):
              not a cell the author writes): a NAMING-PLACE window is a word whose stem is in
              NAMING with a word whose stem is in PLACE at most WINDOW (3) normalised words away
              (the same word counts when its stem is in both sets, such as `topon` or `hydro`; sets
-             below). The quote holds at least 1 window and at least 2 FUNCTION words (a sentence,
+             below). The quote holds at least 1 window and at least 2 DISTINCT FUNCTION words (a sentence,
              not a heading or list fragment); the text LOC_URL serves (fetched live again) holds at
              least PAGE_HITS (3) windows and at least PAGE_TERMS (2) matches of DISCIPLINE (the
              field's own terms: toponym*, exonym*, place name(s), geographic(al) name(s),
@@ -59,6 +60,7 @@ MIN_SHARED = 2
 COPY_RUN = 6
 WINDOW = 3
 PAGE_HITS = 3
+TEACHES_WORDS = 8
 STOP = set("""
 about above across after again against also although among an and another any are around because
 been before being below between both but by can cannot could did does doing done down during each
@@ -126,6 +128,8 @@ def relevance(sid, quote, teaches, entry_text):
     problems = []
     if len(shared) < MIN_SHARED:
         problems.append(f"quote-teaches shared={sorted(shared)}")
+    if len(teaches.split()) < TEACHES_WORDS or not teaches.strip().endswith("."):
+        problems.append(f"teaches-not-a-sentence words={len(teaches.split())}")
     if copied(quote, teaches):
         problems.append("teaches-copies-quote")
     if entry_text is not None:
@@ -194,7 +198,7 @@ QUOTE_FUNCTION = 2
 def topic(quote, loc_url):
     """(ok, detail): the quote is a sentence about place names and its page is a place-name text."""
     quote_hits = window_hits(quote)
-    function_words = sum(1 for w in locator.normalise(quote).split() if w in FUNCTION)
+    function_words = len({w for w in locator.normalise(quote).split() if w in FUNCTION})
     if not loc_url:
         return False, f"quote_hits={quote_hits} not-located"
     try:
