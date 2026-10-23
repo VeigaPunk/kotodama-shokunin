@@ -86,10 +86,11 @@ Legs, each printed PASS or FAIL:
            waited
   REVIEW   the independent review gate: .ufo/waves/round-63/w1/RevToolA.md, RevToolB.md
            and RevToolC.md plus reports/round-63/telemetry/rev-hold-lift.md each exist,
-           carry >= 400 bytes, and end with the fixed token `VERDICT: NO-OPEN-HIGH-MED`;
-           every line OTHER than the mandated token line must be free of an
-           `OPEN (HIGH|MEDIUM|MED)` finding marker (the token line itself is exempt -
-           revision 2, RevToolB: the marker pattern would otherwise match the token)
+           carry >= 400 bytes, contain the fixed token `VERDICT: NO-OPEN-HIGH-MED`, and
+           are free of any `OPEN (HIGH|MEDIUM|MED)` finding marker anywhere outside the
+           token itself (revisions 2+5+7: RevToolB, MutCounterO - the token is required
+           AND the remainder of the body is scanned, so token-only stubs and
+           token-plus-inline-finding reports both fail)
 Frozen predicate (the same sentence in reports/round-63/claims.json and in every
 receipt): ACCEPT-O-63: every leg of reports/round-63/accept-o.py prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
@@ -736,9 +737,13 @@ def main():
             if len(body) < 400:
                 thin.append(os.path.basename(path))
                 continue
-            # the mandated token line itself carries OPEN-HIGH-MED: scan all OTHER lines
-            scan = "\n".join(l for l in body.splitlines()
-                             if "VERDICT: NO-OPEN-HIGH-MED" not in l)
+            if "VERDICT: NO-OPEN-HIGH-MED" not in body:
+                tainted.append(os.path.basename(path) + ":no-token")
+                continue
+            # scan everything EXCEPT the mandated token itself (revision 7,
+            # MutCounterO: the token is required, and the remainder is scanned so
+            # an inline 'VERDICT: NO-OPEN-HIGH-MED  OPEN HIGH: ...' still taints)
+            scan = body.replace("VERDICT: NO-OPEN-HIGH-MED", "")
             if re.search(r"\bOPEN\s*[\(\-:]?\s*(HIGH|MEDIUM|MED)\b", scan):
                 tainted.append(os.path.basename(path))
                 continue
