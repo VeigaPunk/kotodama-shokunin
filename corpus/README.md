@@ -1,5 +1,11 @@
 # kotodama-shokunin corpus index
 
+revision: 2.15 — Round-59 myth-symbol landing (2026-10-23): one
+myth-symbol entry landed (`amulets-talismans-apotropaic-marks.md`, amulets,
+talismans and apotropaic marks; before it, 0 filename owners), its row added in
+filename order before `animal-symbolism.md` with the entry's `- topic:` text
+verbatim; `## myth-symbol/` moved 28 → **29**; the totals and footer moved 234 → **235**.
+
 revision: 2.14 — Round-57 myth-symbol landing (2026-10-22): one
 myth-symbol entry landed (`heraldry-emblems-identity-marks.md`, heraldry,
 emblems and inherited identity marks; before it, 0 filename owners), its row
@@ -314,7 +320,8 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `writing-systems.md` — Script typology (logographic, syllabic, abugida, abjad, alphabet, featural), independent inventions and evolution lineages (Sumerian→cuneiform, Egyptian→abjad→alphabets, Brahmi family), decipherment cases as design lessons, matching script type to a language's phonology, and conscript pitfalls.
 
 
-## myth-symbol/ (28)
+## myth-symbol/ (29)
+- `amulets-talismans-apotropaic-marks.md` — amulets, talismans, charms and apotropaic marks as a symbolic-material design system for worldbuilders: how museums and traditions use the words, the danger a protective object answers (evil eye, named demons, childbirth and infant death, plague, illness, harm in general), how protection is said to work (reflection, containment, correspondence, a maker's power, adjuration), the materials and forms chosen and why, where the object goes (body, child, animal, garment, doorpost, house fabric), how words, letters, grids and images become protection, who makes, blesses, prescribes or sells it, and how it is renewed, returned, suppressed or turned into a souvenir; reference method, not fictional canon.
 - `animal-symbolism.md` — fauna as the densest symbolic substrate for a fictional culture — the totemism archive and its demolition (what survives as solid ground: clan totems, crest heraldry, other-than-human persons), a working typology of seven animal-binding mechanisms, guardian/spirit animals and their institutional slots, animal taboos and food laws as category logic vs ecology, zodiac day-signs as animal lexicons (Chinese branches, Mesoamerican 20, Egyptian decans), heraldic beasts as era fossils with heraldic-lag, the serpent's cross-culture double ledger (fertility/water vs chaos/border-foe), and the biogeography rule that fauna maps to land first and myth second; with kotodama hooks — animal names as tabooed, performative, and register-marked language
 - `binding-speech-complex.md` — the binding-speech complex as a designed system for a fictional culture — the four channels (oath, curse, blessing, name-power) treated as one machinery with four directions of binding, the binding triangle (speaker → word → executor) and the maxim that a word holds only where an executor exists; the master channel table (genre, binder, bound party, executor, sanction shape, release, failure mode, visibility); the oath in depth (formula anatomy: invocation / assertion / self-imprecation / uptake; the four enforcement models with attested exemplars; oath institutions — compurgation, the oath ring, the covenant archive, the oath-scroll; the oath-witness slot in a pantheon); the curse in depth (seven curse genres, curse physics: retention, targeting, spillover, reversibility; release and counter-curse); the blessing in depth (irrevocability, the blessing as transferable asset, the curse/blessing asymmetry, the blessing economy); name-power in depth (the name as handle; the four name-operations — speak or withhold, write or erase, rename, refuse; the secret-name institution); the enforcement ledger worked as a design table (divine, automatic, communal, and ordeal enforcement, with the "who pays" question); six release procedures with exemplars; a build protocol; a NON-CANON worked micro-example; and a calibration bank for the contested and discredited readings (Frazerian word-magic evolutionism, the Lévy-Bruhl "primitive mentality" reading, the popular *religio* < *religare* etymology, the "every culture has true names" universal). Reference knowledge and method only; canon decisions belong to lore-shokunin.
 - `celestial-symbolism-calendars.md` — The naked-eye sky as the worldbuilder's highest-yield symbolic system — sun/moon deity gender assignments across cultures (no universal pattern; aspect-switching), the planet-as-god interpretatio chain (Babylonian → Greek/Roman → Germanic/Chinese/Indian/Maya), constellation vs asterism as a naming problem, the Pleiades as the most calendrically overloaded object worldwide, Milky Way figure typology, eclipse-omen systems and their rituals and archives, the mechanics by which celestial cycles anchor calendars and festivals; with a calibration section on discredited celestial-myth schools
@@ -660,11 +667,11 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
 
-Total knowledge entries: 234.
+Total knowledge entries: 235.
 
 Counts checked 2026-10-23 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
-(total 234 files; directory totals 29/28/29/29/24/95).
+(total 235 files; directory totals 29/29/29/29/24/95).
 The inventory counts markers, not verified facts.
 Superseded reading, preserved as the dated record it was: this footer read
 `(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
