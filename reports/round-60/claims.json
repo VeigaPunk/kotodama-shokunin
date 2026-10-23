@@ -1,0 +1,56 @@
+{
+ "round": 60,
+ "attempt": 1,
+ "campaign": "hyaku phase 4 twelve-hour leg, 2026-10-23 UTC (in-session L1 lane subagent KotodamaR60)",
+ "lane_base": "9c82a6eb60b19f8380f7595ff1dbd0948342121c",
+ "declared_at": "2026-10-23 UTC. Revision 0 is the commit that first carries this file, with its instruments; it precedes the pre-data control wave and every data seat. A control that meets the counter before data forces a revision in a separate commit, listed in revision_note with that control; the freeze is the commit named in freeze_note and precedes every data seat. No rule changes after the first data seat.",
+ "shape": "one measured claim (D, depth, sourced) plus routed repairs of the round-59 spot-check (records, not claims). Anti-loop: the rejected streak (r58, r59) was coverage; D works depth on an existing entry and its counter has no live-fetch leg.",
+ "claims": [
+  {
+   "id": "D",
+   "axis": "depth",
+   "type": "measured; sourced claim (rests on S648-S651 opened this round)",
+   "surface": "the amulets entry corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md: the four propositions the round-59 blind reviewers rejected for over-reach (S602 universal lead, S616 material-versus-carving comparison, S623 theory stated as fact, S643 contents-versus-shell contrast) are restored in source-scoped wording citing four superseding rows S648-S651 on the same pages, and the whole entry (47 cited rows) is re-judged blind under this freeze. Command that shows it unmoved: grep -cE '\\bS6(48|49|50|51)\\b' corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md -> 0.",
+   "statement": "ACCEPT-D-60 FAIL at the claim base -> PASS at the measured revision.",
+   "predicate": "ACCEPT-D-60 passes iff, at the measured revision, the amulets entry cites exactly the 43 S-ids it cites at lane base 9c82a6eb plus S648, S649, S650 and S651, each new id on exactly one line that is not a base line, and none of S602, S616, S623, S643; carries none of the four frozen over-reach phrases; each new id is one Registry row, status mined, tier A or B, used-by the entry, whose teaches opens `supersedes <mapped id> —` and whose first URL names the same page as the mapped row's first URL, and whose quote locates in its pinned committed capture; the entry's sha256 equals the entry_sha256 in the packet key whose hash was committed before the support call; and every one of the 47 cited ids is SUPPORTED by 2 distinct qualified, blind declared support seats whose own transcript fetched the row's page, with no NOT-SUPPORTED from any declared seat.",
+   "counter": "python3 -B reports/round-60/accept-d.py",
+   "receipt_label": "ACCEPT-D-60: PASS|FAIL (last stdout line; exit 0 PASS, 1 FAIL, 2 input error)",
+   "before": "ACCEPT-D-60: FAIL at the claim base (SET, LINES, ROWS, PINNED, JUDGED, SUPPORT FAIL; OLDWORD PASS)",
+   "after": "ACCEPT-D-60: PASS",
+   "kill_rule": "One NOT-SUPPORTED verdict on any of the 47 cited ids from any declared seat, an id with fewer than 2 counted SUPPORTED seats, or any other leg FAIL, fails the claim. The judged object is the entry whose sha256 the packet key records; after the support task call no byte of the entry, of SOURCES rows S600-S651 or of the captures changes before the final measure. A miss is reported, never amended, narrowed or re-scaled; no row or line is removed after a verdict.",
+   "fetch_rule": "FETCH-60: no ACCEPT-D-60 leg fetches over the network. PINNED reads committed captures only. A support reviewer opens each page by its listed live URL or its listed Wayback capture; a page the reviewer cannot open by any listed URL is answered NOT-SUPPORTED (reason: unreachable), which fails the claim. This treatment is frozen here and never relaxed.",
+   "lands": "see reports/round-60/separability-manifest.json claim D",
+   "review_only": [
+    "whether each repaired sentence is the best wording a scholar would choose",
+    "PROVENANCE: committed transcripts equal the seats' session files (cmp against ~/.omp/agent/sessions/-Projects-shokunin/<session>/KotodamaR60/KotodamaR60.<Seat>.jsonl)",
+    "planted-rows.sha256 committed before the first data seat; planted-key.sha256 committed before the support task call (git log of both)"
+   ],
+   "controls_before_data": [
+    "do-nothing: the claim base, and the base plus records only",
+    "junk: lines and rows citing S648-S651 with junk text, junk captures, fabricated support files",
+    "all-false and all-true reviewers (every verdict NOT-SUPPORTED; every verdict SUPPORTED)",
+    "no-reader: reports without packets or transcripts; a transcript with no fetch of the row's page",
+    "shortcut keyed on ids or labels: a reviewer keyed on packet labels or on the lane's committed registry/entry (reads the lane instead of the pages)",
+    "post-verdict narrowing (the round-59 shape): drop rows or lines after the verdicts",
+    "old wording: the round-59 rejected sentences restored with the new ids",
+    "server echo / self-made capture: a capture or URL that echoes the quote"
+   ]
+  }
+ ],
+ "predicate_rule": "The claim has one frozen predicate, written as the same sentence here (`predicate`), in the counter's docstring and code, and as the same label in every receipt (`ACCEPT-D-60: PASS|FAIL`). A miss under that predicate is reported, never amended or re-scaled.",
+ "export_rule": "D exports S648-S651, written as \\bS6(?:4[89]|5[01])\\b (QUALITY criterion 7). Records rows this round take ids S652-S699. Planted control rows carry no S-id; reviewers see packet labels P01.. only.",
+ "lowest_axis_note": "No calibrated numeric axis scores exist (SCORECARD preamble); freshness is historically lowest and stays paused by the open round-11 L0 question.",
+ "separability_manifest": "reports/round-60/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-60/separability-manifest.json",
+ "records_not_claims": [
+  "spot-check r59 section 5 item 1: SCORECARD correction row and LOG correction entry record ACCEPT-C-59 as MISSED on the as-reviewed 47-row object; filed round-59 rows unedited; amulets entry re-entered under this freeze as claim D",
+  "item 2: final-measures.txt run 2 at 84b931a5 recorded as a FAIL instance; every counter run this round is captured in full (no tail); FETCH-60 declares the fetch treatment before data",
+  "item 3: the round-59 separability line `C->REC via acceptance` annotated as a re-run artifact; round 60's separability run uses a counter with no network leg",
+  "item 4: reports/round-59/__pycache__ (and the other ignored __pycache__ dirs the L1 left) removed; erratum to R59-M5; PYTHONDONTWRITEBYTECODE=1 in the L1's own runs",
+  "item 5: CtlKeyedLabels59 (held on a refusal) is dropped from round 59's shortcut list with its reason; its task is not rerouted; round 60 scores a differently designed keyed control",
+  "item 6: the round-59 support registry label (~03:40Z) corrected in a new record",
+  "mistake fix: tools/check-judged-object.py (judged-object freeze check), shown able to fail on round 59's own bytes"
+ ],
+ "revision_note": "",
+ "freeze_note": ""
+}
