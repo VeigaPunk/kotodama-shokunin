@@ -1,0 +1,1 @@
+Specific generic S500

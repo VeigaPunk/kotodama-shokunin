@@ -1,0 +1,1 @@
+| S500 | Mutation fixture — https://en.wikipedia.org/?curid=750096 | docs | B | mutation sensitivity only | First quote: “List of countries and territories where English is an official language” | English territories zebra quartz cobalt velvet copper amber. | mined | 2026-10-22 | 365d | corpus/knowledge/linguistics/toponymy-place-names.md |

@@ -1,0 +1,1 @@
+| S500 | Mutation fixture — https://en.wikipedia.org/wiki/Toponymy | docs | B | mutation sensitivity only | First quote: “names of places, also known as place names and geographical names” | Geographical places zebra quartz cobalt velvet copper amber. | mined | 2026-10-22 | 365d | corpus/knowledge/linguistics/toponymy-place-names.md |

@@ -1,0 +1,1 @@
+Geographical political S500

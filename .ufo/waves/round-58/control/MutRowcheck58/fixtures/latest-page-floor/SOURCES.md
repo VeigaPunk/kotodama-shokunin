@@ -1,0 +1,1 @@
+| S500 | Mutation fixture — https://api.crossref.org/works/10.1179/000870404X12897 | docs | B | mutation sensitivity only | First quote: “Toponymy and Geopolitics: The Political Use — and Misuse — of Geographical Names” | Political geographical zebra quartz cobalt velvet copper amber. | mined | 2026-10-22 | 365d | corpus/knowledge/linguistics/toponymy-place-names.md |

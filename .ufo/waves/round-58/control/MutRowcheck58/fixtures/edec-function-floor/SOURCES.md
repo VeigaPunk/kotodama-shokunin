@@ -1,0 +1,1 @@
+| S500 | Mutation fixture — https://en.wikipedia.org/wiki/Toponymy | docs | B | mutation sensitivity only | First quote: “2 Toponymic typology 3 Toponymic structure 4 History 5 Toponomastics” | Toponymic history zebra quartz cobalt velvet copper amber. | mined | 2026-10-22 | 365d | corpus/knowledge/linguistics/toponymy-place-names.md |

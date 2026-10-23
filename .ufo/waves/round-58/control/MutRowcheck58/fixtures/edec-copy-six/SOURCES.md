@@ -1,0 +1,1 @@
+| S500 | Mutation fixture — https://en.wikipedia.org/wiki/Toponymy | docs | B | mutation sensitivity only | First quote: “Toponym is the general term for the name of any geographical feature” | Toponym is the general term for geographical feature zebra quartz cobalt velvet copper amber. | mined | 2026-10-22 | 365d | corpus/knowledge/linguistics/toponymy-place-names.md |

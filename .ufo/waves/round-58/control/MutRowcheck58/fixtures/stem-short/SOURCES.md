@@ -1,0 +1,1 @@
+| S500 | Mutation fixture — https://en.wikipedia.org/wiki/Toponymy | docs | B | mutation sensitivity only | First quote: “In the toponyms Oldham and Newham for example the generic is ham meaning homestead while the specifics are old and new” | Old new | mined | 2026-10-22 | 365d | corpus/knowledge/linguistics/toponymy-place-names.md |

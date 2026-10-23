@@ -1,0 +1,1 @@
+| S500 | Mutation fixture — https://www.gutenberg.org/files/76/76-0.txt | docs | B | mutation sensitivity only | First quote: “a little bit of a shabby village named Pikesville” | Shabby village zebra quartz cobalt velvet copper amber. | mined | 2026-10-22 | 365d | corpus/knowledge/linguistics/toponymy-place-names.md |

@@ -1,0 +1,7 @@
+# SupportCtlB58 verdicts for fixture CtlOffTopicEcho58/revision4/diverse-body (mapped from blind ids)
+
+VERDICT S513 NOT-SUPPORTED — Condition (2) fails: the sentence is body text but is a maintenance caveat that some linked gazetteer websites are "under development", carrying nothing about how places are named, the names themselves, or any naming authority, principle, stratum, renaming, or transliteration.  [blind id T008]
+VERDICT S505 NOT-SUPPORTED — Condition (2) fails: the sentence is Kairntech NLP-tool documentation about toggling the advanced-parameters button and defining a term-matching policy for entity gazetteers, not about place names or toponymy.  [blind id T011]
+VERDICT S511 NOT-SUPPORTED — Condition (2) fails: the sentence is an ArcMap/ArcCatalog UI step for adding the Gazetteer Loader button to a toolbar, about software operation, not about place names or toponymy.  [blind id T017]
+VERDICT S504 NOT-SUPPORTED — Condition (2) fails: the sentence is GATE NLP documentation about Lookup annotations created only when an entire gazetteer entry matches in text, about text-processing behaviour, not about place names or toponymy.  [blind id T022]
+VERDICT S510 NOT-SUPPORTED — Condition (2) fails: the sentence is BRAHMS herbarium-software documentation about collection records linking to a gazetteer (places) file record, about database structure, not about place names or toponymy.  [blind id T025]

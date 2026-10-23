@@ -1,0 +1,5 @@
+# SupportCtlC58 verdicts for fixture CtlNoReader58/title-refined (mapped from blind ids)
+
+VERDICT S513 NOT-SUPPORTED — Condition (1) failed: the quoted string occurs on the fetched page only inside <title> and as the article-listing heading link, never as body text, and the entry line's "use homeland and foreign as worldbuilding labels" is carried by nothing on the page (also 3)/(4).  [blind id T003]
+VERDICT S505 NOT-SUPPORTED — Condition (1) failed: the quote occurs on the fetched page only as the article/page title (<title> and the citation heading above the author list), never as body text, and the entry line's "use spatiotemporal and characteristic as worldbuilding labels" is carried by nothing on the page (also 3)/(4).  [blind id T023]
+VERDICT S512 NOT-SUPPORTED — Condition (1) failed: the quote occurs on the fetched page only inside <title> and as the article-listing heading link, never as body text, and the entry line's "use symbolic and power as worldbuilding labels" is carried by nothing on the page (also 3)/(4).  [blind id T027]
