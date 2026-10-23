@@ -13,7 +13,7 @@
    "axis": "depth",
    "surface": "the footwear entry's cited lines 63, 74, 75 and 93 (corpus/knowledge/culture-material/footwear-codes-terminology.md at d42ffb89): the wording of each restored to what its source carries (open list, caption attribution, hedge), and line 93's support moved from a tier-C row to a tier A/B row opened this round (S693-S699)",
    "unmoved_command": "git show <rev>:corpus/knowledge/culture-material/footwear-codes-terminology.md | sed -n '63p;74p;75p;93p' (at d42ffb89: 'France, and Belgium.', no caption, 'comes from', '(S687)')",
-   "statement": "At the measured revision the footwear entry differs from d42ffb89 in exactly lines 63, 74, 75 and 93; each is a bullet with one S-id and no defect mark; line 63 (S692) keeps the open country list; line 75 (S666) keeps the source's hedge or attribution; line 74 cites S665 and names the caption, or cites a new row; line 93 cites one new tier A/B row S693-S699 whose quote names talaria or Hermes; the new rows are exactly the ids the entry cites from that block, mined, opened 2026-10-23, used-by the entry, each listing a live URL and a Wayback capture, and each is located by the base locator within three passes; corpus/SOURCES.md keeps every base line (S687 may change only its used-by cell); the four lines restate their quotes (LINK) without copying more than 12 consecutive words (COPY); check-source-access and check-cited-lines exit 0.",
+   "statement": "At the measured revision the footwear entry differs from d42ffb89 in exactly lines 63, 74, 75 and 93 (bytes, LF-split); each is `- <clause> (S###)` with one S-id, no defect mark, no HTML comment and no bracket, dagger or asterisk in the clause; line 63 (S692) keeps the open country list; line 75 (S666) keeps the source's hedge or attribution; line 74 cites S665 and names the caption in the clause, or cites a new row; lines 63, 74 and 75 keep at least 60% of their base content words; line 93 cites one new tier A/B row S693-S699 whose quote names talaria or Hermes and passes round 61's footwear TOPIC rule; the new rows are exactly the ids the entry cites from that block, mined, opened 2026-10-23, used-by the entry, each listing a live URL and, within its first four URLs, a past-dated Wayback capture of that same page; no new row reuses a base registry URL; each new row is located by the base locator within three passes 60 s apart; corpus/SOURCES.md keeps every base line (S687 may change only its used-by cell) and inserts no other S-row; the four clauses restate their quotes (LINK) without copying more than 12 consecutive words (COPY); check-source-access and check-cited-lines exit 0.",
    "sourced_claim": true,
    "counting_command": "python3 -B reports/round-62/accept-d.py",
    "predicate": "ACCEPT-D-62: every leg above prints PASS.",
@@ -29,6 +29,8 @@
     "APPEND",
     "LINK",
     "COPY",
+    "KEEP",
+    "FRESH",
     "LOCATE",
     "ACCESS",
     "LINT"
@@ -44,6 +46,86 @@
    "lands": [
     "corpus/knowledge/culture-material/footwear-codes-terminology.md",
     "corpus/SOURCES.md"
+   ],
+   "contract": "see the docstring of reports/round-62/accept-d.py (one paragraph per leg)",
+   "clauses": [
+    [
+     "differs in exactly lines 63, 74, 75, 93 (bytes)",
+     "SET"
+    ],
+    [
+     "one S-id per line, bullet",
+     "ONEID"
+    ],
+    [
+     "no defect mark, comment, bracket",
+     "NOMARK"
+    ],
+    [
+     "63 keeps the open list",
+     "OPEN"
+    ],
+    [
+     "75 keeps the hedge or attribution",
+     "HEDGE"
+    ],
+    [
+     "74 names the caption or cites a new row",
+     "CAPTION"
+    ],
+    [
+     "63/74/75 keep >= 60% base content words",
+     "KEEP"
+    ],
+    [
+     "93 cites one new on-topic tier A/B row naming talaria or Hermes",
+     "SOLE"
+    ],
+    [
+     "new rows = cited new ids; mined; opened; used-by; live URL + same-page past capture in first four URLs",
+     "ROWS"
+    ],
+    [
+     "no reused base registry URL",
+     "FRESH"
+    ],
+    [
+     "located within three passes",
+     "LOCATE"
+    ],
+    [
+     "base registry lines kept; only S687 used-by changes; no other S-row",
+     "APPEND"
+    ],
+    [
+     "clauses restate their quotes",
+     "LINK"
+    ],
+    [
+     "no more than 12 consecutive quote words",
+     "COPY"
+    ],
+    [
+     "check-source-access exit 0",
+     "ACCESS"
+    ],
+    [
+     "check-cited-lines exit 0",
+     "LINT"
+    ],
+    [
+     "each repaired clause is carried by its page beyond the shared words (no reversal of meaning)",
+     "review_only"
+    ],
+    [
+     "the new row's quote is body text and its live URL answers (location may come from the capture)",
+     "review_only"
+    ]
+   ],
+   "revision_note_1": "Revision 1, before any data (no counter has run on the repaired entry or the new row): NOMARK reads `- <clause> (S###)` and refuses comments, brackets, daggers and asterisks, and OPEN/HEDGE/CAPTION/LINK/COPY/KEEP read the clause only (CtlDMarkOnly met revision 0 with hidden HTML comments and parentheticals keeping every original assertion, full PASS with an honest S693); KEEP (CtlDJunkTokens met every line leg with five-content-word token salad); FRESH (CtlDRegistryEdits met revision 0 with a full PASS: S693 reusing S688's live URL); ROWS requires a same-page, past-dated capture within the locator's four-URL budget (CtlDCaptureShapes and CtlDFabricated fxB met revision 0 with different-page, bare and future captures; CriticFetchRule named the budget gap); SOLE adds round 61's footwear TOPIC rule (CtlDOffTopicRow met revision 0 with the Hermes spaceplane); SET and APPEND read bytes (MutCounterD: a CR on line 1 passed SET); APPEND refuses malformed S-rows (`| S650b |`, CtlDRegistryEdits); LOCATE's pass loop is locate_row() with the paired control reports/round-62/locate-control.py (CriticFetchRule). Receipts: reports/round-62/telemetry/controls-rescore.txt, locate-control.txt; wave-1 reports .ufo/waves/round-62/w1/.",
+   "known_residuals_after_controls": [
+    "lexical legs cannot see a reversed or negated meaning that keeps the shared words (CriticClaims finding 1): review-only, attacked by one-line wave-2 reviewers",
+    "a tier letter is the author's claim-scoped judgment (QUALITY 6); SOLE reads the letter, the publisher authority is review-only"
    ]
   },
   "O": {
@@ -51,7 +133,7 @@
    "capability": "bounded row re-opener with archived fallback and caption verdict",
    "surface": "a new lane tool, tools/reopen-row.py: re-opens SOURCES rows with a bounded retry (3 attempts per URL on transient results, up to N passes on transient-only failure), tries listed archived captures, and separates body-text location from caption-only and absent quotes (the S671 and S665 failure classes of round 61)",
    "unmoved_command": "test -f tools/reopen-row.py (absent at d42ffb89)",
-   "statement": "tools/reopen-row.py exists, names none of reports/, accept-o, round-62, and, run as a copy outside the lane against a run-time random local fixture, prints for every row the contract's verdict and attempt count in argument order, makes exactly the contract's number of requests per URL, exits 1 on the mixed fixture and 0 on an all-body fixture, refuses private hosts without --allow-private, runs three passes 60 s apart by default, and exits 2 with REOPEN_ERROR and no traceback on five bad inputs.",
+   "statement": "tools/reopen-row.py exists, names none of reports/, accept-o, round-62, and, run as a copy outside the lane against a run-time random local fixture, prints for every row the contract's verdict, attempt count and matched URL in argument order (repeated IDs included), makes exactly the contract's number of requests per listed URL and none to unlisted fixture paths, exits 1 on the mixed fixture and 0 on an all-body fixture (also through the default registry path), refuses private hosts without --allow-private, runs by default three passes of three requests 4-10 s apart whose bursts are 55-75 s apart, and exits 2 with a REOPEN_ERROR line and no traceback on five bad inputs.",
    "contract": "see the docstring of reports/round-62/accept-o.py (Tool contract paragraph)",
    "counting_command": "python3 -B reports/round-62/accept-o.py",
    "predicate": "ACCEPT-O-62: every leg above prints PASS.",
@@ -74,6 +156,53 @@
    "exports": "none",
    "lands": [
     "tools/reopen-row.py"
+   ],
+   "revision_note_1": "Revision 1, before any data (the counter never ran on the tool to land): ORDER repeats IDs (CtlOOrderErr met revision 0 with a de-duplicating tool); DEFAULT checks exit 1, the summary and the request schedule, bursts 55-75 s apart (CriticClaims finding 3; CtlODefault met the 55 s floor with a 200 s gap and revision 0 with a 60 s attempt wait); GEN checks url=; EXIT adds the default registry path; MutCounterO: reserved dead port, balanced BODY_SPLIT, all five caption attributes, anchored REOPEN_ERROR on both streams, process-group kill; caption elements include `thumbnail` and `gallery` classes and ids (ExecReopenTool's live run: S665's quote sits in `<p class=\"thumbnail-description\">`). Receipts: reports/round-62/telemetry/controls-rescore.txt. Late wave-1 receipts, still before data: BOUND adds class BODY_THEN_ARCHIVE (0 capture requests after a live BODY match) and refuses requests to unlisted fixture paths (CtlOUnbounded c5, c11 met revision 0); DEFAULT requires 4-10 s between attempts inside a pass (CtlONoRetry caseC met revision 0 with no attempt wait); GEN's url= check stops CtlOUnbounded c10 (url=- on LOCATED rows).",
+   "known_residuals_after_controls": [
+    "INDEP is a string check; a tool that computes the counter's path at run time passes INDEP (CtlOKeyed) but gains nothing, since the id-to-class map lives only in the counter's memory (it failed GEN and BOUND)",
+    "requests to hosts other than the local fixture server are not observable by BOUND (CtlOUnbounded c11 variant on another host): review-only"
+   ],
+   "clauses": [
+    [
+     "exists",
+     "TOOL"
+    ],
+    [
+     "names none of reports/, accept-o, round-62; run as a copy",
+     "INDEP"
+    ],
+    [
+     "verdict, attempts, url per row",
+     "GEN"
+    ],
+    [
+     "argument order incl. repeats",
+     "ORDER"
+    ],
+    [
+     "exact requests per URL",
+     "BOUND"
+    ],
+    [
+     "exit 1 mixed / 0 all-body / default registry",
+     "EXIT"
+    ],
+    [
+     "refuses private hosts",
+     "PRIV"
+    ],
+    [
+     "default three passes ~60 s apart",
+     "DEFAULT"
+    ],
+    [
+     "exit 2 + REOPEN_ERROR, no traceback",
+     "ERR"
+    ],
+    [
+     "behaviour on live rows",
+     "review_only"
+    ]
    ]
   }
  },
@@ -89,7 +218,8 @@
    "tier-C or reused-registry row for line 93",
    "edit of a base registry row or of an unrelated entry line",
    "quote pasted as the line (COPY)",
-   "dead-host or echo URL row (LOCATE)"
+   "dead-host or echo URL row (LOCATE)",
+   "an honest positive (CtlDHonest, CtlDMarkOnly honest-positive, CtlDCaptureShapes pristine-positive)"
   ],
   "O": [
    "do-nothing (no tool)",
@@ -106,6 +236,17 @@
    "an honest independent implementation (positive calibration)"
   ]
  },
- "lowest_axis_note": "No calibrated scalar exists (SCORECARD head); freshness, historically lowest, stays paused by the open round-11 L0 question, as in rounds 51-61. Depth has not been admitted since round 59 (round 60 D missed), so claim D works it.",
- "frontier_step": "SOURCES rows S693-S699 opened this round (D's block); lesson corpus/lessons/round-62.md with Gate, Mistakes and the round-61 spot-check intake (routed defects 1-5)."
+ "lowest_axis_note": "No calibrated scalar exists (SCORECARD head). Freshness is the known lowest axis and stays paused by the open round-11 L0 question (.ufo/l0-questions.md:47), as in rounds 51-61; no next-lowest ranking is established. Claim D is chosen to close the round-61 closure's routed defects on the footwear entry (corpus/lessons/round-61-verifier-spotcheck.md section 7 item 1, which routes the repair 'in a new commit'), not because depth was shown to be the next-lowest; the ranking or a waiver is the operator's call.",
+ "frontier_step": "SOURCES rows S693-S699 opened this round (D's block); lesson corpus/lessons/round-62.md with Gate, Mistakes and the round-61 spot-check intake (routed defects 1-5).",
+ "separability_note": "Revision 1 (CriticClaims finding 4): the counterfactual base is the committed revision-1 instrument commit e6a61e82 (both revision-1 counters present, no product land); D's content comparison keeps its own BASE d42ffb89 inside accept-d.py.",
+ "repair_route": "The repair edits four lines of a never-admitted entry in a new commit, as the round-61 closure routes (section 7 item 1); round-61 filed verdicts, receipts and source rows stay unchanged, and D claims no admission of the whole entry (CriticClaims finding 6).",
+ "freeze": {
+  "instruments_revision_0": "f0173481047a93c46798f90b68d71d4f169d2642",
+  "instruments_revision_1": "e6a61e8225bc4ab2a394e14f96a92021c03d9f03",
+  "accept_d_sha256": "0f60162532192c8e66054df1f6ce82edd6633e4413414810bd1fe1a188847f3a",
+  "accept_o_sha256": "a222a156b95e0f716f0304c85bc38c2eb395f5dad5c9b4810476a87237ca8ba9",
+  "locate_control_sha256": "67703e7fabaad5d7c2e0bca3a9bf6d15d821e134c795f73f55c91703fa07975e",
+  "rule": "Frozen at the commit that carries this key. No counter changes after this point; the first run of each counter on its claimed object is the receipt."
+ },
+ "dry_run_receipt_rev1": "reports/round-62/telemetry/declaration-dry-run-rev1.txt"
 }
