@@ -84,3 +84,7 @@ Rejects (not registered):
 ## Outcome
 
 Author-side: ACCEPT-D-62 PASS and ACCEPT-O-62 PASS on their first runs at `a2c5caa5` (`final-measures.txt`), reproduced by ResidRerunD and ResidRerunO; the four repaired lines judged SUPPORTED by one-line reviewers. The landed tool carries a HIGH review finding (redirect SSRF) outside its frozen predicate, routed to round 63. Non-author verification is the hyaku closure's.
+
+## Safety hold (appended after filing, Main directive 2026-10-23)
+
+`tools/reopen-row.py` (landed `e605603c`, measured at `a2c5caa5`) is **unsuitable for use** until it receives a defensive repair and an independent review. It follows HTTP redirects without re-checking the private-host refusal, and it prints a traceback on malformed URLs. Do not run it on live URLs, and do not demonstrate it against private or local services. This hold supersedes the routed item above that says to run the tool over S652-S693. The measured commit, receipt and filed report stay as evidence and are not rewritten. The round-62 closure weighs this safety defect, the malformed-URL error behaviour and the separability check that was not run after landing, not only the passing counters.

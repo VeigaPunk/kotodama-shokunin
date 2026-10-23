@@ -1201,3 +1201,5 @@ Correction rows for round 61 (recorded in round 62; routed defect 3 of `corpus/l
 | round-61 calibration row ("mistakes R61-M1..M6") | the round-61 lesson records seven mistakes, R61-M1..M7 | `corpus/lessons/round-61.md:108-114` |
 
 Frontier step (not a claim): `corpus/SOURCES.md` 618 → 619 rows (S693 opened this round, mined, used-by the footwear entry; S687 used-by → `—`); census exit 0 at start (`reports/round-62/telemetry/census-start.txt`) and end (`census-end.txt`).
+
+Safety hold (appended after filing, Main directive 2026-10-23): the round-62 capability `bounded row re-opener with archived fallback and caption verdict` (`tools/reopen-row.py`) is unsuitable for use pending a defensive repair of redirect validation and malformed-URL handling plus an independent review. Do not run it on live URLs or against private/local services. The filed rows above are unchanged. See `corpus/lessons/round-62.md` `## Safety hold`.
