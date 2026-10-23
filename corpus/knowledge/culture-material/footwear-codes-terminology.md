@@ -60,7 +60,7 @@ One-way pointers (this entry restates none of them; ScoutOwners, `.ufo/waves/rou
 - A wooden patten was an overshoe worn to raise the foot above ground in wet weather. (S685)
 - A patten was worn over a pair of normal shoes. (S686)
 - The word sabotage borrows from French, whose root sabot literally means a wooden shoe or clog. (S691)
-- A sabot is a hollowed shoe made from one wooden block, worn especially by farmers and workers in the Netherlands, France, and Belgium. (S692)
+- A sabot is a hollowed shoe made from one wooden block, worn especially by farmers and workers in the Netherlands, France, Belgium, etc. (S692)
 - A V&A ritual object also has the knobs of sandals (paduka) protruding between the toes. (S678)
 
 ### Rank, law and display
@@ -71,8 +71,8 @@ One-way pointers (this entry restates none of them; ScoutOwners, `.ufo/waves/rou
 - The high-platformed chopine had practical and symbolic functions and was especially popular among Venetian women. (S662)
 - The red heels and soles of latchet shoes were associated with Louis XIV and his court. (S663)
 - Louis XIV made red-heeled shoes the preserve of the nobility by regulation. (S664)
-- A heel originated in Western Asia for horseback riding before Europeans adopted it. (S665)
-- The earliest evidence of someone wearing heels comes from a 10th-century Persian bowl. (S666)
+- A Bata Shoe Museum image caption says the heel originated in Western Asia centuries ago for horseback riding. (S665)
+- According to the BBC article, the earliest evidence we have of someone wearing heels is a 10th-century Persian bowl. (S666)
 - A V&A pair of 19th-century shoes was made for bound feet and embroidered with a peach blossom motif. (S675)
 - Dorothy Ko curated an exhibition about women’s shoes in Late Imperial China (S676)
 - A bride might receive toe-knob paduka among the often extravagant presents. (S677)
@@ -90,7 +90,7 @@ One-way pointers (this entry restates none of them; ScoutOwners, `.ufo/waves/rou
 
 ### Story objects
 
-- Hermes' talaria were winged leather boots. (S687)
+- Talaria are the wings or winged sandals worn on the feet of Hermes, or Mercury. (S693)
 - Mercury's sandals in art have wings fastened on each side above the ankles. (S688)
 
 ## 4. Craft checklist
