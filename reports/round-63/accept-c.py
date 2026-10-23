@@ -54,6 +54,7 @@ import re
 import subprocess
 import sys
 import unicodedata
+import urllib.parse
 
 BASE = "65b393ef3a4d82bd693cc21b7f96a1231417d522"
 ENTRY = "corpus/knowledge/culture-material/headgear-head-covering-codes.md"
@@ -66,7 +67,7 @@ LIVE_IDS = [f"S{n}" for n in range(694, 718) if (n - 693) % 4 == 1]
 ROW_RE = re.compile(r"^\|\s*(S\d+)\s*\|")
 URL_RE = re.compile(r"https?://[^\s<>\"|`]+")
 QUOTE_RE = re.compile(r'"([^"]+)"|“([^“”]+)”')
-CAPTURE_RE = re.compile(r"web\.archive\.org/web/(\d+|[a-z]+)id_/(.+?)\s*(?:;|\||$)", re.IGNORECASE)
+CAPTURE_RE = re.compile(r"web\.archive\.org/web/(\d{14})id_(/\S+?)\s*[.;]?\s*$", re.IGNORECASE)
 NONWORD = re.compile(r"[\W_]+", re.UNICODE)
 STOPWORDS = set("""
 a an and are as at be been but by for from has have he her his i if in into is it its
@@ -98,6 +99,26 @@ def git_bytes(root, rev, path):
     if proc.returncode != 0:
         return None
     return proc.stdout.decode("utf-8", "strict")
+
+
+def norm_url(url):
+    """Identity for LINK: scheme+host lowercased, www. stripped, default port
+    dropped, query and fragment ignored, path trailing slash stripped."""
+    try:
+        parts = urllib.parse.urlsplit(url.strip().rstrip(".,;'"))
+    except ValueError:
+        return url.strip().lower()
+    scheme = parts.scheme.lower()
+    host = (parts.hostname or "").lower()
+    if host.startswith("www."):
+        host = host[4:]
+    port = parts.port
+    if port and not (scheme == "http" and port == 80) and not (scheme == "https" and port == 443):
+        host = f"{host}:{port}"
+    path = parts.path or "/"
+    if path != "/" and path.endswith("/"):
+        path = path[:-1]
+    return f"{scheme}://{host}{path}"
 
 
 def main():
@@ -189,21 +210,25 @@ def main():
         row_bad.append(f"extra_new_rows={extra_new[:6]}")
     leg("ROWS", not row_bad, f"bad={row_bad[:8]} checked={len(NEW_IDS)}")
 
-    # ---------- ONEID ----------
+    # ---------- ONEID + NOMARK ----------
     oneid_bad = []
     cited = []
+    MARK_RE = re.compile(r"\((?:to-verify|unverified|todo|fixme|tbd|draft)\b", re.IGNORECASE)
+    mark_bad = []
     for i, line in enumerate(lines, 1):
         ids = re.findall(r"\bS\d{3,}\b", line)
         if ids and len(ids) != 1:
             oneid_bad.append(f"line{i}:ids={ids}")
+        if ids and MARK_RE.search(line):
+            mark_bad.append(f"line{i}")
         if ids and len(ids) == 1 and ids[0] in NEW_IDS:
             cited.append((i, line, ids[0]))
     cl = subprocess.run([sys.executable, "-B", CITED, ENTRY], cwd=root,
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     cl_out = cl.stdout.decode("utf-8", "replace")
     clean = cl.returncode == 0 and "0 finding" in cl_out
-    leg("ONEID", not oneid_bad and clean,
-        f"bad={oneid_bad[:6]} cited_lines={len(cited)} cited_lines_tool=exit{cl.returncode} clean={clean}")
+    leg("ONEID", not oneid_bad and not mark_bad and clean,
+        f"bad={oneid_bad[:6]} marks={mark_bad[:6]} cited_lines={len(cited)} cited_lines_tool=exit{cl.returncode} clean={clean}")
 
     # ---------- RESTATE ----------
     restate_bad = []
@@ -235,6 +260,9 @@ def main():
                 order_hits += 1
         if order_hits < 3:
             restate_bad.append(f"line{i}:{sid}:in_order={order_hits}")
+        # anti-dump: the clause must add at least one content word beyond the quote's words
+        if not set(cw) - set(qset_seq):
+            restate_bad.append(f"line{i}:{sid}:no_novel_content_word")
         # longest run of consecutive clause words copied verbatim from the quote
         clause_words = norm_words(clause)
         best = 0
@@ -249,6 +277,20 @@ def main():
         if best > 12:
             restate_bad.append(f"line{i}:{sid}:copy_run={best}")
     leg("RESTATE", not restate_bad, f"bad={restate_bad[:8]} lines={len(cited)}")
+
+    # ---------- HOSTS ----------
+    PLACEHOLDER_HOSTS = (
+        "example.com", "example.org", "example.net", "example.io", "example.edu",
+        "httpbin.org", "httpbingo.org", "reqres.in", "postman-echo.com", "jsonplaceholder.typicode.com",
+    )
+    hosts_bad = []
+    for sid, url in live_urls.items():
+        if not url:
+            continue
+        host = re.sub(r"^https?://", "", url).split("/")[0].lower().split(":")[0]
+        if any(host == ph or host.endswith("." + ph) for ph in PLACEHOLDER_HOSTS):
+            hosts_bad.append(f"{sid}:{host}")
+    leg("HOSTS", not hosts_bad, f"bad={hosts_bad[:6]}")
 
     # ---------- LINK ----------
     link_bad = []
