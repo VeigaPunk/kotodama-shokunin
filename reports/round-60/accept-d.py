@@ -42,10 +42,10 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            sha256(entry bytes) == key entry_sha256.
   SUPPORT  declared seats: registry members named SupportA60..SupportX60 (revision 4: 24 seats, each
            block shown to 3), role reviewer, agentId
-           KotodamaR60A2.<name> (revision 2: attempt 2's seat ids), with a report <Seat>.md, a packet
-           packet-<Seat>.md and a committed transcript transcripts/KotodamaR60A2.<Seat>.jsonl. A seat is
+           KotodamaR60A3.<name> (revision 5: attempt 3's seat ids), with a report <Seat>.md, a packet
+           packet-<Seat>.md and a committed transcript transcripts/KotodamaR60A3.<Seat>.jsonl. A seat is
            BLIND when its committed transcript is a byte copy of its one session file
-           (/home/vgpnk/.omp/agent/sessions/*/*/KotodamaR60A2/KotodamaR60A2.<Seat>.jsonl; revision 1) and
+           (/home/vgpnk/.omp/agent/sessions/*/*/KotodamaR60A3/KotodamaR60A3.<Seat>.jsonl; revision 1) and
            no tool-call argument in it names the lane repo
            (`kotodama-shokunin`; revision 3: any argument containing `kotodama`, `/.ufo/` or
            `/fast/scratch`), `corpus`, `SOURCES.md`, the entry's file name, a registry.json,
@@ -57,8 +57,15 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            re-key or a packet rewrite after the verdicts cannot match; and (revision 3: a report
            rewritten after the verdicts) the VERDICT lines of its committed report equal those of the
            last `write` call to its own report path in its transcript (a NOT-SUPPORTED in either one
-           counts as given). A seat is QUALIFIED when it is
-           BLIND and BOUND, the key gives it >= 2 PLANTED labels, each PLANTED block equals a row of
+           counts as given). A seat is also CONFINED (revision 5: a lane read through a glob, a relative
+           path from the fleet-root working directory, a grep/glob/eval tool or a code host evades a
+           deny-list): every tool call is `read` of a packet page URL or of a path under /tmp/<Seat>/,
+           `write` under /tmp/<Seat>/, `bash` run in /tmp/<Seat>/ (its `cwd`, or a command opening
+           `cd /tmp/<Seat>`) whose absolute paths stay under /tmp/<Seat>/, /usr/, /bin/ or /dev/null and
+           which carries no CONFINE_DENY token (`..`, `~`, $HOME, another `cd`, chdir, eval, an encoded
+           slash, ...), or the exempt own-report call; every http(s) URL in a call names a packet page
+           or a Wayback capture of one (see confined). A seat is QUALIFIED when it is
+           BLIND, CONFINED and BOUND, the key gives it >= 2 PLANTED labels, each PLANTED block equals a row of
            the frozen planted file, and its report has a line-initial `VERDICT P## NOT-SUPPORTED` and
            no `VERDICT P## SUPPORTED` for every PLANTED label. A real label's SUPPORTED verdict is
            counted when the packet block (quote, teaches without its `supersedes` prefix, entry lines
@@ -74,7 +81,8 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            cited).
 
 Review-only (no leg can check them): whether each repaired sentence is the best wording; whether
-the session files are the ones omp wrote (the closure compares them with history://KotodamaR60A2.<Seat>);
+the session files are the ones omp wrote (the closure compares them with history://KotodamaR60A3.<Seat>);
+whether a seat defeated CONFINED by an encoding the deny tokens do not name (the closure reads the transcripts);
 whether the keys were committed before the support call (`git log` of the two .sha256 files).
 """
 import argparse
@@ -85,6 +93,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 
 ENTRY = "corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md"
 BASE_CITED = "reports/round-60/base-cited.txt"
@@ -104,7 +113,7 @@ ROWS = SUPPORT_DIR + "/planted-rows.md"
 ROWS_SHA = "reports/round-60/planted-rows.sha256"
 PLANTED_ROWS_SHA256 = "1a082ff0bb8abaf87dfb0536f0e7383202ffd719d6b5771943bdd2bc3b518682"  # revision 2: frozen in the counter
 SEATS = [f"Support{x}60" for x in "ABCDEFGHIJKLMNOPQRSTUVWX"]
-AGENT_PREFIX = "KotodamaR60A2."
+AGENT_PREFIX = "KotodamaR60A3."  # revision 5: attempt 3's seat ids
 MIN_SEATS_PER_ID = 2
 MIN_PLANTED = 2
 MIN_SHARED = 6
@@ -182,7 +191,99 @@ def blind(seat, args):
     return ""
 
 
-SESSIONS = "/home/vgpnk/.omp/agent/sessions/*/*/KotodamaR60A2/KotodamaR60A2.{seat}.jsonl"
+SESSIONS = "/home/vgpnk/.omp/agent/sessions/*/*/KotodamaR60A3/KotodamaR60A3.{seat}.jsonl"  # revision 5
+
+
+def tool_calls(transcript):
+    """(name, argument object) of every tool call of an omp session jsonl (revision 5)."""
+    out = []
+    for line in open(transcript, encoding="utf-8", errors="replace"):
+        try:
+            obj = json.loads(line)
+        except ValueError:
+            continue
+        msg = obj.get("message") if isinstance(obj, dict) else None
+        if not isinstance(msg, dict) or msg.get("role") != "assistant":
+            continue
+        for part in msg.get("content") or []:
+            if isinstance(part, dict) and part.get("type") == "toolCall":
+                out.append((str(part.get("name")), part.get("arguments")))
+    return out
+
+
+URL_TOKEN = re.compile(r"https?://[^\s'\"<>()\\`]+")
+ABS_TOKEN = re.compile(r"(?:^|(?<=[\s'\"=(,:<>|;&`]))/[^\s'\";|&()<>`]*")
+CONFINE_DENY = re.compile(
+    r"(?:^|[\s'\"=/:(,])\.\.(?=$|[/\s'\"),])"           # parent-directory step
+    r"|(?:^|[\s'\"=:(,])~"                                # home shorthand
+    r"|\$\{?(?:HOME|OLDPWD|XDG_[A-Z_]+|TMPDIR)\b"         # home-like variables
+    r"|\b(?:pushd|popd|chdir|expanduser|getenv|environ|xxd|base64|b64decode|fromhex)\b"
+    r"|(?<![.\w])eval\b"
+    r"|Path\.home|chr\(|\\x2f|\\057|\\u002f|\$'|(?-i:(?:^|\s)-C\s)",
+    re.I)
+
+
+def confined(seat, calls, pages, locator):
+    """'' when every tool call of the seat stays inside its sandbox /tmp/<seat>/ and fetches only its
+    packet's pages (revision 5: an allow-list, so a lane read through a glob, a relative path from the
+    fleet-root working directory or a code host is not blind), else the reason. Allowed: `read` of a
+    packet page URL or a path under the sandbox; `write` under the sandbox; `bash` whose `cwd` is under
+    the sandbox or whose command opens `cd /tmp/<seat>` (optionally after `mkdir -p /tmp/<seat>`), with
+    every absolute path under the sandbox, /usr/, /bin/ or /dev/null|stdout|stderr, no CONFINE_DENY
+    token and no other `cd`; the seat's own report call (read/write/edit of its report path). Every
+    http(s) URL in any other call must name a packet page (page_of; a Wayback capture of it counts)."""
+    sand = f"/tmp/{seat}"
+    own = re.compile(rf"/kotodama-shokunin/\.ufo/waves/round-60/[a-z0-9-]+/{seat}\.md$")
+    allowed = {urllib.parse.unquote(p) for p in pages}
+
+    def under(path):
+        path = os.path.normpath(str(path).strip())
+        return path == sand or path.startswith(sand + "/")
+
+    def page_ok(url):
+        return urllib.parse.unquote(page_of(url, locator)) in allowed
+
+    cd_ok = re.compile(rf"^\s*(?:mkdir\s+-p\s+{re.escape(sand)}(?:/\S*)?\s*&&\s*)?cd\s+{re.escape(sand)}(?:/\S*)?\s*(?:&&|;|\n|$)")
+    for name, obj in calls:
+        if not isinstance(obj, dict):
+            return f"unparsed-call:{name}"
+        if name in ("read", "write", "edit") and own.search(str(obj.get("path", ""))):
+            continue
+        if name == "read":
+            path = str(obj.get("path", ""))
+            if re.match(r"\s*https?://", path):
+                if not page_ok(path.strip()):
+                    return "read-url-not-in-packet"
+            elif not under(path):
+                return "read-outside-sandbox"
+            continue
+        if name == "write":
+            if not under(obj.get("path", "")):
+                return "write-outside-sandbox"
+            continue
+        if name != "bash":
+            return f"tool:{name}"
+        command = str(obj.get("command", ""))
+        if not ((obj.get("cwd") is not None and under(obj["cwd"])) or cd_ok.match(command)):
+            return "bash-cwd-outside-sandbox"
+        for url in URL_TOKEN.findall(command):
+            if not page_ok(locator.trim(url)):
+                return "bash-url-not-in-packet"
+        text = URL_TOKEN.sub(" ", command)
+        deny = CONFINE_DENY.search(text)
+        if deny:
+            return f"deny:{deny.group(0).strip()}"
+        for m in re.finditer(r"\bcd\b\s*(\S*)", text):
+            if not under(m.group(1)):
+                return "cd-outside-sandbox"
+        for m in ABS_TOKEN.finditer(text):
+            token = m.group(0)
+            if token == "/" and re.search(r"[\w)\]]\s+$", text[:m.start()]) and re.match(r"\s+[\w(]", text[m.end():]):
+                continue  # division, `a / b`
+            if not (under(token) or token.startswith(("/usr/", "/bin/"))
+                    or token in ("/dev/null", "/dev/stdout", "/dev/stderr")):
+                return f"path:{token[:40]}"
+    return ""
 
 
 def provenance(seat, transcript):
@@ -451,7 +552,11 @@ def main():
         report_found = VERDICT.findall(open(report, encoding="utf-8", errors="replace").read())
         written = own_write(seat, args)
         found = VERDICT.findall(written) if written is not None else []
-        seen = provenance(seat, transcript) or blind(seat, args) or bound(transcript, packet_text, key.get("entry_sha256", "")) \
+        pages = {page_of(locator.trim(u), locator) for body in (b for _, b in PACKET_BLOCK.findall(packet_text))
+                 for u in URL_TOKEN.findall(dict(PACKET_FIELD.findall(body)).get("url", ""))}
+        seen = provenance(seat, transcript) or blind(seat, args) \
+            or confined(seat, tool_calls(transcript), pages, locator) \
+            or bound(transcript, packet_text, key.get("entry_sha256", "")) \
             or ("" if written is not None and found == report_found else "report-not-its-own-write")
         found = found + [v for v in report_found if v not in found]
         shown = {}
