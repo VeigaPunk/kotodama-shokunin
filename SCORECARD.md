@@ -1203,3 +1203,14 @@ Correction rows for round 61 (recorded in round 62; routed defect 3 of `corpus/l
 Frontier step (not a claim): `corpus/SOURCES.md` 618 → 619 rows (S693 opened this round, mined, used-by the footwear entry; S687 used-by → `—`); census exit 0 at start (`reports/round-62/telemetry/census-start.txt`) and end (`census-end.txt`).
 
 Safety hold (appended after filing, Main directive 2026-10-23): the round-62 capability `bounded row re-opener with archived fallback and caption verdict` (`tools/reopen-row.py`) is unsuitable for use pending a defensive repair of redirect validation and malformed-URL handling plus an independent review. Do not run it on live URLs or against private/local services. The filed rows above are unchanged. See `corpus/lessons/round-62.md` `## Safety hold`.
+
+## Axes — round 63 (2026-10-23, hyaku run 5 attempt 1, L1 KotodamaR63), admission pending non-author closure
+
+Baseline `65b393e`; freeze `80d53ff`; one v2 wave 69 seats + residual 6; round total 75.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O, capability repair under hold) | r62 tool followed cross-authority redirects to private hosts and trace-backed on malformed URLs (closure HIGH) → repaired tool `0d965ccb` at `dd81fd29`: frozen counter ACCEPT-O-63 rev0 FAIL at base (all 9 artifact legs) → PASS at the measured tip; review gate RevToolA/B/C + RevHoldLift `VERDICT: NO-OPEN-HIGH-MED`; hold lifted per QUALITY | `python3 -B reports/round-63/accept-o.py` | `reports/round-63/telemetry/final-measures.txt`; `.ufo/waves/round-63/w1/RevTool{A,B,C}.md` |
+| coverage | improved (claim C, sourced) | 0 filename owners of the headgear register (partial owners cited one-way in the entry §6) → `headgear-head-covering-codes.md` (51 lines, 24 cited bullets) + rows S694-S717 (A 14 / B 10); corpus 236 → 237 entries, culture-material 30 → 31; sweep rows 237 files 237 topic_mismatch 0; ACCEPT-C-63 FAIL at base (FILE/ROWS/APPEND/NOHARM/SWEEP/LIVE) → PASS at the measured tip | `python3 -B reports/round-63/accept-c.py` | `corpus/lessons/round-63.md` `## Gate`; `reports/round-63/telemetry/row-verify.txt` |
+| calibration | not claimed; recorded | seven pre-data counter revisions, each committed with its forcing control receipt; CtlCJunkRow homograph/subset residuals and MutToolNeutral drip residual disclosed, not prettified | `grep -c 'revision ' reports/round-63/claims.json` | `.ufo/waves/round-63/w1/Ctl*.md`, `Mut*.md`, `RevCounter*.md` |
+| depth / freshness / adjacency | unchanged | freshness pause in force (round-11 L0); ConnectSiblings: nearest prior art `chousa-shokunin/tools/quote-reopen.py`; no sibling owns the headgear register | — | routed-defect records in LOG |

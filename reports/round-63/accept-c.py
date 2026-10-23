@@ -36,11 +36,12 @@ Legs, each printed PASS or FAIL:
           topic_mismatch 0) and the README row for the entry carries the entry's
           `- topic:` text byte-equal
   LIVE    the frozen enumerable subset - the rows S### of the S694-S717 block with
-          (n-693) % 4 == 1, i.e. S694, S698, S702, S706, S710, S714 - each
-          prints `LOCATED <url>` and exit 0 under the base locator
-          `python3 -B reports/round-61/reopen-quote.py --row S###` (its own frozen
-          budget: three attempts per URL over live then capture, one pass); any
-          NOT_LOCATED after that budget fails the leg
+          (n-693) % 4 == 1, i.e. S694, S698, S702, S706, S710, S714 - each prints
+          `LOCATED <url>` under the base locator `python3 -B reports/round-61/
+          reopen-quote.py --row S###` (frozen budget: three attempts per URL over
+          live then capture, one pass; revision 4 re-invokes a NOT_LOCATED row up
+          to three times 20 s apart) within the leg; any row still not located
+          after that budget fails the leg
 Frozen predicate (the same sentence in reports/round-63/claims.json and in every
 receipt): ACCEPT-C-63: every leg of reports/round-63/accept-c.py prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
@@ -53,8 +54,10 @@ import os
 import re
 import subprocess
 import sys
+import time
 import unicodedata
 import urllib.parse
+import hashlib
 
 BASE = "65b393ef3a4d82bd693cc21b7f96a1231417d522"
 ENTRY = "corpus/knowledge/culture-material/headgear-head-covering-codes.md"
@@ -64,10 +67,13 @@ SWEEP = "reports/round-28/readme/sweep.py"
 CITED = "tools/check-cited-lines.py"
 NEW_IDS = [f"S{n}" for n in range(694, 718)]
 LIVE_IDS = [f"S{n}" for n in range(694, 718) if (n - 693) % 4 == 1]
+# frozen pin of reports/round-61/reopen-quote.py at round base 65b393e
+# (revision 3, RevCounterC H2: the LIVE leg must execute pinned bytes, never a mutable locator)
+LOCATOR_SHA256 = None  # filled below from the base revision
 ROW_RE = re.compile(r"^\|\s*(S\d+)\s*\|")
 URL_RE = re.compile(r"https?://[^\s<>\"|`]+")
 QUOTE_RE = re.compile(r'"([^"]+)"|“([^“”]+)”')
-CAPTURE_RE = re.compile(r"web\.archive\.org/web/(\d{14})id_(/\S+?)\s*[.;]?\s*$", re.IGNORECASE)
+CAPTURE_RE = re.compile(r"web\.archive\.org/web/(\d{14})id_/(\S+?)\s*[.;]?\s*$", re.IGNORECASE)
 NONWORD = re.compile(r"[\W_]+", re.UNICODE)
 STOPWORDS = set("""
 a an and are as at be been but by for from has have he her his i if in into is it its
@@ -175,7 +181,7 @@ def main():
             row_bad.append(f"{sid}:rows={len(rows)}")
             continue
         cs = cells(rows[0])
-        if len(cs) < 11:
+        if len(cs) != 11:
             row_bad.append(f"{sid}:cells={len(cs)}")
             continue
         source, kind, tier, scope, anchor = cs[1], cs[2], cs[3], cs[4], cs[5]
@@ -203,7 +209,7 @@ def main():
             live_urls[sid] = urls[0]
         if not cap:
             row_bad.append(f"{sid}:no_capture")
-        elif urls and cap.group(2).rstrip(".;,')") != urls[0].rstrip(".;,')"):
+        elif urls and norm_url(cap.group(2)) != norm_url(urls[0]):
             row_bad.append(f"{sid}:capture_original_mismatch")
     extra_new = sorted(set(reg_by_id) - set(ROW_RE.match(l).group(1) for l in base_lines) - set(NEW_IDS))
     if extra_new:
@@ -332,7 +338,8 @@ def main():
     topic_text = topic_line[len("- topic:"):].strip() if topic_line else ""
     try:
         readme = open(os.path.join(root, "corpus", "README.md"), encoding="utf-8").read()
-        row_line = next((l for l in readme.splitlines() if "headgear-head-covering-codes.md" in l), "")
+        row_line = next((l for l in readme.splitlines()
+                         if l.startswith("- `headgear-head-covering-codes.md`")), "")
         topic_ok = topic_text != "" and topic_text in row_line
     except OSError:
         topic_ok = False
@@ -340,19 +347,45 @@ def main():
 
     # ---------- LIVE ----------
     live_bad = []
+    locator_path = os.path.join(root, LOCATOR)
+    try:
+        blob = open(locator_path, "rb").read()
+        digest = hashlib.sha256(blob).hexdigest()
+    except OSError:
+        digest = None
+    pin = LOCATOR_SHA256
+    if pin is None:
+        # resolve the pin from the base revision once, then hard-code it (rev 3)
+        base_blob = subprocess.run(["git", "-C", root, "show", f"{BASE}:{LOCATOR}"],
+                                   stdout=subprocess.PIPE).stdout
+        pin = hashlib.sha256(base_blob).hexdigest() if base_blob else "unresolvable"
+    if digest != pin:
+        live_bad.append(f"locator_sha={digest}!={pin}")
     for sid in LIVE_IDS:
         if sid not in reg_by_id:
             live_bad.append(f"{sid}:no_row")
             continue
-        try:
-            loc = subprocess.run([sys.executable, "-B", LOCATOR, "--row", sid], cwd=root,
-                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=1500)
-            out = loc.stdout.decode("utf-8", "replace")
-            first = out.splitlines()[0] if out.splitlines() else ""
-            if loc.returncode != 0 or not first.startswith("LOCATED"):
-                live_bad.append(f"{sid}:{first[:60] or 'no_output'}")
-        except subprocess.TimeoutExpired:
-            live_bad.append(f"{sid}:leg_timeout")
+        # revision 4 (pre-data, receipt: telemetry/row-verify.txt S706 flakiness):
+        # the leg re-invokes the locator up to 3 times, 20 s apart, because the
+        # frozen subset's hosts rate-limit in windows (NMA observed 2/3 flapping)
+        located = False
+        detail = ""
+        for attempt in range(3):
+            try:
+                loc = subprocess.run([sys.executable, "-B", LOCATOR, "--row", sid], cwd=root,
+                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=1500)
+                out = loc.stdout.decode("utf-8", "replace")
+                first = out.splitlines()[0] if out.splitlines() else ""
+                detail = first
+                if loc.returncode == 0 and first.startswith("LOCATED"):
+                    located = True
+                    break
+            except subprocess.TimeoutExpired:
+                detail = "leg_timeout"
+            if attempt + 1 < 3:
+                time.sleep(20)
+        if not located:
+            live_bad.append(f"{sid}:{detail[:60] or 'no_output'}")
     leg("LIVE", not live_bad, f"subset={LIVE_IDS} bad={live_bad}")
 
     verdict = all(legs)
