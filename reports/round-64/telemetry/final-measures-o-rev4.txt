@@ -1,0 +1,31 @@
+# final measures, claim O (round 64), counter revision 4
+# RESULT: FAIL — 22/23 legs PASS, MUT FAIL (rev4 m5 replacement does not compile; isolation check requires EDGE_SCHEMEREL PASS). This is pre-data falsification evidence, NOT an acceptance receipt.
+# measured-revision 097c21d0eba5023cfd38b767fb41d59409eef125 (jj-lane.sh state local = lane git HEAD = round-64 declaration commit); parent 097c21d0eba5023cfd38b767fb41d59409eef125; jj working copy @ 8325191b10edff408283f4325d11efd504a29f07 at run start; lane base ff30a205c8d23b35f1ac533740121a955a9fda96; date 2026-10-24T03:07Z (run window 02:59:50Z-03:06:56Z, wall 426 s)
+# counters: reports/round-64/accept-o.py (revision 4) sha256 6d9c9354f0d7a9535aba4e781541b04626dd3a91791175a7d5f845c559615fa1 (unchanged before and after the run, hash re-checked)
+# tool under test: tools/reopen-row.py sha256 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0 (identical to the ff30a205 blob: yes)
+# command: python3 -B reports/round-64/accept-o.py --root .   (launched detached from the lane root; complete stdout+stderr below)
+TOOL PASS path=tools/reopen-row.py exists=True executable=True
+INDEP PASS named=[]
+GEN PASS rows=61 wrong=0 [] summary_ok=True exit=1
+ORDER PASS printed=61 expected=61 repeated_args=5 repeated_printed=5
+BOUND PASS bad=[] unlisted_requests=[]
+EXIT PASS gen_exit=1 body_exit=0 default_registry_exit=0
+PRIV PASS exit=1 rows=[('S2722', 'REFUSED', 0), ('S2650', 'REFUSED', 0), ('S2949', 'REFUSED', 0)]
+DEFAULT PASS rows=[('S2531', 'UNREACHABLE', 9)] wall=150s hits=9 exit=1 bursts=[3, 3, 3] gaps=[60, 60]
+ERR PASS bad=[]
+REDIRECT PASS allow_private=[('S2616', 'REFUSED', 1)] hits_src=1 hits_target=0 no_flag=[('S2616', 'REFUSED', 0)] exits=1,1
+MALFORMED PASS exit=1 rows=[('S2920', 'MALFORMED', 0), ('S2591', 'MALFORMED', 0), ('S2959', 'MALFORMED', 0)] traceback=False
+GZIP PASS exit=1 rows=[('S2607', 'LOCATED', 1), ('S2797', 'CAPTION_ONLY', 1)]
+TRUNC PASS exit=1 rows=[('S2134', 'TRUNCATED', 1), ('S2483', 'LOCATED', 1)] want=[('S2134', 'TRUNCATED', 1), ('S2483', 'LOCATED', 1)]
+TIMEOUT PASS exit=1 rows=[('S2184', 'UNREACHABLE', 3)] wall=6.0s stall_hits=3 span=4.0s
+EDGE_SCHEMEREL PASS rows=[('S2288', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False
+EDGE_USERINFO PASS cross=[('S2030', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2409', 'UNREACHABLE', 6)] ok=True
+EDGE_HTTPS PASS cross=[('S2673', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2394', 'UNREACHABLE', 6)] ok=True
+EDGE_MALTARG PASS rows=[('S2854', 'UNREACHABLE', 1)] exit=1 tb=False
+EDGE_SLASHLESS PASS rows=[('S2937', 'LOCATED', 2)] dir_hits=1 root_hits=0 exit=0
+EDGE_308 PASS rows=[('S2815', 'LOCATED', 2)] tgt_hits=1 exit=0
+EDGE_5TH200 PASS rows=[('S2675', 'LOCATED', 5, 'http://127.0.0.1:43719/cfin-hcwst')] final=http://127.0.0.1:43719/cfin-hcwst exit=0
+DRIP PASS rows=[('S2003', 'UNREACHABLE', 3), ('S2073', 'LOCATED', 1)] wall=12.0s drip_hits=3 span=8.0s tb=False
+MUT FAIL bad=["m5:EDGE_SCHEMEREL isolation=['EDGE_SCHEMEREL FAIL rows=[] tgt_hits=0 src_hits=0 tb=False']"] mutants=10 kill_evidence=["m1->EDGE_SCHEMEREL FAIL rows=[('S2837', 'LOCATED', 2)] tgt_hits=1 src_hits=1 tb=False", "m10->EDGE_USERINFO FAIL cross=[('S2588', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2707', 'UNREACHABLE', 6)] ok=True", "m2->EDGE_USERINFO FAIL cross=[('S2374', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2146', 'REFUSED', 1)] ok=False", "m3->EDGE_HTTPS FAIL cross=[('S2959', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2871', 'UNREACHABLE', 6)] ok=True", 'm9->EDGE_MALTARG FAIL rows=[] exit=1 tb=True', 'm5->EDGE_SCHEMEREL FAIL rows=[] tgt_hits=0 src_hits=0 tb=False; EDGE_SLASHLESS FAIL rows=[] dir_hits=0 root_hits=0 exit=1', "m6->EDGE_308 FAIL rows=[('S2013', 'UNREACHABLE', 1)] tgt_hits=0 exit=1", "m7->EDGE_5TH200 FAIL rows=[('S2542', 'UNREACHABLE', 5, '-')] final=http://127.0.0.1:34033/cfin-ztahovmj exit=1", 'm8->GEN FAIL rows=61 wrong=1 ["REDIRECT_LOOP:S2467:want=UNREACHABLE/5:got=[(\'UNREACHABLE\', 6)]"] summary_ok=True exit=1; BOUND FAIL bad=[\'REDIRECT_LOOP:l2:want=2:hits=3\'] unlisted_requests=[]', "mread->DRIP FAIL rows=[('S2316', 'UNREACHABLE', 3), ('S2050', 'LOCATED', 1)] wall=90.0s drip_hits=3 span=60.0s tb=False"]
+ACCEPT-O-64: FAIL
+exit=1

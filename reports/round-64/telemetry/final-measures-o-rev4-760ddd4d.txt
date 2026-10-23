@@ -1,0 +1,32 @@
+# final measures, claim O (round 64), repaired counter bytes (docstring label still "revision 4")
+# RESULT: PASS — 23/23 legs PASS, MUT PASS bad=[] mutants=10, exit=0. Acceptance-grade evidence for the bytes named below.
+# measured-revision 097c21d0eba5023cfd38b767fb41d59409eef125 (jj-lane.sh state local = lane git HEAD = round-64 declaration commit); parent 097c21d0eba5023cfd38b767fb41d59409eef125; jj working copy @ 38efc473fee159645110c98fcb656860d7c4853d at run start; lane base ff30a205c8d23b35f1ac533740121a955a9fda96; date 2026-10-24T03:18Z (run window 03:10:14Z-03:17:20Z, wall 426 s)
+# counters: reports/round-64/accept-o.py sha256 760ddd4d6d1c0ef1f2c4d0dbd6cd5ef286be1e3b8b2fc5cded2bd6258c08f5a7 (repaired bytes, mtime 2026-10-24 00:08:52; unchanged before and after the run, hash re-checked). NOTE ON LABEL: the docstring still says "revision 4", the same label the earlier byte stream carried; the earlier rev4-label bytes sha256 6d9c9354f0d7a9535aba4e781541b04626dd3a91791175a7d5f845c559615fa1 FAILED this predicate (22/23, MUT) — falsification receipt reports/round-64/telemetry/final-measures-o-rev4.txt. Cite this file by the counter sha above, not by the label.
+# tool under test: tools/reopen-row.py sha256 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0 (identical to the ff30a205 blob: yes)
+# command: python3 -B reports/round-64/accept-o.py --root .   (launched detached from the lane root; complete stdout+stderr below)
+# scope caveat: MUT verifies each mutant FAILs its PINNED leg; it does not verify exclusivity (for the nine non-m5 mutants only the pinned legs are run, accept-o.py:1093-1094). An independent EDGE-leg sweep on these bytes found m1 failing EDGE_SCHEMEREL+EDGE_USERINFO+EDGE_HTTPS and m2 failing EDGE_USERINFO+EDGE_MALTARG, so claims.json's "each fail exactly their pinned leg" is not measured and is false for m1/m2 over the EDGE set: reports/round-64/telemetry/exactness-sweep-o.txt
+TOOL PASS path=tools/reopen-row.py exists=True executable=True
+INDEP PASS named=[]
+GEN PASS rows=61 wrong=0 [] summary_ok=True exit=1
+ORDER PASS printed=61 expected=61 repeated_args=5 repeated_printed=5
+BOUND PASS bad=[] unlisted_requests=[]
+EXIT PASS gen_exit=1 body_exit=0 default_registry_exit=0
+PRIV PASS exit=1 rows=[('S2545', 'REFUSED', 0), ('S2089', 'REFUSED', 0), ('S2347', 'REFUSED', 0)]
+DEFAULT PASS rows=[('S2598', 'UNREACHABLE', 9)] wall=150s hits=9 exit=1 bursts=[3, 3, 3] gaps=[60, 60]
+ERR PASS bad=[]
+REDIRECT PASS allow_private=[('S2388', 'REFUSED', 1)] hits_src=1 hits_target=0 no_flag=[('S2388', 'REFUSED', 0)] exits=1,1
+MALFORMED PASS exit=1 rows=[('S2001', 'MALFORMED', 0), ('S2881', 'MALFORMED', 0), ('S2868', 'MALFORMED', 0)] traceback=False
+GZIP PASS exit=1 rows=[('S2682', 'LOCATED', 1), ('S2111', 'CAPTION_ONLY', 1)]
+TRUNC PASS exit=1 rows=[('S2989', 'TRUNCATED', 1), ('S2193', 'LOCATED', 1)] want=[('S2989', 'TRUNCATED', 1), ('S2193', 'LOCATED', 1)]
+TIMEOUT PASS exit=1 rows=[('S2065', 'UNREACHABLE', 3)] wall=6.0s stall_hits=3 span=4.0s
+EDGE_SCHEMEREL PASS rows=[('S2379', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False
+EDGE_USERINFO PASS cross=[('S2192', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2893', 'UNREACHABLE', 6)] ok=True
+EDGE_HTTPS PASS cross=[('S2830', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2958', 'UNREACHABLE', 6)] ok=True
+EDGE_MALTARG PASS rows=[('S2483', 'UNREACHABLE', 1)] exit=1 tb=False
+EDGE_SLASHLESS PASS rows=[('S2027', 'LOCATED', 2)] dir_hits=1 root_hits=0 exit=0
+EDGE_308 PASS rows=[('S2941', 'LOCATED', 2)] tgt_hits=1 exit=0
+EDGE_5TH200 PASS rows=[('S2189', 'LOCATED', 5, 'http://127.0.0.1:45593/cfin-dbwlnkj')] final=http://127.0.0.1:45593/cfin-dbwlnkj exit=0
+DRIP PASS rows=[('S2222', 'UNREACHABLE', 3), ('S2245', 'LOCATED', 1)] wall=12.0s drip_hits=3 span=8.0s tb=False
+MUT PASS bad=[] mutants=10 kill_evidence=["m1->EDGE_SCHEMEREL FAIL rows=[('S2396', 'LOCATED', 2)] tgt_hits=1 src_hits=1 tb=False", "m10->EDGE_USERINFO FAIL cross=[('S2058', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2269', 'UNREACHABLE', 6)] ok=True", "m2->EDGE_USERINFO FAIL cross=[('S2819', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2575', 'REFUSED', 1)] ok=False", "m3->EDGE_HTTPS FAIL cross=[('S2269', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2581', 'UNREACHABLE', 6)] ok=True", 'm9->EDGE_MALTARG FAIL rows=[] exit=1 tb=True', "m5->EDGE_SCHEMEREL PASS rows=[('S2616', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False; EDGE_SLASHLESS FAIL rows=[('S2852', 'UNREACHABLE', 2)] dir_hits=0 root_hits=1 exit=1", "m6->EDGE_308 FAIL rows=[('S2006', 'UNREACHABLE', 1)] tgt_hits=0 exit=1", "m7->EDGE_5TH200 FAIL rows=[('S2669', 'UNREACHABLE', 5, '-')] final=http://127.0.0.1:35475/cfin-pnehd exit=1", 'm8->GEN FAIL rows=61 wrong=1 ["REDIRECT_LOOP:S2743:want=UNREACHABLE/5:got=[(\'UNREACHABLE\', 6)]"] summary_ok=True exit=1; BOUND FAIL bad=[\'REDIRECT_LOOP:l2:want=2:hits=3\'] unlisted_requests=[]', "mread->DRIP FAIL rows=[('S2964', 'UNREACHABLE', 3), ('S2090', 'LOCATED', 1)] wall=90.0s drip_hits=3 span=60.0s tb=False"]
+ACCEPT-O-64: PASS
+exit=0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-r"""Round-64 claim C acceptance, revision 0 (before any data).
+r"""Round-64 claim C acceptance, revision 3 (pre-data).
 
 Claim C (coverage, sourced): a new linguistics knowledge entry
 corpus/knowledge/linguistics/language-socialization-and-acquisition.md -
@@ -21,10 +21,12 @@ Legs, each printed PASS or FAIL:
           `180d`; used-by names the entry path; anchor quote normalises to
           8-25 words; source cell has live URL followed by a same-page
           web.archive.org capture
-  REJECTS six rows S744-S749 have status `rejected`, teach cell
-          `REJECTED: <reason>; flip: <what would change the verdict>`, and
-          live URL, with ordinary re-open/status evidence recorded in the
-          round-64 lesson Gate
+  REJECTS six disposition rows S744-S749 (round-63 closure defect 7) carry
+          status `rejected` or, where the retest contradicted the rejection
+          ground, `queued`; teach cell `REJECTED: <reason>; flip: <what would
+          change the verdict>` or `QUEUED-CANDIDATE: <reason>; flip: ...`, and
+          a live URL, with ordinary re-open/status evidence recorded in the
+          round-64 lesson Gate (revision 1, pre-data)
   ONEID   every entry line carrying an S-id carries exactly one; the entry is
           clean under tools/check-cited-lines.py (0 findings)
   RESTATE every entry line citing one of S718-S743 has >= 5 content words,
@@ -44,6 +46,13 @@ Legs, each printed PASS or FAIL:
           using `python3 -B reports/round-61/reopen-quote.py --row S###`; the
           locator is pinned to base bytes, retry budget is three reopens 20s
           apart, and archived same-page captures remain inside each row.
+
+Revision history (pre-data):
+- revision 2: RESTATE rejects an entry clause copied verbatim from its row's
+  teaches cell; forcing control: `.ufo/waves/round-64/w1/CriticClaims.md`.
+- revision 3: ONEID rejects zero, missing, or duplicated citations among
+  S718-S743; forcing control: `.ufo/waves/round-64/w1/ReviewerCounterC.md`
+  (D1).
 Frozen predicate (the same sentence in reports/round-64/claims.json and in
 every receipt): ACCEPT-C-64: every leg of reports/round-64/accept-c.py prints
 PASS.
@@ -219,6 +228,14 @@ def main():
         row_bad.append(f"extra_new_rows={extra_new[:6]}")
     leg("ROWS", not row_bad, f"bad={row_bad[:8]} checked={len(NEW_IDS)}")
     # ---------- REJECTS ----------
+    # revision 1 (pre-data): routed defect 7 asks for the round-63 rejected
+    # candidates to be curated as rows.  Three retests still hold (S744 403
+    # redirect, S745 403, S747 403); two seats re-opened their candidate and
+    # found the ground contradicted (S748 LacusCurtius Corona 200 + LOCATED,
+    # S749 Wikipedia headgear 200 + LOCATED), so a curated row must be able to
+    # carry an honest queued-candidate disposition instead of a false rejection.
+    # The leg therefore checks a disposition row: status rejected or queued,
+    # a `REJECTED:` / `QUEUED-CANDIDATE:` reason and a `; flip:` clause.
     rej_bad = []
     for sid in REJ_IDS:
         rows = reg_by_id.get(sid, [])
@@ -226,11 +243,11 @@ def main():
             rej_bad.append(f"{sid}:rows={len(rows)}")
             continue
         cs = cells(rows[0])
-        if len(cs) != 11 or cs[7] != "rejected":
+        if len(cs) != 11 or cs[7] not in ("rejected", "queued"):
             rej_bad.append(f"{sid}:shape_or_status")
             continue
         teaches = cs[6]
-        if not teaches.startswith("REJECTED:") or "; flip:" not in teaches:
+        if not teaches.startswith(("REJECTED:", "QUEUED-CANDIDATE:")) or "; flip:" not in teaches:
             rej_bad.append(f"{sid}:teaches={teaches[:40]}")
     leg("REJECTS", not rej_bad, f"bad={rej_bad[:8]} checked={len(REJ_IDS)}")
 
@@ -252,8 +269,18 @@ def main():
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     cl_out = cl.stdout.decode("utf-8", "replace")
     clean = cl.returncode == 0 and "0 finding" in cl_out
-    leg("ONEID", not oneid_bad and not mark_bad and clean,
-        f"bad={oneid_bad[:6]} marks={mark_bad[:6]} cited_lines={len(cited)} cited_lines_tool=exit{cl.returncode} clean={clean}")
+    cited_ids = [sid for _, _, sid in cited]
+    citation_exact = sorted(cited_ids) == NEW_IDS
+    missing_citations = [sid for sid in NEW_IDS if sid not in cited_ids]
+    duplicate_citations = [sid for sid in NEW_IDS if cited_ids.count(sid) > 1]
+    # revision 3 (pre-data; forcing control:
+    # .ufo/waves/round-64/w1/ReviewerCounterC.md, D1): require each new ID
+    # exactly once in the entry.
+    leg("ONEID", not oneid_bad and not mark_bad and clean and citation_exact,
+        f"bad={oneid_bad[:6]} marks={mark_bad[:6]} cited_lines={len(cited)} "
+        f"cited_lines_tool=exit{cl.returncode} clean={clean} "
+        f"citations_exactly_once={citation_exact} missing={missing_citations} "
+        f"duplicates={duplicate_citations}")
 
     # ---------- RESTATE ----------
     restate_bad = []
@@ -263,8 +290,14 @@ def main():
             restate_bad.append(f"line{i}:shape")
             continue
         clause = m.group(1)
-        cw = content_words(clause)
         row = reg_by_id.get(sid, [None])[0]
+        # revision 2 (pre-data; forcing control:
+        # .ufo/waves/round-64/w1/CriticClaims.md): a clause copied verbatim
+        # from this source row's teaches cell is not a novel restatement.
+        teaches = cells(row)[6] if row else None
+        if teaches is not None and clause == teaches:
+            restate_bad.append(f"line{i}:{sid}:teaches_copy")
+        cw = content_words(clause)
         quote = anchor_quote(cells(row)[5]) if row else None
         qw = norm_words(quote) if quote else []
         if len(cw) < 5:

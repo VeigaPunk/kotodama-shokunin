@@ -1,0 +1,16 @@
+# redirect-edge and drip legs receipt (the seven round-63 unpinned properties + DRIP), claim O (round 64), measured revision b7d22703dfb684713826a4064e614264867e8cd (jj working copy @, parent 097c21d0eba5023cfd38b767fb41d59409eef125 = round-64 declaration commit; lane base ff30a205c8d23b35f1ac533740121a955a9fda96), 2026-10-24T02:40Z
+# counters: reports/round-64/accept-o.py (revision 3) sha256 c27a9fefb37c4a107e83867fd03f9194d89ce4e0dc8364e9b1b23e7821987b18
+# tool under test: tools/reopen-row.py sha256 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0 (unchanged this round: yes)
+# command: python3 -B reports/round-64/accept-o.py --root . --only EDGE_SCHEMEREL,EDGE_USERINFO,EDGE_HTTPS,EDGE_MALTARG,EDGE_SLASHLESS,EDGE_308,EDGE_5TH200,DRIP
+TOOL SKIP
+EDGE_SCHEMEREL PASS rows=[('S2181', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False
+EDGE_USERINFO PASS cross=[('S2813', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2451', 'UNREACHABLE', 6)] ok=True
+EDGE_HTTPS PASS cross=[('S2505', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2675', 'UNREACHABLE', 6)] ok=True
+EDGE_MALTARG PASS rows=[('S2772', 'UNREACHABLE', 1)] exit=1 tb=False
+EDGE_SLASHLESS PASS rows=[('S2395', 'LOCATED', 2)] dir_hits=1 root_hits=0 exit=0
+EDGE_308 PASS rows=[('S2561', 'LOCATED', 2)] tgt_hits=1 exit=0
+EDGE_5TH200 PASS rows=[('S2268', 'LOCATED', 5, 'http://127.0.0.1:44949/cfin-ntagc')] final=http://127.0.0.1:44949/cfin-ntagc exit=0
+DRIP PASS rows=[('S2692', 'UNREACHABLE', 3), ('S2342', 'LOCATED', 1)] wall=12.0s drip_hits=3 span=8.0s tb=False
+MUT SKIP
+ACCEPT-O-64: PASS
+exit=0

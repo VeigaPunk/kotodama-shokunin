@@ -1,0 +1,22 @@
+# m5 paired isolation evidence, claim O (round 64) counter revision 4
+# measured-revision 097c21d0eba5023cfd38b767fb41d59409eef125 (jj-lane.sh state local; lane git HEAD = round-64 declaration commit), parent 097c21d0eba5023cfd38b767fb41d59409eef125; jj working copy @ 8325191b10edff408283f4325d11efd504a29f07 at capture start; lane base ff30a205c8d23b35f1ac533740121a955a9fda96
+# counter reports/round-64/accept-o.py (revision 4) sha256 6d9c9354f0d7a9535aba4e781541b04626dd3a91791175a7d5f845c559615fa1
+# tool under test tools/reopen-row.py sha256 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0 (identical to base ff30a205 blob: yes)
+# mutant m5 rebuilt from the counter's MUTANTS table via ast.literal_eval; needle occurrences=1; mutant path $SCRATCH/m5rev4/tools/reopen-row.py sha256 795b8d196eec4b64344b39338bf73a3cc6a73c075671702d4b963959a6e6ecb6
+# REV4 CONTRACT: docstring says the paired run requires EDGE_SCHEMEREL to FAIL and EDGE_SLASHLESS to PASS; wave-2 dispatch note says EDGE_SCHEMEREL green + EDGE_SLASHLESS FAIL; code (accept-o.py:1115-1121) requires EDGE_SCHEMEREL PASS. Actual below: both FAIL.
+# compile check of the mutant:
+Sorry: IndentationError: unexpected indent (reopen-row.py, line 605)
+# compile-exit=1
+# command: python3 -B reports/round-64/accept-o.py --root /home/vgpnk/.cache/hyaku/kotodama-r64-w2/RevVerifyO2/m5rev4 --only EDGE_SCHEMEREL,EDGE_SLASHLESS
+TOOL SKIP
+EDGE_SCHEMEREL FAIL rows=[] tgt_hits=0 src_hits=0 tb=False
+EDGE_USERINFO SKIP
+EDGE_HTTPS SKIP
+EDGE_MALTARG SKIP
+EDGE_SLASHLESS FAIL rows=[] dir_hits=0 root_hits=0 exit=1
+EDGE_308 SKIP
+EDGE_5TH200 SKIP
+DRIP SKIP
+MUT SKIP
+ACCEPT-O-64: FAIL
+exit=1

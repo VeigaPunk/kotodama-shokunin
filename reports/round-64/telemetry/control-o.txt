@@ -1,0 +1,42 @@
+# control receipt, claim O (round 64), measured revision b7d22703dfb684713826a4064e614264867e8cd (jj working copy @, parent 097c21d0eba5023cfd38b767fb41d59409eef125 = round-64 declaration commit; lane base ff30a205c8d23b35f1ac533740121a955a9fda96), 2026-10-24T02:40Z
+# counters: reports/round-64/accept-o.py (revision 3) sha256 c27a9fefb37c4a107e83867fd03f9194d89ce4e0dc8364e9b1b23e7821987b18
+# tool under test: tools/reopen-row.py sha256 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0 (unchanged this round: yes)
+# control 1 - the round-63 counter cannot score these properties at all (no EDGE_/DRIP leg, no --only):
+#   $ grep -nE 'EDGE_|DRIP' reports/round-63/accept-o.py   -> no matches (grep exit 1)
+#   $ python3 -B reports/round-63/accept-o.py --root . --only MUT   -> usage error, exit 2
+# control 2 - do-nothing patch to the tool (docstring only, sha256 f3789feee1488b9a64da05f93e8aeeac3afadbc173ef76ad6a7b3362e7e9bb61), run against the
+#   round-64 counter from a scratch root: GEN stays green and every mutant still fails its pinned leg,
+#   so the MUT leg is not satisfied by a cosmetic edit (command and full output below).
+#   $ python3 -B reports/round-64/accept-o.py --root <scratch>/control-root --only GEN,MUT
+--- grep -nE 'EDGE_|DRIP' reports/round-63/accept-o.py
+grep_exit=1
+--- python3 -B reports/round-63/accept-o.py --root . --only MUT
+usage: accept-o.py [-h] [--root ROOT]
+accept-o.py: error: unrecognized arguments: --only MUT
+exit=2
+
+TOOL SKIP
+INDEP SKIP
+GEN PASS rows=61 wrong=0 [] summary_ok=True exit=1
+ORDER SKIP
+BOUND SKIP
+EXIT SKIP
+PRIV SKIP
+DEFAULT SKIP
+ERR SKIP
+REDIRECT SKIP
+MALFORMED SKIP
+GZIP SKIP
+TRUNC SKIP
+TIMEOUT SKIP
+EDGE_SCHEMEREL SKIP
+EDGE_USERINFO SKIP
+EDGE_HTTPS SKIP
+EDGE_MALTARG SKIP
+EDGE_SLASHLESS SKIP
+EDGE_308 SKIP
+EDGE_5TH200 SKIP
+DRIP SKIP
+MUT PASS bad=[] mutants=10 kill_evidence=["m1->EDGE_SCHEMEREL FAIL rows=[('S2614', 'LOCATED', 2)] tgt_hits=1 src_hits=1 tb=False", "m10->EDGE_USERINFO FAIL cross=[('S2950', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2595', 'UNREACHABLE', 6)] ok=True", "m2->EDGE_USERINFO FAIL cross=[('S2859', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2630', 'REFUSED', 1)] ok=False", "m3->EDGE_HTTPS FAIL cross=[('S2990', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2286', 'UNREACHABLE', 6)] ok=True", 'm9->EDGE_MALTARG FAIL rows=[] exit=1 tb=True', "m5->EDGE_SLASHLESS FAIL rows=[('S2835', 'UNREACHABLE', 2)] dir_hits=0 root_hits=1 exit=1", "m6->EDGE_308 FAIL rows=[('S2802', 'UNREACHABLE', 1)] tgt_hits=0 exit=1", "m7->EDGE_5TH200 FAIL rows=[('S2143', 'UNREACHABLE', 5, '-')] final=http://127.0.0.1:44231/cfin-upwhfvkvc exit=1", 'm8->GEN FAIL rows=61 wrong=1 ["REDIRECT_LOOP:S2072:want=UNREACHABLE/5:got=[(\'UNREACHABLE\', 6)]"] summary_ok=True exit=1; BOUND FAIL bad=[\'REDIRECT_LOOP:l2:want=2:hits=3\'] unlisted_requests=[]', "mread->DRIP FAIL rows=[('S2946', 'UNREACHABLE', 3), ('S2735', 'LOCATED', 1)] wall=90.1s drip_hits=3 span=60.0s tb=False"]
+ACCEPT-O-64: PASS
+exit=0

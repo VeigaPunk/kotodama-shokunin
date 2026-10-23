@@ -1,0 +1,37 @@
+# Round-63 receipt → measured revision (round-64 claim Ca, routed defect 8)
+#
+# Written 2026-10-23 in round 64.  Basis per line: the commit that added (or
+# last carried) the receipt, its dated subject, and the counter blob the leg
+# executed.  No receipt is re-interpreted; only the measured revision it
+# omitted is named.  Command used for every line:
+#   git log --format='%h %ad %s' --date=iso --diff-filter=A -- <path>
+#   git rev-parse <rev>:reports/round-63/accept-*.py
+
+final-measures-c.txt   measured 8d2041face1507f2d625c616e09eb4a5d7beb76c
+  added by 0c892ceac42fc1ef13b27d9705e622eda63f4473 (2026-10-23 16:45:04 -0300)
+  8d2041fa is the round-63 claim-C land commit and the commit that added this
+  receipt. Correction (round 64, CaReceipts): the receipt's 10 legs do NOT
+  name 8d2041fa — `grep -c 8d2041fa final-measures-c.txt` prints 0; only the
+  adding commit's subject names it. And reports/round-63/accept-c.py is NOT
+  unchanged between 8d2041fa and the records commit 9e9885d: its blob changes
+  4a8791ba… -> e6322538… (the records commit itself carries counter
+  revisions rev0 -> rev4).
+
+final-measures-o.txt   measured 38ec1316859850afc605bd21ce38b6a766716e4e
+  added by 80ff34c572bd394b6377cbbe2c0315096efe40b9 (2026-10-23 16:53:39 -0300)
+  the 15/15 PASS run executed on a worktree identical to 38ec1316 except for
+  reports/round-63/separability-manifest.json (the only path 80ff34c..38ec131
+  changes), which the counter never reads; reports/round-63/accept-o.py has the
+  same blob 934bb052143e787ae0feb572679e66dfcf6300ff in 0c892ce, 9e9885d and
+  80ff34c.
+
+rev-separability.txt    measured 38ec1316859850afc605bd21ce38b6a766716e4e
+  Correction (round 64, CaReceipts): this file was ADDED by 0c892ce and last
+  carried by 80ff34c (`git log --diff-filter=A -- <path>` prints only 0c892ce);
+  38ec1316 ("separability manifest") names the re-run in its subject and
+  touches only reports/round-63/separability-manifest.json — it does not
+  record this receipt.
+
+census-end.txt         measured 0c892ceac42fc1ef13b27d9705e622eda63f4473
+  added by 0c892ce (2026-10-23 16:45:04 -0300); its last line prints the
+  registry the census read and its W03 line names S687.

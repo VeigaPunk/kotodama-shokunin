@@ -1,0 +1,31 @@
+# mutant exactness sweep (EDGE legs), claim O round 64 — evidence that 'each mutant fails exactly its pinned leg' is false for m1 and m2
+# measured counter reports/round-64/accept-o.py sha256 760ddd4d6d1c0ef1f2c4d0dbd6cd5ef286be1e3b8b2fc5cded2bd6258c08f5a7 (revision label 4, repaired bytes mtime 2026-10-24 00:08:52); tool tools/reopen-row.py sha256 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0
+# mutants rebuilt from the counter's MUTANTS table via ast.literal_eval + one exact replace; m1 sha256 545205e312b752e4644067404407dca4bf3f6d5de69477c8130f9f260a02cd8a, m2 sha256 c743317cc9c6b581df6b5e65b80027299826083eb61e8c0d0905bebb0aab76f7
+# command: python3 -B reports/round-64/accept-o.py --root <scratch>/sweep-<mutant> --only EDGE_SCHEMEREL,EDGE_USERINFO,EDGE_HTTPS,EDGE_MALTARG,EDGE_SLASHLESS,EDGE_308,EDGE_5TH200
+# date 2026-10-24T03:2xZ
+== m1 (declared pins: m1=[EDGE_SCHEMEREL], m2=[EDGE_USERINFO]) ==
+TOOL SKIP
+EDGE_SCHEMEREL FAIL rows=[('S2589', 'LOCATED', 2)] tgt_hits=1 src_hits=1 tb=False
+EDGE_USERINFO FAIL cross=[('S2550', 'REFUSED', 1)] tgt_hits=1 same_auth=[('S2493', 'UNREACHABLE', 6)] ok=True
+EDGE_HTTPS FAIL cross=[('S2670', 'REFUSED', 1)] tgt_hits=1 same_auth=[('S2270', 'UNREACHABLE', 6)] ok=True
+EDGE_MALTARG PASS rows=[('S2414', 'UNREACHABLE', 1)] exit=1 tb=False
+EDGE_SLASHLESS PASS rows=[('S2543', 'LOCATED', 2)] dir_hits=1 root_hits=0 exit=0
+EDGE_308 PASS rows=[('S2826', 'LOCATED', 2)] tgt_hits=1 exit=0
+EDGE_5TH200 PASS rows=[('S2104', 'LOCATED', 5, 'http://127.0.0.1:33831/cfin-vgrxs')] final=http://127.0.0.1:33831/cfin-vgrxs exit=0
+DRIP SKIP
+MUT SKIP
+ACCEPT-O-64: FAIL
+exit=1
+== m2 (declared pins: m1=[EDGE_SCHEMEREL], m2=[EDGE_USERINFO]) ==
+TOOL SKIP
+EDGE_SCHEMEREL PASS rows=[('S2978', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False
+EDGE_USERINFO FAIL cross=[('S2345', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2821', 'REFUSED', 1)] ok=False
+EDGE_HTTPS PASS cross=[('S2804', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2216', 'UNREACHABLE', 6)] ok=True
+EDGE_MALTARG FAIL rows=[] exit=1 tb=True
+EDGE_SLASHLESS PASS rows=[('S2627', 'LOCATED', 2)] dir_hits=1 root_hits=0 exit=0
+EDGE_308 PASS rows=[('S2842', 'LOCATED', 2)] tgt_hits=1 exit=0
+EDGE_5TH200 PASS rows=[('S2149', 'LOCATED', 5, 'http://127.0.0.1:34237/cfin-vcmrxxwu')] final=http://127.0.0.1:34237/cfin-vcmrxxwu exit=0
+DRIP SKIP
+MUT SKIP
+ACCEPT-O-64: FAIL
+exit=1

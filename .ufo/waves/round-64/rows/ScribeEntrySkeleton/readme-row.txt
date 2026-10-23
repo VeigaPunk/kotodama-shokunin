@@ -1,0 +1,1 @@
+- `language-socialization-and-acquisition.md` — language socialization and acquisition as culturally organized participation in language across caregiver interaction, early talk, correction, multilingual life, narrative, literacy, and address — a sourced design reference for fictional language practices, not a universal developmental sequence.
