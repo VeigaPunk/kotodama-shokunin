@@ -15,9 +15,15 @@ WHAT THIS TOOL DOES
                   gallery, or an alt / title / aria-label / content / data-*
                   attribute value) of a page that answered 2xx
     ABSENT        some page answered 2xx but the quote is nowhere in it
+    TRUNCATED     a page answered 2xx but its body was cut at the 4 MiB cap
+                  before the quote could be found in the bytes read
     UNREACHABLE   no page answered 2xx (HTTP error, timeout, dead host)
     REFUSED       every URL of the row was refused by the private-address
-                  policy before any request was made
+                  policy before any request was made, or was refused at a
+                  redirect hop
+    MALFORMED     every URL of the row is unparseable (a port that does not
+                  parse, an unbalanced bracketed IPv6 literal, an empty host,
+                  a scheme that is not http(s)) - no request made
     NO_QUOTE      the row has no usable quote (no quoted span, a quote shorter
                   than 8 normalised words, or no URL at all) - no request made
     NO_ROW        the registry has no row with that id - no request made
@@ -53,15 +59,39 @@ HOW HTML IS SPLIT
   whole.
 
 HOW PAGES ARE FETCHED
-  GET with a 30 s timeout.  A transient result (HTTP 429, any 5xx, a timeout,
-  a connection error) is retried, at most 3 attempts per URL per pass, waiting
-  min(gap, 5) s between attempts.  Any other HTTP error ends that URL for the
-  pass after one attempt.  Without --allow-private a URL whose host is, or
-  resolves to, a loopback, private, link-local, reserved or unspecified
-  address - or that does not resolve at all - is refused without a request.
-  Another pass runs, after gap seconds, only when the pass was not LOCATED and
-  some URL of that pass ended on a transient result; at most --passes passes
-  run (3 by default, gap 60 s by default).
+  GET with a wall budget of --timeout seconds for every single request
+  (30 by default).  The budget covers connecting, the answer's head and the
+  body together: a body that stalls or drips cannot outlive it, and an
+  expired budget counts as a transient result.  A transient result (HTTP
+  429, any 5xx, an expired budget, a connection error) is retried, at most
+  3 attempts per URL per pass, waiting min(gap, 5) s between attempts.  Any
+  other HTTP error ends that URL for the pass after one attempt.  Without
+  --allow-private a URL whose host is, or resolves to, a loopback, private,
+  link-local, reserved or unspecified address - or that does not resolve at
+  all - is refused without a request.  Another pass runs, after gap
+  seconds, only when the pass was not LOCATED and some URL of that pass
+  ended on a transient result; at most --passes passes run (3 by default,
+  gap 60 s by default).
+
+  Redirects are never followed by the fetching library: every hop is
+  resolved by hand against the URL that answered, and every request of the
+  chain counts as one attempt.  A chain makes at most 5 requests; a
+  redirect that arrives on the 5th answer ends that URL for the pass.  A
+  hop to an authority (lowercased host, effective port) other than the one
+  that answered must pass the private-host refusal even under
+  --allow-private, so that a public page cannot send the fetcher to a
+  loopback or private address; without --allow-private every hop must pass
+  it.  A refused hop ends that URL for the pass, and the requests already
+  made are counted as attempts.
+
+HOW BODIES ARE READ
+  At most 4 MiB of a body is read, one byte more than the cap.  A body
+  that fills the cap without an end is cut: when the quote is absent from
+  the bytes actually read the verdict is TRUNCATED (ranked like ABSENT),
+  and when the quote is inside them the verdict is LOCATED or
+  CAPTION_ONLY as usual.  A body that carries Content-Encoding: gzip is
+  decompressed (at most 64 MiB of expansion) before it is decoded and
+  matched.
 
 OUTPUT
   One line per id, in argument order:
@@ -76,16 +106,19 @@ OUTPUT
 
 USAGE
   reopen-row.py [--registry PATH] [--passes N] [--gap SECONDS]
-                [--allow-private] [--selftest] ID...
+                [--timeout SECONDS] [--allow-private] [--selftest] ID...
 
   --registry PATH   registry to read; default corpus/SOURCES.md, taken
                     relative to the working directory
   --passes N        maximum number of passes per row; integer >= 1, default 3
   --gap SECONDS     seconds between passes; the wait between retries of one
                     URL is min(gap, 5) s; number >= 0, default 60
+  --timeout SECONDS wall budget of one request (connect, head and body
+                    together); number > 0, default 30
   --allow-private   allow URLs that point at private or loopback addresses
   --selftest        run the built-in offline fixtures and exit
 """
+import http.client
 import ipaddress
 import os
 import re
@@ -96,6 +129,7 @@ import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
+import zlib
 from html.parser import HTMLParser
 
 DEFAULT_REGISTRY = os.path.join("corpus", "SOURCES.md")
@@ -104,6 +138,10 @@ DEFAULT_GAP = 60.0
 FETCH_TIMEOUT = 30.0
 MAX_BODY_BYTES = 4 * 1024 * 1024
 MAX_ATTEMPTS_PER_URL = 3
+MAX_REQUESTS_PER_CHAIN = 5
+GZIP_LIMIT = 64 * 1024 * 1024
+READ_CHUNK = 64 * 1024
+REDIRECT_CODES = (301, 302, 303, 307, 308)
 MIN_QUOTE_WORDS = 8
 USER_AGENT = "kotodama-reopen-row/1.0 (row re-check; stdlib urllib)"
 
@@ -122,8 +160,10 @@ VERDICT_RANK = {
     "LOCATED": 5,
     "CAPTION_ONLY": 4,
     "ABSENT": 3,
+    "TRUNCATED": 3,
     "UNREACHABLE": 2,
     "REFUSED": 1,
+    "MALFORMED": 0,
 }
 
 
@@ -325,7 +365,79 @@ def split_content(raw, content_type, charset):
     return text, ""
 
 
+# ---------------------------------------------------------------- urls
+
+
+class BadUrl(Exception):
+    """A URL that cannot be parsed: malformed, not refused."""
+
+
+def parse_target(url):
+    """Return (parts, host, port) of an http(s) URL, or raise BadUrl.
+
+    A URL whose port does not parse, whose bracketed IPv6 literal is
+    unbalanced, whose host is empty, or whose scheme is not http(s) is
+    malformed: the row must say so instead of raising.
+    """
+    try:
+        parts = urllib.parse.urlsplit(url)
+        host = parts.hostname
+        port = parts.port
+    except ValueError as error:
+        raise BadUrl(str(error))
+    scheme = (parts.scheme or "").lower()
+    if scheme not in ("http", "https"):
+        raise BadUrl("scheme %r is not http(s)" % (parts.scheme or "",))
+    if not host:
+        raise BadUrl("empty host")
+    if port is None:
+        port = 443 if scheme == "https" else 80
+    if port < 1 or port > 65535:
+        raise BadUrl("port %r is out of range" % (port,))
+    return parts, host.lower(), port
+
+
+def gunzip(raw, limit=GZIP_LIMIT):
+    """Decompress a gzip body; say whether the expansion was cut."""
+    decompressor = zlib.decompressobj(16 + zlib.MAX_WBITS)
+    try:
+        out = decompressor.decompress(raw, limit + 1)
+    except zlib.error as error:
+        raise FatalFetch("gzip: %s" % error)
+    if len(out) > limit:
+        return out[:limit], True
+    return out, False
+
+
 # ---------------------------------------------------------------- fetching
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Keeps the fetching library from following redirects by itself."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+class Response(object):
+    """One HTTP answer: its status, the bytes read and the head of interest."""
+
+    __slots__ = ("status", "body", "content_type", "charset", "encoding",
+                 "truncated", "location")
+
+    def __init__(self, status, body=b"", content_type="", charset=None,
+                 encoding="", truncated=False, location=None):
+        self.status = status
+        self.body = body
+        self.content_type = content_type
+        self.charset = charset
+        self.encoding = encoding
+        self.truncated = truncated
+        self.location = location
+
+
+class RedirectRefused(Exception):
+    """A redirect hop that the private-address policy will not allow."""
 
 
 class Fetcher(object):
@@ -335,16 +447,16 @@ class Fetcher(object):
         self.allow_private = allow_private
         self.timeout = timeout
         self._resolved = {}
+        self._opener = urllib.request.build_opener(_NoRedirect())
 
-    def refused(self, url):
-        """True when the URL must not be requested (private or unresolvable)."""
-        if self.allow_private:
-            return False
-        parts = urllib.parse.urlsplit(url)
-        host = parts.hostname
-        if not host:
-            return True
-        port = parts.port or (443 if parts.scheme == "https" else 80)
+    def private_host(self, url):
+        """True when the URL's host is private, reserved or unresolvable.
+
+        This is the private-address check without the --allow-private
+        exemption: a redirect hop to another authority has to pass it even
+        when that exemption was given.
+        """
+        parts, host, port = parse_target(url)
         if host in self._resolved:
             addresses = self._resolved[host]
         else:
@@ -367,38 +479,139 @@ class Fetcher(object):
                 return True
         return False
 
-    def fetch(self, url):
-        """Fetch one URL once.
+    def refused(self, url):
+        """True when the URL must not be requested (private or unresolvable)."""
+        if self.allow_private:
+            return False
+        return self.private_host(url)
 
-        Returns (status, body bytes, content type, charset).  Raises
-        TransientFetch for a retryable failure, FatalFetch for any other HTTP
-        error.
+    def fetch(self, url):
+        """Fetch one URL once, without following any redirect.
+
+        Returns a Response.  Raises TransientFetch for a retryable failure
+        and FatalFetch for any other HTTP error.  A 3xx answer comes back as
+        a Response that carries the location and no body.
         """
+        deadline = time.monotonic() + self.timeout
         request = urllib.request.Request(
             url,
             headers={"User-Agent": USER_AGENT, "Accept": "*/*"},
         )
+        budget = deadline - time.monotonic()
+        if budget <= 0:
+            raise TransientFetch("timeout")
         try:
-            with urllib.request.urlopen(request, timeout=self.timeout) as response:
-                raw = response.read(MAX_BODY_BYTES)
-                status = getattr(response, "status", None) or response.getcode()
-                ctype = response.headers.get("Content-Type", "")
-                charset = response.headers.get_content_charset()
-                return status, raw, ctype, charset
+            with self._opener.open(request, timeout=budget) as answer:
+                headers = answer.headers
+                status = getattr(answer, "status", None) or answer.getcode()
+                body, truncated = self._read_body(answer, deadline)
+                encoding = (headers.get("Content-Encoding") or "").lower()
+                if "gzip" in encoding:
+                    body, cut = gunzip(body)
+                    truncated = truncated or cut
+                return Response(status, body,
+                                headers.get("Content-Type", ""),
+                                headers.get_content_charset(),
+                                encoding, truncated,
+                                headers.get("Location"))
         except urllib.error.HTTPError as error:
             code = error.code
+            location = None
+            try:
+                location = error.headers.get("Location")
+            except Exception:
+                pass
             try:
                 error.read()
             except Exception:
                 pass
             error.close()
+            if code in REDIRECT_CODES:
+                return Response(code, b"", "", None, "", False, location)
             if code == 429 or 500 <= code < 600:
                 raise TransientFetch("HTTP %s" % code)
             raise FatalFetch("HTTP %s" % code)
         except urllib.error.URLError as error:
             raise TransientFetch(str(error.reason))
+        except http.client.HTTPException as error:
+            raise TransientFetch(str(error))
         except (socket.timeout, TimeoutError, ConnectionError, OSError) as error:
             raise TransientFetch(str(error))
+
+    def _read_body(self, answer, deadline):
+        """Read at most the cap plus one byte; say whether the body was cut."""
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TransientFetch("timeout")
+        self._set_read_timeout(answer, remaining)
+        chunks = []
+        total = 0
+        limit = MAX_BODY_BYTES + 1
+        while total < limit:
+            want = min(READ_CHUNK, limit - total)
+            chunk = answer.read(want)
+            if not chunk:
+                break
+            chunks.append(chunk)
+            total += len(chunk)
+            if deadline - time.monotonic() <= 0:
+                raise TransientFetch("timeout")
+        body = b"".join(chunks)
+        return body, len(body) > MAX_BODY_BYTES
+
+    @staticmethod
+    def _set_read_timeout(answer, seconds):
+        """Bound the socket's own timeout by what is left of the budget."""
+        handle = None
+        for path in (("fp", "raw", "_sock"), ("fp", "fp", "raw", "_sock")):
+            node = answer
+            try:
+                for name in path:
+                    node = getattr(node, name)
+            except AttributeError:
+                continue
+            handle = node
+            break
+        if handle is None:
+            return
+        try:
+            handle.settimeout(max(0.05, seconds))
+        except (OSError, AttributeError):
+            pass
+
+
+def follow(fetcher, url, counter):
+    """Fetch one URL and follow its redirects by hand.
+
+    counter is a one-element list that counts the requests made.  Returns
+    (Response, final URL).  Raises TransientFetch, FatalFetch or
+    RedirectRefused.
+    """
+    current = url
+    for _ in range(MAX_REQUESTS_PER_CHAIN):
+        counter[0] += 1
+        response = fetcher.fetch(current)
+        if response.status not in REDIRECT_CODES:
+            return response, current
+        location = response.location
+        if not location:
+            raise FatalFetch("redirect without a location")
+        target = urllib.parse.urljoin(current, location.strip())
+        try:
+            _, host, port = parse_target(target)
+            _, source_host, source_port = parse_target(current)
+        except BadUrl as error:
+            raise FatalFetch("malformed redirect target: %s" % error)
+        if (host, port) != (source_host, source_port):
+            # a hop to another authority must pass the private-host refusal
+            # even when --allow-private was given
+            if fetcher.private_host(target):
+                raise RedirectRefused(target)
+        elif not fetcher.allow_private and fetcher.private_host(target):
+            raise RedirectRefused(target)
+        current = target
+    raise FatalFetch("more than %d requests in one chain"
+                     % MAX_REQUESTS_PER_CHAIN)
 
 
 # ---------------------------------------------------------------- registry
@@ -441,41 +654,68 @@ def run_pass(urls, quote_words, fetcher, gap):
     answered = False
     caption_hit = False
     caption_url = None
-    refused_all = True
     transient_seen = False
+    clean_absent = False
+    truncated_seen = False
+    outcomes = []
     for url in urls:
-        if fetcher.refused(url):
+        try:
+            parse_target(url)
+        except BadUrl:
+            # malformed: no request is made for this URL
+            outcomes.append("MALFORMED")
             continue
-        refused_all = False
+        if fetcher.refused(url):
+            outcomes.append("REFUSED")
+            continue
+        outcomes.append("TRIED")
         for attempt in range(MAX_ATTEMPTS_PER_URL):
+            counter = [0]
             try:
-                status, raw, ctype, charset = fetcher.fetch(url)
+                response, final_url = follow(fetcher, url, counter)
+            except RedirectRefused:
+                attempts += counter[0]
+                outcomes[-1] = "REFUSED"
+                break
             except TransientFetch:
-                attempts += 1
+                attempts += counter[0]
                 transient_seen = True
                 if attempt + 1 < MAX_ATTEMPTS_PER_URL:
                     time.sleep(min(gap, 5.0))
                 continue
             except FatalFetch:
-                attempts += 1
+                attempts += counter[0]
                 break
-            attempts += 1
-            if 200 <= status < 300:
+            attempts += counter[0]
+            if 200 <= response.status < 300:
                 answered = True
-                body_text, caption_text = split_content(raw, ctype, charset)
+                body_text, caption_text = split_content(
+                    response.body, response.content_type, response.charset)
                 if quote_in_words(normalise_words(body_text), quote_words):
-                    return "LOCATED", url, transient_seen, attempts
+                    return "LOCATED", final_url, transient_seen, attempts
                 if (caption_text and not caption_hit
                         and quote_in_words(normalise_words(caption_text), quote_words)):
                     caption_hit = True
-                    caption_url = url
+                    caption_url = final_url
+                elif response.truncated:
+                    truncated_seen = True
+                else:
+                    clean_absent = True
             break
     if caption_hit:
         return "CAPTION_ONLY", caption_url, transient_seen, attempts
     if answered:
+        if truncated_seen and not clean_absent:
+            return "TRUNCATED", None, transient_seen, attempts
         return "ABSENT", None, transient_seen, attempts
-    if refused_all:
+    if outcomes and all(item == "REFUSED" for item in outcomes):
         return "REFUSED", None, transient_seen, attempts
+    if outcomes and all(item == "MALFORMED" for item in outcomes):
+        return "MALFORMED", None, transient_seen, attempts
+    if "TRIED" not in outcomes and "REFUSED" in outcomes:
+        return "REFUSED", None, transient_seen, attempts
+    if "TRIED" not in outcomes and "MALFORMED" in outcomes:
+        return "MALFORMED", None, transient_seen, attempts
     return "UNREACHABLE", None, transient_seen, attempts
 
 
@@ -509,7 +749,8 @@ def process_row(row, passes, gap, fetcher):
 
 USAGE = (
     "usage: reopen-row.py [--registry PATH] [--passes N] [--gap SECONDS]\n"
-    "                      [--allow-private] [--selftest] ID...\n"
+    "                      [--timeout SECONDS] [--allow-private] [--selftest]\n"
+    "                      ID...\n"
 )
 
 
@@ -517,6 +758,7 @@ def parse_args(argv):
     registry = DEFAULT_REGISTRY
     passes = DEFAULT_PASSES
     gap = DEFAULT_GAP
+    timeout = FETCH_TIMEOUT
     allow_private = False
     selftest = False
     ids = []
@@ -530,7 +772,7 @@ def parse_args(argv):
             selftest = True
         elif arg == "--allow-private":
             allow_private = True
-        elif arg in ("--registry", "--passes", "--gap"):
+        elif arg in ("--registry", "--passes", "--gap", "--timeout"):
             if index + 1 >= len(argv):
                 raise InputError("%s needs a value" % arg)
             value = argv[index + 1]
@@ -539,8 +781,10 @@ def parse_args(argv):
                 registry = value
             elif arg == "--passes":
                 passes = value
-            else:
+            elif arg == "--gap":
                 gap = value
+            else:
+                timeout = value
             continue
         elif arg.startswith("--registry="):
             registry = arg.split("=", 1)[1]
@@ -548,6 +792,8 @@ def parse_args(argv):
             passes = arg.split("=", 1)[1]
         elif arg.startswith("--gap="):
             gap = arg.split("=", 1)[1]
+        elif arg.startswith("--timeout="):
+            timeout = arg.split("=", 1)[1]
         elif arg.startswith("-") and arg != "-":
             raise InputError("unknown option %s" % arg)
         else:
@@ -565,12 +811,18 @@ def parse_args(argv):
         raise InputError("--gap must be a number >= 0")
     if gap < 0:
         raise InputError("--gap must be a number >= 0")
-    return registry, passes, gap, allow_private, selftest, ids
+    try:
+        timeout = float(timeout)
+    except (TypeError, ValueError):
+        raise InputError("--timeout must be a number > 0")
+    if not timeout > 0 or timeout in (float("inf"), float("-inf")):
+        raise InputError("--timeout must be a number > 0")
+    return registry, passes, gap, timeout, allow_private, selftest, ids
 
 
 def main(argv):
     try:
-        registry, passes, gap, allow_private, selftest, ids = parse_args(argv)
+        registry, passes, gap, timeout, allow_private, selftest, ids = parse_args(argv)
     except InputError as error:
         sys.stderr.write("REOPEN_ERROR: %s\n" % error)
         return 2
@@ -584,7 +836,7 @@ def main(argv):
     except InputError as error:
         sys.stderr.write("REOPEN_ERROR: %s\n" % error)
         return 2
-    fetcher = Fetcher(allow_private=allow_private)
+    fetcher = Fetcher(allow_private=allow_private, timeout=timeout)
     located = 0
     all_located = True
     for row_id in ids:
@@ -632,7 +884,8 @@ def _start_fixture_server(routes):
                 self.end_headers()
                 self.wfile.write(body)
                 return
-            statuses, payload, ctype = route
+            statuses, payload, ctype = route[0], route[1], route[2]
+            headers = route[3] if len(route) > 3 else {}
             status = statuses[min(count, len(statuses) - 1)]
             if status == 200:
                 body = payload
@@ -640,6 +893,8 @@ def _start_fixture_server(routes):
                 body = b"<html><body><p>error page</p></body></html>"
             self.send_response(status)
             self.send_header("Content-Type", ctype)
+            for name, value in headers.items():
+                self.send_header(name, value)
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)
@@ -652,10 +907,39 @@ def _start_fixture_server(routes):
     return server, hits
 
 
+def _start_stall_server():
+    """Start a server that answers the head and then stalls the body."""
+    import http.server
+    import threading
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        protocol_version = "HTTP/1.1"
+
+        def do_GET(self):
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html")
+            self.send_header("Content-Length", str(1024 * 1024))
+            self.end_headers()
+            try:
+                self.wfile.write(b"x" * 100)
+                self.wfile.flush()
+                time.sleep(20)
+            except (BrokenPipeError, ConnectionResetError):
+                pass
+
+        def log_message(self, *args):
+            pass
+
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return server
+
+
 def run_selftest():
     """Offline fixtures: body, caption kinds, transient, dead+archive, 404,
     closed port and bad inputs."""
     import contextlib
+    import gzip
     import io
     import tempfile
 
@@ -714,6 +998,24 @@ def run_selftest():
         "/archived": ([200], html("<p>%s.</p>" % quote), "text/html"),
         "/gone": ([404], html("<p>gone</p>"), "text/html"),
     }
+    other_routes = {
+        "/secret": ([200], html("<p>%s</p>" % quote), "text/html"),
+    }
+    other_server, other_hits = _start_fixture_server(other_routes)
+    other_base = "http://127.0.0.1:%d" % other_server.server_address[1]
+    stall_server = _start_stall_server()
+    stall_base = "http://127.0.0.1:%d" % stall_server.server_address[1]
+    routes["/redir"] = ([302], b"", "text/html", {"Location": "/redirtarget"})
+    routes["/redirtarget"] = ([200], html("<p>%s.</p>" % quote), "text/html")
+    routes["/hop"] = ([302], b"", "text/html",
+                      {"Location": other_base + "/secret"})
+    routes["/gz"] = ([200], gzip.compress(html("<p>%s.</p>" % quote)),
+                     "text/html", {"Content-Encoding": "gzip"})
+    pad = "lima " * 900000
+    routes["/truncfar"] = ([200], html("<p>%s</p><p>%s</p>" % (pad, quote)),
+                            "text/html")
+    routes["/truncnear"] = ([200], html("<p>%s</p><p>%s</p>" % (quote, pad)),
+                             "text/html")
     server, hits = _start_fixture_server(routes)
     port = server.server_address[1]
     base = "http://127.0.0.1:%d" % port
@@ -750,6 +1052,15 @@ def run_selftest():
         row("S12", "http://127.0.0.1:%d/deadport" % closed_port, quoted),
         row("S13", "%s/body" % base, "section a: no quoted span here"),
         row("S14", "%s/body" % base, 'section a: "only three short words"'),
+        row("S19", "%s/redir" % base, quoted),
+        row("S20", "%s/hop" % base, quoted),
+        row("S21", "http://127.0.0.1:99999/x", quoted),
+        row("S22", "http://[2001:db8::1/x", quoted),
+        row("S23", "http://:80/x", quoted),
+        row("S24", "%s/gz" % base, quoted),
+        row("S25", "%s/truncfar" % base, quoted),
+        row("S26", "%s/truncnear" % base, quoted),
+        row("S27", "%s/stall" % stall_base, quoted),
     ]
     with open(registry_path, "w", encoding="utf-8") as handle:
         handle.write("| id | source | kind | tier | scope | anchor | teaches |\n")
@@ -770,6 +1081,12 @@ def run_selftest():
                 parts = line.split()
                 found[parts[1]] = (parts[2], parts[3])
         return found
+
+    def url_of(text, row_id):
+        for line in text.splitlines():
+            if line.startswith("ROW %s " % row_id):
+                return line.split("url=", 1)[1]
+        return None
 
     print("-- selftest: verdicts --")
     code, out = run(["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10",
@@ -827,6 +1144,8 @@ def run_selftest():
         ("missing registry", ["--registry", os.path.join(work, "nope.md"), "S1"]),
         ("passes zero", ["--registry", registry_path, "--passes", "0", "S1"]),
         ("gap not a number", ["--registry", registry_path, "--gap", "x", "S1"]),
+        ("timeout zero", ["--registry", registry_path, "--timeout", "0", "S1"]),
+        ("timeout not a number", ["--registry", registry_path, "--timeout", "x", "S1"]),
         ("unknown option", ["--registry", registry_path, "--nope", "S1"]),
     ):
         buffer = io.StringIO()
@@ -842,8 +1161,52 @@ def run_selftest():
         code = main(["--registry", bad, "S1"])
     check("bad utf-8 exit", code, 2)
 
+    print("-- selftest: redirect chain --")
+    hits.clear()
+    code, out = run(["S19"])
+    check("redirect verdict", verdicts_of(out).get("S19"), ("LOCATED", "attempts=2"))
+    check("redirect hits", (hits.get("/redir", 0), hits.get("/redirtarget", 0)),
+          (1, 1))
+    check("redirect url", url_of(out, "S19"), base + "/redirtarget")
+
+    print("-- selftest: cross-authority redirect refused --")
+    hits.clear()
+    other_hits.clear()
+    code, out = run(["S20"])
+    check("hop refused", verdicts_of(out).get("S20"), ("REFUSED", "attempts=1"))
+    check("hop source hit", hits.get("/hop", 0), 1)
+    check("hop target untouched", other_hits.get("/secret", 0), 0)
+
+    print("-- selftest: malformed urls --")
+    code, out = run(["S21", "S22", "S23"])
+    verdicts = verdicts_of(out)
+    check("malformed port", verdicts.get("S21"), ("MALFORMED", "attempts=0"))
+    check("malformed ipv6", verdicts.get("S22"), ("MALFORMED", "attempts=0"))
+    check("malformed empty host", verdicts.get("S23"), ("MALFORMED", "attempts=0"))
+    check("malformed exit", code, 1)
+
+    print("-- selftest: gzip --")
+    code, out = run(["S24"])
+    check("gzip verdict", verdicts_of(out).get("S24"), ("LOCATED", "attempts=1"))
+
+    print("-- selftest: truncation --")
+    code, out = run(["S25", "S26"])
+    verdicts = verdicts_of(out)
+    check("truncated far", verdicts.get("S25"), ("TRUNCATED", "attempts=1"))
+    check("truncated near", verdicts.get("S26"), ("LOCATED", "attempts=1"))
+    check("truncated url", url_of(out, "S25"), "-")
+
+    print("-- selftest: request budget --")
+    code, out = run(["S27"], extra=["--timeout", "1", "--passes", "1"])
+    check("stall verdict", verdicts_of(out).get("S27"),
+          ("UNREACHABLE", "attempts=3"))
+
     server.shutdown()
     server.server_close()
+    other_server.shutdown()
+    other_server.server_close()
+    stall_server.shutdown()
+    stall_server.server_close()
     print("-- selftest: %d checks, %d failures --" % (checks, len(failures)))
     for failure in failures:
         print("FAILED %s" % failure)
