@@ -4118,3 +4118,9 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - Evidence: control wave 8 seats (1 refused, CtlKeyedLabels59, hold), build wave 35 seats, support call 8 seats; receipts under `reports/round-59/telemetry/`; lesson `corpus/lessons/round-59.md`.
 - Re-verification: the round-58 kongo fixes were re-read on their sources by ReviewDKongoA59/B59/C59 (14/14 agree).
 - Routed round-58 defects: stray files deleted; census at start; FETCH-59 + QUALITY criterion 13; C lands name every SUPPORT input.
+
+## 2026-10-23 — Round 59 correction (recorded in round 60; records, not a claim)
+
+- ACCEPT-C-59 is recorded as **MISSED** on the as-reviewed 47-row object: 14 legs PASS and SUPPORT FAIL (S602, S616, S623, S643 one NOT-SUPPORTED each, `reports/round-59/telemetry/as-reviewed-c.txt`, 03:39:56Z). The four propositions were deleted at 03:40:08Z, 12 s after that receipt; the narrowed 43-row entry is not the judged object. Run 2 at `84b931a5` also printed FAIL (legs lost to `tail -3`). Source: `corpus/lessons/round-59-verifier-spotcheck.md` §2 and §5 items 1-2.
+- The round-59 separability line `C->REC via acceptance` is a live-fetch re-run artifact, not a dependency: no `accept-c.py` leg reads a REC land, and C passed alone at `4abfb63d` (spot-check §5 item 3).
+- Filed round-59 SCORECARD and LOG lines are unchanged; this entry and the SCORECARD correction table are appended. The amulets entry is re-entered under a new pre-data freeze as round-60 claim D.

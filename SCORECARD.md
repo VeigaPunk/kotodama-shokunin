@@ -1136,3 +1136,10 @@ Instruments `39c9ce8a` (revision 0), declaration `1b80ee41`, revision 1 and free
 Correction rows for round 58 (filed rows not edited): the round-58 instrument was revised six times before data, not five (`31cf8b6` added TOPIC); its "123 fixtures, 0 pass" holds only as a whole-predicate count — 18 failed only SUPPORT, 17 of them for a missing registry (`corpus/lessons/round-59.md` Errata).
 
 Frontier step (not a claim): `corpus/SOURCES.md` 525 → 573 rows (S600-S647 opened this round; 43 mined, 1 queued, 4 rejected); census exit 0 at start (`reports/round-59/telemetry/census-start.txt`) and end.
+
+Correction rows for round 59 (recorded in round 60; routed defects 1-3 of `corpus/lessons/round-59-verifier-spotcheck.md`; filed round-59 rows not edited):
+
+| corrected row | correction | evidence |
+|---|---|---|
+| round-59 coverage (`ACCEPT-C-59`, author-side PASS) | **MISSED** on the as-reviewed 47-row object: 14 legs PASS, SUPPORT FAIL on S602, S616, S623, S643; the four propositions were deleted 12 s after the FAIL receipt; run 2 at `84b931a5` printed FAIL (legs lost to `tail -3`). The narrowed object is not the judged object. | `reports/round-59/telemetry/as-reviewed-c.txt`; `reports/round-59/telemetry/final-measures.txt` run 2; spot-check §2 |
+| round-59 separability `C->REC via acceptance` | a live-fetch re-run artifact, not a dependency (no REC land read by `accept-c.py`; C passed alone at `4abfb63d`) | spot-check §2 and §5 item 3 |
