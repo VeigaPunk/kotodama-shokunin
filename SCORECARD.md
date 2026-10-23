@@ -1107,3 +1107,16 @@ Instruments `6f08c494`, revised after the two pre-dispatch critics and before an
 
 Frontier step (not a claim): `corpus/SOURCES.md` 412 → 465 rows (S413-S454 opened this round and cited by C; S481-S491 superseding rows, queued); census exit 0 at start (`reports/round-57/telemetry/census-start.txt`) and end. Non-author verification is the hyaku closure's.
 
+
+
+## Axes — round 58 (2026-10-23), author-side verdicts, pending non-author closure (hyaku phase 4, attempt 2)
+
+Instruments `91fb8fd9`, revised five times before any data seat (`a43f5336`, `c42121f4`, `edecdc90`, `1a07344e`, claim base `80f48c2c`) because pre-data controls met each earlier counter; control receipts `97577f6c` (`reports/round-58/telemetry/controls-c.txt`: 123 fixtures, 0 pass); pre-data dry-run `adc28834`; C landed `ddc17f4a`; support verdicts `a7e47abd`; records `e27c8a67`, `45bb7e1a`.
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| coverage | NOT VERIFIED as declared (claim C, learning claim, sourced claim) | knowledge files 233 → 234; linguistics 28 → 29; 44 rows S500-S543 cited, mined, used-by the entry; 13 of 15 legs PASS on every final run, SUPPORT 44/44 SUPPORTED by six non-author reviewer seats; but ACCEPT-C-58 printed FAIL on 4 of 4 live final runs (`a7e47abd` once, `e27c8a67` twice, `45bb7e1a` once), each time on one fetch-class error at an Australian government host (S510 `environment.nt.gov.au` BOILER, S511 `www.land.vic.gov.au` BOILER/TOPIC) while the same rows pass when checked alone; the frozen LOCATE/BOILER/TOPIC legs allow no slack, so the miss stands. Separability also finds C's acceptance needs `.ufo/waves/round-58/support/`, a path C's declared lands omit | `python3 -B reports/round-58/accept-c.py` | `reports/round-58/telemetry/final-measures.txt`; `corpus/lessons/round-58.md` |
+| calibration | not claimed; recorded | round-57 closure defects 1-6 dispositioned (lesson intake); QUALITY criterion 12 (re-test stated rejection grounds); superseding rows S560-S562, S564-S574; S575 re-sources heraldry :41; S576 registers CODH bukan; errata for round-57.md:92 and :119; mistakes R58-M1 to R58-M6 | `grep -c '^| R58-M' corpus/lessons/round-58.md` | `corpus/lessons/round-58.md` |
+| depth / operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question; the kongo-kingdom and speech-surrogates fixes were re-verified but not applied (carried) | — | — |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 465 → 525 rows (S500-S543 opened this round and cited by C; S560-S562, S564-S576 records rows); census exit 0 at the base (run late on a base clone) and at the end after the kind-enum correction (`reports/round-58/telemetry/census-*.txt`).

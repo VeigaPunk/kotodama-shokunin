@@ -4102,3 +4102,11 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Waves:** pre-dispatch 2 critics, build 50 seats, residual 8; round total 60. Mistakes R57-M1 to R57-M3.
 - **Evidence:** `reports/round-57/telemetry/`; `.ufo/waves/round-57/`; `corpus/lessons/round-57.md`.
 
+
+## Round 58 — 2026-10-23 (hyaku phase 4, attempt 2)
+
+- **Repair first:** the round-57 closure found LOCATE blind to relevance. Round 58's C counter gained BOILER (root page and page labels), RELEVANCE (a)-(e), TOPIC (page-anchored), DISTINCT, TIER and SUPPORT (registered non-author verdicts), each added before data after a pre-data control met the earlier counter (8-seat control wave, 3-seat blind support-control review; 123 fixtures re-scored, 0 pass).
+- **C:** `linguistics/toponymy-place-names.md` (`ddc17f4a`), 44 rows S500-S543, SUPPORT 44/44; ACCEPT-C-58 FAIL on 4/4 live final runs on transient fetch errors at two .gov.au hosts (S510, S511) — reported as not verified, never amended.
+- **Routed fixes (records):** QUALITY criterion 12; S560-S562, S564-S574 superseding rows; S575 (heraldry :41); S576 (CODH); errata; kongo/speech-surrogates fixes re-verified and carried.
+- **Waves:** control 8, support-control 3, build 41 (3 executors cancelled at the cut), support 6; round total 58. Mistakes R58-M1 to R58-M6.
+- **Evidence:** `reports/round-58/telemetry/`; `.ufo/waves/round-58/`; `corpus/lessons/round-58.md`.
