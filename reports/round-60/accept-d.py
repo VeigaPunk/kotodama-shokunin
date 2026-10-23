@@ -38,13 +38,17 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            BLIND when its committed transcript is a byte copy of its one session file
            (/home/vgpnk/.omp/agent/sessions/*/*/KotodamaR60A2/KotodamaR60A2.<Seat>.jsonl; revision 1) and
            no tool-call argument in it names the lane repo
-           (`kotodama-shokunin`), `corpus`, `SOURCES.md`, the entry's file name, a registry.json,
+           (`kotodama-shokunin`; revision 3: any argument containing `kotodama`, `/.ufo/` or
+           `/fast/scratch`), `corpus`, `SOURCES.md`, the entry's file name, a registry.json,
            round 59's sandbox (`kotodama-r59`), a planted file, the packet key, history:// or
            agent://, or another seat's name; the one exempt call is a read/write/edit of the seat's
            own report path. A seat is also BOUND (revision 2: post-verdict re-key): its packet names the
            key's entry_sha256 on a line `entry_sha256: <hex>`, and its committed packet occurs
            byte-for-byte in its own dispatched task (the transcript's session_init `task`), so a
-           re-key or a packet rewrite after the verdicts cannot match. A seat is QUALIFIED when it is
+           re-key or a packet rewrite after the verdicts cannot match; and (revision 3: a report
+           rewritten after the verdicts) the VERDICT lines of its committed report equal those of the
+           last `write` call to its own report path in its transcript (a NOT-SUPPORTED in either one
+           counts as given). A seat is QUALIFIED when it is
            BLIND and BOUND, the key gives it >= 2 PLANTED labels, each PLANTED block equals a row of
            the frozen planted file, and its report has a line-initial `VERDICT P## NOT-SUPPORTED` and
            no `VERDICT P## SUPPORTED` for every PLANTED label. A real label's SUPPORTED verdict is
@@ -147,7 +151,7 @@ def blind(seat, args):
                 and own.search(str(obj.get("path", ""))):
             continue
         low = a.lower()
-        for bad in ("kotodama-shokunin", "kotodama-r59", "planted", "packet-key", "corpus", "sources.md",
+        for bad in ("kotodama", "/.ufo/", "/fast/scratch", "planted", "packet-key", "corpus", "sources.md",
                     "amulets-talismans", "registry.json", "history://", "agent://"):
             if bad in low:
                 return bad
@@ -185,6 +189,20 @@ def bound(transcript, packet_text, entry_sha):
         if isinstance(obj, dict) and obj.get("type") == "session_init":
             return "" if packet_text in str(obj.get("task", "")) else "packet-not-in-dispatched-task"
     return "no-session-init"
+
+
+def own_write(seat, args):
+    """Content of the seat's last `write` call to its own report path (revision 3), else None."""
+    own = re.compile(rf"/kotodama-shokunin/\.ufo/waves/round-60/[a-z0-9-]+/{seat}\.md$")
+    last = None
+    for a in args:
+        try:
+            obj = json.loads(a)
+        except ValueError:
+            continue
+        if isinstance(obj, dict) and isinstance(obj.get("content"), str) and own.search(str(obj.get("path", ""))):
+            last = obj["content"]
+    return last
 
 
 def main():
@@ -346,8 +364,12 @@ def main():
             continue
         args = tool_args(transcript)
         packet_text = open(packet, encoding="utf-8", errors="replace").read()
-        seen = provenance(seat, transcript) or blind(seat, args) or bound(transcript, packet_text, key.get("entry_sha256", ""))
-        found = VERDICT.findall(open(report, encoding="utf-8", errors="replace").read())
+        report_found = VERDICT.findall(open(report, encoding="utf-8", errors="replace").read())
+        written = own_write(seat, args)
+        found = VERDICT.findall(written) if written is not None else []
+        seen = provenance(seat, transcript) or blind(seat, args) or bound(transcript, packet_text, key.get("entry_sha256", "")) \
+            or ("" if written is not None and found == report_found else "report-not-its-own-write")
+        found = found + [v for v in report_found if v not in found]
         shown = {}
         for label, body in PACKET_BLOCK.findall(packet_text):
             fields = dict(PACKET_FIELD.findall(body))
