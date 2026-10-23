@@ -13,7 +13,12 @@ Frozen predicate (the same sentence in reports/round-60/claims.json `predicate`)
   content words with the entry line citing it; the entry's sha256
   equals the entry_sha256 in the packet key whose hash was committed before the support call; and
   every one of the 47 cited ids is SUPPORTED by 2 distinct qualified, blind declared support seats
-  whose own transcript fetched the row's page, with no NOT-SUPPORTED from any declared seat.
+  whose own transcript fetched the row's page and whose verdict quotes at least 10 words of that
+  page's pinned text that its packet block does not contain, with no NOT-SUPPORTED from any declared seat.
+
+  (revision 7, EVIDENCE: the pinned text is reports/round-60/captures/pages/<sid>.txt, sha256 in
+  pages/manifest.json; the span is a double-quoted part of the seat's own VERDICT line, >= 10
+  locator-normalised words, located in the page text and not in the packet block; see evidenced.)
 
 Legs (each prints PASS or FAIL with its detail; the last stdout line is `ACCEPT-D-60: PASS|FAIL`,
 exit 0 on PASS, 1 on FAIL, 2 on an input error). No leg fetches anything over the network: the
@@ -76,9 +81,18 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            httpx — with the page as an http(s) URL that is not a query parameter of another URL; the
            seat's own report call never counts; see fetch_targets/names_page). PASS when
            every cited id has counted SUPPORTED verdicts from >= 2 distinct
-           QUALIFIED seats and no declared seat gives NOT-SUPPORTED on any label the key maps to an
+           QUALIFIED seats and no frozen seat gives NOT-SUPPORTED on any label the key maps to an
            S-id (revision 2, post-verdict narrowing: whether or not the block still matches or the id is still
-           cited).
+           cited; revision 6: every one of SupportA60..SupportX60 is scanned, in its lane report and in the
+           last write to its report path in its session file, whether or not the registry lists it or it
+           qualified), and registry.json lists exactly the 24 frozen seats, each once, role reviewer, agentId
+           KotodamaR60A3.<name>, and nothing else (revision 6: a member dropped or added after the verdicts).
+           CONFINED revision 6 (pre-data, from honest dry runs): a shell-quoted bootstrap path, the read
+           tool's selector suffix on a packet URL, and an HTML closing tag (`</p>`, `</\1>`) are not breaches.
+
+Captures (review-only): PINNED cannot tell captured bytes from self-made bytes without a network leg
+(FETCH-60); the L1's re-fetch receipt reports/round-60/telemetry/captures-refetch.txt and the blind
+seats' own live fetches carry that, and the closure can repeat the fetch.
 
 Review-only (no leg can check them): whether each repaired sentence is the best wording; whether
 the session files are the ones omp wrote (the closure compares them with history://KotodamaR60A3.<Seat>);
@@ -124,6 +138,36 @@ PACKET_BLOCK = re.compile(r"^### (P\d{2})[ \t]*\n((?:(?!### ).*\n?)*)", re.M)
 PACKET_FIELD = re.compile(r"^(quote|teaches|entry|url):[ \t]*(.*)$", re.M)
 SUPERSEDES = re.compile(r"^\s*supersedes\s+S\d{3,}\s*[—–-]+\s*")
 SID = re.compile(r"\bS\d{3,}\b")
+PAGES = "reports/round-60/captures/pages/manifest.json"  # revision 7: pinned text of every cited page
+MIN_EVIDENCE_WORDS = 10
+VERDICT_LINE = re.compile(r"^VERDICT (P\d{2}) SUPPORTED\b(.*)$", re.M)
+EVIDENCE_SPAN = re.compile(r"[\"“]([^\"“”]{20,})[\"”]")
+
+
+def page_texts(root):
+    """sid -> pinned page text (revision 7), each text file checked against its manifest sha256."""
+    out = {}
+    try:
+        manifest = json.load(open(os.path.join(root, PAGES), encoding="utf-8"))
+    except (OSError, ValueError):
+        return out
+    for sid, item in manifest.items() if isinstance(manifest, dict) else []:
+        path = os.path.join(root, os.path.dirname(PAGES), str(item.get("text", "")))
+        if item.get("text") and os.path.isfile(path) and \
+                hashlib.sha256(open(path, "rb").read()).hexdigest() == item.get("text_sha256"):
+            out[sid] = open(path, encoding="utf-8", errors="replace").read()
+    return out
+
+
+def evidenced(rest, page_text, block_text, locator):
+    """True when a verdict line's remainder quotes (straight or curly double quotes) a span of
+    >= MIN_EVIDENCE_WORDS words that locates in the pinned page text and NOT in the packet block, so
+    the seat shows page text its packet did not give it (revision 7: a packet-only reader cannot)."""
+    for span in EVIDENCE_SPAN.findall(rest or ""):
+        if len(locator.normalise(span).split()) >= MIN_EVIDENCE_WORDS and page_text \
+                and locator.locate_in(page_text, span) and not locator.locate_in(block_text, span):
+            return True
+    return False
 
 
 def load_locator(root):
@@ -218,7 +262,7 @@ CONFINE_DENY = re.compile(
     r"|(?:^|[\s'\"=:(,])~"                                # home shorthand
     r"|\$\{?(?:HOME|OLDPWD|XDG_[A-Z_]+|TMPDIR)\b"         # home-like variables
     r"|\b(?:pushd|popd|chdir|expanduser|getenv|environ|xxd|base64|b64decode|fromhex)\b"
-    r"|(?<![.\w])eval\b"
+    r"|(?:^|[;&|(`]|\n)\s*eval\b"                        # revision 7: shell eval in command position only
     r"|Path\.home|chr\(|\\x2f|\\057|\\u002f|\$'|(?-i:(?:^|\s)-C\s)",
     re.I)
 
@@ -243,7 +287,8 @@ def confined(seat, calls, pages, locator):
     def page_ok(url):
         return urllib.parse.unquote(page_of(url, locator)) in allowed
 
-    cd_ok = re.compile(rf"^\s*(?:mkdir\s+-p\s+{re.escape(sand)}(?:/\S*)?\s*&&\s*)?cd\s+{re.escape(sand)}(?:/\S*)?\s*(?:&&|;|\n|$)")
+    q = r"[\"']?"  # revision 6: the bootstrap path may be shell-quoted
+    cd_ok = re.compile(rf"^\s*(?:mkdir\s+-p\s+{q}{re.escape(sand)}(?:/[^\s\"']*)?{q}\s*&&\s*)?cd\s+{q}{re.escape(sand)}(?:/[^\s\"']*)?{q}\s*(?:&&|;|\n|$)")
     for name, obj in calls:
         if not isinstance(obj, dict):
             return f"unparsed-call:{name}"
@@ -252,7 +297,9 @@ def confined(seat, calls, pages, locator):
         if name == "read":
             path = str(obj.get("path", ""))
             if re.match(r"\s*https?://", path):
-                if not page_ok(path.strip()):
+                # revision 6: the read tool's selector suffix (`:raw`, `:50-80`, ...) names the same page
+                bare_url = re.sub(r"(?::raw|:-?\d[\d+,\-]*|:img|:conflicts)+$", "", path.strip())
+                if not page_ok(bare_url):
                     return "read-url-not-in-packet"
             elif not under(path):
                 return "read-outside-sandbox"
@@ -273,13 +320,16 @@ def confined(seat, calls, pages, locator):
         deny = CONFINE_DENY.search(text)
         if deny:
             return f"deny:{deny.group(0).strip()}"
-        for m in re.finditer(r"\bcd\b\s*(\S*)", text):
-            if not under(m.group(1)):
+        for m in re.finditer(r"(?:^|[;&|(`]|\n)\s*cd\b\s*(\S*)", text):  # revision 7: command position only
+            if not under(m.group(1).strip("\"'")):
                 return "cd-outside-sandbox"
         for m in ABS_TOKEN.finditer(text):
             token = m.group(0)
             if token == "/" and re.search(r"[\w)\]]\s+$", text[:m.start()]) and re.match(r"\s+[\w(]", text[m.end():]):
                 continue  # division, `a / b`
+            if text[m.start() - 1:m.start()] == "<" and re.fullmatch(r"/[A-Za-z0-9\\]+", token) \
+                    and text[m.end():m.end() + 1] == ">":
+                continue  # revision 6: an HTML closing tag or its regex (`</p>`, `</\1>`), not a path
             if not (under(token) or token.startswith(("/usr/", "/bin/"))
                     or token in ("/dev/null", "/dev/stdout", "/dev/stderr")):
                 return f"path:{token[:40]}"
@@ -514,9 +564,15 @@ def main():
     seats, notes = set(), []
     try:
         registry = json.load(open(os.path.join(root, SUPPORT_DIR, "registry.json"), encoding="utf-8"))
-        seats = {m["name"] for m in registry.get("members", [])
+        members = registry.get("members", [])
+        seats = {m["name"] for m in members
                  if m.get("name") in SEATS and m.get("role") == "reviewer"
                  and m.get("agentId") == f"{AGENT_PREFIX}{m.get('name')}"}
+        # revision 6 (CtlNarrowA3 e/f/f2): the registry must be exactly the frozen roster, one valid
+        # member per SEATS name and nothing else, so no member can be dropped or added after verdicts
+        if sorted(m.get("name") for m in members if isinstance(m, dict)) != sorted(SEATS) or seats != set(SEATS) \
+                or len(members) != len(SEATS):
+            notes.append("roster-not-the-frozen-24")
     except (OSError, ValueError, AttributeError, TypeError, KeyError) as error:
         notes.append(f"no-registry:{type(error).__name__}")
     seat_keys = key.get("seats", {}) if key_ok else {}
@@ -539,6 +595,9 @@ def main():
         return (locator.normalise(quote or ""), locator.normalise(teaches), locator.normalise(" ".join(cites)))
 
     verdicts, qualified, seat_notes, rejected = {}, set(), [], []
+    texts = page_texts(root)  # revision 7
+    if len(texts) < len(cited):
+        notes.append(f"pinned-pages={len(texts)}")
     for seat in sorted(seats):
         report = os.path.join(root, SUPPORT_DIR, f"{seat}.md")
         packet = os.path.join(root, SUPPORT_DIR, f"packet-{seat}.md")
@@ -571,6 +630,8 @@ def main():
             qualified.add(seat)
         seat_notes.append(f"{seat}:{'Q' if seat in qualified else 'X'}{len(planted)}{'' if not seen else '/sees:' + seen}")
         targets = fetch_targets(seat, args)
+        evidence = dict(VERDICT_LINE.findall(written or ""))  # revision 7: from the seat's own write
+        raw_blocks = dict(PACKET_BLOCK.findall(packet_text))
         for label, verdict in found:
             sid = labels.get(label)
             if not sid or sid == "PLANTED":
@@ -583,8 +644,26 @@ def main():
                 continue
             pages = {page_of(u, locator) for u in locator.row_target(table.get(sid, []))[0]} if len(table.get(sid, [])) >= 13 else set()
             fetched = any(p and any(names_page(t, p) for t in targets) for p in pages)
-            verdicts.setdefault(sid, []).append((verdict, seat, fetched))
+            shows_page = evidenced(evidence.get(label), texts.get(sid, ""), raw_blocks.get(label, ""), locator)
+            verdicts.setdefault(sid, []).append((verdict, seat, fetched and shows_page))
+    # revision 6: dissent from ANY frozen seat counts, read from its lane report and from the last write
+    # to its report path in its session file, whether or not the registry lists it or it qualified
+    for seat in SEATS:
+        labels = seat_keys.get(seat) if isinstance(seat_keys.get(seat), dict) else {}
+        given = []
+        report = os.path.join(root, SUPPORT_DIR, f"{seat}.md")
+        if os.path.isfile(report):
+            given += VERDICT.findall(open(report, encoding="utf-8", errors="replace").read())
+        for session in glob.glob(SESSIONS.format(seat=seat)):
+            written = own_write(seat, tool_args(session))
+            given += VERDICT.findall(written) if written is not None else []
+        for label, verdict in given:
+            sid = labels.get(label)
+            if verdict == "NOT-SUPPORTED" and sid and sid != "PLANTED" and f"{sid}:NOT/{seat}" not in rejected:
+                rejected.append(f"{sid}:NOT/{seat}")
     unsupported = list(rejected)
+    if any(n.startswith(("roster-", "no-registry")) for n in notes):
+        unsupported.append("roster")
     for sid in cited:
         given = verdicts.get(sid, [])
         good = {seat for v, seat, f in given if v == "SUPPORTED" and f and seat in qualified}
