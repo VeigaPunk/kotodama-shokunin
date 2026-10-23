@@ -13,13 +13,16 @@ reopen-quote.py `row_target`):
 
   LOCATE     reopen-quote.locate(urls, QUOTE) is true: the quote (at least 8 normalised words) is in
              the text one of the row's source URLs (at most four) serves now. LOC_URL is that URL.
-  BOILER     the quote is not site boilerplate: the ROOT page of LOC_URL's site is fetched live
-             (same fetch and text rules) and QUOTE is NOT located in it. ROOT is
+  BOILER     the quote is not site boilerplate and not a page label: the ROOT page of LOC_URL's site
+             is fetched live (same fetch and text rules) and QUOTE is NOT located in it; and QUOTE is
+             NOT located in the page's own labels (the text of its <title>, <h1> elements and every
+             <meta content="..."> value, tags stripped, entities decoded). ROOT is
              `<scheme>://<host>/`; for a Wayback URL `web.archive.org/web/<ts>[flags]/<orig>` it is
              `https://web.archive.org/web/<ts>/<orig scheme>://<orig host>/`. BOILER fails when the
-             row is not located (no LOC_URL), when ROOT cannot be fetched, when LOC_URL is ROOT
-             itself, or when QUOTE is located in ROOT. A footer, header, cookie or navigation
-             sentence that a site prints on every page is printed on its home page too.
+             row is not located (no LOC_URL), when ROOT or LOC_URL cannot be fetched, when LOC_URL is
+             ROOT itself, when QUOTE is located in ROOT, or when it is located in the page labels. A
+             footer, header, cookie or navigation sentence a site prints on every page is printed on its
+             home page too; a title, heading or meta description can be quoted without reading the body.
   RELEVANCE  the quote is bound to the row's teaching, and both to the entry:
              (a) stems(QUOTE) and stems(teaches) share at least 2 stems;
              (b) teaches carries no run of 6 consecutive normalised words of QUOTE (no copied quote);
@@ -45,6 +48,7 @@ Prints one line per row: `S### LOCATE <ok> BOILER <ok> RELEVANCE <ok> TOPIC <ok>
 (ok = PASS|FAIL). Exit 0 when every checked leg passes for every row, 1 otherwise, 2 on usage or
 unreadable input. Read-only; network GETs only.
 """
+import html
 import importlib.util
 import os
 import re
@@ -102,6 +106,12 @@ def root_of(url):
     return f"{parts.scheme}://{parts.netloc}/"
 
 
+LABELS = [re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S),
+          re.compile(r"<h1[^>]*>(.*?)</h1>", re.I | re.S),
+          re.compile(r"<meta\b[^>]*\bcontent\s*=\s*\"([^\"]*)\"", re.I),
+          re.compile(r"<meta\b[^>]*\bcontent\s*=\s*'([^']*)'", re.I)]
+
+
 def boiler(loc_url, quote):
     """(ok, detail): the quote is not located on the site's root page."""
     if not loc_url:
@@ -120,7 +130,22 @@ def boiler(loc_url, quote):
         return False, f"root-unfetchable {root} {type(error).__name__}"
     if locator.locate_in(text, quote):
         return False, f"quote-on-root {root}"
-    return True, f"root-clear {root}"
+    try:
+        if "web.archive.org" in loc_url:
+            with locator._WAYBACK:
+                body, ctype = locator.fetch(loc_url)
+        else:
+            body, ctype = locator.fetch(loc_url)
+    except Exception as error:
+        return False, f"page-unfetchable {type(error).__name__}"
+    raw = body.decode("utf-8", "replace") if isinstance(body, bytes) else str(body)
+    labels = []
+    for pattern in LABELS:
+        labels.extend(pattern.findall(raw))
+    label_text = html.unescape(re.sub(r"<[^>]+>", " ", "\n".join(labels)))
+    if label_text.strip() and locator.locate_in(label_text, quote):
+        return False, "quote-is-title-heading-or-meta"
+    return True, f"root-clear {root}; not a title, h1 or meta label"
 
 
 def relevance(sid, quote, teaches, entry_text):
