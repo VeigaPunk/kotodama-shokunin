@@ -34,9 +34,14 @@ with PASS or FAIL:
             its `teaches` cell and its quote share at least 2 content stems with the entry lines
             that cite it (reports/round-58/rowcheck.py `relevance` (a)-(d); stems defined there)
   TOPIC     at least one S-id is cited and for every cited row the quote holds at least 1
-            NAMING-PLACE window and the page that located it (fetched live again) at least 3
-            (reports/round-58/rowcheck.py `topic`; sets NAMING and PLACE, WINDOW 3, PAGE_HITS 3
-            there): page-anchored text about something other than place names cannot carry a row
+            NAMING-PLACE window and at least 2 function words, and the page that located it
+            (fetched live again) at least 3 windows and at least 2 DISCIPLINE terms
+            (reports/round-58/rowcheck.py `topic`; sets, WINDOW, PAGE_HITS, PAGE_TERMS,
+            QUOTE_FUNCTION there): page-anchored text about something other than place names, or
+            a heading or list fragment, cannot carry a row
+  DISTINCT  at least one S-id is cited; no two cited rows name the same source URL (normalised as
+            in FRESH) or the same quote (locator normalisation), and the cited rows' first source
+            URLs span at least 10 distinct hosts: one page or one site cannot stand in for many
   FRESH     no cited row names a source URL that a corpus/SOURCES.md row below S500 also names
             (URLs compared lower-cased, without scheme, `www.`, trailing `/`, and with a Wayback
             capture prefix removed)
@@ -64,6 +69,7 @@ TOTAL = 234
 FIRST_SID = 500
 LAST_SID = 559
 FLOOR = 20
+MIN_HOSTS = 10
 ROWCHECK = "reports/round-58/rowcheck.py"
 
 
@@ -164,6 +170,22 @@ def main():
            for u in locator.URL.findall(cells[2])}
     stale = sorted(s for s in targets if any(norm(u) in old for u in targets[s][0]))
     legs.append(("FRESH", not stale, f"rows_reusing_registry_urls={stale}"))
+    seen_urls, seen_quotes, shared = {}, {}, []
+    hosts = set()
+    for s in sorted(targets):
+        urls, quote = targets[s]
+        for u in sorted({norm(u) for u in urls}):
+            if u in seen_urls:
+                shared.append(f"{s}=url:{seen_urls[u]}")
+            seen_urls.setdefault(u, s)
+        q = locator.normalise(quote or "")
+        if q in seen_quotes:
+            shared.append(f"{s}=quote:{seen_quotes[q]}")
+        seen_quotes.setdefault(q, s)
+        if urls:
+            hosts.add(norm(urls[0]).split("/")[0])
+    legs.append(("DISTINCT", bool(cited) and not shared and len(hosts) >= MIN_HOSTS,
+                 f"shared={shared} hosts={len(hosts)} need={MIN_HOSTS}"))
     for name, ok, detail in legs:
         print(f"{name} {'PASS' if ok else 'FAIL'} {detail}")
     verdict = all(ok for _, ok, _ in legs)

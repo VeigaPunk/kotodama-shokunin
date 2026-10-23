@@ -34,8 +34,11 @@ reopen-quote.py `row_target`):
              not a cell the author writes): a NAMING-PLACE window is a word whose stem is in
              NAMING with a word whose stem is in PLACE at most WINDOW (3) normalised words away
              (the same word counts when its stem is in both sets, such as `topon` or `hydro`; sets
-             below). The quote holds at least 1 window and the text LOC_URL serves (fetched live
-             again) at least PAGE_HITS (3). Not located or an unfetchable page fails.
+             below). The quote holds at least 1 window and at least 2 FUNCTION words (a sentence,
+             not a heading or list fragment); the text LOC_URL serves (fetched live again) holds at
+             least PAGE_HITS (3) windows and at least PAGE_TERMS (2) matches of DISCIPLINE (the
+             field's own terms: toponym*, exonym*, place name(s), geographic(al) name(s),
+             gazetteer ...). Not located or an unfetchable page fails.
 
 Prints one line per row: `S### LOCATE <ok> BOILER <ok> RELEVANCE <ok> TOPIC <ok> <details>`
 (ok = PASS|FAIL). Exit 0 when every checked leg passes for every row, 1 otherwise, 2 on usage or
@@ -180,17 +183,30 @@ def page_text(url):
     return locator.to_text(body, ctype)
 
 
+DISCIPLINE = re.compile(r"\b(?:topony\w*|toponim\w*|hydrony\w*|orony\w*|endony\w*|exony\w*|odony\w*|onomast\w*"
+                        r"|gazetteer\w*|placenames?|place names?|geographic(?:al)? names?|ortsnam\w*|flurnam\w*"
+                        r"|logainm\w*)\b")
+FUNCTION = set("the a an of in on at is are was were be been to from by for and or that which as with its their this".split())
+PAGE_TERMS = 2
+QUOTE_FUNCTION = 2
+
+
 def topic(quote, loc_url):
-    """(ok, detail): the quote and the page that located it are about place names."""
+    """(ok, detail): the quote is a sentence about place names and its page is a place-name text."""
     quote_hits = window_hits(quote)
+    function_words = sum(1 for w in locator.normalise(quote).split() if w in FUNCTION)
     if not loc_url:
         return False, f"quote_hits={quote_hits} not-located"
     try:
-        page_hits = window_hits(page_text(loc_url))
+        text = page_text(loc_url)
     except Exception as error:  # an unfetchable page cannot show its topic
         return False, f"quote_hits={quote_hits} page-unfetchable {type(error).__name__}"
-    ok = quote_hits >= 1 and page_hits >= PAGE_HITS
-    return ok, f"quote_hits={quote_hits} page_hits={page_hits} need=1/{PAGE_HITS}"
+    page_hits = window_hits(text)
+    terms = len(DISCIPLINE.findall(locator.normalise(text)))
+    ok = (quote_hits >= 1 and function_words >= QUOTE_FUNCTION and page_hits >= PAGE_HITS
+          and terms >= PAGE_TERMS)
+    return ok, (f"quote_hits={quote_hits} function_words={function_words} page_hits={page_hits} "
+                f"page_terms={terms} need=1/{QUOTE_FUNCTION}/{PAGE_HITS}/{PAGE_TERMS}")
 
 
 def check_row(cells, entry_text=None):
