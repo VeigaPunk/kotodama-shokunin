@@ -1,0 +1,22 @@
+# R60-M1 fix shown able to fail on round 59's own bytes (2026-10-23T05:44:55Z), lane read-only
+$ python3 -B tools/check-judged-object.py --key .ufo/waves/round-59/support/planted-key.json --repo . --rev d45985b2 --entry corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md
+JUDGED_KEY: .ufo/waves/round-59/support/planted-key.json
+JUDGED_REPO: .
+JUDGED_REV: d45985b2
+JUDGED_ENTRY: corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md
+JUDGED_SHA256_KEY: 556ddb27c7e8066ab5b13bb4b1c1f58be118daa13651c1d030574561a10dcf19
+JUDGED_SHA256_AT_REV: 4e1bef48db9cbab07bb218f3b586ff2cc2e5f3b9e923f5ccb603c0afcc9e9d3d
+JUDGED_ID_SOURCE: key.seats
+JUDGED_IDS_COUNT_JUDGED: 47
+JUDGED_IDS_COUNT_AT_REV: 43
+JUDGED_NARROWED_IDS: S602 S616 S623 S643
+JUDGED_WIDENED_IDS: (none)
+JUDGED_NOTE: the entry at d45985b2 is not the judged object; the judged object was changed after it was judged
+JUDGED_OBJECT: FAIL
+exit=1
+$ python3 -B tools/check-judged-object.py --selftest
+selftest ok unchanged-entry -> PASS
+selftest ok one-word-changed -> FAIL
+selftest ok row-line-removed -> FAIL with S602 listed
+selftest ok missing-key -> exit 2
+exit=0

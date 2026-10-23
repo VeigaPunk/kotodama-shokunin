@@ -3,8 +3,9 @@
 support task call).
 
 Usage (lane root): python3 -B reports/round-60/build-packets.py PLANTED.md OUTDIR
-Every S-id the amulets entry cites goes to 2 distinct seats of SupportA60..SupportP60; every planted
-row of PLANTED.md goes to 2 distinct seats, so each seat holds >= 2 planted blocks. Blocks are
+Every S-id the amulets entry cites goes to 3 distinct seats of SupportA60..SupportX60 (revision 4: 24
+seats, 3 per block, so one dead or voided seat leaves 2); every planted row of PLANTED.md goes to 3
+distinct seats, so each seat holds >= 2 planted blocks. Blocks are
 shuffled per seat with a secret random seed and labelled P01, P02, ...; a block prints the row's
 URLs, its quote, its teaches cell without a leading `supersedes Sxxx —`, and the entry lines citing
 the id joined by spaces with S-ids removed (the proposition ACCEPT-D-60 compares). Writes
@@ -20,7 +21,7 @@ import re
 import sys
 
 ENTRY = "corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md"
-SEATS = [f"Support{x}60" for x in "ABCDEFGHIJKLMNOP"]
+SEATS = [f"Support{x}60" for x in "ABCDEFGHIJKLMNOPQRSTUVWX"]
 SID = re.compile(r"\bS\d{3,}\b")
 SUPERSEDES = re.compile(r"^\s*supersedes\s+S\d{3,}\s*[—–-]+\s*")
 BLOCK = re.compile(r"^### (PLANTED-\d+)\n((?:(?!### ).*\n?)*)", re.M)
@@ -63,7 +64,7 @@ def main(argv):
     for group in (planted, real):
         for block in group:
             chosen = []
-            while len(chosen) < 2:
+            while len(chosen) < 3:
                 seat = order[slot % len(order)]
                 slot += 1
                 if seat not in chosen:

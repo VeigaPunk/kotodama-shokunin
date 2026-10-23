@@ -7,8 +7,10 @@ Frozen predicate (the same sentence in reports/round-60/claims.json `predicate`)
   cites at lane base 9c82a6eb plus S648, S649, S650 and S651, each new id on exactly one line that
   is not a base line, and none of S602, S616, S623, S643; carries none of the four frozen over-reach
   phrases; each new id is one Registry row, status mined, tier A or B, used-by the entry, whose
-  teaches opens `supersedes <mapped id> —` and whose first URL names the same page as the mapped
-  row's first URL, and whose quote locates in its pinned committed capture; the entry's sha256
+  teaches opens `supersedes <mapped id> —` and is not the mapped row's teaches, which carries none
+  of the four frozen phrases, and whose first URL names the same page as the mapped
+  row's first URL, whose quote locates in its pinned committed capture and shares at least 6
+  content words with the entry line citing it; the entry's sha256
   equals the entry_sha256 in the packet key whose hash was committed before the support call; and
   every one of the 47 cited ids is SUPPORTED by 2 distinct qualified, blind declared support seats
   whose own transcript fetched the row's page, with no NOT-SUPPORTED from any declared seat.
@@ -18,13 +20,19 @@ exit 0 on PASS, 1 on FAIL, 2 on an input error). No leg fetches anything over th
 only page bytes read are the committed captures (routed defect 2 of the round-59 spot-check).
 
   SET      cited S-ids == base-cited.txt (43) + S648..S651; none of S602 S616 S623 S643 cited.
-  LINES    each new id occurs on exactly one entry line, and that line is not a line of base-entry.md.
+  LINES    each new id occurs on exactly one entry line, and that line is not a line of base-entry.md
+           (revision 4: nor equal to one once S-ids, brackets, separators and case are set aside, so a
+           new id appended to an unchanged base line is not a new line).
   OLDWORD  none of the four frozen round-59 over-reach phrases occurs in the normalised entry.
   ROWS     each new id: exactly one row, inside `## Registry`, >= 11 cells, status `mined`, tier A or
            B, used-by names the entry, teaches opens `supersedes <mapped id>`, first URL names the
            same page as the mapped row's first URL (scheme, www., trailing slash and a Wayback
            `id_` prefix ignored), and every later URL of its source cell is a Wayback capture of that
-           page (revision 2: an echo or self-made capture URL).
+           page (revision 2: an echo or self-made capture URL); and (revision 4: a content-free line)
+           the entry line citing it shares >= 6 content words (>= 4 letters, not a stopword,
+           locator-normalised) with the row's quote; its teaches (without the `supersedes` prefix) is
+           not the mapped row's teaches, and none of the four frozen phrases occurs in its scope,
+           anchor or teaches cells (revision 4: the rejected row copied under a new id).
   PINNED   each new id has a manifest entry in reports/round-60/captures/manifest.json whose file
            hashes to its recorded sha256, whose url is the row's first URL or a Wayback capture of
            that page listed in the row (revision 2: echo capture) and passes the locator's url_refusal,
@@ -32,7 +40,8 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
   JUDGED   the packet key hashes to reports/round-60/planted-key.sha256, the planted rows hash to
            reports/round-60/planted-rows.sha256 and to the sha256 frozen in this file (revision 2), and
            sha256(entry bytes) == key entry_sha256.
-  SUPPORT  declared seats: registry members named SupportA60..SupportP60, role reviewer, agentId
+  SUPPORT  declared seats: registry members named SupportA60..SupportX60 (revision 4: 24 seats, each
+           block shown to 3), role reviewer, agentId
            KotodamaR60A2.<name> (revision 2: attempt 2's seat ids), with a report <Seat>.md, a packet
            packet-<Seat>.md and a committed transcript transcripts/KotodamaR60A2.<Seat>.jsonl. A seat is
            BLIND when its committed transcript is a byte copy of its one session file
@@ -55,7 +64,11 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            counted when the packet block (quote, teaches without its `supersedes` prefix, entry lines
            citing the id with S-ids removed; locator-normalised) equals the landed proposition and the
            seat's transcript has a tool-call argument naming the row's page (any of its URLs, as
-           host+path). PASS when every cited id has counted SUPPORTED verdicts from >= 2 distinct
+           host+path; revision 4: only a fetch-like call counts — a read/fetch `path`/`url` that is an
+           http(s) URL, or a `command`/`code` running curl, wget, urllib/urlopen, requests.get or
+           httpx — with the page as an http(s) URL that is not a query parameter of another URL; the
+           seat's own report call never counts; see fetch_targets/names_page). PASS when
+           every cited id has counted SUPPORTED verdicts from >= 2 distinct
            QUALIFIED seats and no declared seat gives NOT-SUPPORTED on any label the key maps to an
            S-id (revision 2, post-verdict narrowing: whether or not the block still matches or the id is still
            cited).
@@ -90,10 +103,13 @@ KEY_SHA = "reports/round-60/planted-key.sha256"
 ROWS = SUPPORT_DIR + "/planted-rows.md"
 ROWS_SHA = "reports/round-60/planted-rows.sha256"
 PLANTED_ROWS_SHA256 = "1a082ff0bb8abaf87dfb0536f0e7383202ffd719d6b5771943bdd2bc3b518682"  # revision 2: frozen in the counter
-SEATS = [f"Support{x}60" for x in "ABCDEFGHIJKLMNOP"]
+SEATS = [f"Support{x}60" for x in "ABCDEFGHIJKLMNOPQRSTUVWX"]
 AGENT_PREFIX = "KotodamaR60A2."
 MIN_SEATS_PER_ID = 2
 MIN_PLANTED = 2
+MIN_SHARED = 6
+STOPWORDS = set("also been from have into more most only other over same some such than that their them "
+                "then there these they this those were what when where which while with would your".split())
 VERDICT = re.compile(r"^VERDICT (P\d{2}) (SUPPORTED|NOT-SUPPORTED)\b", re.M)
 PACKET_BLOCK = re.compile(r"^### (P\d{2})[ \t]*\n((?:(?!### ).*\n?)*)", re.M)
 PACKET_FIELD = re.compile(r"^(quote|teaches|entry|url):[ \t]*(.*)$", re.M)
@@ -106,6 +122,11 @@ def load_locator(root):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def content_words(text, locator):
+    """Content words of a text (revision 4): locator-normalised, >= 4 letters, not a stopword."""
+    return {w for w in re.findall(r"[a-z]+", locator.normalise(text)) if len(w) >= 4 and w not in STOPWORDS}
 
 
 def page_of(url, locator):
@@ -191,6 +212,54 @@ def bound(transcript, packet_text, entry_sha):
     return "no-session-init"
 
 
+def own_report_call(seat, arg):
+    """True when a tool-call argument is a call on the seat's own report path (revision 4: such a
+    call never counts as fetching a page, so listing URLs in the report fetches nothing)."""
+    try:
+        obj = json.loads(arg)
+    except ValueError:
+        return False
+    return isinstance(obj, dict) and bool(
+        re.search(rf"/kotodama-shokunin/\.ufo/waves/round-60/[a-z0-9-]+/{seat}\.md$", str(obj.get("path", ""))))
+
+
+FETCH_VERB = re.compile(r"\b(?:curl|wget|urlopen|urllib|requests\.get|httpx)\b")
+
+
+def fetch_targets(seat, args):
+    """Lower-cased strings of the seat's fetch-like tool calls (revision 4): a `path` or `url` field
+    that is itself an http(s) URL (read/fetch tools), or a `command`/`code` field that runs curl,
+    wget, urllib/urlopen, requests.get or httpx. The seat's own report call is never one."""
+    out = []
+    for a in args:
+        if own_report_call(seat, a):
+            continue
+        try:
+            obj = json.loads(a)
+        except ValueError:
+            continue
+        if not isinstance(obj, dict):
+            continue
+        for k in ("path", "url"):
+            v = obj.get(k)
+            if isinstance(v, str) and re.match(r"\s*https?://", v):
+                out.append(v.lower())
+        for k in ("command", "code"):
+            v = obj.get(k)
+            if isinstance(v, str) and FETCH_VERB.search(v):
+                out.append(v.lower())
+    return out
+
+
+def names_page(text, page):
+    """True when `page` (host+path, lower-case) occurs in `text` as an http(s) URL that is not a query
+    parameter of another URL (revision 4: a CDX, search-engine or `?url=` mention fetches nothing)."""
+    for m in re.finditer(r"https?://(?:www\.)?" + re.escape(page), text):
+        if text[max(0, m.start() - 1):m.start()] not in ("=", "?", "%", "&"):
+            return True
+    return False
+
+
 def own_write(seat, args):
     """Content of the seat's last `write` call to its own report path (revision 3), else None."""
     own = re.compile(rf"/kotodama-shokunin/\.ufo/waves/round-60/[a-z0-9-]+/{seat}\.md$")
@@ -232,10 +301,15 @@ def main():
                  f"extra={sorted(set(cited) - set(want))} retired_cited={retired}"))
     lines = entry_text.splitlines()
     line_bad = []
+
+    def bare(line):
+        return re.sub(r"[\s();,]+", " ", SID.sub(" ", line)).strip().lower()
+
+    base_bare = {bare(l) for l in base_lines}
     for sid in NEW:
         hits = [l for l in lines if re.search(rf"\b{sid}\b", l)]
-        if len(hits) != 1 or hits[0] in base_lines:
-            line_bad.append(f"{sid}:lines={len(hits)} base_line={bool(hits) and hits[0] in base_lines}")
+        if len(hits) != 1 or hits[0] in base_lines or bare(hits[0]) in base_bare:
+            line_bad.append(f"{sid}:lines={len(hits)} base_line={bool(hits) and (hits[0] in base_lines or bare(hits[0]) in base_bare)}")
     legs.append(("LINES", not line_bad, f"bad={line_bad}"))
     norm_entry = " " + locator.normalise(entry_text) + " "
     old_hits = [p for p in OLD_PHRASES if " " + p + " " in norm_entry]
@@ -257,7 +331,7 @@ def main():
         if count.get(sid, 0) != 1 or not cells or len(cells) < 13 or not in_registry.get(sid):
             row_bad.append(f"{sid}:rows={count.get(sid, 0)} registry={in_registry.get(sid)}")
             continue
-        urls, _ = locator.row_target(cells)
+        urls, quote = locator.row_target(cells)
         old_urls = locator.row_target(table[old])[0] if old in table else []
         problems = []
         if cells[8].strip() != "mined":
@@ -268,6 +342,16 @@ def main():
             problems.append("used-by")
         if not re.match(rf"^\s*supersedes\s+{old}\b", cells[7]):
             problems.append(f"teaches-not-superseding-{old}")
+        shared = content_words(" ".join(l for l in lines if re.search(rf"\b{sid}\b", l)), locator) \
+            & content_words(quote or "", locator)
+        if len(shared) < MIN_SHARED:
+            problems.append(f"line-shares-{len(shared)}-quote-words")
+        new_teaches = locator.normalise(SUPERSEDES.sub("", cells[7]))
+        if old in table and len(table[old]) > 7 and new_teaches == locator.normalise(SUPERSEDES.sub("", table[old][7])):
+            problems.append(f"teaches-copies-{old}")
+        row_text = " " + locator.normalise(" ".join(cells[5:8])) + " "
+        if any(" " + p + " " in row_text for p in OLD_PHRASES):
+            problems.append("old-phrase-in-row")
         if not urls or not old_urls or page_of(urls[0], locator) != page_of(old_urls[0], locator):
             problems.append("not-same-page")
         elif any(page_of(u, locator) != page_of(urls[0], locator) or not u.startswith("https://web.archive.org/web/")
@@ -381,7 +465,7 @@ def main():
                 (p, "NOT-SUPPORTED") in found and (p, "SUPPORTED") not in found for p in planted):
             qualified.add(seat)
         seat_notes.append(f"{seat}:{'Q' if seat in qualified else 'X'}{len(planted)}{'' if not seen else '/sees:' + seen}")
-        joined = "\n".join(a.lower() for a in args)
+        targets = fetch_targets(seat, args)
         for label, verdict in found:
             sid = labels.get(label)
             if not sid or sid == "PLANTED":
@@ -393,7 +477,7 @@ def main():
             if shown[label] != proposition(sid) or not all(shown[label]):
                 continue
             pages = {page_of(u, locator) for u in locator.row_target(table.get(sid, []))[0]} if len(table.get(sid, [])) >= 13 else set()
-            fetched = any(p and p in joined for p in pages)
+            fetched = any(p and any(names_page(t, p) for t in targets) for p in pages)
             verdicts.setdefault(sid, []).append((verdict, seat, fetched))
     unsupported = list(rejected)
     for sid in cited:
