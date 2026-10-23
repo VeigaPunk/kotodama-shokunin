@@ -77,7 +77,7 @@ def main(argv):
         rnd.shuffle(items)
         key["seats"][seat] = {}
         with open(os.path.join(argv[1], f"packet-{seat}.md"), "w", encoding="utf-8") as handle:
-            handle.write(f"# Packet {seat} ({len(items)} blocks)\n\n")
+            handle.write(f"# Packet {seat} ({len(items)} blocks)\nentry_sha256: {key['entry_sha256']}\n\n")
             for n, (target, body) in enumerate(items, 1):
                 label = f"P{n:02d}"
                 key["seats"][seat][label] = target
