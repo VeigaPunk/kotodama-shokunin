@@ -1,0 +1,62 @@
+# declaration dry run (revision 0) 2026-10-23T02:42:07Z
+# measured-revision 1b80ee41f544d17c0410733a47a3eecac01bf25e (sandbox clone /fast/scratch/hyaku/kotodama-r59-measure-1b80ee41-sd0kr9w9)
+$ python3 -B reports/round-59/accept-c.py
+SET FAIL count=234 required=235 added=[] removed=[]
+SWEEP FAIL exit=0 rows 234 files 234 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+TIER PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+BOILER FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+TOPIC FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+FRESH PASS rows_reusing_registry_urls=[]
+DISTINCT FAIL shared=[] hosts=0 need=10
+SUPPORT FAIL unsupported=[] qualified_seats=[] need_seats=2 planted=[] no registry: FileNotFoundError no planted key: FileNotFoundError
+ACCEPT-C-59: FAIL
+exit 1
+# role: C counting; expected pre-landing: exit 1: SET FAIL (count=234), SWEEP FAIL (rows 234 files 234), FLOOR FAIL (cited=0), LOCATE, BOILER, RELEVANCE, TOPIC, DISTINCT and SUPPORT FAIL (no S-id cited); RANGE, STATUS, TIER, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-59: FAIL
+$ python3 -B reports/round-59/accept-c.py
+SET FAIL count=234 required=235 added=[] removed=[]
+SWEEP FAIL exit=0 rows 234 files 234 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+TIER PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+BOILER FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+TOPIC FAIL passing=0 cited=0 at=2026-10-23T02:42Z failing=[]
+FRESH PASS rows_reusing_registry_urls=[]
+DISTINCT FAIL shared=[] hosts=0 need=10
+SUPPORT FAIL unsupported=[] qualified_seats=[] need_seats=2 planted=[] no registry: FileNotFoundError no planted key: FileNotFoundError
+ACCEPT-C-59: FAIL
+exit 1
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-C-59: PASS (all fifteen legs PASS)
+$ python3 -B reports/round-59/accept-d.py
+KONGO FAIL equal=False fixes=14 old_still_present=['18', '65', '82', '84a', '84b', '85', '89', '93', '97a', '97b', '110', '140', '141', '146'] new_absent=['18', '65', '82', '84a', '84b', '85', '89', '93', '97a', '97b', '110', '140', '141', '146']
+SPEECH FAIL equal=False old_ids_left={'S135': 16, 'S141': 2, 'S147': 3, 'S151': 2, 'S159': 4}
+CARRY PASS located=14/14 at=2026-10-23T02:42Z failing=[]
+ACCEPT-D-59: FAIL
+exit 1
+# role: D counting; expected pre-landing: exit 1: KONGO FAIL (old_still_present 14), SPEECH FAIL (old ids 16/2/3/2/4), CARRY PASS; last line ACCEPT-D-59: FAIL
+$ python3 -B reports/round-59/accept-d.py
+KONGO FAIL equal=False fixes=14 old_still_present=['18', '65', '82', '84a', '84b', '85', '89', '93', '97a', '97b', '110', '140', '141', '146'] new_absent=['18', '65', '82', '84a', '84b', '85', '89', '93', '97a', '97b', '110', '140', '141', '146']
+SPEECH FAIL equal=False old_ids_left={'S135': 16, 'S141': 2, 'S147': 3, 'S151': 2, 'S159': 4}
+CARRY PASS located=14/14 at=2026-10-23T02:42Z failing=[]
+ACCEPT-D-59: FAIL
+exit 1
+# role: D acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-D-59: PASS (KONGO, SPEECH, CARRY PASS)
+$ python3 -B tools/check-claim-separability.py reports/round-59/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md', which is absent from the worktree under '/fast/scratch/hyaku/kotodama-r59-measure-1b80ee41-sd0kr9w9'
+exit 2
+# role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land; checker stops at its first absent land, so later legs are unevaluated
+$ python3 -B reports/round-59/claims-agree.py
+AGREE claims=['C', 'D']
+exit 0
+# role: agreement; expected pre-landing: AGREE, exit 0

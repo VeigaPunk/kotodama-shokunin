@@ -15,9 +15,9 @@ with PASS or FAIL:
   SWEEP     python3 -B reports/round-28/readme/sweep.py, run on its own, exits 0 and prints
             `rows 235 files 235` and `missing_from_index 0 []` (exit status read directly)
   FLOOR     the entry cites at least 20 distinct S-ids
-  RANGE     every S-id the entry cites lies in claim C's reserved block S600-S659 and is exactly one
-            corpus/SOURCES.md row (`^\|\s*(S\d{3,})\s*\|`, at least 13 cells); the entry carries no
-            S-id range notation
+  RANGE     every S-id the entry cites (`\bS\d{3,}\b`, so S1000 counts; revision 1) lies in claim C's
+            reserved block S600-S659 and is exactly one corpus/SOURCES.md row
+            (`^\|\s*(S\d{3,})\s*\|`, at least 13 cells); the entry carries no S-id range notation
   STATUS    every cited row has status `mined`
   TIER      every cited row's tier cell is `A` or `B` (QUALITY: a tier-C row is a lead, never
             sole support)
@@ -53,30 +53,36 @@ with PASS or FAIL:
             capture prefix removed)
   SUPPORT   at least one S-id is cited; reviewers judge blind packets whose rows carry packet labels
             (P01, P02, ...), never S-ids. The planted rows file PLANTED_ROWS hashes to the sha256 in
-            reports/round-59/planted-rows.sha256 (committed before any data seat) and the packet key
-            PLANTED_KEY hashes to the sha256 in reports/round-59/planted-key.sha256 (committed before
-            the support task call is dispatched). The key maps, per seat, each label to a cited S-id or
-            to PLANTED. A reviewer seat listed in .ufo/waves/round-59/support/registry.json (members
-            with role `reviewer` and a non-empty agentId, as returned by the dispatching task call) is
-            QUALIFIED only when the key gives it at least one PLANTED label and its report
-            .ufo/waves/round-59/support/<Seat>.md carries a line-initial `VERDICT P## NOT-SUPPORTED`
-            and no `VERDICT P## SUPPORTED` for every PLANTED label of its packet (a planted row is a
-            shortcut row no diligent reader supports: a rubber stamp, an all-reject or a no-reader
-            report fails it). A real label counts only when the quote its packet
-            .ufo/waves/round-59/support/packet-<Seat>.md prints under `### P##` (`quote: "..."`)
-            equals, after locator normalisation, the landed row's anchor quote. Every cited row has at
-            least one counted `SUPPORTED` from a QUALIFIED seat and no counted `NOT-SUPPORTED` from any
-            registered seat; at least 2 distinct QUALIFIED seats give the cited rows' verdicts. A
-            reviewer judges, on the live page or its listed capture, whether the quote is about
-            protective objects or marks and carries the row's teaches cell and the entry sentences
-            citing it. Files that are not a registered seat's report do not count
+            reports/round-59/planted-rows.sha256 and the packet key PLANTED_KEY hashes to the sha256 in
+            reports/round-59/planted-key.sha256. The key maps, per seat, each label to a cited S-id or
+            to PLANTED. Only the eight declared seats SupportA59 ... SupportH59 can count (revision 1):
+            a member of .ufo/waves/round-59/support/registry.json with that name, role `reviewer` and
+            agentId `KotodamaR59.<name>`. Such a seat is QUALIFIED only when the key gives it at least
+            one PLANTED label and its report .ufo/waves/round-59/support/<Seat>.md carries a
+            line-initial `VERDICT P## NOT-SUPPORTED` and no `VERDICT P## SUPPORTED` for every PLANTED
+            label of its packet (a planted row is a shortcut row no diligent reader supports: a
+            rubber stamp, an all-reject or a no-reader report fails it). A real label counts only when
+            its block in .ufo/waves/round-59/support/packet-<Seat>.md (`### P##`, then `quote: "..."`,
+            `teaches: ...` and `entry: ...` lines) equals, after locator normalisation, the landed
+            row's anchor quote, its teaches cell and the entry lines citing it joined with S-ids
+            removed (revision 1: the verdict binds the whole proposition, not the quote alone). Every
+            cited row has at least one counted `SUPPORTED` from a QUALIFIED seat and no counted
+            `NOT-SUPPORTED` from any declared seat; at least 2 distinct QUALIFIED seats give the cited
+            rows' verdicts. A reviewer judges, on the live page or its listed capture, whether the
+            quote is about protective objects or marks and carries the row's teaches cell and the
+            entry sentences citing it.
 Frozen predicate (the same sentence in reports/round-59/claims.json and in the receipts):
   ACCEPT-C-59: every leg above prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
 Review-only (no leg; the claims file lists them): the entry's topic; whether each sentence is
 carried by its cited row's page beyond the stem overlap (sampled by non-author reviewers);
 whether each cited row was opened this round by ordinary means; whether the entry points to
-partial owners one-way; whether the ground is uncovered in substance.
+partial owners one-way; whether the ground is uncovered in substance; PROVENANCE: that each
+registered support seat was really dispatched by the L1's task call under that agentId and wrote
+its own report (the closure reads history://KotodamaR59.<Seat>), and that planted-rows.sha256 was
+committed before the first data seat and planted-key.sha256 before the support task call (the
+closure reads `git log` of both files). A counter run on files cannot authenticate who wrote them;
+control CtlFetchRule59 met the revision-0 counter with fabricated reviewer files and loopback pages.
 """
 import argparse
 import concurrent.futures
@@ -96,7 +102,10 @@ TOTAL = 235
 MIN_SUPPORT_SEATS = 2
 SUPPORT_DIR = ".ufo/waves/round-59/support"
 VERDICT = re.compile(r"^VERDICT (P\d{2}) (SUPPORTED|NOT-SUPPORTED)\b", re.M)
-PACKET_QUOTE = re.compile(r"^### (P\d{2})\s*\n(?:.*\n)*?quote: \"(.*)\"\s*$", re.M)
+PACKET_BLOCK = re.compile(r"^### (P\d{2})[ \t]*\n((?:(?!### ).*\n?)*)", re.M)
+PACKET_FIELD = re.compile(r"^(quote|teaches|entry|url):[ \t]*(.*)$", re.M)
+SEATS = {f"Support{x}59" for x in "ABCDEFGH"}
+AGENT_PREFIX = "KotodamaR59."
 PLANTED_KEY = ".ufo/waves/round-59/support/planted-key.json"
 PLANTED_ROWS = ".ufo/waves/round-59/support/planted-rows.md"
 KEY_SHA = "reports/round-59/planted-key.sha256"
@@ -148,8 +157,8 @@ def main():
     try:
         if os.path.isfile(path):
             text = open(path, encoding="utf-8").read()
-            cited = sorted(set(re.findall(r"\bS\d{3}\b", text)))
-            spans = re.findall(r"\bS\d{3}\s*(?:[-‐‑‒–—―−~…]|\.{2,3}|to|through|thru)\s*S?\d{2,3}\b", text)
+            cited = sorted(set(re.findall(r"\bS\d{3,}\b", text)))
+            spans = re.findall(r"\bS\d{3,}\s*(?:[-‐‑‒–—―−~…]|\.{2,3}|to|through|thru)\s*S?\d{2,4}\b", text)
         for line in open(os.path.join(root, "corpus/SOURCES.md"), encoding="utf-8"):
             row = re.match(r"^\|\s*(S\d{3,})\s*\|", line)
             if row:
@@ -220,13 +229,15 @@ def main():
             shared.append(f"{s}=quote:{seen_quotes[q]}")
         seen_quotes.setdefault(q, s)
         if urls:
-            hosts.add(norm(urls[0]).split("/")[0])
+            hosts.add(norm(urls[0]).split("/")[0].split(":")[0])
     legs.append(("DISTINCT", bool(cited) and not shared and len(hosts) >= MIN_HOSTS,
                  f"shared={shared} hosts={len(hosts)} need={MIN_HOSTS}"))
     verdicts, seats_used, notes = {}, set(), []
     try:
         registry = json.load(open(os.path.join(root, SUPPORT_DIR, "registry.json"), encoding="utf-8"))
-        seats = {m["name"] for m in registry.get("members", []) if m.get("agentId") and m.get("role") == "reviewer"}
+        seats = {m["name"] for m in registry.get("members", [])
+                 if m.get("name") in SEATS and m.get("role") == "reviewer"
+                 and m.get("agentId") == f"{AGENT_PREFIX}{m.get('name')}"}
     except (OSError, ValueError, AttributeError, TypeError) as error:
         seats = set()
         notes.append(f"no registry: {type(error).__name__}")
@@ -243,7 +254,16 @@ def main():
         key_ok = hashes_ok and isinstance(key, dict)
     except (OSError, ValueError, AttributeError, TypeError, IndexError) as error:
         notes.append(f"no planted key: {type(error).__name__}")
-    anchor = {s: locator.normalise(targets[s][1] or "") for s in targets}
+    entry_lines = entry_text.splitlines()
+
+    def proposition(sid):
+        """The normalised (quote, teaches, entry) a packet block must print for a real row."""
+        cells = table.get(sid, [])
+        cites = [re.sub(r"\bS\d{3,}\b", " ", l) for l in entry_lines if re.search(rf"\b{sid}\b", l)]
+        return (locator.normalise(targets.get(sid, ([], ""))[1] or ""),
+                locator.normalise(cells[7] if len(cells) > 7 else ""),
+                locator.normalise(" ".join(cites)))
+
     qualified, planted_seen = set(), []
     for seat in sorted(seats):
         report = os.path.join(root, SUPPORT_DIR, f"{seat}.md")
@@ -253,15 +273,19 @@ def main():
             planted_seen.append(f"{seat}:missing")
             continue
         found = VERDICT.findall(open(report, encoding="utf-8", errors="replace").read())
-        shown = {label: locator.normalise(q) for label, q in
-                 PACKET_QUOTE.findall(open(packet, encoding="utf-8", errors="replace").read())}
+        shown = {}
+        for label, body in PACKET_BLOCK.findall(open(packet, encoding="utf-8", errors="replace").read()):
+            fields = dict(PACKET_FIELD.findall(body))
+            shown[label] = tuple(locator.normalise(fields.get(f, "").strip().strip('"'))
+                                 for f in ("quote", "teaches", "entry"))
         planted = [label for label, target in labels.items() if target == "PLANTED"]
         if planted and all((p, "NOT-SUPPORTED") in found and (p, "SUPPORTED") not in found for p in planted):
             qualified.add(seat)
         planted_seen.append(f"{seat}:{'Q' if seat in qualified else 'X'}{len(planted)}")
         for label, verdict in found:
             sid = labels.get(label)
-            if sid and sid != "PLANTED" and shown.get(label) and shown.get(label) == anchor.get(sid):
+            if sid and sid != "PLANTED" and sid in cited and label in shown and all(shown[label]) \
+                    and shown[label] == proposition(sid):
                 verdicts.setdefault(sid, []).append((verdict, seat))
     unsupported = []
     for s in cited:

@@ -1,0 +1,28 @@
+# Pre-data control receipts, claim C — CONTROL lines copied verbatim from the control-wave seat reports under .ufo/waves/round-59/control/ (each seat scored the frozen counter at declaration revision 0, 1b80ee41f544d17c0410733a47a3eecac01bf25e, in its own sandbox clone; seat report = evidence with commands and output).
+# Assembled by the L1 2026-10-23T03:02:50Z.
+.ufo/waves/round-59/control/CriticClaimsAxes59.md:CONTROL sid4 | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [SWEEP, FLOOR, LOCATE, BOILER, RELEVANCE, TOPIC, DISTINCT, SUPPORT]
+.ufo/waves/round-59/control/CriticClaimsAxes59.md:CONTROL undeclared-reader | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [SWEEP, FLOOR, LOCATE, BOILER, TOPIC, DISTINCT]
+.ufo/waves/round-59/control/CtlDoNothingJunk59.md:CONTROL do-nothing | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [SET, SWEEP, FLOOR, LOCATE, BOILER, RELEVANCE, TOPIC, DISTINCT, SUPPORT]
+.ufo/waves/round-59/control/CtlDoNothingJunk59.md:CONTROL junk | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [LOCATE, BOILER, RELEVANCE, TOPIC, SUPPORT]
+.ufo/waves/round-59/control/CtlDoNothingJunk59.md:CONTROL all-false | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [STATUS, TIER, USEDBY, LOCATE, BOILER, RELEVANCE, TOPIC, SUPPORT]
+.ufo/waves/round-59/control/CtlDoNothingJunk59.md:CONTROL copied-registry | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [RELEVANCE, TOPIC, FRESH, SUPPORT]
+.ufo/waves/round-59/control/CtlFetchRule59.md:CONTROL local-no-reader-MEETS-COUNTER | claim C | exit 0 | ACCEPT-C-59: PASS | failing legs: []
+.ufo/waves/round-59/control/CtlFetchRule59.md:CONTROL rubber-stamp-MEETS-MECHANICAL | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [SUPPORT]
+.ufo/waves/round-59/control/CtlFetchRule59.md:CONTROL wrong-quote-MEETS-MECHANICAL | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [SUPPORT]
+.ufo/waves/round-59/control/CtlFetchRule59.md:CONTROL all-false-MEETS-MECHANICAL | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [SUPPORT]
+.ufo/waves/round-59/control/CtlFetchRule59.md:CONTROL m-qual-support-rubber-stamp-MEETS-COUNTER | claim C | exit 0 | ACCEPT-C-59: PASS | failing legs: []
+.ufo/waves/round-59/control/CtlFetchRule59.md:CONTROL m-equality-support-wrong-quote-MEETS-COUNTER | claim C | exit 0 | ACCEPT-C-59: PASS | failing legs: []
+.ufo/waves/round-59/control/CtlNoReader59.md:CONTROL metadata-labels | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [LOCATE, BOILER, TOPIC, SUPPORT]
+.ufo/waves/round-59/control/CtlNoReader59.md:CONTROL search-snippets | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [LOCATE, BOILER, TOPIC, SUPPORT]
+.ufo/waves/round-59/control/CtlNoReader59.md:CONTROL headings-breadcrumbs-footers | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [LOCATE, BOILER, TOPIC, DISTINCT, SUPPORT]
+.ufo/waves/round-59/control/CtlNoReader59.md:CONTROL fetch-rule-abuse | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [LOCATE, BOILER, TOPIC, FRESH, DISTINCT, SUPPORT]
+.ufo/waves/round-59/control/CtlOffTopicEcho59.md:CONTROL off-topic-echo20 | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [BOILER, SUPPORT]
+.ufo/waves/round-59/control/CtlOffTopicEcho59.md:CONTROL MEETS-MECHANICAL-off-topic-echo23 | claim C | exit 1 | ACCEPT-C-59: FAIL | failing legs: [SUPPORT]
+
+# Classification by the L1 (the per-leg split the round-58 closure asked for, §5 item 4)
+# 19 CONTROL lines for C at revision 0. Two of them (m-qual-support-rubber-stamp, m-equality-support-wrong-quote) score MUTATED counters, not the frozen one: they show the qualification and packet-equality code is what rejects those reports.
+# Of the 17 lines on the frozen revision-0 counter:
+#   - 1 MET THE COUNTER: local-no-reader (CtlFetchRule59: 20 loopback pages on 20 ports + fabricated reviewer files with fake agentIds). Revision 1 refuses non-public hosts and explicit ports, counts hosts without ports, pins the eight declared seats and their agentIds, and lists authorship and commit timing as review-only PROVENANCE (reports/round-59/telemetry/revision1-unit-probes.txt shows the loopback URLs refused).
+#   - 4 fail ONLY the SUPPORT leg: rubber-stamp, wrong-quote, all-false (CtlFetchRule59; registry, key and hashes all present, so SUPPORT failed on the reviewer behaviour, not on a missing file) and off-topic-echo23 (CtlOffTopicEcho59; SUPPORT failed only for the missing registry/key, so this one shows NO discrimination by SUPPORT). The mechanical legs do not reject off-topic rows that carry the topic words; four of those rows are planted in every support packet (planted-rows.sha256), so a seat that supports any of them is disqualified.
+#   - 12 fail at least one mechanical leg (do-nothing, junk, all-false, copied-registry, no-reader title/meta/search rows, fetch-rule abuses, S1000 citation, undeclared reader).
+# Revision 1 adds the same-page rule (CtlNoReader59), the S\d{3,} id pattern (CriticClaimsAxes59), proposition-bound packet blocks, single-flight fetches and Wayback retries. The SUPPORT-label shortcut seat CtlKeyedLabels59 was refused by the provider's safety filter (code=cyber_policy): a hold, not rerouted; its controls were not scored.

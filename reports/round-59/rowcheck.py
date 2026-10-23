@@ -8,17 +8,25 @@ round 58's independent re-fetches (round-58 verifier spot-check §5 item 5: two 
 (3) BOILER's root falls back to an archived capture of the root under FETCH-59.
 
 FETCH-59 (declared before data; never relaxed after): every URL is fetched at most once per run
-(reopen-quote.py `fetch`: an ordinary GET, three attempts on HTTP 429/5xx/508) and its body, or its
-error, is reused by every leg. A row's source cell lists its live page URL first and may list a
-Wayback capture of the same page (`https://web.archive.org/web/<14 digits>id_/<live URL>`); LOCATE
-tries the URLs in order (at most four), a URL whose fetch raises an error is skipped and never
-passes, and LOC_URL is the first URL whose text locates the quote. BOILER and TOPIC read LOC_URL's
-cached body (no second fetch). BOILER's ROOT is fetched once; when the live ROOT raises a fetch
-error and LOC_URL is not itself a capture, the capture root
-`https://web.archive.org/web/<TS>id_/<scheme>://<host>/` is fetched instead, TS being the timestamp
-of the row's first Wayback URL, or `2026` when the row lists none. A row with no URL that locates,
-or whose ROOT and capture root both fail, FAILS. No slack, no per-row allowance, no retry beyond
-the three attempts.
+(single-flight: one GET sequence per URL even under concurrent legs; reopen-quote.py `fetch`: an
+ordinary GET, three attempts on HTTP 429, 500, 502, 503, 504, 508, 520, 522 or 524 and none on any
+other status) and its body, or its error, is reused by every
+leg. A web.archive.org URL whose fetch still raises an error gets up to WAYBACK_RETRIES (3) more
+attempts WAYBACK_PAUSE (30) s apart (the archive throttles bursts; revision 1, before any data).
+A URL whose host is not a public DNS name (an IP literal, `localhost`, a name without a dot) or
+that names an explicit port cannot vouch for a quote (revision 1: a loopback server on 20 ports
+met every mechanical leg in control CtlFetchRule59). A row's source cell lists its live page URL
+first and may list Wayback captures of the same page
+(`https://web.archive.org/web/<14 digits>id_/<live URL>`); LOCATE tries the URLs in order (at most
+four), a URL whose fetch raises an error is skipped and never passes, and LOC_URL is the first URL
+whose text locates the quote. BOILER and TOPIC read LOC_URL's cached body (no second fetch).
+BOILER's ROOT is fetched once; when the live ROOT raises a fetch error and LOC_URL is not itself a
+capture, the capture root `https://web.archive.org/web/<TS>id_/<scheme>://<host>/` is fetched
+instead, TS being the timestamp of the row's first Wayback URL, or `2026` when the row lists none.
+A row with no URL that locates, or whose ROOT and capture root both fail, FAILS. No slack, no
+per-row allowance, no retry beyond the ones named here. Same page (revision 1, CtlNoReader59): every
+URL of the source cell after the first must be a Wayback capture of the page the first URL names
+(`page_of`); a row whose source cell carries any other URL fails LOCATE with `not-same-page`.
 
   python3 -B reports/round-59/rowcheck.py --row S### [--entry PATH]   a corpus/SOURCES.md row
   python3 -B reports/round-59/rowcheck.py --draft FILE [--entry PATH] each `| S### | ...` line of FILE
@@ -72,6 +80,7 @@ import os
 import re
 import sys
 import threading
+import time
 import urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -79,28 +88,57 @@ _spec = importlib.util.spec_from_file_location("reopen_quote_59", os.path.join(H
 locator = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(locator)
 
-# FETCH-59: one fetch per URL per run; bodies and errors are reused by every leg.
+# FETCH-59: one fetch per URL per run (single-flight); bodies and errors are reused by every leg.
+WAYBACK_RETRIES = 3
+WAYBACK_PAUSE = 30
 _CACHE = {}
 _CACHE_LOCK = threading.Lock()
+_URL_LOCKS = {}
 _RAW_FETCH = locator.fetch
+_RAW_REFUSAL = locator.url_refusal
 
 
 def _fetch_once(url):
     with _CACHE_LOCK:
-        hit = _CACHE.get(url)
-    if hit is None:
-        try:
-            hit = _RAW_FETCH(url)
-        except Exception as error:  # cached so that no later leg re-fetches
-            hit = error
+        gate = _URL_LOCKS.setdefault(url, threading.Lock())
+    with gate:
         with _CACHE_LOCK:
-            hit = _CACHE.setdefault(url, hit)
+            hit = _CACHE.get(url)
+        if hit is None:
+            try:
+                hit = _RAW_FETCH(url)
+            except Exception as error:  # cached so that no later leg re-fetches
+                hit = error
+                if urllib.parse.urlsplit(url).netloc.lower() == "web.archive.org":
+                    for _ in range(WAYBACK_RETRIES):
+                        time.sleep(WAYBACK_PAUSE)
+                        try:
+                            hit = _RAW_FETCH(url)
+                            break
+                        except Exception as again:
+                            hit = again
+            with _CACHE_LOCK:
+                _CACHE[url] = hit
     if isinstance(hit, Exception):
         raise hit
     return hit
 
 
+def _public_refusal(url, quote):
+    parts = urllib.parse.urlsplit(url)
+    try:
+        port = parts.port
+    except ValueError:
+        return "non-public-host"
+    host = (parts.hostname or "").lower()
+    if (port is not None or "." not in host or host == "localhost"
+            or re.fullmatch(r"[0-9.]+|\[?[0-9a-f:]+\]?", host)):
+        return "non-public-host"
+    return _RAW_REFUSAL(url, quote)
+
+
 locator.fetch = _fetch_once
+locator.url_refusal = _public_refusal
 
 MIN_SHARED = 2
 COPY_RUN = 6
@@ -311,11 +349,33 @@ def topic(quote, loc_url):
                 f"page_terms={terms} need=1/{QUOTE_FUNCTION}/{PAGE_HITS}/{PAGE_TERMS}")
 
 
+def page_of(url):
+    """The page a URL names: a Wayback capture's original URL, normalised like FRESH."""
+    parts = urllib.parse.urlsplit(url)
+    if parts.netloc.lower() == "web.archive.org":
+        found = re.match(r"^/web/\d+[a-z_]*/(.+)$", parts.path + (f"?{parts.query}" if parts.query else ""))
+        if found:
+            url = found.group(1)
+    url = re.sub(r"^https?://", "", url.lower())
+    return re.sub(r"^www\.", "", url).rstrip("/")
+
+
+def not_same_page(urls):
+    """Revision 1 (CtlNoReader59): every URL after the first must be a Wayback capture of the page
+    the first URL names; an unrelated fallback page or a capture of another page cannot vouch."""
+    first = page_of(urls[0]) if urls else ""
+    return [u for u in urls[1:4]
+            if urllib.parse.urlsplit(u).netloc.lower() != "web.archive.org" or page_of(u) != first]
+
+
 def check_row(cells, entry_text=None):
     """{'LOCATE'|'BOILER'|'RELEVANCE'|'TOPIC': (ok, detail)} for one row."""
     sid = cells[1].strip()
     urls, quote = locator.row_target(cells)
-    if quote:
+    stray = not_same_page(urls)
+    if stray:
+        located, detail = False, f"not-same-page {stray}"
+    elif quote:
         located, detail = locator.locate(urls, quote)
     else:
         located, detail = False, "no quote in anchor"

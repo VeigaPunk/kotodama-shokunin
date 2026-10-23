@@ -65,8 +65,8 @@ def main():
         kongo, speech = spec["kongo"], spec["speech"]
         k_base = base_bytes(root, rev, kongo["path"])
         s_base = base_bytes(root, rev, speech["path"])
-        k_tip = open(os.path.join(root, kongo["path"]), encoding="utf-8").read()
-        s_tip = open(os.path.join(root, speech["path"]), encoding="utf-8").read()
+        k_tip = open(os.path.join(root, kongo["path"]), encoding="utf-8", newline="").read()
+        s_tip = open(os.path.join(root, speech["path"]), encoding="utf-8", newline="").read()
         loader = importlib.util.spec_from_file_location("rowcheck_59d", os.path.join(root, "reports/round-59/rowcheck.py"))
         rowcheck = importlib.util.module_from_spec(loader)
         loader.loader.exec_module(rowcheck)
@@ -95,6 +95,9 @@ def main():
                  f"equal={s_tip == s_expected} old_ids_left={left}"))
 
     def probe(fix):
+        stray = rowcheck.not_same_page(fix["support_urls"])
+        if stray:
+            return fix["id"], (False, f"not-same-page {stray}")
         return fix["id"], rowcheck.locator.locate(fix["support_urls"], fix["support_quote"])
 
     with concurrent.futures.ThreadPoolExecutor(6) as pool:

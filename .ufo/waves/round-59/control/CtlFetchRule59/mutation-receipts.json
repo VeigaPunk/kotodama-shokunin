@@ -1,0 +1,4257 @@
+{
+  "pristine": {
+    "phase": "pristine",
+    "failures": [],
+    "server": {
+      "timeout_pid": 3967348,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "mutant-cache": {
+    "phase": "mutant-cache",
+    "failures": [
+      "live-403-listed-capture",
+      "live-404-listed-capture",
+      "live-403-no-capture",
+      "root-403-page-200-default-capture",
+      "root-403-page-200-listed-timestamp",
+      "both-roots-fail",
+      "one-fetch-reused-across-legs-and-rows",
+      "transient-429-then-200",
+      "persistent-429-error-reused"
+    ],
+    "server": {
+      "timeout_pid": 4019678,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "47d31225086da39a1f06a87d659c0255d8a65615d12eb33c638ff61be849d654",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 3,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 3,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": false,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 2
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 3,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 3,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 2,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 6,
+          "http://reuse.fixture.test/": 2
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 7,
+          "http://transient429.fixture.test/": 2
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": false,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 6
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 3,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 6,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 3,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 4,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 5,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 6,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 2
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "restored-cache": {
+    "phase": "restored-cache",
+    "failures": [],
+    "server": {
+      "timeout_pid": 4053828,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "mutant-capture-root": {
+    "phase": "mutant-capture-root",
+    "failures": [
+      "root-403-page-200-default-capture",
+      "root-403-page-200-listed-timestamp",
+      "both-roots-fail"
+    ],
+    "server": {
+      "timeout_pid": 4060721,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "1c8c32e416f00860a09f82919a7ec6fddc71f348e8de6ecbd9954c3981abab66",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "restored-capture-root": {
+    "phase": "restored-capture-root",
+    "failures": [],
+    "server": {
+      "timeout_pid": 4082700,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "mutant-topic-window": {
+    "phase": "mutant-topic-window",
+    "failures": [
+      "topic-window-negative"
+    ],
+    "server": {
+      "timeout_pid": 4104171,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "245c0c9bdfd8fec05c4788f67b5dcfceccd5029e164e2c1d5e357e4bcd40fa1a",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": false,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "restored-topic-window": {
+    "phase": "restored-topic-window",
+    "failures": [],
+    "server": {
+      "timeout_pid": 4128338,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "mutant-support-qualification": {
+    "phase": "mutant-support-qualification",
+    "failures": [
+      "support-rubber-stamp"
+    ],
+    "server": {
+      "timeout_pid": 4167407,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "a74cebc18c1fed16b4ec415b23c08b20e50f3d3f374075f496ea97f6d9616123"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": false,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "restored-support-qualification": {
+    "phase": "restored-support-qualification",
+    "failures": [],
+    "server": {
+      "timeout_pid": 4169341,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "mutant-packet-quote-equality": {
+    "phase": "mutant-packet-quote-equality",
+    "failures": [
+      "support-wrong-quote"
+    ],
+    "server": {
+      "timeout_pid": 4170993,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "467af20ab54042b3d98b1bd5646271bb7c3a9e395f629378a694847ef8672446"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": false,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  },
+  "restored-packet-quote-equality": {
+    "phase": "restored-packet-quote-equality",
+    "failures": [],
+    "server": {
+      "timeout_pid": 4172796,
+      "returncode": -15,
+      "alive": false
+    },
+    "fixture_restoration_mismatches": [],
+    "instrument_hashes": {
+      "reports/round-59/rowcheck.py": "d4d0b703167de4432b0fabc7188a0fbf12c7bf9b40fab1ba7838a281438d8b1e",
+      "reports/round-59/accept-c.py": "2d42deb5b84a06db06ec13cef49e4209f219e66b02cf4b21caa7d61a8197ea5e"
+    },
+    "cases": [
+      {
+        "name": "live-403-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny403.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-404-listed-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405id_/http://deny404.fixture.test/leaf": 1,
+          "https://web.archive.org/web/20240102030405/http://deny404.fixture.test/": 1
+        }
+      },
+      {
+        "name": "live-403-no-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://deny403.fixture.test/leaf": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-default-capture",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "root-403-page-200-listed-timestamp",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://root403.fixture.test/leaf": 1,
+          "http://root403.fixture.test/": 1,
+          "https://web.archive.org/web/20240102030405id_/http://root403.fixture.test/": 1
+        }
+      },
+      {
+        "name": "both-roots-fail",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://rootsfail.fixture.test/leaf": 1,
+          "http://rootsfail.fixture.test/": 1,
+          "https://web.archive.org/web/2026id_/http://rootsfail.fixture.test/": 1
+        }
+      },
+      {
+        "name": "one-fetch-reused-across-legs-and-rows",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://reuse.fixture.test/leaf": 1,
+          "http://reuse.fixture.test/": 1
+        }
+      },
+      {
+        "name": "transient-429-then-200",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "GET_counts": {
+          "http://transient429.fixture.test/leaf": 2,
+          "http://transient429.fixture.test/": 1
+        }
+      },
+      {
+        "name": "persistent-429-error-reused",
+        "ok": true,
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://always429.fixture.test/leaf": 3
+        }
+      },
+      {
+        "name": "topic-window-negative",
+        "ok": true,
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "GET_counts": {
+          "http://topicgap.fixture.test/leaf": 1,
+          "http://topicgap.fixture.test/": 1
+        }
+      },
+      {
+        "name": "support-positive",
+        "ok": true,
+        "exit": 0,
+        "failed_legs": []
+      },
+      {
+        "name": "support-rubber-stamp",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-wrong-quote",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      },
+      {
+        "name": "support-all-false",
+        "ok": true,
+        "exit": 1,
+        "failed_legs": [
+          "SUPPORT"
+        ]
+      }
+    ],
+    "contract_observations": [
+      {
+        "name": "concurrent-one-fetch-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            true,
+            "http://race.fixture.test/leaf"
+          ],
+          "BOILER": [
+            true,
+            "root-clear http://race.fixture.test/; not a title, h1 or meta label"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            true,
+            "quote_hits=2 function_words=5 page_hits=6 page_terms=5 need=1/2/3/2"
+          ]
+        },
+        "GET_counts": {
+          "http://race.fixture.test/leaf": 2,
+          "http://race.fixture.test/": 2
+        },
+        "GETs": [
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/leaf",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 1,
+            "archive_timestamp": null
+          },
+          {
+            "run": "concurrent-one-fetch-contract",
+            "method": "GET",
+            "url": "http://race.fixture.test/",
+            "status": 200,
+            "attempt": 2,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://race.fixture.test/leaf": 1,
+          "http://race.fixture.test/": 1
+        },
+        "repeat": 1,
+        "contract_only": true
+      },
+      {
+        "name": "transient-501-docstring-contract",
+        "expected": {
+          "LOCATE": true,
+          "BOILER": true,
+          "RELEVANCE": true,
+          "TOPIC": true
+        },
+        "actual": {
+          "LOCATE": false,
+          "BOILER": false,
+          "RELEVANCE": true,
+          "TOPIC": false
+        },
+        "ok": false,
+        "details": {
+          "LOCATE": [
+            false,
+            "http://transient501.fixture.test/leaf HTTPError"
+          ],
+          "BOILER": [
+            false,
+            "not-located"
+          ],
+          "RELEVANCE": [
+            true,
+            "shared=['amule', 'cerem', 'charm', 'house', 'prote']"
+          ],
+          "TOPIC": [
+            false,
+            "quote_hits=2 not-located"
+          ]
+        },
+        "GET_counts": {
+          "http://transient501.fixture.test/leaf": 1
+        },
+        "GETs": [
+          {
+            "run": "transient-501-docstring-contract",
+            "method": "GET",
+            "url": "http://transient501.fixture.test/leaf",
+            "status": 501,
+            "attempt": 1,
+            "archive_timestamp": null
+          }
+        ],
+        "expected_counts": {
+          "http://transient501.fixture.test/leaf": 2,
+          "http://transient501.fixture.test/": 1
+        },
+        "repeat": 2,
+        "contract_only": true
+      }
+    ]
+  }
+}
