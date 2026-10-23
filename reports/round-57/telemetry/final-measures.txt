@@ -1,0 +1,62 @@
+# round-57 final measures at the C landing (O landed before it) 2026-10-23T00:07:51Z
+# measured-revision 78d83b5e7145317a048c8f584d62739168b836bd (sandbox clone /fast/scratch/hyaku/kotodama-r57-measure-78d83b5e-kxp0yq81)
+$ python3 -B reports/round-57/accept-c.py
+SET PASS count=233 required=233 added=['corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md'] removed=[]
+SWEEP PASS exit=0 rows 233 files 233 missing_from_index 0 []
+FLOOR PASS cited=42 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE PASS located=42 cited=42 need=34 at=2026-10-23T00:10Z not_located=[]
+FRESH PASS rows_reusing_registry_urls=[]
+ACCEPT-C-57: PASS
+exit 0
+# role: C counting; expected pre-landing: exit 1: SET FAIL (count=232), SWEEP FAIL (rows 232 files 232), FLOOR FAIL (cited=0), LOCATE FAIL (cited=0); RANGE, STATUS, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-57: FAIL
+$ python3 -B reports/round-57/accept-c.py
+SET PASS count=233 required=233 added=['corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md'] removed=[]
+SWEEP PASS exit=0 rows 233 files 233 missing_from_index 0 []
+FLOOR PASS cited=42 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE PASS located=40 cited=42 need=34 at=2026-10-23T00:12Z not_located=['S418: http://web.archive.org/web/20251031191334/https://www.college-of-arms.gov.uk/services/granting-arms HTTPError', 'S452: http://web.archive.org/web/20010723223146if_/http://www.nava.org/gfbf/gfbf-3.htm HTTPError']
+FRESH PASS rows_reusing_registry_urls=[]
+ACCEPT-C-57: PASS
+exit 0
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-C-57: PASS (all nine legs PASS)
+$ python3 -B reports/round-57/accept-o.py
+# tool tools/check-gate-quotes.py sha256 54981859e2032226abd52f8d04da0070995a5a9ecf89f014d4de63841a8716c7
+# seeds [876667234, 876667235, 876667236, 876667237, 876667238] real-seeds [876667334, 876667335, 876667336]
+GEN PASS lessons=5 failing=0 []
+REAL PASS lessons=3 failing=0 []
+MULTI PASS runs=10 failing=[]
+MUTANTS PASS unmutated_selftest_exit=0 survivors=[] neutral_failing=[] unpatched=[] exits={'none': 0, 'double-decode': 1, 'stop-at-first-bad-file': 1, 'label-rename': 1, 'neutral-decode': 0, 'neutral-check': 0, 'neutral-run': 0}
+KEEP PASS changed=[]
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 52/52 pass
+ACCEPT-O-57: PASS
+exit 0
+# role: O counting; expected pre-landing: exit 1: GEN FAIL (failing=5, missing only the numeric-bare and hex-bare html-entity triples), REAL FAIL (failing=3), MUTANTS FAIL (three survivors); MULTI, KEEP, FORMAT, SELFTEST PASS; last line ACCEPT-O-57: FAIL
+$ python3 -B reports/round-57/accept-o.py
+# tool tools/check-gate-quotes.py sha256 54981859e2032226abd52f8d04da0070995a5a9ecf89f014d4de63841a8716c7
+# seeds [473140276, 473140277, 473140278, 473140279, 473140280] real-seeds [473140376, 473140377, 473140378]
+GEN PASS lessons=5 failing=0 []
+REAL PASS lessons=3 failing=0 []
+MULTI PASS runs=10 failing=[]
+MUTANTS PASS unmutated_selftest_exit=0 survivors=[] neutral_failing=[] unpatched=[] exits={'none': 0, 'double-decode': 1, 'stop-at-first-bad-file': 1, 'label-rename': 1, 'neutral-decode': 0, 'neutral-check': 0, 'neutral-run': 0}
+KEEP PASS changed=[]
+FORMAT PASS malformed_runs=[]
+SELFTEST PASS exit=0 SELFTEST: 52/52 pass
+ACCEPT-O-57: PASS
+exit 0
+# role: O acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-O-57: PASS (all seven legs PASS)
+$ python3 -B tools/check-claim-separability.py reports/round-57/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit REC lands 'corpus/lessons/round-57.md', which is absent from the worktree under '/fast/scratch/hyaku/kotodama-r57-measure-78d83b5e-kxp0yq81'
+exit 2
+# role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land (the checker stops at its first absent land, so later legs are unevaluated)
+$ python3 -B reports/round-57/claims-agree.py
+AGREE claims=['C', 'O']
+exit 0
+# role: agreement; expected pre-landing: AGREE, exit 0

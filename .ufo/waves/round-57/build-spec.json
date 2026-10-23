@@ -1,0 +1,428 @@
+{
+ "wave": "kotodama-r57-build",
+ "milestone": "Round 57: C heraldry/emblems/identity-marks myth-symbol entry 232->233 with sources in S413-S480 (live-located); O bare numeric references + selftest kills three round-56 survivors; routed round-56 items",
+ "reportDir": ".ufo/waves/round-57/build",
+ "axes": [
+  "coverage",
+  "operability",
+  "calibration",
+  "adjacency"
+ ],
+ "context": "# Goal\nKotodama round 57 (hyaku phase 4, 2026-10-22). Lane repo /home/vgpnk/Projects/shokunin/kotodama-shokunin (branch main, jj-colocated). Claim base `0314aa981071220d206760b5263467faeea05b60`; declaration `13226c18aa352e3f3d1bfbe567f221acfb8b8344`: read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/claims.json first. TWO declared claims, each with ONE frozen predicate:\n- C (coverage, learning claim, sourced claim): ONE new entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md (at most 230 lines): heraldry, emblems and inherited identity marks as a linguistic-cultural design system for worldbuilders — European arms and the technical language of blazon (tinctures, ordinaries, charges, cadency, marshalling, the law and authorities of arms), office and rank emblems that are not hereditary (Mamluk blazons, Chinese rank badges, livery badges, ecclesiastical hats), Japanese kamon, steppe tamga and Polish clan arms, house, merchant and livestock marks, seals, flags. It hands off to lore-shokunin's world bible, which owns canon (which house bears what). It will cite corpus/SOURCES.md rows opened THIS round, ids in C's reserved block S413-S480 only, assigned by the L1 at integration; seats use draft ids `NEW-<SeatName>-<n>`. Predicate ACCEPT-C-57 includes a live LOCATE leg: /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py fetches each row's URL by an ordinary GET and must find the row's quote on the served page.\n- O (operability): tools/check-gate-quotes.py reports numeric character references written without `;` as html-entity, and its --selftest fails under three in-process mutants (double decoding, stop at the first unreadable file, html-entity label rename). Predicate ACCEPT-O-57: `python3 -B reports/round-57/accept-o.py` exits 0 (run-time generated lessons; see its docstring).\nRouted by /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md (round-56 non-author closure; round 56 was rejected because its O counter was met by an S-id-keyed shortcut). The L1 (KotodamaR57) writes the entry, the registry rows, the tool landing and the lesson from your reports; you supply opened-source evidence, maps, tools and attacks.\n\n# Ownership and bounds\nThe L1 (KotodamaR57) is the sole integration owner and holds the canonical planner seat. Every seat is a leaf: no delegation, no background jobs, no swarms (an executor may spawn at most one read-only labrat probe). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kotodama-shokunin — write it at /home/vgpnk/Projects/shokunin/kotodama-shokunin/<that path>; never write under /home/vgpnk/Projects/shokunin/.ufo or anywhere else in the fleet repo. Seats write ONLY their own report file (executors may also write under /fast/scratch/hyaku/kotodama-r57/<YourName>/). NEVER edit, create or delete any other file in /home/vgpnk/Projects/shokunin/kotodama-shokunin, a sibling lane, or the fleet repo /home/vgpnk/Projects/shokunin. Never run git or jj writes in the lane or the fleet repo: no commit, push, add, stash, checkout, reset, ref update, index or jj state change; read-only git (log, show, diff, ls-tree) is fine. Sandbox git only in clones under /fast/scratch/hyaku/ with GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE unset. No unbounded recursive test runs; cap processes and memory. Use absolute paths everywhere (your tools start at the fleet root). Never message agent://all.\n\n# Sources\nExternal reading by ORDINARY MEANS ONLY: plain requests (read tool, curl), public copies, archive.org or Wayback captures, open repositories, official sites. NEVER use a headless browser or any tool to get past a bot challenge, captcha, paywall, login or other access control (QUALITY criterion 10); archive.org borrow-only books do not count. A journal scan served from a third-party host with no stated permission is NOT an ordinary public copy (round-56 mistake R56-M4): skip it. A challenge met and routed around by a Wayback capture is reported as \"challenge met, not passed\". A source counts only if you opened it in this session. Before you offer any quote, run the round's locator on it and paste its one-line output: `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py '<url>' '<quote>'` (it fetches the URL with a plain GET and must print `LOCATED <url>`). Offer only LOCATED quotes, each 8 to 25 words, verbatim from the served text (plain UTF-8, no HTML character references); give the URL that serves the quoted text itself (the djvu.txt, the PDF, the record page), not only a landing page. The locator refuses search-result, echo, code-hosting (GitHub, GitLab, pastebins) and Google/Bing URLs, any URL that carries the quote's words, and quotes under 8 words: use a record or document URL. The source must be NEW to the lane: `grep -c '<host/path of your url>' /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md` must print 0 (claim C's FRESH leg refuses a row whose URL an existing row names); if the work is already registered, report it under `### Rejected` as `already registered as S###`.\n\n# Tooling\nTooling authorization (operator, 2026-10-19): you and every seat may install or update tools without asking; read /home/vgpnk/.omp/agent/RULES.md first and record each install (tool, version, channel, reason). All pacman transactions are PAUSED host-wide: never pacman -S/-Sy/-Syu/-U/-R, never downgrade, never restart a host service; use uv tool, npx or an official binary in ~/.local/bin, or report the need. Prefer no installs.\n\n# Output\nA concise Markdown report at your Report path. Source seats use exactly this shape per source: `### NEW-<SeatName>-<n>` then lines `citation:` (author, year, title, venue, stable id), `url:` (the URL the locator fetched), `route:` (direct with HTTP status, or Wayback capture id), `kind:` (paper, book, docs, dataset, web, record, community), `tier:` (A/B/C with a one-line reason scoped to the claim), `scope:` (what the row may support), `quotes:` (bulleted, each `<locator>: \"<quote>\"` then the pasted locator line), `teaches:` (ONE complete sentence of at most 30 words, ending with a full stop), then `draft sentences:` — 3 to 6 sentences for the entry, each ending with `(NEW-<SeatName>-<n>, <locator>)`, each saying only what a quote or the opened page carries, at the strength the page states (keep hedges), aimed at a worldbuilder's design decisions. Report sources you opened and rejected under `### Rejected` with the reason. Other seats: findings first, each with an absolute `path:line` or command output; exact old -> new text for any proposed fix.\n",
+ "items": [
+  {
+   "name": "ScoutFoxDaviesTinctures",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Arthur Charles Fox-Davies, 'A Complete Guide to Heraldry' (1909), public domain on archive.org (djvu.txt) or Wikisource: the tinctures (metals, colours, furs), the rule of tincture and its stated exceptions, with chapter and page locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutBlazonGlossary",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. James Parker, 'A Glossary of Terms Used in Heraldry' (1894), public domain on archive.org or a public-domain transcription: blazon as a technical language — its Anglo-Norman vocabulary and the conventional order of a blazon (field, ordinary, charges). Quote two or three head entries with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutCadencyMarks",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Cadency and differencing in English heraldry: the marks of cadency (label, crescent, mullet, martlet ...) for sons in birth order, from a public-domain treatise on archive.org (Boutell's 'Heraldry, Historical and Popular', Fox-Davies 1909 chapter on marks of cadency, or Woodward and Burnett 1892). Quote the scheme and any statement that it was not consistently used.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutMarshalling",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Marshalling arms: impalement, quartering, the escutcheon of pretence and heraldic heiresses, from a public-domain treatise on archive.org (Woodward and Burnett, 'A Treatise on Heraldry, British and Foreign' 1892, or Fox-Davies 1909). Quote the rules with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutCollegeOfArms",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. The College of Arms (London), official site college-of-arms.gov.uk: who grants arms in England, Wales and Northern Ireland, who may apply, and the statement that arms belong to an individual, not to a surname. Quote the official pages.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutLordLyon",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. The Court of the Lord Lyon (Scotland), official site courtofthelordlyon.scot: Lyon's jurisdiction, matriculation, differencing between members of a family, and the legal protection of arms in Scotland. Quote the official pages.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutCanadianHeraldry",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. The Canadian Heraldic Authority (Office of the Governor General; gg.ca) and its Public Register of Arms, Flags and Badges: how arms are granted in a modern state, and one register entry that adapts non-European symbols. Quote the official pages and the register entry.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutLawOfArms",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. The law of arms as law: the Lyon King of Arms Act 1672 on legislation.gov.uk (official text) and the English Court of Chivalry case Manchester Corporation v Manchester Palace of Varieties Ltd [1955] (an open law report, an official or university page, or the Heraldry Society's account). Quote what each says arms are and who enforces them.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutRollsOfArms",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Medieval rolls of arms and armorials as primary sources: the Zurich Armorial (Zürcher Wappenrolle, c. 1340) on e-codices (open access) and/or the Armorial de Gelre (KBR Brussels) or a British Library rolls-of-arms page. Quote the record's dating and description with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutHeraldryOrigins",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. The origin of heraldry in twelfth-century Europe (c. 1130-1160; tournament, seals, the enamel of Geoffrey Plantagenet at Le Mans): one open scholarly or museum source (the Heraldry Society, a museum record of the Le Mans enamel, an open journal article). Quote the dating and the evidence it rests on.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutCantingArms",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Canting arms (armes parlantes): arms that pun on the bearer's name. One public-domain treatise passage (Fox-Davies 1909, Woodward and Burnett 1892) and one official or museum example with its blazon. Quote with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutHeraldicBeasts",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Heraldic beasts and their attitudes (rampant, passant, guardant, sejant) and monsters (griffin, wyvern, cockatrice) in a public-domain treatise on archive.org (Fox-Davies 1909 chapters on the lion and on monsters). Quote the attitude terms and one monster definition with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutKamonOrigins",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Japanese family crests (kamon): their origin among Heian court nobles (motifs on carriages and garments) and adoption by warrior houses. Open one public-domain or open scholarly source (for example archive.org scans of Western studies such as Edward F. Strange, 'The Mon or Japanese Family Crest', or a museum essay) and quote with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutKamonGarments",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Kamon in use: crests on formal garments (montsuki, the five-crest kimono), lanterns, roof tiles and lacquer, and Edo-period armorials of daimyo (bukan). Use holding-museum records (the Met, V&A, MFA Boston, Tokyo National Museum) or National Diet Library digital collection records. Quote the records' own words.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutImperialCrest",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. The imperial chrysanthemum crest and restricted crests in Japan (the sixteen-petal chrysanthemum; the Tokugawa hollyhock aoi and its restriction in the Edo period). Use official (Imperial Household Agency, government) or open scholarly/museum sources; quote with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutTamgaSteppe",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Tamga: clan and property marks of steppe peoples (Sarmatian, Turkic, Mongol) used on livestock, stone and coins. Open one open-access scholarly article (for example S. A. Yatsenko on Sarmatian or Iranian tamgas, or another specialist) and quote what a tamga is, how it was inherited or modified, and where it appears.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutOghuzTamgas",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. The Oghuz clan tamgas listed by Mahmud al-Kashgari (Diwan Lughat at-Turk, 11th c.) and by Rashid al-Din: one open scholarly source or a public-domain translation that reproduces or describes the list. Quote the number of clans and what the marks were used for, with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutLivestockBrands",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Livestock brands as registered property marks in a modern pastoral economy: one official state brand registry or brand inspection page in the United States (for example Texas, Montana, Wyoming or Nebraska official sites) stating what a brand is, who registers it and where it is placed. Quote the official page.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutPolishClanArms",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Polish heraldry: one coat of arms (herb) shared by many unrelated families (heraldic clans), with a battle cry (zawołanie). Open an open-access scholarly source or a public-domain armorial (for example Kasper Niesiecki's 'Herbarz Polski' scan, or an open article) and quote with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutMerchantMarks",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. House marks and merchants' marks (Hausmarken): non-noble identity marks on goods, seals and houses in medieval and early modern Europe. Open one museum record (British Museum, V&A, a city museum) and one open scholarly source; quote with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutSeals",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Seals as identity marks: one official archive guide to medieval seals (The National Archives UK, the British Library, or the Archives nationales) and one museum seal matrix record. Quote what the seal carried (arms, name legend, image) and who used seals (not only nobles), with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutEcclesiasticalHats",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Ecclesiastical heraldry: the galero (clerical hat) with its tassels by rank, and the 1969 Instruction 'Ut sive sollicite' on the dress, titles and arms of cardinals, bishops and lesser prelates (vatican.va official text). Quote the rule on hats and tassels.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutCivicHeraldry",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Civic and municipal heraldry under modern design rules: one official national or regional municipal-arms authority or guideline (for example the Norwegian or Finnish municipal coat-of-arms principles, a Swiss canton page, or an official municipal arms register). Quote the stated design rules (number of tinctures, simplicity) with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutMamlukBlazons",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Mamluk blazons as office emblems, not family arms: the cup of the cupbearer, the polo sticks, the pen box of the secretary, and the composite blazons of the later period. Use holding-museum records of Mamluk objects (the Met, British Museum, V&A, Museum of Islamic Art Doha) and, if public domain and openable, L. A. Mayer, 'Saracenic Heraldry' (1933). Quote with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutRankBadges",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Chinese rank badges (buzi, 'mandarin squares') of the Ming and Qing: birds for civil officials and animals for military officials by grade. Use holding-museum records (the Met, V&A, Minneapolis Institute of Art, Asian Art Museum) and quote the rank scheme as the records state it.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutLiveryBadges",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Livery badges and collars as marks of affinity, not lineage: the White Hart of Richard II, the Yorkist sun or white boar, the Lancastrian SS collar. Use holding-museum records (British Museum Dunstable Swan Jewel, V&A, Wallace) and quote what each record says the badge signalled and who wore it.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutNotitiaShields",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Late Roman unit shield emblems in the Notitia Dignitatum (Bodleian MS. Canon. Misc. 378 on Digital Bodleian, or another open copy) and one open scholarly source on what the shield patterns show. Quote with locators and the source's own caveats.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutFlagDesign",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Flags as designed identity marks: the North American Vexillological Association booklet 'Good Flag, Bad Flag' (Ted Kaye; free PDF on nava.org) — its five principles — and one official flag-law or flag-protocol page. Quote the principles with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutCrestRights",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Crests as owned rights outside Europe, treated only through the holding community's or holding museum's own public statements: Northwest Coast crest objects (UBC Museum of Anthropology, Canadian Museum of History, Royal BC Museum) whose records state that a crest belongs to a lineage and its display is a right. Quote the records; report and skip anything restricted.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ScoutHeraldryMyths",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C source item. Open 1 or 2 sources by ordinary means and report them in the source shape of the wave context (locator line pasted for every quote). Aim the draft sentences at design decisions: what a mark or emblem is called and what its parts are called, who may bear or grant it and under what rule, how it passes or changes between holders, what it is put on (shield, seal, garment, banner, animal, door), and where an outsider's popular account over-reads. Calibration item: popular claims the entry's calibration bank must mark — 'there is a coat of arms for my surname / family crest', 'only nobles could bear arms', 'the crest is the whole coat of arms', 'heraldic colours have fixed meanings (red = courage)'. Open official or scholarly sources that say what is true instead (College of Arms or Lord Lyon FAQ, the Heraldry Society, a public-domain treatise on the 'crest' as the helmet-top device). Quote each with locators.",
+   "axes": [
+    "coverage"
+   ]
+  },
+  {
+   "name": "ConnectInLaneHeraldry",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C in-lane partial owners. Run `grep -rniE 'heraldr|blazon|coat of arms|kamon|tamga|emblem|insignia|badge|crest|livery|seal' /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge` and group the hits by file with `path:line`. Produce the entry's one-owner boundary table ready to paste: `| Neighbour (anchor) | What it owns | This entry's boundary |`, 8-12 rows, one distinct file per row, each anchored by ONE backticked `corpus/knowledge`-relative `file.md:N` you re-read and that supports the ownership cell (candidates: myth-symbol/animal-symbolism.md crest heraldry, myth-symbol/color-symbolism.md, culture-material/costume-semiotics.md, culture-material/sumptuary-law-rank-display.md, linguistics/naming-systems.md, culture-material/warrior-material-culture.md, synthesis/symbolism-consistency-rules.md). Pointing is one-way: the new entry points to them; they are not edited this round.",
+   "axes": [
+    "coverage",
+    "adjacency"
+   ]
+  },
+  {
+   "name": "ConnectSiblingHeraldry",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C sibling overlap. Read-only scan of every sibling lane /home/vgpnk/Projects/shokunin/*-shokunin (excluding kotodama-shokunin): corpus/knowledge, PROVINCE.md and SKILL.md for ownership of heraldry, flags, emblems, seals, identity marks, symbol design or faction iconography. Report each hit with path:line and whether it is an owner, a partial owner or a mention, and whether a kotodama myth-symbol reference entry on heraldry and identity marks would overlap a sibling's province. Name contested scope for the integrator; never absorb.",
+   "axes": [
+    "coverage",
+    "adjacency"
+   ]
+  },
+  {
+   "name": "ConnectLoreHandoff57",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C handoff to lore. Read the sibling lore lane (/home/vgpnk/Projects/shokunin/lore-shokunin: PROVINCE.md, SKILL.md, and any world-bible template, schema, faction or symbol section in its corpus or templates) and in-lane /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md, /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/naming-canon-workflow.md and the handoff section of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (grep -n 'lore'). Draft the entry's handoff section ready to paste (8-14 lines): which fields of a heraldic or emblem design pass to lore's world bible (who bears what, inheritance rule, granting authority, display surfaces, restricted marks), what lore decides (canon: which house holds which arms), what kotodama keeps (the grammar and calibration), and the NON-CANON condition, each with the contract's own terms and `path:line` anchors you re-read.",
+   "axes": [
+    "coverage",
+    "adjacency"
+   ]
+  },
+  {
+   "name": "ExecGateBareNumeric",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim O build. Copy /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-gate-quotes.py to your scratch dir and change it, keeping every existing behaviour, output format, module function name (decode_html_references, check, run, selftest) and selftest case: (a) a numeric character reference written WITHOUT its closing `;` — decimal `&#233 ` / `&#233w` or hexadecimal `&#xE9 ` / `&#xE9z` (digits end the reference, as in HTML5) — counts as a reference: the row prints html-entity once and is decoded once with html.unescape; named references still bind only with `;` (`&copy ` is no reference); `&#;`, `&#x;`, `&#xg` are no reference; (b) the docstring states that semicolon policy and that invalid code points (`&#0;`, `&#xD800;`, `&#1114112;`) decode to U+FFFD and still report html-entity; (c) add BEHAVIOURAL selftest cases (in-process, through the module's globals; never inspect the file) that fail under each mutant: decoding twice (a row with `&amp;hellip;` must yield html-entity only, no words= finding), stopping at the first unreadable file (run([invalid, valid]) must still print the valid file's findings and exit 2), and renaming the printed label (run on a lesson with an entity row must print a line ending ` html-entity`). Then from a scratch clone of the lane at 13226c18aa352e3f3d1bfbe567f221acfb8b8344 with your tool copied over tools/check-gate-quotes.py run `python3 -B reports/round-57/accept-o.py` three times (no --seed) and once with `--tool <your copy>` from the lane itself; paste all outputs. Deliver the full final tool source in the report and its sha256. Write code and fixtures ONLY under /fast/scratch/hyaku/kotodama-r57/<YourName>/ and paste the final script source (or a unified diff against the lane file) and every run (command, output, exit code) into your report. Python 3 stdlib only.",
+   "axes": [
+    "operability",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ExecIntegrateRows57",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nIntegration tool for claim C. Start from the round-56 tool under /fast/scratch/hyaku/kotodama-r56/ExecIntegrateRows56/ (read-only; its report is /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/build/ExecIntegrateRows56.md). Copy and adapt it: (1) `--start 413 --end 480` with a hard error if more blocks than the block holds; (2) it never writes an HTML character reference; (3) for each block it also runs /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py in URL mode on the row's URL and its first anchor quote and records LOCATED/NOT_LOCATED in a side report, and it puts the located quote FIRST in the anchor cell (the locator reads the first quoted span of the anchor cell and the URLs of the source cell); (4) the source cell carries the URL the locator fetched. Test it on two round-56 build reports (/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/build/ScoutUnescoMbanzaKongo.md and ScoutRaffiaCloth.md) and on a synthetic report in the round-57 shape; paste outputs. Deliver the tool path and usage. Write code and fixtures ONLY under /fast/scratch/hyaku/kotodama-r57/<YourName>/ and paste the final script source (or a unified diff against the lane file) and every run (command, output, exit code) into your report. Python 3 stdlib only.",
+   "axes": [
+    "operability",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ExecSyntaxSweep",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRouted fix check (round-56 spot-check §5 item 7). (1) Sweep every Python file under /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports and /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools with `python3 -W error::SyntaxWarning -c 'import ast,sys; ast.parse(open(sys.argv[1]).read(), sys.argv[1])' <file>` (a loop, one process at a time) and list every file that fails with its line. (2) For /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-56/accept-c.py, produce the minimal fix (the docstring opened as a raw string) as a unified diff, and prove in a scratch clone of the lane at 13226c18aa352e3f3d1bfbe567f221acfb8b8344 that `python3 -B reports/round-56/accept-c.py` prints byte-identical stdout and the same exit status before and after (paste both and a `cmp`), and that the SyntaxWarning is gone. Do not edit the lane. Write code and fixtures ONLY under /fast/scratch/hyaku/kotodama-r57/<YourName>/ and paste the final script source (or a unified diff against the lane file) and every run (command, output, exit code) into your report. Python 3 stdlib only.",
+   "axes": [
+    "operability",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScribeSpotcheckRouting57",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRoute the round-56 outside check. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md in full. Draft the round-57 lesson section `## Spot-check intake (round-56 outside verifier)`: a table `| Item (round-56-verifier-spotcheck.md:line) | Finding | Route | Status |` with one row per routed defect (§5 items 1-7), the §3 koon1244 disagreement and the §6 SHONEN note; Route is one of `claim O (rebuilt acceptance)`, `erratum`, `superseding row`, `routed fix, seat <Name>` (this wave: ReviewCarriedS359S360, ReviewCarriedS367S383, ReviewCarriedS384S385, ReviewCarriedS392S395, ReviewCarriedS396S399, ReviewCarriedS407S379, ScribeErratumKoonS410, ScribeQuality10, ExecSyntaxSweep), `QUALITY criterion 10 amendment` or `not routed: operator-owned`. Leave Status as `pending` for the L1.",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScribeErratumKoonS410",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRouted defects 3 and 4 (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5). (1) Re-open https://glottolog.org/resource/languoid/id/koon1244.json and .n3 by ordinary means and draft the erratum line for the round-57 lesson (never rewriting /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56.md:83): the source was opened, it carries quotable fields (quote one, at most 25 words, with the locator line from `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py <url> '<quote>'`), and it was not registered because kiko1235 (row S379) already carries the classification. (2) Re-open S410 (grep '^| S410 ' /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md): the `/download` URL now serves an HTML shell; find the effective `https://open.bu.edu/server/api/core/bitstreams/<uuid>/content` form, confirm it serves the PDF (HTTP status, bytes, content type), run the locator on the S410 Gate quote with it, and draft a superseding SOURCES row in the registry's 11-column format whose teaches opens `supersedes S410 — ` and records the effective URL (status queued, id left as S4xx for the L1), plus its Gate line.",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScribeQuality10",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRouted defect 6 (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5 item 6; mistake R56-M4 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56.md `## Mistakes`). Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md criterion 10 in full (`sed -n 37p`). Draft ONE appended sentence group for criterion 10 (never rewriting its existing words) that names third-party journal or book scans served with no stated permission as not ordinary public copies, with the check a reviewer runs (the host page names a licence or permission, or the copy is the publisher's, an author's institutional repository, or a library or archive's own digitisation), grounded in `corpus/lessons/round-56.md#mistakes` R56-M4 and `corpus/lessons/round-56-verifier-spotcheck.md` §3. Then show the amended criterion against the two round-56 rejects and two admitted round-56 rows (S375 Ghent repository, S381 the journal's own site): which pass and which fail, and why.",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScribeEntrySkeleton",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C structure. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md criteria 1-5, the head block and section list of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/myth-symbol/monsters-hybrid-beings.md and /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (`grep -n '^#\\|^- ' <file> | head -60`), and /home/vgpnk/Projects/shokunin/kotodama-shokunin/PROVINCE.md. Draft the skeleton of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md: the title line, the head block fields in the house order (topic, gap filled — with the zero-owner filename sweep `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin ls-tree -r --name-only 0314aa981071220d206760b5263467faeea05b60 corpus/knowledge | grep -ciE 'herald|emblem|kamon|tamga|insign'` run and pasted —, sources, couples, source, verified-at, recheck, scope), and section headings for at most 230 lines with what each section must decide for a worldbuilder (for example: what kind of mark is this — hereditary arms, office emblem, affinity badge, property mark, crest right; who grants and who protects; the grammar of a mark; how marks pass and difference; display surfaces; era staging; calibration bank; lore handoff). Leave citations as `[NEW-...]` placeholders. No facts without a source.",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  },
+  {
+   "name": "ReviewCarriedS359S360",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCarried row findings (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5 item 5): S359 (the pp. 469/470 locators) and S360. Find each original finding in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/falsify/ (grep -ln 'S359\\|S360') and /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56.md. Re-open each named source by ordinary means; check the finding against the served text; give the verdict (agree / disagree with the finding) and the exact fix: an entry-sentence change in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (old -> new, with `path:line`) when the entry over-reads, or, when a registry cell other than status/recheck/used-by is wrong, a drafted superseding SOURCES row (11 columns, teaches opening `supersedes S### — `, id left as S4xx for the L1) with its Gate line and locator line from `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py '<url>' '<quote>'`. The registry is append-only: never propose an in-place edit of any other cell.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ReviewCarriedS367S383",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCarried row findings (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5 item 5): S367 (Grounds hedge 'claims to be founding'; ReviewRowsS365toS367) and S383. Find each finding in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/falsify/ (grep -ln 'S367\\|S383'). Re-open each named source by ordinary means; check the finding against the served text; give the verdict (agree / disagree with the finding) and the exact fix: an entry-sentence change in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (old -> new, with `path:line`) when the entry over-reads, or, when a registry cell other than status/recheck/used-by is wrong, a drafted superseding SOURCES row (11 columns, teaches opening `supersedes S### — `, id left as S4xx for the L1) with its Gate line and locator line from `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py '<url>' '<quote>'`. The registry is append-only: never propose an in-place edit of any other cell.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ReviewCarriedS384S385",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCarried row findings (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5 item 5): S384 and S385. Find each finding in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/falsify/ (grep -ln 'S384\\|S385'). Re-open each named source by ordinary means; check the finding against the served text; give the verdict (agree / disagree with the finding) and the exact fix: an entry-sentence change in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (old -> new, with `path:line`) when the entry over-reads, or, when a registry cell other than status/recheck/used-by is wrong, a drafted superseding SOURCES row (11 columns, teaches opening `supersedes S### — `, id left as S4xx for the L1) with its Gate line and locator line from `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py '<url>' '<quote>'`. The registry is append-only: never propose an in-place edit of any other cell.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ReviewCarriedS392S395",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCarried row findings (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5 item 5): S392 (two over-reads; ReviewRowsS392toS394) and S395. Find each finding in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/falsify/ (grep -ln 'S392\\|S395'). Re-open each named source by ordinary means; check the finding against the served text; give the verdict (agree / disagree with the finding) and the exact fix: an entry-sentence change in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (old -> new, with `path:line`) when the entry over-reads, or, when a registry cell other than status/recheck/used-by is wrong, a drafted superseding SOURCES row (11 columns, teaches opening `supersedes S### — `, id left as S4xx for the L1) with its Gate line and locator line from `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py '<url>' '<quote>'`. The registry is append-only: never propose an in-place edit of any other cell.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ReviewCarriedS396S399",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCarried row findings (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5 item 5): S396, S397 and S399. Find each finding in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/falsify/ (grep -ln 'S396\\|S397\\|S399'). Re-open each named source by ordinary means; check the finding against the served text; give the verdict (agree / disagree with the finding) and the exact fix: an entry-sentence change in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (old -> new, with `path:line`) when the entry over-reads, or, when a registry cell other than status/recheck/used-by is wrong, a drafted superseding SOURCES row (11 columns, teaches opening `supersedes S### — `, id left as S4xx for the L1) with its Gate line and locator line from `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py '<url>' '<quote>'`. The registry is append-only: never propose an in-place edit of any other cell.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ReviewCarriedS407S379",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCarried row findings (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §5 item 5): S407 (anchor 3 column locator; ReviewRowsS407toS409) and S379 (tier B -> A needs a superseding row; ReviewRowsS377toS379; QUALITY criterion 6). Find each finding in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/falsify/ (grep -ln 'S407\\|S379'). Re-open each named source by ordinary means; check the finding against the served text; give the verdict (agree / disagree with the finding) and the exact fix: an entry-sentence change in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md (old -> new, with `path:line`) when the entry over-reads, or, when a registry cell other than status/recheck/used-by is wrong, a drafted superseding SOURCES row (11 columns, teaches opening `supersedes S### — `, id left as S4xx for the L1) with its Gate line and locator line from `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py '<url>' '<quote>'`. The registry is append-only: never propose an in-place edit of any other cell.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "CriticGapPremise57",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack claim C's premise before drafting lands. (1) Does any entry under /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge already own heraldry or identity marks (animal-symbolism.md crest heraldry, color-symbolism.md tinctures, costume-semiotics.md, sumptuary-law-rank-display.md), so that a new entry would split them? Read the relevant parts and give `path:line`. (2) Does a myth-symbol reference entry on heraldry and identity marks fit /home/vgpnk/Projects/shokunin/kotodama-shokunin/PROVINCE.md? (3) Which marks must the entry treat only through the holding community's public statements (Northwest Coast crests, sacred or restricted emblems, living clan tamgas)? (4) Name the three design decisions a worldbuilder most needs from the entry that no existing entry answers.",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  },
+  {
+   "name": "CriticCalibrationHeraldry",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C calibration traps. List the popular claims about heraldry and identity marks the entry's calibration bank must mark, each with what an opened source says instead (open at least two sources yourself, ordinary means only, verbatim quotes of 8-25 words with locators, each checked with the round's locator as the wave context says): 'every surname has a coat of arms', 'heraldic tinctures have fixed symbolic meanings', 'only nobles bore arms', 'kamon are Japanese coats of arms (same system)', 'the tamga is a Turkic writing system', 'Mamluk blazons are family arms', 'the crest is the whole achievement'. Give a code per claim (C contested, R rejected, B well-supported, T tradition) with the reason.",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  },
+  {
+   "name": "CriticMistakeMining57",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFrontier step: mine one mistake for the round-57 lesson's `## Mistakes`. Leading candidate: round 56's claim O was rejected because its acceptance could be met by an S-id-keyed checker, although its own build critic measured that cheat before landing (/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-56/build/CriticClaimO56.md; /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56.md R56-M3; /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §2). Find the root cause in the round-56 records (declaration, receipts, lesson): which rule existed, why it did not stop the declaration, and what this round's instruments change (read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/accept-o.py and /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/telemetry/controls-o.txt). Give class, evidence pointer, captured-by and a fix that is shown able to fail (name the control). Second candidate if stronger: the false koon1244 reject reason (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md §3).",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  },
+  {
+   "name": "CriticEntryContract57",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nClaim C entry contract attack. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md criteria 1-6, the round-56 falsify fixes (/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56.md, `## Falsify`) and /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-56-verifier-spotcheck.md. Produce the checklist of failure modes the L1 must avoid when integrating seat drafts into /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md: Eurocentric generalisation ('heraldry' used for every emblem system), one national practice stated as universal (English cadency as general rule), dropped hedges, a museum label over-read as a study, publisher blurbs as tier A, draft ids left in text, S-ids outside S413-S480, range notation, quotes over 25 words, a Grounds that is not the teaches cell, restricted crests described beyond the holder's public statement, and the lore boundary (no canon decisions). Each item names the check the L1 runs.",
+   "axes": [
+    "coverage",
+    "calibration"
+   ]
+  }
+ ]
+}

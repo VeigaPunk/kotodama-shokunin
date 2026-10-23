@@ -4,7 +4,7 @@
 - gap filled: at the claim base no file under `corpus/knowledge` owns identity marks as a system. Filename sweep `git ls-tree -r --name-only 0314aa98 corpus/knowledge | grep -ciE 'herald|emblem|kamon|tamga|insign'` → 0. Partial owners hold pieces at section depth (`culture-material/warrior-material-culture.md:50`, `civilizations/mamluk.md:123`, `culture-material/writing-media-surface-economy.md:105`, `culture-material/pastoralism-animal-husbandry.md:79`, `civilizations/turkic-steppe.md:96`, `culture-material/sumptuary-law-rank-display.md:53`, `civilizations/pacific-northwest.md:109`); §2 points to each one-way. This entry spends its lines on what none of them answers: the bearer unit, the authority regime, and transmission.
 - sources:
   - In-corpus anchors (`corpus/knowledge/`-relative `path:line`, re-read at the claim base): the §2 table.
-  - External shelf: rows opened this round (2026-10-22) by ordinary means (plain requests, public scans, official pages and Wayback captures where a live host met a challenge that was not passed), registered in `corpus/SOURCES.md` in claim C's reserved block (numbers 413 to 480), each anchor quote re-located live by the round's locator.
+  - External shelf: rows opened this round (2026-10-22) by ordinary means (plain requests, public scans, official pages and Wayback captures where a live host met a challenge that was not passed), registered in `corpus/SOURCES.md` in claim C's reserved block (numbers 413 to 480); each anchor quote was located by the round's locator at integration, and the landing run located 40 of the 42 (two Wayback captures returned HTTP errors).
 - couples: myth-symbol — `animal-symbolism.md` (fauna meanings and crest rights), `color-symbolism.md` (colour meaning; this entry keeps tincture vocabulary only), `monsters-hybrid-beings.md` (the monster as category); culture-material — `costume-semiotics.md`, `sumptuary-law-rank-display.md`, `warrior-material-culture.md`, `writing-media-surface-economy.md`, `pastoralism-animal-husbandry.md`; linguistics — `naming-systems.md`; synthesis — `symbolism-consistency-rules.md`, `worldbible-integration-contract.md`.
 - source: lane-side authority is the §2 anchor list plus the external rows. Design method: name the bearer unit first (§3), then the authority regime (§4), then the grammar (§5) and the transmission rule (§6); only then choose carriers (§9) and dates (§10).
 - verified-at: 2026-10-22 — written against claim base `0314aa98`; pre-entry `find corpus/knowledge -type f | wc -l` → 232; post-entry 233.
@@ -13,7 +13,7 @@
 
 ## 1. Calibration key
 
-Codes as in the lane's calibration practice: **B** well supported by the cited row at its stated strength; **C** contested or hedged by the row itself; **R** rejected by the cited row; **T** tradition reported as tradition. A national rule (English, Scottish, Canadian, Japanese, Polish) is scoped to that jurisdiction and period; none is a universal law of heraldry.
+The labels below are this entry's own reading labels, not the codes of `verification/calibration-registry.md:35`: **B** carried by the cited row at its stated strength; **C** hedged or contested by the row itself; **R** rejected by the cited row; **T** reported by the row as tradition. A national rule (English, Scottish, Canadian, Japanese, Polish) is scoped to that jurisdiction and period; none is a universal law of heraldry.
 
 ## 2. One-owner boundary
 
@@ -38,10 +38,10 @@ Decide this first; every later rule depends on it.
 
 | Bearer unit | Worked case from the rows | Consequence for design |
 |---|---|---|
-| one person and descendants | arms granted or confirmed "to one person and their descendants in the legitimate male line" (S419, Q. Do coats of arms belong to surnames?); in Scotland "all Arms are individual to a person" (S421, served text) | no surname arms (§11); each cadet needs a difference or a new record |
-| a lineage across many surnames | the same crest "regularly is granted to half-a-dozen people of as many different surnames" (S413, chapter on crests, served text) | a crest can mark representation of a family, not a name |
+| one person and descendants | arms granted or confirmed "to one person and their descendants in the legitimate male line" (S419, Q. Do coats of arms belong to surnames?); in Scotland "all Arms are individual to a person" (S421, served text) | no surname arms (§11); in Scotland a cadet matriculates with a difference (S420) |
+| one crest, several unrelated grantees | Fox-Davies reports a Scottish practice in which the same crest "regularly is granted to half-a-dozen people of as many different surnames" (S413, chapter on crests, served text) | a crest alone does not prove kinship (C: one author's report of one jurisdiction) |
 | a clan of unrelated families | in medieval Poland a coat set off a group from the wider community and gave it boundaries; Bieniak reads knightly clans as political factions and solidarity groups (S435, §1 and §2) | a shared coat is evidence of affiliation, not of kinship |
-| an office | the Notitia Dignitatum pairs each office with its insignia and never names the incumbent (S448, served text); Mamluk emblems "with very few exceptions represented the office held by the amir" (S446, served text) | the mark changes hands with the post |
+| an office | the Notitia Dignitatum pairs each office with its insignia and never names the incumbent (S448, served text); Mamluk emblems, "so far as we can understand them", with very few exceptions represented the office held by the amir (S446, served text) | the mark changes hands with the post |
 | an affinity or following | Lancastrian kings gave silver or gold collars of SS to chief supporters, and lesser supporters wore pewter badges of the same shape (S447, served text) | rank shows in material, membership in shape |
 | a community or institution | a priory's common seal paired its patron with a claimed founder and shields of arms (S442, served text); a roll carries 28 flags of bishoprics and monasteries (S425, served text) | corporate marks argue for a history as well as identify |
 | property | Montana: livestock "must be branded with the Montana recorded brand" (S436, served text); a house mark was the main means by which property was recognized (S439, served text) | registration, not artistry, gives the mark force |
@@ -55,10 +55,10 @@ Decide this first; every later rule depends on it.
 | statute with penalties on the carrier | the 1672 Act calls unlicensed use "expresly discharged", makes the Lyon's register "the true and unrepeallable rule", and escheats goods bearing usurped arms (S422, served text) | the cup or door bearing false arms can be forfeit |
 | delegated crown officers grant on petition | Kings of Arms grant by letters patent on powers delegated by the Crown; the petition ("memorial") goes to the Earl Marshal (S418, Granting of Arms) | a courtier stands between applicant and grant |
 | an honour assessed on merit | in Canada approval "is not automatic", applications are assessed on merit, and a grant is an honour from the Crown (S423, served text) | the grant marks standing; paying fees guarantees nothing |
-| a state registry with inspection at movement | brands are read and recorded by the state; inspection is required at sale, county-line crossing and slaughter (S436, S437, served text); Colorado administers about 30,000 brands through a board formed about 1865 (S438, served text) | ownership disputes are settled by the register |
-| an archive's design opinion for public bodies | Norwegian guidance: municipal arms should preferably have two tinctures and one figure, describable in blazon (S445, served text) | civic arms as recognition devices, not logos |
+| a state registry with inspection at movement | brands are read and recorded by the state; inspection is required at sale, county-line crossing and slaughter (S436, S437, served text); Colorado administers about 30,000 brands through a board its livestock industry formed about 1865 (S438, served text) | ownership disputes are settled by the register |
+| a heraldry society's design guidance for public bodies | Norwegian Heraldry Society guidance: municipal arms should preferably have two tinctures and one figure, describable in blazon (S445, served text) | civic arms as recognition devices, not logos |
 | a church instruction | the 1969 instruction abolished the cardinals' red hat as dress while allowing cardinals and bishops arms that are "simple and clear" (S443, AAS p. 336 §9 and §28) | dress and device change on separate schedules |
-| self-assumed, later granted | in Japan badges were at first assumed at will and only later conferred by chieftains on retainers (S428, page 4) | grant by a lord can be a late innovation (T for the origin story) |
+| self-assumed, sometimes granted | in Japan badges were at first assumed at will; later chieftains also conferred badges on retainers who distinguished themselves (S428, page 4) | grant by a lord can be a late addition beside self-chosen marks (T for the origin story) |
 
 ## 5. The grammar of a European blazon
 
@@ -78,12 +78,12 @@ Decide this first; every later rule depends on it.
 | Scottish matriculation | S420 | a descendant inherits by proving relationship to the grantee and coming within the grant (served text) |
 | marshalling on marriage | S413 (chapter "The Marshalling of Arms"); S414 | the wife's arms are impaled unless she is an heraldic heiress, when they go on an escutcheon of pretence; impalement ends with the marriage (S413); "heiress" means heiress of blood, with no reference to possessions, and early seals show wives impaling husbands' arms (S414, served text) |
 | women bear and pass arms | S419 | a woman may bear arms by inheritance or grant and transmit them as a quartering (FAQ) |
-| crest separate from shield | S413 (chapter on crests, served text) | crests can descend through an heiress and are not bound to a surname |
+| crest separate from shield | S413 (chapter on crests, served text) | Fox-Davies argues, as his own hedged view, that early crests could pass through an heiress and were not bound to a surname (C) |
 | kamon differencing | S428; S429 | one family could wear different badges, and kin houses modified a shared device (S428, page 4); onnamon, a woman's crest made after marriage from her birth family's crest (S429, served text) |
 | tamga branch-marks | S434 | a base sign gains varieties by added strokes, marking divisions of a federation (served text) |
 | Polish shared coats and cries | S435 | the battle cry (zawołanie) is an essential second element of the coat; one man appears with two different cries (§1 and §4) |
 
-## 7. Office and rank emblems that do not descend
+## 7. Office and rank emblems (mostly not descending)
 
 - Late Roman: a commander's insignia show the distinctive shields of the troops under him, probably emblazoned on the officers' commissions (S448, served text). Hedge: every pattern in the manuscripts is drawn round, the document never labels the discs as shields, and the identification rests on outside objects (S449, served text) — C.
 - Mamluk: the emblem named the office; the blazon was hereditary among amirs, yet sons who chose an ecclesiastical or administrative career apparently had no right to it, and Mayer counts five simple blazons with polo-sticks tied to named persons (S446, served text). Route period detail to `civilizations/mamluk.md:126`.
@@ -105,12 +105,12 @@ Decide this first; every later rule depends on it.
 |---|---|---|
 | seal | S441; S442 | a seal often bore its owner's portrait or arms and authenticated documents; ready-made anonymous seals were common among men of sub-knightly rank (S441, served text); matrices were cut by specialist makers (S442) |
 | roll and armorial | S425; S426 | the Zurich roll, Lake Constance, about 1330 to 1345, 559 arms with names beside each shield, its missing part known only from an 18th-century copy (S425); the Gelre armorial, a convolute of sections dated about 1393 to 1404, with a drawing of its herald (S426, served text) |
-| garment | S430; S429 | a montsuki is a kimono with a family crest; a masterless samurai still wears his former clan's mon (S430, served text); crests moved from carriages to clothing (S429) |
+| garment | S430; S429 | a montsuki is a kimono with a family crest; in a film costume record a masterless samurai wears a kimono whose mon is "probably" his former clan's (S430, served text); crests moved from carriages to clothing (S429) |
 | carriage | S429 | crests on ox-drawn carriages let a lower noble see whom to give way to (served text) |
 | sword fittings | S431; S432 | crest on the hidden tang; crest on the guard beside the maker's signature |
-| pole and housepost | S450; S451 | houseposts carry the crests of the heads of a house (S450); a pole before a lineage house customarily shows its own crests, and one carver chose instead to honour four nations (S451, served text) |
+| pole and housepost | S450; S451 | houseposts carry the crests of the heads of a house (S450); a pole before a lineage house customarily shows its own crests, and one carver chose instead to represent and honour four nations (S451, served text) |
 | register entry | S424 | a modern grant blazons an inukshuk, "Purpure an Inukshuk of six stones Or", with an Inuvialuktun motto, each element explained on the register page (served text) |
-| flag | S452; S453 | a flag simple enough for a child to draw, two or three basic colours, never writing or a seal (S452, served text); a statute can fix a design ("thirteen horizontal stripes") and its protocol: never dipped, union down only in distress (S453, served text) |
+| flag | S452; S453 | NAVA's booklet advises a flag simple enough for a child to draw, two or three basic colours, never writing or a seal (S452, served text); a statute can fix a design: "thirteen horizontal stripes, alternate red and white" (S453, served text) |
 
 ## 10. Era staging
 
@@ -132,12 +132,12 @@ Decide this first; every later rule depends on it.
 | "every surname has a coat of arms" | R (England, Scotland) | "no such thing as a 'coat of arms for a surname'" (S419); arms are individual (S421); C for Poland, where one coat served many families (S435) |
 | "only nobles bore arms or marks" | R | community and office arms are classed beside personal ones (S417, served text); sub-knightly men used seals (S441); house marks served the unlettered (S439) |
 | "the crest is the coat of arms" | R | crest is the helm-top device (S417; S419) |
-| "kamon are Japanese coats of arms" | C | Japan had no shield and so no coat of arms proper, only badges and crests (S428, page 4) |
-| "a tamga is a script" | R | signs of group identity, not an alphabet (S434) |
+| "kamon are Japanese coats of arms" | R | Japan had no shield and so no coat of arms proper, only badges and crests (S428, page 4) |
+| "a tamga is a script" | C | S434 calls tamgas signs of group identity and lists them as owned marks; it does not discuss writing |
 | "Mamluk blazons are family arms" | C | office emblems that heirs of amirial rank could keep (S446) |
 | "the Notitia shows each unit's exact shield" | C | round compass discs, never labelled, minority of units (S449) |
 | "the Le Mans plaque proves Geoffrey's arms" | C | seal of 1149 has no armory; the plaque is posthumous (S427) |
-| "cadency marks are ancient and compulsory" | R | Tudor systematisation, optional, unworkable past two generations (S415; S413) |
+| "cadency marks are ancient and compulsory" | R (England) | Tudor systematisation, optional in England, unworkable past two generations (S415; S413); Scotland still differences cadets by matriculation (S420) |
 | "Gotoba made the Kiku Gosaku blade" | T | "is said to be" (S431) |
 
 ## 12. Build order for a fictional mark system
@@ -151,7 +151,7 @@ Decide this first; every later rule depends on it.
 
 ## 13. Restricted and living marks
 
-Northwest Coast crests are owned rights; describe them only as the holding museum states (S450, S451) and never as European arms (`civilizations/pacific-northwest.md:111` calls heraldry a limited analogy). Arms of living authorities (the Lord Lyon's register, the College of Arms, the Canadian Heraldic Authority, the Holy See, the imperial chrysanthemum) are described through those authorities' pages (S418, S420, S423, S443, S431); this entry gives no advice on whether a reader may display real arms or emblems.
+Northwest Coast crests are owned rights; this entry goes no further than the holding museums' public records state (S450, S451), owes the holders' own statements (§15), and never treats crests as European arms (`civilizations/pacific-northwest.md:111` calls heraldry a limited analogy). Arms of living authorities (the Lord Lyon's register, the College of Arms, the Canadian Heraldic Authority, the Holy See) are described through those authorities' pages (S418, S420, S423, S443), and the imperial chrysanthemum only through a holding museum's record (S431); this entry gives no advice on whether a reader may display real arms or emblems.
 
 ## 14. Handoff to lore
 

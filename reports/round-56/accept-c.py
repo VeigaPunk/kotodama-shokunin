@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Round-56 claim C acceptance (adapted from reports/round-55/accept-c.py: entry path, totals, and RANGE now bounded above by C's reserved block). Run from the lane root:
+r"""Round-56 claim C acceptance (adapted from reports/round-55/accept-c.py: entry path, totals, and RANGE now bounded above by C's reserved block). Run from the lane root:
 
   python3 -B reports/round-56/accept-c.py [--root DIR]
 

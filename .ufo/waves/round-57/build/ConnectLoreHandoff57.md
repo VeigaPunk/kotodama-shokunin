@@ -1,0 +1,51 @@
+# ConnectLoreHandoff57 — one bounded proposal
+
+## Findings and evidence
+
+- **Ownership is explicit.** `/home/vgpnk/Projects/shokunin/lore-shokunin/PROVINCE.md:3,9,28` reserves fictional entities, relations, timeline and recorded names/dates to lore. `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:17-19,44` keeps generative craft, sign rules and wearer-permission proposals with kotodama; lore decides actual institutions, permitted wearers, objects and enforcement.
+- **The existing packet can carry the design without a schema extension.** `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:51-66,76-82` specifies Markdown tables, `subject_refs`, `scope`, `claim_ledger`, `coupling_edges`, `requested_decisions`, the myth-symbol register and era-costume matrix. These are packet requirements, explicitly not evidence of an importer. `/home/vgpnk/Projects/shokunin/lore-shokunin/corpus/fixtures/check_bible.py:7,25-31,153-161` instead has four entity kinds and source-cited statement claims; it does not define an `emblem` entity kind or dedicated heraldic fields. The faction example is `/home/vgpnk/Projects/shokunin/lore-shokunin/corpus/fixtures/ally-reciprocal/entities.json:3-10,15-22`.
+- **Non-obvious boundary: carrying the seal is not bearing the arms.** `/home/vgpnk/Projects/shokunin/lore-shokunin/corpus/fixtures/README.md:98-101,114-119` already models a seal's holder chain, but says holder kind need not mean legal ownership and the checker does not establish transfer truth. `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/naming-canon-workflow.md:18-19,46,63,89` separately distinguishes identity/form, office/descent and directed symbol/material-carrier links. **[INFERENCE]** A carrier's custody chain must therefore not silently become entitlement to an emblem or its inheritance rule.
+- **The reference/in-world split is already practiced.** `/home/vgpnk/Projects/shokunin/lore-shokunin/corpus/knowledge/reference-ledger.md:3,10-12` separates real-world references from fictional `sources.json` support. `/home/vgpnk/Projects/shokunin/lore-shokunin/corpus/fixtures/r93-m2-kojiki-cluster/symbolism-clause-map.md:3,8-11` keeps attributed marks and editorial comparison outside imported JSON facts. `/home/vgpnk/Projects/shokunin/lore-shokunin/SKILL.md:22-26,41-46` distinguishes structural checks, lexical preflight, whole-claim review and manual cross-cluster identity/conflict review.
+- **Activation contradiction must remain visible.** A proposed interface revision exists, but an assertion that this entry transfers canon or uses an operational lore intake would contradict `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:12-16` and `/home/vgpnk/Projects/shokunin/lore-shokunin/PROVINCE.md:19,28`: bilateral acknowledgement remains pending; CM-g packet intake is uncovered. `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/civilizations/kongo-kingdom.md:149-162` supplies the existing dossier/table/NON-CANON pattern, including the baseline and receipt conditions.
+
+## Affected axes
+
+- **Coverage — declared C:** the handoff makes the entry govern bearer, succession, authority, carrier and restriction decisions rather than merely describe motifs. Expected contribution only; it does not establish ACCEPT-C-57.
+- **Adjacency — this assignment's review surface, not a third declared claim:** preserve lore's selection/recording authority and its unacknowledged intake boundary.
+- **Operability — declared O:** no checker, predicate, runtime, source-ID allocation or route change is proposed. No O measurement is claimed.
+
+## Proposed move
+
+Separate **emblem design**, **eligibility to bear it**, and **custody of its physical carrier** within the existing packet. This permits inherited arms and office emblems to share a carrier without making custody prove descent, office or authority. It is one handoff-section insertion, not a new schema or importer.
+
+Text operation: insertion only, `∅` → the following 14-line section; no existing entry text is proposed for replacement. All anchors below were opened and re-read this session.
+
+```markdown
+## Handoff to lore
+
+Kotodama keeps the blazon/sign grammar, design rules, exceptions and scholarly calibration; lore owns world-bible entities, relations, chronology, canon decisions and bible-wide consistency. The fields below specialize the existing packet, not new bible JSON keys (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:17-18,51,76-82,96-105`).
+
+| Payload | Packet fields and lore's reserved decision |
+|---|---|
+| Who bears what | Keep the emblem record distinct from its bearer; `subject_refs` uses lore-supplied entity IDs or explicitly unresolved namespaced candidate IDs. Lore selects which house, person or institution bears which design (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:44,60,80,84`). |
+| Inheritance or office | Supply the proposed succession rule, exceptions and culture/era applicability in the system specification and `scope`; distinguish descent from office/tenure rather than making every badge hereditary. Lore decides actual bearers and changes of bearer (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:44,61,76`; `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/naming-canon-workflow.md:38,46`). |
+| Granting authority | Record the proposed granting or recognizing authority, jurisdiction and uncertainty in `claim_ledger` and `scope`; lore decides which institution exists and what authority/enforcement it has (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:44,61,63,65`). |
+| Display surfaces | Link each design to shield, garment, seal, flag or other carrier and its use conditions through `coupling_edges` and the era-costume matrix; custody of a carrier does not establish entitlement to its device (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:64,81-82`; `/home/vgpnk/Projects/shokunin/lore-shokunin/corpus/fixtures/README.md:114-119`). |
+| Restricted marks | Supply wearer/rank/occasion restrictions and exceptions as proposed sign rules; lore decides permitted wearers and enforcement. Keep prescriptions separate from observed use (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:44,81,185`). |
+| Calibration | `claim_ledger` retains source/invention provenance, evidence status, uncertainty and attributed interpretations; real-world works remain references, not fictional `sources.json` witnesses (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:63,96-106`; `/home/vgpnk/Projects/shokunin/lore-shokunin/corpus/knowledge/reference-ledger.md:10-12`). |
+Submit choices as per-record `requested_decisions` under the complete immutable handoff envelope; lore supplies `baseline_bible_ref` and the authorized receipt surface, reviews conflicts and returns dispositions. Submission or silence is not acceptance (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:55-70,126-136`).
+**Unbound research packet — NON-CANON:** this section transfers nothing. Lore's contract digest is unacknowledged and CM-g intake is uncovered; import requires both-lane read records, a lore baseline and new reviewed handoff, then a lore receipt naming approved bible IDs, resulting bible revision, retained qualifiers and required operator approval (`/home/vgpnk/Projects/shokunin/lore-shokunin/PROVINCE.md:19,28`; `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:14-16,69,126-133`).
+```
+
+## Second-order effects and risks
+
+- **Contract:** required envelope fields and receipts stay authoritative; the table is a specialization, not a second contract. In-world heraldic authority and operator publication/rights authority are different questions (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:47,167`).
+- **Substrate/runtime:** lore still chooses representation using its existing entity/claim/relation surfaces; no `emblem` kind, new JSON field validation, importer or successful transfer is asserted. Reference work can proceed while acknowledgement/import is held.
+- **Propagation:** a later blazon, naming or display-rule correction yields an affected-record/carrier list, not an automatic rewrite of accepted arms or a fictional succession event (`/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md:151-156`; `/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/synthesis/naming-canon-workflow.md:169-170`).
+- **Verification:** CLEAN cannot certify a bearer’s entitlement, granting authority, inheritance or whole-claim support. A matching design/name also cannot establish a shared entity or an incompatible claim; lore's manual referent + field + occasion review remains necessary (`/home/vgpnk/Projects/shokunin/lore-shokunin/SKILL.md:22-26,43-46`).
+
+## Verification and handoff
+
+Exercised: static file reads/re-reads and targeted local searches, including the Kongo `lore` matches and lore's faction/schema/symbol examples. No external source quotation is offered; no source rows or IDs are proposed. No runtime, gate, test, mutation or import was invoked; no tools were installed.
+
+L1 integration checks: retain the full NON-CANON condition; keep these fields in the proposal packet rather than claiming new lore schema support; ensure the final entry remains at most 230 lines, then run the declared `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/accept-c.py`. This report supplies no acceptance/admission verdict. Only this report file was written.

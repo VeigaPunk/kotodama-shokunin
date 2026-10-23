@@ -4093,3 +4093,12 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Waves:** build 46 seats, falsify 37 seats, pre-dispatch 2 critics; round total 85. Mistakes R56-M1 to R56-M4.
 - **Evidence:** `reports/round-56/telemetry/final-measures.txt`; `.ufo/waves/round-56/`; `corpus/lessons/round-56.md`.
 
+## Round 57 — 2026-10-22 (hyaku phase 4, attempt 1)
+
+- **Repair first:** round 56 was rejected (O's counter met by an S-id shortcut). Round 57 rebuilt O's acceptance (run-time generated lessons, REAL leg, in-process mutants with neutral patches) and committed a skip-the-work control receipt before data; two pre-dispatch critics broke the first drafts of both counters, which were revised before any seat built.
+- **C:** `myth-symbol/heraldry-emblems-identity-marks.md` (`78d83b5e`), 42 rows S413-S454; ACCEPT-C-57 PASS (LOCATE 40/42).
+- **O:** `tools/check-gate-quotes.py` bare numeric references + selftest kills three survivors (`43f1e781`); ACCEPT-O-57 PASS; selftest 52/52.
+- **Routed fixes (records):** QUALITY criterion 10 amendment; S481-S491 superseding rows (S359, S367, S383, S385, S392, S395, S396, S399, S407, S379, S410); koon1244 and R56-M3 errata; `reports/round-56/accept-c.py` raw docstring (stdout identical).
+- **Waves:** pre-dispatch 2 critics, build 50 seats, residual 8; round total 60. Mistakes R57-M1 to R57-M3.
+- **Evidence:** `reports/round-57/telemetry/`; `.ufo/waves/round-57/`; `corpus/lessons/round-57.md`.
+

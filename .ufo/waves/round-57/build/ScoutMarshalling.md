@@ -1,0 +1,85 @@
+# ScoutMarshalling — marshalling arms (impalement, quartering, escutcheon of pretence, heraldic heiresses)
+
+Round 57, claim C source seat. Two public-domain treatises on archive.org, both opened this session by plain GET, both URLs FRESH (`grep -c '<host/path>' corpus/SOURCES.md` printed 0 for `completeguidetoh00foxdrich` and for `treatiseonherald` before filing). Every quote below was run through the round's locator this session and printed `LOCATED <url>`. No installs were made (none needed).
+
+## Sources
+
+### NEW-ScoutMarshalling-1
+citation: Fox-Davies, Arthur Charles. 1909. A Complete Guide to Heraldry. London: T. C. & E. C. Jack. Chapter XXXIII, "The Marshalling of Arms", pp. 523–560; ch. XXXII pp. 516 ff. Stable id: archive.org `completeguidetoh00foxdrich` (1909 scan).
+url: https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt
+route: direct, HTTP 200 (plain GET; the djvu.txt document text itself is served)
+kind: book
+tier: A — standard Edwardian reference treatise, public domain, scanned copy served in full text by archive.org; the rules of marshalling are stated as rules by a professional herald author.
+scope: what conjoining coats on one shield declares; the four marshalling methods; impalement vs escutcheon of pretence decided by the wife's heiress status; lifetime and number limits on marital impalement; surfaces where a wife's arms may not go; daughters' lifetime use; divorce reset. (Definition of heraldic heir/heiress also on p. 526–527.)
+quotes:
+- FD1: "THE science of marshalling is the conjoining of two or more coats of arms upon one shield for the purpose of indicating sovereignty"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "THE science of marshalling is the conjoining of two or more coats of arms upon one shield for the purpose of indicating sovereignty"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD2: "The methods of marshalling are (i) dimidiation, (2) impalement, (3) quartering, (4) superimposition."
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "The methods of marshalling are (i) dimidiation, (2) impalement, (3) quartering, (4) superimposition."` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD3: "it is laid down that the arms of a wife should not in general be borne upon the husband's banner, surcoat, or official seal"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "it is laid down that the arms of a wife should not in general be borne upon the husband's banner, surcoat, or official seal"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD4: "If the wife is not an heraldic heiress the two coats are impaled"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "If the wife is not an heraldic heiress the two coats are impaled"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD5: "the arms of her family are placed on an inescutcheon superimposed on the centre of her husband's arms"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "the arms of her family are placed on an inescutcheon superimposed on the centre of her husband's arms"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD6: "The escutcheon of pretence means that the husband pretends to represent the family of his wife"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "The escutcheon of pretence means that the husband pretends to represent the family of his wife"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD7: "In the next generation, the son and heir would have descent from his mother equally with his father"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "In the next generation, the son and heir would have descent from his mother equally with his father"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD8: "Impalement means marriage, and when the marriage is dissolved the impalement becomes meaningless, and should be discontinued"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "Impalement means marriage, and when the marriage is dissolved the impalement becomes meaningless, and should be discontinued"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD9: "They succeed equally, whether heiresses or not, to the arms of their father for use during their lifetimes"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "They succeed equally, whether heiresses or not, to the arms of their father for use during their lifetimes"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+- FD10: "Divorce nullifies marriage, and both husband and wife must at once revert to bachelor and maiden achievements respectively"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt" "Divorce nullifies marriage, and both husband and wife must at once revert to bachelor and maiden achievements respectively"` → `LOCATED https://archive.org/stream/completeguidetoh00foxdrich/completeguidetoh00foxdrich_djvu.txt`
+teaches: Marshalling conjoins coats on one shield to declare sovereignty, dominion, alliance, descent or pretension; a wife's heiress status decides impalement versus escutcheon of pretence, and marital conjunctions lapse with the marriage.
+draft sentences:
+- Marshalling exists to make a shield legible: it conjoins two or more coats on one shield to indicate sovereignty, dominion, alliance, descent, or pretension, under rules an informed outsider can read. (NEW-ScoutMarshalling-1, FD1)
+- A worldbuilder needs only four conjunction methods, named and countable: dimidiation, impalement, quartering, and superimposition. (NEW-ScoutMarshalling-1, FD2)
+- Marriage signalling follows the wife's status: if the wife is not an heraldic heiress the two coats are impaled. (NEW-ScoutMarshalling-1, FD4)
+- If she is an heiress, her family's arms are placed on an inescutcheon superimposed on the centre of her husband's arms, an escutcheon of pretence that means the husband pretends to represent the family of his wife. (NEW-ScoutMarshalling-1, FD5)
+- The conjunction is temporary by design — impalement means marriage, and when the marriage is dissolved the impalement becomes meaningless and should be discontinued — and divorce nullifies it outright, both spouses reverting to bachelor and maiden achievements. (NEW-ScoutMarshalling-1, FD8)
+- The next generation converts marriage into inheritance: the son and heir has descent from his mother equally with his father, so the pretence is replaced by his quartering of her coat; daughters, meanwhile, succeed equally whether heiresses or not, to their father's arms for use during their lifetimes. (NEW-ScoutMarshalling-1, FD7)
+- Surfaces carry status rules: it is laid down that the arms of a wife should not in general be borne upon the husband's banner, surcoat, or official seal — a ready-made etiquette for worldbuilt offices and livery. (NEW-ScoutMarshalling-1, FD3)
+
+### NEW-ScoutMarshalling-2
+citation: Woodward, John, and George Burnett. 1892. A Treatise on Heraldry, British and Foreign: With English and French Glossaries. Vol. II. Edinburgh: W. & A. K. Johnston. Chapter on "Marshalling" pp. 459 ff., esp. pp. 460–462, 479, 486; glossary s.v. "Escucheon of pretence". Stable id: archive.org `treatiseonherald02wooduoft` (1892 scan, vol. II).
+url: https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt
+route: direct, HTTP 200 (plain GET; the djvu.txt document text itself is served)
+kind: book
+tier: A — the standard late-Victorian comparative treatise (British and foreign), public domain, full scan text served by archive.org; glossary and chapter give technical definitions plus dated medieval evidence from seals.
+scope: technical definitions of marshalling, impalement, quartering and the escutcheon of pretence; the medieval reversal (wives impaled husbands' arms, on ladies' seals); heiress meaning "heiress of blood" not land; pretence borne by the husband alone and converted into quartering in the children.
+quotes:
+- WD1: "MARSHALLING, however, consists strictly neither in the aggroupement, nor in the amalgamation, of heraldic bearings, but in the exhibiting of separate coats in one shield"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "MARSHALLING, however, consists strictly neither in the aggroupement, nor in the amalgamation, of heraldic bearings, but in the exhibiting of separate coats in one shield"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+- WD2: "is divided by a vertical line into equal portions, a separate coat being placed in each of the divisions"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "is divided by a vertical line into equal portions, a separate coat being placed in each of the divisions"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+- WD3: "in early times impaled coats appear as a rule only on the seals of ladies"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "in early times impaled coats appear as a rule only on the seals of ladies"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+- WD4: "it was the wife who impaled her husband's arms with her own, not the husband who impaled the wife's"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "it was the wife who impaled her husband's arms with her own, not the husband who impaled the wife's"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+- WD5: "The small shield borne upon the centre of his own achievement by a man who marries an heiress, or co-heiress, and containing her Arms"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "The small shield borne upon the centre of his own achievement by a man who marries an heiress, or co-heiress, and containing her Arms"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+- WD6: "the children who issue from the marriage bear the coats of both parents united, not in this way, but by quartering"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "the children who issue from the marriage bear the coats of both parents united, not in this way, but by quartering"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+- WD7: "the term heiress in British and Scottish Heraldry now only means heiress of blood, and has no reference at all to possessions"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "the term heiress in British and Scottish Heraldry now only means heiress of blood, and has no reference at all to possessions"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+- WD8: "in its simplest form, is the dividing the shield into four equal sections by a vertical and a horizontal line"
+  `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-57/reopen-quote.py "https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt" "in its simplest form, is the dividing the shield into four equal sections by a vertical and a horizontal line"` → `LOCATED https://archive.org/stream/treatiseonherald02wooduoft/treatiseonherald02wooduoft_djvu.txt`
+teaches: Woodward and Burnett define impalement, quartering and the escutcheon of pretence technically, and document that early seals show wives, not husbands, impaling.
+draft sentences:
+- Technical marshalling is not blending: it exhibits separate coats in one shield divided by lines of partition, so each alliance or descent stays separately legible. (NEW-ScoutMarshalling-2, WD1)
+- The partition geometry is explicit — impalement parts the shield per pale, each half holding one coat (NEW-ScoutMarshalling-2, WD2) — and quartering, in its simplest form, is the dividing the shield into four equal sections by a vertical and a horizontal line (the treatise's own wording, sic). (NEW-ScoutMarshalling-2, WD8)
+- An escutcheon of pretence is the small shield borne upon the centre of a man's own achievement when he marries an heiress or co-heiress, containing her Arms (NEW-ScoutMarshalling-2, WD5) — and it dies with the marriage: the children who issue from it bear the coats of both parents by quartering instead. (NEW-ScoutMarshalling-2, WD6)
+- Outsider caution, dated evidence: in early times impaled coats appear as a rule only on the seals of ladies — it was the wife who impaled her husband's arms with her own, not the husband who impaled the wife's — so the modern direction is a late convention, not the original one. (NEW-ScoutMarshalling-2, WD3)
+- Status terms drift: the term heiress in British and Scottish heraldry means heiress of blood only, with no reference at all to possessions — rich wives and heraldic heiresses are different legal persons, a distinction world economies should keep. (NEW-ScoutMarshalling-2, WD7)
+
+## Notes for the L1
+- Both rows carry ≥10 and 8 quotes respectively; any one per row can serve as the anchor quote for the LOCATE leg (all 18 verified live this session, `LOCATED` pasted per quote).
+- Fox-Davies ch. XXXIII (p. 526–527) also defines heraldic heir/heiress ((i) only child; (ii) all brothers dead without issue; (iii) heiress "in her issue"); the OCR there mangles inner quote marks, so I did not offer a quote spanning them — the page itself supports the entry sentence if the L1 wants it.
+- Fox-Davies p. 537–538 rules for impaling two/three/four wives are memorial-use rules (tombs, pedigrees); useful counterweight to the popular over-read that men routinely bore multiple impalements in life — offered as page knowledge, not quoted.
+- Woodward spells "escucheon" throughout (period/OCR spelling); quotes WD5/WD6 avoid the word to keep clean spans.
+
+### Rejected
+- NEW (not filed): Woodward & Burnett 1892, vol. I (`https://archive.org/stream/treatiseonherald00wooduoft/treatiseonherald00wooduoft_djvu.txt`, fetched and grepped this session) — rejected as a duplicate work-row: its marshalling chapter lives in vol. II, filed above as NEW-ScoutMarshalling-2; vol. I has no escutcheon-of-pretence hits.
+- Project Gutenberg transcription of Fox-Davies (`acompleteguideto41617gut`, seen in archive.org search results only, not opened) — not needed; the 1909 scan row above is the primary document.
