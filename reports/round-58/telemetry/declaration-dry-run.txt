@@ -1,0 +1,42 @@
+# revised declaration dry run (do-nothing base control) 2026-10-23T01:08:09Z
+# measured-revision 31cf8b620603e58357f369b9c9b89a3d11fad905 (sandbox clone /fast/scratch/hyaku/kotodama-r58-measure-31cf8b62-zwjjc4ps)
+$ python3 -B reports/round-58/accept-c.py
+SET FAIL count=233 required=234 added=[] removed=[]
+SWEEP FAIL exit=0 rows 233 files 233 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+BOILER FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+TOPIC FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+FRESH PASS rows_reusing_registry_urls=[]
+ACCEPT-C-58: FAIL
+exit 1
+# role: C counting; expected pre-landing: exit 1: SET FAIL (count=233), SWEEP FAIL (rows 233 files 233), FLOOR FAIL (cited=0), LOCATE, BOILER, RELEVANCE and TOPIC FAIL (no S-id cited); RANGE, STATUS, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-58: FAIL
+$ python3 -B reports/round-58/accept-c.py
+SET FAIL count=233 required=234 added=[] removed=[]
+SWEEP FAIL exit=0 rows 233 files 233 missing_from_index 0 []
+FLOOR FAIL cited=0 floor=20
+RANGE PASS bad=[] range_notation=[]
+STATUS PASS bad=[]
+USEDBY PASS bad=[]
+ACCESS PASS exit=0 ACCESS: 2 flagged rows, 0 findings
+LOCATE FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+BOILER FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+RELEVANCE FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+TOPIC FAIL passing=0 cited=0 at=2026-10-23T01:08Z failing=[]
+FRESH PASS rows_reusing_registry_urls=[]
+ACCEPT-C-58: FAIL
+exit 1
+# role: C acceptance; expected pre-landing: fails before landing (exit 1), printing the before value; passes at exit 0, ACCEPT-C-58: PASS (all twelve legs PASS)
+$ python3 -B tools/check-claim-separability.py reports/round-58/separability-manifest.json
+SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/linguistics/toponymy-place-names.md', which is absent from the worktree under '/fast/scratch/hyaku/kotodama-r58-measure-31cf8b62-zwjjc4ps'
+exit 2
+# role: separability; expected pre-landing: exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land
+$ python3 -B reports/round-58/claims-agree.py
+AGREE claims=['C']
+exit 0
+# role: agreement; expected pre-landing: AGREE, exit 0
