@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 r"""Round-58 claim C acceptance (adapted from reports/round-57/accept-c.py: entry path, totals, C's
-reserved block S500-S559, LOCATE with no slack, and two new legs, BOILER and RELEVANCE, from
+reserved block S500-S559, LOCATE with no slack, and three new legs, BOILER, RELEVANCE and TOPIC, from
 reports/round-58/rowcheck.py, written for the round-57 closure's routed defect 2). Run from the
 lane root:
 
@@ -33,6 +33,10 @@ with PASS or FAIL:
             with its `teaches` cell, its `teaches` cell copies no 6-word run of the quote, and both
             its `teaches` cell and its quote share at least 2 content stems with the entry lines
             that cite it (reports/round-58/rowcheck.py `relevance` (a)-(d); stems defined there)
+  TOPIC     at least one S-id is cited and every cited row's quote (page-anchored text) carries at
+            least one naming stem and one place stem (reports/round-58/rowcheck.py `topic`, sets
+            NAMING and PLACE there): an on-page sentence about something other than place names
+            cannot carry a row
   FRESH     no cited row names a source URL that a corpus/SOURCES.md row below S500 also names
             (URLs compared lower-cased, without scheme, `www.`, trailing `/`, and with a Wayback
             capture prefix removed)
@@ -145,7 +149,7 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(8) as pool:
         checked = dict(pool.map(probe, sorted(rowsok)))
     stamp = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%MZ')
-    for leg in ("LOCATE", "BOILER", "RELEVANCE"):
+    for leg in ("LOCATE", "BOILER", "RELEVANCE", "TOPIC"):
         hits = [s for s in cited if s in checked and checked[s][leg][0]]
         misses = [f"{s}: {checked[s][leg][1][:160] if s in checked else 'no row'}" for s in cited if s not in hits]
         legs.append((leg, bool(cited) and len(hits) == len(cited),

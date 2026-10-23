@@ -30,10 +30,14 @@ reopen-quote.py `row_target`):
              stems(text): the locator's normalisation (NFKC, casefold, non-letters and non-digits
              to spaces), words of at least 4 characters not in STOP, a final `s` dropped when the
              word is longer than 4 characters, then the first 5 characters.
+  TOPIC      the quote itself (page-anchored text, not a cell the author writes) is about place
+             names: stems(QUOTE) contains at least one NAMING stem and at least one PLACE stem
+             (both sets below; a stem in BOTH, such as `topon` or `hydro`, satisfies both). An
+             on-page sentence that names no naming term and no place term cannot carry the row.
 
-Prints one line per row: `S### LOCATE <ok> BOILER <ok> RELEVANCE <ok> <details>` (ok = PASS|FAIL).
-Exit 0 when every checked leg passes for every row, 1 otherwise, 2 on usage or unreadable input.
-Read-only; network GETs only.
+Prints one line per row: `S### LOCATE <ok> BOILER <ok> RELEVANCE <ok> TOPIC <ok> <details>`
+(ok = PASS|FAIL). Exit 0 when every checked leg passes for every row, 1 otherwise, 2 on usage or
+unreadable input. Read-only; network GETs only.
 """
 import importlib.util
 import os
@@ -132,8 +136,23 @@ def relevance(sid, quote, teaches, entry_text):
     return not problems, ("; ".join(problems) or f"shared={sorted(shared)[:6]}")
 
 
+NAMING = {"name", "named", "namin", "namen", "ortsn", "flurn", "nombr", "topon", "hydro", "orony",
+          "ethno", "endon", "exony", "onoma", "gazet", "etymo", "renam", "epony"}
+PLACE = {"place", "topon", "hydro", "orony", "endon", "exony", "gazet", "river", "town", "villa",
+         "city", "citie", "mount", "hill", "islan", "lake", "settl", "regio", "count", "paris",
+         "coast", "valle", "stree", "burgh", "ford", "farm", "geogr", "lands", "terri", "distr",
+         "provi", "natio", "strea", "creek", "brook", "fores", "harbo", "cape", "penin"}
+
+
+def topic(quote):
+    found = stems(quote)
+    naming, place = sorted(found & NAMING), sorted(found & PLACE)
+    ok = bool(naming) and bool(place)
+    return ok, f"naming={naming} place={place}"
+
+
 def check_row(cells, entry_text=None):
-    """{'LOCATE': (ok, detail), 'BOILER': (ok, detail), 'RELEVANCE': (ok, detail)} for one row."""
+    """{'LOCATE'|'BOILER'|'RELEVANCE'|'TOPIC': (ok, detail)} for one row."""
     sid = cells[1].strip()
     urls, quote = locator.row_target(cells)
     if quote:
@@ -143,6 +162,7 @@ def check_row(cells, entry_text=None):
     result = {"LOCATE": (located, detail)}
     result["BOILER"] = boiler(detail if located else "", quote)
     result["RELEVANCE"] = relevance(sid, quote, cells[7] if len(cells) > 7 else "", entry_text)
+    result["TOPIC"] = topic(quote)
     return result
 
 
