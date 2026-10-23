@@ -35,10 +35,10 @@
 
 ## 3. The words: amulet, talisman, charm
 
-- Egyptology's narrow sense: amulets are items worn to protect their wearer by their religious associations, a religious equivalent to armour, and Egyptology reserves the word for adornments of unambiguous religious character (S600). **B**
-- A museum leaflet adopts the dictionary sense: an amulet is anything worn about the person as a charm preventative against evil, mischief, disease or witchcraft, and a charm can also be a spoken spell (S644). **B**
+- Egyptology's narrow sense: amulets are items worn to protect their wearer by their religious associations, a religious equivalent to armour, and in Egyptology the word amulet is generally reserved for bodily adornments of unambiguous religious form or context (S600). **B**
+- A museum leaflet adopts the dictionary sense: an amulet is anything worn about the person as a charm preventative against evil, mischief, disease or witchcraft, and a charm can also be a spell or incantation believed to have a magical power (S644). **B**
 - A university museum separates the pair by where the power comes from: an amulet is an object with natural magical properties, while a talisman must be charged with power by its creator (S645). **B**
-- A shrine talisman in Japan, shinsatsu (also called gofu), is distributed at shrines as a symbolic token of a spiritual being and its supranormal power (S624). **B**
+- A shrine talisman, shinsatsu (also called gofu), is distributed at shrines as a symbolic token of a spiritual being or its supranormal power (S624). **B**
 - The words are disputed inside one tradition: the mezuzah on a Jewish doorpost has sometimes been accorded the status of an amulet, a magical charm, by popular custom (S610). **B**
 - DR: in a built culture, decide which word the culture itself uses, which word outsiders (a museum, a missionary, a rival faith) use, and whether the two disagree; the disagreement is a plot surface.
 
@@ -48,40 +48,43 @@
 |---|---|---|
 | the same demon, answered directly | a palm-sized amulet provides protection from the Mesopotamian demon Lamashtu | S603 (B) |
 | the evil eye's harmful glance | horned hand amulets are worn as protection against the harmful glance of the Evil Eye | S641 (C) |
-| infertility and infant death | an amulet from Kerala, Kochi guarded a woman against infertility and infant death | S640 (B) |
+| infertility and infant death | an amulet from Kerala, Kochi was used to guard against both infertility and infant death | S640 (B) |
 | plague | a frontal face was used as a protective amulet to ward off the plague | S605 (B) |
 | demons that cause ailments | a Tang-dynasty method aimed to identify the demons that caused ailments and expel them through sacrifices, incantations, talismans and other exorcistic rituals | S626 (B) |
-| evil spirits and diseases | written amulets use an apotropaic adjuration formula to banish evil spirits and diseases | S638 (B) |
+| evil spirits and diseases | some written amulets use an apotropaic adjuration formula to banish evil spirits and diseases | S638 (B) |
 | harm of every kind, plus wished-for goods | people wear amulets for long life, good fortune, success in love and protection against harm | S628 (B) |
 
 - A palm-sized amulet could itself provide protection from the demon Lamashtu, so the protective object may be small enough to keep in the hand (S603).
-- A detailed amulet from Kerala, Kochi guarded against both infertility and infant death (S640).
-- A frontal face worked as a protective amulet to ward off plague, and the same apotropaic eyes appear as a device on ships (S605).
+- The IDD article describes Pazuzu as particularly the antagonist of the baby-snatching demon Lamashtu and as a favourite amulet of pregnant women and young mothers (S648).
+- A detailed amulet from Kerala, Kochi was used to guard against both infertility and infant death (S640).
+- A frontal face was used as a protective amulet to ward off plague, and eyes appear as a common apotropaic device on ships (S605).
 - The aims can be plural and this-worldly: people wear amulets to bring long life, good fortune, success in love and protection against harm (S628).
 - DR: give each protective object in a setting one named danger it answers, and let a few general-purpose objects exist beside them; a culture whose every amulet guards "against evil" in general has no texture.
 
 ## 5. How protection is said to work
 
 - Reflection: in some times and places, people used shiny materials to craft amulets meant to reflect malicious gazes away from the user (S607). **C**
-- Turning the glance: horned-hand amulets, thought to be of ancient Italian origin, are worn against the harmful glance of the Evil Eye; the museum names children and domestic animals as those most at risk (S641). **C**
+- Turning the glance: horned-hand amulets, thought to be of ancient Italian origin, are worn against the harmful glance of the Evil Eye; the museum says children and domestic animals are believed to be most at risk (S641). **C**
 - Containment: a Roman bulla was designed to contain amulets and charms and was worn mainly by freeborn Roman boys and sometimes by domestic animals (S604). **B**
 - Containment in silver: silver amulet holders, often containing symbolic material or a paper with a magical or holy inscription, were worn throughout the Muslim world (S612). **B**
+- Ga'u as container: the V&A record describes this amulet case or ga'u as used to hold rolled prayers and blessed or holy objects believed to protect the wearer from evil (S651). **B**
 - Many containers: a silver necklace of numerous box-shaped amulet pendants (tälsäm) was meant to ward off the evil eye or other dangers (S613). **B**
 - Correspondence: in the Welsh witch-bottle practice the bottle symbolised the witch's bladder, so the sharp objects sealed in it were believed to cause her pain (S622). **C**
-- Shape and use: amulets or talismans gain their power first through their customized shape and form and second through being worn or placed (S632). **B**
-- The maker's power: in Thailand an amulet, like a yantra, was held effective only if made by a monk or adept famous for supernatural power (S629). **B**
+- Shape and use: amulets or talismans gain their power first through their customized shape and form and second through being worn or placed, while others can only be activated by reading the text written on them (S632). **B**
+- The maker's power: in Thailand a Buddha amulet, like a yantra, was held effective only if made by a monk or adept famous for supernatural power (S629). **B**
 - Command: other written amulets do not cite the Gospels but use an apotropaic adjuration formula that banishes evil spirits and diseases (S638). **B**
-- Three jobs: since Pliny's account in the first century CE, amulets were worn and used for therapeutic, apotropaic or exorcistic benefit, so the same worn object can heal, ward off or drive out (S642). **B**
+- Three jobs: Thwaite reports that, as described by Pliny since the first century CE, amulets were worn and used for therapeutic, apotropaic or exorcistic benefit (S642). **B**
 - DR: choose one mechanism per object type and keep it consistent; a reflective bead and a sealed container answer the same danger differently, and a culture can hold both.
 
 ## 6. Material, form and why
 
 - White nephrite jade: a Mughal amulet was made to protect the wearer from harm or misfortune and was fashioned in white nephrite jade (S630). **B**
-- Jasper: Pliny reports that throughout the East it was the custom, it is said, to wear iaspis as an amulet, which makes the stone itself the protective agent (S637). **C**
+- The Met's record says hematite was believed to stop the flow of blood and was a favorite medium for amulets related to female reproductive health and menstrual problems (S649). **C**
+- Jasper: Pliny reports that throughout the East it was the custom, it is said, to wear iaspis as an amulet (S637). **C**
 - Shape as power: an amulet in the shape of the wedjat eye, the healed eye of Horus, was thought to protect its wearer and to transfer the power of regeneration onto him or her (S601). **C**
-- Engraved stone with a figure: the Kelsey Museum reads the lion-headed serpent on a steatite Chnoubis amulet as the amulet's protective nature, joining the Egyptian god Chnum and the Greek Agathodaimon (S636). **B**
+- Stone with a figure: the Kelsey Museum reads the lion-headed serpent on a steatite Chnoubis amulet as the amulet's protective nature, associated with both the Egyptian god Chnum and the Greek god Agathodaimon (S636). **B**
 - Stone as icon: icons survive in the amuletic form of engraved stones to be worn on the body, alongside holy icons and unorthodox amulets (S617). **B**
-- Shine: shiny materials were used to craft amulets that reflect malicious gazes away from the user (S607). **C**
+- Shine: in some times and places, people used shiny materials to craft amulets meant to reflect malicious gazes away from the user (S607). **C**
 - Ink: the inks of Ethiopian healing scrolls often contained unusual materials, intended to make the prayers more effective and to ward off evil spirits (S635). **B**
 - Coral and its substitutes: the horned-hand amulet appears in coral and, by the museum's list, in mother-of-pearl, silver, gold, amber or lava for the same horned-hand form (S641). **B**
 - See `myth-symbol/mineral-stone-symbolism.md` §12 before giving any stone a universal virtue; the rows above each name one stone for one trouble in one tradition.
@@ -89,20 +92,21 @@
 ## 7. Where it goes: body, child, animal, garment, door, house
 
 - Body and animal: freeborn Roman boys wore the bulla, and occasionally domestic animals did, so a child and a farm animal could carry the same protective container (S604). **B**
-- Arm and neck: silver amulet holders containing a paper with a holy inscription were worn throughout the Muslim world (S612); tälsäm boxes were strung as a necklace (S613). **B**
-- Door and body at once: Moroccan Jewish silversmiths cast and engraved hand pieces used as a talismanic doorknob or a jewellery pendant (S608). **B**
+- Arm and neck: silver amulet holders, often containing symbolic material or a paper with a magical or holy inscription, were worn throughout the Muslim world (S612); tälsäm boxes were strung as a necklace (S613). **B**
+- Door or body: Moroccan Jewish silversmiths cast and engraved hand pieces used as a talismanic doorknob or a jewellery pendant (S608). **B**
 - Door: a Han-period wooden talisman from Edsen-gol has a sharp bottom so that the talisman can be fitted onto the door (S627). **B**
-- Body and wall: in Arabic cultures the palm-shaped Hamsa amulet is popular in jewelry and in wall hangings, so the same amulet covers a person and a room (S609). **B**
-- Doorpost: the mezuzah, fixed on the doorpost, has sometimes been treated as an amulet, a magical charm (S610). **C**
+- Body and wall: in Arabic cultures the palm-shaped Hamsa amulet is popular in jewelry and in wall hangings (S609). **B**
+- Doorpost: the mezuzah, fixed on the doorpost, has sometimes been treated as an amulet, a magical charm (S610). **B**
 - Inside the garment: on a Ghanaian talismanic shirt, cowrie shells adorn the neck and leather pouches, presumably containing additional amulets, are sewn into the interior (S633). **C**
 - Openings of the building: apotropaic marks are usually found where there is an opening through which evil could easily enter, at doors, windows and fireplaces (S620). **B**
 - Carved into the fabric: witches' marks were a common form of ritual protection in which symbols or patterns were carved into the stonework or woodwork of historic buildings (S621). **B**
-- Sealed vessel: the witch bottle, its sharp objects sealed inside, worked on the witch it stood for (S622). **C**
-- Buried bowl: an Aramaic incantation bowl is an amuletic object whose potency comes from a combination of elements, each a significant factor: the earthenware vessel, the written incantation, the image of a bound demon and burial upside down (S614). **B**
-- Worn scroll: Ethiopian amulet scrolls inscribed with healing prayers, talismans and armed angels might be placed in a leather case to be worn (S634). **B**
-- Shrine talisman in the house: shinsatsu, distributed at shrines, may be enshrined in a household kamidana or fixed above gates, doors, pillars or ceilings (S624). **B**
-- Cradle and neck: the Kerala amulet guarded infants against death as well as women against infertility (S640). **B**
-- Placement as act: being worn or placed is the second source of an amulet's power after its customized shape (S632). **B**
+- Concealed shoes: Shawcross says the reason why people concealed shoes remains a mystery; University of Hertfordshire research currently suggests less and less that they were specifically apotropaic items, and that they were connected to notions of good luck and hope (S650). **C**
+- Sealed vessel: in the witch-bottle practice the bottle symbolised the witch's bladder, and the sharp objects sealed inside it were believed to cause her pain (S622). **C**
+- Buried bowl: Levene describes one Aramaic incantation bowl as an amuletic object whose reputed potency comes from a combination of elements, each a significant factor: the earthenware vessel, the written incantation, the image of a bound demon and burial upside down (S614). **B**
+- Worn scroll: an Ethiopian amulet scroll inscribed with healing prayers, talismans and images of armed angels might be placed in a leather case to be worn (S634). **B**
+- Shrine talisman placement: shinsatsu, distributed at shrines, may be enshrined in a kamidana or affixed above gates, on doors and pillars, or on ceilings (S624). **B**
+- Carried and folded: the JWA article says the Kerala amulet's creases indicate that users folded it small enough to carry around or hold onto, and it was used to guard against both infertility and infant death (S640). **B**
+- Placement as act: being worn or placed is the second source of an amulet's power after its customized shape, while others can only be activated by reading the text written on them (S632). **B**
 - DR: map every protective object to a placement (worn, sewn in, hung, fixed, hidden, buried); hidden placements (inside a shirt, inside a wall) make the object an archaeological surprise later in a story.
 
 ## 8. Words, letters, grids and images as protection
@@ -111,7 +115,7 @@
 - Adjuration without scripture: some written amulets do not cite the Gospels but use an apotropaic adjuration formula by which they banish evil spirits and diseases (S638). **B**
 - The grid: amulets believed to protect the owner against harm of all kinds were widely worn in the Islamic world, and the V&A record shows a silver amulet divided into a grid of single Arabic characters (S639). **B**
 - Image and inscription: a printed childbirth amulet frames its main panel with images of the zodiac around an inscription banishing the demon Lilith (S611). **B**
-- Prayers and angels: Ethiopian amulet scrolls are inscribed with healing prayers, talismans and images of armed angels (S634). **B**
+- Prayers and angels: an Ethiopian amulet scroll is inscribed with healing prayers, talismans and images of armed angels (S634). **B**
 - Prayers for a single event: birthing girdles inscribed with prayers and invocations for safe delivery were among the most common spiritual charms loaned out by monasteries to parishioners (S618). **B**
 - Holy text in a case: a silver amulet holder could contain a paper with a magical or holy inscription (S612). **B**
 - See `myth-symbol/binding-speech-complex.md` §5.2 for the spoken counter-curse and `myth-symbol/number-symbolism.md` §5 for magic-square arithmetic; this section owns only the written or drawn thing that protects.
@@ -119,7 +123,7 @@
 
 ## 9. Who makes, blesses, prescribes or sells it
 
-- The famous maker: a Thai amulet is effective only if made by a monk or adept famous for supernatural power (S629). **B**
+- The famous maker: a Thai Buddha amulet was held effective only if made by a monk or adept famous for supernatural power (S629). **B**
 - The prescriber: in Multan, imams are considered spiritual healers who suggest an evil eye amulet and talisman (S631). **B**
 - The craft maker: Jewish silversmiths in Morocco became known for casting and engraving talismanic hand pieces (S608). **B**
 - The lending house: monasteries loaned out birthing girdles inscribed with prayers for safe delivery to their parishioners (S618). **B**
@@ -130,7 +134,7 @@
 
 ## 10. Life cycle: renewal, return, suppression, souvenir
 
-- Return after use: omamori, the lucky charms available at shrines, are usually returned once they have served their purpose or after about a year (S625). **B**
+- Return after use: omamori, the lucky charms available at shrines, are usually returned once they have served their purpose or if they are more than a year old (S625). **B**
 - Lending: birthing girdles were among the spiritual charms monasteries loaned out to their parishioners (S618). **B**
 - Mass production: ritual masters empower mass-produced amulets in their own temples and sell them to clients (S646). **B**
 - Made to order: late antique incantation bowls sold as talismans were customized to fit individual clients' needs, against bad luck, financial struggles and even severe migraines (S615). **B**
