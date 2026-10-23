@@ -1,0 +1,20 @@
+# LOCATE paired control, revision 1 (instruments uncommitted at run time; lane main f0173481), 2026-10-23T11:46:35Z
+$ python3 -B reports/round-62/locate-control.py
+RECOVER PASS located=True passes_used=3 requests(live,capture)=(3, 5) want=(3, 5) pass_waits=2 virtual_s=136 detail=https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria
+EXHAUST PASS located=False passes_used=3 requests(live,capture)=(3, 9) want=(3, 9) pass_waits=2 virtual_s=168 detail=https://example-live.invalid/talaria HTTPError; https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria HTTPError
+ABSENT PASS located=False passes_used=3 requests(live,capture)=(3, 3) want=(3, 3) pass_waits=2 virtual_s=120 detail=https://example-live.invalid/talaria quote-absent; https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria quote-absent
+FIRSTOK PASS located=True passes_used=1 requests(live,capture)=(1, 0) want=(1, 0) pass_waits=0 virtual_s=0 detail=https://example-live.invalid/talaria
+CAPTUREOK PASS located=True passes_used=1 requests(live,capture)=(1, 1) want=(1, 1) pass_waits=0 virtual_s=0 detail=https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria
+DNSFAIL PASS located=False passes_used=3 requests(live,capture)=(3, 3) want=(3, 3) pass_waits=2 virtual_s=120 detail=https://example-live.invalid/talaria URLError; https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria URLError
+LOCATE-CONTROL-62: PASS
+exit=0
+
+# shown able to fail: the same control on a copy of accept-d.py with PASSES = 1 (scratch tree /fast/scratch/hyaku/kotodama-r62/L1/tree)
+RECOVER FAIL located=False passes_used=1 requests(live,capture)=(1, 3) want=(3, 5) pass_waits=0 virtual_s=16 detail=https://example-live.invalid/talaria HTTPError; https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria HTTPError
+EXHAUST FAIL located=False passes_used=1 requests(live,capture)=(1, 3) want=(3, 9) pass_waits=0 virtual_s=16 detail=https://example-live.invalid/talaria HTTPError; https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria HTTPError
+ABSENT FAIL located=False passes_used=1 requests(live,capture)=(1, 1) want=(3, 3) pass_waits=0 virtual_s=0 detail=https://example-live.invalid/talaria quote-absent; https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria quote-absent
+FIRSTOK PASS located=True passes_used=1 requests(live,capture)=(1, 0) want=(1, 0) pass_waits=0 virtual_s=0 detail=https://example-live.invalid/talaria
+CAPTUREOK PASS located=True passes_used=1 requests(live,capture)=(1, 1) want=(1, 1) pass_waits=0 virtual_s=0 detail=https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria
+DNSFAIL FAIL located=False passes_used=1 requests(live,capture)=(1, 1) want=(3, 3) pass_waits=0 virtual_s=0 detail=https://example-live.invalid/talaria URLError; https://web.archive.org/web/20240529024530id_/https://example-live.invalid/talaria URLError
+LOCATE-CONTROL-62: FAIL
+exit=1

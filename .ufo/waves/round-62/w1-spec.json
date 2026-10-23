@@ -1,0 +1,309 @@
+{
+ "wave": "kotodama-r62-w1",
+ "milestone": "Round 62 wave 1: pre-data controls for ACCEPT-D-62/ACCEPT-O-62 plus build (footwear line repairs, talaria row, re-open tool, records)",
+ "reportDir": ".ufo/waves/round-62/w1",
+ "axes": [
+  "depth",
+  "operability",
+  "calibration"
+ ],
+ "context": "# Goal\nKotodama round 62 (hyaku phase 4, 2026-10-23 UTC), WAVE 1: PRE-DATA CONTROLS + BUILD. Lane repo /home/vgpnk/Projects/shokunin/kotodama-shokunin (branch main, jj-colocated), revision `f0173481047a93c46798f90b68d71d4f169d2642`. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/claims.json and /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-61-verifier-spotcheck.md (section 7) first. Two claims, each ONE frozen predicate:\n- D (depth, sourced): repair IN PLACE the four footwear-entry lines the round-61 closure routed, in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/culture-material/footwear-codes-terminology.md: line 63 (S692 closed an open 'Belgium, etc.' list), line 74 (S665: the quote is an image caption), line 75 (S666 dropped the hedge 'we have'), line 93 (S687 tier C is sole support: move it to ONE new tier A/B row S693-S699 opened this round whose quote names talaria or Hermes). Counter /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/accept-d.py (sha256 3efb3bc6286a2b9e1d4b12cb5fb9bd64fd663ce6692214bee373f71fa12063f4); label `ACCEPT-D-62: PASS|FAIL`; legs SET ONEID NOMARK OPEN HEDGE CAPTION SOLE ROWS APPEND LINK COPY LOCATE ACCESS LINT (read its docstring).\n- O (operability, capability): a new tool tools/reopen-row.py that re-opens SOURCES rows with a bounded retry, archived-copy fallback and a body-vs-caption verdict; contract in the docstring of /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/accept-o.py (sha256 bfd17a300d1cbe523b269f8dc5ceeeb42824ac2ad1dca4ce70f0c7ae55c77551); label `ACCEPT-O-62: PASS|FAIL`; legs TOOL INDEP GEN ORDER BOUND EXIT PRIV DEFAULT ERR. It is judged only on an offline random local fixture.\nThe L1 (KotodamaR62) is the sole integration owner and holds the planner seat; it alone writes the lane. Time box: return within 25 minutes of your start; a partial report with what you verified beats none.\n\n# Ownership and bounds (binding)\nEvery seat is a leaf: no delegation, no background jobs, no swarms (an executor may spawn at most one read-only labrat probe). Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kotodama-shokunin — write it at /home/vgpnk/Projects/shokunin/kotodama-shokunin/<that path> with ONE write tool call (absolute path); never edit it afterwards. Seats write NOTHING else in /home/vgpnk/Projects/shokunin/kotodama-shokunin and nothing in the fleet repo /home/vgpnk/Projects/shokunin (never a relative path: your tools start at the fleet root). Every other file goes ONLY under /fast/scratch/hyaku/kotodama-r62/<YourName>/ (create it). Never run git or jj write commands in /home/vgpnk/Projects/shokunin/kotodama-shokunin or /home/vgpnk/Projects/shokunin; sandbox git only in clones under /fast/scratch/hyaku/kotodama-r62/<YourName>/ made with `git clone -q /home/vgpnk/Projects/shokunin/kotodama-shokunin /fast/scratch/hyaku/kotodama-r62/<YourName>/clone && git -C /fast/scratch/hyaku/kotodama-r62/<YourName>/clone checkout -q f0173481047a93c46798f90b68d71d4f169d2642`, with GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE unset. Cap every process with `timeout` (<= 900 s) and kill any process tree you started before you return. Bound every file you write (< 5 MB); never point output at a file Python imports. Never write under /home/vgpnk/.omp/. Never run `du`/`find` over /fast/scratch through the bash tool. Message no one except by exact seat id; never `agent://all`.\nTooling authorization (operator, 2026-10-19): you and every seat may install or update tools that help the task without asking; read /home/vgpnk/.omp/agent/RULES.md first and record each install (tool, version, channel, reason). All pacman transactions are PAUSED host-wide: never pacman -S/-Sy/-Syu/-U/-R, never downgrade, never restart a host service; use uv tool, npx or an official binary in ~/.local/bin, or report the need. Prefer no installs.\n\n# Sources\nExternal reading by ORDINARY MEANS ONLY: plain requests (read tool, curl, python urllib), public copies, archive.org captures. NEVER use a headless browser or anything that gets past a bot challenge, captcha, paywall or login; a challenge met and routed around by a Wayback capture of the same page is fine and is recorded as met-not-passed. Whether a quote locates is decided by `timeout 300 python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-61/reopen-quote.py URL \"QUOTE\"` (prints LOCATED/NOT_LOCATED). A Wayback capture of a page: query `https://web.archive.org/cdx/search/cdx?url=<url>&output=json&limit=-5&filter=statuscode:200` and use `https://web.archive.org/web/<timestamp>id_/<url>`.\n\n# Control receipts (control and mutation items)\nScore with the frozen counters from YOUR clone at f0173481047a93c46798f90b68d71d4f169d2642: `cd /fast/scratch/hyaku/kotodama-r62/<YourName>/clone && timeout 900 python3 -B reports/round-62/accept-d.py; echo exit=$?` (or accept-o.py). Paste every run's FULL stdout and exit code (never tail/head/cut). Never edit a counter except in a clearly labelled PROBE copy (show its diff). One line per case: `RECEIPT <YourName>/<case> counter-sha256=<sha256 of the counter you ran> rev=f0173481047a93c46798f90b68d71d4f169d2642 frozen=PASS|FAIL exit=<n> stopped-by=<legs that FAIL>`. Then one verdict line per item: `CONTROL-MET` (some cheap fixture that skips the claimed work gets PASS under the frozen counter) or `NONE-MET`, naming the fixture that met it and the smallest counter change that would stop it. Keep fixtures under /fast/scratch/hyaku/kotodama-r62/<YourName>/ and name their paths. For claim O, a control is a fake tools/reopen-row.py placed in your clone (never in /home/vgpnk/Projects/shokunin/kotodama-shokunin).\n\n# Entry rules (claim D's repaired lines; build items)\nEach repaired line is a bullet (`- `) with exactly one S-id, no defect mark, restating ONLY what its row's anchor quote carries: >= 5 content words (4+ letters, not stop words), >= 3 of them in the quote and in quote order (LCS >= max(4, 0.4 x content)), at most 12 consecutive quote words copied. A new row has 11 columns like the rows around S665-S692 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md: source cell = title, publisher, date, live URL, then ` ; capture <Wayback id_ URL of the same page>`; kind; tier A or B; scope; anchor (location, then the verbatim body-text quote of 8-25 words in double quotes); teaches; `mined`; `2026-10-23`; `180d`; used-by `corpus/knowledge/culture-material/footwear-codes-terminology.md`. No URL already in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md may be reused (grep it).\n",
+ "items": [
+  {
+   "name": "CtlDDoNothing",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Do-nothing controls: (a) your clone unchanged; (b) records-only edits (append a SCORECARD row, a LOG entry, a lesson file); (c) whitespace-only changes on lines 63/74/75/93 (trailing space, double space, NBSP); (d) the four lines swapped with each other. Report which legs stop each.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDMarkOnly",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Mark-only controls: keep each of the four lines' claim and only add a defect mark, trying marks NOT in NOMARK's list as well as listed ones: `(to-verify)`, `[overstated]`, `(unconfirmed)`, `(hedged: we have)`, `†`, `(per BBC)`, `(caption)`, `(list continues: etc.)`, `{{disputed}}`, `<!-- check -->`. Find the cheapest mark-only edit that passes OPEN, HEDGE, CAPTION and NOMARK together (SOLE needs a new row; report legs met without it, and with a minimal honest-looking new row if you build one). This is the key do-nothing control for the repair claim.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDJunkTokens",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Junk-token controls: replace the four lines with nonsense or unrelated prose that carries the regex tokens the legs look for (`BBC`, `we have`, `Belgium etc`, `caption`, `talaria`) and the right S-ids; then variants that add 3 quote words in order. Target legs: LINK, COPY, OPEN, HEDGE, CAPTION. Report the cheapest junk that passes every leg except LOCATE/SOLE/ROWS.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDDeleteMove",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Delete/move controls: delete the four lines; blank them; replace them with `- (S692)` style id-only bullets; move the repaired text to new lines at the end of the file while leaving 63/74/75/93 as before; insert a line above 63 so the numbering shifts; cite S688 (an existing tier-A row) on line 93. Target legs: SET, ONEID, SOLE.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDOffTopicRow",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Off-topic new-row control: open a REAL page by ordinary means whose body text says `Hermes` or `talaria` in an unrelated sense (e.g. the Hermes parcel company, Hermès the fashion house, a ship or rocket called Hermes, a moth genus), take a verbatim 8-25 word quote containing `hermes`/`talaria`, find a Wayback capture of the same page, register it as S693 (tier B) in your clone with line 93 restating it (e.g. `- Hermes ... (S693)`), make honest repairs of 63/74/75 or not, and score. Report which leg (if any) stops an off-topic but real, located row, and the smallest change that would.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDFabricated",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Fabricated-quote control: build S693 on a REAL on-topic page (e.g. a Britannica or Theoi page about Hermes) plus its Wayback capture, but with an INVENTED quote about talaria (8-25 words) that the page does not carry; line 93 restating it. Also a variant whose live URL is real and whose capture URL is of a DIFFERENT page that does carry a similar sentence. Score both (LOCATE runs up to three passes 60 s apart, so the run takes a few minutes). Report LOCATE's verdict and the time taken.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDCaptureShapes",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Capture-shape controls on a new row S693 (reuse any real, located talaria quote you can find, or a fixture quote): no capture URL; capture listed before the live URL; only a Wayback URL; a capture of a DIFFERENT page than the live URL; a `web.archive.org/web/` string that is not a capture (e.g. `https://web.archive.org/web/` alone or inside the title); a capture whose timestamp is in the future. Target leg ROWS (QUALITY 13 'archived capture of that same page'). Report which shapes pass ROWS.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDRegistryEdits",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Registry-edit controls on corpus/SOURCES.md in your clone: edit S665's quote, S687's tier cell, S692's kind cell, S687's used-by cell (allowed) and S687's teaches cell (not allowed); delete one base row; add a row S700 or S650b; reorder two base rows; append a duplicate of S688 as S693 (same URL, tier A). Target leg APPEND (and ROWS/SOLE for the copy). Report what passes; especially whether a NEW row that copies an existing registry URL is stopped by any leg (there is no FRESH leg in revision 0).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDQuoteDump",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Quote-dump controls: make each of the four lines the verbatim anchor quote of its row (with the hedge/open list therefore present) plus the S-id; then the quote with one word changed every 12 words. Target COPY. Report whether a pasted quote meets every other leg, and whether that is a shortcut (it restates the source exactly) or honest repair; argue both ways in 3 lines.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDDeadEcho",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). LOCATE controls for a new row S693: a dead host URL (`https://nonexistent-<random>.example/talaria`) plus a fake capture URL; an httpbin/echo URL carrying the quote; a private-host URL; a search-results URL. Note LOCATE retries three passes 60 s apart, so each fixture run takes minutes: run fixtures in parallel in separate clones. Confirm each is NOT_LOCATED and that the counter stays under 900 s wall.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDInputs",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Input/robustness controls: run accept-d.py with --root pointing at a shallow clone (`git clone --depth 1`), at a tree with no .git, with the entry missing, with the entry as invalid UTF-8, with reports/round-61/reopen-quote.py missing. Each should exit 2 (ACCEPT_D_INPUT_ERROR) or FAIL, never PASS and never a traceback. Also read the code for any leg whose PASS does not depend on the claimed lines (e.g. ACCESS, LINT pass at base) and list them.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlDHonest",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). HONEST POSITIVE calibration (fixture in your clone, never landed): repair lines 63/74/75 honestly in your OWN words (open list kept, caption named, hedge kept) and repair line 93 with a tier A/B row S693 from a source you open yourself that is NOT Merriam-Webster or Britannica (e.g. Perseus/LSJ, an Oxford Reference or museum page, a university classics page) with a Wayback capture; S687's used-by may drop the entry. Score. Expected PASS; if a leg FAILs, say whether the counter is wrong (false negative) or the fixture is. Paste your four lines and the row.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "CtlODoNothing",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Do-nothing controls: no tool; an empty tools/reopen-row.py; a tool that prints nothing and exits 0; one that prints `REOPEN: 0/0 located` and exits 0; one that echoes its args. Report the legs each passes (INDEP/TOOL can pass vacuously: note it).",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlOAlwaysLocated",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Constant-answer controls: tools that print `ROW <id> LOCATED attempts=1 url=-` for every ID (exit 0); all `ABSENT`; one that copies the expected attempt count from a guess per verdict; one that returns LOCATED for rows whose source cell contains `/web/`. Report the best score (legs passed) of any constant or near-constant tool.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlORawSubstring",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Raw-HTML control: implement the contract faithfully EXCEPT that location is a normalised substring search over the raw HTML bytes (attributes and captions included, no body/caption split). Place it at tools/reopen-row.py in your clone and score. Expected: GEN FAIL on CAP_* and SCRIPT classes. Also a variant that strips tags but keeps figcaption/class=caption text as body.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlONoRetry",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). No-retry controls: the contract minus retries (one attempt per URL, one pass), then minus passes only (3 attempts, 1 pass), then minus the min(gap,5) wait. Score each. Expected GEN/BOUND FAIL on TRANSIENT*/DEAD*.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlOUnbounded",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Over-retry controls: the contract with 5 attempts per URL; with passes continuing after a LOCATED; with a new pass also after ABSENT (non-transient); with 4xx retried; with every URL fetched even after a BODY match. Score each; expected BOUND/GEN FAIL. Report any over-retry the counter does NOT see.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlONoArchive",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Archive controls: the contract but only the first URL of the source cell is tried; or only URLs on web.archive.org count as archives (so the local fixture's `/web/<ts>id_/` URLs are skipped); or archives tried before live. Score; expected GEN/BOUND FAIL on DEAD_ARCHIVE, ARCHIVE_CAPTION, DEAD_THEN_BODY2.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlOKeyed",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Keyed/shortcut controls: try to pass without doing the work: a tool that reads the counter's source (e.g. via /proc/<ppid>/cmdline or cwd) to import CLASSES; one that guesses the class from fixture surface features (anchor text, the word `capture`, `/web/2025`, port numbers, `Fixture Press`) without fetching; one that fetches once and infers attempts from the verdict. Report the cheapest that passes most legs, and whether INDEP/GEN catch it.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlOOrderErr",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Order and error controls: an otherwise honest tool (you may write a minimal one or reuse a peer's design from the contract) that prints rows sorted by id, reversed, de-duplicated, or twice; one that exits 1 instead of 2 on bad input; one that prints a Python traceback for invalid UTF-8; one that treats `--passes 0` as 1. Score each; target ORDER and ERR.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlODefault",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Default-schedule controls: tools whose defaults are passes=1, gap=0, gap=5, gap=200; one that sleeps 150 s without retrying; one that waits 60 s between attempts instead of between passes. Score each (DEFAULT waits real time: run variants in parallel clones). Report whether DEFAULT's 100-600 s window and attempts=9 together pin the contract.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "CtlOHonestRef",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). HONEST POSITIVE calibration: write an independent implementation of the full tool contract (accept-o.py docstring) at tools/reopen-row.py in YOUR clone only (stdlib only; html.parser for the body/caption split), and score it three times. Expected PASS 3/3. Every FAIL: decide whether the counter or your tool is wrong, quoting the contract sentence. Do not share your code with any build seat.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "MutCounterO",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim O (accept-o.py). Counter robustness: read accept-o.py for flakiness and false verdicts: the DEAD_PORT closed-port race, ThreadingHTTPServer under concurrent tools, the BODY_SPLIT markup (unbalanced tags), the `content`/`title` attributes, a `<title>` in head, how attempts are counted for connection errors, the 100-600 s window on a loaded host, temporary-directory cleanup and orphaned servers. Mutate the counter in a PROBE copy (e.g. drop the ORDER check, swap expected verdicts) and show which controls would then pass. Report concrete defects with line numbers.",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "MutCounterD",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nPRE-DATA CONTROL item (follow the context's control-receipt rules). Claim D (accept-d.py). Counter robustness: read accept-d.py for false verdicts: the APPEND subsequence matcher (can a deleted base line hide behind an identical later line? can an edited S687 row change more than used-by?), cells() on rows with `|` inside a cell, cited_ids on the four lines, LINK/COPY on lines with digits like `10th-century`, LOCATE's three passes on a slow host (wall time), git show reading BASE. Mutate in PROBE copies and report concrete defects with line numbers.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ExecReopenTool",
+   "role": "executor",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim O). Write the tool /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/reopen-row.py's content per the contract in the docstring of /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/accept-o.py — but write it ONLY at /fast/scratch/hyaku/kotodama-r62/ExecReopenTool/reopen-row.py (the L1 copies it into the lane). Stdlib only, Python 3, one file, a module docstring stating the contract in your words, and a `--selftest` that runs its own local http.server fixtures (body, caption kinds, transient, dead+archive, 404, closed port, bad inputs). It must not name `reports/`, `accept-o` or `round-62` anywhere. Do NOT run reports/round-62/accept-o.py on your tool (that is the claim's first data run, reserved for the L1). Run your own selftest and paste its full output. Also run your tool LIVE, read-only, on registry rows S665 and S671 of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md with `--registry /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md --passes 2 --gap 30` and paste the output (review evidence only).",
+   "axes": [
+    "operability"
+   ]
+  },
+  {
+   "name": "ScribeTalariaMW",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim D, line 93). Open by ordinary means a TIER A/B dictionary or reference page defining talaria (start with Merriam-Webster https://www.merriam-webster.com/dictionary/talaria, then Collins, Oxford/Lexico mirrors, Wiktionary is tier C). Take a verbatim body-text quote of 8-25 words naming talaria and Hermes (or Mercury), confirm it with the locator, find a Wayback capture of the SAME page via CDX and confirm the quote in it too, and draft: the SOURCES row S693 (11 columns per the context), the new line 93 (one S-id, restating only the quote, LINK/COPY rules), and a Gate line (URL, access date, <=25-word quote). Report rejects with reasons (re-test output pasted).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ScribeTalariaRef",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim D, line 93, independent second candidate). Open a TIER A/B scholarly or encyclopedic page on Hermes' winged footwear that is NOT a dictionary (e.g. Britannica 'Hermes', Perseus/Smith Dictionary of Classical Antiquities (S688 already registers LacusCurtius Smith 'Talaria'; do not reuse that URL), a museum collection page of a Hermes/Mercury statue with talaria). Verbatim body-text quote 8-25 words naming talaria or Hermes and the winged footwear, locator-confirmed, Wayback capture of the same page confirmed. Draft row S694 (11 columns), a line-93 wording and a Gate line; report rejects with re-test output.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ScribeHeelCaption",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim D, line 74). Re-open https://batashoemuseum.ca/standing-tall/ (S665) and confirm where the quote sits (caption attribute/field vs body text: paste the HTML context). Draft a caption-scoped line 74 that names the caption and restates only the quote (one S-id S665, LINK/COPY rules). Separately try to find a BODY-TEXT tier A/B source (e.g. a Bata Shoe Museum essay page body, BBC News 'Why did men stop wearing high heels?', Smithsonian) for heels originating in Western Asia/Persia for horseback riding, with a Wayback capture; draft its row as S695 and an alternative line 74. Report both options with locator output.",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ScribeHedgeOpen",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nBUILD item (claim D, lines 63 and 75). Re-open S692 (https://www.dictionary.com/browse/sabot) and S666 (BBC 'six surprising facts' page; URL in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md row S666) and confirm each quote with the locator. Draft line 63 keeping the open list (`..., Belgium, etc.` or `and elsewhere`) and line 75 keeping the hedge or attribution (`we have` or `the BBC article ...`), each restating only its quote, >= 5 content words, LCS share, <= 12 consecutive quote words copied. Paste the content-word arithmetic for each draft (content words, shared, LCS, longest run).",
+   "axes": [
+    "depth"
+   ]
+  },
+  {
+   "name": "ScribeQuality16",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECORDS item. Draft /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md criterion 16 (text only, in your report), in the style of criteria 12-15: (a) a live-fetch leg declares a bounded retry (attempts per URL on transient results, passes and gap) and lists an archived capture of the same page in each row before data, so one transient error cannot decide a claim; (b) a quote found only in a caption, alt/title/data attribute or figure caption is not body text and is either re-scoped as a caption in the entry line or replaced; checked by tools/reopen-row.py (CAPTION_ONLY) once it lands. Ground it in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-61-verifier-spotcheck.md section 7 items 1 and 5 and R61-M4 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-61.md. Name a check that fails on round 61's bytes (e.g. S671's row lists one capture; S665's anchor says 'image caption').",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScribeIntake",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECORDS item. Draft the `## Spot-check intake` section of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-62.md (text only, in your report): one row per routed defect 1-5 of /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-61-verifier-spotcheck.md section 7, each with disposition (fixed here / fixed by claim D or O / recorded), evidence pointer and what the round does. Include for defect 2 the appended old->new note for S655, S658, S681 kind cells (`news` -> `docs`, edited in place between efbee29c and ae8e393e: verify with `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff efbee29c ae8e393e -- corpus/SOURCES.md`); for defect 3 the correction rows text for LOG.md (round-61 entry) and SCORECARD.md (round-61 calibration row) saying R61-M1..M7, not M1..M6 (verify `grep -c '^| R61-M' /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-61.md`); for defect 4 how accept-o.py of round 62 checks order (ORDER leg).",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScribeMistakes",
+   "role": "scribe",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECORDS item. Mine mistakes for /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-62.md `## Mistakes` (text only, in your report). Sweep /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-61.md, round-61-verifier-spotcheck.md and /home/vgpnk/Projects/shokunin/kotodama-shokunin/LOG.md's round-61 entry for mistakes NOT yet captured by a QUALITY criterion or tool (criteria 1-15 in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/QUALITY.md). Propose 2-3 rows `| R62-M<n> | class | evidence pointer (path:line) | captured-by | fix (and a command that FAILS on the round-61 bytes, with its pasted output) |`. Candidates: carried defect lines (four lines left unmarked after review), a mistake count stated before the lesson closed (M6 vs M7), in-place cell edits after landing (R58-M6 repeat).",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ScoutCaptionRows",
+   "role": "scout",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRECON item. In /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md find rows whose anchor or teaches cell says caption, label, alt text, thumbnail or image (`grep -niE 'caption|alt text|thumbnail|image caption|label' ...`), and the knowledge lines citing each (grep the S-id under /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/). List them as candidates for a later caption re-scope (no edits). Also list rows that are tier C and are the ONLY id on a knowledge line (sole support), using the census warning W01 lines of `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama`.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "ConnectSiblings",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nSIBLING-OVERLAP item. Scan sibling lanes under /home/vgpnk/Projects/shokunin/*-shokunin (read-only) for an existing tool or rule that re-opens source rows with retry/archive fallback or classifies caption-only quotes (grep for `web.archive.org/web`, `Retry-After`, `figcaption`, `CAPTION_ONLY`, `reopen`, `locate(`) and for any lane owning footwear or classical-myth costume terms (talaria). Report overlaps with paths, whether claim O duplicates sibling work, and which lane should be named in the report's adjacency notes.",
+   "axes": [
+    "adjacency"
+   ]
+  },
+  {
+   "name": "ReviewDryRun",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nDECLARATION REVIEW (QUALITY criteria 9 and 11). Check /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/telemetry/declaration-dry-run.txt against /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/claims.json both ways: every declared counting/acceptance/separability command appears in the receipt verbatim and every receipt command is declared; expected pre-landing results are named (absent land exit 2). Map every clause of each claim `statement` to the leg that checks it or to `review_only`; list any clause no leg checks and any leg that checks less than its clause says. Findings with line numbers.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "CriticClaims",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCLAIM CRITIC. Attack both claims in /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/claims.json against the fleet claim-sizing rules (/home/vgpnk/Projects/shokunin/.ufo/prompts/kotodama-round-62.md section 6 item 9): axis misfit (is D depth or quality-of-records? is O a new surface or a re-score?), a do-nothing or shortcut that meets each predicate (by reading the counters), universal clauses, separability (does D's counter import anything O lands? does O's?), whether D's lowest-axis note holds, and whether 'repair in place' is allowed by CORPUS/QUALITY rules for an entry that was never admitted. Rank findings by severity with the smallest fix before data.",
+   "axes": [
+    "calibration"
+   ]
+  },
+  {
+   "name": "CriticFetchRule",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFETCH-RULE CRITIC. The round-61 C claim missed on one transient Wayback error (S671). Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-62/accept-d.py LOCATE and the base locator /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-61/reopen-quote.py fetch(): argue whether three passes 60 s apart over three attempts per URL on 429/5xx, with a capture listed in each new row, makes a single transient error unable to decide the claim, and what fetch classes still decide it (403 from Wayback, DNS failure, timeouts are not retried by fetch(): check). Propose the smallest pre-data revision, if any, with the control that would show it is needed.",
+   "axes": [
+    "depth"
+   ]
+  }
+ ]
+}
