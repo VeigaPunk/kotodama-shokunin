@@ -31,10 +31,13 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            reports/round-60/planted-rows.sha256, and sha256(entry bytes) == key entry_sha256.
   SUPPORT  declared seats: registry members named SupportA60..SupportP60, role reviewer, agentId
            KotodamaR60.<name>, with a report <Seat>.md, a packet packet-<Seat>.md and a committed
-           transcript transcripts/KotodamaR60.<Seat>.jsonl. A seat is BLIND when no tool-call
-           argument in its transcript names the lane repo (`kotodama-shokunin`), round 59's sandbox
-           (`kotodama-r59`), a planted file, the packet key, or another seat's packet, report or work
-           directory. A seat is QUALIFIED when it is BLIND, the key gives it >= 2 PLANTED labels and
+           transcript transcripts/KotodamaR60.<Seat>.jsonl. A seat is BLIND when its committed
+           transcript is a byte copy of its one session file (~/.omp/agent/sessions/*/*/KotodamaR60/
+           KotodamaR60.<Seat>.jsonl; revision 1) and no tool-call argument in it names the lane repo
+           (`kotodama-shokunin`), `corpus`, `SOURCES.md`, the entry's file name, a registry.json,
+           round 59's sandbox (`kotodama-r59`), a planted file, the packet key, history:// or
+           agent://, or another seat's name; the one exempt call is a read/write/edit of the seat's
+           own report path. A seat is QUALIFIED when it is BLIND, the key gives it >= 2 PLANTED labels and
            its report has a line-initial `VERDICT P## NOT-SUPPORTED` and no `VERDICT P## SUPPORTED`
            for every PLANTED label. A real label's verdict is counted when the packet block (quote,
            teaches without its `supersedes` prefix, entry lines citing the id with S-ids removed;
@@ -44,11 +47,11 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
            NOT-SUPPORTED from any declared seat.
 
 Review-only (no leg can check them): whether each repaired sentence is the best wording; whether
-the committed transcripts are byte copies of the seats' session files (one command:
-`cmp` against ~/.omp/agent/sessions/.../KotodamaR60/KotodamaR60.<Seat>.jsonl); whether the keys
-were committed before the support call (`git log` of the two .sha256 files).
+the session files are the ones omp wrote (the closure compares them with history://KotodamaR60.<Seat>);
+whether the keys were committed before the support call (`git log` of the two .sha256 files).
 """
 import argparse
+import glob
 import hashlib
 import importlib.util
 import json
@@ -133,12 +136,27 @@ def blind(seat, args):
                 and own.search(str(obj.get("path", ""))):
             continue
         low = a.lower()
-        for bad in ("kotodama-shokunin", "kotodama-r59", "planted", "packet-key"):
+        for bad in ("kotodama-shokunin", "kotodama-r59", "planted", "packet-key", "corpus", "sources.md",
+                    "amulets-talismans", "registry.json", "history://", "agent://"):
             if bad in low:
                 return bad
         for other in others:
             if other.lower() in low:
                 return other
+    return ""
+
+
+SESSIONS = "~/.omp/agent/sessions/*/*/KotodamaR60/KotodamaR60.{seat}.jsonl"
+
+
+def provenance(seat, transcript):
+    """'' when the committed transcript is a byte copy of exactly one session file of that seat
+    (revision 1: a fabricated transcript in the lane cannot vouch), else the reason."""
+    found = glob.glob(os.path.expanduser(SESSIONS.format(seat=seat)))
+    if len(found) != 1:
+        return f"session-files={len(found)}"
+    if open(found[0], "rb").read() != open(transcript, "rb").read():
+        return "transcript-not-session-copy"
     return ""
 
 
@@ -284,7 +302,7 @@ def main():
             seat_notes.append(f"{seat}:missing")
             continue
         args = tool_args(transcript)
-        seen = blind(seat, args)
+        seen = provenance(seat, transcript) or blind(seat, args)
         found = VERDICT.findall(open(report, encoding="utf-8", errors="replace").read())
         shown = {}
         for label, body in PACKET_BLOCK.findall(open(packet, encoding="utf-8", errors="replace").read()):
