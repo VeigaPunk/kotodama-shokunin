@@ -14,11 +14,14 @@ Frozen predicate (the same sentence in reports/round-60/claims.json `predicate`)
   equals the entry_sha256 in the packet key whose hash was committed before the support call; and
   every one of the 47 cited ids is SUPPORTED by 2 distinct qualified, blind declared support seats
   whose own transcript fetched the row's page and whose verdict quotes at least 10 words of that
-  page's pinned text that its packet block does not contain, with no NOT-SUPPORTED from any declared seat.
+  page's pinned text that its packet block does not contain and no other pinned page contains, 5 of
+  them absent from the packet block, with no NOT-SUPPORTED from any declared seat.
 
   (revision 7, EVIDENCE: the pinned text is reports/round-60/captures/pages/<sid>.txt, sha256 in
   pages/manifest.json; the span is a double-quoted part of the seat's own VERDICT line, >= 10
-  locator-normalised words, located in the page text and not in the packet block; see evidenced.)
+  locator-normalised words, located in the page text and not in the packet block; revision 8: any
+  pair of quote marks delimits a candidate span, the span must locate in no other pinned page text,
+  and >= 5 of its distinct words must be absent from the packet block; see evidenced.)
 
 Legs (each prints PASS or FAIL with its detail; the last stdout line is `ACCEPT-D-60: PASS|FAIL`,
 exit 0 on PASS, 1 on FAIL, 2 on an input error). No leg fetches anything over the network: the
@@ -141,7 +144,6 @@ SID = re.compile(r"\bS\d{3,}\b")
 PAGES = "reports/round-60/captures/pages/manifest.json"  # revision 7: pinned text of every cited page
 MIN_EVIDENCE_WORDS = 10
 VERDICT_LINE = re.compile(r"^VERDICT (P\d{2}) SUPPORTED\b(.*)$", re.M)
-EVIDENCE_SPAN = re.compile(r"[\"“]([^\"“”]{20,})[\"”]")
 
 
 def page_texts(root):
@@ -159,13 +161,39 @@ def page_texts(root):
     return out
 
 
-def evidenced(rest, page_text, block_text, locator):
-    """True when a verdict line's remainder quotes (straight or curly double quotes) a span of
-    >= MIN_EVIDENCE_WORDS words that locates in the pinned page text and NOT in the packet block, so
-    the seat shows page text its packet did not give it (revision 7: a packet-only reader cannot)."""
-    for span in EVIDENCE_SPAN.findall(rest or ""):
-        if len(locator.normalise(span).split()) >= MIN_EVIDENCE_WORDS and page_text \
-                and locator.locate_in(page_text, span) and not locator.locate_in(block_text, span):
+MIN_NOVEL_WORDS = 5  # revision 8
+QUOTE_CHARS = re.compile(r"[\"“”]")
+
+
+def norm_forms(text, locator):
+    """The two locator forms of a text (plain and de-hyphenated), space-padded (revision 8)."""
+    joined = re.sub(r"(\w)[-¬­]\s*\n\s*(\w)", r"\1\2", text)
+    return (" " + locator.normalise(text) + " ", " " + locator.normalise(joined) + " ")
+
+
+def evidenced(rest, sid, norms, block_text, locator):
+    """True when a verdict line's remainder quotes a span (any text between two double-quote marks,
+    straight or curly, so nested quotes parse; revision 8) of >= MIN_EVIDENCE_WORDS words that
+    locates in the row's pinned page text, in NO other pinned page text (revision 8: shared site
+    boilerplate is not evidence of this page), not in the packet block, and with >= MIN_NOVEL_WORDS
+    distinct words that occur nowhere in the packet block (revision 8: a span rebuilt from packet
+    words is not page reading). `norms` maps sid -> norm_forms of its pinned text."""
+    if sid not in norms:
+        return False
+    marks = [m.start() for m in QUOTE_CHARS.finditer(rest or "")]
+    block_words = set(locator.normalise(block_text).split())
+    block_forms = norm_forms(block_text, locator)
+    for i, a in enumerate(marks):
+        for b in marks[i + 1:]:
+            want = locator.normalise(rest[a + 1:b])
+            words = want.split()
+            if len(words) < MIN_EVIDENCE_WORDS or len(set(words) - block_words) < MIN_NOVEL_WORDS:
+                continue
+            padded = " " + want + " "
+            if not any(padded in f for f in norms[sid]) or any(padded in f for f in block_forms):
+                continue
+            if any(padded in f for other, forms in norms.items() if other != sid for f in forms):
+                continue
             return True
     return False
 
@@ -596,6 +624,7 @@ def main():
 
     verdicts, qualified, seat_notes, rejected = {}, set(), [], []
     texts = page_texts(root)  # revision 7
+    norms = {sid: norm_forms(text, locator) for sid, text in texts.items()}  # revision 8
     if len(texts) < len(cited):
         notes.append(f"pinned-pages={len(texts)}")
     for seat in sorted(seats):
@@ -644,7 +673,7 @@ def main():
                 continue
             pages = {page_of(u, locator) for u in locator.row_target(table.get(sid, []))[0]} if len(table.get(sid, [])) >= 13 else set()
             fetched = any(p and any(names_page(t, p) for t in targets) for p in pages)
-            shows_page = evidenced(evidence.get(label), texts.get(sid, ""), raw_blocks.get(label, ""), locator)
+            shows_page = evidenced(evidence.get(label), sid, norms, raw_blocks.get(label, ""), locator)
             verdicts.setdefault(sid, []).append((verdict, seat, fetched and shows_page))
     # revision 6: dissent from ANY frozen seat counts, read from its lane report and from the last write
     # to its report path in its session file, whether or not the registry lists it or it qualified
