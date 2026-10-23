@@ -1,0 +1,150 @@
+{
+ "round": 58,
+ "attempt": 2,
+ "campaign": "hyaku phase 4 twelve-hour leg, 2026-10-22/23 (in-session L1 lane subagent KotodamaR58A2)",
+ "declared_at": "2026-10-23 UTC, before any wave dispatch and before any seat scored; instruments at the claim base below",
+ "base": "91fb8fd9ff48d64d871fa0778996c38423b54063",
+ "base_note": "The claim base is the round-58 instruments commit on the round-57 closure tip 91e50d7e. Instruments: reports/round-58/accept-c.py, rowcheck.py (BOILER and RELEVANCE, written for the round-57 closure's routed defect 2), reopen-quote.py (byte copy of reports/round-57/reopen-quote.py), base-knowledge-files.txt (233 paths, git ls-tree order of 91e50d7e), dry-run.py, claims-agree.py. accept-c.py and rowcheck.py were first drafted by the dead attempt 1 (untracked scratch); attempt 2 read both in full against reports/round-57/accept-c.py, changed rowcheck rule (b) from a 4-word to a 6-word copy run and added rule (d), and committed them as the instruments.",
+ "one_claim_note": "One claim. The addendum prefers two; the round-57 closure's routed defects (CODH erratum, entry :41, superseding rows, report tier count, kongo-kingdom sentence fixes, round-56 carry list) are records work, not claims, and no second axis move this round is both independent and cheap to verify.",
+ "predicate_rule": "The claim has one frozen predicate, written as the same sentence here, as the same condition in its counter's code (the last stdout line `ACCEPT-C-58: PASS|FAIL` and the exit status) and as the same label in every receipt. A miss under that predicate is reported, never amended or re-scaled.",
+ "separability_manifest": "reports/round-58/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-58/separability-manifest.json",
+ "agreement_command": "python3 -B reports/round-58/claims-agree.py",
+ "export_rule": "C's export is the reserved id block S500-S559, written as \\bS5[0-5][0-9]\\b (QUALITY criterion 7). Records rows this round take ids S560-S599 only.",
+ "lowest_axis_note": "No calibrated numeric axis scores exist (SCORECARD preamble); freshness is historically lowest and stays paused by the open round-11 L0 question. C works coverage on ground with 0 filename owners.",
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "surface": "frontier -> core: one new linguistics topic file on toponymy (place names: strata, generic elements, hydronym conservatism, endonym/exonym, renaming, folk etymology); the command that shows it unmoved: `git ls-tree -r --name-only <rev> corpus/knowledge | grep -ciE 'topon|place-?name|placename|onomast'` stays 0 (0 at 91e50d7e) and accept-c SET fails",
+   "kind": "measured; learning claim (admitted knowledge on uncovered ground) and the round's sourced claim",
+   "predicate": "ACCEPT-C-58: python3 -B reports/round-58/accept-c.py exits 0 and prints `ACCEPT-C-58: PASS`, every leg PASS: SET (the files under corpus/knowledge are the 233 base paths in reports/round-58/base-knowledge-files.txt plus corpus/knowledge/linguistics/toponymy-place-names.md, count 234, none removed), SWEEP (reports/round-28/readme/sweep.py exits 0 with rows 234 files 234, missing_from_index 0), FLOOR (the entry cites at least 20 distinct S-ids), RANGE (every cited S-id in S500-S559, exactly one corpus/SOURCES.md row of at least 13 cells; no range notation), STATUS (mined), USEDBY (the entry is an item of each cited row's used-by cell), ACCESS (tools/check-source-access.py exits 0), LOCATE (every cited row, no slack: the first double-quoted span of its anchor cell, at least 8 words, is found by reports/round-58/reopen-quote.py in the text one of the row's source URLs, at most four, serves now), BOILER (every cited row's located quote is not found on the root page of the site that located it; root unfetchable, source-is-root or not located fail), RELEVANCE (every cited row: (a) quote and teaches cell share at least 2 content stems, (b) the teaches cell copies no 6-word run of the quote, (c) the teaches cell and (d) the quote each share at least 2 content stems with the entry lines that cite the row; stems as defined in reports/round-58/rowcheck.py), FRESH (no cited row names a source URL a row below S500 names).",
+   "statement": "Knowledge files go from 233 to 234: the one file added under corpus/knowledge is corpus/knowledge/linguistics/toponymy-place-names.md and no file is removed; ACCEPT-C-58 holds (see predicate).",
+   "clauses": [
+    {
+     "id": "C-count",
+     "words": "Knowledge files go from 233 to 234: the one file added is corpus/knowledge/linguistics/toponymy-place-names.md and no file is removed",
+     "kind": "mechanical",
+     "legs": [
+      "SET",
+      "SWEEP"
+     ],
+     "red_control": "base (do-nothing): SET FAIL count=233, SWEEP FAIL rows 233"
+    },
+    {
+     "id": "C-floor",
+     "words": "at least 20 distinct cited S-ids",
+     "kind": "mechanical",
+     "legs": [
+      "FLOOR"
+     ],
+     "red_control": "base: FLOOR FAIL cited=0"
+    },
+    {
+     "id": "C-range",
+     "words": "every cited S-id in S500-S559, one row each, no range notation",
+     "kind": "mechanical",
+     "legs": [
+      "RANGE"
+     ],
+     "red_control": "control wave (reports/round-58/telemetry/controls-c.txt)"
+    },
+    {
+     "id": "C-status",
+     "words": "mined",
+     "kind": "mechanical",
+     "legs": [
+      "STATUS"
+     ],
+     "red_control": "control wave"
+    },
+    {
+     "id": "C-usedby",
+     "words": "the entry is an item of each cited row's used-by cell",
+     "kind": "mechanical",
+     "legs": [
+      "USEDBY"
+     ],
+     "red_control": "control wave"
+    },
+    {
+     "id": "C-access",
+     "words": "tools/check-source-access.py exits 0",
+     "kind": "mechanical",
+     "legs": [
+      "ACCESS"
+     ],
+     "red_control": "control wave"
+    },
+    {
+     "id": "C-locate",
+     "words": "every cited row's anchor quote (8+ words) is found in the text one of its source URLs serves now; no slack",
+     "kind": "mechanical",
+     "legs": [
+      "LOCATE"
+     ],
+     "red_control": "control wave: invented quotes, invalid URLs"
+    },
+    {
+     "id": "C-boiler",
+     "words": "no cited row's quote is on its site's root page",
+     "kind": "mechanical",
+     "legs": [
+      "BOILER"
+     ],
+     "red_control": "control wave: real site footer/navigation quotes (the round-57 closure's footer test)"
+    },
+    {
+     "id": "C-relevance",
+     "words": "each quote shares 2+ content stems with its row's teaches cell, the teaches cell copies no 6-word run of it, and teaches and quote each share 2+ content stems with the entry lines citing the row",
+     "kind": "mechanical",
+     "legs": [
+      "RELEVANCE"
+     ],
+     "red_control": "control wave: real off-topic on-page text with honest topic teaches cells; teaches copied from quote"
+    },
+    {
+     "id": "C-fresh",
+     "words": "no cited row names a source URL a row below S500 names",
+     "kind": "mechanical",
+     "legs": [
+      "FRESH"
+     ],
+     "red_control": "control wave: copied registry rows under new ids"
+    }
+   ],
+   "review_only": [
+    "the entry's topic and that it serves worldbuilding (decision tables, a lore handoff section)",
+    "whether each sentence is carried by its cited row's page beyond the stem overlap (non-author reviewer sample)",
+    "whether each row was opened this round by ordinary means (ACCESS reads only the marker words a row records)",
+    "whether the entry points one-way to partial owners (sacred-topography-pilgrimage, naming entries, deity-name-derivation-pipeline)",
+    "whether the ground is uncovered in substance",
+    "residual named before data: a writer who authors the teaches cell AND the entry sentence to share stems with off-topic on-page text passes RELEVANCE; only review catches it (the entry would then carry off-topic sentences)"
+   ],
+   "shortcut_controls": "reports/round-58/telemetry/controls-c.txt: do-nothing base, junk, all-false, no-reader and shortcut controls built by the pre-data control wave and scored with the frozen counter; each must exit 1 with ACCEPT-C-58: FAIL",
+   "lands": [
+    "corpus/knowledge/linguistics/toponymy-place-names.md",
+    "corpus/README.md",
+    "corpus/SOURCES.md"
+   ],
+   "exports": [
+    "\\bS5[0-5][0-9]\\b"
+   ],
+   "counting_command": "python3 -B reports/round-58/accept-c.py",
+   "before": "exit 1, ACCEPT-C-58: FAIL (SET count=233, SWEEP rows 233, FLOOR cited=0, LOCATE/BOILER/RELEVANCE cited=0)",
+   "after_required": "exit 0, ACCEPT-C-58: PASS (all eleven legs PASS)",
+   "expected_pre_landing_counting": "exit 1: SET FAIL (count=233), SWEEP FAIL (rows 233 files 233), FLOOR FAIL (cited=0), LOCATE, BOILER and RELEVANCE FAIL (no S-id cited); RANGE, STATUS, USEDBY, FRESH PASS vacuously; ACCESS PASS; last line ACCEPT-C-58: FAIL",
+   "falsifier": "any leg FAIL at the landed revision when re-run",
+   "must_not_cite": "any id outside S500-S559"
+  }
+ ],
+ "expected_pre_landing_separability": "exit 2 before landing: SEPARABILITY_INPUT_ERROR naming the absent C land",
+ "records_not_claims": [
+  "round-57 spot-check §5 item 1: erratum for corpus/lessons/round-57.md:92 (CODH bukan), quotes re-tested with the tool the reason named; QUALITY check that each not-registered reason is re-tested by the tool it names",
+  "item 3: heraldry-emblems-identity-marks.md:41 re-sourced or scoped out",
+  "item 4: superseding rows (S560-S599) for S421, S438, S433, S413, S417, S428, S440, S445, S452, S453",
+  "item 5: report tier-count correction (A 36 / B 6) filed in the round-58 report",
+  "item 6: kongo-kingdom.md sentence fixes and round-56 carry rows S135, S141, S147, S151, S159"
+ ],
+ "dry_run_rule": "QUALITY criteria 8, 9 and 11: every declared command runs before dispatch in a sandbox clone at the declaration (reports/round-58/telemetry/declaration-dry-run.txt names its measured revision), and every clause names a control that fails it"
+}
