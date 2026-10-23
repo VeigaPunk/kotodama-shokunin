@@ -86,9 +86,10 @@ Legs, each printed PASS or FAIL:
            waited
   REVIEW   the independent review gate: .ufo/waves/round-63/w1/RevToolA.md, RevToolB.md
            and RevToolC.md plus reports/round-63/telemetry/rev-hold-lift.md each exist,
-           carry >= 400 bytes, contain no `OPEN (HIGH|MEDIUM|MED)` finding marker, and
-           end with the fixed token `VERDICT: NO-OPEN-HIGH-MED`; a missing, thin,
-           token-only or finding-tainted review fails this leg
+           carry >= 400 bytes, and end with the fixed token `VERDICT: NO-OPEN-HIGH-MED`;
+           every line OTHER than the mandated token line must be free of an
+           `OPEN (HIGH|MEDIUM|MED)` finding marker (the token line itself is exempt -
+           revision 2, RevToolB: the marker pattern would otherwise match the token)
 Frozen predicate (the same sentence in reports/round-63/claims.json and in every
 receipt): ACCEPT-O-63: every leg of reports/round-63/accept-o.py prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
@@ -731,11 +732,13 @@ def main():
             if len(body) < 400:
                 thin.append(os.path.basename(path))
                 continue
-            if re.search(r"\bOPEN\s*[\(\-:]?\s*(HIGH|MEDIUM|MED)\b", body):
+            # the mandated token line itself carries OPEN-HIGH-MED: scan all OTHER lines
+            scan = "\n".join(l for l in body.splitlines()
+                             if "VERDICT: NO-OPEN-HIGH-MED" not in l)
+            if re.search(r"\bOPEN\s*[\(\-:]?\s*(HIGH|MEDIUM|MED)\b", scan):
                 tainted.append(os.path.basename(path))
                 continue
-            if "VERDICT: NO-OPEN-HIGH-MED" in body:
-                tokens += 1
+            tokens += 1
         leg("REVIEW", not missing and not thin and not tainted and tokens == 4,
             f"reports=4 token={tokens} missing={missing} thin={thin} open_findings={tainted}")
     finally:
