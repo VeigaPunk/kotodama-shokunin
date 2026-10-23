@@ -32,7 +32,7 @@ only page bytes read are the committed captures (routed defect 2 of the round-59
   SUPPORT  declared seats: registry members named SupportA60..SupportP60, role reviewer, agentId
            KotodamaR60.<name>, with a report <Seat>.md, a packet packet-<Seat>.md and a committed
            transcript transcripts/KotodamaR60.<Seat>.jsonl. A seat is BLIND when its committed
-           transcript is a byte copy of its one session file (~/.omp/agent/sessions/*/*/KotodamaR60/
+           transcript is a byte copy of its one session file (/home/vgpnk/.omp/agent/sessions/*/*/KotodamaR60/
            KotodamaR60.<Seat>.jsonl; revision 1) and no tool-call argument in it names the lane repo
            (`kotodama-shokunin`), `corpus`, `SOURCES.md`, the entry's file name, a registry.json,
            round 59's sandbox (`kotodama-r59`), a planted file, the packet key, history:// or
@@ -146,13 +146,13 @@ def blind(seat, args):
     return ""
 
 
-SESSIONS = "~/.omp/agent/sessions/*/*/KotodamaR60/KotodamaR60.{seat}.jsonl"
+SESSIONS = "/home/vgpnk/.omp/agent/sessions/*/*/KotodamaR60/KotodamaR60.{seat}.jsonl"
 
 
 def provenance(seat, transcript):
     """'' when the committed transcript is a byte copy of exactly one session file of that seat
     (revision 1: a fabricated transcript in the lane cannot vouch), else the reason."""
-    found = glob.glob(os.path.expanduser(SESSIONS.format(seat=seat)))
+    found = glob.glob(SESSIONS.format(seat=seat))
     if len(found) != 1:
         return f"session-files={len(found)}"
     if open(found[0], "rb").read() != open(transcript, "rb").read():
