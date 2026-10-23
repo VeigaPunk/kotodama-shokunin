@@ -4139,3 +4139,12 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - **Records:** QUALITY criterion 15 (clause-scoped cited lines); lesson `corpus/lessons/round-61.md` (Gate S652-S692 and five rejects; mistakes R61-M1..M6).
 - **Waves:** wave 1 (controls + build) 36 seats; wave 2 (falsify: 41 one-row one-clause support reviewers + 6 attack seats) 47 seats; round total 83.
 - **Evidence:** `reports/round-61/telemetry/`; `.ufo/waves/round-61/`; `corpus/lessons/round-61.md`.
+
+## Round 62 — 2026-10-23 (hyaku phase 4, attempt 1, L1 KotodamaR62)
+
+- **Claims:** D (depth, sourced) — footwear entry lines 63/74/75/93 repaired in place (`a2c5caa5`): open list, caption attribution, hedge, talaria on new tier-B row S693; ACCEPT-D-62 **PASS** on its first run. O (operability, capability) — `tools/reopen-row.py` (`e605603c`), bounded retry, archived fallback, caption verdict; ACCEPT-O-62 **PASS** on its first run. Receipt `reports/round-62/telemetry/final-measures.txt`.
+- **Pre-data controls:** 37-seat wave 1 scored revision 0 (`f0173481`); twelve controls met it and forced revision 1 (`e6a61e82`): NOMARK clause shape, KEEP, FRESH, same-page capture in budget, SOLE topic, byte reads, malformed S-rows, ORDER repeats, DEFAULT schedule, BODY_THEN_ARCHIVE and unlisted requests, thumbnail/gallery captions. LOCATE paired control added (QUALITY 16). Freeze `9143fc44`.
+- **Round-61 corrections (records):** the round-61 entry above and the SCORECARD round-61 calibration row say "R61-M1..M6"; the round-61 lesson records R61-M1..M7. S655/S658/S681 kind-cell edits noted in the round-62 lesson.
+- **Records:** QUALITY criterion 16; lesson `corpus/lessons/round-62.md` (Gate S693 and four rejects; mistakes R62-M1..M5).
+- **Waves:** wave 1 (controls + build) 37 seats; residual falsify call 8 seats (reviewer 7, critic 1); round total 45.
+- **Evidence:** `reports/round-62/telemetry/`; `.ufo/waves/round-62/`; `corpus/lessons/round-62.md`.
