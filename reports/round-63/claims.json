@@ -1,0 +1,96 @@
+{
+ "round": 63,
+ "attempt": 1,
+ "campaign": "hyaku run 5, 24h inline training leg (in-session L1 lane subagent KotodamaR63; seats dispatched inline by the orchestrator)",
+ "declared_at": "2026-10-23, before any wave dispatch and before any seat or counter scored the claimed objects",
+ "round_base": "65b393ef3a4d82bd693cc21b7f96a1231417d522",
+ "anti_loop": "Rounds 58-61 were rejected on new or rebuilt sourced entries judged by a live LOCATE leg or a blind SUPPORT leg (R61: one transient Wayback error on S671); round 62 was admitted with the re-open capability under a marked safety hold. Round 63 opens one new knowledge entry (claim C) whose only live leg covers a frozen enumerable subset (the rows S### of the S694-S717 block with (n-693) % 4 == 1, i.e. S694, S698, S702, S706, S710, S714: six rows), each row listing an archived capture of the same page (QUALITY 13) inside a bounded budget frozen before data (three attempts per URL over live then capture, one pass; the base locator, not the held tool, performs it), and moves the lane's declared lowest trend (expansion) per LEARNING.md. Claim O is the closure-routed gating repair of the round-62 capability (HIGH redirect-to-private SSRF, malformed-URL traceback, four residual gaps) and is judged only on offline local fixtures plus a named independent-review gate; no live fetch decides either claim.",
+ "separability_manifest": "reports/round-63/separability-manifest.json",
+ "separability_command": "python3 -B tools/check-claim-separability.py reports/round-63/separability-manifest.json",
+ "predicate_rule": "Each claim has one frozen predicate, written as the same sentence here, as the same condition in its counter's code (the last stdout line `ACCEPT-<id>-63: PASS|FAIL` and the exit status) and as the same label in every receipt. A miss under that predicate is reported, never amended or re-scaled. A counter revision is allowed only before the first run of that counter on the claimed object (O: the repaired tools/reopen-row.py; C: the new entry and registry rows), and each revision is committed with the control receipt that forced it.",
+ "claims": {
+  "O": {
+   "axis": "operability",
+   "kind": "capability repair under safety hold (round-62 closure routed defect 1, gating, HIGH) with independent review gate",
+   "surface": "tools/reopen-row.py at 65b393e (the round-62 capability `bounded row re-opener with archived fallback and caption verdict`, held in corpus/lessons/round-62.md ## Safety hold and corpus/QUALITY.md criterion 16 hold note)",
+   "unmoved_command": "git show 65b393e:tools/reopen-row.py | grep -nE 'class Fetcher|redirect|urlopen|MAX_BODY_BYTES|timeout' (no redirect re-validation; plain urlopen auto-follows cross-host; read() capped silently at 4 MiB; timeout is per-socket)",
+   "statement": "At the measured revision tools/reopen-row.py answers the round-62 closure's routed defects: (1) every redirect target of a fetched URL is re-validated against the private-host refusal before it is requested, and a redirect hop to an authority (host, port) different from the fetching URL's is refused even under --allow-private, so a public URL 302-ing to loopback/RFC1918 is never fetched; (2) a registry row whose URL is malformed (unparseable port, unbalanced bracketed IPv6, empty host) prints `ROW <ID> MALFORMED attempts=0 url=-`, attempts no request, shows no traceback, and the run's exit is 1, not 2; (3) a response with Content-Encoding: gzip is decompressed before matching; (4) a body read that reaches the 4 MiB cap without EOF is not matched silently: when the quote is absent from the read bytes the verdict is TRUNCATED (ranked with ABSENT) and when the quote is inside the read bytes the verdict is still LOCATED; (5) --timeout SECONDS (default 30) is a per-request wall budget covering connect, headers and body, so a stalling body cannot outlive it; (6) each request in a redirect chain counts as an attempt and at most 5 hops are followed. The capability's safety hold lifts only when the counter passes AND the three named independent review reports (RevToolA/RevToolB/RevToolC wave seats, re-run by RevHoldLift on the landed bytes) record no open HIGH or MEDIUM finding against the landed source.",
+   "sourced_claim": false,
+   "counting_command": "python3 -B reports/round-63/accept-o.py",
+   "predicate": "ACCEPT-O-63: every leg of reports/round-63/accept-o.py prints PASS.",
+   "legs": [
+    "TOOL",
+    "INDEP",
+    "GEN",
+    "ORDER",
+    "BOUND",
+    "EXIT",
+    "PRIV",
+    "DEFAULT",
+    "ERR",
+    "REDIRECT",
+    "MALFORMED",
+    "GZIP",
+    "TRUNC",
+    "TIMEOUT",
+    "REVIEW"
+   ],
+   "kill_rule": "Any leg FAIL on the first full run of accept-o.py at the measured revision (the lane branch tip carrying the repair) is a miss. The first full run is the receipt; it is not re-run to look for a pass. The REVIEW leg requires the three named review reports and the residual RevHoldLift report to carry the fixed token `VERDICT: NO-OPEN-HIGH-MED`; a finding left open, or a review seat dead without relay, fails the claim.",
+   "fetch_treatment": "No live fetch decides this claim: every leg runs against offline localhost fixtures or file bytes. The review gate is read-only code review, never an execution on live URLs; per the hold, the repaired tool is first run on live rows only by the closure after admission.",
+   "review_only": [
+    "whether the redirect re-validation covers scheme-relative Locations, userinfo hosts, IPv6 literals and IDNA forms (review catalog, not counter fixtures)",
+    "whether the per-request deadline interacts correctly with the retry/pass schedule",
+    "live behaviour on registry rows (closure's, after admission)"
+   ],
+   "exports": "none (the tool's public names are pre-existing; the repair introduces no registry or entry identifier)",
+   "lands": [
+    "tools/reopen-row.py",
+    "corpus/QUALITY.md",
+    "corpus/lessons/round-62.md",
+    "SCORECARD.md"
+   ],
+   "contract": "see the docstring of reports/round-63/accept-o.py (one paragraph per leg)"
+  },
+  "C": {
+   "axis": "coverage",
+   "kind": "sourced new knowledge entry",
+   "surface": "0 filename owners: no corpus/knowledge file owns headgear/head-covering as a material-culture register (partial owners ritual-garments.md, dress-through-eras.md, warrior-material-culture.md are cited one-way in the entry's gap section, never restated)",
+   "unmoved_command": "find corpus/knowledge -iname '*headgear*' -o -iname '*head-cover*' -o -iname '*head-dress*' | wc -l (0 at 65b393e); grep -c '^| S' corpus/SOURCES.md (619 at 65b393e)",
+   "statement": "At the measured revision corpus/knowledge/culture-material/headgear-head-covering-codes.md exists (a new culture-material entry: headgear as rank, ritual and identity code — crowns, wreaths, helmets, veils, wraps, caps and hoods — feeding the era-costume matrix), corpus/SOURCES.md holds exactly the 24 new rows S694-S717 (tier A or B, mined, opened 2026-10-23, recheck 180d, used-by the new entry, each with a live URL then a Wayback id_ capture of the same page whose embedded original URL equals the live URL, each anchor quote 8-25 normalised body-text words), every entry bullet line carrying an S-id carries exactly one and each cited line's clause has >= 5 content words of which >= 3 appear in its row's quote in quote order with at most 12 consecutive words copied, no new row's live URL appears anywhere else in the registry, the base rows of corpus/SOURCES.md are byte-unchanged, no other corpus/knowledge file differs from base, the corpus README indexes the entry (rows == files, topic_mismatch 0), and the base locator locates all six rows of the frozen live subset (n-693) % 4 == 1 within the frozen budget (three attempts per URL, live URL then capture URL, one pass).",
+   "sourced_claim": true,
+   "sources_opened_this_round": "S694-S717",
+   "counting_command": "python3 -B reports/round-63/accept-c.py",
+   "predicate": "ACCEPT-C-63: every leg of reports/round-63/accept-c.py prints PASS.",
+   "legs": [
+    "FILE",
+    "ROWS",
+    "ONEID",
+    "RESTATE",
+    "LINK",
+    "APPEND",
+    "NOHARM",
+    "SWEEP",
+    "LIVE"
+   ],
+   "kill_rule": "Any leg FAIL on the first full run of accept-c.py at the measured revision (the lane branch tip carrying the entry and the rows) is a miss. The first full run is the receipt; it is not re-run to look for a pass. A live-subset row not located after the frozen budget fails the claim (one transient result inside the budget is retried; failure after the budget is a failure, QUALITY 16).",
+   "fetch_treatment": "QUALITY criteria 13 and 16, frozen before data: each new row lists its live URL then a Wayback capture of the same page; the LIVE leg uses the base locator reports/round-61/reopen-quote.py (the held round-62 tool is not used), three attempts per URL on 429/5xx/timeout/connection error, live URL first then the capture, one pass; the frozen subset is the six rows S### of S694-S717 with (n-693) % 4 == 1. The SUPPORT substance is blind-reviewed per row by the RevRowS### wave seats (re-opening each quote by ordinary means); their artifacts are recorded in reports/round-63/telemetry/ and re-verified by the closure, but no blind-review artifact decides the machine predicate.",
+   "review_only": [
+    "whether each entry line's wording beyond the shared words is carried by its page",
+    "whether the chosen six-row live subset is representative",
+    "topic fit against the partial owners (scouted one-way by ScoutSibling)"
+   ],
+   "exports": "S694-S717 (regex \\bS69[4-9]\\b|\\bS70[0-9]\\b|\\bS71[0-7]\\b)",
+   "lands": [
+    "corpus/knowledge/culture-material/headgear-head-covering-codes.md",
+    "corpus/SOURCES.md",
+    "corpus/README.md"
+   ],
+   "contract": "see the docstring of reports/round-63/accept-c.py (one paragraph per leg)"
+  }
+ },
+ "routed_records_not_claims": [
+  "round-62 separability re-run: tools/check-claim-separability.py against reports/round-62/separability-manifest.json at the round-62 measured tip (closure routed defect 3)",
+  "LOG round-62 hash-citation append (25b44b8a, 2ce9d4d1) and the two cosmetic reference nits (resid file KotodamaR62. prefix; selftest 28-vs-32 wording) per closure routed defects 4-6",
+  "census start/end and the frontier step (lesson round-63, Gate S694-S717, mistakes)"
+ ]
+}

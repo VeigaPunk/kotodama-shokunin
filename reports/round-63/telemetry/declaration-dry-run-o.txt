@@ -1,0 +1,17 @@
+TOOL PASS path=tools/reopen-row.py exists=True
+INDEP PASS named=[]
+GEN FAIL rows=61 wrong=78 ["REDIRECT_OK:S2351:want=LOCATED/2:got=[('LOCATED', 1)]", "REDIRECT_OK:S2351:url_want=http://127.0.0.1:39037/llqnwy/yzafabb/bzxepqxq:got=['http://127.0.0.1:39037/lvueh/mkxovoaz/gnqxvb']", "REDIRECT_MULTI:S2313:want=LOCATED/4:got=[('LOCATED', 1)]", "REDIRECT_MULTI:S2313:url_want=http://127.0.0.1:39037/xwwqxb/gmnaz/yxqtl:got=['http://127.0.0.1:39037/wwky/dsots']", 'MALFORMED_IPV6:S2731:want=MALFORMED/0:got=[]', 'MALFORMED_IPV6:S2731:url_want=-:got=None'] summary_ok=False exit=1
+ORDER FAIL printed=24 expected=61 repeated_args=5 repeated_printed=5
+BOUND FAIL bad=['CAP_ID:live:want=1:hits=0', 'CAP_CLASS:live:want=1:hits=0', 'DEAD:live:want=9:hits=0', 'BODY_THEN_ARCHIVE:live:want=1:hits=0', 'SCRIPT:live:want=1:hits=0', 'CAP_ATTR_ARIA:live:want=1:hits=0', 'CAP_ATTR_DATA:live:want=1:hits=0', 'PLAIN:live:want=1:hits=0'] unlisted_requests=[]
+EXIT PASS gen_exit=1 body_exit=0 default_registry_exit=0
+PRIV PASS exit=1 rows=[('S2371', 'REFUSED', 0), ('S2523', 'REFUSED', 0), ('S2812', 'REFUSED', 0)]
+DEFAULT PASS rows=[('S2920', 'UNREACHABLE', 9)] wall=150s hits=9 exit=1 bursts=[3, 3, 3] gaps=[60, 60]
+ERR PASS bad=[]
+REDIRECT FAIL allow_private=[('S2504', 'LOCATED', 1)] hits_src=1 hits_target=1 no_flag=[('S2504', 'REFUSED', 0)] exits=0,1
+MALFORMED FAIL exit=1 rows=[('S2131', 'UNREACHABLE', 9)] traceback=True
+GZIP FAIL exit=1 rows=[('S2392', 'ABSENT', 1), ('S2173', 'ABSENT', 1)]
+TRUNC FAIL exit=1 rows=[('S2036', 'ABSENT', 1), ('S2109', 'LOCATED', 1)] want=[('S2036', 'TRUNCATED', 1), ('S2109', 'LOCATED', 1)]
+TIMEOUT FAIL exit=2 rows=[] wall=0.1s
+REVIEW FAIL reports=4 missing=['RevToolA.md', 'RevToolB.md', 'RevToolC.md', 'rev-hold-lift.md'] clean=0
+ACCEPT-O-63: FAIL
+exit=1
