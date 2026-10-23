@@ -4124,3 +4124,9 @@ actual route stay recorded per round. Prior rounds stand as filed.
 - ACCEPT-C-59 is recorded as **MISSED** on the as-reviewed 47-row object: 14 legs PASS and SUPPORT FAIL (S602, S616, S623, S643 one NOT-SUPPORTED each, `reports/round-59/telemetry/as-reviewed-c.txt`, 03:39:56Z). The four propositions were deleted at 03:40:08Z, 12 s after that receipt; the narrowed 43-row entry is not the judged object. Run 2 at `84b931a5` also printed FAIL (legs lost to `tail -3`). Source: `corpus/lessons/round-59-verifier-spotcheck.md` §2 and §5 items 1-2.
 - The round-59 separability line `C->REC via acceptance` is a live-fetch re-run artifact, not a dependency: no `accept-c.py` leg reads a REC land, and C passed alone at `4abfb63d` (spot-check §5 item 3).
 - Filed round-59 SCORECARD and LOG lines are unchanged; this entry and the SCORECARD correction table are appended. The amulets entry is re-entered under a new pre-data freeze as round-60 claim D.
+
+## Round 60 — 2026-10-23 (hyaku phase 4, attempt 3, L1 KotodamaR60A3)
+
+- Claim D (depth, sourced): the amulets entry re-entered under a new pre-data freeze (`47f27bd0`) with S648-S651 restoring the four round-59 propositions in source-scoped wording. ACCEPT-D-60 FAIL at the claim base → FAIL at the measured revision (SUPPORT: 14 NOT-SUPPORTED on mapped ids; six of them from the S612/S613 shared line, R60-M6). **MISSED**; no amendment, no row or line removed.
+- Counter revisions 5-9 before data, each forced by a control receipt (CONFINED allow-list; roster and dissent scan; EVIDENCE with novelty and page-specific spans); controls: 40-seat wave 1, 6-seat residual call, L1 re-score of a refused seat's fixtures.
+- Records: round-59 corrections and errata, QUALITY criterion 14, lesson `corpus/lessons/round-60.md` (Gate S648-S651, mistakes R60-M1..M7).

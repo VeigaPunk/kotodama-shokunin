@@ -1143,3 +1143,16 @@ Correction rows for round 59 (recorded in round 60; routed defects 1-3 of `corpu
 |---|---|---|
 | round-59 coverage (`ACCEPT-C-59`, author-side PASS) | **MISSED** on the as-reviewed 47-row object: 14 legs PASS, SUPPORT FAIL on S602, S616, S623, S643; the four propositions were deleted 12 s after the FAIL receipt; run 2 at `84b931a5` printed FAIL (legs lost to `tail -3`). The narrowed object is not the judged object. | `reports/round-59/telemetry/as-reviewed-c.txt`; `reports/round-59/telemetry/final-measures.txt` run 2; spot-check §2 |
 | round-59 separability `C->REC via acceptance` | a live-fetch re-run artifact, not a dependency (no REC land read by `accept-c.py`; C passed alone at `4abfb63d`) | spot-check §2 and §5 item 3 |
+
+
+## Axes — round 60 (2026-10-23), author-side verdicts, pending non-author closure (hyaku phase 4, attempt 3)
+
+Instruments revision 0 `b60e6d4e` … revision 9 `a56b04fc` (revisions 5-9 in attempt 3, each before any data seat, forced by the pre-data control waves `.ufo/waves/round-60/w1-a3/` and `.ufo/waves/round-60/resid-a3/`); claim-D build `1cd9db7c`; freeze `47f27bd0`; support verdicts and final measure in the closing commit.
+
+| axis | verdict | before → after / observation | re-run command | evidence |
+|---|---|---|---|---|
+| depth | **MISSED** (claim D, sourced claim, S648-S651) | ACCEPT-D-60 FAIL at the claim base `b9faed93` (SET, LINES, ROWS, PINNED, JUDGED, SUPPORT) → FAIL at the measured revision: SET, LINES, OLDWORD, ROWS, PINNED, JUDGED PASS; SUPPORT FAIL (14 NOT-SUPPORTED on mapped ids, 13/24 seats qualified). Surface moved but not admitted: four round-59 propositions restored in source-scoped wording, 19 base lines narrowed; the judged entry stays as built (no post-verdict change). | `python3 -B reports/round-60/accept-d.py` | `reports/round-60/telemetry/final-measure.txt`, `before-measure.txt`; `corpus/lessons/round-60.md` |
+| calibration | not claimed; recorded | round-59 corrections (C MISSED, separability artifact), round-59 errata, QUALITY criterion 14, mistakes R60-M1..M7 | `grep -c '^| R60-M' corpus/lessons/round-60.md` | `corpus/lessons/round-60.md` |
+| coverage / operability / freshness / adjacency | unchanged | freshness stays paused by the open round-11 L0 question | — | — |
+
+Frontier step (not a claim): `corpus/SOURCES.md` 573 → 577 rows (S648-S651 opened this round, mined); census exit 0 at start (`reports/round-60/telemetry/census-start.txt`) and end (`census-end.txt`).
