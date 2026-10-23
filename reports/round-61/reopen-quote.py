@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-r"""Round-61 re-open locator: reports/round-57/reopen-quote.py with only this first docstring line changed (instrument of claim C's LOCATE leg; also the scribes' pre-filing check).
+r"""Round-61 re-open locator: reports/round-57/reopen-quote.py with this first docstring line changed and, in revision 1 (before any data), three refusals added: more denied echo hosts plus base64-decoded URL pieces and half-the-long-quote-words-in-the-URL count as url-reflects-quote (CtlCEchoUrls met revision 0 through httpbingo.org base64 and split-query echoes), and a host that is or resolves to a loopback, private, link-local or reserved address is private-host (MutCounterC met revision 0 with a 127.0.0.1 document). Instrument of claim C's LOCATE leg; also the scribes' pre-filing check.
 
   python3 -B reports/round-57/reopen-quote.py URL QUOTE      one source, one quote
   python3 -B reports/round-57/reopen-quote.py --row S###     a corpus/SOURCES.md row (from the lane root)
@@ -27,6 +27,9 @@ search URLs and located the anchor quotes "a" and "of the" on arbitrary pages.
 Prints one line `LOCATED <url>` or `NOT_LOCATED <reason>`; exit 0 located, 1 not located, 2 on a
 usage error. A fetch error is NOT_LOCATED, never a pass. Read-only; writes only a temporary PDF.
 """
+import base64
+import ipaddress
+import socket
 import html.parser
 import json
 import os
@@ -144,7 +147,10 @@ def locate_in(text, quote):
 MIN_WORDS = 8
 DENY_HOSTS = ("httpbin.org", "postman-echo.com", "bing.com", "google.", "duckduckgo.com", "yahoo.com",
               "yandex.", "baidu.com", "github.com", "githubusercontent.com", "gitlab.com", "pastebin.com",
-              "gist.", "bitbucket.org", "codeberg.org")
+              "gist.", "bitbucket.org", "codeberg.org",
+              # round-61 revision 1 (CtlCEchoUrls met revision 0 through httpbingo.org): more echo hosts
+              "httpbingo.org", "httpbun.", "webhook.site", "requestbin", "pipedream", "beeceptor.",
+              "mockbin", "echo.", "reqbin.", "postb.in", "hookbin")
 QUERY_KEYS = re.compile(r"(?:^|&)(?:q|query|search|text|keys|term|s)=", re.I)
 _WAYBACK = threading.Lock()
 
@@ -158,12 +164,31 @@ def url_refusal(url, quote):
         return "denied-host"
     if ("search" in parts.path.lower() and parts.query) or QUERY_KEYS.search(parts.query):
         return "search-url"
+    try:  # revision 1: loopback, private, link-local or reserved hosts cannot vouch
+        name = parts.hostname or ""
+        addrs = {info[4][0] for info in socket.getaddrinfo(name, None)} if name else set()
+        if name in ("localhost",) or name.endswith((".local", ".localhost", ".internal")) or any(
+                (lambda ip: ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved
+                 or ip.is_unspecified)(ipaddress.ip_address(a.split("%")[0])) for a in addrs):
+            return "private-host"
+    except (OSError, ValueError):
+        return "unresolvable-host"
     if "kotodama" in url.lower() or "shokunin" in url.lower():
         return "self-hosted"
-    in_url = " " + normalise(urllib.parse.unquote_plus(url)) + " "
+    decoded = urllib.parse.unquote_plus(url)
+    pieces = [p for p in re.split(r"[/?&=#;]", decoded) if p]
+    for piece in list(pieces):  # base64 path or query pieces (revision 1)
+        try:
+            pieces.append(base64.b64decode(piece + "=" * (-len(piece) % 4), altchars=b"-_" if "-" in piece or "_" in piece else None).decode("utf-8"))
+        except (ValueError, UnicodeDecodeError):
+            pass
+    in_url = " " + normalise(decoded + " " + " ".join(pieces)) + " "
     words = normalise(quote).split()
     if any(" " + " ".join(words[i:i + 3]) + " " in in_url for i in range(max(len(words) - 2, 0))):
         return "url-reflects-quote"
+    long_words = {w for w in words if len(w) >= 4}
+    if long_words and len({w for w in long_words if " " + w + " " in in_url}) * 2 >= len(long_words):
+        return "url-reflects-quote"  # half the quote's long words scattered over the URL (revision 1)
     return ""
 
 

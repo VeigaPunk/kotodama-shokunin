@@ -16,11 +16,16 @@ line `CITED-LINES: <k> finding(s) in <m> file(s)`. Exit 1 when k > 0, 0 when k =
 unreadable or not valid UTF-8. `--selftest` runs its own cases and ends with `selftest N/N`.
 
 Legs, each printed with PASS or FAIL:
-  TOOL   tools/check-cited-lines.py exists; `--selftest` exits 0 and its last line is
-         `selftest N/N` with N >= 10
-  INDEP  the tool's source names neither `reports/` nor `accept-o` (it does not load this counter)
+  TOOL   tools/check-cited-lines.py exists (revision 1: its `--selftest` is review-only; CtlOSelftest
+         and CtlOKeyed met revision 0's string check with a fake `selftest 10/10`)
+  INDEP  the tool's source names none of `reports/`, `accept-o`, `round-61`, and every other leg
+         runs a copy of the tool placed alone in a fresh temporary directory outside the lane
+         (revision 1: CtlOKeyed (c) imported this counter through a run-time path; a copy outside
+         the lane cannot reach it by a relative path)
   GEN    on a fixture tree generated now in a fresh temporary directory from os.urandom (random ids,
          random filler words, random separators, random file and directory names; every run differs),
+         (revision 1: each lookalike line also carries one real id beside lookalikes of a second id,
+         after CtlOParsing (g) passed revision 0 with a boundary-blind `S\d{3,}` regex)
          the tool, given the tree's root directory, prints exactly the reference finding set (kind,
          path, line, ids), exits 1, and its summary counts the findings and the `.md` files
   CLEAN  on a generated file whose lines carry at most one distinct S-id and no table row, the tool
@@ -39,6 +44,7 @@ import os
 import random
 import re
 import subprocess
+import shutil
 import sys
 import tempfile
 
@@ -69,9 +75,12 @@ def reference(root_arg, cwd):
     return found, files
 
 
+TOOL_COPY = []
+
+
 def run_tool(root, args, cwd):
     try:
-        return subprocess.run([sys.executable, "-B", os.path.join(root, TOOL)] + args, cwd=cwd,
+        return subprocess.run([sys.executable, "-B", TOOL_COPY[0]] + args, cwd=cwd,
                               capture_output=True, text=True, timeout=300)
     except (OSError, subprocess.TimeoutExpired) as error:
         return subprocess.CompletedProcess(args, 99, "", f"counter: {error}")
@@ -108,8 +117,8 @@ def gen_line(rng, kind):
         s = sid(rng)
         return f"- {filler} {s}; {word(rng)} [{s}] {word(rng)}"
     if kind == "lookalike":
-        s = sid(rng)
-        return f"- {filler} X{s} {s}x S{rng.randint(1, 99)} {s}_ {s.lower()}"
+        s, t = (f"S{i}" for i in rng.sample(range(100, 9999), 2))
+        return f"- {filler} {s} X{t} {t}x S{rng.randint(1, 99)} {t}_ {t.lower()} {word(rng)}"
     if kind == "multi":
         ids = rng.sample(range(100, 9999), rng.randint(2, 4))
         sep = rng.choice([", ", "; ", " and ", "/", "–", "-", ")(", " "])
@@ -148,15 +157,14 @@ def main():
     legs = []
     tool_path = os.path.join(root, TOOL)
     exists = os.path.isfile(tool_path)
-    st = run_tool(root, ["--selftest"], root) if exists else None
-    last = (st.stdout.strip().splitlines() or [""])[-1] if st else ""
-    m = re.match(r"^selftest (\d+)/(\d+)$", last)
-    legs.append(("TOOL", bool(exists and st.returncode == 0 and m and m.group(1) == m.group(2)
-                              and int(m.group(1)) >= 10),
-                 f"exists={exists} exit={st.returncode if st else None} last={last!r}"))
+    legs.append(("TOOL", exists, f"exists={exists}"))
     src = open(tool_path, encoding="utf-8", errors="replace").read() if exists else ""
-    legs.append(("INDEP", exists and "reports/" not in src and "accept-o" not in src,
-                 f"exists={exists}"))
+    named = [s for s in ("reports/", "accept-o", "round-61") if s in src]
+    legs.append(("INDEP", exists and not named, f"exists={exists} names={named}"))
+    tooldir = tempfile.mkdtemp(prefix="cited-lines-tool-")
+    TOOL_COPY.append(os.path.join(tooldir, "check-cited-lines.py"))
+    if exists:
+        shutil.copyfile(tool_path, TOOL_COPY[0])
     with tempfile.TemporaryDirectory() as tmp:
         fx = word(rng)
         write_tree(rng, os.path.join(tmp, fx))
@@ -181,8 +189,9 @@ def main():
             h.write(b"- ok S123\n- \xff\xfe broken S456 S789\n")
         e1 = run_tool(root, [os.path.join(tmp, word(rng) + "-missing.md")], tmp)
         e2 = run_tool(root, [badutf], tmp)
-        legs.append(("ERR", exists and all(e.returncode == 2 and "CITED_LINES_ERROR" in e.stderr for e in (e1, e2)),
-                     f"missing_exit={e1.returncode} badutf8_exit={e2.returncode}"))
+        e3 = run_tool(root, [], tmp)
+        legs.append(("ERR", exists and all(e.returncode == 2 and "CITED_LINES_ERROR" in e.stderr for e in (e1, e2, e3)),
+                     f"missing_exit={e1.returncode} badutf8_exit={e2.returncode} noargs_exit={e3.returncode}"))
         real = os.path.join(tmp, "base")
         os.makedirs(real)
         arch = subprocess.run(f"git -C '{root}' archive {BASE} corpus/knowledge | tar -x -C '{real}'",
@@ -198,6 +207,7 @@ def main():
         legs.append(("REAL", exists and bool(want) and r60 and got == want and not bad and out.returncode == 1,
                      f"exit={out.returncode} want={len(want)} got={len(got)} missing={sorted(want - got)[:3]} "
                      f"extra={sorted(got - want)[:3]} r60_line_in_reference={r60}"))
+    shutil.rmtree(tooldir, ignore_errors=True)
     for name, ok, detail in legs:
         print(f"{name} {'PASS' if ok else 'FAIL'} {detail}")
     verdict = all(ok for _, ok, _ in legs)

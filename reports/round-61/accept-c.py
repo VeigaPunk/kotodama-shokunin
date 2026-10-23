@@ -20,9 +20,22 @@ One leg per mechanical clause of claim C (reports/round-61/claims.json), each pr
   LINES     one row, one clause: every entry line that carries an S-id is a bullet line (`- ` after
             optional indentation), carries exactly one distinct S-id, and is not a table row or heading
   TOPIC     every cited row's anchor quote (first double-quoted span of its `anchor` cell), normalised
-            as the locator does, contains at least one word of the frozen footwear lexicon TOPIC_WORDS
-  LINK      every S-id-bearing entry line shares at least 3 distinct normalised words of 4 or more
-            characters, outside STOP, with its cited row's anchor quote
+            as the locator does, contains a STRONG footwear word (TOPIC_WORDS minus WEAK), or a WEAK
+            word (homonym-prone: boot, sole, slipper, tabi and plurals) together with a second
+            distinct lexicon word or a CONTEXT word (wear, worn, foot, feet, leather, pair ...).
+            Revision 1 (before any data): CtlCOffTopic met revision 0 with homonyms (`sole` = only,
+            `boot` = computer start-up, car trunk). Residual (disclosed): `heel`/`heels` stay strong
+            because honest heel quotes carry no second footwear word; a heel homonym would pass
+  LINK      every S-id-bearing entry line restates its cited row's anchor quote: its content words
+            (normalised words of 4 or more characters, outside STOP, not digits) number at least 5,
+            include at least 3 distinct quote words, and at least max(4, ceil(0.4 x content)) of them
+            occur in the quote's word order (longest common subsequence). Revision 1 (before any data):
+            CtlCJunkLines met revision 0 with lorem lines carrying three scattered quote words; the
+            0.4 share was calibrated on honest control fixtures (0.6 falsely failed CtlCJunkLines
+            fixture A line 5; 0.5 falsely failed CtlCHonestPdf lines 18 and 20; clog/clogs left WEAK
+            falsely failed its S664 row, so they are strong).
+            LINES, LINK and the cited set read each line after NFKC and count `S 653` (inner space) as
+            an id (revision 1: CtlCMultiId hid a second id as `S 653` and fullwidth `Ｓ653`)
   COPY      no S-id-bearing entry line repeats more than 12 consecutive normalised words of its cited
             row's anchor quote (a quote pasted as the line is not a restatement)
   LOCATE    every cited row (share 1.0) is LOCATED by reports/round-61/reopen-quote.py (row mode: the
@@ -31,7 +44,9 @@ One leg per mechanical clause of claim C (reports/round-61/claims.json), each pr
             file's docstring). A fabricated quote, a search/echo/code-host/self-named URL, or a fetch
             error on every listed URL is not located. Measured live; the result names the run's UTC time
   FRESH     no cited row names a source URL that a corpus/SOURCES.md row below S652 also names (URLs
-            compared lower-cased, without scheme, `www.`, trailing `/`, Wayback prefix removed)
+            compared lower-cased, without scheme, `www.`/`m.`/`mobile.`, query, fragment and trailing
+            `/`, Wayback prefix removed; revision 1: CtlCCopiedRows met revision 0 with `?ref=x` and
+            `#fragment` copies)
 Frozen predicate (the same sentence in reports/round-61/claims.json and in every receipt):
   ACCEPT-C-61: every leg above prints PASS.
 Exit 0 only when every leg passes; 1 when any leg fails; 2 on unreadable input.
@@ -47,6 +62,7 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
 from datetime import datetime, timezone
 
 ENTRY = "corpus/knowledge/culture-material/footwear-codes-terminology.md"
@@ -60,7 +76,11 @@ SHARE = 1.0
 OPENED = "2026-10-23"
 LINK_MIN = 3
 COPY_MAX = 12
+CONTENT_MIN = 5
+ORDER_MIN = 4
+ORDER_SHARE = 0.4
 SID = re.compile(r"\bS\d{3,}\b")
+SPACED = re.compile(r"\bS\s+(\d{3,})\b")
 TOPIC_WORDS = frozenset("""
 shoe shoes shod unshod barefoot footwear sandal sandals boot boots clog clogs moccasin moccasins
 slipper slippers heel heels sole soles insole insoles geta zori zōri waraji tabi chopine chopines
@@ -68,12 +88,26 @@ poulaine poulaines patten pattens sabot sabots lapti opanak opanci caliga caliga
 mukluk mukluks paduka padukas shoemaker shoemakers shoemaking cordwainer cordwainers cobbler cobblers
 footgear brogue brogues buskin buskins talaria
 """.split())
+WEAK = frozenset("boot boots sole soles slipper slippers tabi".split())
+CONTEXT = frozenset("wear wears wore worn wearing wearer foot feet leather pair pairs walk walking".split())
 STOP = frozenset("""
 that this with from were which have been their they them there these those what when where while
 into onto upon than then also only such some more most other over under about after before during
 between because could would should shall will your yours ours here very much many each every both
 either neither same like just even ever made make makes been being does done have having
 """.split())
+
+
+def cited_ids(line):
+    """S-ids on a line after NFKC (fullwidth forms fold), counting `S 653` with inner spaces too."""
+    folded = unicodedata.normalize("NFKC", line)
+    return set(SID.findall(folded)) | {"S" + d for d in SPACED.findall(folded)}
+
+
+def on_topic(words):
+    """A strong footwear word, or a weak one backed by a second lexicon word or a context word."""
+    hits = words & TOPIC_WORDS
+    return bool(hits - WEAK) or (bool(hits) and (len(hits) >= 2 or bool(words & CONTEXT)))
 
 
 def run(root, argv):
@@ -95,6 +129,17 @@ def longest_run(a, b):
                 best = max(best, cur[j])
         prev = cur
     return best
+
+
+def lcs(a, b):
+    """Length of the longest common subsequence of word lists a and b."""
+    prev = [0] * (len(b) + 1)
+    for x in a:
+        cur = [0]
+        for j, y in enumerate(b, 1):
+            cur.append(prev[j - 1] + 1 if x == y else max(prev[j], cur[j - 1]))
+        prev = cur
+    return prev[-1]
 
 
 def main():
@@ -136,9 +181,9 @@ def main():
     try:
         if os.path.isfile(path):
             text = open(path, encoding="utf-8").read()
-            cited = sorted(set(re.findall(r"\bS\d{3}\b", text)) | set(SID.findall(text)))
+            cited = sorted(set().union(*[cited_ids(l) for l in text.splitlines()]) | set(SID.findall(text)))
             spans = re.findall(r"\bS\d{3}\s*(?:[-‐‑‒–—―−~…]|\.{2,3}|to|through|thru)\s*S?\d{2,3}\b", text)
-            lines = [(n, l) for n, l in enumerate(text.splitlines(), 1) if SID.search(l)]
+            lines = [(n, l) for n, l in enumerate(text.splitlines(), 1) if cited_ids(l)]
         for line in open(os.path.join(root, "corpus/SOURCES.md"), encoding="utf-8"):
             row = re.match(r"^\|\s*(S\d{3,})\s*\|", line)
             if row:
@@ -165,29 +210,33 @@ def main():
                  f"{(access.stdout.strip().splitlines() or ['?'])[-1]}"))
     lines_bad = []
     for n, l in lines:
-        ids = set(SID.findall(l))
+        ids = cited_ids(l)
         if not re.match(r"^\s*- ", l) or len(ids) != 1:
             lines_bad.append(f"{n}:{','.join(sorted(ids))}")
     legs.append(("LINES", bool(lines) and not lines_bad, f"cited_lines={len(lines)} bad={lines_bad}"))
     targets = {s: locator.row_target(table[s]) for s in ok_rows}
-    topic_bad = [s for s in ok_rows if not set(locator.normalise(targets[s][1]).split()) & TOPIC_WORDS]
+    topic_bad = [s for s in ok_rows if not on_topic(set(locator.normalise(targets[s][1]).split()))]
     legs.append(("TOPIC", bool(ok_rows) and not topic_bad, f"rows={len(ok_rows)} bad={topic_bad}"))
     link_bad, copy_bad = [], []
     for n, l in lines:
-        ids = set(SID.findall(l))
+        ids = cited_ids(l)
         if len(ids) != 1 or next(iter(ids)) not in targets:
             link_bad.append(f"{n}:no-row")
             copy_bad.append(f"{n}:no-row")
             continue
         quote = locator.normalise(targets[next(iter(ids))][1]).split()
-        words = [w for w in locator.normalise(SID.sub(" ", l)).split()]
-        shared = {w for w in words if len(w) >= 4 and w not in STOP} & set(quote)
-        if len(shared) < LINK_MIN:
-            link_bad.append(f"{n}:{len(shared)}")
+        words = [w for w in locator.normalise(SPACED.sub(" ", SID.sub(" ", unicodedata.normalize("NFKC", l)))).split()]
+        content = [w for w in words if len(w) >= 4 and w not in STOP and not w.isdigit()]
+        shared = set(content) & set(quote)
+        ordered = lcs(content, quote)
+        if (len(shared) < LINK_MIN or len(content) < CONTENT_MIN or ordered < ORDER_MIN
+                or ordered < math.ceil(ORDER_SHARE * len(content))):
+            link_bad.append(f"{n}:shared={len(shared)},content={len(content)},ordered={ordered}")
         run_len = longest_run(words, quote)
         if run_len > COPY_MAX:
             copy_bad.append(f"{n}:{run_len}")
-    legs.append(("LINK", bool(lines) and not link_bad, f"min={LINK_MIN} bad={link_bad}"))
+    legs.append(("LINK", bool(lines) and not link_bad,
+                 f"min={LINK_MIN} content>={CONTENT_MIN} ordered>={ORDER_MIN} and >={ORDER_SHARE}xcontent bad={link_bad}"))
     legs.append(("COPY", bool(lines) and not copy_bad, f"max={COPY_MAX} bad={copy_bad}"))
 
     def probe(sid):
@@ -206,7 +255,8 @@ def main():
     def norm(url):
         url = re.sub(r"^https?://", "", locator.trim(url).lower())
         url = re.sub(r"^web\.archive\.org/web/[^/]+/(?:https?://)?", "", url)
-        return re.sub(r"^www\.", "", url).rstrip("/")
+        url = re.split(r"[?#]", url)[0]
+        return re.sub(r"^(?:www|m|mobile)\.", "", url).rstrip("/")
 
     old = {norm(u) for s, cells in table.items() if int(s[1:]) < FIRST_SID
            for u in locator.URL.findall(cells[2])}
