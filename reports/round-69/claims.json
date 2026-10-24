@@ -1,0 +1,104 @@
+{
+  "round": 69,
+  "lane": "kotodama",
+  "declared_at": "2026-10-24",
+  "declared_by": "Kimi fresh L1 (hyaku run 6, round 69, attempt 1)",
+  "base_revision": "793f79746712a79f915bb481215e54bbea8b5e7a",
+  "freeze_rule": "The predicate, counter, kill rule and target of each claim are frozen at this commit and are not edited after any seat scores them (kumitate r42 class). The round-68 counters are NOT amended: reports/round-69/accept-{o,ca,d}.py are NEW files, and leg R68FROZEN re-derives the three round-68 counters' sha256 against the sha256 their own receipts recorded.",
+  "controls": {
+    "green": "each new counter's --selftest builds a fixture tree that satisfies the claim and requires the counter to print PASS there",
+    "do_nothing": "each new counter's --selftest builds the same tree with the claimed work skipped and requires the counter to FAIL there; both receipts are committed before any data seat runs"
+  },
+  "claims": [
+    {
+      "id": "O2",
+      "axis": "operability",
+      "type": "capability acquisition",
+      "surface": "a runnable, lane-shaped supersession-settlement fixture harness (tools/check-settlement-fixture.py) whose negative case is the missing-used-by defect class the round-68 counter never exercised",
+      "before": "no such harness exists at base 793f7974 (`test -f tools/check-settlement-fixture.py` is false); the round-68 operability counter's EXEC fixture never created corpus/knowledge/a.md, so its EXEC leg was red in every recorded run (R68-M1)",
+      "after": "reports/round-69/accept-o.py prints ACCEPT-O-69: PASS with every leg PASS at the measured revision (7 legs: STAMP, TOOL, FIXTURE, NEGCASE, LANE, NEGPROBE, R68FROZEN)",
+      "predicate": "ACCEPT-O-69: every leg of reports/round-69/accept-o.py prints PASS",
+      "counting_command": "python3 -B reports/round-69/accept-o.py --root .",
+      "target": "7/7 legs PASS",
+      "kill_rule": "any leg FAIL -> the claim fails as declared; the counter is not edited after data",
+      "do_nothing_control": "python3 -B reports/round-69/accept-o.py --selftest -> GREEN FIXTURE PASS (7/7) and DO-NOTHING FIXTURE FAIL (as required, 6/7); at the base tree the TOOL leg fails because no harness exists",
+      "r68_repair": "R68-M1: the new counter exercises the used-by file in both directions - the fixture creates corpus/knowledge/a.md (green) and omits it (caught, missing_paths=1) - and shows both green before any data lands"
+    },
+    {
+      "id": "Ca2",
+      "axis": "calibration",
+      "type": "records",
+      "surface": "the count of unannotated mismatches between the lane's filed self-assessment (the SCORECARD round-68 section, the LOG round-68 entry, the filed fleet round-68 report) and the committed round-68 receipts",
+      "before": "at base 793f7974 three classes over five declared (class, surface) pairs are unannotated: LEGCOUNT on SCORECARD.md, LOG.md and the fleet report; DEADPOINTER on the fleet report; OVERREACH on SCORECARD.md",
+      "after": "zero unannotated mismatches: every declared pair's observation is consistent and an appended correction row naming that class and that surface exists in reports/round-69/corrections-r68.md",
+      "predicate": "ACCEPT-CA-69: every leg of reports/round-69/accept-ca.py prints PASS and the MISMATCHES leg prints unannotated_mismatches=0",
+      "counting_command": "python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin",
+      "target": "0 unannotated mismatches over the 5 declared pairs",
+      "kill_rule": "any declared pair that is live or uncovered -> the claim fails as declared; the counter is not edited after data",
+      "do_nothing_control": "python3 -B reports/round-69/accept-ca.py --selftest -> GREEN FIXTURE PASS and DO-NOTHING FIXTURE FAIL (as required)",
+      "r68_repair": "R68-M9: the round-68 calibration counter crashed at accept-ca.py:224 on an undefined git_bytes helper. The counter is NOT amended; leg R68FROZEN proves it is byte-identical to the sha256 its own receipt recorded, and this new counter measures the filed self-assessment instead"
+    },
+    {
+      "id": "D2",
+      "axis": "depth",
+      "type": "depth move on the lane's lowest owned axis (depth + coverage; depth last moved at round 62)",
+      "surface": "SKILL.md gains a `### Registry correction chains` decision table under `## Decision table`: the five chain states, each with its row shape, the writer's next action, a named error signature and an evidence pointer; the five signatures are also listed under `## Error patterns`",
+      "before": "SKILL.md carries no registry-correction-chain decision table at base 793f7974 (`grep -c '^### Registry correction chains' SKILL.md` -> 0); the settlement taxonomy exists only as code inside tools/check-supersession-settlement.py and as a round-68 claim, so a reader cannot act on it from SKILL.md alone",
+      "after": "reports/round-69/accept-d.py prints ACCEPT-D-69: PASS with every leg PASS at the measured revision (8 legs: STAMP, SECTION, TABLE, STATES, FIELDS, SIGNATURES, EVIDENCE, SOURCE)",
+      "predicate": "ACCEPT-D-69: every leg of reports/round-69/accept-d.py prints PASS",
+      "counting_command": "python3 -B reports/round-69/accept-d.py --root .",
+      "target": "8/8 legs PASS; the table has exactly 5 state rows, 5 non-empty cells each, 5 error signatures linked into `## Error patterns`, and cites at least one mined S-row whose used-by names SKILL.md",
+      "kill_rule": "any leg FAIL -> the claim fails as declared; the counter is not edited after data",
+      "do_nothing_control": "python3 -B reports/round-69/accept-d.py --selftest -> GREEN FIXTURE PASS and DO-NOTHING FIXTURE FAIL (as required); the base SKILL.md carries no such table, so SECTION fails there",
+      "sourced": "the table cites S859 (own-work, tier A), opened this round: the lane's own re-runnable settlement check, run and quoted in corpus/lessons/round-69.md `## Gate`"
+    }
+  ],
+  "calibration_pairs": [
+    {
+      "class": "LEGCOUNT",
+      "surface": "SCORECARD.md",
+      "path": "SCORECARD.md",
+      "section": "^## Axes — round 68"
+    },
+    {
+      "class": "LEGCOUNT",
+      "surface": "LOG.md",
+      "path": "LOG.md",
+      "section": "^## Round 68"
+    },
+    {
+      "class": "LEGCOUNT",
+      "surface": ".ufo/reports/round-68/kotodama.md",
+      "path": ".ufo/reports/round-68/kotodama.md",
+      "fleet": true
+    },
+    {
+      "class": "DEADPOINTER",
+      "surface": ".ufo/reports/round-68/kotodama.md",
+      "path": ".ufo/reports/round-68/kotodama.md",
+      "fleet": true
+    },
+    {
+      "class": "OVERREACH",
+      "surface": "SCORECARD.md",
+      "path": "SCORECARD.md",
+      "section": "^## Axes — round 68"
+    }
+  ],
+  "non_goals": [
+    "freshness stays paused under the open round-11 L0 ruling; no freshness claim",
+    "coverage is not claimed: round 68 already improved it (S833-S856 admitted) and that work is not repeated as a new claim",
+    "the optional S490 MUTABLE repair is available but not owed and is not claimed",
+    "item 10 stays closed: the wave-4 quarantine-first rule means this round adopts NOTHING from the shokuknow package"
+  ],
+  "wave": {
+    "shape": "one v1 wave, 32 seats, policy v1 (scripts/hyaku/ufo-wave-policy.json, band 32-64), >=25% attack roles",
+    "seat_gate": "scripts/hyaku/wave-slot.sh acquire kotodama r69-w1 32 immediately before the dispatch; release only after settlement"
+  },
+  "item10": {
+    "mode": "wave-4 quarantine-first; adoption CLOSED",
+    "register_slice_rows_derived_at_round_time": 21,
+    "id_collision_check": ".ufo/waves/round-69/assimilation/{reg-ids,staged-ids,collisions}",
+    "considerthese": "absent for this lane"
+  }
+}
