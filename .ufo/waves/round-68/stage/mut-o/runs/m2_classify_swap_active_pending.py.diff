@@ -1,0 +1,17 @@
+--- /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-supersession-settlement.py	2026-10-24 10:27:20.384742307 -0300
++++ /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-68/stage/mut-o/m2_classify_swap_active_pending.py	2026-10-24 10:41:26.763562316 -0300
+@@ -125,12 +125,12 @@
+         elif s_st == "rejected":
+             cls = "settled-retired"
+         elif s_st == "mined" and s_used and t_st == "queued":
+-            cls = "settled-active"
++            cls = "pending"
+         elif s_st == "mined" and s_used and t_st == "mined" and \
+                 SPLIT_RE.search(r["teaches"]):
+             cls = "settled-split"
+         else:
+-            cls = "pending"
++            cls = "settled-active"
+         chains.append({"s": rid, "t": t, "cls": cls,
+                        "s_status": s_st, "t_status": t_st,
+                        "same_url": bool(t_row) and r["url"] == t_row["url"],

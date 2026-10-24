@@ -1307,3 +1307,16 @@ Lands `c58eb84b` (claim C) / A_ca (claim Ca); records B; base `ad5b52b0`. Instru
 | depth | unchanged | — | — |
 | freshness | unchanged | — | — |
 | adjacency | unchanged | — | — |
+
+## Axes — round 68 (2026-10-24, hyaku run 6, L1 kotodama-r68 attempt 3 — resumed round)
+
+Round 68 claims: coverage (C) · operability (O) · calibration (Ca). Verdicts below are author-side; the non-author hyaku closure rules admission.
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C, sourced) | hair/grooming register 0 word-bounded filename owners at base `99fae308` → `corpus/knowledge/culture-material/hair-grooming-codes.md` (57 lines, 24 cited bullets) + 24 mined rows S833-S856; corpus 241 → 242, culture-material 34 → 35, registry 756 → 780 at A_c; ACCEPT-C-68 PASS 12/12 legs in a materialized clone at `44c9cc28` | `python3 -B reports/round-68/accept-c.py --root <clone@A_c> --lands 44c9cc2863fed952bb3a2b04149c2ac279338c3b` | `reports/round-68/telemetry/final-measures-c.txt`; `corpus/lessons/round-68.md` Gate |
+| operability | not verified as declared (claim O — FAILED on the frozen EXEC fixture; surface moved) | 34 pending supersedes chains at base → 0 at A_c; `tools/check-supersession-settlement.py` (selftest 7/7) + 82-row dedup ledger (0 findings) land; ACCEPT-O-68 9/10 legs PASS at A_c but EXEC FAIL is structurally unreachable — the frozen fixture never creates `corpus/knowledge/a.md`, so `missing_paths=1` at fixture lands in every recorded run (T0 dry-run, attempt-2 probe, A_c). Counter frozen post-data, not edited | `python3 -B reports/round-68/accept-o.py --root <clone@A_c> --lands 44c9cc2863fed952bb3a2b04149c2ac279338c3b --declaration cb2f8cafa76e84fa698fe5366f353968ba902047` | `reports/round-68/telemetry/final-measures-o.txt`; R68-M1 |
+| calibration | improved (claim Ca, records) | R67-D1: 26 frozen scratch paths (incl. 172 MiB fabric-c) deleted with telemetry; R67-D2: ledger ruling for every flagged/chain id, census W04 URL multiset stable at base 28, first-class rejects S857/S858 (both 403-verified); receipt-sequencing protocol re-proven (SEQ/FIXTURES legs; receipts stamped==evaluated in materialized clones) | `python3 -B reports/round-68/accept-ca.py --root <clone@A_ca> --lands <A_ca>` | `reports/round-68/telemetry/final-measures-ca.txt` (records-2); `sweep-d1.txt`; `census-end.txt` |
+| depth / freshness / adjacency | unchanged | no new derivations; freshness pause (round-11 L0) in force; adjacency: re-points stay inside the 7 frozen EDITABLE_ENTRIES + the new entry; connector duty folded into L1 verification (no sibling owns the hair register: word-bounded sweep at base; r66 connector prior art stands) | — | DIFFSET leg; lesson quarantine section |
+
+Round shape: one v2 wave 64 seats (dispatched attempt 1, single task call, policy v2, 37/64 attack roles: 23 reviewer + 11 critic + 3 mutation-tester; 15 scout + 6 scribe + 3 executor + 1 connector + 1 sentinel + 1 revenger; the L1 holds the canonical planner seat); ~50 seats dead to the provider rate wall, none replaced, wave not re-dispatched; residual verification as L1 work (no batched dispatch surface on the Kimi seat). Round total: 64 dispatched + L1 integration.

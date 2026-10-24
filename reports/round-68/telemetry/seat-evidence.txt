@@ -1,0 +1,33 @@
+# Round-68 wave seat evidence — L1 kotodama-r68 attempt 3, 2026-10-24
+# owner: the L1 (attempt 3); observation window: attempt-1 dispatch (2026-10-24 ~13:4Z, OMP task call) through attempt-3 close
+# counting command: ls .ufo/waves/round-68/w1/*.md | wc -l ; python3 -c "import json; print(len(json.load(open('.ufo/waves/round-68/taskcall-v2.json'))['tasks']))"
+
+Dispatched: ONE v2 wave, 64 seats, single task call by attempt 1 (payload committed at A_ca as
+.ufo/waves/round-68/taskcall-v2.json; spec-v2.json + gen-spec.py committed at T0 c1adbdf5).
+Validation: policy v2 (band 64-128), 64 seats, attack roles 37/64 (57.8% >= 25%):
+  reviewer 23, scout 15, critic 11, scribe 6, executor 3, mutation-tester 3, connector 1, sentinel 1, revenger 1.
+The L1 holds the canonical planner seat (orchestrator ruling 2026-10-19).
+
+Named seat outputs that returned (committed at A_ca):
+  w1/CriticPreO.md, w1/CriticSizing.md, w1/CriticAmendD2.md (resumed after a provider error, same identity),
+  w1/RevAuditA.md..RevAuditG.md (+ rows/RevAuditA-G/audit.md artifacts),
+  rows/AuditChain8/audit.md, w1/support1/verify.py (RevSourceSupport1, partial).
+Unattributed stage artifacts (producer identity not recorded by the scratch scripts):
+  stage/mut-o/ (counter probe + 6 mutants + runs), stage/mut-entry/ (9 entry mutants + results),
+  stage/settle-apply.py (settlement applier; producer presumably RevengerSettleModel/ExecCounterSmoke class).
+
+Dead seats: ~50 of 64 (the 2026-10-24 provider rate wall killed the wave mid-flight; attempt-1's OMP
+session is gone, no per-seat handle registry was retained and no last-error text survives — R68-M7).
+Dead seats stay dead: none replaced, wave not re-dispatched (operator stop -> resume directive).
+
+Residual verification (attempt 3): no batched dispatch surface exists on this Kimi subagent seat
+(no AgentSwarm/task tool; omp CLI v18 exposes only interactive sessions — per-seat CLI spawns would
+be serial evasion), so the residual checks ran as named L1 work (r65 precedent):
+  - 7/7 sampled new rows (S833,S836,S840,S844,S847,S853,S855) quote-verified live (telemetry/residual-reopens.txt)
+  - both reject URLs re-opened: HTTP 403 Cloudflare challenge (telemetry/residual-reopens.txt)
+  - counters re-run in materialized clones (final-measures-c/o.txt; -ca.txt at records-2)
+  - quarantine slice hand-checked (assimilation/quarantine-handcheck.json, -pdf-pass.json)
+
+Round total: 64 dispatched + L1 integration. Handle-level dispatch telemetry: could-not-recover
+(owner: attempt-3 L1; reason: attempt-1 session lost; the payload and returned artifacts are the
+durable evidence). No availability record was opened by this attempt, so no closing snapshot is owed.

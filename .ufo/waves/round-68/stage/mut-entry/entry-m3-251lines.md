@@ -1,0 +1,251 @@
+# Hair and grooming codes
+
+- topic: hair and grooming as a cross-cultural register of cutting, dressing, oiling, colouring and covering hair
+
+## Overview
+
+Hair is both a material and a claim about the person who wears it.
+
+## Claims
+
+- Source 1: quote833 alpha bravo charlie delta marks the register (S833).
+- Source 2: quote834 alpha bravo charlie delta marks the register (S834).
+- Source 3: quote835 alpha bravo charlie delta marks the register (S835).
+- Source 4: quote836 alpha bravo charlie delta marks the register (S836).
+- Source 5: quote837 alpha bravo charlie delta marks the register (S837).
+- Source 6: quote838 alpha bravo charlie delta marks the register (S838).
+- Source 7: quote839 alpha bravo charlie delta marks the register (S839).
+- Source 8: quote840 alpha bravo charlie delta marks the register (S840).
+- Source 9: quote841 alpha bravo charlie delta marks the register (S841).
+- Source 10: quote842 alpha bravo charlie delta marks the register (S842).
+- Source 11: quote843 alpha bravo charlie delta marks the register (S843).
+- Source 12: quote844 alpha bravo charlie delta marks the register (S844).
+- Source 13: quote845 alpha bravo charlie delta marks the register (S845).
+- Source 14: quote846 alpha bravo charlie delta marks the register (S846).
+- Source 15: quote847 alpha bravo charlie delta marks the register (S847).
+- Source 16: quote848 alpha bravo charlie delta marks the register (S848).
+- Source 17: quote849 alpha bravo charlie delta marks the register (S849).
+- Source 18: quote850 alpha bravo charlie delta marks the register (S850).
+- Source 19: quote851 alpha bravo charlie delta marks the register (S851).
+- Source 20: quote852 alpha bravo charlie delta marks the register (S852).
+- Source 21: quote853 alpha bravo charlie delta marks the register (S853).
+- Source 22: quote854 alpha bravo charlie delta marks the register (S854).
+- Source 23: quote855 alpha bravo charlie delta marks the register (S855).
+- Source 24: quote856 alpha bravo charlie delta marks the register (S856).
+
+- padding note 1
+- padding note 2
+- padding note 3
+- padding note 4
+- padding note 5
+- padding note 6
+- padding note 7
+- padding note 8
+- padding note 9
+- padding note 10
+- padding note 11
+- padding note 12
+- padding note 13
+- padding note 14
+- padding note 15
+- padding note 16
+- padding note 17
+- padding note 18
+- padding note 19
+- padding note 20
+- padding note 21
+- padding note 22
+- padding note 23
+- padding note 24
+- padding note 25
+- padding note 26
+- padding note 27
+- padding note 28
+- padding note 29
+- padding note 30
+- padding note 31
+- padding note 32
+- padding note 33
+- padding note 34
+- padding note 35
+- padding note 36
+- padding note 37
+- padding note 38
+- padding note 39
+- padding note 40
+- padding note 41
+- padding note 42
+- padding note 43
+- padding note 44
+- padding note 45
+- padding note 46
+- padding note 47
+- padding note 48
+- padding note 49
+- padding note 50
+- padding note 51
+- padding note 52
+- padding note 53
+- padding note 54
+- padding note 55
+- padding note 56
+- padding note 57
+- padding note 58
+- padding note 59
+- padding note 60
+- padding note 61
+- padding note 62
+- padding note 63
+- padding note 64
+- padding note 65
+- padding note 66
+- padding note 67
+- padding note 68
+- padding note 69
+- padding note 70
+- padding note 71
+- padding note 72
+- padding note 73
+- padding note 74
+- padding note 75
+- padding note 76
+- padding note 77
+- padding note 78
+- padding note 79
+- padding note 80
+- padding note 81
+- padding note 82
+- padding note 83
+- padding note 84
+- padding note 85
+- padding note 86
+- padding note 87
+- padding note 88
+- padding note 89
+- padding note 90
+- padding note 91
+- padding note 92
+- padding note 93
+- padding note 94
+- padding note 95
+- padding note 96
+- padding note 97
+- padding note 98
+- padding note 99
+- padding note 100
+- padding note 101
+- padding note 102
+- padding note 103
+- padding note 104
+- padding note 105
+- padding note 106
+- padding note 107
+- padding note 108
+- padding note 109
+- padding note 110
+- padding note 111
+- padding note 112
+- padding note 113
+- padding note 114
+- padding note 115
+- padding note 116
+- padding note 117
+- padding note 118
+- padding note 119
+- padding note 120
+- padding note 121
+- padding note 122
+- padding note 123
+- padding note 124
+- padding note 125
+- padding note 126
+- padding note 127
+- padding note 128
+- padding note 129
+- padding note 130
+- padding note 131
+- padding note 132
+- padding note 133
+- padding note 134
+- padding note 135
+- padding note 136
+- padding note 137
+- padding note 138
+- padding note 139
+- padding note 140
+- padding note 141
+- padding note 142
+- padding note 143
+- padding note 144
+- padding note 145
+- padding note 146
+- padding note 147
+- padding note 148
+- padding note 149
+- padding note 150
+- padding note 151
+- padding note 152
+- padding note 153
+- padding note 154
+- padding note 155
+- padding note 156
+- padding note 157
+- padding note 158
+- padding note 159
+- padding note 160
+- padding note 161
+- padding note 162
+- padding note 163
+- padding note 164
+- padding note 165
+- padding note 166
+- padding note 167
+- padding note 168
+- padding note 169
+- padding note 170
+- padding note 171
+- padding note 172
+- padding note 173
+- padding note 174
+- padding note 175
+- padding note 176
+- padding note 177
+- padding note 178
+- padding note 179
+- padding note 180
+- padding note 181
+- padding note 182
+- padding note 183
+- padding note 184
+- padding note 185
+- padding note 186
+- padding note 187
+- padding note 188
+- padding note 189
+- padding note 190
+- padding note 191
+- padding note 192
+- padding note 193
+- padding note 194
+- padding note 195
+- padding note 196
+- padding note 197
+- padding note 198
+- padding note 199
+- padding note 200
+- padding note 201
+- padding note 202
+- padding note 203
+- padding note 204
+- padding note 205
+- padding note 206
+- padding note 207
+- padding note 208
+- padding note 209
+- padding note 210
+- padding note 211
+- padding note 212
+- padding note 213
+- padding note 214
+- padding note 215
+- padding note 216

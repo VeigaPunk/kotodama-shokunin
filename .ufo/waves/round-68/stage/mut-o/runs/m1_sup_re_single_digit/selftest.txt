@@ -1,0 +1,23 @@
+# rc=1
+PENDING S002>S0 s=queued t=missing same_url=False used_by=0
+SETTLEMENT: pending=1 chains=1 usedby_paths=1 missing_paths=0
+PENDING S002>S0 s=mined t=missing same_url=False used_by=1
+SETTLEMENT: pending=1 chains=1 usedby_paths=1 missing_paths=0
+SETTLED-RETIRED S002>S0 s=rejected t=missing same_url=False used_by=0
+PENDING S003>S0 s=mined t=missing same_url=False used_by=1
+SETTLEMENT: pending=1 chains=2 usedby_paths=2 missing_paths=0
+PENDING S002>S0 s=mined t=missing same_url=False used_by=1
+SETTLEMENT: pending=1 chains=1 usedby_paths=2 missing_paths=0
+LEDGER: rows=1 findings=0
+LEDGER: rows=2 findings=2
+LEDGER-FINDING L1:S001:activate_but_status=queued
+LEDGER-FINDING L2:S999:not_in_registry
+SCAN_ERROR FileNotFoundError(2, 'No such file or directory')
+PASS pending-detected
+FAIL settled-active
+FAIL settled-retired-closed
+FAIL settled-split
+PASS ledger-clean
+PASS ledger-inconsistent-rejected
+PASS unreadable-exit-2
+SELFTEST: 4/7
