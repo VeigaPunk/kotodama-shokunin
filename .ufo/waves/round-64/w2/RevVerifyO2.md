@@ -8,37 +8,50 @@ telemetry receipts (§8).
 
 ## Verdict
 
-**Two different byte streams have carried the label "revision 4" in this wave.** The full 23-leg
-capture was run on both:
+**Three byte streams were captured in this wave, and the label moved only on the last one.** The full
+23-leg capture was run on all three:
 
 | Counter bytes (`sha256sum reports/round-64/accept-o.py`) | Full 23-leg capture | Frozen predicate |
 |---|---|---|
-| `6d9c9354f0d7a9535aba4e781541b04626dd3a91791175a7d5f845c559615fa1` (mtime 23:54:09) | **22 PASS, 1 FAIL — `MUT`**, exit=1, 426 s | **FAIL** |
-| `760ddd4d6d1c0ef1f2c4d0dbd6cd5ef286be1e3b8b2fc5cded2bd6258c08f5a7` (mtime 00:08:52, repaired in place while this seat was capturing) | **23/23 PASS**, `MUT PASS bad=[] mutants=10`, exit=0, 426 s | **PASS** |
+| `6d9c9354f0d7a9535aba4e781541b04626dd3a91791175a7d5f845c559615fa1` (rev4 label, mtime 23:54:09) | **22 PASS, 1 FAIL — `MUT`**, exit=1, 426 s | **FAIL** |
+| `760ddd4d6d1c0ef1f2c4d0dbd6cd5ef286be1e3b8b2fc5cded2bd6258c08f5a7` (rev4 label, repaired in place at 00:08:52) | **23/23 PASS**, `MUT PASS bad=[] mutants=10`, exit=0, 426 s | **PASS** |
+| `cdee063e39e1ecdb739519f76cd878e0108d0c5c3de8a6d8cd873830a5349dab` (**rev5 stamp**, mtime 00:18:26) | **23/23 PASS**, `MUT PASS bad=[] mutants=10`, exit=0, 426 s | **PASS** |
 
-Receipts: `telemetry/final-measures-o-rev4.txt` (FAIL, sha256 `fed0ded2…`, explicitly labelled
-falsification evidence) and `telemetry/final-measures-o-rev4-760ddd4d.txt` (PASS, sha256 `fd91552a…`).
-Both runs pinned the counter sha before and after: bytes did not move during either capture.
+Receipts: `telemetry/final-measures-o-rev4.txt` (red rev4, sha256 `fed0ded2…`, explicitly labelled
+falsification evidence), `telemetry/final-measures-o-rev4-760ddd4d.txt` (passing pre-stamp source,
+sha256 `fd91552a…`), and `telemetry/final-measures-o-rev5.txt` (canonical rev5 stamp, sha256
+`1cb15569…`). Every run pinned the counter sha before and after: bytes did not move during any
+capture.
+
+**Receipt-integrity warning:** claim O's declared land `telemetry/final-measures-o.txt` was left
+holding truncated mid-run fragments relabelled "FINAL, rev5" by repeated streaming captures (three
+samples: 822 B/7 legs, 2 251 B/22 legs, 838 B/7 legs; sha256 `947a0c5d…`, `7c120dfc…`, `0ef19df5…`)
+— see HIGH-5. Its second capture did complete at 00:44:32 (3 498 B, 33 lines, sha256 `8e5c7ade…`,
+23/23 legs PASS, `MUT PASS`, `ACCEPT-O-64: PASS`, `exit=0`, counter `cdee063e…`), so the path is
+currently a valid complete receipt; the process defect (writing streaming stdout under a "complete"
+header) remains and the L1 intends a verified re-run against the committed tip. The independent
+complete receipts are `final-measures-o-rev5.txt` and `final-measures-o-rev4*.txt`.
 
 The FAIL on `6d9c9354` had one cause: rev4's `m5` replacement was mis-indented, so the mutant did
 not compile and the new `EDGE_SCHEMEREL` isolation arm could not pass (§4, HIGH-1). The repair landed
 at 00:08:52 (`760ddd4d`): m5 rebuilt as `f04dc002…`, compiles, `EDGE_SCHEMEREL PASS` /
-`EDGE_SLASHLESS FAIL`, `MUT PASS`. **Against the bytes now on disk the frozen predicate holds.** The
-claim sentence "each fail exactly their pinned leg" remains unmeasured and is false for m1 and m2
-over the EDGE set (§4, HIGH-3).
+`EDGE_SLASHLESS FAIL`, `MUT PASS`; rev5 (`cdee063e`) stamps that history and passes identically.
+**Against the bytes now on disk (`cdee063e`) the frozen predicate holds.** The claim sentence "each
+fail exactly their pinned leg" remains unmeasured and is false for m1 and m2 over the EDGE set
+(§4, HIGH-3).
 
 The assignment's original checkpoints (all PASS, m5 killing only EDGE_SLASHLESS, PASS+exit=0) were
-not met by the first rev4 bytes; they are met by the repaired bytes except that "m5 killing only
+not met by the first rev4 bytes; they are met by both repaired streams except that "m5 killing only
 EDGE_SLASHLESS" is still only verified for m1/m2-style exclusivity by an out-of-band sweep, not by
-the counter (HIGH-3). Also note the counter's own label was **not** bumped: both streams say
-"revision 4" (HIGH-4).
+the counter (HIGH-3). The rev4 label covered two streams until rev5 documented both shas in its
+revision history (HIGH-4).
 
 ## 1. Measured identity
 
 ```
 $ /home/vgpnk/Projects/shokunin/scripts/hyaku/jj-lane.sh state /home/vgpnk/Projects/shokunin/kotodama-shokunin
 state branch=main local=097c21d0eba5023cfd38b767fb41d59409eef125 remote=097c21d0eba5023cfd38b767fb41d59409eef125 ahead=0 behind=0 head=detached tracked=8 untracked=35
-# jj @ at first run start: 8325191b10edff408283f4325d11efd504a29f07 ; at second run start: 38efc473fee159645110c98fcb656860d7c4853d ; parent of both: 097c21d0
+# jj @ at first run start: 8325191b10edff408283f4325d11efd504a29f07 ; second run: 38efc473fee159645110c98fcb656860d7c4853d ; third (rev5) run: 9e9dc0d86f4b8d610f1101a3d9b19b08f7d2cd6c ; parent of all: 097c21d0
 $ sha256sum tools/reopen-row.py
 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0  tools/reopen-row.py
 $ git show ff30a205c8d23b35f1ac533740121a955a9fda96:tools/reopen-row.py | sha256sum
@@ -73,15 +86,28 @@ Validation: **23 leg lines, order match, 23 PASS, 0 FAIL/SKIP**, `MUT PASS bad=[
 verdict `ACCEPT-O-64: PASS`, last line `exit=0`. m5's evidence on these bytes:
 `m5->EDGE_SCHEMEREL PASS …; EDGE_SLASHLESS FAIL … exit=1`.
 
-All 22 non-MUT leg detail lines are structurally identical between Capture A, Capture B and the w1
+## 3b. Capture C — `cdee063e…` (rev5 stamp): PASS
+
+`reports/round-64/telemetry/final-measures-o-rev5.txt` (32 lines, sha256
+`1cb15569a610acfe753083bba5392558500134cd4efa6f2989f44cbe1d9a17a1`), header names revision 5, the
+counter sha, tool sha, command, measured revision, window `03:20:12Z-03:27:18Z`, wall 426 s, and the
+exactness caveat. Validation: **23 leg lines, order match, 23 PASS, 0 FAIL/SKIP**, `MUT PASS bad=[]
+mutants=10`, verdict `ACCEPT-O-64: PASS`, last line `exit=0`. Counter sha unchanged before/after
+(`cdee063e…`); the rev5 revision history documents rev4's red sha `6d9c9354…` and the pre-stamp
+source `760ddd4d…`, and the m5 replacement literal plus the isolation arm are the same code as in
+Capture B (rev5 adds the revision history/docstring text and renumbers lines). This is the canonical
+passing receipt for the counter as stamped.
+
+All 22 non-MUT leg detail lines are structurally identical between Captures A, B, C and the w1
 rev3 receipt (`telemetry/final-measures-o.txt`) after normalising random S-ids, ephemeral ports and
 fixture paths — same attempt counts, hit counts, and the deterministic wall values (`DEFAULT` 150 s /
 bursts `[3,3,3]` / gaps `[60,60]`; `TIMEOUT` 6.0 s; `DRIP` 12.0 s / span 8.0 s). Only the ASCII
-labelling of `MUT` differs across the three runs (rev3 PASS, rev4-first FAIL, repaired PASS).
+labelling of `MUT` differs across the four runs (rev3 PASS, rev4-first FAIL, repaired PASS, rev5
+PASS).
 
 ## 4. Findings by severity
 
-### HIGH-1 — rev4's first `m5` replacement did not compile; MUT (and the predicate) was unpassable — **fixed in `760ddd4d`**
+### HIGH-1 — rev4's first `m5` replacement did not compile; MUT (and the predicate) was unpassable — **fixed in `760ddd4d`, stamped in rev5 `cdee063e`**
 
 `6d9c9354`'s `m5` replacement put a 12-space `if (` at `tools/reopen-row.py:604`, an 8-space block
 level; the builder applies `tool_text.replace(needle, repl, 1)` verbatim (`:1086-1091`). Rebuilt
@@ -96,7 +122,7 @@ isolation arm. My independent dedented variant (`804c9473…`) behaves identical
 (`RegFinalAudit`, `SupS719`, `SupS729`, `ResFixS737`, `SeparabilityRe`, `ReportFrag2`,
 `OReceiptFresh`, `kumitate-r51.ResonantOpossum`) confirmed both the defect and the fix read-only.
 
-### HIGH-2 — rev4's first docstring inverted the isolation contract — **fixed in `760ddd4d`**
+### HIGH-2 — rev4's first docstring inverted the isolation contract — **fixed in `760ddd4d`, stamped in rev5**
 
 `6d9c9354` said the paired run "requires the former to FAIL and the latter to PASS"
 (`:117-119`), the reverse of the code (`EDGE_SCHEMEREL PASS` at `:1115-1121`, pinned
@@ -131,14 +157,56 @@ mutants narrowed as m5 was), or reword the claim to "each fails its pinned leg" 
 `:113-114`. This is the one open claim-integrity item; it does **not** block the frozen predicate,
 which only requires every leg to PASS.
 
-### HIGH-4 — one revision label covers two byte streams (provenance/calibration)
+### HIGH-4 — one revision label covered two byte streams; rev5 documents them, cite receipts by sha
 
-"revision 4" was used for `6d9c9354` and again, unchanged, for `760ddd4d` after the in-place repair
-(docstring head still "revision 4"; no amendment line). A receipt citing "rev4" alone is therefore
-unfalsifiable: only the counter sha identifies the bytes. Both receipts here cite the sha in their
-headers and filenames, but the instrument should bump the label or add a stamped amendment naming
-`6d9c9354 → 760ddd4d` and the forcing receipts (this report, `m5-rev4.txt`, `CriticO`,
-`ReviewerCounterO2`). Same class as the Ca label drift reported by `CaReceipts`.
+The label "revision 4" was used for `6d9c9354` and again, unchanged, for `760ddd4d` after the
+in-place repair. A receipt citing "rev4" alone is therefore unfalsifiable: only the counter sha
+identifies the bytes. The rev5 stamp (`cdee063e`) resolves this for the record: its revision history
+names rev4's sha `6d9c9354…`, records that its m5 block did not compile, and names the pre-stamp
+source `760ddd4d…` plus the forcing receipts (this report, `m5-rev4.txt`, `CriticO`,
+`ReviewerCounterO2`). Residual rule for the round: cite receipts by measured sha, not by label; the
+three receipts here do so in both header and filename.
+
+### HIGH-5 — the canonical O receipt path was left holding truncated mid-run snapshots labelled "FINAL, rev5"
+
+`reports/round-64/telemetry/final-measures-o.txt` (claim O's declared land) was overwritten in the
+worktree at 00:31:47 (-0300): 2 251 B, 30 lines, sha256
+`7c120dfc050b3170eb680b39bfbed6849d7d0699d408b75010c8190f71a85e6e`; `git status` shows it as
+` M` against the committed rev3 receipt (`95c9194:…` blob sha256 `009bbde3…`, 3 847 B, 29 lines).
+Its own header reads `ACCEPT-O-64 evidence (FINAL, rev5)`, `measured revision: 95c9194…`,
+`command: python3 -B reports/round-64/accept-o.py --root .`, `date: 2026-10-24T00:28:55-03:00`, then
+`--- complete command output ---`. The output is **not complete**: it contains the 22 non-MUT legs
+(`TOOL`…`DRIP`, all PASS) and stops at `DRIP`'s line; **no `MUT` line, no `ACCEPT-O-64:` verdict, no
+`exit=` line**, and the file's last byte is `tb=False\n`. A full run takes 426 s and MUT alone ~255 s,
+so the file is a snapshot taken ~3 minutes into a ~7-minute run and then labelled final; the one leg
+missing is the leg that distinguishes rev5 from the red rev4 bytes. Preserved byte-identically in my
+scratch as `final-measures-o-FINAL-rev5-truncated.txt`.
+
+The same pattern repeated on further captures: at 00:28:56 a 7-leg / 822 B sample (sha256
+`947a0c5d…`, peer-observed by `LessonFinal`), and at 00:37:26 the canonical path held 838 B /
+15 lines,
+sha256 `0ef19df5a69418dc98059c6c3f9ea93816dceedec2c2944461339a41733e5cff`, header
+`ACCEPT-O-64 evidence (FINAL, rev5, second capture)`, 7 leg lines, no MUT/verdict/exit. The defect is
+structural: the capture writes streaming stdout straight to the declared land under a header that
+asserts `--- complete command output ---` from the first byte, so every reader and every `git add` in
+the following ~7 minutes sees a "FINAL" receipt that is truncated; the one leg that runs longest
+(`MUT`) is exactly the one missing. The L1 acknowledged and will not commit the worktree file as-is,
+re-running and verifying 23 legs + MUT + verdict + exit before committing. Recommended process: run
+to scratch, validate the 23-leg order plus `MUT` and the verdict/exit lines, then install atomically;
+never label streaming output complete.
+
+The two complete receipts survive under sibling names and are correct: the committed rev3 receipt is
+preserved as `telemetry/final-measures-o-rev3.txt` (sha256 `009bbde3…`, 29 lines, 23 legs, PASS/exit
+0), and the complete rev5 capture is `telemetry/final-measures-o-rev5.txt` (sha256 `1cb15569…`,
+23/23, PASS/exit 0). The parent's second capture did eventually complete at 00:44:32: the canonical
+path now holds 3 498 B / 33 lines, sha256
+`8e5c7ade6c8fc232345ddc44fb994d645c86bbf48e8989ba87e29f8d5b8c46b9`, header `… (FINAL, rev5, second
+capture)`, counter `cdee063e…`, 23 legs in claims order all PASS, `MUT PASS bad=[] mutants=10` with
+`m5->EDGE_SCHEMEREL PASS …; EDGE_SLASHLESS FAIL …`, `ACCEPT-O-64: PASS`, last line `exit=0` — I
+validated it after the write settled, and it is a valid complete receipt. The process defect stands
+regardless: for ~7 minutes the declared land held a prefix under a "complete command output" header,
+and the L1 intends a verified re-run against the committed tip before committing. (The C and Ca
+"FINAL" receipts carry their verdict lines; O is the anomalous one.)
 
 ### MEDIUM-1 — `--only` still hides the 13 core legs and a 1-leg partial run prints green
 
@@ -216,6 +284,7 @@ runs; `DRIP` PASS in both; `MUT` FAIL→PASS), so no comparison gap remains agai
 | `.ufo/waves/round-64/w2/RevVerifyO2.md` | this report | — |
 | `reports/round-64/telemetry/final-measures-o-rev4.txt` | Capture A (`6d9c9354…`, FAIL) — falsification evidence | `fed0ded28f1dc5a3…` |
 | `reports/round-64/telemetry/final-measures-o-rev4-760ddd4d.txt` | Capture B (repaired bytes, 23/23 PASS) | `fd91552a1d4c83d2…` |
+| `reports/round-64/telemetry/final-measures-o-rev5.txt` | Capture C (rev5 stamp `cdee063e…`, 23/23 PASS — canonical) | `1cb15569a610acfe…` |
 | `reports/round-64/telemetry/m5-rev4.txt` | m5 rebuild + compile + paired-leg evidence on `6d9c9354…` | `4e019f1ad484f13a…` |
 | `reports/round-64/telemetry/exactness-sweep-o.txt` | m1/m2 collateral-failure sweep (exclusivity evidence) | `429d568450e04e73…` |
 

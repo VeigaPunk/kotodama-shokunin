@@ -16,7 +16,7 @@ index was edited. No commit, no push.** Scratch only under
 
 1. **Near-final lesson produced in scratch:**
    `/home/vgpnk/.cache/hyaku/kotodama-r64-w2/LessonFinal/round-64.md` — 552 lines, 42 4xx bytes,
-   sha256 `377f728ec28eae017724a4fa54068c5e2cff3ed89f549f1e3e49bbd6269d5713` at the time of the final gate run. The full text is pasted at the end of this report.
+   sha256 `93b3a6f16966a2cc49fb93a80678bf9303da9af3c7196d25373d81e4a3a844ed` at the time of the final gate run. The full text is pasted at the end of this report.
 2. **Gate rebuilt from the final 32 `row.txt` artifacts**, one line per id S718-S749, each quote
    taken from that row's own anchor cell. The three disposition rows whose wording could not be
    located on the cited URL (S744, S745, S747) are annotated **NOT LOCATED** with their verbatim
@@ -105,6 +105,48 @@ base  →  CANONLOG/PTRS/HISTOGRAM/DISPO/REVNAMES/NITS/R63SEP all FAIL, exit 1
 fxA   →  NITS FAIL correction_record=False record_exact=False seat_reports_nit=False duplicate_url_nit=False fail_legs_nit=False   (bare tokens 47/27/9/W04, no correction)
 fxB   →  NITS FAIL correction_record=False record_exact=False seat_reports_nit=False duplicate_url_nit=False fail_legs_nit=False   (broad generic prose append)
 ```
+
+## L1 ACTION — the copied lesson is one revision behind my scratch
+
+`corpus/lessons/round-64.md` already exists in the lane at sha256
+`377f728ec28eae017724a4fa54068c5e2cff3ed89f549f1e3e49bbd6269d5713` — that is my
+near-final lesson as it stood when the GateFinal seat verified it, so the L1 has copied an
+earlier state. I did **not** edit that file (it is the L1's byte). My scratch has advanced to
+sha256 `e459e3ade185d97fc7e50693507f7e4db80106be7973cb87e980c662df39c900` and the copy must be
+refreshed before commit. The delta is 7 regions, and every change is one of:
+
+1. **Mistakes / M1** — wave-2 status changed from "still open" to "closed late, not early": all
+   three counters plus `claims.json` and `mutants/` are now tracked (`git ls-files
+   reports/round-64/`), committed at `main` = `HEAD` = `95c9194`.
+2. **Mistakes / M8** — the receipt-integrity recurrence is recorded with the stable numbers: the
+   canonical `telemetry/final-measures-o.txt` now holds a **2251-byte, 30-line, 20-leg** fragment
+   (TOOL through DRIP, MUT absent, no `ACCEPT-O-64:` line, no `exit=` line) while its own header
+   says "ACCEPT-O-64 evidence (FINAL, rev5)" and its separator says "--- complete command
+   output ---"; the committed version at that path is the complete rev3 receipt, so the worktree
+   overwrite replaces a complete receipt with a truncated one. (I first read this file mid-write as
+   an 822-byte 7-leg fragment; it settled at 20 legs and was stable across a 45 s re-read, so the
+   lesson carries the settled numbers.)
+3. **Mistakes / M17** — revision 5 resolves the label-identity item by binding both revision-4
+   streams in its history; the practice rule stands.
+4. **Mistakes / M19** — wave-2 closure: after the land commit the NOHARM premise held and the
+   filed C receipt is PASS.
+5. **Census and counts** — the TBD block is replaced with measured receipts, because they now
+   exist: `census-end.txt` (29 lines, `census exit=0`, 27 W04 / **0 W03**), and the three
+   acceptance receipts `final-measures-c.txt` (PASS, exit 0, counter `979050ce…`),
+   `final-measures-ca.txt` (PASS, exit 0, counter `d0787979…`),
+   `final-measures-o-rev5.txt` (PASS, exit 0, counter `cdee063e…`) — each naming measured
+   revision `95c9194…`. The only TBD left is that those receipts are untracked pending the L1's
+   commit.
+6. **Counter observations** — `accept-o.py` is cited at its stamped revision 5
+   (`cdee063e…`) with `final-measures-o-rev5.txt` as the passing capture to cite (the
+   `760ddd4d…` capture and the red `rev4` capture are history), and `accept-c.py`'s run now reads
+   `NOHARM PASS diff=['corpus/knowledge/linguistics/language-socialization-and-acquisition.md']`
+   / `ACCEPT-C-64: PASS` / `exit=0`.
+
+Measured state at close, for the record: `accept-c.py` printed all 11 legs PASS,
+`ACCEPT-C-64: PASS`, exit 0 (`NOHARM PASS`, entry diff as expected); `accept-ca.py` printed all
+seven PASS, `ACCEPT-CA-64: PASS`, exit 0; `accept-o.py` rev5 printed 23/23 PASS, `ACCEPT-O-64:
+PASS`, exit 0.
 
 ## Findings (this seat's own measurements)
 
@@ -401,10 +443,15 @@ Note: live re-verification of the 29 rows whose evidence asserts `LOCATED` was
   scripts are absent from the declared commit), and
   `.ufo/waves/round-64/w1/RevengerCounter.md` §0 (`git ls-tree HEAD
   reports/round-64/` holds accept-c rev0, accept-ca rev0 and claims.json but no
-  accept-o.py at all). Wave-2 status: **still open.** All three counters remain
-  uncommitted working-copy bytes (`accept-o.py` is still untracked; the others
-  are unstaged modifications), and the wave-2 revisions were made in the same
-  uncommitted state (`.ufo/waves/round-64/w2/RevCounters.md`). Captured by:
+  accept-o.py at all). Wave-2 status: **closed late, not early.** All three
+  counters plus `claims.json` and `mutants/` are now tracked in git
+  (`git ls-files reports/round-64/` lists `accept-c.py`, `accept-ca.py`,
+  `accept-o.py`, `claims.json`, `mutants/m1.py` …), committed in the
+  instruments/land commits at `main` = `HEAD` = `95c9194`; but every wave-2
+  revision was authored and measured while they were still uncommitted working
+  copies (`.ufo/waves/round-64/w2/RevCounters.md`, and the byte streams that
+  R64-M17 and R64-M18 record), so the defeat happened exactly as this row
+  warns. Captured by:
   QUALITY criterion 9 (dry runs checked both ways, receipt committed with the
   declaration). Fix: commit the frozen counters and their pre-dispatch receipts
   with the declaration, then dispatch; a wave must never start against counters
@@ -511,10 +558,38 @@ Note: live re-verification of the 29 rows whose evidence asserts `LOCATED` was
   honest revision stamps in their docstrings (C revision 3, Ca revision 2, O
   revision 4). The counters themselves are still uncommitted (R64-M1), and the
   receipts on disk still bind revision-3 bytes, not the revision-4 bytes now in
-  the worktree. Fix (standing): a receipt carries the measured revision and the
-  counter's sha256 (the round-61 convention), and the counter's header states
-  the revision its body implements; a partial run must never be left at the
-  receipt path.
+  the worktree. **Wave-2 recurrence, observed at close:** after the stamped
+  revision-5 receipt was filed at
+  `reports/round-64/telemetry/final-measures-o-rev5.txt`, the canonical path
+  `reports/round-64/telemetry/final-measures-o.txt` is being written
+  incrementally by captures that stop part-way, so at any sample it holds a
+  **prefix** of a 23-leg run while its own header reads "ACCEPT-O-64 evidence
+  (FINAL, rev5)" and its separator reads "--- complete command output ---".
+  Three samples, each stable across a re-read 25-50 s later:
+  `947a0c5d…` / 822 B / 7 legs (00:28:56), `7c120dfc…` / 2251 B / 30 lines /
+  **22 legs, TOOL through DRIP with MUT absent** (00:31:47 — this is the count
+  the RevVerifyO2 seat measured and the one to quote; my first grep undercounted
+  it at 20), and `0ef19df5…` / 838 B / 7 legs (00:37:26). None carries a
+  `ACCEPT-O-64:` verdict line or a process `exit=` line, and the absent leg is
+  precisely MUT — the one that separates rev5 from the red rev4 bytes. The
+  header's own date (00:28:55) against a 426 s run shows the 22-leg sample is a
+  ~3-minute snapshot of a ~7-minute run labelled final. Worse, the *committed*
+  version of that path (`git show HEAD:…`, 29 lines, 3847 B, blob
+  `009bbde3…`) is the complete rev3 receipt ending `ACCEPT-O-64: PASS` /
+  `exit=0`, so a commit of the current worktree would replace a complete
+  receipt with a truncated one. This is the same class as the 22:49 fragment
+  that opened the round, now with an explicit completeness claim attached,
+  which is worse: a reader who trusts the label reads a 22-leg prefix as a
+  23-leg pass. Complete captures survive as siblings —
+  `final-measures-o-rev3.txt` (`009bbde3…`) and `final-measures-o-rev5.txt`
+  (`1cb15569…`, 23/23 PASS, `MUT PASS bad=[]`, exit 0). Fix: stream a capture
+  to a temporary path and move it into place only on completion, so a canonical
+  receipt path never holds a prefix; and never label a prefix "FINAL" or
+  "complete". Fix (standing): a receipt
+  carries the measured revision and the counter's sha256 (the round-61
+  convention), and the counter's header states the revision its body
+  implements; a partial run must never be left at the receipt path, and a
+  partial must never be labelled "FINAL" or "complete".
 - R64-M9 (class: claim text overstates what the counter measures). O declares
   that each of the ten mutants fails **exactly** its pinned leg, but the MUT leg
   launches each mutant with `--only` its pins, so a failure set equal to the
@@ -683,9 +758,14 @@ Note: live re-verification of the 29 rows whose evidence asserts `LOCATED` was
   sha `760ddd4d…` (repaired — 23/23 PASS). Two receipts therefore carry the
   same label "revision 4", one green and one red. The green receipt's own
   header says so explicitly ("NOTE ON LABEL … cite this file by the counter
-  sha above, not by the label"). The lesson records the same discipline: a
-  revision label is a name, the counter's sha256 is the identity, and a
-  receipt must be cited by the bytes it measured.
+  sha above, not by the label"). The stamped revision 5 resolves the label
+  item by binding it in history: its revision notes name both revision-4
+  streams by sha (the failing `6d9c9354…` and the passing pre-stamp
+  `760ddd4d…`) and its own sha is
+  `cdee063e39e1ecdb739519f76cd878e0108d0c5c3de8a6d8cd873830a5349dab`. The
+  lesson records the same discipline anyway, because resolution by a later
+  stamp is retroactive: a revision label is a name, the counter's sha256 is
+  the identity, and a receipt must be cited by the bytes it measured.
 - R64-M18 (class: revision landed but its own instrument is broken). The O
   counter's revision 4 (m5 narrowed to nonempty relative paths only; unknown
   `--only` selectors exit 2) landed in the worktree, and the selector half
@@ -753,7 +833,11 @@ Note: live re-verification of the 29 rows whose evidence asserts `LOCATED` was
   `ACCEPT-C-64: FAIL`, exit 1, with NOHARM the single failing leg
   (`NOHARM FAIL diff=[]`). Evidence: the run's own output at assembly time,
   and `git rev-parse main` = `097c21d0eba5023cfd38b767fb41d59409eef125` =
-  the declaration commit. Captured by: the NOHARM leg itself. Fix: commit the
+  the declaration commit. **Wave-2 closure:** after the land was committed
+  (`95c9194`, `main` = `HEAD`), the leg's premise held and the filed C receipt
+  `telemetry/final-measures-c.txt` records `ACCEPT-C-64: PASS`, `exit=0`. The
+  row stands as the rule, not as an open defect. Captured by: the NOHARM leg
+  itself. Fix: commit the
   land before scoring the counter, and record in the lesson that a working
   tree land cannot satisfy a diff-based leg; this is the same class as R64-M1
   (counters and lands must exist as committed bytes before a wave's evidence
@@ -761,12 +845,25 @@ Note: live re-verification of the 29 rows whose evidence asserts `LOCATED` was
 
 ## Census and counts
 
-Census receipts on disk at assembly time: `reports/round-64/telemetry/census-start.txt`
+Census receipts on disk: `reports/round-64/telemetry/census-start.txt`
 (29 lines) and `reports/round-64/telemetry/census-wave1.txt` (31 lines: the 29
 census lines plus two `#` header lines carrying the command and exit code 0).
 Content of both: 27 W04 duplicate-URL rows, 1 W03 row (`S687` mined but
-unused), 0 W01, 0 W02, 0 E-codes; lane line `kotodama ok`. A **census-end
-receipt does not exist yet** — TBD.
+unused), 0 W01, 0 W02, 0 E-codes; lane line `kotodama ok`.
+**The end census now exists:** `reports/round-64/telemetry/census-end.txt`
+(29 lines) — 27 W04 rows, **0 W03** (the `S687` warning is gone because the
+flip to `queued` landed), 0 W01, 0 W02, 0 E-codes, lane line
+`kotodama ok`, final line `census exit=0`.
+**The three acceptance receipts now exist as well**, each naming measured
+revision `95c9194ef938e1338b2af894086a46e8b8677ee2` and its counter's sha256:
+`telemetry/final-measures-c.txt` (`ACCEPT-C-64: PASS`, `exit=0`, counter
+`979050ce…`), `telemetry/final-measures-ca.txt` (`ACCEPT-CA-64: PASS`,
+`exit=0`, counter `d0787979…`), and `telemetry/final-measures-o-rev5.txt`
+(`ACCEPT-O-64: PASS`, `exit=0`, counter `cdee063e…`). `telemetry/controls-c.txt`
+holds the C negative control (`ACCEPT-C-64: FAIL`, `exit=1`). All three
+counters are now tracked in git (`git ls-files reports/round-64/` lists
+`accept-c.py`, `accept-ca.py`, `accept-o.py` and `claims.json`), and
+`main` = `HEAD` = `95c9194`, the claim-C land commit.
 
 Registry `corpus/SOURCES.md` as measured at assembly time: **675 rows**, 0
 malformed rows, tiers **A=421 B=244 C=10**, statuses **mined=592 queued=61
@@ -785,12 +882,27 @@ knowledge entries, of which **30** are linguistics. The wave-2 frontier audit
 measured 0 filename owners and 0 topic-line owners of the topic before the
 land (`.ufo/waves/round-64/w2/FrontierAudit.md`).
 
-TBD — to be filled by L1 from committed evidence:
+Counts and receipts, with what binds each one:
 
-- census receipts: TBD (the end census, with the exit code; no end-census file
-  exists yet)
-- ACCEPT-C-64, ACCEPT-O-64, ACCEPT-CA-64 results: TBD
-- measured revisions of the three counters and of every receipt: TBD
+- census: start 29 lines, end 29 lines (`census exit=0`), both 27 W04 / 0 W03 /
+  0 W01 / 0 W02 / 0 E-codes; the end census's `S687` W03 clearing is the
+  measured proof that the status flip landed.
+- ACCEPT-C-64 PASS, exit 0 (`final-measures-c.txt`, counter `979050ce…`);
+  ACCEPT-CA-64 PASS, exit 0 (`final-measures-ca.txt`, counter `d0787979…`);
+  ACCEPT-O-64 PASS, exit 0 (`final-measures-o-rev5.txt`, counter `cdee063e…`).
+  All three name measured revision `95c9194…`; all three receipts are
+  untracked at assembly time and are the L1's to commit.
+- measured revisions: `95c9194…` (all three acceptance receipts and the census
+  end), with the counters' sha256 as the byte identity
+  (`979050ce…` C, `d0787979…` Ca, `cdee063e…` O) and the tool at `c0f10a84…`.
+- entry bytes and README row: 81 lines / 7686 bytes; the README row carries
+  the topic verbatim and the frontier bullet is written.
+
+TBD — remaining, and only these:
+
+- the census-end and acceptance receipts are untracked in the lane at assembly
+  time, so their measured revision is a working-tree value until the L1 commits
+  them alongside the lesson.
 
 Working-tree observations at assembly time, recorded as observations and not as
 acceptance results:
@@ -828,37 +940,39 @@ acceptance results:
   defect of the delivered file. The earlier byte set
   `7319ff4b9c7eb2cd23f866eb4db62d469a539b8dd99b8326fb6bae8f1cb0d4c5` showed
   the same control outcome.)
-- `reports/round-64/accept-o.py` — the counter bytes moved twice during this
-  assembly, both times inside revision 4. On sha `6d9c9354…` the full 23-leg
-  run printed 22 PASS legs and **MUT FAIL** (`bad=["m5:EDGE_SCHEMEREL
-  isolation=…"]`), so the verdict was `ACCEPT-O-64: FAIL`, exit 1 — the
-  revision-4 m5 mutant was not valid Python (R64-M18); that falsification
-  capture is filed at `reports/round-64/telemetry/final-measures-o-rev4.txt`
-  (4203 B; header names the counter sha `6d9c9354…`, the tool sha
-  `c0f10a84…`, the measured revision and the run window, and labels itself
-  "pre-data falsification evidence, NOT an acceptance receipt"). The current
-  bytes are sha `760ddd4d6d1c0ef1f2c4d0dbd6cd5ef286be1e3b8b2fc5cded2bd6258c08f5a7`
-  (docstring "revision 4"), whose m5 replacement is dedented and whose
-  rebuilt mutant compiles (sha `f04dc002…`); `--only NOSUCHLEG` on this
-  revision exits 2 with `ACCEPT_O_INPUT_ERROR`. **The all-legs 23-leg
-  acceptance measurement on these bytes exists**:
-  `reports/round-64/telemetry/final-measures-o-rev4-760ddd4d.txt` (sha256
-  `fd91552a1d4c83d298fe75a94f8d85dd278f9ae447b40fdc7547564750780f0c`) records
-  23/23 legs PASS, `MUT PASS bad=[] mutants=10`, `ACCEPT-O-64: PASS`, exit 0,
-  with a header naming the counter sha `760ddd4d…` (unchanged before and after
-  the run), the tool sha `c0f10a84…`, the measured revision, the run window
-  and — explicitly — the note that the docstring label is still "revision 4"
-  although the earlier revision-4-label bytes failed; the receipt must be
-  cited by the counter sha, not by the label. Two caveats travel with that
-  receipt: it is a working-tree measurement against uncommitted counter bytes,
-  and its own scope caveat states that MUT verifies each mutant FAILs its
-  pinned leg but not exclusivity (R64-M9, R64-M17).
-  `reports/round-64/telemetry/final-measures-o.txt` (3847 B) remains the
-  complete **revision-3** receipt: 23 legs in declared order, all PASS, the
-  full ten-mutant kill list, `ACCEPT-O-64: PASS`, `exit=0`, header naming
-  measured revision `b7d22703…`, counter sha `c27a9fef…`, tool sha
-  `c0f10a84…`. It is evidence for revision 3 only and must not be cited as a
-  revision-4 measurement.
+- `reports/round-64/accept-o.py` — the counter bytes moved three times during
+  this assembly. On the first revision-4 stream (sha `6d9c9354…`) the full
+  23-leg run printed 22 PASS legs and **MUT FAIL** (`bad=["m5:EDGE_SCHEMEREL
+  isolation=…"]`), verdict `ACCEPT-O-64: FAIL`, exit 1 — the m5 mutant was not
+  valid Python (R64-M18); that falsification capture is
+  `reports/round-64/telemetry/final-measures-o-rev4.txt`. On the second
+  revision-4 stream (sha `760ddd4d…`, m5 dedented) the all-legs run printed
+  23/23 PASS, `MUT PASS bad=[] mutants=10`, `ACCEPT-O-64: PASS`, exit 0
+  (`reports/round-64/telemetry/final-measures-o-rev4-760ddd4d.txt`), and its
+  header warns that it shares the label "revision 4" with the failing stream.
+  The **stamped** bytes are now sha
+  `cdee063e39e1ecdb739519f76cd878e0108d0c5c3de8a6d8cd873830a5349dab`
+  (docstring "revision 5"), whose revision history records both revision-4
+  streams by sha and therefore binds the label to its history. The stamped
+  all-legs capture is
+  `reports/round-64/telemetry/final-measures-o-rev5.txt` (4843 B, 32 lines,
+  sha256 `1cb15569a610acfe753083bba5392558500134cd4efa6f2989f44cbe1d9a17a1`):
+  23/23 legs PASS, `MUT PASS bad=[] mutants=10`, `ACCEPT-O-64: PASS`,
+  `exit=0`, header naming the counter sha `cdee063e…` unchanged before and
+  after the run, the tool sha `c0f10a84…`, the measured revision and the run
+  window. **That receipt, not the `760ddd4d` one, is the passing capture to
+  cite**, because it measures the stamped bytes; the `760ddd4d` capture and
+  the red `rev4` capture remain its history.
+  Its own scope caveat states that MUT verifies each mutant FAILs its pinned
+  leg but not exclusivity (R64-M9). Note also that the canonical path
+  `reports/round-64/telemetry/final-measures-o.txt` now holds a prefix of a
+  23-leg run — sampled at 7 legs, then 22 legs (TOOL through DRIP, MUT absent),
+  then 7 legs again, each sample stable across a re-read, none carrying a
+  verdict or process exit — while its own header calls itself "ACCEPT-O-64
+  evidence (FINAL, rev5)" and its separator line says "complete command
+  output"; the R64-M8/R64-M17 class recurring at the canonical path, and this
+  time overwriting the committed complete rev3 receipt (recorded under R64-M8
+  below); the complete capture is the `-rev5` file, not this one.
 
 
 Report: .ufo/waves/round-64/w2/LessonFinal.md
