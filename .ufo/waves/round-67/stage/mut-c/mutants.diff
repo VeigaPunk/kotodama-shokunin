@@ -1,0 +1,66 @@
+--- a/reports/round-67/accept-c.py
++++ b/m1_oneid_ge1.py
+@@ -282,7 +282,7 @@
+     cited = re.findall(r"\((S\d{3,})\)", text)
+     for sid in NEW_IDS:
+         count = cited.count(sid)
+-        if count != 1:
++        if count < 1:
+             oneid_bad.append(f"{sid}:citations={count}")
+     foreign = sorted({s for s in cited if s not in NEW_IDS})
+     for sid in foreign:
+--- a/reports/round-67/accept-c.py
++++ b/m2_restate_inq_lt2.py
+@@ -311,7 +311,7 @@
+         inq = ordered_hits(qw, bw)
+         cov = in_order_coverage(tw, bw)
+         novel = [w for w in bw if w not in tw]
+-        if inq < 3 or cov >= 0.8 or not novel:
++        if inq < 2 or cov >= 0.8 or not novel:
+             restate_bad.append(f"{sid}:quote_words={inq} teaches_cov={cov:.2f} novel={len(novel)}")
+         if len(tw) < 4:
+             restate_bad.append(f"{sid}:teaches_thin")
+--- a/reports/round-67/accept-c.py
++++ b/m3_append_unbounded.py
+@@ -369,7 +369,7 @@
+                 and oc[:7] == nc[:7] and oc[8] == nc[8]:
+             continue  # status/recheck/used-by cell flips allowed
+         mutable_bad.append(sid)
+-    append_ok = not missing_old and not extra_ids and not mutable_bad
++    append_ok = not missing_old and not mutable_bad
+     leg("APPEND", append_ok,
+         f"missing_old={missing_old} appended={len(appended_ids)} "
+         f"extra={extra_ids[:6]} immutable_violations={mutable_bad[:6]}")
+--- a/reports/round-67/accept-c.py
++++ b/m4_capture_skipped.py
+@@ -414,7 +414,7 @@
+                           "", cap_m.group(0))
+         if norm_url_q(cap_orig) != norm_url_q(live):
+             cap_bad.append(f"{sid}:capture_target_mismatch")
+-    leg("CAPTURE", not cap_bad, f"bad={cap_bad[:8]}")
++    leg("CAPTURE", True, f"bad={cap_bad[:8]}")
+ 
+     # ---------- TOPIC ----------
+     topic_ok = False
+--- a/reports/round-67/accept-c.py
++++ b/m5_stamp_equal_dropped.py
+@@ -198,7 +198,7 @@
+     # evaluated == stamped: a stale clone or a worktree moved past lands fails
+     # here; nothing downstream can rescue a moved evaluation.
+     stamp_ok = bool(re.fullmatch(r"[0-9a-f]{40}", mv_rev)) \
+-        and mv_rev == lands and bool(re.fullmatch(r"[0-9a-f]{40}", tree_rev))
++        and bool(re.fullmatch(r"[0-9a-f]{40}", tree_rev))
+     leg("STAMP", stamp_ok,
+         f"stamped={lands[:8]} evaluated={mv_rev[:8]} "
+         f"equal={mv_rev == lands} tree={tree_rev[:8]} "
+--- a/reports/round-67/accept-c.py
++++ b/m6_rows_tier_c.py
+@@ -262,7 +262,7 @@
+                 continue
+             if c[2] not in KINDS:
+                 row_bad.append(f"{sid}:kind={c[2]!r}")
+-            if c[3] not in ("A", "B"):
++            if c[3] not in ("A", "B", "C"):
+                 row_bad.append(f"{sid}:tier={c[3]!r}")
+             if c[7] != "mined":
+                 row_bad.append(f"{sid}:status={c[7]!r}")

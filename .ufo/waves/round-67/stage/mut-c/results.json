@@ -1,0 +1,164 @@
+{
+ "fixture": "1453811c9e65443820852e1ceb4f1379d2d1736d",
+ "pristine_sha": "3e5f1a5883c52ee41ce6c61aa536bc289d9b23abe5bafa48fcf744b5efaa97a5",
+ "mutants": [
+  {
+   "file": "m1_oneid_ge1.py",
+   "leg": "ONEID",
+   "from": "count != 1",
+   "to": "count < 1",
+   "desc": "one citation required -> at least one",
+   "sha": "a3f57c23429f0cda579a852321508f1dc7977f6a34b4245b2d8e825decedf58f"
+  },
+  {
+   "file": "m2_restate_inq_lt2.py",
+   "leg": "RESTATE",
+   "from": "if inq < 3 or cov >= 0.8",
+   "to": "if inq < 2 or cov >= 0.8",
+   "desc": "quote must be restated in >=3 words -> >=2",
+   "sha": "1906d956cbdacbb5d7870f445e00eac0d8ebf5dbd50c69414fd48b3667f32470"
+  },
+  {
+   "file": "m3_append_unbounded.py",
+   "leg": "APPEND",
+   "from": "not missing_old and not extra_ids and not mutable_bad",
+   "to": "not missing_old and not mutable_bad",
+   "desc": "appended ids bounded -> unbounded",
+   "sha": "ace35d44c8c6aaec466a184f46d05d921fd4db31d543f82f7e59afb4061a4362"
+  },
+  {
+   "file": "m4_capture_skipped.py",
+   "leg": "CAPTURE",
+   "from": "leg(\"CAPTURE\", not cap_bad",
+   "to": "leg(\"CAPTURE\", True",
+   "desc": "capture/target equality enforced -> skipped",
+   "sha": "06544038d74d7d161b565858a7904cb008396476b7475d133cd0232c3f738e16"
+  },
+  {
+   "file": "m5_stamp_equal_dropped.py",
+   "leg": "STAMP",
+   "from": "and mv_rev == lands and bool(",
+   "to": "and bool(",
+   "desc": "evaluated == stamped enforced -> equality dropped",
+   "sha": "75b6e5181c747d7d0541b1e4e34c06a8a48062662f7c9e474dd5644caa5291fc"
+  },
+  {
+   "file": "m6_rows_tier_c.py",
+   "leg": "ROWS",
+   "from": "if c[3] not in (\"A\", \"B\"):",
+   "to": "if c[3] not in (\"A\", \"B\", \"C\"):",
+   "desc": "tier A/B -> A/B/C (tier inflation)",
+   "sha": "d9cb8713df1477eaf6ea2e2e14a9f26f40bfcf5c2cd9b8eeb5a3e05eae46098a"
+  }
+ ],
+ "results": [
+  {
+   "defect": "d1_oneid_double_cite",
+   "mutant": "m1_oneid_ge1.py",
+   "leg": "ONEID",
+   "pristine_leg": "FAIL",
+   "mutant_leg": "PASS",
+   "pristine_verdict": "ACCEPT-C-67: FAIL",
+   "mutant_verdict": "ACCEPT-C-67: FAIL",
+   "legs_changed": [
+    "ONEID"
+   ],
+   "lands": "e54bea70378f314b8dd4f81c223ce1a5ec4364b0",
+   "verdict": "SURVIVED",
+   "pristine_stdout": "# counter sha256 (self): 3e5f1a5883c52ee41ce6c61aa536bc289d9b23abe5bafa48fcf744b5efaa97a5\n# stamped revision: e54bea70378f314b8dd4f81c223ce1a5ec4364b0\n# evaluated revision: e54bea70378f314b8dd4f81c223ce1a5ec4364b0\n# measured revision (lane main): e54bea70378f314b8dd4f81c223ce1a5ec4364b0\n# tree: e6a51092d30d19de7bee02e5d58b3bf69a63cb39\n# worktree dirty (tracked): False\nSTAMP PASS stamped=e54bea70 evaluated=e54bea70 equal=True tree=e6a51092 dirty_tracked=False\nFILE PASS exists lines=37 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID FAIL bad=['S805:citations=2']\nRESTATE FAIL bad=['S805:bullets=2']\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: FAIL\n",
+   "mutant_stdout": "# counter sha256 (self): a3f57c23429f0cda579a852321508f1dc7977f6a34b4245b2d8e825decedf58f\n# stamped revision: e54bea70378f314b8dd4f81c223ce1a5ec4364b0\n# evaluated revision: e54bea70378f314b8dd4f81c223ce1a5ec4364b0\n# measured revision (lane main): e54bea70378f314b8dd4f81c223ce1a5ec4364b0\n# tree: e6a51092d30d19de7bee02e5d58b3bf69a63cb39\n# worktree dirty (tracked): False\nSTAMP PASS stamped=e54bea70 evaluated=e54bea70 equal=True tree=e6a51092 dirty_tracked=False\nFILE PASS exists lines=37 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE FAIL bad=['S805:bullets=2']\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: FAIL\n"
+  },
+  {
+   "defect": "d2_restate_two_words",
+   "mutant": "m2_restate_inq_lt2.py",
+   "leg": "RESTATE",
+   "pristine_leg": "FAIL",
+   "mutant_leg": "PASS",
+   "pristine_verdict": "ACCEPT-C-67: FAIL",
+   "mutant_verdict": "ACCEPT-C-67: PASS",
+   "legs_changed": [
+    "RESTATE"
+   ],
+   "lands": "fca5ca6005981bda3ad4873d69cb3461977707a0",
+   "verdict": "SURVIVED",
+   "pristine_stdout": "# counter sha256 (self): 3e5f1a5883c52ee41ce6c61aa536bc289d9b23abe5bafa48fcf744b5efaa97a5\n# stamped revision: fca5ca6005981bda3ad4873d69cb3461977707a0\n# evaluated revision: fca5ca6005981bda3ad4873d69cb3461977707a0\n# measured revision (lane main): fca5ca6005981bda3ad4873d69cb3461977707a0\n# tree: 4ec160612b53dbc59324b21c736aa56d860b8917\n# worktree dirty (tracked): False\nSTAMP PASS stamped=fca5ca60 evaluated=fca5ca60 equal=True tree=4ec16061 dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE FAIL bad=['S805:quote_words=2 teaches_cov=0.33 novel=5']\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: FAIL\n",
+   "mutant_stdout": "# counter sha256 (self): 1906d956cbdacbb5d7870f445e00eac0d8ebf5dbd50c69414fd48b3667f32470\n# stamped revision: fca5ca6005981bda3ad4873d69cb3461977707a0\n# evaluated revision: fca5ca6005981bda3ad4873d69cb3461977707a0\n# measured revision (lane main): fca5ca6005981bda3ad4873d69cb3461977707a0\n# tree: 4ec160612b53dbc59324b21c736aa56d860b8917\n# worktree dirty (tracked): False\nSTAMP PASS stamped=fca5ca60 evaluated=fca5ca60 equal=True tree=4ec16061 dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: PASS\n"
+  },
+  {
+   "defect": "d3_append_extra_row",
+   "mutant": "m3_append_unbounded.py",
+   "leg": "APPEND",
+   "pristine_leg": "FAIL",
+   "mutant_leg": "PASS",
+   "pristine_verdict": "ACCEPT-C-67: FAIL",
+   "mutant_verdict": "ACCEPT-C-67: PASS",
+   "legs_changed": [
+    "APPEND"
+   ],
+   "lands": "41a73c48388336a0b1ff9d0d8c960cfed65a055c",
+   "verdict": "SURVIVED",
+   "pristine_stdout": "# counter sha256 (self): 3e5f1a5883c52ee41ce6c61aa536bc289d9b23abe5bafa48fcf744b5efaa97a5\n# stamped revision: 41a73c48388336a0b1ff9d0d8c960cfed65a055c\n# evaluated revision: 41a73c48388336a0b1ff9d0d8c960cfed65a055c\n# measured revision (lane main): 41a73c48388336a0b1ff9d0d8c960cfed65a055c\n# tree: b37f8a88574a4855000e53f4a6e85a46a41a7063\n# worktree dirty (tracked): False\nSTAMP PASS stamped=41a73c48 evaluated=41a73c48 equal=True tree=b37f8a88 dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND FAIL missing_old=[] appended=25 extra=['S900'] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: FAIL\n",
+   "mutant_stdout": "# counter sha256 (self): ace35d44c8c6aaec466a184f46d05d921fd4db31d543f82f7e59afb4061a4362\n# stamped revision: 41a73c48388336a0b1ff9d0d8c960cfed65a055c\n# evaluated revision: 41a73c48388336a0b1ff9d0d8c960cfed65a055c\n# measured revision (lane main): 41a73c48388336a0b1ff9d0d8c960cfed65a055c\n# tree: b37f8a88574a4855000e53f4a6e85a46a41a7063\n# worktree dirty (tracked): False\nSTAMP PASS stamped=41a73c48 evaluated=41a73c48 equal=True tree=b37f8a88 dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=25 extra=['S900'] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: PASS\n"
+  },
+  {
+   "defect": "d4_capture_missing",
+   "mutant": "m4_capture_skipped.py",
+   "leg": "CAPTURE",
+   "pristine_leg": "FAIL",
+   "mutant_leg": "PASS",
+   "pristine_verdict": "ACCEPT-C-67: FAIL",
+   "mutant_verdict": "ACCEPT-C-67: PASS",
+   "legs_changed": [
+    "CAPTURE"
+   ],
+   "lands": "fab06e6f5c6e65a609fdefe8815c462753b17176",
+   "verdict": "SURVIVED",
+   "pristine_stdout": "# counter sha256 (self): 3e5f1a5883c52ee41ce6c61aa536bc289d9b23abe5bafa48fcf744b5efaa97a5\n# stamped revision: fab06e6f5c6e65a609fdefe8815c462753b17176\n# evaluated revision: fab06e6f5c6e65a609fdefe8815c462753b17176\n# measured revision (lane main): fab06e6f5c6e65a609fdefe8815c462753b17176\n# tree: 16a2407eb2ab0bf1eb8ea0c68697fde04832a6a9\n# worktree dirty (tracked): False\nSTAMP PASS stamped=fab06e6f evaluated=fab06e6f equal=True tree=16a2407e dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE FAIL bad=['S805:no_capture']\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: FAIL\n",
+   "mutant_stdout": "# counter sha256 (self): 06544038d74d7d161b565858a7904cb008396476b7475d133cd0232c3f738e16\n# stamped revision: fab06e6f5c6e65a609fdefe8815c462753b17176\n# evaluated revision: fab06e6f5c6e65a609fdefe8815c462753b17176\n# measured revision (lane main): fab06e6f5c6e65a609fdefe8815c462753b17176\n# tree: 16a2407eb2ab0bf1eb8ea0c68697fde04832a6a9\n# worktree dirty (tracked): False\nSTAMP PASS stamped=fab06e6f evaluated=fab06e6f equal=True tree=16a2407e dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=['S805:no_capture']\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: PASS\n"
+  },
+  {
+   "defect": "d5_moved_worktree",
+   "mutant": "m5_stamp_equal_dropped.py",
+   "leg": "STAMP",
+   "pristine_leg": "FAIL",
+   "mutant_leg": "PASS",
+   "pristine_verdict": "ACCEPT-C-67: FAIL",
+   "mutant_verdict": "ACCEPT-C-67: PASS",
+   "legs_changed": [
+    "APPEND",
+    "CAPTURE",
+    "FILE",
+    "HOSTS",
+    "LINK",
+    "NOHARM",
+    "ONEID",
+    "RESTATE",
+    "ROWS",
+    "SET",
+    "STAMP",
+    "SWEEP",
+    "TOPIC"
+   ],
+   "lands": "ad5b52b0ab5691358cd38718ab75649dc9916f9a",
+   "verdict": "SURVIVED",
+   "pristine_stdout": "# counter sha256 (self): 3e5f1a5883c52ee41ce6c61aa536bc289d9b23abe5bafa48fcf744b5efaa97a5\n# stamped revision: ad5b52b0ab5691358cd38718ab75649dc9916f9a\n# evaluated revision: 499815c10255dca7663a1b1606f5bbb373581b8a\n# measured revision (lane main): 499815c10255dca7663a1b1606f5bbb373581b8a\n# tree: de353b046be5e119c5203f0c5c82e92790c3e546\n# worktree dirty (tracked): False\nSTAMP FAIL stamped=ad5b52b0 evaluated=499815c1 equal=False tree=de353b04 dirty_tracked=False\nACCEPT-C-67: FAIL\n",
+   "mutant_stdout": "# counter sha256 (self): 75b6e5181c747d7d0541b1e4e34c06a8a48062662f7c9e474dd5644caa5291fc\n# stamped revision: ad5b52b0ab5691358cd38718ab75649dc9916f9a\n# evaluated revision: 499815c10255dca7663a1b1606f5bbb373581b8a\n# measured revision (lane main): 499815c10255dca7663a1b1606f5bbb373581b8a\n# tree: de353b046be5e119c5203f0c5c82e92790c3e546\n# worktree dirty (tracked): False\nSTAMP PASS stamped=ad5b52b0 evaluated=499815c1 equal=False tree=de353b04 dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: PASS\n"
+  },
+  {
+   "defect": "d6_tier_inflated",
+   "mutant": "m6_rows_tier_c.py",
+   "leg": "ROWS",
+   "pristine_leg": "FAIL",
+   "mutant_leg": "PASS",
+   "pristine_verdict": "ACCEPT-C-67: FAIL",
+   "mutant_verdict": "ACCEPT-C-67: PASS",
+   "legs_changed": [
+    "ROWS"
+   ],
+   "lands": "87842a312e32b1fdd99bc19de557a93cf722740a",
+   "verdict": "SURVIVED",
+   "pristine_stdout": "# counter sha256 (self): 3e5f1a5883c52ee41ce6c61aa536bc289d9b23abe5bafa48fcf744b5efaa97a5\n# stamped revision: 87842a312e32b1fdd99bc19de557a93cf722740a\n# evaluated revision: 87842a312e32b1fdd99bc19de557a93cf722740a\n# measured revision (lane main): 87842a312e32b1fdd99bc19de557a93cf722740a\n# tree: 0a7ee831ef125e6e74f066dff39dcd2d312d2048\n# worktree dirty (tracked): False\nSTAMP PASS stamped=87842a31 evaluated=87842a31 equal=True tree=0a7ee831 dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS FAIL bad=[\"S805:tier='C'\"] n=1\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: FAIL\n",
+   "mutant_stdout": "# counter sha256 (self): d9cb8713df1477eaf6ea2e2e14a9f26f40bfcf5c2cd9b8eeb5a3e05eae46098a\n# stamped revision: 87842a312e32b1fdd99bc19de557a93cf722740a\n# evaluated revision: 87842a312e32b1fdd99bc19de557a93cf722740a\n# measured revision (lane main): 87842a312e32b1fdd99bc19de557a93cf722740a\n# tree: 0a7ee831ef125e6e74f066dff39dcd2d312d2048\n# worktree dirty (tracked): False\nSTAMP PASS stamped=87842a31 evaluated=87842a31 equal=True tree=0a7ee831 dirty_tracked=False\nFILE PASS exists lines=35 h1=1 h2=2 h3=0 topic=True\nSET PASS missing=[] non-unique=[]\nROWS PASS bad=[] n=0\nONEID PASS bad=[]\nRESTATE PASS bad=[]\nHOSTS PASS hosts=24\nLINK PASS bad=[]\nAPPEND PASS missing_old=[] appended=24 extra=[] immutable_violations=[]\nNOHARM PASS diff=['corpus/knowledge/culture-material/medicine-healing-codes.md'] allowed=['corpus/knowledge/culture-material/medicine-healing-codes.md']\nSWEEP PASS exit=0 readme_sha256 6c4754bd826f42633efa9333d3a932cae23f667a5d231ffe6e5ad3a4556570fc\nCAPTURE PASS bad=[]\nTOPIC PASS entry topic text appears verbatim in the README row\nACCEPT-C-67: PASS\n"
+  }
+ ]
+}

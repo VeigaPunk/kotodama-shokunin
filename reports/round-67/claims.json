@@ -1,114 +1,115 @@
 {
- "round": 67,
- "lane": "kotodama",
- "base": "ad5b52b0ab5691358cd38718ab75649dc9916f9a",
- "declared": "2026-10-24",
- "separability_note": "Ca is a records claim whose legs read the round's own instruments and receipts (SEQ leg reads the C/O/Ca counter sources; dispositions read committed manifests and corpus files). Expected separability findings: Ca->C and Ca->O via counter reads (record-dependency class only: Ca asserts the counters' structure, never their measured outputs); Ca->REC via lands-time disposition legs over records committed in the lands commit. A complete run is filed at reports/round-67/telemetry/separability-real.txt via the bounded checker (round-66 O capability).",
- "receipt_protocol": "QUALITY criterion 19 / R66-D3 fix: every r67 counter requires --lands <40hex>; the receipt records the stamped revision (--lands), the evaluated revision (`git rev-parse main` of --root), the measured revision (same run), the lands tree hash and the counter's sha256; leg STAMP fails unless evaluated == stamped. Evaluations run inside a materialized clone at the lands commit (`git clone --no-local`), never on a worktree that may have moved past the stamp. Carrier-parentage is post-records evidence (check-receipt-seq.py --topo, committed as reports/round-67/telemetry/post-records.txt), never a lands-time leg. The declared command is run as `--root <clone> --lands <lands>`; the pre-landing dry run materializes the BASE revision and runs `--lands <base>`.",
- "claims": [
-  {
-   "id": "C",
-   "axis": "coverage",
-   "type": "learning claim (sourced)",
-   "statement": "The medicine / healing / physician / remedy register is unowned in corpus/knowledge at the base (0 filename owners under the word-bounded census: `git ls-tree -r --name-only ad5b52b0ab5691358cd38718ab75649dc9916f9a -- corpus/knowledge | grep -ciE '(^|[^a-z])(medicin|healing|physician|remedy|remedie|surgery|surgical|apothec|hospital|leech|physick|medicine|doctor|shaman|curander|herbal)([^a-z]|$)'` prints 0; topic-line keyword sweep finds only partial-scope mentions — bathing-and-body-hygiene, scent-perfume-aromatics prophylaxis, myth-symbol purity — not whole-register owners) -> one new culture-material entry corpus/knowledge/culture-material/medicine-healing-codes.md supported by exactly 24 registry rows S805-S828 opened this round (2026-10-24), each tier A or B, mined, used-by the entry, cited exactly once by it; corpus 240 -> 241 entries, culture-material 33 -> 34, registry 724 -> 752 rows (S805-S828 plus the declared disposition additions S801-S804 as rejected rows — 728 + 24).",
-   "predicate": "ACCEPT-C-67: every leg of reports/round-67/accept-c.py prints PASS.",
-   "command": "python3 -B reports/round-67/accept-c.py --root <clone> --lands <lands>",
-   "legs": [
-    "STAMP: git rev-parse main == --lands (evaluated == stamped; the receipt records both)",
-    "FILE: the entry exists, 1 H1, <=16 H2, 0 H3, <=250 lines, carries '- topic:'",
-    "SET: ids S805-S828 present exactly once each in the registry",
-    "ROWS: each new row has 11 cells, kind in enum, tier A or B, status mined, opened 2026-10-24, used-by names the entry",
-    "ONEID: each new id is cited exactly once by the entry",
-    "RESTATE: each entry bullet has >=3 in-order content words from its row's anchor quote, <80% in-order coverage of the teaches cell, >=1 novel content word",
-    "HOSTS: new rows span >=10 distinct normalized hosts",
-    "LINK: no new row's normalized live URL collides with any base row or another new row (query-aware)",
-    "APPEND: registry diff against base is append-only for old rows (additions bounded to S805-S828 + disposition ids S801-S804; the one declared in-place flip is S753's used-by cell)",
-    "NOHARM: `git diff --name-status BASE -- corpus/knowledge` shows only the new entry",
-    "SWEEP: reports/round-28/readme/sweep.py exits 0 (rows == files, 0 topic mismatches)",
-    "CAPTURE: each new row's source cell carries a same-page web.archive.org capture or an explicit no-capture reason",
-    "TOPIC: the entry's - topic: text appears verbatim as the corpus/README.md index row for it"
-   ],
-   "lands": [
-    "corpus/knowledge/culture-material/medicine-healing-codes.md",
-    "corpus/SOURCES.md",
-    "corpus/README.md",
-    "corpus/lessons/round-67.md",
-    "reports/round-67/accept-c.py"
-   ],
-   "exports": [],
-   "review_only": [
-    "blind per-row support of the 24 new sources",
-    "semantic register ownership beyond filename/topic-line census",
-    "lore handoff quality of the entry's handoff section"
-   ],
-   "statement_revision": "revision 0"
-  },
-  {
-   "id": "O",
-   "axis": "operability",
-   "type": "capability acquisition (receipt-sequencing checker)",
-   "statement": "The r65/r66 Ca rejections share one class: the frozen counter's committed verdict was FAIL at lands because its D2-class carrier leg could not see the receipts' own commit, while the same predicate re-derived HOLDS at tip (rounds[598], rounds[601] receipts; corpus/lessons/round-66-verifier-spotcheck.md item R66-D3 prescribes the fix). -> tools/check-receipt-seq.py lands: --lands evaluates receipts at the lands revision over committed bytes (git show, never a moved worktree, and reports moved_past), --topo grades carrier-parentage explicitly post-records, the default mode asserts stamped==evaluated==measured plus tree and counter-sha pins, and 14/14 selftest fixtures pin every failure class.",
-   "predicate": "ACCEPT-O-67: every leg of reports/round-67/accept-o.py prints PASS.",
-   "command": "python3 -B reports/round-67/accept-o.py --root <clone> --lands <lands>",
-   "legs": [
-    "STAMP: git rev-parse main == --lands",
-    "SELFTEST: `python3 -B tools/check-receipt-seq.py --selftest` exits 0 and prints 14/14",
-    "DIFF: `git diff BASE -- tools/check-receipt-seq.py` is non-empty (the tool actually landed)",
-    "OPTIONS: --help lists --lands, --topo, --selftest",
-    "LANDS: a fixture repo whose main moved past lands still evaluates the receipt at --lands (committed bytes), FAILs on the absent receipt, reports moved_past=True",
-    "TOPO: the healthy fixture (receipts carried by B, stamped A) exits 0; the wrong-parent fixture exits 1 with parent= named",
-    "HEADERS: missing stamped/evaluated/tree exits 1 naming missing_headers; stamped != evaluated exits 1 naming equal=False",
-    "MUT: the five committed byte-mutants under .ufo/waves/round-67/stage/mut-o/ each kill exactly their pinned selftest checks (mut1 equality_always_true -> moved-receipt-fail; mut2 parent_always_true -> topo-wrong-parent-fail; mut3 missing_headers_ok -> missing-headers-fail; mut4 no_carrier_pass -> topo-no-carrier-fail; mut5 tree_unchecked -> tree-mismatch-fail)",
-    "R66: the r66 receipts' carrier 4589ebdd has parent == their stamped 65fe8572 — the predicate the frozen D2 leg could not evaluate at lands time now runs green under --topo-equivalent derivation",
-    "FIXTURES: the harness builds >=2 temp git lanes and runs the tool via subprocess inside 240s"
-   ],
-   "lands": [
-    "tools/check-receipt-seq.py",
-    ".ufo/waves/round-67/stage/mut-o/",
-    "reports/round-67/accept-o.py"
-   ],
-   "exports": [],
-   "review_only": [
-    "whether lands/tree/sha pins cover every drift class beyond the five named mutants",
-    "adoption of the checker by sibling lanes (out of write scope)"
-   ],
-   "statement_revision": "revision 0"
-  },
-  {
-   "id": "Ca",
-   "axis": "calibration",
-   "type": "records claim (routed-defect dispositions R66-D1..D5 + sequencing protocol)",
-   "statement": "The round-66 verifier spot-check (corpus/lessons/round-66-verifier-spotcheck.md §5) routed five defects to this lane: R66-D1 wave evidence undurable (.ufo/waves/round-66/ entirely untracked, ~18.6k files incl. 63 seat reports), R66-D2 census exit 1 (E12 x23 rows under ## Leads not ## Registry; E11 S753 used-by '-' not '—'), R66-D3 the Ca receipt-sequencing defect (D2 leg unevaluable at lands), R66-D4 no LOG.md/SCORECARD round-66 entries, R66-D5 no first-class rejected registry rows (repeat of r65). -> each dispositioned: D1 a committed manifest dispositions the r66 wave tree (seat reports + spec + registry + row fragments + mutant sources tracked at lands; scratch clone trees named excluded with reasons), D2 S776/S779-S800 moved into ## Registry and S753's used-by flipped to '—', the validate census exits 0, D3 --lands/stamped/evaluated protocol lands across all three counters plus the check-receipt-seq tool, D4 LOG.md and SCORECARD.md carry round-66 entries, D5 S801-S804 land as first-class rejected rows plus >=2 round-67 gate rejects.",
-   "predicate": "ACCEPT-CA-67: every leg of reports/round-67/accept-ca.py prints PASS.",
-   "command": "python3 -B reports/round-67/accept-ca.py --root <clone> --lands <lands>",
-   "legs": [
-    "STAMP: git rev-parse main == --lands",
-    "D1: manifest parses; every INCLUDE path tracked at lands via `git cat-file -e`; >=8 seat reports; exclusions named",
-    "D2: sources-census.sh validate --file exits 0 on the lands tree's registry; R66_ROWS inside ## Registry; S753 used-by is '—'",
-    "D3: LOG.md carries a Round 66 heading + mentions; SCORECARD.md carries an Axes — round 66 table with coverage/operability/calibration rows",
-    "D4: S801-S804 exist exactly once, status rejected, 'REJECTED:' + 'flip:' teaches; >=2 rejected rows opened 2026-10-24",
-    "SEQ: every r67 counter requires --lands, prints stamped/evaluated headers, asserts equality; check-receipt-seq.py --selftest exits 0",
-    "CRITERION: QUALITY.md criterion 19 names receipt sequencing",
-    "QUOTES: check-gate-quotes.py 0 findings on corpus/lessons/round-67.md; Gate names >=20 of S805-S828"
-   ],
-   "lands": [
-    "reports/round-67/dispositions/r66-wave-evidence-manifest.txt",
-    ".ufo/waves/round-66/",
-    "corpus/SOURCES.md",
-    "corpus/QUALITY.md",
-    "corpus/lessons/round-67.md",
-    "LOG.md",
-    "SCORECARD.md",
-    "reports/round-67/accept-ca.py"
-   ],
-   "exports": [],
-   "review_only": [
-    "semantic adequacy of each rejected row's teaches cell",
-    "whether the curated wave-evidence subset preserves all findings (scratch trees excluded)"
-   ],
-   "statement_revision": "revision 0"
-  }
- ],
- "controls": "Pre-data controls land in reports/round-67/telemetry/ (controls-c.txt, controls-o.txt, controls-ca.txt, dry-run-c.txt, dry-run-o.txt, dry-run-ca.txt) before any data seat: each counter materializes the BASE revision and runs --lands <base> — it must fail on base bytes; the same counters on the live worktree with --lands <worktree-tip> also fail legs. A counter a do-nothing control passes is revised before data (frozen-predicate rule).",
- "note": "No claim asserts on artifacts that only exist post-records. post-records.txt (check-receipt-seq.py --topo over the three receipts + itself) is committed in a third lane commit as commanded evidence, and its stamped==evaluated==lands equality is re-verified by hand at closure; it is not a frozen leg because no hash of its own carrier can exist before it is committed."
+  "round": 67,
+  "lane": "kotodama",
+  "base": "ad5b52b0ab5691358cd38718ab75649dc9916f9a",
+  "declared": "2026-10-24",
+  "separability_note": "Ca is a records claim whose legs read the round's own instruments and receipts (SEQ leg reads the C/O/Ca counter sources; dispositions read committed manifests and corpus files). Expected separability findings: Ca->C and Ca->O via counter reads (record-dependency class only: Ca asserts the counters' structure, never their measured outputs); Ca->REC via lands-time disposition legs over records committed in the lands commit. A complete run is filed at reports/round-67/telemetry/separability-real.txt via the bounded checker (round-66 O capability).",
+  "receipt_protocol": "QUALITY criterion 19 / R66-D3 fix: every r67 counter requires --lands <40hex>; the receipt records the stamped revision (--lands), the evaluated revision (`git rev-parse main` of --root), the measured revision (same run), the lands tree hash and the counter's sha256; leg STAMP fails unless evaluated == stamped. Evaluations run inside a materialized clone at the lands commit (`git clone --no-local`), never on a worktree that may have moved past the stamp. Carrier-parentage is post-records evidence (check-receipt-seq.py --topo, committed as reports/round-67/telemetry/post-records.txt), never a lands-time leg. The declared command is run as `--root <clone> --lands <lands>`; the pre-landing dry run materializes the BASE revision and runs `--lands <base>`.",
+  "claims": [
+    {
+      "id": "C",
+      "axis": "coverage",
+      "type": "learning claim (sourced)",
+      "statement": "The medicine / healing / physician / remedy register is unowned in corpus/knowledge at the base (0 filename owners under the word-bounded census: `git ls-tree -r --name-only ad5b52b0ab5691358cd38718ab75649dc9916f9a -- corpus/knowledge | grep -ciE '(^|[^a-z])(medicin|healing|physician|remedy|remedie|surgery|surgical|apothec|hospital|leech|physick|medicine|doctor|shaman|curander|herbal)([^a-z]|$)'` prints 0; topic-line keyword sweep finds only partial-scope mentions — bathing-and-body-hygiene, scent-perfume-aromatics prophylaxis, myth-symbol purity — not whole-register owners) -> one new culture-material entry corpus/knowledge/culture-material/medicine-healing-codes.md supported by exactly 24 registry rows S805-S828 opened this round (2026-10-24), each tier A or B, mined, used-by the entry, cited exactly once by it; corpus 240 -> 241 entries, culture-material 33 -> 34, registry 724 -> 752 rows (S805-S828 plus the declared disposition additions S801-S804 as rejected rows — 728 + 24).",
+      "predicate": "ACCEPT-C-67: every leg of reports/round-67/accept-c.py prints PASS.",
+      "command": "python3 -B reports/round-67/accept-c.py --root <clone> --lands <lands>",
+      "legs": [
+        "STAMP: git rev-parse main == --lands (evaluated == stamped; the receipt records both)",
+        "FILE: the entry exists, 1 H1, <=16 H2, 0 H3, <=250 lines, carries '- topic:'",
+        "SET: ids S805-S828 present exactly once each in the registry",
+        "ROWS: each new row has 11 cells, kind in enum, tier A or B, status mined, opened 2026-10-24, used-by names the entry",
+        "ONEID: each new id is cited exactly once by the entry",
+        "RESTATE: each entry bullet has >=3 in-order content words from its row's anchor quote, <80% in-order coverage of the teaches cell, >=1 novel content word",
+        "HOSTS: new rows span >=10 distinct normalized hosts",
+        "LINK: no new row's normalized live URL collides with any base row or another new row (query-aware)",
+        "APPEND: registry diff against base is append-only for old rows (additions bounded to S805-S828 + disposition ids S801-S804; the one declared in-place flip is S753's used-by cell)",
+        "NOHARM: `git diff --name-status BASE -- corpus/knowledge` shows only the new entry",
+        "SWEEP: reports/round-28/readme/sweep.py exits 0 (rows == files, 0 topic mismatches)",
+        "CAPTURE: each new row's source cell carries a same-page web.archive.org capture or an explicit no-capture reason",
+        "TOPIC: the entry's - topic: text appears verbatim as the corpus/README.md index row for it"
+      ],
+      "lands": [
+        "corpus/knowledge/culture-material/medicine-healing-codes.md",
+        "corpus/SOURCES.md",
+        "corpus/README.md",
+        "corpus/lessons/round-67.md",
+        "reports/round-67/accept-c.py"
+      ],
+      "exports": [],
+      "review_only": [
+        "blind per-row support of the 24 new sources",
+        "semantic register ownership beyond filename/topic-line census",
+        "lore handoff quality of the entry's handoff section"
+      ],
+      "statement_revision": "revision 0"
+    },
+    {
+      "id": "O",
+      "axis": "operability",
+      "type": "capability acquisition (receipt-sequencing checker)",
+      "statement": "The r65/r66 Ca rejections share one class: the frozen counter's committed verdict was FAIL at lands because its D2-class carrier leg could not see the receipts' own commit, while the same predicate re-derived HOLDS at tip (rounds[598], rounds[601] receipts; corpus/lessons/round-66-verifier-spotcheck.md item R66-D3 prescribes the fix). -> tools/check-receipt-seq.py lands: --lands evaluates receipts at the lands revision over committed bytes (git show, never a moved worktree, and reports moved_past), --topo grades carrier-parentage explicitly post-records, the default mode asserts stamped==evaluated==measured plus tree and counter-sha pins, and 14/14 selftest fixtures pin every failure class.",
+      "predicate": "ACCEPT-O-67: every leg of reports/round-67/accept-o.py prints PASS.",
+      "command": "python3 -B reports/round-67/accept-o.py --root <clone> --lands <lands>",
+      "legs": [
+        "STAMP: git rev-parse main == --lands",
+        "SELFTEST: `python3 -B tools/check-receipt-seq.py --selftest` exits 0 and prints 14/14",
+        "DIFF: `git diff BASE -- tools/check-receipt-seq.py` is non-empty (the tool actually landed)",
+        "OPTIONS: --help lists --lands, --topo, --selftest",
+        "LANDS: a fixture repo whose main moved past lands still evaluates the receipt at --lands (committed bytes), FAILs on the absent receipt, reports moved_past=True",
+        "TOPO: the healthy fixture (receipts carried by B, stamped A) exits 0; the wrong-parent fixture exits 1 with parent= named",
+        "HEADERS: missing stamped/evaluated/tree exits 1 naming missing_headers; stamped != evaluated exits 1 naming equal=False",
+        "MUT: the five committed byte-mutants under .ufo/waves/round-67/stage/mut-o/ each kill exactly their pinned selftest checks (mut1 equality_always_true -> moved-receipt-fail; mut2 parent_always_true -> topo-wrong-parent-fail; mut3 missing_headers_ok -> missing-headers-fail; mut4 no_carrier_pass -> topo-no-carrier-fail; mut5 tree_unchecked -> tree-mismatch-fail)",
+        "R66: the r66 receipts' carrier 4589ebdd has parent == their stamped 65fe8572 — the predicate the frozen D2 leg could not evaluate at lands time now runs green under --topo-equivalent derivation",
+        "FIXTURES: the harness builds >=2 temp git lanes and runs the tool via subprocess inside 240s"
+      ],
+      "lands": [
+        "tools/check-receipt-seq.py",
+        ".ufo/waves/round-67/stage/mut-o/",
+        "reports/round-67/accept-o.py"
+      ],
+      "exports": [],
+      "review_only": [
+        "whether lands/tree/sha pins cover every drift class beyond the five named mutants",
+        "adoption of the checker by sibling lanes (out of write scope)"
+      ],
+      "statement_revision": "revision 0"
+    },
+    {
+      "id": "Ca",
+      "axis": "calibration",
+      "type": "records claim (routed-defect dispositions R66-D1..D5 + sequencing protocol)",
+      "statement": "The round-66 verifier spot-check (corpus/lessons/round-66-verifier-spotcheck.md §5) routed five defects to this lane: R66-D1 wave evidence undurable (.ufo/waves/round-66/ entirely untracked, ~18.6k files incl. 63 seat reports), R66-D2 census exit 1 (E12 x23 rows under ## Leads not ## Registry; E11 S753 used-by '-' not '—'), R66-D3 the Ca receipt-sequencing defect (D2 leg unevaluable at lands), R66-D4 no LOG.md/SCORECARD round-66 entries, R66-D5 no first-class rejected registry rows (repeat of r65). -> each dispositioned: D1 a committed manifest dispositions the r66 wave tree (seat reports + spec + registry + row fragments + mutant sources tracked at lands; scratch clone trees named excluded with reasons), D2 S776/S779-S800 moved into ## Registry and S753's used-by flipped to '—', the validate census exits 0, D3 --lands/stamped/evaluated protocol lands across all three counters plus the check-receipt-seq tool, D4 LOG.md and SCORECARD.md carry round-66 entries, D5 S801-S804 land as first-class rejected rows plus >=2 round-67 gate rejects.",
+      "predicate": "ACCEPT-CA-67: every leg of reports/round-67/accept-ca.py prints PASS.",
+      "command": "python3 -B reports/round-67/accept-ca.py --root <clone> --lands <lands>",
+      "legs": [
+        "STAMP: git rev-parse main == --lands",
+        "D1: manifest parses; every INCLUDE path tracked at lands via `git cat-file -e`; >=8 seat reports; exclusions named",
+        "D2: sources-census.sh validate --file exits 0 on the lands tree's registry; R66_ROWS inside ## Registry; S753 used-by is '—'",
+        "D3: LOG.md carries a Round 66 heading + mentions; SCORECARD.md carries an Axes — round 66 table with coverage/operability/calibration rows",
+        "D4: S801-S804 exist exactly once, status rejected, 'REJECTED:' + 'flip:' teaches; >=2 rejected rows opened 2026-10-24",
+        "SEQ: every r67 counter requires --lands, prints stamped/evaluated headers, asserts equality; check-receipt-seq.py --selftest exits 0",
+        "CRITERION: QUALITY.md criterion 19 names receipt sequencing",
+        "QUOTES: check-gate-quotes.py 0 findings on corpus/lessons/round-67.md; Gate names >=20 of S805-S828"
+      ],
+      "lands": [
+        "reports/round-67/dispositions/r66-wave-evidence-manifest.txt",
+        ".ufo/waves/round-66/",
+        "corpus/SOURCES.md",
+        "corpus/QUALITY.md",
+        "corpus/lessons/round-67.md",
+        "LOG.md",
+        "SCORECARD.md",
+        "reports/round-67/accept-ca.py"
+      ],
+      "exports": [],
+      "review_only": [
+        "semantic adequacy of each rejected row's teaches cell",
+        "whether the curated wave-evidence subset preserves all findings (scratch trees excluded)"
+      ],
+      "statement_revision": "revision 0"
+    }
+  ],
+  "controls": "Pre-data controls land in reports/round-67/telemetry/ (controls-c.txt, controls-o.txt, controls-ca.txt, dry-run-c.txt, dry-run-o.txt, dry-run-ca.txt) before any data seat: each counter materializes the BASE revision and runs --lands <base> — it must fail on base bytes; the same counters on the live worktree with --lands <worktree-tip> also fail legs. A counter a do-nothing control passes is revised before data (frozen-predicate rule).",
+  "note": "No claim asserts on artifacts that only exist post-records. post-records.txt (check-receipt-seq.py --topo over the three receipts + itself) is committed in a third lane commit as commanded evidence, and its stamped==evaluated==lands equality is re-verified by hand at closure; it is not a frozen leg because no hash of its own carrier can exist before it is committed.",
+  "lands_commits_note": "Per-claim lands sequence resolved at integration (R67-M7, records note): A_r c5f099211e1d6c095e7c59edbd05c0043b4b95fc (r66 dispositions S801-S804 + repairs), A_c c58eb84b6359b30e6930d6e240c574f678c686f9 (claim C lands; C's lands entry corpus/lessons/round-67.md is completed at Ca's lands commit A_ca per CriticFrontier F7(iii) amendment — the lesson's Gate names S829-S832 whose rows land at A_ca), A_ca (this commit: Ca lands; claims.json, C/O receipts, lesson, S829-S832, LOG/SCORECARD r67, wave-67 evidence), B (records-2: Ca receipt + post-records topo)."
 }

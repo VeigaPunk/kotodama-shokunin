@@ -1,0 +1,37 @@
+# ScoutReject1 surveyed-but-not-rowed candidates (medicine/healing gate survey, 2026-10-24)
+# Two rejects rowed: S829 (JS/Cloudflare paywall), S830 (duplicate of S252's live URL).
+# Below: surveyed candidates rejected on sight or not clean enough to row.
+
+- ScienceDirect, Journal of Ethnopharmacology article PII S0378874110006474 —
+  https://www.sciencedirect.com/science/article/pii/S0378874110006474 : plain curl
+  HTTP 403 with an 832 KB challenge shell (<title> "ScienceDirect"), no article
+  text. Rejectable as JS-walled; not rowed because the domain-403 + huge body is a
+  weaker datum than the Lancet's clean 5.6 KB "Just a moment..." wall, and the PII
+  was never resolved to a verified real article.
+
+- JSTOR stable 24620628 — https://www.jstor.org/stable/24620628 : plain curl HTTP
+  200 but the body is a 3,038-byte "Client Challenge" page, not the article.
+  Rejectable as challenge-walled; not rowed (same class as S829; Lancet chosen as
+  the crisper specimen, and this stable id was not verified to be medicine-topic).
+
+- Science Museum Group object co107623, "Animal tail amulet used as 'medicine' by
+  medicine man" (Zambia, 1880-1930, Wellcome A658241) —
+  https://collection.sciencemuseumgroup.org.uk/objects/co107623/animal-tail-amulet-used-as-medicine-by-medicine-man :
+  live curl HTTP 429 ("Rate limited - please slow down", 31 B) on every attempt;
+  web-search snippet suggests a caption-scale record (title + made/collection/object
+  number only). Surveyed, not rowed: a 429 is a transient wall, not a hard reject
+  datum; a 24h-later retry could open it.
+
+- Wikimedia Commons file page "Paul Fürst, Der Doctor Schnabel von Rom (coloured
+  version).png" — https://commons.wikimedia.org/wiki/File:Paul_F%C3%BCrst,_Der_Doctor_Schnabel_von_Rom_(coloured_version).png :
+  live curl HTTP 200, 115,643 B; only quotable text is the caption/Description
+  ("gay engraving of Doctor Schnabel ... a plague doctor in seventeenth-century
+  Rome, with a satirical macaronic poem ..."). Rejectable under the caption-only
+  class (an image caption cannot support an entry claim); not rowed — Commons
+  metadata pages are borderline since the poem text in the engraving itself is a
+  primary artifact, and duplicate/paywall specimens were stronger.
+
+- Sacred-texts.com (Internet Sacred Text Archive) healing/incantation corpus —
+  not fetched this survey; scope is ritual/lore canon (sibling-lane material:
+  mythic incantation texts), not a culture-material medicine register source.
+  Surveyed as a class only; no single URL verified, so no row.

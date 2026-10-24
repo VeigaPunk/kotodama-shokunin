@@ -1294,3 +1294,16 @@ Admission: **not admitted** — the non-author spot-check returned `lanes.kotoda
 | Registry arithmetic | The round-66 wave item's coverage summary "+22 rows 701→724" does not add up (701+22=723). Re-derived counts are 701 rows at base `94209e8f` and 724 at lands `65fe8572`/records `4589ebdd` — a +23 net: the 22 new mined rows S779-S800 plus the S776 supersession repair row. |
 
 Stale-lane: respawn-per-round driver; no other mission of this lane is open.
+
+## Axes — round 67 (2026-10-24, hyaku run 5, L1 KotodamaR67)
+
+Lands `c58eb84b` (claim C) / A_ca (claim Ca); records B; base `ad5b52b0`. Instruments frozen pre-data at `b78f8b8e`/`c5f09921` (accept-ca rev1 sha `5382ffed`); receipts run inside a materialized clone at the lands revision (QUALITY 19 protocol).
+
+| axis | move | verdict | evidence |
+|------|------|---------|----------|
+| coverage | improved | PASS — medicine/healing register 0 -> owned: `medicine-healing-codes.md` + 24 rows S805-S828, HOSTS=13 | `reports/round-67/telemetry/final-measures-c.txt` (14 legs all PASS at lands) |
+| operability | improved | PASS — new capability `tools/check-receipt-seq.py` (lands evaluation, topo, 14/14 selftest) | `reports/round-67/telemetry/final-measures-o.txt` (9 legs all PASS) |
+| calibration | improved | PASS — all five R66-D dispositions landed; sequencing protocol enforced by frozen SEQ/QUOTES legs | `reports/round-67/telemetry/final-measures-ca.txt` |
+| depth | unchanged | — | — |
+| freshness | unchanged | — | — |
+| adjacency | unchanged | — | — |

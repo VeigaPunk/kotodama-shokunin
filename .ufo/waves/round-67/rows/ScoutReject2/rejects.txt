@@ -1,0 +1,25 @@
+# ScoutReject2 — surveyed-but-not-rowed candidates (r67 gate, medicine/healing register)
+# Two rowed rejects: S831 (JSTOR JS client-challenge), S832 (IA details-page metadata stub).
+# Below: additional candidates probed live on 2026-10-24; not rowed this round (two-row quota, disjointness with ScoutReject1).
+
+1. https://academic.oup.com/shm/article/20/3/465/1642487 — Social History of Medicine (OUP) article page; plain curl -> HTTP 403, 5,480 bytes, <title>Just a moment...</title> Cloudflare interstitial. Same class as ScoutReject1/S829 (Lancet 403) — left to them; would be rowable as bot-challenge if quota allowed.
+
+2. https://www.jstor.org/stable/24623239 — generic JSTOR stable URL probe; same "Client Challenge" shell (HTTP 200, 3,038 bytes) as S831. Confirms the challenge is host-wide, not per-article.
+
+3. https://catalog.hathitrust.org/Record/001506861 and /Record/005747751 — HathiTrust catalogue records; plain curl -> HTTP 403, 5,492 bytes challenge. Bot-challenge class, duplicate of S831's class; not rowed.
+
+4. https://www.tandfonline.com/doi/full/10.1080/17547075.2020.1759528 — Taylor & Francis (Medical Humanities-adjacent); HTTP 403 Cloudflare. Same class as ScoutReject1/S829; registry S239 already documents T&F challenge behaviour for a Wayback-read row.
+
+5. https://onlinelibrary.wiley.com/doi/10.1111/j.2042-1966.1966.tb01914.x — Wiley; HTTP 403, 5,602 bytes. Bot-challenge class, duplicate class of S831.
+
+6. https://www.sciencedirect.com/science/article/abs/pii/S0378874108001966 — ScienceDirect abstract page; HTTP 403, 832,805 bytes challenge+metadata blob. Bot-challenge class; cf. S217 (abstract read via Wayback capture precedent).
+
+7. https://www.bmj.com/content/383/bmj-2023-073335 — BMJ; HTTP 403, 5,408 bytes. Bot-challenge class, duplicate.
+
+8. https://www.loc.gov/item/43022268/ — Library of Congress item record; HTTP 403, 5,458 bytes challenge. Bot-challenge class.
+
+9. https://en.wikipedia.org/wiki/History_of_medicine — HTTP 200, 1.5 MB; community/tier-C encyclopedia, cannot support an admitted entry as sole support (tier C = lead only); not rowed — weaker reject class than the two chosen, and the lane already models community rejects (S028, S029, S043).
+
+10. https://wellcomecollection.org/works/e7saqn2h — Wellcome works page probe; HTTP 405 to plain GET (method-gated, likely expects browser/JS). Not rowed — 405 is an access oddity, class less clean than S832's.
+
+11. https://catalogue.nlm.nih.gov/discovery/fulldisplay?docid=alma9980072234206676... — NLM Primo catalogue; curl timed out (000). Unresolved — recorded as surveyed, not reachable within probe window.
