@@ -296,7 +296,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (29)
+## linguistics/ (30)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -305,6 +305,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `kinship-terminology.md` — Murdock's six kinship-terminology types (Eskimo/lineal, Hawaiian, Iroquois, Omaha, Crow, Sudanese) with their exact merging fingerprints; what each encodes (weakly) about descent, residence, and marriage rules; Lounsbury's generative skewing rules for building consistent systems; affinal/alliance logic; kin terms borrowed into address systems (fictive kin, kin-pronouns, teknonymy, register strata); and the inverse method — reading a lexicon or an in-world document as evidence of social structure
 - `language-contact.md` — how languages converge — borrowing scales and hierarchies, loanword adaptation, pidgins/creoles/mixed languages, Sprachbund (linguistic-area) features, and using strata of loans to date fictional history
 - `language-shift-obsolescence-revival.md` — The life-cycle side of language contact — how a community stops transmitting its language (domain retreat, transmission break, semi-speakers, terminal speakers), how to diagnose the stage with Fishman's GIDS, UNESCO's vitality factors, and EGIDS, and what actually drives revival (home transmission first, then language nests, immersion schooling, adult acquisition, status and corpus planning) — with calibrated real cases (Hebrew, Welsh, Māori, Ainu, Cornish, Manx, Sumerian) and a decision record for staging a death or a revival in a fictional world.
+- `language-socialization-and-acquisition.md` — language socialization and acquisition as culturally organized participation in language across caregiver interaction, early talk, correction, multilingual life, narrative, literacy, and address — a sourced design reference for fictional language practices, not a universal developmental sequence.
 - `linguistic-anthropology.md` — Language as cultural practice — ethnography of communication (Hymes SPEAKING grid), calibrated linguistic relativity, language ideology, register ecology (diglossia, politeness, speech levels), and special languages (ritual registers, avoidance registers, argot/anti-languages). Reference knowledge and method only; canon decisions belong to lore-shokunin.
 - `morphological-typology.md` — the four classical morphological types (isolating, agglutinative, fusional, polysynthetic), the morphological-process toolbox (affixation, reduplication, ablaut/umlaut, consonant mutation, root-and-pattern, tone, suppletion, incorporation), and the causal cascade from a typology choice into grammar, lexicon, diachrony, and cultural texture
 - `naming-systems.md` — How real cultures build and police names — personal name slots (given/lineage/clan/byname), place-name functions and strata, divine names and cult epithets, endonym/exonym layers, name taboo and name magic (the kotodama core: names as power), and a step-by-step derivation pipeline for naming a fictional culture
@@ -676,12 +677,13 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
   filed `validation.json` in place. Read those counts from the filed
   `reports/round-{5,6}/parent-reconciliation.json` receipts and name the drift;
   do not edit the old runners.
+- Round 64 adds one linguistics entry, `linguistics/language-socialization-and-acquisition.md` (language socialization and acquisition as culturally organized participation in language). The topic had 0 filename owners and 0 topic-line owners before it; partial one-way owners remain `gesture-co-speech-pointing.md`, `naming-systems.md`/`kinship-terminology.md`, and `sociolinguistics-registers.md`.
 
-Total knowledge entries: 237.
+Total knowledge entries: 238.
 
 Counts checked 2026-10-23 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
-(total 237 files; directory totals 29/29/31/29/24/95).
+(total 238 files; directory totals 30/29/31/29/24/95).
 The inventory counts markers, not verified facts.
 Superseded reading, preserved as the dated record it was: this footer read
 `(total 199 files; directory totals 19/19/18/29/20/94)` from round 20 through
