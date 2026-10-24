@@ -1,0 +1,18 @@
+command: python3 -B reports/round-65/accept-ca.py --root .
+measured lane main: 3e85a6105ebcb22d1f969f3cc9e87e53b69084a2
+counter sha256: 550c89a4939197dc1413b5a84e926565056eb53ba61c50b264b333a3aed8f94e
+wrapper: output was piped through `grep -v '^#' | tail -12`; the shell pipeline did not preserve the child exit status. The final `ACCEPT-CA-65: FAIL` line corresponds to the counter's `return 1`.
+--- observed output ---
+R1 PASS checks={'stamp_positional': True, 'stamp': True, 'tree': True, 'restamp_note': True, 'dirty': True, 'original_sha': True, 'tree_resolves': True, 'preserved_original': True} manifest_bad=[] repeats_log_score_lessonfinal=True
+R2 PASS original_intact=True named=True substance=True log_repeat=True
+R3 PASS log_names_actual_and_wrong=True
+R4 PASS pred_exact=True correction=True statement_unchanged=True
+R5 PASS in_control=True in_log=True named_binding=True
+R6 PASS status_correction=True
+R7 PASS line='- verified-at: 2026-10-24 — round-64 blind-support verification found all 26 cited claims '
+CRITERION PASS candidates=1 negation_free=True
+QUOTES PASS exit=0 lesson_exists=True gate_rows=26/26 clean=True
+RECEIPTS FAIL lands=53a60275 bad=['reports/round-65/telemetry/final-measures-c.txt:lands_stamp', 'reports/round-65/telemetry/final-measures-c.txt:tree', 'reports/round-65/telemetry/final-measures-o.txt:lands_stamp', 'reports/round-65/telemetry/final-measures-o.txt:tree', 'reports/round-65/telemetry/final-measures-ca.txt:lands_stamp', 'reports/round-65/telemetry/final-measures-ca.txt:tree']
+ACCEPT-CA-65: FAIL
+
+The receipts stamp landed revision 3b1b5a6794ea860187a791d88933ae6ab79cdc9c; the records commit's immediate parent was 53a60275798694a91e093421db27f30e46473042. Thus the frozen RECEIPTS leg correctly rejects them; no claim-Ca PASS is asserted.

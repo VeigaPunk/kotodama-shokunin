@@ -1266,3 +1266,9 @@ Author-side: C and O full counters pass at lands A; Ca's R1-R7/CRITERION/QUOTES 
 | Correction (round 65, R3) | The round-64 SCORECARD Ca row's `w2/ReviewerCa.md` citation is wrong; actual path: `.ufo/waves/round-64/w1/ReviewerCa.md`. The filed report's `w2/ReviewerCa.md` citation is the erratum target, corrected by the round-65 report erratum. |
 
 Stale-lane: respawn-per-round driver; no other mission of this lane is open.
+
+### Round-65 correction (receipt parent)
+
+| item | correction |
+|---|---|
+| ACCEPT-CA-65 post-record verdict | The preceding text anticipated a receipt PASS, but the actual run at records tip `3e85a610` printed `RECEIPTS FAIL lands=53a60275`: the receipts name `3b1b5a67`, while the immediate parent is `53a60275` after the prepared-wave commit. Ca's R1-R7/CRITERION/QUOTES legs pass, but the claim is **not verified as declared**. Exact output: `reports/round-65/telemetry/accept-ca-post-records-fail.txt`. |
