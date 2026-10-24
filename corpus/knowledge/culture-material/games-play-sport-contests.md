@@ -2,7 +2,7 @@
 
 - topic: games, play, sport and contests as material and social practice across board and race games, ballgames, athletic and ritual contests, lots and dice, cards, children's playground repertoire, and target games — a sourced design reference for fictional play, not a universal history of games.
 - source: the round-65 registry rows in `corpus/SOURCES.md` are the evidence anchors; each inserted claim stays within its cited row.
-- verified-at: 2026-10-24 — 26 cited claims inserted from the registry rows opened this round, one row per bullet; L1 preflight on the frozen counter passes (content, in-order, novelty, copied-run, near-copy legs); independent closure spot-check pending.
+- verified-at: 2026-10-24 — 26 cited claims inserted from the registry rows opened this round, one row per bullet; L1 preflight on the frozen counter passes (content, in-order, novelty, copied-run, near-copy legs); the mancala bullet was re-pointed S753 -> S776 in round 66 after S753’s 2025 capture proved a redirect-stub (same PDF, fresh capture, sha256-verified); independent closure spot-check pending.
 - recheck: 180 days, per row (`corpus/SOURCES.md` recheck cells).
 
 
@@ -20,7 +20,7 @@ Compare the frameworks instead of choosing one. An ethnographic classification o
 Treat a board, its pieces, and its resting places as the surviving evidence, and the rules as a reconstruction. Keep tomb and burial contexts, wide geographic distributions, and betting play as separate observations attached to their own sources.
 - Later tablet evidence explains one version's rules. (S751)
 - Eighteenth Dynasty boards offer evidence of funerary ritualization, not proof of universal sacred use. (S752)
-- Versions of mancala span Africa and Asia, with regionally varied board dimensions. (S753)
+- Versions of mancala span Africa and Asia, with regionally varied board dimensions. (S776)
 - Gambling, associated ethnohistorically with patolli, warrants caution when interpreting Maya boards through Aztec sources. (S773)
 - The museum publishes complete rules and play videos for its Game of 20 Squares, supplementing the Ancient Board Games flyer from its exhibit. (S775)
 

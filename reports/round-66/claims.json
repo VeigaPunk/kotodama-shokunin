@@ -1,0 +1,187 @@
+{
+ "round": 66,
+ "lane": "kotodama",
+ "base": "94209e8f80969dbac48d56c5d0e2e623635b8616",
+ "declared": "2026-10-24",
+ "claims": [
+  {
+   "id": "C",
+   "axis": "coverage",
+   "type": "learning claim (sourced)",
+   "statement": "The scent / perfume / aromatics / incense register is unowned in corpus/knowledge at the base (0 filename owners under the word-bounded census: `git ls-tree -r --name-only 94209e8f80969dbac48d56c5d0e2e623635b8616 -- corpus/knowledge | grep -ciE '(^|[^a-z])(scent|perfume|aromatic|incense|fragran|cosmetic|unguent)([^a-z]|$)'` prints 0; topic-line keyword sweep finds only partial-scope mentions, not whole-register owners) -> one new culture-material entry corpus/knowledge/culture-material/scent-perfume-aromatics-codes.md supported by exactly 22 registry rows S779-S800 opened this round (2026-10-24), each tier A or B, mined, used-by the entry, cited exactly once by it; corpus 239 -> 240 entries, culture-material 32 -> 33, registry 701 -> 725+ rows including the S776 supersession repair and disposition rows; sweep rows == files, topic_mismatch 0; end census exit 0. Seat-failure disclosure: ScoutRow01 died on a provider error; S777/S778 were never produced and are recorded as a named gap, never landed or fabricated.",
+   "predicate": "ACCEPT-C-66: every leg of reports/round-66/accept-c.py prints PASS.",
+   "command": "python3 -B reports/round-66/accept-c.py --root .",
+   "legs": [
+    "FILE: the entry exists, 1 H1, <=16 H2, 0 H3, <=250 lines, carries '- topic:'",
+    "SET: ids S779-S800 present exactly once each in the registry",
+    "ROWS: each new row has 11 cells, tier A or B, status mined, opened 2026-10-24, used-by names the entry",
+    "ONEID: each new id is cited exactly once by the entry",
+    "RESTATE: each entry bullet has >=3 in-order content words from its row's anchor quote, <80% in-order coverage of the teaches cell, >=1 novel content word",
+    "HOSTS: new rows span >=10 distinct normalized hosts",
+    "LINK: no new row's normalized live URL collides with any base row or another new row",
+    "APPEND: registry diff against base is append-only for old rows (only additions and allowed status/used-by flips logged in the lesson)",
+    "NOHARM: `git diff --name-only BASE main -- corpus/knowledge` shows only the new entry plus the declared games-entry S776 re-point",
+    "SWEEP: reports/round-28/readme/sweep.py exits 0 (rows == files, 0 topic mismatches)",
+    "CAPTURE: each new row's source cell carries live URL and a same-page web.archive.org capture or an explicit no-capture reason string",
+    "TOPIC: the entry's - topic: text appears verbatim as the corpus/README.md index row for it"
+   ],
+   "lands": [
+    "corpus/knowledge/culture-material/scent-perfume-aromatics-codes.md",
+    "corpus/SOURCES.md",
+    "corpus/README.md",
+    "reports/round-66/accept-c.py"
+   ],
+   "exports": [],
+   "review_only": [
+    "blind per-row support of the 22 new sources",
+    "semantic topic ownership beyond filename/topic-line census",
+    "lore handoff quality of the entry's handoff section"
+   ],
+   "statement_revision": "revision 0"
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "type": "capability hardening (bounded separability verdicts)",
+   "statement": "The round-65 closure routed defect R65-D4: tools/check-claim-separability.py timed out at its 600s per-run cap on the round-65 manifest because the dynamic leg runs up to 1+N acceptance executions serially and one full counter run exceeds the cap, so no verdict returned inside the round (.ufo/waves/round-65/w1/RevSeparability.md MED-4). -> the upgraded tool returns a verdict inside a round's budget: per-run --timeout unchanged, --jobs parallelizes unit tasks (verdict unchanged), --budget bounds the whole dynamic leg, --max-runs caps per-unit runs, --static-only skips it; every skipped run is counted, printed as SEPARABILITY_PARTIAL with exit 2, and a skipped repair names SEPARABILITY_UNRESOLVED rather than asserting <base>. Predicate legs cover the selftest, the option surface, bounded/partial semantics on fixture lanes, and mutation controls.",
+   "predicate": "ACCEPT-O-66: every leg of reports/round-66/accept-o.py prints PASS.",
+   "command": "python3 -B reports/round-66/accept-o.py --root .",
+   "legs": [
+    "SELFTEST: `python3 -B tools/check-claim-separability.py --selftest` exits 0 and prints 63/63",
+    "DIFF: `git diff BASE -- tools/check-claim-separability.py` is non-empty (the upgrade actually landed)",
+    "OPTIONS: --help lists --jobs, --budget, --max-runs, --static-only",
+    "BOUND: on a fixture lane with a sleeping acceptance, --budget 0.5 --timeout 10 exits 2, prints SEPARABILITY_PARTIAL, and no <base> dependency",
+    "STATIC: --static-only exits 2 on a dynamic manifest, prints PARTIAL + UNRESOLVED, 0 dynamic runs",
+    "MAXRUNS: --max-runs 1 exits 2, skipped=1, never asserts <base>",
+    "JOBS: --jobs 4 prints the same sorted findings as --jobs 1 on a dependent fixture",
+    "MUT: byte-mutants under .ufo/waves/round-66/stage/mut-o/ each kill their pinned leg (no-partial-exit, unresolved-to-finding, silent-skip)",
+    "FIXTURES: the fixture harness in reports/round-66/accept-o.py builds temp git lanes, runs the tool via subprocess, and returns within 180s total"
+   ],
+   "lands": [
+    "tools/check-claim-separability.py",
+    ".ufo/waves/round-66/stage/mut-o/",
+    "reports/round-66/accept-o.py"
+   ],
+   "exports": [],
+   "review_only": [
+    "performance under very large manifests beyond the fixture sizes",
+    "whether the round-66 manifest's expected-finding class list is complete (declared in separability block)"
+   ],
+   "statement_revision": "revision 0"
+  },
+  {
+   "id": "Ca",
+   "axis": "calibration",
+   "type": "records claim (routed-defect dispositions R65-D1..D4)",
+   "statement": "The round-65 verifier spot-check (corpus/lessons/round-65-verifier-spotcheck.md section 5) routed four defects to this lane: R65-D1 S753 source-cell durability (live URL answered an HTML shell at closure; committed capture 20250926172224 replays 404 although CDX lists 200 pdf), R65-D2 receipt-parent sequencing (records commit not a direct child of the lands commit), R65-D3 dispatch/evidence retention (0 dispatched L2 seats vs the >=8 floor, no per-seat last-error text), R65-D4 separability bound (checker timed out 600s). -> each is dispositioned in this round's records: D1 the live URL now returns the PDF (200 application/pdf, quote located verbatim) and a fresh capture 20261024111013 replays byte-exact; the games entry's mancala bullet cites the superseding row S776; the receipt is committed telemetry. D2 the round-66 RECEIPTS leg re-derives each final receipt's own commit ancestry at run time (parent of the commit that carries the receipt equals the stamped lands revision, tree and counter sha pinned), robust against later tip movement. D3 a committed dispatch registry (validator record output) plus seat-evidence receipt with per-seat report paths and last-error text; the wave actually dispatched. D4 the bounded separability run is committed telemetry printing a complete SEPARABILITY verdict. QUALITY gains criterion 18 (durability of row anchors).",
+   "predicate": "ACCEPT-CA-66: every leg of reports/round-66/accept-ca.py prints PASS.",
+   "command": "python3 -B reports/round-66/accept-ca.py --root .",
+   "legs": [
+    "D1: telemetry/s753-recapture.txt records live 200 pdf + quote verbatim + fresh capture replay; the games entry cites S776 exactly once for the mancala bullet and cites S753 zero times",
+    "D2: for each reports/round-66/telemetry/final-measures-*.txt, `git log -1 main -- <receipt>` names the commit carrying it, that commit's parent equals the receipt's stamped 'measured revision', and tree + counter sha256 lines match",
+    "D3: telemetry/seat-evidence.txt names >=8 seat report files under .ufo/waves/round-66/ that exist, with per-seat status and last-error text for dead seats",
+    "D4: telemetry/separability-real.txt contains a SEPARABILITY: line and an acceptance_runs count, produced inside the bounded run",
+    "CRITERION: corpus/QUALITY.md gains a numbered criterion >=18 grounding row-anchor durability (the S753 class)",
+    "QUOTES: check-gate-quotes on corpus/lessons/round-66.md finds 0 findings and the Gate names the round's new ids"
+   ],
+   "lands": [
+    "corpus/lessons/round-66.md",
+    "corpus/QUALITY.md",
+    "corpus/knowledge/culture-material/games-play-sport-contests.md",
+    "reports/round-66/telemetry/s753-recapture.txt",
+    "reports/round-66/telemetry/seat-evidence.txt",
+    "reports/round-66/telemetry/separability-real.txt",
+    "reports/round-66/accept-ca.py"
+   ],
+   "exports": [],
+   "review_only": [
+    "whether the recaptured S776 evidence satisfies the closure's resolvability standard (non-author judgment)",
+    "whether the D2 commit-ancestry re-derivation is the right generalization of the round-65 fix (orchestrator suggested making the expected lands hash the actual parent at run time)"
+   ],
+   "statement_revision": "revision 0"
+  }
+ ],
+ "separability": {
+  "note": "Each claim verifies by its own counter alone; the counters are record lands of their own claim, not shared record lands. Known instrument classes declared before data: (1) Ca's D2/D3/D4 legs read committed receipt/evidence files that are lands of the REC record unit -> expected SEPARABILITY_DEPENDENCY Ca->REC findings (static land-path + acceptance), the round-63 record-dependency class; (2) Ca's D2 git leg runs git log inside a needs_git clone whose refs are the lane's real refs -> its evidence is history-derived, consistent with counterfactual overlays; declared, not hidden. No C->O, C->Ca, O->C, O->Ca, Ca->C or Ca->O dependency is declared; any such finding is a real defect.",
+  "check": "python3 -B tools/check-claim-separability.py reports/round-66/separability-manifest.json --jobs 4 --timeout 120 --budget 300",
+  "expected_findings": [
+   "SEPARABILITY_DEPENDENCY Ca->REC via land path 'reports/round-66/telemetry/final-measures-c.txt'",
+   "SEPARABILITY_DEPENDENCY Ca->REC via acceptance (receipt files absent at base, supplied by REC lands)"
+  ],
+  "manifest_units": {
+   "C": {
+    "lands": [
+     "corpus/knowledge/culture-material/scent-perfume-aromatics-codes.md",
+     "corpus/SOURCES.md",
+     "corpus/README.md",
+     "reports/round-66/accept-c.py"
+    ],
+    "acceptance": [
+     "python3",
+     "-B",
+     "reports/round-66/accept-c.py",
+     "--root",
+     "."
+    ],
+    "needs_git": true
+   },
+   "O": {
+    "lands": [
+     "tools/check-claim-separability.py",
+     ".ufo/waves/round-66/stage/mut-o/",
+     "reports/round-66/accept-o.py"
+    ],
+    "acceptance": [
+     "python3",
+     "-B",
+     "reports/round-66/accept-o.py",
+     "--root",
+     "."
+    ],
+    "needs_git": false
+   },
+   "Ca": {
+    "lands": [
+     "corpus/lessons/round-66.md",
+     "corpus/QUALITY.md",
+     "corpus/knowledge/culture-material/games-play-sport-contests.md",
+     "reports/round-66/telemetry/s753-recapture.txt",
+     "reports/round-66/telemetry/seat-evidence.txt",
+     "reports/round-66/telemetry/separability-real.txt",
+     "reports/round-66/accept-ca.py"
+    ],
+    "acceptance": [
+     "python3",
+     "-B",
+     "reports/round-66/accept-ca.py",
+     "--root",
+     "."
+    ],
+    "needs_git": true
+   },
+   "REC": {
+    "role": "record",
+    "lands": [
+     "reports/round-66/claims.json",
+     "reports/round-66/separability-manifest.json",
+     "reports/round-66/telemetry/final-measures-c.txt",
+     "reports/round-66/telemetry/final-measures-o.txt",
+     "reports/round-66/telemetry/final-measures-ca.txt",
+     "reports/round-66/telemetry/census-end.txt",
+     ".ufo/waves/round-66/registry.json",
+     ".ufo/waves/round-66/w1/",
+     ".ufo/waves/round-66/spec-v2.json",
+     "LOG.md",
+     "SCORECARD.md"
+    ],
+    "exports": []
+   }
+  }
+ },
+ "controls": "Pre-data controls land in reports/round-66/telemetry/ (controls-c.txt, controls-o.txt, controls-ca.txt, dry-run-c.txt, dry-run-o.txt, dry-run-ca.txt) before any data seat: each counter must fail on a base-bytes tree and must meet its own predicate only after integration; a counter a do-nothing control passes is revised before data (frozen-predicate rule).",
+ "review_only_global": [
+  "blind per-row support of the 22 new sources (S779-S800)",
+  "topic fit and lore handoff of the scent entry",
+  "the S776 supersession's row-shape conformance (its own anchor resolves today)"
+ ]
+}

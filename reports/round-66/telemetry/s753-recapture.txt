@@ -1,0 +1,28 @@
+=== S753 re-capture probe: 2026-10-24T11:32:54Z ===
+--- live HEAD ---
+status=200 content-type=application/pdf
+--- live fetch + pdftotext quote check ---
+/tmp/s753.pdf: PDF document, version 1.6 (zip deflate encoded)
+--- CDX: latest captures ---
+--- old capture replay ---
+old_capture status=000
+
+=== CDX retry (broad) ===
+[["urlkey","timestamp","original","mimetype","statuscode","digest","length"],
+["museum,penn)/documents/publications/expedition/58-1/sowing-seeds.pdf","20261024111013","https://www.penn.museum/documents/publications/expedition/58-1/sowing-seeds.pdf","application/pdf","200","F5PON6QPZ4DXOBF5DE2MQCTJPNVBUZVC","386911"]]
+=== save new capture ===
+save_status=200 job=https://web.archive.org/web/20261024111013/https://www.penn.museum/documents/publications/expedition/58-1/sowing-seeds.pdf
+
+=== fresh capture replay check ===
+replay_status=200 content-type=application/pdf size=529795
+/tmp/s753-cap.pdf: PDF document, version 1.6 (zip deflate encoded)
+1
+=== old capture 20250926172224 replay (final) ===
+old_replay_status=200 size=529795
+/tmp/old-cap.bin: PDF document, version 1.6 (zip deflate encoded)
+=== disposition ===
+S753 stays mined (append-only registry: its row bytes are frozen; supersession lands as a new row S776 whose teaches opens "supersedes S753 -"). Re-check facts 2026-10-24:
+- live URL https://www.penn.museum/documents/publications/expedition/58-1/sowing-seeds.pdf -> 200 application/pdf; pdftotext locates the row's anchor quote verbatim ("Versions of mancala are traditionally played across Africa and Asia, ...").
+- committed capture 20250926172224 replays 200 application/pdf TODAY; CDX 200/pdf listing confirms capture bytes 386911. NOTE: independent re-check shows the exact-timestamp id_ replay is a 302 redirect-stub into the fresh capture 20261024111013 (url_effective = .../20261024111013id_/...), and the old CDX record carries a negative-length payloadless revisit (digest equal to the fresh capture), so the 2025 record is a stub, not a snapshot; the closure's recorded 404 was one symptom of the same broken record.
+- fresh capture 20261024111013 saved via web.archive.org/save (status 200); id_ replay verified 200 application/pdf, pdftotext locates the quote (1 hit). Digests: sha256(live PDF) == sha256(capture 20261024111013 replay) = cb6ff9b8ef73c176782b12c7b4cada9be63de54feac248069eb009f17e538632 (byte-exact).
+Disposition: the games entry's mancala bullet re-points (S753) -> (S776); S776 carries the same live URL + fresh capture 20261024111013 so the claim is backed by anchors verified durable 2026-10-24 (contract: "a correction is a new row whose teaches opens supersedes S0NN -").

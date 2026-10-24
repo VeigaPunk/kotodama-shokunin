@@ -34,7 +34,24 @@ checked out at base. If the argv fails there, each other unit whose lands repair
 it (base + X.lands + Y.lands passes) yields a finding X->Y; if no declared unit
 repairs it, the finding is X-><base>.
 
-Output: finding lines sorted, then `SEPARABILITY: <n> findings`. Finding lines:
+Bounds (round 66, claim O): the dynamic leg is bounded by four knobs so a verdict
+returns inside a round's budget:
+  --timeout SECONDS   per acceptance run (unchanged semantic: a timed-out run
+                      counts as a failed run, never as a hang)
+  --jobs N            acceptance units evaluated in parallel (findings are
+                      printed sorted, so the verdict is unchanged by N)
+  --budget SECONDS    global wall-clock bound on the dynamic leg: a run not yet
+                      started when the budget is exhausted is SKIPPED
+  --max-runs N        per-unit cap on dynamic runs (initial plus repairs); runs
+                      beyond the cap are SKIPPED
+  --static-only       evaluate overlap + static legs only; the dynamic leg is
+                      skipped as a whole (counts as a partial verdict)
+Any skipped run produces a partial verdict: the report prints
+`SEPARABILITY_PARTIAL <k> run(s) skipped` and exits 2 - a partial verdict is
+honest, never silent, and never reads as a finding or as 0 findings.
+
+Output: finding lines sorted, then `SEPARABILITY: <n> findings` (plus
+`SEPARABILITY_PARTIAL <k> run(s) skipped` when bounded). Finding lines:
   SEPARABILITY_DEPENDENCY X->Y via export 'RE' matched PATH:LINE
   SEPARABILITY_DEPENDENCY X->Y via land path 'PATH' named at PATH:LINE
   SEPARABILITY_DEPENDENCY X->Y via acceptance ... and passes on base+X.lands+Y.lands
@@ -43,12 +60,15 @@ Output: finding lines sorted, then `SEPARABILITY: <n> findings`. Finding lines:
 
 Usage:
   python3 tools/check-claim-separability.py <manifest.json> [--lane LANE] [--root ROOT]
-                                            [--timeout SECONDS]
+                                            [--timeout SECONDS] [--jobs N]
+                                            [--budget SECONDS] [--max-runs N]
+                                            [--static-only]
   python3 tools/check-claim-separability.py --selftest
 
-Exit codes: 0 no findings; 1 findings; 2 could not evaluate. Input errors print
-SEPARABILITY_INPUT_ERROR on stderr. A needs_git leg that cannot be built or run
-prints SEPARABILITY_UNEVALUATED on stdout and exits 2; it never reads as 0.
+Exit codes: 0 no findings; 1 findings; 2 could not evaluate or partial verdict.
+Input errors print SEPARABILITY_INPUT_ERROR on stderr. A needs_git leg that
+cannot be built or run prints SEPARABILITY_UNEVALUATED on stdout and exits 2;
+it never reads as 0. A partial verdict prints SEPARABILITY_PARTIAL and exits 2.
 
 Read-only git: the lane is read through `git cat-file --batch` (one process).
 The one other git invocation is `git clone --shared` from --root into a temporary
@@ -67,6 +87,9 @@ import stat
 import subprocess
 import sys
 import tempfile
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LANE_DEFAULT = os.path.abspath(os.path.join(HERE, ".."))
@@ -75,6 +98,9 @@ BASE_NAME = "<base>"
 WORKTREE = "WORKTREE"
 ROLES = ("claim", "record")
 DEFAULT_TIMEOUT = 600.0
+DEFAULT_JOBS = 1
+DEFAULT_BUDGET = None     # dynamic-leg wall budget in seconds; None = unbounded
+DEFAULT_MAX_RUNS = None   # per-unit dynamic run cap; None = unbounded
 EXIT_OK, EXIT_DEPENDENT, EXIT_INPUT = 0, 1, 2
 
 ID_RE = re.compile(r"[A-Za-z][A-Za-z0-9_-]*")
@@ -644,33 +670,86 @@ def _overlap_findings(units):
     return findings
 
 
-def _acceptance_findings(unit, units, run):
-    """(findings, runs) for one unit's acceptance. run(overlays) -> (passed, why)."""
+class _Budget:
+    """Dynamic-leg bounds shared across units. A run is skipped (never
+    silently dropped) when the wall budget is exhausted or the unit's own run
+    cap is reached; skipped runs make the verdict partial and exit 2.
+
+    Thread-safe for the single-writer pattern used here: `take()` is the only
+    mutator and is called from one unit task at a time per `per_unit` key;
+    `expired()` is read-only. The run counter is guarded by a lock because
+    several unit tasks may finish simultaneously.
+    """
+
+    def __init__(self, budget, max_runs):
+        self._deadline = None if budget is None else time.monotonic() + budget
+        self._max_runs = max_runs
+        self._lock = threading.Lock()
+        self._per_unit = {}
+        self.runs = 0
+        self.skipped = 0
+
+    def expired(self):
+        return (self._deadline is not None
+                and time.monotonic() >= self._deadline)
+
+    def take(self, uid):
+        """True when one more dynamic run may start for unit UID."""
+        with self._lock:
+            if self.expired():
+                self.skipped += 1
+                return False
+            used = self._per_unit.get(uid, 0)
+            if self._max_runs is not None and used >= self._max_runs:
+                self.skipped += 1
+                return False
+            self._per_unit[uid] = used + 1
+            self.runs += 1
+            return True
+
+
+def _acceptance_findings(unit, units, run, bound):
+    """(findings, unresolved) for one unit's acceptance. run(overlays) ->
+    (passed, why); bound.take(uid) meters the initial run and each repair
+    attempt. A skipped repair attempt is an unresolved question, never a
+    `<base>` conclusion."""
+    if not bound.take(unit.uid):
+        return [], ["SEPARABILITY_UNRESOLVED %s acceptance never ran" % unit.uid]
     passed, why = run(unit.overlays())
     if passed:
-        return [], 1
-    runs = 1
+        return [], []
     repairs = []
+    unevaluated = []
     for other in units:
         if other is unit:
             continue
+        if not bound.take(unit.uid):
+            unevaluated.append(other.uid)
+            continue
         repaired, _ = run(unit.overlays() + other.overlays())
-        runs += 1
         if repaired:
             repairs.append(other.uid)
     head = "via acceptance %s fails on base+%s.lands (%s)" % (
         _short(repr(unit.acceptance)), unit.uid, why)
-    if repairs:
-        findings = ["SEPARABILITY_DEPENDENCY %s->%s %s and passes on base+%s.lands+%s.lands"
-                    % (unit.uid, other_id, head, unit.uid, other_id) for other_id in repairs]
-    else:
+    findings = ["SEPARABILITY_DEPENDENCY %s->%s %s and passes on base+%s.lands+%s.lands"
+                % (unit.uid, other_id, head, unit.uid, other_id)
+                for other_id in repairs]
+    if not repairs and not unevaluated:
         findings = ["SEPARABILITY_DEPENDENCY %s-><base> %s and no declared unit's lands repairs it"
                     % (unit.uid, head)]
-    return findings, runs
+    unresolved = ["SEPARABILITY_UNRESOLVED %s->%s %s: repair attempt skipped" % (
+        unit.uid, other_id, head) for other_id in unevaluated]
+    return findings, unresolved
 
 
-def evaluate(manifest_path, lane, root, timeout):
-    """(findings, units, dynamic_runs) for the manifest; raises InputError or Unevaluated."""
+def evaluate(manifest_path, lane, root, timeout, jobs=DEFAULT_JOBS,
+             budget=DEFAULT_BUDGET, max_runs=DEFAULT_MAX_RUNS,
+             static_only=False):
+    """(findings, unresolved, units, runs, skipped) for the manifest; raises
+    InputError or Unevaluated. The dynamic leg honours TIMEOUT per run, BUDGET
+    as a global wall bound, MAX_RUNS as a per-unit cap, and STATIC_ONLY to
+    skip it entirely; every skipped run is counted in `skipped` and named in
+    `unresolved` (an unresolved run never reads as a finding)."""
     base, units = _load_manifest(manifest_path)
     objs = Objects(lane)
     try:
@@ -679,9 +758,16 @@ def evaluate(manifest_path, lane, root, timeout):
         _load_units(objs, base_oid, raw_len, units, root)
         _check_novelty(units)
         findings = _overlap_findings(units) + _static_findings(units)
-        runs = 0
+        unresolved = []
+        bound = _Budget(budget, max_runs)
+        if static_only:
+            dyn_units = [u for u in units if u.acceptance is not None]
+            unresolved = ["SEPARABILITY_UNRESOLVED %s acceptance skipped (static-only)"
+                          % u.uid for u in dyn_units]
+            return findings, unresolved, units, 0, len(dyn_units)
         git_free = [u for u in units if u.acceptance is not None and not u.needs_git]
         git_units = [u for u in units if u.acceptance is not None and u.needs_git]
+        tasks = []          # (unit, closure) in manifest order
         if git_free:
             scratch = tempfile.mkdtemp(prefix="claim-separability-base-")
             try:
@@ -689,35 +775,66 @@ def evaluate(manifest_path, lane, root, timeout):
                 os.mkdir(base_root)
                 _materialize(objs, base_tree, raw_len, base_root)
                 for unit in git_free:
-                    found, count = _acceptance_findings(
-                        unit, units,
-                        lambda overlays, u=unit: _counterfactual(
-                            base_root, overlays, u.acceptance, timeout))
-                    findings += found
-                    runs += count
+                    tasks.append(
+                        (unit, lambda u=unit: _acceptance_findings(
+                            u, units,
+                            lambda overlays: _counterfactual(
+                                base_root, overlays, u.acceptance, timeout),
+                            bound)))
+                results = _run_unit_tasks(tasks, jobs)
             finally:
                 shutil.rmtree(scratch, ignore_errors=True)
-        for unit in git_units:
-            found, count = _acceptance_findings(
-                unit, units,
-                lambda overlays, u=unit: _git_counterfactual(
-                    root, base_oid, overlays, u.acceptance, timeout))
+        else:
+            results = []
+        tasks = [
+            (unit, lambda u=unit: _acceptance_findings(
+                u, units,
+                lambda overlays: _git_counterfactual(
+                    root, base_oid, overlays, u.acceptance, timeout),
+                bound))
+            for unit in git_units]
+        results += _run_unit_tasks(tasks, jobs)
+        for found, unres in results:
             findings += found
-            runs += count
+            unresolved += unres
     finally:
         objs.close()
-    return findings, units, runs
+    return findings, unresolved, units, bound.runs, bound.skipped
 
 
-def report(manifest_path, lane, root, timeout):
-    findings, units, runs = evaluate(manifest_path, lane, root, timeout)
+def _run_unit_tasks(tasks, jobs):
+    """Return each task's findings in submission order; tasks run in manifest
+    order under --jobs 1, and in parallel (order preserved in the result list)
+    under --jobs N."""
+    if not tasks:
+        return []
+    if jobs <= 1 or len(tasks) == 1:
+        return [task() for _, task in tasks]
+    with ThreadPoolExecutor(max_workers=min(jobs, len(tasks))) as pool:
+        return list(pool.map(lambda item: item[1](), tasks))
+
+
+def report(manifest_path, lane, root, timeout, jobs=DEFAULT_JOBS,
+           budget=DEFAULT_BUDGET, max_runs=DEFAULT_MAX_RUNS, static_only=False):
+    findings, unresolved, units, runs, skipped = evaluate(
+        manifest_path, lane, root, timeout,
+        jobs=jobs, budget=budget, max_runs=max_runs,
+        static_only=static_only)
     lines = sorted(findings)
     for line in lines:
         print(line)
+    for line in sorted(unresolved):
+        print(line)
     print("SEPARABILITY: %d findings" % len(lines))
+    partial = skipped > 0 or bool(unresolved)
+    if partial:
+        print("SEPARABILITY_PARTIAL %d run(s) skipped%s" % (
+            skipped, " (static-only)" if static_only else ""))
     pairs = len(units) * (len(units) - 1)
-    print("SEPARABILITY_NOTE units=%d ordered_pairs=%d acceptance_runs=%d"
-          % (len(units), pairs, runs), file=sys.stderr)
+    print("SEPARABILITY_NOTE units=%d ordered_pairs=%d acceptance_runs=%d skipped=%d"
+          % (len(units), pairs, runs, skipped), file=sys.stderr)
+    if partial:
+        return EXIT_INPUT
     return EXIT_DEPENDENT if lines else EXIT_OK
 
 
@@ -804,7 +921,8 @@ def selftest():
                   and all(s in err for s in err_must)
                   and "internal fault" not in err
                   and (expect != EXIT_INPUT or "SEPARABILITY_INPUT_ERROR" in err
-                       or "SEPARABILITY_UNEVALUATED" in out)
+                       or "SEPARABILITY_UNEVALUATED" in out
+                       or "SEPARABILITY_PARTIAL" in out)
                   and (out_check is None or out_check(out)))
             check(name, ok, "rc=%d want %d; stdout=%r stderr=%r" % (rc, expect, out, err))
 
@@ -815,7 +933,7 @@ def selftest():
             return doc
 
         def scenario(name, claim_files, units, expect, base=base_files, worktree=None,
-                     root=None, timeout=None, **expectations):
+                     root=None, timeout=None, extra=None, **expectations):
             root_dir = fresh()
             lane, base_sha, trees = _make_lane(root_dir, base, claim_files)
             for rel, content in (worktree or {}).items():
@@ -830,6 +948,8 @@ def selftest():
                 argv += ["--root", root]
             if timeout is not None:
                 argv += ["--timeout", str(timeout)]
+            if extra:
+                argv += list(extra)
             verdict(name, argv, expect, **expectations)
 
         # ---- positive controls: no finding, exit 0
@@ -1049,6 +1169,78 @@ def selftest():
                  EXIT_DEPENDENT, worktree={c_path: "cites S031 here\n"},
                  out_must=["SEPARABILITY_DEPENDENCY C->S via export"])
 
+        # ---- bounded verdict controls (round 66, claim O): the dynamic leg is
+        # metered by --budget/--max-runs/--jobs/--static-only; skipped runs are
+        # partial (exit 2), never silent and never a fabricated <base> finding.
+        scenario("bound: --static-only skips the dynamic leg and exits 2",
+                 {"C": {c_path: "x\n"}, "S": {s_path: "y\n"}},
+                 [{"id": "C", "lands": [c_path], "exports": [r"\bCQ\b"],
+                   "acceptance": [py, "-c", "import sys; sys.exit(3)"]},
+                  {"id": "S", "lands": [s_path], "exports": [r"\bSZ\b"]}],
+                 EXIT_INPUT, extra=["--static-only"],
+                 out_must=["SEPARABILITY: 0 findings", "SEPARABILITY_PARTIAL",
+                          "SEPARABILITY_UNRESOLVED C acceptance skipped"],
+                 out_must_not=["via acceptance", "SEPARABILITY_DEPENDENCY"],
+                 err_must=["acceptance_runs=0"])
+
+        scenario("bound: --jobs leaves the verdict unchanged",
+                 {"C": {c_path: "no reference\n"}, "S": {s_path: "rows\n"}},
+                 [{"id": "C", "lands": [c_path], "exports": [r"\bCQ\b"],
+                   "acceptance": [py, "-c", "import os, sys; sys.exit(0 if "
+                                  "os.path.isfile('%s') else 1)" % s_path]},
+                  {"id": "S", "lands": [s_path], "exports": [r"\bSZ\b"]}],
+                 EXIT_DEPENDENT, extra=["--jobs", "4"],
+                 out_must=["SEPARABILITY_DEPENDENCY C->S via acceptance"],
+                 err_must=["acceptance_runs=2"])
+
+        scenario("bound: --max-runs 1 skips the repair attempts",
+                 {"C": {c_path: "no reference\n"}, "S": {s_path: "rows\n"}},
+                 [{"id": "C", "lands": [c_path], "exports": [r"\bCQ\b"],
+                   "acceptance": [py, "-c", "import os, sys; sys.exit(0 if "
+                                  "os.path.isfile('%s') else 1)" % s_path]},
+                  {"id": "S", "lands": [s_path], "exports": [r"\bSZ\b"]}],
+                 EXIT_INPUT, extra=["--max-runs", "1"],
+                 out_must=["SEPARABILITY_PARTIAL 1 run(s) skipped",
+                          "SEPARABILITY_UNRESOLVED C->S"],
+                 out_must_not=["SEPARABILITY_DEPENDENCY C-><base>",
+                              "SEPARABILITY_DEPENDENCY C->S via acceptance"],
+                 err_must=["acceptance_runs=1", "skipped=1"])
+
+        scenario("bound: --budget that expires skips runs",
+                 {"C": {c_path: "no reference\n"}, "S": {s_path: "rows\n"}},
+                 [{"id": "C", "lands": [c_path], "exports": [r"\bCQ\b"],
+                   "acceptance": [py, "-c", "import os, sys, time; "
+                                  "time.sleep(1.5); sys.exit(0 if "
+                                  "os.path.isfile('%s') else 1)" % s_path]},
+                  {"id": "S", "lands": [s_path], "exports": [r"\bSZ\b"]}],
+                 EXIT_INPUT, extra=["--budget", "0.5", "--timeout", "10"],
+                 out_must=["SEPARABILITY_PARTIAL"],
+                 out_must_not=["SEPARABILITY_DEPENDENCY C->S via acceptance"],
+                 err_must=["skipped="])
+
+        scenario("bound: a manifest with no acceptance units is complete",
+                 {"C": {c_path: "x\n"}, "S": {s_path: "y\n"}},
+                 [{"id": "C", "lands": [c_path], "exports": [r"\bCQ\b"]},
+                  {"id": "S", "lands": [s_path], "exports": [r"\bSZ\b"]}],
+                 EXIT_OK, out_must=["SEPARABILITY: 0 findings"],
+                 err_must=["acceptance_runs=0"])
+
+        scenario("bound: static-only with no acceptance units is complete",
+                 {"C": {c_path: "x\n"}},
+                 [{"id": "C", "lands": [c_path], "exports": [r"\bCQ\b"]}],
+                 EXIT_OK, extra=["--static-only"],
+                 out_must=["SEPARABILITY: 0 findings"],
+                 out_must_not=["SEPARABILITY_PARTIAL"])
+
+        scenario("bound: static-only counts one skipped run per dynamic unit",
+                 {"C": {c_path: "x\n"}, "S": {s_path: "y\n"}},
+                 [{"id": "C", "lands": [c_path], "exports": [r"\bCQ\b"],
+                   "acceptance": [py, "-c", "import sys; sys.exit(0)"]},
+                  {"id": "S", "lands": [s_path], "exports": [r"\bSZ\b"]}],
+                 EXIT_INPUT, extra=["--static-only"],
+                 out_must=["SEPARABILITY_PARTIAL 1 run(s) skipped (static-only)"],
+                 err_must=["skipped=1"])
+
         # ---- malformed or unevaluable input: exit 2
         shared_root = fresh()
         shared_lane, shared_base, shared_trees = _make_lane(
@@ -1184,7 +1376,9 @@ def selftest():
           "record citation, overlap, sorted output, WORKTREE), positive controls (disjoint, "
           "self-citation, name boundary, base-existing path, added-lines only, record unit, "
           "acceptance on base plus own lands, other units at base bytes, needs_git clone, "
-          "WORKTREE reads) and malformed or unevaluable input (exit 2)" % (passed, total))
+          "WORKTREE reads), bounded verdicts (static-only, jobs, max-runs, budget, "
+          "no-acceptance manifests, skipped-run accounting) and malformed or "
+          "unevaluable input (exit 2)" % (passed, total))
     return True
 
 
@@ -1201,6 +1395,19 @@ def main(argv=None):
                          "(default: --lane)")
     ap.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT,
                     help="seconds allowed per acceptance run (default %g)" % DEFAULT_TIMEOUT)
+    ap.add_argument("--jobs", type=int, default=DEFAULT_JOBS,
+                    help="acceptance units evaluated in parallel (default %d); "
+                         "findings print sorted, so the verdict is unchanged" % DEFAULT_JOBS)
+    ap.add_argument("--budget", type=float, default=DEFAULT_BUDGET,
+                    help="global wall-clock seconds for the dynamic leg; runs not "
+                         "started when it is exhausted are skipped and the verdict "
+                         "is partial (exit 2)")
+    ap.add_argument("--max-runs", type=int, default=DEFAULT_MAX_RUNS, dest="max_runs",
+                    help="per-unit cap on dynamic runs (initial plus repair "
+                         "attempts); runs beyond it are skipped (partial, exit 2)")
+    ap.add_argument("--static-only", action="store_true", dest="static_only",
+                    help="evaluate overlap and static legs only; the dynamic leg is "
+                         "skipped and the verdict is partial (exit 2)")
     ap.add_argument("--selftest", "--self-test", action="store_true", dest="selftest",
                     help="run the negative and positive controls in temporary repos")
     args = ap.parse_args(argv)
@@ -1212,9 +1419,17 @@ def main(argv=None):
         ap.error("a manifest path is required")
     if not (math.isfinite(args.timeout) and args.timeout > 0):
         ap.error("--timeout must be a positive finite number of seconds")
+    if not args.jobs >= 1:
+        ap.error("--jobs must be a positive integer")
+    if args.budget is not None and not (math.isfinite(args.budget) and args.budget > 0):
+        ap.error("--budget must be a positive finite number of seconds")
+    if args.max_runs is not None and not args.max_runs >= 1:
+        ap.error("--max-runs must be a positive integer")
     root = args.root if args.root is not None else args.lane
     try:
-        return report(args.manifest, args.lane, root, args.timeout)
+        return report(args.manifest, args.lane, root, args.timeout,
+                      jobs=args.jobs, budget=args.budget,
+                      max_runs=args.max_runs, static_only=args.static_only)
     except Unevaluated as exc:
         print("SEPARABILITY_UNEVALUATED %s" % exc)
         return EXIT_INPUT
