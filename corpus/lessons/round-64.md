@@ -616,3 +616,5 @@ acceptance results:
   measured revision `b7d22703…`, counter sha `c27a9fef…`, tool sha
   `c0f10a84…`. It is evidence for revision 3 only and must not be cited as a
   revision-4 measurement.
+
+Correction (round 65, R6): R64-M12's “closed in the worktree, open in the index” status sentence is a pre-land snapshot. The S687 `mined -> queued` flip was committed in `95c9194ef938e1338b2af894086a46e8b8677ee2`; at that revision the flip is committed, not open in the index.

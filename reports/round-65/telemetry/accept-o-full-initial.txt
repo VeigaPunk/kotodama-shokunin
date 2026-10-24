@@ -1,0 +1,32 @@
+command: python3 -B reports/round-65/accept-o.py --root .
+measured revision (main): f107e84924ff53d72b55d9aa1c0e60b41135089f (worktree contained the receipt-forced counter repairs)
+counter sha256: 1cc23758e74ee39be18c3199e4253e7fba6b450d38145a5f434780bfdfc1c1ec
+wrapper: stdout was piped through `grep -vE '^#' | tail -30`; the wrapper did not preserve the child process exit status. The counter's own final line is `ACCEPT-O-65: FAIL`, which by source returns exit 1.
+--- observed output ---
+TOOL PASS path=tools/reopen-row.py exists=True executable=True sha_match=True
+INDEP PASS named=[]
+GEN PASS rows=61 wrong=0 [] summary_ok=True exit=1
+ORDER PASS printed=61 expected=61 repeated_args=5 repeated_printed=5
+BOUND PASS bad=[] unlisted_requests=[]
+EXIT PASS gen_exit=1 body_exit=0 default_registry_exit=0
+PRIV PASS exit=1 rows=[('S2110', 'REFUSED', 0), ('S2764', 'REFUSED', 0), ('S2353', 'REFUSED', 0)]
+DEFAULT PASS rows=[('S2898', 'UNREACHABLE', 9)] wall=150s hits=9 exit=1 bursts=[3, 3, 3] gaps=[60, 60]
+ERR PASS bad=[]
+REDIRECT PASS allow_private=[('S2471', 'REFUSED', 1)] hits_src=1 hits_target=0 no_flag=[('S2471', 'REFUSED', 0)] exits=1,1
+MALFORMED PASS exit=1 rows=[('S2048', 'MALFORMED', 0), ('S2720', 'MALFORMED', 0), ('S2266', 'MALFORMED', 0)] traceback=False
+GZIP PASS exit=1 rows=[('S2897', 'LOCATED', 1), ('S2912', 'CAPTION_ONLY', 1)]
+TRUNC PASS exit=1 rows=[('S2060', 'TRUNCATED', 1), ('S2395', 'LOCATED', 1)] want=[('S2060', 'TRUNCATED', 1), ('S2395', 'LOCATED', 1)]
+TIMEOUT PASS exit=1 rows=[('S2637', 'UNREACHABLE', 3)] wall=6.0s stall_hits=3 span=4.0s
+EDGE_SCHEMEREL PASS rows=[('S2174', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False
+EDGE_USERINFO PASS cross=[('S2137', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2393', 'UNREACHABLE', 6)] ok=True
+EDGE_HTTPS PASS cross=[('S2692', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2577', 'UNREACHABLE', 6)] ok=True
+EDGE_MALTARG PASS rows=[('S2839', 'UNREACHABLE', 1)] exit=1 tb=False
+EDGE_SLASHLESS PASS rows=[('S2619', 'LOCATED', 2)] dir_hits=1 root_hits=0 exit=0
+EDGE_308 PASS rows=[('S2425', 'LOCATED', 2)] tgt_hits=1 exit=0
+EDGE_5TH200 PASS rows=[('S2085', 'LOCATED', 5, 'http://127.0.0.1:41313/cfin-nkbhawu')] final=http://127.0.0.1:41313/cfin-nkbhawu exit=0
+DRIP PASS rows=[('S2234', 'UNREACHABLE', 3), ('S2817', 'LOCATED', 1)] wall=12.0s drip_hits=3 span=8.0s tb=False
+MUT PASS bad=[] mutants=10 kill_evidence=["m1->EDGE_SCHEMEREL FAIL rows=[('S2266', 'LOCATED', 2)] tgt_hits=1 src_hits=1 tb=False", "m10->EDGE_USERINFO FAIL cross=[('S2144', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2416', 'UNREACHABLE', 6)] ok=True", "m2->EDGE_USERINFO FAIL cross=[('S2025', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2590', 'REFUSED', 1)] ok=False", "m3->EDGE_HTTPS FAIL cross=[('S2428', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2488', 'UNREACHABLE', 6)] ok=True", 'm9->EDGE_MALTARG FAIL rows=[] exit=1 tb=True', "m5->EDGE_SCHEMEREL PASS rows=[('S2019', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False; EDGE_SLASHLESS FAIL rows=[('S2809', 'UNREACHABLE', 2)] dir_hits=0 root_hits=1 exit=1", "m6->EDGE_308 FAIL rows=[('S2718', 'UNREACHABLE', 1)] tgt_hits=0 exit=1", "m7->EDGE_5TH200 FAIL rows=[('S2529', 'UNREACHABLE', 5, '-')] final=http://127.0.0.1:35005/cfin-itopfea exit=1", 'm8->GEN FAIL rows=61 wrong=1 ["REDIRECT_LOOP:S2519:want=UNREACHABLE/5:got=[(\'UNREACHABLE\', 6)]"] summary_ok=True exit=1; BOUND FAIL bad=[\'REDIRECT_LOOP:l2:want=2:hits=3\'] unlisted_requests=[]', "mread->DRIP FAIL rows=[('S2966', 'UNREACHABLE', 3), ('S2836', 'LOCATED', 1)] wall=90.1s drip_hits=3 span=60.0s tb=False"]
+FULL PASS exit=0 pass=23/23 skip=3 unexpected_skip=[] fail=0 wall=426.2s
+MUTEX FAIL bad=['m10:sweep_traceback', 'm7:sweep_traceback', 'm8:sweep_traceback'] mutants=10 table=['m1:EDGE_HTTPS+EDGE_SCHEMEREL+EDGE_USERINFO', 'm10:EDGE_USERINFO', 'm2:EDGE_MALTARG+EDGE_USERINFO', 'm3:EDGE_HTTPS', 'm9:EDGE_MALTARG', 'm5:EDGE_SLASHLESS', 'm6:EDGE_308', 'm7:EDGE_5TH200', 'm8:BOUND+GEN', 'mread:DRIP']
+FRAG PASS selftest=exit0 scan=exit0 files=26/26 scan_out=['FRAG: 0 finding(s) in 26 file(s)'] tb=False
+ACCEPT-O-65: FAIL

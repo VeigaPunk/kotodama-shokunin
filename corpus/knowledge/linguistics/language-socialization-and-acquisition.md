@@ -2,7 +2,7 @@
 
 - topic: language socialization and acquisition as culturally organized participation in language across caregiver interaction, early talk, correction, multilingual life, narrative, literacy, and address — a sourced design reference for fictional language practices, not a universal developmental sequence.
 - source: the round-64 registry rows in `corpus/SOURCES.md` are the evidence anchors; each inserted claim stays within its cited row.
-- verified-at: 2026-10-23 — skeleton structure prepared; cited source claims await L1 insertion and review.
+- verified-at: 2026-10-24 — round-64 blind-support verification found all 26 cited claims SUPPORTED after repairs.
 - recheck: 180 days, per row (`corpus/SOURCES.md` recheck cells).
 
 ## 1. What language socialization is (and is not)

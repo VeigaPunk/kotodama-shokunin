@@ -37,7 +37,8 @@ Legs, each printed PASS or FAIL:
   APPEND  all base registry lines are preserved verbatim; exactly 26 rows are
           appended, so 675 -> 701
   NOHARM  `git diff --name-only <base> main -- corpus/knowledge` lists
-          exactly the new entry
+          exactly the new entry, or the new entry plus the pre-declared
+          claim-Ca R7 land (the round-64 entry edit)
   SWEEP   `python3 -B reports/round-28/readme/sweep.py` exits 0 (rows == files,
           topic_mismatch 0) and README row carries the entry's topic verbatim
   LIVE    frozen subset S750,S755,S760,S765,S770,S775 each prints LOCATED
@@ -137,7 +138,12 @@ def norm_url(url):
     host = (parts.hostname or "").lower()
     if host.startswith("www."):
         host = host[4:]
-    port = parts.port
+    # revision 3 (RevRegistryFinal: a bad port raised ValueError and aborted
+    # the counter before any leg line): fail closed to the stripped literal.
+    try:
+        port = parts.port
+    except ValueError:
+        return url.strip().lower()
     if port and not (scheme == "http" and port == 80) and not (scheme == "https" and port == 443):
         host = f"{host}:{port}"
     path = parts.path or "/"
@@ -216,9 +222,17 @@ def main():
         reg_by_id.setdefault(m.group(1), []).append(line)
 
     # ---------- ROWS ----------
+    # revision 3 (RevRegistryFinal): the duplicate scan must be seeded with
+    # the base rows - query/www/trailing-slash/scheme/fragment twins of a base
+    # URL used to pass every registry leg.
     row_bad = []
     live_urls = {}
     norm_seen = {}
+    for bline in base_lines:
+        bcs = cells(bline)
+        if len(bcs) == 11:
+            for u in URL_RE.findall(bcs[1]):
+                norm_seen.setdefault(norm_url(u), "base:" + (ROW_RE.match(bline).group(1) if ROW_RE.match(bline) else "?"))
     for sid in NEW_IDS:
         rows = reg_by_id.get(sid, [])
         if len(rows) != 1:
@@ -341,12 +355,29 @@ def main():
         # revision 1: word-boundary near-copy of the teaches cell.  The
         # round-64 trailing-word bypass appended one novel word to a verbatim
         # teaches copy; token-subsequence coverage catches it.
+        # revision 3b (RevCounterC HIGH-1/MEDIUM-1): padding with >=3 filler
+        # tokens dropped coverage below 0.8 while keeping the teaches frame,
+        # and order-shuffling defeated in-order coverage - a verbatim teaches
+        # token RUN inside the clause, or a high token-overlap with a short
+        # clause, now also fails.
         if teaches is not None:
             clause_tokens = word_tokens(clause)
             teaches_tokens = word_tokens(teaches)
             cov = in_order_coverage(clause_tokens, teaches_tokens)
-            if len(clause_tokens) >= 5 and cov >= 0.8:
-                restate_bad.append(f"line{i}:{sid}:teaches_nearcopy={cov:.2f}")
+            run = 0
+            best_run = 0
+            tset = set(teaches_tokens)
+            overlap = len(tset & set(clause_tokens)) / len(tset) if tset else 0.0
+            if len(teaches_tokens) >= 4:
+                for w in clause_tokens:
+                    run = run + 1 if w in tset else 0
+                    best_run = max(best_run, run)
+            if len(clause_tokens) >= 5 and (cov >= 0.8
+                                            or best_run >= min(10, len(teaches_tokens))
+                                            or (overlap >= 0.9
+                                                and len(clause_tokens) <= len(teaches_tokens) + 4)):
+                restate_bad.append(
+                    f"line{i}:{sid}:teaches_nearcopy cov={cov:.2f} run={best_run} overlap={overlap:.2f}")
     # revision 2 (pre-data; forcing control:
     # .ufo/waves/round-65/w1/CriticControlC.md - RESTATE passed vacuously with
     # zero cited lines when ONEID was the only leg requiring citations): the
@@ -364,6 +395,7 @@ def main():
         if not url:
             continue
         host = re.sub(r"^https?://", "", url).split("/")[0].lower().split(":")[0]
+        host = host.rsplit("@", 1)[-1]  # revision 3: userinfo must not mask the host
         if any(host == ph or host.endswith("." + ph) for ph in PLACEHOLDER_HOSTS):
             hosts_bad.append(f"{sid}:{host}")
     leg("HOSTS", not hosts_bad, f"bad={hosts_bad[:6]}")

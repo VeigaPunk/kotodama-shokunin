@@ -228,10 +228,18 @@ def main():
     r2_named = "Correction (round 65, R2)" in rev_text and "final-measures-c.txt" in rev_text
     _r2_idx = rev_text.find("Correction (round 65, R2)")
     _r2_window = rev_text[_r2_idx:_r2_idx + 800] if _r2_idx != -1 else ""
-    r2_asserts_false = "is false" in _r2_window or "false clause" in _r2_window
-    r2_named = r2_named and r2_asserts_false
+    r2_asserts_false = ("is false" in _r2_window or "false clause" in _r2_window)
+    # RevengerR2R3: substance must pin the true adder (0c892ce) and the
+    # absent-at-8d2041fa fact, and the LOG repeat of the falsehood must be
+    # corrected there too (LOG.md carried the same 8d2041fa claim).
+    r2_substance = "0c892ce" in _r2_window and "8d2041fa" in _r2_window
+    _r2l_idx = log_text.find("Correction (round 65, R2)")
+    _r2l_window = log_text[_r2l_idx:_r2l_idx + 900] if _r2l_idx != -1 else ""
+    r2_log_ok = _r2l_idx != -1 and "0c892ce" in _r2l_window and "8d2041fa" in _r2l_window
+    r2_named = r2_named and r2_asserts_false and r2_substance and r2_log_ok
     leg("R2", r2_original_intact and r2_named,
-        f"original_intact={r2_original_intact} named={r2_named}")
+        f"original_intact={r2_original_intact} named={r2_named} "
+        f"substance={r2_substance} log_repeat={r2_log_ok}")
 
     # ---------- R3: wrong-path citation corrected in lane records ----------
     _r3_idx = score_text.find("Correction (round 65, R3)")
@@ -256,12 +264,24 @@ def main():
         corr_ok = ("at least their pinned leg" in corr_json
                    and "EDGE_USERINFO" in corr_json
                    and "EDGE_MALTARG" in corr_json)
-        # MutRecords M3: the false wording must not survive anywhere in the
-        # file - an edited predicate field used to pass while the rest of the
-        # file kept quoting the old sentence.
-        false_gone = "each fail exactly their pinned leg" not in claims
-        r4_ok = pred_exact and corr_ok and false_gone
-        r4_detail = f"pred_exact={pred_exact} correction={corr_ok} false_wording_gone={false_gone}"
+        # MutRecords M3: the predicate field must be byte-exact (done above),
+        # and the original statement must stay byte-equal to its base version
+        # (append-only discipline - the historical wording persists with the
+        # correction riding beside it).
+        base_claims_proc = subprocess.run(
+            ["git", "-C", root, "show", f"{BASE}:{CA64_CLAIMS}"],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        statement_unchanged = False
+        if base_claims_proc.returncode == 0:
+            try:
+                bcj = json.loads(base_claims_proc.stdout.decode("utf-8"))
+                boc = next(c for c in bcj["claims"] if c["id"] == "O")
+                statement_unchanged = oc.get("statement") == boc.get("statement")
+            except (ValueError, KeyError, StopIteration):
+                statement_unchanged = False
+        r4_ok = pred_exact and corr_ok and statement_unchanged
+        r4_detail = (f"pred_exact={pred_exact} correction={corr_ok} "
+                     f"statement_unchanged={statement_unchanged}")
     except (ValueError, KeyError, StopIteration) as error:
         r4_detail = f"json_error={error}"
     leg("R4", r4_ok, r4_detail)

@@ -854,8 +854,10 @@ unused), 0 W01, 0 W02, 0 E-codes; lane line `kotodama ok`.
 (29 lines) — 27 W04 rows, **0 W03** (the `S687` warning is gone because the
 flip to `queued` landed), 0 W01, 0 W02, 0 E-codes, lane line
 `kotodama ok`, final line `census exit=0`.
-**The three acceptance receipts now exist as well**, each naming measured
-revision `95c9194ef938e1338b2af894086a46e8b8677ee2` and its counter's sha256:
+**The three acceptance receipts now exist as well**: C and O were measured at
+revision `95c9194ef938e1338b2af894086a46e8b8677ee2`; `telemetry/final-measures-ca.txt`
+is re-stamped in round 65 (Correction (round 65, R1)) to measured revision `8bab271c691c6b1006da95316a24ae1958ec01e2`
+(tree `0ec0e50ea828ca6d8e20298f72af49414692e9e4`), not `95c9194ef938e1338b2af894086a46e8b8677ee2`; each names its counter's sha256:
 `telemetry/final-measures-c.txt` (`ACCEPT-C-64: PASS`, `exit=0`, counter
 `979050ce…`), `telemetry/final-measures-ca.txt` (`ACCEPT-CA-64: PASS`,
 `exit=0`, counter `d0787979…`), and `telemetry/final-measures-o-rev5.txt`

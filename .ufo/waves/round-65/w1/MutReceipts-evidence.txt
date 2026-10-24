@@ -1,0 +1,29 @@
+## probe-r1 (scratch /tmp/k65-MR, detector=accept-ca.py R1)
+M1-wrong-counter-sha | exit=1 | R1 PASS restamp=True tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+M2-stale-counter-sha | exit=1 | R1 PASS restamp=True tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+M2b-counter-sha-line-removed | exit=1 | R1 PASS restamp=True tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+M3a-measured=old-95c9194 | exit=1 | R1 FAIL restamp=False tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+M3b-measured=base-declaration | exit=1 | R1 FAIL restamp=False tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+M3c-tree=base-tree | exit=1 | R1 FAIL restamp=False tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+M4-tree-line-removed | exit=1 | R1 FAIL restamp=False tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+RESTORED | exit=1 | R1 PASS restamp=True tree=0ec0e50ea828ca6d8e20298f72af49414692e9e4 repeats_log_score_lessonfinal=True
+
+## probe-receipts (round-65 receipt mutants, detectors=accept-ca.py,accept-c.py)
+CA pristine: ['R1 PASS', 'R2 FAIL', 'R3 FAIL', 'R4 FAIL', 'R5 FAIL', 'R6 FAIL', 'R7 FAIL', 'CRITERION FAIL', 'QUOTES FAIL']
+CA receipts: ['R1 PASS', 'R2 FAIL', 'R3 FAIL', 'R4 FAIL', 'R5 FAIL', 'R6 FAIL', 'R7 FAIL', 'CRITERION FAIL', 'QUOTES FAIL'] rc= 1
+CA diff: []
+C  pristine: 10 C receipts rc= 1 diff: [] lens: 10 10
+mentions final-measures in counter source: 0 2 4
+removed receipt mutants; CA restored: True
+
+## criterion-17 gameability probe
+CRITERION PASS criterion_with_tree_hash=True
+CRITERION FAIL criterion_with_tree_hash=False
+
+## accept-o filtered baseline
+FRAG PASS selftest=exit0 scan=exit0 scan_out=['FRAG: 0 finding(s) in 0 file(s)'] tb=False
+ACCEPT-O-65: PASS [filtered: 1/26 legs]
+
+## hashes
+e34a58aa14293a79c524de55950f98fe78268be29adc00791af05a004c2b35d4  reports/round-64/telemetry/final-measures-ca.txt
+e853b7020f128d3b4c3ab0d5e377b52e54f7cad622dba068c9a118ee9d61c2c2  corpus/QUALITY.md

@@ -1,0 +1,16 @@
+# mutant exactness sweep, claim O round 65
+# counter: reports/round-65/accept-o.py; tool sha256 c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0
+# command per mutant: python3 -B reports/round-65/accept-o.py --root <scratch>/xroot-<mutant> --only <EDGE_7>,DRIP[,GEN,BOUND m8]
+# rows: measured failing-leg set per mutant through every EDGE + DRIP fixture (GEN,BOUND for m8);
+# expectation disclosed in the frozen counter (SWEEP_EXPECT): m1 also fails EDGE_USERINFO+EDGE_HTTPS
+# beyond its pinned leg, m2 also fails EDGE_MALTARG — the round-64 wording correction this pins.
+m1:EDGE_HTTPS+EDGE_SCHEMEREL+EDGE_USERINFO
+m10:EDGE_USERINFO
+m2:EDGE_MALTARG+EDGE_USERINFO
+m3:EDGE_HTTPS
+m9:EDGE_MALTARG
+m5:EDGE_SLASHLESS
+m6:EDGE_308
+m7:EDGE_5TH200
+m8:BOUND+GEN
+mread:DRIP

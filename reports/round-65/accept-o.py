@@ -466,7 +466,13 @@ def main():
 
     src = os.path.join(root, TOOL)
     have = os.path.isfile(src) and os.access(src, os.X_OK)
-    leg("TOOL", have, f"path={TOOL} exists={os.path.isfile(src)} executable={have and os.access(src, os.X_OK)}")
+    # revision 3 (RevClaimO: the "unchanged tool" statement clause had no
+    # leg): the tool bytes must equal the round-62/63/64-era base bytes.
+    TOOL_BASE_SHA256 = "c0f10a8450b425bb0959b00c18031fde43ac4809a5334538e9c1d4d9199568a0"
+    tool_sha = _hl.sha256(open(src, "rb").read()).hexdigest() if have else "absent"
+    leg("TOOL", have and tool_sha == TOOL_BASE_SHA256,
+        f"path={TOOL} exists={os.path.isfile(src)} executable={have and os.access(src, os.X_OK)} "
+        f"sha_match={tool_sha == TOOL_BASE_SHA256}")
     if not have:
         for name in ("INDEP", "GEN", "ORDER", "BOUND", "EXIT", "PRIV", "DEFAULT", "ERR",
                      "REDIRECT", "MALFORMED", "GZIP", "TRUNC", "TIMEOUT",
@@ -1232,7 +1238,7 @@ def main():
                 mutex_bad.append("exactness-sweep-o65.txt:stale_or_mismatch")
             else:
                 tool_blob = open(os.path.join(root, TOOL), "rb").read()
-                tool_sha = hashlib.sha256(tool_blob).hexdigest()
+                tool_sha = _hl.sha256(tool_blob).hexdigest()  # MutCounterO: _hl, not hashlib
                 if f"tool sha256 {tool_sha}" not in committed:
                     mutex_bad.append("exactness-sweep-o65.txt:tool_sha_mismatch")
             leg("MUTEX", not mutex_bad,

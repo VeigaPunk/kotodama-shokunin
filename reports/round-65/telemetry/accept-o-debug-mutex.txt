@@ -1,0 +1,13 @@
+command: python3 -B /tmp/accept-o-debug.py --root . --only MUTEX
+This was a disposable copy of the frozen accept-o.py with only one added diagnostic line that prints the last 1200 bytes of a traceback; the repository counter was not modified. The exact same MUTEX logic was run with only the MUTEX selector (not the full acceptance command).
+Observed output:
+EDGE_308 SKIP
+EDGE_5TH200 SKIP
+DRIP SKIP
+MUT SKIP
+FULL SKIP
+MUTEX PASS bad=[] mutants=10 table=['m1:EDGE_HTTPS+EDGE_SCHEMEREL+EDGE_USERINFO', 'm10:EDGE_USERINFO', 'm2:EDGE_MALTARG+EDGE_USERINFO', 'm3:EDGE_HTTPS', 'm9:EDGE_MALTARG', 'm5:EDGE_SLASHLESS', 'm6:EDGE_308', 'm7:EDGE_5TH200', 'm8:BOUND+GEN', 'mread:DRIP']
+FRAG SKIP
+ACCEPT-O-65: PASS [filtered: 1/26 legs]
+Wall time: 368.97 seconds
+This is diagnostic evidence only: filtered and instrumented, therefore not a passing full ACCEPT-O-65 measurement and not substituted for `accept-o-full-initial.txt`.

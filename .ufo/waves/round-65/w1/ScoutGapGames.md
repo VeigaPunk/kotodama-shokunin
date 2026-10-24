@@ -1,0 +1,7 @@
+# ScoutGapGames — claim C base gap
+
+- **Observed:** the frozen filename command returns `2`, not its claimed `0`. The paths are `sumptuary-law-rank-display.md` (`play` inside `display`) and `transport-mobility-lexicon.md` (`sport` inside `transport`); these are lexical false positives, not evidence of two dedicated games entries. The base-pinned named-term scan has no matches.
+- **Observed:** the current-worktree named-term scan returned no stdout. The sibling scan returned one hit, `chousa-shokunin/.ufo/waves/round-35/w2/ScoutManBash/bash.1`, caused by `senet` inside “Usenet” at line 13440; it is a Bash man page, not a topic owner.
+- **Base corroboration:** `reports/round-65/telemetry/dry-run-c.txt` records the entry missing, zero rows for S750-S775, all 26 IDs missing, and registry count 675 unchanged; ACCEPT-C-65 fails at base.
+- **Conclusion / confidence:** high confidence that the game-name terms searched are absent from base `corpus/knowledge` and no sibling owner was located by the supplied scan. The frozen assertion “0 filename owners” is false under its exact regex due to the two substring matches; those matches do not establish semantic ownership. The current-worktree scan is not base-pinned.
+- **Remaining unknown:** whether any existing base entry should be classified as a broader/partial owner requires topical review; these literal searches do not settle that. Exact commands, outputs, and the requested five-line build order are in `.ufo/waves/round-65/rows/ScoutGapGames/gap.md`.

@@ -1,0 +1,51 @@
+### m1-r1-tree-any-hex
+@@ -106,7 +106,7 @@
+     tree_code, tree_out = git_out(root, ["rev-parse", f"{TRUE_REV}^{{tree}}"])
+     tree = tree_out.strip()
+     r1_ok = (f"measured revision: {TRUE_REV}" in receipt
+-             and re.search(rf"^tree: {re.escape(tree)}$", receipt, re.MULTILINE) is not None
++             and re.search(r"^tree: [0-9a-f]{40}$", receipt, re.MULTILINE) is not None
+              and "re-stamped" in receipt
+              and "measured revision: 95c9194ef938e1338b2af894086a46e8b8677ee2"
+                  in receipt.split("original receipt bytes")[-1])
+### m2-r2-append-only-dropped
+@@ -125,7 +125,7 @@
+     base_code, base_rev = git_out(root, ["show", f"{BASE}:{REV63}"])
+     r2_original_intact = base_code == 0 and base_rev == rev_text[:len(base_rev)] and base_rev.strip() and rev_text.startswith(base_rev.rstrip("\n"))
+     r2_named = "Correction (round 65, R2)" in rev_text and "final-measures-c.txt" in rev_text
+-    leg("R2", r2_original_intact and r2_named,
++    leg("R2", r2_named,
+         f"original_intact={r2_original_intact} named={r2_named}")
+ 
+     # ---------- R3: wrong-path citation corrected in lane records ----------
+### m3-r7-skeleton-anywhere
+@@ -160,7 +160,7 @@
+     m = re.search(r"^- verified-at:.*$", entry, re.MULTILINE)
+     verified_at = m.group(0) if m else ""
+     r7_ok = (m is not None
+-             and not re.search(r"skeleton|await L1", verified_at, re.IGNORECASE))
++             and not re.search(r"skeleton", entry, re.IGNORECASE))
+     leg("R7", r7_ok, f"line={verified_at[:90]!r}")
+ 
+     # ---------- CRITERION: QUALITY 17 ----------
+### m4-quotes-other-lesson
+@@ -69,7 +69,7 @@
+ CONTROL_O = "reports/round-64/telemetry/control-o.txt"
+ R64_LESSON = "corpus/lessons/round-64.md"
+ R64_ENTRY = "corpus/knowledge/linguistics/language-socialization-and-acquisition.md"
+-R65_LESSON = "corpus/lessons/round-65.md"
++R65_LESSON = "corpus/lessons/round-64.md"
+ QUALITY = "corpus/QUALITY.md"
+ LOG = "LOG.md"
+ SCORE = "SCORECARD.md"
+### m5-criterion-17-substring
+@@ -165,8 +165,7 @@
+ 
+     # ---------- CRITERION: QUALITY 17 ----------
+     quality = read(root, QUALITY) or ""
+-    r_criterion = re.search(r"^1[7-9]\.\s", quality, re.MULTILINE) is not None and \
+-        re.search(r"tree hash", quality) is not None
++    r_criterion = re.search(r"17\.", quality) is not None
+     leg("CRITERION", r_criterion, f"criterion_with_tree_hash={r_criterion}")
+ 
+     # ---------- QUOTES: round-65 lesson Gate rows ----------
