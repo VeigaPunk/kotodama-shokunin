@@ -1,0 +1,25 @@
+# control 1: round-64 accept-c (revision 3) over fixture A — the trailing-word teaches near-copy bullet on S718 must PASS its RESTATE leg (the bypass exists)
+# command: python3 -B reports/round-64/accept-c.py --root /tmp/k65-ctl
+2026-10-24T01:22:45-03:00
+ONEID PASS bad=[] marks=[] cited_lines=26 cited_lines_tool=exit0 clean=True citations_exactly_once=True missing=[] duplicates=[]
+RESTATE PASS bad=[] lines=26
+ACCEPT-C-64: FAIL
+# counter exit=1 (the bare 'exit=0' a pipeline captured above was grep's exit; recorded per RevEntryDraft F3)
+# control 2: round-65 accept-c (revision 1) over fixture B — RESTATE must FAIL on the S750 trailing-word near-copy; ROWS must FAIL on the S751/S752 query-only URL twin
+# command: python3 -B reports/round-65/accept-c.py --root /tmp/k65-ctl
+2026-10-24T01:23:42-03:00
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-65/accept-c.py:99: SyntaxWarning: "\w" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\w"? A raw string is also an option.
+  maximal [\w]+ runs."""
+FILE PASS exists lines=30 h1=1 h2=0 h3=0 topic=True
+ROWS FAIL bad=['S752:norm_dup_of=S751'] checked=26
+RESTATE FAIL bad=['line5:S750:in_order=2', 'line6:S751:in_order=1', 'line7:S752:in_order=1', 'line8:S753:in_order=1', 'line9:S754:in_order=1', 'line10:S755:in_order=1', 'line11:S756:in_order=1', 'line12:S757:in_order=1'] lines=26
+LINK PASS bad=[]
+APPEND PASS missing_base_lines=0 base=675 measured=701 +26=True
+NOHARM PASS diff=['corpus/knowledge/culture-material/games-play-sport-contests.md']
+ACCEPT-C-65: FAIL
+exit=0
+# control 2 note: RESTATE failed the fixture via the in_order quote rule (the control bullets were
+# intentionally not real restatements); the S750 teaches near-copy (coverage 0.92 of the teaches
+# cell) is additionally caught by revision 1's teaches_nearcopy rule - the nearcopy-first
+# demonstration rides seat MutCounterC's crafted fixtures (patch order in the leg lists in_order
+# before nearcopy; both fire on the bypass class).

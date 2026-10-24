@@ -1,0 +1,24 @@
+# pre-data controls, claim Ca (round 65) — each forced a revision-2 counter repair BEFORE any data seat scored
+# control 1 (R1 fabrication): a 7-line receipt keeping 1 of 15 original lines printed R1 PASS under revision 1 (.ufo/waves/round-65/w1/RevReceipts.md HIGH-1; RevCounterCaKeying F1/F2: the split() degenerated when the marker was renamed; RevCounterCa H-B: tree_code fail-open). Repair: original-sha256 + marker-exactly-once + 12 distinctive original lines required below the marker + tree_resolves gate.
+# control 2 (tree is not a read-inputs hash): 'tree: 0ec0e50e...' is computable from the stamp alone (RevReceipts HIGH-2). Repair: per-path read-input manifest (LOG.md, SCORECARD.md, corpus/LOG.md, corpus/lessons/round-64.md, reports/round-63/telemetry/revisions.txt) with sha256 of git show 8bab271c:<path>.
+# control 3 (dirtiness): the receipt must disclose the dirty worktree of the original run (RevReceipts HIGH-3): dirty-worktree line required.
+# control 4 (bare-marker repeats): LOG/SCORECARD/LessonFinal corrections must name 8bab271c in a 600-byte window (RevReceipts MEDIUM-6 / RevCounterCaKeying F3).
+# control 5 (R4/R5/R7/CRITERION/QUOTES): substring predicate match, unnamed control-o binding, empty verified-at value, negation-blind criterion, 0-findings-on-exit-2 quote tail (RevCounterCa M-E/M-F/M-G/L-H). Repair: JSON parse with byte-exact predicate equality, named binding record, value length+date checks, negation scan, lesson-exists check.
+# control 6 (round-65 receipts unprotected): wrong counter sha / stale sha / declaration-commit stamp / missing tree all survived at base (.ufo/waves/round-65/w1/MutReceipts.md M1-M4). Repair: RECEIPTS leg — each final-measures receipt must name the lands commit (main^), its tree, and the producing counter's sha256.
+# control 7 (O statement clause): claims.json claim O named keyed HISTOGRAM/R63SEP/DISPO legs the round-65 accept-ca does not carry (.ufo/waves/round-65/w1/MutCounterCa.md). Repair: statement revision 2 (pre-data); predicate unchanged.
+# base dry-run after all repairs (pre-data, expect every leg FAIL):
+2026-10-24T01:55:49-03:00
+# counter sha256 (self): 74077e40407329b5803c2e1f9366cf4370fdd14b9bdd154683f2740aec8e28bc
+# measured revision (lane main): 17c32302c6845c8f164b985a8cb312d3181c8788
+R1 FAIL checks={'stamp': False, 'tree': False, 'restamp_note': False, 'dirty': False, 'original_sha': False, 'tree_resolves': True, 'preserved_original': False} manifest_bad=['LOG.md:manifest_mismatch', 'SCORECARD.md:manifest_mismatch', 'corpus/LOG.md:manifest_mismatch', 'corpus/lessons/round-64.md:manifest_mismatch', 'reports/round-63/telemetry/revisions.txt:manifest_mismatch'] repeats_log_score_lessonfinal=False
+R2 FAIL original_intact=True named=False
+R3 FAIL log_names_actual_and_wrong=False
+R4 FAIL pred_exact=True correction=False
+R5 FAIL in_control=True in_log=False named_binding=False
+R6 FAIL status_correction=False
+R7 FAIL line='- verified-at: 2026-10-23 — skeleton structure prepared; cited source claims await L1 inse'
+CRITERION FAIL candidates=0 negation_free=False
+QUOTES FAIL exit=2 lesson_exists=False out=['GATE_QUOTES: 0 findings']
+RECEIPTS FAIL lands=8bab271c bad=['reports/round-65/telemetry/final-measures-c.txt:absent', 'reports/round-65/telemetry/final-measures-o.txt:absent', 'reports/round-65/telemetry/final-measures-ca.txt:absent']
+ACCEPT-CA-65: FAIL
+exit=1

@@ -1,0 +1,21 @@
+# pre-data controls, claim O (round 65) — each forced a revision-2 counter repair BEFORE any data seat scored
+# control 1 (FULL): the revision-1 FULL leg failed at base: subprocess full battery prints 3 unavoidable SKIP lines (FULL/MUTEX/FRAG self-recursion guard), so 'no skip lines' was unpassable. Forcing receipt: reports/round-65/telemetry/dry-run-o.txt line 'FULL FAIL exit=0 pass=21/23 skip=3 fail=0 wall=426.3s'. Repair: FULL tolerates exactly the three self SKIP lines (revision 2).
+# control 2 (FRAG): the revision-1 FRAG leg PASSED at base over an EMPTY rows dir — 'FRAG PASS selftest=exit0 scan=exit0 scan_out=['FRAG: 0 finding(s) in 0 file(s)']' (dry-run-o.txt) — the vacuous-empty-dir bypass the SimplifierBypass seat was tasked to hunt; found by the L1 dry-run pre-data. Repair: FRAG requires exactly 26 scanned row-*.txt fragments and 0 findings (revision 2).
+# control 3 (MUTEX): the revision-1 MUTEX leg failed at base with m6/m7 measured=[] plus exactness-sweep-o65.txt:not_committed (dry-run-o.txt) — the committed-sweep requirement works; the m6/m7 empty measurement is under debug (job bg_5043) and will be repaired or dispositioned before integration, with this file updated.
+# command: python3 -B reports/round-65/accept-o.py --root . --only FRAG  (post-revision-2: FRAG FAIL files=0/26)
+2026-10-24T01:53:10-03:00
+TOOL SKIP
+EDGE_SCHEMEREL SKIP
+EDGE_USERINFO SKIP
+EDGE_HTTPS SKIP
+EDGE_MALTARG SKIP
+EDGE_SLASHLESS SKIP
+EDGE_308 SKIP
+EDGE_5TH200 SKIP
+DRIP SKIP
+MUT SKIP
+FULL SKIP
+MUTEX SKIP
+FRAG FAIL selftest=exit0 scan=exit0 files=0/26 scan_out=['FRAG: 0 finding(s) in 0 file(s)'] tb=False
+ACCEPT-O-65: FAIL [filtered: 1/26 legs]
+exit=1

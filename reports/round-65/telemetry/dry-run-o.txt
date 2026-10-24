@@ -1,0 +1,31 @@
+# base dry-run, claim O (round 65) at base 17c32302 — FULL/MUTEX/FRAG must FAIL; battery legs validate the patch
+# command: python3 -B reports/round-65/accept-o.py --root .
+2026-10-24T01:21:06-03:00
+TOOL PASS path=tools/reopen-row.py exists=True executable=True
+INDEP PASS named=[]
+GEN PASS rows=61 wrong=0 [] summary_ok=True exit=1
+ORDER PASS printed=61 expected=61 repeated_args=5 repeated_printed=5
+BOUND PASS bad=[] unlisted_requests=[]
+EXIT PASS gen_exit=1 body_exit=0 default_registry_exit=0
+PRIV PASS exit=1 rows=[('S2892', 'REFUSED', 0), ('S2482', 'REFUSED', 0), ('S2853', 'REFUSED', 0)]
+DEFAULT PASS rows=[('S2026', 'UNREACHABLE', 9)] wall=150s hits=9 exit=1 bursts=[3, 3, 3] gaps=[60, 60]
+ERR PASS bad=[]
+REDIRECT PASS allow_private=[('S2456', 'REFUSED', 1)] hits_src=1 hits_target=0 no_flag=[('S2456', 'REFUSED', 0)] exits=1,1
+MALFORMED PASS exit=1 rows=[('S2124', 'MALFORMED', 0), ('S2307', 'MALFORMED', 0), ('S2337', 'MALFORMED', 0)] traceback=False
+GZIP PASS exit=1 rows=[('S2142', 'LOCATED', 1), ('S2559', 'CAPTION_ONLY', 1)]
+TRUNC PASS exit=1 rows=[('S2426', 'TRUNCATED', 1), ('S2932', 'LOCATED', 1)] want=[('S2426', 'TRUNCATED', 1), ('S2932', 'LOCATED', 1)]
+TIMEOUT PASS exit=1 rows=[('S2786', 'UNREACHABLE', 3)] wall=6.1s stall_hits=3 span=4.0s
+EDGE_SCHEMEREL PASS rows=[('S2392', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False
+EDGE_USERINFO PASS cross=[('S2378', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2685', 'UNREACHABLE', 6)] ok=True
+EDGE_HTTPS PASS cross=[('S2149', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2031', 'UNREACHABLE', 6)] ok=True
+EDGE_MALTARG PASS rows=[('S2466', 'UNREACHABLE', 1)] exit=1 tb=False
+EDGE_SLASHLESS PASS rows=[('S2076', 'LOCATED', 2)] dir_hits=1 root_hits=0 exit=0
+EDGE_308 PASS rows=[('S2484', 'LOCATED', 2)] tgt_hits=1 exit=0
+EDGE_5TH200 PASS rows=[('S2458', 'LOCATED', 5, 'http://127.0.0.1:41251/cfin-odosxqlaw')] final=http://127.0.0.1:41251/cfin-odosxqlaw exit=0
+DRIP PASS rows=[('S2272', 'UNREACHABLE', 3), ('S2045', 'LOCATED', 1)] wall=12.0s drip_hits=3 span=8.0s tb=False
+MUT PASS bad=[] mutants=10 kill_evidence=["m1->EDGE_SCHEMEREL FAIL rows=[('S2338', 'LOCATED', 2)] tgt_hits=1 src_hits=1 tb=False", "m10->EDGE_USERINFO FAIL cross=[('S2396', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2384', 'UNREACHABLE', 6)] ok=True", "m2->EDGE_USERINFO FAIL cross=[('S2904', 'REFUSED', 1)] tgt_hits=0 same_auth=[('S2882', 'REFUSED', 1)] ok=False", "m3->EDGE_HTTPS FAIL cross=[('S2607', 'UNREACHABLE', 6)] tgt_hits=0 same_auth=[('S2790', 'UNREACHABLE', 6)] ok=True", 'm9->EDGE_MALTARG FAIL rows=[] exit=1 tb=True', "m5->EDGE_SCHEMEREL PASS rows=[('S2816', 'REFUSED', 1)] tgt_hits=0 src_hits=1 tb=False; EDGE_SLASHLESS FAIL rows=[('S2912', 'UNREACHABLE', 2)] dir_hits=0 root_hits=1 exit=1", "m6->EDGE_308 FAIL rows=[('S2978', 'UNREACHABLE', 1)] tgt_hits=0 exit=1", "m7->EDGE_5TH200 FAIL rows=[('S2532', 'UNREACHABLE', 5, '-')] final=http://127.0.0.1:42285/cfin-flrgsbvdr exit=1", 'm8->GEN FAIL rows=61 wrong=1 ["REDIRECT_LOOP:S2309:want=UNREACHABLE/5:got=[(\'UNREACHABLE\', 6)]"] summary_ok=True exit=1; BOUND FAIL bad=[\'REDIRECT_LOOP:l2:want=2:hits=3\'] unlisted_requests=[]', "mread->DRIP FAIL rows=[('S2429', 'UNREACHABLE', 3), ('S2593', 'LOCATED', 1)] wall=90.1s drip_hits=3 span=60.0s tb=False"]
+FULL FAIL exit=0 pass=21/23 skip=3 fail=0 wall=426.3s
+MUTEX FAIL bad=["m6:pinned_not_failed=['EDGE_308']", "m6:measured=[]!=expect=['EDGE_308']", "m7:pinned_not_failed=['EDGE_5TH200']", "m7:measured=[]!=expect=['EDGE_5TH200']", 'exactness-sweep-o65.txt:not_committed'] mutants=10 table=['m1:EDGE_HTTPS+EDGE_SCHEMEREL+EDGE_USERINFO', 'm10:EDGE_USERINFO', 'm2:EDGE_MALTARG+EDGE_USERINFO', 'm3:EDGE_HTTPS', 'm9:EDGE_MALTARG', 'm5:EDGE_SLASHLESS', 'm6:NONE', 'm7:NONE', 'm8:BOUND+GEN', 'mread:DRIP']
+FRAG PASS selftest=exit0 scan=exit0 scan_out=['FRAG: 0 finding(s) in 0 file(s)'] tb=False
+ACCEPT-O-65: FAIL
+exit=1
