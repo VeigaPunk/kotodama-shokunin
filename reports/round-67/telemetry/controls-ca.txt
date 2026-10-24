@@ -1,8 +1,20 @@
-# controls-ca.txt — do-nothing control for ACCEPT-CA-67
-# frozen counter (rev0) run inside a materialized clone of BASE ad5b52b0ab5691358cd38718ab75649dc9916f9a
-# command: git clone --no-local --single-branch --branch main . .scratch/eval-base && python3 -B reports/round-67/accept-ca.py --root .scratch/eval-base --lands ad5b52b0ab5691358cd38718ab75649dc9916f9a
-# expected: claim legs fail on base bytes (FILE/SET/ONEID/HOSTS/CAPTURE/TOPIC for C; SELFTEST/DIFF/OPTIONS/LANDS/TOPO/HEADERS/MUT for O; D1-D4/SEQ/CRITERION/QUOTES for Ca); STAMP passes since evaluated==lands==base.
-# observed: see dry-run-ca.txt (exit 1).
+# control: does the counter reject a do-nothing tree? (revised counter rev1, sha in receipt)
+# command: cd .scratch/eval-base (clean clone at base ad5b52b0) && python3 -B ../../reports/round-67/accept-ca.py --root . --lands ad5b52b0ab5691358cd38718ab75649dc9916f9a
 
-== verdict: counter FAILS on base bytes — the predicate is not reachable by a do-nothing control ==
+# counter sha256 (self): 5382ffed6f6cbbec4d62bebd5131d2e1bb2d5b6ff621de32dec916010543653c
+# stamped revision: ad5b52b0ab5691358cd38718ab75649dc9916f9a
+# evaluated revision: ad5b52b0ab5691358cd38718ab75649dc9916f9a
+# measured revision (lane main): ad5b52b0ab5691358cd38718ab75649dc9916f9a
+# tree: de353b046be5e119c5203f0c5c82e92790c3e546
+STAMP PASS stamped=ad5b52b0 evaluated=ad5b52b0 equal=True tree=de353b04
+D1 FAIL bad=['manifest_absent']
+D2 FAIL bad=["census_exit=1 E=['file\\tE12\\tS776 row outside Registry section', 'file\\tE12\\tS779 row outside Registry section', 'file\\tE12\\tS780 row outside Registry section', 'file\\tE12\\tS781 row outside Registry section']", 'S776:outside_registry', 'S779:outside_registry', 'S780:outside_registry', 'S781:outside_registry', 'S782:outside_registry', 'S783:outside_registry', 'S784:outside_registry', 'S785:outside_registry', 'S786:outside_registry', 'S787:outside_registry', 'S788:outside_registry', 'S789:outside_registry', 'S790:outside_registry', 'S791:outside_registry', 'S792:outside_registry', 'S793:outside_registry', 'S794:outside_registry', 'S795:outside_registry', 'S796:outside_registry', 'S797:outside_registry', 'S798:outside_registry', 'S799:outside_registry', 'S800:outside_registry'] census_exit=1 E_lines=24
+D3 FAIL bad=['log:no_round66_heading', 'log:no_round66_mentions', 'scorecard:no_axes66', 'scorecard:no_coverage', 'scorecard:no_operability', 'scorecard:no_calibration']
+D4 FAIL bad=["nonunique=['S801', 'S802', 'S803', 'S804']", 'rejected_opened_today=0'] r66_rejects=4 opened_today=0
+SEQ FAIL bad=['reports/round-67/accept-c.py:no_required_lands', 'reports/round-67/accept-c.py:no_headers', 'reports/round-67/accept-c.py:no_equality_assert', 'reports/round-67/accept-o.py:no_required_lands', 'reports/round-67/accept-o.py:no_headers', 'reports/round-67/accept-o.py:no_equality_assert']
+CRITERION FAIL QUALITY criterion 19 names receipt sequencing
+QUOTES FAIL exit=2 gate_ids=0 clean=True
+ACCEPT-CA-67: FAIL
+
+== verdict: counter FAILS on base bytes - the predicate is not reachable by a do-nothing control ==
 ACCEPT-CA-67: FAIL

@@ -269,7 +269,7 @@ def _run():
                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                        text=True)
     lesson_text = read(root, LESSON) or ""
-    gate_ids = set(re.findall(r"\bS(8[0-2]\d)\b", lesson_text)) & {
+    gate_ids = set(re.findall(r"\b(S8[0-2]\d)\b", lesson_text)) & {
         f"S{n}" for n in range(805, 829)}
     quotes_ok = (q.returncode == 0 and "0 finding" in q.stdout
                  and len(lesson_text.splitlines()) > 10

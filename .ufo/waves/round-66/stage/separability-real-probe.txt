@@ -1,0 +1,52 @@
+SEPARABILITY REAL PROBE - BLOCKED, NO VERDICT PRODUCED
+seat: L1-kotodama-r66.ExecSeparabilityReal   date: 2026-10-24
+lane tip at probe time: b94c22a4d5b0 (jj @), base 94209e8f80969dbac48d56c5d0e2e623635b8616
+This file is NOT the round-66 separability receipt. telemetry/separability-real.txt is
+(written by the REC seat). Nothing below is a verdict for ACCEPT-O-66 or ACCEPT-CA-66 D4.
+
+INPUT STATE AT PROBE TIME
+  reports/round-66/separability-manifest.json ............ ABSENT
+  corpus/knowledge/culture-material/scent-perfume-aromatics-codes.md ... ABSENT  (C land)
+  corpus/lessons/round-66.md ............................. ABSENT  (Ca land)
+  reports/round-66/telemetry/separability-real.txt ....... ABSENT  (Ca land)
+=> exit condition of the assignment met: manifest absent AND lands still missing.
+
+PROBE HARNESS: live, run on a read-only COPY of the lane (/tmp/r66-probe-copy, 1019M,
+.jj excluded; lane jj/git/index never touched). Declared flags used verbatim:
+  cd /tmp/r66-probe-copy && python3 -B tools/check-claim-separability.py \
+    reports/round-66/separability-manifest.json --jobs 4 --timeout 120 --budget 300 \
+    --root /tmp/r66-probe-copy --lane /tmp/r66-probe-copy
+
+[A] DECLARED COMMAND, MANIFEST ABSENT  -- exit=2
+stdout: (empty)
+stderr: SEPARABILITY_INPUT_ERROR cannot read manifest 'reports/round-66/separability-manifest.json': No such file or directory
+note: empty stdout + exit 2 => an absent input can never be misread as "SEPARABILITY: 0 findings".
+
+[B] PLUMBING POSITIVE CONTROL (one WORKTREE unit, --jobs 4 --timeout 120 --budget 300) -- exit=0
+stdout:
+SEPARABILITY: 0 findings
+SEPARABILITY_NOTE units=1 ordered_pairs=0 acceptance_runs=0 skipped=0
+=> --root/--lane on a copy, manifest load, static leg and report line all work; only the input
+   manifest and the two build lands are missing.
+
+[C] SHAPE PRE-FLIGHT of the manifest_units block declared in claims.json (draft, NOT the receipt)
+  C1 top-level key left as "manifest_units" ............................. exit=2
+     stderr: SEPARABILITY_INPUT_ERROR manifest is missing claims
+  C2 same content as a list under "claims", lands verbatim ............ exit=2
+     stderr: SEPARABILITY_INPUT_ERROR claims[1].lands[1] is not canonical (empty, '.' or '..' component): '.ufo/waves/round-66/stage/mut-o/'
+  C3 trailing slash stripped from every land, still on the pre-build copy .. exit=2
+     stderr: SEPARABILITY_INPUT_ERROR unit C lands 'corpus/knowledge/culture-material/scent-perfume-aromatics-codes.md', which is absent at its tree
+  C4 same input with --static-only .................................... exit=2 (identical message)
+=> even a correctly shaped manifest is unreachable now: the C entry is absent at its tree.
+
+[D] tree:"main" IS NOT USABLE FOR THIS ROUND: `git rev-parse --verify main` in the lane copy
+    returns 94209e8f80969dbac48d56c5d0e2e623635b8616, i.e. main == base. Any unit whose lands
+    are new this round must declare "tree": "WORKTREE" (or main must be advanced by the L1).
+
+READY-TO-RUN AT INTEGRATION (unchanged semantics, copy-safe):
+  rsync/tar copy lane -> /tmp probe copy (exclude .jj)
+  cd <copy> && python3 -B tools/check-claim-separability.py \
+    reports/round-66/separability-manifest.json --jobs 4 --timeout 120 --budget 300 \
+    --root <copy> --lane <copy> > stage/separability-real-probe.txt 2>&1
+  accept: a "SEPARABILITY:" line present, exit 0 or 1 with exactly the declared Ca->REC class,
+  or exit 2 with SEPARABILITY_PARTIAL + SEPARABILITY_UNRESOLVED (never a fabricated <base>).
