@@ -1,0 +1,122 @@
+{
+  "round": 68,
+  "lane": "kotodama",
+  "base": "99fae3085ec858446df00c2b294748f635cb6c45",
+  "declared": "2026-10-24",
+  "separability_note": "Ca is a records claim whose legs read the round's own instruments and dispositions (SEQ reads the three counter sources; D2/R68 read the committed ledger and registry; D1 reads the frozen path list). Expected separability findings: Ca->C and Ca->O via counter/ledger reads (record-dependency class only: Ca asserts structure and coverage, never measured outputs); Ca->REC via lands-time legs over records committed in the lands commits. O reads the ledger committed at A_r but asserts the tool's own verdict plus id coverage, not each ruling's semantic adequacy (review-only). A separability run is filed at reports/round-68/telemetry/separability-real.txt via the bounded checker (round-66 O capability).",
+  "receipt_protocol": "QUALITY criterion 19 / R66-D3 fix, kept from round 67: every r68 counter requires --lands <40hex>; the receipt records the stamped revision (--lands), the evaluated revision (`git rev-parse main` of --root), the measured revision (same run), the lands tree hash and the counter's sha256; leg STAMP fails unless evaluated == stamped. Evaluations run inside a materialized clone at the lands commit (`git clone --no-local`), never on a worktree that may have moved past the stamp. Carrier-parentage is post-records evidence (check-receipt-seq.py --topo, committed as reports/round-68/telemetry/post-records.txt), never a lands-time leg. The declared command is `--root <clone> --lands <lands>`; the pre-landing dry run materializes BASE and runs `--lands <base>`, and every base control must FAIL (do-nothing control).",
+  "lands_topology": "T0 declaration+instruments (claims.json, three counters, tool, dispositions manifests) -> A_r settlement lands: disposition ledger, registry status/used-by mutations bounded to the frozen MUTABLE set, entry citation re-points bounded to EDITABLE_ENTRIES, .ufo/waves sweep (physical deletes), sweep telemetry -> A_c claim C lands + claim O/C measurement revisions (new entry + registry rows S833-S856 + corpus index row) -> A_ca claim Ca lands + records-1 (rejects S857-S858, lesson round-68, C/O receipts, wave evidence, LOG/SCORECARD r68 entries) -> records-2 (Ca receipt + post-records topo).",
+  "claims": [
+    {
+      "id": "C",
+      "axis": "coverage",
+      "type": "learning claim (sourced)",
+      "statement": "The hair / grooming / tonsure / braid / wig / barber / beard register is unowned in corpus/knowledge at the base (0 filename owners under the word-bounded census: `git ls-tree -r --name-only 99fae3085ec858446df00c2b294748f635cb6c45 -- corpus/knowledge | grep -ciE '(^|[^a-z])(hair|tonsur|braid|queue|locks|wig|barber|grooming|beard|scalp|coiffure|moustache|shave|coif)([^a-z]|$)'` prints 0; topic-line keyword sweep finds only partial-scope mentions, not whole-register owners) -> one new culture-material entry corpus/knowledge/culture-material/hair-grooming-codes.md supported by exactly 24 registry rows S833-S856 opened this round (2026-10-24), each tier A or B, mined, used-by the entry, cited exactly once by it; the registry grows append-only plus the frozen mutable-cell set (status/recheck/used-by on the 68 settlement ids) and appended rows in NEW_IDS / declared supersedes-appends / REJECT_IDS; no corpus/knowledge file outside the frozen editable set changes.",
+      "predicate": "ACCEPT-C-68: every leg of reports/round-68/accept-c.py prints PASS.",
+      "command": "python3 -B reports/round-68/accept-c.py --root <clone> --lands <lands>",
+      "legs": [
+        "STAMP: git rev-parse main == --lands",
+        "FILE: entry exists; 1 H1, <=16 H2, 0 H3, <=250 lines, '- topic:' present",
+        "SET: ids S833-S856 each occur exactly once as registry rows",
+        "ROWS: each new row 11 cells, kind in enum, tier A|B, status mined, opened 2026-10-24, used-by names the entry",
+        "ONEID: each new id cited exactly once in the entry body; no out-of-claim-set citations",
+        "RESTATE: each cited bullet >=3 in-order anchor-quote words, <80% teaches coverage, >=1 novel word",
+        "HOSTS: >=10 distinct normalized hosts among new rows",
+        "LINK: no new-row normalized live URL equals a base row's or another new row's",
+        "APPEND: base rows unchanged except status/recheck/used-by cells of the frozen MUTABLE set; appended ids in NEW_IDS, REJECT_IDS, or supersedes-appends; no MUTABLE id superseded-appended",
+        "DIFFSET: corpus/knowledge changes confined to ALLOWED_ENTRY set plus the new entry",
+        "DECITED: no corpus/knowledge file cites a ledger activate/retire target id as (S###)",
+        "EXEC: fixture worlds — out-of-set append fails, immutable-cell edit fails, mutable-cell flip passes, mutable teaches edit fails"
+      ],
+      "lands": [
+        "corpus/knowledge/culture-material/hair-grooming-codes.md",
+        "corpus/SOURCES.md",
+        "corpus/README.md",
+        "reports/round-68/accept-c.py"
+      ],
+      "exports": [],
+      "review_only": [
+        "semantic adequacy of each new row's anchor and teaches (the counter checks shape, coverage and citation arithmetic, not truth)",
+        "register boundary: whether hair-grooming overlaps masks-masquerade or adornment-body-codes claims (adjacency question)"
+      ],
+      "statement_revision": "revision 0"
+    },
+    {
+      "id": "O",
+      "axis": "operability",
+      "type": "capability acquisition (supersession-settlement checker)",
+      "statement": "The registry's append-only correction mechanism left 34 pending supersedes chains at base (tool scan: 34 pending of 47 chains; the 28 W04-flagged ids plus unflagged pairs): queued correction rows whose superseded targets stay mined and cited — correction debt dating to round 49. -> tools/check-supersession-settlement.py lands: --scan classifies every chain (pending / settled-active / settled-retired / settled-closed / settled-split), resolves used-by paths, and --ledger validates the committed disposition ledger; at the settlement lands revision the scan prints pending=0 and missing_paths=0, the ledger validates with 0 findings covering the frozen required-id set (28 flagged ids + 34 chain s-ids + 13 settled s-ids = 75 unique key ids), selftest passes 7/7, and fixture/mutant controls pin the legs.",
+      "predicate": "ACCEPT-O-68: every leg of reports/round-68/accept-o.py prints PASS.",
+      "command": "python3 -B reports/round-68/accept-o.py --root <clone> --lands <lands>",
+      "legs": [
+        "STAMP: git rev-parse main == --lands",
+        "SELFTEST: tool --selftest exits 0, prints SELFTEST: 7/7",
+        "DIFF: git diff BASE shows the tool added (status A)",
+        "SHA: tool sha256 at lands equals the worktree tool's sha256",
+        "PENDING: --scan at lands prints pending=0 missing_paths=0",
+        "LEDGER: --ledger dedup-ledger.tsv exits 0, 0 findings, required ids covered exactly once",
+        "EXEC: fixture lane — pending at base, settled at lands — scores fail/pass under the counter's own PENDING logic",
+        "MUT: three tool mutants (scan-always-clean, ledger-always-clean, selftest-skip) each diverge from the real tool on the pinned input",
+        "TOPO: lands' parent is the declaration commit (--declaration arg)"
+      ],
+      "lands": [
+        "tools/check-supersession-settlement.py",
+        "reports/round-68/dispositions/dedup-ledger.tsv",
+        "reports/round-68/accept-o.py",
+        "corpus/SOURCES.md"
+      ],
+      "exports": [],
+      "review_only": [
+        "semantic correctness of each chain ruling (the tool checks shape and consistency, not truth)",
+        "whether activated swaps keep each entry's claims supported (audit seats' evidence)",
+        "coverage of supersession phrasings the teaches grammar does not match"
+      ],
+      "statement_revision": "revision 0"
+    },
+    {
+      "id": "Ca",
+      "axis": "calibration",
+      "type": "records claim (routed-defect dispositions R67-D1/D2 + sequencing protocol)",
+      "statement": "The round-67 verifier spot-check routed two defects to this lane: R67-D1 sweep debt — 26 uncommitted .ufo/waves/ leftovers (25 round-66 paths + round-67/w1/fabric-c, a ~178 MiB attack clone) still on disk; R67-D2 — 28 census W04 duplicate-URL-across-scopes warnings standing at ok. -> each dispositioned: D1 the frozen path list (reports/round-68/dispositions/r67-d1-paths.txt, 26 paths) is physically deleted at lands; D2 the dedup ledger records a ruling for every flagged id and every chain s-id, the census validates with 0 W04 lines, and every pending-chain s row lands consistent with its ruling (activate->mined, retire->rejected); the sequencing protocol is re-proven (SEQ legs, FIXTURES base-stamp controls), and the lesson Gate holds >=20 located quotes for the S833-S860 band.",
+      "predicate": "ACCEPT-CA-68: every leg of reports/round-68/accept-ca.py prints PASS.",
+      "command": "python3 -B reports/round-68/accept-ca.py --root <clone> --lands <lands>",
+      "legs": [
+        "STAMP: git rev-parse main == --lands",
+        "D1: every path in r67-d1-paths.txt absent from the worktree; list has >=20 entries",
+        "D2: sources-census validate exits 0 with no W04 lines; ledger rows for DEDUP ids + chain s-ids carry valid rulings",
+        "D3: LOG.md and SCORECARD.md carry round-68 sections",
+        "D4: S857/S858 unique, rejected, 'REJECTED:' + 'flip:' teaches, opened 2026-10-24; >=2 rejected rows opened today",
+        "SEQ: all three counters require --lands + print stamped/evaluated + assert equality; check-receipt-seq.py --selftest 14/14",
+        "R68: S833-S856 unique rows; pending s rows consistent with rulings (activate->mined, retire->rejected, none left queued)",
+        "CRITERION: QUALITY.md criterion 19 names receipt sequencing",
+        "QUOTES: check-gate-quotes on lessons/round-68.md exits 0 '0 finding', >=20 gate ids in S833-S860",
+        "FIXTURES: every counter exits nonzero run with --lands BASE (stale-stamp control)"
+      ],
+      "lands": [
+        "reports/round-68/dispositions/r67-d1-paths.txt",
+        "reports/round-68/dispositions/dedup-ledger.tsv",
+        "corpus/SOURCES.md",
+        "corpus/lessons/round-68.md",
+        "LOG.md",
+        "SCORECARD.md",
+        "reports/round-68/accept-ca.py"
+      ],
+      "exports": [],
+      "review_only": [
+        "semantic adequacy of each ledger ruling (activate vs retire) — audit seats' evidence, not a counter leg",
+        "stale used-by rows outside the dedup scope (routed as a frontier item)"
+      ],
+      "statement_revision": "revision 0"
+    }
+  ],
+  "frozen_sets": {
+    "CHAIN_PAIRS": "34 pending supersedes chains at declaration (tool scan at base): S044>S034, S045>S038, S046>S039, S070>S060, S125>S095, S126>S105, S127>S079, S128>S086, S129>S117, S130>S119, S131>S122, S133>S097, S186>S157, S358>S256, S481>S359, S482>S367, S483>S383, S484>S385, S485>S392, S486>S395, S487>S396, S488>S399, S489>S407, S490>S379, S491>S410, S560>S413, S561>S417, S562>S421, S564>S433, S565>S438, S566>S440, S567>S445, S568>S452, S569>S453",
+    "W04_FLAGGED": "28 census-flagged ids (census-start.txt): S127 S128 S129 S130 S131 S132 S133 S185 S186 S200 S358 S482 S483 S485 S490 S561 S564 S565 S566 S569 S570 S571 S572 S573 S648 S649 S650 S651 S830",
+    "KEEP_SETTLED": "13 pre-settled chains at base: S047>S029, S132>S094, S185>S145, S570>S135, S571>S141, S572>S147, S573>S151, S574>S159, S575>S420 (settled-split), S648>S602, S649>S616, S650>S623, S651>S643",
+    "MUTABLE": "68 ids whose status/recheck/used-by cells may change: the 34 s-ids and 34 t-ids of CHAIN_PAIRS",
+    "EDITABLE_ENTRIES": "corpus/knowledge/linguistics/sign-languages-manual-modality.md, corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md, corpus/knowledge/culture-material/hunting-foraging-subsistence.md, corpus/knowledge/culture-material/pastoralism-animal-husbandry.md, corpus/knowledge/culture-material/masks-masquerade.md, corpus/knowledge/myth-symbol/heraldry-emblems-identity-marks.md, corpus/knowledge/civilizations/kongo-kingdom.md",
+    "NEW_IDS": "S833-S856 (24 mined rows for claim C)",
+    "REJECT_IDS": "S857-S858 (first-class rejected rows at A_ca)",
+    "R67_D1_PATHS": "26 frozen paths in reports/round-68/dispositions/r67-d1-paths.txt"
+  }
+}
