@@ -77,7 +77,7 @@
       "id": "Ca",
       "axis": "calibration",
       "type": "records claim (routed-defect dispositions R67-D1/D2 + sequencing protocol)",
-      "statement": "The round-67 verifier spot-check routed two defects to this lane: R67-D1 sweep debt — 26 uncommitted .ufo/waves/ leftovers (25 round-66 paths + round-67/w1/fabric-c, a ~178 MiB attack clone) still on disk; R67-D2 — 28 census W04 duplicate-URL-across-scopes warnings standing at ok. -> each dispositioned: D1 the frozen path list (reports/round-68/dispositions/r67-d1-paths.txt, 26 paths) is physically deleted at lands; D2 the dedup ledger records a ruling for every flagged id and every chain s-id, the census validates with 0 W04 lines, and every pending-chain s row lands consistent with its ruling (activate->mined, retire->rejected); the sequencing protocol is re-proven (SEQ legs, FIXTURES base-stamp controls), and the lesson Gate holds >=20 located quotes for the S833-S860 band.",
+      "statement": "The round-67 verifier spot-check routed two defects to this lane: R67-D1 sweep debt — 26 uncommitted .ufo/waves/ leftovers (25 round-66 paths + round-67/w1/fabric-c, a ~178 MiB attack clone) still on disk; R67-D2 — 28 census W04 duplicate-URL-across-scopes warnings standing at ok. -> each dispositioned: D1 the frozen path list (reports/round-68/dispositions/r67-d1-paths.txt, 26 paths) is physically deleted at lands; D2 the dedup ledger records a ruling for every flagged id and every chain s-id, the census validates exit-0 with the W04-flagged id set at lands exactly the frozen base set of 28 (no new cross-scope duplicate URLs introduced by round rows), and every pending-chain s row lands consistent with its ruling (activate->mined, retire->rejected); the sequencing protocol is re-proven (SEQ legs, FIXTURES base-stamp controls), and the lesson Gate holds >=20 located quotes for S833-S860.",
       "predicate": "ACCEPT-CA-68: every leg of reports/round-68/accept-ca.py prints PASS.",
       "command": "python3 -B reports/round-68/accept-ca.py --root <clone> --lands <lands>",
       "legs": [
@@ -106,7 +106,8 @@
         "semantic adequacy of each ledger ruling (activate vs retire) — audit seats' evidence, not a counter leg",
         "stale used-by rows outside the dedup scope (routed as a frontier item)"
       ],
-      "statement_revision": "revision 0"
+      "statement_revision": "revision 1",
+      "revision_note": "Pre-data revision (round-58 precedent; no counter has scored r68 data at revision time). Rev-0 D2 demanded a W04-free census ('census validates with 0 W04 lines'). That state is false at every lands state inside the frozen settlement model: the census prints W04 per URL group equal to distinct_scopes-1, independent of statuses and row order, and at least one flagged pair (S094/S132) is both-rejected and both-immutable with two scopes. An out-of-model evasion (indenting flagged rows 4+ spaces, hiding them from the census) can clear W04 lines; rev-1 D2 fails exactly that state. Proof and empirical confirmation: reports/round-68/telemetry/w04-impossibility.txt; attacks: .ufo/waves/round-68/w1/CriticAmendD2.md. Rev-1 D2 (critic-hardened): census exit 0 at lands; the census W04 URL multiset at lands equals the multiset measured at BASE (no new cross-scope duplicate URLs from round rows, none hidden by evasion; URLs not printed ids, so permitted row reordering cannot fail a true claim; the base registry is staged under <root>/corpus because the census resolves used-by paths from dirname(file)/..); and a valid ledger ruling for every flagged id plus every DEDUP/chain id. Also folded in pre-data (CriticAmendD2 finding 3): the R68 leg's row parse matched only the | S### | prefix (1 cell, 34/34 chains skipped) - it now matches the full row line, so queued/ruling consistency is actually measured. The frozen W04_FLAGGED set also drifted: it names S200, which the census does not flag (empirical 28-id set recorded in accept-ca.py W04_BASE). Predicate sentence unchanged: every leg of accept-ca.py prints PASS; the amended counter sha256 is pinned by the Ca receipt at measurement."
     }
   ],
   "frozen_sets": {
@@ -118,5 +119,7 @@
     "NEW_IDS": "S833-S856 (24 mined rows for claim C)",
     "REJECT_IDS": "S857-S858 (first-class rejected rows at A_ca)",
     "R67_D1_PATHS": "26 frozen paths in reports/round-68/dispositions/r67-d1-paths.txt"
-  }
+  },
+  "revision": 1,
+  "revision_note": "2026-10-24 attempt 2, pre-data: claim Ca statement_revision 0->1 (D2 leg redefinition to URL-multiset disposition + R68-leg row-parse repair; W04-free false in-model per telemetry/w04-impossibility.txt, attacked at w1/CriticAmendD2.md). Claims C and O unchanged."
 }

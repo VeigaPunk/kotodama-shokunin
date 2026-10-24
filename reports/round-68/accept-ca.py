@@ -20,9 +20,15 @@ Legs (each prints `NAME PASS|FAIL detail`):
   STAMP     evaluated == stamped
   D1        every path in reports/round-68/dispositions/r67-d1-paths.txt is
             absent from the worktree at lands; the path list has >=20 entries
-  D2        sources-census validate --file corpus/SOURCES.md exits 0 with no
-            `W04` lines; ledger rows for the 33 dedup ids carry a ruling
-            (activate/retire/keep-*) consistent with registry statuses
+  D2 (rev1) sources-census validate --file corpus/SOURCES.md exits 0; the
+            census W04 URL multiset at lands equals the multiset measured
+            at BASE (no new cross-scope duplicate URLs from round rows,
+            none hidden by census-evasion indentation); ledger rows for
+            the dedup ids + chain s-ids + every flagged id carry a ruling
+            (activate/retire/keep-*). Rev 0's zero-W04 demand was false at
+            every in-model state (round-58 pre-data revision precedent:
+            telemetry/w04-impossibility.txt, w1/CriticAmendD2.md;
+            claims.json revision_note).
   D3        LOG.md and SCORECARD.md carry round-68 sections
   D4        the R68 rejection rows (S857, S858) are rejected with
             REJECTED:/flip: teaches; >=2 rejected rows opened 2026-10-24
@@ -63,6 +69,20 @@ COUNTERS = ["reports/round-68/accept-c.py",
 ROW_RE = re.compile(r"^\|\s*(S\d{3,})\s*\|")
 R68_ROWS = {f"S{n}" for n in range(833, 857)}
 R68_REJECTS = {"S857", "S858"}
+# W04 ids the census empirically flags at BASE (measured 2026-10-24;
+# claims.json W04_FLAGGED additionally names S200, which the census does
+# not flag — frozen-set drift recorded in the round report). Rev-0 D2
+# demanded zero W04 lines; that state is unreachable by any permitted
+# registry transform (reports/round-68/telemetry/w04-impossibility.txt:
+# W04 per URL group = distinct_scopes - 1, status/order independent, and
+# pair S094/S132 is both-rejected + both-immutable). Rev 1 dispositions
+# the frozen set instead.
+W04_BASE = [
+    "S127", "S128", "S129", "S130", "S131", "S132", "S133", "S185", "S186",
+    "S358", "S482", "S483", "S485", "S490", "S561", "S564", "S565", "S566",
+    "S569", "S570", "S571", "S572", "S573", "S648", "S649", "S650", "S651",
+    "S830",
+]
 DEDUP_IDS = {
     "S034", "S038", "S039", "S060", "S095", "S079", "S086", "S097", "S105",
     "S117", "S119", "S122", "S157", "S256", "S359", "S367", "S383", "S385",
@@ -158,32 +178,68 @@ def _run():
             d1_bad.append(f"present={present[:4]}")
     leg("D1", not d1_bad, f"bad={d1_bad} paths={len(paths)}")
 
-    # ---------- D2 ----------
+    # ---------- D2 (revision 1, pre-data — claims.json revision_note) ----------
+    # Rev 0 demanded a W04-free census; false at every in-model state and
+    # true only under an out-of-model census-evasion (4-space indentation —
+    # see telemetry/w04-impossibility.txt and the CriticAmendD2 attack).
+    # Rev 1: the census stays exit-0 at lands; the census's W04 URL multiset
+    # at lands equals the multiset measured at BASE (no new cross-scope
+    # duplicate URLs introduced by round rows, none hidden by evasion); and
+    # every flagged id plus every DEDUP/chain id carries a ledger row with a
+    # ruling in RULINGS. URLs, not printed ids, are compared: the printed id
+    # depends on row order, a permitted transform, so an order change must
+    # not fail a true claim.
+    def _census_w04(url_or_path):
+        c = subprocess.run([CENSUS, "validate", "--file", url_or_path],
+                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                           text=True)
+        urls = []
+        for ln in c.stdout.splitlines():
+            parts = ln.split("\t")
+            if len(parts) > 3 and parts[1] == "W04":
+                m = re.search(r"duplicate url (\S+) across scopes", parts[3])
+                if m:
+                    urls.append(m.group(1))
+        return sorted(urls), c.returncode
+
     reg = read(root, REGISTRY)
     led = ledger_rows(read(root, LEDGER))
     d2_bad = []
+    w04 = []
     if reg is None:
         d2_bad.append("registry_absent")
         leg("D2", False, f"bad={d2_bad}")
     else:
         reg_path = os.path.join(root, REGISTRY)
-        c = subprocess.run([CENSUS, "validate", "--file", reg_path],
-                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                           text=True)
-        w04 = [l for l in c.stdout.splitlines() if "W04" in l]
-        if c.returncode != 0:
-            d2_bad.append(f"census_exit={c.returncode}")
-        if w04:
-            d2_bad.append(f"w04={len(w04)}")
+        w04, census_rc = _census_w04(reg_path)
+        if census_rc != 0:
+            d2_bad.append(f"census_exit={census_rc}")
+        try:
+            # --file mode resolves used-by paths against dirname(file)/..,
+            # so the base copy must sit inside <root>/corpus (see the census
+            # usedby_findings/resolve_targets); /tmp staging floods E11.
+            base_path = os.path.join(root, "corpus",
+                                     ".r68-base-sources.tmp")
+            with open(base_path, "w", encoding="utf-8") as _bh:
+                _bh.write(git_bytes(root, BASE, REGISTRY) or "")
+            base_w04, base_rc = _census_w04(base_path)
+            os.unlink(base_path)
+        except OSError as exc:
+            base_w04, base_rc = None, f"err:{exc!r}"
+        if not isinstance(base_rc, int) or base_rc != 0:
+            d2_bad.append(f"base_census_exit={base_rc}")
+        elif w04 != base_w04:
+            d2_bad.append(f"w04_urls_delta=+{sorted(set(w04) - set(base_w04))}"
+                          f"-{sorted(set(base_w04) - set(w04))}")
         led_map = {r[0]: r for r in led}
-        for sid in sorted(DEDUP_IDS | PENDING_S):
+        for sid in sorted(DEDUP_IDS | PENDING_S | set(W04_BASE)):
             row = led_map.get(sid)
             if row is None:
                 d2_bad.append(f"{sid}:no_ledger_row")
             elif row[3] not in RULINGS:
                 d2_bad.append(f"{sid}:ruling={row[3]!r}")
         leg("D2", not d2_bad,
-            f"bad={d2_bad[:6]} w04={len(w04)} census_exit={c.returncode}")
+            f"bad={d2_bad[:6]} w04={len(w04)} census_exit={census_rc}")
 
     # ---------- D3 ----------
     log = read(root, LOG) or ""
@@ -247,6 +303,9 @@ def _run():
     leg("SEQ", not seq_bad, f"bad={seq_bad[:6]}")
 
     # ---------- R68 ----------
+    # revision 1 (pre-data, CriticAmendD2): the row parse previously read
+    # m.group(0) of a `| S### |`-only match (1 cell, 34/34 skipped). Match
+    # the full row line so queued/ruling consistency is actually measured.
     r68_bad = []
     if reg is None:
         r68_bad.append("registry_absent")
@@ -255,7 +314,7 @@ def _run():
             if len(re.findall(rf"(?m)^\|\s*{sid}\s*\|", reg)) != 1:
                 r68_bad.append(f"{sid}:count")
         for sid in sorted(PENDING_S):
-            m = re.search(rf"(?m)^\|\s*{sid}\s*\|", reg)
+            m = re.search(rf"(?m)^\|\s*{sid}\s*\|[^\n]*", reg)
             if not m:
                 continue
             c = [x.strip() for x in m.group(0).split("|")[1:-1]]

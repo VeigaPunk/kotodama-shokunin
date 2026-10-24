@@ -1,0 +1,78 @@
+# Round-68 D2 (rev 0) defect analysis — why rev 1 measures dispositions instead
+# Date: 2026-10-24 (attempt 2, pre-data; no counter has scored r68 data)
+# Attacked by seat CriticAmendD2 (w1/CriticAmendD2.md); corrections incorporated.
+
+## 1. Census W04 semantics (scripts/sources-census.sh, fleet, frozen)
+
+Per URL group (rows sharing a normalized URL), let m = row count and
+s = count of DISTINCT scope cells among them. Processing rows in file
+order, a W04 line prints for every row whose (url, scope) pair is new
+while the URL was already seen. Therefore:
+
+    W04_lines(group) = s - 1        (independent of statuses and order)
+
+- statuses are NOT consulted for W04 (verified in source and empirically:
+  two rows, same URL, different scopes, BOTH status=rejected still print
+  one W04 line, /tmp fixture, census exit 0);
+- reordering rows cannot reduce the count: whichever row is processed
+  second in a two-scope group flags (verified: swapping S079/S127 moves
+  the flag to S079, count unchanged);
+- therefore zero W04 for a group requires s = 1: every row carrying that
+  URL must share ONE scope cell.
+
+## 2. Within the frozen settlement model W04-free is unreachable
+
+The frozen mutation space (claims.json, dispatch context) allows only:
+(a) in-place edits of status/recheck/used-by cells (indexes 7/9/10) of
+    the 68 MUTABLE ids;
+(b) appended rows (NEW_IDS, REJECT_IDS, supersedes-appends);
+(c) corpus/knowledge citation re-points within EDITABLE_ENTRIES;
+(d) physical sweep of the 26 r67-d1 paths.
+
+None of these changes any (url, scope) pair, deletes a row, or moves a
+row. Scope cells are immutable; URLs are immutable. Hence every one of
+the 28 flagged pairs still prints its W04 line at any in-model lands
+state. One-pair airtight witness: S094/S132 — both status=rejected at
+BASE, neither id MUTABLE, identical normalized URL
+(ida.gallaudet.edu/cgi/viewcontent.cgi?article=1004&context=sls), two
+different scopes. Rev-0 D2 ("no W04 lines") is FALSE at every in-model
+state. QED (in-model).
+
+## 3. Out-of-model evasion exists — and rev 1 fails it (CriticAmendD2)
+
+A transform OUTSIDE the settlement model clears W04 lines: indenting a
+flagged row by 4+ spaces. The census awk skips indented rows silently
+(`line !~ /^ {0,3}\|/ → next`), so the row leaves the W04 set while
+staying byte-identical after strip() — accept-c's APPEND check strips
+each line and passes; accept-c's SET/ROWS legs only inspect S833-S856,
+so a hidden base row fails nothing there either. Verified empirically by
+the critic: census exit 0, zero W04, APPEND passes, rev-0 D2 PASSES that
+state, rev-1 D2 FAILS it (the flagged urls leave the W04 set, so the
+set-equality leg trips). A W04-free lands achieved by hiding rows from
+the census is the shortcut class (bypass, not disposition); rev-1 D2 is
+shaped to fail exactly that: compare the census's W04 URL multiset at
+lands against the same multiset computed at BASE — no new URLs, no lost
+URLs — plus a valid ledger ruling for every flagged id.
+
+Row-order caveat (also critic-found): the printed W04 id depends on row
+order, so rev 1 compares URL groups, not printed ids; a permitted-order
+reorder (APPEND strips and compares per-id) cannot fail a true claim.
+
+## 4. Empirical base measurement (2026-10-24)
+
+Census at BASE flags exactly 28 ids whose W04 URL multiset is frozen in
+accept-ca.py's W04_BASE_URLS: S127 S128 S129 S130 S131 S132 S133 S185
+S186 S358 S482 S483 S485 S490 S561 S564 S565 S566 S569 S570 S571 S572
+S573 S648 S649 S650 S651 S830. claims.json W04_FLAGGED additionally
+names S200, which the census does NOT flag (frozen-set drift, recorded
+in the report; rev 1 keys on the measured urls).
+
+## 5. Consequence
+
+Rev-0's "census validates with 0 W04 lines" was an over-reach against
+the r67 routing, which asked for W04 *disposition*. Rev 1 (claims.json
+revision_note) measures the disposition: census exit 0 at lands; W04 URL
+multiset at lands == at BASE (no new cross-scope duplicate URLs, none
+hidden); a valid ledger ruling for every flagged id plus every
+DEDUP/chain id. Do-nothing controls fail the surrounding legs (D1 paths
+present; no ledger; D3/D4 absent) and D2 itself (no ledger rows).
