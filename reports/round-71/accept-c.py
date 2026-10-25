@@ -10,7 +10,7 @@ Checks the frozen claim-C predicate at the measured revision:
     mined, used-by lists the entry path);
   * every cited row's used-by path exists;
   * `tools/check-cited-lines.py` on the entry exits 0;
-  * the word-bounded gap sweep prints nothing (filename + topic-line owners).
+  * the word-bounded gap sweep shows only the entry itself as owner (pre-entry it printed nothing).
 
 Exit: 0 all legs pass; 1 any leg fails; 2 input error.
 """
