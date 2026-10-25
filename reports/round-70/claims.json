@@ -1,0 +1,77 @@
+{
+  "round": 70,
+  "lane": "kotodama",
+  "declared_at": "2026-10-25",
+  "declared_by": "L1 kotodama-r70 (hyaku run 6, attempt 1)",
+  "base_revision": "21e6a7f3fb63e717f2021c46a172e396c4759a7c",
+  "freeze_rule": "The predicate, counter, kill rule and target of each claim are frozen at this commit and are not edited after any seat scores them (kumitate r42 class). The round-69 counters are NOT amended: reports/round-69/accept-{o,ca,d}.py keep their bytes and their receipts stand; this round repairs the D8 selftest redness inside accept-d.py (R69-M11 routing) and measures that fix as claim O, without touching the frozen predicate bytes of the round-69 claims. No frozen byte of any filed round is rewritten to reach any after-state: every after-state is reached by appends, new files, or fixes to the lane's own live (non-frozen) files.",
+  "controls": {
+    "green": "each claim's counting command is run on the landed bytes at the measured revision and its output is committed as the receipt; the predicate sentence in the plan is the same sentence the receipt prints",
+    "do_nothing": "for each claim, the counting command is run at the declaration on the unmodified base tree and committed as a pre-data control receipt; the control must FAIL to reach the declared target, proving a do-nothing control cannot reach it"
+  },
+  "claims": [
+    {
+      "id": "O",
+      "axis": "operability",
+      "type": "counter repairs (routed round-69 closure defects D7 and D8)",
+      "surface": "(1) SKILL.md `## Gates and probes` registry gains one row per reports/round-*/accept-*.py counter (36 counters enumerated by `find reports -name 'accept-*.py'`); (2) reports/round-69/accept-d.py --selftest exits 0 and prints SELFTEST: 2/2 (the do-nothing fixture is seeded from the committed pre-table SKILL.md blob 793f797:SKILL.md, R69-M11)",
+      "before": "`grep -cE '^\\| [^|]+\\| (gate|probe) \\| .*reports/round-[0-9]+/accept-[a-z]+\\.py' SKILL.md` -> 0 (no counter has a registry row); `python3 -B reports/round-69/accept-d.py --selftest` -> exit 1, `DO-NOTHING FIXTURE: PASS (unexpected)`, `SELFTEST: 1/2`; the 36 counter files exist in reports/",
+      "after": "the same grep command prints 36 (== `find reports -name 'accept-*.py' | sort | wc -l`); `python3 -B reports/round-69/accept-d.py --selftest` prints `DO-NOTHING FIXTURE: FAIL (as required)` and `SELFTEST: 2/2` with exit 0",
+      "predicate": "ACCEPT-O-70: SKILL.md ## Gates and probes registry row count for reports/round-[0-9]+/accept-[a-z]+\\.py equals the enumerated counter-file count (36), and reports/round-69/accept-d.py --selftest exits 0 with SELFTEST: 2/2",
+      "counting_command": "grep -cE '^\\| [^|]+\\| (gate|probe) \\| .*reports/round-[0-9]+/accept-[a-z]+\\.py' SKILL.md; find reports -name 'accept-*.py' | sort | wc -l; python3 -B reports/round-69/accept-d.py --selftest",
+      "target": "36 == 36; accept-d selftest exit 0, SELFTEST: 2/2",
+      "kill_rule": "any leg mismatch -> the claim fails as declared: row count != 36, any enumerated counter with no row, or accept-d selftest exit != 0 / SELFTEST != 2/2",
+      "do_nothing_control": "pre-data control receipt reports/round-70/telemetry/controls-o.txt runs the three commands on the base tree: grep -> 0, find -> 36, accept-d --selftest -> exit 1 with SELFTEST: 1/2",
+      "routed_from": "round-69 closure defects D7 (gate-registry rows) and D8 (accept-d selftest red) + R69-M11"
+    },
+    {
+      "id": "Ca",
+      "axis": "calibration",
+      "type": "records (routed round-69 closure defects D1, D2, D3, D4, D5, D6, D9, D10)",
+      "surface": "a committed dispositions table reports/round-70/corrections-r69.md carries exactly one row per routed defect id D1..D10 (each row: id | class | surface | filed text | observed | landing), and the SCORECARD.md round-69 calibration overreach is amended by an appended correction row (D4) that marks round-69 calibration unprovable / claim failed as declared",
+      "before": "reports/round-70/corrections-r69.md does not exist (row count 0); SCORECARD.md:1331 still files round-69 calibration `improved (claim Ca2, records)` with no correction row, contradicting SCORECARD.md:1360 `FAILED AS DECLARED`",
+      "after": "reports/round-70/corrections-r69.md exists and `awk -F'|' '/^\\| D(10|[1-9]) \\|/ {gsub(/[[:space:]]/,\"\",$2); print $2}' reports/round-70/corrections-r69.md | sort -u | wc -l` prints 10 with no duplicate ids (`| sort -u | uniq -d | wc -l` prints 0); SCORECARD.md gains an appended correction row naming the superseded text (the round-69 calibration `improved` row) and the correct verdict",
+      "predicate": "ACCEPT-CA-70: the dispositions table carries exactly the ten routed defect ids D1..D10, one row each with nonempty class/surface/landing cells, and the SCORECARD.md appended correction row names the superseded round-69 calibration `improved` row and the correct verdict",
+      "counting_command": "awk -F'|' '/^\\| D(10|[1-9]) \\|/ {gsub(/[[:space:]]/,\"\",$2); print $2}' reports/round-70/corrections-r69.md | sort -u | wc -l; awk -F'|' '/^\\| D(10|[1-9]) \\|/ {gsub(/[[:space:]]/,\"\",$2); print $2}' reports/round-70/corrections-r69.md | sort -u | uniq -d | wc -l; grep -c 'round-69 calibration' SCORECARD.md",
+      "target": "10 unique ids; 0 duplicates; at least one SCORECARD.md line mentioning round-69 calibration inside the appended correction row",
+      "kill_rule": "any leg mismatch -> the claim fails as declared: absent file, != 10 unique ids, any duplicate id, or no appended correction row naming the superseded round-69 calibration `improved` row",
+      "do_nothing_control": "pre-data control receipt reports/round-70/telemetry/controls-ca.txt runs the three commands on the base tree: corrections file absent (command prints nothing / 0), SCORECARD.md currently carries no correction row for the round-69 calibration contradiction",
+      "routed_from": "round-69 closure defects D1, D2, D3, D4, D5, D6, D9, D10"
+    },
+    {
+      "id": "D",
+      "axis": "depth",
+      "type": "instrument hardening (routed R69-M4, R69-M5, R69-M6), sourced",
+      "surface": "tools/check-supersession-settlement.py gains three routed behaviors, each proven by a new selftest case: (1) missing_paths counts UNIQUE missing files across used-by cells (multi-path cells supported; a cell listing two paths with one missing reports missing_paths=1, not 2); (2) duplicate path references across rows count once; (3) malformed registry rows are reported by a named `MALFORMED-ROW` diagnostic line instead of crashing or being silently dropped, and a malformed target no longer raises `KeyError: 'status'`",
+      "before": "`python3 -B tools/check-supersession-settlement.py --selftest` prints `SELFTEST: 7/7` (exit 0) with none of the three behaviors covered; missing_paths counts per (row, path) pair; malformed rows are silently dropped from chains (R69-M4) or raise `KeyError: 'status'`; the docstring's STALE-USED-BY containment class names no committed code path (R69-M5)",
+      "after": "`python3 -B tools/check-supersession-settlement.py --selftest` prints `SELFTEST: 10/10` (the three new cases PASS) with exit 0; `python3 -B reports/round-69/accept-o.py --root .` still prints `ACCEPT-O-69: PASS legs=7/7` (regression: the round-69 counter is unharmed)",
+      "predicate": "ACCEPT-D-70: tools/check-supersession-settlement.py --selftest prints SELFTEST: 10/10 with exit 0 including the three new PASS cases, and reports/round-69/accept-o.py --root . still prints ACCEPT-O-69: PASS legs=7/7",
+      "counting_command": "python3 -B tools/check-supersession-settlement.py --selftest; python3 -B reports/round-69/accept-o.py --root .",
+      "target": "SELFTEST: 10/10, exit 0; ACCEPT-O-69: PASS legs=7/7, exit 0",
+      "kill_rule": "any leg mismatch -> the claim fails as declared: selftest exit != 0 or != 10/10, any of the three new cases FAIL, or accept-o.py no longer prints ACCEPT-O-69: PASS legs=7/7",
+      "do_nothing_control": "pre-data control receipt reports/round-70/telemetry/controls-d.txt runs both commands on the base tree: selftest -> SELFTEST: 7/7 (not 10/10); accept-o.py -> ACCEPT-O-69: PASS legs=7/7",
+      "sourced": "the hardened checker is opened this round as registry row S860 (own-work, tier A): the lane's own re-runnable settlement check, run and quoted in corpus/lessons/round-70.md `## Gate`; the claim's evidence cites S860",
+      "routed_from": "round-69 mistakes R69-M4 (malformed-row swallow), R69-M5 (used-by existence-only / docstring containment), R69-M6 (missing_paths per-pair counting)"
+    }
+  ],
+  "non_goals": [
+    "freshness stays paused under the open round-11 L0 ruling; no freshness claim",
+    "coverage is not claimed: the round is a repair-first round and the 36-counter registry + dispositions + tool hardening occupy the three-claim cap",
+    "the round-69 counters (accept-{o,ca,d}.py) are not amended except the D8 selftest fixture-seeding fix inside accept-d.py, which is claim O's second leg; their frozen predicate bytes and receipts stand",
+    "item 10 stays closed: adoption CLOSED (wave-4 quarantine-first), the id-collision guard is re-proven, and no shokuknow bytes are adopted, appended or renumbered",
+    "considerthese/ is absent for this lane; nothing to mine"
+  ],
+  "wave": {
+    "shape": "two v1 waves under policy v1 (scripts/hyaku/ufo-wave-policy.json, band 32-64): wave 1 build+first-falsify 33 seats; wave 2 falsify 32 seats dispatched after wave 1 returns, only if >=32 distinct attack items exist, else a residual <=8-seat reviewer/critic call; round total <=128",
+    "seat_gate": "one batched task call per wave carrying the validator's rendered taskCall unchanged",
+    "wave1_seats": 33,
+    "wave1_attack_roles": 11,
+    "wave2_seats": "TBD after wave 1",
+    "dead_seats": "reported per wave"
+  },
+  "item10": {
+    "adoption": "CLOSED",
+    "collision_check": "re-run in scratch with the current 783-row registry; the S859 collision discovered in round 69 stands and is re-recorded",
+    "quarantine_slice": "re-derived read-only; per-row verdicts from rounds 68/69 stand"
+  }
+}

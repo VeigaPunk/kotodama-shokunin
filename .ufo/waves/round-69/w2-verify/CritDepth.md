@@ -388,8 +388,13 @@ Residuals at `975e8f2`:
   `a66a75f` (`git ls-tree b3064e1f SKILL.md`); the landed file is blob `2476a9c`. The STAMP leg
   hashes only the counter (and is vacuous under `--root .`, R69-M10). So the receipt's coverage of
   D2 is void against `975e8f2`: the 8/8 still reproduces, but it was not measured on this table.
-  Re-taking the measure and re-stamping at the landed revision is the remaining bookkeeping;
-  R1-R3 are content notes, not blockers.
+  Re-taking the measure and re-stamping at the landed revision was the outstanding bookkeeping;
+  since this was written it has been done: `final-measures-d-attempt2.txt` stamps `975e8f2`,
+  tree `b154a919`, clean worktree, and `controls-attempt2.txt` records the present control state
+  (GREEN 8/8, DO-NOTHING PASS (unexpected), `SELFTEST: 1/2` exit 1). The three counters were
+  re-measured at the repair revision and committed as `3e59d1d`. Re-verified at tip `ef75509`:
+  `--root .` 8/8 exit 0, and `:88` occurs exactly once (`SKILL.md:486`). R1-R3 remain content
+  notes, not blockers.
 
 **What the landed edit closes:** G1-G8 are prose-addressed (C2/C4 are documentation fixes over the
 already-filed R69-M5/R69-M4, routed at `LOG.md:4233`; the round's own lesson now carries these as
@@ -397,7 +402,9 @@ R69-M10..M12, `corpus/lessons/round-69.md:36-38`); R1 closes only if the `:88` p
 dropped; R2 (code docstring) and R3 (counter legs + leaked control) remain open and are round-70
 instrument work, not D2 prose.
 
-**Verdict by revision.** D2 **FAIL** at `9e82c7b` (documented in §§0-7; that is the revision the
-claim's receipts name). At `975e8f2` the table is writer-actionable for all five states except
-R1's non-reproducible `:88` pointer; R3 still means the depth axis has no instrument that
-measures content, so the counter's 8/8 there is a presence check, not support for the depth claim.
+**Verdict by revision.** D2 **FAIL** at `9e82c7b` (documented in §§0-7; the original receipt
+names `e86ed3e`, the attempt-2 receipt names `975e8f2` tree `b154a919`). At `975e8f2` and its
+records tip `3e59d1d` (re-verified at `ef75509`) the table is writer-actionable for all five
+states except R1's non-reproducible `:88` pointer; R3 still means the depth axis has no
+instrument that measures content, so the counter's 8/8 there is a presence check, not support for
+the depth claim.

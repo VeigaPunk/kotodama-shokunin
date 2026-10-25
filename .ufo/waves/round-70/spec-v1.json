@@ -1,0 +1,247 @@
+{
+ "wave": "kotodama-r70-v1",
+ "milestone": "Round 70 wave 1 (build + first falsify, 33 seats)",
+ "reportDir": ".ufo/waves/round-70/w1",
+ "axes": [
+  "coverage",
+  "operability",
+  "calibration",
+  "depth",
+  "freshness",
+  "adjacency"
+ ],
+ "context": "# Goal\nKotodama round 70 (hyaku run 6, 2026-10-25): ONE v1 wave of 33 seats, build and first-falsify together. Lane repo /home/vgpnk/Projects/shokunin/kotodama-shokunin (jj-colocated). Base revision 21e6a7f3fb63e717f2021c46a172e396c4759a7c. All lane-relative paths resolve under that repo; use ABSOLUTE paths in every command you run.\n\nThree frozen claims (reports/round-70/claims.json, committed at the declaration):\n- O (operability, counter repairs from routed round-69 closure defects D7/D8 + R69-M11): SKILL.md `## Gates and probes` registry gains one row per reports/round-*/accept-*.py counter (36 counters enumerated by `find reports -name 'accept-*.py'`), AND reports/round-69/accept-d.py --selftest exits 0 printing SELFTEST: 2/2 (do-nothing fixture seeded from committed pre-table blob 793f797:SKILL.md). Predicate: ACCEPT-O-70 = the grep row count equals the enumerated 36 and accept-d selftest exits 0 with SELFTEST: 2/2.\n- Ca (calibration, records): reports/round-70/corrections-r69.md carries exactly one disposition row per routed defect id D1..D10 (id | class | surface | filed text | observed | landing), and SCORECARD.md gains an appended correction row naming the superseded round-69 calibration `improved` row (D4). Predicate: ACCEPT-CA-70 = awk over the table prints 10 unique ids with 0 duplicates, and grep finds the appended correction row.\n- D (depth, instrument hardening from routed R69-M4/M5/M6, sourced): tools/check-supersession-settlement.py gains three behaviors, each proven by a new selftest case: (1) missing_paths counts UNIQUE missing files over used-by cells (multi-path cells; one missing of two -> missing_paths=1), (2) duplicate path references across rows count once, (3) malformed rows are reported by a named `MALFORMED-ROW` diagnostic and a malformed target no longer raises `KeyError: 'status'`. Predicate: ACCEPT-D-70 = selftest prints SELFTEST: 10/10 exit 0 AND reports/round-69/accept-o.py --root . still prints ACCEPT-O-69: PASS legs=7/7.\n\nWHAT IS ALREADY COMMITTED (the declaration you work against):\n  reports/round-70/claims.json, reports/round-70/telemetry/controls-{o,ca,d}.txt\n  (the pre-data do-nothing control receipts), the round-69 artifacts and the two\n  modified-but-uncommitted seat reports .ufo/waves/round-69/w2-verify/{CritDepth,RevRerun}.md.\nWHAT IS NOT LANDED YET (the data this wave designs/proves): SKILL.md registry rows,\n  the accept-d.py selftest fix, the checker hardening, the dispositions table, the\n  SCORECARD corrections (incl. the D5 reword), the S860 registry row, and the\n  round-70 lesson.\n\nABSOLUTE PATHS AND THE REPORT TRAILER\nEvery `Report:` trailer path you are given is relative to /home/vgpnk/Projects/shokunin/kotodama-shokunin - write it at /home/vgpnk/Projects/shokunin/kotodama-shokunin/<that path>. Never write a relative path into the fleet root.\n\nWRITE SCOPE AND BOUNDS (hard)\nYou are READ-ONLY on production bytes: write EXACTLY ONE file - your own report file named in your item. Do not edit production files (SKILL.md, corpus/**, LOG.md, SCORECARD.md, reports/round-69/**, reports/round-70/*, tools/**, .ufo/waves/round-69/**). The L1 is the single integration owner and applies your drafts/diffs. Never write to the fleet repo /home/vgpnk/Projects/shokunin or to any sibling lane repo. Never run `git commit`, `git add`, `git push`, `git stash`, `git checkout`, `git switch`, `git reset`, `git pull`, and never run a mutating `jj` command; never touch the lane Git index or the lane jj state. Use scratch under /tmp for any mutation you need to demonstrate (copy the file, mutate the COPY, run against the copy). Read-only git (log, show, diff, status, ls-files, rev-parse) is fine.\n\nTOOLING AUTHORIZATION\nThe operator authorizes installing or upgrading any tool that genuinely helps your task: read /home/vgpnk/.omp/agent/RULES.md FIRST and follow it (official channels, update-safety gate, install record: tool, version, channel, reason). PACMAN GUARD: all pacman transactions are PAUSED host-wide - install via `uv tool`, `npx` or an official binary in ~/.local/bin, or file an L0 question. Never `pacman -Sy/-Syu/-U/-R`, never downgrade, never restart a host service. No network fetching is needed this round: the only new registry row (S860) is the lane's own re-runnable check (own-work).\n\nNO NETWORK FETCHING of external sources this round. You may read local files freely.\n\nREPORT FORMAT\nWrite markdown with the exact commands you ran and their real output. State findings as VERDICT lines (e.g. `VERDICT: PASS`, `VERDICT: FAIL`, `VERDICT: NOT-EVALUATED`) and never as an assertion. If an artifact you need is missing, say so and record it as a finding - do not fabricate output. Time-box: return within 25 minutes with your best result; partial results are acceptable. You are an independent leaf: never block on another seat.\n",
+ "items": [
+  {
+   "name": "ScribeReg01",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-53/accept-c.py, reports/round-54/accept-c.py, reports/round-55/accept-c.py. For each counter produce exactly one Markdown table row in this shape: `| <name> | gate | `python3 -B <entry-command>` | <verdict-map> | `--selftest` | — | read-only; selftest scratch | kotodama-shokunin |`. Verify from the code: the entry command's real arguments (argparse), the self-test flag spelling (or `none` if absent), and the return-code semantics (main() returns; 0/1/2). <name>: e.g. `accept-c-53`; verdict map: `0 clean / 1 findings / 2 could-not-evaluate` (adjust if the code differs). Output ONLY the three table rows, one per line, plus a short `VERDICT:` line per counter reporting what you verified. Do not modify any production file. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg02",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-55/accept-o.py, reports/round-56/accept-c.py, reports/round-56/accept-o.py. For each counter produce exactly one Markdown table row in this shape: `| <name> | gate | `python3 -B <entry-command>` | <verdict-map> | `--selftest` | — | read-only; selftest scratch | kotodama-shokunin |`. Verify from the code: the entry command's real arguments (argparse), the self-test flag spelling (or `none` if absent), and the return-code semantics (main() returns; 0/1/2). Output ONLY the three table rows, one per line, plus a short `VERDICT:` line per counter. Do not modify any production file. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg03",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-57/accept-c.py, reports/round-57/accept-o.py, reports/round-58/accept-c.py. Same shape and verification rules as the other registry scribes: `| <name> | gate | `python3 -B <entry-command>` | <verdict-map> | `--selftest` | — | read-only; selftest scratch | kotodama-shokunin |`. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg04",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-59/accept-c.py, reports/round-59/accept-d.py, reports/round-60/accept-d.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg05",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-61/accept-c.py, reports/round-61/accept-o.py, reports/round-62/accept-d.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg06",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-62/accept-o.py, reports/round-63/accept-c.py, reports/round-63/accept-o.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg07",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-64/accept-c.py, reports/round-64/accept-ca.py, reports/round-64/accept-o.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg08",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-65/accept-c.py, reports/round-65/accept-ca.py, reports/round-65/accept-o.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg09",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-66/accept-c.py, reports/round-66/accept-ca.py, reports/round-66/accept-o.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg10",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-67/accept-c.py, reports/round-67/accept-ca.py, reports/round-67/accept-o.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg11",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-68/accept-c.py, reports/round-68/accept-ca.py, reports/round-68/accept-o.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeReg12",
+   "role": "scribe",
+   "axes": ["operability", "calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Produce gate-registry table rows for exactly these counter files (read each file to extract its true CLI surface): reports/round-69/accept-ca.py, reports/round-69/accept-d.py, reports/round-69/accept-o.py. Same shape and verification rules as the other registry scribes. Output ONLY the three rows plus a `VERDICT:` line per counter. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeDispositions",
+   "role": "scribe",
+   "axes": ["calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Draft the full content of reports/round-70/corrections-r69.md: a dispositions table with EXACTLY one row per routed round-69 closure defect id D1..D10, in the shape `| D<N> | <class> | <surface> | <filed text> | <observed> | <landing> |`. Source of the defect list: corpus/lessons/round-69-verifier-spotcheck.md §6 (D1..D10) plus the standing self-routed items. The ten ids: D1 (uncommitted w2-verify seat reports -> commit under round 70, name in report), D2 (Landed-changes attributions: harness -> 6a98d7d, corrections-r68.md -> e86ed3e), D3 (claims.json \"unchanged since 6a98d7d\" wording -> frozen fields unchanged; wave metadata + counter_revisions appended at 52b92a6), D4 (SCORECARD :1331 improved vs :1360 FAILED AS DECLARED -> appended correction row marking round-69 calibration unprovable / claim failed as declared, citing :1360 and claims.json Ca2 kill_rule), D5 (attempt-2 block \"Nothing above is rewritten\" -> the ScoutAdj in-place pointer repair is disclosed in the corrections table and is the one exception), D6 (misroot sentence must exclude driver state .ufo/state/*.report-baseline), D7 (gate-registry rows for reports/round-69/accept-{o,ca,d}.py and standing older counters -> claim O), D8 (accept-d.py --selftest red -> R69-M11 fix in claim O), D9 (guard-proof note.txt dead pointer: cites R69-M10, must cite R69-M13), D10 (O2 SCORECARD row cites attempt-1 receipt; link final-measures-o-attempt2.txt as current measurement). Each landing must name the concrete committed artifact (file + claim/commit). Also include a short header naming the defect source and the date. Output the complete file content in your report. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeCorrections",
+   "role": "scribe",
+   "axes": ["calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Draft the SCORECARD.md round-70 appended corrections subsection. Produce: (1) table rows to append for D2 (attribution corrections), D3 (claims.json wording correction), D4 (round-69 calibration unprovable row), D9 (dead-pointer correction), D10 (O2 attempt-2 receipt link), each `| item | correction |`; (2) a proposed replacement sentence for the attempt-2 block's \"Nothing above is rewritten\" line (SCORECARD.md around line 1353) that discloses the one in-place exception (the ScoutAdj pointer repair recorded in the corrections table) - give exact replacement wording candidates. Output the draft in your report. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeSOURCES",
+   "role": "scribe",
+   "axes": ["depth", "coverage"],
+   "milestone": "r70-v1",
+   "prompt": "Draft registry row S860 for corpus/SOURCES.md: the hardened tools/check-supersession-settlement.py (own-work). Exact 11-cell row shape (no `|` inside any cell): `| S860 | tools/check-supersession-settlement.py (hardened) — repo path + command `python3 -B tools/check-supersession-settlement.py --selftest` | own-work | A | the five chain states plus multi-path and malformed-row diagnostics | docstring (lines 1-38) | ... | mined | 2026-10-25 | 90d | SKILL.md, corpus/lessons/round-70.md |`. Also draft the lesson `## Gate` row: URL/source = repo path; access date 2026-10-25; a <=25-word located quote verbatim from the tool docstring (e.g. \"A row whose `used-by` names a path that does not contain the row's own id is `STALE-USED-BY`\" - verify it exists verbatim in tools/check-supersession-settlement.py docstring) with its line location; grounds; verdict admitted. Output the two blocks. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScribeLesson",
+   "role": "scribe",
+   "axes": ["calibration", "discernment"],
+   "milestone": "r70-v1",
+   "prompt": "Draft the skeleton of corpus/lessons/round-70.md with sections: `## Gate` (S860 admit row placeholder from ScribeSOURCES), `## Mistakes` (one planned row: class `record accuracy` / evidence: SCORECARD.md:1331 vs :1360 contradiction (D4) and the false \"claims.json unchanged since 6a98d7d\" sentence (D3) / captured-by: QUALITY criterion on appended corrections; the fix: appended correction rows this round - confirm the evidence pointers resolve by reading SCORECARD.md lines 1330-1360), `## Corrections (round 69)` (D1-D10 dispositions summary), `## Quarantine` (adoption CLOSED; S859 collision re-recorded; slice verdicts stand). Output the draft with placeholders marked [L1]. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ExecSelftestFix",
+   "role": "executor",
+   "axes": ["operability"],
+   "milestone": "r70-v1",
+   "prompt": "Design the minimal patch making reports/round-69/accept-d.py --selftest exit 0 with SELFTEST: 2/2. Root cause (R69-M11): build_fixture_root() seeds the do-nothing fixture's SKILL.md from the LIVE LANE/SKILL.md, which now contains the registry-correction-chains table, so the do-nothing fixture passes 8/8 (PASS unexpected). Fix: when with_table=False, seed the fixture base from the committed pre-table blob via `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 793f797:SKILL.md` (fallback to \"# fixture\\n\" if git fails); keep the green path seeded from the live SKILL.md. Prove: (1) red-before on a /tmp copy of the current file (exit 1, PASS unexpected); (2) green-after on a /tmp copy of your fixed file (exit 0, DO-NOTHING FIXTURE: FAIL (as required), SELFTEST: 2/2); (3) the full unified diff (context 3) for the L1 to apply. Also verify `git show 793f797:SKILL.md` works in the lane and lacks the string \"### Registry correction chains\". Output all command outputs and the diff. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ExecToolHarden",
+   "role": "executor",
+   "axes": ["depth"],
+   "milestone": "r70-v1",
+   "prompt": "Design the minimal patch for tools/check-supersession-settlement.py implementing three routed behaviors, each with a new selftest case (the current selftest prints SELFTEST: 7/7): (1) missing_paths in the scan summary counts UNIQUE missing files over used-by cells (a cell of two paths with one missing reports missing_paths=1, not 2; keep usedby_paths as total references); (2) the same missing file referenced by two rows counts once; (3) malformed registry rows are reported by a `MALFORMED-ROW <S-id>` diagnostic line in scan output instead of being silently dropped, and a malformed TARGET no longer raises `KeyError: 'status'` (skip that chain with the diagnostic). Work on a /tmp copy. Prove: red-before (current code lacks the behaviors), green-after (your copy prints SELFTEST: 10/10, exit 0), and that the existing seven cases stay green. Read the file first (parse_registry, classify, scan, selftest). Output your /tmp copy's selftest output and the full unified diff for the L1. NOTE: do not change exit semantics for existing cases (pending gating unchanged). Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ExecControls",
+   "role": "executor",
+   "axes": ["calibration", "operability"],
+   "milestone": "r70-v1",
+   "prompt": "Independently recompute the three pre-data do-nothing control measurements at base 21e6a7f and output them as evidence: (O) `grep -cE '^\\| [^|]+\\| (gate|probe) \\| .*reports/round-[0-9]+/accept-[a-z]+\\.py' SKILL.md` and `find reports -name 'accept-*.py' | sort | wc -l` and `python3 -B reports/round-69/accept-d.py --selftest` (capture exit code); (Ca) `awk -F'|' '/^\\| D(10|[1-9]) \\|/ {gsub(/[[:space:]]/,\"\",$2); print $2}' reports/round-70/corrections-r69.md 2>/dev/null | sort -u | wc -l` and `grep -c 'round-69 calibration' SCORECARD.md`; (D) `python3 -B tools/check-supersession-settlement.py --selftest` and `python3 -B reports/round-69/accept-o.py --root .` (capture exit codes). Compare with the committed receipts reports/round-70/telemetry/controls-{o,ca,d}.txt and state matches/mismatches. VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ExecEvidence",
+   "role": "executor",
+   "axes": ["calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Build the before-state evidence packet at base 21e6a7f: (1) run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama` and record exit code + tail; (2) `grep -cE '^ {0,3}\\|[[:space:]]*S[0-9]{3,}' corpus/SOURCES.md`; (3) `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin status --porcelain`; (4) `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff --stat .ufo/waves/round-69/w2-verify/`; (5) confirm `reports/round-70/telemetry/controls-{o,ca,d}.txt` exist and are committed-or-untracked (report which); (6) `ls reports/round-70/` to confirm claims.json exists. Output all outputs. VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ScoutRecon",
+   "role": "scout",
+   "axes": ["coverage", "operability"],
+   "milestone": "r70-v1",
+   "prompt": "Reconnaissance for the L1 integration: (1) count existing rows in SKILL.md `## Gates and probes` table and report the exact line number where the table ends (the last table row) and the next heading line, for inserting ~36 new rows; (2) report SCORECARD.md last line number and the tail structure (round-69 attempt-2 block) for appending a round-70 corrections subsection; (3) confirm corpus/SOURCES.md current last row id (should be S859) and the line count; (4) confirm .ufo/waves/round-70/ exists and list reports/round-70/; (5) report `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin status --porcelain` exactly; (6) verify reports/round-69/telemetry/final-measures-o-attempt2.txt exists and prints ACCEPT-O-69: PASS legs=7/7. Output findings with line numbers. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ConnectorSiblings",
+   "role": "connector",
+   "axes": ["adjacency"],
+   "milestone": "r70-v1",
+   "prompt": "Sibling-overlap scan: for each sibling lane repo under /home/vgpnk/Projects/shokunin/*-shokunin (except kotodama-shokunin), search for ownership of the surfaces this round touches: SKILL.md `## Gates and probes` registry rows (SKILL.md files), settlement-checker tools (check-supersession-settlement.py), gate-registry phrasing, and per-round corrections tables. Report any sibling that owns an overlapping surface (with file evidence) or state `VERDICT: no-sibling-owner` per surface. Also check whether any sibling currently has an open routed-defect row naming kotodama (grep their corpus/lessons for kotodama). Do not modify anything. Lane repo root: /home/vgpnk/Projects/shokunin."
+  },
+  {
+   "name": "CriticO",
+   "role": "critic",
+   "axes": ["operability"],
+   "milestone": "r70-v1",
+   "prompt": "Adversarially review claim O BEFORE data: can a do-nothing control reach the declared target? Attack the counting commands: can the grep row-count be satisfied without real rows (e.g. matching prose lines, extra columns, hidden duplicates)? Can `find reports -name 'accept-*.py'` be fooled? Can the accept-d selftest exit 0 without the fixture fix? Rerun the pre-data controls yourself and verify the target is unreachable at base. State any predicate tightening you recommend (the predicate is frozen; your findings still inform the L1). Output VERDICT lines with evidence. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "CriticCa",
+   "role": "critic",
+   "axes": ["calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Adversarially review claim Ca BEFORE data: can a do-nothing control reach the declared target? Attack the counting commands: can `awk` over reports/round-70/corrections-r69.md print 10 unique ids without real dispositions (e.g. duplicate rows, wrong ids)? Does the verifier's D1..D10 list have any id that is not a distinct defect? Is the SCORECARD grep leg meaningful? Rerun the pre-data controls yourself and verify the target is unreachable at base (file absent). State any tightening (the predicate is frozen; findings inform the L1). Output VERDICT lines with evidence. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "CriticD",
+   "role": "critic",
+   "axes": ["depth"],
+   "milestone": "r70-v1",
+   "prompt": "Adversarially review claim D BEFORE data: can a do-nothing control reach the declared target? Attack the counting command: can `python3 -B tools/check-supersession-settlement.py --selftest` print SELFTEST: 10/10 without the three behaviors (e.g. printing extra PASS lines, miscounting)? Is the regression leg (accept-o.py 7/7) a sound guard? Rerun the pre-data controls yourself (current selftest is 7/7; accept-o 7/7). State any tightening (the predicate is frozen; findings inform the L1). Output VERDICT lines with evidence. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ReviewerO",
+   "role": "reviewer",
+   "axes": ["operability"],
+   "milestone": "r70-v1",
+   "prompt": "Independently re-run claim O's three pre-data control commands at base and confirm the target is unreachable: (1) `grep -cE '^\\| [^|]+\\| (gate|probe) \\| .*reports/round-[0-9]+/accept-[a-z]+\\.py' SKILL.md` (expect 0); (2) `find reports -name 'accept-*.py' | sort | wc -l` (expect 36); (3) `python3 -B reports/round-69/accept-d.py --selftest` (expect exit 1, SELFTEST: 1/2). Also verify the grep pattern matches NO existing SKILL.md line by listing any line it matches (expect none). VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ReviewerCa",
+   "role": "reviewer",
+   "axes": ["calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Independently re-run claim Ca's pre-data control commands at base: (1) `awk -F'|' '/^\\| D(10|[1-9]) \\|/ {gsub(/[[:space:]]/,\"\",$2); print $2}' reports/round-70/corrections-r69.md 2>/dev/null | sort -u | wc -l` (expect 0; file absent); (2) `test -f reports/round-70/corrections-r69.md; echo $?` (expect 1); (3) `grep -c 'round-69 calibration' SCORECARD.md` (expect 0). Also confirm SCORECARD.md:1331 currently files round-69 calibration `improved` while :1360 files `FAILED AS DECLARED` (read both lines). VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ReviewerD",
+   "role": "reviewer",
+   "axes": ["depth"],
+   "milestone": "r70-v1",
+   "prompt": "Independently re-run claim D's pre-data control commands at base: (1) `python3 -B tools/check-supersession-settlement.py --selftest` (expect SELFTEST: 7/7, exit 0); (2) `python3 -B reports/round-69/accept-o.py --root .` (expect ACCEPT-O-69: PASS legs=7/7, exit 0). Confirm the target 10/10 is not reachable by the current tool (no hidden extra cases). VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ReviewerCensus",
+   "role": "reviewer",
+   "axes": ["coverage"],
+   "milestone": "r70-v1",
+   "prompt": "Validate the source-census start state: run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama` and record exit code (expect 0) and the final `ok` line; run `grep -cE '^ {0,3}\\|[[:space:]]*S[0-9]{3,}' corpus/SOURCES.md` (expect 783); confirm the last row id is S859 and that no S860 row exists; confirm the W04 warnings count is 28 (the standing pre-existing set). VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "ReviewerInherited",
+   "role": "reviewer",
+   "axes": ["calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Review the two modified-but-uncommitted seat reports .ufo/waves/round-69/w2-verify/CritDepth.md and RevRerun.md: run `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff --stat .ufo/waves/round-69/w2-verify/` and `git diff` on both files; confirm (1) the changes are genuine round-69 seat-report updates (they cite 3e59d1d / ef75509 / 975e8f2 and record re-measurements), not debris; (2) no other working-tree changes exist (git status --porcelain shows exactly these two). Output the diff stat, a 3-line summary of each change, and VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "MutSelftest",
+   "role": "mutation-tester",
+   "axes": ["operability"],
+   "milestone": "r70-v1",
+   "prompt": "Reproduce the R69-M11 root cause on a /tmp copy of reports/round-69/accept-d.py: copy the file, run `python3 -B /tmp/<copy> --selftest` and show it prints `DO-NOTHING FIXTURE: PASS (unexpected)` + `SELFTEST: 1/2` exit 1 (current live tree). Then prove the fix direction: `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 793f797:SKILL.md | grep -c '### Registry correction chains'` (expect 0) while the live SKILL.md contains it (`grep -c '### Registry correction chains' SKILL.md` -> 1), i.e. seeding the do-nothing fixture from 793f797:SKILL.md restores the pre-table base. Also mutate a /tmp copy of the selftest to print `SELFTEST: 2/2` unconditionally and show it would pass vacuously - report this as a warning for the fix design (the fix must not be a hardcoded print). VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "SentinelPatch",
+   "role": "sentinel",
+   "axes": ["operability", "depth"],
+   "milestone": "r70-v1",
+   "prompt": "Review the two planned patches for safety and hermeticity: (1) the accept-d.py selftest fix (do-nothing fixture seeded via `git show 793f797:SKILL.md`): check the subprocess invocation would not write to the lane, not depend on network, and fall back cleanly; (2) the settlement-checker hardening (unique-file missing_paths, MALFORMED-ROW diagnostic): check it stays read-only, uses only temp dirs in selftest, and does not change exit semantics for existing cases. Also confirm no patch touches files outside its target. You are reviewing design, not implementing; read the current code and the planned diffs if available; output VERDICT lines with specific risks. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  },
+  {
+   "name": "RevengerWording",
+   "role": "revenger",
+   "axes": ["calibration"],
+   "milestone": "r70-v1",
+   "prompt": "Reverse-engineer the exact facts for the D2/D3 corrections: (1) `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin log --diff-filter=A --format='%h' -- tools/check-settlement-fixture.py` (expect 6a98d7d) and `-- reports/round-69/corrections-r68.md` (expect e86ed3e); (2) `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff --stat 6a98d7d ef75509 -- reports/round-69/claims.json` and list the JSON keys that changed (expect wave metadata + counter_revisions appended; predicate/kill_rule/target/counting_command byte-identical - verify with `git diff 6a98d7d 52b92a6 -- reports/round-69/claims.json` and `git diff 52b92a6 ef75509 -- reports/round-69/claims.json`); (3) confirm the Ca2 block's sha `c6e8a7f624d33dec...` is present at all three revisions (`git show <rev>:reports/round-69/claims.json | grep c6e8a7f`). Output the facts and the exact corrected sentence for the report (\"frozen fields unchanged; wave metadata and counter_revisions appended at 52b92a6\"). VERDICT lines. Do not modify production files. Lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin."
+  }
+ ]
+}

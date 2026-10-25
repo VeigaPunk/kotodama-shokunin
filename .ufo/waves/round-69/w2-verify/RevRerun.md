@@ -42,7 +42,7 @@ $ git -C /tmp/RevRerun-r69 diff --stat e86ed3e 9e82c7b
  5 files changed, 107 insertions(+)
 ```
 
-The only delta between the data land and the tip is the five telemetry receipts: no counter, SKILL.md, registry, fixture or tools change. Re-running at the tip is therefore equivalent for every artifact these claims measure.
+The only delta between the data land and the tip is the five telemetry receipts: no counter, SKILL.md, registry, fixture or tools change. Re-running at the tip is therefore equivalent for every artifact these claims measure. The lane has since advanced (content repair `975e8f2`, re-measurement records `3e59d1d`); §8 re-runs all three counters at that tip, compares them to the new `*-attempt2` receipts, and maps the outcome onto these findings.
 
 ## 1. O2 — operability, capability acquisition
 
@@ -297,11 +297,26 @@ The seven provenance header lines in each `final-measures-*.txt` are wrapper met
 - Cross-check with `L1Kotodama69.CritDepth` (whose file now records the D2 content critique): I re-ran all four of their content claims in my own clone and they reproduce exactly — filler table 8/8 (F4), `FIXTURE_TABLE` on base 8/8 with wrong pointers (F4), `keep-reject` on the successor row 10 findings vs 0 on the target (F3a), fake used-by still `SETTLED-ACTIVE` exit 0 (F3b), malformed target `KeyError: 'status'` at `:121` and malformed successor silently dropped (F3c). The wording in F3 is mine, derived from those runs.
 - Not my scope (other seats): mutation battery, records/anchoring critique, item-10 scout.
 
-## 8. Lane working-tree observation at report close (not part of the measurement)
+## 8. Post-repair state (verified at the current tip, not part of the original measurement)
 
-Every number above was measured in the independent clone at the clean commit `9e82c7b` (`git status` empty). The line numbers cited in §3 are `9e82c7b` line numbers. Afterwards the lane's working tree accumulated uncommitted work from other seats (`git status --short`): `M SKILL.md` (16 insertions, 9 deletions — rewrites the `settled-closed` and `settled-active` cells and adds a malformed-row caveat, i.e. exactly the F3(a)/(b)/(c) surface), `M corpus/lessons/round-69.md`, and a new untracked `reports/round-69/telemetry/census-start-recheck.txt`. None of it is my write and I did not touch it.
+Every number in §0–§7 was measured at the clean commit `9e82c7b`, and the line numbers cited there are `9e82c7b` line numbers. The lane has since advanced: the content repair landed at `975e8f2` and the re-measurement records at `3e59d1d`. §8 was verified against `3e59d1d`; `ef75509` landed afterwards and touches only `.ufo/waves/round-69/w2-verify/CritDepth.md` — no counter, SKILL.md or telemetry change, so every result below still applies at the current tip. This section does not alter the verdicts, which stand for the revision they name.
 
-- Read-only sanity check against the drifted working tree: `python3 -B reports/round-69/accept-d.py --root .` → `ACCEPT-D-69: PASS legs=8/8`, exit 0.
-- The new SKILL.md text cites `R69-M4`, which already resolves in the committed tree (`corpus/lessons/round-69.md:30`, `LOG.md:4233`), so the edit introduces no dead pointer.
-- Record integrity, precisely: `final-measures-*.txt` stamps only the counter's sha256, but its header also records `tree: b3064e1f9255a2f4437b3109e81ac3326e06cb97`, and that tree pins the measured SKILL.md blob — `git rev-parse e86ed3e:SKILL.md` → `a66a75fd0a6d426def82502cfa562cf308089d77`. The drifted working file is a different blob (`2476a9c…`, uncommitted). So the committed receipt *does* cover the measured SKILL.md, via the tree hash; an uncommitted edit has no receipt at all, and landing it changes the tree, which invalidates the D2 receipt's coverage and requires a fresh measurement and stamp.
-- If that edit is committed, the round should re-measure: F3(a) and F3(b) become prose-addressed; F1 (selftest control inversion), F4 (content never adjudicated), F5 (receipt headers) and F3(d) (committed docstring drift) are untouched by a prose change.
+Re-run at `3e59d1d` in a fresh clone (`/tmp/RevRerun-r69-post`):
+
+```
+accept-o.py --root .                              → ACCEPT-O-69: PASS legs=7/7   exit 0
+accept-ca.py --root . --fleet-root …/shokunin     → ACCEPT-CA-69: PASS legs=8/8  exit 0
+accept-d.py --root .                              → ACCEPT-D-69: PASS legs=8/8   exit 0
+```
+
+All three LEG bodies are **identical** to the newly committed `final-measures-{o,ca,d}-attempt2.txt`, so the re-take reproduces line-for-line. The attempt-2 receipts stamp `measured revision 975e8f2`, `tree b154a91907a240e92bb5824f1232704b7ebd69f3`, clean worktree, and the counter sha256 headers are unchanged (`08c7ea61…`, `091074c5…`, `06b0352a…`).
+
+Controls at the current tip match `controls-attempt2.txt` exactly: O green 7/7 / do-nothing FAIL 5/7 / spoof FAIL 6/7 / `3/3`, exit 0; Ca green 8/8 / do-nothing FAIL 2/8 / `2/2`, exit 0; D green 8/8 / do-nothing **PASS (unexpected)** 8/8 / `1/2`, exit 1. The attempt-2 receipt names that D state as R69-M11 rather than claiming it green — which is the honest handling, and it confirms F1 at the new revision.
+
+What the landed repair does to my findings:
+
+- **F3(a) main defect fixed.** The `settled-closed` cell now names both subcases and both ids — "rule `keep-successor` when it is `mined` (S570>S135, ledger `:78`), `keep-reject` when it is itself `rejected` (S047>S029, `:75`) … the ruling attaches to the row the validator checks, and `keep-reject` is refused unless that row reads `rejected` (`:211-212`)" — which is exactly the wording the three ledger probes supported.
+- **F3(a) residual survives.** The same evidence cell still ends "kept-reject fingerprint S830 `:88`". S830's teaches has no `supersedes` token (`corpus/SOURCES.md:784`), so `classify()` emits no chain for it and `--scan` can never produce that fingerprint: the pointer is ledger-only, not re-derivable through the checker the cell cites. This is the one repaired-cell residual I can still reproduce at `3e59d1d`.
+- **F3(b) addressed in prose**: "a non-`—` `used-by` cell (path existence is reported as `missing_paths`, not gated, `:162-164`)". **F3(c)** is documented in the new malformed-row caution citing R69-M4. **F3(d)** (the tool docstring saying ACTIVE's target may be "queued or rejected") is untouched — committed code, not the table.
+- **F1, F2, F3/F4 are now indexed in the record** as R69-M11, R69-M10 and R69-M12 (`corpus/lessons/round-69.md:36-38`); M12's evidence includes the 5-row-filler-scores-8/8 probe. My report and the lesson rows agree; no finding of mine is left unrecorded.
+- The earlier bookkeeping concern is settled by the new receipts: the original `final-measures-*.txt` header pinned the pre-repair SKILL.md blob `a66a75fd…` through tree `b3064e1f…`, the repaired blob is `2476a9c05662756ad8c1a79ee63d8972798c0cc7`, and the attempt-2 receipts pin the repaired tree `b154a919…`. Note that the counters' STAMP legs still hash only the counter (F2 / R69-M10), so the receipt's tree hash remains the sole pin of the measured SKILL.md — a landed edit without a re-take would still be uncovered.
