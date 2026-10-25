@@ -34,9 +34,10 @@ S859-sourcing are all really present. But the word *depth* in the claim is gloss
 Every defect is *content*, one cell or one leg wide, inside the frozen 5-row shape: this is a
 **fixable defect, not a tradeoff the canonical Rust judge must reject**. Nothing in the axis,
 the surface or the 5-state framing has to be abandoned; §7 gives the smallest safe correction.
-**§9 matters before reading this as final:** another seat edited `SKILL.md` in the shared
-worktree after my measurements, settling G1-G8 along the lines §7 proposes (residual R1-R3);
-the verdict below is the one for commit `9e82c7b`.
+**§9 matters before reading this as final:** another seat repaired `SKILL.md` along the lines §7
+proposes and committed it as `975e8f2` while this report was being written (G1-G8 settled;
+residuals R1-R3). The verdict immediately below is the one for commit `9e82c7b`, the revision the
+D2 receipts name.
 
 Impacted axes: **depth (D2) directly**; **calibration** downstream, because the records assert
 the claim as verified on the strength of this counter (`LOG.md:4227` "Claim D2 (depth) —
@@ -218,7 +219,7 @@ STATES `:152`, FIELDS `:157`, SIGNATURES `:158-164`, EVIDENCE `:166-175`, SOURCE
 
 | Leg | What it actually checks | Content? |
 |---|---|---|
-| STAMP | sha256 of the running file = file at `root/reports/round-69/` | integrity only |
+| STAMP | sha256 of the running file = file at `root/reports/round-69/` (under the canonical `--root .` these are the same file, so the leg is vacuous — already filed as R69-M10, `corpus/lessons/round-69.md:36`) | integrity only |
 | SECTION | the heading string exists | heading text only |
 | TABLE | header has 5 cells **and `len(rows) == 5`** | row count only |
 | STATES | first column == the five names, in order | **the only content-bearing leg** |
@@ -333,8 +334,8 @@ content-blind legs and the leaked do-nothing control).
 ## 8. What I did not do
 
 * Did not run any mutating git/jj command, did not edit SKILL.md, the checker, the counter or the
-  receipts. The lane write is this file only. (**SKILL.md was edited by another seat after my
-  measurements** — see §9; not my change, not reverted by me.)
+  receipts. The lane write is this file only. (`SKILL.md` was repaired and committed by another
+  seat as `975e8f2` after my measurements — see §9; not my change, not reverted by me.)
 * Did not re-derive the round-68 counters or O2/Ca2; other seats own those.
 * Did not fetch external sources; S859 is `own-work`.
 * Live-registry observations are at `9e82c7b` in a clone; the lane run of `accept-d.py`
@@ -342,45 +343,61 @@ content-blind legs and the leaked do-nothing control).
 
 ---
 
-## 9. Addendum — post-measurement worktree drift (another seat's edit, not mine)
+## 9. Addendum — the repair landed while this report was being written
 
-After the measurements in §§1-5 were taken at commit `9e82c7b`, the shared worktree's `SKILL.md`
-changed: `git diff --stat SKILL.md` → `16 insertions(+), 9 deletions(-)`, uncommitted. I did not
-make or revert it. Mapping onto my gaps:
+After the measurements in §§1-5 were taken at commit `9e82c7b`, another seat edited the shared
+worktree's `SKILL.md` (`16 insertions(+), 9 deletions(-)`) and then committed the whole wave,
+including this file, as **`975e8f2`**. I did not make or revert any of it (my only write is this
+report). Re-measured at `975e8f2`:
 
-| Gap | State in the uncommitted worktree | Line |
+```
+$ python3 -B reports/round-69/accept-d.py --root .          -> ACCEPT-D-69: PASS legs=8/8   EXIT=0
+$ python3 -B reports/round-69/accept-d.py --selftest        -> SELFTEST: 1/2              EXIT=1
+$ python3 -B tools/check-supersession-settlement.py --root . --scan
+   SETTLEMENT: pending=0 chains=47 usedby_paths=711 missing_paths=0
+```
+Table rows keep their line numbers (`SKILL.md:483-487`); the new malformed-row caution is at
+`:496-503`; the review-only note at `:500-502`; signatures at `:531-535`. Mapping onto my gaps:
+
+| Gap | State at `975e8f2` | Line |
 |---|---|---|
 | G1 | fixed — "a non-`—` `used-by` cell (path existence is reported as `missing_paths`, not gated)" | `SKILL.md:484` |
 | G2 | fixed — "the superseded **target** is `rejected`; the successor's own status is free … (10 of the 12 live closed chains)" | `SKILL.md:486` |
 | G3 | fixed — subcase rulings with the right precedents (`keep-successor` for `mined`, ledger `:78`; `keep-reject` for `rejected`, `:75`), the id rule, `:211-212` | `SKILL.md:486` |
 | G4 | fixed — "apply the cell change first … then record the ruling … the validator refuses `activate` while the row still reads `queued` (`:207-208`) and refuses `retire` / `keep-reject` unless the row reads `rejected` (`:209-212`)" | `SKILL.md:483` |
-| G5 | fixed — new caution "A row that does not split into exactly 11 cells never reaches `classify()` …" | `SKILL.md:496-502` |
-| G6-G8 | fixed — signatures now read "classification branch" / "review-only signature, no committed detector", plus "The five error signatures are review-only labels: no committed code path detects them" | `SKILL.md:499-502,531-535` |
+| G5 | fixed — new caution "A row that does not split into exactly 11 cells never reaches `classify()` …" | `SKILL.md:496-503` |
+| G6-G8 | fixed — signatures now read "classification branch" / "review-only signature, no committed detector", plus "The five error signatures are review-only labels: no committed code path detects them" | `SKILL.md:500-502,531-535` |
 
-Residuals at the drifted worktree:
+Residuals at `975e8f2`:
 
 * **R1 (was G3 second-order)** — the `settled-closed` Evidence cell still cites "kept-reject
   fingerprint S830 `:88`", and `S830` carries no `supersedes` token (`corpus/SOURCES.md:784`), so
   `--scan` never emits it. The pointer is ledger-only, not re-derivable from the tool the cell
   cites. (`SKILL.md:486`.)
 * **R2 (was G9)** — `tools/check-supersession-settlement.py:8-10` still says ACTIVE's target is
-  "`queued` or `rejected`". The table is now on the code's side, so the residual is a
-  code-docstring defect, not a table defect; S859's `teaches` still quotes the docstring.
-* **R3 (was G10)** — the counter is untouched: `--root .` still prints `PASS legs=8/8` on the
-  drifted tree (re-run: 8/8, exit 0), a filler table still passes, the GREEN fixture still
+  "`queued` or `rejected`". That clause is unreachable as written: `:123` tests `t_st == "rejected"`
+  before `:127`, so a rejected target returns settled-closed and ACTIVE can only be `queued`; the
+  `used-by` clause is truthiness only (`:122`). The table is now on the code's side, so the residual
+  is a committed code-docstring defect, not a table defect; S859's `teaches` still quotes it.
+* **R3 (was G10)** — the counter is untouched: `--root .` still prints `PASS legs=8/8` at
+  `975e8f2` (re-run: 8/8, exit 0), a filler table still passes, the GREEN fixture still
   certifies wrong pointers, and `--selftest` is still `SELFTEST: 1/2` exit 1. No leg checks any
   cell's content.
-* **Record integrity** — the edit is uncommitted while `reports/round-69/telemetry/final-measures-d.txt`
-  names `e86ed3e…`; the STAMP leg hashes only the counter. No receipt names the edited
-  `SKILL.md`. If this lands as the settlement of G1-G8, the D2 measurement must be re-taken and
-  re-stamped, and the claim's "at the measured revision" wording refreshed; R1-R3 are content
-  notes, not blockers.
+* **Record integrity** — the committed D2 receipt (`reports/round-69/telemetry/final-measures-d.txt`)
+  names `e86ed3e…` and its header tree `b3064e1f…` contains the pre-repair `SKILL.md` blob
+  `a66a75f` (`git ls-tree b3064e1f SKILL.md`); the landed file is blob `2476a9c`. The STAMP leg
+  hashes only the counter (and is vacuous under `--root .`, R69-M10). So the receipt's coverage of
+  D2 is void against `975e8f2`: the 8/8 still reproduces, but it was not measured on this table.
+  Re-taking the measure and re-stamping at the landed revision is the remaining bookkeeping;
+  R1-R3 are content notes, not blockers.
 
-**If that edit commits, what closes:** G1-G8 are prose-addressed (and C2/C4 are documentation
-fixes over the already-filed R69-M5/R69-M4, routed at `LOG.md:4233`); R1 closes only if the
-`:88` pointer is dropped; R2 (code docstring `:8-10`) and R3 (counter legs + leaked control)
-remain open and are round-70 instrument work, not D2 prose.
+**What the landed edit closes:** G1-G8 are prose-addressed (C2/C4 are documentation fixes over the
+already-filed R69-M5/R69-M4, routed at `LOG.md:4233`; the round's own lesson now carries these as
+R69-M10..M12, `corpus/lessons/round-69.md:36-38`); R1 closes only if the `:88` pointer is
+dropped; R2 (code docstring) and R3 (counter legs + leaked control) remain open and are round-70
+instrument work, not D2 prose.
 
-**Restated verdict.** D2 **FAIL** at `9e82c7b` (documented in §§0-7). At the current *uncommitted*
-worktree the table is writer-actionable for all five states except R1's non-reproducible `:88`
-pointer, and R3 still means the depth axis has no instrument that measures content.
+**Verdict by revision.** D2 **FAIL** at `9e82c7b` (documented in §§0-7; that is the revision the
+claim's receipts name). At `975e8f2` the table is writer-actionable for all five states except
+R1's non-reproducible `:88` pointer; R3 still means the depth axis has no instrument that
+measures content, so the counter's 8/8 there is a presence check, not support for the depth claim.
