@@ -1,0 +1,21 @@
+# round-69 attempt-2 control receipts at 975e8f286a1f078db494012172408ebdb9c4f428 (materialized clone, clean worktree)
+# Re-run in this attempt only to record the controls' CURRENT state. Attempt 1's pre-data control
+# receipts (controls.txt, controls-rev1.txt) are the ones the claims were declared against and are
+# not rewritten. D's do-nothing fixture is seeded from the live SKILL.md, so it reads PASS
+# (unexpected) after the table landed: R69-M11, routed to round 70.
+## accept-o.py --selftest
+GREEN FIXTURE: PASS (legs 7/7) — as required
+DO-NOTHING FIXTURE: FAIL (legs 5/7) — as required
+SPOOF FIXTURE: FAIL (legs 6/7) — as required
+SELFTEST: 3/3
+exit=0
+## accept-ca.py --selftest
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+exit=0
+## accept-d.py --selftest
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: PASS (unexpected) (legs 8/8)
+SELFTEST: 1/2
+exit=1
