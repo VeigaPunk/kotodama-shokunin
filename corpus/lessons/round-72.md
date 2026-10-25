@@ -90,3 +90,9 @@ timeout) so entry/row texts say opened-live, captures as dated carriers.
 Registry 797 → 799 rows (S874, S875 opened and mined this round); census exit 0 at
 start (reports/round-72/telemetry/census-start.txt) and end (census-end.txt). The
 two rows are this round's sourced claim (claim C).
+
+## Routed to round 73 (post-landing, ScoutMergeScan)
+
+- The round-71 `id-renumber-map.json` is now STALE: the heritage rows occupy S874/S875, so the map's assignments (S859→S874, S860→S875, S863→S878, S867→S882, S967→S982) no longer hold. Regenerate the map from S876 before any further staged rows land.
+- The staged era-periodization amendments cite campaign-round ids (S726/S732/S746/S757) that name UNRELATED lane documents — a by-document id check per citation is mandatory in any future adoption round.
+- shokuknow `SOURCES-PROPOSED.md` Gate headings are off-by-one against their rows (`## Gate — S864` carries S863's quote) — re-derive quotes by row, never by heading id.

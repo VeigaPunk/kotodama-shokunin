@@ -4287,3 +4287,4 @@ Base `b60c7b1`; claims frozen at reports/round-72/claims.json (pre-data correcti
 - **Misroot sweep.** `git -C /home/vgpnk/Projects/shokunin status --porcelain` (no pathspec): no seat wrote to the fleet root this round; recorded, nothing to relocate.
 - **Tool installs:** none.
 - **Stale-lane:** none; respawn-per-round driver, no other mission of this lane open at round-72 close.
+- **Post-landing routing (ScoutMergeScan, appended):** round-71 id-renumber-map.json is stale after the S874/S875 adoption (regenerate from S876 before further adoptions); staged era amendments cite campaign-round ids naming unrelated lane documents (per-citation by-document check mandatory); shokuknow SOURCES-PROPOSED.md Gate headings are off-by-one against their rows.
