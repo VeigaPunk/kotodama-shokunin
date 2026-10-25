@@ -2,18 +2,32 @@
 
 Seat: critic, round 73 wave 2 (FALSIFY), leaf. Target bytes:
 `corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md` at lane revision
-`0316b8883b4f8d44b8efd720140e7f52f734a102` (clean worktree for tracked files; `git status` shows
+`0316b8883b4f8d44b8efd720140e7f52f734a102` (clean worktree for tracked files; `git status` showed
 only untracked `.ufo/waves/round-73/w2*`). Frozen claims read first:
 `reports/round-73/claims.json` (freeze `af65165`). I mutated nothing; every experiment ran in
 `/tmp/CritEntryAmendFinal/`; no repo write except this file.
 
+**The lane moved under this seat.** While I worked, a repair commit `7aa8f99` rewrote the amendment
+along the lines of this seat's findings (it also committed an earlier state of this report) and HEAD
+advanced to `c1b5b47`. Findings F1–F16 below are stated against the assigned revision `0316b88`; the
+section **Disposition at the revisions that superseded the target** re-checks each one against
+`c1b5b47`. One finding, **F17**, was made after the repair and is **open at `c1b5b47`**: the
+Sowers-Wills "no capture" ruling is false — two status-200 captures of the canonical article page
+carry the study's own abstract, which says "a semester-long language construction project".
+
 ## Verdict
 
-**NEEDS-CUTS — but not cuts alone.** Two BLOCKERs are false statements in an admitted entry
-(L50 and L11). L50 is cuttable. L11 is **not**: `gap filled` is one of the nine mandatory header
-fields of claim C's ENTRIES leg (`reports/round-73/claims.json`, claim C leg ENTRIES), so the false
-clause has to be *replaced*, not deleted. If this wave may only cut lines, the entry is **REFUSE**
-on QUALITY 1 (a false provenance statement) and QUALITY 2 (two uncalibrated framework entries).
+**Verdict on the assigned revision `0316b88`: NEEDS-CUTS — but not cuts alone.** Two BLOCKERs are
+false statements in an admitted entry (L50 and L11). L50 is cuttable. L11 is **not**: `gap filled` is
+one of the nine mandatory header fields of claim C's ENTRIES leg (`reports/round-73/claims.json`,
+claim C leg ENTRIES), so the false clause has to be *replaced*, not deleted. If this wave may only cut
+lines, the entry is **REFUSE** on QUALITY 1 (a false provenance statement) and QUALITY 2 (two
+uncalibrated framework entries).
+
+**Verdict at the repaired HEAD `c1b5b47`: still NEEDS-CUTS, and one BLOCKER remains open.** The repair
+closed F2–F7 and F9–F13 and F15 (see Disposition). Open: **F17** (BLOCKER for claim C's REJECTS leg,
+MAJOR for the entry — the Sowers-Wills no-capture ruling is false), **F8** (Piperski uncalibrated),
+and the wording residues of F1 and F14.
 
 | # | Sev | Line | Finding |
 |---|---|---|---|
@@ -33,6 +47,7 @@ on QUALITY 1 (a false provenance statement) and QUALITY 2 (two uncalibrated fram
 | F14 | MINOR | 74 | "every taxonomy … sorts on purpose before it sorts on form" — Piperski's first group is a thought/function criterion; the article never says any taxonomy sorts on form |
 | F15 | MINOR | — | "amendment appends to the base" is one-way: the base carries no pointer to the amendment (the heritage precedent does) |
 | F16 | MINOR (cross-land) | 4 | the third support S879 is live-only and its row names no capture URL, so the entry's `recheck:` re-opens a page with no durable carrier |
+| F17 | BLOCKER (claim C) / MAJOR (this entry) | 70, 84 (target); 15, 73, 87 (HEAD) | the Sowers-Wills "no capture" ruling is false — two status-200 captures of the canonical article page carry the study's own abstract, which says "a semester-long language construction project" |
 
 What is **sound**: the citation lint passes (0 findings, exit 0), all three `couples:` paths exist,
 §4 is method and decides no canon, the quotes at L18/L28/L44/L60/L62/L64/L90 are verbatim and within
@@ -44,10 +59,13 @@ and the three S-ids each sit alone on their lines.
 ## Probes (fetch hygiene)
 
 All requests: browser-shaped UA
-`Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36`,
-`automation: none`, curl 8.23.0, pdftotext/pdfinfo 26.08.0, downloads in `/tmp/CritEntryAmendFinal/`.
-No wall was met, so no plain-UA retry was needed; no challenge was bypassed; no install was made;
-pacman not run.
+`Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36`
+and, for the one walled page, plain `curl/8.7.1`; `automation: none`, curl 8.23.0,
+pdftotext/pdfinfo 26.08.0, downloads in `/tmp/CritEntryAmendFinal/`. The three primary sources and the
+archive requests answered 200 under the browser UA. The one wall met is the live Cambridge page: 429,
+1,302 B under both UAs (`<title>429 Too many automated requests from this network.</title>`), so the
+live page is genuinely refused and the archived copy is the ordinary route (QUALITY 10), not a bypass.
+No challenge was solved, no browser automation was used, no install was made, pacman not run.
 
 | request | status | bytes | hash |
 |---|---|---|---|
@@ -55,6 +73,12 @@ pacman not run.
 | `sanders.phonologist.org/Papers/anderson-etal-cjl-sotl.pdf` | 200 | 193,610 | sha256 `26dbcf2c0fab6d75214df6285e5c7dab92544f598d81a063df91fb4995a0d535` (identical to evidence S880) |
 | `cyberleninka.ru/article/n/klassifikatsii-konlangov-v-sovremennoy-interlingvistike` | 200 | 97,656 | sha256 `6f1def00ebc3e2873ffe90440905f719c00ca5b96637334c258b8c9ee137cfff` (evidence recorded 97,622 B / `709e186b…`: 34 B live drift, no span affected) |
 | `cyberleninka.ru/article/n/klassifikatsii-konlangov-v-sovremennoy-interlingvistike/pdf` | 200 | 630,227 | sha256 `cc9a91c5149ada2868fc94f93c39e61c62812466c8414ddff5643dd254c0643f`, 7 pages (matches the 630,227 B publisher PDF recorded by `ScoutS893`) |
+| `doi.org/10.1017/cnj.2024.21` | 302 | 0 | redirects to `https://www.cambridge.org/core/product/identifier/S0008413124000215/type/journal_article` |
+| Wayback CDX exact on the canonical article page (F17) | 200 | 1,104 | sha256 `98036ca3b90ee266bba67e6830e3f42cbc289abbe06fa32c33f786c868b6b371`; two status-200 captures |
+| `web.archive.org/web/20241106195515id_/<canonical article page>` | 200 | 1,030,239 | sha256 `dc061a30bae1c2e207a0494fb6cdbfd1c94b51498c690d78aa26babdd1c35a7e` |
+| live canonical article page (browser UA) | 429 | 1,302 | matches the Gate row's live reading |
+| live canonical article page (`curl/8.7.1`) | 429 | 1,302 | `<title>429 Too many automated requests from this network.</title>` — wall persists under both UAs |
+| live identifier page `.../product/identifier/S0008413124000215/type/journal_article` (browser UA) | 429 | — | same wall; no redirect served |
 
 The PDF leg matters: it is the layout that carries printed page numbers, and the round's own scout
 recorded fetching it. The amendment's "the cyberleninka text is served as extracted HTML with no page
@@ -396,13 +420,157 @@ its `recheck:` tells a future re-opener to re-open a page whose only carrier is 
 Smallest safe correction (claim C's, not the entry's): record the capture URL in the row's durability
 cell with its shell status, so the "no working capture" ruling is reproducible.
 
+## F17 — BLOCKER for claim C / MAJOR for this entry: the Sowers-Wills "no capture" ruling is false
+
+This is the finding that outlives the repair commit (see Disposition below). The round refused the
+Sowers-Wills article (staged S894) on a durability ground that its own Quarantine row contradicts and
+that my probe falsifies.
+
+The DOI resolves to Cambridge's identifier page; the archive's replay of that identifier URL resolves
+to the canonical article page (same title and author), which is what CDX captured twice:
+
+```
+$ curl -sS -o /dev/null -w 'doi status=%{http_code} redirect=%{redirect_url}\n' -A "<browser UA>" https://doi.org/10.1017/cnj.2024.21
+doi status=302 redirect=https://www.cambridge.org/core/product/identifier/S0008413124000215/type/journal_article
+```
+
+CDX exact query on that canonical page (the QUALITY 21 duty: follow the live URL's own canonical /
+redirect target and query THAT slug):
+
+```
+$ curl -sS -A "<browser UA>" "https://web.archive.org/cdx/search/cdx?url=https://www.cambridge.org/core/journals/canadian-journal-of-linguistics-revue-canadienne-de-linguistique/article/phonology-from-the-inside-out-constructed-language-as-a-pedagogical-tool/649F8BEDBF579512088F614EB2794B59&output=json&filter=statuscode:200"
+[["urlkey","timestamp","original","mimetype","statuscode","digest","length"],
+ ["org,cambridge)/core/journals/canadian-journal-of-linguistics-revue-canadienne-de-linguistique/article/phonology-from-the-inside-out-constructed-language-as-a-pedagogical-tool/649f8bedbf579512088f614eb2794b59","20241106195515",...,"text/html","200","PHYINBAF4UFJYGIVRKM4FAW772BN5X47","139256"],
+ ["...649f8bed...","20241107004043",...,"text/html","200","QE7UHKBANTDZ55WDAIZUDZ5O5MYXESKH","139614"]]
+```
+
+(the `original` field is elided as `...` in both rows — it is the same canonical URL given in the
+query; `statuscode` 200, `mimetype` text/html, distinct digests and lengths are as printed.)
+
+Replay of the first capture (`id_`), browser UA, `automation: none`:
+
+```
+status=200 bytes=1030239 final=https://web.archive.org/web/20241106195515id_/https://www.cambridge.org/core/journals/canadian-journal-of-linguistics-revue-canadienne-de-linguistique/article/phonology-from-the-inside-out-constructed-language-as-a-pedagogical-tool/649F8BEDBF579512088F614EB2794B59
+sha256 dc061a30bae1c2e207a0494fb6cdbfd1c94b51498c690d78aa26babdd1c35a7e
+```
+
+(The replay of the second timestamp redirects to the first; CDX still lists two distinct captures.)
+
+Body text of the captured page (head/scripts stripped, tags removed — body, not a meta attribute):
+
+```
+Abstract This paper reflects on a project-based curriculum employing constructed languages to teach
+linguistics, with a focus on phonology. In a special topics linguistics course, nine students were led
+through the construction of a language. ... active engagement with a semester-long language construction
+project endowed these students with the practical motivation to understand (1) what phonology is, (2)
+how phonological rules work, and (3) why rules surface in the first place. ...
+... Initially, 10 students enrolled in the course, one of whom withdrew early on. Among the nine
+students who completed the course ...
+... Phonology from the Inside Out: Constructed Language as a Pedagogical Tool / Published online by
+Cambridge University Press: 30 October 2024 / Sara Sowers-Wills
+```
+
+The live canonical page is indeed walled under both UAs — the Gate's live reading is correct:
+
+```
+live canonical (browser UA)   status=429 bytes=1302
+live canonical (curl/8.7.1)   status=429 bytes=1302  <title>429 Too many automated requests from this network.</title>
+```
+
+But the lane already knew this, in the same lesson file:
+
+```
+$ sed -n '101p' corpus/lessons/round-73.md
+| S812 doi.org/10.1017/cnj.2024.21 | S894 | PRESENT in the Crossref abstract record and in two
+status-200 Wayback captures of the canonical article page (20241106195515, 20241107004043); live
+publisher page HTTP 429 | verifiable, not fabrication; the row is not adopted (outside the declared set) |
+```
+
+against the Gate row's:
+
+```
+$ sed -n '47p' corpus/lessons/round-73.md
+| ... | S894 | status: ... the 429 is a rate limit read per QUALITY 16, not UA-gating; no Wayback
+capture of the same page (CDX 0 for the DOI, the cambridge identifier URL and the slug prefix); ...
+```
+
+Two committed rulings on the same DOI, one of them false. My probe confirms the Quarantine side: the
+Gate's CDX probes named the DOI, the `product/identifier/` page and the slug prefix — none of them the
+canonical `/core/journals/.../article/.../649F8BED...` page, which is what the DOI's redirect chain
+lands on and what the archive captured twice with status 200.
+
+Why it matters, in order:
+
+1. **Claim C's REJECTS leg.** S894 is named as refused on an unreachability ground that is false.
+   Under QUALITY 18 the row was adoptable (live URL = the canonical page; capture = 20241106195515,
+   status 200; anchor = the abstract's body text), and QUALITY 10 says an ordinary archive copy is not
+   a bypass. The refusal may still stand on the round's own F1 ground ("outside the declared set"),
+   but not on "no capture".
+2. **This entry's §5.** Target L84 presents the 429 as the reason the publisher's abstract "was not
+   opened". The 429 is real, but it is not the operative constraint: an ordinary capture carries the
+   abstract and the article body.
+3. **This entry's §3.** Target L70 marks "semester-long" and "what it claims the project teaches that
+   lectures do not" as `(to-verify)` because "both need the article's own text, which was not opened
+   this round". The captured abstract answers the first outright ("a semester-long language construction
+   project") and the second in the same sentence (concepts "to that attained in a traditional
+   introductory course"). So the entry's `(to-verify)` is resolvable now, by ordinary means.
+4. **The "useful negative" framing.** L88 says "Two staged elements were dropped rather than repaired.
+   The 'semester-long' duration is absent from the companion article's nine pages (S880)." The token is
+   absent from the *companion*; it is present in the *study's own* abstract. Dropping it was not
+   required by the evidence, only by the companion's scope.
+
+Smallest safe correction: (a) correct the lesson Gate row's no-capture clause to name the canonical
+URL and the two captures (QUALITY 21), and restate the reject on the declared-set ground; (b) in the
+entry, either adopt the row and cite the study's own abstract for the semester-long project and the
+nine-student cohort, or state plainly that the abstract is reachable through the 2024-11-06 capture and
+that this round chose not to adopt it — and stop presenting the 429 as the reason.
+
+---
+
+## Disposition at the revisions that superseded the target (for the main agent)
+
+The lane moved while this seat ran. My assignment named `0316b88`; by the time I finished, HEAD was
+`c1b5b47`, and a repair commit `7aa8f99` ("wave-2 falsify repairs — entry content fixes (per-sentence
+fact-check) …") had landed that rewrote the amendment along the lines of this seat's findings and
+committed an earlier state of this report. I re-checked the repaired bytes (`git show
+c1b5b47:corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md`) so the main agent is not
+left chasing closed items. **Findings against the assigned revision `0316b88` remain the record below;
+this table is the disposition at `c1b5b47`.**
+
+| finding | at `c1b5b47` | evidence |
+|---|---|---|
+| F2 gap filled | **closed** | L14 now reads "It reports one monograph's taxonomy but could not say how a later review restates and compares taxonomies, …" |
+| F3 restatement | **closed** | L39 now points to base §3 ("Шувалова and Сидорова's classes are in the base (§3)") |
+| F4 location | **closed** | L59 now gives printed pp. 31–32 (PDF pp. 4–5) and the `/pdf` URL |
+| F5 S878 pages | **closed** | header now `pp. 458–460` / `pp. 465–466`; L31 `p. 465` |
+| F6 429 provenance | **closed** | L15 now names `https://api.crossref.org/works/10.1017/cnj.2024.21` and the lesson Gate |
+| F7 recheck | **closed** | L8–L11 now carry the three commands inline, each printing 1 on the bytes I hold |
+| F9 "only description" | **closed** | L69 now says "the companion article's one-line characterization of the course's mode" |
+| F10 "His ruling" | **closed** | L25 now "He argues, hedged as 'it may be argued that'" |
+| F11 heading | **closed** | L37 "Three typologies in a Russian-language review" |
+| F12 universe / e.g. | **closed** | L29 "Star Wars universe … none with any formal description or consistency"; L27 "e.g. Basic English, …" |
+| F13 hyphen | **closed** | L69 notes "the PDF text breaks the hyphenated word across a line" |
+| F15 one-way append | **closed** | base `couples:` now names the amendment (base L11); amendment adds a closing line |
+| F1 table-only claim | **open (wording)** | L53: "the prose bullet-list gives six and adds parody languages (instance: Yesqur) plus a mention of gesture- and graphic-symbol-based constructed languages …; only the three category names are table-only". The first half says the prose names two of them; "table-only" then contradicts it. The prose gives all three names (printed p. 30). Reword to "only the table lists all nine as one enumerated set" |
+| F8 calibration | **open** | L43 Piperski still has no status; the Шувалова/Сидорова status is reachable only via the pointer to base §3, while the status itself sits in base §1 |
+| F14 purpose claim | **open (wording)** | L77 "purpose-defined top-level classes (auxlang, artlang, logical)" — the logical class is tied to the linguistic-relativity hypothesis (S879 p. 32), not to purpose |
+| F17 Sowers-Wills capture | **open, and worse at HEAD** | the repaired §5 (L87) and sources line (L15) still present the 429 as the reason; the canonical-page capture (F17) is not mentioned, and the Gate row's no-capture clause is still false |
+
+The two items that need bytes, not wording, are F17 (a Gate-row correction, plus a decision on whether
+to adopt the row) and F8 (a status clause for Piperski). The rest is sentence-level.
+
 ---
 
 ## What I could NOT check
 
-- **Whether the round opened the Crossref abstract record.** The Gate row says it is "reachable"; the
-  entry says the publisher's abstract "was not opened". No fetch log exists to settle it. The claim is
-  consistent with the row but not verifiable from committed bytes.
+- **Whether the round itself fetched the Crossref abstract record.** The Gate row says it is
+  "reachable"; the entry says the publisher's abstract "was not opened". No fetch log exists to settle
+  it. What I did establish is that the study's own abstract is reachable by ordinary means (F17);
+  whether the round touched the Crossref record specifically remains unverified.
+- **The register row S812's own anchor quote against the capture.** The Quarantine table's "S812" is a
+  register-namespace id; the lane's `SOURCES.md` S812 is a different document (Galen), so I could not
+  compare the register's quote with the captured body. I verified only that the captured canonical page
+  is the article and carries its abstract.
 - **The S879 Save-Page-Now capture's body** (`20261025222414`): I did not probe it, so the row's
   "23443-byte shell that does not carry the span" is accepted as reported, not re-measured.
 - **QUALITY 7 separability**: no round-73 separability manifest exists (`ls reports/round-73/*manifest*`
@@ -423,4 +591,11 @@ Claim **C** (coverage/assimilation): the entry's *sourced content* survives; its
 does not. F1 and F2 are false statements in an admitted entry, F4/F5/F6/F7 are locator/pointer
 defects, F3 falsifies the entry's own non-restatement claim, F8 is an admission-bar failure
 (QUALITY 2). The smallest safe repair is local (three lines changed, four locators fixed, two status
-clauses added) — no new sources, no new rows, no new fetch. Claim **Ca** is untouched by this seat.
+clauses added) — no new sources, no new rows, no new fetch.
+
+**F17 is different in kind and is the one item that moves an axis.** It falsifies claim C's
+durability ground for refusing S894 (QUALITY 21: the canonical slug was never queried) and it shows
+that the study's own abstract — with the "semester-long" duration the entry marks `(to-verify)` — was
+reachable by ordinary means this round. The choice is the round's: correct the Gate row and keep the
+refusal on the declared-set ground, or adopt the row and let the entry cite the primary. Either way
+the amendment's §5 must stop presenting the 429 as the reason. Claim **Ca** is untouched by this seat.

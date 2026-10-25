@@ -1,0 +1,53 @@
+GAP SWEEP — round 74, claim C GROUND (worldbuilding-setting-practice)
+base: f7104cbce186bc2e1522abf0cfd619cc834628bb (lane HEAD == base at sweep time; all at-base figures re-derived from the git tree via git ls-tree / git grep / git show, not only the worktree)
+lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin   swept: 2026-10-25   read-only, no network
+
+== 1. filename probe
+$ find corpus/knowledge -iname '*worldbuilding*' -o -iname '*setting*'
+(no output)  exit 0  -> 0 files
+$ git ls-tree -r --name-only f7104cbc... corpus/knowledge | grep -ciE 'worldbuilding|setting'
+0
+corpus/knowledge files at base: 247 (partitions: civilizations culture-material linguistics myth-symbol synthesis verification)
+(near-name hit: culture-material/architecture-settlement-lexicon.md matches 'settlement' only; the pattern '*setting*' does not match it — 'settlement' != 'setting')
+
+== 2. CJK practitioner terms
+$ grep -rlE '設定ノート|世界観|世界观|設定資料集' corpus/knowledge
+(no output)  exit 1  -> 0 files
+$ git grep -lE '設定ノート|世界観|世界观|設定資料集' f7104cbc... -- corpus/knowledge | wc -l
+0
+wider net (superset, all 0 files / 0 lines): 設定|设定 ; ライトノベル|小説|小说|創作|创作|作家 ; 世界設定|世界设定|世界構築|世界观|世界観 ; settei|sekai-kan|sekaikan
+
+== 3. registry fragments (corpus/SOURCES.md at base)
+litmemo.com: 0
+tuduku.space: 0
+chinawriter.com.cn: 0
+中国作家网: 0
+settei/設定/设定/小説/小说/創作/创作 in SOURCES.md: 0
+
+== 4. registry size
+$ grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+804
+last id (grep -oE ... | tail -1): S880   (next adopted id S881)
+
+== 5. worldbuilding vocabulary in the registry
+$ grep -inE 'worldbuilding|setting note|world-view|world view' corpus/SOURCES.md
+2 lines: row S322 (line 351, bl.uk bestiary blog, 'Christian world view' — incidental) and line 881 (a prose paragraph about sign-language rows S071-S124, NOT a registry row)
+-> 1 registry row id: S322. No row is a worldbuilding-craft/setting-note source.
+case-insensitive loose variant 'world-building|world building|worldbuild' over data rows (grep -E '^ {0,3}\| S[0-9]+ ' | grep -iE ...) hits 19 rows: S330 S413 S452 S568 S718 S719 S720 S721 S722 S723 S724 S728 S733 S736 S739 S740 S741 S742 S760 — word hits in conlang/lexicon-source annotations; none is a setting-practice source (row bodies not read in full).
+
+== 6. worldbuilding vocabulary in corpus/knowledge/**/*.md
+pattern 'worldbuilding|setting note|world-view|world view' (case-insens., *.md): 75 files with >=1 hit, 121 hit lines (grep -rciE | grep -vc ':0$' = 75). 'worldbuilding' alone: 72 files. Top counts: myth-symbol/myth-ritual-theories.md 7, linguistics/semantic-fields-lexicon-building.md 7, linguistics/sign-languages-manual-modality.md 5, linguistics/numerals-and-measures.md 4, myth-symbol/celestial-symbolism-calendars.md 4, linguistics/gesture-co-speech-pointing.md 4, linguistics/language-contact.md 3, culture-material/cuisine-food-lexicon.md 3, culture-material/vessel-container-lexicon.md 3 (full per-file list in ScoutGapSweep.md).
+Looser 'world-building|world building|worldbuild': 196 files / 321 lines (the word is ubiquitous as a USE label: 'Worldbuilding use:', 'worldbuilding lever').
+'setting note' hits: 0. 設定ノート hits: 0.
+'World View' hits that are title strings of Hallowell 1960 'Ojibwa Ontology, Behavior, and World View' (animal-symbolism.md, calibration-registry.md, algonquian.md) and Joralemon 1996 'Reconstructing the World View of Mexico's First Civilization' (olmec.md) — citations, not method.
+Reading: the word is a USE-LABEL on 75-196 entries; no entry has setting-practice (how a practitioner records, scopes, orders and discloses a setting) as its subject. README names worldbuilding as the method label of conlang entries (README lines 96, 106, 118 and index lines 348-524).
+by partition (files with a strict-pattern hit / files in partition, worktree == base): civilizations 27/95, culture-material 14/38, linguistics 18/32, myth-symbol 13/29, synthesis 0/29, verification 3/24 — the synthesis partition (home of coupling-model.md, worldbible-integration-contract.md, cultural-translation-protocol.md) carries no strict-pattern hit.
+
+== 7. sibling lane scan (read-only; /home/vgpnk/Projects/shokunin/*-shokunin)
+20 sibling lanes scanned for corpus/knowledge 'world-?building' files, CJK terms {設定ノート 世界観 世界观 設定資料集}, PROVINCE.md:
+all 20: wb_files=0 cjk_files=0; PROVINCE worldbuilding mention: kotoba-shokunin/PROVINCE.md:61 only (adjacency row naming kotodama as 'worldbuilding and naming') — no ownership.
+requested lanes: lore(26 knowledge files; owns fictional-world records + consistency, PROVINCE.md 'Owns: fictional-world records — entities, relations, timeline events'), kotoba(60), chousa(72), kengaku(42), kumitate(59), tameshi(55), kake(52): 0 worldbuilding-method files, 0 CJK hits, litmemo/tuduku/chinawriter host hits in registry: 0 each.
+-> no sibling owns worldbuilding-setting-method. lore owns the world-bible RECORDS (entities/relations/timeline/contradictions), not the craft of authoring settings; kotodama PROVINCE.md:3-9 owns 'linguistic-cultural worldbuilding' generative craft and hands systems to lore.
+
+== 8. verdict
+worldbuilding-setting-practice is UNCOVERED GROUND at base: 0 file names, 0 CJK terms, 0 registry fragments, 0 sibling owners. Nearest entries each own an adjacent but different object (see ScoutGapSweep.md §Nearest entries).

@@ -1,0 +1,160 @@
+# PASS-at-lands re-run receipt — ACCEPT-CA-73 (round-73 claim Ca counter, r3)
+# seat: ExecReceiptRerun73 (leaf) — kotodama round 74 / hyaku run 7 — 2026-10-25
+# item: round-73 closure routed defect 2 — "PASS-at-lands receipts for the round-73 counters"
+# lane repo (clone source): /home/vgpnk/Projects/shokunin/kotodama-shokunin
+# clone: /tmp/ExecReceiptRerun73/r73lands.NDA2p2tQ/lane
+# clone HEAD: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0   (round-73 lands)
+# clone tree: 516ea6c7d9265ae58ebc21fded41f925ddc504b2   (== git rev-parse 2d1cd91^{tree})
+# clone worktree: clean (git status --porcelain -> 0 lines); detached at lands
+# clone `main`: f7104cbce186bc2e1522abf0cfd619cc834628bb (lane main today; 2 commits after lands)
+# counter: reports/round-73/accept-ca.py
+# counter sha256 (file bytes): 222d4dd6d4082b49bfc949fa2dab804859e8f313703b70ec4e229653c2d12b89
+# counter sha256 (self line printed by the run): 222d4dd6d4082b49bfc949fa2dab804859e8f313703b70ec4e229653c2d12b89
+# ledger: reports/round-73/ledger.json  sha256=c912401dd511d712567d8a704a690bf02fa4a8253a628b8e67ab9473798356b9
+# environment: Python 3.14.8, git 2.56.0; no tool installed or upgraded; pacman not run
+# commands run from inside the clone with `--root .`
+
+===== RUN 1 — assignment exact command =====
+$ python3 -B reports/round-73/accept-ca.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin
+EXIT=1
+--- stdout ---
+# counter sha256 (self): 222d4dd6d4082b49bfc949fa2dab804859e8f313703b70ec4e229653c2d12b89
+# stamped revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# evaluated revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# measured revision (lane main): f7104cbce186bc2e1522abf0cfd619cc834628bb
+# tree: 516ea6c7d9265ae58ebc21fded41f925ddc504b2
+# claim: Ca  round: 73  base: 8841ad3b896a0227674fa0725b818c999118046f
+# counter: reports/round-73/accept-ca.py
+# min-pairs: 8
+# clone: /tmp/r73-ca-4yuf9xt1/lands head=2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# base-clone: /tmp/r73-ca-4yuf9xt1/base head=8841ad3b896a0227674fa0725b818c999118046f
+# ledger: reports/round-73/ledger.json source=lands sha256=c912401dd511d712567d8a704a690bf02fa4a8253a628b8e67ab9473798356b9
+LEG PASS LEDGER
+     pairs=8 min=8
+PAIR L01 disposition=ANNOTATE stated_at=corpus/README.md:732 stated='243' observed_base='245' observed_lands='245' expected_after='245'
+PAIR L02 disposition=ANNOTATE stated_at=corpus/README.md:407 stated='36' observed_base='38' observed_lands='38' expected_after='38'
+PAIR L03 disposition=ANNOTATE stated_at=corpus/README.md:736 stated='243' observed_base='245' observed_lands='245' expected_after='245'
+PAIR L04 disposition=REPAIR stated_at=SHONEN.md:6 stated='468' observed_base='505' observed_lands='505' expected_after='505'
+PAIR L05 disposition=REPAIR stated_at=SHONEN.md:6 stated='522' observed_base='564' observed_lands='564' expected_after='564'
+PAIR L06 disposition=ANNOTATE stated_at=SCORECARD.md:1401 stated='PASS' observed_base='FAIL' observed_lands='FAIL' expected_after='FAIL'
+PAIR L07 disposition=ANNOTATE stated_at=LOG.md:4280 stated='F1-F9' observed_base='F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIVE' observed_lands='F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIVE' expected_after='F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIV'
+PAIR L08 disposition=REPAIR stated_at=SKILL.md:697 stated='accept-o-69' observed_base='accept-ca-72' observed_lands='accept-ca-73' expected_after='accept-ca-73'
+LEG PASS BASEMISMATCH
+     found=8 min=8 ids=['L01', 'L02', 'L03', 'L04', 'L05', 'L06', 'L07', 'L08']
+LEG PASS REPAIR
+     green=['L04', 'L05', 'L08'] red=[]
+LEG PASS ANNOTATE
+     rows=9 annotate-pairs=5 unannotated=0 []
+LEG PASS NOSTUB
+     minimum-shape=id+stated+observed+rederive stubs=[]
+LEG PASS APPENDONLY
+     lane-removed=0 fleet-pin=80d8c9b576d4 blob=ea256ae7f9d7 in-place=['SKILL.md(registry)', 'corpus/README.md(footer)']
+LEG PASS SEPARABLE
+     scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/controls-ca-r2.txt', 'reports/round-73/telemetry/controls-ca-r3.txt', 'reports/round-73/telemetry/controls-ca.txt', 'reports/round-73/telemetry/measures-ca72-rerun.txt'] problems=[]
+LEG PASS TRACKED
+     paths=2 problems=[]
+LEG FAIL STAMP
+     stamped=evaluated=measured=2d1cd9140d3a tree=516ea6c7d926 counter=222d4dd6d408 clone=/tmp/r73-ca-4yuf9xt1/lands problems=['measured f7104cbce186bc2e1522abf0cfd619cc834628bb != lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0']
+ACCEPT-CA-73: FAIL legs=8/9
+--- stderr --- (empty: 0 bytes)
+
+===== RUN 2 — same command again (determinism) =====
+$ python3 -B reports/round-73/accept-ca.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin
+EXIT=1
+--- diff RUN-1 vs RUN-2 (only the temp clone paths differ) ---
+9,10c9,10
+< # clone: /tmp/r73-ca-4yuf9xt1/lands head=2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+< # base-clone: /tmp/r73-ca-4yuf9xt1/base head=8841ad3b896a0227674fa0725b818c999118046f
+---
+> # clone: /tmp/r73-ca-4s6fllmm/lands head=2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+> # base-clone: /tmp/r73-ca-4s6fllmm/base head=8841ad3b896a0227674fa0725b818c999118046f
+37c37
+<      stamped=evaluated=measured=2d1cd9140d3a tree=516ea6c7d926 counter=222d4dd6d408 clone=/tmp/r73-ca-4yuf9xt1/lands problems=['measured f7104cbce186bc2e1522abf0cfd619cc834628bb != lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0']
+---
+>      stamped=evaluated=measured=2d1cd9140d3a tree=516ea6c7d926 counter=222d4dd6d408 clone=/tmp/r73-ca-4s6fllmm/lands problems=['measured f7104cbce186bc2e1522abf0cfd619cc834628bb != lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0']
+
+===== RUN 3 — SUPPLEMENTARY, measured revision pinned to lands (not the assignment command) =====
+$ python3 -B reports/round-73/accept-ca.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin --main 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+EXIT=0
+--- stdout ---
+# counter sha256 (self): 222d4dd6d4082b49bfc949fa2dab804859e8f313703b70ec4e229653c2d12b89
+# stamped revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# evaluated revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# measured revision (lane main): 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# tree: 516ea6c7d9265ae58ebc21fded41f925ddc504b2
+# claim: Ca  round: 73  base: 8841ad3b896a0227674fa0725b818c999118046f
+# counter: reports/round-73/accept-ca.py
+# min-pairs: 8
+# clone: /tmp/r73-ca-a8hrnxyx/lands head=2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# base-clone: /tmp/r73-ca-a8hrnxyx/base head=8841ad3b896a0227674fa0725b818c999118046f
+# ledger: reports/round-73/ledger.json source=lands sha256=c912401dd511d712567d8a704a690bf02fa4a8253a628b8e67ab9473798356b9
+LEG PASS LEDGER
+     pairs=8 min=8
+PAIR L01 disposition=ANNOTATE stated_at=corpus/README.md:732 stated='243' observed_base='245' observed_lands='245' expected_after='245'
+PAIR L02 disposition=ANNOTATE stated_at=corpus/README.md:407 stated='36' observed_base='38' observed_lands='38' expected_after='38'
+PAIR L03 disposition=ANNOTATE stated_at=corpus/README.md:736 stated='243' observed_base='245' observed_lands='245' expected_after='245'
+PAIR L04 disposition=REPAIR stated_at=SHONEN.md:6 stated='468' observed_base='505' observed_lands='505' expected_after='505'
+PAIR L05 disposition=REPAIR stated_at=SHONEN.md:6 stated='522' observed_base='564' observed_lands='564' expected_after='564'
+PAIR L06 disposition=ANNOTATE stated_at=SCORECARD.md:1401 stated='PASS' observed_base='FAIL' observed_lands='FAIL' expected_after='FAIL'
+PAIR L07 disposition=ANNOTATE stated_at=LOG.md:4280 stated='F1-F9' observed_base='F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIVE' observed_lands='F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIVE' expected_after='F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIV'
+PAIR L08 disposition=REPAIR stated_at=SKILL.md:697 stated='accept-o-69' observed_base='accept-ca-72' observed_lands='accept-ca-73' expected_after='accept-ca-73'
+LEG PASS BASEMISMATCH
+     found=8 min=8 ids=['L01', 'L02', 'L03', 'L04', 'L05', 'L06', 'L07', 'L08']
+LEG PASS REPAIR
+     green=['L04', 'L05', 'L08'] red=[]
+LEG PASS ANNOTATE
+     rows=9 annotate-pairs=5 unannotated=0 []
+LEG PASS NOSTUB
+     minimum-shape=id+stated+observed+rederive stubs=[]
+LEG PASS APPENDONLY
+     lane-removed=0 fleet-pin=80d8c9b576d4 blob=ea256ae7f9d7 in-place=['SKILL.md(registry)', 'corpus/README.md(footer)']
+LEG PASS SEPARABLE
+     scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/controls-ca-r2.txt', 'reports/round-73/telemetry/controls-ca-r3.txt', 'reports/round-73/telemetry/controls-ca.txt', 'reports/round-73/telemetry/measures-ca72-rerun.txt'] problems=[]
+LEG PASS TRACKED
+     paths=2 problems=[]
+LEG PASS STAMP
+     stamped=evaluated=measured=2d1cd9140d3a tree=516ea6c7d926 counter=222d4dd6d408 clone=/tmp/r73-ca-a8hrnxyx/lands
+ACCEPT-CA-73: PASS legs=9/9
+--- stderr --- (empty: 0 bytes)
+
+===== why RUN 1 is red, exactly =====
+Sole red leg: STAMP.
+  stamped=2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+  evaluated=2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+  measured=f7104cbce186bc2e1522abf0cfd619cc834628bb
+  problems=['measured f7104cbce186bc2e1522abf0cfd619cc834628bb != lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0']
+Cause: `measured` is `git rev-parse --verify --quiet main^{commit}` (accept-ca.py:896). The lane's
+`main` moved past lands twice after 2d1cd91: c1b5b4761b6ae5ef9ffd81267c3e5e2189ed428d
+("round-73: LOG entry, SCORECARD axes section", 20:36:38) and f7104cbce186bc2e1522abf0cfd619cc834628bb
+("round-73 verifier spot-check", 20:47:05). Legs other than STAMP are unaffected by `measured`:
+grep over accept-ca.py shows the header key is consumed only at line 842 (leg_stamp), so RUN 3 (which
+pins `measured` to lands with --main) turning 8/9 into 9/9 isolates STAMP as the only difference.
+The failure is NOT the fleet report: APPENDONLY is green with fleet-pin=80d8c9b576d4
+blob=ea256ae7f9d7, and the pinned round-72 fleet report is byte-identical at the pin and at fleet HEAD
+(sha256 ea256ae7f9d758e0962a7fdfeea446d8963e3f7ef1314aeacc6a7334509834be, checked 2026-10-25).
+The round-73 fleet report (.ufo/reports/round-73/kotodama.md, fleet commit dad39efd, 20:43:14) landed
+after the lane lands and is read by no round-73 Ca leg.
+
+===== header grammar (tools/check-receipt-seq.py, lane copy at f7104cb, read-only) =====
+RUN-1: SEQ-... FAIL stamped=2d1cd914 evaluated=2d1cd914 measured=f7104cbc equal=False
+       TREE-... PASS recorded=516ea6c7 actual=516ea6c7
+       SHA-...  PASS reports/round-73/accept-ca.py recorded=222d4dd6 actual=222d4dd6
+       RECEIPT-SEQ: FAIL   (exit 1)
+RUN-3: SEQ-... PASS stamped=2d1cd914 evaluated=2d1cd914 measured=2d1cd914 equal=True
+       TREE-... PASS recorded=516ea6c7 actual=516ea6c7
+       SHA-...  PASS reports/round-73/accept-ca.py recorded=222d4dd6 actual=222d4dd6
+       RECEIPT-SEQ: PASS   (exit 0)
+
+===== LABEL (what this receipt may and may not be cited as) =====
+* The ASSIGNMENT COMMAND does NOT print PASS at these lands: ACCEPT-CA-73: FAIL legs=8/9, exit 1,
+  red leg STAMP only (measured = lane main f7104cbc != lands 2d1cd914). The other eight legs are
+  green at 2d1cd914 (LEDGER, BASEMISMATCH, REPAIR, ANNOTATE, NOSTUB, APPENDONLY, SEPARABLE, TRACKED).
+* ACCEPT-CA-73: PASS legs=9/9 is reached only by RUN 3, which pins the measured ref with
+  `--main 2d1cd914...`. In RUN 3 the header line `# measured revision (lane main)` therefore names
+  the graded lands revision, not the branch `main` as it stands today (f7104cb). Any citation of
+  RUN 3 as a PASS-at-lands receipt MUST carry that disclosure.
+* Re-running the exact command unchanged can no longer PASS at 2d1cd914 while lane main is f7104cb;
+  the counter was not altered (sha 222d4dd6... in every run).
+* Not a --topo-clean receipt: tools/check-receipt-seq.py --topo requires the carrier commit's
+  parent to equal the stamped revision; a receipt committed in round 74 is carried by a commit whose
+  parent is f7104cb, never 2d1cd914.

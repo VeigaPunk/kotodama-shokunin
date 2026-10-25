@@ -158,6 +158,15 @@ $ sha256sum /home/vgpnk/Projects/shokunin/.ufo/reports/round-72/kotodama.md -> e
 ```
 Both match `reports/round-73/telemetry/measures-ca72-rerun.txt`'s headers.
 
+**F-2.12 Round-72 counter selftest is red (M4's numbers).**
+```
+$ (clone at lands) python3 -B reports/round-72/accept-c.py --selftest > /tmp/.../r72-selftest.txt 2>&1 ; echo exit=$?
+exit=1
+$ head -2 /tmp/ScribeLogScorecard/r72-selftest.txt
+SELFTEST: 10/11
+--- clean fixture: expected PASS 10/10, got exit=1
+```
+
 ---
 
 ## 3. Findings

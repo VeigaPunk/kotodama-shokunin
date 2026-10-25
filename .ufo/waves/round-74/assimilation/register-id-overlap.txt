@@ -1,0 +1,62 @@
+# Register-id overlap — round 74 (ExecRenumber), scratch evidence
+
+Question asked: are any staged package ids ALSO register ids (the quarantine/absent-defect
+register, ids S776..S835 for this lane)?
+
+Answer: **no — the intersection is empty.** The register's id universe stops at S835 and the
+staged package's id universe starts at S859, so no register id can be read as a staged id in
+the entries' prose and no staged id can be read as a register id. The three namespaces are
+disjoint by construction; join them by URL/document only.
+
+Files (read-only in all three cases; none was written):
+
+    R=/home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md
+    A=/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-74/assimilation
+
+## Commands and outputs
+
+    $ sha256sum $R
+    5afe1810a6c3d62f37987b575a954f5b1197daa23005d4bb2f1d982f64bad833  .../absent-defect-register.md
+
+    $ grep -oE 'S[0-9]{3,}' $R | sed 's/S0*//' | sort -n | uniq | tail -3
+    825
+    827
+    835          # <-- register max id
+
+    $ awk -F'|' -v l='kotodama' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $4}' $R
+     S776   S778   S779   S786   S787   S791   S792   S795   S796   S804   S814   S816
+     S817   S820   S823   S824   S825   S827   S807`  S812`  S835`     # 21 data rows, 3 carry a trailing backtick
+
+    $ awk -F'|' -v l='kotodama' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $4}' $R \
+        | grep -oE 'S[0-9]+' | sort -u > /tmp/regslice.ids
+    $ comm -12 $A/staged-ids /tmp/regslice.ids | wc -l
+    0
+
+    $ grep -oE 'S[0-9]{3,}' $R | sort -u > /tmp/regall.ids
+    $ comm -12 $A/staged-ids /tmp/regall.ids | wc -l
+    0
+
+    $ head -1 $A/staged-ids ; tail -1 $A/staged-ids
+    S859
+    S990        # <-- staged min/max: every staged id is above the register's max
+
+Register totals are stale (register `## By lane` prints `kotodama | 18`; the data rows derive
+21, and the four rounds-68/71/72 quarantine rows below are among them), so the slice was
+derived from the data rows, never from the summary.
+
+Data rows whose id cell carries a trailing backtick (`S807\``, `S812\``, `S835\``) are the
+`unreachable` prose family: the source could not be fetched, so no quote was checked — a
+description cell in the quote column, not the `payload-absent` fabrication class.
+
+## Register rows that name THIS theme's documents (join by URL, never by id)
+
+| register id | round | class | document / URL | staged id | lane target | what it means for round 74 |
+|---|---|---|---|---|---|---|
+| S816 | round4 | `payload-absent` | chinawriter.com.cn/n1/2025/0605/c404024-40494534.html — quoted span `这个我肯定考虑过。我自己就是资深读者…` | staged S899 | new lane S883 | The register's absent quote came from the packaged copy, not the page. The page is live (HTTP 200, browser UA, L1 probe 2026-10-25 `/tmp/q74/`); round 74 re-quotes the page itself, so this register row does not block the append — the Gate quote must be the page's. |
+| S817 | round4 | `payload-absent` | chinawriter.com.cn/n1/2022/1207/c404024-32582252.html — quoted span `Sowers-Wills's 'Phonology from the inside out…'` | staged S900 | new lane S884 | The registered span is a **different document's** passage (Sowers-Wills, DOI 10.1017/cnj.2024.21 — carried by register row S812), i.e. the URL<->quote mispairing in its purest form. Nothing about the chinawriter 2022 article is refuted by it; re-quote the page. |
+| S787 | round1 | `payload-absent` | chinawriter.com.cn/n1/2023/0922/c404024-40083104.html (三九音域 六人谈) | staged S870 (refused round 72) | none | Not part of the adopted set; cited in the package only through the `S729` prose reference. Keep refused unless separately admitted. |
+
+Consequence: a register id must never be substituted for a staged id or a lane id in an
+entry's `source:` cell. S816/S817 are register ids; S899/S900 are staged ids for the same two
+documents; S883/S884 are the lane ids those documents receive after this round. The only
+safe key is the URL.

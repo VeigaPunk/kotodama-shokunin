@@ -1,0 +1,931 @@
+{
+ "round": 74,
+ "claim": "Ca",
+ "axis": "calibration",
+ "base": "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+ "status": "FINAL-DRAFT by seat ExecLedger (round-74, post-wave-1, L1 follow-up applied). Every observe_cmd below was re-run at base f7104cbc on 2026-10-25 THROUGH the draft counter's own H2 guard (.ufo/waves/round-74/counters/accept-ca.py: observe_problem + run_observe in a clone materialized at base) and every pair is red at base. The four absence pairs were deleted pre-freeze (L1 (a) + RevClaimsFidelity F3/F4). The L1 freezes by committing this file as reports/round-74/ledger.json together with claims.json, the two counters, the controls and the six inherited round-73 w2 files.",
+ "frozen_note": "Pairs are declared before data. After-state semantics: REPAIR pairs are green when the statement RE-READ at <lands> (statement_after, LAST occurrence) equals the lands observation and differs from the base statement (round-73 statement_after idiom: re-read token != base token AND the base stated_text absent from the file at <lands>); ANNOTATE pairs stay as filed and are closed by a '## Corrections — round 74' row naming id + old token + new token + the re-derivation command, which the counter re-runs and must return the new token. Nothing here requires rewriting frozen bytes.",
+ "schema": {
+  "compatibility": "Fields id, stated_at, stated_text, stated_parse, observe_cmd, parse, expected_after, disposition, rederive, statement_after are the reports/round-73/ledger.json core. Extensions: observed_at_base, red_at_base, why, stated_fleet (fleet-side statement), plus the top-level blocks schema, deleted_pairs, annotate_rows, repair_edits, receipts_required, controls, dropped_candidates, sweep_inputs, grammar_requirements, inplace_spans, content_pins.",
+  "pair_semantics": {
+   "id": "unique pair id; LC-04, LC-05, LC-13, LC-14 are retired (deleted_pairs) and LC-10 was dropped for a guard incompatibility (dropped_candidates); none may be reused",
+   "stated_at": "path:line in the BASE tree, or fleet:<path>:<line> with a stated_fleet block",
+   "stated_text": "verbatim substring of that line at the base revision",
+   "stated_parse": "regex with exactly one capture group, applied to stated_text, yielding the STATED token",
+   "observe_cmd": "argv list; argv[0] in {git, grep, wc, sha256sum, ls, cat, head, tail, cut}; validated by the counter's H2 guard (allowlist, read-only git subcommand, no interpreter, no shell metacharacter, every operand resolving in the clone)",
+   "parse": "regex with exactly one capture group applied to observe_cmd stdout, yielding the OBSERVED token",
+   "expected_after": "the token the counter must observe at <lands> by re-running observe_cmd (base-pinned argvs are lands-invariant by construction)",
+   "observed_at_base": "the token measured by running observe_cmd at base on 2026-10-25 through the counter's own run_observe in a base clone",
+   "red_at_base": "stated token != observed token (a green pair must be dropped, never listed)",
+   "disposition": "REPAIR (live statement, edited at <lands>) or ANNOTATE (filed history, closed by a SCORECARD correction row)",
+   "statement_after": "REPAIR only: {path, parse} - the repaired statement is re-read with the DOTALL last-occurrence idiom and must capture expected_after",
+   "rederive": "the same observation as one human-runnable command line (shlex-split; the counter re-runs the argv form)"
+  }
+ },
+ "fleet_pin": "dad39efd27988bd28b1fe41f5e327529f0472d3c",
+ "fleet_pin_note": "dad39efd is the fleet commit that ADDED the round-73 report (blob d104dfa4342078ca258bb0399a1ae241e2e1d684, sha256 000bab3a36648498b67b78ea3d7db3f2e8dd17a3ad762aa528d95ef169132bdd). Re-measured 2026-10-25: the pin resolves, the blob id resolves, and `git show HEAD:.ufo/reports/round-73/kotodama.md | sha256sum` still prints 000bab3a…, so fleet HEAD bytes equal the pinned bytes. Round 73's own fleet_pin 80d8c9b5 does NOT contain this path.",
+ "fleet_report": {
+  "path": ".ufo/reports/round-73/kotodama.md",
+  "pin": "dad39efd27988bd28b1fe41f5e327529f0472d3c",
+  "blob": "d104dfa4342078ca258bb0399a1ae241e2e1d684",
+  "sha256": "000bab3a36648498b67b78ea3d7db3f2e8dd17a3ad762aa528d95ef169132bdd",
+  "statement_lines": [
+   10
+  ]
+ },
+ "min_pairs": 12,
+ "pair_count": 13,
+ "grammar_requirements": [
+  {
+   "id": "R1",
+   "rule": "Absence semantics for `git grep -c`: exit 1 with empty stdout means ZERO matches and yields the token \"0\". Scope it to argv whose argv[0:2] are git/grep and which carry -c or -l. NO pair in this ledger uses it (the four absence pairs were deleted); it is retained because the RECEIPTS leg and any future round need the class, and the draft counter already implements it in _absence_observation.",
+   "why": "Pre-freeze L1 + RevClaimsFidelity F3/F4 removed the absence pairs; the absence is now carried by the RECEIPTS leg alone."
+  },
+  {
+   "id": "R2",
+   "rule": "Observe allowlist = {git, grep, wc, sha256sum, ls, cat, head, tail, cut}. No interpreter, no echo/printf/true-style constant printer, no shell metacharacter (| & ; < > ` $( newline) in any argv element. Counts use `git diff --shortstat <empty-tree> <rev> -- '<glob>'` (prints 'N files changed') or `git grep -c`. Registry-row counts use the pipe-free regex `^. S[0-9]{3}` (measured identical to the claims' own row regex at 804 / 724 / 752 on the three revisions used) so no re-derivation command carries a pipe inside a markdown table cell.",
+   "why": "Round-73 routed defect 4 (ledger constant-printers). The guard also refuses `>` anywhere in an argv element, which is why LC-11's regex is written `decompress.*23443.*[0-9]+ bytes` instead of containing an ASCII arrow."
+  },
+  {
+   "id": "R3",
+   "rule": "Revision discipline: an argv that must CHANGE between base and lands reads the graded tree; an argv that must NOT move pins its revision as a FULL 40-hex operand (the git-grep guard accepts only 40-hex or HEAD as a revision operand, and a 7-hex abbreviation is refused as a mutable-ref/path). Every pair here pins what it observes, so landing claim C cannot move a Ca observation: the SEPARABLE hazard.",
+   "why": "The three revision-block pairs name the landing commit they are about as a full 40-hex AND the pinned base, because the ANNOTATE leg requires the base revision as an operand of every numeric pair."
+  },
+  {
+   "id": "R4",
+   "rule": "Statement re-reads (statement_after, and any 'latest value' read) take the LAST occurrence in the file, via the DOTALL `(?s).*PATTERN` idiom or findall()[-1]. Fixture: a file with two 'Total knowledge entries:' lines, the first stale.",
+   "why": "corpus/README.md carries two footers (:732 243 and :775 247) and two Counts-checked blocks; reports/round-28/readme/sweep.py exits 1 on the base tree for reading the first."
+  },
+  {
+   "id": "R5",
+   "rule": "Fleet stated side: the LC-03 pair carries stated_fleet {path, line, pin, sha256} and a stated_at of the form fleet:<path>:<line>. The counter must branch BEFORE the lane path:line check, resolve with `git -C <fleet_root> show <pin>:<path>`, validate stated_text on that line, and assert the report bytes at fleet HEAD equal the pinned sha256.",
+   "why": "LC-03 states its claim in the fleet report, which the lane may not edit; the round-73 counter could only read lane files, so this class had no home."
+  },
+  {
+   "id": "R6",
+   "rule": "must_track grading (TRACKED leg): each of the six entries {path, sha256} must be non-empty, tracked at <freeze> and at <lands> with an identical blob id, and the worktree sha256 must equal the ledger value. content_pins carries the blob ids for the same content so TRACKED never depends on checkout filters.",
+   "why": "The six round-73 w2 files are a content defect, not a prose defect; a hash-versus-word BASEMISMATCH pair would be trivially red and worthless."
+  },
+  {
+   "id": "R7",
+   "rule": "Make the drop rule a leg: the counter FAILS if any pair is green at base (stated token == observed token). Round 73 only required `mismatched >= min_pairs`, so green pairs could ride along.",
+   "why": "The claim's before-state is 'every listed pair red'; this ledger lists exactly one pair per still-red statement and files the green ones as controls."
+  },
+  {
+   "id": "R8",
+   "rule": "SEPARABLE operand: freeze the separator at the lowest row id the coverage claim appends this round, read from the frozen claims file (do not copy round 73's 876, which would let this round's own appended rows be cited). Scan the Ca read set {ledger at <freeze>, SCORECARD lines under '## Corrections - round 74' naming a pair id, the telemetry receipts/controls named in claims Ca, and the stated_at line of every pair} for the coverage claim's own path family (read it from the frozen claims file, never write it here) and for ids at or above that separator. IMPORTANT resolved hazard: the draft counter scans the WHOLE frozen ledger text, so this ledger must contain no literal id at or above the separator and no literal claim-C path family - that is why LC-16's stated_text is a shorter verbatim substring of its line and why ids are described, never written, in this file.",
+   "why": "Largest freeze risk in the set: two pairs (LC-12, LC-16) state their claim on lines that cite campaign-namespace ids at or above the separator. None is a lane registry row (the lane registry ends at S880), but the counter's scan is a string test over the whole ledger, so the ledger itself must stay free of those literals. Verified: this file contains zero ids at or above the separator."
+  },
+  {
+   "id": "R9",
+   "rule": "Read the counter's own constants from the frozen commit, not from the graded tree (round-73 routed defect 4, survivor 1): CLAIM/SEPARABLE/MIN_PAIRS/paths must come from the ledger + frozen assets, and the counter must refuse a ledger that names a different claim or round.",
+   "why": "A graded-tree config lets a landing edit the predicate it is graded by."
+  },
+  {
+   "id": "R10",
+   "rule": "README discipline (L1 (c)): every corpus/README.md pair is ANNOTATE and measured at the pinned base revision; no REPAIR pair reads a README line, and no REPAIR pair may be anchored on a line claim C appends to (the culture-material index rows and the Counts-checked footer).",
+   "why": "Claim C's INDEX leg appends rows and a footer to corpus/README.md this round; a REPAIR there would be graded against bytes the other claim writes. All five README pairs here (LC-06, LC-07, LC-08, LC-15, LC-17, LC-18 - six tokens on five statements) are ANNOTATE."
+  },
+  {
+   "id": "R11",
+   "rule": "Glob operands must satisfy the guard's NON-recursive Python glob existence test: `corpus/knowledge/*/*.md`, not `corpus/knowledge/*.md` (the knowledge root holds no direct .md files, so the shorter glob resolves to nothing and the pair becomes unobservable). Git's own pathspec treats the same string as one directory level, so the count is identical (247).",
+   "why": "Measured: `_exists_in` returned False for corpus/knowledge/*.md and True for corpus/knowledge/*/*.md, while `git diff --shortstat` printed 247 files changed either way."
+  }
+ ],
+ "inplace_spans": {
+  "existing_round73_guard": "leg APPENDONLY allowed in-place hunks only inside §Gates and probes for SKILL.md, and inside footer_range() for corpus/README.md and README.md; every changed in-place path had to be named by a pair's stated_at.",
+  "required_for_this_ledger": [
+   "SKILL.md: allowed spans must be a LIST: §Gates and probes (registry rows) plus §Corpus map (`^## Corpus map$`). LC-09 edits SKILL.md:594 inside §Corpus map; with the round-73 single-span guard the APPENDONLY leg fails and LC-09 cannot be REPAIR.",
+   "SHONEN.md: add to the in-place path set with an explicit box-1 span (the `  asserted:` line at :6). LC-01 rewrites that line; no other SHONEN line may change.",
+   "NO README.md or corpus/README.md in-place span is needed: all six README tokens are ANNOTATE."
+  ]
+ },
+ "must_track": [
+  {
+   "path": ".ufo/waves/round-73/w2/CritEntryAmendFinal.md",
+   "sha256": "290a6ccd839cb8cd09fc5089d1360dc4bcfabdea38f7a83733063159185c50aa"
+  },
+  {
+   "path": ".ufo/waves/round-73/w2/ExecSelftestAll.md",
+   "sha256": "dfc8fe0d2c54442bd5fa1a8f122c37751b89c861aeec2b5e77c041f66c11e71c"
+  },
+  {
+   "path": ".ufo/waves/round-73/w2/ScribeLogScorecard.md",
+   "sha256": "db254d8896d7cbce3377dc1d3f56ca41312063383a9c319324bf1c1a02e445b3"
+  },
+  {
+   "path": ".ufo/waves/round-73/w2/SimplifierEntries.md",
+   "sha256": "9469d4d689aeb1f32a4127b9d2a0388236c622d206995df4ff8f11a201bdd481"
+  },
+  {
+   "path": ".ufo/waves/round-73/w2/drafts/log-entry.md",
+   "sha256": "079728a53490714a350ec17195bc72b1034d1878130b6f491a200de53bf6ca6a"
+  },
+  {
+   "path": ".ufo/waves/round-73/w2/RevengerOrigins.md",
+   "sha256": "7d14591923aff7b1dd5a28bc73d4933faf9cf721e4a7b113f6f7178206d581ed"
+  }
+ ],
+ "must_track_note": "Recomputed with `sha256sum` in the lane worktree on 2026-10-25; all six match the values the round-73 closure and ScoutLedgerSweepC recorded, and no mtime has moved since 20:47:30. The L1 commits them unchanged in the freeze commit; TRACKED then requires the same sha256 and one identical blob id per path at freeze and at lands.",
+ "content_pins": [
+  {
+   "id": "CP-01",
+   "path": ".ufo/waves/round-73/w2/CritEntryAmendFinal.md",
+   "blob_base": "eeb3344773b4632d9af8bbb9c665dc6d2d708fc6",
+   "sha256_base_blob": "246de174216dc07fc11594b95a98b98faee001c6ebdfa755a4427d1cf651066b",
+   "blob_wt": "d219fca4a80e3a0e2e69bb0370fd4731d65a981e",
+   "sha256_wt": "290a6ccd839cb8cd09fc5089d1360dc4bcfabdea38f7a83733063159185c50aa",
+   "bytes_wt": 41013,
+   "diff_numstat": "+189/-14"
+  },
+  {
+   "id": "CP-02",
+   "path": ".ufo/waves/round-73/w2/ExecSelftestAll.md",
+   "blob_base": "20df0f0b12423adfbf70dfb4a67bd6476cfaca8b",
+   "sha256_base_blob": "0d24aeed83b9871de343dacd69db4087f0c62a521804589b171b0f52230ecf5d",
+   "blob_wt": "9f887fd9fe92f04b5e935b2e5b311c1f31cd9d7e",
+   "sha256_wt": "dfc8fe0d2c54442bd5fa1a8f122c37751b89c861aeec2b5e77c041f66c11e71c",
+   "bytes_wt": 37204,
+   "diff_numstat": "+46/-15"
+  },
+  {
+   "id": "CP-03",
+   "path": ".ufo/waves/round-73/w2/ScribeLogScorecard.md",
+   "blob_base": "7fd5ae056e8e74b3ae6ece2ff539d6c88189a0fc",
+   "sha256_base_blob": "f4f14669fc0d0eaf0b26b9bc8ee78c3a628e76aa0403c90fea89118b20d2db45",
+   "blob_wt": "36c7b31b02cdfc53a58250edfa79e4e44b86d515",
+   "sha256_wt": "db254d8896d7cbce3377dc1d3f56ca41312063383a9c319324bf1c1a02e445b3",
+   "bytes_wt": 23535,
+   "diff_numstat": "+9/-0"
+  },
+  {
+   "id": "CP-04",
+   "path": ".ufo/waves/round-73/w2/SimplifierEntries.md",
+   "blob_base": "5afdac54dbcbb5795f87f210105a556f20f78b30",
+   "sha256_base_blob": "985dd88383609c543198a8ee1c548d04fe6f2cc294905eb5b917a838f3663bed",
+   "blob_wt": "c0fbaa9e26b4bcc3a0cfef751b83c5db424f5cfe",
+   "sha256_wt": "9469d4d689aeb1f32a4127b9d2a0388236c622d206995df4ff8f11a201bdd481",
+   "bytes_wt": 20039,
+   "diff_numstat": "+195/-215"
+  },
+  {
+   "id": "CP-05",
+   "path": ".ufo/waves/round-73/w2/drafts/log-entry.md",
+   "blob_base": "3e9af53d7c848e206aab907141a194221a229fb7",
+   "sha256_base_blob": "01d503258c8a6f06712473e4e63e2bbab1816b99ca54d7e4df947984999fd3d3",
+   "blob_wt": "5ca8eedd54c6610a881509c49ad3f3cb2e971972",
+   "sha256_wt": "079728a53490714a350ec17195bc72b1034d1878130b6f491a200de53bf6ca6a",
+   "bytes_wt": 10810,
+   "diff_numstat": "+2/-2"
+  },
+  {
+   "id": "CP-06",
+   "path": ".ufo/waves/round-73/w2/RevengerOrigins.md",
+   "blob_base": null,
+   "sha256_base_blob": null,
+   "blob_wt": "2c1c9cd84b7b8a6502a2089233ec576a3b6c278c",
+   "sha256_wt": "7d14591923aff7b1dd5a28bc73d4933faf9cf721e4a7b113f6f7178206d581ed",
+   "bytes_wt": 26043,
+   "diff_numstat": "n/a (untracked at base; `git cat-file -s <base>:<path>` -> fatal)"
+  }
+ ],
+ "pairs": [
+  {
+   "id": "LC-01",
+   "disposition": "REPAIR",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "(412 rows after round 56 — 367 mined, 35 queued, 10 rejected",
+   "stated_parse": "\\((\\d+) rows after round 56",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "804",
+   "observed_at_base": "804 (argv prints `f7104cbce186bc2e1522abf0cfd619cc834628bb:corpus/SOURCES.md:804`; statuses at base 709 mined / 58 queued / 37 rejected; last id S880)",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": "(?s).*\\((\\d+) rows after round 73"
+   },
+   "rederive": "git grep -c -E '^. S[0-9]{3}' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md",
+   "why": "SHONEN box 1 is the only statement of registry size and its leading figure stops at round 56 (412 is exact at c8af23f: 367/35/10) while base holds 804 rows after 17 further rounds. SHONEN is not an append-only file (round 73 repaired its :468/:522 pointers in place). The repair prepends the dated current figure with its own receipt (`804 rows after round 73 — 709 mined, 58 queued, 37 rejected — census exit 0 in reports/round-73/telemetry/census-end.txt`) and keeps the 412/358/284/194 chain as dated history. The argv pins the base revision, so claim C's four new rows cannot move it."
+  },
+  {
+   "id": "LC-02",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:4297",
+   "stated_text": "claim-C selftest 29/29, Ca 9 scenarios",
+   "stated_parse": "Ca (\\d+) scenarios",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "SELFTEST OK. [0-9]+ scenarios",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "reports/round-73/telemetry/selftest-r3.txt"
+   ],
+   "parse": "OK. ([0-9]+) scenarios",
+   "expected_after": "10",
+   "observed_at_base": "10 (`SELFTEST OK: 10 scenarios`; only the freeze-time r1 receipt reports/round-73/telemetry/selftest.txt prints 9)",
+   "red_at_base": true,
+   "rederive": "git grep -h -o -E 'SELFTEST OK. [0-9]+ scenarios' f7104cbce186bc2e1522abf0cfd619cc834628bb -- reports/round-73/telemetry/selftest-r3.txt",
+   "why": "The round-73 freeze bullet files the Ca counter as 9 scenarios; counter r3 prints 10 and its committed receipt says 10. True only of the freeze-time r1 counter. LOG.md is append-only, so the line stands and the correction row carries 9 -> 10 and names the receipt. The argv pattern uses `.` for the colon so the guard's `:`-as-<rev>:<path> branch is not triggered."
+  },
+  {
+   "id": "LC-03",
+   "disposition": "ANNOTATE",
+   "stated_at": "fleet:.ufo/reports/round-73/kotodama.md:10",
+   "stated_fleet": {
+    "path": ".ufo/reports/round-73/kotodama.md",
+    "line": 10,
+    "pin": "dad39efd27988bd28b1fe41f5e327529f0472d3c",
+    "sha256": "000bab3a36648498b67b78ea3d7db3f2e8dd17a3ad762aa528d95ef169132bdd"
+   },
+   "stated_text": "selftests (C 29/29; Ca 9 scenarios)",
+   "stated_parse": "Ca (\\d+) scenarios",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "SELFTEST OK. [0-9]+ scenarios",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "reports/round-73/telemetry/selftest-r3.txt"
+   ],
+   "parse": "OK. ([0-9]+) scenarios",
+   "expected_after": "10",
+   "observed_at_base": "10 (same receipt as LC-02; the fleet report never says r1)",
+   "red_at_base": true,
+   "rederive": "git grep -h -o -E 'SELFTEST OK. [0-9]+ scenarios' f7104cbce186bc2e1522abf0cfd619cc834628bb -- reports/round-73/telemetry/selftest-r3.txt",
+   "why": "Second statement site of the same drift, in the fleet report. The lane cannot edit the fleet tree, so only a lane-side correction row can name it. The 'C 29/29' half of the same sentence is true (counter prints SELFTEST: 29/29) and is not attacked."
+  },
+  {
+   "id": "LC-06",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:732",
+   "stated_text": "Total knowledge entries: 243.",
+   "stated_parse": "entries: (\\d+)\\.",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/*/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "247",
+   "observed_at_base": "247 (` 247 files changed, 43426 insertions(+)`)",
+   "red_at_base": true,
+   "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*/*.md'",
+   "why": "First totals footer (written at 498db73), left behind by the round-72 heritage landing and by round 73. Round-73 L01 re-pinned the same line at 8841ad3 with token 245, which is pin-correct and now stale; the live footer is :775 (247). ANNOTATE only: corpus/README.md is C-owned this round (R10). The glob is one level deep because the guard's Python glob is non-recursive (R11) and the knowledge root holds no direct .md files."
+  },
+  {
+   "id": "LC-07",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:736",
+   "stated_text": "(total 243 files; directory totals 30/29/36/29/24/95).",
+   "stated_parse": "total (\\d+) files",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/*/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "247",
+   "observed_at_base": "247 (per-directory vector at base is 32/29/38/29/24/95; this line states 30/29/36/29/24/95)",
+   "red_at_base": true,
+   "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*/*.md'",
+   "why": "The first Counts-checked line: stale total AND stale vector. Round-73 L03 pinned 245. The last block (:775-:777) is correct (247 / 32/29/38/29/24/95), which is why the counter must read the LAST footer (R4) and why reports/round-28/readme/sweep.py exits 1 on this tree. ANNOTATE only (R10)."
+  },
+  {
+   "id": "LC-08",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:344",
+   "stated_text": "## linguistics/ (30)",
+   "stated_parse": "\\((\\d+)\\)",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/linguistics/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "32",
+   "observed_at_base": "32 (`32 files changed, 5689 insertions(+)`)",
+   "red_at_base": true,
+   "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/linguistics/*.md'",
+   "why": "Never entered any ledger (round 73's three README pairs covered :732/:736/:407 only). The two round-73 conlang entries lifted the directory 30 -> 32 while the heading stayed as filed; the same file mentions those entries at :768, so an in-place heading repair would leave a second stale site. ANNOTATE only (R10)."
+  },
+  {
+   "id": "LC-09",
+   "disposition": "REPAIR",
+   "stated_at": "SKILL.md:594",
+   "stated_text": "94 entries: 92 earlier-civilization",
+   "stated_parse": "(\\d+) entries",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/civilizations/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "95",
+   "observed_at_base": "95 (`95 files changed, 18546 insertions(+)`)",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SKILL.md",
+    "parse": "(?s).*civilizations/` — (\\d+) entries"
+   },
+   "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/civilizations/*.md'",
+   "why": "Live-false in the corpus map since round 56 (the directory went 94 -> 95 at 767040e); corpus/README.md:503 already reads (95). Surfaced by RevengerOrigins F5 and never ledgered. SKILL.md is not an append-only file, so an in-place REPAIR is permitted when a REPAIR pair names the line (inplace_spans widens the allowed span to §Corpus map). The SAME edit also fixes the line's second token 92 -> 93 (see repair_edits); that token is not a separate pair because its only honest observation needs a `:(exclude)` pathspec that the counter's guard refuses (dropped_candidates)."
+  },
+  {
+   "id": "LC-11",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/lessons/round-73.md:38",
+   "stated_text": "(20261025222414, 23443 B)",
+   "stated_parse": ", (\\d+) B\\)",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "decompress.*23443.*[0-9]+ bytes",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    ".ufo/waves/round-73/w2/ScoutReopenS879.md"
+   ],
+   "parse": "([0-9]+) bytes",
+   "expected_after": "97656",
+   "observed_at_base": "97656 (`decompress -> 23443 -> 97656 bytes`)",
+   "red_at_base": true,
+   "rederive": "git grep -h -o -E 'decompress.*23443.*[0-9]+ bytes' f7104cbce186bc2e1522abf0cfd619cc834628bb -- .ufo/waves/round-73/w2/ScoutReopenS879.md",
+   "why": "The round-73 Gate paragraph calls the durability capture a 'shell that does not carry the span'; 23443 is the gzip wire size and the decoded 97656-byte payload carries the span. The same false fact also sits in registry row S879, which cannot be a pair here: SEPARABLE forbids a stated_at path of corpus/SOURCES.md. The lesson is in the APPENDONLY set, so the correction row is the repair. The regex avoids an ASCII arrow because the guard refuses `>` in any argv element (R2)."
+  },
+  {
+   "id": "LC-12",
+   "disposition": "ANNOTATE",
+   "stated_at": "reports/round-73/claims.json:11",
+   "stated_text": "no Wayback capture of the same page",
+   "stated_parse": "(no) Wayback capture",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "HAS two status-200 Wayback captures",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/lessons/round-73.md"
+   ],
+   "parse": "HAS (two) status-200",
+   "expected_after": "two",
+   "observed_at_base": "two (`HAS two status-200 Wayback captures` in corpus/lessons/round-73.md:47, the repaired Quarantine row)",
+   "red_at_base": true,
+   "rederive": "git grep -h -o -E 'HAS two status-200 Wayback captures' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/lessons/round-73.md",
+   "why": "The frozen round-73 claims.json grounds the cut of a staged row on 'no Wayback capture of the same page'; the same round's lesson was repaired to 'HAS two status-200 Wayback captures' (20241106195515, 20241107004043) and no correction row names claims.json. The frozen file must not be rewritten, so the row carries the token pair no -> two. The stated_at line also cites campaign-namespace ids at or above the SEPARABLE separator; they are neither written here nor lane rows - see grammar R8."
+  },
+  {
+   "id": "LC-15",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:36",
+   "stated_text": "registry moved 753 → 776 rows.",
+   "stated_parse": "→ (\\d+) rows",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "65fe8572822ef83f1750593af77daddf34a1e337",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": "^65fe8572822ef83f1750593af77daddf34a1e337:corpus/SOURCES\\.md:([0-9]+)$",
+   "expected_after": "724",
+   "observed_at_base": "724 (`65fe857:corpus/SOURCES.md:724`; the same argv also prints `f7104cbce186bc2e1522abf0cfd619cc834628bb:corpus/SOURCES.md:804` for the pinned base, so the pair records both the sentence's own landing state and the graded base)",
+   "red_at_base": true,
+   "rederive": "git grep -c -E '^. S[0-9]{3}' 65fe8572822ef83f1750593af77daddf34a1e337 f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md",
+   "why": "Revision block 2.18 (round 66, 65fe857) files 'registry moved 753 → 776 rows'; the landing took the registry 701 -> 724 (S776 plus S779-S800). Neither 753 nor 776 is any committed row total. Historical-as-filed, README-owned, measured at the landing commit the statement is about: ANNOTATE (R10). Sourced from ScoutLedgerSweepA M8. The argv names the sentence's own landing revision AND the pinned base (the ANNOTATE leg requires the base revision as an operand of every numeric pair), and the parse keys on the historical revision literal, so the token is deterministic and no operand moves when claim C lands."
+  },
+  {
+   "id": "LC-16",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/lessons/round-73.md:138",
+   "stated_text": "are reachable and span-present",
+   "stated_parse": "(reachable) and span-present",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "wall (present) \\(\"Client Challenge\"\\)",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/lessons/round-73.md"
+   ],
+   "parse": "wall (present)",
+   "expected_after": "present",
+   "observed_at_base": "present (`wall present (\"Client Challenge\")`, from the lesson's own Quarantine row at :48, the Springer chapter page)",
+   "red_at_base": true,
+   "rederive": "git grep -h -o -E 'wall (present) \\(\"Client Challenge\"\\)' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/lessons/round-73.md",
+   "why": "The lesson's Routed-to-round-74 bullet calls the five staged docs 'reachable and span-present' with no UA qualifier, while its own Quarantine row records the Springer chapter page walled under the browser-shaped UA (HTTP 200, 3038 B, 'Client Challenge') and served in full only under curl/8.7.1. The correction adds the UA qualifier. Sourced from ScoutLedgerSweepC LC-16. The stated_text is a verbatim SUBSTRING of the line, chosen so the ledger carries none of the ids that line cites (SEPARABLE scans the whole ledger)."
+  },
+  {
+   "id": "LC-17",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:28",
+   "stated_text": "registry moved 752 → 776 rows.",
+   "stated_parse": "registry moved (\\d+) →",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "c5f099211e1d6c095e7c59edbd05c0043b4b95fc",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": "^c5f099211e1d6c095e7c59edbd05c0043b4b95fc:corpus/SOURCES\\.md:([0-9]+)$",
+   "expected_after": "728",
+   "observed_at_base": "728 (`c58eb84^:corpus/SOURCES.md:728`; the same argv also prints `f7104cbce186bc2e1522abf0cfd619cc834628bb:corpus/SOURCES.md:804` for the pinned base, so the pair records both the sentence's own landing state and the graded base)",
+   "red_at_base": true,
+   "rederive": "git grep -c -E '^. S[0-9]{3}' c5f099211e1d6c095e7c59edbd05c0043b4b95fc f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md",
+   "why": "Revision block 2.19 (round 67, c58eb84) files 'registry moved 752 → 776 rows'; before that landing the registry held 728 rows and the landing took it to 752, so the stated before-value is actually the after-value and the stated after-value 776 matches no committed state. This pair pins the BEFORE token (752 -> 728) so it does not duplicate LC-15's 776 token. Historical-as-filed, README-owned: ANNOTATE (R10). Sourced from ScoutLedgerSweepA M9. The argv names the sentence's own landing revision AND the pinned base (the ANNOTATE leg requires the base revision as an operand of every numeric pair), and the parse keys on the historical revision literal, so the token is deterministic and no operand moves when claim C lands."
+  },
+  {
+   "id": "LC-18",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:36",
+   "stated_text": "registry moved 753 → 776 rows.",
+   "stated_parse": "(\\d+) → 776 rows",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "94209e8f80969dbac48d56c5d0e2e623635b8616",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": "^94209e8f80969dbac48d56c5d0e2e623635b8616:corpus/SOURCES\\.md:([0-9]+)$",
+   "expected_after": "701",
+   "observed_at_base": "701 (`65fe857^:corpus/SOURCES.md:701`; the same argv also prints `f7104cbce186bc2e1522abf0cfd619cc834628bb:corpus/SOURCES.md:804` for the pinned base, so the pair records both the sentence's own landing state and the graded base)",
+   "red_at_base": true,
+   "rederive": "git grep -c -E '^. S[0-9]{3}' 94209e8f80969dbac48d56c5d0e2e623635b8616 f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md",
+   "why": "Before-token half of LC-15's sentence: the block states 753 as the registry size before the round-66 landing, but the registry held 701 rows there. Split from LC-15 so a half-repair cannot pass (the round-73 L04/L05 pattern), and kept as the margin pair above the 12-pair floor. Historical-as-filed, README-owned: ANNOTATE (R10). Sourced from ScoutLedgerSweepA M8. The argv names the sentence's own landing revision AND the pinned base (the ANNOTATE leg requires the base revision as an operand of every numeric pair), and the parse keys on the historical revision literal, so the token is deterministic and no operand moves when claim C lands."
+  }
+ ],
+ "deleted_pairs": [
+  {
+   "id": "LC-04",
+   "was": "SCORECARD.md:1430 `ACCEPT-C-73 PASS legs=11/11` vs 0 committed PASS verdicts",
+   "deleted_by": "L1 follow-up (a) + RevClaimsFidelity F3/F4",
+   "why": "Absence-observation pair: its observation is the absence of a receipt, which the round-73 grammar classified as unobservable and which the final claims carry in the RECEIPTS leg instead (re-executed round-73 counters, byte-compared to committed receipts)."
+  },
+  {
+   "id": "LC-05",
+   "was": "SCORECARD.md:1431 `ACCEPT-CA-73 PASS legs=9/9` vs 0 committed PASS verdicts",
+   "deleted_by": "L1 follow-up (a) + RevClaimsFidelity F3/F4",
+   "why": "Same absence class; carried by RECEIPTS."
+  },
+  {
+   "id": "LC-13",
+   "was": "LOG.md:4301 `ACCEPT-C-73: PASS legs=11/11` vs 0 committed PASS verdicts",
+   "deleted_by": "L1 follow-up (a) + RevClaimsFidelity F3/F4",
+   "why": "Same absence class at the LOG statement site; carried by RECEIPTS."
+  },
+  {
+   "id": "LC-14",
+   "was": "LOG.md:4301 `ACCEPT-CA-73: PASS legs=9/9` vs 0 committed PASS verdicts",
+   "deleted_by": "L1 follow-up (a) + RevClaimsFidelity F3/F4",
+   "why": "Same absence class; carried by RECEIPTS. The ids are retired and must not be reused."
+  }
+ ],
+ "annotate_rows": [
+  {
+   "id": "LC-02",
+   "stated_at": "LOG.md:4297",
+   "old_token": "9",
+   "new_token": "10",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "SELFTEST OK. [0-9]+ scenarios",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "reports/round-73/telemetry/selftest-r3.txt"
+   ]
+  },
+  {
+   "id": "LC-03",
+   "stated_at": "fleet:.ufo/reports/round-73/kotodama.md:10",
+   "old_token": "9",
+   "new_token": "10",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "SELFTEST OK. [0-9]+ scenarios",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "reports/round-73/telemetry/selftest-r3.txt"
+   ]
+  },
+  {
+   "id": "LC-06",
+   "stated_at": "corpus/README.md:732",
+   "old_token": "243",
+   "new_token": "247",
+   "rederive_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/*/*.md"
+   ]
+  },
+  {
+   "id": "LC-07",
+   "stated_at": "corpus/README.md:736",
+   "old_token": "243",
+   "new_token": "247",
+   "rederive_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/*/*.md"
+   ]
+  },
+  {
+   "id": "LC-08",
+   "stated_at": "corpus/README.md:344",
+   "old_token": "30",
+   "new_token": "32",
+   "rederive_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/linguistics/*.md"
+   ]
+  },
+  {
+   "id": "LC-11",
+   "stated_at": "corpus/lessons/round-73.md:38",
+   "old_token": "23443",
+   "new_token": "97656",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "decompress.*23443.*[0-9]+ bytes",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    ".ufo/waves/round-73/w2/ScoutReopenS879.md"
+   ]
+  },
+  {
+   "id": "LC-12",
+   "stated_at": "reports/round-73/claims.json:11",
+   "old_token": "no",
+   "new_token": "two",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "HAS two status-200 Wayback captures",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/lessons/round-73.md"
+   ]
+  },
+  {
+   "id": "LC-15",
+   "stated_at": "corpus/README.md:36",
+   "old_token": "776",
+   "new_token": "724",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "65fe8572822ef83f1750593af77daddf34a1e337",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/SOURCES.md"
+   ]
+  },
+  {
+   "id": "LC-16",
+   "stated_at": "corpus/lessons/round-73.md:138",
+   "old_token": "reachable",
+   "new_token": "present",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "wall (present) \\(\"Client Challenge\"\\)",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/lessons/round-73.md"
+   ]
+  },
+  {
+   "id": "LC-17",
+   "stated_at": "corpus/README.md:28",
+   "old_token": "752",
+   "new_token": "728",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "c5f099211e1d6c095e7c59edbd05c0043b4b95fc",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/SOURCES.md"
+   ]
+  },
+  {
+   "id": "LC-18",
+   "stated_at": "corpus/README.md:36",
+   "old_token": "753",
+   "new_token": "701",
+   "rederive_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "94209e8f80969dbac48d56c5d0e2e623635b8616",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/SOURCES.md"
+   ]
+  }
+ ],
+ "annotate_rows_note": "Rendered as a 4-column table (id | old token | new token | re-derivation command) in .ufo/waves/round-74/drafts/annotate-rows.md. The round-73 section's table carries a fifth `note` column; the counter must read columns by position and tolerate trailing cells. Each re-derivation command re-runs read-only at a pinned revision and returns the new token; all eleven were executed at base through the counter's H2 guard.",
+ "repair_edits": [
+  {
+   "id": "LC-01",
+   "file": "SHONEN.md",
+   "line": 6,
+   "old_line": "  asserted: `SKILL.md:20` (Decision table), `:505` (Error patterns), `:564` (Checklist); sources registered in `corpus/SOURCES.md` (412 rows after round 56 — 367 mined, 35 queued, 10 rejected — census exit 0 in `reports/round-56/telemetry/final-measures.txt`; 358 rows, 313/35/10 after round 55; 284 rows, 240/34/10 after round 54; the round-53 figure 194/35/9 became 194/34/10 in the round-54 prerequisite `d761ee8`); no non-author verifier on record. Pointers `:468`/`:522` corrected to `:505`/`:564` in round 73 (ledger pairs L04/L05; `grep -n '^## Error patterns$' SKILL.md` and `grep -n '^## Checklist' SKILL.md`).",
+   "new_line": "  asserted: `SKILL.md:20` (Decision table), `:505` (Error patterns), `:564` (Checklist); sources registered in `corpus/SOURCES.md` (804 rows after round 73 — 709 mined, 58 queued, 37 rejected — census exit 0 in `reports/round-73/telemetry/census-end.txt`; 412 rows, 367/35/10 after round 56 — census exit 0 in `reports/round-56/telemetry/final-measures.txt`; 358 rows, 313/35/10 after round 55; 284 rows, 240/34/10 after round 54; the round-53 figure 194/35/9 became 194/34/10 in the round-54 prerequisite `d761ee8`); no non-author verifier on record. Pointers `:468`/`:522` corrected to `:505`/`:564` in round 73 (ledger pairs L04/L05; `grep -n '^## Error patterns$' SKILL.md` and `grep -n '^## Checklist' SKILL.md`).",
+   "must_hold": "Line 6 is the only changed SHONEN.md line; the four box marks stay `[~]`; 'no non-author verifier on record' is left as filed (sweep M13 flagged it for a wording ruling, not for this pair)."
+  },
+  {
+   "id": "LC-09",
+   "file": "SKILL.md",
+   "line": 594,
+   "old_line": "- `corpus/knowledge/civilizations/` — 94 entries: 92 earlier-civilization",
+   "new_line": "- `corpus/knowledge/civilizations/` — 95 entries: 93 earlier-civilization",
+   "must_hold": "One edit carries both tokens (94 -> 95 for the pair LC-09, and 92 -> 93 for the same line's base-file count). Lines 595-596 stay byte-identical (`  bases plus two source maps (\\`africa-primary-sources.md\\`,` / `  \\`mesoamerica-primary-sources.md\\`), each`). No other SKILL.md line changes: the §Corpus map span must be added to the APPENDONLY allowlist (inplace_spans)."
+  }
+ ],
+ "receipts_required": [
+  {
+   "path": "reports/round-74/telemetry/accept-c-73-at-lands.txt",
+   "must_contain": [
+    "stamped=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "evaluated=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "measured=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "ACCEPT-C-73: PASS legs=11/11"
+   ],
+   "produce_with": "in a clone whose local main is pinned to 2d1cd9140d3a6c42296d71e4f29587582a4a88c0: python3 -B reports/round-73/accept-c.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --census-sh <fleet>/scripts/sources-census.sh",
+   "counter_sha256": "95aee88166023f4b0dc78cda5f0f3a769e94de476f5558bd6e33650922fea416",
+   "caveat": "Without --census-sh (or --fleet-root) the CENSUS leg fails and the counter prints FAIL legs=10/11 (reproduced by wave-1 ScoutLedgerSweepB)."
+  },
+  {
+   "path": "reports/round-74/telemetry/accept-ca-73-at-lands.txt",
+   "must_contain": [
+    "stamped=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "evaluated=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "measured=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "ACCEPT-CA-73: PASS legs=9/9"
+   ],
+   "produce_with": "in a clone checked out at 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 whose local main is also 2d1cd91: python3 -B reports/round-73/accept-ca.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --main 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin",
+   "counter_sha256": "222d4dd6d4082b49bfc949fa2dab804859e8f313703b70ec4e229653c2d12b89",
+   "caveat": "measured is the graded repo's main tip and STAMP requires measured == --lands; with main elsewhere the same command prints ACCEPT-CA-73: FAIL legs=8/9 (reproduced by wave-1 ScoutLedgerSweepB)."
+  }
+ ],
+ "controls": [
+  {
+   "id": "K1",
+   "statement": "corpus/README.md:775 `Total knowledge entries: 247.`",
+   "observe": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*/*.md'",
+   "observed_at_base": "247",
+   "red": false,
+   "note": "The LAST footer agrees with the tree: dropped as a pair under the drop rule (R7). Keep as a control: after claim C lands the file count is 249, so any re-derivation must read the last footer again (R4)."
+  },
+  {
+   "id": "K2",
+   "statement": "corpus/README.md:777 vector `32/29/38/29/24/95`",
+   "observe": "per-directory `git diff --shortstat <empty-tree> <base> -- 'corpus/knowledge/<dir>/*.md'`",
+   "observed_at_base": "32/29/38/29/24/95",
+   "red": false,
+   "note": "Reconciles with the six directory counts measured one by one; dropped as a pair."
+  },
+  {
+   "id": "K3",
+   "statement": "corpus/README.md:407 `## culture-material/ (36)`",
+   "observe": "git diff --shortstat <empty-tree> <base> -- 'corpus/knowledge/culture-material/*.md'",
+   "observed_at_base": "38",
+   "red": true,
+   "note": "Red but already annotated: round-73 SCORECARD L02 carries the identical token pair 36 -> 38 for the same directory. Dropped as a duplicate (round-74 sweep C's LC-13)."
+  },
+  {
+   "id": "K4",
+   "statement": "`9 scenarios` in SCORECARD.md",
+   "observe": "git grep -c 'scenarios' <base> -- SCORECARD.md",
+   "observed_at_base": "0 matches (rc=1)",
+   "red": false,
+   "note": "No SCORECARD site exists for the scenario drift; the statement lives in LOG.md (LC-02) and the fleet report (LC-03). Recorded so the SCORECARD/LOG/fleet-report sweep is explicitly closed rather than silently narrowed."
+  },
+  {
+   "id": "K5",
+   "statement": "SKILL.md:704 registry row `(prints SELFTEST OK: 10 scenarios)`",
+   "observe": "git show <base>:SKILL.md (line 704)",
+   "observed_at_base": "10 scenarios",
+   "red": false,
+   "note": "Already repaired in round 73 (9 -> 10); the registry row agrees with the r3 receipt. Not re-paired."
+  },
+  {
+   "id": "K6",
+   "statement": "round-73 telemetry verdict lines",
+   "observe": "git grep -n -E 'ACCEPT-(C|CA)-73: [A-Z]+' <base> -- reports/round-73/telemetry",
+   "observed_at_base": "ACCEPT-C-73: FAIL legs=1/11; ACCEPT-CA-73: FAIL legs=4/9 (x2), legs=5/9",
+   "red": null,
+   "note": "Baseline for the RECEIPTS leg (no PASS line exists at base); the four absence pairs that used it were deleted."
+  },
+  {
+   "id": "K7",
+   "statement": "ScoutLedgerSweepC's LC-15 = `corpus/README.md:736` 243 -> 247",
+   "observe": "identical to LC-07",
+   "observed_at_base": "247",
+   "red": true,
+   "note": "Byte-identical to kept pair LC-07 (same stated_at, same stated_text, same observed token). Dropped as a duplicate: the LEDGER leg requires unique pairs; L1's LC-15 request is therefore mapped to the distinct sweep-C candidate LC-16 and the pair count is held at 13 with sweep A's M8 (two tokens) and M9."
+  },
+  {
+   "id": "K8",
+   "statement": "guard probe: `git grep -c` and `git grep --count` argv",
+   "observe": "observe_problem(argv, base-clone) from .ufo/waves/round-74/counters/accept-ca.py",
+   "observed_at_base": "both None (accepted); `:(exclude)*primary-sources.md` -> refused ('does not resolve in the clone'); `corpus/knowledge/*.md` -> refused ('does not exist in the clone'); `corpus/knowledge/*/*.md` -> accepted",
+   "red": null,
+   "note": "Measured against the counter the L1 will install; it decides which of my argv forms are usable (R2, R11) and is why LC-10 was dropped."
+  }
+ ],
+ "dropped_candidates": [
+  {
+   "what": "LC-10 (`SKILL.md:594` `92 earlier-civilization` vs the 93 base-file count)",
+   "why_dropped": "The only honest observation of 93 needs a git exclusion pathspec, and the counter's H2 guard refuses `:(exclude)*primary-sources.md` ('does not resolve in the clone'). Workarounds were measured and rejected: `*[!s].md` returns 90 (five civilization files end in `s.md`), and there is no additive glob that selects exactly the 93 base files. The token is still repaired in place by LC-09's edit (same line), so nothing is left false; it simply cannot be graded as its own pair. Dropping it keeps the guard clean and the pair count at 13 via LC-17/LC-18."
+  },
+  {
+   "what": "registry row S879's own text (`23443-byte shell that does not carry the span`, corpus/SOURCES.md:834)",
+   "why_dropped": "SEPARABLE forbids any stated_at path of corpus/SOURCES.md; the identical false fact is paired at the lesson line (LC-11)."
+  },
+  {
+   "what": "README index completeness (245 index rows vs 247 files; the two round-72 heritage entries never indexed)",
+   "why_dropped": "no numeric statement at base contradicts it (the README's promise is about entry fields, not row count), so a BASEMISMATCH pair would compare a word to a count. It stays a required C/README repair, not a Ca pair."
+  },
+  {
+   "what": "corpus/README.md:13-20 rev 2.20 `## culture-material/` moved 34 -> 35",
+   "why_dropped": "self-corrected in-text by rev 2.21; sweep A rated it 'no further action'. Its observation pattern would also carry a `/` and be refused as a path operand."
+  },
+  {
+   "what": "corpus/README.md revision chain 237 -> 238 -> 239 (sweep A M12)",
+   "why_dropped": "a gap in the revision chain, not a wrong number; each footer value equals the file count at its commit."
+  },
+  {
+   "what": "fleet report :3 lane HEAD `c1b5b476…` (`git ls-remote origin refs/heads/main` prints it)",
+   "why_dropped": "the observation needs the network, which no observe argv may require."
+  },
+  {
+   "what": "reports/round-73/telemetry/selftest-r3.txt:6 truncated receipt (261 vs 331 bytes)",
+   "why_dropped": "a receipt-content defect, not a stated-vs-observed token; the repair is a new receipt (or a correction row), already routed by the round-73 lesson."
+  },
+  {
+   "what": "SKILL.md:703 `measured 10/11 and 1/11`",
+   "why_dropped": "the reproducible 10/11 is an environment artefact (a clone outside the fleet tree loses the census script), not a content defect; no committed receipt for 10/11."
+  },
+  {
+   "what": "LOG.md:4255 `36 rows … equal to the enumerated file count 36` vs 43 today",
+   "why_dropped": "historic and true when written (round-70 receipt row_count=36 / file_count=36); the registry/ledger grew later. Not a mismatch at base."
+  }
+ ],
+ "sweep_inputs": [
+  {
+   "source": ".ufo/waves/round-74/w1/ScoutLedgerSweepA.md",
+   "adopted": [
+    "M4 -> LC-01 (REPAIR)",
+    "M2 -> LC-08",
+    "M8 -> LC-15 (after token) + LC-18 (before token)",
+    "M9 -> LC-17 (before token)",
+    "M3 (first-footer tool hazard) -> R4 + K1"
+   ],
+   "rejected": [
+    "M1 (index rows) -> dropped_candidates, required README repair",
+    "M5/M6/M7 already annotated by round-73 L01/L02/L03; LC-06/LC-07 re-pin them to the new base because the round-73 new token (245) is now stale against 247",
+    "M10/M11/M12 -> dropped_candidates",
+    "M13 (SHONEN verifier phrasing): N on the literal text (25 spot-check records exist, none promotes a box); left for a wording ruling, not a pair"
+   ]
+  },
+  {
+   "source": ".ufo/waves/round-74/w1/ScoutLedgerSweepB.md",
+   "adopted": [
+    "row 1 -> LC-02",
+    "row 2 -> LC-03",
+    "row 8 -> LC-09 (and the same line's 92 -> 93 token, unpaired per dropped_candidates)",
+    "row 3 (Ca STAMP reproducibility) -> receipts_required caveat",
+    "row 6 (truncated r3 receipt) -> dropped_candidates"
+   ],
+   "rejected": [
+    "row 4 (no committed PASS receipt) -> deleted absence pairs, now the RECEIPTS leg",
+    "row 5 (SKILL 10/11) -> dropped_candidates",
+    "row 7 (lane HEAD present-tense) -> needs network",
+    "row 9 (no RevengerOrigins report) -> carried by must_track/TRACKED, true at base",
+    "row 28 (163/163, battery 7/7): not run, so not ledgered"
+   ]
+  },
+  {
+   "source": ".ufo/waves/round-74/w1/ScoutLedgerSweepC.md",
+   "adopted": [
+    "§1 sha256 pin table -> must_track + content_pins (independently recomputed here, same values)",
+    "LC-01/LC-02 -> LC-09 (single pair; the second token is repaired by the same edit)",
+    "LC-05 -> LC-12",
+    "LC-10/LC-11 -> LC-02/LC-03",
+    "LC-12 -> LC-08",
+    "LC-14 -> LC-06",
+    "LC-16 -> LC-16"
+   ],
+   "rejected": [
+    "LC-03 (registry row S879) -> SEPARABLE (stated_at path)",
+    "LC-04 (lesson :38 second F2 site) -> folded into LC-11",
+    "LC-13 (README:407) -> duplicate of round-73 L02 (control K3)",
+    "LC-15 (README:736) -> duplicate of kept LC-07 (control K7)",
+    "LC-06..LC-09 (absence pairs) -> deleted by L1 follow-up (a)"
+   ]
+  }
+ ],
+ "open_questions_for_L1": [
+  "Freeze R8's SEPARABLE implementation: the draft counter scans the WHOLE frozen ledger text for ids at or above the separator and for the claim-C path family. This file is now free of both literals (LC-16's stated_text is a shorter verbatim substring; ids are described, never written). Two pairs (LC-12, LC-16) still STATE their claims on lines that cite campaign-namespace ids at or above the separator - none is a lane row - so the stated_at lines are in the read set by construction and a counter that scans stated_at lines too will need the 'lane id' qualifier; one that scans only the ledger text passes as frozen.",
+  "Confirm the SKILL.md §Corpus map in-place span (LC-09) and the SHONEN box-1 span (LC-01). If the L1 keeps the round-73 single-span guard, LC-09 must be re-dispositioned ANNOTATE and the pair count falls to 12.",
+  "Confirm the two receipt filenames reports/round-74/telemetry/accept-{c,ca}-73-at-lands.txt and the flags (--census-sh for C, --main for Ca); without them the round-73 counters print 10/11 and 8/9.",
+  "Confirm min_pairs=12 with 13 pairs listed, and that R7 (no green pair at base) is a FAIL condition, not a note.",
+  "LC-10 (SKILL.md:594 second token 92 -> 93) is dropped as a pair, not as a repair: its only honest observation needs `:(exclude)*primary-sources.md`, which the draft counter's H2 guard refuses. The token is still fixed by LC-09's in-place edit. If you want it graded, either relax the guard's pathspec handling or accept the 90-file bracket-glob reading (which measures the wrong set).",
+  "Note for the SCORECARD rendering: annotate-rows.md is a 4-column table (id, old token, new token, re-derivation command) per the L1 follow-up; the round-73 section's table has a fifth `note` column, so parse by column position."
+ ]
+}

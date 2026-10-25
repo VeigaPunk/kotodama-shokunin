@@ -1,0 +1,114 @@
+# PASS-at-lands re-run receipt — ACCEPT-C-73 (round-73 claim C counter)
+# seat: ExecReceiptRerun73 (leaf) — kotodama round 74 / hyaku run 7 — 2026-10-25
+# item: round-73 closure routed defect 2 — "PASS-at-lands receipts for the round-73 counters"
+# lane repo (clone source): /home/vgpnk/Projects/shokunin/kotodama-shokunin
+# clone: /tmp/ExecReceiptRerun73/r73lands.NDA2p2tQ/lane
+# clone HEAD: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0   (round-73 lands)
+# clone tree: 516ea6c7d9265ae58ebc21fded41f925ddc504b2   (== git rev-parse 2d1cd91^{tree})
+# clone worktree: clean (git status --porcelain -> 0 lines); detached at lands
+# clone `main`: f7104cbce186bc2e1522abf0cfd619cc834628bb (lane main today; 2 commits after lands)
+# counter: reports/round-73/accept-c.py
+# counter sha256 (file bytes): 95aee88166023f4b0dc78cda5f0f3a769e94de476f5558bd6e33650922fea416
+# counter sha256 (self line printed by the run): 95aee88166023f4b0dc78cda5f0f3a769e94de476f5558bd6e33650922fea416
+# environment: Python 3.14.8, git 2.56.0; no tool installed or upgraded; pacman not run
+# commands run from inside the clone with `--root .`
+
+===== RUN 1 — assignment exact command =====
+$ python3 -B reports/round-73/accept-c.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+EXIT=1
+--- stdout ---
+# round-73 acceptance counter — claim C (conlang-scholarship assimilation)
+# counter sha256 (self): 95aee88166023f4b0dc78cda5f0f3a769e94de476f5558bd6e33650922fea416
+# stamped revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# evaluated revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# measured revision (lane main): 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# tree: 516ea6c7d9265ae58ebc21fded41f925ddc504b2
+# base revision: 8841ad3b896a0227674fa0725b818c999118046f
+# materialized: git archive of the stamped revision at /tmp/r73-lands-uprstgcv/lands
+# worktree graded: no (leg bytes read only from the materialized tree)
+# access date: 2026-10-25
+# config source: lands tree: row_set, entries, rejects.refused_staged, rejects.refused_files, rejects.families, rejects.forbidden_ids, ground.fragments
+# adopted rows: S876 S877 S878 S879 S880
+# entries: corpus/knowledge/linguistics/conlang-scholarship.md ; corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md
+
+LEG PASS ENTRIES
+LEG PASS ROWS
+LEG PASS REPOINTED
+LEG PASS GATE
+LEG PASS EVIDENCE
+LEG PASS REJECTS
+LEG PASS GROUND
+LEG PASS CITEDLINES
+LEG FAIL CENSUS
+     census script not found: /tmp/ExecReceiptRerun73/r73lands.NDA2p2tQ/scripts/sources-census.sh
+LEG PASS SCRATCHMIRROR
+LEG PASS COLLCHECK
+ACCEPT-C-73: FAIL legs=10/11
+--- stderr --- (empty: 0 bytes)
+
+===== RUN 2 — same command again (determinism) =====
+$ python3 -B reports/round-73/accept-c.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+EXIT=1
+--- diff RUN-1 vs RUN-2 (only the temp materialization path differs) ---
+8c8
+< # materialized: git archive of the stamped revision at /tmp/r73-lands-uprstgcv/lands
+---
+> # materialized: git archive of the stamped revision at /tmp/r73-lands-frjlbphy/lands
+
+===== RUN 3 — SUPPLEMENTARY, explicit fleet root (not the assignment command) =====
+$ python3 -B reports/round-73/accept-c.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin
+EXIT=0
+--- stdout ---
+# round-73 acceptance counter — claim C (conlang-scholarship assimilation)
+# counter sha256 (self): 95aee88166023f4b0dc78cda5f0f3a769e94de476f5558bd6e33650922fea416
+# stamped revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# evaluated revision: 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# measured revision (lane main): 2d1cd9140d3a6c42296d71e4f29587582a4a88c0
+# tree: 516ea6c7d9265ae58ebc21fded41f925ddc504b2
+# base revision: 8841ad3b896a0227674fa0725b818c999118046f
+# materialized: git archive of the stamped revision at /tmp/r73-lands-jag6uxgi/lands
+# worktree graded: no (leg bytes read only from the materialized tree)
+# access date: 2026-10-25
+# config source: lands tree: row_set, entries, rejects.refused_staged, rejects.refused_files, rejects.families, rejects.forbidden_ids, ground.fragments
+# adopted rows: S876 S877 S878 S879 S880
+# entries: corpus/knowledge/linguistics/conlang-scholarship.md ; corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md
+
+LEG PASS ENTRIES
+LEG PASS ROWS
+LEG PASS REPOINTED
+LEG PASS GATE
+LEG PASS EVIDENCE
+LEG PASS REJECTS
+LEG PASS GROUND
+LEG PASS CITEDLINES
+LEG PASS CENSUS
+     exit=0 last-line=kotodama	ok	/tmp/r73-fleet-zy1r_6gb/kotodama-shokunin/corpus/SOURCES.md
+LEG PASS SCRATCHMIRROR
+LEG PASS COLLCHECK
+ACCEPT-C-73: PASS legs=11/11
+--- stderr --- (empty: 0 bytes)
+
+===== header grammar (tools/check-receipt-seq.py, lane copy at f7104cb, read-only) =====
+RUN-1: SEQ-... PASS stamped=2d1cd914 evaluated=2d1cd914 measured=2d1cd914 equal=True
+       TREE-... PASS recorded=516ea6c7 actual=516ea6c7
+       SHA-...  PASS reports/round-73/accept-c.py recorded=95aee881 actual=95aee881
+       RECEIPT-SEQ: PASS   (exit 0)
+RUN-3: identical three PASS lines / RECEIPT-SEQ: PASS (exit 0)
+
+===== LABEL (what this receipt may and may not be cited as) =====
+* The ASSIGNMENT COMMAND does NOT print PASS at these lands: ACCEPT-C-73: FAIL legs=10/11, exit 1.
+  Sole red leg: CENSUS, detail "census script not found:
+  /tmp/ExecReceiptRerun73/r73lands.NDA2p2tQ/scripts/sources-census.sh" — leg_census defaults
+  fleet_root to dirname(--root), i.e. the clone's parent, which holds no scripts/. The other ten
+  legs are green at 2d1cd914 (ENTRIES, ROWS, REPOINTED, GATE, EVIDENCE, REJECTS, GROUND,
+  CITEDLINES, SCRATCHMIRROR, COLLCHECK).
+* PASS legs=11/11 is reached only by RUN 3, which adds --fleet-root /home/vgpnk/Projects/shokunin.
+  The round-73 claim's own `after`/`counter` sentence names no such flag (finding M5 of
+  .ufo/waves/round-73/w2/ExecRerunC.md), so a PASS-at-lands receipt for ACCEPT-C-73 MUST quote
+  RUN 3 together with its flag; RUN 1 alone must never be labelled PASS.
+* `# measured revision (lane main)` in this counter is the clone HEAD (disclosure line; no leg
+  consumes it). It equals lands here only because the clone is detached at lands; the lane's real
+  main is f7104cb today.
+* Not a --topo-clean receipt: tools/check-receipt-seq.py --topo requires the carrier commit's
+  parent to equal the stamped revision. A receipt committed in round 74 is carried by a commit
+  whose parent is f7104cb (round-74 base), never 2d1cd914, so TOPO cannot be claimed for it.

@@ -1,0 +1,692 @@
+{
+ "round": 74,
+ "claim": "Ca",
+ "axis": "calibration",
+ "base": "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+ "status": "DRAFT by seat ExecLedger (round-74 wave 1). Every observe_cmd below was run at the base revision before this file was written; every pair is red at base (a green pair is dropped, see grammar rule R7). Not frozen; the L1 freezes by committing reports/round-74/ledger.json together with the two counters and the controls.",
+ "frozen_note": "Pairs are declared before data. After-state semantics: REPAIR pairs are green when the statement RE-READ at <lands> equals the lands observation and differs from the base statement (round-73 statement_after idiom); ANNOTATE pairs stay as filed and are closed by a '## Corrections — round 74' row naming id + stated token + observed token + the rederive command. Nothing in this ledger requires rewriting frozen bytes.",
+ "fleet_pin": "dad39efd27988bd28b1fe41f5e327529f0472d3c",
+ "fleet_pin_note": "dad39efd is the fleet commit that ADDED the round-73 report (blob d104dfa4342078ca258bb0399a1ae241e2e1d684, sha256 000bab3a…). It is an ancestor of fleet HEAD and the report bytes are still identical at HEAD (measured 2026-10-25). Round 73's own fleet_pin 80d8c9b5 does NOT contain this path (it holds only the round-72 report), so a counter that reuses that pin cannot read the round-73 statement sites.",
+ "fleet_report": {
+  "path": ".ufo/reports/round-73/kotodama.md",
+  "pin": "dad39efd27988bd28b1fe41f5e327529f0472d3c",
+  "blob": "d104dfa4342078ca258bb0399a1ae241e2e1d684",
+  "sha256": "000bab3a36648498b67b78ea3d7db3f2e8dd17a3ad762aa528d95ef169132bdd",
+  "statement_lines": [
+   10,
+   22,
+   23
+  ]
+ },
+ "min_pairs": 12,
+ "grammar_requirements": [
+  {
+   "id": "R1",
+   "rule": "Absence semantics for `git grep -c`/`git grep -l`: exit 1 with empty stdout means ZERO matches and yields the observed token \"0\". Every other empty-stdout-plus-nonzero-exit stays unobservable (a broken observation, not a red one). Scope the rule to argv whose argv[0:2] are git/grep and which carry -c or -l.",
+   "why": "Three pairs here observe an absence (LC-04/05/13/14). The round-73 counter treated that as unobservable, so the BASEMISMATCH leg would fail on the honest observation. Freeze this before data; add a selftest with one present pattern (count printed) and one absent pattern (token 0, not unobservable)."
+  },
+  {
+   "id": "R2",
+   "rule": "Observe allowlist = {git, grep, wc, sha256sum}. Drop python3: the round-73 survivor was a `python3 -c` constant printer, and no pair here needs an interpreter. Counting is done with `git diff --shortstat <empty-tree> <rev> -- '<glob>'` (prints 'N files changed') or `git grep -c`.",
+   "why": "Round-73 routed defect 4 (ledger constant-printers). Also keeps every count re-derivable by hand."
+  },
+  {
+   "id": "R3",
+   "rule": "Revision discipline: an argv that must CHANGE between base and lands reads the graded tree (`HEAD`, or a repo-relative path); an argv that must NOT move pins the base revision by full 40-hex. The counter must reject a mutable ref (branch name) in place of the base hash.",
+   "why": "Otherwise claim C's landing can move a Ca observation (the round-73 SEPARABLE hazard) or, conversely, an after-state can never turn green."
+  },
+  {
+   "id": "R4",
+   "rule": "statement re-reads (statement_after, and any 'latest value' read) take the LAST occurrence in the file, via the DOTALL `(?s).*PATTERN` idiom. Fixture: a file with two 'Total knowledge entries:' lines, the first stale — the read must return the second.",
+   "why": "corpus/README.md carries two footers (`:732` 243, `:775` 247) and two counts-checked blocks; `reports/round-28/readme/sweep.py` exits 1 on the base tree for reading the first."
+  },
+  {
+   "id": "R5",
+   "rule": "Fleet stated side: a pair may carry `stated_fleet` {path, line, pin, sha256} and a stated_at of the form `fleet:<path>:<line>`. The counter must branch BEFORE the lane path:line check (otherwise the `fleet:` prefix is read as a lane path and the LEDGER leg fails), resolve with `git -C <fleet_root> show <pin>:<path>`, validate stated_text on that line, and also assert the report bytes at fleet HEAD equal the pinned sha256 with zero removed lines.",
+   "why": "LC-03 states its claim in the fleet report, which the lane cannot edit; the round-73 counter could only read lane files, so this class had no home. Pin must contain the file (see fleet_pin_note)."
+  },
+  {
+   "id": "R6",
+   "rule": "CONTENTPIN leg: each content_pins entry must (a) at <lands> observe exactly expected_after, and (b) at base observe something DIFFERENT. For a sha256 pin the base token is the base content hash; for the presence pin (argv git ls-tree over one path) empty stdout means absence and is recorded as the sentinel \"absent\", which counts as different. A pin that is already green at base is dropped, never kept. The pin is also recorded as blob ids so the TRACKED leg can check the same content without relying on checkout filters.",
+   "why": "The six round-73 wave-2 seat files are a content defect, not a prose defect: there is no document statement whose token could be compared, so they cannot ride the BASEMISMATCH leg honestly (a hash-versus-word 'mismatch' would be trivially red and worthless)."
+  },
+  {
+   "id": "R7",
+   "rule": "Make the drop rule a leg: the counter FAILS if any pair (or content pin) is green at base. Round 73 only required `mismatched >= min_pairs`, so green pairs could ride along.",
+   "why": "The claim's stated before-state is 'EVERY listed pair red'. A pair that is green at base is a false claim of redness."
+  },
+  {
+   "id": "R8",
+   "rule": "SEPARABLE operand: keep the round-73 whole-ledger scan for claim-C paths and for S-ids >= the frozen separator, and freeze that separator explicitly for round 74: read the lowest row id the coverage claim appends this round from the frozen claims file and use that (do not copy round 73's 876, which would let this round's own appended rows be cited). This draft cites no id above S880, so a separator of 881 keeps it clean. State in the counter whether a base-pinned read of a C artefact is still a C path; this draft assumes YES and avoids the registry file entirely.",
+   "why": "The scan is a string scan, so `stated_at` alone can trip it: the honest pair for the registry row S879 had to be anchored on the lesson instead (LC-11). If the L1 freezes a different separator the pair set still holds."
+  },
+  {
+   "id": "R9",
+   "rule": "Read the counter's own constants from the frozen commit, not from the graded tree (round-73 routed defect 4, survivor 1): CLAIM/SEPARABLE/MIN_PAIRS/paths must come from the ledger + frozen assets, and the counter must refuse a ledger that names a different claim or round.",
+   "why": "A graded-tree config lets a landing edit the predicate it is graded by."
+  }
+ ],
+ "inplace_spans": {
+  "existing_round73_guard": "leg APPENDONLY allows in-place hunks only inside §Gates and probes for SKILL.md, and inside footer_range() for corpus/README.md and README.md; every changed in-place path must be named by a pair's stated_at.",
+  "required_for_this_ledger": [
+   "SKILL.md: allowed spans must be a LIST: §Gates and probes (registry rows, unchanged) plus §Corpus map (`^## Corpus map$`, lines 578-601 at base). LC-09/LC-10 edit one line inside §Corpus map; with the round-73 single-span guard the APPENDONLY leg fails.",
+   "SHONEN.md: add to the in-place path set with an explicit box-1 span (the line beginning `  asserted:` / `- [~] Box 1`); with footer_range() it degrades to the whole 15-line file, which is allowed but weaker."
+  ],
+  "fallback": "If the L1 keeps the round-73 single-span guard, reclassify LC-09/LC-10 as ANNOTATE and drop the in-place SKILL.md edit; the token pairs then close by correction row only. LC-01 must stay REPAIR: SHONEN is the only statement of registry size."
+ },
+ "must_track": [
+  ".ufo/waves/round-73/w2/CritEntryAmendFinal.md",
+  ".ufo/waves/round-73/w2/ExecSelftestAll.md",
+  ".ufo/waves/round-73/w2/ScribeLogScorecard.md",
+  ".ufo/waves/round-73/w2/SimplifierEntries.md",
+  ".ufo/waves/round-73/w2/drafts/log-entry.md",
+  ".ufo/waves/round-73/w2/RevengerOrigins.md"
+ ],
+ "pairs": [
+  {
+   "id": "LC-01",
+   "disposition": "REPAIR",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "(412 rows after round 56 — 367 mined, 35 queued, 10 rejected",
+   "stated_parse": "\\((\\d+) rows after round 56",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "Registry: 799 → 804 rows",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/README.md"
+   ],
+   "parse": "Registry: [0-9]+ \\u2192 (\\d+) rows",
+   "expected_after": "804",
+   "observed_at_base": "804",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": "(?s).*\\((\\d+) rows after round 73"
+   },
+   "why": "SHONEN box 1 is the only statement of registry size. 412/367/35/10 are the round-56 figures (historically exact at c8af23f); base is 804 rows, last id S880. SHONEN is not append-only (round 73 repaired its SKILL pointers in place, L04/L05). The repair must state the DATED figure '804 rows after round 73 — 709 mined, 58 queued, 37 rejected' so a base-pinned observation stays the check; a 'latest' figure would move with claim C's four new rows and break the base pin."
+  },
+  {
+   "id": "LC-02",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:4297",
+   "stated_text": "claim-C selftest 29/29, Ca 9 scenarios",
+   "stated_parse": "Ca (\\d+) scenarios",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "SELFTEST OK: [0-9]+ scenarios",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "reports/round-73/telemetry/selftest-r3.txt"
+   ],
+   "parse": "OK: (\\d+) scenarios",
+   "expected_after": "10",
+   "observed_at_base": "10",
+   "red_at_base": true,
+   "why": "The freeze-time counter r1 printed 9 scenarios; counter r3 prints 10 and the committed r3 receipt says 10. LOG.md is append-only, so the line stays as filed and a correction row carries 9 -> 10."
+  },
+  {
+   "id": "LC-03",
+   "disposition": "ANNOTATE",
+   "stated_at": "fleet:.ufo/reports/round-73/kotodama.md:10",
+   "stated_fleet": {
+    "path": ".ufo/reports/round-73/kotodama.md",
+    "line": 10,
+    "pin": "dad39efd27988bd28b1fe41f5e327529f0472d3c",
+    "sha256": "000bab3a36648498b67b78ea3d7db3f2e8dd17a3ad762aa528d95ef169132bdd"
+   },
+   "stated_text": "selftests (C 29/29; Ca 9 scenarios)",
+   "stated_parse": "Ca (\\d+) scenarios",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "SELFTEST OK: [0-9]+ scenarios",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "reports/round-73/telemetry/selftest-r3.txt"
+   ],
+   "parse": "OK: (\\d+) scenarios",
+   "expected_after": "10",
+   "observed_at_base": "10",
+   "red_at_base": true,
+   "why": "Second statement site of the same drift, in the fleet report. The lane cannot edit the fleet tree, so only a lane-side SCORECARD row can name it. The 'C 29/29' half of the same sentence is true (counter prints SELFTEST: 29/29) and is not attacked."
+  },
+  {
+   "id": "LC-04",
+   "disposition": "ANNOTATE",
+   "stated_at": "SCORECARD.md:1430",
+   "stated_text": "ACCEPT-C-73 PASS legs=11/11",
+   "stated_parse": "ACCEPT-C-73 (PASS legs=11/11)",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^ACCEPT-C-73: PASS legs=11/11$",
+    "HEAD",
+    "--",
+    "reports/round-73/telemetry"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "0",
+   "red_at_base": true,
+   "why": "SCORECARD asserts a PASS-at-lands for the round-73 counter, but the committed round-73 telemetry holds zero PASS verdict lines (only FAIL controls: 1/11 and 4/9-5/9). Absence is the observation (grammar rule R1). The after-state is a committed receipt, not a text edit, so the pair is ANNOTATE."
+  },
+  {
+   "id": "LC-05",
+   "disposition": "ANNOTATE",
+   "stated_at": "SCORECARD.md:1431",
+   "stated_text": "ACCEPT-CA-73 PASS legs=9/9",
+   "stated_parse": "ACCEPT-CA-73 (PASS legs=9/9)",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^ACCEPT-CA-73: PASS legs=9/9$",
+    "HEAD",
+    "--",
+    "reports/round-73/telemetry"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "0",
+   "red_at_base": true,
+   "why": "Same absence for the Ca counter (r3). Reproducing a PASS needs the clone's local main at 2d1cd91 (the counter sets measured = main tip and STAMP requires measured == --lands); a receipt produced with main elsewhere prints FAIL legs=8/9. Record that in the receipt header."
+  },
+  {
+   "id": "LC-13",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:4301",
+   "stated_text": "ACCEPT-C-73: PASS legs=11/11",
+   "stated_parse": "ACCEPT-C-73: (PASS legs=11/11)",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^ACCEPT-C-73: PASS legs=11/11$",
+    "HEAD",
+    "--",
+    "reports/round-73/telemetry"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "0",
+   "red_at_base": true,
+   "why": "The LOG entry (append-only) is the standing record and states the same unreceipted PASS. Distinct statement site from LC-04."
+  },
+  {
+   "id": "LC-14",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:4301",
+   "stated_text": "ACCEPT-CA-73: PASS legs=9/9",
+   "stated_parse": "ACCEPT-CA-73: (PASS legs=9/9)",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^ACCEPT-CA-73: PASS legs=9/9$",
+    "HEAD",
+    "--",
+    "reports/round-73/telemetry"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "0",
+   "red_at_base": true,
+   "why": "Same as LC-13 for the Ca counter."
+  },
+  {
+   "id": "LC-06",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:732",
+   "stated_text": "Total knowledge entries: 243.",
+   "stated_parse": "entries: (\\d+)\\.",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "247",
+   "observed_at_base": "247",
+   "red_at_base": true,
+   "why": "First totals footer (written at 498db73). Round-73 L01 re-pinned the same line at 8841ad3 with new token 245, which is pin-correct and now stale: base holds 247 .md files. The live footer is :775 (247)."
+  },
+  {
+   "id": "LC-07",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:736",
+   "stated_text": "(total 243 files; directory totals 30/29/36/29/24/95).",
+   "stated_parse": "total (\\d+) files",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "247",
+   "observed_at_base": "247",
+   "red_at_base": true,
+   "why": "Same first-footer vector; round-73 L03 pinned 245. Live per-directory vector is 32/29/38/29/24/95 (:777)."
+  },
+  {
+   "id": "LC-08",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:344",
+   "stated_text": "## linguistics/ (30)",
+   "stated_parse": "\\((\\d+)\\)",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/linguistics/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "32",
+   "observed_at_base": "32",
+   "red_at_base": true,
+   "why": "Never entered any ledger: round 73's three README pairs covered :732/:736/:407 only. The two round-73 entries lifted the directory 30 -> 32, while the heading stayed as filed. README:768 in the same file mentions the two entries, so an in-place repair would leave a second stale site: ANNOTATE."
+  },
+  {
+   "id": "LC-09",
+   "disposition": "REPAIR",
+   "stated_at": "SKILL.md:594",
+   "stated_text": "94 entries: 92 earlier-civilization",
+   "stated_parse": "(\\d+) entries",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/civilizations/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "95",
+   "observed_at_base": "95",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SKILL.md",
+    "parse": "(?s).*civilizations/` \\u2014 (\\d+) entries"
+   },
+   "why": "Live-false in the corpus map since round 56 (the directory went 94 -> 95). corpus/README.md:503 already reads (95). SKILL.md is not append-only; the repair needs the counter's SKILL.md in-place span widened to the Corpus map section (see inplace_spans) because the round-73 guard allows only the Gates-and-probes registry span."
+  },
+  {
+   "id": "LC-10",
+   "disposition": "REPAIR",
+   "stated_at": "SKILL.md:594",
+   "stated_text": "92 earlier-civilization",
+   "stated_parse": "(\\d+) earlier-civilization",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/knowledge/civilizations/*.md",
+    ":(exclude)*primary-sources.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "93",
+   "observed_at_base": "93",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SKILL.md",
+    "parse": "(?s).*entries: (\\d+) earlier-civilization"
+   },
+   "why": "Second token on the same line: 95 files = 93 civilization bases + 2 *primary-sources.md maps, not '94 entries: 92 + 2'. Split from LC-09 so a half-repair cannot pass."
+  },
+  {
+   "id": "LC-11",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/lessons/round-73.md:38",
+   "stated_text": "(20261025222414, 23443 B)",
+   "stated_parse": ", (\\d+) B\\)",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "gzip.decompress -> 23443 -> [0-9]+ bytes",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    ".ufo/waves/round-73/w2/ScoutReopenS879.md"
+   ],
+   "parse": "-> (\\d+) bytes",
+   "expected_after": "97656",
+   "observed_at_base": "97656",
+   "red_at_base": true,
+   "why": "The round-73 Gate paragraph calls the durability capture a 'shell that does not carry the span'; 23443 is the gzip wire size and the decoded payload is 97656 bytes (the round-73 w2 ScoutReopenS879 report records gzip.decompress -> 23443 -> 97656). The same false fact also sits in the registry row S879, which cannot be a ledger pair here: the registry file is a claim-C artefact and the SEPARABLE leg rejects any ledger byte naming it (see dropped_candidates). The lesson is in the APPENDONLY set, so the correction row is the repair."
+  },
+  {
+   "id": "LC-12",
+   "disposition": "ANNOTATE",
+   "stated_at": "reports/round-73/claims.json:11",
+   "stated_text": "no Wayback capture of the same page",
+   "stated_parse": "(no) Wayback capture",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-h",
+    "-o",
+    "-E",
+    "HAS two status-200 Wayback captures",
+    "f7104cbce186bc2e1522abf0cfd619cc834628bb",
+    "--",
+    "corpus/lessons/round-73.md"
+   ],
+   "parse": "HAS (two) status-200 Wayback captures",
+   "expected_after": "two",
+   "observed_at_base": "two",
+   "red_at_base": true,
+   "why": "The frozen round-73 claims.json records 'no Wayback capture' as the ground for cutting a staged row; the same round's lesson was repaired in place to 'HAS two status-200 Wayback captures'. The frozen file must not be rewritten, so the correction row names the path and the token pair no -> two."
+  }
+ ],
+ "content_pins": [
+  {
+   "id": "CP-01",
+   "path": ".ufo/waves/round-73/w2/CritEntryAmendFinal.md",
+   "blob_base": "eeb3344773b4632d9af8bbb9c665dc6d2d708fc6",
+   "sha256_base_blob": "246de174216dc07fc11594b95a98b98faee001c6ebdfa755a4427d1cf651066b",
+   "blob_expected_after": "d219fca4a80e3a0e2e69bb0370fd4731d65a981e",
+   "sha256_expected_after": "290a6ccd839cb8cd09fc5089d1360dc4bcfabdea38f7a83733063159185c50aa",
+   "bytes_expected_after": 41013,
+   "observed_at_base": "246de174216dc07fc11594b95a98b98faee001c6ebdfa755a4427d1cf651066b",
+   "red_at_base": true,
+   "why": "Worktree content differs from the pushed tree: the seat wrote after the round-73 push (the closure spot-check records five modified w2 reports plus one untracked).",
+   "observe_cmd": [
+    "sha256sum",
+    ".ufo/waves/round-73/w2/CritEntryAmendFinal.md"
+   ],
+   "parse": "^([0-9a-f]{64})",
+   "expected_after": "290a6ccd839cb8cd09fc5089d1360dc4bcfabdea38f7a83733063159185c50aa"
+  },
+  {
+   "id": "CP-02",
+   "path": ".ufo/waves/round-73/w2/ExecSelftestAll.md",
+   "blob_base": "20df0f0b12423adfbf70dfb4a67bd6476cfaca8b",
+   "sha256_base_blob": "0d24aeed83b9871de343dacd69db4087f0c62a521804589b171b0f52230ecf5d",
+   "blob_expected_after": "9f887fd9fe92f04b5e935b2e5b311c1f31cd9d7e",
+   "sha256_expected_after": "dfc8fe0d2c54442bd5fa1a8f122c37751b89c861aeec2b5e77c041f66c11e71c",
+   "bytes_expected_after": 37204,
+   "observed_at_base": "0d24aeed83b9871de343dacd69db4087f0c62a521804589b171b0f52230ecf5d",
+   "red_at_base": true,
+   "why": "Worktree content differs from the pushed tree: the seat wrote after the round-73 push (the closure spot-check records five modified w2 reports plus one untracked).",
+   "observe_cmd": [
+    "sha256sum",
+    ".ufo/waves/round-73/w2/ExecSelftestAll.md"
+   ],
+   "parse": "^([0-9a-f]{64})",
+   "expected_after": "dfc8fe0d2c54442bd5fa1a8f122c37751b89c861aeec2b5e77c041f66c11e71c"
+  },
+  {
+   "id": "CP-03",
+   "path": ".ufo/waves/round-73/w2/ScribeLogScorecard.md",
+   "blob_base": "7fd5ae056e8e74b3ae6ece2ff539d6c88189a0fc",
+   "sha256_base_blob": "f4f14669fc0d0eaf0b26b9bc8ee78c3a628e76aa0403c90fea89118b20d2db45",
+   "blob_expected_after": "36c7b31b02cdfc53a58250edfa79e4e44b86d515",
+   "sha256_expected_after": "db254d8896d7cbce3377dc1d3f56ca41312063383a9c319324bf1c1a02e445b3",
+   "bytes_expected_after": 23535,
+   "observed_at_base": "f4f14669fc0d0eaf0b26b9bc8ee78c3a628e76aa0403c90fea89118b20d2db45",
+   "red_at_base": true,
+   "why": "Worktree content differs from the pushed tree: the seat wrote after the round-73 push (the closure spot-check records five modified w2 reports plus one untracked).",
+   "observe_cmd": [
+    "sha256sum",
+    ".ufo/waves/round-73/w2/ScribeLogScorecard.md"
+   ],
+   "parse": "^([0-9a-f]{64})",
+   "expected_after": "db254d8896d7cbce3377dc1d3f56ca41312063383a9c319324bf1c1a02e445b3"
+  },
+  {
+   "id": "CP-04",
+   "path": ".ufo/waves/round-73/w2/SimplifierEntries.md",
+   "blob_base": "5afdac54dbcbb5795f87f210105a556f20f78b30",
+   "sha256_base_blob": "985dd88383609c543198a8ee1c548d04fe6f2cc294905eb5b917a838f3663bed",
+   "blob_expected_after": "c0fbaa9e26b4bcc3a0cfef751b83c5db424f5cfe",
+   "sha256_expected_after": "9469d4d689aeb1f32a4127b9d2a0388236c622d206995df4ff8f11a201bdd481",
+   "bytes_expected_after": 20039,
+   "observed_at_base": "985dd88383609c543198a8ee1c548d04fe6f2cc294905eb5b917a838f3663bed",
+   "red_at_base": true,
+   "why": "Worktree content differs from the pushed tree: the seat wrote after the round-73 push (the closure spot-check records five modified w2 reports plus one untracked).",
+   "observe_cmd": [
+    "sha256sum",
+    ".ufo/waves/round-73/w2/SimplifierEntries.md"
+   ],
+   "parse": "^([0-9a-f]{64})",
+   "expected_after": "9469d4d689aeb1f32a4127b9d2a0388236c622d206995df4ff8f11a201bdd481"
+  },
+  {
+   "id": "CP-05",
+   "path": ".ufo/waves/round-73/w2/drafts/log-entry.md",
+   "blob_base": "3e9af53d7c848e206aab907141a194221a229fb7",
+   "sha256_base_blob": "01d503258c8a6f06712473e4e63e2bbab1816b99ca54d7e4df947984999fd3d3",
+   "blob_expected_after": "5ca8eedd54c6610a881509c49ad3f3cb2e971972",
+   "sha256_expected_after": "079728a53490714a350ec17195bc72b1034d1878130b6f491a200de53bf6ca6a",
+   "bytes_expected_after": 10810,
+   "observed_at_base": "01d503258c8a6f06712473e4e63e2bbab1816b99ca54d7e4df947984999fd3d3",
+   "red_at_base": true,
+   "why": "Worktree content differs from the pushed tree: the seat wrote after the round-73 push (the closure spot-check records five modified w2 reports plus one untracked).",
+   "observe_cmd": [
+    "sha256sum",
+    ".ufo/waves/round-73/w2/drafts/log-entry.md"
+   ],
+   "parse": "^([0-9a-f]{64})",
+   "expected_after": "079728a53490714a350ec17195bc72b1034d1878130b6f491a200de53bf6ca6a"
+  },
+  {
+   "id": "CP-06",
+   "path": ".ufo/waves/round-73/w2/RevengerOrigins.md",
+   "blob_base": null,
+   "sha256_base_blob": null,
+   "blob_expected_after": "2c1c9cd84b7b8a6502a2089233ec576a3b6c278c",
+   "sha256_expected_after": "7d14591923aff7b1dd5a28bc73d4933faf9cf721e4a7b113f6f7178206d581ed",
+   "bytes_expected_after": 26043,
+   "observed_at_base": "absent",
+   "red_at_base": true,
+   "why": "Worktree content differs from the pushed tree: the seat wrote after the round-73 push (the closure spot-check records five modified w2 reports plus one untracked). Absent at base, so no base blob exists; the pin is presence plus the sha256 above (graded by the TRACKED leg), and the base observation is the absence.",
+   "observe_cmd": [
+    "git",
+    "ls-tree",
+    "-r",
+    "--name-only",
+    "HEAD",
+    "--",
+    ".ufo/waves/round-73/w2/RevengerOrigins.md"
+   ],
+   "parse": "(?m)^(.*RevengerOrigins\\.md)$",
+   "expected_after": ".ufo/waves/round-73/w2/RevengerOrigins.md"
+  }
+ ],
+ "annotate_rows": [
+  "| LC-02 | `9 scenarios` | `10 scenarios` | `git grep -h -o -E 'SELFTEST OK: [0-9]+ scenarios' f7104cbce186bc2e1522abf0cfd619cc834628bb -- reports/round-73/telemetry/selftest-r3.txt` | `LOG.md:4297` (round-73 freeze bullet) files the Ca counter as 9 scenarios; counter r3 prints `SELFTEST OK: 10 scenarios` and its committed receipt `reports/round-73/telemetry/selftest-r3.txt` says 10. True only of the freeze-time r1 receipt `selftest.txt`; LOG is append-only so the line stays as filed. |",
+  "| LC-03 | `9 scenarios` | `10 scenarios` | `git grep -h -o -E 'SELFTEST OK: [0-9]+ scenarios' f7104cbce186bc2e1522abf0cfd619cc834628bb -- reports/round-73/telemetry/selftest-r3.txt` | Fleet report `.ufo/reports/round-73/kotodama.md:10` (pin `dad39efd`) repeats the same 9-scenario figure; the lane cannot edit the fleet tree, so this row is the only lane-side correction. Closures after round 74 should file the counter's scenario count from the receipt, not from the freeze note. |",
+  "| LC-04 | `PASS legs=11/11` | `1` | `git grep -c -E '^ACCEPT-C-73: PASS legs=11/11$' HEAD -- reports/round-73/telemetry` | `SCORECARD.md:1430` states `ACCEPT-C-73 PASS legs=11/11`, but the committed round-73 telemetry holds 0 lines matching a PASS verdict (only the FAIL controls `legs=1/11`, `legs=4/9`, `legs=5/9`). Round 74 commits `reports/round-73/telemetry/pass-at-lands-c.txt` with stamped=evaluated=measured=`2d1cd91` and the command line that produced it, so the count becomes 1. Same defect is also stated at `LOG.md:4301` (LC-13) and the fleet report `:22`. |",
+  "| LC-05 | `PASS legs=9/9` | `1` | `git grep -c -E '^ACCEPT-CA-73: PASS legs=9/9$' HEAD -- reports/round-73/telemetry` | `SCORECARD.md:1431` states `ACCEPT-CA-73 PASS legs=9/9 (counter r3)`, with 0 committed PASS receipts. Round 74 commits `reports/round-73/telemetry/pass-at-lands-ca.txt` produced in a clone whose local `main` is at `2d1cd91` (else STAMP fails and the counter prints `FAIL legs=8/9`), header naming counter sha256 `222d4dd6`. Same defect also at `LOG.md:4301` (LC-14) and the fleet report `:23`. |",
+  "| LC-13 | `PASS legs=11/11` | `1` | `git grep -c -E '^ACCEPT-C-73: PASS legs=11/11$' HEAD -- reports/round-73/telemetry` | `LOG.md:4301` (append-only) is the standing round-73 record and asserts the same unreceipted PASS at `2d1cd91`; closed by the same committed receipt as LC-04. |",
+  "| LC-14 | `PASS legs=9/9` | `1` | `git grep -c -E '^ACCEPT-CA-73: PASS legs=9/9$' HEAD -- reports/round-73/telemetry` | Same line, Ca half; closed by the same committed receipt as LC-05. |",
+  "| LC-06 | `243` | `247` | `git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*.md'` | `corpus/README.md:732` first totals footer reads 243 (written at `498db73`); base holds 247 `.md` files. Round-73 L01 re-pinned the same line at `8841ad3` with new token 245, so its row is pin-correct and now stale; the live footer is `:775` (247). Counts come from `git diff --shortstat <empty-tree> <rev> -- '<glob>'`, which honours pathspecs and needs no interpreter (a second, `wc -l`-free counting idiom; see grammar rule R2). |",
+  "| LC-07 | `243` | `247` | `git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*.md'` | `corpus/README.md:736` first counts-checked line (total 243, vector 30/29/36/29/24/95). Round-73 L03 pinned 245. Live vector at `:777` is 32/29/38/29/24/95 and reconciles with the per-directory counts below. Any tool that reads the FIRST footer reports 243 here; the round-74 counter must read the LAST (rule R4) — `reports/round-28/readme/sweep.py` exits 1 on this tree for exactly that reason. |",
+  "| LC-08 | `30` | `32` | `git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/linguistics/*.md'` | `corpus/README.md:344` heading `## linguistics/ (30)` was never in any ledger; the two round-73 entries took the directory to 32 files. The same file mentions those two entries at `:768`, so an in-place repair would leave a second stale site; annotated, not rewritten. |",
+  "| LC-11 | `23443` | `97656` | `git grep -h -o -E 'gzip.decompress -> 23443 -> [0-9]+ bytes' f7104cbce186bc2e1522abf0cfd619cc834628bb -- .ufo/waves/round-73/w2/ScoutReopenS879.md` | `corpus/lessons/round-73.md:38` (Gate paragraph) calls the durability capture `20261025222414, 23443 B` a shell that does not carry the span; 23443 is the gzip wire size and the decoded payload is 97656 bytes, which carries the span (round-73 w2 `ScoutReopenS879.md`). The lesson is append-only; the registry row carrying the same false fact (S879) is not a ledger pair here because the registry file is a claim-C artefact and the SEPARABLE leg rejects a ledger that names it. |",
+  "| LC-12 | `no` | `two` | `git grep -h -o -E 'HAS two status-200 Wayback captures' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/lessons/round-73.md` | `reports/round-73/claims.json:11` (frozen) grounds a cut row on `no Wayback capture of the same page`; the same round's lesson was repaired to `HAS two status-200 Wayback captures` (20241106195515, 20241107004043). The frozen file is not rewritten, so this row carries the token pair and the re-derivation. |"
+ ],
+ "annotate_row_heading": "## Corrections — round 74",
+ "receipts_required": [
+  {
+   "path": "reports/round-73/telemetry/pass-at-lands-c.txt",
+   "must_contain": [
+    "stamped=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "evaluated=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "measured=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "ACCEPT-C-73: PASS legs=11/11"
+   ],
+   "produce_with": "python3 -B reports/round-73/accept-c.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin"
+  },
+  {
+   "path": "reports/round-73/telemetry/pass-at-lands-ca.txt",
+   "must_contain": [
+    "stamped=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "evaluated=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "measured=2d1cd9140d3a6c42296d71e4f29587582a4a88c0",
+    "ACCEPT-CA-73: PASS legs=9/9"
+   ],
+   "produce_with": "in a clone checked out at 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 whose local branch main is also 2d1cd91: python3 -B reports/round-73/accept-ca.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin",
+   "caveat": "measured is the graded repo's main tip and STAMP requires measured == --lands; elsewhere the same command prints ACCEPT-CA-73: FAIL legs=8/9 (reproduced by wave-1 ScoutLedgerSweepB)."
+  }
+ ],
+ "controls": [
+  {
+   "id": "K1",
+   "statement": "corpus/README.md:775 `Total knowledge entries: 247.`",
+   "observe": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*.md'",
+   "observed_at_base": "247",
+   "red": false,
+   "note": "The LAST footer is live and agrees with the tree: dropped as a pair under the drop rule. Keep it as a control: after claim C lands the live file count is 249, so a counter that re-derives this line must read the last footer again (R4)."
+  },
+  {
+   "id": "K2",
+   "statement": "corpus/README.md:777 vector `32/29/38/29/24/95`",
+   "observe": "per-directory `git diff --shortstat <empty-tree> <base> -- 'corpus/knowledge/<dir>/*.md'`",
+   "observed_at_base": "32/29/38/29/24/95",
+   "red": false,
+   "note": "Reconciles with the six directory counts measured one by one; dropped as a pair."
+  },
+  {
+   "id": "K3",
+   "statement": "corpus/README.md:407 `## culture-material/ (36)`",
+   "observe": "git diff --shortstat <empty-tree> <base> -- 'corpus/knowledge/culture-material/*.md'",
+   "observed_at_base": "38",
+   "red": true,
+   "note": "Red, but already annotated by round-73 L02 with the identical token pair 36 -> 38 (same value, same directory). Dropped as a duplicate: a second row would add no token. It stays covered by the round-73 row."
+  },
+  {
+   "id": "K4",
+   "statement": "`9 scenarios` in SCORECARD.md",
+   "observe": "git grep -c 'scenarios' <base> -- SCORECARD.md",
+   "observed_at_base": "0 matches (rc=1)",
+   "red": false,
+   "note": "No SCORECARD site exists for the scenario drift; the statement lives in LOG.md (LC-02) and the fleet report (LC-03). Recorded so the mandatory 'SCORECARD/LOG/fleet report' sweep is explicitly closed rather than silently narrowed."
+  },
+  {
+   "id": "K5",
+   "statement": "SKILL.md:704 `(prints SELFTEST OK: 10 scenarios)`",
+   "observe": "git show <base>:SKILL.md (line 704)",
+   "observed_at_base": "10 scenarios",
+   "red": false,
+   "note": "Already repaired in round 73 (9 -> 10); the registry row agrees with the r3 receipt. Not re-paired."
+  },
+  {
+   "id": "K6",
+   "statement": "round-73 telemetry verdict lines",
+   "observe": "git grep -n -E 'ACCEPT-(C|CA)-73: [A-Z]+' HEAD -- reports/round-73/telemetry",
+   "observed_at_base": "ACCEPT-C-73: FAIL legs=1/11; ACCEPT-CA-73: FAIL legs=4/9 (x2), legs=5/9",
+   "red": null,
+   "note": "Baseline for LC-04/05/13/14: exactly four verdict lines exist and all are FAIL controls, so any PASS line added later is the receipt and nothing else."
+  }
+ ],
+ "dropped_candidates": [
+  {
+   "what": "registry row S879's own text (`23443-byte shell that does not carry the span`)",
+   "why_dropped": "its stated_at must name the registry file, which is a claim-C artefact; the SEPARABLE leg scans the WHOLE ledger for claim-C paths, so even a base-pinned read trips it. The identical false fact is paired at the lesson line (LC-11). If the L1 freezes SEPARABLE to allow base-pinned reads of C artefacts, this pair can be added back with stated_at on the row."
+  },
+  {
+   "what": "corpus/README.md revision blocks `registry moved 753 -> 776 rows` (:36) and `752 -> 776 rows` (:28)",
+   "why_dropped": "the only honest observation counts registry rows, i.e. names the registry file (same SEPARABLE problem); and the numbers are historical-as-filed revision notes, not present-tense counts. Left to the lesson/sweep record."
+  },
+  {
+   "what": "README index completeness: 245 index rows vs 247 files (2 heritage entries never indexed; 2 conlang rows mis-attributed to the civilizations section)",
+   "why_dropped": "no numeric statement at base contradicts it — the README's only promise is about entry fields (`Every entry carries provenance and coupling`), not row count — so a BASEMISMATCH pair would have to compare a word to a count. This stays a required repair (append two index rows inside the footer span, plus a correction row naming corpus/README.md) but not a ledger pair."
+  },
+  {
+   "what": "fleet report `:3` lane HEAD `c1b5b476…` (parenthetical `git ls-remote origin refs/heads/main` prints it) and `:13` `RevengerOrigins returned no report by filing time`",
+   "why_dropped": ":3 needs the network (`git ls-remote`), which no observe argv may require; :13 is TRUE of committed bytes at base (the file is absent there), so it is not red at base — it becomes a live falsehood only after the six files land, which is exactly what the content pins record. Re-pair :13 in round 75 if the report is not corrected."
+  },
+  {
+   "what": "SKILL.md:703 `(n = passing legs; measured 10/11 and 1/11)`",
+   "why_dropped": "the 10/11 value is reproducible (a clone outside the fleet tree loses the census script) but has no committed receipt; the 1/11 half does. It is an environment artefact, not a content defect, and pairing it would push the counter to grade a missing-flag accident."
+  }
+ ],
+ "sweep_inputs": [
+  {
+   "source": ".ufo/waves/round-74/w1/ScoutLedgerSweepA.md",
+   "adopted": [
+    "M4 -> LC-01 (REPAIR)",
+    "M2 -> LC-08",
+    "M1 (index rows) -> dropped_candidates, required repair",
+    "M3 (first-footer tool hazard) -> R4 + K1",
+    "M8/M9 -> dropped (SEPARABLE)"
+   ],
+   "rejected": [
+    "M5/M6/M7 as new pairs: already annotated by round-73 L01/L02/L03; LC-06/LC-07 re-pin them because the round-73 rows' new token (245) is now stale against 247",
+    "M10/M11/M12: historical revision-chain notes, no present-tense count",
+    "M13: wording ruling, not a count"
+   ]
+  },
+  {
+   "source": ".ufo/waves/round-74/w1/ScoutLedgerSweepB.md",
+   "adopted": [
+    "row 1 -> LC-02",
+    "row 2 -> LC-03",
+    "row 4 -> LC-04/LC-05/LC-13/LC-14",
+    "row 8 -> LC-09/LC-10",
+    "row 3 (Ca STAMP reproducibility) -> receipts_required caveat",
+    "row 6 (truncated r3 selftest receipt) -> note only"
+   ],
+   "rejected": [
+    "row 5 (SKILL 10/11) -> dropped_candidates",
+    "row 7 (lane HEAD c1b5b476 present-tense) -> dropped_candidates",
+    "row 9 (no RevengerOrigins report) -> content pins, not a prose pair",
+    "row 28 (163/163, battery 7/7): not run by this seat, so not ledgered"
+   ]
+  },
+  {
+   "source": ".ufo/waves/round-74/w1/ScoutLedgerSweepC.md",
+   "adopted": [
+    "LC-01..LC-16 draft ids re-measured; LC-10/LC-11 -> LC-02/LC-03, LC-12..LC-15 -> LC-06..LC-08, LC-01/LC-02 -> LC-09/LC-10, LC-03 -> LC-11 (lesson site only), LC-05 -> LC-12",
+    "G1 absence semantics -> R1",
+    "G2 counting idiom -> R2",
+    "§1 sha256 pin table -> content_pins (independently re-measured here, same values)"
+   ],
+   "rejected": [
+    "LC-04 (second F2 site in the registry) -> SEPARABLE, see dropped_candidates",
+    "LC-16 (Springer 'reachable') -> UA-dependent, no ledger pair; the lesson row already records the wall",
+    "LC-06..LC-09's `git grep -c` argv kept, but the receipt path is pinned in receipts_required instead of inferred from grep order"
+   ]
+  }
+ ],
+ "open_questions_for_L1": [
+  "Freeze the SEPARABLE separator and whether base-pinned reads of C artefacts count (R8) — LC-11's dropped twin depends on it.",
+  "Choose REPAIR (recommended, with the SKILL.md §Corpus map span added) or ANNOTATE for LC-09/LC-10 (inplace_spans.fallback).",
+  "Confirm the two receipt filenames before data; the SCORECARD rows name them.",
+  "Confirm min_pairs=12 and that R7 (no green pair at base) is a FAIL condition, not a note."
+ ]
+}

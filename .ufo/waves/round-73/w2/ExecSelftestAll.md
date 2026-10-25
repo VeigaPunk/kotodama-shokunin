@@ -23,9 +23,11 @@ commits are scratch commits inside that clone, made with `-c user.name=selftest 
 and the clone is reset to `0316b888` after every probe (`git -C /tmp/tmp.vwgSyNL6vE/lane rev-parse HEAD`
 = `0316b8883b4f8d44b8efd720140e7f52f734a102` at the end). Probe scripts and scratch ledgers live in
 `/tmp/ExecSelftestAll/`. No tool installed or upgraded (nothing was needed; `python3` and `git` sufficed).
-No live fetch was made, so QUALITY 21/22 UA records do not apply to this seat. The lane write is this file only;
-`git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin rev-parse HEAD` is still `0316b888…` and its
-untracked set is the wave-2 orchestrator's (`build-w2.py`, `w2.ready`, `w2/`).
+No live fetch was made, so QUALITY 21/22 UA records do not apply to this seat. The lane write is this file only.
+The lane advanced past the claim's lands while this seat ran (`0316b888` → `2d1cd91` → `c1b5b476`, wave-2
+orchestrator commits) and `c1b5b47` committed an in-progress copy of this report, so `git status` shows
+`.ufo/waves/round-73/w2/ExecSelftestAll.md` modified; I made no commit and no other tracked file changed under
+my hand. **Everything graded below is graded at `0316b888`**, the revision the frozen claim names.
 
 ---
 
@@ -73,7 +75,7 @@ in place. Every probe below therefore passes `--fleet-root /home/vgpnk/Projects/
 
 ## 1. Inventory — every selftest check and the leg it is mapped to
 
-### 1.1 `accept-c.py --selftest` = 29 checks (`total = 5 + len(MUTANTS)`, `:1670`)
+### 1.1 `accept-c.py --selftest` = 29 checks (`total = 5 + len(MUTANTS)`, `:1676`)
 
 The five non-mutant checks (`run_selftest`, `:1603-1658`):
 
@@ -85,8 +87,8 @@ The five non-mutant checks (`run_selftest`, `:1603-1658`):
 | 4 | `r73st-claims` (claims.json drives row_set/entries) | PASS 11/11 **and** `# config source: lands tree: row_set, entries` |
 | 5 | `r73st-claims-narrow` (row_set minus S880) | `LEG FAIL ROWS` present **and** final FAIL |
 
-The 24 mutants (`MUTANTS`/`EXPECTED_FAIL`, `:1437-1479`), each built as its own fixture and each asserted
-only as `"ACCEPT-C-73: FAIL"` **and** `"LEG FAIL <EXPECTED_FAIL[name]>"` (`:1668-1675`):
+The 24 mutants (`MUTANTS` `:1425-1450` / `EXPECTED_FAIL` `:1452-1479`), each built as its own fixture and each asserted
+only as `"ACCEPT-C-73: FAIL"` **and** `"LEG FAIL <EXPECTED_FAIL[name]>"` (`:1670-1675`):
 
 | mutant | mapped leg |
 |---|---|
@@ -117,7 +119,7 @@ only as `"ACCEPT-C-73: FAIL"` **and** `"LEG FAIL <EXPECTED_FAIL[name]>"` (`:1668
 
 So all 11 legs have at least one mutant. The uncovered surface is **inside** the legs (§2.1).
 
-### 1.2 `accept-ca.py --selftest` = 10 scenario blocks (8 print a leg table, 2 are silent)
+### 1.2 `accept-ca.py --selftest` = 10 scenario blocks (7 dump a full leg table, 1 prints only a title, 2 are silent)
 
 | # | scenario (comment tag) | asserted |
 |---|---|---|
@@ -198,7 +200,7 @@ clause is redundant with them, not independently testable.
 ```
 separable_sid            FAIL      SEPARABLE,STAMP    scanned=[… 'reports/round-73/telemetry/controls-ca-r2.txt' …
 tracked_delete           FAIL      TRACKED,STAMP      paths=2 problems=['.ufo/waves/round-72/w1/ScoutMergeScan.md absent or empty at lands']
-stamp_main_at_base       FAIL      STAMP              problems=['measured 8841ad3b896a0227674fa0725b81… != lands 0316b888…']
+stamp_main_at_base       FAIL      STAMP              problems=['measured 8841ad3b896a0227674fa0725b818c999118046f != lands 0316b8883b4f8d44b8efd720140e7f52f734a102']
 ```
 
 (`separable_sid` = `S876` appended to `reports/round-73/telemetry/controls-ca.txt`; `tracked_delete` = the
@@ -266,7 +268,13 @@ FIRST MATCH: .ufo/waves/round-73/assimilation/guard-proof/mirror-a3/corpus/SOURC
 EOF
 $ grep -n 'fail' .ufo/waves/round-73/assimilation/guard-proof/mirror-a3/corpus/SOURCES.md | head -1
 50:| S021 | DK and Hatzel 2026, … frontier models converge on a mean generic narrative; negative prompting and temperature scaling fail | queued | …
+$ python3 -c "… re.finditer(r'(?i)collision', mirror-a3/SOURCES.md) …"   # the file's only 'collision'
+'pus/knowledge/verification/phonology-sanity-gate.md, corpus/knowledge/verification/naming-collision-gate.md, corpus/knowledge/civilizations/newar-nepal.md |'
 ```
+
+Both tokens the guard check demands are incidental registry prose in a 783-row mirror copy
+(`grep -cE '^ {0,3}\| S[0-9]{3,} \|' mirror-a3/corpus/SOURCES.md` = `783`; `grep -ci collision` = `1`, and that
+one is a knowledge-file path in S002's used-by cell) — not a guard-proof statement.
 
 Deleting the proof receipt leaves the leg green:
 
@@ -281,6 +289,23 @@ recorded in the round, in the wave-1 mutation report (`MutRegistryCollision.md` 
 names and any instrument that would notice its absence. A grader reading "guard-proof" loosely as "the round's
 guard proof" would call this MAJOR instead of BLOCKER; I read it as the counter's own `GUARD_DIR`, which is the
 only thing the leg can mean to an executable counter.
+
+**State of play (post-lands, recorded so nobody re-litigates the revision):** while this seat was
+writing, the lane advanced past the claim's lands to `c1b5b476`, and commit `2d1cd91` added
+`.ufo/waves/round-73/assimilation/guard-proof/four-space-control.txt`, whose first line says it was
+"appended after wave-2 ExecSelftestAll 3.1". The counters themselves are unchanged after lands:
+
+```
+$ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin log --oneline 0316b888..HEAD -- reports/round-73/accept-c.py reports/round-73/accept-ca.py
+(no output)
+$ sha256sum reports/round-73/accept-c.py      # at HEAD
+95aee88166023f4b0dc78cda5f0f3a769e94de476f5558bd6e33650922fea416
+```
+
+The new file is a three-line narrative (`reg-ids with 4-space plant (guard): 804`, `collision detected for
+S881: 0`) with no command and no output pasted, and the counter still reads only a 1-3-space plant plus a
+marker token, so the instrument gap in this section is unchanged at HEAD. It also does not close the
+`guard_receipt_deleted` hole: the guard is still satisfied by the mirror copy.
 
 ### 3.2 MAJOR — C `EVIDENCE`: "with fetch line" is never checked
 
@@ -424,16 +449,20 @@ f8ebb5d849c9113d2d227494be0ec1403c746dd9124a505da0373e608bb97865  .ufo/waves/rou
 landed r3 file's own docstring USAGE block points at it:
 
 ```
-$ sed -n '/^USAGE/,/--selftest/p' reports/round-73/accept-ca.py
+$ sed -n '/^USAGE/,/^"""/p' reports/round-73/accept-ca.py
+USAGE
+
   python3 -B .ufo/waves/round-73/counters/accept-ca.py --root . \
       --lands <40hex> --fleet-root /home/vgpnk/Projects/shokunin
+  python3 -B .ufo/waves/round-73/counters/accept-ca.py --selftest
+"""
 ```
 
 Run it at lands:
 
 ```
 $ python3 -B .ufo/waves/round-73/counters/accept-ca.py --root . --lands 0316b888… --fleet-root /home/vgpnk/Projects/shokunin
-# ledger: reports/round-73/ledger.json source=worktree-uncommitted sha256=c912401dd511…
+# ledger: reports/round-73/ledger.json source=worktree-uncommitted sha256=c912401dd511d712567d8a704a690bf02fa4a8253a628b8e67ab9473798356b9
      NOTE ledger read from the moving worktree (not committed at lands)
 …
 ACCEPT-CA-73: PASS legs=9/9
@@ -450,7 +479,7 @@ does not mention that the `.ufo` copy exists or is stale. (The claim-C copies ar
 
 ### 4.1 C: a mutant is accepted if its mapped leg is *among* the failures
 
-The assertion is only (`:1668-1675`):
+The assertion is only (`:1670-1675`):
 
 ```
         if "ACCEPT-C-73: FAIL" not in out:
@@ -556,10 +585,12 @@ recorded because the leg text does not carry the caveat.
    controls-ca-r3.txt:ACCEPT-CA-73: FAIL legs=4/9
    ```
    and `controls-ca-r3.txt` says in its own header "STAMP is red here only because lane main has moved past base
-   (measured != lands)". With the r3 counter and the declared command (`--ledger` omitted) my run is starker
-   still: `ACCEPT-CA-73: FAIL legs=1/9` (LEDGER, BASEMISMATCH and APPENDONLY also red, because r3 refuses the
-   default ledger path in the worktree). The claim's sentence is the r1 result; the leg colouring is stale by
-   one leg and the count by four.
+   (measured != lands)". So the claim's sentence is the r1 result: r3 is one leg redder (STAMP) than the claim
+   says. With the *declared* command (`--ledger` omitted) it is starker still — r3 refuses the default ledger
+   path in the worktree, so my run at `lands == base` is `ACCEPT-CA-73: FAIL legs=1/9` (LEDGER, BASEMISMATCH,
+   REPAIR, ANNOTATE, NOSTUB, APPENDONLY, TRACKED, STAMP red; SEPARABLE green). The control's purpose
+   (do-nothing must fail) survives all three readings; the claim's five-green colouring is not reproducible
+   from the command the claim itself declares.
 4. `claims.json` claim Ca — "the min-pairs gate (SELFTEST OK: **9 scenarios**, reports/round-73/telemetry/selftest.txt)";
    the landed counter prints `SELFTEST OK: 10 scenarios`. `selftest.txt` is the r1 receipt (sha `f8ebb5d8…`).
 5. `accept-ca.py:1332` — the summary claims "10 scenarios" but enumerates **nine**, and the one it omits is
