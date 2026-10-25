@@ -93,3 +93,6 @@ Registry 784 → 797 rows (S861–S873 opened and mined this round); census exit
 at start (`reports/round-71/telemetry/census-start.txt`) and end
 (`census-end.txt`, W04=28 standing); README sweep exit 0. Claim C is the
 sourced claim: its 13 rows are this Gate.
+
+
+Wave-2 re-open refinement (ScoutReopenRows): verdicts 10/6/5 re-confirmed; two REFUSED rows are URL↔quote mispairings rather than payload loss — S779's spans live verbatim on wlt.hubei.gov.cn (national-list article), S814's fragment is an NDC10 classification note in the NDL `NDC10code202206.pdf`. S795/S804 PRESENT anchors need the page-number-stripped/`，`-variant forms. This nuance is logged for the adoption round; adoption stays CLOSED.
