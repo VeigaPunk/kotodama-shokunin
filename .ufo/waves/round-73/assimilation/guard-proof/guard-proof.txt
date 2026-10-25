@@ -1,0 +1,37 @@
+## 0. inputs
+lane registry : /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+staged package: /home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md
+census parser accepts 0-3 leading ASCII spaces (sources-census.sh:40-42; row_pass/usedby_findings use ^ {0,3})
+
+## 1. fixture A1 — unmodified copy (baseline, no planted row)
+census rows: 799
+validate exit: 0  (E-codes: 0; W-codes: 28)
+A1 ids: reg.col0=799 reg.guard=799 staged=132
+A1 collisions: col0=17 guard=17 -> identical: yes
+
+## 2. fixture A2 — same copy + PLANTED INDENTED row (2 spaces) before the closing table
+S875 row at scratch line: 830
+planted line, leading spaces + first 60 chars (cat -A):
+831:  | S881 | Planted guard fixture (Enguehard 2022, ojs.unito.it art$
+leading-space count on planted line: 2
+census rows (parser sees the indented row): 800
+validate exit: 0  (E-codes: 0; W-codes: 28)
+validate findings naming S881 (must be none): 0
+A2 ids: reg.col0=799 reg.guard=800 (guard must be +1)
+A2 control (column-zero-only): sees S881? 0  collisions=17
+A2 guard   (0-3 spaces)     : sees S881? 1  collisions=18
+A2 delta (guard minus control):
+  S881
+
+## 3. fixture A3 — separability: copy with the 17 pre-existing colliding rows dropped, planted indented row kept
+A3 rows dropped: 17; census rows: 783
+validate exit: 0  (E-codes: 0; W-codes: 28)
+A3 control (column-zero-only) collisions: 0 -> 
+A3 guard   (0-3 spaces)      collisions: 1 -> S881 
+
+## 4. real pair (no fixture) — the item-10 command exactly as written in CORPUS.md
+reg-ids=799 staged-ids=132 collisions=17
+real column-zero-only control collisions: 17 (identical -> no indented row hides a collision today)
+
+## 5. verdict
+GUARD-PROOF: PASS

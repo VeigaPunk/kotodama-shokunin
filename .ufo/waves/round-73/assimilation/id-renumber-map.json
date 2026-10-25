@@ -1,0 +1,138 @@
+{
+  "round": 73,
+  "wave": "w1",
+  "seat": "ExecRenumber",
+  "drafted": "2026-10-25",
+  "supersedes": ".ufo/waves/round-71/assimilation/id-renumber-map.json",
+  "superseded_file_untouched": true,
+  "companion": ".ufo/waves/round-73/assimilation/id-renumber-map-draft.json (ScoutMapIds) — same five targets; this file adds the per-row collision class and the round-71 staleness re-derivation",
+  "namespace_rule": "Three namespaces — staged (shokuknow/merge/kotodama/SOURCES.append.md, S859..S990, 132 rows), register (absent-defect-register kotodama slice, S776..S835, 21 data rows), lane (corpus/SOURCES.md, S001..S875, 799 rows). Numeric equality across namespaces is meaningful only as a defect signal. Documents are joined by URL, never by id.",
+  "namespace_numeric_overlap": {
+    "register_slice_vs_lane": "20 of 21 register slice ids are also lane ids (only S778 is not) — see .ufo/waves/round-73/assimilation/register-id-overlap.txt",
+    "register_slice_vs_staged": "0 of 21",
+    "staged_vs_lane": "17 of 132 (S859..S875)"
+  },
+  "registry_state": {
+    "path": "corpus/SOURCES.md",
+    "rows": 799,
+    "distinct_ids": 799,
+    "first": "S001",
+    "last": "S875",
+    "next_free": "S876",
+    "next_free_rule": "append-only continues from max(lane id)+1, not from the first unoccupied number",
+    "unoccupied_lane_numbers_below_max": {
+      "count": 76,
+      "ranges": ["S455-S480", "S492-S499", "S544-S559", "S563", "S577-S599", "S777-S778"],
+      "note": "these holes must NOT be filled by adoption (append-only, CORPUS rule 2); they exist because rows were superseded/withdrawn historically"
+    }
+  },
+  "collision_check": {
+    "pattern": "^ {0,3}\\|[[:space:]]*S[0-9]{3,}",
+    "control_pattern": "^\\|[[:space:]]*S[0-9]{3,} (column-zero-only; false-greens an indented row)",
+    "reg_ids_count": 799,
+    "staged_ids_count": 132,
+    "collision_count": 17,
+    "collision_set": ["S859", "S860", "S861", "S862", "S863", "S864", "S865", "S866", "S867", "S868", "S869", "S870", "S871", "S872", "S873", "S874", "S875"],
+    "guard_proof": ".ufo/waves/round-73/assimilation/guard-proof/guard-proof.txt (GUARD-PROOF: PASS; planted 2-space-indented `  | S881 |` row: control sees 0, guard sees 1, census-valid exit 0)"
+  },
+  "collision_classes": {
+    "numeric_only": {
+      "ids": ["S859", "S860", "S861", "S862", "S863", "S864", "S865", "S866", "S867", "S868", "S869", "S870", "S871", "S872", "S873", "S874", "S875"],
+      "count": 17,
+      "meaning": "every same-number staged/lane pair names a DIFFERENT document (checked URL-normalized, 17/17 false); these staged rows need renumbering only if ever adopted"
+    },
+    "document_already_in_lane": {
+      "count": 3,
+      "rows": [
+        {"staged_id": "S863", "lane_id": "S874", "url": "ihchina.cn/project.html"},
+        {"staged_id": "S967", "lane_id": "S874", "url": "web.archive.org/web/20200216023423id_/http://www.ihchina.cn/project.html"},
+        {"staged_id": "S867", "lane_id": "S875", "url": "online.bunka.go.jp/db/heritages/search"}
+      ],
+      "meaning": "already adopted by URL under a different lane id; adopting them again would be a within-scope URL duplicate (census E04) — refuse or supersede, never renumber into a new id"
+    }
+  },
+  "assignments": [
+    {
+      "staged_id": "S881",
+      "staged_line": 29,
+      "document": "Guillaume Enguehard (2022), \"Teaching linguistic methods with conlangs\", RiCOGNIZIONI 9(18), DOI 10.13135/2384-8987/7099",
+      "url": "https://ojs.unito.it/index.php/ricognizioni/article/view/7099",
+      "old_target_round71": "S896",
+      "new_target": "S876",
+      "evidence": "cited by conlang-scholarship.md:4 (source: line, URL identical); lane rows containing ojs.unito.it = 0; S876 absent from reg-ids"
+    },
+    {
+      "staged_id": "S882",
+      "staged_line": 30,
+      "document": "М.Ю. Сидорова, О.Н. Шувалова (2006), «Интернет-лингвистика: вымышленные языки», М.: «1989.ру», 184 с., ISBN 5-98789-005-5 (announcement booklet)",
+      "url": "http://www.philol.msu.ru/~sidorova/files/conlangs.pdf",
+      "old_target_round71": "S897",
+      "new_target": "S877",
+      "evidence": "cited by conlang-scholarship.md:5; lane rows containing philol.msu.ru = 0; S877 absent from reg-ids"
+    },
+    {
+      "staged_id": "S892",
+      "staged_line": 40,
+      "document": "Новиков Ф.Н. (2022), «Искусственные языки как семантические и семиотические системы», Вестник РУДН 13(2): 455–467, DOI 10.22363/2313-2299-2022-13-2-455-467",
+      "url": "https://journals.rudn.ru/semiotics-semantics/article/viewFile/31528/20955",
+      "old_target_round71": "S907",
+      "new_target": "S878",
+      "evidence": "cited by conlang-scholarship.amend-2026-10-23.md:30; lane rows containing journals.rudn.ru = 0; S878 absent from reg-ids"
+    },
+    {
+      "staged_id": "S893",
+      "staged_line": 41,
+      "document": "Костюхин А.А. (2023), «Классификации конлангов в современной интерлингвистике», Вестник МГЛУ Гуманитарные науки 2023/2(870): 28–34, DOI 10.52070/2542-2197_2023_2_870_28",
+      "url": "https://cyberleninka.ru/article/n/klassifikatsii-konlangov-v-sovremennoy-interlingvistike",
+      "old_target_round71": "S908",
+      "new_target": "S879",
+      "evidence": "cited by conlang-scholarship.amend-2026-10-23.md:31; lane rows containing cyberleninka.ru = 0; S879 absent from reg-ids"
+    },
+    {
+      "staged_id": "S901",
+      "staged_line": 49,
+      "document": "Anderson, Grant, Sanders, \"Building capacity for the scholarship of teaching and learning in linguistics in Canada\", CJL/ACL special-issue opening article (Phonology Lab copy)",
+      "url": "https://sanders.phonologist.org/Papers/anderson-etal-cjl-sotl.pdf",
+      "old_target_round71": "S916",
+      "new_target": "S880",
+      "evidence": "cited by conlang-scholarship.amend-2026-10-23.md:4; lane rows containing sanders.phonologist.org = 0; S880 absent from reg-ids"
+    }
+  ],
+  "assignment_order_rule": "staged-id ascending. Order is a free choice: the binding constraint is per-row URL identity (the counter must check each target row's URL against the cited document), never arithmetic. Entry reading order is not the rule — the amend cites S901 first and is still mapped after S892/S893.",
+  "conditional_assignments": [
+    {
+      "staged_id": "S894",
+      "staged_line": 42,
+      "document": "Sowers-Wills (2024), \"Phonology from the Inside Out\", CJL 69(3): 307–332, DOI 10.1017/cnj.2024.21",
+      "url": "https://doi.org/10.1017/cnj.2024.21",
+      "cited_by": "conlang-scholarship.amend-2026-10-23.md:32 plus three inline mentions",
+      "register_row": "S812 (absent-defect-register, quarantine)",
+      "old_target_round71": "S909",
+      "new_target_if_admitted": "S881",
+      "trap": "lane S881 would then numerically equal staged S881 (Enguehard) — a different document. Legal under the three-namespace rule, but every later join must stay URL-based. If the quarantine seat refuses S894, the amend must drop line 32 and its three inline S894 mentions (claim kill rule), and no sixth id is issued."
+    }
+  ],
+  "not_assigned": {
+    "count": 126,
+    "reason": "only rows the admitted entries cite are adopted (CORPUS rule 4); the remaining staged families (naming systems, calendar/era, narrative theory, verification) are not adopted this round and keep their staged ids, which are campaign-local and mean nothing in the lane",
+    "includes": "the 17 colliding staged ids (S859..S875) — renumber from the lane's then-current max on any future adoption, by document"
+  },
+  "stale_entries": {
+    "old_map_state": {"registry_count": 797, "next_free": "S874", "span": "S874→S1005", "entries": 132, "collisions": 15, "offset": "+15 arithmetic"},
+    "entries_now_on_occupied_ids": [
+      {"staged_id": "S859", "old_target": "S874", "lane_occupant_document": "中国非物质文化遗产网 project list — https://www.ihchina.cn/project.html", "staged_document": "GB/T 33661-2017 农历 standard record — https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296", "class": "target occupied by an unrelated document"},
+      {"staged_id": "S860", "old_target": "S875", "lane_occupant_document": "文化遺産データベース（文化庁）文化財検索 — https://online.bunka.go.jp/db/heritages/search", "staged_document": "紫金山天文台 GB/T 33661-2017 解读材料 PDF", "class": "target occupied by an unrelated document"}
+    ],
+    "entries_targeting_free_but_wrong_ids": {
+      "count": 130,
+      "detail": "targets S876..S1005 are all unoccupied, but the +15 offset is dead: the lane appended 2 rows after the map was written, so the next free id is S876, and the five theme rows must land at S876..S880 — 20 ids below the old map's S896/S897/S907/S908/S916."
+    },
+    "stale_collision_list": {"old": "S859..S873 (15)", "now": "S859..S875 (17)"},
+    "verdict": "the round-71 map is unusable as written: 2 entries point at live rows, all 132 targets carry a dead offset, and its collision list is two ids short. Superseded by this file; the round-71 bytes are untouched."
+  },
+  "campaign_id_defects": [
+    {"cited_id": "S728", "in": "conlang-scholarship.md:11", "lane_document": "Henrike Frye 2022, Child-directed Speech in Qaqet", "class": "campaign id naming an unrelated lane document — must not survive in an admitted entry"},
+    {"cited_id": "S769", "in": "conlang-scholarship.amend-2026-10-23c.md:14", "lane_document": "Opie & Opie, The Lore and Language of Schoolchildren", "class": "same"},
+    {"cited_id": "S806", "in": "conlang-scholarship.amend-2026-10-24.md:42 and conlang-methodology.amend-2026-10-24.md:17", "lane_document": "Jaiswal & Williams, \"A glimpse of Ayurveda\"", "class": "same"}
+  ]
+}

@@ -1,0 +1,150 @@
+{
+ "round": 73,
+ "claim": "Ca",
+ "base": "8841ad3b896a0227674fa0725b818c999118046f",
+ "fleet_pin": "80d8c9b576d45d3c390e1e8edc6c149cfb698483",
+ "frozen_note": "Ledger declared before data; every observe_cmd reads committed bytes inside a materialized clone (git ls-tree at the pinned base for counts, so landing claim C cannot move them). stated_text/stated_at are read at the BASE revision. REPAIR pairs are green when the statement re-read at <lands> (statement_after, last occurrence) equals the truth observed at <lands> and differs from the base statement; ANNOTATE pairs stay wrong as filed and are closed by a SCORECARD correction row naming id + stated token + observed token + re-derivation command.",
+ "must_track": [
+  ".ufo/waves/round-72/w1/ScoutMergeScan.md",
+  ".ufo/waves/round-72/w1/ScribeLesson.md"
+ ],
+ "pairs": [
+  {
+   "id": "L01",
+   "stated_at": "corpus/README.md:732",
+   "stated_text": "Total knowledge entries: 243.",
+   "stated_parse": "entries: (\\d+)",
+   "observe_cmd": [
+    "python3",
+    "-c",
+    "import subprocess;print(len([l for l in subprocess.run(['git','ls-tree','-r','--name-only','8841ad3b896a0227674fa0725b818c999118046f','corpus/knowledge'],capture_output=True,text=True).stdout.split() if l.endswith('.md')]))"
+   ],
+   "parse": "^(\\d+)$",
+   "expected_after": "245",
+   "disposition": "ANNOTATE",
+   "rederive": "git ls-tree -r --name-only 8841ad3b896a0227674fa0725b818c999118046f corpus/knowledge (count the .md paths) -> 245"
+  },
+  {
+   "id": "L02",
+   "stated_at": "corpus/README.md:407",
+   "stated_text": "## culture-material/ (36)",
+   "stated_parse": "\\((\\d+)\\)",
+   "observe_cmd": [
+    "python3",
+    "-c",
+    "import subprocess;print(len([l for l in subprocess.run(['git','ls-tree','-r','--name-only','8841ad3b896a0227674fa0725b818c999118046f','corpus/knowledge/culture-material'],capture_output=True,text=True).stdout.split() if l.endswith('.md')]))"
+   ],
+   "parse": "^(\\d+)$",
+   "expected_after": "38",
+   "disposition": "ANNOTATE",
+   "rederive": "git ls-tree -r --name-only 8841ad3b896a0227674fa0725b818c999118046f corpus/knowledge/culture-material (count the .md paths) -> 38"
+  },
+  {
+   "id": "L03",
+   "stated_at": "corpus/README.md:736",
+   "stated_text": "(total 243 files; directory totals 30/29/36/29/24/95).",
+   "stated_parse": "total (\\d+) files",
+   "observe_cmd": [
+    "python3",
+    "-c",
+    "import subprocess;print(len([l for l in subprocess.run(['git','ls-tree','-r','--name-only','8841ad3b896a0227674fa0725b818c999118046f','corpus/knowledge'],capture_output=True,text=True).stdout.split() if l.endswith('.md')]))"
+   ],
+   "parse": "^(\\d+)$",
+   "expected_after": "245",
+   "disposition": "ANNOTATE",
+   "rederive": "git ls-tree -r --name-only 8841ad3b896a0227674fa0725b818c999118046f corpus/knowledge (count the .md paths) -> 245; python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge"
+  },
+  {
+   "id": "L04",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "`:468` (Error patterns)",
+   "stated_parse": ":(\\d+)`",
+   "observe_cmd": [
+    "grep",
+    "-n",
+    "-E",
+    "^## Error patterns$",
+    "SKILL.md"
+   ],
+   "parse": "^(\\d+):",
+   "expected_after": "505",
+   "disposition": "REPAIR",
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": ":(\\d+)` \\(Error patterns\\)"
+   },
+   "rederive": "grep -n -E '^## Error patterns$' SKILL.md"
+  },
+  {
+   "id": "L05",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "`:522` (Checklist)",
+   "stated_parse": ":(\\d+)`",
+   "observe_cmd": [
+    "grep",
+    "-n",
+    "-E",
+    "^## Checklist \\(executable where a tool exists\\)$",
+    "SKILL.md"
+   ],
+   "parse": "^(\\d+):",
+   "expected_after": "564",
+   "disposition": "REPAIR",
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": ":(\\d+)` \\(Checklist\\)"
+   },
+   "rederive": "grep -n -E '^## Checklist' SKILL.md"
+  },
+  {
+   "id": "L06",
+   "stated_at": "SCORECARD.md:1401",
+   "stated_text": "ACCEPT-CA-72 PASS legs=12/12 at the measured revision",
+   "stated_parse": "ACCEPT-CA-72 (PASS) legs",
+   "observe_cmd": [
+    "grep",
+    "-ho",
+    "ACCEPT-CA-72: [A-Z]*",
+    "reports/round-72/telemetry/measures-ca.txt"
+   ],
+   "parse": "ACCEPT-CA-72: ([A-Z]+)",
+   "expected_after": "FAIL",
+   "disposition": "ANNOTATE",
+   "rederive": "grep -ho 'ACCEPT-CA-72: [A-Z]*' reports/round-72/telemetry/measures-ca.txt"
+  },
+  {
+   "id": "L07",
+   "stated_at": "LOG.md:4280",
+   "stated_text": "pre-data corrections F1-F9 + SCOUT-LIVE documented there",
+   "stated_parse": "corrections (F1-F9)",
+   "observe_cmd": [
+    "python3",
+    "-c",
+    "import json;d=json.load(open('reports/round-72/claims.json'));print(', '.join(c['id'] for c in d['pre_data_corrections']))"
+   ],
+   "parse": "^(.+)$",
+   "expected_after": "F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIVE",
+   "disposition": "ANNOTATE",
+   "rederive": "python3 -c \"import json;print(', '.join(c['id'] for c in json.load(open('reports/round-72/claims.json'))['pre_data_corrections']))\""
+  },
+  {
+   "id": "L08",
+   "stated_at": "SKILL.md:697",
+   "stated_text": "| accept-o-69 | gate |",
+   "stated_parse": "(accept-[a-z]+-\\d+)",
+   "observe_cmd": [
+    "python3",
+    "-c",
+    "import pathlib,re;fs=[(int(re.search(r'round-(\\d+)',str(p)).group(1)),p.stem) for p in pathlib.Path('reports').glob('round-*/accept-*.py')];r,n=max(fs);print(n+'-'+str(r))"
+   ],
+   "parse": "^(accept-[a-z]+-\\d+)$",
+   "expected_after": "accept-ca-73",
+   "disposition": "REPAIR",
+   "statement_after": {
+    "path": "SKILL.md",
+    "parse": "(?s).*\\| (accept-[a-z]+-\\d+) \\|"
+   },
+   "rederive": "python3 -c \"import pathlib,re;print(max((int(re.search(r'round-(\\d+)',str(p)).group(1)),p.stem) for p in pathlib.Path('reports').glob('round-*/accept-*.py')))\"; grep -n '^| accept-' SKILL.md"
+  }
+ ]
+}

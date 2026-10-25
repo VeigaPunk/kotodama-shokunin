@@ -1,0 +1,143 @@
+{
+  "round": 73,
+  "drafted": "2026-10-25",
+  "base": "8841ad3b896a0227674fa0725b818c999118046f",
+  "lane": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "fleet_root": "/home/vgpnk/Projects/shokunin",
+  "status": "DRAFT-v0 for wave-1 attack; not the frozen reports/round-73/ledger.json",
+  "convention": "observe_cmd is an argv list run with cwd=<lane>; the observed value is the number of stdout lines matching parse (a regex applied line-wise) and the matched text is quoted in observed_at_base. Every observed_at_base below was produced by running that command at base 8841ad3 on 2026-10-25 (transcript: .ufo/waves/round-73/w1/ExecLedger.md). disposition REPAIR = live statement or committed-tree state corrected at <lands>; ANNOTATE = filed-history statement, corrected only by a SCORECARD '## Corrections — round 73' row carrying pair id + stated token + observed token + re-derivation command. Pairs whose mismatch did not reproduce are NOT-A-MISMATCH and are deliberately absent here (listed in the seat report).",
+  "pairs": [
+    {
+      "id": "P01",
+      "stated_at": "LOG.md:4284",
+      "stated_text": "Seat reports in .ufo/waves/round-72/w1/.",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "ls-files", "--others", "--exclude-standard", "--", ".ufo/waves/round-72"],
+      "parse": "^\\.ufo/waves/round-72/w1/(ScoutMergeScan|ScribeLesson)\\.md$",
+      "observed_at_base": "2 matches: .ufo/waves/round-72/w1/ScoutMergeScan.md and .ufo/waves/round-72/w1/ScribeLesson.md are untracked at 8841ad3; the other 34 files in that dir are tracked (32 seat reports + dispatch.json, dispatch.err, spec.json, swarm-registry.json). The round-72 verifier record states the same defect at corpus/lessons/round-72-verifier-spotcheck.md:14 ('defect R1').",
+      "expected_after": "0 matches: both files tracked, so git ls-files .ufo/waves/round-72/w1 lists all 36 files in the directory.",
+      "disposition": "REPAIR",
+      "why": "This is committed-tree state, not a filed statement: the two seat reports were written but never added. Repair is a plain git add; no filed text asserts the untracked state, so no correction row is owed. This command reads the worktree/index by necessity (ls-files --others), which is the only way to observe an untracked file."
+    },
+    {
+      "id": "P02",
+      "stated_at": "SCORECARD.md:1401",
+      "stated_text": "ACCEPT-CA-72 PASS legs=12/12 at the measured revision",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-n", "-H", "-E", "^ACCEPT-CA-72: (PASS|FAIL) legs=12/12$", "8841ad3b896a0227674fa0725b818c999118046f", "--", "reports/round-72/telemetry"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:reports/round-72/telemetry/[^:]+:[0-9]+:ACCEPT-CA-72: (PASS|FAIL) legs=12/12$",
+      "observed_at_base": "2 matches, both FAIL: measures-ca.txt:29 ('ACCEPT-CA-72: FAIL legs=12/12', the round-72 measures receipt; failing legs REPORTCORR fleet-rev=MISSING and REPORTLAST report-names-lands=False) and controls-ca.txt:28 (the committed do-nothing control, whose FAIL is correct by design). Zero PASS-stamped CA-72 receipts exist at base.",
+      "expected_after": "At least one match with verdict PASS, from a NEW append-only receipt under reports/round-72/telemetry/ stamped at lands 21ad3088cb64f7275e5541804e168f15d21d26d0 (tree e4e490892002c6621e75df5542530b987c5ea078), counter sha256 f080c240ffdc47f0, produced inside a materialized clone (QUALITY 17/19). measures-ca.txt and controls-ca.txt bytes stay unchanged: both FAIL lines remain as the dated records they were, so the counter must require the PASS from a path other than those two.",
+      "disposition": "REPAIR",
+      "why": "Repair is available, so ANNOTATE is not the honest disposition. Reran the round-72 counter at base on 2026-10-25: python3 -B reports/round-72/accept-ca.py --root . --lands 21ad3088cb64f7275e5541804e168f15d21d26d0 --fleet-root /home/vgpnk/Projects/shokunin -> 'ACCEPT-CA-72: PASS legs=12/12', exit 0, with REPORTCORR fleet-rev=80d8c9b576d4, REPORTLAST commits=10 report-names-lands=True, NOHARM census exit=0. The run's own counter self-hash f080c240ffdc47f0 equals the receipt header's stamp and the run's lands tree e4e490892002c662 equals the receipt header's tree, so the only variable that moved is the fleet report's last-touch commit. The committed FAIL was stamped before that errata commit landed. Caveat for wave 2: my rerun was worktree-rooted and is evidence, not the receipt; the receipt must be produced inside a materialized clone of lands."
+    },
+    {
+      "id": "P03",
+      "stated_at": "SKILL.md:697",
+      "stated_text": "| accept-o-69 | gate |",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-n", "-E", "^\\| accept-(c|ca|d)-71 \\|", "8841ad3b896a0227674fa0725b818c999118046f", "--", "SKILL.md"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:SKILL\\.md:[0-9]+:\\| accept-(c|ca|d)-71 \\|",
+      "observed_at_base": "0 matches. The registry's last accept-* row is accept-o-69 at SKILL.md:697, yet three round-71 gate files exist at base: reports/round-71/accept-c.py, accept-ca.py, accept-d.py (git ls-tree -r --name-only 8841ad3 -- reports/round-71).",
+      "expected_after": "3 rows present, one per round-71 gate file (accept-c-71, accept-ca-71, accept-d-71), each in the house row shape of accept-o-69: entry command, verdict map, self-test cell, '—' pinned values, 'read-only; selftest scratch' write scope, owner kotodama-shokunin.",
+      "disposition": "REPAIR",
+      "why": "Live registry table; claim Ca's APPENDONLY leg explicitly permits in-place edits to SKILL.md registry rows, and each edit must be listed in the ledger. Correction to the claim text for freeze: R3 as drafted says 'accept-ca-70..72 / accept-c-70..72', but reports/round-70 contains no accept-*.py at all (claims.json, corrections-r69.md, telemetry only), so no round-70 row is owed. The real gap is five rows: c-71, ca-71, d-71 (this pair) and c-72, ca-72 (P04)."
+    },
+    {
+      "id": "P04",
+      "stated_at": "SKILL.md:697",
+      "stated_text": "| accept-o-69 | gate |",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-n", "-E", "^\\| accept-(c|ca)-72 \\|", "8841ad3b896a0227674fa0725b818c999118046f", "--", "SKILL.md"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:SKILL\\.md:[0-9]+:\\| accept-(c|ca)-72 \\|",
+      "observed_at_base": "0 matches. Two round-72 gate files exist at base: reports/round-72/accept-c.py and reports/round-72/accept-ca.py (the two counters SCORECARD:1401-1402 cite as this round's re-run commands).",
+      "expected_after": "2 rows present (accept-c-72, accept-ca-72) with the entry command 'python3 -B reports/round-72/accept-c.py --root .' / '... accept-ca.py --root . --lands <lands>', verdict maps matching the counters' printed verdict lines, read-only write scope, owner kotodama-shokunin.",
+      "disposition": "REPAIR",
+      "why": "Same live table, same permitted in-place edit, different gate family. Split from P03 because the row shapes differ (accept-ca-72 takes --lands; accept-c-72 does not) and a counter must be able to check each row's own command string."
+    },
+    {
+      "id": "P05",
+      "stated_at": "corpus/README.md:732",
+      "stated_text": "Total knowledge entries: 243.",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "ls-tree", "-r", "--name-only", "8841ad3b896a0227674fa0725b818c999118046f", "--", "corpus/knowledge"],
+      "parse": "^corpus/knowledge/[^/]+/[^/]+\\.md$",
+      "observed_at_base": "245 matches at base. Cross-checked two ways at the same revision: find corpus/knowledge -type f -name '*.md' | wc -l = 245, and python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge -> totals.files = 245 with read_only true. README states 243.",
+      "expected_after": "corpus/README.md carries a dated appended line 'Total knowledge entries: 245.' (so '^Total knowledge entries: 245\\.$' matches) and the superseded 243 line survives as the dated record it was.",
+      "disposition": "REPAIR",
+      "why": "Live footer of the corpus index, not a filed round record. Cause traced in git: 243 was written at 498db73 (round-71 dance landing); round-72's 770100f added culture-material/heritage-taxonomy-models.md and its .amend-2026-10-24-r13.md with no README reconcile. The footer's own 'Counts checked 2026-10-25' stamp therefore predates a same-day landing, which is why re-measurement, not arithmetic, is the repair."
+    },
+    {
+      "id": "P06",
+      "stated_at": "corpus/README.md:407",
+      "stated_text": "## culture-material/ (36)",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "ls-tree", "-r", "--name-only", "8841ad3b896a0227674fa0725b818c999118046f", "--", "corpus/knowledge/culture-material"],
+      "parse": "^corpus/knowledge/culture-material/[^/]+\\.md$",
+      "observed_at_base": "38 matches; the heading declares 36. The other five headings reproduce exactly at base: linguistics (30) = 30, myth-symbol (29) = 29, synthesis (29) = 29, verification (24) = 24, civilizations (95) = 95.",
+      "expected_after": "Heading reads '## culture-material/ (38)' and the footer's counts-checked cell reads 30/29/38/29/24/95, in the same dated re-measurement as P05 and P12.",
+      "disposition": "REPAIR",
+      "why": "Live index heading. The delta is exactly the two round-72 entries, so this pair and P05 share one repair commit; keeping them separate stops a counter from accepting a totals-only edit that leaves the partition heading lying."
+    },
+    {
+      "id": "P07",
+      "stated_at": "corpus/README.md:3",
+      "stated_text": "revision: 2.21 — Round-71 culture-material landing (2026-10-25): one",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-c", "heritage-taxonomy", "8841ad3b896a0227674fa0725b818c999118046f", "--", "corpus/README.md"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:corpus/README\\.md:[0-9]+$",
+      "observed_at_base": "0 matches (git grep -c exits 1 and prints nothing): the index carries no row for heritage-taxonomy-models.md or its amendment, while both files are tracked under corpus/knowledge/culture-material/. The newest revision block in the file is 2.21 (round-71), i.e. the index was never revised for the round-72 landing.",
+      "expected_after": "2 rows under '## culture-material/' naming heritage-taxonomy-models.md and heritage-taxonomy-models.amend-2026-10-24-r13.md, plus a revision block for the round-72 landing; 'git grep -c heritage-taxonomy 8841ad3 -- corpus/README.md' then matches 2 lines.",
+      "disposition": "REPAIR",
+      "why": "Live index. The lane already treats an unindexed entry as a defect rather than a style choice: corpus/knowledge/verification/index-sweep-verification.md:40 requires the totals line to equal the file total and one row per entry."
+    },
+    {
+      "id": "P08",
+      "stated_at": "SHONEN.md:6",
+      "stated_text": "`:468` (Error patterns)",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-n", "-E", "^## Error patterns$", "8841ad3b896a0227674fa0725b818c999118046f", "--", "SKILL.md"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:SKILL\\.md:([0-9]+):## Error patterns$",
+      "observed_at_base": "1 match at SKILL.md:505; SHONEN states :468, which no longer lands on the heading.",
+      "expected_after": "SHONEN.md:6 reads `:505` (Error patterns).",
+      "disposition": "REPAIR",
+      "why": "Live promotion-checklist pointer: SKILL.md grew and the pointer did not follow. SHONEN.md is not in claim Ca's APPENDONLY file set (LOG.md, SCORECARD.md, corpus/lessons/round-72.md, corpus/lessons/round-71.md, fleet report), so an in-place pointer fix is permitted and is listed here as the claim requires. The sibling pointer `SKILL.md:20` (Decision table) is correct and is NOT a pair."
+    },
+    {
+      "id": "P09",
+      "stated_at": "SHONEN.md:6",
+      "stated_text": "`:522` (Checklist)",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-n", "-E", "^## Checklist \\(executable where a tool exists\\)$", "8841ad3b896a0227674fa0725b818c999118046f", "--", "SKILL.md"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:SKILL\\.md:([0-9]+):## Checklist \\(executable where a tool exists\\)$",
+      "observed_at_base": "1 match at SKILL.md:564; SHONEN states :522.",
+      "expected_after": "SHONEN.md:6 reads `:564` (Checklist).",
+      "disposition": "REPAIR",
+      "why": "Second stale pointer on the same SHONEN line, distinct token and distinct re-derivation command; split from P08 so a partial repair cannot pass the counter."
+    },
+    {
+      "id": "P10",
+      "stated_at": "SHONEN.md:6 (repeated verbatim at :8, :10, :12)",
+      "stated_text": "no non-author verifier on record",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-n", "-E", "^author: hyaku closure \\(non-author integrator", "8841ad3b896a0227674fa0725b818c999118046f", "--", "corpus/lessons/round-72-verifier-spotcheck.md"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:corpus/lessons/round-72-verifier-spotcheck\\.md:[0-9]+:author: hyaku closure \\(non-author integrator",
+      "observed_at_base": "1 match at corpus/lessons/round-72-verifier-spotcheck.md:3 — a committed non-author verifier record exists (title: 'Round 72 — verifier spot-check (hyaku closure)', author '@m_kfc'), while SHONEN carries the phrase 'no non-author verifier on record' 4 times (:6, :8, :10, :12).",
+      "expected_after": "0 occurrences of 'no non-author verifier on record' in SHONEN.md; each of the four boxes names the record (corpus/lessons/round-72-verifier-spotcheck.md, 2026-10-25, @m_kfc) and states that it did not promote the box — the record's Step-1 row logs the boxes as 'author assertions' — so every mark stays `[~]`.",
+      "disposition": "REPAIR",
+      "why": "Live checklist text. The literal claim (no non-author verifier record on file) is false at base: a non-author verifier spot-check is committed. The honest repair names the record and its non-promotion, not a mark flip; if the promotion gate instead requires a per-box adjudication, the phrase is still misleading because a reader cannot tell a missing record from a record that declined to adjudicate. Either reading is served by naming the record and saying it did not promote the boxes."
+    },
+    {
+      "id": "P11",
+      "stated_at": "LOG.md:4280",
+      "stated_text": "pre-data corrections F1-F9 + SCOUT-LIVE documented there",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-c", "\"id\": \"F7\"", "8841ad3b896a0227674fa0725b818c999118046f", "--", "reports/round-72/claims.json"],
+      "parse": "^8841ad3b896a0227674fa0725b818c999118046f:reports/round-72/claims\\.json:[0-9]+$",
+      "observed_at_base": "0 matches: the committed pre_data_corrections ids at base (and already at the freeze commit a7ab3bd, whose message repeats 'F1-F9') are F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIVE. F7 has no entry, so the range token 'F1-F9' names an id that is not documented; the fleet report .ufo/reports/round-72/kotodama.md:7 repeats the same range.",
+      "expected_after": "A SCORECARD.md row under '## Corrections — round 73' naming P11, the stated token 'F1-F9', the observed id set 'F1, F2/F3, F4, F5, F6, F8, F9, SCOUT-LIVE (F7 absent)' and the re-derivation command 'git -C <lane> grep -c \"\\\"id\\\": \\\"F7\\\"\" 8841ad3 -- reports/round-72/claims.json'.",
+      "disposition": "ANNOTATE",
+      "why": "Annotate-only: the statement lives in filed history (LOG.md round-72 entry and the fleet report are frozen bytes this lane may not rewrite). The count is not the defect — eight entries cover nine numbered slots plus SCOUT-LIVE — the defect is the range token implying a documented F7. Nothing in the live tree can make 'F1-F9' true without rewriting frozen bytes, which the claim's kill rule forbids."
+    },
+    {
+      "id": "P12",
+      "stated_at": "corpus/README.md:736",
+      "stated_text": "(total 243 files; directory totals 30/29/36/29/24/95).",
+      "observe_cmd": ["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "ls-tree", "-r", "--name-only", "8841ad3b896a0227674fa0725b818c999118046f", "--", "corpus/knowledge"],
+      "parse": "^corpus/knowledge/[^/]+/[^/]+\\.md$",
+      "observed_at_base": "245 matches; this counts-checked line states 243 and culture-material 36, while the tree holds 245 and 38. Its own named measuring command (python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge) returns totals.files = 245 at base, so the line contradicts its own instrument.",
+      "expected_after": "The counts-checked line reads '(total 245 files; directory totals 30/29/38/29/24/95).' as a dated re-measurement, with the 243 reading preserved as superseded text.",
+      "disposition": "REPAIR",
+      "why": "Distinct token from P05 on the same footer: P05 is the totals statement, P12 is the evidence line naming the measuring command. Repairing only one leaves the footer self-contradictory (a stale evidence line beside a corrected total), which is the round-19 README-reconciliation lesson's exact failure mode."
+    }
+  ]
+}

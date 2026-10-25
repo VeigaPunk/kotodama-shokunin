@@ -1,0 +1,54 @@
+## A. registry shape
+registry rows=799 distinct ids=799 first=S001 last=S875
+gaps in S001..S875: [455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 492, 493, 494, 495, 496, 497, 498, 499, 544, 545, 546, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556, 557, 558, 559, 563, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 592, 593, 594, 595, 596, 597, 598, 599, 777, 778]
+staged rows=132 distinct ids=132 first=S859 last=S990
+
+## B. five theme staged rows: do their STAGED ids collide with lane ids?
+staged  in reg-ids?  staged doc (first 90 chars of source cell)
+S881    no           Guillaume Enguehard (2022), "Teaching linguistic methods with conlangs", *RiCOGNIZIONI. Ri
+S882    no           М.Ю. Сидорова, О.Н. Шувалова, «Интернет-лингвистика: вымышленные языки», М.: «1989.ру», 20
+S892    no           Новиков, Филипп Н. (2022), «Искусственные языки как семантические и семиотические системы»
+S893    no           Костюхин, А. А. (2023), «Классификации конлангов в современной интерлингвистике», *Вестник
+S901    no           Anderson, Catherine (McMaster); Grant, Margaret (Simon Fraser); Sanders, Nathan (Toronto),
+
+full collision set (reg-ids ∩ staged-ids): n=17 ['S859', 'S860', 'S861', 'S862', 'S863', 'S864', 'S865', 'S866', 'S867', 'S868', 'S869', 'S870', 'S871', 'S872', 'S873', 'S874', 'S875']
+theme ids in that set: none
+numeric rule that holds: staged ids <= S875 collide only when the lane already uses that number; theme ids are all > S875 -> no collision
+
+## C. adopted lane ids S876..S880: absent from reg-ids, and what they mean in each namespace
+S876: in reg-ids=False  staged row with the same number names: Roland Barthes, "Introduction à l'analyse structurale des récits", *Communicatio
+S877: in reg-ids=False  staged row with the same number names: 荻原 祐二 (2023),「名前を正しく読むことはなぜ難しいのか」/ "Why Reading Japanese Names Correctly Is Diff
+S878: in reg-ids=False  staged row with the same number names: 「古代日本人の名前の研究」(2007 年度博士学位論文（要約）,  divergences on 日本の個人名の構成要素と種類) — https://www.o
+S879: in reg-ids=False  staged row with the same number names: 吉田 光男 (兰州大学 研究員レポート),「氏名は特定の記号として、人類社会に普遍」— http://www.kankyo-u.ac.jp/f/introduc
+S880: in reg-ids=False  staged row with the same number names: 「日本人著者の名前についての調査」, 『図書館学会年報』 39(1), 2005, 1–13 — https://www.jstage.jst.go.jp/ar
+NOTE: the five adopted lane ids numerically equal five OTHER staged rows (S876..S880, naming/narrative docs). Three namespaces: same number, different document. A later adoption of staged S876..S880 must renumber by document.
+
+## D. URL evidence for the five theme rows (lane hits = 0 means the ground is uncovered)
+S881: lane rows containing 'ojs.unito.it': 0   staged line 29
+S882: lane rows containing 'philol.msu.ru': 0   staged line 30
+S892: lane rows containing 'journals.rudn.ru': 0   staged line 40
+S893: lane rows containing 'cyberleninka.ru': 0   staged line 41
+S901: lane rows containing 'sanders.phonologist.org': 0   staged line 49
+
+## E. round-71 map staleness (registry_count 797, next_free S874 -> now 799 rows, last S875)
+old map: registry_count=797 staged_count=132 next_free=S874 span=S874→S1005 entries=132
+old collision list n=15 last=S873   now n=17 last=S875
+old-map entries whose TARGET is now an occupied lane id: n=2
+  staged S859 -> S874 OCCUPIED; lane S874 now names: 中国非物质文化遗产网 · 中国非物质文化遗产数字博物馆（文化和旅游部主管）,「国家级非物质文化遗产代表性项目名录」清单页 — https://www.ihchina.cn/project.h
+    staged S859 document: GB/T 33661-2017《农历的编算和颁行》/ *Calculation and promulgation of the Chinese calendar*, record page 
+  staged S860 -> S875 OCCUPIED; lane S875 now names: 文化遺産データベース（文化庁, Agency for Cultural Affairs）, 文化財検索 — https://online.bunka.go.jp/db/heritages/s
+    staged S860 document: 中国科学院紫金山天文台（国家天文台）,《国家标准〈农历的编算和颁行〉解读材料》, 5 pp. PDF, site revision 2022-03 — http://www.pmo.cas.
+old-map targets still free: n=130 (all targets S876..S1005, none occupied)
+
+old-map targets for the five theme rows (offset +15 arithmetic):
+  staged S881 -> old target S896; round-73 document-derived target S876
+  staged S882 -> old target S897; round-73 document-derived target S877
+  staged S892 -> old target S907; round-73 document-derived target S878
+  staged S893 -> old target S908; round-73 document-derived target S879
+  staged S901 -> old target S916; round-73 document-derived target S880
+
+## F. why the old map cannot be reused at all
+- It is pure arithmetic (staged + 15). The lane appended 2 rows after it was written, so every target shifts.
+- Two of its targets (S874, S875) are already live lane rows; assigning into them would duplicate ids (census E03).
+- Its five theme targets (S896/S897/S907/S908/S916) are unoccupied but wrong: the lane's next free id is S876, and append-only order forbids leaving a 20-id hole.
+- Its own collision list (S859..S873) is stale: the real collision set is S859..S875.

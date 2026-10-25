@@ -1,0 +1,40 @@
+{
+ "round": 73,
+ "claim": "Ca",
+ "base": "8841ad3b896a0227674fa0725b818c999118046f",
+ "fleet_pin": "80d8c9b576d45d3c390e1e8edc6c149cfb698483",
+ "note": "FIXTURE, 2 pairs, draft-run only: exercises BASEMISMATCH/REPAIR/ANNOTATE/NOSTUB before the wave-1 ledger is frozen. Not the round-73 ledger; the graded run uses reports/round-73/ledger.json with >= 8 pairs.",
+ "pairs": [
+  {
+   "id": "F-R2",
+   "stated_at": "SCORECARD.md:1401",
+   "stated_text": "| calibration | improved (claim Ca, records) | 8 routed defects K71-1..K71-8 un-landed at base `b60c7b1` (QUALITY 20 worktree-only; 7 w2 files uncommitted; in-place id-map edit without old→new record; fleet report :57/:61 stale; tally 10/6/5 vs 10/7/4; wave-2 41 vs 40; counter-sha mis-pairing; falsified Capoeira reject reason; no criterion 21) → all eight landed append-only with old→new records; ACCEPT-CA-72 PASS legs=12/12 at the measured revision | `python3 -B reports/round-72/accept-ca.py --root . --lands <lands>` | `reports/round-72/telemetry/measures-ca.txt`; `corpus/lessons/round-71.md` `## Corrections (round 72)`; `reports/round-71/telemetry/measures-ca-restamp-64da9e14.txt` |",
+   "stated_token": "ACCEPT-CA-72 PASS legs=12/12",
+   "observe_cmd": [
+    "grep",
+    "-ho",
+    "ACCEPT-CA-72: [A-Z]*",
+    "reports/round-72/telemetry/measures-ca.txt"
+   ],
+   "parse": "ACCEPT-CA-72: (PASS)",
+   "expected_after": "PASS",
+   "disposition": "REPAIR",
+   "rederive": "grep -ho 'ACCEPT-CA-72: [A-Z]*' reports/round-72/telemetry/measures-ca.txt"
+  },
+  {
+   "id": "F-R3README",
+   "stated_at": "corpus/README.md:732",
+   "stated_text": "Total knowledge entries: 243.",
+   "stated_token": "entries: 243",
+   "observe_cmd": [
+    "python3",
+    "-c",
+    "import pathlib;print(sum(1 for p in pathlib.Path('corpus/knowledge').rglob('*.md')))"
+   ],
+   "parse": "^(\\d+)$",
+   "expected_after": "245",
+   "disposition": "ANNOTATE",
+   "rederive": "find corpus/knowledge -type f -name '*.md' | wc -l"
+  }
+ ]
+}
