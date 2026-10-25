@@ -103,3 +103,10 @@ two rows are this round's sourced claim (claim C).
 - The UNESCO "live CAPTCHA wall" was a UA artefact: all eight element URLs serve HTTP 200 full narrative under a browser-shaped UA; the wall appears only with a plain-curl UA. QUALITY 21 should gain a UA-record clause next round.
 - S869 (admitted round-71 row, RAD Benesh) needs re-verification: its named capture may be a locale-picker shell not carrying the quoted span — correction-chain candidate (settle-active), hand to the registry-correction chain.
 - Upheld rejects: breaking/b-boying (no element), ROH ballet-terms (0 at probed and canonical), EFDSS both paths (302 -> /404 body), Britannica `/art/dance` carries 349x200 (the path matters; `/topic/dance` has 0). Princeton Noh: the cited book has no PUP page (Weatherhill 1983); the genuine PUP Noh title is Keene's.
+
+## Routed to round 73 (post-landing, ScoutRegisterMap)
+
+- The register-to-staged map is verified correct 21/21 and NOT arithmetic (+83 holds for 19 rows; S804→S886 and S812→S894 are +82 — the discriminating evidence for by-document derivation); the re-point chain checks out (lane S874 carries staged S863+S967 URLs 3/3; lane S875 carries staged S867 1/1).
+- Staged-row content defects found: staged S934 (register S820's second hit) is a duplicate of staged S903 wearing a wrong identity (the cited capture is the Kałużyńska 2025 paper, not Słon's Poland paper; the quoted span occurs 0 times) and staged S936 (register S835) is the same Japanese article as staged S918 with a mutually exclusive wrong identity (潘蕾 2014; the quoted span occurs 0 times). Both are fabrication-class staged rows: not adoptable, and they mark their staged companions S903/S918 for re-verification at any future adoption.
+- S932/S933/S935's "live page no longer serves this text" framing is contradicted (live pages still serve it).
+- Artifact defect: reg-to-staged.txt truncates 4 URLs to 70-char prefixes (id sets still correct); strip trailing backticks on S807/S812/S835 keys; the register key is (lane, round, id) — 65 ids are reused across lanes.
