@@ -12,7 +12,7 @@ registry).
 | id | verdict | note |
 |---|---|---|
 | S776 | PRESENT | SAMR GB/T 33661-2017 record metadata contains the quoted span; lane registry S776 is a different source (Penn Museum) — register id mismatch recorded |
-| S778 | UNVERIFIABLE | live URL resolves to calendar-room feed, not the quoted passage; no lane registry row for S778 |
+| S778 | PRESENT | page declares EUC-JP; decoded as EUC-JP both quoted spans are present (UTF-8 misdecode produced garbage) |
 | S779 | REFUSED | NAOJ page is a Japanese calendar announcement; quoted spans absent |
 | S786 | REFUSED | cited PDF (Conlanging 101) contains quote 1 but not the Chinese quote — multi-quote row fails |
 | S787 | REFUSED | China Writers page is about network fiction; quoted span absent |
@@ -22,7 +22,7 @@ registry).
 | S796 | PRESENT | Kankyo-U PDF discussion paragraph quote located |
 | S804 | PRESENT | Kotobank 苗字 entry quote located (Japanese comma/ellipsis variation) |
 | S814 | REFUSED | CSSN article on Han-Jin names; quoted classification passage absent |
-| S816 | PRESENT | China Writers interview answer quote located |
+| S816 | REFUSED | committed capture fetches/s816.html byte-identical to live re-fetch; quoted words absent (round-68 also refused) |
 | S817 | REFUSED | China Writers 2022 article; Sowers-Wills span absent |
 | S820 | PRESENT | Onoma PDF §2 quote located (curly quotes) |
 | S823 | PRESENT | China Folklore article first paragraph quote located |
@@ -33,6 +33,6 @@ registry).
 | S812 | UNVERIFIABLE | DOI now resolves to open metadata/abstract; register gives no quoted span |
 | S835 | UNVERIFIABLE | PDF now fetchable; register gives no quoted span |
 
-Tally: PRESENT 10 · REFUSED 6 · UNVERIFIABLE 5 = 21. Adoption stays CLOSED;
+Tally: PRESENT 10 · REFUSED 7 · UNVERIFIABLE 4 = 21 (re-derived by RevQuarantine; S816→REFUSED, S778→PRESENT). Adoption stays CLOSED;
 no shokuknow bytes appended or renumbered (id collisions S859/S860 recorded at
 `.ufo/waves/round-71/assimilation/`).

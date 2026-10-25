@@ -4,11 +4,13 @@
 output + exit code; findings only.
 **Command under test:** `reports/round-71/accept-c.py` (frozen claim-C counter).
 **Verdict: command reproduces `ACCEPT-C-71: PASS`, exit 0, byte-identical output in a fresh clone of
-lane HEAD — but the PASS certifies less than the counter's docstring claims (3 ungraded/vacuous legs,
-F2–F4), and at the HEAD this seat started on (`14c88d9b`) the receipt the certified entry points at
-was not in HEAD at all (F1). The lane advanced during the run and committed that receipt
-(`c21213a`); re-run at the new HEAD `baf3b6a` still PASSes, exit 0, receipt present. Both revisions
-are reported separately below — see §1b.**
+lane HEAD — measured at five successive committed revisions (`14c88d9b`, `baf3b6a`, `edd7895`,
+`e7e7e26`, `f5c845b`), all PASS / exit 0 / stderr-empty, with the `14c88d9b` stdout reproduced
+byte-for-byte at every later sample. The PASS certifies less than the counter's docstring claims (3
+ungraded/vacuous legs, F2–F4); at the revision this seat started on (`14c88d9b`) the receipt the
+certified entry points at was not in HEAD at all (F1, since closed by `c21213a`); and the C receipt
+has since been rewritten in place and now names a revision where its own bytes differ (F8, MEDIUM,
+open). Every revision is reported separately below — see §1b–§1d.**
 
 Lane untouched: the only file this seat wrote is this report. All mutations were made in throwaway
 copies under `/tmp/k71w2-f33/`. No packages installed or upgraded.
@@ -46,7 +48,7 @@ $ git show HEAD:reports/round-71/accept-c.py | sha256sum
 Counter bytes at HEAD == bytes on disk == the sha the claim-C receipt self-stamps. Environment:
 Python 3.14.8, git 2.56.0, jj 0.45.1.
 
-## 1b. HEAD moved during this run (both revisions reported)
+## 1b. HEAD moved during this run (all revisions reported)
 
 The lane advanced while this seat was executing. Timeline, all from git, no inference:
 
@@ -91,6 +93,101 @@ F2@baf3b6a EXIT=0  topic-lines=0   → LEG PASS SWEEP (topic-owners=[]) , ACCEPT
 F3@baf3b6a EXIT=0  find-count=37   → LEG PASS COUNTS (36/243)     , ACCEPT-C-71: PASS
 F4@baf3b6a EXIT=0  opened=2024-01-01 → LEG PASS ROWS              , ACCEPT-C-71: PASS
 ```
+
+## 1c. HEAD advanced again before this report was filed (`edd7895`)
+
+```
+$ git log --oneline -3
+edd7895 round-71: accept-c.py docstring accuracy (Filler37 nit)
+0fa36c1 round-71: lesson M6 enriched with CritGaming3 confirmation
+baf3b6a round-71: lesson R71-M8 (Gate checker table-shape blind spot) + w2 RevGate
+$ rm -rf /tmp/k71w2-f33/clone3 && git clone --quiet --no-hardlinks . /tmp/k71w2-f33/clone3
+$ cd /tmp/k71w2-f33/clone3 && git rev-parse HEAD && python3 -B reports/round-71/accept-c.py --root . ; echo $?
+edd789565ea3adbb7492c0eb45758d2da1046a2e
+… 7× LEG PASS …
+ACCEPT-C-71: PASS
+0
+$ git diff 14c88d9b edd7895 -- reports/round-71/accept-c.py
+-  * the word-bounded gap sweep prints nothing (filename + topic-line owners).
++  * the word-bounded gap sweep shows only the entry itself as owner (pre-entry it printed nothing).
+$ git show edd7895:reports/round-71/accept-c.py | sha256sum
+80b4ca093a1d1c8436c7e5ff8a0fdb4be7f01a6517ac9dfec35cf05577650ed8  -
+```
+
+So: **three fresh clones, three committed revisions (`14c88d9b`, `baf3b6a`, `edd7895`), all
+`ACCEPT-C-71: PASS`, all exit 0, all stderr-empty.** The only counter delta across them is one
+docstring line (the SWEEP description); no executable line changed, so F2–F6 stand at every
+revision. Note the live worktree at report time is *not* clean (`corpus/README.md`, the entry,
+`reports/round-71/accept-ca.py`, `census-end.txt` modified by other seats), so every number here is
+**committed-HEAD only** — a fresh clone is the only stable read, which is why this seat used one.
+
+## 1d. Fourth sample (`e7e7e26`) — and the receipts were rewritten in place
+
+The lane kept moving; a fourth fresh clone, sampled immediately before filing:
+
+```
+$ git log --oneline -1
+e7e7e26 round-71: quarantine mispairing note (ScoutReopenRows)
+$ git clone --quiet --no-hardlinks . /tmp/k71w2-f33/clone4
+$ cd /tmp/k71w2-f33/clone4 && python3 -B reports/round-71/accept-c.py --root . ; echo $?
+… ACCEPT-C-71: PASS
+0
+$ diff /tmp/k71w2-f33/out-c.txt /tmp/k71w2-f33/out-c-4.txt && echo IDENTICAL
+IDENTICAL          # every leg detail string, byte-for-byte, vs the 14c88d9b run
+$ sha256sum reports/round-71/accept-c.py
+80b4ca093a1d1c8436c7e5ff8a0fdb4be7f01a6517ac9dfec35cf05577650ed8  -
+```
+
+The counter result is stable across all four sampled revisions. **The receipts are not.** Commit
+`7179d6d` ("re-stamp C/Ca receipts at final HEAD") edited `measures-c.txt` (and `measures-ca.txt`) in
+place:
+
+```
+$ git diff edd7895 HEAD -- reports/round-71/telemetry/measures-c.txt
+  -# counter sha256 (self): 1df995c2…
+  -# stamped revision: 8c203bd9…
+  -# evaluated revision: 8c203bd9…
+  -# measured revision (lane main): 8c203bd9…
+  -# tree: ffb5c549…
+  +# counter sha256 (self): 80b4ca09…
+  +# stamped revision: 64da9e14…
+  +# evaluated revision: 64da9e14…
+  +# measured revision (lane main): 64da9e14…
+  +# tree: ff803f43…
+$ git show HEAD:reports/round-71/telemetry/measures-c.txt | grep -cE 'original bytes preserved below|^# after-state receipt'
+0                  # no marker, no preserved original bytes
+$ git log --oneline -2 -- reports/round-71/telemetry/measures-c.txt
+7179d6d round-71: re-stamp C/Ca receipts at final HEAD (hardened counters)
+c21213a round-71: commit C receipt (measures-c.txt) + lesson R71-M5 (declared-counter defect) + w2 findings
+```
+
+The new stamp's values all verify (`64da9e14` is an ancestor of HEAD; its tree is
+`ff803f433b07…`; the counter there is `80b4ca09…`), and the counter PASSes at `64da9e14` in a fresh
+worktree (7/7 legs, exit 0) — so the *run* the re-stamped receipt records is real. What is broken is
+the receipt binding: **at the revision the receipt names (`64da9e14`), the receipt file on disk is the
+old one** (header `1df995c2…` / `8c203bd9…` / `ffb5c549…`, verified in a detached worktree), and the
+new bytes exist only from `7179d6d` onward. See F8.
+
+Fifth and final sample, taken at filing time — the lane is live and the sampling stops here:
+
+```
+$ git clone --quiet --no-hardlinks . /tmp/k71w2-f33/clone5 && cd /tmp/k71w2-f33/clone5
+$ git rev-parse --short HEAD && python3 -B reports/round-71/accept-c.py --root . ; echo $?
+f5c845b
+ACCEPT-C-71: PASS
+0
+$ diff /tmp/k71w2-f33/out-c.txt /tmp/k71w2-f33/out-c-5.txt && echo IDENTICAL
+IDENTICAL
+$ sha256sum reports/round-71/accept-c.py | cut -c1-8
+80b4ca09
+```
+
+**Result is invariant across five sampled committed revisions (`14c88d9b`, `baf3b6a`, `edd7895`,
+`e7e7e26`, `f5c845b`): `ACCEPT-C-71: PASS`, exit 0, stderr empty, stdout byte-identical.** What
+changed under the sample is the *records*, not the verdict.
+
+
+
 
 
 ## 2. Exact command, exact output, exit code
@@ -297,6 +394,69 @@ A missing/wrong `--root` is indistinguishable from a craft FAIL — the same cla
 the hole; the CITED leg alone would not. No action required for this round; worth tightening if the
 leg is ever cited as the citation measure.
 
+### F8 — MEDIUM — the C receipt was rewritten in place, and names a revision where its own bytes differ
+
+Two coupled defects, both measured at `e7e7e26`:
+
+**(a) In-place rewrite, no preserved original.** Commit `7179d6d` replaced the five header lines of
+`reports/round-71/telemetry/measures-c.txt` (and `measures-ca.txt`) instead of filing a new snapshot:
+
+```
+$ git diff edd7895 HEAD -- reports/round-71/telemetry/measures-c.txt
+5 insertions(+), 5 deletions(-)      # counter sha 1df995c2→80b4ca09, revision 8c203bd9→64da9e14, tree ffb5c549→ff803f43
+$ git show HEAD:reports/round-71/telemetry/measures-c.txt | grep -cE 'original bytes preserved below|^# after-state receipt'
+0
+```
+
+`AGENTS.md` is explicit: "Corrections and final-wave updates are new snapshots or rows with their own
+provenance … a new append-only file, never an in-place edit of the original record", and the round-70
+repair pattern that claim Ca itself grades (V70-1: six `17/19` header lines **+ marker + original
+bytes below**) is exactly the remedy this receipt lacks. The digest binding the protocol relies on
+("so any later in-place edit is detectable as a digest mismatch") cannot fire here, because the edit
+rewrote the self-digest too — the previous run's stamp is now recoverable only via
+`git show c21213a:reports/round-71/telemetry/measures-c.txt`.
+
+**(b) The receipt names a revision where that receipt does not exist.** HEAD's receipt stamps
+`measured revision 64da9e14`. Checked out at `64da9e14`, the file still carries the *old* header:
+
+```
+$ git worktree add --detach /tmp/k71w2-f33/at64 64da9e14
+$ head -5 /tmp/k71w2-f33/at64/reports/round-71/telemetry/measures-c.txt
+# counter sha256 (self): 1df995c2207c50f37f8e1b5187fa7b0cd0e985e54c7667c662105293628d5db4
+# stamped revision: 8c203bd9dd45b42c4b45ecb3afc1b07a23575dbd
+# …
+$ python3 -B reports/round-71/accept-c.py --root . ; echo $?
+ACCEPT-C-71: PASS
+0                                    # the run is real: 7/7 legs at 64da9e14, counter sha 80b4ca09
+```
+
+So the *measurement* is sound and reproducible; the *record* is self-inconsistent: a verifier who
+checks out the stamped revision sees a different receipt than the one that certifies it, and cannot
+tell from the tree that a re-stamp happened. This is the round-64 R1 class ("a verdict names the
+revision it was measured against … not comparable to one over the cited commit") reappearing inside
+the receipt that fixes it.
+
+**Smallest remediation (append-only, no rewrite of a filed round):** append to
+`reports/round-71/telemetry/measures-c.txt`
+
+```
+# original bytes preserved below
+<the 15 lines of the 8c203bd9 receipt>
+```
+
+matching the V70-1 pattern that claim Ca grades for the six round-70 receipts — and land the
+re-stamped run as a *new* file (`measures-c-restamp-64da9e14.txt`) with the same marker discipline,
+plus a corrections row naming `7179d6d`. Both defects are records-only; the counter verdict is
+unaffected.
+
+### F9 — NOTE (closed) — SWEEP docstring mismatch fixed at `edd7895`
+
+The docstring said the sweep "prints nothing"; the code required `filename-owners == [ENTRY]`.
+`edd7895` replaced the line with "shows only the entry itself as owner (pre-entry it printed
+nothing)". Accurate now. F2's vacuity (zero owners also passes) is unaffected.
+
+
+
 ---
 
 ## 5. Disposition
@@ -308,13 +468,24 @@ leg is ever cited as the citation measure.
 - **Claim-C counter at `baf3b6a` (HEAD at report time): PASS, exit 0, same 7/7 legs, receipt
   present.** Counter bytes unchanged (`1df995c2…`); nothing the counter reads changed between the two
   revisions.
+- **Claim-C counter at `edd7895` / `e7e7e26` / `f5c845b` (HEAD at filing): PASS, exit 0, same
+  7/7 legs, stdout byte-identical to the `14c88d9b` run.** Counter bytes `80b4ca09…` (one docstring
+  line changed at `edd7895`, zero executable lines), so F2–F6 hold at every revision. Five fresh
+  clones, five PASSes.
 - **F1 is closed.** At `14c88d9b` the entry's receipt pointer did not resolve (untracked
   `measures-c.txt`, absent from HEAD and from its own stamped revision); commit `c21213a` landed the
-  receipt with the same bytes and it resolves at `baf3b6a`. Residual LOW: the receipt does not record
-  the commit that landed it.
+  receipt with the same bytes and it resolves from `baf3b6a` onward. Residual LOW: the receipt does
+  not record the commit that landed it.
+- **F8 is open (MEDIUM, records-only).** `7179d6d` re-stamped `measures-c.txt`/`measures-ca.txt` **in
+  place** with no marker and no preserved original bytes, and the re-stamped C receipt names
+  `measured revision 64da9e14` although at `64da9e14` the file still holds the previous header. The
+  measurement itself is reproducible (7/7 legs, exit 0 at `64da9e14`); the record is not. Remediation
+  is append-only: preserve the original bytes below a marker, file the re-stamp as a new receipt, add
+  a corrections row naming `7179d6d`.
 - **F2–F4 remain open against the counter code** (SWEEP passes with zero topic owners; COUNTS uses
   `listdir` rather than the docstring's `find | wc -l`; the "opened this round" column is never read).
   None turns today's green into a red — each is a one-leg repair, and the underlying facts I
   re-derived independently all hold.
 - **F5–F7 are hygiene** (unreachable documented exit 2 / missing input graded as exit 1; dead
-  `corpus` variable; CITED counts tokens anywhere in the file).
+  `corpus` variable; CITED counts tokens anywhere in the file). F9 is a closed nit: `edd7895`
+  corrected the SWEEP docstring line.

@@ -133,9 +133,14 @@ def main():
              "S825","S827","S835"}
     ids_ok = len(rows) == 21 and {r[0] for r in rows} == SLICE
     labels_ok = all(r[1] in VERDICTS for r in rows)
-    ok &= leg("QUARANTINE", ids_ok and labels_ok,
-              "rows=%d unique-ids=%d labels-ok=%s (want 21/21/True)"
-              % (len(rows), len({r[0] for r in rows}), labels_ok))
+    # class admissibility: unreachable-class rows MUST be UNVERIFIABLE;
+    # payload-absent rows may be PRESENT/REFUSED (quote checked) or
+    # UNVERIFIABLE (source unfetchable/truncated, e.g. S791)
+    UNREACHABLE = {"S807","S812","S835"}
+    class_ok = all(r[1] == "UNVERIFIABLE" for r in rows if r[0] in UNREACHABLE)
+    ok &= leg("QUARANTINE", ids_ok and labels_ok and class_ok,
+              "rows=%d unique-ids=%d labels-ok=%s class-ok=%s (want 21/21/True/True)"
+              % (len(rows), len({r[0] for r in rows}), labels_ok, class_ok))
 
     print("ACCEPT-CA-71: %s" % ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
