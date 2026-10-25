@@ -78,7 +78,8 @@ def main():
         marker_ok = MARKER in data
         below = data.split(MARKER, 1)[1] if marker_ok else ""
         first = below.strip().splitlines()[0].strip() if below.strip() else ""
-        original_ok = first.startswith("#") and len(first) > 3
+        original_ok = (first.startswith("# after-state receipt")
+                       or first.startswith("# pre-data control"))
         per_file.append((rel, has_all and marker_ok and original_ok,
                          "header=%s marker=%s original-below=%s"
                          % (has_all, marker_ok, original_ok)))
@@ -127,7 +128,10 @@ def main():
             cells = [c.strip() for c in line.split("|")]
             if len(cells) >= 3:
                 rows.append((cells[1], cells[2]))
-    ids_ok = len(rows) == 21 and len({r[0] for r in rows}) == 21
+    SLICE = {"S776","S778","S779","S786","S787","S791","S792","S795","S796",
+             "S804","S807","S812","S814","S816","S817","S820","S823","S824",
+             "S825","S827","S835"}
+    ids_ok = len(rows) == 21 and {r[0] for r in rows} == SLICE
     labels_ok = all(r[1] in VERDICTS for r in rows)
     ok &= leg("QUARANTINE", ids_ok and labels_ok,
               "rows=%d unique-ids=%d labels-ok=%s (want 21/21/True)"

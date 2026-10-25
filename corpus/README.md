@@ -731,7 +731,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
 Total knowledge entries: 243.
 
-Counts checked 2026-10-24 from the repo root:
+Counts checked 2026-10-25 from the repo root:
 `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
 (total 243 files; directory totals 30/29/36/29/24/95).
 The inventory counts markers, not verified facts.

@@ -113,7 +113,7 @@ any real tradition "really means".
 
 - The UNESCO inscription records are primary for each element's scope, but they are promotional-heritage texts, not analytic dance scholarship: tier A applies to what the record itself states (inscription narrative), not to general claims about the tradition.
 - The Wisdom Library hosts translations of classical texts; the underlying print editions (Ghosh 1951; Coomaraswamy 1917) were not re-read. Quotes are located in the hosted translations.
-- SEP's entry is tier B: a framing source for ontology debates, not a historical authority on any specific tradition.
+- SEP's entry is tier B: a framing source for ontology debates, not a historical authority on any specific tradition (S873).
 - Partial owners named in `- gap filled:` are one-way citations; none claims the register as its own surface.
 
 ## Limits and handoff
