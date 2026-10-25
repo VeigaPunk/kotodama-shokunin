@@ -4264,7 +4264,7 @@ Base `21e6a7f3fb63e717f2021c46a172e396c4759a7c`; declaration `6cb51a447043a9691c
 
 ## Round 71 - 2026-10-25 (hyaku run 6, L1 kotodama-r71; swarm round)
 
-Base `b94a543c`; declaration `825b78a`; re-freeze (pre-data corrections) `65ff1510`; claim-C lands `8c203bd9`; records `<RECORDS>`.
+Base `b94a543c`; declaration `825b78a`; re-freeze (pre-data corrections) `65ff1510`; claim-C lands `8c203bd9`; records `1d1b4325`; final receipts `3764c2df` / re-stamps `7179d6d6`.
 
 - **Claim C (coverage, sourced) — VERIFIED.** `corpus/knowledge/culture-material/dance-performance-movement-codes.md` lands (125 lines, 13 cited rows S861-S873, word-bounded 0/0 gap proven). ACCEPT-C-71 PASS at `8c203bd9` (ENTRY/COUNTS 36/243/CITED 13/ROWS/USEDBY-PATHS/CITED-LINES 0 findings/SWEEP entry-only); README sweep exit 0; census exit 0 (W04=28 standing).
 - **Claim Ca (calibration, records) — VERIFIED.** V70-1..V70-5 land: six round-70 receipts re-stamped with the full QUALITY 17/19 header + marker + original bytes; S860 verify-at repointed to acc2d614; round-70 Gate quote trimmed to 25 words; SCORECARD round-70 trend-correction row; round-71 lesson Gate states `rejected this round:` + candidates. Item-10 quarantine table 21 rows (PRESENT 10 / REFUSED 6 / UNVERIFIABLE 5). ACCEPT-CA-71 PASS.
@@ -4272,5 +4272,5 @@ Base `b94a543c`; declaration `825b78a`; re-freeze (pre-data corrections) `65ff15
 - **Wave accounting.** Wave-1 37 seats (18 attack roles) one batched task call; wave-2 41 seats (attack roles) below; round total 78 ≤128; dead seats reported in the report.
 - **Frontier step.** Registry 784 → 797 rows (S861-S873); census exit 0 start/end; lesson Gate 13 rows + reject sweep.
 - **Item 10.** Adoption CLOSED; id collisions S859/S860 recorded with renumber map (S861→S992 by document); quarantine verdicts in `reports/round-71/telemetry/quarantine-verdicts.md`. `considerthese/` absent.
-- **Misroot sweep.** Fleet status lists only driver state and orchestrator-owned scratch; no lane file misplaced.
+- **Misroot sweep.** Seven wave-1 fetch artifacts (s795.pdf, s796.pdf, s804/s814/s816/s817.html, s820.pdf) were written to the fleet root by ScoutQuarantineFetch2; relocated byte-exact into `.ufo/waves/round-71/assimilation/fetches/` (cmp-verified) and the fleet copies deleted at `ccadb59`; recorded under lesson Mistakes (misroot row).
 - **Tool installs:** none.
