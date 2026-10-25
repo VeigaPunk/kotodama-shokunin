@@ -1,0 +1,63 @@
+{
+  "round": 72,
+  "frozen": "2026-10-25",
+  "base": "b60c7b140c5350caa7d1073711f14092541533f0",
+  "pre_data_corrections": [
+    {"id": "F1", "by": "RevClaimsFidelity (wave-1, pre-data)", "fix": "CASTAMP leg reworded: the base receipt already carries the true f706aacd@64da9e14 pairing appended; the leg now requires a NEW committed receipt file naming the defective 1ce25fb9@64da9e14 pairing and the correction."},
+    {"id": "F2/F3", "by": "RevClaimsFidelity (wave-1, pre-data)", "fix": "counter implementations read id-renumber-map.json at .ufo/waves/round-71/assimilation/ (not corpus/) and the fleet report from the fleet repo git history; both fixed in the committed counters."},
+    {"id": "F4", "by": "RevClaimsFidelity (wave-1, pre-data)", "fix": "W2FILES leg enumerates the actual seven files (Filler30, RevReceipts modified; CritTrends, Filler28, Filler36, RevCounterCa, RevEntry untracked)."},
+    {"id": "F5", "by": "RevClaimsFidelity (wave-1, pre-data)", "fix": "APPENDONLY leg enumerates its file set explicitly; the CASTAMP receipt is a NEW file; .ufo/waves/round-71/** and reports/round-71/** must show zero diff; the fleet round-71 report's last-touch commit must be one of the five known report commits."},
+    {"id": "F6", "by": "RevClaimsFidelity (wave-1, pre-data)", "fix": "QUAL21 leg gains command terms: '^21\\. ' count == 1 and the criterion text matches canonical-slug/CDX and reject-URL wording."},
+    {"id": "F8", "by": "RevClaimsFidelity (wave-1, pre-data)", "fix": "claim C kill-rule clause restated as enumerable bytes: every cited source carries a round-72 Gate record with access date 2026-10-25 and a located quote."},
+    {"id": "F9", "by": "RevClaimsFidelity (wave-1, pre-data)", "fix": "do-nothing control receipts for both counters at base are committed (reports/round-72/telemetry/controls-*.txt) before any data lands."},
+    {"id": "SCOUT-LIVE", "by": "ScoutIHChinaCapture (wave-1, pre-data)", "fix": "the ihchina live page served HTTP 200 on 2026-10-25 retry after one initial 25 s timeout; entry/row/amendment texts updated from 'unreachable' to 'opened live 2026-10-25 after one initial timeout', captures remain the dated carriers."}
+  ],
+  "claims": [
+    {
+      "id": "Ca",
+      "axis": "calibration",
+      "kind": "records",
+      "title": "Round-71 routed defects K71-1..K71-8 land as append-only corrections",
+      "before": "at base b60c7b1: QUALITY.md criterion 20 exists only as an uncommitted worktree diff (committed count of '^20\\. ' = 0); seven round-71 w2 seat files are uncommitted (Filler30, RevReceipts modified; CritTrends, Filler28, Filler36, RevCounterCa, RevEntry untracked); the S861->S992 -> S874->S1005 id-map change was written in place in LOG.md and corpus/lessons/round-71.md with no old->new record; the filed fleet report .ufo/reports/round-71/kotodama.md still says S861->S992 at :57 and :61; the quarantine tally is recorded as 10/6/5 in report/LOG/lesson while the table is 10/7/4; wave-2 seats are recorded as 41 (total 78) in LOG/lesson while w2/spec.json carries 40 (report 40/77); reports/round-71/telemetry/measures-ca.txt pairs counter sha 1ce25fb9 with stamp 64da9e14 where the counter is f706aacd; the Capoeira reject reason ('no Wayback capture under that URL') is falsified by the canonical-slug captures; QUALITY has no criterion 21 (CDX canonical-slug probe; reject URLs recorded).",
+      "after": "reports/round-72/accept-ca.py --root . --lands <lands> prints ACCEPT-CA-72: PASS legs=12/12",
+      "legs": [
+        "QUAL20: `git show <lands>:corpus/QUALITY.md | grep -c '^20\\. '` == 1 (criterion 20 committed, exactly once)",
+        "W2FILES: at <lands> all seven files .ufo/waves/round-71/w2/{Filler30,RevReceipts,CritTrends,Filler28,Filler36,RevCounterCa,RevEntry}.md exist as committed bytes",
+        "LOGCORR: LOG.md at <lands> carries a '## Round 72' entry that names all three superseded round-71-entry lines old->new (the 'S861→S992 by document' -> 'S874→S1005 by document' edit at 99e3d63; the '<RECORDS>' placeholder line replaced at 1721fbd; the misroot-sweep line replaced at 1721fbd)",
+        "LESSONCORR: corpus/lessons/round-71.md at <lands> carries an appended '## Corrections (round 72)' naming: id map S861→S992 -> S874→S1005; quarantine tally 10/6/5 -> 10/7/4 (57e0a72); wave-2 41 seats -> 40, total 78 -> 77 (w2/spec.json items=40)",
+        "REPORTCORR: the committed fleet report .ufo/reports/round-72/kotodama.md names the superseded round-71 report lines :57 and :61 ('S861→S992')",
+        "MAPCORR: the round-72 LOG entry records id-renumber-map.json old->new (65ff151: S861→S992, registry_count 784, collisions 2, next_free S861; superseded by 27db4ce/99e3d63: S874→S1005, registry_count 797, collisions 15, next_free S874)",
+        "CASTAMP: reports/round-71/telemetry/measures-ca-restamp-64da9e14.txt exists at <lands>, names the defective pairing (1ce25fb9 at stamp 64da9e14) and re-stamps 64da9e14 with counter sha256 f706aacd, and `git log --format=%H -1 <lands> -- <that file>` returns a commit in b60c7b1..<lands>",
+        "QUAL21: `git show <lands>:corpus/QUALITY.md | grep -c '^21\\. '` == 1 and the criterion text matches 'CDX' and 'canonical' and 'reject' and 'URL'",
+        "CAPOEIRA: the appended lesson corrections name Capoeira and the canonical slug capoeira-circle-00892 with its 2017 captures (20170513162348/20171120140510/20171208155324) and the live HTTP 200",
+        "APPENDONLY: over the enumerated filed set (LOG.md, corpus/lessons/round-71.md, corpus/QUALITY.md, .ufo/waves/round-71/, reports/round-71/ minus the new CASTAMP file, and the fleet .ufo/reports/round-71/kotodama.md) the round-72 changes are pure additions: `git diff -U0 b60c7b1..<lands> -- LOG.md corpus/lessons/round-71.md corpus/QUALITY.md .ufo/waves/round-71 reports/round-71` has zero content '-' lines (grep -cE '^-[^-]' == 0) and no diff touches .ufo/reports/round-71 files except the new telemetry file; and `git -C <fleet> log --format=%H -1 -- .ufo/reports/round-71/kotodama.md` is one of {861dcb6b, bc418b99, fb8495ef, 98873dfd, 8380f703}",
+        "REPORTLAST: `git rev-list --count b60c7b1..<lands>` == N and the fleet report names the <lands> short hash and the inherited range 99e3d63..b60c7b1; every commit in b60c7b1..<lands> touches only round-72-authorized paths",
+        "NOHARM: scripts/sources-census.sh validate --root <fleet-materialized-at-compatible-layout> kotodama exits 0 against the registry bytes at <lands>"
+      ],
+      "kill_rule": "any K71 defect landed by rewriting a filed byte within the enumerated APPENDONLY set, or any leg false at <lands> -> the claim fails as declared",
+      "counter": "python3 -B reports/round-72/accept-ca.py --root . --lands <lands> --fleet-root /home/vgpnk/Projects/shokunin"
+    },
+    {
+      "id": "C",
+      "axis": "coverage",
+      "kind": "assimilation-sourced",
+      "title": "shokuknow assimilation: heritage-taxonomy theme, two entries admitted on uncovered ground",
+      "before": "at base b60c7b1: corpus/knowledge holds 0 files matching '*heritage-taxonomy*'; the registry (797 rows) holds no row whose source names ihchina.cn or bunka.go.jp (gap sweep re-run 2026-10-25: 0 for both, receipt reports/round-72/telemetry/gap-sweep.txt).",
+      "after": "reports/round-72/accept-c.py --root . --lands <lands> prints ACCEPT-C-72: PASS legs=10/10",
+      "legs": [
+        "ENTRIES: corpus/knowledge/culture-material/heritage-taxonomy-models.md and heritage-taxonomy-models.amend-2026-10-24-r13.md exist at <lands> with the full header (source/verified-at/recheck/ground/topic/gap-filled/sources/couples/scope for the canonical; source/verified-at/recheck/ground/topic/gap-filled/sources/couples/scope for the amendment)",
+        "ROWS: the registry diff b60c7b1..<lands> adds exactly the two rows S874 and S875, both status mined, used-by listing only the admitted entries, with union covering both entries",
+        "REPOINTED: every source: citation in the admitted entries names a lane id >= S874 whose registry row's URL matches the cited document (staged S863/S867/S967 re-pointed by document, never arithmetic; staged S967 is the same PRC document family, a dated capture)",
+        "GATE: corpus/lessons/round-72.md ## Gate records per new row the URL, access date 2026-10-25 and a <=25-word located quote, and records >=1 admit and >=1 reject from the assimilation set with reason+flip",
+        "REJECTS: the round-72 lesson refuses narrative-structure-frameworks.md (cites quarantine-REFUSED staged S870, register S787: quoted span absent) and worldbuilding-setting-practice.amend-2026-10-23.md (cites quarantine-REFUSED staged S899/S900, registers S816/S817)",
+        "GROUND: the gap sweep at the 797-row registry returns 0 owners for the heritage surface (receipt committed)",
+        "CITEDLINES: tools/check-cited-lines.py over the two entries at <lands> prints 0 findings",
+        "CENSUS: scripts/sources-census.sh validate exits 0 against the registry bytes at <lands>",
+        "SCRATCHMIRROR: .ufo/waves/round-72/assimilation/validate-receipt.txt shows census validate --file exit 0 on the mirrored corpus carrying the two rows, committed before the registry-append commit",
+        "COLLCHECK: .ufo/waves/round-72/assimilation/collcheck-collisions.txt contains zero id tokens and the adopted ids S874/S875 are absent from the lane reg-ids list"
+      ],
+      "kill_rule": "any admitted entry cites a quarantine-REFUSED staged row, or any cited source lacks a round-72 Gate record with access date 2026-10-25 and a located quote, or any staged row is appended as-is (un-normalized recheck cell, escaped pipe, used-by not exactly the admitted entries), or any leg false at <lands> -> the claim fails as declared",
+      "counter": "python3 -B reports/round-72/accept-c.py --root . --lands <lands>"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+# Round-72 scratch-mirror receipt — claim C leg SCRATCHMIRROR
+
+Seat: `L1Kotodama72.ExecScratchMirror` · written 2026-10-25T11:25-03:00
+Artifacts: `.ufo/waves/round-72/assimilation/validate/` (full transcripts, scripts, hashes)
+
+## What was mirrored
+
+- `rsync -a <lane>/corpus/ /tmp/r72-mirror/corpus/` — 471 shared files, sha256 identical to the lane
+  (`validate/mirror-fidelity.txt`). Only three deltas exist in the mirror tree: `corpus/SOURCES.md`
+  (the two appended rows) and the two admitted entry files.
+- `SKILL.md` was copied to the mirror **root** (`/tmp/r72-mirror/SKILL.md`): rows S859 and S860 carry
+  `used-by = SKILL.md`, and census `E11` resolves used-by paths against the mirror root
+  (`resolve_targets`: `--file` ⇒ dir = `dirname(dirname(file))`). Without it the mirror reports two
+  false E11 findings. With it, the mirror's finding set is byte-identical to the lane's.
+
+## The two rows (append-only, end of the `## Registry` table)
+
+- Inserted immediately after the `S873` row (mirror line 829), before `## Paths`; everything else
+  byte-exact. `diff` lane vs mirror: `@@ -828,0 +829,2 @@`, 2 added lines, **0 removed**
+  (`validate/sources-md.diff`, `validate/rows-inserted.txt`).
+- Shape: both rows `NF=13` (11 cells), `kind=dataset`, `tier=A`, `status=mined`, `opened=2026-10-25`,
+  `recheck=180d` (S874) / `90d` (S875), plain recheck cells, no escaped pipes, `used-by` exactly the
+  admitted entry paths.
+- Registry state: lane **797 rows, max id S873, sha256 `bf6ad0ea5b538855b487cbc89dca3c35c1a30dc874d57de486718b363a3eee8b`**
+  (not appended); mirror **799 rows, sha256 `40b7eca37202ba953bfb3d3a7d3909d6b65ec5edce4ca99af7af60b096f4e745`**.
+
+## Gate results
+
+1. **census validate** — `bash scripts/sources-census.sh validate --file /tmp/r72-mirror/corpus/SOURCES.md`
+   → **exit 0**, stdout `file<TAB>ok<TAB>/tmp/r72-mirror/corpus/SOURCES.md`, 0 E-findings, 28 W04,
+   empty stderr (`validate/census-validate-mirror.{out,err,exit}`).
+2. **malformed rows** — the `NF!=13` awk over S-rows → **0** across 799 rows (every row NF=13)
+   (`validate/malformed-and-duplicate-checks.txt`).
+3. **duplicate ids** — `sort | uniq -d` over row ids → **none** (799 distinct).
+4. **duplicate URLs** — census-equivalent normalisation (`validate/checks.py` steps [3]/[3b]):
+   43 pre-existing duplicate URL groups in the lane's own registry, **none involves S874/S875**; each
+   of the four new-row URLs occurs exactly once.
+5. **id collision** — new ids vs lane reg-ids → **empty** (`S874`/`S875` ∉ reg-ids, max S873);
+   `assimilation/collcheck-collisions.txt` is empty, id lists in `assimilation/collcheck-reg-ids.txt`
+   and `assimilation/collcheck-staged-ids.txt`.
+6. **cited-lines** (extra pre-flight) — `python3 -B tools/check-cited-lines.py <both entries>` →
+   **exit 1, 2 findings** (see below).
+
+The 28 `W04` warnings and the 43 duplicate-URL groups are the lane's pre-existing state:
+`validate/baseline-findings.txt` and `validate/mirror-findings.txt` are **identical**, and no finding
+names S874 or S875.
+
+## Open failure handed to the L1 (not fixable in the mirror)
+
+`tools/check-cited-lines.py` over the admitted entries returns **2 `MULTI-ID` findings**, both in
+`heritage-taxonomy-models.md`:
+
+- line 6 (header `recheck:`) — names `S874` and `S875` on one line;
+- line 21 (end of the §1 paragraph) — `(S874, S875)` on one line.
+
+Claim C leg `CITEDLINES` requires 0 findings at `<lands>`. A verified repair (probe only, applied to
+`/tmp/r72-mirror/probe/`, **not** to `/tmp/r72-entries` or the mirror) makes the lint print
+`CITED-LINES: 0 finding(s) in 2 file(s)` with exit 0 — diff and exact text in
+`validate/cited-lines-repair-proposal.txt`. The entries themselves are the scribe's to revise.
+
+## Entry revisions validated
+
+`validate/entry-pins.txt` pins the revision each run saw. The amendment was revised twice while the
+mirror was being built (11:23 4113 B → 11:24:23 3403 B, `S837` citation dropped → 11:25:11 3397 B);
+the gate was re-run after each revision. Last validated pins:
+
+```
+b29951639fad0e73290248fcd0c829143b4551b651481625651b9c13c8bfba75  heritage-taxonomy-models.md          (unchanged since 11:24:02)
+9e4f804e3b8d6b3cc29527431d66f420fe688f92270889ce48e7f47ded982024  heritage-taxonomy-models.amend-2026-10-24-r13.md
+```
+
+## Second advisory: header key `ground:`
+
+The amendment carries all nine header keys the claim names (`source`, `verified-at`, `recheck`,
+`ground`, `topic`, `gap filled`, `sources`, `couples`, `scope`). The base entry carries eight — it has
+**no `ground:` line** (its gap statement sits in `- gap filled:`). No pre-existing
+`corpus/knowledge/culture-material` entry uses a `ground:` key at all (0 of 34 files), so the key is
+new to round 72; if the `ENTRIES` leg checks it literally in both files, the base entry fails it.
+`accept-c.py` does not exist yet, so this is unverified — flagged for the L1 rather than assumed.
+
+Re-run after any further entry revision:
+`bash .ufo/waves/round-72/assimilation/validate/refresh-and-validate.sh` (idempotent; re-copies from
+`/tmp/r72-entries`, re-runs census + shape/id/URL checks + cited-lines, rewrites `gate-summary.txt`,
+exits 0 only if all gates are clean).
+
+## Caveat on the staged namespace
+
+`reg-to-staged.txt` independently uses the ids `S874`/`S875` for the *onomastics* staged rows
+(S791→S874, S792→S875). No registry collision exists (staged rows are not admitted this round), but
+adopting the onomastics staged set later would clash with these two heritage rows.

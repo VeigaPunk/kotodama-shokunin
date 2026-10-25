@@ -1,0 +1,74 @@
+== malformed-row awk (assignment step 5a) ==
+cmd: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {n++} END{print n+0}' corpus/SOURCES.md
+NF!=13 count: 0
+
+== registry row count and NF histogram ==
+S-rows: 799
+    799 13
+
+== duplicate ids (assignment step 5b) ==
+cmd: grep -oE '^\| *S[0-9]{3,}' corpus/SOURCES.md | tr -d '| ' | sort | uniq -d
+duplicate ids: none
+distinct ids: 799
+
+== duplicate first-URL per row (assignment step 5c; raw, un-normalised) ==
+cmd: awk -F'|' '/^\| *S[0-9]{3,} *\|/ {print $3}' | grep -oE 'https?://[^ ]+' | head -1 ... (normalised census-equivalent check is checks.py [3])
+      4 ag.colorado.gov/brands/about-brands
+      2 ancientolympics.arts.kuleuven.be/eng/TE016EN.html
+      2 aras.org
+      2 archive.mpi.nl/tla/islandora/object/lat:1839_00_0000_0000_0016_B509_0
+      2 archive.org/details/monumentamissionariaafricana.
+      2 archive.org/download/completeguidetoh00foxduoft/completeguidetoh00foxduoft_djvu.txt
+      2 archive.org/download/englishheraldry00bout/englishheraldry00bout_djvu.txt
+      2 archive.org/download/monumentamissionariaafricana/MonumentaMission%C3%A1riaAfricana-01.001_djvu.txt
+      2 books.google.com/books/about/The_Ambiguity_of_Play.html?id=AgA8q0TCKeIC
+      2 books.google.com/books/about/The_Lore_and_Language_of_Schoolchildren.html?id=sdWwHbOf4oAC
+      2 collection.sciencemuseumgroup.org.uk/objects/co122693/disease-mask-for-healing-rituals
+      2 collections.vam.ac.uk/item/O1053476
+      2 collections.vam.ac.uk/item/O87367
+      2 commons.princeton.edu/eng574-s23/wp-content/uploads/sites/348/2023/04/Huizinga_Homo-Ludens_Play-as-a-Cultural-Phenomenon.pdf
+      2 courtofthelordlyon.scot/blazoning.htm
+      2 digitalcommons.lib.uconn.edu/ballinst_alterity/15
+      2 doi.org/10.1017/CBO9781139176132
+      2 en.maiask.ru/data/documents/13_YatsenkoRogozhinskiiENG.htm
+      2 footwearresearchnetwork.org/articles/concealed-shoes-revealed
+      2 glottolog.org/resource/languoid/id/kiko1235
+      2 glottolog.org/resource/languoid/id/kiko1235.json
+      2 heraldikk.no/PDF/GODE%20R%C3%85D%20OM%20NYE%20KOMMUNEV%C3%85PEN.pdf
+      2 historicengland.org.uk/listing/the-list/list-entry/1325875
+      2 ich.unesco.org/doc/src/36234-EN.doc
+      2 ich.unesco.org/en/RL/mask-dance-of-the-drums-from-drametse-00161
+      2 ich.unesco.org/en/RL/tugging-rituals-and-games-01080
+      2 ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-canary-islands-the-silbo-gomero-00172
+      2 ida.gallaudet.edu/cgi/viewcontent.cgi?article=1004&context=sls
+      2 journals.flvc.org/athanor/article/download/126740/126293/207658
+      2 journals.flvc.org/athanor/article/view/126740`,
+      2 journals.openedition.org/assr/pdf/2480
+      2 link.springer.com/article/10.1186/1477-7517-9-16
+      2 liv.mt.gov/Brands-Enforcement/Inspection-Requirements
+      2 liv.mt.gov/_docs/BE/Forms/How-to-read-brands-4-2024.pdf
+      2 moa.ubc.ca/wp-content/uploads/2014/08/SchoolProgram-BackgroundInfo.pdf
+      2 oars.uos.ac.uk/1736
+      2 periodicos.ufpb.br/index.php/srh/article/view/13999/7921
+      2 piccionep.people.charleston.edu/piccione_senet.pdf
+      2 pmc.ncbi.nlm.nih.gov/articles/PMC10622114
+      2 pmc.ncbi.nlm.nih.gov/articles/PMC6818964
+      2 press.princeton.edu/books/paperback/9780691084428/foraging-theory
+      2 pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf
+      2 rbcm.ca/exhibits/tbird-park/html/late/ex08/ex8.htm
+      2 revistas.usp.br/sankofa/article/download/187402/173183
+      2 revistas.usp.br/sankofa/article/download/187402/173183/497395
+      2 revistas.usp.br/sankofa/article/view/187402
+      2 student-journals.ucl.ac.uk/pia/article/id/1286
+      2 tidsskrift.dk/ordogsag/article/view/149813/192620
+      2 umaine.edu/hudsonmuseum/maya/ballgame-2
+      2 voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement
+(rows above are pre-existing cross-scope duplicates; none names S874/S875)
+
+== new-row URL containment ==
+ihchina.cn occurrences: 1
+bunka.go.jp occurrences: 1
+S874 rows: 1   S875 rows: 1
+
+== rows outside Registry section (E12 shape) ==
+S-row lines outside the ## Registry block: 0 (census reported no E12)

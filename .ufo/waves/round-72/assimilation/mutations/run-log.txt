@@ -1,0 +1,47 @@
+MutRegistryCollision — detector run log (2026-10-25, hyaku run 6)
+Contract pattern: grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}'
+Detector: /tmp/r72-mut/guard.sh (extract via the pattern -> sort -u; intersect = comm -12 of the two extractions)
+
+--- Fixture A (indented row) ---
+$ guard.sh extract reg-slice-a.md
+S874
+S900
+$ guard.sh extract staged-slice-a.md
+S874
+S875
+$ guard.sh intersect reg-slice-a.md staged-slice-a.md
+S874
+
+--- Fixture B (column-0 row) ---
+$ guard.sh extract reg-slice-b.md
+S874
+S901
+$ guard.sh extract staged-slice-b.md
+S874
+$ guard.sh intersect reg-slice-b.md staged-slice-b.md
+S874
+
+--- Control (pristine, disjoint sets) ---
+$ guard.sh extract control-reg.md
+S900
+S901
+S902
+$ guard.sh extract control-staged.md
+S910
+S911
+$ guard.sh intersect control-reg.md control-staged.md
+(empty — no false positive)
+
+--- Probe (4-space indented row, outside contract max 3) ---
+$ guard.sh extract probe-reg-indent4.md
+(empty — the pattern intentionally does not match; documented limitation)
+
+--- Real data (c) ---
+$ guard.sh extract /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+count = 797 unique ids, min S001, max S873, no duplicates
+$ guard.sh extract /home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md
+count = 132 unique ids, min S859, max S990, complete S859..S990 (seq check missing=0), no duplicates
+$ guard.sh intersect corpus/SOURCES.md shokuknow/merge/kotodama/SOURCES.append.md
+count = 15; S859 S860 S861 S862 S863 S864 S865 S866 S867 S868 S869 S870 S871 S872 S873
+$ grep -x -e 'S874' -e 'S875' reg-ids-real.txt  -> no lines (exit 1): S874/S875 NOT in lane reg-ids
+$ grep -x -e 'S874' -e 'S875' staged-ids-real.txt -> S874 S875 (exit 0): both in staged set

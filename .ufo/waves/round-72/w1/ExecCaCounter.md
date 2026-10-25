@@ -1,0 +1,7 @@
+# ExecCaCounter — round 72
+
+Implemented `.ufo/waves/round-72/counters/accept-ca.py` with `--root`, `--lands`, `--fleet-root`, twelve per-leg diagnostics, and an APPENDONLY selftest fixture that rewrites a previously committed lesson line in place. The script uses `git show <lands>:<path>` for lane file assertions and `git diff -U0 BASE..lands` for append-only validation.
+
+Retained evidence: frozen Ca legs in `reports/round-72/claims.json:14-25`; seven `round-71/w2` filenames enumerated from the repository; census entry point discovered at `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh` in repo findings. No tests/build/linters were run, per wave instructions. No tooling installed.
+
+Risks/blockers: `REPORTCORR`/`REPORTLAST` currently read the report blob through the lane repository, but `.ufo/reports/round-72/kotodama.md` is absent both from lane paths and fleet `.ufo/reports/round-72` at implementation time (only sibling reports were present). Fleet report may be generated/committed later; the counter's current reader will need a committed-fleet-repository strategy/path supplied by the integration context. `NOHARM` currently invokes the external census validator from a temporary committed-byte materialization; this does not yet represent a verified census run, and should be reviewed before integration. This script is a draft and no PASS claim is made.
