@@ -4271,6 +4271,6 @@ Base `b94a543c`; declaration `825b78a`; re-freeze (pre-data corrections) `65ff15
 - **Claim D (depth) — VERIFIED.** New counter `reports/round-71/accept-d.py` (imports frozen round-69 counter, adds the declared no-git path): in-repo SELFTEST 2/2 exit 0; git-less worktree copy prints `SELFTEST: COULD-NOT-EVALUATE (no git)` exit 2; frozen data predicate `ACCEPT-D-69: PASS legs=8/8` exit 0.
 - **Wave accounting.** Wave-1 37 seats (18 attack roles) one batched task call; wave-2 41 seats (attack roles) below; round total 78 ≤128; dead seats reported in the report.
 - **Frontier step.** Registry 784 → 797 rows (S861-S873); census exit 0 start/end; lesson Gate 13 rows + reject sweep.
-- **Item 10.** Adoption CLOSED; id collisions S859/S860 recorded with renumber map (S861→S992 by document); quarantine verdicts in `reports/round-71/telemetry/quarantine-verdicts.md`. `considerthese/` absent.
+- **Item 10.** Adoption CLOSED; id collisions S859/S860 recorded with renumber map (S874→S1005 by document); quarantine verdicts in `reports/round-71/telemetry/quarantine-verdicts.md`. `considerthese/` absent.
 - **Misroot sweep.** Seven wave-1 fetch artifacts (s795.pdf, s796.pdf, s804/s814/s816/s817.html, s820.pdf) were written to the fleet root by ScoutQuarantineFetch2; relocated byte-exact into `.ufo/waves/round-71/assimilation/fetches/` (cmp-verified) and the fleet copies deleted at `ccadb59`; recorded under lesson Mistakes (misroot row).
 - **Tool installs:** none.

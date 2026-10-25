@@ -80,7 +80,7 @@ Adoption stays CLOSED (wave-4 quarantine-first). The 21-row verdict table:
 `reports/round-71/telemetry/quarantine-verdicts.md` (PRESENT 10 · REFUSED 6
 · UNVERIFIABLE 5). Id collisions S859/S860 (lane vs package) re-derived and
 recorded at `.ufo/waves/round-71/assimilation/` (reg-ids 784, staged-ids 132,
-collisions S859 S860; id-renumber-map.json S861→S992 by document). No
+collisions S859 S860; id-renumber-map.json S874→S1005 by document). No
 shokuknow bytes adopted, appended or renumbered. `considerthese/` absent for
 this lane (recorded).
 
