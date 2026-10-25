@@ -168,6 +168,11 @@ def main_check(root, lands, fleet_root):
             "LOG.md", "corpus/lessons/round-71.md", "corpus/QUALITY.md",
             ".ufo/waves/round-71", "reports/round-71")
     removed = len(re.findall(r"^-(?![-])", d.stdout, re.M))
+    ns = git(root, "diff", "--numstat", "--no-renames", "%s..%s" % (BASE, lands),
+             "--", "LOG.md", "corpus/lessons/round-71.md", "corpus/QUALITY.md",
+             ".ufo/waves/round-71", "reports/round-71")
+    numstat_del = sum(int(l.split()[1]) for l in ns.stdout.splitlines()
+                      if l.split() and l.split()[0].isdigit())
     names = git(root, "diff", "--name-only", "%s..%s" % (BASE, lands))
     changed = [l for l in names.stdout.splitlines() if l.strip()]
     unauthorized = [p for p in changed
@@ -176,9 +181,9 @@ def main_check(root, lands, fleet_root):
     fr = git(fleet_root, "log", "--format=%H", "-1", "--", FLEET_REPORT_R71)
     fleet_rev = fr.stdout.strip()
     fleet_ok = any(fleet_rev.startswith(k) for k in KNOWN_R71_REPORT_COMMITS)
-    ok &= leg("APPENDONLY", removed == 0 and not unauthorized and fleet_ok,
-              "removed=%d unauthorized=%s fleet-r71-last=%s"
-              % (removed, unauthorized, fleet_rev[:12]))
+    ok &= leg("APPENDONLY", removed == 0 and numstat_del == 0 and not unauthorized and fleet_ok,
+              "removed=%d numstat-del=%d unauthorized=%s fleet-r71-last=%s"
+              % (removed, numstat_del, unauthorized, fleet_rev[:12]))
 
     # --- REPORTLAST ---
     n = git(root, "rev-list", "--count", "%s..%s" % (BASE, lands))

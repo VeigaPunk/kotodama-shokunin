@@ -26,10 +26,10 @@ refused) are NOT adopted; the collision receipt records them as not-adopted.
 
 Rejected from the assimilation set (reason + flip):
 
-| staged entry | refused staged rows | reason | flip |
-|---|---|---|---|
-| myth-symbol/narrative-structure-frameworks.md | S870 (register S787) | staged row's quoted span absent from the fetched page (round-71 quarantine REFUSED; fabrication class — the staged quote is not on the page) | a re-opened source carrying the quoted span, written as a new row |
-| culture-material/worldbuilding-setting-practice.amend-2026-10-23.md | S899, S900 (registers S816, S817) | both cited rows quarantine-REFUSED (round-68 and round-71: quoted spans absent) | the same, per row |
+| staged entry | refused staged rows | reason | flip | verdict |
+|---|---|---|---|---|
+| myth-symbol/narrative-structure-frameworks.md | S870 (register S787) | staged row's quoted span absent from the fetched page (round-71 quarantine REFUSED; fabrication class — the staged quote is not on the page) | a re-opened source carrying the quoted span, written as a new row | rejected |
+| culture-material/worldbuilding-setting-practice.amend-2026-10-23.md | S899, S900 (registers S816, S817) | both cited rows quarantine-REFUSED (round-68 and round-71: quoted spans absent) | the same, per row | rejected |
 
 Per-row re-open evidence: the ihchina live page and both captures were fetched
 2026-10-25 (scout + L1, artifacts .ufo/waves/round-72/assimilation/ and

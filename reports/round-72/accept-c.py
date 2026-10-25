@@ -68,6 +68,7 @@ REGISTRY = "corpus/SOURCES.md"
 LESSON = "corpus/lessons/round-72.md"
 ASSIM = ".ufo/waves/round-72/assimilation"
 RECEIPT = ASSIM + "/validate-receipt.txt"
+GROUND_RECEIPT = "reports/round-72/telemetry/gap-sweep.txt"
 ENTRIES = (
     "corpus/knowledge/culture-material/heritage-taxonomy-models.md",
     "corpus/knowledge/culture-material/heritage-taxonomy-models.amend-2026-10-24-r13.md",
@@ -376,11 +377,11 @@ def leg_ground(root, lands, base):
     797-row registry; the frozen base registry is re-verified directly."""
     bad = []
     try:
-        receipt = show(root, lands, RECEIPT)
+        receipt = show(root, lands, GROUND_RECEIPT)
     except Missing:
         receipt = ""
     if not receipt:
-        bad.append("receipt missing: %s" % RECEIPT)
+        bad.append("receipt missing: %s" % GROUND_RECEIPT)
     else:
         if re.search(r"\b797\b", receipt) is None:
             bad.append("receipt does not name the 797-row registry")
