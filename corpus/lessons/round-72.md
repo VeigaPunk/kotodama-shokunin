@@ -96,3 +96,10 @@ two rows are this round's sourced claim (claim C).
 - The round-71 `id-renumber-map.json` is now STALE: the heritage rows occupy S874/S875, so the map's assignments (S859→S874, S860→S875, S863→S878, S867→S882, S967→S982) no longer hold. Regenerate the map from S876 before any further staged rows land.
 - The staged era-periodization amendments cite campaign-round ids (S726/S732/S746/S757) that name UNRELATED lane documents — a by-document id check per citation is mandatory in any future adoption round.
 - shokuknow `SOURCES-PROPOSED.md` Gate headings are off-by-one against their rows (`## Gate — S864` carries S863's quote) — re-derive quotes by row, never by heading id.
+
+## Routed to round 73 (post-landing, ScoutCDXCanonical)
+
+- Two more round-71 reject grounds are falsified beyond Capoeira: RAD Benesh (the probed `/benesh-international/` capture is a locale-picker shell; the canonical `/about-us/benesh-international-benesh-movement-notation/` carries 25 captures, 16x200) and DNB ("only 1999-2000 captures" is false — 1,882 of 2,125 root 200-captures are 2022-2026; the real ground is that the domain does not resolve, recent captures being Cloudflare interstitials).
+- The UNESCO "live CAPTCHA wall" was a UA artefact: all eight element URLs serve HTTP 200 full narrative under a browser-shaped UA; the wall appears only with a plain-curl UA. QUALITY 21 should gain a UA-record clause next round.
+- S869 (admitted round-71 row, RAD Benesh) needs re-verification: its named capture may be a locale-picker shell not carrying the quoted span — correction-chain candidate (settle-active), hand to the registry-correction chain.
+- Upheld rejects: breaking/b-boying (no element), ROH ballet-terms (0 at probed and canonical), EFDSS both paths (302 -> /404 body), Britannica `/art/dance` carries 349x200 (the path matters; `/topic/dance` has 0). Princeton Noh: the cited book has no PUP page (Weatherhill 1983); the genuine PUP Noh title is Keene's.
