@@ -36,3 +36,5 @@ registry).
 Tally: PRESENT 10 · REFUSED 7 · UNVERIFIABLE 4 = 21 (re-derived by RevQuarantine; S816→REFUSED, S778→PRESENT). Adoption stays CLOSED;
 no shokuknow bytes appended or renumbered (id collisions S859/S860 recorded at
 `.ufo/waves/round-71/assimilation/`).
+
+Class reconciliation: UNVERIFIABLE = the 3 unreachable-class rows (S807/S812/S835) plus S791, whose registry URL is truncated so the exact document could not be fetched (unfetchable payload-absent, documented).
