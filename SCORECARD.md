@@ -1383,3 +1383,13 @@ Full per-defect dispositions: `reports/round-70/corrections-r69.md`.
 | D4 round-69 calibration | marking round-69 calibration unprovable: the Ca2 claim failed as declared (`FAILED AS DECLARED` at :1360; `claims.json` Ca2 `kill_rule` fires on the 4 live pairs, R69-M7); the `improved` row at :1331 is superseded by this row |
 | D9 dead pointer | `.ufo/waves/round-69/assimilation/guard-proof/note.txt` line 4 cited R69-M10; the S859 lane-package collision is mistake R69-M13; pointer fixed in place |
 | D10 O2 receipt | O2's current measurement is `reports/round-69/telemetry/final-measures-o-attempt2.txt` (stamped `975e8f2`); `final-measures-o.txt` remains the attempt-1 receipt |
+
+### Round-70 trend-correction row (appended 2026-10-25 in round 71, V70-4)
+
+The filed round-70 fleet report (`.ufo/reports/round-70/kotodama.md`) graded
+`expansion: improved` and `discernment: improved`. Per LEARNING.md observables
+these do not fire: no admitted knowledge entry on uncovered ground (expansion,
+CORPUS.md rule 4) and no gate decision/new lesson-grounded QUALITY criterion
+(discernment). This row marks the round-70 trend-correction. Correct verdicts for round 70: expansion `unchanged`, quality
+`unchanged`, discernment `unchanged` (wave-1 seat CritTrendObservables). The
+filed report bytes are untouched; this row is the correction record.

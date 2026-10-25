@@ -4261,3 +4261,16 @@ Base `21e6a7f3fb63e717f2021c46a172e396c4759a7c`; declaration `6cb51a447043a9691c
 - **Misroot sweep.** `git -C /home/vgpnk/Projects/shokunin status --porcelain` (no pathspec) lists no untracked file naming this lane or round; nothing to relocate. Lane, node and driver state (`.ufo/state/*.report-baseline`) excluded per the round-69 D6 wording correction. Recorded, not repaired.
 - **Tool installs:** none (no pacman, no uv/npx install attempted).
 - **Stale-lane:** none; respawn-per-round driver, no other mission of this lane open at round-70 close.
+
+## Round 71 - 2026-10-25 (hyaku run 6, L1 kotodama-r71; swarm round)
+
+Base `b94a543c`; declaration `825b78a`; re-freeze (pre-data corrections) `65ff1510`; claim-C lands `8c203bd9`; records `<RECORDS>`.
+
+- **Claim C (coverage, sourced) — VERIFIED.** `corpus/knowledge/culture-material/dance-performance-movement-codes.md` lands (125 lines, 13 cited rows S861-S873, word-bounded 0/0 gap proven). ACCEPT-C-71 PASS at `8c203bd9` (ENTRY/COUNTS 36/243/CITED 13/ROWS/USEDBY-PATHS/CITED-LINES 0 findings/SWEEP entry-only); README sweep exit 0; census exit 0 (W04=28 standing).
+- **Claim Ca (calibration, records) — VERIFIED.** V70-1..V70-5 land: six round-70 receipts re-stamped with the full QUALITY 17/19 header + marker + original bytes; S860 verify-at repointed to acc2d614; round-70 Gate quote trimmed to 25 words; SCORECARD round-70 trend-correction row; round-71 lesson Gate states `rejected this round:` + candidates. Item-10 quarantine table 21 rows (PRESENT 10 / REFUSED 6 / UNVERIFIABLE 5). ACCEPT-CA-71 PASS.
+- **Claim D (depth) — VERIFIED.** New counter `reports/round-71/accept-d.py` (imports frozen round-69 counter, adds the declared no-git path): in-repo SELFTEST 2/2 exit 0; git-less worktree copy prints `SELFTEST: COULD-NOT-EVALUATE (no git)` exit 2; frozen data predicate `ACCEPT-D-69: PASS legs=8/8` exit 0.
+- **Wave accounting.** Wave-1 37 seats (18 attack roles) one batched task call; wave-2 41 seats (attack roles) below; round total 78 ≤128; dead seats reported in the report.
+- **Frontier step.** Registry 784 → 797 rows (S861-S873); census exit 0 start/end; lesson Gate 13 rows + reject sweep.
+- **Item 10.** Adoption CLOSED; id collisions S859/S860 recorded with renumber map (S861→S992 by document); quarantine verdicts in `reports/round-71/telemetry/quarantine-verdicts.md`. `considerthese/` absent.
+- **Misroot sweep.** Fleet status lists only driver state and orchestrator-owned scratch; no lane file misplaced.
+- **Tool installs:** none.

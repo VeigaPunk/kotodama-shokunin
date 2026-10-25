@@ -1,0 +1,11 @@
+# Item-10 quarantine hand-check: kotodama rows 8–14
+
+Method: fetched each cited URL live and checked the source text; used the corpus-expansion-1 `.qcache` captures keyed by SHA-256(URL) prefix as archived source cross-checks. Checked literal quoted spans, allowing whitespace and typographic punctuation variation. `PRESENT` includes a source anchor. `REFUSED` means source text was available but the quoted span was not located. `UNVERIFIABLE` means the live payload did not expose testable article content. No tools installed.
+
+- round2 S795 — **PRESENT**. Live PDF, chapter II, section II, 「日本の個人名の種類」: `一、生前の名前` followed by `(一)幼名 (二)実名 (三)通称 (四)字 (五)別号`; `(六)法名` follows immediately after a PDF page break. Quote located across the layout break; the archived extracted text similarly separates the last item at the form-feed.
+- round2 S796 — **PRESENT**. Live PDF, 「研究員レポート」, first-page discussion: `実は姓と氏とは古代中国では別のものであったが、だんだん区別しなくなって、一緒になったのである。` The source line-wraps the span across two lines; words and order match.
+- round3 S804 — **PRESENT**. Live Kotobank 苗字 entry under 【家族法】: `日本人が名のる苗字は，決して中国人の考える姓ではない。それは本質的には〈いえ〉という社会的構成体の名…` Source uses Japanese comma `，` and an ellipsis after the surrounding passage.
+- round4 S814 — **REFUSED**. Live CSSN article page was accessible and contained substantive article text (title: `魏斌:單名與雙名：漢晉南方人名的變遷及其意義`). Searched its body and archived text; the quoted `次のように細分してもよい－.24 中世，＜.25／.27 近代＞…` passage and anchor do not occur. The source is an article on Han-Jin Southern Chinese given names, not a classification passage.
+- round4 S816 — **PRESENT**. Live China Writer article “爱潜水的乌贼：‘我先设定世界观，再考虑怎么升级’”: interviewer answer by 乌贼: `这个我肯定考虑过。我自己就是资深读者，作为读者，我对不同的小说有不同的容忍度…`
+- round4 S817 — **REFUSED**. Live China Writer article, 2022-12-07, “爱潜水的乌贼：网络文学不断‘升级’的‘奥术’”, accessible and searched; neither `Sowers-Wills` nor `Phonology from the inside out` occurs. The article concerns network fiction and its “奥术”; the cited linguistics span is absent.
+- round4 S820 — **PRESENT**. Live PDF §2, “Chinese female given names with lexemes denoting plants and trees”: `According to Kałużyńska (2008, pp. 160, 222), such names may be classified as “standard given names with lexemes reflecting feminine softness and female aesthetic values,” …` Quote located with curly quotation punctuation.

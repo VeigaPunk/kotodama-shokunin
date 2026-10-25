@@ -10,7 +10,7 @@ depth (settlement-checker hardening, sourced).
 
 | source | access date | quote (≤25 words) | grounds | verdict |
 |---|---|---|---|---|
-| S860 — `tools/check-supersession-settlement.py` (lane own-work) | 2026-10-25 | "A row whose `used-by` names a path that does not contain the row's own id is `STALE-USED-BY` (reported; gated only for the frozen ruling set, not globally...)" | the hardened checker now reports malformed rows (`MALFORMED-ROW`) and counts missing used-by files uniquely; `--selftest` proves it (SELFTEST 10/10, incl. cases `missing-unique-file`, `malformed-rows-report`, `malformed-target-no-crash`); ran `python3 -B tools/check-supersession-settlement.py --selftest` at `6cb51a4` | admitted |
+| S860 — `tools/check-supersession-settlement.py` (lane own-work) | 2026-10-25 | "A row whose `used-by` names a path that does not contain the row's own id is `STALE-USED-BY` (reported; gated only for the frozen ruling set," | the hardened checker now reports malformed rows (`MALFORMED-ROW`) and counts missing used-by files uniquely; `--selftest` proves it (SELFTEST 10/10, incl. cases `missing-unique-file`, `malformed-rows-report`, `malformed-target-no-crash`); ran `python3 -B tools/check-supersession-settlement.py --selftest` at `6cb51a4` | admitted |
 
 ## Mistakes
 
