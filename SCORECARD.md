@@ -1421,3 +1421,14 @@ Append-only record (hyaku run 7, L1 KotodamaR73). Claim Ca ledger `reports/round
 REPAIR pairs (statement now equals the truth, observed by the counter at `<lands>`): L04 `SHONEN.md:6` `:468` → `:505` (Error patterns) and L05 `:522` → `:564` (Checklist), repaired in place in SHONEN.md (not an append-only file) with the old values named in the line itself; L08 `SKILL.md` §Gates and probes — registry last row `accept-o-69` → `accept-ca-73` after seven rows were inserted (accept-c-71, accept-ca-71, accept-d-71, accept-c-72, accept-ca-72, accept-c-73, accept-ca-73). The round-70 pair has no counter bytes in git (only receipts at 453676a2): it is explained here, not registered. Defect R1: `.ufo/waves/round-72/w1/ScoutMergeScan.md` and `ScribeLesson.md` are tracked from the Ca landing commit on (TRACKED leg).
 
 Measured side finding (not a ledger pair): `python3 -B reports/round-72/accept-c.py --selftest` prints `SELFTEST: 10/11` and exits 1 at the round-73 base (`--- clean fixture: expected PASS 10/10, got exit=1`); the round-72 report and SCORECARD cite the counter's `--selftest` mode without a receipt of it. Recorded in `corpus/lessons/round-73.md` `## Mistakes`; the round-72 counter is not amended.
+
+
+## Axes — round 73 (2026-10-25, hyaku run 7, L1 KotodamaR73), author-side verdicts, pending non-author closure
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C, assimilation-sourced) | 0 `*conlang-scholarship*` files and 0 rows naming the five source hosts at base `8841ad3` (799-row registry) → 2 admitted files citing mined rows S876-S880 (804 rows); ACCEPT-C-73 PASS legs=11/11 | `python3 -B reports/round-73/accept-c.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0` | `reports/round-73/telemetry/controls-c.txt`, `selftest-r3.txt`; `corpus/lessons/round-73.md` `## Gate` |
+| calibration | improved (claim Ca, records) | 8 of 8 ledger pairs red at base, 2 seat reports untracked → 3 REPAIR pairs green, 5 ANNOTATE pairs annotated, both files tracked; ACCEPT-CA-73 PASS legs=9/9 (counter r3) | `python3 -B reports/round-73/accept-ca.py --root . --lands 2d1cd9140d3a6c42296d71e4f29587582a4a88c0 --fleet-root /home/vgpnk/Projects/shokunin` | `reports/round-73/ledger.json`, `counter-revisions.md`, `telemetry/controls-ca*.txt` |
+| depth / operability / freshness / adjacency | unchanged | no existing entry deepened; freshness paused under the open round-11 L0 ruling | — | `corpus/lessons/round-73.md` |
+
+Wave-2 found content defects in the admitted entries (all repaired, old→new in the lesson Corrections) and counter survivors (not repaired; frozen predicates stand). Round shape: wave 1 = 37 seats, wave 2 = 33 seats, total 70 (policy v1, band 32-64 each). Stale-lane: none.

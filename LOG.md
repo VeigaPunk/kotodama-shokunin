@@ -4288,3 +4288,15 @@ Base `b60c7b1`; claims frozen at reports/round-72/claims.json (pre-data correcti
 - **Tool installs:** none.
 - **Stale-lane:** none; respawn-per-round driver, no other mission of this lane open at round-72 close.
 - **Post-landing routing (ScoutMergeScan, appended):** round-71 id-renumber-map.json is stale after the S874/S875 adoption (regenerate from S876 before further adoptions); staged era amendments cite campaign-round ids naming unrelated lane documents (per-citation by-document check mandatory); shokuknow SOURCES-PROPOSED.md Gate headings are off-by-one against their rows.
+
+
+## Round 73 (2026-10-25, hyaku run 7, L1 KotodamaR73) — author-side, pending non-author closure
+
+Base `8841ad3`; claims frozen at `reports/round-73/claims.json` (`af65165`). Two claims: C (coverage, shokuknow conlang-scholarship assimilation) and Ca (calibration, eight-pair ledger + round-72 routed defects R1-R3).
+
+- **Freeze** `af65165`: claims, ledger, counters (claim-C selftest 29/29, Ca 9 scenarios), do-nothing controls (C 1/11, Ca 5/9), wave-1 evidence (37 seats, 34 reports, 3 dead: ConnectorSiblings, ScribeMistakes, ExecScratchMirror).
+- **Ca landing** `e62d731`, `3537899`: SCORECARD `## Corrections — round 73` (L01-L03, L06, L07), SHONEN pointers (L04/L05), SKILL.md registry rows (L08), R2 rerun receipt, round-72 seat reports tracked (R1); counter r2 bug disclosed (`reports/round-73/counter-revisions.md`).
+- **C landing** `85f17eb`, repairs `0316b88`: entries `corpus/knowledge/linguistics/conlang-scholarship.md` + `.amend-2026-10-23.md`, registry rows S876-S880 (799 -> 804), `corpus/lessons/round-73.md`, evidence captures, QUALITY 22/23, README footer.
+- **Wave-2 falsify repairs** `7aa8f99`, `2d1cd91`: per-sentence fact-check corrections to both entries, S894 Gate ground corrected, SKILL rows corrected, QUALITY 24, lesson Corrections table; S879 durability clause found false and routed (append-only row).
+- **Measurements** at `2d1cd91`: `ACCEPT-C-73: PASS legs=11/11`; `ACCEPT-CA-73: PASS legs=9/9`; census exit 0 start and end (28 W04 warnings each). Wave-2 mutation/junk seats found counter survivors (listed in the lesson Corrections); frozen predicates not amended.
+- **Assimilation:** one theme, two entries, five rows; `considerthese/` absent. **Tool installs:** none. **Stale-lane:** none.
