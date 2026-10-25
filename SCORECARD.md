@@ -1330,7 +1330,7 @@ Round 69 claims: O2 (operability, capability acquisition) · Ca2 (calibration, r
 | operability | improved (claim O2, capability acquisition) | no lane-shaped settlement fixture harness at base `793f7974` → `tools/check-settlement-fixture.py` (three cases: green / negative / pending; the negative case is the missing-used-by class round 68 never exercised); ACCEPT-O-69 PASS 7/7 at the measured revision (STAMP, TOOL, FIXTURE, NEGCASE, LANE, NEGPROBE, R68FROZEN); the lane's own registry still settles pending=0 missing_paths=0 | `python3 -B reports/round-69/accept-o.py --root .` | `reports/round-69/telemetry/final-measures-o.txt`; `reports/round-69/telemetry/controls-rev1.txt` (GREEN 7/7, DO-NOTHING 5/7 FAIL as required, SPOOF 6/7 FAIL as required) |
 | calibration | improved (claim Ca2, records) | 5 unannotated mismatches between the filed self-assessment and the committed round-68 receipts over the 5 declared (class, surface) pairs → 0 unannotated (4 live mismatches remain: the frozen round-68 filed texts, each closed by an appended correction row); ACCEPT-CA-69 PASS 8/8; R68FROZEN proves the crashed round-68 counter is byte-identical to its receipt's sha256 | `python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin` | `reports/round-69/telemetry/final-measures-ca.txt`; `reports/round-69/corrections-r68.md`; `corpus/lessons/round-69.md` `## Corrections` |
 | depth | improved (claim D2, sourced) | SKILL.md had no registry-correction-chain decision table at base (depth last moved at round 62) → `### Registry correction chains` with the five chain states (pending / settled-active / settled-retired / settled-closed / settled-split), each row carrying row shape, writer's next action, a named error signature and an evidence pointer; the five signatures also listed under `## Error patterns`; the table cites the new registry row S859 (own-work, tier A, opened 2026-10-24); ACCEPT-D-69 PASS 8/8 | `python3 -B reports/round-69/accept-d.py --root .` | `reports/round-69/telemetry/final-measures-d.txt`; `corpus/knowledge` — n/a (depth surface is SKILL.md); `corpus/lessons/round-69.md` `## Gate` |
-| coverage / freshness / adjacency | unchanged | coverage is not claimed: round 68 already improved it (S833-S856 admitted) and that work is not repeated as a new claim; freshness stays paused under the open round-11 L0 ruling; adjacency: the connector duty found no sibling owner of a registry-correction-chain surface, and the new table stays in-lane (`.ufo/waves/round-69/w1/ScoutAdj.md`) | `python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge` (not re-run this round) | `reports/round-69/w1/ScoutAdj.md` |
+| coverage / freshness / adjacency | unchanged | coverage is not claimed: round 68 already improved it (S833-S856 admitted) and that work is not repeated as a new claim; freshness stays paused under the open round-11 L0 ruling; adjacency: the connector duty found no sibling owner of a registry-correction-chain surface, and the new table stays in-lane (`.ufo/waves/round-69/w1/ScoutAdj.md`) | `python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge` (not re-run this round) | `.ufo/waves/round-69/w1/ScoutAdj.md` |
 
 Frontier step (not a claim): `corpus/SOURCES.md` 782 → 783 rows (S859 opened, mined, used-by `SKILL.md` and `corpus/lessons/round-69.md`); census exit 0 at start (`reports/round-69/telemetry/census-start.txt`) and end (`census-end.txt`); lesson `corpus/lessons/round-69.md` carries `## Gate` (S859), `## Mistakes` (R69-M1..R69-M6 plus the backfilled R68-M9), `## Corrections` and `## Quarantine`.
 
@@ -1345,3 +1345,26 @@ Round shape: one v1 wave of 32 seats (policy v1, band 32-64; 26/32 attack roles 
 | round-68 calibration row: `\| calibration \| improved (claim Ca, records) \|` | the committed round-68 calibration receipt carries a `NameError` traceback and never prints `ACCEPT-CA-68: PASS` — the claim did not verify as declared | `grep -c 'ACCEPT-CA-68: PASS' reports/round-68/telemetry/final-measures-ca.txt` → 0 |
 
 Stale-lane: respawn-per-round driver; no other mission of this lane is open at round-69 close.
+
+### Round-69 attempt-2 residual verification (2026-10-25) — verdicts, routed defects, corrections
+
+Attempt 1's records above stand as filed; this block appends what seven residual seats found
+attacking the landed measures at `9e82c7b` (all seven returned, none died; evidence
+`.ufo/waves/round-69/w2-verify/*.md`). Nothing above is rewritten; the record corrections this
+attempt appends live in `corpus/lessons/round-69.md` `## Corrections (round 69 attempt 2)` and its
+`## Quarantine` addendum.
+
+| claim | frozen predicate re-run (fresh clone) | residual finding | attempt-2 verdict |
+|---|---|---|---|
+| O2 | `ACCEPT-O-69: PASS legs=7/7`, body byte-identical to the receipt | NEGPROBE adjudicates a constant (a one-token spoof still passes), 4 of 9 mutations survive, both STAMP legs compare a file to itself under `--root .` (R69-M8..M10) | **verified on its frozen predicate**; capability partial, defects routed to round 70 |
+| Ca2 | `ACCEPT-CA-69: PASS legs=8/8`, `live=4 unannotated=0` | the frozen `kill_rule` fires on the 4 live pairs, and the declared after-state requires rewriting frozen round-68 bytes (R69-M7); five stub correction rows also pass | **FAILED AS DECLARED** — calibration stays unprovable; no axis harmed |
+| D2 | `ACCEPT-D-69: PASS legs=8/8` before and after the repair | five table statements contradicted the code, EVIDENCE checks path existence only, the do-nothing selftest became non-reproducible post-data (R69-M11, R69-M12) | **verified on its frozen predicate after a content repair**; `reports/round-69/telemetry/final-measures-d-attempt2.txt` |
+
+Round admission: the claim cap admits a round only when every claim verifies, and Ca2 does not.
+Author-side verdict: **not admitted as declared**; the non-author closure/operator rules. Round
+shape: inherited attempt-1 v1 wave (32 seats, 26 attack roles) plus one residual `task` call of 7
+seats (reviewer 2, critic 3, mutation-tester 1, scout 1) = 39 seats, ≤128, no dead seats. Item-10
+adoption stays CLOSED; the id-collision guard is proved for the first time at
+`.ufo/waves/round-69/assimilation/guard-proof/`. The lesson now carries R68-M9 plus
+R69-M1..R69-M15; the frontier-step line above names only R69-M1..R69-M6, which is the attempt-1
+count.
