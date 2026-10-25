@@ -465,6 +465,36 @@ NON-CANON, with no real-language resemblance, cultural-permission, rights or
 lore-acceptance claim (`corpus/knowledge/linguistics/register-strata-attestation.md`
 §§11–12; `corpus/knowledge/linguistics/register-lexicon-ceilings.md` §§10–11).
 
+### Registry correction chains
+
+The registry's correction mechanism is append-only: a defective row keeps its
+cells and a new row whose `teaches` opens `supersedes S### —` carries the fix.
+A chain is *settled* only when exactly one of the five states below holds;
+otherwise it is correction debt. The taxonomy is not prose: it is the lane's
+own re-runnable check (`python3 -B tools/check-supersession-settlement.py
+--selftest`, registry row S859), and the counter that gates it is
+`python3 -B reports/round-69/accept-o.py` (7/7). Disposition authority
+`reports/round-68/dispositions/dedup-ledger.tsv` (82 ruling rows; header
+`:1-6`); round-68 ruling record `LOG.md:4214`. The table is opened as registry
+row S859 (own-work, tier A).
+
+| State | Row shape | Writer's next action | Error signature | Evidence |
+|---|---|---|---|---|
+| pending | successor opened (`supersedes S### —` in its teaches), neither side `rejected`, and no settled shape holds — e.g. successor `queued`, or `mined` with no `used-by`, or both `mined` without the limiter | rule the chain: write a disposition-ledger row (ruling `activate` / `retire` / `keep-split`), then apply it — repoint + deactivate, reject the successor, or write the limiter | chain-left-pending | S859 — tools/check-supersession-settlement.py:132 (scan gate `:167`); the 34 chains ruled at settlement: reports/round-68/dispositions/dedup-ledger.tsv:1-6; LOG.md:4214 |
+| settled-active | successor `mined` with `used-by` naming a real corpus path; target `queued` (deactivated: `used-by` cell reads `—`) | repoint the entries: inline citations move to the successor's id; the target's deactivation lands in the same settlement, not before (ledger mechanisms `repoint`, then `deactivate`) | entry-not-repointed | S859 — tools/check-supersession-settlement.py:127; ruling S044>S034 `activate` reports/round-68/dispositions/dedup-ledger.tsv:7, target row `:41` |
+| settled-retired | successor `rejected` — the correction was audited and refused; the target keeps its own status and `used-by` (typically still `mined`) | keep the target: record the refusal (ruling `retire`); if a mutation already touched target cells, flip them back (`cell-flip`, S186); when the frozen ruling vocabulary lacks a target-retained class, note the true disposition in the ledger | retired-row-mined | S859 — tools/check-supersession-settlement.py:125; `cell-flip` S186>S157 reports/round-68/dispositions/dedup-ledger.tsv:19; forced retire S490>S379 `:30` (R68-M2, corpus/lessons/round-68.md:92) |
+| settled-closed | the superseded target itself is `rejected` — the keep-successor fingerprint: the chain resolved earlier and the successor is live (`mined`, `used-by` intact) | keep the successor: rule `keep-reject` from the registry bytes alone; nothing flips | closed-chain-kept | S859 — tools/check-supersession-settlement.py:123; S047>S029 `keep-reject` reports/round-68/dispositions/dedup-ledger.tsv:75; kept-reject fingerprint S830 `:88` |
+| settled-split | both rows `mined`, successor has `used-by`, and its teaches carries the limiter `for entry/line/row/cell/clause … only` (regex window 40 chars, `:54`) | narrow the scope: the supersession covers only the named slice; keep both rows and both scopes (ruling `keep-split`) | scope-limiter-missing | S859 — tools/check-supersession-settlement.py:129; S575>S420 `keep-split` reports/round-68/dispositions/dedup-ledger.tsv:83, live row corpus/SOURCES.md:553 |
+
+Cautions that are part of the rule: branch order decides overlaps — the
+closed test runs first, so a pair with **both** rows `rejected` reads
+settled-closed, never settled-retired (`:123-131`; live pair S047>S029).
+`same_url` is diagnostic only: `classify()` records it (`:136`) and no state
+depends on it. An existing `used-by` path is not a reading `used-by`: the
+scan checks path existence only (`:162-164`); whether the entry actually
+contains the row id is review work — the docstring's `STALE-USED-BY` class
+(`:21-22`) names a containment check no committed code path implements.
+
 ## Error patterns
 
 | Observation | Reading |
@@ -491,6 +521,11 @@ lore-acceptance claim (`corpus/knowledge/linguistics/register-strata-attestation
 | Era tags or slot glosses graded on the name/sound channel | type them off the sound channel: costume labels project `translated-label` (`tools/d2-typed-labels.py:500`) and slot glosses ride as `gloss`/`representation`, never as a form (`:520,:529`), so neither enters the sound channel (retired anchor `FIELD_DEFAULTS`; the five-kind superset `fictional-coordinate`/`descriptive-gloss` remains proposed-only, `reports/round-11/depth/shard-gate-adapter.md:120-125`; selftest `no GAR label is graded on the sound channel`, `:3195`; erratum 2026-10-19) |
 | A transliteration collision read as native-script identity | compare per declared scheme; a collision in that output channel is not native identity (`naming-collision-gate.md:72`) |
 | A shared garment label across cultures read as identical cut or status | labels are neither cut nor status (`naming-collision-gate.md:54`) |
+| chain-left-pending | an opened `supersedes` chain with no settled shape is correction debt: rule it in the disposition ledger, then apply the ruling — `--scan` exits 1 while any chain is pending (`tools/check-supersession-settlement.py:167`) |
+| entry-not-repointed | the successor is `mined` but the entry still cites the deactivated target — repoint citations to the successor before the target's deactivation lands (`tools/check-supersession-settlement.py:127`) |
+| retired-row-mined | a rejected correction still reads `mined` or is still cited — the audit refused it; the target keeps its status and citations (`tools/check-supersession-settlement.py:125`) |
+| closed-chain-kept | the closed chain's live successor was dropped or re-ruled — the target's `rejected` is the keep-successor fingerprint; the successor stays `mined` (`tools/check-supersession-settlement.py:123`) |
+| scope-limiter-missing | both rows are `mined` without the `for entry/line/row/cell/clause … only` limiter — the chain reads `pending`, not split; write the named slice into the successor's teaches (`tools/check-supersession-settlement.py:129`) |
 
 | Status | Assign when (necessary condition) | Required basis | Never |
 | `supported` | every element of the claim-as-worded is grounded by a named record in the packet's manifest or a named check with an observed result; nothing open narrows the wording | the resolving `grounding:` witness; residual limits are named even here — scoped-supported is "bounded and revisable, not certainty" (`corpus/knowledge/verification/to-verify-triage-protocol.md:18`) | upgrade a node's support onto its coupling edge (`to-verify-triage-protocol.md:97`); cite a shape-gate pass or digest match as the basis of a semantics claim (`reports/round-12/adjacency/contract.md:9-10,23`) |
