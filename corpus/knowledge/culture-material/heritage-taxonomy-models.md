@@ -47,9 +47,7 @@ without lifting the labels.
 
 ## §4 Two period ladders — the 時代 ladder against the political era names
 
-The same Japanese search form carries a 時代 (period) select whose [日本] branch runs 旧石器, 縄文,
-弥生, 古墳, 飛鳥, 奈良, 平安, 鎌倉, 南北朝, 室町, 安土・桃山, 江戸, 明治, 大正, 昭和, 平成, 令和 —
-an archaeological-to-reign ladder — and parallel [中国] (旧石器 … 清) and [朝鮮半島] branches (S875).
+The same Japanese search form carries a 時代 (period) select whose [日本] branch runs 旧石器, 縄文, 弥生, 古墳, 飛鳥, 奈良, 平安, 鎌倉, 南北朝, 室町, 安土・桃山, 江戸, 明治, 大正, 昭和以降, 昭和, 平成, 令和 — an archaeological-to-reign ladder — with parallel [中国] (旧石器 … 清, continuing to 近現代) and [朝鮮半島] branches.
 Against the political era names in `era-periodization-models.md`, the ladder a museum uses to date
 an object is a different, emic-period vocabulary. A world bible wants both: reign names for
 documents and law, ladder names for objects and digs.

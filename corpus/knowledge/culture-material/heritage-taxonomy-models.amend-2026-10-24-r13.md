@@ -14,8 +14,8 @@
 ## The register's categories are stable; its batch count is not
 
 From the 2020-02-16 capture of S874: the register reads 国务院先后于2006年、2008年、2011年和2014年公布了四批国家级项目名录.
-From the 2026-10-20 capture of the same page: 国务院先后于2006年、2008年、2011年、2014年和2021公布了五批国家级项目名录.
-Between the two readings the taxonomy itself did not move: 国家级名录将非物质文化遗产分为十大门类 and the code rule 编号中的罗马数字代表所属门类 are word-for-word the same in the 2020 capture and in the 2026 capture.
+From the 2026-10-20 capture of the same page (S874): 国务院先后于2006年、2008年、2011年、2014年和2021公布了五批国家级项目名录.
+Between the two readings the taxonomy itself did not move: 国家级名录将非物质文化遗产分为十大门类 and the code rule 编号中的罗马数字代表所属门类 are word-for-word the same in the 2020 capture and in the 2026 capture (S874).
 For an invented culture's material-culture taxonomy this is the useful distinction: the category system is a stable object a corpus can state once, while the inventory under it grows by dated batches. A culture that fixes its ten categories but revises its national inventory is modelled correctly by citing both states.
 
 ## The register has a reachable stand-in, and the stand-in is dated
