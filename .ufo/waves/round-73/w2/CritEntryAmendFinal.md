@@ -223,9 +223,11 @@ $ find reports/round-73 -iname '*fetch*' | wc -l
 0
 $ grep -c "10\.1017\|doi\.org" corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md
 0
-$ grep -rn "fetch log" --include='*.md' . | grep -v '^./.ufo'
-./corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md:84: ... (this round's fetch log, not a source row).
+$ grep -rn "fetch log" --include='*.md' --include='*.json' --include='*.txt' . | grep -v '^./.ufo' | cut -c1-200
+./corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md:84:The publisher's abstract of the study was not opened: its DOI answered HTTP 429 to both a browser-shaped and a plain client on
 ```
+
+(the line continues past the 200-char cut; its tail is "(this round's fetch log, not a source row).")
 
 The claim "its DOI answered HTTP 429 to both a browser-shaped and a plain client" is consistent with
 the lesson Gate row (`corpus/lessons/round-73.md:47`, which names `https://doi.org/10.1017/cnj.2024.21`,
@@ -246,12 +248,12 @@ in the round-73 gate record"*.
 $ grep -c "grep -" corpus/lessons/round-73.md
 1
 $ grep -n "grep -" corpus/lessons/round-73.md | cut -c1-90
-115:Sweep for further mistakes in rounds 70–72 lessons: `grep -c '^| .* | none |' ...
+117:Sweep for further mistakes in rounds 70–72 lessons: `grep -c '^| .* | none |' corpus
 $ grep -c "grep" reports/round-73/evidence/*.txt | tr '\n' ' '
 reports/round-73/evidence/S876.txt:0 reports/round-73/evidence/S877.txt:0 reports/round-73/evidence/S878.txt:0 reports/round-73/evidence/S879.txt:0 reports/round-73/evidence/S880.txt:0 
 ```
 
-(the single lesson hit is line 115's unrelated sweep command, not a recheck command.)
+(the single lesson hit is line 117's unrelated sweep command, not a recheck command.)
 
 The committed Gate section carries a table (URL, date, quote, locator, evidence file, verdict) and
 the evidence captures carry `quote-found-verbatim: yes` — no commands, no outputs. The three commands

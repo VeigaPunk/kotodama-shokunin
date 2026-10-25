@@ -207,7 +207,7 @@ collateral in the first two only because my scratch commit moves `HEAD` past `ma
 
 All three legs can fail. So they are not vacuous — they are simply untested by `--selftest`, and STAMP is
 mostly tautological by construction: `header = {"stamped": lands, "evaluated": clone["head"], "tree": …,
-"sha": sha256_file(__file__)}` (`:938-943`) are all derived from the same `--lands` inside the same run, so the
+"sha": sha256_file(__file__)}` (`:902-905`) are all derived from the same `--lands` inside the same run, so the
 only genuinely external inputs are `measured` (`git rev-parse main`) and `RUN_STATE["outside_clone"]`.
 
 ---
@@ -290,9 +290,15 @@ browser-shaped UA, HTTP 200, a 64-hex sha256, quote-found-verbatim yes, …". Th
 never looks for a `fetch` key:
 
 ```
-$ grep -n 'fetch' reports/round-73/accept-c.py | sed -n '1,3p'
-(only the docstring line 30 "the per-row capture file carries the fetch line" and EVIDENCE's own docstring)
+$ grep -n 'fetch' reports/round-73/accept-c.py
+784:    """Leg EVIDENCE: a committed capture per adopted row — fetch line (UA, status 200,
+1254:source: S876 — https://fixture.example/a — §1 abstract — fetched 2026-10-25
+…
+1520:                body = ("# evidence %s\nfetch: GET https://fixture.example/%s\n"
 ```
+
+The only `fetch:` in the file is the one the selftest **writes** into its own fixture (`:1520`); no code path
+reads a `fetch` key.
 
 Probe — delete the `fetch:` line from `reports/round-73/evidence/S876.txt` and commit:
 
