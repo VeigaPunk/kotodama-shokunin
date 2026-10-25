@@ -1,3 +1,5 @@
-# do-nothing control D (rev 2) — base b94a543c, exact declared command on the base tree
-new-counter-exists-at-base: no (git archive of b94a543c has no reports/round-71/)
-declared no-git leg on base tree: python3 -B reports/round-71/accept-d.py --selftest → file-not-found, exit 2, NO COULD-NOT-EVALUATE line → control FAILS to reach target (good)
+# do-nothing control D (rev 3) — base b94a543c, tree-parameterized (git archive)
+leg1 in-archive: python3 -B reports/round-71/accept-d.py --selftest → file-not-found, rc=2, no COULD-NOT-EVALUATE line
+leg2 frozen no-git reproduction: python3 -B reports/round-69/accept-d.py --selftest in base archive (no .git) → DO-NOTHING FIXTURE: PASS (unexpected), SELFTEST: 1/2, rc=1 (V70-6 false red)
+leg3 frozen predicate: ACCEPT-D-69: PASS legs=8/8, rc=0
+NOTE (R71-M11): the declared no-git leg hard-codes -C <lane> and copies the LIVE worktree, so at base it returns the after-state (includes the new counter) — the command is not base-parameterized; a controller grading verbatim at base would see the target. Parameterized form (tar -C . from the tree under test) is routed with the D guard fixes.

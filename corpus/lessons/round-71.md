@@ -16,7 +16,7 @@ each live/capture URL):
 
 | source | access date | quote (≤25 words) | grounds | verdict |
 |---|---|---|---|---|
-| S861 — UNESCO Tango 00258 | 2026-10-25 | "the music, dance and poetry of tango both embodies and encourages diversity and cultural dialogue" | element record 00258, inscription narrative ¶1; Wayback capture 20260925201518 | admitted |
+| S861 — UNESCO Tango 00258 | 2026-10-25 | "the music, dance and poetry of tango both embodies and encourages diversity and cultural dialogue" | element record 00258, inscription narrative ¶2; Wayback capture 20260925201518 | admitted |
 | S862 — UNESCO Mevlevi Sema 00100 | 2026-10-25 | "the whirlers begin to rotate on their left feet in short twists" | element record 00100, inscription narrative ¶3; capture 20220323094705 | admitted |
 | S863 — UNESCO Chhau 00337 | 2026-10-25 | "Its vocabulary of movement includes mock combat techniques" | element record 00337, inscription narrative ¶2; capture 20210514035531 | admitted |
 | S864 — UNESCO Oruro 00003 | 2026-10-25 | "the dancers walk the four kilometres of the processional route" | element record 00003, inscription narrative ¶3; capture 20210227223454 | admitted |
@@ -47,6 +47,8 @@ This is the explicit reject-sweep statement (V70-5).
 | number-drift | claims.json wave-1 seat count said 34; 37 seats actually dispatched | counts must match the validated spec | report names actual 37; claims.json wave metadata corrected in report | new |
 | landing | running `reports/round-49/run-validation.py` in the lane rewrites its own filed `validation.json` in place (observed transiently by ScoutLessonMistakeSweep; restored) | QUALITY criterion 17/19 (receipts run at the revision they stamp, in clones) | never run historical runners in the lane; derive baselines in a clone | kept |
 | attribution |
+| control provenance | claim D's declared no-git leg hard-codes -C <lane> and copies the LIVE worktree, so at base it returns the after-state; the verbatim control was not base-sensitive (CritDoNothing). controls-d regenerated rev3 as a tree-parameterized verbatim capture; parameterization routed with the D guard fixes | wave-2 seat CritDoNothing | recorded; the count's base control now demonstrates base-failure and the frozen false-red | new |
+
 | counter-gap (fixed) | wave-2 MutCa probes survived two checks in accept-ca.py: preserved-bytes leg accepted any `#` first line (ORIGINAL_FIRST unused), and the verdict-table id set was not pinned to the 21 slice ids; both fixed in-round (original-header prefixes enforced; exact SLICE set required) | wave-2 seat MutCa | hardened counter re-passes ACCEPT-CA-71; receipt re-stamped | fixed |
 | governance mismatch | wave context said seats never mutate the lane, yet executor briefs assigned lane-file drafts (accept-d.py / accept-ca.py stubs) — the writes were brief-authorized but contradicted the context invariant; wave evidence audit (CritWaveEvidence A4) flags it | none (context vs brief mismatch) | recorded; next rounds' contexts will exempt assigned write paths explicitly | new |
 
