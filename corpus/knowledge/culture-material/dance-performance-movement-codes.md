@@ -36,7 +36,7 @@ The same pattern is visible in ballet: foot positions are standard across
 methods, but arm positions diverge by school — so a "standard" movement code
 is school-relative (S868).
 A worldbuilder deciding a dance "grammar" should fix, in order: the atomic
-units, the combinatorics, and which school's variant is canonical in-world.
+units, the combinatorics, and which school's variant the builder proposes to lore.
 
 ## Notation systems: writing the moving body
 

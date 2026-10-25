@@ -35,7 +35,7 @@ for any world", `:24`), and the lane authorities:
 - `PROVINCE.md:16` — "**Refuses:** claiming or recording canon — that is lore-shokunin".
 
 Each of the other imperative steps (`:98-108` "decide / fix / state / choose") is a design choice
-and is covered by `:121-124` ("this entry proposes systems only"); only `:39` names the outcome
+and is covered by `:123-124` ("this entry proposes systems only"); only `:39` names the outcome
 canon. A reader following `:38-39` will mark a school variant as canon inside kotodama, i.e.
 the duplicate-authority case the contract forbids.
 
@@ -55,7 +55,7 @@ PASS), `:110` refusal rule (PASS), `:123` handoff (see F2). No other canon-beari
 
 ## F2 — note: handoff paraphrase drops lore's decision authority (A3)
 
-`:122-124`: "The handoff to lore-shokunin stays through the world-bible integration contract;
+`:122-124` (section `:119`): "The handoff to lore-shokunin stays through the world-bible integration contract;
 lore records and verifies canon, and this entry proposes systems only."
 - Pointer: the contract is named by title only; its path is in `- couples:` (`:22`,
   `synthesis/worldbible-integration-contract.md`) and resolves (`test -f` OK, below). PASS.
@@ -116,13 +116,13 @@ into `:23`.
 E=corpus/knowledge/culture-material/dance-performance-movement-codes.md
 for i in $(seq 861 873); do printf "S$i %s\n" "$(sed -n '26,$p' $E | rg -c "S$i\b" || echo 0)"; done
 ```
-S861–S872 cited 1–2 times each; **S873 = 0** (the calibration shelf `:115` names "SEP's entry"
+S861–S872 cited 1–2 times each; **S873 = 0** (the calibration shelf `:116` names "SEP's entry"
 without the id). `- sources:` `:21` says all 13 rows are used; `corpus/SOURCES.md:828` lists the
 entry in S873's used-by. This matters for scope: SEP ("a vexed methodological question", Gate
 `corpus/lessons/round-71.md:31`) is the only source that grounds the `- refuses:` "universal dance
 taxonomies" leg, while `:28` asserts the near-universal "Movement vocabularies behave like
 lexicons" from three codified traditions (S871/S872/S868).
-Correction: hedge `:28` to "Codified movement vocabularies …" and cite `(S873)` on the `:115`
+Correction: hedge `:28` to "Codified movement vocabularies …" and cite `(S873)` on the `:116`
 shelf line (one id per line keeps QUALITY 15). Overlaps RevRows/RevEntry axes; recorded here for
 the refusal leg only.
 
@@ -145,7 +145,7 @@ with HTML stripped:
   depending on whether the performer is male (heavier use of the feet) or female"; "Transmission
   occurs through dynasties, families, social groups and Flamenco clubs" — supports `:56-58`.
 - Kabuki 20200330004935: onnagata, aragoto/wagoto, "the mie, in which the actor holds a
-  characteristic pose" — supports `:92`.
+  characteristic pose" — supports `:93`.
 - Mevlevi Sema 20220323094705: "1,001 days of reclusive training within the mevlevi-houses
   (mevlevihane)" — supports "training regime and venue register" `:82` (second fetch of this capture
   was refused, `curl: (7) Failed to connect`; first fetch succeeded).
@@ -157,4 +157,4 @@ with HTML stripped:
 1. `:39` — replace "is canonical in-world" with "the design proposes as the in-world standard (a
    candidate for the lore handoff, not canon)". **Required for A1 PASS.**
 2. `:123` — "lore decides, records and verifies canon". Optional.
-3. `:59`, `:103`, `:28`, `:115` — F5/F6 wording/citation fixes. Optional, not canon-bearing.
+3. `:59`, `:103`, `:28`, `:116` — F5/F6 wording/citation fixes. Optional, not canon-bearing.
