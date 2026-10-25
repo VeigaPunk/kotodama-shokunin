@@ -4,7 +4,7 @@
 - source: S875 — https://online.bunka.go.jp/db/heritages/search — 検索フォーム「時代」選択肢 + 「分野」選択肢 + 検索条件「指定区分」 + 記録行「材質・構造・技法」等 — fetched 2026-10-25 (live)
 - verified-at: 2026-10-25
 - ground: assimilated from the shokuknow corpus-expansion-1 package (merge/kotodama, staged for this lane 2026-10-23/24) under the round-72 §10 adoption; the package's staged rows were re-opened by this lane on 2026-10-25 and re-pointed by document (old staged ids listed in the round-72 lesson Gate; one staged row was the same PRC document family, a dated capture).
-- recheck: 180d — re-open both rows' URLs/captures and re-locate the quoted spans (carriers: the PRC row's two web.archive.org captures 20200216023423id_ and 20261020183948id_ plus its live page as served 2026-10-25; the Japanese row's live page)
+- recheck: 180d for the PRC row, 90d for the Japanese row — re-open both rows' URLs/captures and re-locate the quoted spans (carriers: the PRC row's two web.archive.org captures 20200216023423id_ and 20261020183948id_ plus its live page as served 2026-10-25; the Japanese row's live page)
 
 - gap filled: the lane held no state-published heritage classification at all before this entry: `grep -inE 'ihchina|非物质|非物質|文化遺産|heritage online|bunka' corpus/SOURCES.md` prints nothing at the 797-row registry (re-run 2026-10-25, receipt reports/round-72/telemetry/gap-sweep.txt), and `find corpus/knowledge -name '*heritage-taxonomy*'` prints nothing. The lane's era knowledge (`era-periodization-models.md`) is political and archaeological; it never had the ladder a museum uses to date an object, nor a state's own filing taxonomy for craft and ritual. Both are directly reusable as an invented culture's craft-and-ritual taxonomy and museum-era ladder.
 - topic: the two states' official category models for material and intangible culture, read as design systems: the PRC's ten-门类 intangible-heritage taxonomy with its 罗马数字 category code, its batch/扩展项目 mechanism and dated batch growth; Japan's cultural-property 分野 domain tree with its 時代 period ladder, its 指定区分 designation facet, and record-level fields (材質・構造・技法 / サイズ / 所在地).
@@ -59,8 +59,8 @@ documents and law, ladder names for objects and digs.
 The Japanese register's record rows carry 材質・構造・技法 (material, structure, technique),
 サイズ (size), 所在地 (location) as per-record labels, and the search form adds 指定区分
 (designation class) as a filter facet (S875). Each field buys a concrete design decision:
-材質・構造・技法 forces a craft ontology; a designation facet forces a protection tier (national /
-prefectural / municipal — the invented analogue is a custody chain); 所在地 forces a geography
+材質・構造・技法 forces a craft ontology; a designation facet forces a protection tier (the invented
+analogue is a custody chain); 所在地 forces a geography
 of custody. The PRC register's
 counterpart is the project row: a stable 编号 (identifier) plus category and batch (S874).
 
@@ -70,12 +70,12 @@ The transferable unit is the field set, not the category names. A build order:
 (1) fix the category set size and name style (the PRC uses ten functional 门类; Japan uses a
 material 分野 tree — the choice is a cultural claim about whether heritage is practice-typed or
 object-typed); (2) fix the code rule so category is recoverable from the identifier
-(one Roman-numeral slot vs a prefix letter); (3) decide the extension mechanism (扩展項目-style
+(one Roman-numeral slot vs a prefix letter); (3) decide the extension mechanism (扩展项目-style
 sub-items under a stable parent); (4) fix the period ladder(s) the catalogue dates by, separate
 from reign names; (5) fix record fields (material/technique, size, location, designation class).
-Both registers show the category system outliving batch updates: the ten 门类 and the code rule
-are word-for-word identical in the 2020 and 2026 captures, while the batch count grew from four
-to five (S874, and see `heritage-taxonomy-models.amend-2026-10-24-r13.md`).
+The PRC register shows the category system outliving batch updates: the ten 门类 and the code
+rule are word-for-word identical in the 2020 and 2026 captures, while the batch count grew from
+four to five (S874, and see `heritage-taxonomy-models.amend-2026-10-24-r13.md`).
 
 ## §7 Coupling to the world bible
 
