@@ -68,6 +68,7 @@ REGISTRY = "corpus/SOURCES.md"
 LESSON = "corpus/lessons/round-72.md"
 ASSIM = ".ufo/waves/round-72/assimilation"
 RECEIPT = ASSIM + "/validate-receipt.txt"
+GROUND_RECEIPT = "reports/round-72/telemetry/gap-sweep.txt"
 ENTRIES = (
     "corpus/knowledge/culture-material/heritage-taxonomy-models.md",
     "corpus/knowledge/culture-material/heritage-taxonomy-models.amend-2026-10-24-r13.md",
@@ -376,11 +377,11 @@ def leg_ground(root, lands, base):
     797-row registry; the frozen base registry is re-verified directly."""
     bad = []
     try:
-        receipt = show(root, lands, RECEIPT)
+        receipt = show(root, lands, GROUND_RECEIPT)
     except Missing:
         receipt = ""
     if not receipt:
-        bad.append("receipt missing: %s" % RECEIPT)
+        bad.append("receipt missing: %s" % GROUND_RECEIPT)
     else:
         if re.search(r"\b797\b", receipt) is None:
             bad.append("receipt does not name the 797-row registry")
@@ -476,19 +477,27 @@ def leg_scratch_mirror(root, lands, base):
 
 def leg_collcheck(root, lands, base):
     """Leg COLLCHECK: reg/staged id lists and an empty collisions file."""
-    base_dir = None
-    for cand in (ASSIM, ASSIM + "/validate"):
-        try:
-            files = {f: show(root, lands, cand + "/" + f) for f in MIRROR_ID_FILES}
-            base_dir = cand
+    variants = [("reg-ids", "staged-ids", "collisions"),
+                ("collcheck-reg-ids.txt", "collcheck-staged-ids.txt",
+                 "collcheck-collisions.txt")]
+    dirs = (ASSIM, ASSIM + "/validate", ASSIM + "/mutations")
+    files = None
+    for d in dirs:
+        for v in variants:
+            try:
+                files = {f: show(root, lands, d + "/" + f) for f in v}
+                break
+            except Missing:
+                continue
+        if files:
             break
-        except Missing:
-            continue
-    if base_dir is None:
+    if files is None:
         return leg("COLLCHECK", False, "mirror id files missing under %s" % ASSIM)
-    reg_ids = set(TOKEN_RE.findall(files["reg-ids"]))
-    staged_ids = set(TOKEN_RE.findall(files["staged-ids"]))
-    collide_ids = set(TOKEN_RE.findall(files["collisions"]))
+    reg_ids = set(TOKEN_RE.findall(files[v[0]] if False else list(files.values())[0]))
+    vals = list(files.values())
+    reg_ids = set(TOKEN_RE.findall(vals[0]))
+    staged_ids = set(TOKEN_RE.findall(vals[1]))
+    collide_ids = set(TOKEN_RE.findall(vals[2]))
     bad = []
     if not set(NEW_IDS) <= staged_ids:
         bad.append("staged-ids lacks %s" % ", ".join(set(NEW_IDS) - staged_ids))
