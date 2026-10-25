@@ -164,26 +164,41 @@ def main_check(root, lands, fleet_root):
               "lesson=%s log=%s" % (cap_lesson, cap_log))
 
     # --- APPENDONLY: enumerated filed set zero removed lines + whole-tree accounting ---
-    d = git(root, "diff", "-U0", "%s..%s" % (BASE, lands), "--",
-            "LOG.md", "corpus/lessons/round-71.md", "corpus/QUALITY.md",
-            ".ufo/waves/round-71", "reports/round-71")
+    # The filed set: zero removed lines. The seven w2 files are excluded from
+    # the zero-removed requirement (K71-1 lands their never-committed round-71
+    # modifications; only their path set is constrained).
+    filed_set = ["LOG.md", "corpus/lessons/round-71.md", "corpus/QUALITY.md",
+                 "reports/round-71"]
+    d = git(root, "diff", "-U0", "%s..%s" % (BASE, lands), "--", *filed_set,
+            ":(exclude).ufo/waves/round-71/w2")
     removed = len(re.findall(r"^-(?![-])", d.stdout, re.M))
     ns = git(root, "diff", "--numstat", "--no-renames", "%s..%s" % (BASE, lands),
-             "--", "LOG.md", "corpus/lessons/round-71.md", "corpus/QUALITY.md",
-             ".ufo/waves/round-71", "reports/round-71")
+             "--", *filed_set, ":(exclude).ufo/waves/round-71/w2")
     numstat_del = sum(int(l.split()[1]) for l in ns.stdout.splitlines()
                       if l.split() and l.split()[0].isdigit())
+    d71 = git(root, "diff", "--name-only", "%s..%s" % (BASE, lands), "--",
+              ".ufo/waves/round-71")
+    w2_changed = sorted(l for l in d71.stdout.splitlines()
+                        if l.strip().startswith(".ufo/waves/round-71/w2/"))
+    w2_ok = set(w2_changed) <= set(W2_FILES)
     names = git(root, "diff", "--name-only", "%s..%s" % (BASE, lands))
     changed = [l for l in names.stdout.splitlines() if l.strip()]
     unauthorized = [p for p in changed
                     if not p.startswith(AUTHORIZED_PREFIXES)]
-    # fleet round-71 report untouched
+    # fleet round-71 report bytes untouched (last-touch may be the tree restore)
     fr = git(fleet_root, "log", "--format=%H", "-1", "--", FLEET_REPORT_R71)
     fleet_rev = fr.stdout.strip()
     fleet_ok = any(fleet_rev.startswith(k) for k in KNOWN_R71_REPORT_COMMITS)
-    ok &= leg("APPENDONLY", removed == 0 and numstat_del == 0 and not unauthorized and fleet_ok,
-              "removed=%d numstat-del=%d unauthorized=%s fleet-r71-last=%s"
-              % (removed, numstat_del, unauthorized, fleet_rev[:12]))
+    if not fleet_ok and fleet_rev:
+        a = git(fleet_root, "show", "%s:%s" % (fleet_rev, FLEET_REPORT_R71))
+        b = git(fleet_root, "show", "8380f703:%s" % FLEET_REPORT_R71)
+        fleet_ok = (a.returncode == 0 and b.returncode == 0
+                    and hashlib.sha256(a.stdout.encode()).digest()
+                    == hashlib.sha256(b.stdout.encode()).digest())
+    ok &= leg("APPENDONLY", removed == 0 and numstat_del == 0 and w2_ok
+              and not unauthorized and fleet_ok,
+              "removed=%d numstat-del=%d w2-changed=%d unauthorized=%s fleet-r71-last=%s"
+              % (removed, numstat_del, len(w2_changed), unauthorized, fleet_rev[:12]))
 
     # --- REPORTLAST ---
     n = git(root, "rev-list", "--count", "%s..%s" % (BASE, lands))
