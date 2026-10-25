@@ -46,7 +46,9 @@ This is the explicit reject-sweep statement (V70-5).
 | stale-premise | claim C's frozen before-sweep `grep -rniE '^- topic:.*(danc|…)…'` matched `funerary-material-culture.md:4` ("avoidance") — the declared "prints nothing" was false as written (ScoutDanceOwners, CritClaimSizing) | word-bounded sweeps (`\b(danc|choreograph|movement culture|performance)\b`) | claim re-frozen pre-data with word-bounded sweep; entry `- gap filled:` names the word-bounded sweep | new |
 | number-drift | claims.json wave-1 seat count said 34; 37 seats actually dispatched | counts must match the validated spec | report names actual 37; claims.json wave metadata corrected in report | new |
 | landing | running `reports/round-49/run-validation.py` in the lane rewrites its own filed `validation.json` in place (observed transiently by ScoutLessonMistakeSweep; restored) | QUALITY criterion 17/19 (receipts run at the revision they stamp, in clones) | never run historical runners in the lane; derive baselines in a clone | kept |
-| attribution | round-70 receipts stamped "measured at lane 6cb51a4+landed edits" while the after-state first exists at acc2d614 (V70-2) | QUALITY criterion 19 | S860 verify-at repointed to acc2d614; full 17/19 headers re-stamped (V70-1) | new |
+| attribution |
+| declared-counter defect | claim Ca's frozen shell counting command (claims.json) ends with an awk leg that splits on `|` and matches the row id in field 1 — markdown verdict rows start with `|`, so field 1 is empty and the leg prints 0 (21 rows exist; `accept-ca.py` counts 21/21). Found by wave-2 seat Filler35 | the freeze rule | the canonical python counter `reports/round-71/accept-ca.py` is the instrument whose receipt is committed; the shell command's formatting leg is documented as a declared-counter defect (old→new logged) and is not used to hide data | new |
+ round-70 receipts stamped "measured at lane 6cb51a4+landed edits" while the after-state first exists at acc2d614 (V70-2) | QUALITY criterion 19 | S860 verify-at repointed to acc2d614; full 17/19 headers re-stamped (V70-1) | new |
 
 ## Corrections (round 70)
 
