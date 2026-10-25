@@ -404,7 +404,8 @@ def load_ledger(root, clone, lands, ledger_arg):
     """(obj, source, sha, raw, error). source: 'lands' | 'worktree-uncommitted'."""
     rel = ledger_arg
     if not os.path.isabs(rel):
-        r = git(clone, "show", "%s:%s" % (lands, rel))
+        r = git(clone["path"] if isinstance(clone, dict) else clone,
+                "show", "%s:%s" % (lands, rel))
         if r.returncode == 0:
             raw = r.stdout
             try:
