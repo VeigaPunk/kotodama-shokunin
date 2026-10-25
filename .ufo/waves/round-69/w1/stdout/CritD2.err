@@ -1,0 +1,626 @@
+kimi version 2.3.1
+• Let me parse the task:
+
+  1. I'm a leaf seat in a godspeed round-69 v1 wave. My task: Attack claim D2's error-signature requirement.
+  2. Read SKILL.md's `## Error patterns` section in /home/vgpnk/Projects/shokunin/kotodama-shokunin.
+  3. Decide what a named error signature for the new `### Registry correction chains` decision table must look like to be usable there.
+  4. Give five candidate signature names for the five chain states, each distinct, each naming an observable condition rather than a category.
+  5. Cross-check that none collides with existing observation rows in `## Error patterns`.
+  6. Write report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritD2.md
+  7. End answer with 'Report: .ufo/waves/round-69/w1/CritD2.md'
+
+  Also I should look at the claims, accept-d.py to understand the predicate, and the mined S-row whose used-by names SKILL.md (mentioned in D2 claim). Let me read files.
+
+  Plan:
+  - Read SKILL.md (the whole file, or at least the Error patterns section and any relevant D2-related sections).
+  - Read reports/round-69/accept-d.py to see what the predicate checks.
+  - Read reports/round-69/claims.json.
+  - Maybe check tools/ for the mined S-row / registry (corpus/knowledge? registry? Let me look for S859 or the registry).
+  - Check corpus/lessons/ for S-row registry.
+
+  Let me do parallel reads: SKILL.md, reports/round-69/accept-d.py, reports/round-69/claims.json. Also glob for registry files.
+
+  Then write the report and end with the trailer line.
+
+  Let me start.Now I have the key material. Let me analyze:
+
+  **The counter's SIGNATURES leg**: 
+  ```python
+  missing_sig = [r[3] for r in rows if len(r) >= 4 and r[3] and r[3] not in ep_text]
+  res.add("SIGNATURES", not missing_sig, "missing=%s" % (missing_sig or "none"))
+  ```
+  So each row's 4th cell (Error signature) must appear as a substring somewhere within the `## Error patterns` section text (between `## Error patterns` and the next `## ` heading). The counter only checks substring presence — it does NOT check that the signature is a row in the error patterns table, nor that it's distinct, nor that it names an observable condition. That's exactly where my critique should aim: the counter's bar is mechanically low (substring presence), so the depth claim's quality bar (five distinct, observable-condition signatures usable in `## Error patterns`) is a craft requirement the counter can't see. My job: define what a usable named error signature must look like given the `## Error patterns` table shape, propose five candidates for the five chain states, and cross-check collisions.
+
+  **The `## Error patterns` table shape**: two columns, `| Observation | Reading |`. Each row's Observation is written as a short observable condition — a sentence-fragment describing what you'd see (e.g. "An English garment label fails the native inventory", "A label-only record passes silently", "A sound kind declared with no bytes supplied"). The Reading gives the interpretation + action, often with a pointer to a named error id (`D2L-FORM-UNRESOLVED`, `D2L-DATA`) and an executable/citation anchor.
+
+  So a "named error signature" in this lane has precedent in two shapes:
+  1. ALL-CAPS-KEBAB ids from the executable tools: `D2L-FORM-UNRESOLVED`, `D2L-DATA`, `D3-DERIVATION`, `D3-SCOPE`, `D2L-BORROW` (mentioned in SKILL.md). These are emitted finding ids — named error signatures with executable teeth.
+  2. Lowercase kebab phrase observations: the fixture table in accept-d.py uses lowercase-kebab phrases: `chain-left-pending`, `entry-not-repointed`, `retired-row-mined`, `closed-chain-kept`, `scope-limiter-missing`.
+
+  Interesting: the accept-d.py fixture uses those five names. The fixture is the counter's own GREEN control. The real SKILL.md table does NOT have to use those exact names — the SIGNATURES leg only checks r[3] appears in the Error patterns text. But the fixture names are the L1's pre-registered vocabulary. Should I flag that? My task says: "Give five candidate signature names for the five chain states, each distinct, each naming an observable condition rather than a category. Cross-check that none of them collides with an existing observation row in `## Error patterns`."
+
+  So I'm to produce five candidate names. I should note that the accept-d.py GREEN fixture pre-registers its own five (`chain-left-pending`, `entry-not-repointed`, `retired-row-mined`, `closed-chain-kept`, `scope-limiter-missing`) — if the landed table used different names, the counter still passes (no name match enforced), but consistency argues for matching the fixture vocabulary or at least not diverging without reason. Actually wait — is it a problem if the landed table uses different names than the fixture? The counter doesn't enforce the fixture names. But the fixture names were committed pre-data as part of the counter. Using the fixture's own five names is the cheapest path to consistency and avoids any accusation that the landed table was written post-hoc to game the counter. Actually since the counter only checks substring presence, using the fixture names is safe.
+
+  But my task is to *attack* the error-signature requirement: decide what a named error signature must look like to be usable in `## Error patterns`. Let me look at the Error patterns rows more carefully:
+
+  Existing observation rows (Observation column), all distinct surface descriptions:
+  1. "language is a relex of the author's native language"
+  2. "every culture shares one symbolic color code"
+  3. "static language across deep time"
+  4. "costume described with modern garment words"
+  5. "names with no derivational morphology"
+  6. "myth that explains nothing in daily life"
+  7. "An English garment label fails the native inventory"
+  8. "A label-only record passes silently"
+  9. "A translation claim made over a violating native form"
+  10. "A sound kind declared with no bytes supplied"
+  11. "An untyped legacy label"
+  12. "A record with no declared kind at all"
+  13. "`compare_only` set while the typed label is unresolved"
+  14. "A borrowed form judged only against the native stratum"
+  15. "A loan's oldest form used to date the referent's arrival"
+  16. "A loanword that switched referent in transit"
+  17. "Imported prestige terminology for locally made goods read as evidence of import"
+  18. "A modern/curatorial label promoted to an attested historical native word"
+  19. "A translation, exonym, or official replacement run through the inherited-form sound laws"
+  20. "Era tags or slot glosses graded on the name/sound channel"
+  21. "A transliteration collision read as native-script identity"
+  22. "A shared garment label across cultures read as identical cut or status"
+
+  Note there's a second table inside the `## Error patterns` section (the Status/uncertainty one starting "| Status | Assign when (necessary condition) |..."). The section span in the counter goes from `## Error patterns` until the next `## ` heading (which is `## Boundaries (hard)`), so ep_text includes both tables. The substring check `r[3] not in ep_text` just needs the signature string to appear anywhere in that text.
+
+  Key collision risk: a named signature must not duplicate an existing Observation row semantically. Since the registry-correction-chain domain (supersession settlement) is new, semantic collision is unlikely, but string collision also matters for the substring check: r[3] must appear in ep_text — meaning when landed, the row text will BE added to Error patterns. But wait — the SIGNATURES leg checks the SKILL.md as it exists at measurement time, i.e., after the L1 lands both the table and the Error patterns rows. So the substring will be present by construction. The critique: the leg can't distinguish "the signature appears as a proper Observation row with its own Reading" from "the signature string appears anywhere in the section text" (e.g., buried in prose, or inside the second table, or in a paragraph). That's a genuine weakness to record.
+
+  Also: what does "usable in ## Error patterns" mean concretely? The table shape is `| Observation | Reading |`. The five signatures land as five new Observation rows, each with a Reading that gives the writer's interpretation and points at the executable (tools/check-supersession-settlement.py finding ids if they exist) or the S859 row. Let me check tools/check-supersession-settlement.py to see what finding ids it actually emits — the strongest form of a named error signature in this lane is one the executable emits. Let me read that file.
+
+  Also check corpus/SOURCES.md for S859 (is it landed? claims say not landed yet — S859 registry row is "the data", not landed). Let me verify: grep S859 in corpus/SOURCES.md.
+
+  Also, does the settlement check emit named codes? Let me read tools/check-supersession-settlement.py and tools/check-settlement-fixture.py.
+
+  Then the cross-check: compare my five candidates against the existing 22 Observation rows, string-wise and semantically.
+
+  Candidate naming style decision. The lane has two vocabularies:
+  - executable finding ids: `D2L-FORM-UNRESOLVED`, `D2L-DATA`, `D2L-RANK`, `D2L-BORROW` (uppercase, lane-prefixed)
+  - Error patterns Observations: natural-language condition sentences (lowercase starts, no ids)
+
+  The claim says "a named error signature" per state, listed under Error patterns. The fixture uses lowercase-kebab compound names. The counter's fixture is the pre-registered shape: `chain-left-pending` etc. These are exactly "observable condition" names. My candidates should follow the lane grammar: a hyphenated compound naming what an observer sees in the chain, not a category label ("pending state" = category; "chain-left-pending" = observable: the ruling never landed).
+
+  Now the five chain states (from accept-d.py STATES): pending, settled-active, settled-retired, settled-closed, settled-split. These come from tools/check-supersession-settlement.py presumably. Let me read that file to get the actual state semantics so the signatures name the actual observable condition per state, not an invented taxonomy.
+
+  The fixture signatures:
+  - pending → chain-left-pending — "the correction never landed; rule the chain"
+  - settled-active → entry-not-repointed — "the successor is mined but no entry cites it"
+  - settled-retired → retired-row-mined — "a retired correction still reads as mined"
+  - settled-closed → closed-chain-kept — "the closed chain's successor was dropped"
+  - settled-split → scope-limiter-missing — "both rows are mined without a scope limiter"
+
+  My attack/critique on these as signatures:
+  1. `chain-left-pending` — names a state, not really an *error* observation... it IS the error condition for pending (the chain sits pending forever). "Observable": a mined successor + mined target with no ruling row. Decent.
+  2. `entry-not-repointed` — observable: an entry (registry used-by?) still cites the old target. Good — names the thing you'd see: no pointer moved.
+  3. `retired-row-mined` — observable: a SOURCES row marked retired/superseded still carries `mined` status. Good — contradicts the row's own state fields.
+  4. `closed-chain-kept` — this one is category-ish/awkward: "closed-chain-kept" is hard to read as an observable condition (kept where? what did the writer keep?). The fixture reading says "the closed chain's successor was dropped" — the signature name doesn't say "dropped". Weakness: name/reading mismatch. A better name would be something like `closed-successor-dropped`. But wait — my task: give five candidates, attack the requirement. I can propose improvements.
+  5. `scope-limiter-missing` — observable: both rows mined with overlapping scope and no limiter column/annotation. Good-ish: "missing" names absence of the artifact that should exist.
+
+  Distinctness check among the five fixture names: all five distinct strings, and none appears in the current Error patterns section (the current observations are natural-language sentences, no kebab-case ids). Let me verify no kebab-id collision via grep. The named codes in Error patterns text currently: `D2L-FORM-UNRESOLVED` (twice), `D2L-DATA` (twice). Those are finding ids mentioned in Readings, not Observation signatures. No lowercase-kebab compounds exist in the section. So zero collision for kebab-style names.
+
+  Now let me also derive the state semantics from tools/check-supersession-settlement.py to make sure the five states and their error conditions match the executable. The fixture cites lines 112, 127, 129, 123, 130. Let me read the file.
+
+  Also the O2 harness tools/check-settlement-fixture.py — negative case is "missing-used-by". That's about SOURCES.md rows' used-by column. Relevant for the SOURCE leg: table must cite a mined S-row (cells[7] == "mined") whose used-by (cells[10]) names SKILL.md. S859 must be filed in corpus/SOURCES.md with 11 cells, status mined, used-by SKILL.md.
+
+  My task is specifically the error-signature requirement, so the deliverable:
+  1. What a named error signature must look like to be usable in `## Error patterns` — derive from the section's own grammar (Observation = short observable condition in past/present tense describing a detectable artifact state; Reading = interpretation + action + anchor; optional named code with executable teeth).
+  2. Five candidates, distinct, observable-condition naming.
+  3. Cross-check: no collision with existing observation rows (string + semantic).
+  4. Attack findings: what the counter checks vs what the craft requires (substring-only; no distinctness check — duplicate signatures would pass; no check that signature is an Observation-row cell; the check is case-sensitive; a signature identical to existing row text would "pass" while adding nothing... actually if r[3] equals an existing row's observation text, the substring check passes without any new Error patterns row being added — that's a real hole: a lazy table could reuse e.g. "A record with no declared kind at all" as its signature and pass SIGNATURES without touching Error patterns. Worth stating.)
+  5. Also: rows[3] with len(r) >= 4 — if a row has fewer than 4 cells, FIELDS fails separately (short row). If r[3] is empty, FIELDS fails (empty cell). So SIGNATURES only sees non-empty sigs. OK.
+
+  Also potential subtlety: `r[3] not in ep_text` is substring — if signature is `chain-left-pending`, the Error patterns row must contain that exact string; putting it in a kebab-code cell like `| chain-left-pending | the correction never landed... |` works. Case sensitivity: exact.
+
+  One more attack angle: distinctness is required by the claim wording ("five candidate signature names... each distinct") but the counter never asserts distinctness — five identical signatures pass SIGNATURES. And `STATES` leg requires the five state names lowercase in order — got == list(STATES) where got = [r[0].lower() for r in rows if r]. So states must be exactly pending/settled-active/settled-retired/settled-closed/settled-split in order.
+
+  Now, my five candidates. I should propose names that follow the fixture's pre-registered vocabulary where it's good and improve where it's weak, while noting the trade-off: diverging from the fixture names is allowed by the counter but creates a fixture/data vocabulary split — the GREEN fixture would then exercise a table whose signatures differ from the landed one, weakening the "fixture is lane-shaped" story. Actually that's an important finding: the fixture names are pre-data commitments; the L1 should land exactly those five names (or consciously re-bless). Let me think about which I'd recommend.
+
+  Actually, let me reconsider each fixture name against "names an observable condition rather than a category":
+
+  State semantics — I need the actual tool. Let me read tools/check-supersession-settlement.py now. Also grep SOURCES.md for S859 and look at the SOURCES.md row shape (11 cells, columns?). Let me also check the header of SOURCES.md registry.
+
+  Also corpus/lessons/round-69.md may or may not exist yet (data not landed). Check.
+
+  Let me run these reads in parallel:
+  - Read tools/check-supersession-settlement.py
+  - Read tools/check-settlement-fixture.py
+  - Grep "S859" across repo
+  - Read corpus/SOURCES.md header (first ~40 lines)
+
+  Then write the report.
+
+  Also cross-check collisions mechanically: extract all Observation cells from `## Error patterns` and compare against my five candidate strings — do a small python script over SKILL.md. Also check whether any of the five strings appear anywhere in SKILL.md currently (they shouldn't).
+
+  Let me proceed.
+
+• The grep was huge — S859 appears in many wave prompt files. Key facts confirmed:
+  - accept-d.py's FIXTURE_TABLE rows cite `S859 — tools/check-supersession-settlement.py:112` etc.
+  - The settlement checker does NOT emit named finding codes per state — it prints class names (PENDING/SETTLED-ACTIVE/... uppercase). The only named code is `STALE-USED-BY` mentioned in the docstring (line 21) but... wait, is STALE-USED-BY actually emitted anywhere in the code? Looking at classify(): `stale` collects every usedby path, not just mismatches. The docstring says "A row whose used-by names a path that does not contain the row's own id is STALE-USED-BY (reported; gated only for the frozen ruling set, not globally — the --scan exit code gates pending alone)". But the scan() implementation only counts missing paths, doesn't emit STALE-USED-BY strings. Interesting — the docstring's STALE-USED-BY is not actually printed by scan. That's a real finding for the signature question: the executable does NOT currently emit per-state named codes; only the chain classification tokens SETTLED-ACTIVE etc. and the counters pending/missing_paths. So an "executable-anchored" signature would anchor to the scan line format (`PENDING S002>S001 s=... used_by=N`), not to a finding id.
+
+  Now I should check corpus/SOURCES.md for whether S859 is landed (claims say NOT landed; grep preview didn't show corpus/SOURCES.md but the output was truncated). Let me check specifically SOURCES.md for S859, and get the SOURCES.md registry header shape. Also confirm the S833-S856 band exists (round 68 admitted rows) — gives the real-row shape.
+
+  Also for the cross-check I want to mechanically extract the Observation column values from `## Error patterns` and check candidate strings against them. Let me write a small python script to /tmp and run it.
+
+  Also check the round-68 critique file CriticAmendD2.md — it mentioned "S859 substring false-positive" at .ufo/waves/round-68/w1/CriticAmendD2.md:262 — that's about the round-68 accept-d counter? Round 68 had counters too; the CriticAmendD2 may contain prior critique of a similar table. Worth a quick look since it may already discuss the error-signature mechanics — my report should avoid re-litigating what's known, or build on it. Let me read that section.
+
+  Plan:
+  1. Grep S859 in corpus/SOURCES.md only.
+  2. Read SOURCES.md registry header (first lines) — maybe read lines around the registry heading.
+  3. Read .ufo/waves/round-68/w1/CriticAmendD2.md around line 262 (and its top).
+  4. Write /tmp script to extract error-pattern observations + test candidate collisions + run accept-d selftest for evidence.
+
+  Let me do 1-3 in parallel now.
+
+---
+26:## Registry
+---
+59
+---
+ls: cannot access '/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-69.md'
+: No such file or directory
+---
+6a98d7d042b6c58d2165773b1585069798111035
+• Confirmed:
+  - corpus/SOURCES.md has no S859 row (grep printed nothing before the first `---`). Registry at line 26, 59 S8xx rows total. So the S859 row is indeed not landed — the SOURCE leg of accept-d would currently FAIL (no S859). Also `corpus/lessons/round-69.md` doesn't exist yet. Good context but my seat is about the signatures.
+  - The round-68 CriticAmendD2 was about a different D2 (round-68's depth claim about the amendment mechanism). Its S859 mention is unrelated to my scope. My scope is only round-69 D2's error-signature requirement.
+
+  Wait — interesting: HEAD is `6a98d7d0...` but claims.json says base revision `793f79746712a79f915bb481215e54bbea8b5e7a`. HEAD has moved beyond base (instruments committed after base). Fine — jj-colocated, and I must not mutate.
+
+  Now the core analysis for my report. Let me nail down the mechanics of accept-d.py's SIGNATURES leg and the Error patterns grammar, then craft the five candidates and run the mechanical cross-check.
+
+  **SIGNATURES leg mechanics** (accept-d.py:160-165):
+  ```python
+  ep_start, ep_end = section_span(lines, "## Error patterns")
+  ep_text = "\n".join(lines[ep_start:ep_end])
+  missing_sig = [r[3] for r in rows if len(r) >= 4 and r[3] and r[3] not in ep_text]
+  ```
+  Properties:
+  1. Substring containment only, within the section span from `## Error patterns` heading to the next `## ` heading (`## Boundaries (hard)`).
+  2. Not required to be a table row; appearing anywhere in the section (including the second table or prose) passes.
+  3. Not required distinct — five identical signatures pass.
+  4. Reusing an existing observation string passes without adding any row.
+  5. Case-sensitive exact substring.
+  6. If a row has <4 cells or an empty 4th cell, FIELDS fails first; SIGNATURES only sees non-empty cells.
+
+  **The Error patterns grammar** (existing table): two columns `Observation | Reading`. Observation = short natural-language condition naming an observable artifact state (typically a sentence fragment in indicative present, describing what a reviewer would SEE: "A label-only record passes silently", "A sound kind declared with no bytes supplied", "An untyped legacy label"). Reading = the interpretation + prescribed action, often anchored with a named executable finding id (`D2L-FORM-UNRESOLVED`, `D2L-DATA`) and citations.
+
+  So a "named error signature" usable there must be:
+  - (a) a short name (kebab-case compound, like the fixture's `chain-left-pending`) that can occupy the Observation cell or be embedded at its head, AND
+  - (b) the phrase must name a state of the registry artifact you can observe by reading corpus/SOURCES.md (cell values, statuses, used-by fields) — not a category or a state label alone; and
+  - (c) it should be checkable against the settlement checker's scan output vocabulary (PENDING/SETTLED-* classes, pending=N, missing_paths=K) or extend it.
+
+  Note the pre-registered fixture vocabulary in accept-d.py FIXTURE_TABLE/FIXTURE_SIGNATURES: `chain-left-pending`, `entry-not-repointed`, `retired-row-mined`, `closed-chain-kept`, `scope-limiter-missing`. These are committed pre-data. The landed table can use different names (counter doesn't compare to fixture names) but then the GREEN fixture no longer mirrors the landed data — vocabulary split. The cheapest defensible move: land the fixture's five names verbatim. My attack: evaluate each of the five against "names an observable condition rather than a category" and find weaknesses:
+
+  1. `chain-left-pending` — observable: a supersedes pair classified `pending` in scan output. Names the *debt* (chain left unsettled), which IS the observable condition (SETTLEMENT: pending=N ≥ 1). Good. But note: "pending" is also the state name itself — the signature for the `pending` row names the state it restates. Row says state=pending, signature=chain-left-pending. That's fine: the error signature for the pending state is "the chain was left in pending" — the writer's failure to rule. Observable via `SETTLEMENT: pending≥1` and the `PENDING Sxxx>Syyy` scan line. Distinct.
+
+  2. `entry-not-repointed` — settled-active's failure: successor mined but used-by never re-pointed... wait, careful. In the checker, settled-active REQUIRES `s_st == mined and s_used and t_st == queued`. The error `entry-not-repointed` names the defect that keeps a chain OUT of settled-active: the successor is mined but `used-by` is `—` (no path) so it stays pending. Observable: `used_by=0` on a mined successor row, i.e. the used-by cell is `—`. That names a concrete cell condition. Good.
+
+  3. `retired-row-mined` — settled-retired's counterpart: hmm, actually what's the error here? State settled-retired = successor rejected. The fixture's reading says "a retired correction still reads as mined". Wait, if the successor is rejected, the chain is settled-retired — no error. The error signature for this row: the defect the writer would commit in this state is treating a rejected correction as if still mined — i.e., a row marked rejected whose `teaches` supersedes text still leads the reading order / whose content is still cited. Observable: a `rejected` row whose id still appears in a Paths section / used-by of others / taught as current. The checker doesn't gate this (retired chains don't gate; scan exit gates pending only). So the signature names a condition observable by reading but NOT gated by the executable — worth stating as a depth note: signature with review teeth only, like `STALE-USED-BY` (docstring-only, not emitted).
+
+  Hmm wait — actually re-read the fixture row: `| settled-retired | successor rejected | keep the target | retired-row-mined |`. The error signature column in the D2 table = the named error that occurs in/around this state. For settled-retired, `retired-row-mined` = "a retired correction still reads as mined" — i.e., someone treats/reverts the rejected row as the live mined source. Observable condition: a `rejected` successor row is still cited by used-by/Paths, or its status cell reads mined in a later append while teaches still says supersedes. OK.
+
+  4. `closed-chain-kept` — weakest name. Reading: "the closed chain's successor was dropped". But the name says "kept", the reading says "dropped" — name/reading mismatch. As an observable condition it fails the test: you cannot tell from the name what you would see. The name/reading mismatch is a real usability defect to flag. What IS the observable condition? settled-closed = target (superseded row) rejected, keep the successor. The error: the writer drops/deletes the successor row (or rejects it too) — observable as the successor row missing from the registry, or its `teaches` supersedes pointer deleted. Better name: `closed-successor-dropped`. But note this diverges from the pre-registered fixture vocabulary → the counter still passes, but the fixture/data vocab split. Alternatively land the fixture name and put the observable condition in the Reading cell. My recommendation: land fixture names verbatim (they're pre-data-committed vocabulary; the counter's green fixture exercises exactly them), and carry the observable condition in the Reading cell; if the L1 prefers improved names, that's allowed by the counter but should be recorded as a conscious re-bless since the fixture names were committed pre-data.
+
+  Hmm, wait. Let me reconsider. Is the fixture name actually "pre-data committed vocabulary" in a binding sense? The freeze rule says predicate/counter/kill-rule/target frozen; the fixture is part of the counter (its selftest). Landing names that differ doesn't break anything. But the D2 claim's story ("lane-shaped fixture") is best served by identical vocab. I'll present both: five candidates that match fixture names where sound, and note the two I'd amend with rationale, plus the counter-visible consequences of each choice (none — SIGNATURES is substring-only), so the L1 decides with the teeth in view.
+
+  5. `scope-limiter-missing` — settled-split: both rows mined, settled only if teaches carries the scope limiter (SPLIT_RE: `for (entry|line|row|cell|clause)\b.{0,40}\bonly`). Error: both mined without limiter → chain stays pending. Observable: `PENDING` scan line where both statuses read `mined`. Concrete cell condition: teaches cell lacks a `for … only` clause. Good name; matches executable regex exactly.
+
+  So of the five fixture names, four are solid observable-condition names; `closed-chain-kept` is the weak one (name doesn't state the observable defect and contradicts its own reading "dropped").
+
+  **My five candidates.** The task says: "Give five candidate signature names for the five chain states, each distinct, each naming an observable condition rather than a category."
+
+  I'll offer the fixture-aligned set as the primary recommendation (since it is pre-registered), but where the fixture name is weak I should still do my job — name the observable condition. Let me decide: my report should give five candidates that I judge best under the usability bar, and explicitly mark their relation to the fixture names. Options:
+
+  Set A (fixture-verbatim): chain-left-pending, entry-not-repointed, retired-row-mined, closed-chain-kept, scope-limiter-missing.
+  Set B (amended): chain-left-pending, entry-not-repointed, retired-row-mined, closed-successor-dropped, scope-limiter-missing.
+
+  Actually — let me think harder about whether `retired-row-mined` names an observable condition. "retired-row-mined": a row that was retired (rejected) reads as mined. Observable: status cell says `mined` on a row whose supersedes chain was ruled retired... hmm, but per the checker, retired = successor rejected. If the successor's status later flips to mined again, the chain re-enters active/pending. The observable defect for the settled-retired row's writer-action ("keep the target") is: the writer re-activates or re-mines the rejected correction, or keeps citing the rejected row's teaching. "retired-row-mined" compresses to: a rejected correction's row still carries/behave as mined status. I think it's acceptable — it names status-cell state (row-mined) crossed with the retirement ruling. Distinct from all existing observations.
+
+  But is there a cleaner observable phrasing? "superseded-still-cited" — a rejected successor still cited by used-by/Paths. Hmm. But I shouldn't over-engineer; the key deliverable is the usability analysis + distinctness + no collision. I'll present Set B as recommended with Set A deltas flagged, and run the mechanical cross-check on BOTH sets.
+
+  Wait, one more candidate consideration: the counter's STATES leg requires rows[0] in order pending → settled-active → settled-retired → settled-closed → settled-split (lowercased). The five signatures map 1:1 onto those rows in that order. Also note FIELDS requires exactly 5 cells; the Error signature cell is r[3] (4th column: State | Row shape | Writer's next action | Error signature | Evidence).
+
+  **Collision cross-check**: mechanically extract all Observation cells from the `## Error patterns` section's first table plus all row-leading cells of the second table, and check (i) exact substring presence of each candidate in current SKILL.md (must be absent today — if absent, no collision; they're new), (ii) semantic overlap with the 22 existing observations — the domain (registry/supersession/corpus SOURCES rows) does not intersect the existing domains (lexicon, myth, costume, naming, loans, labels, claims). The only registry-adjacent existing rows are about claim/uncertainty rows (second table), e.g. "A claim's status rides as prose inside evidence_status" — different object (handoff packet claim ledger), not the SOURCES registry. So no collision. I'll verify string-wise with a script.
+
+  Also verify: none of the five candidate strings currently appear anywhere in SKILL.md (they shouldn't, since the table isn't landed). And check kebab-case id inventory elsewhere in SKILL.md — existing named codes: D2L-FORM-UNRESOLVED, D2L-DATA, D2L-BORROW, D2L-RANK, D4L-REGISTER-UNRESOLVED (mentioned as unprovable), D3-UTTERANCE/D3-DERIVATION/D3-NATIVE/D3-SCOPE/D3-TIMING/D3-OBJECT/D3-ERA/D3-RANK/D3-MYTH, CROSS-HOLD, LAW-ORDER, R68-M1 etc. The lane's two signature grammars: UPPERCASE lane-prefixed finding ids (executable-emitted) vs lowercase-kebab observation compounds (fixture style). The claim's Error-signature column per the fixture uses lowercase-kebab. Collision check must also cover the uppercase ids — none of my candidates are uppercase, and no lowercase-kebab compound exists in Error patterns today. Let me verify with grep for `[a-z]+-[a-z]+-[a-z]+` compounds in the Error patterns section... simpler: grep for the five candidate strings and for any kebab-case tokens in the section. I'll do it in the script.
+
+  **Attack findings to record** (the "attack the requirement" part):
+  1. SIGNATURES leg is substring-containment within the section span — it cannot distinguish a proper Observation row from the string appearing in prose or the second table. A table whose signature strings appear only inside, say, the second table's cells passes. Attack leg passes, depth bar not enforced.
+  2. No distinctness check: five rows with the same signature string pass (STATES + FIELDS + SIGNATURES all green). The claim's "each distinct" is enforced nowhere. Mitigation: the do-nothing control catches absence, not duplication. A cheap mutation: duplicate one signature → still ACCEPT-D PASS. I can demonstrate this in /tmp against a copy? Wait — I can't mutate production files, but I can copy SKILL.md + needed tree to /tmp and run accept-d.py --root against the mutated copy. That's explicitly allowed: "Use scratch under /tmp for any mutation you need to demonstrate (copy the file, mutate the COPY, re-run the counter against the copy)." That would strengthen the report: build the green-fixture-shaped tree in /tmp with duplicated signatures, show ACCEPT-D-69 PASS (legs 8/8) despite the duplicate — proving distinctness is unenforced. Similarly, show reuse of an existing observation string passes without new Error patterns rows... actually reusing "A record with no declared kind at all" as r[3] would pass SIGNATURES (it IS in ep_text) — but wait, would it? ep_text spans the whole section; that string is in the first table's Observation cell. Yes, substring present → PASS. Nice demonstration.
+  3. Case/format: substring is case-sensitive; a signature written as `Chain-Left-Pending` in the table but `chain-left-pending` in Error patterns FAILS — brittle coupling; the landed table should copy strings exactly.
+  4. Vocabulary-split risk: fixture names are pre-data; the landed table should either use them verbatim or consciously re-bless; otherwise GREEN fixture and real data diverge in the only column the claim names. (Counter passes either way.)
+  5. `closed-chain-kept` name/reading mismatch ("kept" vs "dropped") — fails the "observable condition" bar as written; recommend `closed-successor-dropped` or carrying the observable in the Reading cell.
+  6. The executable's vocabulary: the settlement checker emits uppercase class tokens (PENDING/SETTLED-*) and counters (pending=N, missing_paths=K), NOT per-state finding ids; its docstring names `STALE-USED-BY` but scan() never prints it (checked: scan prints only cls lines + SETTLEMENT summary; STALE-USED-BY appears nowhere in code — let me verify with grep). So "executable-anchored" signatures in the D2L-*/D3-* style would have no emitter; the fixture's lowercase-kebab style anchored to scan output is the honest choice today. If the L1 wants executable-anchored signatures, the checker would need to emit them — a follow-up, not this round's claim.
+
+  Let me verify STALE-USED-BY absence in the code: grep. And run the accept-d selftest to have real evidence output. And do the /tmp mutation demos:
+  - Demo A (duplicate signatures): build fixture tree via the counter's own builder? Easiest: import accept-d.py as a module in a python script from /tmp, monkeypatch? No — simpler: use its build_fixture_root with a copied module, then rewrite the fixture SKILL.md's FIXTURE_TABLE to duplicate a signature, then run evaluate. Actually cleanest: run `accept-d.py --selftest` first (proves green/do-nothing pre-data), then a /tmp script that:
+    1. builds the green fixture via the module's build_fixture_root,
+    2. rewrites the fixture SKILL.md replacing all five signature cells with the SAME string (e.g. `entry-not-repointed` five times) and also inserting that string into Error patterns once (FIXTURE_SIGNATURES already contains it — wait, FIXTURE_SIGNATURES has each signature once; if all five cells are the same string, that string is present once in ep_text → SIGNATURES passes),
+    3. runs evaluate → expect PASS 8/8 → proves distinctness unenforced.
+  - Demo B (recycled existing observation): replace one signature cell with "A record with no declared kind at all" (already in Error patterns, no new row needed) → SIGNATURES passes for that row → shows the leg accepts recycled observations without any Error-patterns landing. Combined demo possible in one script with two mutant fixture trees.
+  - Demo C (case mismatch): `Chain-Left-Pending` in table vs lowercase in Error patterns → SIGNATURES FAIL → shows exact-copy requirement.
+
+  Also Demo D (improved name): swap `closed-chain-kept` → `closed-successor-dropped` in both table and Error patterns fixture block → still PASS → proves the counter accepts amended names (vocabulary change is free, i.e., nothing pins the fixture names in the data).
+
+  That's strong evidence. Time-box: keep it tight. One script, four mutants, print leg lines.
+
+  Also the mechanical collision check script: extract Observation cells from SKILL.md Error patterns; list kebab tokens; assert none of candidates present in current SKILL.md.
+
+  Then write the report with VERDICT lines. Report path: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritD2.md. Check the w1 dir exists (prompts dir exists, so w1 exists — prompts are under .ufo/waves/round-69/w1/prompts/, so w1 exists).
+
+  One more check: the SOURCES.md registry row shape for S-rows — cells[7] is status, cells[10] used-by (11 columns: id, source, kind, tier, scope, anchor, teaches, status, opened, recheck, used-by). Confirmed by fixture code. Not my seat but relevant context for the Evidence/SOURCE legs.
+
+  Also: what counts as "usable there" — the Error patterns table is `| Observation | Reading |`. How do kebab names fit? Precedent: none currently. Options: (a) Observation cell = the kebab name followed by the condition sentence: `| chain-left-pending — a supersedes pair still classified pending | ... |`; (b) Observation = condition sentence, name embedded at head in backticks. Either satisfies substring. The lane's existing Error pattern observations are condition sentences; adding a bare kebab token as the whole cell would be a NEW grammar — acceptable but should keep the condition visible for the reading to work. I'll recommend shape: `| `name` — observable condition sentence | reading + action + anchor (S859; tools/check-supersession-settlement.py:LINE) |`. Wait but backticks around the name: substring `chain-left-pending` still present. Fine.
+
+  Also note: the signature names should be greppable/dedupable across SKILL.md — each name should appear exactly twice in SKILL.md after landing (table + Error patterns). I can even recommend `grep -c` as the L1's self-check: each name count == 2. And the exact-string coupling note (case).
+
+  Now the five candidates with distinct observable conditions:
+
+  1. pending → `chain-left-pending` — observable: a supersedes pair with no ruling; scan prints `PENDING Sxxx>Syyy` / `SETTLEMENT: pending≥1`. Condition: correction debt unruled. Distinct from state name? The state IS pending; signature names the *defect of leaving it there*. Keep.
+
+  2. settled-active → `entry-not-repointed` — observable: successor row `status=mined` with used-by cell `—` (or lacking the target entry), so the active ruling never re-pointed the reading entry; scan: `PENDING ... used_by=0` for a mined successor. Cell condition: used-by ≠ path. Keep.
+
+  3. settled-retired → `retired-row-mined` — observable: a `rejected` correction row still carries/cited as mined — i.e., a row whose status is `rejected` still listed in used-by of readers or still taught as current. Hmm, actually simplest observable cell condition: `status=rejected` on a supersedes row whose target is still `mined` — wait that's exactly settled-retired (not an error). The ERROR for this row: writer's next action is "keep the target" — the error is NOT keeping it, i.e., retiring the target too / flipping the target's status. Observable: target row's status flipped off `mined` after a retirement ruling. Hmm, "retired-row-mined" per fixture reading = "a retired correction still reads as mined". The "retired correction" = the rejected successor; "still reads as mined" = its teaching still cited/leading. So observable: a `rejected` supersedes row still cited by an entry's used-by / still listed in Paths as the read-first row. OK — cell/artifact condition. Keep name; state the condition precisely in my report.
+
+  4. settled-closed → `closed-chain-kept` (fixture) — weak; my amended candidate `closed-successor-dropped` — observable: the successor row that the closed chain kept goes missing (row absent from the registry, or its supersedes pointer/used-by deleted), so the chain's resolution can't be traced. Cell condition: `Sxxx` referenced by a `supersedes Sxxx` but absent from the registry (the checker reads target "missing" status — classify() handles `rows.get(t)` → `t_st = "missing"`; note: if target missing, cls falls to pending unless successor rejected... let me trace: t_st == "missing", s_st mined, s_used, t_st queued? No — "missing" != "queued" → falls to split check (t_st mined? no) → pending. So a dropped TARGET gives PENDING; a dropped successor is invisible to the chain scan (no supersedes pointer = not a chain at all). Good nuance: dropping the successor erases the chain — unobservable to scan(); only diff/receipt work sees it. That's exactly why the signature should name it: the failure mode is invisible to the executable → review-anchored signature. This is good depth analysis.)
+
+  5. settled-split → `scope-limiter-missing` — observable: both rows `mined` and the successor's `teaches` lacks a `for … only` clause → chain prints `PENDING`; matches SPLIT_RE exactly. Keep.
+
+  Distinctness: all five distinct strings; also each maps to a distinct observable cell/artifact condition (no ruling; used-by —; rejected-still-cited; kept row missing; teaches lacks limiter). No two name the same condition.
+
+  Collision vs existing: zero kebab compounds in Error patterns today; domain disjoint; verified mechanically.
+
+  Let me now run the evidence commands:
+  1. `python3 -B reports/round-69/accept-d.py --selftest` (real output for green/do-nothing).
+  2. Mechanical extraction + collision script (also computes the observation list).
+  3. Mutant demos A–D.
+  4. `grep -n "STALE-USED-BY" tools/check-supersession-settlement.py` to confirm docstring-only.
+
+  Note accept-d.py --selftest uses tempfile dirs, writes only to /tmp — allowed. The script lives in the lane; running it reads production only. Fine.
+
+  Let me write the demo script to /tmp/critd2-demo.py. It imports the counter module via importlib from the lane path (read-only import — safe), uses its build_fixture_root + evaluate. Mutations on copies in /tmp.
+
+  One caution: build_fixture_root copies LANE SKILL.md into fixture and appends FIXTURE_TABLE/SIGNATURES. For mutants, after building green fixture, I edit the fixture SKILL.md text. Let me write it.
+
+  Also record environment facts for the report: HEAD 6a98d7d0, base 793f7974, S859 absent from SOURCES.md (so SOURCE leg red today — expected pre-data), corpus/lessons/round-69.md absent. These are context, not my verdicts. Actually wait — my verdicts: the seat is "Attack claim D2's error-signature requirement". Verdict lines should cover: (1) the five candidates' usability — PASS as candidates (with the one fixture amendment flagged); (2) collision cross-check — PASS (no collision); (3) counter-strength findings — the SIGNATURES leg holes (substring-only, no distinctness, recycled-observation pass) demonstrated by mutants — findings, VERDICT lines as findings. I'll structure: §Mechanics, §Usability bar, §Five candidates, §Collision cross-check (with command output), §Attack findings (mutant evidence), §Recommendation for the L1.
+
+  Let me run the commands now.
+
+=== STALE-USED-BY emitters ===
+21:`STALE-USED-BY` (reported; gated only for the frozen ruling set, not globally —
+rc=0
+=== accept-d selftest ===
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 1/8)
+SELFTEST: 2/2
+selftest_rc=0
+observation_rows=32
+O01 Observation
+O02 language is a relex of the author's native language
+O03 every culture shares one symbolic color code
+O04 static language across deep time
+O05 costume described with modern garment words
+O06 names with no derivational morphology
+O07 myth that explains nothing in daily life
+O08 An English garment label fails the native inventory
+O09 A label-only record passes silently
+O10 A translation claim made over a violating native form
+O11 A sound kind declared with no bytes supplied
+O12 An untyped legacy label
+O13 A record with no declared kind at all
+O14 `compare_only` set while the typed label is unresolved
+O15 A borrowed form judged only against the native stratum
+O16 A loan's oldest form used to date the referent's arrival
+O17 A loanword that switched referent in transit
+O18 Imported prestige terminology for locally made goods read as evidence of import
+O19 A modern/curatorial label promoted to an attested historical native word
+O20 A translation, exonym, or official replacement run through the inherited-form so
+O21 Era tags or slot glosses graded on the name/sound channel
+O22 A transliteration collision read as native-script identity
+O23 A shared garment label across cultures read as identical cut or status
+O24 A claim's status rides as prose inside `evidence_status` or `kind`
+O25 The packet passes `16/16 + 20/20` with no uncertainty column anywhere
+O26 Two claims share one basis sentence, or a basis restates the status word
+O27 A digest match or gate exit 0 offered as a claim's basis
+O28 A claim-to-record link present but not resolving
+O29 An edge or record inherits its source node's `supported`
+O30 A date, count, or bound invented to avoid writing `unresolved`
+O31 An open item closed because the round ended
+O32 A landed packet whose uncertainty markers disappeared
+--- exact presence of candidates anywhere in SKILL.md ---
+chain-left-pending: 0
+entry-not-repointed: 0
+retired-row-mined: 0
+closed-chain-kept: 0
+closed-successor-dropped: 0
+scope-limiter-missing: 0
+--- kebab-case tokens present in ## Error patterns section ---
+['caveat-carrying', 'claim-as-worded', 'claim-to-record', 'color-symbolism', 'costume-language-coupling-table', 'count-semantics', 'cross-cultural', 'cross-version', 'culture-material', 'delivered-record', 'descriptive-gloss', 'digest-pin', 'era-language-staging', 'existence-check', 'fictional-coordinate', 'five-kind', 'garment-lexicon-crosslinguistic', 'handoff-packet-check', 'inherited-form', 'label-only', 'label-representation', 'language-contact', 'loanword-material-dating', 'naming-collision-gate', 'naming-systems', 'native-script', 'object-arrival', 'per-claim', 'projection-of-records', 'proposed-only', 're-couple', 'representation-channel', 'ritual-liminality', 'scoped-supported', 'shape-clean', 'shape-gate', 'shard-gate-adapter', 'sound-change', 'supplement-opencode', 'to-verify', 'to-verify-triage-protocol', 'translated-label', 'typed-labels', 'uncertainty-populated', 'word-entry', 'worldbible-integration-contract']
+• Excellent results:
+  1. `STALE-USED-BY` appears only in the docstring (line 21), never emitted by code — confirmed.
+  2. accept-d selftest: GREEN 8/8, DO-NOTHING 1/8 (fails as required). Pre-data instruments behave.
+  3. Collision scan: 32 observation rows (header + 31 real observations... wait, O01 is the "Observation" header cell — my parser included the header. So 31 actual observation cells: 22 in table 1 (O02-O23) and 9 in table 2 (O24-O32, whose first column is "Status"/"Finding or observation" — hmm, O24-O32: the second table has 4 columns Status|Assign when|Required basis|Never for rows 496-498, but then rows 499-507 have a different shape "A claim's status rides as prose..." — the second table's header is `| Status | Assign when (necessary condition) | Required basis | Never |` and O24+ are its rows' first cells. My 2-cell filter picked them because... whatever — the point stands: those are the existing observation-like strings.)
+
+  All six candidate strings (including my amended `closed-successor-dropped`) have count 0 in SKILL.md → no string collision. Kebab tokens in the section are path/term fragments and prose hyphenations, none matching candidates → no collision. Also semantically: no existing observation is about registry rows / supersedes chains / used-by cells / scope limiters. The nearest neighbors are the uncertainty-table rows (O24-O32) about claim ledgers in handoff packets — different artifact (handoff packet claim ledger, not corpus/SOURCES.md registry). No collision.
+
+  Now the mutant demos. Write /tmp/critd2-mutants.py:
+  - import accept-d module via importlib.util.spec_from_file_location
+  - build green fixture via module.build_fixture_root(fx, with_table=True)
+  - Mutant A (duplicate signatures): rewrite fixture SKILL.md so all five rows use the same signature cell `entry-not-repointed` (FIXTURE_SIGNATURES keeps each name once — wait, need the duplicated name in ep_text: FIXTURE_SIGNATURES already includes entry-not-repointed once. If table cells all become entry-not-repointed, SIGNATURES: for each row r[3]='entry-not-repointed' in ep_text → pass. Expect ACCEPT PASS 8/8 → proves distinctness unenforced.
+  - Mutant B (recycled existing observation): set row 1's signature cell to "A record with no declared kind at all" (O13) → present in ep_text → SIGNATURES passes while Error patterns gained no new row for chain state pending... wait, but FIXTURE_SIGNATURES still contains chain-left-pending; doesn't matter. Expect PASS.
+  - Mutant C (case mismatch): set row 1's cell to "Chain-Left-Pending" (capitalize) while Error patterns has lowercase → 'Chain-Left-Pending' not in ep_text → SIGNATURES FAIL. Expect FAIL — demonstrates exact-string brittleness.
+  - Mutant D (amended name): replace closed-chain-kept with closed-successor-dropped in BOTH table and signatures block → PASS → proves the counter accepts amended vocabulary (nothing pins fixture names in data).
+
+  For each mutant: fresh fixture dir, apply text replace on the fixture SKILL.md after build, then module.evaluate(root, Result(quiet=True)) and print legs summary. Print the leg lines too for evidence.
+
+  Implementation detail: build_fixture_root(fx, with_table=True) writes base SKILL.md with FIXTURE_TABLE inserted before "## Error patterns" and FIXTURE_SIGNATURES inserted after "## Error patterns" heading. The SKILL.md has TWO occurrences... wait: `base.replace("## Error patterns", FIXTURE_TABLE + "\n## Error patterns", 1)` — count=1, first occurrence. SKILL.md has "## Error patterns" once (line 468). Good. Then `base.replace("## Error patterns", "## Error patterns\n" + FIXTURE_SIGNATURES, 1)` — this hits the first occurrence, which after the first replace is still the same position (FIXTURE_TABLE ends with "\n## Error patterns"). OK.
+
+  For mutants I'll do simple .replace on the fixture skill text:
+  - A: replace each signature cell occurrence in the table rows. Easier: replace the whole FIXTURE_TABLE block text? The table text in the fixture file equals module.FIXTURE_TABLE exactly. So: text.replace(module.FIXTURE_TABLE, mutated_table). And FIXTURE_SIGNATURES similarly.
+  - For A: mutated table = FIXTURE_TABLE with each of the 5 signature names replaced by "entry-not-repointed"... careful order: replace each name string globally in the table text with "entry-not-repointed" — but "entry-not-repointed" itself stays. All five cells become the same string. ep_text contains entry-not-repointed (from FIXTURE_SIGNATURES, unchanged). SIGNATURES → all found → PASS.
+  - B: FIXTURE_TABLE.replace("chain-left-pending", "A record with no declared kind at all") — only first row's cell changed (that name occurs once in table). PASS expected.
+  - C: FIXTURE_TABLE.replace("chain-left-pending", "Chain-Left-Pending") → not in ep_text → FAIL expected.
+  - D: replace in both FIXTURE_TABLE and FIXTURE_SIGNATURES: closed-chain-kept → closed-successor-dropped → PASS expected.
+
+  Then run evaluate with a quiet Result and print each leg.
+
+  Write the script and run. Then write the report.
+
+  Also for the report I want the real scan output vocabulary example: run the settlement checker --scan on a temp fixture to show PENDING/SETTLED lines. Quick: python3 tools/check-supersession-settlement.py --scan --root <tmp with FIX1>? That's what fixture harness does. Simpler: run tools/check-settlement-fixture.py --selftest to show the three cases green — evidence for O2 context. And show one scan line output. Let me include check-settlement-fixture --selftest in the mutants command batch.
+
+  Then write CritD2.md. Structure:
+
+  # CritD2 — attack on D2's error-signature requirement (round-69 w1)
+
+  ## Scope and method
+  - seat, date, base revision, what was read, commands.
+
+  ## VERDICT summary
+  - VERDICT: PASS — five candidate signatures distinct + collision-free (mechanically checked)
+  - VERDICT: PASS — fixture-verbatim names landable; one amendment recommended (closed-chain-kept → closed-successor-dropped), counter-indifferent either way
+  - VERDICT: FINDING — SIGNATURES leg is substring-only; distinctness unenforced (demonstrated)
+  - VERDICT: FINDING — recycled existing observation passes without a new Error-patterns row (demonstrated)
+  - VERDICT: FINDING — exact-case string coupling; case drift FAILs the leg (demonstrated)
+  - VERDICT: FINDING — executable emits no per-state finding ids; STALE-USED-BY is docstring-only; lowercase-kebab anchored to scan output is the honest grammar today
+
+  ## What a usable named error signature must be (the reading)
+  Derived from the section grammar: Observation cell = short observable artifact-state condition; Reading = interpretation + action + anchor. Named codes in the lane come in two grammars: executable-emitted UPPERCASE ids (D2L-*, D3-*) and the fixture's lowercase-kebab compounds. Since the settlement checker emits no per-state finding id (verified: only SETTLED-*/PENDING class tokens and pending=/missing_paths= counters; STALE-USED-BY docstring-only), the kebab grammar anchored to observable registry cells / scan output is the only executable-honest choice. Requirements list (usability bar):
+  1. names a state of the artifact you can point to (a cell value, an absence, a scan line), not a category or the state label alone;
+  2. short kebab compound, appears exactly twice in SKILL.md after landing (table cell + Error patterns Observation), byte-identical both times (case-sensitive substring leg);
+  3. each of the five names a DIFFERENT observable (no two reduce to the same cell condition);
+  4. the Reading cell carries the interpretation + the writer's action + the anchor (S859; tools/check-supersession-settlement.py:LINE), matching the lane's Observation|Reading grammar;
+  5. no collision with any of the 31 existing observation strings (exact or semantic).
+
+  ## The five candidates
+  Table: state | candidate | observable condition | scan/tool evidence today | fixture name delta.
+
+  ## Collision cross-check
+  - mechanical: 31 observation rows extracted; candidates count 0 in SKILL.md; kebab inventory shows no overlap; domain disjoint (registry/supersession vs lexicon/myth/costume/claims). Nearest neighbors O24-O32 are about handoff-packet claim ledgers — different artifact.
+
+  ## Attack findings on the SIGNATURES leg (mutant evidence)
+  1. substring-only containment (span to next ##; prose or second table would satisfy)
+  2. distinctness unenforced — Mutant A PASS 8/8 with all five cells identical
+  3. recycled observation — Mutant B PASS with O13 reused, no new row needed
+  4. case brittleness — Mutant C FAIL
+  5. fixture/data vocabulary split is free — Mutant D PASS with amended name; recommend conscious decision, prefer fixture-verbatim + amended only for closed-chain-kept... hmm wait, decide: recommend landing `closed-successor-dropped` (amended) since `closed-chain-kept` fails the observable-condition bar (name says kept, defect is dropped), OR landing fixture name with the observable in the Reading cell. The claim text says "each with ... a named error signature" — fixture names are pre-data-committed but not frozen-into-data. My recommendation: amend to `closed-successor-dropped`; the counter is indifferent (Mutant D), and the fixture's own reading contradicts its name. Cost: the GREEN fixture then exercises a name the data doesn't use — a cosmetic divergence, record in the round lesson.
+  6. executable anchor gap: signatures have review teeth only; the checker's scan gates pending only, and neither retired-row-mined nor closed-successor-dropped conditions move any exit code — depth claim should not imply executable enforcement; anchor the Evidence cell to the checker line numbers (as fixture does: :123, :129) and to scan line shapes.
+
+  ## L1 handoff notes
+  - land names byte-identical in both places (grep -c each name in SKILL.md == 2)
+  - keep order pending/settled-active/settled-retired/settled-closed/settled-split (STATES leg lowercases row[0])
+  - Evidence cell must contain a path token that exists (EVIDENCE leg resolves PATH_RE against root; cite tools/check-supersession-settlement.py:NNN)
+  - SOURCE leg needs S859 row in corpus/SOURCES.md with 11 cells, cells[7]=mined, cells[10] containing SKILL.md — plus the lessons/round-69.md ## Gate quote (claim's `sourced` field)
+
+  Verdict lines exactly as required: "VERDICT: ..." lines.
+
+  Length: keep tight but complete. Include real command outputs (selftest output, collision output snippets, mutant outputs).
+
+  Let me run the mutants now.
+
+MUTANT A-dup      -> PASS (8/8 legs)
+MUTANT B-recycle  -> PASS (8/8 legs)
+MUTANT C-case     -> FAIL (7/8 legs)  failed: SIGNATURES
+MUTANT D-amend    -> PASS (8/8 legs)
+=== fixture harness selftest (O2 context) ===
+PASS fixture-green rc=0 pending=0 missing_paths=0
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 3/3
+• All evidence gathered:
+
+  1. Selftest: GREEN 8/8 PASS, DO-NOTHING 1/8 FAIL (as required).
+  2. STALE-USED-BY: docstring-only (line 21), never emitted.
+  3. Collision: 31 observation cells, all candidates count 0, no kebab overlap.
+  4. Mutants:
+     - A-dup (five identical signature cells): PASS 8/8 → distinctness unenforced.
+     - B-recycle (signature = existing observation "A record with no declared kind at all"): PASS 8/8 → recycled observation passes without any new Error-patterns row.
+     - C-case ("Chain-Left-Pending" vs lowercase): FAIL on SIGNATURES → case-sensitive exact-string coupling.
+     - D-amend (closed-chain-kept → closed-successor-dropped in both places): PASS 8/8 → counter is indifferent to the fixture names; amended vocabulary lands clean.
+  5. Fixture harness selftest 3/3 (O2 context, healthy).
+
+  One more small evidence item I could add: the scan output line shape to anchor the signatures to observable scan tokens. I have the fixture harness output (pending=0 missing_paths=...). The scan prints lines like `PENDING S001>S002 s=mined t=queued same_url=... used_by=...`. I know this from the code (scan() print). I could run one scan on a temp fixture to quote the real line — cheap and makes the "anchored to observable scan output" recommendation concrete. Let me do it quickly: build FIX1-style registry in /tmp and run scan. Actually the settlement checker's own selftest already ran scans inside tempdirs but their stdout isn't shown. Quick one-liner: create /tmp/critd2-scan/corpus/SOURCES.md with a pending pair + missing used-by file, run scan, capture output.
+
+  Also confirm which lines the fixture Evidence cells cite: :112 (classify pending fall-through), :127 (settled-active), :129 (settled-retired... actually :125-126 is settled-retired; :129 is settled-split's first line? Let me check: classify() lines — 123-124: t_st == "rejected" → settled-closed; 125-126: s_st == "rejected" → settled-retired; 127-128: settled-active; 129-131: settled-split; 132-133: pending. The fixture cites: pending→:112 (def classify start — the classification function, fine), settled-active→:127 (correct), settled-retired→:129 (off by one line — actual settled-retired is :125-126; :129 is the settled-split condition line), settled-closed→:123 (correct), settled-split→:130 (within :129-131, fine). So fixture's settled-retired Evidence cell cites :129 which actually holds the settled-split condition — a one-line citation drift. Worth a small finding! Let me verify exact line numbers from the Read output above:
+
+  ```
+  120:    def classify(rows, order):
+  ...
+  122:        for rid in order:
+  123:            r = rows[rid]   — wait let me recount from the Read output.
+  ```
+
+  From the Read:
+  - line 112: `def classify(rows, order):` — yes (112 was shown as `def classify` — checking: line 111 blank? The Read showed `112	def classify(rows, order):`? Actually it showed:
+
+  ```
+  108	
+  109	
+  112	def classify(rows, order):
+  ```
+
+  Hmm, lines 106-110 were end of parse_registry, 111-112... The Read output shows:
+  ```
+  106	    return header, rows
+  ...
+  110	
+  111	
+  112	def classify(rows, order):
+  113	    """Return (chains, stale) — chains: list of dicts per supersedes pair."""
+  114	    chains = []
+  115	    for rid in order:
+  116	        r = rows[rid]
+  117	        if r.get("malformed") or not r["supersedes"]:
+  118	            continue
+  119	        t = r["supersedes"]
+  120	        s_st, t_row = r["status"], rows.get(t)
+  121	        t_st = t_row["status"] if t_row else "missing"
+  122	        s_used = usedby_paths(r)
+  123	        if t_st == "rejected":
+  124	            cls = "settled-closed"
+  125	        elif s_st == "rejected":
+  126	            cls = "settled-retired"
+  127	        elif s_st == "mined" and s_used and t_st == "queued":
+  128	            cls = "settled-active"
+  129	        elif s_st == "mined" and s_used and t_st == "mined" and \
+  130	                SPLIT_RE.search(r["teaches"]):
+  131	            cls = "settled-split"
+  132	        else:
+  133	            cls = "pending"
+  ```
+
+  So:
+  - pending → fixture cites :112 = the `def classify` line — the pending classification is actually :132-133. Citation drift (fixture cites the function head, not the pending branch).
+  - settled-active → :127 correct (the condition line; cls assignment at :128).
+  - settled-retired → :129 WRONG — :129 is the settled-split condition's first line; settled-retired is :125-126.
+  - settled-closed → :123-124; fixture cites :123 — correct (condition line).
+  - settled-split → :130 = `SPLIT_RE.search(...)` line — correct (that's the distinctive part).
+
+  So two citation drifts in the pre-registered fixture table: pending (:112 = function head, not the pending branch :132-133) and settled-retired (:129 = the split branch, not the retired branch :125-126). The EVIDENCE leg only checks that a path token exists (tools/check-supersession-settlement.py exists) — line numbers are not validated. This is a legitimate depth attack finding: the pre-data table's Evidence pointers are partially stale relative to the very file they cite, and nothing in the counter checks line resolution. Recommendation: land the table with corrected line anchors (:132-133 pending, :125-126 retired) — EVIDENCE leg stays green (path exists), and the pointers become true.
+
+  This is a strong catch — exactly the "attack the requirement" work. Let me verify the line numbers with a quick grep -n to be certain (the Read output line numbers should match the file, but double-check quickly). Also capture a real scan output line.
+
+  Then write the report.
+
+  Report contents — keep structured and evidence-dense:
+
+  # CritD2 — attack on D2's error-signature requirement
+
+  ## Environment / method
+  - repo, base, HEAD read at, date. Read-only attestation: production untouched; mutations only in /tmp copies (mutants + collision script paths).
+  - Commands run list.
+
+  ## The requirement, as frozen
+  - accept-d.py SIGNATURES leg mechanics (code quote, line numbers :160-165) — substring containment in the section span.
+  - Error patterns grammar: | Observation | Reading |, 31 existing observation rows.
+
+  ## What a named error signature must look like to be usable there (the reading)
+  Five-part usability bar (as analyzed above).
+
+  ## Five candidates
+  Table: state | candidate | observable condition (registry artifact state) | today's observable evidence | delta vs pre-registered fixture name.
+  - pending | chain-left-pending | a supersedes pair with no ruling — scan prints `PENDING Sxxx>Syyy`, SETTLEMENT pending≥1 | scan line | same as fixture (fixture Evidence cites :112 = function head; true branch :132-133)
+  - settled-active | entry-not-repointed | successor `mined` with used-by cell `—` (no entry re-pointed); scan `used_by=0` on a mined successor keeps the chain PENDING | classify :127-128 | same
+  - settled-retired | retired-row-mined | a `rejected` correction row still cited/read as current (used-by/Paths still lead with it) | classify :125-126; NOT gated by scan exit (pending-only) | same name, fixture cites wrong line :129
+  - settled-closed | closed-successor-dropped | the kept successor row is missing from the registry / its pointer erased — the chain becomes invisible to scan() (no supersedes pointer → no chain), only receipts/diffs see it | classify :123-124 | AMENDED from fixture `closed-chain-kept`
+  - settled-split | scope-limiter-missing | both rows `mined`, successor `teaches` lacks a `for … only` clause (SPLIT_RE, checker :54) → chain prints PENDING | classify :129-131 | same
+
+  Each distinct: five different artifact conditions (no ruling; used-by empty; rejected-but-cited; kept row missing; teaches lacks limiter). None reducible to another.
+
+  ## Collision cross-check
+  - script + output: 31 observation rows, candidate count 0 each, kebab inventory no overlap, semantic domain disjoint; nearest neighbors O24–O32 are handoff-claim-ledger rows, different artifact.
+  - VERDICT: PASS — no collision.
+
+  ## Attack findings (each with the mutant/receipt)
+  F1 distinctness unenforced (A-dup PASS 8/8).
+  F2 recycled observation passes with no new Error-patterns row (B-recycle PASS 8/8) — the "listed under ## Error patterns" depth wording is weaker than the leg.
+  F3 case brittleness (C-case FAIL SIGNATURES) — land byte-identical strings; grep -c name == 2 as self-check.
+  F4 fixture/data vocabulary is unpinned (D-amend PASS 8/8) — amending `closed-chain-kept` → `closed-successor-dropped` is counter-free; recommend the amendment because the fixture name contradicts its own reading ("kept" vs "the closed chain's successor was dropped") and fails the observable-condition bar.
+  F5 Evidence line anchors partly stale in the pre-registered table: pending cites :112 (function head; the pending branch is :132-133), settled-retired cites :129 (the settled-split condition; retired is :125-126). EVIDENCE leg cannot catch line drift (PATH_RE + os.path.exists only). Land corrected anchors.
+  F6 no executable emitter for any of the five: the checker emits class tokens + counters only; `STALE-USED-BY` is docstring-only (grep evidence: only line 21). Signatures have review teeth; the claim should not imply gate enforcement. Anchor Evidence to the true branch lines and the scan line shape.
+
+  ## Recommendation to the L1 (handoff)
+  - land Set B: chain-left-pending / entry-not-repointed / retired-row-mined / closed-successor-dropped / scope-limiter-missing — or fixture-verbatim if the pre-data vocabulary is to be preserved; counter-indifferent (F4); record the choice in corpus/lessons/round-69.md.
+  - Observations rows shape: `| name — condition sentence | reading; rule/action; anchor (S859; tools/check-supersession-settlement.py:NNN) |`.
+  - byte-identical names in both places; row order pending→settled-active→settled-retired→settled-closed→settled-split (STATES leg lowercases and compares in order).
+  - Evidence cells: path tokens that exist; corrected line anchors.
+
+  ## Verdicts
+  List of VERDICT lines.
+
+  End with Report trailer line in my answer (not in the file? The instruction: "Write your report to ... and end your answer with the single line 'Report: ...'". So the answer ends with the trailer; the file itself is the report. I'll not put the trailer inside the file... Previous convention: the trailer goes in the answer. I'll keep the file without the trailer line, answer ends with it.)
+
+  Quick verification commands to run now:
+  1. grep -n the classify branches to confirm line numbers.
+  2. Real scan output on a tiny temp fixture.
+
+  Then Write the report.
+
+112:def classify(rows, order):
+123:        if t_st == "rejected":
+124:            cls = "settled-closed"
+125:        elif s_st == "rejected":
+126:            cls = "settled-retired"
+127:        elif s_st == "mined" and s_used and t_st == "queued":
+128:            cls = "settled-active"
+129:        elif s_st == "mined" and s_used and t_st == "mined" and \
+131:            cls = "settled-split"
+133:            cls = "pending"
+---
+PENDING S002>S001 s=mined t=mined same_url=True used_by=1
+SETTLEMENT: pending=1 chains=1 usedby_paths=1 missing_paths=1
+scan_rc=1
+• Confirmed line numbers:
+  - :123-124 settled-closed
+  - :125-126 settled-retired
+  - :127-128 settled-active
+  - :129-131 settled-split
+  - :132-133 pending (else branch)
+
+  Fixture Evidence cells cite: pending→:112 (function head — drift; true anchor :132-133), settled-active→:127 (ok), settled-retired→:129 (WRONG — that's the settled-split condition line; true anchor :125-126), settled-closed→:123 (ok), settled-split→:130 (ok, the SPLIT_RE.search line).
+
+  Real scan line captured: `PENDING S002>S001 s=mined t=mined same_url=True used_by=1` — the both-mined-without-limiter pending case (scope-limiter-missing's observable), plus missing_paths=1 (used-by names a missing file). Note in this fixture the used_by file corpus/knowledge/a.md doesn't exist → missing_paths=1. Good.
+
+  Now write the report file. Path: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritD2.md
+
+  Check w1 dir exists — prompts are at .ufo/waves/round-69/w1/prompts/, so yes. Write tool creates parents anyway.
+
+  Report content — markdown, commands + real output, VERDICT lines. Keep it tight but complete. Let me draft.
+
+  Note on the observation-row count: my script printed 32 rows where O01 = header cell "Observation". So 31 real observation strings. I'll state that precisely (22 in the craft table, 9 in the uncertainty table — O02–O23 is 22 rows, O24–O32 is 9 rows; 22+9=31 ✓).
+
+  Also state the section-span behavior: SIGNATURES substring window spans `## Error patterns` → next `## ` (`## Boundaries (hard)`), so both tables + any prose inside count.
+
+  Also worth one more nuance for candidates: `retired-row-mined` and `closed-successor-dropped` have NO executable gate (scan exit gates pending only) — their observable evidence is the registry bytes + receipts; the Evidence cells should say so honestly (cite classify branch lines as the definition, not as an enforcement claim).
+
+  Verdict lines to include:
+  - VERDICT: PASS — five candidate signatures proposed; each distinct; each names an observable registry artifact condition; zero collision with the 31 existing Error patterns observations (mechanically checked).
+  - VERDICT: PASS — pre-data instruments healthy: accept-d --selftest GREEN 8/8 + DO-NOTHING FAIL-as-required 2/2; settlement fixture harness 3/3 (O2 context).
+  - VERDICT: FAIL (of the leg's strength, not the data — the leg is too weak to enforce the claim's depth bar): substring-only, distinctness unenforced, recycled observations accepted. → As a "finding" verdict. I'll phrase as VERDICT: FINDING lines. The instruction says state findings as VERDICT lines (PASS/FAIL/NOT-EVALUATED as examples). I'll use VERDICT: FAIL for the strength attack (the SIGNATURES leg fails its own claim-level bar), VERDICT: PASS for candidates/collisions, VERDICT: NOT-EVALUATED for anything I didn't measure (e.g., whether the L1 lands fixture-verbatim — future data; S859/SOURCE leg — not landed yet, out of my seat; I note as not-evaluated-pre-data).
+
+  Let me structure verdicts:
+  1. VERDICT: PASS — candidates (five, distinct, observable-condition naming, collision-free).
+  2. VERDICT: PASS — amended name closed-successor-dropped lands clean through the counter (D-ammutant) and fixes the fixture name/reading contradiction; fixture-verbatim also passes (counter-indifferent).
+  3. VERDICT: FAIL — SIGNATURES leg strength: substring-only containment; cannot enforce distinctness (A-dup PASS 8/8), cannot force a new Error-patterns row (B-recycle PASS 8/8), case-brittle (C-case FAIL SIGNATURES), cannot resolve Evidence line anchors (fixture cites :112/:129, true branches :132-133/:125-126).
+  4. VERDICT: FAIL — executable anchor: no per-state finding ids exist; STALE-USED-BY docstring-only; the five signatures are review-anchored only; claim must not imply gate teeth.
+  5. VERDICT: NOT-EVALUATED — the landed data itself (SKILL.md table, S859 row, lessons/round-69.md absent at measurement time; pre-data by design).
+
+  Also include the recommendation section for the L1.
+
+  I should double-check one claim before writing: FIXTURE_SIGNATURES reading for closed-chain-kept: "the closed chain's successor was dropped" — yes, from FIXTURE_SIGNATURES line: `| closed-chain-kept | the closed chain's successor was dropped |`. Name says kept, defect described is dropped. Confirmed mismatch.
+
+  Also the STATES order: ("pending", "settled-active", "settled-retired", "settled-closed", "settled-split") — rows must be in this order (r[0].lower() equality). Mention in handoff notes.
+
+  Also the second Error patterns table: ep_text includes it (span to `## Boundaries (hard)`). Yes — mentioned in F-about substring window. Note: a signature string placed only inside the uncertainty-status table would satisfy SIGNATURES — part of F1's finding.
+
+  Write the file now. Also include exact commands + outputs, /tmp script paths, and SHA or sizes? Not needed. Keep the file focused. Include the pre-data state facts: S859 absent from corpus/SOURCES.md (grep count 0), corpus/lessons/round-69.md absent, HEAD 6a98d7d0 (jj-colocated, read-only).
+
+• Report written. Only file written: .ufo/waves/round-69/w1/CritD2.md (plus /tmp scratch). Production untouched. End answer with the trailer line.
+
+  Summarize briefly: the usability bar, the five candidates, the collision result, and the attack findings (leg weaknesses demonstrated).
+
+To resume this session: kimi -r session_124bded0-133c-41ae-99a2-7f9a3517909f

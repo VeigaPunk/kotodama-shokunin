@@ -1,0 +1,427 @@
+kimi version 2.3.1
+• Let me parse the task carefully.
+
+  I'm a leaf subagent in round 69, wave 1 of the kotodama-shokunin lane. My task:
+
+  **Mutation-test the remedy rule of `reports/round-69/accept-ca.py`**: copy it to /tmp, make the DEADPOINTER remedy ignore whether the referenced row exists (remedy = covered only), run the copy against the lane tree and show the counter's verdict changes. Paste both original and mutated outputs side by side, state which behaviour the lane depends on.
+
+  Then write my report to `/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutC1.md` and end with `Report: .ufo/waves/round-69/w1/MutC1.md`.
+
+  Constraints:
+  - Read-only on production bytes; can write only my report file and /tmp scratch.
+  - No network fetching. No pacman. Read RULES.md before installing anything (probably I don't need to install anything — python3 should exist).
+  - Use absolute paths.
+  - Time-boxed ~15 min, godspeed posture: parallel tool calls, minimal prose.
+
+  Plan:
+  1. Read `reports/round-69/accept-ca.py` (absolute path).
+  2. Run it as-is against the lane tree, capture output.
+  3. Copy to /tmp, mutate the DEADPOINTER remedy so it ignores whether the referenced row exists (remedy = covered only).
+  4. Run mutated copy against lane tree (need to make sure paths inside the script still resolve to the lane — since the script probably resolves paths relative to repo root or its own location; need to check how it computes the repo root; if it uses `__file__` parent, I need to run the copy with the repo as cwd or pass args, or patch the root resolution to point at the lane).
+  5. Show verdict changes (original verdict vs mutated verdict — the mutation should make a defect undetected, i.e., the counter should now print a different verdict, e.g., from FAIL→PASS or PASS→FAIL or mismatch count change).
+  6. Write report.
+
+  Actually wait — what does accept-ca.py do? It's the acceptance gate for Ca2: count unannotated mismatches between filed self-assessment and committed round-68 receipts; predicate: every leg prints PASS and MISMATCHES leg prints unannotated_mismatches=0. The "remedy rule" — likely mismatches can be "annotated" with a remedy, e.g., a row referencing an APPENDED correction row. DEADPOINTER remedy = a remedy annotation that references a correction row that doesn't exist (used-by missing). The negative case: if a remedy annotation references a nonexistent correction row, the counter should treat the mismatch as NOT remedied (dead pointer) → verdict should catch it. My mutation makes the remedy rule ignore existence check → dead pointer remedy would be accepted as covered → verdict changes from FAIL to PASS (or unannotated count changes).
+
+  So the mutation: in the copy, where the code checks that the referenced remedy row exists, remove the existence check so remedy=covered only.
+
+  Let me start. First read the script and RULES.md in parallel (RULES.md only needed if installing; I likely won't install anything, but cheap to read? It might be long. The task says read it before installing anything — I'm not installing, so I can skip. Actually to be safe and cheap, skip unless I install.)
+
+  Let me do:
+  - Read accept-ca.py
+  - Run it (original) with python3, capture output.
+
+  Need to check how it's invoked: probably `python3 reports/round-69/accept-ca.py` from repo root, or it computes root from `__file__`. Reading first is right.
+
+  Then copy to /tmp/mut/accept-ca.py, edit the DEADPOINTER remedy rule, and run. If the script resolves repo root from `__file__`, I'll need to point it back at the lane root — e.g., via editing the copy's root resolution or by copying it into a /tmp dir but passing the lane as arg if supported. Read first, then decide.
+
+  Let me batch: Read the script; also `ls reports/round-69/` to see files; also run `python3 -V`. Actually reading first, then running.
+
+  Parallel batch 1:
+  - Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py
+  - Bash: ls -la reports/round-69/ (absolute)
+  - Bash: python3 --version
+
+  Then batch 2: run original, create mutated copy (Write to /tmp), run mutated.
+
+  Note: I can't use Edit tool on the /tmp copy without reading it first — but I'll create the mutated copy via Read original + Write to /tmp with the mutation applied. Write tool to /tmp is allowed (scratch). That's the cleanest: read the file, then Write /tmp copy with mutation. But Write requires the full content — fine, file likely small-ish.
+
+  Alternatively `cp` then Edit the copy. Edit requires Read of the copy first (tool enforces? The instructions say read target before every Edit). Simpler: cp, then Read the copy? I already read the original; but Edit on the copy — the harness wants me to read the file being edited. I can Read the copy quickly or just use Write for the whole mutated content. I'll use cp + python3 - <<'EOF' to do a surgical replacement? The instructions say avoid sed for in-place edits, use Edit. So: cp to /tmp, Read the copy (cheap, small), Edit the copy. Or just Write the full mutated content directly since I have the original text. Write of a full file is allowed for new file creation. I'll do Write with the full content with the mutation applied — clean and one step.
+
+  Wait — but Write ignores Read line view; I need exact original content. I'll have it from the Read. Fine.
+
+  Careful: keep the mutated copy faithful except the remedy rule.
+
+  Then run: `cd /home/... && python3 /tmp/mut/accept-ca.py`? Depends on root resolution. If it uses `Path(__file__).resolve().parents[2]` (reports/round-69/ → repo root is parents[2]), then running the copy from /tmp breaks root. Mitigation: place the mutated copy at /tmp/muttree/reports/round-69/accept-ca.py so parents[2] = /tmp/muttree, and symlink or copy the receipts it reads? But then it would read mutated tree receipts — no, I want it to run against the LANE tree. So better: keep the copy in /tmp but run it with cwd=lane and if root is computed from `__file__`, patch the root computation to the absolute lane path in the copy — that's acceptable since the mutation under test is only the remedy rule; but changing root resolution is a second mutation which could confuse the evidence. Alternative: copy the whole lane? No — read-only, but copying to /tmp is allowed (scratch), yet heavy and could be big.
+
+  Cleanest evidence: mutated copy computes the same root as original (pointing at lane), only remedy rule differs. So in the copy, replace the root line to a hardcoded lane path, or better — if the script takes repo root from env/arg, use that. Read first, then decide.
+
+  Let me go. First batch: Read the script + ls the round-69 dir.
+
+  Also I should look at the other accept scripts? Not needed — task is scoped to accept-ca.py.
+
+  Also read the claims.json? Maybe for context on Ca2 wording. Cheap: read it too. And controls.txt maybe mentions the counter behavior. Keep it light: accept-ca.py + claims.json + ls of round-69 + telemetry/controls.txt.
+
+  Then run original: `python3 /home/.../reports/round-69/accept-ca.py` with cwd lane root.
+
+  Then Write mutated copy, run mutated.
+
+  Then compare verdicts. The original should print PASS legs (if data landed — but wait: "WHAT IS NOT LANDED YET: the data" — SKILL.md table, S859 row, corrections are NOT landed yet! So the counter currently may print FAIL or pass-negative... Hmm. Ca2's accept script counts unannotated mismatches; corrections not appended yet → there may be mismatches unannotated → verdict FAIL right now. That's fine for a mutation test: the point is that the mutated remedy rule changes the verdict (in some direction). If the original currently FAILs due to missing corrections, the mutation (remedy = covered only, ignoring existence) might change outputs only if some remedy annotations exist and reference rows whose existence matters. If no remedies exist at all in the filed artifacts yet (since corrections not landed), the mutation might produce IDENTICAL output — which would itself be a finding: "remedy rule not yet exercised by current tree state; mutation shows no delta because negative case is vacuous until corrections land."
+
+  But my task says "make the DEADPOINTER remedy ignore whether the referenced row exists (remedy = covered only); run the copy against the lane tree and show the counter's verdict changes." Maybe the filed self-assessment ALREADY contains remedy annotations referencing correction rows (round-68 section of SCORECARD/LOG may already have `remedy:` pointers to corrections that... hmm). Or the counter itself might embed a fixtures corpus? Let me just read the script — it may contain its own test cases (a negative case built in). The claim says for accept-o.py the NEGATIVE case is the missing-used-by defect class. For accept-ca.py maybe similar built-in legs. Read first.
+
+  Also — the counter may synthesize the remedy check on the APPENDED corrections referenced in SCORECARD round-68 section which DO exist (round-68 corrections were filed in round 68). The DEADPOINTER might be about remedies pointing to e.g. `corrections-r68.md` rows. Since corrections-r68.md is not landed yet, a remedy pointer to it would be a dead pointer NOW. So original → those mismatches stay unannotated (remedy dead) → count > 0 → FAIL; mutated → remedy accepted as covered → count 0 → PASS. That's likely exactly the behavior change. 
+
+  Let me execute. Also note jj-colocated repo — git read-only fine.
+
+  After runs, write report with VERDICT lines. The report file is the only production-tree write: `.ufo/waves/round-69/w1/MutC1.md`. Check the dir exists — mkdir -p via Bash (allowed? writing directories under .ufo/waves — yes, my report file location; creating parent dirs is fine).
+
+  Godspeed: batch aggressively.
+
+  Batch 1 (parallel):
+  - Read accept-ca.py
+  - Read claims.json
+  - Read telemetry/controls.txt
+  - Bash: ls -la /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/
+
+  Then batch 2: run original counter (Bash). Possibly also grep LOG/SCORECARD for remedy annotations in parallel.
+
+  Then batch 3: Write mutated copy + run it.
+
+  Then report.
+
+  Let me start.total 48
+drwxr-xr-x 1 vgpnk vgpnk   130 Oct 24 23:15 .
+drwxr-xr-x 1 vgpnk vgpnk  1056 Oct 24 23:10 ..
+-rw-r--r-- 1 vgpnk vgpnk 14419 Oct 24 23:15 accept-ca.py
+-rw-r--r-- 1 vgpnk vgpnk 10850 Oct 24 23:14 accept-d.py
+-rw-r--r-- 1 vgpnk vgpnk  9767 Oct 24 23:11 accept-o.py
+-rw-r--r-- 1 vgpnk vgpnk  7709 Oct 24 23:14 claims.json
+drwxr-xr-x 1 vgpnk vgpnk    48 Oct 24 23:14 __pycache__
+drwxr-xr-x 1 vgpnk vgpnk   102 Oct 24 23:16 telemetry
+Python 3.14.8
+6a98d7d042b6c58d2165773b1585069798111035
+Interesting: git HEAD is 6a98d7d042b6... not 793f79746712... The task said base revision 793f79746712a79f915bb481215e54bbea8b5e7a. jj-colocated — git HEAD may have moved (the L1 committed the pre-data instruments). Not my problem to police; I could note it as a finding. Actually let me check: `jj log` read-only? jj log is read-only. Or `git log --oneline -3`. Fine to include as a note.
+
+  Now the remedy rule in question (accept-ca.py:252-254):
+
+  ```python
+  if cls == "DEADPOINTER":
+      # the pointer must also resolve: an appended R68-M<n> row
+      remedy = is_covered and not is_live
+  else:
+      remedy = is_covered
+  ```
+
+  Mutation: make DEADPOINTER remedy ignore whether the referenced row exists → `remedy = is_covered` (same as other classes). Then a DEADPOINTER pair whose surface still contains a pointer to a nonexistent R68-M row (is_live=True) would be counted as remedied as long as the (DEADPOINTER, surface) correction row exists in corrections-r68.md. So the counter would flip those legs from FAIL→PASS and lower unannotated count → MISMATCHES verdict could change.
+
+  Now, how does the script resolve paths? `HERE = dirname(abspath(__file__))`, `LANE = dirname(dirname(HERE))` — LANE is used only in `build_fixture_root` (selftest). For normal evaluation, `--root` default "." and `--fleet-root` default fleet. So running the copy from /tmp with `--root /home/vgpnk/Projects/shokunin/kotodama-shokunin` evaluates the LANE tree — root resolution is argument-driven, not `__file__`-driven (except LANE for selftest fixture copying, which I won't run... wait, selftest's fixture copies accept-ca.py from LANE — LANE computed from __file__'s parents; if I run the mutated copy with --selftest, LANE would be /tmp/... and the fixture tree would lack the files (it copies only what exists). Actually build_fixture_root skips missing srcs. Then evaluate on the fixture might fail in weird ways. I'll run --selftest on BOTH original (should print SELFTEST 2/2) and mutated (to show the DO-NOTHING control now passes unexpectedly → selftest catches the mutation!). That's a beautiful extra: the built-in control detects the mutation. But careful: with mutated copy at /tmp, build_fixture_root copies from LANE = /tmp/mut/... i.e., from the mutated copy's own location — claims.json and accept-ca.py wouldn't exist there unless I copy claims.json too. Hmm: LANE = dirname(dirname(HERE)). If mutated copy is at /tmp/mut/reports/round-69/accept-ca.py then HERE=/tmp/mut/reports/round-69, LANE=/tmp/mut. So if I lay out the mutated copy as /tmp/mut/reports/round-69/accept-ca.py, then selftest builds fixtures copying from /tmp/mut — I'd need claims.json etc. at /tmp/mut/reports/round-69/claims.json. I can copy claims.json there too. But the fixture ALSO needs round-68 receipts, SCORECARD, LOG, lessons — build_fixture_root copies them from LANE=/tmp/mut which won't have them → fixture would be mostly empty → both controls fail → selftest 0/2 → misleading.
+
+  Better: make the mutated copy live at the SAME path structure under /tmp but have LANE point to the real lane. Cleanest: copy the whole needed subset? No — simplest and most honest: mutate ONLY the remedy rule, keep everything else identical, and place the mutated copy at /tmp/mut/reports/round-69/accept-ca.py, then create a symlink /tmp/mut/reports/round-68 -> lane's, and symlinks for SCORECARD.md, LOG.md, corpus/ -> lane. Wait, that changes fixture contents? build_fixture_root copies src files into fixture via shutil.copy2 following symlinks. If /tmp/mut mirrors the lane structure via symlinks, the fixture is identical to the real lane's fixture. That gives a faithful selftest.
+
+  Hmm, but actually for the primary task — "run the copy against the lane tree and show the counter's verdict changes" — I need `--root <lane>`. That's argument-driven, works from anywhere. The selftest comparison is a bonus. Let me do both:
+
+  1. Original run: `python3 /home/.../reports/round-69/accept-ca.py --root /home/.../kotodama-shokunin` (cwd anywhere, root absolute). Capture.
+  2. Mutated copy at /tmp/mut/reports/round-69/accept-ca.py with ONLY the remedy line changed: `remedy = is_covered and not is_live` → `remedy = is_covered`. Run with `--root <lane>`. Capture.
+  3. Also original `--selftest` (expect 2/2) and mutated `--selftest` — for mutated, to keep fixture faithful, mirror lane via symlinks. Simpler: instead of symlinks, run the mutated selftest by copying the mutated file into a scratch tree that also contains the other needed lanes files? The fixture needs: reports/round-69/accept-ca.py (the src — used only as a file to copy; evaluate() doesn't read it), claims.json, round-68 accept-ca.py, final-measures-ca.txt, final-measures-o.txt, SCORECARD.md, LOG.md, lessons round-68/69, SOURCES.md. All read from LANE. So mirroring with symlinks is easiest:
+
+  ```
+  mkdir -p /tmp/mut/reports/round-69 /tmp/mut/reports/round-68/telemetry /tmp/mut/corpus/lessons
+  cp accept-ca.py (mutated) to /tmp/mut/reports/round-69/
+  cp claims.json to /tmp/mut/reports/round-69/  (fixture copies it; also load_claims(fx) uses fixture's own claims.json — copied from src, fine)
+  ln -s lane/reports/round-68/accept-ca.py /tmp/mut/reports/round-68/accept-ca.py
+  ln -s lane reports/round-68/telemetry files
+  ln -s SCORECARD.md, LOG.md
+  ln -s corpus/lessons/round-68.md, round-69.md, corpus/SOURCES.md
+  ```
+
+  Then mutated `--selftest`: LANE=/tmp/mut; build_fixture_root copies (following symlinks) → fixture identical to original's fixture, except accept-ca.py itself (only copied, never evaluated) and claims.json identical. So green fixture should PASS and do-nothing fixture — with mutated remedy — would now PASS (unexpected) → SELFTEST 1/2. Wait: does the do-nothing fixture failure depend on the DEADPOINTER remedy rule? In do-nothing fixture, corrections absent → is_covered=False for all → remedy=False either way → still fails. Hmm! So the do-nothing control may NOT detect this mutation, because the mutation only matters when a correction row EXISTS but the pointer is still live. The mutation kills the "pointer must resolve" conjunct — relevant when covered=True and is_live=True. In the do-nothing control, covered=False, so no change. So mutated selftest likely still 2/2. That's itself a finding: the built-in GREEN/DO-NOTHING controls do NOT cover the dead-pointer-remedy-with-coverage case; only a live-tree run (or a third control) distinguishes.
+
+  But wait — will the live lane run even differ? Depends on the actual lane state: are there DEADPOINTER pairs in claims.json whose surfaces currently contain R68-M pointers that don't resolve, AND corrections-r68.md exists with a covered row? corrections-r68.md is NOT landed yet ("the data" not landed). So `covered` is empty → remedy=False for all → mutated and original produce IDENTICAL live output. Hmm! Then "show the counter's verdict changes" wouldn't manifest on the live tree... unless...
+
+  Wait, actually re-read: `is_covered = (cls, key) in covered`. corrections-r68.md missing → covered=set() → remedy False → unannotated counts live mismatches. Mutation changes nothing when nothing is covered.
+
+  Unless the fixture selftest shows the difference: in the GREEN fixture, corrections ARE generated (with_corrections=True) covering all pairs, and the R68-M9 backfill row is appended to round-69 lessons so pointers resolve. In green fixture with ORIGINAL code: DEADPOINTER remedy = covered and not is_live. If all pointers resolve (M9 backfilled), is_live=False → remedy=True → green passes. Now if I mutate and run green: remedy = covered regardless of is_live. In green fixture, pointers resolve anyway (backfill row added), so is_live=False → same result. STILL identical. Ugh — the green fixture's backfill makes is_live False for DEADPOINTER.
+
+  Hmm wait — does it? detect_deadpointer scans the surface text for R68-M<n> and checks existence in LOG.md + lessons 68/69. The backfill adds R68-M9 row to round-69 lessons. If the surfaces reference R68-M9 only, they resolve. What if surfaces reference other M numbers? Need to check the actual surfaces. The fixture copies real lane files, so the real round-68 surfaces reference the real mistake IDs (R68-M9 etc. — round-68 crash was R68-M9).
+
+  So to show a verdict change from the mutation I need a scenario where a DEADPOINTER pair is: is_live=True (surface points at nonexistent row) AND is_covered=True (correction row exists). That's exactly the "remedy that lies" defect: you append the correction row but the underlying defect persists — with original code the counter still fails (correct!), with mutated code it passes (bad!).
+
+  Since the lane tree currently has no corrections-r68.md, the LIVE lane runs will be identical. To show the verdict change, I must run against a scratch tree where corrections exist but the pointer is still dead. The task says: "copy it to /tmp and make the DEADPOINTER remedy ignore whether the referenced row exists (remedy = covered only); run the copy against the lane tree and show the counter's verdict changes. Use scratch under /tmp for any mutation you need to demonstrate (copy the file, mutate the COPY, re-run the counter against the copy)."
+
+  "re-run the counter against the copy" — the copy being the mutated file. Hmm, "against the lane tree". If the lane tree gives identical output, I demonstrate the delta on a scratch fixture tree derived from the lane (lane files + appended corrections + kept-dead pointer). That's the honest path: run mutated counter (a) against the pure lane tree (showing what it prints today — likely identical to original), and (b) against a scratch lane-mirror where corrections-r68.md exists with the covered row but the dead pointer still unresolved — original FAILs that leg, mutated PASSes. Both pasted side by side.
+
+  Also check: maybe claims.json's DEADPOINTER pair surface currently IS live (dead pointer in filed round-68 surfaces!). The filed round-68 report may point at a mistake row that doesn't exist yet (R68-M9 row is to be appended in round-69 lessons — "the round-68 lesson never carried it"). So on the lane tree TODAY: DEADPOINTER pair likely is_live=True (M9 not yet in lessons), covered=False → unannotated ≥1 → ACCEPT-CA-69: FAIL. With corrections-r68.md absent, mutation shows no delta. In scratch tree with corrections appended but lessons still missing M9: original → leg still FAIL (live, remedy requires not is_live) → unannotated stays; mutated → leg PASS, unannotated drops → MISMATCHES flips. 
+
+  Plan:
+
+  1. Read claims.json (see the pairs), check lane state: does corpus/lessons/round-69.md exist? does corrections-r68.md exist? (ls said telemetry only in round-69 dir; corrections-r68.md absent — confirmed by ls: no corrections file. Wait ls showed: accept-ca.py, accept-d.py, accept-o.py, claims.json, __pycache__, telemetry. No corrections-r68.md. Confirmed not landed.)
+
+  2. Run original counter vs lane: `python3 <lane>/reports/round-69/accept-ca.py --root <lane>`. Expect FAIL with live DEADPOINTER.
+
+  3. Build scratch mirror: copy needed lane files to /tmp/mut-tree (as a full mini-lane: the counter only reads: claims.json, corrections file, round-68 telemetry finals, round-68 accept-ca.py (sha), SCORECARD.md, LOG.md, lessons 68/69, SOURCES? (surface list from claims), fleet report via --fleet-root). Simplest: `cp -a` the whole lane repo to /tmp/mut-tree? Repo size? It has corpus, reports (75 rounds), out/, examples... could be tens of MB — fine for /tmp. But .git too (heavy?). Check du first. Alternatively copy selectively per claims.json paths + counter-read paths. Selective is precise and I know the reads: evaluate reads: reports/round-68/telemetry/final-measures-o.txt, final-measures-ca.txt, LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md, corrections file, claims.json, SCORECARD.md (surface), fleet report (surface via claims), round-68/accept-ca.py (sha). Plus any surface paths in claims.json. Let me read claims.json now to enumerate.
+
+  4. In the scratch mirror: append corrections-r68.md covering all pairs from claims (mimicking what the L1 will land), but DON'T backfill the R68-M row in lessons (keep the pointer dead) — that's the adversarial state: remedy row exists, defect persists.
+
+  5. Run original counter against scratch mirror → expect the DEADPOINTER leg FAIL (live=covered=True remedy=False) → overall FAIL, unannotated includes it.
+  6. Run mutated counter against scratch mirror → DEADPOINTER leg PASS (remedy=covered) → MISMATCHES count drops / verdict may flip to PASS.
+
+  Also run mutated against the pure lane tree for completeness (identical output — finding: mutation is currently dormant on the lane because corrections aren't landed; it's a latent guard, not an active one).
+
+  Also the selftest on both (2/2 expected for both, showing controls don't discriminate) — good finding: the negative control cannot catch this mutation because do-nothing removes coverage entirely; the guard's distinguishing case is "covered-but-still-live".
+
+  The report states which behaviour the lane depends on: the lane's Ca2 predicate depends on `remedy = is_covered and not is_live` for DEADPOINTER — i.e., an appended correction row alone does not settle a mismatch; the underlying observation must ALSO be consistent (the pointed-to mistake row must actually exist). This is the "append-only settlement requires the thing pointed at to exist" rule — same missing-used-by defect class as O2's negative case.
+
+  Let me now read claims.json and check the state of the relevant surfaces. Parallel batch:
+  - Read claims.json
+  - Bash: ls telemetry; check existence of corrections-r68.md, corpus/lessons/round-69.md; grep SCORECARD for R68-M mentions; git log -1 --format for HEAD date maybe.
+
+  Then runs.
+
+census-start.txt
+controls.txt
+declaration-dry-run.txt
+MISSING reports/round-69/corrections-r68.md
+MISSING corpus/lessons/round-69.md
+EXISTS corpus/lessons/round-68.md
+EXISTS reports/round-68/telemetry/final-measures-o.txt
+EXISTS reports/round-68/telemetry/final-measures-ca.txt
+EXISTS reports/round-68/accept-ca.py
+--- R68-M refs in round-68 lessons:
+9
+• State confirmed:
+  - `corrections-r68.md` MISSING (not landed), `corpus/lessons/round-69.md` MISSING.
+  - The fleet report `.ufo/reports/round-68/kotodama.md` — the DEADPOINTER surface — lives in the FLEET root (`fleet: true` → resolved against `--fleet-root`, default `/home/vgpnk/Projects/shokunin`). So the DEADPOINTER pair evaluates text from `/home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md`, but row existence is checked in the LANE tree (LOG.md + lessons 68/69). Reading the fleet report is allowed (read-only; fleet repo reads are fine — the ban is on WRITING to it).
+
+  Now run the original counter exactly as the declared counting command (with `-B`): `python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin` from the lane root. Also run `--selftest` on the original for the control receipt.
+
+  Then build the scratch mutation:
+
+  Mutated copy: `/tmp/mutc1/reports/round-69/accept-ca.py` — only change: line 254 `remedy = is_covered and not is_live` → `remedy = is_covered`. Wait — also the comment stays; fine. Actually to be exact: "make the DEADPOINTER remedy ignore whether the referenced row exists (remedy = covered only)". Yes, that single line.
+
+  But note `LANE = os.path.dirname(os.path.dirname(HERE))` in the mutated copy = /tmp/mutc1 — used ONLY by build_fixture_root (selftest). If I want the mutated selftest to be meaningful, I need the fixture sources mirrored under /tmp/mutc1. I'll create symlinks mirroring the lane layout under /tmp/mutc1 for the fixture-source files (accept-ca.py itself as the mutated file, claims.json copied, round-68 files, SCORECARD, LOG, lessons, SOURCES), so the mutated --selftest runs a faithful fixture. Then compare original vs mutated selftest output. Expected: both 2/2 (do-nothing removes coverage, so the mutation is invisible to that control) — a real finding. Actually wait — will the GREEN fixture of the mutated copy still pass? Green fixture backfills R68-M9 into round-69 lessons so pointers resolve → is_live False → remedy same. Yes both pass. So selftest can't discriminate → the discriminating case is live-tree with covered-but-still-live pointer.
+
+  Main event: scratch lane mirror `/tmp/mutc1/lane-mirror/` = copy of lane files the counter reads, PLUS `corrections-r68.md` appended with all 5 pairs covered (mimicking the L1's intended data), but WITHOUT backfilling the R68-M row into corpus/lessons/round-69.md (keep the fleet report's pointer dead — the adversarial "covered but still live" state). Then:
+  - original counter --root lane-mirror → DEADPOINTER leg must FAIL (remedy=False since is_live=True) → unannotated ≥ 1
+  - mutated counter --root lane-mirror → DEADPOINTER leg PASS (remedy=True) → unannotated drops; overall may flip to PASS
+
+  Counter reads (evaluate): root-relative:
+  - reports/round-68/telemetry/final-measures-o.txt (observed_o_legs)
+  - reports/round-68/telemetry/final-measures-ca.txt (observed_ca_verdict)
+  - LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md (mistake_rows_exist)
+  - reports/round-69/corrections-r68.md (correction_pairs)
+  - reports/round-69/claims.json (load_claims)
+  - reports/round-68/accept-ca.py + its recorded sha in final-measures-ca.txt (R68FROZEN)
+  - surfaces: SCORECARD.md (section ^## Axes — round 68), LOG.md (section ^## Round 68), fleet report at fleet_root/.ufo/reports/round-68/kotodama.md
+
+  So mirror needs: reports/round-68/{accept-ca.py, telemetry/final-measures-{o,ca}.txt}, reports/round-69/{claims.json}, SCORECARD.md, LOG.md, corpus/lessons/round-68.md, corpus/SOURCES.md (not read by ca counter — skip; harmless to include, skip it), and I point --fleet-root at the real fleet root so the fleet report surface is read from the real bytes (read-only). Or copy the fleet report into mirror/fleet and use --fleet-root mirror/fleet for full determinism. Copying to /tmp is fine (it's scratch, not a write to the fleet repo). I'll copy it — self-contained.
+
+  Also I keep corrections-r68.md ONLY in the mirror (never in the lane — I can't write it anyway).
+
+  Run matrix (all with python3 -B, absolute paths):
+  A. original vs LANE: expect FAIL (DEADPOINTER live, uncovered) — current truth.
+  B. mutated vs LANE: expect byte-identical to A (mutation dormant while nothing is covered) — finding.
+  C. original vs MIRROR (corrections appended, pointer still dead): DEADPOINTER leg FAIL, remedy=covered=True but is_live → unannotated ≥1 → verdict FAIL. This is the behavior the lane depends on: appending the correction row does NOT settle the mismatch while the pointer stays dead.
+  D. mutated vs MIRROR: DEADPOINTER leg PASS (remedy=covered) → unannotated drops to 0 for that pair → verdict flips to PASS if all other legs pass. Show verdict change.
+
+  E. original --selftest vs mutated --selftest: both 2/2 (control can't catch this mutation) — finding.
+
+  Wait, careful with mirror and R68FROZEN: mirror copies round-68/accept-ca.py and final-measures-ca.txt verbatim → sha match preserved. OBSERVED: finals copied → fine.
+
+  For the mirror's DEADPOINTER is_live to be True, the fleet report must reference some R68-M<n> that is absent from mirror LOG.md + lessons 68 + 69. lessons/round-69.md I will NOT create in the mirror (matches lane). The fleet report presumably references R68-M9 (per claims: DEADPOINTER on fleet report; R68-M9 is the round-68 crash row the round-68 lesson never carried). Let me check the fleet report's R68-M references first (read-only grep on the fleet file — allowed; it's not a secret file).
+
+  Hmm — one wrinkle for verdict flip in D: other pairs. In the mirror with corrections covering all 5 pairs:
+  - LEGCOUNT pairs: live iff surface text contains an "N/M legs PASS" count != observed. The filed surfaces probably carry the WRONG counts (that's why they're declared) → is_live=True for LEGCOUNT pairs too. Remedy for LEGCOUNT = is_covered (unchanged by mutation) → remedy=True in mirror → not unannotated. Legs EVAL pass. Good.
+  - OVERREACH on SCORECARD: live iff "improved" verdict while ca receipt FAIL. Presumably live; remedy=covered → fine.
+  - DEADPOINTER: original → live → unannotated=1 → MISMATCHES FAIL → ACCEPT-CA-69 FAIL. mutated → unannotated=0 → MISMATCHES PASS → all legs pass? EVAL legs: ok = remedy and not(is_live and not remedy) → mutated: remedy=True, is_live=True → ok = True. R68FROZEN passes, OBSERVED passes → ACCEPT-CA-69: PASS. Verdict flips FAIL→PASS. 
+
+  So in mirror: original FAIL, mutated PASS. And on the pure lane (A vs B): identical FAIL outputs. Beautiful contrast: the mutated counter "achieves" Ca2 by accepting a correction row over a still-dead pointer.
+
+  One more check: build the mutated copy via cp + Edit. I read the original; I'll cp then Edit the copy (Edit requires Read of the target first — the rule says read before every edit; I've read the original file, but the copy is a different path. To be safe, do cp then Read the copy? That wastes context. Alternative: use Write with full mutated content — I have exact bytes from Read (388 lines; I must reproduce exactly). Risky to retype 388 lines — one char off and the comparison is muddied. Better: cp + Edit with a tiny unique old_string `            remedy = is_covered and not is_live`. The Edit tool instruction says Read the target before every Edit — the practical requirement is a valid old_string; I know it exactly from the Read output (line 254, 12 spaces indent). I'll cp and Edit; if the harness rejects without a fresh Read, I'll Read just that range (line_offset 250, n_lines 8) and retry.
+
+  Let me also grep the fleet report for R68-M refs and the SCORECARD round-68 section to confirm liveness assumptions. Parallel batch now:
+
+  1. Bash: run original counter vs lane (cd lane; python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin; echo EXIT=$?)
+  2. Bash: original --selftest
+  3. Bash: grep R68-M fleet report + sed SCORECARD section head — wait, use Grep tool / Read for files. Grep tool on fleet report path for 'R68-M'. Read SCORECARD round-68 section? Not strictly needed; the counter output tells me liveness. Skip reading SCORECARD; the counter's EVAL details show hits.
+
+  Do 1+2 in one Bash (sequential, they're both fast) or two parallel Bash calls — two calls, one per concern, outputs cleanly separated. Plus a Grep for fleet R68-M refs. All independent → one batch.
+
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+EXIT=1
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+EXIT=0
+• The reminder says the fleet-root AGENTS.md applies to paths I accessed (I grepped a file under /home/vgpnk/Projects/shokunin/.ufo/). I'm read-only there, and I won't write anything to the fleet root. I should read it briefly to comply, but my only write targets are /tmp and my report file in the lane. Let me read it quickly to be safe, in parallel with the mutation build.
+
+  Baseline established:
+  - Original vs lane: ACCEPT-CA-69: FAIL legs=2/8, 5 live mismatches, 0 covered (corrections not landed).
+  - Original selftest: 2/2 (GREEN PASS 8/8, DO-NOTHING FAIL 2/8 as required).
+  - Fleet report references R68-M9 (among M1..M9); `mistake_rows_exist` scans lane LOG.md + lessons round-68 + round-69. lessons/round-69.md MISSING; does LOG.md contain R68-M9? The counter says DEADPOINTER hits=['R68-M9'] and live=True → M9 not found in lane LOG.md/lessons68/lessons69. The fleet report says "+M9 in LOG" — PLUS_M_RE would catch "+M9 in LOG"... wait line 11 says "(R68-M9)" directly and line 35 says "(+M9 in LOG)". The counter found R68-M9 as a dead pointer, meaning lane LOG.md does NOT contain the literal R68-M9 row yet (it's part of the round-69 data to land: "corrections ... appended in LOG.md / SCORECARD.md / corpus/lessons/round-69.md"). Consistent.
+
+  Now build the mutation:
+
+  1. mkdir /tmp/mutc1/{mutated,lanemirror}
+  2. cp original to /tmp/mutc1/mutated/reports/round-69/accept-ca.py, cp claims.json alongside (for selftest fixture source mirroring).
+  3. Edit the copy: `remedy = is_covered and not is_live` → `remedy = is_covered` (keep comment or adjust — keep the structure minimal; the task says remedy = covered only).
+  4. For the mutated --selftest to be faithful, mirror the fixture sources under /tmp/mutc1/mutated via symlinks: LANE would be /tmp/mutc1/mutated. Need: reports/round-69/accept-ca.py (mutated file itself ✓), claims.json (copied ✓), reports/round-68/accept-ca.py, reports/round-68/telemetry/final-measures-ca.txt, final-measures-o.txt, SCORECARD.md, LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md (missing — skip, build_fixture_root skips), corpus/SOURCES.md; fleet report path is hardcoded /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md (real) — selftest reads the real fleet report. Fine, read-only.
+     Symlinks: ln -s lane/reports/round-68 -> /tmp/mutc1/mutated/reports/round-68 (whole dir), ln -s lane/SCORECARD.md, LOG.md, corpus dir. corpus/lessons/round-69.md missing anyway; symlink corpus/ whole → includes lessons/round-68.md and SOURCES.md. 
+  5. Lane mirror for the "covered but still live" scenario: /tmp/mutc1/lanemirror with copies: reports/round-69/claims.json, reports/round-68/{accept-ca.py, telemetry/final-measures-o.txt, final-measures-ca.txt}, SCORECARD.md, LOG.md, corpus/lessons/round-68.md. Plus corrections-r68.md I generate covering all 5 pairs (same generator shape as build_fixture_root: header + row per pair "| CLASS | surface | filed | observed | command |"). NO corpus/lessons/round-69.md (pointer stays dead). Fleet root: copy the real fleet report to /tmp/mutc1/lanemirror-fleet/.ufo/reports/round-68/kotodama.md and pass --fleet-root there (keeps mirror self-contained; bytes identical to fleet).
+  6. Runs:
+     - mutated vs LANE: `python3 -B /tmp/mutc1/mutated/reports/round-69/accept-ca.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin --fleet-root /home/vgpnk/Projects/shokunin` → expect identical to original baseline (FAIL 2/8) — mutation dormant.
+     - original vs MIRROR: expect FAIL, DEADPOINTER leg: live=True covered=True remedy=False → unannotated=1.
+     - mutated vs MIRROR: expect DEADPOINTER leg: live=True covered=True remedy=True → ok=True; unannotated=0 for that pair → MISMATCHES live=5 unannotated=... wait: LEGCOUNT pairs and OVERREACH in mirror: covered → remedy=True → legs pass, not unannotated. So mutated mirror: live_mismatches=5 unannotated=0 → MISMATCHES PASS → all 8 legs PASS → ACCEPT-CA-69: PASS legs=8/8. Verdict flips FAIL→PASS.
+     - mutated --selftest: expect 2/2 same as original (control blind to this mutation).
+
+  Note in mirror, the fleet report copy is identical bytes, and the counter reads corrections from the mirror root only.
+
+  Then write the report. Also read fleet AGENTS.md first per the reminder (cheap, read-only compliance). Batch now:
+  - Read /home/vgpnk/Projects/shokunin/AGENTS.md
+  - Bash: set up /tmp/mutc1 dirs, copies, symlinks; sha256 both counter copies to prove the only diff is the remedy line (diff -u original mutated > patch file; show it).
+
+  Then Edit the mutated copy, then run the matrix.
+
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /tmp/mutc1/mutated/reports/round-69/accept-ca.py
+• Fleet AGENTS.md read — my access there is read-only grep/cp-to-/tmp, which conforms ("Gates read surfaces they do not own and never mutate them"; I'm not writing to the fleet root).
+
+  Now apply the single-line mutation to /tmp/mutc1/mutated/reports/round-69/accept-ca.py: `remedy = is_covered and not is_live` → `remedy = is_covered`. Per Edit-tool discipline I should Read the target first — I'll read just the surrounding lines to anchor, then Edit. Actually the harness requires reading the file before editing; a targeted ranged Read satisfies it and keeps context small. Read lines ~248-268, then Edit.
+
+• Mutation applied. Now run the matrix — four runs, all with `python3 -B`, absolute paths:
+
+  A (already have): original vs lane → FAIL 2/8, unannotated=5.
+  B: mutated vs lane → expect identical (mutation dormant, covered set empty).
+  C: original vs mirror (corrections appended, pointer still dead) → DEADPOINTER leg live=True covered=True remedy=False → FAIL.
+  D: mutated vs mirror → DEADPOINTER leg remedy=True → PASS 8/8.
+  E: mutated --selftest → expect 2/2 (control blind).
+
+  First append corrections-r68.md to the lanemirror covering all 5 pairs, matching the generator shape in build_fixture_root: `| CLASS | surface | filed | observed | command |` rows.
+
+  One bash call to create corrections + a second batch of runs. I can do it all in one call with clear separators, but separate calls give cleanly attributable outputs for the report. The corrections creation must precede C/D. Do: one Bash to write corrections + diff patch file; then four parallel Bash runs. Actually parallel Bash calls each spawn fresh shells — fine, the corrections file will already exist. But ordering within one response: tool calls in one block may run concurrently — the runs depend on the corrections file. So: Bash (write corrections + show diff) first, then in the NEXT response the four runs in parallel. That's two turns; acceptable. Or do everything in one Bash call sequentially — output labeled with echo separators. One call is cleaner for attribution? The guidance says avoid stitching outputs with echo separators... but these are logically one experiment script; separate parallel calls after the prep call is cleaner. Two responses it is.
+
+  Corrections rows — surface keys must match claims.json exactly:
+  - LEGCOUNT | SCORECARD.md
+  - LEGCOUNT | LOG.md
+  - LEGCOUNT | .ufo/reports/round-68/kotodama.md
+  - DEADPOINTER | .ufo/reports/round-68/kotodama.md
+  - OVERREACH | SCORECARD.md
+
+  Generate from claims.json with python one-liner to avoid typos — same as build_fixture_root does. Also write the diff of original vs mutated to /tmp/mutc1/mutation.diff and print it (need it in the report).
+
+| class | surface | filed text | observed text | re-derivation command |
+|---|---|---|---|---|
+| LEGCOUNT | SCORECARD.md | filed | observed | command |
+| LEGCOUNT | LOG.md | filed | observed | command |
+| LEGCOUNT | .ufo/reports/round-68/kotodama.md | filed | observed | command |
+| DEADPOINTER | .ufo/reports/round-68/kotodama.md | filed | observed | command |
+| OVERREACH | SCORECARD.md | filed | observed | command |
+--- mutation diff (original -> mutated), sole intended delta:
+--- /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py	2026-10-24 23:15:43.866045708 -0300
++++ /tmp/mutc1/mutated/reports/round-69/accept-ca.py	2026-10-24 23:38:31.245066053 -0300
+@@ -250,8 +250,9 @@
+             live_count += 1
+         is_covered = (cls, key) in covered
+         if cls == "DEADPOINTER":
+-            # the pointer must also resolve: an appended R68-M<n> row
+-            remedy = is_covered and not is_live
++            # MUTATION C1: remedy = covered only; the referenced R68-M<n>
++            # row's existence is no longer required for the remedy to hold
++            remedy = is_covered
+         else:
+             # the filed bytes are frozen and append-only; the appended
+             # correction row is the remedy
+• Corrections landed in the mirror; the diff is exactly the remedy line (+ comment). Now the four-run matrix in parallel:
+
+  1. mutated vs LANE (mutation dormant expectation)
+  2. original vs MIRROR (covered-but-still-live → must still FAIL)
+  3. mutated vs MIRROR (remedy=covered → expect PASS 8/8, verdict flip)
+  4. mutated --selftest (control blind expectation)
+
+=== B: MUTATED counter vs REAL LANE tree (no corrections landed) ===
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+EXIT=1
+=== C: ORIGINAL counter vs MIRROR (corrections appended, R68-M9 row still absent) ===
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG PASS EVAL LEGCOUNT|SCORECARD.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|LOG.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=True hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=False hits=['R68-M9']
+LEG PASS EVAL OVERREACH|SCORECARD.md live=True covered=True remedy=True hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=1
+ACCEPT-CA-69: FAIL legs=6/8
+EXIT=1
+=== D: MUTATED counter vs MIRROR (corrections appended, R68-M9 row still absent) ===
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG PASS EVAL LEGCOUNT|SCORECARD.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|LOG.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=True hits=['9/10', '9/10']
+LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=True hits=['R68-M9']
+LEG PASS EVAL OVERREACH|SCORECARD.md live=True covered=True remedy=True hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG PASS MISMATCHES live_mismatches=5 unannotated_mismatches=0
+ACCEPT-CA-69: PASS legs=8/8
+EXIT=0
+=== E: MUTATED counter --selftest (do the built-in controls catch it?) ===
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+EXIT=0
+• All runs complete. The matrix is decisive:
+
+  - A (original vs lane): FAIL 2/8, unannotated=5
+  - B (mutated vs lane): byte-identical to A → mutation dormant while corrections absent
+  - C (original vs mirror with corrections, pointer dead): FAIL 6/8 — DEADPOINTER leg live=True covered=True remedy=False, unannotated=1. The lane depends on this: appending the correction row does NOT settle a mismatch whose pointer is still dead.
+  - D (mutated vs mirror): PASS 8/8, unannotated=0 — the mutation lets a still-dead pointer be settled by the row alone. Verdict flips FAIL→PASS on identical facts.
+  - E: mutated --selftest still 2/2 — GREEN and DO-NOTHING controls are blind to this mutation (do-nothing removes coverage, so the covered-but-live case is never exercised; green backfills M9 so is_live=False).
+
+  Which behaviour does the lane depend on? `remedy = is_covered and not is_live` for DEADPOINTER — settlement of a dead-pointer mismatch requires BOTH the appended correction row naming (DEADPOINTER, surface) AND the referenced R68-M<n> row actually existing in LOG.md/corpus/lessons/round-{68,69}.md. Ca2's predicate ("unannotated_mismatches=0", MISMATCHES leg) is only trustworthy because this conjunct exists; without it, the lane could "pass" Ca2 by appending a row while the fleet report still points at a mistake row that exists nowhere — a fabricated-settlement class. Also worth noting the symmetrical observation: for the L1's real integration, the remedy must actually land the M9 row (e.g. in corpus/lessons/round-69.md `## Mistakes` or LOG) — the counter will verify it.
+
+  One more evidence detail for the report: control blindness means a third control would be needed (covered-but-still-live fixture must FAIL). I should state that as a finding, not prescribe. Also note base_revision: claims.json declares 793f7974... but git HEAD is 6a98d7d0... — the pre-data instruments were committed after declaration (expected per the brief: claims.json etc. committed at declaration; jj-colocated HEAD moves). Not my scope to police; note as observation only? The brief said base revision 793f7974; HEAD shows 6a98d7d0. That's plausibly the L1's commit of the instruments. I'll note it as an observation with the exact hashes, no verdict.
+
+  Also verify: no writes outside /tmp and report file. Check.
+
+  Now write the report. Requirements: markdown, exact commands + real output, VERDICT lines not assertions, state which behavior the lane depends on, side-by-side original vs mutated outputs. Write to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutC1.md. Need mkdir -p for the wave dir. Write tool creates parent dirs automatically.
+
+  Report structure:
+  - Scope & method (what was mutated, where; the diff)
+  - Run matrix with commands + outputs (A/B/C/D/E) — side-by-side table for C vs D on the discriminating scenario
+  - Findings: (1) verdict flip demonstrated; (2) mutation dormant on today's tree; (3) built-in controls blind → negative-control gap; (4) behaviour the lane depends on
+  - VERDICT lines: e.g. "VERDICT: MUTATION-CAUGHT" isn't in the enum (PASS/FAIL/NOT-EVALUATED). Use:
+    - VERDICT: PASS for "the counter's DEADPOINTER remedy guard is load-bearing: mutation flips the verdict" — hmm. Better phrasing: the mutation test's verdict about the remedy rule. The guard behaves as designed → the guard is live and discriminating → "VERDICT: PASS (guard is live; mutation changes the counter's verdict as predicted)". And control-coverage finding: "VERDICT: FAIL (selftest controls do not discriminate this mutation)" — that's a genuine FAIL finding for the controls, worth surfacing for the L1. And "VERDICT: NOT-EVALUATED" for anything I didn't check (e.g., whether the L1's eventual corrections content matches the mirror shape).
+
+  Keep the report tight. Include exit codes. Include the sha256 of original and note mutation.diff path. Mention /tmp scratch is disposable so the diff content is pasted in full in the report.
+
+  Side-by-side: use a small table comparing the DEADPOINTER leg line + MISMATCHES line + final verdict for C vs D, then full outputs in code blocks.
+
+  Write it now.
+
+• Report written — the single production-tree write permitted (`.ufo/waves/round-69/w1/` is wave-evidence space, allowed by both the task and the fleet AGENTS.md lane-scope list). Everything else stayed in /tmp.
+
+  Summarize for the user: what was done, the verdict flip, the control blindness finding, which behaviour the lane depends on. End with the trailer line exactly.
+
+To resume this session: kimi -r session_cf917ca9-7d62-468c-913c-27c9c9ff9122
+[unexpected] RuntimeError: workspace wd_kotodama-shokunin_79dcf87bd64e is not materialized
+    at RuntimeResolver.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:180263:36)
+    at AgentRuntimeService.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:131899:25)
+    at AgentFileHistoryService.readCurrent (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177438:31)
+    at AgentFileHistoryService.endCheckpoint (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177351:32) {
+  code: 'runtime.not_found'
+}

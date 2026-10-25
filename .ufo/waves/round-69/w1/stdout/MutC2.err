@@ -1,0 +1,423 @@
+kimi version 2.3.1
+• Let me understand the task:
+
+  1. I'm a leaf seat (MutC2) in round 69 wave 1 of a shokunin/kotodama round.
+  2. My job: Mutation-test the OBSERVED leg of `reports/round-69/accept-ca.py`:
+     - Copy it to /tmp
+     - Hard-code the observed legs as (9, 9) instead of deriving them from the receipt
+     - Run the copy and show the LEGCOUNT detector's live/uncovered output changes
+     - Paste the outputs
+     - Then state, from the committed bytes, the true (pass, total) pair
+  3. Write report to `/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutC2.md`
+  4. Read-only on production bytes; only my report file + /tmp scratch writes.
+  5. No external network fetching.
+
+  Let me start by reading the accept-ca.py file and the telemetry controls.
+
+  Plan:
+  1. Read `/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py`
+  2. Read relevant production files (LOG.md round-68 entry, SCORECARD.md round-68 section, corpus/lessons, etc.) as needed to derive the true (pass, total) pair from committed bytes.
+  3. Run the original accept-ca.py to get baseline output.
+  4. Copy to /tmp, mutate (hard-code observed legs to (9,9)), run the copy, show LEGCOUNT detector output changes.
+  5. Determine the true (pass, total) pair from the committed bytes.
+  6. Write the report.
+
+  Let me do this. First, read the accept-ca.py and controls.Now I understand the accept-ca.py structure. Key parts:
+
+  1. `observed_o_legs(root)` — derives (pass, total) from `reports/round-68/telemetry/final-measures-o.txt` by counting `^([A-Z0-9_]+)\s+(PASS|FAIL)` lines. This is the "OBSERVED" leg's `o-legs=(pass, total)`.
+  2. `detect_legcount(text, observed)` — for each LEGCOUNT-class pair, finds `(\d+)\s*/\s*(\d+)\s+legs\s+PASS` in the filed surface text, flags any pair != observed.
+
+  The mutation test: copy accept-ca.py to /tmp, hard-code the observed legs as (9, 9) instead of deriving them from the receipt, run the copy, and show the LEGCOUNT detector's live/uncovered output changes.
+
+  Wait — "hard-code the observed legs as (9, 9) instead of deriving them from the receipt". So mutate `observed_o_legs(root)` to `return (9, 9)` unconditionally. Then `detect_legcount` will compare the filed surfaces' claimed counts against (9,9) instead of the true observed pair. Any surface claiming the true pair will now be flagged as live; surfaces claiming 9/9 (if any) would become not-live.
+
+  Then the EVAL LEGCOUNT legs' outputs change: `live=...` and `hits=...` change, and MISMATCHES' live_mismatches/unannotated_mismatches change.
+
+  I also need to state, from the committed bytes, the true (pass, total) pair. That means:
+  - Run `observed_o_legs` logic against the actual lane: read `reports/round-68/telemetry/final-measures-o.txt`, count lines matching `^([A-Z0-9_]+)\s+(PASS|FAIL)\b`.
+  - Show the committed receipt bytes and the derived pair.
+
+  Let me proceed:
+
+  1. Run the original accept-ca.py first (baseline): `python3 reports/round-69/accept-ca.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin` — read-only, fine.
+
+  2. Read the committed receipt `reports/round-68/telemetry/final-measures-o.txt` to get the true pair from committed bytes.
+
+  3. Read claims.json to see the calibration_pairs (what surfaces are LEGCOUNT class).
+
+  4. Copy accept-ca.py to /tmp, mutate observed_o_legs to return (9,9), run the copy against the lane root.
+
+  5. Compare outputs, paste both.
+
+  6. Write report.
+
+  Note the OBSERVED leg itself prints `o-legs=(pass, total)` — with the mutation, that leg's detail line will also change (o-legs=(9, 9)), and OBSERVED still passes since it's not None. The LEGCOUNT detector's EVAL lines will show different hits.
+
+  Also note: the mutation changes behavior only if the true pair != (9,9). Let me first read the receipt.
+
+  Let me do these in parallel:
+  - Run baseline accept-ca.py (against lane root)
+  - Read reports/round-68/telemetry/final-measures-o.txt
+  - Read reports/round-69/claims.json
+
+  Actually the baseline run — is it read-only? Yes, the counter reads only. It reads claims.json default from root. Fine.
+
+  Let me batch.
+
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+• Baseline established:
+
+  - Unmutated run: `o-legs=(8, 9)`, `ca-verdict=FAIL`. So the true observed pair from the committed receipt is **(8, 9)**: the receipt `reports/round-68/telemetry/final-measures-o.txt` has 9 lines matching `^([A-Z0-9_]+)\s+(PASS|FAIL)\b` (STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC, MUT, TOPO = 9 legs), of which 8 PASS (EXEC FAIL). ACCEPT-O-68: FAIL confirms.
+  - LEGCOUNT surfaces (SCORECARD.md, LOG.md, fleet report) claim `9/10 legs PASS` — which mismatches observed (8, 9), so live=True, uncovered.
+
+  Now the mutation: copy accept-ca.py to /tmp, hard-code `observed_o_legs` to return (9, 9) instead of deriving from the receipt. Run the copy and show LEGCOUNT detector's live/uncovered output changes.
+
+  With observed = (9, 9):
+  - Filed surfaces claim `9/10 legs PASS` — pair (9, 10) != (9, 9) → still live! Hmm wait. Let me check: LEGCOUNT_RE matches "9/10 legs PASS" → pair (9, 10). (9,10) != (9,9) → bad → live=True still. Hmm, that means the mutation to (9,9) does NOT flip those hits to non-live... but the OUTPUT still changes: hits would still be ['9/10'] but... wait, actually the output would be identical?
+
+  Wait, let me re-read. The mutation hard-codes (9, 9). The filed surfaces claim 9/10. So detect_legcount(text, (9,9)) → hits = ['9/10'] (since (9,10) != (9,9)). That's the same as with (8,9): hits = ['9/10'] since (9,10) != (8,9).
+
+  Hmm. So the live/uncovered outputs might NOT change in this case?! Let me check more carefully what changes:
+
+  - OBSERVED leg detail: `o-legs=(9, 9) ca-verdict=FAIL` (changed from (8, 9)).
+  - EVAL LEGCOUNT lines: live=True covered=False remedy=False hits=['9/10'] — same as before, since the claims are 9/10, not 8/9 or 9/9.
+
+  Hmm wait — but where does "9/10 legs PASS" come from? Let me check the actual filed surfaces. The LEGCOUNT_RE is `(\d+)\s*/\s*(\d+)\s+legs\s+PASS`. In the fleet report kotodama.md there are two hits of '9/10'.
+
+  Hmm, interesting: so filed surfaces claim 9/10 legs PASS, but the committed receipt shows 8/9 legs. The mutation (9,9) vs true (8,9):
+
+  - detect_legcount with (8,9): claims 9/10 → mismatched → live. 
+  - detect_legcount with (9,9): claims 9/10 → mismatched → live. Same.
+
+  So the hits lines stay the same... BUT the OBSERVED leg changes and... hmm, would anything about live/uncovered change? Let's think about DEADPOINTER and OVERREACH — those don't depend on observed_o_legs. 
+
+  So the mutation may produce identical EVAL outputs except the OBSERVED leg's o-legs detail. That's actually an important finding in itself: hard-coding (9,9) does NOT flip the LEGCOUNT detector because the filed claims are 9/10, not 9/9 or 8/9. The detector output "changes" only in the OBSERVED leg detail line.
+
+  Wait, wait. Let me re-read the task: "Mutation-test the OBSERVED leg of reports/round-69/accept-ca.py: copy it to /tmp and hard-code the observed legs as (9, 9) instead of deriving them from the receipt; run the copy and show the LEGCOUNT detector's live/uncovered output changes. Paste the outputs. Then state, from the committed bytes, the true (pass, total) pair."
+
+  So the point of this mutation: the OBSERVED leg is the only thing that derives (pass,total) from the receipt. If you hard-code (9,9), does the detector still catch the LEGCOUNT mismatches? The filed claims are 9/10, so against BOTH (8,9) and (9,9) they're live. Hmm, so the detector output for the LEGCOUNT legs stays identical.
+
+  Hold on — is that right? Let me double check the filed surface text. I should look at the actual surfaces to see what "N/M legs PASS" strings they contain. The baseline shows hits=['9/10'] for SCORECARD.md and LOG.md, and ['9/10', '9/10'] for the fleet report. So the filed claims are 9/10.
+
+  Hmm interesting — so where would (9,9) even differ? If a surface claimed "9/9 legs PASS", then against true (8,9) it's live; against mutated (9,9) it would be NOT live — a false clean. That's the attack the mutation models: if the observed derivation were corrupted, would the LEGCOUNT detector notice? In this specific data state, the claims are 9/10 so both derivations flag them; the only visible change is the OBSERVED leg's printed o-legs detail.
+
+  Actually wait — maybe I should reconsider. Maybe the goal of the mutation task is exactly this: show what changes and what doesn't, and state the true pair from committed bytes. The task says "show the LEGCOUNT detector's live/uncovered output changes" — maybe the expected change is... let me actually run it and see.
+
+  Hmm, but also there's a subtlety: `detect_legcount` returns None if observed is None. With the hard-coded return (9, 9), observed is never None, so a missing receipt would no longer produce "surface unreadable". That's a real detector change: with the true derivation, if final-measures-o.txt were missing, EVAL LEGCOUNT legs would FAIL with "surface unreadable". With the mutation, they'd evaluate against (9,9) regardless. But in the current lane state the receipt exists, so that path isn't exercised in the live run.
+
+  Let me now check: are there any claims of "8/9 legs PASS" or "9/9 legs PASS" anywhere? The filed surfaces claim 9/10. Let me grep the surfaces to be thorough. Actually, let me look at the sections being read:
+
+  1. SCORECARD.md section `^## Axes — round 68`
+  2. LOG.md section `^## Round 68`
+  3. fleet `.ufo/reports/round-68/kotodama.md` (whole file, at fleet root /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md)
+
+  Let me read those sections to quote the actual "9/10 legs PASS" strings — useful for the report. And run the mutation.
+
+  Plan:
+  1. Copy accept-ca.py to /tmp/mut-ca/accept-ca-mut.py
+  2. Mutate observed_o_legs to `return (9, 9)` — with a marker comment. Actually instructions say hard-code. I'll do a minimal edit: replace the function body's derivation with `return (9, 9)`.
+
+  Careful: `observed_o_legs` is also used in the OBSERVED leg. The mutation makes OBSERVED print o-legs=(9, 9).
+
+  3. Run: `python3 /tmp/mut-ca/accept-ca-mut.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin --fleet-root /home/vgpnk/Projects/shokunin`
+
+  Note: in the mutated copy, HERE = /tmp/mut-ca, LANE = dirname(dirname(/tmp/mut-ca)) = /tmp. SELF = accept-ca-mut.py. LANE is only used in build_fixture_root (selftest), which I won't run for the mutated copy. The --root path governs lane reads: observed receipts, claims, SCORECARD, LOG, corrections. Good.
+
+  Also run the unmutated copy from /tmp? No — I already have the baseline from the production run. But for a clean apples-to-apples diff, maybe run the pristine copy from /tmp too... The production baseline is the committed bytes; that's the authority. Fine.
+
+  4. Also verify the true pair by an independent re-derivation from the committed receipt bytes: count matching lines in final-measures-o.txt:
+
+  ```
+  grep -cE '^[A-Z0-9_]+[[:space:]]+(PASS|FAIL)\b' reports/round-68/telemetry/final-measures-o.txt
+  ```
+
+  That gives total=9, passes=8 (EXEC FAIL). Let me also use Grep tool to show the lines. Already read the file: lines 7-15 are STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC, MUT, TOPO = 9 legs; EXEC FAIL; rest PASS → (8, 9).
+
+  Also compute sha256 of the receipt? The receipt records its own counter sha (f409...), not its own digest. Not needed.
+
+  Let me also double-check that the mutation doesn't accidentally get exercised by selftest — I will NOT run selftest on the mutated copy (build_fixture_root uses LANE which is /tmp in the copy — would break). Just run the main path.
+
+  Also worth diffing the two outputs precisely. Let me create the mutation with Python to be exact, or use Edit on the /tmp copy. Edit tool works on /tmp paths? "Relative paths resolve against the working directory; a path outside the working directory must be absolute." Absolute /tmp path is fine. But /tmp files — the dedicated tools should handle it. I'll copy with Bash cp, then Edit the copy.
+
+  Steps:
+  ```bash
+  mkdir -p /tmp/mut-ca && cp /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py /tmp/mut-ca/accept-ca-mut.py && sha256sum /tmp/mut-ca/accept-ca-mut.py /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py
+  ```
+
+  Then Edit the copy:
+  old:
+  ```python
+  def observed_o_legs(root):
+      """(pass, total) legs claimed by the committed round-68 operability receipt."""
+      text = read_text(os.path.join(root, "reports", "round-68", "telemetry",
+                                    "final-measures-o.txt"))
+      if text is None:
+          return None
+      legs = LEG_LINE_RE.findall(text)
+      if not legs:
+          return None
+      return (sum(1 for _, v in legs if v == "PASS"), len(legs))
+  ```
+  new:
+  ```python
+  def observed_o_legs(root):
+      """MUTATION: observed legs hard-coded to (9, 9), not derived from the receipt."""
+      return (9, 9)
+  ```
+
+  Then run the mutated copy. Also, for completeness, capture git status of the lane to prove read-only? Could do `git -C lane status --porcelain` before/after? That's read-only git, allowed. Maybe just skip; but showing the tree untouched is good evidence. Actually — the round is jj-colocated; git status should be safe. I'll run `git -C ... status --porcelain` at the end to show no production writes. Hmm, but jj colocated repos — git status reads the git view; fine, read-only.
+
+  Also: diff the mutated vs baseline outputs.
+
+  Let me also grab the filed surface texts to quote the "9/10 legs PASS" claims. Use Grep on:
+  - /home/vgpnk/Projects/shokunin/kotodama-shokunin/SCORECARD.md for "legs PASS"
+  - LOG.md
+  - /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md (fleet report — reading is fine, it's read-only)
+
+  Let me batch: cp+sha256sum, grep for legs PASS in the three surfaces.
+
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /tmp/mut-ca/accept-ca-mut.py
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py
+• The system reminder says /home/vgpnk/Projects/shokunin/AGENTS.md applies to paths I accessed (the fleet report read). I should read it before making changes in those directories — but I'm read-only there anyway. Still, let me read it to comply.
+
+  Note: my task says I may not write to the fleet repo at all, so this is just a read for compliance. Let me read it, and in parallel do the Edit on the /tmp copy.
+
+  The Edit on /tmp/mut-ca/accept-ca-mut.py: I need to read it first? I already read the original production file fully; the copy is byte-identical (sha256 matches: 091074c5...). The Edit tool requires reading the target file before editing. I read the production path, not the /tmp copy. To be safe, the Edit tool might complain. Let me just do the edit with Edit tool and see; if it complains, I'll Read first. Actually the rule says "Read the target file before every Edit." The /tmp copy hasn't been read. Let me Read a small portion of it (the function region) first — or just Read the whole file with n_lines to cover the function. Simpler: Read lines ~105-120 of the copy.
+
+  Let me batch: Read /home/vgpnk/Projects/shokunin/AGENTS.md, Read /tmp/mut-ca/accept-ca-mut.py lines 100-125.Fleet AGENTS.md read (I'm read-only there anyway — only reading the fleet report file, which is allowed).
+
+  Now mutate the /tmp copy: hard-code `observed_o_legs` to return (9, 9).
+
+• Now run the mutated copy against the lane root. Also verify the mutation with a diff, and run an independent re-derivation of the true pair from the committed receipt bytes.LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(9, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+2c2
+< LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+---
+> LEG PASS OBSERVED o-legs=(9, 9) ca-verdict=FAIL
+diff-exit=1
+Excellent. The result is clear and interesting:
+
+  The mutation hard-codes (9, 9). The diff shows exactly ONE line changes: the OBSERVED leg's detail goes from `o-legs=(8, 9)` to `o-legs=(9, 9)`. The OBSERVED leg still PASSES (because (9,9) is not None).
+
+  The LEGCOUNT detector's live/uncovered outputs DO NOT change: all three LEGCOUNT pairs remain live=True covered=False remedy=False hits=['9/10']/['9/10','9/10'], and MISMATCHES stays live_mismatches=5 unannotated_mismatches=5.
+
+  Why? Because the filed surfaces claim `9/10 legs PASS` — pair (9, 10) — which mismatches BOTH the true observed (8, 9) AND the invented (9, 9). The mutation is non-equivalent in general (a surface claiming exactly 9/9 would flip from live to clean under the mutation; a missing receipt would flip from "surface unreadable" FAIL to a spurious comparison), but on the current committed data it changes only the printed observation, not any verdict.
+
+  Wait — I should double check the claim in the task: "show the LEGCOUNT detector's live/uncovered output changes". The honest result: in THIS data state, the LEGCOUNT legs' printed verdict lines are byte-identical; the only output change is the OBSERVED leg's detail line. The detector's verdicts are unchanged. But is there ANY output change in the LEGCOUNT legs? No. Hmm.
+
+  But hold on — the mutation DOES matter for detector correctness in a subtle way: `detect_legcount(text, observed)` returns None if observed is None. With the mutation, observed can never be None, so the "surface unreadable" path disappears. In the current tree the receipt exists, so no difference. I could demonstrate the additional divergence: run the mutated copy with --root pointing at a scratch tree where the receipt is missing. But that requires building a fixture tree. Actually there's a simpler demonstration: run the mutated copy with `--root /tmp/empty-root` — load_claims would fail (no claims.json). I could copy claims.json into /tmp/empty-root/reports/round-69/ and nothing else. Then:
+
+  - Unmutated counter: obs_o = None (receipt missing) → OBSERVED leg FAIL (obs_o is None), EVAL LEGCOUNT legs FAIL "surface unreadable", MISMATCHES... unannotated increments on the unreadable pairs. Let me trace: for each LEGCOUNT pair, live_hits = None → res.add EVAL False "surface unreadable", live_count += 1, unannotated += 1. DEADPOINTER: detect_deadpointer(text, root) — text = surface text (SCORECARD/LOG/fleet) — those still readable if SCORECARD.md etc. exist... In the empty root, SCORECARD.md and LOG.md don't exist either → text None → "surface unreadable". Everything unreadable basically.
+
+  Hmm, this is getting complicated. The cleaner demonstration of the mutation's latent effect: a scratch tree where the receipt is missing but surfaces exist and claim 9/9. But that's over-engineering beyond the task. The task says: "run the copy and show the LEGCOUNT detector's live/uncovered output changes. Paste the outputs. Then state, from the committed bytes, the true (pass, total) pair."
+
+  So the deliverable: paste baseline and mutated outputs, note what changed and what didn't, state the true pair (8, 9) from the committed bytes.
+
+  Actually, let me reconsider whether the intended mutation outcome was different. Perhaps the mutation designer expected the filed claims to be "9/9 legs PASS" (so hard-coding (9,9) would falsely clear them), but the actual filed claims are "9/10 legs PASS". Either way, my job is to report observed reality honestly: the mutation changes ONLY the OBSERVED leg detail; the LEGCOUNT verdicts are invariant here because the filed claims (9/10) mismatch both the true (8,9) and the invented (9,9).
+
+  But wait — I should double-check one more subtlety: does the mutation change the LEGCOUNT detector in the sense of "what it compares against"? Yes — detect_legcount now compares against (9,9). The printed output happens to be identical because hits don't depend on the compared pair (they're the non-matching claims found in the text) — hits=['9/10'] is the same because (9,10) != both. live=True same. covered=False same (corrections file absent). remedy=False same.
+
+  To make the mutation's behavioral difference *visible* on the LEGCOUNT detector, I can add one more /tmp probe: a minimal claims file + surface where the claim is exactly "9/9 legs PASS". Under the true derivation, that surface is LIVE (9/9 != 8/9); under the mutation it is CLEAN (9/9 == 9/9). That directly demonstrates the detector's live/uncovered output changing with the corrupted observation. This is a valuable addition — a targeted fixture, not a production mutation. The task's core ask is the lane-root run, but this extra probe proves the mutation is non-equivalent, i.e., the OBSERVED leg actually guards the LEGCOUNT derivation.
+
+  Hmm, is that within scope? It's all /tmp scratch, read-only on the lane. Yes, fine, and it strengthens the finding. Let me do it:
+
+  Create /tmp/mut-ca/probe/:
+  - probe/reports/round-69/claims.json — a minimal claims file with two LEGCOUNT pairs? Actually the counter loads claims from root + CLAIMS path, and iterates claims["calibration_pairs"]. I can craft a claims.json with one LEGCOUNT pair pointing at a surface file with "9/9 legs PASS".
+
+  But careful: `evaluate` also reads `reports/round-68/telemetry/final-measures-ca.txt` (ca_verdict) — if missing, ca_verdict=None → OBSERVED leg FAIL... fine, and OVERREACH would be None → "surface unreadable". Also correction_pairs reads CORRECTIONS (missing → empty set). R68FROZEN reads round-68 accept-ca.py (missing → live=None → FAIL). That's OK for a probe — I only care about the EVAL LEGCOUNT lines.
+
+  probe/claims.json:
+  ```json
+  {
+    "calibration_pairs": [
+      {"class": "LEGCOUNT", "surface": "probe-surface", "path": "surface.md"}
+    ]
+  }
+  ```
+  probe/surface.md: "The counter printed 9/9 legs PASS.\n"
+
+  Run A (true counter): `python3 reports/round-69/accept-ca.py --root /tmp/mut-ca/probe` — wait, --claims defaults to root/CLAIMS. load_claims(root, None) → root/reports/round-69/claims.json. Good.
+
+  Expected run A: detect_legcount("...9/9 legs PASS...", (8, 9)) → hits ['9/9'] → live=True, covered=False, remedy=False → EVAL LEGCOUNT|probe-surface FAIL, MISMATCHES unannotated=1.
+
+  Run B (mutated copy): detect_legcount(text, (9,9)) → '9/9' matches observed → hits=[] → live=False, covered=False, remedy=False (for LEGCOUNT remedy=is_covered=False) → ok = remedy and not... = False → EVAL LEGCOUNT|probe-surface FAIL still! Because remedy=False → ok=False. Hmm! The leg still FAILS (uncovered) but the DETAIL changes: live=False, hits=none vs live=True hits=['9/9']. And MISMATCHES: unannotated = 0 (not live and not covered → not counted as unannotated; unannotated counts `is_live and not remedy`). So MISMATCHES leg PASSES in run B: live_mismatches=0 unannotated_mismatches=0.
+
+  That's exactly the false-clean the mutation models: under the corrupted observation, a filed claim of "9/9 legs PASS" reads as consistent, drops out of the unannotated count, and MISMATCHES prints unannotated_mismatches=0 even though the filed bytes are wrong vs the true receipt (8/9). The pair remains uncovered (leg FAILs on covered=False) but the "live" signal — which is what MISMATCHES counts — goes dark.
+
+  So the probe shows the LEGCOUNT detector's live/uncovered output genuinely changes under the mutation when the filed claim equals the invented pair. On the real lane data, the filed claims are 9/10, so the detector stays red either way — that's why the lane-root run is invariant.
+
+  Also demonstrate the "surface unreadable" guard disappearing? That's a second latent effect; the probe with a missing receipt would need a separate root where final-measures-o.txt is absent but claims+surface exist. In run A (true counter) with the receipt missing: obs_o=None → OBSERVED FAIL, LEGCOUNT EVAL = FAIL "surface unreadable", unannotated += 1. In run B (mutated): LEGCOUNT EVAL evaluated against (9,9) → for the 9/9 surface: live=False, covered=False → leg FAIL on covered, but unannotated=0 → MISMATCHES PASS. Nice — but my probe tree doesn't have the receipt at all! /tmp/mut-ca/probe has no reports/round-68/... so BOTH effects are visible in the same pair of runs:
+
+  Run A (true counter, probe root): obs_o=None, ca_verdict=None:
+  - R68FROZEN FAIL (live=None)
+  - OBSERVED FAIL o-legs=None ca-verdict=None
+  - EVAL LEGCOUNT|probe-surface FAIL surface unreadable → live_count+=1, unannotated+=1
+  - MISMATCHES FAIL live_mismatches=1 unannotated_mismatches=1
+  - ACCEPT-CA-69: FAIL
+
+  Run B (mutated, probe root): obs_o=(9,9) hard-coded, ca_verdict=None:
+  - R68FROZEN FAIL
+  - OBSERVED FAIL o-legs=(9, 9) ca-verdict=None
+  - EVAL LEGCOUNT|probe-surface FAIL live=False covered=False remedy=False hits=none → unannotated stays 0
+  - MISMATCHES PASS live_mismatches=0 unannotated_mismatches=0 ← FALSE CLEAN
+  - ACCEPT-CA-69: FAIL
+
+  This is a great demonstration: with the receipt unreadable AND a filed 9/9 claim, the mutated counter prints MISMATCHES PASS unannotated_mismatches=0 — the detector's live/uncovered output changes materially. And the true counter prints surface unreadable + unannotated=1.
+
+  So the probe root doubles as the missing-receipt scenario. 
+
+  Then the final answer: the true (pass, total) pair from the committed bytes = (8, 9). Evidence: the committed receipt reports/round-68/telemetry/final-measures-o.txt contains 9 leg lines matching ^[A-Z0-9_]+ (PASS|FAIL): STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC (FAIL), MUT, TOPO → 8 PASS of 9. Re-derive with grep: count lines matching the LEG_LINE_RE. Let me run:
+
+  ```
+  grep -cE '^[A-Z0-9_]+[[:space:]]+(PASS|FAIL)\b' reports/round-68/telemetry/final-measures-o.txt   → 9
+  grep -cE '^[A-Z0-9_]+[[:space:]]+PASS\b' ... → 8
+  ```
+
+  Hmm, `\b` in grep -E — GNU grep supports \b. Use `[[:space:]]` for \s. Also LEG_LINE_RE is `^([A-Z0-9_]+)\s+(PASS|FAIL)\b` — requires word boundary after PASS/FAIL. Lines like "SELFTEST PASS exit=0 count=True" — after PASS comes space → boundary ok. "SHA PASS live=05214b3d7618" ok. EXEC FAIL ok.
+
+  Also confirm the lane-root mutation run had --fleet-root — the baseline I ran first without --fleet-root uses the default /home/vgpnk/Projects/shokunin anyway; the diff run passed it explicitly. Both fine.
+
+  One more check for the report: verify no production writes — run git status --porcelain on the lane (read-only). Also note sha256 of mutated copy vs original differ only by the function body.
+
+  Let me also double check detect_legcount's None-guard claim: `if text is None or observed is None: return None`. Yes. And in evaluate: live_hits None → "surface unreadable". With mutation, observed is never None → that guard's observed-half is dead. Correct.
+
+  Now build the probe and run both. Batch:
+  1. Write probe files (Write tool, /tmp paths — allowed scratch).
+  2. Run true counter on probe; run mutated counter on probe.
+  3. grep re-derivation of (8,9).
+  4. git status --porcelain lane.
+
+  Write claims.json probe + surface.md first.
+
+• Note: the probe root deliberately has NO reports/round-68/telemetry/final-measures-o.txt — so the true counter derives obs_o=None ("surface unreadable") while the mutated counter compares against the hard-coded (9,9). Now run both counters on the probe.=== TRUE counter on probe (receipt absent -> derived obs_o=None) ===
+LEG FAIL R68FROZEN live=none recorded=none
+LEG FAIL OBSERVED o-legs=None ca-verdict=None
+LEG FAIL EVAL LEGCOUNT|probe-surface surface unreadable
+LEG FAIL MISMATCHES live_mismatches=1 unannotated_mismatches=1
+ACCEPT-CA-69: FAIL legs=0/4
+exit=1
+
+=== MUTATED counter on probe (observed hard-coded (9,9)) ===
+LEG FAIL R68FROZEN live=none recorded=none
+LEG FAIL OBSERVED o-legs=(9, 9) ca-verdict=None
+LEG FAIL EVAL LEGCOUNT|probe-surface live=False covered=False remedy=False hits=none
+LEG PASS MISMATCHES live_mismatches=0 unannotated_mismatches=0
+ACCEPT-CA-69: FAIL legs=1/4
+exit=1
+total legs  : 9
+passing legs: 8
+failing legs: 1
+7:STAMP PASS stamped=44c9cc28 evaluated=44c9cc28 equal=True tree=026d342b dirty_tracked=False
+8:SELFTEST PASS exit=0 count=True
+9:DIFF PASS status=A
+10:SHA PASS live=05214b3d7618
+11:PENDING PASS exit=0 summary=pending=0 chains=47 usedby_paths=709 missing_paths=0
+12:LEDGER PASS exit=0 findings=0 missing=[] dup=[] extra=2
+13:EXEC FAIL base_pending_fail=True lands_pass=False
+14:MUT PASS bad=[]
+15:TOPO PASS parent=cb2f8caf declaration=cb2f8caf
+?? .ufo/waves/round-69/dispatch-v1.sh
+?? .ufo/waves/round-69/gen-spec.py
+?? .ufo/waves/round-69/spec-v1.json
+?? .ufo/waves/round-69/taskcall-v1.json
+?? .ufo/waves/round-69/w1/
+git-status-exit=0
+All evidence collected:
+
+  1. **Baseline (committed counter, lane root)**: `o-legs=(8, 9)`, all three LEGCOUNT pairs live=True covered=False hits=['9/10'] etc., MISMATCHES live_mismatches=5 unannotated_mismatches=5, ACCEPT-CA-69: FAIL legs=2/8, exit 1.
+
+  2. **Mutated copy (hard-coded (9,9)) on lane root**: only ONE line differs — OBSERVED detail `o-legs=(9, 9)`. All LEGCOUNT/EVAL/MISMATCHES lines byte-identical (diff proves it). Because filed claims are `9/10` legs PASS → pair (9,10) mismatches both (8,9) and (9,9).
+
+  3. **Probe fixture (filed claim 9/9, receipt absent)**: the LEGCOUNT detector's live/uncovered output changes materially:
+     - True counter: `EVAL LEGCOUNT|probe-surface surface unreadable`, `MISMATCHES live_mismatches=1 unannotated_mismatches=1` (FAIL).
+     - Mutated counter: `EVAL LEGCOUNT|probe-surface live=False covered=False remedy=False hits=none`, `MISMATCHES live_mismatches=0 unannotated_mismatches=0` (PASS — false clean).
+     This demonstrates the mutation kills the detector's derivation guard: observed is never None so "surface unreadable" is unreachable, and a filed claim equal to the invented pair reads as consistent, dropping out of the unannotated count.
+
+  4. **True pair from committed bytes**: reports/round-68/telemetry/final-measures-o.txt has 9 leg lines matching `^([A-Z0-9_]+)\s+(PASS|FAIL)\b` (STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC, MUT, TOPO); EXEC is the only FAIL → **(8, 9)**. Matches the unmutated counter's derived `o-legs=(8, 9)`.
+
+  5. **Tree untouched**: git status shows only pre-existing untracked wave files (dispatch-v1.sh, gen-spec.sh etc. and w1/ which is where my report goes). No modifications. My report file will be inside .ufo/waves/round-69/w1/ which is already untracked — writing my report there is the designated scope.
+
+  Now write the report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutC2.md.
+
+  Report contents:
+  - Scope and method
+  - Commands + real outputs (baseline, mutation diff, probe pair)
+  - The mutated code snippet
+  - Findings as VERDICT lines
+  - True (pass, total) pair from committed bytes
+  - Interpretation: OBSERVED leg guards the derivation; mutation is non-equivalent but only visibly on the probe; on live lane data the LEGCOUNT verdicts are invariant (claims are 9/10, mismatching both pairs).
+
+  Keep the verdict framing: VERDICT lines for the mutation test itself. The task asked: run the copy, show LEGCOUNT live/uncovered output changes, paste outputs, state true pair. Findings:
+
+  - VERDICT: the OBSERVED leg of accept-ca.py correctly derives (8, 9) from the committed receipt (PASS as a guard — hmm, but VERDICT lines should be PASS/FAIL/NOT-EVALUATED about findings).
+
+  Let me phrase:
+  - `VERDICT: PASS` — lane-root mutation run reproduces every LEGCOUNT verdict identically; only the OBSERVED detail changes → on the current committed data the LEGCOUNT legs are not sensitive to the observed pair (filed claims 9/10 mismatch both (8,9) and (9,9)).
+  - `VERDICT: PASS` — probe shows the detector's live/uncovered output does change under the mutation: live=True hits=['9/9'] / unannotated=1 → live=False hits=none / unannotated_mismatches=0 (false clean). So the OBSERVED leg is load-bearing for MISMATCHES.
+  - True pair from committed bytes: (8, 9). Command + output pasted.
+
+  Also note the dead-guard effect: with hard-coding, `detect_legcount`'s observed-is-None branch ("surface unreadable") is unreachable — demonstrated on the probe.
+
+  Also worth stating: baseline lane-root result is the counter's honest FAIL 2/8 with 5 live unannotated mismatches (pre-data state — corrections not yet landed). This is consistent with the claims.json "before" (three classes over five pairs... well, 5 declared pairs, 5 unannotated).
+
+  File the report. Also ensure I don't add anything else. The git status shows ?? .ufo/waves/round-69/w1/ — the directory exists already (untracked). Write MutC2.md there.
+
+  One more sanity item for the report: mutated copy sha256 after edit. Let me include the sha256 of the mutated file to bind the report to the exact bytes. I didn't compute it post-edit. Quick compute plus write report... I'll compute it now along with writing. Actually I can compute in the same batch as the Write? The Write content should include the sha — dependency. Let me compute sha first, then write.
+
+066dc3dda79b41478b641bc22553666fc19b49cd3d0e29a67c7be76d2bda356c  /tmp/mut-ca/accept-ca-mut.py
+--- accept-ca-mut.py	2026-10-24 23:40:16.347439698 -0300
++++ /dev/fd/63	2026-10-24 23:43:25.378118145 -0300
+@@ -106,10 +106,15 @@
+ 
+ 
+ def observed_o_legs(root):
+-    """MUTATION (MutC2): observed legs hard-coded to (9, 9) — the receipt is
+-    never read, so the LEGCOUNT detector compares filed claims against an
+-    invented observation instead of the committed round-68 bytes."""
+-    return (9, 9)
++    """(pass, total) legs claimed by the committed round-68 operability receipt."""
++    text = read_text(os.path.join(root, "reports", "round-68", "telemetry",
++                                  "final-measures-o.txt"))
++    if text is None:
++        return None
++    legs = LEG_LINE_RE.findall(text)
++    if not legs:
++        return None
++    return (sum(1 for _, v in legs if v == "PASS"), len(legs))
+ 
+ 
+ def observed_ca_verdict(root):
+• The diff confirms the only change to the copy is the `observed_o_legs` body. Now write the report.Report written. Now the final answer to the user, summarizing findings, ending with the single line 'Report: .ufo/waves/round-69/w1/MutC2.md'.
+
+  Key points for final message:
+  1. Mutation applied to /tmp copy only (observed_o_legs → return (9,9)).
+  2. On the live lane tree, the mutated run is byte-identical on every LEGCOUNT/MISMATCHES line; only OBSERVED detail changes (8,9)→(9,9). Reason: filed claims are 9/10, mismatching both.
+  3. Probe fixture proves the detector does depend on the derived pair: 9/9 claim + missing receipt → true counter: surface unreadable, unannotated_mismatches=1; mutated: live=False hits=none, false MISMATCHES PASS unannotated_mismatches=0.
+  4. True pair from committed bytes: (8, 9) — 8 PASS of 9 legs, EXEC FAIL; matches unmutated counter's derivation.
+  5. Bounds: read-only production, git status clean of modifications.
+
+To resume this session: kimi -r session_cd782ba0-ad25-4156-97f9-2d6b5ca94677
+[unexpected] RuntimeError: workspace wd_kotodama-shokunin_79dcf87bd64e is not materialized
+    at RuntimeResolver.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:180263:36)
+    at AgentRuntimeService.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:131899:25)
+    at AgentFileHistoryService.readCurrent (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177438:31)
+    at AgentFileHistoryService.endCheckpoint (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177351:32) {
+  code: 'runtime.not_found'
+}

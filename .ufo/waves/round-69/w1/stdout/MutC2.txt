@@ -1,0 +1,24 @@
+• Counter structure understood: `observed_o_legs(root)` derives the (pass, total) pair from the committed round-68 receipt `final-measures-o.txt`, and `detect_legcount` flags any filed `N/M legs PASS` claim whose pair ≠ that derived observation. Now I'll pull the baseline run, the claims, and the committed receipt bytes in parallel.
+
+• Baseline is in: the live counter derives `o-legs=(8, 9)` from the committed round-68 receipt, and the three LEGCOUNT surfaces claim `9/10 legs PASS` → all live and uncovered. Now I'll stage the mutated copy in /tmp and pull the filed surface bytes in parallel.
+
+• Fleet-root rules noted — I remain read-only there. Now applying the mutation to the /tmp copy: `observed_o_legs` returns hard-coded (9, 9) instead of deriving from the committed receipt.
+
+• The lane-root mutation run is byte-identical on every LEGCOUNT verdict — only the OBSERVED detail line changes (`o-legs=(8, 9)` → `(9, 9)`). That's because the filed claims are `9/10`, which mismatches both pairs. To show the LEGCOUNT detector's live/uncovered output *actually* changing under the corrupted observation, I'll build a /tmp probe where the filed claim equals the invented pair (9/9) — which also exercises the dead "surface unreadable" guard.
+
+• All evidence is in. The probe proves the OBSERVED leg is load-bearing: under the mutation a filed `9/9` claim goes `live=False hits=none` and MISMATCHES prints a false `unannotated_mismatches=0`, while the true counter catches it as `surface unreadable` / `unannotated_mismatches=1`. Hashing the exact mutated bytes, then writing the report.
+
+• Mutation test complete. Summary of what I found:
+
+  **Setup** — copied `reports/round-69/accept-ca.py` to `/tmp/mut-ca/` (sha-verified identical first), then replaced the entire body of `observed_o_legs()` with `return (9, 9)` so the receipt at `reports/round-68/telemetry/final-measures-o.txt` is never read.
+
+  **Lane-root run** — the mutated copy's output is byte-identical to the committed counter's on every LEGCOUNT/MISMATCHES line; the only delta (proved by line diff) is the OBSERVED detail: `o-legs=(8, 9)` → `o-legs=(9, 9)`. That's because the filed surfaces claim `9/10 legs PASS` (SCORECARD.md:1318, LOG.md:4212, fleet report :10/:29), which mismatches both the true (8, 9) and the invented (9, 9) — so all three LEGCOUNT pairs stay live/uncovered either way.
+
+  **Probe** — a /tmp fixture with a filed `9/9 legs PASS` claim and no receipt shows the LEGCOUNT detector's live/uncovered output genuinely changing under the mutation:
+  - true counter: `EVAL LEGCOUNT|probe-surface surface unreadable`, `MISMATCHES live_mismatches=1 unannotated_mismatches=1`
+  - mutated: `live=False covered=False remedy=False hits=none`, `MISMATCHES live_mismatches=0 unannotated_mismatches=0` — a false-clean PASS on the exact number Ca2's predicate keys on. Hard-coding also makes the `surface unreadable` EVAL path unreachable (observed is never None).
+
+  **True pair from committed bytes** — the receipt carries 9 leg lines (STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC, MUT, TOPO); EXEC is the only FAIL, so the true pair is **(8, 9)**, matching the unmutated counter's derivation. Baseline counter state is pre-data FAIL 2/8 with 5 live unannotated mismatches, as declared. Production bytes untouched (git status shows only pre-existing untracked wave files).
+
+  Report: .ufo/waves/round-69/w1/MutC2.md
+

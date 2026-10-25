@@ -1,0 +1,20 @@
+• Counter read. Now gathering the receipts and independent sha256 evidence in parallel.
+
+• Independent sha256 verification is clean — all three live digests match their receipts, and the three recorded digests are pairwise distinct (so a wrong receipt must mismatch). Now the baseline run of the unmutated copy, then the mutation.
+
+• Baseline is 7/7 PASS with R68FROZEN PASS. Now mutating the /tmp copy to point the accept-o.py comparison at the wrong receipt.
+
+• R68FROZEN fires precisely: only the mutated pair (`accept-o.py` vs `final-measures-ca.txt`) is named in `mismatched=`, exit 1. One final independent shell re-derivation of the frozen-leg math, then I write the report.
+
+• All legs verified. Writing the report.
+
+• Done. Summary of the mutation test:
+
+  **Independent sha256 verification — PASS.** All three round-68 counters match their receipts: `accept-o.py` → `f409096c…` (final-measures-o.txt), `accept-ca.py` → `a6d1c1c2…` (final-measures-ca.txt), `accept-c.py` → `515fa492…` (final-measures-c.txt). Verified with `sha256sum` + `grep`, independent of the counter's own regex; each receipt has exactly one sha line and the three digests are pairwise distinct.
+
+  **Mutation kill — PASS.** Copied the counter to `/tmp/muto3-w1/` (byte-identical, STAMP-confirmed), baseline passed 7/7 with `R68FROZEN mismatched=none`. After pointing the accept-o.py pair at the wrong receipt (`final-measures-ca.txt`), the leg fired precisely: `R68FROZEN FAIL mismatched=['accept-o.py live=f409096c9167 recorded=a6d1c1c24e77']` — only the mutated pair named, counter exits 1. STAMP also caught the edited bytes, as designed.
+
+  **One finding for the L1:** `final-measures-ca.txt` ends in a `NameError: git_bytes` traceback with no final `ACCEPT-CA-68` line — the sha line the leg reads is present, so R68FROZEN is unaffected, but whether round-68 annotated that crashed run is flagged NOT-EVALUATED in §4 of the report. All mutations were confined to the /tmp copy; production bytes untouched.
+
+  Report: .ufo/waves/round-69/w1/MutO3.md
+

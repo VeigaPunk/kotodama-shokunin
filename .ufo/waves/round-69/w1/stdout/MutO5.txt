@@ -1,0 +1,20 @@
+• Baseline captured: unmodified harness prints `FIXTURE: 3/3`, exit 0. The negative assertion is at line 128 (`s["missing_paths"] == 1`). Now I'll read the underlying checker to also build a stronger second mutation (kill the checker's detection, exercised through the unmodified harness's `--checker` hook).
+
+• Both files read. Design: two mutations, both confined to /tmp — (A) flip the harness's negative assertion to expect `missing_paths=0` (the instructed mutation), and (B) kill the checker's missing-path detection and feed it to the *unmodified* harness via its own `--checker` hook. Setting up now.
+
+• Both single-line mutations are in place in /tmp copies. Running both mutated configurations now.
+
+• Both mutants are killed: `FAIL fixture-negative` and exit 1 in both configurations, with green/pending unaffected. Writing the report.
+
+• Mutation test complete — the harness's negative gate holds.
+
+  **Baseline:** unmodified `--selftest` → `FIXTURE: 3/3`, exit 0.
+
+  **MUT-A (instructed):** copied the harness to `/tmp/mutO5/harness-mutA.py`, flipped the line-128 negative assertion to expect `missing_paths=0` → `FAIL fixture-negative`, `FIXTURE: 2/3`, exit 1. The FAIL detail still shows the checker caught the defect (`missing_paths=1`), proving the assertion itself is live and reads the observed value.
+
+  **MUT-B (stronger, direct answer):** copied the checker, killed its missing-used-by detection (`missing_paths = []`), and fed it to the **unmodified** harness via `--checker` → defect-carrying fixture reported `missing_paths=0` → `FAIL fixture-negative`, `FIXTURE: 2/3`, exit 1. So yes: the harness fails when the class it claims to catch is not caught.
+
+  **Localization:** green and pending pass under both mutations — the red signal comes from the negative-case gate alone. One non-blocking observation for the L1: the negative assertion doesn't gate on the checker's exit code (consistent today, but blind to a future checker that exits non-zero on missing paths). All mutations were confined to `/tmp`; production bytes untouched. Full commands, outputs, diffs, and SHA-256 digests are in the report.
+
+  Report: .ufo/waves/round-69/w1/MutO5.md
+

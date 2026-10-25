@@ -1,0 +1,26 @@
+• Round-68 filed surfaces show an **empty diff** between base and main — first read is that nothing in those paths changed. Now verifying `main` actually exists and checking the diff isn't silently empty due to a missing ref, plus grepping the counters for write behavior.
+
+• All write hits found in the counters are in grep view — now I must trace **where** they point (tempdir fixtures vs. production bytes) and what the `subprocess` calls run. Reading all four scripts.
+
+• Both accept-o and accept-d confine writes to `tempfile.TemporaryDirectory` fixtures; their `subprocess` calls run only the lane's own checkers with `-B`, never git/jj. One repo-side write artifact already spotted: `reports/round-69/__pycache__/accept-d.cpython-314.pyc` — the file was *imported* (not just run) by something, which the `-B` flag would have prevented. Reading the remaining two scripts and checking `.gitignore`.
+
+• All four scripts read: every `open(...,"w")`, `shutil.copy2`, and append targets a `tempfile.TemporaryDirectory` fixture (or copies lane→fixture); the two `subprocess` call sites in accept-o + one in the harness run only `[sys.executable, "-B", <lane checker>]` — never git/jj, and `-B` suppresses pycache. The `__pycache__` dir proves something imported `accept-d` **without** `-B` at some point (ignored by `.gitignore:4`, untracked, but a real tree write). The `__root` path of the harness runs the pre-existing settlement checker against the real lane, so that tool must be read-only too — checking it, plus the claims and telemetry.
+
+• The pre-existing checker has one `open(...,"w")` at line 260 — need to confirm it's inside its selftest fixture (near the `tempfile` at :270), not the `--scan` path the harness uses against the real lane. Then I'll run the behavioral no-write proof: marker file → run all declared counting commands → `find -newer` over production paths + `git status`.
+
+• `_mk` — the checker's only write path — is invoked exclusively from `selftest()` inside a `tempfile.TemporaryDirectory`; the `--scan` path used against the real lane is read-only. And the R68FROZEN freeze re-derivation matches exactly on all three round-68 counters. Now the behavioral no-write proof: run the four declared counting commands, then diff the production tree against a pre-run marker.
+
+• Counters reproduce the declaration dry-run receipt exactly (o: 7/7 PASS; ca: 2/8 with identical hit lists; d: 1/8 — pre-data state as declared). Now proving those runs touched nothing in the production tree.
+
+• Everything verified. Writing the report.
+
+• Both assigned checks are complete and filed.
+
+  **Append-only discipline — PASS.** The assigned `git diff --stat 793f7974… main -- corpus/lessons/round-68.md corpus/SOURCES.md reports/round-68` returned empty: zero changes to any round-68 filed surface. The full base..main diff contains only the 12 declared round-69 additions, the working tree matches main, and the three counter runs I executed left `git status` byte-identical.
+
+  **Counter write-safety — PASS, with one cosmetic finding.** All write calls in `accept-{o,ca,d}.py` and `tools/check-settlement-fixture.py` (plus the pre-existing settlement checker's `_mk`) resolve to `tempfile.TemporaryDirectory` fixtures under /tmp; the three `subprocess` sites run only lane tools with `-B`, never git/jj. Behavioral proof: after a marker-touch, running all three declared counting commands produced zero files newer than the marker across every production path, and the runs reproduce the committed declaration-dry-run receipt leg-for-leg. The finding: `reports/round-69/__pycache__/accept-d.cpython-314.pyc` (23:14:06, pre-controls) proves something *imported* accept-d without `-B` during declaration — gitignored and harmless to tracked bytes, but the L1 should keep drivers on `-B`/`PYTHONDONTWRITEBYTECODE`.
+
+  Also independently re-derived the R68FROZEN freeze: all three round-68 counter sha256s match their receipts exactly. Current pre-data state observed: accept-o 7/7 PASS; accept-ca FAIL 2/8 (unannotated_mismatches=5); accept-d FAIL 1/8 — exactly the declared not-yet-landed state.
+
+  Report: .ufo/waves/round-69/w1/RevC1.md
+

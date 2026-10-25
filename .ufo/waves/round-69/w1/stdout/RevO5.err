@@ -1,0 +1,568 @@
+kimi version 2.3.1
+• Let me parse the task. I'm a Godspeed leaf seat (RevO5) in round 69 wave 1 of kotodama-shokunin. My specific job:
+
+  Attack the DEADPOINTER detector of `reports/round-69/accept-ca.py`:
+  1. Copy the lane's `corpus/lessons/round-68.md` to /tmp
+  2. Add a bogus row line containing 'R68-M9'
+  3. Show the detector stops firing on that id
+  4. Show that adding a row for a DIFFERENT id does not silence it
+  5. Use copies under /tmp only; do not modify the lane tree
+  6. Paste commands and outputs
+
+  Then write my report to `/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/RevO5.md` and end with `Report: .ufo/waves/round-69/w1/RevO5.md`.
+
+  Let me start by reading the accept-ca.py file and corpus/lessons/round-68.md. Read in parallel.
+
+  Let me do:
+  - Read reports/round-69/accept-ca.py
+  - Read corpus/lessons/round-68.md
+  - Also maybe look at claims.json for context.
+
+  Then design the attack.
+
+  The DEADPOINTER detector presumably checks that certain mismatch IDs referenced in some filed report have corresponding rows in round-68.md lessons (or something like "pointer to a lesson row that doesn't exist"). The attack: add a bogus row line containing 'R68-M9' — presumably the detector has a mechanism where if a row exists in the lessons file with that id, it stops flagging the mismatch (i.e., "row exists → annotated"). Show that works, and a different id doesn't silence it (specificity check).
+
+  Let me read the files first.Now I understand the DEADPOINTER detector:
+
+  ```python
+  MISTAKE_RE = re.compile(r"R68-M(\d+)")
+
+  def mistake_rows_exist(root, ids):
+      """Return the subset of *ids* with no R68-M<n> row anywhere in the lane."""
+      corpus = ""
+      for rel in ("LOG.md", "corpus/lessons/round-68.md",
+                  "corpus/lessons/round-69.md"):
+          t = read_text(os.path.join(root, rel))
+          if t:
+              corpus += t + "\n"
+      missing = []
+      for n in sorted(set(ids)):
+          if ("R68-M%s" % n) not in corpus:
+              missing.append(n)
+      return missing
+
+  def detect_deadpointer(text, root):
+      if text is None:
+          return None
+      ids = [m.group(1) for m in MISTAKE_RE.finditer(text)]
+      ids += [m.group(1) for m in PLUS_M_RE.finditer(text)]
+      if not ids:
+          return []
+      return ["R68-M%s" % n for n in mistake_rows_exist(root, ids)]
+  ```
+
+  So the DEADPOINTER detector: for each declared surface, extracts R68-M<n> ids from the filed text (the fleet report `.ufo/reports/round-68/kotodama.md`), and reports those ids that have NO row anywhere in LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md.
+
+  My attack:
+  1. Copy lane's corpus/lessons/round-68.md to /tmp fixture tree.
+  2. Add a bogus row line containing 'R68-M9' to the copy.
+  3. Show the detector stops firing on that id (R68-M9 is presumably currently flagged as a dead pointer — claims.json says the round-68 counter crashed with undefined git_bytes, R68-M9; the fleet report probably references R68-M9 but no lesson row exists for it yet).
+
+  Wait — actually I need to check: does the fleet report `.ufo/reports/round-68/kotodama.md` reference R68-M9? Let me look at the fleet report first. The fleet root is /home/vgpnk/Projects/shokunin, and the surface is `.ufo/reports/round-68/kotodama.md` under the fleet root.
+
+  The attack plan:
+  - Build a /tmp fixture tree that mimics the lane structure (LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md) plus the fleet report.
+  - Baseline run: show accept-ca.py (against the fixture tree) flags R68-M9 as a live DEADPOINTER (dead pointer in the fleet report).
+  - Mutation A: append a bogus row containing `R68-M9` to the COPY of corpus/lessons/round-68.md → detector stops firing on R68-M9 (live=... hits become none or the hits list loses R68-M9).
+  - Mutation B: append a row for a DIFFERENT id (e.g., `R68-M77`) → detector STILL fires on R68-M9 (specificity: the remedy must name the exact id).
+  - Cleanup (only /tmp).
+
+  Important detail: the detector's "stops firing" is at the level of `mistake_rows_exist` — the id is considered present if the substring `R68-M9` appears anywhere in LOG.md or the lesson files. So even a bogus line like `| R68-M9 | bogus backfill |` silences it. That's the finding: the detector matches the ID string anywhere in the corpus, not a well-formed row. That's a weakness to report: a bogus row silences it — the "row" check is substring presence, not row shape. Good finding to note.
+
+  But also the DEADPOINTER remedy in `evaluate()`:
+  ```python
+  is_covered = (cls, key) in covered
+  if cls == "DEADPOINTER":
+      remedy = is_covered and not is_live
+  ```
+  So for the leg to pass, both the correction row must exist in corrections-r68.md AND the pointer must resolve. My attack only demonstrates the `not is_live` half via `mistake_rows_exist`.
+
+  How do I run the detector against a fixture tree? The counter's `--root DIR` expects the full lane tree with claims.json etc. The cleanest approach:
+
+  Option 1: Copy the whole lane tree needed bits to /tmp (the selftest's build_fixture_root does exactly this). I can reuse `build_fixture_root` by importing the module... but simpler: create the fixture with the same copy list. Actually, the simplest robust approach:
+
+  1. `mkdir -p /tmp/ca69-attack`
+  2. Copy the minimal set: reports/round-69/accept-ca.py, reports/round-69/claims.json, reports/round-68/accept-ca.py, reports/round-68/telemetry/final-measures-ca.txt, reports/round-68/telemetry/final-measures-o.txt, SCORECARD.md, LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md, corpus/SOURCES.md, plus fleet report at /tmp fixture's fleet dir. Actually I can just call the script's own `build_fixture_root` via `--selftest`-style import. Let me do it with a small driver:
+
+  ```python
+  import sys
+  sys.path.insert(0, "/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69")
+  import importlib.util
+  spec = importlib.util.spec_from_file_location("accept_ca", "/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py")
+  mod = importlib.util.module_from_spec(spec)
+  spec.loader.exec_module(mod)
+  fx = "/tmp/ca69-attack/base"
+  fleet = mod.build_fixture_root(fx, with_corrections=False)
+  ...
+  ```
+
+  Hmm, but build_fixture_root copies claims.json and rewrites the fleet-report path into the copy — good, it makes a self-contained fixture. with_corrections=False gives the "do-nothing" baseline where DEADPOINTER on fleet-report should be live (assuming the fleet report references some R68-M id not present in lessons). Let me check: does the fleet report reference R68-M9? Need to read /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md. Reading the fleet root file is allowed (read-only; fleet repo read is fine — the restriction is on writes; "Never write to the fleet repo").
+
+  Wait — the DEADPOINTER baseline: the before clause says "at base 793f7974 three classes over five declared (class, surface) pairs are unannotated: ... DEADPOINTER on the fleet report". So yes, at base the fleet report references some R68-M ids with no lesson row — presumably R68-M9 (the crash id). Let me verify by running the counter at base and reading the fleet report.
+
+  But careful: I must not modify anything in the lane; I copy to /tmp and mutate the copy.
+
+  Simplest driver script in /tmp:
+
+  ```python
+  #!/usr/bin/env python3
+  import importlib.util, json, os, shutil, subprocess, sys
+
+  LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"
+  SCRIPT = os.path.join(LANE, "reports/round-69/accept-ca.py")
+
+  def load_mod():
+      spec = importlib.util.spec_from_file_location("accept_ca", SCRIPT)
+      mod = importlib.util.module_from_spec(spec)
+      spec.loader.exec_module(mod)
+      return mod
+  ```
+
+  Hmm — but wait: `build_fixture_root` uses module-level LANE, which is derived from HERE = the script's directory. Since I load the module from the lane path, LANE resolves to the lane. Good.
+
+  Then:
+
+  Step 0 (baseline evidence at the real lane): run `python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin` from the lane dir (read-only run). This shows the current state: which pairs are live. Expect DEADPOINTER live on fleet report with hits [R68-M9] (or similar).
+
+  Step 1: build fixture (with_corrections=False), run evaluate → show DEADPOINTER leg live=True (hits=[R68-M9]) and leg FAIL, MISMATCHES unannotated>=1.
+
+  Step 2: mutation A — append `\n| R68-M9 | bogus backfill row (attack: substring silences the detector) |\n` to /tmp fixture copy of corpus/lessons/round-68.md → rerun → DEADPOINTER hits become none → is_live=False. Note the leg still FAILs unless corrections row exists (remedy = is_covered AND not is_live; with_corrections=False so covered is empty → remedy False → leg FAIL). Hmm — that's important: "the detector stops firing" = the dead-pointer detection (is_live) goes False. The leg itself still fails because uncovered. To isolate "detector stops firing on that id", I should demonstrate at the `detect_deadpointer` / `mistake_rows_exist` level and/or via the leg's detail line `hits=` changing from [R68-M9] to none.
+
+  To be crisp, I can print both:
+  - `mod.detect_deadpointer(text, root)` before/after.
+  - The leg detail from `evaluate`.
+
+  Maybe for a cleaner demonstration, also build a variant fixture WITH corrections (with_corrections=True) so the leg goes full PASS when R68-M9 row exists? But with_corrections=True also adds backfill row to round-69.md already (`| R68-M9 | fixture backfill row |`). Interesting: the green fixture already silences the pointer via corpus/lessons/round-69.md. So for my attack on round-68.md copy specifically, I should use with_corrections=False and only mutate round-68.md copy.
+
+  Actually the task says: "copy the lane's corpus/lessons/round-68.md to /tmp, add a bogus row line containing 'R68-M9', and show the detector stops firing on that id; then show that adding a row for a DIFFERENT id does not silence it."
+
+  So the minimal demonstration:
+  - Fixture tree at /tmp with lane copies (LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md, fleet report, claims.json etc.).
+  - Baseline: `mistake_rows_exist(root, ['9'])` → ['9'], and `detect_deadpointer(fleet_text, root)` → ['R68-M9']; leg detail shows hits=['R68-M9'], is_live=True.
+  - Attack A: append bogus row `| R68-M9 | bogus backfill |` to the round-68.md COPY → `mistake_rows_exist` → [] for 9; detect_deadpointer → [] (for that id); leg detail hits=none.
+  - Attack B (fresh copy or second mutation in a different fixture dir): append row `| R68-M77 | bogus unrelated row |` (no R68-M9) → detector STILL fires: hits=['R68-M9'].
+
+  Also demonstrate specificity more sharply: R68-M77 row silences R68-M77 but not R68-M9. Also maybe show that a row like `| R68-M90 |` does NOT silence R68-M9? Wait — substring check: `"R68-M%s" % n` with n="9" → "R68-M9". Does "R68-M90" contain "R68-M9"? YES! "R68-M90" contains the substring "R68-M9". So a row for R68-M90 WOULD silence R68-M9. That's a nice extra finding: the substring check is not even id-exact — R68-M90 contains R68-M9 as a prefix substring. Even `R68-M9X` or a date like "R68-M92". So the specificity boundary: adding R68-M77 does not silence M9, but adding R68-M90 (or any R68-M9x) WOULD. That's a genuine weakness of the detector worth reporting: prefix-collision false-negative. Let me verify carefully:
+
+  `"R68-M%s" % n` where n is the captured group (string) from MISTAKE_RE `R68-M(\d+)` — n is digits string, e.g. "9". Check `("R68-M9") in corpus`. If corpus contains "R68-M90", then "R68-M9" is a substring of "R68-M90" → True → 9 considered present. Yes. Also MISTAKE_RE on text would capture "90" for the token R68-M90 and check "R68-M90" — fine. But the collision direction: surface mentions R68-M9; corpus has R68-M90 → silenced incorrectly. Also surface mentions R68-M10; corpus has "R68-M1" — "R68-M10" does not contain "R68-M1"? "R68-M1" vs "R68-M10": is "R68-M1" a substring of "R68-M10"? "R68-M10" = "R68-M1" + "0" → yes! So a corpus row for R68-M1 silences a pointer to R68-M10. Prefix collision both ways (corpus-row superset silences pointer subset).
+
+  Also `PLUS_M_RE = re.compile(r"\+M(\d+)\s+in\s+LOG")` — "+M9 in LOG" also counts as an id. So text "+M9 in LOG" would be treated as pointer to R68-M9.
+
+  I can demonstrate the prefix collision as a bonus finding (attack C): append row for R68-M90 only → R68-M9 stops firing (FALSE silencing — a different id's row kills the M9 pointer). That's the strongest finding actually: the task asks to show "adding a row for a DIFFERENT id does not silence it" — R68-M77 (non-overlapping id) does not silence it, which I'll show; and my bonus shows the boundary is leaky for prefix-overlapping ids (R68-M90 does silence it), which is a detector weakness finding.
+
+  Also worth checking: where does R68-M9 pointer come from? The fleet report at /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md. Need to read it (read-only, allowed — "Never write to the fleet repo"; reading is fine, "You may read local files freely").
+
+  Also confirm baseline run of accept-ca.py at the real lane to see current live hits (should show DEADPOINTER live on fleet-report with R68-M9, and the data hasn't landed: no corrections-r68.md → covered empty → leg FAIL). This gives context for the attack (before state).
+
+  Careful: running `python3 -B reports/round-69/accept-ca.py --root .` in the lane is read-only (the script says "Reads only"). Safe. But default fleet-root is /home/vgpnk/Projects/shokunin anyway; I'll pass explicitly.
+
+  Now, for fixture construction: rather than hand-copying, use the module's own build_fixture_root (it copies exactly the needed files plus a stub fleet report if the real one is missing — the real one exists, so it copies the real fleet report). with_corrections=False.
+
+  But note build_fixture_root rewrites claims.json in the fixture to point fleet-report path at the fixture fleet dir. Good — self-contained.
+
+  One more subtlety: `evaluate()` needs `reports/round-68/telemetry/final-measures-{o,ca}.txt`, SCORECARD.md, LOG.md, lessons files, reports/round-68/accept-ca.py + receipt sha (R68FROZEN leg), corrections file (absent → covered empty). build_fixture_root handles all.
+
+  Plan of commands:
+
+  1. `date` and baseline run in lane:
+  ```
+  cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin; echo "exit=$?"
+  ```
+  Expect overall FAIL (data not landed) with DEADPOINTER leg live=True hits=[...]. Note R68FROZEN leg: does the round-68 receipt record its own sha? Probably PASS. Fine.
+
+  Also grep the fleet report for R68-M tokens:
+  ```
+  grep -n 'R68-M' /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md
+  ```
+  Use Grep tool.
+
+  2. Attack driver script /tmp/ca69-attack/attack.py:
+
+  ```python
+  #!/usr/bin/env python3
+  """RevO5 attack: DEADPOINTER detector of reports/round-69/accept-ca.py.
+
+  All mutation happens on COPIES under /tmp/ca69-attack. The lane tree is
+  never written.
+  """
+  import importlib.util, json, os, shutil, subprocess, sys
+
+  LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"
+  SCRIPT = os.path.join(LANE, "reports/round-69/accept-ca.py")
+  BASE = "/tmp/ca69-attack"
+
+  spec = importlib.util.spec_from_file_location("accept_ca", SCRIPT)
+  m = importlib.util.module_from_spec(spec)
+  spec.loader.exec_module(m)
+
+  def build(tag, with_corrections=False):
+      fx = os.path.join(BASE, tag)
+      if os.path.exists(fx):
+          shutil.rmtree(fx)
+      fleet = m.build_fixture_root(fx, with_corrections=with_corrections)
+      return fx, fleet
+
+  def run_counter(fx, fleet):
+      p = subprocess.run([sys.executable, "-B", SCRIPT, "--root", fx,
+                          "--fleet-root", fleet],
+                         capture_output=True, text=True)
+      return p.returncode, p.stdout.strip()
+
+  def deadpointer_state(fx):
+      # mirror of the detector internals, called through the module itself
+      claims = m.load_claims(fx)
+      pair = [p for p in claims["calibration_pairs"] if p["class"] == "DEADPOINTER"][0]
+      text, key = m.surface_text(fx, pair, os.path.join(fx, "fleet"))
+      hits = m.detect_deadpointer(text, fx)
+      ids = [x.group(1) for x in m.MISTAKE_RE.finditer(text)]
+      ids += [x.group(1) for x in m.PLUS_M_RE.finditer(text)]
+      return key, sorted(set(ids)), hits
+
+  def backfill(fx, row):
+      lesson = os.path.join(fx, "corpus", "lessons", "round-68.md")
+      with open(lesson, "a", encoding="utf-8") as fh:
+          fh.write("\n" + row + "\n")
+  ```
+
+  Then scenario prints. Wait: surface_text with fleet=True: path = pair["path"] = ".ufo/reports/round-68/kotodama.md"; if not abs → join(fleet_root, path). fleet root is returned by build_fixture_root as the fixture's fleet dir. Good.
+
+  But careful: `run_counter` passes `--fleet-root <fixture fleet dir>`; the claims.json in fixture was rewritten so path is absolute to fixture fleet dir anyway; join with fleet-root of an abs path is a no-op. Fine.
+
+  Scenario 0 (baseline copy, untouched): expect hits=['R68-M9'] (whatever the fleet report references that's missing — need to confirm; maybe multiple ids). run_counter exit 1.
+
+  Scenario A (copy of round-68.md + bogus R68-M9 row): hits=[] → detector silent on M9. Leg detail hits=none; leg still FAIL if uncovered — to show "stops firing", hits is the detector output. To ALSO show the full-leg effect cleanly, I could build scenario A' with with_corrections=True but WITHOUT the round-69.md backfill... but with_corrections=True writes the M9 row into round-69.md too — that would confound "the round-68.md copy is what silenced it". Alternative: build fixture with corrections for the OTHER pairs only: build with_corrections=True, then edit fixture corrections file to remove the DEADPOINTER row and remove the appended round-69.md backfill line, leaving only LOG/SCORECARD/fleet LEGCOUNT/OVERREACH rows... this is getting complicated. Keep it simple and honest:
+
+  - The demonstration target is the DETECTOR (detect_deadpointer / mistake_rows_exist), not the full leg. I'll show:
+    - `mistake_rows_exist(fx, ['9','77'])`-style outputs before/after.
+    - `detect_deadpointer(...)` before/after.
+    - The accept-ca.py leg line "EVAL DEADPOINTER|... hits=..." before/after via the counter run.
+  - Note explicitly: with the correction row still absent, the leg itself still fails (remedy requires the corrections-r68.md row too) — the detector leg's `hits` going empty is the "stops firing" evidence; the remaining failure is the annotation half, by design.
+
+  Actually, hmm, wait. Let me re-read evaluate: for DEADPOINTER, `remedy = is_covered and not is_live`. With hits silenced (is_live False) and covered empty → remedy False → leg FAIL with detail "live=False covered=False remedy=False hits=none". So the leg stays red but for a different reason. To make the demonstration complete, I can build the fixture WITH corrections for the DEADPOINTER pair only, so that when the bogus M9 row lands in the lessons copy, the whole leg turns PASS. That shows "stops firing" end-to-end. Let me do that: build with_corrections=True, then surgically edit the fixture's corrections-r68.md to drop every row except the DEADPOINTER|fleet-report one, and remove the auto-appended `| R68-M9 | fixture backfill row |` line from fixture round-69.md so the only M9 row is my bogus one in round-68.md. That gives:
+
+  - Scenario G (green-ish fixture: corrections row for DEADPOINTER present, M9 backfilled via BOGUS row in round-68.md copy): counter → EVAL DEADPOINTER leg PASS. Shows the bogus row fully satisfies the predicate → finding: the predicate accepts a bogus row (no shape check).
+  - Scenario B (same but bogus row for R68-M77 instead): counter → leg FAIL, hits=['R68-M9'] still → different id does not silence.
+  - Scenario C (bonus): bogus row for R68-M90 → R68-M9 silenced too (prefix-collision weakness). hits=[] but row was for a different id. Leg would PASS — false acceptance.
+
+  That's a tight, damning-but-fair attack. Also scenario with corrections-only-no-lesson-row to show corrections row alone doesn't silence (remedy needs not is_live) — i.e., the corrections file alone doesn't fix the pointer; the lesson-row backfill is required. That's Scenario N: corrections present (DEADPOINTER row), no M9 row anywhere → leg FAIL live=True hits=['R68-M9'] remedy False. Shows detector not fooled by annotation alone. Good.
+
+  Now implementation details for surgical edits on copies:
+
+  After `build_fixture_root(fx, with_corrections=True)`:
+  - fixture corrections file: fx/reports/round-69/corrections-r68.md contains rows for all 5 pairs + header. I keep only rows whose cells[1] == DEADPOINTER. Simple python rewrite: read lines, keep lines starting with '|' where the second cell is DEADPOINTER or it's the header/separator. Header lines: `| class | surface | ...` and `|---|...`. Keep those.
+  - fixture round-69.md: remove the appended line `\n| R68-M9 | fixture backfill row |\n`. The file ends with that append. Read, replace "| R68-M9 | fixture backfill row |" with "", rstrip trailing whitespace? Just filter out lines containing "fixture backfill row".
+
+  Then mutations append the bogus row to fx/corpus/lessons/round-68.md (the COPY).
+
+  Fresh fixture per scenario (A, B, C, N) to avoid cross-contamination. Build function reuses build_fixture_root each time into a fresh dir. Fixtures take a moment (copies several files) — fine.
+
+  Baseline scenario 0: with_corrections=False, no mutation → shows the pre-data state: leg FAIL, hits=[...], unannotated counts.
+
+  Also demonstrate at the raw-function level for A and B to make the mechanism obvious:
+
+  ```python
+  print("mistake_rows_exist ->", m.mistake_rows_exist(fx, ids))
+  print("detect_deadpointer ->", m.detect_deadpointer(text, fx))
+  ```
+
+  One catch: `mistake_rows_exist` ids come from the fleet report text. Let me first grep the fleet report for R68-M tokens to know what ids it points at. Claims say DEADPOINTER on fleet report is one of the unannotated mismatches, and R68-M9 is the round-68 counter crash. The fleet report likely mentions R68-M9. Possibly also other ids (R68-M1..M8 rows exist in round-68.md lessons, so those resolve). Let me grep.
+
+  Also: LOG.md (lane) mentions R68-M9? claims.json mentions R68-M9 in r68_repair. mistake_rows_exist only reads LOG.md, lessons/round-68.md, lessons/round-69.md — NOT claims.json, NOT SCORECARD.md. Lane LOG.md round-68 entry — does it mention R68-M9? R68-M9 is the round-69 repair id; LOG round-68 entry predates it. The fixture copies lane LOG.md wholesale (all rounds). If lane LOG.md already contains "R68-M9" anywhere (e.g., a round-69 entry — none landed yet), then baseline hits would be empty and DEADPOINTER wouldn't be live at base... but claims.json `before` says DEADPOINTER on fleet report IS unannotated at base, so presumably fleet report points at an id absent from those three files. Wait — but if LOG.md (whole file) contains R68-M9... let me just check: grep lane LOG.md for R68-M9. Also grep lessons/round-69.md — the file corpus/lessons/round-69.md: does it exist at base? build_fixture_root skips missing files gracefully. The task says corpus/lessons/round-69.md corrections are NOT landed yet, but the file may exist (round-69 lessons seeded?). Check.
+
+  Baseline run will tell the truth. Let me now also confirm what the fleet report says — grep it.
+
+  Alright, run baseline + greps in parallel now. Then write the attack driver, run it, then write the report.
+
+  One more check on build_fixture_root: it references real fleet report path /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md — read-only copy. Fine.
+
+  Also note: accept-ca.py main() exit code 1 when legs fail — that's expected in scenarios; capture.
+
+  Also the driver prints counters output with exit codes — I'll paste those into the report.
+
+  Potential gotcha: `build_fixture_root` calls `load_claims(fx)` which reads fx/reports/round-69/claims.json — copied. Good. And it rewrites fleet path absolute. Good.
+
+  Another gotcha: when I run the counter with `--root fx --fleet-root fxfleet`, R68FROZEN leg needs reports/round-68/accept-ca.py + final-measures-ca.txt copied — build handles. If the receipt's recorded sha doesn't match live copy... it should match since both are copied from lane. Fine.
+
+  Let me also record sha256 of the pristine lane round-68.md and of each mutated copy to prove only the copy changed: `sha256sum`.
+
+  Now — writes: the driver script itself goes in /tmp/ca69-attack/attack.py (allowed, /tmp scratch). The ONLY lane write is the report file .ufo/waves/round-69/w1/RevO5.md.
+
+  Let me execute step 1: baseline runs and greps in parallel.
+
+  Commands:
+  - lane baseline counter run
+  - grep fleet report for R68-M
+  - grep lane LOG.md for R68-M9
+  - check existence of corpus/lessons/round-69.md and grep it for R68-M9
+  - sha256 of corpus/lessons/round-68.md
+
+  Then the driver.
+
+  Note: Godspeed wants parallel batches; do it.
+
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+7:- **Settlement (A_r `cb2f8caf`)** — all 34 pending supersedes chains ruled from 8 live-verified audit fragments (`RULING=` lines; `.ufo/waves/round-68/rows/RevAudit{A..G}/audit.md`, `rows/AuditChain8/audit.md`): 31 activate-class (30 mutations + S126 already-mined), 4 retire (S070, S125, S186 per audit; **S490 forced** — T0's frozen MUTABLE_T enumerates 33 t-ids and omits S379, so any S379 mutation fails C's APPEND leg; the activate evidence is preserved in the ledger row as the flip condition). Tool scan at A_c: `SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0`. Ledger: 82 rows, `LEDGER: rows=82 findings=0`, covering accept-o's required set (34+33+13) and accept-ca's D2 set (28 W04 ids) with no gaps/dups. Entry citations re-pointed inside the 7 frozen EDITABLE_ENTRIES only (settle-apply rev 2; the inherited applier's `set_cell` was a slice-assignment no-op — fixed, re-applied, registry diff proven: R68-M3/M5).
+10:- **Claim O (A_c receipt)** — `tools/check-supersession-settlement.py` (selftest 7/7) + ledger landed; ACCEPT-O-68 prints 9/10 legs PASS (SELFTEST/SHA/PENDING/LEDGER/MUT 3/3/TOPO `A_c^==A_r`) and **EXEC FAIL**: the frozen fixture lane never creates `corpus/knowledge/a.md`, so the scan answers `missing_paths=1` at fixture lands — structurally unreachable, red in every recorded run (T0 `dry-run-o.txt`, attempt-2 `stage/mut-o/runs/counter-legs.json`, A_c receipt). **O fails as declared** (R68-M1; the surface moved: tool + settlement real, pending 34→0).
+11:- **Claim Ca (records-2 `34121750`)** — the frozen rev-1 counter **crashes at D2** (`NameError: git_bytes` undefined — the helper was never copied in; attempt 2 died before running rev-1 once). Committed receipt is the traceback run, exit 1, after STAMP/D1 PASS (`telemetry/final-measures-ca.txt`). **Ca fails as declared** (R68-M9). The legs the crash never reached were hand-verified PASS in the A_ca clone as L1 observation (D3 LOG/SCORECARD headings, D4 rejects, R68 settle-consistency at counter scope, CRITERION 19, QUOTES 26 ids/0 findings) — recorded in `telemetry/post-records.txt`, explicitly **not** a counter verdict.
+35:Registry rows 756 → **782**: +24 mined S833–S856 at A_c (tier A 10 / B 14) + 2 first-class rejects S857/S858 at A_ca; statuses at end: rows counted by `grep -cE '^\| S[0-9]{3,} ' corpus/SOURCES.md`; census `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama` exit 0 at round start (T0 receipt) and end. Frontier advanced: 34 pending supersedes chains → 0 (MUTABLE-cell flips logged old→new in the ledger + lesson); every `status`/`used-by` change is in the frozen MUTABLE set (APPEND leg). Lesson `corpus/lessons/round-68.md`: `## Gate` (24 rows + 2 rejects, check-gate-quotes 0 findings, 26 gate ids in S833–S860), `## Mistakes` R68-M1..M8 (+M9 in LOG), `## Quarantine`. Sourced claim: C cites S833–S856. Assimilation: quarantine-first hand-check only, adoption none (item 10 wave-4). considerthese: no such directory for this lane.
+40:- **quality: unchanged** — the corpus bar held (census exit 0; gate-quotes 0 findings; counter content-legs RESTATE/LOCATE-class checks green; 7/7 sample re-opens agree), but the round's own instruments regressed the declaration discipline: two frozen counters were committed without a green pre-data control (O's EXEC fixture, Ca's never-run rev-1) — the QUALITY-11 class, recorded as R68-M1/R68-M9 and routed; net no demonstrated rise in the bar.
+52:One v2 wave of **64 seats, single task call, dispatched by attempt 1** (payload `taskcall-v2.json`; spec `spec-v2.json` committed at T0; policy-v2 band 64–128, attack roles 37/64 = 57.8%: 23 reviewer + 11 critic + 3 mutation-tester; plus 15 scout + 6 scribe + 3 executor + 1 connector + 1 sentinel + 1 revenger; the L1 holds the canonical §3 planner seat). Named returns: CriticPreO, CriticSizing, CriticAmendD2 (resumed same identity after a provider error), RevAuditA–G, AuditChain8, RevSourceSupport1 (partial: `support1/verify.py`), plus unattributed stage artifacts. **~50 seats dead** to the 2026-10-24 provider rate wall; no last-error text retained; **none replaced, wave not re-dispatched** (attempt-1 session and any handle registry are gone — R68-M7, `telemetry/seat-evidence.txt`). Residual checks: L1-executed (no batched dispatch surface on this seat; `omp` CLI = interactive sessions only → would be serial evasion). Round total: 64 dispatched + L1 integration.
+56:Tracked-modified at resume: `claims.json` + `accept-ca.py` (attempt 2's pre-data Ca rev 1 — verified against CriticAmendD2 and committed pre-data as T1); `.ufo/waves/round-63/w1/RevTool{A,B,C}.md` mode-bit flips (reverted chmod 644; content bytes untouched — R68-M4). Untracked: `corpus/SOURCES.md` +26 draft rows and the hair entry draft (re-verified — counter legs + 7 live re-opens — and re-landed in frozen order A_c/A_ca); `.ufo/waves/round-68/*` (committed as wave evidence at A_ca); round-66/round-67 scratch incl. fabric-c (swept under D1); `reports/round-68/dispositions/citation-sites.txt`, `telemetry/w04-impossibility.txt` (committed at A_r/T1). The already-dispatched wave was NOT re-dispatched; dead seats not replaced. Fleet-root misroot sweep: no round-68 seat strays (known other-lane strays and `.ufo/state/*` runtime untouched).
+---
+2
+== lane LOG.md R68-M9 ==
+(absent)
+== corpus/lessons/round-69.md ==
+ls: cannot access 'corpus/lessons/round-69.md': No such file or directory
+(absent or no match)
+== sha256 pristine round-68.md ==
+3b4b62f7747baa8ad9bb058476f89c27aecb4635dcb87fb59cf6d6c3a0903f2a  corpus/lessons/round-68.md
+• Baseline confirmed:
+  - The fleet report references R68-M9 twice (lines 11, 35? — actually "R68-M9" appears in lines 11 and 40; grep -c says 2 occurrences). Wait, grep -c counts lines: 2 lines contain R68-M9. And "+M9 in LOG" in line 35 — PLUS_M_RE matches "+M9 in LOG" → id 9. So ids = {9} from both patterns.
+  - mistake_rows_exist: lane LOG.md has no R68-M9, lessons/round-68.md has R68-M1..M8 (no M9), lessons/round-69.md doesn't exist. So R68-M9 is dead → baseline hits=['R68-M9']. Confirmed by the counter: `LEG FAIL EVAL DEADPOINTER|... hits=['R68-M9']`.
+
+  Now build the attack driver in /tmp. Scenarios:
+
+  - S0 baseline-copy (with_corrections=False, no mutation): counter FAIL, hits=['R68-M9'].
+  - A bogus R68-M9 row in the round-68.md copy → detector silent on M9. Two flavors:
+    - A1 (detector-level, uncovered): with_corrections=False + bogus row → hits=[] (leg still FAIL: uncovered — annotation half; show detail hits=none).
+    - A2 (end-to-end, covered): with_corrections=True then strip everything from the fixture corrections file except the DEADPOINTER row and strip the auto backfill line from round-69.md → only my bogus R68-M9 row in the round-68.md copy satisfies the predicate → leg EVAL DEADPOINTER PASS, and whole counter can go... other legs still fail (no corrections for LEGCOUNT/OVERREACH pairs) — that's fine; I report the DEADPOINTER leg specifically. Actually to make it crisp I could also keep only the DEADPOINTER corrections row; LEGCOUNT/OVERREACH legs remain FAIL (live, uncovered) as expected — irrelevant to this seat. Good.
+  - B different id: same as A2 but bogus row names R68-M77 instead → hits still ['R68-M9'], leg FAIL → specificity holds.
+  - C bonus prefix collision: same as A2 but bogus row names R68-M90 → "R68-M9" is a substring of "R68-M90" → hits=[] → false acceptance: a row for a different id silences the M9 pointer.
+  - N (optional, shows corrections row alone insufficient): with_corrections=True (DEADPOINTER row kept), no lesson row → live=True hits=['R68-M9'], remedy=False → leg FAIL. Shows detector not silenced by annotation alone.
+
+  Also print mistake_rows_exist / detect_deadpointer directly for A1/B/C to show mechanism.
+
+  Driver code — careful with build_fixture_root: it's in the module; loading module from lane path sets LANE correctly. One concern: build_fixture_root copies corpus/SOURCES.md which is big (fine). It also writes claims.json rewrite. It appends to round-69.md when with_corrections=True.
+
+  For the corrections strip: read fx/reports/round-69/corrections-r68.md, keep header lines (first two) + lines where second cell is DEADPOINTER. Rows are `| DEADPOINTER | .ufo/reports/round-68/kotodama.md | filed | observed | command |`. split('|') on that line gives ['', ' DEADPOINTER ', ' .ufo/... ', ...] → cells[1].strip() == 'DEADPOINTER'.
+
+  For round-69.md strip: remove lines containing 'fixture backfill row'.
+
+  Mutation rows to append to fx/corpus/lessons/round-68.md:
+  - A: `| R68-M9 | RevO5 bogus backfill row (attack copy, not lane bytes) |`
+  - B: `| R68-M77 | RevO5 bogus unrelated row (attack copy) |`
+  - C: `| R68-M90 | RevO5 bogus prefix-collision row (attack copy) |`
+
+  Each scenario builds a FRESH fixture dir so no cross-contamination. build_fixture_root uses os.makedirs(exist_ok=True) and copies over; but my append mutates round-68.md copy — fresh dir each time so fine. I'll rmtree first anyway.
+
+  sha256sums before/after each scenario's lesson copy to prove the only delta is the appended row.
+
+  Let me write /tmp/ca69-attack/attack.py. Print everything clearly with scenario headers so I can paste raw output.
+
+  Also capture `p.stdout` for each counter run fully.
+
+  Edge: subprocess runs python3 -B SCRIPT --root fx --fleet-root fxfleet. SCRIPT is the LANE's accept-ca.py — running it read-only against fixture root. HERE/SELF inside the script derive from SCRIPT location (lane), but --root drives all reads via root joins. LANE is only used by build_fixture_root, not by evaluate/main. Confirm: main() → load_claims(args.root) → claims path under root. evaluate uses root. R68FROZEN uses root paths. Good — the counter run against a fixture reads fixture bytes only.
+
+  Write the driver now.
+
+==============================================================================
+SCENARIO S0: baseline copy, untouched (pre-data state)
+==============================================================================
+-- fixture lesson copy sha256[:16] before mutation: 3b4b62f7747baa8a
+-- detector internals (called through accept-ca.py's own functions):
+   surface = .ufo/reports/round-68/kotodama.md
+   ids_in_filed_text = ['1', '3', '4', '7', '9']
+   mistake_rows_exist = ['9']
+   detect_deadpointer = ['R68-M9']
+-- counter run (python3 -B accept-ca.py --root <fixture>): exit=1
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+-- DEADPOINTER leg: LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+
+==============================================================================
+SCENARIO A1: bogus R68-M9 row appended to the round-68.md COPY (uncorrected fixture: isolates the detector half)
+==============================================================================
+-- fixture lesson copy sha256[:16] before mutation: 3b4b62f7747baa8a
+-- appended row to fixture corpus/lessons/round-68.md:
+   | R68-M9 | RevO5 bogus backfill row (attack copy, not lane bytes) |
+-- fixture lesson copy sha256[:16] after  mutation: d8838bf57cd98eb9
+-- detector internals (called through accept-ca.py's own functions):
+   surface = .ufo/reports/round-68/kotodama.md
+   ids_in_filed_text = ['1', '3', '4', '7', '9']
+   mistake_rows_exist = []
+   detect_deadpointer = []
+-- counter run (python3 -B accept-ca.py --root <fixture>): exit=1
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=False remedy=False hits=none
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA-69: FAIL legs=2/8
+-- DEADPOINTER leg: LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=False remedy=False hits=none
+
+==============================================================================
+SCENARIO N: corrections row for DEADPOINTER present, NO lesson row: annotation alone must not silence the pointer
+==============================================================================
+-- fixture lesson copy sha256[:16] before mutation: 3b4b62f7747baa8a
+-- detector internals (called through accept-ca.py's own functions):
+   surface = .ufo/reports/round-68/kotodama.md
+   ids_in_filed_text = ['1', '3', '4', '7', '9']
+   mistake_rows_exist = ['9']
+   detect_deadpointer = ['R68-M9']
+-- counter run (python3 -B accept-ca.py --root <fixture>): exit=1
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+-- DEADPOINTER leg: LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=False hits=['R68-M9']
+
+==============================================================================
+SCENARIO A2: bogus R68-M9 row appended to the round-68.md COPY (corrections row present: end-to-end silencing)
+==============================================================================
+-- fixture lesson copy sha256[:16] before mutation: 3b4b62f7747baa8a
+-- appended row to fixture corpus/lessons/round-68.md:
+   | R68-M9 | RevO5 bogus backfill row (attack copy, not lane bytes) |
+-- fixture lesson copy sha256[:16] after  mutation: d8838bf57cd98eb9
+-- detector internals (called through accept-ca.py's own functions):
+   surface = .ufo/reports/round-68/kotodama.md
+   ids_in_filed_text = ['1', '3', '4', '7', '9']
+   mistake_rows_exist = []
+   detect_deadpointer = []
+-- counter run (python3 -B accept-ca.py --root <fixture>): exit=1
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA-69: FAIL legs=3/8
+-- DEADPOINTER leg: LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+
+==============================================================================
+SCENARIO B: bogus row for a DIFFERENT id (R68-M77) appended instead: must NOT silence R68-M9
+==============================================================================
+-- fixture lesson copy sha256[:16] before mutation: 3b4b62f7747baa8a
+-- appended row to fixture corpus/lessons/round-68.md:
+   | R68-M77 | RevO5 bogus unrelated row (attack copy) |
+-- fixture lesson copy sha256[:16] after  mutation: a1d6bf5797fb2a53
+-- detector internals (called through accept-ca.py's own functions):
+   surface = .ufo/reports/round-68/kotodama.md
+   ids_in_filed_text = ['1', '3', '4', '7', '9']
+   mistake_rows_exist = ['9']
+   detect_deadpointer = ['R68-M9']
+-- counter run (python3 -B accept-ca.py --root <fixture>): exit=1
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+-- DEADPOINTER leg: LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=False hits=['R68-M9']
+
+==============================================================================
+SCENARIO C: bonus prefix-collision probe: bogus row for R68-M90 only (a different id) - does the substring check leak?
+==============================================================================
+-- fixture lesson copy sha256[:16] before mutation: 3b4b62f7747baa8a
+-- appended row to fixture corpus/lessons/round-68.md:
+   | R68-M90 | RevO5 bogus prefix-collision row (attack copy) |
+-- fixture lesson copy sha256[:16] after  mutation: b5ce60c01784daec
+-- detector internals (called through accept-ca.py's own functions):
+   surface = .ufo/reports/round-68/kotodama.md
+   ids_in_filed_text = ['1', '3', '4', '7', '9']
+   mistake_rows_exist = []
+   detect_deadpointer = []
+-- counter run (python3 -B accept-ca.py --root <fixture>): exit=1
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA-69: FAIL legs=3/8
+-- DEADPOINTER leg: LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+
+==============================================================================
+LANE INTEGRITY: lane corpus/lessons/round-68.md untouched?
+  (no diff reported by git status --porcelain)
+driver-exit=0
+• All six scenarios ran. Results:
+
+  - S0 baseline: detector fires on R68-M9 (hits=['R68-M9']), leg FAIL. Filed text ids: 1,3,4,7,9 — only 9 is dead.
+  - A1: bogus `| R68-M9 | ... |` row in the round-68.md COPY → mistake_rows_exist=[] , detect_deadpointer=[], leg live=False hits=none. Detector silenced by a bogus row (no row-shape check).
+  - N: corrections row present, no lesson row → still live=True hits=['R68-M9'], remedy=False → leg FAIL. Good: annotation alone doesn't silence; the pointer must actually resolve.
+  - A2: bogus M9 row + corrections row → leg PASS end-to-end. Full predicate satisfied by a bogus row.
+  - B: row for R68-M77 (different id, no string overlap) → still fires on M9. Specificity holds for non-overlapping ids.
+  - C: row for R68-M90 only → silenced. Prefix-collision leak: "R68-M9" is a substring of "R68-M90" → false acceptance with a different id's row.
+
+  Lane integrity: git status --porcelain on corpus/lessons/round-68.md shows nothing; pristine sha 3b4b62f7... unchanged (fixture copies show same before-sha).
+
+  Verdicts to write:
+  1. VERDICT: PASS — bogus R68-M9 row silences the detector on that id (both detector-level and end-to-end leg PASS when the corrections row exists).
+  2. VERDICT: PASS — a row for a different, non-overlapping id (R68-M77) does not silence it.
+  3. FINDING (weakness): the id match is raw substring presence anywhere in LOG.md + lessons/round-68.md + lessons/round-69.md — no row-shape or table-section check; and it's not id-exact: any id whose text contains the pointer id as a substring (R68-M90 ⊃ R68-M9; also R68-M1 row would silence a pointer to R68-M10/11/…) false-silences. Counter scope is frozen post-data, so this is a recorded finding for the next counter generation, not an edit.
+  4. Also positive finding: the remedy conjunction (corrections row AND resolved pointer) is sound — annotation alone (scenario N) does not silence.
+
+  Severity note: the R68-M9 backfill this round will append a REAL row to corpus/lessons/round-69.md (per fixture design); the detector can't distinguish that from my bogus copy-row — same bytes-class acceptance. The attack shows the predicate's row-existence check is presence-only; the honesty backstop is elsewhere (append-only review, LOG integration), not in the counter.
+
+  Also note the substring direction that matters for the round: when the real backfill row lands in round-69.md, `mistake_rows_exist` reads round-69.md too (line 132-133: "corpus/lessons/round-69.md"), so the pending data does close the pointer. Confirmed by the fixture design (with_corrections=True green control passes).
+
+  One more check for report completeness: exact grep of fleet report lines containing R68-M9 to cite. Line 11 (R68-M9) and line 35 (+M9 in LOG). Also confirm lane tree cleanliness overall (git status --porcelain empty?) — the lane is jj-colocated; there may be pre-existing dirty state not from me. Just report the targeted file check.
+
+  Also record the exact appended row lines and sha256s. In the report include:
+  - Commands run (counter baseline, greps, driver, driver output excerpt).
+  - The six scenarios with the key leg lines.
+  - Verdict lines.
+  - Findings/weaknesses.
+  - Lane integrity statement.
+
+  Let me get the exact fleet-report lines for the citation. Already have: line 11 "...(R68-M9). The legs the crash never reached..." and line 35 "...`## Mistakes` R68-M1..M8 (+M9 in LOG)...". Good enough from grep output.
+
+  Also should I verify that the driver's scenario dirs remain under /tmp only? Yes — build_fixture_root writes only under fx. The counter run is read-only. LANE untouched per git status. Also verify no stray writes into the lane from the module import (module import executes only defs; HERE/LANE computed but no writes). attack.py wrote only under /tmp.
+
+  One nuance: build_fixture_root references real fleet report path — copies it (read). Fine.
+
+  Now write the report file .ufo/waves/round-69/w1/RevO5.md. Check the directory exists — .ufo/waves/round-69/w1 — Write creates parent dirs automatically.
+
+  Report structure:
+  - Header: seat, date, scope, base revision.
+  - Method (copy-mutate-rerun, all mutation in /tmp).
+  - Commands + outputs (condensed but real; include the full counter leg lines per scenario).
+  - Findings F1..F4 with verdicts.
+  - Weakness register (for next counter generation, since this counter is frozen post-data).
+  - Lane integrity.
+  - Verdict lines.
+
+  Keep it tight but complete. Then end reply with the Report: line.
+
+• Report written. Final answer: summarize findings concisely, end with the Report trailer line exactly once.
+
+To resume this session: kimi -r session_02d15fcf-9871-4a6a-a0f0-01140ab51a08
+[unexpected] RuntimeError: workspace wd_kotodama-shokunin_79dcf87bd64e is not materialized
+    at RuntimeResolver.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:180263:36)
+    at AgentRuntimeService.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:131899:25)
+    at AgentFileHistoryService.readCurrent (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177438:31)
+    at AgentFileHistoryService.endCheckpoint (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177351:32) {
+  code: 'runtime.not_found'
+}

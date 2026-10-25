@@ -1,0 +1,22 @@
+• Leaf seat, D2 evidence-rule attack. Firing the first parallel batch: existence checks at the measured revision, the accept-d.py predicate, the claims file, and SKILL.md structure.
+
+• accept-d.py pins the five states (`pending, settled-active, settled-retired, settled-closed, settled-split`) and its EVIDENCE leg only checks `os.path.exists` on path tokens in the Evidence cell — so line-number honesty is unpoliced. Now reading the r68 settlement tool, the ledger, and the receipt, plus base-revision existence.
+
+• The settlement tool is the classifier: `classify()` at tools/check-supersession-settlement.py:112–145 pins the five states (settled-closed :123, settled-retired :125, settled-active :127, settled-split :129, pending else-branch :132). Notably, the counter's GREEN fixture cites `:129` for settled-retired — that's the *split* branch. Now running the re-runnable demonstrations and checking staged-vs-landed paths.
+
+• All three re-run demonstrations are green at the working tree (selftest 7/7, scan pending=0 chains=47, ledger 82 rows findings=0), and S859 / round-69.md / corrections-r68.md are confirmed not-yet-landed. Final verification batch: run the D2 counter itself against the do-nothing tree and its selftest, and read the pre-data controls receipt.
+
+• Controls receipt matches my live re-runs byte-for-byte. All evidence gathered — writing the report.
+
+• Attack complete. Key findings:
+
+  **Evidence rule holds — with traps.** Every one of the five state rows can cite `tools/check-supersession-settlement.py`, which exists at base `793f7974` AND at HEAD and re-ran green in this seat (selftest 7/7; `--scan` pending=0 chains=47 usedby_paths=709 missing_paths=0 — byte-identical to the r68 receipt; `--ledger` 82 rows, findings=0). The D2 counter's do-nothing state was confirmed live (`ACCEPT-D-69: FAIL legs=1/8`), matching the committed controls receipt.
+
+  **Defects flagged:**
+  1. The frozen counter's GREEN fixture points settled-retired at `:129` — that's the *settled-split* branch; the honest retired branch is `:125`. EVIDENCE checks path existence only, so the counter can't see it. The landed table must cite 132/127/125/123/129, not copy the fixture.
+  2. Dead pointers until data lands: `corpus/lessons/round-69.md` and `reports/round-69/corrections-r68.md` are MISSING; SOURCES.md has zero rows with used-by naming SKILL.md and no S859, so the SOURCE leg lives or dies with the S859 landing. An Evidence cell of bare `S859` (no path) fails PATH_RE outright.
+  3. The r68 ledger is NOT honest evidence for the *pending* row — by construction it has no pending rows (r68 settled all 34 chains); pending's honest citation is the else-branch (`:132`) plus the selftest's `PASS pending-detected`.
+  4. `final-measures-o.txt` and `corpus/lessons/round-68.md` are receipts/narrative, not re-runnable — honest only as secondary citations. The receipt's revision `44c9cc28` is a proven ancestor of base, so its claims stay re-derivable.
+
+  Report: .ufo/waves/round-69/w1/CritD3.md
+

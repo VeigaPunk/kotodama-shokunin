@@ -1,0 +1,12 @@
+• Reading the counter done. Now grabbing the claims and control fixtures, and confirming the corrections file is indeed not landed yet.
+
+• Copy verified byte-identical (sha256 `091074c5…`). Baseline control receipt on file: GREEN 8/8, DO-NOTHING FAIL 2/8. Now mutating the /tmp copy — dropping the class whitelist in `correction_pairs` (and relocating `LANE` since the scratch copy sits outside the lane's `reports/round-69/` path).
+
+• Mutation is exactly the two hunks. Now running the mutated copy's `--selftest`, the original's `--selftest` (baseline), and the unmodified counter on the real lane tree — in parallel.
+
+• Key result already visible: the mutated copy's selftest is **byte-identical in verdict** to the original (GREEN PASS 8/8, DO-NOTHING FAIL 2/8), and the real-tree run bites hard (FAIL 2/8, all 5 pairs live and unannotated, pre-data as expected). 
+
+  Now the decisive probe: does the whitelist drop ever cause a **false accept**? I'll build a fixture where the corrections rows name the *wrong* class, with a guaranteed-live LEGCOUNT mismatch injected, and run both counters on it. Reading `evaluate()` closely, coverage is matched by exact `(declared_class, surface)` lookup at line 251 — so my hypothesis may be wrong; the probe will settle it.
+
+• Conclusive on all fronts. The probe shows the mutation is **verdict-neutral**: dropping the whitelist only admits two junk pairs (`('---','---')` from the separator row, `('CLASS','surface')` from the header row), which can never match a coverage lookup because `is_covered` requires an exact `(declared_class, surface)` match at accept-ca.py:251 — the class axis is enforced at lookup, not at parse. Both counters produce byte-identical verdicts even on the wrong-class fixture. Writing the report now.
+

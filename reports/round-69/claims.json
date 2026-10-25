@@ -21,7 +21,7 @@
       "counting_command": "python3 -B reports/round-69/accept-o.py --root .",
       "target": "7/7 legs PASS",
       "kill_rule": "any leg FAIL -> the claim fails as declared; the counter is not edited after data",
-      "do_nothing_control": "python3 -B reports/round-69/accept-o.py --selftest -> GREEN FIXTURE PASS (7/7) and DO-NOTHING FIXTURE FAIL (as required, 6/7); at the base tree the TOOL leg fails because no harness exists",
+      "do_nothing_control": "python3 -B reports/round-69/accept-o.py --selftest -> GREEN FIXTURE PASS (7/7), DO-NOTHING FIXTURE (harness deleted) FAIL as required (5/7), SPOOF FIXTURE (a no-op harness printing the expected strings) FAIL as required (6/7)",
       "r68_repair": "R68-M1: the new counter exercises the used-by file in both directions - the fixture creates corpus/knowledge/a.md (green) and omits it (caught, missing_paths=1) - and shows both green before any data lands"
     },
     {
@@ -93,12 +93,51 @@
   ],
   "wave": {
     "shape": "one v1 wave, 32 seats, policy v1 (scripts/hyaku/ufo-wave-policy.json, band 32-64), >=25% attack roles",
-    "seat_gate": "scripts/hyaku/wave-slot.sh acquire kotodama r69-w1 32 immediately before the dispatch; release only after settlement"
+    "seat_gate": "scripts/hyaku/wave-slot.sh acquire kotodama r69-w1 32 immediately before the dispatch; release only after settlement",
+    "seats": 32,
+    "attack_roles": 26,
+    "reports_returned": 21,
+    "dead_seats": [
+      "CritO3 (timeout 1200s)",
+      "RevO4 (timeout 1200s)",
+      "CritD5",
+      "MutO1",
+      "RevC2",
+      "RevO1",
+      "RevO2",
+      "RevO7",
+      "ScoutFrontier",
+      "Scribe1",
+      "Scribe2"
+    ],
+    "dead_seat_cause": "9 seats: provider.rate_limit: 429 Rate limit reached for requests (kimi-code.log); 2 seats: killed by the 1200 s per-seat timeout while still working"
   },
   "item10": {
     "mode": "wave-4 quarantine-first; adoption CLOSED",
     "register_slice_rows_derived_at_round_time": 21,
     "id_collision_check": ".ufo/waves/round-69/assimilation/{reg-ids,staged-ids,collisions}",
     "considerthese": "absent for this lane"
-  }
+  },
+  "counter_revisions": [
+    {
+      "counter": "reports/round-69/accept-o.py",
+      "revision": 1,
+      "forced_by": ".ufo/waves/round-69/w1/CritO1.md probe C (an adversarial no-op harness that only prints the expected strings reached ACCEPT-O-69: PASS 7/7 without running a single fixture)",
+      "forcing_class": "do-nothing control could reach the declared target",
+      "data_landed_before_this_revision": false,
+      "predicate_unchanged": "ACCEPT-O-69: every leg of reports/round-69/accept-o.py prints PASS",
+      "leg_names_unchanged": [
+        "STAMP",
+        "TOOL",
+        "FIXTURE",
+        "NEGCASE",
+        "LANE",
+        "NEGPROBE",
+        "R68FROZEN"
+      ],
+      "target_unchanged": "7/7 legs PASS",
+      "change": "no leg now trusts the harness's self-report: the counter builds its own lane-shaped green and negative fixtures and runs the BASE checker on them itself, scans the lane root itself, and uses the harness only as a cross-check on a fixture the counter built (NEGPROBE). The revision-0 spoof now fails NEGPROBE.",
+      "receipt": "reports/round-69/telemetry/controls-rev1.txt (GREEN 7/7, DO-NOTHING FAIL as required, SPOOF FAIL as required)"
+    }
+  ]
 }

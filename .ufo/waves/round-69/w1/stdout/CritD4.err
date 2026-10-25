@@ -1,0 +1,396 @@
+kimi version 2.3.1
+• Let me understand the task. I'm a Godspeed-enabled subagent (leaf member, no subagent dispatch). My job:
+
+  Attack the sourced leg of claim D2: the table must cite a mined S-row whose used-by names SKILL.md, and the round-69 lesson's `## Gate` must record that row's URL/repo-path, access date and a ≤25-word located quote.
+
+  I need to:
+  1. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md — the SOURCES contract
+  2. Read the r68 rows (registry rows? probably in corpus/knowledge or corpus/lessons)
+  3. Read the round-68 lesson Gate
+  4. Judge whether an own-work row (kind own-work, tier A) pointing at the lane's own re-runnable settlement check is admissible under the fleet SOURCES contract v1, or whether the lane needs an external source.
+  5. Give the ruling with the contract line that decides it.
+
+  Note: "NO NETWORK FETCHING of external sources this round: the round's only new registry row (S859) is the lane's own re-runnable check (own-work)."
+
+  Wait — but there's tension here. The goal says the round's only new registry row S859 is the lane's own re-runnable check (own-work). I need to judge whether that's admissible under SOURCES contract v1.
+
+  Let me read the files. Start with parallel reads:
+  - corpus/SOURCES.md
+  - corpus/lessons/ (find round-68 lesson)
+  - corpus/LOG.md (maybe big — use Grep)
+  - reports/round-69/claims.json
+  - reports/round-69/accept-d.py
+  - reports/round-68 report (fleet filed report)
+
+  Let me first list the corpus/lessons directory and read SOURCES.md.
+
+  Let me batch:
+  1. Read corpus/SOURCES.md
+  2. Glob corpus/lessons/*
+  3. Read reports/round-69/claims.json
+  4. Read reports/round-69/accept-d.py
+
+  Then read the round-68 lesson and the relevant rows.
+
+  Let me go.I have SOURCES.md's header (the contract text) and the registry up to S241, plus the full accept-d.py counter and claims.json.
+
+  Key facts so far:
+
+  **The SOURCES contract text (corpus/SOURCES.md lines 1–24):**
+  - Line 5-6: "Shape and rules: fleet contract `SOURCES-CONTRACT-v1` (kaika, 2026-10-19)."
+  - Line 8: "Every row was opened in the round that wrote it — the round lesson's `## Gate` (`lessons/round-49.md` for S001–S047, `lessons/round-50.md` for S048–S070, and from S071 onward the lesson of the round dated in the row's `opened` cell and search-log note) holds each row's URL, access date and verbatim quote."
+  - Lines 9–12: "Append-only: only `status`, `recheck` and `used-by` change in place, each change logged old→new in a round lesson; a correction is a new row whose `teaches` opens `supersedes S0NN —`."
+  - Lines 14–19: Tiers: "**A** — primary or authoritative for that scope (spec, official docs, source code, original paper, maintainer statement, the lane's own re-runnable gate output). **B** — strong secondary... **C** — lead only, never sole support for an admitted entry. `community` is never A."
+  - Status: queued (opened, worth mining) · mined (cited by the paths in `used-by`) · rejected (kept with reason and flip).
+
+  So the contract line that decides the own-work question: Tier A explicitly includes "**the lane's own re-runnable gate output**". That's the decisive clause. A row pointing at the lane's own re-runnable settlement check (tools/check-settlement-fixture.py / tools/check-supersession-settlement.py output) is tier-A admissible under SOURCES-CONTRACT-v1 as adopted by this lane's SOURCES.md, provided it satisfies the row mechanics: opened in the round that wrote it (Gate entry in the round lesson with URL/repo-path, access date, verbatim quote), append-only discipline, and the status/used-by semantics.
+
+  The counter's SOURCE leg (accept-d.py:177-189): scans the table text for S-ids, looks them up in corpus/SOURCES.md, requires `cells[7] == "mined"` and `"SKILL.md" in cells[10]` — i.e., status mined and used-by names SKILL.md. The fixture selftest appends a fake S859 row: `| S859 | fixture source — https://example.invalid/x | own-work | A | fixture | §1 | the fixture teaches | mined | 2026-10-24 | 90d | SKILL.md |`. So the counter requires an S859 row in SOURCES.md with status mined and used-by containing SKILL.md. Note there's no check on kind == own-work — the counter only requires mined + used-by.
+
+  Also the EVIDENCE leg requires the evidence pointer cell (r[4]) to contain a path token that exists relative to root. Fixture uses "S859 — tools/check-supersession-settlement.py:112" — PATH_RE will find "tools/check-supersession-settlement.py" (hmm, the regex `[A-Za-z0-9_./-]+\.(?:py|...)` will match "tools/check-supersession-settlement.py" and also "S859"? No — S859 has no extension. So it finds the tool path, which must exist in root. Wait — actually PATH_RE on "tools/check-supersession-settlement.py:112" — the match would be "tools/check-supersession-settlement.py" (colon not in char class). Good.
+
+  Now what's the question I've been asked specifically?
+
+  "Attack the sourced leg of claim D2: the table must cite a mined S-row whose used-by names SKILL.md, and the round-69 lesson's `## Gate` must record that row's URL/repo-path, access date and a <=25-word located quote. Read corpus/SOURCES.md, the r68 rows and the round-68 lesson Gate, and judge whether an own-work row (kind own-work, tier A) pointing at the lane's own re-runnable settlement check is admissible under the fleet SOURCES contract v1, or whether the lane needs an external source. Give the ruling with the contract line that decides it."
+
+  So deliverables:
+  1. Read SOURCES.md (done, need the contract text — done at top; maybe also check whether there's a fleet-level SOURCES-CONTRACT-v1 doc somewhere in the fleet repo — the goal says don't write to fleet but reading fleet is presumably fine? "You may read local files freely." Yes, reading fleet is fine).
+  2. Read the r68 rows — the last rows of SOURCES.md registry (S833–S856 admitted at round 68 per non_goals; the file has 910 lines; rows through S241 read so far; need to read the rest to see the r68 rows and whether any row names SKILL.md in used-by, and whether any own-work rows already exist — precedent!).
+  3. Read the round-68 lesson Gate (corpus/lessons/round-68.md `## Gate` section) — to see the Gate shape/format for S-row gating.
+  4. Judge admissibility of an own-work tier-A row pointing at the lane's own re-runnable settlement check under fleet SOURCES contract v1.
+  5. Check whether the round-69 lesson exists yet (corpus/lessons/round-69.md — it's in the "NOT LANDED YET" list; the file may not exist yet. My scope is to judge, not to write it.)
+
+  Also worth checking: SKILL.md — does it already have rows mined whose used-by names SKILL.md? The SOURCE leg requires at least one S-row with status mined and used-by containing SKILL.md. At base, does any row in SOURCES.md have SKILL.md in used-by? If none, then the table must cite S859 and S859 must be appended with used-by "SKILL.md". Let me grep SOURCES.md for "SKILL.md" and for "own-work".
+
+  Also check the fleet SOURCES-CONTRACT-v1 — maybe at /home/vgpnk/Projects/shokunin/ (fleet repo) somewhere: e.g. /home/vgpnk/Projects/shokunin/SOURCES-CONTRACT-v1.md or in kaika's repo. Reading is allowed. Let me search.
+
+  Also read round-68.md lesson Gate section, and check tools/check-settlement-fixture.py + tools/check-supersession-settlement.py exist (the own-work target).
+
+  Plan of parallel reads:
+  1. Read SOURCES.md remainder (line_offset 271) — that's 640 more lines; big but let me read it (maybe 200k chars limit; the first read hit 270 lines at 200k chars? Actually it hit the char limit at line 270. The remaining 640 lines might be similar size. I'll read in two chunks.)
+
+  Actually, more surgical: Grep SOURCES.md for lines matching "own-work" and "SKILL.md" in used-by, and for the tail rows (S8xx). Let me grep with patterns:
+  - `own-work` in SOURCES.md
+  - `SKILL\.md` in SOURCES.md (used-by column)
+  - Read lines ~700–910 to see r68 rows (S833–S856 presumably near the end).
+
+  2. Read corpus/lessons/round-68.md (find `## Gate` section — grep first for line number).
+  3. Find fleet SOURCES-CONTRACT-v1: glob /home/vgpnk/Projects/shokunin/**/SOURCES-CONTRACT* — may be big fleet repo; use Glob with path /home/vgpnk/Projects/shokunin pattern "**/SOURCES-CONTRACT*".
+  4. Check tools/check-settlement-fixture.py and tools/check-supersession-settlement.py exist.
+  5. Check whether corpus/lessons/round-69.md exists (Glob showed it doesn't — lessons list ends at round-68. So round-69 lesson not yet written — consistent with "NOT LANDED YET").
+
+  Let me fire these in parallel.
+
+• The reminder says the fleet AGENTS.md applies to paths accessed by my recent tool call — that was a read-only Glob into /home/vgpnk/Projects/shokunin. I'm read-only on production bytes anyway and won't write there. I should read it to be safe (it may contain read-relevant guidance).
+
+  Key findings so far:
+  1. **No own-work rows exist yet** in SOURCES.md (grep "own-work" → no matches). S859 would be the first.
+  2. **No row's used-by names SKILL.md** (grep "SKILL.md" → no matches in SOURCES.md). So the SOURCE leg of accept-d.py can only pass via the new S859 row.
+  3. Round-68 lesson Gate shape: `- S8NN | URL | date | "quote"` per row, plus rejected rows with reason + flip. Gate is at line 50.
+  4. Fleet contract exists at /home/vgpnk/Projects/shokunin/.ufo/waves/kaika/SOURCES-CONTRACT-v1.md.
+
+  Wait — the earlier grep for "S8\d+" in SOURCES.md... I didn't grep SOURCES.md for the tail rows. My greps were: own-work (none), SKILL.md (none). Hmm, that's interesting — if SOURCES.md has rows S833–S856 mined at round 68, their used-by must name corpus paths, not SKILL.md. Fine.
+
+  But wait — does SOURCES.md actually contain the r68 rows? The first read went to line 270 (S241). The file has 910 lines total. Let me read the tail to see the r68 rows and confirm what S857/S858 look like (they're mentioned in the round-68 lesson as first-class rejects) and where S859 will slot. Also need to confirm no S859 exists yet.
+
+  Also need to read the fleet contract: /home/vgpnk/Projects/shokunin/.ufo/waves/kaika/SOURCES-CONTRACT-v1.md — this is THE deciding document. The lane SOURCES.md says "Shape and rules: fleet contract `SOURCES-CONTRACT-v1` (kaika, 2026-10-19)."
+
+  Also read the fleet AGENTS.md per the reminder (read-only, quick).
+
+  Also useful: corpus/QUALITY.md (admission criteria — the contract says "Claim admission stays in QUALITY.md"), and the round-68 lesson full Gate header (lines 50-58) to see the exact Gate preamble text about quote-length band (25 words mentioned: "band (S844: 29 words, S852: 26)" — interesting, the ≤25-word quote rule is in my task brief; round 68 had two rows over 25 words with subspans. Let me read those lines).
+
+  Also check tools/check-supersession-settlement.py and tools/check-settlement-fixture.py exist (the own-work target for S859) — accept-d.py fixture copies tools/check-supersession-settlement.py, so it exists at base. Let me verify quickly with Glob.
+
+  And whether corpus/lessons/round-69.md exists yet (Glob earlier showed it does not — lessons end at round-68).
+
+  Parallel batch:
+  1. Read /home/vgpnk/Projects/shokunin/.ufo/waves/kaika/SOURCES-CONTRACT-v1.md (full)
+  2. Read /home/vgpnk/Projects/shokunin/AGENTS.md (fleet AGENTS, per reminder)
+  3. Read SOURCES.md tail (line_offset 271, or better: grep for S8[0-9][0-9] row starts to find the r68/r67 rows; simpler to read tail ~200 lines: offset 711 to EOF via negative offset — use line_offset 711? I don't know where r68 rows start. Use Grep pattern `^\| S8` with -n to find the last rows, then read that region.)
+  4. Read round-68.md lines 1–120 (full Gate + context)
+  5. Glob tools/check-*.py to confirm the settlement tools exist.
+
+  Let me batch: Read fleet contract, Read fleet AGENTS.md, Grep SOURCES.md for `^\| S8` (content, -n), Read round-68.md (lines 1-130), Glob tools/check-*.py.
+
+• Now I have the full picture. Let me consolidate the evidence:
+
+  **The fleet contract SOURCES-CONTRACT-v1** (/home/vgpnk/Projects/shokunin/.ufo/waves/kaika/SOURCES-CONTRACT-v1.md):
+  - Line 23: `source` — title — canonical URL or DOI **(a repo path or command for `own-work`)**.
+  - Line 24-25: kind enum includes `own-work`.
+  - Lines 26-30: tier A definition: "**A**: primary or authoritative for that scope (spec, official docs, source code, original paper, maintainer statement, **the lane's own re-runnable gate output**)."
+  - Rule 1 (lines 45-48): "A row is a claim. Write it only after opening the source in the round that writes the row. The round lesson's `## Gate` records, for every new row, the URL, the access date, and a ≤25-word quote with its location grounding `teaches`."
+  - Rule 6: no credential material.
+  - Census (line 78): enum check explicitly allows `own-work` as kind; tier A + kind community = tier-inflation, but nothing forbids tier A + own-work.
+  - Census line 80: mined rows whose used-by paths do not exist — must print nothing. So if S859's used-by lists SKILL.md, that path must exist (it does: SKILL.md at lane root).
+  - Status semantics (line 36-37): `mined` = cited by ≥1 path in `used-by`.
+
+  The lane's SOURCES.md header (lines 14-19) mirrors the same tier-A clause: "**A** — primary or authoritative for that scope (spec, official docs, source code, original paper, maintainer statement, the lane's own re-runnable gate output)." And the append-only/Gate rules at lines 7-12.
+
+  **Decisive contract line**: two candidates —
+  1. `SOURCES-CONTRACT-v1.md` line 26-28: tier A includes "the lane's own re-runnable gate output".
+  2. `SOURCES-CONTRACT-v1.md` line 23: the `source` cell for `own-work` kind is "a repo path or command" (instead of canonical URL/DOI).
+
+  Both decide: an own-work row pointing at the lane's own re-runnable settlement check is admissible as tier A. The settlement check IS "the lane's own re-runnable gate output" — tools/check-supersession-settlement.py and tools/check-settlement-fixture.py are literally re-runnable gate scripts whose output (pending=0, missing_paths=0 / PASS-FAIL counts) is primary evidence for the supersession-settlement scope. The `source` cell then carries the repo path (e.g. `tools/check-settlement-fixture.py` or `python3 -B tools/check-settlement-fixture.py`), not a URL.
+
+  **Rule 1 obligations for the round-69 Gate**: the lesson's `## Gate` must record, for the new row, the URL (**for own-work: the repo path or command**), the access date (2026-10-24), and a ≤25-word quote with its location grounding `teaches`. For a gate script, the natural "quote" is verbatim captured output of a real run — e.g. running the tool and quoting actual stdout with the command as location. This is exactly how round 68's S839 anchor works (a 7-word quote from BibleHub). For own-work the quote should be located at the command + exit code, e.g. `python3 -B tools/check-settlement-fixture.py --selftest` → "GREEN FIXTURE: PASS" etc. The ≤25-word cap applies.
+
+  Wait — I should check what the actual tool prints, so my report can give the L1 a concrete, verifiable quote candidate. Let me run the two checks (read-only execution? They are described as "Reads only. No mutation of the lane tree." for accept-d.py. What about tools/check-settlement-fixture.py? I must not mutate the lane tree. Running a check script that only reads is fine. Let me read its header first to confirm it's read-only, and check its usage.)
+
+  Also note: **the counter's SOURCE leg mechanics** (accept-d.py:177-189) require: table cites an S-id; SOURCES.md has that row; `cells[7] == "mined"` and `"SKILL.md" in cells[10]`. Note the fixture appends `| S859 | fixture source — https://example.invalid/x | own-work | A | fixture | §1 | the fixture teaches | mined | 2026-10-24 | 90d | SKILL.md |`. So the real row must be: id S859, status mined, used-by containing SKILL.md (exactly "SKILL.md" as a path — the census used-by existence check at fleet contract line 80 requires the used-by path to exist relative to lane root; SKILL.md exists).
+
+  Important nuance: the EVIDENCE leg requires each table row's Evidence cell to contain a path token that exists on disk. The fixture's Evidence cells are like "S859 — tools/check-supersession-settlement.py:112". So the landed table's evidence pointers must point at real lane paths (e.g. tools/check-supersession-settlement.py:NNN or corpus/SOURCES.md).
+
+  Also worth noting: is there any conflict between the row being tier A own-work and the kind enum? Census line 78: kinds allowed include own-work; tier-inflation only flagged for kind==community with tier A. So kind=own-work, tier=A is contract-clean.
+
+  Precedent: no own-work row exists yet in this lane's registry (grep found none) — S859 would be the first. Not a blocker; the contract explicitly provisions the kind and the tier-A clause. Also the registry's `source` cell format for own-work should follow the contract: "a repo path or command". The D2 claim in claims.json says "the table cites S859 (own-work, tier A), opened this round: the lane's own re-runnable settlement check, run and quoted in corpus/lessons/round-69.md `## Gate`".
+
+  One more check: the round-68 lesson Gate line 50 header says "each quote is that registry row's anchor quote, verbatim", and the preamble notes the 25-word band (S844 29 words, S852 26 words carry subspans; S839 7 words; "the tool enforces only the 25-word cap" — meaning tools/check-gate-quotes.py enforces ≤25). My task says the round-69 Gate must record the row's URL/repo-path, access date and a ≤25-word located quote. Consistent.
+
+  Also relevant: rule 1 "Write it only after opening the source in the round that writes the row." For own-work, "opening the source" = running the gate and capturing output in that round. Since the round-69 lesson doesn't exist yet and S859 isn't landed, my job is only the ruling + a concrete verifiable quote candidate from a real run NOW (evidence for admissibility, i.e., demonstrate the source is openable/re-runnable today). Let me actually run the settlement checks read-only to capture real output.
+
+  Let me read the headers of both tools quickly to confirm read-only behavior and usage, then run them. check-supersession-settlement.py — what does it do? It's the supersession settlement check over the registry (probably needs --ledger etc.). check-settlement-fixture.py is the new harness (not yet? no — it IS committed per the goal: "tools/check-settlement-fixture.py" is in WHAT IS ALREADY COMMITTED). So both exist.
+
+  Let me read both tool headers (first ~60 lines each) in parallel. Then run the safe ones.
+
+  Also, one more source of contract text: lane QUALITY.md — "Claim admission stays in QUALITY.md" — criterion 10 (ordinary means / bot challenge) and criterion 11 (green control). Criterion 10 matters for rejected rows, not for own-work. Maybe glance at QUALITY.md criteria 1/6/10/11 quickly for the ruling's completeness — criterion 1 (admitted facts need a source) and 6 (abstracts tier B) are known from row texts. I'll grep QUALITY.md for "own-work" and "re-runnable" to see if it adds anything.
+
+  Also check LOG.md round-68 entry for how settlement was recorded (pending=0, missing_paths=0 at A_c) — this grounds the S859 `teaches` scope: the settlement check settles supersession chains. Actually the round-68 lesson already gives me that: "O (operability, capability): `tools/check-supersession-settlement.py` + the committed 82-row disposition ledger settle every pending chain (pending=0, missing_paths=0 at A_c)."
+
+  Plan:
+  1. Read headers of tools/check-settlement-fixture.py and tools/check-supersession-settlement.py (first 60-80 lines each).
+  2. Grep QUALITY.md for own-work/re-runnable/own gate.
+  3. Run the fixture harness (read-only per its header) and capture output — candidate Gate quote for S859.
+  4. Write the report.
+
+  Let me do 1+2 in parallel, then 3.
+
+• Both tools are read-only by contract ("This tool reads and builds temporary fixtures only; it never mutates the lane tree and never touches the network"). I can safely run them to capture real output — that gives me (a) proof the own-work source is openable/re-runnable today (rule 1 "opened"), and (b) a concrete ≤25-word located quote candidate for the S859 Gate line.
+
+  Run:
+  1. `python3 -B tools/check-settlement-fixture.py --selftest` (3 cases + FIXTURE: 3/3)
+  2. `python3 -B tools/check-settlement-fixture.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin` (LANE: pending=0 missing_paths=0 line)
+  3. `python3 -B tools/check-supersession-settlement.py --scan` (SETTLEMENT: pending=0 keep=N stale_usedby=K)
+
+  Also run accept-d.py SOURCE-leg relevant state: confirm no S859 in SOURCES.md yet (grep) and confirm SOURCES.md row count/census stays clean — but that's L1's job; my job is the ruling. The runs above suffice.
+
+  Also worth verifying the line numbers accept-d.py's fixture table cites for evidence (tools/check-supersession-settlement.py:112 etc.) exist — not my leg though. Skip.
+
+  One more piece of evidence for the ruling: the lane LOG.md round-68 entry records the settlement run output (pending=0, missing_paths=0) — the round-68 lesson already cites it. Good enough; I have the lesson quote.
+
+  Let me also grep SOURCES.md for "S859" to confirm absence (it should be absent — S858 is the last row per line 813). Quick grep.
+
+  Then write the report.
+
+  Report path: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritD4.md
+
+  The .ufo/waves/round-69/w1/ directory may not exist — Write creates parent dirs automatically.
+
+  Report content plan:
+
+  # CritD4 — D2 sourced leg: is own-work tier-A S859 admissible?
+
+  ## Verdict lines
+  - VERDICT: ADMISSIBLE — own-work tier-A row S859 pointing at the lane's own re-runnable settlement check is contract-clean; no external source needed.
+  - VERDICT: PASS (gate mechanics feasible) etc. — careful: verdict lines should be about what I evaluated. Let me structure:
+    - VERDICT (ruling): ADMISSIBLE
+    - VERDICT (external source needed): NO
+    - VERDICT (counter leg reachable): PASS-CONDITIONAL — the SOURCE leg passes iff the landed S859 row has status=mined and used-by containing SKILL.md, and the table cites S859 (findings on exact mechanics).
+    - Facts about current state: no row names SKILL.md in used-by today; no own-work row exists yet; S859 unclaimed; round-69 lesson absent.
+
+  ## The contract lines that decide it
+  1. SOURCES-CONTRACT-v1.md line 26-28 (tier A): "...**A**: primary or authoritative for that scope (spec, official docs, source code, original paper, maintainer statement, the lane's own re-runnable gate output)." — the settlement check IS the lane's own re-runnable gate output.
+  2. SOURCES-CONTRACT-v1.md line 23 (source cell): "canonical URL or DOI (a repo path or command for `own-work`)" — so the source cell carries tools/check-settlement-fixture.py / the command, not a URL; no external fetch required.
+  3. Census enum line (line 78): kind `own-work` is legal; tier-inflation is flagged only for kind==community at tier A, so own-work at tier A is not inflation.
+  4. Lane mirror: corpus/SOURCES.md lines 14-19 carries the identical tier-A clause ("the lane's own re-runnable gate output").
+
+  And the obligations that come with it (not blockers, they're the standard Gate duties):
+  - Rule 1: "Write it only after opening the source in the round that writes the row. The round lesson's ## Gate records, for every new row, the URL, the access date, and a ≤25-word quote with its location grounding teaches." For own-work, "URL" = repo path/command per line 23; the quote must be verbatim captured output of a real run in round 69.
+  - Rule 2 append-only: S859 is a new appended row (no in-place edits); fine.
+  - Census "mined rows whose used-by paths do not exist — must print nothing": used-by SKILL.md exists at lane root (verify: yes, SKILL.md in the tree listing).
+  - Rule 6: no credentials — fine.
+
+  ## Why it does NOT need an external source
+  - The D2 claim's scope is the lane's own settlement machinery (the five chain states implemented in tools/check-supersession-settlement.py:8-17). The primary/authoritative source for that scope is that code+gate output itself. An external source would be scope-mismatched: no external document defines the lane's chain states.
+  - Tier A is scoped to the row's scope — "the lane's supersession-settlement verdicts" — where the gate output is by definition authoritative.
+  - C-tier "never sole support for an admitted entry" doesn't apply — the row is A.
+  - Note: the D2 *decision table's content* (chain states) is already grounded in the code; S859 documents/witnesses it. The admission criterion for the SKILL.md table itself stays in QUALITY.md — outside my scope, but criterion 6 (claim-scoped authority) is satisfied: gate output for gate behavior is the primary scope.
+
+  ## Attack findings — what would make the sourced leg FAIL after landing (defect classes for the L1 to avoid)
+  1. used-by cell must contain the literal substring `SKILL.md` (accept-d.py:187) — and the fleet census requires every mined used-by path to exist; `SKILL.md` at lane root exists. But careful: accept-d.py's SOURCE leg checks `"SKILL.md" in cells[10]` (substring). A cell of "corpus/knowledge/x.md, SKILL.md" works. Recommend used-by exactly `SKILL.md` (matches the counter's own fixture row shape).
+  2. Status must be `mined`, not `queued` (accept-d.py:186). A queued S859 would fail SOURCE even though the table cites it. Rule 1 "opening" is satisfied by the real run; mining status is then honest since SKILL.md's table cites it.
+  3. The 11-cell census: NF must be 13 (11 columns); no `|` inside cells; the ≤25-word Gate quote with location; opened=2026-10-24.
+  4. The Gate line must record the repo-path/command (contract line 23), the access date, and the quote. Round-68 Gate shape precedent: `- S8NN | URL | date | "quote"` (round-68.md:59-82); for own-work the URL slot becomes the command/repo path.
+  5. EVIDENCE leg of the counter (accept-d.py:167-175): each table row's Evidence cell must contain a path token that exists — e.g. `tools/check-supersession-settlement.py:NN` tokens resolve (path exists; line number is decorative for the regex but should be accurate for honesty).
+  6. Also: the counter counts every S-id in the table text (SID_RE S\d{3,}) — citing S859 in the Evidence cells puts it in table_text; any cited S-id must be a mined used-by-SKILL.md row. If the table cites any OTHER S-id (e.g. pointing at S070 as a chain example), that row would also need mined+SKILL.md used-by or SOURCE fails. Keep the table citing only S859.
+  7. First own-work row in the registry — no precedent row to copy formatting from; the fixture row in accept-d.py:214-216 is the canonical shape the counter itself tests against.
+  8. Scope note: my brief said "the round-69 lesson's ## Gate must record that row's URL/repo-path, access date and a <=25-word located quote" — confirmed as contract rule 1; for own-work the URL slot is the repo path/command per contract line 23. Quote candidates from real runs below.
+
+  ## Evidence: the source is openable today (real runs, 2026-10-24)
+  Run the three commands and quote output.
+
+  Let me run them now. Use absolute paths with cwd = lane root.
+
+  Commands:
+  - python3 -B tools/check-settlement-fixture.py --selftest
+  - python3 -B tools/check-settlement-fixture.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin
+  - python3 -B tools/check-supersession-settlement.py --scan
+
+  And grep for S859 in SOURCES.md to confirm it's unclaimed; also confirm SKILL.md exists at lane root (ls).
+
+PASS fixture-green rc=0 pending=0 missing_paths=0
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 3/3
+exit=0
+PASS fixture-green rc=0 pending=0 missing_paths=0
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 3/3
+LANE: pending=0 missing_paths=0
+exit=0
+SETTLED-ACTIVE S044>S034 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S045>S038 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S046>S039 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S047>S029 s=rejected t=rejected same_url=True used_by=0
+SETTLED-RETIRED S070>S060 s=rejected t=mined same_url=False used_by=0
+SETTLED-RETIRED S125>S095 s=rejected t=mined same_url=False used_by=0
+SETTLED-ACTIVE S126>S105 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S127>S079 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S128>S086 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S129>S117 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S130>S119 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S131>S122 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S132>S094 s=rejected t=rejected same_url=True used_by=0
+SETTLED-ACTIVE S133>S097 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S185>S145 s=mined t=rejected same_url=True used_by=1
+SETTLED-RETIRED S186>S157 s=rejected t=mined same_url=True used_by=0
+SETTLED-ACTIVE S358>S256 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S481>S359 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S482>S367 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S483>S383 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S484>S385 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S485>S392 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S486>S395 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S487>S396 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S488>S399 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S489>S407 s=mined t=queued same_url=True used_by=1
+SETTLED-RETIRED S490>S379 s=rejected t=mined same_url=True used_by=0
+SETTLED-ACTIVE S491>S410 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S560>S413 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S561>S417 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S562>S421 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S564>S433 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S565>S438 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S566>S440 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S567>S445 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S568>S452 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S569>S453 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S570>S135 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S571>S141 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S572>S147 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S573>S151 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S574>S159 s=mined t=rejected same_url=True used_by=1
+SETTLED-SPLIT S575>S420 s=mined t=mined same_url=False used_by=1
+SETTLED-CLOSED S648>S602 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S649>S616 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S650>S623 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S651>S643 s=mined t=rejected same_url=True used_by=1
+SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0
+exit=0
+• All evidence in hand:
+
+  1. `check-settlement-fixture.py --selftest` → 3/3 PASS, exit 0. Real output captured.
+  2. `--root` scan → `LANE: pending=0 missing_paths=0`, exit 0.
+  3. `check-supersession-settlement.py --scan` → `SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0`, exit 0.
+  4. S859 absent from SOURCES.md — unclaimed, next free id after S858 (last row, line 813).
+  5. No row in SOURCES.md has used-by naming SKILL.md → SOURCE leg of accept-d.py passes only via the new S859 row.
+  6. No own-work row exists yet → S859 is the lane's first; kind `own-work` and tier A are explicitly provisioned by the contract.
+
+  The decisive contract lines:
+  - SOURCES-CONTRACT-v1.md:26-28 — tier A: "primary or authoritative for that scope (spec, official docs, source code, original paper, maintainer statement, **the lane's own re-runnable gate output**)."
+  - SOURCES-CONTRACT-v1.md:23 — `source` cell: "canonical URL or DOI (**a repo path or command for `own-work`**)."
+  - SOURCES-CONTRACT-v1.md:78 (census) — kind enum includes own-work; tier-inflation flagged only for `community` at A.
+  - Lane mirror: corpus/SOURCES.md:14-19 (identical tier-A clause).
+  - SOURCES-CONTRACT-v1.md:45-48 (rule 1) — the Gate duty: URL, access date, ≤25-word located quote. For own-work, "URL" slot = repo path/command per line 23.
+  - SOURCES-CONTRACT-v1.md:36-37 — mined = "cited by ≥1 path in used-by" — with SKILL.md's table citing S859, status mined is honest at landing.
+  - Census line 80 — mined used-by paths must exist: SKILL.md exists at lane root.
+
+  Quote candidates for the round-69 Gate (≤25 words, verbatim, located):
+  - From the harness run: location `python3 -B tools/check-settlement-fixture.py --selftest` (exit 0), quote: "PASS fixture-negative rc=0 pending=0 missing_paths=1" (7 words) — this is the round's negative case, exactly the missing-used-by defect class.
+  - Or the summary: "FIXTURE: 3/3" (2 words).
+  - Or from the scan: "SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0" (6 words), location `python3 -B tools/check-supersession-settlement.py --scan` (exit 0).
+
+  The Gate line shape (r68 precedent at round-68.md:59): `- S859 | tools/check-settlement-fixture.py --selftest (repo path/command per SOURCES-CONTRACT-v1 for own-work) | 2026-10-24 | "PASS fixture-negative rc=0 pending=0 missing_paths=1"`.
+
+  Attack findings — failure classes for the L1 to avoid when landing:
+  1. SOURCE leg mechanics (accept-d.py:177-189): requires table_text to contain an S-id whose SOURCES.md row has cells[7]=="mined" AND "SKILL.md" in cells[10]. Any OTHER S-id cited in the table (Evidence cells are joined into table_text at line 177: `table_text = "\n".join("|".join(r) for r in rows)`) must ALSO satisfy mined+SKILL.md — actually wait, let me re-check: SID_RE.findall(table_text) iterates ALL S-ids found in the joined row cells; `good` collects those that pass. SOURCE passes if `good` is non-empty. So other S-ids cited don't fail the leg; they're just not counted. Only requirement: at least one cited id satisfies. Correction: non-S859 ids don't break SOURCE. Good — but the claim as declared says "the table cites S859" so it should cite S859 specifically.
+  2. The EVIDENCE leg (accept-d.py:167-175) is per-row: every Evidence cell must contain a path token that exists on disk. Fixture uses `tools/check-supersession-settlement.py:NN` tokens — those resolve. Note PATH_RE also matches `S859`? No — S859 has no dot/extension. It matches e.g. "check-supersession-settlement.py" and also could match dates? "2026-10-24" — no extension. Fine.
+  3. status must be `mined` not `queued` at landing (fixture row shape uses mined). If S859 landed queued, SOURCE fails and the claim fails as declared.
+  4. used-by must literally contain "SKILL.md" (substring check). Exact cell `SKILL.md` is safest; the fleet census then verifies that path exists — it does.
+  5. 11-column shape (census NF=13), no `|` in cells, opened=2026-10-24, kind=own-work, tier=A.
+  6. First own-work row — no formatting precedent in the live registry; the counter's own fixture row (accept-d.py:214-216) is the tested shape.
+  7. Rule 2 append-only: S859 is appended; the table's citation is in SKILL.md which is a fresh section — no in-place edits needed. Compliant.
+  8. Round-68 Gate word-band precedent: the ≤25-word cap is what the tool enforces (round-68.md:57: "the tool enforces only the 25-word cap"); quotes 6-7 words are comfortably inside.
+
+  One subtlety on rule 1: "Write it only after opening the source in the round that writes the row." I ran the source today (2026-10-24, round 69's date) and captured output — so the "opened" duty is satisfiable this round by the integrating seat re-running the same command and quoting its own capture in the Gate (evidence must be that seat's real run, not my report — fleet AGENTS.md evidence rules: "'Claimed' ≠ 're-executed'... Re-run the command at write time"). I should flag that: my runs prove openability; the L1's Gate line must cite its own re-run.
+
+  Also the scope line for the row: something like "scope: the lane's supersession-settlement verdicts (chain states, pending/missing_paths accounting)". The anchor: the command plus exit code (contract: "exact section / heading / page / line plus revision... Never a bare homepage" — for own-work, command+exit code+output line is the analog; the tool file's revision could be the base revision 793f7974... the tools are committed at base).
+
+  teaches cell: one grounded learner benefit, e.g. "a re-runnable verdict on every supersession chain — pending/missing_paths counts with the five settled states — reproducible by the quoted command".
+
+  Now write the report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritD4.md.
+
+  Report structure (markdown, verdict lines, exact commands + real output):
+
+  # CritD4 — D2 sourced leg: own-work tier-A S859 admissibility ruling
+
+  - Scope, date, seat
+  - VERDICT lines up front:
+    - VERDICT: ADMISSIBLE — own-work tier A is contract-clean for the settlement check; no external source is needed.
+    - VERDICT: NOT-EVALUATED for anything I didn't check (e.g. I did not run accept-d.py against the live lane; the table doesn't exist yet — SECTION leg red at base by design). Actually I can note base-state: the D2 counter at base fails (no table) — that's the declared do-nothing control, no need to re-run. I did NOT run accept-d.py --root . — should I? It would print SECTION FAIL etc. That's expected and it's cheap; but it's not my leg (the D4 seat? I'm "CritD4" — critic of the D leg). Actually my brief: "Attack the sourced leg of claim D2" — the SOURCE leg specifically. The current state of the whole counter isn't needed. But running it gives a real base-state reading which is good attack evidence... it's read-only. Eh — it's cheap and adds evidence: `python3 -B reports/round-69/accept-d.py --root .` at base → SECTION FAIL → overall FAIL (as declared). Let me run it to have the full base-state picture. Actually wait — careful: my report should stay scoped. The sourced-leg attack is the ask. I'll run the one command since it directly evidences "the SOURCE leg cannot pass without S859" — because currently zero rows have SKILL.md used-by. That's a strong attack datum: SOURCE=none today.
+
+  Let me run accept-d.py --root . once (read-only) to capture the live-leg state.
+
+  Then write the report and end with the trailer line.
+
+  Actually one more check for rigor: confirm SKILL.md exists at lane root and that `## Error patterns` heading exists (the SIGNATURES leg needs it) — the fixture does base.replace("## Error patterns", ...) which requires the anchor to exist; if SKILL.md lacks "## Error patterns", the fixture falls back to appending. Not my leg. Skip; but the existence of SKILL.md at root matters for the census used-by check. The top-level listing shows SKILL.md exists. Good.
+
+  Run accept-d.py, then write.
+
+LEG PASS STAMP self=06b0352a0288 committed=06b0352a0288
+LEG FAIL SECTION heading=### Registry correction chains
+LEG FAIL TABLE no decision table
+LEG FAIL STATES no decision table
+LEG FAIL FIELDS no decision table
+LEG FAIL SIGNATURES no decision table
+LEG FAIL EVIDENCE no decision table
+LEG FAIL SOURCE no decision table
+ACCEPT-D-69: FAIL legs=1/8
+exit=1
+SKILL.md present
+round-69 lesson ABSENT (as declared: not landed yet)
+• Base state confirmed: 1/8 legs (STAMP only), SOURCE unreachable until the table exists, and SKILL.md present at root while the round-69 lesson is absent (matching the declared not-landed state).
+
+  Now write the report. All commands and outputs are real. The ruling:
+
+  **ADMISSIBLE** — own-work tier-A row S859 pointing at the lane's own re-runnable settlement check is admissible under fleet SOURCES-CONTRACT-v1; the lane needs no external source for this row. Deciding contract lines:
+  1. SOURCES-CONTRACT-v1.md:26-28 (tier A includes "the lane's own re-runnable gate output")
+  2. SOURCES-CONTRACT-v1.md:23 (source cell = "a repo path or command for own-work")
+  3. SOURCES-CONTRACT-v1.md:78 (kind enum has own-work; tier-inflation only for community+A)
+  Lane mirror: corpus/SOURCES.md:16-18 (same tier-A clause).
+
+  With the obligations: rule 1 Gate duties (repo-path/command + access date + ≤25-word located quote), rule 2 append-only, mined used-by paths must exist (census), rule 6 no credentials.
+
+  Report file: .ufo/waves/round-69/w1/CritD4.md
+
+  Let me draft it carefully, with exact commands and outputs, verdict lines, attack findings (failure classes), quote candidates, and the Gate line shape. Keep it tight but complete.
+
+• Report written. Now the final answer with the ruling summary and the single trailer line.
+
+  Key points to surface:
+  - Ruling: ADMISSIBLE, no external source needed.
+  - Deciding contract lines: SOURCES-CONTRACT-v1.md:26-28 (tier A includes "the lane's own re-runnable gate output") and :23 (source cell = repo path/command for own-work); kind enum + census confirm own-work@A is not inflation; lane mirror at corpus/SOURCES.md:16-18.
+  - Evidence: gates re-ran green today; S859 unclaimed; zero rows name SKILL.md in used-by; D2 counter 1/8 at base (as declared).
+  - Attack findings: the sourced leg passes only via mined S859 with used-by SKILL.md; quote candidates given; L1 must re-run at write time.
+
+To resume this session: kimi -r session_bf157e95-562b-4254-9d36-ac34a887ab77

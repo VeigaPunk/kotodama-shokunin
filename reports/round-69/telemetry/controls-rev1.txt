@@ -1,0 +1,30 @@
+# round-69 counter revision 1 controls (committed BEFORE any data lands)
+# generated 2026-10-24T23:47:15-03:00
+
+=== accept-o.py --selftest (GREEN / DO-NOTHING / SPOOF controls)
+GREEN FIXTURE: PASS (legs 7/7) — as required
+DO-NOTHING FIXTURE: FAIL (legs 5/7) — as required
+SPOOF FIXTURE: FAIL (legs 6/7) — as required
+SELFTEST: 3/3
+exit=0
+
+=== forcing receipt: the wave attack that forced revision 1
+file: .ufo/waves/round-69/w1/CritO1.md (probe C)
+103:## Probe C — strongest do-nothing: harness present, performs zero checks
+104-
+105-The counter's FIXTURE/NEGCASE/LANE legs judge the harness only by its own
+106-printed lines and exit code. Replacing the COPY's harness with a no-op that
+107-merely prints the expected strings (full content below) tests whether the
+108-predicate proves that any check actually ran:
+109-
+
+=== accept-o.py rev1 against the lane tree
+LEG PASS STAMP self=08c7ea6149a0 committed=08c7ea6149a0
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 pending=0 missing_paths=0
+LEG PASS NEGCASE rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=0 pending=0 missing_paths=0
+LEG PASS NEGPROBE harness_on_counter_fixture rc=1 lane_lines=['LANE: pending=0 missing_paths=1']
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: PASS legs=7/7
+exit=0

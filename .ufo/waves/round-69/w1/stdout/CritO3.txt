@@ -1,0 +1,12 @@
+• Claims, counters, controls and the new harness read. Now running all three selftests plus the harness to reproduce the committed controls, and pulling the round-68 receipts the counters hash against.
+
+• Controls reproduce exactly (7/7+6/7, 8/8+2/8, 8/8+1/8; harness 3/3, live LANE clean). HEAD `6a98d7d` sits directly on declared base `793f797`, and the working tree is clean apart from untracked wave files — so committed counters == working-tree counters. Now scoring the counters against the live tree and against a base-tree extraction, and reading the filed self-assessment surfaces.
+
+• The current-tree scoring is gold: accept-o is **already 7/7 PASS pre-data**; accept-ca shows all five declared pairs live (unannotated=5); accept-d 1/8. Base extraction confirms tool-absent and table-absent before-clauses. Now: verify every recorded r68 accept-o run had EXEC red, score the counters against the base tree, and pull the actual filed mismatch bytes.
+
+• accept-o at base: 2/7 (red for the right reasons), accept-d at base: 0/8, and the EXEC-red-every-recorded-run claim is confirmed across dry-run + final receipts. accept-ca crashes when pointed at the base tree because it demands its own claims.json inside the tree under test — re-running with `--claims` to point at the live declaration. Meanwhile, hunting for mismatches the declared five do NOT cover.
+
+• Base-state confirmed via `--claims` workaround, and the blind-spot hunt is clean: full-text scans show exactly the five declared hits and nothing more. The r68 EXEC fixture is statically confirmed to never create `corpus/knowledge/a.md` while citing it. Now reading the actual filed mismatch bytes and independently re-hashing the frozen r68 counters.
+
+• Fleet-root reminder noted — I read one file under the fleet root (read-only; no writes there). The filed bytes confirm all five mismatches, and reveal the self-contradicting phrasing ("9/10 legs PASS … and EXEC FAIL") that LEGCOUNT catches. Final verification batch, then I write the report.
+

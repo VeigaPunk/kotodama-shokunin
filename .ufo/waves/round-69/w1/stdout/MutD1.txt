@@ -1,0 +1,23 @@
+• Counter read — the STATES leg (line 152) requires `got == list(STATES)` with all five states, and the TABLE leg (line 147) independently requires `len(rows) == 5`. Now building the mutation rig in /tmp: original + two mutants (STATES-only, STATES+TABLE), fixtures for four-state and five-state tables, and the run matrix.
+
+• All legs behaved as predicted except STAMP: `committed=none` in every fixture run because `SELF = basename(__file__)` — my runner copies were named `accept-d-orig.py`/`accept-d-mut*.py`, so the counter looked for a file with that name under the fixture root. That's itself a tamper-evidence finding (a renamed counter always fails STAMP). Fixing the rig: each variant lives in its own dir as `accept-d.py`, so STAMP goes green and STATES/TABLE semantics are isolated.
+
+• Matrix is clean. [C] shows the mutated counter accepting the four-state table (8/8 PASS), [E] shows the same mutant rejecting the genuine five-state table — kill-scored in both directions. Two supplementary read-only checks: the mutated counter run against the real lane root (STAMP should catch it), and the lane file digest to confirm I tested the committed bytes.
+
+• All evidence in hand — the committed lane counter digest (06b0352a…) matches the copy I mutated, and run [G] shows the STAMP leg catching a mutated counter against the real lane tree. Writing the report.
+
+• Mutation test complete. Summary:
+
+  **Does the counter kill the four-state shortcut? YES — redundantly.**
+
+  - **[A] Kill check:** the unmodified counter rejects a four-state fixture (`settled-split` dropped) on **two independent legs** — `TABLE header=5 rows=4` and `STATES states=[...four]` — FAIL 6/8, exit=1.
+  - **[B] STATES-only mutation:** flipping the STATES tuple to four states makes that leg pass, but the `len(rows) == 5` TABLE backstop (accept-d.py:147) still rejects it — FAIL 7/8. One leg alone isn't enough to open the gate.
+  - **[C] Acceptance demonstrated:** with both STATES and the TABLE literal mutated, the copy accepts the four-state fixture — PASS 8/8, exit=0 — i.e. it no longer rejects it.
+  - **[E] Kill-scored:** that same mutant rejects the genuine five-state table (FAIL 6/8), so the flip is attributable to the mutation, not a pre-existing pass-through.
+  - **[G] STAMP holds at the lane:** running the mutated counter against the real lane root fails STAMP immediately (`self=531c90… committed=06b035…`, 0/8) — a mutated counter can't pass where it matters.
+  - **[F] Unmodified selftest (as requested):** `GREEN FIXTURE: PASS (legs 8/8)` / `DO-NOTHING FIXTURE: FAIL (as required) (legs 1/8)` / `SELFTEST: 2/2`, exit=0.
+
+  Two side findings: STAMP is basename-dependent (`SELF = basename(__file__)` — a renamed copy reads `committed=none`), and STAMP attests the counter committed in the evaluated tree, which is why it's self-consistent inside a fixture but binding against the lane. I confirmed the mutated `orig` digest matches the committed lane file, so the experiment attacked the real bytes; the lane tree was only ever read.
+
+  Report: .ufo/waves/round-69/w1/MutD1.md
+

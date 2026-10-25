@@ -1,0 +1,24 @@
+• The register (375 lines, EOF confirmed) and the round-68 lesson are in hand. The round-68 `## Quarantine` section itself quotes the re-derivation awk recipe; let me also locate the addendum that owns it, then re-run the recipe myself from /tmp.
+
+• The awk recipe reproduces exactly 21 rows. Now locating the addendum that owns this recipe and cross-checking the round-68 raw evidence (handcheck JSON) per-row verdicts.
+
+• `RECOVERY-RULES.md` declares itself "An addendum to every lane brief in this wave" — that's the addendum. Reading it plus the lane's raw quarantine evidence.
+
+• The 21-row awk slice matches round-68's own `quarantine-slice` artifact id-for-id. Now cross-checking the per-row verdicts in the raw evidence JSONs.
+
+• All raw evidence is consistent. Running the mechanical set-difference (awk-derived ids vs round-68 verdict ids) before writing the report.
+
+• Set difference is empty — 21/21 coverage. Writing the report.
+
+• Item-10 re-derivation complete. Summary of what was done and found:
+
+  **Re-derivation.** Ran the round-68 awk recipe verbatim (from `corpus/lessons/round-68.md:102`) against the shokuknow register with cwd=/tmp — nothing executed inside the shokuknow repo, which was only ever read. Result: **21 data rows** (18 `payload-absent` + 3 never-checked), ids S776 S778 S779 S786 S787 S791 S792 S795 S796 S804 S807 S812 S814 S816 S817 S820 S823 S824 S825 S827 S835 — line-for-line identical to round-68's committed `quarantine-slice` artifact. Register digest recorded: `5afe1810…bad833`.
+
+  **Coverage.** Extracted the verdict ids mechanically from `round-68.md` `## Quarantine` (lines 111–114): 21 ids; `comm -3` against the awk-derived set is empty — the round-68 verdict list covers every register row. Per-bucket counts reconcile against the raw evidence: 9 present (4 HTML `found` hits + 5 pdftotext hits in `quarantine-pdf-pass.json`), 8 refused (HTTP 200, quote absent), 1 unverifiable (S791, HTTP 400 broken locator), 3 unverifiable-prose (S807/S812/S835, no locator recorded).
+
+  **Adoption.** Stays CLOSED this round: no register row adopted, appended, or renumbered anywhere; the only file written is the report.
+
+  Findings worth the L1's attention: the register's never-checked id cells carry a stray trailing backtick (the recipe still catches them); the register's "By lane" table says kotodama=18 because it omits the never-checked section — reconciling against 21 verdicts requires reading both sections; and the S-id namespace collision with the lane's own registry (both have an S776, different rows) remains the key trap for any future adoption round.
+
+  Report: .ufo/waves/round-69/w1/ScoutItem10.md
+

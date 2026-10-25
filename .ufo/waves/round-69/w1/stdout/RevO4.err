@@ -1,0 +1,549 @@
+kimi version 2.3.1
+• Let me parse the task:
+
+  1. I'm a leaf seat (RevO4) in round 69 wave 1, judged on calibration.
+  2. My task: Attack the LEGCOUNT detector of `reports/round-69/accept-ca.py`:
+     - Copy the counter to /tmp
+     - Make the corrections-file parser accept ANY row (drop the class whitelist)
+     - Run the copy with `--selftest` and show the DO-NOTHING fixture still fails
+     - Then run the unmodified `python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin` and paste the EVAL lines
+     - Question: does the counter's do-nothing control still bite?
+  3. Write report to `.ufo/waves/round-69/w1/RevO4.md` (absolute: `/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/RevO4.md`)
+  4. End answer with `Report: .ufo/waves/round-69/w1/RevO4.md`
+
+  Bounds: read-only on production, no git mutations, /tmp scratch for mutations, exactly one report file.
+
+  Let me start by reading the accept-ca.py file. Let me do parallel calls: read the file, read RULES.md (only needed if installing — I probably won't install anything, but the instructions say read before installing; I can skip if I don't install). Actually the task says tooling authorization exists but I likely don't need to install anything. I'll skip RULES.md unless I need to install.
+
+  Let me read the accept-ca.py file first.total 48
+drwxr-xr-x 1 vgpnk vgpnk   130 Oct 24 23:15 .
+drwxr-xr-x 1 vgpnk vgpnk  1056 Oct 24 23:10 ..
+-rw-r--r-- 1 vgpnk vgpnk 14419 Oct 24 23:15 accept-ca.py
+-rw-r--r-- 1 vgpnk vgpnk 10850 Oct 24 23:14 accept-d.py
+-rw-r--r-- 1 vgpnk vgpnk  9767 Oct 24 23:11 accept-o.py
+-rw-r--r-- 1 vgpnk vgpnk  7709 Oct 24 23:14 claims.json
+drwxr-xr-x 1 vgpnk vgpnk    48 Oct 24 23:14 __pycache__
+drwxr-xr-x 1 vgpnk vgpnk   102 Oct 24 23:16 telemetry
+I've read the counter. Now let me understand the attack:
+
+  The LEGCOUNT detector attack: make the corrections-file parser (`correction_pairs`) accept ANY row (drop the class whitelist at lines 192-193: `if cls and surface and cls.upper() in ("LEGCOUNT", "DEADPOINTER", "OVERREACH")`).
+
+  The whitelisted classes are `("LEGCOUNT", "DEADPOINTER", "OVERREACH")`. If I drop the whitelist so `correction_pairs` accepts any (class, surface) row, the parser becomes more permissive. The question: does the DO-NOTHING control still fail?
+
+  Wait — dropping the whitelist makes the parser MORE permissive, which could let a correction file with wrong class names (e.g. "class" header cells or garbage rows) cover pairs. In the DO-NOTHING fixture, `with_corrections=False` means no corrections file exists at all — `read_text` returns None, so `pairs` is empty regardless of the whitelist. So dropping the whitelist should NOT change the do-nothing behavior... unless the removal lets header rows or something match. Actually wait, let me think about what happens.
+
+  Actually, there's a subtlety: without the whitelist, the header row `| class | surface | filed text | observed text | re-derivation command |` would parse cells[1]="class", cells[2]="surface" — that would add ("CLASS","SURFACE") as a pair. And the separator row `|---|---|---|---|---|` has cells = ["", "---", "---", ...] — cells[1]="---", cells[2]="---", which would add ("---","---"). Neither matches a real (class, surface) key like ("LEGCOUNT", "scorecard-r68") — unless the fixture writes rows with the actual class and surface, which the green fixture does. So dropping the whitelist only affects the GREEN fixture (adds spurious pairs, but they don't collide with real keys), not the DO-NOTHING fixture (which has no corrections file at all → pairs = empty set → remedy=False for non-DEADPOINTER pairs... wait, for DEADPOINTER pairs, remedy = is_covered and not is_live; if the pointer is dead (R68-M9 missing), is_live=True so remedy=False regardless).
+
+  Hmm wait — but actually the attack direction: "make the corrections-file parser accept ANY row (drop the class whitelist)". So a row with a typo'd class like "legcount" lowercase would already be accepted (`cls.upper() in (...)`). Dropping the whitelist means rows like `| leg count | scorecard-r68 | ...` would count as coverage for the LEGCOUNT|scorecard-r68 pair. That's a coverage-forgiveness defect: the counter would accept a correction row that doesn't name the declared class.
+
+  Does the DO-NOTHING control still bite? In the do-nothing fixture, corrections-r68.md doesn't exist → `read_text` → None → pairs=set() → covered=set() → remedy=False for all pairs → legs fail → r2.ok False → DO-NOTHING FIXTURE: FAIL (as required). So yes, the do-nothing control still bites (assuming nothing else changed).
+
+  But wait — there's a subtle issue: could dropping the whitelist cause a GREEN failure? The green fixture writes rows with `pair["class"]` which is e.g. "LEGCOUNT" — accepted either way. So green stays green.
+
+  Hmm, but there's another subtlety: the header row `| class | surface |` — with the whitelist dropped, adds ("CLASS", "SURFACE"). Separator adds ("---","---"). These don't collide. So green passes.
+
+  Actually wait, one more: in the DO-NOTHING fixture, is there any file at CORRECTIONS path? `build_fixture_root(nothing, with_corrections=False)` doesn't write it. But the fixture copies files from LANE — CORRECTIONS is not in the copy list, good. So corrections file absent.
+
+  Hmm, but actually — wait. There's a catch: `read_text(os.path.join(root, CORRECTIONS))` where root = fixture root. So None → set(). OK.
+
+  Now the interesting question the task asks: "Attack the LEGCOUNT detector ... Does the counter's do-nothing control still bite?" 
+
+  The real attack angle on LEGCOUNT: dropping the class whitelist means ANY appended row with matching surface covers ANY class. E.g., a row `| DEADPOINTER | scorecard-r68 |` would cover LEGCOUNT|scorecard-r68. That's a false-acceptance defect class. The do-nothing control (file entirely absent) still fails because covered is empty. So the do-nothing control does NOT catch this defect class — it only tests "corrections missing entirely", not "corrections naming the wrong class". That's the finding: the do-nothing control still bites for total absence, but the weakened parser survives a partial-correction attack — i.e., there's a mutation the green/donothing pair doesn't catch. I could strengthen the finding by demonstrating: run the whitelisted-dropped copy against a fixture WITH corrections rows that use a wrong class name (e.g., "| WRONGCLASS | scorecard-r68 |") and show MISMATCHES=0 (accepts) whereas the original counter flags it. But careful with bounds: I can build fixtures in /tmp. The fixture builder copies from LANE — my copy in /tmp has HERE=/tmp/r69-revo4, so LANE = dirname(dirname(/tmp/r69-revo4)) = /tmp — that breaks fixture building! LANE would be computed as /tmp, so `os.path.join(LANE, rel)` → /tmp/SCORECARD.md which doesn't exist → files skipped. So --selftest on the plain copy would produce a fixture with no SCORECARD etc.
+
+  Wait, actually the copy is at /tmp/r69-revo4/accept-ca-anyrow.py. HERE=/tmp/r69-revo4, LANE=dirname(dirname(HERE))... no wait, LANE = os.path.dirname(os.path.dirname(HERE)) — HERE=/tmp/r69-revo4, dirname=/tmp, dirname(dirname)=/. Hmm: dirname(HERE) = /tmp, dirname(dirname(HERE)) = /. So LANE = "/". Fixture would copy from /SCORECARD.md etc. — none exist. So fixture trees would be nearly empty. claims.json wouldn't exist in fixture → load_claims(fx) fails → FileNotFoundError → selftest crashes with exit code 2 (unhandled exception).
+
+  So to run --selftest properly, I need to patch LANE in the copy to point at the lane repo. That's fine — it's a scratch copy, and patching LANE is part of making the copy runnable. I'll patch `LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"` in the copy. That's legitimate: the mutation under test is only the whitelist drop; patching LANE just relocates the fixture source.
+
+  Alternatively, place the copy such that LANE resolves correctly: the file lives at reports/round-69/accept-ca.py, so LANE = two dirs up. I could create /tmp/r69-revo4/lane/reports/round-69/accept-ca.py and run it — LANE resolves to /tmp/r69-revo4/lane. But then fixture source files don't exist there either. Simplest: patch LANE as absolute. I'll do that.
+
+  Also the selftest copies from `/home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md` for the fleet report (absolute, hardcoded) — fine, read-only.
+
+  Plan:
+  1. Read claims.json to understand calibration_pairs (helpful for EVAL interpretation).
+  2. Create the mutated copy in /tmp:
+     - Patch LANE to the lane absolute path.
+     - Drop the whitelist: change condition to `if cls and surface:` (accept any row).
+  3. Run copy with --selftest → expect GREEN PASS, DO-NOTHING FAIL (bites).
+  4. Additional probe: demonstrate the false-accept: build a fixture where corrections rows name a wrong class ("| NOTACLASS | <surface> |") and show original counter fails that leg (coverage not granted) while mutated copy grants coverage → MISMATCHES... wait, would MISMATCHES be 0 in mutated? Coverage granted → remedy=True → unannotated=0 → MISMATCHES PASS. But the underlying mismatch: e.g., LEGCOUNT surface still live (scorecard claims 12/12 but receipt says different). With a wrong-class row appended, the original counter says covered=False → unannotated → FAIL. Mutated says covered=True → PASS even though the row never names LEGCOUNT. That's the demonstration that the class whitelist is load-bearing and the do-nothing control alone doesn't guard it.
+
+     Actually — careful. What does build_fixture_root produce? It copies real lane files. The real SCORECARD may or may not have live LEGCOUNT mismatches right now (the data isn't landed yet: corrections-r68.md, SKILL table etc. not landed). The EVAL results on the real tree will presumably FAIL (data not landed). For my attack fixture, I want a controlled scenario. I can build the fixture via build_fixture_root (green, with_corrections=True but I'll override the corrections content to wrong-class rows), then run evaluate. Simpler: write a small driver script in /tmp that imports the mutated module and the original module, builds fixtures, writes wrong-class corrections, and compares verdicts. Or just craft fixture files by hand in /tmp with sed. Let me write a small driver.
+
+     Even simpler approach for the false-accept demo: copy the mutated script, and also create a fixture by calling build_fixture_root from an imported module. Driver:
+
+     ```python
+     import importlib.util, os, sys
+     def load(name, path):
+         spec = importlib.util.spec_from_file_location(name, path)
+         m = importlib.util.module_from_spec(spec)
+         spec.loader.exec_module(m)
+         return m
+     orig = load("orig", "/home/.../reports/round-69/accept-ca.py")
+     mut = load("mut", "/tmp/r69-revo4/accept-ca-anyrow.py")
+     ```
+     Then use each module's build_fixture_root and evaluate. But orig's LANE = real lane (since it's loaded from the real path) — good. mut's LANE patched — good.
+
+     For the wrong-class scenario:
+     - fixture green_wrong: build with corrections then REWRITE corrections-r68.md with wrong class names but correct surfaces, e.g. rows `| BADCLASS | <surface> | filed | observed | command |`.
+     - evaluate orig: expect some EVAL legs FAIL with covered=False → ACCEPT-CA FAIL.
+     - evaluate mut: expect covered=True → all EVAL PASS → ACCEPT-CA PASS.
+     
+     Note: in this scenario, are the underlying mismatches live? The green fixture copies REAL lane bytes (SCORECARD etc.). Right now the data isn't landed, so live mismatches likely exist (that's exactly why the round needs the corrections). detect_legcount(text, obs_o): if SCORECARD claims "12/12 legs PASS" for round-68 O and receipt says e.g. "11/12", mismatch is live → is_live=True. For LEGCOUNT remedy=is_covered only. So with wrong-class rows: orig covered=False → unannotated → FAIL; mut covered=True → remedy=True → ok=True, unannotated=0 → PASS with a live mismatch "annotated" by a garbage-class row. That's the false-accept. 
+
+     Also DEADPOINTER pairs: remedy = is_covered and not is_live. If R68-M9 row is absent in corpus (data not landed), is_live=True → remedy=False both → those legs fail in both. Fine — my demo focuses on LEGCOUNT/OVERREACH legs. I'll show the EVAL lines from both.
+
+  5. Run the unmodified counter on the real lane: `python3 -B /home/.../reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin` — note `--root .` — I must run it with cwd = lane repo for `.` to be the lane. Use cwd param. Paste EVAL lines.
+
+  6. Also run original --selftest for a baseline (does the original's own do-nothing control bite?) — quick, cheap, useful comparison.
+
+  7. Write report to .ufo/waves/round-69/w1/RevO4.md — need to ensure the directory exists (mkdir -p). That's a write to .ufo/waves/... which is my report file location — allowed ("Write EXACTLY ONE file: your own report file"). mkdir -p of the parent dir is necessary and acceptable.
+
+  Let me also read claims.json to know the surfaces for interpreting EVAL lines. And check whether corrections-r68.md exists currently (it's "not landed yet" per the brief).
+
+  Let me batch:
+  - Read claims.json
+  - bash: grep the whitelist line in the copy and apply mutation via python (I should use Edit tool on the /tmp copy? Edit requires reading first. The copy is identical to what I read. But Edit tool on /tmp file — allowed? Write/Edit outside working dir need absolute paths; /tmp is fine per scratch policy. But the tool description says avoid modifying files outside working directory... unless instructed. The task explicitly says use /tmp scratch for mutations. OK.)
+
+  Actually simpler: apply the mutation with a small python script that does precise string replacement, then verify with grep. But guidance says prefer Edit over sed. I'll Read the copy (cheap-ish, 388 lines — I already know contents but Edit requires a Read of the target file). Hmm, Edit requires reading the file first. I can Read with limit... The rule: "Read the target file before every Edit." I read the original, not the copy. To be safe, I'll do the mutation with python -c (it's a scratch transformation, not repo edit) — but "Edit is mandatory for every incremental change, especially small edits. DO NOT use Write or Bash sed." That rule is about editing files; creating a mutated copy from scratch could also be Write. Using python string-replace in bash for a scratch file is the pragmatic path, but to comply with tool policy, better: Read the copy (n_lines small? it's 388 lines; I already have the content in context, so re-reading wastes tokens). Alternative: Write the mutated file wholesale with Write — "Write only when the file does not exist" — the copy exists (I cp'd it). I could instead generate the mutated file with a small Python heredoc... that's still a bash write.
+
+  Honestly the cleanest compliant path: Read the copy (it's 14KB, acceptable), then two Edits: (1) LANE patch, (2) whitelist drop. Then run.
+
+  Actually wait — I can avoid the cp+Edit dance: use Write to create the mutated file directly? It'd be a full 14KB content dump — large token cost. Better: cp, Read copy (14KB again...). Hmm. Or: skip the cp; keep the original in place, create the mutated copy with `python3 - <<'EOF'` doing targeted replacement — one bash call, output = diff confirmation. Given /tmp scratch policy and that this is a mechanical copy-mutate, I'll do the python transformation via Bash (it's not an in-repo edit; the Edit-tool mandate targets repo files under my care). I'll include verification (diff) in the same command so the mutation is auditable.
+
+  Actually, let me reconsider: the instructions say for `sed`/`awk` in-place edit → use Edit. This is a mutation demonstration on a scratch copy — the spirit of the task is "copy the file, mutate the COPY". Using python for the mutation is fine and self-verifying via diff. I'll do that.
+
+  Mutation spec:
+  1. `LANE = os.path.dirname(os.path.dirname(HERE))` → `LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"  # scratch: fixture source relocated`
+  2. Whitelist drop:
+  ```python
+          if cls and surface and cls.upper() in ("LEGCOUNT", "DEADPOINTER",
+                                                  "OVERREACH"):
+  ```
+  →
+  ```python
+          if cls and surface:
+  ```
+
+  Then:
+  - `python3 -B /tmp/r69-revo4/accept-ca-anyrow.py --selftest`
+  - `python3 -B /home/.../accept-ca.py --selftest` (baseline)
+  - real run: cwd=lane, `python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin` — the task says run exactly `python3 -B /home/.../reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin`; with cwd=lane root, `--root .` = lane. 
+
+  Then the false-accept driver. Let me write the driver as a /tmp file with Write (new file, allowed).
+
+  Driver plan (/tmp/r69-revo4/false_accept.py):
+
+  ```python
+  import importlib.util, os, sys
+
+  def load(name, path):
+      spec = importlib.util.spec_from_file_location(name, path)
+      m = importlib.util.module_from_spec(spec)
+      spec.loader.exec_module(m)
+      return m
+
+  LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"
+  orig = load("orig69", os.path.join(LANE, "reports/round-69/accept-ca.py"))
+  mut = load("mut69", "/tmp/r69-revo4/accept-ca-anyrow.py")
+
+  import tempfile
+  with tempfile.TemporaryDirectory(prefix="ca69-false-accept-") as td:
+      for label, mod in (("ORIGINAL", orig), ("WHITELIST-DROPPED", mut)):
+          fx = os.path.join(td, label.lower())
+          mod.build_fixture_root(fx, with_corrections=True)
+          # overwrite corrections with WRONG-CLASS rows naming the right surfaces
+          claims = mod.load_claims(fx)
+          rows = ["| class | surface | filed text | observed text | re-derivation command |",
+                  "|---|---|---|---|---|"]
+          for pair in claims.get("calibration_pairs", []):
+              rows.append("| WRONGCLASS | %s | filed | observed | command |" % pair["surface"])
+          corr = os.path.join(fx, mod.CORRECTIONS)
+          with open(corr, "w", encoding="utf-8") as fh:
+              fh.write("\n".join(rows) + "\n")
+          # keep the fixture's claims.json pointing at fixture fleet report
+          fleet = os.path.join(fx, "fleet")
+          claims = mod.load_claims(fx)
+          res = mod.Result(quiet=True)
+          mod.evaluate(fx, fleet, claims, res)
+          print("== %s counter vs WRONG-CLASS correction rows ==" % label)
+          for name, ok, detail in res.legs:
+              print("LEG %s %s %s" % ("PASS" if ok else "FAIL", name, detail))
+          print("ACCEPT-CA: %s" % ("PASS" if res.ok else "FAIL"))
+          print()
+  ```
+
+  Wait: build_fixture_root for mut — mut.LANE patched to lane, good. For orig — orig.LANE = real lane, good. But careful: loading orig executes module-level code only (constants) — fine, no side effects.
+
+  Also `mod.evaluate` uses mod.correction_pairs etc. within each module — good.
+
+  Also note: in build_fixture_root, claims.json's fleet-report pair path gets rewritten to the fixture's kotodama.md and saved — done inside build_fixture_root. Good.
+
+  One more check — the fixture's live mismatches: depends on real SCORECARD/LOG bytes vs real round-68 telemetry receipts. The brief says the data isn't landed, so there should be live LEGCOUNT mismatches (e.g., SCORECARD says round-68 O claim passed 12/12 legs while final-measures-o.txt shows fewer PASS). If obs turns out matching (no live LEGCOUNT), remedy ok would be True in both... then the demo would show both PASS on LEGCOUNT legs and the contrast would vanish. Fallback: also run each counter on a fixture where I inject a synthetic live LEGCOUNT mismatch into the copied SCORECARD section (fixture bytes only — allowed). To keep it robust, I'll inject a mismatch into the fixture's SCORECARD.md if needed... but claims.json sections define which surface text is read; the LEGCOUNT pair might point at SCORECARD round-68 section or LOG entry. Injecting into both SCORECARD.md and LOG.md a "99/99 legs PASS" string guarantees a live LEGCOUNT mismatch regardless of receipt values (observed can't be 99/99 realistically — legs count from final-measures-o.txt LEG_LINE_RE matches; even if it were 99/99 I'd pick 98/98... just pick something and compute obs first, choose a different number).
+
+  Simpler deterministic injection: append to fixture's LOG.md a line "R68 result: 7/7 legs PASS" — but LEGCOUNT_RE needs "N/M legs PASS" format: "7/7 legs PASS". If observed is (7,7) that wouldn't be a mismatch. Compute obs = mod.observed_o_legs(fx), pick p,q different from obs, append "r69 attack: %d/%d legs PASS" to both SCORECARD.md and LOG.md fixture copies. That guarantees detect_legcount finds a bad pair in whichever surface is scanned — provided the claims' LEGCOUNT pair includes section filters that still contain the appended text... section_text for SCORECARD filters to a section (e.g. `^## round-68`); appending at EOF lands in the last section — might not be the scanned section. For LOG.md the pair may use no section. To be safe, append the injection INSIDE the scanned sections. I can replicate: for the LEGCOUNT pair(s), find their path+section, read text, append injected line to the section region... getting complicated. 
+
+  Alternative deterministic approach: put the injection at the very top of SCORECARD.md? section filter is a regex matching the heading line; text before it is dropped. Hmm.
+
+  Cleanest: after building fixture, directly read claims.json, find LEGCOUNT pairs, and for each, append the bad line to the end of that pair's target file if no section, or insert the line right after the section heading if section given. Then the scanned text definitely contains the bad "N/M legs PASS".
+
+  Let me write the driver to do exactly that:
+
+  ```python
+  def inject_live_legcount(mod, fx):
+      claims = mod.load_claims(fx)
+      obs = mod.observed_o_legs(fx) or (11, 12)
+      p, q = (obs[0] + 1, obs[1] + 1)
+      bad = "R68 operability claim: %d/%d legs PASS (attack injection)" % (p, q)
+      for pair in claims.get("calibration_pairs", []):
+          if pair["class"].upper() != "LEGCOUNT":
+              continue
+          rel = pair.get("path", "")
+          if pair.get("fleet"):
+              continue
+          path = os.path.join(fx, rel)
+          text = open(path, encoding="utf-8").read()
+          sec = pair.get("section")
+          if sec:
+              # insert right after the matching heading line
+              lines = text.splitlines(True)
+              out = []
+              done = False
+              for line in lines:
+                  out.append(line)
+                  if not done and re.match(sec, line):
+                      out.append(bad + "\n")
+                      done = True
+              text = "".join(out)
+          else:
+              text = text + "\n" + bad + "\n"
+          open(path, "w", encoding="utf-8").write(text)
+  ```
+
+  That guarantees live LEGCOUNT hits in the scanned surface(s).
+
+  Then run both counters (orig & mut) on the same fixture-with-wrong-class-rows. Expected:
+  - orig: LEGCOUNT EVAL legs FAIL (covered=False), MISMATCHES FAIL → counter bites.
+  - mut: LEGCOUNT EVAL legs PASS (covered=True via WRONGCLASS row!), MISMATCHES live_mismatches>=1, unannotated_mismatches=0 → ACCEPT-CA PASS → false accept.
+
+  That's the headline finding: dropping the class whitelist lets any appended row cover any declared pair — including rows that name no real class — and the DO-NOTHING control does NOT catch it (it only tests the corrections file being entirely absent). The control still "bites" (fails) in the plain whitelist-dropped selftest, but it's blind to the coverage-forgiveness mutation.
+
+  Also worth one more data point: what if corrections rows use a plausible but wrong class, e.g. a row "| DEADPOINTER | scorecard-r68 |" intended for the LEGCOUNT surface? Same mechanics; WRONGCLASS demo suffices, but maybe use a more "realistic" wrong class like "LEGCOUNT-TYPO" or a lowercase variant — lowercase already passes original (`cls.upper()`). So use "DEADPOINTER" on the LEGCOUNT surface as the realistic cross-class row. Even better demo: row says DEADPOINTER where LEGCOUNT needed. I'll do rows with class "DEADPOINTER" for all surfaces — maximally realistic (a mix-up), shows cross-class coverage. Hmm, but DEADPOINTER pairs' remedy also requires not is_live; the DEADPOINTER surfaces keep their own live status. For clarity I'll use a single wrong class for all rows: "NOT-NAMING-LEGCOUNT"... too artificial. Decide: use "DEADPOINTER" as the wrong class for all rows. Then mut grants covered=True for every pair regardless of its true class. Original grants coverage only to genuine DEADPOINTER pairs. LEGCOUNT legs: orig FAIL, mut PASS. That's the crisp contrast.
+
+  Wait, one nuance: for the DEADPOINTER-declared pairs in the fixture, is_live depends on R68-M9 presence in LOG/lessons. The green fixture appends the R68-M9 backfill row to corpus/lessons/round-69.md, so is_live=False → remedy=True. With WRONGCLASS→DEADPOINTER rows, same. Fine.
+
+  Also for the mut counter with DEADPOINTER-pair rows: covered=True, not live → ok=True.
+
+  So expected mut output: ALL legs PASS, MISMATCHES live_mismatches=1 unannotated=0 → PASS. orig: LEGCOUNT legs FAIL etc.
+
+  Now, claims.json — let me read it to confirm pair names (surfaces) for reporting. Also verify whether corrections-r68.md currently exists in the lane (should not) and check telemetry/controls.txt (pre-data controls — mentioned in the brief; maybe records expected selftest results).
+
+  Also the brief asks: "Then run the unmodified ... and paste the EVAL lines." — The counter prints "LEG PASS EVAL ..." lines (Result.add prints "LEG <status> <name> <detail>"). So EVAL lines appear as LEG lines. Paste them.
+
+  Also should run the mutated copy's selftest AND show output. Also maybe run original selftest for baseline comparison (cheap). Yes.
+
+  One more consideration on bounds: `.ufo/waves/round-69/w1/` directory may not exist; mkdir -p is a filesystem write but necessary for the report file. Allowed (my report path). I'll create it just before writing the report.
+
+  Also — importantly — the mutated selftest: GREEN fixture must PASS for the demo to be meaningful (mut still passes green; donothing still fails). Expected output:
+  - GREEN FIXTURE: PASS (legs n/n)
+  - DO-NOTHING FIXTURE: FAIL (as required)
+  - SELFTEST: 2/2
+
+  Wait — could dropping the whitelist make the GREEN fixture fail? Green corrections rows are generated with the pair's real class → covered either way. Header/separator rows add junk pairs that don't collide. So green passes. Good.
+
+  Could the do-nothing fixture accidentally pass under mut? corrections file absent → covered=∅ → remedy False everywhere → legs fail. But wait — DEADPOINTER pairs: remedy = is_covered and not is_live. is_covered False → remedy False. OK fails. LEGCOUNT/OVERREACH: remedy False. So r2.ok False → "FAIL (as required)". Yes, bites.
+
+  Hmm — wait, one more: in the do-nothing fixture, R68-M9 backfill is NOT appended → deadpointer is_live=True → also fails. Fine.
+
+  Let me also double check `evaluate()`'s `ok` logic: `ok = remedy and not (is_live and not remedy)`. For LEGCOUNT with covered: remedy=True, is_live=True → ok = True and not (True and False) = True and True = True. So a live mismatch with a correction row = PASS (that's by design: remedy is the appended row; the filed bytes stay frozen). OK.
+
+  Now also note the R68FROZEN leg on the REAL run: reads reports/round-68/accept-ca.py sha vs recorded in final-measures-ca.txt. Fine, read-only.
+
+  Real-run expectation: data not landed → corrections file missing → LEGCOUNT/OVERREACH legs show covered=False → unannotated>0 → ACCEPT-CA-69: FAIL (pre-data, expected). The MISMATCHES detail will show live counts. That's the "does the counter bite" evidence on the real tree: yes it bites (FAIL pre-data). Also OBSERVED and R68FROZEN legs status worth reporting.
+
+  Let me now also quickly check claims.json + telemetry/controls.txt + existence of corrections-r68.md. Then do mutations and runs.
+
+  Batch 1 (parallel):
+  - Read claims.json
+  - Read telemetry/controls.txt
+  - bash: ls corrections file; grep whitelist in copy; verify copy exists
+
+  Then Batch 2: mutation via python heredoc + diff to confirm.
+  Batch 3: run selftests (mut + orig) — can be parallel in one command with `;` or separate calls. They're quick (<5s each?). The selftest builds fixtures copying several files; fast.
+  Batch 4: real run of unmodified counter (cwd=lane).
+  Batch 5: driver script for false-accept demo.
+  Then write report.
+
+  Let me be careful with the python heredoc mutation string: the exact source lines are:
+
+  ```
+          if cls and surface and cls.upper() in ("LEGCOUNT", "DEADPOINTER",
+                                                  "OVERREACH"):
+              pairs.add((cls.upper(), surface))
+  ```
+
+  Replace with:
+
+  ```
+          if cls and surface:
+              pairs.add((cls.upper(), surface))
+  ```
+
+  And LANE line: `LANE = os.path.dirname(os.path.dirname(HERE))` → `LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"`.
+
+  I'll do it with python reading the copy and replacing exact substrings, asserting counts==1 each, then `diff -u` original vs mutated to show the mutation. 
+
+  For the driver, I need `import re` for section injection.
+
+  Also: task says "run the copy with --selftest and show the DO-NOTHING fixture still fails" — deliverable. "Then run the unmodified ... and paste the EVAL lines." — deliverable. "Does the counter's do-nothing control still bite?" — answer: yes for total absence (selftest FAIL as required), but the control is blind to wrong-class coverage — the whitelist is load-bearing for the class axis, and the do-nothing control alone cannot detect this mutation; a third control (wrong-class fixture must fail) is needed. That's my calibration finding, with evidence.
+
+  Let me go. First batch now.
+
+ls: cannot access '/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/corrections-r68.md': No such file or directory
+---
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /tmp/r69-revo4/accept-ca-anyrow.py
+• Copy is byte-identical (sha256 091074c5...). Baseline control receipt: GREEN 8/8, DO-NOTHING FAIL 2/8. Now apply the mutation to the /tmp copy: drop the class whitelist in `correction_pairs`, and patch LANE so the scratch copy can build fixtures from the real lane. Then diff to show exactly what changed.
+
+mutation applied
+--- /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py	2026-10-24 23:15:43.866045708 -0300
++++ /tmp/r69-revo4/accept-ca-anyrow.py	2026-10-24 23:43:27.824659427 -0300
+@@ -46,7 +46,7 @@
+ import tempfile
+ 
+ HERE = os.path.dirname(os.path.abspath(__file__))
+-LANE = os.path.dirname(os.path.dirname(HERE))
++LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"  # scratch copy: fixture source relocated
+ SELF = os.path.basename(__file__)
+ 
+ LEGCOUNT_RE = re.compile(r"(\d+)\s*/\s*(\d+)\s+legs\s+PASS")
+@@ -189,8 +189,7 @@
+         if len(cells) < 4:
+             continue
+         cls, surface = cells[1], cells[2]
+-        if cls and surface and cls.upper() in ("LEGCOUNT", "DEADPOINTER",
+-                                                "OVERREACH"):
++        if cls and surface:  # MUTATION: class whitelist dropped - ANY row covers ANY class
+             pairs.add((cls.upper(), surface))
+     return pairs
+ 
+• Mutation applied — exactly two hunks. Now run:
+  1. Mutated copy `--selftest` → expect GREEN PASS, DO-NOTHING FAIL (bites for total absence).
+  2. Original `--selftest` baseline for comparison.
+  3. Unmodified counter on the real tree (cwd=lane, `--root .`).
+
+  These are independent — run in parallel bash calls.
+
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+exit=0
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+exit=0
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+• Results so far:
+
+  1. Mutated copy --selftest: GREEN PASS 8/8, DO-NOTHING FAIL 2/8, SELFTEST 2/2 — identical to the original. So the do-nothing control does NOT distinguish the whitelist-dropped parser from the correct one. It still "bites" in the sense that the corrections-file-absent fixture fails, but it is blind to this mutation.
+
+  2. Real tree run: ACCEPT-CA-69 FAIL legs=2/8 — all five declared pairs are live and unannotated (corrections file absent, as the brief said). R68FROZEN and OBSERVED pass. This is the pre-data expected state.
+
+  Now the decisive probe: does the whitelist-dropped parser FALSELY ACCEPT? Build a fixture where the corrections file exists but its rows name the WRONG class (DEADPOINTER rows on every surface, when LEGCOUNT and OVERREACH coverage is needed), with a guaranteed-live LEGCOUNT mismatch injected into the scanned surfaces.
+
+  Driver script:
+
+  ```python
+  import importlib.util, os, re, tempfile
+
+  def load(name, path):
+      spec = importlib.util.spec_from_file_location(name, path)
+      m = importlib.util.module_from_spec(spec)
+      spec.loader.exec_module(m)
+      return m
+
+  LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"
+  orig = load("orig69", os.path.join(LANE, "reports", "round-69", "accept-ca.py"))
+  mut  = load("mut69", "/tmp/r69-revo4/accept-ca-anyrow.py")
+
+  with tempfile.TemporaryDirectory(prefix="ca69-false-accept-") as td:
+      for label, mod in (("ORIGINAL", orig), ("WHITELIST-DROPPED", mut)):
+          fx = os.path.join(td, label.lower().replace("-", ""))
+          mod.build_fixture_root(fx, with_corrections=True)
+
+          # guarantee a LIVE legcount mismatch inside the exact scanned surfaces
+          claims = mod.load_claims(fx)
+          obs = mod.observed_o_legs(fx) or (8, 9)
+          p, q = obs[0] + 1, obs[1] + 1
+          bad = "R68 operability claim: %d/%d legs PASS (rev04 attack injection)" % (p, q)
+          for pair in claims.get("calibration_pairs", []):
+              if pair["class"].upper() != "LEGCOUNT" or pair.get("fleet"):
+                  continue
+              path = os.path.join(fx, pair.get("path", ""))
+              text = open(path, encoding="utf-8").read()
+              sec = pair.get("section")
+              lines = text.splitlines(True)
+              out, done = [], False
+              for line in lines:
+                  out.append(line)
+                  if sec and not done and re.match(sec, line):
+                      out.append(bad + "\n")
+                      done = True
+              text = "".join(out)
+              if not sec:
+                  text += "\n" + bad + "\n"
+              open(path, "w", encoding="utf-8").write(text)
+
+          # corrections file: rows name the WRONG class for every surface
+          claims = mod.load_claims(fx)
+          rows = ["| class | surface | filed text | observed text | re-derivation command |",
+                  "|---|---|---|---|---|"]
+          for pair in claims.get("calibration_pairs", []):
+              rows.append("| DEADPOINTER | %s | filed | observed | command |" % pair["surface"])
+          with open(os.path.join(fx, mod.CORRECTIONS), "w", encoding="utf-8") as fh:
+              fh.write("\n".join(rows) + "\n")
+
+          fleet = os.path.join(fx, "fleet")
+          claims = mod.load_claims(fx)
+          res = mod.Result(quiet=True)
+          mod.evaluate(fx, fleet, claims, res)
+          print("== %s counter vs wrong-class correction rows ==" % label)
+          for name, ok, detail in res.legs:
+              print("LEG %s %s %s" % ("PASS" if ok else "FAIL", name, detail))
+          print("ACCEPT-CA: %s" % ("PASS" if res.ok else "FAIL"))
+          print()
+  ```
+
+  Wait — subtlety on section injection: the fixture's SCORECARD.md section `^## Axes — round 68` — the em-dash in the claims section regex. My injection inserts after the heading line matching that regex. Note text.splitlines(True) keeps line endings. Fine.
+
+  For LOG.md section `^## Round 68`.
+
+  One catch: `build_fixture_root` returns fleet path; the claims.json fleet-report pair path is rewritten inside build_fixture_root already. load_claims after that returns the rewritten claims. Good.
+
+  Another catch: DEADPOINTER pair in fixture — green fixture appended R68-M9 backfill row to corpus/lessons/round-69.md, so `mistake_rows_exist` finds R68-M9 → is_live=False → remedy = is_covered and not is_live. With wrong-class rows (DEADPOINTER|fleet-report surface — note the surface key is ".ufo/reports/round-68/kotodama.md"), covered includes ("DEADPOINTER", ".ufo/reports/round-68/kotodama.md") for both original and mutated (it IS a genuine DEADPOINTER row). So that leg passes in both. Good — the contrast legs are the LEGCOUNT and OVERREACH ones.
+
+  OVERREACH: detect_overreach scans SCORECARD section for `| calibration |` row with verdict starting "improved". The real SCORECARD round-68 section presumably has "improved (...)" and ca_verdict in fixture = FAIL (receipt says crash → no "ACCEPT-CA-68: PASS"). So is_live=True. remedy for OVERREACH = is_covered. Original: covered needs ("OVERREACH", "SCORECARD.md") — wrong-class rows don't provide → FAIL. Mutated: covered has ("DEADPOINTER","SCORECARD.md") — and since whitelist dropped, the parser accepted ("DEADPOINTER","SCORECARD.md") into covered, but the pair lookup is ("OVERREACH","SCORECARD.md") — NOT in covered! 
+
+  Hold on. The coverage lookup is exact-match on (cls, key): `is_covered = (cls, key) in covered`. Dropping the whitelist means covered can contain arbitrary-class pairs, but the lookup still requires the DECLARED class. So a row naming DEADPOINTER on SCORECARD.md does NOT cover the OVERREACH|SCORECARD.md pair even in the mutated version!
+
+  Hmm. So what does the whitelist drop actually enable? It lets a row whose class is NOT one of the three declared classes count as coverage for a pair whose declared class EQUALS that row's class string. E.g., a row "| LEGCOUNT-2 | SCORECARD.md |" covers nothing (lookup is LEGCOUNT). A row "| LEGCOUNT | SCORECARD.md |" covers — but that's whitelisted anyway.
+
+  Wait, so what false acceptance is possible? covered contains (row_class, row_surface). Lookup (declared_cls, key). False accept requires row_class == declared_cls but row_class ∉ whitelist — impossible since declared classes are exactly the whitelist. UNLESS case: cls.upper() — row "| legcount | ..." whitelisted too (upper() in tuple).
+
+  Hmm! So dropping the whitelist has NO effect on evaluate() at all, given the five declared pairs all use whitelisted classes? Let me re-check: `covered` = set of (upper(row_class), row_surface). Lookup `(cls, key) in covered` where cls = declared class upper. For the lookup to hit, row_class.upper() must equal declared class — which is in the whitelist. So any row that matches a lookup key is by definition a whitelisted class. Dropping the whitelist only adds junk pairs like ("---","---"), ("CLASS","SURFACE") that never match a lookup. 
+
+  So the mutation is a no-op on the verdicts! That's... the finding then becomes different: the whitelist is REDUNDANT defense — the exact-match (class, surface) lookup already enforces the class axis. The do-nothing control still bites; the mutation cannot cause a false accept through this parser because the class is enforced at lookup, not at parse.
+
+  But wait — is that entirely true? Consider the header row: cells[1]="class", cells[2]="surface" → ("CLASS","SURFACE"). Separator: cells = ["", "---", "---", ...] → cells[1]="---" nonempty → ("---","---"). Neither matches. And a row with fewer than 4 cells is skipped. A row where surface cell is empty → skipped by `if cls and surface`.
+
+  Hmm, but there IS one subtle difference: cells[1] for the separator row `|---|---|---|---|---|` — split on "|" gives ["", "---", "---", "---", "---", "---"] — 6 cells ≥ 4 → included. Junk pair. No lookup match.
+
+  So my false-accept hypothesis is WRONG — good, that's exactly what the probe will show. The driver will demonstrate: ORIGINAL and MUTATED produce IDENTICAL verdicts on the wrong-class fixture (both fail LEGCOUNT/OVERREACH legs, covered=False). The mutation is verdict-neutral. 
+
+  Hmm wait, but then let me reconsider the attack surface once more. Is there any path where a non-whitelisted row class could match a lookup? Lookup keys come from claims.json `class` fields: LEGCOUNT, DEADPOINTER, OVERREACH (all upper). covered keys are row_class.upper(). Match ⟺ row_class.upper() ∈ {LEGCOUNT, DEADPOINTER, OVERREACH} (for a matching surface) ⟺ row_class.upper() in whitelist. So the whitelist condition is strictly implied by the lookup for any row that matters. Formally: whitelist = lookup-key filter. Redundant.
+
+  BUT — one more angle: `pairs.add((cls.upper(), surface))`. With the whitelist dropped, a row like "| deadpointer | .ufo/reports/round-68/kotodama.md |" — upper() → DEADPOINTER — matches, but that's whitelisted. What about a row with EXTRA whitespace in class, e.g. "| LEG COUNT | ..." → "LEG COUNT" ≠ "LEGCOUNT" — no match either way.
+
+  OK so the honest finding: the LEGCOUNT-detector attack via the corrections parser whitelist is verdict-neutral — the parser's whitelist is defense-in-depth that the (cls, key) exact-match lookup already guarantees; mutating it away changes nothing observable. The do-nothing control still bites (FAIL as required), and even the wrong-class fixture is correctly rejected by BOTH versions. The counter survives this attack.
+
+  Wait, wait. Let me double-check `is_covered` line 251: `is_covered = (cls, key) in covered` — yes, cls is the declared class from claims (uppered at line 235). key is the surface key. Yes.
+
+  So the probe outcome:
+  - mutated selftest: identical to original (GREEN PASS, DO-NOTHING FAIL).
+  - wrong-class fixture: identical verdicts orig vs mut — LEGCOUNT legs FAIL covered=False in both; DEADPOINTER leg PASS in both (its own row is genuine); OVERREACH FAIL in both; MISMATCHES unannotated>0 in both.
+  - real tree: FAIL 2/8 pre-data, all five pairs live+unannotated. Counter bites on the real tree too.
+
+  Conclusion: do-nothing control still bites; moreover the whitelist mutation is a no-op — coverage requires an exact (declared-class, declared-surface) row, so the class axis is enforced by lookup, not by the parser gate. One residual note: the parser gate does filter junk rows from `covered` (e.g. header/separator cells), which with the drop would add ("CLASS","SURFACE")/("---","---") pairs — harmless noise, no verdict effect. And a defense-in-depth note: if a future claims.json ever declared a class outside the three-name tuple, the original parser would IGNORE its correction rows (parse-side gate rejects → covered misses → unfixable claim) while the mutated one would cover it — i.e., the whitelist couples the parser to the claims taxonomy; the lookup does not. That's a real but minor coupling observation, not a false accept.
+
+  Actually — hmm, that last point deserves a quick empirical check since it's cheap: does a correction row with class "TYPOCLASS" for a declared pair get ignored by the ORIGINAL parser? My wrong-class fixture already demonstrates exactly that (DEADPOINTER rows → LEGCOUNT pairs uncovered in original). Covered.
+
+  Let me also double-check the "9/10" hits on the real tree: o-legs observed (8,9); SCORECARD/LOG/fleet claim "9/10 legs PASS" → live LEGCOUNT mismatches ×4 occurrences across 3 surfaces. And the fleet report claims 9/10 twice. And R68-M9 pointer live (no lesson row yet). And OVERREACH live ("improved" vs receipt FAIL). All consistent with the brief's "data not landed yet". Good.
+
+  Now run the driver. Then write the report.
+
+  One more check to include for rigor: confirm that with the whitelist dropped, `correction_pairs` on the GREEN fixture's generated corrections file returns the same set as original (5 pairs vs 5 + 2 junk). I can print covered sets in the driver for the green fixture — cheap and makes the "mutation only adds junk pairs that never match" claim concrete. I'll add that.
+
+  Driver additions: after building green fixture for mut (with_corrections=True), print sorted(correction_pairs(fx)) for both mods and their difference. Actually simpler: read the lane-side? corrections-r68.md doesn't exist in lane; use the fixture. I'll do it inside the loop before overwriting corrections: capture `mod.correction_pairs(fx)`.
+
+  Let me write the driver file and run it.
+
+== parse sets on the identical green fixture corrections file ==
+ORIGINAL          covered set: [('DEADPOINTER', '.ufo/reports/round-68/kotodama.md'), ('LEGCOUNT', '.ufo/reports/round-68/kotodama.md'), ('LEGCOUNT', 'LOG.md'), ('LEGCOUNT', 'SCORECARD.md'), ('OVERREACH', 'SCORECARD.md')]
+WHITELIST-DROPPED covered set: [('---', '---'), ('CLASS', 'surface'), ('DEADPOINTER', '.ufo/reports/round-68/kotodama.md'), ('LEGCOUNT', '.ufo/reports/round-68/kotodama.md'), ('LEGCOUNT', 'LOG.md'), ('LEGCOUNT', 'SCORECARD.md'), ('OVERREACH', 'SCORECARD.md')]
+added by dropping the whitelist: [('---', '---'), ('CLASS', 'surface')]
+
+== ORIGINAL counter vs wrong-class (DEADPOINTER) correction rows ==
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA: FAIL
+
+== WHITELIST-DROPPED counter vs wrong-class (DEADPOINTER) correction rows ==
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA: FAIL
+
+• The probe is conclusive:
+
+  1. Parse sets: dropping the whitelist only adds junk pairs `('---','---')` (separator row) and `('CLASS','surface')` (header row) — these can never match a lookup key because coverage is matched by exact `(declared_class, surface)` at `is_covered = (cls, key) in covered` (accept-ca.py:251), and every declared class is in the whitelist.
+
+  2. Wrong-class fixture: ORIGINAL and WHITELIST-DROPPED produce byte-identical verdicts — both FAIL, both reject wrong-class rows. No false accept.
+
+  3. The mutation is verdict-neutral. The whitelist is redundant defense-in-depth: the class axis is enforced at lookup, not at parse.
+
+  Residual observations worth recording:
+  - The junk pairs are harmless but noisy; if a future claims.json declared a class outside the 3-name tuple, the ORIGINAL parser would silently ignore that class's correction rows (parse gate rejects → coverage impossible → claim unfixable by design), while the mutated parser would cover it. I.e., the whitelist couples the parser to the claims taxonomy; a claims-declared-but-unknown class would make an unfixable claim under the original. That's a coupling observation, not a defect observed here (all 5 declared pairs use whitelisted classes — verified: LEGCOUNT×3, DEADPOINTER×1, OVERREACH×1).
+  - Do-nothing control: still bites (FAIL as required) — identical to the pre-data control receipt (controls.txt: GREEN 8/8, DO-NOTHING FAIL 2/8). But the control is blind to parser mutations of this class: it only tests "corrections file entirely absent". It cannot distinguish the mutated parser from the original — demonstrated by identical selftest output. The control that WOULD bite on a genuine coverage-forgiveness mutation is the wrong-class fixture (a third control: corrections present but non-conforming must FAIL) — and the counter passes that one too, so no gap remains on this axis.
+
+  Also the real-tree run: ACCEPT-CA-69: FAIL legs=2/8, unannotated_mismatches=5 — all five declared pairs live and uncovered, exactly the pre-data state the brief describes (corrections-r68.md absent, verified: ls → No such file). R68FROZEN PASS (a6d1c1c24e77 both), OBSERVED PASS (o-legs=(8,9), ca-verdict=FAIL — the R68-M9 crash receipt). Counter bites on the real tree.
+
+  One more sanity check for the report: the divergence hunt — is there ANY input where orig and mut differ? Formally: verdict differs only if some (row_class.upper(), row_surface) ∈ added-junk matches a lookup (cls, key). Lookup keys have cls ∈ {LEGCOUNT, DEADPOINTER, OVERREACH}; junk row classes are arbitrary strings from rows... wait, no — the "added" set isn't limited to header/separator; ANY row with a non-whitelisted class gets added, e.g. "| LEGCOUNT " (with trailing space → "LEGCOUNT" after strip — that's whitelisted). What about a row "| LEGCOUNT |" where surface empty → skipped. Hmm, what about case: "| deadpointer |" → upper → DEADPOINTER — whitelisted already. So a non-whitelisted class string can never equal a whitelisted class string after .upper(). QED: verdict-neutral for any corrections content, given claims classes ⊆ whitelist. The only divergence scenario is claims declaring a non-whitelisted class (not the case here; and if it were, mut would accept rows the orig ignores). I'll state this as a proved invariant with the strip/upper reasoning, plus the empirical parse-set diff.
+
+  I don't think I need more probes. Time to write the report.
+
+  Report content plan (markdown, with exact commands + real output, VERDICT lines):
+
+  - Header: seat, round, date, scope (attack LEGCOUNT detector of accept-ca.py via corrections-parser whitelist drop).
+  - Method: three probes.
+  - Probe 1: mutation spec + diff (2 hunks: LANE relocation = harness-only, whitelist drop = the attack).
+  - Probe 2: --selftest mutated vs original vs pre-data control receipt → identical; DO-NOTHING still FAILs (bites) → VERDICT lines.
+  - Probe 3: real-tree run, EVAL lines pasted → ACCEPT-CA-69: FAIL legs=2/8, unannotated=5 → bites pre-data. Corrections file confirmed absent.
+  - Probe 4: false-accept probe → parse sets, wrong-class fixture, identical verdicts → no false accept; whitelist redundant (class enforced by exact-match lookup at accept-ca.py:251); junk pairs enumerated; divergence-impossibility argument; residual coupling note (non-whitelisted declared class would be unfixable under original).
+  - Findings/VERDICT summary:
+    - VERDICT: PASS — do-nothing control still bites (mutated selftest FAILs DO-NOTHING as required; matches committed controls.txt receipt).
+    - VERDICT: PASS — counter bites on the real tree (ACCEPT-CA-69 FAIL legs=2/8, unannotated_mismatches=5, all five declared pairs live+uncovered, pre-data as declared).
+    - VERDICT: PASS — attack repelled: whitelist drop is verdict-neutral, no false accept (exact (class,surface) lookup enforces the class axis).
+    - Finding (minor, to-consider): parse-side whitelist couples the parser to the claims taxonomy — a future claims.json class outside the tuple would make its correction rows unparseable (coverage permanently false → claim unfixable). Not triggered by the current 5 pairs. Left to L1; no production edit (out of my scope).
+    - Finding: DO-NOTHING control is blind to coverage-forgiveness mutations in principle (it only exercises "file absent"); the wrong-class fixture (third control) is what actually probes it — suggest L1 consider adding it to telemetry controls if a future mutation class needs guarding. Present counter already survives it.
+  - Environment notes: sha256 of the counter at attack time (091074c5…), copy path, no production bytes touched, no installs (RULES.md read not needed since nothing installed — actually I should note I installed nothing).
+  - Command transcript with real outputs.
+
+  Also note exit codes: selftest exit=0 both; real run exit=1.
+
+  The probe's injected fixture numbers: original run of probe used hits ['9/10','9/10'] on SCORECARD (my injected 9/9? wait — obs=(8,9), injected "9/10 legs PASS" — I wrote obs[0]+1, obs[1]+1 = 9/10. Yes matches the real filed text too, coincidentally — the fixture copies real files which already claim 9/10, plus my injection adds one more occurrence, hence '9/10','9/10' per surface).
+
+  live_mismatches=4 in the wrong-class probe vs 5 in the real-tree run: in the probe fixture, the fleet report is the REAL fleet kotodama.md copied in — wait, real-tree run had hits=['9/10','9/10'] for fleet too, and unannotated=5 (five pairs). Probe had live_mismatches=4 — because in the probe fixture the DEADPOINTER pair is NOT live (R68-M9 backfill row present in the green fixture), so 4 live mismatches (3 LEGCOUNT + 1 OVERREACH). Consistent.
+
+  Directory for report: mkdir -p .ufo/waves/round-69/w1/ then Write.
+
+  Let me write the report now. Keep it tight but complete with real outputs. Also include the sha256s of the mutated copy for reproducibility.
+
+4ac4d77477f23cdd06556c1199c1976d66cade94592c69e419ce539dd94df5fd  /tmp/r69-revo4/accept-ca-anyrow.py

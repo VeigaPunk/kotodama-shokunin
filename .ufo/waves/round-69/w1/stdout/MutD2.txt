@@ -1,0 +1,30 @@
+• Lane context confirmed: SKILL.md has `## Error patterns` (line 468), zero occurrences of the five signature names, no S859 row yet, and the counter is committed clean (HEAD 6a98d7d, sha256 `06b0352a…`). Now I'll build the mutant counter and the three fixtures in /tmp.
+
+• The signature extraction picked up the markdown separator row (`|---|...`). Fixing the filter:
+
+• Missing `makedirs` for the fixture root before writing SKILL.md — patching:
+
+• Fixtures built with verified properties (each signature appears exactly once — in the table only — and nowhere in `## Error patterns`). Now the three counter runs plus selftest:
+
+• RUN A/C show `STAMP committed=none` — my confound: `SELF` is `basename(__file__)`, so the mutant must be *named* `accept-d.py` for the STAMP leg to even look at the committed copy. Renaming the mutant into its own dir and re-running A and C properly:
+
+• Both differential runs are now clean. One context line — the unmodified counter against the real (pre-data) lane — then I write the report:
+
+• All runs complete. Writing the report:
+
+• Mutation test complete. Summary of what ran and what it showed:
+
+  **Setup** — Copied `reports/round-69/accept-d.py` (sha256 `06b0352a…`, committed clean at HEAD `6a98d7d…`) to /tmp, patched exactly one line (`res.add("SIGNATURES", not missing_sig, …)` → `res.add("SIGNATURES", True, …)`), and built three fixture trees whose SKILL.md carries the five-state decision table with each signature name occurring exactly once — in the table only — and **zero times** under `## Error patterns`.
+
+  **Results**:
+  - Mutant on the signature-free-of-Error-patterns fixture: `ACCEPT-D-69: PASS legs=8/8`, exit 0 → SIGNATURES is the only leg that reads `## Error patterns`; dropping it skips the linkage entirely.
+  - Unmodified counter on the identical tree: `LEG FAIL SIGNATURES missing=[all five names]`, exit 1 → the leg is load-bearing.
+  - Mutant against an intact committed counter copy: `LEG FAIL STAMP self=23efe0c0… committed=06b0352a…` → the skip is tamper-**evident**, not silent.
+  - Unmodified `--selftest`: `GREEN FIXTURE: PASS (legs 8/8)` / `DO-NOTHING FIXTURE: FAIL (as required) (legs 1/8)` / `SELFTEST: 2/2`, exit 0.
+
+  **Answer**: the error-signature linkage can be skipped only by mutating the counter *and* replacing the committed copy at `reports/round-69/accept-d.py` — a visible production-file diff under jj/git. Against the frozen counter it cannot be skipped. Non-blocking design notes in the report: SIGNATURES is bare substring matching (any occurrence anywhere in the section passes), STAMP anchors to `basename(__file__)` rather than a VCS digest, and a one-line hardening (compare STAMP against `git rev-parse HEAD:reports/round-69/accept-d.py` content) would close the working-copy-swap gap.
+
+  All mutations stayed in `/tmp/mutd2`; the lane was touched only read-only, plus the single report file.
+
+  Report: .ufo/waves/round-69/w1/MutD2.md
+

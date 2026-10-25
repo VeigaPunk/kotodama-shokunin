@@ -1,0 +1,827 @@
+kimi version 2.3.1
+• Let me understand my task:
+
+  1. I'm a leaf seat (RevO6) in a round-69 v1 wave
+  2. My job: attack the OVERREACH detector of `reports/round-69/accept-ca.py`
+  3. Specifically: copy SCORECARD.md to /tmp, change the round-68 calibration row's verdict cell from 'improved ...' to 'not verified as declared ...', show the detector stops firing; then change to 'harmed' and show it still fires
+  4. Write report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/RevO6.md
+  5. Read-only on production files; only write my report + /tmp scratch
+  6. No network fetching, no git mutations
+
+  Let me start by reading the relevant files:
+  - reports/round-69/accept-ca.py (the detector)
+  - SCORECARD.md (the round-68 section)
+  - /home/vgpnk/.omp/agent/RULES.md (only if I need to install something — probably not needed)
+
+  Let me do this in parallel batches.prompts
+reports
+stdout
+swarm-registry.json
+scratch-ready
+Now I understand the detector. Let me look at the key function:
+
+  ```python
+  def detect_overreach(text, ca_verdict):
+      if text is None or ca_verdict is None:
+          return None
+      for line in text.splitlines():
+          if not line.startswith("| calibration |"):
+              continue
+          cells = [c.strip() for c in line.split("|")]
+          verdict = cells[2] if len(cells) > 2 else ""
+          if verdict.startswith("improved") and ca_verdict != "PASS":
+              return ["calibration verdict %r vs receipt %s" % (
+                  verdict.split("(")[0].strip(), ca_verdict)]
+      return []
+  ```
+
+  The OVERREACH detector:
+  - Finds lines starting with `| calibration |`
+  - Extracts the verdict cell (cells[2] — note cells[0] is empty since line starts with `|`)
+  - If verdict starts with "improved" AND the committed round-68 calibration receipt verdict != "PASS", it fires (returns a hit).
+
+  So the logic: filed "improved" but the receipt says FAIL → overreach.
+
+  Now, the round-68 receipt (`reports/round-68/telemetry/final-measures-ca.txt`) — what does it say? I need to check whether `ACCEPT-CA-68: PASS` is in it. The `observed_ca_verdict` returns "PASS" if "ACCEPT-CA-68: PASS" in text else "FAIL".
+
+  Wait — important: the current state of the repo is "pre-data" for round 69 but the round-68 receipts are committed. Let me check the actual verdict of the round-68 receipt.
+
+  My attack assignment:
+  1. Copy SCORECARD.md to /tmp, change the round-68 calibration row's verdict cell from 'improved ...' to 'not verified as declared ...' → show the detector STOPS firing.
+  2. Change it to 'harmed' → show it STILL fires?? 
+
+  Wait, that seems backwards. If verdict is 'harmed', then `verdict.startswith("improved")` is False, so the detector would NOT fire. Hmm, let me re-read the task:
+
+  "change the round-68 calibration row's verdict cell from 'improved ...' to 'not verified as declared ...', and show the detector stops firing; then change it to 'harmed' and show it still fires."
+
+  Hmm — "show it still fires". Wait. If the verdict is changed to 'harmed', `startswith("improved")` is False → detector does not fire (returns []). So "show it still fires" would be false — unless the task means the overall counter still fires/flags something else... or unless the round-68 receipt says PASS, in which case even 'improved' doesn't fire currently...
+
+  Wait, let me think again. The task says: change to 'not verified as declared' → detector stops firing. That's consistent: doesn't start with "improved" → no hit. Change to 'harmed' → "show it still fires"?? That contradicts the code logic.
+
+  Hmm, unless "fires" here means something different. Let me reconsider: maybe the phrase means "the counter still flags the row as a mismatch" — i.e., the counter catches BOTH mutated variants? No...
+
+  Actually wait — maybe there's an ambiguity in "the detector stops firing" vs "still fires". Let me re-read:
+
+  "copy SCORECARD.md to /tmp, change the round-68 calibration row's verdict cell from 'improved ...' to 'not verified as declared ...', and show the detector stops firing; then change it to 'harmed' and show it still fires."
+
+  Hmm, maybe the intent: the OVERREACH detector is a *narrow* detector — it only catches "improved" claims contradicted by the receipt. The attack is to show that:
+  - 'not verified as declared' → OVERREACH stops firing (the detector is silent)
+  - 'harmed' → ...hmm.
+
+  Actually maybe the attack intent is to demonstrate an OVERREACH-detection GAP: a filed verdict of 'harmed' when the receipt says PASS would be... no wait, that's not overreach either.
+
+  Hold on. Let me think about what the actual committed receipt says. If `final-measures-ca.txt` says `ACCEPT-CA-68: PASS`, then:
+  - 'improved ...' → no fire (ca_verdict == PASS) — detector correctly silent
+  - 'not verified as declared' → no fire
+  - 'harmed' → no fire
+
+  In that case the detector never fires on any variant. Then the task's demonstration can't show anything firing...
+
+  Unless the counter as a whole (all legs) still FAILs because of LEGCOUNT/DEADPOINTER legs from the other claims.json pairs, and the corrections file doesn't exist yet (the "not landed yet" data). Indeed: `reports/round-69/corrections-r68.md` is NOT LANDED YET, so `correction_pairs` returns empty set → all is_covered=False → EVAL legs FAIL and MISMATCHES leg shows unannotated>0. So the overall counter prints ACCEPT-CA-69: FAIL regardless.
+
+  So "the detector still fires" might mean "the counter still fails / still flags the surface" — because remedy is missing (covered=False). Let's parse more carefully:
+
+  With `with_corrections` absent (real lane, pre-data):
+  - EVAL OVERREACH|scorecard-r68 leg: ok = remedy = is_covered = False → leg FAILS.
+  - So the counter "fires" (fails) in ALL variants — whether the verdict cell is 'improved', 'not verified as declared', or 'harmed' — because the leg fails on missing coverage, not on live detection.
+
+  Hmm, but then "show the detector stops firing" for 'not verified as declared'... In the leg detail, `live=False` vs `live=True`. So the "detection" part of the leg detail changes: for 'improved' (with ca_verdict FAIL) live=True; for 'not verified as declared' live=False; for 'harmed' live=False.
+
+  Wait — so what does the round-68 receipt actually say? I need to check. If `final-measures-ca.txt` contains "ACCEPT-CA-68: PASS", then ca_verdict = PASS, and detect_overreach NEVER fires for 'improved' either (since ca_verdict == "PASS"). Then the whole overreach detector is dead code on the current tree — that itself is a huge finding: the OVERREACH detector cannot fire at all on the current receipts, because the round-68 receipt is PASS.
+
+  But wait — the round-68 counter crashed (R68-M9, undefined `git_bytes`). The round-68 receipt `final-measures-ca.txt`... the round-69 counter docstring says "the round-68 counter's crash (undefined `git_bytes`, R68-M9)". So the round-68 ACCEPT-CA receipt likely says FAIL or crashed. `observed_ca_verdict` returns "PASS" if "ACCEPT-CA-68: PASS" in text else "FAIL". So if the receipt recorded ACCEPT-CA-68: FAIL (or a crash line), ca_verdict = "FAIL".
+
+  Then on the unmodified SCORECARD ('improved ...'), detect_overreach fires (live=True). With corrections missing → unannotated=1.
+
+  My mutations:
+  1. 'not verified as declared ...' → live=False, covered=False → remedy=False → unannotated=1 still! Because unannotated counts `is_live and not remedy`... wait:
+
+  ```python
+  if is_live:
+      live_count += 1
+  is_covered = (cls, key) in covered
+  ...
+  remedy = is_covered  # for non-DEADPOINTER
+  if is_live and not remedy:
+      unannotated += 1
+  ok = remedy and not (is_live and not remedy)
+  ```
+
+  unannotated += 1 only when is_live and not remedy. So:
+  - 'improved' + ca FAIL + no corrections: live=True, covered=False → unannotated=1. MISMATCHES leg FAIL.
+  - 'not verified as declared' + no corrections: live=False, covered=False → unannotated=0 for this pair. But other pairs (LEGCOUNT, DEADPOINTER) may still contribute.
+
+  So on mutation 1, if the other pairs are also live... LEGCOUNT and DEADPOINTER legs still fire (they're separate classes on other surfaces or the same surface). Let me look at claims.json to see the calibration_pairs.
+
+  So the task's phrasing makes sense now:
+  - Mutation 1 ('not verified as declared'): the OVERREACH detection stops firing (live=False in that leg's detail) — the specific detector goes quiet.
+  - Mutation 2 ('harmed'): "show it still fires" — hmm, 'harmed' also doesn't start with "improved", so live=False too...
+
+  Unless "still fires" means the MISMATCHES counter still reports unannotated=1 due to the OTHER classes? Or maybe 'harmed' — wait, does 'harmed' start with 'improved'? No.
+
+  Hmm wait, wait. Let me reconsider. Maybe the attack is meant to show a HOLE: 'harmed' when the receipt says PASS would be... no.
+
+  Actually, hold on. Let me reconsider the phrase: "then change it to 'harmed' and show it still fires." Maybe the intended demonstration: with verdict 'harmed', the OVERREACH detector (live detection) does NOT fire, but the counter's EVAL leg STILL fails (because coverage missing) — i.e., the counter "fires" (prints FAIL) regardless. That would demonstrate that the round-69 counter's pass/fail is driven by the append-only correction rows (the remedy), not by live detection — the live detection just determines whether the mismatch is counted as "unannotated".
+
+  Hmm, but that's a somewhat confusing demonstration. Alternatively "still fires" could be a mistake in the task prompt, or the prompt author intends: 'harmed' → the detector's leg detail shows live=False → the OVERREACH live-detection is shown to be blind to 'harmed'-vs-'improved' reclassification... 
+
+  Hmm wait, actually maybe I have it backwards. What if the point is: 'not verified as declared' is what the round-68 SCORECARD actually says for the OPERABILITY row, and the calibration row says 'improved'. The attack mutates the calibration row to 'not verified as declared' — the detector stops firing (because it only matches 'improved'). Then 'harmed' — hmm, 'harmed' still... 
+
+  Oh wait! Maybe I should think about it differently. What if ca_verdict is PASS? Then:
+  - 'improved' → no fire.
+  - 'not verified as declared' → no fire.
+  - 'harmed' → no fire.
+
+  Never fires. Hmm.
+
+  But what if the round-68 receipt is such that "ACCEPT-CA-68: PASS" IS in it? The docstring says the round-68 counter crashed with undefined git_bytes — but the receipt might still record ACCEPT-CA-68: PASS from... no, if it crashed it wouldn't print the final line. Let me just check the receipt.
+
+  Also I need to check claims.json for the calibration_pairs list to know which surfaces are evaluated and their section regexes (the SCORECARD pair's `section` regex — probably "## Axes — round 68").
+
+  Let me also check `final-measures-o.txt` for the LEGCOUNT leg.
+
+  Let me read those files now. Then run the actual experiments:
+
+  Experiment plan (all in /tmp copies — mutate a COPY of the whole tree? No — the task says copy SCORECARD.md to /tmp. But the counter needs a full tree with --root. Options:
+
+  Option A: copy the lane tree (or a minimal fixture) to /tmp and run `accept-ca.py --root /tmp/copy` — but accept-ca.py computes LANE from HERE = script location: LANE = dirname(dirname(HERE)) where HERE = dirname(abspath(__file__)). If I copy the whole `reports/round-69/` dir into a /tmp tree root, LANE would resolve to the /tmp tree root. The selftest's build_fixture_root does exactly this: copies the script + claims.json + round-68 receipts + SCORECARD.md + LOG.md + lessons into a temp root.
+
+  So for my mutation tests, I should replicate that: create /tmp/rev-o6/tree/ with:
+  - reports/round-69/accept-ca.py (copy — running the copy keeps LANE = /tmp tree)
+  - reports/round-69/claims.json
+  - reports/round-68/accept-ca.py (needed for R68FROZEN sha)
+  - reports/round-68/telemetry/final-measures-ca.txt
+  - reports/round-68/telemetry/final-measures-o.txt
+  - SCORECARD.md (my mutated copy)
+  - LOG.md
+  - corpus/lessons/round-68.md, round-69.md
+  - corpus/SOURCES.md (copied by fixture; probably not needed but harmless)
+  - fleet dir: .ufo/reports/round-68/kotodama.md (for the fleet-report pair)
+
+  Wait, but does the fixture include corpus/lessons files? mistake_rows_exist reads LOG.md, corpus/lessons/round-68.md, corpus/lessons/round-69.md. Those exist in the lane. Copy them.
+
+  But hold on — the task says "copy SCORECARD.md to /tmp, change the round-68 calibration row's verdict cell... and show the detector stops firing". Maybe simpler: run the counter with `--root` pointing to a /tmp tree. The counter reads SCORECARD.md from `--root`. If I run the real script against a fake root, LANE (used only in build_fixture_root for selftest) doesn't matter. The claims.json is loaded from `--root`/CLAIMS. So the fake root needs claims.json too.
+
+  Plan: 
+  1. Build /tmp/rev-o6/base/ — copy the files listed above from the real lane (this mirrors build_fixture_root, but WITHOUT corrections — matching the real pre-data lane state).
+
+  Wait, but should the fleet report be included? The fleet-report pair reads from fleet_root (default /home/vgpnk/Projects/shokunin) — reading is fine (read-only). But to keep everything self-contained and reproducible, I'll copy the fleet report into the /tmp tree and pass --fleet-root /tmp/rev-o6/base/fleet... hmm, actually the default fleet-root is the real fleet root; reading it is allowed. But the task says "copy SCORECARD.md to /tmp" and mutate the copy. The cleanest demonstration isolates ALL surfaces under /tmp so my mutations are the only difference. The fleet report's text may itself contain overreach triggers, but that's a separate pair (different surface key). Since the fleet-report surface is not mutated, its behavior is constant across my three runs — fine either way. I'll copy it into the /tmp fixture to make runs hermetic.
+
+  2. Baseline run: `python3 /tmp/rev-o6/base/reports/round-69/accept-ca.py --root /tmp/rev-o6/base --fleet-root /tmp/rev-o6/base/fleet` → record output. Expect EVAL OVERREACH|scorecard-r68 live=True (if ca receipt FAIL) → unannotated=1 → ACCEPT-CA-69: FAIL.
+
+  3. Mutation A: sed the calibration row verdict 'improved (claim Ca, records)' → 'not verified as declared (claim Ca, records)' in /tmp copy of SCORECARD.md → re-run → EVAL OVERREACH leg detail live=False → detector stopped firing. Note: leg still FAILs if corrections absent (covered=False) — I must be careful in interpreting "the detector stops firing": the live-detection stops, but the leg may still fail. To isolate the DETECTOR from the remedy machinery, I could also run with corrections present (green fixture style): build fixture WITH correction rows, so the only variable is live detection. Then:
+     - Baseline (improved + corrections present + ca FAIL): live=True → is_live and not remedy → unannotated=1 → EVAL leg FAIL + MISMATCHES unannotated=1 → ACCEPT-CA-69: FAIL. Detector FIRES.
+     - Mutation A ('not verified as declared' + corrections): live=False, covered=True → remedy=True, unannotated=0 → EVAL leg PASS → counter PASS for that leg. Detector STOPPED firing. 
+     - Mutation B ('harmed' + corrections): live=False → same as A → detector ALSO stopped firing?! Then "show it still fires" fails...
+
+  Hmm. So under the green-fixture-with-corrections variant, 'harmed' would NOT fire either. So the claim "show it still fires" must be about something else.
+
+  Let me re-read the task once more: "Attack the OVERREACH detector of reports/round-69/accept-ca.py: copy SCORECARD.md to /tmp, change the round-68 calibration row's verdict cell from 'improved ...' to 'not verified as declared ...', and show the detector stops firing; then change it to 'harmed' and show it still fires."
+
+  Hmm hold on. Maybe I mis-assume what "fires" means. Maybe "the detector stops firing" = the OVERREACH leg flips (live=True → live=False), and "show it still fires" refers to the WHOLE counter still printing FAIL (because the other legs — LEGCOUNT, DEADPOINTER — still fire, and/or the OVERREACH leg still fails on uncovered remedy). I.e., the demonstration: the detector's specificity doesn't matter to the counter's verdict — the counter fails regardless; what changes is whether the mismatch is counted as unannotated.
+
+  Wait, actually — maybe there's yet another reading. 'harmed'... the round-68 receipt verdict — what if it says PASS? Let me stop speculating and READ the receipts and claims.json. Then design the demonstration around what the code actually does, and report faithfully what I observe — including any divergence from the task's expectation (the task might deliberately set up an expectation that the code contradicts — that IS the attack: show whether the premise holds).
+
+  Actually — wait. Now I realize a much more interesting possibility. What if the fleet report or the LOG/SCORECARD LEGCOUNT/DEADPOINTER pairs keep firing such that the MISMATCHES leg FAILs regardless? Then: 'improved' → live=True; 'not verified as declared' → live=False; 'harmed' → live=False. Both mutations stop the OVERREACH detector. The task says 'harmed' "still fires" — if that's FALSE in observation, my report states VERDICT: FAIL for that sub-claim and records the finding. That's a legitimate attack outcome: I show the detector treats 'harmed' identically to 'not verified as declared' — i.e., the OVERREACH detector is a one-trick detector keyed on the literal prefix 'improved'; it cannot distinguish 'harmed' from 'not verified as declared', and (if ca PASS) it cannot fire at all.
+
+  Hmm, but hold on, maybe the intended demonstration with 'harmed' is: change verdict to 'harmed' while... no wait. Hmm, actually, let me reconsider: maybe ca_verdict is PASS (round-68 receipt says PASS despite the counter crash? Let me check). If ca_verdict == PASS:
+
+  - Baseline 'improved': live=False. Detector never fires.
+  - Mutation A 'not verified as declared': live=False.
+  - Mutation B 'harmed': live=False.
+
+  Never fires in any case → the OVERREACH detector is DEAD on the current receipts → huge finding: the detector can never catch an overreach while the round-68 receipt reads PASS, and it also can't catch 'harmed' claims contradicted by a PASS receipt (a REAL overreach: claiming 'harmed' when receipt says... hmm, actually 'harmed' + receipt FAIL is consistent, 'harmed' + receipt PASS is a mismatch in the other direction which this detector doesn't model).
+
+  OK enough speculation. Read the files: claims.json, final-measures-ca.txt, final-measures-o.txt. Then run experiments. Let me also verify the round-68 counter file exists (R68FROZEN leg).
+
+  One more consideration: the fixture copies in /tmp — I'm allowed to mutate copies under /tmp. Building a minimal tree in /tmp mirroring build_fixture_root is exactly what the script's own selftest does, so it's sanctioned.
+
+  Also note `LINE: ` — the counter is run with `python3 -B` in the SCORECARD re-run commands. Use python3 -B too.
+
+  Let me now:
+  1. Read claims.json.
+  2. Read final-measures-ca.txt (and grep for ACCEPT-CA-68).
+  3. Read final-measures-o.txt (for LEGCOUNT context).
+  4. Check LOG.md round-68 entry for LEGCOUNT patterns ("N/M legs PASS") — that's the LEGCOUNT pair's surface, not mine, but I need to know if it fires in my runs so I can attribute legs correctly.
+
+  Then build the /tmp fixture and run the three variants. Also run the selftest (--selftest) once as a green control reference.
+
+  Let me batch: read claims.json + the two telemetry receipts + grep LOG.md for "legs PASS" + grep fleet report for calibration row.
+
+• Now I have the key facts:
+
+  1. The round-68 calibration receipt (`final-measures-ca.txt`) does NOT contain "ACCEPT-CA-68: PASS" — it crashed with NameError. So `observed_ca_verdict` returns **"FAIL"**.
+
+  2. The SCORECARD round-68 calibration row verdict cell says `improved (claim Ca, records)`. So `detect_overreach` FIRES: `improved` + ca_verdict=FAIL → live=True.
+
+  3. The task's demonstration:
+     - Mutate verdict to `not verified as declared ...` → `startswith("improved")` is False → detector stops firing (live=False in the OVERREACH leg).
+     - Mutate verdict to `harmed` → `startswith("improved")` is False → detector ALSO stops firing!
+
+  So the task's expectation "then change it to 'harmed' and show it still fires" — hmm. Wait, let me reconsider what "fires" means here once more.
+
+  Hmm wait — actually, maybe the intended meaning: the OVERREACH leg (`EVAL OVERREACH|SCORECARD.md`) is what "fires" — and it FAILS in all three cases because the corrections rows are absent (pre-data state, `corrections-r68.md` doesn't exist → covered=False → ok=False). So "the detector stops firing" (live flips to False in the detail line) vs "the counter still fails".
+
+  Hmm, that's contradictory within one sentence though: "show the detector stops firing; then ... show it still fires". If "the detector" = the EVAL OVERREACH leg, it never stops failing pre-data. If "the detector" = the live-detection detail, then 'harmed' also stops it.
+
+  Let me look at this from the attack-design perspective. This is an "attack" seat (RevO6, calibration axis). The point of attacking a detector is to find its blind spots / overreach of its own. The named experiment:
+  - 'improved ...' → 'not verified as declared ...' → detector stops firing: this shows the detector is keyed on the verdict string, i.e., you can silence it by rewording the filed verdict — a trivially gamed detector.
+  - 'harmed' → "show it still fires" — wait, could 'harmed' still fire?? `startswith("improved")`... no.
+
+  Unless... hold on. What about `verdict.split("(")[0]` and cells indexing? cells[2]. The line is `| calibration | improved (claim Ca, records) | ...`. Splitting on "|": ["", " calibration ", " improved (claim Ca, records) ", ...]. cells[2] = "improved (claim Ca, records)". OK.
+
+  With 'harmed (claim Ca, records)': startswith("improved") → False. No fire. Definitely.
+
+  So under the code as written, BOTH mutations silence the live-detection. The task's second half ("show it still fires") will NOT be reproducible against the live-detection. But wait — maybe "it still fires" refers to the whole counter (ACCEPT-CA-69: FAIL) — that WILL still fail because corrections are missing and LEGCOUNT/DEADPOINTER pairs still fire. Let me check what happens with the LEGCOUNT pairs pre-data.
+
+  LEGCOUNT on SCORECARD section: LEGCOUNT_RE matches "(\d+)/(\d+) legs PASS" — SCORECARD round-68 section has "PASS 12/12 legs" — hmm, "ACCEPT-C-68 PASS 12/12 legs in a materialized clone" — the regex needs "12/12 legs PASS" order. Let me search: "12/12 legs" — the text says "PASS 12/12 legs in a materialized clone" — LEGCOUNT_RE = `(\d+)\s*/\s*(\d+)\s+legs\s+PASS` — requires "legs PASS" after. "12/12 legs in a materialized" doesn't match. Hmm. So maybe no LEGCOUNT hit on SCORECARD.
+
+  observed_o_legs: from final-measures-o.txt: LEG_LINE_RE = `^([A-Z0-9_]+)\s+(PASS|FAIL)\b` — lines: STAMP PASS, SELFTEST PASS, DIFF PASS, SHA PASS, PENDING PASS, LEDGER PASS, EXEC FAIL, MUT PASS, TOPO PASS → 8 PASS / 9 legs → observed_o = (8, 9).
+
+  detect_legcount(text, (8,9)): looks for "N/M legs PASS" patterns in the surface text. SCORECARD round-68 section... "9/10 legs PASS" appears in the operability row: "ACCEPT-O-68 9/10 legs PASS at A_c". That matches LEGCOUNT_RE → pair (9,10) != (8,9) → LEGCOUNT fires on SCORECARD! 
+
+  LOG.md round-68 section: probably contains "9/10 legs PASS" too → fires.
+  Fleet report: contains LEGCOUNT patterns and R68-M rows (DEADPOINTER).
+
+  So pre-data, the counter fails via LEGCOUNT/DEADPOINTER legs regardless of my OVERREACH mutations. The MISMATCHES count: unannotated counts each live+uncovered pair. With OVERREACH silenced (mutation A or B), unannotated = 3 (LEGCOUNT×3 + DEADPOINTER×1, assuming they fire) instead of 4... wait DEADPOINTER remedy requires covered AND not live.
+
+  OK so now the design decision for my demonstration. The task's literal ask:
+  1. Copy SCORECARD.md to /tmp.
+  2. Change calibration verdict 'improved ...' → 'not verified as declared ...' → show detector stops firing.
+  3. Change to 'harmed' → show it still fires.
+
+  Given the code, step 3 as literally stated (OVERREACH live-detection still firing on 'harmed') is impossible. The honest attack outcome: BOTH rewordings silence the OVERREACH detector — which is itself the finding: the detector is trivially gameable by rewording the filed verdict; it cannot distinguish 'harmed' from 'not verified as declared', and any non-'improved' prefix defeats it.
+
+  BUT the whole-counter view: with corrections absent (pre-data), `EVAL OVERREACH|SCORECARD.md` leg FAILs in ALL THREE variants (because covered=False). So "the detector (leg) still fires" in the sense that the leg still fails — but its DETAIL changes from live=True to live=False. I should demonstrate BOTH readings precisely:
+
+  Experiment matrix — run the counter against a /tmp fixture tree in two coverage states:
+
+  State PRE (no corrections-r68.md — mirrors the real lane today):
+  - E0: baseline 'improved' → OVERREACH leg: live=True covered=False → FAIL; unannotated includes it.
+  - E1: 'not verified as declared' → live=False covered=False → leg still FAILs (fires as a leg), but live flips to False; unannotated drops by 1.
+  - E2: 'harmed' → live=False covered=False → identical to E1.
+
+  State POST (green-fixture corrections present — build the fixture with correction rows, as selftest does):
+  - G0: baseline 'improved' → live=True, covered=True → remedy=True but ok = remedy and not (is_live and not remedy) = True?? wait:
+
+  ```python
+  ok = remedy and not (is_live and not remedy)
+  ```
+
+  If live=True and covered=True → remedy=True → ok = True and not (True and False) = True. WAIT. So with corrections present, even a LIVE overreach passes?! 
+
+  Hold on: `ok = remedy and not (is_live and not remedy)`. If remedy=True: ok = True and not False = True. So a live mismatch WITH a correction row → leg PASS. The unannotated count: `if is_live and not remedy: unannotated += 1` → not incremented. So a correction row fully closes a live mismatch (by design — "closed by an APPENDED correction row" — that's the claim: mismatches are closed by appended corrections, and the claim says "the count of unannotated mismatches ... drops to zero, each closed by an APPENDED correction row"). OK that's the design: live + covered = annotated = acceptable.
+
+  So in POST state with corrections: G0 live=True covered=True → PASS (annotated). G1 live=False covered=True → PASS. G2 same. The OVERREACH pair can't fail the counter at all once covered. The only way the OVERREACH pair contributes `unannotated` is live=True AND no correction row.
+
+  So the attack conclusion sharpens: the OVERREACH detector only ever matters pre-correction-row, and it is silenced by any rewording that avoids the literal prefix `improved`. 'not verified as declared' and 'harmed' both silence it identically. The task's expected "it still fires" for 'harmed' is NOT what the code does — I must report that faithfully as a divergence finding.
+
+  Hmm wait, but wait. Let me re-read the task prompt once more:
+
+  "change the round-68 calibration row's verdict cell from 'improved ...' to 'not verified as declared ...', and show the detector stops firing; then change it to 'harmed' and show it still fires."
+
+  Hmm... OH WAIT. Maybe I have the polarity inverted. What if the round-68 receipt... no, I read it: it crashed, no "ACCEPT-CA-68: PASS" → ca_verdict="FAIL".
+
+  Hmm, what if "fires" refers to the MISMATCHES counter still counting something? Let me think about what differs between 'not verified as declared' and 'harmed'... NOTHING in the code. Both fail `startswith("improved")`.
+
+  Unless the mutation also interacts with LEGCOUNT detection! The calibration row's observation cell contains... "receipt-sequencing protocol re-proven (SEQ/FIXTURES legs; receipts stamped==evaluated in materialized clones)" — no "N/M legs PASS". The verdict cell change doesn't touch LEGCOUNT.
+
+  OK here's another thought — maybe the task author wrote the prompt from the intent: "show the detector stops firing [for 'not verified as declared' — correct because the filed verdict now MATCHES the receipt's FAIL]; then change it to 'harmed' and show it still fires [because 'harmed' is ALSO a contradiction?]" — i.e., the author's mental model was that the detector catches any verdict that contradicts the FAIL receipt, including 'harmed'. The code does NOT do that. So the attack EXPOSES this gap: the detector is prefix-keyed on 'improved' only; a filed 'harmed (claim Ca, records)' against a FAIL receipt — which is arguably not even a contradiction (harmed + FAIL receipt is consistent!)...
+
+  hmm wait, actually 'harmed' with a FAIL receipt is CONSISTENT. So it SHOULDN'T fire. And 'not verified as declared' with FAIL is also consistent. So both stopping is CORRECT behavior!
+
+  And the actual gap in the other direction: 'harmed' with a PASS receipt would be a real overreach (claiming harm when the receipt passed) — the detector misses that too (it only checks `ca_verdict != "PASS"` when verdict starts with improved).
+
+  So my finding matrix:
+  1. Baseline: 'improved' + FAIL receipt → detector FIRES (live=True). Correct.
+  2. 'not verified as declared' + FAIL receipt → silent. Correct (consistent).
+  3. 'harmed' + FAIL receipt → silent. Correct (consistent), though the task prompt predicted it "still fires" — DIVERGENCE: the code cannot fire on 'harmed' ever.
+  4. Bonus probe (the real hole): 'harmed'/'not verified as declared' + PASS receipt → also silent. And more importantly: ANY rewording of a FALSE 'improved' claim — e.g. 'improved' → 'passed (claim Ca, records)' — silences the detector while keeping the false claim. The detector is keyed on the filed string, so it is self-attestable: it compares the filed verdict's PREFIX against the receipt, and the filer controls the prefix. I can demonstrate: mutate to 'improved but only per author (claim Ca)' — still fires (startswith improved). Mutate to 'imprüved' or 'claimed improved' → silent. The escape hatch: one character change defeats it.
+
+  Also demonstrate the leg-vs-live distinction: pre-data (no corrections), the EVAL OVERREACH leg FAILs in all three variants (uncovered), so the COUNTER still prints FAIL — "it still fires" in the counter sense — but for a different reason (no correction row), which is exactly the claim's remedy mechanism.
+
+  Also: MISMATCHES count changes 4→3 (if my baseline has 4 unannotated; I'll measure).
+
+  Now, implementation. Build fixture tree in /tmp/rev-o6:
+
+  ```
+  /tmp/rev-o6/tree/
+    reports/round-69/accept-ca.py      (copy from lane)
+    reports/round-69/claims.json
+    reports/round-68/accept-ca.py      (for R68FROZEN)
+    reports/round-68/telemetry/final-measures-ca.txt
+    reports/round-68/telemetry/final-measures-o.txt
+    SCORECARD.md                       (the mutable copy)
+    LOG.md
+    corpus/lessons/round-68.md
+    corpus/lessons/round-69.md
+    fleet/.ufo/reports/round-68/kotodama.md   (copy from fleet root)
+  ```
+
+  Wait — does the real fleet report exist at /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md? build_fixture_root checks. I'll copy it if present, else write the placeholder like the fixture does.
+
+  Hmm — but careful: copying the REAL fleet report into my fixture — fine, read+copy to /tmp is read-only w.r.t. sources.
+
+  Also corpus/lessons/round-69.md might not exist yet (it's in the "not landed yet" list!). build_fixture_root uses `if not os.path.exists(src): continue`. mistake_rows_exist reads it with read_text → None-safe. OK.
+
+  Also LOG.md exists. The section regex `^## Round 68` — LOG.md should have it.
+
+  Important subtlety: LANE in the copied script = dirname(dirname(/tmp/rev-o6/tree/reports/round-69)) = /tmp/rev-o6/tree. LANE is only used in build_fixture_root (selftest), which I won't call. Fine.
+
+  Runs (all `python3 -B`):
+
+  PRE state (no corrections file — mirrors today's lane):
+  - P0: unmutated SCORECARD copy → record full output.
+  - P1: calibration verdict → 'not verified as declared (claim Ca, records)' → run.
+  - P2: → 'harmed (claim Ca, records)' → run.
+  - P3 (escape-hatch probe): → 'asserted improved (claim Ca, records)' (doesn't start with 'improved') → run. Shows prefix-keying: one word defeats live detection while still claiming improvement.
+
+  POST state (append correction rows like the green fixture does — via the script's own builder, then mutate SCORECARD in that tree):
+  - Use the script's OWN --selftest machinery to build the green fixture, then mutate its SCORECARD copy: G0 'improved' + corrections → leg PASS (annotated), counter may still fail on other legs? No wait — green fixture requires ALL pairs covered AND not-live... no: remedy = is_covered for OVERREACH/LEGCOUNT; ok = remedy and not(is_live and not remedy) → with covered=True, ok=True even if live. So green fixture with corrections: all EVAL legs PASS, MISMATCHES unannotated=0 → ACCEPT-CA-69: PASS. That's the GREEN control. 
+  - G2: 'harmed' + corrections → same PASS (annotated regardless) → shows: once the correction row exists, the verdict cell could say ANYTHING and the pair passes — the counter never re-validates the correction's substance vs the filed text. That's another finding: correction rows are matched on (class, surface) only, not on content.
+
+  Hmm, G2: 'harmed' + covered → PASS. So "it still fires" fails in POST state too — the pair can NEVER fail once covered.
+
+  So the only state where the OVERREACH pair can produce a FAIL is PRE (uncovered): and there it fails regardless of the verdict wording. And the only state where live-detection "fires" is baseline 'improved' + uncovered. Conclusion: the OVERREACH detector's live-detection has exactly ONE firing condition (filed verdict starts with 'improved' AND receipt verdict reads FAIL AND no correction row yet) — everything else is silent or covered.
+
+  The demonstration the task asked for, faithfully executed and honestly reported:
+  - 'improved' → 'not verified as declared': live-detection stops firing ✓ (leg detail live=True→False; unannotated drops 4→3).
+  - 'harmed': live-detection ALSO stops firing (identical to 'not verified as declared') — DIVERGENCE from the task's "show it still fires" expectation → VERDICT on that sub-step: FAIL (as an attack expectation), recorded as the finding that the detector cannot fire on 'harmed' under any receipt.
+  - But the COUNTER (ACCEPT-CA-69) still prints FAIL in all PRE variants — "it still fires" is true for the counter, for the coverage reason. I'll present both readings with the outputs.
+
+  Also include the receipt-side half: since observed_ca_verdict reads the committed receipt, I can ALSO attack from the receipt side: mutate the /tmp COPY of final-measures-ca.txt to contain "ACCEPT-CA-68: PASS" → with baseline 'improved' SCORECARD, detector goes SILENT (ca_verdict=PASS). That's a stronger gameability finding: the filer can silence the detector by editing the RECEIPT (but receipts are frozen/committed, and R68FROZEN only covers the round-68 counter's sha, not the telemetry text!). Let me check: R68FROZEN compares reports/round-68/accept-ca.py sha vs recorded sha in final-measures-ca.txt. If I edit final-measures-ca.txt, the recorded sha line is still there, live counter file unchanged → R68FROZEN still passes! And observed_ca_verdict flips to PASS → OVERREACH silent. So a forged "PASS" line in the round-68 telemetry silences OVERREACH while R68FROZEN stays green. That IS a real detector hole — the receipt that the verdict is compared against is not itself integrity-locked by this counter (the round-69 counter reads telemetry text, not a hash of it). Worth demonstrating as probe P4.
+
+  Wait, is that in scope? My assignment: "Attack the OVERREACH detector". Yes — receipt-side mutation is squarely an attack on the detector. All in /tmp copies. 
+
+  But careful about scope/time: core assignment first (P0, P1, P2), then P3 (prefix escape) and P4 (receipt forge) if quick. All are quick seds + runs.
+
+  Let me also record the sha256 of SCORECARD.md copies for provenance, and use exact commands.
+
+  One more check — the EVAL leg naming: `EVAL OVERREACH|SCORECARD.md`. And MISMATCHES leg prints live_mismatches / unannotated_mismatches.
+
+  Expected PRE-state numbers: unannotated baseline = number of live+uncovered pairs:
+  - LEGCOUNT|SCORECARD.md: "9/10 legs PASS" in section? The section is `^## Axes — round 68` up to next `## `. The round-68 section includes rows through "Round shape:..." paragraph (it runs until the next ## heading). The operability row has "ACCEPT-O-68 9/10 legs PASS" → (9,10) vs observed (8,9) → live. 
+  - LEGCOUNT|LOG.md: LOG round-68 entry — need to check; likely has "9/10 legs PASS".
+  - LEGCOUNT|fleet: fleet report kotodama.md round-68 — likely "9/10 legs PASS".
+  - DEADPOINTER|fleet: contains R68-M1 references? mistake rows exist in LOG.md (R68-M1 exists in SCORECARD text: "R68-M1" is cited in SCORECARD operability row; corpus/lessons/round-68.md likely has R68-M1 row). Fleet report might cite R68-M9 (the crash) — round-69.md lesson doesn't exist yet (not landed), LOG.md may not have R68-M9 → DEADPOINTER fires for R68-M9 if the fleet report cites it.
+  - OVERREACH|SCORECARD: live (baseline).
+
+  I'll just measure. Total unannotated baseline likely 4-5.
+
+  Now, building the fixture: I'll write a small bash sequence. Note LOG.md might be huge — cp is fine.
+
+  Fleet report path: /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md. Check exists; copy to /tmp/rev-o6/tree/fleet/.ufo/reports/round-68/kotodama.md. Pass --fleet-root /tmp/rev-o6/tree/fleet.
+
+  Hmm wait — the claims.json fixture rewrite in build_fixture_root rewrites pair["path"] to the fixture path — but only in the --selftest path. For direct --root runs, the fleet pair path is ".ufo/reports/round-68/kotodama.md" joined with fleet_root → /tmp/rev-o6/tree/fleet/.ufo/reports/round-68/kotodama.md. Good — no claims rewrite needed.
+
+  Mutations via python (safer than sed with unicode em-dash). The calibration row line starts with "| calibration |". I'll use python to do exact string replacement of "improved (claim Ca, records)" with the variants.
+
+  Variants:
+  - V1: "not verified as declared (claim Ca, records)"
+  - V2: "harmed (claim Ca, records)"
+  - V3: "asserted improved (claim Ca, records)" (prefix escape)
+  - V4 (receipt forge): unmutated SCORECARD + append/modify "ACCEPT-CA-68: PASS" in the /tmp copy of final-measures-ca.txt.
+
+  For V4: the receipt currently has NO "ACCEPT-CA-68:" line at all (it crashed). observed_ca_verdict: "PASS" if "ACCEPT-CA-68: PASS" in text else "FAIL". So appending a line "ACCEPT-CA-68: PASS" flips it. In the REAL crash receipt there's no verdict line — the counter defaults to FAIL. Interesting finding by itself: a crashed receipt (no verdict line) is read as "FAIL" — which then makes the filed 'improved' an OVERREACH. Hmm — is that CORRECT? The filed SCORECARD says 'improved (claim Ca, records)' and cites the crashed receipt as evidence... the round-68 claim Ca was "improved" while its own counter crashed → the overreach detector firing on 'improved' vs a crashed receipt is exactly the round-68 story (R68-M9). Good — the detector DOES catch the true round-68 overreach. That's the baseline green-ish observation: the detector fires on the REAL filed mismatch. 
+
+  And the claim Ca2's remedy: correction row OVERREACH|SCORECARD.md in corrections-r68.md (not landed yet). So pre-data, the counter correctly counts it as unannotated. My P0 demonstrates the detector working as designed on the real data.
+
+  POST state: run --selftest to see GREEN/DO-NOTHING controls (the committed controls.txt supposedly has them, but I should re-run to have my own receipt — cheap). Actually the task mentions controls.txt is committed; I'll re-run --selftest anyway for my own evidence. Then for POST-with-mutations I can hand-build a corrections file in a fixture tree (mimicking build_fixture_root with_corrections=True) and swap verdicts. Simplest: run the script's own selftest (covers G-state baseline), and for the 'harmed'+covered case do a manual fixture: copy tree, write corrections-r68.md with the five rows, run → expect ACCEPT-CA-69: PASS with OVERREACH live=... wait no. With corrections AND baseline 'improved': live=True covered=True → unannotated=0, leg ok=True → full PASS. That's the designed green path. With 'harmed' + corrections: live=False → also full PASS. Both PASS — showing covered-ness dominates.
+
+  Hmm, actually — to show the "harmed still fires" divergence cleanly I don't strictly need POST state. PRE state suffices: P1 vs P2 details both live=False; P0 live=True. And the whole-counter still FAIL in all three (uncovered). Two readings, both shown.
+
+  Time-box: build fixture, 4-6 runs, report. Let me go.
+
+  Commands:
+
+  1. Build:
+  ```bash
+  set -e
+  L=/home/vgpnk/Projects/shokunin/kotodama-shokunin
+  T=/tmp/rev-o6/tree
+  rm -rf /tmp/rev-o6; mkdir -p $T
+  mkdir -p $T/reports/round-69 $T/reports/round-68/telemetry $T/corpus/lessons $T/fleet/.ufo/reports/round-68
+  cp $L/reports/round-69/accept-ca.py $T/reports/round-69/
+  cp $L/reports/round-69/claims.json $T/reports/round-69/
+  cp $L/reports/round-68/accept-ca.py $T/reports/round-68/
+  cp $L/reports/round-68/telemetry/final-measures-ca.txt $T/reports/round-68/telemetry/
+  cp $L/reports/round-68/telemetry/final-measures-o.txt $T/reports/round-68/telemetry/
+  cp $L/SCORECARD.md $L/LOG.md $T/
+  cp $L/corpus/lessons/round-68.md $T/corpus/lessons/
+  [ -f $L/corpus/lessons/round-69.md ] && cp $L/corpus/lessons/round-69.md $T/corpus/lessons/ || true
+  F=/home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md
+  [ -f $F ] && cp $F $T/fleet/.ufo/reports/round-68/kotodama.md || printf '# fixture fleet report\n' > $T/fleet/.ufo/reports/round-68/kotodama.md
+  sha256sum $L/SCORECARD.md $T/SCORECARD.md
+  ```
+
+  Wait — mistake_rows_exist also reads corpus/lessons/round-68.md for DEADPOINTER resolution. Included. corpus/SOURCES.md isn't needed by the counter directly (only the selftest copies it). Skip or include; include for fidelity? evaluate() doesn't read SOURCES.md. Skip.
+
+  2. Baseline run P0:
+  ```bash
+  python3 -B $T/reports/round-69/accept-ca.py --root $T --fleet-root $T/fleet
+  ```
+  Expect ACCEPT-CA-69: FAIL with OVERREACH live=True.
+
+  3. V1: mutate verdict:
+  ```bash
+  python3 - <<'EOF'
+  import pathlib
+  p = pathlib.Path('/tmp/rev-o6/tree/SCORECARD.md')
+  t = p.read_text()
+  old = "| calibration | improved (claim Ca, records) |"
+  new = "| calibration | not verified as declared (claim Ca, records) |"
+  assert t.count(old) == 1, t.count(old)
+  p.write_text(t.replace(old, new))
+  EOF
+  cp $T/SCORECARD.md /tmp/rev-o6/scorecard-V1-notverified.md
+  python3 -B ... run
+  ```
+
+  Then V2 from pristine (re-copy pristine each time to keep single-variable):
+  Actually cleaner: keep pristine copy /tmp/rev-o6/SCORECARD.pristine.md; for each variant, cp pristine → tree, then python replace, run, save run output and the mutated file for provenance.
+
+  4. --selftest run for controls reference:
+  ```bash
+  python3 -B $L/reports/round-69/accept-ca.py --selftest
+  ```
+  (Running the LANE copy with --selftest writes only to a tempdir — no lane mutation. The script is read-only on the lane. OK.)
+
+  Wait — can I run the lane's accept-ca.py directly? It reads lane files + fleet file, writes nothing (tempdir only). Read-only. Fine. But careful: running it WITHOUT --selftest against the lane tree: `python3 -B reports/round-69/accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin` — also read-only. That gives me the REAL current state of the counter on the live lane (P-real) — good baseline evidence that on the real tree the OVERREACH leg fires live=True. Cheap and valuable. Do it.
+
+  5. V4 receipt forge (on fresh pristine tree):
+  ```bash
+  python3 - <<'EOF'
+  import pathlib
+  p = pathlib.Path('/tmp/rev-o6/tree/reports/round-68/telemetry/final-measures-ca.txt')
+  t = p.read_text()
+  assert "ACCEPT-CA-68: PASS" not in t
+  p.write_text(t + "ACCEPT-CA-68: PASS\n")
+  EOF
+  ```
+  run → expect OVERREACH live=False (ca_verdict PASS), R68FROZEN still PASS (it hashes the counter file, not the receipt). Finding: the receipt text that the verdict is read from is not integrity-bound by R68FROZEN — forging a PASS line in the telemetry copy silences OVERREACH. (In the real lane the receipt is committed/frozen by round-69's own receipts, but the counter itself doesn't check it — noted as a hardening gap, not a lane violation: lanes' telemetry is append-only by rule.)
+
+  Also verify sha256 of counter + claims at each step for provenance.
+
+  6. POST-covered probe (optional if time): build corrections in a second tree:
+  ```bash
+  cp -r /tmp/rev-o6/tree-pristine /tmp/rev-o6/tree-covered
+  python3 writes corrections-r68.md with the 5 (class, surface) rows from claims.json
+  python3 writes corpus/lessons/round-69.md append "| R68-M9 | fixture backfill row |"  — wait, that matters only for DEADPOINTER remedy.
+  run → expect ACCEPT-CA-69: PASS (green, on mutated verdict 'harmed' too)
+  ```
+  This directly demonstrates: with the correction rows landed, 'harmed' (and even baseline 'improved') → pair passes → "the detector never fires post-coverage". Worth 2 minutes.
+
+  Hmm wait, one nuance for the covered tree: DEADPOINTER remedy = is_covered AND not is_live. If fleet report cites R68-M9 and I backfill the R68-M9 row into round-69 lesson (as build_fixture_root does), is_live becomes False → remedy True. And I must write corrections with EXACT surface keys from claims.json. Let me just replicate build_fixture_root(with_corrections=True) semantics manually — or simpler: call the script's own builder:
+
+  ```bash
+  python3 -B - <<'EOF'
+  import importlib.util, sys
+  spec = importlib.util.spec_from_file_location("acc69", "/tmp/rev-o6/tree/reports/round-69/accept-ca.py")
+  m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+  m.build_fixture_root("/tmp/rev-o6/tree-covered", with_corrections=True)
+  print("built")
+  EOF
+  ```
+  That builds a fully covered fixture from LANE (= /tmp/rev-o6/tree since script is the copy — wait, LANE = dirname(dirname(/tmp/rev-o6/tree/reports/round-69/accept-ca.py)) = /tmp/rev-o6/tree. It copies from LANE=/tmp/rev-o6/tree → good, copies my pristine-ish tree, writes corrections + R68-M9 row + fleet. Then mutate its SCORECARD to 'harmed' and run → PASS expected. And mutate to 'improved' (no-op, pristine) → also PASS (annotated). Both documented.
+
+  Nice — using the script's own builder makes the fixture definitionally faithful.
+
+  Order of operations:
+  1. Build pristine tree; sha256s.
+  2. Run P-real (live lane, read-only).
+  3. P0 pristine tree.
+  4. V1 tree ('not verified as declared') → run.
+  5. V2 tree ('harmed') → run.
+  6. V3 tree ('asserted improved') → run.
+  7. V4 tree (receipt forge on pristine SCORECARD) → run.
+  8. selftest (controls) + covered-tree probes (G-improved, G-harmed).
+  9. Write report.
+
+  Batch these efficiently: fixture build + pristine copy backup in one command; then each variant: restore, mutate, run — do 2-3 per Bash call to limit round-trips but keep outputs attributable. Actually run outputs are short (~12 lines); I can chain a few variants in one command with echo separators... the guidance says don't stitch outputs with echo separators. But for a compact attack log, separate Bash calls are cleaner. It's ~7 runs; do them in parallel batches where independent? They share /tmp/rev-o6/tree (mutation target) — serialize tree mutations, but covered-tree and selftest are independent. Plan:
+
+  Call A: build pristine tree + backup + sha256.
+  Call B: P-real on live lane (independent of tree) — can go parallel with A.
+  Then C: P0 (restore pristine, run).
+  D: V1 restore+mutate+run.
+  E: V2 restore+mutate+run.
+  F: V3 restore+mutate+run.
+  G: V4 restore+forge+run.
+  H: selftest.
+  I: covered tree build + G-improved + G-harmed runs.
+
+  C–G are sequential on the same tree; H, I independent — can batch D/E/F/G into sequential single calls? Each needs restore→mutate→run; one bash call per variant keeps provenance clean. But that's 7+ calls… fine, they're fast. Let me also capture mutated row lines via grep for the record.
+
+  Actually, to be efficient: one call per variant is 5 calls + build + preal + selftest + covered = 9 Bash calls. OK.
+
+  For each variant run, also grep the calibration row from the mutated file to show what changed:
+  `grep -n '^| calibration |' /tmp/rev-o6/tree/SCORECARD.md | head -c 300`
+
+  Let me write the commands. Also em-dash in the section regex — irrelevant for mutations.
+
+  Note: the SCORECARD has only ONE "| calibration |" row in the round-68 section? Other rounds have their own sections with calibration rows — but the counter only reads the `^## Axes — round 68` section. My replacement targets "improved (claim Ca, records)" which appears once (round-68 section). Other rounds may have "calibration | improved (claim Ca..." variants — assert count==1 protects me. From the grep output, round 68 row: "| calibration | improved (claim Ca, records) | ..." — exact string. Good.
+
+  Also save each mutated SCORECARD copy for provenance: cp tree/SCORECARD.md /tmp/rev-o6/SCORECARD.V1.md etc. (And mention /tmp is disposable — the report carries the exact replace commands, so it's reproducible.)
+
+  Let me also record counter sha256: sha256sum of reports/round-69/accept-ca.py in lane — for provenance in report.
+
+  Go. First batch: build tree (A) + live-lane run (B) in parallel.
+
+round-69.md: ABSENT (not landed yet)
+fleet report: copied
+58017c9ff797f03422ef97ef07704ffbcfe51a380de1f99ec6439fb9a81b7d0b  /home/vgpnk/Projects/shokunin/kotodama-shokunin/SCORECARD.md
+58017c9ff797f03422ef97ef07704ffbcfe51a380de1f99ec6439fb9a81b7d0b  /tmp/rev-o6/tree/SCORECARD.md
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  /tmp/rev-o6/tree/reports/round-69/accept-ca.py
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+• The live-lane baseline is exactly as predicted:
+
+  - `EVAL OVERREACH|SCORECARD.md live=True ... hits=["calibration verdict 'improved' vs receipt FAIL"]` — the OVERREACH detector FIRES on the real filed data.
+  - `ca-verdict=FAIL` (crashed receipt), `o-legs=(8, 9)`.
+  - MISMATCHES: 5 live / 5 unannotated (pre-data, corrections not landed).
+
+  Now the mutations on the /tmp tree. Baseline P0 first, then V1 ('not verified as declared'), V2 ('harmed').
+
+=== P0: pristine copy (verdict 'improved ...') ===
+34:| calibration | improved (unclaimed observation) | Raw worker labels 13 supported / eight unresolved / one contradict
+76:| calibration | improved (unclaimed observation) | Raw 24 supported / 18 whole / six partial preserved → nine scoped-
+117:| calibration | improved (claim C) | No loop view → loop-1 retrospective: 4 admitted / 1 rejected / 1 operator-skipp
+133:| calibration | improved (unclaimed observation) | Three reviewer findings (L-anchor link bypass, unchecked edge sou
+150:| calibration | improved (unclaimed observation) | Auditor filed 7 findings incl. 2 map defects + a validator routin
+169:| calibration | improved (unclaimed observation) | Design fork recorded (three D4 concepts across doc seats; deliver
+192:| calibration | improved (unclaimed observation) | Round-17 rejection root-caused to a discovered architectural boun
+211:| calibration | improved (unclaimed observation) | Review blockers traced to pre-repair states and dispositioned wit
+229:| calibration | improved (unclaimed observation) | Design seats executed documented flip rules when the wart fix lan
+244:| calibration | improved (claim C) | Rounds 17-20 unrecounted -> full recount ledger (45+ unique commands; 100% matc
+264:| calibration | improved (claim C verified) | reports/round-22/loop2-retrospective.md: loop 2 = 4 admissions / 1 rej
+286:| calibration | improved (unclaimed observation) | LOG append-only correction: round 22's 'never implemented' wordin
+300:| calibration | improved (claim C) | SHONEN boxes never non-author-verified -> promotion-review dossier: boxes 1-4 e
+321:| calibration | improved (unclaimed observation) | A transient mid-round gate breakage (~90s, KeyError owed_slot_of)
+339:| calibration | improved (unclaimed observation) | X64's cold re-run verdict ("not landed") was a stale-snapshot mis
+355:| calibration | improved (unclaimed observation) | The A/B measurement culture (route chosen by measured holds, not 
+373:| calibration | improved (unclaimed observation) | The leg's calibration honesty: it reports 6 findings on the clean
+389:| calibration | improved (claim C) | Rounds 25-28 recounted: the register landing independently reproduced (8 forms;
+408:| calibration | improved (claim C) | reports/round-30/loop3-retrospective.md: the register program assessed end-to-e
+425:| calibration | improved (claim C) | No single closure artifact -> closure-ledger.json: 32/32 lane rounds audited, z
+443:| calibration | improved (claim C) | No end-to-end criterion certification -> completion-audit.md + completion-ledge
+470:| calibration | improved (unclaimed observation) | Raw worker labels (15× "supported") preserved apart from reconcil
+500:| calibration | improved (unclaimed observation) | Reconciliation carries flat raw label next to reconciled disposit
+528:| calibration | improved (unclaimed observation) | Integrator caught and reverted a worker rewrite of filed round by
+552:| calibration | improved (unclaimed observation) | Failed threshold reported, not gamed; transcription defects dispo
+571:| calibration | improved (claim C) | Rounds 8-11 unrecounted → 89-row recount ledger: 12 exact matches, 16 worker di
+596:| calibration | improved (claim C) | No ledger, dossier items open → `calib/open-items-ledger.json` 12/12 rows dispo
+624:| calibration | improved (claim C) | Box-1 evidence current only as console output at the old digest → durable recei
+668:| calibration | improved (claim Ca) | No cross-round recount -> 17-row ledger: 15 match / 2 dispositioned mismatch |
+683:| calibration | improved (claim Ca) | No cross-round recount of r33-36 → 34-row verify ledger: 25 match / 5 named mi
+781:| calibration | improved (claim Ca) | 4 could-not-reproduce recount rows → reproduced-under-protocol (the isolation-
+798:| calibration | improved (claim Ca) | r37-aged 24-row queue → 38-row owner-complete defect-queue-v2 (r38/r39 finding
+815:| calibration | improved (claim Ca) | N3: multiple presumed stale live pins -> one self-marking historical hit (SKIL
+850:| calibration | improved (claim Ca) | four carried r38/r39 rows each reach a class
+ with citation, zero dropped (19 f
+872:| calibration | unprovable-but-better (claim Ca) | R01-43-12 stale-premises defect confirmed; scratch prototype flag
+892:| calibration | improved (claim Ca) | MANIFEST fidelity never audited → all 12 loop-1 rows reconcile row-for-row to 
+910:| calibration | improved (claim Ca) | loop-1 defect reconciliation filed (3 defect rows + 2 provider amendments) wit
+950:| calibration | improved (claim Ca) | live README duplicate H1 (lines 1/3, grep 2) → removed (grep 1) as a recorded 
+976:| calibration | improved (claim Ca) | dangling `revision: 2.0` stub (README:55, introduced `57c8409`) → deleted, `gr
+1004:| calibration | not verified as declared (claim Ca) | round-49 inseparable pair detected 0/1 → 1/1 (`check-claim-se
+1020:| calibration | not claimed; recorded | separability self-application on the round-51 manifest: 0 findings, exit 0 
+1035:| calibration | not claimed; recorded | QUALITY criterion 10 added from the round-51 outside disagreement; SHONEN l
+1049:| calibration | not claimed; recorded | SHONEN line 8 and the round-51 frontier line corrected (appended note); QUA
+1075:| calibration | not claimed; recorded | round-54 closure routed defects 1-4 dispositioned (errata for 17 grounds an
+1088:| calibration | not claimed; recorded | round-55 closure routed defects 1-6 dispositioned (lesson intake table); QU
+1108:| calibration | not claimed; recorded | round-56 closure routed defects 1-7 dispositioned (lesson intake); QUALITY 
+1122:| calibration | not claimed; recorded | round-57 closure defects 1-6 dispositioned (lesson intake); QUALITY criteri
+1136:| calibration | not claimed; recorded | round-58 closure defects 1-8 dispositioned (lesson intake); errata for revi
+1158:| calibration | not claimed; recorded | round-59 corrections (C MISSED, separability artifact), round-59 errata, QU
+1172:| calibration | not claimed; recorded | round-60 corrections (void breakdown, X60, pypdf seven seats, missing Gate 
+1195:| calibration | not claimed; recorded | round-61 closure defects 1-5 dispositioned (lesson intake); QUALITY criteri
+1216:| calibration | not claimed; recorded | seven pre-data counter revisions, each committed with its forcing control r
+1236:| calibration | improved (claim Ca, bookkeeping + corrections) | round-63 closure routed defects 1,2,3,4,8,9,10 unr
+1256:| calibration | improved (claim Ca, records) | Round-64 spot-check defects R1-R7 unresolved → all dispositioned in 
+1284:| calibration | unprovable (claim Ca, records — the frozen counter's committed verdict is FAIL) | Round-65 routed d
+1306:| calibration | improved | PASS — all five R66-D dispositions landed; sequencing protocol enforced by frozen SEQ/QU
+1319:| calibration | improved (claim Ca, records) | R67-D1: 26 frozen scratch paths (incl. 172 MiB fabric-c) deleted wit
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+• P0 done (exit=1 is expected — the counter fails pre-data; `set -e` killed the command after the run because the counter exits 1, but I got the output I needed).
+
+  Very important observation from the grep: the round-68 section is the LAST `## Axes` section in SCORECARD (line 1311-1319 area). detect_overreach scans ALL lines of the SECTION text (round-68 section only), and finds `| calibration | improved (claim Ca, records) |` at line 1319. But wait — the section_text extracts from `^## Axes — round 68` until the next `## ` heading. Line 1319 is in that section. But the grep shows MANY earlier calibration rows (lines 34-1306) — those are in OTHER sections (rounds 8-67), not in the round-68 section. section_text limits to the round-68 section, so only line 1319's row is scanned. Good.
+
+  Also note line 1284: "| calibration | unprovable (claim Ca, records — the frozen counter's committed verdict is FAIL) |" — round-65's row honestly says 'unprovable'. And line 1004: 'not verified as declared'. So the lane has precedent for both verdict wordings. Nice color for the report: the proposed mutations are lane-idiomatic verdict strings.
+
+  Now V1: replace in the /tmp copy 'improved (claim Ca, records)' (the round-68 row at line 1319) with 'not verified as declared (claim Ca, records)'. Careful: line 1256 also has "improved (claim Ca, records)" (round-64 row!). So the string "improved (claim Ca, records)" appears at least twice (1256 and 1319). I must target the round-68 row precisely. Use the full row prefix: "| calibration | improved (claim Ca, records) | R67-D1:" — that's unique (the round-68 row starts with "| calibration | improved (claim Ca, records) | R67-D1: 26 frozen scratch paths").
+
+  Replacement: "| calibration | not verified as declared (claim Ca, records) | R67-D1:" — keeps the observation cell intact, single-variable change.
+
+  V2: "| calibration | harmed (claim Ca, records) | R67-D1:"
+  V3 (escape probe): "| calibration | asserted improved (claim Ca, records) | R67-D1:"
+
+  Each: restore pristine → python replace → grep row → run counter → save outputs. The counter exits 1, so don't use set -e naively; capture exit explicitly.
+
+=== V1: verdict -> 'not verified as declared (claim Ca, records)' ===
+1004:| calibration | not verified as declared (claim Ca) | round-49 inseparable pair detected 0/1 → 1/1 (`check-claim-separability
+1319:| calibration | not verified as declared (claim Ca, records) | R67-D1: 26 frozen scratch paths (incl. 172 MiB fabric-c) delet
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=False covered=False remedy=False hits=none
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+• V1 confirmed:
+  - `EVAL OVERREACH|SCORECARD.md live=False covered=False remedy=False hits=none` — the OVERREACH **live-detection stops firing** (hits go from the overreach message to `none`).
+  - unannotated drops 5 → 4 (the OVERREACH pair no longer counts).
+  - But the leg STILL FAILS (covered=False — no correction row yet) and the counter still prints ACCEPT-CA-69: FAIL. Two distinct meanings of "fires" — both demonstrated.
+
+  Now V2 'harmed'.
+
+=== V2: verdict -> 'harmed (claim Ca, records)' ===
+1319:| calibration | harmed (claim Ca, records) | R67-D1: 26 frozen scratch paths (incl. 172 MiB fabric-c) deleted with telemetry;
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=False covered=False remedy=False hits=none
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+• V2 confirmed — and this is the DIVERGENCE the task predicted otherwise:
+
+  - `harmed` behaves IDENTICALLY to `not verified as declared`: `live=False ... hits=none`, unannotated=4, counter FAIL.
+  - The OVERREACH live-detection does NOT fire on 'harmed'. `startswith("improved")` is False.
+
+  So the task's step-2 instruction "change it to 'harmed' and show it still fires" — the live-detection does NOT still fire. What DOES still fire: the whole counter (ACCEPT-CA-69: FAIL) and the `EVAL OVERREACH|SCORECARD.md` leg (on covered=False, not on live). I'll report both readings precisely.
+
+  Now the additional probes to complete the attack:
+  - V3: prefix-escape probe: 'asserted improved (claim Ca, records)' — still a self-described improvement claim, but the literal prefix differs → detector silent. This demonstrates the gameability: one word defeats the detector while keeping the false 'improved' claim.
+  - V4: receipt-side forge: pristine SCORECARD + append "ACCEPT-CA-68: PASS" to the /tmp copy of final-measures-ca.txt → ca_verdict flips to PASS → detector silent even with the filed 'improved' claim; R68FROZEN stays green (it hashes the counter file, not the receipt). This is the sharper hole: the receipt the verdict is compared against is not integrity-bound by this counter.
+  - Covered-state probe: use the script's own build_fixture_root(with_corrections=True) to build a covered fixture, then run with (a) pristine 'improved' → full PASS (live but annotated), (b) 'harmed' → full PASS. Shows: post-coverage, the verdict cell content is irrelevant — the pair can never fail again.
+
+  Let me run V3 and V4 now, then selftest + covered probes.
+
+=== V3: verdict -> 'asserted improved ...' (prefix escape, claim wording kept) ===
+1319:| calibration | asserted improved (claim Ca, records) | R67-D1: 26 frozen scratch paths (incl. 172 MiB fabric-c) deleted with
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=False covered=False remedy=False hits=none
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA-69: FAIL legs=2/8
+---
+=== V4: pristine SCORECARD + forged 'ACCEPT-CA-68: PASS' line in receipt copy ===
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=PASS
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=False covered=False remedy=False hits=none
+LEG FAIL MISMATCHES live_mismatches=4 unannotated_mismatches=4
+ACCEPT-CA-69: FAIL legs=2/8
+exit=1
+• Both probes landed:
+
+  V3: `asserted improved` → `live=False hits=none`. One word defeats the live detector while the filed text still asserts improvement. The detector is prefix-keyed and self-attestable.
+
+  V4: forged `ACCEPT-CA-68: PASS` line in the receipt copy → `ca-verdict=PASS` → OVERREACH silent even with the pristine `improved` verdict, AND `R68FROZEN` stays PASS (it hashes the round-68 counter file against the sha recorded *inside* the receipt — the sha line is untouched). So the receipt text the verdict is read from is not integrity-bound by any leg of this counter.
+
+  Now the covered-state probe: build a corrections-covered fixture using the script's own `build_fixture_root(with_corrections=True)`, then run with (a) pristine 'improved' and (b) 'harmed' — expect ACCEPT-CA-69: PASS in both. Also re-run --selftest for the committed controls reference (green/do-nothing).
+
+=== controls: --selftest on the lane copy (tempdir only) ===
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+selftest exit=0
+
+=== build corrections-covered fixture via the script's own builder ===
+covered fixture built at /tmp/rev-o6/tree-covered
+=== G1: covered + pristine 'improved' verdict ===
+LEG PASS EVAL OVERREACH|SCORECARD.md live=False covered=True remedy=True hits=none
+LEG PASS MISMATCHES live_mismatches=3 unannotated_mismatches=0
+ACCEPT-CA-69: PASS legs=8/8
+exit=0
+
+=== G2: covered + 'harmed' verdict ===
+1319:| calibration | harmed (claim Ca, records) | R67-D1: 26
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=PASS
+LEG PASS EVAL LEGCOUNT|SCORECARD.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|LOG.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=True hits=['9/10', '9/10']
+LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+LEG PASS EVAL OVERREACH|SCORECARD.md live=False covered=True remedy=True hits=none
+LEG PASS MISMATCHES live_mismatches=3 unannotated_mismatches=0
+ACCEPT-CA-69: PASS legs=8/8
+exit=0
+• Interesting — G1 shows `live=False` with the pristine 'improved' verdict. Why? Because `build_fixture_root` copies from LANE... wait, LANE here = dirname(dirname(/tmp/rev-o6/tree/reports/round-69/accept-ca.py)) = /tmp/rev-o6/tree. At the time I ran the builder, /tmp/rev-o6/tree/SCORECARD.md was... I restored pristine at the end of V4. So the covered fixture's SCORECARD should be pristine ('improved'). But G1 shows live=False!
+
+  Wait, look at G1's OBSERVED leg — it's not printed in my grep (I grepped only OVERREACH|MISMATCHES|ACCEPT). G1 shows live=False for OVERREACH with pristine 'improved'. How?
+
+  OH. The covered fixture's final-measures-ca.txt — build_fixture_root copies from LANE = /tmp/rev-o6/tree/reports/round-68/telemetry/final-measures-ca.txt. At builder time, that was the **V4-forged** receipt (I forged it in V4 and never restored... wait, I DID restore it in V4's command? Let me check: in the V4 command I did `cp /tmp/rev-o6/final-measures-ca.pristine.txt "$T/reports/round-68/telemetry/final-measures-ca.txt"` at the start (that was the restore for V4), then forged it. So at builder time the tree receipt was FORGED (ACCEPT-CA-68: PASS present). Hence covered fixture has ca-verdict=PASS → with 'improved', live=False.
+
+  Hmm — so G1 is actually a slightly different configuration than I intended: covered + forged receipt + pristine SCORECARD. G2 explicitly shows `ca-verdict=PASS` (from the forged copy propagated into the fixture). So in the covered fixture, the receipt says PASS, not FAIL.
+
+  That changes the interpretation slightly: in G2 ('harmed' + covered + receipt PASS), live=False for the trivial reason (verdict isn't 'improved' AND receipt is PASS). But the more decisive covered-state observation stands in both: covered → EVAL OVERREACH PASS regardless.
+
+  But I wanted a covered fixture with the REAL receipt (ca-verdict=FAIL) + pristine 'improved' to show "live but annotated → still PASS" (the designed remedy path: live=True covered=True → unannotated not incremented, leg ok). That's the claim's actual mechanism: the OVERREACH mismatch is real and live, and the appended correction row closes it. Let me redo that one properly: rebuild the covered fixture after restoring the pristine receipt in the source tree.
+
+  Rebuild: restore pristine receipt in /tmp/rev-o6/tree, rebuild covered fixture, run with pristine SCORECARD → expect OBSERVED ca-verdict=FAIL, OVERREACH live=True covered=True remedy=True, unannotated=0, ACCEPT-CA-69: PASS 8/8. That's the designed green path. Then mutate to 'harmed' → live=False covered=True → also PASS (verdict-cell content is irrelevant once covered).
+
+  This is worth doing right — it's the definitive "post-coverage the detector cannot fire" statement with the REAL receipt. Quick.
+
+rebuilt clean
+0
+receipt clean (no ACCEPT-CA-68 line)
+=== H1: covered + real crashed receipt + pristine 'improved' verdict ===
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG PASS EVAL LEGCOUNT|SCORECARD.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|LOG.md live=True covered=True remedy=True hits=['9/10']
+LEG PASS EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=True remedy=True hits=['9/10', '9/10']
+LEG PASS EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=False covered=True remedy=True hits=none
+LEG PASS EVAL OVERREACH|SCORECARD.md live=True covered=True remedy=True hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG PASS MISMATCHES live_mismatches=4 unannotated_mismatches=0
+ACCEPT-CA-69: PASS legs=8/8
+exit=0
+
+=== H2: covered + real crashed receipt + 'harmed' verdict ===
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG PASS EVAL OVERREACH|SCORECARD.md live=False covered=True remedy=True hits=none
+LEG PASS MISMATCHES live_mismatches=3 unannotated_mismatches=0
+ACCEPT-CA-69: PASS legs=8/8
+exit=0
+• All probes complete. Summary of the full matrix:
+
+  PRE state (no corrections — mirrors today's lane):
+  - P0 pristine `improved`: OVERREACH live=True, hits=["calibration verdict 'improved' vs receipt FAIL"], unannotated=5, ACCEPT-CA-69: FAIL. → Detector fires on the real data. (Live-lane run identical.)
+  - V1 `not verified as declared`: OVERREACH live=False hits=none, unannotated=4, leg still FAIL (covered=False), counter FAIL. → Live-detection stops; counter-level leg still fails.
+  - V2 `harmed`: IDENTICAL to V1 — live=False hits=none, unannotated=4, counter FAIL. → The task's predicted "still fires" for the live detector is NOT reproduced. The counter still prints FAIL but because covered=False, not because of live detection.
+  - V3 `asserted improved`: live=False hits=none — prefix escape defeats the detector while the wording still asserts improvement. Unannotated drops 5→4 as if the overreach had been resolved.
+  - V4 pristine SCORECARD + forged `ACCEPT-CA-68: PASS` in receipt copy: ca-verdict=PASS, OVERREACH silent, R68FROZEN still PASS. The receipt the verdict is compared against is not integrity-bound by any leg.
+
+  COVERED state (script's own builder, corrections + R68-M9 backfill):
+  - selftest: GREEN 8/8, DO-NOTHING FAIL 2/8, SELFTEST 2/2 (controls reproduce).
+  - H1 real receipt + pristine 'improved': OVERREACH live=True covered=True remedy=True → leg PASS, unannotated=0, ACCEPT-CA-69: PASS 8/8. The designed remedy path works: the live mismatch is closed by the appended row.
+  - H2 real receipt + 'harmed': live=False covered=True → PASS 8/8. Post-coverage the verdict cell could say anything.
+
+  Findings (the attack verdict):
+
+  1. VERDICT: PASS for step 1 of the assignment — 'improved' → 'not verified as declared' stops the OVERREACH live-detection (hits=none, live=True→False; unannotated 5→4). Reproduced on /tmp copies and consistent with the live-lane baseline.
+
+  2. VERDICT: FAIL for step 2 as stated — 'harmed' does NOT make the live detector "still fire". It is byte-for-byte behaviorally identical to 'not verified as declared' (same leg line except the mutated row, same unannotated=4). The ONLY sense in which "it still fires": the whole counter prints ACCEPT-CA-69: FAIL and the EVAL OVERREACH leg still fails — but on covered=False (no correction row), a reason untouched by the verdict wording. Root cause: detect_overreach's trigger is the single literal predicate `verdict.startswith("improved")` (accept-ca.py:173); no branch exists for any other verdict-vs-receipt contradiction.
+
+  3. Consequent findings (attack results):
+     a. The detector is prefix-keyed and self-attestable: any rewording that avoids the literal prefix — including "asserted improved", "improved per author", or lane-precedent wordings like 'not verified as declared' (SCORECARD:1004), 'unprovable' (SCORECARD:1284) — silences live detection while keeping the claim text. The filed text and the detector's key come from the same writer.
+     b. Receipt-side hole: observed_ca_verdict reads raw telemetry text; no leg of the counter binds the receipt bytes (R68FROZEN hashes only reports/round-68/accept-ca.py against the sha line inside the same receipt). Forging one `ACCEPT-CA-68: PASS` line in a copy silences OVERREACH while R68FROZEN stays green. (Real receipts are append-only committed artifacts per lane rule, so this is a hardening gap, not a lane violation.)
+     c. The intended design does work where it aims: P0 shows it catches the REAL round-68 overreach (filed 'improved' vs crashed receipt), and H1 shows the appended-correction-row remedy closes it (live=True covered=True → unannotated=0, 8/8 PASS). Also the crashed receipt defaults to FAIL (observed_ca_verdict: PASS only on the literal string), which is what makes the real catch possible.
+     d. Sensitivity note: one-sided check only — a filed 'harmed'/'not verified' against a PASS receipt (overclaim in the other direction) can never fire either; the detector models exactly one direction (improved ∧ ¬PASS).
+
+  Attack verdict on the OVERREACH detector as a whole: PARTIAL — it catches the one declared real-world case (P0), but its live-detection is defeated by any verdict rewording (V1/V2/V3) or by a receipt-side PASS line (V4), and its pass/fail contribution post-coverage is wording-independent (H1/H2). The counter-level FAIL persistence across V1/V2 is the coverage machinery (corrections absent), which is the claim's actual remedy — correct per the kill rule, but it means the leg detail (live=) is the only signal that distinguishes a silenced detector from a closed one.
+
+  Recommendations (advisory, no code edits — I'm read-only):
+  - If the verdict vocabulary is meant to be constrained, the counter could key on the receipt-referenced claim marker instead of the verdict prefix, or check a small closed vocabulary {improved, harmed, not verified as declared, unprovable, unchanged} and fire when the verdict asserts success while the receipt is non-PASS (i.e., fire on {improved} ∧ ¬PASS plus optionally {harmed} ∧ PASS).
+  - Bind the receipt: extend an OBSERVED-adjacent leg to check final-measures-ca.txt's sha256 against a recorded digest (the way R68FROZEN does for the counter), or at minimum require the verdict line to be present (a crashed receipt currently defaults to FAIL silently — OBSERVED leg prints ca-verdict=FAIL either way).
+
+  Wait — actually for the OBSERVED leg: `res.add("OBSERVED", obs_o is not None and ca_verdict is not None, ...)` — observed_ca_verdict NEVER returns None when the file is readable (returns "PASS" or "FAIL"). So a crashed receipt silently reads as FAIL. That's what makes P0's catch work — arguably correct here (the round-68 claim Ca WAS an overreach against a crashed receipt). But the silent default conflates "crashed/unreadable verdict" with "explicit FAIL verdict". Worth one line.
+
+  Now write the report. Structure:
+  - Header: seat, date, target, scope statement (read-only, /tmp copies).
+  - Receipts/sha256s of artifacts used.
+  - Method: fixture build (mirrors build_fixture_root), exact commands.
+  - Matrix of runs with verbatim outputs (trimmed where repetitive — keep leg lines that matter, note what was trimmed... actually keep full outputs for P-real, P0, V1, V2, V4, H1, H2; V3 grepped output).
+  - Findings as VERDICT lines.
+  - Divergence statement: assignment step 2 not reproducible; both readings documented.
+  - Recommendations.
+
+  The report must contain the exact commands and real output. Keep it tight but complete. Also cite file:line for the detector (reports/round-69/accept-ca.py:165-176, the startswith at :173).
+
+  Also note provenance: sha256 of SCORECARD pristine = 58017c9f... (lane == copy), counter sha = 091074c5... Mutated copies saved at /tmp/rev-o6/SCORECARD.V*.md (disposable; reproducible from the commands in this report).
+
+  Time: I'm well within the 15-minute box. Write the report now.
+
+  The report file: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/RevO6.md — this is my ONE allowed file. Write it.
+
+• Report written. Let me verify the state of my allowed write: exactly one file written (the report). /tmp scratch is fine. Production files untouched (all mutations were on /tmp copies; the live-lane run was read-only; the selftest runs in a tempdir).
+
+  Quick sanity check that I didn't touch anything in the lane: I only wrote the report file. The `--selftest` uses tempfile.TemporaryDirectory. Good.
+
+  Final message: summarize findings concisely, end with the Report: trailer line.
+
+To resume this session: kimi -r session_47c353c0-09f2-4bfe-a380-dec955405c52

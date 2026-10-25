@@ -1,0 +1,34 @@
+• Baseline first, then mutations. I have both tools read; running the unmutated harness control and staging mutated copies in /tmp in parallel.
+
+• Baseline control: 3/3 PASS, rc=0. Now the two mutations on the /tmp copies — A drops the negative case entirely, B reintroduces the R68-M1 defect (negative fixture creates the used-by file).
+
+• The mutants resolve their checker relative to their own location — expected; overriding with `--checker` to point at the lane's checker.
+
+• MutA proves the point: with the negative case gone the harness prints `FIXTURE: 2/2` and **exits 0** — the class is asserted nowhere (grep confirms) yet the harness reports clean. MutB shows the negative leg is load-bearing: reintroducing R68-M1 trips `FAIL fixture-negative`, rc=1.
+
+  Now the hand re-derivation — two /tmp fixtures, used-by file deliberately absent in both:
+
+• `missing_paths=1` in both hand fixtures — YES. One more cheap kill-demo: break the *checker's* missing-path detection on a /tmp copy and show the original harness catches it while mutA goes silently green.
+
+• Decisive: original harness kills the broken checker (`FAIL fixture-negative`, rc=1); mutA blesses it silently (`2/2`, rc=0) on a root that genuinely has a missing used-by file. Grabbing provenance digests, then writing the report.
+
+• HEAD (`6a98d7d…`) differs from the declared base revision — checking read-only whether the two tested tools differ from the declared base bytes, for provenance:
+
+• All evidence gathered. Writing the report.
+
+• Mutation test complete. Findings:
+
+  **MutA (negative case removed — the assigned mutation): the mutation survives.** With the `neg` block deleted, the harness prints `FIXTURE: 2/2` and exits **0** while `missing_paths == 1` is asserted nowhere (grep-verified). A counter regression that silenced missing-path detection entirely would stay green under `--selftest`.
+
+  **The negative leg is load-bearing.** MutB (reintroducing the R68-M1 defect — negative fixture creates the used-by file) is caught immediately: `FAIL fixture-negative`, `FIXTURE: 2/3`, rc=1. And in the kill demo, a checker copy with `missing_paths = []` is killed by the original harness (rc=1) but silently blessed by MutA (`2/2`, rc=0, `LANE: missing_paths=0`) on a root that genuinely has a missing used-by path.
+
+  **Hand re-derivation: YES, `missing_paths=1`.** Both hand fixtures (single mined row, and the exact chain shape) report:
+  - `SETTLEMENT: pending=0 chains=0 usedby_paths=1 missing_paths=1`
+  - `SETTLEMENT: pending=0 chains=1 usedby_paths=1 missing_paths=1`
+
+  One nuance surfaced for accept-o: `--scan` exits **0** in both cases — the counter gates its exit code on `pending` alone; `missing_paths` is reported but never gated. The harness's negative case is the only thing that turns this class into a hard failure, which is exactly what makes its removal (MutA) a live coverage hole.
+
+  All mutations were on `/tmp` copies; the lane tree is untouched. Provenance note: tested bytes are working-tree HEAD `6a98d7d…` — the checker is byte-identical to declared base `793f797…`, and the harness does not exist at that base (added by the round-69 commits on top of it).
+
+  Report: .ufo/waves/round-69/w1/MutO4.md
+

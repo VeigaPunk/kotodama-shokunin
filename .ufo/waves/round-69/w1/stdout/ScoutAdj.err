@@ -1,0 +1,517 @@
+kimi version 2.3.1
+• Let me parse this task. I'm a scout-adjacency leaf agent in a Godspeed-enabled wave for kotodama round 69. My job:
+
+  1. Adjacency scan (read-only): check sibling lane repos under /home/vgpnk/Projects/shokunin/*-shokunin for files mentioning 'supersedes S', 'SOURCES.md', 'correction chain', 'settlement'.
+  2. Report the nearest prior art with path and line, and state whether the kotodama table (the new `### Registry correction chains` decision table planned for SKILL.md) stays in-lane or bleeds.
+  3. Write exactly one file: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/ScoutAdj.md
+  4. End my answer with 'Report: .ufo/waves/round-69/w1/ScoutAdj.md'
+
+  No subagent dispatch (leaf member). Read-only on production bytes. No network fetching. Time-boxed.
+
+  Let me start by:
+  - Listing sibling lanes: ls /home/vgpnk/Projects/shokunin/
+  - Grep for the terms across sibling lanes.
+  - Also read kotodama's own context: SKILL.md (relevant section), reports/round-69/claims.json, maybe the accept-d.py to understand what the table must contain.
+
+  Let me do a big parallel batch:
+  1. ls /home/vgpnk/Projects/shokunin
+  2. Grep 'supersedes S' across /home/vgpnk/Projects/shokunin (but exclude own lane? No — include own lane too to see own state, but the question is about siblings. I'll scan all and separate.)
+  3. Grep 'SOURCES.md' across siblings
+  4. Grep 'correction chain' across siblings
+  5. Grep 'settlement' across siblings
+
+  Careful about grep performance: sibling repos may be large. Let me first ls to see what siblings exist, then grep with globs. Actually I can run Grep in parallel with the ls; the grep path is /home/vgpnk/Projects/shokunin which includes all lanes. That's fine.
+
+  Let me use the Grep tool with output_mode content and -n for line numbers.
+
+  Patterns:
+  - `supersedes S` — literal. In regex, fine as is (no special chars).
+  - `SOURCES.md`
+  - `correction chain`
+  - `settlement` — case-insensitive probably good (-i).
+
+  I'll run these in parallel. Also ls the fleet root.
+
+  Then read the kotodama claims.json and accept-d.py to ground what the table is (five chain states etc.), to judge overlap.
+
+  Let me batch:
+  1. Bash: ls -la /home/vgpnk/Projects/shokunin
+  2. Grep pattern "supersedes S" path /home/vgpnk/Projects/shokunin output content -n head_limit maybe 100
+  3. Grep pattern "SOURCES.md" path /home/vgpnk/Projects/shokunin output files_with_matches head_limit 100 (content might be huge; files first, then drill down)
+  4. Grep pattern "correction chain" path ... content -n
+  5. Grep pattern "settlement" -i path ... files_with_matches
+
+  Hmm, 'settlement' may hit lots in kotodama itself (tools/check-settlement-fixture.py etc.). That's own-lane. For siblings, I need to separate. Let me do files_with_matches first, then drill into sibling hits.
+
+  Also read claims.json and accept-d.py in parallel.
+
+  Then drill into sibling hits with content mode to get path:line for nearest prior art.
+
+  After gathering, write report, end with the Report line.
+
+  Let me also check the kotodama SKILL.md current state (does it already have the table? No — "not landed yet"). For adjacency judgment I mainly need: what siblings own registry-correction-chain surfaces, and whether kotodama's new table would duplicate a sibling's ownership.
+
+  Note: siblings are read-only; grep is fine.
+
+  Let me start.
+
+AGENTS.md
+audio-shokunin
+AXES.md
+bash: 
+bm.json
+chousa-shokunin
+CORPUS.md
+game-dev-2d-shokunin
+game-dev-3d-shokunin
+kagi-shokunin
+kaidoku-shokunin
+kake-shokunin
+kama-shokunin
+kasegi-shokunin
+kengaku-shokunin
+kotoba-shokunin
+kotodama-shokunin
+kumitate-shokunin
+LEARNING.md
+live.html
+live_s228.html
+LOG.md
+lore-shokunin
+mado-shokunin
+MANIFEST.json
+MISSION.md
+mori-shokunin
+nama.html
+PROTOCOL-APPENDIX.md
+PROTOCOL.md
+README.md
+research
+revenger-shokunin
+ROADMAP.md
+s395.txt
+SCORECARD.md
+scripts
+shokunin.conf
+souji-shokunin
+tabi-shokunin
+tameshi-shokukin
+tameshi-shokunin
+templates
+tf_bavelas.html
+tsukuroi-shokunin
+unblob.log
+wb2.html
+write
+xc.xml
+• The first grep 'supersedes S' returned 291 total lines but mostly fleet-level files (CORPUS.md, MANIFEST.json, .ufo/waves/hyaku/...). I need to focus on sibling lane repos specifically: which *-shokunin lanes own supersession/registry-correction-chain or SOURCES-registry governance surfaces.
+
+  The 'settlement' files_with_matches got 113 results mostly in .ufo fleet-level files. But I need *inside sibling lane repos*. The grep for 'settlement' showed no lane-internal files in the first 100... wait, the results are truncated at 100 of 113. Let me look at lane-internal hits specifically.
+
+  Let me re-grep scoped per sibling lane. The sibling lanes: audio-shokunin, chousa-shokunin, game-dev-2d-shokunin, game-dev-3d-shokunin, kagi-shokunin, kaidoku-shokunin, kake-shokunin, kama-shokunin, kengaku-shokunin, kotoba-shokunin, kumitate-shokunin, lore-shokunin, mado-shokunin, mori-shokunin, revenger-shokunin, souji-shokunin, tabi-shokunin, tameshi-shokukin, tameshi-shokunin, tsukuroi-shokunin. Plus kotodama-shokunin (own lane).
+
+  Key question: does any sibling own a "supersession/registry-correction-chain" or "SOURCES-registry-governance" surface that kotodama's new decision table would duplicate?
+
+  Likely candidates:
+  - kotoba-shokunin (word/literature?) — mentioned 'settlement' in .ufo/reports/round-68/kotoba.md.
+  - tsukuroi-shokunin (tsukuroi = 修復, repair) — might own corpus repair/registry governance.
+  - kumitate-shokunin (組み立て, assembly) — settlement mentioned in round-56/57/59/60 reports.
+  - lore-shokunin — canon decisions owner.
+  - souji-shokunin (掃除, cleaning) — cleanup.
+
+  The registries: the fleet has corpus/knowledge with S-rows (CORPUS.md:118 defines `supersedes S0NN —`). Each lane has its own corpus/knowledge/SOURCES.md? Let me check which sibling lanes have SOURCES.md files and what their governance says about supersedes.
+
+  Targeted greps (lane-internal only, exclude fleet .ufo and lane .ufo):
+  1. Grep 'supersedes' in each sibling lane repo — maybe too much. Better: grep 'supersedes S' with glob restricting to lanes. Grep tool path accepts a directory; I can run one grep per lane but that's 20 calls. Alternatively use Bash with rg across lanes excluding .git/.jj? The instructions say use Grep tool instead of shell grep. But many parallel Grep calls are fine.
+
+  Actually more efficient: Grep with path=/home/vgpnk/Projects/shokunin, pattern 'supersedes S', glob '**/SOURCES.md' or type md, then filter. Hmm.
+
+  Better approach: find which sibling lanes have SOURCES.md and corpus/knowledge files mentioning supersedes, and which lanes have SKILL.md sections about registry correction. The adjacency question: "does any sibling lane own a supersession/registry-correction-chain or SOURCES-registry-governance surface that kotodama's new decision table would duplicate?"
+
+  So I want:
+  - Sibling lane SKILL.md files mentioning 'supersedes' or 'registry' or 'settlement' or 'correction'.
+  - Sibling lane SOURCES.md governance sections.
+
+  Let me run parallel Greps scoped to each relevant lane... too many. Instead: pattern 'supersedes|settlement|correction chain|registry correction' with glob path per lane? Grep glob matches file full path; I can use glob like '**' but path per lane needed.
+
+  Plan: run Grep calls in parallel, one per candidate lane (the ones that appeared in hits: kotoba, tsukuroi, kumitate, mori, kake, mado, chousa, tameshi, kama, revenger, lore, souji, kaidoku, kengaku, audio, tabi, game-dev-2d, game-dev-3d, kagi, tameshi-shokukin). That's all 20 lanes. Too many calls but each is cheap. Alternative: single Grep with pattern 'supersedes S' path=/home/vgpnk/Projects/shokunin and glob '*/SKILL.md'? Glob matches against full path: pattern '*/SKILL.md' — full path is /home/vgpnk/Projects/shokunin/kotoba-shokunin/SKILL.md; glob anchoring: '**/SKILL.md' would match. But also kotodama's own. Fine.
+
+  Let me do:
+  1. Grep pattern 'supersedes' glob '**/SKILL.md' path fleet root, content -n. (SKILL.md registry governance in all lanes)
+  2. Grep pattern 'supersedes' glob '**/SOURCES.md' path fleet root, content -n head_limit 60. (SOURCES governance)
+  3. Grep pattern 'supersedes' glob '**/corpus/**' path fleet root, files_with_matches head_limit 60? Might be heavy. Maybe skip; SOURCES.md grep covers governance.
+  4. Grep pattern 'supersedes' glob '**/*.md' path fleet root files_with_matches — too broad.
+
+  Also the earlier 'supersedes S' full output was saved to a file; I could grep that saved file for lane-internal paths (paths containing '-shokunin/' but not starting with fleet root .ufo). The saved output path: /home/vgpnk/.kimi-code/sessions/.../Grep-call_29d650982b0c4df0bb0ceba0-....txt. Let me Grep that file for lane hits: pattern 'shokunin/(?!kotodama)' — ripgrep regex supports lookahead? ripgrep uses Rust regex which does NOT support lookahead. Use pattern '[a-z-]*-shokunin/(corpus|SKILL|SOURCES|tools)' or just grep lines containing 'shokunin/' and manually filter.
+
+  Simpler: grep the saved output for 'shokunin/' and see which lanes appear with file paths inside lane repos.
+
+  Let me do:
+  - Grep pattern 'shokunin/' path <saved file> output content -n head_limit 100 — wait the saved file lines are the result lines already containing full paths. Each line looks like '/home/vgpnk/Projects/shokunin/CORPUS.md:118: ...'. I can grep for lines whose path segment contains '-shokunin/'. Pattern: 'Projects/shokunin/[a-z0-9-]*-shokunin/' — that matches lane-internal paths. But kotodama itself will match too (own lane, expected: kotodama has tools/check-supersession-settlement.py etc.). Good to see.
+
+  Also 'correction chain' grep earlier found only ONE hit across the whole fleet: .ufo/waves/shokunin-train-20261101-w17/tasks/g3d-scribe.md:5 — fleet-level wave task file for g3d (game-dev-3d) scribe, "12-vs-11 correction chain verified. reports/round-86/r86-scribe.md." That's a wave-report mention, not a lane-owned decision table. Interesting: dated 20261101 (future? that's shokunin-train run). Not a SKILL.md table. So no sibling owns a "correction chain" decision table by that name.
+
+  Wait — that wave dir is shokunin-train-20261101-w17 — dated Nov 1, 2026, in the future relative to today (2026-10-24)? Odd but whatever, it's fleet metadata. It references g3d round-86 scribe report. Let me check if game-dev-3d-shokunin has reports/round-86/r86-scribe.md and any correction-chain surface.
+
+  For 'settlement': the earlier files_with_matches showed fleet .ufo files, LOG.md, MANIFEST.json... truncated at 100 of 113. I need lane-internal settlement hits. Let me re-grep 'settlement' with glob restricted to lane dirs. Grep glob param: I can use path=/home/vgpnk/Projects/shokunin and glob '**/*-shokunin/**' ? Glob is matched against full absolute path per tool description ("Matched against each file's full absolute path"). So glob '[a-z]*-shokunin/**' would match /home/vgpnk/Projects/shokunin/kotoba-shokunin/... since glob starts matching at path start? Glob pattern matching typically matches the whole path; '[a-z]*-shokunin/**' would need to match '/home/vgpnk/Projects/shokunin/kotoba-shokunin/SKILL.md' — the pattern doesn't have the /home prefix. Ripgrep --glob matches relative to search root by default? Actually rg --glob patterns match against paths relative to the search root. The tool description says full absolute path... Let me just try glob '**/*-shokunin/**' with '**' prefix which is safe under either interpretation.
+
+  Let me batch now:
+  1. Grep 'supersedes' glob '**/*-shokunin/**' path fleet, files_with_matches, head_limit 100.
+  2. Grep 'settlement' glob '**/*-shokunin/**' path fleet, files_with_matches, head_limit 100.
+  3. Grep 'supersedes' glob '**/SKILL.md' path fleet, content -n, head_limit 60.
+  4. Grep 'shokunin/' on the saved grep output file to extract lane-internal 'supersedes S' hits, content mode... actually the saved file lines are long. Use Grep with pattern 'Projects/shokunin/[a-z0-9-]+-shokunin/' and output_mode content -n with head_limit 100; lines will be long but truncated view ok. Hmm, content lines from MANIFEST.json are massive. The saved file's preview showed huge lines. Use files_with_matches? No, that's about the saved file itself. Better: use output_mode content but the lines are huge... risky for context. Alternative: use Bash with grep -o to extract just path prefixes. The instruction says prefer Grep tool, but Bash is allowed for things the dedicated tools can't do well; extracting path prefixes from a large file with cut is exactly that. Let me do: grep -oE '/home/vgpnk/Projects/shokunin/[^:]+-shokunin/[^:]+' saved.txt | sort | uniq -c | sort -rn | head -40. That gives lane-internal hit paths with counts, tiny output.
+
+  5. Read kotodama SKILL.md decision table area? Not strictly needed. But for the adjacency verdict I should confirm kotodama's planned table content (five chain states) — claims.json already gave me that. Good enough.
+
+  6. Check tsukuroi (repair lane) SKILL.md for registry governance: covered by call 3.
+
+  7. Check whether any sibling lane SKILL.md has '### Registry correction chains' or similar heading: pattern 'Registry correction' glob '**/SKILL.md'. Covered by call 3 pattern 'supersedes'? Not exactly — a table could exist without the word 'supersedes' on the same line... but a registry correction table would surely mention supersession somewhere in SKILL.md. Let me add pattern 'supersession|supersedes' case-insensitive for SKILL.md glob. I'll use pattern 'supersed' -i to catch both.
+
+  8. Also SOURCES.md governance: grep 'supersed' glob '**/SOURCES.md' content -n head_limit 60.
+
+  9. And check kumitate settlement reports — lane .ufo? No, fleet .ufo/reports are the L1's files, not lane-owned surfaces. The adjacency question is about lane repos. Skip.
+
+  Also per the reminder: read /home/vgpnk/Projects/shokunin/AGENTS.md (fleet AGENTS) — it's fleet-level guidance; I already have the operator directive and lane AGENTS in system prompt. The reminder says read it before making changes in those directories. I'm read-only there but greping is fine; still, quickly reading it is cheap and compliant. It's probably the same operator directive. I'll read it.
+
+  Batch:
+  - Read /home/vgpnk/Projects/shokunin/AGENTS.md
+  - Grep 'supersed' -i glob '**/*-shokunin/**' files_with_matches head_limit 100
+  - Grep 'settlement' -i glob '**/*-shokunin/**' files_with_matches head_limit 100
+  - Grep 'supersed' -i glob '**/SKILL.md' content -n head_limit 60
+  - Bash extract from saved grep file: lane-internal paths.
+
+  Wait — glob '**/*-shokunin/**' with path=/home/vgpnk/Projects/shokunin: rg matches globs against paths relative to root, so 'audio-shokunin/corpus/knowledge/S859.md' would need glob '*-shokunin/**'. '**/*-shokunin/**' also matches (leading ** can be empty). Good. But kotodama's own files will flood results (tools/check-supersession-settlement.py, tools/check-settlement-fixture.py, corpus/**, reports/round-69/**). I'll filter mentally; kotodama hits are expected/own-lane.
+
+  Then drill into the interesting sibling hits with content grep.
+
+• Interesting — the lane-scoped greps with glob '**/*-shokunin/**' returned "No non-sensitive matches found". That's suspicious: kotodama itself definitely has 'supersed' in tools/check-supersession-settlement.py, corpus/**, reports/round-69/*. Either the glob semantics failed (matched against absolute path where '**/*-shokunin/**' should still match... hmm) or "non-sensitive matches" filter is odd. Also the Bash extraction returned nothing — meaning the saved 291-hit file has ZERO lane-internal paths. So all 'supersedes S' hits are at fleet level (CORPUS.md, MANIFEST.json, .ufo/waves/hyaku/*, LOG.md, etc.) and none inside any lane repo?? But kotodama's own tools/check-supersession-settlement.py exists at base? The claims.json says "the settlement taxonomy exists only as code inside tools/check-supersession-settlement.py" — so kotodama-shokunin/tools/check-supersession-settlement.py should contain 'supersed'. Why no hit?
+
+  Possibilities:
+  1. The Grep tool with glob '**/*-shokunin/**' failed to match because paths are matched relative and the glob needs '*-shokunin/**'. The '**/*-shokunin/**' should match 'kotodama-shokunin/tools/x.py' as '**/' = empty, '*-shokunin' = 'kotodama-shokunin', '/**' = 'tools/x.py'. That should work with rg semantics.
+
+  2. Nested git repos: lanes are independent git repos gitignored from the fleet root. Grep tool "Respects .gitignore ... by default". The fleet root's .gitignore ignores '*-shokunin/' — so ripgrep skips ALL lane repos when searching from the fleet root! That explains: 'supersedes S' hits only in fleet-level files (.ufo, MANIFEST, LOG, CORPUS — all tracked at fleet root). The bash grep on the saved output confirmed zero lane paths. And 'correction chain' single hit was fleet .ufo too. And SOURCES.md hits were all fleet-level (.ufo/prompts, scripts, shokunin.conf...).
+
+  So my lane-scoped greps with glob didn't work because rg never descended into the gitignored lane dirs. Hmm, but would include_ignored=true fix it? There's include_ignored param. But nested repos: rg also skips other git repos? Actually rg treats nested git repos as normal directories unless gitignored; here they're gitignored explicitly ("nested lane repos (gitignored)").
+
+  Better approach: search each lane repo directly (path = the lane repo itself, which is its own git root; .gitignore inside lane might ignore corpus? unlikely). The earlier fleet-level searches did NOT cover lane internals — my initial 'settlement'/'SOURCES.md' file lists were fleet-only. I must redo the scan per-lane.
+
+  20 lanes. Efficient: one Bash rg invocation across lane dirs? Instructions prefer Grep tool. But Grep tool takes a single path. I could pass path=/home/vgpnk/Projects/shokunin with include_ignored=true — that would include .git internals? No: "VCS metadata directories (.git and similar) are always skipped, even when this is true." And node_modules etc. might flood. Fleet root .gitignore probably only ignores lanes + scratch. include_ignored=true should let rg descend into lane repos. Risk: lane repos may have their own .gitignore excluding big stuff — fine.
+
+  But wait: "Tool output exceeded" risk — 'supersed' across all lanes including kotodama could be big. Use files_with_matches head_limit 100, then drill into content per interesting file.
+
+  Let me redo with include_ignored=true:
+  1. Grep 'supersed' -i include_ignored glob '**/*-shokunin/**' files_with_matches.
+  2. Grep 'settlement' -i include_ignored glob '**/*-shokunin/**' files_with_matches.
+  3. Grep 'supersed' -i include_ignored glob '**/SKILL.md' content -n head_limit 60.
+  4. Grep 'SOURCES\.md' include_ignored glob '**/*-shokunin/**' files_with_matches? That would hit every lane's SOURCES.md referencing itself... Actually pattern 'SOURCES\.md' searches for files CONTAINING the string; each lane's SOURCES.md contains its own name? No — content 'SOURCES.md' string appears in governance text within SOURCES.md files and elsewhere. Let me instead locate each lane's SOURCES.md and check its governance section. Simpler: pattern 'supersed' in '**/SOURCES.md' include_ignored content -n.
+
+  The adjacency question centers on: does any sibling own a supersession/registry-correction-chain or SOURCES-registry governance surface that would duplicate kotodama's new table? So lanes' SOURCES.md governance sections + SKILL.md tables + tools like check-*settlement* are the surfaces to find.
+
+  Run batch now.
+
+• Rich data now. Key findings so far:
+
+  1. **Fleet-level** (not lane-owned): CORPUS.md:118 defines `supersedes S0NN —` row format; fleet census tool `scripts/sources-census.sh` validates registries. Fleet-level is operator-owned, not a sibling lane.
+
+  2. **Sibling lanes with substantial supersession/registry surfaces:**
+     - **tameshi-shokunin**: SKILL.md:1573 has a decision-table row "A stale expected row is replaced by later evidence | Keep its raw observation and explicitly supersede the row"; SKILL.md:1829 "| A registry row stops holding its admitted outcome | `registry-check.py` reports `differs`, exit 1 | A row leaves `active` only as `superseded` with `superseded_by`, and still runs |" — this is VERY close to a "registry correction chain decision table". Also SKILL.md:1597 "### Round-14 historical registry — superseded by round 15", 1838-1841 REGISTRY_CHECK held=N/M superseded=K.
+     - **tabi-shokunin**: SKILL.md:2128 "#### Registry correction — supersedes :2098-2102 exit, kind, invocation and write-scope cells" — a section literally named "Registry correction". Also SKILL.md:1614 sources-census gate with a "`supersedes` correction that must stay clean" self-test case, S0010-vs-S001 id-boundary case.
+     - **mado-shokunin**: SKILL.md:606 mado-source-merge gate with `supersedes` policy selftest; SKILL.md:624 mado-supersede-sweep probe with supersessions.json ledger (old/new, rows S090/S096).
+     - **kama-shokunin**: SKILL.md:759 "S078–S086 (superseding S066–S074). Historical source rows and prose remain" — actual registry supersession chains; 1004-1005 "Superseded registry reading."
+     - **chousa-shokunin**: corpus/SOURCES.md rows with `supersedes S0NN —` teaches cells (S029 supersedes S019 etc.); round-44 make-settle-tables.py; corpus/fixtures/chain-r3.README.md ("chain" fixture!).
+     - **kaidoku-shokunin**: tools/round-30/settle-gate.py — a "settle gate"! And .ufo/waves/round-30/w1/ExecSettleGate.md, MutSettleGate.md.
+     - **kotoba-shokunin**: .ufo/reports/round-68/kotoba.md had 'settlement' hits (fleet-side report). Need to check kotoba lane repo itself.
+     - **lore-shokunin**: LOG.md settlement mentions.
+
+  The question: does any sibling lane own a "supersession/registry-correction-chain or SOURCES-registry-governance surface that kotodama's new decision table would duplicate?"
+
+  kotodama's D2 = a decision table in kotodama's OWN SKILL.md describing ITS five chain states (the settlement taxonomy from ITS OWN tools/check-supersession-settlement.py), citing ITS OWN S859 row. So the table is lane-local documentation of lane-local code. The adjacent prior art is:
+  - tameshi's registry lifecycle rows (active → superseded with superseded_by) — decision-table rows in tameshi's SKILL.md about tameshi's own registry-check.py.
+  - tabi's "#### Registry correction" section + sources-census gate handling `supersedes` corrections.
+  - mado's source-merge gate with supersedes policy + supersede-sweep.
+  - kama's supersedes chains in its registry.
+  - chousa's SOURCES.md supersedes rows + make-settle-tables.py.
+  - kaidoku's settle-gate.py.
+
+  None of these is the same surface as kotodama's: each lane owns its own SKILL.md and its own registry; lanes are independent repos with per-lane SOURCES.md. The fleet-level governance (CORPUS.md:118 `supersedes S0NN —` row contract, scripts/sources-census.sh) is operator-owned.
+
+  "Nearest prior art" — I should pick the closest: tameshi SKILL.md:1573/1829 decision-table rows about superseded registry rows, and tabi SKILL.md:2128 "Registry correction" section. Also kotodama's own round-68 counter tools/check-supersession-settlement.py is in-lane.
+
+  Wait — one more important check: the specific five chain states kotodama's table will document come from kotodama's tools/check-supersession-settlement.py. Let me read that to know the taxonomy, so I can judge overlap precisely. Also check accept-d.py to see exactly what the D2 legs require (SOURCE leg = cites mined S-row whose used-by names SKILL.md; S859 is kotodama's own).
+
+  Also check: does any sibling own a file/heading named "Registry correction chains"? Grep 'correction chain' found only the g3d scribe mention at fleet .ufo. So no sibling owns that exact name.
+
+  Also the adjacency scan prompt asks specifically: search for 'supersedes S', 'SOURCES.md', 'correction chain', 'settlement'. I have:
+  - 'supersedes S': fleet-level only in tracked files; lane-internal hits exist though (chousa SOURCES.md etc. — from the saved file the preview showed chousa .ufo wave fixture SOURCES.md with "supersedes S019"). The Bash extraction returned nothing earlier because that saved file was from the include_ignored=false run. The new SOURCES.md grep (saved file call_3f4ff97f954e4c9191787a23) has 12804 total lines! Mostly SOURCES.md row hits across lanes. Fine — the point is proven: lanes carry `supersedes S0NN` rows in their own registries.
+  - 'settlement': kaidoku tools/round-30/settle-gate.py, chousa .ufo/waves/round-44/make-settle-tables.py, kotoba fleet report round-68, lore LOG.
+  - 'correction chain': only g3d scribe fleet wave mention.
+
+  Now, which is the "nearest prior art"? Let me look closer at the strongest candidates:
+  1. tameshi-shokunin/SKILL.md:1829 registry lifecycle row + 1573 (decision table rows) — but these are tameshi's own decision-table rows about tameshi's registry-check.py.
+  2. tabi-shokunin/SKILL.md:2128 "#### Registry correction — supersedes :2098-2102..." — a correction section, not a five-state chain table.
+  3. chousa round-44 make-settle-tables.py + fixtures/chain-r3.README.md.
+  4. kaidoku tools/round-30/settle-gate.py.
+
+  Also I should check kotoba-shokunin lane repo (round-68 fleet report mentions settlement — kotoba is the most recent sibling round!). kotoba round-68 is concurrent with kotodama round-68. Let me grep kotoba lane repo for settlement/supersedes.
+
+  And tsukuroi/kumitate/kengaku/audio/souji/game-dev lanes — check their SKILL.md/corpus for supersedes/settlement. The SKILL.md grep was truncated at 80 of 3620 total lines! That means MANY more SKILL.md hits across lanes. The 3620-line total is huge because SKILL.md files are massive. I got chousa, kama, mado, tameshi, tabi, tsukuroi in the first 80. Need the remaining lanes: kotoba, kaidoku, kumitate, kengaku, audio, souji, game-dev-2d, game-dev-3d, kagi, mori, revenger, lore.
+
+  Efficient approach: extract from the saved SOURCES.md grep output file the distinct lane paths (bash grep -oE on the saved file). And run targeted greps per remaining lane for 'supersedes S' / 'settlement' in SKILL.md + corpus/SOURCES.md only. Since each lane repo search is small if I limit glob to SKILL.md and corpus/SOURCES.md.
+
+  Let me batch:
+  1. Bash: extract distinct lane top-dirs from saved SOURCES.md grep output: grep -oE 'shokunin/[a-z0-9-]+-shokunin/' saved-file | sort | uniq -c | sort -rn | head -30.
+  2. Grep 'settlement|supersedes S' in kotoba-shokunin SKILL.md + corpus: path=/home/vgpnk/Projects/shokunin/kotoba-shokunin pattern 'settlement' -i files_with_matches head_limit 30, plus 'supersedes S' content.
+  3. Grep kaidoku tools/round-30/settle-gate.py header (Read first 40 lines) to characterize the prior art.
+  4. Read kotodama's own tools/check-supersession-settlement.py to name the five states (for precise overlap judgment).
+  5. Read reports/round-69/accept-d.py to see D2 legs.
+
+  Also 'Registry correction chains' exact: grep '"Registry correction chains"' across fleet include_ignored to prove uniqueness. And 'correction chain' already done (one g3d hit).
+
+  Batch these now. Also check tabi:2128 context briefly? The grep line already gives enough (it's a correction section superseding exit/kind/invocation cells of an earlier table — i.e., a correction to tabi's own registry table, not a five-state chain taxonomy).
+
+  Prioritize: kotodama's five states from its own tool; sibling tools (kaidoku settle-gate, chousa make-settle-tables); kotoba (most recent sibling).
+
+• The 'Registry correction chains' grep: 88 hits total but the shown ones are all kotodama's own round-69 wave prompts (.ufo/waves/round-69/w1/prompts/*). It was truncated at 20 of 88 and timed out — but those 88 include fleet-level .ufo wave prompts of THIS round. Were there any sibling-lane SKILL.md hits? The first 20 are all round-69 prompts. I need to confirm none of the 88 is a sibling SKILL.md. Let me refine: grep for the heading in **/SKILL.md only, include_ignored. That's fast.
+
+  Also kotoba lane: no matches for settlement|supersedes S in kotoba SKILL.md/corpus/SOURCES.md/knowledge — good, kotoba is clean.
+
+  Now read kotodama's tools/check-supersession-settlement.py classify() to name the five states (accept-d.py already names them: pending, settled-active, settled-retired, settled-closed, settled-split — lines 36-37). That's sufficient; I don't strictly need to read the tool, but a quick look at the docstring area would let me cite line numbers for the taxonomy. Read lines 1-40 of the tool.
+
+  Also want to double-check the nearest-prior-art claim on tameshi: SKILL.md:1573 and :1829 rows. I have the grep lines with content already — good enough with line numbers:
+  - tameshi-shokunin/SKILL.md:1573: "| A stale expected row is replaced by later evidence | Keep its raw observation and explicitly supersede the row |..."
+  - tameshi-shokunin/SKILL.md:1829: "| A registry row stops holding its admitted outcome | registry-check.py reports differs, exit 1 | A row leaves active only as superseded with superseded_by, and still runs |"
+  - tameshi-shokunin/SKILL.md:1841: "REGISTRY_CHECK: held=N/M superseded=K"
+  - tabi-shokunin/SKILL.md:2128: "#### Registry correction — supersedes :2098-2102 exit, kind, invocation and write-scope cells"
+  - tabi-shokunin/SKILL.md:1614: sources-census selftest with "a `supersedes` correction that must stay clean, an `S0010`-vs-`S001` id-boundary case"
+  - mado-shokunin/SKILL.md:606: mado-source-merge gate "...expected fixture decisions and `supersedes` policy"
+  - mado-shokunin/SKILL.md:624: mado-supersede-sweep probe, supersessions.json ledger
+  - kama-shokunin/SKILL.md:759: "S078–S086 (superseding S066–S074). Historical source rows and prose remain"
+  - chousa-shokunin/corpus/SOURCES.md rows with `supersedes S0NN —` teaches cells (S029 supersedes S019 at line 39 in a wave fixture copy; the live corpus/SOURCES.md also matched — first file list had chousa-shokunin/corpus/SOURCES.md). Let me get the live corpus/SOURCES.md line for one supersedes row. Quick grep on chousa corpus/SOURCES.md.
+  - kaidoku-shokunin/tools/round-30/settle-gate.py — read; it's about seat settlement (dispatch-settlement), NOT registry supersession. Different sense of "settlement" — seats settling, not supersession chains. Important distinction for the verdict: kaidoku's "settle-gate" is unrelated domain (wave seat settlement). Same word, different surface.
+  - chousa .ufo/waves/round-44/make-settle-tables.py — need one glance to classify (probably settlement tables of dispositions, round-44 assimilation). Quick check.
+
+  Also the fleet-level SSOT: CORPUS.md:118 defines the `supersedes S0NN —` teaches-cell contract — operator-owned, and scripts/sources-census.sh validates registries fleet-wide (operator tooling). tabi's check-sources.mjs is tabi's own re-implementation of the census for its own registry (SKILL.md:1614).
+
+  So the verdict shaping:
+  - No sibling lane owns a `### Registry correction chains` decision table or any file/section with that name (heading grep hits only kotodama's own round-69 wave prompts; will confirm with SKILL.md-scoped grep).
+  - The five states (pending, settled-active, settled-retired, settled-closed, settled-split) and the five error signatures (chain-left-pending, entry-not-repointed, retired-row-mined, closed-chain-kept, scope-limiter-missing) are kotodama's own taxonomy, defined in kotodama's own tools/check-supersession-settlement.py (classify()). No sibling has these state names — can verify quickly with a fleet grep on 'settled-split' or 'chain-left-pending'.
+  - Nearest prior art: tameshi's registry lifecycle decision rows (superseded/superseded_by), tabi's "Registry correction" section + census `supersedes`-correction selftest case, mado's source-merge supersedes policy + supersede-sweep, kama's registry supersession chains (S078–S086 superseding S066–S074), chousa's SOURCES.md `supersedes S0NN` rows. All are per-lane surfaces inside their own repos governing their own registries — none is a fleet-shared file that kotodama's table would edit or duplicate. The fleet `supersedes S0NN` row contract (CORPUS.md:118, sources-census.sh) is operator-owned and kotodama's table documents (not redefines) how kotodama's own rows settle chains.
+  - The lane also has tools/check-settlement-fixture.py (O2) and tools/check-supersession-settlement.py — in-lane, so the table stays in-lane: it documents kotodama-owned code and kotodama's own SOURCES.md rows.
+
+  Let me verify the state names/signatures are unique to kotodama (fleet grep 'settled-split|chain-left-pending|scope-limiter-missing' include_ignored, SKILL.md+py glob, head small), confirm no sibling SKILL.md has the heading, get a chousa live corpus/SOURCES.md line number for a supersedes row, and peek chousa make-settle-tables.py first lines. Also read kotodama's tool classify lines 100-135 to cite exact line anchors for the five states (nice for the report, and Exec1.txt prompt says derive from classify function). Also glance at fleet CORPUS.md:110-125 for the row contract context.
+
+  Batch:
+  1. Grep 'settled-split|chain-left-pending|entry-not-repointed|retired-row-mined|closed-chain-kept|scope-limiter-missing' path fleet include_ignored files_with_matches head_limit 20.
+  2. Grep 'Registry correction chains' glob '**/SKILL.md' include_ignored path fleet files_with_matches head_limit 10.
+  3. Grep 'supersedes S' path /home/vgpnk/Projects/shokunin/chousa-shokunin/corpus/SOURCES.md content -n head_limit 5.
+  4. Read chousa .ufo/waves/round-44/make-settle-tables.py lines 1-25.
+  5. Read kotodama tools/check-supersession-settlement.py lines 1-140 (to cite classify states with line numbers).
+  6. Read fleet CORPUS.md lines 108-126.
+
+• Everything I need is now in hand:
+
+  1. **The five-state taxonomy is kotodama-owned**: tools/check-supersession-settlement.py:6-22 defines SETTLED-ACTIVE/SETTLED-RETIRED/SETTLED-CLOSED/SETTLED-SPLIT/pending + STALE-USED-BY; classify() at :112-137 implements it. The fleet-wide grep for the five state names + five error signatures hits ONLY kotodama files (reports/round-69/*, reports/round-68/*, tools/, .scratch/smoke/*, .ufo/waves/round-69/w1/* — 41 total, all kotodama). No sibling lane contains them.
+
+  2. **No sibling SKILL.md has `### Registry correction chains`** (grep over **/SKILL.md include_ignored → no matches; the only hits anywhere were kotodama's own round-69 wave prompts).
+
+  3. **Nearest prior art (sibling lanes, all in their own repos, governing their own registries):**
+     - tameshi-shokunin/SKILL.md:1829 — decision-table row: "A registry row stops holding its admitted outcome | registry-check.py reports differs, exit 1 | A row leaves active only as superseded with superseded_by, and still runs". Also :1573 "A stale expected row is replaced by later evidence | Keep its raw observation and explicitly supersede the row", :1597 "### Round-14 historical registry — superseded by round 15", :1841 "REGISTRY_CHECK: held=N/M superseded=K". This is the closest structural analog: decision-table rows about registry supersession in a sibling's SKILL.md. But it's tameshi's own registry lifecycle (2-state active/superseded), not a five-state chain-settlement taxonomy, and it lives in tameshi's repo.
+     - tabi-shokunin/SKILL.md:2128 — "#### Registry correction — supersedes :2098-2102 exit, kind, invocation and write-scope cells" — nearest by NAME ("Registry correction"), but it is a single corrective section superseding cells of tabi's own earlier table, not a chain-state decision table. Also tabi SKILL.md:1614 — tabi's own check-sources.mjs census gate whose selftest includes "a `supersedes` correction that must stay clean, an `S0010`-vs-`S001` id-boundary case" — SOURCES-registry governance tooling, tabi-owned.
+     - mado-shokunin/SKILL.md:606 — mado-source-merge gate whose selftest asserts "expected fixture decisions and `supersedes` policy"; :624 — mado-supersede-sweep probe driven by .ufo/waves/round-19/supersessions.json ledger (old/new value, rows S090/S096, scope SKILL.md/PROVINCE.md/tools/*). SOURCES-registry governance, mado-owned.
+     - kama-shokunin/SKILL.md:759 — "S078–S086 (superseding S066–S074). Historical source rows and prose remain" — a real multi-row supersession chain in kama's own registry; :1004 "Superseded registry reading."
+     - chousa-shokunin/corpus/SOURCES.md:39-42 — live registry rows with `supersedes S0NN —` teaches cells (S029 supersedes S019, S030 supersedes S022, S031 supersedes S024, S032 supersedes S021); 7 supersedes-S rows total in the live registry. chousa uses the same fleet row contract but in its own registry. Its round-44 make-settle-tables.py is wave-seat settlement tables — different sense.
+     - kaidoku-shokunin/tools/round-30/settle-gate.py — "Seat-settlement gate" (dispatch/receipt settlement of wave seats), NOT registry supersession. Same word "settlement", disjoint surface.
+     - kotoba-shokunin — no matches for settlement/supersedes S in SKILL.md/corpus/SOURCES.md/knowledge/PROVINCE.md.
+
+  4. **Fleet-level SSOT (operator-owned, not a sibling)**: CORPUS.md:116-118 "Append-only. ... A correction is a new row whose `teaches` opens `supersedes S0NN —`." — the row contract kotodama's table documents; scripts/sources-census.sh validates registries fleet-wide. The fleet AGENTS.md:31 says each lane owns SKILL.md, PROVINCE.md, corpus/, etc. So per-lane ownership is the protocol's own rule.
+
+  5. **The 'correction chain' marker**: fleet-wide only hit = /home/vgpnk/Projects/shokunin/.ufo/waves/shokunin-train-20261101-w17/tasks/g3d-scribe.md:5 "12-vs-11 correction chain verified. reports/round-86/r86-scribe.md." — a fleet runtime note referencing a g3d round-86 scribe report; not a lane-owned decision table. (Let me not over-claim: I didn't open game-dev-3d-shokunin/reports/round-86/r86-scribe.md. Should I? Quick check would be thorough — one grep for 'correction chain' inside game-dev-3d-shokunin. Cheap. Also the earlier 'correction chain' -i grep covered the whole fleet EXCEPT gitignored lane repos! So I haven't scanned lane internals for 'correction chain'. Need one more scan: 'correction chain' -i across lane repos. Let me do that with include_ignored glob **/*-shokunin/** but that timed out before... it's a rarer term; use glob '**/*.md' include_ignored with path fleet? That'll be slow. Better: run it per remaining lane? 20 lanes × slow = bad. 
+
+  Alternative: run Bash with rg directly across the lane dirs only — the Grep tool timed out at 20s twice; a single rg invocation over lane dirs with --glob '!**/.git/**' '!**/.jj/**' excluding noise and only md files would be fast. The instruction says prefer Grep tool but allows Bash when dedicated tools don't fit; repeated Grep timeouts justify a targeted Bash rg. Actually, let me reconsider: the timeouts came from scanning ALL lanes including huge .ufo/.git/.jj trees. A scoped rg over just lane roots excluding .git/.jj/.ufo/scratch/worktrees, md-only, two patterns — should complete in seconds.
+
+  Let me run one Bash command:
+  rg -il -n --no-messages 'correction chain' each-lane-dir... with globs. Use rg with -g '*.md' -g '!**/.git/**' -g '!**/.jj/**' -g '!**/.ufo/**' -g '!**/worktrees/**' -g '!**/.scratch/**' -g '!**/node_modules/**' over /home/vgpnk/Projects/shokunin/*-shokunin. Plus 'supersession' maybe. Keep it to 'correction chain' and 'settlement' in SKILL/corpus to fill the marker matrix. Actually I already have good 'settlement' lane coverage from the earlier timed-out-but-partial run (kaidoku settle-gate, chousa make-settle-tables, mado SKILL, lore LOG, audio LOG...). The missing piece is 'correction chain' inside lanes. Also confirm game-dev-3d r86-scribe.md.
+
+  Then also quickly grep game-dev-3d-shokunin for 'correction chain' specifically.
+
+  6. Also note: kotodama's own SOURCES.md — does it have supersedes rows already? The SOURCE leg of accept-d requires S859 mined with used-by SKILL.md. For adjacency, own-lane state is fine (S859 not landed yet — declared not-landed). Not needed.
+
+  One more consideration: the task says "state whether the kotodama table stays in-lane or bleeds." Verdict: stays in-lane — it documents kotodama-owned code (tools/check-supersession-settlement.py) and kotodama's own SOURCES.md rows, lands in kotodama's own SKILL.md; every sibling analog lives in that sibling's own repo and governs that sibling's own registry; the fleet row contract (CORPUS.md:118) is operator-owned and kotodama's table re-states lane practice without editing it. No duplication of an owned surface: no sibling owns a chain-state decision table; the word-level overlaps (kaidoku "settle-gate" = seat settlement; chousa "settle-tables" = seat settlement; tameshi "superseded" lifecycle; tabi "Registry correction" section) are homonyms/partial analogs, not competing owners.
+
+  One caveat to record as a finding: IF kotodama's table were to be promoted as fleet-level guidance (e.g., into CORPUS.md or PROTOCOL.md), THAT would bleed — CORPUS.md:118 already defines the supersedes row contract operator-side, and fleet AGENTS says name the correction in the round report instead of editing operator files. Also a potential naming collision risk: "settlement" as a term is already used in sibling lanes for a DIFFERENT concept (seat settlement: kaidoku r30, chousa r44). Within-lane naming is fine (kotodama's tool is "supersession-settlement", qualified), but the L1 should keep the "supersession-" qualifier in cross-lane prose to avoid conflation with kaidoku/chousa's seat-settlement gates.
+
+  Also the g3d scribe "correction chain" mention — check the referenced g3d report for a correction-chain surface. Let me do the final batch:
+
+  1. Bash rg for 'correction chain' across lane repos (fast, scoped).
+  2. Grep 'correction chain' -i in game-dev-3d-shokunin/reports/round-86/r86-scribe.md (file may exist; if missing, finding).
+
+  Then write the report.
+
+  For the Bash rg: rg -i -l 'correction chain' /home/vgpnk/Projects/shokunin/*-shokunin -g '*.md' -g '!**/.git/**' -g '!**/.jj/**' -g '!**/worktrees/**' -g '!**/.scratch/**' -g '!**/node_modules/**' -g '!**/.ufo/**' — hmm, excluding .ufo may hide lane .ufo reports that mention it, but those are runtime, not owned surfaces; still, for honesty scan without excluding .ufo but with head limit. The big trees are .git/.jj/worktrees; .ufo wave dirs are medium. Let me exclude .git/.jj and keep the rest, -l only, timeout guard: add `timeout 60`.
+
+  Wait, is rg installed? The Grep tool is powered by ripgrep but the binary may not be on PATH. Check `which rg || echo no`. I'll chain: command -v rg. If missing, fallback to grep -ril (slower but with excludes via --exclude-dir). Use grep -ril --include='*.md' --exclude-dir={.git,.jj,worktrees,node_modules} 'correction chain' /home/vgpnk/Projects/shokunin/*-shokunin — grep -r with exclude-dir braces works in bash. That's reliable without rg. But grep -ril over ~20 repos with big .ufo dirs — fine within 60-120s.
+
+  Also grep for 'settlement' live surface check in kotodama corpus SOURCES.md to see own-lane rows? Not needed for adjacency.
+
+  Also: double-check that no sibling owns a file named check-supersession-settlement or similar (name collision): fleet grep 'supersession' in tools paths? Quick: Bash find across lanes for tools matching *supersession* / *settle*. Include in same command: find /home/vgpnk/Projects/shokunin/*-shokunin -name '*.py' -path '*tools*' \( -iname '*supersess*' -o -iname '*settle*' \) 2>/dev/null. Plus SKILL.md files named SOURCES governance — have enough.
+
+  Run:
+  CMD1: grep -ril --include='*.md' --exclude-dir=.git --exclude-dir=.jj --exclude-dir=worktrees --exclude-dir=node_modules 'correction chain' /home/vgpnk/Projects/shokunin/*-shokunin | head -30
+  CMD2 (same call, chained): find tools/supersession|settle py files.
+  Combine with `;`.
+
+  Then write report file. Report path: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/ScoutAdj.md. The dir exists (prompts/, stdout/ seen under it). Write markdown with commands + outputs + VERDICT lines. Requirements: exact commands ran and real output (summarized/quoted), findings as VERDICT lines, note missing artifacts.
+
+  Report structure:
+  - Seat/scope/date
+  - Method: marker matrix, commands with outputs (trimmed quotes)
+  - Marker findings per term with nearest prior art (path:line + short quote)
+  - Key distinguishing facts: five-state taxonomy uniqueness (41 hits all kotodama), heading uniqueness in SKILL.md (0 sibling hits), kaidoku/chousa "settlement" = seat-settlement homonym, chousa SOURCES.md supersedes rows = same row contract different registry, CORPUS.md:118 operator-owned contract.
+  - VERDICT: IN-LANE (no bleeding / no duplication) — as verdict lines:
+    - VERDICT: NO-SIBLING-OWNER — heading and taxonomy unique to kotodama
+    - VERDICT: IN-LANE — table stays in-lane, no duplication
+    - caveat VERDICT: HOMONYM-RISK noted (seat-settlement vs supersession-settlement) — informational
+    - If kotodama ever promotes table fleet-level → would bleed; record as guard.
+  - Nearest prior art ranked list.
+  - Evidence commands log.
+
+  Also mention the 'correction chain' g3d finding result from the last scan.
+
+  Time-box okay. Let me run the last scan batch.
+
+audio-shokunin/LOG.md
+game-dev-3d-shokunin/reports/round-86/r86-scribe.md
+kaidoku-shokunin/.ufo/waves/round-16/w1/ReconstructHistory.md
+kaidoku-shokunin/.ufo/waves/round-23/runtime/KaidokuR23.RunBefore/clone/.ufo/waves/round-16/w1/ReconstructHistory.md
+kotodama-shokunin/.ufo/waves/round-69/w1/CritD3.md
+kotodama-shokunin/.ufo/waves/round-69/w1/CritD1.md
+kotodama-shokunin/.ufo/waves/round-69/w1/CritD4.md
+mado-shokunin/.ufo/waves/round-35/w1/reports/ScribeFrontier.md
+mori-shokunin/.ufo/waves/round-41/w1/ScoutSOURCESRows.md
+tameshi-shokunin/.ufo/waves/round-28/w1/Read07A.md
+--- tools-name-collision-check ---
+chousa-shokunin/.ufo/waves/round-43/w1-settle.tsv
+chousa-shokunin/.ufo/waves/round-44/make-settle-tables.py
+chousa-shokunin/.ufo/waves/round-44/w1-settle.tsv
+chousa-shokunin/.ufo/waves/round-44/w2-settle.tsv
+chousa-shokunin/.ufo/waves/round-44/w3-settle.tsv
+kagi-shokunin/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/base/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F1/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F1/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F2/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F2/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F3/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F3/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F4/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F4/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F5/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/F5/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/patched2/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/patched2/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/patched/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/patched/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/mutated/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/mutated/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/probe7db/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/probe7db/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/strict62/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevC1Fixtures-7/work/strict62/.ufo/waves/round-27/sandboxes/KagiR26.MutKnowledgeBase-17/base/.ufo/waves/round-23/falsify/CritSupersession.md
+kagi-shokunin/.ufo/waves/round-28/sandboxes/RevNoHarmOperability/base/.ufo/waves/round-23/falsify/CritSupersession.md
+--- g3d-scribe-ref ---
+bpx-scout.md
+nas-scout.md
+r86-adjudicator.md
+r86-author.md
+r86-baseline.md
+10:> 12-vs-11 correction chain verified. reports/round-86/r86-scribe.md.
+208:### 5. r84-scribe's 12-vs-11 correction chain
+• The 'correction chain' scan: lane-internal hits are all wave-runtime reports (.ufo/waves/...) or logs, plus game-dev-3d-shokunin/reports/round-86/r86-scribe.md which discusses "r84-scribe's 12-vs-11 correction chain" — that's a count correction (12-vs-11 leg count) in a round report, NOT a registry supersession chain decision table. And audio-shokunin/LOG.md has 'correction chain' — LOG.md is an append-only ledger; a mention there is bookkeeping, not an owned governance surface. No lane owns a `### Registry correction chains` table or its equivalent.
+
+  The tools-name scan: no sibling has any *supersession*/*settle* named tool outside .ufo wave runtime (chousa make-settle-tables.py lives under .ufo/waves/round-44 — runtime, seat settlement; kaidoku tools/round-30/settle-gate.py — seat settlement gate, caught earlier). No sibling owns a supersession-settlement checker. kagi's CritSupersession.md files are sandbox copies of one wave critique file — runtime.
+
+  Let me quickly check what kagi CritSupersession.md round-23 falsify was about — it's called "CritSupersession" which sounds like it critiques a supersession claim. One peek at first lines to be safe — it's in kagi .ufo/waves/round-23/falsify/. Cheap read of ~15 lines. Also audio-shokunin/LOG.md 'correction chain' context — grep the line. And mori ScoutSOURCESRows.md is a wave scout report about SOURCES rows — runtime, prior-art-ish but not an owned surface. I have enough for the verdict; but two quick greps make the report airtight. Batch:
+
+  1. Grep 'correction chain' -i -n content in audio-shokunin/LOG.md head 3.
+  2. Read kagi-shokunin/.ufo/waves/round-23/falsify/CritSupersession.md first 15 lines.
+
+  Then write the report.
+
+  Actually, let me also grab the exact line of kama SKILL.md:759 quote — already have from grep output: "S078–S086 (superseding S066–S074). Historical source rows and prose remain". Good.
+
+  Also for the report I should log the exact commands I ran. I'll list them in a Commands section with abbreviated outputs.
+
+  VERDICT lines planned:
+  - VERDICT: NO-DUPLICATE-OWNER — no sibling lane owns a supersession/registry-correction-chain decision table or a chain-state taxonomy; the heading `### Registry correction chains` appears in zero sibling SKILL.md files (grep **/SKILL.md → no matches), and the five state names + five error signatures occur only in kotodama files (41 hits, all kotodama).
+  - VERDICT: IN-LANE — the table stays in-lane.
+  - VERDICT: PRIOR-ART (nearest) — ranked list with path:line.
+  - VERDICT: HOMONYM — "settlement" in kaidoku/chousa = seat settlement (dispatch/report settlement), disjoint surface; keep the `supersession-` qualifier in cross-lane prose.
+  - Guard finding: if the table's guidance were promoted to fleet-level files (CORPUS.md:116-118 already holds the operator-owned supersedes row contract), that would bleed — lane writes to fleet operator files are out of scope per fleet AGENTS.md:79-81.
+
+  Also note evidence limits: lane .ufo/.git/.jj trees were partially excluded in the 'correction chain' scan (worktrees/node_modules excluded; .git/.jj pruned) — label partial. The include_ignored greps timed out at 20s (partial result sets) — label as partial observations, list which scans were complete vs partial. The SKILL.md-scoped heading grep completed ("No non-sensitive matches found" — completed within limit? It said Wall time 11.7s, no timeout notice → complete). The five-state-names grep hit the 20s timeout with 41 results, "total: 41 of a partial result set" — hmm, it says partial. But the state names are unique strings tied to kotodama's tool; partial risk is acceptable, label it. Actually it timed out while continuing to scan sibling .git dirs etc. The 41 shown paths are all kotodama; the timeout means I can't claim absolute exhaustiveness, but combined with the completed SKILL.md-scoped heading grep (no matches in any lane SKILL.md) the no-duplicate-owner verdict stands on the completed scan.
+
+  Write the report now. Keep it tight but complete with commands+outputs. End answer with Report: line.
+
+• All confirmed:
+  - audio LOG.md:1240,1263 "Correction chain" = critic-finding correction chain (wave findings bookkeeping), not registry chains.
+  - kagi CritSupersession.md = a round-23 falsify critique of kagi's own prose supersession rows (S019-S026), read-only seat report — runtime, not an owned governance surface, but it IS nearest-prior-art evidence that sibling lanes actively govern `supersedes S0NN` prose rows in their own registries.
+
+  Now write the report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/ScoutAdj.md.
+
+  Content plan (markdown, with exact commands + real output quotes, VERDICT lines):
+
+  # ScoutAdj — kotodama r69 w1 adjacency scan (supersession / registry-correction-chain / SOURCES-governance)
+
+  Scope, date, base rev, read-only.
+
+  ## Commands run (with real outputs, trimmed)
+  List each command and key output.
+
+  ## Marker matrix
+  Table-ish per marker with nearest prior art path:line.
+
+  ## Distinguishing facts
+  1. Heading uniqueness (completed grep **/SKILL.md → no matches; only hits anywhere = kotodama's own .ufo/waves/round-69/w1/prompts/*).
+  2. Five states + five signatures unique to kotodama (grep files_with_matches → 41 results, all kotodama paths: reports/round-69/*, reports/round-68/*, tools/, .scratch/smoke/*, .ufo/waves/round-69/*). Taxonomy source: tools/check-supersession-settlement.py:6-22 (docstring) and classify() :112-137; accept-d.py:35-40 freezes heading+STATES.
+  3. Sibling "settlement" surfaces are seat-settlement, a homonym: kaidoku tools/round-30/settle-gate.py:2 ("Seat-settlement gate (round-30; ...)"); chousa .ufo/waves/round-44/make-settle-tables.py:2 ("build the round-44 wave settlement tables"). Disjoint concept (dispatch/report settlement vs registry supersession chains).
+  4. Sibling supersedes-S surfaces exist but each governs that sibling's own registry, per-lane repos: chousa corpus/SOURCES.md:39-42 (+7 rows total); kama SKILL.md:759 (S078–S086 superseding S066–S074); kagi round-23 falsify critique of prose-only supersession; mado SKILL.md:606/624 (source-merge supersedes-policy selftest; supersede-sweep ledger); tameshi SKILL.md:1573/1829/1841 (registry lifecycle rows: active→superseded with superseded_by; REGISTRY_CHECK held/superseded counts); tabi SKILL.md:2128 ("#### Registry correction — supersedes :2098-2102...") + :1614 (check-sources.mjs selftest incl. a `supersedes` correction case and S0010-vs-S001 id boundary).
+  5. Fleet-level contract is operator-owned: CORPUS.md:116-118 ("A correction is a new row whose teaches opens `supersedes S0NN —`"), scripts/sources-census.sh; fleet AGENTS.md:31 assigns each lane its own SKILL.md/corpus; :79-81 forbids lane edits to operator files.
+  6. 'correction chain' nearest non-kotodama: game-dev-3d-shokunin/reports/round-86/r86-scribe.md:208 ("### 5. r84-scribe's 12-vs-11 correction chain") — a leg-count correction discussion in a round report, not a registry surface; audio LOG.md:1240/1263 — critic-finding chains; kaidoku/mado/mori/tameshi hits are .ufo wave runtime files.
+
+  ## Verdicts
+  - VERDICT: NO-DUPLICATE-OWNER (PASS for landing D2 as scoped) — no sibling owns a supersession/registry-correction-chain decision table, heading, or chain-state taxonomy; nearest analogs are per-lane lifecycle rows (tameshi) and corrective sections (tabi) inside their own repos.
+  - VERDICT: IN-LANE — the kotodama table stays in-lane; it documents kotodama-owned code (tools/check-supersession-settlement.py) and kotodama's own corpus/SOURCES.md S-rows and lands in kotodama's own SKILL.md. No bleed.
+  - VERDICT: HOMONYM-RISK (informational) — "settlement" already names seat-settlement gates in kaidoku (tools/round-30/settle-gate.py) and chousa (.ufo/waves/round-44); cross-lane prose should keep the `supersession-` qualifier to avoid conflation. kotodama's names already do (check-supersession-settlement.py, check-settlement-fixture.py is lane-internal O2 harness).
+  - BLEED GUARD: promotion of the table's guidance into fleet operator files (CORPUS.md, PROTOCOL.md) would be out of lane scope and would overlap the operator-owned supersedes row contract at CORPUS.md:118; keep D2 documentation inside kotodama SKILL.md.
+
+  ## Evidence limits
+  - include_ignored fleet greps timed out at the tool's 20s on huge sibling .git/.jj/sandbox trees → partial result sets; the verdict rests on the completed SKILL.md-scoped grep (0 sibling matches) plus targeted per-lane reads. 'correction chain' lane scan excluded .git/.jj/worktrees/node_modules (grep -r over lane roots, completed 35.9s).
+  - No sibling SKILL.md was fully read end-to-end; conclusions rest on marker greps + the quoted lines.
+  - kotoba-shokunin: zero matches for settlement|supersedes S in SKILL.md/corpus/SOURCES.md/corpus/knowledge/PROVINCE.md.
+
+  Commands log (exact):
+  1. ls -1 /home/vgpnk/Projects/shokunin
+  2. Grep 'supersedes S' (fleet, default ignores) → 291 hits, 0 lane-internal (extraction via grep -oE ... | sort | uniq -c → empty)
+  3. Grep -i 'correction chain' (fleet, default ignores) → 1 hit: .ufo/waves/shokunin-train-20261101-w17/tasks/g3d-scribe.md:5
+  4. Grep -i 'supersed|settlement' glob **/*-shokunin/** include_ignored → partial (20s timeout), lane surfaces enumerated
+  5. Grep -i 'supersed' glob **/SKILL.md include_ignored → 3620 hits partial; quoted lines cited
+  6. Grep -i 'supersed' glob **/SOURCES.md include_ignored → saved output 12804 lines (rows across lanes)
+  7. Grep 'Registry correction chains' **/SKILL.md include_ignored → no matches (complete)
+  8. Grep 'Registry correction chains' include_ignored fleet → 88 hits, first 20 all kotodama .ufo/waves/round-69/w1/prompts/* (partial)
+  9. Grep 'settled-split|chain-left-pending|entry-not-repointed|retired-row-mined|closed-chain-kept|scope-limiter-missing' include_ignored → 41 results (partial, 20s), all kotodama
+  10. Read kotodama reports/round-69/accept-d.py (heading+STATES frozen at :35-37), tools/check-supersession-settlement.py:1-140, kaidoku tools/round-30/settle-gate.py:1-30, chousa .ufo/waves/round-44/make-settle-tables.py:1-25, kagi CritSupersession.md:1-14, fleet CORPUS.md:108-125, fleet AGENTS.md
+  11. grep -ril 'correction chain' over *-shokunin (excl .git/.jj/worktrees/node_modules) → 10 files listed
+  12. find *-shokunin for *supersess*/*settle* tools → only runtime .ufo files + kaidoku tools/round-30/settle-gate.py
+  13. ls game-dev-3d-shokunin/reports/round-86/ + grep → r86-scribe.md:208, :10
+
+  Note: no writes other than this report; no production bytes touched; no installs (none needed; RULES.md read requirement satisfied — I didn't install anything).
+
+  Also mention: kaidoku/chousa AGENTS.md reminders noted; no changes made in those dirs (read-only).
+
+  Write it. Keep the report focused (~150 lines). Then final answer summarizing + Report line.
+
+• Report written. Final answer: summarize findings concisely, end with the Report line.
+
+To resume this session: kimi -r session_69dd5715-c846-4939-9294-0d4cd7d3bd8e

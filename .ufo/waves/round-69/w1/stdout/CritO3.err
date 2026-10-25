@@ -1,0 +1,775 @@
+kimi version 2.3.1
+• Let me start immediately. I'm a Godspeed subagent attacking the round-69 declaration. I need to:
+
+  1. Read claims.json and the three acceptance counters
+  2. Read the controls.txt
+  3. For each claim: name (a) predicate, (b) counting command, (c) target, (d) kill rule, (e) do-nothing control scored before data?, (f) clauses not re-derivable by one command over committed bytes
+  4. Flag universal quantifiers not enumerated by counting commands
+  5. Attack the tools/check-settlement-fixture.py
+  6. Write report to .ufo/waves/round-69/w1/CritO3.md
+
+  Let me batch reads in parallel: claims.json, accept-o.py, accept-ca.py, accept-d.py, controls.txt, check-settlement-fixture.py. Also check whether the "not landed yet" data is actually landed (SKILL.md decision table, S859 row, corrections files) — as a critic, I should note current state.
+
+  Let me fire off parallel reads now.I've read the claims, counters, controls, and the new tool. Now I need to run the counters and selftests to gather evidence, and check the current state of the not-yet-landed data. Let me also read supporting files: round-68 receipts (final-measures-o.txt, final-measures-ca.txt), the fleet report .ufo/reports/round-68/kotodama.md, SCORECARD round-68 section, LOG round-68 entry, SKILL.md, corpus/SOURCES.md (check S859 status), corpus/lessons/round-68.md, round-69.md.
+
+  Key attack angles I'm already noticing:
+
+  1. **accept-o.py LANE leg**: runs the fixture harness with `--root root` and requires `LANE: pending=0 missing_paths=0`. But wait — the harness's own `--root` also runs the three fixture cases first; if those fail rc=1 even if lane is clean. Actually the LANE leg requires rc==0 and "LANE: pending=0 missing_paths=0" in out. Fine. But at the base tree (pre-data), does the lane's own corpus/SOURCES.md settle with pending=0? That depends on lane data — if any chain is pending, LANE fails regardless of the new work. That's a claim not purely about the new capability — LANE leg makes the claim depend on the whole registry state. Actually that's fine-ish; but it means accept-o can fail due to unrelated registry state.
+
+  2. **accept-o.py NEGPROBE**: checks "missing_paths=1" in checker stdout on a fixture. But note: NEGPROBE builds its own registry with S001 queued/S002 mined with used-by corpus/knowledge/a.md and no knowledge file. This duplicates the harness negative case. OK.
+
+  3. **STAMP leg self-reference**: `mine = sha256_file(HERE/SELF)` vs `committed = sha256(root/reports/round-69/SELF)`. If run with `--root .` from the lane, they're the same file — STAMP trivially passes and proves nothing about the committed bytes being committed (a working-tree copy is what's hashed). "The counter under test is the committed one" — but hashing the working tree is not hashing a commit. The counter cannot verify committedness without git; it hashes files on disk. So STAMP is weaker than its comment claims: it can't distinguish an uncommitted edit from a committed one. Also, if someone runs the counter from a *copied* directory (as selftest does with fixture), HERE != fixture path... in the fixture, they copy accept-o.py into fx and run it there — then mine = fixture copy's hash, committed = fixture copy hash (since root=fx). Fine.
+
+  Actually more importantly: with `--root .` run from the lane root, HERE = reports/round-69 of the lane; committed = root/reports/round-69 → same file. STAMP is tautological in the intended invocation. It only catches divergence when --root points elsewhere. The declared counting command is `--root .` → STAMP always PASS, contributes zero evidence. That's a real finding: a universal-sounding leg ("the counter under test is the committed one") that its counting command cannot falsify.
+
+  4. **accept-ca.py R68FROZEN leg**: `live = sha256(round-68/accept-ca.py)`, `rec = recorded_sha(final-measures-ca.txt)`. Requires the round-68 receipt to contain the line `# counter sha256 (self): <64hex>`. Need to check the actual receipt has that line. If not, R68FROZEN fails permanently and the claim dies — worth verifying.
+
+  5. **accept-ca.py surface_text for fleet pairs**: `pair.get("fleet")` → path = rel, joined to fleet_root if not absolute. Claims have `.ufo/reports/round-68/kotodama.md` with fleet:true. Note in `build_fixture_root`, the selftest rewrites the fixture claims.json so that pair["path"] = os.path.join(fdir, "kotodama.md") — an absolute path inside the fixture. But wait, it only does that for pairs where `pair.get("surface") == "fleet-report"` — but the actual claims.json has surface `.ufo/reports/round-68/kotodama.md`, not "fleet-report"! Let me check: claims.json calibration_pairs: surface values are "SCORECARD.md", "LOG.md", ".ufo/reports/round-68/kotodama.md" (x2). There is no pair with surface == "fleet-report". So the fixture rewrite loop `if pair.get("surface") == "fleet-report"` matches NOTHING. Then in the fixture, surface_text with fleet=true joins fleet_root (the fixture "fleet" dir) with rel `.ufo/reports/round-68/kotodama.md` → fixture/fleet/.ufo/reports/round-68/kotodama.md — which build_fixture_root does create (fdir). OK that works by accident. Fine.
+
+  But hold on — in `build_fixture_root`, `real = /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md`; if exists, copies it. The fixture fleet report is the REAL fleet report. For the green fixture to pass, correction rows must exist for all five pairs; build generates rows `| class | surface | ...` — cells[1]=class, cells[2]=surface key. For fleet pairs surface key is ".ufo/reports/round-68/kotodama.md". Covered set then includes (DEADPOINTER, ".ufo/reports/round-68/kotodama.md"). OK.
+
+  But the green control requires the REAL fleet report to have NO live LEGCOUNT/DEADPOINTER mismatches (deadpointer must also resolve: R68-M ids referenced in fleet report must exist in lane LOG/lessons). If the real fleet report references an R68-M that doesn't exist anywhere in LOG.md/round-68/round-69 lessons, the green selftest FAILS — the selftest would exit 1 and controls.txt (already committed, says green 8/8) would mismatch a re-run. I should re-run all three selftests and compare against controls.txt. That's my main empirical attack: does the committed controls.txt still reproduce?
+
+  6. **accept-ca DEADPOINTER remedy semantics**: remedy = is_covered and not is_live. If pointer dead AND no correction row → unannotated. If pointer dead but covered → not unannotated?? Wait: `remedy = is_covered and not is_live`; `if is_live and not remedy: unannotated += 1`. So if is_live (dead pointer) and is_covered=True, remedy = False and not remedy = True → is_live and not remedy → unannotated += 1. Good. If pointer is not dead (is_live False), remedy = covered → ok = covered. Fine.
+
+  But there's a subtle hole: `detect_deadpointer` scans the ENTIRE surface text (the whole fleet report file, not a section) for `R68-M(\d+)` and `+M(\d+) in LOG`. Any numeric id like "R68-M9" — for the fleet report to be clean, every referenced id must exist in LOG.md, corpus/lessons/round-68.md, or round-69.md. Note corpus/lessons/round-69.md is included in the existence scan — so the data itself (round-69 lesson) can retroactively make old pointers resolve. That's by design ("append-only repair").
+
+  Another hole: LEGCOUNT detection uses LEGCOUNT_RE `(\d+)\s*/\s*(\d+)\s+legs\s+PASS` within the section text for SCORECARD/LOG, whole file for fleet report. It compares against obs_o derived from final-measures-o.txt via LEG_LINE_RE `^([A-Z0-9_]+)\s+(PASS|FAIL)`. If the receipt formats legs differently (e.g. "LEG O-M1 PASS"), fine. Need to look at the receipt.
+
+  Also `section_text` — heading regex `^## Axes — round 68` — em-dash. Need to verify SCORECARD actually has that heading.
+
+  7. **accept-d.py STATES leg**: `got = [r[0].lower() for r in rows if r]` compared to list(STATES) where STATES are lowercase. So the table's first column must be exactly those five lowercase strings in that order. Rigid but fine.
+
+  8. **accept-d.py EVIDENCE leg**: PATH_RE tokens in r[4]; requires `os.path.exists(os.path.join(root, t))` for at least one token per row. In the fixture, FIXTURE_TABLE references `tools/check-supersession-settlement.py:112` — PATH_RE matches `tools/check-supersession-settlement.py` (the `:112` stops the match? PATH_RE = `[A-Za-z0-9_./-]+\.(?:py|md|tsv|txt|json|ya?ml)` — matches up to `.py`, colon not in class, so token = path only. Good.) But in the REAL lane, the evidence pointers must resolve to real paths in the lane — e.g. `corpus/SOURCES.md` or `tools/check-supersession-settlement.py`. Fine. Note EVIDENCE only checks path EXISTENCE, not that the cited line number or content supports the row. "Evidence pointer" is verified as "a file exists" — weak: an evidence cell citing any existing file passes. The claim says "an evidence pointer" — the counter's enforcement is existence-only, so a table could cite irrelevant existing files. That's a universal ("cites a mined S-row whose used-by names SKILL.md") partially checked: SOURCE leg checks S859 in SOURCES.md with status mined and used-by containing SKILL.md. But it only checks sids found in TABLE text — if the table cites S859 in only one row, fine, at least one.
+
+  Note the D2 "before" says `grep -c '^### Registry correction chains' SKILL.md` -> 0. Fine.
+
+  9. **accept-d SIGNATURES leg**: `missing_sig = [r[3] for r in rows if ...r[3] not in ep_text]` — r[3] must appear as substring in the Error patterns section. Substring check: a signature like "entry-not-repointed" could appear in Error patterns inside a different context. Fine.
+
+  BUT: in build_fixture_root, `base.replace("## Error patterns", FIXTURE_TABLE + "\n## Error patterns", 1)` inserts the table BEFORE "## Error patterns" heading — so the fixture table lands at the END of whatever section precedes ## Error patterns. section_span for HEADING "### Registry correction chains" scans for a line whose strip equals the heading — `lines[j].startswith("## ")` ends the section. The fixture table ends right before "## Error patterns", so section = heading..end. OK.
+
+  10. **The `--root .` counting commands and the fleet-root default in accept-ca**: `/home/vgpnk/Projects/shokunin` hardcoded default. The counting command passes it explicitly. OK.
+
+  11. **Controls.txt do-nothing counts**: o: 6/7 do-nothing legs pass → exactly which leg fails? With with_usedby=False, LANE leg fails (missing_paths=1), FIXTURE passes? Wait — in do-nothing fixture (accept-o), the fixture tree lacks the used-by file; FIXTURE leg runs the harness --selftest on the fixture tree: negative case expects missing_paths=1 — harness cases: green (create_usedby=True) fine, negative (absent) fine, pending fine — FIXTURE passes. NEGCASE passes. LANE fails (missing_paths=1 in scanned root). NEGPROBE passes (built independently). R68FROZEN — fixture copies round-68 counters + receipts from LANE; if lane receipts record correct sha of counters, passes. STAMP: mine = sha of accept-o.py where? When selftest runs, evaluate(green) with HERE = the lane's reports/round-69 → mine = lane copy, committed = green/reports/round-69/accept-o.py = copied from lane → equal. Passes. TOOL passes (harness copied). So exactly LANE fails → 6/7. Matches controls.txt "legs 6/7". Good consistency.
+
+  accept-ca do-nothing: with_corrections=False → all five EVAL legs: remedy = covered = False. For pairs not live: ok = remedy = False → fail. MISMATCHES: unannotated counts only is_live and not remedy → if no pair is live, unannotated=0 → MISMATCHES leg PASSES even in do-nothing! So do-nothing failure comes from the five EVAL legs → 8 legs total: R68FROZEN + OBSERVED + 5 EVAL + MISMATCHES = 8. If nothing live: R68FROZEN pass, OBSERVED pass, 5 EVAL fail, MISMATCHES pass (unannotated=0 but live=0) → 2/8 pass. controls.txt says "legs 2/8". Matches. 
+
+  Interesting: MISMATCHES (the predicate's target "unannotated_mismatches=0") passes in the do-nothing fixture — the headline metric does NOT fail in do-nothing; only the EVAL legs do. The predicate requires "every leg PASS and MISMATCHES prints unannotated_mismatches=0" — so overall OK because EVAL legs fail. But note the asymmetry: if a future data-set marks pairs covered with bogus rows, EVAL legs pass and MISMATCHES counts live-but-uncovered. The coverage rows just need cells[1] and cells[2] to match — no verification that the correction row's "observed text" is accurate. So the correction file is self-certifying: appending `| LEGCOUNT | SCORECARD.md | filed | observed | cmd |` satisfies coverage without any content check. The counter cannot detect a hollow correction row. That's a genuine weakness — the universal "each closed by an APPENDED correction row" is enforced only as "a table row whose two cells match", not that the row re-derives anything. Flag it.
+
+  12. **accept-ca correction_pairs parses ANY table row** in corrections-r68.md including the header row? Header row: `| class | surface | filed text | ...` → cells[1]="class", cells[2]="surface"; "class".upper() in ("LEGCOUNT",...) → no. Separator row `|---|---|` → cells after split: ['', '---', '---', ...] len<4? `|---|---|---|---|---|`.split("|") → ['', '---', '---', '---', '---', ''] len=6 ≥4, cls='---' not in list → skipped. OK.
+
+  13. **R68FROZEN in accept-o checks THREE counters** (o, ca, c) against receipts. accept-ca R68FROZEN checks only accept-ca.py. Fine.
+
+  14. **The claims freeze**: "counters not edited after data" — STAMP leg hashes live file vs committed file, but as noted with `--root .` it's the same file → tautology. The real freeze enforcement is R68FROZEN for round-68 counters; for the round-69 counters themselves, freeze is enforced by... controls.txt receipts record only selftest outputs, not sha256 of the counters. Wait — do the receipts record counter sha? controls.txt shown above has no sha lines. The recorded_sha() function looks for `# counter sha256 (self):` in round-68 receipts. Let me check whether round-68 receipts have that line. If they don't, R68FROZEN legs fail immediately → accept-o fails at base. Need to verify final-measures-o.txt contains that line. The controls.txt claims green 7/7 including R68FROZEN, so presumably the round-68 receipts DO have the sha lines. Verify by reading them.
+
+  15. **The missing-used-by defect class claim**: "whose NEGATIVE case is the missing-used-by defect class the round-68 counter never exercised". Verify round-68 accept-o EXEC fixture indeed never created corpus/knowledge/a.md. Read reports/round-68/accept-o.py.
+
+  16. **Base-revision check**: claims base 793f79746712a79f915bb481215e54bbea8b5e7a. Check `jj`/git log — read-only git allowed. Check that committed round-69 files match working tree (they said pre-data instruments committed). git status will show. Also verify at base revision the "before" clauses: `test -f tools/check-settlement-fixture.py` at base is false; grep SKILL.md at base. Use `git show 793f7974:path | grep -c ...`. That's read-only, allowed.
+
+  17. **Universal quantifier flags**:
+  - O2: "every leg of accept-o.py prints PASS" — enumerated by the counter (7 legs printed). OK, enumerable.
+  - Ca2: "every declared pair's observation is consistent and an appended correction row naming that class and that surface exists" — 5 pairs enumerated in claims.json. But "the count of unannotated mismatches between the lane's filed self-assessment ... and the committed round-68 receipts drops to zero" — the SURFACE says "the count of unannotated mismatches between filed self-assessment and receipts" — but the counter only checks the 5 DECLARED pairs. If there exists a 6th mismatch class elsewhere in SCORECARD/LOG/fleet report (e.g. a wrong count in a different section, or a dead pointer in LOG.md), the counter never looks. The universal "count of unannotated mismatches ... drops to zero" is scoped by the counter to the declared five — the declaration sentence is broader than the measurement. FLAG: claim surface reads as a global count; the instrument enumerates only 5 pre-declared pairs. "zero over the 5 declared pairs" is the honest scope (target says "0 unannotated mismatches over the 5 declared pairs" — target does scope it; the surface sentence does not).
+  - D2: "the five signatures also listed under ## Error patterns" — enumerated. "citing a mined S-row whose used-by names SKILL.md" — SOURCE leg only checks SIDs appearing in the TABLE text; if the table cites S860 instead of S859 and S860 also is mined with SKILL.md used-by, it passes — fine, claim says "a mined S-row".
+  - "exactly 5 state rows, 5 non-empty cells each" — enumerated.
+  - O2 surface: "a runnable, lane-shaped supersession-settlement fixture harness" — "lane-shaped" is checked how? The harness builds an 11-column registry with ## Paths and ## Search log. Is the LIVE corpus/SOURCES.md actually 11 columns with those sections? If the fixture shape diverges from the live lane shape, "lane-shaped" is unverified by any leg. Check live SOURCES.md shape. LANE leg runs the real checker against the real root — that exercises the real shape via the real checker, not the fixture shape. The claim "lane-shaped" is otherwise not enumerated by a leg — mild flag.
+  - "whose negative case is the missing-used-by defect class the round-68 counter never exercised" — "never exercised" is a historical universal over round-68 runs; can't be re-derived by one command over committed bytes except by reading round-68 accept-o.py's fixture code (I can verify statically). It IS re-derivable by reading committed bytes (the r68 counter source). OK-ish; note it.
+
+  18. **(f) clauses not re-derivable by one command**:
+  - O2 "at the base tree the TOOL leg fails because no harness exists" — do_nothing_control mentions a base-tree behavior; re-derivable via git show base.
+  - Ca2 before: "at base three classes over five pairs unannotated" — the counter at the NEW tree can't re-derive the BASE state without checking out base; can verify via git show + running counter against a base-tree temp copy? The counter needs fleet-root etc. Could run accept-ca.py against a temp tree built from git archive of base. That's a real re-derivation I can attempt in /tmp. Actually the counter reads fixed paths; I can `git archive base | tar -x` into /tmp/base-tree, then run accept-o.py (from the CURRENT tree) with --root /tmp/base-tree? accept-o STAMP compares HERE vs root's copy — root copy absent at base → STAMP fails, TOOL fails etc. The interesting question for Ca2 at base: are the three classes live at base? I can run detect functions manually against base-tree bytes. That's a worthwhile check: the "before" says LEGCOUNT live on SCORECARD+LOG+fleet; DEADPOINTER on fleet; OVERREACH on SCORECARD. If some pair is NOT live at base, the declared mismatch inventory is wrong → the round counts fixing mismatches that don't exist (harmless) or misses ones that DO exist (the counter would then demand corrections for pairs that were never broken — fine) — the real risk: a pair that IS live at base but NOT declared → counter blind spot. I should run a manual mismatch scan over base bytes for ALL sections (not just declared ones) to find undeclared live mismatches. That's the strongest calibration attack: enumerate LEGCOUNT_RE hits across the whole round-68 sections of SCORECARD/LOG/fleet report at base, DEADPOINTER ids across fleet report, OVERREACH rows — see if anything outside the declared five is live.
+
+  19. **accept-o LANE leg depends on live registry state**: at measurement time, if the S859 row is added with used-by SKILL.md and SKILL.md exists → missing_paths=0. If S859 used-by SKILL.md but... SKILL.md exists. Fine. But any OTHER pending chain in the live registry breaks LANE. Current live state? Run the harness --root now.
+
+  20. **check-settlement-fixture.py negative case detail**: `ok = s is not None and s["pending"] == 0 and s["missing_paths"] == 1` — ignores rc (checker exits 1 on missing paths presumably). Fine.
+
+  21. Note accept-o.py FIXTURE leg requires "FIXTURE: 3/3" in out — and LANE leg requires rc==0 from harness --root; harness rc also includes fixture results; fine.
+
+  22. **accept-ca OBSERVED leg**: obs_o from LEG_LINE_RE over final-measures-o.txt: counts lines starting with `^([A-Z0-9_]+)\s+(PASS|FAIL)`. If receipt uses "LEG STAMP PASS ..." format, matches "STAMP PASS"? LEG_LINE_RE without ^ anchor... it has re.M and pattern `^([A-Z0-9_]+)\s+(PASS|FAIL)\b` — anchored. "LEG STAMP PASS" line starts with "LEG" then space "STAMP" — `^LEG\s+(PASS|FAIL)` would need second token PASS — it's "STAMP" → no match; the line won't match at all. So which format does final-measures-o.txt use? Need to read it. If the format is `LEG O-STAMP PASS detail`, the regex finds no legs → observed_o_legs returns None → OBSERVED fails → the whole Ca2 counter red forever. But controls.txt says green 8/8 with OBSERVED pass, using real receipts. So format must match. Verify by reading receipts.
+
+  Also: obs_o counts ALL `^TOKEN PASS|FAIL` lines — including maybe non-leg lines like "ACCEPT-O-68: PASS"? `ACCEPT-O-68` contains hyphens → [A-Z0-9_]+ doesn't match hyphen... "ACCEPT" then "-O..." → `\s+` requires whitespace after [A-Z0-9_]+; "ACCEPT-" has "-" → no match. OK. But summary lines like "PASS 5/6" would match with token... whatever, read the receipt.
+
+  23. **subtle: accept-ca deadpointer scans corpus/lessons/round-69.md too** — meaning the DATA file (round-69 lesson) can retro-resolve pointers, but ALSO: mistake_rows_exist searches for the substring "R68-M9" anywhere in those files — a mere mention (not a "row") satisfies it. "a filed surface points at a mistake row that does not exist" → remedy checks only substring existence, not that a structured row exists. Weak but consistent with "append-only" culture. Flag lightly.
+
+  24. **accept-d fixture green passes require EVIDENCE: FIXTURE_TABLE evidence cells cite tools/check-supersession-settlement.py:112 etc.** — build_fixture_root copies the real checker into fixture → exists → EVIDENCE passes. SOURCE leg: fixture adds S859 row to fixture SOURCES.md with status mined used-by SKILL.md → passes. But in the REAL tree, S859 must be a REAL row in corpus/SOURCES.md, mined, used-by containing "SKILL.md". "cites a mined S-row whose used-by names SKILL.md" — the counter checks `cells[7] == "mined"` and `"SKILL.md" in cells[10]`. Also `len(cells) == 11`. OK.
+
+  25. **SID_RE / ROW_RE**: table rows must start `| S859 |`. Table_text joins rows with "|" — fine.
+
+  26. Now the do-nothing control for accept-o as committed says DO-NOTHING legs 6/7 — but claims.json says "(as required, 6/7)". Consistent.
+
+  27. **(e) do-nothing control scored before data?** controls.txt header says "committed BEFORE any data seat", generated 2026-10-24T23:15:56-03:00. Verify via git log timestamps that controls.txt was committed before the data files (SKILL.md table, S859, corrections). Check git log for those paths — if data already landed in working tree but not committed, that's fine (seats write, L1 integrates). Check whether SKILL.md currently has the table etc.
+
+  Now run everything. Batch:
+
+  - `cd lane && python3 -B reports/round-69/accept-o.py --selftest; echo rc=$?`
+  - `python3 -B reports/round-69/accept-ca.py --selftest; echo rc=$?`
+  - `python3 -B reports/round-69/accept-d.py --selftest; echo rc=$?`
+  - `python3 -B reports/round-69/accept-o.py --root .; accept-ca --root . --fleet-root ...; accept-d --root .` (current tree state — will show red on not-yet-landed data, expected)
+  - `python3 -B tools/check-settlement-fixture.py --selftest` and `--root .`
+  - Read receipts final-measures-o.txt, final-measures-ca.txt
+  - git log --oneline -5, git status --short (read-only ok), verify base rev.
+
+  Let me also verify round-68 accept-o.py fixture (R68-M1 claim) and the fleet report.
+
+  Batch 1 (parallel bash + reads). Use absolute paths, no cd needed with --root absolute. Note counters use HERE-relative LANE for selftest fixture sources — LANE is derived from HERE (script location), so running from anywhere is fine.
+
+  Commands (all read-only):
+  1. `python3 -B /home/.../reports/round-69/accept-o.py --selftest`
+  2. `python3 -B .../accept-ca.py --selftest`
+  3. `python3 -B .../accept-d.py --selftest`
+  4. `python3 -B .../tools/check-settlement-fixture.py --selftest && --root lane`
+  5. Read final-measures-o.txt, final-measures-ca.txt
+  6. git -C lane log --oneline -8; git status --porcelain (top lines)
+
+  Then batch 2: base-tree derivations in /tmp, manual mismatch scan, read fleet report, SCORECARD section, LOG round-68 entry, round-68 accept-o.py, SOURCES.md S859 area, SKILL.md grep.
+
+  Let me fire batch 1 now.
+
+GREEN FIXTURE: PASS (legs 7/7)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 6/7)
+SELFTEST: 2/2
+rc=0
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+rc=0
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 1/8)
+SELFTEST: 2/2
+rc=0
+PASS fixture-green rc=0 pending=0 missing_paths=0
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 3/3
+rc=0
+PASS fixture-green rc=0 pending=0 missing_paths=0
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 3/3
+LANE: pending=0 missing_paths=0
+rc=0
+6a98d7d round-69: declaration + three NEW counters (O2 operability, Ca2 calibration, D2 depth) with green and do-nothing pre-data controls; new lane-shaped settlement fixture harness; census start receipt; item-10 id-collision check
+793f797 round-68 verifier spot-check (integrator, hyaku): non-author admit/reject
+3412175 round-68: records-2 — Ca receipt (rev-1 counter crashes at D2: git_bytes undefined; FAIL as declared, traceback receipt preserved) + post-records topo (c/o receipts PASS carrier=A_ca parent=A_c) + hand-verified unrun-leg observations
+84418e0 round-68: A_ca claim Ca lands + records-1 — lesson round-68 (Gate S833-S856 + rejects S857/S858, Mistakes R68-M1..M8, quarantine verdicts), LOG/SCORECARD r68 sections, C/O receipts (C PASS 12/12; O FAIL as declared — frozen EXEC fixture), wave evidence (w1/rows/stage/taskcall), seat-evidence + census-end (exit 0, W04 stable 28) + residual re-opens telemetry, assimilation quarantine slice
+44c9cc2 round-68: A_c claim C lands — hair-grooming-codes.md (57 lines, 24 cited bullets S833-S856), registry rows S833-S856 (24 mined, tier A/B), README rev 2.20 (culture-material 34->35, totals 241->242)
+cb2f8ca round-68: A_r settlement lands — dedup ledger (82 rulings from 8 audit fragments; 30 activate + 4 retire incl. S490 forced by the frozen MUTABLE_T gap), registry status/used-by mutations bounded to MUTABLE, entry citation re-points bounded to EDITABLE_ENTRIES, R67-D1 sweep (26 frozen paths deleted), settle-apply rev2 (set_cell slice-assignment fix)
+710422f round-68: pre-data Ca counter revision 1 — D2 redefined to W04 URL-multiset stability + R68 full-row parse (CriticAmendD2 findings 3/6/7), w04-impossibility telemetry; claims C and O unchanged
+c1adbdf round-68: declaration + instruments — claims.json, three counters, supersession-settlement tool, dispositions manifests, wave spec
+99fae30 round-67 verifier spot-check (integrator, hyaku): non-author admit/reject
+ecbb285 round-67 records-2: Ca receipt (PASS at lands e7e17af0) + post-records topo evidence (C/O carriers PASS)
+---
+?? .ufo/waves/round-69/dispatch-v1.sh
+?? .ufo/waves/round-69/gen-spec.py
+?? .ufo/waves/round-69/spec-v1.json
+?? .ufo/waves/round-69/taskcall-v1.json
+?? .ufo/waves/round-69/w1/
+---
+6a98d7d042b6c58d2165773b1585069798111035
+• All three selftests reproduce the committed controls.txt byte-for-byte on leg counts:
+  - accept-o: GREEN 7/7, DO-NOTHING 6/7 FAIL → matches controls.txt
+  - accept-ca: GREEN 8/8, DO-NOTHING 2/8 FAIL → matches
+  - accept-d: GREEN 8/8, DO-NOTHING 1/8 FAIL → matches
+  - harness: 3/3 both ways; LANE: pending=0 missing_paths=0 at the live tree.
+
+  HEAD = 6a98d7d (round-69 declaration commit), parent = 793f797 = declared base. Good: base_revision check passes. Untracked w1/ files = the wave evidence, fine.
+
+  Receipts:
+  - final-measures-o.txt records sha256 of accept-o.py: f409096c... at rev 44c9cc2. Note: the receipt line says ACCEPT-O-68: FAIL, EXEC FAIL base_pending_fail=True lands_pass=False — confirming R68-M1.
+  - final-measures-ca.txt records a6d1c1c2... at rev 84418e0, crash traceback R68-M9 confirmed (git_bytes undefined at line 224).
+
+  Now R68FROZEN verification: I can independently verify sha256 of reports/round-68/accept-o.py etc. against the recorded values. The accept-o selftest already did that (R68FROZEN leg within green fixture copies from the lane). But let me verify directly with sha256sum on the live files — quick.
+
+  Wait — there's something important: the round-68 receipt records sha of the counter at its stamped revision; the live file must equal that. The accept-o selftest's R68FROZEN leg already validated all three (it ran green PASS which includes R68FROZEN on the lane-copied files). But let me do the independent sha256sum anyway — cheap and direct.
+
+  Next big checks:
+
+  1. Verify R68-M1 claim: round-68 accept-o.py EXEC fixture never creates corpus/knowledge/a.md. Read reports/round-68/accept-o.py (the EXEC part).
+
+  2. Current tree state vs "not landed yet": grep SKILL.md for '### Registry correction chains', SOURCES.md for S859, check corrections-r68.md existence, LOG round-68 section, SCORECARD round-68 section, fleet report.
+
+  3. Base-tree "before" re-derivation: git show 793f797:... for SKILL.md grep, tools/check-settlement-fixture.py existence.
+
+  4. Manual mismatch scan at BASE bytes (undeclared pairs hunt):
+     - Extract base SCORECARD round-68 section, LOG round-68 entry, fleet report (fleet report lives in the FLEET repo /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md — read-only read allowed).
+     - Run the same detectors: LEGCOUNT_RE over those sections vs obs_o=(5,7)? From receipt: legs — count PASS/FAIL: STAMP P, SELFTEST P, DIFF P, SHA P, PENDING P, LEDGER P, EXEC F, MUT P, TOPO P = 9 legs, 8 PASS 1 FAIL. obs_o = (8,9)? LEG_LINE_RE counts ^TOKEN PASS|FAIL lines: STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC, MUT, TOPO = 9 lines → (8,9).
+     - Then scan filed texts for "N/M legs PASS" patterns.
+     - DEADPOINTER: scan fleet report for R68-M\d+ and +M\d+ in LOG references; check existence in lane LOG.md + lessons r68/r69.
+     - OVERREACH: scan SCORECARD section for `| calibration |` row with verdict starting "improved" vs ca_verdict=FAIL (crash → "ACCEPT-CA-68: PASS" absent → FAIL).
+     - Then ALSO scan for pairs NOT in the declared five: e.g. LEGCOUNT patterns in the fleet report, DEADPOINTER in SCORECARD/LOG, OVERREACH rows in LOG section etc. — the counter only checks the declared (class, surface) pairs; find whether other live mismatches exist that the counter is blind to.
+
+  5. Do-nothing control nuance for accept-ca: MISMATCHES leg passes in do-nothing (unannotated=0 when nothing is live but uncovered → EVAL legs fail but unannotated counts only live&uncovered). Wait — actually if a pair is live and uncovered → unannotated += 1. At base, three classes over five pairs are live... in the do-nothing fixture (which copies the CURRENT lane files — current LOG/SCORECARD are the round-68 versions presumably uncorrected) → are the pairs live in the fixture? The do-nothing run printed legs 2/8 pass. 8 legs: R68FROZEN, OBSERVED, 5 EVAL, MISMATCHES. 2 pass. Which two? If the current filed texts still have live mismatches (uncorrected) and corrections absent → 5 EVAL fail, and unannotated=5 → MISMATCHES FAIL. Then the 2 passes are R68FROZEN + OBSERVED. That means at the CURRENT tree the five pairs are LIVE — consistent with "not landed yet". Let me run the real counter now (not selftest) to see the live EVAL details: `accept-ca.py --root . --fleet-root /home/vgpnk/Projects/shokunin`. That gives live=..., covered=... for each pair — the exact current mismatch inventory. That's gold for the report.
+
+  Also run accept-o --root . and accept-d --root . on the current tree to record the pre-data red state.
+
+  6. accept-ca surface_text for the fleet pair: pair["path"]=".ufo/reports/round-68/kotodama.md", fleet=true → fleet_root join. Read the fleet report file myself.
+
+  7. Check claims.json "wave" references scripts/hyaku/wave-slot.sh and policy — not needed for my judging axes.
+
+  8. The STAMP tautology finding — verify: run `python3 -B reports/round-69/accept-o.py --root .` — STAMP compares HERE file vs root file = same path → always equal. Confirm the counting command makes STAMP unfalsifiable. Also note accept-o STAMP: `mine and committed and mine == committed` — if run with --root pointing at a DIFFERENT tree it does something, but the declared counting command is --root . So STAMP passes trivially. Same in accept-d. In accept-ca there's no STAMP leg at all (R68FROZEN only). So "the counter under test is the committed one" is enforced... by nothing at measurement time for the round-69 counters themselves. The freeze of round-69 counters post-data rests on R68FROZEN-style receipts that DON'T exist for round-69 (no recorded sha of the r69 counters anywhere yet — controls.txt has no sha256 lines!). Actually — the claims say "the counter is not edited after data" as kill_rule, but there is NO instrument that records the round-69 counters' pre-data sha256. controls.txt contains only selftest outputs, no sha lines. So post-hoc amendment of accept-{o,ca,d}.py is undetectable by any committed instrument. That's a real hole worth flagging: the freeze rule for r69 counters is unenforced; recorded_sha exists only for r68 receipts. Recommendation: record sha256 of the three r69 counters in a telemetry file before data lands (or in the wave evidence). Actually wait — the git history itself: counters committed in 6a98d7d pre-data; any post-data edit would show in git diff. The lane uses jj; commits are recorded. But the counter can't verify "committed" vs "working tree" — the STAMP tautology. The git record is the actual enforcement, external to the instruments. Flag as: freeze enforced only by VCS history, not by any counter leg; STAMP is tautological under the declared counting command.
+
+  9. Also verify: claims.json says accept-o after "7 legs: STAMP, TOOL, FIXTURE, NEGCASE, LANE, NEGPROBE, R68FROZEN" — matches code. accept-d "8 legs: STAMP, SECTION, TABLE, STATES, FIELDS, SIGNATURES, EVIDENCE, SOURCE" — matches. accept-ca legs: R68FROZEN, OBSERVED, 5×EVAL, MISMATCHES = 8 — matches green 8/8.
+
+  10. Check controls.txt provenance: is it committed in 6a98d7d? `git show --stat 6a98d7d | grep controls` and check committed copies of counters match working tree (git status shows only untracked w1 files → working tree clean for tracked files → committed == working tree. Good).
+
+  11. Fleet report: /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md — read it (read-only). It's outside the lane but reading is allowed ("You may read local files freely"; writing there is forbidden).
+
+  12. Base-tree manual mismatch scan. Extract at base:
+     - SCORECARD.md section ^## Axes — round 68
+     - LOG.md section ^## Round 68
+     - fleet report (current — but was the fleet report filed at round-68 time and unchanged since? The declared surface is the fleet report as filed; it's in the fleet repo, may not be in lane git. Read current bytes.)
+     Apply detectors manually. Also hunt undeclared live pairs.
+
+  Also check: does the CURRENT tree (post-declaration, pre-data) still show the same live pairs? Run accept-ca --root . now.
+
+  13. Kill-rule audit: "any leg FAIL -> the claim fails as declared" — for Ca2 the predicate adds "MISMATCHES prints unannotated_mismatches=0"; MISMATCHES leg detail includes live_mismatches too; if live_mismatches=3 but all covered (appended corrections) then unannotated=0 and leg passes — meaning the claim "count of unannotated mismatches drops to zero" holds even if mismatches remain live but annotated. That's the design: annotated ≠ zero. The predicate sentence says "drops to zero, each closed by an APPENDED correction row" — consistent.
+
+  One more hole in accept-ca detect_legcount: LEGCOUNT_RE finds "N/M legs PASS" anywhere in section. The filed surface must contain the count; if the filed text states the count in a different phrasing ("all legs pass"), detector finds nothing → live_hits=[] → not live → remedy=covered → passes once covered. So a WRONG count phrased differently is never detected. The declared pairs fix specific known phrasings; future phrasing drift is invisible. Flag as instrument limitation (counter measures the declared phrasings, not the semantics).
+
+  Also accept-ca: the OVERREACH detector only inspects lines starting `| calibration |` in the SCORECARD section. If the fleet report or LOG had an overreach claim, not covered (only SCORECARD pair declared) — consistent with declared pairs.
+
+  14. Verify OBSERVED semantics against receipts: obs_o: LEG_LINE_RE on final-measures-o.txt → 9 legs (8 PASS). Wait — does "ACCEPT-O-68: FAIL" match? "ACCEPT-O-68" — [A-Z0-9_]+ can't match "-" → at line start "ACCEPT" then next char "-" ≠ \s → no match. "STAMP PASS", "SELFTEST PASS", "DIFF PASS", "SHA PASS", "PENDING PASS", "LEDGER PASS", "EXEC FAIL", "MUT PASS", "TOPO PASS" → 9 matches, 8 PASS → obs_o=(8,9).
+
+  ca_verdict: "ACCEPT-CA-68: PASS" in receipt → absent (crash) → FAIL. Good.
+
+  So LEGCOUNT detector: filed surfaces claiming e.g. "9/9 legs PASS" → live. Let me look at the actual SCORECARD/LOG/fleet texts.
+
+  15. accept-d at base: verify `grep -c '^### Registry correction chains' SKILL.md` at 793f797 = 0, and that SECTION fails at base. Cheap via git show.
+
+  16. Also the O2 "before" says "the round-68 operability counter's EXEC fixture never created corpus/knowledge/a.md, so its EXEC leg was red in every recorded run (R68-M1)". Verify round-68 accept-o.py source: find EXEC fixture code, confirm no knowledge dir creation. "in every recorded run" — how many recorded runs of accept-o r68 exist? The receipt final-measures-o.txt shows one EXEC FAIL. "every recorded run" — check for other telemetry receipts of accept-o r68 runs. Glob telemetry dir.
+
+  17. Check that check-settlement-fixture.py LANE scan and the NEGPROBE fixture (accept-o) can't false-pass: NEGPROBE checks "missing_paths=1" in stdout — the checker prints the summary. Verified live above (fixture-negative prints missing_paths=1).
+
+  18. Edge: accept-o LANE leg requires "LANE: pending=0 missing_paths=0" — live tree currently prints that (verified). But note: when the S859 row lands with used-by SKILL.md, if the settlement checker requires the used-by path to exist — SKILL.md exists. Also entry citation re-points from round-68 (S833-S856 etc.) — live scan says pending=0 missing_paths=0. Good.
+
+  19. accept-d SOURCE leg: S859 must be in live corpus/SOURCES.md as 11-cell row, cells[7]=='mined', 'SKILL.md' in cells[10]. The fixture adds `| S859 | fixture source ... | own-work | A | fixture | §1 | ... | mined | 2026-10-24 | 90d | SKILL.md |` — count cells: id, source, kind, tier, scope, anchor, teaches, status, opened, recheck, used-by = 11. In the REAL row (to be landed by L1), same shape needed. Also claims say S859 is "own-work, tier A" and opened this round with the lesson quoting it. Note: SOURCE leg does NOT verify tier or that S859 is "opened this round" or quoted in corpus/lessons/round-69.md — those claim clauses ("opened this round", "run and quoted in corpus/lessons/round-69.md ## Gate") are NOT enumerated by any leg. FLAG: D2 claim 'sourced' clause partially unverifiable by the counter (tier A not checked; lesson quote not checked). Verify myself whether claims.json "sourced" is part of the predicate — predicate says "the table citing a mined S-row whose used-by names SKILL.md" — the sourced clause is extra metadata. Still worth flagging: target says "cites at least one mined S-row whose used-by names SKILL.md" — covered. OK, minor.
+
+  20. Do-nothing asymmetry in accept-d: DO-NOTHING legs 1/8 — with with_table=False, SECTION fails → TABLE..SOURCE auto-fail (7 legs) + STAMP passes → 1/8. Matches controls.txt.
+
+  21. accept-o do-nothing 6/7: only LANE fails. Wait — should NEGPROBE also fail? NEGPROBE is built independently of the used-by file (always absent) → passes. And FIXTURE/NEGCASE run the harness whose own fixtures always build both variants → pass. So do-nothing kills exactly LANE. Hmm — is that the right do-nothing? "the claimed work skipped" = harness absent? If the harness were absent, TOOL/FIXTURE/NEGCASE/LANE all fail → 3/7. But the do-nothing control as built removes only the used-by file, i.e. it simulates the r68 defect, not the absence of the new capability. claims.json do_nothing_control says: "each new counter's --selftest builds the same tree with the claimed work skipped and requires the counter to FAIL there". For accept-o, the "claimed work" includes the harness itself — but the selftest's build_fixture_root always copies the harness (it copies from LANE). So the do-nothing control for O2 does NOT skip the claimed work (the harness); it skips the used-by file. The claims text even admits: "at the base tree the TOOL leg fails because no harness exists" — the BASE tree is the real do-nothing for the capability claim, and that's asserted in prose, not exercised by --selftest. Flag: accept-o's --selftest do-nothing exercises the NEGATIVE registry case, not capability absence; capability absence is only demonstrated at the base tree (I can verify: run accept-o --root <base-tree> — STAMP will also fail; TOOL fails; FIXTURE fails... proving the counter red at base). Let me actually do that: extract base tree to /tmp and run the CURRENT accept-o against it. STAMP: mine = hash of running script (current, at reports/round-69 in lane) vs committed = /tmp/basetree/reports/round-69/accept-o.py — absent at base → STAMP FAIL. TOOL FAIL. FIXTURE/NEGCASE/LANE FAIL (tool absent). NEGPROBE: checker absent at base? tools/check-supersession-settlement.py — was that added in round 68? c1adbdf "declaration + instruments — ... supersession-settlement tool" → absent at base → NEGPROBE FAIL. R68FROZEN: base has no round-68 receipts → FAIL. So at base: all 7 fail. Good — red at base, as the before/after claims imply. Worth verifying empirically.
+
+  Similarly accept-d at base: STAMP fail, SECTION fail (base SKILL.md lacks table) → 8 fail? SECTION fail auto-fails 6 legs; SOURCE leg is only reached... no wait, if start is None it adds TABLE..SOURCE as False immediately and returns — so 7 fail + STAMP fail = 0/8. And accept-ca at base: R68FROZEN — base has no round-68 receipts (round-68 landed in 84418e0/3412175, after base? wait base 793f797 IS "round-68 verifier spot-check" — the LAST round-68 commit! So base contains round-68 receipts. git log shows 793f797 = "round-68 verifier spot-check (integrator, hyaku): non-author admit/reject" — that's the base, containing all round-68 outputs. So at base: R68FROZEN passes (receipts exist, counters byte-identical), OBSERVED passes, 5 EVAL — with live mismatches and no corrections → LEGCOUNT pairs live (if the filed texts really have wrong counts), EVAL fail, MISMATCHES fail (unannotated>0) → red. Good — do-nothing at base = fail. Can verify by extracting base tree and running counters against it.
+
+  Let me now:
+  A) Run the three counters against the CURRENT tree (record pre-data red state with details).
+  B) Extract base tree to /tmp/b69-base (git archive 793f797) and run the three CURRENT counters against it (with --fleet-root pointing at fleet repo for ca) — verifies "before" states empirically.
+  C) Manual undeclared-mismatch hunt at base + current: replicate detectors across broader surfaces.
+  D) Read fleet report, SCORECARD r68 section, LOG r68 entry, round-68 accept-o.py EXEC section, check S859/SKILL/corrections current state.
+  E) sha256sum the three r69 counters (record in report for freeze).
+  F) Check telemetry dir for other recorded accept-o r68 runs ("every recorded run").
+
+  Batch these now.
+
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: PASS legs=7/7
+rc=0
+===
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+rc=1
+===
+LEG PASS STAMP self=06b0352a0288 committed=06b0352a0288
+LEG FAIL SECTION heading=### Registry correction chains
+LEG FAIL TABLE no decision table
+LEG FAIL STATES no decision table
+LEG FAIL FIELDS no decision table
+LEG FAIL SIGNATURES no decision table
+LEG FAIL EVIDENCE no decision table
+LEG FAIL SOURCE no decision table
+ACCEPT-D-69: FAIL legs=1/8
+rc=1
+extracted
+AGENTS.md
+corpus
+examples
+LOG.md
+MINT.md
+TOOL-ABSENT-AT-BASE
+0
+no-table-at-base
+8724f9a08911661c099092606b7f058ba94a2ea7af00a7a26309d954e49ba121  reports/round-69/accept-o.py
+091074c5c054e1ed214204efee8ac25d12c7697414f2e8ea16aac9ec483b405e  reports/round-69/accept-ca.py
+06b0352a0288be7a788bb65f243980c77e107e2e4795743b4c4e1a40cd490c10  reports/round-69/accept-d.py
+f7adb4ba52e0db1a1c20ee33a5b52a0e2288b287866493ed43d800967712f7f8  tools/check-settlement-fixture.py
+6a98d7d042b6c58d2165773b1585069798111035
+
+ .ufo/waves/round-69/assimilation/collisions        |   0
+ .ufo/waves/round-69/assimilation/quarantine-slice  |  21 +
+ .ufo/waves/round-69/assimilation/reg-ids           | 782 +++++++++++++++++++++
+ .ufo/waves/round-69/assimilation/staged-ids        | 123 ++++
+ reports/round-69/accept-ca.py                      | 388 ++++++++++
+ reports/round-69/accept-d.py                       | 279 ++++++++
+ reports/round-69/accept-o.py                       | 241 +++++++
+ reports/round-69/claims.json                       | 104 +++
+ reports/round-69/telemetry/census-start.txt        |  29 +
+ reports/round-69/telemetry/controls.txt            |  20 +
+ reports/round-69/telemetry/declaration-dry-run.txt |  37 +
+ tools/check-settlement-fixture.py                  | 187 +++++
+ 12 files changed, 2211 insertions(+)
+base-gap.txt
+base-tree.txt
+census-end.txt
+census-start.txt
+controls.txt
+dry-run-ca.txt
+dry-run-c.txt
+dry-run-o.txt
+final-measures-ca.txt
+final-measures-c.txt
+final-measures-o.txt
+post-records.txt
+residual-reopens.txt
+seat-evidence.txt
+settle-apply.txt
+sweep-d1.txt
+w04-impossibility.txt
+reports/round-68/telemetry/dry-run-o.txt
+reports/round-68/telemetry/controls.txt
+reports/round-68/telemetry/final-measures-o.txt
+• The reminder says /tmp/b69-base/AGENTS.md applies — that's just the lane's AGENTS.md copied into my scratch extraction. It's read-only scratch for me; no changes needed. I'll note it but my work there is read-only analysis (running counters against the copy). The lane AGENTS.md rules about LOG.md append-only etc. apply to lane work; I'm not writing to the copy beyond what git archive created (extraction already done — that was a write to /tmp, which is my allowed scratch). Fine.
+
+  Excellent findings so far:
+
+  1. **Live pre-data scoring**: 
+     - accept-o: **7/7 PASS at the CURRENT tree** — wait, this is interesting! O2's counting command ALREADY PASSES pre-data. TOOL exists (committed in 6a98d7d), FIXTURE 3/3, NEGCASE, LANE clean, NEGPROBE, R68FROZEN all pass. So claim O2's predicate is satisfiable NOW — before the "data" lands. That's worth noting: O2's legs never depend on the SKILL.md table / S859 / corrections data. The harness was committed pre-data as an "instrument", but O2's *claim* is precisely that the harness exists and works — so the instrument IS the deliverable. Predicate PASS now. Not a defect per se (the claim is "the lane gains a harness", which landed with the declaration commit), but the round narrative "WHAT IS NOT LANDED YET (the data)" doesn't gate O2. Fine — record as observation: O2 verdict is already derivable and green; the remaining risk is only post-data counter amendment (which STAMP doesn't catch, see finding).
+     - accept-ca: 2/8, all five pairs live & uncovered → matches declared before-state exactly: LEGCOUNT on SCORECARD (9/10 vs observed 8/9!), LOG (9/10), fleet report (9/10 twice), DEADPOINTER R68-M9 in fleet report, OVERREACH calibration 'improved' vs FAIL. unannotated_mismatches=5. The declared "three classes over five declared pairs are unannotated" is CONFIRMED by the counter at the current tree.
+     - accept-d: 1/8 (only STAMP) — SECTION absent, matches before-state ("base SKILL.md carries no such table, so SECTION fails there").
+
+  2. **Base extraction**: tool absent at base ✓ (TOOL-ABSENT-AT-BASE), table count 0 at base ✓.
+
+  3. **sha256 pre-data recorded** (in my report): the four instruments.
+
+  4. **round-68 recorded accept-o runs**: dry-run-o.txt, controls.txt, final-measures-o.txt — three recorded runs; need to confirm all show EXEC FAIL to check "its EXEC leg was red in every recorded run (R68-M1)". Check dry-run-o.txt and controls.txt r68.
+
+  Next steps:
+  - Check the r68 dry-run-o.txt and controls.txt for EXEC FAIL in all recorded runs.
+  - Run the three counters against the base tree (/tmp/b69-base) to verify the counters are red there for the right reasons (esp. accept-ca at base: 5 live pairs already at base → the "before" claims hold at base; accept-o at base: red because TOOL absent; accept-d: SECTION fail).
+  - Manual undeclared-mismatch hunt: replicate the detectors over broader surfaces at base/current:
+    a) LEGCOUNT patterns anywhere in the three surfaces' FULL text (not just the declared sections): SCORECARD whole file, LOG whole file (r68 entry is declared section; but LOG may have other round sections claiming leg counts — those aren't round-68 self-assessment though; scope is round-68). For the fleet report: full text (the counter does use full text for fleet pairs — LEGCOUNT on fleet uses whole file; DEADPOINTER whole file).
+    b) DEADPOINTER in SCORECARD r68 section and LOG r68 entry (counter only checks fleet report for deadpointers — are there R68-M\d+ refs in SCORECARD/LOG sections that don't resolve? R68-M1..M8 exist in lesson; R68-M9 in fleet report doesn't. If SCORECARD/LOG also reference R68-M9 → undeclared live deadpointer pair → counter blind.)
+    c) OVERREACH rows in LOG r68 entry (counter only checks SCORECARD).
+    d) Any LEGCOUNT-regex hit in the fleet report or sections whose number ≠ 8/9 beyond the declared ones (fleet hits: two '9/10' — both in one pair's surface, one pair covers both).
+  - Read the SCORECARD r68 section, LOG r68 entry, fleet report to show the actual filed bytes for the report (evidence of the five mismatches).
+  - Read round-68 accept-o.py EXEC fixture to verify "never created corpus/knowledge/a.md" statically.
+  - Check S859 / corrections-r68.md current absence (data not landed): ls reports/round-69/corrections-r68.md; grep S859 corpus/SOURCES.md.
+  - Verify the fleet report is readable at /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md.
+  - Also verify accept-ca at base against base bytes: obs_o reads base receipt; base fleet report — the fleet repo's current file; at base the fleet report was the same? The fleet report lives in the FLEET repo, not the lane — so "at base" for fleet surfaces is ill-defined from lane git alone; the fleet file may have changed since. Check fleet repo git log for that file if it's a repo (it is /home/vgpnk/Projects/shokunin — likely a git repo). Read-only git on the FLEET repo — allowed? "Read-only git (log, show, diff, status, ls-files, rev-parse) is fine." The prohibition on touching is about writes/mutation. Reading fleet repo git log is read-only and fine.
+
+  Batch now:
+  1. grep EXEC in r68 dry-run-o.txt + controls.txt
+  2. Run accept-o/ca/d --root /tmp/b69-base (with --fleet-root /home/vgpnk/Projects/shokunin)
+  3. Read SCORECARD r68 section (grep -n "## Axes — round 68" first, then Read), LOG r68 entry, fleet report
+  4. Read round-68 accept-o.py (find EXEC fixture part — grep for "knowledge" in it)
+  5. ls corrections file; grep S859 corpus/SOURCES.md; grep "Registry correction chains" SKILL.md
+
+  Let me do it in parallel.
+
+reports/round-68/telemetry/dry-run-o.txt:EXEC FAIL base_pending_fail=True lands_pass=False
+reports/round-68/telemetry/dry-run-o.txt:ACCEPT-O-68: FAIL wall=0.3s
+reports/round-68/telemetry/controls.txt:dry-run-o:   ACCEPT-O-68 FAIL — DIFF (tool not yet in tree diff), SHA, PENDING (34), LEDGER (absent), EXEC, TOPO (declaration unknown)
+reports/round-68/telemetry/final-measures-o.txt:EXEC FAIL base_pending_fail=True lands_pass=False
+reports/round-68/telemetry/final-measures-o.txt:ACCEPT-O-68: FAIL wall=0.3s
+=== accept-o at base ===
+LEG FAIL STAMP self=8724f9a08911 committed=none
+LEG FAIL TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE tool absent
+LEG FAIL NEGCASE tool absent
+LEG FAIL LANE tool absent
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=2/7
+rc=1
+=== accept-d at base ===
+LEG FAIL STAMP self=06b0352a0288 committed=none
+LEG FAIL SECTION heading=### Registry correction chains
+LEG FAIL TABLE no decision table
+LEG FAIL STATES no decision table
+LEG FAIL FIELDS no decision table
+LEG FAIL SIGNATURES no decision table
+LEG FAIL EVIDENCE no decision table
+LEG FAIL SOURCE no decision table
+ACCEPT-D-69: FAIL legs=0/8
+rc=1
+=== accept-ca at base ===
+Traceback (most recent call last):
+  File "/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py", line 388, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py", line 378, in main
+    claims = load_claims(args.root, args.claims)
+  File "/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-ca.py", line 288, in load_claims
+    with open(path, encoding="utf-8") as fh:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/b69-base/reports/round-69/claims.json'
+rc=1
+141:    r1 = '| S001 | a — https://x/a | docs | B | s | "q" | base | mined | d | 90d | corpus/knowledge/a.md |\n'
+143:    r2s = '| S002 | a — https://x/a | docs | A | s | "q" | supersedes S001 — fix | mined | d | 90d | corpus/knowledge/a.md |\n'
+===
+ls: cannot access 'reports/round-69/corrections-r68.md'
+: No such file or directory
+0
+===
+cbc87da3 round-68: kotodama report
+• Key results:
+
+  1. **EXEC red in every recorded run**: dry-run-o.txt EXEC FAIL, final-measures-o.txt EXEC FAIL, controls.txt mentions EXEC. Recorded accept-o runs = 3 (dry-run, final, plus controls summary). "EXEC leg was red in every recorded run (R68-M1)" — CONFIRMED (2 full runs with LEG EXEC FAIL + the controls summary noting EXEC).
+
+  2. **accept-o at base**: 2/7 — but note NEGPROBE PASSES at base! tools/check-supersession-settlement.py must exist at base... wait, NEGPROBE at base passed. The checker was added at c1adbdf (round-68 declaration) which is AFTER 710422f... and base 793f797 is after all round-68 commits. So yes, the checker exists at base → NEGPROBE green at base. Also R68FROZEN PASSES at base (round-68 receipts exist at base). So at base the counter fails 5/7 legs. Fine — red at base.
+
+  3. **accept-d at base**: 0/8 red. SECTION fails at base ✓ (matches do_nothing_control claim "the base SKILL.md carries no such table, so SECTION fails there").
+
+  4. **accept-ca at base**: CRASHES — FileNotFoundError claims.json, because claims.json lives under reports/round-69/ which doesn't exist at base. The "before" clause ("at base 793f7974 three classes over five declared pairs are unannotated") cannot be re-derived by running the counter at base — the counter requires its own claims.json in the tree under test. Workaround: `--claims` flag pointing at the live claims.json while --root is base! `accept-ca.py --root /tmp/b69-base --claims reports/round-69/claims.json`. The CLI supports it. Let me re-run that way. This is a minor finding: the declared counting command can't evaluate the base tree as-is (needs --claims), but the flag exists.
+
+  5. **round-68 accept-o.py fixture**: lines 141-143 show rows with used-by `corpus/knowledge/a.md` — need to confirm the fixture never CREATES that file. Grep showed only the registry rows referencing it. Let me grep for "makedirs\|knowledge/a" creation. Actually let me look at the EXEC fixture builder in r68 accept-o.py around those lines.
+
+  6. **Fleet report**: fleet repo git log shows cbc87da3 "round-68: kotodama report" — one commit, unchanged since. Good: fleet surface bytes stable since filing.
+
+  7. corrections-r68.md absent, S859 absent, table absent → data not landed ✓.
+
+  Next batch:
+  - Re-run accept-ca with --root /tmp/b69-base --claims <live claims.json> to verify the base before-state (all five live at base).
+  - Read the r68 accept-o.py EXEC fixture builder (around lines 100-200) to statically confirm the used-by file is never created.
+  - Read the filed surfaces: SCORECARD r68 section, LOG r68 entry, fleet report — to document the five mismatches and hunt UNDECLARED live pairs.
+  - Undeclared-pair hunt: run the detector regexes over the full texts myself:
+    * LEGCOUNT_RE over full SCORECARD, full LOG, full fleet report
+    * R68-M\d+ / +M\d+ over SCORECARD r68 section, LOG r68 entry (not just fleet)
+    * `| calibration |` overreach rows over LOG r68 entry and fleet report
+  - Verify R68-M1..M8 exist in lesson round-68 (mistake rows exist) and R68-M9 nowhere → deadpointer hits=['R68-M9'] only.
+
+  Let me write a small python script in /tmp to do the hunt using the counter's own functions imported from accept-ca.py. That's elegant: import the module, run detectors over broader surfaces.
+
+  Commands:
+  1. `python3 -B reports/round-69/accept-ca.py --root /tmp/b69-base --claims /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/claims.json --fleet-root /home/vgpnk/Projects/shokunin`
+  2. Read reports/round-68/accept-o.py lines ~100-200
+  3. Python hunt script in /tmp.
+  4. Read fleet report.
+  5. Grep lesson round-68 for R68-M rows; grep all lane for R68-M9.
+
+  For the SCORECARD/LOG sections: extract via the counter's section_text. I'll write the hunt script.
+
+LEG PASS R68FROZEN live=a6d1c1c24e77 recorded=a6d1c1c24e77
+LEG PASS OBSERVED o-legs=(8, 9) ca-verdict=FAIL
+LEG FAIL EVAL LEGCOUNT|SCORECARD.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|LOG.md live=True covered=False remedy=False hits=['9/10']
+LEG FAIL EVAL LEGCOUNT|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['9/10', '9/10']
+LEG FAIL EVAL DEADPOINTER|.ufo/reports/round-68/kotodama.md live=True covered=False remedy=False hits=['R68-M9']
+LEG FAIL EVAL OVERREACH|SCORECARD.md live=True covered=False remedy=False hits=["calibration verdict 'improved' vs receipt FAIL"]
+LEG FAIL MISMATCHES live_mismatches=5 unannotated_mismatches=5
+ACCEPT-CA-69: FAIL legs=2/8
+rc=1
+observed o-legs: (8, 9) ca-verdict: FAIL
+SCORECARD.md:full: LEGCOUNT_hits=['9/10'] DEADPOINTER_hits=[] OVERREACH_hits=["calibration verdict 'improved' vs receipt FAIL"]
+LOG.md:full: LEGCOUNT_hits=['9/10'] DEADPOINTER_hits=[] OVERREACH_hits=[]
+fleet-report:full: LEGCOUNT_hits=['9/10', '9/10'] DEADPOINTER_hits=['R68-M9'] OVERREACH_hits=[]
+SCORECARD.md:r68sec: LEGCOUNT_hits=['9/10'] DEADPOINTER_hits=[] OVERREACH_hits=["calibration verdict 'improved' vs receipt FAIL"]
+LOG.md:r68sec: LEGCOUNT_hits=['9/10'] DEADPOINTER_hits=[] OVERREACH_hits=[]
+LOG.md mentions R68-M: ['1', '2', '3', '4', '8']
+corpus/lessons/round-68.md mentions R68-M: ['1', '2', '3', '4', '5', '6', '7', '8']
+corpus/lessons/round-69.md mentions R68-M: []
+• Rich results:
+
+  1. **accept-ca at base with --claims**: identical output to live tree — all five pairs live and unannotated at base. So the declared before-state is confirmed at base (with the workaround). Good.
+
+  2. **The hunt found NO undeclared live pairs**: full-text scans of SCORECARD, LOG, fleet report show exactly the declared hits: LEGCOUNT 9/10 (SCORECARD once, LOG once, fleet ×2), DEADPOINTER R68-M9 (fleet only), OVERREACH (SCORECARD r68 section only). No deadpointers in SCORECARD/LOG; no overreach in LOG/fleet; no other legcount hits. So the declared pair inventory is COMPLETE for these three classes over these three surfaces. That closes the biggest blind-spot concern — the five declared pairs fully cover what the detectors can see.
+
+  Caveat: the hunt used the counter's own detectors — third classes (a mismatch phrased differently, e.g. "all legs pass" or "7 of 8") would be invisible to both the counter and my hunt. Let me eyeball the actual filed bytes for the r68 sections to see if there's any phrasing the regex misses. Need to read: SCORECARD r68 section, LOG r68 entry, fleet report.
+
+  3. **R68-M9 exists nowhere in lane bytes** (LOG mentions M1-4, M8; lesson r68 mentions M1-8; r69 lesson mentions none) → fleet report's R68-M9 pointer is genuinely dead ✓. Remedy requires appending an R68-M9 row (the fixture's green control appends "| R68-M9 | fixture backfill row |" to corpus/lessons/round-69.md). Note: mistake_rows_exist scans LOG.md + lessons r68 + r69 — so the correction can land in the r69 lesson or LOG. Note LOG does NOT mention R68-M9 currently — the r68 records-2 commit message says "Ca receipt (rev-1 counter crashes at D2: git_bytes undefined...)" — the LOG may describe the crash without the literal "R68-M9" token. Whatever — the counter needs the token somewhere in those three files.
+
+  4. **r68 accept-o.py fixture_lane confirmed**: it writes SOURCES.md only — never creates corpus/knowledge/a.md, while row r1/r2s use used-by corpus/knowledge/a.md → missing_paths=1 by construction. R68-M1 statically confirmed ✓.
+
+  5. Note the r68 EXEC fixture: `r1` mined with used-by... the base has r1 mined + r2p queued (pending chain, used-by a.md missing → missing_paths=1 at base too: "base_pending_fail=True"). lands: r1q + r2s mined → settled but missing_paths=1 → lands_pass=False. Exactly as receipt says.
+
+  Now remaining checks:
+
+  A. Read the filed surfaces' actual bytes to eyeball for regex-invisible mismatch phrasings:
+  - SCORECARD.md r68 section
+  - LOG.md r68 entry
+  - fleet report
+
+  B. accept-o R68FROZEN covers c/o/ca counters; the accept-ca R68FROZEN only ca. Fine.
+
+  C. Check the D2 SOURCE leg mechanics against the real SOURCES.md shape: the S859 row must be `| S859 | ... |` with 11 cells, cells[7]=="mined", "SKILL.md" in cells[10]. Also SID_RE in TABLE text. Also note: SOURCE scans sids in the TABLE text — the fixture table cites S859 five times. Fine.
+
+  D. EVIDENCE leg mechanics: PATH_RE tokens from r[4]; `any(os.path.exists(...))`. In the real lane, if the writer's evidence cell is "S859 — corpus/lessons/round-69.md" — lesson file exists (will exist). OK. But note: PATH_RE requires an extension; a bare "S859" token is not a path — if the evidence cell cites ONLY the S-id without a path, EVIDENCE fails ("row-short"? no — missing_ev appends r[4][:40] when no token resolves). So evidence cells must contain a real file path. Good to note for the integrator: each of the 5 rows' Evidence cell must contain at least one resolvable lane-relative path with a known extension.
+
+  E. STATES leg: first column must be exactly pending, settled-active, settled-retired, settled-closed, settled-split in that order, lowercased before compare (so "Pending" would pass — case-insensitive). Note `r[0].lower()`: rows with len(r)>0. If a row has 0 cells (empty line artifact) — parse_table skips separator rows only; an empty `|` row would produce ['']. Edge, ignore.
+
+  F. TABLE leg: header exactly 5 cells; rows exactly 5. But header content NOT checked (any 5 column names pass). Minor: the "Row shape / Writer's next action" column semantics unchecked — a table with 5 rows × 5 non-empty cells but nonsense content passes TABLE/STATES/FIELDS as long as col1 matches states and col4 signatures appear in Error patterns and col5 cites an existing path. The claim's "each with its row shape, the writer's next action" is enforced only as "cells non-empty". Flag: content-level universals ("each with row shape, next action") are enforced as non-emptiness, not semantics — the do-nothing control can't catch nonsense content either. This is inherent to counter-based depth measurement; note it.
+
+  G. accept-o NEGPROBE/NEGCASE duplication: NEGCASE derives from the harness's own output; NEGPROBE independently reproduces via the base checker. Good defense-in-depth. But both use `in stdout` substring checks — a checker that prints "missing_paths=1" in prose while the real count is 0 would fool both. The base checker's summary line is the source; substring is on the structured line. Acceptable; note substring-vs-parse.
+
+  H. accept-o LANE leg: currently green. When S859 lands with used-by SKILL.md, SKILL.md exists → stays green. But watch: any OTHER pending chain at data time breaks LANE and hence O2. The S859 row must be 'mined' (not queued) at integration time or pending=1 → LANE fails → O2 FAIL. Wait — is that right? If S859 lands as queued, the chain S001→S859? No — S859 is its own row (own-work, mined per claims). If it lands 'mined' fine. But D2's SOURCE leg also needs status mined. Consistent.
+
+  I. One more check: claims.json calibration_pairs use surface key ".ufo/reports/round-68/kotodama.md" for both fleet pairs; covered set keyed (class, surface-key) — LEGCOUNT|fleet and DEADPOINTER|fleet distinct. OK.
+
+  J. The MISMATCHES leg passing in do-nothing (accept-ca controls show 2/8 with MISMATCHES passing) — verify which legs passed in do-nothing: R68FROZEN + OBSERVED presumably, and MISMATCHES FAILS because the five pairs are LIVE (current LOG/SCORECARD/fleet still carry 9/10 etc.) and corrections absent → unannotated=5 → FAIL. Wait: 2/8 pass = R68FROZEN, OBSERVED. MISMATCHES fails (unannotated=5). Right — because the fixture copies the REAL filed bytes which still have live mismatches. So do-nothing fails via all 5 EVAL + MISMATCHES = 6 fails = 2/8 pass. Consistent. Earlier I mis-guessed; now clear.
+
+  K. Verify controls.txt provenance: it's committed in 6a98d7d (declaration commit) — BEFORE any data commit (none exists yet). The git history shows data commits would come after. Also the receipt's generated timestamp 2026-10-24T23:15:56-03:00. Can't verify ordering vs "any data seat ran" beyond commit order — but no data commits exist, so controls are pre-data by construction. ✓ (e): controls were scored and committed before data — YES for all three claims (controls.txt in the same declaration commit as counters; committed pre-data).
+
+  L. The STAMP tautology: confirm precisely. In accept-o.py STAMP: mine = sha256(HERE/SELF); committed = sha256(root/reports/round-69/SELF). Counting command: `python3 -B reports/round-69/accept-o.py --root .` — run from lane root presumably; HERE = lane/reports/round-69; root = "." → abspath = lane. Same file → always equal, ALWAYS PASS regardless of git state. So STAMP cannot detect working-tree drift vs HEAD, nor post-data edits. Same for accept-d STAMP. The only hard freeze evidence: my sha256 record (in this report) + git history. Worth stating precisely.
+
+  Also the leg name/comment says "the counter under test is the committed one" — misleading: it verifies the running copy matches the --root copy, which under the declared command is trivially self-equality.
+
+  M. R68FROZEN legs — verify manually right now with sha256sum for independence:
+  - sha256(reports/round-68/accept-o.py) vs f409096c... (recorded in final-measures-o.txt)
+  - accept-ca.py vs a6d1c1c2...
+  - accept-c.py vs recorded in final-measures-c.txt — need to read that receipt's sha line.
+  The accept-o selftest green says R68FROZEN ok, and live run says mismatched=none. Independent sha256sum confirms. Quick check.
+
+  N. Also: does accept-ca's OBSERVED read of final-measures-o.txt risk counting non-leg lines? o-legs=(8,9): 9 LEG lines counted (STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC, MUT, TOPO = 9) with 8 PASS. Correct: ACCEPT-O-68 line excluded. ✓
+
+  O. One subtle accept-ca issue: `surface_text` for fleet pairs does NOT restrict to a section — full fleet file. For LEGCOUNT|fleet the hits were two '9/10' — both covered by one pair. If the integrator's correction row fixes only one instance... coverage is per (class,surface), not per instance — one row covers both. Fine.
+
+  P. claims.json O2 counting command says `python3 -B reports/round-69/accept-o.py --root .` — 7 legs. Note the O2 predicate "every leg prints PASS" — enumerated (7). ✓ Re-derivable by one command ✓ (from repo root).
+
+  Q. Ca2 counting command: `--root . --fleet-root /home/vgpnk/Projects/shokunin` — re-derivable ✓ but it depends on the FLEET repo's mutable file (.ufo/reports/round-68/kotodama.md outside the lane). If the fleet file changes post-filing (it has one commit; jj-colocated fleet?), Ca2's verdict can change without any lane edit. Note: fleet file is outside lane git; the lane counter reads live bytes. Cross-repo dependency = the predicate is not closed under lane-committed bytes alone. FLAG (f): the Ca2 predicate cannot be re-derived from lane-committed bytes alone — one leg reads /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md (fleet repo, not frozen by the lane's base revision). The fleet report is stable (single commit cbc87da3) but nothing freezes it.
+
+  R. Also D2 counting command depends only on lane bytes ✓.
+
+  S. The deadpointer remedy check searches three files (LOG, lessons r68, lessons r69). corpus/lessons/round-69.md doesn't exist yet (data). It's created by the data. Fine.
+
+  T. Now read the filed surfaces to complete the eyeball hunt for regex-invisible mismatches. Read SCORECARD r68 section + LOG r68 entry + fleet report. Also final-measures-c.txt sha line for independent R68FROZEN verification.
+
+  U. Also verify "SCORECARD.md r68 section" heading regex `^## Axes — round 68` matches (em-dash) — section_text found it (hits shown) ✓.
+
+  Batch:
+  1. Grep -n line numbers for SCORECARD "## Axes — round 68" and LOG "## Round 68" then Read those ranges.
+  2. Read fleet report.
+  3. sha256sum r68 counters + grep recorded sha from final-measures-c.txt.
+
+1311:## Axes — round 68 (2026-10-24, hyaku run 6, L1 kotodama-r68 attempt 3 — resumed round)
+4208:## Round 68 - 2026-10-24 (hyaku run 6, L1 kotodama-r68 attempt 3; resumed after two stopped attempts)
+  1322 SCORECARD.md
+  4219 LOG.md
+    62 /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md
+  5603 total
+f409096c9167989fb56ec2830e846c282201d37e5d6a6a1752e1697418a07fae  reports/round-68/accept-o.py
+a6d1c1c24e779817a3344b063054d3c10bc09fcf466b578f38ba8008c6fc9925  reports/round-68/accept-ca.py
+515fa492aac176b62dc776c16777d6f9cf1750bb31b802cdecaa4121ac7bbf7d  reports/round-68/accept-c.py
+reports/round-68/telemetry/final-measures-c.txt:# counter sha256 (self): 515fa492aac176b62dc776c16777d6f9cf1750bb31b802cdecaa4121ac7bbf7d
+reports/round-68/telemetry/final-measures-o.txt:# counter sha256 (self): f409096c9167989fb56ec2830e846c282201d37e5d6a6a1752e1697418a07fae
+reports/round-68/telemetry/final-measures-ca.txt:# counter sha256 (self): a6d1c1c24e779817a3344b063054d3c10bc09fcf466b578f38ba8008c6fc9925
+• R68FROZEN independently verified: all three r68 counters byte-identical to their receipts' recorded sha256. ✓
+
+  Now read the filed surfaces:
+  - SCORECARD.md lines 1311-1322 (12 lines)
+  - LOG.md lines 4208-4219 (12 lines)
+  - Fleet report 62 lines
+
+  Then I have everything. Write the report.The reminder points at /home/vgpnk/Projects/shokunin/AGENTS.md (fleet repo AGENTS.md) since I read a file under the fleet root. I'm read-only there — I read .ufo/reports/round-68/kotodama.md. Reading AGENTS.md is cheap and prudent; I make no changes there. Let me read it quickly to make sure reading is fine (it surely is; bounds say don't WRITE to fleet repo).
+
+  Now, the filed bytes are in hand. Key observations from the actual filed texts:
+
+  **SCORECARD r68 section (line 1318)**: "ACCEPT-O-68 9/10 legs PASS at A_c but EXEC FAIL is structurally unreachable..." — wait, this says "9/10 legs PASS" — the LEGCOUNT_RE hits '9/10' because the receipt shows 8 PASS / 9 legs. Hmm wait: the receipt lists 9 legs (STAMP, SELFTEST, DIFF, SHA, PENDING, LEDGER, EXEC, MUT, TOPO), 8 PASS + 1 FAIL. The SCORECARD says "9/10 legs PASS". So filed says 9/10; observed is 8/9. Mismatch confirmed live.
+
+  Interesting subtlety: the SCORECARD line ALSO says "but EXEC FAIL" — the filed text contradicts itself within one line ("9/10 legs PASS" vs the leg list showing EXEC FAIL). The LEGCOUNT detector catches the numeric claim; good.
+
+  **LOG r68 entry (line 4212)**: "ACCEPT-O-68 prints 9/10 legs PASS at A_c (SELFTEST 7/7, SHA, PENDING..., LEDGER..., MUT 3/3, TOPO ...) and EXEC FAIL" — also self-contradicting; LEGCOUNT hits 9/10.
+
+  **Fleet report**: line 3 "Verdicts: C verified · O FAILED as declared · Ca FAILED as declared"; line 10 "**Claim O (A_c receipt)** — ... ACCEPT-O-68 prints 9/10 legs PASS ... and **EXEC FAIL**" (9/10 hit ×1), line 28 "**O**: ... Counter at A_c ...: **FAIL** on EXEC (frozen fixture defect), 9/10 legs PASS" (9/10 ×2 total). DEADPOINTER: line 11 "R68-M9" referenced; R68-M9 row exists nowhere in LOG.md/lessons r68/r69 → dead. Also "+M9 in LOG" pattern: line 35 "(+M9 in LOG)" — PLUS_M_RE matches "+M9 in LOG" → id 9 → also dead (R68-M9 not in LOG.md). Both map to the same pair.
+
+  Wait — actually check: fleet line 35 says "Mistakes R68-M1..M8 (+M9 in LOG)". The "+M9 in LOG" claim says M9 is recorded in LOG — but LOG.md r68 entry does NOT contain the literal "R68-M9"... LOG.md mentions R68-M ids: 1,2,3,4,8 (from my hunt). So the fleet's "+M9 in LOG" is itself a dead pointer (double). And the OVERREACH: fleet line 3 says "Ca FAILED as declared" — hmm, but the SCORECARD calibration row says "improved (claim Ca, records)". The OVERREACH detector: SCORECARD `| calibration |` row verdict cell = "improved (claim Ca, records)" starts with "improved" while ca_verdict=FAIL (receipt crash) → live. ✓.
+
+  Now — a wrinkle: is the OVERREACH pair actually a "mismatch"? The SCORECARD's "calibration | improved" row describes the work performed (D1 sweep, D2 dispositions) — the receipt crashed, so the filed "improved" contradicts the committed receipt verdict. The round-69 declaration counts it as a mismatch class to be closed by an appended correction row. Consistent with the counter. Fine.
+
+  One more nuance for Ca2: the two fleet 9/10 hits live on fleet lines 10 and 28; one declared pair covers the surface. The correction file needs one row `| LEGCOUNT | .ufo/reports/round-68/kotodama.md | ...`.
+
+  Also note "R68-M9" as a token must land in one of LOG.md / corpus/lessons/round-68.md / corpus/lessons/round-69.md for DEADPOINTER to clear. The corrections file itself (reports/round-69/corrections-r68.md) is NOT in the scanned set — so the R68-M9 backfill row must go into LOG.md or a lesson file, not only into corrections-r68.md. The claims' "WHAT IS NOT LANDED YET" says "the appended corrections in LOG.md / SCORECARD.md / corpus/lessons/round-69.md" — good, consistent. But caution to integrator: appending to LOG.md r68 section — wait, "the filed round-68 bytes are never rewritten" (append-only). Appending a new row to the r68 lesson's Mistakes section or a new LOG line is the remedy path. Also appending to SCORECARD? The claims trailer mentions "the appended corrections in LOG.md / SCORECARD.md / corpus/lessons/round-69.md" — for LEGCOUNT/OVERREACH on SCORECARD the counter doesn't require any SCORECARD change at all — only a corrections-r68.md row (append-only file). The filed bytes stay wrong; the correction file annotates them. That's the design: corrections-r68.md is the annotation ledger. OK.
+
+  BUT: one more check on correction_pairs — it reads ONLY reports/round-69/corrections-r68.md. Any correction annotated elsewhere (LOG append) does NOT count. The declared remedy file is exactly corrections-r68.md. Consistent with claims "an appended correction row naming that class and that surface exists in reports/round-69/corrections-r68.md". ✓
+
+  Now the remaining pieces before writing the report:
+
+  1. Read fleet AGENTS.md (reminder compliance — read-only anyway).
+  2. D2 mechanics against the REAL SOURCES.md: verify the S859 row the integrator will add must have exactly 11 cells and used-by cell containing "SKILL.md"; also confirm the real registry's column count is 11 (it is — header shows 11 columns). Also check corpus/lessons/round-69.md doesn't exist yet.
+  3. Also confirm: does accept-d's SECTION detection require the heading under "## Decision table"? The claim surface says "gains a `### Registry correction chains` decision table under `## Decision table`". The counter only checks the exact heading line exists anywhere in SKILL.md (`section_span` scans for the strip==heading line) — it does NOT verify it's under "## Decision table". Minor: claim text says under ## Decision table; counter doesn't check placement. FLAG.
+  4. Error patterns placement: SIGNATURES just checks substring in the ## Error patterns section span. ✓ enumerated.
+  5. Also SKILL.md current ## Error patterns exists? grep to confirm the section exists (needed for SIGNATURES). And "## Decision table" exists in SKILL.md?
+
+  Let me also double-check the accept-o LANE leg's meaning for post-data: after S859 lands (mined, used-by SKILL.md), missing_paths must stay 0 → SKILL.md exists ✓.
+
+  And the wave/gate stuff (seat_gate scripts/hyaku/wave-slot.sh) — not my axes.
+
+  Let me check SKILL.md structure quickly + fleet AGENTS.md + lessons round-69 existence. Then write the report.
+
+  Also one more attack: mutation-style demonstration on a COPY in /tmp — e.g., does the accept-ca GREEN control catch a hollow correction row? Already reasoned: yes it passes with hollow rows (fixture green builds rows with dummy content "filed | observed | command"). That's evidence the coverage check is content-blind — the selftest ITSELF demonstrates hollow rows pass. Strong finding, with the fixture code as proof (build_fixture_root writes "| %s | %s | filed | observed | command |").
+
+  And accept-d do-nothing: removing the table → SECTION fails. But nonsense table (5 rows, right states, garbage cells with existing path + signatures listed) → all legs pass. Same content-blindness class. The FIELDS leg checks non-empty only.
+
+  One more: accept-o NEGPROBE builds NEG_REGISTRY with S001 queued + S002 mined/used-by a.md, file absent → missing_paths=1. Note NEGPROBE passes at base AND in do-nothing (it's always-green by construction when the checker works). It's an independent reproduction, good.
+
+  Also: accept-o LANE leg and Ca2's OBSERVED both read receipts — fine.
+
+  Edge: accept-o.py `run_tool` uses sys.executable -B; fine.
+
+  Now, "every leg of accept-o.py prints PASS" already true NOW. So O2 verdict = PASS at the current tree. But the round narrative says the data isn't landed; O2 doesn't depend on it. Note: R68FROZEN included in O2's 7 legs — O2's predicate embeds the round-68 freeze guarantee. If someone edits an r68 counter post-hoc, O2 flips red. Good.
+
+  For the report: structure per the task:
+  For each claim O2, Ca2, D2: (a) exact predicate sentence, (b) counting command, (c) target value, (d) kill rule, (e) do-nothing control scored before data? (f) clauses not re-derivable by one command over committed bytes. Then universal-quantifier flags. Then my empirical verdicts + findings (F-1..F-n) with severities. Keep it tight.
+
+  Findings list (draft):
+  - F1 (PASS evidence): controls reproduce exactly; sha256 of instruments recorded pre-data in this report; R68FROZEN independently re-verified for all three r68 counters.
+  - F2 (O2 already green pre-data): O2's predicate passes at the current tree; the O2 claim is self-referential w.r.t. the declaration commit (the "capability" landed as an instrument). Not a defect; but "the data" does not gate O2.
+  - F3 (STAMP tautology): accept-o/accept-d STAMP legs are self-equality under the declared counting command (--root .): mine == committed == same file. Cannot detect working-tree drift or post-data amendment. The r69 counters' freeze is enforced only by git/jj history, not by any committed instrument; controls.txt records no counter sha256. Mitigation: sha256s recorded in this report; recommend the L1 land a telemetry file with counter digests pre-data (I provide them).
+  - F4 (accept-ca fleet leg depends on bytes outside the lane): the fleet report /home/vgpnk/Projects/shokunin/.ufo/reports/round-68/kotodama.md is not frozen by the lane's base revision; the Ca2 predicate is not closed under lane-committed bytes. Currently stable (fleet commit cbc87da3, single commit touching it).
+  - F5 (coverage rows are content-blind): correction_pairs accepts any table row with matching cells[1]/cells[2]; the green selftest itself passes with dummy cells ("filed | observed | command"). The universal "each closed by an APPENDED correction row" is enforced as row-exists, not row-is-true. Remedy for L1: the correction rows should each carry a real re-derivation command + observed value; a spot-check seat can verify; the counter cannot.
+  - F6 (accept-ca at-base evaluation crashes): --root <base> fails with FileNotFoundError because claims.json is looked up inside the root; workaround --claims exists and reproduces the before-state (5/5 live). Minor UX/freeze-prose note.
+  - F7 (DEADPOINTER remedy token check is substring-only): "R68-M9" anywhere in LOG.md/lessons r68/r69 clears it; the fix must land in one of those three files (corrections-r68.md does NOT count). Integrator guidance.
+  - F8 (D2 placement clause unenforced): claim says the table sits "under `## Decision table`"; accept-d only requires the exact heading anywhere in SKILL.md. Also EVIDENCE leg = path-existence only (does not check the cited line numbers); SOURCE leg doesn't check tier/lesson-quote clauses ("opened this round", "quoted in corpus/lessons/round-69.md ## Gate" are NOT enumerated by any leg).
+  - F9 (content-blindness class): TABLE/STATES/FIELDS enforce shape (5 rows × 5 non-empty cells + state names + signatures-substring + resolvable path). Nonsense content with those shapes passes; inherent limit; do-nothing control catches absence only.
+  - F10 (universal audit): 
+    - O2 "every leg" — enumerated, 7 legs, printed. OK.
+    - Ca2 surface sentence "the count of unannotated mismatches between the lane's filed self-assessment and the committed receipts" reads global; instrument enumerates only the 5 declared pairs. My full-text hunt found exactly the 5 — so the declared set is complete for the three detector classes at base. Residual: detector classes themselves (regex `N/M legs PASS`, `R68-M\d+`/`+M\d+ in LOG`, `| calibration |` + "improved") — a mismatch phrased outside these shapes would be invisible to both. Eyeball of the filed bytes (SCORECARD 1317-1319, LOG 4211-4213, fleet 3/9-13/28-30/39-41) shows no other numeric leg-count claims or verdict claims. Actually wait — I should double check other "legs PASS"-style claims in those sections. The hunt covered LEGCOUNT_RE over FULL files: only the 4 hits. What about phrasings like "12/12 legs"? That IS matched by the regex (\d+/\d+ legs PASS). "12/12" hits: SCORECARD line 1317 has "ACCEPT-C-68 PASS 12/12 legs in a materialized clone" — LEGCOUNT_RE = `(\d+)\s*/\s*(\d+)\s+legs\s+PASS`... "PASS 12/12 legs in" — order is "PASS 12/12 legs", not "12/12 legs PASS" → NOT matched. Hmm! So claim C's "PASS 12/12 legs" phrasing is invisible to the LEGCOUNT detector. Is 12/12 correct though? Yes — final-measures-c shows ACCEPT-C-68 PASS 12/12 (from LOG entry; receipt final-measures-c.txt would confirm; ACCEPT-C-68: PASS). So no live mismatch there, luckily. But this demonstrates the detector's phrasing dependence: "PASS 12/12 legs" ≠ "12/12 legs PASS". If it had been wrong, the counter wouldn't see it. Note in F10.
+    - Ca2 target "0 over the 5 declared pairs" — properly scoped in target; surface sentence broader. Flag wording.
+    - D2 "the five signatures also listed under ## Error patterns" — enumerated via substring. OK. "cites at least one mined S-row whose used-by names SKILL.md" — enumerated via SOURCE. OK. "8/8 legs PASS" — enumerated.
+    - O2 "whose NEGATIVE case is the missing-used-by defect class the round-68 counter never exercised" — "never exercised" verified statically (r68 fixture_lane writes SOURCES.md only) + "in every recorded run" verified across the 2 recorded full runs + controls summary. Re-derivable from committed bytes ✓.
+  - F11: harness quality check — check-settlement-fixture.py: negative case ignores rc (by design, ok); --root mode reruns fixtures before scanning (fine); LANE print format matches accept-o's expectation exactly. Verified live both ways.
+  - F12: MISMATCHES leg semantic: unannotated counts only live∧uncovered; live-but-covered mismatches keep live_mismatches>0 while unannotated=0 → MISMATCHES leg PASSES with mismatches still live. Predicate says "drops to zero ... each closed by an APPENDED correction row" — consistent with design (annotation ≠ erasure, filed bytes frozen). But reviewers should read live_mismatches too; final state expected live=5 annotated. Note for the L1 verdict narrative.
+  - F13: do-nothing asymmetry (already covered by controls numbers): accept-ca do-nothing 2/8 (R68FROZEN+OBSERVED pass), accept-d 1/8 (STAMP only), accept-o 6/7 (all but LANE). Each kills for the intended reason. ✓ scored before data (controls.txt committed in the same pre-data declaration commit 6a98d7d; no data commits exist after).
+
+  Also (e) for each claim: YES — controls.txt committed at 6a98d7d along with counters and claims; data (SKILL table, S859, corrections) not yet in tree (verified absent). The green/do-nothing outputs I re-ran match controls.txt byte-for-byte on the printed lines.
+
+  One more check to be thorough on F3: is controls.txt's content in the committed tree identical to working tree? git status clean for tracked → yes.
+
+  Also confirm corpus/lessons/round-69.md absent (it is — hunt read None? Actually my hunt read base tree files. Let me check live tree: corpus/lessons/round-69.md exists?). Earlier mistake_rows_exist reads round-69.md — in the LIVE run accept-ca worked (lesson r69 may or may not exist; read_text returns None if missing — fine). Check quickly.
+
+  And SKILL.md has "## Error patterns" and "## Decision table" sections? grep.
+
+  Fleet AGENTS.md read (compliance).
+
+  Then write the report. Keep it structured but concise. VERDICT lines: 
+  - For each claim: VERDICT lines about what I can judge: 
+    - O2: at current tree counter prints 7/7 PASS → but the round isn't finished (data lands later). My verdict: O2 predicate VERDICT: PASS (pre-data, current tree 6a98d7d+untracked w1). But careful: my role is attack; verdicts on claims are L1's. I state VERDICT: PASS (as measured) for the predicate-as-of-now, NOT final admission.
+    - Ca2: VERDICT: NOT-EVALUATED (data not landed) — currently FAIL as expected (5 live, 0 covered); before-state confirmed at base and live.
+    - D2: NOT-EVALUATED (data not landed); currently FAIL as expected (SECTION absent).
+
+  Instrument-level verdicts:
+  - VERDICT: PASS for controls reproduction (all three selftests match controls.txt).
+  - Findings as above.
+
+  Now the report file: .ufo/waves/round-69/w1/CritO3.md. The w1 dir is untracked — writing my report file there is allowed (exactly one file). Write with absolute path.
+
+  Quick final checks batch:
+  1. Read /home/vgpnk/Projects/shokunin/AGENTS.md (compliance with reminder).
+  2. grep -n "^## Error patterns\|^## Decision table" SKILL.md
+  3. ls corpus/lessons/round-69.md; grep S859 live SOURCES (absent, already done); 
+  4. Confirm no 'PASS 12/12' style live-wrong claims: actually already reasoned; skip.
+  5. Double-check accept-c receipt verdict line for the 12/12 claim (to confirm no undeclared live LEGCOUNT via different phrasing that happens to be wrong): grep "ACCEPT-C-68" final-measures-c.txt.
+
+  Then Write report.
+
+20:## Decision table
+468:## Error patterns
+---
+README.md
+round-10.md
+round-11.md
+round-12.md
+round-14.md
+round-15.md
+round-16.md
+round-17.md
+round-18.md
+round-19.md
+round-1-gates-and-triage.md
+round-1-triage
+round-20.md
+round-21.md
+round-22.md
+round-23.md
+round-25.md
+round-26.md
+round-27.md
+round-28.md
+round-29.md
+round-2-adjacency.md
+round-2-triage
+round-30.md
+round-31.md
+round-32.md
+round-3-d2-build.md
+round-3-triage
+round-49.md
+round-49-verifier-spotcheck.md
+round-4-audit
+round-4-sol-fixes-and-audits.md
+round-4-triage
+round-50.md
+round-50-verifier-spotcheck.md
+round-51.md
+round-51-verifier-spotcheck.md
+round-52.md
+round-52-verifier-spotcheck.md
+round-53.md
+round-53-verifier-spotcheck.md
+round-54.md
+round-54-verifier-spotcheck.md
+round-55.md
+round-55-verifier-spotcheck.md
+round-56.md
+round-56-verifier-spotcheck.md
+round-57.md
+round-57-verifier-spotcheck.md
+round-58.md
+round-58-verifier-spotcheck.md
+round-59.md
+round-59-verifier-spotcheck.md
+round-5-availability.md
+round-5.md
+round-5-sources
+round-60.md
+round-60-verifier-spotcheck.md
+round-61.md
+round-61-verifier-spotcheck.md
+round-62.md
+round-62-verifier-spotcheck.md
+round-63.md
+round-63-verifier-spotcheck.md
+round-64.md
+round-64-verifier-spotcheck.md
+round-65.md
+round-65-verifier-spotcheck.md
+round-66.md
+round-66-verifier-spotcheck.md
+round-67.md
+round-67-verifier-spotcheck.md
+round-68.md
+round-68-verifier-spotcheck.md
+round-6.md
+round-6-sources
+round-7.md
+round-7-sources
+round-8.md
+round-9.md
+supplement-opencode-1
+supplement-opencode-1.md
+---
+18:ACCEPT-C-68: PASS
+• All checks complete. SKILL.md has `## Decision table` (line 20) and `## Error patterns` (line 468); no `### Registry correction chains`. corpus/lessons/round-69.md does NOT exist yet (data). C receipt: ACCEPT-C-68: PASS — so the "PASS 12/12 legs" phrasing in filed bytes happens to be correct (12 legs, all pass), and it's invisible to LEGCOUNT_RE anyway (word order).
+
+  Everything verified. Now write the report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritO3.md.
+
+  Report structure:
+  - Header: seat, scope, base, method
+  - Per-claim anatomy: (a)-(f) for O2, Ca2, D2
+  - Controls reproduction results (with exact commands + output)
+  - Pre-data instrument digests
+  - Universal-quantifier audit
+  - Findings F1..F12 with severity and evidence
+  - VERDICT lines
+
+  Keep it tight but complete.
+

@@ -1,0 +1,511 @@
+kimi version 2.3.1
+• Let me understand the task:
+
+  1. I'm a leaf seat in round 69 of kotodama-shokunin lane.
+  2. My task: Mutation-test `reports/round-69/accept-o.py`. Copy it to /tmp, change the FIXTURE leg to accept 'FIXTURE: 2/3' (or any non-3/3 value); show the counter goes red on the real lane tree. Also mutate the LANE leg to accept 'pending=1 missing_paths=0' and show it goes red. Paste the outputs.
+  3. Write report to `/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutO2.md`
+  4. I'm read-only on production bytes; /tmp scratch is fine.
+  5. End with 'Report: .ufo/waves/round-69/w1/MutO2.md'
+
+  Plan:
+  1. Read `/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-o.py` to understand its structure.
+  2. Run it unmutated (baseline — should print PASS or possibly FAIL since data not landed yet; actually the task says what's NOT landed yet includes the settlement fixture harness... wait, `tools/check-settlement-fixture.py` IS already committed. The not-landed data: SKILL.md decision table, S859 row, corrections files. So accept-o.py predicate: every leg prints PASS. The FIXTURE leg checks the fixture harness presumably; LANE leg checks lane shape. Baseline may pass for O2 legs since tools/check-settlement-fixture.py is committed. Let me just run it.)
+  3. Copy to /tmp, mutate FIXTURE leg to accept 'FIXTURE: 2/3' — i.e., invert so that a non-3/3 value would be accepted. Show counter goes red on the real lane tree. Hmm — "show the counter goes red on the real lane tree". 
+
+  Wait — mutation testing semantics: the counter currently should PASS (green) on the real lane tree (assuming fixture harness produces 3/3). A mutant counter that accepts 2/3 should NOT pass... hmm, no. Let me think.
+
+  Actually mutation-testing the accept script means: verify the accept script actually discriminates. The mutation is applied to the accept script (the counter), not to the fixture. A mutant that accepts 'FIXTURE: 2/3' instead of 3/3 — when run against the real lane tree, what happens? If the real tree produces 'FIXTURE: 3/3', then the mutant... hmm, if the mutant's leg changes from requiring 3/3 to requiring 2/3, then running against real tree yields FIXTURE: 3/3 which the mutant rejects → counter goes red. That shows the counter is sensitive: it fails if the expected value differs. That demonstrates the leg isn't vacuously true.
+
+  But wait — the baseline may be red already because the data (S-row, SKILL.md changes) hasn't landed. For accept-o.py specifically, the legs are FIXTURE and LANE presumably. O2 predicate: "every leg of reports/round-69/accept-o.py prints PASS". The harness tools/check-settlement-fixture.py is committed, and the negative case is the missing-used-by defect class — the fixture harness itself is runnable, so FIXTURE leg likely passes. LANE leg probably checks lane shape (e.g., `jj` status pending=0 missing_paths=0 or something). Let me just read the script.
+
+  Actually the mutation instructions: "change the FIXTURE leg to accept 'FIXTURE: 2/3' (or any non-3/3 value); show the counter goes red on the real lane tree." So the mutant counter requires 2/3, the real tree gives 3/3 (if baseline is green), and the mutant fails → red. Good, that's the demonstration that the counter discriminates.
+
+  "Also mutate the LANE leg to accept 'pending=1 missing_paths=0' and show it goes red." So LANE leg presumably checks output like 'pending=0 missing_paths=0'. Mutant expects pending=1 → real tree gives pending=0 → red.
+
+  Edge case: if the baseline on the real tree is itself red (e.g., fixture not green yet), then the mutant demonstration needs care: mutant accepting 2/3 would go red against real tree regardless. The report should state the baseline first.
+
+  Steps:
+  1. Read accept-o.py.
+  2. Run baseline: `python3 reports/round-69/accept-o.py` from lane root (absolute paths).
+  3. Copy to /tmp/mut-fix/accept-o.py, mutate FIXTURE leg, run against real lane tree → expect FAIL/red, paste output.
+  4. Copy to /tmp/mut-lane/accept-o.py, mutate LANE leg, run → expect FAIL/red, paste output.
+  5. Also maybe a control: mutate to accept the real value (i.e., an "equivalent" mutant) — not required. Keep it tight.
+  6. Additionally, could verify the mutants still detect a real defect: e.g., break the fixture copy in /tmp and show original counter goes red (that's the actual point of the counter). But my scope: mutation-test the counter. The two mutations requested suffice. Time-box 15 min. Maybe also sanity: ensure the mutated script actually runs (no syntax errors) — its red output must be a semantic FAIL, not a crash. Important: if the mutation causes a crash, that's not a meaningful red. I should note exit codes.
+
+  Also the report must include exact commands and real outputs, VERDICT lines. Verdict format: e.g. `VERDICT: PASS` for "counter discriminates" etc.
+
+  Let me start. Godspeed: parallel tool calls. First batch: read accept-o.py, read RULES.md? I'm not installing anything, so RULES.md read is unnecessary (only required before installing). Skip it — no installs needed. Read the accept script and maybe tools/check-settlement-fixture.py to understand legs. Also run baseline concurrently.
+
+  Actually let me first read the file, then run baseline (need to know invocation — probably `python3 reports/round-69/accept-o.py` with cwd = lane root). I can do both in parallel: read file + run baseline with cwd set to lane root.
+
+  Let me do:
+  - Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-o.py
+  - Bash: cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && python3 reports/round-69/accept-o.py; echo "exit=$?"
+
+  Then mutate copies.
+
+  For the mutation, use Edit on the /tmp copies (Edit tool works on any path? It resolves relative against working dir; absolute path outside working dir must be absolute — allowed for /tmp? "a path outside the working directory must be absolute" — so absolute /tmp path is fine). But Edit requires Read first. Since I'll create the copies with cp and then Read them... Actually simpler: cp then Read then Edit. Or use python/sed via Bash — but guidance says use Edit rather than sed for edits. The files are in /tmp, disposable. I'll use cp + Read + Edit to be safe with the tool policies.
+
+  Wait — "DO NOT use Write or Bash sed" for incremental edits. Copy via cp is fine. Then Edit.
+
+  Plan:
+  1. Read accept-o.py + run baseline (parallel).
+  2. cp to /tmp/mut-fixture/accept-o.py and /tmp/mut-lane/accept-o.py.
+  3. Read both copies (parallel).
+  4. Edit both (parallel? Same response but different files — allowed since they don't target the same file).
+  5. Run both mutants against real lane tree, capture outputs + exit codes (parallel).
+  6. Also run a syntax check `python3 -m py_compile` on mutants to prove red is semantic not crash. Include exit code of counter itself.
+  7. Write report.
+  8. Final message ending with Report: line.
+
+  Also need to create the directory .ufo/waves/round-69/w1/ — Write creates parent dirs automatically. 
+
+  One consideration: the baseline might be red if e.g. the fixture harness needs data not landed. But task states tools/check-settlement-fixture.py IS committed, and O2's predicate is about the harness existing and being lane-shaped with negative case; the data not landed (SKILL table, S-row, corrections) affects Ca2 and D2, not O2. So baseline O2 likely green. Let's see.
+
+  Let me go. First batch now.LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: PASS legs=7/7
+exit=0
+Baseline is green: all 7 legs PASS on the real lane tree, exit 0. Now the mutations.
+
+  Note: the STAMP leg compares `sha256_file(os.path.join(HERE, SELF))` — the script hashes itself based on its own location. If I copy the script to /tmp/mut-fixture/accept-o.py, then HERE=/tmp/mut-fixture, SELF=accept-o.py, so `mine` = sha256 of the mutated copy, `committed` = sha256 of the real committed one. They'll differ → STAMP FAIL. So a mutated copy run from /tmp will always show STAMP FAIL (which is actually GOOD — it proves the STAMP leg works as an anti-tamper mechanism!). But for a clean mutation test, I want the red to come from the mutated leg semantics, and I should note that STAMP also fires — that's a bonus finding: the counter self-verifies, so any mutation of the counter is itself detectable.
+
+  But careful: to show that the mutant's red is *due to the mutated leg* and not only STAMP, I should present both: the full leg output. Also I could run the mutant with the mutation such that STAMP passes — how? The mutation must be in the committed file to keep STAMP green, which I cannot do (read-only on production). Alternative: copy the mutated script INTO a /tmp copy of the lane tree at reports/round-69/accept-o.py, and run against a fixture root? Hmm — the STAMP leg computes `mine` from HERE/SELF (the script's own location) and `committed` from root/reports/round-69/accept-o.py. If I place the mutated copy at /tmp/fxt/reports/round-69/accept-o.py and run it with --root /tmp/fxt, then mine == committed (same file) → STAMP PASS. But then other legs evaluate against the /tmp fixture tree, which needs tools/, round-68 receipts, etc. That's exactly what build_fixture_root does — the counter's own selftest builds such a tree.
+
+  Cleanest approach for the mutation test on the real lane tree (as instructed: "show the counter goes red on the real lane tree"):
+  1. Mutant M1: FIXTURE leg mutated to accept 'FIXTURE: 2/3' → run `python3 /tmp/mut1/accept-o.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin`. Expect: FIXTURE leg FAIL (real output has 3/3, mutant requires 2/3 → `"FIXTURE: 2/3" in out` is False) → counter red, exit 1. STAMP will also FAIL (self-hash differs) — expected and worth noting; it's the counter's own tamper-evidence, a bonus finding.
+
+  Hmm wait, but there's a subtlety: run_tool runs `tools/check-settlement-fixture.py` from `root` — the real lane tree — good, that's the real fixture harness output.
+
+  2. Mutant M2: LANE leg mutated to require 'LANE: pending=1 missing_paths=0' → real tree gives pending=0 → leg FAIL → red, exit 1.
+
+  3. Also useful control: a "semantically equivalent" mutant that should stay green — e.g., mutate FIXTURE leg to accept 'FIXTURE: 3/3' with a no-op change... that's pointless. Better: verify the red is semantic, not a crash: py_compile both mutants, exit codes 1 (not 2/3, not traceback). Actually exit code semantics: 0 pass, 1 fail, 2 usage/env. A crash would exit 1 with traceback on stderr. I'll capture and show no traceback — the FAIL comes from LEG lines.
+
+  Also to isolate the mutated leg from STAMP, I can additionally run each mutant against a self-consistent copy: copy the mutated script to /tmp/iso/reports/round-69/accept-o.py and... but the other legs (TOOL, FIXTURE via root's tools/) need a full tree. Simplest isolation: build a copy of the minimal tree in /tmp: copy tools/*.py, reports/round-68 receipts+counters, reports/round-69/accept-o.py (mutated), corpus/SOURCES.md + knowledge/a.md. Then run mutated script located at /tmp/iso/reports/round-69/accept-o.py with --root /tmp/iso → STAMP passes (mine==committed), and only the mutated leg goes red. That is a much cleaner demonstration: proves the counter's red is caused by the leg mutation itself, and separately the STAMP tamper-detection fires on the /tmp copy.
+
+  Even better: the do-nothing tree. The counter's own `--selftest` builds a green tree and a do-nothing tree. For mutant M2 (LANE accepts pending=1): in the do-nothing control, LANE leg real output is `LANE: pending=1 missing_paths=1` — hmm, in the do-nothing tree, the used-by file is absent so missing_paths=1. So pending=1 missing_paths=0 wouldn't match there either. What tree produces 'pending=1 missing_paths=0'? A tree with a pending row (status not settled?) but no missing paths. Hmm — what does "pending" mean in check-settlement-fixture? Let me read tools/check-settlement-fixture.py to understand what LANE output looks like and what pending counts. Actually for the mutant M2 the requirement per the task is just: "mutate the LANE leg to accept 'pending=1 missing_paths=0' and show it goes red" on the real lane tree. Real tree: pending=0 → mutant red. Fine.
+
+  But a stronger mutation test would show the mutant passes where it shouldn't — i.e., the mutant accepts a tree that the original rejects. For M2: construct a tree with pending=1 missing_paths=0 → original counter: LANE FAIL → red; mutant M2: LANE "passes" → and if only that leg were mutated, the counter would go green on a defective tree — that's the counter-killer demonstration. Let me check what "pending" means first by reading tools/check-settlement-fixture.py. If pending counts rows with status not in settled set... The LANE registry fixture has S001 queued (pending) + S002 mined. Green tree: pending=0? Wait the green fixture LANE_REGISTRY = NEG_REGISTRY with S001 status "queued". But green fixture passes LANE... so pending must count something else — maybe "mined but not applied"? Let me read the fixture tool.
+
+  Let me read tools/check-settlement-fixture.py now, then build mutations. Given time-box, keep focused:
+
+  Plan:
+  1. Read tools/check-settlement-fixture.py (to understand LANE/FIXTURE output lines).
+  2. Create /tmp/mut-o2/{m1,m2} copies via cp; Edit each.
+  3. Run both against real lane tree; capture outputs+exit codes.
+  4. Isolation runs: build /tmp/iso1 and /tmp/iso2 self-consistent trees (green-fixture-like) so STAMP passes and only the mutated leg decides; show M1 red on green tree (proving leg discriminates on value) — wait, M1 requires 2/3; green tree yields 3/3 → red. That shows mutant rejects the good tree — "counter goes red" as instructed. But the more damning direction: mutant should ACCEPT a bad tree. For M1 (accept 2/3): a tree whose harness reports 2/3 (one case failing). Can I build such a tree? If I take a do-nothing tree, harness selftest reports... the harness's selftest runs its own three cases (green, negative, lane?) inside the harness — FIXTURE: 2/3 would mean harness selftest had one failing case. In a do-nothing tree (missing used-by), what does the harness's own selftest report? The harness selftest builds its own fixture trees internally using LANE paths... Actually build_fixture_root copies check-settlement-fixture.py into the tree; that harness's selftest presumably uses LANE = dirname(dirname(HERE)) → the /tmp tree; its internal fixtures write to temp dirs but reference LANE for copying counters. Its selftest could report 2/3 in a do-nothing tree? Not sure. I'd need to read the harness.
+
+  Don't over-engineer. The task explicitly says: "change the FIXTURE leg to accept 'FIXTURE: 2/3' ...; show the counter goes red on the real lane tree. Also mutate the LANE leg to accept 'pending=1 missing_paths=0' and show it goes red. Paste the outputs." That's the deliverable. I'll do exactly that, plus:
+  - baseline (done),
+  - py_compile sanity on mutants,
+  - note STAMP's tamper-evidence firing on the /tmp copies (bonus finding),
+  - isolation runs where STAMP is neutralized (self-consistent tree) to show the red persists from the mutated leg alone → proves the leg, not STAMP, discriminates. This is valuable and cheap: cp -r the needed files into /tmp/iso trees. Actually simpler isolation: run mutant from a copy placed at /tmp/iso/reports/round-69/accept-o.py with --root pointing at the REAL lane tree? No — then committed = real lane's accept-o.py ≠ mine → STAMP fails again. Isolation requires the mutant to BE the committed copy at root/reports/round-69/accept-o.py of some root that also contains the rest. So: /tmp/isoN = minimal lane tree: tools/ (both checkers), reports/round-68/{accept-c,accept-o,accept-ca}.py + telemetry receipts, reports/round-69/accept-o.py = mutant, corpus/SOURCES.md (real lane's, so LANE leg is genuinely green: pending=0 missing_paths=0), corpus/knowledge/*.md as needed for used-by.
+
+  Then:
+  - iso1 with M1 (FIXTURE wants 2/3): run --root iso1 → STAMP PASS, FIXTURE FAIL (3/3≠2/3) → red with exit 1. Proves mutated leg itself rejects the true value.
+  - iso2 with M2 (LANE wants pending=1): run --root iso2 → STAMP PASS, LANE FAIL (pending=0) → red exit 1.
+
+  And the reverse direction (mutant accepts what it shouldn't) — for M2, if I can cheaply construct a tree with pending=1 missing_paths=0, original counter red / mutant green would be the killer demo. Depends on the harness semantics; read it first. If S001 'queued' counts as pending... but green fixture has S001 queued and pending=0? Let me read the harness.
+
+  Actually wait — LANE leg runs the harness with --root root on the tree's own corpus/SOURCES.md. In the green fixture, SOURCES.md has S001 queued, S002 mined with used-by present. LANE output "pending=0 missing_paths=0". So pending ≠ queued rows. Probably pending = rows with status 'mined' (i.e., supersession candidates not yet settled?) or rows whose correction isn't applied... Let me read the harness to know. If pending counts 'mined' rows lacking applied correction, then a tree with pending=1 missing_paths=0 = a mined row whose correction IS applied to a file... hmm, but S002 mined + used-by present gives pending=0 in green fixture. So pending might be "mined rows without applied used-by"? That'd be same as missing_paths. Read the harness; 5 minutes.
+
+  Then: for killer demo on M2: create iso2bad where a row has status that yields pending=1 missing_paths=0 (e.g., a mined row whose used-by exists but... no). If pending = rows marked mined (regardless), then add a third row S003 mined with used-by present → pending=1 missing_paths=0 → original LANE FAIL → whole counter red; mutant M2 LANE PASS → if that were the only mutation the counter would go green on a tree the spec rejects. That's the perfect demonstration that the mutation weakens the counter. Similarly for M1: a tree where harness selftest reports 2/3 — e.g., a root whose tools/check-settlement-fixture.py is subtly broken... but FIXTURE runs root's harness; if I put a doctored harness copy in iso1bad whose selftest reports 2/3 (e.g., one case deliberately fails)... then original counter: FIXTURE FAIL → red; mutant M1 (accepts 2/3): FIXTURE PASS → green (other legs need to pass: TOOL yes, NEGCASE needs 'PASS fixture-negative ... missing_paths=1' line — doctored harness still emits it if I only break one case; LANE leg runs doctored harness --root → hmm it would output LANE line too; NEGPROBE independent — fine; R68FROZEN fine; STAMP fine). So mutant M1 on iso1bad → all legs pass → ACCEPT-O-69: PASS — the counter green on a tree whose harness is broken. Killer demo complete.
+
+  Time-box: 15 min. These extra trees are quick cp operations. Do it if the harness semantics cooperate; otherwise stick to the required reds.
+
+  Let me read the harness first. Parallel: read harness + set up /tmp copies (cp). Actually cp before reading harness is fine, independent.
+
+  Commands batch 1:
+  - Read tools/check-settlement-fixture.py
+  - Bash: mkdir -p /tmp/mut-o2/m1 /tmp/mut-o2/m2 && cp reports/round-69/accept-o.py /tmp/mut-o2/m1/accept-o.py && cp reports/round-69/accept-o.py /tmp/mut-o2/m2/accept-o.py && python3 -m py_compile /tmp/mut-o2/m1/accept-o.py /tmp/mut-o2/m2/accept-o.py && echo COPIES-OK
+
+  Then Edit each mutant (need Read first? I already read the original file — but Edit requires reading the target file itself. The /tmp copies are different paths; I must Read them before Edit. They're identical content. I'll Read both copies in parallel (cheap), then Edit both.
+
+  Then run:
+  - M1: python3 /tmp/mut-o2/m1/accept-o.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin; echo exit=$?
+  - M2: python3 /tmp/mut-o2/m2/accept-o.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin; echo exit=$?
+
+  Then build iso trees + killer demos.
+
+  Report: VERDICT lines. My verdict: the counter discriminates (both mutants red on real tree); STAMP tamper-evidence bonus; killer demos show mutant would accept defective trees → counter legs are load-bearing.
+
+  Let me proceed.
+
+COPIES-COMPILE-OK
+8724f9a08911661c099092606b7f058ba94a2ea7af00a7a26309d954e49ba121  /tmp/mut-o2/m1/accept-o.py
+8724f9a08911661c099092606b7f058ba94a2ea7af00a7a26309d954e49ba121  /tmp/mut-o2/m2/accept-o.py
+• Now I understand:
+  - Harness `--selftest` prints three `PASS fixture-*` lines + `FIXTURE: 3/3`.
+  - `--root` additionally prints `LANE: pending=N missing_paths=M`.
+  - pending = unsettled chain (a mined row not superseded/settled); missing_paths = used-by files absent.
+
+  Mutants:
+  - M1: line 122-123 FIXTURE leg: `"FIXTURE: 3/3" in out` → `"FIXTURE: 2/3" in out` (both in condition and detail — I'll change the condition; detail string can stay or change; better change condition only in `rc == 0 and "FIXTURE: 2/3" in out`). Need to Read the copy first (Edit requires Read of target file).
+  - M2: line 132: `"LANE: pending=0 missing_paths=0" in out` → `"LANE: pending=1 missing_paths=0" in out`.
+
+  Read both copies in parallel now, then Edit both in one response (different files).
+
+• Now edit:
+  - M1 (/tmp/mut-o2/m1/accept-o.py): line 122 condition `"FIXTURE: 3/3" in out` → `"FIXTURE: 2/3" in out`. Keep detail showing 3/3? Better change only the condition so it's a minimal mutation; the detail line will show `"FIXTURE: 3/3" in out` → False on real tree. Actually the detail expression is `"rc=%d %s" % (rc, "FIXTURE: 3/3" in out)` — on the real tree that prints False, which nicely shows why it failed. But wait, rc will also be... the harness selftest on the real tree exits 0 (3/3). The mutant requires rc==0 AND "FIXTURE: 2/3" in out. Real out has "FIXTURE: 3/3", not 2/3 → leg FAIL, rc=0. Good.
+
+  To keep the diff minimal and unambiguous, I'll change only the condition string in `res.add("FIXTURE", rc == 0 and "FIXTURE: 2/3" in out,` leaving the detail as-is. But then old_string `res.add("FIXTURE", rc == 0 and "FIXTURE: 3/3" in out,` is unique in m1 — yes, one occurrence.
+
+  - M2 (/tmp/mut-o2/m2/accept-o.py): line 132 condition `"LANE: pending=0 missing_paths=0" in out` → `"LANE: pending=1 missing_paths=0" in out`, leave detail string as pending=0 (shows False). Hmm, but then detail will print `rc=1 False`? On real tree the harness --root exits rc=0 (clean). The leg condition: rc == 0 and "LANE: pending=1 missing_paths=0" in out → out has pending=0 → False → leg FAIL. rc=0. Detail prints "rc=0 False". Good.
+
+  Both edits in one response (different files — allowed).Run both mutants against the real lane tree. Parallel calls (independent). Capture output + exit code. Also diff the mutants vs original to paste exact mutation.
+
+=== MUTANT M1 diff ===
+122c122
+<         res.add("FIXTURE", rc == 0 and "FIXTURE: 3/3" in out,
+---
+>         res.add("FIXTURE", rc == 0 and "FIXTURE: 2/3" in out,
+=== M1 run against real lane tree ===
+LEG FAIL STAMP self=a9ab43df3710 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=5/7
+M1 exit=1
+=== MUTANT M2 diff ===
+132c132
+<         res.add("LANE", rc == 0 and "LANE: pending=0 missing_paths=0" in out,
+---
+>         res.add("LANE", rc == 0 and "LANE: pending=1 missing_paths=0" in out,
+=== M2 run against real lane tree ===
+LEG FAIL STAMP self=e6576b159306 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG FAIL LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=5/7
+M2 exit=1
+• Both mutants go red on the real lane tree:
+  - M1: FIXTURE leg FAIL (real output has `FIXTURE: 3/3`, mutant requires `FIXTURE: 2/3` → detail False), exit 1. Plus STAMP FAIL — the counter's self-hash check caught the mutation (self=a9ab43df3710 ≠ committed=8724f9a08911). That's the tamper-evidence bonus.
+  - M2: LANE leg FAIL, exit 1, STAMP also caught it.
+
+  Now the isolation run: STAMP failing is expected for the /tmp copies, but to prove the red comes from the mutated leg's semantics (not merely from STAMP), build self-consistent trees where the mutant IS the committed copy at `<root>/reports/round-69/accept-o.py`, so STAMP passes and only the mutated leg decides. Build two iso trees:
+
+  iso1: tools/check-settlement-fixture.py, tools/check-supersession-settlement.py; reports/round-68 counters+receipts (needed for R68FROZEN); reports/round-69/accept-o.py = M1; corpus/SOURCES.md + corpus/knowledge/a.md from real lane (so LANE leg green: real lane is clean — baseline showed pending=0 missing_paths=0).
+
+  Wait, for iso1 the LANE leg runs the harness --root iso1 → scans iso1's corpus/SOURCES.md. If I copy the real lane's corpus/SOURCES.md and the used-by files it references, LANE = pending=0 missing_paths=0 → green. Let me check the real lane's corpus/SOURCES.md used-by references — need corpus/knowledge files. Simplest: copy real lane's corpus/ directory wholesale (read-only copy to /tmp — fine). And reports/round-68/*.py + telemetry/final-measures-*.txt. And NEGPROBE needs tools/check-supersession-settlement.py.
+
+  Then run M1 from iso1 --root iso1 → STAMP PASS (mutant is the committed copy there), FIXTURE FAIL (3/3≠2/3) → red with exit 1, proving the leg itself discriminates.
+
+  iso2: same tree, committed copy = M2 → STAMP PASS, LANE FAIL (pending=0 vs required pending=1) → red exit 1.
+
+  Additionally, the killer demonstration (mutant accepts a tree it shouldn't):
+  - iso1bad: a root whose harness reports FIXTURE: 2/3 — i.e., put a doctored harness in iso1bad/tools/check-settlement-fixture.py that fails one internal case... but then NEGCASE leg might fail too (if I break the negative case, NEGCASE fails → counter red anyway via another leg — which would confound). Better: doctor the harness so selftest reports 2/3 by failing the GREEN case (not the negative case). E.g., make the green case fail: modify harness copy so the green case's ok computation is wrong... Simplest surgical hack: in the harness copy, change `FIXTURE: {passed}/{len(results)}`? No — that changes the printed number without changing behavior: passed would be 3, printing "2/3"? The counter only greps the string "FIXTURE: 2/3". Hmm, but that's a cosmetic fake. Alternatively make the harness genuinely have a failing case: change write_fixture for green to also... e.g., in `check_cases`, change the green case to create_usedby=False → green case becomes pending=0 missing_paths=1 → ok False → FIXTURE: 2/3, negative case still passes (missing_paths=1), pending case still passes. Then NEGCASE leg: looks for line starting "PASS fixture-negative" with missing_paths=1 → still there → NEGCASE PASS. LANE leg on iso1bad's own corpus (real lane copy, clean) → pending=0 missing_paths=0 → PASS. So original counter on iso1bad: FIXTURE FAIL → red exit 1. Mutant M1 (as committed copy in iso1bad): FIXTURE "2/3" found → PASS → all legs green → ACCEPT-O-69: PASS exit 0. That's the killer demo: the mutated leg admits a lane whose harness has a broken green case. One-line mutation in the harness copy (create_usedby=False in green case). 
+
+  - iso2bad: a root with a genuinely unsettled chain reported as pending=1 missing_paths=0: harness with --root on a corpus where one row is 'mined' with used-by file present → pending=1, missing_paths=0. Wait: what makes pending=1? From the harness's pending case: S001 status 'mined' (unsettled=True) + used-by present → checker reports pending=1, missing_paths=0, rc=1. So iso2bad corpus = NEG_REGISTRY-style with S001 status mined + S002 mined used-by corpus/knowledge/a.md present. Then original counter: LANE leg sees "LANE: pending=1 missing_paths=0", requires pending=0 → FAIL → red. Mutant M2 as committed copy: requires exactly "pending=1 missing_paths=0" → PASS... but also LANE leg requires rc==0; the harness --root exits rc=1 when pending>0! Line 181-182: `if s["pending"] or s["missing_paths"]: rc = 1`. So `rc == 0 and "LANE: pending=1 missing_paths=0" in out` → rc=1 → leg FAIL anyway. Hmm — so mutant M2 on iso2bad still red via rc==0. So the killer demo for M2 needs the rc check dropped too... The mutation spec was only the string. I can show: mutant M2 on iso2bad → LANE leg detail "rc=1 False" → still FAIL because of the rc gate. That's actually informative: the leg is double-gated (rc + string). To fully kill M2's string gate I'd also mutate rc==0 → rc in (0,1). But that's beyond the asked mutations. 
+
+  Hmm, keep scope tight but the insight is valuable. Time-box though. Let me decide: the REQUIRED deliverable is done (both mutants red on real tree, outputs pasted). The isolation runs prove red persists with STAMP neutralized — important for rigor (otherwise someone could say the red was only STAMP). The killer demos: iso1bad is cheap and strong; iso2bad shows the rc double-gate partially saves the mutated leg — also a genuine finding (M2's string mutation is still caught on a pending=1 tree by the rc gate — the counter is harder to kill than the single string suggests). I'll do all three iso runs: iso1, iso2, iso1bad, iso2bad. That's 4 small trees; build with one bash script.
+
+  Build script:
+  ```
+  set -e
+  LANE=/home/vgpnk/Projects/shokunin/kotodama-shokunin
+  for t in iso1 iso2 iso1bad iso2bad; do
+    rm -rf /tmp/mut-o2/$t
+    mkdir -p /tmp/mut-o2/$t/tools /tmp/mut-o2/$t/reports/round-68/telemetry /tmp/mut-o2/$t/reports/round-69
+    cp $LANE/tools/check-settlement-fixture.py $LANE/tools/check-supersession-settlement.py /tmp/mut-o2/$t/tools/
+    cp $LANE/reports/round-68/accept-c.py $LANE/reports/round-68/accept-o.py $LANE/reports/round-68/accept-ca.py /tmp/mut-o2/$t/reports/round-68/
+    cp $LANE/reports/round-68/telemetry/final-measures-*.txt /tmp/mut-o2/$t/reports/round-68/telemetry/
+    cp -r $LANE/corpus /tmp/mut-o2/$t/corpus
+  done
+  cp /tmp/mut-o2/m1/accept-o.py /tmp/mut-o2/iso1/reports/round-69/accept-o.py
+  cp /tmp/mut-o2/m2/accept-o.py /tmp/mut-o2/iso2/reports/round-69/accept-o.py
+  cp /tmp/mut-o2/m1/accept-o.py /tmp/mut-o2/iso1bad/reports/round-69/accept-o.py
+  cp /tmp/mut-o2/m2/accept-o.py /tmp/mut-o2/iso2bad/reports/round-69/accept-o.py
+  ```
+  Wait — corpus copy: real lane corpus/SOURCES.md may reference used-by paths; the LANE leg on iso trees will scan iso corpus. Real lane is clean (baseline LANE PASS). cp -r corpus should reproduce pending=0 missing_paths=0. Need to confirm corpus doesn't contain giant stuff; it's a corpus of knowledge md files — fine.
+
+  Hmm, wait: also the harness in iso trees computes LANE = dirname(HERE) where HERE = tools/ → LANE = iso root → checker default = iso/tools/check-supersession-settlement.py — good.
+
+  iso1bad: doctor harness copy: change green case `write_fixture(green, create_usedby=True, unsettled=False)` → `create_usedby=False`. Then harness selftest: green case → missing_paths=1 → FAIL → FIXTURE: 2/3; negative → PASS; pending → PASS. Also LANE leg output for iso1bad: harness --root iso1bad → prints LANE: pending=0 missing_paths=0 → PASS (the doctored harness only affects its internal green fixture case, not the scan logic — write_fixture only builds temp fixtures; the lane scan is unaffected). 
+
+  iso2bad: corpus with S001 mined + used-by present. Take the harness's FIXTURE_REGISTRY shape (lane-shaped with Paths and Search log) but S001 status mined, used-by file present:
+  - corpus/SOURCES.md: registry S001 queued→mined, S002 mined used-by corpus/knowledge/a.md; write corpus/knowledge/a.md "cites S002 now". Checker: S001 mined = pending chain? From the pending fixture case: unsettled=True sets S001 mined → pending=1, missing=0, rc=1. So LANE: pending=1 missing_paths=0, harness rc=1.
+
+  Then runs:
+  - iso1: python3 -B /tmp/mut-o2/iso1/reports/round-69/accept-o.py --root /tmp/mut-o2/iso1 → expect STAMP PASS, FIXTURE FAIL, overall FAIL exit 1.
+  - iso2: same → STAMP PASS, LANE FAIL, exit 1.
+  - iso1bad original: python3 -B /tmp/mut-o2/iso1bad/tools/check-settlement-fixture.py --selftest → show FIXTURE: 2/3. Then ORIGINAL counter against iso1bad: python3 -B $LANE/reports/round-69/accept-o.py --root /tmp/mut-o2/iso1bad → FIXTURE FAIL (original requires 3/3) → red. Then MUTANT M1 committed in iso1bad: → FIXTURE PASS → overall PASS exit 0 ← killer.
+  - iso2bad: show harness --root iso2bad → "LANE: pending=1 missing_paths=0" rc=1. Original counter vs iso2bad → LANE FAIL red. Mutant M2 → LANE leg "rc=1 False" → still FAIL red (rc gate). Finding: string gate is backed by the rc gate for the LANE leg; to fully neutralize you'd need both mutations.
+
+  Careful with running the ORIGINAL counter against iso1bad: the original counter's STAMP compares its own hash (from $LANE) with root's committed copy (iso1bad has M1's hash) → STAMP FAIL too. That confounds "original catches iso1bad". Fix: put the ORIGINAL accept-o.py as the committed copy in a iso1origbad tree. So build 5th tree iso1origbad = iso1bad but with original accept-o.py. Similarly iso2origbad with original. OK — 6 iso trees. Script it.
+
+  Also should the harness selftest in iso trees pass? iso1/iso2 use the real harness + real corpus → selftest 3/3, LANE clean. Fine.
+
+  R68FROZEN in iso trees: copies of real round-68 counters + receipts → hashes match → PASS. Good.
+
+  Let me write the script as one Bash call, then run the 6-8 commands. Keep outputs labeled. Also py_compile mutants already done pre-mutation; post-mutation compile check: add python3 -m py_compile for m1/m2 again to prove red is semantic not syntax (diff shows one-line change so obviously fine, but cheap to include — actually the successful runs already prove they execute; skip re-compile, the runs are the proof).
+
+  One Bash call to build trees; then parallel Bash calls for runs (they're independent): 
+  Call A: iso1 + iso2 runs.
+  Call B: iso1bad/iso1origbad harness selftest + original + mutant runs.
+  Call C: iso2bad/iso2origbad harness root run + original + mutant runs.
+
+  Actually A/B/C independent — do all three in parallel. But trees must be built first (dependency). So: build call first, then three parallel run calls.
+
+TREES-BUILT
+iso1
+iso1bad
+iso1origbad
+iso2
+iso2bad
+iso2origbad
+m1
+m2
+• Trees built. Now the three run batches in parallel:
+
+  Call A (isolation, STAMP neutralized):
+  - iso1: M1 as committed copy, clean tree → expect STAMP PASS, FIXTURE FAIL, exit 1.
+  - iso2: M2 as committed copy, clean tree → expect STAMP PASS, LANE FAIL, exit 1.
+
+  Call B (killer for M1):
+  - harness selftest in iso1origbad → expect FIXTURE: 2/3.
+  - ORIGINAL counter vs iso1origbad → expect FIXTURE FAIL, exit 1.
+  - M1 (mutant) vs iso1bad → expect FIXTURE PASS, overall PASS exit 0 ← mutant admits broken-harness tree.
+
+  Call C (M2 on pending=1 tree):
+  - harness --root iso2origbad → expect "LANE: pending=1 missing_paths=0", rc=1.
+  - ORIGINAL counter vs iso2origbad → LANE FAIL, exit 1.
+  - M2 vs iso2bad → LANE leg: rc=1 so rc==0 fails → still FAIL (rc gate). exit 1.
+
+  All three independent — parallel.=== ISO1: mutant M1 is the committed copy, clean tree (STAMP neutralized) ===
+LEG PASS STAMP self=a9ab43df3710 committed=a9ab43df3710
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=6/7
+ISO1 exit=1
+
+=== ISO2: mutant M2 is the committed copy, clean tree (STAMP neutralized) ===
+LEG PASS STAMP self=e6576b159306 committed=e6576b159306
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG FAIL LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=6/7
+ISO2 exit=1
+=== iso1origbad harness selftest (green case broken) ===
+FAIL fixture-green rc=0 pending=0 missing_paths=1
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 2/3
+harness exit=1
+
+=== ORIGINAL counter vs iso1origbad ===
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE rc=1 False
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG FAIL LANE rc=1 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=5/7
+exit=1
+
+=== MUTANT M1 vs iso1bad (same broken-harness tree) ===
+LEG PASS STAMP self=a9ab43df3710 committed=a9ab43df3710
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE rc=1 False
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG FAIL LANE rc=1 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=5/7
+exit=1
+=== iso2origbad harness --root (unsettled chain, used-by present) ===
+PASS fixture-green rc=0 pending=0 missing_paths=0
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 3/3
+LANE: pending=1 missing_paths=0
+harness exit=1
+
+=== ORIGINAL counter vs iso2origbad ===
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG FAIL LANE rc=1 False
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=6/7
+exit=1
+
+=== MUTANT M2 vs iso2bad (same pending=1 tree) ===
+LEG PASS STAMP self=e6576b159306 committed=e6576b159306
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG FAIL LANE rc=1 False
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=6/7
+exit=1
+Interesting results:
+
+  1. ISO1/ISO2 (STAMP neutralized): both mutants red 6/7, exit 1, with the mutated leg itself FAILing. Clean isolation proof.
+
+  2. Killer demo for M1: iso1bad — the mutant did NOT go green. Why? Because the doctored harness also exits rc=1 (its own selftest fails), and the mutated leg still requires `rc == 0`. The FIXTURE leg's condition is `rc == 0 and "FIXTURE: 2/3" in out`. The broken harness prints FIXTURE: 2/3 but exits 1 → rc==0 fails. Also LANE leg fails on rc=1. So M1's string mutation alone doesn't admit a 2/3-harness tree — the rc gate backs the string gate. To fully kill M1 you'd need to also mutate rc==0 → rc != 2 or similar. That's a genuine robustness finding: both legs are double-gated (exit-code AND string), so single-string mutants are survived by the rc gate.
+
+  Note: in iso1bad the mutant detail prints "FIXTURE rc=1 False" — meaning the string check "FIXTURE: 2/3" in out was... wait, the harness DID print "FIXTURE: 2/3". Why False? Because the mutant runs the harness from root (iso1bad/tools/...) — I doctored the harness in both iso1bad and iso1origbad identically. Selftest output shows "FIXTURE: 2/3" — so `"FIXTURE: 2/3" in out` should be True, but rc=1 makes `rc == 0` False, and the detail field prints the *string* check result which is `True`... but the output says "rc=1 False". Hmm wait, let me re-read.
+
+  M1 detail format: `"rc=%d %s" % (rc, "FIXTURE: 2/3" in out)` — output was `rc=1 False`?? The harness printed "FIXTURE: 2/3" in the direct run. But in the mutant run, out = harness output... should contain "FIXTURE: 2/3" → True. Unless... wait, in the iso1bad run the harness output would be:
+
+  ```
+  FAIL fixture-green ...
+  PASS fixture-negative ...
+  PASS fixture-pending ...
+  FIXTURE: 2/3
+  ```
+
+  rc=1. So `"FIXTURE: 2/3" in out` → True. But detail says False! Why?
+
+  OH WAIT. Look at iso1bad's harness run through the counter: `run_tool(root, "tools/check-settlement-fixture.py", ["--selftest"])`. That runs `sys.executable -B /tmp/mut-o2/iso1bad/tools/check-settlement-fixture.py --selftest`. Same as my direct run which printed FIXTURE: 2/3... but detail says False.
+
+  Hmm, unless my sed didn't apply to iso1bad? I applied sed to iso1bad and iso1origbad. The direct selftest I ran was against iso1origbad, showing FIXTURE: 2/3. Did iso1bad get the sed? The loop: `for t in iso1bad iso1origbad; do sed -i ... $B/$t/tools/check-settlement-fixture.py; done` — yes both.
+
+  But wait — the ORIGINAL counter vs iso1origbad also shows `FIXTURE rc=1 False` — original checks "FIXTURE: 3/3" in out → genuinely False (2/3 printed). Correct.
+
+  MUTANT M1 vs iso1bad shows `FIXTURE rc=1 False` — the mutant checks "FIXTURE: 2/3" in out. If out contained "FIXTURE: 2/3", it'd be True. It says False!
+
+  Hmm... why? Let me think. Maybe sed didn't change iso1bad? The sed pattern: 's/write_fixture(green, create_usedby=True, unsettled=False)/write_fixture(green, create_usedby=False, unsettled=False)/' — sed treats parentheses literally in BRE (no -E), so it matches literally. Fine. Both files identical after.
+
+  Unless the harness run from within the counter differs — no wait. Hmm, let me check: does run_tool in the MUTANT run the harness at root — root=/tmp/mut-o2/iso1bad. Direct run was against iso1origbad/tools. Let me just verify iso1bad's harness output directly.
+
+  Actually wait — I wonder if sed -i worked on both. Let me check quickly with grep. Actually — hold on, there's a subtle detail: in the counter's run_tool, the harness is invoked with cwd = wherever the counter was launched from (subprocess without cwd arg → inherits counter's cwd = my bash cwd = lane root!). The harness uses HERE-based paths so cwd shouldn't matter... it computes checker = LANE/tools/... absolute. write_fixture uses absolute temp dirs. Output identical.
+
+  Hmm, so why False? Let me actually test: run iso1bad harness --selftest directly and grep. Something's off. Possibility: sed matched TWICE? No. Possibility: the `.pyc` cache? I use -B everywhere, and run_tool uses -B. No.
+
+  Wait — maybe the problem: `python3 -B` in run_tool... no.
+
+  Let me look again at the mutant M1 line I edited:
+  `res.add("FIXTURE", rc == 0 and "FIXTURE: 2/3" in out, "rc=%d %s" % (rc, "FIXTURE: 3/3" in out))`
+
+  OH. I only changed the condition, NOT the detail expression! The detail still evaluates `"FIXTURE: 3/3" in out` → False. That's why the detail says False — the detail string is stale, but the CONDITION (which decides the leg) is the mutated one. So M1 on iso1bad: rc=1 → `rc == 0` False → leg FAIL regardless. The detail's False is from the unchanged 3/3 detail expression. OK mystery solved — the detail field is cosmetic.
+
+  So the real question for the killer demo stands: M1 on a 2/3-harness tree still fails because of the `rc == 0` gate — the harness exits 1 when its selftest is 2/3 (line 172 of harness: `rc = 0 if passed == len(results) else 1`). So the string mutation alone is neutralized by the rc gate. To fully kill the FIXTURE leg you must mutate both the string AND the rc comparison. Good finding: the legs are double-gated; single-token string mutants don't survive.
+
+  Similarly M2 on the pending=1 tree: leg requires `rc == 0 and "LANE: pending=1 missing_paths=0" in out`; harness exits rc=1 when pending>0 (line 181-182) → rc==0 False → leg FAIL. Same double-gate finding.
+
+  So both killer demos show: single-string mutants are caught twice — by STAMP on the real tree, and by the rc gate on adversarial trees. The counter's red is robust. But note the caveat: a stronger mutant (also flipping rc==0 → rc==1... wait for M2 flipping to accept rc==1: `rc == 1 and "LANE: pending=1 missing_paths=0"` would admit the pending=1 tree) WOULD go green. Should I demonstrate that stronger mutant to complete the picture? It shows the counter CAN be killed by a two-token mutation — which is fine and expected (mutation testing never claims immunity to all mutants; it claims the specific leg's discrimination). The task only asked for the two string mutants going red on the real tree — done. I'll add one quick stronger-mutant run for completeness (M3: LANE leg `rc in (0,1) and "LANE: pending=1 missing_paths=0" in out` → on iso2bad goes PASS → counter green on a defective tree, proving the string is load-bearing once rc is also weakened; and symmetric M4 for FIXTURE? maybe just M3 to bound time).
+
+  Actually, hmm, time-box: 15 min. I've used maybe 5. One more quick mutant (M3 = M2 + rc relaxation) is cheap and strengthens the report. Also one more useful check: mutant detection of the ORIGINAL defect class — i.e., does the ORIGINAL counter go red on the do-nothing tree? That's the counter's own --selftest control, which was part of the committed controls.txt. I can run the original counter's --selftest quickly to confirm the do-nothing control still fails — it's already covered by controls.txt, but a fresh line costs 0.3s. Include it.
+
+  Let me also record the diff verification that m1/m2 differ from committed by exactly the one line each (already shown in diffs — paste in report).
+
+  Quick runs:
+  1. M3: cp m2 → m3; edit LANE leg to `rc in (0, 1) and "LANE: pending=1 missing_paths=0" in out`; run vs iso2bad3? Wait — M3 as committed copy needs its own iso tree (iso3 = clean-ish? no — for the "mutant admits defective tree" demo I need iso2bad3 = iso2bad tree with M3 as committed copy). Build iso3bad: copy of iso2bad, replace reports/round-69/accept-o.py with M3. Then run M3 vs iso3bad → expect LANE PASS → ACCEPT-O-69: PASS exit 0 → green on a tree with an unsettled chain. Killer confirmed for the two-token mutant.
+  2. Original counter --selftest (green + do-nothing controls) for completeness.
+
+  Then write the report. Also cleanup note: /tmp scratch stays in /tmp (fine, disposable).
+
+  Report structure (MutO2.md):
+  - Scope: mutation-test accept-o.py (round-69 O2 counter), per assignment: two single-string mutants vs real lane tree.
+  - Environment: lane repo, base revision 793f797... (verify? I could run jj/git rev-parse quickly — read-only git is fine. Let me grab `git rev-parse HEAD` — hmm, jj-colocated; the base revision given is 793f79746712a79f915bb481215e54bbea8b5e7a. Let me check git log -1 --format=%H to confirm working copy state. Cheap; include in report for provenance. Actually careful: the working copy may be at a different commit than the stated base if the L1 has committed since. I'll record what I observe, labeling it.)
+  - Baseline run (green 7/7, exit 0).
+  - Mutant M1: diff + run on real tree → red. Output pasted.
+  - Mutant M2: diff + run on real tree → red. Output pasted.
+  - STAMP tamper-evidence finding.
+  - Isolation runs (STAMP neutralized): red persists 6/7 → red is caused by the mutated leg semantics.
+  - Adversarial-tree probes: single-string mutants survive the rc gate (both killer attempts still red) — robustness finding; stronger two-token mutant M3 DOES go green on a defective tree → the string in each leg is load-bearing given rc; counter discriminating power confirmed.
+  - Controls: original counter --selftest (green + do-nothing) still behaves.
+  - VERDICT lines:
+    - VERDICT: PASS — baseline O2 counter green on real lane tree (7/7, exit 0).
+    - VERDICT: PASS — M1 (FIXTURE accepts 2/3) goes red on real lane tree, exit 1.
+    - VERDICT: PASS — M2 (LANE accepts pending=1 missing_paths=0) goes red on real lane tree, exit 1.
+    - VERDICT: PASS — red persists with STAMP neutralized (isolation trees, 6/7).
+    - VERDICT: PASS — STAMP leg independently flags both mutants (self-hash mismatch) on the real tree.
+    - VERDICT: PASS — both legs double-gated: single-string mutants also neutralized by rc gate on adversarial trees; a two-token mutant (string + rc) is required to kill a leg (demonstrated M3 green on pending=1 tree).
+    - VERDICT: NOT-EVALUATED — anything else? e.g. I did not mutation-test other legs (STAMP/TOOL/NEGCASE/NEGPROBE/R68FROZEN) — out of scope; note it.
+  - No production file touched; scratch under /tmp/mut-o2.
+
+  Wait, one check on M3 semantics: harness on iso2bad prints "LANE: pending=1 missing_paths=0" and rc=1 (because pending>0). M3 leg: `rc in (0, 1) and "LANE: pending=1 missing_paths=0" in out` → True → LANE PASS. Other legs: STAMP PASS (M3 is committed copy in iso3bad), TOOL PASS, FIXTURE PASS (harness selftest 3/3 — iso2bad harness un-doctored: yes, its selftest passed 3/3 in the direct run), NEGCASE PASS, NEGPROBE PASS, R68FROZEN PASS → overall PASS exit 0. 
+
+  Also note: NEGPROBE/NEGCASE still guard the negative case, so M3's green doesn't hide the r68 defect class — but it does admit an unsettled chain (pending=1), which LANE was supposed to reject. That's precisely "the mutant accepts a tree the claim rejects."
+
+  Let me run: build m3 + iso3bad + run; plus original selftest. One bash call (sequential dependencies inside, fine).
+
+=== M3 diff vs committed (two tokens: string + rc gate) ===
+132c132
+<         res.add("LANE", rc == 0 and "LANE: pending=0 missing_paths=0" in out,
+---
+>         res.add("LANE", rc in (0, 1) and "LANE: pending=1 missing_paths=0" in out,
+=== M3 vs iso3bad (unsettled-chain tree, mutant is committed copy) ===
+LEG PASS STAMP self=791acd713421 committed=791acd713421
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=1 False
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: PASS legs=7/7
+exit=0
+
+=== ORIGINAL counter --selftest (green + do-nothing controls) ===
+GREEN FIXTURE: PASS (legs 7/7)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 6/7)
+SELFTEST: 2/2
+selftest exit=0
+
+=== provenance: working-copy commit (read-only) ===
+6a98d7d042b6c58d2165773b1585069798111035 round-69: declaration + three NEW counters (O2 operability, Ca2 calibration, D2 depth) with green and do-nothing pre-data controls; new lane-shaped settlement fixture harness; census start receipt; item-10 id-collision check
+?? .ufo/waves/round-69/dispatch-v1.sh
+?? .ufo/waves/round-69/gen-spec.py
+?? .ufo/waves/round-69/spec-v1.json
+?? .ufo/waves/round-69/taskcall-v1.json
+?? .ufo/waves/round-69/w1/
+• M3 (two-token mutant) goes green 7/7 on a tree with an unsettled chain (pending=1) — confirming the string in the LANE leg is load-bearing once the rc gate is also weakened. And the original counter's own controls behave (green PASS, do-nothing FAIL, 2/2).
+
+  Note the working-copy HEAD is 6a98d7d0... which is the round-69 declaration commit — the task said "base revision 793f79746712a79f915bb481215e54bbea8b5e7a"; the current commit message is the round-69 declaration. Hmm — 793f797 was stated as base revision; HEAD shows 6a98d7d0. Possibly 793f797 is the jj working-copy change id or an earlier commit and the declaration was committed on top. I'll record the observed HEAD in the report for provenance, noting the stated base.
+
+  Wait, actually — let me double-check that 793f79746712a79f915bb481215e54bbea8b5e7a exists in history (git cat-file). One quick read-only command. Also confirm the counter's committed sha 8724f9a08911... matches what STAMP reported (it did: committed=8724f9a08911 = the sha256sum I computed for the copies = original file hash — consistent: sha256sum of the pristine copies was 8724f9a08911661c...).
+
+  Let me verify the base revision quickly, then write the report.
+
+commit
+base is ancestor of HEAD
+• Base verified. Now write the report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutO2.md.
+
+  Report contents: exact commands + real outputs, VERDICT lines, findings. Keep it structured but not bloated. Include:
+
+  1. Scope & method
+  2. Environment/provenance
+  3. Baseline
+  4. M1 (FIXTURE leg) — diff + real-tree run output
+  5. M2 (LANE leg) — diff + real-tree run output
+  6. STAMP finding
+  7. Isolation (STAMP-neutralized) runs
+  8. Adversarial trees: single-string mutants survive rc gate; M3 two-token mutant killed the LANE leg (green on defective tree)
+  9. Selftest controls
+  10. VERDICTS summary
+  11. Bounds statement: no production writes; scratch in /tmp/mut-o2.
+
+  Outputs: paste real ones. I have them all in the transcript.Report written. Final message: summarize findings concisely, end with the exact trailer line. Per instruction: "end your answer with the single line 'Report: .ufo/waves/round-69/w1/MutO2.md'".
+
+To resume this session: kimi -r session_27f80b39-ad6e-45f8-9649-feafe1289363
+[unexpected] RuntimeError: workspace wd_kotodama-shokunin_79dcf87bd64e is not materialized
+    at RuntimeResolver.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:180263:36)
+    at AgentRuntimeService.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:131899:25)
+    at AgentFileHistoryService.readCurrent (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177438:31)
+    at AgentFileHistoryService.endCheckpoint (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177351:32) {
+  code: 'runtime.not_found'
+}

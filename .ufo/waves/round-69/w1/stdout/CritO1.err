@@ -1,0 +1,368 @@
+kimi version 2.3.1
+• Let me understand the task:
+
+  1. I'm attacking claim O2's predicate: could a do-nothing control reach 'every leg of accept-o.py prints PASS'?
+  2. Copy the lane tree to /tmp, delete tools/check-settlement-fixture.py in the COPY, run the unmodified counter against the copy, paste output.
+  3. Copy the tree again, keep the tool but break its negative case, paste the output.
+  4. State whether the predicate is reachable without the claimed work.
+  5. Write report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritO1.md
+
+  Let me start by reading the key files:
+  - reports/round-69/accept-o.py (the counter/acceptance script)
+  - tools/check-settlement-fixture.py (the fixture harness)
+  - reports/round-69/claims.json
+
+  Then do the mutation experiments in /tmp.
+
+  Let me parallelize: read the accept-o.py, claims.json, and the fixture tool first.Now I understand the structure. Let me analyze the attack:
+
+  The accept-o.py counter has 7 legs:
+  1. STAMP — the counter under test is the committed one (compares sha256 of the counter file at reports/round-69/accept-o.py next to HERE vs in root)
+  2. TOOL — tools/check-settlement-fixture.py exists in root
+  3. FIXTURE — the harness's own three cases green (runs the tool with --selftest, requires rc=0 and "FIXTURE: 3/3")
+  4. NEGCASE — the missing-used-by case is caught ("PASS fixture-negative" line with missing_paths=1)
+  5. LANE — the real lane tree settles with no missing used-by path (runs tool --root root, requires rc=0 and "LANE: pending=0 missing_paths=0")
+  6. NEGPROBE — independent reproduction: base checker on fixture whose used-by file absent must report missing_paths=1. Built in the counter itself (doesn't read from the new tool)
+  7. R68FROZEN — three round-68 counters byte-identical to sha256 recorded in their receipts
+
+  My attack task:
+  1. Copy the lane tree to /tmp, DELETE tools/check-settlement-fixture.py in the COPY, run the unmodified counter against the copy → paste output.
+     - Expected: TOOL fails, FIXTURE/NEGCASE/LANE fail ("tool absent"). STAMP should pass (the counter's own bytes compared against the copy's reports/round-69/accept-o.py — if the copy includes it, they're identical). NEGPROBE should pass (built-in, independent of tool). R68FROZEN should pass if the round-68 counters match receipts.
+     - So even with the tool deleted, legs like STAMP, NEGPROBE, R68FROZEN pass — the "do-nothing control" — showing the predicate requires the claimed work (TOOL, FIXTURE, NEGCASE, LANE all fail).
+
+  2. Copy the tree again, keep the tool but break its negative case, paste output.
+     - "Break its negative case": e.g., modify the copy's tools/check-settlement-fixture.py so that the negative case doesn't catch the missing used-by. E.g., change write_fixture to always create the used-by file (create_usedby=True regardless), so the negative fixture has the used-by file present → missing_paths=0 → negative case passes wrongly → NEGCASE leg fails (the counter looks for "PASS fixture-negative" with missing_paths=1; the tool would print "FAIL fixture-negative ... missing_paths=0"). Also FIXTURE leg fails since FIXTURE: 2/3.
+     - But wait — the NEGCASE leg relies on the tool's own output. There's a deeper question: could a broken tool still reach PASS? E.g., if the negative case "passes" wrongly because the checker reports missing_paths=1 even when the file exists? Hmm. Actually the interesting attack: NEGCASE reads the tool's own output — if the tool is rigged to always print "PASS fixture-negative missing_paths=1", NEGCASE would pass without the tool actually testing anything. That's the "do-nothing control could reach PASS" weakness. But NEGPROBE is built independently in the counter, so it catches the defect class regardless. However NEGPROBE only checks the base checker works on a missing fixture — it doesn't check the tool does.
+     - Actually the task says: "break its negative case" — e.g., make the tool not catch the missing used-by. The simplest faithful break: make write_fixture ignore create_usedby and always create the file. Then fixture-negative will be missing_paths=0, FAIL, FIXTURE: 2/3, NEGCASE fails.
+
+  3. State whether the predicate is reachable without the claimed work.
+     - Based on results: with tool deleted → 4 legs FAIL (TOOL, FIXTURE, NEGCASE, LANE). So predicate NOT reachable via deletion.
+     - With negative case broken → NEGCASE + FIXTURE fail. Not reachable.
+     - But also analyze: is there a cheat path? E.g., a tool that's a no-op printing rigged lines. Let me test: the counter runs the tool via subprocess with the tool at root/tools/check-settlement-fixture.py. A rigged tool could print "FIXTURE: 3/3", "PASS fixture-negative ... missing_paths=1", and "LANE: pending=0 missing_paths=0" without doing any checks, and exit 0. Then TOOL, FIXTURE, NEGCASE, LANE would all pass. NEGPROBE is independent (built in the counter), so the defect class itself is still proven — but the harness claim would be vacuous. R68FROZEN/STAMP pass.
+     - So an interesting finding: the counter's legs FIXTURE/NEGCASE/LANE trust the tool's self-reported output, so a rigged no-op tool could reach 7/7 legs PASS — BUT that would be a different tool, not "the claimed work" (the claimed work is a real harness). The question asked is "could a do-nothing control reach PASS" — the do-nothing control (deletion or breaking) cannot reach PASS. But I should also note the rigged-tool cheat as a finding about counter strength, since my role is attacking the claim.
+
+  Let me also check: the STAMP leg compares `os.path.join(HERE, SELF)` — HERE is the directory containing accept-o.py as invoked. If I run the copy's counter against the copy's root, mine = sha of copy's counter, committed = sha of copy's counter in root — equal, passes. If I run the LANE's original counter against the /tmp copy root: mine = lane's counter, committed = copy's counter (same bytes since copied) — passes.
+
+  The instruction says "run the unmodified counter against the copy". I'll run the lane's original reports/round-69/accept-o.py with --root /tmp/copy1. And also maybe the copy's own counter. Let me do the lane original as primary per instruction.
+
+  Wait, one subtlety: run_tool runs `os.path.join(root, tool)` for the TOOL legs — the tool inside the root being evaluated. Good: deleted in copy → TOOL absent → legs fail as expected.
+
+  Also LANE leg: runs the tool --root root, and the tool resolves the checker via LANE = dirname(dirname(HERE of tool)) → /tmp copy1 root, tools/check-supersession-settlement.py. If the copy includes corpus/SOURCES.md with pending=0 missing_paths=0, then LANE passes when the tool exists.
+
+  Hmm wait — actually for experiment 1 (tool deleted), LANE fails with "tool absent". For experiment 2 (tool present but negative case broken), LANE leg runs the tool against the root — the tool's --selftest cases run first; the negative case fails → FIXTURE: 2/3, rc=1 → but the LANE leg checks rc == 0 and "LANE: pending=0 missing_paths=0" in out. rc would be 1 (because passed != len(results)), so LANE fails too, even though the lane scan itself is clean. Interesting — cascading failure. Good evidence.
+
+  Let me now check what the lane's corpus/SOURCES.md actually contains (used-by paths that exist?). The LANE leg needs pending=0 missing_paths=0 on the real tree. Let me check whether the real lane currently passes LANE. Not strictly needed for my attack but useful context. Actually my two experiments are on copies; the copies include corpus/SOURCES.md as-is. If the real tree has missing used-by paths or pending chains, LANE fails in both experiments anyway — that would be a confound. I should first run the tool against the real lane to see baseline: `python3 -B tools/check-settlement-fixture.py --root .` in the lane. If LANE baseline is red, that's a finding.
+
+  Wait — but I'm read-only on production; running the tool is read-only (it builds temp fixtures only). Fine.
+
+  Also there's a deeper attack: does the do-nothing control (selftest) pass as committed? controls.txt exists. The committed pre-data controls: python3 -B reports/round-69/accept-o.py --selftest → GREEN FIXTURE PASS (7/7) and DO-NOTHING FIXTURE FAIL (6/7). I can verify this runs green at the lane. The do-nothing fixture in the counter's selftest omits corpus/knowledge/a.md — but note: the do-nothing fixture still includes the TOOL (fixture harness copied). So the selftest's do-nothing control models "the claimed work skipped" only in the narrow sense of the used-by file absent, not the tool absent. My experiment 1 (delete the tool) is a stronger do-nothing probe. The claims.json says "at the base tree the TOOL leg fails because no harness exists" — acknowledged.
+
+  Plan of commands (all in /tmp, absolute paths):
+
+  1. Baseline: run accept-o.py --selftest at lane (read-only). And `python3 -B tools/check-settlement-fixture.py --root .` baseline LANE.
+  2. Experiment A: rsync/cp lane tree (exclude .git/.jj — big) to /tmp/r69-crit-o1/treeA; delete tools/check-settlement-fixture.py; run `python3 -B <LANE>/reports/round-69/accept-o.py --root /tmp/.../treeA`; capture output. Also run the copy's own counter too for completeness.
+  3. Experiment B: copy tree to /tmp/.../treeB; break negative case in the COPY's tool (e.g., change `if create_usedby:` to `if True:`); run unmodified lane counter with --root treeB; paste output. Note: STAMP compares lane counter vs copy's counter — both unmodified → STAMP passes.
+  4. Bonus attack C (rigged tool): replace tool in copy C with a no-op that prints the required lines; run counter → see if 7/7 reachable without any real harness. This directly answers "could a do-nothing control reach PASS" — a rigged no-op can. That's an important finding on counter strength. Let me include it — it's cheap and valuable.
+  5. Also verify sha256 of the counters vs receipts? R68FROZEN is a leg; it'll show in outputs.
+
+  One concern: the copy of the whole lane tree — corpus/ may be large. Let me check size first with du. Use `cp -a` with exclusions of .git and .jj. Actually rsync may not be installed; use tar with excludes or cp -a then rm. Let me check sizes first.
+
+  Also note: the counter's selftest's build_fixture_root copies from LANE = dirname(dirname(HERE)) where HERE is where the counter lives. If I run the LANE's counter, LANE = the lane repo — fixture copies the lane's tools and round-68 counters, and writes NEG_REGISTRY fixture. If I run the copy's counter, LANE = the copy. Either fine.
+
+  For experiment A, "run the unmodified counter against the copy" — I'll run the lane's committed counter with --root treeA (primary, per instruction), and note the copy's own counter gives same legs.
+
+  Let me also double-check the NEGCASE leg parse: looks for line starting with "PASS fixture-negative" and containing "missing_paths=1". In broken tool B, the negative case: create_usedby ignored → file exists → missing_paths=0 → prints "FAIL fixture-negative rc=0 pending=0 missing_paths=0". So neg_line empty → NEGCASE fails. FIXTURE fails (2/3, rc=1). LANE fails (rc=1). So legs: STAMP pass, TOOL pass, FIXTURE fail, NEGCASE fail, LANE fail, NEGPROBE pass, R68FROZEN pass → 4/7.
+
+  For rigged tool C: prints exactly:
+  ```
+  PASS fixture-green rc=0 pending=0 missing_paths=0
+  PASS fixture-negative rc=1 pending=0 missing_paths=1
+  PASS fixture-pending rc=1 pending=1 missing_paths=0
+  FIXTURE: 3/3
+  LANE: pending=0 missing_paths=0
+  ```
+  exit 0. The counter's FIXTURE leg: rc==0 and "FIXTURE: 3/3" → pass. NEGCASE: finds "PASS fixture-negative" with missing_paths=1 → pass. LANE: rc==0 and "LANE: pending=0 missing_paths=0" → pass. All 7 pass → predicate reachable by a vacuous tool. VERDICT finding: the counter cannot distinguish a real harness from a rigged no-op; NEGPROBE is the only structural backstop and it doesn't depend on the tool. This is a genuine attack finding.
+
+  But careful: is that within my mandate? My mandate: "Attack claim O2's predicate: could a do-nothing control reach 'every leg of accept-o.py prints PASS'? ... Then copy the tree again, keep the tool but break its negative case ... State whether the predicate is reachable without the claimed work." The rigged-tool probe is exactly the do-nothing question in its strongest form (the tool does nothing real). I'll include it as a supplementary probe, clearly labeled.
+
+  Also worth checking: STAMP leg — if someone edited the copy's counter... not needed.
+
+  Now, R68FROZEN and NEGPROBE pass in all experiments — showing that even with all claimed work removed, 3/7 legs pass structurally; the predicate (all 7) is not reachable without the harness... except via rigging.
+
+  Let me also confirm the baseline: does the real lane currently print ACCEPT-O-69 PASS? The data (S859 row, corrections) is not landed, but O2's data is the harness which IS landed (committed pre-data instruments include tools/check-settlement-fixture.py). So baseline at lane should be 7/7 PASS already. Let me run it to confirm — that's the "before data seats" state. Good context for the report.
+
+  Let me start. First check tree size and RULES.md is only needed if installing tools — I don't need to install anything (python3 suffices). Skip install.
+
+  Commands batch 1 (parallel):
+  - du -sh of lane dirs to plan copy: `du -sh /home/vgpnk/Projects/shokunin/kotodama-shokunin/.git /home/vgpnk/Projects/shokunin/kotodama-shokunin/.jj /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports 2>/dev/null; du -sh /home/vgpnk/Projects/shokunin/kotodama-shokunin --exclude=.git --exclude=.jj` — du exclude needs GNU du; fine on Linux.
+  - Baseline selftest: `cd lane && python3 -B reports/round-69/accept-o.py --selftest`
+  - Baseline counter: `cd lane && python3 -B reports/round-69/accept-o.py --root .`
+
+  Then batch 2: make copies (tar or cp -a with rsync --exclude). Let me use tar: `mkdir -p /tmp/r69crit && tar -C lane --exclude=./.git --exclude=./.jj --exclude=./.scratch -cf - . | tar -C /tmp/r69crit/treeA -xf -`. Actually simpler: rsync -a --exclude. Check rsync exists.
+
+  Let me proceed. I'll run these in parallel where independent.
+
+97M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/.git
+18M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/.jj
+0	/home/vgpnk/Projects/shokunin/kotodama-shokunin/out
+554M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/.scratch
+---
+542M	/home/vgpnk/Projects/shokunin/kotodama-shokunin
+---
+/usr/bin/rsync
+/usr/bin/tar
+GREEN FIXTURE: PASS (legs 7/7)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 6/7)
+SELFTEST: 2/2
+exit=0
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: PASS legs=7/7
+exit=0
+• Baseline confirmed: 7/7 PASS at the lane with the harness present. The du output is confusing: excluding .git/.jj/out/.scratch gives 542M — something else is big. Probably `kotodama-shokunin/reports` (nested dir listed) or corpus. Let me check the big subdirs. Actually `du -sh --exclude` only excluded those four; 542M remains. Let me find what's big to keep copies lean. Actually, for my experiments I don't need the whole tree — but the instruction says "Copy the lane tree to /tmp". I can copy excluding .git/.jj/.scratch/out (huge). Let me find the biggest offenders first.
+
+448M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports
+67M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo
+13M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/tools
+13M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus
+2.2M	/home/vgpnk/Projects/shokunin/kotodama-shokunin/examples
+296K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/LOG.md
+176K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/SCORECARD.md
+88K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/SKILL.md
+8.0K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/REGIMEN.md
+4.0K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/templates
+4.0K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/SHONEN.md
+4.0K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/README.md
+• reports/ is 448M — probably telemetry bulk. The counter only needs reports/round-68 (counters + receipts) and reports/round-69. I'll copy the tree excluding .git, .jj, .scratch, out, and trimming reports to round-68 + round-69 subdirs. Actually to stay faithful to "copy the lane tree", I'll rsync the whole tree excluding the giant junk dirs (.git, .jj, .scratch, out, reports/* except round-68/round-69). The legs touched: STAMP (reports/round-69/accept-o.py), TOOL/FIXTURE/NEGCASE/LANE (tools/ + corpus/SOURCES.md + knowledge), NEGPROBE (tools/check-supersession-settlement.py), R68FROZEN (reports/round-68 counters + telemetry receipts). Also the selftest's build_fixture_root copies round-68 counters+receipts from LANE when running --selftest from the copy. So reports/round-68 and round-69 suffices.
+
+  Wait — careful: if I trim reports, that's a deviation from "copy the lane tree". But the trimmed copy preserves every byte any leg reads. I'll note the exclusion in the report. Actually, let me just try the full rsync excluding .git/.jj/.scratch/out — 542M is fine in /tmp if there's space. Check df /tmp. 542M × 3 copies = 1.6G. Let me check space first. If tight, trim reports to round-68/69 (reports is 448M; round-68+69 are presumably small).
+
+  Actually simpler and safer: do the full copy minus .git/.jj/.scratch/out if space allows. Check df.
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p1  128G   74G   55G  58% /tmp
+284K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-68
+80K	/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69
+• 55G free — full copy minus the junk dirs is fine. reports/ excluding round-68/69 is 448M of other rounds' telemetry; I can keep it for fidelity or trim. 542M×3 = 1.6G, fine. But rsync of 448M of reports three times is slow-ish; still OK. Actually let me be pragmatic: exclude .git, .jj, .scratch, out. Keep everything else, full reports. 3 copies ≈ 1.7G in /tmp — acceptable, and removes any doubt about "copy of the lane tree".
+
+  Commands:
+  1. rsync -a --exclude=.git --exclude=.jj --exclude=.scratch --exclude=out lane/ /tmp/r69crit-o1/treeA/
+  2. rsync to treeB
+  3. rsync to treeC
+
+  Then mutations:
+  - A: rm treeA/tools/check-settlement-fixture.py
+  - B: edit treeB copy of tool: change `if create_usedby:` → `if True:` (neg case no longer omitting used-by → checker reports missing_paths=0 → tool's negative case FAILs)
+  - C: overwrite treeC/tools/check-settlement-fixture.py with a rigged no-op that prints the expected lines and exits 0.
+
+  Then run the UNMODIFIED lane counter: python3 -B <lane>/reports/round-69/accept-o.py --root /tmp/r69crit-o1/treeA (etc.), capturing output. Note: when running the lane counter against treeA, STAMP compares lane's counter sha vs treeA's reports/round-69/accept-o.py sha (identical bytes, copied) → PASS. run_tool executes treeA's own tools. Good.
+
+  Also run each copy's own counter against itself for completeness? The primary per instruction is the unmodified counter. I'll run lane-counter-against-copy as primary; optionally also copy-counter-against-copy (same result expected since bytes identical). Skip the duplicate to keep the report tight — actually including it strengthens the "unmodified counter" claim... it's cheap, I'll include for treeA only.
+
+  Write the rigged tool for treeC. The counter calls: run_tool(root, "tools/check-settlement-fixture.py", ["--selftest"]) → needs rc=0, "FIXTURE: 3/3", "PASS fixture-negative" line containing missing_paths=1. And ["--root", root] → rc=0, "LANE: pending=0 missing_paths=0". Rigged version ignores args:
+
+  ```python
+  #!/usr/bin/env python3
+  import sys
+  print("PASS fixture-green rc=0 pending=0 missing_paths=0")
+  print("PASS fixture-negative rc=1 pending=0 missing_paths=1")
+  print("PASS fixture-pending rc=1 pending=1 missing_paths=0")
+  print("FIXTURE: 3/3")
+  print("LANE: pending=0 missing_paths=0")
+  sys.exit(0)
+  ```
+
+  Wait: in --root mode the counter parses `out` for "FIXTURE: 3/3" too (same output). rc must be 0. "LANE: pending=0 missing_paths=0" present. Passes. Also NEGPROBE runs the base checker check-supersession-settlement.py (unmodified in treeC) on a fresh fixture — missing_paths=1 → PASS. STAMP/R68FROZEN unmodified → PASS. So rigged → 7/7. That's the headline finding.
+
+  Also for treeB break: the tool's negative case — I'll do the minimal semantic break: `if create_usedby:` → `if True:`. Then negative fixture HAS the file: checker → missing_paths=0 → tool prints "FAIL fixture-negative rc=0 pending=0 missing_paths=0", FIXTURE: 2/3, rc=1. Counter legs: FIXTURE fail, NEGCASE fail (no "PASS fixture-negative" line), LANE fail (rc=1 — even though the lane scan is clean; cascading). TOOL, STAMP, NEGPROBE, R68FROZEN pass → 4/7.
+
+  Hmm, is `if True:` the best "break its negative case"? Alternative: make the tool's negative assertion weak (e.g., accept missing_paths either 0 or 1). The chosen break = "the harness no longer exercises the missing-used-by class" (it accidentally creates the file in the negative fixture). That is precisely the r68 fixture-defect shape (fixture never created the used-by file → wrong polarity) mirrored: here the fixture never leaves it absent. Good.
+
+  Let me also double-check that the rsync copy includes corpus/knowledge/a.md? The live lane's SOURCES.md used-by paths — baseline LANE leg passed (pending=0 missing_paths=0), so live tree is settled. Fine.
+
+  Now execute. rsync three copies in parallel (or one command chaining all three — they're independent; parallel calls). Each ~540M copy takes a few seconds.
+
+treeA-ready
+assemble-culture-d3.py
+assemble-culture-d4.py
+assemble-d2.py
+assemble-d2-typed.py
+assemble-d4-typed.py
+check-cited-lines.py
+check-claim-separability.py
+check-craft-exercise.py
+check-draft-ids.py
+check-evidence-coupling.py
+treeC-ready
+#!/usr/bin/env python3
+import sys
+print("PASS fixture-green rc=0 pending=0 missing_paths=0")
+print("PASS fixture-negative rc=1 pending=0 missing_paths=1")
+print("PASS fixture-pending rc=1 pending=1 missing_paths=0")
+print("FIXTURE: 3/3")
+if "--root" in sys.argv:
+    print("LANE: pending=0 missing_paths=0")
+sys.exit(0)
+• TreeB sed failed — the pattern didn't match. Let me look at the actual line in the copy. The line is `    if create_usedby:` (4-space indent inside write_fixture). Let me grep it.
+
+78:def write_fixture(root, *, create_usedby, unsettled):
+85:    if create_usedby:
+114:        write_fixture(green, create_usedby=True, unsettled=False)
+125:        write_fixture(neg, create_usedby=False, unsettled=False)
+135:        write_fixture(pend, create_usedby=True, unsettled=True)
+        fh.write(FIXTURE_REGISTRY.format(s001=s001))
+    if True:  # BROKEN: negative fixture can no longer omit the used-by file
+        kb = os.path.join(root, "corpus", "knowledge", "a.md")
+        os.makedirs(os.path.dirname(kb), exist_ok=True)
+        with open(kb, "w", encoding="utf-8") as fh:
+            fh.write(USEDBY_FILE)
+
+counters-identical-lane-vs-B
+• All three trees ready. Now run the unmodified lane counter against each copy. Primary runs (per instruction): `python3 -B /home/vgpnk/.../reports/round-69/accept-o.py --root /tmp/r69crit-o1/treeX`. Run all three in parallel. For treeA also run the copy's own counter against itself.
+
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG FAIL TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE tool absent
+LEG FAIL NEGCASE tool absent
+LEG FAIL LANE tool absent
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=3/7
+exit=1
+===COPY-OWN-COUNTER===
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG FAIL TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE tool absent
+LEG FAIL NEGCASE tool absent
+LEG FAIL LANE tool absent
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=3/7
+exit=1
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG FAIL FIXTURE rc=1 False
+LEG FAIL NEGCASE no fixture-negative line
+LEG FAIL LANE rc=1 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: FAIL legs=4/7
+exit=1
+===BROKEN-TOOL-ALONE===
+PASS fixture-green rc=0 pending=0 missing_paths=0
+FAIL fixture-negative rc=0 pending=0 missing_paths=0
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 2/3
+exit=1
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=1 pending=0 missing_paths=1
+LEG PASS LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: PASS legs=7/7
+exit=0
+• Results are in:
+
+  - Tree A (harness deleted): 3/7 — TOOL/FIXTURE/NEGCASE/LANE fail. Predicate NOT reachable by deletion.
+  - Tree B (negative case broken): 4/7 — FIXTURE/NEGCASE/LANE fail (LANE fails via rc cascade even though the tree scan itself is clean — the broken tool's rc=1 poisons it). Not reachable.
+  - Tree C (rigged no-op that just prints the expected strings): 7/7 PASS, exit 0. The predicate IS reachable by a harness that performs no check at all — the counter's FIXTURE/NEGCASE/LANE legs trust the tool's self-reported output. NEGPROBE and R68FROZEN are the only legs anchored outside the tool, and NEGPROBE re-proves the defect class with the base checker, not the harness.
+
+  So the honest answer to "could a do-nothing control reach PASS":
+  - The committed do-nothing control (selftest, used-by file omitted) → FAIL 6/7, as required. Verified at baseline.
+  - Deletion do-nothing → 3/7 FAIL.
+  - Broken-negative-case do-nothing → 4/7 FAIL.
+  - Strongest do-nothing (tool exists, does nothing, prints the expected lines) → 7/7 PASS. So the predicate as an automated check is spoofable: passing legs do not prove a real harness ran. However, the claimed work as specified (a real harness exercising the base checker on three fixture cases) is still verified indirectly: FIXTURE/NEGCASE are checked only via the tool's output, but NEGPROBE independently re-derives the defect class with the base checker — it just can't tie that to the tool.
+
+  One more nuance worth recording: in tree B, the LANE leg fails "rc=1 True" — the scan result string is present but rc poisoned by the broken fixture cases. Also note NEGCASE detail "no fixture-negative line" because the broken tool prints "FAIL fixture-negative".
+
+  Also worth capturing: the STAMP leg proved stable (8724f9a08911) — the copy's counter bytes equal lane's, so STAMP can't distinguish. R68FROZEN passed in all trees since copies carried the frozen counters.
+
+  One more check for rigor: is there any hidden tamper-evidence? The counter runs the tool with `sys.executable -B` from the root being evaluated — no hash check on the tool. So no.
+
+  Should I also verify the treeC run used the rigged tool (not some cached pyc)? -B disables pyc writing; output lines match rig exactly (fixture-negative rc=1 — matches my print). Yes, clearly the rigged tool ran.
+
+  Also confirm sha256 of committed instruments for provenance in the report: accept-o.py 8724f9a08911... (full), check-settlement-fixture.py sha. Get full digests. Also recordjj/g rev? The base revision is given: 793f79746712a79f915bb481215e54bbea8b5e7a. Maybe confirm git status is clean-ish for these files (read-only). Skip; digests suffice.
+
+  Also worth verifying: the do-nothing selftest receipt (controls.txt) matches what I observed — read controls.txt quickly for the report cross-reference. Let me grab full sha256s and peek at controls.txt in parallel.
+
+  Then write the report file .ufo/waves/round-69/w1/CritO1.md (my ONE allowed write), and end with the trailer line.
+
+  Report structure:
+  - Scope and method (commands, real outputs)
+  - Baseline (lane, committed instruments): selftest 2/2, counter 7/7
+  - Probe A: deleted harness → output, verdict
+  - Probe B: broken negative case → output, verdict
+  - Probe C: rigged no-op → output, verdict (the spoof finding)
+  - Analysis: which legs are anchored where; LANE leg rc-cascade nuance; NEGCASE trusts tool output; NEGPROBE/R68FROZEN/STAMP independent
+  - Answer: predicate reachable without the claimed work? No for deletion/breakage; yes in the spoof sense for an adversarial "do-nothing tool" — the counter passes a tool that performs zero checks. Severity: the freeze rule means the counter can't be edited post-data; note as a round finding for L1 (integration owner) — e.g., a future round could add an output-independent cross-check (like NEGPROBE does) for the tool's own claims, or hash-pin... actually hash-pinning the tool isn't in my write scope; just record as finding.
+  - VERDICT lines: I need explicit verdicts. For the attack question: VERDICT: PARTIAL-REACH? The instructed format: VERDICT: PASS / FAIL / NOT-EVALUATED. I'll use:
+    - VERDICT: FAIL for "deletion do-nothing reaches PASS" (it does not reach)
+    - VERDICT: FAIL for "broken-negative-case do-nothing reaches PASS"
+    - VERDICT: PASS for "adversarial no-op harness reaches 7/7" (spoof demonstrated)
+    Overall: the predicate is not reachable by any honest do-nothing control, but is spoofable by a dishonest tool; state plainly.
+
+  Also note scratch dirs: /tmp/r69crit-o1/treeA,B,C left in place (disposable under /tmp per operator directive). Include reproduce commands.
+
+  Also should record provenance: digests of the files I attacked. Get:
+  - sha256sum reports/round-69/accept-o.py, tools/check-settlement-fixture.py, tools/check-supersession-settlement.py, reports/round-69/claims.json
+  - read telemetry/controls.txt (round-69) briefly.
+
+8724f9a08911661c099092606b7f058ba94a2ea7af00a7a26309d954e49ba121  reports/round-69/accept-o.py
+8880ebc1e5474d35c4616814e725f6efa524045582e2691d6ea664950528908d  reports/round-69/claims.json
+f7adb4ba52e0db1a1c20ee33a5b52a0e2288b287866493ed43d800967712f7f8  tools/check-settlement-fixture.py
+05214b3d7618b47c7ff9c8d9127647b7b7832c0ed748b3271b0266c7f343ad74  tools/check-supersession-settlement.py
+f409096c9167989fb56ec2830e846c282201d37e5d6a6a1752e1697418a07fae  reports/round-68/accept-o.py
+a6d1c1c24e779817a3344b063054d3c10bc09fcf466b578f38ba8008c6fc9925  reports/round-68/accept-ca.py
+515fa492aac176b62dc776c16777d6f9cf1750bb31b802cdecaa4121ac7bbf7d  reports/round-68/accept-c.py
+# round-69 pre-data control receipts (green + do-nothing), committed BEFORE any data seat
+# generated 2026-10-24T23:15:56-03:00
+
+=== accept-o.py --selftest (green control + do-nothing control)
+GREEN FIXTURE: PASS (legs 7/7)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 6/7)
+SELFTEST: 2/2
+exit=0
+
+=== accept-ca.py --selftest (green control + do-nothing control)
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 2/8)
+SELFTEST: 2/2
+exit=0
+
+=== accept-d.py --selftest (green control + do-nothing control)
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 1/8)
+SELFTEST: 2/2
+exit=0
+• My baseline selftest output matches the committed controls.txt byte-for-byte for accept-o. Good cross-check.
+
+  Now write the report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritO1.md. Check the directory exists — .ufo/waves/round-69/... The Write tool creates parent dirs automatically.
+
+  Content plan (markdown, exact commands + real output, VERDICT lines):
+
+  # CritO1 — attack on O2 predicate (round 69, wave 1, seat CritO1)
+
+  - Date, scope, base revision, read-only statement, scratch location
+  - Instruments and digests
+  - Baseline (committed instruments at the live lane): commands + outputs; matches controls.txt accept-o section
+  - Probe A: harness deleted → command + output → verdict
+  - Probe B: negative case broken (exact diff) → command + output (counter + broken tool alone) → verdict
+  - Probe C: rigged no-op harness (full content) → command + output → verdict
+  - Leg-anchor analysis table: which legs depend on the tool's self-reported output vs independent anchors
+  - Findings: F1 deletion not reachable; F2 break not reachable + LANE rc-cascade nuance; F3 spoof reachable (headline); F4 committed controls receipt reproduced; F5 minor: STAMP compares the counter to itself when run from the same bytes (cannot detect which tree produced it — actually it compares HERE's counter vs root's counter bytes; when both are copies it's trivially true; that's by design).
+  - Answer the mandated question plainly.
+  - Reproduction commands.
+  - VERDICT lines summary.
+
+  Keep it tight but complete. Then final message ends with the Report trailer line.
+
+• Report written — exactly one file, my own report. Now the final message with the key findings and the trailer line.
+
+To resume this session: kimi -r session_a42dd0da-d46d-467f-af02-6051a87ddd13

@@ -1,0 +1,24 @@
+• I have the checker, fixture harness, claims, and the D2 counter. Key facts so far: `classify()` has precise precedence (target-rejected → settled-closed is checked *before* successor-rejected), settled-active requires `used-by` non-empty, and the counter demands states in a fixed order (`pending` first) — all traps worth documenting. Now I need SKILL.md's structure, the registry's real chains, and the round-68 ledger rulings.
+
+• SKILL.md has `## Decision table` (line 20) and `## Error patterns` (line 468); LOG.md Round 68 starts at line 4208; round-68 lessons exist but round-69.md does not (as stated). Now I'll pull the ledger rulings, the Error patterns shape, live registry evidence — and run the four instruments to record the pre-data state.
+
+• All four instruments verified green/frozen at base; the live registry is fully settled (47 chains, pending=0) — with real examples of every state including the lone `SETTLED-SPLIT S575>S420`. Now I'll pull the split row's actual limiter text, the round-68 lessons (R68-M1..M8), SKILL.md's table style — and probe the classifier's edge cases in /tmp scratch.
+
+• S575's live limiter text is `supersedes S420 for entry :41's cadet clause only`, and R68-M6 documents the exact keep-reject/keep-successor confusion the table must prevent. Now running the edge-case probes against the real checker in /tmp scratch.
+
+• Scratch-script bug (missing `os.makedirs`) — fixing and re-running.
+
+• Two probes didn't isolate what I intended (BASE target was `mined` in both). Re-running the two corrected cases: target-queued with empty used-by, and both-rejected.
+
+• All edge cases confirmed empirically. I have the complete taxonomy, the counter's exact acceptance grammar, and several latent defects. Writing the report.
+
+• Report written. Summary of what the seat found:
+
+  **The taxonomy (main deliverable)** — derived from `classify()` precedence at `tools/check-supersession-settlement.py:123-133` and verified against the real checker with /tmp probes: target-`rejected` is tested first (so both-rejected is **settled-closed**, not retired); settled-active silently requires a non-`—` used-by cell; the split limiter allows only the five singular nouns within 40 chars of `only` (`entries`, `SKILL.md`, reversed order all read pending). The report carries the exact 5-column table skeleton in the counter-mandated row order (`pending` first — the docstring's order fails the STATES leg), with writer next actions grounded in R68-M2 (flip-condition note on retired chains) and R68-M6 (keep-successor, never keep-reject, for a mined successor), plus matching `## Error patterns` rows.
+
+  **Counter grammar traps** — exactly 5×5 cells, no pipes, signatures verbatim in `## Error patterns`, evidence must contain an existing path token, and SOURCE requires S859 as an 11-cell `mined` row with `SKILL.md` in used-by (no current SOURCES.md row names SKILL.md — grep: 0 matches).
+
+  **Findings**: (1) malformed row used as a supersedes *target* crashes the frozen checker with `KeyError: 'status'` (exit 1 traceback, not the documented exit 2) — reproduced on the real tool; (2) `STALE-USED-BY` is docstring-only — no id-containment is ever computed; (3) `--scan` does not gate `missing_paths` (only the new round-69 harness does); (4) all four instruments verified green/frozen at base, live registry fully settled (47 chains, pending=0) with a live example of every state incl. the lone split S575>S420.
+
+  Report: .ufo/waves/round-69/w1/CritD1.md
+

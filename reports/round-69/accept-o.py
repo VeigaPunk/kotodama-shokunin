@@ -1,24 +1,36 @@
 #!/usr/bin/env python3
-r"""Round-69 operability acceptance counter — claim O2 (NEW counter).
+r"""Round-69 operability acceptance counter — claim O2 (NEW counter, revision 1).
 
-The round-68 operability counter failed as declared: its EXEC fixture lane
-never created the used-by file, so the scan answered ``missing_paths=1`` in
-every recorded run and the leg was structurally unreachable (R68-M1). This
-counter is a NEW file; the round-68 counters are not edited. Leg
-``R68FROZEN`` proves that by re-deriving the three round-68 counters'
-sha256 against the sha256 each round-68 receipt recorded.
+Revision history (both revisions are committed; the revision is recorded in
+reports/round-69/claims.json with its forcing receipt):
+  revision 0 — declared pre-data. It judged the new fixture harness by the
+    harness's own printed lines. The wave's attack seat CritO1
+    (.ufo/waves/round-69/w1/CritO1.md, probe C) showed that a no-op harness
+    that only prints the expected strings reaches ACCEPT-O-69: PASS 7/7
+    without running a single fixture: a do-nothing control could reach the
+    target. No data had landed when the attack landed, so the instrument was
+    revised before any data seat scored it (the r59/r63 pre-data control-wave
+    pattern; the kumitate r42 rule bites on a rule changed after DATA, not on
+    a falsifier forcing an instrument before data).
+  revision 1 — the predicate sentence, the seven leg names and the 7/7 target
+    are UNCHANGED. What changed is the anchoring: no leg now trusts the
+    harness's self-report. The counter builds its own lane-shaped fixtures and
+    runs the BASE checker (tools/check-supersession-settlement.py) on them
+    itself, scans the lane root itself, and uses the harness only as a
+    cross-check on a fixture the counter built (NEGPROBE). The spoof that
+    killed revision 0 now fails NEGPROBE.
 
-Claim O2 surface: the lane gains a runnable, lane-shaped settlement fixture
-harness (``tools/check-settlement-fixture.py``) whose negative case is the
-missing-used-by defect class the round-68 counter never exercised.
+The round-68 counters are not edited; leg R68FROZEN proves that by
+re-deriving the three round-68 counters' sha256 against the sha256 each
+round-68 receipt recorded.
 
 Usage:
   --root DIR     evaluate claim O2 against the lane tree at DIR (default ".")
-  --selftest     run the GREEN control (a fixture tree that satisfies the
-                 claim) and the DO-NOTHING control (the same tree with the
-                 used-by file absent, which the claim's LANE leg must catch);
-                 exit 0 iff the green fixture passes and the do-nothing
-                 fixture fails.
+  --selftest     run three controls and require each to behave as declared:
+                 GREEN FIXTURE (a tree satisfying the claim) must PASS;
+                 DO-NOTHING FIXTURE (the harness deleted) must FAIL; and
+                 SPOOF FIXTURE (a no-op harness printing the expected strings)
+                 must FAIL.
 
 Exit codes: 0 pass · 1 fail · 2 usage/env.
 Reads only. No network. No mutation of the lane tree.
@@ -37,23 +49,45 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 LANE = os.path.dirname(os.path.dirname(HERE))
 SELF = os.path.basename(__file__)
 
-NEG_REGISTRY = """# SOURCES — independent probe fixture
+# The counter's own lane-shaped registry fixture (independent of the harness).
+FIXTURE_REGISTRY = """# SOURCES — counter fixture lane
 
 ## Registry
 
 | id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
 |---|---|---|---|---|---|---|---|---|---|---|
-| S001 | Probe base source — https://example.invalid/base | docs | B | probe scope | §1 | the base claim | queued | 2026-10-24 | 90d | — |
-| S002 | Probe successor source — https://example.invalid/next | docs | A | probe scope | §1 | supersedes S001 — the probe correction | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |
+| S001 | Counter base source — https://example.invalid/base | docs | B | the base row's scope | §1 | the base claim | {s001} | 2026-10-24 | 90d | — |
+| S002 | Counter successor source — https://example.invalid/next | docs | A | the successor row's scope | §1 | supersedes S001 — the counter's own correction | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |
+
+## Paths
+
+- counter fixture — S001 -> S002: the correction replaces the base claim.
+
+## Search log
+
+- 2026-10-24 — counter fixture lane; no network; the two rows are synthetic.
 """
 
-LANE_REGISTRY = NEG_REGISTRY
+SUMMARY_RE = re.compile(
+    r"SETTLEMENT:\s*pending=(\d+)\s+chains=(\d+)\s+usedby_paths=(\d+)\s+"
+    r"missing_paths=(\d+)")
 
 R68_COUNTERS = (
     ("accept-o.py", "final-measures-o.txt"),
     ("accept-ca.py", "final-measures-ca.txt"),
     ("accept-c.py", "final-measures-c.txt"),
 )
+
+SPOOF_HARNESS = '''#!/usr/bin/env python3
+import sys
+print("PASS fixture-green rc=0 pending=0 missing_paths=0")
+print("PASS fixture-negative rc=1 pending=0 missing_paths=1")
+print("PASS fixture-pending rc=1 pending=1 missing_paths=0")
+print("FIXTURE: 3/3")
+if "--root" in sys.argv:
+    print("LANE: pending=0 missing_paths=0")
+sys.exit(0)
+'''
 
 
 def sha256_file(path):
@@ -78,6 +112,41 @@ def recorded_sha(path):
     return m.group(1) if m else None
 
 
+def write_fixture(root, *, create_usedby, unsettled):
+    reg = os.path.join(root, "corpus", "SOURCES.md")
+    os.makedirs(os.path.dirname(reg), exist_ok=True)
+    with open(reg, "w", encoding="utf-8") as fh:
+        fh.write(FIXTURE_REGISTRY.format(s001="mined" if unsettled else "queued"))
+    if create_usedby:
+        kb = os.path.join(root, "corpus", "knowledge", "a.md")
+        os.makedirs(os.path.dirname(kb), exist_ok=True)
+        with open(kb, "w", encoding="utf-8") as fh:
+            fh.write("cites S002 now\n")
+
+
+def run_checker(checker, root):
+    proc = subprocess.run(
+        [sys.executable, "-B", checker, "--scan", "--root", root],
+        capture_output=True, text=True, check=False)
+    return proc.returncode, proc.stdout
+
+
+def summary(out):
+    m = SUMMARY_RE.search(out)
+    if not m:
+        return None
+    return {"pending": int(m.group(1)), "chains": int(m.group(2)),
+            "usedby_paths": int(m.group(3)),
+            "missing_paths": int(m.group(4))}
+
+
+def run_tool(root, tool, args):
+    proc = subprocess.run(
+        [sys.executable, "-B", os.path.join(root, tool)] + args,
+        capture_output=True, text=True, check=False)
+    return proc.returncode, proc.stdout + proc.stderr
+
+
 class Result(object):
     def __init__(self, quiet=False):
         self.legs = []
@@ -93,66 +162,77 @@ class Result(object):
         return all(ok for _, ok, _ in self.legs)
 
 
-def run_tool(root, tool, args):
-    proc = subprocess.run(
-        [sys.executable, "-B", os.path.join(root, tool)] + args,
-        capture_output=True, text=True, check=False)
-    return proc.returncode, proc.stdout + proc.stderr
-
-
 def evaluate(root, res):
     root = os.path.abspath(root)
 
     # STAMP — the counter under test is the committed one.
     mine = sha256_file(os.path.join(HERE, SELF))
     committed = sha256_file(os.path.join(root, "reports", "round-69", SELF))
-    res.add("STAMP", mine and committed and mine == committed,
+    res.add("STAMP", bool(mine) and mine == committed,
             "self=%s committed=%s" % ((mine or "none")[:12],
                                       (committed or "none")[:12]))
 
+    tool_rel = "tools/check-settlement-fixture.py"
+    checker_rel = "tools/check-supersession-settlement.py"
+    tool_path = os.path.join(root, tool_rel)
+    checker_path = os.path.join(root, checker_rel)
+
     # TOOL — the new fixture harness is present.
-    tool_path = os.path.join(root, "tools", "check-settlement-fixture.py")
-    res.add("TOOL", os.path.exists(tool_path),
-            "tools/check-settlement-fixture.py")
+    res.add("TOOL", os.path.exists(tool_path), tool_rel)
 
-    # FIXTURE — the harness's own three cases are green.
-    if os.path.exists(tool_path):
-        rc, out = run_tool(root, "tools/check-settlement-fixture.py",
-                           ["--selftest"])
-        res.add("FIXTURE", rc == 0 and "FIXTURE: 3/3" in out,
-                "rc=%d %s" % (rc, "FIXTURE: 3/3" in out))
-        # NEGCASE — the missing-used-by case is caught (the r68 defect class).
-        neg_line = [l for l in out.splitlines()
-                    if l.startswith("PASS fixture-negative")]
-        res.add("NEGCASE", bool(neg_line) and "missing_paths=1" in neg_line[0],
-                neg_line[0] if neg_line else "no fixture-negative line")
-        # LANE — the real lane tree settles with no missing used-by path.
-        rc, out = run_tool(root, "tools/check-settlement-fixture.py",
-                           ["--root", root])
-        res.add("LANE", rc == 0 and "LANE: pending=0 missing_paths=0" in out,
-                "rc=%d %s" % (rc, "LANE: pending=0 missing_paths=0" in out))
+    # FIXTURE — the counter's OWN lane-shaped green fixture: the base checker
+    # must settle it (pending=0, missing_paths=0, exit 0).
+    if os.path.exists(checker_path):
+        with tempfile.TemporaryDirectory(prefix="o69-green-") as td:
+            fx = os.path.join(td, "green")
+            write_fixture(fx, create_usedby=True, unsettled=False)
+            rc, out = run_checker(checker_path, fx)
+            s = summary(out)
+            ok = rc == 0 and s is not None and s["pending"] == 0 \
+                and s["missing_paths"] == 0
+            res.add("FIXTURE", ok, "rc=%d pending=%s missing_paths=%s" % (
+                rc, s["pending"] if s else "?",
+                s["missing_paths"] if s else "?"))
+        # NEGCASE — the counter's OWN negative fixture (the used-by file is
+        # absent): the base checker must report missing_paths=1. This is the
+        # round-68 defect class, detected by the counter, not by the harness.
+        with tempfile.TemporaryDirectory(prefix="o69-neg-") as td:
+            fx = os.path.join(td, "negative")
+            write_fixture(fx, create_usedby=False, unsettled=False)
+            rc, out = run_checker(checker_path, fx)
+            s = summary(out)
+            ok = s is not None and s["pending"] == 0 and s["missing_paths"] == 1
+            res.add("NEGCASE", ok, "rc=%d pending=%s missing_paths=%s" % (
+                rc, s["pending"] if s else "?",
+                s["missing_paths"] if s else "?"))
+        # LANE — the counter scans the lane root itself.
+        rc, out = run_checker(checker_path, root)
+        s = summary(out)
+        ok = rc == 0 and s is not None and s["pending"] == 0 \
+            and s["missing_paths"] == 0
+        res.add("LANE", ok, "rc=%d pending=%s missing_paths=%s" % (
+            rc, s["pending"] if s else "?",
+            s["missing_paths"] if s else "?"))
+        # NEGPROBE — the HARNESS must report missing_paths=1 on the
+        # counter's OWN negative fixture: the harness's behaviour is judged
+        # against evidence the counter built, never against its self-report.
+        with tempfile.TemporaryDirectory(prefix="o69-probe-") as td:
+            fx = os.path.join(td, "negative")
+            write_fixture(fx, create_usedby=False, unsettled=False)
+            if os.path.exists(tool_path):
+                rc, out = run_tool(root, tool_rel, ["--root", fx])
+                lane_lines = [l for l in out.splitlines()
+                              if l.startswith("LANE:")]
+                caught = any("missing_paths=1" in l for l in lane_lines)
+                res.add("NEGPROBE", bool(lane_lines) and caught,
+                        "harness_on_counter_fixture rc=%d lane_lines=%s" % (
+                            rc, lane_lines or "none"))
+            else:
+                res.add("NEGPROBE", False, "harness absent")
     else:
-        res.add("FIXTURE", False, "tool absent")
-        res.add("NEGCASE", False, "tool absent")
-        res.add("LANE", False, "tool absent")
-
-    # NEGPROBE — independent reproduction: the base checker on a fixture whose
-    # used-by file is absent must report missing_paths=1. Built here, not read
-    # from the new tool, so a broken harness cannot hide the defect.
-    checker = os.path.join(root, "tools", "check-supersession-settlement.py")
-    if os.path.exists(checker):
-        with tempfile.TemporaryDirectory(prefix="o69-negprobe-") as td:
-            reg = os.path.join(td, "corpus", "SOURCES.md")
-            os.makedirs(os.path.dirname(reg), exist_ok=True)
-            with open(reg, "w", encoding="utf-8") as fh:
-                fh.write(NEG_REGISTRY)
-            proc = subprocess.run(
-                [sys.executable, "-B", checker, "--scan", "--root", td],
-                capture_output=True, text=True, check=False)
-            res.add("NEGPROBE", "missing_paths=1" in proc.stdout,
-                    "missing_paths=1 present=%s" %
-                    ("missing_paths=1" in proc.stdout))
-    else:
+        res.add("FIXTURE", False, "checker absent")
+        res.add("NEGCASE", False, "checker absent")
+        res.add("LANE", False, "checker absent")
         res.add("NEGPROBE", False, "checker absent")
 
     # R68FROZEN — the three round-68 counters are byte-identical to the
@@ -170,13 +250,21 @@ def evaluate(root, res):
     return res
 
 
-def build_fixture_root(fx, *, with_usedby):
+def build_fixture_root(fx, *, harness):
     os.makedirs(os.path.join(fx, "tools"), exist_ok=True)
-    for rel in ("tools/check-settlement-fixture.py",
-                "tools/check-supersession-settlement.py"):
+    for rel in ("tools/check-supersession-settlement.py",):
         src = os.path.join(LANE, rel)
         if os.path.exists(src):
             shutil.copy2(src, os.path.join(fx, rel))
+    if harness == "real":
+        src = os.path.join(LANE, "tools", "check-settlement-fixture.py")
+        if os.path.exists(src):
+            shutil.copy2(src, os.path.join(fx, "tools",
+                                            "check-settlement-fixture.py"))
+    elif harness == "spoof":
+        with open(os.path.join(fx, "tools", "check-settlement-fixture.py"), "w",
+                  encoding="utf-8") as fh:
+            fh.write(SPOOF_HARNESS)
     for rel in ("reports/round-68/accept-c.py", "reports/round-68/accept-o.py",
                 "reports/round-68/accept-ca.py",
                 "reports/round-68/telemetry/final-measures-c.txt",
@@ -190,36 +278,29 @@ def build_fixture_root(fx, *, with_usedby):
             shutil.copy2(src, dst)
     reg = os.path.join(fx, "corpus", "SOURCES.md")
     os.makedirs(os.path.dirname(reg), exist_ok=True)
-    with open(reg, "w", encoding="utf-8") as fh:
-        fh.write(LANE_REGISTRY)
-    if with_usedby:
-        kb = os.path.join(fx, "corpus", "knowledge", "a.md")
-        os.makedirs(os.path.dirname(kb), exist_ok=True)
-        with open(kb, "w", encoding="utf-8") as fh:
-            fh.write("cites S002 now\n")
+    write_fixture(fx, create_usedby=True, unsettled=False)
 
 
 def selftest():
+    results = []
     with tempfile.TemporaryDirectory(prefix="o69-selftest-") as td:
-        green = os.path.join(td, "green")
-        build_fixture_root(green, with_usedby=True)
-        r1 = Result(quiet=True)
-        evaluate(green, r1)
-        green_ok = r1.ok
-        print("GREEN FIXTURE: %s (legs %d/%d)" % (
-            "PASS" if green_ok else "FAIL",
-            sum(1 for _, ok, _ in r1.legs if ok), len(r1.legs)))
-
-        nothing = os.path.join(td, "donothing")
-        build_fixture_root(nothing, with_usedby=False)
-        r2 = Result(quiet=True)
-        evaluate(nothing, r2)
-        nothing_fails = not r2.ok
-        print("DO-NOTHING FIXTURE: %s (legs %d/%d)" % (
-            "FAIL (as required)" if nothing_fails else "PASS (unexpected)",
-            sum(1 for _, ok, _ in r2.legs if ok), len(r2.legs)))
-        print("SELFTEST: %d/2" % (sum([green_ok, nothing_fails])))
-        return 0 if (green_ok and nothing_fails) else 1
+        for label, harness, want_pass in (("GREEN FIXTURE", "real", True),
+                                          ("DO-NOTHING FIXTURE", None, False),
+                                          ("SPOOF FIXTURE", "spoof", False)):
+            fx = os.path.join(td, label.split()[0].lower())
+            build_fixture_root(fx, harness=harness)
+            r = Result(quiet=True)
+            evaluate(fx, r)
+            passed = r.ok
+            behaved = (passed == want_pass)
+            print("%s: %s (legs %d/%d) — %s" % (
+                label,
+                "PASS" if passed else "FAIL",
+                sum(1 for _, ok, _ in r.legs if ok), len(r.legs),
+                "as required" if behaved else "UNEXPECTED"))
+            results.append(behaved)
+    print("SELFTEST: %d/%d" % (sum(results), len(results)))
+    return 0 if all(results) else 1
 
 
 def main():

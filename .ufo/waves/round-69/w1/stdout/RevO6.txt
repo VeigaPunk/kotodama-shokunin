@@ -1,0 +1,41 @@
+• I have the detector code. `detect_overreach` (line 165) only fires when the calibration row's verdict cell starts with `improved` AND the committed round-68 receipt verdict is not PASS. Now I need the claims and the committed receipts to set up the attack.
+
+• Detector code understood. Key facts already visible:
+
+  - `detect_overreach` (accept-ca.py:165-176) fires only when the calibration row's verdict cell **starts with the literal prefix `improved`** AND the committed round-68 receipt (`final-measures-ca.txt`) does not contain `ACCEPT-CA-68: PASS` — and that receipt **crashed** (NameError, R68-M9), so `observed_ca_verdict` reads `FAIL`.
+  - The task's step-2 prediction ('harmed' → still fires) looks inconsistent with the code — I'll run it anyway and report what the code actually does.
+
+  Now I build the /tmp fixture tree (mirroring the script's own `build_fixture_root`) and take a real-lane baseline in parallel.
+
+• The live-lane baseline confirms the detector fires on the real data: `EVAL OVERREACH|SCORECARD.md live=True ... hits=["calibration verdict 'improved' vs receipt FAIL"]`, and the tree is at `unannotated_mismatches=5` (pre-data, corrections not landed). Now the mutation ladder on the /tmp copy — baseline, then the two verdict rewordings.
+
+• P0 baseline on the copy matches the live lane exactly (exit 1 is the expected pre-data FAIL). Note from the grep: the string `improved (claim Ca, records)` also appears in the round-64 row (line 1256), so my mutation must anchor on the unique round-68 row prefix `| R67-D1:`. Also notable: lines 1004 and 1284 show the lane already uses `not verified as declared` and `unprovable` verdicts in older rounds — the mutations are lane-idiomatic strings.
+
+  Now V1 (`not verified as declared`) and V2 (`harmed`):
+
+• V1: OVERREACH live-detection stopped (`hits=none`, `live=False`), unannotated dropped 5→4 — but the leg itself still FAILs (`covered=False`, no correction row yet), so the counter still prints FAIL. Both senses of "fires" captured. Now V2 (`harmed`):
+
+• V2 is the divergence: `harmed` behaves **identically** to `not verified as declared` — `live=False hits=none` — the OVERREACH live-detection does **not** still fire on `harmed`. Only the counter-level FAIL persists, and for a different reason (no correction row). Now two completing probes: the prefix-escape (V3) and the receipt-side forge (V4).
+
+• V3 confirms the prefix escape (`asserted improved` → detector silent, wording still asserts improvement). V4 is the sharper hole: a forged `ACCEPT-CA-68: PASS` line in the /tmp receipt copy flips `ca-verdict=PASS` and silences OVERREACH **while R68FROZEN stays green** — that leg hashes the counter file, not the receipt text. Now the covered state, using the script's own fixture builder, plus the committed controls:
+
+• G1/G2 ran, but I notice the covered fixture inherited the **V4-forged receipt** (the builder copies from the source tree where I'd left the forged `ACCEPT-CA-68: PASS` — G2 shows `ca-verdict=PASS`). To make the covered-state claim with the real receipt, I rebuild it from a pristine-receipt source tree:
+
+• All probes are done and the matrix is complete. Writing the report now.
+
+• Attack complete, report filed. Summary of what the probes showed:
+
+  **Assignment steps:**
+  - Step 1 — VERDICT: PASS. Rewording the round-68 calibration verdict cell from `improved ...` to `not verified as declared ...` on the /tmp copy stops the OVERREACH live-detection: `live=True hits=["calibration verdict 'improved' vs receipt FAIL"]` → `live=False hits=none`, unannotated 5 → 4.
+  - Step 2 — VERDICT: FAIL (as stated). `harmed` does **not** keep the detector firing — it is behaviorally identical to `not verified as declared`. The trigger is one literal predicate, `verdict.startswith("improved")` (accept-ca.py:173); `harmed` can never fire under any receipt. The only thing that "still fires" is the counter-level FAIL, caused by `covered=False` (no correction row yet) — a reason untouched by the wording.
+
+  **Extra holes found:**
+  - Prefix escape: `asserted improved` silences live detection while the row still claims improvement (V3).
+  - Receipt-side forge: one appended `ACCEPT-CA-68: PASS` line in the /tmp receipt copy flips `ca-verdict=PASS` and silences OVERREACH **while R68FROZEN stays green** — no leg binds the receipt bytes (V4).
+  - The design works where it aims: on the live lane the detector catches the real round-68 overreach (filed `improved` vs the crashed receipt), and the corrections-covered fixture closes it to `unannotated=0`, 8/8 PASS (H1) — but post-coverage the verdict cell is wording-independent (H2).
+  - Controls reproduced: `--selftest` → GREEN 8/8, DO-NOTHING FAIL as required, SELFTEST 2/2.
+
+  All mutations were on /tmp copies; production files untouched except my one report file.
+
+  Report: .ufo/waves/round-69/w1/RevO6.md
+

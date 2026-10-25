@@ -1,0 +1,31 @@
+• Counter read. The remedy rule under test is `reports/round-69/accept-ca.py:252-254` — for DEADPOINTER, `remedy = is_covered and not is_live` (the appended correction row alone isn't enough; the pointed-to `R68-M<n>` row must also resolve). Now the declared pairs and lane state:
+
+• State confirmed: `corrections-r68.md` and `corpus/lessons/round-69.md` don't exist yet (the Ca2 "data"), and the DEADPOINTER surface is the fleet-side round-68 report (read via `--fleet-root`), with row existence checked against the lane's LOG + lessons. Now the baseline runs — original counter against the lane, its selftest, and what the fleet report actually points at:
+
+• Baseline captured. The fleet report's DEADPOINTER (`R68-M9`) is live because the lane's LOG/lessons don't carry that row yet. Reading the fleet-root AGENTS.md as required, and setting up the /tmp mutation workspace:
+
+• Fleet AGENTS.md read — my fleet access stays read-only, conforming. Now the single-line mutation on the /tmp copy (anchored with a ranged read first):
+
+• Mutation in. Now generate the "corrections landed" lane-mirror state (append-only corrections file covering all five declared pairs, but the pointed-to R68-M9 row still absent from LOG/lessons) and capture the mutation diff:
+
+• Sole delta confirmed — the DEADPOINTER remedy line. Now the full run matrix in parallel:
+
+• All four legs of the matrix are decisive. The mutated counter flips the mirror verdict FAIL→PASS on identical facts, while today's lane tree is unaffected (corrections not landed) and the built-in selftest controls do not catch the mutation. Writing the report:
+
+• Mutation test complete, report written. Summary of what the evidence shows:
+
+  **The verdict changes, as prescribed.** With only the remedy line mutated in a /tmp copy (`remedy = is_covered and not is_live` → `remedy = is_covered`), the counter flips on a lane-mirror where `corrections-r68.md` exists but the pointed-to `R68-M9` row is still absent from LOG/lessons:
+
+  - Original: `ACCEPT-CA-69: FAIL legs=6/8` — `EVAL DEADPOINTER … remedy=False`, `unannotated_mismatches=1`
+  - Mutated: `ACCEPT-CA-69: PASS legs=8/8` — same leg `remedy=True`, `unannotated_mismatches=0`
+
+  **What the lane depends on:** the DEADPOINTER conjunct at `reports/round-69/accept-ca.py:254` — an appended correction row alone does not settle a mismatch; the referenced `R68-M<n>` row must actually exist in the lane's LOG/lessons. Kill it and Ca2 can be "passed" by a paper settlement while the fleet report still points at a mistake row that exists nowhere — the same missing-used-by class O2's negative case exercises.
+
+  **Two extra findings for the L1:**
+  1. The mutation is dormant on today's tree (runs against the real lane are byte-identical original vs mutated, both `FAIL 2/8`), because corrections aren't landed — the guard bites exactly at integration time. Landing `corrections-r68.md` without the `R68-M9` row leaves Ca2 red; both must land.
+  2. The committed GREEN/DO-NOTHING selftest controls do not catch this mutation (mutated `--selftest` still prints `2/2`): neither fixture builds the covered-but-still-live state where the two rules diverge.
+
+  All mutation was confined to `/tmp/mutc1/` (diff preserved in the report since /tmp is disposable); lane and fleet bytes untouched.
+
+  Report: .ufo/waves/round-69/w1/MutC1.md
+

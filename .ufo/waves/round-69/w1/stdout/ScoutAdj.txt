@@ -1,0 +1,31 @@
+• Scouting adjacency: I'll enumerate the fleet lanes, grep all four marker terms in parallel, and read the round-69 claim artifacts to ground the overlap judgment.
+
+• Fleet root enumerated — 20 sibling lanes. Now scoping the four markers to lane-internal files only (the fleet-level `.ufo/` and `MANIFEST.json` hits are L1 bookkeeping, not lane surfaces), and reading the fleet AGENTS note.
+
+• The fleet-root `.gitignore` excludes the nested lane repos — my globbed searches never descended into them (confirmed: the 291-hit `supersedes S` dump contains zero lane-internal paths). Re-running with `include_ignored` to actually scan lane internals.
+
+• Lane-internal surfaces are now visible. Strong candidates: tameshi (registry lifecycle rows in its SKILL.md), tabi (`#### Registry correction` section), mado (source-merge `supersedes` policy gate), kama (registry supersession chains), chousa (SOURCES.md `supersedes S0NN` rows + make-settle-tables.py), kaidoku (tools/round-30/settle-gate.py). Now I'll (a) read kotodama's own settlement taxonomy to know the exact five states being documented, (b) read the D2 accept counter, (c) characterize kaidoku's settle-gate, and (d) prove no lane owns the exact heading.
+
+• D2's exact surface is now clear (five states `pending / settled-active / settled-retired / settled-closed / settled-split`, five named signatures, S859 citation — from kotodama's own `classify()`). Notably, kaidoku's `settle-gate.py` is a *seat-settlement* gate (wave reports), a different sense of "settlement". Final verification batch: prove the heading and the state/signature names are unique to kotodama, and pin exact prior-art line numbers.
+
+• Taxonomy confirmed as kotodama-owned (41 hits, all inside kotodama). One gap left: `correction chain` inside lane repos was never scanned (earlier fleet greps skipped the gitignored lane trees). Final scan, then I write the report.
+
+• All markers resolved. The g3d "correction chain" is a leg-count correction note (round-86 scribe report), not a registry surface. Two last context peeks, then the report.
+
+• All evidence is in. Writing the adjacency report now.
+
+• Adjacency scan complete. Summary of findings:
+
+  **The scan trap:** the sibling lanes are gitignored from the fleet root, so default searches see nothing inside them. All lane-internal conclusions come from `include_ignored` greps and per-lane reads.
+
+  **Verdicts:**
+  - **NO-DUPLICATE-OWNER** — no sibling lane owns a supersession/registry-correction-chain decision table, the `### Registry correction chains` heading (zero matches in any lane SKILL.md), or the five chain states/error signatures (all 41 hits are kotodama files). The taxonomy is kotodama-owned: `tools/check-supersession-settlement.py:6-22` and `classify()` at `:112-137`, frozen in `reports/round-69/accept-d.py:35-37`.
+  - **IN-LANE** — D2's table documents kotodama-owned code and kotodama's own S859 row in kotodama's own SKILL.md; it does not bleed.
+  - **Nearest prior art** (all per-lane, governing their own registries): tameshi's `active→superseded_by` lifecycle rows (`tameshi-shokunin/SKILL.md:1573`, `:1829`, `:1841`); tabi's `#### Registry correction` corrective section (`tabi-shokunin/SKILL.md:2128`) and census `supersedes` selftest case (`:1614`); mado's supersedes-policy gate + supersede-sweep ledger (`mado-shokunin/SKILL.md:606`, `:624`); kama's supersession chains (`kama-shokunin/SKILL.md:759`); chousa's live `supersedes S0NN` rows (`chousa-shokunin/corpus/SOURCES.md:39-42`); kagi's round-23 critique of prose-only supersession.
+  - **HOMONYM-RISK** — "settlement" in kaidoku (`tools/round-30/settle-gate.py`) and chousa (round-44 settle tables) means *seat* settlement, not supersession-settlement; kotodama's `supersession-` qualifier should be kept in cross-lane prose.
+  - **BLEED GUARD** — promoting the table into fleet operator files (`CORPUS.md:118` holds the operator-owned supersedes row contract) would be out of lane scope per fleet `AGENTS.md:79-81`.
+
+  Evidence limits are recorded in the report: two fleet-wide greps were partial at the 20 s tool cap; the verdict rests on the completed SKILL.md-scoped heading grep plus the all-kotodama taxonomy grep and targeted reads.
+
+  Report: .ufo/waves/round-69/w1/ScoutAdj.md
+

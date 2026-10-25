@@ -1,0 +1,954 @@
+kimi version 2.3.1
+• Let me parse this task. I'm a Godspeed-enabled subagent, an independent leaf. My task:
+
+  Attack claim D2's evidence rule: the table's Evidence column must cite at least one path that EXISTS at the measured revision. List every path the round-68 settlement work actually committed that a reader can re-run (tools/check-supersession-settlement.py, reports/round-68/dispositions/dedup-ledger.tsv, reports/round-68/telemetry/final-measures-o.txt, corpus/lessons/round-68.md, the r68 ledger) with `test -f` output, and say which are honest to cite for which state row. Flag any that would be a dead pointer.
+
+  So I need to:
+  1. Check existence of those paths with `test -f` at the measured revision (base revision 793f79746712a79f915bb481215e54bbea8b5e7a, but also current working copy).
+  2. Look at the round-68 work to find what was actually committed — the r68 ledger, tools, reports.
+  3. Read SKILL.md to see the current structure (Error patterns section, etc.) to know where the D2 table would go.
+  4. Read reports/round-69/accept-d.py to understand the exact predicate for D2's evidence rule.
+  5. Write report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritD3.md with VERDICT lines, and end answer with 'Report: .ufo/waves/round-69/w1/CritD3.md'.
+
+  Let me be fast and parallel. First batch: check paths exist, read accept-d.py, read claims.json, read SKILL.md (maybe grep for sections), list round-68 reports, git log for round-68.
+
+  Let me start with a big batch of parallel calls:
+
+  1. Bash: test -f for each candidate path, echoing results.
+  2. Read reports/round-69/accept-d.py
+  3. Read reports/round-69/claims.json
+  4. Bash: ls reports/round-68 and reports/round-68/dispositions, reports/round-68/telemetry
+  5. Grep SKILL.md for "Error patterns" and registry correction related content.
+
+  Since I'm in auto permission mode, I can proceed.
+
+  Let me plan the commands carefully with absolute paths.
+
+  Command 1:
+  ```bash
+  cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && for p in tools/check-supersession-settlement.py reports/round-68/dispositions/dedup-ledger.tsv reports/round-68/telemetry/final-measures-o.txt corpus/lessons/round-68.md; do if test -f "$p"; then echo "EXISTS: $p"; else echo "MISSING: $p"; fi; done
+  ```
+
+  Also check the r68 ledger — need to find it. There might be reports/round-68/ledger.md or similar. Let me ls reports/round-68.
+
+  Also need git rev-parse HEAD and jj status to know the measured revision. Base revision 793f79746712a79f915bb481215e54bbea8b5e7a. I should verify HEAD == base revision. Use `git rev-parse HEAD` (read-only git is fine).
+
+  Also `test -f` at the measured revision vs working copy: since I can't checkout, use `git cat-file -e <rev>:<path>` to check existence at the base revision. That's read-only git. Good — "EXISTS at the measured revision" — I should check both working copy and base revision via git ls-tree.
+
+  Command 2: `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin rev-parse HEAD` and `git -C ... cat-file -e 793f79746712a79f915bb481215e54bbea8b5e7a:tools/check-supersession-settlement.py` etc. Actually let me use `git ls-tree -r --name-only <rev>` piped to grep for round-68 and settlement to see everything committed at that revision. That gives the full picture of what round-68 committed.
+
+  But wait — the working copy may have jj-colocated state where the working copy is a different commit than HEAD. Let me just check both: working copy filesystem and base revision tree.
+
+  Also read accept-d.py to see what the evidence rule predicate is.
+
+  Also need to see the round-68 SKILL.md-related commitments. The task says the D2 table will cite "a mined S-row whose used-by names SKILL.md" — that's S859, not landed yet. So the evidence rule: the table's Evidence column must cite at least one path that EXISTS at the measured revision. I need to determine which round-68 committed paths are re-runnable evidence for which chain state row.
+
+  Five chain states — I need to figure out what those states are. The claim says: "a `### Registry correction chains` decision table (five chain states, each with row shape, writer's next action, a named error signature and an evidence pointer)". The five chain states aren't specified in the goal; maybe they're in corpus/knowledge or in the accept-d.py. Let me read accept-d.py and claims.json to find out. Also maybe .ufo/ has the round declaration.
+
+  Let me also grep corpus/knowledge for "correction chain" to understand the concept.
+
+  Also check reports/round-68/ contents: ls -la.
+
+  Batch 1 (parallel):
+  - Bash: existence checks in working copy for the named paths + ls of round-68 dirs + git rev-parse HEAD + base-rev ls-tree listing of settlement-related files.
+  - Read reports/round-69/accept-d.py
+  - Read reports/round-69/claims.json
+  - Grep SKILL.md for section headers (## and ###) to map structure.
+
+  Let me write the bash command carefully:
+
+  ```bash
+  cd /home/vgpnk/Projects/shokunin/kotodama-shokunin
+  echo "== HEAD =="; git rev-parse HEAD; jj --no-pager log -r @ -n 1 --no-graph 2>/dev/null | head -5
+  echo "== working-copy existence =="
+  for p in \
+    tools/check-supersession-settlement.py \
+    reports/round-68/dispositions/dedup-ledger.tsv \
+    reports/round-68/telemetry/final-measures-o.txt \
+    corpus/lessons/round-68.md \
+    reports/round-68/counter.py \
+    tools/check-settlement-fixture.py; do
+    if test -f "$p"; then echo "EXISTS: $p"; else echo "MISSING: $p"; fi
+  done
+  echo "== round-68 tree (committed at base rev) =="
+  git ls-tree -r --name-only 793f79746712a79f915bb481215e54bbea8b5e7a | grep -E 'round-68|settlement|supersession' 
+  echo "== round-69 tree (committed at base rev) =="
+  git ls-tree -r --name-only 793f79746712a79f915bb481215e54bbea8b5e7a | grep round-69
+  ```
+
+  Hmm, jj log might fail if not configured; wrap with || true. Actually the `2>/dev/null | head -5` — if jj fails, output empty. Fine. Actually careful: I shouldn't run mutating jj; read-only jj log is fine but let me not even bother — git rev-parse is enough. Actually, knowing the working-copy commit id is useful since it's jj-colocated and the working copy might be beyond the base revision. Let me include `jj log -r @` read-only... The bounds say "never run a mutating jj command" — log is read-only, fine. But jj sometimes creates snapshots on any command (jj snapshots the working copy on every command, which technically mutates the repo state). To be safe, avoid jj entirely. git status is fine.
+
+  Also the fixture harness: tools/check-settlement-fixture.py is listed as already committed (pre-data instrument). Wait, the goal says "WHAT IS ALREADY COMMITTED (the pre-data instruments you attack): reports/round-69/claims.json, reports/round-69/accept-o.py, reports/round-69/accept-ca.py, reports/round-69/accept-d.py, tools/check-settlement-fixture.py, reports/round-69/telemetry/controls.txt". And base revision is 793f797... So those should exist at base revision AND presumably in the working copy (committed at declaration). The D2 data (SKILL.md table, S859 row, corrections) not landed.
+
+  My job: attack the evidence rule of D2. The Evidence column of the table must cite at least one path that EXISTS at the measured revision. I enumerate every path the round-68 settlement work committed that a reader can re-run, with test -f output, and say which are honest to cite for which state row. Flag dead pointers.
+
+  So I need to:
+  1. Find all round-68 settlement artifacts (git ls-tree of round-68 commit range). Maybe round-68 files include: tools/check-supersession-settlement.py (a counter from r68), reports/round-68/dispositions/dedup-ledger.tsv, reports/round-68/telemetry/final-measures-o.txt, corpus/lessons/round-68.md, reports/round-68/LOG entry, SCORECARD r68 section.
+  2. test -f each.
+  3. Determine re-runnability: e.g., tools/check-supersession-settlement.py can be executed (`python3 tools/...` — read-only? It might write. I should inspect it first before running; if it only reads, run it to show it works. Running a counter against the repo is fine as long as it doesn't mutate. Read the script first.)
+  4. Map evidence pointers to the five chain states. I need to know what the five chain states are. They're not yet written (the table isn't landed). The claim says "five chain states". Where would they be defined? Maybe in corpus/knowledge/ something about registry correction chains, or in the round-69 declaration (maybe .ufo/waves/round-69/ or the milestone). Let me grep the repo for "correction chain" and "S859" and "chain state".
+
+  Let me also check .ufo/ directory — the lane has .ufo/ (probably UFO-FSD state). The wave dir .ufo/waves/round-69/w1/ must be created for my report; Write creates parent dirs automatically.
+
+  5. accept-d.py: read to see the exact predicate — it probably checks SKILL.md for the table, five rows, signatures listed under Error patterns, and that some cited path exists. Understanding it tells me the exact evidence-rule check (maybe it parses Evidence column paths from SKILL.md and test -f them — at the measured revision i.e. HEAD at validation time). If accept-d.py requires the cited path to exist in the working copy at validation time, then any citation must exist NOW and remain.
+
+  Let me now also consider: "the r68 ledger" — maybe reports/round-68/dispositions/dedup-ledger.tsv is the ledger, or there's a "supersession ledger" somewhere. The round was about "supersession-settlement" — dedup ledger. Let me list reports/round-68 fully.
+
+  Plan batch 1 (parallel):
+  - Bash big existence+tree command.
+  - Read accept-d.py.
+  - Read claims.json.
+  - Grep -n '^#' SKILL.md (headers).
+
+  Batch 2 (after seeing results):
+  - Read tools/check-supersession-settlement.py (check re-runnability, whether it writes anything).
+  - Read corpus/lessons/round-68.md (context on r68, what counters were run).
+  - Possibly run the counter read-only.
+  - Grep for S859 and "correction chains".
+  - Read reports/round-68/dispositions/dedup-ledger.tsv head.
+  - Read reports/round-68/telemetry/final-measures-o.txt.
+
+  Then write report.
+
+  The report must have: exact commands run and real output, VERDICT lines. Main verdict: attack D2 evidence rule — e.g., VERDICT: PASS (evidence rule satisfiable with existing paths) or flag dead pointers. Judged on depth and adjacency — so be thorough: for each of the five chain states (whatever they are — I'll define them from evidence found), say which of the committed paths are honest citations.
+
+  Let me start.
+
+  Actually, one more thing: "the five chain states" — since the table doesn't exist yet, maybe the five states are described in the round declaration elsewhere, e.g. in .ufo/waves/round-69/ or in the parent's message not shown to me. I'll reconstruct from evidence: a registry correction chain likely has states like: (1) row-filed-not-yet-used, (2) used-by-set, (3) superseded/supersession-pending, (4) settled/merged, (5) reverted/orphaned. The r68 work was about "supersession settlement" and "missing-used-by defect class" (O2's negative case is the missing-used-by defect). So chain states likely revolve around: raw proposal row → proposal with used-by → settled (supersession accepted) → rejected → resurrected/re-opened. I'll ground in repo evidence: check the settlement checker and the dedup ledger columns to derive row shapes and states.
+
+  Let me check what corpus/knowledge contains re: chains. Grep "chain" in corpus/ and reports/round-68/.
+
+  OK, executing batch 1 now. Also grep for S859.
+
+  Also, I should check SCORECARD.md r68 section and LOG.md r68 entry quickly via grep for context of "records" (Ca2) — but my focus is D2; keep it tight.
+
+  One more consideration: measured revision. The base revision 793f79746712a79f915bb481215e54bbea8b5e7a is where the instruments are committed. My report should measure existence at that revision (git ls-tree / cat-file -e) AND in the working copy. Since D2 validation happens later at a revision where SKILL.md is updated, the cited evidence paths must exist at that future measured revision too — the honest recommendation: cite paths already committed at base (they'll still exist), never cite not-yet-landed paths as sole evidence (dead pointer at declaration time), and if citing a to-be-landed path (like the S859 row itself), pair it with an already-existing path.
+
+  Now the commands. Let me write them.
+
+  Bash 1:
+  ```bash
+  cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && \
+  echo "== git HEAD ==" && git rev-parse HEAD && \
+  echo "== base rev ==" && git cat-file -t 793f79746712a79f915bb481215e54bbea8b5e7a && \
+  echo "== working-copy test -f ==" && \
+  for p in tools/check-supersession-settlement.py reports/round-68/dispositions/dedup-ledger.tsv reports/round-68/telemetry/final-measures-o.txt corpus/lessons/round-68.md tools/check-settlement-fixture.py reports/round-69/accept-d.py; do test -f "$p" && echo "EXISTS $p" || echo "MISSING $p"; done && \
+  echo "== round-68/69 + settlement files at base rev ==" && \
+  git ls-tree -r --name-only 793f79746712a79f915bb481215e54bbea8b5e7a | grep -Ei 'round-68|round-69|settle|supersess|ledger' 
+  ```
+
+  Note: grep chain at end; if grep finds nothing exit code 1 would mark command failed — acceptable, output still shown. Let me append `|| true` to avoid confusion. Actually the failure line would be printed by the tool; fine but let me add `; true` at the end. I'll structure with `;` instead of `&&` at the end.
+
+  Bash 2 (parallel): `ls -la reports/round-68 reports/round-68/dispositions reports/round-68/telemetry 2>&1; ls reports/round-69` — working copy listing.
+
+  Read 1: /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-d.py
+  Read 2: /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/claims.json
+  Grep 1: pattern '^#{2,3} ' path SKILL.md output content -n.
+
+  Let me fire these all in one block.
+
+== git HEAD ==
+6a98d7d042b6c58d2165773b1585069798111035
+== base rev type ==
+commit
+== working-copy test -f ==
+EXISTS tools/check-supersession-settlement.py
+EXISTS reports/round-68/dispositions/dedup-ledger.tsv
+EXISTS reports/round-68/telemetry/final-measures-o.txt
+EXISTS corpus/lessons/round-68.md
+EXISTS tools/check-settlement-fixture.py
+EXISTS reports/round-69/accept-d.py
+EXISTS reports/round-69/claims.json
+== settlement/round-68/69 files committed at base rev ==
+.ufo/waves/round-67/w1/RevLedger66.md
+.ufo/waves/round-68/assimilation/quarantine-handcheck.json
+.ufo/waves/round-68/assimilation/quarantine-pdf-pass.json
+.ufo/waves/round-68/assimilation/quarantine-slice
+.ufo/waves/round-68/gen-spec.py
+.ufo/waves/round-68/rows/AuditChain8/audit.md
+.ufo/waves/round-68/rows/RevAuditA/audit.md
+.ufo/waves/round-68/rows/RevAuditB/audit.md
+.ufo/waves/round-68/rows/RevAuditC/audit.md
+.ufo/waves/round-68/rows/RevAuditD/audit.md
+.ufo/waves/round-68/rows/RevAuditE/audit.md
+.ufo/waves/round-68/rows/RevAuditF/audit.md
+.ufo/waves/round-68/rows/RevAuditG/audit.md
+.ufo/waves/round-68/spec-v2.json
+.ufo/waves/round-68/stage/mut-entry/entry-base.md
+.ufo/waves/round-68/stage/mut-entry/entry-m1-no-topic.md
+.ufo/waves/round-68/stage/mut-entry/entry-m2-h3.md
+.ufo/waves/round-68/stage/mut-entry/entry-m3-251lines.md
+.ufo/waves/round-68/stage/mut-entry/entry-m4-foreign-cite.md
+.ufo/waves/round-68/stage/mut-entry/entry-m5-uncited-bullet.md
+.ufo/waves/round-68/stage/mut-entry/entry-m6-topic-in-fence.md
+.ufo/waves/round-68/stage/mut-entry/entry-m7-bare-foreign-id.md
+.ufo/waves/round-68/stage/mut-entry/entry-m8-citations-in-comment.md
+.ufo/waves/round-68/stage/mut-entry/gen_variants.py
+.ufo/waves/round-68/stage/mut-entry/registry-rows-S833-S856.md
+.ufo/waves/round-68/stage/mut-entry/results/summary.json
+.ufo/waves/round-68/stage/mut-entry/run_accept_c.py
+.ufo/waves/round-68/stage/mut-o/m1_sup_re_single_digit.py
+.ufo/waves/round-68/stage/mut-o/m2_classify_swap_active_pending.py
+.ufo/waves/round-68/stage/mut-o/m3_split_re_always_match.py
+.ufo/waves/round-68/stage/mut-o/m4_rulings_emptied.py
+.ufo/waves/round-68/stage/mut-o/m5_usedby_returns_empty.py
+.ufo/waves/round-68/stage/mut-o/m6_ruling_membership_unchecked.py
+.ufo/waves/round-68/stage/mut-o/runs/(pristine)/ledger_bogus.txt
+.ufo/waves/round-68/stage/mut-o/runs/(pristine)/ledger_clean.txt
+.ufo/waves/round-68/stage/mut-o/runs/(pristine)/scan.txt
+.ufo/waves/round-68/stage/mut-o/runs/(pristine)/selftest.txt
+.ufo/waves/round-68/stage/mut-o/runs/accept-o-at-T0.txt
+.ufo/waves/round-68/stage/mut-o/runs/bogus_ruling.tsv
+.ufo/waves/round-68/stage/mut-o/runs/clean_activate.tsv
+.ufo/waves/round-68/stage/mut-o/runs/counter-legs.json
+.ufo/waves/round-68/stage/mut-o/runs/f3_keep-reject_on_mined_S044.txt
+.ufo/waves/round-68/stage/mut-o/runs/f3_keep-split_on_non_split_S126>S105.txt
+.ufo/waves/round-68/stage/mut-o/runs/f3_keep-successor_on_unclosed_S044>S034.txt
+.ufo/waves/round-68/stage/mut-o/runs/m1_sup_re_single_digit.py.diff
+.ufo/waves/round-68/stage/mut-o/runs/m1_sup_re_single_digit/ledger_bogus.txt
+.ufo/waves/round-68/stage/mut-o/runs/m1_sup_re_single_digit/ledger_clean.txt
+.ufo/waves/round-68/stage/mut-o/runs/m1_sup_re_single_digit/scan.txt
+.ufo/waves/round-68/stage/mut-o/runs/m1_sup_re_single_digit/selftest.txt
+.ufo/waves/round-68/stage/mut-o/runs/m2_after_one_activate.json
+.ufo/waves/round-68/stage/mut-o/runs/m2_classify_swap_active_pending.py.diff
+.ufo/waves/round-68/stage/mut-o/runs/m2_classify_swap_active_pending/ledger_bogus.txt
+.ufo/waves/round-68/stage/mut-o/runs/m2_classify_swap_active_pending/ledger_clean.txt
+.ufo/waves/round-68/stage/mut-o/runs/m2_classify_swap_active_pending/scan.txt
+.ufo/waves/round-68/stage/mut-o/runs/m2_classify_swap_active_pending/selftest.txt
+.ufo/waves/round-68/stage/mut-o/runs/m3_split_re_always_match.py.diff
+.ufo/waves/round-68/stage/mut-o/runs/m3_split_re_always_match/ledger_bogus.txt
+.ufo/waves/round-68/stage/mut-o/runs/m3_split_re_always_match/ledger_clean.txt
+.ufo/waves/round-68/stage/mut-o/runs/m3_split_re_always_match/scan.txt
+.ufo/waves/round-68/stage/mut-o/runs/m3_split_re_always_match/selftest.txt
+.ufo/waves/round-68/stage/mut-o/runs/m4_rulings_emptied.py.diff
+.ufo/waves/round-68/stage/mut-o/runs/m4_rulings_emptied/ledger_bogus.txt
+.ufo/waves/round-68/stage/mut-o/runs/m4_rulings_emptied/ledger_clean.txt
+.ufo/waves/round-68/stage/mut-o/runs/m4_rulings_emptied/scan.txt
+.ufo/waves/round-68/stage/mut-o/runs/m4_rulings_emptied/selftest.txt
+.ufo/waves/round-68/stage/mut-o/runs/m5_probe_ledger.tsv
+.ufo/waves/round-68/stage/mut-o/runs/m5
+_probe_m5.txt
+.ufo/waves/round-68/stage/mut-o/runs/m5_probe_pristine.txt
+.ufo/waves/round-68/stage/mut-o/runs/m5_usedby_returns_empty.py.diff
+.ufo/waves/round-68/stage/mut-o/runs/m5_usedby_returns_empty/ledger_bogus.txt
+.ufo/waves/round-68/stage/mut-o/runs/m5_usedby_returns_empty/ledger_clean.txt
+.ufo/waves/round-68/stage/mut-o/runs/m5_usedby_returns_empty/scan.txt
+.ufo/waves/round-68/stage/mut-o/runs/m5_usedby_returns_empty/selftest.txt
+.ufo/waves/round-68/stage/mut-o/runs/m6_ruling_membership_unchecked.py.diff
+.ufo/waves/round-68/stage/mut-o/runs/m6_ruling_membership_unchecked/ledger_bogus.txt
+.ufo/waves/round-68/stage/mut-o/runs/m6_ruling_membership_unchecked/ledger_clean.txt
+.ufo/waves/round-68/stage/mut-o/runs/m6_ruling_membership_unchecked/scan.txt
+.ufo/waves/round-68/stage/mut-o/runs/m6_ruling_membership_unchecked/selftest.txt
+.ufo/waves/round-68/stage/settle-apply.py
+.ufo/waves/round-68/taskcall-v2.json
+.ufo/waves/round-68/w1/CriticAmendD2.md
+.ufo/waves/round-68/w1/CriticPreO.md
+.ufo/waves/round-68/w1/CriticSizing.md
+.ufo/waves/round-68/w1/RevAuditA.md
+.ufo/waves/round-68/w1/RevAuditB.md
+.ufo/waves/round-68/w1/RevAuditC.md
+.ufo/waves/round-68/w1/RevAuditD.md
+.ufo/waves/round-68/w1/RevAuditE.md
+.ufo/waves/round-68/w1/RevAuditF.md
+.ufo/waves/round-68/w1/RevAuditG.md
+.ufo/waves/round-68/w1/support1/verify.py
+corpus/knowledge/culture-material/architecture-settlement-lexicon.md
+corpus/knowledge/verification/provenance-audit-ledger-format.md
+corpus/lessons/round-68-verifier-spotcheck.md
+corpus/lessons/round-68.md
+reports/round-10/drift/ledger.json
+reports/round-12/adjacency/ledger.json
+reports/round-12/defects/ledger.json
+reports/round-12/recount/ledger.json
+reports/round-18/civ/auditor-ledger.json
+reports/round-19/integration/fragment-ledger.json
+reports/round-19/integration/fragment-ledger.md
+reports/round-20/integration/fragment-ledger.json
+reports/round-20/integration/fragment-ledger.md
+reports/round-20/integration/ledger-gen.py
+reports/round-20/ledger-snapshot.md
+reports/round-21/adjacency/ledger.json
+reports/round-21/defects/ledger.json
+reports/round-21/recount/ledger.json
+reports/round-22/fixes/r18-supersession.md
+reports/round-23/integration/fragment-ledger.json
+reports/round-23/integration/fragment-ledger.md
+reports/round-23/integration/ledger-gen.py
+reports/round-25/audit/o19-supersession-honesty.md
+reports/round-25/audit/x48-v3-supersession-audit.py
+reports/round-25/audit/x48-v3-supersession.md
+reports/round-25/scribe/fragment-ledger.json
+reports/round-25/scribe/fragment-ledger.md
+reports/round-25/v3-supersession/build-revision.py
+reports/round-25/v3-supersession/declared-in-r4/expected.json
+reports/round-25/v3-supersession/declared-in-r4/freeze.txt
+reports/round-25/v3-supersession/declared-in-r4/packet.md
+reports/round-25/v3-supersession/evidence.md
+reports/round-25/v3-supersession/evidence/check-receipt.json
+reports/round-25/v3-supersession/evidence/selftest-receipt.json
+reports/round-25/v3-supersession/v3-supersession-check.py
+reports/round-26/remainders/r4-checker-supersession.md
+reports/round-26/scribe/fragment-ledger.json
+reports/round-26/scribe/fragment-ledger.md
+reports/round-27/scribe/fragment-ledger.json
+reports/round-27/scribe/fragment-ledger.md
+reports/round-28/scribe/fragment-ledger.json
+reports/round-28/scribe/fragment-ledger.md
+reports/round-29/adjacency/ledger.json
+reports/round-29/defects/ledger.json
+reports/round-29/recount/ledger.json
+reports/round-30/scribe/fragment-ledger.md
+reports/round-31/closure-ledger.json
+reports/round-32/completion-ledger.json
+reports/round-32/scribe/fragment-ledger.md
+reports/round-33/calib/C15-ledger-draft.json
+reports/round-33/calib/open-items-ledger.json
+reports/round-34/depth/D03-ledger-rows.md
+reports/round-34/depth/D18-verify-ledger.md
+reports/round-36/calib/Ca03-ledger-draft.md
+reports/round-36/calib/recount-ledger.json
+reports/round-37/calib/Ca06-ledger-draft.md
+reports/round-37/calib/recount-ledger.json
+reports/round-39/calib/recount-ledger-successor.json
+reports/round-41/calib/Ca01-supersession.md
+reports/round-41/calib/pin-supersession.json
+reports/rou
+nd-68/accept-c.py
+reports/round-68/accept-ca.py
+reports/round-68/accept-o.py
+reports/round-68/claims.json
+reports/round-68/dispositions/citation-sites.txt
+reports/round-68/dispositions/dedup-ledger.tsv
+reports/round-68/dispositions/r67-d1-paths.txt
+reports/round-68/telemetry/base-gap.txt
+reports/round-68/telemetry/base-tree.txt
+reports/round-68/telemetry/census-end.txt
+reports/round-68/telemetry/census-start.txt
+reports/round-68/telemetry/controls.txt
+reports/round-68/telemetry/dry-run-c.txt
+reports/round-68/telemetry/dry-run-ca.txt
+reports/round-68/telemetry/dry-run-o.txt
+reports/round-68/telemetry/final-measures-c.txt
+reports/round-68/telemetry/final-measures-ca.txt
+reports/round-68/telemetry/final-measures-o.txt
+reports/round-68/telemetry/post-records.txt
+reports/round-68/telemetry/residual-reopens.txt
+reports/round-68/telemetry/seat-evidence.txt
+reports/round-68/telemetry/settle-apply.txt
+reports/round-68/telemetry/sweep-d1.txt
+reports/round-68/telemetry/w04-impossibility.txt
+tools/check-supersession-settlement.py
+tools/gates/frozen/provenance-audit/r18-post/inputs/corpus/knowledge/verification/provenance-audit-ledger-format.md
+tools/gates/frozen/provenance-audit/r9-pre/inputs/corpus/knowledge/verification/provenance-audit-ledger-format.md
+reports/round-68:
+total 76
+drwxr-xr-x 1 vgpnk vgpnk   154 Oct 24 10:42 .
+drwxr-xr-x 1 vgpnk vgpnk  1056 Oct 24 23:10 ..
+-rwxr-xr-x 1 vgpnk vgpnk 17184 Oct 24 11:27 accept-ca.py
+-rwxr-xr-x 1 vgpnk vgpnk 21808 Oct 24 10:29 accept-c.py
+-rwxr-xr-x 1 vgpnk vgpnk 14718 Oct 24 10:32 accept-o.py
+-rw-r--r-- 1 vgpnk vgpnk 14474 Oct 24 11:27 claims.json
+drwxr-xr-x 1 vgpnk vgpnk   100 Oct 24 20:09 dispositions
+drwxr-xr-x 1 vgpnk vgpnk   146 Oct 24 11:27 __pycache__
+drwxr-xr-x 1 vgpnk vgpnk   540 Oct 24 20:31 telemetry
+
+reports/round-68/dispositions:
+total 40
+drwxr-xr-x 1 vgpnk vgpnk   100 Oct 24 20:09 .
+drwxr-xr-x 1 vgpnk vgpnk   154 Oct 24 10:42 ..
+-rw-r--r-- 1 vgpnk vgpnk  6816 Oct 24 10:40 citation-sites.txt
+-rw-r--r-- 1 vgpnk vgpnk 26106 Oct 24 20:14 dedup-ledger.tsv
+-rw-r--r-- 1 vgpnk vgpnk  1507 Oct 24 10:38 r67-d1-paths.txt
+
+reports/round-68/telemetry:
+total 84
+drwxr-xr-x 1 vgpnk vgpnk   540 Oct 24 20:31 .
+drwxr-xr-x 1 vgpnk vgpnk   154 Oct 24 10:42 ..
+-rw-r--r-- 1 vgpnk vgpnk     9 Oct 24 10:23 base-gap.txt
+-rw-r--r-- 1 vgpnk vgpnk 13077 Oct 24 10:23 base-tree.txt
+-rw-r--r-- 1 vgpnk vgpnk  3333 Oct 24 20:29 census-end.txt
+-rw-r--r-- 1 vgpnk vgpnk  3347 Oct 24 10:23 census-start.txt
+-rw-r--r-- 1 vgpnk vgpnk   826 Oct 24 10:39 controls.txt
+-rw-r--r-- 1 vgpnk vgpnk  1232 Oct 24 10:39 dry-run-ca.txt
+-rw-r--r-- 1 vgpnk vgpnk  1408 Oct 24 10:39 dry-run-c.txt
+-rw-r--r-- 1 vgpnk vgpnk   853 Oct 24 10:39 dry-run-o.txt
+-rw-r--r-- 1 vgpnk vgpnk   882 Oct 24 20:30 final-measures-ca.txt
+-rw-r--r-- 1 vgpnk vgpnk   728 Oct 24 20:21 final-measures-c.txt
+-rw-r--r-- 1 vgpnk vgpnk   819 Oct 24 20:21 final-measures-o.txt
+-rw-r--r-- 1 vgpnk vgpnk  1504 Oct 24 20:31 post-records.txt
+-rw-r--r-- 1 vgpnk vgpnk   340 Oct 24 20:28 residual-reopens.txt
+-rw-r--r-- 1 vgpnk vgpnk  2702 Oct 24 20:29 seat-evidence.txt
+-rw-r--r-- 1 vgpnk vgpnk  2042 Oct 24 20:16 settle-apply.txt
+-rw-r--r-- 1 vgpnk vgpnk  4007 Oct 24 20:16 sweep-d1.txt
+-rw-r--r-- 1 vgpnk vgpnk  4172 Oct 24 11:23 w04-impossibility.txt
+
+reports/round-69:
+total 48
+drwxr-xr-x 1 vgpnk vgpnk   130 Oct 24 23:15 .
+drwxr-xr-x 1 vgpnk vgpnk  1056 Oct 24 23:10 ..
+-rw-r--r-- 1 vgpnk vgpnk 14419 Oct 24 23:15 accept-ca.py
+-rw-r--r-- 1 vgpnk vgpnk 10850 Oct 24 23:14 accept-d.py
+-rw-r--r-- 1 vgpnk vgpnk  9767 Oct 24 23:11 accept-o.py
+-rw-r--r-- 1 vgpnk vgpnk  7709 Oct 24 23:14 claims.json
+drwxr-xr-x 1 vgpnk vgpnk    48 Oct 24 23:14 __pycache__
+drwxr-xr-x 1 vgpnk vgpnk   102 Oct 24 23:16 telemetry
+== r68 counter candidates in tools/ ==
+check-settlement-fixture.py
+check-supersession-settlement.py
+• I now have the accept-d.py counter. Key findings so far:
+
+  1. **The five chain states are pinned by the counter**: `pending`, `settled-active`, `settled-retired`, `settled-closed`, `settled-split` (accept-d.py:36-37). The fixture table in the counter (FIXTURE_TABLE, lines 42-51) shows exactly the shape the counter expects — including Evidence cells citing `S859 — tools/check-supersession-settlement.py:<line>`.
+
+  2. **EVIDENCE leg** (lines 167-175): for each row, it extracts path tokens matching `PATH_RE` (`[A-Za-z0-9_./-]+\.(?:py|md|tsv|txt|json|ya?ml)`) from the Evidence cell (r[4]) and requires `os.path.exists(os.path.join(root, t))` for **at least one** token. So at least one cited path must exist in the working tree at validation time.
+
+  3. **SOURCE leg** (lines 177-189): every S-id appearing anywhere in the table text must be a row in corpus/SOURCES.md with 11 cells, cells[7] == "mined", and "SKILL.md" in cells[10] (used-by). The fixture adds S859 with those properties. IMPORTANT ATTACK ANGLE: the SOURCE leg scans ALL S-ids in the table text — so if the Evidence column cites e.g. `reports/round-68/...` paths that's fine, but if any S-id is mentioned that isn't a mined-with-used-by-SKILL.md row, SOURCE fails. Also PATH_RE only matches paths with extensions — `tools/check-supersession-settlement.py` matches.
+
+  4. **STAMP leg**: compares sha256 of accept-d.py itself against reports/round-69/accept-d.py at root — so when run from the lane, the committed copy must equal the running copy. Fine.
+
+  5. Working copy HEAD is `6a98d7d042b6c58d2165773b1585069798111035`, NOT the base revision `793f7974...`. Interesting — the working copy is beyond base. The base revision still contains all the r68 artifacts per ls-tree. Let me check what's between base and HEAD — probably the round-69 instruments commit. Let me verify that the round-69 instruments (accept-d.py etc.) are committed at base or at HEAD. From the ls-tree output of base rev, I saw `reports/round-68/...` files but I did NOT see any `reports/round-69/` files in the grep output! Wait — the grep included 'round-69' pattern and no reports/round-69 files appeared in the base-rev listing. So the round-69 instruments were committed AFTER the base revision (at HEAD 6a98d7d). Hmm, but the goal said "reports/round-69/claims.json, reports/round-69/accept-o.py, ... committed at the declaration" and "base revision 793f79746712a79f915bb481215e54bbea8b5e7a". The claims.json itself says base_revision 793f7974. So the declaration commit is 6a98d7d (HEAD), which declares base 793f7974 (the pre-round state). That makes sense: claims.json lists base_revision as the state BEFORE the round's instruments.
+
+  Wait, actually the goal says "Three frozen claims (reports/round-69/claims.json, committed at the declaration)" and base revision 793f7974. The ls-tree at 793f7974 shows reports/round-68/* but not reports/round-69/* — meaning at the declared base, the instruments don't exist; they were added in the declaration commit 6a98d7d. Let me verify: `git diff --stat 793f7974..6a98d7d` to see exactly what the declaration commit added. This matters for the "measured revision" analysis: the evidence rule says the Evidence column must cite a path that EXISTS at the measured revision. The measured revision for the round is presumably where validation happens (HEAD or later, after data lands). But the honest question for my seat: which r68-committed paths exist NOW (working copy) and at base.
+
+  All five candidate paths EXIST in the working copy (test -f all EXISTS) and the r68 paths exist at base rev too (they appear in ls-tree of base). 
+
+  Wait, but the fixture table Evidence cells cite only `tools/check-supersession-settlement.py` with line numbers. My attack: enumerate ALL the paths the r68 settlement work committed that a reader can re-run:
+  - tools/check-supersession-settlement.py ✓ (r68 committed)
+  - reports/round-68/dispositions/dedup-ledger.tsv ✓
+  - reports/round-68/telemetry/final-measures-o.txt ✓
+  - corpus/lessons/round-68.md ✓
+  - "the r68 ledger" — dedup-ledger.tsv is the ledger. Also maybe .ufo/waves/round-68/stage/settle-apply.py and reports/round-68/telemetry/settle-apply.txt.
+
+  Which are honest to cite for which state row? The five states: pending, settled-active, settled-retired, settled-closed, settled-split. The Evidence column should point to something a reader can re-run or inspect to act on that state. tools/check-supersession-settlement.py is the re-runnable authority — it implements the classification of all five states presumably. The dedup-ledger.tsv has actual rows classified. Let me read the tool and the ledger to map states to specific line numbers / columns, so I can say which citation is honest for which row, and verify the line numbers in the fixture (112, 127, 129, 123, 130) actually correspond to the right classifications — if those line numbers are wrong, the fixture's own citations are dishonest even though the EVIDENCE leg passes (leg only checks path existence, not line validity!). That's a strong attack: EVIDENCE leg checks only `os.path.exists` — a citation `tools/check-supersession-settlement.py:999` would pass while pointing at a line that says nothing about the state. Also the fixture cites line numbers for a file whose content can change — line-number citations are brittle; but at the frozen measurement they may be accurate or not.
+
+  Also DEADPOINTER angle: paths NOT yet landed (S859 registry row location, corpus/lessons/round-69.md, reports/round-69/corrections-r68.md) would be dead pointers if cited as sole evidence today. E.g., if the table cites `corpus/lessons/round-69.md` before it lands... but it lands same round as the table, so it exists at measured revision. The honest guidance: cite r68-committed paths (they pre-date the table, exist at base AND will exist at measured revision).
+
+  Another attack angle: the SOURCE leg requires the S-id row in corpus/SOURCES.md to have 11 cells with cells[7]=="mined" and "SKILL.md" in cells[10]. S859 is not landed yet — check current SOURCES.md for S859 (should be absent; to-verify). If the table cites S859 AND accept-d runs before SOURCES.md update, SOURCE fails. That's expected data timing, not my seat.
+
+  Also PATH_RE subtlety: `S859 — tools/check-supersession-settlement.py:112` — PATH_RE finds `tools/check-supersession-settlement.py` ✓ exists. But note: if Evidence cell cites only `S859` with no path, EVIDENCE fails. Also SID_RE scans the whole table text: any `S\d{3,}` token must have a qualifying SOURCES row — including S-ids appearing in Row-shape cells! So if a row shape cell mentions e.g. "S126>S105" (a real r68 ledger pair?), SOURCE would demand S126 and S105 be mined+used-by-SKILL.md. Careful: SID_RE = `S\d{3,}` — "S126>S105" contains S126 and S105; if those aren't mined/used-by-SKILL, SOURCE fails. This constrains how the real table may name examples — an honest, deep finding for the writer.
+
+  Now, my specific assigned task: "Attack claim D2's evidence rule: the table's Evidence column must cite at least one path that EXISTS at the measured revision. List every path the round-68 settlement work actually committed that a reader can re-run (tools/check-supersession-settlement.py, reports/round-68/dispositions/dedup-ledger.tsv, reports/round-68/telemetry/final-measures-o.txt, corpus/lessons/round-68.md, the r68 ledger) with `test -f` output, and say which are honest to cite for which state row. Flag any that would be a dead pointer."
+
+  So the deliverables:
+  1. test -f output for each path (done — all EXISTS; also do at base rev via git cat-file -e to prove existence at the measured revision base and at HEAD).
+  2. Determine re-runnability: check-supersession-settlement.py — read it, run it read-only (check it doesn't mutate), show output. dedup-ledger.tsv — inspect columns, count rows per state. final-measures-o.txt — it's a receipt, not re-runnable (it's an output transcript; honest to cite as evidence of what was measured, not as a runnable). corpus/lessons/round-68.md — narrative lesson; cite-able as context but not re-runnable. The r68 ledger = dedup-ledger.tsv (verify).
+  3. Map states → honest citations: read the settlement tool to find where each state is classified (line numbers for pending/settled-active/settled-retired/settled-closed/settled-split), verify the fixture's line numbers 112/127/129/123/130.
+  4. Dead pointers: identify what would be a dead pointer at the measured revision (e.g., citing tools/check-settlement-fixture.py is fine since committed; citing reports/round-69/corrections-r68.md or corpus/lessons/round-69.md would be dead at declaration-time but alive at measured time — nuance; citing SOURCES.md S859 row etc.)
+
+  Also check: does the r68 "ledger" refer to something else? There's .ufo/waves/round-68/stage/mut-o/runs/counter-legs.json etc. But "the r68 ledger" in my prompt list is listed separately from dedup-ledger.tsv... The prompt says "(tools/check-supersession-settlement.py, reports/round-68/dispositions/dedup-ledger.tsv, reports/round-68/telemetry/final-measures-o.txt, corpus/lessons/round-68.md, the r68 ledger)" — so "the r68 ledger" is ambiguous; likely dedup-ledger.tsv IS the r68 ledger (the list overlaps). I'll note: the only ledger-shaped artifact r68 committed is reports/round-68/dispositions/dedup-ledger.tsv (26KB); no other "ledger" in reports/round-68/. I verified via ls: reports/round-68 contains dispositions (citation-sites.txt, dedup-ledger.tsv, r67-d1-paths.txt), telemetry files, accept scripts, claims.json. So dedup-ledger.tsv is the ledger.
+
+  Next batch (parallel):
+  - Read tools/check-supersession-settlement.py (check re-runnability, state classification line numbers, whether it writes anything).
+  - Read head of reports/round-68/dispositions/dedup-ledger.tsv + count rows by state (bash: head + awk).
+  - Read reports/round-68/telemetry/final-measures-o.txt (small, 819 bytes).
+  - Read corpus/lessons/round-68.md (check size first — corpus/lessons/round-68.md exists; read it).
+  - Bash: git cat-file -e at base rev for the five paths + git diff --stat base..HEAD (to see what the declaration commit added).
+  - Bash: run the counter read-only: `python3 -B tools/check-supersession-settlement.py --help` or its selftest — first read the script to know its CLI and confirm it's read-only.
+
+  Let me fire: Read tool script, Read final-measures-o.txt, Bash for ledger inspection, Bash for base-rev existence + diff-stat.
+
+  For the ledger: `head -3` + `awk -F'\t' 'NR>1{print $NF}' | sort | uniq -c` — I don't know columns yet. Let me just head -5 and wc -l, plus grep the header. Actually do: `head -2 ... | cat -A | head -4`? That's noisy. Just head -3 and let me see the header row.
+
+  For base-rev existence: 
+  ```bash
+  B=793f79746712a79f915bb481215e54bbea8b5e7a; for p in tools/check-supersession-settlement.py reports/round-68/dispositions/dedup-ledger.tsv reports/round-68/telemetry/final-measures-o.txt corpus/lessons/round-68.md tools/check-settlement-fixture.py reports/round-69/accept-d.py; do git cat-file -e "$B:$p" 2>/dev/null && echo "AT-BASE $p" || echo "NOT-AT-BASE $p"; done; echo "== declaration commit delta =="; git diff --stat $B..HEAD | tail -20
+  ```
+
+  Also corpus/lessons/round-68.md read — get size: unknown; read with default.
+
+  Let me fire batch 2.
+
+== cat-file -e at base 793f79746712a79f915bb481215e54bbea8b5e7a ==
+AT-BASE   tools/check-supersession-settlement.py
+AT-BASE   reports/round-68/dispositions/dedup-ledger.tsv
+AT-BASE   reports/round-68/telemetry/final-measures-o.txt
+AT-BASE   corpus/lessons/round-68.md
+NOT-AT-BASE tools/check-settlement-fixture.py
+NOT-AT-BASE reports/round-69/accept-d.py
+NOT-AT-BASE reports/round-69/claims.json
+== declaration commit delta (base..HEAD), names ==
+A	.ufo/waves/round-69/assimilation/collisions
+A	.ufo/waves/round-69/assimilation/quarantine-slice
+A	.ufo/waves/round-69/assimilation/reg-ids
+A	.ufo/waves/round-69/assimilation/staged-ids
+A	reports/round-69/accept-ca.py
+A	reports/round-69/accept-d.py
+A	reports/round-69/accept-o.py
+A	reports/round-69/claims.json
+A	reports/round-69/telemetry/census-start.txt
+A	reports/round-69/telemetry/controls.txt
+A	reports/round-69/telemetry/declaration-dry-run.txt
+A	tools/check-settlement-fixture.py
+== dedup-ledger.tsv: line count and header ==
+88 reports/round-68/dispositions/dedup-ledger.tsv
+# Round-68 dedup / supersession-settlement disposition ledger (claims O + Ca, frozen required-id set)
+# columns: id | related | url | ruling | mechanism | evidence | note
+== state column distribution (guess: last col) ==
+      1 S830 | S252 | — | keep-reject | none | corpus/SOURCES.md | kept reject at base: S252 owns the identical object URL (r67 spotcheck sec4); W04 is the fingerprint of the correctly-kept reject
+      1 S651 | S643 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S643 rejected after the round-59 support FAIL; S651 stays mined as the live row
+      1 S650 | S623 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S623 rejected after the round-59 support FAIL; S650 stays mined as the live row
+      1 S649 | S616 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S616 rejected after the round-59 support FAIL; S649 stays mined as the live row
+      1 S648 | S602 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S602 rejected after the round-59 support FAIL; S648 stays mined as the live row
+      1 S575 | S420 | — | keep-split | none | corpus/SOURCES.md | settled-split at base: both rows mined, S575 teaches carries the for-entry-only limiter re-sourcing heraldry line 41
+      1 S574 | S159 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S159 rejected; S574 stays mined
+      1 S573 | S151 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S151 rejected; S573 stays mined
+      1 S572 | S147 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S147 rejected; S572 stays mined
+      1 S571 | S141 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S141 rejected; S571 stays mined
+      1 S570 | S135 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S135 rejected; S570 stays mined
+      1 S569 | S453 | https://www.govinfo.gov/content/pkg/USCODE-2024-title4/html/USCODE-2024-title4-chap1-sec1.htm | activate | repoint | .ufo/waves/round-68/rows/AuditChain8/audit.md | scope-cell repair only: S453's scope truncated mid-word and wrongly implied protocol rules in \u00a71; S569 anchor is verbatim and the corrected scope is confirmed against served text
+      1 S568 | S452 | https://nava.org/good-flag-bad-flag | activate | repoint | .ufo/waves/round-68/rows/AuditChain8/audit.md | re-source from intermittent Wayback capture to the live NAVA page; the live page serves the anchor verbatim and the alternate PDF edition prints the same rule; S452's truncated scope cell is repaired
+      1 S567 | S445 | https://heraldikk.no/PDF/GODE%20R%C3%85D%20OM%20NYE%20KOMMUNEV%C3%85PEN.pdf | activate | repoint | .ufo/waves/round-68/rows/AuditChain8/audit.md | quote-2 span repair is verbatim against the served PDF; other anchors/scope/tier unchanged; only citing locator "served text" carries to the corrected anchor set
+      1 S566 | S440 | https://collections.vam.ac.uk/item/O1053476/ | activate | repoint | .ufo/waves/round-68/rows/RevAuditG/audit.md | scope-only repair: S440's scope truncated mid-sentence ("of a merchant about.") restored to "of a merchant's tomb."; anchors/source/tier identical
+      1 S565 | S438 | https://ag.colorado.gov/brands/about-brands | activate | repoint | .ufo/waves/round-68/rows/RevAuditG/audit.md | scope and teaches qualify "1865" as "approximately 1865" matching served text; anchors identical and verbatim; tier unchanged
+      1 S564 | S433 | https://en.maiask.ru/data/documents/13_YatsenkoRogozhinskiiENG.htm | activate | repoint | .ufo/waves/round-68/rows/RevAuditG/audit.md | locator renamed "abstract page" -> "record page" (the URL is the journal's per-article record page), stray terminal period dropped from scope; quotes identical and verbatim; tier unchanged
+      1 S562 | S421 | https://courtofthelordlyon.scot/blazoning.htm | activate | repoint | .ufo/waves/round-68/rows/RevAuditG/audit.md | all four LYON-BLAZ anchors restored to served punctuation; scope/tier unchanged
+      1 S561 | S417 | https://archive.org/download/englishheraldry00bout/englishheraldry00bout_djvu.txt | activate | repoint | .ufo/waves/round-68/rows/RevAuditG/audit.md | scope term "arms-of-domination" corrected to Boutell's glossary headword "Arms of Dominion" (new anchor added, verbatim); two invented terminal full stops removed from crest anchors; tier and remaining scope unchanged
+      1 S560 | S413 | https://archive.org/download/completeguidetoh00foxduoft/completeguidetoh00foxduoft_djvu.txt | activate | repoint | .ufo/waves/round-68/rows/RevAuditG/audit.md | cadency anchor restored to the served semicolons; all other anchors verbatim-identical (locator granularity dropped, no text change); scope/tier unchanged
+      1 S491 | S410 | https://open.bu.edu/server/api/core/bitstreams/ad5455af-f3b2-49ec-bedb-b4dd9b15d3af/content | activate | repoint | .ufo/waves/round-68/rows/RevAuditF/audit.md | access-URL repair (stale /bitstreams/.../download route -> effective /server/api/core/bitstreams/<uuid>/content) is the chain's stated basis and verifies live; tier and scope stand; CAUTION: S491's anchor cell drops S410's second p. 2 quote (see ANCHOR) — the era-table clause it carried remains cove
+      1 S490 | S379 | https://glottolog.org/resource/languoid/id/kiko1235.json | retire | none | .ufo/waves/round-68/rows/RevAuditF/audit.md | FORCED BY FROZEN SET, overriding the audit's activate: T0's MUTABLE_T lists 33 t-ids and omits S379, so any S379 cell change fails the frozen APPEND leg and no mutation leaves the chain pending; retire keeps every leg green while S379 (tier B, anchors verified live 2026-10-24 in the audit) stays the active carrier; flip: a round whose declared MUTABLE set includes S379 activates this chain on the preserved audit evidence
+      1 S489 | S407 | https://journals.flvc.org/athanor/article/download/126740/126293/207658 | activate | repoint | .ufo/waves/round-68/rows/RevAuditF/audit.md | single locator repair: anchor 3 moves first -> second (right) column of printed p. 84; anchors 1/2/4, tier and scope are byte-identical between rows
+      1 S488 | S399 | https://www.metmuseum.org/art/collection/search/318318 | activate | repoint | .ufo/waves/round-68/rows/RevAuditF/audit.md | row-metadata repair is verbatim against the served capture: S488 corrects the description ("object number 318318" -> "object record 318318, object number 1999.295.2") and the anchor locator wording; anchors, tier and scope are otherwise identical; the entry's existing locator already matches S488's 
+      1 S487 | S396 | https://www.metmuseum.org/art/collection/search/312342 | activate | repoint | .ufo/waves/round-68/rows/RevAuditE/audit.md | locator repair only: anchor 4 moved from "fourth paragraph" to "third paragraph"; anchors, route and capture unchanged; verified verbatim and in served order
+      1 S486 | S395 | https://web.archive.org/web/20230308010409id_/https://www.metmuseum.org/art/collection/search/320053 | activate | repoint | .ufo/waves/round-68/rows/RevAuditE/audit.md | re-source to the 2023 capture that actually carries the artist credit the row and the entry rely on; all four anchors verbatim in the new capture; canonical object id unchanged (metmuseum.org 320053)
+      1 S485 | S392 | https://revistas.usp.br/sankofa/article/download/187402/173183/497395 | activate | repoint | .ufo/waves/round-68/rows/RevAuditE/audit.md | scope cell corrected (execution in 1706 vs the movement's disputed later end) but the p.22/p.24 anchors regress to straight apostrophes — REQUIRES a two-character landing repair: restore U+2019 in "Mb\u00e2nz\u2019a" in both anchors, or the activated row is non-verbatim
+      1 S484 | S385 | https://journals.openedition.org/assr/pdf/2480 | activate | repoint | .ufo/waves/round-68/rows/RevAuditE/audit.md | p.76 anchor restored to served typographic apostrophes (qu\u2019une, l\u2019attention) and a second p.76 anchor added that grounds the entry's royal-rites clause; two live anchors dropped — recommend restoring them at landing rather than retiring; access-note basis is now stale but the copy is same-
+      1 S483 | S383 | https://web.archive.org/web/20260203111247/https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/development-of-an-african-catholic-church-in-the-kingdom-of-kongo-149117501/2FB5AD22282AF36704DE49E593623693 | activate | repoint | .ufo/waves/round-68/rows/RevAuditD/audit.md | teaches-agency repair only: the served abstract attributes control to Kongo, not to the crown ("royal control" occurs zero times), so S383's teaches over-specified the agent; S483's "its control" matches the served wording and the rows' own anchor 3
+      1 S482 | S367 | https://periodicos.ufpb.br/index.php/srh/article/view/13999/7921 | activate | repoint | .ufo/waves/round-68/rows/RevAuditD/audit.md | teaches-hedge repair only: the served page's own wording keeps founding-descendant status as a claim ("reclama ser fundadora"), so S367's teaches asserting "part of its founding population" as fact over-stated the source; S482's anchors are byte-identical and its scope records the hedge
+      1 S481 | S359 | https://archive.org/download/monumentamissionariaafricana/MonumentaMission%C3%A1riaAfricana-01.001_djvu.txt | activate | repoint | .ufo/waves/round-68/rows/RevAuditD/audit.md | pure printed-page locator repair: S359's pp. 469/489 are each off by one; the served scan's page-tail numbers put both doc. 142 quotes on p. 470 and both doc. 147 quotes on p. 490, exactly S481's locators
+      1 S453 | S569 | https://www.govinfo.gov/content/pkg/USCODE-2024-title4/html/USCODE-2024-title4-chap1-sec1.htm | keep-successor | deactivate | .ufo/waves/round-68/rows/AuditChain8/audit.md | successor S569 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S569
+      1 S452 | S568 | https://nava.org/good-flag-bad-flag | keep-successor | deactivate | .ufo/waves/round-68/rows/AuditChain8/audit.md | successor S568 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S568
+      1 S445 | S567 | https://heraldikk.no/PDF/GODE%20R%C3%85D%20OM%20NYE%20KOMMUNEV%C3%85PEN.pdf | keep-successor | deactivate | .ufo/waves/round-68/rows/AuditChain8/audit.md | successor S567 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S567
+      1 S440 | S566 | https://collections.vam.ac.uk/item/O1053476/ | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditG/audit.md | successor S566 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S566
+      1 S438 | S565 | https://ag.colorado.gov/brands/about-brands | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditG/audit.md | successor S565 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S565
+      1 S433 | S564 | https://en.maiask.ru/data/documents/13_YatsenkoRogozhinskiiENG.htm | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditG/audit.md | successor S564 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S564
+      1 S421 | S562 | https://courtofthelordlyon.scot/blazoning.htm | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditG/audit.md | successor S562 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S562
+      1 S417 | S561 | https://archive.org/download/englishheraldry00bout/englishheraldry00bout_djvu.txt | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditG/audit.md | successor S561 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S561
+      1 S413 | S560 | https://archive.org/download/completeguidetoh00foxduoft/completeguidetoh00foxduoft_djvu.txt | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditG/audit.md | successor S560 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S560
+      1 S410 | S491 | https://open.bu.edu/server/api/core/bitstreams/ad5455af-f3b2-49ec-bedb-b4dd9b15d3af/content | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditF/audit.md | successor S491 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S491
+      1 S407 | S489 | https://journals.flvc.org/athanor/article/download/126740/126293/207658 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditF/audit.md | successor S489 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S489
+      1 S399 | S488 | https://www.metmuseum.org/art/collection/search/318318 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditF/audit.md | successor S488 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S488
+      1 S396 | S487 | https://www.metmuseum.org/art/collection/search/312342 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditE/audit.md | successor S487 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S487
+      1 S395 | S486 | https://web.archive.org/web/20230308010409id_/https://www.metmuseum.org/art/collection/search/320053 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditE/audit.md | successor S486 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S486
+      1 S392 | S485 | https://revistas.usp.br/sankofa/article/download/187402/173183/497395 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditE/audit.md | successor S485 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S485
+      1 S385 | S484 | https://journals.openedition.org/assr/pdf/2480 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditE/audit.md | successor S484 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S484
+      1 S383 | S483 | https://web.archive.org/web/20260203111247/https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/development-of-an-african-catholic-church-in-the-kingdom-of-kongo-149117501/2FB5AD22282AF36704DE49E593623693 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditD/audit.md | successor S483 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S483
+      1 S379 | S490 | https://glottolog.org/resource/languoid/id/kiko1235.json | keep-successor | none | .ufo/waves/round-68/rows/RevAuditF/audit.md | vocabulary note: no target-retained class exists in the frozen ruling set; true disposition = target retained untouched (audit verified its anchors serve verbatim), successor S490 retired by the frozen MUTABLE_T gap
+      1 S367 | S482 | https://periodicos.ufpb.br/index.php/srh/article/view/13999/7921 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditD/audit.md | successor S482 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S482
+      1 S359 | S481 | https://archive.org/download/monumentamissionariaafricana/MonumentaMission%C3%A1riaAfricana-01.001_djvu.txt | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditD/audit.md | successor S481 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S481
+      1 S358 | S256 | https://ich.unesco.org/en/RL/mask-dance-of-the-drums-from-drametse-00161 | activate | repoint | .ufo/waves/round-68/rows/RevAuditD/audit.md | tier repair A->B is the verified substance (both rows same URL; live page serves all stored spans); S358's two truncated anchors drop exactly what masks:86 cites, but S358's scope cell names both claims explicitly, so scope carry keeps every citing sentence supported with no fix
+      1 S256 | S358 | https://ich.unesco.org/en/RL/mask-dance-of-the-drums-from-drametse-00161 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditD/audit.md | successor S358 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S358
+      1 S186 | S157 | https://ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-canary-islands-the-silbo-gomero-00172 | retire | cell-flip | .ufo/waves/round-68/rows/RevAuditC/audit.md | the correction is an access note only (content as S157, anchors identical); on 2026-10-24 the live URL serves the full anchor verbatim with zero challenge markers, so the 2026-10-22 captcha premise no longer holds and the superseding row repairs nothing \u2014 rejecting S186 settles the chain SETTLE
+      1 S185 | S145 | — | keep-successor | none | corpus/SOURCES.md | settled-closed at base: target S145 rejected; S185 stays mined as the live row
+      1 S157 | S186 | https://ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-canary-islands-the-silbo-gomero-00172 | keep-successor | none | .ufo/waves/round-68/rows/RevAuditC/audit.md | vocabulary note: frozen ruling set has no target-retained class; true disposition = successor S186 refused at audit, target keeps status and citations
+      1 S133 | S097 | http://www.cslds.org/apsl-consortium/sign-linguistics/module-7-sign-phonetics-and-phonology-symmetry-and-dominance-condition/ | activate | repoint | .ufo/waves/round-68/rows/RevAuditC/audit.md | anchor-only repair verified live: the page has exactly one structural heading (the module title); "Type 1/2/3" and "References" are bold paragraph labels and "Dominance Condition" is prose, so S097's anchor names sections the page does not have; content is as S097
+      1 S132 | S094 | — | keep-reject | none | corpus/SOURCES.md | settled-retired at base: S132 rejected after the round-52 access check; S094 stays rejected with it (both-immutable pair, W04 by design)
+      1 S131 | S122 | https://link.springer.com/article/10.1186/1477-7517-9-16 | activate | repoint | .ufo/waves/round-68/rows/RevAuditC/audit.md | tier repair verified: the publisher labels the item a Commentary and the capital-D anchor is the served Background \u00b61 parenthetical verbatim; only the capital-D statement is used by the entry; the paper's clinical/implant content stays out of the entry's province, as both rows scope it
+      1 S130 | S119 | https://pmc.ncbi.nlm.nih.gov/articles/PMC6818964/ | activate | repoint | .ufo/waves/round-68/rows/RevAuditC/audit.md | tier and item-identification repair verified against the served page: the opened item is the authors' reply to commentaries, not the keynote article, and the cutoffs it lists come from second-language studies; anchors/scope otherwise unchanged; only the citing locator carries to the corrected row
+      1 S129 | S117 | https://pmc.ncbi.nlm.nih.gov/articles/PMC10622114/ | activate | repoint | .ufo/waves/round-68/rows/RevAuditB/audit.md | tier repair stands: the article self-identifies as a review ("In this review", 3 hits on the served page), so tier B per QUALITY criterion 6; same URL and same served article as S117, abstract verbatim; repoint is vacuous — S117 has zero inline citations in corpus/knowledge at base
+      1 S128 | S086 | https://pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf | activate | repoint | .ufo/waves/round-68/rows/RevAuditB/audit.md | same artifact, anchor superset: the served PDF's table of contents places the Introduction at printed pp. 2-26 (next chapter at p. 27), so S128's anchor strictly contains S086's pp. 2-10; all eight citing loci carry. Two honest flags: the supersedes-basis hedges are NOT inside the Introduction span,
+      1 S127 | S079 | https://voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement/ | activate | repoint | .ufo/waves/round-68/rows/RevAuditB/audit.md | tier repair stands: the page is the author's own summary of her book and laboratory work (QUALITY criterion 6, tier B), same URL as S079; two of three citing loci are covered verbatim by S127's declared section; the third (line 64, co-speech) is served under a section S127's declared anchor omits — 
+      1 S126 | S105 | https://glottolog.org/glottolog/glottologinformation | activate | repoint | .ufo/waves/round-68/rows/RevAuditB/audit.md | the served page carries both declared anchors and both quoted sentences verbatim at site version 5.3; the entry already cites S126 for the non-genealogical status (line 124); the two S105 citations at line 129 repoint cleanly because the ASL-under-LSFic placement fact is carried by S104 (whose teach
+      1 S125 | S095 | https://discovery.ucl.ac.uk/id/eprint/10054130/ | retire | none | .ufo/waves/round-68/rows/RevAuditA/audit.md | S125's correction is verified true (the opened PDF is the 2018 Oxford Research Encyclopedia of Linguistics article — UCL Discovery record 10054130 confirms authors, series, book title, publisher, DOI, "author accepted manuscript" version), but S125's scope likewise disclaims content and its anchors 
+      1 S122 | S131 | https://link.springer.com/article/10.1186/1477-7517-9-16 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditC/audit.md | successor S131 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S131
+      1 S119 | S130 | https://pmc.ncbi.nlm.nih.gov/articles/PMC6818964/ | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditC/audit.md | successor S130 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S130
+      1 S117 | S129 | https://pmc.ncbi.nlm.nih.gov/articles/PMC10622114/ | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditB/audit.md | successor S129 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S129
+      1 S105 | S126 | https://glottolog.org/glottolog/glottologinformation | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditB/audit.md | successor S126 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S126
+      1 S097 | S133 | http://www.cslds.org/apsl-consortium/sign-linguistics/module-7-sign-phonetics-and-phonology-symmetry-and-dominance-condition/ | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditC/audit.md | successor S133 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S133
+      1 S095 | S125 | https://discovery.ucl.ac.uk/id/eprint/10054130/ | keep-successor | none | .ufo/waves/round-68/rows/RevAuditA/audit.md | vocabulary note: frozen ruling set has no target-retained class; true disposition = successor S125 refused at audit, target keeps status and citations
+      1 S086 | S128 | https://pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditB/audit.md | successor S128 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S128
+      1 S079 | S127 | https://voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement/ | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditB/audit.md | successor S127 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S127
+      1 S070 | S060 | https://api.crossref.org/works/10.1007/s11069-017-3128-4 | retire | none | .ufo/waves/round-68/rows/RevAuditA/audit.md | S070's correction is verified true (pages 165–181, issue S1 — confirmed against Crossref; S060's 95–107 / §2/§1 anchors are the preprint pagination), but S070's scope disclaims article content and its anchors are metadata fields (`message.page`/`message.volume`/`message.issue`) — repointing S060's c
+      1 S060 | S070 | https://api.crossref.org/works/10.1007/s11069-017-3128-4 | keep-successor | none | .ufo/waves/round-68/rows/RevAuditA/audit.md | vocabulary note: frozen ruling set has no target-retained class; true disposition = successor S070 refused at audit, target keeps status and citations
+      1 S047 | S029 | — | keep-reject | none | corpus/SOURCES.md | settled-closed at base: target S029 rejected; S047 stays rejected (audit class re-derived from registry bytes)
+      1 S046 | S039 | https://press.princeton.edu/books/paperback/9780691084428/foraging-theory | activate | repoint | .ufo/waves/round-68/rows/RevAuditA/audit.md | S039 is a tier-A publisher-description row used for a "publisher description" claim; S046 corrects it to tier B — the correction is sound and the anchor covers every citing locator
+      1 S045 | S038 | https://www.routledge.com/Stone-Age-Economics/Sahlins/p/book/9781138702615 | activate | repoint | .ufo/waves/round-68/rows/RevAuditA/audit.md | S038's anchor is the publisher page; S045 restates the same page as tier B (orientation, not primary authority) — the correction is sound and the anchor covers every citing locator
+      1 S044 | S034 | https://www.cambridge.org/core/product/identifier/9781139176132/type/book | activate | repoint | .ufo/waves/round-68/rows/RevAuditA/audit.md | S034's tier-A placement is reversed: a publisher abstract is orientation, not primary authority — S044 lowers the tier to B and re-words the teaches; the S044 anchor (Crossref publisher abstract) is served verbatim and carries every citing claim
+      1 S039 | S046 | https://press.princeton.edu/books/paperback/9780691084428/foraging-theory | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditA/audit.md | successor S046 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S046
+      1 S038 | S045 | https://www.routledge.com/Stone-Age-Economics/Sahlins/p/book/9781138702615 | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditA/audit.md | successor S045 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S045
+      1 S034 | S044 | https://www.cambridge.org/core/product/identifier/9781139176132/type/book | keep-successor | deactivate | .ufo/waves/round-68/rows/RevAuditA/audit.md | successor S044 activated at A_r; target deactivated (mined->queued, used-by->em-dash); citations re-pointed to S044
+      1 # rulings: 31 activate + 3 retire (S070>S060, S125>S095, S186>S157) over the 34 pending chains;
+      1 # evidence paths resolve under the lane repo; audit fragments committed as wave evidence at A_ca.
+      1 # columns: id | related | url | ruling | mechanism | evidence | note
+      1 #           33 target rows (keep-successor; retire targets carry the vocabulary note below);
+      1 #           13 pre-settled keep rows + S830 (W04 fingerprint of a kept reject).
+== full header cells ==
+     1	# Round-68 dedup / supersession-settlement disposition ledger (claims O + Ca, frozen required-id set)
+• Excellent. Rich data. Now let me map:
+
+  **The five states and the tool's classification line numbers** (tools/check-supersession-settlement.py, classify() at lines 112-145):
+  - `settled-closed`: line 123-124 (`if t_st == "rejected": cls = "settled-closed"`)
+  - `settled-retired`: line 125-126 (`elif s_st == "rejected": cls = "settled-retired"`)
+  - `settled-active`: line 127-128 (`elif s_st == "mined" and s_used and t_st == "queued"`)
+  - `settled-split`: line 129-131 (`elif s_st == "mined" and s_used and t_st == "mined" and SPLIT_RE...`)
+  - `pending`: line 132-133 (`else: cls = "pending"`)
+
+  Now compare with the fixture table in accept-d.py:
+  - pending → cites `tools/check-supersession-settlement.py:112` — line 112 is `def classify(rows, order):` — the classify function entry. Honest-ish? The fixture cites 112 for pending; actual pending classification is lines 132-133. Citing 112 (the classify docstring/function head) is defensible as "the classifier", but the precise pending branch is 132-133. Verdict: imprecise but not dead (the function does classify pending there). Actually wait — the fixture is the counter's GREEN fixture, which I can't edit; the REAL table that lands should cite accurate line numbers. The fixture's citations pass EVIDENCE because only path existence is checked. My attack should report: line-number citations are unpoliced; the real table should cite the accurate branches:
+    - pending → tools/check-supersession-settlement.py:132 (the else branch)
+    - settled-active → :127
+    - settled-retired → :125 (fixture says 129 — WRONG: 129-131 is settled-split; 125-126 is settled-retired)
+    - settled-closed → :123 (fixture says 123 ✓)
+    - settled-split → :129 (fixture says 130 — 130 is `SPLIT_RE.search(r["teaches"]):`; the elif starts at 129. 130 is within the split branch, fine-ish)
+
+  So the fixture has two swapped line numbers: settled-retired cites 129 but 129-131 is the settled-split branch; settled-closed cites 123 ✓. Let me double check:
+  - Line 123: `if t_st == "rejected":` → 124 `cls = "settled-closed"`. Fixture closed cites 123 ✓ (the branch's first line).
+  - Line 125: `elif s_st == "rejected":` → 126 `cls = "settled-retired"`. Fixture retired cites 129 ✗ (129 is `elif s_st == "mined" and s_used and t_st == "mined" and \` — the split branch). So the fixture's retired citation points at the WRONG branch.
+  - Line 127: `elif s_st == "mined" and s_used and t_st == "queued":` → 128 active. Fixture active cites 127 ✓.
+  - Line 129-131: split. Fixture split cites 130 — inside the branch (the SPLIT_RE line) ✓-ish.
+  - Pending: fixture cites 112 = `def classify(...)`. The pending branch is 132-133. 112 is the function that computes it — defensible but imprecise.
+
+  Key finding: the GREEN fixture's own Evidence pointers for settled-retired are mispointed (129 → should be 125). Since the counter never validates line numbers, this defect is invisible to the counter — the REAL table should not copy the fixture's line numbers. That's a genuine D2 attack finding. The kill rule says the counter is not edited after data — so the fixture stays as-is; the fix is: the landed SKILL.md table must use correct line numbers (the fixture is only a shape demonstration).
+
+  Wait — also important: does the EVIDENCE leg parse `tools/check-supersession-settlement.py:112` correctly? PATH_RE = `[A-Za-z0-9_./-]+\.(?:py|md|tsv|txt|json|ya?ml)` — greedy match: `tools/check-supersession-settlement.py` then `:112` — the char class doesn't include `:` so match ends at `.py`. Good. But careful: PATH_RE could also match `S859` ? No — no extension. OK.
+
+  But NOTE a subtlety in EVIDENCE: `os.path.exists(os.path.join(root, t))` — a citation like `reports/round-68/dispositions/dedup-ledger.tsv` resolves fine. Good.
+
+  And SOURCE leg: SID_RE.findall over `table_text = "\n".join("|".join(r) for r in rows)` — the joined data rows only (not the header). Any `S\d{3,}` token in ANY cell must have a qualifying SOURCES.md row (11 cells, status mined, used-by contains SKILL.md). DANGER: if the real table's Row-shape cells cite real chain examples like `S126>S105` or `S575>S420`, SOURCE demands those be mined+used-by-SKILL.md. Check: S126 (successor of S105) — after r68 settle-apply, S126 is mined; is its used-by SKILL.md? Probably cites corpus/knowledge paths, not SKILL.md. So citing S126 in the table would FAIL SOURCE. This is a major trap for the table writer: example ids in the table are fine ONLY if mined+used-by-SKILL.md. S859 is engineered to be exactly that (used-by names SKILL.md). So the table should name ONLY S859 among registry ids, or ids that satisfy the constraint.
+
+  Let me verify current SOURCES.md: does S859 exist yet? And check what used-by SKILL.md rows exist (to see alternatives). Also check current statuses of e.g. S126, S575 to demonstrate the trap.
+
+  **Which r68-committed paths exist and are re-runnable:**
+  1. `tools/check-supersession-settlement.py` — AT-BASE ✓, EXISTS ✓, re-runnable (reads only): `python3 tools/check-supersession-settlement.py --selftest` and `--scan`. Let me actually RUN both to show real output. --scan on the lane: read-only (open + os.path.exists). Safe. It gates on pending==0; r68 final-measures-o.txt showed pending=0 chains=47 at their measured revision; current tree may have pending? S859 not landed; current SOURCES.md — check. Run and show.
+  2. `reports/round-68/dispositions/dedup-ledger.tsv` — AT-BASE ✓, EXISTS ✓. Re-runnable AS INPUT to the tool: `python3 tools/check-supersession-settlement.py --ledger reports/round-68/dispositions/dedup-ledger.tsv` — validates 79 data rows (88 lines minus comments). Let me count: 88 lines total, 2 header comments + footer comment lines. Let me run it. This is the honest "re-run" for ledger rows. Note validate_ledger checks used-by paths exist against CURRENT registry — should pass (final-measures showed LEDGER PASS at r68 measured revision; tree may have drifted — S490 note says a future round could activate; current state should still validate).
+  3. `reports/round-68/telemetry/final-measures-o.txt` — AT-BASE ✓, EXISTS ✓. NOT re-runnable: it's a receipt transcript (evidence OF a run, stamped revision 44c9cc28 — note: NOT the base revision; it records the r68 measured revision 44c9cc28, which is a different commit than 793f7974 — actually wait, is 44c9cc28 an ancestor of 793f7974? The r68 final measures were taken at 44c9cc28; the r69 base is 793f7974. Whatever — the receipt cites its own revisions). Honest to cite as evidence of what the r68 counter measured (e.g., the EXEC FAIL that motivated O2's fixture), NOT as a runnable. Also contains the PENDING PASS line `pending=0 chains=47 usedby_paths=709 missing_paths=0` — good citation for "settled" states' registry-wide context.
+  4. `corpus/lessons/round-68.md` — AT-BASE ✓, EXISTS ✓. Narrative; re-run nothing. Need to read it to see what it says about settlement (it's the honest citation for the chain-taxonomy lesson / R68-M1 EXEC FAIL). Let me read it.
+  5. "the r68 ledger" = dedup-ledger.tsv (only ledger-shaped artifact in reports/round-68; confirmed by ls). Also `.ufo/waves/round-68/stage/settle-apply.py` exists (AT-BASE? it appeared in base ls-tree ✓) — that's a wave-stage script, and `reports/round-68/telemetry/settle-apply.txt` — the receipt of the settle apply. These are additional re-runnable-adjacent artifacts. settle-apply.py — mutating? It's in .ufo wave stage; it was used to apply dispositions to the registry. I won't run it (it mutates corpus/SOURCES.md presumably). I can cite its existence as evidence of the apply step, and settle-apply.txt as its receipt. Read settle-apply.txt quickly (2KB) to quote what it did.
+
+  Also `reports/round-68/telemetry/seat-evidence.txt`, `census-end.txt`, `residual-reopens.txt` — the reopen list may name pending chains? residual-reopens.txt (340B) — read it: does r68 leave any pending? final measures said pending=0. residual-reopens may be about re-opened items (records, not chains). Quick read (small files): residual-reopens.txt, settle-apply.txt. Maybe skip seat-evidence.
+
+  **Mapping states → honest citations:**
+
+  The five states and the best evidence pointer per state (all must exist at measured revision; all r68-committed paths qualify):
+
+  - **pending** — best: `tools/check-supersession-settlement.py:132` (the else-branch that names pending) + demonstration: the counter's own FIX1 selftest (`--selftest` prints `PASS pending-detected`). The ledger has no pending rows (r68 settled all 34), so an honest row-shape example of a pending chain at base is the selftest fixture FIX1, re-runnable via `--selftest`. Also `corpus/lessons/round-68.md` presumably describes correction debt. Honest citation: tool line 132 + lessons/round-68.md.
+  - **settled-active** — `tools/check-supersession-settlement.py:127`; live examples in dedup-ledger.tsv (31 activate rows, e.g. S126|S105 activate/repoint) — BUT careful: for "used-by" honesty, settled-active means successor mined + used-by non-empty + target queued. Ledger evidence column for activate rows points at `.ufo/waves/round-68/rows/<seat>/audit.md` (e.g. RevAuditB) — those exist? `.ufo/waves/round-68/rows/RevAuditA/audit.md` appeared in base ls-tree ✓ all committed. So per-row audit files are additional re-runnable-adjacent evidence (human-readable audits). Verify a couple exist: .ufo/waves/round-68/rows/RevAuditB/audit.md etc. All appear in base ls-tree ✓ (RevAuditA..G, AuditChain8).
+  - **settled-retired** — `tools/check-supersession-settlement.py:125`; ledger rows: S070>S060, S125>S095, S186>S157 (3 retire rows) + base-settled retired: S132>S094 keep-reject (settled-retired at base). Honest citation: tool:125 + dedup-ledger.tsv (S132 row) + RevAuditA audit (S070, S125 rows). Note the fixture cites :129 for retired — WRONG branch (that's split); flag it.
+  - **settled-closed** — `tools/check-supersession-settlement.py:123`; ledger keep-successor rows with "settled-closed at base" notes (S574, S651 etc.) — 13 pre-settled keep rows. Honest: tool:123 + dedup-ledger.tsv.
+  - **settled-split** — `tools/check-supersession-settlement.py:129`; ledger S575>S420 keep-split row ("for-entry-only limiter"); also FIX4 selftest (`PASS settled-split`). Honest: tool:129 + dedup-ledger.tsv.
+
+  **Dead pointers to flag:**
+  1. `corpus/lessons/round-69.md` — NOT YET LANDED (it's r69 data). Citing it as sole Evidence would be dead at declaration; alive at measured revision only if the r69 lesson lands before validation. The claim's "sourced" field says S859 is run and quoted in corpus/lessons/round-69.md `## Gate` — so it's planned data, fine as SECONDARY citation but risky as sole one before it lands. Check: does corpus/lessons/round-69.md exist now? test -f. Probably absent.
+  2. `corpus/SOURCES.md#S859` — SOURCES.md exists but the S859 ROW doesn't (verify with grep). The EVIDENCE leg only needs the PATH; the SOURCE leg needs the row. If the table cites `corpus/SOURCES.md` as path — exists — EVIDENCE passes; SOURCE fails until S859 lands. Not a dead pointer per se; a staged one.
+  3. The fixture's `settled-retired → tools/check-supersession-settlement.py:129` — pointer to wrong branch (dishonest line number, invisible to the counter). Not a dead path, a mis-aimed one.
+  4. Anything citing `.ufo/waves/round-68/stage/...` run artifacts — they're committed but scratch-stage; citing them in SKILL.md (a durable skill doc) is fragile — .ufo/ is wave scratch, may be pruned by cleanup; honest SKILL.md citations should prefer tools/ + reports/ + corpus/. Hmm — is .ufo/ gitignored? The files ARE committed at base (they appeared in git ls-tree), so they're tracked. But the round-68 lessons may note that .ufo scratch gets cleaned... The AGENTS.md says "Before scratch cleanup or worker handoff, land the redacted raw samples..." implying .scratch is cleaned but .ufo waves seem committed. Still, SKILL.md is the lane's durable skill; pointing its decision table at .ufo/waves/... (ephemeral orchestration scratch) is a smell; prefer reports/round-68/... and tools/. I'll note it as a durability caution, not a hard dead pointer.
+  5. `reports/round-68/telemetry/final-measures-o.txt` cites its own stamped revision 44c9cc28 — need to confirm that's an ancestor of base so the receipt's claims are still re-derivable. `git merge-base --is-ancestor 44c9cc28 793f7974`. Quick check — nice depth point.
+
+  **Re-runnable demonstration runs to do now (read-only):**
+  - `python3 -B tools/check-supersession-settlement.py --selftest` → expect SELFTEST 8/8 (pending-detected, settled-active, settled-retired-closed, settled-split, ledger-clean, ledger-inconsistent-rejected, unreadable-exit-2 — that's 7 checks? count: rc1..rc6 + chk ledger-clean + ledger-inconsistent = checks: pending-detected, settled-active, settled-retired-closed, settled-split, ledger-clean, ledger-inconsistent-rejected, unreadable-exit-2 = 7. Expect 7/7.)
+  - `python3 -B tools/check-supersession-settlement.py --scan --root .` → current state: pending should be 0 (47 chains), usedby_paths ~709+, missing_paths 0. BUT S859 not landed; also r68 settled everything; r69 hasn't added chains. Exit 0 expected.
+  - `python3 -B tools/check-supersession-settlement.py --ledger reports/round-68/dispositions/dedup-ledger.tsv --root .` → LEDGER: rows=N findings=0.
+  - `test -f` the four prompt-named paths + the per-seat audit dirs (at least one: .ufo/waves/round-68/rows/RevAuditA/audit.md).
+  - grep SOURCES.md for S859 and for used-by SKILL.md rows: `grep -c 'SKILL.md' corpus/SOURCES.md` and `grep 'S859' corpus/SOURCES.md`.
+  - `git merge-base --is-ancestor 44c9cc2863fed952bb3a2b04149c2ac279338c3b 793f79746712a79f915bb481215e54bbea8b5e7a && echo ancestor`.
+  - test -f corpus/lessons/round-69.md and reports/round-69/corrections-r68.md (expect missing — planned data).
+  - Count ledger data rows: `grep -vc '^#' reports/round-68/dispositions/dedup-ledger.tsv` → 88 - 5 comment lines = 83? The uniq output showed footer comments. Let me count: lines starting with # : 4 (header x2? the tail shows: "# rulings: 31 activate...", "# evidence paths...", "# columns:...", "# 33 target rows...", "# 13 pre-settled..."). Actually from the awk output: comment lines seen: "# rulings: 31 activate + 3 retire...", "# evidence paths resolve...", "# columns: id | related...", "# 33 target rows (keep-successor...)", "# 13 pre-settled keep rows + S830...". That's 5 comment lines + header line... header is also a comment ("# Round-68 dedup..."). wc -l = 88. So data rows = 88 - 6 = 82? Let me just count with grep -c -v '^#'.
+
+  Wait — one more attack angle on EVIDENCE leg I should verify: PATH_RE matches tokens like `S859` ? No. But what about `—` (em-dash) in Evidence cells? Not matched. What about a citation of the ledger with line refs `dedup-ledger.tsv:14`? `dedup-ledger.tsv` — extension tsv ✓ matched. Good.
+
+  And a REAL trap for EVIDENCE: `os.path.exists` — a directory would also pass exists(). Not relevant.
+
+  Also STAMP leg: when the L1 runs `python3 -B reports/round-69/accept-d.py --root .` from the lane, `HERE` is reports/round-69 so self == committed copy — same file — trivially equal. Fine.
+
+  One more D2-relevant fact for the writer: where the table goes — claims.json says "SKILL.md gains a `### Registry correction chains` decision table under `## Decision table`". The counter's section_span: finds the H3 heading, spans until next line starting "## " — NOTE: a following `###` subsection would be INCLUDED in the span (only `## ` breaks). The table must be the first markdown table after the heading. Also SIGNATURES: the five signature strings must appear within the `## Error patterns` section text (substring match). Error patterns section starts at line 468 per SKILL.md grep; ends at `## Boundaries` 509. The fixture appends the signature table right after `## Error patterns` heading — insertion before existing content. Fine.
+
+  Also TABLE leg: header must be exactly 5 cells and exactly 5 data rows. FIELDS: no empty cells, all rows 5 cells.
+
+  Now, "which are honest to cite for which state row" — assemble the matrix:
+
+  | State | Tool branch (honest line) | Re-runnable demo | Ledger exemplar | Audit file |
+  |---|---|---|---|---|
+  | pending | check-supersession-settlement.py:132 (else) | `--selftest` → PASS pending-detected (FIX1) | none (r68 settled all 34 pending chains; no pending rows in ledger) | — |
+  | settled-active | :127 | `--selftest` → PASS settled-active (FIX2); `--scan` pending=0 | S126>S105 activate/repoint (row in dedup-ledger.tsv) | .ufo/waves/round-68/rows/RevAuditB/audit.md |
+  | settled-retired | :125 | `--selftest` → PASS settled-retired-closed (FIX3) | S132>S094 keep-reject (settled-retired at base); retire rows S070>S060, S125>S095, S186>S157 | RevAuditA/audit.md, RevAuditC/audit.md |
+  | settled-closed | :123 | selftest FIX3 | keep-successor "settled-closed at base" rows (S574, S651...) | corpus/SOURCES.md notes |
+  | settled-split | :129 | `--selftest` → PASS settled-split (FIX4) | S575>S420 keep-split | — |
+
+  For the Evidence cell, single-path citations that exist AND are re-runnable: `tools/check-supersession-settlement.py` (any branch line) — exists at base AND HEAD, never moves (counter R68FROZEN-style: the tool is committed; could a later round edit it? possible, but line numbers then drift — recommend citing the tool with line number AND a second stable path like the ledger). Actually for honesty: pair each row's Evidence with two tokens: `tools/check-supersession-settlement.py:<branch-line> — reports/round-68/dispositions/dedup-ledger.tsv`. Both exist; at least one must exist for the leg; two gives redundancy.
+
+  Hmm, also: "Flag any that would be a dead pointer." Candidates flagged:
+  1. corpus/lessons/round-69.md (does not exist yet — verify).
+  2. reports/round-69/corrections-r68.md (does not exist yet — verify).
+  3. The fixture's settled-retired line pointer 129 (mis-aimed).
+  4. S859-as-path: `S859 —` alone is NOT a path token (no extension) → an Evidence cell of just "S859" FAILS EVIDENCE. Must include a real path.
+  5. `.ufo/waves/round-68/stage/mut-o/runs/...` scratch receipts — exist but are wave scratch; citing in durable SKILL.md is brittle (and irrelevant per-state).
+
+  Also confirm: `--scan` currently pending=0? If r69 hasn't landed S859, and nothing else changed since r68 settle... but wait, r68's final measures ran at 44c9cc28 with pending=0. Since then, base 793f7974 and the declaration commit added no registry rows? The declaration added .ufo assimilation files (reg-ids, staged-ids, collisions) and reports/round-69 + tools fixture. corpus/SOURCES.md unchanged since r68 apply (44c9cc28 → 793f7974). Check quickly: `git log --oneline -3 -- corpus/SOURCES.md` or just run scan.
+
+  Let me also read corpus/lessons/round-68.md to cite what it teaches (need for honest mapping — it's in my prompt's list). And settle-apply.txt + residual-reopens.txt quickly. And verify S859 absent + used-by SKILL.md count in SOURCES.md.
+
+  Then run the three live demonstrations. Then write the report.
+
+  Batch 3 (parallel):
+  - Bash: run selftest + scan + ledger validation with -B (no pycache writes — actually __pycache__ for tools already exists; -B avoids writing bytecode → good, keeps tree clean).
+  - Bash: existence checks for not-yet-landed files + ancestor check + ledger row counts + SOURCES.md checks (S859 grep, SKILL.md used-by grep).
+  - Read corpus/lessons/round-68.md.
+  - Read reports/round-68/telemetry/settle-apply.txt.
+
+  corpus/lessons/round-68.md size unknown — read with default (should be fine).
+
+  Note: run commands with cwd = lane repo (default working dir is the lane repo already — /home/vgpnk/Projects/shokunin/kotodama-shokunin). Use python3 -B to avoid .pyc writes in tools/__pycache__ (there's already a __pycache__ there; -B keeps it clean anyway).
+
+== selftest ==
+PENDING S002>S001 s=queued t=mined same_url=True used_by=0
+SETTLEMENT: pending=1 chains=1 usedby_paths=1 missing_paths=0
+SETTLED-ACTIVE S002>S001 s=mined t=queued same_url=True used_by=1
+SETTLEMENT: pending=0 chains=1 usedby_paths=1 missing_paths=0
+SETTLED-RETIRED S002>S001 s=rejected t=mined same_url=True used_by=0
+SETTLED-CLOSED S003>S004 s=mined t=rejected same_url=True used_by=1
+SETTLEMENT: pending=0 chains=2 usedby_paths=2 missing_paths=0
+SETTLED-SPLIT S002>S001 s=mined t=mined same_url=False used_by=1
+SETTLEMENT: pending=0 chains=1 usedby_paths=2 missing_paths=0
+LEDGER: rows=1 findings=0
+LEDGER: rows=2 findings=2
+LEDGER-FINDING L1:S001:activate_but_status=queued
+LEDGER-FINDING L2:S999:not_in_registry
+SCAN_ERROR FileNotFoundError(2, 'No such file or directory')
+PASS pending-detected
+PASS settled-active
+PASS settled-retired-closed
+PASS settled-split
+PASS ledger-clean
+PASS ledger-inconsistent-rejected
+PASS unreadable-exit-2
+SELFTEST: 7/7
+rc=0
+== scan (lane root) ==
+SETTLED-ACTIVE S044>S034 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S045>S038 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S046>S039 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S047>S029 s=rejected t=rejected same_url=True used_by=0
+SETTLED-RETIRED S070>S060 s=rejected t=mined same_url=False used_by=0
+SETTLED-RETIRED S125>S095 s=rejected t=mined same_url=False used_by=0
+SETTLED-ACTIVE S126>S105 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S127>S079 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S128>S086 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S129>S117 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S130>S119 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S131>S122 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S132>S094 s=rejected t=rejected same_url=True used_by=0
+SETTLED-ACTIVE S133>S097 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S185>S145 s=mined t=rejected same_url=True used_by=1
+SETTLED-RETIRED S186>S157 s=rejected t=mined same_url=True used_by=0
+SETTLED-ACTIVE S358>S256 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S481>S359 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S482>S367 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S483>S383 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S484>S385 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S485>S392 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S486>S395 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S487>S396 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S488>S399 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S489>S407 s=mined t=queued same_url=True used_by=1
+SETTLED-RETIRED S490>S379 s=rejected t=mined same_url=True used_by=0
+SETTLED-ACTIVE S491>S410 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S560>S413 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S561>S417 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S562>S421 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S564>S433 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S565>S438 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S566>S440 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S567>S445 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S568>S452 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S569>S453 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S570>S135 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S571>S141 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S572>S147 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S573>S151 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S574>S159 s=mined t=rejected same_url=True used_by=1
+SETTLED-SPLIT S575>S420 s=mined t=mined same_url=False used_by=1
+SETTLED-CLOSED S648>S602 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S649>S616 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S650>S623 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S651>S643 s=mined t=rejected same_url=True used_by=1
+SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0
+rc=0
+== ledger validation ==
+LEDGER: rows=82 findings=0
+rc=0
+== not-yet-landed r69 data paths ==
+MISSING corpus/lessons/round-69.md
+MISSING reports/round-69/corrections-r68.md
+== S859 in SOURCES.md ==
+0
+== rows whose used-by names SKILL.md ==
+0
+== receipt revision ancestry: 44c9cc28 ancestor of base? ==
+YES-ancestor
+== ledger data rows ==
+82
+== r68 per-seat audit files exist? ==
+EXISTS .ufo/waves/round-68/rows/RevAuditA/audit.md
+EXISTS .ufo/waves/round-68/rows/RevAuditB/audit.md
+EXISTS .ufo/waves/round-68/rows/RevAuditC/audit.md
+EXISTS .ufo/waves/round-68/rows/AuditChain8/audit.md
+• Excellent. I have everything I need for the core attack. Let me note a few more things and maybe run one final small batch to nail down remaining details:
+
+  1. **Live re-run demonstrations captured**: selftest 7/7, scan pending=0 chains=47 usedby_paths=709 missing_paths=0 rc=0, ledger validation rows=82 findings=0 rc=0. All green at the current working copy (HEAD 6a98d7d, post-declaration).
+
+  2. **S859 is NOT in SOURCES.md** and **zero rows have used-by naming SKILL.md** currently. Critical: the SOURCE leg of accept-d.py demands at least one S-id in the table text have a SOURCES.md row with 11 cells, status mined, used-by containing SKILL.md. Today ZERO rows satisfy that — so until S859 lands, ANY table citing S859 fails SOURCE. Also: **any other S-id named in the table must ALSO satisfy the constraint** — and currently zero rows do, so the table can name ONLY S859 (once landed). This is a hard trap: e.g., citing real exemplars like S126>S105 in Row-shape cells would fail SOURCE since their used-by is `corpus/knowledge/...`, not SKILL.md. Verified by scan output: used_by=1 means their used-by names one path (the knowledge entry).
+
+  Wait — actually let me double check the SOURCE leg: `for sid in SID_RE.findall(table_text)` — for EVERY sid found, it checks if a qualifying row exists; `good` collects sids that qualify; `res.add("SOURCE", bool(good), ...)` — it only requires AT LEAST ONE good. Non-qualifying sids are simply not added to good. So naming other S-ids doesn't fail SOURCE — as long as ≥1 sid qualifies. Phew — correcting myself: extra S-ids are harmless to SOURCE. Only S859 (or any mined+used-by-SKILL.md row) is needed once. But EVIDENCE leg is per-row: each row's Evidence cell needs ≥1 existing path.
+
+  So the trap is smaller: the table needs at least one S-id that is mined with used-by SKILL.md — that's S859's job (not landed). If the writer names S859 in one row only, fine. But note SID_RE matches S\d{3,} — "S859" fine.
+
+  3. **Fixture line-number audit** (the GREEN fixture in accept-d.py, which the real table must NOT copy blindly):
+     - pending → fixture cites `:112` — that's `def classify(rows, order):` — imprecise; the honest pending branch is :132–133 (the else). Mildly dishonest: 112 is the function head, not the pending branch.
+     - settled-active → `:127` — exact branch line ✓.
+     - settled-retired → `:129` — WRONG: :129–131 is the settled-split branch; honest retired branch is :125–126.
+     - settled-closed → `:123` — exact ✓ (:123–124).
+     - settled-split → `:130` — inside the split branch (the SPLIT_RE.search line; branch starts :129) — acceptable but the branch head is :129.
+     
+     The counter cannot catch this (EVIDENCE only checks path existence). Since the counter is frozen post-data, the landed SKILL.md table should cite the correct branch lines: 132/127/125/123/129.
+
+  4. **Dead pointers flagged**:
+     - `corpus/lessons/round-69.md` — MISSING today (planned r69 data; claim's "sourced" field depends on it). Alive only at/after data landing.
+     - `reports/round-69/corrections-r68.md` — MISSING today (Ca2 data).
+     - `S859` as an Evidence token without a path: PATH_RE finds no path token → EVIDENCE FAIL for that row. Evidence cells must carry a real repo path; "S859 — tools/check-supersession-settlement.py:NNN" works (path present).
+     - Fixture's settled-retired `:129` mis-point (dishonest line, invisible to counter).
+     - `.ufo/waves/round-68/rows/<seat>/audit.md` — exist and committed, but they are wave-scratch artifacts under `.ufo/`; durable SKILL.md pointers should prefer tools/ + reports/ + corpus/. (They did survive into the base commit, so not strictly dead; a durability caution.)
+
+  5. **Ancestry**: final-measures-o.txt stamped revision 44c9cc28 IS an ancestor of the base 793f7974 — the receipt's claims remain re-derivable. Good — honest to cite for the historical PENDING=0 measurement.
+
+  6. **The ledger (dedup-ledger.tsv)**: 82 data rows, validates clean against the current registry (findings=0). Re-runnable as tool input. Honest exemplar rows per state:
+     - settled-active: S126>S105 (activate/repoint, RevAuditB), or any of 31 activate rulings.
+     - settled-retired: S132>S094 keep-reject ("settled-retired at base"); retire rulings S070>S060, S125>S095, S186>S157.
+     - settled-closed: S574>S159, S651>S643 etc. (keep-successor "settled-closed at base").
+     - settled-split: S575>S420 keep-split (the only split chain, "for-entry-only limiter").
+     - pending: NO ledger row exists (r68 settled all 34 pending chains) — the honest pending citation is the tool's selftest (FIX1 → "PASS pending-detected") or the tool's else-branch, NOT the ledger. Citing the ledger for the pending row would be dishonest (the ledger by construction contains only ruled/presettled rows).
+
+  7. corpus/lessons/round-68.md: honest citation for R68-M1 (the EXEC fixture defect motivating O2) and for the settlement narrative (O FAIL-as-declared at A_c, ledger 82 rows, pending=0). It's a lessons doc — cite-able as background for any state row, but it is NOT re-runnable; per-state Evidence should prefer the tool. Note: lessons/round-68.md does NOT contain the per-state taxonomy in detail (it mentions pending=0, the ledger, R68-M1). Fine as secondary.
+
+  8. One more check I should do for completeness: confirm that the current scan still shows the same chain count (47) as the r68 receipt (47) — yes: receipt said pending=0 chains=47 usedby_paths=709; current scan: identical! usedby_paths=709 matches exactly. Nice — the tree's registry is unchanged since 44c9cc28 in the chain-relevant sense. Actually the receipt's post-apply scan in settle-apply.txt said usedby_paths=685; final-measures-o said 709. Whatever — current is 709, matching final-measures-o. Good consistency point.
+
+  9. Also worth verifying quickly: does SKILL.md already mention "Registry correction chains"? grep found no `### Registry correction chains` heading in the SKILL.md header map (## Decision table at 20, subsections 31/77/130/189/243/354 — no Registry correction chains). Confirms the do-nothing state. And `## Error patterns` at 468. The new table goes under `## Decision table` (H3 within it, spanning until next `## `). Note: section_span breaks only on `## ` — the LAST H3 under Decision table is `### Register craft` at 354, and the next `## ` is `## Error patterns` at 468 — wait, there's a big gap 354→468; the new H3 would be inserted somewhere in Decision table before `## Error patterns`. Fine.
+
+  One question: the claim says the table goes "under `## Decision table`" — the counter itself only requires the H3 heading anywhere (section_span finds `### Registry correction chains` and spans to next `## `). If placed after `## Error patterns` (e.g., under a later `##`), SIGNATURES leg would fail because the Error patterns section span wouldn't contain the signatures... Actually SIGNATURES checks that each row's error signature appears within the Error patterns section text. If the table were placed between `## Error patterns` and `## Boundaries`, then section_span(HEADING) would span the table until `## Boundaries`, and the Error-patterns section (468→509) would... the table heading inside Error patterns section means ep_text INCLUDES the table text! Then signatures trivially appear in ep_text (they're in the table). That's a counter laxity: placing the table INSIDE the Error patterns section auto-passes SIGNATURES. Worth one line as a counter-laxity note (not exploitable by us — the claim says table goes under Decision table — but a depth finding: the SIGNATURES leg is satisfiable by placement, not by genuine linkage). Good adjacency finding.
+
+  10. Also — STAMP leg: `HERE` = reports/round-69; `mine = sha256 of the script being run`; `committed = sha256 of reports/round-69/accept-d.py at root`. If run as `python3 -B reports/round-69/accept-d.py --root .` from the lane root, they're the same file → PASS trivially. Fine.
+
+  Now — "which are honest to cite for which state row" matrix, plus re-runnable verdicts:
+
+  Path inventory with test -f (working copy) + git cat-file -e (base rev):
+  | path | working copy | base rev | re-runnable? | honest for |
+  |---|---|---|---|---|
+  | tools/check-supersession-settlement.py | EXISTS | AT-BASE | YES: --selftest 7/7, --scan rc0, --ledger rc0 | ALL five states (classifier branches :123/:125/:127/:129/:132) |
+  | reports/round-68/dispositions/dedup-ledger.tsv | EXISTS | AT-BASE | YES as tool input (rows=82 findings=0) | settled-active/retired/closed/split (exemplar rows); NOT honest for pending (no pending rows by construction) |
+  | reports/round-68/telemetry/final-measures-o.txt | EXISTS | AT-BASE | NO (receipt transcript; stamped rev 44c9cc28, ancestor of base) | historical context (PENDING=0 at r68; R68-M1 EXEC FAIL); not a per-state runnable |
+  | corpus/lessons/round-68.md | EXISTS | AT-BASE | NO (narrative) | background for all states (settlement narrative, R68-M1); secondary citation only |
+  | "the r68 ledger" | = dedup-ledger.tsv (only ledger in reports/round-68/) | — | — | — |
+  | .ufo/waves/round-68/rows/<seat>/audit.md (A–G, AuditChain8) | EXISTS | AT-BASE | NO (human audits) | per-chain evidence named in ledger evidence column (e.g. RevAuditB for S126>S105) |
+  | tools/check-settlement-fixture.py (r69 instrument) | EXISTS | NOT-AT-BASE (added in declaration commit) | presumably yes (not run — O2's surface, not mine) | only from the declaration commit forward; do-not-cite for "before" claims |
+  | corpus/lessons/round-69.md | MISSING | NOT-AT-BASE | n/a | DEAD POINTER until r69 data lands |
+  | reports/round-69/corrections-r68.md | MISSING | NOT-AT-BASE | n/a | DEAD POINTER until Ca2 data lands |
+  | corpus/SOURCES.md S859 row | absent (grep S859 → 0) | — | — | staged: SOURCE leg fails until landed |
+
+  Also the em-dash check: "S859 — tools/..." uses an em-dash with spaces; PATH_RE tokenization fine.
+
+  One more useful check for the writer: the EVIDENCE leg counts each row independently; a row citing ONLY `S859` (no path) fails. And citations like `corpus/SOURCES.md` alone would pass EVIDENCE (path exists) but are weak (the file exists regardless of S859). Honest Evidence cells: `S859 — tools/check-supersession-settlement.py:<branch-line>` or `tools/check-supersession-settlement.py:<branch> — reports/round-68/dispositions/dedup-ledger.tsv`.
+
+  Let me also double-check the fixture table's Evidence cells parse: `S859 — tools/check-supersession-settlement.py:112` — tokens: `tools/check-supersession-settlement.py` ✓ exists → EVIDENCE passes per row. And SID_RE finds S859 → SOURCE needs the S859 SOURCES row (fixture injects it in the fixture root; in the real tree, the data must land it). Consistent with my analysis.
+
+  Do I need anything else? The task says "List every path the round-68 settlement work actually committed that a reader can re-run ... with test -f output". I have test -f output for the four named + tools/check-settlement-fixture.py + accept-d.py. Also include the per-seat audits (the ledger's own evidence column names them — a reader following the ledger needs them; test -f shown for 4 of 8). Maybe list all 8 quickly? They all appeared in the base ls-tree, so existence at base is proven. I have test -f for 4. Good enough; I'll cite the ls-tree as evidence for the rest.
+
+  Also "say which are honest to cite for which state row" — the matrix above. And "Flag any that would be a dead pointer" — done.
+
+  One more subtle EVIDENCE-leg hazard worth testing (depth!): PATH_RE on a token like `tools/check-supersession-settlement.py:112` — regex `[A-Za-z0-9_./-]+\.(?:py|md|tsv|txt|json|ya?ml)` is greedy; the match stops at `.py` because `:` is not in the class. ✓. But what about a Windows-style backslash or a `~/` path? Not in class → unmatched → fail. And a citation `corpus/knowledge/a.md` exists only if the file exists — fine in the lane.
+
+  Let me ALSO quickly sanity-run accept-d.py on the current (do-nothing) tree to confirm it FAILs now (SECTION missing) — that's the do-nothing control at the lane level and demonstrates the pre-data state honestly:
+  `python3 -B reports/round-69/accept-d.py --root .` → expect LEG SECTION FAIL + ACCEPT-D-69: FAIL. That's a real command + output for the report. And `python3 -B reports/round-69/accept-d.py --selftest` → GREEN PASS / DO-NOTHING FAIL — shows the controls work. These are read-only (selftest writes to a tempdir). Run both.
+
+  Also verify the controls.txt pre-data receipt exists for accept-d (reports/round-69/telemetry/controls.txt — committed per goal). Quick grep of it for the D2 section to confirm the pre-data controls were recorded. Let me read it (small).
+
+  Final batch:
+  1. Bash: `python3 -B reports/round-69/accept-d.py --root .; echo rc=$?; python3 -B reports/round-69/accept-d.py --selftest; echo rc=$?`
+  2. Read reports/round-69/telemetry/controls.txt
+
+  Then write the report file and finish. Time check: well within budget.
+
+  For the report structure (markdown, exact commands + real output, VERDICT lines):
+
+  # CritD3 — round-69 w1 — D2 evidence-rule attack
+  - Scope, measured revisions (HEAD 6a98d7d = declaration commit; base 793f7974; receipt rev 44c9cc28 ancestry proven)
+  - VERDICT lines up front:
+    - VERDICT: PASS — the evidence rule is satisfiable today: every state row can cite a path that exists at base AND HEAD (tools/check-supersession-settlement.py, the ledger)
+    - VERDICT: FAIL-risk findings (fixture line mis-points; staged dead pointers)
+    Actually verdicts should be per-finding. Let me structure:
+    - VERDICT (evidence rule satisfiable at measured revision): PASS
+    - VERDICT (fixture settled-retired pointer :129): FAIL — mis-pointed branch
+    - VERDICT (EVIDENCE leg strength): WEAK — path-existence only; line numbers unpoliced
+    - VERDICT (staged r69 paths as Evidence): DEAD-POINTER-UNTIL-LANDS (lessons/round-69.md, corrections-r68.md, S859 row)
+    - VERDICT (ledger honest for pending): NOT-HONEST — no pending rows by construction
+  - Command log with outputs
+  - Path inventory table
+  - State → honest citation matrix
+  - Counter-laxity notes (SIGNATURES placement laxity; PATH_RE; line-number honesty)
+  - Recommendation for the landed table (exact Evidence cells)
+
+  Keep it tight but deep. Now run the final batch.
+
+== accept-d against current (do-nothing) tree ==
+LEG PASS STAMP self=06b0352a0288 committed=06b0352a0288
+LEG FAIL SECTION heading=### Registry correction chains
+LEG FAIL TABLE no decision table
+LEG FAIL STATES no decision table
+LEG FAIL FIELDS no decision table
+LEG FAIL SIGNATURES no decision table
+LEG FAIL EVIDENCE no decision table
+LEG FAIL SOURCE no decision table
+ACCEPT-D-69: FAIL legs=1/8
+rc=1
+
+== accept-d selftest (green + do-nothing controls) ==
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 1/8)
+SELFTEST: 2/2
+rc=0
+• Everything verified. My re-runs match the committed pre-data controls exactly (accept-d selftest 2/2, green 8/8, do-nothing 1/8). Now write the report.
+
+  Key content for CritD3.md:
+
+  1. **Verdicts** (each as VERDICT line):
+     - Evidence rule satisfiable at the measured revision: PASS — at least one existing, re-runnable path available for every one of the five rows.
+     - GREEN fixture's settled-retired pointer: FAIL (mis-pointed branch; counter can't see it).
+     - EVIDENCE leg strength: WEAK (path existence only, no line-number or content check).
+     - Pending row citing the ledger: NOT-HONEST (ledger has no pending rows by construction).
+     - Staged r69 paths (lessons/round-69.md, corrections-r68.md, S859 row): DEAD-POINTER until landed.
+     
+  2. **Revisions measured**: HEAD = 6a98d7d042b6c58d2165773b1585069798111035 (declaration commit: adds reports/round-69/* + tools/check-settlement-fixture.py on top of base 793f7974...). Base rev contains all r68 settlement artifacts (git cat-file -e all AT-BASE). Receipt revision 44c9cc28 is an ancestor of base (merge-base check YES).
+
+  3. **test -f inventory** with outputs.
+
+  4. **Re-run demonstrations** with full outputs (selftest 7/7, scan 47 chains pending=0 usedby_paths=709 missing_paths=0 rc=0 — byte-matching the r68 receipt's PENDING line, ledger rows=82 findings=0 rc=0).
+
+  5. **State → honest citation matrix**:
+     - pending: tool :132–133 (else). NOT the ledger (no pending rows — r68 settled all 34). Honest Evidence: `tools/check-supersession-settlement.py:132` (+ selftest FIX1 line "PASS pending-detected"). Fixture cites :112 = `def classify(...)` — imprecise but not false.
+     - settled-active: tool :127–128. Ledger exemplar S126>S105 activate/repoint (RevAuditB audit). ✓ fixture :127 correct.
+     - settled-retired: tool :125–126. Ledger exemplars: S132>S094 keep-reject ("settled-retired at base"); retire rulings S070>S060 / S125>S095 / S186>S157. ✗ fixture cites :129 = split branch — copy-nothing.
+     - settled-closed: tool :123–124. Ledger exemplars S574>S159, S651>S643 (keep-successor, "settled-closed at base"). ✓ fixture :123 correct.
+     - settled-split: tool :129–131. Ledger exemplar S575>S420 keep-split (the only split chain, for-entry-only limiter). Fixture :130 acceptable (inside branch), branch head is :129.
+
+  6. **Dead pointers**:
+     - corpus/lessons/round-69.md — MISSING (test -f). Planned by claims.json "sourced" field. Dead until data lands; do not cite from any pre-data artifact; fine at measured revision only after landing.
+     - reports/round-69/corrections-r68.md — MISSING. Same.
+     - `S859` alone as an Evidence cell — PATH_RE finds no token → row fails EVIDENCE. Must pair the S-id with a real path.
+     - corpus/SOURCES.md has 0 rows with used-by naming SKILL.md and no S859 (grep counts) → SOURCE leg depends entirely on the S859 row landing; until then any table citing only pre-existing rows fails SOURCE.
+     - Fixture's settled-retired :129 — mis-aimed pointer (invisible to the frozen counter; the landed table must not copy it).
+
+  7. **Counter laxities** (depth/adjacency):
+     - EVIDENCE: `os.path.exists` only — line numbers, file content, and row relevance unpoliced; a table citing `tools/check-supersession-settlement.py:99999` would pass.
+     - SIGNATURES: section_span breaks only on `## ` — placing the H3 table inside `## Error patterns` would make ep_text contain the signatures trivially (placement shortcut exists, though claims.json pins placement under `## Decision table`).
+     - PATH_RE: extension-bearing tokens only; directory paths would also pass exists().
+     - STAMP: trivially self-consistent when run from the lane's own reports/round-69 copy.
+     - TABLE/STATES/FIELDS are strict (5 header cells, exactly the five state names in order, no empty cells) — those are solid.
+
+  8. **Recommended Evidence cells for the landed table** (one line each) — e.g.:
+     - pending: `S859 — tools/check-supersession-settlement.py:132 (selftest prints PASS pending-detected)`
+     - settled-active: `S859 — tools/check-supersession-settlement.py:127; ledger row S126>S105`
+     - etc. All cited paths exist at base AND HEAD.
+
+  9. Note: dedup-ledger.tsv evidence column cites .ufo/waves/round-68/rows/<seat>/audit.md — those exist at base (ls-tree) but are wave-scratch; durable SKILL.md citations should prefer tools/+reports/+corpus/ paths.
+
+  Keep the report focused. Write it now with Write tool. Then end with the Report: trailer line.
+
+• Report written. Final answer: summarize the key findings concisely, then end with the single line 'Report: .ufo/waves/round-69/w1/CritD3.md'.
+
+To resume this session: kimi -r session_2e6ddf54-f6f9-4ffc-b4a9-84029ff8ca7f

@@ -1,0 +1,582 @@
+kimi version 2.3.1
+• Let me parse the task:
+
+  1. I'm a leaf member in a round-69 wave, judged on depth axis.
+  2. My job: Mutation-test the SIGNATURES leg of `reports/round-69/accept-d.py`:
+     - Copy it to /tmp
+     - Drop the requirement that each signature appears in SKILL.md's `## Error patterns` section
+     - Run the copy against a fixture whose signature names appear nowhere
+     - Show it passes
+     - Then run the unmodified counter with `--selftest` and paste output
+     - Report whether the error-signature linkage can be skipped
+  3. Write report to `/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutD2.md`
+
+  I'm read-only on production bytes; only write my report file and /tmp scratch.
+
+  Let me start by reading the relevant files:
+  - `/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-69/accept-d.py`
+  - Maybe claims.json to understand the D2 claim
+  - `/home/vgpnk/.omp/agent/RULES.md` — only needed if I install anything; I likely don't need to install anything.
+
+  Let me do this in parallel: read accept-d.py, claims.json, and list the round-69 dir.
+
+  Then:
+  1. Understand how accept-d.py works — its SIGNATURES leg.
+  2. Understand how it resolves paths (SKILL.md path, fixtures).
+  3. Create a fixture in /tmp whose signature names appear nowhere.
+  4. Copy accept-d.py to /tmp, mutate the copy to drop the `## Error patterns` requirement.
+  5. Run mutated copy against the fixture → show PASS.
+  6. Run unmodified with --selftest → paste output.
+  7. Write report.
+
+  Let me begin.total 48
+drwxr-xr-x 1 vgpnk vgpnk   130 Oct 24 23:15 .
+drwxr-xr-x 1 vgpnk vgpnk  1056 Oct 24 23:10 ..
+-rw-r--r-- 1 vgpnk vgpnk 14419 Oct 24 23:15 accept-ca.py
+-rw-r--r-- 1 vgpnk vgpnk 10850 Oct 24 23:14 accept-d.py
+-rw-r--r-- 1 vgpnk vgpnk  9767 Oct 24 23:11 accept-o.py
+-rw-r--r-- 1 vgpnk vgpnk  7709 Oct 24 23:14 claims.json
+drwxr-xr-x 1 vgpnk vgpnk    48 Oct 24 23:14 __pycache__
+drwxr-xr-x 1 vgpnk vgpnk   102 Oct 24 23:16 telemetry
+assemble-culture-d3.py
+assemble-culture-d4.py
+assemble-d2.py
+assemble-d2-typed.py
+assemble-d4-typed.py
+check-cited-lines.py
+check-claim-separability.py
+check-craft-exercise.py
+check-draft-ids.py
+check-evidence-coupling.py
+check-gate-battery.py
+check-gate-quotes.py
+check-judged-object.py
+check-readme-heading.py
+check-readme-revisions.py
+check-receipt-seq.py
+check-row-fragments.py
+check-settlement-fixture.py
+check-source-access.py
+check-supersession-settlement.py
+d2-typed-labels.py
+exercise-handoff-e2e.py
+gates
+harness
+__pycache__
+reopen-row.py
+replay-frozen.py
+source-audit-inventory.py
+I've read accept-d.py. Now I understand its structure:
+
+  Key legs:
+  - STAMP: sha256 of itself vs the committed copy at `<root>/reports/round-69/accept-d.py` — interesting: when run from a /tmp copy, `HERE` is the /tmp dir, so `sha256_file(os.path.join(HERE, SELF))` is the hash of the /tmp copy (mutated), and committed is `<root>/reports/round-69/accept-d.py`. So the STAMP leg would FAIL for a mutated copy unless the fixture's committed copy is also the mutated one. For the mutation test, I need the fixture root to contain the mutated copy as the "committed" accept-d.py so that STAMP passes and the SIGNATURES leg difference is the only change. Actually — the build_fixture_root function copies the LANE's accept-d.py into the fixture. For my mutation test I should build my own fixture and place the MUTATED copy into the fixture's reports/round-69/accept-d.py so STAMP passes.
+
+  - SECTION: find heading `### Registry correction chains`.
+  - TABLE: 5 header cells, 5 rows.
+  - STATES: row states match.
+  - FIELDS: no empty cells, 5 cells per row.
+  - SIGNATURES: r[3] (Error signature column) must appear in the `## Error patterns` section text. THIS is the leg I attack.
+  - EVIDENCE: r[4] tokens that exist as paths under root.
+  - SOURCE: S-rows mined with used-by SKILL.md in corpus/SOURCES.md.
+
+  My mutation task: copy accept-d.py to /tmp, drop the requirement that each signature appears in SKILL.md's `## Error patterns` section. Then run the copy against a fixture whose signature names appear nowhere and show it passes. Then run the unmodified counter with --selftest and paste the output. Report whether the error-signature linkage can be skipped.
+
+  Plan:
+  1. Create fixture in /tmp: a tree with SKILL.md containing the decision table (FIXTURE_TABLE with signature names in column 4) but the `## Error patterns` section NOT containing those signature names (or no Error patterns section at all), corpus/SOURCES.md with the S859 mined row with used-by SKILL.md, tools/check-supersession-settlement.py present (for EVIDENCE paths), and the MUTATED accept-d.py at reports/round-69/accept-d.py (so STAMP passes).
+
+  Wait — for EVIDENCE leg: r[4] contains "S859 — tools/check-supersession-settlement.py:112". PATH_RE finds tokens matching `[A-Za-z0-9_./-]+\.(?:py|md|tsv|txt|json|ya?ml)` → "tools/check-supersession-settlement.py" (also S859? no, that has no extension match... Actually PATH_RE would match "tools/check-supersession-settlement.py" — need that path to exist under the fixture root). So fixture needs tools/check-supersession-settlement.py.
+
+  Also NOTE: the mutated counter, when run with --root fixture, computes HERE = dirname of the mutated file. If I run the /tmp copy directly (python /tmp/mutant-accept-d.py --root /tmp/fixture), then HERE=/tmp, SELF=mutant name; mine = sha of /tmp mutant; committed = fixture/reports/round-69/accept-d.py — I need to put the same mutated bytes there for STAMP to pass.
+
+  Also the fixture needs corpus/knowledge? No leg reads that. Only SOURCES.md matters for SOURCE leg, and SKILL.md.
+
+  Wait — actually does the counter check tools path? EVIDENCE checks os.path.exists(os.path.join(root, tok)) for toks from r[4]. r[4] = "S859 — tools/check-supersession-settlement.py:112". PATH_RE on that: "S859" no; "— tools/check-supersession-settlement.py" — hmm, the em-dash is not in the char class, so the token starts at "tools/check-supersession-settlement.py"? Actually the regex `[A-Za-z0-9_./-]+\.(?:py|...)` — "tools/check-supersession-settlement.py" matches fully (the ":112" after .py is not included since `py` ends the match... wait, `\.(?:py|md|...)` — after ".py" the match ends; ":112" is not part). Good — need the file to exist under fixture root.
+
+  So the fixture needs:
+  - SKILL.md (base from lane SKILL.md with table inserted, but WITHOUT signature names in Error patterns — that's my "signatures appear nowhere" condition... wait, task says "run the copy against a fixture whose signature names appear nowhere". Hmm: "a fixture whose signature names appear nowhere" — meaning the signature names appear nowhere in SKILL.md's Error patterns? Or nowhere at all?
+
+  Let me re-read: "run the copy against a fixture whose signature names appear nowhere and show it passes". The mutation drops the requirement that each signature appears in `## Error patterns`. So the fixture should have signature names NOT in the `## Error patterns` section. To be maximally strong, make them appear nowhere in SKILL.md except the table itself (the table needs them since STATES/TABLE/FIELDS legs check the table). Actually the signature column r[3] is in the table. So "signatures appear nowhere [in the Error patterns section]". The strongest fixture: table present (required by other legs), Error patterns section present but WITHOUT the five signatures. Even stronger: no `## Error patterns` section at all. Let me test both:
+
+  Fixture A: `## Error patterns` section exists but contains none of the five signature names → mutated counter must PASS, unmodified must FAIL (SIGNATURES leg catches it).
+
+  That demonstrates the linkage is the only thing tying signatures to Error patterns.
+
+  To be careful with STAMP: the mutated file must be placed at fixture/reports/round-69/accept-d.py with identical bytes to the /tmp mutant.
+
+  Also careful: running the unmodified counter with --selftest: `python3 reports/round-69/accept-d.py --selftest` from the lane. That's read-only — fine.
+
+  Also I should run the unmodified counter against fixture A to show it FAILS the SIGNATURES leg while the mutant passes — that's the mutation differential, proving the check is load-bearing... wait no. Actually the task: "Mutation-test the SIGNATURES leg ... show it passes" — the mutated copy passes on the fixture where signatures appear nowhere. Then "Report whether the error-signature linkage can be skipped."
+
+  Hmm, wait. Careful with the direction here: a "mutation test" usually means: kill the mutant (the check catches it). But the task explicitly says to drop the requirement and show the copy passes — this demonstrates that the linkage is skippable IF you mutate the counter, i.e., it measures whether the SIGNATURES leg's enforcement is self-contained / whether a cheater could bypass it by editing the counter. But note the STAMP leg: the counter hashes itself against the committed copy — that's an anti-tamper measure. If someone edits the counter, STAMP fails. But in MY mutation test, I ALSO replaced the committed copy in the fixture with the mutated bytes — which shows the STAMP is only a weak protection (in the real lane, the committed copy is protected by git/jj history, so tampering is detectable — the L1 would notice the reports/round-69/accept-d.py digest change vs. git).
+
+  Important nuance to report: the SIGNATURES leg CAN be skipped by editing the counter, but STAMP leg detects a mutated counter as long as the committed copy at reports/round-69/accept-d.py is intact (protected by VCS). Let me demonstrate both:
+  1. Mutant + fixture-with-mutant-as-committed → PASS (shows the leg logic is the only enforcer within one counter run).
+  2. Mutant against the REAL lane reports/round-69/accept-d.py as committed (i.e., fixture committed copy = original bytes) → STAMP FAILs, showing tamper-evidence.
+
+  Actually let me structure:
+  - /tmp/mutd2/mutant-accept-d.py — mutated copy.
+  - /tmp/mutd2/fixture-a/ — fixture with table present, Error patterns present but signatures absent, committed copy = mutant bytes.
+  - Run: python3 /tmp/mutd2/mutant-accept-d.py --root /tmp/mutd2/fixture-a → expect all legs PASS (SIGNATURES PASS trivially because the requirement was dropped).
+  - Also run the ORIGINAL unmodified accept-d.py from lane against fixture-a with the mutant bytes at the committed path → STAMP fails (self != committed) AND SIGNATURES fails. Hmm — to isolate the SIGNATURES differential, I'd want the original to also pass STAMP. For that, fixture-b: same tree but committed copy = original bytes; run original lane counter with --root fixture-b → STAMP PASS, SIGNATURES FAIL (missing=...) → exit 1. That's the clean differential: same tree, original counter fails, mutant passes → the mutation is sufficient to skip the linkage, and the ONLY thing that detects it is STAMP (self-hash against committed copy).
+  - Then also run mutant against a fixture whose committed copy is the ORIGINAL bytes → STAMP FAIL → shows VCS-committed counter hash makes silent skip detectable.
+
+  And build fixture with signatures nowhere: Let me check what "appear nowhere" means precisely — the five signatures: chain-left-pending, entry-not-repointed, retired-row-mined, closed-chain-kept, scope-limiter-missing. In fixture-a SKILL.md: the table has them in the Error signature column (required by TABLE/STATES/FIELDS legs... wait, actually does the SIGNATURES leg require the table? The table legs TABLE/STATES/FIELDS require the 5 rows with non-empty cells. r[3] non-empty required by FIELDS. So the table must contain them). The Error patterns section will contain none of them.
+
+  Hmm, actually wait — could I make the fixture where signatures appear nowhere AT ALL? Then TABLE would fail (r[3] empty → FIELDS fail), STATES would fail (rows with empty first cell? no, first cell is state name...). Let me think: if I put a table without the signature column values, FIELDS fails (empty cells) and SIGNATURES would check r[3] only when len(r)>=4 and r[3] non-empty — empty signatures are skipped! So actually the unmodified counter would fail via FIELDS, not SIGNATURES. The cleanest demonstration keeps the table intact and only strips signatures from `## Error patterns` — that isolates exactly the SIGNATURES leg.
+
+  But the task says "a fixture whose signature names appear nowhere" — I'll interpret as "appear nowhere outside the table (i.e., not in `## Error patterns`, the linkage target)". Actually to honor the wording maximally, I can ALSO make fixture-c where the signature names appear nowhere in the entire SKILL.md except... hmm, they'd appear in the table. Unless... they appear nowhere means nowhere in the Error patterns section AND nowhere else in the doc. The table cells contain them, that's unavoidable for a PASS on TABLE/FIELDS/STATES. I'll note that in the report.
+
+  Alternative reading: fixture's Error patterns contains no signature names at all — "the signature names appear nowhere [in the Error patterns section]". I'll go with: Error patterns section exists (with unrelated content), five signature names appear nowhere in it. And I'll also note the table itself necessarily carries them (checked by TABLE/FIELDS).
+
+  Mutation of the counter: drop the SIGNATURES requirement. The most surgical mutation: replace the `res.add("SIGNATURES", not missing_sig, ...)` with `res.add("SIGNATURES", True, "mutation: linkage dropped")`. Or compute missing_sig but pass unconditionally. I'll do a minimal edit: change `not missing_sig` to `True` and detail to say mutated. Keep the ep_text computation to show what was dropped? Simpler: keep code but force ok=True. Let me write the mutation as a small patch applied with python (in /tmp, on the copy).
+
+  Actually, simplest and most auditable: create the mutant with a Python one-liner replacing the exact string:
+
+  ```python
+  src.replace('res.add("SIGNATURES", not missing_sig,\n            "missing=%s" % (missing_sig or "none"))',
+              'res.add("SIGNATURES", True,\n            "MUTATED: linkage dropped (would-be missing=%s)" % (missing_sig or "none"))')
+  ```
+
+  That drops the requirement.
+
+  Now the fixture SKILL.md: build from lane SKILL.md, inserting FIXTURE_TABLE before `## Error patterns` and adding FIXTURE_SIGNATURES after `## Error patterns` — wait no! I must NOT add the fixture signatures to Error patterns. Base fixture: lane SKILL.md + table inserted before `## Error patterns`, but NO signature rows added to Error patterns. And verify the five names do not already appear in lane SKILL.md's Error patterns (they shouldn't — the table isn't landed yet; SKILL.md may not even have `## Error patterns`... let me check. If lane SKILL.md lacks `## Error patterns`, section_span returns (None, None), ep_text = "" and the unmodified SIGNATURES would fail on the fixture too — good, even stronger: signatures appear nowhere in the entire doc outside the table.
+
+  Let me check the lane SKILL.md structure first.
+
+  Also for SOURCES.md in fixture: need an S859 row with cells[7]=="mined" and "SKILL.md" in cells[10], 11 cells. build_fixture_root does exactly this. But build_fixture_root ALSO adds signatures to Error patterns (with_table=True path adds FIXTURE_SIGNATURES into Error patterns). So I can't use build_fixture_root as-is for fixture-a; I'll write my own small builder script in /tmp that reuses the counter's constants by importing it? Importing the module would execute argparse? No — importing is fine (main guarded). I can `import importlib.util; load /tmp/mutd2/orig-accept-d.py` and use FIXTURE_TABLE, build_fixture_root(with_table=False)? That gives base SKILL.md unchanged (no table). Hmm, with_table=False gives plain lane SKILL.md. Then I add the table myself before `## Error patterns` (if present) and no signatures.
+
+  Plan for builder (all in /tmp):
+  1. Copy original accept-d.py → /tmp/mutd2/orig-accept-d.py; also mutant via patch.
+  2. Build fixture dirs:
+     - fixture-a: for mutant run. Contents: SKILL.md (lane base + FIXTURE_TABLE inserted before "## Error patterns" or appended if heading absent; no signature rows in Error patterns), corpus/SOURCES.md (lane copy + S859 row if absent), tools/check-supersession-settlement.py (copy), reports/round-69/accept-d.py = MUTANT bytes (for STAMP).
+     - fixture-b: same SKILL.md/SOURCES/tools, but reports/round-69/accept-d.py = ORIGINAL bytes. Run ORIGINAL lane counter --root fixture-b → expect STAMP PASS, SIGNATURES FAIL, overall FAIL exit 1. This is the "unmutated control kills the do-nothing mutant" — proving SIGNATURES leg is load-bearing on this fixture.
+     
+     Wait, but fixture-b's committed copy is the original counter. Running the ORIGINAL lane counter against fixture-b: mine = sha(lane/reports/round-69/accept-d.py)... HERE when running `python3 /lane/reports/round-69/accept-d.py --root /tmp/fixture-b` → HERE = lane/reports/round-69, committed = fixture-b/reports/round-69/accept-d.py = original bytes = same → STAMP PASS. Good.
+     
+     Hmm wait, but there's a subtlety: is lane's committed accept-d.py identical to what I copy? I'm copying the file itself, so yes, identical bytes trivially.
+     
+     - fixture-c (tamper evidence): SKILL.md/SOURCES/tools same; committed copy = ORIGINAL bytes; run MUTANT --root fixture-c → STAMP FAIL (self=mutant hash vs committed=original hash), others PASS except SIGNATURES passes trivially → overall FAIL due to STAMP. This shows: skipping the linkage by mutating the counter is detected when the committed counter copy is intact (as in the real lane, where reports/round-69/accept-d.py is committed in git/jj at the declaration).
+
+  3. Verify five signature names appear nowhere in fixture-a SKILL.md outside the table → grep counts: name count == 1 each (table only). And `## Error patterns` section in fixture-a: does lane SKILL.md even have it? Check.
+
+  4. Run mutant --root fixture-a → expect all legs PASS → "ACCEPT-D-69: PASS legs=N/N".
+
+  5. Run original --root fixture-b → expect SIGNATURES FAIL → ACCEPT-D-69 FAIL legs=(N-1)/N, exit 1.
+
+  6. Run mutant --root fixture-c → STAMP FAIL → FAIL.
+
+  7. Run unmodified lane counter with --selftest → paste output.
+
+  8. Also maybe run the unmodified counter against the real lane root? Not required; SKILL.md table not landed yet so it'd FAIL. Could be a useful context line but not required. Skip or include briefly — actually it might be informative: `python3 reports/round-69/accept-d.py --root .` → expect FAIL since data not landed. Not part of task; skip to stay scoped. Hmm, it's cheap and contextual. I'll include it as context with a NOT-EVALUATED-ish note... Actually careful: verdicts are about my scoped question. I'll include it as context.
+
+  Also "Report whether the error-signature linkage can be skipped." Answer: Yes — within a single counter invocation, the SIGNATURES leg is the only enforcement, and mutating the counter drops it while all other legs still pass; BUT the counter is self-stamping (STAMP leg hashes its own bytes against the committed copy at reports/round-69/accept-d.py), so a mutated counter fails STAMP unless the committed copy is also replaced — in the real lane the committed copy is under jj/git at the declared base revision 793f79746712a79f915bb481215e54bbea8b5e7a, so silent skip requires also mutating the committed counter, which is a detectable production-file change. Caveat: STAMP compares the RUNNING file's hash to the tree copy — if someone replaces BOTH the tree copy and runs the mutated one from the same location... the tree copy mutation is visible in `git status`/jj diff vs. the committed revision. So linkage can be skipped only by a visible mutation of a committed production file — the enforcement is tamper-evident, not tamper-proof. That's the finding.
+
+  Let me also double check the SIGNATURES leg code once more:
+
+  ```python
+  ep_start, ep_end = section_span(lines, "## Error patterns")
+  ep_text = "\n".join(lines[ep_start:ep_end]) if ep_start is not None else ""
+  missing_sig = [r[3] for r in rows if len(r) >= 4 and r[3]
+                 and r[3] not in ep_text]
+  res.add("SIGNATURES", not missing_sig, ...)
+  ```
+
+  Note: `section_span` scans for a line whose strip() == "## Error patterns", and ends at the NEXT line starting with "## ". So signature must be a substring of that section. A cheater could also satisfy the unmodified leg by putting the five names anywhere within the Error patterns section (even in one line). Interesting extra finding: substring matching means e.g. one bullet listing all five names passes; also signatures appearing in the section BEFORE the table is added... but that's the counter's design, fine to note briefly.
+
+  Another observation: if the `## Error patterns` heading is absent, ep_text = "" and every non-empty r[3] is missing → SIGNATURES fails. Good.
+
+  Now, let me also confirm lane SKILL.md has `## Error patterns` and no signatures yet. Let me grep.
+
+  Let me now execute. Steps:
+
+  1. mkdir /tmp/mutd2
+  2. Read/check lane SKILL.md for "## Error patterns" and the five signature names.
+  3. Write builder script /tmp/mutd2/build.py that:
+     - copies orig counter to /tmp/mutd2/orig-accept-d.py
+     - writes mutant with the patch
+     - builds fixture-a, fixture-b, fixture-c
+  4. Run the three counter runs + selftest + lane-context run.
+  5. Write report.
+
+  For the patch, I need the exact source text. From the Read output:
+
+  ```
+      missing_sig = [r[3] for r in rows if len(r) >= 4 and r[3]
+                     and r[3] not in ep_text]
+      res.add("SIGNATURES", not missing_sig,
+              "missing=%s" % (missing_sig or "none"))
+  ```
+
+  Patch: replace `res.add("SIGNATURES", not missing_sig,` with `res.add("SIGNATURES", True,  # MUTATION: linkage requirement dropped` and change detail to record would-be missing. Actually minimal: 
+
+  old: `res.add("SIGNATURES", not missing_sig,\n            "missing=%s" % (missing_sig or "none"))`
+  new: `res.add("SIGNATURES", True,\n            "MUTATED-linkage-dropped would_be_missing=%s" % (missing_sig or "none"))`
+
+  I'll do the replace in Python and assert the count of replacements == 1.
+
+  For fixture SKILL.md, I'll import constants from orig: FIXTURE_TABLE. Insertion: if "## Error patterns" in base: base = base.replace("## Error patterns", FIXTURE_TABLE + "\n## Error patterns", 1). Else: append FIXTURE_TABLE at end. Since build_fixture_root in the counter does the same first replace. I'll replicate manually and NOT add signatures.
+
+  Then also assert: for each of five signatures (I can extract them from FIXTURE_TABLE rows or hardcode), count occurrences in fixture SKILL.md == 1 (the table row only), and 0 in the Error patterns section.
+
+  For SOURCES.md: copy lane's, append the same S859 fixture row as build_fixture_root if "S859" not in text. Wait — actually lane SOURCES.md might already contain S859? S859 is "not landed yet". The fixture row uses `| S859 | fixture source — https://example.invalid/x | own-work | A | fixture | §1 | the fixture teaches | mined | 2026-10-24 | 90d | SKILL.md |` — 11 cells, cells[7]="mined", cells[10]="SKILL.md". I'll replicate exactly.
+
+  Hmm wait, one thing to check: lane corpus/SOURCES.md — does it contain an S859 row already? Let me grep. If it does with different cells, the append logic differs. I'll check.
+
+  EVIDENCE leg tokens: "tools/check-supersession-settlement.py" must exist under fixture root → copy lane tools/check-supersession-settlement.py into fixture. Also any other path tokens in r[4]? "S859 — tools/check-supersession-settlement.py:112" → only that one token. All five rows point to the same file. Good.
+
+  Also "corpus/knowledge/a.md"? Not needed by any leg. Skip (build_fixture_root creates it but no leg reads it — fine to skip; I'm building my own fixture).
+
+  STAMP leg paths: committed = os.path.join(root, "reports", "round-69", SELF). Need fixture/reports/round-69/accept-d.py.
+
+  Now, where do I run the counters from for the runs?
+  - Mutant: `python3 /tmp/mutd2/mutant-accept-d.py --root /tmp/mutd2/fixture-a`. HERE=/tmp/mutd2, mine=sha(mutant file), committed=fixture-a/reports/round-69/accept-d.py (mutant bytes) → STAMP PASS.
+  - Original on fixture-b: `python3 /home/vgpnk/.../reports/round-69/accept-d.py --root /tmp/mutd2/fixture-b` → HERE=lane reports/round-69, mine=sha(lane file)=committed(original bytes) → STAMP PASS, SIGNATURES FAIL.
+  - Mutant on fixture-c: STAMP FAIL.
+  - Selftest: `python3 /home/vgpnk/.../reports/round-69/accept-d.py --selftest`.
+  - Context: `python3 /home/vgpnk/.../reports/round-69/accept-d.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin` (read-only).
+
+  Also verify sha256 of lane committed counter vs git HEAD blob? Read-only git is allowed: `git rev-parse HEAD` and `git status --porcelain reports/round-69/accept-d.py` to confirm the committed copy is clean in the worktree (supports the tamper-evidence claim). jj-colocated — `git status` should be safe (read-only). Let me do `git status --porcelain` scoped and `git log -1 --format=%H -- reports/round-69/accept-d.py`. The base revision given: 793f79746712a79f915bb481215e54bbea8b5e7a. Check `git rev-parse HEAD` equals that.
+
+  Hmm — wait, is accept-d.py committed at the declaration? Task says claims.json etc. are "already committed". The worktree may have uncommitted stuff but accept-d.py should be committed. I'll verify with git status (read-only, allowed).
+
+  One more check — `## Error patterns` in lane SKILL.md: need to know for fixture construction. Let me grep SKILL.md.
+
+  Let me also grep lane SOURCES.md for S859.
+
+  Let me run these checks in parallel now.
+
+  Then write builder script, run everything, write report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutD2.md (need to mkdir -p .ufo/waves/round-69/w1 — writing my report file implies creating parent dirs; that's within my one-file write scope, mkdir is necessary scaffolding — allowed since I "may write EXACTLY ONE file: your own report file" and directories aren't files).
+
+  Wait, one consideration about the .ufo directory: does .ufo/waves/round-69/w1 exist already? Probably created by L1. I'll mkdir -p anyway.
+
+  Verdict lines: I need to state findings as VERDICT lines. Main verdict about whether SIGNATURES linkage can be skipped:
+  - VERDICT: PASS / FAIL semantics... The task framing: "Report whether the error-signature linkage can be skipped." I'll use:
+    - `VERDICT: SKIPPABLE-WITH-MUTATION` ... hmm, better to use the prescribed forms: VERDICT: PASS / FAIL / NOT-EVALUATED. I can have multiple verdict lines for sub-findings:
+      - MUTANT (linkage dropped) on signature-free fixture: VERDICT: PASS (legs all pass → linkage skipped successfully)
+      - UNMUTATED control on same tree: VERDICT: FAIL (SIGNATURES catches it → leg is load-bearing)
+      - TAMPER EVIDENCE: mutant vs intact committed copy → STAMP FAIL
+      - OVERALL ANSWER: linkage can be skipped only by mutating the counter AND replacing the committed copy — within-tree it's a visible production-file change; against the frozen committed counter the STAMP leg makes the skip detectable.
+
+  I'll phrase verdicts clearly:
+  - `VERDICT: PASS (mutant skips SIGNATURES: legs 8/8)` etc.
+
+  Let me now also double-check `section_span` for "## Error patterns" — headings: it checks `lines[j].startswith("## ")` for the END. But the table heading "### Registry correction chains" starts with "### " which does NOT start with "## "... wait, "### " does start with "## "? "###"[0:3] == "###", startswith("## ") checks first 3 chars == "## " — "###" third char is "#", not space. So no. OK. But careful in fixture construction: if FIXTURE_TABLE (which starts with "### Registry correction chains") is inserted BEFORE "## Error patterns", then when scanning for section "## Error patterns", end boundary is next "## " heading after it. Fine.
+
+  But ALSO: SECTION leg scans for "### Registry correction chains" heading and then parse_table finds first table after start. The table inserted right before "## Error patterns" — fine.
+
+  One more subtlety: `section_span(lines, "## Error patterns")` — if the lane SKILL.md does NOT have "## Error patterns" at all, fixture-b original counter: ep_text="" → SIGNATURES FAIL with all five missing. Good either way.
+
+  Also potential trap: lane SKILL.md might contain the word "chain-left-pending" etc. somewhere? They're new signatures for round-69; unlikely. The builder asserts counts.
+
+  Also — IMPORTANT: fixture-a's SKILL.md is built from lane SKILL.md which may contain other `| S...` rows? SOURCE leg only looks at SIDs found in the TABLE text (S859). Fine.
+
+  STATES leg: got = [r[0].lower() for r in rows] must equal list(STATES) = pending, settled-active, settled-retired, settled-closed, settled-split. FIXTURE_TABLE rows match. TABLE leg: header 5 cells "State | Row shape | Writer's next action | Error signature | Evidence" → 5. rows 5. FIELDS: all cells non-empty, each row 5 cells. Evidence cells contain em-dash "—" — cell split on "|": the FIXTURE_TABLE cells don't contain "|", good.
+
+  Wait, one gotcha in parse_table: header = split("|")[1:-1] — the separator row `|---|---|---|---|---|` is skipped because all cells are in set("-: "). Good.
+
+  Now execute. First the checks (parallel):
+  - grep SKILL.md for "## Error patterns" and the five names.
+  - grep SOURCES.md for S859.
+  - git rev-parse HEAD + status of reports/round-69/accept-d.py.
+
+  Then builder + runs.468:## Error patterns
+---sig-names-in-skill---
+0
+---S859-in-SOURCES---
+no S859 row
+---git-state---
+6a98d7d042b6c58d2165773b1585069798111035
+worktree counter clean vs index
+6a98d7d042b6c58d2165773b1585069798111035 round-69: declaration + three NEW counters (O2 operability, Ca2 calibration, D2 depth) with green and do-nothing pre-data controls; new lane-shaped settlement fixture harness; census start receipt; item-10 id-collision check
+    ep_start, ep_end = section_span(lines, "## Error patterns")
+    ep_text = "\n".join(lines[ep_start:ep_end]) if ep_start is not None else ""
+    missing_sig = [r[3] for r in rows if len(r) >= 4 and r[3]
+                   and r[3] not in ep_text]
+    res.add("SIGNATURES", not missing_sig,
+            "missing=%s" % (missing_sig or "none"))
+
+06b0352a0288be7a788bb65f243980c77e107e2e4795743b4c4e1a40cd490c10  reports/round-69/accept-d.py
+Python 3.14.8
+Notes:
+  - HEAD is 6a98d7d... not the base revision 793f797... mentioned in the goal. The lane is jj-colocated; the working copy may have moved (working-copy commit). The base revision 793f79746712a79f915bb481215e54bbea8b5e7a is what was given; HEAD commit 6a98d7d is "round-69: declaration + three NEW counters..." which touched accept-d.py. The worktree counter is clean vs index. Good enough — I'm read-only anyway. I could check `jj log` but read-only jj commands like `jj log` are fine (not mutating). Actually to be safe about jj state, `jj log` is read-only and fine. But not strictly needed. I'll note HEAD digest.
+  - Lane SKILL.md has "## Error patterns" at line 468; zero occurrences of the five signature names anywhere in SKILL.md. 
+  - No S859 row in corpus/SOURCES.md.
+  - Counter file sha256: 06b0352a0288be7a788bb65f243980c77e107e2e4795743b4c4e1a40cd490c10.
+
+  Since lane SKILL.md contains none of the five names, a fixture built from lane SKILL.md + FIXTURE_TABLE (no FIXTURE_SIGNATURES injection) has signature names appearing EXACTLY once each — in the table — and NOWHERE in `## Error patterns`. That's precisely the "signature names appear nowhere [in the linkage target]" fixture.
+
+  Now write the builder script /tmp/mutd2/build.py. It will:
+
+  1. orig = read lane counter; write /tmp/mutd2/orig-accept-d.py (byte-identical copy).
+  2. mutant = orig with SIGNATURES patch (assert exactly 1 replacement); write /tmp/mutd2/mutant-accept-d.py.
+  3. Import constants from orig module (FIXTURE_TABLE, and five signature names extracted from table rows).
+  4. Build three fixtures:
+
+  fixture common:
+  - SKILL.md: lane SKILL.md + FIXTURE_TABLE inserted before "## Error patterns" (first occurrence), no signature rows added to Error patterns.
+  - corpus/SOURCES.md: lane copy; append the S859 fixture row (same as build_fixture_root) since "S859" not in text.
+  - tools/check-supersession-settlement.py: byte copy from lane.
+  - reports/round-69/accept-d.py: fixture-a → mutant bytes; fixture-b → orig bytes; fixture-c → orig bytes.
+
+  Assertions in builder:
+  - "## Error patterns" in base skill.
+  - For each sig name: count in fixture SKILL.md == 1, and count in the Error patterns section text == 0.
+  - mutant != orig; patch landed exactly once.
+
+  5. Print summary.
+
+  Then the runs (separate Bash calls so outputs are clean):
+  - A: `python3 /tmp/mutd2/mutant-accept-d.py --root /tmp/mutd2/fixture-a; echo "exit=$?"`
+  - B: `python3 <lane>/reports/round-69/accept-d.py --root /tmp/mutd2/fixture-b; echo "exit=$?"`
+  - C: `python3 /tmp/mutd2/mutant-accept-d.py --root /tmp/mutd2/fixture-c; echo "exit=$?"`
+  - selftest: `python3 <lane>/reports/round-69/accept-d.py --selftest; echo "exit=$?"`
+  - context: unmodified counter against real lane root.
+
+  One check on the mutant: when the mutant runs with --root fixture-a, HERE=/tmp/mutd2, SELF="mutant-accept-d.py", committed=fixture-a/reports/round-69/accept-d.py — I write mutant bytes there → STAMP PASS. mine=sha(/tmp/mutd2/mutant-accept-d.py) equals committed sha. 
+
+  For fixture-b run of orig from LANE path: HERE = lane/reports/round-69, mine = sha(lane counter) = 06b0352a..., committed = fixture-b copy = orig bytes = same. STAMP PASS.
+
+  Edge: `import` of orig module to read FIXTURE_TABLE — use importlib.util.spec_from_file_location. Module executes top-level: argparse not executed (guarded), fine.
+
+  Patch exact strings (from the file):
+
+  old: 
+  ```
+      res.add("SIGNATURES", not missing_sig,
+              "missing=%s" % (missing_sig or "none"))
+  ```
+  new:
+  ```
+      res.add("SIGNATURES", True,
+              "MUTATED linkage-dropped would_be_missing=%s" % (missing_sig or "none"))
+  ```
+
+  Let me write the script.
+
+• Run the builder, then the three runs + selftest.Traceback (most recent call last):
+  File "/tmp/mutd2/build.py", line 118, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/mutd2/build.py", line 75, in main
+    assert skill_fx.count(s) == 1, "sig %s appears %d times" % (
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: sig --- appears 80 times
+My sig extraction picked up the separator row `|---|---|---|---|---|` whose cells are all "---", so row[3] = "---" got included. Filter: only rows where row[0] matches a state, or skip separator rows (all cells in "-: "). Let me fix the extraction: skip rows where all cells consist only of "-:" chars.
+
+Traceback (most recent call last):
+  File "/tmp/mutd2/build.py", line 119, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/mutd2/build.py", line 91, in main
+    with open(os.path.join(fx, "SKILL.md"), "w",
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              encoding="utf-8") as fh:
+              ^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/mutd2/fixture-a/SKILL.md'
+• The fixture dir doesn't exist yet — `os.makedirs(fx)` was never called before writing SKILL.md (only rmtree-if-exists). Need `os.makedirs(fx, exist_ok=True)`. The assertions all passed this time (we got past them), good.
+
+signatures under test: [' Error signature ', ' chain-left-pending ', ' entry-not-repointed ', ' retired-row-mined ', ' closed-chain-kept ', ' scope-limiter-missing ']
+mutation: 'res.add("SIGNATURES", True,\n            "MUTATED linkage-dropped would_be_missing=%s" % (missing_sig or "none"))'
+fixtures built at /tmp/mutd2/{{fixture-a,fixture-b,fixture-c}}
+  fixture-a: committed counter copy = MUTANT bytes
+  fixture-b: committed counter copy = ORIGINAL bytes
+  fixture-c: committed counter copy = ORIGINAL bytes
+=== sha check ===
+06b0352a0288be7a788bb65f243980c77e107e2e4795743b4c4e1a40cd490c10  orig-accept-d.py
+23efe0c0b790aaff06f3e70fe61ee4a4359e4d9b0dfc827466d3b95866dd89cc  mutant-accept-d.py
+23efe0c0b790aaff06f3e70fe61ee4a4359e4d9b0dfc827466d3b95866dd89cc  fixture-a/reports/round-69/accept-d.py
+06b0352a0288be7a788bb65f243980c77e107e2e4795743b4c4e1a40cd490c10  fixture-b/reports/round-69/accept-d.py
+06b0352a0288be7a788bb65f243980c77e107e2e4795743b4c4e1a40cd490c10  fixture-c/reports/round-69/accept-d.py
+• Fixtures built. Note: the "signatures" list includes ' Error signature ' (the header cell) — that's the table header's column name which appears twice (header + column label in... actually ' Error signature ' appears in the header row of the table; count==1 assertion passed so fine). The five real signatures each appear exactly once (in the table) and nowhere in the Error patterns section — the assertions passed.
+
+  Now the runs:
+
+  A: mutant --root fixture-a → expect ALL PASS (ACCEPT-D-69: PASS legs=9/9?)
+  Legs: STAMP, SECTION, TABLE, STATES, FIELDS, SIGNATURES, EVIDENCE, SOURCE = 8 legs.
+
+  B: original --root fixture-b → STAMP PASS, SIGNATURES FAIL, rest PASS → FAIL legs=7/8, exit 1.
+
+  C: mutant --root fixture-c → STAMP FAIL (mutant self-hash vs original committed), SIGNATURES PASS (mutated), others PASS → FAIL legs=7/8, exit 1.
+
+  D: selftest on unmodified lane counter → GREEN PASS, DO-NOTHING FAIL-as-required, SELFTEST 2/2.
+
+  E: context: unmodified counter against real lane → expect FAIL (table not landed).
+
+=== RUN A: MUTANT counter on fixture-a (signatures nowhere in Error patterns) ===
+LEG FAIL STAMP self=23efe0c0b790 committed=none
+LEG PASS SECTION heading=### Registry correction chains
+LEG PASS TABLE header=5 rows=5
+LEG PASS STATES states=['pending', 'settled-active', 'settled-retired', 'settled-closed', 'settled-split']
+LEG PASS FIELDS empty=none short=none
+LEG PASS SIGNATURES MUTATED linkage-dropped would_be_missing=['chain-left-pending', 'entry-not-repointed', 'retired-row-mined', 'closed-chain-kept', 'scope-limiter-missing']
+LEG PASS EVIDENCE unresolved=none
+LEG PASS SOURCE mined_used_by_SKILL=['S859', 'S859', 'S859', 'S859', 'S859']
+ACCEPT-D-69: FAIL legs=7/8
+exit=1
+
+=== RUN B: ORIGINAL lane counter on fixture-b (same tree) ===
+LEG PASS STAMP self=06b0352a0288 committed=06b0352a0288
+LEG PASS SECTION heading=### Registry correction chains
+LEG PASS TABLE header=5 rows=5
+LEG PASS STATES states=['pending', 'settled-active', 'settled-retired', 'settled-closed', 'settled-split']
+LEG PASS FIELDS empty=none short=none
+LEG FAIL SIGNATURES missing=['chain-left-pending', 'entry-not-repointed', 'retired-row-mined', 'closed-chain-kept', 'scope-limiter-missing']
+LEG PASS EVIDENCE unresolved=none
+LEG PASS SOURCE mined_used_by_SKILL=['S859', 'S859', 'S859', 'S859', 'S859']
+ACCEPT-D-69: FAIL legs=7/8
+exit=1
+=== RUN C: MUTANT counter against intact committed copy (fixture-c) ===
+LEG FAIL STAMP self=23efe0c0b790 committed=none
+LEG PASS SECTION heading=### Registry correction chains
+LEG PASS TABLE header=5 rows=5
+LEG PASS STATES states=['pending', 'settled-active', 'settled-retired', 'settled-closed', 'settled-split']
+LEG PASS FIELDS empty=none short=none
+LEG PASS SIGNATURES MUTATED linkage-dropped would_be_missing=['chain-left-pending', 'entry-not-repointed', 'retired-row-mined', 'closed-chain-kept', 'scope-limiter-missing']
+LEG PASS EVIDENCE unresolved=none
+LEG PASS SOURCE mined_used_by_SKILL=['S859', 'S859', 'S859', 'S859', 'S859']
+ACCEPT-D-69: FAIL legs=7/8
+exit=1
+
+=== RUN D: UNMODIFIED lane counter --selftest ===
+GREEN FIXTURE: PASS (legs 8/8)
+DO-NOTHING FIXTURE: FAIL (as required) (legs 1/8)
+SELFTEST: 2/2
+exit=0
+• Interesting — RUN A and RUN C show `STAMP ... committed=none`. The STAMP leg computed committed as None — meaning `sha256_file(os.path.join(root, "reports", "round-69", SELF))` returned None because the file doesn't exist. Why? SELF = os.path.basename(__file__) = "mutant-accept-d.py", not "accept-d.py"! The committed path becomes /tmp/mutd2/fixture-a/reports/round-69/mutant-accept-d.py — which doesn't exist. I placed the mutant bytes at fixture-a/reports/round-69/accept-d.py, but SELF uses the basename of the running script.
+
+  So my STAMP differential is confounded by the filename, not just the bytes. I need to name the mutant "accept-d.py" in its own directory: /tmp/mutd2/mutant/accept-d.py, so SELF="accept-d.py". Then:
+  - RUN A: run /tmp/mutd2/mutant/accept-d.py --root /tmp/mutd2/fixture-a → HERE=/tmp/mutd2/mutant, mine=sha(mutant), committed=fixture-a/reports/round-69/accept-d.py (mutant bytes) → STAMP PASS.
+  - RUN C: same mutant, --root fixture-c (original bytes at committed path) → STAMP FAIL with real digest mismatch.
+
+  Also note the STAMP detail formatting bug-ish: "committed=none" prints "(committed or 'none')[:12]" — fine.
+
+  Let me restructure: mkdir /tmp/mutd2/mutant; cp mutant-accept-d.py /tmp/mutd2/mutant/accept-d.py. Then re-run A and C. Also update builder? Simpler: just do a follow-up shell step that copies the mutant to the right name and rebuilds fixtures pointing at... wait, fixture committed copies: fixture-a committed copy is already mutant bytes (23efe0c0...) — correct bytes, just the runner path was wrong. So I only need to place the mutant at /tmp/mutd2/mutant/accept-d.py and re-run. fixture-b and fixture-c unchanged.
+
+  RUN A expected: STAMP PASS self=23efe0c0b790 committed=23efe0c0b790, SIGNATURES PASS (mutated), all 8 legs PASS → ACCEPT-D-69: PASS legs=8/8, exit 0.
+
+  RUN C expected: STAMP FAIL self=23efe0c0b790 committed=06b0352a0288, rest PASS → FAIL legs=7/8.
+
+  Then RUN B (original) and selftest already done and valid.
+
+  Let me re-run A and C with the correctly-named mutant.
+
+=== RUN A (fixed): MUTANT counter, properly named accept-d.py, on fixture-a (committed copy = mutant bytes; signatures nowhere in Error patterns) ===
+LEG PASS STAMP self=23efe0c0b790 committed=23efe0c0b790
+LEG PASS SECTION heading=### Registry correction chains
+LEG PASS TABLE header=5 rows=5
+LEG PASS STATES states=['pending', 'settled-active', 'settled-retired', 'settled-closed', 'settled-split']
+LEG PASS FIELDS empty=none short=none
+LEG PASS SIGNATURES MUTATED linkage-dropped would_be_missing=['chain-left-pending', 'entry-not-repointed', 'retired-row-mined', 'closed-chain-kept', 'scope-limiter-missing']
+LEG PASS EVIDENCE unresolved=none
+LEG PASS SOURCE mined_used_by_SKILL=['S859', 'S859', 'S859', 'S859', 'S859']
+ACCEPT-D-69: PASS legs=8/8
+exit=0
+
+=== RUN C (fixed): same MUTANT counter against fixture-c (committed copy = ORIGINAL bytes) ===
+LEG FAIL STAMP self=23efe0c0b790 committed=06b0352a0288
+LEG PASS SECTION heading=### Registry correction chains
+LEG PASS TABLE header=5 rows=5
+LEG PASS STATES states=['pending', 'settled-active', 'settled-retired', 'settled-closed', 'settled-split']
+LEG PASS FIELDS empty=none short=none
+LEG PASS SIGNATURES MUTATED linkage-dropped would_be_missing=['chain-left-pending', 'entry-not-repointed', 'retired-row-mined', 'closed-chain-kept', 'scope-limiter-missing']
+LEG PASS EVIDENCE unresolved=none
+LEG PASS SOURCE mined_used_by_SKILL=['S859', 'S859', 'S859', 'S859', 'S859']
+ACCEPT-D-69: FAIL legs=7/8
+exit=1
+• Now the experiment is clean:
+
+  - RUN A (mutant, fixture where signatures appear nowhere in `## Error patterns`, committed counter copy = mutant bytes): ALL 8 legs PASS, exit 0. → The SIGNATURES leg is the only thing enforcing the linkage; dropping it lets a table whose signatures appear nowhere in `## Error patterns` pass every other leg (SECTION/TABLE/STATES/FIELDS/EVIDENCE/SOURCE all pass).
+  - RUN B (original counter, same tree, committed copy = original bytes): SIGNATURES FAIL with all five names missing → the leg is load-bearing; without mutation the same fixture fails.
+  - RUN C (mutant, committed copy = original bytes): STAMP FAIL (23efe0c0… vs 06b0352a…) → tamper-evident: skipping via a mutated counter is detected as long as the committed counter copy is intact. In the real lane, reports/round-69/accept-d.py is committed (HEAD 6a98d7d, clean vs index, sha256 06b0352a…), so a skip requires mutating a committed production file, which jj/git would show as a working-copy change vs. the declared revision.
+
+  Also RUN D: unmodified selftest: GREEN PASS 8/8, DO-NOTHING FAIL as required 1/8, SELFTEST 2/2, exit 0.
+
+  Extra observation worth reporting (design note, not a defect): SIGNATURES uses substring matching (`r[3] not in ep_text`) against the whole `## Error patterns` section text — so in the unmodified counter, the linkage is satisfiable by ANY occurrence of the name anywhere inside that section (even one comma-separated line listing all five, without any observation/reading row). Also, if the `## Error patterns` heading is absent entirely, ep_text="" and every non-empty signature fails — good. Also note: the header cell "Error signature" itself — if a signature name were, say, "signature", substring collisions could false-pass; the five names are distinctive enough.
+
+  Another nuance for the report: the SOURCE leg prints S859 five times (one per row) — cosmetic.
+
+  Also the STAMP detail string bug-ish: when committed file is missing, detail prints "committed=none" — that's fine.
+
+  One more possible finding: STAMP compares the running file's hash to the tree copy — it does NOT anchor to the git revision. If a worker edits BOTH the running counter and the committed tree copy (both uncommitted working-copy mutations in the real lane... wait, in the real lane the counter IS committed at HEAD 6a98d7d; the tree copy equals HEAD; any edit shows in jj status as a working-copy change). So the enforcement anchor is really the VCS, and STAMP only ties the executed counter to the tree copy. Good to state precisely.
+
+  Also should I run the unmodified counter against the real lane root as context? It's cheap and shows the pre-data state is correctly rejected (the data isn't landed). Actually RUN B already demonstrates behavior on a landed-table fixture. The real-lane run would FAIL at SECTION (no table). Let me do it as one context line — it's read-only and shows the counter isn't green-washing the not-yet-landed lane. Quick.
+
+  Then write the report. Structure:
+
+  # Round-69 W1 MutD2 — mutation test of accept-d.py SIGNATURES leg
+
+  Scope, method, environment facts (file sha, HEAD).
+  Mutation definition (exact old/new snippet).
+  Fixture definition (three fixtures, shared tree, properties + proof of signature-absence).
+  Runs A/B/C/D with verbatim output.
+  Findings with VERDICT lines:
+  - VERDICT: PASS — mutant counter with linkage dropped passes 8/8 on a fixture whose five signature names appear nowhere in `## Error patterns` (only inside the table). The error-signature linkage is enforced solely by the SIGNATURES leg; no other leg looks at `## Error patterns`.
+  - VERDICT: FAIL (control) — unmodified counter on the identical tree fails SIGNATURES listing all five names → the leg is load-bearing, the fixture is a faithful kill-target, not a green fixture.
+  - Tamper evidence: STAMP leg catches the mutated counter when the committed copy is intact (RUN C: self=23efe0c0 vs committed=06b0352a). In the lane the committed copy is under jj/git at HEAD 6a98d7d and clean, so skipping the linkage requires mutating a committed production file — visible, auditable. 
+  - Answer to "can the linkage be skipped?": Not silently. Within a single counter invocation, yes — the SIGNATURES leg is the only enforcement and a one-line mutation (plus replacing the committed copy) passes 8/8. But because STAMP binds the executed counter to `reports/round-69/accept-d.py` in the tree, and that file is committed at the declared revision, any skip attempt mutates a committed production byte and is detectable by jj/git diff. Enforcement is tamper-eVIDENT, not tamper-proof.
+  - Design notes (non-blocking): substring matching means any occurrence inside `## Error patterns` satisfies the unmodified leg (e.g. a single line listing the five names, no structure); absence of the `## Error patterns` heading fails the leg (good); SOURCE leg prints one S859 per row (cosmetic).
+  - RUN D selftest output pasted: GREEN PASS 8/8, DO-NOTHING FAIL as required 1/8, SELFTEST 2/2.
+  - Bounds: read-only on lane; all mutation in /tmp/mutd2; no production files touched. Artifacts listed.
+
+  VERDICT formatting: use the prescribed tokens plus explanation. I'll write e.g.:
+
+  VERDICT: PASS (MUTANT: SIGNATURES linkage skipped — 8/8 legs pass, exit 0)
+  VERDICT: FAIL (CONTROL: unmodified counter kills same tree at SIGNATURES — exit 1)
+  VERDICT: PASS (TAMPER-EVIDENCE: STAMP detects mutated counter vs intact committed copy — exit 1)
+  VERDICT: PASS (SELFTEST: 2/2 on unmodified counter)
+  OVERALL VERDICT: the linkage can be skipped only by mutating the counter itself AND replacing the committed copy... etc.
+
+  Let me run the context run first, then write the report.
+
+LEG PASS STAMP self=06b0352a0288 committed=06b0352a0288
+LEG FAIL SECTION heading=### Registry correction chains
+LEG FAIL TABLE no decision table
+LEG FAIL STATES no decision table
+LEG FAIL FIELDS no decision table
+LEG FAIL SIGNATURES no decision table
+LEG FAIL EVIDENCE no decision table
+LEG FAIL SOURCE no decision table
+ACCEPT-D-69: FAIL legs=1/8
+exit=1
+• All runs done. Now write the report to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/MutD2.md.
+
+  Key numbers to include:
+  - Lane counter: reports/round-69/accept-d.py, sha256 06b0352a0288be7a788bb65f243980c77e107e2e4795743b4c4e1a40cd490c10, committed at HEAD 6a98d7d042b6c58d2165773b1585069798111035 ("round-69: declaration + three NEW counters…"), clean vs index. Note: goal text named base revision 793f79746712a79f915bb481215e54bbea8b5e7a; the working copy HEAD is 6a98d7d (jj working-copy/child commit containing the declaration); read-only `git rev-parse HEAD` observed. I should record this as an observation without over-claiming.
+  - Mutation: exact anchor replaced, 1 occurrence.
+  - Fixture properties: built from lane SKILL.md (line 468 `## Error patterns`, 0 occurrences of the five names) + FIXTURE_TABLE inserted before `## Error patterns`; each of the five names count==1 in the fixture SKILL.md (table only), 0 in the Error patterns section; corpus/SOURCES.md = lane + appended S859 fixture row (mined, used-by SKILL.md); tools/check-supersession-settlement.py copied (EVIDENCE path); fixture-a committed counter copy = mutant sha 23efe0c0…; fixture-b/c = original sha 06b0352a….
+  - RUN A: PASS 8/8 exit 0 (with verbatim output).
+  - RUN B: SIGNATURES FAIL, 7/8, exit 1 (verbatim).
+  - RUN C: STAMP FAIL self=23efe0c0b790 committed=06b0352a0288, 7/8, exit 1 (verbatim).
+  - RUN D: selftest GREEN PASS 8/8, DO-NOTHING FAIL as required 1/8, SELFTEST 2/2 exit 0 (verbatim).
+  - Context: unmodified counter on real lane FAIL 1/8 (STAMP only) — data not landed, expected.
+  - First-attempt confound note: mutant filename must be accept-d.py because SELF=basename(__file__); with a foreign name STAMP reads committed=none. Worth one line — it also shows STAMP is name-anchored.
+
+  Findings:
+  1. VERDICT: PASS — linkage skippable by counter mutation: SIGNATURES is the sole leg touching `## Error patterns`; dropping it passes 8/8 on a signature-free-of-Error-patterns tree.
+  2. VERDICT: PASS (control) — unmodified counter kills the same tree (SIGNATURES missing=all five) → leg load-bearing; the pass in RUN A is attributable to the mutation alone.
+  3. VERDICT: PASS (tamper-evidence) — STAMP detects the mutated counter whenever the committed copy at reports/round-69/accept-d.py is intact; that file is committed (clean vs index; sha 06b0352a…), so a silent skip would have to mutate a committed production byte, visible to jj/git. Not tamper-proof against someone who rewrites both the runner and the tree copy AND commits — but that's an auditable production-file change outside a worker's write scope this round.
+  4. Answer: The error-signature linkage can be skipped only by editing the counter and replacing the committed counter copy — a visible working-copy mutation of a committed production file. Against the frozen counter it cannot be skipped: RUN C fails at STAMP.
+  5. Design notes (non-blocking):
+     - SIGNATURES matching is substring-based over the whole `## Error patterns` section: any occurrence of each name anywhere in the section satisfies it (e.g. one line listing all five names with no table rows). Weakest enforcement form; the S-row/O2-style structure isn't checked there.
+     - If `## Error patterns` heading is absent, ep_text="" and the leg fails for any non-empty signature (good).
+     - STAMP anchors to basename(__file__): a counter run under any other filename gets committed=none and fails STAMP — accidental robustness, not a hash anchor to the git revision; the real anchor to history is the VCS itself.
+     - SOURCE leg prints the S-id once per row (S859 ×5) — cosmetic.
+
+  Also note scratch artifacts list under /tmp/mutd2 for reproduction.
+
+  Report should be markdown with exact commands + real output. Keep it tight but complete. End the chat answer with 'Report: .ufo/waves/round-69/w1/MutD2.md'.
+
+  One more check on claim wording: "run the copy against a fixture whose signature names appear nowhere" — my fixture has the names in the table (unavoidable: TABLE/STATES/FIELDS require the five rows with non-empty Error-signature cells). I state this explicitly: the names appear nowhere outside the table's Error-signature column, and in particular nowhere in `## Error patterns` — which is the linkage the leg enforces. If the names appeared nowhere at all, FIELDS would fail first (empty cells), so the table-only placement is the precise isolating fixture. Good to include that reasoning line.
+
+  Write the report now.
+
+• Report written. Final message: summarize findings concisely and end with the trailer line. Keep it short — the report holds the detail.
+
+To resume this session: kimi -r session_bc5f402f-cecc-44c3-9680-c3d900ab3a68
+[unexpected] RuntimeError: workspace wd_kotodama-shokunin_79dcf87bd64e is not materialized
+    at RuntimeResolver.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:180263:36)
+    at AgentRuntimeService.acquire (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:131899:25)
+    at AgentFileHistoryService.readCurrent (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177438:31)
+    at AgentFileHistoryService.endCheckpoint (/home/runner/work/kimi-code/kimi-code/apps/kimi-code/dist-native/intermediates/main.cjs:177351:32) {
+  code: 'runtime.not_found'
+}

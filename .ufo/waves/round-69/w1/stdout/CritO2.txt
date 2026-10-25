@@ -1,0 +1,25 @@
+• Tools and counters read. Now I'll run the harness against the live tree and audit the live registry's shape versus the fixture's in parallel.
+
+• Live tree is green (harness 3/3, LANE pending=0 missing_paths=0; live registry: 782 well-formed rows, header byte-identical, all 709 used-by paths exist, 47 chains settled). Now I'll probe the harness's blind spots with /tmp mutations and gather remaining live-shape facts.
+
+• Key discovery already: the live registry has 5 used-by cells with **multiple comma-separated paths** — the first one crashed my demo (fixture cells are single-path only). accept-o.py is 7/7 PASS on the live tree pre-data. Re-running the mutation demos with the multi-path split handled:
+
+• D3/D5 used a wrong status flip (my "settled" variant ended up pending — my bug, not the checker's). Re-running those three demos with the correct settled-active shape, plus one last live audit:
+
+• All demos complete and the picture is clear. Writing the report now.
+
+• Attack complete. Summary of what I found:
+
+  **Shape fidelity — PASS.** The fixture registry matches the live `corpus/SOURCES.md` on every named feature: 11-column header and separator row byte-identical, `## Registry` heading identical (the only one the checker actually toggles on), `## Paths`/`## Search log` present (though the checker reads neither), green case = mined successor + queued target (the dominant live chain class), used-by under `corpus/knowledge/` (all 709 live entries are under corpus/).
+
+  **Negative case — PASS.** Harness 3/3 and `accept-o.py` 7/7 PASS on the live tree pre-data; deleting one used-by target from a live-shaped copy in /tmp yields `missing_paths=1` and the harness's `--root` mode exits 1, so R68-M1 is genuinely covered in both directions.
+
+  **Green-while-red vectors — FAIL (as attack finding).** Three confirmed, none live-red today (live: 782 well-formed rows, 0 malformed, all 47 chains settled, pending=0 missing_paths=0):
+  1. A row edited to ≠11 cells is silently dropped from chain *and* used-by scanning with no malformed counter — real pending debt scans green (`chains=0`, exit 0).
+  2. Citation truth is unimplemented: the checker's own docstring promises STALE-USED-BY, but code only tests `os.path.exists` — a used-by file citing nothing, or even being a directory, stays green. Relevant to D2: S859 will be the first row whose used-by names SKILL.md, and nothing verifies SKILL.md contains "S859".
+  3. Multi-path used-by cells (live has 5, one with 11 paths) are never exercised by the fixture — my first demo actually crashed on that exact shape.
+
+  Plus non-blocking notes: dangling supersedes targets are caught red by the checker but unexercised by the fixture; the fixture lacks live's fourth `## Leads (unopened)` section despite claiming "same section order"; no sha256 pin on the settlement checker itself. All counters stay frozen — routing suggestions are in the report for the L1.
+
+  Report: .ufo/waves/round-69/w1/CritO2.md
+

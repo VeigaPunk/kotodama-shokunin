@@ -1,0 +1,22 @@
+• Axes for this seat: (1) attack efficacy — does a bogus row silence the DEADPOINTER detector; (2) specificity — a different id must not silence it; (3) false-accept surface — where the detector's id matching is leakier than "a row". Reading the counter internals done; now baseline evidence from the lane and the fleet report it points at.
+
+• Baseline confirmed: the filed fleet report points at `R68-M9` (both `R68-M9` and `+M9 in LOG` forms), the lane's lessons carry only M1–M8, so the DEADPOINTER leg fires with `hits=['R68-M9']`. Now the attack harness on copies under /tmp.
+
+• All six scenarios landed cleanly. The attack works exactly as probed, plus one bonus leak (prefix collision). Writing the report.
+
+• Attack complete, report filed. Summary:
+
+  **Setup.** The DEADPOINTER detector declares an id alive iff the raw substring `R68-M<n>` appears anywhere in `LOG.md` + the two lessons files (accept-ca.py:129-141). Baseline: the filed fleet report points at `R68-M9` (twice, incl. the `+M9 in LOG` form), no lane file carries it, so the leg fires with `hits=['R68-M9']`.
+
+  **Main attack (scenarios S0/A1/N/A2/B/C, all on /tmp copies via the counter's own `build_fixture_root`):**
+  - Appending `| R68-M9 | RevO5 bogus backfill row … |` to the round-68.md **copy** silenced the detector on that id (`mistake_rows_exist ['9']→[]`), and with the corrections row present the whole leg flipped `FAIL→PASS` — the predicate accepts a nonsense row.
+  - A bogus row for a **different** id (`R68-M77`) did **not** silence it: still `hits=['R68-M9']`, leg red.
+  - Bonus leak: a bogus row for `R68-M90` **did** silence `R68-M9` — prefix-collision false accept (`R68-M9` ⊂ `R68-M90`; same class: an `R68-M1` row silences pointers to `R68-M10/11/…`).
+  - Positive control: a corrections row with no resolving lesson row keeps the leg red (`remedy=False`) — annotation alone cannot whitewash a dead pointer, so the round's planned real backfill genuinely closes it.
+
+  **Findings.** The row-existence check is presence-only — no row shape, no id-exactness. Counter is frozen post-data, so the fix (word-boundary/row-shaped match, e.g. `R68-M<n>(?!\d)`) is recorded for the next counter generation. Lane integrity verified: `corpus/lessons/round-68.md` sha256 unchanged, `git status --porcelain` empty; no writes outside `/tmp` and the report.
+
+  VERDICT: PASS (bogus same-id row silences), VERDICT: PASS (different id does not), plus two recorded detector weaknesses.
+
+  Report: .ufo/waves/round-69/w1/RevO5.md
+

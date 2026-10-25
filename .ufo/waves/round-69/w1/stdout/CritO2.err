@@ -1,0 +1,557 @@
+kimi version 2.3.1
+• Let me digest the task:
+
+  I'm a Godspeed-enabled subagent, a leaf member (no subagent dispatch). My job:
+
+  1. Attack the substance of the new fixture harness: read `tools/check-settlement-fixture.py` and `tools/check-supersession-settlement.py`.
+  2. Judge whether the harness's three cases really exercise the shape the live registry has (11-column rows, `## Registry` section, `## Paths` and `## Search log` sections, a mined successor and a queued target, a used-by path under corpus/knowledge/).
+  3. List any structural difference between the fixture registry and the live `corpus/SOURCES.md` that could make the harness green while the live registry is not.
+
+  Bounds:
+  - READ-ONLY on production bytes.
+  - Write EXACTLY ONE file: `/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritO2.md`.
+  - Use /tmp scratch for any mutation demonstration (copy files, mutate copies, re-run counters against copies).
+  - No network fetching. No pacman. Read /home/vgpnk/.omp/agent/RULES.md before installing anything (I likely don't need to install anything — python3 is presumably available).
+  - End answer with `Report: .ufo/waves/round-69/w1/CritO2.md`.
+
+  Let me plan the work:
+
+  1. Read the key files:
+     - `tools/check-settlement-fixture.py`
+     - `tools/check-supersession-settlement.py`
+     - `corpus/SOURCES.md` (live registry)
+     - `reports/round-69/claims.json`
+     - `reports/round-69/accept-o.py`
+     - `reports/round-69/telemetry/controls.txt`
+     - Maybe `tools/` dir listing to see related tools.
+
+  2. Run the harness (read-only execution is fine — running a checker doesn't mutate production; but check if it writes anything; run it and observe).
+
+  3. Analyze structural differences between the fixture embedded registry and the live corpus/SOURCES.md:
+     - Row column count (11 columns per the claim).
+     - Sections: `## Registry`, `## Paths`, `## Search log`.
+     - Mined successor, queued target.
+     - Used-by path under corpus/knowledge/.
+
+  4. Mutation-test the negative case in /tmp: copy the fixture harness, mutate the copy, re-run, confirm the NEGATIVE case catches the missing-used-by defect class. Actually the task: "the harness's NEGATIVE case is the missing-used-by defect class the round-68 counter never exercised" — so I should verify the negative case actually fails when the used-by path is missing. Also verify the harness is green on the live-shaped data.
+
+  5. Also run `tools/check-supersession-settlement.py` against the live corpus to see whether the live registry passes/fails — key question: could harness be green while live registry is not?
+
+  Let me start. I should batch reads in parallel.
+
+  First batch:
+  - Read tools/check-settlement-fixture.py
+  - Read tools/check-supersession-settlement.py
+  - Read reports/round-69/claims.json
+  - Read reports/round-69/accept-o.py
+  - Read reports/round-69/telemetry/controls.txt
+  - Bash: ls tools/
+  - Read corpus/SOURCES.md (may be big — let me check size first, or just read with a large max_chars)
+
+  Let me do that. Actually let me first do a quick `ls` and `wc` to know sizes, plus reads in parallel. I'll read the two tools fully and claims.json, accept-o.py, controls.txt in one batch, plus a Bash call for `wc -l` on corpus/SOURCES.md and `ls tools`.
+
+  Then read SOURCES.md (maybe with head_limit or n_lines).
+
+  Then run the harness in /tmp copies for mutation testing.
+
+  Let me begin. Also need to read /home/vgpnk/.omp/agent/RULES.md only before installing anything — I don't plan to install anything, so skip it. Python3 should be present.
+
+  Let me fire the first batch.assemble-culture-d3.py
+assemble-culture-d4.py
+assemble-d2.py
+assemble-d2-typed.py
+assemble-d4-typed.py
+check-cited-lines.py
+check-claim-separability.py
+check-craft-exercise.py
+check-draft-ids.py
+check-evidence-coupling.py
+check-gate-battery.py
+check-gate-quotes.py
+check-judged-object.py
+check-readme-heading.py
+check-readme-revisions.py
+check-receipt-seq.py
+check-row-fragments.py
+check-settlement-fixture.py
+check-source-access.py
+check-supersession-settlement.py
+d2-typed-labels.py
+exercise-handoff-e2e.py
+gates
+harness
+__pycache__
+reopen-row.py
+replay-frozen.py
+source-audit-inventory.py
+   910 corpus/SOURCES.md
+   187 tools/check-settlement-fixture.py
+   332 tools/check-supersession-settlement.py
+  1429 total
+Python 3.14.8
+Now I need to read the live `corpus/SOURCES.md` (910 lines) and compare its structure with the fixture. Key things to check:
+
+  1. The fixture's registry row shape: 11 columns with headers `id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by`. Live registry header?
+  2. Section structure: live SOURCES.md has `## Registry`, `## Paths`, `## Search log`?
+  3. The `used-by` paths in the live registry — do they exist? The LANE leg of accept-o.py requires `pending=0 missing_paths=0` on the live tree.
+  4. Column-count edge cases: the checker's ROW_RE is `^\|\s*(S\d{3,})\s*\|` — requires the id to start with S and 3+ digits. Do live rows all match? Are there rows with fewer/more than 11 columns in the live registry that would be marked `malformed` (silently skipped in classify)?
+  5. The fixture uses `{s001}` format placeholder — wait, FIXTURE_REGISTRY has `{s001}` in the status cell of S001, and `FIXTURE_REGISTRY.format(s001=s001)` is applied. But the fixture registry also contains literal `{` `}`? Let me check: `FIXTURE_REGISTRY` contains no other braces... Actually wait — it contains `| §1 |`? No braces there. Hmm, `.format()` on a string containing `{s001}` — any other braces in the string would break format. Looking at FIXTURE_REGISTRY: "corpus/SOURCES.md" ... no braces except `{s001}`. OK.
+
+  Wait, actually there's a subtle issue: `.format()` on the registry — S001's status cell is `{s001}` which becomes `queued` (settled case) or `mined` (unsettled case). But hold on: in the GREEN case (create_usedby=True, unsettled=False), S001 is `queued` and S002 is `mined` with used-by `corpus/knowledge/a.md`. classify: S002 supersedes S001, t_st=queued, s_st=mined, s_used non-empty → settled-active. pending=0. Good. missing: usedby path corpus/knowledge/a.md exists → missing_paths=0. rc=0. Green passes.
+
+  NEGATIVE case: create_usedby=False → missing_paths=1, pending=0. ok requires s is not None, pending==0, missing_paths==1. rc for scan: 1 if pending else 0 → rc=0. ok. Good.
+
+  PENDING case: S001 mined, S002 mined (S002's used-by exists since create_usedby=True), and S002's teaches doesn't carry a scope limiter → cls=pending → rc=1. ok requires rc==1 and pending==1. Good.
+
+  Now the critical question: does the fixture registry really match the live registry shape? Need to compare with live corpus/SOURCES.md:
+
+  - Live header row / column names
+  - Section order: `# SOURCES`, intro, `## Registry`, `## Paths`, `## Search log`?
+  - The live registry may have section headings between rows? The parser treats any `##` line as a section toggle — a row after a `## Search log` heading wouldn't be in_registry. If the live registry is a single `## Registry` section, fine.
+  - Live rows: do all rows match ROW_RE `S\d{3,}`? IDs like S001-S859, yes 3 digits.
+  - Do all live rows have exactly 11 columns? If any row has ≠11 columns it's `malformed` and skipped by classify (its supersedes chains are invisible → pending could be hidden). Also its used-by is not checked for existence. That's a structural difference that could make the harness green while the live registry is not: the fixture has only well-formed rows, so `malformed` never occurs in fixtures; in the live registry malformed rows are silently dropped from both chain classification and used-by existence checks. Need to check the live file for rows with ≠11 cells.
+  - The live `used-by` cell may contain multiple paths separated by `,` or `;` — the checker splits on those. Fixture uses single path.
+  - Live used-by paths: do they exist? The LANE leg claims pending=0 missing_paths=0. I should run it.
+  - The fixture used-by paths exist check: `os.path.exists(os.path.join(root, p))` — fixture path `corpus/knowledge/a.md` under the temp root. Fine.
+  - Note: the fixture registry has `| {s001} |` status for S001 in the table header context... fine.
+  - Another subtle one: FIXTURE_REGISTRY S002 `teaches`: "supersedes S001 — the correction that replaces the base claim" — matches SUP_RE.
+  - The live registry: are there `supersedes` chains referencing rows that don't exist (t_row None → t_st "missing" → cls pending unless s rejected)? "missing" status → not rejected, and if s_st == mined and s_used → t_st must be "queued" for settled-active; t_st "missing" ≠ queued → pending. Fixture doesn't exercise the missing-target case. That's a defect class the fixture doesn't cover: dangling supersedes target. In the live registry, does any chain dangle? classify would mark pending → LANE leg fails. I should run the checker on the live tree.
+
+  Also the deeper "green while live is not" question — structural differences:
+
+  1. Fixture is a 2-row registry; live is ~900 lines. Divergences: multiple used-by paths (comma/semicolon separated), rows spanning multiple sections, CRLF? (Read shows LF), rows with bold/other formatting in id cell? ROW_RE requires `| S\d+ |` at line start after strip.
+  2. Live rows might use `S\d{3}` only; fine.
+  3. Live SOURCES.md may have the Registry section under a different heading level or named differently ("## Registry (append-only)" would break `in_registry` detection? `s[2:].strip().lower().startswith("registry")` — "registry (append-only)" starts with "registry" → True. OK).
+  4. Live registry might contain rows above the `## Registry` heading (e.g., under `#` title) — those are skipped. Fixture matches shape.
+  5. The `## Paths` and `## Search log` sections: the checker doesn't read them at all. So their presence in the fixture is cosmetic for the checker; the harness asserts "lane-shaped" but the checker only sees `## Registry`. Any row content inside `## Paths` (e.g., chain descriptions "fixture — S001 → S002") isn't parsed since it doesn't match ROW_RE... wait, could a Paths line match ROW_RE? `^\|\s*(S\d{3,})\s*\|` requires pipe-start. Paths lines start with `- `. No.
+  6. However: in the LIVE file, could a line inside another section match ROW_RE? E.g., a line in `## Search log` like `| S833 | ...` — unlikely.
+
+  Key checks to run:
+  - `python3 -B tools/check-settlement-fixture.py --root .` (the LANE leg behavior) — read-only? It writes temp fixtures only. Safe.
+  - `python3 -B tools/check-supersession-settlement.py --scan --root .` on live tree.
+  - Count live rows and column counts: parse SOURCES.md, count rows matching ROW_RE and cells != 11.
+  - Check used-by paths in live registry: extract and test existence.
+  - Check supersedes chains in live registry: list them and classify.
+  - Compare live header to fixture header byte-wise.
+
+  Mutation test in /tmp (copy harness + checker, mutate the copy, re-run): demonstrate the negative case actually catches the missing-used-by defect. Also possibly demonstrate a gap: e.g., a mutated fixture registry where S002's used-by is "corpus/knowledge/does-not-exist.md" — negative case should catch missing_paths=1. And conversely, demonstrate structural blind spots: e.g., a live-shaped registry where the row has 10 columns (malformed) → chain invisible → scan green despite a pending chain; does the fixture harness catch that? The harness only runs the checker on its own fixture — it doesn't compare to live shape. So a live malformed row would be invisible → LANE leg green while live registry has debt. I can demonstrate: copy live SOURCES.md to /tmp, mutate a row to drop a column, run checker → does it go green (missing pending chain) or stay red? That's a real "green harness, red live" vector.
+
+  Also check: live registry might have rows whose used-by points to paths under corpus/knowledge/ that don't exist → LANE leg would fail → O2 data would fail. Let me run and see.
+
+  Also structural: live registry may have extra columns? Let me actually examine the live file.
+
+  Also compare fixture header vs live header exactly (byte equality of the header line and separator). Let me grep.
+
+  Let me batch:
+  1. Read corpus/SOURCES.md (first ~120 lines to see structure).
+  2. Bash: run the harness `python3 -B tools/check-settlement-fixture.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin`.
+  3. Bash: run `python3 -B tools/check-supersession-settlement.py --scan --root .`.
+  4. Bash: parse live registry with a python one-liner: rows matching ROW_RE, column counts distribution, used-by paths and existence, supersedes pairs.
+  5. Grep for `^## ` headings in SOURCES.md.
+
+  Let me write one python script for the structural audit and run things in parallel.
+
+PASS fixture-green rc=0 pending=0 missing_paths=0
+PASS fixture-negative rc=0 pending=0 missing_paths=1
+PASS fixture-pending rc=1 pending=1 missing_paths=0
+FIXTURE: 3/3
+LANE: pending=0 missing_paths=0
+harness-exit=0
+SETTLED-ACTIVE S044>S034 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S045>S038 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S046>S039 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S047>S029 s=rejected t=rejected same_url=True used_by=0
+SETTLED-RETIRED S070>S060 s=rejected t=mined same_url=False used_by=0
+SETTLED-RETIRED S125>S095 s=rejected t=mined same_url=False used_by=0
+SETTLED-ACTIVE S126>S105 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S127>S079 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S128>S086 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S129>S117 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S130>S119 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S131>S122 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S132>S094 s=rejected t=rejected same_url=True used_by=0
+SETTLED-ACTIVE S133>S097 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S185>S145 s=mined t=rejected same_url=True used_by=1
+SETTLED-RETIRED S186>S157 s=rejected t=mined same_url=True used_by=0
+SETTLED-ACTIVE S358>S256 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S481>S359 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S482>S367 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S483>S383 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S484>S385 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S485>S392 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S486>S395 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S487>S396 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S488>S399 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S489>S407 s=mined t=queued same_url=True used_by=1
+SETTLED-RETIRED S490>S379 s=rejected t=mined same_url=True used_by=0
+SETTLED-ACTIVE S491>S410 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S560>S413 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S561>S417 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S562>S421 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S564>S433 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S565>S438 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S566>S440 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S567>S445 s=mined t=queued same_url=True used_by=1
+SETTLED-ACTIVE S568>S452 s=mined t=queued same_url=False used_by=1
+SETTLED-ACTIVE S569>S453 s=mined t=queued same_url=True used_by=1
+SETTLED-CLOSED S570>S135 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S571>S141 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S572>S147 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S573>S151 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S574>S159 s=mined t=rejected same_url=True used_by=1
+SETTLED-SPLIT S575>S420 s=mined t=mined same_url=False used_by=1
+SETTLED-CLOSED S648>S602 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S649>S616 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S650>S623 s=mined t=rejected same_url=True used_by=1
+SETTLED-CLOSED S651>S643 s=mined t=rejected same_url=True used_by=1
+SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0
+scan-exit=0
+1:# SOURCES — where kotodama learns
+26:## Registry
+814:## Paths
+849:## Search log
+861:## Leads (unopened)
+in-registry well-formed rows: 782
+malformed rows: 0
+live header : | id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
+fixture header present in harness: True
+used-by path entries: 709  missing on disk: 0
+supersedes chains: 47
+chains not trivially settled (pre-split-check): 1
+  CHAIN ('S575', 'S420', 'mined', 'mined')
+• The live tree is green: harness 3/3, LANE pending=0 missing_paths=0. Live registry: 782 well-formed rows, 0 malformed, header matches fixture byte-for-byte, 709 used-by path entries all exist, 47 chains all settled (the S575>S420 mined/mined pair is settled-split).
+
+  Wait — my script's `pend` check didn't apply the split regex (I had a bug: `c_teaches` undefined, guarded by `if False`). The checker itself found SETTLED-SPLIT for S575>S420, so pending=0. Good.
+
+  Now the core attack: structural differences between fixture registry and live registry that could make the harness green while the live registry is not.
+
+  Observed differences/observations so far:
+
+  1. Fixture has 2 rows; live has 782 rows, 47 chains, 709 used-by entries. The harness only exercises a 2-row registry. Scale-related behaviors untested:
+     - Multiple used-by paths per cell (comma/semicolon-separated). Does the live registry actually use multi-path cells? Let me check: count cells containing `,` or `;` in the used-by column.
+     - Repeated used-by paths across rows (many rows pointing at the same knowledge file, e.g. SKILL.md — D2 says S859's used-by names SKILL.md). Fixture has a unique path per row.
+
+  2. `## Leads (unopened)` section exists in live file AFTER `## Search log`. The checker's in_registry toggle: `## Leads (unopened)` sets in_registry=False. Rows are only between `## Registry` and `## Paths`. Fixture has only `## Paths` and `## Search log` after Registry — live has an extra `## Leads (unopened)` section the fixture lacks. The harness's claim of "lane-shaped" (same section order) is not literally true: fixture sections are Registry/Paths/Search log; live adds `## Leads (unopened)`. Impact on the checker: none (Leads rows aren't parsed; any S-row under Leads would be toggled out anyway). But it IS a structural difference — a Leads row can never be scanned. Hmm, actually wait: if a row lives under `## Leads (unopened)`, the checker will never see it (in_registry False after the heading). So a pending chain hidden in Leads would be invisible. Is there any S-row-formatted line under Leads? Let me check lines 861-910.
+
+  3. Sections the checker ignores: `## Paths` and `## Search log` are present in fixture and live, but the checker reads NEITHER. So "lane-shaped" only matters for `## Registry` heading detection. The harness's shape claim is stronger than what the checker exercises. A live divergence inside Paths/Search log can't affect the checker. This is a finding about claim wording, not a green/red vector by itself.
+
+  4. Checker blind spots (fixture can't catch because fixture is well-formed by construction):
+     a. Malformed rows (≠11 cells) are silently skipped — classify skips `malformed` rows for chains AND stale/used-by checks. A live row edited to 10 cells drops its chain from the scan. Demonstrate: copy live SOURCES.md to /tmp, merge two cells of a pending-adjacent row... actually there are no pending chains live. Better: take the fixture itself — build a variant where S002 (the successor, mined, used-by present) has 10 cells; then the chain disappears → scan goes... wait, S002 malformed means no chain; missing used-by also unchecked. With used-by file present and no chain → pending=0 missing=0 rc=0 — same green. That demonstrates a red registry (real debt: S002 exists, chain unsettled-ish...) hmm, need a case where true state is pending: S001 mined, S002 mined without split limiter = pending. If I ALSO corrupt S002 to 10 cells, the pending chain vanishes → green. That's the harness-blind spot: malformed-row swallowing. The fixture harness has no case for "row with wrong column count must be flagged" — the checker has no output for malformed rows at all (they're counted nowhere; SETTLEMENT line has no malformed=N). So a live mass-corruption would scan green. This is a genuine structural difference: fixture asserts the happy 11-column shape; nothing detects deviation.
+     
+     b. ID regex `S\d{3,}`: ids with 4+ digits (S1000+) still match. Ids like `S859` fine. Non-matching row ids (e.g. lowercase `s859`) would be skipped entirely. Fixture doesn't cover.
+     
+     c. Dangling supersedes target (`t_st = "missing"`): pending (if s mined with used-by) — actually classify: t_st "missing" → not rejected; s_st mined and s_used and t_st=="queued" fails → pending. So dangling target → pending → red. Good, checker catches it. But fixture doesn't exercise this case — not a green-while-red vector though, since checker catches it.
+     
+     d. STALE-USED-BY: the docstring says "A row whose used-by names a path that does not contain the row's own id is STALE-USED-BY (reported; gated only for the frozen ruling set, not globally)". But looking at the CODE: `stale` list collects ALL (rid, p) pairs for used-by paths — and `missing_paths` checks only existence. The docstring's "used-by names a path that does not contain the row's own id" — i.e., corpus/knowledge/a.md should CONTAIN the id string "S002" (citation truth). In scan(), `stale` is only used for existence checking; the "does not contain the row's own id" check is NOT in scan — it's nowhere in the code actually! Let me re-read: classify builds `stale` = [(rid, p) for every used-by path]. scan() checks os.path.exists only. So the claimed STALE-USED-BY semantic (file exists but doesn't cite the id) is NOT implemented in scan at all — it's only... hmm, `validate_ledger` also only checks existence. So the docstring promises a check the code doesn't do. The fixture's USEDBY_FILE is "cites S002 now\n" — which does contain S002. But the checker never verifies that! So the fixture's green case would be green even if a.md contained "cites S001 only". The harness therefore does NOT exercise citation truth — the negative case only catches file-ABSENT, not file-present-but-wrong-citation. That's a real semantic gap: "missing-used-by defect class" is narrowed to "path absent". The R68-M1 repair claim says "exercises the used-by file in both directions - creates it (green) and omits it (caught)". True as far as it goes, but a third state (file exists, wrong citation) passes green. Is that a structural difference between fixture and live? In the LIVE registry, 709 used-by entries — the checker only verifies the paths exist, never that they contain the row id. So live citation truth is unverified by both. The harness inherits exactly the checker's blind spot and adds none. Worth a finding + /tmp demonstration: mutate the copy of a.md in fixture copy to not cite S002 → still green.
+     
+     e. The harness's negative case asserts `missing_paths=1` but does NOT assert rc. In negative case rc=0 (pending=0 → exit 0). If a future checker change made missing paths fatal (rc=1), the negative case would still pass (it doesn't check rc) — fine, not a live divergence.
+     
+     f. Path resolution: `os.path.exists(os.path.join(root, p))` — relative to root. Live used-by paths: 709 entries, all exist. Fixture paths same scheme. Fine.
+     
+     g. Used-by multi-path: fixture uses single path. Live: do any cells have commas? Let me check. If live has multi-path cells and they resolve, fine — but the harness never exercises multi-path parsing (`re.split(r"[,;]", ...)`). A defect in that split (e.g. paths with commas inside) would be invisible to the harness. Structural difference to list.
+     
+     h. The fixture registry text uses `.format(s001=...)` — braces in FIXTURE_REGISTRY: only `{s001}`. OK.
+     
+     i. CRLF/encoding: live file LF. fine.
+     
+     j. The checker's in_registry detection: `s.startswith("##")` — matches `###` too? `"### foo".startswith("##")` → True; then `s[2:]` = "# foo" → startswith("registry") False → in_registry=False. So any subsection heading inside Registry ends the registry. Live has none inside. Fine.
+
+  5. The harness re-runs the checker via `[sys.executable, "-B", checker, "--scan", "--root", root]` — same interpreter. Fine.
+
+  6. Harness's `--root` mode: exit rc = 1 if pending or missing — good. LANE leg requires "LANE: pending=0 missing_paths=0". Note the harness's LANE scan runs against `--root` given by accept-o.py = the lane root. On the live tree it's green NOW. But the D2 data work will append an S859 row with used-by naming SKILL.md — if S859's used-by path is written wrong (or the row has a typo in status), the LANE leg flips red. That's by design (predicate). Also Ca2 corrections are appended to LOG/SCORECARD — doesn't affect SOURCES.
+
+  7. One more: the fixture harness docstring says fixture registry carries `## Paths` and `## Search log` "the same section order as the live corpus/SOURCES.md". Live order: Registry(26), Paths(814), Search log(849), Leads(861). Fixture order: Registry, Paths, Search log. Missing the `## Leads (unopened)` section → claim of "same section order" is inaccurate but harmless to the checker. Also live file has a preamble (`# SOURCES — where kotodama learns` + intro lines 2-25). Fixture preamble similar shape. Need to check if live preamble contains any table-like lines that could match ROW_RE before `## Registry` — in_registry starts False, so no.
+
+  8. What about `usedby_paths` count 709 = number of (rid, path) pairs. In classify, `stale` collects from ALL rows including non-chain rows. scan prints usedby_paths=len(stale). Consistent.
+
+  9. Structural: fixture rows' `opened`/`recheck` are dates but checker ignores columns 8-9 entirely (opened, recheck). Also ignores kind/tier/scope/anchor/source except URL for same_url. So "lane-shaped" is only load-bearing for: section heading name, row regex, 11-cell split, teaches/status/used-by cell contents. The fixture matches those. The harness could be tricked: it never asserts the live registry's columns actually parse — the LANE leg does that implicitly by scanning live. OK.
+
+  10. A green-while-red vector via the negative case: the negative fixture removes corpus/knowledge/a.md entirely. But if the live defect were "used-by path names a directory that exists" — os.path.exists(dir) → True → missing_paths=0 → green. A directory named `corpus/knowledge/a.md` would fool it. Edge case, list it.
+
+  11. Symlink/broken symlink: os.path.exists follows symlinks → broken symlink → False → caught. fine.
+
+  12. Case sensitivity: paths are case-sensitive on Linux; fine.
+
+  13. The `SPLIT_RE` check: `for\s+(entry|line|row|cell|clause)\b.{0,40}\bonly\b` with re.S across the teaches cell. Fixture's pending case S002 teaches = "supersedes S001 — the correction that replaces the base claim" — no limiter → pending. Fixture green case teaches = "supersedes S001 — the correction that replaces the base claim" — no limiter, statuses queued/mined → settled-active. The fixture never exercises a POSITIVE split case (settled-split green) — the harness's three cases cover green/negative/pending only. So a live SPLIT-classified chain (like S575>S420) relies on checker logic the fixture harness never green-tests. Not green-while-red, but coverage gap vs the five states the D2 table will document. Also fixture never exercises settled-retired/closed. Fine to note.
+
+  14. IMPORTANT — the harness asserts on parsed ints via SUMMARY_RE but ignores the per-chain lines. A checker regression that misclassifies a chain as SETTLED-ACTIVE when statuses are wrong would keep fixture green if... no, fixture asserts pending counts only. E.g., if classify() had a bug treating mined/mined WITHOUT limiter as settled (the R68-era defect class?), the pending fixture would go green and the harness would catch it (pending fixture requires pending=1). Good — that's covered.
+
+  15. Now the biggest live-vs-fixture shape question the task asks: "11-column rows, a `## Registry` section, `## Paths` and `## Search log` sections, a mined successor and a queued target, a used-by path under corpus/knowledge/". Fixture has all of those:
+      - 11-column: yes, header byte-identical to live.
+      - `## Registry`: yes. `## Paths`, `## Search log`: yes (checker ignores them; present only for shape fidelity).
+      - mined successor + queued target: green case S002 mined, S001 queued. Yes.
+      - used-by under corpus/knowledge/: yes, `corpus/knowledge/a.md`.
+      Structural differences to list:
+      a. live has extra `## Leads (unopened)` section (fixture lacks it; "same section order" claim slightly off).
+      b. live used-by cells: check for multi-path commas/semicolons; fixture single path.
+      c. live has 782 rows/47 chains/709 used-by entries; duplicate used-by targets across rows (e.g., many rows → SKILL.md?); fixture has unique single target. The missing_paths check dedupes? No — missing_paths counts per (row,path) pair occurrence: `[p for _, p in stale if not exists]` — duplicates counted multiple times. Fixture's negative asserts exactly missing_paths=1 with one path on one row; if the same path were used by two rows, absent file → missing_paths=2. Not a live issue.
+      d. malformed-row blind spot (no malformed counter anywhere).
+      e. citation-truth (used-by content must contain id) unimplemented in scan despite docstring; fixture can't catch; USEDBY_FILE content "cites S002 now" is decorative.
+      f. directory-exists false negative.
+      g. `## Search log` in fixture says "no network; the two rows are synthetic" — cosmetic.
+
+  Now run the mutation demonstrations in /tmp:
+
+  Demo 1 (negative case genuinely catches the R68-M1 class): already demonstrated by harness run (PASS fixture-negative missing_paths=1). Also NEGPROBE leg exists in accept-o. I can re-verify via a direct copy: build fixture without used-by → checker reports missing_paths=1. Already in harness output. Maybe do one manual mutation: copy live tree's SOURCES.md + corpus into /tmp, delete a used-by target → missing_paths=1. Good to show the live-shaped file also triggers.
+
+  Demo 2 (blind spot A — citation truth): in /tmp fixture copy, make a.md NOT cite S002 ("unrelated content") → checker still green (missing_paths=0, rc=0). Shows the harness green while citation truth broken.
+
+  Demo 3 (blind spot B — malformed row swallows debt): in /tmp fixture copy with the PENDING configuration (S001 mined + S002 mined no limiter), drop one cell from S002 → chain invisible → pending=0 → green. Shows a live mass-edit (column corruption) would scan green.
+
+  Demo 4 (blind spot C — directory-instead-of-file): create directory corpus/knowledge/a.md → green. Maybe skip if time; it's cheap. Include.
+
+  Demo 5: malformed rows in LIVE file today: 0 — so no current red hidden. Also check whether any live row id duplicates (S ids duplicated would...). Quick check: duplicate ids in live? rows list — check len(set) vs len. And check any live used-by path pointing to a directory. And multi-path cells count. Also check live rows with used-by "—" count. Let me also verify the fixture registry header/separator vs live separator (`|---|...` with 11 dashes groups) byte-equal.
+
+  Also confirm harness files aren't modified by running (read-only claim) — run `git status --porcelain` maybe. Read-only git status is allowed. Actually running the harness writes only tempdirs. Fine, but a status check documents cleanliness. Cheap: `git status --porcelain | head`. Actually the repo is jj-colocated; git status read-only is fine.
+
+  Also the round task says O2 predicate is accept-o.py all legs PASS. Let me run accept-o.py --root . to see current state (data not landed; TOOL/FIXTURE/NEGCASE/LANE/NEGPROBE should pass; STAMP compares self vs committed — I'm running the committed copy so STAMP passes; R68FROZEN — check). This gives context on whether the live tree currently satisfies O2's predicate before data. Not strictly my scoped question but relevant evidence. Cheap to run. Note: my role is "CritO2 — attack the harness substance", judged on operability. Running accept-o is fine read-only.
+
+  Also check: does live used-by include SKILL.md paths (for D2's S859 plan)? grep used-by column for SKILL.md. Interesting: 709 used-by entries all exist. If S859 will use `SKILL.md`, fine.
+
+  Let me also count live rows per status to confirm "mined successor and queued target" is representative of live chains: chains list shows settled-active t=queued common. Yes.
+
+  Now the /tmp mutation demos. I'll write one bash block that:
+
+  1. Creates /tmp/crito2-fx/{green,neg,malformed,citedir} fixtures using the harness's own write_fixture? Simpler: reuse harness module: `python3 -c "import importlib.util..."` — or just hand-write minimal registries. Hand-writing is clearer for the report.
+
+  Plan the script:
+
+  ```
+  TD=/tmp/crito2-demos
+  rm -rf $TD; mkdir -p $TD
+  CHK=/home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-supersession-settlement.py
+
+  # demo1: live-shaped copy, delete one used-by target
+  mkdir -p $TD/d1/corpus/knowledge
+  cp corpus/SOURCES.md $TD/d1/corpus/
+  head -1 (first used-by target) -> pick from live: find first used-by path from registry, copy it, then delete
+  python to extract first used-by path...
+
+  Simpler: do it all in python.
+  ```
+
+  I'll write a python script for all demos, print results. Demos:
+
+  - D1: copy live SOURCES.md + the whole corpus/ (just needed used-by files) → run checker → green baseline (pending=0 missing=0). Then remove one used-by target file → missing_paths=1, rc stays 0 (pending=0 → exit 0!) — IMPORTANT: scan exit code gates `pending` alone; a live missing used-by does NOT fail the scan rc. The harness's --root mode DOES fail on missing_paths (its own rc computation). But the raw checker's exit is 0 with missing_paths=1. The negative fixture case asserts missing_paths=1 but not rc — consistent. Note in report: the checker's contract "exit 0 iff pending == 0" means missing used-by alone is invisible to exit codes; only the harness's summary parse catches it. accept-o LANE leg requires missing_paths=0 string — so O2's gate does catch it. Good nuance.
+
+  - D2: pending-shaped fixture (S001 mined + used-by exists, S002 mined no limiter) → pending=1 rc=1 (red). Then corrupt S002 row to 10 cells (merge anchor+scope, i.e., delete one `|`) → chain gone, missing used-by still checked? S002 malformed → skipped from stale loop too → but S001 still has used-by existing → missing=0 → green rc=0. Demonstrate: same file with real pending debt scans green after a column-corruption. 
+
+  - D3: green fixture, but a.md content = "nothing relevant" → green (citation truth unchecked). Also create a.md as a DIRECTORY variant: path exists as dir → green.
+
+  - D4: S002 supersedes S999 (dangling) → pending → red (checker catches; fixture doesn't exercise this case — coverage note, not a blind spot).
+
+  Then also quick live-file facts for the report:
+  - duplicate ids? 
+  - used-by cells with multiple paths?
+  - used-by values that are directories?
+  - status vocabulary distribution.
+
+  And check `## Leads` section for row-shaped lines (861-910).
+
+  Let me write the audit script + demos in one go. Two Bash calls in parallel: one for the demos, one for the live facts audit. Plus run accept-o.py --root . in parallel. Plus git status porcelain head.
+
+  Actually the demos script and audit script are independent. Let me write them carefully.
+
+  For demo D1, I need the used-by files. Simplest: copy entire corpus/ dir to /tmp (read-only copy is allowed; writing to /tmp allowed). corpus size? knowledge dir — fine, cp -r. Let me do: cp -r corpus $TD/d1/corpus → then run checker --root $TD/d1. Then delete first used-by target (compute from registry) → rerun.
+
+  For D2: hand-write the pending registry (copy of FIXTURE_REGISTRY with s001=mined). I'll inline the registry string in python, mirroring the harness's.
+
+  Let me write it.
+
+D1 baseline (live copy)      : (0, 'SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0')
+Traceback (most recent call last):
+  File "<stdin>", line 29, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/crito2-demos/d1/corpus/knowledge/linguistics/naming-systems.md, corpus/knowledge/civilizations/zapotec-mixtec.md, corpus/knowledge/civilizations/moche.md'
+rows: 782 unique ids: 782
+statuses: {'mined': 687, 'queued': 58, 'rejected': 37}
+used-by cells with multiple paths: 5 | '—' cells: 95 | used-by is a directory: 0
+S-row-shaped lines outside ## Registry: 0
+rows whose used-by names SKILL.md today: 0
+separator live==fixture: True | in harness: True
+LEG PASS STAMP self=8724f9a08911 committed=8724f9a08911
+LEG PASS TOOL tools/check-settlement-fixture.py
+LEG PASS FIXTURE rc=0 True
+LEG PASS NEGCASE PASS fixture-negative rc=0 pending=0 missing_paths=1
+LEG PASS LANE rc=0 True
+LEG PASS NEGPROBE missing_paths=1 present=True
+LEG PASS R68FROZEN mismatched=none
+ACCEPT-O-69: PASS legs=7/7
+accept-o-exit=0
+?? .ufo/waves/round-69/dispatch-v1.sh
+?? .ufo/waves/round-69/gen-spec.py
+?? .ufo/waves/round-69/spec-v1.json
+?? .ufo/waves/round-69/taskcall-v1.json
+?? .ufo/waves/round-69/w1/
+• Two important findings:
+
+  1. **Live used-by cells DO contain multiple paths** — 5 cells with multiple paths. And my demo D1 crashed because the first used-by cell was a comma-separated multi-path cell: `corpus/knowledge/linguistics/naming-systems.md, corpus/knowledge/civilizations/zapotec-mixtec.md, corpus/knowledge/civilizations/moche.md`. This is a real structural difference: the fixture's used-by cell has exactly ONE path; the live registry has multi-path cells (5 of them, one with 3 paths). The harness never exercises the `re.split(r"[,;]", ...)` branch. If that split regressed (e.g., someone changed the separator handling), the harness stays green while live cells mis-parse. Note the checker handled it fine (missing_paths=0), but the harness never tests it.
+
+  2. accept-o.py on the live tree: 7/7 PASS already — O2's predicate is currently satisfied at base+instruments (before data). R68FROZEN passes.
+
+  Also live facts: 782 unique ids, statuses mined=687/queued=58/rejected=37, 95 rows with `—` used-by, 0 used-by directories, 0 S-row-shaped lines outside Registry (Leads section has no row-shaped lines — need to double check; my scan says 0 outside registry, good), 0 rows whose used-by names SKILL.md today (S859 will be the first), separator identical.
+
+  Now fix D1: split the multi-path cell properly and delete one real single path. Also finish D2-D4 demos which never ran due to the crash. Let me re-run the demos with the fix: parse used-by cells with the same split as the checker, take the first single path, delete it.
+
+  Also for D1, deleting ONE path from a multi-path row: delete e.g. `corpus/knowledge/linguistics/naming-systems.md` and rerun — expect missing_paths=1 (or count occurrences: the path may be referenced by multiple rows! missing_paths counts per (row,path) pair, so deleting a file referenced by 3 rows → missing_paths=3). Let me just pick a used-by path referenced exactly once to keep the demo clean, or report whatever count comes out honestly.
+
+  Also demonstrate: the checker's exit code stays 0 with missing_paths>0 (contract gates pending alone) — while the harness --root mode does fail on it. Verify harness --root against the mutated copy: exit 1. That shows the harness adds the gate the checker lacks.
+
+  Re-run demos now.
+
+D1 baseline (live copy) : (0, 'SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=0')
+D1 removed corpus/knowledge/civilizations/moche.md (referenced by ['S001']): (0, 'SETTLEMENT: pending=0 chains=47 usedby_paths=709 missing_paths=1')
+D1 harness --root on mutated copy: exit=1 ['LANE: pending=0 missing_paths=1']
+D2 pending pair (mined/mined, no limiter): (1, 'SETTLEMENT: pending=1 chains=1 usedby_paths=2 missing_paths=0')
+D2 same debt, S002 dropped to 10 cells   : (0, 'SETTLEMENT: pending=0 chains=0 usedby_paths=1 missing_paths=0')
+D3 settled pair, a.md cites nothing      : (1, 'SETTLEMENT: pending=1 chains=1 usedby_paths=2 missing_paths=0')
+D3 used-by path is a DIRECTORY           : (1, 'SETTLEMENT: pending=1 chains=1 usedby_paths=2 missing_paths=0')
+D4 dangling supersedes target            : (1, 'SETTLEMENT: pending=1 chains=1 usedby_paths=2 missing_paths=0')
+D5 multi-path cell, only a.md exists     : (1, 'SETTLEMENT: pending=1 chains=1 usedby_paths=3 missing_paths=1')
+D5 multi-path cell, both exist           : (1, 'SETTLEMENT: pending=1 chains=1 usedby_paths=3 missing_paths=0')
+• D3 and D5 show pending=1 — my registry surgery for the "settled" variant didn't produce the settled shape. Let me look at REG_PEND.replace: 
+
+  REG_PEND S002 row: `| S002 | b — https://x.example/b | docs | A | s2 | "q" | supersedes S001 — the correction | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |`
+
+  Replace 1: `"supersedes S001 — the correction | mined"` → `"supersedes S001 — the correction | queued"` → S002 becomes queued.
+  Replace 2: `"| mined | 2026-10-24 | 90d | corpus/knowledge/a.md |\n| S002"` → `"| queued | 2026-10-24 | 90d | corpus/knowledge/a.md |\n| S002"` — this is meant to flip S001's status to queued. But the S001 row is `... | base claim | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |` — followed by `\n| S002`? Yes, S001's row ends with `corpus/knowledge/a.md |` then newline then `| S002`. So replace 2 should have worked... wait, but S001 row: `| S001 | a — https://x.example/a | docs | B | s1 | "q" | base claim | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |`. The pattern `| mined | 2026-10-24 | 90d | corpus/knowledge/a.md |\n| S002` — yes matches S001's tail. Hmm, but replace 1 already changed S002's `mined`→`queued`. After replace 1, S001 still `mined`. Replace 2 targets S001. So S001→queued, S002→queued. Then chain: s_st=queued, t_st=queued → classify: t_st not rejected, s_st not rejected, s_st mined? No (queued) → pending. Right! queued/queued with supersedes = PENDING per the checker (settled-active requires s mined + used-by + t queued). My "settled" variant is wrong: for settled-active I need S002 (successor) MINED with used-by, and S001 (target) QUEUED. REG_PEND has S001 mined and S002 mined. I flipped the wrong rows.
+
+  For D3 (citation truth), I want the settled-active shape: S002 mined + used-by exists; S001 queued. REG_PEND already has S002 mined with used-by. So just flip S001 mined→queued. My replace 1 flipped S002 to queued (wrong direction!). Let me redo:
+
+  settled_reg = REG_PEND.replace('| base claim | mined', '| base claim | queued')  # only S001 flips
+
+  That gives S001 queued, S002 mined + used-by a.md exists → settled-active → rc 0. Then a.md content "totally unrelated" → still rc 0, missing_paths=0 → demonstrates citation truth unchecked. Then replace a.md with a directory → os.path.exists(dir)=True → still missing_paths=0 (rc stays 0). 
+
+  For D5, the same wrong flip: reg_multi flips S002 to queued → then S002 queued... and multi-path cell on S002: usedby_paths counts the paths regardless of chain state. usedby_paths=3? S001 has a.md, S002 has a.md + b.md = 3 pairs. missing detection: only a.md existed → missing_paths=1; both → 0. Actually D5 worked as intended for the multi-path mechanics (usedby_paths=3, missing=1 then 0) even though the chain was pending. The multi-path demo is valid: shows split works and missing counts across paths. But for a cleaner demo, redo with settled shape.
+
+  Also note D4: dangling target with s=queued: pending=1 — wait, s_st=queued (I flipped S001 to queued), t=missing → classify: t_st="missing" not rejected, s_st not rejected, s mined? no → pending. So it demonstrated pending for a different reason. Cleaner: S002 mined + used-by + S999 missing → pending (settled-active requires t_st == "queued" exactly, "missing" fails). Actually with s=mined, s_used nonempty, t_st="missing" → the elif s_st=="mined" and s_used and t_st=="queued" fails → pending. Yes. Redo D4 with S002 mined, S001 queued, supersedes S999.
+
+  Let me redo D3/D4/D5 cleanly. Also D3's second half (directory): with the correct settled shape.
+
+  Also: the harness negative case and checker "missing file → missing_paths=1" semantics: directory instead of file → os.path.exists → True → not missing. Demonstrate in D3 with the settled shape: used-by path is a directory → missing_paths=0 rc=0 → harness would call it green. That's a true false-negative vector vs "real corpus path" semantics (docstring says "naming a real corpus path").
+
+  One more demo worth doing — the R68-M1 negative case itself, replicated exactly as the harness does, but with the copy step done through MY OWN write (copy harness to /tmp, mutate copy?) — not needed; harness already proves it (NEGCASE PASS). 
+
+  Also should I check the `## Leads (unopened)` section for S-row-shaped lines — already 0 outside registry. Good.
+
+  Also verify the fixture's `## Paths`/`## Search log` are truly ignored by the checker: demonstrated implicitly (the fixture passes and the checker only toggles on `## registry`). I can state it from code reading: parse_registry only reacts to headings for in_registry toggling and ROW_RE lines. Paths/Search-log lines never match ROW_RE in either file (live: 0 row-shaped lines outside Registry; fixture: bullet lines). 
+
+  Now redo D3/D4/D5 and then check one more live-shape thing: the fixture S001 id `S001` also appears in live (rows S001... exist live!). Interesting but harmless since fixtures run in temp roots.
+
+  Also: fixture status vocabulary — live statuses are mined/queued/rejected (687/58/37). Fixture uses the same three words. Good.
+
+  Recheck: any live used-by path pointing OUTSIDE corpus/ (e.g., SKILL.md, tools/)? The D2 claim says S859's used-by will name SKILL.md. Currently 0 rows name SKILL.md. Let me count used-by paths not under corpus/ — refs dict keys. Quick check in redo script.
+
+  Then write the report. Also mention: `python3 -B reports/round-69/accept-o.py --root .` → ACCEPT-O-69: PASS 7/7 pre-data (so the O2 predicate already holds at the instrument tree — meaning the "data" work can only endanger it via the LANE leg if appended rows/edits introduce pending chains or missing used-by paths).
+
+  Also the harness does not exercise the `--ledger` mode or `--registry` override — coverage note.
+
+  Also: harness exit-code contract: negative case rc from checker is 0 (pending gates alone); harness asserts missing_paths=1 via parsed summary, not rc — correct pairing, and its own --root rc=1 on missing (D1 demo). Good.
+
+  One subtle harness bug to check: `write_fixture` uses `FIXTURE_REGISTRY.format(s001=s001)` — the registry contains `{s001}` once. No other braces. Fine. But: in the PENDING case, S001 status = "mined" and S002 status = "mined" (FIXTURE_REGISTRY hardcodes S002 `mined`). S001 mined + S002 mined + no limiter → pending=1 → case asserts pending=1 rc=1. OK.
+
+  And in GREEN case: S001=queued, S002=mined+used-by → settled-active. Note fixture green has NO used-by on S001 — same_url=True (both https://example.invalid/base vs /next — different URLs actually: base vs next → same_url False; cosmetic).
+
+  Another structural check: the fixture claims "the same 11-column table as the live corpus/SOURCES.md" — header + separator verified byte-identical (live_sep == fixture sep True). And row cells: fixture cells contain em-dashes and `§1` like live? Live anchor cells vary; cosmetic.
+
+  One more potential green-while-red vector: fixture only ever runs the checker as a subprocess with `sys.executable -B` — no `-I`; PYTHONPATH env could inject a shadow `re`/etc. Not a real concern.
+
+  Also the harness never pins the checker version/identity: `--checker` override default is beside the file; accept-o's FIXTURE/NEGCASE legs run `tools/check-settlement-fixture.py` from the ROOT tree (`os.path.join(root, tool)`), which for --root . is the live lane tree. If someone later edits check-supersession-settlement.py (production), the harness result floats with it — no digest pinning of the checker in the harness or the counter (STAMP pins only the counter itself). Worth a finding: the O2 gate does not pin the checker's sha256, so a checker edit between controls and data would be invisible to STAMP/R68FROZEN (those cover counters only, not tools). Mitigation: the negative/pending cases are behavior probes, so most checker regressions flip them; but a checker regression that, say, ignores missing files entirely would flip NEGCASE. A regression in ledger mode or split detection wouldn't. Note it.
+
+  Also worth verifying quickly: `jj` state untouched — I ran no mutating commands; skip.
+
+  Now redo D3/D4/D5 and compute the non-corpus used-by count. Then write the report.
+
+  Report structure (CritO2):
+  - Scope + method (commands run, real outputs).
+  - VERDICT lines:
+    - VERDICT: PASS for "harness's three cases exercise the claimed shape" (with evidence: header/separator byte-identical, 11-column, sections present, mined successor + queued target, used-by under corpus/knowledge/).
+    - VERDICT: PASS for "negative case genuinely catches the R68-M1 missing-used-by defect" (harness NEGCASE + my D1 mutation: missing_paths=1; harness --root exit 1).
+    - Live tree green: LANE pending=0 missing_paths=0; accept-o 7/7 PASS pre-data.
+    - Blind-spot findings (each VERDICT: FAIL-ish? No — verdict lines should be scoped statements). The instruction: "State findings as VERDICT lines". I'll use a set of named verdicts:
+      - VERDICT (shape fidelity): PASS
+      - VERDICT (negative case catches R68-M1): PASS
+      - VERDICT (live tree currently green / O2 predicate pre-data): PASS 7/7
+      - VERDICT (blind spot: citation truth): GAP-CONFIRMED
+      - VERDICT (blind spot: malformed-row swallow): GAP-CONFIRMED
+      - VERDICT (blind spot: multi-path cells unexercised): GAP-CONFIRMED (live has 5 such cells)
+      - VERDICT (shape claim "same section order"): FAIL — live has an extra `## Leads (unopened)` section
+      - VERDICT (directory false-negative): GAP-CONFIRMED
+    - Green-while-red vectors summary.
+
+  Keep the report tight but complete with real commands + outputs. Time-box: fine.
+
+  Let me run the corrected demos + the non-corpus used-by audit.
+
+D3 settled-active, a.md cites S002        : (0, 'SETTLEMENT: pending=0 chains=1 usedby_paths=2 missing_paths=0')
+D3 same, a.md cites NOTHING               : (0, 'SETTLEMENT: pending=0 chains=1 usedby_paths=2 missing_paths=0')
+D3 used-by path is a DIRECTORY            : (0, 'SETTLEMENT: pending=0 chains=1 usedby_paths=2 missing_paths=0')
+D4 settled shape, target id S999 dangling : (1, 'SETTLEMENT: pending=1 chains=1 usedby_paths=2 missing_paths=0')
+D5 multi-path cell, only a.md exists      : (0, 'SETTLEMENT: pending=0 chains=1 usedby_paths=3 missing_paths=1')
+D5 multi-path cell, both exist            : (0, 'SETTLEMENT: pending=0 chains=1 usedby_paths=3 missing_paths=0')
+live multi-path used-by rows: [('S001', 3), ('S002', 11), ('S003', 2), ('S008', 2), ('S013', 9)]
+live used-by paths outside corpus/: 0 []
+• All demos now behave as expected. Summary of demo results:
+
+  - D1: live copy baseline green; deleting one used-by target → missing_paths=1, checker exit stays 0 (gates pending alone), harness `--root` exit=1 with `LANE: pending=0 missing_paths=1` — the harness DOES gate what the checker doesn't.
+  - D2: pending pair (mined/mined no limiter) → rc=1 pending=1. Same debt with S002 dropped to 10 cells → chain vanishes → rc=0 pending=0 green. **Malformed-row swallow confirmed**: no malformed counter anywhere in the checker output; the harness has no case for it.
+  - D3: settled-active green; a.md content replaced with unrelated text → still green (citation truth is NOT checked anywhere — the docstring's STALE-USED-BY "used-by names a path that does not contain the row's own id" semantic is not implemented in scan()); used-by path is a directory → os.path.exists passes → still green (missing_paths=0).
+  - D4: dangling supersedes target → pending → red. Checker catches; fixture harness never exercises this case (coverage note only, not a blind spot).
+  - D5: multi-path used-by cell works in checker (split on comma), missing detection per-path works — but the fixture harness never exercises multi-path cells, while the LIVE registry has 5 of them (S001×3 paths, S002×11, S003×2, S008×2, S013×9).
+  - Live: all used-by paths under corpus/ (0 outside), 0 name SKILL.md today (S859 will be first), 95 rows with `—` used-by, statuses mined=687/queued=58/rejected=37, 782 unique ids, header+separator byte-identical to fixture.
+  - accept-o.py --root . → 7/7 PASS pre-data (STAMP/TOOL/FIXTURE/NEGCASE/LANE/NEGPROBE/R68FROZEN all PASS).
+  - Tree cleanliness: git status shows only untracked wave files (.ufo/waves/round-69/...), nothing modified — running the harness/counter left no lane-tree mutations.
+
+  One more nuance for the report: the fixture harness's own negative case (harness-run) asserts missing_paths=1 via parsed summary; the raw checker's exit code stays 0 there (contract: exit gates pending alone). That's consistent between fixture and lane behavior (D1: exit 0 with missing_paths=1), and the harness's --root mode adds the missing-path gate itself (exit 1). Good design; note it so nobody misreads checker exit 0 + missing_paths=1 as green.
+
+  Also note the checker-identity gap: neither the harness nor accept-o pins sha256 of tools/check-supersession-settlement.py (STAMP/R68FROZEN pin counters only). A post-control edit to the checker floats the gate; behavior probes (negative/pending cases) would catch most but not all regressions (e.g., a regression in ledger mode or split-detection or stale-citation logic — the latter is unimplemented anyway).
+
+  Also the "same section order" claim in FIXTURE_REGISTRY preamble: live order is # SOURCES → ## Registry → ## Paths → ## Search log → ## Leads (unopened); fixture lacks the `## Leads (unopened)` section. Cosmetic for the checker (only `## Registry` is load-bearing; 0 row-shaped lines outside Registry in live), but the docstring/preamble claim "the same section order" is not literally true — the L1 might fix the preamble wording or accept it. Since I can't edit production, record as finding.
+
+  Also verify the D3 directory demo correctness: os.path.exists on a directory returns True → not counted missing. Confirmed output missing_paths=0. Yes.
+
+  Now — the one remaining scoped question: "whether the harness's three cases really exercise the shape the live registry has (11-column rows, ## Registry, ## Paths and ## Search log sections, a mined successor and a queued target, a used-by path under corpus/knowledge/)". Answer: YES on all six named features:
+  1. 11-column rows: header + separator byte-identical to live (verified string equality).
+  2. `## Registry` section: present, same heading, checker's in_registry toggling identical.
+  3. `## Paths`: present (checker ignores it — but so it does for live; shape fidelity holds).
+  4. `## Search log`: present, same caveat.
+  5. Mined successor + queued target: green case S002 mined/S001 queued — matches the dominant live chain class (settled-active is the largest live chain class: 30+ of 47).
+  6. Used-by path under corpus/knowledge/: yes, `corpus/knowledge/a.md`, matching the live convention (all 709 live used-by entries under corpus/).
+
+  Structural differences that could make harness green while live is not:
+  A. Malformed-row swallow (D2) — real vector: a live row edited to ≠11 cells drops its chain AND its used-by from the scan with no diagnostic. Fixture cannot catch because it's all well-formed. Current live: 0 malformed → no hidden red TODAY.
+  B. Citation truth unimplemented (D3) — checker only checks existence; the harness's USEDBY_FILE content is decorative. A live used-by file that exists but doesn't cite the row id is invisible to both. (Docstring promises STALE-USED-BY; code never implements it in scan or ledger.) Current live: unmeasured (would need a grep sweep — out of my scoped question, but note the D2 round will append S859 → SKILL.md used-by; if SKILL.md doesn't literally contain "S859", nothing will catch it).
+  C. Multi-path cells unexercised (D5) — live has 5 multi-path cells (up to 11 paths); fixture single-path only; a regression in the `[,;]` split would be invisible to the harness.
+  D. Directory-instead-of-file false negative (D3) — os.path.exists accepts directories.
+  E. Dangling supersedes target unexercised by fixture (D4) — checker catches it (red), so not a green-while-red vector; coverage gap only.
+  F. Fixture lacks live's 4th section `## Leads (unopened)` — "same section order" claim inaccurate; harmless to checker.
+  G. `## Paths`/`## Search log` are never read by the checker — the harness's shape claim is stronger than what's exercised; only `## Registry` + row shape are load-bearing.
+  H. No checker identity pinning — STAMP/R68FROZEN pin counters, not tools; a checker edit between controls and data floats the gate (behavior probes mitigate).
+  I. Fixture runs with only 2 rows/1 chain; duplicate used-by targets across rows (live: same path cited by multiple rows — e.g. refs counts; my earlier audit showed 709 (row,path) pairs; unique paths fewer) — missing_paths counts per-pair, so one deleted live file referenced by k rows → missing_paths=k; fixture only ever sees k=1. Minor.
+
+  Wait — I should double-check I: are there live paths referenced by multiple rows? My audit refs dict: I didn't print max refcount. Minor point; the D1 demo used a solo path. Let me not bother — I can mention missing_paths counts pairs not unique files, inferred from code (missing_paths = [p for _, p in stale if not exists] — yes, per-pair). That's code-readable fact; fine to state.
+
+  Also should double check the negative-case rc nuance: harness negative asserts s["pending"]==0 and missing_paths==1, ignoring rc (rc was 0). Fine.
+
+  Time to write the report. Keep it structured, with real commands + outputs, VERDICT lines. Write to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-69/w1/CritO2.md. The w1/ dir already exists (git status showed .ufo/waves/round-69/w1/ untracked). Write exactly one file.
+
+  Report outline:
+
+  # CritO2 — round-69 w1: attack on the O2 settlement-fixture harness
+  - Seat, date, scope, bounds compliance note.
+  - Commands run (with outputs, trimmed honestly).
+  - Part 1: Does the harness exercise the live shape? → VERDICT: PASS (evidence per feature).
+  - Part 2: Does the negative case catch R68-M1? → VERDICT: PASS (harness + D1).
+  - Part 3: Live tree state pre-data → ACCEPT-O 7/7, LANE green.
+  - Part 4: Structural differences / green-while-red vectors (the meat) — each with demo output and a GAP-CONFIRMED verdict + severity.
+  - Part 5: Non-blocking coverage notes (D4 dangling, sections-ignored, checker identity, pair-counting).
+  - Findings summary table for the L1 integrator, with concrete suggested actions (L1 owns production edits): e.g. (1) fix "same section order" wording or add Leads section; (2) consider a malformed-row counter in a future round (round-69 counters frozen — do NOT amend; file as later round); (3) citation-truth check unimplemented vs docstring — docstring/code mismatch in check-supersession-settlement.py worth an appended correction or future round; (4) S859 data work: ensure SKILL.md will literally contain "S859" if citation truth is ever enforced, and keep used-by single-path or add multi-path fixture case in a later round.
+
+  Important bounds note: counters are frozen post-declaration — my findings are for the L1 to route into later rounds or corrections, not counter edits.
+
+  Verdict lines format: "VERDICT: ..." — I'll use several named verdicts as instructed ("State findings as VERDICT lines (e.g. VERDICT: PASS ...)").
+
+  Let me write the file now. Also end the answer with the Report: line.
+
+• Report written. Summarize the findings concisely in my final message and end with the Report line.
+
+To resume this session: kimi -r session_d944080c-5341-4840-bace-4348c7be8c7f

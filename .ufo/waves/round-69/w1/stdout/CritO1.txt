@@ -1,0 +1,29 @@
+• Attack plan: baseline the committed counter, then two do-nothing probes on /tmp copies (tool deleted; tool kept but negative case broken), plus one rigged-tool probe to test the strongest form of "does nothing but prints PASS". First, size the tree and run the baseline.
+
+• Baseline is 7/7 PASS with the harness present. Now find what's heavy so the /tmp copies stay lean, then build the three experiment trees.
+
+• `reports/` is 448M of the 542M. Checking /tmp space to decide between full copy and trimmed copy.
+
+• 55G free — full tree copies (minus `.git/.jj/.scratch/out`) are fine. Building three experiment trees.
+
+• Tree A and C ready; tree B's sed pattern missed (indent guess wrong). Fixing tree B's break directly.
+
+• All three trees staged. Running the unmodified lane counter against each copy.
+
+• All three probes returned. The headline: deletion → 3/7, broken negative case → 4/7, but a rigged no-op harness that merely prints the expected strings → 7/7 PASS. Grabbing provenance digests and the committed controls receipt before writing the report.
+
+• Baseline selftest matches the committed `controls.txt` receipt exactly. Writing the report.
+
+• Attack complete. Summary of what the probes showed:
+
+  - **Baseline (live lane, read-only):** `ACCEPT-O-69: PASS legs=7/7`, and `--selftest` reproduces the committed `controls.txt` receipt byte-for-byte (GREEN 7/7, DO-NOTHING FAIL 6/7).
+  - **Probe A — harness deleted in a /tmp copy:** counter drops to **3/7** (TOOL/FIXTURE/NEGCASE/LANE fail). Deletion cannot reach the predicate.
+  - **Probe B — harness kept, negative case broken** (`if create_usedby:` → `if True:` so the fixture can no longer omit the used-by file): **4/7**; NEGCASE finds no `PASS fixture-negative` line, and LANE fails via rc cascade even though the tree scan itself is clean.
+  - **Probe C — spoof:** a no-op harness that only *prints* `FIXTURE: 3/3`, `PASS fixture-negative … missing_paths=1`, `LANE: pending=0 missing_paths=0` and exits 0 reaches **7/7 PASS**. Three of the seven legs adjudicate the harness on its own self-reported output; only NEGPROBE (which rebuilds the defect case against the base checker independently) and R68FROZEN sit outside it.
+
+  **Answer:** no honest do-nothing control reaches the predicate — omission and breakage both fail as the committed receipt predicts. But the predicate is spoofable: it proves a file named `tools/check-settlement-fixture.py` printed the right lines, not that any check ran. The real harness's bytes are committed (`f7adb4ba…`), so a post-data swap remains detectable by digest today; a future *new* counter (not an edit — this one is frozen) could give FIXTURE/NEGCASE the NEGPROBE treatment. One incidental robustness note: R68FROZEN held in all three mutated trees, so the round-68 freeze evidence is independent of anything under `tools/`.
+
+  Full commands and raw outputs are in the report. No production bytes touched; all mutations live in `/tmp/r69crit-o1/tree{A,B,C}`.
+
+  Report: .ufo/waves/round-69/w1/CritO1.md
+

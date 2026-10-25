@@ -1,0 +1,26 @@
+• Baseline is green (7/7, exit 0). The counter hashes itself (STAMP leg) and checks `FIXTURE: 3/3` (line 122) and `LANE: pending=0 missing_paths=0` (line 132). Now I'll read the fixture harness (to know what the LANE line really reports) and set up mutated copies in /tmp.
+
+• Harness semantics confirmed: `pending` = unsettled chain, `missing_paths` = absent used-by files; `FIXTURE: 3/3` = its three internal cases. Now mutating the two /tmp copies.
+
+• Both mutants in place. Running each against the real lane tree now.
+
+• Both mutants go red on the real lane tree (exit 1), and notably the STAMP leg also caught the tampering. Next: isolation trees in /tmp where the mutant *is* the committed copy, so STAMP passes and we prove the red comes from the mutated leg alone — plus "killer" trees showing what each mutant would wrongly admit.
+
+• All required reds captured, plus a robustness finding: the legs are double-gated (exit-code + string), so single-string mutants stay red even on adversarial trees. One last probe — a two-token mutant (string + `rc` gate) — to show what a leg-killing mutation actually requires, plus the counter's own selftest controls.
+
+• M3 confirms the picture: with both the string and the `rc` gate weakened, the counter goes green 7/7 on an unsettled tree — so each leg's string is load-bearing. Now writing the report.
+
+• Mutation test of `reports/round-69/accept-o.py` complete. Summary:
+
+  - **Baseline green**: unmutated counter → `ACCEPT-O-69: PASS legs=7/7`, exit 0 on the real lane tree.
+  - **M1** (FIXTURE leg accepts `FIXTURE: 2/3`): red on the real tree — `FAIL legs=5/7`, exit 1; the mutated leg rejects the real harness's `3/3`.
+  - **M2** (LANE leg accepts `pending=1 missing_paths=0`): red on the real tree — `FAIL legs=5/7`, exit 1; real tree is clean at `pending=0 missing_paths=0`.
+  - **Bonus finding**: the STAMP leg independently flagged both mutants (self-hash `a9ab43df…`/`e6576b15…` ≠ committed `8724f9a0…`) — the counter is tamper-evident against its own modification.
+  - **Isolation proof**: in /tmp trees where each mutant *is* the committed copy (STAMP green), the red persists 6/7 with only the mutated leg failing — the strings are load-bearing, not the STAMP accident.
+  - **Robustness finding**: both legs are double-gated (exit code + string). Single-string mutants stayed red even on adversarial trees (broken-harness `2/3` tree; unsettled-chain `pending=1` tree) because the harness exits 1; a two-token mutant (string + `rc` gate, M3) is required to kill a leg — demonstrated going green 7/7 on an unsettled-chain tree.
+  - Counter's own selftest controls re-verified fresh: `SELFTEST: 2/2` (green PASS, do-nothing FAIL).
+
+  All mutation work was confined to `/tmp/mut-o2/`; no production bytes touched, only read-only git. Full commands and pasted outputs are in the report.
+
+  Report: .ufo/waves/round-69/w1/MutO2.md
+
