@@ -761,3 +761,17 @@ Index rows re-measured 2026-10-19 at HEAD `4a7aede22cd8395b01ce6dd9f46bcae364ca2
 (211 rows vs 211 files; the ten new rows added to the culture-material and
 myth-symbol sections; 0 missing, 0 ghosts, 0 duplicate rows, 0 header drift,
 0 topic mismatches; partition counts 21/23/24/29/20/94).
+
+
+## Round 73 additions (appended 2026-10-25, hyaku run 7)
+
+Two linguistics entries landed (claim C; assimilation of the shokuknow `merge/kotodama` conlang-scholarship theme). The `## linguistics/ (30)` heading and the revision block above stay as filed (append-only: an in-place heading edit would be a rewrite); the index rows below are the entries' own `- topic:` text verbatim, in filename order, and a later reconcile may merge them into the section. The linguistics partition holds 32 files at this landing.
+
+- `conlang-scholarship.md` — constructed-language scholarship as a literature in two languages — an English-language argument that language construction teaches linguistic analysis, and a Russian-language monograph's taxonomy of artificial languages, its separation of вымышленные языки from auxiliary languages, its volume rule, and its account of which conlangs left their fictions
+- `conlang-scholarship.amend-2026-10-23.md` — the content behind the classification the base could only name — purpose-first typologies in Russian- and English-language scholarship, the a priori/a posteriori dichotomy argued down to a scale, and the design of one conlang-construction course as a companion article reports it.
+
+Registry: 799 → 804 rows (S876–S880, all mined, used-by exactly the two entries; census `validate --root /home/vgpnk/Projects/shokunin kotodama` exit 0 before and after, receipts `reports/round-73/telemetry/census-start.txt` and `census-end.txt`). The round-73 Ca corrections (`SCORECARD.md` `## Corrections — round 73`) name the stale 243 / 36 / `(total 243 files …)` statements above (pairs L01–L03, measured at the pinned base 8841ad3: 245 files, culture-material 38).
+
+Total knowledge entries: 247.
+
+Counts checked 2026-10-25 from the repo root: `find corpus/knowledge -type f -name '*.md' | wc -l` (total 247 files; directory totals 32/29/38/29/24/95 — linguistics 30 + 2, culture-material 36 → 38 per the L02 correction). The inventory command `python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge` counts markers, not verified facts.

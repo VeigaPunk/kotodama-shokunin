@@ -413,6 +413,9 @@ def load_ledger(root, clone, lands, ledger_arg):
             except ValueError as exc:
                 return None, "lands", sha256_bytes(raw), raw, \
                     "ledger JSON: %s" % exc
+    if rel == LEDGER_REL:
+        return None, "absent", None, "", \
+            "ledger %s is not committed at %s (the default ledger is never read from the worktree)" % (rel, lands)
     cand = rel if os.path.isabs(rel) else os.path.join(root, rel)
     if os.path.isfile(cand):
         with open(cand, encoding="utf-8") as fh:
@@ -1290,6 +1293,21 @@ def selftest():
                             "in-place registry edit")
         os.unlink(reg_path)
 
+        # ---- 7b. a ledger present only in the worktree (not committed at lands) must fail LEDGER ----
+        _g(lane, "checkout", "-q", "-B", "wtonly", base)
+        _write(lane, "reports/round-73/telemetry/measures-ca.txt",
+               "# counter sha256 (self): 0\nACCEPT-CA-72: PASS legs=12/12\n")
+        wt = _commit(lane, "landing without a committed ledger")
+        with open(os.path.join(lane, LEDGER_REL), "w", encoding="utf-8") as fh:
+            fh.write(json.dumps({"round": 73, "claim": "Ca", "base": base,
+                                 "fleet_pin": fleet_pin, "must_track": [],
+                                 "pairs": SELFTEST_LEDGER_PAIRS}) + "\n")
+        code, states, text = _run_check(lane, wt, fleet, base, LEDGER_REL, 2, "wtonly")
+        print("selftest: worktree-only ledger (r2 bug class)")
+        expect("wt-only exit", code, 1)
+        expect("wt-only LEDGER", states.get("LEDGER"), "FAIL")
+        os.unlink(os.path.join(lane, LEDGER_REL))
+
         # ---- 8. CLI input errors ----
         expect("bad lands exit", main(["--root", lane, "--lands", "nothex",
                                        "--fleet-root", fleet]), 2)
@@ -1311,7 +1329,7 @@ def selftest():
         for failure in failures:
             print("SELFTEST FAIL: %s" % failure)
         return 1
-    print("SELFTEST OK: 9 scenarios — do-nothing control (BASEMISMATCH "
+    print("SELFTEST OK: 10 scenarios — do-nothing control (BASEMISMATCH "
           "found=2, REPAIR/ANNOTATE/NOSTUB FAIL), clean landing 9/9, stub-row "
           "control (ANNOTATE+NOSTUB FAIL), append-only removal FAIL, "
           "in-place-outside-footer FAIL, shell-string argv FAIL, min-pairs "

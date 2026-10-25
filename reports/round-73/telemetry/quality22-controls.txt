@@ -1,0 +1,7 @@
+# QUALITY 22 controls (red-before): GROUND / SHAPE / automation counts over three fixture Gate lines
+GROUND='^[|*-].*\| *(wall|captcha|status):'
+SHAPE='UA "[^"…]{8,}" -> HTTP [1-5][0-9]{2}, [0-9]+ B, wall (present|absent).*UA "[^"…]{8,}" -> HTTP [1-5][0-9]{2}, [0-9]+ B, wall (present|absent)'
+missing: GROUND=1 SHAPE=0 automation-none=0 -> FAIL
+compliant: GROUND=1 SHAPE=1 automation-none=1 -> PASS
+automation: GROUND=1 SHAPE=1 automation-none=0 -> FAIL
+real lesson corpus/lessons/round-73.md: GROUND=2 SHAPE=2 automation-none=2 -> PASS
