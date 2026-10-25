@@ -72,4 +72,4 @@ Do-nothing control: I re-ran the same command in a worktree at re-freeze `65ff15
 
 ## Cleanup
 
-The scratch base worktree has been removed. The fresh clone at `/tmp/f39.TnoP/c` is scratch outside the lane.
+The scratch base worktree and the fresh clone `/tmp/f39.TnoP` have both been removed.
