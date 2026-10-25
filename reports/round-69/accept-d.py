@@ -26,6 +26,7 @@ import hashlib
 import os
 import re
 import sys
+import subprocess
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -194,6 +195,19 @@ def build_fixture_root(fx, *, with_table):
     os.makedirs(os.path.join(fx, "corpus", "knowledge"), exist_ok=True)
     skill = os.path.join(fx, "SKILL.md")
     base = read_text(os.path.join(LANE, "SKILL.md")) or "# fixture\n"
+    if not with_table:
+        # R69-M11: seed the do-nothing fixture from the committed pre-table
+        # base (793f797:SKILL.md) so the tree genuinely lacks the table; the
+        # live SKILL.md now carries it after the registry-correction-chains
+        # repair. Fall back to the live file only if git is unavailable.
+        try:
+            out = subprocess.check_output(
+                ["git", "-C", LANE, "show", "793f797:SKILL.md"],
+                stderr=subprocess.DEVNULL, text=True)
+            if out:
+                base = out
+        except Exception:
+            pass
     if with_table:
         base = base.replace("## Error patterns",
                             FIXTURE_TABLE + "\n## Error patterns", 1)

@@ -1350,7 +1350,9 @@ Stale-lane: respawn-per-round driver; no other mission of this lane is open at r
 
 Attempt 1's records above stand as filed; this block appends what seven residual seats found
 attacking the landed measures at `9e82c7b` (all seven returned, none died; evidence
-`.ufo/waves/round-69/w2-verify/*.md`). Nothing above is rewritten; the record corrections this
+`.ufo/waves/round-69/w2-verify/*.md`). Nothing above is rewritten; the one in-place exception —
+the ScoutAdj pointer repair in the round-69 coverage/freshness/adjacency row, disclosed in the
+round-69 corrections table (POINTER class) — is recorded there, and the record corrections this
 attempt appends live in `corpus/lessons/round-69.md` `## Corrections (round 69 attempt 2)` and its
 `## Quarantine` addendum.
 
@@ -1368,3 +1370,16 @@ adoption stays CLOSED; the id-collision guard is proved for the first time at
 `.ufo/waves/round-69/assimilation/guard-proof/`. The lesson now carries R68-M9 plus
 R69-M1..R69-M15; the frontier-step line above names only R69-M1..R69-M6, which is the attempt-1
 count.
+
+## Corrections — round 70 (2026-10-25, hyaku run 6, L1 kotodama-r70)
+
+Appended per the append-only correction convention; the superseded texts above stand as filed.
+Full per-defect dispositions: `reports/round-70/corrections-r69.md`.
+
+| item | correction |
+|---|---|
+| D2 attributions | Landed-changes first-commit hashes: `tools/check-settlement-fixture.py` = `6a98d7d`; `reports/round-69/corrections-r68.md` = `e86ed3e`; the round-70 fleet report uses them |
+| D3 claims.json wording | the round-69 claims.json frozen fields are unchanged at `6a98d7d`, `52b92a6`, `ef75509`; wave metadata and `counter_revisions` were appended at `52b92a6` — the round-70 report says exactly that |
+| D4 round-69 calibration | marking round-69 calibration unprovable: the Ca2 claim failed as declared (`FAILED AS DECLARED` at :1360; `claims.json` Ca2 `kill_rule` fires on the 4 live pairs, R69-M7); the `improved` row at :1331 is superseded by this row |
+| D9 dead pointer | `.ufo/waves/round-69/assimilation/guard-proof/note.txt` line 4 cited R69-M10; the S859 lane-package collision is mistake R69-M13; pointer fixed in place |
+| D10 O2 receipt | O2's current measurement is `reports/round-69/telemetry/final-measures-o-attempt2.txt` (stamped `975e8f2`); `final-measures-o.txt` remains the attempt-1 receipt |

@@ -44,6 +44,8 @@ only. No network.
 import argparse
 import os
 import re
+import contextlib
+import io
 import subprocess
 import sys
 import tempfile
@@ -118,7 +120,10 @@ def classify(rows, order):
             continue
         t = r["supersedes"]
         s_st, t_row = r["status"], rows.get(t)
-        t_st = t_row["status"] if t_row else "missing"
+        if t_row is not None and "status" not in t_row:
+            t_st = "malformed"
+        else:
+            t_st = t_row["status"] if t_row else "missing"
         s_used = usedby_paths(r)
         if t_st == "rejected":
             cls = "settled-closed"
@@ -133,7 +138,7 @@ def classify(rows, order):
             cls = "pending"
         chains.append({"s": rid, "t": t, "cls": cls,
                        "s_status": s_st, "t_status": t_st,
-                       "same_url": bool(t_row) and r["url"] == t_row["url"],
+                       "same_url": bool(t_row) and r["url"] == t_row.get("url"),
                        "s_usedby": s_used})
     stale = []
     for rid in order:
@@ -154,6 +159,8 @@ def scan(root, registry_path):
         return 2
     rows, order = parse_registry(text)
     chains, stale = classify(rows, order)
+    for rid in sorted(r["id"] for r in rows.values() if r.get("malformed")):
+        print(f"MALFORMED-ROW {rid}")
     pending = [c for c in chains if c["cls"] == "pending"]
     for c in chains:
         print(f"{c['cls'].upper()} {c['s']}>{c['t']} "
@@ -161,7 +168,9 @@ def scan(root, registry_path):
               f"same_url={c['same_url']} used_by={len(c['s_usedby'])}")
     # used-by resolution: only rows with corpus/ paths are checked for
     # existence here; citation truth is review work.
-    missing_paths = [p for _, p in stale if not os.path.exists(os.path.join(root, p))]
+    missing_sorted = sorted(
+        {p for _, p in stale if not os.path.exists(os.path.join(root, p))})
+    missing_paths = missing_sorted
     print(f"SETTLEMENT: pending={len(pending)} chains={len(chains)} "
           f"usedby_paths={len(stale)} missing_paths={len(missing_paths)}")
     return 1 if pending else 0
@@ -251,6 +260,21 @@ FIX4 = """# t
 | S001 | a — https://x.example/a | docs | B | s1 | "q" | base claim | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |
 | S002 | b — https://x.example/b | docs | A | s2 | "q" | supersedes S001 for entry line 41's cadet clause only | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |
 """
+FIX5 = """# t
+## Registry
+| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| S001 | a — https://x.example/a | docs | B | s1 | "q" | base claim | mined | 2026-10-24 | 90d | corpus/knowledge/a.md, corpus/knowledge/missing.md |
+| S002 | b — https://x.example/b | docs | B | s2 | "q" | old claim | mined | 2026-10-24 | 90d | corpus/knowledge/missing.md |
+"""
+FIX6 = """# t
+## Registry
+| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| S001 | a — https://x.example/a | docs | B | s1 | "q" | supersedes S099 — fix | mined | 2026-10-24 | 90d | corpus/knowledge/a.md |
+| S099 | broken row (too few cells) |
+| S100 | also malformed |
+"""
 
 
 def _mk(root, files):
@@ -303,6 +327,25 @@ def selftest():
         _mk(td, {"f5/.keep": ""})
         rc6 = scan(os.path.join(td, "f5"), None)
         chk("unreadable-exit-2", rc6 == 2)
+        # f6: multi-path used-by with one missing file referenced twice —
+        # missing_paths counts UNIQUE missing files (1, not 2)
+        _mk(td, {"f6/corpus/SOURCES.md": FIX5,
+                 "f6/corpus/knowledge/a.md": "cites S001 here\n"})
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc7 = scan(os.path.join(td, "f6"), None)
+        out7 = buf.getvalue()
+        chk("missing-unique-file", rc7 == 0 and "missing_paths=1" in out7)
+        # f7: malformed rows are reported; a malformed target does not crash
+        _mk(td, {"f7/corpus/SOURCES.md": FIX6,
+                 "f7/corpus/knowledge/a.md": "cites S001 here\n"})
+        buf2 = io.StringIO()
+        with contextlib.redirect_stdout(buf2):
+            rc8 = scan(os.path.join(td, "f7"), None)
+        out8 = buf2.getvalue()
+        chk("malformed-rows-report",
+            "MALFORMED-ROW S099" in out8 and "MALFORMED-ROW S100" in out8)
+        chk("malformed-target-no-crash", rc8 == 1)
     total = len(checks)
     passed = sum(1 for _, c in checks if c)
     for name, c in checks:
