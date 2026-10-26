@@ -1,0 +1,40 @@
+# guard proof (round 75, L1, 2026-10-27) — CORPUS.md item-10 id-collision extractor
+# extractor under test: ^ {0,3}\|[[:space:]]*S[0-9]{3,}
+# control pattern:      ^\|[[:space:]]*S[0-9]{3,}   (column-zero only)
+# method: the real lane registry at base f556d1049fe651d3d63975600b13acd9fb686f15 with
+# ONE planted row inserted after S884, inside the `## Registry` table, in each fixture
+# mirror (guard-proof/make-fixtures.py builds them; guard-proof/run-guard.sh runs the
+# extractor on each). The planted ids are STAGED ids the lane registry does not hold at
+# base (S985..S989), so each planted row is a genuine staged-vs-lane id collision.
+#
+# The rows below are the planted rows, quoted from the fixture mirrors with their exact
+# indentation, so this file is itself the proof the counter reads.
+
+PLANTED (1 leading space): S985
+ | S985 | planted indented row — https://example.invalid/guard-proof/planted-s985.pdf | docs | B | s | §1 | planted | queued | 2026-10-27 | 180d | — |
+
+PLANTED (2 leading spaces): S986
+  | S986 | planted indented row — https://example.invalid/guard-proof/planted-s986.pdf | docs | B | s | §1 | planted | queued | 2026-10-27 | 180d | — |
+
+PLANTED (3 leading spaces): S987
+   | S987 | planted indented row — https://example.invalid/guard-proof/planted-s987.pdf | docs | B | s | §1 | planted | queued | 2026-10-27 | 180d | — |
+
+plant-1sp S985 (1 leading space): the 0-3-space extractor lists S985 among the collisions — collision detected, found, exit 1
+plant-2sp S986 (2 leading spaces): the 0-3-space extractor lists S986 among the collisions — collision detected, found, exit 1
+plant-3sp S987 (3 leading spaces): the 0-3-space extractor lists S987 among the collisions — collision detected, found, exit 1
+column-zero-only control: the column-zero-only extractor sees 0 of the three indented plants — the false-green the contract warns about
+
+PLANTED (4 leading spaces): S988
+    | S988 | planted indented row — https://example.invalid/guard-proof/planted-s988.pdf | docs | B | s | §1 | planted | queued | 2026-10-27 | 180d | — |
+
+plant-4sp S988 (4 leading spaces, indented code per the census parser note): the 0-3-space extractor does not list S988 — not found, no collision (correct)
+
+PLANTED (1 leading tab): S989
+	| S989 | planted indented row — https://example.invalid/guard-proof/planted-s989.pdf | docs | B | s | §1 | planted | queued | 2026-10-27 | 180d | — |
+
+plant-tab S989 (one leading tab): the 0-3-space extractor does not list S989 — not found, no collision (correct)
+
+# real registry, no plant: the adopted lane ids S885..S893 are free at base
+# (grep -cE '^S(88[5-9]|89[0-3])$' reg-ids = 0; the same grep over collisions = 0)
+# the 26 real numeric collisions are staged S859..S884 vs lane S859..S884, 0 same-document
+# pairs; see ../id-renumber-map.json (numeric_collisions_at_base) and ../collisions.

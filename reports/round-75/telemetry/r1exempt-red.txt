@@ -1,0 +1,40 @@
+# r1exempt-red.txt — round-75 R1EXEMPT fixture R
+# claim: Ca   leg under test: APPENDONLY   expectation: RED
+# generated: 2026-10-27T20:37:06Z
+# fixture: R — RED: only a non-rule-2 (teaches) cell edit on one pre-existing row; the APPENDONLY leg must go red and every other leg must be unchanged
+# mutation: row S001: teaches cell edited only (not a rule-2 cell); every other byte of the tree is unchanged
+# freeze: cb7fe05518dfa7722e108d9299819464564331e0
+# base: f556d1049fe651d3d63975600b13acd9fb686f15
+# reference-lands: cb7fe05518dfa7722e108d9299819464564331e0
+# fixture-lands: 3d4b70a30398b440f463b8c002eccf5adf679665
+# tree: 366f0ad432d3059fbd25eec09d0a7e156f34e300
+# counter: /usr/bin/python3 -B /fast/scratch/hyaku/kotodama-r75/L1-r1/jf-R-g9kkjwcj/repo/reports/round-75/accept-ca.py --root /fast/scratch/hyaku/kotodama-r75/L1-r1/jf-R-g9kkjwcj/repo --lands 3d4b70a30398b440f463b8c002eccf5adf679665 --freeze cb7fe05518dfa7722e108d9299819464564331e0 --fleet-root /home/vgpnk/Projects/shokunin
+# changed-paths: corpus/SOURCES.md
+# edited-row: S001
+# edited-cell: teaches (index 7, rule-2 cell: no)
+# old-cell: languoid catalogue merging Hammarström's top-level classification with dialect-level multitree data; AES derived from ELCat, UNESCO Atlas and Ethnologue; data curated in a public GitHub repo with numbered releases, so always cite the version used
+# new-cell: languoid catalogue merging Hammarström's top-level classification with dialect-level multitree data; AES derived from ELCat, UNESCO Atlas and Ethnologue; data curated in a public GitHub repo with numbered releases, so always cite the version used [junk fixture: non-rule-2 edit]
+# sources-delta-vs-base: 1	1	corpus/SOURCES.md
+# sources-changed-lines-vs-base: 30
+# sources-delta-is-one-changed-line: yes
+exit: 1
+ACCEPT-CA-75: FAIL legs=5/12
+LEG PASS LEDGER
+LEG PASS BASEMISMATCH
+LEG FAIL REPAIR
+LEG FAIL ANNOTATE
+LEG FAIL NOSTUB
+LEG FAIL APPENDONLY
+LEG FAIL R1EXEMPT
+LEG PASS SEPARABLE
+LEG FAIL RECEIPTS
+LEG FAIL COMBINED
+LEG PASS FROZENCFG
+LEG PASS STAMP
+# counterpart-fixture: G
+# counterpart-appendonly: True
+# legs-differing-from-counterpart: APPENDONLY
+appendonly: FAIL
+other-legs-unchanged: yes
+verdict: AS-EXPECTED
+# L1 note: leg under test APPENDONLY reads FAIL here, leg exit=1 (matches the counter exit above).

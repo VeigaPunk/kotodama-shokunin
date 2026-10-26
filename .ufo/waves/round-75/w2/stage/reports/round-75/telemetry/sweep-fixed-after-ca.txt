@@ -1,0 +1,114 @@
+SWEEP-FIXED-AFTER-CA — the repaired instrument on the tree carrying claim Ca's README edits
+                         (round 75, green-after receipt)
+claim        Ca (calibration) · ledger pair L75-04 · the REPAIR leg's sweep run
+state        GREEN (exit 0): rows == files == 249, footer 249, selftest 14/14
+seat         ExecSweepReceipts (wave 2, leaf executor)
+date         2026-10-27
+
+base         f556d1049fe651d3d63975600b13acd9fb686f15
+instrument   the repaired sweep, lane working-tree bytes
+             reports/round-28/readme/sweep.py
+             sha256 7e0566ad1ae8ec2c5a0f10c62dc8de66abcc180ec3f7af560bceeba1601cad2b
+             (same instrument as sweep-fixed-at-base.txt; NOT the draft copy, which does not
+             compile — see that file's section B)
+edits        claim Ca's staged README edits, applied by their own grammar:
+             .ufo/waves/round-75/w2/stage/corpus/README.md.ca-edits
+             sha256 e3fa4f8d4c5f12b704c26c6c24e955c617b7ac2c82fa8566e3e1ab423a5294dd (2291 B, 3 records)
+             NOTE the file moved under this seat twice (see C3): a 16:54 snapshot carried a
+             fourth record (sha256 3dca9cfd…) that inserts two in-section linguistics rows; the
+             current staging carries the two headings plus the two heritage rows only, which is
+             the ROW SET this receipt grades. Every number below is from the current set.
+             applied (anchors asserted to occur exactly once in the base blob):
+               LINE-REPLACE  README:344  "## linguistics/ (30)"       -> "## linguistics/ (32)"
+               LINE-REPLACE  README:407  "## culture-material/ (36)"  -> "## culture-material/ (40)"
+               INSERT-AFTER  after README:428 ("- `headgear-head-covering-codes.md` — …")
+                             2 rows: heritage-taxonomy-models.amend-2026-10-24-r13.md,
+                                     heritage-taxonomy-models.md
+tree         base tree + those three edit records + the repaired sweep, nothing else
+             HEAD              f1bc42aa3a2647d78c15d201bd622e34dcc2a7e2  (first build)
+                               0a6c6a5a8841e950d661bc0ddc32cdbee1a0317c  (independent rebuild)
+                               (scratch fixture commits, different ids only because of the commit
+                               timestamp; both have parent f556d10)
+             HEAD^{tree}       45fcb720126077cf52d70a9c9438c012b6e25a9a   <- IDENTICAL in both builds
+             corpus/README.md  sha256 1d541fb2f2d0c95ef39000fc3e7a9c95ce46122fdb45f631a1ed9502d4703c4d
+             base..HEAD        corpus/README.md                 6 ++--
+                               reports/round-28/readme/sweep.py  72 ++++++++++++++++--------
+                               2 files changed, 62 insertions(+), 16 deletions(-)
+             README diff vs base: exactly 2 changed lines (:344, :407) and 2 inserted lines
+             (after :428). No other README byte moves.
+
+reproduce    git clone <lane> D && git -C D checkout f556d1049fe651d3d63975600b13acd9fb686f15
+             # apply the three records of README.md.ca-edits to D/corpus/README.md
+             cp <lane-worktree>/reports/round-28/readme/sweep.py D/reports/round-28/readme/sweep.py
+             cd D && python3 -B reports/round-28/readme/sweep.py ; echo $?
+
+command      python3 -B reports/round-28/readme/sweep.py        (cwd = the clone root)
+
+--- stdout ---
+parts {"civilizations": 95, "culture-material": 40, "linguistics": 32, "myth-symbol": 29, "synthesis": 29, "verification": 24}
+rows 249 files 249
+missing_from_index 0 []
+topic_mismatch 0 []
+orphan_rows 0 []
+header_drift {}
+totals_line 249 totals_ok True
+footer {"date": "2026-10-25", "command": "find corpus/knowledge -type f -name '*.md' | wc -l", "total": 249, "dir_totals": [32, 29, 40, 29, 24, 95]}
+footer_live {"total": 249, "dir_totals": [32, 29, 40, 29, 24, 95], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [] footer_ok True
+readme_sha256 1d541fb2f2d0c95ef39000fc3e7a9c95ce46122fdb45f631a1ed9502d4703c4d
+
+--- exit code ---
+0
+
+--- selftest on the same tree (same instrument, same command family) ---
+command: python3 -B reports/round-28/readme/sweep.py --selftest
+exit code: 0
+first line: PASS live: rows == files / 0 missing / 0 topic mismatches / 0 ghosts / 0 drift / footer ok {"rows": 249, "files": 249, "missing": [], "mismatch": 0, "ghosts": [], "drift": {}, "footer": []}
+last line:  selftest: 14/14 checks passed
+14 checks total: the live check above + 13 planted controls — paraphrase, ghost row, deleted row,
+wrong header count, wrong totals line, duplicate row, stale footer total, stale footer dir
+vector, absent footer, correct footer, continuation folding, appendix-row attribution, last
+totals + footer selection. (At base the same command prints 13 PASS + 1 FAIL, "selftest:
+FAILED", exit 1 — see sweep-fixed-at-base.txt section C.)
+
+--- controls, each naming its own bytes and tree ---
+C1  INSTRUMENT MUTANT — the BASE sweep bytes (sha256 9b2ccac0…) on THIS EXACT after-Ca tree
+    (README sha256 1d541fb2…), run with the identical command:
+    exit code 1
+      missing_from_index 2 ['linguistics/conlang-scholarship.amend-2026-10-23.md', 'linguistics/conlang-scholarship.md']
+      orphan_rows 2 ['civilizations/conlang-scholarship.amend-2026-10-23.md', 'civilizations/conlang-scholarship.md']
+      header_drift {}   totals_line 243 totals_ok False
+      footer {"date": "2026-10-25", "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge", "total": 243, "dir_totals": [30, 29, 36, 29, 24, 95]}
+      footer_findings [FOOTER_TOTAL 243 vs live 249, FOOTER_DIR_TOTALS [30,29,36,29,24,95] vs [32,29,40,29,24,95]]
+    => the landing alone does NOT green the sweep: the repair is load-bearing, and the mutant is
+       red on a tree that is green under the repaired instrument (the "green first, mutant red"
+       shape the ledger asks for the R74-M3 repair).
+
+C2  ABLATION — the two heritage rows inserted, both headings LEFT STALE, repaired instrument
+    (README sha256 1ebec7d3f655f47afc1436c5f0c8b5b0d531c1539555e09cda72ca5e330204f4):
+    exit code 1; rows 249 files 249; missing_from_index []; orphan_rows []; footer/totals green;
+    header_drift {'culture-material': {'declared': 36, 'files': 40}, 'linguistics': {'declared': 30, 'files': 32}}
+    => the two heading repairs (pairs L75-02 / L75-03) are each necessary; neither is cosmetic.
+
+C3  FOUR-ROW VARIANT — what the superseded 16:54 staging (fourth record: two in-section
+    linguistics rows) would grade, measured on the same base + same instrument
+    (README sha256 d4d711ddbec81eb5e38542117de4107d1648077b95c56c1a5b6a7498f409d52a):
+    exit code 0, ok True — but rows 251 files 249, parts.linguistics
+      {"declared": 32, "rows": 34, "files": 32,
+       "duplicate_rows": ["conlang-scholarship.amend-2026-10-23.md", "conlang-scholarship.md"]}
+    and `--selftest` exit code 1, first line
+      FAIL live: … {"rows": 251, "files": 249, …}   last line "selftest: FAILED"  (13/14)
+    => the graded legs stay green because `ok` never compares total_rows with total_files and
+       `duplicate_rows` is reported, not graded; only the selftest's live check sees the
+       mismatch. That is why the current staging keeps the two conlang rows in the dated
+       round-73 block (ledger pair L75-02 `why`) and inserts the two heritage rows only.
+
+--- claim-Ca consequences this receipt pins (evidence, not adjudication) ---
+* REPAIR leg, "Ca-lands must exit 0 with the live 249 footer, zero missing rows/ghosts and the
+  repaired index rows": measured — exit 0, footer 249 against 249 files, missing [], orphan_rows
+  [], header_drift {}, rows == files == 249.
+* REPAIR leg, "base must exit 1 naming the 243 first footer while the last footer is 249":
+  measured in sweep-base.txt (exit 1; FOOTER_TOTAL declared 243 / live 249, date 2026-10-25).
+* At Ca-only the README holds exactly one row per knowledge file (the round-73 block's two
+  linguistics rows are attributed to linguistics by the repair), so the duplicate-row shape
+  ScribeReadmeIndex F4 warned about does not arise and the instrument's live check agrees.

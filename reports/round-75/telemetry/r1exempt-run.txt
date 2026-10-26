@@ -1,0 +1,72 @@
+
+# ==================== round-75 junk landings ====================
+# freeze: cb7fe05518dfa7722e108d9299819464564331e0
+# base: f556d1049fe651d3d63975600b13acd9fb686f15
+# reference lands: cb7fe05518dfa7722e108d9299819464564331e0
+# lane: /fast/scratch/hyaku/kotodama-r75/L1-r1/lane
+# fleet-root: /home/vgpnk/Projects/shokunin
+# counters: reports/round-75/accept-c.py ; reports/round-75/accept-ca.py
+
+# ===== SECTION C =====
+
+# ===== SECTION Ca =====
+
+fixture: G
+section: Ca
+claim: Ca
+expected: GREEN: only a rule-2 (used-by) cell edit on one pre-existing row; the APPENDONLY leg must stay green and every other leg must be unchanged
+mutation: row S001: used-by cell edited only (a rule-2 cell); every other byte of the tree is unchanged
+reference-lands: cb7fe05518dfa7722e108d9299819464564331e0
+lands: f4126582da7e36dd4e795f932f1dc6fbb3e1d622
+changed-paths: corpus/SOURCES.md
+command: /usr/bin/python3 -B /fast/scratch/hyaku/kotodama-r75/L1-r1/jf-G-8g0hzmq0/repo/reports/round-75/accept-ca.py --root /fast/scratch/hyaku/kotodama-r75/L1-r1/jf-G-8g0hzmq0/repo --lands f4126582da7e36dd4e795f932f1dc6fbb3e1d622 --freeze cb7fe05518dfa7722e108d9299819464564331e0 --fleet-root /home/vgpnk/Projects/shokunin
+exit: 1
+LEG PASS LEDGER
+LEG PASS BASEMISMATCH
+LEG FAIL REPAIR
+LEG FAIL ANNOTATE
+LEG FAIL NOSTUB
+LEG PASS APPENDONLY
+LEG FAIL R1EXEMPT
+LEG PASS SEPARABLE
+LEG FAIL RECEIPTS
+LEG FAIL COMBINED
+LEG PASS FROZENCFG
+LEG PASS STAMP
+verdict: ACCEPT-CA-75: FAIL legs=6/12
+red-legs: ANNOTATE, COMBINED, NOSTUB, R1EXEMPT, RECEIPTS, REPAIR
+newly-red: (none)
+expected-legs: APPENDONLY
+accepted: no
+
+fixture: R
+section: Ca
+claim: Ca
+expected: RED: only a non-rule-2 (teaches) cell edit on one pre-existing row; the APPENDONLY leg must go red and every other leg must be unchanged
+mutation: row S001: teaches cell edited only (not a rule-2 cell); every other byte of the tree is unchanged
+reference-lands: cb7fe05518dfa7722e108d9299819464564331e0
+lands: 3d4b70a30398b440f463b8c002eccf5adf679665
+changed-paths: corpus/SOURCES.md
+command: /usr/bin/python3 -B /fast/scratch/hyaku/kotodama-r75/L1-r1/jf-R-g9kkjwcj/repo/reports/round-75/accept-ca.py --root /fast/scratch/hyaku/kotodama-r75/L1-r1/jf-R-g9kkjwcj/repo --lands 3d4b70a30398b440f463b8c002eccf5adf679665 --freeze cb7fe05518dfa7722e108d9299819464564331e0 --fleet-root /home/vgpnk/Projects/shokunin
+exit: 1
+LEG PASS LEDGER
+LEG PASS BASEMISMATCH
+LEG FAIL REPAIR
+LEG FAIL ANNOTATE
+LEG FAIL NOSTUB
+LEG FAIL APPENDONLY
+LEG FAIL R1EXEMPT
+LEG PASS SEPARABLE
+LEG FAIL RECEIPTS
+LEG FAIL COMBINED
+LEG PASS FROZENCFG
+LEG PASS STAMP
+verdict: ACCEPT-CA-75: FAIL legs=5/12
+red-legs: ANNOTATE, APPENDONLY, COMBINED, NOSTUB, R1EXEMPT, RECEIPTS, REPAIR
+newly-red: (none)
+expected-legs: APPENDONLY
+accepted: no
+
+# wrote /fast/scratch/hyaku/kotodama-r75/L1-r1/out/r1exempt-green.txt
+# wrote /fast/scratch/hyaku/kotodama-r75/L1-r1/out/r1exempt-red.txt
+# ACCEPTED JUNK LANDINGS: none

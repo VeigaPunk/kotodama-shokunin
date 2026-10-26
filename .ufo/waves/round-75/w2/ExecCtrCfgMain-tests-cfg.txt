@@ -1,0 +1,44 @@
+PASS C1 cfg keys == CFG-CONTRACT
+PASS C2 rows contiguous S885..S893 — ['S885', 'S886', 'S887', 'S888', 'S889', 'S890', 'S891', 'S892', 'S893']
+PASS C3 row_staged S885 is a 4-id LIST — ['S876', 'S885', 'S917', 'S921']
+PASS C4 entries = 3 repo-relative paths — ['corpus/knowledge/myth-symbol/narrative-structure-frameworks.md', 'corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md', 'corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md']
+PASS C5 terms renamed from cjk_terms — ['narrative structure', 'narratology']
+PASS C6 fragments = 9 — ['persee.fr/doc/comm_0588-8018_1966_num_8_1_1113', 'persee.fr/doc/comm_0588-8018_1966_num_8_1_1120', 'persee.fr/doc/comm_0588-8018_1966_num_8_1_1114', 'jw.ucass.edu.cn', 'jstage.jst.go.jp/article/jcss', 'jstage.jst.go.jp/article/jsik', 'unige.ch/lettres/framo', 'iris.unipa.it', 'chinawriter.com.cn/n
+PASS C7 refused_staged = ['S870'] (staged-only, D7) — ['S870']
+PASS C8 access_date derived from frozen text — 2026-10-27
+PASS C9 frozen_legs = 13 in claim order — ['ENTRIES', 'ROWS', 'REPOINTED', 'GATE', 'EVIDENCE', 'REJECTS', 'GROUND', 'CITEDLINES', 'CENSUS', 'SCRATCHMIRROR', 'COLLCHECK', 'FROZENCFG', 'INDEX']
+PASS C10 forbidden excludes every lane id
+PASS C11 forbidden = the eleven staged ids the lane does not hold — ['S864', 'S865', 'S866', 'S870', 'S876', 'S902', 'S904', 'S905', 'S917', 'S919', 'S921']
+PASS C12 owned_inplace names the README myth-symbol heading — [{'path': 'corpus/README.md', 'base_line': 376, 'base_text': '## myth-symbol/ (29)', 'after_text': '## myth-symbol/ (32)'}]
+PASS C13 map pinned (path + 64-hex sha from the freeze) — 4468f54e8e857ae7de51c15f4824d5a60687e007289f2cb7f564ba0756d2d98e
+PASS C14 counts {}
+PASS C15 frozen_sha256 is the freeze blob's digest — 7a5b9ad3ee25e2a6
+PASS C16 row_doc carries the claim's document string for S892 — https://iris.unipa.it/retrieve/e3ad891d-ad9f-da0e-e053-3705fe0a2b96/2014 marrone age dor---2.pdf (via same-page wayback capture)
+PASS C17 page-level Persee view folds to the document — (('persee.fr', '/doc/comm_0588-8018_1966_num_8_1_1113'), ('persee.fr', '/doc/comm_0588-8018_1966_num_8_1_1113'))
+PASS C18 wayback carrier folds to the embedded original (raw space == %20) — (('iris.unipa.it', '/retrieve/e3ad891d-ad9f-da0e-e053-3705fe0a2b96/2014 marrone age dor---2.pdf'), ('iris.unipa.it', '/retrieve/e3ad891d-ad9f-da0e-e053-3705fe0a2b96/2014 marrone age dor---2.pdf'))
+PASS C19 docAsPDF folds to /doc/<slug>
+PASS C20 a page the row cell does not carry still joins by document — [('persee.fr', '/doc/comm_0588-8018_1966_num_8_1_1113'), ('www.persee.fr', '/doc/page/comm_0588-8018_1966_num_8_1_1113/comm_0588-8018_1966_num_8_1_T1_0026_0000')]
+PASS C21 _row_has_url true for the S892 capture, false for an unrelated doc
+PASS C22 _gate_admit_row joins a page-only, id-less admit row by document
+PASS C23 S892 evidence: excerpt scope, 4097-char window, sha recomputed — excerpt
+PASS C24 S892 fetch parse carries the carrier AND the document — GET https://web.archive.org/web/20251111222249id_/https://iris.unipa.it/retrieve/e3ad891d-ad9f-da0e-e053-3705fe0a2b96/20
+PASS C25 S892 evidence fetch joins the row's document through neutral_url_keys — [('iris.unipa.it', '/retrieve/e3ad891d-ad9f-da0e-e053-3705fe0a2b96/2014%20marrone%20age%20dor---2.pdf'), ('web.archive.org', '/web/20251111222249id_/https://iris.unipa.it/retrieve/e3ad891d-ad9f-da0e-e053-3705fe0a2b96/2014%20marrone%20age%20dor---2.pdf')]
+PASS C26 S885 whole-document window equals its visible-chars — ('whole-document', 3720, '3720')
+PASS C27 _evidence missing id returns None
+PASS C28 _window returns None without the marker
+PASS C29 _all keeps the verbatim fetch line
+PASS C30 entry citations resolve to lane ids only
+PASS C31 each frozen entry's source lines resolve to ids — {'corpus/knowledge/myth-symbol/narrative-structure-frameworks.md': ['S885'], 'corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md': ['S885', 'S886', 'S887'], 'corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md': ['S885', 'S891', 'S892']}
+PASS C33 smallest base entry = 478 words — 478
+
+PASS CM1 mutant: staged list carries a non-S-id -> ConfigError — row_set carries a non-S-id staged item: 'BOGUS'
+PASS CM2 mutant: map.sha256 null -> ConfigError (map unpinnable) — claim map.sha256 at freeze is not a 64-hex digest (the by-document map cannot be pinned): None
+PASS CM3 mutant: one staged id claimed by two lane rows -> ConfigError — row_set maps staged S876 to both S885 and S886
+PASS CM4 mutant: ground.terms emptied -> ConfigError — ground.terms at freeze is empty
+PASS CM5 mutant: a 12-leg frozen list is visible to LEGCOUNT — 12
+PASS CM6 mutant: without the page-view fold, C20/C22 go red — (False, None)
+PASS CM7 mutant: without the carrier disclosure, C25 goes red — GET https://web.archive.org/web/20251111222249id_/https://iris.unipa.it/retrieve/e3ad891d-ad9f-da0e-
+PASS CM8 mutant: a naive staged|lane forbidden set would ban S885 — ['S864', 'S865', 'S866', 'S870']
+PASS C32 _row_pairs: one id, a "/"-string and a list all give the same list shape — [('S885', ['S876', 'S885', 'S917', 'S921']), ('S886', ['S902']), ('S887', ['S904']), ('S888', ['S864', 'S865'])]
+
+SUMMARY: 0 check(s) failed

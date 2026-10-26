@@ -1,0 +1,103 @@
+SWEEP-FIXED-AT-BASE — the repaired instrument on the base tree (claim Ca, round 75)
+claim        Ca (calibration) · ledger pair L75-04 · the REPAIR leg's sweep run
+state        RED (exit 1), and red on the DATA legs only: the instrument repair works, the
+             landing is still missing
+seat         ExecSweepReceipts (wave 2, leaf executor)
+date         2026-10-27
+
+base         f556d1049fe651d3d63975600b13acd9fb686f15
+instrument   the repaired sweep, as delivered in the lane working tree at
+             reports/round-28/readme/sweep.py
+             sha256 7e0566ad1ae8ec2c5a0f10c62dc8de66abcc180ec3f7af560bceeba1601cad2b  (19420 bytes)
+             (this is the runnable repaired copy; see section B — the draft copy is NOT
+             identical and does not compile)
+tree         base tree with that one file replaced and nothing else changed
+             HEAD              aaad8a31c9825e71969a779c3084d7989cab913d   (scratch fixture commit,
+                                                                       parent f556d10; the
+                                                                       commit id is local, the
+                                                                       tree object is not)
+             HEAD^{tree}       b191ee8f2688bcb55236c489ca39a8dc53ed5547
+             corpus/README.md  sha256 0531f7a3d16bee20329c9b042eb865be13bb6c54e4e5a158a2f864f3eae3708e (base bytes, untouched)
+             base..HEAD        reports/round-28/readme/sweep.py | 72 ++++++++++---------  (1 file, +58 −14)
+
+reproduce    git clone <lane> D && git -C D checkout f556d1049fe651d3d63975600b13acd9fb686f15
+             cp <lane-worktree>/reports/round-28/readme/sweep.py D/reports/round-28/readme/sweep.py
+             cd D && python3 -B reports/round-28/readme/sweep.py ; echo $?
+
+command      python3 -B reports/round-28/readme/sweep.py        (cwd = the clone root)
+
+--- stdout ---
+parts {"civilizations": 95, "culture-material": 40, "linguistics": 32, "myth-symbol": 29, "synthesis": 29, "verification": 24}
+rows 247 files 249
+missing_from_index 2 ['culture-material/heritage-taxonomy-models.amend-2026-10-24-r13.md', 'culture-material/heritage-taxonomy-models.md']
+topic_mismatch 0 []
+orphan_rows 0 []
+header_drift {'culture-material': {'declared': 36, 'files': 40}, 'linguistics': {'declared': 30, 'files': 32}}
+totals_line 249 totals_ok True
+footer {"date": "2026-10-25", "command": "find corpus/knowledge -type f -name '*.md' | wc -l", "total": 249, "dir_totals": [32, 29, 40, 29, 24, 95]}
+footer_live {"total": 249, "dir_totals": [32, 29, 40, 29, 24, 95], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [] footer_ok True
+readme_sha256 0531f7a3d16bee20329c9b042eb865be13bb6c54e4e5a158a2f864f3eae3708e
+
+--- exit code ---
+1
+
+--- reading (exactly which legs are still red, and which turned green) ---
+TURNED GREEN by the instrument repair alone, on unchanged base bytes:
+* footer_findings [] / footer_ok True — `footer_reading()` now takes the LAST matching block
+  (README:815, total 249, vector 32/29/40/29/24/95) instead of the first (README:751, 243).
+* totals_ok True — `totals_line 249` (last `Total knowledge entries:` line, README:813) against
+  249 live files.
+* orphan_rows [] — partitions now end at any `^## ` heading, so the dated
+  `## Round 73 additions` block's two rows are outside every partition span, are attributed to
+  the unique partition whose disk holds the file (`linguistics`), and are no longer read as
+  `civilizations/…` ghosts. `parts.linguistics.rows` = 32 with `duplicate_rows []`.
+
+STILL RED (the exit 1): the data legs, exactly
+1. `missing_from_index 2` — `culture-material/heritage-taxonomy-models.md` and
+   `culture-material/heritage-taxonomy-models.amend-2026-10-24-r13.md`. These are the two rows
+   claim Ca lands (staged insert in README.md.ca-edits).
+2. `header_drift` — `linguistics` declared 30 vs 32 files and `culture-material` declared 36 vs
+   40 files: ledger pairs L75-02 / L75-03, repaired by the two heading LINE-REPLACEs.
+
+NOTE (measured, differs from the wave-2 ticket's expectation): the repaired instrument reports
+TWO missing index rows at base, not four. The two `linguistics/conlang-scholarship…` files are
+NOT missing under the repair: their rows exist in the round-73 block and the boundary fix
+attributes them to `linguistics` (that is exactly why `orphan_rows` is empty and the sidecar
+`rows` count for linguistics is 32). Re-adding them in-section is not needed and would make
+rows exceed files (see `sweep-fixed-after-ca.txt`, control C2).
+
+--- section B: the two "repaired sweep" copies are NOT identical (cmp, required by the ticket) ---
+cmp <lane>/reports/round-28/readme/sweep.py <lane>/.ufo/waves/round-75/drafts/sweep-fixed.py
+    -> differ: byte 1400, line 28   (worktree 19420 B / 475 lines ; draft 20800 B / 501 lines ;
+       diff -u = 50 changed lines: 38 added, 12 removed)
+    sha256 worktree 7e0566ad…  draft 6bf975a069d02aee0a10bdc06defb75a5ecc4167d9f24656b1c39aa8f4bd6399
+
+The draft copy is NOT runnable. Same tree, draft bytes instead of the worktree bytes, identical
+command:
+
+    python3 -B reports/round-28/readme/sweep.py
+      File ".../reports/round-28/readme/sweep.py", line 170
+        for f in sorted(fileset - seen):
+    IndentationError: unexpected indent
+    exit code 1
+
+`python3 -c "py_compile..."` agrees (PyCompileError, line 170). Cause: the draft moved
+`ghosts.extend("unassigned/%s" …)` from its original place (before `for part in sorted(sections)`)
+to AFTER that loop's body (`dup = sorted(…)` at 8 spaces), leaving the loop interior at 8 spaces
+under a 4-space statement, i.e. a mis-applied reorder. Every number in THIS receipt is therefore
+the worktree copy's; if the draft is what lands, the sweep dies with a traceback instead of
+grading. Report item B1.
+
+--- section C: selftest (the repaired instrument carries one; ticket asked for its case count) ---
+command: python3 -B reports/round-28/readme/sweep.py --selftest     (same tree)
+file: `selftest()` at reports/round-28/readme/sweep.py:257 (worktree copy), 14 `check(` calls; main()
+prints "selftest: 14/14 checks passed" only when all 14 pass.
+result at base: exit 1, 13 PASS + 1 FAIL —
+  FAIL live: rows == files / 0 missing / … {"rows": 247, "files": 249, "missing": ["culture-material/heritage-taxonomy-models.amend-2026-10-24-r13.md", "culture-material/heritage-taxonomy-models.md"], …, "drift": {"culture-material": {"declared": 36, "files": 40}, "linguistics": {"declared": 30, "files": 32}}}
+  PASS ×13: planted paraphrase / ghost row / deleted row / wrong header count / wrong totals
+  line / duplicate row / stale footer total / stale footer dir vector / absent footer / correct
+  footer / continuation folding / appendix-row attribution / last totals+footer selection
+  last line: "selftest: FAILED"
+So the first check is a LIVE check on the grade target itself: 14/14 is reachable only on a green
+tree (see sweep-fixed-after-ca.txt: 14/14).

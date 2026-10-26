@@ -1,0 +1,40 @@
+# corpus/README.md - claim Ca (round 75) - exact in-place edits
+# lane base f556d1049fe651d3d63975600b13acd9fb686f15
+# format: '#' lines are comments and are not applied. Each record opens with a
+# keyword line, carries its payload lines verbatim, and closes with END.
+#   LINE-REPLACE  payload = old whole line, "==>", new whole line
+#   INSERT-AFTER  payload = anchor line prefix, then the row lines to insert
+#                 immediately after the single line that starts with it
+#                 (the anchor is a prefix: the em dash is the last byte shown)
+# every anchor and old line below occurs exactly once in
+#   git show f556d1:corpus/README.md
+# row text is each entry's own '- topic:' text, continuations space-joined
+# (the fold sweep.py:topic_of() applies), read from the base blob of the file.
+# Only these lines change; no other README byte moves.
+#
+# ROW SET: two rows, both culture-material, per the L1 ruling of 2026-10-27
+# (second wave-2 IRC) and ledger pair L75-04 `why`: "The two missing
+# heritage-taxonomy index rows land under Ca". The two conlang-scholarship
+# files are already indexed by the dated round-73 block (README.md:787-788),
+# and the repaired sweep attributes that block to linguistics (pair L75-02
+# `why`), so they get no second row here. Measured with four rows instead:
+# rows 251 / files 249 at Ca-only and 254 / 252 at Ca+C, which the repaired
+# instrument's own live selftest grades FAIL.
+
+LINE-REPLACE
+## linguistics/ (30)
+==>
+## linguistics/ (32)
+END
+
+LINE-REPLACE
+## culture-material/ (36)
+==>
+## culture-material/ (40)
+END
+
+INSERT-AFTER
+- `headgear-head-covering-codes.md` —
+- `heritage-taxonomy-models.amend-2026-10-24-r13.md` — what a state's own heritage-category list does over time, and how it should be cited, with dated captures as the durable carriers.
+- `heritage-taxonomy-models.md` — the two states' official category models for material and intangible culture, read as design systems: the PRC's ten-门类 intangible-heritage taxonomy with its 罗马数字 category code, its batch/扩展项目 mechanism and dated batch growth; Japan's cultural-property 分野 domain tree with its 時代 period ladder, its 指定区分 designation facet, and record-level fields (材質・構造・技法 / サイズ / 所在地).
+END

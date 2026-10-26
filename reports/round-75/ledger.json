@@ -1,0 +1,266 @@
+{
+ "round": 75,
+ "claim": "Ca",
+ "axis": "calibration",
+ "base": "f556d1049fe651d3d63975600b13acd9fb686f15",
+ "status": "FINAL — frozen with claims.json, both counters, the by-document map, controls and the build evidence before any landing; no post-freeze predicate changes.",
+ "fleet_pin": "3a7401609325341eb3fe0efd42d0eec29d06be3c",
+ "fleet_report": {
+  "path": ".ufo/reports/round-74/kotodama.md",
+  "pin": "3a7401609325341eb3fe0efd42d0eec29d06be3c",
+  "blob": "5df0118b9152a23830cc9f0912c004c095c90459",
+  "sha256": "354273bc972d8b86a012a8aac024618d5defa73e72ea1eae5a960fdf64f84107"
+ },
+ "must_track": [],
+ "pairs": [
+  {
+   "id": "L75-01",
+   "disposition": "REPAIR",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "(412 rows after round 56 — 367 mined, 35 queued, 10 rejected",
+   "stated_parse": "\\((\\d+) rows after round 56",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^. S[0-9]{3}",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "808",
+   "observed_at_base": "808",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": "Registry counts at round 75 Ca landing — rows: (\\d+)"
+   },
+   "rederive": "git grep -c -E '^. S[0-9]{3}' f556d1049fe651d3d63975600b13acd9fb686f15 -- corpus/SOURCES.md",
+   "why": "Round-74 Ca annotated the same stale SHONEN figure; the R74-M4 routed defect correctly classifies it as a REPAIR because SHONEN.md is not append-only. At Ca's independent landing the registry still has 808 rows and the current line becomes 808; claim C later appends nine rows and updates the same line to the final 817, which is separately checked by claim C. The historical 412/358/284/194 figures move to the round-75 lesson rather than remaining in this current-status line."
+  },
+  {
+   "id": "L75-02",
+   "disposition": "REPAIR",
+   "stated_at": "corpus/README.md:344",
+   "stated_text": "## linguistics/ (30)",
+   "stated_parse": "\\((\\d+)\\)",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "corpus/knowledge/linguistics/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "32",
+   "observed_at_base": "32",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "corpus/README.md",
+    "parse": "^## linguistics/ \\((\\d+)\\)"
+   },
+   "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f556d1049fe651d3d63975600b13acd9fb686f15 -- 'corpus/knowledge/linguistics/*.md'",
+   "why": "The README heading says 30 while the base directory has 32 .md files. The two conlang-scholarship rows remain in the dated round-73 footer block; the round-75 sweep repair recognizes that block as linguistics rows rather than duplicating them in the section."
+  },
+  {
+   "id": "L75-03",
+   "disposition": "REPAIR",
+   "stated_at": "corpus/README.md:407",
+   "stated_text": "## culture-material/ (36)",
+   "stated_parse": "\\((\\d+)\\)",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "corpus/knowledge/culture-material/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "40",
+   "observed_at_base": "40",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "corpus/README.md",
+    "parse": "^## culture-material/ \\((\\d+)\\)"
+   },
+   "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f556d1049fe651d3d63975600b13acd9fb686f15 -- 'corpus/knowledge/culture-material/*.md'",
+   "why": "The README heading says 36 while the base directory has 40 .md files. The two new heritage rows are inserted in the culture-material section; the current count becomes 40."
+  },
+  {
+   "id": "L75-04",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/README.md:813",
+   "stated_text": "Total knowledge entries: 249.",
+   "stated_parse": "Total knowledge entries: (\\d+)\\.",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^- `[^`]+\\.md` —",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "corpus/README.md"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "247",
+   "observed_at_base": "247",
+   "red_at_base": true,
+   "rederive": "git grep -c -E '^- `[^`]+\\.md` —' f556d1049fe651d3d63975600b13acd9fb686f15 -- corpus/README.md",
+   "why": "The footer correctly counts 249 files, but only 247 index rows exist at base. The two missing heritage-taxonomy index rows land under Ca; this correction row records the before-state relation (249 files / 247 rows) and the counter re-runs the pinned base row count."
+  },
+  {
+   "id": "L75-05",
+   "disposition": "REPAIR",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "367 mined",
+   "stated_parse": "(\\d+) mined",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^\\|[[:space:]]*S[0-9]{3,}.*\\|[[:space:]]*mined[[:space:]]*\\|",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "713",
+   "observed_at_base": "713",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": "Registry counts at round 75 Ca landing — rows: \\d+, mined: (\\d+)"
+   },
+   "rederive": "git grep -c -E '^\\|[[:space:]]*S[0-9]{3,}.*\\|[[:space:]]*mined[[:space:]]*\\|' f556d1049fe651d3d63975600b13acd9fb686f15 -- corpus/SOURCES.md",
+   "why": "The dated SHONEN current-status line reports 367 mined after round 56; at the round-75 base 713 rows are mined. This pair shares the in-place repair line with L75-01 but measures a distinct field."
+  },
+  {
+   "id": "L75-06",
+   "disposition": "REPAIR",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "35 queued",
+   "stated_parse": "(\\d+) queued",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^\\|[[:space:]]*S[0-9]{3,}.*\\|[[:space:]]*queued[[:space:]]*\\|",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "58",
+   "observed_at_base": "58",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": "Registry counts at round 75 Ca landing — rows: \\d+, mined: \\d+, queued: (\\d+)"
+   },
+   "rederive": "git grep -c -E '^\\|[[:space:]]*S[0-9]{3,}.*\\|[[:space:]]*queued[[:space:]]*\\|' f556d1049fe651d3d63975600b13acd9fb686f15 -- corpus/SOURCES.md",
+   "why": "The dated SHONEN current-status line reports 35 queued after round 56; at the round-75 base 58 rows are queued. This pair shares the in-place repair line with L75-01 but measures a distinct field."
+  },
+  {
+   "id": "L75-07",
+   "disposition": "REPAIR",
+   "stated_at": "SHONEN.md:6",
+   "stated_text": "10 rejected",
+   "stated_parse": "(\\d+) rejected",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "-E",
+    "^\\|[[:space:]]*S[0-9]{3,}.*\\|[[:space:]]*rejected[[:space:]]*\\|",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "corpus/SOURCES.md"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "37",
+   "observed_at_base": "37",
+   "red_at_base": true,
+   "statement_after": {
+    "path": "SHONEN.md",
+    "parse": "Registry counts at round 75 Ca landing — rows: \\d+, mined: \\d+, queued: \\d+, rejected: (\\d+)"
+   },
+   "rederive": "git grep -c -E '^\\|[[:space:]]*S[0-9]{3,}.*\\|[[:space:]]*rejected[[:space:]]*\\|' f556d1049fe651d3d63975600b13acd9fb686f15 -- corpus/SOURCES.md",
+   "why": "The dated SHONEN current-status line reports 10 rejected after round 56; at the round-75 base 37 rows are rejected. This pair shares the in-place repair line with L75-01 but measures a distinct field."
+  },
+  {
+   "id": "L75-08",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/lessons/round-74.md:37",
+   "stated_text": "was absent from the page it was bound to",
+   "stated_parse": "\\b(absent)\\b",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "非凡特性来自最初造物主",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "reports/round-74/evidence/S883.txt"
+   ],
+   "parse": "count-presence",
+   "expected_after": "present",
+   "observed_at_base": "present",
+   "red_at_base": true,
+   "rederive": "git grep -c '非凡特性来自最初造物主' f556d1049fe651d3d63975600b13acd9fb686f15 -- reports/round-74/evidence/S883.txt",
+   "why": "The filed Gate reason says absent; the round-74 page capture contains the staged S899 anchor on its own 2025 page. The SCORECARD correction row records absent -> present, and the round-75 lesson clarifies that the mispaired span belongs to register S816, not to staged S899."
+  },
+  {
+   "id": "L75-09",
+   "disposition": "ANNOTATE",
+   "stated_at": "corpus/lessons/round-74.md:38",
+   "stated_text": "was the Sowers-Wills clause, absent from this page",
+   "stated_parse": "\\b(absent)\\b",
+   "observe_cmd": [
+    "git",
+    "grep",
+    "-c",
+    "这个我肯定考虑过",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    "reports/round-74/evidence/S884.txt"
+   ],
+   "parse": "count-presence",
+   "expected_after": "present",
+   "observed_at_base": "present",
+   "red_at_base": true,
+   "rederive": "git grep -c '这个我肯定考虑过' f556d1049fe651d3d63975600b13acd9fb686f15 -- reports/round-74/evidence/S884.txt",
+   "why": "The filed Gate reason misattributes the Sowers-Wills quote to the 2022 page. The committed page capture shows the staged S900 anchor on that page, while the Sowers-Wills clause belongs to register S817. The SCORECARD row and round-75 lesson append this artifact-specific correction."
+  },
+  {
+   "id": "L75-10",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:4318",
+   "stated_text": "43 of 44 report files present at filing",
+   "stated_parse": "(\\d+) of 44 report files present at filing",
+   "observe_cmd": [
+    "git",
+    "diff",
+    "--shortstat",
+    "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "f556d1049fe651d3d63975600b13acd9fb686f15",
+    "--",
+    ":(glob).ufo/waves/round-74/w2/*.md"
+   ],
+   "parse": "([0-9]+) files? changed",
+   "expected_after": "44",
+   "observed_at_base": "44",
+   "red_at_base": true,
+   "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f556d1049fe651d3d63975600b13acd9fb686f15 -- ':(glob).ufo/waves/round-74/w2/*.md'",
+   "why": "At filing, the lane LOG recorded 43 of 44 wave-2 reports; by round-75 base all 44 seat reports existed. The historical statement stands; the correction row records the late 44th report and the frozen-base count."
+  }
+ ]
+}

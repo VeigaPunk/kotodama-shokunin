@@ -1,0 +1,54 @@
+# main-level test battery (mock landing, final assembled bytes)
+### P1 positive lands (13 stub legs) -> exit 0
+    LEG PASS ENTRIES
+    LEG PASS ROWS
+    LEG PASS REPOINTED
+    LEG PASS GATE
+    LEG PASS EVIDENCE
+    LEG PASS REJECTS
+    LEG PASS GROUND
+    LEG PASS CITEDLINES
+    LEG PASS CENSUS
+    LEG PASS SCRATCHMIRROR
+    LEG PASS COLLCHECK
+    LEG PASS FROZENCFG
+    LEG PASS INDEX
+    ACCEPT-C-75: PASS legs=13/13
+### P2 lands==freeze GRADED (not refused) -> exit 0
+    LEG PASS ENTRIES
+    LEG PASS ROWS
+    LEG PASS REPOINTED
+    LEG PASS GATE
+    LEG PASS EVIDENCE
+    LEG PASS REJECTS
+    LEG PASS GROUND
+    LEG PASS CITEDLINES
+    LEG PASS CENSUS
+    LEG PASS SCRATCHMIRROR
+    LEG PASS COLLCHECK
+    LEG PASS FROZENCFG
+    LEG PASS INDEX
+    ACCEPT-C-75: PASS legs=13/13
+### X1 lands==base REFUSED + FAIL -> exit 2
+    REFUSED: lands f556d1049fe6 is the frozen claim base f556d1049fe6 (the do-nothing control: no data landed)
+    ACCEPT-C-75: FAIL legs=0/13 (refused: lands f556d1049fe6 is the frozen claim base f556d1049fe6 (the do-nothing control: no data landed))
+### X2 LEGCOUNT: frozen 12 legs -> exit 2
+    REFUSED: LEGCOUNT: the frozen claims.json lists 12 legs (ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG); this counter implements 13 (ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG,INDEX)
+    ACCEPT-C-75: FAIL legs=0/13 (refused: LEGCOUNT: the frozen claims.json lists 12 legs (ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG); this counter implements 13 (ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG,INDEX))
+### X3 no claims.json at freeze -> exit 2
+    REFUSED: cannot read reports/round-75/claims.json at freeze 2425ff85fa82: fatal: path 'reports/round-75/claims.json' does not exist in '2425ff85fa823a3d05a02bab2a01cc348740cccf'
+    ACCEPT-C-75: FAIL legs=0/13 (refused: cannot read reports/round-75/claims.json at freeze 2425ff85fa82: fatal: path 'reports/round-75/claims.json' does not exist in '2425ff85fa823a3d05a02bab2a01cc348740cccf')
+### X4 lands not descended from base -> exit 2
+    REFUSED: claim base f556d1049fe6 is not an ancestor of lands 08f08ae552e3 (the graded revision is not descended from the claim's before-state)
+    ACCEPT-C-75: FAIL legs=0/13 (refused: claim base f556d1049fe6 is not an ancestor of lands 08f08ae552e3 (the graded revision is not descended from the claim's before-state))
+### X5 scratch under /tmp -> exit 2
+    REFUSED: scratch root /tmp/r75-x is the system temporary directory (pass --work or set $HYAKU_SCRATCH; QUALITY 14)
+    ACCEPT-C-75: FAIL legs=0/13 (refused: scratch root /tmp/r75-x is the system temporary directory (pass --work or set $HYAKU_SCRATCH; QUALITY 14))
+### X6 --selftest without selftest parts -> exit 2
+    REFUSED: --selftest needs part-selftest-fixtures.py and part-selftest-run.py assembled before the __main__ guard (CFG-CONTRACT item 5)
+    ACCEPT-C-75: FAIL legs=0/13 (refused: --selftest needs part-selftest-fixtures.py and part-selftest-run.py assembled before the __main__ guard (CFG-CONTRACT item 5))
+### X7 --lands not 40-hex -> exit 2
+    ERROR: --lands must be a 40-hex commit (the worktree is never graded, QUALITY 19)
+### X8 unknown --lands revision -> exit 2
+    ERROR: --lands revision not found: 0000000000000000000000000000000000000000
+### scratch root after the battery: []

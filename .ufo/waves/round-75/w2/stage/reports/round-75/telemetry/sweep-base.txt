@@ -1,0 +1,58 @@
+SWEEP-BASE — red-before receipt (claim Ca, round 75)
+claim        Ca (calibration) · ledger pair L75-04 · the REPAIR leg's sweep run
+state        RED (exit 1): the BASE instrument on the BASE tree
+seat         ExecSweepReceipts (wave 2, leaf executor)
+date         2026-10-27
+
+base         f556d1049fe651d3d63975600b13acd9fb686f15
+instrument   reports/round-28/readme/sweep.py, the BASE bytes, unmodified
+             sha256 9b2ccac0046831fdaf48863ccd0ff6ca0fa390d044746c876e83a71c06f0cdd3
+tree         a git clone of the lane checked out at f556d10 (clean; the clone's only content
+             difference from the base commit is none at all)
+             HEAD              f556d1049fe651d3d63975600b13acd9fb686f15
+             HEAD^{tree}       bb2e1b6fa5221db1f11cb3148a1fee7813d20639
+             corpus/README.md  sha256 0531f7a3d16bee20329c9b042eb865be13bb6c54e4e5a158a2f864f3eae3708e
+
+reproduce    git clone <lane> D && git -C D checkout f556d1049fe651d3d63975600b13acd9fb686f15
+             cd D && python3 -B reports/round-28/readme/sweep.py ; echo $?
+
+command      python3 -B reports/round-28/readme/sweep.py        (cwd = the clone root)
+
+--- stdout ---
+parts {"civilizations": 95, "culture-material": 40, "linguistics": 32, "myth-symbol": 29, "synthesis": 29, "verification": 24}
+rows 247 files 249
+missing_from_index 4 ['culture-material/heritage-taxonomy-models.amend-2026-10-24-r13.md', 'culture-material/heritage-taxonomy-models.md', 'linguistics/conlang-scholarship.amend-2026-10-23.md', 'linguistics/conlang-scholarship.md']
+topic_mismatch 0 []
+orphan_rows 2 ['civilizations/conlang-scholarship.amend-2026-10-23.md', 'civilizations/conlang-scholarship.md']
+header_drift {'culture-material': {'declared': 36, 'files': 40}, 'linguistics': {'declared': 30, 'files': 32}}
+totals_line 243 totals_ok False
+footer {"date": "2026-10-25", "command": "python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge", "total": 243, "dir_totals": [30, 29, 36, 29, 24, 95]}
+footer_live {"total": 249, "dir_totals": [32, 29, 40, 29, 24, 95], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}
+footer_findings [{"class": "FOOTER_TOTAL", "declared": 243, "live": 249, "date": "2026-10-25"}, {"class": "FOOTER_DIR_TOTALS", "declared": [30, 29, 36, 29, 24, 95], "live": [32, 29, 40, 29, 24, 95], "order": ["linguistics", "myth-symbol", "culture-material", "synthesis", "verification", "civilizations"]}] footer_ok False
+readme_sha256 0531f7a3d16bee20329c9b042eb865be13bb6c54e4e5a158a2f864f3eae3708e
+
+--- exit code ---
+1
+
+--- reading (which legs the exit 1 rests on) ---
+* FOOTER_TOTAL + FOOTER_DIR_TOTALS: `footer_reading()` uses `FOOTER_RE.search`, i.e. the FIRST
+  matching block — corpus/README.md:751-753 (2026-10-25, total 243, vector 30/29/36/29/24/95) —
+  while the live reading is the LAST block (corpus/README.md:815, one-line, total 249, vector
+  32/29/40/29/24/95). The superseded 243 is graded, the live 249 is printed beside it as
+  `footer_live`. This is ledger pair L75-04's red, and the repair target.
+* totals leg: `TOTALS_RE` takes the FIRST `Total knowledge entries:` line (README:749 = 243)
+  against 249 live files; the last such line (README:813) already says 249.
+* 4 missing index rows: 2 culture-material (`heritage-taxonomy-models.md`,
+  `heritage-taxonomy-models.amend-2026-10-24-r13.md`, genuinely unindexed) and 2 linguistics
+  (`conlang-scholarship.md` + its amend) that DO have rows — at corpus/README.md:787-788, inside
+  the dated `## Round 73 additions` block, which the base `parse_readme()` reads as part of the
+  `## civilizations/` partition because a partition ends only at the next `## <part>/ (N)`
+  heading and not at any `## ` heading.
+* 2 orphan rows: the same two rows, read as `civilizations/…` rows whose files live under
+  `linguistics/`.
+* header_drift: `## linguistics/ (30)` vs 32 files; `## culture-material/ (36)` vs 40 files
+  (ledger pairs L75-02 / L75-03).
+
+This receipt is the "red before" half of the pair; the instrument-mutant control at
+`reports/round-75/telemetry/sweep-fixed-after-ca.txt` shows the same base bytes stay red on the
+repaired tree.
