@@ -1,0 +1,130 @@
+# junk-c.txt — round 74 junk-landing controls (split from counters/junk-r74-run.txt by the L1; generator sha256 ce6505fc7d973ced8ad663ee5201eae4931129684dd9794744f115a49fba6d76; freeze 00c408a0af2fa5ddf65af2224152ce258b26d896)
+# junk-r74-run.txt — round-74 junk landings and the round-73 red-before
+# generated: 2026-10-26T01:53:19Z
+# generator: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-74/counters/junk-fixtures.py sha256=ce6505fc7d973ced8ad663ee5201eae4931129684dd9794744f115a49fba6d76
+# freeze: 00c408a0af2fa5ddf65af2224152ce258b26d896
+# commands are printed per fixture; sections C and Ca are separated by the ===== markers
+
+# ----------------------------------------------------------
+# round-73 red-before (re-run for the record)
+# ----------------------------------------------------------
+# junk-landing fixtures — round-73 red-before
+# lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+# base: 8841ad3b896a0227674fa0725b818c999118046f  landed tree: 9b10fa06a2d3756c8bacfc8fc7b2115921370d97
+# fleet-root: /home/vgpnk/Projects/shokunin
+# counters: reports/round-73/accept-c.py ; reports/round-73/accept-ca.py
+
+P0  baseline landing (no junk)          C: PASS legs=11/11 exit=0 | Ca: PASS legs=9/9 exit=0
+P0b do-nothing control (C, --lands=base)   FAIL legs=1/11 exit=1 red=ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,SCRATCHMIRROR,COLLCHECK
+
+| fixture | claim | junk paths | expected (correct counter) | round-73 counter | accepted? |
+|---|---|---|---|---|---|
+| J1 | C | corpus/SOURCES.md, corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md, corpus/knowledge/linguistics/conlang-scholarship.md, reports/round-73/claims.json | FAIL: two header-only stub entries stand in for the mined prose (body word floor) though their header is complete | FAIL legs=10/11 exit=1 red=ENTRIES | no |
+| J2 | C | corpus/lessons/round-73.md | FAIL: every Gate admit quote is absent from its evidence window (the quote/URL mispairing class) | FAIL legs=10/11 exit=1 red=EVIDENCE | no |
+| J3 | C | corpus/SOURCES.md, reports/round-73/claims.json | FAIL: claims.json inside the graded tree shrinks the claim to two rows and one entry; the contract must come from the frozen commit | PASS legs=11/11 exit=0 | YES (survivor) |
+| J4 | Ca | reports/round-73/ledger.json | FAIL: every observe_cmd constant-prints expected_after (literal python3 -c print / echo) instead of reading clone bytes | FAIL legs=4/9 exit=1 red=LEDGER,BASEMISMATCH,REPAIR,ANNOTATE,NOSTUB | no |
+| J4b | Ca | reports/round-73/ledger.json | FAIL: evasive constant printer (import os;print(str(...))) passes the argv guard but reads no clone byte | PASS legs=9/9 exit=0 | YES (survivor) |
+| J5 | Ca | SCORECARD.md | FAIL: a correction row names only its id; ANNOTATE/NOSTUB must require id + stated token + observed token + re-derivation | PASS legs=9/9 exit=0 | YES (survivor) |
+| J6 | Ca | reports/round-72/telemetry/measures-ca.txt | FAIL: a frozen receipt outside both protected sets is edited in place (ACCEPT-CA-72 FAIL->PASS) | PASS legs=9/9 exit=0 | YES (survivor) |
+| J7 | Ca | SCORECARD.md | FAIL: a Ca correction-section note cites claim-C rows S876..S880 incidentally; SEPARABLE must scan the whole Ca byte set | PASS legs=9/9 exit=0 | YES (survivor) |
+
+# fixture repositories were removed after grading (re-run with --keep to retain them)
+# J1 repo=/tmp/ExecJunkFixtures/r74full2/jf-J1-iuhqsdj7/repo lands=4fd7e93ea3c064c8352fe3f1668560c1ef3eae32
+# J1 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J1-iuhqsdj7/repo/reports/round-73/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-J1-iuhqsdj7/repo --lands 4fd7e93ea3c064c8352fe3f1668560c1ef3eae32 --fleet-root /home/vgpnk/Projects/shokunin
+# J2 repo=/tmp/ExecJunkFixtures/r74full2/jf-J2-5xrlwzke/repo lands=3c89fe9f269ce1883dcc46f40c2dc061b0023dd6
+# J2 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J2-5xrlwzke/repo/reports/round-73/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-J2-5xrlwzke/repo --lands 3c89fe9f269ce1883dcc46f40c2dc061b0023dd6 --fleet-root /home/vgpnk/Projects/shokunin
+# J3 repo=/tmp/ExecJunkFixtures/r74full2/jf-J3-ead5qabn/repo lands=0dd9c8924f7452f6f63ebee4607305e5ffffe3d9
+# J3 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J3-ead5qabn/repo/reports/round-73/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-J3-ead5qabn/repo --lands 0dd9c8924f7452f6f63ebee4607305e5ffffe3d9 --fleet-root /home/vgpnk/Projects/shokunin
+# J4 repo=/tmp/ExecJunkFixtures/r74full2/jf-J4-v3w5eje1/repo lands=1d8e4cf5341beee7a73367d2eab85bc0b89b09d0
+# J4 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J4-v3w5eje1/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J4-v3w5eje1/repo --lands 1d8e4cf5341beee7a73367d2eab85bc0b89b09d0 --fleet-root /home/vgpnk/Projects/shokunin
+# J4b repo=/tmp/ExecJunkFixtures/r74full2/jf-J4b-3ho7j8xx/repo lands=235712be3c33bd999d1ae7ac46161aaa8225bc97
+# J4b cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J4b-3ho7j8xx/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J4b-3ho7j8xx/repo --lands 235712be3c33bd999d1ae7ac46161aaa8225bc97 --fleet-root /home/vgpnk/Projects/shokunin
+# J5 repo=/tmp/ExecJunkFixtures/r74full2/jf-J5-3y58ntch/repo lands=a03c3b27f83cbdc5744ab4b76ee09890ae532b29
+# J5 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J5-3y58ntch/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J5-3y58ntch/repo --lands a03c3b27f83cbdc5744ab4b76ee09890ae532b29 --fleet-root /home/vgpnk/Projects/shokunin
+# J6 repo=/tmp/ExecJunkFixtures/r74full2/jf-J6-a87lju1h/repo lands=78caa3d990420b20b3e7190a9cb582255e63ce15
+# J6 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J6-a87lju1h/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J6-a87lju1h/repo --lands 78caa3d990420b20b3e7190a9cb582255e63ce15 --fleet-root /home/vgpnk/Projects/shokunin
+# J7 repo=/tmp/ExecJunkFixtures/r74full2/jf-J7-gywsr5ln/repo lands=2b20374fc77e3fb99c917c12c0f07e2cd426685c
+# J7 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J7-gywsr5ln/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J7-gywsr5ln/repo --lands 2b20374fc77e3fb99c917c12c0f07e2cd426685c --fleet-root /home/vgpnk/Projects/shokunin
+
+SURVIVORS (round-73 counter accepted the junk landing): J3 J4b J5 J6 J7
+
+# ==================== round-74 junk landings ====================
+# freeze: 00c408a0af2fa5ddf65af2224152ce258b26d896
+# counters: reports/round-74/accept-c.py ; reports/round-74/accept-ca.py
+# landing kit: frozen wave-1 drafts (entries, rows, lesson, README rows/footer, corrections rows, REPAIR edits, ground receipt, guard proof)
+
+# reference landing T0 (no defect)
+T0 C: PASS legs=13/13 exit=0
+T0 Ca: FAIL legs=9/11 exit=1 red=APPENDONLY,SEPARABLE
+T0 LEG FAIL APPENDONLY
+T0      protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+T0 LEG FAIL SEPARABLE
+T0      lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+# T0 lands=189afa49bc25d9bf3d20d2bb60d9303f41c298f4
+
+# ===== SECTION C — reports/round-74/accept-c.py =====
+
+fixture: J1
+section: C
+claim: C
+lands: be68571cb11edc0ecf69e642245b79906a3232e6
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J1-qxncafwq/repo/reports/round-74/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J1-qxncafwq/repo --lands be68571cb11edc0ecf69e642245b79906a3232e6 --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL ENTRIES
+     corpus/knowledge/culture-material/worldbuilding-setting-practice.md has no `## ` section (header-only stub); corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md has no `## ` section (header-only stub)
+LEG FAIL ROWS
+     S881 row carries an escaped pipe (staged text appended as-is); S882 row carries an escaped pipe (staged text appended as-is); S883 row carries an escaped pipe (staged text appended as-is); S884 row carries an escaped pipe (staged text appended as-is); used-by union [] (want both admitted entries)
+LEG FAIL CENSUS
+     census exit=1 (exit=1 last-line=kotodama	E11	S884 missing used-by grep -c '20章之内慢慢来'` -> 1 (ran 2026-10-23))
+LEG FAIL INDEX
+     worldbuilding-setting-practice.md index row is not the entry's `- topic:` text verbatim; worldbuilding-setting-practice.amend-2026-10-23.md index row is not the entry's `- topic:` text verbatim
+verdict: ACCEPT-C-74: FAIL legs=9/13
+expected: FAIL: two ~400-word header-only stub entries + four staged rows with used-by at the stubs (ENTRIES/ROWS)
+accepted: no
+
+fixture: J2
+section: C
+claim: C
+lands: aee16f4496a93ffd3acbb35c2f54bf9d9c98e10a
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J2-_jwfyxor/repo/reports/round-74/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J2-_jwfyxor/repo --lands aee16f4496a93ffd3acbb35c2f54bf9d9c98e10a --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL EVIDENCE
+     S881 Gate quote is absent from the stored window (substring after NFKC+whitespace folding); S882 Gate quote is absent from the stored window (substring after NFKC+whitespace folding); S883 Gate quote is absent from the stored window (substring after NFKC+whitespace folding); S884 Gate quote is absent from the stored window (substring after NFKC+whitespace folding); S877 Gate quote is absent from the stored window (substring after NFKC+whitespace folding)
+verdict: ACCEPT-C-74: FAIL legs=12/13
+expected: FAIL: every Gate quote absent from its evidence window, quote-found: yes typed over fabricated windows (EVIDENCE)
+accepted: no
+
+fixture: J3
+section: C
+claim: C
+lands: e28a368bf97658f6ec63ae60ff4702128b83a1f5
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J3-npmg72zm/repo/reports/round-74/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J3-npmg72zm/repo --lands e28a368bf97658f6ec63ae60ff4702128b83a1f5 --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL ROWS
+     added=['S881', 'S882'] (want ['S881', 'S882', 'S883', 'S884']); added rows ['S881', 'S882'] (want ['S881', 'S882', 'S883', 'S884']); S883 row missing; S884 row missing; used-by union ['corpus/knowledge/culture-material/worldbuilding-setting-practice.md'] (want both admitted entries)
+LEG FAIL REPOINTED
+     corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md cites S883 with no registry row; corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md cites S884 with no registry row
+LEG FAIL GATE
+     S883 admit row does not carry the row URL; S884 admit row does not carry the row URL
+LEG FAIL EVIDENCE
+     S883 fetch line does not name the row URL; S884 fetch line does not name the row URL
+LEG FAIL FROZENCFG
+     reports/round-74/claims.json at lands differs from the frozen bytes (counter config edited in the graded tree) | constants from git show 00c408a0af2f:reports/round-74/claims.json (sha256 270e31790e2932c8): rows=S881 S882 S883 S884 reused=S877 entries=2 fragments=3 cjk_terms=3 refused=S882 forced=S899,S900 access_date=2026-10-25
+verdict: ACCEPT-C-74: FAIL legs=8/13
+expected: FAIL: graded-tree claims.json shrinks the claim to two rows and one entry (FROZENCFG; ROWS if the pin were absent)
+accepted: no
+
+fixture: J9
+section: C
+claim: C+Ca
+lands: 41afc76d1909298169df69b07bc11858eb16b8be
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J9-yhpfiuc4/repo/reports/round-74/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J9-yhpfiuc4/repo --lands 41afc76d1909298169df69b07bc11858eb16b8be --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL FROZENCFG
+     reports/round-74/claims.json at lands differs from the frozen bytes (counter config edited in the graded tree) | constants from git show 00c408a0af2f:reports/round-74/claims.json (sha256 270e31790e2932c8): rows=S881 S882 S883 S884 reused=S877 entries=2 fragments=3 cjk_terms=3 refused=S882 forced=S899,S900 access_date=2026-10-25
+verdict: ACCEPT-C-74: FAIL legs=12/13
+expected: FAIL/refusal: a leg is deleted from claims.json (FROZENCFG; LEGCOUNT only if the graded file were read)
+accepted: no
+
+# C summary: J1=FAIL, J2=FAIL, J3=FAIL, J9=FAIL
+# ACCEPTED JUNK LANDINGS: none

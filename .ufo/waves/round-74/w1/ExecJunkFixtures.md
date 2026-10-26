@@ -15,8 +15,8 @@ controls that already work at round 73 and that the round-74 counters must keep 
 | artifact | value |
 |---|---|
 | generator | `.ufo/waves/round-74/counters/junk-fixtures.py` |
-| sha256 | `d4789c39740de5b6679e63f8fe0b2c54794f9eb358c8e8ab4660de622de9693f` |
-| size / language | 774 lines, Python 3 stdlib only (no third-party import, no network) |
+| sha256 | `ce6505fc7d973ced8ad663ee5201eae4931129684dd9794744f115a49fba6d76` |
+| size / language | 1481 lines, Python 3 stdlib only (no third-party import, no network) |
 | interpreter / git | Python 3.14.8, git 2.56.0 |
 | baseline replay tree | `9b10fa06a2d3756c8bacfc8fc7b2115921370d97` (= round-73 landed tree) |
 | CLI | `--run-r73 [--only J1,J3] [--keep] [--workroot DIR]`, `--list` |
@@ -232,3 +232,156 @@ counter (always `FAIL:`), so a selftest can assert on it directly.
   entry and no jj/git ref was modified by this seat.
 - Blockers: none. Everything exercised is reported above; nothing in this report is inferred from a
   run I did not perform.
+
+
+## Post-wave update 2 — round-74 freeze landings (`--run-r74 --freeze F3`)
+
+Operative freeze changed by the L1 to **F3 = `00c408a0af2fa5ddf65af2224152ce258b26d896`** (Ca counter
+patched, sha256 `8052f1e2…`; ledger and gap-sweep changed; C counter unchanged, sha256 `8d30487f…`).
+Everything below was re-run at F3; the earlier `de93d91` attempt is superseded and only its lessons are
+mentioned. The generator now carries `--run-r74 --freeze F`; current bytes are
+`ce6505fc7d973ced8ad663ee5201eae4931129684dd9794744f115a49fba6d76` (1481 lines). No counter, ledger,
+claims file or freeze commit was edited by this seat.
+
+### What `--run-r74` builds
+
+Each fixture is a private `git clone` of the lane, `checkout --detach F3`, in which the **intended
+landing is assembled from the frozen wave-1 drafts** and committed with the fixture identity inside the
+clone only (`git -C <repo> rev-parse --show-toplevel` checked before the first commit; `main` moved to
+the landing so the Ca STAMP leg measures it):
+
+- `corpus/SOURCES.md`: the four rows from `drafts/rows-S881-S884.md` inserted after the registry's last
+  row (inside the table — an EOF append fails census E12), plus the S877 in-place `used-by` line from
+  `drafts/s877-usedby-change.md`;
+- the two entries from `drafts/worldbuilding-setting-practice*.md` (header `<...>` template tokens
+  replaced; body untouched);
+- `corpus/lessons/round-74.md` from `drafts/round-74.md`, plus one restating paragraph so the frozen
+  REJECTS count pattern (2 adopted / 4 path-present / 34 refused of 40) reads in order;
+- `corpus/README.md`: the two culture-material index rows (text = each entry's own `- topic:` line) and
+  an appended footer block whose total/vector are measured from the landing tree;
+- `SCORECARD.md`: `## Corrections — round 74` + the 14 `| LC-… |` rows from `drafts/annotate-rows.md`;
+- the REPAIR edits **the frozen ledger declares**: at F3 the only REPAIR pair is LC-09 (`SKILL.md:594`);
+  LC-01 was re-dispositioned to ANNOTATE at the re-freeze, so its `SHONEN.md:6` edit is no longer
+  applied (an earlier template applied it and turned Ca APPENDONLY red on a legitimate line);
+- `reports/round-74/telemetry/gap-sweep.txt` preamble naming the base's 804 rows, and a committed
+  indent-guard fixture (1-3-space plant with a positive marker; 4-space row with a not-found marker)
+  under `.ufo/waves/round-74/assimilation/guard-proof/`.
+
+`T0` is that landing with **no defect**. Every fixture is committed as one landing commit atop F3 and
+graded exactly as the claim commands declare it:
+`python3 -B <clone>/reports/round-74/accept-c.py --root <clone> --lands <junk> --freeze F3 --fleet-root
+/home/vgpnk/Projects/shokunin` (and the `accept-ca.py` counterpart). The full record is
+`.ufo/waves/round-74/counters/junk-r74-run.txt` (sha256 `081e11f260433d60b308ee346720794bc771529bd32ace8ae5f0ba086d080cb5`,
+242 lines): the round-73 red-before re-run at the head, then `# ===== SECTION C — reports/round-74/accept-c.py =====`
+and `# ===== SECTION CA — reports/round-74/accept-ca.py =====`, one block per fixture with command,
+lands, exit, every `LEG FAIL` line with its detail, the final verdict line and `accepted:`. It splits
+verbatim into the two telemetry files:
+
+```sh
+sed -n '/^# ===== SECTION C /,/^# ===== SECTION Ca /p' .ufo/waves/round-74/counters/junk-r74-run.txt \
+  > reports/round-74/telemetry/junk-c.txt
+sed -n '/^# ===== SECTION Ca /,$p' .ufo/waves/round-74/counters/junk-r74-run.txt \
+  > reports/round-74/telemetry/junk-ca.txt
+```
+
+### Reference landing T0 at F3
+
+```
+T0 C: PASS legs=13/13 exit=0
+T0 Ca: FAIL legs=9/11 exit=1 red=APPENDONLY,SEPARABLE
+T0 LEG FAIL APPENDONLY
+     … problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+T0 LEG FAIL SEPARABLE
+     … problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt',
+                 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+```
+
+Both Ca reds are **frozen-byte conflicts, not fixture defects**, and I did not fix them (no counter or
+claim edit is mine to make):
+
+1. **APPENDONLY vs claim C's reused row.** The landing must change `corpus/SOURCES.md` line 832 (S877's
+   `used-by`, claim C `reused_rows`, enforced by the C counter's ROWS leg) in place. Ca APPENDONLY admits
+   changed lines only when they are a REPAIR pair's `stated_at` line or a pure append, so the two frozen
+   claims are mutually exclusive on this line. A landing that satisfies claim C cannot satisfy this leg.
+2. **APPENDONLY's fleet/`must_track` side is green** (`must_track-exempt=6`, fleet blob
+   `000bab3a3664` matches its pin), so the SOURCES line is the only APPENDONLY problem at T0.
+3. **SEPARABLE reads a frozen control receipt against itself.** The Ca read set includes
+   `reports/round-74/telemetry/controls-ca.txt` (committed at F3), which itself cites a lane id and names
+   the claim-C family; the leg therefore cannot be green at any lands. The counter redacts the literals
+   in its output (by design), which is why the recorded problems read `<redacted lane id>`.
+
+On the previous freeze (`de93d91`) the Ca baseline was 7/11 with BASEMISMATCH and REPAIR additionally
+red (the ledger's `observed_at_base` prose failed the strict equality; the REPAIR commands were pinned to
+the base revision); F3's patch cleared both. What remains red at T0 is the pair above.
+
+### Round-74 junk results (F3) — no counter accepted any junk landing
+
+| fixture | claim | lands | exit | verdict | legs red | accepted? |
+|---|---|---|---|---|---|---|
+| J1 stub entries + staged rows | C | `be68571cb11e` | 1 | `ACCEPT-C-74: FAIL legs=9/13` | ENTRIES, ROWS, CENSUS, INDEX | no |
+| J2 typed evidence flags over fabricated windows | C | `aee16f4496a9` | 1 | `ACCEPT-C-74: FAIL legs=12/13` | EVIDENCE | no |
+| J3 graded-tree claims.json shrink | C | `e28a368bf976` | 1 | `ACCEPT-C-74: FAIL legs=8/13` | ROWS, REPOINTED, GATE, EVIDENCE, FROZENCFG | no |
+| J9 leg deleted from each claims list | C | `41afc76d1909` | 1 | `ACCEPT-C-74: FAIL legs=12/13` | FROZENCFG | no |
+| J4 literal/echo constant printers | Ca | `6da884668fd5` | 1 | `ACCEPT-CA-74: FAIL legs=8/11` | FROZENCFG (+T0 APPENDONLY, SEPARABLE) | no |
+| J4b evasive constant printer | Ca | `2e0d9e83ede7` | 1 | `ACCEPT-CA-74: FAIL legs=8/11` | FROZENCFG (+T0 APPENDONLY, SEPARABLE) | no |
+| J5 correction row naming only an id | Ca | `989897966615` | 1 | `ACCEPT-CA-74: FAIL legs=7/11` | ANNOTATE, NOSTUB (+T0 APPENDONLY, SEPARABLE) | no |
+| J6 frozen receipt edited in place | Ca | `8919a50bd206` | 1 | `ACCEPT-CA-74: FAIL legs=9/11` | APPENDONLY (+T0 SEPARABLE) | no |
+| J7 Ca byte citing S881..S884 | Ca | `4bb4eba43ab5` | 1 | `ACCEPT-CA-74: FAIL legs=9/11` | SEPARABLE (+T0 APPENDONLY) | no |
+| J8 typed round-73 Ca receipt stdout | Ca | `ede142788176` | 1 | `ACCEPT-CA-74: FAIL legs=8/11` | RECEIPTS (+T0 APPENDONLY, SEPARABLE) | no |
+| J9 leg deleted from each claims list | Ca | `acc4b3451804` | 1 | `ACCEPT-CA-74: FAIL legs=8/11` | FROZENCFG (+T0 APPENDONLY, SEPARABLE) | no |
+
+Lane timing note: the battery ran while `main` was F3. During/after it the lane advanced to
+`c4bf61a8d722f9168ce0fd8021a6261c000610c5` (the real claim-C and claim-Ca landings, including the
+entry-header/lesson-count fixes the fixture kit had to make by hand). Every fixture clones the lane and
+checks out **F3** explicitly, so the run is unaffected; re-running the junk shapes against the landed
+commit would be a separate ticket.
+
+**Answer to the L1's question: no round-74 counter accepted any junk landing** — 11 of 11 fixture
+sections FAIL (J9 appears once per section), the 11 `expected:` lines are unchanged, and the run file
+closes with `# ACCEPTED JUNK LANDINGS: none`.
+
+What each fixture adds over T0 (the legs that were green at T0 and are red under the junk):
+
+- **J1** flips all four content legs: ENTRIES (`no ## section (header-only stub)` on both ~400-word
+  header-only entries), ROWS (staged cell shapes / `opened=2026-10-23` / used-by), CENSUS (staged rows
+  are not valid 11-cell rows) and INDEX (no topic text to match). It is caught many times over.
+- **J2** flips exactly **EVIDENCE**: the five evidence files keep a valid header, a recomputed
+  `window-sha256`/`window-bytes`, `window-scope: excerpt`, and `quote-found: yes` +
+  `quote-found-verbatim: yes` typed over a fabricated ≥4096-character window that contains none of the
+  Gate quotes. The leg rejects on containment alone — the flags are not read. This is the cleanest
+  reproduction of the "typed flag over a fabricated window" class.
+- **J3** flips FROZENCFG (`claims.json was edited in the graded tree after freeze`) plus ROWS/REPOINTED/
+  GATE/EVIDENCE, because the shrink removes rows S883/S884 that the frozen Gate and evidence records
+  still name — the attack fails even if the config pin were absent.
+- **J9** flips only **FROZENCFG** on both counters (`claims.json was edited in the graded tree after
+  freeze`, and for Ca the FROZENCFG detail names the same). LEGCOUNT itself never sees the edit: the
+  counters read the leg lists from F3, which is the intended behaviour and why the attack fails.
+- **J4/J4b** flip only **FROZENCFG** (`ledger.json was edited in the graded tree after freeze`); the
+  frozen ledger is read from F3, so the constant printers never reach LEDGER. The M1b shape cannot move
+  a leg any more.
+- **J5** flips **ANNOTATE and NOSTUB**: the gutted `| LC-02 |` row cannot carry the tokens or the
+  re-derivation command, and no sibling row supplies them under leading-id matching.
+- **J6** and **J7** add their named problem strings to legs that are already red at T0:
+  J6 adds `reports/round-73/telemetry/measures-ca72-rerun.txt: changed lines outside REPAIR stated_at
+  lines [34]` to APPENDONLY; J7 adds `cites <redacted lane id> in corrections-rows` (and the family
+  match) to SEPARABLE. Their detection is visible in the recorded problem lists, but because those two
+  legs are red before any junk, neither fixture can show an independent flip at F3.
+- **J8** flips **RECEIPTS**: the committed round-73 Ca stdout (`legs=9/9` edited to `legs=9/10`) no
+  longer equals the counter's re-executed stdout.
+
+### Round-73 red-before re-run (same file, head of `junk-r74-run.txt`)
+
+The round-73 table was re-run with the current generator bytes and is unchanged: P0 `PASS 11/11` /
+`PASS 9/9`, P0b (C, `--lands=base`) `FAIL legs=1/11`, and the survivors remain
+**J3, J4b, J5, J6, J7** (J1/J2/J4 caught). The file's first 49 lines are that table.
+
+### Bounds and honesty
+
+- Writes: `.ufo/waves/round-74/counters/junk-fixtures.py`, `.ufo/waves/round-74/counters/junk-r74-run.txt`,
+  this report, and `/tmp/ExecJunkFixtures/**` scratch. No counter, claims, ledger, freeze commit or
+  fleet byte was modified; no pacman, no installs, no network, no subagent or background job of my own.
+- Every fixture repository is created and removed by the tool (`--keep` retains them); the F3 commit was
+  only read, never moved (`git -C <clone> checkout --detach F3` happens inside the clone).
+- The two T0 Ca reds above are reported as counter/claim conflicts, not repaired; an L1 decision is
+  needed on whether APPENDONLY is meant to exempt claim C's reused-row line and whether the SEPARABLE
+  read set should exclude its own frozen control receipt.

@@ -61,6 +61,33 @@ FIXTURES (expected verdict of a correct counter is FAIL in every case)
           incidentally: S876..S880 in a row that names no ledger pair, so the
           frozen SEPARABLE scan set never reads it
 
+ROUND-74 SWEEP (`--run-r74 --freeze F`)
+
+  Builds, in a private clone of the lane checked out at the freeze F, the
+  intended round-74 landing from the frozen wave-1 drafts (entries, four
+  registry rows inside the table, lesson, README index rows + footer,
+  SCORECARD corrections, the frozen ledger's REPAIR edits, a GROUND preamble
+  and an indent-guard fixture), then exactly one named defect:
+
+    T0   the reference landing with no defect (graded first)
+    J1   ~400-word header-only stub entries + four staged rows at the stubs (C)
+    J2   Gate quotes absent from fabricated evidence windows, flags typed (C)
+    J3   graded-tree claims.json shrinks the claim to two rows/one entry (C)
+    J4   graded-tree ledger constant printers, literal print/echo (Ca)
+    J4b  the same, evasive `import os;assert os.sep;print(str(...))` (Ca)
+    J5   one SCORECARD correction row naming only its id (Ca)
+    J6   in-place edit of a frozen round-73 rerun receipt (Ca)
+    J7   a Ca-read corrections row citing claim-C rows S881..S884 (Ca)
+    J8   a typed round-73 Ca receipt stdout edit (Ca)
+    J9   a leg deleted from each claim's leg list (C and Ca)
+
+  Every run is `--root <clone> --lands <junk> --freeze F` (plus
+  `--fleet-root`), and every fixture is expected to FAIL or be refused.  The
+  table is written to `.ufo/waves/round-74/counters/junk-r74-run.txt` with a
+  `===== SECTION C =====` block and a `===== SECTION CA =====` block, so it
+  splits into the round-74 telemetry junk-c.txt / junk-ca.txt files; the
+  round-73 red-before table is re-run at the head of the same file.
+
 LIBRARY API (stdlib only; import from a round-74 counter's selftest)
 
   Fixture(name, claim, repo, rev, expected, paths)
@@ -111,6 +138,7 @@ Read-only outside the mktemp fixture repositories; stdlib only; no network.
 """
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -118,6 +146,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from collections import namedtuple
 
 # ---------------------------------------------------------------- constants ---
@@ -149,7 +178,8 @@ ROW_RE = re.compile(r"^\s{0,3}\|\s*(S\d{3,})\s*\|")
 H2_RE = re.compile(r"^##\s")
 GATE_RE = re.compile(r"^##\s+Gate\b")
 QUOTE_RE = re.compile(r'"(?:\\.|[^"\\\n])*"|“[^“”\n]*”|«[^«»\n]*»|「[^「」\n]*」')
-ACCEPT_RE = re.compile(r"^ACCEPT-(C|CA)-73: (PASS|FAIL) legs=(\d+)/(\d+)$", re.M)
+ACCEPT_RE = re.compile(r"^ACCEPT-(C|CA)-7[34]: (PASS|FAIL) legs=(\d+)/(\d+)",
+                       re.M)
 LEGFAIL_RE = re.compile(r"^LEG FAIL (\w+)", re.M)
 
 JUNK_QUOTE = ("junk fixtures assert this sentence and no captured context "
@@ -611,31 +641,34 @@ def J7(workroot=None):
 
 # ---------------------------------------------------------------- grading ---
 
-def run_counter(repo, counter_rel, rev, fleet_root=FLEET_ROOT):
-    """Run one round-73 counter at `rev` and parse its verdict.
+def run_counter(repo, counter_rel, rev, fleet_root=FLEET_ROOT, extra=()):
+    """Run one counter at `rev` and parse its verdict.
 
-    Returns {exit, verdict, legs, total, red, tail, out}.  `counter_rel` is
-    resolved inside `repo`, so the graded counter bytes are the landing's own.
+    Returns {exit, verdict, legs, total, red, tail, out, refused, cmd}.
+    `counter_rel` is resolved inside `repo`, so the graded counter bytes are
+    the landing's own; `extra` carries e.g. ``--freeze <rev>`` for round 74.
     """
     counter = os.path.join(repo, counter_rel)
     if not os.path.isfile(counter):
         raise FixtureError("counter missing at %s" % counter)
     cmd = [sys.executable, "-B", counter, "--root", repo, "--lands", rev,
-           "--fleet-root", fleet_root]
+           "--fleet-root", fleet_root] + list(extra)
     r = _run(cmd, cwd=repo, timeout=COUNTER_TIMEOUT)
     out = r.stdout + ("\n" + r.stderr if r.stderr.strip() else "")
     m = None
     for m in ACCEPT_RE.finditer(r.stdout):
         pass
+    refused = "REFUSED" in out
     if m is None:
         return {"exit": r.returncode, "verdict": "NO-VERDICT", "legs": None,
                 "total": None, "red": tuple(LEGFAIL_RE.findall(r.stdout)),
                 "tail": (r.stdout.strip().splitlines() or [""])[-1], "out": out,
-                "cmd": " ".join(cmd)}
+                "refused": refused, "cmd": " ".join(cmd)}
     return {"exit": r.returncode, "verdict": m.group(2),
             "legs": int(m.group(3)), "total": int(m.group(4)),
             "red": tuple(LEGFAIL_RE.findall(r.stdout)),
-            "tail": m.group(0), "out": out, "cmd": " ".join(cmd)}
+            "tail": m.group(0), "out": out, "refused": refused,
+            "cmd": " ".join(cmd)}
 
 
 def _signature(res):
@@ -734,13 +767,650 @@ def _run_r73(only, workroot, keep, out):
     return accepted
 
 
+
+# ============================================================================
+# round 74 — junk landings atop the freeze commit (--run-r74 --freeze F)
+# ============================================================================
+#
+# A round-74 junk landing is the *intended* landing assembled from the frozen
+# wave-1 drafts (entries, rows, lesson, README index rows/footer, SCORECARD
+# corrections, the two REPAIR edits, the GROUND receipt preamble and the
+# indent-guard fixture) with exactly one named defect added.  The template T0
+# is that landing with no defect: it is graded first so the L1 can see which
+# legs are red before any junk is applied.  Everything is built in a private
+# clone of the lane, `checkout --detach F`, and committed with the fixture
+# identity inside that clone only; the freeze commit is never touched.
+
+R74_CLAIMS = "reports/round-74/claims.json"
+R74_LEDGER = "reports/round-74/ledger.json"
+R74_LESSON = "corpus/lessons/round-74.md"
+R74_C_COUNTER = "reports/round-74/accept-c.py"
+R74_CA_COUNTER = "reports/round-74/accept-ca.py"
+R74_SCORECARD = SCORECARD
+R74_GROUND = "reports/round-74/telemetry/gap-sweep.txt"
+R74_GUARD = (".ufo/waves/round-74/assimilation/guard-proof/"
+             "fixture-landing-guard.txt")
+R74_RECEIPT_C73 = "reports/round-74/telemetry/accept-c-73-at-lands.txt"
+R74_RECEIPT_CA73 = "reports/round-74/telemetry/accept-ca-73-at-lands.txt"
+R74_R73_RERUN = "reports/round-73/telemetry/measures-ca72-rerun.txt"
+R74_EVIDENCE = "reports/round-74/evidence"
+R74_DRAFTS = ".ufo/waves/round-74/drafts"
+R74_ROWS_DRAFT = R74_DRAFTS + "/rows-S881-S884.md"
+R74_S877_DRAFT = R74_DRAFTS + "/s877-usedby-change.md"
+R74_ANNOTATE_DRAFT = R74_DRAFTS + "/annotate-rows.md"
+R74_REPAIR_DRAFT = R74_DRAFTS + "/repair-edits.md"
+R74_ENTRY_ONE = ("corpus/knowledge/culture-material/"
+                 "worldbuilding-setting-practice.md")
+R74_ENTRY_TWO = ("corpus/knowledge/culture-material/"
+                 "worldbuilding-setting-practice.amend-2026-10-23.md")
+R74_ENTRIES = (R74_ENTRY_ONE, R74_ENTRY_TWO)
+R74_ROW_IDS = ("S881", "S882", "S883", "S884")
+R74_SCORECARD_HEADING = re.compile(
+    r"^##\s+Corrections\s*[—–-]\s*round\s+74\b", re.I)
+STAGED_PACKAGE = "/home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md"
+
+
+def _show_text(repo, rev, rel):
+    r = _run(["git", "-C", repo, "show", "%s:%s" % (rev, rel)])
+    if r.returncode != 0:
+        raise FixtureError("git show %s:%s failed: %s"
+                           % (rev[:12], rel, r.stderr.strip()))
+    return r.stdout
+
+
+def _md_count(root, rel):
+    n = 0
+    for dirpath, _dirs, files in os.walk(os.path.join(root, rel)):
+        n += sum(1 for f in files if f.endswith(".md"))
+    return n
+
+
+def _entry_topic(repo, rel):
+    for line in read(repo, rel).splitlines():
+        if line.startswith("- topic:"):
+            return line.split(":", 1)[1].strip()
+    raise FixtureError("%s carries no - topic: header line" % rel)
+
+
+def _fences(text):
+    return re.findall(r"```[A-Za-z0-9_-]*\n(.*?)\n```", text, re.S)
+
+
+def _r74_clone(workroot, label, freeze):
+    d, repo = clone_lane(workroot, "r74-%s" % label)
+    git(repo, "checkout", "-q", "--detach", freeze)
+    return d, repo
+
+
+# ------------------------------------------------------- the intended landing
+
+def _registry_insert(text, rows):
+    """Insert `rows` immediately after the registry table's last row."""
+    lines = text.splitlines()
+    anchor = None
+    for i, line in enumerate(lines):
+        if ROW_RE.match(line):
+            anchor = i
+    if anchor is None:
+        raise FixtureError("registry carries no rows")
+    lines[anchor + 1:anchor + 1] = rows
+    return "\n".join(lines) + "\n"
+
+
+def _r74_registry(repo, freeze):
+    reg = read(repo, REGISTRY)
+    pair = _show_text(repo, freeze, R74_S877_DRAFT).splitlines()
+    if len(pair) < 2 or pair[0] not in reg:
+        raise FixtureError("S877 used-by draft does not match the registry")
+    reg = reg.replace(pair[0], pair[1], 1)
+    rows = [l.rstrip() for l in
+            _show_text(repo, freeze, R74_ROWS_DRAFT).splitlines() if l.strip()]
+    if len(rows) != 4:
+        raise FixtureError("rows draft carries %d rows, want 4" % len(rows))
+    write(repo, REGISTRY, _registry_insert(reg, rows))
+    return pair
+
+
+def _sanitize_header(text):
+    """Drop `<...>` template tokens from the provenance header values (the
+    ENTRIES leg rejects them); body bytes are untouched."""
+    out, header = [], True
+    for line in text.splitlines(keepends=True):
+        if header and H2_RE.match(line):
+            header = False
+        if header:
+            line = re.sub(r"<[^>]+>", "the named value", line)
+        out.append(line)
+    return "".join(out)
+
+
+def _r74_entries(repo, freeze):
+    pairs = ((R74_DRAFTS + "/worldbuilding-setting-practice.md", R74_ENTRY_ONE),
+             (R74_DRAFTS + "/worldbuilding-setting-practice.amend-2026-10-23.md",
+              R74_ENTRY_TWO))
+    for src, dst in pairs:
+        write(repo, dst, _sanitize_header(_show_text(repo, freeze, src)))
+
+
+def _r74_readme(repo):
+    readme = read(repo, "corpus/README.md")
+    lines = readme.splitlines()
+    anchor = None
+    for i, line in enumerate(lines):
+        if line.startswith("- `writing-media-surface-economy.md`"):
+            anchor = i
+    if anchor is None:
+        raise FixtureError("README culture-material anchor row not found")
+    new_rows = ["- `%s` — %s" % (os.path.basename(p), _entry_topic(repo, p))
+                for p in sorted(R74_ENTRIES)]
+    for k, row in enumerate(new_rows):
+        lines.insert(anchor + 1 + k, row)
+    text = "\n".join(lines) + "\n"
+    parts = re.findall(r"^## ([a-z-]+)/ \(\d+\)\s*$", text, re.M)
+    total = _md_count(repo, "corpus/knowledge")
+    vector = [_md_count(repo, "corpus/knowledge/" + part) for part in parts]
+    block = ["", "## Round 74 landing (appended 2026-10-25, hyaku run 7)", "",
+             "Two culture-material files landed (claim C; assimilation of the "
+             "shokuknow `merge/kotodama` worldbuilding-setting-practice theme): "
+             "`worldbuilding-setting-practice.md` and "
+             "`worldbuilding-setting-practice.amend-2026-10-23.md`. Their rows "
+             "sit in the `## culture-material/` section above, each carrying "
+             "its entry's own `- topic:` text verbatim under the "
+             "`` - `name.md` — `` prefix; this block carries no row-shaped "
+             "line.", "", "Total knowledge entries: %d." % total, "",
+             "Counts checked 2026-10-25 from the repo root: `find "
+             "corpus/knowledge -type f -name '*.md' | wc -l` (total %d files; "
+             "directory totals %s)." % (total, "/".join(str(x) for x in vector)),
+             "The two older footers above are kept byte-identical as the dated "
+             "record they were; this block is the live reading."]
+    write(repo, "corpus/README.md", text.rstrip("\n") + "\n" + "\n".join(block) + "\n")
+
+
+def _r74_scorecard(repo, freeze):
+    scor = read(repo, R74_SCORECARD)
+    rows = [l for l in
+            _show_text(repo, freeze, R74_ANNOTATE_DRAFT).splitlines()
+            if l.startswith("| LC-")]
+    if not rows:
+        raise FixtureError("annotate draft carries no | LC- rows")
+    section = ("\n## Corrections — round 74\n\n"
+               "Append-only record (round 74, hyaku run 7). Each ANNOTATE row "
+               "carries id, old token, new token and the re-derivation "
+               "command; the filed lines named here stand as filed.\n\n"
+               "| id | old token | new token | re-derivation command |\n"
+               "|---|---|---|---|\n" + "\n".join(rows) + "\n")
+    write(repo, R74_SCORECARD, scor.rstrip("\n") + "\n" + section)
+
+
+def _r74_repair_paths(repo, freeze):
+    """Paths the frozen ledger declares REPAIR (only those may be edited)."""
+    doc = json.loads(_show_text(repo, freeze, R74_LEDGER))
+    paths = set()
+    for pair in doc.get("pairs") or []:
+        if pair.get("disposition") != "REPAIR":
+            continue
+        m = re.match(r"^(.+):\d+$", str(pair.get("stated_at") or ""))
+        if m:
+            paths.add(m.group(1))
+    return paths
+
+
+def _r74_repairs(repo, freeze):
+    fences = _fences(_show_text(repo, freeze, R74_REPAIR_DRAFT))
+    wanted = _r74_repair_paths(repo, freeze)
+
+    def pair(needle):
+        for i, block in enumerate(fences[:-1]):
+            if needle in block:
+                return block, fences[i + 1]
+        raise FixtureError("repair draft carries no fence naming %r" % needle)
+
+    candidates = (("SHONEN.md",) + pair("asserted: `SKILL.md:20`"),
+                  ("SKILL.md",) + pair("civilizations/` — 94 entries"))
+    for rel, old, new in candidates:
+        if rel not in wanted:
+            continue
+        text = read(repo, rel)
+        if old not in text:
+            raise FixtureError("repair draft old line not in %s" % rel)
+        write(repo, rel, text.replace(old, new, 1))
+
+
+def _r74_ground(repo, freeze):
+    base_rows = len(row_ids(_show_text(repo, freeze, REGISTRY)))
+    text = read(repo, R74_GROUND)
+    preamble = ("base registry: %d rows at %s (re-derived from the git tree)\n\n"
+                % (base_rows, freeze))
+    if not text.startswith("base registry:"):
+        bit = ("base registry: %d rows at %s (re-derived from the git tree)\n"
+               "gap sweep (draft reused as the landing receipt)\n\n"
+               % (base_rows, freeze))
+        text = bit + text
+    write(repo, R74_GROUND, text)
+
+
+def _r74_guard(repo):
+    write(repo, R74_GUARD,
+          "GUARD-PROOF fixture landing — 1-3-space guard and the 4-space "
+          "control\n\n"
+          "planted 2-space row (inside the 0-3-space grammar):\n"
+          "  | S885 | planted guard row — https://example.invalid/guard-proof/"
+          "planted.pdf | docs | B | fixture scope | fixture anchor | fixture "
+          "teaches | mined | 2026-10-25 | 180d | — |\n"
+          "guard extractor sees planted S885: 1 collision detected (exit 0)\n\n"
+          "four-space control (indented code, outside the grammar):\n"
+          "    | S886 | planted four-space row — https://example.invalid/"
+          "guard-proof/planted.pdf | docs | B | fixture scope | fixture anchor "
+          "| fixture teaches | mined | 2026-10-25 | 180d | — |\n"
+          "4-space control sees planted S886: 0 — not found (indented code is "
+          "ignored; no collision)\n")
+
+
+def _r74_landing(repo, freeze):
+    _r74_registry(repo, freeze)
+    _r74_entries(repo, freeze)
+    lesson = _show_text(repo, freeze, R74_DRAFTS + "/round-74.md")
+    lesson = lesson.rstrip("\n") + (
+        "\n\nTriage counts restated for the gate reader: 2 adopted / 4 "
+        "path-present with differing staged bytes / 34 refused of 40 staged "
+        "knowledge files.\n")
+    write(repo, R74_LESSON, lesson)
+    _r74_readme(repo)
+    _r74_scorecard(repo, freeze)
+    _r74_repairs(repo, freeze)
+    _r74_ground(repo, freeze)
+    _r74_guard(repo)
+
+
+# ------------------------------------------------------------- junk bodies
+
+R74_STUB_URLS = {
+    "S881": "https://litmemo.com/ja/blog/novel-worldbuilding-guide",
+    "S882": "https://tuduku.space/column/novel-worldbuilding",
+    "S883": ("https://www.chinawriter.com.cn/n1/2025/0605/"
+             "c404024-40494534.html"),
+    "S884": ("https://www.chinawriter.com.cn/n1/2022/1207/"
+             "c404024-32582252.html"),
+}
+
+
+def _r74_stub_entry(title, pairs):
+    lines = ["# %s" % title, ""]
+    for sid, url in pairs:
+        lines.append("- source: %s — %s" % (sid, url))
+    lines += ["- verified-at: 2026-10-25",
+              "- recheck: 180d — re-open both rows and re-locate each quoted span",
+              "- ground: the fixture asserts uncovered ground without measuring it",
+              "- topic: fixture stub topic standing in for the mined topic",
+              "- gap filled: fixture stub gap line; the mined prose was never written",
+              "- sources: the two rows above, both left unmined by this stub",
+              "- couples: `culture-material/worldbuilding-setting-practice.md`",
+              "- scope: a fixture stub; it decides no world's language and adds "
+              "no canon"]
+    while len("\n".join(lines).split()) < 400:
+        lines[5] += " stub-pad"
+    return "\n".join(lines) + "\n"
+
+
+def _staged_rows(ids):
+    try:
+        with open(STAGED_PACKAGE, encoding="utf-8") as fh:
+            text = fh.read()
+    except OSError:
+        return {}
+    out = {}
+    for line in text.splitlines():
+        m = ROW_RE.match(line)
+        if m and m.group(1) in ids:
+            out[m.group(1)] = line.rstrip("\n")
+    return out
+
+
+def _set_last_cell(line, value):
+    parts = line.split("|")
+    if len(parts) < 3:
+        raise FixtureError("row has no cells: %r" % line[:80])
+    parts[-2] = " %s " % value
+    return "|".join(parts)
+
+
+def junk_r74_J1(repo, freeze):
+    """Two ~400-word header-only stub entries + four staged rows at the stubs."""
+    write(repo, R74_ENTRY_ONE,
+          _r74_stub_entry("Worldbuilding setting practice — stub fixture",
+                          (("S881", R74_STUB_URLS["S881"]),
+                           ("S882", R74_STUB_URLS["S882"]))))
+    write(repo, R74_ENTRY_TWO,
+          _r74_stub_entry("Amendment stub fixture",
+                          (("S883", R74_STUB_URLS["S883"]),
+                           ("S884", R74_STUB_URLS["S884"]))))
+    staged_ids = {"S883": "S881", "S884": "S882",
+                  "S899": "S883", "S900": "S884"}
+    staged = _staged_rows(set(staged_ids))
+    reg = read(repo, REGISTRY)
+    reg = drop_rows(reg, set(R74_ROW_IDS))
+    lines = []
+    for staged_id, lane_id in staged_ids.items():
+        entry = (R74_ENTRY_ONE if lane_id in ("S881", "S882")
+                 else R74_ENTRY_TWO)
+        if staged_id in staged:
+            row = rewrite_cell(staged[staged_id], 1, lane_id)
+            row = _set_last_cell(row, entry)
+        else:
+            row = ("| %s | staged row as-is — https://example.invalid/%s | "
+                   "docs | B | s | a | t | mined | 2026-10-23 | 180d — `curl "
+                   "\\| grep -c x` -> 2 (ran 2026-10-23) | %s |"
+                   % (lane_id, staged_id.lower(), entry))
+        lines.append(row)
+    write(repo, REGISTRY, _registry_insert(reg, lines))
+
+
+J2_FAKE_WINDOW = ("junk fixture fabricated context window — no captured page "
+                  "byte appears in this line. ") * 60
+
+
+def junk_r74_J2(repo, freeze):
+    """Gate quotes absent from every evidence window, `quote-found: yes` typed."""
+    for sid in ("S877",) + R74_ROW_IDS:
+        rel = "%s/%s.txt" % (R74_EVIDENCE, sid)
+        text = read(repo, rel)
+        lines = text.splitlines()
+        try:
+            start = lines.index("--- window ---")
+            stop = lines.index("--- quote ---")
+        except ValueError:
+            raise FixtureError("%s carries no window/quote markers" % rel)
+        payload = J2_FAKE_WINDOW.strip()
+        while len(payload) < 4096:
+            payload += " pad"
+        lines[start + 1:stop] = [payload]
+        text = "\n".join(lines) + "\n"
+        text = re.sub(r"^window-sha256: .*$",
+                      "window-sha256: %s"
+                      % hashlib.sha256(payload.encode("utf-8")).hexdigest(),
+                      text, flags=re.M)
+        text = re.sub(r"^window-bytes: .*$",
+                      "window-bytes: %d" % len(payload.encode("utf-8")),
+                      text, flags=re.M)
+        text = re.sub(r"^window-scope: .*$", "window-scope: excerpt", text,
+                      flags=re.M)
+        text = re.sub(r"^quote-found: .*$", "quote-found: yes", text, flags=re.M)
+        text = re.sub(r"^quote-found-verbatim: .*$",
+                      "quote-found-verbatim: yes", text, flags=re.M)
+        write(repo, rel, text)
+
+
+def _r74_claim(doc, cid):
+    want = cid.strip().upper()
+    for claim in doc.get("claims") or []:
+        if isinstance(claim, dict) and \
+                str(claim.get("id", "")).strip().upper() == want:
+            return claim
+    raise FixtureError("claims.json carries no claim %s" % cid)
+
+
+def junk_r74_J3(repo, freeze):
+    """The graded tree's claims.json shrinks claim C to two rows/one entry."""
+    doc = read_json(repo, R74_CLAIMS)
+    claim = _r74_claim(doc, "C")
+    claim["row_set"] = [r for r in claim["row_set"] if r.get("id") in
+                        ("S881", "S882")]
+    claim["entries"] = list(claim["entries"])[:1]
+    write_json(repo, R74_CLAIMS, doc)
+    write(repo, REGISTRY, drop_rows(read(repo, REGISTRY), {"S883", "S884"}))
+
+
+def junk_r74_J4(repo, freeze):
+    """Literal/echo constant printers in the graded tree's ledger."""
+    write_json(repo, R74_LEDGER,
+               rewrite_ledger_observe(read_json(repo, R74_LEDGER), "literal"))
+
+
+def junk_r74_J4b(repo, freeze):
+    """The evasive constant printer in the graded tree's ledger."""
+    write_json(repo, R74_LEDGER,
+               rewrite_ledger_observe(read_json(repo, R74_LEDGER), "evasive"))
+
+
+def junk_r74_J5(repo, freeze):
+    """One SCORECARD correction row naming only its id."""
+    write(repo, R74_SCORECARD,
+          stub_correction_row(read(repo, R74_SCORECARD), "LC-02"))
+
+
+def junk_r74_J6(repo, freeze):
+    """An in-place edit of the frozen round-73 rerun receipt."""
+    text = read(repo, R74_R73_RERUN)
+    write(repo, R74_R73_RERUN,
+          replace_text(text, "ACCEPT-CA-72: PASS legs=12/12",
+                       "ACCEPT-CA-72: PASS legs=12/11", R74_R73_RERUN))
+
+
+def junk_r74_J7(repo, freeze):
+    """A Ca-read corrections row that cites claim-C rows S881..S884."""
+    scor = read(repo, R74_SCORECARD)
+    row = ("| LC-02 | 9 | 10 | git grep -h -o -E 'SELFTEST OK. [0-9]+ "
+           "scenarios' f7104cbce186bc2e1522abf0cfd619cc834628bb -- "
+           "reports/round-73/telemetry/selftest-r3.txt | incidentally the "
+           "registry rows S881..S884 are claim C's |")
+    marker = "| LC-18 |"
+    idx = scor.find(marker)
+    if idx < 0:
+        raise FixtureError("corrections table LC-18 row not found")
+    end = scor.find("\n", idx)
+    write(repo, R74_SCORECARD, scor[:end + 1] + row + "\n" + scor[end + 1:])
+
+
+def junk_r74_J8(repo, freeze):
+    """Typed receipt: the committed round-73 Ca stdout is edited by hand."""
+    text = read(repo, R74_RECEIPT_CA73)
+    write(repo, R74_RECEIPT_CA73,
+          replace_text(text, "ACCEPT-CA-73: PASS legs=9/9",
+                       "ACCEPT-CA-73: PASS legs=9/10", R74_RECEIPT_CA73))
+
+
+def junk_r74_J9(repo, freeze):
+    """LEGCOUNT attack: one leg deleted from each frozen claim's leg list."""
+    doc = read_json(repo, R74_CLAIMS)
+    for cid in ("C", "Ca"):
+        claim = _r74_claim(doc, cid)
+        legs = claim.get("legs")
+        if not isinstance(legs, list) or len(legs) < 2:
+            raise FixtureError("claim %s carries no legs list to shrink" % cid)
+        claim["legs"] = legs[:-1]
+    write_json(repo, R74_CLAIMS, doc)
+
+
+R74_FIXTURES = {
+    "T0": ("C+Ca", None,
+           "PASS: the intended round-74 landing with no defect (reference)"),
+    "J1": ("C", junk_r74_J1,
+           "FAIL: two ~400-word header-only stub entries + four staged rows "
+           "with used-by at the stubs (ENTRIES/ROWS)"),
+    "J2": ("C", junk_r74_J2,
+           "FAIL: every Gate quote absent from its evidence window, "
+           "quote-found: yes typed over fabricated windows (EVIDENCE)"),
+    "J3": ("C", junk_r74_J3,
+           "FAIL: graded-tree claims.json shrinks the claim to two rows and "
+           "one entry (FROZENCFG; ROWS if the pin were absent)"),
+    "J4": ("Ca", junk_r74_J4,
+           "FAIL: graded-tree ledger observe_cmds constant-print "
+           "expected_after (FROZENCFG; LEDGER if read from the tree)"),
+    "J4b": ("Ca", junk_r74_J4b,
+            "FAIL: evasive constant printer in the graded-tree ledger "
+            "(FROZENCFG; the round-73 M1b shape)"),
+    "J5": ("Ca", junk_r74_J5,
+           "FAIL: a corrections row naming only its id (ANNOTATE/NOSTUB)"),
+    "J6": ("Ca", junk_r74_J6,
+           "FAIL: in-place edit of the frozen round-73 rerun receipt "
+           "(APPENDONLY; no protected set covers it)"),
+    "J7": ("Ca", junk_r74_J7,
+           "FAIL: a Ca-read corrections row cites claim-C rows S881..S884 "
+           "(SEPARABLE)"),
+    "J8": ("Ca", junk_r74_J8,
+           "FAIL: typed receipt — the committed round-73 Ca stdout is edited "
+           "(RECEIPTS)"),
+    "J9": ("C+Ca", junk_r74_J9,
+           "FAIL/refusal: a leg is deleted from claims.json (FROZENCFG; "
+           "LEGCOUNT only if the graded file were read)"),
+}
+R74_ORDER = ("T0", "J1", "J2", "J3", "J4", "J4b", "J5", "J6", "J7", "J8", "J9")
+R74_SECTIONS = {"C": ("J1", "J2", "J3", "J9"),
+                "Ca": ("J4", "J4b", "J5", "J6", "J7", "J8", "J9")}
+
+
+def build_r74(name, freeze, workroot=None):
+    """Materialize one round-74 landing (T0) or junk landing atop `freeze`."""
+    if name not in R74_FIXTURES:
+        raise FixtureError("unknown round-74 fixture %r" % name)
+    claim, junk, expected = R74_FIXTURES[name]
+    d, repo = _r74_clone(workroot, name, freeze)
+    _r74_landing(repo, freeze)
+    if junk is not None:
+        junk(repo, freeze)
+    rev = commit_all(repo, "round-74 landing %s atop %s" % (name, freeze[:12]))
+    git(repo, "checkout", "-q", "-B", "main")
+    changed = tuple(git(repo, "diff", "--name-only", freeze, rev).split())
+    if not changed:
+        raise FixtureError("%s committed no byte change" % name)
+    return Fixture(name, claim, repo, rev, expected, changed)
+
+
+def _fail_lines(res):
+    """The counter's `LEG FAIL` lines with their indented detail lines."""
+    out, keep = [], False
+    for line in res["out"].splitlines():
+        if line.startswith("LEG FAIL"):
+            out.append(line)
+            keep = True
+        elif line.startswith("REFUSED"):
+            out.append(line)
+            keep = False
+        elif keep and line.startswith("     "):
+            out.append(line)
+        else:
+            keep = False
+    return out
+
+
+def _print_block(fx, res, expected, section, out):
+    print("fixture: %s" % fx.name, file=out)
+    print("section: %s" % section, file=out)
+    print("claim: %s" % fx.claim, file=out)
+    print("lands: %s" % fx.rev, file=out)
+    print("command: %s" % res["cmd"], file=out)
+    print("exit: %d" % res["exit"], file=out)
+    for line in _fail_lines(res):
+        print(line, file=out)
+    print("verdict: %s" % res["tail"], file=out)
+    print("expected: %s" % expected, file=out)
+    print("accepted: %s" % ("YES" if res["verdict"] == "PASS" else "no"),
+          file=out)
+    print(file=out)
+
+
+def run_r74(freeze, only=None, workroot=None, keep=False, out=sys.stdout):
+    """Build and grade the round-74 junk landings; return accepted fixture names."""
+    own_root = None
+    if workroot is None:
+        own_root = tempfile.mkdtemp(prefix="junk-r74-")
+        workroot = own_root
+    try:
+        return _run_r74(freeze, only, workroot, keep, out)
+    finally:
+        if own_root and not keep:
+            shutil.rmtree(own_root, ignore_errors=True)
+
+
+def _run_r74(freeze, only, workroot, keep, out):
+    extra = ["--freeze", freeze]
+    print(file=out)
+    print("# ==================== round-74 junk landings ====================",
+          file=out)
+    print("# freeze: %s" % freeze, file=out)
+    print("# counters: %s ; %s" % (R74_C_COUNTER, R74_CA_COUNTER), file=out)
+    print("# landing kit: frozen wave-1 drafts (entries, rows, lesson, README "
+          "rows/footer, corrections rows, REPAIR edits, ground receipt, guard "
+          "proof)", file=out)
+    print(file=out)
+
+    t0 = build_r74("T0", freeze, workroot)
+    res_c = run_counter(t0.repo, R74_C_COUNTER, t0.rev, extra=extra)
+    res_ca = run_counter(t0.repo, R74_CA_COUNTER, t0.rev, extra=extra)
+    print("# reference landing T0 (no defect)", file=out)
+    print("T0 C: %s" % _signature(res_c), file=out)
+    print("T0 Ca: %s" % _signature(res_ca), file=out)
+    for res in (res_c, res_ca):
+        for line in _fail_lines(res):
+            print("T0 %s" % line, file=out)
+    print("# T0 lands=%s" % t0.rev, file=out)
+    if keep:
+        print("# T0 repo=%s" % t0.repo, file=out)
+    print(file=out)
+    if not keep:
+        cleanup(t0)
+
+    accepted, rows = [], {"C": [], "Ca": []}
+    built = {}
+    for section in ("C", "Ca"):
+        names = [n for n in R74_SECTIONS[section] if not only or n in only]
+        print("# ===== SECTION %s — %s =====" %
+              (section, R74_C_COUNTER if section == "C" else R74_CA_COUNTER),
+              file=out)
+        print(file=out)
+        counter = R74_C_COUNTER if section == "C" else R74_CA_COUNTER
+        for name in names:
+            try:
+                if name not in built:
+                    built[name] = build_r74(name, freeze, workroot)
+                fx = built[name]
+                res = run_counter(fx.repo, counter, fx.rev, extra=extra)
+            except (FixtureError, OSError, subprocess.SubprocessError) as exc:
+                print("fixture: %s" % name, file=out)
+                print("section: %s" % section, file=out)
+                print("error: %s: %s" % (type(exc).__name__, exc), file=out)
+                print("accepted: no (no verdict was produced)", file=out)
+                print(file=out)
+                continue
+            ok = res["verdict"] == "PASS"
+            if ok:
+                accepted.append("%s(%s)" % (name, section))
+            rows[section].append((fx, res, ok))
+            _print_block(fx, res, fx.expected, section, out)
+            if not keep:
+                cleanup(fx)
+                del built[name]
+    if not keep:
+        for fx in list(built.values()):
+            cleanup(fx)
+    for section in ("C", "Ca"):
+        print("# %s summary: %s" % (section, ", ".join(
+            "%s=%s" % (fx.name, "PASS" if ok else res["verdict"])
+            for fx, res, ok in rows[section])), file=out)
+    if accepted:
+        print("# ACCEPTED JUNK LANDINGS: %s" % " ".join(accepted), file=out)
+    else:
+        print("# ACCEPTED JUNK LANDINGS: none", file=out)
+    return accepted
+
+
 # ---------------------------------------------------------------- CLI ---
 
 def main(argv=None):
     ap = argparse.ArgumentParser(
-        description="junk-landing fixture generator for the round-73 counters")
+        description="junk-landing fixture generator (round-73 red-before and "
+                    "round-74 freeze landings)")
     ap.add_argument("--run-r73", action="store_true",
-                    help="build every fixture and grade it with its round-73 counter")
+                    help="build every round-73 fixture and grade it with its "
+                         "round-73 counter")
+    ap.add_argument("--run-r74", action="store_true",
+                    help="build the round-74 junk landings atop --freeze and "
+                         "grade them with the round-74 counters")
+    ap.add_argument("--freeze", default=None,
+                    help="round-74 freeze commit (40-hex) for --run-r74")
+    ap.add_argument("--out", default=None,
+                    help="--run-r74 output file (default: "
+                         ".ufo/waves/round-74/counters/junk-r74-run.txt)")
     ap.add_argument("--only", default=None,
                     help="comma-separated fixture names (default: all)")
     ap.add_argument("--workroot", default=None,
@@ -754,20 +1424,57 @@ def main(argv=None):
         for name in ORDER:
             claim, _junk, expected = FIXTURES[name]
             print("%-4s %-2s %s" % (name, claim, expected))
+        for name in R74_ORDER:
+            claim, _junk, expected = R74_FIXTURES[name]
+            print("%-4s %-5s %s" % (name, claim, expected))
         return 0
-    if not args.run_r73:
+    if not (args.run_r73 or args.run_r74):
         ap.print_help()
         return 0
     only = None
     if args.only:
         only = {x.strip() for x in args.only.split(",") if x.strip()}
-        unknown = only - set(FIXTURES)
+        known = set(FIXTURES) | set(R74_FIXTURES)
+        unknown = only - known
         if unknown:
             print("ERROR: unknown fixture(s): %s" % ", ".join(sorted(unknown)),
                   file=sys.stderr)
             return 2
-    accepted = run_r73(only=only, workroot=args.workroot, keep=args.keep)
-    return 2 if accepted is None else 0
+    if args.run_r73:
+        accepted = run_r73(only=only, workroot=args.workroot, keep=args.keep)
+        if accepted is None:
+            return 2
+    if args.run_r74:
+        if not args.freeze or not re.fullmatch(r"[0-9a-fA-F]{40}",
+                                               args.freeze.strip()):
+            print("ERROR: --run-r74 needs --freeze <40-hex>",
+                  file=sys.stderr)
+            return 2
+        freeze = args.freeze.strip().lower()
+        out_path = args.out or os.path.join(
+            LANE, ".ufo/waves/round-74/counters/junk-r74-run.txt")
+        with open(out_path, "w", encoding="utf-8") as fh:
+            print("# junk-r74-run.txt — round-74 junk landings and the "
+                  "round-73 red-before", file=fh)
+            print("# generated: %s" % time.strftime("%Y-%m-%dT%H:%M:%SZ",
+                                                    time.gmtime()), file=fh)
+            print("# generator: %s sha256=%s"
+                  % (os.path.abspath(__file__),
+                     hashlib.sha256(open(os.path.abspath(__file__), "rb")
+                                    .read()).hexdigest()), file=fh)
+            print("# freeze: %s" % freeze, file=fh)
+            print("# commands are printed per fixture; sections C and Ca are "
+                  "separated by the ===== markers", file=fh)
+            print(file=fh)
+            print("# ----------------------------------------------------------",
+                  file=fh)
+            print("# round-73 red-before (re-run for the record)", file=fh)
+            print("# ----------------------------------------------------------",
+                  file=fh)
+            _run_r73(only=None, workroot=args.workroot, keep=args.keep, out=fh)
+            run_r74(freeze, workroot=args.workroot, keep=args.keep, out=fh)
+        print("wrote %s" % out_path)
+    return 0
 
 
 if __name__ == "__main__":

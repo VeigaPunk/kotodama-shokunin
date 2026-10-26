@@ -1,0 +1,182 @@
+# junk-ca.txt — round 74 junk-landing controls (split from counters/junk-r74-run.txt by the L1; generator sha256 ce6505fc7d973ced8ad663ee5201eae4931129684dd9794744f115a49fba6d76; freeze 00c408a0af2fa5ddf65af2224152ce258b26d896)
+# junk-r74-run.txt — round-74 junk landings and the round-73 red-before
+# generated: 2026-10-26T01:53:19Z
+# generator: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-74/counters/junk-fixtures.py sha256=ce6505fc7d973ced8ad663ee5201eae4931129684dd9794744f115a49fba6d76
+# freeze: 00c408a0af2fa5ddf65af2224152ce258b26d896
+# commands are printed per fixture; sections C and Ca are separated by the ===== markers
+
+# ----------------------------------------------------------
+# round-73 red-before (re-run for the record)
+# ----------------------------------------------------------
+# junk-landing fixtures — round-73 red-before
+# lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+# base: 8841ad3b896a0227674fa0725b818c999118046f  landed tree: 9b10fa06a2d3756c8bacfc8fc7b2115921370d97
+# fleet-root: /home/vgpnk/Projects/shokunin
+# counters: reports/round-73/accept-c.py ; reports/round-73/accept-ca.py
+
+P0  baseline landing (no junk)          C: PASS legs=11/11 exit=0 | Ca: PASS legs=9/9 exit=0
+P0b do-nothing control (C, --lands=base)   FAIL legs=1/11 exit=1 red=ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,SCRATCHMIRROR,COLLCHECK
+
+| fixture | claim | junk paths | expected (correct counter) | round-73 counter | accepted? |
+|---|---|---|---|---|---|
+| J1 | C | corpus/SOURCES.md, corpus/knowledge/linguistics/conlang-scholarship.amend-2026-10-23.md, corpus/knowledge/linguistics/conlang-scholarship.md, reports/round-73/claims.json | FAIL: two header-only stub entries stand in for the mined prose (body word floor) though their header is complete | FAIL legs=10/11 exit=1 red=ENTRIES | no |
+| J2 | C | corpus/lessons/round-73.md | FAIL: every Gate admit quote is absent from its evidence window (the quote/URL mispairing class) | FAIL legs=10/11 exit=1 red=EVIDENCE | no |
+| J3 | C | corpus/SOURCES.md, reports/round-73/claims.json | FAIL: claims.json inside the graded tree shrinks the claim to two rows and one entry; the contract must come from the frozen commit | PASS legs=11/11 exit=0 | YES (survivor) |
+| J4 | Ca | reports/round-73/ledger.json | FAIL: every observe_cmd constant-prints expected_after (literal python3 -c print / echo) instead of reading clone bytes | FAIL legs=4/9 exit=1 red=LEDGER,BASEMISMATCH,REPAIR,ANNOTATE,NOSTUB | no |
+| J4b | Ca | reports/round-73/ledger.json | FAIL: evasive constant printer (import os;print(str(...))) passes the argv guard but reads no clone byte | PASS legs=9/9 exit=0 | YES (survivor) |
+| J5 | Ca | SCORECARD.md | FAIL: a correction row names only its id; ANNOTATE/NOSTUB must require id + stated token + observed token + re-derivation | PASS legs=9/9 exit=0 | YES (survivor) |
+| J6 | Ca | reports/round-72/telemetry/measures-ca.txt | FAIL: a frozen receipt outside both protected sets is edited in place (ACCEPT-CA-72 FAIL->PASS) | PASS legs=9/9 exit=0 | YES (survivor) |
+| J7 | Ca | SCORECARD.md | FAIL: a Ca correction-section note cites claim-C rows S876..S880 incidentally; SEPARABLE must scan the whole Ca byte set | PASS legs=9/9 exit=0 | YES (survivor) |
+
+# fixture repositories were removed after grading (re-run with --keep to retain them)
+# J1 repo=/tmp/ExecJunkFixtures/r74full2/jf-J1-iuhqsdj7/repo lands=4fd7e93ea3c064c8352fe3f1668560c1ef3eae32
+# J1 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J1-iuhqsdj7/repo/reports/round-73/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-J1-iuhqsdj7/repo --lands 4fd7e93ea3c064c8352fe3f1668560c1ef3eae32 --fleet-root /home/vgpnk/Projects/shokunin
+# J2 repo=/tmp/ExecJunkFixtures/r74full2/jf-J2-5xrlwzke/repo lands=3c89fe9f269ce1883dcc46f40c2dc061b0023dd6
+# J2 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J2-5xrlwzke/repo/reports/round-73/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-J2-5xrlwzke/repo --lands 3c89fe9f269ce1883dcc46f40c2dc061b0023dd6 --fleet-root /home/vgpnk/Projects/shokunin
+# J3 repo=/tmp/ExecJunkFixtures/r74full2/jf-J3-ead5qabn/repo lands=0dd9c8924f7452f6f63ebee4607305e5ffffe3d9
+# J3 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J3-ead5qabn/repo/reports/round-73/accept-c.py --root /tmp/ExecJunkFixtures/r74full2/jf-J3-ead5qabn/repo --lands 0dd9c8924f7452f6f63ebee4607305e5ffffe3d9 --fleet-root /home/vgpnk/Projects/shokunin
+# J4 repo=/tmp/ExecJunkFixtures/r74full2/jf-J4-v3w5eje1/repo lands=1d8e4cf5341beee7a73367d2eab85bc0b89b09d0
+# J4 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J4-v3w5eje1/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J4-v3w5eje1/repo --lands 1d8e4cf5341beee7a73367d2eab85bc0b89b09d0 --fleet-root /home/vgpnk/Projects/shokunin
+# J4b repo=/tmp/ExecJunkFixtures/r74full2/jf-J4b-3ho7j8xx/repo lands=235712be3c33bd999d1ae7ac46161aaa8225bc97
+# J4b cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J4b-3ho7j8xx/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J4b-3ho7j8xx/repo --lands 235712be3c33bd999d1ae7ac46161aaa8225bc97 --fleet-root /home/vgpnk/Projects/shokunin
+# J5 repo=/tmp/ExecJunkFixtures/r74full2/jf-J5-3y58ntch/repo lands=a03c3b27f83cbdc5744ab4b76ee09890ae532b29
+# J5 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J5-3y58ntch/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J5-3y58ntch/repo --lands a03c3b27f83cbdc5744ab4b76ee09890ae532b29 --fleet-root /home/vgpnk/Projects/shokunin
+# J6 repo=/tmp/ExecJunkFixtures/r74full2/jf-J6-a87lju1h/repo lands=78caa3d990420b20b3e7190a9cb582255e63ce15
+# J6 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J6-a87lju1h/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J6-a87lju1h/repo --lands 78caa3d990420b20b3e7190a9cb582255e63ce15 --fleet-root /home/vgpnk/Projects/shokunin
+# J7 repo=/tmp/ExecJunkFixtures/r74full2/jf-J7-gywsr5ln/repo lands=2b20374fc77e3fb99c917c12c0f07e2cd426685c
+# J7 cmd: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-J7-gywsr5ln/repo/reports/round-73/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-J7-gywsr5ln/repo --lands 2b20374fc77e3fb99c917c12c0f07e2cd426685c --fleet-root /home/vgpnk/Projects/shokunin
+
+SURVIVORS (round-73 counter accepted the junk landing): J3 J4b J5 J6 J7
+
+# ==================== round-74 junk landings ====================
+# freeze: 00c408a0af2fa5ddf65af2224152ce258b26d896
+# counters: reports/round-74/accept-c.py ; reports/round-74/accept-ca.py
+# landing kit: frozen wave-1 drafts (entries, rows, lesson, README rows/footer, corrections rows, REPAIR edits, ground receipt, guard proof)
+
+# reference landing T0 (no defect)
+T0 C: PASS legs=13/13 exit=0
+T0 Ca: FAIL legs=9/11 exit=1 red=APPENDONLY,SEPARABLE
+T0 LEG FAIL APPENDONLY
+T0      protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+T0 LEG FAIL SEPARABLE
+T0      lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+# T0 lands=189afa49bc25d9bf3d20d2bb60d9303f41c298f4
+
+# NOTE (L1, 2026-10-25): at reference landing T0 the Ca counter reads FAIL legs=9/11 (APPENDONLY, SEPARABLE) for two reasons that are not junk:
+#  (1) APPENDONLY: claim C's required in-place used-by change on the reused registry row is not a REPAIR stated_at line of claim Ca, so the two frozen claims conflict when both land in one tree; claim Ca is therefore measured at its OWN landing commit, where it prints ACCEPT-CA-74: PASS legs=11/11 (reports/round-74/telemetry/measures-ca.txt). Disclosed as a frozen-claims limit, not amended.
+#  (2) SEPARABLE: at the freeze the previously committed control receipt still carried the pre-redaction counter output; the regenerated receipt is committed in the Ca landing.
+
+# ===== SECTION Ca — reports/round-74/accept-ca.py =====
+
+fixture: J4
+section: Ca
+claim: Ca
+lands: 6da884668fd5481ab43287c3f50388b019641fd3
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J4-o6xxto__/repo/reports/round-74/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J4-o6xxto__/repo --lands 6da884668fd5481ab43287c3f50388b019641fd3 --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL APPENDONLY
+     protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+LEG FAIL SEPARABLE
+     lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+LEG FAIL FROZENCFG
+     freeze=00c408a0af2f first-parent-of-lands; round=74 base=f7104cbce186 legs=['LEDGER', 'BASEMISMATCH', 'REPAIR', 'ANNOTATE', 'APPENDONLY', 'NOSTUB', 'SEPARABLE', 'TRACKED', 'RECEIPTS', 'FROZENCFG', 'STAMP'] min-pairs=10 lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] receipts=2d1cd9140d3a problems=1 ['reports/round-74/ledger.json was edited in the graded tree after freeze (91919e926cc8 != 98d947a1cd09)']
+verdict: ACCEPT-CA-74: FAIL legs=8/11
+expected: FAIL: graded-tree ledger observe_cmds constant-print expected_after (FROZENCFG; LEDGER if read from the tree)
+accepted: no
+
+fixture: J4b
+section: Ca
+claim: Ca
+lands: 2e0d9e83ede70fb428877b671887b7c9f992e8ab
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J4b-ccidnny_/repo/reports/round-74/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J4b-ccidnny_/repo --lands 2e0d9e83ede70fb428877b671887b7c9f992e8ab --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL APPENDONLY
+     protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+LEG FAIL SEPARABLE
+     lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+LEG FAIL FROZENCFG
+     freeze=00c408a0af2f first-parent-of-lands; round=74 base=f7104cbce186 legs=['LEDGER', 'BASEMISMATCH', 'REPAIR', 'ANNOTATE', 'APPENDONLY', 'NOSTUB', 'SEPARABLE', 'TRACKED', 'RECEIPTS', 'FROZENCFG', 'STAMP'] min-pairs=10 lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] receipts=2d1cd9140d3a problems=1 ['reports/round-74/ledger.json was edited in the graded tree after freeze (91919e926cc8 != 2b46c8c08dc1)']
+verdict: ACCEPT-CA-74: FAIL legs=8/11
+expected: FAIL: evasive constant printer in the graded-tree ledger (FROZENCFG; the round-73 M1b shape)
+accepted: no
+
+fixture: J5
+section: Ca
+claim: Ca
+lands: 989897966615ea1c48737c6de9bfe26ced54d44b
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J5-h3ph5n97/repo/reports/round-74/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J5-h3ph5n97/repo --lands 989897966615ea1c48737c6de9bfe26ced54d44b --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL ANNOTATE
+     rows=14 annotate-pairs=12 unannotated=1 ["LC-02(row-leading-LC-02 stated='9' observed='10')"]
+LEG FAIL NOSTUB
+     minimum-shape=leading-id+old-token+new-token+rederive stubs=['LC-02:old-token,new-token,rederive-cmd']
+LEG FAIL APPENDONLY
+     protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+LEG FAIL SEPARABLE
+     lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+verdict: ACCEPT-CA-74: FAIL legs=7/11
+expected: FAIL: a corrections row naming only its id (ANNOTATE/NOSTUB)
+accepted: no
+
+fixture: J6
+section: Ca
+claim: Ca
+lands: 8919a50bd206ff807d17ec49c4bea0667fc18e0d
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J6-jqbl6ev1/repo/reports/round-74/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J6-jqbl6ev1/repo --lands 8919a50bd206ff807d17ec49c4bea0667fc18e0d --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL APPENDONLY
+     protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]', 'reports/round-73/telemetry/measures-ca72-rerun.txt: changed lines outside REPAIR stated_at lines [34]']
+LEG FAIL SEPARABLE
+     lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+verdict: ACCEPT-CA-74: FAIL legs=9/11
+expected: FAIL: in-place edit of the frozen round-73 rerun receipt (APPENDONLY; no protected set covers it)
+accepted: no
+
+fixture: J7
+section: Ca
+claim: Ca
+lands: 4bb4eba43ab53e3f2e306e094f96a7f1ada4f200
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J7-vljfodco/repo/reports/round-74/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J7-vljfodco/repo --lands 4bb4eba43ab53e3f2e306e094f96a7f1ada4f200 --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL APPENDONLY
+     protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+LEG FAIL SEPARABLE
+     lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in corrections-rows', 'cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+verdict: ACCEPT-CA-74: FAIL legs=9/11
+expected: FAIL: a Ca-read corrections row cites claim-C rows the claim-C lane ids (SEPARABLE)
+accepted: no
+
+fixture: J8
+section: Ca
+claim: Ca
+lands: ede1427881767c4db96a08372d58b2df3c143f2f
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J8-69l1w2rx/repo/reports/round-74/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J8-69l1w2rx/repo --lands ede1427881767c4db96a08372d58b2df3c143f2f --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL APPENDONLY
+     protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+LEG FAIL SEPARABLE
+     lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+LEG FAIL RECEIPTS
+     rev=2d1cd9140d3a receipts=['accept-c-73=50c60bb67f16', 'accept-ca-73=e9253d47536e'] problems=["reports/round-74/telemetry/accept-ca-73-at-lands.txt: does not carry 'ACCEPT-CA-73: PASS legs=9/9'", 'reports/round-74/telemetry/accept-ca-73-at-lands.txt: committed stdout differs from the re-run (96dbfd2257ba vs 55544779204d)']
+verdict: ACCEPT-CA-74: FAIL legs=8/11
+expected: FAIL: typed receipt — the committed round-73 Ca stdout is edited (RECEIPTS)
+accepted: no
+
+fixture: J9
+section: Ca
+claim: C+Ca
+lands: acc4b34518041f6cb2abba87c4a00ab9cd565727
+command: /usr/bin/python3 -B /tmp/ExecJunkFixtures/r74full2/jf-r74-J9-5le28aqe/repo/reports/round-74/accept-ca.py --root /tmp/ExecJunkFixtures/r74full2/jf-r74-J9-5le28aqe/repo --lands acc4b34518041f6cb2abba87c4a00ab9cd565727 --fleet-root /home/vgpnk/Projects/shokunin --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896
+exit: 1
+LEG FAIL APPENDONLY
+     protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] protected-removed=0 fleet-pin=dad39efd2798 report=.ufo/reports/round-73/kotodama.md blob-sha256=000bab3a3664 repair-stated_at={'SKILL.md': [594]} must_track-exempt=6 problems=['corpus/SOURCES.md: changed lines outside REPAIR stated_at lines [832]']
+LEG FAIL SEPARABLE
+     lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=['ledger', 'corrections-rows', 'reports/round-73/telemetry/selftest-r3.txt', 'reports/round-74/telemetry/accept-c-73-at-lands.txt', 'reports/round-74/telemetry/controls-ca.txt', 'stated:SHONEN.md:6', 'stated:LOG.md:4297', 'stated:fleet:.ufo/reports/round-73/kotodama.md:10', 'stated:corpus/README.md:732', 'stated:corpus/README.md:736', 'stated:corpus/README.md:344', 'stated:SKILL.md:594', 'stated:corpus/lessons/round-73.md:38', 'stated:reports/round-73/claims.json:11', 'stated:corpus/README.md:36', 'stated:corpus/lessons/round-73.md:138', 'stated:corpus/README.md:28', 'stated:corpus/README.md:36'] problems=['cites <redacted lane id> in reports/round-74/telemetry/controls-ca.txt', 'names the frozen claim-C path family in reports/round-74/telemetry/controls-ca.txt']
+LEG FAIL FROZENCFG
+     freeze=00c408a0af2f first-parent-of-lands; round=74 base=f7104cbce186 legs=['LEDGER', 'BASEMISMATCH', 'REPAIR', 'ANNOTATE', 'APPENDONLY', 'NOSTUB', 'SEPARABLE', 'TRACKED', 'RECEIPTS', 'FROZENCFG', 'STAMP'] min-pairs=10 lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 protected=['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-74.md', 'corpus/lessons/round-73.md', 'corpus/lessons/round-72.md', 'reports/round-73/claims.json', 'reports/round-73/ledger.json'] receipts=2d1cd9140d3a problems=1 ['reports/round-74/claims.json was edited in the graded tree after freeze (93ac4ff0a1b4 != 0d5a78eddc70)']
+verdict: ACCEPT-CA-74: FAIL legs=8/11
+expected: FAIL/refusal: a leg is deleted from claims.json (FROZENCFG; LEGCOUNT only if the graded file were read)
+accepted: no
+
+# Ca summary: J4=FAIL, J4b=FAIL, J5=FAIL, J6=FAIL, J7=FAIL, J8=FAIL, J9=FAIL
+# ACCEPTED JUNK LANDINGS: none
