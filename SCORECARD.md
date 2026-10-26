@@ -1432,3 +1432,22 @@ Measured side finding (not a ledger pair): `python3 -B reports/round-72/accept-c
 | depth / operability / freshness / adjacency | unchanged | no existing entry deepened; freshness paused under the open round-11 L0 ruling | — | `corpus/lessons/round-73.md` |
 
 Wave-2 found content defects in the admitted entries (all repaired, old→new in the lesson Corrections) and counter survivors (not repaired; frozen predicates stand). Round shape: wave 1 = 37 seats, wave 2 = 33 seats, total 70 (policy v1, band 32-64 each). Stale-lane: none.
+
+## Corrections — round 74
+
+Append-only record (hyaku run 7, L1 KotodamaR74). Claim Ca ledger `reports/round-74/ledger.json` (frozen with `reports/round-74/claims.json`). Counter: `python3 -B reports/round-74/accept-ca.py --root . --lands <lands> --freeze <freeze> --fleet-root /home/vgpnk/Projects/shokunin`. The filed lines named below stand as filed; each row carries id, old token, new token and the re-derivation command, which the counter re-runs.
+
+| id | old token | new token | re-derivation command |
+|---|---|---|---|
+| LC-01 | 412 | 804 | git grep -c -E '^. S[0-9]{3}' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md |
+| LC-02 | 9 | 10 | git grep -h -o -E 'SELFTEST OK. [0-9]+ scenarios' f7104cbce186bc2e1522abf0cfd619cc834628bb -- reports/round-73/telemetry/selftest-r3.txt |
+| LC-03 | 9 | 10 | git grep -h -o -E 'SELFTEST OK. [0-9]+ scenarios' f7104cbce186bc2e1522abf0cfd619cc834628bb -- reports/round-73/telemetry/selftest-r3.txt |
+| LC-06 | 243 | 247 | git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*/*.md' |
+| LC-07 | 243 | 247 | git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/*/*.md' |
+| LC-08 | 30 | 32 | git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f7104cbce186bc2e1522abf0cfd619cc834628bb -- 'corpus/knowledge/linguistics/*.md' |
+| LC-11 | 23443 | 97656 | git grep -h -o -E 'decompress.*23443.*[0-9]+ bytes' f7104cbce186bc2e1522abf0cfd619cc834628bb -- .ufo/waves/round-73/w2/ScoutReopenS879.md |
+| LC-12 | no | two | git grep -h -o -E 'HAS two status-200 Wayback captures' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/lessons/round-73.md |
+| LC-15 | 776 | 724 | git grep -c -E '^. S[0-9]{3}' 65fe8572822ef83f1750593af77daddf34a1e337 f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md |
+| LC-16 | reachable | present | git grep -h -o -E 'wall (present) \("Client Challenge"\)' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/lessons/round-73.md |
+| LC-17 | 752 | 728 | git grep -c -E '^. S[0-9]{3}' c5f099211e1d6c095e7c59edbd05c0043b4b95fc f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md |
+| LC-18 | 753 | 701 | git grep -c -E '^. S[0-9]{3}' 94209e8f80969dbac48d56c5d0e2e623635b8616 f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/SOURCES.md |

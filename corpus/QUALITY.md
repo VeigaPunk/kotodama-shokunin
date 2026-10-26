@@ -77,3 +77,47 @@ Grounded in `corpus/lessons/round-73.md` `## Mistakes` (R73-M3): in round 73 the
 23. **A counter ships its selftest receipt, and each fix to a counter ships its red-before** — adds to criteria 9, 11 and 19. A round counter that offers `--selftest` has its verdict line, exit code and counter sha256 committed under the round's telemetry before the falsify wave is dispatched (a counter without `--selftest` says so in its docstring); the counter is also run at the FREEZE commit (receipts present, landing absent) so artifact-vs-leg shape mismatches show before data (round 73: GROUND, SCRATCHMIRROR and COLLCHECK read the committed receipts in shapes the receipts did not have; a base-only control cannot see that); a leg or scenario changed after freeze is a recorded counter revision (`reports/round-<N>/counter-revisions.md`: old sha, new sha, what moved, whether the predicate moved) with the selftest re-run and a red-before — the same selftest with only the fix removed fails the new scenario. Grounded in `corpus/lessons/round-73.md` `## Mistakes`: R73-M4 (`python3 -B reports/round-72/accept-c.py --selftest` prints `SELFTEST: 10/11`, exit 1, at the round-73 base while the round-72 report and SCORECARD cite the counter without a selftest receipt) and R73-M5 (the round-73 Ca counter r1 read the ledger from the worktree because a dict was passed to `git -C`; its selftest passed because worktree and commit agreed; r2/r3 and the worktree-only scenario with `reports/round-73/telemetry/red-before-r3.txt` are the fix and its red-before).
 
 24. **A CDX "no capture" probe carries a positive control and the redirect target** — adds to criterion 21. Before a Gate row rules "no capture", the probe is run once in the same query shape over a URL known to have captures (an empty body or a zero from a malformed query is not absence: a literal `*` with `matchType=prefix` returns an empty body), and the redirect target of a front-door URL (DOI, identifier URL) is probed as well as the front door, because the archive may hold only 301/302 stubs for the door and status-200 captures for the target. Grounded in `corpus/lessons/round-73.md` `## Mistakes` R73-M7: the S894 row ruled "no Wayback capture of the same page" on front-door probes while the canonical Cambridge article page carried two status-200 captures (wave-2 ScoutRejectProbes F1); the row is corrected in the lesson's Corrections table.
+
+25. **A counter takes its constants from a named freeze commit and ships the junk landings it must reject** — adds to criteria 9, 11, 17, 19 and 23.
+Scope: each round counter named by a claim's `counter` field (`reports/round-<N>/accept-c.py`, `reports/round-<N>/accept-ca.py`); the freeze commit is the commit that adds `claims.json`, `ledger.json`, both counters, the do-nothing receipts and the junk-landing receipts.
+(a) **Constants and refusals.** The counter takes a required `--freeze <40hex>` beside `--lands` and refuses to grade — exit 2, verdict line `FAIL legs=0/<n> (refused: …)`, never a PASS — when a revision is not a 40-hex commit, when `<freeze>` is not an ancestor of `<lands>` on the lands first-parent chain (`<lands>` equal to `<freeze>` is graded, never passed: it is the do-nothing control), when `<lands>` equals the frozen base, when the frozen `claims.json` cannot be read at `<freeze>`, or when the frozen leg list and the counter's own leg table disagree (LEGCOUNT, clause (c)). Every constant is read with `git show <freeze>:reports/round-<N>/claims.json`; claim Ca adds `git show <freeze>:reports/round-<N>/ledger.json`, and claim C the renumber map whose sha256 the claim freezes (`map.sha256`). The FROZENCFG leg fails when the graded tree's `claims.json` differs from the frozen bytes (claim C: sha256 of the bytes; claim Ca: blob id for `claims.json` and `ledger.json`), when either file is absent at `<lands>` or `<freeze>`, when `<freeze>` is not on the lands first-parent chain, or when the map at `<freeze>` does not hash to `map.sha256`. The receipt says where the constants came from, in its own lines: `# config source: git show <freeze>:reports/round-<N>/claims.json (never the graded tree)` with `# config sha256 (frozen claims.json): <h>` (claim C), `# freeze: <freeze> (config read at this commit only)` with `# ledger: reports/round-<N>/ledger.json source=freeze sha256=<h>` (claim Ca). A receipt whose only config-source line names a graded tree or a lane worktree is the round-73 defect itself, not a disclosure of it: the counter reads its acceptance contract from the graded tree; a landing can rewrite the frozen claims.json and shrink its own test (MutPredicateC.md:71).
+(b) **The freeze ships the junk landings it must reject.** The freeze commit carries `counters/junk-fixtures.py` and four receipts under `reports/round-<N>/telemetry/`: `junk-c.txt` (J1–J3), `junk-ca.txt` (J4, J4b, J5–J7), `controls-c.txt` and `controls-ca.txt`. Each junk receipt carries, per fixture, one line naming the fixture, its commit and the command, the counter's own `LEG FAIL <LEG>` line and its exit code, and the verdict the round-73 counters returned on the same fixture — the red-before. A fixture the round-74 counter does not fail on its named leg fails this criterion; a receipt typed without the run does not count, so the generator's sha256 and the fixture commit travel in the receipt. The round-73 red-before is measured, not hypothetical: five of the eight landings are accepted by the round-73 counters (`ExecJunkFixtures.md:9`, SURVIVORS `J3 J4b J5 J6 J7`, `ExecJunkFixtures.md:73`).
+
+| fixture | junk landing | must FAIL |
+|---|---|---|
+| J1 | two header-only stub entries stand in for the mined prose (body word floor) | ENTRIES |
+| J2 | every Gate admit quote absent from its evidence window | EVIDENCE |
+| J3 | `claims.json` inside the graded tree shrinks the claim to two rows and one entry | FROZENCFG |
+| J4 | every `observe_cmd` constant-prints `expected_after` (literal `python3 -c print` / `echo`) | LEDGER |
+| J4b | evasive constant printer (`import os;print(str(…))`) that reads no clone byte | LEDGER |
+| J5 | a correction row naming only its id | ANNOTATE |
+| J6 | in-place edit of a frozen receipt outside both protected sets (`ACCEPT-CA-72` FAIL→PASS) | APPENDONLY |
+| J7 | a Ca correction-section note citing claim-C rows incidentally | SEPARABLE |
+
+(c) **One text.** The frozen `legs[]` array is authoritative for the leg set: the counter refuses (exit 2, `FAIL legs=0/<n> (refused: LEGCOUNT …)`) when the count or the names of its own leg table differ from the frozen list, it prints `# frozen legs: <n> (<NAMES>)` in the receipt, and every `LEG PASS|FAIL <NAME>` line carries a `<NAME>` that list names. A counter whose documentation, table or receipt names a leg the frozen list does not — or omits one it does — is not calibrated: round 73's counter declared `LEGS (8, fixed at freeze)` and names 8 while the driver runs and *requires* 9 legs (MutLandedCa.md:115).
+
+Check (red-before, pre-dispatch) — one line, run by a reviewer on each counter source:
+```
+sh -c 'grep -q -- --freeze "$1" && grep -qE "\"show\", *\"%s:%s\"" "$1" && ! grep -qE "os\.path\.join\((mat|root|clone|treework)[^)]*CLAIMS" "$1"' _ reports/round-74/accept-c.py
+```
+meaning: a `git show <rev>:<path>` call is present, a `--freeze` argument exists, and no `claims.json` path is
+joined from the graded materialization or the root. Measured 2026-10-25:
+
+| source | exit | why |
+|---|---|---|
+| `reports/round-74/accept-c.py` (`8d30487f…`) | 0 | show at `load_frozen_config`/`leg_frozencfg`/`_map_records`; no graded-root join |
+| `reports/round-74/accept-ca.py` (`8052f1e2…`) | 0 | `show()` helper; no graded-root join |
+| `reports/round-73/accept-c.py` | 1 | no `--freeze`; joins `mat` and `root` with `CLAIMS` |
+| `reports/round-73/accept-ca.py` | 1 | no `--freeze` (the ledger is read at `<lands>`) |
+| decoy: literal in a comment, no `--freeze` | 1 | first arm |
+| decoy: `--freeze` arg + comment literal + `open(os.path.join(mat, CLAIMS))` | 1 | third arm |
+| counter reading the graded tree under a literal path, decoy `git show` | **0** | the stated limit — see below |
+
+Limits, stated: grep reads shape, not dataflow, so a counter can pass this one-liner while reading the graded
+tree (the last row) — the verdict is the FROZENCFG leg and the J3 receipt, never the one-liner alone. The
+one-liner also cannot prove the `git show` argument is the `--freeze` value, nor that a second read path is
+absent. And a rewritten freeze commit is not detectable in the lane at all: only an external pin can decide it,
+and today the fleet report records the freeze hash (round 73 recorded `af65165`, seven hex) — a lane seat cannot
+close that hole.
+Binds from round 74; no earlier round is retro-fitted.
+Grounded in `corpus/lessons/round-74.md` `## Mistakes` R74-M3 (drafted at `.ufo/waves/round-74/drafts/mistakes.md:16`, landing with the lesson: Four counter channels survived round 73.), round-73 routed defect 4 (`junk landings pass 11/11, config read from graded tree, ledger constant-printers`, `corpus/lessons/round-73-verifier-spotcheck.md:87`) and the wave-2 mutation reports behind them.
