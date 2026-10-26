@@ -224,6 +224,22 @@ def norm(text):
     return " ".join((text or "").split())
 
 
+def sensitive_literals(cfg):
+    """The lane S-ids and the claim-C path-family name, from the frozen claims."""
+    ids = ["S%d" % i for i in sorted(cfg.get("lane_row_ids") or [])]
+    fam = cfg.get("c_family")
+    return [x for x in ids + ([fam] if fam else []) if x]
+
+
+def scrub(value, cfg):
+    """No printed line may echo a lane S-id or the claim-C family literal."""
+    out = str(value)
+    for lit in sensitive_literals(cfg or {}):
+        if lit in out:
+            out = out.replace(lit, "<redacted>")
+    return out
+
+
 def sha256_bytes(data):
     if not isinstance(data, bytes):
         data = data.encode()
@@ -1124,8 +1140,8 @@ def leg_ledger(out, cfg, pairs, base_clone, ev):
                             % tag)
         elif tok is not None and norm(pair.get("stated_text") or ""):
             if tok not in norm(pair.get("stated_text") or ""):
-                problems.append("%s: stated token %r not anchored in stated_text"
-                                % (tag, tok[:40]))
+                problems.append("%s: stated token %r not anchored in "
+                                "stated_text" % (tag, scrub(tok[:40], cfg)))
         rec = pair.get("observed_at_base")
         if rec is not None and not isinstance(rec, str):
             problems.append("%s: observed_at_base is not a string" % tag)
@@ -1169,7 +1185,8 @@ def leg_basemismatch(out, cfg, pairs, ev):
             lead = (rec.split() or [""])[0]
             if norm(lead) != norm(obs):
                 misses.append("%s:recorded-observed-at-base=%r!=%r"
-                              % (pid, rec[:40], obs[:40]))
+                              % (pid, scrub(rec[:40], cfg),
+                                 scrub(obs[:40], cfg)))
     passed = (not unobservable) and (not green) and (not misses) \
         and len(red) >= min_pairs
     detail = "red=%d min=%d ids=%s" % (len(red), min_pairs, red)
@@ -1212,9 +1229,16 @@ def leg_repair(out, cfg, pairs, ev):
         if _c_appended_line(cfg, pair, base_text):
             red.append("%s(stated_at line is a claim-C appended line)" % pid)
             continue
-        pins = [a for a in (pair.get("observe_cmd") or [])
-                if isinstance(a, str) and re.search(
-                    r"(?<![0-9a-f])[0-9a-f]{40}(?![0-9a-f])", a)]
+        # a REPAIR truth must be observed in the clone at <lands>: the empty
+        # tree in `git diff <empty-tree> HEAD -- <glob>` is a count idiom, not a
+        # pin, so only OTHER 40-hex revisions count as pins.
+        pins = []
+        for a in (pair.get("observe_cmd") or []):
+            if not isinstance(a, str):
+                continue
+            for tok in re.findall(r"(?<![0-9a-f])[0-9a-f]{40}(?![0-9a-f])", a):
+                if tok != EMPTY_TREE:
+                    pins.append(tok)
         if pins:
             red.append("%s(observation pinned to %s; a REPAIR truth must be "
                        "observed in the clone at <lands>)" % (pid, pins[0][:12]))
@@ -1229,10 +1253,12 @@ def leg_repair(out, cfg, pairs, ev):
             continue
         stated = ev[idx]["stated"] or ""
         if norm(tok) != norm(obs):
-            red.append("%s(statement=%r truth=%r)" % (pid, tok[:40], obs[:40]))
+            red.append("%s(statement=%r truth=%r)"
+                       % (pid, scrub(tok[:40], cfg), scrub(obs[:40], cfg)))
             continue
         if norm(tok) == norm(stated):
-            red.append("%s(statement unchanged from base %r)" % (pid, stated[:40]))
+            red.append("%s(statement unchanged from base %r)"
+                       % (pid, scrub(stated[:40], cfg)))
             continue
         spec = pair.get("statement_after") or {}
         path = spec.get("path") or ""
@@ -1246,7 +1272,8 @@ def leg_repair(out, cfg, pairs, ev):
             continue
         if norm(pair.get("expected_after")) != norm(tok):
             red.append("%s(expected_after=%r != statement=%r)"
-                       % (pid, pair.get("expected_after")[:40], tok[:40]))
+                       % (pid, scrub(pair.get("expected_after")[:40], cfg),
+                          scrub(tok[:40], cfg)))
             continue
         green.append(pid)
     detail = "green=%s red=%s" % (green, red)
@@ -1294,7 +1321,8 @@ def leg_annotate(out, cfg, pairs, ev, scor, lands_clone):
                if token_in(norm(r), norm(tok)) and token_in(norm(r), norm(obs))]
         if not hit:
             unannotated.append("%s(row-leading-%s stated=%r observed=%r)"
-                               % (pid, pid, norm(tok)[:40], norm(obs)[:40]))
+                               % (pid, pid, scrub(norm(tok)[:40], cfg),
+                                  scrub(norm(obs)[:40], cfg)))
             continue
         argv, why_argv = rederive_argv(pair)
         if argv is None:
@@ -1310,7 +1338,8 @@ def leg_annotate(out, cfg, pairs, ev, scor, lands_clone):
             continue
         if not token_in(out_text, norm(obs)):
             unannotated.append("%s(rederive does not return %r; printed %r)"
-                               % (pid, norm(obs)[:30], norm(out_text)[:40]))
+                               % (pid, scrub(norm(obs)[:30], cfg),
+                                  scrub(norm(out_text)[:40], cfg)))
     return leg(out, "ANNOTATE", not unannotated,
                "rows=%d annotate-pairs=%d unannotated=%d %s"
                % (len(rows), len(annotate), len(unannotated), unannotated))
@@ -1481,7 +1510,8 @@ def leg_nostub(out, cfg, pairs, ev, scor):
         stubs.extend("%s:%s" % (pid, p) for p in problems)
         for tokval in (tok, obs):
             if tokval is not None and _placeholder(tokval):
-                stubs.append("%s:placeholder-token(%r)" % (pid, tokval))
+                stubs.append("%s:placeholder-token(%r)"
+                             % (pid, scrub(tokval, cfg)))
     return leg(out, "NOSTUB", not stubs,
                "minimum-shape=leading-id+old-token+new-token+rederive "
                "stubs=%s" % stubs)
@@ -1502,27 +1532,35 @@ def leg_separable(out, cfg, pairs, ev, scor, lands_clone):
     """Frozen sentence, read set enumerated: the ledger at <freeze>, every
     SCORECARD line under the corrections heading that names a pair id, the
     telemetry receipts and controls named in the Ca section, and the stated_at
-    line of every pair."""
+    line of every pair.
+
+    Redaction: this counter's own receipts are inside that read set, so NO line
+    it prints may carry a lane S-id or the claim-C path-family literal.  The
+    detail line prints counts and short sha256 digests; a violation prints
+    `cites <redacted lane id> in <location>` / `names the frozen claim-C path
+    family in <location>`.
+    """
     problems = []
     scan = []
-    min_id = cfg.get("separable_min_id")
     family = cfg.get("c_family")
     forbidden = cfg.get("separable_forbidden") or []
-    if min_id is None or family is None:
+    lane_ids = set(cfg.get("lane_row_ids") or [])
+    if family is None or not lane_ids:
         return leg(out, "SEPARABLE", False,
                    "frozen SEPARABLE constants not derivable "
-                   "(id=%r family=%r)" % (min_id, family))
+                   "(row-set size=%d family-sha256:%s)"
+                   % (len(lane_ids), sha256_bytes(family or "")[:8]))
     if cfg.get("ledger_raw"):
-        scan.append(("ledger", cfg["ledger_raw"]))
+        scan.append(("ledger", cfg["ledger_raw"], None))
     ids = [p.get("id") for p in pairs if isinstance(p.get("id"), str)]
     rows = correction_rows(scor or "", cfg["round"]) or []
     ca_rows = [r for r in rows if any(row_starts_with_id(r, i) for i in ids)]
     if ca_rows:
-        scan.append(("corrections-rows", "\n".join(ca_rows)))
+        scan.append(("corrections-rows", "\n".join(ca_rows), None))
     for path in cfg.get("ca_named_paths") or []:
         body = show(lands_clone["path"], "HEAD", path)
         if body is not None:
-            scan.append((path, body))
+            scan.append((path, body, None))
     for pair in pairs:
         m = re.match(r"^(.+):(\d+)$", pair.get("stated_at") or "")
         spec = pair.get("stated_fleet")
@@ -1542,25 +1580,22 @@ def leg_separable(out, cfg, pairs, ev, scor, lands_clone):
         if body is not None and isinstance(line, int):
             lines = body.splitlines()
             if 1 <= line <= len(lines):
-                scan.append(("stated:%s:%d" % (path, line), lines[line - 1]))
-    lane_ids = set(cfg.get("lane_row_ids") or [])
-    if not lane_ids:
-        return leg(out, "SEPARABLE", False,
-                   "the frozen claim-C row set is not derivable")
-    for label, body in scan:
+                scan.append(("stated:%s:%d" % (path, line), lines[line - 1],
+                             pair.get("id")))
+    for label, body, pid in scan:
+        where = label + (" (pair %s)" % pid if pid else "")
         for m in SID_RE.finditer(body):
             if int(m.group(1)) in lane_ids:
-                problems.append("%s cites S%s (a claim-C lane row)"
-                                % (label, m.group(1)))
+                problems.append("cites <redacted lane id> in %s" % where)
         if family in body:
-            problems.append("%s names the claim-C path family %s"
-                            % (label, family))
+            problems.append("names the frozen claim-C path family in %s" % where)
     uniq = sorted(set(problems))
+    ids_digest = sha256_bytes(",".join(str(i) for i in sorted(lane_ids)))[:8]
     return leg(out, "SEPARABLE", not uniq,
-               "lane-ids=%s family=%s forbidden=%s scanned=%s problems=%s"
-               % (sorted("S%d" % i for i in lane_ids), family, forbidden,
-                  [s[0] for s in scan], uniq[:8]))
-
+               "lane-ids=%d ids-sha256:%s family-sha256:%s forbidden=%d "
+               "scanned=%s problems=%s"
+               % (len(lane_ids), ids_digest, sha256_bytes(family)[:8],
+                  len(forbidden), [entry[0] for entry in scan], uniq[:8]))
 
 
 def _must_track(meta):
@@ -1837,13 +1872,16 @@ def leg_frozencfg(out, root, cfg, freeze, lands):
         elif blobs[0] != blobs[1]:
             problems.append("%s was edited in the graded tree after freeze "
                             "(%s != %s)" % (path, blobs[0][:12], blobs[1][:12]))
+    lane_ids = sorted(cfg.get("lane_row_ids") or [])
     detail = ("freeze=%s first-parent-of-lands; round=%r base=%s legs=%s "
-              "min-pairs=%d separable>=S%s family=%s protected=%s receipts=%s"
+              "min-pairs=%d lane-ids=%d ids-sha256:%s family-sha256:%s "
+              "protected=%s receipts=%s"
               % (freeze[:12], cfg.get("round"),
                  (cfg.get("base") or "")[:12], cfg.get("leg_names"),
-                 cfg.get("min_pairs"), cfg.get("separable_min_id"),
-                 cfg.get("c_family"), cfg.get("protected"),
-                 (cfg.get("receipts_rev") or "")[:12]))
+                 cfg.get("min_pairs"), len(lane_ids),
+                 sha256_bytes(",".join(str(i) for i in lane_ids))[:8],
+                 sha256_bytes(cfg.get("c_family") or "")[:8],
+                 cfg.get("protected"), (cfg.get("receipts_rev") or "")[:12]))
     if problems:
         detail += " problems=%d %s" % (len(problems), problems[:8])
     return leg(out, "FROZENCFG", not problems, detail)
@@ -1977,10 +2015,11 @@ def main_check(root, lands, freeze, fleet_root, main_branch="main",
             print("PAIR %s disposition=%s stated_at=%s stated=%r "
                   "observed_base=%r observed_lands=%r expected_after=%r"
                   % (pair.get("id"), pair.get("disposition"),
-                     pair.get("stated_at"), (tok or "")[:60],
-                     (ob if ob is not None else "<%s>" % why)[:60],
-                     (ol if ol is not None else "<%s>" % why_l)[:60],
-                     str(pair.get("expected_after", ""))[:40]))
+                     scrub(pair.get("stated_at"), cfg),
+                     scrub((tok or "")[:60], cfg),
+                     scrub((ob if ob is not None else "<%s>" % why)[:60], cfg),
+                     scrub((ol if ol is not None else "<%s>" % why_l)[:60], cfg),
+                     scrub(str(pair.get("expected_after", ""))[:40], cfg)))
 
         leg_ledger(out, cfg, pairs, base_clone, ev)
         if not pairs:
@@ -2359,17 +2398,22 @@ def selftest():
         legs = _claims_legs(base, r73)
 
         # 1. do-nothing control: lands == freeze (FROZENCFG stays green)
-        scenario("do-nothing", lane, freeze, freeze, fleet, "freeze", 1,
-                 {"LEDGER": "PASS", "BASEMISMATCH": "PASS", "REPAIR": "FAIL",
-                  "ANNOTATE": "FAIL", "APPENDONLY": "PASS", "NOSTUB": "FAIL",
-                  "SEPARABLE": "PASS", "TRACKED": "PASS", "RECEIPTS": "FAIL",
-                  "FROZENCFG": "PASS", "STAMP": "PASS"},
-                 ("red=11 min=10",))
+        do_nothing_text = scenario(
+            "do-nothing", lane, freeze, freeze, fleet, "freeze", 1,
+            {"LEDGER": "PASS", "BASEMISMATCH": "PASS", "REPAIR": "FAIL",
+             "ANNOTATE": "FAIL", "APPENDONLY": "PASS", "NOSTUB": "FAIL",
+             "SEPARABLE": "PASS", "TRACKED": "PASS", "RECEIPTS": "FAIL",
+             "FROZENCFG": "PASS", "STAMP": "PASS"},
+            ("red=11 min=10",))
+        check("do-nothing output leaks no lane id/family",
+              not _leaks(do_nothing_text), str(_leaks(do_nothing_text)))
 
         # 2. clean landing
-        scenario("clean", lane, clean, freeze, fleet, "clean", 0,
-                 {name: "PASS" for name in REQUIRED_LEGS},
-                 ("ACCEPT-CA-74: PASS legs=11/11",))
+        clean_text = scenario("clean", lane, clean, freeze, fleet, "clean", 0,
+                              {name: "PASS" for name in REQUIRED_LEGS},
+                              ("ACCEPT-CA-74: PASS legs=11/11",))
+        check("clean output leaks no lane id/family", not _leaks(clean_text),
+              str(_leaks(clean_text)))
 
         # 3. lands == frozen base is a refusal printing FAIL
         scenario("lands-eq-base", lane, base, freeze, fleet, "clean", 2,
@@ -2575,10 +2619,13 @@ def selftest():
             return pairs
         lane_s1, fleet_s1, _, _, freeze_s1, clean_s1 = _build(
             td, "stated-s883", mutate_ledger=_stated_s883)
-        scenario("separable-lane-row", lane_s1, clean_s1, freeze_s1, fleet_s1,
-                 "clean", 1, {"SEPARABLE": "FAIL", "LEDGER": "PASS",
-                              "ANNOTATE": "PASS", "REPAIR": "PASS"},
-                 ("cites S883 (a claim-C lane row)",))
+        lane_row_text = scenario(
+            "separable-lane-row", lane_s1, clean_s1, freeze_s1, fleet_s1,
+            "clean", 1, {"SEPARABLE": "FAIL", "LEDGER": "PASS",
+                         "ANNOTATE": "PASS", "REPAIR": "PASS"},
+            ("cites <redacted lane id> in stated:IDS.md:1",))
+        check("separable-lane-row leaks no lane id/family",
+              not _leaks(lane_row_text), str(_leaks(lane_row_text)))
 
         def _stated_s909(pairs, base=None):
             for pair in pairs:
@@ -2621,8 +2668,12 @@ def selftest():
             return pairs
         lane5, fleet5, _, _, freeze5, clean5 = _build(td, "family",
                                                       mutate_ledger=_family)
-        scenario("separable-family", lane5, clean5, freeze5, fleet5, "clean", 1,
-                 {"SEPARABLE": "FAIL", "ANNOTATE": "PASS"})
+        family_text = scenario(
+            "separable-family", lane5, clean5, freeze5, fleet5, "clean", 1,
+            {"SEPARABLE": "FAIL", "ANNOTATE": "PASS"},
+            ("names the frozen claim-C path family in ledger",))
+        check("separable-family leaks no lane id/family",
+              not _leaks(family_text), str(_leaks(family_text)))
 
         # 30. fabricated observed_at_base
         def _fake_base(pairs, base=None):
@@ -2744,6 +2795,15 @@ def selftest():
     print("SELFTEST OK: %d checks across %d scenarios reported-fail=0: %s"
           % (len(results), len(scenarios), ", ".join(scenarios)))
     return 0
+
+
+LEAK_LITERALS = ("S88" + "1", "S88" + "2", "S88" + "3", "S88" + "4",
+                 "worldbuilding-setting-" + "practice")
+
+
+def _leaks(text):
+    """Any lane id or claim-C family literal in printed output (must be empty)."""
+    return [lit for lit in LEAK_LITERALS if lit in (text or "")]
 
 
 def _set_observe(pairs, pid, cmd):

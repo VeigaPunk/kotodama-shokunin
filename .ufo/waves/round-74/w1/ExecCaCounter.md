@@ -400,3 +400,100 @@ for the control) and will stay red at the lands commit for the same reason, beca
 sentence observes the truth "in a clone at `<lands>`". Fix at freeze by de-pinning their
 `observe_cmd` (read `HEAD`/the graded path) or reclassifying them as ANNOTATE; the counter's message
 names the pin so the choice is visible in the receipt.
+
+## Post-wave update 3 (self-referential SEPARABLE: the counter's own receipt)
+
+`.ufo/waves/round-74/counters/accept-ca.py`, 2847 lines, sha256
+`8052f1e25c366a18ccb28e1c47931fd1cdd91db042153fdda570fd9f0fa8470f` (replaces `26dd04a4…`; the
+re-freeze must install these bytes).
+
+**Cause.** The Ca SEPARABLE read set includes the telemetry receipts and controls named in the Ca
+claims section, and `reports/round-74/telemetry/controls-ca.txt` is one of them. The previous counter
+printed the lane-id list and the family name in its own detail lines, so its control receipt contained
+exactly the literals the leg forbids — the receipt proved the violation. At the freeze
+`3595c9192ac4d066d01b937b2513d2d0eea55f4f` those are lines 42 and 49 of the committed
+`controls-ca.txt` (`id-floor=S881 family=worldbuilding-setting-practice …` and
+`… separable>=S881 family=worldbuilding-setting-practice …`).
+
+**Fix — no printed literal, anywhere.** Every line the counter emits now carries counts and short
+sha256 digests instead of the literals:
+
+- SEPARABLE detail: `lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 scanned=[…] problems=[…]`.
+- FROZENCFG detail: `… lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 protected=[…] receipts=…`.
+- Violations print `cites <redacted lane id> in <location>` and
+  `names the frozen claim-C path family in <location>`, where `<location>` is `ledger`,
+  `corrections-rows`, a receipt path, or `stated:<path>:<line>` (plus `(pair <id>)`) — never the id.
+- A `scrub(value, cfg)` filter (sensitive set built at run time from the frozen row set and family)
+  is applied to every echoed ledger value: `PAIR` lines, REPAIR/ANNOTATE/NOSTUB messages and the
+  BASEMISMATCH `observed_at_base` echo. The helper's own literal table is assembled from parts so the
+  counter source does not carry the strings either.
+
+**Selftest (exercised, exit 0)**
+
+```
+$ python3 -B .ufo/waves/round-74/counters/accept-ca.py --selftest
+SELFTEST OK: 179 checks across 41 scenarios reported-fail=0: do-nothing, clean, lands-eq-base, legcount, stub-rows, no-rederive, annotate-other-token, append-only-removal, protected-in-place, unnamed-in-place, shell-string, interpreter, constant-printer, out-of-clone, dead-pin, absence-pair, min-pairs, config-edit-ledger, config-edit-claims, freeze-off-first-parent, repair-no-statement, shadow-repair, tracked-missing, tracked-blob-mismatch, typed-receipt, receipt-wrong-rev, receipt-missing, separable-lane-row, separable-non-lane-id, basemismatch-leading-token, separable-sid, separable-family, fabricated-base-observation, green-pair, stated-line-mismatch, prose-row, expected-after-mismatch, repair-pinned-observation, worktree-only-ledger, stamp-measured, cli-errors
+```
+
+New assertions: the **complete output of the clean and do-nothing scenarios** is scanned for the
+literals and must be empty of them; the **`separable-lane-row`** mutant (stated line reading
+`entries: 0 (S883)`) must print `cites <redacted lane id> in stated:IDS.md:1` and leak nothing; the
+**`separable-family`** mutant (a ledger value carrying the family name) must print
+`names the frozen claim-C path family in ledger` and leak nothing. These are the "reintroduce a
+print" mutants: if the redaction regresses, the leak assertion fails.
+
+**One counter fix found while running the real control.** LC-09 is `git diff --shortstat
+4b825dc642cb… HEAD -- 'corpus/knowledge/civilizations/*.md'` — the empty tree in that idiom is a
+count, not a revision pin, so the REPAIR pin rule now exempts the well-known empty tree and flags
+only other 40-hex revisions. LC-09 red is now the honest one: `LC-09(statement='94' truth='95')`.
+
+### Real control at the re-freeze `3595c919…` (lands == freeze)
+
+```
+$ python3 -B .ufo/waves/round-74/counters/accept-ca.py --root . \
+    --lands 3595c9192ac4d066d01b937b2513d2d0eea55f4f \
+    --freeze 3595c9192ac4d066d01b937b2513d2d0eea55f4f \
+    --fleet-root /home/vgpnk/Projects/shokunin --main 3595c9192ac4d066d01b937b2513d2d0eea55f4f
+LEG PASS LEDGER / BASEMISMATCH / APPENDONLY / TRACKED / RECEIPTS / FROZENCFG / STAMP
+LEG FAIL REPAIR      green=[] red=["LC-09(statement='94' truth='95')"]
+LEG FAIL ANNOTATE    no '## Corrections — round 74' section; annotate-pairs=12
+LEG FAIL NOSTUB      same cause
+LEG FAIL SEPARABLE   scanned=[… 'reports/round-74/telemetry/controls-ca.txt' …]
+ACCEPT-CA-74: FAIL legs=7/11
+literal count in this output: 0
+```
+
+SEPARABLE is still red at this freeze **because the frozen receipt is the old one**: the counter does
+not rewrite telemetry, and `controls-ca.txt` at `3595c919` is the previous run's output with the leaked
+detail lines (42, 49). The counter's own output carries no literal (`grep -c -E
+'S88[1-4]|worldbuilding-setting-practice'` → 0).
+
+**Proof that the receipt is the only cause** (throwaway clone at the freeze, counter installed, control
+receipt regenerated and committed, freeze unchanged, lands = that commit, `main` moved to it):
+
+```
+LEG PASS LEDGER / BASEMISMATCH / APPENDONLY / SEPARABLE / TRACKED / RECEIPTS / FROZENCFG / STAMP
+LEG FAIL REPAIR / ANNOTATE / NOSTUB   (the do-nothing data shape, expected)
+ACCEPT-CA-74: FAIL legs=8/11
+SEPARABLE detail: lane-ids=4 ids-sha256:ddc5bbce family-sha256:36049478 forbidden=5 …
+literal count: 0
+```
+
+So: regenerate `reports/round-74/telemetry/controls-ca.txt` (and `junk-ca.txt`, `selftest-ca.txt` if
+they too were produced by the pre-redaction counter) with these bytes at the next re-freeze; SEPARABLE
+is then green at `lands == freeze` while REPAIR/ANNOTATE/NOSTUB stay red, exactly the control shape
+the claim asks for.
+
+### Files touched in this update
+
+- `.ufo/waves/round-74/counters/accept-ca.py` (redaction, scrubber, empty-tree pin exemption,
+  leak assertions, selftest; sha above).
+- this report (appended section).
+No telemetry byte, no claims/ledger byte, no git write, no fleet write; the control and the
+regeneration demo ran in `/tmp` clones only, all removed.
+
+For the record, `reports/round-74/telemetry/controls-c.txt` and `controls-ca.txt` were already dirty in
+the lane worktree when this update was written — a sibling seat regenerated them at `3595c919` with the
+pre-redaction counter bytes (`# counter sha256 (self): 26dd04a4…`), and the worktree `controls-ca.txt`
+still carries 2 occurrences of the literals. That is exactly the regeneration this update asks for, but
+it must be produced by the redacted bytes (`8052f1e2…`) at the next freeze.
