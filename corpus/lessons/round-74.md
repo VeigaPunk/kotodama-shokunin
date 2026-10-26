@@ -37,7 +37,7 @@ Rejections — the four probed rows this round, each with its reason and its fli
 | staged S899's quoted span was absent from the page it was bound to (register S816 mispairing; the span belongs to the 2022 interview) — the row stays refused and the document is re-opened as the new S883 | a fresh quote located on the 2025 page, which is what S883 carries now | https://www.chinawriter.com.cn/n1/2025/0605/c404024-40494534.html | refused |
 | staged S900's quoted span was the Sowers-Wills clause, absent from this page (register S817 mispairing) — the row stays refused and the document is re-opened as the new S884 | a fresh quote located on the 2022 page, which is what S884 carries now | https://www.chinawriter.com.cn/n1/2022/1207/c404024-32582252.html | refused |
 
-Triage of the 40 staged knowledge files: **2 adopted / 4 path-present with differing staged bytes / 34 refused**.
+Triage: **2 adopted / 4 path-present with differing staged bytes / 34 refused**, of the 40 staged knowledge files.
 The four path-present files exist in the lane with different bytes and were left untouched:
 `heritage-taxonomy-models.md`, `heritage-taxonomy-models.amend-2026-10-24-r13.md`, `conlang-scholarship.md`,
 `conlang-scholarship.amend-2026-10-23.md` (staged vs lane sha256 differ in all four; measured this round).
