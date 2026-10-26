@@ -29,7 +29,7 @@ table should carry are absent (F2, F3, F4, and the M10 set).
 | id | class in vocab | evidence resolves | captured-by = rule that existed | fix shown able to fail | state honest |
 |---|---|---|---|---|---|
 | R74-M1 | yes (`landing`) | yes (`round-73-verifier-spotcheck.md:13`, `w1/ExecLeftovers.md` §Verdict) | no — `none` then two seat reports (F10) | **shown** (mutation arm `tracked-missing`/`tracked-blob-mismatch` → `TRACKED=FAIL`, `selftest-ca.txt`; base red is prose only) | yes (`fixed at freeze`; six pins re-hashed, all six match) |
-| R74-M2 | yes (`landing`) | yes (both `git grep` forms exit 1 at base; `controls-ca*.txt` = 5/9, 4/9, 4/9) | `none` — correct | **shown** (`typed-receipt`/`receipt-wrong-rev`/`receipt-missing` → `RECEIPTS=FAIL`; RECEIPTS byte-compares stdout, `accept-ca.py:1822`) | yes |
+| R74-M2 | yes (`landing`) | yes (both `git grep` forms exit 1 at base; `controls-ca*.txt` = 5/9, 4/9, 4/9) | `none` — correct | **shown** (`typed-receipt`/`receipt-wrong-rev`/`receipt-missing` → `RECEIPTS=FAIL`; RECEIPTS byte-compares stdout, `accept-ca.py:1824`) | yes |
 | R74-M3 | yes (`survivor`) | yes (`MutPredicateC.md` F1–F7; 12 probes, survivors P1,P2,P3,P4,P5b,P6b,P7a,P7b = 8/12) | `none` — correct | shown after the fact (`junk-c/ca.txt` at `1d7add3`: every round-74 junk `accepted: no`) | **stale at main** (F8) |
 | R74-M4 | yes (`number-drift`) | yes (`LOG.md:4297`, fleet `:10`, `selftest-r3.txt:6`, `grep -c scenarios SCORECARD.md` = 0) | yes (QUALITY 17/19/23 exist in `corpus/QUALITY.md` at base) | **shown** (the pair's re-derive command returns 10) | **FALSE — says `pending landing`, landed in `5e4796c`, an ancestor of the lesson's own commit (F8)** |
 | R74-M5 | yes (`attribution`) | yes (`census-adjudication.json` S758 url=2025 page/quote=这个我肯定考虑过…, S759 url=2022 page/quote=Sowers-Wills, both `binding: id`, both `still_absent`) | no — a seat report, not a rule (F10) | n/a (`open — routed`, no fix claimed) | yes |
@@ -102,7 +102,7 @@ Smallest safe correction: rewrite the clause to read "`controls-ca.txt` at `3595
 
 The two controls that exist for Ca show `RECEIPTS` **PASS** and two extra red legs (`NOSTUB`, `SEPARABLE`, and at
 `de93d91` also `BASEMISMATCH`/`APPENDONLY`). Raw: the `00c408a` and `5e4796c` `grep -E "^LEG (PASS|FAIL)"` blocks in
-F1. The counter deliberately does not red `RECEIPTS` in this shape (`accept-ca.py:1841-1844`: freeze == lands prints
+F1. The counter deliberately does not red `RECEIPTS` in this shape (`accept-ca.py:1843-1845`: freeze == lands prints
 `NOTE lands == freeze: do-nothing control shape … a PASS is refused` **while the leg still returns PASS**).
 
 R74-M9's fix column claims the "claims text amended for the must_track exemption and the lane-id set" — the

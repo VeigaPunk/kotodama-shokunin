@@ -8,7 +8,7 @@
 - ground: at base f7104cbce186bc2e1522abf0cfd619cc834628bb the lane held no setting-practice entry and no practitioner term for one — `git ls-tree -r --name-only f7104cbce186bc2e1522abf0cfd619cc834628bb corpus/knowledge | grep -ciE 'worldbuilding|setting-practice'` = 0, `git grep -lE '設定ノート|世界観|世界观' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/knowledge | wc -l` = 0, and the registry's 804 rows held no row naming litmemo.com, tuduku.space or chinawriter.com.cn (`git show f7104cbce186bc2e1522abf0cfd619cc834628bb:corpus/SOURCES.md | grep -c` = 0 for the three hosts; all re-derived from the base commit 2026-10-25)
 - topic: the Japanese practitioner craft of specifying a setting, framed against a Russian-language monograph's account of constructed worlds: a five-step build order, a four-layer causal chain from environment to individual experience, five elements a setting must supply, the five sections and four fields of the settings note, two sub-sheets (a country, a magic or technology system), and the single-source discipline that keeps a long work consistent
 - gap filled: the corpus couples systems (`synthesis/coupling-model.md`) and verifies them (`synthesis/consistency-verification-checklist.md`), and carried no entry on *authoring* a setting — what to decide first, how far to deepen, and what document holds the decisions. The Chinese-language practitioner register is the companion amendment; this entry is the Japanese-language one, quoted in Japanese
-- sources: the three rows above. The two practitioner pages are tier C — a writing-app vendor blog and an editorial-service column, neither with a named author — so they are read as method evidence, reported as what they prescribe, and never as the sole support of a claim about the world; the monograph is tier B and supplies what a constructed world is, not how to build one
+- sources: the three rows above. The two practitioner pages are tier C — a writing-app vendor blog and an editorial-service column, neither with a named author — so they are read as method evidence, reported as what they prescribe, and never as the sole support of a claim about the world; the monograph is tier B and supplies what a constructed world is and one consistency rule (p. 140), not a build method
 - couples: `culture-material/cartography-and-mapmaking.md` (the map that opens a settings note), `linguistics/naming-systems.md` (the name and place-name lists the note carries), `linguistics/conlang-scholarship.md` (how much language a world's function needs), `synthesis/coupling-model.md` (the parts a setting must relate), `synthesis/consistency-verification-checklist.md` (the verification side, whose verdicts lore owns), `synthesis/worldbible-integration-contract.md` (the handoff)
 - scope: a reference method for the culture-material partition. It records how two practitioner pages order, fill and hold a setting, and what one scholarly source says a constructed world is; it decides no world's canon and rules on no real-world culture or reader
 - refuses: canon for any world; any claim that either practitioner page is measured, tested or authoritative; a universal build order; reading the five-part or four-part schemes as a standard rather than two independent checklists; page counters and product claims as evidence
@@ -17,7 +17,7 @@
 
 | Framework | Status | Why it is placed there |
 |---|---|---|
-| LitMemo five-step order | not mainstream — an unmeasured vendor-blog convention | one vendor blog for a writing app, authored by the organisation, no named practitioner, no cohort and no citation; the page's own product calls to action sit beside the advice |
+| LitMemo five-step order | not mainstream — an unmeasured vendor-blog convention | one vendor blog for a writing app, authored by the organisation, no named practitioner, no cohort and no citation for the five-step order; the page's own product calls to action sit beside the advice |
 | tuduku five elements and settings note | not mainstream — an unmeasured editorial-service convention | an editorial-service marketing column of about 1,100 characters by its own count, no byline beyond the service name, checklists with one-clause glosses |
 | four-layer chain 自然環境→社会の仕組み→文化→個人の経験 | not mainstream — one page's causal assertion, unmeasured | one page asserts the causality and offers no evidence; usable as a design heuristic, not as a finding about worlds |
 | Sidorova & Shuvalova's framing of constructed worlds (2006) | not mainstream — a single monograph, one school; neither contested nor discredited here | a taxonomy of constructed languages with an account of fictional worlds; it prescribes no authoring order and reports rather than tests, and this entry opens no dispute with it |
@@ -51,13 +51,13 @@ That is the scholarly counterpart of the practitioners' first step, and it is th
 | why a world needs a language layer | it names the world's realities, and is the topic rather than a means of talk | which names a note must hold |
 | where to start | a premise, then the world picture it implies | a premise, then the protagonist's living sphere |
 | in what order to fill the parts | not addressed | five steps, five elements, five note sections |
-| how to keep it consistent | not addressed | one document, updated in place |
+| how to keep it consistent | one rule, not a document practice: the language's evolution and contacts must be logically tied to the world's history (the monograph's p. 140) | one document, updated in place |
 
 ## §3 What a setting is, and how much of one the work needs
 
 The LitMemo page defines 世界観 as "物語が起きる世界の決まりごとの総体です" — the totality of the rules of the world in which the story happens — and distinguishes the written-out rules (世界観設定) from the collected document (設定資料 / 設定資料集) (S881).
 
-It also refuses the fantasy-only reading: a contemporary novel needs no magic system and no political constitution, but it still needs the town, the workplace or school, and the invented company or district, decided once (S881).
+It also refuses the fantasy-only reading: a contemporary romance (the page's own case) needs no political institutions or magic rules, but it still needs the town, the workplace or school, the web of relationships, and the invented company, place names and school departments, decided in advance (S881); the same page's contemporary-plus-supernatural row shows a contemporary story can need a power system.
 
 How much to decide is therefore a function of how far the world stands from the real one; the page's own scale is the most transferable table on it (S881).
 

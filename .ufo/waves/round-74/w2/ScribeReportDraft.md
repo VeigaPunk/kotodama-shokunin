@@ -13,15 +13,19 @@ LOG/SCORECARD/SKILL, corpus byte or lane git state was touched. All lane reads w
 1. Read the frozen claims at `git show 00c408a0af2f:reports/round-74/claims.json` (config sha256
    `270e31790e2932c8…`), `reports/round-74/ledger.json`, the round-74 lesson, both counter sources (RECEIPTS leg
    read in full), all `telemetry/*` and `evidence/*` receipts, `w1/w1-results.json`, `w2/swarm-registry.json`,
-   `w2/dispatch.json`, the 13 wave-2 reports written so far, `SHONEN.md`, `LEARNING.md:33-35`, `QUALITY.md:20/25`,
+   `w2/dispatch.json`, the 23 wave-2 reports written so far (snapshot; more land while the wave runs), `SHONEN.md`, `LEARNING.md:33-35`, `QUALITY.md:20/25`,
    and `git status`/`git log`/`git ls-remote` at the lane (read-only).
 2. Re-derived every before/after number from the git tree at its own revision (base, `5e4796c`, `c4bf61a`,
-   `1d7add3`), not from the worktree.
-3. Ran the claim-C counter at the round tip and the claim-Ca counter at the round tip and at its own landing in
+   `1d7add3`, the last landing commit), not from the worktree.
+3. Ran the claim-C counter at the last landing commit and the claim-Ca counter there and at its own landing in
    one disposable clone; recorded raw verdict lines and exit codes. Nothing was re-run merely to decorate: the tip
    run establishes a fact no committed receipt holds (Ca's status when both claims are in one tree).
 4. Wrote the draft with the required sections in order and the `W2-PENDING:<seat>` marker wherever a fact depends
    on a wave-2 seat that has not written yet.
+5. Tip note: all counter measurements grade `1d7add3`, the last landing commit. The lane tip advanced to
+   `92b8d4bb2b9d08a6894256c51c5f58f208b67ff4` (orchestrator in-flight snapshot, "not a landing") while this seat
+   worked; local `main` = `origin/main` = `92b8d4b`. Whether the counters stay green at the snapshot commit is
+   unverified here (`W2-PENDING:ExecRerunC` / `W2-PENDING:ExecRerunCa`).
 
 ## Gates exercised by this seat (raw results)
 
@@ -33,8 +37,8 @@ LOG/SCORECARD/SKILL, corpus byte or lane git state was touched. All lane reads w
 | theme files, main | `find corpus/knowledge -iname '*worldbuilding-setting*' \| wc -l` | `2` |
 | source hosts, main | `grep -cE 'litmemo\.com\|tuduku\.space\|chinawriter\.com\.cn' corpus/SOURCES.md` | `4` lines (one per new row S881–S884; 0 at base) |
 | CJK-term files, main | `grep -rlE '設定ノート\|世界観\|世界观' corpus/knowledge \| wc -l` | `2` |
-| claim C at round tip | `python3 -B reports/round-74/accept-c.py --root . --lands 1d7add3f7b9e… --freeze 00c408a0af2f… --fleet-root /home/vgpnk/Projects/shokunin` (in clone) | `ACCEPT-C-74: PASS legs=13/13`, exit 0 |
-| claim Ca at round tip | `python3 -B reports/round-74/accept-ca.py --root . --lands 1d7add3f7b9e… --freeze 00c408a0af2f… --fleet-root …` (in clone) | `ACCEPT-CA-74: FAIL legs=9/11`, exit 1 — `LEG FAIL APPENDONLY` |
+| claim C at last landing commit | `python3 -B reports/round-74/accept-c.py --root . --lands 1d7add3f7b9e… --freeze 00c408a0af2f… --fleet-root /home/vgpnk/Projects/shokunin` (in clone) | `ACCEPT-C-74: PASS legs=13/13`, exit 0 |
+| claim Ca at last landing commit | `python3 -B reports/round-74/accept-ca.py --root . --lands 1d7add3f7b9e… --freeze 00c408a0af2f… --fleet-root …` (in clone) | `ACCEPT-CA-74: FAIL legs=9/11`, exit 1 — `LEG FAIL APPENDONLY` |
 | claim Ca at its landing | same with `--lands 5e4796c0cb6a…` (clone `main` not re-pinned, so STAMP red) | `ACCEPT-CA-74: FAIL legs=10/11` — APPENDONLY/SEPARABLE/RECEIPTS **PASS**, only `STAMP` red (`measured 1d7add3… != lands 5e4796c…`, my own pin error) |
 | do-nothing controls | `grep -n 'ACCEPT-C-74:' telemetry/controls-c.txt` / `grep -n 'ACCEPT-CA-74:' telemetry/controls-ca.txt` | `FAIL legs=4/13` / `FAIL legs=7/11`; base runs refused `0/13` / `0/11` (exit 2) |
 | component reports, wave 1 | `ls .ufo/waves/round-74/w1/*.md` vs `w1-results.json` seat list | 42/42 seats have a non-empty `*.md` (44 files = 42 + 2 `*.postwave.md`) |
@@ -89,7 +93,7 @@ $ grep -m1 'generator sha256' reports/round-74/telemetry/junk-c.txt
 `RevQuality25` F2 (BLOCKER) adds that J4 and J4b never fail on their named leg (`LEDGER`; they fail `FROZENCFG`),
 and F3 (HIGH) that J6/J7 are not differential (their named legs are already red in the clean reference landing
 T0) — so clause (b)'s own acceptance test ("a fixture the round-74 counter does not fail on its named leg fails
-this criterion") is not met by three of the seven fixtures.
+this criterion") is not met by J4/J4b, and J6/J7 cannot show a red-before they did not cause.
 
 Impact: QUALITY 25 binds from round 74 and
 its own round does not satisfy clause (b) at the freeze it names; a future round citing this precedent will cite
@@ -136,7 +140,7 @@ and stop predicting leg sets in claim prose — quote the receipt path (`control
 the control generator can emit its red-leg set into `claims.json` at freeze time, so the prose is generated from
 the measurement.
 
-### F3 — MEDIUM — claim Ca is green at its own landing only; the combined tree at the round tip fails APPENDONLY
+### F3 — MEDIUM — claim Ca is green at its own landing only; the combined tree at the last landing commit fails APPENDONLY
 
 In a disposable clone, with local `main` pinned to the tip:
 
@@ -158,7 +162,12 @@ At `5e4796c` the same clone shows `APPENDONLY`/`SEPARABLE`/`RECEIPTS` green (onl
 `telemetry/junk-ca.txt` (`# NOTE (L1, 2026-10-25)` … "claim Ca is therefore measured at its OWN landing commit")
 and leaves the frozen claims unamended — correct under the round's own rule. The defect is the **record**: neither
 the fleet report nor `measures-ca.txt` says "green only at 5e4796c"; a reader taking the tip as `<lands>` gets
-`FAIL`.
+`FAIL`. `CritMistakeRows` F3 files the same measurement at **HIGH** as a claim-level defect ("claim Ca is FALSE on
+the tree the round leaves": `FAIL legs=10/11` at `1d7add3`, `PASS 11/11` at `5e4796c`, C green at both) and adds
+two facts I re-derived: no claim pins `<lands>` (the kill rule "any leg false at `<lands>`" has no pinned subject),
+and `grep -n 'own landing\|APPENDONLY\|conflict' corpus/lessons/round-74.md` returns only unrelated rows 174/176 —
+the lesson does not disclose the conflict. I keep MEDIUM for the record defect because the dispatch *does* pin the
+two landings; the peer's HIGH applies to the frozen `after` sentence read without that pin.
 
 **Not counted as evidence:** the tip run also printed `LEG FAIL RECEIPTS … 'accept-c-73 re-run exit=2 (want 0)'`
 and `committed stdout differs from the re-run (bda16ca6deec vs e3b0c44298fc)` (the empty-string sha256). I do not
@@ -238,6 +247,19 @@ seat reports). `ScribeLogScorecard` F3 reports the same. **Proposed fix:** the r
   freeze-artifact text is false on four counts (corroborated by my F1), J4/J4b fail `FROZENCFG` not `LEDGER`, J6/J7
   are not differential, and `accept-c.py` returns `PASS legs=13/13` when a landing commit is passed as its own
   `--freeze` (Ca refuses that shape; C has no post-run guard).
+- `CritMistakeRows`: F1 (HIGH) R74-M9's "post-repair control" is the pre-repair receipt and does not show "SEPARABLE
+  red only"; F2 (HIGH) the frozen Ca control shape is false against both committed controls; F3 (HIGH) claim Ca is
+  false on the tree the round leaves (see my F3); F4 (HIGH) a counter changed twice after the freeze with no
+  `counter-revisions.md`; F5-F7 (MEDIUM) R74-M10 name list, R74-M10 fix shape, R74-M7 80-character limb.
+- `ExecRerunC`: claim C reproduces `PASS legs=13/13` at `c4bf61a` on repeat runs (attack failed); F1-F5 (LOW)
+  `measured revision (lane main)` echoes `--lands` (`accept-c.py:1871`), the claim's `counter` command fails without
+  `--fleet-root`, junk receipt placement, non-exhaustive control red sets, stale README labels.
+- `RevEntryBaseFinal`: F1 (HIGH) the base entry cites S877 outside the row's registered scope; F2 (MEDIUM) a
+  calibration reason is false on the page; F3-F10 (LOW) uncited page, repair-column advice, mistranslation,
+  quotation-shape, unlabelled restatement, and the two "no capture" rulings lacking probed URL/positive control
+  (the rulings themselves are true).
+- `CritFactBase1`: F1-F3 (MEDIUM) a §2 table statement the monograph contradicts (p. 140), a §3 overgeneralisation,
+  no per-sentence page locators; F4-F6 (LOW) header scope sentence, "no citation"/"one-clause glosses" claims.
 - `CritAppendOnly`: F1 **HIGH** — the frozen ledger's `repair_edits[LC-01]` / `SHONEN.md` in-place span declares a
   repair that did not land, and the claim's own APPENDONLY rule rejects that edit; F2 (MEDIUM) — the protected-set
   check is cardinal only at Ca's lands, so claim C prints PASS with a base-era protected line deleted; F3 (MEDIUM) —

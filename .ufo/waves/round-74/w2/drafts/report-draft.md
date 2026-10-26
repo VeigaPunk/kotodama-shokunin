@@ -1,7 +1,10 @@
 # kotodama round 74 — worldbuilding-setting-practice assimilation + calibration ledger
 
-Lane: kotodama-shokunin · base `f7104cbce186bc2e1522abf0cfd619cc834628bb` · lane main / HEAD
-`1d7add3f7b9eaf6f3349c56c36f6d06325d74236` (`git ls-remote origin refs/heads/main` prints the same) · 2026-10-25,
+Lane: kotodama-shokunin · base `f7104cbce186bc2e1522abf0cfd619cc834628bb` · last **landing** commit
+`1d7add3f7b9eaf6f3349c56c36f6d06325d74236` · lane tip at drafting
+`92b8d4bb2b9d08a6894256c51c5f58f208b67ff4`, the orchestrator's in-flight snapshot commit ("hyaku run 7
+interrupted: in-flight snapshot committed by the orchestrator (not a landing); lane L1 resumes from here"), with
+local `main` = worktree HEAD = `git ls-remote origin refs/heads/main` at `92b8d4b` · 2026-10-25,
 hyaku run 7, L1 KotodamaR74, attempt 1. Round shape: two v1 waves — w1 42 seats + w2 44 seats = 86 seats (policy
 v1, band 32–64 per wave; `.ufo/waves/round-74/w1/w1-results.json` `seats` = 42, `.ufo/waves/round-74/w2/dispatch.json`
 `counts.total` = 44). Planner seat = the L1.
@@ -47,16 +50,19 @@ recorded in `claims.json` and applied before data.
   survivors J3, J4b, J5, J6, J7 are carried as the measured red-before. The same commit adds the measured receipts
   at each claim's own landing (`measures-c.txt` stamped `c4bf61a`, `measures-ca.txt` stamped `5e4796c`).
 - **Wave 2 (44 seats)** — 9 critic, 8 reviewer, 8 executor, 6 scout, 6 mutation-tester, 2 connector, 2 scribe,
-  1 simplifier, 1 revenger, 1 sentinel. At drafting time 18 of 44 reports are written (`CritAppendOnly`,
-  `CritFactAmend1`, `CritFactAmend2`, `CritScopeProvince`, `CritTrendFinal`, `ExecCensusEnd`, `ExecWaveLedger`,
-  `RevEntryAmendFinal`, `RevFrozenChain`, `RevQuality25`, `RevReadmeIndex`, `ScoutRejectProbes`,
-  `ScoutReopenS877`/`S881`/`S882`/`S883`/`S884`, `ScribeLogScorecard`). What they establish so far: census and freeze
-  chronology survive their attacks (`ExecCensusEnd` F1/F2 are MEDIUM/LOW and the census PASS reproduces against a
-  planted control; `RevFrozenChain` Q4 — `claims.json`/`ledger.json` byte-identical at freeze, both lands and main —
-  passes, and both counters reproduce their PASS lines in its own clone); the surviving defects are the QUALITY 25
-  blockers below, the ledger's unlanded SHONEN repair, the frozen control prose, and per-entry content errors
-  (amendment `gap filled:`/scope/reader sentences, README index order and the "0 registry rows" claim, the S895/S899/
-  S900 reject reasons). The other 26 seats are `W2-PENDING:<seat>`; the registry
+  1 simplifier, 1 revenger, 1 sentinel. At drafting time 23 of 44 reports are written (`CritAppendOnly`,
+  `CritFactAmend1`, `CritFactAmend2`, `CritFactBase1`, `CritMistakeRows`, `CritScopeProvince`, `CritTrendFinal`,
+  `ExecCensusEnd`, `ExecRerunC`, `ExecWaveLedger`, `RevEntryAmendFinal`, `RevEntryBaseFinal`, `RevFrozenChain`,
+  `RevQuality25`, `RevReadmeIndex`, `RevengerOrigins`, `ScoutRejectProbes`, `ScoutReopenS877`/`S881`/`S882`/`S883`/`S884`,
+  `ScribeLogScorecard`). What they establish so far: census and freeze chronology survive their attacks
+  (`ExecCensusEnd` F1/F2 are MEDIUM/LOW and the census PASS reproduces against a planted control; `RevFrozenChain`
+  Q4 — `claims.json`/`ledger.json` byte-identical at freeze, both lands and main — passes, and both counters
+  reproduce their PASS lines in its own clone; `ExecRerunC` reproduces `PASS legs=13/13` at `c4bf61a` on repeat
+  runs); the surviving defects are the QUALITY 25 blockers below, the ledger's unlanded SHONEN repair, the frozen
+  control prose, the Ca-at-the-leaving-tree conflict (first filed here as a limit, then as HIGH by
+  `CritMistakeRows` F3), and per-entry content errors (amendment `gap filled:`/scope/reader sentences; base entry's
+  S877 out-of-scope citation, `RevEntryBaseFinal` F1 HIGH; README index order and the "0 registry rows" claim; the
+  S895/S899/S900 reject reasons). The other 21 seats are `W2-PENDING:<seat>`; the registry
   `.ufo/waves/round-74/w2/swarm-registry.json` is the record.
 - **Evidence pointers** — `corpus/lessons/round-74.md` (`## Gate`, `## Quarantine`, `## Mistakes` R74-M1..R74-M10,
   `## Frontier-step`, `## Routed to round 75`), `reports/round-74/` (claims, ledger, both counters,
@@ -79,8 +85,10 @@ appends the draft. `W2-PENDING:ScribeLogScorecard` (draft written; append is the
 | `c4bf61a` | entry header template tokens, lesson counts sentence | Claim C — fixes |
 | `1d7add3` | junk-landing receipts, measured receipts at each claim's own landing, wave-2 builder | Controls |
 
-Lane pushed: `1d7add3f7b9eaf6f3349c56c36f6d06325d74236` (local `main`, worktree HEAD and `git ls-remote origin
-refs/heads/main` agree).
+Lane pushed: `92b8d4bb2b9d08a6894256c51c5f58f208b67ff4` (local `main`, worktree HEAD and `git ls-remote origin
+refs/heads/main` agree). The snapshot is the orchestrator's in-flight commit, not a landing; the last landing commit
+is `1d7add3`. Counter measurements below grade `c4bf61a` / `5e4796c` and the last landing `1d7add3`; whether the
+counters stay green at `92b8d4b` is `W2-PENDING:ExecRerunC` / `W2-PENDING:ExecRerunCa`.
 
 ## Before → after measurements
 
@@ -108,11 +116,15 @@ refs/heads/main` agree).
   `lands == base` → refused, `FAIL legs=0/13` / `FAIL legs=0/11` (`telemetry/controls-c.txt`,
   `controls-ca.txt`).
 - **Honest limits (measured, not inferred).**
-  1. Claim Ca is green at its own landing only. At the round tip `1d7add3` the same command returns
-     `ACCEPT-CA-74: FAIL legs=9/11`, `LEG FAIL APPENDONLY — problems=['corpus/SOURCES.md: changed lines outside
+  1. Claim Ca is green at its own landing only. At the last landing commit `1d7add3` the same command returns
+     `ACCEPT-CA-74: FAIL legs=9/11` in my clone and `FAIL legs=10/11` in `CritMistakeRows`'s (the difference is the
+     RECEIPTS limb, see limit 6), with `LEG FAIL APPENDONLY — problems=['corpus/SOURCES.md: changed lines outside
      REPAIR stated_at lines [832]']`: claim C's required in-place `used-by` edit on S877 is not a Ca REPAIR
-     `stated_at` line, so the two frozen claims conflict in one tree. Disclosed verbatim in
-     `telemetry/junk-ca.txt` (`# NOTE (L1, 2026-10-25)`) and left unamended — frozen claims stand.
+     `stated_at` line, so the two frozen claims conflict in one tree — C stays `PASS legs=13/13` there. The lane
+     discloses this in `telemetry/junk-ca.txt` (`# NOTE (L1, 2026-10-25)`) and leaves the frozen claims unamended —
+     correct under the round's own rule — but **no claim pins `<lands>`**, so the frozen kill rule ("any leg false at
+     `<lands>`") cannot be evaluated without this report naming the commits, and `corpus/lessons/round-74.md` does
+     not disclose the conflict (`CritMistakeRows` F3, HIGH: "claim Ca is FALSE on the tree the round leaves").
   2. `QUALITY 25 (b)` is false for its own round on four counts (`RevQuality25` F1, BLOCKER): the freeze carries no
      `counters/junk-fixtures.py` — the generator lives at `.ufo/waves/round-74/counters/junk-fixtures.py`; `junk-c.txt`
      and `junk-ca.txt` are absent at `00c408a` (`git ls-tree -r --name-only 00c408a | grep -E 'round-74/telemetry/(junk|controls)'`
@@ -142,6 +154,9 @@ refs/heads/main` agree).
      materialization-prefix dependent (`RevFrozenChain` F1, HIGH: `normalize_receipt` masks only `/tmp` and `/var/tmp`
      paths, so the same bytes fail when the clone is materialized outside them). `RevQuality25` F5-F9 additionally
      record refusal-line, chain-check, `# frozen legs:` and receipt-enumeration deviations from the criterion text.
+     A counter changed twice after the freeze with no `reports/round-74/counter-revisions.md` is filed separately
+     (`CritMistakeRows` F4, HIGH); the dispatch assignment's `W2-PENDING:ExecRerunCa` re-run is the receipt that
+     would close the RECEIPTS limb at the tip.
   7. The frozen status sentence "no seat has scored landed data" is unqualified and false under the plain git sense
      of "landed": the re-freeze that rewrote two claim legs and two ledger entries (`3595c91`) followed a seat's
      scoring of the landed first-freeze commit (`RevFrozenChain` F3, MEDIUM). Nothing in the claims makes the
@@ -164,7 +179,11 @@ Rows touched old→new: **S877** only, `used-by` old
 `corpus/knowledge/linguistics/conlang-scholarship.md` → new
 `corpus/knowledge/linguistics/conlang-scholarship.md, corpus/knowledge/culture-material/worldbuilding-setting-practice.md`,
 every other cell byte-identical (recorded in the lesson, not in the row). Frontier ground entered:
-**setting-practice**. Assimilation: **ADOPTED one theme** (worldbuilding-setting-practice, CJK practitioner craft:
+**setting-practice** — the dispatch's wording, qualified by `CritTrendFinal` F4 (LOW): setting practice was not on
+the base `## Known gaps (frontier)` list (`git show f7104cb:corpus/README.md` line 601), so the accurate claim is
+*new ground entered, absent from the base coverage map*; the observable that fires is LEARNING.md:33's "net new
+admitted entries on uncovered ground", not "frontier areas entered". The four new rows are the ones opened this
+round (`opened 2026-10-25`); S877 is reused, not opened. Assimilation: **ADOPTED one theme** (worldbuilding-setting-practice, CJK practitioner craft:
 two Japanese writing-app pages and two 中国作家网 pieces) with **two entries** and five rows touched (four appended,
 S877 in place); triage 2 adopted / 4 path-present with differing bytes / 34 refused of the 40 staged files;
 staged S882 not appended (existing row S877), staged S895's folded passage dropped, register S816/S817 stay REFUSED
@@ -214,10 +233,13 @@ exercise the filed receipts, not the criterion's shape-only one-liner (which `Re
 - [~] **Box 2 — at least one end-to-end domain task executed and logged.** Four rows re-opened and mined plus S877
   reused; two entries landed (`d7a3840`, `c4bf61a`) with five committed evidence captures in
   `reports/round-74/evidence/` (fetch line, browser UA, HTTP 200, bytes, body sha256, window); wave-1 scouts carry
-  the live re-opens, wave-2 `CritFactAmend1/2`, `RevEntryAmendFinal`, `ScoutReopenS877/S881–S884` carry the
-  independent re-open and per-sentence checks; `W2-PENDING:CritFactBase1`, `W2-PENDING:CritFactBase2`,
-  `W2-PENDING:RevEntryBaseFinal`. `LOG.md` entry is drafted (`w2/drafts/log-entry.md`) but not yet appended. No
-  non-author verifier on record.
+  the live re-opens, and wave-2 `CritFactBase1`, `CritFactAmend1/2`, `RevEntryBaseFinal`, `RevEntryAmendFinal`,
+  `ScoutReopenS877/S881–S884` have landed their independent re-open and per-sentence checks (`W2-PENDING:CritFactBase2`).
+  Those checks are not all clean: `RevEntryBaseFinal` F1 (HIGH) finds the base entry cites S877 outside the row's
+  recorded scope, `CritFactBase1` F1-F3 (MEDIUM) find a §2 table statement the monograph contradicts and no
+  per-sentence page locators, `CritFactAmend2` F1/F2 (HIGH) the amendment's `gap filled:` and reader claims — all
+  open at `1d7add3`, which is why this box stays `[~]`. `LOG.md` entry is drafted (`w2/drafts/log-entry.md`) but not
+  yet appended. No non-author verifier on record.
 - [~] **Box 3 — instructions executable by an agent without oral context.** Both counters run from a fresh clone with
   committed commands and receipts (`ACCEPT-C-74: PASS legs=13/13` at `c4bf61a` and again at `1d7add3`;
   `ACCEPT-CA-74: PASS legs=11/11` at `5e4796c`); `ScribeLogScorecard` re-ran both at their own landings in a
@@ -237,8 +259,8 @@ exercise the filed receipts, not the criterion's shape-only one-liner (which `Re
 
 ## Stale-lane · tool installs · open L0
 
-Stale-lane: none (respawn-per-round driver; `git -C kotodama-shokunin worktree list` shows one worktree at
-`1d7add3`, origin/main agrees, `.ufo/state/` holds only `kotodama.report-baseline`). Tool installs: none
+Stale-lane: none (respawn-per-round driver; `git -C kotodama-shokunin worktree list` shows one worktree, at the
+orchestrator snapshot `92b8d4b`, and `origin/main` agrees; `.ufo/state/` holds only `kotodama.report-baseline`). Tool installs: none
 (wave-1 seats record "no tool installed", e.g. `w1/ExecRenumber.md:206`, `w1/RevAssimilationContract.md:382`,
 `w1/CritQuality25.md:309`; pacman not run; `W2-PENDING` for seats still writing). Open L0 questions: none filed
 by this round — no round-74 row exists in `.ufo/l0-questions.md`; the standing `kotodama | round-11` freshness

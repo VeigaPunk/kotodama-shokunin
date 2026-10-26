@@ -4,7 +4,7 @@
 - round: kotodama 74, WAVE 2 (falsify; hyaku run 7)
 - target: `corpus/knowledge/culture-material/worldbuilding-setting-practice.md`, **§1–§5** (split at the `## §` headings; §6–§10 read only where a §1–§5 statement needed a counterexample, and their named table counts checked as the assignment requires)
 - frozen claim read first: `git show 00c408a0af2fa5ddf65af2224152ce258b26d896:reports/round-74/claims.json` (claims C and Ca; C's legs ENTRIES/ROWS/GATE/EVIDENCE; Ca's SEPARABLE excludes `corpus/knowledge/**`)
-- revisions: base `f7104cbce186bc2e1522abf0cfd619cc834628bb`; freeze F3 `00c408a0af2fa5ddf65af2224152ce258b26d896`; claim C lands `c4bf61a8d722f9168ce0fd8021a6261c000610c5`; entry bytes read from the working tree, which the sibling seats re-derived as unchanged at `c4bf61a`–`main`
+- revisions: base `f7104cbce186bc2e1522abf0cfd619cc834628bb`; freeze F3 `00c408a0af2fa5ddf65af2224152ce258b26d896`; claim C lands `c4bf61a8d722f9168ce0fd8021a6261c000610c5`; `git diff --stat c4bf61a8..main -- corpus/knowledge/culture-material/worldbuilding-setting-practice.md corpus/SOURCES.md reports/round-74/evidence/S877.txt reports/round-74/evidence/S881.txt reports/round-74/evidence/S882.txt` is empty (exit 0), so the entry, its rows and the evidence windows are unchanged from the lands commit to `main`
 - lane repo untouched (read-only git/reads); scratch `/tmp/CritFactBase1/`; the only file written is this report
 - counters `accept-c.py` / `accept-ca.py` **not run**: they are not part of this seat's attack (the assignment is the entry's sources, not the claim's counter)
 
@@ -262,7 +262,7 @@ No count is wrong. The only count-shaped inaccuracy is the characterisation "one
 4. **Wrong table counts** — 5 steps, 4 layers, 5 elements, 5 note sections, 7 magic questions, 3 distance rows, 8 country fields, 5 genre rows, 4+4 failures, 3 depths: all match.
 5. **Misattribution between the three sources** — none: S877 carries only §2, S881 §3–§5, S882 §4 and §1; no S882 claim is sourced to S881 or vice versa.
 6. **Author/date/byline** — S881 JSON-LD author is the Organization LitMemo (no person), visible 2026-07-16 / 最終更新 2026-10-23; S882 author is つづく編集室, 約1,100文字, 2026年3月12日. All carried.
-7. **No-capture claim (CDX)** — reproduced: `litmemo.com/ja/blog/novel-worldbuilding-guide` exact → `[]`; `tuduku.space/column/novel-worldbuilding` exact → `[]`; `tuduku.space/*` → `[]`; positive control on the same endpoint, `litmemo.com/ja/blog/` prefix → one row (`novel-character-relationship-map` @ 20260911102425), and a host-level litmemo probe returns the sibling JS asset only. The probes were run with the browser-shaped UA; one `tuduku.space` domain call timed out once and the retry answered `[]`.
+7. **No-capture claim (CDX)** — reproduced: `litmemo.com/ja/blog/novel-worldbuilding-guide` exact → `[]`; `tuduku.space/column/novel-worldbuilding` exact → `[]`; `tuduku.space/*` → `[]`; positive control on the same endpoint, `litmemo.com/ja/blog/` prefix → one row (`novel-character-relationship-map` @ 20260911102425). The probes were run with the browser-shaped UA; one `tuduku.space` domain call timed out once and the retry answered `[]`. (The host-level litmemo `worldbuilding-cr8k19h0.js` control is in ScoutReopenS881 §5, not re-run by me.)
 8. **Ground claims** — re-derived at base: `git ls-tree -r --name-only f7104cb corpus/knowledge | grep -ciE 'worldbuilding|setting-practice'` = 0; `git grep -lE '設定ノート|世界観|世界观' f7104cb -- corpus/knowledge | wc -l` = 0; `git show f7104cb:corpus/SOURCES.md | grep -c 'litmemo.com\|tuduku.space\|chinawriter.com.cn'` = 0.
 9. **The LitMemo FAQ sentence is absent** (attack on §3) — it is present: `決めておくのは、展開に直接かかわる核の設定だけで十分です。` in the FAQ, and the "現代が舞台の恋愛もの" answer carries 政治制度や魔法のルールは要りません. The §3 sentence is only over-broad, not invented (F2).
 10. **The p. 140 page is not about consistency** (attack on F1) — it is: the quoted `должны быть логично связаны с историей мира` is on printed p. 140, second paragraph.
@@ -302,16 +302,26 @@ F2 — the FAQ answer and the page's own 現代もの＋非日常 row:
 ```
 $ python3 - <<'EOF'
 t=open('s881.txt',encoding='utf-8').read()
-i=t.find('政治制度や魔法のルールは要りません'); print(t[i-140:i+200])
+i=t.find('政治制度や魔法のルールは要りません')
+print(t[i-140:i+200].replace('\n',' | '))
 EOF
-…現代が舞台の恋愛ものでも世界観は必要ですか？ | 必要ですが、決める量はずっと少なくなります。政治制度や魔法のルールは要りません。物語の舞台になる町、登場人物の職場や学校の仕組み、人間関係の輪、そして作者が作った架空の会社・地名・学科を決めておけば、前後の食い違いを防げます。
+？ | 決めておくのは、展開に直接かかわる核の設定だけで十分です。… | 現代が舞台の恋愛ものでも世界観は必要ですか？ | 必要ですが、決める量はずっと少なくなります。政治制度や魔法のルールは要りません。物語の舞台になる町、登場人物の職場や学校の仕組み、人間関係の輪、そして作者が作った架空の会社・地名・学科を決めておけば、前後の食い違いを防げます。 | 読者は設定の整合性をそんなに気にしますか？ | 気…
 
 $ python3 - <<'EOF'
 t=open('s881.txt',encoding='utf-8').read()
 i=t.find('現代もの＋非日常'); print(t[i-40:i+140])
 EOF
-…異世界もの | 地理・歴史・政治・魔法までほぼすべて | 剣と魔法の王国… | 現代もの＋非日常 | 現実と違う部分と、それが隠れている理由 | 退魔師が裏で働く現代の東京、能力者がいる高校 | 現代もの | 作者が手を加えた部分 | 架空の会社、架空の町…
+もの
+地理・歴史・政治・魔法までほぼすべて
+剣と魔法の王国、異世界転生先の世界
+現代もの＋非日常
+現実と違う部分と、それが隠れている理由
+退魔師が裏で働く現代の東京、能力者がいる高校
+現代もの
+作者が手を加えた部分
+架空の会社、架空の町、実在しない部活や学科
 ```
+(the first line is the tail of 「異世界もの」; the table cells are one per line in the plain extraction)
 
 F3 — locators (section 2 above for the commands) and the exact page mapping:
 
@@ -368,8 +378,15 @@ Counts audit — the seven magic questions and the eight country fields on the p
 
 ```
 $ grep -n '源：力はどこから\|できること・できないこと：\|代償：使うと\|使える人：\|段階と上限：\|社会への影響：\|権力との関係：' s881.txt
-（7 lines, in that order; the page adds 「見落とされやすいのは最後の二つです。」）
-$ grep -n '国名と由来\|位置と地形\|政体\|隣国との関係\|産業と通貨\|信仰\|言語と名前\|国の傷' s881.txt | wc -l
+225:源：力はどこから来るか。生まれつき、修行、契約、道具
+226:できること・できないこと：先に「できないこと」を決めるほうが早い
+227:代償：使うと何を失うか
+228:使える人：どのくらいの人が使えるか。生まれで決まるか
+229:段階と上限：力に段階はあるか、上がる条件は何か、最強の使い手でもできないことは何か。長編では、これを決めないまま進むと中盤以降に強さのインフレが起きます
+230:社会への影響：治癒魔法があるなら医者はいるのか、空を飛べるなら城壁に意味はあるのか
+231:権力との関係：使い手は敬われているか、恐れられているか。管理する組織はあるか
+$ sed -n '/架空の国の作り方/,/架空世界の作り込み度合い/p' s881.txt | grep -cE '^(国名と由来|位置と地形|政体|隣国との関係|産業と通貨|信仰|言語と名前|国の傷)$'
 8
 ```
+
 

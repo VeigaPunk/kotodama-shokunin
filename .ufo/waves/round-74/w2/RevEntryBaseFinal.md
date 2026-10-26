@@ -7,12 +7,12 @@
 **Revisions attacked.** base `f7104cbce186bc2e1522abf0cfd619cc834628bb`; operative freeze
 `00c408a0af2fa5ddf65af2224152ce258b26d896`; claim C lands `c4bf61a8d722f9168ce0fd8021a6261c000610c5`; claim Ca
 lands `5e4796c0cb6ae56e36a90f6c3b053e91d31a74b3`. Frozen claims read at the freeze
-(`git show 00c408a:reports/round-74/claims.json`, `config sha256 270e31790e2932c8…`) before any finding was
+(`git show 00c408a0af2fa5ddf65af2224152ce258b26d896:reports/round-74/claims.json`, `config sha256 270e31790e2932c8…`) before any finding was
 written; no rule was amended here.
 
 **Verdict: WITH-CUTS.** No fabricated quotation, no invented source, no canon ruling, no word/header/cited-line
 failure. One HIGH finding (S877 is cited outside its registered row scope — a records/scope defect, not a
-fabrication) plus eight LOW text defects. Exact cuts in C1–C10 (and the records action R1) below.
+fabrication), one MEDIUM (a false calibration reason) and nine LOW text/record defects. Exact cuts in C1–C12 (C11 sits inside the R1 bullet) below.
 
 ---
 
@@ -65,7 +65,7 @@ TEACHES: Supplies the Russian-language scholarly frame for constructed languages
 ```
 
 The entry leans on S877 for four substantive claims that none of those cells names, in §2 (entry lines 36–44) and
-in its calibration row (line 24: "Sidorova & Shuvalova's framing of constructed worlds (2006) … a taxonomy of
+in its calibration row (line 23: "Sidorova & Shuvalova's framing of constructed worlds (2006) … a taxonomy of
 constructed languages with an account of fictional worlds"):
 
 - line 36: "Язык – главный инструмент построения вымышленных миров, дающий названия для их природных и
@@ -87,8 +87,11 @@ claims inside its recorded scope.'}
 ```
 
 There is no recorded scope clause for "conlang-construction-as-modelling" or "world-building-context"; the closest
-cell content is `a volume rule for how much language a world needs` (TEACHES). Under SOURCES.md's own rule a
-citation outside the row's scope has no declared tier, so §2 is unsourced for admission as filed.
+cell content is `a volume rule for how much language a world needs` (TEACHES). The strongest defence of the entry
+is the cell's opening phrase "Tier B for the book's own framing:" read broadly — that would reach the preface
+sentence at p.7, but not the p.35–36 argument or the p.139 conclusion thesis, which are the book's claims rather
+than its frame; those three uses still sit outside. Under SOURCES.md's own rule a citation outside the row's scope
+has no declared tier, so §2 is unsourced for admission as filed.
 
 **Fix (records, then optionally none):** file a superseding row (never an in-place tier/scope edit — SOURCES.md
 "a correction is a new row whose `teaches` opens `supersedes S0NN —`") for the same document scoped to the
@@ -109,8 +112,10 @@ to action sit beside the advice |
 The page does cite named authorities, with a year for one:
 
 ```
-$ grep -o '1939年の講演「On Fairy-Stories」' /tmp/RevEntryBaseFinal/t881.txt   → 1939年の講演「On Fairy-Stories」
-$ grep -o 'ファンタジー作家ブランドン・サンダースンは' /tmp/RevEntryBaseFinal/t881.txt → ファンタジー作家ブランドン・サンダースンは
+$ grep -o '1939年の講演「On Fairy-Stories」' /tmp/RevEntryBaseFinal/t881.txt
+1939年の講演「On Fairy-Stories」
+$ grep -o 'ファンタジー作家ブランドン・サンダースンは' /tmp/RevEntryBaseFinal/t881.txt
+ファンタジー作家ブランドン・サンダースンは
 ```
 
 and the entry's own §1 hard/soft row (line 24) concedes it: "the page names ブランドン・サンダースン but cites no
@@ -126,14 +131,14 @@ Entry line 3: "cited here at printed pages 7, 35, 36, 139 and 140". The four quo
 7, 35, 36 and 139 (F-batch Q1 below); p.140 holds a claim the entry never uses:
 
 ```
-$ python3 … locate quotes in pdftotext output
+$ cd /tmp/RevEntryBaseFinal && pdftotext -enc UTF-8 s877.pdf s877.txt && python3 locate.py
 entry line 36 -> pdf page(s) [7]
 entry line 38 -> pdf page(s) [139]
 entry line 42 -> pdf page(s) [35]
 entry line 44 -> pdf page(s) [36]
-$ sed -n '…' (p.140) | head
-В-третьих, вымышленные миры не статичны. Они обладают историей … Причем их эволюция … должны быть логично
-связаны с историей мира34.
+p140 first line: ['В-третьих, вымышленные миры не статичны. Они обладают историей, которая может писаться для них
+«с обратным отсчетом» (от зафиксированной создателем мира точки, в которой мы «застаем» действие) и с отсчетом
+прямым – в будущее. Историю имеют и фантастические языки.']
 ```
 
 Offset is 0 (PDF page 35 prints "35"; PDF page 139 prints "139"; TOC puts Глава 2 at 35 and its first section at
@@ -144,14 +149,18 @@ on the printed page its sentence cites") has nothing to re-find on 140.
 
 ### F4 — LOW — §8's repair column adds advice the source does not give, under a header that claims the sources' words
 
-Entry line 229: `| unused setting | … | cut it, or let it resonate somewhere |`, under the header at line 225
+Entry line 229: `| unused setting | … | cut it, or let it resonate somewhere |`, under the header at line 224
 "Repair, **in the sources' own advice**". The page's advice is only resonance:
 
 ```
-一つひとつの設定は、本筋でなくても、誰かの過去やある場面の空気など、物語のどこかに響かせましょう。
+$ grep -o '物語のどこかに響かせましょう' /tmp/RevEntryBaseFinal/t881.txt
+物語のどこかに響かせましょう
+$ grep -c 'cut it' /tmp/RevEntryBaseFinal/t881.txt /tmp/RevEntryBaseFinal/t882.txt
+t881.txt:0
+t882.txt:0
 ```
 
-No "cut it" anywhere on S881 or S882 (searched both live texts). **Fix:** C6.
+No "cut it" advice anywhere on S881 or S882. **Fix:** C6.
 
 ### F5 — LOW — mistranslated cost term in a decision table
 
@@ -159,6 +168,7 @@ Entry line 184: `| cost | what the user loses: stamina, lifespan, memory, sanity
 list is:
 
 ```
+$ grep -o '代償は体力、寿命、記憶、正気、周りからの差別、使える回数の制限などから選べます。' /tmp/RevEntryBaseFinal/t881.txt
 代償は体力、寿命、記憶、正気、周りからの差別、使える回数の制限などから選べます。
 ```
 
@@ -174,12 +184,22 @@ which neither coupling names. **Fix:** C7.
 
 ### F7 — LOW — English glosses in quotation marks are presented as quotations but are not on the page
 
-- Entry lines 78 and 88: "the reader's "why not just…" objection". S882's phrase is
-  `読者からのツッコミを想定する：「なぜ〇〇しないのか」という疑問を先回りして設定に組み込む`.
-- Entry line 183: `write the "cannot" list first`. S882's phrase is `できること・できないこと：先に「できないこと」を決めるほうが早い`.
+- Entry lines 78 and 88: "the reader's "why not just…" objection".
+- Entry line 183: `write the "cannot" list first`.
 
-Neither `why not just…` nor `cannot` occurs in the live page text (checked with a tag-preserving strip; the
-Japanese spans do occur). The verdict is otherwise faithful to the source, so this is a quotation-shape defect,
+The page's phrases, and the absence of the English glosses:
+
+```
+$ grep -o '読者からのツッコミを想定する：「なぜ〇〇しないのか」という疑問を先回りして設定に組み込む' /tmp/RevEntryBaseFinal/t882.txt
+読者からのツッコミを想定する：「なぜ〇〇しないのか」という疑問を先回りして設定に組み込む
+$ grep -o 'できること・できないこと：先に「できないこと」を決めるほうが早い' /tmp/RevEntryBaseFinal/t882.txt
+できること・できないこと：先に「できないこと」を決めるほうが早い
+$ grep -c 'why not just' /tmp/RevEntryBaseFinal/t882.txt; grep -c 'cannot' /tmp/RevEntryBaseFinal/t882.txt
+0
+0
+```
+
+The verdict is otherwise faithful to the source, so this is a quotation-shape defect,
 not a content error. **Fix:** C3, C4.
 
 ### F8 — LOW — the couples-line gloss on the checklist contradicts the checklist's own scope and the entry's §9
@@ -228,6 +248,15 @@ So the *slug* has no capture (both hosts), the *tuduku host* has none, and the *
 of other pages — the query shape demonstrably finds captures, which is the control the entry omits. **Fix:** C10
 (record the two probe URLs and the control), no factual change.
 
+### F11 — LOW — the `- sources:` line says the monograph supplies no build method, while §2 calls its p.36 sentence the entry's strongest design rule
+
+Entry line 11: "the monograph is tier B and supplies what a constructed world is, **not how to build one**." Entry
+line 46: "That is the scholarly counterpart of the practitioners' first step, and it is **the strongest single
+design rule in this entry**: the first artefact is a one-sentence premise, and everything else is derived from it."
+The p.36 sentence is a description of how SF authors work (`автор предлагает … допущение и далее строит вокруг него
+ту картину мира`), from which the entry derives a build rule; "not how to build one" therefore contradicts the
+use the entry makes of that sentence at line 46. **Fix:** C12.
+
 ---
 
 ## Exact cuts (WITH-CUTS)
@@ -247,10 +276,15 @@ of other pages — the query shape demonstrably finds captures, which is the con
 - **C9** line 32: end the sentence `…so no tier-C page carries a claim alone about worlds (S877).`
 - **C10** lines 4–5: append the probe and control, e.g. `CDX probes 2026-10-25: exact url=litmemo.com/ja/blog/
   novel-worldbuilding-guide → []; control url=example.com → 4 rows returned.`
+- **C12** line 11: `the monograph is tier B and supplies what a constructed world is, not how to build one` → `the
+  monograph is tier B and supplies what a constructed world is and prescribes no authoring order (its p.36 account
+  of how SF authors work yields the one design rule at line 46)`. (If C11 is taken, instead delete the parenthetical
+  clause and keep "prescribes no authoring order".)
 - **R1 (records, preferred for F1)** superseding SOURCES row for the same document scoped to the
   world-building/world-modelling passages (p.7 preface; pp.35–36; p.139 thesis 14), anchor quote + evidence; re-cite
-  §2 and the §1 row. **C11** if R1 is not filed: delete entry lines 38, 40, 42, 44, 46 and the corresponding §1
-  claim row, leaving §2 on the Gate-admitted p.7 clause only.
+  §2 and the §1 row. **C11** if R1 is not filed: delete §2 lines 38, 40, 42, 44, 46 and comparison-table rows 50–52
+  (leaving the Gate-admitted p.7 paragraph at line 36 and rows 53–54), and trim the §1 row 23's reason to the
+  registered classification/vocabulary/special-status scope.
 
 ---
 
@@ -288,17 +322,21 @@ characters exactly. **Attack failed.**
 `checkout --detach`).
 
 ```
-$ python3 -B reports/round-74/accept-c.py --root . --lands c4bf61a8d722… --freeze 00c408a0af2f… --fleet-root /home/vgpnk/Projects/shokunin
+$ python3 -B reports/round-74/accept-c.py --root . --lands c4bf61a8d722f9168ce0fd8021a6261c000610c5 --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896 --fleet-root /home/vgpnk/Projects/shokunin
 # stamped revision: c4bf61a8d722f9168ce0fd8021a6261c000610c5
 # evaluated revision: c4bf61a8d722f9168ce0fd8021a6261c000610c5
 # measured revision (lane main): c4bf61a8d722f9168ce0fd8021a6261c000610c5
 # tree: 29c8c147c948b9fe03af8f092ac92028a23fed56
 # frozen legs: 13 (ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG,INDEX)
-LEG PASS ENTRIES … LEG PASS INDEX
+LEG PASS ENTRIES            (leg lines elided)
+…
+LEG PASS INDEX
 ACCEPT-C-74: PASS legs=13/13            (exit 0)
 
-$ python3 -B reports/round-74/accept-ca.py --root . --lands 5e4796c0cb6a… --freeze 00c408a0af2f… --fleet-root /home/vgpnk/Projects/shokunin
-LEG PASS LEDGER … LEG PASS STAMP
+$ python3 -B reports/round-74/accept-ca.py --root . --lands 5e4796c0cb6ae56e36a90f6c3b053e91d31a74b3 --freeze 00c408a0af2fa5ddf65af2224152ce258b26d896 --fleet-root /home/vgpnk/Projects/shokunin
+LEG PASS LEDGER             (leg lines elided)
+…
+LEG PASS STAMP
 ACCEPT-CA-74: PASS legs=11/11           (exit 0)
 ```
 
@@ -311,7 +349,9 @@ $ python3 -B tools/check-cited-lines.py corpus/knowledge/culture-material/worldb
 CITED-LINES: 0 finding(s) in 1 file(s)        exit 0
 $ python3 -B tools/check-draft-ids.py corpus/knowledge/culture-material/worldbuilding-setting-practice.md
 DRAFT_IDS: 0 findings                          exit 0
-$ python3 -B tools/check-cited-lines.py --selftest      → selftest 26/26
+$ python3 -B tools/check-cited-lines.py --selftest
+… 
+selftest 26/26
 # controls on a /tmp copy of the same bytes:
 MULTI-ID ctl.md:30 S881,S882
 TABLE-ID ctl.md:154 S881
@@ -322,7 +362,7 @@ DRAFT_IDS: 1 findings                          exit 1
 
 **Attack failed** on the lint's two shapes; F9 records the review-only shape the lint cannot see.
 
-**Q4 — header/provenance trio and template.** `- source:` ×3, `- verified-at:`, `- recheck:` are lines 3–8, before
+**Q4 — header/provenance trio and template.** `- source:` ×3, `- verified-at:`, `- recheck:` are lines 3–7, before
 any body; all nine fields the round's ENTRIES leg requires (`source, verified-at, recheck, ground, topic,
 gap-filled, sources, couples, scope`) are present, no placeholder value, no `<…>` token (ENTRIES PASS above).
 `- refuses:` is an extra tenth field. **Attack failed.**
@@ -330,10 +370,13 @@ gap-filled, sources, couples, scope`) are present, no placeholder value, no `<�
 **Q5 — ground claims.** Re-derived at base, read-only:
 
 ```
-knowledge files matching worldbuilding|setting-practice at base: 0
-knowledge files matching 設定ノート|世界観|世界观 at base: 0
-registry rows at base: 804
-hosts at base: litmemo.com=0 tuduku.space=0 chinawriter.com.cn=0
+$ git ls-tree -r --name-only f7104cbce186bc2e1522abf0cfd619cc834628bb corpus/knowledge | grep -ciE 'worldbuilding|setting-practice'
+0
+$ git grep -lE '設定ノート|世界観|世界观' f7104cbce186bc2e1522abf0cfd619cc834628bb -- corpus/knowledge | wc -l
+0
+$ git show f7104cbce186bc2e1522abf0cfd619cc834628bb:corpus/SOURCES.md | grep -cE '^\| *S[0-9]{3} '
+804
+hosts at base: litmemo.com=0 tuduku.space=0 chinawriter.com.cn=0   (grep -c per host on the same blob)
 ```
 
 **Attack failed.**
@@ -362,8 +405,8 @@ discredited"). "Not mainstream" is a negation of the canonical label, not one of
 precedent (`linguistics/historical-linguistics.md`), so the shape is not novel, and the mapping is stated. I treat
 this as compliant with a note, not a defect; the reason-level defect is F2. **Attack failed.**
 
-**Q10 — index and separability.** `corpus/README.md:446` reproduces the entry's `- topic:` byte-for-byte (compared
-with `difflib`; `equal: True`); the INDEX leg passes; the entry cites only rows C itself lands (S881, S882) plus a
+**Q10 — index and separability.** `corpus/README.md:446` reproduces the entry's `- topic:` byte-for-byte (a python
+comparison of the index row's tail with the entry's `- topic:` value printed `equal: True`); the INDEX leg passes; the entry cites only rows C itself lands (S881, S882) plus a
 base row (S877), and names only base paths. **Attack failed.**
 
 ---
@@ -372,12 +415,12 @@ base row (S877), and names only base paths. **Attack failed.**
 
 | # | Criterion | Disposition |
 |---|---|---|
-| 1 | Provenance | **Pass** — three real sources, three body hashes reproduced live, all quotes locate (Q1). F1 is a scope-record defect, not provenance. |
+| 1 | Provenance | **Pass** — three real sources, three body hashes reproduced live, all quotes locate (Q1); F1 is a scope-record defect, F11 a framing defect in the `- sources:` line. |
 | 2 | Calibration | **Pass with F2** — every framework row named and reasoned; one reason clause false. |
 | 3 | Coupling | **Pass with F6/F8** — six couplings, two glosses wrong. |
 | 4 | Usability | **Pass** — 15 tables (10 sections), worked micro-chain, worked town, worked power, four failure/repair tables. No essay section. |
 | 5 | Canon hygiene | **Pass** — decides nothing; handoff closes the entry (Q8). |
-| 6 | Claim-scoped authority | **FAIL at MEDIUM/HIGH — F1.** |
+| 6 | Claim-scoped authority | **FAIL — F1 (HIGH).** |
 | 7 | Separability | **Pass** — Q7/Q10. |
 | 8, 9 | Dry runs both ways | Out of entry scope (round counters; Q2 PASS). |
 | 10 | Ordinary access | **Pass** — plain requests, no challenge; access records present. |
@@ -398,13 +441,13 @@ base row (S877), and names only base paths. **Attack failed.**
 
 ## Residual risk and verification gaps
 
-1. **Live-page drift is unpinned on the reading side.** The three body hashes are today's bytes; the entry's quotes
-   have no archived capture on the two Japanese hosts (probed: none exists — F10). A re-opener in six months can
+1. **Live-page drift is unpinned on the reading side.** The three body hashes are today's bytes; no archived capture
+   of either Japanese page exists (probed: F10), only host-level captures of other pages on litmemo.com. A re-opener in six months can
    only re-fetch and compare hashes; the entry's `recheck: 180d` says so, but durability rests on the two hosts
    surviving.
-2. **MD5-free claim**: I did not verify the launch of the Japanese pages' JS-rendered content — the served HTML was
-   read with a tag-stripping parser; all quoted spans are in the served bytes, so a JS-only rendering cannot have
-   produced them.
+2. **Rendering path.** The two Japanese pages were read from the served HTML with a tag-stripping parser; their
+   JavaScript was not executed. Every quoted span occurs in the served bytes, so no quote depends on a script-only
+   render — but a reader who opens the pages in a browser sees a rendered DOM this review did not compare against.
 3. **Registry S877 page count disagrees with the entry** (185-page "typeset text" in the scope cell vs the imprint's
    `2006, с.184` and the entry's "184-page monograph"). The entry is right by the imprint; the row is a records-side
    oddity (out of this seat's cuts).

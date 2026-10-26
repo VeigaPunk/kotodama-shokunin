@@ -209,3 +209,30 @@ directory), so no proposal is mined this round and no ledger row is added.
    lands with its fixture in the same commit, and a mutant's redness must be shown against a fixture that is green
    first.
 5. **R74-M5 (register URL↔quote binding) stays open**: the register's pairing checker needs an adjacency guard; the refused register rows stay refused under the four clearing conditions.
+
+## Corrections (wave-2 falsify, 2026-10-26; old → new, pre-repair bytes at lane commit `1d7add3f`)
+
+Wave 2 (44 seats, reports under `.ufo/waves/round-74/w2/`) attacked the landed bytes; nothing below changes a frozen predicate, counter or claim.
+
+Repaired in place (old → new):
+
+| where | old | new | found by |
+|---|---|---|---|
+| base entry §2 table, row "how to keep it consistent" | `not addressed` (monograph column) | one rule, not a document practice: the language's evolution and contacts must be logically tied to the world's history (the monograph's p. 140) | CritFactBase1 F1 |
+| base entry §3, contemporary-novel sentence | "a contemporary novel needs no magic system and no political constitution …" | "a contemporary romance (the page's own case) needs no political institutions or magic rules, but still needs the town, the workplace or school, the web of relationships, and the invented company, place names and school departments …"; the page's contemporary-plus-supernatural row is noted | CritFactBase1 F2 |
+| base entry header `sources:` | "supplies what a constructed world is, not how to build one" | "… and one consistency rule (p. 140), not a build method" | CritFactBase1 F4 |
+| base entry calibration row | "no cohort and no citation" | "no cohort and no citation for the five-step order" | CritFactBase1 F5 |
+| amendment header `gap filled:` / `ground:` | "does not say which part is built first, which part is derived from which" | the parent gives the practitioner pages' five-step order (its section 4); the amendment adds one author's own order, derivation and release timing | CritTrendFinal F1 |
+| `SKILL.md` row `accept-ca-74` | pinned counter sha256 `76d00b88325f…` and `138 checks across 37` scenarios (bytes that exist nowhere in the tree) | `8052f1e25c36…` and `179 checks across 41` | CritCalibrationRecords F2 |
+| `corpus/QUALITY.md` | criterion 25 overclaimed (freeze contents; J4/J4b leg; lands == freeze) | criterion 26 supersedes it; 25 stays as filed | RevQuality25 F1/F2/F4 |
+
+Recorded, not repaired (honest limits; each routed to round 75):
+
+1. **Ca does not hold at the combined tree.** Claim C's required in-place `used-by` change on the reused row (S877) is not a REPAIR line of claim Ca, so `accept-ca.py` reads APPENDONLY red at any tree that carries both landings (ExecSeparability F1, ConnectorRoutes P1, ExecJunkFixtures T0). Claim Ca is measured at its own landing `5e4796c0…` (PASS legs=11/11, `reports/round-74/telemetry/measures-ca.txt`); claim C at its landing `c4bf61a8…` (PASS legs=13/13, `measures-c.txt`). The frozen claims are not amended.
+2. **The freeze commit does not carry the junk receipts** (ExecTelemetryDigest F1): `junk-c.txt`/`junk-ca.txt` were generated after the data landed; they show the frozen counters reject 11 of 11 fixtures, not that they were frozen with them. J4/J4b fail FROZENCFG (not LEDGER); J6/J7 are not differential.
+3. **`accept-c.py` passes at `--lands == --freeze` for a complete landing** (RevQuality25 F4); Ca refuses it. A junk freeze is detectable only by an external pin (the fleet report records the freeze hash `00c408a0…`).
+4. **Ca `do_nothing_control` clause says RECEIPTS red; the receipt prints RECEIPTS green** (RevFrozenChain F2), and RECEIPTS depends on the materialization prefix (F1). The first-freeze-commit wording "no seat has scored landed data" is true of scoring, not of git history (R74-M9 lists the three freezes).
+5. **S877 is cited outside the registered scope cell** (ScoutReopenS877 F1, RevEntryBaseFinal F1): the entry uses a classification monograph for conlang-as-modelling and world-building context; the scope cell is not widened (append-only); the S877 page locators for p. 35/36/139 are outside the committed window (CritFactBase1 F3). Routed: a superseding row with its own scope and window.
+6. Calibration record mismatches not repaired here: CritCalibrationRecords A/B tables (15 mismatches; the two HIGH are items 2 above and the SKILL pin, repaired); ExecWaveLedger: the R74-M10 seat list names 10 of 26 colliding names; m_flash share is 57.1% (executor/scribe/critic/sentinel/simplifier/revenger by route) vs 40.5% (strict executor/scribe/simplifier); wave-1 attack share 24%, wave-2 52%.
+7. R74-M3 / R74-M4 states: M3 (counter survivors) — fixed in the counters, junk receipts committed (`junk-c.txt`, `junk-ca.txt`), with items 2–3 above as its stated limits; M4 (9 vs 10 scenarios) — annotated by ledger rows LC-02/LC-03 (claim Ca PASS at `5e4796c0…`).
+

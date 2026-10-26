@@ -10,18 +10,23 @@ Counters: `reports/round-74/accept-c.py` sha256 `8d30487fa4692261edfee549d2ba075
 
 Method: read the frozen criterion and both counter sources, then executed the counters only inside a
 disposable clone (`/tmp/tmp.MhlkpoGwqN/lane`, `git clone` of the lane, local `main` moved per probe as
-the counters require). No lane byte was written except this report; no fleet byte was written. No tool
+the counters require) and inside the generator's retained J3 fixture repo under
+`/tmp/RevQuality25/work/` (F4). No fleet byte was written and no lane byte differs from its pre-seat
+state except this report (the generator slip and its restore are disclosed in Residual risk). No tool
 was installed; pacman was not run. No `lsp` device is mounted (`read xd://lsp` → "No such tool";
 mounted devices: ast_edit, debug, tripo_*, unity_cli_status), so caller/definition checks were done by
 reading the counter source and by executing it; `grep` was used only to locate literals.
+No network request was made in this attack, so no User-Agent was sent and the fetch-hygiene rules
+(QUALITY 21/22/24) are not engaged; there is no capture to rule on.
 
 ## Verdict
 
-The criterion does **not** survive. Two BLOCKERs (F1, F2), two HIGHs (F3, F4), three MEDIUMs
-(F5–F7), two LOWs (F8, F9). F1 and F2 are self-falsifications: the criterion's own definition of
-"the freeze commit" matches no commit in the round, and its own acceptance sentence ("A fixture the
-round-74 counter does not fail on its named leg fails this criterion", line 84) is failed by the
-J4/J4b receipts it cites.
+The criterion does **not** survive. Three BLOCKERs (F1, F2, F4), one HIGH (F3), three MEDIUMs
+(F5–F7), two LOWs (F8, F9). F1 and F2 are self-falsifications of the criterion's own definition and
+acceptance sentence: "the freeze commit" it defines matches no commit in the round, and its sentence
+("A fixture the round-74 counter does not fail on its named leg fails this criterion", line 84) is
+failed by the J4/J4b receipts it cites. F4 falsifies its "never passed" with a measured PASS on the
+J3 junk landing.
 
 ---
 
@@ -60,8 +65,8 @@ $ git show --stat --oneline 00c408a0af2fa5ddf65af2224152ce258b26d896
 directory); the generator is `.ufo/waves/round-74/counters/junk-fixtures.py`.
 (ii) `junk-c.txt` and `junk-ca.txt` are **not** at the operative freeze; they were added at
 `1d7add3`, after both claim landings (`5e4796c`, `c4bf61a`).
-(iii) The operative freeze adds none of the artifacts the definition names — only `accept-ca.py` and
-`selftest-ca.txt`. No commit adds all six: `de93d91` adds claims/ledger/counters/generator,
+(iii) The operative freeze adds none of the artifacts the definition names — only `accept-ca.py`,
+`selftest-ca.txt` and the seat report `ExecCaCounter.md`. No commit adds all six: `de93d91` adds claims/ledger/counters/generator,
 `3595c91` adds the two control receipts, `1d7add3` adds the junk receipts.
 (iv) The freeze's generator is not the generator that produced the receipts:
 
@@ -200,7 +205,7 @@ FROZENCFG.)
 
 ---
 
-## F4 — HIGH — `accept-c.py` returns PASS at `--lands == --freeze`; `accept-ca.py` refuses
+## F4 — BLOCKER — `accept-c.py` returns PASS at `--lands == --freeze`; the J3 junk landing passes as its own freeze
 
 **Text** (line 83): "(`<lands>` equal to `<freeze>` is graded, never passed: it is the do-nothing
 control)".
@@ -231,8 +236,37 @@ exit=2
 C has no post-run guard: `grep -n "do-nothing\|lands == freeze\|freeze == lands\|cannot pass"
 reports/round-74/accept-c.py` returns only a comment (line 50), the base refusal (line 1947), a
 selftest fixture (lines 2534-2538), and the selftest scenario (lines 2901, 2975-2980). Its
-`freeze-eq-lands` scenario (lines 2900-2913) covers only the pre-landing freeze
-(`--lands == --freeze == 00c408a`), where the data legs fail; it never exercises the all-green shape.
+`freeze-eq-lands` scenario (lines 2900-2913) covers only a pre-landing fixture freeze
+(`_run_counter(lane, fleet, freeze, freeze)`, where the data legs fail); it never exercises the
+all-green shape.
+
+**Decisive: the J3 junk landing passes when it is its own freeze.** The committed generator
+(`.ufo/waves/round-74/counters/junk-fixtures.py`, sha256 `ce6505fc…`) built the J3 fixture with
+`--run-r74 --only J3 --freeze 00c408a0… --keep --workroot /tmp/RevQuality25/work`; the retained repo is
+`/tmp/RevQuality25/work/jf-r74-J3-7ls_nvp0/repo`, main at
+`d1587239af6b723f16f6ac2b41a667f8d3f5e019` ("round-74 landing J3 atop 00c408a0af2f"), whose
+`reports/round-74/claims.json` carries row_set `[S881, S882]` and one entry — the two-row/one-entry
+shrink the criterion's table calls junk. Re-graded with that commit as its own freeze:
+
+```
+$ python3 -B reports/round-74/accept-c.py --root . \
+    --lands d1587239af6b723f16f6ac2b41a667f8d3f5e019 \
+    --freeze d1587239af6b723f16f6ac2b41a667f8d3f5e019 --fleet-root /home/vgpnk/Projects/shokunin
+# config sha256 (frozen claims.json): 03d41b160b3b7cb3df2ba9c8ff13727fc31c1959a6d6114dca4020ca881b9df1
+# config source: git show d1587239af6b723f16f6ac2b41a667f8d3f5e019:reports/round-74/claims.json (never the graded tree)
+# frozen legs: 13 (ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG,INDEX)
+LEG PASS ENTRIES
+…
+LEG PASS FROZENCFG
+LEG PASS INDEX
+ACCEPT-C-74: PASS legs=13/13
+exit=0
+```
+
+The same fixture against the real freeze is caught (`junk-c.txt`, J3:
+`LEG FAIL FROZENCFG … claims.json at lands differs from the frozen bytes`). So the hole is not
+theoretical: the counter reads its acceptance contract from the same commit it grades, and a landing
+that shrinks its own claim passes. The criterion's "never passed" is false for C.
 
 **Why it matters**: with `--freeze == --lands`, `load_frozen_config` (`accept-c.py:542`) computes
 `frozen_sha256` from the same bytes `leg_frozencfg` compares against (`accept-c.py:1692`), so the
@@ -305,7 +339,7 @@ so a literal check for `FAIL legs=0/<n> (refused: LEGCOUNT …)` (clause (c)) fa
 
 **Proposed fix** (counter side, because the uniform contract is the stronger bar): route the
 remaining input errors through the refusal printer — C: the 40-hex, not-a-commit and frozen-base
-paths at `accept-c.py:1925-1959`; Ca: the argument and 40-hex paths at `accept-ca.py:2827-2838`
+paths at `accept-c.py:1925-1959`; Ca: the argument and 40-hex paths at `accept-ca.py:2828-2837`
 and the `load_frozen` error at `accept-ca.py:1947-1951`; make Ca's LEGCOUNT message begin
 `LEGCOUNT: ` and use lowercase `refused:`. If the round prefers the shipped split, rewrite line 83 to:
 
@@ -323,7 +357,7 @@ and the `load_frozen` error at `accept-ca.py:1947-1951`; make Ca's LEGCOUNT mess
 clause's FROZENCFG bullet says: "The FROZENCFG leg fails when … `<freeze>` is not on the lands
 first-parent chain". Both cannot hold.
 
-**Shipped** (freeze `3232093e…`, an ancestor-but-off-chain commit built in the clone):
+**Shipped** (freeze `3232093e…`, a side commit built in the clone — a child of the freeze, not an ancestor of the lands):
 
 ```
 $ python3 -B reports/round-74/accept-c.py --root . --lands c4bf61a8… --freeze 3232093e85e6362643151d46f01a3a9dbac980d5 --fleet-root …
@@ -411,7 +445,12 @@ graded-root join, and the table's "why" column ("no graded-root join") states it
 > `CLAIMS` identifier** (an inline path or an aliased constant passes the one-liner; see Limits and
 > the D4 row below).
 
-and add the measured row `| decoy: `--freeze` + real show + `os.path.join(mat, "<literal claims path>")` | **0** | the stated limit |`.
+and add the measured row:
+
+```
+| decoy: --freeze + real show + os.path.join(mat, "<literal claims path>") | 0 | the stated limit |
+```
+
 
 ---
 
@@ -430,7 +469,7 @@ fixture — the red-before".
 * The red-before table is the round-73 analogue, not the same fixture: its junk paths are round-73
   paths (`reports/round-73/claims.json`, `corpus/knowledge/linguistics/conlang-scholarship…`,
   junk-c.txt:20-29), while the round-74 sections use round-74 paths and the wave-1 landing kit.
-  The J6 row's example `(`ACCEPT-CA-72` FAIL→PASS)` is the round-73 red-before's target; the round-74
+  The J6 row's example (`ACCEPT-CA-72` FAIL→PASS) is the round-73 red-before's target; the round-74
   J6 edits `reports/round-73/telemetry/measures-ca72-rerun.txt`, whose committed content is
   `ACCEPT-CA-72: PASS legs=12/12` (`git show 1d7add3:reports/round-73/telemetry/measures-ca72-rerun.txt`).
 
@@ -492,21 +531,29 @@ round-73 rerun receipt outside both protected sets).
 
 ## Residual risk and verification gaps
 
-* **J3-against-its-own-freeze demo (F4, stronger form) is not run here.** The structural argument is
-  exact — with `--freeze == --lands`, `frozen_sha256` is computed from the same bytes FROZENCFG
-  compares against (`accept-c.py:542` vs `:1692`) — but the demonstration that a *junk* landing
-  (J3's two-row/one-entry shrink) passes when used as its own freeze was not completed inside this
-  seat's time. A reviewer can run the generator's J3 with `--keep` and re-run
-  `accept-c.py --lands <J3 lands> --freeze <J3 lands>`; if it prints PASS, F4 escalates to BLOCKER.
+* **F4's junk form is measured, not argued** (see F4): the committed generator built the J3 fixture
+  (`/tmp/RevQuality25/work/jf-r74-J3-7ls_nvp0/repo`, lands `d1587239…`) and `accept-c.py` prints
+  `ACCEPT-C-74: PASS legs=13/13` with `--freeze == --lands == d1587239…`. The generator run itself hit
+  this seat's 560 s wall (`exit=124`) after building the fixture repos but before finishing its own
+  report; the J3 repo was retained with `--keep`, so the counter run above is complete. A closure
+  re-run should give the generator more time and confirm the receipts.
 * The junk receipts were not regenerated. I verified the committed receipt lines, the generator sha,
   and the fixture commits, but the fixture repos were removed (`junk-c.txt:44`), and the generator at
   the freeze (`d4789c39…`) differs from the one that produced the receipts (`ce6505fc…`, F1). A fresh
   `--keep` run is the closure's replay.
 * I did not re-run the two counters' declared PASS commands (`legs=13/13`, `legs=11/11`); that is the
-  main agent's acceptance check. My runs were refusal probes plus one all-green `lands==freeze` probe,
-  all inside the clone.
+  main agent's acceptance check. My runs were refusal probes plus the all-green `lands==freeze`
+  probes (claim-C landing, Ca landing, J3 fixture), all inside the disposable clone or the J3 fixture
+  repo.
 * No `lsp` device is mounted, so no server-backed `references`/`definition`/`diagnostics` evidence
   exists for this attack; every claim above is backed by the committed source bytes, a git query, or
   the counter's own executed output. `grep` is used only to locate literals, never as semantic proof.
-* Writes: this report, `/tmp/RevQuality25/*` (scratch and the generator workroot). No tool installed,
-  no pacman, no fleet or lane mutation.
+* **Operational slip, remediated.** The F4 generator run omitted `--out`, so the generator opened its
+  default lane path `.ufo/waves/round-74/counters/junk-r74-run.txt` and truncated it before the 560 s
+  kill (worktree file 0 bytes). It was restored to the committed bytes with `git checkout -- <path>`
+  (worktree-only; the index was not touched): worktree sha256
+  `081e11f260433d60b308ee346720794bc771529bd32ace8ae5f0ba086d080cb5` equals
+  `git show HEAD:<path> | sha256sum`, 29,399 bytes, and `git status --porcelain -- <path>` is empty.
+  No other lane byte was written.
+* Writes: this report, `/tmp/RevQuality25/*` (scratch and the generator workroot), and the restored
+  lane file above. No tool installed, no pacman, no fleet mutation.
