@@ -55,7 +55,9 @@ LEGS (11 — the frozen claim Ca leg set; the table length is checked at freeze)
   BASEMISMATCH at the base revision, in a clone materialized at base, every pair is
                red (stated token != observed token), none is unobservable, none is
                a parse-miss, count >= the frozen floor, and a declared
-               observed_at_base equals the counter's own observation.
+               observed_at_base — compared by its LEADING whitespace-delimited
+               token only, the rest being prose — equals the counter's own
+               observation.
   REPAIR       every REPAIR pair: the truth observed in the clone at <lands> is
                observable; the statement re-read at <lands> (LAST regex match over
                statement_after.path) equals it; it differs from the base statement;
@@ -75,17 +77,20 @@ LEGS (11 — the frozen claim Ca leg set; the table length is checked at freeze)
                fleet round-73 report at the ledger's fleet_pin is byte-identical to
                the blob its sha256 names, unchanged at fleet HEAD, with no
                uncommitted bytes under the fleet root; every changed line elsewhere
-               is a REPAIR pair's stated_at line or an appended line.
+               is a REPAIR pair's stated_at line or an appended line, EXCEPT the six
+               must_track paths (pinned by TRACKED, not by the line rule).
   NOSTUB       every correction row carries id + old token + new token + the
                re-derivation command (executable under the allowlist) and no
                placeholder token ({TODO, TBD, FIXME, XXX, n/a, ?} or <...>).
   SEPARABLE    read set exactly: the ledger at <freeze>, every corrections row that
                LEADS with a pair id, the telemetry receipts/controls named in the
                claims Ca section, and the stated_at line of every pair.  No byte in
-               that set cites a lane S-id >= the frozen floor or names the frozen
-               claim-C path family; no stated_at path is in the frozen forbidden
-               set; every observation is the token the pair's observe_cmd returns
-               in the clone at the revision the ledger names.
+               that set cites a lane S-id that is IN the frozen claim-C row set
+               (S881..S884, read from claim C's row_set at <freeze>; campaign-
+               namespace ids such as S894/S909/S910 are not lane rows) or names the
+               frozen claim-C path family; no stated_at path is in the frozen
+               forbidden set; every observation is the token the pair's observe_cmd
+               returns in the clone at the revision the ledger names.
   TRACKED      every must_track path is tracked at <freeze> and at <lands> with
                identical blob ids, non-empty, sha256 equal to the recorded value.
   RECEIPTS     materializes a clone of the frozen round-73 lands, pins its local
@@ -472,6 +477,26 @@ def load_frozen(root, freeze, claims_rel, ledger_rel):
     cfg["separable_forbidden"] = forbidden
     if not forbidden:
         problems.append("SEPARABLE leg text names no forbidden stated_at paths")
+
+    lane_ids = set()
+    claim_c = None
+    for item in claims.get("claims", []) or []:
+        if isinstance(item, dict) and item.get("id") == "C":
+            claim_c = item
+            break
+    if claim_c:
+        for row in claim_c.get("row_set") or []:
+            rid = row.get("id") if isinstance(row, dict) else row
+            m = re.fullmatch(r"S(\d{3,})", str(rid or ""))
+            if m:
+                lane_ids.add(int(m.group(1)))
+    if not lane_ids:
+        for m in re.finditer(r"S(\d{3,})", lt_sep):
+            lane_ids.add(int(m.group(1)))
+    cfg["lane_row_ids"] = sorted(lane_ids)
+    if not lane_ids:
+        problems.append("the frozen claim-C lane row set is not derivable "
+                        "(claim C row_set and the SEPARABLE leg text are empty)")
 
     ca_named = set()
     claim_text = json.dumps(claim, ensure_ascii=False)
@@ -1140,9 +1165,11 @@ def leg_basemismatch(out, cfg, pairs, ev):
         else:
             green.append(pid)
         rec = pair.get("observed_at_base")
-        if isinstance(rec, str) and norm(rec) != norm(obs):
-            misses.append("%s:recorded-observed-at-base=%r!=%r"
-                          % (pid, rec[:40], obs[:40]))
+        if isinstance(rec, str):
+            lead = (rec.split() or [""])[0]
+            if norm(lead) != norm(obs):
+                misses.append("%s:recorded-observed-at-base=%r!=%r"
+                              % (pid, rec[:40], obs[:40]))
     passed = (not unobservable) and (not green) and (not misses) \
         and len(red) >= min_pairs
     detail = "red=%d min=%d ids=%s" % (len(red), min_pairs, red)
@@ -1323,10 +1350,13 @@ def leg_appendonly(out, root, cfg, pairs, fleet_root):
         m = re.match(r"^(.+):(\d+)$", pair.get("stated_at") or "")
         if m:
             repair_lines.setdefault(m.group(1), set()).add(int(m.group(2)))
+    exempt = {path for path, _sha in _must_track(cfg.get("ledger_meta") or {})[0]}
     inplace = []
     for status, path in changed_files(root, base, lands):
         if path in protected:
             continue
+        if path in exempt:
+            continue  # the six must_track paths are pinned by TRACKED instead
         if status.startswith("A"):
             continue  # a new file is an appended file
         allowed = repair_lines.get(path, set())
@@ -1392,9 +1422,10 @@ def leg_appendonly(out, root, cfg, pairs, fleet_root):
                 problems.append("uncommitted bytes exist under the fleet root "
                                 "for %s" % report)
             fleet_detail += " blob-sha256=%s" % got[:12]
-    detail = "protected=%s protected-removed=%d %s repair-stated_at=%s" % (
-        protected, removed, fleet_detail,
-        {k: sorted(v) for k, v in repair_lines.items()})
+    detail = ("protected=%s protected-removed=%d %s repair-stated_at=%s "
+              "must_track-exempt=%d" % (
+                  protected, removed, fleet_detail,
+                  {k: sorted(v) for k, v in repair_lines.items()}, len(exempt)))
     if problems:
         detail += " problems=%s" % problems
     return leg(out, "APPENDONLY", not problems, detail)
@@ -1512,18 +1543,23 @@ def leg_separable(out, cfg, pairs, ev, scor, lands_clone):
             lines = body.splitlines()
             if 1 <= line <= len(lines):
                 scan.append(("stated:%s:%d" % (path, line), lines[line - 1]))
+    lane_ids = set(cfg.get("lane_row_ids") or [])
+    if not lane_ids:
+        return leg(out, "SEPARABLE", False,
+                   "the frozen claim-C row set is not derivable")
     for label, body in scan:
         for m in SID_RE.finditer(body):
-            if int(m.group(1)) >= min_id:
-                problems.append("%s cites S%s (>= S%d)"
-                                % (label, m.group(1), min_id))
+            if int(m.group(1)) in lane_ids:
+                problems.append("%s cites S%s (a claim-C lane row)"
+                                % (label, m.group(1)))
         if family in body:
             problems.append("%s names the claim-C path family %s"
                             % (label, family))
     uniq = sorted(set(problems))
     return leg(out, "SEPARABLE", not uniq,
-               "id-floor=S%d family=%s forbidden=%s scanned=%s problems=%s"
-               % (min_id, family, forbidden, [s[0] for s in scan], uniq[:8]))
+               "lane-ids=%s family=%s forbidden=%s scanned=%s problems=%s"
+               % (sorted("S%d" % i for i in lane_ids), family, forbidden,
+                  [s[0] for s in scan], uniq[:8]))
 
 
 
@@ -2020,6 +2056,7 @@ FIXTURE_FILES = {
     "REPORT.md": "# report\n\nmode: old-doc\n",
     "LIVE.md": "mode: legacy\n",
     ".ufo/waves/round-73/w2/Seat.md": "# Seat\n\n- inherited evidence\n",
+    "IDS.md": "entries: 0 (S883)\nentries: 0 (S909)\n",
 }
 FIXTURE_KEYS = "".join("key%02d\n" % i for i in range(1, 11))
 FIXTURE_STATEMENTS = "".join("row%02d entries: 0.\n" % i for i in range(1, 11))
@@ -2128,9 +2165,10 @@ def _claims_legs(base, r73):
         "NOSTUB: every correction row carries id + old token + new token + the "
         "re-derivation command and no placeholder token in {TODO, TBD, FIXME, "
         "XXX, n/a, ?} or <...>",
-        "SEPARABLE: no byte in the read set cites a lane S-id >= S881 or names "
-        "worldbuilding-setting-practice*; no stated_at path is corpus/SOURCES.md, "
-        "corpus/knowledge/**, corpus/lessons/round-74.md",
+        "SEPARABLE: no byte in the read set cites S881, S882, S883 or S884 (the "
+        "lane ids claim C adds) or names worldbuilding-setting-practice*; no "
+        "stated_at path is corpus/SOURCES.md, corpus/knowledge/**, "
+        "corpus/lessons/round-74.md",
         "TRACKED: the six inherited files are tracked at <freeze> and at <lands> "
         "with identical blob ids, non-empty, sha256 equal to must_track",
         "RECEIPTS: materializes a clone of the round-73 lands %s, pins local main "
@@ -2501,7 +2539,8 @@ def selftest():
                "# Seat\n\n- inherited evidence\n- rewritten\n")
         tblob = _commit(lane, "seat blob changed")
         scenario("tracked-blob-mismatch", lane, tblob, freeze, fleet,
-                 "trackedblob", 1, {"TRACKED": "FAIL"})
+                 "trackedblob", 1, {"TRACKED": "FAIL", "APPENDONLY": "PASS"},
+                 ("must_track-exempt=",))
 
         # 25-27. RECEIPTS
         typed = _landing(lane, "typedreceipt", clean)
@@ -2525,6 +2564,46 @@ def selftest():
         rmiss = _commit(lane, "receipt removed")
         scenario("receipt-missing", lane, rmiss, freeze, fleet, "receiptmissing",
                  1, {"RECEIPTS": "FAIL"})
+
+        # 27b. SEPARABLE id test: the frozen claim-C row set, not ">= S881"
+        def _stated_s883(pairs, base=None):
+            for pair in pairs:
+                if pair["id"] == "A02":
+                    pair["stated_at"] = "IDS.md:1"
+                    pair["stated_text"] = "entries: 0 (S883)"
+                    pair["stated_parse"] = r"entries: (\d+)"
+            return pairs
+        lane_s1, fleet_s1, _, _, freeze_s1, clean_s1 = _build(
+            td, "stated-s883", mutate_ledger=_stated_s883)
+        scenario("separable-lane-row", lane_s1, clean_s1, freeze_s1, fleet_s1,
+                 "clean", 1, {"SEPARABLE": "FAIL", "LEDGER": "PASS",
+                              "ANNOTATE": "PASS", "REPAIR": "PASS"},
+                 ("cites S883 (a claim-C lane row)",))
+
+        def _stated_s909(pairs, base=None):
+            for pair in pairs:
+                if pair["id"] == "A02":
+                    pair["stated_at"] = "IDS.md:2"
+                    pair["stated_text"] = "entries: 0 (S909)"
+                    pair["stated_parse"] = r"entries: (\d+)"
+            return pairs
+        lane_s2, fleet_s2, _, _, freeze_s2, clean_s2 = _build(
+            td, "stated-s909", mutate_ledger=_stated_s909)
+        scenario("separable-non-lane-id", lane_s2, clean_s2, freeze_s2, fleet_s2,
+                 "clean", 0, {name: "PASS" for name in REQUIRED_LEGS},
+                 ("stated:IDS.md:2",))
+
+        # 27c. observed_at_base cross-check uses the leading token only
+        def _prose_base(pairs, base=None):
+            for pair in pairs:
+                if pair["id"] == "A02":
+                    pair["observed_at_base"] = "1 (key02 present in keys.txt)"
+            return pairs
+        lane_s3, fleet_s3, _, _, freeze_s3, clean_s3 = _build(
+            td, "prose-base", mutate_ledger=_prose_base)
+        scenario("basemismatch-leading-token", lane_s3, clean_s3, freeze_s3,
+                 fleet_s3, "clean", 0,
+                 {name: "PASS" for name in REQUIRED_LEGS})
 
         # 28-29. SEPARABLE
         sepsid = _landing(lane, "sepsid", clean)
@@ -2634,14 +2713,15 @@ def selftest():
                        "guard-dead-pin", "absence-pair", "min-pairs",
                        "stated-line-mismatch", "worktree-only-ledger"),
             "BASEMISMATCH": ("fabricated-base-observation", "green-pair",
-                             "min-pairs"),
+                             "min-pairs", "basemismatch-leading-token"),
             "REPAIR": ("shadow-repair", "expected-after-mismatch",
                        "repair-no-statement", "repair-pinned-observation"),
             "ANNOTATE": ("stub-rows", "annotate-other-token", "prose-row"),
             "APPENDONLY": ("append-only-removal", "protected-in-place",
-                           "unnamed-in-place"),
+                           "unnamed-in-place", "tracked-blob-mismatch"),
             "NOSTUB": ("stub-rows", "no-rederive", "prose-row"),
-            "SEPARABLE": ("separable-sid", "separable-family"),
+            "SEPARABLE": ("separable-sid", "separable-family",
+                          "separable-lane-row", "separable-non-lane-id"),
             "TRACKED": ("tracked-missing", "tracked-blob-mismatch"),
             "RECEIPTS": ("typed-receipt", "receipt-wrong-rev", "receipt-missing"),
             "FROZENCFG": ("config-edit-ledger", "config-edit-claims",

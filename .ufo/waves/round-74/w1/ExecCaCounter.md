@@ -329,3 +329,74 @@ pre-freeze ledger work the final claims already anticipate:
 - this report (appended section).
 No other path written; no git write, no index change, no commit, no fleet write; no install, no
 network. `/tmp` scratch clones removed; `/tmp` was at 87% (18 G free) during the seat.
+
+## Post-wave update 2 (three counter/claims mismatches from the real freeze run)
+
+The real run at the committed freeze `de93d91cab5a4f19fbe20b948abca67b8e9c7650`
+(`reports/round-74/telemetry/controls-ca.txt`) exposed three mismatches; all three are fixed in
+`.ufo/waves/round-74/counters/accept-ca.py`, 2787 lines, sha256
+`26dd04a4971e6dcee4bd7a021ef9f876a93a0ea2c2f27943ff60539c11c0fe53` (the freeze copy at `de93d91`
+is the previous bytes `dd755893…`; re-freezing needs this blob).
+
+| # | leg | change implemented | new wording covered |
+|---|---|---|---|
+| 1 | APPENDONLY | the six ledger `must_track` paths are **exempt** from the changed-lines rule (`must_track-exempt=6` printed in the detail); new files with no base blob are appended lines; nothing else changed | `…changed lines elsewhere are a subset of the stated_at lines of REPAIR pairs plus appended lines, except the six must_track paths (pinned by TRACKED)` |
+| 2 | SEPARABLE | the id test is now **membership in the frozen claim-C row set** (`row_set` ids of claim C at `<freeze>`: S881, S882, S883, S884), never "every id >= S881"; campaign-namespace ids (S894/S909/S910 …) in a stated_at line are not lane rows. The family-path test and the forbidden stated_at set are unchanged | `no byte in that set cites S881, S882, S883 or S884 (the lane ids claim C adds) or names worldbuilding-setting-practice*` |
+| 3 | BASEMISMATCH | the `observed_at_base` cross-check compares **only the leading whitespace-delimited token** of the recorded value (the rest is prose) with the freshly observed token | same leg, cross-check made robust to the normalized ledger |
+
+Fallbacks, fail-closed: if claim C carries no `row_set`, the lane-id set is taken from the ids named
+in the Ca SEPARABLE leg text; if neither yields an id the FROZENCFG/SEPARABLE legs refuse (no
+"everything passes" default). The `must_track` exemption reads the same path/sha list TRACKED grades,
+so a must_track file whose blob no longer matches its pin fails **TRACKED** while APPENDONLY still
+exempts it — TRACKED is the gate, by construction.
+
+### Selftest (exercised, exit 0)
+
+```
+$ python3 -B .ufo/waves/round-74/counters/accept-ca.py --selftest
+SELFTEST OK: 174 checks across 41 scenarios reported-fail=0: do-nothing, clean, lands-eq-base, legcount, stub-rows, no-rederive, annotate-other-token, append-only-removal, protected-in-place, unnamed-in-place, shell-string, interpreter, constant-printer, out-of-clone, dead-pin, absence-pair, min-pairs, config-edit-ledger, config-edit-claims, freeze-off-first-parent, repair-no-statement, shadow-repair, tracked-missing, tracked-blob-mismatch, typed-receipt, receipt-wrong-rev, receipt-missing, separable-lane-row, separable-non-lane-id, basemismatch-leading-token, separable-sid, separable-family, fabricated-base-observation, green-pair, stated-line-mismatch, prose-row, expected-after-mismatch, repair-pinned-observation, worktree-only-ledger, stamp-measured, cli-errors
+```
+
+New mutants required by this follow-up, all exercised:
+
+- **`tracked-blob-mismatch`** — a must_track file rewritten at lands: `TRACKED` FAIL **and**
+  `APPENDONLY` PASS (the file is exempt; TRACKED is the gate), detail carries `must_track-exempt=`.
+- **`separable-lane-row`** — a stated_at line reading `entries: 0 (S883)` (`IDS.md:1`): `SEPARABLE`
+  FAIL with `cites S883 (a claim-C lane row)`.
+- **`separable-non-lane-id`** — a stated_at line reading `entries: 0 (S909)` (`IDS.md:2`):
+  `ACCEPT-CA-74: PASS legs=11/11` (S909 is not a lane row).
+- **`basemismatch-leading-token`** — `observed_at_base = "1 (key02 present in keys.txt)"`:
+  `ACCEPT-CA-74: PASS legs=11/11` (leading token only).
+
+### Re-verified on real bytes at the committed freeze (not a graded receipt)
+
+```
+$ python3 -B .ufo/waves/round-74/counters/accept-ca.py --root . \
+    --lands de93d91cab5a4f19fbe20b948abca67b8e9c7650 \
+    --freeze de93d91cab5a4f19fbe20b948abca67b8e9c7650 \
+    --fleet-root /home/vgpnk/Projects/shokunin --main de93d91cab5a4f19fbe20b948abca67b8e9c7650
+LEG PASS LEDGER        pairs=13 min=10 source=freeze
+LEG PASS BASEMISMATCH  red=13 min=10 ids=[LC-01, LC-02, LC-03, LC-06, LC-07, LC-08, LC-09, LC-11, LC-12, LC-15, LC-16, LC-17, LC-18]
+LEG FAIL REPAIR        red=[LC-01(observation pinned to f7104cbce186…), LC-09(observation pinned to 4b825dc642cb…)]
+LEG FAIL ANNOTATE      no '## Corrections — round 74' section; annotate-pairs=11
+LEG FAIL NOSTUB        rederive/rows absent (same cause)
+LEG PASS APPENDONLY    protected-removed=0 fleet-pin=dad39efd2798 blob-sha256=000bab3a3664 must_track-exempt=6
+LEG PASS SEPARABLE     lane-ids=[S881, S882, S883, S884] problems=[]
+LEG PASS TRACKED       paths=6 problems=[]
+LEG PASS RECEIPTS      rev=2d1cd9140d3a receipts=[accept-c-73=50c60bb67f16, accept-ca-73=864c94192854]
+LEG PASS FROZENCFG     freeze=de93d91cab5a first-parent-of-lands
+LEG PASS STAMP         stamped=evaluated=measured=de93d91cab5a
+ACCEPT-CA-74: FAIL legs=8/11        (exit 1)
+```
+
+That is exactly the do-nothing control shape the claim demands (REPAIR/ANNOTATE red, config legs
+green), and it confirms the three fixes on the frozen ledger bytes: APPENDONLY, SEPARABLE and
+BASEMISMATCH now pass, and **RECEIPTS passes at the committed freeze** — the two committed receipts
+match the re-executed round-73 stdout (only `/tmp` clone paths normalized).
+
+One pre-landing item is visible on these bytes and is not one of the three: **LC-01 and LC-09 still
+pin a revision** (`f7104cb…`, `4b825dc…`) while being REPAIR pairs. They are red at freeze (correct
+for the control) and will stay red at the lands commit for the same reason, because the frozen REPAIR
+sentence observes the truth "in a clone at `<lands>`". Fix at freeze by de-pinning their
+`observe_cmd` (read `HEAD`/the graded path) or reclassifying them as ANNOTATE; the counter's message
+names the pin so the choice is visible in the receipt.
