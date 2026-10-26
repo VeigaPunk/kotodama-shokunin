@@ -442,6 +442,8 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `vessel-container-lexicon.md` — the container as a cultural system for fictional cultures — the four load-bearing jobs every vessel inventory answers (COOKING, STORAGE, TRANSPORT, SERVING, plus the ritual/cosmetic/funerary extensions) with real exemplars per job; the six vessel-naming strategies (function, capacity, material, shape, eponym, loan) with attested name families (Greek *krater/amphora/hydria*, Chinese 鼎/簋/壺/瓶/罐, Japanese 甕/壺/鍋/茶碗, English pot/jar/cask); the body-part part-naming grammar (mouth, neck, shoulder, belly, foot) shared by potters' registers cross-linguistically; the container-as-unit metonymy (the container becomes the measure, then the money-word); the ceramic material ladder and the vocabulary each rung generates (earthenware → stoneware → porcelain, plus faience, terracotta, fritware, tin-glaze, celadon) with forming, surface and firing terms; non-ceramic container families (basketry, cooperage, metal, glass, skin, gourd); containers as documents (painted labels, potters' stamps, reign marks — pointed at, not re-covered) and as chronometers (seriation, the period named after a pot); full calibration of the traps (pots≠people, pottery≠farming, the two unrelated wheels, the celadon etymology dispute); a decision-record table; and a build order with one non-canon worked example
 - `warrior-material-culture.md` — the fighting body as legible text — the five armor-construction systems (lamellar, laminar, scale, mail, rigid plate, plus hybrid brigandine forms) with real exemplars and weights; the Japanese lineage from ō-yoroi (Heian mounted-archery box armor) through dō-maru/haramaki to Sengoku tosei-gusoku and Edo parade armor, with lacing culture (odoshi, hon- vs kiritsuke-kozane) and kabuto nomenclature; identification systems as designed languages (European blazon and its tincture grammar, arms vs badges vs liveries vs degradation; the sengoku stack of mon, nobori, sashimono, uma-jirushi, horo, command fans and passwords) and their honest failure modes; weapon nomenclature culture (named blades that accumulate names like a CV, gokaden smith traditions, the mei signature and its wear-direction law, oshigata rubbings, Hon'ami appraisers, tameshigiri saidan-mei, meibutsu provenance registers, European regalia swords and modern scholarly typologies); sword-giving and disarmament as era stamps (Germanic arms-taking, accolade, genpuku, kenpei presentations, katanagari 1588, Haitōrei 1876); and the calibration shelf that keeps D&D-grade and bushidō-movie myths out of the bible
 - `writing-media-surface-economy.md` — What a culture writes on, priced — the surface economy of inscription as a worldbuilding system: the seven surface families (clay and wax; stone and metal; papyrus and parchment; palm leaf, bark and cloth; bamboo and silk; paper; and the incidental surfaces — sherd, wall, pot, body), each with its preparation chain, its tool, its ink, its unit of text, and its cost driver; the master claim that **a medium is three prices wearing a script's clothes** — cost per unit of text, tool physics, and survival rate — and that a designer who has set only the script type has left two-thirds of the writing system unbuilt; the tool-physics rule (reed-on-clay makes wedges, brush-on-paper makes strokes, chisel-on-stone makes capitals, and an incising stylus makes long palm-leaf horizontals impossible) applied to the *economy* the script side leaves open; the cost ladder as the real literacy filter (who can afford to write, hence which register and which genre each medium carries); the survivor's ledger (what the culture's own archive will look like to its archaeologists, and why the lossy transform is a plot device rather than a defect); the medium as a legal instrument (seal, tally stock-and-foil, chirograph, potter's stamp, reign mark) at the boundary with `craft-artisan-lexicon.md`; erasure and recycling economies (palimpsest, tablet reuse, scrap, *damnatio memoriae*) as the generator of accidental survival; the archive commitment each medium forces (the dry room, the scriptorium, the library wall, the copy cycle); calibration of the legend-grade origins (Pergamum parchment, Cai Lun, Samarkand paper) and of strong media determinism; a decision record; and a NON-CANON worked example that prices the D4 stamp-hand record set. Reference knowledge and method only; canon decisions belong to lore-shokunin.
+- `worldbuilding-setting-practice.amend-2026-10-23.md` — the build order one Chinese web-fiction author reports using for a world-view, the derivation discipline that order implies, and the tolerance he states for when a serial releases the world's rules — recorded as his practice, with the interviewers' framing separated from his answers.
+- `worldbuilding-setting-practice.md` — the Japanese practitioner craft of specifying a setting, framed against a Russian-language monograph's account of constructed worlds: a five-step build order, a four-layer causal chain from environment to individual experience, five elements a setting must supply, the five sections and four fields of the settings note, two sub-sheets (a country, a magic or technology system), and the single-source discipline that keeps a long work consistent
 ## synthesis/ (29)
 
 - `conlang-blueprint-template.md` — reusable fill-in specification: phoneme inventory → phonotactics → morphology → syntax → 300-word core lexicon → pragmatics; acceptance gates couple language, myth, symbol, era, and costume without establishing canon.
@@ -728,6 +730,21 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - Round 66 adds `scent-perfume-aromatics-codes.md` as a sourced culture-material register (22 new registry rows S779-S800). Partial-scope neighbors remain `culture-material/music-instrument-lexicon.md`, `culture-material/fire-fuel-light.md` (incense-adjacent), and `culture-material/timekeeping-instruments.md` (combustion clocks).
 - Round 67 adds `medicine-healing-codes.md` as a sourced culture-material register (24 new registry rows S805-S828). Partial-scope neighbors remain `culture-material/bathing-and-body-hygiene.md`, `culture-material/scent-perfume-aromatics-codes.md` (prophylaxis), and `myth-symbol/` apotropaic purity scopes.
 - Round 65 adds `games-play-sport-contests.md` as a sourced culture-material register. Partial scopes remain in `linguistics/orality-formulaic-language.md`, `culture-material/music-instrument-lexicon.md`, `civilizations/taino.md`, and `culture-material/calendar-festival-systems.md`; the entry points to these without claiming a universal game taxonomy or canon.
+- Round 74 adds the culture-material entry `worldbuilding-setting-practice.md`
+  (the Japanese practitioner craft of specifying a setting: a five-step build
+  order, a four-layer causal chain from environment to individual experience,
+  five elements a setting must supply, the settings note's five sections and
+  four fields, and two sub-sheets) and its amendment
+  `worldbuilding-setting-practice.amend-2026-10-23.md` (one Chinese web-fiction
+  author's build order, the derivation discipline it implies, and the tolerance
+  he states for when a serial releases the world's rules). At the pinned base
+  `f7104cb` the theme had 0 filename owners and 0 registry rows naming the
+  theme's venues. Partial one-way owners remain
+  `synthesis/coupling-model.md`, `synthesis/consistency-verification-checklist.md`,
+  `synthesis/worldbible-integration-contract.md`,
+  `culture-material/cartography-and-mapmaking.md` and
+  `linguistics/naming-systems.md`; the entries cite them without restating them,
+  and neither entry claims a universal build order or any world's canon.
 
 Total knowledge entries: 243.
 
@@ -775,3 +792,31 @@ Registry: 799 → 804 rows (five new rows, all mined, used-by exactly the two en
 Total knowledge entries: 247.
 
 Counts checked 2026-10-25 from the repo root: `find corpus/knowledge -type f -name '*.md' | wc -l` (total 247 files; directory totals 32/29/38/29/24/95 — linguistics 30 + 2, culture-material 36 → 38 per the L02 correction). The inventory command `python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge` counts markers, not verified facts.
+
+## Round 74 landing (appended 2026-10-25, hyaku run 7)
+
+Two culture-material files landed (claim C; assimilation of the shokuknow
+`merge/kotodama` worldbuilding-setting-practice theme):
+`worldbuilding-setting-practice.md` and
+`worldbuilding-setting-practice.amend-2026-10-23.md`. Their rows are in the
+`## culture-material/` section above, each carrying its entry's own `- topic:`
+text verbatim under the `` - `name.md` — `` prefix (this block deliberately
+carries no row-shaped line, so no row is attributed outside a partition). The
+`## culture-material/ (36)` heading is left as filed and named as stale: the
+live directory holds 40 files and the section 38 rows. Registry: 804 -> 808
+rows (four new rows, S881-S884 by the round-74 document map, used-by exactly the
+two files above; census receipts under `reports/round-74/telemetry/`). Two
+culture-material files remain unindexed and are named rather than claimed
+closed: `heritage-taxonomy-models.md` and
+`heritage-taxonomy-models.amend-2026-10-24-r13.md`.
+
+Total knowledge entries: 249.
+
+Counts checked 2026-10-25 from the repo root: `find corpus/knowledge -type f -name '*.md' | wc -l` (total 249 files; directory totals 32/29/40/29/24/95).
+The two older footers above (the pre-round-73 reading and the round-73 landing
+reading) are kept byte-identical as the dated record they were; this block is
+the live reading, and `reports/round-28/readme/sweep.py` still parses the first
+one, so its own totals legs stay red until a successor instrument names the
+authoritative footer. The inventory command
+`python3 -B tools/source-audit-inventory.py --json --summary --root corpus/knowledge`
+counts markers, not verified facts.
