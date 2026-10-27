@@ -1,6 +1,6 @@
-Round-76 scratch mirror validation. Base 98c486bdb4650ba5b8e651d332910e8ee60ad121; append block is the three rows S894-S896 and the single admitted candidate-a entry. Mirror root: /fast/scratch/hyaku/kotodama-r76/L1-census-final-20261027
+Round-76 final scratch mirror before registry append. Lane base: 98c486bdb4650ba5b8e651d332910e8ee60ad121. Mirror has the selected entry and S894-S896 append block; live lane SOURCES.md has not yet been appended.
 
-$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kotodama-r76/L1-census-final-20261027/corpus/SOURCES.md --today 2026-10-27
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kotodama-r76/L1-census-confirm-20261027/corpus/SOURCES.md --today 2026-10-27
 file	W04	S127 duplicate url voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement across scopes
 file	W04	S128 duplicate url pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf across scopes
 file	W04	S129 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC10622114 across scopes
@@ -33,10 +33,10 @@ file	W01	S881 tierC mined used-by=corpus/knowledge/culture-material/worldbuildin
 file	W01	S882 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.md
 file	W01	S884 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
 file	W01	S893 tierC mined used-by=corpus/knowledge/myth-symbol/narrative-structure-frameworks.md
-file	ok	/fast/scratch/hyaku/kotodama-r76/L1-census-final-20261027/corpus/SOURCES.md
+file	ok	/fast/scratch/hyaku/kotodama-r76/L1-census-confirm-20261027/corpus/SOURCES.md
 exit=0
 
-$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh census --file /fast/scratch/hyaku/kotodama-r76/L1-census-final-20261027/corpus/SOURCES.md --today 2026-10-27
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh census --file /fast/scratch/hyaku/kotodama-r76/L1-census-confirm-20261027/corpus/SOURCES.md --today 2026-10-27
 file	rows	820
 file	tier.A	493
 file	tier.B	311
@@ -56,34 +56,31 @@ FLEET	status.invalid	0
 FLEET	missing	0
 exit=0
 
-$ sh -c grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+MANUAL rows: grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
 820
 exit=0
 
-$ sh -c awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {n++} END{print n+0}' corpus/SOURCES.md
+MANUAL malformed-NF: awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {n++} END{print n+0}' corpus/SOURCES.md
 0
 exit=0
 
-$ sh -c awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {t=$5;gsub(/[[:space:]]/,"",t);n[t]++} END{for(k in n)printf "%s=%d ",k,n[k]; print ""}' corpus/SOURCES.md
-A=493 B=311 C=16 
+MANUAL tier-histogram: awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {t=$5;gsub(/[[:space:]]/,"",t);n[t]++} END{for(k in n)printf "%s=%d ",k,n[k]; print ""}' corpus/SOURCES.md
+A=493 B=311 C=16
 exit=0
 
-$ sh -c awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {x=$9;gsub(/[[:space:]]/,"",x);n[x]++} END{for(k in n)printf "%s=%d ",k,n[k]; print ""}' corpus/SOURCES.md
-mined=725 queued=58 rejected=37 
+MANUAL status-histogram: awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {s=$9;gsub(/[[:space:]]/,"",s);n[s]++} END{for(k in n)printf "%s=%d ",k,n[k]; print ""}' corpus/SOURCES.md
+mined=725 queued=58 rejected=37
 exit=0
 
-$ sh -c awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {i=$2;gsub(/[[:space:]]/,"",i);print i}' corpus/SOURCES.md | sort | uniq -d
-
+MANUAL duplicate-ids: awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {i=$2;gsub(/[[:space:]]/,"",i);print i}' corpus/SOURCES.md | sort | uniq -d
+(no output)
 exit=0
 
-$ sh -c awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2;k=$4;t=$5;x=$9;gsub(/[[:space:]]/,"",i);gsub(/[[:space:]]/,"",k);gsub(/[[:space:]]/,"",t);gsub(/[[:space:]]/,"",x);if(t !~ /^[ABC]$/)print "tier",i,t;if(x !~ /^(queued|mined|rejected)$/)print "status",i,x;if(k !~ /^(spec|docs|paper|tool|dataset|talk|book|community|own-work)$/)print "kind",i,k;if(t=="A"&&k=="community")print "tier-inflation",i}' corpus/SOURCES.md
-
+MANUAL enum-and-tier-inflation: awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2;k=$4;t=$5;s=$9;gsub(/[[:space:]]/,"",i);gsub(/[[:space:]]/,"",k);gsub(/[[:space:]]/,"",t);gsub(/[[:space:]]/,"",s);if(t !~ /^[ABC]$/)print "tier",i,t;if(s !~ /^(queued|mined|rejected)$/)print "status",i,s;if(k !~ /^(spec|docs|paper|code|tool|dataset|talk|book|community|own-work)$/)print "kind",i,k;if(t=="A"&&k=="community")print "tier-inflation",i}' corpus/SOURCES.md
+(no output)
 exit=0
 
-$ awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {x=$9;gsub(/[[:space:]]/,"",x);if(x=="mined"){n=split($12,a,/,/);for(i=1;i<=n;i++){gsub(/^[[:space:]]+|[[:space:]]+$/ ,"",a[i]);if(a[i]!=""&&a[i]!="—")print a[i]}}}' corpus/SOURCES.md | while IFS= read -r p; do [ -e "$p" ] || printf 'missing: %s\n' "$p"; done
-(no missing used-by paths)
+MANUAL missing-mined-usedby: awk -F'|' '/^ {0,3}\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {s=$9;gsub(/[[:space:]]/,"",s);if(s=="mined"){n=split($12,a,/,/);for(j=1;j<=n;j++){p=a[j];gsub(/^[[:space:]]+|[[:space:]]+$/,"",p);if(p!=""&&p!="—")print p}}}' corpus/SOURCES.md | while IFS= read -r p; do [ -e "$p" ] || echo "missing: $p"; done
+(no output)
 exit=0
 
-Frozen row IDs: S894 S895 S896
-Admitted entry basename: calendar-festival-systems.amend-2026-10-24.md
-This receipt validates the pre-append mirror built from base 98c486b plus the normalized block and candidate-a entry; the registry append has not been applied to the lane at this receipt.
