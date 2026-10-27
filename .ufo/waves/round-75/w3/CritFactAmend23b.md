@@ -1,0 +1,17 @@
+# W3 falsification — claim C amendment (CritFactAmend23b)
+
+**Verdict: PARTIAL.** The three substantive span claims checked here are supported by the committed captures and their attribution is careful. One explicit acceptance condition is not met: the required `grep -n 'four levels'` returns matches in the amendment. These are mostly corrective/negated mentions, not a mistaken positive attribution, but the literal check cannot distinguish that.
+
+## Per-span check
+
+| Claim/span | Committed evidence and location | Finding |
+|---|---|---|
+| S891 five French code names and glosses | `reports/round-75/evidence/S891.txt`, whole-document window, lines 34–37; fetched 2026-10-27, HTTP 200, 3898 bytes, SHA-256 `69b5987240ccd7287e4e297f7333be9ed2ceb47a91cf697d196d5cd6b1f2b494`. The stored French text names herméneutique, sémique, symbolique, proaïrétique, gnomique with the corresponding glosses. Amendment §2 line 35 gives those names and glosses. | HOLDS. Names, accents, order, and glosses match the stored S891 text. Calling S891 a Geneva *Fiche de lecture* rather than treating it as the book itself is appropriately qualified (§2, lines 31 and 39). |
+| S892 “en partie” relation and proairetic synthesis | `reports/round-75/evidence/S892.txt`, PDF p. 7 of 25 / printed p. 58, stored window lines 34–37; HTTP 200, 763802 bytes, SHA-256 `8c0303670ff5db8625d034be958ad5729a2c79fa77f3642efc5f6341fb25a19a`. The window states “ces cinq codes sont en partie une reformulation…” and “Le code proaïretique est en quelque sorte une synthèse des fonctions et actions”. Amendment §3 line 51 quotes both; line 49 retains Marrone's “questions ouvertes” qualification. | HOLDS. The relationship is expressly attributed to the scholar (Marrone / S892), retains *en partie*, and does not claim that Barthes himself formulated the four-item comparison. The stated p. 58 locator is consistent with the printed page number visible in the captured PDF text. |
+| Absence of a false Barthes “four levels” attribution | S885 is a primary Barthes source only for printed p. 5 in this amendment; S885 evidence file identifies its capture/window, while the amendment labels p. 6 and p. 11 claims as locators only (§§4,7). S892 is identified as the source of the comparison. | Semantic attribution HOLDS: the text says the phrase is Marrone's compression, and explicitly rejects it as Barthes's own list (§3, line 53; §6, line 106). But the required literal absence check FAILS: `grep -n 'four levels'` returns line 53 (the negated phrase “the article's own four levels”), line 61 (the table's “calling this list four levels”), and line 106 (the rejected “article's own four levels” attribution). |
+
+## Defect and smallest safe correction
+
+The amendment is not free of the exact string demanded absent by the acceptance check. This is a mechanically checkable mismatch, not evidence that it positively attributes four levels to Barthes: surrounding prose repeatedly denies that attribution. To meet the stated literal criterion, remove/rephrase every exact lowercase `four levels` occurrence in the amendment while preserving the correction (e.g. refer to “that four-item attribution” / “the four-item count” instead). Re-run the specified grep after that edit.
+
+**Impacted axis:** claim C coverage/quality of the landed entry; specifically its explicit anti-misattribution acceptance condition. No provenance defect found in the checked S891/S892 spans. No tools were installed.

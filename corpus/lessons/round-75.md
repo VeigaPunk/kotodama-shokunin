@@ -401,3 +401,67 @@ Scope of this correction: it reclassifies the *staged rows'* reject reasons. It 
 register S816/S817, whose own verdicts stay REFUSED (Quarantine), and it does not edit the round-74
 lesson. The criterion this needs — a reject reason names the artifact it was observed on, staged row or
 register row — is `QUALITY.md` criterion 27 in the round-75 claim Ca set.
+
+## Status at landing
+
+Appended by the L1 after the landings; the sections above were written by wave-2 seats before the freeze and
+are kept as written. Where they speak in the present tense of the pre-freeze state ("no freeze commit exists",
+"the claims are `DRAFT`", "neither counter is committed", "no probe receipt exists", "at this wave"), this
+section supersedes them:
+
+- **Freeze** `5d0167464309d8133991b30f7d7a7011a6a0fd14` carries `reports/round-75/claims.json` (`FINAL`),
+  `ledger.json`, `accept-c.py`, `accept-ca.py`, the R1EXEMPT fixtures and receipts, the selftest receipts
+  (`SELFTEST: 85/85`, `154/154`), the by-document map (sha256 `778068a4…` pinned in the claims) and the wave
+  1-2 evidence; no landed data existed at the freeze (controls: `telemetry/controls-c.txt` 4/13 FAIL,
+  `controls-ca.txt` 7/12 FAIL, both `lands == base` refused, exit 2).
+- **Landings** Ca `012e8d3c8b92f47c734f735d58d118d574fe6a14`, then C `4f5e3b2535c2c06c51627dc2736c40183847cae1`.
+  Measured: `telemetry/measures-ca.txt` `ACCEPT-CA-75: PASS legs=12/12`, `telemetry/measures-c.txt`
+  `ACCEPT-C-75: PASS legs=13/13`; junk sweep `telemetry/junk-r75-run.txt`: no junk landing accepted.
+- **Evidence captures.** All nine rows have committed `reports/round-75/evidence/S885..S893.txt` captured
+  2026-10-27 by `counters/capture-evidence.py` with the row's own anchor quote (the w1 probe receipts, which
+  bound a title locator instead, are superseded — R75-M2 is closed for the nine rows by these files and by the
+  EVIDENCE leg, which graded all nine green at the C landing).
+- **Pre-freeze claim edits (disclosed).** claims.json was edited five times after wave 1 and before the freeze
+  (INDEX scope and SHONEN ownership, `rejects.counts` 3/6/31, integer-only counts, LEDGER pattern-operand
+  wording, map sha pin); each is recorded in `claims.json` `pre_data_corrections` W2-F1…F5 and no seat had
+  scored landed data at any of them.
+- **Counter defects found by the first full rehearsal and repaired before the freeze:** PART A `table_rows`
+  folded the Gate-notes list into the last Gate row (a blank line must end a table); the S892 `source:` line
+  carried a truncated archive URL (completed); `leg_rejects` graded a path-present table-row bucket the claim
+  wording does not require (relaxed to the claim text); the Ca LEDGER leg accepted a missing `parse`
+  (now refused). Each is covered by the 85/85 and 154/154 selftests as committed.
+- **A wave-2 seat wiped the round's shared scratch root** (`rm -rf /fast/scratch/hyaku/kotodama-r75`,
+  ExecTmpSweep, 16:53); live seats rebuilt their directories and no committed byte was lost. The wave-3
+  context now forbids removing anything above a seat's own directory.
+
+## Wave-3 falsification of the landed bytes (filed by the L1; defects routed, not repaired this round)
+
+Wave 3 = 36 seats against Ca `012e8d3c` and C `4f5e3b25`; reports in `.ufo/waves/round-75/w3/` (35 report files; ConnectorW2 of wave 2 and
+three wave-3 mutation seats returned partial or inconclusive reports — `MutLandedC` ran M1 only, `MutIndexRejectsGround` ran nothing,
+`MutEvidenceWindows` was incomplete — so no full mutation verdict exists for the landed bytes beyond the counters' own 85/85 and 154/154 selftests).
+Held: both counters reproduce PASS at their landings (ExecRerunBoth, RevReadmeSkillQuality, ExecSeparability); assimilation item 10 all seven
+obligations MET (RevAssimilationItem10); SCORECARD correction rows re-derive (RevScorecardCorrections); lore boundary (ConnectorLanded); the claims,
+ledger, counters and map are byte-identical at freeze, Ca and C (RevFreezeChronology). **Defects found, all open:**
+
+1. **Counting statements in this lesson that are false at `4f5e3b2`** (ExecCountsSweep F1-F13): the lines at the top and R75-M1 / R74-M8 describing the
+   pre-freeze state (superseded by `## Status at landing`, not rewritten); adopted-entry byte sizes quoted from the staged copies (6862/5933/2514 vs
+   30920/24166/23049 landed); Gate note 3 says three whole-document windows (landed: four); Gate notes 2 and cells for S888/S892 say the anchor is absent
+   from the stored window (landed windows contain it); S885/S887 byte counts are the probe receipts', the committed evidence says 109588/116878; the
+   Normalization note about a wrapped S892 URL in `amend-2026-10-23.md:11` describes a defect that was repaired before landing; the Gate path
+   `assimilation/validate/corpus/SOURCES.md` was deleted before the freeze.
+2. **Claim Ca's published command lacks `--combined`** and prints `FAIL legs=11/12` without it (ExecRunHygiene D2, ExecSeparability): the claim text is
+   frozen; the measurement receipt `measures-ca.txt` carries the `--combined` form and a pinned local main.
+3. **`accept-ca.py` writes under `/tmp`** when it re-runs the round-74 counter (`R74_TMPDIR = "/tmp"`, 121 mkdirs measured) and falls back to the system
+   tempdir with no `--work`; accept-c refuses that. A frozen-counter amendment for round 76 (prompt section 7.4).
+4. **The round's accept-c.py fails the QUALITY 23 addendum it lands** (limb 1 prints `GROUND_RECEIPT`) and QUALITY 27's selector matches none of this
+   lesson's reject rows (RevReadmeSkillQuality F3/F4).
+5. **Entry fact-check findings** (CritFactBase1/2, CritFactAmend23/23b, ScoutReopenS891): the syllabus participants table is labelled a transcription
+   of six participants but has five questions; two §10 calibration rows use labels outside the entry's own vocabulary; Todorov adopting the Formalist
+   position and the Greimas checklist generalise beyond the page; the S/Z "design order follows" sentence is not carried by the S891 page; the literal
+   `grep -n 'four levels'` still matches the negated mentions in `amend-2026-10-23b.md`. ScoutReopenS892's `used-by` finding is a false positive (the landed
+   S892 row names `...amend-2026-10-23b.md`, verified in the C tree).
+6. **`selftest-c.txt` and SKILL.md:707 cite counter sha `fa5060b9…`**, bytes that exist in no commit (the committed counter is `315c5f3f…`); SKILL.md:701
+   also rewords `receipt:` to `recorded in` beyond the declared sentence.
+7. **A2-note wording "no landed byte existed at any point" is too broad**: the wave staging tree held byte-identical copies of later-landed files at the
+   freeze; the precise statement is that no landing had been applied to live corpus paths at the freeze.
+8. **The S870 chinawriter row**, the six path-present files and the round-74 routed items stay as routed in `## Routed to round 76`; repairs 1-7 are added to it.

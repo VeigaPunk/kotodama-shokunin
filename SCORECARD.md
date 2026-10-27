@@ -1497,3 +1497,12 @@ The row commands are the ledger's `rederive` strings verbatim. Four ledger obser
 L75-06 and L75-07) embed a backtick or a pipe inside an `-E` pattern, which the counter's observe guard refuses;
 the freeze must carry the guard-clean re-cut named in `.ufo/waves/round-75/w2/ScribeScorecardFinal.md`, and if
 it does, cell four of the matching row takes the re-cut string. The token cells do not change.
+
+## Axes — round 75 (2026-10-27, hyaku run 10, kotodama), author-side verdicts, pending non-author closure
+
+| axis | verdict | before → after / observation | re-run command | measured evidence |
+|---|---|---|---|---|
+| coverage | improved (claim C, assimilation-sourced) | at base f556d104: 0 knowledge files named `*narrative*`, 808 registry rows, 249 knowledge `.md` files → 3 admitted `corpus/knowledge/myth-symbol/narrative-structure-frameworks*` files (252 `.md` files), 817 registry rows (S885-S893, one row per document); ACCEPT-C-75 PASS legs=13/13 | `python3 -B reports/round-75/accept-c.py --root . --lands 4f5e3b2535c2c06c51627dc2736c40183847cae1 --freeze 5d0167464309d8133991b30f7d7a7011a6a0fd14` | `reports/round-75/telemetry/controls-c.txt`, `junk-c.txt`, `selftest-c.txt`, `census-start.txt`, `census-end.txt`; `corpus/lessons/round-75.md` `## Gate` |
+| calibration | improved (claim Ca, records) | at base f556d104: 10 ledger pairs (6 REPAIR, 4 ANNOTATE), every stated token unequal to the observed one — all 10 measured red at the pinned base (the four pairs whose `-E` pattern holds a backtick or an escaped pipe are read as pattern operands, the argv never shell-parsed — claims LEDGER wording, pre-data edit W2-F5) → 6 REPAIR statements equal the truth observed at the Ca lands, 4 rows under `## Corrections — round 75` carrying id + old token + new token + the re-derivation command, zero removed lines in the APPENDONLY set; ACCEPT-CA-75 PASS legs=12/12 | `python3 -B reports/round-75/accept-ca.py --root . --lands 012e8d3c8b92f47c734f735d58d118d574fe6a14 --freeze 5d0167464309d8133991b30f7d7a7011a6a0fd14 --fleet-root /home/vgpnk/Projects/shokunin --combined 4f5e3b2535c2c06c51627dc2736c40183847cae1` (run in a clone whose local main is pinned to the Ca landing) | `reports/round-75/ledger.json`, `reports/round-75/telemetry/controls-ca.txt`, `junk-ca.txt`, `measures-ca.txt` (its COMBINED leg ran with --combined), `accept-ca-74-at-lands.txt`; `corpus/lessons/round-75.md` |
+
+Round shape: wave 1 = 42 seats (attempt 1), wave 2 = 34 seats (build + attack, pre-freeze), wave 3 = 36 falsify seats; round total 112. Non-author closure pending.
