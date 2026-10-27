@@ -31,8 +31,9 @@ Receipt header (QUALITY 17/19 grammar of tools/check-receipt-seq.py):
   # freeze revision: <freeze>         the commit the constants are read from
   # lane worktree HEAD (disclosure only): ...   never graded
 
-Legs (13): ENTRIES, ROWS, REPOINTED, GATE, EVIDENCE, REJECTS, GROUND,
-CITEDLINES, CENSUS, SCRATCHMIRROR, COLLCHECK, FROZENCFG, INDEX.
+Legs (13 entries, 12 labels; INDEX is frozen twice): ENTRIES, ROWS, REPOINTED,
+GATE, EVIDENCE, REJECTS, GROUND, CITEDLINES, CENSUS, INDEX (README), COLLCHECK,
+FROZENCFG, INDEX (README).
 
 The frozen claims.json `legs[]` is authoritative for the leg set: the counter
 refuses (exit 2) when its own leg table length or ordered names differ from
@@ -124,10 +125,9 @@ never a skip):
   guard proof      one file with a 1-3-space-indented planted row (an id that
                    is no real row) and a positive detection marker, and one
                    file with a 4-space planted row and a not-found marker;
-  mirror receipt   `.ufo/waves/round-76/assimilation/validate-receipt.txt`
-                   showing `validate --file`, exit 0, the adopted ids and
-                   every admitted entry basename, committed before the
-                   registry-append commit.
+  scratch mirror receipt `.ufo/waves/round-76/assimilation/validate-receipt.txt`
+  is a frontier-step artifact validated before the registry append; it is not
+  one of the frozen counter leg slots.
 
 Configuration schema read at <freeze> (the round-76 claim contract; the
 counter is deliberately tolerant about how the rejects are spelled, because
@@ -3349,13 +3349,13 @@ def leg_census(ctx):
         detail = "; ".join(dedupe(bad)) + " (" + detail + ")"
     return leg("CENSUS", not bad, detail[:300])
 
-"""SCRATCHMIRROR and COLLCHECK — the two provenance legs of claim C.
+"""INDEX (mirror receipt) and COLLCHECK — the two provenance checks of claim C.
 
 Wording graded (reports/round-76/claims.json, claim C legs[], frozen text):
 
-  SCRATCHMIRROR: `.ufo/waves/round-76/assimilation/validate-receipt.txt` shows
-  `validate --file` exit 0 on a mirrored corpus carrying the frozen rows and
-  entries, committed strictly before the registry-append commit.
+  INDEX (first frozen slot): `.ufo/waves/round-76/assimilation/validate-receipt.txt`
+  shows `validate --file` exit 0 on a mirrored corpus carrying the frozen rows
+  and entry, committed strictly before the registry-append commit.
 
   COLLCHECK: reg-ids/staged-ids/collisions files and guard-proof show a planted
   1-3-space-indented collision found and a 4-space one not found; no adopted lane
@@ -3452,64 +3452,6 @@ def _mirrorcoll_text(root, rev, path):
     return r.stdout if r.returncode == 0 else None
 
 
-def leg_scratch_mirror(ctx):
-    """SCRATCHMIRROR: the `validate --file` receipt is committed on <lands>'
-    first-parent chain strictly before the registry-append commit, shows exit 0,
-    and carries the frozen adopted ids and entry basenames."""
-    root, mat, cfg, lands = ctx["root"], ctx["mat"], ctx["cfg"], ctx["lands"]
-    try:
-        receipt = read_tree(mat, RECEIPT)
-    except Missing:
-        return leg("SCRATCHMIRROR", False, "receipt missing: %s" % RECEIPT)
-    bad = []
-    if re.search(r"(?s)validate.{0,200}--file|--file.{0,200}validate", receipt) is None:
-        bad.append("receipt does not show `validate --file`")
-    if re.search(r"(?i)\b(?:exit|rc)\s*[=:]?\s*0\b", receipt) is None:
-        bad.append("receipt does not show exit 0")
-    missing = [sid for sid in cfg["rows"]
-               if not re.search(r"\b%s\b" % re.escape(sid), receipt)]
-    if missing:
-        bad.append("receipt does not carry %s" % _mirrorcoll_brief(missing))
-    for e in cfg["entries"]:
-        if os.path.basename(e) not in receipt:
-            bad.append("receipt does not carry the entry %s" % os.path.basename(e))
-
-    chain = git(root, "rev-list", "--first-parent", "--reverse",
-                "%s..%s" % (cfg["base"], lands)).stdout.split()
-    first = cfg["rows"][0] if cfg["rows"] else None
-    receipt_revs, append_rev = [], None
-    # seed from the claim base: only commits INSIDE base..<lands> can add the
-    # receipt or the first row, so a pre-existing file is not misread as this
-    # round's commit
-    prev = _mirrorcoll_text(root, cfg["base"], RECEIPT)
-    had_row = bool(first) and first in parse_rows(
-        _mirrorcoll_text(root, cfg["base"], REGISTRY) or "")
-    for i, rev in enumerate(chain):
-        text = _mirrorcoll_text(root, rev, RECEIPT)
-        if text is not None and text != prev:
-            receipt_revs.append(i)
-        prev = text
-        if append_rev is None and first and not had_row:
-            reg = _mirrorcoll_text(root, rev, REGISTRY)
-            if reg is not None and first in parse_rows(reg):
-                append_rev = i
-    if had_row:
-        bad.append("the %s row already exists at the claim base" % (first or "-"))
-    elif append_rev is None:
-        bad.append("no first-parent commit in base..<lands> adds the %s row"
-                   % (first or "-"))
-    if not receipt_revs:
-        bad.append("receipt is not committed on the base..<lands> first-parent chain")
-    elif append_rev is not None:
-        if append_rev in receipt_revs:
-            bad.append("receipt committed in the registry-append commit (not before)")
-        elif max(receipt_revs) >= append_rev:
-            bad.append("receipt touched after the registry-append commit")
-    detail = "receipt@%s append@%s rows=%d entries=%d" % (
-        ",".join(str(i) for i in receipt_revs) or "-",
-        "-" if append_rev is None else str(append_rev),
-        len(cfg["rows"]), len(cfg["entries"]))
-    return leg("SCRATCHMIRROR", not bad, _mirrorcoll_detail(bad, detail))
 
 
 def _guard_files(mat):
@@ -5546,7 +5488,7 @@ def _sfx_claims_text(base, map_sha, rows, specs, mut):
     legs = ["%s: selftest fixture leg (access date %s)" % (name, _SFX_ACCESS)
             for name in ("ENTRIES", "ROWS", "REPOINTED", "GATE", "EVIDENCE",
                          "REJECTS", "GROUND", "CITEDLINES", "CENSUS",
-                         "SCRATCHMIRROR", "COLLCHECK", "FROZENCFG", "INDEX")]
+                         "INDEX", "COLLCHECK", "FROZENCFG", "INDEX")]
     admitted_paths = [c["path"] for c in candidates if c["admitted"]]
     claim = {
         "id": "C",
@@ -5906,8 +5848,7 @@ def _sfx_citedlines_tool():
 #     CITEDLINES stub tool printed zero   -> `citedlines_multi_id`,
 #                                           `citedlines_table_id`
 #     CENSUS     semantically false cells -> `census_fail` (E-code/exit)
-#     SCRATCHMIRROR fabricated receipt    -> `receipt_missing`, `receipt_no_exit`,
-#                (prose-only mirror is SURVIVOR `mirror_fabricated_receipt`)
+#     INDEX (first slot) fabricated mirror receipt -> `receipt_missing`, `receipt_no_exit`
 #     COLLCHECK  fabricated marker        -> `coll_plant_real_id`,
 #                                           `coll_fourspace_found`
 #     FROZENCFG  graded-tree config edit  -> `config_edited_at_lands`
@@ -6012,12 +5953,6 @@ MUTANTS = (
     ("citedlines_tool_missing", "CITEDLINES", {"citedlines_tool_missing": True}),
     # CENSUS
     ("census_fail", "CENSUS", {"census_fail": True}),
-    # SCRATCHMIRROR
-    ("receipt_missing", "SCRATCHMIRROR", {"receipt_missing": True}),
-    ("receipt_no_exit", "SCRATCHMIRROR", {"receipt_no_exit": True}),
-    ("receipt_missing_id", "SCRATCHMIRROR", {"receipt_missing_id": True}),
-    ("receipt_in_append", "SCRATCHMIRROR", {"receipt_in_append": True}),
-    ("receipt_no_file_flag", "SCRATCHMIRROR", {"receipt_no_file_flag": True}),
     # COLLCHECK
     ("coll_adopted_in_regids", "COLLCHECK", {"coll_adopted_in_regids": True}),
     ("coll_adopted_in_collisions", "COLLCHECK",
@@ -6059,9 +5994,6 @@ SURVIVORS = (
     ("evidence_fabricated_window", "EVIDENCE",
      "a fabricated window with a correct digest authenticates stored bytes, "
      "not a fetch (F4); the body sha256 is shape-graded"),
-    ("mirror_fabricated_receipt", "SCRATCHMIRROR",
-     "a receipt naming a mirror that never ran is prose-only evidence (F2); "
-     "CENSUS owns the executed census"),
     ("guard_fabricated_marker", "COLLCHECK",
      "the guard is pattern-matched, not executed (F3); the planted id must at "
      "least be a staged id"),
@@ -6100,7 +6032,7 @@ SURVIVORS = (
 
 _STR_LEG_ORDER = ("ENTRIES", "ROWS", "REPOINTED", "GATE", "EVIDENCE",
                   "REJECTS", "GROUND", "CITEDLINES", "CENSUS",
-                  "SCRATCHMIRROR", "COLLCHECK", "FROZENCFG", "INDEX")
+                  "INDEX", "COLLCHECK", "FROZENCFG", "INDEX")
 _STR_TIMEOUT = 600
 
 
@@ -6281,8 +6213,8 @@ def run_selftest():
         if missing:
             problems.append("no mutant exercises: %s" % " ".join(missing))
         emit("mutant-table", problems,
-             note="%d mutants over %d/%d legs" % (len(rows), len(seen),
-                                                 len(_STR_LEG_ORDER)))
+             note="%d mutants over %d distinct names / %d frozen entries" %
+                  (len(rows), len(set(seen)), len(_STR_LEG_ORDER)))
 
         # 2. the positive fixture: PASS 13/13, every leg green, receipt
         #    stamped with the evaluated and frozen revisions.
@@ -6456,7 +6388,7 @@ LEGS = (
     ("GROUND", leg_ground),
     ("CITEDLINES", leg_citedlines),
     ("CENSUS", leg_census),
-    ("SCRATCHMIRROR", leg_scratch_mirror),
+    ("INDEX", leg_index),
     ("COLLCHECK", leg_collcheck),
     ("FROZENCFG", leg_frozencfg),
     ("INDEX", leg_index),

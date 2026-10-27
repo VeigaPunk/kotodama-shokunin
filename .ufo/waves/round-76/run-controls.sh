@@ -47,6 +47,7 @@ fi
 FL=/home/vgpnk/Projects/shokunin
 COMBINED=
 JUNK=
+MAIN=
 WORK=${HYAKU_SCRATCH:-/fast/scratch/hyaku/kotodama-r76}/controls
 
 while [ $# -gt 0 ]; do
@@ -59,6 +60,10 @@ while [ $# -gt 0 ]; do
       shift; [ $# -gt 0 ] || { echo "run-controls.sh: --combined needs a revision" >&2; exit 2; }
       COMBINED=$1 ;;
     --combined=*) COMBINED=${1#--combined=} ;;
+    --main)
+      shift; [ $# -gt 0 ] || { echo "run-controls.sh: --main needs a revision" >&2; exit 2; }
+      MAIN=$1 ;;
+    --main=*) MAIN=${1#--main=} ;;
     --junk)
       shift; [ $# -gt 0 ] || { echo "run-controls.sh: --junk needs a landing revision" >&2; exit 2; }
       JUNK=$1 ;;
@@ -75,6 +80,7 @@ while [ $# -gt 0 ]; do
   esac
   shift
 done
+if [ -z "$MAIN" ]; then MAIN=$F; fi
 
 if [ -z "$F" ]; then
   echo "usage: run-controls.sh <freeze> [base] [--combined REV] [--junk REV]" >&2
@@ -157,16 +163,15 @@ CPID=$!
   echo "# counter: $CCA"
   echo "# work: $WORK (the counter's own scratch; never a literal /tmp)"
   echo "## control 1: lands == freeze"
-  echo "\$ python3 -B $CCA --root . --lands $F --freeze $F --fleet-root $FL --work $WORK $CA_COMBINED"
-  # shellcheck disable=SC2086  # CA_COMBINED is a deliberate two-word option pair
-  python3 -B "$CCA" --root . --lands "$F" --freeze "$F" --fleet-root "$FL" --work "$WORK" $CA_COMBINED 2>&1
+  echo "\$ python3 -B $CCA --root . --lands $F --freeze $F --fleet-root $FL --combined $COMBINED --main $MAIN --work $WORK"
+  python3 -B "$CCA" --root . --lands "$F" --freeze "$F" --fleet-root "$FL" --combined "$COMBINED" --main "$MAIN" --work "$WORK" 2>&1
   rc=$?
   echo "exit=$rc"
   echo "# expected: exit=1, FAIL on REPAIR/ANNOTATE/R1EXEMPT, PASS on FROZENCFG and LEDGER"
   echo
   echo "## control 2: lands == base"
-  echo "\$ python3 -B $CCA --root . --lands $B --freeze $F --fleet-root $FL --work $WORK"
-  python3 -B "$CCA" --root . --lands "$B" --freeze "$F" --fleet-root "$FL" --work "$WORK" 2>&1
+  echo "\$ python3 -B $CCA --root . --lands $B --freeze $F --fleet-root $FL --combined $COMBINED --main $MAIN --work $WORK"
+  python3 -B "$CCA" --root . --lands "$B" --freeze "$F" --fleet-root "$FL" --combined "$COMBINED" --main "$MAIN" --work "$WORK" 2>&1
   rc=$?
   echo "exit=$rc"
   echo "# expected: exit=2, the counter refuses the frozen base"

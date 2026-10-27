@@ -1,0 +1,10 @@
+# Round 76 pre-data counter repair (L1)
+
+The initial freeze commit `b4965d5c0f3c2609a3de8fce63750bf02bda19e4` carried the frozen C claims with the leg-name sequence `... CENSUS, INDEX, COLLCHECK, FROZENCFG, INDEX`; the initial no-data control refused with `LEGCOUNT` because `accept-c.py` implemented `SCRATCHMIRROR` in the first slot. The frozen claim predicate was not changed. Before any claim landing, the counter was repaired to implement the exact frozen 13-slot sequence; both `INDEX` slots run the same README predicate because the frozen list repeats that name. The scratch mirror remains a separately validated frontier artifact; the frozen C counter does not claim a scratch-mirror leg.
+
+- Red-before: `.ufo/waves/round-76/w1/stage/L1/freeze-control-legcount-redbefore.txt` — initial control at freeze F0, `ACCEPT-C-76: FAIL legs=0/13 (refused: LEGCOUNT ...)`, exit 2.
+- Positive control after repair: `reports/round-76/telemetry/controls-c.txt` will be measured with the repaired counter at the counter-repair freeze, before any data landing; it must grade `lands == freeze` (exit 1, data legs red, FROZENCFG green).
+- The round-75 child counter has an immutable nested scratch setting. The round-76 Ca receipt runner uses `bwrap` to bind that legacy path to this round's explicit `/fast/scratch/hyaku/kotodama-r76/...` work root; the round-75 file bytes and hash remain unchanged. The runner exits before freeze if `bwrap` is unavailable.
+- Post-repair selftests: C `SELFTEST: 89/89` at the counter hash recorded in `reports/round-76/telemetry/selftest-c.txt`; Ca `SELFTEST: 170/170` at the hash in `selftest-ca.txt`. No tool install or package-manager action.
+
+Mistake class: scope — the frozen counter's leg table and the frozen claim's leg table named different interfaces. The fix is bounded to the counter implementation and does not alter either claim's predicate.
