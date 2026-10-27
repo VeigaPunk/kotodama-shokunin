@@ -1508,7 +1508,7 @@ it does, cell four of the matching row takes the re-cut string. The token cells 
 Round shape: wave 1 = 42 seats (attempt 1), wave 2 = 34 seats (build + attack, pre-freeze), wave 3 = 36 falsify seats; round total 112. Non-author closure pending.
 ## Corrections — round 76
 
-Append-only record (hyaku run 10, kotodama round 76). Claim Ca ledger `reports/round-76/ledger.json` has 20 unique pairs (19 ANNOTATE, 1 REPAIR), frozen with `reports/round-76/claims.json`. Counter: `python3 -B reports/round-76/accept-ca.py --root . --lands <Ca-lands> --freeze <freeze> --fleet-root /home/vgpnk/Projects/shokunin --combined <C-lands> --main <Ca-lands> --work /fast/scratch/hyaku/kotodama-r76/<seat>`.
+Append-only record (hyaku run 10, kotodama round 76). Claim Ca ledger `reports/round-76/ledger.json` has 20 unique pairs (19 ANNOTATE, 1 REPAIR), frozen with `reports/round-76/claims.json`. Measured at Ca-lands `a43ed807ea38b5fc5a7875a839d576cea73aba7c`, freeze `df0f0309d61e5485bb17035d3f8791b1e6a11d40`, combined C-lands `722e69ff6361aadf148cb46acbf6ac8fd147f59a`: `python3 -B reports/round-76/accept-ca.py --root . --lands a43ed807ea38b5fc5a7875a839d576cea73aba7c --freeze df0f0309d61e5485bb17035d3f8791b1e6a11d40 --fleet-root /home/vgpnk/Projects/shokunin --combined 722e69ff6361aadf148cb46acbf6ac8fd147f59a --main a43ed807ea38b5fc5a7875a839d576cea73aba7c --work /fast/scratch/hyaku/kotodama-r76/final-ca-counter`.
 
 | id | old token | new token | re-derivation command |
 |---|---|---|---|
@@ -1534,3 +1534,22 @@ Append-only record (hyaku run 10, kotodama round 76). Claim Ca ledger `reports/r
 
 The table is a verbatim projection of the 19 ANNOTATE pairs, not an assertion that the frozen Ca counter accepts them. L76-13 names a knowledge path outside the frozen append-only allowlist; L76-19's stated token cannot be found at the claimed lesson line. L76-16 is the single REPAIR: `SKILL.md:707` now distinguishes the receipt's pre-freeze digest `fa5060b91bdb…` from the committed counter digest `315c5f3f27fd…`.
 
+
+## Axes — round 76 (2026-10-27, hyaku run 10, kotodama), author-side verdicts
+
+**Coverage / claim C — failed as declared; no score delta.** Base 98c486b: 252 knowledge files, 817 registry rows. C lands 722e69f: 253 files, 820 rows (S894-S896). The frozen counter reports FAIL legs=11/13; ROWS and COLLCHECK are red. Counting command:
+
+```sh
+for rev in 98c486bdb4650ba5b8e651d332910e8ee60ad121 722e69ff6361aadf148cb46acbf6ac8fd147f59a; do
+  printf '%s knowledge=' "$rev"
+  git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin ls-tree -r --name-only "$rev" corpus/knowledge | grep -c '\.md$'
+  printf '%s rows=' "$rev"
+  git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show "$rev:corpus/SOURCES.md" | grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|'
+done
+```
+
+Observed output: `98c486b… knowledge=252 rows=817`; `722e69f… knowledge=253 rows=820`. Acceptance command: `python3 -B reports/round-76/accept-c.py --root . --lands 722e69ff6361aadf148cb46acbf6ac8fd147f59a --freeze df0f0309d61e5485bb17035d3f8791b1e6a11d40 --fleet-root /home/vgpnk/Projects/shokunin --work /fast/scratch/hyaku/kotodama-r76/final-c-counter`. Evidence: `reports/round-76/telemetry/measures-c.txt`, the calendar amendment and its Gate.
+
+**Calibration / claim Ca — failed as declared; no score delta.** The frozen ledger has 20 pairs (19 ANNOTATE / 1 REPAIR); the counter reports FAIL legs=5/12. L76-13 and L76-19 fail LEDGER, with additional REPAIR, ANNOTATE, NOSTUB, R1EXEMPT, SEPARABLE, and COMBINED failures. Acceptance command: `python3 -B reports/round-76/accept-ca.py --root . --lands a43ed807ea38b5fc5a7875a839d576cea73aba7c --freeze df0f0309d61e5485bb17035d3f8791b1e6a11d40 --fleet-root /home/vgpnk/Projects/shokunin --combined 722e69ff6361aadf148cb46acbf6ac8fd147f59a --main a43ed807ea38b5fc5a7875a839d576cea73aba7c --work /fast/scratch/hyaku/kotodama-r76/final-ca-counter`. Evidence: `reports/round-76/telemetry/measures-ca.txt`, `reports/round-76/ledger.json`, and the Corrections table above.
+
+Neither frozen acceptance counter passes. The source additions and ledger annotations remain recorded with their failure boundaries explicit; neither axis score is advanced.
