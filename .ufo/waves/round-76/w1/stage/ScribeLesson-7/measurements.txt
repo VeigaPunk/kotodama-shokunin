@@ -1,0 +1,213 @@
++ bash meas.sh
+# measurements — round 76, seat ScribeLesson-7 (2026-10-27)
+# every block is a command and its raw output; cwd = /home/vgpnk/Projects/shokunin/kotodama-shokunin unless a command cd's
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin cat-file -e 98c486bdb4650ba5b8e651d332910e8ee60ad121 && echo base-present
+base-present
+[exit=0]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin grep -l -E 'GB/T 33661' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus   # the claims draft's own Before leg, as written
+98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/lessons/round-68.md
+98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/lessons/round-69.md
+[exit=0]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin grep -l -E 'digital\.archives\.go\.jp' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus   # ditto
+98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/lessons/round-68.md
+[exit=0]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin grep -l -E 'GB/T 33661' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/knowledge
+[exit=1]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin grep -l -E 'digital\.archives\.go\.jp' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/knowledge
+[exit=1]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin ls-tree -r --name-only 98c486bdb4650ba5b8e651d332910e8ee60ad121 corpus/knowledge | grep -c '\.md$'
+252
+[exit=0]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/SOURCES.md | grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}'
+817
+[exit=0]
+
+### $ wc -l /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/reg-ids /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/staged-ids /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/collisions
+ 817 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/reg-ids
+ 132 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/staged-ids
+  35 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/collisions
+ 984 total
+[exit=0]
+
+### $ sha256sum /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/reg-ids /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/staged-ids /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/collisions
+97eef07a858487225118d5c2d18ceb919b8c9549a3768b9adee6a3a321dbd3a7  /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/reg-ids
+bab11d7d0ee0d84795b1ff80274fe371670fff73a477c747b2fd3cad4c25ddad  /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/staged-ids
+be203dd8b02cde5fcea89a04e882daa3f525200b8a801e324ad73cde2ebbaf47  /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/collisions
+[exit=0]
+
+### $ grep -cE '^S89[4-8]$' /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/reg-ids; grep -cE '^S89[4-8]$' /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/staged-ids; grep -cE '^S89[4-8]$' /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/collisions
+0
+5
+0
+[exit=1]
+
+### $ python3 -c "ids=[l.strip() for l in open('/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/reg-ids') if l.strip()]; n={int(i[1:]) for i in ids}; m=[f'S{x:03d}' for x in range(1,894) if x not in n]; print(len(ids),'rows',len(n),'unique;',len(m),'missing:', ' '.join(m))"
+817 rows 817 unique; 76 missing: S455 S456 S457 S458 S459 S460 S461 S462 S463 S464 S465 S466 S467 S468 S469 S470 S471 S472 S473 S474 S475 S476 S477 S478 S479 S480 S492 S493 S494 S495 S496 S497 S498 S499 S544 S545 S546 S547 S548 S549 S550 S551 S552 S553 S554 S555 S556 S557 S558 S559 S563 S577 S578 S579 S580 S581 S582 S583 S584 S585 S586 S587 S588 S589 S590 S591 S592 S593 S594 S595 S596 S597 S598 S599 S777 S778
+[exit=0]
+
+### $ grep -E '^\| *S(894|895|896|897|898) ' /home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md | sed -E 's/^\| *(S[0-9]+).*?(https?:[^ |]+).*/\1 \2/; s/^\| *(S[0-9]+).{0,140}.*/\1 (no bare url)/'
+S894 https://api.semanticscholar.org/graph/v1/paper/DOI:10.1017/cnj.2024.21?fields=title,abstract,venue,year'
+S895 https://www.chinawriter.com.cn/n1/2025/1030/c404027-40592897.html'
+S896 https://journal.kci.go.kr/cccs/archive/articlePdf?artiId=ART001409716'
+S897 http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+S898 https://www.ndl.go.jp/file/data/catstandards/classification_subject/NDC10code202206.pdf'
+[exit=0]
+
+### $ grep -E '^\| *S(894|895|896|897|898) ' /home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md | cut -c1-150
+| S894 | Sowers-Wills, Sara (2024), "Phonology from the Inside Out: Constructed Language as a Pedagogical Tool", *Canadian Journal of Linguistics / Re
+| S895 | 王昕玥《论〈龙族〉的叙事失控与世界观危机》, 中国作家网《网络文学》专栏, 2025-10-30 — https://www.chinawriter.com.cn/n1/2025/1030/c404027-40592897.html | paper | B | Tier B for
+| S896 | 「중국인의 성씨(姓氏)와 시대별 이름 짓기(命名)의 특징」, 『中国文化硏究』 15, 2009, 韓國 中國文化硏究會 (한국학술정보provider KCI) — https://journal.kci.go.kr/cccs/archive/articlePdf?arti
+| S897 | 魏斌〈單名與雙名：漢晉南方人名的變遷及其意義〉, 中国社会科学院历史研究所 (历史研究所学术论文), 2021-03-16 — http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml | paper 
+| S898 | 国立国会図書館『日本十進分類法（NDC）新訂10版』分類基準 (2022-06, PDF) — https://www.ndl.go.jp/file/data/catstandards/classification_subject/NDC10code202206.pdf | doc
+[exit=0]
+
+### $ grep -E '^\| *S(908|916|932|935|937|938) ' /home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md | awk -F'|' '{print $2","$4","$5}'
+ S908 , dataset , A 
+ S916 , spec , C 
+ S932 , docs , A 
+ S935 , docs , A 
+ S937 , docs , A 
+ S938 , spec , A 
+[exit=0]
+
+### $ grep -cE '^\| *S[0-9]{3} ' /home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md; grep -oE '^\| *S[0-9]{3}' /home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md | tr -d '| ' | sort -u | tail -1
+132
+S990
+[exit=0]
+
+### $ sed -n '118p;134p' /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md
+| `kotodama` | round1 | S776 | `payload-absent` | https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296 | `标准号：GB/T 33661-2017 … 标准状态：现行 … 发布日期 2017-05-12 … 实施日期 2017-09-01 … 主管部门 中国科学院` | cited source, companion URLs and local artifacts were all checked; the quote is in none of them |
+| `kotodama` | round5 | S825 | `payload-absent` | https://www.digital.archives.go.jp/search | `元号名称 開始西暦年 令和 2019 平成 1989 昭和 1926 大正 1912 明治 1868`<br>`元号名称／開始西暦年` | cited source, companion URLs and local artifacts were all checked; the quote is in none of them |
+[exit=0]
+
+### $ awk -F'|' -v l='kotodama' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/' /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md | wc -l
+21
+[exit=0]
+
+### $ awk -F'|' -v l='kotodama' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $7}' /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md | grep -c '…'
+7
+[exit=0]
+
+### $ awk -F'|' -v l='kotodama' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $7}' /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md | grep -c '<br>'
+5
+[exit=0]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/SOURCES.md | grep -E '^\| *S(776|825) ' | cut -c1-120
+| S776 | Kristen Pearson, “Sowing the Seeds of Competitive Play: The Enduring Legacy of Mancala,” Expedition 58(1) (Spri
+| S825 | Gaia Gregis, "Guarigioni di Asclepio a Epidauro / Healings by Asclepius in Epidaurus," Axon 1(2) (2017), Edizio
+[exit=0]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin log --oneline -S '| S777 ' -- corpus/SOURCES.md | wc -l
+0
+[exit=0]
+
+### $ tail -2 /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-76/telemetry/census-start.txt; wc -l < /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-76/telemetry/census-start.txt; grep -c $'\tW04\t' /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-76/telemetry/census-start.txt; grep -c $'\tW01\t' /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-76/telemetry/census-start.txt
+kotodama	ok	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+exit=0
+34
+28
+4
+[exit=0]
+
+### $ ls /home/vgpnk/Projects/shokunin/kotodama-shokunin/considerthese
+ls: cannot access '/home/vgpnk/Projects/shokunin/kotodama-shokunin/considerthese': No such file or directory
+[exit=2]
+
+### $ EX='^ {0,3}\|[[:space:]]*S[0-9]{3,}'; for f in /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space-registry.md /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space-registry.md /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/col0-registry.md; do echo "== $f 0-3sp:$(grep -cE "$EX" $f) col0:$(grep -cE '^\|[[:space:]]*S[0-9]{3,}' $f)"; done
+== /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space-registry.md 0-3sp:2 col0:1
+== /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space-registry.md 0-3sp:1 col0:1
+== /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/col0-registry.md 0-3sp:2 col0:2
+[exit=0]
+
+### $ wc -c /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space.collisions /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space.collisions; cat /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space.collisions
+5 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space.collisions
+0 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space.collisions
+5 total
+S859
+[exit=0]
++ bash meas2.sh
+
+### $ find /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof -type f | sort
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/col0-registry.md
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space.collisions
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space.ids
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space-proof.txt
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-1space-registry.md
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space.collisions
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space.ids
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space-proof.txt
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/guard-proof/planted-4space-registry.md
+[exit=0]
+
+### $ ls -la /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/assimilation/
+total 12
+drwxr-xr-x 1 vgpnk vgpnk   76 Oct 27 18:27 .
+drwxr-xr-x 1 vgpnk vgpnk  156 Oct 27 18:33 ..
+-rw-r--r-- 1 vgpnk vgpnk  175 Oct 27 18:27 collisions
+drwxr-xr-x 1 vgpnk vgpnk  404 Oct 27 18:39 guard-proof
+-rw-r--r-- 1 vgpnk vgpnk 4085 Oct 27 18:27 reg-ids
+-rw-r--r-- 1 vgpnk vgpnk  660 Oct 27 18:27 staged-ids
+[exit=0]
+
+### $ independent re-check: each stored window carries its anchor exactly once (NFKC + whitespace folded)
+S894-capture.txt anchor-hits-in-window: carrier-only window-chars: 4095
+S894-live.txt anchor-hits-in-window: 1 window-chars: 4096
+S895-live.txt anchor-hits-in-window: 1 window-chars: 4096
+S896-capture.txt anchor-hits-in-window: carrier-only window-chars: 757
+S896-live.txt anchor-hits-in-window: 1 window-chars: 757
+S898-live.txt anchor-hits-in-window: 1 window-chars: 1663
+[exit=0]
+
+### $ sha256sum /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24-r10.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/era-periodization-models.amend-2026-10-23b.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-23c.md
+62645c5651359e5ae0c75cd75b8688006d58273a84d56acf2f9429d3fe6381ae  /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md
+b924113ecbbdec48a5c018bb179b167e542941e68641dd4045f11751b7fae5e0  /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24-r10.md
+2a855e35cdea5299f9907a4f22809f3c806ed0210d3bf693c9138435c42e86a7  /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/era-periodization-models.amend-2026-10-23b.md
+a9bd29d9d7b940172a66f7ad5a0a7fef22ff4a1cb2fdde18398c953a4059710c  /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-23c.md
+[exit=0]
+
+### $ wc -c /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24-r10.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/era-periodization-models.amend-2026-10-23b.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-23c.md
+ 7571 /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md
+ 3385 /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24-r10.md
+ 1983 /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/era-periodization-models.amend-2026-10-23b.md
+ 2406 /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-23c.md
+15345 total
+[exit=0]
+
+### $ grep -n 'recheck:' /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24-r10.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/era-periodization-models.amend-2026-10-23b.md /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-23c.md
+/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md:8:recheck: 180d — re-run the three row recheck commands in round 9's `SOURCES-PROPOSED.md` (S937 -> 1, S935 -> 1, S932 -> 1) (ran 2026-10-24)
+/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md:62:recheck: 180d — re-run the two row recheck commands in round 7's `SOURCES-PROPOSED.md` (S919 -> 1, S921 -> 1) (ran 2026-10-24)
+/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24-r10.md:6:recheck: 180d — re-run the row recheck command in round 10's `SOURCES-PROPOSED.md` (S938 -> 1) (ran 2026-10-24)
+/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/era-periodization-models.amend-2026-10-23b.md:6:recheck: 180d — re-run the row recheck command in round 5's `SOURCES-PROPOSED.md` (S908 -> 3) (ran 2026-10-23)
+/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-23c.md:6:recheck: 180d — re-run the row recheck command in round 6's `SOURCES-PROPOSED.md` (S916 -> 1) (ran 2026-10-23)
+[exit=0]
++ bash meas3.sh
+
+### $ era-table region comparison: folded 2600 chars from the first 元号名称 in each carrier
+live-region chars: 1684 capture-region chars: 1684 character-identical: True
+[exit=0]
+
+### $ registry-route identity: md5 of the three fetches (type=online, type=download, /bzgk/gb/newGbInfo)
+e866bfd61a16f4c4fcdc1fc3a16bdf89  /fast/scratch/hyaku/kotodama-r76/ScribeLesson-7/fetch2/S938.body
+e866bfd61a16f4c4fcdc1fc3a16bdf89  /fast/scratch/hyaku/kotodama-r76/ScribeLesson-7/fetch3/DL.body
+e866bfd61a16f4c4fcdc1fc3a16bdf89  /fast/scratch/hyaku/kotodama-r76/ScribeLesson-7/fetch3/GB.body
+[exit=0]
++ bash meas4.sh
+
+### $ for p in culture-material/calendar-festival-systems.amend-2026-10-24.md culture-material/calendar-festival-systems.amend-2026-10-24-r10.md culture-material/era-periodization-models.amend-2026-10-23b.md culture-material/calendar-festival-systems.amend-2026-10-23c.md; do printf '%s -> ' "$p"; git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin cat-file -e 98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/knowledge/$p 2>/dev/null && echo present || echo absent; done
+culture-material/calendar-festival-systems.amend-2026-10-24.md -> absent
+culture-material/calendar-festival-systems.amend-2026-10-24-r10.md -> absent
+culture-material/era-periodization-models.amend-2026-10-23b.md -> absent
+culture-material/calendar-festival-systems.amend-2026-10-23c.md -> absent
+[exit=0]
+
+### $ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin ls-tree -r --name-only 98c486bdb4650ba5b8e651d332910e8ee60ad121 corpus/knowledge | grep -E 'calendar-festival|era-periodization'
+corpus/knowledge/culture-material/calendar-festival-systems.md
+corpus/knowledge/culture-material/era-periodization-models.md
+[exit=0]

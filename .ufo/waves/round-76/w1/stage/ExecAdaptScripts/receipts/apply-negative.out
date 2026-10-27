@@ -1,0 +1,58 @@
+# apply-landing.py refusal transcript (round 76) — every line below is a real run
+# fixtures: two git clones --shared of the lane at base 98c486bdb4650ba5b8e651d332910e8ee60ad121
+#   FIXA=/fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-neg-a (untouched; toplevel /fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-neg-a)
+#   FIXB=/fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-neg-b (one claim-ca landing already applied; toplevel /fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-neg-b)
+
+## N1 --root is the live lane
+$ python3 -B apply-landing.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin --claim c --drafts drafts
+REFUSED: --root is the live lane /home/vgpnk/Projects/shokunin/kotodama-shokunin; pass --allow-lane for the real landing (a rehearsal must target a clone)
+exit=3
+
+## N2 --check against the live lane writes nothing (status digest before/after)
+before: 21e031894795b9650a69a650e294b20cc26d2b5a6ad1d417b68b4bb07be8cde5  -
+check exit=0
+after:  21e031894795b9650a69a650e294b20cc26d2b5a6ad1d417b68b4bb07be8cde5  -
+lane status digest unchanged
+
+## N3 apply claim ca twice on FIXB (idempotency)
+REFUSED: claim ca op 1 (append): append guard already present in corpus/QUALITY.md: 'synthetic QUALITY append for the applier selftest'
+exit=3
+
+## N4.traversal
+REFUSED: claim c op 1 (copy): copy.from escapes its base directory: '../escape.md'
+exit=3
+
+## N4.replace-count
+REFUSED: claim c op 1 (replace): replace in corpus/README.md: the old text occurs 0 times, manifest expects 7: '## culture-material/ (41)'
+exit=3
+
+## N4.anchor-ambiguous
+REFUSED: claim c op 1 (insert_block): insert_block anchor matched 9 lines in corpus/README.md (want 1): [343, 375, 409, 451, 483, 509, 607, 787, 800]
+exit=3
+
+## N4.missing-draft
+REFUSED: claim c op 1 (copy): draft missing: corpus/nope.md (looked at /fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/drafts-neg/missing-draft/corpus/nope.md)
+exit=3
+
+## N4.empty-ops
+REFUSED: claim 'c' has no ops (drafts incomplete): /fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/drafts-neg/empty-ops/manifest.json
+exit=3
+
+## N4.wrong-round
+REFUSED: manifest is for round 75, this applier is round 76
+exit=3
+
+## N4.unknown-op
+REFUSED: claim c op 1 is not a known op: {'op': 'frobnicate', 'to': 'x'} (known: append, assert, copy, copy_glob, insert_block, replace)
+exit=3
+
+## N5 empty drafts directory
+REFUSED: manifest not found: /fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/empty-drafts/manifest.json (the draft set is incomplete)
+exit=3
+
+## N6 root is not a git worktree
+REFUSED: --root is not a git worktree: /fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts
+exit=3
+
+## FIXA is still clean (no refusal wrote anything)
+[end]

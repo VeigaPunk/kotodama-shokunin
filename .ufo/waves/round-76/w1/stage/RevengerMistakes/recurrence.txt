@@ -1,0 +1,55 @@
+## recurrence of the class (attribution: a number filed against the artifact in hand, not the artifact named)
+
+### round 73 — recorded R73-M2 reference-drift
+$ git -C $L show $R:SCORECARD.md | sed -n "1401p" | grep -o "ACCEPT-CA-72[^|]*"
+ACCEPT-CA-72 PASS legs=12/12 at the measured revision 
+$ git -C $L show $R:reports/round-72/telemetry/measures-ca.txt | grep -o "ACCEPT-CA-72: [A-Z]* legs=[0-9/]*"
+ACCEPT-CA-72: FAIL legs=12/12
+
+### round 74 — recorded R74-M4 number-drift
+$ git -C $L show $R:LOG.md | sed -n "4297p" | grep -o "Ca [0-9]* scenarios"
+Ca 9 scenarios
+$ git -C $L show $R:reports/round-73/telemetry/selftest-r3.txt | sed -n "6p" | grep -o "SELFTEST OK: [0-9]* scenarios"
+SELFTEST OK: 10 scenarios
+
+### round 75 — recorded R75-M3 number-drift
+$ git -C $L show $R:reports/round-75/ledger.json | python3 -c "import json,sys;d=json.load(sys.stdin);print(len(d[\"pairs\"]))"
+10
+
+### round 75 — unrecorded in ## Mistakes: the three sites this row mines
+$ git -C $L show $R:corpus/lessons/round-75.md | sed -n "53,56p"
+3. **Whole-document windows are honest here, three times.** S885 (3720 visible chars), S886 (3526) and
+   S887 (3073) are each shorter than the 4096-character floor, so `window-scope: whole-document` is the
+   maximum available — the round-74 R74-M6 allowance, used as written. The other six declare `excerpt`
+   with a window of at least 4096 characters.
+$ git -C $L show $R:corpus/lessons/round-75.md | sed -n "92,95p"
+- **Adopted (3, from 3 staged entries):** `myth-symbol/narrative-structure-frameworks.md` (6862 B),
+  `myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md` (5933 B),
+  `myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md` (2514 B). The first two are the
+  round's base entry and its dated amendment; the third is the five-codes amendment, admitted as its own
+$ git -C $L show $R:corpus/lessons/round-75.md | sed -n "28p" | grep -o "HTTP 200, [0-9]* B, body sha256 .[0-9a-f]*"
+HTTP 200, 111486 B, body sha256 `2bcdd019
+$ git -C $L show $R:reports/round-75/evidence/S885.txt | sed -n "5,6p"
+bytes: 109588
+sha256: 20b571d7a6a9bc3835b1406079adeea4279dc2bc4c5e7134c1ce31dbf25de034
+
+### the staged copies whose sizes the lesson filed (6832-class, exactly 6862/5933/2514)
+$ wc -c /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/myth-symbol/narrative-structure-frameworks{,.amend-2026-10-23,.amend-2026-10-23b}.md
+ 6862 /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/myth-symbol/narrative-structure-frameworks.md
+ 5933 /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md
+ 2514 /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md
+15309 total
+
+### the captured criterion that did not fire: QUALITY 27
+$ git -C $L show $R:corpus/QUALITY.md | sed -n "127p" | cut -c1-300
+27. **A reject reason names the artifact it was observed on** — adds to criteria 10, 12, 18 and 21, and to criterion 12 in particular: 12 asks a measurable reason for its re-test tool and the tool's verbatim output, this asks which artifact that output was taken on and what it found there. A Gate 
+$ git -C $L show $R:corpus/lessons/round-75.md | grep -cE "^\|.*\| *refused *\|$"
+0
+$ git -C $L show $R:corpus/lessons/round-75.md | grep -icE "^\|.*(refused|rejected)"
+11
+
+### sweep: every path-attached (N B) claim in the lesson (my check's whole input)
+$ grep -nE "\`[^\`]+\.md\` \([0-9]+ B\)" lesson-base.md
+92:- **Adopted (3, from 3 staged entries):** `myth-symbol/narrative-structure-frameworks.md` (6862 B),
+93:  `myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md` (5933 B),
+94:  `myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md` (2514 B). The first two are the

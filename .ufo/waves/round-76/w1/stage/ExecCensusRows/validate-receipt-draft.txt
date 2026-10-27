@@ -1,0 +1,163 @@
+# ExecCensusRows — SOURCES.md append block, scratch validation receipt (round 76, wave 1)
+
+Seat: ExecCensusRows (leaf). Lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin, base 98c486bdb4650ba5b8e651d332910e8ee60ad121.
+Block under test: .ufo/waves/round-76/w1/stage/ExecCensusRows/rows-block.md — 4 rows S894-S897, md5 a6f5c4b6312059f3e3e529927ee5519b, 4 lines.
+Validation mirror: /fast/scratch/hyaku/kotodama-r76/ExecCensusRows/mirror — a copy of the lane (.git and .ufo excluded), the block
+  appended directly after the last registry row S893 (inside ## Registry, so no E12), and the four candidate entry stubs copied
+  to their proposed lane-relative paths so used-by resolves: corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md,
+  ...-10-24-r10.md, era-periodization-models.amend-2026-10-23b.md, calendar-festival-systems.amend-2026-10-23c.md.
+Script: /home/vgpnk/Projects/shokunin/scripts/sources-census.sh (SOURCES-CONTRACT-v1 parser), --today 2026-10-27.
+Fetches: plain GET, no login, no challenge met or bypassed, no paywall; each response bound to the browser UA below.
+UA = Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36
+
+## 1. Fetch log (2026-10-27; decoded = body after content decoding)
+S894  http=200 transfer=311308  decoded=311308  md5=b1df75036ad32a4edec62be53fa38624  https://www.digital.archives.go.jp/search
+S894  http=200 transfer=34997   decoded=307700  md5=5475898023847bb79524e2ff39dabefd  https://web.archive.org/web/20260422145052id_/https://www.digital.archives.go.jp/search
+S895  http=200 transfer=9093    decoded=33179   md5=9f2dc7abb84562057a5c25917dd487a0  https://www.xingzuobaike.com/huangli/wannianli/d165803.html
+S896  http=200 transfer=7334    decoded=24144   md5=e866bfd61a16f4c4fcdc1fc3a16bdf89  https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296
+S896  http=302 transfer=0       decoded=0       md5=d41d8cd98f00b204e9800998ecf8427e  https://openstd.samr.gov.cn/bzgk/std/showGb?type=online&hcno=E107EA4DE9725EDF819F33C60A44B296
+S896  http=200 transfer=8075    decoded=24174   md5=db99b47fc61910e04b52914c6936ebc9  https://web.archive.org/web/20260424031027id_/https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296
+S897  http=200 transfer=8076    decoded=25250   md5=1109380ad6b4695af2d7395543c74da9  https://news.gmw.cn/2017-05/23/content_24559485.htm
+
+## 2. showGb route vs newGbInfo — the same document (measured)
+# showGb follow-up (curl -L, browser UA, 2026-10-27)
+followed: http=200 transfer=7334 effective=https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296&refer=outter
+followed body: 24144 bytes md5=e866bfd61a16f4c4fcdc1fc3a16bdf89
+direct newGbInfo body: 24144 bytes md5=e866bfd61a16f4c4fcdc1fc3a16bdf89
+# 302 response headers
+HTTP/1.1 302 
+Location: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296&refer=outter
+HTTP/1.1 200 
+# capture provenance headers
+hdr-wb935.txt:x-archive-orig-date: Wed, 22 Apr 2026 14:50:52 GMT
+hdr-wb932.txt:x-archive-orig-date: Fri, 24 Apr 2026 03:10:28 GMT
+
+## 3. Anchor quotes — each located verbatim in the body fetched this round
+OK   S894 chars=18 tokens=4 | 元号名称 開始西暦年 令和 2019 | hit: fetchlog/S894-eca52f8e.body, fetchlog/S894-c8c237d7.body
+OK   S895 chars=30 tokens=1 | 置闰规则为：取其中最先出现的一个不包含中气的农历月为农历闰月 | hit: fetchlog/S895-c6fb2ac5.body
+OK   S896 chars=19 tokens=2 | 标准号：GB/T 33661-2017 | hit: fetchlog/S896-7fe2d54b.body, fetchlog/S896-c7b2b3cf.body, fetchlog/showgb-followed.body
+OK   S896 chars=16 tokens=2 | 中文标准名称： 农历的编算和颁行 | hit: fetchlog/S896-7fe2d54b.body, fetchlog/S896-c7b2b3cf.body, fetchlog/showgb-followed.body
+OK   S897 chars=21 tokens=1 | 首次明确了农历的编排规则、计算模型和精度等 | hit: fetchlog/S897-b494dc44.body
+ALL QUOTES PRESENT: True
+
+## 4. validate — exit 0 required, no E-code line; W01 on the tier-C row is allowed
+$ cd mirror && /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file corpus/SOURCES.md --today 2026-10-27
+file	W04	S127 duplicate url voices.uchicago.edu/goldinmeadowlab/people/susan-goldin-meadow/research-statement across scopes
+file	W04	S128 duplicate url pure.uvt.nl/ws/portalfiles/portal/100130712/Zeshan_deVos_Eds._2012.pdf across scopes
+file	W04	S129 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC10622114 across scopes
+file	W04	S130 duplicate url pmc.ncbi.nlm.nih.gov/articles/PMC6818964 across scopes
+file	W04	S131 duplicate url link.springer.com/article/10.1186/1477-7517-9-16 across scopes
+file	W04	S132 duplicate url ida.gallaudet.edu/cgi/viewcontent.cgi?article=1004&context=sls across scopes
+file	W04	S133 duplicate url www.cslds.org/apsl-consortium/sign-linguistics/module-7-sign-phonetics-and-phonology-symmetry-and-dominance-condition across scopes
+file	W04	S185 duplicate url www.internationalphoneticassociation.org/icphs-proceedings/ICPhS2003/papers/p15_2131.pdf across scopes
+file	W04	S186 duplicate url ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-canary-islands-the-silbo-gomero-00172 across scopes
+file	W04	S358 duplicate url ich.unesco.org/en/RL/mask-dance-of-the-drums-from-drametse-00161 across scopes
+file	W04	S482 duplicate url periodicos.ufpb.br/index.php/srh/article/view/13999/7921 across scopes
+file	W04	S483 duplicate url web.archive.org/web/20260203111247/https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/development-of-an-african-catholic-church-in-the-kingdom-of-kongo-149117501/2FB5AD22282AF36704DE49E593623693 across scopes
+file	W04	S485 duplicate url revistas.usp.br/sankofa/article/view/187402 across scopes
+file	W04	S490 duplicate url glottolog.org/resource/languoid/id/kiko1235.json across scopes
+file	W04	S561 duplicate url archive.org/download/englishheraldry00bout/englishheraldry00bout_djvu.txt across scopes
+file	W04	S564 duplicate url en.maiask.ru/data/documents/13_YatsenkoRogozhinskiiENG.htm across scopes
+file	W04	S565 duplicate url ag.colorado.gov/brands/about-brands across scopes
+file	W04	S566 duplicate url collections.vam.ac.uk/item/O1053476 across scopes
+file	W04	S569 duplicate url www.govinfo.gov/content/pkg/USCODE-2024-title4/html/USCODE-2024-title4-chap1-sec1.htm across scopes
+file	W04	S570 duplicate url www.lemondesiffle.free.fr/media/WhistledLanguages_and_Whistled_Speech_Encyclopedy.pdf across scopes
+file	W04	S571 duplicate url www.hmongstudiesjournal.org/uploads/4/5/8/7/4587788/hsj-v2n1_morrison.pdf across scopes
+file	W04	S572 duplicate url www.icphs2007.de/conference/Papers/1286/1286.pdf across scopes
+file	W04	S573 duplicate url archive.mpi.nl/tla/islandora/object/lat:1839_00_0000_0000_0016_B509_0 across scopes
+file	W04	S648 duplicate url www.religionswissenschaft.uzh.ch/idd/prepublications/e_idd_pazuzu.pdf across scopes
+file	W04	S649 duplicate url www.metmuseum.org/art/collection/search/464456 across scopes
+file	W04	S650 duplicate url footwearresearchnetwork.org/articles/concealed-shoes-revealed across scopes
+file	W04	S651 duplicate url collections.vam.ac.uk/item/O87367 across scopes
+file	W04	S830 duplicate url collection.sciencemuseumgroup.org.uk/objects/co122693/disease-mask-for-healing-rituals across scopes
+file	W01	S881 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.md
+file	W01	S882 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.md
+file	W01	S884 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+file	W01	S893 tierC mined used-by=corpus/knowledge/myth-symbol/narrative-structure-frameworks.md
+file	W01	S895 tierC mined used-by=corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-23c.md, corpus/knowledge/culture-material/calendar-festival-systems.amend-2026-10-24.md
+file	ok	/fast/scratch/hyaku/kotodama-r76/ExecCensusRows/mirror/corpus/SOURCES.md
+VALIDATE_EXIT=0
+
+## 5. census (maintained CLI) on the same file
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh census --file corpus/SOURCES.md --today 2026-10-27
+file	rows	821
+file	tier.A	494
+file	tier.B	310
+file	tier.C	17
+file	status.mined	726
+file	status.queued	58
+file	status.rejected	37
+FLEET	rows	821
+FLEET	tier.A	494
+FLEET	tier.B	310
+FLEET	tier.C	17
+FLEET	tier.invalid	0
+FLEET	status.queued	58
+FLEET	status.mined	726
+FLEET	status.rejected	37
+FLEET	status.invalid	0
+FLEET	missing	0
+CENSUS_EXIT=0
+
+## 6. CORPUS.md ## Census manual commands, run from the mirror root
+$ grep -cE "^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|" corpus/SOURCES.md
+821
+$ awk -F"|" "... NF!=13 {n++} END{print n+0}" corpus/SOURCES.md
+0
+$ awk tier histogram
+A=494 B=310 C=17 
+$ awk status histogram
+mined=726 queued=58 rejected=37 
+$ duplicate ids (must print nothing)
+(nothing above)
+$ enum violations and tier inflation (must print nothing)
+(nothing above)
+$ mined rows whose used-by paths do not exist (must print nothing)
+(nothing above)
+
+## 7. Row recheck commands (all four run 2026-10-27; the registry cell stays "180d")
+S894
+  $ curl -fsSL --compressed -A '$UA' 'https://www.digital.archives.go.jp/search' | grep -c '元号名称'
+  -> 3
+S895
+  $ curl -fsSL --compressed -A '$UA' 'https://www.xingzuobaike.com/huangli/wannianli/d165803.html' | grep -ac '置闰规则为：取其中最先出现的一个不包含中气的农历月为农历闰月'
+  -> 1
+S896
+  $ curl -fsSL --compressed -A '$UA' 'https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296' | grep -c 'GB/T 33661-2017'
+  -> 2
+S897
+  $ curl -fsSL --compressed -A '$UA' 'https://news.gmw.cn/2017-05/23/content_24559485.htm' | grep -c '首次明确了农历的编排规则'
+  -> 1
+## 8. Mapping, merges, refusals
+- planned -> built: archives era table (campaign S908 live + S935 capture, one row) -> S894; xingzuobaike reproduction
+  (campaign S916) -> S895; openstd record (campaign S932 + S938) -> one row S896; gmw report (campaign S937) -> S897.
+  S932 and S938 are one document (showGb answers 302 to newGbInfo&refer=outter, followed body byte-identical to the
+  direct route — §2), so five planned rows become four contiguous ids S894-S897 and S898 is not used.
+- No row was written for a source that could not be opened: all four documents answered HTTP 200 (or a measured 302
+  that lands on the same document) to a plain request this round.
+- used-by rule: the entry files whose provenance lines or body cite the document's campaign id, mapped by document
+  (S937->S897, S935/S908->S894, S932/S938->S896, S916->S895). The retained round-7 passage inside
+  calendar-festival-systems.amend-2026-10-24.md cites campaign S750 and S718 — both the openstd registry record, so
+  they map to S896 by document — and campaign S807, "a third-party reproduction" of the standard. S807 maps to S895
+  only if it is the xingzuobaike page: that page is the sole reproduction URL anywhere in the merge package
+  (grep -rn 'S807' /home/vgpnk/Projects/shokuknow/merge/kotodama -> that entry file only; grep -rl 'xingzuobaike'
+  -> SOURCES.append.md and that entry file). [INFERENCE] If the L1 resolves S807 to another URL, S895's used-by must be
+  corrected in place and a fifth row is needed for that document.
+- tier-C exposure: S895 is tier C and calendar-festival-systems.amend-2026-10-23c.md cites it alone; if that entry is
+  admitted it must also carry an authoritative row, else the Gate must reject it (claim after-state: no tier-C row as
+  the sole support of an admitted entry). W01 on S895 is the validator saying the same thing.
+- numbers in the rows are decoded body sizes; transfer sizes differ and are logged in §1 (a first pass had recorded
+  curl's transfer size — corrected before this receipt).
+
+## 9. Evidence bodies kept with this seat (scratch mirror and fetchlog are deleted at seat exit)
+The bodies cited in §1 and §3 are copied under `window/` beside this receipt; `window/MANIFEST.md5`:
+5475898023847bb79524e2ff39dabefd  S894-digital.archives.go.jp-capture-20260422145052.html
+b1df75036ad32a4edec62be53fa38624  S894-digital.archives.go.jp-live-2026-10-27.html
+9f2dc7abb84562057a5c25917dd487a0  S895-xingzuobaike.com-2026-10-27.html
+db99b47fc61910e04b52914c6936ebc9  S896-openstd.newGbInfo-capture-20260424031027.html
+e866bfd61a16f4c4fcdc1fc3a16bdf89  S896-openstd.newGbInfo-live-2026-10-27.html
+e866bfd61a16f4c4fcdc1fc3a16bdf89  S896-openstd.showGb-followed-2026-10-27.html
+1109380ad6b4695af2d7395543c74da9  S897-news.gmw.cn-2017-05-23.html
+
+Re-check a quote offline: grep -a -F '<quote>' window/<file>. For S894 the quote spans two table cells, so
+normalise whitespace first (`tr -s '[:space:]' ' '`) — the raw HTML puts each cell in its own <th>/<td>.

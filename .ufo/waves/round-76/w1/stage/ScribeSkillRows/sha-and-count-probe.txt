@@ -1,0 +1,40 @@
+# ScribeSkillRows — raw probe receipt, lane /home/vgpnk/Projects/shokunin/kotodama-shokunin, base 98c486bdb4650ba5b8e651d332910e8ee60ad121
+
+$ sha256sum reports/round-75/accept-c.py reports/round-75/accept-ca.py
+315c5f3f27fd36b7ee92cb5bff9c34c27a5013e28218d9481ee7f74b5c7ce261  reports/round-75/accept-c.py
+98d8e7974c82d048db67fe8eebd06cd78308bc0e3233c922ec16f527fd1ac235  reports/round-75/accept-ca.py
+
+$ git show 98c486b:reports/round-75/accept-c.py | sha256sum
+315c5f3f27fd36b7ee92cb5bff9c34c27a5013e28218d9481ee7f74b5c7ce261  -
+$ git show 98c486b:reports/round-75/accept-ca.py | sha256sum
+98d8e7974c82d048db67fe8eebd06cd78308bc0e3233c922ec16f527fd1ac235  -
+
+$ for rev in $(git rev-list --all -- reports/round-75/accept-c.py); do ...; done
+11d4413e77394f3857d7c6196dd508dd9e9728a3 315c5f3f27fd36b7ee92cb5bff9c34c27a5013e28218d9481ee7f74b5c7ce261
+
+$ find . -path ./.git -prune -o -type f -print0 | xargs -0 sha256sum | grep -c "^fa5060b91bdb"
+0
+
+$ grep -rl fa5060b9<full-64> . --exclude-dir=.git
+./reports/round-75/telemetry/selftest-c.txt
+./.ufo/waves/round-76/w1/drafts/skill-rows.md
+
+$ sed -n "1,2p" reports/round-75/telemetry/selftest-c.txt
+# selftest-c.txt — python3 -B reports/round-75/accept-c.py --selftest (run from the lane, 2026-10-27, before the freeze)
+# counter sha256 fa5060b91bdb6e76947aa7a0daab6d037b40a3be9f978e257783c7180c314d3f
+
+$ git show 98c486b:corpus/SOURCES.md | grep -cE "^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|"
+817
+$ git show 98c486b:corpus/SOURCES.md | grep -cE "\|[[:space:]]*(mined|queued|rejected)[[:space:]]*\|"   (per status)
+mined 722
+queued 58
+rejected 37
+$ git ls-tree -r --name-only 98c486b corpus/knowledge | grep -c "\.md$"
+252
+$ tail -1 reports/round-76/telemetry/census-start.txt
+exit=0
+$ git show 98c486b:SKILL.md | sed -n "648p"
+| name | kind | entry command | verdict map | self-test | pinned values | write scope | owner |
+$ git ls-tree 98c486b reports/round-76/   (empty = round-76 counters absent at base)
+$ awk "NR==6{print length(\$0)}" SHONEN.md
+643

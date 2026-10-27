@@ -1,0 +1,12 @@
+# Round 76 accept-ca receipt-wrapper fix — red-before
+# Command: HYAKU_SCRATCH=/fast/scratch/hyaku/kotodama-r76/L1-ca-selftest TMPDIR=/fast/scratch/hyaku/kotodama-r76/L1-ca-selftest python3 -B reports/round-76/accept-ca.py --selftest
+# Before counter sha256: 3ef37ef84d82473b8e62659d40c9e9d587856e33f38e4db63b1ccd0380e768eb
+# Observed pre-fix output (2026-10-27):
+selftest: clean -> exit=1 LEDGER=PASS BASEMISMATCH=PASS REPAIR=PASS ANNOTATE=PASS APPENDONLY=PASS R1EXEMPT=PASS NOSTUB=PASS SEPARABLE=PASS RECEIPTS=FAIL COMBINED=PASS FROZENCFG=PASS STAMP=PASS
+SELFTEST FAIL: clean exit got 1 want 0
+SELFTEST FAIL: clean RECEIPTS got 'FAIL' want 'PASS'
+SELFTEST FAIL: clean text 'ACCEPT-CA-76: PASS legs=12/12'
+SELFTEST FAIL: rederive-backtick exit got 1 want 0
+SELFTEST FAIL: r1-rule2-exempt exit got 1 want 0
+SELFTEST: 170/170 was NOT reached; process exit=1
+# Fix: safe bootstrap imports the committed round-75 module, sets its inherited R74_TMPDIR to the explicit round scratch root, and invokes the original entrypoint; the test stub runs through runpy.

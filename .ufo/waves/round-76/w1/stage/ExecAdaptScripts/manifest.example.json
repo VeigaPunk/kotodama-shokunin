@@ -1,0 +1,36 @@
+{
+  "round": 76,
+  "claims": {
+    "ca": {
+      "ops": [
+        {"op": "replace", "to": "SKILL.md",
+         "old": "<base line 701 verbatim>", "new": "<corrected line>", "count": 1},
+        {"op": "insert_block", "to": "SKILL.md", "from": "skill/skill.rows",
+         "anchor": "^\\| accept-ca-75 \\|", "where": "after", "match": "exactly-one"},
+        {"op": "append", "to": "corpus/QUALITY.md", "from": "corpus/QUALITY.md.append"},
+        {"op": "append", "to": "SCORECARD.md", "from": "SCORECARD.md.append",
+         "unless_present": "## Corrections — round 76"},
+        {"op": "replace", "to": "corpus/README.md",
+         "from": "corpus/README.md.ca-edits"},
+        {"op": "append", "to": "corpus/lessons/round-75.md",
+         "from": "corpus/lessons/round-75.corrections-76.md"}
+      ]
+    },
+    "c": {
+      "ops": [
+        {"op": "copy", "from": "corpus/knowledge/culture-material/ENTRY-a.md",
+         "to": "corpus/knowledge/culture-material/ENTRY-a.md"},
+        {"op": "insert_block", "to": "corpus/SOURCES.md", "from": "corpus/SOURCES.rows",
+         "anchor": "^ {0,3}\\|\\s*S893\\s*\\|", "where": "after", "match": "last"},
+        {"op": "insert_block", "to": "corpus/README.md", "from": "corpus/README.md.c-rows",
+         "anchor": "^## synthesis/ \\(", "where": "before", "match": "exactly-one"},
+        {"op": "replace", "to": "corpus/README.md",
+         "old": "## culture-material/ (40)", "new": "## culture-material/ (43)", "count": 1},
+        {"op": "append", "to": "corpus/README.md", "from": "corpus/README.md.c-footer"},
+        {"op": "copy", "from": "corpus/lessons/round-76.md"},
+        {"op": "copy_glob", "from": "reports/round-76/evidence/*.txt",
+         "to": "reports/round-76/evidence"}
+      ]
+    }
+  }
+}

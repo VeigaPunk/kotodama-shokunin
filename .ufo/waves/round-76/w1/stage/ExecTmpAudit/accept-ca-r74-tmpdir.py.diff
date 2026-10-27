@@ -1,0 +1,36 @@
+--- a/reports/round-76/accept-ca.py
++++ b/reports/round-76/accept-ca.py
+@@ -2167,19 +2167,26 @@
+     return out
+ 
+ 
+-# The round-74 counter reproduces its OWN committed receipts only when its
+-# clones live under /tmp: its normalizer strips /tmp paths alone, and the frozen
+-# RECEIPTS sentence requires its exact `ACCEPT-CA-74: PASS legs=11/11` line.  This
+-# is a reproduction constant of the round-74 instrument, not scratch of ours —
+-# this counter's own clones and fixtures stay under --work.
+-R74_TMPDIR = "/tmp"
++# The round-74 counter's clones are routed through this counter's work root.
++# A literal /tmp is NOT required to reproduce its committed receipt: both
++# normalizers run over the produced text, and RECEIPT_R74_TMP_RE strips any root
++# prefix whose directory carries the `r74-ca-` basename (measured: a clone under
++# $HYAKU_SCRATCH normalizes to <TMP> exactly as /tmp does).  No fallback: an
++# unset work root fails here instead of quietly writing under /tmp (prompt §7.4).
++def _r74_tmpdir():
++    work = RUN_STATE.get("work")
++    if not work:
++        raise SystemExit(
++            "ACCEPT-CA: --work (or $HYAKU_SCRATCH) is required: the round-74 "
++            "counter's clones must not land in a literal /tmp")
++    return work
+ 
+ 
+ def _run_r74_counter(clone_path, argv):
+     env = {
+         "PATH": os.environ.get("PATH", "/usr/local/bin:/usr/bin:/bin"),
+         "HOME": os.environ.get("HOME", "/tmp"),
+-        "TMPDIR": R74_TMPDIR,
++        "TMPDIR": _r74_tmpdir(),
+         "LC_ALL": "C.UTF-8",
+         "LANG": "C.UTF-8",
+         "TZ": "UTC",

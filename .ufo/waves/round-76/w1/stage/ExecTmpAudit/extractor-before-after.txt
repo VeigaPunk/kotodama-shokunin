@@ -1,0 +1,22 @@
+=== 1. base version, TMPDIR pointed at a private dir:
+PASS wrapped positive 4/4 tokens ['sound-change.md', 'sound-symbolism.md', 'tone-prosody.md', 'writing-systems.md']
+PASS wrapped positive heals soft wrap
+PASS unwrapped regression
+PASS over-capture trap (prose excluded) ['sound-symbolism.md']
+PASS phantom negative: absent wrapped targets are visible, not zeroed {'sound-change.md': 'prospective', 'sound-symbolism.md': 'prospective', 'tone-prosody.md': 'prospective', 'writing-systems.md': 'prospective'}
+PASS N6 regression guard: single-line capture still yields 0 tokens
+PASS N6 regression guard: block read yields 4 tokens ['sound-change.md', 'sound-symbolism.md', 'tone-prosody.md', 'writing-systems.md']
+PASS glob fragment classified
+exit=0
+=== leftovers under that TMPDIR (leak):
+tmpad6au8k7
+=== 2. base version with --work (unrouted):
+usage: base-extractor.py [-h] [--selftest] [--census] [paths ...]
+base-extractor.py: error: unrecognized arguments: --work
+exit=2
+=== 3. fixed version with --work:
+PASS N6 regression guard: block read yields 4 tokens ['sound-change.md', 'sound-symbolism.md', 'tone-prosody.md', 'writing-systems.md']
+PASS glob fragment classified
+exit=0
+=== work2 after the fixed run:
+0

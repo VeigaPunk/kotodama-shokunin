@@ -1,0 +1,19 @@
+# static checks — round-76 orchestration scripts (wave 1, ExecAdaptScripts)
+# cwd: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-76/w1/stage/ExecAdaptScripts
+# git rev of the lane worktree: 98c486bdb4650ba5b8e651d332910e8ee60ad121
+
+$ sh -n freeze-set.sh run-controls.sh rehearse.sh selftest.sh
+sh -n ok: freeze-set.sh
+sh -n ok: run-controls.sh
+sh -n ok: rehearse.sh
+sh -n ok: selftest.sh
+exit=0
+
+$ shellcheck -S warning freeze-set.sh run-controls.sh rehearse.sh selftest.sh
+shellcheck exit=0
+
+$ PYTHONPYCACHEPREFIX=$S/pyc python3 -m py_compile apply-landing.py
+py_compile exit=0
+
+$ grep -nE '"/tmp|/tmp/' freeze-set.sh run-controls.sh rehearse.sh apply-landing.py
+grep exit=1 (1 = no match, the required result)

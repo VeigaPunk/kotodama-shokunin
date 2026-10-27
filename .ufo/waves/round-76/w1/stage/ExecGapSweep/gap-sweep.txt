@@ -1,0 +1,302 @@
+# round-76 gap sweep (claim C GROUND receipt) — before-state at the claim base
+# seat: ExecGapSweep (wave 1, leaf). measured 2026-10-27 (UTC) by this seat, read-only.
+# base revision: 98c486bdb4650ba5b8e651d332910e8ee60ad121  (lane HEAD at read time = 98c486b)
+# base tree:     6e961f92169764069d36136752671301ce971677
+# base corpus/SOURCES.md sha256: c1f9f1e06a82de775175f89c7674a0aec677ecc45b0c1cc262c5463a9e01c477
+# lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin  (all lane reads via `git -C <lane>`, read-only)
+# extract: git archive --format=tar 98c486b corpus | tar -x -C /fast/scratch/hyaku/kotodama-r76/ExecGapSweep/stage
+#          (manual census commands below run with cwd=/fast/scratch/hyaku/kotodama-r76/ExecGapSweep/stage,
+#           which prints `== pwd: /fast/scratch/hyaku/kotodama-r76/ExecGapSweep/stage`)
+# The extract holds corpus/ only; lane-root-relative used-by paths (SKILL.md) were therefore resolved
+# against the base commit with `git cat-file -e`, not against the extract (see SECTION 1.7).
+
+================================================================================
+SECTION 1 — BEFORE-STATE NUMBERS (the draft's declared before)
+================================================================================
+
+1.1 knowledge `.md` count
+--- knowledge md count ---
+252
+exit=0
+$ git -C <lane> ls-tree -r --name-only 98c486b corpus/knowledge | grep -c '\.md$'
+  -> 252   (grep exit 0)
+cross-check (all files under corpus/knowledge are .md):
+$ git -C <lane> ls-tree -r --name-only 98c486b corpus/knowledge | wc -l
+  -> 252
+Draft says 252. MATCH.
+
+1.2 registry rows
+--- registry rows ---
+817
+exit=0
+$ git -C <lane> show 98c486b:corpus/SOURCES.md | grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|'
+  -> 817   (exit 0)
+$ (cwd=extract) grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+  -> 817   (exit 0)
+Draft says 817. MATCH (both the draft's {0,3}-indent regex and the column-zero census form agree).
+
+1.3 CORPUS.md manual census, run from the extract (all raw output, all exit 0)
+--- rows ---
+817
+exit=0
+--- malformed NF!=13 ---
+0
+exit=0
+--- tier histogram ---
+A=491 B=310 C=16
+exit=0
+--- status histogram ---
+mined=722 queued=58 rejected=37
+exit=0
+--- duplicate ids ---
+exit=0            (no duplicate id printed)
+--- enum violations/tier inflation ---
+exit=0            (no tier/status/kind violation, no tier-inflation printed)
+
+1.4 maintained parser cross-check (same extract, same numbers)
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh census \
+    --file $S/stage/corpus/SOURCES.md --today 2026-10-27
+file	rows	817
+file	tier.A	491
+file	tier.B	310
+file	tier.C	16
+file	status.mined	722
+file	status.queued	58
+file	status.rejected	37
+FLEET	rows	817
+FLEET	tier.A	491
+FLEET	tier.B	310
+FLEET	tier.C	16
+FLEET	tier.invalid	0
+FLEET	status.queued	58
+FLEET	status.mined	722
+FLEET	status.rejected	37
+FLEET	status.invalid	0
+FLEET	missing	0
+exit=0
+Both instruments agree on 817 / A=491 / B=310 / C=16 / mined=722 / queued=58 / rejected=37 /
+invalid=0. No E-code, no W-code in census mode (W-codes need `validate`).
+
+1.5 tier-C rows already mined with a used-by (they scope the claim's tier-C clause)
+$ cat reports/round-76/telemetry/census-start.txt   (freeze-installed receipt)
+kotodama	W01	S881 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.md
+kotodama	W01	S882 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.md
+kotodama	W01	S884 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+kotodama	W01	S893 tierC mined used-by=corpus/knowledge/myth-symbol/narrative-structure-frameworks.md
+...
+kotodama	ok	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md
+exit=0
+Consequence for the counter: a lane-wide "no tier-C row is the sole support of an admitted entry"
+check is RED at base for four pre-existing rows. The clause must be scoped to the round's
+admitted entries, or it fails before any data lands.
+
+1.6 id space (the plan continues the registry at S894)
+--- max ids ---
+S889 S890 S891 S892 S893
+--- ids S894-S898 present? ---
+S894: 0
+S895: 0
+S896: 0
+S897: 0
+S898: 0
+
+1.7 used-by integrity (resolved against the base commit, not the corpus-only extract)
+$ git -C <lane> show 98c486b:corpus/SOURCES.md | awk … (mined rows' used-by cells, split on [,;])
+  -> 750 paths
+$ while read p; do git -C <lane> cat-file -e "98c486b:$p"; done
+  -> missing_count=0
+(The corpus-only extract prints `missing: SKILL.md` twice; that is an extraction artifact:
+ SKILL.md is a lane-root path and exists at base — `git cat-file -e 98c486b:SKILL.md` succeeds.
+ The honest count against the base tree is 0 missing of 750.)
+
+================================================================================
+SECTION 2 — THE FOUR NEGATIVE SWEEPS (draft's before-predicate)
+================================================================================
+2.1 As the draft writes it — scope `-- corpus` (FALSE AT BASE)
+
+fragment: GB/T 33661
+$ git -C <lane> grep -l -E 'GB/T 33661' 98c486b -- corpus
+98c486b:corpus/lessons/round-68.md
+98c486b:corpus/lessons/round-69.md
+exit=0 ; matches in 2 files (draft claims "prints nothing (exit 1)")
+
+fragment: digital\.archives\.go\.jp
+$ git -C <lane> grep -l -E 'digital\.archives\.go\.jp' 98c486b -- corpus
+98c486b:corpus/lessons/round-68.md
+exit=0 ; matches in 1 file (draft claims "prints nothing (exit 1)")
+
+fragment: openstd\.samr
+$ git -C <lane> grep -l -E 'openstd\.samr' 98c486b -- corpus
+98c486b:corpus/lessons/round-68.md
+exit=0 ; matches in 1 file
+
+fragment: gmw\.cn
+$ git -C <lane> grep -l -E 'gmw\.cn' 98c486b -- corpus
+(no output)
+exit=1 ; 0 files
+
+matching lines (truncated to 400 chars, prefix stripped):
+corpus/lessons/round-68.md:111: - present (9 — quote located on the live source; adoptable in a later
+  round with this round's anchor): S776 (openstd.samr.gov.cn GB/T 33661-2017 page, HTTP 200), …
+corpus/lessons/round-68.md:112: - refused (8 — page fetched HTTP 200, quoted span absent from served
+  bytes; fabrication-class candidates): … S825 (digital.archives.go.jp/search is a portal landing,
+  not the table page), S827 (springer landing page ca…
+corpus/lessons/round-69.md:39:  - R69-M13 | … evidence: `.ufo/waves/round-69/assimilation/staged-ids:1`
+  reads `S859` (package `merge/kotodama/SOURCES.append.md:7`, GB/T 33661-2017); …
+corpus/lessons/round-69.md:111: is corrected here, not rewritten. `staged-ids:1` reads `S859`
+  (the package's GB/T 33661-2017 row at …
+
+2.2 Scoped to the surfaces the claim moves (held ground: registry, index, knowledge) — TRUE
+
+fragment: GB/T 33661
+0 files at base; `git -C <lane> grep -l -E 'GB/T 33661' 98c486b -- corpus/SOURCES.md corpus/README.md corpus/knowledge` -> no output
+exit=1
+
+fragment: digital\.archives\.go\.jp
+0 files at base; `git -C <lane> grep -l -E 'digital\.archives\.go\.jp' 98c486b -- corpus/SOURCES.md corpus/README.md corpus/knowledge` -> no output
+exit=1
+
+fragment: openstd\.samr
+0 files at base; `git -C <lane> grep -l -E 'openstd\.samr' 98c486b -- corpus/SOURCES.md corpus/README.md corpus/knowledge` -> no output
+exit=1
+
+fragment: gmw\.cn
+0 files at base; `git -C <lane> grep -l -E 'gmw\.cn' 98c486b -- corpus/SOURCES.md corpus/README.md corpus/knowledge` -> no output
+exit=1
+
+Full 4x3 matrix, raw (fragment, scope, exit, matches):
+GB/T 33661              corpus/knowledge   exit=1 out=[ ]
+GB/T 33661              corpus/SOURCES.md  exit=1 out=[ ]
+GB/T 33661              corpus/README.md   exit=1 out=[ ]
+digital\.archives\.go\.jp corpus/knowledge   exit=1 out=[ ]
+digital\.archives\.go\.jp corpus/SOURCES.md  exit=1 out=[ ]
+digital\.archives\.go\.jp corpus/README.md   exit=1 out=[ ]
+openstd\.samr           corpus/knowledge   exit=1 out=[ ]
+openstd\.samr           corpus/SOURCES.md  exit=1 out=[ ]
+openstd\.samr           corpus/README.md   exit=1 out=[ ]
+gmw\.cn                 corpus/knowledge   exit=1 out=[ ]
+gmw\.cn                 corpus/SOURCES.md  exit=1 out=[ ]
+gmw\.cn                 corpus/README.md   exit=1 out=[ ]
+
+2.3 Registry-scoped text search (what the round-75 GROUND leg can actually re-derive)
+$ (cwd=extract) grep -icE '<fragment>' corpus/SOURCES.md, one per fragment:
+calendar -> 7 (all incidental: "carnival"/"festival" rows S241, S247, S258, S270, S284, S785, S886)
+历法 -> 0 ; 年号 -> 0 ; era name -> 0 ; GB/T -> 0 ; archives.go.jp -> 0 ; openstd -> 0
+pmo.cas.cn -> 0 ; xingzuobaike -> 0 ; gmw.cn -> 0 ; nao.ac.jp -> 0 ; ihchina -> 1
+No row cites a calendar-compilation standard, an era-name table, or any of the four documents.
+The registry surface of the claim is genuinely uncovered at base.
+
+2.4 The draft must restate the scope. Round-75's GROUND leg re-derives absence from the BASE
+REGISTRY TEXT ONLY (reports/round-75/accept-c.py:2824-2828 `low_registry = base_text.lower()`),
+so a receipt written against `-- corpus` cannot be honoured by a counter carrying that leg, and
+`-- corpus` is false besides. The honest before-predicate is the SECTION 2.2 scope, plus a note
+that corpus/lessons/round-68.md:111-112 and round-69.md:39,111 already record round-68's refusal
+of the same URLs under CAMPAIGN ids S776/S779/S825/S827.
+
+================================================================================
+SECTION 3 — STAGED PACKAGE FACTS THE CONTROLS DEPEND ON
+================================================================================
+package (read-only): /home/vgpnk/Projects/shokuknow/merge/kotodama/
+3.1 SOURCES.append.md
+$ grep -cE '^\|?[[:space:]]*S[0-9]{3,}[[:space:]]*\|' SOURCES.append.md -> 132 rows
+$ awk -F'|' '/^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|/ {print NF}' SOURCES.append.md | sort | uniq -c
+      7 13
+    115 14
+      9 15
+      1 16
+=> 125 of 132 staged rows are NOT 11-column rows. The break is an unescaped `|` inside the
+   recheck cell (a shell pipeline, e.g. S908: "180d — `curl -fsSL '…/search' | grep -c '元号名称'`
+   -> 3"), and the used-by cell then carries a grep count instead of entry paths.
+   Raw cells for the six documents (NF, tier, status, opened, recheck, used-by), verbatim start:
+   S908 NF=14 tier=[ A ] status=[ mined ] opened=[ 2026-10-23 ]
+        recheck=[ 180d — `curl -fsSL 'https://www.digital.archives.go.jp/search' ] usedby=[ grep -c '元号名称'` -> 3 (ran 2026-10-23; …) ]
+   S916 NF=14 tier=[ C ] status=[ mined ] opened=[ 2026-10-23 ] … usedby=[ grep -c '则需要置闰'` -> 1 … ]
+   S932 NF=14 tier=[ A ] status=[ mined ] opened=[ 2026-10-24 ] … usedby=[ grep -c '主管部门 中国科学院'` -> 1 … ]
+   S935 NF=14 tier=[ A ] status=[ mined ] opened=[ 2026-10-24 ] … usedby=[ grep -c '開始西暦年'` -> 1 … ]
+   S937 NF=14 tier=[ A ] status=[ mined ] opened=[ 2026-10-24 ] … usedby=[ grep -c '精度应达到1秒'` -> 1 … ]
+   S938 NF=14 tier=[ A ] status=[ mined ] opened=[ 2026-10-24 ] … usedby=[ grep -c '农历的编算和颁行'` -> 1; … ]
+=> "append the staged rows" fails NF=13, fails cadence-only recheck, fails used-by = entry paths,
+   and fails `opened 2026-10-27` (staged opened = 2026-10-23/24). Control C-c is built on this.
+
+3.2 collision set (already materialized at freeze time, re-counted here)
+$ wc -l .ufo/waves/round-76/assimilation/collisions -> 35   (S859 … S893)
+$ head of file: S859 S860 … S893 (35 ids, i.e. the campaign's narrative band re-uses the lane's
+  last 35 ids). Staged ids total: 132 (assimilation/staged-ids).
+Beyond that band, the staged entry BODIES cite campaign ids the collisions file does not list:
+  S750, S757, S718, S719, S807, S777 (and the adopted S919/S921/S932/S935/S937/S938).
+Lane resolution of those ids at base (grep of base registry):
+  S718 = Farran et al. 2016, infant-directed speech (PLOS ONE)      <- unrelated
+  S719 = Cristia 2013, input to language                            <- unrelated
+  S750 = Culin 1907, games of the North American Indians            <- unrelated
+  S757 = Huizinga, Homo Ludens                                      <- unrelated
+  S807 = Li 2021, median artery / meridians (J. Anatomy)            <- unrelated
+  S777 = (no row at base)
+  S885 = Barthes, Communications 8 (1966) — held, the declared S921 target
+  S892 = Marrone, Signata 5 (2014) — held, the declared S919 target
+=> the collision guard as drafted (35 ids) does not cover the body citations; control C-d and the
+   REPOINTED leg must.
+
+3.3 the four candidate entries (staged paths under knowledge/corpus/knowledge/culture-material/)
+file                                              bytes  words  h2  h3  headerbullets
+calendar-festival-systems.amend-2026-10-24.md      7571   1094   1   2   10
+calendar-festival-systems.amend-2026-10-24-r10.md  3385    445   0   1    5
+era-periodization-models.amend-2026-10-23b.md      1983    275   0   1    5
+calendar-festival-systems.amend-2026-10-23c.md     2406    340   0   1    5
+body words after the first `## ` heading: a=537, b=0, c=0, d=0 (b/c/d carry no `## ` section at
+all — their body is a `### Proposed body (dated addition)` bullet block).
+source: lines (by document, campaign ids): a = S937,S935,S932 + S919,S921 (5 documents);
+b = S938; c = S908; d = S916 (tier C, the only source line).
+
+3.4 the word floor the round-75 ENTRIES leg froze (478) is derivable at THIS base
+$ find corpus/knowledge -name '*.md' | xargs wc -w | sort -n | head -4  (cwd=extract)
+    478 corpus/knowledge/culture-material/heritage-taxonomy-models.amend-2026-10-24-r13.md
+    639 corpus/knowledge/culture-material/medicine-healing-codes.md
+    655 corpus/knowledge/culture-material/headgear-head-covering-codes.md
+    876 corpus/knowledge/culture-material/scent-perfume-aromatics-codes.md
+files=252
+=> the base minimum entry is an AMEND of 478 words, so 478 is not a "full entry" bar imposed on
+   short amendments: at this base an amendment of 478 words is the norm's floor. Staged b (445),
+   c (275), d (340) fall below it, and b/c/d also lack the `## ` section the r75 leg requires.
+
+3.5 parents and couples
+parents present at base: corpus/knowledge/culture-material/calendar-festival-systems.md
+  (4603 words, 12 `## `), era-periodization-models.md (4873 words, 14 `## `).
+the four candidate paths are absent at base (base culture-material holds no `*.amend-2026-10-2*`
+for calendar/era; only heritage-taxonomy-models.amend-2026-10-24-r13.md,
+worldbuilding-setting-practice.amend-2026-10-23.md).
+couples: targets, existence at base (checked with git cat-file -e 98c486b:corpus/knowledge/<rel>):
+  a -> culture-material/calendar-festival-systems.md            PRESENT
+  a -> linguistics/naming-systems.amend-2026-10-24.md           ABSENT
+  b -> culture-material/calendar-festival-systems.md            PRESENT
+  b -> culture-material/calendar-festival-systems.amend-2026-10-24.md   ABSENT (= candidate a)
+  c -> culture-material/calendar-festival-systems.md            PRESENT
+  c -> culture-material/era-periodization-models.md             PRESENT
+  c -> culture-material/era-periodization-models.amend-2026-10-23.md    ABSENT
+  d -> culture-material/calendar-festival-systems.md            PRESENT
+  d -> culture-material/calendar-festival-systems.amend-2026-10-23.md   ABSENT
+  d -> culture-material/era-periodization-models.amend-2026-10-23b.md   ABSENT (= candidate c)
+=> three couples targets are in neither the base nor the four-candidate set; two resolve only if a
+   sibling candidate also lands. Any "every couples path resolves at lands" leg fails as staged.
+
+3.6 README index rows for the parents exist (INDEX leg anchor)
+$ git show 98c486b:corpus/README.md | grep -nE 'calendar-festival-systems|era-periodization-models'
+416: - `calendar-festival-systems.md` — The civil machinery of time — …
+423: - `era-periodization-models.md` — The systems by which cultures divide their own history — …
+162: filename order between `calendar-festival-systems.md` and …
+737: Round 65 adds `games-play-sport-contests.md` … (other hit)
+New amend files are new index rows (r75 precedent: three myth-symbol amend rows), which the
+draft's after-state does not mention.
+
+================================================================================
+SECTION 4 — WHAT THIS RECEIPT ESTABLISHES, AND WHAT IT REFUTES
+================================================================================
+Establishes (all measured above): 252 knowledge .md; 817 registry rows; A=491/B=310/C=16;
+mined=722/queued=58/rejected=37; malformed=0; duplicate ids=0; enum violations=0; 750 used-by
+paths all resolve; last id S893 and S894-S898 absent; 0 held-ground matches for all four
+fragments; 4 pre-existing tier-C mined rows with used-by; 35 listed id collisions with further
+unlisted body citations (S718/S719/S750/S757/S807/S777).
+Refutes as written: the draft's before-predicate "`git grep -l -E 'GB/T 33661' 98c486b -- corpus`
+and `… 'digital\.archives\.go\.jp' …` each print nothing (exit 1)" — both exit 0 over `corpus`
+(SECTION 2.1). The predicate holds only on the SECTION 2.2 scope.
+Unrun here: no fetch of any live source (scouts own that); no counter exists yet for round 76, so
+no leg was executed in this receipt.

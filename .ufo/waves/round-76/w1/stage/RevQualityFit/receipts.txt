@@ -1,0 +1,26 @@
+# RevQualityFit fetch receipts 2026-10-27 — UA Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36; plain curl, no automation
+
+$ curl -A $UA 'https://openstd.samr.gov.cn/bzgk/std/showGb?type=online&hcno=E107EA4DE9725EDF819F33C60A44B296'
+HTTP/1.1 302
+Location: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296&refer=outter
+showgb-L code=200 bytes=24144 redirects=1 effective=https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296&refer=outter
+sha256(showgb2.html)=80b4c781f4b772107427218dc0a3596842a66388a5c05635679787fe41530aa9  <title>国家标准|GB/T 33661-2017</title>  grep -c 'GB/T 33661' = 2
+
+$ curl -sS --compressed -A $UA 'https://web.archive.org/web/20260424031027id_/https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296'
+newgb-id_ code=200 bytes=8075  sha256 f04feb475163287e85238628…  <title>国家标准|GB/T 33661-2017</title>  'GB/T 33661' x2  发布日期/实施日期 x2
+
+$ curl -sS --compressed -A $UA 'https://web.archive.org/web/20260422145052id_/https://www.digital.archives.go.jp/search'
+na-capture code=200 bytes=34997  grep -cE '明治|令和|大正|元号' = 28
+$ curl -sS --compressed -A $UA 'https://www.digital.archives.go.jp/search'
+na-live code=200 bytes=311308  grep -cE '明治|令和|大正|元号' = 28
+
+$ curl -sS 'https://web.archive.org/cdx/search/cdx?url=news.gmw.cn/2017-05/23/content_24559485.htm&output=text&limit=4&fl=timestamp,statuscode,digest'
+20170523024955 200 IHP5SRJMWRHJIGMLJVZ4LWLYYUS37MLD
+$ …url=www.xingzuobaike.com/huangli/wannianli/d165803.html…
+(empty body) exit=0
+$ …url=www.unige.ch/lettres/framo/cernet/biblio/barth70.html… (positive control)
+20030908073936 200 J3LCWQ46LN7YBZJMDL5ANWA7ZUMC6IG4
+20041220223357 200 J3LCWQ46LN7YBZJMDL5ANWA7ZUMC6IG4
+
+# lint: python3 -B tools/check-cited-lines.py <staged a> -> MULTI-ID :8 S932,S935,S937; :62 S919,S921; :95 S919,S921; CITED-LINES: 3 finding(s); exit=1 (b/c/d: 0 findings, exit=0)
+# staged digests: a=62645c56… b=b924113e… c=2a855e35… d=a9bd29d9…

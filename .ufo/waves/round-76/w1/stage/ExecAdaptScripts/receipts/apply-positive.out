@@ -1,0 +1,101 @@
+# apply-landing.py selftest transcript (round 76, wave 1, ExecAdaptScripts)
+# fixture: git clone --shared of the lane at base 98c486bdb4650ba5b8e651d332910e8ee60ad121
+# toplevel: /fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-pos
+# head: 98c486bdb4650ba5b8e651d332910e8ee60ad121
+# drafts: a synthetic draft set that exercises every op (copy, copy_glob, append, insert_block, replace, assert)
+
+$ python3 -B apply-landing.py --root $FIX --claim c --drafts drafts --check
+PLAN assert       corpus/SOURCES.md
+PLAN copy         corpus/knowledge/culture-material/test-entry.md
+PLAN insert_block corpus/SOURCES.md
+PLAN insert_block corpus/README.md
+PLAN replace      corpus/README.md
+PLAN append       corpus/README.md
+PLAN copy_glob    reports/round-76/evidence/S894.txt
+PLAN assert       corpus/README.md
+PLAN claim=c ops=8 would-write=4 root=/fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-pos (nothing written)
+exit=0
+
+$ python3 -B apply-landing.py --root $FIX --claim c --drafts drafts
+APPLIED assert       corpus/SOURCES.md
+APPLIED copy         corpus/knowledge/culture-material/test-entry.md
+APPLIED insert_block corpus/SOURCES.md
+APPLIED insert_block corpus/README.md
+APPLIED replace      corpus/README.md
+APPLIED append       corpus/README.md
+APPLIED copy_glob    reports/round-76/evidence/S894.txt
+APPLIED assert       corpus/README.md
+WROTE corpus/README.md
+WROTE corpus/SOURCES.md
+WROTE corpus/knowledge/culture-material/test-entry.md
+WROTE reports/round-76/evidence/S894.txt
+APPLIED claim=c ops=8 wrote=4 root=/fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-pos
+exit=0
+
+$ python3 -B apply-landing.py --root $FIX --claim ca --drafts drafts
+APPLIED append       corpus/QUALITY.md
+APPLIED insert_block SKILL.md
+WROTE SKILL.md
+WROTE corpus/QUALITY.md
+APPLIED claim=ca ops=2 wrote=2 root=/fast/scratch/hyaku/kotodama-r76/ExecAdaptScripts/fix-pos
+exit=0
+
+$ git -C $FIX status --porcelain; git -C $FIX diff --stat
+ M SKILL.md
+ M corpus/QUALITY.md
+ M corpus/README.md
+ M corpus/SOURCES.md
+?? corpus/knowledge/culture-material/test-entry.md
+?? reports/round-76/
+ SKILL.md          | 1 +
+ corpus/QUALITY.md | 2 ++
+ corpus/README.md  | 5 ++++-
+ corpus/SOURCES.md | 1 +
+ 4 files changed, 8 insertions(+), 1 deletion(-)
+
+$ git -C $FIX diff --unified=1 -- corpus/README.md
+diff --git i/corpus/README.md w/corpus/README.md
+index 1a29297..cad4081 100644
+--- i/corpus/README.md
++++ w/corpus/README.md
+@@ -409,3 +409,3 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
+ 
+-## culture-material/ (40)
++## culture-material/ (41)
+ 
+@@ -451,2 +451,3 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
+ - `worldbuilding-setting-practice.md` — the Japanese practitioner craft of specifying a setting, framed against a Russian-language monograph's account of constructed worlds: a five-step build order, a four-layer causal chain from environment to individual experience, five elements a setting must supply, the five sections and four fields of the settings note, two sub-sheets (a country, a magic or technology system), and the single-source discipline that keeps a long work consistent
++- `test-entry.md` — a synthetic calendar entry for the applier selftest
+ ## synthesis/ (29)
+@@ -831 +832,3 @@ Total knowledge entries: 252.
+ Counts checked 2026-10-27 from the repo root: `find corpus/knowledge -type f -name '*.md' | wc -l` (total 252 files; directory totals 32/32/40/29/24/95).
++
++Total knowledge entries: 253.
+
+$ git -C $FIX diff -- SKILL.md corpus/QUALITY.md
+diff --git i/SKILL.md w/SKILL.md
+index 83aaff5..0001d14 100644
+--- i/SKILL.md
++++ w/SKILL.md
+@@ -706,6 +706,7 @@ output files alone remain unpinned legacy evidence.
+ | accept-ca-74 | gate | `python3 -B reports/round-74/accept-ca.py --root . --lands <40-hex> --freeze <40-hex> --fleet-root /home/vgpnk/Projects/shokunin` | Output ends `ACCEPT-CA-74: PASS legs=11/11` (exit 0) or `: FAIL legs=<n>/11` (exit 1). Refusals print `ACCEPT-CA-74: FAIL legs=0/11 (REFUSED: …)` and exit 2: missing or malformed `--lands` or `--freeze`; missing or non-directory `--fleet-root`; an absent revision; `lands` equal to the frozen base; an unreadable frozen `ledger.json` or `claims.json`; or a frozen leg table that is not exactly the eleven implemented legs (LEGCOUNT). `--main` defaults to `main` and is consumed only by STAMP. | `python3 -B reports/round-74/accept-ca.py --selftest` — measured at counter sha256 `8052f1e25c36…`: exit 0, `SELFTEST OK: 179 checks across 41 scenarios reported-fail=0`; receipt `reports/round-74/telemetry/selftest-ca.txt` | base `f7104cb…`; freeze-read `claims.json` and `ledger.json`; the ten allowlisted observe executables; `min-pairs`; the fleet pin and report blob; the six inherited round-73 w2 must-track sha256s; the round-73 counters' sha256 `95aee881…` and `222d4dd6…` and the two PASS-at-lands receipts | read-only; clones at `--lands` and at base, a further clone at the round-73 lands for RECEIPTS, temp dirs removed on exit; no worktree byte is graded | kotodama-shokunin |
+ | accept-c-75 | gate | `python3 -B reports/round-75/accept-c.py --root . --lands <40-hex> --freeze <40-hex> [--fleet-root /home/vgpnk/Projects/shokunin]` | Output ends `ACCEPT-C-75: PASS legs=13/13` (exit 0) or `: FAIL legs=<n>/13` (exit 1, n = passing legs), after one `LEG PASS` or `LEG FAIL` line per leg. A refusal prints `ACCEPT-C-75: FAIL legs=0/13 (refused: …)` and exits 2: `--lands` equal to the frozen claims base, an unreadable or malformed frozen `claims.json`, a frozen leg table that is not exactly the thirteen implemented legs (LEGCOUNT), or a map whose sha256 differs from the frozen pin. `--lands == --freeze` is graded, not refused (data legs red, FROZENCFG green). Input errors print `ERROR: …` on stderr, exit 2. | `python3 -B reports/round-75/accept-c.py --selftest` — prints one `CASE <name>: PASS` or `CASE <name>: FAIL` line per case and ends `SELFTEST: <p>/<n>`. Measured 2026-10-27 at counter sha256 `fa5060b91bdb…`: `SELFTEST: 85/85`, exit 0 (clean landing 13/13, 78 single-edit mutants each red on its named leg, lands==base refused, lands==freeze graded; receipt `reports/round-75/telemetry/selftest-c.txt`). | frozen claim C leg set (13: ENTRIES, ROWS, REPOINTED, GATE, EVIDENCE, REJECTS, GROUND, CITEDLINES, CENSUS, SCRATCHMIRROR, COLLCHECK, FROZENCFG, INDEX); constants read at `--freeze`; `lands == base` refused; by-document map `.ufo/waves/round-75/assimilation/id-renumber-map.json` hash-pinned in the frozen claims | read-only — clone plus `git archive` materialized under `$HYAKU_SCRATCH/kotodama-r75/` (default `/fast/scratch/hyaku`), never `/tmp` | kotodama-shokunin |
+ | accept-ca-75 | gate | `python3 -B reports/round-75/accept-ca.py --root . --lands <40-hex> --freeze <40-hex> --fleet-root /home/vgpnk/Projects/shokunin` (COMBINED needs `--combined <40-hex>`; `--main` defaults to `main`) | Output ends `ACCEPT-CA-75: PASS legs=12/12` (exit 0) or `: FAIL legs=<n>/12` (exit 1, n = passing legs), after one `LEG PASS` or `LEG FAIL` line per leg. A refusal prints `ACCEPT-CA-75: FAIL legs=0/12 (refused: …)` and exits 2: a frozen leg table that is not exactly the twelve implemented legs (LEGCOUNT), `--lands` equal to the frozen claims base, or `freeze == lands` with every leg green. Input errors print `ERROR: …` on stderr, no verdict line, exit 2: missing `--lands`, `--freeze` or `--fleet-root`; a non-40-hex `--lands`, `--freeze` or `--combined`; a `--fleet-root` that is not a directory; an absent `--lands`, `--freeze` or `--combined` commit; an unreadable frozen `claims.json`; a frozen base that is not a commit. A `--freeze` off the lands first-parent chain is graded, not refused: FROZENCFG reads FAIL, exit 1. Without `--combined` the COMBINED leg fails on `the explicit --combined revision is required`, exit 1. | `python3 -B reports/round-75/accept-ca.py --selftest` — green form prints `SELFTEST OK: <n> checks across <m> scenarios reported-fail=0: <labels>` then `SELFTEST: <n>/<n>` and exits 0. Measured 2026-10-27 at counter sha256 `98d8e7974c82…`: `SELFTEST: 154/154`, exit 0 (receipt `reports/round-75/telemetry/selftest-ca.txt`). | frozen pair floor 10; nine-executable observe allowlist git, grep, wc, sha256sum, ls, cat, head, tail, cut; claims and ledger read at `--freeze` only; round-74 lands `5e4796c0…` with freeze `00c408a0…` for RECEIPTS | read-only — `git show` plus `git archive`/clone materialized under a scratch tempdir; `observe_cmd` argv only, never a shell | kotodama-shokunin |
++| accept-c-76 | gate | `python3 -B reports/round-76/accept-c.py --root .` | Output ends `ACCEPT-C-76: PASS` |
+ | accept-c-73 / accept-ca-73 correction | note | — | Base rows stand; three corrections to how they are run and read. (1) `accept-ca-73`'s selftest prints `SELFTEST OK: 10 scenarios` only at counter r3 (sha256 `222d4dd6d408…`, receipt `reports/round-73/telemetry/selftest-r3.txt`); the bytes at the round-73 freeze (sha256 `f8ebb5d8…`, `selftest.txt`) print 9, and r3's `ERROR: base 8841ad3b… is not a commit` stderr line is the expected frozen-base-absent control output, not a failure. (2) `accept-c-73` reaches `PASS legs=11/11` at its lands only when the census script is named: `--fleet-root /home/vgpnk/Projects/shokunin` (measured, `ExecReceiptRerun73.md` §2) or `--census-sh <path>` (same code branch, unmeasured); the flagless form reads `FAIL legs=10/11` (CENSUS). (3) `accept-ca-73` reaches `PASS legs=9/9` at its lands only with `--main 2d1cd9140d3a6c42296d71e4f29587582a4a88c0`; the documented form reads `FAIL legs=8/9` (STAMP) because lane `main` is `f7104cb…`. | — | receipts `reports/round-73/telemetry/selftest-r3.txt`, `.ufo/waves/round-74/w1/receipts/measures-c73-at-lands.txt`, `.ufo/waves/round-74/w1/receipts/measures-ca73-at-lands.txt` | appended note only; no existing byte changed | kotodama-shokunin |
+ 
+ The contrastive checker is example-specific, not a general culture validator.
+diff --git i/corpus/QUALITY.md w/corpus/QUALITY.md
+index 0e52a13..3d98bfb 100644
+--- i/corpus/QUALITY.md
++++ w/corpus/QUALITY.md
+@@ -195,3 +195,5 @@ The round-74 counter already enforces the second limb on itself (`reports/round-
+ Limits, stated: limb 1 is a name-shape grep — a path built inline (`open(ROOT + "/telemetry/x.txt")`) or reached through an alias escapes it, and it proves only that the constant is *named* inside the fixture, not that the fixture writes the same path a leg reads. Limb 2 reads the committed receipt, so a receipt typed without the run is criterion 23's first limb (`STAMP`, `QUALITY 17/19`), not this one. Neither limb proves mutation coverage: a green-first run still cannot show that a mutant would fire on a predicate nobody mutated (that stays criterion 11's ground). Binds from round 75; no earlier counter is re-run or retro-fitted.
+ 
+ Grounded in `corpus/lessons/round-74.md` `## Routed to round 75` item 4 (the R73-M4 decision: no corrected successor to `reports/round-72/accept-c.py` is warranted, and round 75 owes the QUALITY 23 addendum for exactly this rule) and the measured case in `.ufo/waves/round-74/w1/ExecSelftest72.md` §1 and `:194`.
++
++28. synthetic QUALITY append for the applier selftest.
+
+$ re-run claim c (idempotency guard)
+REFUSED: claim c op 2 (copy): copy destination exists (already landed?): corpus/knowledge/culture-material/test-entry.md
+exit=3
