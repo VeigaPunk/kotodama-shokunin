@@ -1,0 +1,37 @@
+# evidence S890 — claim C GATE (round 75)
+url: https://www.jstage.jst.go.jp/article/jsik/32/2/32_2022_017/_pdf
+ua: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36
+http: 200
+bytes: 697092
+sha256: 1dccf9d1427defb0e07e99461301cfd0ef5b5734716783a8ba0bb782de422272
+fetched: 2026-10-27T19:48:09Z
+quote-found: yes
+quote-words: 12
+quote-chars: 77
+visible-chars: 7205
+window-scope: excerpt
+window: chars=4098 min=4096 pad=400 before=688 after=3333
+window-sha256: 0b3a5e7b59bc4f31901d9c024d8790258ecf5bf7c15a3d7f6a98e8736bdbb127
+window-bytes: 9920
+window-rule: sha256 of the single stored window line, UTF-8, no trailing newline
+quote-found-verbatim: yes
+challenge: none
+challenge-detail: (none)
+content-type: application/pdf;charset=UTF-8
+final-url: https://www.jstage.jst.go.jp/article/jsik/32/2/32_2022_017/_pdf
+extract: pdftotext -enc UTF-8 BODY - (stdlib subprocess); 7484 chars
+fetch: GET https://www.jstage.jst.go.jp/article/jsik/32/2/32_2022_017/_pdf
+user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36
+access-date: 2026-10-27
+http-status: 200
+content-length: -
+transferred-bytes: 697092
+fetch-attempts: 1
+fetch-command: curl -sS -L --compressed --connect-timeout 20 --max-time 90 -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -o BODY -D HEADERS -w "%{http_code}\n%{url_effective}\n%{size_download}\n" https://www.jstage.jst.go.jp/article/jsik/32/2/32_2022_017/_pdf
+locator: PDF p. 1, English abstract
+normalise: NFKC(per-character)+whitespace-fold; matched=verbatim
+quote: describe a story as a hierarchical structure consisting of three major layers
+--- window ---
+情報知識学会誌 2022 Vol. 32, No. 2 第30回年次大会予稿 物語構造の階層的記述方式の提案 Proposing hierarchical description for story structure 村井源1* Hajime MURAI1* 1 はこだて未来大学 Future University Hakodate 〒041-8655 北海道函館市亀田中野町116-2 E-mail: h_murai@fun.ac.jp *連絡先著者 Corresponding Author 物語論では場面展開や人間関係など種々の構造が分析の対象となるが，コンピュータで計量的 に取り扱う上では統一的フォーマットで記述されることが望ましい．本研究では，先行研究によって得 られた物語の各構造における知見に基づき，物語をストーリー，クエスト，シーンの大きく3層からなる 階層的な構造として記述する方式を提案する．3層構造を用いることで物語展開だけではなく，登場 人物や物語中のイベントに関しても統一的なフォーマットで記述可能となる． In narratology, various structures such as scene sequences and human relationships are the targets of analysis, but a unified format is desirable for quantitative operations by computers. In this research, a method to describe a story as a hierarchical structure consisting of three major layers of story, quest, and scene is proposed. This is based on the knowledge about various structures of the stories obtained by the previous researches. By using the three-layer structure, it is possible to describe not only the scene sequences but also the characters and events in the story in a unified format. キーワード: 物語，プロット，階層構造，キャラクター Story, Plot, Hierarchical structure, Character 1 はじめに 語りの構造に関する学問である．古典的な コンピュータを用いた文学研究の大き 物語論の研究としては，物語の共通構造の な方向性の一つとして，物語の自動生成の 分析から，31の要素の組み合わせとしてロ 研究が近年盛んになってきている． シアの約300の魔法物語をすべて記述可能 多くの場合，物語の自動生成が依拠して であるとしたプロップの主張[1]や，物語 いるのは物語論(narratology)と呼ばれる， の登場人物を6種類に分類するグレイマス - 246 - 情報知識学会誌 2022 Vol. 32, No. 2 の試み[2]，語りの順序と物語の時系列の 叙述の構造は存在する．例えば，登場人物 齟齬に関するジュネットの分析[3]などが の言動と情景描写，心理描写などにはパタ 有名である．当時の構造主義哲学を背景と ーン性があると考えられる[6]．キャラク して，これらの研究が扱う物語の要素は物 ターの直接的な言動以外の状況の変化等 語の種々の構造と考えられており，その分 （災害の発生など）も言動の一種として記 析の技法は物語構造分析などとも呼ばれ 述するならば，これらのパターンは言動の る[4]．これらの伝統的な物語論の枠組み 列として表現可能である．言動列によって は，古典的な作品のみならず現代的な作品 構成されるパターンは当然ながらシーン を分析する上でも非常に有用である[5]． が示唆する物語上の機能によって異なる ただし，これらの理論の中で物語の「構 ことが想定される．コンピュータでこれら 造」と呼ばれているものは非常に多岐にわ の言動列をデータセットとして扱う上で たり，またそれらの関係性も必ずしも明確 定義された述語に基づく統一的な記法も ではない．物語の多様性と時代による変容 提案されている[7]． を考慮すれば画一的な構造化が適切であ るとは断言できないが，物語をコンピュー タによって計量的に取り扱いが可能なデ ータセットに落とし込むためにはある程 度の統一的なフォーマットは必要である． そこで，本稿ではこれまでの物語分析に よって得られた知見をもとに，物語の階層 的な構造分析の枠組みを提案する．提案す る枠組みの個々の部分の有効性は実際の 既存作品の分析において確認されている が，全体的な構造の有用性・妥当性は今後 実証的な分析を蓄積する中で検証を進め る予定である． ２ 物語の階層的構造記述 本研究で提案するのは物語の展開を，ス トーリー，クエスト，シーンの3層に分解 して階層的なモデルとして構築する方法 である（図1）． 最下層のシーンは，プロップでの物語機 能にほぼ相当する単位で，従来の物語論で 図1 提案する3層モデルの概要 は物語の展開における最小単位として扱 われるケースが多い．しかし実際にはシー シーンの分割は一般的に場面の転換，時 ンの内部にもパターンとして特定可能な 間の経過，登場人物の増減などで区切り， - 247 - 情報知識学会誌 2022 Vol. 32, No. 2 各シーンに一つの物語機能を割り当てる 属性や基本的な人間関係などはストーリ [8]．しかし，物語によっては同じ場面の ー全体で共通しており，最上位のストーリ 中で起承転結が完結するような場合も存 ーに付随する属性であると考えられる． 在する．本提案におけるシーンは従来のシ 中位のクエストの層で個々のクエスト ーン分割を基本としつつも，物語の機能が に対して設定される属性としては，多くの 変化する場合には同じ場面内でも分割す 場合は探求すべき謎・解決すべき問題など ることを想定している． に相当するクエストの目的，目的を達成し シーンを構成する各言動は具体的な動 ようとして適用される手段（キャラクター 作レベル記述であり，それに対して物語の が能動的に行動しない場合は状況変化の 機能は物語の展開上でのそのシーンの果 過程），目的に対する最終的な結果（成功・ たす役割を示す抽象度の一段階高い記述 失敗だけでなく，中断や結末が記述されな となる．物語機能の分類例を表1に示す[5]． い場合なども含める）などが考えられる． シーン（≒物語の機能）の連続によって 下位のシーン（機能）の層では，場所， 構成されるのがクエストである．クエスト 時間，その場の状況などの情報が属性とし は特定の目標や，ハプニング・障害等を中 て個々のシーンに付随すると考えられる． 心とした起承転結の構造の最小単位に相 ３ キャラクターの階層構造 当する[9]．クエストは一般的にゲームの シナリオなどで用いられる単位ではある 提案する３層構造を用いることで物語 が，障害克服，依頼達成，謎の探求，成長， の展開を階層的に分解すると同時に，展開 競争などを主軸として構成されており，こ 以外の種々の情報も階層的に整理するこ れは一般的な物語においても展開の基本 とが可能である．例えば，物語の展開と同 的なパターンに相当するものである[10]． 様に伝統的に物語論の対象とされてきた 短い物語（ストーリー）は単一のクエス キャラクターも3層構造で整理することが トのみでも構成されうるが，多くの既存作 できる（図2）． 品は複数のクエストを複合的に組み合わ 最上位のストーリーの層で設定される せた構造として記述されている．組み合わ キャラクターの情報としては，生没年など せ方としては，同じキャラクターのクエス を含めた過去の履歴のような物語中で変 トが連続するようなシンプルな構造や，異 更不可能な付随情報だけでなく，物語の途 なったキャラクターの個別のクエストが 中で変化する頻度が高くないものも該当 重なり合いながら描写されるような並行 すると考えられる．具体的には人種・性 的な構造など多種多様な組み合わせ方が 別・年齢・職業などの基本的な種々の属性 存在する．ただし，二つのクエストの関係 や，血縁関係・職場の同僚や上司部下の関 に着目して整理すると，例外はあるがおお 係等の基本的な人間関係などである．これ よそ，連続・入れ子・並列関係の三種類に らの属性に関しては，物語中で変化する場 分類可能である[10]． 合は例外としてその変化も含めてデータ 各階層で設定される情報に着目すると， 物語全体での世界設定やキャラクターの 化する方針で記述することなどが考えら れる． - 248 - 情報知識学会誌 2022 Vol. 32, No. 2 表1 物語のシーンの機能分類 領 域 存 在 能 力 移 動 情 報 秩 序 意 思 関 係 影 響 環 境 大カテゴリ 概要 出現 主人公との出会い，誕生や復活なども含める 退場 登場人物が物語から去る, 死のような永久の退出も含める 変化 登場人物の属性の変化（例：人格入れ替え，変身，美容整形での容姿変更など） 能力向上 登場人物の能力に関する肯定的な変化 能力減退 登場人物の能力に関する否定的な変化 移動経路入手 登場人物が移動可能になる 逃亡 何かから逃亡する（例：退却
+--- quote ---
+describe a story as a hierarchical structure consisting of three major layers
