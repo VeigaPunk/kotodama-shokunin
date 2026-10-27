@@ -1,0 +1,38 @@
+# round-72 coverage counter selftest — repeat receipt (claim Ca fixed surface, round 75)
+#
+# Why this file exists: the round-72 counter ships `--selftest` with no committed
+# receipt of a run.  reports/round-72/telemetry/ holds baseline.txt, census-start.txt,
+# census-end.txt, controls-c.txt, controls-ca.txt, gap-sweep.txt, measures-c.txt and
+# measures-ca.txt, and no selftest file.  The red was recorded narratively at
+# SCORECARD.md:1423 (under `## Corrections — round 73`) and corpus/lessons/round-73.md:111
+# (row R73-M4).  This file is the re-execution itself, not a transcription of either.
+#
+# stamped revision: f556d1049fe651d3d63975600b13acd9fb686f15   (the round-75 claim base)
+# tree: bb2e1b6fa5221db1f11cb3148a1fee7813d20639
+# counter path: reports/round-72/accept-c.py
+# counter sha256: 355e67f1bdb15d52368ad454d68d8391fd72d1de59622570689c4822d21da3c1
+# command: python3 -B reports/round-72/accept-c.py --selftest
+# cwd: a scratch clone of the lane, checked out --detach at the stamped revision
+# measured: 2026-10-27
+# exit: 1
+# stderr: empty
+#
+# --- stdout (verbatim; the run ends with two empty lines) ---
+SELFTEST: 10/11
+--- clean fixture: expected PASS 10/10, got exit=1
+LEG PASS ENTRIES
+LEG PASS ROWS
+LEG PASS REPOINTED
+LEG PASS GATE
+LEG PASS REJECTS
+LEG FAIL GROUND
+     receipt missing: reports/round-72/telemetry/gap-sweep.txt
+LEG PASS CITEDLINES
+LEG PASS CENSUS
+     exit=0 head=accaa7ffbf35 last-line=kotodama	ok	stub
+LEG PASS SCRATCHMIRROR
+LEG PASS COLLCHECK
+ACCEPT-C-72: FAIL legs=10/10
+
+
+# --- end stdout ---

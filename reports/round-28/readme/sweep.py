@@ -64,9 +64,9 @@ TOTALS_RE = re.compile(r"^Total knowledge entries: (\d+)\.\s*$", re.M)
 # The counts footer: a dated present-tense claim carrying the command that
 # produces it, a file total, and the six directory totals in section order.
 FOOTER_RE = re.compile(
-    r"^Counts checked (\d{4}-\d{2}-\d{2}) from the repo root:\n"
-    r"`([^`]+)`\n"
-    r"\(total (\d+) files; directory totals ([\d/]+)\)\.",
+    r"^Counts checked (\d{4}-\d{2}-\d{2}) from the repo root:[ \t]*\n?[ \t]*"
+    r"`([^`]+)`[ \t]*\n?[ \t]*"
+    r"\(total (\d+) files; directory totals ([\d/]+)\)",
     re.M,
 )
 
@@ -83,14 +83,21 @@ def topic_of(path):
 
 
 def parse_readme(text):
-    """Sections in file order: {part: {'declared': N, 'rows': [(file, topic)]}}."""
+    """Partition rows and retain row-shaped historical append blocks."""
+    headings = [m.start() for m in re.finditer(r"^## ", text, re.M)]
     marks = [(m.start(), m.group(1), int(m.group(2))) for m in SECTION_RE.finditer(text)]
-    out = {}
-    for i, (pos, part, declared) in enumerate(marks):
-        end = marks[i + 1][0] if i + 1 < len(marks) else len(text)
-        body = text[pos:end]
-        rows = [(m.group(1), m.group(2)) for m in ROW_RE.finditer(body)]
+    out, spans = {}, []
+    for pos, part, declared in marks:
+        end = next((h for h in headings if h > pos), len(text))
+        rows = [(m.group(1), m.group(2))
+                for m in ROW_RE.finditer(text[pos:end])]
         out[part] = {"declared": declared, "rows": rows}
+        spans.append((pos, end))
+    supplemental = []
+    for m in ROW_RE.finditer(text):
+        if not any(start <= m.start() < end for start, end in spans):
+            supplemental.append((m.group(1), m.group(2)))
+    out["_supplemental"] = supplemental
     return out
 
 
@@ -105,9 +112,10 @@ def disk_files(root, part):
 
 def footer_reading(text):
     """The counts-footer block, parsed. None when the block is absent."""
-    m = FOOTER_RE.search(text)
-    if not m:
+    matches = list(FOOTER_RE.finditer(text))
+    if not matches:
         return None
+    m = matches[-1]
     return {
         "date": m.group(1),
         "command": m.group(2),
@@ -120,8 +128,18 @@ def sweep(readme_text, root_override=None):
     """The measurement. `root_override` swaps the knowledge tree (selftest)."""
     root = root_override if root_override is not None else KNOWLEDGE
     sections = parse_readme(readme_text)
+    supplemental = sections.pop("_supplemental", [])
+    unassigned = []
+    for filename, topic in supplemental:
+        owners = [part for part in PARTS if filename in disk_files(root, part)]
+        if len(owners) == 1:
+            sections[owners[0]]["rows"].append((filename, topic))
+        else:
+            unassigned.append((filename, topic, owners))
     parts = {}
     missing, ghosts, mismatches, drift = [], [], [], {}
+    ghosts.extend("unassigned/%s" % filename
+                  for filename, _topic, _owners in unassigned)
     for part in sorted(sections):
         sec = sections[part]
         files = disk_files(root, part)
@@ -157,8 +175,8 @@ def sweep(readme_text, root_override=None):
 
     total_files = sum(p["files"] for p in parts.values())
     total_rows = sum(p["rows"] for p in parts.values())
-    tm = TOTALS_RE.search(readme_text)
-    totals_line = int(tm.group(1)) if tm else None
+    totals_matches = list(TOTALS_RE.finditer(readme_text))
+    totals_line = int(totals_matches[-1].group(1)) if totals_matches else None
 
     # the footer leg — measured, not asserted
     footer = footer_reading(readme_text)
@@ -400,6 +418,32 @@ def selftest():
         r = sweep(rm, root_override=tree2)
         check("control: continuation lines space-joined", r["topic_mismatch"] == [])
         shutil.rmtree(tree2, ignore_errors=True)
+        # 13. historical appendix rows are assigned to their unique disk partition.
+        tree3 = make_tree({"linguistics": {"archived.md": "archived topic"}})
+        rm = (
+            "## linguistics/ (1)\n\n## Round 73 additions\n\n"
+            "- `archived.md` — archived topic\n\n"
+            "Total knowledge entries: 1.\n"
+            f"Counts checked 2026-10-27 from the repo root:\n`{INVENTORY}`\n"
+            "(total 1 files; directory totals 1).\n"
+        )
+        r = sweep(rm, root_override=tree3)
+        check("control: appendix row attributed to unique partition",
+              r["total_rows"] == 1 and r["missing_from_index"] == []
+              and r["orphan_rows"] == [] and r["ok"] is True)
+        shutil.rmtree(tree3, ignore_errors=True)
+
+        # 14. totals line and footer both select the newest block.
+        rm = make_readme(
+            {"linguistics": (1, [("a.md", "the real topic text")])},
+            totals=1, footer=("2026-10-27", INVENTORY, 1, "1"))
+        rm = ("Total knowledge entries: 9.\n"
+              "Counts checked 2025-10-25 from the repo root:\n"
+              f"`{INVENTORY}`\n(total 9 files; directory totals 9).\n" + rm)
+        r = sweep(rm, root_override=tree)
+        check("control: last totals line and footer selected",
+              r["totals_line"] == 1 and r["footer"]["total"] == 1
+              and r["footer_ok"] is True and r["ok"] is True)
 
         shutil.rmtree(tree, ignore_errors=True)
     except Exception as exc:  # a broken instrument must fail loudly
@@ -416,7 +460,7 @@ def main(argv=None):
     args = ap.parse_args(argv)
     if args.selftest:
         passed = selftest()
-        print("selftest: %s" % ("12/12 checks passed" if passed else "FAILED"))
+        print("selftest: %s" % ("14/14 checks passed" if passed else "FAILED"))
         return 0 if passed else 1
     with open(args.readme, encoding="utf-8") as fh:
         inv = sweep(fh.read())

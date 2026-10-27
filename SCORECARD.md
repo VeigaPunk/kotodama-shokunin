@@ -1464,3 +1464,36 @@ Round shape: wave 1 = 42 seats (12 scout / 10 executor / 6 scribe / 6 critic / 3
 
 Wave-2 outcome folded in (author-side): claim C holds at `c4bf61a` (PASS legs=13/13) and claim Ca at its own landing `5e4796c` (PASS legs=11/11); Ca is NOT green at a tree carrying both landings (APPENDONLY: claim C's in-place `used-by` change on the reused row is outside Ca's REPAIR lines — frozen-claims conflict, not amended). Admission is reported, not asserted: the operator and the non-author closure rule on whether Ca measured at its own landing satisfies the claim. Calibration is `improved` only for the declared ledger pairs; the wave-2 record sweep found further mismatches in the round's own new bytes (two HIGH repaired: SKILL pin, QUALITY 25; the rest routed). Trend verdicts: expansion improved (one ground; base + amendment), quality unchanged (own-entry repairs are calibration work, QUALITY 20), discernment unchanged (no outside spot-check of this round yet). Exploratory claims: 0.
 
+
+## Corrections — round 75
+
+Append-only record (hyaku run 10, L1 kotodama round 75). Claim Ca ledger `reports/round-75/ledger.json`, frozen
+with `reports/round-75/claims.json`. Counter: `python3 -B reports/round-75/accept-ca.py --root . --lands <lands>
+--freeze <freeze> --fleet-root /home/vgpnk/Projects/shokunin`. The filed lines named below stand as filed; each
+row carries the pair id, the base stated token, the observed token and the pair's own re-derivation command,
+which the counter re-runs with the pair's parser and requires to return the observed token.
+
+| id | old token | new token | re-derivation command |
+|---|---|---|---|
+| L75-04 | 249 | 247 | git grep -c -E '^- `[^`]+\.md` —' f556d1049fe651d3d63975600b13acd9fb686f15 -- corpus/README.md |
+| L75-08 | absent | present | git grep -c '非凡特性来自最初造物主' f556d1049fe651d3d63975600b13acd9fb686f15 -- reports/round-74/evidence/S883.txt |
+| L75-09 | absent | present | git grep -c '这个我肯定考虑过' f556d1049fe651d3d63975600b13acd9fb686f15 -- reports/round-74/evidence/S884.txt |
+| L75-10 | 43 | 44 | git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 f556d1049fe651d3d63975600b13acd9fb686f15 -- ':(glob).ufo/waves/round-74/w2/*.md' |
+
+Notes. Each cell holds the ledger's own token, not a paraphrase: the old token is the pair's `stated_parse`
+capture at the pinned base, the new token is what the pair's `observe_cmd` returns there.
+
+- `corpus/README.md:813` (pair L75-04) states `Total knowledge entries: 249.` while the index rows above it
+  number 247 at the pinned base; the filed footer line stands and claim C carries its own later footer.
+- `corpus/lessons/round-74.md:37` and `:38` (pairs L75-08 and L75-09) say each staged row's quoted span was
+  absent from the page it was bound to, while each own span occurs once in that page's round-74 capture and the
+  mispairing belongs to the register rows the lesson names.
+- `LOG.md:4318` (pair L75-10) says `43 of 44 report files present at filing`; the frozen base carries 44 report
+  files in that wave-2 directory, the three `drafts/*.md` files being outside it.
+- The remaining six ledger pairs are REPAIR pairs and carry no row here: their statements move to the observed
+  truth in the files they name.
+
+The row commands are the ledger's `rederive` strings verbatim. Four ledger observations (pairs L75-04, L75-05,
+L75-06 and L75-07) embed a backtick or a pipe inside an `-E` pattern, which the counter's observe guard refuses;
+the freeze must carry the guard-clean re-cut named in `.ufo/waves/round-75/w2/ScribeScorecardFinal.md`, and if
+it does, cell four of the matching row takes the re-cut string. The token cells do not change.
