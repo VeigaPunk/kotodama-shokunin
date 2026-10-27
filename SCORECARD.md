@@ -1506,3 +1506,31 @@ it does, cell four of the matching row takes the re-cut string. The token cells 
 | calibration | improved (claim Ca, records) | at base f556d104: 10 ledger pairs (6 REPAIR, 4 ANNOTATE), every stated token unequal to the observed one — all 10 measured red at the pinned base (the four pairs whose `-E` pattern holds a backtick or an escaped pipe are read as pattern operands, the argv never shell-parsed — claims LEDGER wording, pre-data edit W2-F5) → 6 REPAIR statements equal the truth observed at the Ca lands, 4 rows under `## Corrections — round 75` carrying id + old token + new token + the re-derivation command, zero removed lines in the APPENDONLY set; ACCEPT-CA-75 PASS legs=12/12 | `python3 -B reports/round-75/accept-ca.py --root . --lands 012e8d3c8b92f47c734f735d58d118d574fe6a14 --freeze 5d0167464309d8133991b30f7d7a7011a6a0fd14 --fleet-root /home/vgpnk/Projects/shokunin --combined 4f5e3b2535c2c06c51627dc2736c40183847cae1` (run in a clone whose local main is pinned to the Ca landing) | `reports/round-75/ledger.json`, `reports/round-75/telemetry/controls-ca.txt`, `junk-ca.txt`, `measures-ca.txt` (its COMBINED leg ran with --combined), `accept-ca-74-at-lands.txt`; `corpus/lessons/round-75.md` |
 
 Round shape: wave 1 = 42 seats (attempt 1), wave 2 = 34 seats (build + attack, pre-freeze), wave 3 = 36 falsify seats; round total 112. Non-author closure pending.
+## Corrections — round 76
+
+Append-only record (hyaku run 10, kotodama round 76). Claim Ca ledger `reports/round-76/ledger.json` has 20 unique pairs (19 ANNOTATE, 1 REPAIR), frozen with `reports/round-76/claims.json`. Counter: `python3 -B reports/round-76/accept-ca.py --root . --lands <Ca-lands> --freeze <freeze> --fleet-root /home/vgpnk/Projects/shokunin --combined <C-lands> --main <Ca-lands> --work /fast/scratch/hyaku/kotodama-r76/<seat>`.
+
+| id | old token | new token | re-derivation command |
+|---|---|---|---|
+| L76-01 | absent | present | git grep -c -E '^' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/claims.json |
+| L76-02 | DRAFT | FINAL | git grep -o -E '"status": "[A-Z]+' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/claims.json |
+| L76-03 | fails | blob | git cat-file -t 98c486bdb4650ba5b8e651d332910e8ee60ad121:reports/round-75/claims.json |
+| L76-04 | fails | blob | git cat-file -t 98c486bdb4650ba5b8e651d332910e8ee60ad121:reports/round-75/accept-c.py |
+| L76-05 | 6862 | 30920 | git ls-tree -l 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/knowledge/myth-symbol/narrative-structure-frameworks.md |
+| L76-06 | excerpt | whole-document | git grep -o -E '^window-scope: [a-z-]+' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S891.txt |
+| L76-07 | amend-2026-10-23 | amend-2026-10-23b | git grep -o -E '^\| S891 \|.*' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/SOURCES.md |
+| L76-08 | 10 | 3266 | git grep -o -E '^window: chars=[0-9]+ min=[0-9]+ pad=[0-9]+ before=[0-9]+' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S888.txt |
+| L76-10 | 4097 | 4096 | git grep -h -E '^window: chars=' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S888.txt |
+| L76-11 | 111486 | 109588 | git grep -h -E '^bytes: ' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S885.txt |
+| L76-12 | 118776 | 116878 | git grep -h -E '^bytes: ' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S887.txt |
+| L76-13 | 111487 | 109588 | git grep -h -E '^bytes: ' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S885.txt |
+| L76-14 | .ufo/waves/round-75/assimilation/validate/corpus/SOURCES.md | corpus/SOURCES.md | git grep -l -F -e 'Innombrables sont les récits du monde.' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/SOURCES.md |
+| L76-15 | marrone%20age% | marrone%20age%20dor---2.pdf | git grep -h -o -E 'marrone%20age%[^ ]*' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md |
+| L76-17 | 5933 | 24166 | git ls-tree -l 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md |
+| L76-18 | 2514 | 23049 | git ls-tree -l 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md |
+| L76-19 | 284 | 2020 | git grep -h -E '^window: chars=' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S892.txt |
+| L76-20 | 2bcdd019 | 20b571d7 | git grep -h -o -E '^sha256: [0-9a-f]{8}' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S885.txt |
+| L76-21 | fbf48ad2 | e0560649 | git grep -h -o -E '^sha256: [0-9a-f]{8}' 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S887.txt |
+
+The table is a verbatim projection of the 19 ANNOTATE pairs, not an assertion that the frozen Ca counter accepts them. L76-13 names a knowledge path outside the frozen append-only allowlist; L76-19's stated token cannot be found at the claimed lesson line. L76-16 is the single REPAIR: `SKILL.md:707` now distinguishes the receipt's pre-freeze digest `fa5060b91bdb…` from the committed counter digest `315c5f3f27fd…`.
+
