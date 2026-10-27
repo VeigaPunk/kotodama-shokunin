@@ -1,0 +1,21 @@
+Round-76 evidence was re-captured with the frozen-claims producer after W2 found the old files lacked producer-required anchor-binding headers. Tool: `reports/round-76/counters/capture-evidence.py`, claims freeze `df0f0309d61e5485bb17035d3f8791b1e6a11d40`, work `/fast/scratch/hyaku/kotodama-r76/evidence-regenerate`.
+
+$ python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-76/counters/capture-evidence.py --repo /home/vgpnk/Projects/shokunin/kotodama-shokunin --freeze df0f0309d61e5485bb17035d3f8791b1e6a11d40 --id S894 --url https://www.digital.archives.go.jp/search --quote '元号名称 開始西暦年 令和 2019' --anchor-quote '元号名称 開始西暦年 令和 2019' --locator '元号選択 → 和暦元号 table, header and first row' --access-date 2026-10-27 --out reports/round-76/evidence/S894.txt --work /fast/scratch/hyaku/kotodama-r76/evidence-regenerate
+EVIDENCE S894: quote-found=yes verbatim=no anchor-in-window=yes http=200 bytes=311308 sha256=204b7188493573f8 window-chars=4104 window-scope=excerpt window-sha256=0122818d2b7ba00c
+VERIFY OK: window-sha256=0122818d2b7ba00c21a19a8bfe3cdbed3d6d525774979062d9b7a268a133ad7e window-bytes=9068 window-chars=4104 quote-in-window=yes anchor-in-window=yes
+ACCEPT-C-76: CAPTURE OK: claims-frozen=yes
+exit=0
+
+$ python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-76/counters/capture-evidence.py --repo /home/vgpnk/Projects/shokunin/kotodama-shokunin --freeze df0f0309d61e5485bb17035d3f8791b1e6a11d40 --id S895 --url 'https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=E107EA4DE9725EDF819F33C60A44B296' --quote '标准号：GB/T 33661-2017' --anchor-quote '标准号：GB/T 33661-2017' --locator '标准信息表 标准号 field' --access-date 2026-10-27 --out reports/round-76/evidence/S895.txt --work /fast/scratch/hyaku/kotodama-r76/evidence-regenerate
+EVIDENCE S895: quote-found=yes verbatim=yes anchor-in-window=yes http=200 bytes=24144 sha256=80b4c781f4b77210 window-chars=664 window-scope=whole-document window-sha256=882d1f9a9eb38eef
+VERIFY OK: window-sha256=882d1f9a9eb38eef75eefbc27258e6f863c87b3704eed435b91edcfc85808549 window-bytes=1445 window-chars=664 quote-in-window=yes anchor-in-window=yes
+ACCEPT-C-76: CAPTURE OK: claims-frozen=yes
+exit=0
+
+$ python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-76/counters/capture-evidence.py --repo /home/vgpnk/Projects/shokunin/kotodama-shokunin --freeze df0f0309d61e5485bb17035d3f8791b1e6a11d40 --id S896 --url https://news.gmw.cn/2017-05/23/content_24559485.htm --quote '首次明确了农历的编排规则、计算模型和精度等' --anchor-quote '首次明确了农历的编排规则、计算模型和精度等' --locator 'article paragraph 4' --access-date 2026-10-27 --out reports/round-76/evidence/S896.txt --work /fast/scratch/hyaku/kotodama-r76/evidence-regenerate
+EVIDENCE S896: quote-found=yes verbatim=yes anchor-in-window=yes http=200 bytes=25250 sha256=670850ea26dd6de7 window-chars=1487 window-scope=whole-document window-sha256=3b0fc54b88339ebd
+VERIFY OK: window-sha256=3b0fc54b88339ebd4f48ebb00230d9b33175e07eccdaa3edbeef1efbd2ab2be0 window-bytes=4005 window-chars=1487 quote-in-window=yes anchor-in-window=yes
+ACCEPT-C-76: CAPTURE OK: claims-frozen=yes
+exit=0
+
+All three files now carry the round-76 `anchor-quote`, `anchor-quote-chars`, `anchor-quote-words`, `anchor-found`, `anchor-in-window`, `bytes-rule`, `claims-source`, and `claims-frozen` headers in addition to the frozen EVIDENCE contract fields; W2's missing-header finding is resolved without changing the claims or counter.
