@@ -1563,3 +1563,5 @@ Final Gate-reviewed C remeasurement at `cb4f6c6a550b3233f3c12a266e72dee6f4bc126b
 Final counter restamp after the census/lesson integration at `b857eed56674738fe95f49b298f5ec555f1e6f6b`: `ACCEPT-C-76: FAIL legs=11/13`, with ROWS and COLLCHECK still the only red legs (`reports/round-76/telemetry/measures-c-final-c6.txt`). Counts remain 252→253 knowledge files and 817→820 registry rows; no score delta.
 
 Final W2-integrated restamp at `b40113eb3961bce44fba6b066ce6a656f0e16fec`: `ACCEPT-C-76: FAIL legs=11/13`; ROWS and COLLCHECK remain the only red legs (`reports/round-76/telemetry/measures-c-final-c7.txt`). The integration and quarantine/lesson corrections did not change the frozen claim verdict; no score delta.
+
+Final post-WAVE-DONE restamp at `c792ea50f1cfba2b56c16a0f5102b2877fd2eefd`: `ACCEPT-C-76: FAIL legs=11/13`, still ROWS and COLLCHECK only (`reports/round-76/telemetry/measures-c-final-c792.txt`). W2 evidence corrections and count receipts did not alter the frozen result; no score delta.
