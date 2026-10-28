@@ -1565,3 +1565,5 @@ Final counter restamp after the census/lesson integration at `b857eed56674738fe9
 Final W2-integrated restamp at `b40113eb3961bce44fba6b066ce6a656f0e16fec`: `ACCEPT-C-76: FAIL legs=11/13`; ROWS and COLLCHECK remain the only red legs (`reports/round-76/telemetry/measures-c-final-c7.txt`). The integration and quarantine/lesson corrections did not change the frozen claim verdict; no score delta.
 
 Final post-WAVE-DONE restamp at `c792ea50f1cfba2b56c16a0f5102b2877fd2eefd`: `ACCEPT-C-76: FAIL legs=11/13`, still ROWS and COLLCHECK only (`reports/round-76/telemetry/measures-c-final-c792.txt`). W2 evidence corrections and count receipts did not alter the frozen result; no score delta.
+
+Final lane-tip measurement at `c28ea2194ae6d0c874c011d3b1b59409a20bd422`: `ACCEPT-C-76: FAIL legs=11/13`, still ROWS and COLLCHECK only (`reports/round-76/telemetry/measures-c-final-c28ea.txt`). The pushed tip adds only evidence/close records after the C7 data; no score delta.
