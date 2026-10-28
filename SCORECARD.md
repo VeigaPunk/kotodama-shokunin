@@ -1561,3 +1561,5 @@ W2 evidence follow-up: `reports/round-76/evidence/S894.txt`, `S895.txt`, and `S8
 Final Gate-reviewed C remeasurement at `cb4f6c6a550b3233f3c12a266e72dee6f4bc126b`: `ACCEPT-C-76: FAIL legs=11/13`; ROWS and COLLCHECK remain the only red legs after the S895 locator correction and non-author spot-check. Receipt: `reports/round-76/telemetry/measures-c-final.txt`. No score delta.
 
 Final counter restamp after the census/lesson integration at `b857eed56674738fe95f49b298f5ec555f1e6f6b`: `ACCEPT-C-76: FAIL legs=11/13`, with ROWS and COLLCHECK still the only red legs (`reports/round-76/telemetry/measures-c-final-c6.txt`). Counts remain 252→253 knowledge files and 817→820 registry rows; no score delta.
+
+Final W2-integrated restamp at `b40113eb3961bce44fba6b066ce6a656f0e16fec`: `ACCEPT-C-76: FAIL legs=11/13`; ROWS and COLLCHECK remain the only red legs (`reports/round-76/telemetry/measures-c-final-c7.txt`). The integration and quarantine/lesson corrections did not change the frozen claim verdict; no score delta.
