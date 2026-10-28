@@ -21,7 +21,7 @@ Access date: 2026-10-27. Evidence windows are committed as `reports/round-76/evi
 ### Non-author spot-check
 
 Reviewer `RevLessonGate` (wave 2, non-author) spot-checked the S894 admit and the showGb-alias refusal against the committed evidence and redirect capture (`.ufo/waves/round-76/w2/RevLessonGate.md:17-35`). **Agree** on S894: the URL, quote, and locator resolve in the committed window. **Agree** on the showGb refusal: the probed URL returns HTTP 302 to the already-cited `newGbInfo` record, so no second source row is warranted. The reviewer also **disagreed** with the original S895 locator phrase `标准信息表` because that label was absent from the 664-character window; the Gate and evidence locator now use `record page, 标准号 field`, which names the visible field instead.
-Triage of the 40 staged knowledge files: **1 adopted / 9 path-present at base / 30 refused** (1+9+30=40). Candidate a is the sole adopted entry; the 27 non-candidate refusals are naming-systems ×11, verification amendments ×9, era-periodization ×1, conlang-scholarship ×3, conlang-methodology ×1, and narrative-structure amendments ×2; these are outside this entry's calendar-standard/era-table scope. Flip only when a separate, lane-scope source-grounded gap is declared. Candidates b/c/d were refused for the reasons above. No row was appended unless cited by the admitted entry. Candidate a's staged citations to campaign ids were re-pointed by document to S894/S895/S896; no campaign id is used as a lane citation.
+Triage measured 2026-10-27: 40 staged knowledge files — `find /home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge -type f -name '*.md' | wc -l` → 40; 9 path-present at base — the per-file base path sweep in `.ufo/waves/round-76/w1/ExecAdaptC.md:216` reports `same=0 diff=9 absent=31`; 30 refused = 40−1 adopted−9 path-present. The frozen counts are 1 adopted / 9 path-present / 30 refused (1+9+30=40). Candidate a is the sole adopted entry; the 27 non-candidate refusals are naming-systems ×11, verification amendments ×9, era-periodization ×1, conlang-scholarship ×3, conlang-methodology ×1, and narrative-structure amendments ×2; these are outside this entry's calendar-standard/era-table scope. Flip only when a separate, lane-scope source-grounded gap is declared. Candidates b/c/d were refused for the reasons above. No row was appended unless cited by the admitted entry. Candidate a's staged citations to campaign ids were re-pointed by document to S894/S895/S896; no campaign id is used as a lane citation.
 
 ### Refused package families
 
@@ -39,37 +39,37 @@ Triage of the 40 staged knowledge files: **1 adopted / 9 path-present at base / 
 
 ## Quarantine
 
-The standing kotodama slice was re-derived read-only from `/home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md`: 21 rows, all with S-ids. The standing verdicts from `reports/round-71/telemetry/quarantine-verdicts.md` remain unchanged: PRESENT 10, REFUSED 7, UNVERIFIABLE 4. No current candidate or new lane row is a slice document; no quarantine verdict was upgraded or retired.
+The standing kotodama slice was re-derived read-only on 2026-10-27 from `/home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md` with the §6 item-10 `awk -F'|'` selector (exact command in `.ufo/waves/round-76/w1/ScoutQuarantine.md:6`); `wc -l .ufo/waves/round-76/w1/stage/ScoutQuarantine/quarantine-slice` → 21 and every line contains an S-id (`grep -cvE 'S[0-9]+'` → 0). Standing verdict histogram command in `ScoutQuarantine.md:12-14` re-derived PRESENT 10 / REFUSED 7 / UNVERIFIABLE 4 from `reports/round-71/telemetry/quarantine-verdicts.md`; the register remains read-only. By document, five current lane rows overlap slice documents: three pre-existing round-75 bridges (S883/S816, S884/S817, S893/S787) and two new round-76 rows (S894/S825 and S895/S776). The two PRESENT documents were re-opened with new located quotes and appended as new rows; no register verdict or existing lane row was edited. The initial ID-only sweep did not establish document disjointness.
 
 | slice id | prior verdict | round-76 disposition |
 |---|---|---|
-| S776 | PRESENT | carried, not touched |
+| S776 | PRESENT | same document as new S895; re-opened with the registry field quote; prior verdict unchanged |
 | S778 | PRESENT | carried, not touched |
 | S779 | REFUSED | carried, not touched |
 | S786 | REFUSED | carried, not touched |
-| S787 | REFUSED | carried, not touched |
+| S787 | REFUSED | same document as pre-existing S893 (round 75); prior verdict unchanged |
 | S791 | UNVERIFIABLE | carried, not touched |
 | S792 | REFUSED | carried, not touched |
 | S795 | PRESENT | carried, not touched |
 | S796 | PRESENT | carried, not touched |
 | S804 | PRESENT | carried, not touched |
 | S814 | REFUSED | carried, not touched |
-| S816 | REFUSED | carried, not touched |
-| S817 | REFUSED | carried, not touched |
+| S816 | REFUSED | same document as pre-existing S883 (round 75); prior verdict unchanged |
+| S817 | REFUSED | same document as pre-existing S884 (round 75); prior verdict unchanged |
 | S820 | PRESENT | carried, not touched |
 | S823 | PRESENT | carried, not touched |
 | S824 | PRESENT | carried, not touched |
-| S825 | PRESENT | carried, not touched |
+| S825 | PRESENT | same document as new S894; re-opened with the archive-table quote; prior verdict unchanged |
 | S827 | PRESENT | carried, not touched |
 | S807` | UNVERIFIABLE | carried, not touched; trailing backtick is a register-cell artifact |
 | S812` | UNVERIFIABLE | carried, not touched; trailing backtick is a register-cell artifact |
 | S835` | UNVERIFIABLE | carried, not touched; trailing backtick is a register-cell artifact |
 
-The 21-row slice and per-row provenance are in `.ufo/waves/round-76/w1/ScoutQuarantine.md`; source register remains read-only. Earlier draft S807/S750/S777 citations were removed before the admitted entry was copied; their lane ids either point at other documents or are absent.
+The slice register itself remains read-only; every verdict above was carried unchanged. The two PRESENT documents now have new S894/S895 rows with newly located quotes and no old row replacement. The three REFUSED overlaps already had S883/S884/S893 lane rows from round 75; they remain refused and were not adopted in this entry. The other 16 slice documents do not match this round's source documents. The W1 ID-only conclusion in `.ufo/waves/round-76/w1/ScoutQuarantine.md` was too broad; the W2 document-level comparison is `.ufo/waves/round-76/w2/ScoutQuarantineStatus.md:3-19`.
 
 ## Collision guard
 
-At base, id-list counts were registry 817, staged 132, collisions 35. SHA-256: `reg-ids` `97eef07a858487225118d5c2d18ceb919b8c9549a3768b9adee6a3a321dbd3a7`; `staged-ids` `bab11d7d0ee0d84795b1ff80274fe371670fff73a477c747b2fd3cad4c25ddad`; `collisions` `be203dd8b02cde5fcea89a04e882daa3f525200b8a801e324ad73cde2ebbaf47`. A 1–3-space plant `S897` was found by the whitespace-tolerant extractor (`assimilation/guard-proof/planted-1space-proof.txt`, output includes S897); the 4-space plant was not found (`planted-4space-proof.txt`, grep exit 1). The guard fixtures are committed under `.ufo/waves/round-76/assimilation/guard-proof/`. The collision set was resolved by document, not arithmetic: staged S908/S935→S894; S932/S938→S895; S937→S896.
+At base on 2026-10-27, `wc -l .ufo/waves/round-76/assimilation/reg-ids .ufo/waves/round-76/assimilation/staged-ids .ufo/waves/round-76/assimilation/collisions` → 817/132/35. SHA-256: `reg-ids` `97eef07a858487225118d5c2d18ceb919b8c9549a3768b9adee6a3a321dbd3a7`; `staged-ids` `bab11d7d0ee0d84795b1ff80274fe371670fff73a477c747b2fd3cad4c25ddad`; `collisions` `be203dd8b02cde5fcea89a04e882daa3f525200b8a801e324ad73cde2ebbaf47`. The 35-id collision set is S859–S893; the separate post-adoption numeric-overlap map resolves staged S908/S935→S894, S932/S938→S895, S937→S896. A 1–3-space plant `S897` was found by the whitespace-tolerant extractor (`assimilation/guard-proof/planted-1space-proof.txt`, output includes S897); the 4-space plant was not found (`planted-4space-proof.txt`, grep exit 1). The guard fixtures are committed under `.ufo/waves/round-76/assimilation/guard-proof/`.
 
 ## Normalization
 
@@ -94,4 +94,4 @@ Start validation: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh valid
 C failed as measured at `cb4f6c6a550b3233f3c12a266e72dee6f4bc126b`: `ACCEPT-C-76: FAIL legs=11/13`, with only ROWS and COLLCHECK red; GATE, EVIDENCE, REJECTS, GROUND, CITEDLINES, CENSUS and INDEX pass. W2 reviewers disagreed whether ROWS over-reads or the frozen claim failed to account for required Paths/Search-log lines; both the frozen counter result and the disagreement are recorded in `w2/CritRowDiff.md` and `w2/ConnCounterPatterns.md`. COLLCHECK rejects S938→S895 because the frozen map carries the full `showGb` URL while the immutable S895 source cell only mentions that alias in prose. The W2 S895 locator finding was corrected, the evidence files were regenerated with the frozen producer, and the non-author spot-check is recorded above; W2 also noted that the S896 capture carrier is not in the frozen row set or the evidence file, although the live source is. Ca failed as measured at `a43ed807ea38b5fc5a7875a839d576cea73aba7c`: `ACCEPT-CA-76: FAIL legs=5/12`; LEDGER, REPAIR, ANNOTATE, NOSTUB, R1EXEMPT, SEPARABLE, and COMBINED are red; BASEMISMATCH, APPENDONLY, RECEIPTS, FROZENCFG, and STAMP pass. LEDGER specifically rejects L76-13 (stated-at path outside the frozen append-only allowlist) and L76-19 (stated text not found at the specified lesson line); additional ledger command-grammar and README-owned-inplace failures are in `reports/round-76/telemetry/measures-ca.txt`. Claims and ledger were not edited after freeze. The scorecard's post-measurement summary is an outcome record, not a changed predicate. Route counter/ledger defects to round 77 with new frozen claims and controls.
 ## Sources & frontier
 
-`corpus/SOURCES.md` at the measured base: 817 rows; after the three opened rows: 820 (A +2, B +1). No pre-existing row status/recheck/used-by changed. Search frontier: GB/T 33661-2017 calendar-compilation announcement and the archive's era-name lookup; the standard's normative clause text itself remains unread. No `considerthese/` directory exists in this lane. Census after landing is required by CORPUS.md and appears in the round report.
+`corpus/SOURCES.md` at base `98c486bdb4650ba5b8e651d332910e8ee60ad121`: 817 rows; at final measured tree `b857eed56674738fe95f49b298f5ec555f1e6f6b`: 820 rows (A +2, B +1, C unchanged). The source-table diff command `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin diff --numstat 98c486bdb4650ba5b8e651d332910e8ee60ad121 b857eed56674738fe95f49b298f5ec555f1e6f6b -- corpus/SOURCES.md` prints `8 0`; W2's row-by-row check found no pre-existing row changed (`.ufo/waves/round-76/w2/ExecMapAudit.md:220-221`). The escaped-pipe sweep `git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show b857eed56674738fe95f49b298f5ec555f1e6f6b:corpus/SOURCES.md | grep -E '^ {0,3}\| S(894|895|896) \|' | grep -F '\|'` prints nothing, exit 1. Frontier rows: S894 National Archives era instrument, S895 official GB/T registry record, S896 Guangming Daily report; their new statuses are mined/180d, used-by the one admitted entry. Round-76 prompt §2b requires start/end validation; `CORPUS.md` supplies seven manual census commands but does not itself impose a post-landing census. Both raw validations and base/end count receipts are above. `test -d /home/vgpnk/Projects/shokunin/kotodama-shokunin/considerthese` prints `absent`, exit 1; no still-unimplemented proposal was available.

@@ -1,0 +1,37 @@
+# CritCaLedger — Round 76 Ca falsification
+
+## Axes
+- **Frozen-contract fidelity:** does the counter enforce the Ca predicates as frozen at `df0f030`?
+- **Evidence fidelity:** do the emitted FAIL diagnostics match committed bytes at the named revisions?
+- **Failure attribution:** are failures defects in frozen inputs, counter interpretation, or landing/receipt state?
+
+## Verdict
+**Ca fails as declared; the cited failures are substantially validated, not false reds.** The strongest defects are frozen-ledger provenance/statement anchoring, three malformed re-derivation strings, the REPAIR target regex, missing R1 receipts at Ca-lands, and the actual combined-tree APPENDONLY violation. No evidence found that these results came from grading mutable ledger/counter bytes: the frozen counter at Ca-lands hashes to the receipt's `c1fc755e…` (`git show a43ed80:reports/round-76/accept-ca.py | sha256sum`; measures receipt header), and the worktree ledger is byte-identical to the frozen ledger (`git show df0f030:reports/round-76/ledger.json`, compared with worktree).
+
+## Counterexamples / evidence
+
+1. **L76-13: LEDGER and SEPARABLE failures are genuine frozen-pair defects.** Frozen claim Ca requires ANNOTATE `stated_at` paths to be one of `LOG.md`, `SCORECARD.md`, `corpus/lessons/round-75.md`, `corpus/QUALITY.md` (freeze claims, Ca `ANNOTATE` leg). The frozen counter parses that allowlist from the claim (`reports/round-76/accept-ca.py` at Ca-lands, lines 784–790) and rejects any other ANNOTATE path (`leg_ledger`, lines 1499–1505). L76-13 instead points to `corpus/knowledge/myth-symbol/narrative-structure-frameworks.md:8` (frozen ledger; its stated bytes are indeed on base line 8), which is outside that allowlist. The same path matches the explicit forbidden `corpus/knowledge/**` scope in frozen SEPARABLE; `leg_separable` reports forbidden stated paths (counter lines 2136–2185). Thus both reports are contract-grounded, though the same underlying L76-13 defect contributes to two predicates.
+
+2. **L76-19: stated_text is not a literal base statement at the claimed site.** Frozen ledger L76-19 gives `corpus/lessons/round-75.md:48` and stated text `S892's window (`chars=4097 before=284`)`. At base `98c486b`, lines 47–48 read `S888's window ... and S892's` then `(`chars=4097 before=284`) ...`; the phrase “S892's window” does not occur, and the complete stated_text is not on line 48 (nor in the normalized body). The frozen LEDGER check explicitly requires the text at the cited base line (`leg_ledger`, counter lines 1541–1578). This is a ledger authoring defect, not a parser false positive.
+
+3. **L76-19/20/21 rederive failures are genuine grammar/argv mismatches.** The frozen ledger's rederive strings omit quoting around regexes containing spaces. `rederive_argv` uses `shlex.split` (counter lines 1377–1384); `git grep` operands are role-parsed as pattern, revisions, then paths (lines 1046–1120). Consequently L76-19 splits `^window: chars=` into pattern `^window:` plus `chars=` as a path operand; L76-20/21 split `^sha256: [0-9a-f]{8}` so the base revision is interpreted among path operands after the pattern fragment. The correction rows in Ca-lands SCORECARD do include the claimed observed tokens and command strings (lines 1526, 1531–1533), but those literal commands are not executable under the frozen rederive parser; `leg_annotate` re-parses and re-executes them (counter lines 1786–1850). The receipt's ANNOTATE/NOSTUB failures are consistent with this evidence. Small safe correction at a future freeze: store an argv or quote the complete regex as one shell word in each `rederive` string, then re-evaluate against the pinned base.
+
+4. **L76-16 REPAIR failure is genuine.** Frozen pair's `statement_after.parse` expects a matching `accept-c-75` line containing `committed counter sha256 ...` (ledger L76-16). At Ca-lands, `SKILL.md:707` is the `accept-c-75` gate row and contains no such phrase; it describes the accept-c-75 invocation/output instead. `statement_after()` fails on no regex matches (counter lines 1377–1404), and `leg_repair` rejects that result (lines 1702–1740). This is a frozen replacement-pattern mismatch, not a claim of an absent source line. A future repair must target the actual intended row/text or provide a regex matching the committed replacement.
+
+5. **R1EXEMPT failure is supported by committed-tree evidence.** Both `reports/round-76/telemetry/r1exempt-green.txt` and `r1exempt-red.txt` are absent from the Ca-lands tree (`git cat-file -e a43ed80:<path>` fails). The frozen R1EXEMPT predicate requires committed receipts for both fixture outcomes, and `leg_r1exempt` checks their existence and verdict/exit markers (counter lines 2460–2508). The mutable/untracked measures file cannot substitute for those pinned receipts.
+
+6. **COMBINED failure is supported by the actual C landing diff.** `git diff a43ed80..722e69f -- corpus/README.md` changes the pre-existing `## culture-material/ (40)` heading to `(41)` at line 410 and appends the calendar entry. Frozen Ca COMBINED requires the combined tree's APPENDONLY comparison to stay within allowed rule-2 and C-owned exemptions; its counter checks the combined revision and calls APPENDONLY there (counter lines 2544–2587). This is a real combined-tree delta, not contamination of the Ca-only grade. The receipt specifically reports the heading as outside the frozen exemption and an invalid `owned_inplace` line number; the actual diff corroborates the heading change. The precise parser/config defect behind “no valid line number” is a counter/config weakness; it does not erase the real changed line or establish the exemption.
+
+7. **Tally is internally consistent.** The 12 frozen legs are listed in frozen claims.json. The receipt has 7 `LEG FAIL` and 5 `LEG PASS` lines; counter code computes the numerator as passing legs (`accept-ca.py` lines 2818–2824). Thus `FAIL legs=5/12` means five passed, twelve total, not five failures.
+
+## Smallest safe correction
+Do not edit this frozen round's ledger, predicates, or receipts after the fact. The canonical judgment should reject Ca under its frozen kill rule. For any future freeze: correct L76-13's disposition/site allowability, cite exact L76-19 base text (or remove that non-literal pair), encode the three rederive commands with regexes preserved as single argv operands, make L76-16's replacement parser match the actual intended line, commit both R1 receipts before grading, and explicitly freeze the exact C-owned README exemption scope/line handling. Those are changes to a new frozen configuration, not retroactive repairs to this result.
+
+## Evidence source revisions
+- Freeze/config: `df0f0309d61e5485bb17035d3f8791b1e6a11d40` (`reports/round-76/claims.json`, `ledger.json`, `accept-ca.py`).
+- Ca landing/counter: `a43ed807ea38b5fc5a7875a839d576cea73aba7c`.
+- Combined C landing: `722e69ff6361aadf148cb46acbf6ac8fd147f59a`.
+- Base statement evidence: `98c486bdb4650ba5b8e651d332910e8ee60ad121`.
+- Measures: `reports/round-76/telemetry/measures-ca.txt` (untracked receipt in the worktree; treated as the report of a run and cross-checked against the pinned bytes above).
+
+No builds, tests, linters, or formatters were run; no tools installed.

@@ -1,0 +1,20 @@
+# CritSeparability — Ca/C and COMBINED
+
+## Verdict
+COMBINED is correctly red under the frozen implementation, but its README failure is an exemption-wiring defect, not evidence that Ca's own repairs are inseparable from C. The frozen Ca claim is independently evaluated at Ca landing; the combined predicate then checks append-only changes at the combined C revision. Its configured C-owned README exception cannot be applied because the frozen C `owned_inplace` record omits the line number the frozen Ca counter requires.
+
+## Counterexample and exact cause
+At the combined revision, C changes only one pre-existing README line: `corpus/README.md:410`, `## culture-material/ (40)` → `## culture-material/ (41)`. The other README changes are insertions: the new candidate index row and the appended Counts checked block. The frozen APPENDONLY comparator checks removed/replaced base lines (`accept-ca.py` at freeze, `_removed_base_lines`, lines 1855–1861; its loop at 1961–1965); thus the heading replacement is the relevant removal, not the appended material.
+
+The frozen Ca counter tries to exempt that in-place C-owned change by reading `base_line` from each frozen C `owned_inplace` item (`reports/round-76/accept-ca.py` at `df0f030`, lines 1913–1929). But the C record in frozen `reports/round-76/claims.json` at `df0f030`, lines 170–175, contains only `path`, `base_text`, and `after_text`; it has no `base_line`. Consequently `line_no` is `None`, the counter adds `claim-C owned-inplace line has invalid line number`, and no line is added to `c_exempt_lines`. The actual combined receipt records both results: `reports/round-76/telemetry/measures-ca.txt` (committed by `af67443`), line 13 says the C-owned heading at line 410 is outside the exemption and the owned_inplace config has no valid line number. The README diff base `98c486b` → C landing `722e69f` confirms the single replacement at `@@ -410 +410 @@`, with additions at `@@ -415,0 +416` and `@@ -831,0 +833,4`.
+
+Ca did not own or modify this README change: the Ca landing's base-to-`a43ed80` diff has no `corpus/README.md` delta. The Ca predicate expressly separates evaluation of Ca's repairs at `<Ca-lands>` from COMBINED's append-only comparison at `<C-lands>` (`claims.json` at freeze, line 202). So this is a bad C-owned exemption representation/consumer boundary, not a genuine Ca-vs-C data collision.
+
+## Axes impacted
+- **Calibration / Ca separability:** the independent Ca evaluation can pass its own relevant repairs, but COMBINED remains blocked by an unrelated C-owned heading replacement.
+- **Combined append-only integrity:** the intended exception is fail-closed; missing metadata yields a false negative (red), not a false green. The inserted index/footer additions are not themselves the removed-line failure.
+
+## Smallest safe correction / frozen-predicate answer
+The minimum semantic-preserving correction is to let the frozen C-owned exemption identify the unique base line by exact `base_text` (and still verify that the corresponding combined line equals `after_text`), or to include the explicit line number in a *newly frozen* owned_inplace record. The former preserves the stated COMBINED predicate—exempt exactly the declared C-owned in-place edit—while fixing its implementation/representation mismatch. This round cannot apply either change: the counter/config are frozen, and the claim requires frozen constants and claims bytes to match the freeze. Changing the README to avoid the heading replacement would contradict C's frozen INDEX requirement (heading count 41); dropping the check or broadening the exemption would change the frozen predicate and risk false green. A follow-on freeze must resolve the metadata contract before grading; do not reinterpret this COMBINED FAIL as a Ca claim-data failure.
+
+No tools installed or updated.

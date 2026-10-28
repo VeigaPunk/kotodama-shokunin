@@ -1,0 +1,23 @@
+# CritGateEvidence — round 76 C GATE / EVIDENCE / REJECTS
+
+## Verdict
+
+No content-level false green found in these three legs at C landing `722e69ff6361aadf148cb46acbf6ac8fd147f59a`. The final measurement receipt reports GATE, EVIDENCE, and REJECTS green (worktree `reports/round-76/telemetry/measures-c.txt:28-30`); the committed lesson and evidence reproduce their substantive checks. This does not rescue C overall: that receipt reports ROWS and COLLCHECK red at lines 25-26 and 38-39.
+
+Caveat: `measures-c.txt` is not in the landing commit (nor tracked in the observed worktree); treat its leg verdicts as a supplied run receipt, not committed provenance. Findings below use files from the cited commits.
+
+## Axes and evidence
+
+- **GATE — supported.** At committed lesson lines 5-19, the three admitted rows (lines 11-13) each carry the row URL, access date, short quote, locator and evidence path; the separate reject table (lines 15-19) has probed URL, reason, flip and refused verdict for all three probed candidates. The committed registry anchors bind the same quotes: `corpus/SOURCES.md` rows S894-S896 (anchor cells; S894 quote at its row, likewise S895/S896). The quote spans are within the 25-token/80-character caps. The counter binds Gate quote identity to anchor and checks the required columns/URLs/locators at `reports/round-76/accept-c.py:2352-2456`.
+- **EVIDENCE — supported for the frozen, window-level contract.** The three committed windows all reproduce: NFKC/whitespace-folded Gate quotes occur inside them; recomputed SHA-256 and byte lengths match. S894 is an excerpt of 4,103 chars (visible text 6,815); S895 and S896 are whole-document windows of 664/664 and 1,487/1,487 chars. See `reports/round-76/evidence/S894.txt:11-18,31-35`, `S895.txt:11-18,31-35`, `S896.txt:11-18,31-35`; Gate quotes/locators at `corpus/lessons/round-76.md:11-13`. Each also records status 200, positive bytes, a browser-shaped UA, matching fetch URL, and `challenge: none` in the evidence file headers. The counter recomputes window digest/scope/quote checks at `accept-c.py:2593-2737`.
+- **REJECTS — lesson content supported; validator has an under-enforcement seam.** The lesson states 1/9/30=40 at line 21; its family table gives counts and substantive reason/flip per row at lines 25-35; the 21-row quarantine lists prior verdicts at lines 39-63, with 10/7/4 and total 21 explicitly at line 39. The standing register independently gives those counts and all refused IDs at `reports/round-71/telemetry/quarantine-verdicts.md:14-34,36`.
+
+## Remaining citation / validation weakness
+
+The REJECTS validator does not reliably enforce its per-family reason/flip promise for this frozen config. The config packages candidate b/c/d and all six other families into one `refused_files_pending_triage` string (`reports/round-76/claims.json`, C rejects; frozen values 1/9/30/40). `load_frozen_config` merges that whole string into one item (`accept-c.py:1036-1044`); `_rejects_families` then takes the first token before `x11` as the sole family name (`accept-c.py:2848-2878`). Consequently the family loop can find a single `candidate …` row with reason+flip and does not independently bind each named family/item to its own row (`accept-c.py:2881-2891, 2923-2978`). A mutation that blanks reason/flip on, for example, the conlang-methodology row at lesson line 34 while leaving a candidate row intact can evade that per-family check, although the committed lesson currently has a substantive reason and flip there. This is validator false-green potential, not an observed failure of the committed lesson.
+
+The evidence contract also has an explicit provenance limit: body SHA-256 is checked only for 64-hex shape, not recomputed from a committed response body; the counter documents this at `accept-c.py:2516-2521` (and says no network is available at grading). The stored quote windows and their hashes are reproducible, so this does not falsify the frozen EVIDENCE predicate, but it does not independently authenticate the fetched-body digest.
+
+## Smallest safe correction
+
+For a new frozen claim/counter only: represent refused items/families as separate structured config entries and require an exact row match plus substantive reason and flip for each one; add a mutation that blanks one non-first family's reason/flip and require REJECTS to fail. If body-digest provenance is required, commit the response body or a verifiable capture artifact and derive the digest from it. Do not alter the frozen round-76 claim/counter.

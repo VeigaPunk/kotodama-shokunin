@@ -1,0 +1,20 @@
+# CritMapAlias — C COLLCHECK S938→S895
+
+## Axes
+- **Document identity / provenance:** whether S938 is actually the same registry record as S895.
+- **Frozen-predicate fidelity:** whether COLLCHECK's failure establishes a factual wrong mapping or a limitation in the URL validator.
+
+## Evidence (committed revisions)
+- Frozen claims at `df0f0309d61e5485bb17035d3f8791b1e6a11d40`, `reports/round-76/claims.json`: `pre_data_corrections` C-P3 says to collapse the showGb 302 alias and newGbInfo target into one registry-record document (line 21); the frozen COLLCHECK predicate requires the map to map staged IDs to lane IDs “by document” (C.legs, line 144). The map is hash-pinned in the claim.
+- Frozen map at `.ufo/waves/round-76/assimilation/id-renumber-map.json` (SHA-256 `a9f530e26cbbd607d156a2fc32cc4ed241f9c37b79e17dc17cc5335f184f4092`): join key is normalized document URL (line 10). S938 maps to S895, but its `document_normalized` and sole staged URL are the `.../std/showGb?type=online&hcno=...` URL (lines 603–610); S932 maps to S895 with the `.../std/newGbInfo?hcno=...` URL (lines 582–601). The S938 record's note says it is the showGb route redirecting by 302 to the same newGbInfo record (line 620).
+- C landing `722e69ff6361aadf148cb46acbf6ac8fd147f59a`, `corpus/SOURCES.md:850`: S895's source cell names the newGbInfo URL and says “showGb?type=online redirects here by HTTP 302”; the showGb spelling is prose, not a full URL in the cell. `SOURCES.md:854` also describes the S896→S895→S894 evidence chain.
+- Redirect corroboration at that landing: `.ufo/waves/round-76/w1/stage/SentinelSources/receipts/S897.txt:1` begins `HTTP/1.1 302`; `FETCH-LEDGER.md:15,20,35` records showGb→newGbInfo routes and the redirect target.
+- Counter `reports/round-76/accept-c.py:465–483`: `urls_compatible` folds host/path and accepts exact path or substring containment (for archive wrappers); it does not resolve HTTP redirects. `leg_collcheck` extracts the map URL and tests it against URLs in the S895 source cell (`:3481–3694` in the C-landing counter): it therefore compares showGb against newGbInfo/Wayback-newGbInfo and returns false. The committed do-nothing control `reports/round-76/telemetry/controls-c.txt` records `LEG FAIL COLLCHECK` with `map record S938 -> S895 names a document the row does not` (line 49; same receipt shows the failure is at lands==freeze, not the final landed-tree measurement).
+
+## Verdict
+**The URL mismatch is factual; the validator limitation is also real.** S938's recorded normalized URL is the distinct showGb route, while S895's actual source-cell URL is newGbInfo. Exact normalized-URL equality is false, so the counter is not misreading the strings. However, the committed redirect evidence and frozen C-P3 decision support that those routes identify one registry record; the counter's compatibility function cannot represent that declared same-document-via-302 relation. Thus the failure demonstrates a mismatch between the map's literal normalized-URL join key and the intended redirect-aware document identity, not evidence that S938 points to a different standard/record. It is not accurate to call the counter's result a factual disproof of the alias, nor to call the bytes literally URL-equal.
+
+The final `reports/round-76/telemetry/measures-c.txt` is absent from cited C landing `722e69f` (and is not used here); the committed failure evidence cited above is the freeze control. Do not treat a mutable-worktree receipt as committed evidence.
+
+## Smallest safe correction (future validator/design work only)
+Keep the frozen claims unchanged. Make the map/validator contract explicitly redirect-aware: derive/record the verified canonical target for S938 and validate that target against S895's row, while retaining S938's original staged URL as provenance. Do not silently weaken general URL comparison or treat arbitrary same-host routes as aliases.

@@ -1,0 +1,17 @@
+# CritRowDiff — frozen C ROWS falsification
+
+## Verdict
+
+**The ROWS failure is an implementation over-read of the declared row-only predicate.** The landing's source rows satisfy the declared identity/count limb: exactly S894–S896 were added (817→820), with no pre-existing row changed or removed. ROWS nevertheless fails because the counter rejects two non-row additions in `corpus/SOURCES.md` (`## Paths` study-path note and `## Search log` paragraph). The whole C claim still fails: the final counter receipt also reports an independent COLLCHECK failure for the S938→S895 showGb alias. This finding does not overturn that overall FAIL.
+
+## Evidence
+
+- Frozen declaration: `reports/round-76/claims.json` at freeze `df0f0309d61e5485bb17035d3f8791b1e6a11d40`, claim C `legs[1]` (committed file lines 156–157): ROWS specifies exactly S894–S896, 817→820, row properties, and byte-identical *pre-existing rows*. It does not declare that every non-row line in the registry file must remain unchanged.
+- Frozen implementation: `reports/round-76/accept-c.py` at the same freeze, `leg_rows` lines 1529–1533 and 1584–1605. R1 converts the entire `SOURCES.md` files to line multisets and fails every added nonblank line that does not match `ROW_RE`, with the diagnostic “registry line added outside the frozen row_set.” This extends row-set equality to non-row content.
+- Committed data diff: `corpus/SOURCES.md` at base `98c486bdb4650ba5b8e651d332910e8ee60ad121` versus C landing `722e69ff6361aadf148cb46acbf6ac8fd147f59a`. The additions are rows S894–S896 at lines 849–851, the `## Paths` companion at lines 853–854, and the `## Search log` companion at line 902. Base already has the same non-row sections and entries (base lines 849, 851, 884, 894). The round's row additions plus these two companion lines were committed in `cab5247` (“correct base ground and mirror receipts”), an ancestor of freeze `df0f0309`.
+- The final counter receipt in `reports/round-76/telemetry/measures-c.txt` (working-tree receipt, not a committed artifact) reports `ACCEPT-C-76: FAIL legs=11/13`; ROWS fails only with the two non-row diagnostics naming the Paths and Search additions. Its parsed-row checks do not report an unexpected/removed row. The receipt separately reports COLLCHECK failure: `map record S938 -> S895 names a document the row does not` (showGb URL).
+- Committed cross-check: `corpus/lessons/round-76.md` at landing lines 85–89 records R76-M3 as the parser treating the “valid registry table plus study-path/search-log appends as non-row additions under the exact line-diff implementation” and says the claim remains failed. The committed no-data receipt `reports/round-76/telemetry/controls-c.txt` likewise shows those same two ROWS diagnostics at `lands == freeze`; this establishes that the condition was already present in the frozen registry, not introduced by the data landing. `reports/round-76/telemetry/census-end.txt` ends with `kotodama ok .../corpus/SOURCES.md`, exit 0.
+
+## Smallest safe correction
+
+Keep the frozen predicate and row validations. In ROWS, compare additions/removals as parsed registry **rows** (including duplicate-row detection and byte identity of pre-existing rows); do not classify non-row `## Paths` / `## Search log` additions as source rows. If the intended contract instead bans all non-row file additions, freeze that explicitly as a separate whole-file-diff condition and provide a matching control. Do not weaken or suppress the independent COLLCHECK result: C remains FAIL overall on the recorded evidence.

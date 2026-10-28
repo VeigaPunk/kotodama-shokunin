@@ -200,4 +200,6 @@ Grounded in `corpus/lessons/round-74.md` `## Routed to round 75` item 4 (the R73
 
 Measured red/green against base `98c486bdb4650ba5b8e651d332910e8ee60ad121`: `.ufo/waves/round-76/w1/stage/RevengerMistakes/recurrence.txt` shows six mismatches in the round-75 lesson (three committed knowledge-file sizes and the whole-document/excerpt evidence-window histogram), exit 1; the repaired fixture re-run shows those same six cells matching, exit 0. The fixture and exact check command are in `.ufo/waves/round-76/w1/RevengerMistakes.md` §5. Binds from round 76; earlier filed values remain historical.
 
+Limits, stated: the round-76 red/green check scans only path-attached `(N B)` size cells and the lesson's whole-document/excerpt histogram; it does not audit every numeric sentence or every evidence header. The S885 `111486 B` Gate cell names its staged probe receipt, so it is not counted as a misattribution against the committed evidence file. Criterion 29 requires re-derivation from the artifact each sentence actually names; this fixture demonstrates the size/histogram class, not universal numeric coverage.
+
 Grounded in round-76 mistake R76-M1 (`corpus/lessons/round-76.md` `## Mistakes`) and the recurrence evidence in `.ufo/waves/round-76/w1/RevengerMistakes.md` §§2–5.
