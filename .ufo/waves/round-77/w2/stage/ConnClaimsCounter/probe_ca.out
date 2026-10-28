@@ -1,0 +1,15 @@
+fixture HEAD (40-hex) = 18789981030b85209714b3876f388a3b47bad089
+fixture mutable branch = main
+
+control: -C, 40-hex rev, -- , path           ACCEPTED
+    argv=['git', '-C', '/fast/scratch/hyaku/kotodama-r77/ConnClaimsCounter/probe/ca-fixture/lane', 'log', '-1', '18789981030b85209714b3876f388a3b47bad089', '--', 'LOG.md']
+no `--` before repo-relative path            ACCEPTED
+    argv=['git', '-C', '/fast/scratch/hyaku/kotodama-r77/ConnClaimsCounter/probe/ca-fixture/lane', 'log', '-1', '18789981030b85209714b3876f388a3b47bad089', 'LOG.md']
+mutable branch name in rev slot (log)        ACCEPTED
+    argv=['git', '-C', '/fast/scratch/hyaku/kotodama-r77/ConnClaimsCounter/probe/ca-fixture/lane', 'log', '-1', 'master', '--', 'LOG.md']
+mutable branch name in rev slot (show)       REFUSED: git operand 'master:LOG.md' does not resolve in the clone
+    argv=['git', '-C', '/fast/scratch/hyaku/kotodama-r77/ConnClaimsCounter/probe/ca-fixture/lane', 'show', 'master:LOG.md']
+HEAD~0 relative rev in rev slot (show)       ACCEPTED
+    argv=['git', '-C', '/fast/scratch/hyaku/kotodama-r77/ConnClaimsCounter/probe/ca-fixture/lane', 'show', 'HEAD~0:LOG.md']
+no -C (control)                              REFUSED: git argv must open with `-C <dir>`: the round-76 `git <sub> ... <rev> ...` form without -C is refused
+    argv=['git', 'log', '-1', '18789981030b85209714b3876f388a3b47bad089', '--', 'LOG.md']

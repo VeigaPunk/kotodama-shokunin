@@ -1,0 +1,53 @@
+# controls-ca.txt — claim Ca controls (round 77), freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f
+# harness: ./run-controls.sh sha256=42beb47bec2d42d5fb63e2a214a4c120beae97a5ec8b67c0f7d5a67b1ac29c68
+# lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+# repo handed to the counters: /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scscope (git clone --shared of the lane)
+# clone HEAD: 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f (main pinned to the freeze: the do-nothing measured revision)
+# clone tree: 6d7f85b2440fde99f9762eddda09c7ed9614c5b0
+# recorded lands: 7501b282737170a6793958c8b1e833dacba92bfb  base: a3ac63ba2dc8a8f673d3824a6211d5783ad3ed09  combined: 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f  main pin: 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f
+# counter: /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-ca.py sha256=a6950156768de0722e0a51d96c2aea85da243d3b47f5ec27825f40f2c0b60e9e
+# scratch: /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc (HYAKU_SCRATCH, SHOKUNIN_SCRATCH and TMPDIR point here for every graded run; never a literal /tmp)
+## control 1: lands == freeze (no data landed, no corrections applied)
+$ python3 -B /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-ca.py --root /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scscope --lands 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --fleet-root /home/vgpnk/Projects/shokunin --combined 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --main 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --work /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/work/scscope-ca1
+LEG PASS FROZENCFG
+LEG PASS STAMP
+LEG PASS LEDGER
+LEG FAIL REPAIR
+LEG FAIL ANNOTATE
+ACCEPT-CA-77: FAIL legs=3/5
+exit=1
+# expected: exit=1, summary "ACCEPT-CA-77: FAIL", red=[REPAIR ANNOTATE], green=[FROZENCFG STAMP LEDGER]
+# observed legs: PASS=3 FAIL=2
+# control verdict: PASS
+
+## control 2: lands == base (refusal, no leg line)
+$ python3 -B /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-ca.py --root /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scscope --lands a3ac63ba2dc8a8f673d3824a6211d5783ad3ed09 --freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --fleet-root /home/vgpnk/Projects/shokunin --combined 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --main 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --work /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/work/scscope-ca2
+REFUSED: --lands equals the frozen claim base
+ACCEPT-CA-77: FAIL legs=0/5 (refused: --lands equals the frozen claim base)
+exit=2
+# expected: exit=2 (refused) on /base/, no LEG line
+# observed legs: 0 (leg-shaped line count)
+# control verdict: PASS
+
+## control 3: no --work and no $HYAKU_SCRATCH/$SHOKUNIN_SCRATCH/$TMPDIR (refusal, no leg line)
+$ python3 -B /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-ca.py --root /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scscope --lands 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --fleet-root /home/vgpnk/Projects/shokunin --combined 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --main 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f
+# env: HYAKU_SCRATCH, SHOKUNIN_SCRATCH and TMPDIR unset; no --work
+# fallback stat before: /fast/scratch/hyaku/kotodama-r77 present
+REFUSED: no scratch root (none of --work, $HYAKU_SCRATCH, $SHOKUNIN_SCRATCH, $TMPDIR)
+ACCEPT-CA-77: FAIL legs=0/5 (refused: no scratch root (none of --work, $HYAKU_SCRATCH, $SHOKUNIN_SCRATCH, $TMPDIR))
+exit=2
+# expected: exit=2 (refused) on /scratch|--work|HYAKU_SCRATCH/, no LEG line
+# observed legs: 0 (leg-shaped line count)
+# fallback stat after: /fast/scratch/hyaku/kotodama-r77 present
+# control verdict: PASS
+
+## control 4: Ca without --combined (refusal, no leg line)
+$ python3 -B /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-ca.py --root /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scscope --lands 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --fleet-root /home/vgpnk/Projects/shokunin --main 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --work /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/work/scscope-ca4
+REFUSED: --combined is required
+ACCEPT-CA-77: FAIL legs=0/5 (refused: --combined is required)
+exit=2
+# expected: exit=2 (refused) on /combined/, no LEG line
+# observed legs: 0 (leg-shaped line count)
+# control verdict: PASS
+
+CONTROLS-CA-77: PASS controls=4/4

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "L77-B01",
+    "disposition": "ANNOTATE",
+    "stated_at": "corpus/lessons/round-75.md:44",
+    "stated_text": "rows (S885, S886, S887, S889, S890: one hit each after NFKC + whitespace folding) and are absent from",
+    "stated_parse": "are (absent) from",
+    "observe_cmd": ["git", "grep", "-h", "-o", "-E", "^quote-found: [a-z]+", "211f9526800906e0c585d878d265c37e5e090c15", "--", "reports/round-75/evidence/S888.txt"],
+    "parse": "^quote-found: ([a-z]+)$",
+    "expected_after": "yes",
+    "observed_at_base": "yes",
+    "red_at_base": true,
+    "rederive": "git grep -h -o -E '^quote-found: [a-z]+' 211f9526800906e0c585d878d265c37e5e090c15 -- reports/round-75/evidence/S888.txt",
+    "why": "The lesson says S888's anchor is absent from its stored window. The committed S888 evidence says quote-found: yes, and the window payload contains the anchor line; the statement is false at the pinned base and is append-only lesson text, so ANNOTATE."
+  },
+  {
+    "id": "L77-B02",
+    "disposition": "ANNOTATE",
+    "stated_at": "corpus/lessons/round-75.md:35",
+    "stated_text": "the anchor quote is **not** in that stored window (note 2)",
+    "stated_parse": "quote is \\*\\*(not)\\*\\* in that stored window",
+    "observe_cmd": ["git", "grep", "-h", "-o", "-E", "^quote-found: [a-z]+", "211f9526800906e0c585d878d265c37e5e090c15", "--", "reports/round-75/evidence/S892.txt"],
+    "parse": "^quote-found: ([a-z]+)$",
+    "expected_after": "yes",
+    "observed_at_base": "yes",
+    "red_at_base": true,
+    "rederive": "git grep -h -o -E '^quote-found: [a-z]+' 211f9526800906e0c585d878d265c37e5e090c15 -- reports/round-75/evidence/S892.txt",
+    "why": "The S892 row says the anchor is not in the stored window. The committed S892 evidence states quote-found: yes and contains the anchor in its window payload. This is distinct from L76-19's stated before-offset on lesson line 48; ANNOTATE the immutable lesson statement."
+  },
+  {
+    "id": "L77-B03",
+    "disposition": "ANNOTATE",
+    "stated_at": "corpus/lessons/round-75.md:245",
+    "stated_text": "both ways (`assimilation/validate-receipt-draft.txt`, `USEDBY PASS`): S885 → base + `amend-2026-10-23`;",
+    "stated_parse": "S885 → base \\+ `(amend-2026-10-23)`",
+    "observe_cmd": ["git", "grep", "-F", "-o", "-e", "amend-2026-10-23b.md", "211f9526800906e0c585d878d265c37e5e090c15", "--", "corpus/SOURCES.md"],
+    "parse": "(amend-2026-10-23b)\\.md",
+    "expected_after": "amend-2026-10-23b",
+    "observed_at_base": "amend-2026-10-23b",
+    "red_at_base": true,
+    "rederive": "git grep -F -o -e amend-2026-10-23b.md 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/SOURCES.md",
+    "why": "The S885 used-by statement lists base and amend-2026-10-23, but omits the third cited entry amend-2026-10-23b. At base, SOURCES.md S885's used-by cell lists all three paths, and the amend-23b entry itself has source S885. The lesson's stated mapping is incomplete and false; ANNOTATE."
+  },
+  {
+    "id": "L77-B04",
+    "disposition": "ANNOTATE",
+    "stated_at": "corpus/lessons/round-75.md:251",
+    "stated_text": "line ends `…2014%20marrone%20age%` and the",
+    "stated_parse": "ends `…(2014%20marrone%20age%)`",
+    "observe_cmd": ["git", "grep", "-h", "-F", "-o", "-e", "2014%20marrone%20age%20dor---2.pdf", "211f9526800906e0c585d878d265c37e5e090c15", "--", "corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md"],
+    "parse": "(2014%20marrone%20age%20dor---2\\.pdf)",
+    "expected_after": "2014%20marrone%20age%20dor---2.pdf",
+    "observed_at_base": "2014%20marrone%20age%20dor---2.pdf",
+    "red_at_base": true,
+    "rederive": "git grep -h -F -o -e 2014%20marrone%20age%20dor---2.pdf 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md",
+    "why": "The lesson claims an S892 URL is wrapped after the final percent sign in the round-75 amendment. At base, the S892 source row is in the b amendment, where the complete URL token is on one line. The lesson's described truncation is stale at this base; ANNOTATE."
+  }
+]

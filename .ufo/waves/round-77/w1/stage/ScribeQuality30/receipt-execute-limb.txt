@@ -1,0 +1,17 @@
+$ ... --ledger exec/ledger.json --execute --work <scratch>
+PASS X01 argv=ok git-c-first=ok rev-position=ok stated-at=in-set stated-text=present
+PASS X02 argv=ok git-c-first=ok rev-position=ok stated-at=in-set stated-text=present
+LEDGER-PAIRS: PASS pairs=2/2
+exit=0
+
+$ ... --ledger exec/m1-wrong-token.json --execute
+RED X01 OBSERVE-MISMATCH: observed 'line 3' != expected 'line 4'
+PASS X02 argv=ok git-c-first=ok rev-position=ok stated-at=in-set stated-text=present
+LEDGER-PAIRS: FAIL pairs=1/2 red=1 (OBSERVE-MISMATCH=1)
+exit=1
+
+$ ... --ledger exec/m2-exit-1.json --execute
+RED X01 EXEC-FAIL: exit=1 
+PASS X02 argv=ok git-c-first=ok rev-position=ok stated-at=in-set stated-text=present
+LEDGER-PAIRS: FAIL pairs=1/2 red=1 (EXEC-FAIL=1)
+exit=1

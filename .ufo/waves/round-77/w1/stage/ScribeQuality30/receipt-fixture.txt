@@ -1,0 +1,50 @@
+fixture HEAD=fc5dc79d50fd731ff0547aeb34e7e142602b642a
+$ ... --repo fixture --rev fc5dc79d50fd731ff0547aeb34e7e142602b642a --ledger reports/round-76/ledger.json
+exit=0
+LEDGER-PAIRS: PASS pairs=20/20
+
+$ ... --ledger mutants/m1-stated-at-set.json
+RED L76-13 STATED-AT-SET: corpus/knowledge/myth-symbol/narrative-structure-frameworks.md is outside the frozen ANNOTATE allowlist ['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-75.md', 'corpus/QUALITY.md']
+RED L76-13 STATED-TEXT-ABSENT: stated_text is not in corpus/knowledge/myth-symbol/narrative-structure-frameworks.md at base
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (STATED-AT-SET=1, STATED-TEXT-ABSENT=1)
+exit=1
+
+$ ... --ledger mutants/m2-stated-text-absent.json
+RED L76-19 STATED-TEXT-ABSENT: stated_text is not in corpus/lessons/round-75.md at base
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (STATED-TEXT-ABSENT=1)
+exit=1
+
+$ ... --ledger mutants/m3-rederive-string.json
+RED L76-19 REDERIVE-STRING: rederive is str, not an argv list (a shell tokenizer would re-split it)
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (REDERIVE-STRING=1)
+exit=1
+
+$ ... --ledger mutants/m4-no-c.json
+RED L76-01 NO-C: git argv does not begin `git -C <repo>` (it only runs from one working directory)
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (NO-C=1)
+exit=1
+
+$ ... --ledger mutants/m5-rev-after-dd.json
+RED L76-01 REV-POS: revision b988761fdc5b00cdf06e57194256fd74d9dc1848 sits after `--`, in the path position
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (REV-POS=1)
+exit=1
+
+$ ... --ledger mutants/m6-interpreter.json
+RED L76-01 EXEC-NOT-ALLOWED: interpreter/constant-printer 'python3'
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (EXEC-NOT-ALLOWED=1)
+exit=1
+
+$ ... --ledger mutants/m7-pattern-split.json
+RED L76-19 UNRESOLVED: operand 'chars=' is neither a revision nor a path at base b988761
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (UNRESOLVED=1)
+exit=1
+
+$ ... --ledger mutants/m8-dead-pin.json
+RED L76-01 DEAD-PIN: revision ffffffffffffffffffffffffffffffffffffffff is not an object of the repository
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (DEAD-PIN=1)
+exit=1
+
+$ ... --ledger mutants/m9-shell-string.json
+RED L76-01 SHELL-STRING: observe_cmd is a shell string, not an argv list
+LEDGER-PAIRS: FAIL pairs=19/20 red=1 (SHELL-STRING=1)
+exit=1

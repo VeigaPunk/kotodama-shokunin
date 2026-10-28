@@ -1,0 +1,34 @@
+# CritLedgerDesign — round 77 W1
+
+## Findings / evidence
+
+Commands and raw outputs (source observations are via the stated `read` calls):
+
+- `cat reports/round-76/telemetry/measures-ca.txt` — receipt output: `LEG FAIL LEDGER` (L76-13 out-of-allowlist stated_at; L76-19 stated_text absent); `LEG FAIL REPAIR` (L76-16 statement_after no-match); `LEG FAIL ANNOTATE` (three unannotated, L76-19/20/21 rederive not executable); `LEG FAIL NOSTUB` (same three rederive-cmd stubs); `LEG FAIL R1EXEMPT` (green/red receipts uncommitted at Ca-lands); `LEG FAIL SEPARABLE` (L76-13 forbidden corpus/knowledge read); `LEG FAIL COMBINED` (C-owned README line 410 outside exemption, no valid line number); `ACCEPT-CA-76: FAIL legs=5/12`, `exit=1`.
+- `cat .ufo/waves/round-77/CLAIMS-DRAFT.md` — raw text lines 82-106: proposed stated_at allowlist, stated_text-at-base, argv executable commands, receipts committed at freeze, combined exemption line number; proposed leg list excludes NOSTUB.
+- `read reports/round-76/accept-ca.py:1432-1600` — LEDGER checks stated_text at base and ANNOTATE allowlist; `read ...:1702-1778` — REPAIR checks the lands observation against statement_after; `read ...:2074-2122` — NOSTUB validates correction rows and rederive command; `read ...:2136-2204` — SEPARABLE independently rejects forbidden stated_at paths; `read ...:2460-2514` — R1EXEMPT checks receipts at lands; `read ...:2544-2582` — COMBINED re-evaluates APPENDONLY at combined tree.
+
+### Failed legs and closure
+
+- **LEDGER:** schema can close both causes: restrict ANNOTATE `stated_at` to the frozen append-only path allowlist, and require the normalized `stated_text` to occur on the specified base line. The draft states both. The L76-13 disposition/path must actually be corrected in the ledger.
+- **REPAIR:** L76-16's proposed `statement_after` regex did not match the landed SKILL.md statement. No schema-only guarantee closes a mismatch at lands. Require the pair's post-repair token to be observed from the lands tree and match `statement_after`/`expected_after`; then land the matching correction. The existing counter already checks this; the failed leg is a data/landing defect.
+- **ANNOTATE:** fix the rederive representation/grammar, not merely a character allowlist. The draft's exclusion for backticks / escaped pipes does not fix L76-19/20/21: their bare regex operands split into argv words and the revision becomes a path operand. Best schema: store rederive as an argv array, validate it with the same clone-aware guard as observe_cmd, execute exactly that array, and require printed row command to encode that array unambiguously. Ensure the counter does not shell-parse a display string as execution input.
+- **NOSTUB:** independently failed for those same absent/unusable rederive strings. Keep NOSTUB in the frozen leg set; valid executable rederive is necessary but row presence, old/new tokens, and command representation remain separately checked. The proposed list omits NOSTUB: unless the round-77 counter intentionally folds its predicate into another rigorously equivalent leg, this is a coverage regression and cannot be repaired by ledger fields alone.
+- **R1EXEMPT:** actual committed receipt files are required. A clause saying receipts exist at freeze only works if those files are committed in that freeze tree and the counter verifies their bytes; schema text cannot create/commit them. This is both a declared gate and an artifact/process requirement.
+- **SEPARABLE:** stated_at allowlist can prevent L76-13's forbidden corpus/knowledge path, but ensure the actual SEPARABLE forbidden-path predicate remains and applies to every pair. This is overlapping enforcement, not a substitute for the LEDGER allowlist.
+- **COMBINED:** line-numbered owned-in-place exemption is the correct schema input, but must identify the exact C-owned heading line(s) and combined counter must consume and validate it. The real combined landing must carry both claims and the declared edit; schema alone does not make the combined change valid.
+
+## Argv allowlist attack
+
+A read-only executable name is not a safety boundary. The r76 guard (`accept-ca.py:1001-1043`) checks git subcommand names and skips every option-like operand, rather than enforcing a per-subcommand option grammar; the draft repeats only an executable allowlist and does not declare such grammar. Thus argv entries can still select option features that write output or invoke external programs (e.g. `git diff --output=...`, pager/external-diff options). Other allowed utilities also have option-carried input files that ordinary positional-path checking can miss. This can mutate or disclose data despite the executable itself being nominally read-only. Require exact per-executable/per-subcommand option grammars, reject unknown options and options accepting paths/commands unless their operands are constrained to the clone, disable ambient Git config (`HOME` must be isolated, not inherited), and force a minimal environment. This is a counter/guard change, not ledger-schema-only.
+
+`git -C <lane> show <rev>:<path>` is not intrinsically pinned by its spelling. The existing generic guard's colon operand branch calls `_resolve_in(repo, a)` (which invokes `git cat-file -e`) without first requiring a full immutable revision; mutable `branch:path` can resolve and pass. A branch can therefore move, making provenance false. Also constrain options: generic skipping of `-...` does not establish that a `show` option is safe. Require exact 40-hex revision (or another explicitly frozen immutable pin), a validated repository-relative path, one `<rev>:<path>` operand, no extra options, and confirm the resolved object/path is from the intended clone. The counter's own `show()` helper constructs a fixed `rev:path` command, but user-supplied observe argv is checked separately and must receive the same pinning discipline.
+
+## Smallest safe correction to draft clauses
+
+1. Add NOSTUB to the Ca leg set and make LEGCOUNT compare the complete frozen ordered list against the implemented leg table.
+2. Replace string `rederive` with argv-array `rederive_cmd`; execute that exact array; validate with strict clone-aware per-command grammar and require correction-row serialization to match it.
+3. Specify immutable revision + repo-relative path rules for git observations, and strict per-command option allowlists; isolate Git HOME/config and reject pager/external command paths.
+4. Keep the stated_at allowlist and base-line stated_text check. State explicitly that REPAIR must be fixed in the landed mutable file, R1EXEMPT receipts must be committed artifacts, and COMBINED's exact owned line and actual combined tree are checked—not schema-only closure.
+
+Unrun: no exploit command was executed; findings above are source-level counterexamples, not a claim of a runtime test. No tools installed.

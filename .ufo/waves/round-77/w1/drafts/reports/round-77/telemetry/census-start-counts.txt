@@ -1,0 +1,33 @@
+# round-77 claim-C base census counts (DRAFT — ExecFreezeChecklist, wave 1)
+# install target: reports/round-77/telemetry/census-start-counts.txt
+# base revision: 211f9526800906e0c585d878d265c37e5e090c15
+# shape: round-76/telemetry/census-start-counts.txt (read, never edited)
+#
+# This draft exists so the freeze manifest's census-start-counts.txt entry is not
+# a placeholder: every number below is the output of the command above it,
+# measured at the base by this seat on 2026-10-27.  The L1 installs it (or its own
+# re-measurement) at the freeze commit.
+
+Base registry snapshot: 211f9526800906e0c585d878d265c37e5e090c15:corpus/SOURCES.md.
+
+$ cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && git -C . show 211f9526800906e0c585d878d265c37e5e090c15:corpus/SOURCES.md | grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|'
+820
+exit=0
+
+$ git -C . show 211f9526800906e0c585d878d265c37e5e090c15:corpus/SOURCES.md | awk -F'|' '/^ {0,3}[|][[:space:]]*S[0-9]{3,}[[:space:]]*[|]/ { t=$5; gsub(/[[:space:]]/,"",t); s=$9; gsub(/[[:space:]]/,"",s); print "tier=" t; print "status=" s }' | sort | uniq -c
+    725 status=mined
+     58 status=queued
+     37 status=rejected
+    493 tier=A
+    311 tier=B
+     16 tier=C
+exit=0
+
+Knowledge tree (the C ENTRIES leg's base size; the draft claims 253 -> 254):
+
+$ git -C . ls-tree -r --name-only 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/knowledge | grep -c '\.md$'
+253
+exit=0
+
+Consistency with the claims draft: CLAIMS-DRAFT.md claim C states 253 -> 254 knowledge
+files and 820 -> 822 registry rows; both base numbers reproduce here (253, 820).

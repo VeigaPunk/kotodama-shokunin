@@ -1,0 +1,39 @@
+# ScribeEntryA fetch log — round 77 wave 1 — 2026-10-27
+# each request: URL | UA (verbatim) | HTTP | bytes | sha256 of the body written | time
+
+----- live, document 1 (S897) -----
+http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml | UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 143252 B, wall absent | f14f7a5c03cb187f50870a8702a88505da0aea58427a829ea197e66909a11d5c | 2026-10-27T22:27Z
+http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml | UA "curl/8.7.1" -> HTTP 403, 162 B, wall present ("403 Forbidden") | 1d08335e65da7cf40d1c4a7ba0088e0f39b9c5a4b2e42de95fc9ffa69fb96c7a | 2026-10-27T22:27Z
+  body of the 403: <html><head><title>403 Forbidden</title></head><body bgcolor="white"><center><h1>403 Forbidden</h1></center><hr><cen
+
+----- capture, document 1 (S897) -----
+http://web.archive.org/web/20240111092427id_/http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml | UA "curl/8.7.1" -> HTTP 200, 143457 B | 68c6ed377334199f5372fff16192be71a46e5ffbb6eee71611c3535bae42bf35 | 2026-10-27T22:27Z
+  first attempt under the browser-shaped UA returned HTTP 429, 620 B ("suspected abusive bot traffic" page); the same URL under curl/8.7.1 returned 200.
+
+----- live, document 2 (S898) -----
+https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/ | UA "curl/8.7.1" -> HTTP 200, 417093 B, application/pdf | 5d1bfa5a5f01bee68e090155ed683d848e6f75dbc456b8b631be81c1fa8d29bc | 2026-10-27T22:26Z
+
+----- capture, document 2 (S898) -----
+https://web.archive.org/web/20251231111748id_/https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/ | UA "curl/8.7.1" -> HTTP 200, 546440 B on the wire, application/pdf | 1b4c60f2d1ba56cde6e1209d610f00f4899234416fdf7c64bcf14be43b8a2ff9 | 2026-10-27T22:28Z
+
+----- CDX rows (both probes run with UA curl/8.7.1) -----
+D1 url=lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml
+["urlkey","timestamp","original","mimetype","statuscode","digest","length"],
+["cn,cssn,lishisuo)/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml","20240111092427","http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml","text/html","200","MRIGYUAH7BQACKUKQCJ5BNS64GWDTXGA","41417"]
+D2 url=onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/
+["pl,ijppan,onomastica)/index.php/onom/article/download/574/763","20251231111748","https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/","application/pdf","200","ZCYDDH2NSNNGJESPPEKUQTJVACTNUBDG","426128"]
+["pl,ijppan,onomastica)/index.php/ONOM/article/download/574/763","20260901045105","https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763","application/pdf","200","PVIM7DG5B6X7KNKZBBE6ZGXPQ3H32JMG","406446"]
+
+----- text extracts copied beside this log -----
+fd5c6f6393b9970c05598f6f900c6ff04913da9084dfb6dff05d5435b5c7f741  d1-live.text  2954 lines
+668b302e55b58878d3a2fb6ceb059b58af00e93379776e055efc2bd392e48cb8  d1-wayback-20240111092427.text  2953 lines
+4d983b46ad6c699ce11ad8c617a16daa86fd9a4c9fa9b917b0aea3405d54aa62  d2-live.text  578 lines
+075d0648fc7d8e3ef0395e7379851aac7f47628954601e9ef94cd8c5d359a6bc  d2-wayback-20251231111748.text  586 lines
+
+----- QUALITY 22 wall record (one physical line) -----
+| S897 | status: live UA "curl/8.7.1" -> HTTP 403, 162 B, wall present ("403 Forbidden"); UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 143252 B, wall absent; automation: none
+
+----- QUALITY 16 retry budget, web.archive.org (3 attempts, ~2 min) -----
+attempt 1  22:26  UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 429, 620 B ("suspected abusive bot traffic")
+attempt 2  22:26+20s  same UA -> HTTP 429, 620 B
+attempt 3  22:27+30s  UA "curl/8.7.1" -> HTTP 200, 143457 B

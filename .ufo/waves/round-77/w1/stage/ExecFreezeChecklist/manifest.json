@@ -1,0 +1,308 @@
+{
+ "schema": "kotodama-freeze-manifest/1",
+ "round": 77,
+ "hyaku_run": 10,
+ "role": "freeze manifest — the file list the round-77 freeze commit must carry, digest-pinned, plus the LEGCOUNT rule that binds the frozen legs[] lists to the counters' own leg tables",
+ "built_by": "ExecFreezeChecklist (wave 1, build + recon)",
+ "built_on": "2026-10-27",
+ "lane": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+ "base": "211f9526800906e0c585d878d265c37e5e090c15",
+ "spec_source": "wave-1 seat prompt (BUILD freeze manifest) — the 18-file core, quoted verbatim in core_files_spec below",
+ "core_files_spec": "claims.json, ledger.json, accept-c.py, accept-ca.py, counters/{capture-evidence.py,junk-fixtures.py}, fixtures/{r1exempt-green.json,r1exempt-mixed.json,r1exempt-red.json}, telemetry/{controls-c.txt,controls-ca.txt,junk-c.txt,junk-ca.txt,census-start.txt,census-start-counts.txt,selftest-c.txt,selftest-ca.txt,gap-sweep.txt}",
+ "digest": {
+  "algorithm": "sha256",
+  "placeholder": "<sha256-at-freeze>",
+  "rule": "sha256 over the file's committed blob content at the freeze commit — `git -C <lane> show <freeze>:<path> | sha256sum` — never over a re-serialization and never over a worktree file whose bytes differ from the blob",
+  "record": "manifest-check.py --root <lane> --record  (fills the placeholders from the worktree bytes about to be committed)",
+  "verify": "manifest-check.py --root <lane> --freeze <freeze-commit>  (reads the blobs back; a worktree/commit divergence is a MISMATCH blocker)",
+  "precedent": "round-76 counters pin the by-document map the same way (accept-c.py FROZENCFG: `git show <freeze>:<map.path>` whose sha256 must equal map.sha256), so the freeze blob, not the worktree, is the authority"
+ },
+ "files": [
+  {
+   "path": "reports/round-77/claims.json",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "frozen claim config",
+   "consumers": ["reports/round-77/accept-c.py", "reports/round-77/accept-ca.py"],
+   "why": "both counters read the claim predicates, row_set, thresholds, base and legs[] from this blob at <freeze> (FROZENCFG); a claim file that is absent at the freeze makes both counters refuse",
+   "produced_by": "L1, from CLAIMS-DRAFT.md plus the counters' own leg tables (see legcount)"
+  },
+  {
+   "path": "reports/round-77/ledger.json",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "claim-Ca pair ledger",
+   "consumers": ["reports/round-77/accept-ca.py"],
+   "why": "the Ca counter grades LEDGER/BASEMISMATCH/REPAIR/ANNOTATE/RECEPTS off this file; the draft claim Ca requires >= 10 unique argv-executable pairs frozen here",
+   "produced_by": "L1 from the wave-1 ScoutLedger/ExecAdaptCa work plus the L1's own verification"
+  },
+  {
+   "path": "reports/round-77/accept-c.py",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "counter (claim C)",
+   "consumers": ["reports/round-77/telemetry/selftest-c.txt", "reports/round-77/telemetry/controls-c.txt", "reports/round-77/telemetry/junk-c.txt"],
+   "why": "the C grader; its LEGS table is the authority the frozen claims.json legs[] must equal (LEGCOUNT)",
+   "produced_by": "counter author seat, installed by the L1 at the freeze"
+  },
+  {
+   "path": "reports/round-77/accept-ca.py",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "counter (claim Ca)",
+   "consumers": ["reports/round-77/telemetry/selftest-ca.txt", "reports/round-77/telemetry/controls-ca.txt", "reports/round-77/telemetry/junk-ca.txt"],
+   "why": "the Ca grader; its REQUIRED_LEGS table is the authority the frozen claims.json Ca legs[] must equal (LEGCOUNT)",
+   "produced_by": "counter author seat, installed by the L1 at the freeze"
+  },
+  {
+   "path": "reports/round-77/counters/capture-evidence.py",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "evidence capture driver",
+   "consumers": ["reports/round-77/accept-c.py"],
+   "why": "round-76 accept-c.py drives this file for the EVIDENCE leg (its own header names it); an uncommitted driver makes the evidence receipts unreproducible at <lands>",
+   "produced_by": "counter author seat (round-76 counters/capture-evidence.py is the read-only pattern)"
+  },
+  {
+   "path": "reports/round-77/counters/junk-fixtures.py",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "junk-landing fixture generator",
+   "consumers": ["reports/round-77/accept-c.py", "reports/round-77/telemetry/junk-c.txt", "reports/round-77/telemetry/junk-ca.txt"],
+   "why": "generates the J-series junk landings named by both claims' do-nothing controls; without it the junk receipts cannot be re-run at the freeze",
+   "produced_by": "counter author seat (round-76 counters/junk-fixtures.py is the read-only pattern)"
+  },
+  {
+   "path": "reports/round-77/fixtures/r1exempt-green.json",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "Ca fixture — rule-2 green",
+   "consumers": ["reports/round-77/accept-ca.py (R1EXEMPT, APPENDONLY)"],
+   "why": "one used-by cell edit on a pre-existing row must keep APPENDONLY green; the claim Ca kill rule says a green exemption must not fire off a rule-2 cell",
+   "produced_by": "copy of the round-76 fixture shape, re-labelled for round 77 by the counter author"
+  },
+  {
+   "path": "reports/round-77/fixtures/r1exempt-mixed.json",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "Ca fixture — mixed cells red",
+   "consumers": ["reports/round-77/accept-ca.py (R1EXEMPT, SEPARABLE)"],
+   "why": "a simultaneous teaches + used-by edit must stay red: the exemption is decided on the complete changed-cell set, not on a changed span (the round-76 SEPARABLE class)",
+   "produced_by": "copy of the round-76 fixture shape, re-labelled for round 77 by the counter author"
+  },
+  {
+   "path": "reports/round-77/fixtures/r1exempt-red.json",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "Ca fixture — non-rule-2 red",
+   "consumers": ["reports/round-77/accept-ca.py (R1EXEMPT, APPENDONLY)"],
+   "why": "a teaches-cell edit must fail APPENDONLY; the red half of the exemption pair has to be committed with the freeze or R1EXEMPT grades nothing",
+   "produced_by": "copy of the round-76 fixture shape, re-labelled for round 77 by the counter author"
+  },
+  {
+   "path": "reports/round-77/telemetry/controls-c.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — claim C do-nothing controls",
+   "consumers": ["claims.json claim C do_nothing_control"],
+   "why": "records lands == freeze (data legs red, FROZENCFG green) and lands == base (refused, FAIL printed); the claim's do-nothing control is only met if this receipt exists at the freeze",
+   "produced_by": "run-controls.sh shape (round-76 .ufo/waves/round-76/run-controls.sh, read-only): run the freeze-installed counter at lands == freeze and lands == base"
+  },
+  {
+   "path": "reports/round-77/telemetry/controls-ca.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — claim Ca do-nothing controls",
+   "consumers": ["claims.json claim Ca do_nothing_control"],
+   "why": "records lands == freeze failing with REPAIR/ANNOTATE red, lands == base refused, and the missing --combined/--work refusal shape",
+   "produced_by": "run-controls.sh shape with the Ca counter (--combined <C-lands>)"
+  },
+  {
+   "path": "reports/round-77/telemetry/junk-c.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — claim C junk landings",
+   "consumers": ["claims.json claim C do_nothing_control (J-series fixtures)"],
+   "why": "the junk landings named in the claim must fail their named legs; without the receipt the claim's junk clause is unmeasured",
+   "produced_by": "counters/junk-fixtures.py driven against a landing revision"
+  },
+  {
+   "path": "reports/round-77/telemetry/junk-ca.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — claim Ca junk pairs",
+   "consumers": ["claims.json claim Ca do_nothing_control (constant printer, interpreter, shell string, dead pin, out-of-clone operand)"],
+   "why": "the five unexecutable-pair classes the draft names must each fail their named leg; the receipt is the measurement",
+   "produced_by": "counters/junk-fixtures.py driven against the Ca ledger"
+  },
+  {
+   "path": "reports/round-77/telemetry/census-start.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — census at base",
+   "consumers": ["claims.json (census_start)", "claim C CENSUS"],
+   "why": "the start half of the claim's before->after census (exit 0, 820 rows, last line `ok <lane>/corpus/SOURCES.md`); present in the worktree at build (see build_state)",
+   "produced_by": "sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama"
+  },
+  {
+   "path": "reports/round-77/telemetry/census-start-counts.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — registry counts at base",
+   "consumers": ["claims.json (counts_start)", "claim C COUNTS/ENTRIES"],
+   "why": "the row/tier/status histogram the COUNTS and ENTRIES legs compare against; a placeholder here would leave the leg's start side unmeasured",
+   "produced_by": "drafted by this seat at .ufo/waves/round-77/w1/drafts/reports/round-77/telemetry/census-start-counts.txt (820 rows, 253 knowledge .md, tier/status histogram) for the L1 to install or re-measure"
+  },
+  {
+   "path": "reports/round-77/telemetry/selftest-c.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — C counter selftest",
+   "consumers": ["claim C counter selftest", "reports/round-77/accept-c.py --selftest"],
+   "why": "the counters' in-process fixture cases must be green before any landing is graded; round-76's accept-c.py --selftest needs its part fixtures installed, so the receipt also proves the install is complete",
+   "produced_by": "python3 -B reports/round-77/accept-c.py --selftest (round-76 CLI shape; confirm the round-77 counter's flags at the freeze with --help)"
+  },
+  {
+   "path": "reports/round-77/telemetry/selftest-ca.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — Ca counter selftest",
+   "consumers": ["claim Ca counter selftest", "reports/round-77/accept-ca.py --selftest"],
+   "why": "the Ca counter's own fixture cases, including the LEGCOUNT refusal cases and the R1EXEMPT shape, must be green at the freeze",
+   "produced_by": "python3 -B reports/round-77/accept-ca.py --selftest"
+  },
+  {
+   "path": "reports/round-77/telemetry/gap-sweep.txt",
+   "sha256": "<sha256-at-freeze>",
+   "gate": true,
+   "kind": "receipt — claim C ground sweep at base",
+   "consumers": ["reports/round-77/accept-c.py (GROUND)", "claims.json claim C ground"],
+   "why": "the claim's negative ground: the two cited documents must be absent from corpus/knowledge at the base, with the fragment, the match count and the exit code recorded per fragment (round-76 shape)",
+   "produced_by": "git grep -l -E <fragment> <base> -- corpus/knowledge, once per cited document fragment"
+  }
+ ],
+ "legcount": {
+  "rule": "the legs[] list frozen in reports/round-77/claims.json must equal the counter's own leg table — same names, same order, duplicates included",
+  "authority": "the counter source's module-level table literal: LEGS in accept-c.py, REQUIRED_LEGS in accept-ca.py; names are parsed with ast, never hand-typed, never imported",
+  "why_order_and_duplicates": "both round-76 counters refuse exit 2 on a table mismatch and print `FAIL legs=0/N`; round 76's C table legitimately repeats INDEX at two positions, so a set-only comparison would miss a slot swap",
+  "blocker_on": "any difference — the freeze must not be committed; reconcile by regenerating legs[] from the counter table (prose per slot), not by editing the counter to match a typed list unless the L1 decides the counter is wrong",
+  "script": ".ufo/waves/round-77/w1/stage/ExecFreezeChecklist/legcount.py",
+  "checks": [
+   {
+    "claim": "C",
+    "claims": "reports/round-77/claims.json",
+    "counter": "reports/round-77/accept-c.py",
+    "symbol": "LEGS",
+    "command": "python3 -c \"import ast,json;t=ast.parse(open('reports/round-77/accept-c.py').read());g=[n.value for n in t.body if isinstance(n,ast.Assign) and any(getattr(x,'id','')=='LEGS' for x in n.targets)][0];LEGS=[e.elts[0].value for e in g.elts];c=json.load(open('reports/round-77/claims.json'));F=[l.split(':',1)[0].strip() for l in c['claims'][0]['legs']];assert sorted(F)==sorted(LEGS),(F,LEGS)\"",
+    "command_ordered": "python3 -c \"import ast,json;t=ast.parse(open('reports/round-77/accept-c.py').read());g=[n.value for n in t.body if isinstance(n,ast.Assign) and any(getattr(x,'id','')=='LEGS' for x in n.targets)][0];LEGS=[e.elts[0].value for e in g.elts];c=json.load(open('reports/round-77/claims.json'));F=[l.split(':',1)[0].strip() for l in c['claims'][0]['legs']];assert F==LEGS,(F,LEGS)\"",
+    "script_form": "python3 -B .ufo/waves/round-77/w1/stage/ExecFreezeChecklist/legcount.py --claim C --rev <freeze>",
+    "one_liner_tested_on": "the round-76 pair (same syntax, round-76 paths): exit 0 for both the sorted and the ordered form — receipt Section B of stage/ExecFreezeChecklist/controls-receipt.txt"
+   },
+   {
+    "claim": "Ca",
+    "claims": "reports/round-77/claims.json",
+    "counter": "reports/round-77/accept-ca.py",
+    "symbol": "REQUIRED_LEGS",
+    "command": "python3 -c \"import ast,json;t=ast.parse(open('reports/round-77/accept-ca.py').read());g=[n.value for n in t.body if isinstance(n,ast.Assign) and any(getattr(x,'id','')=='REQUIRED_LEGS' for x in n.targets)][0];LEGS=[e.value for e in g.elts];c=json.load(open('reports/round-77/claims.json'));F=[l.split(':',1)[0].strip() for l in c['claims'][1]['legs']];assert sorted(F)==sorted(LEGS),(F,LEGS)\"",
+    "command_ordered": "python3 -c \"import ast,json;t=ast.parse(open('reports/round-77/accept-ca.py').read());g=[n.value for n in t.body if isinstance(n,ast.Assign) and any(getattr(x,'id','')=='REQUIRED_LEGS' for x in n.targets)][0];LEGS=[e.value for e in g.elts];c=json.load(open('reports/round-77/claims.json'));F=[l.split(':',1)[0].strip() for l in c['claims'][1]['legs']];assert F==LEGS,(F,LEGS)\"",
+    "script_form": "python3 -B .ufo/waves/round-77/w1/stage/ExecFreezeChecklist/legcount.py --claim Ca --rev <freeze>",
+    "one_liner_tested_on": "the round-76 pair: exit 0 for both forms — receipt Section B of stage/ExecFreezeChecklist/controls-receipt.txt"
+   }
+  ],
+  "precedent": {
+   "receipt": ".ufo/waves/round-76/w1/stage/L1/freeze-control-legcount-redbefore.txt",
+   "observed": "REFUSED: LEGCOUNT: the frozen claims.json lists 13 legs (…,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX); this counter implements 13 (…,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG,INDEX) — exit=2",
+   "meaning": "round 76's freeze was blocked by exactly this divergence, caught only by the counter at freeze-control time; this manifest gate runs the comparison before the freeze commit instead"
+  }
+ },
+ "advisory": [
+  {
+   "gate": false,
+   "path": ".ufo/waves/round-77/CLAIMS-DRAFT.md",
+   "why": "the pre-data design this manifest was built against; the wave-dir provenance of the frozen claims"
+  },
+  {
+   "gate": false,
+   "path": ".ufo/waves/round-77/w1/spec.json",
+   "why": "the wave-1 spec that assigned this manifest (18-file core); the L1's freeze-set should list the wave provenance it commits"
+  },
+  {
+   "gate": false,
+   "path": ".ufo/waves/round-77/w1/dispatch.json",
+   "why": "seat dispatch record for the wave"
+  },
+  {
+   "gate": false,
+   "path": ".ufo/waves/round-77/w1/swarm-registry.json",
+   "why": "seat registry for the wave"
+  },
+  {
+   "gate": false,
+   "path": "reports/round-77/evidence/S897.txt, reports/round-77/evidence/S898.txt",
+   "why": "lands-side, not freeze-side: the two adopted rows' captures are committed with the C landing (the draft's row_set map is S897->D1, S898->D2); the claim C kill rule fails a row without a same-page capture"
+  },
+  {
+   "gate": false,
+   "path": "reports/round-77/telemetry/census-end.txt",
+   "why": "lands-side: the after half of the census, produced at C-lands, never at the freeze"
+  }
+ ],
+ "recorded_evidence": [
+  {
+   "fact": "base registry row count = 820 (the draft's 820 -> 822)",
+   "command": "cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && git -C . show 211f9526800906e0c585d878d265c37e5e090c15:corpus/SOURCES.md | grep -cE '^ {0,3}\\|[[:space:]]*S[0-9]{3,}[[:space:]]*\\|'",
+   "output": "820"
+  },
+  {
+   "fact": "base knowledge .md count = 253 (the draft's 253 -> 254)",
+   "command": "cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && git -C . ls-tree -r --name-only 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/knowledge | grep -c '\\.md$'",
+   "output": "253"
+  },
+  {
+   "fact": "base tier/status histogram (the COUNTS leg's start side)",
+   "command": "git -C . show 211f9526800906e0c585d878d265c37e5e090c15:corpus/SOURCES.md | awk -F'|' '/^ {0,3}[|][[:space:]]*S[0-9]{3,}[[:space:]]*[|]/ { t=$5; gsub(/[[:space:]]/,\"\",t); s=$9; gsub(/[[:space:]]/,\"\",s); print \"tier=\" t; print \"status=\" s }' | sort | uniq -c",
+   "output": "725 status=mined; 58 status=queued; 37 status=rejected; 493 tier=A; 311 tier=B; 16 tier=C"
+  },
+  {
+   "fact": "reports/round-77/telemetry/census-start.txt already exists in the worktree at build (3769 bytes, last line `kotodama\\tok\\t/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md`) — pinned at the freeze, not before",
+   "command": "ls -la reports/round-77/telemetry/ ; tail -1 reports/round-77/telemetry/census-start.txt",
+   "output": "census-start.txt 3769 bytes; tail: `kotodama\\tok\\t/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md`"
+  }
+ ],
+ "verification": {
+  "gate_script": ".ufo/waves/round-77/w1/stage/ExecFreezeChecklist/manifest-check.py (--record before the freeze commit; --freeze <sha> after it)",
+  "legcount_script": ".ufo/waves/round-77/w1/stage/ExecFreezeChecklist/legcount.py (--claim C|Ca, optional --rev for the committed blobs)",
+  "controls_driver": ".ufo/waves/round-77/w1/stage/ExecFreezeChecklist/controls.sh (rebuilds every control in its own scratch dir; removes that dir on exit)",
+  "receipt": ".ufo/waves/round-77/w1/stage/ExecFreezeChecklist/controls-receipt.txt — 22 expectations, all met (the receipt also prints the sha256 of the three scripts it ran): legcount P1/P2 green on the round-76 pair, N1-N5 red (renamed, reordered, short, duplicated, placeholder), N6/N7 refused exit 2, the four emitted one-liners exit 0, and manifest-check C1-C8 (record, freeze PASS, worktree tamper still PASS, committed tamper MISMATCH, revert PASS, committed delete MISSING, leg drift LEGCOUNT FAIL, direct legcount --rev FAIL)",
+  "not_verified": "the round-77 counters, claims and ledger do not exist yet, so no round-77 leg, digest or census number has been measured by this seat — build_state records PENDING, never a pass"
+ },
+ "build_state": {
+  "measured_on": "2026-10-27",
+  "present_in_worktree": ["reports/round-77/telemetry/census-start.txt"],
+  "absent_in_worktree": 17,
+  "legcount": "PENDING — reports/round-77/accept-c.py, reports/round-77/accept-ca.py and reports/round-77/claims.json do not exist yet (the L1 installs reports/round-77/** at the freeze)",
+  "note": "PENDING is the correct build-time verdict: the counters and the frozen claims are freeze-installed inputs, and this manifest must never report a pass it did not measure"
+ },
+ "freeze_blockers": [
+  {
+   "id": "FMB-1",
+   "blocker": "CLAIMS-DRAFT.md still carries unresolved leg names: claim C's list has `LEDGELIST?` (line 62) and claim Ca's has `LEDGELIST` (line 106). legcount.py refuses any name that is not UPPER_SNAKE, so `LEDGELIST?` cannot reach a freeze, and neither name exists in any counter table yet",
+   "action": "resolve the name in both lists (and every leg of both lists) against the counters' tables before writing claims.json"
+  },
+  {
+   "id": "FMB-2",
+   "blocker": "the draft's C leg list (FROZENCFG, STAMP, LEDGELIST?, COUNTS, ENTRIES, ROWS, APPENDONLY, COLLCHECK, INDEX, EVIDENCE, GATE, REJECTS, CENSUS, GROUND, RECEIPTS) and Ca leg list are designs, not the counters' tables; round 76 froze a list that disagreed with the counter at one slot and the freeze was refused (exit 2, legs=0/13)",
+   "action": "after installing both counters, run the two legcount checks above and regenerate the frozen legs[] from the counters' tables; re-run at the freeze commit with --rev"
+  },
+  {
+   "id": "FMB-3",
+   "blocker": "reports/round-77/telemetry/census-start-counts.txt is absent from the worktree; the manifest's COUNTS/ENTRIES start side would be a placeholder",
+   "action": "install the drafted receipt (drafts/reports/round-77/telemetry/census-start-counts.txt, measured at the base by this seat) or re-measure it"
+  },
+  {
+   "id": "FMB-4",
+   "blocker": "17 of the 18 core files are absent at build (counters, ledger, claims, fixtures, the remaining telemetry receipts)",
+   "action": "install them, then: manifest-check.py --root <lane> --record, commit the freeze, manifest-check.py --root <lane> --freeze <freeze> must print PASS files=18/18 legs=2/2"
+  }
+ ]
+}

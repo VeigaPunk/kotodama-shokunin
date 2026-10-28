@@ -1,0 +1,48 @@
+# S903 onomastica PDF, recorded 2026-10-27
+$ curl -s -A 'curl/8.23.0' -o onomastica.pdf -w 'UA=curl/8.23.0 status=%{http_code} type=%{content_type} bytes=%{size_download}\n' 'https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/'
+UA=curl/8.23.0 status=200 type=application/pdf bytes=417093
+
+$ file onomastica.pdf
+onomastica.pdf: PDF document, version 1.6 (zip deflate encoded)
+
+$ pdftotext -enc UTF-8 onomastica.pdf onomastica.txt && wc -l onomastica.txt
+495 onomastica.txt
+
+$ tr '\n' ' ' < onomastica.txt > ono-fold.txt; grep -o 'standard given names with lexemes reflecting feminine softness and female aesthetic values' ono-fold.txt | wc -l
+1
+
+# anchor sections and lexeme counts
+$ grep -nE '^[0-9]\. [A-Z]' onomastica.txt
+30:1. INTRODUCTION
+97:2. CHINESE FEMALE GIVEN NAMES WITH LEXEMES DENOTING
+148:3. THE MOST COMMON LEXEMES DENOTING PLANTS,
+211:4. LIST OF THE 17 MOST COMMON LEXEMES/CHARACTERS
+407:5. CONCLUSIONS
+
+$ grep -n 'there were altogether 88 terms' onomastica.txt
+151:According to Kałużyńska (2008, pp. 223, 232), there were altogether 88 terms
+
+$ grep -n '4\. LIST OF THE 17 MOST COMMON LEXEMES' onomastica.txt
+211:4. LIST OF THE 17 MOST COMMON LEXEMES/CHARACTERS
+
+$ grep -n '(17) Shù' onomastica.txt
+399:(17) Shù 树 [樹] ‛tree; plant, cultivate; set up; establish; uphold’ (HYC; MCED;
+
+# teaches-cell phrase 'meteorological phenomena': inside a Slaměníková (2018) quotation only
+$ grep -o 'meteorological phenomena' ono-fold.txt | wc -l
+1
+
+$ grep -o 'According to Kałużyńska (2008, pp. 160, 222), such names may be classified as “standard given names with lexemes reflecting feminine softness and female aesthetic values,” and belong to the subcategory “given names with lexemes denoting plants and trees.”' ono-fold.txt | wc -l
+1
+
+# staged S903 recheck command, literally as written (count of Kałużyńska)
+$ pdftotext -enc UTF-8 onomastica.pdf - | grep -c 'Kałużyńska'
+13
+
+# publisher / front matter
+$ grep -n 'Publisher: Institute of Polish Language, Polish Academy of Sciences' onomastica.txt
+47:Publisher: Institute of Polish Language, Polish Academy of Sciences
+
+$ curl -s -o /dev/null -w 'doi 10.17651/ONOMAST.69.7 status=%{http_code} redirect=%{redirect_url}\n' -A 'curl/8.23.0' --max-time 30 'https://doi.org/10.17651/ONOMAST.69.7'
+doi 10.17651/ONOMAST.69.7 status=302 redirect=https://onomastica.ijppan.pl/index.php/ONOM/article/view/574
+

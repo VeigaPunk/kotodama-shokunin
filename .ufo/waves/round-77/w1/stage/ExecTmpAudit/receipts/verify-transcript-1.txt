@@ -1,0 +1,55 @@
+# snapshot of the live stage tree: /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/snap-3656155
+# == 1. literal-/tmp write targets (fatal) ==
+HIT       ExecTmpAudit/check-scratch-chain.py:422: env TMPDIR='/tmp'
+checked=20 HIT(allowlisted)=1
+root-scan exit=0
+# == 2. resolution chain (--work / $HYAKU_SCRATCH / $TMPDIR) ==
+CHAIN     ConnCounterPatterns/gen_legs.py: none
+CHAIN     ExecAdaptC/accept-c.py: work,hyaku,tmpdir
+CHAIN     ExecAdaptC/draft-skeleton-load.py: hyaku
+CHAIN     ExecAdaptC/scratch-probe.py: work,hyaku,tmpdir
+CHAIN     ExecAdaptCa/accept-ca.py: work,hyaku,tmpdir
+CHAIN     ExecAdaptCapture/capture-evidence.py: work,hyaku,tmpdir
+CHAIN     ExecAdaptCapture/dry-run.py: work
+CHAIN     ExecAdaptJunk/junk-fixtures.py: work,hyaku,tmpdir
+CHAIN     ExecAdaptJunk/redbefore.py: work
+CHAIN     ExecFreezeChecklist/controls.sh: hyaku
+CHAIN     ExecFreezeChecklist/legcount.py: none
+CHAIN     ExecFreezeChecklist/manifest-check.py: none
+CHAIN     ExecGapSweep/run-controls.sh: work,hyaku,shokunin,tmpdir
+CHAIN     ScribeQuality30/check-ledger-pairs.py: work,hyaku,tmpdir
+CHAIN     ScribeQuality30/exec-limb.py: none
+CHAIN     ScribeQuality30/exec-limb2.py: none
+CHAIN     ScribeQuality30/fixture-gen.py: tmpdir
+checked=20 fatal=0
+chain-scan exit=0
+# == 3. counter resolvers, measured under four environments ==
+accept-c.py                  --work         -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/w
+accept-c.py                  $HYAKU_SCRATCH -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/h/kotodama-r77/counter
+accept-c.py                  $TMPDIR        -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/t/kotodama-r77/counter
+accept-c.py                  $TMPDIR=/tmp   -> /fast/scratch/hyaku/kotodama-r77/counter
+accept-c.py                  none           -> /fast/scratch/hyaku/kotodama-r77/counter
+accept-ca.py                 --work         -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/w
+accept-ca.py                 $HYAKU_SCRATCH -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/h
+accept-ca.py                 $TMPDIR        -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/t
+accept-ca.py                 $TMPDIR=/tmp   -> /tmp
+accept-ca.py                 none           -> REFUSED: ScratchRefused: no scratch root: pass --work, or set $HYAKU_SCRATCH (preferred) or $TMPDIR; this counter never invents the system temp dir
+junk-fixtures.py             --work         -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/w
+junk-fixtures.py             $HYAKU_SCRATCH -> /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/h/kotodama-r77/junk-fixtures
+junk-fixtures.py             $TMPDIR        -> REFUSED: FixtureError: scratch root /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/t/kotodama-r77-junk-fixtures is inside the system temporary directory; pass --work under the operator scratch tree instead
+junk-fixtures.py             $TMPDIR=/tmp   -> REFUSED: FixtureError: scratch root /tmp/kotodama-r77-junk-fixtures is inside the system temporary directory; pass --work under the operator scratch tree instead
+junk-fixtures.py             none           -> /fast/scratch/hyaku/kotodama-r77/junk-fixtures
+# == 3b. capture-evidence: no-root fallback (dir=None -> interpreter temp) ==
+work_base(None) with no --work/$HYAKU_SCRATCH/$TMPDIR -> None | mkdtemp(dir=None) would use /tmp
+# == 4. tools whose no-root fallback is the interpreter temp dir ==
+tempfile.gettempdir() with no env -> /tmp
+# == 5. shell control scripts: scratch default under a parent HYAKU_SCRATCH ==
+ExecFreezeChecklist/controls.sh:32:SCRATCH_BASE=${HYAKU_SCRATCH:-/fast/scratch/hyaku/kotodama-r77}
+ExecFreezeChecklist/controls.sh:38:    --scratch) shift; [ $# -gt 0 ] || { echo "controls.sh: --scratch needs a dir" >&2; exit 2; }; SCRATCH_BASE=$1 ;;
+ExecFreezeChecklist/controls.sh:39:    --scratch=*) SCRATCH_BASE=${1#--scratch=} ;;
+ExecGapSweep/run-controls.sh:185:[ -n "$SCRATCH" ] || SCRATCH=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kotodama-r77/controls
+# == 6. selftests (a failing selftest invalidates every graded run) ==
+ExecAdaptC/accept-c.py --selftest exit=0 (receipt /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/accept-c.py.selftest.txt)
+ExecAdaptCa/accept-ca.py --selftest exit=0 (receipt /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/accept-ca.py.selftest.txt)
+ExecAdaptJunk/junk-fixtures.py --selftest exit=0 (receipt /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit/junk-fixtures.py.selftest.txt)
+# scratch used: /fast/scratch/hyaku/kotodama-r77/ExecTmpAudit/verify-scratch-audit

@@ -1,0 +1,40 @@
+{
+  "seat": "ConnCounterPatterns-2",
+  "scope": "leg-name lineage, accept-c.py and accept-ca.py, rounds 73-76, plus round-77 DRAFT",
+  "sources": {
+    "counter_tables": "reports/round-7{3,4,5,6}/accept-c.py LEGS / run order; reports/round-7{3,4,5,6}/accept-ca.py REQUIRED_LEGS / call order",
+    "frozen_legs": "reports/round-7{3,4,5,6}/claims.json claims[].legs[] (name = text before first colon, uppercased)",
+    "body_identity": "ast.dump of each leg_* function, docstring stripped, consecutive rounds",
+    "draft": ".ufo/waves/round-77/CLAIMS-DRAFT.md"
+  },
+  "accept_c": {
+    "r73": ["ENTRIES","ROWS","REPOINTED","GATE","EVIDENCE","REJECTS","GROUND","CITEDLINES","CENSUS","SCRATCHMIRROR","COLLCHECK"],
+    "r74": ["ENTRIES","ROWS","REPOINTED","GATE","EVIDENCE","REJECTS","GROUND","CITEDLINES","CENSUS","SCRATCHMIRROR","COLLCHECK","FROZENCFG","INDEX"],
+    "r75": ["ENTRIES","ROWS","REPOINTED","GATE","EVIDENCE","REJECTS","GROUND","CITEDLINES","CENSUS","SCRATCHMIRROR","COLLCHECK","FROZENCFG","INDEX"],
+    "r76": ["ENTRIES","ROWS","REPOINTED","GATE","EVIDENCE","REJECTS","GROUND","CITEDLINES","CENSUS","INDEX","COLLCHECK","FROZENCFG","INDEX"],
+    "r76_distinct_checks": 12,
+    "r77_draft": ["FROZENCFG","STAMP","LEDGELIST?","COUNTS","ENTRIES","ROWS","APPENDONLY","COLLCHECK","INDEX","EVIDENCE","GATE","REJECTS","CENSUS","GROUND","RECEIPTS"],
+    "ast_body_changes_r75_to_r76": {
+      "same": ["CENSUS","CITEDLINES","COLLCHECK","EVIDENCE","GATE","REJECTS"],
+      "changed": ["ENTRIES","FROZENCFG","GROUND","INDEX","REPOINTED","ROWS"],
+      "removed": ["SCRATCHMIRROR"]
+    },
+    "frozenc_body_variants": "three distinct bodies: r74, r75, r76 all differ (ast.dump hash)"
+  },
+  "accept_ca": {
+    "r73": ["LEDGER","BASEMISMATCH","REPAIR","ANNOTATE","APPENDONLY","NOSTUB","SEPARABLE","TRACKED","STAMP"],
+    "r74": ["LEDGER","BASEMISMATCH","REPAIR","ANNOTATE","APPENDONLY","NOSTUB","SEPARABLE","TRACKED","RECEIPTS","FROZENCFG","STAMP"],
+    "r75": ["LEDGER","BASEMISMATCH","REPAIR","ANNOTATE","APPENDONLY","R1EXEMPT","NOSTUB","SEPARABLE","RECEIPTS","COMBINED","FROZENCFG","STAMP"],
+    "r76": ["LEDGER","BASEMISMATCH","REPAIR","ANNOTATE","APPENDONLY","R1EXEMPT","NOSTUB","SEPARABLE","RECEIPTS","COMBINED","FROZENCFG","STAMP"],
+    "r77_draft": ["LEDGER","BASEMISMATCH","REPAIR","ANNOTATE","APPENDONLY","R1EXEMPT","SEPARABLE","COMBINED","RECEIPTS","FROZENCFG","STAMP","LEDGELIST"],
+    "ast_body_changes_r75_to_r76": {
+      "same": ["ANNOTATE","BASEMISMATCH","NOSTUB","R1EXEMPT","STAMP"],
+      "changed": ["APPENDONLY","COMBINED","FROZENCFG","LEDGER","RECEIPTS","REPAIR","SEPARABLE"]
+    },
+    "ast_body_changes_r74_to_r75_frozencfg": "same (FROZENCFG body identical r74 and r75; changed r76)"
+  },
+  "recommended_r77_legs": {
+    "accept_c_13": ["ENTRIES","ROWS","REPOINTED","GATE","EVIDENCE","REJECTS","GROUND","CITEDLINES","CENSUS","SCRATCHMIRROR","COLLCHECK","FROZENCFG","INDEX"],
+    "accept_ca_12": ["LEDGER","BASEMISMATCH","REPAIR","ANNOTATE","APPENDONLY","R1EXEMPT","NOSTUB","SEPARABLE","RECEIPTS","COMBINED","FROZENCFG","STAMP"]
+  }
+}

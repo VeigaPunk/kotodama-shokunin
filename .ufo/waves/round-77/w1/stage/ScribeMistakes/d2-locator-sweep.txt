@@ -1,0 +1,36 @@
+# d2-locator-sweep.txt — independent check of the D2 quote locator against the live PDF (seat ScribeMistakes, 2026-10-27)
+# URL: https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/
+# UA per request: curl/8.x (plain, tool default); no challenge met, none bypassed
+$ curl -sS -L -A curl/8.x -o d2-plain.pdf -w "http=%{http_code} size=%{size_download}" <URL>
+http=200 size=417093
+$ sha256sum d2-plain.pdf
+5d1bfa5a5f01bee68e090155ed683d848e6f75dbc456b8b631be81c1fa8d29bc
+$ pdfinfo d2-plain.pdf | grep -E "Pages|Page size"
+Pages:           13;Page size:       453.543 x 651.969 pts;
+$ for p in $(seq 1 13); do pdftotext -f $p -l $p -enc UTF-8 d2-plain.pdf p$p.txt; printf "pdf_page=%s hits=%s\n" "$p" "$(grep -c "altogether 88" p$p.txt)"; done
+pdf_page=1 hits=0
+pdf_page=2 hits=0
+pdf_page=3 hits=0
+pdf_page=4 hits=1
+pdf_page=5 hits=0
+pdf_page=6 hits=0
+pdf_page=7 hits=0
+pdf_page=8 hits=0
+pdf_page=9 hits=0
+pdf_page=10 hits=0
+pdf_page=11 hits=0
+pdf_page=12 hits=0
+pdf_page=13 hits=0
+$ grep -n -E "(^|[^0-9])11[0-9]([^0-9]|$)" p4.txt p5.txt   # printed journal page labels
+p4.txt:1:114
+p4.txt:9:One can read (Feng, Ding & Yin, 1998, p. 119): “In the Chinese traditional culture natural attributes of such objects like flowers and trees are often borrowed to symbolize peoples’ character and feelings. Therefore, among names of
+p5.txt:3:115
+$ grep -n -B1 -A2 "altogether 88" p4.txt
+26-There are many terms denoting various species of plants and trees in China.
+27:According to Kałużyńska (2008, pp. 223, 232), there were altogether 88 terms
+28-denoting plants, flowers and trees (general terms, species or the parts of flowers or trees) among the names of women figuring in the research material of the
+29-work, and the frequency of their occurring varied.
+$ printf %s "there were altogether 88 terms denoting plants, flowers and trees" | wc -w   # draft quote word count
+10
+# finding: the phrase is on PDF p.4 / journal p.114 (single hit in 13 pages); the draft locator "journal p.115 / PDF p.5" points at the page AFTER it, where the phrase is absent (hits=0).
+# finding: the sentence opens "According to Kałużyńska (2008, pp. 223, 232), …", so the draft quote is a mid-sentence span that drops that attribution clause.

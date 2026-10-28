@@ -1,0 +1,32 @@
+CASE A r76 L76-01 observe_cmd as recorded (no -C)
+  argv=["git", "grep", "-c", "-E", "^", "98c486bdb4650ba5b8e651d332910e8ee60ad121", "--", "reports/round-75/claims.json"]
+  cwd=/fast/scratch/hyaku/kotodama-r77/ScribeQuality30
+  exit=128
+  stdout=''
+  stderr='fatal: not a git repository (or any parent up to mount point /)'
+
+CASE B the same command with `git -C <lane>` first
+  argv=["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-c", "-E", "^", "98c486bdb4650ba5b8e651d332910e8ee60ad121", "--", "reports/round-75/claims.json"]
+  cwd=/fast/scratch/hyaku/kotodama-r77/ScribeQuality30
+  exit=0
+  stdout='98c486bdb4650ba5b8e651d332910e8ee60ad121:reports/round-75/claims.json:227'
+  stderr=''
+
+CASE C L76-19 rederive, tokenized the way reports/round-76/accept-ca.py:rederive_argv does
+  rederive='git grep -h -E ^window: chars= 98c486bdb4650ba5b8e651d332910e8ee60ad121 -- reports/round-75/evidence/S892.txt'
+  shlex.split -> ["git", "grep", "-h", "-E", "^window:", "chars=", "98c486bdb4650ba5b8e651d332910e8ee60ad121", "--", "reports/round-75/evidence/S892.txt"]
+
+CASE D that token list executed
+  argv=["git", "grep", "-h", "-E", "^window:", "chars=", "98c486bdb4650ba5b8e651d332910e8ee60ad121", "--", "reports/round-75/evidence/S892.txt"]
+  cwd=/fast/scratch/hyaku/kotodama-r77/ScribeQuality30
+  exit=128
+  stdout=''
+  stderr='fatal: not a git repository (or any parent up to mount point /)'
+
+CASE E L76-19 rederive as an argv with -C first and the pattern kept whole
+  argv=["git", "-C", "/home/vgpnk/Projects/shokunin/kotodama-shokunin", "grep", "-h", "-E", "^window: chars=", "98c486bdb4650ba5b8e651d332910e8ee60ad121", "--", "reports/round-75/evidence/S892.txt"]
+  cwd=/fast/scratch/hyaku/kotodama-r77/ScribeQuality30
+  exit=0
+  stdout='window: chars=4097 min=4096 pad=400 before=2020 after=2026'
+  stderr=''
+

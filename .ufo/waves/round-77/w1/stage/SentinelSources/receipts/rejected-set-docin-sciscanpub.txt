@@ -1,0 +1,37 @@
+# Rejected-set carriers: docin (S940) and sciscanpub (S939), recorded 2026-10-27
+$ curl -s -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36' --compressed --max-time 40 -o docin.html -w 'docin status=%{http_code} bytes=%{size_download}\n' 'https://www.docin.com/p-1248229707.html'
+docin status=200 bytes=16125
+
+$ grep -o '<title>[^<]*</title>' docin.html | head -1
+<title>姓名的人类学研究 - 豆丁网</title>
+
+$ grep -o '分享于[0-9-]*' docin.html | head -3
+分享于2015-08-06
+
+$ curl -s -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36' --max-time 40 -o sciscanpub-home.html -w 'sciscanpub status=%{http_code} bytes=%{size_download}\n' 'https://www.sciscanpub.com/'
+sciscanpub status=200 bytes=48071
+
+$ grep -o '<title>[^<]*</title>' sciscanpub-home.html | head -1
+<title>HOME_SCISCAN Publishing _Open Access Journal_Journal Publication_Fast Publication_Publish Papers_Rapid Publication</title>
+
+$ curl -s -o /dev/null -w 'doi 10.35534/wtt.0304009 status=%{http_code}\n' -A 'curl/8.23.0' --max-time 30 'https://doi.org/10.35534/wtt.0304009'
+doi 10.35534/wtt.0304009 status=404
+
+$ curl -s -A 'curl/8.23.0' --max-time 30 'https://api.crossref.org/works/10.35534/wtt.0304009' -w '\nHTTP=%{http_code}\n' | head -c 200
+Resource not found.
+HTTP=404
+
+# WTT issue PDF held in the staging tree (read-only): born-digital, footer DOI, no aggregator imprint
+$ pdftotext -layout -enc UTF-8 /home/vgpnk/Projects/shokuknow/lanes/kotodama/round10/evidence/wtt-0304009.pdf wtt.txt; head -8 wtt.txt
+                译道                                                       翻译实践
+           Way to Translation
+          2023 年 第 3 卷 第 4 期
+
+
+
+
+                           姓名的人类学研究
+
+$ grep -ci 'sciscan' wtt.txt
+0
+

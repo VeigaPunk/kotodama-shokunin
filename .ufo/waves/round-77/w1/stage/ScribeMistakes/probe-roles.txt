@@ -1,0 +1,10 @@
+# probe-roles.txt — the §3 planner role against the dispatch validator (round 77, seat ScribeMistakes, 2026-10-27)
+# reading only: imports /home/vgpnk/Projects/ufo-fsd-alpha/scripts/ufo-swarm-wave.mjs; writes nothing outside the seat scratch
+# spec under test: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-77/w1/spec.json (the committed wave-1 spec)
+# node v24.21.0
+$ node probe-roles.mjs
+SWARM_ROLES size= 10 has(planner)= false
+control: real spec items= 36 roles= scout,executor,scribe,critic,reviewer,mutation-tester,sentinel,connector,revenger
+control: planSwarmWave(real spec) OK agents= 0
+mutant: planSwarmWave(items[0].role=planner) REFUSED SwarmWaveError code=unknown_role | items[0].role "planner" is not a swarm role
+exit=0

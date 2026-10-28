@@ -1,0 +1,12 @@
+# S903 Wayback captures, recorded 2026-10-27
+$ curl -s 'http://web.archive.org/cdx/search/cdx?url=onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/&output=json&limit=40'
+[["urlkey","timestamp","original","mimetype","statuscode","digest","length"],
+["pl,ijppan,onomastica)/index.php/onom/article/download/574/763","20251231111748","https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/","application/pdf","200","ZCYDDH2NSNNGJESPPEKUQTJVACTNUBDG","426128"],
+["pl,ijppan,onomastica)/index.php/onom/article/download/574/763","20260901045105","https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763","application/pdf","200","PVIM7DG5B6X7KNKZBBE6ZGXPQ3H32JMG","406446"]]
+
+$ curl -s -A 'curl/8.23.0' -o ono-cap-2026.pdf -w 'UA=curl/8.23.0 capture 20260901045105 status=%{http_code} type=%{content_type} bytes=%{size_download}\n' --max-time 120 'https://web.archive.org/web/20260901045105id_/https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763'
+UA=curl/8.23.0 capture 20260901045105 status=200 type=application/pdf bytes=417093
+
+$ pdftotext -enc UTF-8 ono-cap-2026.pdf ono-cap.txt; grep -c 'standard given names with lexemes reflecting feminine softness and female' ono-cap.txt
+1
+

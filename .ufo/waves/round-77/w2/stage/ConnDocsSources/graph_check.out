@@ -1,0 +1,42 @@
+OK      MAP S897 -> D1 lane id S897 (row id, lesson, claims agree)                                                  | row S897 present; lesson Gate row 'S897 (staged S897, tier B)'
+OK      MAP S903 -> D2 lane id S898 (lesson Gate row 'staged S903')                                                 | lesson Gate: 'S898 (staged S903, tier A)'; rows file has S898
+OK      REG S897 unused in base registry                                                                            | base SOURCES grep ^| S897 | -> 0 expected
+OK      REG S898 unused in base registry                                                                            | base SOURCES grep ^| S898 | -> 0 expected
+OK      REG base rows = 820 and ids unique                                                                          | rows=820 unique=820 max=S896
+OK      URL D1 live URL identical in row S897 cell, entry, lesson                                                   | http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml
+OK      URL D2 live URL identical in row S898 cell, entry, lesson                                                   | https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/
+FAIL    ROW S897 tier == Gate/entry/claims tier (B)                                                                 | row tier cell='A'; lesson says 'tier B'; entry §7/§8 says tier B for D1
+FAIL    ROW S897 status cell agrees with per-UA record (browser 200)                                                | row cell: 'live answered HTTP 403 to both ... browser-shaped' vs evidence browser 200 (ScoutDocS897 ua-records)
+FAIL    ROW S897 anchor names the same located source as claims/lesson (browser-UA live)                            | row anchor = capture; claims/lesson = browser-UA live copy as located source
+FAIL    RECHECK S897 row window == entry recheck window                                                             | row S897 recheck='365d' vs entry recheck='180d'
+FAIL    RECHECK S898 row window == entry recheck window                                                             | row S898 recheck='365d' vs entry recheck='180d'
+FAIL    DATE S898 opened == evidence access-date == entry 'fetched' date                                            | row opened='2026-10-27' evidence access-date='2026-10-28' (fetched 2026-10-28T01:26:13Z)
+OK      DATE S897 opened == evidence access-date                                                                    | row opened='2026-10-27' evidence access-date='2026-10-27' fetched='2026-10-28T01:31:09Z'
+FAIL    AUTHOR S898 row first name == PDF author (Irena)                                                            | row: 'Kałużyńska, Iwona (2025)'; PDF text: 'Irena Kałużyńska' / 'IRENA KAŁUŻYŃSKA'; entry and lesson say Irena
+FAIL    INSTITUTE D1 name: entry source line vs row cell                                                            | entry line 3: 'reprint by 中國社會科學院古代史研究所' (page copyright footer); row/lesson: '中国社会科学院 历史研究所 site'
+OK      ENTRY exactly one '- source:' line per adopted doc (S897, S898)                                             | '- source:' lines=2 ids=['S897', 'S898']
+OK      ENTRY cites only lane ids that are registry rows S897/S898 (no legacy/staged id)                            | S-tokens in entry=['S897', 'S898'] (legacy S886/S888/S889/S890/S891/S896 and S903 absent)
+OK      ENTRY has one physical '- topic:' line                                                                      | topic line count = 1 (line 11)
+FAIL    ENTRY line 6 per-UA claim: 'both HTTP 200 to a plain client' (must be false for D1)                         | entry line 6 vs entry §8 + recheck detail (D1 plain = 403, 162 B)
+FAIL    ENTRY §8 'no wall is recorded' vs row/evidence 'wall met, not passed' + capture 429                         | entry §8 vs row S897 cell; ScribeEntryA fetch-log: capture under browser UA -> HTTP 429 'suspected abusive bot traffic'
+OK      QUOTE D1: every CJK span in entry locates in D1 stored text                                                 | located=13 unlocated=0 []
+OK      QUOTE D2: every English span in entry locates in D2 stored text                                             | located=8 of 8; unlocated=[]
+FAIL    EVIDENCE S898 header quote-words/quote-chars match the 17-word quote line                                   | evidence header quote-words=10 quote-chars=65
+FAIL    BACKEDGE base naming-systems.md points to amend (entry §10 claims 'points here through its couples: line')  | grep 'amend-2026-10-23' in base naming-systems.md -> 0 hits
+OK      OUTBOUND couples target exists at base: linguistics/naming-systems.md                                       | base blob
+OK      OUTBOUND couples target exists at base: linguistics/toponymy-place-names.md                                 | base blob
+OK      OUTBOUND couples target exists at base: linguistics/semantic-fields-lexicon-building.md                     | base blob
+OK      OUTBOUND §2/§6/§7 steps 2 and 4 that the entry's pipeline insertions anchor to                              | base headings/steps present
+FAIL    OUTBOUND claims cite corpus/CORPUS.md ('CORPUS.md rule 1') — path at base                                   | corpus/CORPUS.md absent at base (only reports/round-33/adj/A05-corpus.md matches)
+FAIL    README row body == entry '- topic:' line (verbatim)                                                         | plan body starts 'two things the naming entry could not say before. First, tha…' ; entry topic starts 'two things the base entry could not say — that a Chinese nam…'
+FAIL    README linguistics heading: plan (33) vs lesson 'left stale' (32)                                           | readme-plan §1 requires '## linguistics/ (33)'; lesson Census: '## linguistics/ (32)' left as filed
+OK      README base footers: 5 'Total knowledge entries' blocks, last=253                                           | footers=['243', '247', '249', '252', '253']
+OK      README partition counts base sum = 253; post-landing sum 254 (+1 linguistics)                               | base partitions={'civilizations': 95, 'culture-material': 41, 'linguistics': 32, 'myth-symbol': 32, 'synthesis': 29, 'verification': 24} sum=253
+PENDING LANDING target reports/round-77/evidence/S897.txt                                                           | absent at draft; committed by L1
+PENDING LANDING target reports/round-77/evidence/S898.txt                                                           | absent at draft; committed by L1
+PENDING LANDING target reports/round-77/telemetry/census-end.txt                                                    | absent at draft; committed by L1
+PENDING LANDING used-by path corpus/knowledge/linguistics/naming-systems.amend-2026-10-23.md                        | row used-by equals entry path; entry file lands at C-lands (draft only at w1/drafts)
+PENDING LANDING frozen by-document map (staged id -> normalized document -> lane id)                                | no frozen map file exists; W1 ScoutIdMap table is the only map
+PENDING LANDING S897 Gate quote and locator cells (L1-FILL)                                                         | lesson Gate cells read L1-FILL; ScoutDocS897/evidence.txt already holds the lead-para locator
+
+TOTAL 40 {'OK': 19, 'FAIL': 15, 'PENDING': 6}

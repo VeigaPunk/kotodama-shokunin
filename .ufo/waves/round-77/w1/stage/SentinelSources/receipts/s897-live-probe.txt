@@ -1,0 +1,25 @@
+# S897 live probe by UA, recorded 2026-10-27 (DRAFT claim: 'HTTP 403 wall both UAs at L1 probe')
+$ curl -s -o /dev/null -A 'curl/8.23.0' -w '%{http_code}\n' --max-time 40 'http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+403
+
+$ curl -s -o /dev/null -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36' -w '%{http_code}\n' --max-time 40 'http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+200
+
+$ curl -s -o /dev/null -A 'curl/8.23.0' -w '%{http_code}\n' --max-time 40 'http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+403
+
+$ curl -s -o /dev/null -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36' -w '%{http_code}\n' --max-time 40 'http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+200
+
+$ curl -s -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36' -o live-s897-browser.html -w 'browserUA status=%{http_code} type=%{content_type} bytes=%{size_download}\n' --max-time 40 'http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+browserUA status=200 type=text/html bytes=143252
+
+$ grep -c '後起的文化習慣' live-s897-browser.html
+1
+
+# staged recheck command, literally as written in the staged row (curl default UA)
+$ curl -fsSL 'http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml' | grep -c '後起的文化習慣'; echo pipeline_exit=$?
+curl: (22) The requested URL returned error: 403
+0
+pipeline_exit=1
+

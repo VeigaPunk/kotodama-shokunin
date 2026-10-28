@@ -1,0 +1,81 @@
+{
+  "round": 77,
+  "claim": "Ca",
+  "pairs": [
+    {
+      "id": "LC77-C-01",
+      "disposition": "REPAIR",
+      "stated_at": "corpus/README.md:811",
+      "stated_text": "`## culture-material/ (36)` heading is left as filed and named as stale",
+      "stated_parse": "culture-material/ \\(([0-9]+)\\)",
+      "observe_cmd": ["git", "grep", "-o", "-E", "culture-material/ \\([0-9]+\\)", "211f9526800906e0c585d878d265c37e5e090c15", "--", "corpus/README.md"],
+      "parse": "culture-material/ \\(([0-9]+)\\)",
+      "expected_after": "41",
+      "observed_at_base": "41",
+      "red_at_base": true,
+      "rederive": "git grep -o -E 'culture-material/ \\([0-9]+\\)' 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/README.md",
+      "why": "The round-74 landing prose names its old heading token 36 as stale, but the current README's heading is 41. Verified present-tense, mutable README correction candidate."
+    },
+    {
+      "id": "LC77-C-02",
+      "disposition": "REPAIR",
+      "stated_at": "corpus/README.md:812",
+      "stated_text": "live directory holds 40 files",
+      "stated_parse": "holds ([0-9]+) files",
+      "observe_cmd": ["git", "diff", "--shortstat", "4b825dc642cb6eb9a060e54bf8d69288fbee4904", "211f9526800906e0c585d878d265c37e5e090c15", "--", "corpus/knowledge/culture-material/*.md"],
+      "parse": "([0-9]+) files? changed",
+      "expected_after": "41",
+      "observed_at_base": "41",
+      "red_at_base": true,
+      "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/knowledge/culture-material/*.md",
+      "why": "The dated landing block states the live directory holds 40 files; its mutable-file claim is stale at base, with 41 Markdown files measured."
+    },
+    {
+      "id": "LC77-C-03",
+      "disposition": "REPAIR",
+      "stated_at": "corpus/README.md:830",
+      "stated_text": "Total knowledge entries: 252.",
+      "stated_parse": "Total knowledge entries: ([0-9]+)",
+      "observe_cmd": ["git", "diff", "--shortstat", "4b825dc642cb6eb9a060e54bf8d69288fbee4904", "211f9526800906e0c585d878d265c37e5e090c15", "--", "corpus/knowledge/*/*.md"],
+      "parse": "([0-9]+) files? changed",
+      "expected_after": "253",
+      "observed_at_base": "253",
+      "red_at_base": true,
+      "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/knowledge/*/*.md",
+      "why": "This is an older footer stack token, superseded by the next footer at line 834 (253) and its matching 253-file measurement. It is a stale recorded count, not the latest live total."
+    },
+    {
+      "id": "LC77-C-04",
+      "disposition": "REPAIR",
+      "stated_at": "corpus/README.md:832",
+      "stated_text": "total 252 files; directory totals 32/32/40/29/24/95",
+      "stated_parse": "total ([0-9]+) files; directory totals ([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)",
+      "observe_cmd": ["git", "diff", "--shortstat", "4b825dc642cb6eb9a060e54bf8d69288fbee4904", "211f9526800906e0c585d878d265c37e5e090c15", "--", "corpus/knowledge/*/*.md"],
+      "parse": "([0-9]+) files? changed",
+      "expected_after": "253",
+      "observed_at_base": "253",
+      "red_at_base": true,
+      "rederive": "git diff --shortstat 4b825dc642cb6eb9a060e54bf8d69288fbee4904 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/knowledge/*/*.md",
+      "why": "The dated 2026-10-27 measurement is superseded by the immediately following 253-file footer; the total token is stale at base. The culture-material vector element is also 40, while current base has 41."
+    },
+    {
+      "id": "LC77-C-05",
+      "disposition": "REPAIR",
+      "stated_at": "corpus/README.md:791",
+      "stated_text": "the `## linguistics/ (30)` heading and the revision block above stay as filed",
+      "stated_parse": "linguistics/ \\(([0-9]+)\\)",
+      "observe_cmd": ["git", "grep", "-o", "-E", "linguistics/ \\([0-9]+\\)", "211f9526800906e0c585d878d265c37e5e090c15", "--", "corpus/README.md"],
+      "parse": "linguistics/ \\(([0-9]+)\\)",
+      "expected_after": "32",
+      "observed_at_base": "32",
+      "red_at_base": true,
+      "rederive": "git grep -o -E 'linguistics/ \\([0-9]+\\)' 211f9526800906e0c585d878d265c37e5e090c15 -- corpus/README.md",
+      "why": "Round-73 prose explicitly says the heading is retained as 30, but the current README heading is 32. The current directory has 32 files; the heading's own-section row list has 30, so this is specifically a heading-vs-files count mismatch."
+    }
+  ],
+  "notes": [
+    "All five pairs are REPAIR because corpus/README.md is mutable and the draft only permits REPAIR there; no ANNOTATE candidate from this scout's requested QUALITY.md / round-74.md sweep is permitted by the draft ANNOTATE stated_at allowlist.",
+    "The older README footer tokens are dated/superseded, not a claim that the latest footer is wrong. Pair inclusion is a ledger-policy decision; the latest total 253 and vector 32/32/41/29/24/95 match measured base counts.",
+    "Round-74 Routed-to-75 already names the linguistics-header and counts-footer mismatch classes; avoid treating them as undiscovered defects."
+  ]
+}

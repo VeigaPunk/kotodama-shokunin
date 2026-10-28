@@ -1,0 +1,91 @@
+G1-green-cwdscratch        rc=0 want=0 OK
+   out: LEDGER-CHECK-77: PASS pairs=11
+G2-green-C-lane            rc=0 want=0 OK
+   out: LEDGER-CHECK-77: PASS pairs=11
+G3-green-cwd-lane          rc=0 want=0 OK
+   out: LEDGER-CHECK-77: PASS pairs=11
+R01-stated-absent          rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: stated_text not found in LOG.md at base
+R02-wrong-line             rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: stated_text is in LOG.md but NOT on line 447
+R03-annotate-mutable       rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: stated_at path corpus/README.md is not in the frozen ANNOTATE allowlist ['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-75.md', 'corpus/lessons/round-76.md']
+R04-annotate-skill         rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=2 |      D01: stated_at path SKILL.md is not in the frozen ANNOTATE allowlist ['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-75.md', 'corpus/lessons/round-76.md'] |      D01: stated token cannot be derived from stated_text
+R05-fleet-site             rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: stated_at='fleet:LOG.md:3' is not a lane path:line (the round-77 allowlist is lane-only)
+R06-eof                    rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: stated_at LOG.md:999999 beyond EOF (4349 lines)
+R07-absent-path            rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=2 |      D01: stated_at path corpus/nope-not-a-file.md is not in the frozen ANNOTATE allowlist ['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-75.md', 'corpus/lessons/round-76.md'] |      D01: stated_at path corpus/nope-not-a-file.md absent at base
+R08-repair-not-mutable     rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=2 |      D11: stated_at path LOG.md is not in the frozen REPAIR allowlist ['corpus/README.md', 'SKILL.md', 'SHONEN.md'] |      D11: stated token cannot be derived from stated_text
+R09-repair-no-statement    rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D11: REPAIR without a statement_after object (the frozen REPAIR sentence names it)
+R10-repair-after-log       rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D11: REPAIR statement_after path LOG.md is not one of the frozen mutable files ['corpus/README.md', 'SKILL.md', 'SHONEN.md']
+R11-repair-after-nogroup   rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D11: statement_after.parse has no capture group
+R12-shell-string           rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd observe_cmd is a shell string, not an argv list
+R13-no-c-form              rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd git argv must open with `-C <dir>`: the round-76 `git <sub> ... <rev> ...` form without -C is refused
+R14-wrong-subcommand       rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd git subcommand 'push' not in the read-only allowlist ['cat-file', 'describe', 'diff', 'for-each-ref', 'grep', 'log', 'ls-files', 'ls-tree', 'merge-base', 'name-rev', 'rev-list', 'rev-parse', 'show', 'show-ref']
+R15-rev-in-path            rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd git grep path operand '211f9526800906e0c585d878d265c37e5e090c15' does not exist in the clone
+R16-bare-assign            rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd git grep path operand 'X=1' is a bare name=value assignment (refused)
+R17-escaped-pipe           rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd shell construct '|' in argv element 'a\\|b'
+R18-rederive-backtick      rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: rederive shell construct '`' in argv element '`x`'
+R19-interpreter            rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd interpreter/constant-printer binary 'python3' is refused (H2)
+R20-echo                   rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd argv[0] 'echo' not in the observe allowlist ['git', 'grep', 'wc', 'sha256sum', 'ls', 'cat', 'head', 'tail', 'cut'] (the echo/printf/interpreter channels are closed)
+R21-missing-binary         rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd argv[0] 'seat-ctrl-no-such-binary' not in the observe allowlist ['git', 'grep', 'wc', 'sha256sum', 'ls', 'cat', 'head', 'tail', 'cut'] (the echo/printf/interpreter channels are closed)
+R22-parse-missing          rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: parse missing (a compiling regex with a capture group, or count-presence, is required)
+R23-parse-nogroup          rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=3 |      D01: parse has no capture group |      D01: observe_cmd output does not parse at base (parse-miss) |      D01: rederive output does not parse at base (parse-miss)
+R24-parse-bad              rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=3 |      D01: parse does not compile: missing ), unterminated subpattern at position 0 |      D01: observe_cmd output does not parse at base (parse:missing ), unterminated subpattern at position 0) |      D01: rederive output does not parse at base (parse:miss
+R25-expected-empty         rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: expected_after is not a non-empty string
+R26-absence-pair           rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=2 |      D01: absence-observation pair (base count 0, expected_after '1') |      D01: observe_cmd output does not parse at base (parse-miss)
+R27-stated-parse-nomatch   rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: stated token cannot be derived from stated_text
+R28-stated-empty           rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=2 |      D01: empty stated_text |      D01: stated token cannot be derived from stated_text
+R29-dup-id                 rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: duplicate id
+R30-min-pairs              rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=9 problems=1 |      pairs=9 < the 10-pair floor
+R31-bad-disposition        rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: disposition='APPEND'
+R32-dead-pin               rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd git operand 0000000000000000000000000000000000000000 is not an object of the clone (dead pin)
+R33-meta-round             rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      round=76 != 77
+R34-meta-claim             rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      claim='C'
+R35-meta-base              rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      base='0000000000000000000000000000000000000000' != --base 211f9526800906e0c585d878d265c37e5e090c15
+R36-empty-argv-elem        rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd observe_cmd element is not a non-empty string
+R37-observe-not-list       rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd observe_cmd is not a non-empty argv list
+V01-11-identical-pairs     rc=0 want=0 OK
+   out: LEDGER-CHECK-77: PASS pairs=11
+V02-fabricated-observation rc=0 want=0 OK
+   out: LEDGER-CHECK-77: PASS pairs=11
+R38-absolute-path          rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd grep file operand '/etc/passwd' does not exist in the clone
+R39-mutable-rev            rc=1 want=1 OK
+   out: LEDGER-CHECK-77: FAIL pairs=11 problems=1 |      D01: observe_cmd git grep revision operand 'main' is a mutable ref (pin a 40-hex or HEAD)
+V03-11-identical-repair    rc=0 want=0 OK
+   out: LEDGER-CHECK-77: PASS pairs=11
+SUMMARY 45/45 controls as expected

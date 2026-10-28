@@ -1,0 +1,161 @@
+# round-77 freeze-gate controls
+# scripts: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-77/w1/stage/ExecFreezeChecklist
+#   sha256 474bb063a6c79c21b764244e44153085ad1edf3d691866ed8b32ddaa092906b6  legcount.py
+#   sha256 aa96c58e241fc3ec9fdb803dbf5699d640d6ab9c138d0c9701c28765d4040aa9  manifest-check.py
+#   sha256 473648d524863adfb1f09583bb7faf51a9a238b7067d62ec46e0dbe062fd8360  controls.sh
+# lane (read-only): /home/vgpnk/Projects/shokunin/kotodama-shokunin
+# scratch: /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368 (removed on exit)
+
+## Section A1 — positive control: the round-76 pair must be green
+$ legcount.py --claim C --claims reports/round-76/claims.json --counter reports/round-76/accept-c.py
+LEGCOUNT C: counter=reports/round-76/accept-c.py symbol=LEGS rev=worktree
+LEGCOUNT C: frozen (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: counter (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: NOTE frozen lists 'INDEX' more than once (the counter's order decides the position)
+LEGCOUNT C: PASS (order and set equal)
+EXPECT P1-C       0 (got 0)
+
+$ legcount.py --claim Ca --claims reports/round-76/claims.json --counter reports/round-76/accept-ca.py
+LEGCOUNT Ca: counter=reports/round-76/accept-ca.py symbol=REQUIRED_LEGS rev=worktree
+LEGCOUNT Ca: frozen (12): LEDGER,BASEMISMATCH,REPAIR,ANNOTATE,APPENDONLY,R1EXEMPT,NOSTUB,SEPARABLE,RECEIPTS,COMBINED,FROZENCFG,STAMP
+LEGCOUNT Ca: counter (12): LEDGER,BASEMISMATCH,REPAIR,ANNOTATE,APPENDONLY,R1EXEMPT,NOSTUB,SEPARABLE,RECEIPTS,COMBINED,FROZENCFG,STAMP
+LEGCOUNT Ca: PASS (order and set equal)
+EXPECT P1-Ca      0 (got 0)
+
+## Section A2 — committed-blob read (--rev 211f9526800906e0c585d878d265c37e5e090c15)
+$ legcount.py --claim Ca --claims reports/round-76/claims.json --counter reports/round-76/accept-ca.py --rev 211f9526800906e0c585d878d265c37e5e090c15
+LEGCOUNT Ca: counter=reports/round-76/accept-ca.py symbol=REQUIRED_LEGS rev=211f9526800906e0c585d878d265c37e5e090c15
+LEGCOUNT Ca: frozen (12): LEDGER,BASEMISMATCH,REPAIR,ANNOTATE,APPENDONLY,R1EXEMPT,NOSTUB,SEPARABLE,RECEIPTS,COMBINED,FROZENCFG,STAMP
+LEGCOUNT Ca: counter (12): LEDGER,BASEMISMATCH,REPAIR,ANNOTATE,APPENDONLY,R1EXEMPT,NOSTUB,SEPARABLE,RECEIPTS,COMBINED,FROZENCFG,STAMP
+LEGCOUNT Ca: PASS (order and set equal)
+EXPECT P2         0 (got 0)
+
+## Section A3 — negative controls: mutated copies of the round-76 claims (scratch)
+$ legcount.py --claim C --claims /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n1-renamed.json --counter reports/round-76/accept-c.py
+LEGCOUNT C: counter=reports/round-76/accept-c.py symbol=LEGS rev=worktree
+LEGCOUNT C: frozen (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,SCRATCHMIRROR,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: counter (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: DIVERGES at index 9: frozen='SCRATCHMIRROR' counter='INDEX' (set differs)
+LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+EXPECT n1-renamed 1 (got 1)
+
+$ legcount.py --claim C --claims /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n2-reordered.json --counter reports/round-76/accept-c.py
+LEGCOUNT C: counter=reports/round-76/accept-c.py symbol=LEGS rev=worktree
+LEGCOUNT C: frozen (13): ROWS,ENTRIES,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: counter (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: NOTE frozen lists 'INDEX' more than once (the counter's order decides the position)
+LEGCOUNT C: DIVERGES at index 0: frozen='ROWS' counter='ENTRIES' (set equal)
+LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+EXPECT n2-reordered 1 (got 1)
+
+$ legcount.py --claim C --claims /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n3-short.json --counter reports/round-76/accept-c.py
+LEGCOUNT C: counter=reports/round-76/accept-c.py symbol=LEGS rev=worktree
+LEGCOUNT C: frozen (12): ENTRIES,ROWS,REPOINTED,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: counter (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: NOTE frozen lists 'INDEX' more than once (the counter's order decides the position)
+LEGCOUNT C: DIVERGES at index 3: frozen='EVIDENCE' counter='GATE' (set differs)
+LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+EXPECT n3-short   1 (got 1)
+
+$ legcount.py --claim C --claims /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n4-duplicated.json --counter reports/round-76/accept-c.py
+LEGCOUNT C: counter=reports/round-76/accept-c.py symbol=LEGS rev=worktree
+LEGCOUNT C: frozen (14): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX,ENTRIES
+LEGCOUNT C: counter (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: NOTE frozen lists 'INDEX' more than once (the counter's order decides the position)
+LEGCOUNT C: NOTE frozen lists 'ENTRIES' more than once (the counter's order decides the position)
+LEGCOUNT C: DIVERGES at index 13: frozen='ENTRIES' counter=None (set differs)
+LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+EXPECT n4-duplicated 1 (got 1)
+
+$ legcount.py --claim C --claims /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n5-placeholder.json --counter reports/round-76/accept-c.py
+LEGCOUNT C: counter=reports/round-76/accept-c.py symbol=LEGS rev=worktree
+LEGCOUNT C: frozen (12): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: counter (13): ENTRIES,ROWS,REPOINTED,GATE,EVIDENCE,REJECTS,GROUND,CITEDLINES,CENSUS,INDEX,COLLCHECK,FROZENCFG,INDEX
+LEGCOUNT C: NOTE frozen lists 'INDEX' more than once (the counter's order decides the position)
+LEGCOUNT C: PROBLEM legs[5] name 'LEDGELIST?' is not UPPER_SNAKE — an unresolved placeholder cannot be frozen
+LEGCOUNT C: DIVERGES at index 5: frozen='GROUND' counter='REJECTS' (set differs)
+LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+EXPECT n5-placeholder 1 (got 1)
+
+$ legcount.py --claim C --claims reports/round-76/claims.json --counter /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n6/accept-c.py
+ERROR: /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n6/accept-c.py: no usable leg table (LEGS: not a tuple/list literal; REQUIRED_LEGS: absent)
+EXPECT n6         2 (got 2)
+
+$ legcount.py --claim C --claims reports/round-76/claims.json --counter /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n7/accept-c.py
+ERROR: /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/fx/n7/accept-c.py does not parse: '(' was never closed (accept-c.py, line 1)
+EXPECT n7         2 (got 2)
+
+## Section B — the manifest's emitted one-liners (round-76 paths: same argv shape)
+$ python3 -c "…sorted(F)==sorted(LEGS)…"   # claim C
+EXPECT B-C-set    0 (got 0)
+$ python3 -c "…F==LEGS…"   # claim C, order included
+EXPECT B-C-order  0 (got 0)
+$ python3 -c "…sorted(F)==sorted(LEGS)…"   # claim Ca
+EXPECT B-Ca-set   0 (got 0)
+$ python3 -c "…F==LEGS…"   # claim Ca, order included
+EXPECT B-Ca-order 0 (got 0)
+
+## Section C — manifest-check.py end-to-end (fixture repo under the scratch root)
+$ manifest-check.py --root /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e --manifest /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e/manifest.json --record
+MANIFEST-FILE RECORD    reports/round-77/telemetry/gap-sweep.txt 9edc21a12cdb2cea7eef2daa953d6fff360036c10e70ebc5dc215f37195a660c
+MANIFEST-LEGCOUNT C PASS
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST r77: PASS files=18/18 pinned=18 missing=0 unpinned=0 mismatched=0 legs=2/2
+EXPECT C1-record  0 (got 0)
+$ git -C /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e add -A; git -C /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e commit -qm freeze-fixture; manifest-check.py … --freeze HEAD
+MANIFEST-FILE ok        reports/round-77/telemetry/gap-sweep.txt 9edc21a12cdb2cea7eef2daa953d6fff360036c10e70ebc5dc215f37195a660c
+MANIFEST-LEGCOUNT C PASS
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST r77: PASS files=18/18 pinned=18 missing=0 unpinned=0 mismatched=0 legs=2/2
+EXPECT C2-freeze-pass 0 (got 0)
+$ printf tamper >> reports/round-77/telemetry/junk-c.txt  (NOT committed)
+MANIFEST-FILE ok        reports/round-77/telemetry/gap-sweep.txt 9edc21a12cdb2cea7eef2daa953d6fff360036c10e70ebc5dc215f37195a660c
+MANIFEST-LEGCOUNT C PASS
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST r77: PASS files=18/18 pinned=18 missing=0 unpinned=0 mismatched=0 legs=2/2
+EXPECT C3-blob-authority 0 (got 0)
+$ git -C /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e commit -qam tamper; manifest-check.py … --freeze HEAD
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST-PROBLEM reports/round-77/telemetry/junk-c.txt: pinned 8d3085bdaea93de7dff0a1648226bc5c2428d4527a28d86402575406bffe4f86 != actual 22ffe4abc3fc8a0e5ad3e81fc309152f5e8e8f2a152cd53a5cf710e60a6fcf1f
+MANIFEST r77: FAIL files=17/18 pinned=18 missing=0 unpinned=0 mismatched=1 legs=2/2
+MANIFEST r77: freeze blocker — fix the named files/legs and re-run
+EXPECT C4-committed-tamper 1 (got 1)
+$ git -C /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e revert the tamper (checkout HEAD~1 -- the file; commit); manifest-check.py … --freeze HEAD
+MANIFEST-FILE ok        reports/round-77/telemetry/gap-sweep.txt 9edc21a12cdb2cea7eef2daa953d6fff360036c10e70ebc5dc215f37195a660c
+MANIFEST-LEGCOUNT C PASS
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST r77: PASS files=18/18 pinned=18 missing=0 unpinned=0 mismatched=0 legs=2/2
+EXPECT C5-revert-pass 0 (got 0)
+$ git -C /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e rm -q reports/round-77/fixtures/r1exempt-mixed.json; commit; manifest-check.py … --freeze HEAD
+MANIFEST-LEGCOUNT C PASS
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST r77: FAIL files=17/18 pinned=17 missing=1 unpinned=0 mismatched=0 legs=2/2
+MANIFEST r77: freeze blocker — fix the named files/legs and re-run
+EXPECT C6-committed-drop 1 (got 1)
+$ restore the dropped file, re-spell claim C legs[1] (BETA -> GAMMA), re-record, commit
+  | LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST r77: FAIL files=18/18 pinned=18 missing=0 unpinned=0 mismatched=0 legs=1/2
+MANIFEST r77: freeze blocker — fix the named files/legs and re-run
+$ manifest-check.py … --freeze HEAD   (digests pinned: the only red must be LEGCOUNT)
+  | LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+MANIFEST-LEGCOUNT Ca PASS
+MANIFEST r77: FAIL files=18/18 pinned=18 missing=0 unpinned=0 mismatched=0 legs=1/2
+MANIFEST r77: freeze blocker — fix the named files/legs and re-run
+EXPECT C7-leg-drift 1 (got 1)
+$ legcount.py --claim C --root /fast/scratch/hyaku/kotodama-r77/ExecFreezeChecklist-controls.2530368/e2e --rev HEAD
+LEGCOUNT C: counter=reports/round-77/accept-c.py symbol=LEGS rev=HEAD
+LEGCOUNT C: frozen (2): ALPHA,GAMMA
+LEGCOUNT C: counter (2): ALPHA,BETA
+LEGCOUNT C: DIVERGES at index 1: frozen='GAMMA' counter='BETA' (set differs)
+LEGCOUNT C: FAIL (freeze blocker: regenerate legs[] from the counter table, never hand-type)
+EXPECT C8-legcount-direct 1 (got 1)
+
+## manifest-check.py build mode on the real lane (expected PENDING: freeze-installed inputs)
+$ manifest-check.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin
+  | LEGCOUNT Ca: PENDING — absent: reports/round-77/accept-ca.py, reports/round-77/claims.json
+  | LEGCOUNT Ca: run at freeze: python3 -B .ufo/waves/round-77/w1/stage/ExecFreezeChecklist/legcount.py --claim Ca --rev <freeze>
+MANIFEST r77: PENDING files=0/18 pinned=0 missing=17 unpinned=1 mismatched=0 legs=0/2
+MANIFEST r77: pending items are the freeze-installed inputs; re-run with --freeze <commit> after the freeze commit
+
+CONTROLS: all expectations met

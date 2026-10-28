@@ -1,0 +1,34 @@
+# S897 capture fetch (UA bound to response), recorded 2026-10-27
+$ curl -s -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36' -o s897-cap-browser.html -w 'UA=Mozilla… status=%{http_code} bytes=%{size_download}\n' 'https://web.archive.org/web/20240111092427id_/http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+UA=Mozilla… status=200 bytes=143457
+
+$ curl -s -A 'curl/8.23.0' -o s897-cap-curl.html -w 'UA=curl/8.23.0 status=%{http_code} bytes=%{size_download}\n' 'https://web.archive.org/web/20240111092427id_/http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml'
+UA=curl/8.23.0 status=200 bytes=143457
+
+# staged S897 Gate quote, verbatim containment in the capture
+$ grep -c '在現代社會中，姓、名共同構成一項人群標記符號。但姓與名實際是有區分的。名的使用要早于姓，兩者組合是一種後起的文化習慣。' s897-cap-curl.html
+1
+
+$ grep -o '後起的文化習慣' s897-cap-curl.html | wc -l
+1
+
+# staged teaches-cell phrases
+$ printf '%s ' 春秋戰國; grep -o '春秋戰國' s897-cap-curl.html | wc -l
+春秋戰國 2
+
+$ printf '%s ' 華夏式姓名習慣; grep -o '華夏式姓名習慣' s897-cap-curl.html | wc -l
+華夏式姓名習慣 1
+
+$ printf '%s ' 文化接觸; grep -o '文化接觸' s897-cap-curl.html | wc -l
+文化接觸 4
+
+$ printf '%s ' 單名與雙名; grep -o '單名與雙名' s897-cap-curl.html | wc -l
+單名與雙名 3
+
+# article identity + section headings
+$ grep -o '<title>[^<]*</title>' s897-cap-curl.html | head -1
+<title>魏斌:單名與雙名：漢晉南方人名的變遷及其意義-中国社会科学院历史研究所</title>
+
+$ grep -o '2021-03-16' s897-cap-curl.html | sort | uniq -c
+      2 2021-03-16
+

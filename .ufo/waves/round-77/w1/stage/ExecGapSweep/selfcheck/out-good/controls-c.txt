@@ -1,0 +1,33 @@
+# controls-c.txt — claim C controls (round 77), freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f
+# harness: ./run-controls.sh sha256=42beb47bec2d42d5fb63e2a214a4c120beae97a5ec8b67c0f7d5a67b1ac29c68
+# lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+# repo handed to the counters: /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scgood (git clone --shared of the lane)
+# clone HEAD: 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f (main pinned to the freeze: the do-nothing measured revision)
+# clone tree: 6d7f85b2440fde99f9762eddda09c7ed9614c5b0
+# recorded lands: 7501b282737170a6793958c8b1e833dacba92bfb  base: a3ac63ba2dc8a8f673d3824a6211d5783ad3ed09  combined: 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f  main pin: 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f
+# counter: /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-c.py sha256=2870c4bdc23f290adb318f07f0d40d933f68a9aec6962042d2ddc3f240a07abc
+# scratch: /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc (HYAKU_SCRATCH, SHOKUNIN_SCRATCH and TMPDIR point here for every graded run; never a literal /tmp)
+## control 1: lands == freeze (legal ancestor relation; no data landed)
+$ python3 -B /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-c.py --root /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scgood --lands 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --fleet-root /home/vgpnk/Projects/shokunin --work /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/work/scgood-c1
+LEG PASS FROZENCFG
+LEG PASS STAMP
+LEG FAIL ENTRIES
+LEG FAIL ROWS
+ACCEPT-C-77: FAIL legs=2/4
+exit=1
+# expected: exit=1, summary "ACCEPT-C-77: FAIL", red=[ENTRIES ROWS], green=[FROZENCFG]
+# observed legs: PASS=2 FAIL=2
+# control verdict: PASS
+
+## control 2: lands == base (refusal, no leg line)
+$ python3 -B /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/selfcheck/good/accept-c.py --root /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/clone-scgood --lands a3ac63ba2dc8a8f673d3824a6211d5783ad3ed09 --freeze 04af6b994a91111e40ef50b8cfdf9c9ae0d28a0f --fleet-root /home/vgpnk/Projects/shokunin --work /fast/scratch/hyaku/kotodama-r77/ExecGapSweep/sc/work/scgood-c2
+REFUSED: --lands equals the frozen claim base
+ACCEPT-C-77: FAIL legs=0/4 (refused: --lands equals the frozen claim base)
+exit=2
+# expected: exit=2 (refused) on /base/, no LEG line
+# observed legs: 0 (leg-shaped line count)
+# control verdict: PASS
+
+## control 3: skipped (--scratch-refusal=ca: the frozen claims do not bind the missing-scratch refusal to claim C)
+
+CONTROLS-C-77: PASS controls=2/2

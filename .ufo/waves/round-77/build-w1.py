@@ -1,0 +1,463 @@
+#!/usr/bin/env python3
+"""Build the round-77 w1 (v1 policy, build+recon+first attacks) wave spec."""
+import json, sys
+
+BASE = "211f9526800906e0c585d878d265c37e5e090c15"
+LANE = "/home/vgpnk/Projects/shokunin/kotodama-shokunin"
+FLEET = "/home/vgpnk/Projects/shokunin"
+WAVE = ".ufo/waves/round-77/w1"
+SCRATCH = "/fast/scratch/hyaku/kotodama-r77"
+
+CONTEXT = (
+    "You are a swarm seat of kotodama round 77 (hyaku run 10), WAVE 1 (build + recon + first "
+    "attacks on the DRAFT claims). Lane repo: {lane} (ALL repo reads/writes use absolute paths "
+    "under it; a relative path lands in the FLEET repo — never). Fleet root: {fleet}. Lane base "
+    "revision for this round: {base} (read any base byte with `git -C {lane} show {base}:<path>`). "
+    "The DRAFT claims (pre-data, not frozen) are at {lane}/.ufo/waves/round-77/CLAIMS-DRAFT.md — "
+    "read it first; you build, check or attack against it, you NEVER edit it. Round-76 machinery "
+    "you may READ and COPY from (never edit in place): {lane}/reports/round-76/ (accept-c.py, "
+    "accept-ca.py, claims.json, ledger.json, telemetry/, evidence/, counters/, fixtures/) and "
+    "{lane}/.ufo/waves/round-76/ (w1/, w2/, assimilation/, build-w1.py, freeze-set.sh, "
+    "run-controls.sh, apply-landing.py, rehearse.sh). Your seat is a LEAF: no delegation, no "
+    "background jobs, no `task` spawns (an executor may spawn one read-only labrat probe for a "
+    "falsifiable hypothesis; every other role stays a leaf). You NEVER mutate: the fleet repo "
+    "(do not write {fleet}/** at all), sibling lanes, the lane's jj/git state or git index "
+    "(read-only git is fine; NEVER git add/commit/checkout/stash/reset/switch/pull/push or any "
+    "mutating jj command in the lane), {fleet}/scripts, {fleet}/templates, .ufo/state, "
+    ".ufo/watchdog.log, and inside the lane: LOG.md, SCORECARD.md, SKILL.md, SHONEN.md, corpus/**, "
+    "reports/round-76/**, reports/round-77/** (the L1 installs those at the freeze), "
+    "/home/vgpnk/Projects/shokuknow/merge/kotodama and /home/vgpnk/Projects/shokuknow (READ-ONLY "
+    "source tree: never write there, never run campaign tools against it). You WRITE only: your "
+    "own `Report:` file and files under {lane}/{wave}/ (use {lane}/{wave}/stage/<seat-name>/ for "
+    "artifacts; drafts of lane files go under {lane}/{wave}/drafts/<lane-relative path>). Seats "
+    "return findings and files; only the L1 commits. Fixture git repos: `D=$(mktemp -d -p "
+    "{scratch}/<seat>) && git -C \"$D\" init -q`, every later git call names `-C \"$D\"`, verify "
+    "`git -C \"$D\" rev-parse --show-toplevel` equals \"$D\" before the first commit; NEVER a "
+    "throwaway identity anywhere else. Tooling authorization (operator, 2026-10-19; read "
+    "/home/vgpnk/.omp/agent/RULES.md): you may install/upgrade tools that help the task — official "
+    "channels only (uv tool / npx / official binary in ~/.local/bin); pacman is PAUSED host-wide "
+    "per the orchestrator ruling (2026-10-20): never run pacman; the pacman guard stands (never "
+    "-Sy/-Syu/-U/-R, no partial upgrade). Record any install (tool, version, channel, reason) in "
+    "your report. Scratch discipline (operator, 2026-10-25): ALL your scratch (clones, mirrors, "
+    "fetches, fixtures) lives under {scratch}/<your-seat-name>/ — mkdir -p it, pass it explicitly "
+    "(TMPDIR=… --work …), never rely on /tmp or an inherited TMPDIR (/tmp: files under 50 MB "
+    "only); delete your scratch dir before you yield (trap 'rm -rf -- \"$S\"' EXIT) after copying "
+    "receipts into the wave dir; NEVER delete {scratch} itself or another seat's dir; a /tmp path "
+    "is never citable evidence. Committed tools must not hardcode /tmp (honour TMPDIR/--work/"
+    "$HYAKU_SCRATCH). The canonical planner seat is held by the L1 (orchestrator ruling "
+    "2026-10-19); you are not a planner. Routing is decided by the host route table — never pass a "
+    "model. Sources are opened by ordinary means only (QUALITY 10): a plain request, a public "
+    "copy, an archive capture or a library scan; passing a bot challenge, solved captcha or "
+    "bypassed paywall/login/geo block counts as UNOPENED; a challenge met and routed around by an "
+    "ordinary copy is not a bypass (say the challenge was met and not passed). Every fetch record "
+    "binds each User-Agent to the response that request got (QUALITY 22); the browser-shaped UA "
+    "is `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 "
+    "Safari/537.36`, the plain UA is `curl/8.x` or the tool's default. A 'no capture' CDX ruling "
+    "probes the canonical slug AND a positive control (QUALITY 21+24). Report discipline: every "
+    "claim in your report carries the command that produced it and its raw output; a number is "
+    "written `<number> — <command>`; a negative claim carries its sweep; an unrun check is "
+    "reported as unrun. Every `Report:` trailer path is relative to {lane} — write it at "
+    "{lane}/<that path>. Final reply: at most 6 lines (verdict, report path, blockers)."
+).format(lane=LANE, fleet=FLEET, base=BASE, wave=WAVE, scratch=SCRATCH)
+
+ITEMS = []
+
+def it(name, role, task):
+    ITEMS.append({"name": name, "role": role, "task": task})
+
+# ---- source-opening scouts (C claim) ----
+it("ScoutDocS897", "scout",
+   "RECON + ATTACK (independent source opening for planned lane row S897, document D1 = staged S897): "
+   "open 魏斌〈單名與雙名：漢晉南方人名的變遷及其意義〉, 中国社会科学院历史研究所 2021-03-16 at "
+   "http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml . The L1 probe got HTTP 403 "
+   "(162 bytes) under BOTH the plain UA and the browser-shaped UA; a Wayback capture "
+   "20240111092427 status 200 exists. Open by ordinary means: (1) fetch the live URL with the plain UA "
+   "and the browser-shaped UA, record each `UA \"<string>\" -> HTTP <code>, <bytes> B, wall "
+   "present/absent (<marker>)` line (QUALITY 22); (2) fetch the Wayback capture "
+   "https://web.archive.org/web/20240111092427id_/http://lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/"
+   "t20210316_5318560.shtml and confirm it is a capture of the SAME page (original URL normalizes); "
+   "(3) extract a ≤25-word quote locating the claim that 名 precedes 姓 and that 姓（氏）+名 is a "
+   "contact-era acquisition (the staged row's anchor: 引言); the quote must be verbatim body text — "
+   "copy the exact span including CJK. Write a capture file at "
+   f"{LANE}/reports/round-77-stage-evidence/S897.txt is FORBIDDEN (L1 installs evidence); instead write "
+   f"{LANE}/{WAVE}/stage/ScoutDocS897/evidence.txt in the round-76 evidence-file shape (header lines: "
+   "url, wayback, fetched, ua-records, bytes, sha256, window-scope, window, quote, quote-found-verbatim) "
+   "and report: live-vs-capture verdict, the located quote + its page location (section), tier "
+   "recommendation for scope 'Chinese-language study of the 姓/名 naming structure', and any defect "
+   "that would refuse the row.")
+it("ScoutDocS898", "scout",
+   "RECON + ATTACK (independent source opening for planned lane row S898, document D2 = staged S903): "
+   "open Kałużyńska, Irena (2025) 'Flowers, Plants, and Trees in Female Naming in China', Onomastica "
+   "LXIX pp. 113–, DOI 10.17651/ONOMAST.69.7 at "
+   "https://onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/ (live HTTP 200 at L1 probe; "
+   "Wayback captures 20251231111748 and 20260901045105 exist). Open by ordinary means: (1) fetch live "
+   "with plain UA, record the UA->HTTP/bytes/wall line; (2) fetch "
+   "https://web.archive.org/web/20251231111748id_/https://onomastica.ijppan.pl/index.php/ONOM/article/"
+   "download/574/763/ and verify same-page; (3) it is a PDF — extract text (pdftotext -layout; install "
+   "poppler via uv/official channel if absent) and extract a ≤25-word quote locating the finite lexeme "
+   "classification of Chinese given names (the staged row's anchor: §2–§4 — e.g. the plant/flower/tree "
+   "lexeme counts and the 17 most common lexemes). Write "
+   f"{LANE}/{WAVE}/stage/ScoutDocS898/evidence.txt in the round-76 evidence shape and report: located "
+   "quote + page/section location, tier recommendation for scope 'the onomastics literature's own "
+   "classification of Chinese given names' (staged tier A — confirm or attack), and any defect that "
+   "would refuse the row.")
+it("ScoutCDXPositive", "scout",
+   "RECON (CDX probes with positive control, QUALITY 21+24): for the two claim-C documents, run the "
+   "Wayback CDX exact-url query AND a positive control over a URL known to have captures: "
+   "(a) url=lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml (probe the LIVE url's own "
+   "redirect/canonical target first — record the target — then the exact query); "
+   "(b) url=onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/ ; "
+   "(c) positive control url=en.wikipedia.org/wiki/Onomastics (matchType=exact). "
+   "For each print: the probed URL verbatim, its provenance, the CDX query URL verbatim, raw output "
+   "line count, and the first status-200 capture timestamp. Also run one deliberately empty probe "
+   "(a composed slug known absent, e.g. lishisuo.cssn.cn/xsyj/zzz-nonexistent-r77) and confirm it "
+   "returns empty WITHOUT being read as absence of the real URL. Report all outputs.")
+it("ScoutCoverageSweep", "scout",
+   "RECON (ground sweep for claim C's negative before-state): the claim's ground = 'no Chinese-language "
+   "system-level account of the 姓/名 naming structure or a finite lexeme-inventory classification of "
+   "Chinese given names in corpus/knowledge'. Run the sweep at BASE "
+   f"{BASE}: (1) `git -C {LANE} grep -l -E 'lishisuo\\.cssn|onomastica\\.ijppan|單名與雙名|姓（氏）|名 predates' "
+   f"{BASE} -- corpus/knowledge` ; (2) `git -C {LANE} grep -l -E 'generation.character|輩行|避祖|courtesy name|字 ' "
+   f"{BASE} -- corpus/knowledge/linguistics` ; (3) read corpus/knowledge/linguistics/naming-systems.md "
+   "at base and list which of the staged entry's claims (姓/名 structure; finite lexeme inventory; "
+   "88 plant/flower/tree terms; 17 common lexemes) it already states. Report: each command + raw output; "
+   "verdict whether the ground holds at base; attack — name anything in the base corpus that would "
+   "falsify the 'uncovered' claim.")
+it("ScoutQuarantine", "scout",
+   "RECON (assimilation quarantine re-check, read-only): the lane's absent-defect-register slice was "
+   "hand-checked in round 74 (verdict histogram PRESENT 10 / REFUSED 7 / UNVERIFIABLE 4). Re-derive the "
+   "slice TODAY: `awk -F'|' -v l='kotodama' '$2 ~ (\"`\" l \"`\") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ "
+   "{print $4, $5}' /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md` "
+   "and confirm the row count matches 21; check whether any slice row names a URL in this round's "
+   "document set (lishisuo.cssn.cn/t20210316_5318560, onomastica download/574/763, or the staged "
+   "naming-set URLs). Report the slice, the count, and per-row whether this round's rows collide. "
+   "Read-only: never edit the register.")
+it("ScoutIdMap", "scout",
+   "RECON (id-collision guard by document): lane registry ids are S001-S896 at base; staged ids in "
+   "/home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md run S859-S990 (132 rows). "
+   "(1) Extract every DOCUMENT URL (not just id) the staged naming entries cite "
+   f"({LANE}/.ufo/waves/round-77/CLAIMS-DRAFT.md lists D1/D2 plus the rejected candidates' ids: "
+   "S897, S903, S906, S907, S911, S912, S913, S914, S918, S933, S934, S936, S939-S944) and for each "
+   "staged row print id -> document URL. (2) For each document URL run a normalized-URL search over "
+   f"{LANE}/corpus/SOURCES.md at BASE {BASE} (strip scheme/trailing slash/query fragments) and name "
+   "any lane row already carrying the SAME document (the r76 COLLCHECK class: showGb vs newGbInfo was "
+   "one document, two URL strings — check document identity, not string equality; an onomastica "
+   "download/574/763 row may already exist as S934-in-lane or under a different id). (3) Produce the "
+   "by-document map: staged-id -> document -> proposed lane id (S897+ for new documents; existing lane "
+   "id where the document is already registered). Guard proof: build a scratch registry under "
+   f"{SCRATCH}/ScoutIdMap with an indented row colliding with a staged id and show `comm -12` catches "
+   "it (paste the fixture + output).")
+it("ScoutLedgerA", "scout",
+   "RECON (claim Ca candidate pairs, family A — round-76 files): mine statements in the round-76 record "
+   "whose token does not match the artifact it names AT BASE. Sweep LOG.md (`## Round 76` entry, ~line "
+   "4335+), SCORECARD.md (`## Axes — round 76`, `## Corrections — round 76`), and "
+   "corpus/lessons/round-76.md. For each candidate pair emit JSON: {id: 'A-nn', stated_at: "
+   "'<file>:<line>', stated_text: '<verbatim span containing the token>', stated_token, observe_cmd: "
+   "[argv array — executable in {git,grep,wc,sha256sum,ls,cat,head,tail,cut} only; git commands MUST "
+   "use `-C " + LANE + "` FIRST then subcommand, and pin revision " + BASE + "; a grep -E pattern may "
+   "hold regex chars but no backtick or escaped pipe unless it is the pattern operand], parse, "
+   "observed_at_base, expected_after, rederive: '<shell-safe string>'}. The pair is RED only if "
+   "stated_token != observed_at_base; VERIFY each pair yourself by running the observe_cmd at base "
+   "before emitting it (paste the run). A pair whose stated_text is absent at its stated_at line is "
+   "VOID — check it (r76 L76-19 class). Emit 4+ verified-red pairs to "
+   f"{LANE}/{WAVE}/stage/ScoutLedgerA/pairs.json plus your findings.")
+it("ScoutLedgerB", "scout",
+   "RECON (claim Ca candidate pairs, family B — round-75 files and fleet-facing counts): mine "
+   "statements in corpus/lessons/round-75.md, LOG.md `## Round 75`, SCORECARD.md `## Axes — round 75` "
+   "and `## Corrections — round 75` whose token does not match its named artifact at BASE "
+   f"{BASE}. Round 76 already annotated 19 r75 pairs (see SCORECARD `## Corrections — round 76` "
+   "L76-01..L76-21) — your pairs MUST NOT duplicate those (a different statement in the same file is "
+   "fine; the same line/token is not). Same JSON shape and self-verification as ScoutLedgerA "
+   "(observe_cmd argv read-only allowlist, git -C first, base-pinned, stated_text presence checked). "
+   "Emit 4+ verified-red pairs to "
+   f"{LANE}/{WAVE}/stage/ScoutLedgerB/pairs.json.")
+it("ScoutLedgerC", "scout",
+   "RECON (claim Ca candidate pairs, family C — README/index and older files): corpus/README.md is a "
+   "MUTABLE file (REPAIR-class). Its '## culture-material/ (36)' heading is stale — the directory "
+   "holds 41 files at base (`git -C " + LANE + " ls-tree --name-only " + BASE + " "
+   "corpus/knowledge/culture-material/ | grep -c '\\.md$'` — VERIFY) and the section carries its own "
+   "row count. Also check: the README 'Total knowledge entries' footer stack (latest = 253), the "
+   "directory-totals line `(total 253 files; directory totals 32/32/41/29/24/95)`, the `## "
+   "linguistics/ (30)` heading vs actual 30 files, and whether the naming-systems.amend file the C "
+   "claim adds will stale any OTHER number (forecast, not fix). Also sweep corpus/QUALITY.md and "
+   "corpus/lessons/round-74.md for statements whose token mismatches at base (not already annotated in "
+   "`## Corrections — round 75/76`). Same JSON shape + self-verification; REPAIR-class candidates get "
+   "disposition REPAIR with mutable-file stated_at. Emit 4+ verified pairs (mix of REPAIR and "
+   "ANNOTATE) to "
+   f"{LANE}/{WAVE}/stage/ScoutLedgerC/pairs.json.")
+it("ScoutHeldEntries", "scout",
+   "RECON (read the staged package, naming theme only): read every staged file under "
+   "/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/linguistics/ matching "
+   "`naming-systems*` (10+ files). For each: the cited staged S-ids, the claimed ground, tier mix, and "
+   "whether its ground overlaps the adopted entry's (CLAIMS-DRAFT.md). Name which ONE the DRAFT adopts "
+   "and verify no OTHER staged naming entry is needed to cover the same ground; flag any staged row "
+   "whose staged URL already sits in the lane registry at base (document-level check). Report a "
+   "per-file triage table: adopt / hold (distinct ground, later round) / refuse (reason+flip).")
+it("ScoutReadmeIndex", "scout",
+   "RECON (README integration plan for claim C): corpus/README.md index rows live under `## "
+   "linguistics/ (30)` and footer blocks stack dated totals. Read the linguistics section and the "
+   "footer at base and emit the exact index row line the C entry needs (`- `naming-systems."
+   "amend-2026-10-23.md` — <entry's - topic: text verbatim>`) and the exact new footer block text "
+   "(dated 2026-10-27, totals 254 with directory totals 33/32/41/29/24/95 — VERIFY each number with "
+   "`git -C " + LANE + " ls-tree --name-only " + BASE + " corpus/knowledge/<dir>/ | grep -c '\\.md$'` "
+   "for all six partitions). Also name every OTHER line in README that a +1 linguistics file stales "
+   "(forecast only). Emit to "
+   f"{LANE}/{WAVE}/stage/ScoutReadmeIndex/readme-plan.md.")
+it("ScoutPathsSearch", "scout",
+   "RECON (SOURCES.md Paths/Search-log edits for claim C): read corpus/SOURCES.md `## Paths` and `## "
+   "Search log` at base. Emit the exact appended text: (a) one Search log note for the naming-systems "
+   "assimilation search (question/query, where searched, date, identified/screened/included/excluded "
+   "counts, exclusion reasons, stop rationale — PRISMA-inspired per CORPUS.md rule 5; counts must be "
+   "true of the staged set you count: `grep -c '^|' "
+   "/home/vgpnk/Projects/shokuknow/merge/kotodama/SOURCES.append.md` and the naming-file list under "
+   "merge/kotodama/knowledge/corpus/knowledge/linguistics/); (b) any Paths line the two new rows fit "
+   "(or 'none' with reason). These are the required_sections[] the frozen counter names (r76 ROWS "
+   "defect fix). Emit to "
+   f"{LANE}/{WAVE}/stage/ScoutPathsSearch/sections.md.")
+# ---- executors (counter adaptation) ----
+it("ExecAdaptC", "executor",
+   f"BUILD (claim C counter): copy {LANE}/reports/round-76/accept-c.py to "
+   f"{LANE}/{WAVE}/stage/ExecAdaptC/accept-c.py and adapt it for round 77. Read CLAIMS-DRAFT.md + the "
+   "r76 spot-check defects first. Required changes: (1) round constants 76->77, new row_set schema "
+   "carries per-row {lane_id, staged_id, document_url}; (2) ROWS leg scope — count ONLY `| S### |` row "
+   "lines added inside the frozen row_set, and move Paths/Search-log requirements into a named "
+   "`required_sections[]` config checked by the INDEX leg (never counted as out-of-set rows); "
+   "(3) COLLCHECK leg compares DOCUMENT identity (normalized document URL from the frozen row_set map "
+   "vs the row's source cell), not raw URL strings; (4) frozen `legs[]` is generated from the leg "
+   "table itself — never a hand-typed list (fix r76 duplicate-INDEX/missing-SCRATCHMIRROR defect); "
+   "(5) honour TMPDIR/--work/$HYAKU_SCRATCH, no hardcoded /tmp; (6) --selftest must cover: do-nothing "
+   "lands==freeze fails, lands==base refused, junk landings (J1 stub entries, J2 Gate quote absent, J3 "
+   "shrunk claims.json) fail named legs, and one GREEN fixture passes all legs. Keep --freeze, "
+   "--lands, --fleet-root, --work, --selftest flags. Emit the adapted file + a `python3 -B "
+   "accept-c.py --selftest` receipt under "
+   f"{LANE}/{WAVE}/stage/ExecAdaptC/ and a diff summary. Do NOT commit.")
+it("ExecAdaptCa", "executor",
+   f"BUILD (claim Ca counter): copy {LANE}/reports/round-76/accept-ca.py to "
+   f"{LANE}/{WAVE}/stage/ExecAdaptCa/accept-ca.py and adapt for round 77. Required changes (routed "
+   "defects from the r76 closure): (1) LEDGER leg — stated_at must be inside a frozen allowlist "
+   "(ANNOTATE pairs: LOG.md, SCORECARD.md, corpus/lessons/round-75.md, corpus/lessons/round-76.md; "
+   "REPAIR pairs: corpus/README.md, SKILL.md, SHONEN.md); stated_text MUST be found at stated_at in "
+   "the base tree (ledger-build check + counter leg); rederive/observe_cmd argv must EXECUTE — "
+   "executable in read-only allowlist, git subcommand form `git -C <lane> <cmd> ... <rev> -- <path>` "
+   "with the revision in rev position and `-C` FIRST (reject `git grep ... <rev>` without -C, a "
+   "bare `chars=` operand, a backtick/escaped-pipe outside a pattern operand); (2) RECEIPTS leg — "
+   "every telemetry path a pair or fixture names must exist as a committed blob at freeze; "
+   "(3) COMBINED leg — the README exemption requires its line number in the exemption record; "
+   "(4) keep --combined/--main semantics (C may land after Ca); keep the do-nothing refusals "
+   "(lands==freeze graded-FAIL, lands==base refused, missing --work/--combined refused exit 2 with no "
+   "leg lines); (5) legs[] generated from the leg table, never hand-typed; (6) TMPDIR/--work/"
+   "$HYAKU_SCRATCH honoured, no hardcoded /tmp; (7) --selftest covering the r76 failure classes: "
+   "stated_text-absent pair red, out-of-allowlist stated_at red, unexecutable observe_cmd red, "
+   "uncommitted receipt red, missing line-number exemption red, green pair green, junk fixtures "
+   "fail their legs. Emit adapted file + selftest receipt under "
+   f"{LANE}/{WAVE}/stage/ExecAdaptCa/. Do NOT commit.")
+it("ExecAdaptJunk", "executor",
+   f"BUILD (junk-landing fixtures): copy {LANE}/reports/round-76/counters/junk-fixtures.py to "
+   f"{LANE}/{WAVE}/stage/ExecAdaptJunk/junk-fixtures.py and adapt: fixtures J1-J7 for round-77 leg "
+   "names (J1 header-only stub entries -> ENTRIES; J2 Gate admit quote absent from evidence -> "
+   "EVIDENCE/GATE; J3 shrunk claims.json -> FROZENCFG; J4 constant-printer observe_cmd -> LEDGER; "
+   "J4b evasive printer -> LEDGER; J5 correction row naming only an id -> ANNOTATE; J6 in-place edit "
+   "of a frozen receipt -> APPENDONLY; J7 Ca correction citing C rows -> SEPARABLE) PLUS new r77 "
+   "classes: J8 stated_at outside allowlist -> LEDGER; J9 stated_text absent at base -> LEDGER; "
+   "J10 unexecutable observe_cmd argv -> LEDGER; J11 Paths/Search-log line counted as out-of-set "
+   "S-row (must NOT fail ROWS — it is an INDEX/requirements concern; fixture proves ROWS scopes to "
+   "row_set). Each fixture: a git commit in a scratch fixture repo ({scratch}/ExecAdaptJunk/fixtures) "
+   "carrying the minimal tree, its commit hash, the counter command, the expected FAIL leg, and the "
+   "round-76 counter's verdict on the same class (red-before). Emit fixtures + receipt under "
+   f"{LANE}/{WAVE}/stage/ExecAdaptJunk/. No lane writes.")
+it("ExecAdaptCapture", "executor",
+   f"BUILD (evidence capture tool): copy {LANE}/reports/round-76/counters/capture-evidence.py to "
+   f"{LANE}/{WAVE}/stage/ExecAdaptCapture/capture-evidence.py — adapt for round 77: fetch a live URL "
+   "AND its same-page Wayback capture, bind UA->response records (QUALITY 22), extract a located "
+   "quote window with window-scope (whole-document/excerpt), sha256, bytes, quote-found-verbatim flag, "
+   "self-check VERIFY OK / CAPTURE OK. Keep PDF support (pdftotext) for S898. Emit adapted tool + one "
+   "dry-run on a public fixture page under "
+   f"{LANE}/{WAVE}/stage/ExecAdaptCapture/. No lane writes.")
+it("ExecGapSweep", "executor",
+   f"BUILD (do-nothing + gap verification harness): write "
+   f"{LANE}/{WAVE}/stage/ExecGapSweep/run-controls.sh — a script that, given --lands/--freeze/--base, "
+   "runs both round-77 counters in a materialized clone ({scratch}-rooted, `git clone --shared` or "
+   "worktree) and records: (1) lands==freeze output+exit (must FAIL with data legs red); (2) "
+   "lands==base (must be REFUSED exit 2); (3) missing --work/$HYAKU_SCRATCH/$TMPDIR (refused exit 2, "
+   "no leg lines); (4) Ca missing --combined (refused exit 2). Model on "
+   f"{LANE}/.ufo/waves/round-76/run-controls.sh and rehearse.sh. Emit script + a README of the exact "
+   "invocations under "
+   f"{LANE}/{WAVE}/stage/ExecGapSweep/. No lane writes.")
+it("ExecTmpAudit", "executor",
+   "ATTACK (scratch discipline): grep the adapted counters and tools under "
+   f"{LANE}/{WAVE}/stage/*/ for hardcoded /tmp writes (`mkdtemp(dir=\"/tmp\", '/tmp/...'` outside "
+   "comment) — every match is a routed defect. Also grep reports/round-77-stage files once they "
+   "exist. Verify each tool honours TMPDIR/--work/$HYAKU_SCRATCH per the scratch discipline. Report "
+   "findings with file:line and the required fix.")
+it("ExecCensusEnd", "executor",
+   "BUILD (census machinery check): verify `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh "
+   "validate --root /home/vgpnk/Projects/shokunin kotodama` exit 0 at base and record full output; "
+   "then in a scratch mirror ({scratch}/ExecCensusEnd/mirror — copy corpus/SOURCES.md + the two "
+   "draft S897/S898 rows appended in census schema) re-run validate --file on the mirrored file and "
+   "confirm exit 0 (warnings allowed, no E03/E04). Emit both receipts under "
+   f"{LANE}/{WAVE}/stage/ExecCensusEnd/. Never edit the real SOURCES.md.")
+it("ExecFreezeChecklist", "executor",
+   "BUILD (freeze manifest): produce the round-77 freeze manifest at "
+   f"{LANE}/{WAVE}/stage/ExecFreezeChecklist/manifest.json — the file list the freeze commit must "
+   "carry (claims.json, ledger.json, accept-c.py, accept-ca.py, counters/{capture-evidence.py,"
+   "junk-fixtures.py}, fixtures/{r1exempt-green.json,r1exempt-mixed.json,r1exempt-red.json}, "
+   "telemetry/{controls-c.txt,controls-ca.txt,junk-c.txt,junk-ca.txt,census-start.txt,"
+   "census-start-counts.txt,selftest-c.txt,selftest-ca.txt,gap-sweep.txt}) with sha256 placeholders "
+   "and the LEGCOUNT rule: frozen claims.json legs[] must equal the counter's own leg table — emit "
+   "the check `python3 -c \"import json;c=json.load(open('reports/round-77/claims.json'));assert "
+   "sorted(c['claims'][0]['legs'])==sorted(LEGS)\"` style. Emit the manifest + checklist under "
+   f"{LANE}/{WAVE}/stage/ExecFreezeChecklist/.")
+# ---- scribes (drafts) ----
+it("ScribeEntryA", "scribe",
+   "DRAFT (adopted knowledge entry): read "
+   "/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/linguistics/"
+   "naming-systems.amend-2026-10-23.md and the QUALITY.md bar "
+   f"({LANE}/corpus/QUALITY.md) + the lane's amendment style "
+   f"({LANE}/corpus/knowledge/linguistics/naming-systems.md; "
+   "corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md). Draft the LANE's "
+   "adopted entry at "
+   f"{LANE}/{WAVE}/drafts/corpus/knowledge/linguistics/naming-systems.amend-2026-10-23.md : "
+   "provenance trio first (source: lines citing S897/S898 BY DOCUMENT with URL+anchor, verified-at "
+   "2026-10-27, recheck), - topic/- couples (couples linguistics/naming-systems.md + "
+   "toponymy-place-names.md), scope line; body re-grounded: the 姓/名 structure (S897) and the finite "
+   "lexeme classification (S898 — keep the 88-lexeme and 17-lexeme facts only if ScoutDocS898 "
+   "verifies the quote), each line carrying exactly one S-id (QUALITY 15: no MULTI-ID lines, no "
+   "table rows carrying S-ids); a 'design levers for a worldbuilder' section (name-lexicon as "
+   "tabulated inventory; given-vs-surname acquisition timing); a Superseded passage note if the "
+   "staged file folds earlier text. NO canon claims; ends at handoff. The staged campaign's "
+   "`source:` ids are re-pointed by document to the lane ids S897/S898 — never left as staged ids.")
+it("ScribeLesson", "scribe",
+   "DRAFT (round lesson skeleton): draft "
+   f"{LANE}/{WAVE}/drafts/corpus/lessons/round-77.md — sections: `## Gate` (candidates: the four "
+   "staged naming entries with per-candidate admit/refuse + reason + flip; per-new-row fields: URL, "
+   "access date 2026-10-27, ≤25-word located quote with location — placeholders marked L1-FILL for "
+   "the quotes ScoutDocS897/S898 deliver), `## Mistakes` (candidates from CLAIMS-DRAFT.md frontier "
+   "section: the leg-list hygiene fix (was it shown able to fail? the LEGCOUNT leg IS the capture), "
+   "the L76-19 stated_text-absence class now LEDGER-guarded, the report-correction discipline — "
+   "append-only errata rule added to the round checklist, plus anything seats surface; each row: "
+   "class · evidence pointer · captured-by · fix-shown-able-to-fail), `## Corrections` placeholder, "
+   "census before→after block, non-author spot-check placeholder (this round's Gate needs the "
+   "round-78 verifier to spot-check ≥1 admit + ≥1 reject). Follow corpus/lessons/round-76.md shape.")
+it("ScribeScorecard", "scribe",
+   "DRAFT (SCORECARD section): draft the `## Axes — round 77` block + `## Corrections — round 77` "
+   "skeleton at "
+   f"{LANE}/{WAVE}/drafts/scorecard-section.md — coverage row (before/after placeholders per "
+   "CLAIMS-DRAFT), calibration row (ledger-pair placeholders), unchanged axes line (depth/operability/"
+   "freshness/adjacency — freshness paused under the open r11 L0 row, cite "
+   ".ufo/l0-questions.md:47), the corrections table header (id | old token | new token | re-derivation "
+   "command), and the counter command lines. Match the round-76 section's shape exactly.")
+it("ScribeReport", "scribe",
+   "DRAFT (report skeleton — sections only, NOT the filed report): draft "
+   f"{LANE}/{WAVE}/stage/ScribeReport/report-skeleton.md with the §4 contract sections in order "
+   "(Work performed; Landed changes; Before→after measurements; Sources & frontier; Trend verdicts; "
+   "SHONEN) + the addendum lines (Stale-lane, tool installs, wave shape/seat mix, dead seats, "
+   "assimilation line, considerthese line, L0 lines). Every measurement cell gets a placeholder "
+   "<L1-FILL>. Include the exact counting commands from CLAIMS-DRAFT.md. This is a DRAFT ONLY — the "
+   "filed report is written by the L1 after WAVE-DONE; never asked to review a not-yet-written "
+   "report (r76 M5 class).")
+it("ScribeMistakes", "scribe",
+   "DRAFT (mistake rows): mine the r76 closure file "
+   f"{LANE}/corpus/lessons/round-76-verifier-spotcheck.md §5 (six routed defects) and §1 conformance "
+   "defects (in-place report rewrite; planner mapping) into mistake candidates for "
+   "corpus/lessons/round-77.md `## Mistakes` — for each: class · evidence pointer · captured-by "
+   "(the criterion/rule that should have caught it, or `none`) · fix + whether the fix is shown "
+   "able to fail this round (the LEGCOUNT/LEDGER guards ARE the mechanism — name the leg). Also "
+   "check whether the in-place-report-rewrite class needs a QUALITY criterion (it is not a corpus "
+   "rule violation — propose the checklist line instead). Emit to "
+   f"{LANE}/{WAVE}/stage/ScribeMistakes/mistakes.md.")
+it("ScribeQuality30", "scribe",
+   "DRAFT (QUALITY criterion 30 candidate): propose — in the exact QUALITY.md numbered style — a "
+   "criterion text for 'ledger pairs execute': every Ca-ledger pair's observe_cmd/rederive is an "
+   "argv-executable command over committed bytes (executable allowlist, revision in rev position, "
+   "git -C first, pattern operands named), stated_text present at stated_at in the base tree, and "
+   "stated_at inside a frozen allowlist — grounded in the r76 closure §5 item 3 and r76 measures-ca "
+   "receipt. Include the red-before check line and measured table rows like criteria 25-29 carry. "
+   "Emit to "
+   f"{LANE}/{WAVE}/drafts/quality-30.md — do NOT edit corpus/QUALITY.md.")
+# ---- first attacks (critics/reviewers/mutation/sentinel) ----
+it("CritClaims1", "critic",
+   "ATTACK (claim design, pre-freeze): attack CLAIMS-DRAFT.md clause by clause. For C: is the ground "
+   "genuinely uncovered at base (does the base corpus already hold 姓/名 structure or lexeme "
+   "classification)?; is 'one admitted entry + 2 rows' falsifiable and reachable in one round?; can a "
+   "do-nothing landing pass any leg?; does the required_sections[] fix actually scope ROWS to "
+   "S-rows? For Ca: is the pair schema sufficient (argv-executable, allowlisted stated_at, "
+   "stated_text presence)?; does the kill rule cover the r76 failure classes?; is Ca causally "
+   "separable from C (does Ca's APPENDONLY set overlap paths C appends to — README, SOURCES.md, "
+   "lesson)? Emit findings F1..Fn with severity + the fix, to your report file.")
+it("CritCounterReuse", "critic",
+   "ATTACK (counter reuse risk): read reports/round-76/accept-c.py + accept-ca.py and list every "
+   "round-76 constant/leg/assumption the r77 adaptations MUST change (round numbers, base, row ids, "
+   "entry paths, ledger ids, frozen file lists, telemetry names, leg names) — and every r76 bug "
+   "class the adaptations could carry forward (ROWS over-read, COLLCHECK URL-string compare, "
+   "uncommitted receipts, out-of-allowlist stated_at, unexecutable rederive, hand-typed legs[]). "
+   "Cross-check the ExecAdapt* outputs when they land in stage/. Emit findings.")
+it("CritLedgerDesign", "critic",
+   "ATTACK (ledger design): review the Ca ledger schema in CLAIMS-DRAFT.md against the r76 "
+   "measures-ca receipt (reports/round-76/telemetry/measures-ca.txt) — name every leg that failed "
+   "in r76 and state precisely which schema/leg change closes it and which cannot be closed by "
+   "schema (e.g. RECEIPTS needs committed files, not schema). Attack the argv allowlist: can a "
+   "read-only executable still mutate or leak? Can `git -C <lane> show <rev>:<path>` be spoofed "
+   "by path args? Emit findings + the fixed schema clauses.")
+it("CritMapAlias", "critic",
+   "ATTACK (document-map correctness): the r76 COLLCHECK failed on staged-id vs lane-id URL-string "
+   "mismatch. Attack the r77 fix (document-identity comparison): can two DIFFERENT documents share "
+   "a normalized URL (case, fragment, query order)? Can the same document have legitimately "
+   "different lane URLs (live + Wayback in one cell)? Define the normalization the leg must use "
+   "(host + path, query-aware where the record is query-keyed like openstd hcno=). Emit the exact "
+   "normalization rule + counterexamples it must survive.")
+it("RevQualityFit", "reviewer",
+   "ATTACK (QUALITY fit of the adopted entry): read the staged entry "
+   "/home/vgpnk/Projects/shokuknow/merge/kotodama/knowledge/corpus/knowledge/linguistics/"
+   "naming-systems.amend-2026-10-23.md against {LANE}/corpus/QUALITY.md criteria 1-29: which "
+   "criteria does the staged text violate (provenance trio shape? S-id citation format? word floor? "
+   "couples line?)? Which must the LANE's rewrite satisfy before admission? Is tier A for S903's "
+   "scope justified (the scholar's own classification in the field's own journal) and tier B for "
+   "S897 (academic institution portal)? Emit per-criterion findings.")
+it("RevSeparability", "reviewer",
+   "ATTACK (claim separability, QUALITY 7): enumerate every path claim C lands (entry, SOURCES.md "
+   "rows, README index/footer, lesson, Gate, evidence files, telemetry) and every path Ca lands "
+   "(SCORECARD corrections, SKILL/README REPAIR, ledger receipts). Check: does Ca's APPENDONLY "
+   "file set intersect C's appended files (SOURCES.md row edits are rule-2 exempt only for "
+   "status/recheck/used-by cells — C appends NEW rows, is that inside the exemption? does C's "
+   "README index/footer edit collide with Ca's README REPAIR pair?); does either claim's counter "
+   "read bytes the other lands? Emit the separability matrix + required ordering (Ca-lands vs "
+   "C-lands) and the COMBINED leg's exact exemption record shape (with line number).")
+it("MutLedgerPairs", "mutation-tester",
+   "ATTACK (ledger-pair mutations): once ScoutLedger* pairs land in "
+   f"{LANE}/{WAVE}/stage/ScoutLedger*/pairs.json, run five mutations per pair family and report which "
+   "the LEDGER leg would catch: (a) corrupt stated_text by one char (should go void-red); (b) point "
+   "stated_at at a non-allowlisted path (out-of-set red); (c) swap observe_cmd executable for "
+   "python3/echo (allowlist red); (d) move the revision out of rev position in a git argv (parse "
+   "red); (e) make expected_after equal observed_at_base (no-mismatch red). Emit the mutation "
+   "table: mutation -> expected leg verdict -> rationale.")
+it("SentinelSources", "sentinel",
+   "ATTACK (source integrity): for the two claim-C documents, check for fabrication-class risk: "
+   "does the staged S897 row's quote exist in the Wayback capture (fetch and grep)? does staged "
+   "S903's anchor (§2-§4, the lexeme counts) exist in the onomastica PDF? Are the staged `teaches` "
+   "cells faithful to what the documents say (no overclaim)? Is the docin/sciscanpub material in "
+   "the rejected set credentialed-adjacent or pirated (record, no judgment)? Report per-document "
+   "verdicts with the grep commands + outputs.")
+it("ConnCounterPatterns", "connector",
+   "CONNECT (cross-round counter patterns): compare reports/round-73/accept-c.py, "
+   "round-74/accept-c.py, round-75/accept-c.py and round-76/accept-c.py leg sets — which leg names "
+   "are stable across rounds, which were added/renamed, and which r76-only legs (SCRATCHMIRROR, "
+   "COLLCHECK, FROZENCFG variants) the r77 counter should keep/drop/rename. Emit a leg-lineage "
+   "table and the recommended frozen legs[] for both r77 counters (generated-from-table rule).")
+it("RevengerHistory", "revenger",
+   "REVERSE-ENGINEER (counter failure history): read LOG.md entries and verifier spot-checks for "
+   "rounds 72-76 and extract every acceptance-counter failure class the lane has hit (name the "
+   "leg + the round + the root cause). Which classes recur? Which are genuinely new in r76 "
+   "(ROWS over-read, COLLCHECK doc-vs-url)? Emit the history table — the r77 claims must not "
+   "repeat a class whose fix is already landed in QUALITY.md (check criteria 23-29 coverage).")
+# ---- spec ----
+spec = {
+    "reportDir": WAVE,
+    "context": CONTEXT,
+    "items": [{"name": i["name"], "role": i["role"], "prompt": i["task"]} for i in ITEMS],
+}
+out = f"{LANE}/{WAVE}/spec.json"
+with open(out, "w") as f:
+    json.dump(spec, f, indent=1, ensure_ascii=False)
+print(f"wrote {out} items={len(ITEMS)}")
+from collections import Counter
+print(Counter(i["role"] for i in ITEMS))

@@ -1,0 +1,7 @@
+fetch-log RevQualityFit-2 2026-10-27
+1) curl -sS --max-time 45 -A 'curl/8.x' 'http://web.archive.org/cdx/search/cdx?url=lishisuo.cssn.cn/xsyj/qhs/yjcg/202103/t20210316_5318560.shtml&output=json&limit=5' -> 20240111092427 status 200 text/html
+2) curl -sS --max-time 45 -A 'curl/8.x' 'http://web.archive.org/cdx/search/cdx?url=onomastica.ijppan.pl/index.php/ONOM/article/download/574/763/&output=json&limit=5' -> 20251231111748 (426128 B) + 20260901045105 (406446 B), both 200 application/pdf
+3) plain UA live cssn -> HTTP 403, 162 B; browser UA -> HTTP 200, 143252 B
+4) curl D1 capture id_ -> HTTP 200, 143457 B (saved D1-cssn-20240111092427.html)
+5) curl D2 live PDF -> HTTP 200, 417093 B (pdftotext -> D2-onomastica.txt, 5118 words)
+6) python3 -B tools/check-cited-lines.py <staged copy> -> 3 MULTI-ID findings, exit 1 (lint-staged folded into report F3.15)

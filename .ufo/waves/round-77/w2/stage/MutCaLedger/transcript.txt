@@ -1,0 +1,77 @@
+# MutCaLedger raw run transcript — round-77 W2 (commands verbatim, outputs verbatim)
+
+Detector: accept-ca.py copied from
+/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-77/w1/stage/ExecAdaptCa/accept-ca.py
+sha256 ac2bc93d02932464f9ee43222ffe1d06dd5bf1a0e68fd38bd94e10a991489b2e (pristine, never modified).
+Probe: probe-real-ledger.json copied from the same W1 stage dir,
+sha256 b7509d2b0980f8c5824c417a8359c8f7107d3de6236cf486ac058947915d0704 (pristine, never modified).
+All runs: cwd /fast/scratch/hyaku/kotodama-r77/MutCaLedger, lane passed read-only as --root.
+
+Common command form:
+python3 -B accept-ca.py --ledger-check <LEDGER>.json --root /home/vgpnk/Projects/shokunin/kotodama-shokunin --base 211f9526800906e0c585d878d265c37e5e090c15 --work /fast/scratch/hyaku/kotodama-r77/MutCaLedger/work
+
+--- [1] baseline (pristine probe) ---
+$ python3 -B accept-ca.py --ledger-check probe-real-ledger.json --root /home/vgpnk/Projects/shokunin/kotodama-shokunin --base 211f9526800906e0c585d878d265c37e5e090c15 --work /fast/scratch/hyaku/kotodama-r77/MutCaLedger/work
+LEDGER-CHECK-77: PASS pairs=11
+exit=0
+
+--- [2] mut-a-stated-text-absent.json (D01 stated_text += " (mutated)") ---
+LEDGER-CHECK-77: FAIL pairs=11 problems=1
+     D01: stated_text not found in LOG.md at base
+exit=1
+
+--- [3] mut-b1-annotate-allowlist.json (D02 stated_at -> corpus/QUALITY.md:1) ---
+LEDGER-CHECK-77: FAIL pairs=11 problems=2
+     D02: stated_at path corpus/QUALITY.md is not in the frozen ANNOTATE allowlist ['LOG.md', 'SCORECARD.md', 'corpus/lessons/round-75.md', 'corpus/lessons/round-76.md']
+     D02: stated_text not found in corpus/QUALITY.md at base
+exit=1
+
+--- [4] mut-b2-repair-allowlist.json (D11 stated_at -> LOG.md:3) ---
+LEDGER-CHECK-77: FAIL pairs=11 problems=2
+     D11: stated_at path LOG.md is not in the frozen REPAIR allowlist ['corpus/README.md', 'SKILL.md', 'SHONEN.md']
+     D11: stated_text not found in LOG.md at base
+exit=1
+
+--- [5] mut-c1-interpreter-argv.json (D03 observe_cmd -> ["python3","-c","print('1')"]) ---
+LEDGER-CHECK-77: FAIL pairs=11 problems=1
+     D03: observe_cmd interpreter/constant-printer binary 'python3' is refused (H2)
+exit=1
+
+--- [6] mut-c2-constant-printer-argv.json (D04 observe_cmd -> ["echo","1"]) ---
+LEDGER-CHECK-77: FAIL pairs=11 problems=1
+     D04: observe_cmd argv[0] 'echo' not in the observe allowlist ['git', 'grep', 'wc', 'sha256sum', 'ls', 'cat', 'head', 'tail', 'cut'] (the echo/printf/interpreter channels are closed)
+exit=1
+
+--- [7] mut-d-bare-assign.json (D05 observe_cmd += "chars=1200" path operand) ---
+LEDGER-CHECK-77: FAIL pairs=11 problems=1
+     D05: observe_cmd git grep path operand 'chars=1200' is a bare name=value assignment (refused)
+exit=1
+
+--- [8] mut-e2-mutable-ref-main.json (D06 rederive rev 211f9526… -> main) ---
+LEDGER-CHECK-77: FAIL pairs=11 problems=1
+     D06: rederive git grep revision operand 'main' is a mutable ref (pin a 40-hex or HEAD)
+exit=1
+
+--- [9] mut-e1-rev-head.json (D07 rederive rev 211f9526… -> HEAD) ---
+LEDGER-CHECK-77: PASS pairs=11
+exit=0
+
+--- [10] restored control (pristine probe re-run, campaign end) ---
+$ python3 -B accept-ca.py --ledger-check probe-real-ledger.json --root /home/vgpnk/Projects/shokunin/kotodama-shokunin --base 211f9526800906e0c585d878d265c37e5e090c15 --work /fast/scratch/hyaku/kotodama-r77/MutCaLedger/work
+LEDGER-CHECK-77: PASS pairs=11
+exit=0
+$ sha256sum probe-real-ledger.json accept-ca.py /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-77/w1/stage/ExecAdaptCa/probe-real-ledger.json /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-77/w1/stage/ExecAdaptCa/accept-ca.py
+b7509d2b0980f8c5824c417a8359c8f7107d3de6236cf486ac058947915d0704  probe-real-ledger.json
+ac2bc93d02932464f9ee43222ffe1d06dd5bf1a0e68fd38bd94e10a991489b2e  accept-ca.py
+b7509d2b0980f8c5824c417a8359c8f7107d3de6236cf486ac058947915d0704  /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-77/w1/stage/ExecAdaptCa/probe-real-ledger.json
+ac2bc93d02932464f9ee43222ffe1d06dd5bf1a0e68fd38bd94e10a991489b2e  /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-77/w1/stage/ExecAdaptCa/accept-ca.py
+
+--- mutant byte hashes (staged copies identical) ---
+d91b61d1b8b924c366a6ce1af45781c3a1d47ab538660d1170abfd148e9cdcb1  mut-a-stated-text-absent.json
+c1c77e40181acbcf406049474bbef4d47703ca16ec2d719ff2724bec1b6ba9f9  mut-b1-annotate-allowlist.json
+137e2cd648789b23552018ca6e51520a137b3462f2a7e49248ea1a2c7487a378  mut-b2-repair-allowlist.json
+089dc26fcc2ec3278fb7c72ebe2c75c0d29ba33c642717e12a6da419cacb81bf  mut-c1-interpreter-argv.json
+9c849fd2a37966150d300e6133c2777fdc94f053c28a3ec06cfa3af819407060  mut-c2-constant-printer-argv.json
+14b965a44c3671b636a89ecc7d8556ff6c5b0a0dea32eb861cf00ed058ba2fc2  mut-d-bare-assign.json
+6e19119cdcee516556e8950731a353873a32b11aff43a80a85085c86f9414366  mut-e2-mutable-ref-main.json
+d43b104e34ae5b471177cb8d8165f152287d3e74336d7ae010a22e13ddd69e58  mut-e1-rev-head.json
