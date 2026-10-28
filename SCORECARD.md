@@ -1534,6 +1534,8 @@ Append-only record (hyaku run 10, kotodama round 76). Claim Ca ledger `reports/r
 
 The table is a verbatim projection of the 19 ANNOTATE pairs, not an assertion that the frozen Ca counter accepts them. L76-13 names a knowledge path outside the frozen append-only allowlist; L76-19's stated token cannot be found at the claimed lesson line. L76-16 is the single REPAIR: `SKILL.md:707` now distinguishes the receipt's pre-freeze digest `fa5060b91bdb…` from the committed counter digest `315c5f3f27fd…`.
 
+Erratum (W2, `ExecScorecardConsistency.md`): the table preserves the 19 old/new token pairs, but its re-derivation-command cells for L76-19/20/21 are not byte-identical to the frozen ledger and are not executable under the frozen parser. The earlier phrase “verbatim projection” was too broad; `measures-ca.txt` records the ANNOTATE/NOSTUB failures.
+
 
 ## Axes — round 76 (2026-10-27, hyaku run 10, kotodama), author-side verdicts
 
@@ -1553,3 +1555,7 @@ Observed output: `98c486b… knowledge=252 rows=817`; `722e69f… knowledge=253 
 **Calibration / claim Ca — failed as declared; no score delta.** The frozen ledger has 20 pairs (19 ANNOTATE / 1 REPAIR); the counter reports FAIL legs=5/12. L76-13 and L76-19 fail LEDGER, with additional REPAIR, ANNOTATE, NOSTUB, R1EXEMPT, SEPARABLE, and COMBINED failures. Acceptance command: `python3 -B reports/round-76/accept-ca.py --root . --lands a43ed807ea38b5fc5a7875a839d576cea73aba7c --freeze df0f0309d61e5485bb17035d3f8791b1e6a11d40 --fleet-root /home/vgpnk/Projects/shokunin --combined 722e69ff6361aadf148cb46acbf6ac8fd147f59a --main a43ed807ea38b5fc5a7875a839d576cea73aba7c --work /fast/scratch/hyaku/kotodama-r76/final-ca-counter`. Evidence: `reports/round-76/telemetry/measures-ca.txt`, `reports/round-76/ledger.json`, and the Corrections table above.
 
 Neither frozen acceptance counter passes. The source additions and ledger annotations remain recorded with their failure boundaries explicit; neither axis score is advanced.
+
+W2 evidence follow-up: `reports/round-76/evidence/S894.txt`, `S895.txt`, and `S896.txt` were regenerated with the frozen round-76 capture tool and its anchor-binding self-check; all three printed `VERIFY OK` and `CAPTURE OK` (`reports/round-76/telemetry/capture-evidence-recapture.txt`). C was re-measured at `3c2893bf87f5247e8d2d7af59d1ec1e11895647b`: `ACCEPT-C-76: FAIL legs=11/13`, still only ROWS and COLLCHECK red (`reports/round-76/telemetry/measures-c-final.txt`). No score delta.
+
+Final Gate-reviewed C remeasurement at `cb4f6c6a550b3233f3c12a266e72dee6f4bc126b`: `ACCEPT-C-76: FAIL legs=11/13`; ROWS and COLLCHECK remain the only red legs after the S895 locator correction and non-author spot-check. Receipt: `reports/round-76/telemetry/measures-c-final.txt`. No score delta.

@@ -1,0 +1,14 @@
+Base registry snapshot: 98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/SOURCES.md.
+
+$ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/SOURCES.md | grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|'
+817
+exit=0
+
+$ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 98c486bdb4650ba5b8e651d332910e8ee60ad121:corpus/SOURCES.md | awk -F'|' '/^ {0,3}[|][[:space:]]*S[0-9]{3,}[[:space:]]*[|]/ { t=$5; gsub(/[[:space:]]/,"",t); s=$9; gsub(/[[:space:]]/,"",s); print "tier=" t; print "status=" s }' | sort | uniq -c
+    722 status=mined
+     58 status=queued
+     37 status=rejected
+    491 tier=A
+    310 tier=B
+     16 tier=C
+exit=0
