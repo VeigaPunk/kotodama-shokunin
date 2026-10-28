@@ -1,0 +1,78 @@
+{
+ "round": 79,
+ "base": "44f76d456c1b326a71ffdb381590af825cbf11be",
+ "pre_data": "Claims, counters, fixtures and controls freeze before any claim data lands. Review-only clauses per QUALITY 11 are named in each claim's review_only list.",
+ "claims": [
+  {
+   "id": "Ca",
+   "axis": "calibration",
+   "kind": "record/instrument repair (unclaimed conformance repair, per CLAIMS-DRAFT pre-freeze scope disposition: a candidate, not an admitted/frozen claim)",
+   "title": "Bind the round-78 census S884 used-by drift with an append-only correction",
+   "before": "reports/round-78/telemetry/census-end.txt line 33 records S884 used-by=...amend-2026-10-24-r13.md; the registry row at the receipt's measured revision names ...amend-2026-10-23.md. No correction is on record at base.",
+   "after": "reports/round-79/corrections/ca79-r78-s884.md lands binding receipt digest, measured revision, old token and actual token; the receipt itself is not rewritten.",
+   "counter": "reports/round-79/accept-ca.py",
+   "review_only": [
+    "counter output is evidence for review; the verdict line does not self-approve the repair",
+    "the correction records a fact about two tokens; it does not assert which one the author intended"
+   ],
+   "census_correction": {
+    "receipt_path": "reports/round-78/telemetry/census-end.txt",
+    "receipt_blob": "62eb55b77f44bf47c283c98c5645dd7141e98495",
+    "receipt_sha256": "05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867",
+    "registry_path": "corpus/SOURCES.md",
+    "measured_revision": "4b255745dea45a45d88b17e3c3fea4cdb6700cf7",
+    "base": "44f76d456c1b326a71ffdb381590af825cbf11be",
+    "expected_mismatches": 1,
+    "mismatches": [
+     {
+      "row": "S884",
+      "old_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md",
+      "actual_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md"
+     }
+    ],
+    "correction_dir": "reports/round-79/corrections/",
+    "legs": ["FROZENCFG", "RECEIPT", "DERIVE", "CORRECTION", "UNRESOLVED", "SEPARABLE", "NOSTUB"]
+   }
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "kind": "capability acquisition",
+   "title": "Acquire a bounded ledger-token guard tools/ledger-token-guard.py",
+   "before": "no tools/ledger-token-guard.py exists at base (git ls-tree 44f76d4 tools/ is empty); recorded-observation drift like round-77's R78-M1 could only be caught by hand.",
+   "after": "tools/ledger-token-guard.py lands, self-tests, verifies the frozen green fixture (11 pairs), flags all 11 frozen red fixture failures (10 recorded!=observed mismatches + 1 stated==observed vacuity), refuses every committed refusal fixture, and passes a fresh-nonce oracle that an echo stub cannot pass; corpus/SOURCES.md gains own-work row S897 (mined, used-by tools/ledger-token-guard.py); SKILL.md gains a registry row for the tool.",
+   "counter": "reports/round-79/accept-o.py",
+   "review_only": [
+    "the counter demonstrates the contract on frozen fixtures and one fresh oracle; it does not certify the guard handles every future ledger shape",
+    "fixture facts are taken at the fixture base; whether the original r77 observations were approved remains reviewer obligation",
+    "S897/SKILL row semantics (correctness of the written prose) are review-only; the counter checks presence and shape"
+   ],
+   "guard": {
+    "tool_path": "tools/ledger-token-guard.py",
+    "tool_sha256": "504c51c6fa73c0b5418c1b1ad734be926f43ed355832d5796a298af040dd7964",
+    "tool_min_bytes": 10000,
+    "tool_max_bytes": 262144,
+    "tool_markers": ["STRICT LEDGER SCHEMA", "observe_cmd", "immutable", "observed_at_base", "observed token"],
+    "fixture_base": "211f9526800906e0c585d878d265c37e5e090c15",
+    "red_ledger": "reports/round-79/fixtures/r77-probe-observe-schema-red.json",
+    "green_ledger": "reports/round-79/fixtures/r77-probe-observe-schema-green.json",
+    "red_bad": 11,
+    "green_pairs": 11,
+    "selftest_min_expected": 9,
+    "refusal_dir": "reports/round-79/fixtures/refusals/",
+    "allowed_o_paths": [
+     "tools/ledger-token-guard.py",
+     "corpus/SOURCES.md",
+     "SKILL.md"
+    ],
+    "sibling_paths": [
+     "reports/round-79/corrections/"
+    ],
+    "registry_path": "corpus/SOURCES.md",
+    "skill_path": "SKILL.md",
+    "base": "44f76d456c1b326a71ffdb381590af825cbf11be",
+    "legs": ["FROZENCFG", "TOOL", "RED", "GREEN", "SELFTEST", "REFUSALS", "NOSTUB", "SEPARABLE", "S897", "SKILLROW"]
+   }
+  }
+ ]
+}
