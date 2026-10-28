@@ -1567,3 +1567,7 @@ Final W2-integrated restamp at `b40113eb3961bce44fba6b066ce6a656f0e16fec`: `ACCE
 Final post-WAVE-DONE restamp at `c792ea50f1cfba2b56c16a0f5102b2877fd2eefd`: `ACCEPT-C-76: FAIL legs=11/13`, still ROWS and COLLCHECK only (`reports/round-76/telemetry/measures-c-final-c792.txt`). W2 evidence corrections and count receipts did not alter the frozen result; no score delta.
 
 Final lane-tip measurement at `c28ea2194ae6d0c874c011d3b1b59409a20bd422`: `ACCEPT-C-76: FAIL legs=11/13`, still ROWS and COLLCHECK only (`reports/round-76/telemetry/measures-c-final-c28ea.txt`). The pushed tip adds only evidence/close records after the C7 data; no score delta.
+
+## Round 78 — honest stop (2026-10-27)
+
+No claim survived pre-data scoping; no axis score delta is recorded. Freshness is historically the lowest non-retired axis but its move remains paused by the open round-11 L0 question; the SCORECARD carries no saturation evidence to invoke the stagnation nudge. No source or knowledge entry was opened/added for a claim. The missing 64-seat swarm floor is a conformance defect; no wave was padded without a real claim.
