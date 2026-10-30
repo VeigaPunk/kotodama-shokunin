@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# CritNoopCa probe driver — builds the isolated fixture repo and runs the
+# presence-only vs binding checkers over every scenario. Raw output only.
+#
+# Fixture mapping note: the fixture repo's FREEZE commit stands in for lane
+# commit 4b255745dea45a45d88b17e3c3fea4cdb6700cf7 (the round-78 census commit).
+# All scenario corrections therefore carry measured_revision=$FREEZE except
+# J-CA5, which keeps the lane base 44f76d45... and must fail the REVISION leg.
+set -u
+LANE=/home/vgpnk/Projects/shokunin/kotodama-shokunin
+SCRATCH=/fast/scratch/hyaku/kotodama-r79/CritNoopCa
+FIX="$SCRATCH/fixture-repo"
+STAGE="$LANE/.ufo/waves/round-79/w1/stage/CritNoopCa"
+JUNK="$STAGE/fixtures/junk-corrections.json"
+REV=4b255745dea45a45d88b17e3c3fea4cdb6700cf7
+
+rm -rf "$FIX"
+git init -q "$FIX"
+ROOT=$(git -C "$FIX" rev-parse --show-toplevel)
+echo "fixture root: $ROOT"
+[ "$ROOT" = "$FIX" ] || { echo "ROOT MISMATCH — aborting"; exit 99; }
+git -C "$FIX" config user.email "critnoopca@fixture.local"
+git -C "$FIX" config user.name "CritNoopCa fixture"
+
+mkdir -p "$FIX/reports/round-78/telemetry" "$FIX/corpus" "$FIX/reports/round-79/telemetry"
+git -C "$LANE" show "$REV:reports/round-78/telemetry/census-end.txt" > "$FIX/reports/round-78/telemetry/census-end.txt"
+git -C "$LANE" show "$REV:corpus/SOURCES.md" > "$FIX/corpus/SOURCES.md"
+git -C "$FIX" add -A
+git -C "$FIX" commit -q -m "freeze: round-78 receipt + registry at 4b255745"
+FREEZE=$(git -C "$FIX" rev-parse HEAD)
+echo "FREEZE=$FREEZE"
+
+PY=/usr/bin/python3
+
+# payload n (0-based index into junk[]) with measured_revision rewritten to $FREEZE
+jidx() { "$PY" -c "
+import json,sys
+obj=json.load(open('$JUNK'))['junk'][$1]['payload']
+obj['measured_revision']='$FREEZE'
+print(json.dumps(obj,indent=1))"; }
+honest_payload() { "$PY" -c "
+import json
+obj=json.load(open('$JUNK'))['honest']
+obj['measured_revision']='$FREEZE'
+print(json.dumps(obj,indent=1))"; }
+
+corr() { # $1 = scenario name, $2 = file content, $3 = commit msg
+  git -C "$FIX" checkout -q -B "$1" "$FREEZE"
+  mkdir -p "$FIX/reports/round-79/telemetry"
+  printf '%s' "$2" > "$FIX/reports/round-79/telemetry/census-correction.json"
+  git -C "$FIX" add -A
+  git -C "$FIX" commit -q -m "$3" >/dev/null
+  git -C "$FIX" rev-parse HEAD
+}
+
+run() { # $1 = label, $2 = lands
+  echo "=== $1 (lands=${2:0:12}) ==="
+  echo "--- presence-only:"
+  "$PY" -B "$STAGE/fixtures/presence-only-checker.py" --repo "$FIX" --lands "$2" --freeze "$FREEZE"
+  echo "presence exit=$?"
+  echo "--- binding:"
+  "$PY" -B "$STAGE/fixtures/binding-checker.py" --repo "$FIX" --lands "$2" --freeze "$FREEZE" --expect-revision "$FREEZE"
+  echo "binding exit=$?"
+  echo
+}
+
+# 0. do-nothing: lands == freeze, no correction
+echo "=== do-nothing (lands==freeze, no correction) ==="
+"$PY" -B "$STAGE/fixtures/presence-only-checker.py" --repo "$FIX" --lands "$FREEZE" --freeze "$FREEZE"; echo "presence exit=$?"
+"$PY" -B "$STAGE/fixtures/binding-checker.py" --repo "$FIX" --lands "$FREEZE" --freeze "$FREEZE" --expect-revision "$FREEZE"; echo "binding exit=$?"
+echo
+
+L_HONEST=$(corr s-honest "$(honest_payload)" "honest correction")
+run "honest correction" "$L_HONEST"
+
+L1=$(corr s-jca1 "$(jidx 0)" "J-CA1 lying-token")
+run "J-CA1 lying-token ratifies receipt" "$L1"
+
+L2=$(corr s-jca2 "$(jidx 1)" "J-CA2 swap")
+run "J-CA2 swap labeled as fix" "$L2"
+
+git -C "$FIX" checkout -q -B s-jca3 "$FREEZE"
+mkdir -p "$FIX/reports/round-79/telemetry"
+printf '%s' "S884: used-by reconciled, see census-end.txt" > "$FIX/reports/round-79/telemetry/census-correction.json"
+git -C "$FIX" add -A && git -C "$FIX" commit -q -m "J-CA3 vacuous note" >/dev/null
+L3=$(git -C "$FIX" rev-parse HEAD)
+run "J-CA3 vacuous prose note" "$L3"
+
+L4=$(corr s-jca4 "$(jidx 3)" "J-CA4 wrong digest")
+run "J-CA4 truncated digest" "$L4"
+
+# J-CA5 keeps lane base 44f76d45... as measured_revision (wrong revision class)
+L5=$(corr s-jca5 "$("$PY" -c "import json;print(json.dumps(json.load(open('$JUNK'))['junk'][4]['payload'],indent=1))")" "J-CA5 wrong revision")
+run "J-CA5 wrong measured revision" "$L5"
+
+git -C "$FIX" checkout -q -B s-jca6 "$FREEZE"
+sed -i 's/worldbuilding-setting-practice.amend-2026-10-24-r13.md/worldbuilding-setting-practice.amend-2026-10-23.md/' "$FIX/reports/round-78/telemetry/census-end.txt"
+mkdir -p "$FIX/reports/round-79/telemetry"
+printf '%s' "$(jidx 5)" > "$FIX/reports/round-79/telemetry/census-correction.json"
+git -C "$FIX" add -A && git -C "$FIX" commit -q -m "J-CA6 changed receipt in place" >/dev/null
+L6=$(git -C "$FIX" rev-parse HEAD)
+run "J-CA6 changed receipt (in-place repair)" "$L6"
+
+echo "FREEZE=$FREEZE"
+echo "lands: honest=$L_HONEST jca1=$L1 jca2=$L2 jca3=$L3 jca4=$L4 jca5=$L5 jca6=$L6"

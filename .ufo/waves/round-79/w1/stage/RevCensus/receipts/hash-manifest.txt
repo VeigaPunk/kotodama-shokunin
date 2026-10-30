@@ -1,0 +1,32 @@
+# RevCensus probe manifest — kotodama round79 W1
+seat: RevCensus; lane base: 44f76d456c1b326a71ffdb381590af825cbf11be; captured: 2026-10-30
+
+## tool version (fleet-side, outside lane revision control)
+fleet HEAD: 73ff6ac3e95451a5842a03daaae38f6a6df284eb
+script: scripts/sources-census.sh sha256 3fb7261569f46423dd80ecc23e0a23789a7926f667c7a3fc559d2439d4a64e30 (35466 B)
+script emit line 670 (tab-separated TSV) identical at fleet commits f47ad6ba and 6a1dd8ce
+
+## probe commands (all read-only; TMPDIR=/fast/scratch/hyaku/kotodama-r79/RevCensus/tmp)
+P1 live:  /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama
+P2 base:  <scratch>/scripts/sources-census.sh validate --root <scratch>/fleet-base kotodama   [lane clone @ 44f76d45]
+P3 r78:   <scratch>/scripts/sources-census.sh validate --root <scratch>/fleet-r78 kotodama    [lane clone @ 4b255745]
+
+## probe exit codes and hashes
+a9e9e4a1b0569da598d555cd094c2b8bd7fe32a345eb71ad774500b819b2bfa3  probe-live-validate.txt
+bc56463ad3e4638cfce109b835266a9b0766606af25f86cd036ace0d5a7f3bde  probe-base-at-44f76d45-validate.txt
+826dc3b81793f689be8b52015b77de982ffe0f9f543749933ead9f099503d6f2  probe-r78-at-4b255745-validate.txt
+
+## committed artifacts (lane worktree, read-only measurements)
+r79 census-start.txt      a9e9e4a1b0569da598d555cd094c2b8bd7fe32a345eb71ad774500b819b2bfa3
+r79 census-start-meta.json 975464e797683a9d3af5ffbf88475e53cccf4c91dc68cf6f5d0e34f77aa7be11
+r78 census-start.txt      8f753788f4f86556b62701b2d5155435f330f64686b4a11367aa41c53bad0461
+r78 census-end.txt        05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867
+registry blob 44f76d45    51b18f1c98996056287e0eae4d24cd682b3d756fe898e50f7356cbf680af8301
+registry worktree         51b18f1c98996056287e0eae4d24cd682b3d756fe898e50f7356cbf680af8301
+
+## key results
+P1 == committed r79 census-start.txt byte-for-byte (cmp clean); both sha a9e9e4a1...
+P2 body == committed r79 census-start.txt after normalizing only the final ok-line absolute path
+P3 body == committed r78 census-start.txt modulo whitespace folding (committed r78 receipts are space-separated, 0 tabs; tool emits TSV)
+P3 body != committed r78 census-end.txt: single-line delta = S884 used-by token (10-23 committed registry vs 10-24-r13 recorded)
+token worldbuilding-setting-practice.amend-2026-10-24-r13 NOT FOUND in any of 1243 committed revisions of corpus/SOURCES.md; file path never committed

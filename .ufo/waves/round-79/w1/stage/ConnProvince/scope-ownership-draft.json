@@ -1,0 +1,52 @@
+{
+  "schema": "kotodama-r79-scope-ownership-draft-v1",
+  "drafted_by": "ConnProvince",
+  "status": "draft-for-scribe-claims-and-l1-integration",
+  "note": "Derived from .ufo/waves/round-79/w1/ConnProvince.md. Freeze-level wording proposal only; no claim data lands from this file.",
+  "base": "44f76d456c1b326a71ffdb381590af825cbf11be",
+  "claims": {
+    "O": {
+      "kind": "capability",
+      "scope_sentence": "Lane-local capability: tools/ledger-token-guard.py re-runs frozen kotodama calibration-ledger observations (read-only git show text extraction at pinned commits; no shells/interpreters/worktree reads) and rejects mutable revisions, constant printers, observed_at_base != re-run, and stated_token == observed. Owns: the tool, its selftest/fixture receipts, its SKILL gate row, S897 (own-work). Claims: no external source, no knowledge coverage, no research-method/fleet-protocol/harness ownership, no historical-truth certification, no axis score.",
+      "lands": [
+        "tools/ledger-token-guard.py",
+        "corpus/SOURCES.md (S897 row append only)",
+        "SKILL.md (guard gate row append only)",
+        "reports/round-79/telemetry/ (guard selftest and fixture receipts it names)"
+      ],
+      "exports": ["S897"],
+      "refusals_explicit": [
+        "no external source claim",
+        "no knowledge coverage claim",
+        "no general research method ownership (chousa boundary)",
+        "no fleet protocol / OMP / ufo-fsd harness ownership (kumitate/operator boundary)",
+        "no historical truth certification",
+        "no canon recording (lore boundary)",
+        "no numeric axis score"
+      ]
+    },
+    "Ca": {
+      "kind": "records-repair",
+      "scope_sentence": "Records repair: one append-only correction binding receipt sha256 05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867, measured revision 4b255745dea45a45d88b17e3c3fea4cdb6700cf7, reported token corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md, actual token corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md; original receipt bytes unchanged.",
+      "lands": [
+        "SCORECARD.md (## Corrections — round 79 rows)",
+        "reports/round-79/telemetry/ (correction receipt and accept-ca control fixtures it names)"
+      ],
+      "exports": [],
+      "does_not_own_or_counting_cite": ["S897", "tools/ledger-token-guard.py", "scripts/sources-census.sh (fleet operator-side tooling)"],
+      "acceptance_target": {"mismatch_at_base": 1, "unresolved_after_correction": 0},
+      "provenance_rule": "receipt drift cause stays unknown; correction records the drift, it does not assert a cause"
+    }
+  },
+  "separability_requirements": {
+    "manifest_tool": "tools/check-claim-separability.py",
+    "run": "pre-dispatch on the frozen manifest; receipts committed",
+    "counterfactuals": [
+      "accept-o passes at base + O lands only",
+      "accept-ca re-derives mismatch=1 at base (do-nothing: unresolved != 0) and unresolved=0 at base + Ca lands only",
+      "combined graded in both orders; each counter indifferent to the sibling claim's bytes",
+      "neither counter executes the other claim's tool from the graded tree as authority (QUALITY 28)"
+    ],
+    "s897_rule": "exactly one claim's exports lists S897 (proposal: O, per CLAIMS-DRAFT line 3 with Ca's line-4 disclaimer); the other claim's mentions of S897 are review-only"
+  }
+}

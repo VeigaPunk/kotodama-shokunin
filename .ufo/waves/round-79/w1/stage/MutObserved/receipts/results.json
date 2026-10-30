@@ -1,0 +1,4258 @@
+{
+ "all_mutants_killed": true,
+ "control_killed": {
+  "C01_control_accept_all": true,
+  "C02_control_reject_all": true
+ },
+ "controls_behave": true,
+ "disagreements": {
+  "C01_control_accept_all": [
+   "C04",
+   "C05",
+   "C07",
+   "C08",
+   "C09",
+   "C10",
+   "C11",
+   "C12",
+   "C13",
+   "C15",
+   "C17",
+   "C20",
+   "C21",
+   "C22"
+  ],
+  "C02_control_reject_all": [
+   "C01",
+   "C02",
+   "C03",
+   "C06",
+   "C14",
+   "C18",
+   "C19"
+  ],
+  "M00_pristine": [],
+  "M01_tolerance_pm1": [
+   "C04",
+   "C05",
+   "C07",
+   "C08",
+   "C11",
+   "C13",
+   "C15",
+   "C17"
+  ],
+  "M02_accepts_obs_minus1": [
+   "C05",
+   "C07"
+  ],
+  "M03_le_instead_of_eq": [
+   "C05",
+   "C07",
+   "C09"
+  ],
+  "M04_obs_prefix_of_rec": [
+   "C02",
+   "C09",
+   "C19",
+   "C20",
+   "C21"
+  ],
+  "M05_lexical_ge": [
+   "C04",
+   "C08",
+   "C13",
+   "C15",
+   "C18",
+   "C19",
+   "C22"
+  ],
+  "M06_stated_compared_not_observed": [
+   "C01",
+   "C02",
+   "C03",
+   "C06",
+   "C11",
+   "C14",
+   "C17",
+   "C18",
+   "C19"
+  ],
+  "M07_no_green_check": [
+   "C11",
+   "C17"
+  ],
+  "M08_missing_field_skipped": [
+   "C12"
+  ],
+  "M09_token_is_group0": [
+   "C01",
+   "C02",
+   "C03",
+   "C06",
+   "C18",
+   "C19"
+  ],
+  "M10_first_hit_not_refused": [
+   "C16"
+  ],
+  "M11_reads_worktree_not_rev": [
+   "C01",
+   "C02",
+   "C03",
+   "C06"
+  ],
+  "M12_committed_leading_token": [
+   "C18",
+   "C19"
+  ],
+  "M13_prefix_without_boundary": [
+   "C22"
+  ]
+ },
+ "fixture": {
+  "b1": "0fb31581d44b7c8ad907467e9fb49448321646eb",
+  "b2": "fe9d83272b6a4b32fb33d6921442bbc924006e8e",
+  "repo": "/fast/scratch/hyaku/kotodama-r79/MutObserved/work-run3/fixture-repo",
+  "truths": {
+   "B1": "3",
+   "B1Z": "0",
+   "B2": "13",
+   "S": "PASS legs=12/12"
+  }
+ },
+ "matrix": {
+  "C01_control_accept_all": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "PASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "PASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "PASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "PASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "C02_control_reject_all": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "NOTPASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M00_pristine": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M01_tolerance_pm1": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "PASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "PASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "PASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "PASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M02_accepts_obs_minus1": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "PASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M03_le_instead_of_eq": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "PASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M04_obs_prefix_of_rec": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M05_lexical_ge": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "PASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M06_stated_compared_not_observed": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "NOTPASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "PASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "PASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M07_no_green_check": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "PASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "PASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M08_missing_field_skipped": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M09_token_is_group0": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "fe9d83272b6a4b32fb33d6921442bbc924006e8e:keys.txt:13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "NOTPASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "fe9d83272b6a4b32fb33d6921442bbc924006e8e:keys.txt:13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "fe9d83272b6a4b32fb33d6921442bbc924006e8e:keys.txt:13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "fe9d83272b6a4b32fb33d6921442bbc924006e8e:keys.txt:13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "fe9d83272b6a4b32fb33d6921442bbc924006e8e:keys.txt:13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:status.txt:PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:status.txt:PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:status.txt:PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:status.txt:PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M10_first_hit_not_refused": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M11_reads_worktree_not_rev": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "14",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "NOTPASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "14",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "14",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "14",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "14",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "14",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M12_committed_leading_token": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ],
+  "M13_prefix_without_boundary": [
+   {
+    "case": "C01",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful exact count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C02",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3 matches in keys.txt",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, prose after token at boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C03",
+    "expected": "PASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "  3\n",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "truthful, surrounding whitespace",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C04",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one (recorded above observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C05",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "2",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "-1 off-by-one (recorded below observed)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C06",
+    "expected": "PASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "12",
+    "verdict": "PASS",
+    "why": "truthful two-digit count",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C07",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "12",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "-1 across tens boundary",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C08",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "14",
+    "stated": "14",
+    "verdict": "NOTPASS",
+    "why": "recorded = worktree count (uncommitted line)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C09",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "prefix of observed token (1 of 13)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C10",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "empty recorded token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C11",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "3",
+    "stated": "3",
+    "verdict": "NOTPASS",
+    "why": "stated equals observation: green pair must be dropped",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C12",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": null,
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "observed_at_base absent (design decision: require it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C13",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "4",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "recorded equals stated but not observed (3)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C14",
+    "expected": "PASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "0",
+    "stated": "2",
+    "verdict": "PASS",
+    "why": "truthful zero-match absence",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C15",
+    "expected": "NOTPASS",
+    "key": "B1Z",
+    "observed": "0",
+    "recorded": "1",
+    "stated": "2",
+    "verdict": "NOTPASS",
+    "why": "+1 off-by-one at zero",
+    "why_obs": "exit=1 zero-matches"
+   },
+   {
+    "case": "C16",
+    "expected": "NOTPASS",
+    "key": "B1MULTI",
+    "observed": null,
+    "recorded": "3",
+    "stated": "4",
+    "verdict": "NOTPASS",
+    "why": "two-file hit set: ambiguous, must refuse not first-hit",
+    "why_obs": "parse-hits=2"
+   },
+   {
+    "case": "C17",
+    "expected": "NOTPASS",
+    "key": "B2",
+    "observed": "13",
+    "recorded": "13",
+    "stated": "13",
+    "verdict": "NOTPASS",
+    "why": "truthful value but stated equals observation (green)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C18",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record (committed leading-token rule rejects it)",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C19",
+    "expected": "PASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/12 (round-72 receipt)",
+    "stated": "FAIL",
+    "verdict": "PASS",
+    "why": "truthful multi-token record with prose after the token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C20",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated multi-token record",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C21",
+    "expected": "NOTPASS",
+    "key": "S",
+    "observed": "PASS legs=12/12",
+    "recorded": "PASS legs=12/1",
+    "stated": "FAIL",
+    "verdict": "NOTPASS",
+    "why": "truncated inside the final token",
+    "why_obs": "ok"
+   },
+   {
+    "case": "C22",
+    "expected": "NOTPASS",
+    "key": "B1",
+    "observed": "3",
+    "recorded": "30",
+    "stated": "4",
+    "verdict": "PASS",
+    "why": "recorded starts with observed digits but continues (30 vs 3)",
+    "why_obs": "ok"
+   }
+  ]
+ },
+ "mutant_killed": {
+  "M01_tolerance_pm1": true,
+  "M02_accepts_obs_minus1": true,
+  "M03_le_instead_of_eq": true,
+  "M04_obs_prefix_of_rec": true,
+  "M05_lexical_ge": true,
+  "M06_stated_compared_not_observed": true,
+  "M07_no_green_check": true,
+  "M08_missing_field_skipped": true,
+  "M09_token_is_group0": true,
+  "M10_first_hit_not_refused": true,
+  "M11_reads_worktree_not_rev": true,
+  "M12_committed_leading_token": true,
+  "M13_prefix_without_boundary": true
+ },
+ "pristine_clean": true,
+ "pristine_disagreements": [],
+ "raw_observations": {
+  "B1": {
+   "argv": [
+    "git",
+    "grep",
+    "-c",
+    "^key",
+    "0fb31581d44b7c8ad907467e9fb49448321646eb",
+    "--",
+    "keys.txt"
+   ],
+   "rc": 0,
+   "stdout": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3\n"
+  },
+  "B1MULTI": {
+   "argv": [
+    "git",
+    "grep",
+    "-c",
+    "^key",
+    "0fb31581d44b7c8ad907467e9fb49448321646eb"
+   ],
+   "rc": 0,
+   "stdout": "0fb31581d44b7c8ad907467e9fb49448321646eb:keys.txt:3\n0fb31581d44b7c8ad907467e9fb49448321646eb:other.txt:2\n"
+  },
+  "B1Z": {
+   "argv": [
+    "git",
+    "grep",
+    "-c",
+    "^zzz",
+    "0fb31581d44b7c8ad907467e9fb49448321646eb",
+    "--",
+    "keys.txt"
+   ],
+   "rc": 1,
+   "stdout": ""
+  },
+  "B2": {
+   "argv": [
+    "git",
+    "grep",
+    "-c",
+    "^key",
+    "fe9d83272b6a4b32fb33d6921442bbc924006e8e",
+    "--",
+    "keys.txt"
+   ],
+   "rc": 0,
+   "stdout": "fe9d83272b6a4b32fb33d6921442bbc924006e8e:keys.txt:13\n"
+  },
+  "B2-worktree-no-rev": {
+   "argv": [
+    "git",
+    "grep",
+    "-c",
+    "^key",
+    "--",
+    "keys.txt"
+   ],
+   "rc": 0,
+   "stdout": "keys.txt:14\n"
+  },
+  "S": {
+   "argv": [
+    "git",
+    "grep",
+    "^PASS",
+    "0fb31581d44b7c8ad907467e9fb49448321646eb",
+    "--",
+    "status.txt"
+   ],
+   "rc": 0,
+   "stdout": "0fb31581d44b7c8ad907467e9fb49448321646eb:status.txt:PASS legs=12/12\n"
+  }
+ },
+ "self_check": [
+  {
+   "case": "C01",
+   "derived": "PASS",
+   "hand": "PASS",
+   "ok": true
+  },
+  {
+   "case": "C02",
+   "derived": "PASS",
+   "hand": "PASS",
+   "ok": true
+  },
+  {
+   "case": "C03",
+   "derived": "PASS",
+   "hand": "PASS",
+   "ok": true
+  },
+  {
+   "case": "C04",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C05",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C06",
+   "derived": "PASS",
+   "hand": "PASS",
+   "ok": true
+  },
+  {
+   "case": "C07",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C08",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C09",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C10",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C11",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C12",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C13",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C14",
+   "derived": "PASS",
+   "hand": "PASS",
+   "ok": true
+  },
+  {
+   "case": "C15",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C16",
+   "derived": "NOTPASS",
+   "hand": "NOTPASS",
+   "ok": true
+  },
+  {
+   "case": "C17",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C18",
+   "derived": "PASS",
+   "hand": "PASS",
+   "ok": true
+  },
+  {
+   "case": "C19",
+   "derived": "PASS",
+   "hand": "PASS",
+   "ok": true
+  },
+  {
+   "case": "C20",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C21",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  },
+  {
+   "case": "C22",
+   "derived": "FAIL",
+   "hand": "FAIL",
+   "ok": true
+  }
+ ],
+ "self_check_ok": true
+}

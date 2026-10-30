@@ -1,0 +1,12 @@
+M0-control-unmutated: exit=0 SELFTEST: 9/9 killed_by=NONE
+M1-always-pass-stub: exit=0 NO-SUMMARY killed_by=NONE
+M1b-print-expected-selftest-line: exit=0 SELFTEST: 9/9 killed_by=NONE
+M2-no-path-check: exit=1 SELFTEST: 8/9 killed_by=red-absent-script
+M3-naive-split-ignores-escape: exit=1 SELFTEST: 8/9 killed_by=green-escaped-pipe
+M4-no-selftest-bare: exit=1 SELFTEST: 7/9 killed_by=red-bare-selftest,red-non-python-command
+M5-no-shape-check: exit=1 SELFTEST: 8/9 killed_by=red-unescaped-pipe-shape
+M6-no-dup-check: exit=1 SELFTEST: 8/9 killed_by=red-per-cell-rules
+M7-verdict-any-number: exit=1 SELFTEST: 8/9 killed_by=red-per-cell-rules
+M8-no-name-empty: exit=1 SELFTEST: 8/9 killed_by=red-per-cell-rules
+NOTE M1-always-pass-stub prints no CASE or SELFTEST line; the consumer must require the SELFTEST line and exit 0.
+NOTE M1b-print-expected-selftest-line is NOT killed by its own selftest (it prints the expected line); only an outside harness that re-runs the frozen fixtures and compares CASE lines refutes it.

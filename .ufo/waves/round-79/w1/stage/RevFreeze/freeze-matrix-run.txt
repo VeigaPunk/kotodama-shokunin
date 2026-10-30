@@ -1,0 +1,96 @@
+# freeze-matrix: repo=/fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo
+# counter-cmd template: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root {repo} --lands {lands} --freeze {freeze}
+# fixture rev C0=1d89a2616025919593682371118044c7a27c63a3
+# fixture rev C1=35d1166505ded7053078362ba3ad62c93298bd7f
+# fixture rev C2=ba5421e5f81f01e11ef04a4252236ddce97049b9
+# fixture rev C2m=b65a46cb965535e6d812acfcdb80fc020ba4c331
+# fixture rev C3=3c27c935d01b0b1c6a5c945b7dcc8f30198ed816
+# fixture rev S1=31da5326bdbae4162176153b84a64ab024791aaf
+# fixture rev S2=918d14c8aea5ebc4d1ff0df743230015970082b1
+#
+=== s01_green
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands ba5421e5f81f01e11ef04a4252236ddce97049b9 --freeze 35d1166505ded7053078362ba3ad62c93298bd7f
+exit: 0
+out: # counter sha256 (self): b2634a5bbaefc2739518d88a2bc330b014efaa3000ad0e4b9a7d429d1717e1e8
+out: # stamped revision: ba5421e5f81f01e11ef04a4252236ddce97049b9
+out: # evaluated revision: ba5421e5f81f01e11ef04a4252236ddce97049b9
+out: # tree: 8789b74caa959cab174f899dadae5ef0187d96e0
+out: # freeze: 35d1166505ded7053078362ba3ad62c93298bd7f (config read at this commit only)
+out: LEG PASS FROZENCFG freeze=35d1166505de lands=ba5421e5f81f problems=0 []
+out: LEG PASS STAMP stamped=evaluated=ba5421e5f81f tree=8789b74caa95 counter=b2634a5bbaef
+out: FREEZE-PROBE-79: PASS legs=2/2
+---
+=== s02_do_nothing
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands 35d1166505ded7053078362ba3ad62c93298bd7f --freeze 35d1166505ded7053078362ba3ad62c93298bd7f
+exit: 1
+out: # NOTE: lands == freeze: do-nothing control shape; strict-ancestor requirement not applied; a PASS is refused
+out: # counter sha256 (self): b2634a5bbaefc2739518d88a2bc330b014efaa3000ad0e4b9a7d429d1717e1e8
+out: # stamped revision: 35d1166505ded7053078362ba3ad62c93298bd7f
+out: # evaluated revision: 35d1166505ded7053078362ba3ad62c93298bd7f
+out: # tree: 85be78441c0f130e5fb713aa63ef0f2299e81553
+out: # freeze: 35d1166505ded7053078362ba3ad62c93298bd7f (config read at this commit only)
+out: LEG PASS FROZENCFG freeze=35d1166505de lands=35d1166505de problems=0 []
+out: LEG PASS STAMP stamped=evaluated=35d1166505de tree=85be78441c0f counter=b2634a5bbaef
+out: FREEZE-PROBE-79: FAIL legs=2/2 (do-nothing control: PASS refused)
+---
+=== s03_lands_eq_base
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands 1d89a2616025919593682371118044c7a27c63a3 --freeze 35d1166505ded7053078362ba3ad62c93298bd7f
+exit: 2
+out: FREEZE-PROBE-79: FAIL legs=0/2 (REFUSED: --lands equals the frozen base 1d89a2616025)
+---
+=== s04_off_first_parent
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands b65a46cb965535e6d812acfcdb80fc020ba4c331 --freeze 918d14c8aea5ebc4d1ff0df743230015970082b1
+exit: 1
+out: # counter sha256 (self): b2634a5bbaefc2739518d88a2bc330b014efaa3000ad0e4b9a7d429d1717e1e8
+out: # stamped revision: b65a46cb965535e6d812acfcdb80fc020ba4c331
+out: # evaluated revision: b65a46cb965535e6d812acfcdb80fc020ba4c331
+out: # tree: 37f26f6ce755cee68a9dd89b3731abd721d112d8
+out: # freeze: 918d14c8aea5ebc4d1ff0df743230015970082b1 (config read at this commit only)
+out: LEG FAIL FROZENCFG freeze=918d14c8aea5 lands=b65a46cb9655 problems=1 ['--freeze 918d14c8aea5 is not on the lands first-parent chain']
+out: LEG PASS STAMP stamped=evaluated=b65a46cb9655 tree=37f26f6ce755 counter=b2634a5bbaef
+out: FREEZE-PROBE-79: FAIL legs=1/2
+---
+=== s05_not_ancestor
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands ba5421e5f81f01e11ef04a4252236ddce97049b9 --freeze 31da5326bdbae4162176153b84a64ab024791aaf
+exit: 1
+out: # counter sha256 (self): b2634a5bbaefc2739518d88a2bc330b014efaa3000ad0e4b9a7d429d1717e1e8
+out: # stamped revision: ba5421e5f81f01e11ef04a4252236ddce97049b9
+out: # evaluated revision: ba5421e5f81f01e11ef04a4252236ddce97049b9
+out: # tree: 8789b74caa959cab174f899dadae5ef0187d96e0
+out: # freeze: 31da5326bdbae4162176153b84a64ab024791aaf (config read at this commit only)
+out: LEG FAIL FROZENCFG freeze=31da5326bdba lands=ba5421e5f81f problems=1 ['--freeze 31da5326bdba is not an ancestor of --lands ba5421e5f81f']
+out: LEG PASS STAMP stamped=evaluated=ba5421e5f81f tree=8789b74caa95 counter=b2634a5bbaef
+out: FREEZE-PROBE-79: FAIL legs=1/2
+---
+=== s06_claims_amended_at_lands
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands 3c27c935d01b0b1c6a5c945b7dcc8f30198ed816 --freeze 35d1166505ded7053078362ba3ad62c93298bd7f
+exit: 1
+out: # counter sha256 (self): b2634a5bbaefc2739518d88a2bc330b014efaa3000ad0e4b9a7d429d1717e1e8
+out: # stamped revision: 3c27c935d01b0b1c6a5c945b7dcc8f30198ed816
+out: # evaluated revision: 3c27c935d01b0b1c6a5c945b7dcc8f30198ed816
+out: # tree: 6c1637f870cb3ca6316a2a7a86e40ea19b2407f6
+out: # freeze: 35d1166505ded7053078362ba3ad62c93298bd7f (config read at this commit only)
+out: LEG FAIL FROZENCFG freeze=35d1166505de lands=3c27c935d01b problems=1 ['reports/round-79/claims.json edited in the graded tree after freeze']
+out: LEG PASS STAMP stamped=evaluated=3c27c935d01b tree=6c1637f870cb counter=b2634a5bbaef
+out: FREEZE-PROBE-79: FAIL legs=1/2
+---
+=== s07_freeze_non_commit
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands 0000000000000000000000000000000000000000 --freeze 35d1166505ded7053078362ba3ad62c93298bd7f
+exit: 2
+out: ERROR: --lands 0000000000000000000000000000000000000000 is not a commit in /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo
+---
+=== s08_lands_non_commit
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands ba5421e5f81f01e11ef04a4252236ddce97049b9 --freeze 0000000000000000000000000000000000000000
+exit: 2
+out: ERROR: --freeze 0000000000000000000000000000000000000000 is not a commit in /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo
+---
+=== s09_claims_not_at_freeze
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands ba5421e5f81f01e11ef04a4252236ddce97049b9 --freeze 1d89a2616025919593682371118044c7a27c63a3
+exit: 2
+out: FREEZE-PROBE-79: FAIL legs=0/2 (REFUSED: claims file reports/round-79/claims.json is not committed at --freeze 1d89a2616025919593682371118044c7a27c63a3)
+---
+=== s10_legcount
+cmd: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/RevFreeze/freeze-shape-probe.py --root /fast/scratch/hyaku/kotodama-r79/RevFreeze/fixture-repo --lands ba5421e5f81f01e11ef04a4252236ddce97049b9 --freeze 35d1166505ded7053078362ba3ad62c93298bd7f --legs FROZENCFG
+exit: 2
+out: FREEZE-PROBE-79: FAIL legs=0/2 (REFUSED: leg table ['FROZENCFG', 'STAMP'] != the frozen 1 legs ['FROZENCFG'])
+---

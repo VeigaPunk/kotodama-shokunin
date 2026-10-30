@@ -1,0 +1,45 @@
+# SentinelExec round-79 W1 — exact commands run (in order). Scratch: /fast/scratch/hyaku/kotodama-r79/SentinelExec
+# Lane (read-only use): /home/vgpnk/Projects/shokunin/kotodama-shokunin   base 44f76d456c1b326a71ffdb381590af825cbf11be
+# Tool: git 2.56.0 (/usr/bin/git, the already-installed system git; nothing installed or updated by this seat).
+# No pacman. No host config change. No writes to the lane. No commits anywhere but the two fixture repos.
+
+# 0. scratch + stage dirs
+mkdir -p /fast/scratch/hyaku/kotodama-r79/SentinelExec
+mkdir -p /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/SentinelExec
+cd /home/vgpnk/Projects/shokunin/kotodama-shokunin && git rev-parse --show-toplevel        # -> lane root (read)
+git cat-file -t 44f76d456c1b326a71ffdb381590af825cbf11be                                    # -> commit (read)
+
+# 1. the committed round-73 counter at base, copied bytes (read-only git show)
+git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-73/accept-ca.py > /fast/scratch/hyaku/kotodama-r79/SentinelExec/accept-ca-r73.py
+sha256sum /fast/scratch/hyaku/kotodama-r79/SentinelExec/accept-ca-r73.py   # 222d4dd6d4082b49bfc949fa2dab804859e8f313703b70ec4e229653c2d12b89
+
+# 2. committed-guard probe v2 (fixtures: probe/other, probe/lane; hostile HOME probe/home; markers probe/MARK)
+cd /fast/scratch/hyaku/kotodama-r79/SentinelExec && python3 -B probe_observe.py > probe-raw-v2.txt 2>&1
+#    -> stage: probe-observe-v2-raw.txt, probe-observe-v2-results.jsonl
+#    NOTE: probe_observe.py v1 (the first run) had two defects: C06 hostile `sh -c` quoting (inconclusive) and
+#    run_observe + direct subprocess both executed each case (doubled side effects on C13/C10/C15). Its output
+#    is kept as probe-observe-v1-SUPERSEDED-raw.txt; the v1 driver file was overwritten by v2 and is not preserved.
+
+# 3. textconv wiring control (run after step 2; fixture clone probe/mat/obs)
+#    -> stage: textconv-control-raw.txt (contains explicit --textconv fires, default show does not, base sha)
+
+# 4. draft grammar probe (imports stage/SentinelExec/observe_grammar.py with -B; no bytecode written to stage)
+cd /fast/scratch/hyaku/kotodama-r79/SentinelExec && python3 -B probe_draft_grammar.py > probe-draft-raw.txt 2>&1
+#    run twice across edits: first run found C18 false refusal (ls-tree arity bug); fixed; rerun 0 mismatches.
+#    -> stage: probe-draft-raw.txt, probe-draft-results.jsonl
+
+# 5. draft shape edge batch
+cd /fast/scratch/hyaku/kotodama-r79/SentinelExec && python3 -B edge_draft.py > edge-draft-raw.txt
+#    first run: E6 (newline in path) admitted -> PATH_BAD widened to control chars; rerun shows refusal.
+#    -> stage: edge-draft-raw.txt
+
+# 6. checksums of stage artifacts
+cd /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/SentinelExec && sha256sum * > SHA256SUMS
+
+# 7. cleanup of own scratch after copying receipts (path asserted to be under /fast/scratch/hyaku/kotodama-r79/SentinelExec)
+#    rm -rf /fast/scratch/hyaku/kotodama-r79/SentinelExec
+
+# Process deviation disclosed: several in-place patches to MY OWN draft files (observe_grammar.py x4, probe_draft_grammar.py x1)
+# were made with scripted string replacement instead of the `edit` tool. Each patch was re-verified by rerunning the probe;
+# the final stage files are the bytes the final probes ran against (observe_grammar.py as staged; probe_draft_grammar.py as staged).
+# OBSERVE-GRAMMAR.md was edited with `edit` (one mis-targeted edit corrected and verified; see report).

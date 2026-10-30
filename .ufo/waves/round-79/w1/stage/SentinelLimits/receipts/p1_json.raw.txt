@@ -1,0 +1,17 @@
+python 3.14.8
+deep-nest-200k               UNCAUGHT RecursionError: Stack overflow (used 8144 kB) while decoding a JSON array from a unico 0.003s
+deep-nest-500                OK type=list                                                   0.000s
+NaN                          OK type=dict                                                   0.000s
+Infinity                     OK type=dict                                                   0.000s
+dup-keys-silent              OK type=dict                                                   0.000s
+lone-surrogate               OK type=dict                                                   0.000s
+  lone surrogate encode -> UnicodeEncodeError 'utf-8' codec can't encode character '\ud800' in position 0:
+int-5000-digits              ValueError(ValueError): Exceeds the limit (4300 digits) for integer string conversion: value h 0.000s
+int-100-digits               OK type=dict                                                   0.000s
+float-1e999999               OK type=dict                                                   0.000s
+bom-prefixed                 OK type=dict                                                   0.000s
+invalid-utf8-bytes           ValueError(UnicodeDecodeError): 'utf-8' codec can't decode byte 0xff in position 6: invalid start byte 0.000s
+raw-control-char             ValueError(JSONDecodeError): Invalid control character at: line 1 column 8 (char 7) 0.000s
+nul-in-string                OK type=dict                                                   0.000s
+64MiB-string                 OK type=dict                                                   0.046s
+100k-element-array           OK type=list                                                   0.002s

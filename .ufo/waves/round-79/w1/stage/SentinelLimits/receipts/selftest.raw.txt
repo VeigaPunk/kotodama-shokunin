@@ -1,0 +1,52 @@
+fixture root verified: /fast/scratch/hyaku/kotodama-r79/SentinelLimits/fx rev: b29064c43aebf3b7034b30f0107efe87e6345c9e
+# phase JSON (in-memory hostile bytes; limits module vs round-76 shape)
+CASE json-deep-200k               expect=DEPTH            got=DEPTH            PASS legacy=UNCAUGHT:RecursionError
+CASE json-deep-40                 expect=DEPTH            got=DEPTH            PASS legacy=OK
+CASE json-NaN                     expect=NONSTD-CONST     got=NONSTD-CONST     PASS legacy=OK
+CASE json-Infinity                expect=NONSTD-CONST     got=NONSTD-CONST     PASS legacy=OK
+CASE json-dup-key                 expect=DUP-KEY          got=DUP-KEY          PASS legacy=OK
+CASE json-lone-surrogate          expect=SURROGATE        got=SURROGATE        PASS legacy=OK
+CASE json-int-5000-digits         expect=BIG-INT          got=BIG-INT          PASS legacy=ValueError:ValueError
+CASE json-float-1e999999          expect=FLOAT            got=FLOAT            PASS legacy=OK
+CASE json-bom-prefix              expect=BOM              got=BOM              PASS legacy=OK
+CASE json-invalid-utf8            expect=ENCODING         got=ENCODING         PASS legacy=ValueError:UnicodeDecodeError
+CASE json-raw-control             expect=JSON             got=JSON             PASS legacy=ValueError:JSONDecodeError
+CASE json-nul-escape              expect=NUL-IN-STRING    got=NUL-IN-STRING    PASS legacy=OK
+CASE json-raw-nul-byte            expect=NUL-BYTE         got=NUL-BYTE         PASS legacy=ValueError:JSONDecodeError
+CASE json-oversize-file           expect=LIMIT-BYTES      got=LIMIT-BYTES      PASS legacy=OK
+CASE json-string-70k              expect=STR-TOO-LONG     got=STR-TOO-LONG     PASS legacy=OK
+CASE json-nodes-100001            expect=NODES            got=NODES            PASS legacy=OK
+CASE json-valid-minimal           expect=OK               got=OK               PASS legacy=OK
+# phase COMMITTED (read-only git cat-file blob at base; must load OK)
+CASE committed:ledger.json:20203  expect=OK               got=OK               PASS 
+CASE committed:ledger.json:53057  expect=OK               got=OK               PASS 
+CASE committed:ledger.json:75791  expect=OK               got=OK               PASS 
+CASE committed:probe-real-ledger.json:6815 expect=OK               got=OK               PASS 
+# phase PROCESS (bounded run; fixture repo root verified)
+CASE proc-clean-git-grep          expect=OK               got=OK               PASS bytes=49
+CASE proc-output-cap-40MiB        expect=OUTPUT-CAP       got=OUTPUT-CAP       PASS wall=0.48s
+CASE proc-cap-exact-passes        expect=OK               got=OK               PASS 
+CASE proc-cap-plus-one            expect=OUTPUT-CAP       got=OUTPUT-CAP       PASS 
+CASE proc-timeout-sleep           expect=TIMEOUT          got=TIMEOUT          PASS wall=2.00s
+CASE proc-pipe-held-grandchild    expect=TIMEOUT          got=TIMEOUT          PASS wall=3.00s survivors=0
+CASE proc-pipe-held-no-survivor   expect=0                got=0                PASS 
+CASE proc-bad-utf8-observe        expect=ENCODING         got=ENCODING         PASS 
+CASE proc-spawn-missing           expect=SPAWN            got=SPAWN            PASS 
+CASE argv-item-2000               expect=ARGV             got=ARGV             PASS 
+CASE argv-40-items                expect=ARGV             got=ARGV             PASS 
+CASE budget-exhausted             expect=BUDGET           got=BUDGET           PASS 
+# phase PARSE and TOKEN
+CASE parse-count-present          expect=present          got=present          PASS 
+CASE parse-count-absent           expect=absent           got=absent           PASS 
+CASE parse-count-bad              expect=PARSE            got=PARSE            PASS 
+CASE parse-regex-refused          expect=UNSUPPORTED-PARSE got=UNSUPPORTED-PARSE PASS 
+CASE parse-exact-two-lines        expect=PARSE            got=PARSE            PASS 
+CASE token-ascii-collapse         expect=a b              got=a b              PASS 
+CASE token-nbsp-distinct          expect=True             got=True             PASS nbsp_token='a\xa0b'
+CASE token-200-ok                 expect=OK               got=OK               PASS 
+CASE token-201-refused            expect=TOKEN-TOO-LONG   got=TOKEN-TOO-LONG   PASS 
+# phase LEGACY control (round-76 call shapes on the same hostile inputs)
+LEGACY bad-utf8 observe (text=True, no handler): UNCAUGHT:UnicodeDecodeError
+LEGACY 40MiB observe: captured stdout_bytes=258173100 (no cap)
+SELFTEST OK: all cases passed
+exit=0

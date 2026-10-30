@@ -1,0 +1,89 @@
+{
+  "comment": "Ca junk payloads for the round-79 S884 census-drift correction. Honest payload first for contrast; J-CA1..J-CA6 are the exact false payloads. Tokens measured from committed bytes at 4b255745dea45a45d88b17e3c3fea4cdb6700cf7 on 2026-10-30.",
+  "measured_revision": "4b255745dea45a45d88b17e3c3fea4cdb6700cf7",
+  "receipt": "reports/round-78/telemetry/census-end.txt",
+  "receipt_sha256_true": "05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867",
+  "receipt_token_true": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md",
+  "registry_token_true": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md",
+  "honest": {
+    "id": "S884",
+    "receipt": "reports/round-78/telemetry/census-end.txt",
+    "receipt_sha256": "05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867",
+    "measured_revision": "4b255745dea45a45d88b17e3c3fea4cdb6700cf7",
+    "old_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md",
+    "actual_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md"
+  },
+  "junk": [
+    {
+      "name": "J-CA1",
+      "class": "lying-token ratifies the receipt",
+      "payload": {
+        "id": "S884",
+        "receipt": "reports/round-78/telemetry/census-end.txt",
+        "receipt_sha256": "05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867",
+        "measured_revision": "4b255745dea45a45d88b17e3c3fea4cdb6700cf7",
+        "old_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md",
+        "actual_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md"
+      },
+      "why_false": "Swaps the two tokens: asserts the registry (old) was amend-2026-10-23 and the actual truth is the receipt's amend-2026-10-24-r13. amend-2026-10-24-r13.md never existed for this entry (exact-path git log across all refs is empty). Every field is present and well-formed, so a presence-only checker passes it; ACTUAL-TOKEN leg must fail it."
+    },
+    {
+      "name": "J-CA2",
+      "class": "swap labeled as fix",
+      "payload": {
+        "id": "S884",
+        "receipt": "reports/round-78/telemetry/census-end.txt",
+        "receipt_sha256": "05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867",
+        "measured_revision": "4b255745dea45a45d88b17e3c3fea4cdb6700cf7",
+        "old_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md",
+        "actual_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md"
+      },
+      "why_false": "Claims the receipt token was old and the corrected truth equals it — i.e. the registry should have said 24-r13 all along. ACTUAL-TOKEN leg must fail (registry at the measured revision says 10-23)."
+    },
+    {
+      "name": "J-CA3",
+      "class": "vacuous prose note",
+      "payload": "S884: used-by reconciled, see census-end.txt",
+      "why_false": "A one-line note naming S884 and the receipt with no digest, no revision, no tokens. A presence-only grep for 'S884' + 'correction' passes it; every binding leg must fail it for missing fields."
+    },
+    {
+      "name": "J-CA4",
+      "class": "wrong receipt digest",
+      "payload": {
+        "id": "S884",
+        "receipt": "reports/round-78/telemetry/census-end.txt",
+        "receipt_sha256": "05b5011",
+        "measured_revision": "4b255745dea45a45d88b17e3c3fea4cdb6700cf7",
+        "old_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md",
+        "actual_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md"
+      },
+      "why_false": "Truncated 7-hex digest (the round-73 freeze-hash mistake class). All other fields are honest. RECEIPT-DIGEST leg must fail; presence-only sees a non-empty digest field and passes."
+    },
+    {
+      "name": "J-CA5",
+      "class": "wrong measured revision",
+      "payload": {
+        "id": "S884",
+        "receipt": "reports/round-78/telemetry/census-end.txt",
+        "receipt_sha256": "05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867",
+        "measured_revision": "44f76d456c1b326a71ffdb381590af825cbf11be",
+        "old_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md",
+        "actual_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md"
+      },
+      "why_false": "Binds the lane base 44f76d45... instead of the receipt's own commit 4b255745... All tokens/digests honest. REVISION leg must fail (the drift must be measured at the revision the receipt actually records)."
+    },
+    {
+      "name": "J-CA6",
+      "class": "changed receipt (in-place repair)",
+      "payload": {
+        "id": "S884",
+        "receipt": "reports/round-78/telemetry/census-end.txt",
+        "receipt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "measured_revision": "4b255745dea45a45d88b17e3c3fea4cdb6700cf7",
+        "old_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md",
+        "actual_token": "corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md"
+      },
+      "why_false": "Fixture edits the drifted line 33 of census-end.txt in place at --lands (24-r13 -> 10-23) so the receipt reads clean, then any digest is moot. RECEIPT-UNCHANGED leg must fail: historical receipts are append-only and the drift is repaired by a correction record, never by rewriting the receipt."
+    }
+  ]
+}

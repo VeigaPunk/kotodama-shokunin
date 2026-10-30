@@ -1,0 +1,48 @@
+# probe: round-79 Ca S884 used-by mismatch re-derivation
+# run-at: 2026-10-30T15:15:18Z
+# lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin (read-only; no mutation)
+# base: 44f76d456c1b326a71ffdb381590af825cbf11be
+# round-78 lands (recorded revision): 4b255745dea45a45d88b17e3c3fea4cdb6700cf7
+
+## 1. receipt bytes at base (STATED token), line 33
+$ git show 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-78/telemetry/census-end.txt | sed -n '33p'
+kotodama W01 S884 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md
+
+## 2. registry S884 used-by cell at round-78 lands 4b255745dea45a45d88b17e3c3fea4cdb6700cf7 (ACTUAL token)
+$ git show 4b255745dea45a45d88b17e3c3fea4cdb6700cf7:corpus/SOURCES.md | grep -E '^\| S884 ' | grep -oE 'corpus/knowledge/[^ |]*worldbuilding[^ |]*'
+corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+
+## 3. registry S884 used-by cell at base 44f76d456c1b326a71ffdb381590af825cbf11be (ACTUAL token)
+$ git show 44f76d456c1b326a71ffdb381590af825cbf11be:corpus/SOURCES.md | grep -E '^\| S884 ' | grep -oE 'corpus/knowledge/[^ |]*worldbuilding[^ |]*'
+corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+
+## 4. census-start receipt at base (S884) — control: start receipt matches registry
+$ git show 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-78/telemetry/census-start.txt | grep 'S884'
+kotodama W01 S884 tierC mined used-by=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+
+## 5. original receipt digest binding material
+$ git show 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-78/telemetry/census-end.txt | sha256sum
+05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867  -
+$ git rev-parse 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-78/telemetry/census-end.txt  (blob)
+62eb55b77f44bf47c283c98c5645dd7141e98495
+$ git log --all --format='%H %s' --find-object=62eb55b77f44bf47c283c98c5645dd7141e98495  (commits carrying the blob)
+13e5a84e6e2181125cc455fea8d3512141a4694e 
+4b255745dea45a45d88b17e3c3fea4cdb6700cf7 round-78: honest stop with frontier census
+a2ff2913b85841c35abccc10bbb750025e5a962e 
+
+## 6. STATED token never present in registry at ANY committed revision
+$ git log --all --oneline -S 'worldbuilding-setting-practice.amend-2026-10-24-r13' -- corpus/SOURCES.md
+exit:0 — empty output above = token never present in registry at any revision
+
+## 7. file named by STATED token never committed in lane
+$ git log --all --oneline -- corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md
+exit:0 — empty output above = file never committed
+$ ls corpus/knowledge/culture-material/ | grep worldbuilding
+worldbuilding-setting-practice.amend-2026-10-23.md
+worldbuilding-setting-practice.md
+
+## 8. verdict line
+stated_token=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md
+actual_token=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+MISMATCH=1 at base (stated != actual)
+probe-exit=0

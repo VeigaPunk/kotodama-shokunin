@@ -1,0 +1,12 @@
+# guard sha256: 0006da854bafe72d6df05d3a114495be8e9625f700913202f3dc18a120c25f31
+LEDGER-GUARD-79: PASS pairs=1
+case green exit=0
+LEDGER-GUARD-79: FAIL pairs=1 problems=1
+PAIR G1: OBS_MISMATCH recorded='3' actual='2'
+case obs-mismatch exit=1
+LEDGER-GUARD-79: FAIL pairs=1 problems=1
+PAIR G1: NOT_RED token='2'
+case not-red exit=1
+LEDGER-GUARD-79: FAIL (refused: 1 grammar problem(s)) ["PAIR G1: constant-printer 'echo' is refused"]
+case grammar exit=2
+SELFTEST: 4/4 green+obs-mismatch+not-red+grammar

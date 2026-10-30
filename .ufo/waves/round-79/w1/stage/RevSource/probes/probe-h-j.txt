@@ -1,0 +1,26 @@
+=== PROBE H: D11 observe at pinned base (five matches, first=243) ===
+211f9526800906e0c585d878d265c37e5e090c15:corpus/README.md:Total knowledge entries: 243
+211f9526800906e0c585d878d265c37e5e090c15:corpus/README.md:Total knowledge entries: 247
+211f9526800906e0c585d878d265c37e5e090c15:corpus/README.md:Total knowledge entries: 249
+211f9526800906e0c585d878d265c37e5e090c15:corpus/README.md:Total knowledge entries: 252
+211f9526800906e0c585d878d265c37e5e090c15:corpus/README.md:Total knowledge entries: 253
+exit=0
+
+=== PROBE I: ExecCaPass.md lines 24-34 verbatim at base ===
+3. **That green is not evidence the ledger is valid.** The counter's own
+   functions show the 11-pair ledger carries 10 *false* `observed_at_base`
+   records (`1` vs real `149`), 10 pairs whose observation has nothing to do with
+   their statement, and one REPAIR pair that is **not red at base** and whose two
+   parses read different totals (`243` first match vs `253` last match). Graded
+   with the same counter's `BASEMISMATCH` and `REPAIR` legs, this ledger is
+   **FAIL** on both. `--ledger-check` checks none of those properties, and the
+   claims draft's kill rule ("any ledger pair not red at base") is therefore not
+   enforced by the pre-freeze build check.
+
+## 1. Environment and scratch
+
+=== PROBE J: next free registry id at base (tail of registry) ===
+ S020
+ S031
+ S043
+820

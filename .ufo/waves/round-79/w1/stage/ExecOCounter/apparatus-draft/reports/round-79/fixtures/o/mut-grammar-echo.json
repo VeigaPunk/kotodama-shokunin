@@ -1,0 +1,67 @@
+{
+ "round": 79,
+ "claim": "O",
+ "base": "{base}",
+ "pairs": [
+  {
+   "id": "A01",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:1",
+   "stated_text": "# fixture ledger-token guard observations",
+   "stated_parse": "^# (.+)$",
+   "observe_cmd": [
+    "echo",
+    "1"
+   ],
+   "parse": "^([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "1",
+   "rederive": "git -C . grep -c -E '^#' {base} -- LOG.md"
+  },
+  {
+   "id": "A02",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:2",
+   "stated_text": "## 2026-10-30 \u2014 round 79 fixture mint",
+   "stated_parse": "## (\\d{4}-\\d{2}-\\d{2})",
+   "observe_cmd": [
+    "echo",
+    "1"
+   ],
+   "parse": "^([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "1",
+   "rederive": "git -C . grep -c -E '^##' {base} -- LOG.md"
+  },
+  {
+   "id": "A03",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:3",
+   "stated_text": "total keys: 5",
+   "stated_parse": "^(total keys: \\d+)$",
+   "observe_cmd": [
+    "echo",
+    "1"
+   ],
+   "parse": "^([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "1",
+   "rederive": "git -C . grep -c -E '^key' {base} -- KEYS.txt"
+  },
+  {
+   "id": "A04",
+   "disposition": "ANNOTATE",
+   "stated_at": "KEYS.txt:1",
+   "stated_text": "key01",
+   "stated_parse": "key(\\d+)",
+   "observe_cmd": [
+    "echo",
+    "1"
+   ],
+   "parse": "^([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "1",
+   "rederive": "git -C . cat-file -s {base}:KEYS.txt"
+  }
+ ]
+}

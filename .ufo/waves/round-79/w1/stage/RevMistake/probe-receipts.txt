@@ -1,0 +1,23 @@
+# RevMistake probe receipts — 2026-10-30 (read-only, lane kotodama-shokunin, base 44f76d45)
+
+## probe 1: exact ledger observe_cmd against pinned round-77 base (read-only)
+$ git grep -c -E ^# 211f9526800906e0c585d878d265c37e5e090c15 -- LOG.md
+211f9526800906e0c585d878d265c37e5e090c15:LOG.md:149
+exit=0
+
+## probe 2: README totals lines at the same pinned base (D11 site)
+$ git show 211f9526800906e0c585d878d265c37e5e090c15:corpus/README.md | grep -n Total knowledge entries
+755:Total knowledge entries: 243.
+798:Total knowledge entries: 247.
+819:Total knowledge entries: 249.
+830:Total knowledge entries: 252.
+834:Total knowledge entries: 253.
+exit=0
+
+## probe 3: HEAD of lane + status (context)
+44f76d456c1b326a71ffdb381590af825cbf11be
+?? .ufo/waves/round-79/
+?? reports/round-79/
+
+## probe 4: distinct observed_at_base values in the pristine probe ledger (D01-D10 share one observation)
+     10 "observed_at_base": "1"

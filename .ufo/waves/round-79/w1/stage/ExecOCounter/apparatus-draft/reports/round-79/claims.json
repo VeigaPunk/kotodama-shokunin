@@ -1,0 +1,67 @@
+{
+ "round": 79,
+ "base": "d59e9fa895cb331eea0c7938a5acffa9488e21a1",
+ "claims": [
+  {
+   "id": "O",
+   "axis": "operability",
+   "guard": "tools/ledger-token-guard.py",
+   "fixtures": "reports/round-79/fixtures/o",
+   "telemetry": "reports/round-79/telemetry",
+   "counter": "reports/round-79/accept-o.py",
+   "receipts": {
+    "guard_selftest": "reports/round-79/telemetry/selftest-guard.txt",
+    "junk": "reports/round-79/telemetry/junk-o.txt",
+    "controls": "reports/round-79/telemetry/controls-o.txt",
+    "counter_selftest": "reports/round-79/telemetry/selftest-o.txt"
+   },
+   "fixture_manifest": [
+    "repo/KEYS.txt",
+    "repo/LOG.md",
+    "green.json",
+    "mut-grammar-echo.json",
+    "mut-grammar-head.json",
+    "mut-grammar-python.json",
+    "mut-observed.json",
+    "mut-stated.json"
+   ],
+   "junk_expect": {
+    "J-01": {
+     "leg": "FROZENCFG",
+     "exit": 1
+    },
+    "J-02": {
+     "leg": "GREEN",
+     "exit": 1
+    },
+    "J-03": {
+     "leg": "FROZENCFG",
+     "exit": 1
+    },
+    "J-04": {
+     "leg": "SELFTEST",
+     "exit": 1
+    }
+   },
+   "controls_expect": {
+    "C-01": 1,
+    "C-02": 2,
+    "C-03": 2,
+    "C-04": 2,
+    "C-05": 2,
+    "C-06": 2
+   },
+   "log_row_lands12": true,
+   "legs": [
+    "FROZENCFG: <freeze> is on the <lands> first-parent chain (<lands> == <freeze> is graded, never passed, as the do-nothing control); the frozen base is an ancestor of <freeze>; the guard, the fixture files and claims.json are byte-identical between <freeze> and <lands>",
+    "GREEN: the committed green fixture is truthful (the counter re-derives every stated and observed token from committed fixture bytes via git blob operations, never from guard output) and the guard extracted from <lands> bytes grades it PASS with exit 0 and a per-pair --emit agreeing with the counter's re-derivation",
+    "REDOBS: the committed mut-observed fixture really falsifies a recorded observation (counter re-derived) and the guard rejects it exit 1 with an OBS_MISMATCH label naming the pair",
+    "REDSTATED: the committed mut-stated fixture really has stated == observed (counter re-derived) and the guard rejects it exit 1 with a NOT_RED label naming the pair",
+    "REDGRAM: the committed grammar fixtures really carry a constant printer or a mutable revision (counter-verified from committed bytes) and the guard refuses them exit 2",
+    "SELFTEST: the committed guard-selftest receipt at <lands> names the <lands> guard blob sha256 and the guard's live --selftest re-run (from <lands> bytes, in explicit scratch) exits 0 and reproduces the receipt's SELFTEST line",
+    "RECEIPTS: the junk and control receipts shipped at <freeze> are committed unchanged at <lands> and carry the expected per-fixture verdict lines; the counter's own committed selftest receipt names a green clean scenario; LOG.md carries the round-79 claim-O lands row",
+    "STAMP: this run's receipt headers carry stamped == evaluated == measured == <lands>, the lands tree and this counter's sha256"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,225 @@
+# MutPath round-79 W1: committed round-74 H2 observe guard probe (raw)
+# guard module: /fast/scratch/hyaku/kotodama-r79/MutPath/base-copies/accept-ca.base.py
+# guard sha256: 8052f1e25c366a18ccb28e1c47931fd1cdd91db042153fdda570fd9f0fa8470f
+# source: git show 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-74/accept-ca.py (blob bb69fb04f5971a8d5c2d9da7b4a3f9afc65d9b12)
+# fixture clone: /fast/scratch/hyaku/kotodama-r79/MutPath/work2/fix (toplevel verified)
+# C1 (rev used in argvs) = f9c7c2e5af2d61384b947056dd0f1cd4e132a708 ; C2 (HEAD, main) = 756afc43957f18a7a530a9fba817046bb11b2c11
+# verdict columns: static = observe_problem(argv, clone); dynamic = run_observe(clone, argv) when static accepts
+
+== [K1] committed blob, legitimate
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']
+expect: ACCEPT   static: ACCEPT   dynamic: observed='| S001 | row one |\n| S002 | row two |\n' note=exit=0
+grade: MATCH
+
+== [K2] traversal out of repo via rev:path
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:../SOURCES.md']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git operand 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:../SOURCES.md' does not resolve in the clone
+grade: MATCH
+
+== [K3] absolute path via rev:path
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:/etc/passwd']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git operand 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:/etc/passwd' does not resolve in the clone
+grade: MATCH
+
+== [K4] EMPTY rev reads the mutable index
+argv: ['git', 'show', ':corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='| S001 | staged |\n' note=exit=0
+grade: GAP
+
+== [K5] symbolic HEAD (by design allowed in REV_NAMES; mutable if clone moves)
+argv: ['git', 'show', 'HEAD:corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='| S001 | changed |\n' note=exit=0
+grade: GAP
+
+== [K6] named branch as rev (mutable)
+argv: ['git', 'show', 'main:corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='| S001 | changed |\n' note=exit=0
+grade: GAP
+
+== [K7] write escape via --output (static only)
+argv: ['git', 'show', '--output=/fast/scratch/hyaku/kotodama-r79/MutPath/work2/k7-out.txt', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: NOT-EXECUTED (static_only)
+grade: GAP
+
+== [K8] pager exec escape, worktree form (static only; executed in F2b)
+argv: ['git', 'grep', '--open-files-in-pager=/fast/scratch/hyaku/kotodama-r79/MutPath/work2/pager.sh', '-c', 'S001', '--', 'corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: NOT-EXECUTED (static_only)
+grade: GAP
+
+== [K9] pager exec escape, -O short form (static only; executed in F2c)
+argv: ['git', 'grep', '-O/fast/scratch/hyaku/kotodama-r79/MutPath/work2/pager.sh', '-c', 'S001', '--', 'corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: NOT-EXECUTED (static_only)
+grade: GAP
+
+== [K10] exclude magic: named set not an existence-checked path
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', ':!corpus/SOURCES.md']
+expect: REVIEW   static: ACCEPT   dynamic: observed='f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/-dash.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/top.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/y/deep.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub/inner.md:1\n' note=exit=0
+grade: REVIEW
+
+== [K11] top-magic path that does not exist -> rc 1 -> observed as zero
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', ':/etc/passwd']
+expect: REFUSE   static: ACCEPT   dynamic: observed='0' note=exit=1 (zero matches)
+grade: GAP
+
+== [K12] glob matching nothing -> rc 1 -> observed as zero
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/nothing/*.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='0' note=exit=1 (zero matches)
+grade: GAP
+
+== [K13] path exists in clone WORKTREE, absent at @C1@ -> false zero
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/worktree-only.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='0' note=exit=1 (zero matches)
+grade: GAP
+
+== [K14] path absent everywhere
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/nope.md']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git grep path operand 'corpus/nope.md' does not exist in the clone
+grade: MATCH
+
+== [K15] legitimate colon-in-filename at rev
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md']
+expect: ACCEPT   static: ACCEPT   dynamic: observed='colon-name S001\n' note=exit=0
+grade: MATCH
+
+== [K16] second colon: path does not exist at rev
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:x']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git operand 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:x' does not resolve in the clone
+grade: MATCH
+
+== [K17] colon form with EMPTY rev (index)
+argv: ['git', 'show', ':corpus/a:b.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='colon-name S001\n' note=exit=0
+grade: GAP
+
+== [K18] EMPTY rev operand
+argv: ['git', 'grep', '-c', 'S001', '', '--', 'corpus/SOURCES.md']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: observe_cmd element is not a non-empty string
+grade: MATCH
+
+== [K19] two revision operands; regex reads one capture
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', 'HEAD', '--', 'corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:1\nHEAD:corpus/SOURCES.md:1\n' note=exit=0
+grade: GAP
+
+== [K20] named branch as grep revision (mutable)
+argv: ['git', 'grep', '-c', 'S001', 'main', '--', 'corpus/SOURCES.md']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git grep revision operand 'main' is a mutable ref (pin a 40-hex or HEAD)
+grade: MATCH
+
+== [K21] worktree read through OBSERVE_ALLOW cat (not committed bytes)
+argv: ['cat', 'corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='| S001 | worktree |\n' note=exit=0
+grade: GAP
+
+== [K22] worktree read through OBSERVE_ALLOW grep
+argv: ['grep', '-c', 'S001', 'corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed='1\n' note=exit=0
+grade: GAP
+
+== [K23] newline inside argv element
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708\n:corpus/SOURCES.md']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: shell construct '\n' in argv element 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708\n:corpus/SOURCES.md'
+grade: MATCH
+
+== [K24] -C global option redirects repo
+argv: ['git', '-C', '/etc', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git option '-C' is refused (the counter fixes repo and cwd)
+grade: MATCH
+
+== [K25] --git-dir global option
+argv: ['git', '--git-dir=/etc/x/.git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: observed=None note=empty-stdout-exit=128
+grade: GAP
+
+== [K26] cat-file traversal via rev:path
+argv: ['git', 'cat-file', '-e', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:../../etc/passwd']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git operand 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:../../etc/passwd' does not resolve in the clone
+grade: MATCH
+
+== [K27] trailing slash on blob path
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md/']
+expect: REFUSE   static: REFUSE   dynamic: -
+refusal: git operand 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md/' does not resolve in the clone
+grade: MATCH
+
+== [K28] symlink blob: committed bytes are link text, not target
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/link-abs']
+expect: REVIEW   static: ACCEPT   dynamic: observed='/etc/passwd' note=exit=0
+grade: REVIEW
+
+== [K29] tree, not blob: git show exits 0 with a listing
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub']
+expect: REFUSE   static: ACCEPT   dynamic: observed='tree f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub\n\ninner.md\n' note=exit=0
+grade: GAP
+
+== [K30] plain wildcard crosses directory separators
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/*.md']
+expect: REVIEW   static: ACCEPT   dynamic: observed='f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/-dash.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/top.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/y/deep.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub/inner.md:1\n' note=exit=0
+grade: REVIEW
+
+== [K34] worktree symlink to a file OUTSIDE the repo: lexical containment passes, exists() follows the link
+argv: ['grep', '-c', 'SECRET', 'corpus/link-ext']
+expect: REFUSE   static: ACCEPT   dynamic: observed='1\n' note=exit=0
+grade: GAP
+
+== [K31] attached -C form (static only; not in GIT_GLOBAL_OPTS exact match)
+argv: ['git', '-C/etc', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: NOT-EXECUTED (static_only)
+grade: GAP
+
+== [K32] attached -c config injection (static only)
+argv: ['git', '-ccore.pager=/fast/scratch/hyaku/kotodama-r79/MutPath/work2/pager.sh', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: NOT-EXECUTED (static_only)
+grade: GAP
+
+== [K33] --exec-path= form (static only)
+argv: ['git', '--exec-path=/fast/scratch/hyaku/kotodama-r79/MutPath/work2', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']
+expect: REFUSE   static: ACCEPT   dynamic: NOT-EXECUTED (static_only)
+grade: GAP
+
+== summary (grade GAP = committed guard accepts what the draft's fixture must refuse)
+K1 expect=ACCEPT guard=ACCEPT             MATCH
+K2 expect=REFUSE guard=REFUSE             MATCH
+K3 expect=REFUSE guard=REFUSE             MATCH
+K4 expect=REFUSE guard=ACCEPT             GAP
+K5 expect=REFUSE guard=ACCEPT             GAP
+K6 expect=REFUSE guard=ACCEPT             GAP
+K7 expect=REFUSE guard=ACCEPT (static)    GAP
+K8 expect=REFUSE guard=ACCEPT (static)    GAP
+K9 expect=REFUSE guard=ACCEPT (static)    GAP
+K10 expect=REVIEW guard=ACCEPT             REVIEW
+K11 expect=REFUSE guard=ACCEPT             GAP
+K12 expect=REFUSE guard=ACCEPT             GAP
+K13 expect=REFUSE guard=ACCEPT             GAP
+K14 expect=REFUSE guard=REFUSE             MATCH
+K15 expect=ACCEPT guard=ACCEPT             MATCH
+K16 expect=REFUSE guard=REFUSE             MATCH
+K17 expect=REFUSE guard=ACCEPT             GAP
+K18 expect=REFUSE guard=REFUSE             MATCH
+K19 expect=REFUSE guard=ACCEPT             GAP
+K20 expect=REFUSE guard=REFUSE             MATCH
+K21 expect=REFUSE guard=ACCEPT             GAP
+K22 expect=REFUSE guard=ACCEPT             GAP
+K23 expect=REFUSE guard=REFUSE             MATCH
+K24 expect=REFUSE guard=REFUSE             MATCH
+K25 expect=REFUSE guard=ACCEPT             GAP
+K26 expect=REFUSE guard=REFUSE             MATCH
+K27 expect=REFUSE guard=REFUSE             MATCH
+K28 expect=REVIEW guard=ACCEPT             REVIEW
+K29 expect=REFUSE guard=ACCEPT             GAP
+K30 expect=REVIEW guard=ACCEPT             REVIEW
+K34 expect=REFUSE guard=ACCEPT             GAP
+K31 expect=REFUSE guard=ACCEPT (static)    GAP
+K32 expect=REFUSE guard=ACCEPT (static)    GAP
+K33 expect=REFUSE guard=ACCEPT (static)    GAP
+GAP count: 19
+MATCH count: 12

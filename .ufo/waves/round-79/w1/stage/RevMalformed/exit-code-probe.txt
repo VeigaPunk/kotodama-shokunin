@@ -1,0 +1,27 @@
+# exit-code probe: uncaught exception exit status under this interpreter (no counter run)
+Python 3.14.8
+cmd: python3 -B -c 'import json; json.loads("[" * 200000 + "]" * 200000)'  exit=1
+cmd: python3 -B -c 'raise TypeError("x")'  exit=1
+cmd: python3 -B -c 'raise ValueError("x")'  exit=1
+# counter exception handlers (reports/round-76/accept-ca.py at 44f76d45):
+706:    except ValueError as exc:
+894:        except ValueError as exc:
+990:    except OSError:
+1280:    except FileNotFoundError:
+1282:    except subprocess.TimeoutExpired:
+1284:    except OSError as exc:
+1328:        except re.error as exc:
+1359:        except re.error as exc:
+1381:    except ValueError as exc:
+1399:    except OSError:
+1403:    except re.error as exc:
+1480:                except re.error as exc:
+1523:                    except re.error as exc:
+1744:            except re.error:
+2257:    except (OSError, subprocess.TimeoutExpired) as exc:
+2397:        except (OSError, ValueError):
+2423:    except OSError:
+2686:    except ScratchRefused as exc:
+3741:        except ScratchRefused as exc:
+# EXIT contract line:
+28:EXIT: 0 all twelve legs pass; 1 any leg fails; 2 input error or REFUSAL.

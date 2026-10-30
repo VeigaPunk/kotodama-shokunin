@@ -1,0 +1,30 @@
+MutPath round-79 W1: reproduction commands (all paths absolute; run from a scratch directory).
+Scratch root: /fast/scratch/hyaku/kotodama-r79/MutPath  (fresh --work dirs only; the drivers refuse existing dirs)
+Lane (read-only): /home/vgpnk/Projects/shokunin/kotodama-shokunin  base 44f76d456c1b326a71ffdb381590af825cbf11be
+Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-79/w1/stage/MutPath
+
+Tools observed: git 2.56.0 (/usr/bin/git), python3 3.14.8. No installs.
+
+1. Git-level blob-path probes, fixture repo built under --work (driver asserts fixture toplevel):
+   python3 -B $S/mutpath_probe.py --work $SCR/work  --receipt $S/receipts/mutpath-probe-raw.txt
+   python3 -B $S/mutpath_probe.py --work $SCR/work2 --receipt $S/receipts/mutpath-probe-raw-r2.txt
+   (r2 = r1 plus A5, E17, E18, F2b, F2c, F1b; every r1 result is unchanged in r2.)
+
+2. Committed round-74 H2 observe guard, bytes read from the lane at base (read-only git):
+   mkdir -p $SCR/base-copies
+   git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-74/accept-ca.py > $SCR/base-copies/accept-ca.base.py
+   sha256sum $SCR/base-copies/accept-ca.base.py   -> 8052f1e25c366a18ccb28e1c47931fd1cdd91db042153fdda570fd9f0fa8470f
+   git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin rev-parse 44f76d456c1b326a71ffdb381590af825cbf11be:reports/round-74/accept-ca.py -> bb69fb04f5971a8d5c2d9da7b4a3f9afc65d9b12
+   python3 -B $S/probe_committed_h2.py $SCR/base-copies/accept-ca.base.py $SCR/work2/fix $SCR/work2 $S/receipts/committed-h2-probe-raw-r4.txt
+   (needs step 1 r2's $SCR/work2; the probe adds two untracked files to that fixture worktree:
+    corpus/worktree-only.md and corpus/link-ext -> $SCR/work2/outside-secret.txt.
+    Earlier receipts r1 (K1-K30) and r3 (K1-K34) are superseded by r4 (K1-K35) and kept as history.)
+   Static-only cases K7, K8, K9, K31, K32, K33 are never executed; they would write a file or run a pager.
+   Execution evidence for the same escapes is in the git-level receipts (F1, F1b, F2b, F2c).
+
+Verify after running (the lane must be unchanged):
+   git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin rev-parse HEAD   -> 44f76d456c1b326a71ffdb381590af825cbf11be
+   wc -l < $SCR/work2/marker.txt   -> 2 (only the F2b and F2c pager runs appended lines; the committed-probe run adds none)
+
+Cleanup (after copying receipts; receipts are already under the stage):
+   rm -rf /fast/scratch/hyaku/kotodama-r79/MutPath

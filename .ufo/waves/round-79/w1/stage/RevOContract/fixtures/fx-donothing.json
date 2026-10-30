@@ -1,0 +1,22 @@
+{
+ "fixture": "fx-donothing",
+ "seat": "RevOContract",
+ "date": "2026-10-30",
+ "target": "tools/ledger-token-guard.py (O claim; absent at base 44f76d45, verified by probe P1)",
+ "clause": "do-nothing control: an empty ledger is not a pass",
+ "expected_verdict": "REJECT (zero pairs is the do-nothing landing; never PASS); exit nonzero",
+ "oracle": {
+  "repo": "isolated fixture repo, commit 362e71615521ddb23f1af02306251a9262a1acdb",
+  "regeneration": "commands.md section FIXTURE-REPO reproduces this repo byte-for-byte (same tree, same commit hash) from an empty dir",
+  "measurement": "probes/fixture-measure.txt holds the verbatim observe outputs every observed_at_base below was taken from"
+ },
+ "ledger": {
+  "round": 79,
+  "claim": "O",
+  "base": "362e71615521ddb23f1af02306251a9262a1acdb",
+  "pairs": []
+ },
+ "why_each_pair_is_valid": "stated_text is verbatim present at its stated_at line (probes/fixture-measure.txt); each stated_token differs from the measured observed_at_base, so every pair names a real mismatch (red at base). A conforming guard re-runs all three observe_cmds, re-derives green-7/42/stable, confirms the recorded observed_at_base, and confirms no stated_token equals its observation.",
+ "mutation": "ledger.pairs -> []",
+ "red_before_evidence": "QUALITY 25/26 do-nothing control; lands==freeze graded, never passed"
+}

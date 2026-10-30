@@ -1,0 +1,30 @@
+{
+ "round": 79,
+ "claim": "O",
+ "base": "{base}",
+ "pairs": [
+  {
+   "id": "B01",
+   "disposition": "ANNOTATE",
+   "stated_at": "LOG.md:3",
+   "stated_text": "total keys: 5",
+   "stated_parse": "total keys: (\\d+)",
+   "observe_cmd": [
+    "git",
+    "-C",
+    ".",
+    "grep",
+    "-c",
+    "-E",
+    "^key",
+    "{base}",
+    "--",
+    "KEYS.txt"
+   ],
+   "parse": ":([0-9]+)$",
+   "expected_after": "1",
+   "observed_at_base": "5",
+   "rederive": "git -C . grep -c -E '^key' {base} -- KEYS.txt"
+  }
+ ]
+}

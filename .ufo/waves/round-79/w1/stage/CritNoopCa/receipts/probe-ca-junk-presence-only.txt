@@ -1,0 +1,84 @@
+fixture root: /fast/scratch/hyaku/kotodama-r79/CritNoopCa/fixture-repo
+FREEZE=ce9bd713daaa94c741fc8c9c24a262a9f6b1efbe
+=== do-nothing (lands==freeze, no correction) ===
+PRESENCE: FAIL (no correction record at reports/round-79/telemetry/census-correction.json)
+presence exit=1
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+MISMATCH=1 UNRESOLVED=1 (no correction landed)
+binding exit=0
+
+=== honest correction (lands=0fe792cfa963) ===
+--- presence-only:
+PRESENCE: PASS (JSON record, non-empty actual_token=True)
+presence exit=0
+--- binding:
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+MISMATCH=1 UNRESOLVED=0 VERDICT=PASS (all bindings re-derived from committed bytes)
+binding exit=0
+
+=== J-CA1 lying-token ratifies receipt (lands=0e4bc7427b3b) ===
+--- presence-only:
+PRESENCE: PASS (JSON record, non-empty actual_token=True)
+presence exit=0
+--- binding:
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+LEG FAIL OLD-TOKEN (stated old_token != token in committed receipt S884 line)
+LEG FAIL ACTUAL-TOKEN (stated actual_token != registry S884 used-by cell at measured revision)
+MISMATCH=1 UNRESOLVED=1 VERDICT=FAIL legs failed: OLD-TOKEN,ACTUAL-TOKEN
+binding exit=1
+
+=== J-CA2 swap labeled as fix (lands=33368ec30c2c) ===
+--- presence-only:
+PRESENCE: PASS (JSON record, non-empty actual_token=True)
+presence exit=0
+--- binding:
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+LEG FAIL ACTUAL-TOKEN (stated actual_token != registry S884 used-by cell at measured revision)
+MISMATCH=1 UNRESOLVED=1 VERDICT=FAIL legs failed: ACTUAL-TOKEN
+binding exit=1
+
+=== J-CA3 vacuous prose note (lands=6027a950fc24) ===
+--- presence-only:
+PRESENCE: PASS (prose note mentioning S884: True)
+presence exit=0
+--- binding:
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+LEG FAIL BINDABLE (correction is not parseable JSON)
+binding exit=1
+
+=== J-CA4 truncated digest (lands=ab7ff13fa076) ===
+--- presence-only:
+PRESENCE: PASS (JSON record, non-empty actual_token=True)
+presence exit=0
+--- binding:
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+LEG FAIL RECEIPT-DIGEST (stated digest != committed receipt bytes)
+MISMATCH=1 UNRESOLVED=1 VERDICT=FAIL legs failed: RECEIPT-DIGEST
+binding exit=1
+
+=== J-CA5 wrong measured revision (lands=5ce7e38146a7) ===
+--- presence-only:
+PRESENCE: PASS (JSON record, non-empty actual_token=True)
+presence exit=0
+--- binding:
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+LEG FAIL REVISION (measured_revision='44f76d456c1b326a71ffdb381590af825cbf11be' not 40-hex ancestor of lands or != frozen expected 'ce9bd713daaa94c741fc8c9c24a262a9f6b1efbe')
+LEG FAIL RECEIPT-DIGEST (stated digest != committed receipt bytes)
+LEG FAIL OLD-TOKEN (stated old_token != token in committed receipt S884 line)
+LEG FAIL ACTUAL-TOKEN (stated actual_token != registry S884 used-by cell at measured revision)
+MISMATCH=1 UNRESOLVED=1 VERDICT=FAIL legs failed: REVISION,RECEIPT-DIGEST,OLD-TOKEN,ACTUAL-TOKEN
+binding exit=1
+
+=== J-CA6 changed receipt (in-place repair) (lands=043b8941ca30) ===
+--- presence-only:
+PRESENCE: PASS (JSON record, non-empty actual_token=True)
+presence exit=0
+--- binding:
+BASELINE MISMATCH=1 (receipt token != registry token at freeze)
+LEG FAIL RECEIPT-UNCHANGED (receipt bytes at lands != freeze)
+LEG FAIL RECEIPT-DIGEST (stated digest != committed receipt bytes)
+MISMATCH=1 UNRESOLVED=1 VERDICT=FAIL legs failed: RECEIPT-UNCHANGED,RECEIPT-DIGEST
+binding exit=1
+
+FREEZE=ce9bd713daaa94c741fc8c9c24a262a9f6b1efbe
+lands: honest=0fe792cfa963c4d68450a4cfdce8d26e3ba6c343 jca1=0e4bc7427b3b7c642f97e1f4e39f4b50675e5408 jca2=33368ec30c2c80a3eef9bbd619c7868a7d2f6a13 jca3=6027a950fc2439630f6d1c69fc23fb82204a8a4b jca4=ab7ff13fa076bc31711a1872d27d449c3ab05301 jca5=5ce7e38146a7daad8b2dc7afad3f5761b0fd951b jca6=043b8941ca30a1acd44847f02f97719c17af9b2a

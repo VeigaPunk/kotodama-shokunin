@@ -1,0 +1,623 @@
+counter blob: d58b7ee877a9cd01736631afe5efd58eedbaaedf
+c1fc755e926f8d25e622469ec018bc9ad6c22b2f99ba83447fa95baab4a9695b  /fast/scratch/hyaku/kotodama-r79/RevMalformed/run3/r76-accept-ca.py
+fixture repo root verified: /fast/scratch/hyaku/kotodama-r79/RevMalformed/run3/fx/fixrepo
+BASE b953602f88dfa328ff8f21c60a4326a91d42b926
+FIXCOMMIT cefda0ac10e48e4c062b381b0142b9047a3b2791
+cases 63
+counter source: /fast/scratch/hyaku/kotodama-r79/RevMalformed/run3/r76-accept-ca.py
+counter source sha256: c1fc755e926f8d25e622469ec018bc9ad6c22b2f99ba83447fa95baab4a9695b
+fixture repo: /fast/scratch/hyaku/kotodama-r79/RevMalformed/run3/fx/fixrepo base: b953602f88dfa328ff8f21c60a4326a91d42b926 fixcommit: cefda0ac10e48e4c062b381b0142b9047a3b2791
+
+== C00 CONTROL strict_expect=ACCEPT strict_label=clean bytes=5916
+   desc: valid 10-pair control
+   read: ok chars=5916
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== C01 CRLF strict_expect=ACCEPT strict_label=clean bytes=6158
+   desc: control with CRLF line endings (valid JSON)
+   read: ok chars=5916
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== C02 LEGIT-DUP-SITE strict_expect=ACCEPT strict_label=clean bytes=6486
+   desc: same (stated_at,stated_text) with a DIFFERENT observe_cmd: the committed R74 LC-15/LC-18 shape; must not be refused
+   read: ok chars=6486
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(11) kept_dict_pairs=11 problems=[]
+   LEG PASS LEDGER
+        pairs=11 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== C03 EXTRA-KEYS-HISTORICAL strict_expect=ACCEPT strict_label=clean bytes=6041
+   desc: documented keys seen in committed R74/R76 ledgers (observed_note, statement_after, red_at_base); must not be refused by a strict allowlist that includes them
+   read: ok chars=6041
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M01 EMPTY strict_expect=REFUSE strict_label=EMPTY bytes=0
+   desc: zero-byte ledger
+   read: ok chars=0
+   parse-diag: status=ValueError: Expecting value: line 1 column 1 (char 0) dup_keys=[] nonfinite=[]
+   load: raw_pairs=n/a kept_dict_pairs=0 problems=['ledger JSON at --freeze: Expecting value: line 1 column 1 (char 0)', 'ledger at --freeze is neither object nor list']
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'", 'pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M02 EMPTY strict_expect=REFUSE strict_label=EMPTY bytes=4
+   desc: whitespace-only ledger
+   read: ok chars=4
+   parse-diag: status=ValueError: Expecting value: line 3 column 1 (char 4) dup_keys=[] nonfinite=[]
+   load: raw_pairs=n/a kept_dict_pairs=0 problems=['ledger JSON at --freeze: Expecting value: line 3 column 1 (char 4)', 'ledger at --freeze is neither object nor list']
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'", 'pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M03 NULL-DOC strict_expect=REFUSE strict_label=TYPE bytes=5
+   desc: JSON null document
+   read: ok chars=5
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=n/a kept_dict_pairs=0 problems=['ledger at --freeze is neither object nor list']
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'", 'pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M04 EMPTY-LIST strict_expect=REFUSE strict_label=TYPE bytes=3
+   desc: top-level empty array
+   read: ok chars=3
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=0 kept_dict_pairs=0 problems=[]
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'", 'pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M05 BARE-LIST strict_expect=REFUSE strict_label=TYPE bytes=5457
+   desc: top-level array of 10 valid pairs, no round/claim/base header
+   read: ok chars=5457
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=10 kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=3 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'"]
+   R76-OBSERVED: LEDGER FAIL
+
+== M06 NO-PAIRS-KEY strict_expect=REFUSE strict_label=EMPTY bytes=217
+   desc: object without a pairs key
+   read: ok chars=217
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(0) kept_dict_pairs=0 problems=[]
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M07 EMPTY-PAIRS strict_expect=REFUSE strict_label=EMPTY bytes=231
+   desc: pairs is []
+   read: ok chars=231
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(0) kept_dict_pairs=0 problems=[]
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M08 NULL-PAIRS strict_expect=REFUSE strict_label=TYPE bytes=233
+   desc: pairs is null (load path iterates None)
+   read: ok chars=233
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: CRASH TypeError: 'NoneType' object is not iterable
+
+== M09 PAIRS-IS-OBJECT strict_expect=REFUSE strict_label=TYPE bytes=5996
+   desc: pairs is an object keyed by id (iteration yields keys)
+   read: ok chars=5996
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=dict kept_dict_pairs=0 problems=[]
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M10 PAIRS-IS-STRING strict_expect=REFUSE strict_label=TYPE bytes=240
+   desc: pairs is a string
+   read: ok chars=240
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=str kept_dict_pairs=0 problems=[]
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M11 NONDICT-PAIR-ELEMENTS strict_expect=REFUSE strict_label=TYPE bytes=5939
+   desc: 10 valid pairs plus a string, null and number element (the load filter drops them without a problem record)
+   read: ok chars=5939
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(13) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M12 BOM strict_expect=REFUSE strict_label=BOM bytes=5919
+   desc: UTF-8 BOM before an otherwise valid ledger
+   read: ok chars=5917
+   parse-diag: status=ValueError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0) dup_keys=[] nonfinite=[]
+   load: raw_pairs=n/a kept_dict_pairs=0 problems=['ledger JSON at --freeze: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)', 'ledger at --freeze is neither object nor list']
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'", 'pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M13 TRAILING-GARBAGE strict_expect=REFUSE strict_label=TRAILING bytes=5918
+   desc: valid ledger followed by 'x'
+   read: ok chars=5918
+   parse-diag: status=ValueError: Extra data: line 243 column 1 (char 5916) dup_keys=[] nonfinite=[]
+   load: raw_pairs=n/a kept_dict_pairs=0 problems=['ledger JSON at --freeze: Extra data: line 243 column 1 (char 5916)', 'ledger at --freeze is neither object nor list']
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'", 'pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M14 TWO-DOCUMENTS strict_expect=REFUSE strict_label=TRAILING bytes=11832
+   desc: two concatenated JSON documents
+   read: ok chars=11832
+   parse-diag: status=ValueError: Extra data: line 243 column 1 (char 5916) dup_keys=[] nonfinite=[]
+   load: raw_pairs=n/a kept_dict_pairs=0 problems=['ledger JSON at --freeze: Extra data: line 243 column 1 (char 5916)', 'ledger at --freeze is neither object nor list']
+   LEG FAIL LEDGER
+        pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'", 'pairs=0 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== M15 INVALID-UTF8 strict_expect=REFUSE strict_label=UTF8 bytes=5916
+   desc: byte 0xff inside a stated_text value
+   read: CRASH UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 1473: invalid start byte
+
+== M16 DEEP-NESTING strict_expect=REFUSE strict_label=DEPTH bytes=400000
+   desc: 200000 nested '[' (parser recursion depth)
+   read: ok chars=400000
+   parse-diag: status=RecursionError: Stack overflow (used 8140 kB) while decoding a JSON array from a unicode string dup_keys=[] nonfinite=[]
+   load: CRASH RecursionError: Stack overflow (used 8140 kB) while decoding a JSON array from a unicode string
+
+== M17 OVERSIZE strict_expect=REFUSE strict_label=SIZE bytes=8394478
+   desc: 8 MiB ledger: pair F-01 'why' padded (recipe-only, > 64 KiB)
+   read: ok chars=8394478
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M18 NAN-ROUND strict_expect=REFUSE strict_label=NONFINITE bytes=5917
+   desc: round is NaN
+   read: ok chars=5917
+   parse-diag: status=ok dup_keys=[] nonfinite=['NaN']
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['round=nan != frozen round 76']
+   R76-OBSERVED: LEDGER FAIL
+
+== M19 NAN-FIELD strict_expect=REFUSE strict_label=NONFINITE bytes=5934
+   desc: pair field 'weight' is NaN (no validator reads it)
+   read: ok chars=5934
+   parse-diag: status=ok dup_keys=[] nonfinite=['NaN']
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M20 INFINITY-FIELD strict_expect=REFUSE strict_label=NONFINITE bytes=5939
+   desc: pair field 'weight' is Infinity
+   read: ok chars=5939
+   parse-diag: status=ok dup_keys=[] nonfinite=['Infinity']
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M21 DUPKEY-TOP strict_expect=REFUSE strict_label=DUPKEY bytes=5930
+   desc: top-level 'round' appears twice (79 then 76)
+   read: ok chars=5930
+   parse-diag: status=ok dup_keys=['round'] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M22 DUPKEY-PAIR strict_expect=REFUSE strict_label=DUPKEY bytes=5942
+   desc: pair F-01 'expected_after' appears twice ('1' then '9')
+   read: ok chars=5942
+   parse-diag: status=ok dup_keys=['expected_after'] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M23 DUPID strict_expect=REFUSE strict_label=DUPID bytes=5916
+   desc: pair F-03 renamed to F-01 (two pairs share an id)
+   read: ok chars=5916
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: duplicate id']
+   R76-OBSERVED: LEDGER FAIL
+
+== M24 DUP-CONTENT strict_expect=REFUSE strict_label=DUP-CONTENT bytes=6484
+   desc: F-11 is a copy of F-01 with only the id changed (same site, text and observe_cmd)
+   read: ok chars=6484
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(11) kept_dict_pairs=11 problems=[]
+   LEG PASS LEDGER
+        pairs=11 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M57 OBSERVED-MISSING strict_expect=REFUSE strict_label=MISSING bytes=5888
+   desc: pair F-01 has no observed_at_base key at all (the R76 leg only checks it when present)
+   read: ok chars=5888
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M25 ID-NULL strict_expect=REFUSE strict_label=TYPE bytes=5914
+   desc: pair id is null
+   read: ok chars=5914
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['#0: empty id']
+   R76-OBSERVED: LEDGER FAIL
+
+== M26 ID-EMPTY strict_expect=REFUSE strict_label=EMPTY bytes=5912
+   desc: pair id is ''
+   read: ok chars=5912
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 [': empty id']
+   R76-OBSERVED: LEDGER FAIL
+
+== M27 ID-BLANK strict_expect=REFUSE strict_label=EMPTY bytes=5915
+   desc: pair id is whitespace only
+   read: ok chars=5915
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['   : empty id']
+   R76-OBSERVED: LEDGER FAIL
+
+== M28 ID-NUMBER strict_expect=REFUSE strict_label=TYPE bytes=5911
+   desc: pair id is the number 7
+   read: ok chars=5911
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['#0: empty id']
+   R76-OBSERVED: LEDGER FAIL
+
+== M29 DISP-NULL strict_expect=REFUSE strict_label=ENUM bytes=5910
+   desc: disposition is null
+   read: ok chars=5910
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: disposition=None']
+   R76-OBSERVED: LEDGER FAIL
+
+== M30 DISP-LIST strict_expect=REFUSE strict_label=ENUM bytes=5927
+   desc: disposition is a one-element list
+   read: ok chars=5927
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ["F-01: disposition=['ANNOTATE']"]
+   R76-OBSERVED: LEDGER FAIL
+
+== M31 DISP-CASE strict_expect=REFUSE strict_label=ENUM bytes=5916
+   desc: disposition is 'annotate' (lower case)
+   read: ok chars=5916
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ["F-01: disposition='annotate'"]
+   R76-OBSERVED: LEDGER FAIL
+
+== M32 STATED-TEXT-NUMBER strict_expect=REFUSE strict_label=TYPE bytes=5904
+   desc: stated_text is the number 42 (stated_parse present)
+   read: ok chars=5904
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   evaluate: CRASH TypeError: expected string or bytes-like object, got 'int'
+   evaluate-trace: ['    return _compile(pattern, flags).search(string)', '           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^', "TypeError: expected string or bytes-like object, got 'int'"]
+
+== M33 STATED-TEXT-LIST strict_expect=REFUSE strict_label=TYPE bytes=5927
+   desc: stated_text is a list
+   read: ok chars=5927
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   evaluate: CRASH TypeError: expected string or bytes-like object, got 'list'
+   evaluate-trace: ['    return _compile(pattern, flags).search(string)', '           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^', "TypeError: expected string or bytes-like object, got 'list'"]
+
+== M34 OBSERVE-STRING strict_expect=REFUSE strict_label=TYPE bytes=5822
+   desc: observe_cmd is a shell string, not an argv list
+   read: ok chars=5822
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: observe_cmd is a shell string, not an argv list']
+   R76-OBSERVED: LEDGER FAIL
+
+== M35 OBSERVE-INT strict_expect=REFUSE strict_label=TYPE bytes=5868
+   desc: observe_cmd has an integer element
+   read: ok chars=5868
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: observe_cmd element is not a non-empty string']
+   R76-OBSERVED: LEDGER FAIL
+
+== M36 OBSERVE-EMPTY strict_expect=REFUSE strict_label=TYPE bytes=5780
+   desc: observe_cmd is []
+   read: ok chars=5780
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: observe_cmd is not a non-empty argv list']
+   R76-OBSERVED: LEDGER FAIL
+
+== M37 PARSE-TRUE strict_expect=REFUSE strict_label=TYPE bytes=5908
+   desc: parse is the boolean true
+   read: ok chars=5908
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   evaluate: CRASH TypeError: first argument must be string or compiled pattern
+   evaluate-trace: ['  File "/usr/lib/python3.14/re/__init__.py", line 349, in _compile', '    raise TypeError("first argument must be string or compiled pattern")', 'TypeError: first argument must be string or compiled pattern']
+
+== M38 PARSE-ZERO strict_expect=REFUSE strict_label=TYPE bytes=5905
+   desc: parse is the integer 0 (falsy: raw-stdout fallback)
+   read: ok chars=5905
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: parse is not a string']
+   R76-OBSERVED: LEDGER FAIL
+
+== M39 PARSE-EMPTY strict_expect=REFUSE strict_label=REGEX bytes=5906
+   desc: parse is ''
+   read: ok chars=5906
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: parse has no capture group']
+   R76-OBSERVED: LEDGER FAIL
+
+== M40 PARSE-BAD-REGEX strict_expect=REFUSE strict_label=REGEX bytes=5907
+   desc: parse is '[' (does not compile)
+   read: ok chars=5907
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: parse does not compile: unterminated character set at position 0']
+   R76-OBSERVED: LEDGER FAIL
+
+== M41 PARSE-NO-GROUP strict_expect=REFUSE strict_label=REGEX bytes=5914
+   desc: parse has no capture group
+   read: ok chars=5914
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: parse has no capture group']
+   R76-OBSERVED: LEDGER FAIL
+
+== M42 STATED-TOKEN-EMPTY strict_expect=REFUSE strict_label=FALSY bytes=5909
+   desc: stated_token is '' and stated_parse absent (falsy value falls back to stated_text)
+   read: ok chars=5909
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M43 STATED-TOKEN-NUMBER strict_expect=REFUSE strict_label=TYPE bytes=5912
+   desc: stated_token is the integer 12345
+   read: ok chars=5912
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   evaluate: CRASH AttributeError: 'int' object has no attribute 'split'
+   evaluate-trace: ['    return " ".join((text or "").split())', '                    ^^^^^^^^^^^^^^^^^^', "AttributeError: 'int' object has no attribute 'split'"]
+
+== M44 STATED-PARSE-NUMBER strict_expect=REFUSE strict_label=TYPE bytes=5908
+   desc: stated_parse is the integer 5
+   read: ok chars=5908
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   evaluate: CRASH TypeError: first argument must be string or compiled pattern
+   evaluate-trace: ['  File "/usr/lib/python3.14/re/__init__.py", line 349, in _compile', '    raise TypeError("first argument must be string or compiled pattern")', 'TypeError: first argument must be string or compiled pattern']
+
+== M58 PARSE-UNKNOWN-SENTINEL strict_expect=REFUSE strict_label=REGEX bytes=5920
+   desc: parse is 'count_presence' (underscore typo of the count-presence sentinel: compiles as a regex with no capture group)
+   read: ok chars=5920
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: parse has no capture group']
+   R76-OBSERVED: LEDGER FAIL
+
+== M59 EMPTY-PAIR-OBJECT strict_expect=REFUSE strict_label=EMPTY bytes=5922
+   desc: an empty object {} appended as the eleventh pair
+   read: ok chars=5922
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(11) kept_dict_pairs=11 problems=[]
+   LEG FAIL LEDGER
+        pairs=11 min=10 source=freeze problems=7 ['#10: empty id', '#10: disposition=None', '#10: observe_cmd is not a non-empty argv list', '#10: parse missing (a compiling regex with a capture group, or count-presence, is required)', '#10: expected_after is not a non-empty string', '#10: stated_at=None is neither path:line nor a fleet site', '#10: stated token cannot be derived from stated_text']
+   R76-OBSERVED: LEDGER FAIL
+
+== M45 EXPECTED-NUMBER strict_expect=REFUSE strict_label=TYPE bytes=5914
+   desc: expected_after is the integer 1
+   read: ok chars=5914
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEDGER: CRASH AttributeError: 'int' object has no attribute 'split'
+
+== M46 EXPECTED-EMPTY strict_expect=REFUSE strict_label=EMPTY bytes=5915
+   desc: expected_after is ''
+   read: ok chars=5915
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: expected_after is not a non-empty string']
+   R76-OBSERVED: LEDGER FAIL
+
+== M47 OBSERVED-BOOL strict_expect=REFUSE strict_label=TYPE bytes=5917
+   desc: observed_at_base is the boolean true
+   read: ok chars=5917
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['F-01: observed_at_base is not a string']
+   R76-OBSERVED: LEDGER FAIL
+
+== M48 OBSERVED-EMPTY strict_expect=REFUSE strict_label=EMPTY bytes=5915
+   desc: observed_at_base is ''
+   read: ok chars=5915
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M49 UNKNOWN-KEY-TYPO strict_expect=REFUSE strict_label=UNKNOWNKEY bytes=5915
+   desc: observed_at_base renamed 'observed_at_bse' (no validator reads it, no error)
+   read: ok chars=5915
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M50 RED-STRING strict_expect=REFUSE strict_label=TYPE bytes=5917
+   desc: red_at_base is the string 'yes'
+   read: ok chars=5917
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M51 ROUND-FLOAT strict_expect=REFUSE strict_label=TYPE bytes=5918
+   desc: round is 76.0 (float equal to 76)
+   read: ok chars=5918
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG PASS LEDGER
+        pairs=10 min=10 source=freeze
+   R76-OBSERVED: LEDGER PASS
+
+== M52 ROUND-BOOL strict_expect=REFUSE strict_label=TYPE bytes=5918
+   desc: round is true
+   read: ok chars=5918
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ['round=True != frozen round 76']
+   R76-OBSERVED: LEDGER FAIL
+
+== M53 ROUND-STRING strict_expect=REFUSE strict_label=TYPE bytes=5918
+   desc: round is '76'
+   read: ok chars=5918
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ["round='76' != frozen round 76"]
+   R76-OBSERVED: LEDGER FAIL
+
+== M54 CLAIM-CASE strict_expect=REFUSE strict_label=ENUM bytes=5916
+   desc: claim is 'ca'
+   read: ok chars=5916
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ["claim='ca'"]
+   R76-OBSERVED: LEDGER FAIL
+
+== M55 BASE-UPPER strict_expect=REFUSE strict_label=FORMAT bytes=5916
+   desc: base is the upper-case form of BASE
+   read: ok chars=5916
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(10) kept_dict_pairs=10 problems=[]
+   LEG FAIL LEDGER
+        pairs=10 min=10 source=freeze problems=1 ["ledger base='B953602F88DFA328FF8F21C60A4326A91D42B926' != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42b926'"]
+   R76-OBSERVED: LEDGER FAIL
+
+== M56 FEWER-PAIRS strict_expect=REFUSE strict_label=FLOOR bytes=5344
+   desc: nine valid pairs: below the min-pairs floor of 10 (a floor failure, not malformed input)
+   read: ok chars=5344
+   parse-diag: status=ok dup_keys=[] nonfinite=[]
+   load: raw_pairs=list(9) kept_dict_pairs=9 problems=[]
+   LEG FAIL LEDGER
+        pairs=9 min=10 source=freeze problems=1 ['pairs=9 < min-pairs=10']
+   R76-OBSERVED: LEDGER FAIL
+
+== SUMMARY (R76 counter LEDGER leg, observed; strict expectation from manifest)
+C00  CONTROL                  strict=ACCEPT  r76=PASS pairs=10 min=10 source=freeze
+C01  CRLF                     strict=ACCEPT  r76=PASS pairs=10 min=10 source=freeze
+C02  LEGIT-DUP-SITE           strict=ACCEPT  r76=PASS pairs=11 min=10 source=freeze
+C03  EXTRA-KEYS-HISTORICAL    strict=ACCEPT  r76=PASS pairs=10 min=10 source=freeze
+M01  EMPTY                    strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a43
+M02  EMPTY                    strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a43
+M03  NULL-DOC                 strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a43
+M04  EMPTY-LIST               strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a43
+M05  BARE-LIST                strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=3 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a4
+M06  NO-PAIRS-KEY             strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+M07  EMPTY-PAIRS              strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+M08  NULL-PAIRS               strict=REFUSE  r76=CRASH:load:TypeError
+M09  PAIRS-IS-OBJECT          strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+M10  PAIRS-IS-STRING          strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=1 ['pairs=0 < min-pairs=10']
+M11  NONDICT-PAIR-ELEMENTS    strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M12  BOM                      strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a43
+M13  TRAILING-GARBAGE         strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a43
+M14  TWO-DOCUMENTS            strict=REFUSE  r76=FAIL pairs=0 min=10 source=freeze problems=4 ['round=None != frozen round 76', 'claim=None', "ledger base=None != frozen base 'b953602f88dfa328ff8f21c60a43
+M15  INVALID-UTF8             strict=REFUSE  r76=CRASH:read:UnicodeDecodeError
+M16  DEEP-NESTING             strict=REFUSE  r76=CRASH:load:RecursionError
+M17  OVERSIZE                 strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M18  NAN-ROUND                strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['round=nan != frozen round 76']
+M19  NAN-FIELD                strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M20  INFINITY-FIELD           strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M21  DUPKEY-TOP               strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M22  DUPKEY-PAIR              strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M23  DUPID                    strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: duplicate id']
+M24  DUP-CONTENT              strict=REFUSE  r76=PASS pairs=11 min=10 source=freeze
+M57  OBSERVED-MISSING         strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M25  ID-NULL                  strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['#0: empty id']
+M26  ID-EMPTY                 strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 [': empty id']
+M27  ID-BLANK                 strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['   : empty id']
+M28  ID-NUMBER                strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['#0: empty id']
+M29  DISP-NULL                strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: disposition=None']
+M30  DISP-LIST                strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ["F-01: disposition=['ANNOTATE']"]
+M31  DISP-CASE                strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ["F-01: disposition='annotate'"]
+M32  STATED-TEXT-NUMBER       strict=REFUSE  r76=CRASH:evaluate:TypeError
+M33  STATED-TEXT-LIST         strict=REFUSE  r76=CRASH:evaluate:TypeError
+M34  OBSERVE-STRING           strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: observe_cmd is a shell string, not an argv list']
+M35  OBSERVE-INT              strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: observe_cmd element is not a non-empty string']
+M36  OBSERVE-EMPTY            strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: observe_cmd is not a non-empty argv list']
+M37  PARSE-TRUE               strict=REFUSE  r76=CRASH:evaluate:TypeError
+M38  PARSE-ZERO               strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: parse is not a string']
+M39  PARSE-EMPTY              strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: parse has no capture group']
+M40  PARSE-BAD-REGEX          strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: parse does not compile: unterminated character set at position 0']
+M41  PARSE-NO-GROUP           strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: parse has no capture group']
+M42  STATED-TOKEN-EMPTY       strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M43  STATED-TOKEN-NUMBER      strict=REFUSE  r76=CRASH:evaluate:AttributeError
+M44  STATED-PARSE-NUMBER      strict=REFUSE  r76=CRASH:evaluate:TypeError
+M58  PARSE-UNKNOWN-SENTINEL   strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: parse has no capture group']
+M59  EMPTY-PAIR-OBJECT        strict=REFUSE  r76=FAIL pairs=11 min=10 source=freeze problems=7 ['#10: empty id', '#10: disposition=None', '#10: observe_cmd is not a non-empty argv list', '#10: parse missi
+M45  EXPECTED-NUMBER          strict=REFUSE  r76=CRASH:leg:AttributeError
+M46  EXPECTED-EMPTY           strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: expected_after is not a non-empty string']
+M47  OBSERVED-BOOL            strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['F-01: observed_at_base is not a string']
+M48  OBSERVED-EMPTY           strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M49  UNKNOWN-KEY-TYPO         strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M50  RED-STRING               strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M51  ROUND-FLOAT              strict=REFUSE  r76=PASS pairs=10 min=10 source=freeze
+M52  ROUND-BOOL               strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ['round=True != frozen round 76']
+M53  ROUND-STRING             strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ["round='76' != frozen round 76"]
+M54  CLAIM-CASE               strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ["claim='ca'"]
+M55  BASE-UPPER               strict=REFUSE  r76=FAIL pairs=10 min=10 source=freeze problems=1 ["ledger base='B953602F88DFA328FF8F21C60A4326A91D42B926' != frozen base 'b953602f88dfa328ff8f21c60a4326a91d42
+M56  FEWER-PAIRS              strict=REFUSE  r76=FAIL pairs=9 min=10 source=freeze problems=1 ['pairs=9 < min-pairs=10']

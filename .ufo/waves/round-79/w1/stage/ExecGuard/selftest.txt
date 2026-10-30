@@ -1,0 +1,27 @@
+SELFTEST ledger-token-guard
+scenario clean -> exit=0 LEDGER-GUARD-79: PASS pairs=2
+scenario clean -> exit=0 (expect 0) as-expected
+scenario emit-agrees -> exit=0 (expect 0) as-expected
+scenario substitute-base -> exit=0 (expect 0) as-expected
+scenario obs-mismatch -> exit=1 (expect 1) as-expected
+scenario not-red -> exit=1 (expect 1) as-expected
+scenario unobservable -> exit=1 (expect 1) as-expected
+scenario unparseable -> exit=1 (expect 1) as-expected
+scenario stated-mismatch -> exit=1 (expect 1) as-expected
+scenario refuse-interpreter -> exit=2 (expect 2) as-expected
+scenario refuse-constant-printer -> exit=2 (expect 2) as-expected
+scenario refuse-shell-meta -> exit=2 (expect 2) as-expected
+scenario refuse-unpinned-head -> exit=2 (expect 2) as-expected
+scenario refuse-other-commit -> exit=2 (expect 2) as-expected
+scenario refuse-mutable-subcommand -> exit=2 (expect 2) as-expected
+scenario refuse-c-traversal -> exit=2 (expect 2) as-expected
+scenario refuse-parse-no-group -> exit=2 (expect 2) as-expected
+scenario refuse-unknown-key -> exit=2 (expect 2) as-expected
+scenario refuse-ledger-base-differs -> exit=2 (expect 2) as-expected
+scenario refuse-emit-written -> exit=2 (expect 2) as-expected
+scenario refuse-base-not-hex -> exit=2 (expect 2) as-expected
+scenario refuse-repo-missing -> exit=2 (expect 2) as-expected
+scenario refuse-base-not-commit -> exit=2 (expect 2) as-expected
+scenario refuse-unwritable-work -> exit=2 (expect 2) as-expected
+scenario refuse-usage-label -> exit=2 (expect 2) as-expected
+SELFTEST: 24/24 scenarios green (clean green-first: yes)

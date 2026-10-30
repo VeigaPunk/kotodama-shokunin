@@ -1,0 +1,25 @@
+MutObserved probe — observed_at_base guard draft
+fixture root verified: /fast/scratch/hyaku/kotodama-r79/MutObserved/work-run3/fixture-repo
+B1=0fb31581d44b7c8ad907467e9fb49448321646eb B2=fe9d83272b6a4b32fb33d6921442bbc924006e8e
+truth: B1=3 B2=13 B1Z=0 S='PASS legs=12/12' (worktree adds 1 uncommitted key line)
+self-check hand vs truth-derived expectations: True
+
+guard                              result         disagreeing cases
+M00_pristine                       CLEAN          -
+M01_tolerance_pm1                  KILLED         C04,C05,C07,C08,C11,C13,C15,C17
+M02_accepts_obs_minus1             KILLED         C05,C07
+M03_le_instead_of_eq               KILLED         C05,C07,C09
+M04_obs_prefix_of_rec              KILLED         C02,C09,C19,C20,C21
+M05_lexical_ge                     KILLED         C04,C08,C13,C15,C18,C19,C22
+M06_stated_compared_not_observed   KILLED         C01,C02,C03,C06,C11,C14,C17,C18,C19
+M07_no_green_check                 KILLED         C11,C17
+M08_missing_field_skipped          KILLED         C12
+M09_token_is_group0                KILLED         C01,C02,C03,C06,C18,C19
+M10_first_hit_not_refused          KILLED         C16
+M11_reads_worktree_not_rev         KILLED         C01,C02,C03,C06
+M12_committed_leading_token        KILLED         C18,C19
+M13_prefix_without_boundary        KILLED         C22
+C01_control_accept_all             CONTROL-OK     C04,C05,C07,C08,C09,C10,C11,C12,C13,C15,C17,C20,C21,C22
+C02_control_reject_all             CONTROL-OK     C01,C02,C03,C06,C14,C18,C19
+
+pristine clean: True | all mutants killed: True | controls behave: True | self-check: True

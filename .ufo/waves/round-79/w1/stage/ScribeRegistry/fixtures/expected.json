@@ -1,0 +1,14 @@
+{
+  "description": "Expected exit, verdict and finding codes per fixture for skill-row-check.py --selftest. Red cases must FAIL with exactly the listed codes; green cases must PASS with none; the no-table control must exit 2 with no verdict line (a stub that always prints PASS fails every red case).",
+  "cases": [
+    {"id": "green-complete-rows", "skill": "green.md", "root": true, "exit": 0, "verdict": "PASS", "codes": []},
+    {"id": "green-escaped-pipe", "skill": "green-escaped-pipe.md", "root": true, "exit": 0, "verdict": "PASS", "codes": []},
+    {"id": "red-unescaped-pipe-shape", "skill": "red-shape-unescaped-pipe.md", "root": true, "exit": 1, "verdict": "FAIL", "codes": ["SHAPE"]},
+    {"id": "red-bare-selftest", "skill": "red-selftest-bare.md", "root": true, "exit": 1, "verdict": "FAIL", "codes": ["SELFTEST-BARE"]},
+    {"id": "red-bare-pinned", "skill": "red-pinned-bare.md", "root": true, "exit": 1, "verdict": "FAIL", "codes": ["PINNED-BARE"]},
+    {"id": "red-absent-script", "skill": "red-path-absent.md", "root": true, "exit": 1, "verdict": "FAIL", "codes": ["CMD-PATH-ABSENT"]},
+    {"id": "red-non-python-command", "skill": "red-multi.md", "root": true, "exit": 1, "verdict": "FAIL", "codes": ["CMD-NOT-PYTHON", "OWNER-EMPTY", "PINNED-BARE", "SELFTEST-BARE"]},
+    {"id": "red-per-cell-rules", "skill": "red-cells.md", "root": true, "exit": 1, "verdict": "FAIL", "codes": ["CMD-EMPTY", "KIND", "NAME-DUP", "NAME-EMPTY", "VERDICT-NOCODES", "WRITE-EMPTY", "WRITE-NOSCOPE"]},
+    {"id": "control-no-registry-table", "skill": "no-table.md", "root": true, "exit": 2, "verdict": "NONE", "codes": []}
+  ]
+}

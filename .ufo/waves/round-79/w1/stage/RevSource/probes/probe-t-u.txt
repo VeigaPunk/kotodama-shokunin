@@ -1,0 +1,44 @@
+=== PROBE T: ExecCaPass stage dir at base (re-runnability of the receipt) ===
+.ufo/waves/round-77/w2/stage/ExecCaPass/controls-summary.txt
+.ufo/waves/round-77/w2/stage/ExecCaPass/controls.py
+.ufo/waves/round-77/w2/stage/ExecCaPass/controls
+.ufo/waves/round-77/w2/stage/ExecCaPass/graded-legs.py
+.ufo/waves/round-77/w2/stage/ExecCaPass/graded-legs.txt
+.ufo/waves/round-77/w2/stage/ExecCaPass/lc-cwdscratch.err
+.ufo/waves/round-77/w2/stage/ExecCaPass/lc-cwdscratch.out
+.ufo/waves/round-77/w2/stage/ExecCaPass/ledger.json
+.ufo/waves/round-77/w2/stage/ExecCaPass/selftest.err
+.ufo/waves/round-77/w2/stage/ExecCaPass/selftest.out
+.ufo/waves/round-77/w2/stage/ExecCaPass/sha256s.txt
+.ufo/waves/round-77/w2/stage/ExecCaPass/token-evidence.py
+.ufo/waves/round-77/w2/stage/ExecCaPass/token-evidence.txt
+.ufo/waves/round-77/w2/stage/ExecCaPass/verify-base.py
+.ufo/waves/round-77/w2/stage/ExecCaPass/verify-base.txt
+.ufo/waves/round-77/w2/stage/ExecCaPass/w1-selftest-receipt.txt
+
+=== PROBE U: how graded-legs.txt was produced (ExecCaPass.md lines 36-60) ===
+```
+python3 --version            → Python 3.14.8
+git --version                → git version 2.56.0
+scratch                      → /fast/scratch/hyaku/kotodama-r77/ExecCaPass
+HYAKU_SCRATCH (selftest)     → <scratch>/work-selftest
+--work (ledger-check/controls) → <scratch>/work-lc, <scratch>/work-ctl, <scratch>/work-tok
+```
+
+No tool installs (nothing needed; pacman not invoked). No git/jj mutation in the
+lane or fleet repo; the counter's observations run in the throwaway base clone it
+materializes under `--work`, and my independent re-derivations are read-only
+`git -C <lane> show/grep`.
+No fixture git repo was needed. Scratch deleted before yield.
+
+## 2. `--selftest` (green, reproducible)
+
+```
+cd /fast/scratch/hyaku/kotodama-r77/ExecCaPass
+HYAKU_SCRATCH=$PWD/work-selftest python3 -B accept-ca.py --selftest >selftest.out 2>selftest.err
+EXIT=0
+grep -o "SELFTEST OK: [0-9]* checks across [0-9]* scenarios" selftest.out
+  → SELFTEST OK: 199 checks across 51 scenarios
+grep -o "^SELFTEST: .*" selftest.out
+  → SELFTEST: 199/199
+wc -c selftest.out   → 9248

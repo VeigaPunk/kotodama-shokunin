@@ -1,0 +1,89 @@
+{
+ "fixture": "fx-mut-nomismatch-d",
+ "seat": "RevOContract",
+ "date": "2026-10-30",
+ "target": "tools/ledger-token-guard.py (O claim; absent at base 44f76d45, verified by probe P1)",
+ "clause": "O clause (d): reject stated_token equal to the actual observation",
+ "expected_verdict": "REJECT pair OC-A1 (stated_token 'green-7' == observed 'green-7'; no mismatch exists); exit nonzero",
+ "oracle": {
+  "repo": "isolated fixture repo, commit 362e71615521ddb23f1af02306251a9262a1acdb",
+  "regeneration": "commands.md section FIXTURE-REPO reproduces this repo byte-for-byte (same tree, same commit hash) from an empty dir",
+  "measurement": "probes/fixture-measure.txt holds the verbatim observe outputs every observed_at_base below was taken from"
+ },
+ "ledger": {
+  "round": 79,
+  "claim": "O",
+  "base": "362e71615521ddb23f1af02306251a9262a1acdb",
+  "pairs": [
+   {
+    "id": "OC-A1",
+    "stated_at": "LOG.md:1",
+    "stated_text": "the calibration token is token=green-7",
+    "stated_parse": "token=([a-z0-9-]+)",
+    "stated_token": "green-7",
+    "observe_cmd": [
+     "git",
+     "-C",
+     ".",
+     "grep",
+     "-o",
+     "-E",
+     "token=[a-z0-9-]+",
+     "362e71615521ddb23f1af02306251a9262a1acdb",
+     "--",
+     "records/cal.txt"
+    ],
+    "parse": ":token=([a-z0-9-]+)$",
+    "observed_at_base": "green-7",
+    "red_at_base": false
+   },
+   {
+    "id": "OC-A2",
+    "stated_at": "LOG.md:2",
+    "stated_text": "the entry count is count:41",
+    "stated_parse": "count:([0-9]+)",
+    "stated_token": "41",
+    "observe_cmd": [
+     "git",
+     "-C",
+     ".",
+     "grep",
+     "-o",
+     "-E",
+     "count:[0-9]+",
+     "362e71615521ddb23f1af02306251a9262a1acdb",
+     "--",
+     "records/cal.txt"
+    ],
+    "parse": ":count:([0-9]+)$",
+    "observed_at_base": "42",
+    "red_at_base": true
+   },
+   {
+    "id": "OC-A3",
+    "stated_at": "LOG.md:3",
+    "stated_text": "the status flag is status=stale",
+    "stated_parse": "status=([a-z]+)",
+    "stated_token": "stale",
+    "observe_cmd": [
+     "git",
+     "-C",
+     ".",
+     "grep",
+     "-o",
+     "-E",
+     "status=[a-z]+",
+     "362e71615521ddb23f1af02306251a9262a1acdb",
+     "--",
+     "records/cal.txt"
+    ],
+    "parse": ":status=([a-z]+)$",
+    "observed_at_base": "stable",
+    "red_at_base": true
+   }
+  ]
+ },
+ "why_each_pair_is_valid": "stated_text is verbatim present at its stated_at line (probes/fixture-measure.txt); each stated_token differs from the measured observed_at_base, so every pair names a real mismatch (red at base). A conforming guard re-runs all three observe_cmds, re-derives green-7/42/stable, confirms the recorded observed_at_base, and confirms no stated_token equals its observation.",
+ "mutation": "OC-A1 stated_token: 'old-claim-3' -> 'green-7' (equals observation; also update stated_text/stated_parse to match the lie)",
+ "red_before_evidence": ".ufo/waves/round-77/w2/ScoutLogPairs.md D11 'not red at base' (stated 243 = observed 243); round-77 CLAIMS-DRAFT kill rule 'any ledger pair not red at base'"
+}

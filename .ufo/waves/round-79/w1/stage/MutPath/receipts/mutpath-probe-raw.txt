@@ -1,0 +1,629 @@
+# MutPath round-79 W1 blob-path probe receipt (raw, machine-generated)
+# driver: stage/MutPath/mutpath_probe.py (python3 -B)
+# python: 3.14.8
+# git: git version 2.56.0
+# lane (read-only): /home/vgpnk/Projects/shokunin/kotodama-shokunin base 44f76d456c1b326a71ffdb381590af825cbf11be
+# scratch work root: /fast/scratch/hyaku/kotodama-r79/MutPath/work
+# env (scrubbed, passed to every git call): GIT_AUTHOR_EMAIL, GIT_AUTHOR_NAME, GIT_COMMITTER_EMAIL, GIT_COMMITTER_NAME, GIT_CONFIG_GLOBAL, GIT_CONFIG_NOSYSTEM, GIT_PAGER, GIT_TERMINAL_PROMPT, HOME, LANG, LC_ALL, PAGER, PATH; dates pinned 2026-10-30T00:00:00Z
+
+fixture toplevel verified: /fast/scratch/hyaku/kotodama-r79/MutPath/work/fix
+C1 (base, S001 row one)  = f9c7c2e5af2d61384b947056dd0f1cd4e132a708
+C2 (second, changed)     = 756afc43957f18a7a530a9fba817046bb11b2c11
+index  : corpus/SOURCES.md staged as 'staged'; worktree 'worktree' (unstaged)
+clone-tc: diff.tc.textconv = 'tr a-z A-Z' (clone-local config; .gitattributes *.md diff=tc)
+clone-rep: git replace c2635ce6b707 -> 545dbe7d3752 (replacement blob 'S999')
+
+== probe results (argv as given; @TOKENS@ substituted; cwd shown relative to WORK)
+
+== [A1] baseline show committed blob at pinned commit
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [A2] baseline cat-file blob committed blob
+argv: ['git', 'cat-file', 'blob', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [A3] baseline cat-file -t committed blob
+argv: ['git', 'cat-file', '-t', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=5 stdout_sha256=bc103b4a84971ef6459b294a2b98568a2bfb72cded09d4acd1e16366a401f95b
+stdout: 'blob\n'
+stderr: ''
+
+== [A4] baseline rev-parse --verify committed blob
+argv: ['git', 'rev-parse', '--verify', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=41 stdout_sha256=26e18dc5f60a7eddd192d42b67bdbad71b0b9a90524aa4a5fc06bb91e3c3d994
+stdout: 'c2635ce6b707fc06ae369a0e93709151d0d780ea\n'
+stderr: ''
+
+== [B1] traversal show <rev>:../SOURCES.md (from repo root cwd)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:../SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: '../SOURCES.md' is outside repository at '/fast/scratch/hyaku/kotodama-r79/MutPath/work/fix'\n"
+
+== [B2] traversal show <rev>:corpus/../corpus/SOURCES.md
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/../corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/../corpus/SOURCES.md' exists on disk, but not in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B3] traversal show <rev>:corpus/../../../../../../etc/passwd
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/../../../../../../etc/passwd']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/../../../../../../etc/passwd' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B4] traversal show <rev>:./corpus/SOURCES.md
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:./corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [B5] traversal show <rev>:corpus//SOURCES.md (double slash)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus//SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus//SOURCES.md' exists on disk, but not in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B6] traversal show <rev>:corpus/SOURCES.md/ (trailing slash on file)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md/']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/SOURCES.md/' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B7] traversal cat-file -e <rev>:../../etc/passwd
+argv: ['git', 'cat-file', '-e', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:../../etc/passwd']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: '../../etc/passwd' is outside repository at '/fast/scratch/hyaku/kotodama-r79/MutPath/work/fix'\n"
+
+== [B8] traversal git -C corpus show <rev>:SOURCES.md (-C changes prefix)
+argv: ['git', '-C', 'corpus', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/SOURCES.md' exists, but not 'SOURCES.md'\nhint: Did you mean 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md' aka 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:./SOURCES.md'?\n"
+
+== [B9] traversal git -C corpus show <rev>:../corpus/SOURCES.md
+argv: ['git', '-C', 'corpus', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:../corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [B10] traversal show <rev>:corpus/link-abs/passwd (symlink as dir component)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/link-abs/passwd']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/link-abs/passwd' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B11] traversal show <rev>:corpus/link-abs (symlink blob, not followed)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/link-abs']   cwd: WORK/fix
+rc: 0   stdout_bytes=11 stdout_sha256=74acf31844532670be412c65b8251ee55d072549080b1cffdbea6b1a192230a0
+stdout: '/etc/passwd'
+stderr: ''
+
+== [B12] traversal cat-file blob <rev>:corpus/link-abs
+argv: ['git', 'cat-file', 'blob', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/link-abs']   cwd: WORK/fix
+rc: 0   stdout_bytes=11 stdout_sha256=74acf31844532670be412c65b8251ee55d072549080b1cffdbea6b1a192230a0
+stdout: '/etc/passwd'
+stderr: ''
+
+== [B13] traversal show <rev>:corpus/link-dir/inner.md (dir symlink component)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/link-dir/inner.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/link-dir/inner.md' exists on disk, but not in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B14] traversal show <rev>:corpus/sub (tree, not blob)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub']   cwd: WORK/fix
+rc: 0   stdout_bytes=67 stdout_sha256=d4f4f3d8b0a9dfa37dd27643d9036383997110191b0819da283f1efa2caaa769
+stdout: 'tree f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub\n\ninner.md\n'
+stderr: ''
+
+== [B15] traversal cat-file blob <rev>:corpus/sub (tree)
+argv: ['git', 'cat-file', 'blob', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: git cat-file f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub: bad file\n'
+
+== [B16] traversal show <rev>:corpus/subm (gitlink)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/subm']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: bad object f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/subm\n'
+
+== [B17] traversal cat-file -t <rev>:corpus/subm (gitlink)
+argv: ['git', 'cat-file', '-t', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/subm']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: git cat-file: could not get object info\n'
+
+== [B18] traversal show <rev>: (root tree, empty path)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:']   cwd: WORK/fix
+rc: 0   stdout_bytes=71 stdout_sha256=050ed279ae0ead9ca7c15d6a4c3e3677d7e3215da548a0e42301e7412f9d1f5a
+stdout: 'tree f9c7c2e5af2d61384b947056dd0f1cd4e132a708:\n\n.gitattributes\ncorpus/\n'
+stderr: ''
+
+== [B19] traversal show <rev>:corpus/nope.md (missing)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/nope.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/nope.md' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B20] traversal cat-file -e <rev>:corpus/nope.md (missing)
+argv: ['git', 'cat-file', '-e', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/nope.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/nope.md' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [B21] traversal cat-file -t <rev>:corpus/sub (tree type)
+argv: ['git', 'cat-file', '-t', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub']   cwd: WORK/fix
+rc: 0   stdout_bytes=5 stdout_sha256=f27e01fe7624cca3e69811a0bf9a4efd9dca9fd39f7a3a8f939cae0cfe8cdfb8
+stdout: 'tree\n'
+stderr: ''
+
+== [C1] absolute show <rev>:/etc/passwd
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:/etc/passwd']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path '/etc/passwd' exists on disk, but not in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [C2] absolute show <rev>:/corpus/SOURCES.md (leading slash)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:/corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path '/corpus/SOURCES.md' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [C3] absolute show <rev>:<abs fixture path>/corpus/SOURCES.md
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:/fast/scratch/hyaku/kotodama-r79/MutPath/work/fix/corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path '/fast/scratch/hyaku/kotodama-r79/MutPath/work/fix/corpus/SOURCES.md' exists on disk, but not in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [C4] absolute show :/corpus/SOURCES.md (no rev: commit-message search)
+argv: ['git', 'show', ':/corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: ambiguous argument ':/corpus/SOURCES.md': both revision and filename\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n"
+
+== [C5] absolute cat-file -t :/corpus/SOURCES.md (no rev: message search)
+argv: ['git', 'cat-file', '-t', ':/corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: Not a valid object name :/corpus/SOURCES.md\n'
+
+== [C6] absolute show /corpus/SOURCES.md (no colon, no --; worktree file exists)
+argv: ['git', 'show', '/corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: ambiguous argument '/corpus/SOURCES.md': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n"
+
+== [C7] absolute cat-file -e corpus/SOURCES.md (no rev, no colon)
+argv: ['git', 'cat-file', '-e', 'corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: Not a valid object name corpus/SOURCES.md\n'
+
+== [C8] absolute show corpus/SOURCES.md (no colon, no --; worktree file exists)
+argv: ['git', 'show', 'corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=345 stdout_sha256=bcd242abdc563d33cf84f4abd4816d3bba1ccda94489a44d8b2b19084d49278e
+stdout: 'commit 756afc43957f18a7a530a9fba817046bb11b2c11\nAuthor: mutpath <mutpath@example.invalid>\nDate:   Fri Oct 30 00:00:00 2026 +0000\n\n    second\n\ndiff --git a/corpus/SOURCES.md b/corpus/SOURCES.md\nindex c2635ce..3732f02 100644\n--- a/corpus/SOURCES.md\n+++ b/corpus/SOURCES.md\n@@ -1,2 +1 @@\n-| S001 | row one |\n-| S002 | row t'...(+25 bytes)
+stderr: ''
+
+== [D1] colon show <rev>:corpus/a:b.md (colon inside a legal filename)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=16 stdout_sha256=ca886f3882e967857a69f5cb2f9440c48ab77a93b4954474dff3595a08964ac6
+stdout: 'colon-name S001\n'
+stderr: ''
+
+== [D2] colon show <rev>:corpus/a:b.md:x (second colon becomes part of path)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:x']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/a:b.md:x' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [D3] colon show :corpus/SOURCES.md (EMPTY rev = index, mutable)
+argv: ['git', 'show', ':corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=18 stdout_sha256=55bed0da98ac61b32565246048d26906be5a96fbf993b5bf335adc8856bae0fd
+stdout: '| S001 | staged |\n'
+stderr: ''
+
+== [D4] colon show :corpus/a:b.md (EMPTY rev = index)
+argv: ['git', 'show', ':corpus/a:b.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=16 stdout_sha256=ca886f3882e967857a69f5cb2f9440c48ab77a93b4954474dff3595a08964ac6
+stdout: 'colon-name S001\n'
+stderr: ''
+
+== [D5] colon cat-file -e corpus/a:b.md (no rev; colon read as rev separator)
+argv: ['git', 'cat-file', '-e', 'corpus/a:b.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: invalid object name 'corpus/a'.\n"
+
+== [D6] colon show <rev>::corpus/SOURCES.md (path begins with colon)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708::corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path ':corpus/SOURCES.md' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [D7] colon show <rev>:corpus/SOURCES.md: (path ends with colon)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path 'corpus/SOURCES.md:' does not exist in 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708'\n"
+
+== [D8] colon show <rev> -- corpus/SOURCES.md (commit plus path limit, not content)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=352 stdout_sha256=b8a4922af606838287449b7472f92a47cf0afbf4cba282427bc3b8f87aca0882
+stdout: 'commit f9c7c2e5af2d61384b947056dd0f1cd4e132a708\nAuthor: mutpath <mutpath@example.invalid>\nDate:   Fri Oct 30 00:00:00 2026 +0000\n\n    base corpus/SOURCES.md S001\n\ndiff --git a/corpus/SOURCES.md b/corpus/SOURCES.md\nnew file mode 100644\nindex 0000000..c2635ce\n--- /dev/null\n+++ b/corpus/SOURCES.md\n@@ -0,0 +1,2 @@\n+| S001 '...(+32 bytes)
+stderr: ''
+
+== [D9] colon show -- <rev>:corpus/SOURCES.md (-- makes it a path)
+argv: ['git', 'show', '--', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [D10] colon show <rev>:corpus/-dash.md (leading dash in filename)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/-dash.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=10 stdout_sha256=77045fbadb8d36fbceb030603c4f8476f043a4e4b24180bac10ca41e8a023c4c
+stdout: 'dash S001\n'
+stderr: ''
+
+== [D11] colon rev-parse --verify --quiet :corpus/SOURCES.md (index blob id)
+argv: ['git', 'rev-parse', '--verify', '--quiet', ':corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=41 stdout_sha256=9d4e32e8810eb3537af288583e6c92af3580ec6a1b49165291b17feb643c8dcc
+stdout: '18b5bdf3c991c7c83ee1b2e07ba38a53b9a9b42e\n'
+stderr: ''
+
+== [D12] colon rev-parse --verify <rev>^{tree}:corpus (tree id)
+argv: ['git', 'rev-parse', '--verify', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708^{tree}:corpus']   cwd: WORK/fix
+rc: 0   stdout_bytes=41 stdout_sha256=2a46195fbb04f0be9d3de7832c9e493ee6c45d3e81bc99251d8a1c12a9ab8487
+stdout: '98e1eaf3d0273cc847dd8a60e033c7361026ded9\n'
+stderr: ''
+
+== [D13] colon cat-file blob :corpus/SOURCES.md (index blob, mutable)
+argv: ['git', 'cat-file', 'blob', ':corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=18 stdout_sha256=55bed0da98ac61b32565246048d26906be5a96fbf993b5bf335adc8856bae0fd
+stdout: '| S001 | staged |\n'
+stderr: ''
+
+== [E1] pathspec grep <rev> -- corpus/SOURCES.md
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=61 stdout_sha256=7f1d1259033dd3b7c056a1159a932795a78b51c3ada97e4eb4b3827f4f7c0fd9
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:1\n'
+stderr: ''
+
+== [E2] pathspec grep <rev> -- :/corpus/SOURCES.md (top magic)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', ':/corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=61 stdout_sha256=7f1d1259033dd3b7c056a1159a932795a78b51c3ada97e4eb4b3827f4f7c0fd9
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:1\n'
+stderr: ''
+
+== [E3] pathspec grep <rev> -- :(top)corpus/SOURCES.md
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', ':(top)corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=61 stdout_sha256=7f1d1259033dd3b7c056a1159a932795a78b51c3ada97e4eb4b3827f4f7c0fd9
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:1\n'
+stderr: ''
+
+== [E4] pathspec grep <rev> -- corpus/knowledge/*/*.md (no glob magic)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/knowledge/*/*.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=141 stdout_sha256=dcf55bcf993b97a923f3557cba390aa0258e0485274c17a0bd371eb296d001c7
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/top.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/y/deep.md:1\n'
+stderr: ''
+
+== [E5] pathspec grep <rev> -- :(glob)corpus/knowledge/*/*.md
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', ':(glob)corpus/knowledge/*/*.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=69 stdout_sha256=e6420311fe6d314d3e0ab984a81f8eb4481b9effdd7cc0815bb8f0c2a6e1fb21
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/top.md:1\n'
+stderr: ''
+
+== [E6] pathspec grep <rev> -- corpus/*.md (wildcard crosses slash?)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/*.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=381 stdout_sha256=5980b5466ca60f22c2033cdcc74a982bb9edb6d7f482c0b9b154f91310473082
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/-dash.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/top.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/y/deep.md:1\nf9'...(+61 bytes)
+stderr: ''
+
+== [E7] pathspec grep <rev> -- :(literal)corpus/*.md
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', ':(literal)corpus/*.md']   cwd: WORK/fix
+rc: 1   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [E8] pathspec grep <rev> -- corpus/nope.md (missing path)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/nope.md']   cwd: WORK/fix
+rc: 1   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [E9] pathspec grep <rev> -- corpus/a:b.md (colon mid-pathspec)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/a:b.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=57 stdout_sha256=e1ec72777c698e3ab05ad9633c08f66fdb97ebbff89a8dd7f2b5d58c8be251dc
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:1\n'
+stderr: ''
+
+== [E10] pathspec grep <rev> -- :corpus/a:b.md (leading colon pathspec)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', ':corpus/a:b.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=57 stdout_sha256=e1ec72777c698e3ab05ad9633c08f66fdb97ebbff89a8dd7f2b5d58c8be251dc
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:1\n'
+stderr: ''
+
+== [E11] pathspec grep <rev> -- corpus :!corpus/SOURCES.md (exclude magic)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus', ':!corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=320 stdout_sha256=0985b27ec714a6ab97afd728c55e403eec9ffc0e061a84d84a2f034361ec683e
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/-dash.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/a:b.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/top.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/knowledge/x/y/deep.md:1\nf9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub/inner.md:1\n'
+stderr: ''
+
+== [E12] pathspec grep <rev> -- ../corpus/SOURCES.md (outside repo)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', '../corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: ../corpus/SOURCES.md: '../corpus/SOURCES.md' is outside repository at '/fast/scratch/hyaku/kotodama-r79/MutPath/work/fix'\n"
+
+== [E13] pathspec grep <rev> -- /etc/passwd (absolute pathspec)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', '/etc/passwd']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: /etc/passwd: '/etc/passwd' is outside repository at '/fast/scratch/hyaku/kotodama-r79/MutPath/work/fix'\n"
+
+== [E14] pathspec grep <rev> -- corpus/sub (directory pathspec)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/sub']   cwd: WORK/fix
+rc: 0   stdout_bytes=63 stdout_sha256=eb9b542692232ede6aa5a74bb8c7c2c7fa2687ed4c24306871fdd9e6d6ce1583
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/sub/inner.md:1\n'
+stderr: ''
+
+== [E15] pathspec grep (no rev) -- corpus/SOURCES.md (reads WORKTREE, mutable)
+argv: ['git', 'grep', '-c', 'S001', '--', 'corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=20 stdout_sha256=9a027abefed1e091e1b94b0efdd726f43fad703690a5a33bf53549e3f457354d
+stdout: 'corpus/SOURCES.md:1\n'
+stderr: ''
+
+== [E16] pathspec grep <rev> -- corpus/link-abs (symlink blob)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/link-abs']   cwd: WORK/fix
+rc: 1   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [F1] options show --output=<WORK>/out-F1.txt <rev>:path (write escape?)
+argv: ['git', 'show', '--output=/fast/scratch/hyaku/kotodama-r79/MutPath/work/out-F1.txt', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+effect: WORK/out-F1.txt exists size=0 sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+== [F2] options grep --open-files-in-pager=<WORK>/pager.sh (exec escape?)
+argv: ['git', 'grep', '--open-files-in-pager=/fast/scratch/hyaku/kotodama-r79/MutPath/work/pager.sh', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/SOURCES.md']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: --open-files-in-pager only works on the worktree\n'
+effect: WORK/marker.txt absent
+
+== [F3] options cat-file -e -p^{commit} (option-looking rev)
+argv: ['git', 'cat-file', '-e', '-p^{commit}']   cwd: WORK/fix
+rc: 129   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "error: options '-p' and '-e' cannot be used together\n"
+
+== [F4] options rev-parse --verify -- -p^{commit}
+argv: ['git', 'rev-parse', '--verify', '--', '-p^{commit}']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: Needed a single revision\n'
+
+== [F5] options cat-file -e <rev with trailing newline>^{commit}
+argv: ['git', 'cat-file', '-e', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708\n^{commit}']   cwd: WORK/fix
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: 'fatal: Not a valid object name f9c7c2e5af2d61384b947056dd0f1cd4e132a708\n^{commit}\n'
+
+== [F6] options cat-file -e <UPPERCASE rev>^{commit}
+argv: ['git', 'cat-file', '-e', 'F9C7C2E5AF2D61384B947056DD0F1CD4E132A708^{commit}']   cwd: WORK/fix
+rc: 0   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [F7] options cat-file -e <7-char short rev>^{commit}
+argv: ['git', 'cat-file', '-e', 'f9c7c2e^{commit}']   cwd: WORK/fix
+rc: 0   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [S1] setup SETUP: create branch whose name is the 40-hex C1 pointing at C2
+argv: ['git', 'branch', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '756afc43957f18a7a530a9fba817046bb11b2c11']   cwd: WORK/fix
+rc: 0   stdout: ''   stderr: ''
+
+== [F8] options rev-parse --verify <C1>^{commit} with branch named <C1> -> C2
+argv: ['git', 'rev-parse', '--verify', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708^{commit}']   cwd: WORK/fix
+rc: 0   stdout_bytes=41 stdout_sha256=5ad48a3ebc6c6c4ca35168d1fc5969aa3647313d9871de1d588287f8668f237e
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708\n'
+stderr: "warning: refname 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708' is ambiguous.\nGit normally never creates a ref that ends with 40 hex characters\nbecause it will be ignored when you just specify 40-hex. These refs\nmay be created by mistake. For e"...(+239 bytes)
+
+== [F9] options show <C1>:corpus/SOURCES.md with branch named <C1> present
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/fix
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: "warning: refname 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708' is ambiguous.\nGit normally never creates a ref that ends with 40 hex characters\nbecause it will be ignored when you just specify 40-hex. These refs\nmay be created by mistake. For e"...(+239 bytes)
+
+== [G1] textconv show <rev>:corpus/SOURCES.md (clone with textconv driver)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/clone-tc
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [G2] textconv cat-file blob <rev>:corpus/SOURCES.md (clone with textconv driver)
+argv: ['git', 'cat-file', 'blob', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/clone-tc
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [G3] textconv show --no-textconv <rev>:corpus/SOURCES.md (clone with textconv driver)
+argv: ['git', 'show', '--no-textconv', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/clone-tc
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [H1] replace show <rev>:corpus/SOURCES.md (clone with git replace on the blob)
+argv: ['git', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/clone-rep
+rc: 0   stdout_bytes=20 stdout_sha256=8d7e3328fb920caa603b877800b287764c59f47bf602b220aff20f579b60d4b7
+stdout: '| S999 | replaced |\n'
+stderr: ''
+
+== [H2] replace cat-file blob <rev>:corpus/SOURCES.md (replace on blob)
+argv: ['git', 'cat-file', 'blob', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/clone-rep
+rc: 0   stdout_bytes=20 stdout_sha256=8d7e3328fb920caa603b877800b287764c59f47bf602b220aff20f579b60d4b7
+stdout: '| S999 | replaced |\n'
+stderr: ''
+
+== [H3] replace show --no-replace-objects <rev>:corpus/SOURCES.md
+argv: ['git', '--no-replace-objects', 'show', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md']   cwd: WORK/clone-rep
+rc: 0   stdout_bytes=38 stdout_sha256=484a53fb5392d857cff5ed23ce4f44605000a0b25d79c5e2a84f35417a8e2efa
+stdout: '| S001 | row one |\n| S002 | row two |\n'
+stderr: ''
+
+== [H4] replace grep -c S001 <rev> -- corpus/SOURCES.md (replace on blob)
+argv: ['git', 'grep', '-c', 'S001', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/SOURCES.md']   cwd: WORK/clone-rep
+rc: 1   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [H5] replace grep -c S999 <rev> -- corpus/SOURCES.md (replacement text visible?)
+argv: ['git', 'grep', '-c', 'S999', 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708', '--', 'corpus/SOURCES.md']   cwd: WORK/clone-rep
+rc: 0   stdout_bytes=61 stdout_sha256=7f1d1259033dd3b7c056a1159a932795a78b51c3ada97e4eb4b3827f4f7c0fd9
+stdout: 'f9c7c2e5af2d61384b947056dd0f1cd4e132a708:corpus/SOURCES.md:1\n'
+stderr: ''
+
+== [L1] lane-ro cat-file -e <LANE_BASE>:corpus/SOURCES.md
+argv: ['git', 'cat-file', '-e', '44f76d456c1b326a71ffdb381590af825cbf11be:corpus/SOURCES.md']   cwd: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+rc: 0   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [L2] lane-ro show <LANE_BASE>:../../../etc/passwd
+argv: ['git', 'show', '44f76d456c1b326a71ffdb381590af825cbf11be:../../../etc/passwd']   cwd: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: '../../../etc/passwd' is outside repository at '/home/vgpnk/Projects/shokunin/kotodama-shokunin'\n"
+
+== [L3] lane-ro show <LANE_BASE>:/corpus/SOURCES.md
+argv: ['git', 'show', '44f76d456c1b326a71ffdb381590af825cbf11be:/corpus/SOURCES.md']   cwd: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+rc: 128   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: "fatal: path '/corpus/SOURCES.md' does not exist in '44f76d456c1b326a71ffdb381590af825cbf11be'\n"
+
+== [L4] lane-ro for-each-ref refs/replace (lane has no replace refs?)
+argv: ['git', 'for-each-ref', '--format=%(refname)', 'refs/replace']   cwd: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+rc: 0   stdout_bytes=0 stdout_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout: ''
+stderr: ''
+
+== [L5] lane-ro ls-tree -r --name-only <LANE_BASE> -- corpus/knowledge (depth census below)
+argv: ['git', 'ls-tree', '-r', '--name-only', '44f76d456c1b326a71ffdb381590af825cbf11be', '--', 'corpus/knowledge']   cwd: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+rc: 0   stdout_bytes=13927 stdout_sha256=868347351bbffdc85b8daf605508fcefb50343abc2808c1b492e7ef66c990e91
+stdout: 'corpus/knowledge/civilizations/aegean-minoan-mycenaean.md\ncorpus/knowledge/civilizations/africa-primary-sources.md\ncorpus/knowledge/civilizations/ainu.md\ncorpus/knowledge/civilizations/akan.md\ncorpus/knowledge/civilizations/aksum-ethiopia.md\ncorpus/knowledge/civilizations/algonquian.md\ncorpus/knowledge/civilizations/am'...(+13607 bytes)
+stderr: ''
+
+== [L6] lane-ro cat-file -t <round-78 pin 4b255745>^{commit}
+argv: ['git', 'cat-file', '-t', '4b255745dea45a45d88b17e3c3fea4cdb6700cf7^{commit}']   cwd: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+rc: 0   stdout_bytes=7 stdout_sha256=50836eee574ecff79dea3b4fd40673d7d000f7a5f177d8a6a3000b59c78383b8
+stdout: 'commit\n'
+stderr: ''
+
+== DERIVED lane census at base (from L5 output)
+corpus/knowledge .md files: 253; depth>=4 (nested below a partition dir): 0
+
+== PY regex shapes for a 40-hex revision argument (no git involved)
+C1 exact       re.match(...$)=True  re.fullmatch=True
+C1 + newline   re.match(...$)=True  re.fullmatch=False
+C1 uppercase   re.match(...$)=False re.fullmatch=False
+C1 short7      re.match(...$)=False re.fullmatch=False
+'-p' + C1      re.match(...$)=False re.fullmatch=False
+
+== exit code summary
+A1 rc=0
+A2 rc=0
+A3 rc=0
+A4 rc=0
+B1 rc=128
+B2 rc=128
+B3 rc=128
+B4 rc=0
+B5 rc=128
+B6 rc=128
+B7 rc=128
+B8 rc=128
+B9 rc=0
+B10 rc=128
+B11 rc=0
+B12 rc=0
+B13 rc=128
+B14 rc=0
+B15 rc=128
+B16 rc=128
+B17 rc=128
+B18 rc=0
+B19 rc=128
+B20 rc=128
+B21 rc=0
+C1 rc=128
+C2 rc=128
+C3 rc=128
+C4 rc=128
+C5 rc=128
+C6 rc=128
+C7 rc=128
+C8 rc=0
+D1 rc=0
+D2 rc=128
+D3 rc=0
+D4 rc=0
+D5 rc=128
+D6 rc=128
+D7 rc=128
+D8 rc=0
+D9 rc=0
+D10 rc=0
+D11 rc=0
+D12 rc=0
+D13 rc=0
+E1 rc=0
+E2 rc=0
+E3 rc=0
+E4 rc=0
+E5 rc=0
+E6 rc=0
+E7 rc=1
+E8 rc=1
+E9 rc=0
+E10 rc=0
+E11 rc=0
+E12 rc=128
+E13 rc=128
+E14 rc=0
+E15 rc=0
+E16 rc=1
+F1 rc=0
+F2 rc=128
+F3 rc=129
+F4 rc=128
+F5 rc=128
+F6 rc=0
+F7 rc=0
+F8 rc=0
+F9 rc=0
+G1 rc=0
+G2 rc=0
+G3 rc=0
+H1 rc=0
+H2 rc=0
+H3 rc=0
+H4 rc=1
+H5 rc=0
+L1 rc=0
+L2 rc=128
+L3 rc=128
+L4 rc=0
+L5 rc=0
+L6 rc=0
