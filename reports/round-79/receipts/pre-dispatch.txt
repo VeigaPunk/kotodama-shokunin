@@ -1,0 +1,96 @@
+# round-79 pre-dispatch dry-run receipt (declared inputs + dry runs, QUALITY 8/9)
+# stamped revision: 98b0e53ca8f7c8c915598d115383a655692d2f84
+# evaluated revision: freeze=98b0e53ca8f7c8c915598d115383a655692d2f84 base=44f76d456c1b326a71ffdb381590af825cbf11be
+# measured revision (lane main): 98b0e53ca8f7c8c915598d115383a655692d2f84
+# tree: cff01df83f69ab832901e694219c7a074da950f3
+# counter sha256 (accept-o): a67c347208bb100517ade37ca46d7c25235cf01d4d2f0a8bce972c2fb684c633
+# counter sha256 (accept-ca): adfadbec65e15a763c9db6c6745a5d4f0e3ad5f7c658be3d9256f1da4d181620
+
+## declared commands (round manifest; run verbatim below and again at lands)
+1. python3 -B reports/round-79/accept-o.py --root . --lands <lands> --freeze <freeze> --work <scratch>
+2. python3 -B reports/round-79/accept-ca.py --root . --lands <lands> --freeze <freeze> --work <scratch>
+3. python3 -B <extracted lands tool> --selftest --work <scratch>  (guard selftest, from committed bytes at lands)
+4. python3 -B <extracted lands tool> --ledger <fixture> --repo . --base 211f9526... --work <scratch>  (red -> 1, green -> 0)
+
+## before-value evidence (claim O)
+$ git ls-tree 44f76d4 tools/ledger-token-guard.py
+(no output => guard file absent at base; tools/ itself exists: replay-frozen.py, source-audit-inventory.py)
+$ grep -c S897 SOURCES.md at base:
+count=0 (0 => row absent)
+$ grep -c ledger-token-guard SKILL.md at base:
+count=0 (0 => no registry row)
+
+## dry run 1: accept-o --lands <base> --freeze <freeze> (expect refusal exit 2)
+ACCEPT-O-79: FAIL legs=0/10 (refused: lands equals the frozen base 44f76d456c1b326a71ffdb381590af825cbf11be)
+exit=2
+
+## dry run 2: accept-ca --lands <base> --freeze <freeze> (expect refusal exit 2)
+ACCEPT-CA-79: FAIL legs=0/7 (refused: lands equals the frozen base 44f76d456c1b326a71ffdb381590af825cbf11be)
+exit=2
+
+## dry run 3: accept-o --lands <freeze> --freeze <freeze> (pre-land graded run; expect FAIL legs: tool/S897/SKILLROW absent)
+# frozen legs: 10 (FROZENCFG, TOOL, RED, GREEN, SELFTEST, REFUSALS, NOSTUB, SEPARABLE, S897, SKILLROW)
+# stamped revision: 98b0e53ca8f7c8c915598d115383a655692d2f84
+# evaluated revision: 98b0e53ca8f7c8c915598d115383a655692d2f84
+# measured revision (lane main): 98b0e53ca8f7c8c915598d115383a655692d2f84
+# freeze: 98b0e53ca8f7c8c915598d115383a655692d2f84
+# tree: cff01df83f69ab832901e694219c7a074da950f3
+# counter sha256 (self): a67c347208bb100517ade37ca46d7c25235cf01d4d2f0a8bce972c2fb684c633
+LEG PASS FROZENCFG
+  claims.json sha256 at lands b3156012cc7ff413a54a958353bd868f876788bce6bd0ec0ff7d1d018c444af7, at freeze b3156012cc7ff413a54a958353bd868f876788bce6bd0ec0ff7d1d018c444af7
+LEG FAIL TOOL
+  tools/ledger-token-guard.py absent at lands
+LEG FAIL RED
+  graded tool absent at lands
+LEG FAIL GREEN
+  graded tool absent at lands
+LEG FAIL SELFTEST
+  graded tool absent at lands
+LEG FAIL REFUSALS
+  graded tool absent at lands
+LEG FAIL NOSTUB
+  graded tool absent at lands
+LEG PASS SEPARABLE
+  changed paths freeze..lands 0; outside allowed 0
+  allowed: tools/ledger-token-guard.py, corpus/SOURCES.md, SKILL.md
+  sibling carve-outs: reports/round-79/corrections/
+LEG FAIL S897
+  S897 row at lands: none
+  ERROR 0 S897 rows at lands (want 1)
+LEG FAIL SKILLROW
+  registry rows naming tool at lands: 0
+  ERROR no registry row names tools/ledger-token-guard.py
+ACCEPT-O-79: FAIL legs=2/10
+exit=1
+
+## dry run 4: accept-ca --lands <freeze> --freeze <freeze> (pre-land graded run; expect FAIL: no correction added yet)
+# frozen legs: 7 (FROZENCFG, RECEIPT, DERIVE, CORRECTION, UNRESOLVED, SEPARABLE, NOSTUB)
+# stamped revision: 98b0e53ca8f7c8c915598d115383a655692d2f84
+# evaluated revision: 98b0e53ca8f7c8c915598d115383a655692d2f84
+# measured revision: 4b255745dea45a45d88b17e3c3fea4cdb6700cf7
+# freeze: 98b0e53ca8f7c8c915598d115383a655692d2f84
+# tree: cff01df83f69ab832901e694219c7a074da950f3
+# counter sha256 (self): adfadbec65e15a763c9db6c6745a5d4f0e3ad5f7c658be3d9256f1da4d181620
+LEG PASS FROZENCFG
+  reports/round-79/claims.json blob at lands e84d659bf291dd75768f7b58a25e78dc5cd06e54, at freeze e84d659bf291dd75768f7b58a25e78dc5cd06e54
+LEG PASS RECEIPT
+  frozen blob 62eb55b77f44bf47c283c98c5645dd7141e98495
+  blob at measured 62eb55b77f44bf47c283c98c5645dd7141e98495
+  blob at lands 62eb55b77f44bf47c283c98c5645dd7141e98495
+  sha256 at lands 05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867 (frozen 05b5011aaceb5730a94e49022c9bf657b1fe8fa49437874f96071944d9e35867)
+LEG PASS DERIVE
+  used-by lines 4, derived mismatches 1 (frozen 1)
+  MISMATCH S884 old=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md actual=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+LEG FAIL CORRECTION
+  corrections added 0 (frozen 1); valid 0
+  ERROR 0 correction(s) added, 1 frozen mismatch(es)
+  ERROR covered rows [], frozen rows ['S884']
+LEG FAIL UNRESOLVED
+  re-derived mismatches 1; covered by a valid correction 0; unresolved 1
+  UNRESOLVED S884 old=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-24-r13.md actual=corpus/knowledge/culture-material/worldbuilding-setting-practice.amend-2026-10-23.md
+LEG PASS SEPARABLE
+  changed paths freeze..lands 0; outside allowed set 0
+LEG FAIL NOSTUB
+  corrections 0; empty, placeholder or <...> keys: none
+ACCEPT-CA-79: FAIL legs=4/7
+exit=1
