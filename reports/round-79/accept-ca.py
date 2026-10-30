@@ -402,9 +402,12 @@ def grade(root, lands, freeze, work):
         derived = {"lines": 0, "mismatches": [], "errors": ["receipt or registry absent at measured revision"]}
     else:
         derived = derive(rec_raw, reg_raw)
-    changes, added, non_add = added_corrections(root, freeze, lands, cfg["correction_dir"])
-    ctx = {"cfg": cfg, "derived": derived, "changes": changes, "added": added,
-           "non_add": non_add, "valid": [], "freeze": freeze}
+    changes, added, non_add = added_corrections(
+        root, cfg["base"], lands, cfg["correction_dir"])
+    sep_changes = changes_between(root, freeze, lands)
+    ctx = {"cfg": cfg, "derived": derived, "changes": sep_changes,
+           "added": added, "non_add": non_add, "valid": [],
+           "freeze": freeze, "base_changes": changes}
 
     results = []
     for name in LEG_TABLE:
