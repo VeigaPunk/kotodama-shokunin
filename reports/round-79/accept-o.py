@@ -142,12 +142,14 @@ def changes_between(root, a, b):
     proc = git(root, "diff-tree", "--name-status", "-r", "--no-renames",
                "-z", a, b)
     out = proc.stdout.decode("utf-8", "surrogateescape")
+    recs = [r for r in out.split("\x00") if r]
     fixed = []
-    for rec in out.split("\x00"):
-        if not rec or "\t" not in rec:
-            continue
-        st, p = rec.split("\t", 1)
-        fixed.append((st[0], p))
+    i = 0
+    while i + 1 < len(recs):
+        st, p = recs[i], recs[i + 1]
+        if st and st[0] in "ACDMRT":
+            fixed.append((st[0], p))
+        i += 2
     return fixed
 
 
@@ -267,6 +269,7 @@ def leg_red(root, lands, ctx):
                        % cfg["red_ledger"]]
     if not os.path.isfile(ctx["tool_file"]):
         return False, ["graded tool absent at lands"]
+    os.makedirs(ctx["work"] + "/red", exist_ok=True)
     code, out, err = run_tool(
         ctx["tool_file"],
         _guard_args(led, root, cfg["fixture_base"], ctx["work"] + "/red"),
@@ -288,6 +291,7 @@ def leg_green(root, lands, ctx):
         return False, ["green fixture unreadable at freeze"]
     if not os.path.isfile(ctx["tool_file"]):
         return False, ["graded tool absent at lands"]
+    os.makedirs(ctx["work"] + "/green", exist_ok=True)
     code, out, err = run_tool(
         ctx["tool_file"],
         _guard_args(led, root, cfg["fixture_base"], ctx["work"] + "/green"),
@@ -344,9 +348,10 @@ def leg_refusals(root, lands, ctx):
         if src is None:
             problems.append("%s unreadable at freeze" % rel)
             continue
-        dst = os.path.join(ctx["work"], "refuse-%s" % name)
+        dst = os.path.join(ctx["work"], "refuse-ledger-%s" % name)
         with open(dst, "wb") as fh:
             fh.write(src)
+        os.makedirs(ctx["work"] + "/refuse-%s" % name, exist_ok=True)
         code, out, err = run_tool(
             ctx["tool_file"],
             _guard_args(dst, root, cfg["fixture_base"],
@@ -397,6 +402,8 @@ def leg_nostub(root, lands, ctx):
     led = os.path.join(work, "oracle-ledger.json")
     with open(led, "w") as fh:
         json.dump(ledger, fh)
+    os.makedirs(work + "/oracle-real", exist_ok=True)
+    os.makedirs(work + "/oracle-stub", exist_ok=True)
     code_r, out_r, _e = run_tool(
         ctx["tool_file"], _guard_args(led, repo, rev, work + "/oracle-real"),
         work)
