@@ -1,0 +1,50 @@
+# frozen legs: 10 (FROZENCFG, TOOL, RED, GREEN, SELFTEST, REFUSALS, NOSTUB, SEPARABLE, S897, SKILLROW)
+# stamped revision: 7fdf355aa717edcf9ef5d2a7ff7cbb7c72076209
+# evaluated revision: 7fdf355aa717edcf9ef5d2a7ff7cbb7c72076209
+# measured revision (lane main): 7fdf355aa717edcf9ef5d2a7ff7cbb7c72076209
+# freeze: 82b822a7971d236928aac7792be0964cd7ee1059
+# tree: 48eb8a38a952cdaa0c063c6dcacd69f8790d5d49
+# counter sha256 (self): 3ad26c10c168749d0126b26fe973ffcfce2cbef8d4db36910d58fef29173adc0
+LEG PASS FROZENCFG
+  claims.json sha256 at lands 5f7fde4f11810381ae01fe01d6f6bbc8d2ac6491b2fc2f216b8b3dfaf91d67ed, at freeze 5f7fde4f11810381ae01fe01d6f6bbc8d2ac6491b2fc2f216b8b3dfaf91d67ed
+LEG PASS TOOL
+  tool sha256 504c51c6fa73c0b5418c1b1ad734be926f43ed355832d5796a298af040dd7964, 17822 bytes
+LEG PASS RED
+  exit=1 (want 1); labeled pair failures=11 (want >=11); label=True
+  pairs failed: D01,D02,D03,D04,D05,D06,D07,D08,D09,D10,D11
+  verdict: pair D01: fail MISMATCH recorded=1 actual=149
+LEG PASS GREEN
+  exit=0 (want 0); PASS=True; pairs=11 expected
+  verdict: pair D01: ok observed=149
+LEG PASS SELFTEST
+  exit=0 (want 0); SELFTEST line=True; fixture repos=1; as-expected=9 (want >=9)
+  tail: SELFTEST: PASS
+LEG PASS REFUSALS
+  argv-ledger.json -> exit 2 labeled
+  bad-line-op.json -> exit 2 labeled
+  bad-op-exec.json -> exit 2 labeled
+  bad-path-dotdot.json -> exit 2 labeled
+  bad-type-observed.json -> exit 2 labeled
+  base-mismatch.json -> exit 2 labeled
+  command-ledger.json -> exit 2 labeled
+  dup-ids.json -> exit 2 labeled
+  empty-pairs.json -> exit 2 labeled
+  line-op-nomatch.json -> exit 2 labeled
+  missing-blob.json -> exit 2 labeled
+  missing-observe.json -> exit 2 labeled
+  mutable-rev.json -> exit 2 labeled
+  range-rev.json -> exit 2 labeled
+  short-hash.json -> exit 2 labeled
+  top-array.json -> exit 2 labeled
+LEG PASS NOSTUB
+  real tool on nonce ledger: exit=0 observed-token=1 carried=<re.Match object; span=(12, 22), match='observed=1'>
+  stub on same ledger: exit=0 echoes stated nonce=True, never the observed token=True
+LEG PASS SEPARABLE
+  changed paths freeze..lands 1; outside allowed 0
+  allowed: tools/ledger-token-guard.py, corpus/SOURCES.md, SKILL.md
+  sibling carve-outs: reports/round-79/corrections/, reports/round-79/accept-o.py, reports/round-79/accept-ca.py, reports/round-79/run/
+LEG PASS S897
+  S897 row at lands: | S897 | kotodama ledger-token guard — the lane's own bounded observation re-runner (repo path `tools/ledger-token-guard
+LEG PASS SKILLROW
+  registry rows naming tool at lands: 1
+ACCEPT-O-79: PASS legs=10/10

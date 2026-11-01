@@ -58,6 +58,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | clause-scoping lint for cited lines | Reports every knowledge line carrying two or more distinct S-ids (`MULTI-ID`) and every table row carrying an S-id (`TABLE-ID`), with the summary `CITED-LINES: <k> finding(s) in <m> file(s)`, exit 1/0, and exit 2 with `CITED_LINES_ERROR` on no path, a missing path or invalid UTF-8; 603 findings on the base corpus, 0 on the footwear entry | `python3 -B tools/check-cited-lines.py <path>`; `python3 -B reports/round-61/accept-o.py` ACCEPT-O-61 FAIL at revision 0 `106df397` (no tool), PASS at `efbee29c` | round 61 |
 | bounded row re-opener with archived fallback and caption verdict | Re-opens SOURCES rows: up to 3 attempts per URL on transient results (429, 5xx, timeout, connection error), more passes only after a transient failure (default 3 passes, 60 s apart), tries listed captures after the live URL and stops at the first body match; separates LOCATED body text from CAPTION_ONLY (figcaption, caption/thumbnail/gallery class or id, alt/title/aria-label/content/data-* attributes), ABSENT, UNREACHABLE and REFUSED (private hosts); one ROW line per argument, `REOPEN: k/m located`, exit 0/1/2 | `python3 -B tools/reopen-row.py [--registry PATH] [--passes N] [--gap S] S###…`; `--selftest` (32 checks); `python3 -B reports/round-62/accept-o.py` ACCEPT-O-62 FAIL at `9143fc44` (no tool), PASS at `a2c5caa5` | round 62 |
 | row-fragment checker | Checks round-65 row fragments for 11-cell shape, tier/status/opened/used-by, quote length, teaches-cell character bound, capture/live URL normalization and cross-row URL duplicates; selftest and 26-file scan pass with 0 findings | `python3 -B tools/check-row-fragments.py --selftest`; `python3 -B tools/check-row-fragments.py` | round 65 |
+| ledger-token guard | Re-runs a claim ledger's recorded observations against immutable committed blobs (ops `count`/`line`, 40-hex revs only); flags recorded≠observed drift (`MISMATCH`, the round-77 R78-M1 class) and stated==observed echo (`VACUOUS`); refuses mutable revs, unsafe paths, command-channel keys, unknown ops, missing blobs with the stable `LEDGER-TOKEN-GUARD` label (exit 2) | `python -B tools/ledger-token-guard.py --selftest --work <scratch>` (9/9); `python -B tools/ledger-token-guard.py --ledger reports/round-79/fixtures/r77-probe-observe-schema-red.json --repo . --base 211f9526800906e0c585d878d265c37e5e090c15 --work <scratch>` exits 1 with `FAIL pairs=11 failed=11 mismatched=10 vacuous=1` (`reports/round-79/telemetry/guard-direct-red-run14.txt`); sha256 `504c51c6…f040dd7964`; SOURCES row S897; SKILL.md registry row `:767` | round 79 |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -1571,3 +1572,28 @@ Final lane-tip measurement at `c28ea2194ae6d0c874c011d3b1b59409a20bd422`: `ACCEP
 ## Round 78 — honest stop (2026-10-27)
 
 No claim survived pre-data scoping; no axis score delta is recorded. Freshness is historically the lowest non-retired axis but its move remains paused by the open round-11 L0 question; the SCORECARD carries no saturation evidence to invoke the stagnation nudge. No source or knowledge entry was opened/added for a claim. The missing 64-seat swarm floor is a conformance defect; no wave was padded without a real claim.
+
+## Axes — round 79 (2026-10-30 run 12 + 2026-10-31 run 14, hyaku zcode; author-side, pending non-author closure)
+
+Base `44f76d456c1b326a71ffdb381590af825cbf11be`; freeze `82b822a7971d236928aac7792be0964cd7ee1059`
+(supersedes `98b0e53`); claim O lands `7fdf355aa717edcf9ef5d2a7ff7cbb7c72076209`; Ca lands
+`82b822a` (same commit as the freeze; the correction derives from `base..lands`). Run 12 landed
+both counters green; run 14 re-derived every verdict on the new Windows host, committed the
+missing QUALITY 23 selftest receipts, and recorded counter revision 2. Do-nothing control: at
+`--lands` = base both counters refuse, exit 2 (`kotodama-pre-freeze-dry.txt` in the fleet repo
+`.ufo/reports/round-79/`); a control that lands nothing cannot acquire the tool, move the row
+count, or bind the receipt drift.
+
+| axis | verdict | before → after / observation | counting command (runs on this host) | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O — capability acquisition) | no `tools/ledger-token-guard.py` at base (`git ls-tree 44f76d4 tools/` has no such path; recorded-observation drift like round-77's R78-M1 was catchable only by hand) → guard lands: red fixture 11/11 pair failures, green 11/11 PASS, selftest 9/9, 16/16 refusal fixtures, fresh-nonce oracle vs echo stub; `ACCEPT-O-79: PASS legs=10/10` at lands `7fdf355` | `python -B reports/round-79/accept-o.py --root <lane> --lands 7fdf355aa717edcf9ef5d2a7ff7cbb7c72076209 --freeze 82b822a7971d236928aac7792be0964cd7ee1059 --work <scratch>` | `reports/round-79/telemetry/lands-rerun-o-run14.txt` (this host, exit 0); fleet receipt `kotodama-accept-o-lands.txt`; `selftest-o-run14.txt`; `guard-direct-red-run14.txt` |
+| calibration | unchanged (unclaimed record repair — no score delta, per the CLAIMS-DRAFT pre-freeze scope disposition and QUALITY 20) | round-78 census receipt S884 used-by drift (receipt line 33 names `…amend-2026-10-24-r13.md`; registry at measured `4b255745` names `…amend-2026-10-23.md`) → append-only correction `reports/round-79/corrections/ca79-r78-s884.md` binds receipt blob `62eb55b7…`, sha256 `05b5011a…`, both tokens; unresolved mismatches 1 → 0; receipt not rewritten; `ACCEPT-CA-79: PASS legs=7/7` at lands `82b822a` | `python -B reports/round-79/accept-ca.py --root <lane> --lands 82b822a7971d236928aac7792be0964cd7ee1059 --freeze 82b822a7971d236928aac7792be0964cd7ee1059 --work <scratch>` | `reports/round-79/telemetry/lands-rerun-ca-run14.txt` and `…-postfix-run14.txt` (this host, exit 0 both, byte-identical leg lines); fleet receipt `kotodama-accept-ca-lands.txt` |
+| depth / coverage / freshness / adjacency | unchanged | no knowledge-entry, registry-scope, live-surface or boundary move this round; registry rows 820 → 821 (own-work S897 only); freshness move stays paused by the open round-11 L0 question (no stagnation-nudge evidence on file) | `grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md` = 821 | `corpus/lessons/round-79.md` Gate; census receipts `census-start-run14.txt` / `census-end-run14.txt` (exit 0) |
+
+Admission (author-side): claim O verifies (capability demonstrated running, counter green at
+lands, reproduced on this host); the Ca correction verifies; no axis is harmed — depth,
+coverage, freshness, adjacency untouched, calibration carries the repair without a delta.
+Capability row `ledger-token guard` enters `## Capabilities` this round. Counter revision 2
+(`accept-ca.py` selftest host-portability, red-before committed) is recorded in
+`reports/round-79/counter-revisions.md`; the falsify-wave integration of the ~20 W1 stage
+findings stays routed to round 80.

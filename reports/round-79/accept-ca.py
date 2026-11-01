@@ -523,7 +523,10 @@ def build_fixture(fix):
     def put(rel, data):
         p = os.path.join(fix, rel)
         os.makedirs(os.path.dirname(p), exist_ok=True)
-        with open(p, "w", encoding="utf-8") as fh:
+        # newline="\n": fixture blobs must carry LF on every host; a text-mode
+        # write on Windows produces CRLF blobs and the used-by parser ($-anchored
+        # regex) then reports "unparsed used-by line" (r79 run-14 red-before).
+        with open(p, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(data)
 
     def commit(msg):
@@ -653,7 +656,10 @@ def selftest(work, keep):
     with open(os.path.join(work, "selftest-ca79.txt"), "w", encoding="utf-8") as fh:
         fh.write(out)
     if not keep:
-        shutil.rmtree(st)
+        # ignore_errors: on Windows, git marks object files read-only and a
+        # strict rmtree raises PermissionError after SELFTEST prints (r79
+        # run-14); accept-o's selftest has cleaned up this way since freeze.
+        shutil.rmtree(st, ignore_errors=True)
     return 0 if passed == len(rows) else 1
 
 
