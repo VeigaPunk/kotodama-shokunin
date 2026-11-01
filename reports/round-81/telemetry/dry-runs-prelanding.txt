@@ -1,0 +1,62 @@
+# round-81 do-nothing controls + freeze dry-runs (pre-landing, QUALITY 8/9/23/25)
+# base: 1c0e3d4d712da2fae25d27ece1eb799d26db0975
+# freeze: b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+
+== do-nothing controls: --lands = base, --freeze = freeze -> refused, exit 2 ==
+ACCEPT-O-81: FAIL legs=0/6 (refused: lands equals the frozen base 1c0e3d4d712da2fae25d27ece1eb799d26db0975 (do-nothing control))
+exit-o=2
+ACCEPT-C-81: FAIL legs=0/6 (refused: lands equals the frozen base 1c0e3d4d712da2fae25d27ece1eb799d26db0975 (do-nothing control))
+exit-c=2
+ACCEPT-D-81: FAIL legs=0/7 (refused: lands equals the frozen base 1c0e3d4d712da2fae25d27ece1eb799d26db0975 (do-nothing control))
+exit-d=2
+
+== freeze dry-runs: --lands = freeze (graded, never passed; every land-bearing leg FAILs on the named absence) ==
+# frozen legs: 6 (FROZENCFG, GEN, MUTRUN, FIXRUN, SELFTEST, SEPARABLE)
+# stamped revision: b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# evaluated revision: b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# measured revision (lane main): b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# tree: 4a2bdc879ff7af49ce3c2f78df53df029ca9d871
+# counter sha256 (self): 3da4dfcb49b5bc901cb304cd8ad61ba96b18b064bcb3f7fefc16824f87588a50
+# config source: git show b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25:reports/round-81/claims.json (never the graded tree)
+# config sha256 (frozen claims.json): 0f1fbd990874debcd2437ec1a7b361917c809a55edb1a5c0deae762f2f64cc4a
+LEG PASS FROZENCFG (lands bytes == freeze bytes)
+LEG FAIL GEN (generator absent at lands)
+LEG FAIL MUTRUN (<not run>)
+LEG FAIL FIXRUN (<not run>)
+LEG FAIL SELFTEST (receipt absent at lands)
+LEG PASS SEPARABLE (0 foreign paths)
+ACCEPT-O-81: FAIL legs=2/6
+exit-o=1
+# frozen legs: 6 (FROZENCFG, TOOL, REDRUN, RECEIPT, DISPOSED, SEPARABLE)
+# stamped revision: b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# evaluated revision: b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# measured revision (lane main): b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# tree: 4a2bdc879ff7af49ce3c2f78df53df029ca9d871
+# counter sha256 (self): 2d99bb343f0b876976b7757b2c102edce38105172b8e7bb4fc3b3da7a7c0ff1b
+# config source: git show b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25:reports/round-81/claims.json (never the graded tree)
+# config sha256 (frozen claims.json): 0f1fbd990874debcd2437ec1a7b361917c809a55edb1a5c0deae762f2f64cc4a
+LEG PASS FROZENCFG (lands bytes == freeze bytes)
+LEG FAIL TOOL (checker absent at lands)
+LEG FAIL REDRUN (checker not usable at lands)
+LEG PASS RECEIPT (all orphans + summary named)
+LEG PASS DISPOSED (all orphans + checker named)
+LEG PASS SEPARABLE (0 foreign paths)
+ACCEPT-C-81: FAIL legs=4/6
+exit-c=1
+# frozen legs: 7 (FROZENCFG, ENTRY, LINT, ROWS, COUPLES, NOCANON, SEPARABLE)
+# stamped revision: b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# evaluated revision: b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# measured revision (lane main): b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25
+# tree: 4a2bdc879ff7af49ce3c2f78df53df029ca9d871
+# counter sha256 (self): 72b10d25444093f2c4cdb8641c103f0880114b034ca44a1aa5294435fcdadd33
+# config source: git show b1ebb6097e3a269c2dc53fe73d5ea07316c7bd25:reports/round-81/claims.json (never the graded tree)
+# config sha256 (frozen claims.json): 0f1fbd990874debcd2437ec1a7b361917c809a55edb1a5c0deae762f2f64cc4a
+LEG PASS FROZENCFG (lands bytes == freeze bytes)
+LEG FAIL ENTRY (entry absent at lands)
+LEG FAIL LINT (entry not usable)
+LEG FAIL ROWS (S901 absent; S902 absent; S903 absent)
+LEG FAIL COUPLES (no targets found)
+LEG FAIL NOCANON (canon marker missing)
+LEG PASS SEPARABLE (0 foreign paths)
+ACCEPT-D-81: FAIL legs=2/7
+exit-d=1
