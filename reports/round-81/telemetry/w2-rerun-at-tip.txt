@@ -1,0 +1,10 @@
+# w2-rerun: tool sha256 cca7db1748bc4e49406cd768a3339454b8a59d63086b06d87a10082be3107f9a at 427c627a7c20e5c62e1c7fbfc65b49851e9eb7bc
+# w2-rerun: r80 scratch shas for m2/m4/m5 stay historical (1d07c6ad65e1 / 851035848750 / 6c863a4a30d9)
+clean    selftest exit=0 SELFTEST: PASS
+control  hardened env-probe injected_leaked=0
+mutant m1-replace-refusal-removed sha256=ba5d8b91d0600f02b3fc7a7d323c0bd2bc1f87438cf0ff2f38656dc9c961fb04 pin=MATCH selftest exit=1 SELFTEST: FAIL [replace refs refused] caught=True
+mutant m2-input-cap-raised sha256=71143bea9f3e2371afedff3426f656adf859744aeb240e5a1ea12c11490695f4 pin=MATCH selftest exit=1 SELFTEST: FAIL [oversize ledger refused] caught=True
+mutant m3-recursion-catch-removed sha256=f998e41b1d91f85b50ed51ddd474fb1b08dc6b8bbc508710cb544a54aafbb47d pin=MATCH selftest exit=1 SELFTEST: FAIL [deep-nested ledger refused] caught=True
+mutant m4-duplicate-floor-removed sha256=6f1c3379d8769b6c048db3582cb5331b7c6d90b37b8496b9e77455a1d9ff2c3d pin=MATCH selftest exit=1 SELFTEST: FAIL [duplicate observation refused] caught=True
+mutant m5-env-drop-reverted sha256=942f4c85f66f0a4c4a9d21cc7d2c8ee4ed4ca39a92e21a33e141c8eb0bc0005d pin=MATCH selftest=env-probe leaked=10 injected_leaked=4 caught=True
+W2-RERUN: PASS 5/5 (clean green first)

@@ -1,0 +1,63 @@
+JUNK-RECEIPT round-81 claim O (accept-o81.py; each junk landing must FAIL)
+# ---- junk-o / JO1 w2 generator deleted ----
+commit: f3c41e1e84a7f5a7f8f99e269a303d945eeb03a2
+command: python -B reports/round-81/accept-o81.py --root <fixture-repo> --lands f3c41e1e84a7 --freeze b1ebb6097e3a --work <scratch>
+LEG FAIL GEN (generator absent at lands)
+LEG FAIL MUTRUN (<not run>)
+LEG FAIL FIXRUN (<not run>)
+verdict: ACCEPT-O-81: FAIL legs=3/6 exit=1
+named-legs-failed: ['GEN'] (wanted ['GEN']) -> OK
+
+# ---- junk-o / JO2 claims.json shrunk in graded tree ----
+commit: bff84eec2f465e53be39fece9815faaf41dd8724
+command: python -B reports/round-81/accept-o81.py --root <fixture-repo> --lands bff84eec2f46 --freeze b1ebb6097e3a --work <scratch>
+LEG FAIL FROZENCFG (claims.json at lands differs from the frozen bytes)
+LEG FAIL MUTRUN (W2-RERUN: FAIL (clean scenario not green first))
+LEG FAIL FIXRUN (<no verdict>)
+verdict: ACCEPT-O-81: FAIL legs=3/6 exit=1
+named-legs-failed: ['FROZENCFG'] (wanted ['FROZENCFG']) -> OK
+
+JUNK-RECEIPT round-81 claim C (accept-c81.py; each junk landing must FAIL)
+# ---- junk-c / JC1 orphan checker deleted ----
+commit: ca9bd92d59eb647d02a9780dd762c4954bec39d7
+command: python -B reports/round-81/accept-c81.py --root <fixture-repo> --lands ca9bd92d59eb --freeze b1ebb6097e3a --work <scratch>
+LEG FAIL TOOL (checker absent at lands)
+LEG FAIL REDRUN (checker not usable at lands)
+verdict: ACCEPT-C-81: FAIL legs=4/6 exit=1
+named-legs-failed: ['TOOL'] (wanted ['TOOL']) -> OK
+
+# ---- junk-c / JC2 red sweep receipt deleted ----
+commit: 3b6b6790814675d9146026f1317aeb14fa216d74
+command: python -B reports/round-81/accept-c81.py --root <fixture-repo> --lands 3b6b67908146 --freeze b1ebb6097e3a --work <scratch>
+LEG FAIL TOOL (marker missing: 'SELFTEST: PASS')
+LEG FAIL REDRUN (checker not usable at lands)
+LEG FAIL RECEIPT (receipt absent at lands)
+verdict: ACCEPT-C-81: FAIL legs=3/6 exit=1
+named-legs-failed: ['RECEIPT'] (wanted ['RECEIPT']) -> OK
+
+JUNK-RECEIPT round-81 claim D (accept-d81.py; each junk landing must FAIL)
+# ---- junk-d / JD1 entry deleted at lands ----
+commit: 0561f158f275dc6b4ee1192f2f5eef41cc8529c3
+command: python -B reports/round-81/accept-d81.py --root <fixture-repo> --lands 0561f158f275 --freeze b1ebb6097e3a --work <scratch>
+LEG FAIL ENTRY (entry absent at lands)
+LEG FAIL LINT (entry not usable)
+LEG FAIL COUPLES (no targets found)
+LEG FAIL NOCANON (canon marker missing)
+verdict: ACCEPT-D-81: FAIL legs=3/7 exit=1
+named-legs-failed: ['ENTRY'] (wanted ['ENTRY']) -> OK
+
+# ---- junk-d / JD2 table-row S-id mutant ----
+commit: a8758664d5a08ae1413e9b479ffa4eb3fc06f694
+command: python -B reports/round-81/accept-d81.py --root <fixture-repo> --lands a8758664d5a0 --freeze b1ebb6097e3a --work <scratch>
+LEG FAIL ENTRY (entry sha mismatch)
+LEG FAIL LINT (entry not usable)
+verdict: ACCEPT-D-81: FAIL legs=5/7 exit=1
+named-legs-failed: ['LINT'] (wanted ['LINT']) -> OK
+
+# ---- junk-d / JD3 S902 status flipped ----
+commit: 0cac06bae7fd63dfa81175e15200d2b8c93d55e1
+command: python -B reports/round-81/accept-d81.py --root <fixture-repo> --lands 0cac06bae7fd --freeze b1ebb6097e3a --work <scratch>
+LEG FAIL ROWS (S902 status 'queued')
+verdict: ACCEPT-D-81: FAIL legs=6/7 exit=1
+named-legs-failed: ['ROWS'] (wanted ['ROWS']) -> OK
+
