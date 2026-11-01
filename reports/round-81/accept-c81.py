@@ -190,7 +190,7 @@ def main():
         tp = os.path.join(wd, "check-orphan-evidence.py")
         with open(tp, "wb") as fh:
             fh.write(tb)
-        r = subprocess.run([py, "-B", tp, "--fleet", args.fleet, "--repo", repo,
+        r = subprocess.run([py, "-B", tp, "--fleet", args.fleet,
                             "--lane", repo, "--extra-dir",
                             os.path.join(repo, "corpus", "lessons")],
                            capture_output=True)

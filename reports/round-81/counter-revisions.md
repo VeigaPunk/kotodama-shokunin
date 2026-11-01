@@ -8,3 +8,4 @@ Selftest receipts were re-run after the re-freeze only where the counter bytes
 changed: no counter byte changed (the counters were never edited after the
 first freeze), so the committed selftest receipts (`selftest-o81.txt`,
 `selftest-c81.txt`, `selftest-d81.txt`) stand.
+| accept-c81.py r2: REDRUN argv carried `--repo` (a flag the checker does not define) - the fresh checker run answered exit 2 (argparse usage error) and REDRUN read it as an orphan-set mismatch | accept-c81 r1 sha `2d99bb343f0b876976b7757b2c102edce38105172b8e7bb4fc3b3da7a7c0ff1b` | r2 sha in `selftest-c81-r2.txt` | argv fix only - no predicate moved (the leg still requires exit 1 + exactly the frozen orphan set + the frozen summary line) | red-before: `telemetry/lands-c81-graded-r2.txt` (first r2 graded run at the re-freeze lands: `LEG FAIL REDRUN (orphans [] != frozen set (exit 2))`); selftest re-run: `telemetry/selftest-c81-r2.txt` |
