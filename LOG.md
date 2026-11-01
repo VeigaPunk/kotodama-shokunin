@@ -4430,3 +4430,78 @@ annotation corrections) is fully executed.
    committed bytes (r76 FAIL receipt, r77 missing Gate = 0, r78 drift bound by
    the r79 correction); carried rejects not re-litigated; freshness paused
    (round-11 L0). Tool installs: none. Stale-lane: none.
+
+## Round 81 — 2026-11-01 (Windows host; fresh-session L1; FRESH-START round, r80 carry-in round)
+
+Base `1c0e3d4d712da2fae25d27ece1eb799d26db0975`. Three claims declared, frozen
+(`reports/round-81/claims.json`), landed and counter-verified; all four r80
+carry-in items executed (items 1+2+4 as claims, item 3 routed around).
+
+1. **Carry-in 4 FIRST (commit `316641d8`):** the orphaned-evidence sweep's
+   red-before receipt (`reports/round-81/telemetry/orphan-sweep-red.txt`: 3
+   orphans over 510 cited paths in 103 documents, exit 1) + the dispositions
+   record (`reports/round-81/annotations/r81-orphan-dispositions.md`) +
+   census-start receipt. Zero ORPHAN-ONDISK — nothing landable exists; the
+   three absent citations are disclosed per-orphan (r68 fixture-hypothetical
+   prose; r78 S884 drift bounded by the r79 correction, bytes unknowable; r63
+   spot-check's historical quote of its repaired defect). No bytes fabricated.
+2. **Claim O (operability) — carry-ins 1+2.** `reports/round-81/mutants/
+   w2-mutants.py` (sha `048f1c74…`): the r80 W2 pass re-runnable from
+   committed bytes — 5/5 mutants caught, clean green first, hardened env
+   control; m1/m3 byte-exact vs the r80 recorded shas, m2/m4/m5 deterministic
+   r81 pins (r80 scratch shas kept historical).
+   `reports/round-81/fixtures/replacerefs/build-fixture.py` (sha
+   `aaefc366…`): the r80 `junk-replacerefs.json` template completed by a
+   committed builder (placeholders filled, `observe.line` added, stated set
+   to the shadowed view); r79 bytes `PASS pairs=1` / hardened `REFUSED
+   --repo carries refs/replace entries` re-derived. Landed `d284058f`.
+   Counter: `ACCEPT-O-81: PASS legs=6/6` (`telemetry/lands-o81-graded.txt`,
+   `-r2.txt`).
+3. **Claim C (calibration, capability) — carry-in 4 instrument.**
+   `tools/check-orphan-evidence.py` (sha `e99658df…`, selftest 11/11): 103
+   documents / 510 cited paths scanned mechanically; OK-COMMITTED /
+   OK-FLEET / ORPHAN-ONDISK / ORPHAN-ABSENT classification; exit 1 while any
+   orphan stands. Landed `1ede6961`, counter r2 `c9dd27a1`.
+   `ACCEPT-C-81: PASS legs=6/6` (`telemetry/lands-c81-graded-r3.txt`);
+   red-befores kept (`lands-c81-graded-r1-TOOL-marker.txt`,
+   `lands-c81-graded-r2.txt`); capability row in SCORECARD.
+4. **Claim D (depth, sourced).**
+   `corpus/knowledge/myth-symbol/ordeal-judicial-proof-rituals.md` (255th
+   knowledge file; cited-lines lint 0 findings) grounded in S901 (Lea,
+   *Superstition and Force*, tier A), S902 (Millingen, *History of Duelling*
+   vol. 1, tier A), S903 (EB11 "Ordeal", tier B) — all opened 2026-11-01 by
+   plain request (HTTP 200 each; same-page Wayback captures on file; evidence
+   records `reports/round-81/evidence/`). SOURCES 824 → 827. Landed
+   `4ad08c83`. Counter: `ACCEPT-D-81: PASS legs=7/7`
+   (`telemetry/lands-d81-graded.txt`, `-r2.txt`). The EB11 "Coin"/"Mint"
+   articles were probed first and rejected without rows (stub /
+   client-side transclusion — no plain-text quotes findable).
+5. **Freeze/re-freeze + counter revisions (QUALITY 23).** Freeze `b1ebb609`
+   (claims, 3 counters, S901–S903 captures) → pre-landing receipts `d38135d6`
+   (selftests 6/6, 6/6, 5/5; do-nothing controls refuse at base exit 2;
+   freeze dry-runs graded with named absences) → claim lands → **re-freeze
+   `d583ccae`** (C source-marker `SELFTEST: PASS` → `SELFTEST:`; no predicate
+   moved; red-before `lands-c81-graded-r1-TOOL-marker.txt`) → accept-c81 r2
+   `c9dd27a1` (REDRUN argv `--repo` removed; red-before
+   `lands-c81-graded-r2.txt`; selftest re-run). All recorded in
+   `counter-revisions.md`.
+6. **Junk battery (QUALITY 26b, post-landing, commit `4de196ef`):** seven
+   junk landings (JO1–JO2 on O's lands, JC1–JC2 on C's, JD1–JD3 on D's, each
+   on its own claim's lands, original freeze `b1ebb609` as the freeze) each
+   FAIL on its named leg (`telemetry/junk-landings.txt`).
+7. **Round records:** `corpus/lessons/round-81.md` (Gate: O+C+D admitted,
+   carried rejects, the fresh heraldry reject, fresh-start dispositions,
+   freshness pause; Mistakes R81-M1..M4; Sources & frontier 824→827),
+   SCORECARD round-81 section + three capability rows, census receipts.
+8. **Fresh-start dispositions:** r76 FAIL receipt verified
+   (`ACCEPT-C-76: FAIL legs=11/13`), r77 missing Gate verified (= 0), r78
+   drift verified bound by the r79 correction; ruled out: carried rejects
+   re-litigation, freshness move (round-11 L0 pause), frozen-counter re-runs,
+   frozen-bytes edits, heraldry (ground held), transport/market entries
+   (ground held). Tool installs: none. Stale-lane: none.
+
+**Correction (round 81, append-only):** the commit message of `316641d8`
+says "census start receipt (exit 0, 827 rows)"; the receipt it carries
+records the count at that commit as 824 rows (827 only after claim D's
+S901–S903 landed at `4ad08c83`). The receipt is authoritative; the message
+was written before the count was checked.
