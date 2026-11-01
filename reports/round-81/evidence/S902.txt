@@ -1,0 +1,9 @@
+row: S902
+capture: 2026-11-01 (round 81, Windows host, curl plain request)
+url: https://www.gutenberg.org/cache/epub/57326/pg57326.txt
+work: J. G. Millingen, The History of Duelling, Vol. 1 (of 2) (Project Gutenberg eBook #57326, public domain e-text; first published London 1841)
+probe: curl -s -o mill57326.txt -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 574813 bytes
+anchor locator: chapter III, the origin of duelling (e-text near "The first legal establishment of these ordeals")
+verbatim quote (23 words): The first legal establishment of these ordeals is to be found in the laws of Gundebald, King of the Burgundians, A. D. 501
+second located span (same work): whenever two Burgundians are at variance, if the defendant shall swear that he owes not what is demanded of him
+re-open: refetch the URL, whitespace-normalize, and search 'The first legal establishment of these ordeals'; it is in the plain text served by gutenberg.org (no challenge, no wall; automation: none)

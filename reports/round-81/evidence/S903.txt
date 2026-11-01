@@ -1,0 +1,9 @@
+row: S903
+capture: 2026-11-01 (round 81, Windows host, curl plain request)
+url: https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Ordeal
+work: "Ordeal", Encyclopaedia Britannica, 11th edn (Cambridge University Press, 1911), vol. 20 — Wikisource transcription (article fully transcluded server-side; a plain fetcher receives the prose)
+probe: curl -sL -o eb-Ordeal.html -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 87230 bytes
+anchor locator: the Scandinavian iron-carrying law (HTML near "the red-hot iron shall be carried nine steps")
+verbatim quote (16 words): in a Scandinavian law it is prescribed that the red-hot iron shall be carried nine steps
+second located span (same article): the examination of the hands to see if they show traces of burning, and the binding them up in leaves
+re-open: refetch the URL, strip tags, whitespace-normalize, and search 'red-hot iron shall be carried nine steps'; it is in the plain HTML served by en.wikisource.org (no challenge, no wall; automation: none)

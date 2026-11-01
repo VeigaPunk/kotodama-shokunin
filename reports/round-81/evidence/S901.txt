@@ -1,0 +1,9 @@
+row: S901
+capture: 2026-11-01 (round 81, Windows host, curl plain request)
+url: https://www.gutenberg.org/cache/epub/58750/pg58750.txt
+work: Henry Charles Lea, Superstition and Force: Essays on The Wager of Law, The Wager of Battle, The Ordeal, Torture (Project Gutenberg eBook #58750, public domain e-text; the essays were first issued 1866 with later expanded editions)
+probe: curl -s -o lea58750.txt -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 1460416 bytes
+anchor locator: the Frisian-code pleader line (e-text near "Frisian code, where the pleader says")
+verbatim quote (12 words): I swear alone, if thou darest, deny my oath and fight me
+second located span (same work): when Poppo, in 965, converted Harold Blaatand by the ordeal of red-hot iron, it produced so powerful an effect as to induce the substitution of that mode of trial for the previously existing wager of battle
+re-open: refetch the URL, whitespace-normalize, and search 'I swear alone, if thou darest'; it is in the plain text served by gutenberg.org (no challenge, no wall; automation: none)
