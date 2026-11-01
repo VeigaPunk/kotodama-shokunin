@@ -1,0 +1,77 @@
+{
+ "round": 80,
+ "base": "a8aaeceb42fb4e01f37181697f88aaddb9629e01",
+ "pre_data": "Claims, counters, fixtures and controls freeze before any claim data lands. Review-only clauses per QUALITY 11 are named in each claim's review_only list. Both counters take --lands and --freeze and refuse lands==base (the do-nothing control) and lands==freeze is graded, never passed.",
+ "claims": [
+  {
+   "id": "O",
+   "axis": "operability",
+   "kind": "instrument hardening (QUALITY 23 revision of the round-79 tool, with committed red-befores and a W2-class mutation pass over the landed bytes)",
+   "title": "Harden tools/ledger-token-guard.py against the measured round-79 W1 bypass classes: replace-ref shadowing, unbounded ledger input, injected GIT_* environment, duplicate-observation inflation",
+   "before": "tools/ledger-token-guard.py at base (sha256 504c51c6fa73c0b5418c1b1ad734be926f43ed355832d5796a298af040dd7964, 17822 bytes, the only tool path this claim touches at base) accepts all four shapes: a ledger graded over replace-shadowed bytes (MutPath F6: no GIT_NO_REPLACE_OBJECTS pin, no refs/replace refusal); a 1048884-byte ledger graded and passed (SentinelLimits F1: no input cap); 100000-deep JSON escaping as an unlabelled RecursionError traceback, exit 1 with no stable label (SentinelLimits F3); two pairs sharing one observe object graded as PASS pairs=2 (MutVacuous F7: no distinct-observation floor). Red-before: reports/round-80/telemetry/w1-w2-guard-revision-run80.txt section 1 (old bytes vs the four junk shapes), measured from the base commit's bytes.",
+   "after": "the hardened tool (sha256 cca7db1748bc4e49406cd768a3339454b8a59d63086b06d87a10082be3107f9a, 22640 bytes) refuses all four shapes with stable LEDGER-TOKEN-GUARD labels at exit 2 (receipt section 2); detection unchanged on distinct-pair fixtures (red fixture exit 1 failed=3 mismatched=2 vacuous=1; green fixture exit 0 PASS pairs=4); 16/16 round-79 refusal fixtures still refused; selftest 13/13 (receipt section 4); W2 mutation pass: five mutants (one per hardening plus the env filter) each caught, clean scenario green before the mutant rows (receipt section 5); SKILL.md registry row pins the new sha; the revision and the recorded behavior change on the round-79 probe ledgers are in reports/round-80/counter-revisions.md.",
+   "counter": "reports/round-80/accept-o.py",
+   "review_only": [
+    "counter output is evidence for review; the verdict line does not self-approve the hardening",
+    "the W2 mutation pass covers the four hardening decisions and the env filter, not every line of the tool; deeper invariant classes stay reviewer obligations",
+    "the distinct-observation floor refusing the round-79 probe ledgers is a recorded behavior change (their D01-D10 pairs share one observe object, the MutVacuous F7 shape), not a silent predicate move; counter-revisions.md names it"
+   ],
+   "guard80": {
+    "tool_path": "tools/ledger-token-guard.py",
+    "tool_sha256": "cca7db1748bc4e49406cd768a3339454b8a59d63086b06d87a10082be3107f9a",
+    "tool_sha256_r79": "504c51c6fa73c0b5418c1b1ad734be926f43ed355832d5796a298af040dd7964",
+    "tool_min_bytes": 10000,
+    "tool_max_bytes": 200000,
+    "fixture_base": "a8aaeceb42fb4e01f37181697f88aaddb9629e01",
+    "red_ledger": "reports/round-80/fixtures/red.json",
+    "green_ledger": "reports/round-80/fixtures/green.json",
+    "red_bad": 3,
+    "green_pairs": 4,
+    "selftest_min_expected": 13,
+    "refusal_dir": "reports/round-80/fixtures/refusals/",
+    "revision_record": "reports/round-80/counter-revisions.md",
+    "stub_path": "reports/round-79/counters/junk-stub-tool.py",
+    "tool_markers": ["STRICT LEDGER SCHEMA", "LEDGER_MAX_BYTES", "refs/replace", "distinct-observation floor", "observed_at_base", "GIT_NO_REPLACE_OBJECTS"],
+    "allowed_o_paths": ["tools/ledger-token-guard.py", "SKILL.md", "reports/round-80/"],
+    "sibling_paths": [],
+    "registry_path": "corpus/SOURCES.md",
+    "skill_path": "SKILL.md",
+    "base": "a8aaeceb42fb4e01f37181697f88aaddb9629e01",
+    "legs": ["FROZENCFG", "TOOL", "RED", "GREEN", "SELFTEST", "REFUSALS", "REPLACE", "NOSTUB", "SEPARABLE", "SKILLROW"]
+   }
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "kind": "knowledge entry (a depth move on the corpus; the surface's civilization-scoped neighbours stay pointed one-way)",
+   "title": "Add corpus/knowledge/culture-material/maritime-seafaring-lexicon.md - the sea as a lexical surface (hull parts grammar, coupled propulsion ladder, deck register, sea-taboo inventory, apotropaic ship) grounded in three sources opened this round",
+   "before": "no knowledge entry owns the surface at base: filename sweep `git ls-tree -r --name-only a8aaeceb42fb4e01f37181697f88aaddb9629e01 corpus/knowledge | grep -ciE 'maritime|seafaring|nautical|ship-lexicon'` = 0; topic-line sweep returns 5 files, all under civilizations/ (single-tradition notes, pointed one-way by the entry); 253 knowledge files; SOURCES.md carries 821 rows; no capture records under reports/round-80/evidence/.",
+   "after": "the entry lands as the 254th knowledge file: topic/gap/couples/verified-at/recheck/scope header, six-decision table, attested anchors with exactly one S-id per cited line (tools/check-cited-lines.py sha256 a9b0fbd5809b3764b2309cd8a82625c75ca1d6dd7c498309387050312078804a prints 0 findings), craft checklist, non-canon worked example, lore handoff; SOURCES.md carries S898/S899/S900 (tier A/A/B, mined, used-by the entry, live URL plus same-page Wayback capture each, capture records committed under reports/round-80/evidence/).",
+   "counter": "reports/round-80/accept-d.py",
+   "review_only": [
+    "counter output is evidence for review; the verdict line does not self-approve the entry's craft quality",
+    "the entry's uncited craft lines (decision tables, checklist, worked example) are method, not sourced claims; only §3 bullets carry row ids",
+    "period scoping is the recheck obligation: Falconer 1769, Smyth 1867, Britannica 1911 - era-extension checks are named in the entry's recheck cell"
+   ],
+   "entry80": {
+    "entry_path": "corpus/knowledge/culture-material/maritime-seafaring-lexicon.md",
+    "entry_sha256": "3de96311d7ca2c7c82e50cc10a527b77c2afa02994d3da44384dad3124924a29",
+    "entry_min_bytes": 8000,
+    "entry_max_bytes": 120000,
+    "entry_markers": ["- topic: seafaring", "gap filled:", "- couples:", "verified-at:", "- recheck:", "- scope:", "## 1. Partial owners", "## 2. Six design decisions", "## 3. Attested anchors", "## 6. Lore handoff"],
+    "canon_markers": ["decides nothing about what is true in any world", "never records it as canon"],
+    "row_ids": ["S898", "S899", "S900"],
+    "row_kinds": {"S898": "dictionary", "S899": "dictionary", "S900": "encyclopedia"},
+    "row_tiers": {"S898": "A", "S899": "A", "S900": "B"},
+    "evidence_dir": "reports/round-80/evidence/",
+    "lint_tool_path": "tools/check-cited-lines.py",
+    "lint_tool_sha256": "a9b0fbd5809b3764b2309cd8a82625c75ca1d6dd7c498309387050312078804a",
+    "registry_path": "corpus/SOURCES.md",
+    "allowed_d_paths": ["corpus/knowledge/culture-material/maritime-seafaring-lexicon.md", "corpus/SOURCES.md", "reports/round-80/"],
+    "sibling_paths": ["tools/ledger-token-guard.py", "SKILL.md", "reports/round-80/"],
+    "base": "a8aaeceb42fb4e01f37181697f88aaddb9629e01",
+    "legs": ["FROZENCFG", "ENTRY", "LINT", "ROWS", "COUPLES", "NOCANON", "SEPARABLE"]
+   }
+  }
+ ]
+}
