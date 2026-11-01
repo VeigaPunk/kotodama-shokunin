@@ -4505,3 +4505,13 @@ says "census start receipt (exit 0, 827 rows)"; the receipt it carries
 records the count at that commit as 824 rows (827 only after claim D's
 S901–S903 landed at `4ad08c83`). The receipt is authoritative; the message
 was written before the count was checked.
+
+**Correction (round 81, append-only):** a post-records re-grade of
+`accept-d81` at the records tip `4ceccc51` was attempted and discarded: the
+counter's SEPARABLE leg correctly counts the records commit's own paths
+(LOG.md, SCORECARD.md, the lesson) as foreign, because a lands-counter grades
+a claim's lands, not the round's records tip. The graded D receipt stands at
+its lands `4ad08c83` (`telemetry/lands-d81-graded.txt`, `-r2.txt`); the
+post-lands row placement fix (R81-M5) is validated by the registry's own
+validator (`census-end-r2.txt`, exit 0) and touches this round's own rows
+only. The attempted receipt was never committed.
