@@ -43,6 +43,26 @@ unknown op. Historical argv-ledger shapes (top-level array, missing
 `observe`, `argv`/`command`/`run` keys) are refused up front with the same
 stable label, not parsed halfway.
 
+HARDENED READ CHANNEL (round-80 revision of the round-79 tool; findings
+MutPath F6, SentinelLimits F1/F3/F9 and MutVacuous F7, round-79 W1). Four
+rules pin "immutable committed bytes" against the measured bypasses:
+
+  * replace objects: `--repo` carrying any `refs/replace/` entry is
+    refused outright (replace objects shadow the bytes `cat-file` returns),
+    and every git child runs with `GIT_NO_REPLACE_OBJECTS=1` so no
+    inherited environment can re-enable shadowing;
+  * environment: every `GIT_*` variable is dropped from the inherited
+    environment except the guard's own pinned set (GIT_CONFIG_GLOBAL,
+    GIT_CONFIG_NOSYSTEM, GIT_TERMINAL_PROMPT, GIT_NO_REPLACE_OBJECTS,
+    GIT_OPTIONAL_LOCKS), closing the GIT_DIR-adjacent and
+    GIT_CONFIG_COUNT/KEY_n/VALUE_n injection channels;
+  * input cap: a ledger larger than LEDGER_MAX_BYTES (1 MiB) is refused
+    before decode, and JSON nested beyond the parser's recursion limit is
+    refused with the stable label instead of escaping as a traceback;
+  * distinct-observation floor: two pairs may not carry the identical
+    `observe` object (same op/rev/path/pattern/line) - a ledger restating
+    one observation N times cannot inflate its pair count.
+
 OUTPUT CONTRACT (greppable, diffable):
 
   pair <id>: ok observed=<token>             - pair verified
@@ -53,24 +73,28 @@ OUTPUT CONTRACT (greppable, diffable):
   LEDGER-TOKEN-GUARD: REFUSED <reason>       - exit 2, nothing graded
 
 Exit: 0 every pair ok; 1 at least one pair failed; 2 refusal
-(unreadable/invalid input, mutable rev, unknown op, unsafe path, missing
-blob, ledger/base argument mismatch). Refusals always carry the
-LEDGER-TOKEN-GUARD label and never print pair verdicts.
+(unreadable/invalid/oversize input, mutable rev, unknown op, unsafe path,
+missing blob, replace refs, duplicate observations, ledger/base argument
+mismatch). Refusals always carry the LEDGER-TOKEN-GUARD label and never
+print pair verdicts.
 
-SELF-CONTAINED SELFTEST: `--selftest --work <dir>` builds a fresh fixture
-git repository under <dir> (never reusing an existing path), commits a
-probe file, runs every schema check and both defect-class detectors
-against it, and prints one `as-expected` line per scenario plus
-`SELFTEST: PASS`. Every scenario must land on its expected exit class or
-the selftest fails; the fixture repositories are left under the work dir
-for inspection unless run with `--clean`.
+SELF-CONTAINED SELFTEST: `--selftest --work <dir>` builds fresh fixture
+git repositories under <dir> (never reusing an existing path), commits a
+probe file, runs every schema check, both defect-class detectors and the
+four hardened-channel scenarios against them, and prints one
+`as-expected` line per scenario plus `SELFTEST: PASS`. Every scenario must
+land on its expected exit class or the selftest fails; the fixture
+repositories are left under the work dir for inspection unless run with
+`--clean`.
 
 LIMITS, STATED: this guard re-checks recorded observations; it does not
 certify that the original observation was approved, that the stated token
 is the right thing to measure, or that the pair's prose is honest. Those
 remain reviewer obligations. It grades committed bytes only: a ledger
 pointing at the worktree, or at bytes outside --repo, cannot be checked
-here by design.
+here by design. The distinct-observation floor refuses only exact
+duplicate `observe` objects - two pairs observing the same path with
+different patterns remain legal and are graded independently.
 """
 
 import argparse
@@ -84,11 +108,13 @@ import sys
 
 LABEL = "LEDGER-TOKEN-GUARD"
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
-GIT_ENV_DROP = ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_NAMESPACE",
-                "GIT_OBJECT_DIRECTORY")
+LEDGER_MAX_BYTES = 1024 * 1024  # 1 MiB ledger input cap (SentinelLimits F1)
+PINNED_GIT_ENV = ("GIT_CONFIG_GLOBAL", "GIT_CONFIG_NOSYSTEM",
+                  "GIT_TERMINAL_PROMPT", "GIT_NO_REPLACE_OBJECTS",
+                  "GIT_OPTIONAL_LOCKS")
+OPS = ("count", "line")
 FORBIDDEN_TOP = ("argv", "command", "run", "cmd", "observe_cmd", "shell",
                  "exec")
-OPS = ("count", "line")
 
 
 class Refusal(Exception):
@@ -96,9 +122,11 @@ class Refusal(Exception):
 
 
 def _env(extra=None):
-    env = {k: v for k, v in os.environ.items() if k not in GIT_ENV_DROP}
+    env = {k: v for k, v in os.environ.items()
+           if not (k.startswith("GIT_") and k not in PINNED_GIT_ENV)}
     env.update(GIT_CONFIG_GLOBAL=os.devnull, GIT_CONFIG_NOSYSTEM="1",
-               LC_ALL="C")
+               GIT_TERMINAL_PROMPT="0", GIT_NO_REPLACE_OBJECTS="1",
+               GIT_OPTIONAL_LOCKS="0", LC_ALL="C")
     if extra:
         env.update(extra)
     return env
@@ -134,6 +162,11 @@ def _check_path(path):
     parts = path.split("/")
     _require(all(p not in ("", ".", "..") for p in parts),
              "observe.path %r is not a clean in-repo path" % (path,))
+
+
+def _has_replace_refs(repo):
+    out = git(repo, "for-each-ref", "refs/replace/")
+    return bool(out and out.strip())
 
 
 def _blob(repo, rev, path):
@@ -199,10 +232,15 @@ def _load_ledger(path):
             raw = fh.read()
     except OSError as exc:
         raise Refusal("ledger unreadable: %s" % exc)
+    _require(len(raw) <= LEDGER_MAX_BYTES,
+             "ledger is %d bytes, over the %d byte input cap"
+             % (len(raw), LEDGER_MAX_BYTES))
     try:
         doc = json.loads(raw.decode("utf-8"))
     except (UnicodeDecodeError, ValueError) as exc:
         raise Refusal("ledger is not a JSON object: %s" % exc)
+    except RecursionError:
+        raise Refusal("ledger is JSON nested beyond the parse limit")
     _require(isinstance(doc, dict), "ledger top level is not an object")
     bad = [k for k in doc if k in FORBIDDEN_TOP]
     _require(not bad, "ledger carries command-channel keys: %s"
@@ -211,6 +249,7 @@ def _load_ledger(path):
     _require(isinstance(pairs, list) and pairs,
              "ledger has no non-empty pairs array")
     seen = set()
+    obs_seen = {}
     for i, p in enumerate(pairs):
         _require(isinstance(p, dict), "pair %d is not an object" % i)
         _require(isinstance(p.get("id"), str) and p["id"],
@@ -226,6 +265,12 @@ def _load_ledger(path):
                  "pair %s observed_at_base is not a string" % p["id"])
         _require(isinstance(p.get("observe"), dict),
                  "pair %s observe is not an object" % p["id"])
+        sig = json.dumps(p["observe"], sort_keys=True, ensure_ascii=False)
+        if sig in obs_seen:
+            raise Refusal("duplicate observation object shared by pairs %s "
+                          "and %s (distinct-observation floor)"
+                          % (obs_seen[sig], p["id"]))
+        obs_seen[sig] = p["id"]
     return doc
 
 
@@ -238,6 +283,9 @@ def guard(ledger_path, repo, base):
     _require(os.path.isdir(repo), "--repo %s is not a directory" % repo)
     _require(git(repo, "rev-parse", "--git-dir") is not None,
              "--repo %s is not a git repository" % repo)
+    _require(not _has_replace_refs(repo),
+             "--repo carries refs/replace entries: replace objects would "
+             "shadow the committed bytes this guard reads")
     failed = mismatched = vacuous = 0
     lines = []
     for p in doc["pairs"]:
@@ -342,6 +390,25 @@ def _run_cli(ledger, repo, base, work):
                              + proc.stderr.decode("utf-8", "replace"))
 
 
+def _replace_fixture(st):
+    """Second fixture repo carrying a refs/replace entry (MutPath F6)."""
+    repo, rev = _mkrepo(st, "fixture-repo-replace")
+    env = _env({"GIT_AUTHOR_NAME": "guard-selftest",
+                "GIT_AUTHOR_EMAIL": "selftest@invalid"})
+    v2 = os.path.join(st, "probe-v2.txt")
+    with open(v2, "w") as fh:
+        fh.write("alpha\nREPLACED-CONTENT\n")
+    new_blob = subprocess.run(
+        ["git", "-C", repo, "hash-object", "-w", v2], env=env,
+        capture_output=True, check=True).stdout.decode().strip()
+    old_blob = subprocess.run(
+        ["git", "-C", repo, "rev-parse", "%s:probe.txt" % rev], env=env,
+        capture_output=True, check=True).stdout.decode().strip()
+    subprocess.run(["git", "-C", repo, "replace", old_blob, new_blob],
+                   env=env, check=True)
+    return repo, rev
+
+
 def selftest(work, clean):
     _require(work and os.path.isdir(work),
              "--work must name an existing scratch directory")
@@ -350,6 +417,7 @@ def selftest(work, clean):
              "selftest fixture root %s already exists" % st)
     os.makedirs(st)
     repo, rev = _mkrepo(st, "fixture-repo")
+    rerepo, rerev = _replace_fixture(st)
     bad = []
     runw = os.path.join(st, "run")
     os.mkdir(runw)
@@ -358,6 +426,8 @@ def selftest(work, clean):
               "pattern": "a$"}
     obs_line = {"op": "line", "rev": rev, "path": "probe.txt",
                 "pattern": r"entries: ([0-9]+)", "line": 4}
+    obs_line1 = {"op": "line", "rev": rerev, "path": "probe.txt",
+                 "pattern": r"^(.+)$", "line": 1}
     cases = []
 
     led = os.path.join(st, "green.json")
@@ -365,21 +435,21 @@ def selftest(work, clean):
                        _pair("G2", obs_line, "42",
                              stated_text="entries: 9",
                              stated_parse=r"entries: ([0-9]+)")])
-    cases.append(("green all pairs", led, rev, 0, "PASS pairs=2"))
+    cases.append(("green all pairs", repo, led, rev, 0, "PASS pairs=2"))
 
     led = os.path.join(st, "mismatch.json")
     _ledger(led, rev, [_pair("M1", obs_ok, "1")])
-    cases.append(("recorded!=observed", led, rev, 1, "MISMATCH"))
+    cases.append(("recorded!=observed", repo, led, rev, 1, "MISMATCH"))
 
     led = os.path.join(st, "vacuous.json")
     _ledger(led, rev, [_pair("V1", obs_ok, "3", stated_text="count 3",
                              stated_parse=r"count (3)")])
-    cases.append(("stated==observed", led, rev, 1, "VACUOUS"))
+    cases.append(("stated==observed", repo, led, rev, 1, "VACUOUS"))
 
     led = os.path.join(st, "mutablerev.json")
     _ledger(led, rev, [_pair("R1",
                              dict(obs_ok, rev="HEAD"), "3")])
-    cases.append(("mutable observe.rev", led, rev, 2, "REFUSED"))
+    cases.append(("mutable observe.rev", repo, led, rev, 2, "REFUSED"))
 
     led = os.path.join(st, "badbase.json")
     _ledger(led, rev, [_pair("B1", obs_ok, "3")])
@@ -388,34 +458,58 @@ def selftest(work, clean):
     d["base"] = "0" * 40
     with open(led, "w") as fh:
         json.dump(d, fh)
-    cases.append(("ledger/base mismatch", led, rev, 2, "REFUSED"))
+    cases.append(("ledger/base mismatch", repo, led, rev, 2, "REFUSED"))
 
     led = os.path.join(st, "badop.json")
     _ledger(led, rev, [_pair("O1",
                              {"op": "exec", "rev": rev, "path": "probe.txt",
                               "pattern": "x"}, "0")])
-    cases.append(("unknown op", led, rev, 2, "REFUSED"))
+    cases.append(("unknown op", repo, led, rev, 2, "REFUSED"))
 
     led = os.path.join(st, "badpath.json")
     _ledger(led, rev, [_pair("P1",
                              {"op": "count", "rev": rev,
                               "path": "../escape", "pattern": "x"}, "0")])
-    cases.append(("unsafe path", led, rev, 2, "REFUSED"))
+    cases.append(("unsafe path", repo, led, rev, 2, "REFUSED"))
 
     led = os.path.join(st, "argvshape.json")
     with open(led, "w") as fh:
         json.dump({"argv": ["git", "log"], "pairs": [
             _pair("A1", obs_ok, "3")]}, fh)
-    cases.append(("argv-ledger shape", led, rev, 2, "REFUSED"))
+    cases.append(("argv-ledger shape", repo, led, rev, 2, "REFUSED"))
 
     led = os.path.join(st, "missingpath.json")
     _ledger(led, rev, [_pair("N1",
                              {"op": "count", "rev": rev,
                               "path": "absent.txt", "pattern": "x"}, "0")])
-    cases.append(("missing blob", led, rev, 2, "REFUSED"))
+    cases.append(("missing blob", repo, led, rev, 2, "REFUSED"))
 
-    for name, led, base, want, needle in cases:
-        code, out = _run_cli(led, repo, base, runw)
+    # -- round-80 hardened-channel scenarios (W1 findings) --
+    led = os.path.join(st, "replacerefs.json")
+    _ledger(led, rerev, [_pair("RP1", obs_line1, "alpha",
+                               stated_text="count 5",
+                               stated_parse=r"count (5)")])
+    cases.append(("replace refs refused", rerepo, led, rerev, 2, "replace"))
+
+    led = os.path.join(st, "oversize.json")
+    _ledger(led, rev, [_pair("Z1", obs_ok, "3",
+                             stated_text="count 5 " + "x" * (1024 * 1024),
+                             stated_parse=r"count (5)")])
+    cases.append(("oversize ledger refused", repo, led, rev, 2, "input cap"))
+
+    led = os.path.join(st, "deepnest.json")
+    with open(led, "w") as fh:
+        fh.write("[" * 100000 + "]" * 100000)
+    cases.append(("deep-nested ledger refused", repo, led, rev, 2, "nested"))
+
+    led = os.path.join(st, "dupobs.json")
+    _ledger(led, rev, [_pair("D1", obs_ok, "3"),
+                       _pair("D2", dict(obs_ok), "3")])
+    cases.append(("duplicate observation refused", repo, led, rev, 2,
+                  "duplicate"))
+
+    for name, crepo, led, base, want, needle in cases:
+        code, out = _run_cli(led, crepo, base, runw)
         ok = code == want and needle in out
         print("selftest: %s -> exit=%d want=%d %s as-expected=%s"
               % (name, code, want, needle, ok))
