@@ -1,0 +1,24 @@
+# kotodama round-80 counter selftests at the freeze commit
+# freeze: 08e4fb31b7df688bd3f47a415b7b1ac061934444
+
+== accept-o.py --selftest (counter sha256 below) ==
+8cdee013b64c5a9657bd68613148cc0ba00170ee904cd556b15e1b5fb7ecfad3
+selftest-o80: work=C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kotodama-r80/st-o2\selftest-o80
+  lands==base refused -> exit=2 want=2 missing=- OK
+  lands==freeze graded red -> exit=1 want=1 missing=- OK
+  stub tool at lands -> exit=1 want=1 missing=- OK
+  non-hex lands refused -> exit=2 want=2 missing=- OK
+  off-chain freeze refused -> exit=2 want=2 missing=- OK
+SELFTEST-O80: PASS
+exit=0 (want 0)
+
+== accept-d.py --selftest ==
+073ca64d1752d8f91835eda68a9786b5244cea6d73fa34ad738d7147c06d3539
+selftest-d80: work=C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kotodama-r80/st-d2b\selftest-d80
+  lands==base refused -> exit=2 want=2 missing=- OK
+  entry lands, pins unfixed -> exit=1 want=1 missing=- OK
+  non-hex lands refused -> exit=2 want=2 missing=- OK
+  off-chain freeze refused -> exit=2 want=2 missing=- OK
+  mutant table-row S-id -> exit=1 LINT FAIL shown=True OK
+SELFTEST-D80: PASS
+exit=0 (want 0)

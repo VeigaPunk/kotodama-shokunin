@@ -1,0 +1,11 @@
+# kotodama round-80 do-nothing controls at the freeze commit
+# freeze: 08e4fb31b7df688bd3f47a415b7b1ac061934444
+# a do-nothing control lands nothing; both counters must refuse lands==base with exit 2
+
+== command 1: python -B reports/round-80/accept-o.py --root <lane> --lands a8aaeceb42fb4e01f37181697f88aaddb9629e01 --freeze 08e4fb31b7df688bd3f47a415b7b1ac061934444 --work <scratch> ==
+ACCEPT-O-80: FAIL legs=0/10 (refused: lands equals the frozen base a8aaeceb42fb4e01f37181697f88aaddb9629e01)
+exit=2 (want 2)
+
+== command 2: python -B reports/round-80/accept-d.py --root <lane> --lands a8aaeceb42fb4e01f37181697f88aaddb9629e01 --freeze 08e4fb31b7df688bd3f47a415b7b1ac061934444 --work <scratch> ==
+ACCEPT-D-80: FAIL legs=0/7 (refused: lands equals the frozen base a8aaeceb42fb4e01f37181697f88aaddb9629e01)
+exit=2 (want 2)
