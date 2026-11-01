@@ -1,0 +1,18 @@
+# kotodama round-80 counter revision receipt (r2): accept-o.py NOSTUB fixture identity fix
+# r1 counter sha256 (from the freeze receipt): 8cdee013b64c5a9657bd68613148cc0ba00170ee904cd556b15e1b5fb7ecfad3
+# r2 counter sha256: 6a5e76c32f3ecfc3e96b9a228861059a00a8f28cc85bf26ea0efa149eaf4b0a6
+# what moved: leg_nostub's second fixture commit carried GIT_AUTHOR_* but no GIT_COMMITTER_* identity;
+# git refused with 'Committer identity unknown', the CalledProcessError escaped the leg's except clause
+# (not a GitFail), and the graded run at lands c365f6ce crashed before printing legs (exit 1, no legs;
+# the crashed stdout is preserved as lands-o-graded.txt). Fix: committer identity added to the
+# fixture env. No leg predicate, constant or scenario moved; the r2 selftest verdicts:
+
+== accept-o.py --selftest (r2) ==
+selftest-o80: work=C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kotodama-r80/st-o3b\selftest-o80
+  lands==base refused -> exit=2 want=2 missing=- OK
+  lands==freeze graded red -> exit=1 want=1 missing=- OK
+  stub tool at lands -> exit=1 want=1 missing=- OK
+  non-hex lands refused -> exit=2 want=2 missing=- OK
+  off-chain freeze refused -> exit=2 want=2 missing=- OK
+SELFTEST-O80: PASS
+exit=0 (want 0)

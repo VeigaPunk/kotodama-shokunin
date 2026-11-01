@@ -439,7 +439,9 @@ def leg_nostub(root, lands, ctx):
     if extract(root, ctx["freeze"], cfg["stub_path"], stub) is None:
         return False, ["shipped stub tool unreadable at freeze"]
     repo, rev, _blob = _mkfixture_repo(work, "oracle-repo", "")
-    env = _env({"GIT_AUTHOR_NAME": "oracle", "GIT_AUTHOR_EMAIL": "o@i"})
+    env = _env({"GIT_AUTHOR_NAME": "oracle", "GIT_AUTHOR_EMAIL": "o@i",
+                "GIT_COMMITTER_NAME": "oracle",
+                "GIT_COMMITTER_EMAIL": "o@i"})
     nonce = hashlib.sha256(os.urandom(32)).hexdigest()[:16]
     with open(os.path.join(repo, "probe.txt"), "w") as fh:
         fh.write("token: %s\n" % nonce)
