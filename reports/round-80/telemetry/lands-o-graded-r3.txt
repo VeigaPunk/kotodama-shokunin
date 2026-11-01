@@ -1,0 +1,40 @@
+# frozen legs: 10 (FROZENCFG, TOOL, RED, GREEN, SELFTEST, REFUSALS, REPLACE, NOSTUB, SEPARABLE, SKILLROW)
+# stamped revision: f48045141cc3e72d4eb27e5da76369d52bd5bf40
+# evaluated revision: f48045141cc3e72d4eb27e5da76369d52bd5bf40
+# measured revision (lane main): f48045141cc3e72d4eb27e5da76369d52bd5bf40
+# freeze: f48045141cc3e72d4eb27e5da76369d52bd5bf40
+# tree: ab150c8bd50e98658fd1ae26ee5b8a2a9cb442cc
+# counter sha256 (self): 6a5e76c32f3ecfc3e96b9a228861059a00a8f28cc85bf26ea0efa149eaf4b0a6
+LEG PASS FROZENCFG
+  claims.json sha256 at lands f9c840311e4f2d7333406aa7d8345706e6ff4b07361b202282085c8d84507998, at freeze f9c840311e4f2d7333406aa7d8345706e6ff4b07361b202282085c8d84507998
+LEG PASS TOOL
+  tool sha256 cca7db1748bc4e49406cd768a3339454b8a59d63086b06d87a10082be3107f9a, 22640 bytes
+LEG PASS RED
+  exit=1 (want 1); labeled pair failures=3 (want >=3); label=True
+  pairs failed: W1,W2,W3
+  verdict: LEDGER-TOKEN-GUARD: FAIL pairs=3 failed=3 mismatched=2 vacuous=1
+LEG PASS GREEN
+  exit=0 (want 0); PASS=True; pairs=4 expected
+  verdict: LEDGER-TOKEN-GUARD: PASS pairs=4
+LEG PASS SELFTEST
+  exit=0 (want 0); SELFTEST line=True; fixture repos=2; as-expected=13 (want >=13)
+  tail: SELFTEST: PASS
+LEG PASS REFUSALS
+  argv-ledger.json -> exit 2 labeled
+  junk-deepnest.json -> exit 2 labeled
+  junk-dupobs.json -> exit 2 labeled
+  junk-oversize.json -> exit 2 labeled
+  mutable-rev.json -> exit 2 labeled
+LEG PASS REPLACE
+  replace-ref repo: exit=2 (want 2); label=True; reason names replace=True
+  verdict: LEDGER-TOKEN-GUARD: REFUSED --repo carries refs/replace entries: replace objects would shadow the committed bytes this guard reads
+LEG PASS NOSTUB
+  real tool on nonce ledger: exit=0 observed-token=1 carried=<re.Match object; span=(12, 22), match='observed=1'>
+  stub on same ledger: exit=0 echoes stated nonce=True, never the observed token=True
+LEG PASS SEPARABLE
+  changed paths freeze..lands 0; outside allowed 0
+  allowed: tools/ledger-token-guard.py, SKILL.md, reports/round-80/
+  sibling carve-outs: corpus/knowledge/culture-material/maritime-seafaring-lexicon.md, corpus/SOURCES.md
+LEG PASS SKILLROW
+  registry rows naming tool at lands: 1
+ACCEPT-O-80: PASS legs=10/10

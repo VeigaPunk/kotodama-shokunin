@@ -1,0 +1,53 @@
+JUNK-RECEIPT round-80 claim O (accept-o.py; each junk landing must FAIL)
+# ---- junk-o / JO1 old r79 tool at lands ----
+commit: 11f33e289173b4f5ecae5303f1533281a08b09ba
+command: python -B reports/round-80/accept-o.py --root <fixture-repo> --lands 11f33e289173 --freeze f48045141cc3 --work <scratch>
+LEG FAIL TOOL
+LEG FAIL SELFTEST
+LEG FAIL REFUSALS
+LEG FAIL REPLACE
+verdict: ACCEPT-O-80: FAIL legs=6/10 exit=1
+named-legs-failed: ['TOOL'] (wanted ['TOOL']) -> OK
+
+# ---- junk-o / JO2 replace refusal stubbed ----
+commit: 911bebaa95810fab75e5d0fa7d0a95ce6b98f693
+command: python -B reports/round-80/accept-o.py --root <fixture-repo> --lands 911bebaa9581 --freeze f48045141cc3 --work <scratch>
+LEG FAIL TOOL
+LEG FAIL SELFTEST
+LEG FAIL REPLACE
+verdict: ACCEPT-O-80: FAIL legs=7/10 exit=1
+named-legs-failed: ['TOOL', 'REPLACE'] (wanted ['TOOL', 'REPLACE']) -> OK
+
+# ---- junk-o / JO3 claims.json shrunk in graded tree ----
+commit: 91a96821ab222ce7f1e2561a8d02cca36fad8323
+command: python -B reports/round-80/accept-o.py --root <fixture-repo> --lands 91a96821ab22 --freeze f48045141cc3 --work <scratch>
+LEG FAIL FROZENCFG
+verdict: ACCEPT-O-80: FAIL legs=9/10 exit=1
+named-legs-failed: ['FROZENCFG'] (wanted ['FROZENCFG']) -> OK
+
+JUNK-RECEIPT round-80 claim D (accept-d.py; each junk landing must FAIL)
+# ---- junk-d / JD1 entry deleted at lands ----
+commit: ca0071be234499db26e602ac266802ed1b71fef3
+command: python -B reports/round-80/accept-d.py --root <fixture-repo> --lands ca0071be2344 --freeze f48045141cc3 --work <scratch>
+LEG FAIL ENTRY
+LEG FAIL LINT
+LEG FAIL COUPLES
+LEG FAIL NOCANON
+verdict: ACCEPT-D-80: FAIL legs=3/7 exit=1
+named-legs-failed: ['ENTRY'] (wanted ['ENTRY']) -> OK
+
+# ---- junk-d / JD2 table-row S-id mutant ----
+commit: 58f5db6c224aa7970fe796435bcaa0e0f8642d1b
+command: python -B reports/round-80/accept-d.py --root <fixture-repo> --lands 58f5db6c224a --freeze f48045141cc3 --work <scratch>
+LEG FAIL ENTRY
+LEG FAIL LINT
+verdict: ACCEPT-D-80: FAIL legs=5/7 exit=1
+named-legs-failed: ['LINT'] (wanted ['LINT']) -> OK
+
+# ---- junk-d / JD3 S899 status flipped ----
+commit: 28d4f78dac5e3c371c887727692ff662d76b280b
+command: python -B reports/round-80/accept-d.py --root <fixture-repo> --lands 28d4f78dac5e --freeze f48045141cc3 --work <scratch>
+LEG FAIL ROWS
+verdict: ACCEPT-D-80: FAIL legs=6/7 exit=1
+named-legs-failed: ['ROWS'] (wanted ['ROWS']) -> OK
+

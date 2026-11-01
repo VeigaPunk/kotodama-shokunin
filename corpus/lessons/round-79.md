@@ -72,3 +72,21 @@ Counting: `grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md`
 receipts: `reports/round-79/telemetry/census-start-run14.txt` and
 `census-end-run14.txt` (validate exit 0 both). No status/recheck/used-by
 changes to prior rows this run.
+
+## Corrections — round 80 (append-only; the filed bytes above are untouched)
+
+Three wording defects in the filed bytes above, routed by the round-79
+verifier spot-check §6 item 4, are corrected in
+`reports/round-80/corrections/r80-annotations.md` (bindings and
+re-runnable verifications there):
+
+1. claim O `before` in `reports/round-79/claims.json` (blob
+   `d6a75532fd2c5363ecf41fdafc9d15d393c2c171`) says "`git ls-tree 44f76d4
+   tools/` is empty" — the directory has 27 entries at that commit; only the
+   guard path is absent. Read the clause as "no `tools/ledger-token-guard.py`
+   at base".
+2. the S897 located quote above is 16 words by whitespace split, not
+   "(20 words)" (the Gate's ≤ 25-word rule held either way).
+3. the S897 anchor command spelling `python3 -B` is the old POSIX host's;
+   this host runs `python -B` (the run-14 receipts above already name it).
+   No superseding row is filed — disposition in the corrections record.

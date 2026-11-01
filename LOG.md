@@ -4376,3 +4376,57 @@ Trigger: watchdog `launch kotodama round=79 base=efdc19e52cd9 (zcode run14)` aft
 6. **Inherited working tree resolved**: the 3 staged deletions (`git diff HEAD --stat`) are host artifacts, not lane-authored work — two committed wave-stage paths carry `>` (uncheckoutable on NTFS; blobs intact in HEAD, `git cat-file -e` passes) and one round-76 stage file is absent on disk after the host move; left unstaged and untouched (index not lane-managed here; commits go through the plumbing helper only), recorded as R79-M3.
 
 Verdicts: operability improved (claim O capability acquisition); calibration unchanged (unclaimed repair, no delta per QUALITY 20); depth/coverage/freshness/adjacency unchanged; no axis harmed. Routed to round 80: integrate the ~20 adopted-but-unlanded W1 hardening findings (GIT_NO_REPLACE_OBJECTS, ledger input cap, expanded GIT_* env drop, distinct-observation floor) through a QUALITY 23 counter revision with red-befores; W2-class mutation pass over the landed tool; the 5 empty W1 seat stages remain the operator's to settle. Stale-lane: none. Tool installs: none.
+
+## Round 80 — 2026-10-31 (Windows host; fresh-session L1; r79 carry-in round)
+
+Base `a8aaeceb42fb4e01f37181697f88aaddb9629e01`. Two claims declared, frozen
+(`reports/round-80/claims.json`), landed and counter-verified; the round-79
+carry-in (W1 hardening with red-befores + W2 mutation pass; three append-only
+annotation corrections) is fully executed.
+
+1. **Claim O (operability) — the guard hardening.** `tools/ledger-token-guard.py`
+   revision sha `504c51c6…` → `cca7db1748bc4e49406cd768a3339454b8a59d63086b06d87a10082be3107f9a`:
+   replace-ref refusal + `GIT_NO_REPLACE_OBJECTS` env pin (MutPath F6), 1 MiB
+   ledger cap + deep-JSON stable refusal (SentinelLimits F1/F3), expanded
+   `GIT_*` env drop (SentinelLimits F9), distinct-observation floor
+   (MutVacuous F7); selftest 9→13; red-befores + W2 mutation pass (5/5 caught,
+   clean-first) committed as `reports/round-80/telemetry/w1-w2-guard-revision-run80.txt`;
+   SKILL.md row re-pinned; revision recorded in `reports/round-80/counter-revisions.md`.
+   Counter: `ACCEPT-O-80: PASS legs=10/10` (exit 0) at the re-freeze lands.
+2. **Claim D (depth) — the sea as a lexical surface.** Entry
+   `corpus/knowledge/culture-material/maritime-seafaring-lexicon.md` (254th
+   knowledge file; cited-lines lint 0 findings) grounded in S898 (Falconer
+   1769, Gutenberg #57705), S899 (Smyth 1867, Gutenberg #26000), S900 (1911
+   Britannica "Ship", Wikisource) — all opened 2026-10-31 by plain request
+   (HTTP 200 each; same-page Wayback captures on file; evidence records
+   `reports/round-80/evidence/`). Counter: `ACCEPT-D-80: PASS legs=7/7`
+   (exit 0) at the re-freeze lands.
+3. **Freeze/re-freeze discipline.** Freeze `08e4fb31` (claims, counters,
+   fixtures, evidence captures) → pre-landing receipts (`bf95373a`) → claim O
+   lands (`c365f6ce`) → claim D lands (`66af0530`; evidence-record fix
+   `70db282d` after the ROWS leg demonstrated its failure — FAIL receipt kept)
+   → **re-freeze `f4804514`** (the fleet census's closed kind enum requires
+   `book`; D `row_kinds` corrected, O `sibling_paths` extended; supersedes
+   `08e4fb31` for grading, r79 precedent) → both counters grade the shared
+   lands `f4804514`: `ACCEPT-O-80: PASS 10/10`, `ACCEPT-D-80: PASS 7/7`
+   (`telemetry/lands-o-graded-r3.txt`, `lands-d-graded-r3.txt`). Do-nothing
+   controls refuse at base, exit 2 (`dry-run-refused-at-base-r2.txt`).
+   Junk landings JO1–JO3/JD1–JD3 all FAIL on their named legs
+   (`telemetry/junk-landings.txt`, generator `counters/junk-fixtures.py`,
+   checkout-free plumbing clone because of the R79-M3 uncheckoutable paths).
+4. **Carry-in corrections landed append-only:** the three r79 spot-check
+   wording defects (claims.json "is empty"; the "(20 words)" miscount — real
+   count 16; S897's `python3 -B` host spelling) are corrected in
+   `reports/round-80/corrections/r80-annotations.md` + a `## Corrections —
+   round 80` section appended to `corpus/lessons/round-79.md`; no filed bytes
+   rewritten.
+5. **Round records:** `corpus/lessons/round-80.md` (Gate: O+D admitted,
+   carried rejects, freshness pause; Mistakes R80-M1..M4 with evidence and
+   fixes; Sources & frontier 821→824), SCORECARD round-80 section +
+   capabilities row re-pinned (`cca7db17…`, 13/13), census start (exit 0) and
+   end (exit 0, W01/W04 only) receipts, including the honest failed-census
+   receipt `census-end-e05-kind-enum.txt` that motivated the re-freeze.
+6. **Fresh-start dispositions:** r76/r77/r78 closures spot-checked on
+   committed bytes (r76 FAIL receipt, r77 missing Gate = 0, r78 drift bound by
+   the r79 correction); carried rejects not re-litigated; freshness paused
+   (round-11 L0). Tool installs: none. Stale-lane: none.

@@ -1,0 +1,78 @@
+# kotodama round-80 - W1 hardening receipts for tools/ledger-token-guard.py
+# old bytes: git show a8aaeceb42fb4e01f37181697f88aaddb9629e01:tools/ledger-token-guard.py  sha256=504c51c6fa73c0b5418c1b1ad734be926f43ed355832d5796a298af040dd7964 (17822 B)
+# new bytes: worktree tools/ledger-token-guard.py        sha256=cca7db1748bc4e49406cd768a3339454b8a59d63086b06d87a10082be3107f9a (22640 B)
+# scratch paths elided to <scratch>; every command re-runnable from the lane root
+
+## w1-redbefore-oldtool-junk.txt (this file, section 1)
+# the four W1 junk shapes against the UNHARDENED round-79 bytes
+old-tool junk-replacerefs.json -> exit=0 verdict='LEDGER-TOKEN-GUARD: PASS pairs=1'
+  # defect: ledger graded over replace-shadowed bytes instead of refused
+old-tool junk-oversize.json -> exit=0 verdict='LEDGER-TOKEN-GUARD: PASS pairs=1'
+  # defect: 1 MiB+ ledger accepted and graded (no input cap)
+old-tool junk-deepnest.json -> exit=1 last-line='RecursionError: maximum recursion depth exceeded while decoding a JSON array from a unicode string'
+  # defect: unlabelled RecursionError traceback escapes (no stable refusal)
+old-tool junk-dupobs.json -> exit=0 verdict='LEDGER-TOKEN-GUARD: PASS pairs=2'
+  # defect: duplicate observe object inflates pair count, PASS pairs=2
+
+## w1-hardened-vs-junk.txt (this file, section 2)
+new-tool junk-replacerefs.json -> exit=2 'LEDGER-TOKEN-GUARD: REFUSED --repo carries refs/replace entries: replace objects would shadow the committed bytes this guard reads'
+new-tool junk-oversize.json -> exit=2 'LEDGER-TOKEN-GUARD: REFUSED ledger is 1048884 bytes, over the 1048576 byte input cap'
+new-tool junk-deepnest.json -> exit=2 'LEDGER-TOKEN-GUARD: REFUSED ledger is JSON nested beyond the parse limit'
+new-tool junk-dupobs.json -> exit=2 'LEDGER-TOKEN-GUARD: REFUSED duplicate observation object shared by pairs D1 and D2 (distinct-observation floor)'
+
+## regression and floor-fires-on-history (section 3)
+new-tool r79 RED probe -> exit=2 'LEDGER-TOKEN-GUARD: REFUSED duplicate observation object shared by pairs D01 and D02 (distinct-observation floor)'
+  # NOT a regression: the r79 probe's D01-D10 pairs share ONE observe object - the exact
+  # MutVacuous F7 junk class; the new distinct-observation floor refuses it (exit 2).
+new-tool r79 GREEN probe -> exit=2 'LEDGER-TOKEN-GUARD: REFUSED duplicate observation object shared by pairs D01 and D02 (distinct-observation floor)'
+  # same shared-observation shape; refused by the same floor
+# detection regression on the NEW distinct-pair fixtures (committed at
+# reports/round-80/fixtures/{red,green}.json, base a8aaeceb42fb4e01f37181697f88aaddb9629e01):
+new-tool r80 RED fixture -> exit=1 'LEDGER-TOKEN-GUARD: FAIL pairs=3 failed=3 mismatched=2 vacuous=1'
+  # want exit 1, failed=3 mismatched=2 vacuous=1
+new-tool r80 GREEN fixture -> exit=0 'LEDGER-TOKEN-GUARD: PASS pairs=4'
+  # want exit 0, PASS pairs=4
+# refusal regression: round-79 frozen refusal fixtures still refused
+r79 refusal fixtures: 16/16 refused with stable label (0 unrefused wanted)
+
+## selftest-r80-clean.txt (section 4; clean scenario BEFORE mutant rows)
+$ python -B tools/ledger-token-guard.py --selftest --work <scratch>   # sha256 cca7db1748bc4e49406cd768a3339454b8a59d63086b06d87a10082be3107f9a
+  selftest: green all pairs -> exit=0 want=0 PASS pairs=2 as-expected=True
+  selftest: recorded!=observed -> exit=1 want=1 MISMATCH as-expected=True
+  selftest: stated==observed -> exit=1 want=1 VACUOUS as-expected=True
+  selftest: mutable observe.rev -> exit=2 want=2 REFUSED as-expected=True
+  selftest: ledger/base mismatch -> exit=2 want=2 REFUSED as-expected=True
+  selftest: unknown op -> exit=2 want=2 REFUSED as-expected=True
+  selftest: unsafe path -> exit=2 want=2 REFUSED as-expected=True
+  selftest: argv-ledger shape -> exit=2 want=2 REFUSED as-expected=True
+  selftest: missing blob -> exit=2 want=2 REFUSED as-expected=True
+  selftest: replace refs refused -> exit=2 want=2 replace as-expected=True
+  selftest: oversize ledger refused -> exit=2 want=2 input cap as-expected=True
+  selftest: deep-nested ledger refused -> exit=2 want=2 nested as-expected=True
+  selftest: duplicate observation refused -> exit=2 want=2 duplicate as-expected=True
+  SELFTEST: PASS
+selftest exit=0
+
+## w2-mutation-pass.txt (section 5; each mutant = the new selftest with exactly one hardening removed)
+mutant m1-replace-refusal-removed sha256=ba5d8b91d0600f02b3fc7a7d323c0bd2bc1f87438cf0ff2f38656dc9c961fb04
+  selftest exit=1 SELFTEST: FAIL ['replace refs refused']
+  selftest: replace refs refused -> exit=0 want=2 replace as-expected=False
+  caught=True
+mutant m2-input-cap-raised sha256=1d07c6ad65e1e71e515697649789f69a5b8ba7077f7fa9dbefee8c11b39ff356
+  selftest exit=1 SELFTEST: FAIL ['oversize ledger refused']
+  selftest: oversize ledger refused -> exit=0 want=2 input cap as-expected=False
+  caught=True
+mutant m3-recursion-catch-removed sha256=f998e41b1d91f85b50ed51ddd474fb1b08dc6b8bbc508710cb544a54aafbb47d
+  selftest exit=1 SELFTEST: FAIL ['deep-nested ledger refused']
+  selftest: deep-nested ledger refused -> exit=1 want=2 nested as-expected=False
+  caught=True
+mutant m4-duplicate-floor-removed sha256=85103584875044b30b979d1fda8182cf87cdddf2313cdae6e39b1432e0686095
+  selftest exit=1 SELFTEST: FAIL ['duplicate observation refused']
+  selftest: duplicate observation refused -> exit=0 want=2 duplicate as-expected=False
+  caught=True
+mutant m5-env-drop-reverted sha256=6c863a4a30d9a65c8be09f50483fd7e385bff1e80bf47cee1b6c08bd181e37ef
+  hardened _env() probe: {"leaked": [], "no_replace": "1"}
+  mutant    _env() probe: {"leaked": ["GIT_ALTERNATE_OBJECT_DIRECTORIES", "GIT_CONFIG_COUNT", "GIT_CONFIG_KEY_0", "GIT_CONFIG_VALUE_0"], "no_replace": "1"}
+  caught=True (mutant leaks injected GIT_* variables; hardened env does not)
+
+# end of receipts
