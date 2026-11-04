@@ -1,0 +1,12 @@
+row: reject (Gate, fresh disposition) — Frazer, The Golden Bough
+capture: 2026-11-04 (round 82, Linux host, curl plain request; automation: none)
+url: https://www.gutenberg.org/cache/epub/3623/pg3623.txt
+work: James George Frazer, The Golden Bough: A Study in Magic and Religion (Project Gutenberg eBook #3623; the 1922 abridged edition, title page "Title: The Golden Bough: A Study of Magic and Religion / Author: James George Frazer")
+probe: curl -sSL -o gb3623.txt -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 2331343 bytes
+UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 2331343 B, wall absent
+UA "curl/8.23.0" (the tool's default) -> HTTP 200, 2331343 B, wall absent
+(byte-identical bodies: md5 668a43f3509d256d50eb4073350a26fa for both files, 2331343 B each, so no UA-dependent wall exists on this URL)
+archive: https://web.archive.org/web/20260814122123/https://www.gutenberg.org/cache/epub/3623/pg3623.txt — CDX exact query returns 20260814122123 status 200; the id_ raw fetch with --compressed transfers 858758 B and decodes to 2287382 characters (the live body is 2331343 B), and the span below is present once after whitespace normalisation
+span (29 words): In short, magic is a spurious system of natural law as well as a fallacious guide of conduct; it is a false science as well as an abortive art.
+finding: present — the work states its own framework in the body (chapter III, the definition of magic as "a false science"), i.e. the unilinear magic-to-religion-to-science evaluation that QUALITY 2 names as Frazerian evolutionism and bars from load-bearing use. The reject is about framework status, not about the sentence's existence: the span is cited as the thing the row would have to endorse.
+flip: re-open only for a chapter-scoped admission (for example the taboo chapters) filed as tier C with "framework discredited" written into the row's scope, or for a modern critical history/historiography that carries the chapter without the stage law.
