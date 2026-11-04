@@ -129,6 +129,21 @@ def tally(text, as_of, window):
     return due, upcoming, exempt, len(parse_rows(text)), bad
 
 
+def due_ids(text, as_of):
+    """The due set this counter's own parser derives: [(id, iso-date), ...] in file order."""
+    out = []
+    for cells in parse_rows(text):
+        if len(cells) != 11:
+            continue
+        try:
+            d = due_date(cells)
+        except ValueError:
+            continue
+        if d is not None and d <= as_of:
+            out.append((cells[0], d.isoformat()))
+    return out
+
+
 def read_frozen(repo, freeze):
     b = show(repo, freeze, CLAIMS)
     if b is None:
@@ -278,21 +293,32 @@ def main():
         queue_ok = True
         for as_of in (cfg["as_of"], cfg["projection_as_of"]):
             want = tally(reg_text, datetime.date.fromisoformat(as_of), int(cfg["window"]))
+            want_due = due_ids(reg_text, datetime.date.fromisoformat(as_of))
             r = tool_run(py, tool_path, reg_path, as_of, int(cfg["window"]))
-            got = None
-            for ln in (r.stdout or "").splitlines():
-                m = SUMMARY.match(ln.strip())
-                if m:
-                    got = tuple(int(x) for x in m.groups())
+            lines = (r.stdout or "").splitlines()
+            summaries = [ln.strip() for ln in lines if SUMMARY.match(ln.strip())]
+            got = tuple(int(x) for x in SUMMARY.match(summaries[-1]).groups()) if summaries else None
+            tool_due = []
+            for ln in lines:
+                parts_ln = ln.strip().split()
+                if len(parts_ln) == 3 and parts_ln[0] == "DUE":
+                    tool_due.append((parts_ln[1], parts_ln[2]))
             if r.returncode != 0 or got is None:
                 queue_ok = False
                 parts.append("%s: no summary (rc=%d)" % (as_of, r.returncode))
-                continue
-            if got != want[:4]:
+            elif len(summaries) != 1:
+                queue_ok = False
+                parts.append("%s: %d summary lines (need exactly 1)" % (as_of, len(summaries)))
+            elif got != want[:4]:
                 queue_ok = False
                 parts.append("%s: tool %s != counter %s" % (as_of, got, want[:4]))
+            elif tool_due != want_due:
+                queue_ok = False
+                parts.append("%s: DUE lines %d != counter due set %d (first diff %r)"
+                             % (as_of, len(tool_due), len(want_due),
+                                next((p for p in zip(tool_due, want_due) if p[0] != p[1]), None)))
             else:
-                parts.append("%s: %d/%d/%d/%d ok" % ((as_of,) + got))
+                parts.append("%s: %d/%d/%d/%d + %d DUE ok" % ((as_of,) + got + (len(tool_due),)))
         queue_line = "; ".join(parts)
     results.append(("QUEUE", "PASS" if queue_ok else "FAIL", queue_line))
 
@@ -335,6 +361,44 @@ def main():
             mod_ok = ok1 and ok2
             mod_line = ("neutral +1 row -> %s; due +1 row -> %s; frozen %s"
                         % (g1, g2, t0[:4]))
+            # NNd boundary probe: a shifted day-count arithmetic must move these counts.
+            a = datetime.date.fromisoformat(as_of)
+            w = int(cfg["window"])
+            bnd = "".join([
+                "\n| S910 | nn boundary exact | book | C | s | a | t | queued | %s | 90d | \u2014 |"
+                % (a - datetime.timedelta(days=90)).isoformat(),
+                "\n| S911 | nn boundary inside | book | C | s | a | t | queued | %s | 90d | \u2014 |"
+                % (a - datetime.timedelta(days=89)).isoformat(),
+                "\n| S912 | nn boundary window | book | C | s | a | t | queued | %s | 90d | \u2014 |"
+                % (a + datetime.timedelta(days=w - 90)).isoformat(),
+                "\n| S913 | nn boundary outside | book | C | s | a | t | queued | %s | 90d | \u2014 |"
+                % (a + datetime.timedelta(days=w - 89)).isoformat(),
+                "\n",
+            ])
+            bnd_text = base_text + bnd
+            with open(reg_path, "w", encoding="utf-8") as fh:
+                fh.write(bnd_text)
+            want_b = tally(bnd_text, a, w)
+            want_due_b = due_ids(bnd_text, a)
+            r3 = tool_run(py, tool_path, reg_path, as_of, w)
+            g3 = None
+            for ln in (r3.stdout or "").splitlines():
+                m = SUMMARY.match(ln.strip())
+                if m:
+                    g3 = tuple(int(x) for x in m.groups())
+            tool_due_b = []
+            for ln in (r3.stdout or "").splitlines():
+                pp = ln.strip().split()
+                if len(pp) == 3 and pp[0] == "DUE":
+                    tool_due_b.append((pp[1], pp[2]))
+            ok3 = (g3 == want_b[:4]) and (tool_due_b == want_due_b)
+            if not ok3:
+                mod_ok = False
+                mod_line += "; NNd boundary FAIL (tool %s vs counter %s; due %d vs %d)" % (
+                    g3, want_b[:4], len(tool_due_b), len(want_due_b))
+            else:
+                mod_line += "; NNd boundary ok (%d/%d/%d/%d, %d DUE)" % (
+                    g3 + (len(tool_due_b),))
     results.append(("MODULAR", "PASS" if mod_ok else "FAIL", mod_line))
 
     # ERROR: malformed registry -> exit 2 with RECHECK-ERROR, no traceback
@@ -423,7 +487,7 @@ def selftest(work):
         "    ap.add_argument('--selftest',action='store_true'); a=ap.parse_args()\n"
         "    if a.selftest:\n"
         "        print('SELFTEST: PASS (9 checks)'); return 0\n"
-        "    asof=datetime.date.fromisoformat(a.as_of); due=up=ex=rows=0\n"
+        "    asof=datetime.date.fromisoformat(a.as_of); due=up=ex=rows=0; duelines=[]\n"
         "    for line in open(a.registry,encoding='utf-8'):\n"
         "        if not ROW.match(line): continue\n"
         "        rows+=1; c=[x.strip() for x in line.strip().strip('|').split('|')]\n"
@@ -435,8 +499,9 @@ def selftest(work):
         "            d=datetime.date.fromisoformat(c[8])+datetime.timedelta(days=int(m.group(1))) if m else datetime.date.fromisoformat(c[9])\n"
         "        except ValueError:\n"
         "            print('RECHECK-ERROR bad cadence row %d'%rows); return 2\n"
-        "        if d<=asof: due+=1\n"
+        "        if d<=asof: due+=1; duelines.append('DUE %s %s'%(c[0],d.isoformat()))\n"
         "        elif d<=asof+datetime.timedelta(days=a.window): up+=1\n"
+        "    for dl in duelines: print(dl)\n"
         "    print('RECHECK-QUEUE: %d due / %d upcoming / %d on-release / %d rows'%(due,up,ex,rows))\n"
         "    return 0\n"
         "if __name__=='__main__':\n"
@@ -552,6 +617,27 @@ def selftest(work):
     j4 = commit("junk: malformed registry accepted")
     r = counter(["--root", fx, "--lands", j4, "--freeze", freeze, "--work", wd])
     check("junk malformed-accepted fails ERROR", "LEG FAIL ERROR" in r.stdout, r.stdout[-300:])
+
+    # junk 5: the summary line printed twice (exactly-one-summary unenforced by r1)
+    doubled = tool.replace(
+        "    print('RECHECK-QUEUE: %d due / %d upcoming / %d on-release / %d rows'%(due,up,ex,rows))",
+        "    print('RECHECK-QUEUE: %d due / %d upcoming / %d on-release / %d rows'%(due,up,ex,rows))\n"
+        "    print('RECHECK-QUEUE: %d due / %d upcoming / %d on-release / %d rows'%(due,up,ex,rows))")
+    with open(os.path.join(fx, "tools", "check-sources-recheck.py"), "w", encoding="utf-8") as fh:
+        fh.write(doubled)
+    j5 = commit("junk: double summary")
+    r = counter(["--root", fx, "--lands", j5, "--freeze", freeze, "--work", wd])
+    check("junk double-summary fails QUEUE", "LEG FAIL QUEUE" in r.stdout, r.stdout[-300:])
+
+    # junk 6: NNd arithmetic shifted by one day (invisible to r1's count legs)
+    shifted = tool.replace(
+        "+datetime.timedelta(days=int(m.group(1)))",
+        "+datetime.timedelta(days=int(m.group(1))+1)")
+    with open(os.path.join(fx, "tools", "check-sources-recheck.py"), "w", encoding="utf-8") as fh:
+        fh.write(shifted)
+    j6 = commit("junk: NNd arithmetic shifted one day")
+    r = counter(["--root", fx, "--lands", j6, "--freeze", freeze, "--work", wd])
+    check("junk shifted-NNd fails MODULAR", "LEG FAIL MODULAR" in r.stdout, r.stdout[-300:])
 
     print("SELFTEST-O82: %s (%d checks)" % ("PASS" if ok == total else "FAIL", total))
     return 0 if ok == total else 1
