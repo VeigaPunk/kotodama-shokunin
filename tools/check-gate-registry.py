@@ -4,7 +4,9 @@
 Instrument set: every `reports/round-*/accept-*.py` under --root. A registry row
 covers an instrument when the instrument's repo-relative path appears in the
 row's entry-command cell. Exits 0 only when no instrument is unregistered and no
-entry-command path token is dead.
+entry-command path token is dead. The summary's `registered` count is the number
+of data rows in the registry table (`registered_rows` in --json); the JSON
+`registered` list is the covered instruments.
 """
 import argparse
 import glob
@@ -98,6 +100,7 @@ def evaluate(root, registry=None):
     data = {
         "instruments": inst,
         "registered": [p for p in inst if p not in missing],
+        "registered_rows": len([1 for cells, _ in rows if cells[0] != "name"]),
         "missing": missing,
         "dead": dead,
         "rows": len(rows) - 1,
@@ -108,7 +111,7 @@ def evaluate(root, registry=None):
 
 def report(data):
     print("GATE-REGISTRY: %d missing / %d registered / %d instruments / %d dead" % (
-        len(data["missing"]), len(data["registered"]), len(data["instruments"]), len(data["dead"])))
+        len(data["missing"]), data["registered_rows"], len(data["instruments"]), len(data["dead"])))
     for p in data["missing"]:
         print("MISSING %s" % p)
     for d in data["dead"]:
