@@ -1727,8 +1727,8 @@ both counters refuse, exit 2 (`reports/round-84/telemetry/controls-d.txt`,
 acquire the tool. One v1 wave of 12 seats (2 scout, 3 executor, 2 scribe,
 1 connector, 1 reviewer, 1 critic, 1 mutation-tester, 1 sentinel; the L1 holds the
 canonical planner seat). The round-83 verifier spot-check routed no defect to this
-round; the round's own attacks (reviewer, critic, mutation tester, sentinel) found
-15 entry defects and 11 tool/record defects, all dispositioned before the lands.
+round; the round's own attacks (reviewer D1–D16, sentinel F1–F14, critic items 1–7,
+the mutation matrix) were all dispositioned before the lands — fixed in the	extry/tool, or recorded as named limits.
 
 | axis | verdict | before → after / observation | counting command | measured evidence |
 |---|---|---|---|---|
