@@ -4705,3 +4705,12 @@ seven empty outputs; no replacements. Parent WAVE-DONE preceded close records.
    sourced D claim, registry search log/path, indexed new entry. Assimilation:
    none (staged menu read, no package adoption); `considerthese/` absent.
    No existing entry re-verified/superseded: quality trend unchanged.
+
+7. **Close evidence:** `reports/round-85/final-checks.json` at data revision
+   `76ff0707` records combined index 259/259, registry 0 missing / 79 registered /
+   0 dead, cited records 0 empty / 0 scratch, and census exit 0.
+   `noharm.json` records zero old-row/knowledge changes and five of five
+   historical footer blocks retained. `SHONEN.md` refreshes the four `[~]`
+   evidence lines with current symbolic headings and round-85 receipts; no
+   promotion is claimed. `misroot-sweep.json` records no attributed own misroot;
+   unassigned fleet `after` and orchestrator scratch were left untouched.
