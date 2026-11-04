@@ -1,0 +1,14 @@
+row: S904
+row-cites-capture: 20260925202831 (the installed record reports/round-82/evidence/S904.txt); this file is the independent second reading, whose own capture was 20261026212950
+capture: 2026-11-04 (round 82, Linux host, curl plain request; automation: none)
+url: https://www.gutenberg.org/cache/epub/1727/pg1727.txt
+work: Homer, The Odyssey, trans. Samuel Butler (Project Gutenberg eBook #1727, public domain e-text)
+probe: curl -sS -o od1727-plain.txt -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 717782 bytes
+UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 717782 B, wall absent
+UA "curl/8.23.0" (the tool's default) -> HTTP 200, 717782 B, wall absent
+(byte-identical bodies: the two UA runs differ by 0 bytes, so no UA-dependent wall exists on this URL)
+archive: https://web.archive.org/web/20261026212950/https://www.gutenberg.org/cache/epub/1727/pg1727.txt — CDX exact query (url=<live url>, fl=timestamp,statuscode,length,original) returns 20261026212950 status 200; the id_ raw fetch serves gzip, 265452 B transferred / 717784 B decoded, and the anchor quote below is present once after whitespace normalisation
+anchor locator: Book IX, Odysseus' plea at the Cyclops' cave (e-text line 4018 begins "for we are your suppliants"; the paragraph runs "We therefore humbly pray you to show us some hospitality ... we are your suppliants ...")
+verbatim quote (25 words): we are your suppliants, and Jove takes all respectable travellers under his protection, for he is the avenger of all suppliants and foreigners in distress
+second located span (same work, Book XIV, Eumaeus to the disguised Odysseus): only out of respect for Jove the god of hospitality, as fearing him and pitying you
+re-open: refetch the URL, whitespace-normalise, and search 'we are your suppliants, and Jove takes all respectable travellers'; it is in the plain text served by gutenberg.org (no challenge, no wall)

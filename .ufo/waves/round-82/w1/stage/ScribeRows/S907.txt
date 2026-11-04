@@ -1,0 +1,15 @@
+row: S907
+row-cites-capture: 20191023112911 (the installed record reports/round-82/evidence/S907.txt; the span matches there after whitespace folding, 8168 B); this file is the independent second reading, whose own capture 20240912100001 matched the span on raw bytes
+capture: 2026-11-04 (round 82, Linux host, curl plain request; automation: none)
+url: https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Guest
+work: "Guest", Encyclopaedia Britannica, 11th edn (Cambridge University Press, 1911), vol. 12 (Wikisource transcription of Page:EB1911 - Volume 12.djvu/698, article id 1720476)
+probe: curl -sSL -o guest-plain.txt -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 60273 bytes, final URL unchanged
+UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 60273 B, wall absent
+UA "curl/8.23.0" (the tool's default) -> HTTP 200, 60273 B, wall absent
+(byte-identical bodies: the two UA runs differ by 0 bytes, so no UA-dependent wall exists on this URL)
+structural finding: the article sentence is served inline in the live body, inside the ProofreadPage paragraph (<div class="prp-pages-output" ...><p about="#mwt6" ... id="mwBQ">), not only through client-side transclusion: the text node "one who receives hospitality" begins live line 518 and the paragraph closes "</p>" before the ws-data footer. The same page's older rendering carries it too, so the planned reject ground ("plain fetch returns only the Wikibase scaffold") is false for this article on both the live URL and the capture.
+archive: https://web.archive.org/web/20240912100001/https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Guest — CDX exact query returns 20240912100001 status 200; the id_ raw fetch is not gzip (HTML), 37460 B transferred, and the anchor quote below is present once (raw byte match, no normalisation needed)
+anchor locator: the article body, opening gloss after the headword "GUEST"; the sentence runs from "GUEST (a word common to Teutonic languages; cf. Ger. Gast, and Swed. gäst; cognate with Lat. hostis, originally a stranger, hence enemy; cf. 'host'), one who receives hospitality ..."
+verbatim quote (9 words): one who receives hospitality in the house of another
+second located span (same article, the polarity and its degraded case): his "host"; hence applied to a parasite
+re-open: refetch the URL (or the named capture), whitespace-normalise, and search 'one who receives hospitality in the house of another'; the article is a single sentence of about 55 words, so no longer span than this exists

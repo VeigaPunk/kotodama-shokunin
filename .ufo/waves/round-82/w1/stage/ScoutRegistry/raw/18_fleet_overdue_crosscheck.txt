@@ -1,0 +1,25 @@
+$ S=/home/vgpnk/Projects/shokunin/scripts/sources-census.sh
+$ $S overdue --root /home/vgpnk/Projects/shokunin kotodama --today 2026-11-04 > o1.out 2>&1; echo exit=$?
+exit=0
+$ awk -F"\t" "{print \$2}" o1.out | sort | uniq -c
+    673 cadence
+$ $S overdue --root /home/vgpnk/Projects/shokunin kotodama --today 2027-11-01 > o2.out 2>&1; echo exit=$?
+exit=1
+$ awk -F"\t" "{print \$2}" o2.out | sort | uniq -c
+    673 cadence
+    813 overdue
+$ awk -F"\t" '$2=="overdue"{split($3,a," "); print a[1]}' o2.out | sort -u | wc -l
+813
+$ awk -F"\t" '$2=="cadence"{split($3,a," "); print a[1]}' o2.out | sort -u | wc -l
+673
+$ comm -23 od.ids cd.ids | wc -l   # overdue-only ids = ISO-dated rows
+154
+$ comm -13 od.ids cd.ids | wc -l   # cadence-only ids = on-release rows
+14
+$ comm -12 od.ids cd.ids | wc -l   # ids in both = NNd rows past due
+659
+$ head -2 <(awk -F"\t" '$2=="overdue"' o2.out); head -2 <(awk -F"\t" '$2=="cadence"' o2.out)
+kotodama	overdue	S033 288d recheck=90d opened=2026-10-19
+kotodama	overdue	S032 288d recheck=90d opened=2026-10-19
+kotodama	cadence	S001 recheck=on-release opened=2026-10-19
+kotodama	cadence	S002 recheck=on-release opened=2026-10-19

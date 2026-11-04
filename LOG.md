@@ -4515,3 +4515,40 @@ its lands `4ad08c83` (`telemetry/lands-d81-graded.txt`, `-r2.txt`); the
 post-lands row placement fix (R81-M5) is validated by the registry's own
 validator (`census-end-r2.txt`, exit 0) and touches this round's own rows
 only. The attempted receipt was never committed.
+
+## Round 82 — 2026-11-04 (Linux/omp host, hyaku run 15, L1 KotodamaR82)
+
+Base `c285b2afb19d4b64320e18df1f55e426bf2d0b0c`; freeze `25907323b7b756145eddc76ed2dcd8bddc48197c`
+(claims.json + accept-o82/accept-d82 + the junk battery). Three claims declared, landed and
+counted; one v1 wave of 14 seats.
+
+1. **Claim O (operability, capability) — `tools/check-sources-recheck.py`, lands `41c6de89`.**
+   The registry's `recheck` cells (365d 392 / 180d 249 / ISO 154 / 90d 18 / on-release 14 over 827
+   rows) had no reader; the tool now derives the queue from committed bytes:
+   `RECHECK-QUEUE: 0 due / 18 upcoming / 14 on-release / 827 rows` at 2026-11-04 and
+   `813 due / 0 upcoming / 14 on-release / 827 rows` at 2027-11-01, both over the frozen blob and
+   both matching an independent L1 tally. `ACCEPT-O-82: PASS legs=7/7` at its lands. L1 integration
+   fix: the draft's own 12-cell fixture was not 12 cells; corrected before freeze (lesson R82-M2).
+2. **Claim D (depth) — `corpus/knowledge/myth-symbol/guest-right-hospitality-law.md`, first
+   lands `277fdf4a`, graded lands `6c525ba4` (re-freeze `3bb408ae`).** The 256th knowledge file: six-decision table (who counts as guest, the host's owed
+   package, the markers, the seals, the breach ladder, the guest's half), a five-field lexicon
+   interface with a Vethari worked derivation, 22 single-id anchors each re-verified against its
+   fetched body, a NON-CANON worked example, the lore handoff. SOURCES 827 → 832: S904 Odyssey xiv
+   (A), S905 Tacitus *Germania* xxi (A), S906 Ovid *Met. * viii (B), S907 EB11 "Guest" (C, gloss
+   only), plus S908 Frazer rejected on framework status. `ACCEPT-D-82: PASS legs=8/8`.
+   After the reviewer's two craft findings the entry gained a morphology note (`-eth` and
+   `šen` declared non-derivational; the `dawan-sirat` compounding rule that lexicalizes the
+   degree ladder), a "rungs, not alternatives — stack and price" clause on the breach row,
+   and an answer to the redemption question in the violation-term row (29,020 → 29,719 B);
+   the entry sha was re-pinned in a recorded re-freeze, and the graded lands is
+   `6c525ba4` (`telemetry/lands-d82-graded-r3.txt`).
+3. **Claim C (calibration) — QUALITY criterion 30, lands `3a59daaf`.** A "no quotable prose" reject
+   must record `raw <n> / folded <m>` for its located span and a same-page capture probe; the
+   round-81 EB11 "Mint" reject ground is re-measured and falsified (live 148,302 decoded bytes,
+   27 `</p>`, span present; capture 28 `</p>`). The round's own first read of EB11 "Guest" fell into
+   the same trap and was corrected before its row was filed (lesson R82-M1).
+4. **Frontier.** Registry rows 827 → 832, knowledge files 255 → 256, census start/end exit 0. One
+   mistake mined into the lesson (R82-M1, the extraction-shaped reject) plus three integration ones
+   (R82-M2..M4: a selftest fixture that was not the shape it claimed; two evidence sets for one row
+   set; a planned source that duplicated row S320). Sourced claim: D rests on S904–S907, all opened
+   this round; the Hovamol page was carried, not rejected, with both reasons on file.

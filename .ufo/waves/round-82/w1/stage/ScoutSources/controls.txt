@@ -1,0 +1,40 @@
+# controls — round 82 w1 ScoutSources (QUALITY 21 + 24)
+fetched: 2026-11-04, curl 8.23.0, plain UA (no -A), automation: none
+
+## CDX positive control 1 (URL known to have captures)
+query: http://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FHospitality&output=json&limit=-3&filter=statuscode%3A200
+[["urlkey","timestamp","original","mimetype","statuscode","digest","length"],
+["org,wikipedia,en)/wiki/hospitality","20261012033337","https://en.wikipedia.org/wiki/Hospitality","text/html","200","552O2K76YFKSSCCPWKT6PEEWOMILK3XC","55618"],
+["org,wikipedia,en)/wiki/hospitality","20261014092519","https://en.wikipedia.org/wiki/Hospitality","text/html","200","CPFBZCLDQOCMW6DXWP2JOWTUXVIUBQUA","55905"],
+["org,wikipedia,en)/wiki/hospitality","20261022132155","https://en.wikipedia.org/wiki/Hospitality","text/html","200","YMW2DWX3W2O77TXYW7PQVONZJV2JKJS3","54821"]]
+
+[HTTP 200, 564 B]
+
+## CDX positive control 2 (same query shape, second host)
+query: http://web.archive.org/cdx/search/cdx?url=example.com/&output=json&limit=-3&filter=statuscode:200
+[["urlkey","timestamp","original","mimetype","statuscode","digest","length"],
+["com,example)/","20261104020555","https://example.com/","text/html","200","U2352G3H6BFNEDPBNQI5XGOBSQAN4W4J","1089"],
+["com,example)/","20261104092031","https://example.com/","text/html","200","U2352G3H6BFNEDPBNQI5XGOBSQAN4W4J","1093"],
+["com,example)/","20261104102604","https://example.com/","text/html","200","U2352G3H6BFNEDPBNQI5XGOBSQAN4W4J","1090"]]
+
+[HTTP 200, 435 B]
+
+## CDX deliberately-empty probe (same query shape)
+query: http://web.archive.org/cdx/search/cdx?url=example.com/no-such-page-r82-probe-xyzzy&output=json&limit=-3&filter=statuscode:200
+[]
+
+[HTTP 200, 3 B]
+
+## canonical/redirect probe (curl -sS, no -L; num_redirects and final url)
+https://www.gutenberg.org/cache/epub/1727/pg1727.txt
+  HTTP 200 redirects=0 final=https://www.gutenberg.org/cache/epub/1727/pg1727.txt
+https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)/Hovamol
+  HTTP 200 redirects=0 final=https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)/Hovamol
+https://www.gutenberg.org/cache/epub/26073/pg26073.txt
+  HTTP 200 redirects=0 final=https://www.gutenberg.org/cache/epub/26073/pg26073.txt
+https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Guest
+  HTTP 200 redirects=0 final=https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Guest
+https://en.wikisource.org/wiki/Germania_(Church_%26_Brodribb)
+  HTTP 200 redirects=0 final=https://en.wikisource.org/wiki/Germania_(Church_%26_Brodribb)
+https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Hospitality
+  HTTP 404 redirects=0 final=https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Hospitality

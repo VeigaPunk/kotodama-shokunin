@@ -1,0 +1,60 @@
+# census dry run — ScribeRows, round 82 (scratch copy, NOT the lane)
+# source bytes: git show c285b2afb19d4b64320e18df1f55e426bf2d0b0c:corpus/SOURCES.md (the round base, 827 rows), not the moving worktree
+# final build: after the draft rows were re-pointed at the landed anchors; structure is unchanged from the first run.
+# built by splicing .ufo/waves/round-82/w1/drafts/rows/S904-S907.md into that base copy:
+# 'good' = after the S903 row (line 858), before '## Paths' (line 859);
+# 'bad' = appended at end of file (the R81-M5 / E12 class);
+# 'shape-mutant' = good with one extra pipe inside S904's tier cell.
+# variants preserved beside this file as sources-spliced-preview.md,
+# sources-endappend-preview.md and sources-shape-mutant-preview.md.
+
+## variant: good
+c1: grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' $F
+    -> '831'
+c2: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {n++} END{print n+0}' $F
+    -> '0'
+c3: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {t=$5; gsub(/[[:space:]]/,"",t); n[t]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' $F
+    -> 'A=500 B=314 C=17'
+c4: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {s=$9; gsub(/[[:space:]]/,"",s); n[s]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' $F
+    -> 'mined=736 queued=58 rejected=37'
+c5: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {i=$2; gsub(/[[:space:]]/,"",i); print i}' $F | sort | uniq -d
+    -> ''
+c6: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2;k=$4;t=$5;s=$9; gsub(/[[:space:]]/,"",i); gsub(/[[:space:]]/,"",k); gsub(/[[:space:]]/,"",t); gsub(/[[:space:]]/,"",s); if (t !~ /^[ABC]$/) print "tier", i, t; if (s !~ /^(queued|mined|rejected)$/) print "status", i, s; if (k !~ /^(spec|docs|paper|code|tool|dataset|talk|book|community|own-work)$/) print "kind", i, k; if (t=="A" && k=="community") print "tier-inflation", i}' $F
+    -> ''
+c7: used-by existence ->
+    (no missing paths)
+E12-class positional check (rows after '## Paths' at line 864) -> none
+
+## variant: bad
+c1: grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' $F
+    -> '831'
+c2: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {n++} END{print n+0}' $F
+    -> '0'
+c3: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {t=$5; gsub(/[[:space:]]/,"",t); n[t]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' $F
+    -> 'A=500 B=314 C=17'
+c4: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {s=$9; gsub(/[[:space:]]/,"",s); n[s]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' $F
+    -> 'mined=736 queued=58 rejected=37'
+c5: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {i=$2; gsub(/[[:space:]]/,"",i); print i}' $F | sort | uniq -d
+    -> ''
+c6: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2;k=$4;t=$5;s=$9; gsub(/[[:space:]]/,"",i); gsub(/[[:space:]]/,"",k); gsub(/[[:space:]]/,"",t); gsub(/[[:space:]]/,"",s); if (t !~ /^[ABC]$/) print "tier", i, t; if (s !~ /^(queued|mined|rejected)$/) print "status", i, s; if (k !~ /^(spec|docs|paper|code|tool|dataset|talk|book|community|own-work)$/) print "kind", i, k; if (t=="A" && k=="community") print "tier-inflation", i}' $F
+    -> ''
+c7: used-by existence ->
+    (no missing paths)
+E12-class positional check (rows after '## Paths' at line 860) -> ['S904', 'S905', 'S906', 'S907']
+
+## variant: shape-mutant
+c1: grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' $F
+    -> '831'
+c2: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF!=13 {n++} END{print n+0}' $F
+    -> '1'
+c3: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {t=$5; gsub(/[[:space:]]/,"",t); n[t]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' $F
+    -> 'A=500 B=314 C=17'
+c4: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {s=$9; gsub(/[[:space:]]/,"",s); n[s]++} END{for(k in n) printf "%s=%d ", k, n[k]; print ""}' $F
+    -> "mined=735 queued=58 guest-rightispleadedaslawwithasanction,notascourtesy:thestranger'sclaimisspokenassupplicationtoanamedgodwhoavengesrefusedstrangersandforeigners,andtheCyclopsisdrawnpreciselybydenyingthatjurisdiction—afictionalhospitalitylawneedstheformulaaguestmayrecite,thepowerthatenforcesit,andtherecognizedoutsiderwhostandsoutsideit=1 rejected=37"
+c5: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ {i=$2; gsub(/[[:space:]]/,"",i); print i}' $F | sort | uniq -d
+    -> ''
+c6: awk -F'|' '/^\|[[:space:]]*S[0-9][0-9][0-9]+[[:space:]]*\|/ && NF==13 {i=$2;k=$4;t=$5;s=$9; gsub(/[[:space:]]/,"",i); gsub(/[[:space:]]/,"",k); gsub(/[[:space:]]/,"",t); gsub(/[[:space:]]/,"",s); if (t !~ /^[ABC]$/) print "tier", i, t; if (s !~ /^(queued|mined|rejected)$/) print "status", i, s; if (k !~ /^(spec|docs|paper|code|tool|dataset|talk|book|community|own-work)$/) print "kind", i, k; if (t=="A" && k=="community") print "tier-inflation", i}' $F
+    -> ''
+c7: used-by existence ->
+    (no missing paths)
+E12-class positional check (rows after '## Paths' at line 864) -> none

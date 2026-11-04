@@ -1,0 +1,525 @@
+{
+  "meta": {
+    "seat": "ExecToolControls",
+    "round": 82,
+    "wave": "r82-v1",
+    "as_of": "2026-11-04",
+    "window": 90,
+    "window_edge_asof_plus_90": "2027-02-02",
+    "window_edge_plus_91": "2027-02-03",
+    "tool": "/home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py",
+    "tool_sha256": "95e67c16f466c0f1b2e34faf9681063b4af68024feb3a3ec4d0efd3b740ba219",
+    "tool_mtime": 1793791532.4054022,
+    "tool_missing": false,
+    "python": "3.14.8"
+  },
+  "summary": {
+    "pass": 16,
+    "FAIL": 0,
+    "unrun": 0
+  },
+  "cases": [
+    {
+      "id": "00-selftest",
+      "desc": "--selftest runs >= 8 checks, prints SELFTEST: PASS (<n> checks)",
+      "fixture": null,
+      "fixture_content": null,
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --selftest",
+      "stdout": "SELFTEST: PASS (13 checks)\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": null,
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "selftest line format",
+          "ok": true
+        },
+        {
+          "check": "selftest >= 8 checks",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "01-empty-registry",
+      "desc": "header-only registry -> all zero, exit 0",
+      "fixture": "fx01_empty",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx01_empty.md --as-of 2026-11-04",
+      "stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 0 on-release / 0 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 0 on-release / 0 rows",
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "02-due-exactly-on-asof",
+      "desc": "recheck ISO == as-of -> due +1",
+      "fixture": "fx02_due_on_asof",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S201 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2026-11-04 | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx02_due_on_asof.md --as-of 2026-11-04",
+      "stdout": "DUE S201 2026-11-04\nRECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 1 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 1 rows\nDUE S201 2026-11-04",
+      "verdict": "pass",
+      "notes": [
+        "line ORDER differs from contract prose order: tool prints DUE lines first, summary last; contract text pins membership only; tool's own selftest expects DUE-first"
+      ],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "02b-nnd-lands-on-asof",
+      "desc": "opened 2026-11-01 + 3d == as-of -> due +1 (NNd conversion)",
+      "fixture": "fx02b_nnd_due",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S202 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-11-01 | 3d | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx02b_nnd_due.md --as-of 2026-11-04",
+      "stdout": "DUE S202 2026-11-04\nRECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 1 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 1 rows\nDUE S202 2026-11-04",
+      "verdict": "pass",
+      "notes": [
+        "line ORDER differs from contract prose order: tool prints DUE lines first, summary last; contract text pins membership only; tool's own selftest expects DUE-first"
+      ],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "03-due-at-window-edge",
+      "desc": "due_date == as-of+window(90) -> upcoming +1 (inclusive edge)",
+      "fixture": "fx03_upcoming_edge",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S203 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2027-02-02 | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx03_upcoming_edge.md --as-of 2026-11-04",
+      "stdout": "RECHECK-QUEUE: 0 due / 1 upcoming / 0 on-release / 1 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 0 due / 1 upcoming / 0 on-release / 1 rows",
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "03b-window-89-flag",
+      "desc": "same fixture with --window 89 -> edge drops out (window flag honoured)",
+      "fixture": "fx03_upcoming_edge",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S203 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2027-02-02 | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx03_upcoming_edge.md --as-of 2026-11-04 --window 89",
+      "stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 0 on-release / 1 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 0 on-release / 1 rows",
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "04-beyond-window",
+      "desc": "due_date == as-of+window+1 -> neither due nor upcoming",
+      "fixture": "fx04_beyond_window",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S204 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2027-02-03 | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx04_beyond_window.md --as-of 2026-11-04",
+      "stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 0 on-release / 1 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 0 on-release / 1 rows",
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "05-on-release",
+      "desc": "on-release -> exempt cadence counted, not due",
+      "fixture": "fx05_on_release",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S205 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | on-release | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx05_on_release.md --as-of 2026-11-04",
+      "stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 1 on-release / 1 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 0 due / 0 upcoming / 1 on-release / 1 rows",
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "06-12-cell-row",
+      "desc": "12-cell row -> exit 2, RECHECK-ERROR, no traceback",
+      "fixture": "fx06_12_cell_row",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S206 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 90d | \u2014 | EXTRA |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx06_12_cell_row.md --as-of 2026-11-04",
+      "stdout": "RECHECK-ERROR line 9: row has 12 cells, expected 11\n",
+      "stderr": "",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "expected_stdout": null,
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "RECHECK-ERROR printed",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "07-recheck-soon",
+      "desc": "recheck 'soon' unparseable -> exit 2, RECHECK-ERROR, no traceback",
+      "fixture": "fx07_recheck_soon",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S207 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | soon | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx07_recheck_soon.md --as-of 2026-11-04",
+      "stdout": "RECHECK-ERROR row S207: unparseable recheck cadence 'soon'\n",
+      "stderr": "",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "expected_stdout": null,
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "RECHECK-ERROR printed",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "08-opened-invalid-iso",
+      "desc": "opened 2026-13-40 -> exit 2, RECHECK-ERROR, no traceback",
+      "fixture": "fx08_bad_opened",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S208 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-13-40 | 90d | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx08_bad_opened.md --as-of 2026-11-04",
+      "stdout": "RECHECK-ERROR row S208: opened '2026-13-40' is not a real calendar date\n",
+      "stderr": "",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "expected_stdout": null,
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "RECHECK-ERROR printed",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "09-missing-registry-file",
+      "desc": "missing --registry path -> exit 2, RECHECK-ERROR (not an uncaught exception)",
+      "fixture": null,
+      "fixture_content": null,
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/does-not-exist.md --as-of 2026-11-04",
+      "stdout": "RECHECK-ERROR registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/does-not-exist.md: No such file or directory\n",
+      "stderr": "",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "expected_stdout": null,
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "RECHECK-ERROR printed",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "10-population-modularity",
+      "desc": "base + neutral row -> due/upcoming/on-release unchanged, rows +1",
+      "fixture": "fx10_base_plus_neutral",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S201 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2026-11-04 | \u2014 |\n| S210 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2099-01-01 | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx10_base_plus_neutral.md --as-of 2026-11-04",
+      "stdout": "DUE S201 2026-11-04\nRECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 2 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 2 rows\nDUE S201 2026-11-04",
+      "verdict": "pass",
+      "notes": [
+        "line ORDER differs from contract prose order: tool prints DUE lines first, summary last; contract text pins membership only; tool's own selftest expects DUE-first"
+      ],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "11-indented-row",
+      "desc": "2-space indented row parsed (census grammar allows 0-3 leading spaces)",
+      "fixture": "fx11_indented_neutral",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S201 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2026-11-04 | \u2014 |\n  | S210 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2099-01-01 | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx11_indented_neutral.md --as-of 2026-11-04",
+      "stdout": "DUE S201 2026-11-04\nRECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 2 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 2 rows\nDUE S201 2026-11-04",
+      "verdict": "pass",
+      "notes": [
+        "line ORDER differs from contract prose order: tool prints DUE lines first, summary last; contract text pins membership only; tool's own selftest expects DUE-first"
+      ],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "11b-4space-row-ignored",
+      "desc": "observation: 4-space indented row is outside the 0-3 grammar -> silently ignored",
+      "fixture": "fx11b_4space_neutral",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S201 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2026-11-04 | \u2014 |\n    | S210 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 2099-01-01 | \u2014 |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx11b_4space_neutral.md --as-of 2026-11-04",
+      "stdout": "DUE S201 2026-11-04\nRECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 1 rows\n",
+      "stderr": "",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expected_stdout": "RECHECK-QUEUE: 1 due / 0 upcoming / 0 on-release / 1 rows\nDUE S201 2026-11-04",
+      "verdict": "pass",
+      "notes": [
+        "line ORDER differs from contract prose order: tool prints DUE lines first, summary last; contract text pins membership only; tool's own selftest expects DUE-first"
+      ],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "exactly one summary line",
+          "ok": true
+        },
+        {
+          "check": "stdout lines exact, order-insensitive (contract pins membership, not order)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "12-pipe-in-usedby",
+      "desc": "used-by with embedded pipe -> 12 cells -> grammar forbids; expect exit 2 RECHECK-ERROR",
+      "fixture": "fx12_pipe_in_usedby",
+      "fixture_content": "# SOURCES \u2014 controls fixture\n\nprose preamble; tool must scope to the Registry section.\n\n## Registry\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| S212 | Fixture Source \u2014 https://example.org/fx | dataset | A | controls stress scope | anchor p1 para | teaches text for controls | queued | 2026-01-01 | 90d | corpus/a.md|corpus/b.md |\n",
+      "command": "/usr/bin/python3 /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-82/w1/drafts/tools/check-sources-recheck.py --registry /fast/scratch/hyaku/kotodama-r82/ExecToolControls/fx/fx12_pipe_in_usedby.md --as-of 2026-11-04",
+      "stdout": "RECHECK-ERROR line 9: row has 12 cells, expected 11\n",
+      "stderr": "",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "expected_stdout": null,
+      "verdict": "pass",
+      "notes": [],
+      "checks": [
+        {
+          "check": "exit code",
+          "ok": true
+        },
+        {
+          "check": "no traceback",
+          "ok": true
+        },
+        {
+          "check": "RECHECK-ERROR printed",
+          "ok": true
+        }
+      ]
+    }
+  ]
+}

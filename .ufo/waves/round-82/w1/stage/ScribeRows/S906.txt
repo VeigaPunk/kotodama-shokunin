@@ -1,0 +1,14 @@
+row: S906
+row-cites-capture: 20251013025327 (the installed record reports/round-82/evidence/S906.txt); this file is the independent second reading, whose own capture was 20260915020048
+capture: 2026-11-04 (round 82, Linux host, curl plain request; automation: none)
+url: https://www.gutenberg.org/cache/epub/26073/pg26073.txt
+work: Ovid, The Metamorphoses, Books VIII-XV, trans. Henry T. Riley (Project Gutenberg eBook #26073, public domain e-text; title page reads "Translator: Henry T. Riley")
+probe: curl -sS -o met26073-plain.txt -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 853821 bytes
+UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 853821 B, wall absent
+UA "curl/8.23.0" (the tool's default) -> HTTP 200, 853821 B, wall absent
+(byte-identical bodies: the two UA runs differ by 0 bytes, so no UA-dependent wall exists on this URL)
+archive: https://web.archive.org/web/20260915020048/https://www.gutenberg.org/cache/epub/26073/pg26073.txt — CDX exact query returns 20260915020048 status 200; the id_ raw fetch serves gzip, 332350 B transferred / 853821 B decoded, and the anchor quote below is present once after whitespace normalisation
+anchor locator: Book VIII, FABLE VI [VIII.611-737], Baucis and Philemon (the fable argument names "Jupiter and Mercury, disguised in human shape"); the anchor sits in the poem's opening of the search for shelter
+verbatim quote (22 words): To a thousand houses did they go, asking for lodging and for rest. A thousand houses did the bolts fasten {against them}
+second located span (same fable): with hands held up, they offer their prayers, and entreat pardon for their entertainment
+re-open: refetch the URL, whitespace-normalise, and search 'To a thousand houses did they go, asking for lodging and for rest'; the braces around {against them} are the translator's supplied words and are part of the served bytes

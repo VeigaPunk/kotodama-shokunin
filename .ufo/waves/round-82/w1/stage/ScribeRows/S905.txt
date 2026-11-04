@@ -1,0 +1,15 @@
+row: S905
+row-cites-capture: 20260206213325 (the installed record reports/round-82/evidence/S905.txt); this file is the independent second reading, whose own capture was 20261007211035. Byte sizes: 41809 B transferred / 163266 B decoded on the live URL.
+capture: 2026-11-04 (round 82, Linux host, curl plain request; automation: none)
+url: https://en.wikisource.org/wiki/Germania_(Church_%26_Brodribb)
+work: Tacitus, Germania, trans. Church and Brodribb (Wikisource transcription; Latin parallel linked per chapter)
+probe: curl -sSL -o germania-plain.txt -w "%{http_code} %{size_download}\n" <url> -> HTTP 200, 163266 bytes, final URL unchanged
+UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 163266 B, wall absent
+UA "curl/8.23.0" (the tool's default) -> HTTP 200, 163266 B, wall absent
+(byte-identical bodies: the two UA runs differ by 0 bytes, so no UA-dependent wall exists on this URL)
+archive: https://web.archive.org/web/20261007211035/https://en.wikisource.org/wiki/Germania_(Church_%26_Brodribb) — CDX exact query returns 20261007211035 status 200; the id_ raw fetch serves gzip, 41873 B transferred / 163433 B decoded, and the anchor quote below is present once after whitespace normalisation
+anchor locator: chapter XXI, the second half of the chapter paragraph (live page line 581 <p id="mwjQ">), beginning "It is a duty among them to adopt the feuds"; the anchor sentence follows "No nation indulges more profusely in entertainments and hospitality."
+verbatim quote (24 words): To exclude any human being from their roof is thought impious; every German, according to his means, receives his guest with a well-furnished table
+second located span (same chapter, the relay): he who was but now the host becomes the guide and companion to further hospitality, and without invitation they go to the next house
+re-open: refetch the URL, whitespace-normalise, and search 'To exclude any human being from their roof is thought impious'; the prose is served inline by the API-free HTML (no challenge, no wall)
+note: the originally planned S905 source (Bellows' Hovamol on Wikisource) was probed and set aside: its hemistichs sit in separate <span class="ws-poem-line"> cells, so no >=8-word run of the poem is contiguous in the served bytes (measured: 'Hail to the giver! a guest has come;' count 0, 'Where shall the stranger sit?' count 1 but 5 words). Vet of the substitution belongs to the L1's amendment; the rows draft records Tacitus.

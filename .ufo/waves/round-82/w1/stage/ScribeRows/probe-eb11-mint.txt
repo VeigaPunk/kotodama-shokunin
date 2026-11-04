@@ -1,0 +1,12 @@
+row: carried-reject probe (round-81 carried reject: EB11 "Coin" / "Mint")
+capture: 2026-11-04 (round 82, Linux host, curl plain request; automation: none)
+urls:
+  https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Coin -> HTTP 200, 61002 B
+  https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Mint -> HTTP 200, 148302 B (page footer records the canonical page "1911 Encyclopædia Britannica/Mint (coin)", oldid 13560178)
+UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> Mint HTTP 200, 148302 B, wall absent
+UA "curl/8.23.0" (the tool's default) -> Mint HTTP 200, 148302 B, wall absent
+(Mint byte-identical under both UAs: md5 d80b03a99ad22efcf24afcf058124ffa; Coin was fetched with the default UA once and returned 61002 B, no wall)
+finding on "Coin": the live body carries article prose inside the ProofreadPage paragraph, not a scaffold (visible text 1854 chars; prose sentence "The form “quoin” is used for the external angle of a building (see Quoins), and “coign,” also a projecting angle, survives in the Shakespearean phrase “a coign of vantage.”"). The article is a short stub of about 50 words, so "Coin is a stub" survives as a stub finding.
+finding on "Mint": the live body carries the full article, prose served inline (visible text 47165 chars), beginning "MINT (Lat. moneta ; Mid. Eng. mynt ) a place where coins are manufactured with the authority of the state." The round-81 ground for this half — "Mint renders only via client-side transclusion, so a plain fetcher cannot find quotes there" — is falsified by this measurement.
+span used for the finding (12 words, present in the Mint live body): a place where coins are manufactured with the authority of the state
+consequence: the carried reject stands as a disposition (it still gates nothing this round), but its stated Mint ground no longer holds and the L1 must either restate the ground (stub-level depth for both articles) or re-open "Mint" as a fresh candidate. Recorded, not decided, by this seat.
