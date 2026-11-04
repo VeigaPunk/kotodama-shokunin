@@ -293,6 +293,13 @@ def main():
             elif ("row: %s" % rid) not in ev.decode("utf-8", "replace"):
                 rows_ok = False
                 why.append("%s capture record lacks its row id" % rid)
+        # a registry row the entry never cites is a row that bought nothing: the
+        # CITED-LINES lint passes a zero-citation file, so this is the limb that binds.
+        if reg is not None:
+            for rid in cfg["row_ids"]:
+                if cfg["row_status"].get(rid) == "mined" and rid not in entry_text:
+                    rows_ok = False
+                    why.append("%s is not cited by the entry" % rid)
     results.append(("ROWS", "PASS" if rows_ok else "FAIL",
                     "; ".join(why) or "%d rows verified" % len(cfg["row_ids"])))
 
@@ -380,7 +387,10 @@ def selftest(work):
              "corpus/knowledge/myth-symbol/ritual-liminality.md\n- source: z\n"
              "verified-at: 2026-11-04\n- recheck: 365d\n- scope: q\n"
              "## 1. Partial owners\n## 2. Six design decisions\n"
-             "## 3. Attested anchors\n## 6. Lore handoff\n"
+             "## 3. Attested anchors\n"
+             "- S904: the guest stands under a god's protection.\n"
+             "- S907: guest and host are one etymological field.\n"
+             "## 6. Lore handoff\n"
              "this decides nothing about what is true in any world; never here\n")
     lint = ('import sys\nprint("CITED-LINES: 0 finding(s) in 1 file(s)")\n'
             'sys.exit(0)\n')
@@ -477,6 +487,17 @@ def selftest(work):
     j1 = commit("junk: entry deleted")
     r = counter(["--root", fx, "--lands", j1, "--freeze", freeze, "--work", wd])
     check("junk entry-deleted fails ENTRY", "LEG FAIL ENTRY" in r.stdout and r.returncode == 1, r.stdout[-300:])
+    with open(os.path.join(fx, "corpus", "knowledge", "myth-symbol", "guest.md"), "w") as fh:
+        fh.write(entry)
+    commit("restore entry")
+
+    # junk: the entry stops citing the rows it bought (the vacuous-LINT class)
+    with open(os.path.join(fx, "corpus", "knowledge", "myth-symbol", "guest.md"), "w") as fh:
+        fh.write(entry.replace("- S904: the guest stands under a god's protection.\n", "")
+                      .replace("- S907: guest and host are one etymological field.\n", ""))
+    j_uncited = commit("junk: entry cites no row")
+    r = counter(["--root", fx, "--lands", j_uncited, "--freeze", freeze, "--work", wd])
+    check("junk uncited rows fails ROWS", "LEG FAIL ROWS" in r.stdout, r.stdout[-300:])
     with open(os.path.join(fx, "corpus", "knowledge", "myth-symbol", "guest.md"), "w") as fh:
         fh.write(entry)
     commit("restore entry")

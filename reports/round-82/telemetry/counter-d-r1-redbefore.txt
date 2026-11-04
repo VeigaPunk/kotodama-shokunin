@@ -1,0 +1,15 @@
+# claim-D counter red-before: a landing that appends the rows and cites none of them (the vacuous-LINT class CriticClaimD measured)
+# fixture: fresh clone at base + claims.json pinning the uncited entry + registry rows S904-S908
+# freeze 64c31b104885c8a2c6b5aabaa55c1cd7f99ee093 / lands acdd93dc7fb7449a84ee3a24f8be0a2bfb0b27de
+
+$ python3 -B reports/round-82/accept-d82.py --root <fixture> --lands acdd93dc… --freeze 64c31b10… --work <scratch>   # r1 bytes (freeze 25907323)
+LEG PASS LINT (CITED-LINES: 0 finding(s) in 1 file(s))
+LEG PASS ROWS (4 rows verified)
+LEG PASS ROWCOUNT (rows 827 -> 832 (floor 831))
+ACCEPT-D-82: PASS legs=8/8
+
+$ python3 -B reports/round-82/accept-d82.py --root <fixture> --lands acdd93dc… --freeze 64c31b10… --work <scratch>   # r2 bytes
+LEG PASS LINT (CITED-LINES: 0 finding(s) in 1 file(s))
+LEG FAIL ROWS (S904 is not cited by the entry; S905 is not cited by the entry; S906 is not cited by the entry; S907 is not cited by the entry)
+LEG PASS ROWCOUNT (rows 827 -> 832 (floor 831))
+ACCEPT-D-82: FAIL legs=7/8
