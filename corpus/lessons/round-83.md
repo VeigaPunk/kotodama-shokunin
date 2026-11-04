@@ -4,7 +4,8 @@ Base `3088bd7fe2a55a123214abba7008dcddf12b301c` (the round-82 verifier
 spot-check commit); freeze `21277b089e3c64c247bb4e0fcb033abfdfa1e668`
 (`claims.json`, the shared counter library and the three counters — constants
 read with `git -C <lane> show <freeze>:reports/round-83/claims.json`). Claim O
-lands `TBD-O`; claim D lands `TBD-D`; claim C lands `TBD-C`. Counter revision
+lands `0f088572` (lands r2; r1 `167c249d` graded 7/8 and is the red-before);
+claim D lands `386e7002`; claim C lands `86f68b5b`. Counter revision
 r2 is recorded in `reports/round-83/counter-revisions.md` with its red-before
 receipts. One v1 wave of 14 seats (2 scout, 3 executor, 4 scribe, 1 connector,
 2 critic, 1 mutation-tester, 1 sentinel; the L1 holds the canonical planner
