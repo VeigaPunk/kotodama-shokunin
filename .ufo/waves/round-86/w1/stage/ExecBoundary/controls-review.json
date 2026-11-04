@@ -1,0 +1,127 @@
+{
+  "schema": "kotodama-controls-review-v1",
+  "round": 86,
+  "milestone": "r86-v1",
+  "seat": "ExecBoundary",
+  "date": "2026-11-04",
+  "lane": "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+  "lane_HEAD_at_probe": "079fbf5969e4ac152a360f45cd8ed76a0191e14a",
+  "base": "1e6b10a02b93a981b012987c51399d278fe37fa9",
+  "freeze": "16c267832746e1cb98fb42a56180f8d1d12dc18b",
+  "frozen_counter_sha256": "15cf54126850d7f16acaec1cc22174a4a6319107752c7b9ee6028473158f19fe",
+  "frozen_claims_sha256": "051f57130785a4b50a3294466a13c385122f36c55df7292d536e1e69ba322634",
+  "probe_copy_identity": "counter extracted via git show freeze:reports/round-86/measure86.py; sha256 equals the '# counter sha256 (self)' line L1 captured, so probe copy, freeze blob and L1's executed counter are byte-identical",
+  "environment": {
+    "python3": "Python 3.14.8",
+    "git": "git version 2.56.0",
+    "installs": "none performed; host pacman pause honored; no tool installed or updated"
+  },
+  "scope": "pre-dispatch controls of the FROZEN reports/round-86/measure86.py probed against base/freeze lands, plus refusal precedence, LEGCOUNT, tool/lint authority and one clean-first counter selftest run",
+  "compliance": {
+    "lane_git": "read-only git with explicit -C only (show/cat-file/rev-list/rev-parse/diff/status/count-objects); no checkout, no index or ref mutation, no commits created by this seat",
+    "counters": "frozen predicate/counter/claims unmodified; worktree counter blob verified identical to freeze blob",
+    "fixture_commits": "the only git writes anywhere were created by the frozen counter's own selftest inside its TemporaryDirectory fixtures under the seat --work dir; each fixture root is its own 'git init' toplevel by construction; no synthetic commits authored by the seat",
+    "lane_invariant": "HEAD, porcelain status and count-objects snapshot identical before and after all probes and the selftest (lane_unmutated=true); selftest leftovers in work dir: none"
+  },
+  "pre_dispatch_controls": [
+    {"control": "full 40-hex commit id for --freeze and --lands", "observed": "rc=2 'refused: full commit id required' for short sha (P07), well-formed tree sha (P08), well-formed absent sha (P09)", "verdict": "green"},
+    {"control": "rev exists as commit (cat-file -e rev^{commit})", "observed": "tree sha and absent sha refused with the same message as malformed hex", "verdict": "green, coarse cause (see limitations L4)"},
+    {"control": "freeze on lands first-parent chain", "observed": "rc=2 'refused: freeze not on lands first-parent chain' for lands=base/freeze=freeze-equivalent flips (P01,P02,P10,P13); freeze is a first-parent ancestor of HEAD (rev-list observed)", "verdict": "green"},
+    {"control": "frozen cfg loads from freeze blob", "observed": "rc=2 'refused: Expecting value: line 1 column 1 (char 0)' when freeze=base has no claims.json (P11); claims.json absent at base observed in blob-existence matrix", "verdict": "green, leaky message (L5)"},
+    {"control": "LEGCOUNT cfg['claims'][x]['legs'] == frozen LEGS constant", "observed": "P03/P04 printed '# frozen legs: 7/8' and proceeded, so the check passed; exact lists match claims.json (D: 7 legs, O: 8 legs)", "verdict": "green statically + observed pass; refusal path unexercised (L2)"},
+    {"control": "existing --work directory", "observed": "rc=2 'refused: existing --work required' (P12)", "verdict": "green"},
+    {"control": "lands != cfg base ('unchanged base')", "observed": "P01/P02 with lands=base were refused at the earlier ancestry control instead; message 'freeze not on lands first-parent chain'", "verdict": "shadowed under lane shape (headline finding L1)"},
+    {"control": "counter self-attestation", "observed": "'# counter sha256 (self): 15cf5412...' printed per run, equal to extraction sha and L1 capture", "verdict": "green"}
+  ],
+  "refusal_precedence_observed": [
+    "1. rev format / commit existence ('full commit id required')",
+    "2. freeze ancestry on lands first-parent chain",
+    "3. frozen cfg parse from freeze blob",
+    "4. LEGCOUNT",
+    "5. existing --work",
+    "6. unchanged base (lands == cfg.base) - dead under this round's shape because step 2 fires first whenever base is a strict ancestor of freeze",
+    "in-leg refusal: frozen lint authority mismatch raises inside evaluation and refuses the whole claim (rc 2)"
+  ],
+  "leg_dispositions": {
+    "D_at_freeze_lands": {"exit": 1, "legs": "3/7", "pass": ["FROZENCFG", "BEFORE", "LINT"], "fail": ["ENTRY bytes=0", "DECISIONS table-lines=0", "ANCHORS bullets=0", "ROWS"], "note": "LINT green is vacuous on the absent/empty entry (0 findings on empty file)"},
+    "D_at_HEAD_lands": {"exit": 1, "legs": "3/7", "note": "identical shape; HEAD adds no claims paths (blob matrix observed)"},
+    "D_freeze_equals_HEAD_as_freeze": {"exit": 1, "legs": "3/7", "note": "cfg loads from HEAD because claims blob is unchanged; FROZENCFG vacuously green while lands==freeze"},
+    "O_at_freeze_lands": {"exit": 1, "legs": "2/8", "pass": ["FROZENCFG", "BEFORE"], "fail": ["TOOL", "SELFTEST tool absent", "IRON_RED tool absent", "IRON_GREEN tool absent", "HELDOUT tool absent", "REGISTRY"]},
+    "O_at_HEAD_lands": {"exit": 1, "legs": "2/8", "note": "identical; SKILL.md at freeze and HEAD mentions neither tools/check-paragraph-locator.py nor 'paragraph-locator' (observed scan), so REGISTRY is correctly red pre-landing"}
+  },
+  "authority": {
+    "lint": {"pin": "a9b0fbd5809b3764b2309cd8a82625c75ca1d6dd7c498309387050312078804a", "freeze_blob_sha256": "a9b0fbd5809b3764b2309cd8a82625c75ca1d6dd7c498309387050312078804a", "match": true, "execution": "lint is taken from the FREEZE blob and written to temp before running; a lands-side lint swap cannot pass it off as frozen authority"},
+    "tool_O": {"source": "LANDS blob, unpinned", "note": "contrast with lint: SELFTEST/IRON/HELDOUT measure whatever tool blob exists at lands; consistent with capability acquisition but there is no frozen tool reference (L7)"},
+    "iron_evidence": {"freeze_blob_present": true, "base_blob_present": false, "note": "reports/round-86/evidence/Iron.html is frozen, so IRON legs have their substrate; but no pre-dispatch presence control exists for c['html'] (L11)"},
+    "BEFORE_preconditions": {"entry_absent_at_base": true, "tool_absent_at_base": true, "counter_and_claims_absent_at_base": true}
+  },
+  "selftest": {
+    "command": "python3 -B <frozen copy> --selftest --work <seat work>",
+    "exit": 0,
+    "observed_stdout_tail": "COUNTER-SELFTEST: PASS (8 checks; clean green first)",
+    "checks": ["clean ACCEPT-D-86: PASS first", "LEG FAIL ENTRY", "LEG FAIL DECISIONS", "LEG FAIL ANCHORS", "LEG FAIL ROWS", "LEG FAIL FROZENCFG (date mutation)", "LEG FAIL ENTRY at freeze lands", "refused: at base lands"],
+    "fixture_isolation": "fixtures are TemporaryDirectory git repos under --work; leftovers after run: none; the 8th check asserts only the 'refused:' prefix, so it cannot distinguish which refusal predicate fired (L1)",
+    "reproduces_L1_capture": "tail line identical to reports/round-86/counter-selftest.txt"
+  },
+  "drift_freeze_to_HEAD": {
+    "counter_blob_unchanged": true,
+    "claims_blob_unchanged": true,
+    "added_files_only": ["reports/round-86/pre-dispatch-controls.json (82 lines)", "reports/round-86/separability-pre-dispatch.txt (4 lines)", "reports/round-86/separability.json (29 lines)"],
+    "note": "HEAD commit 'preserve predispatch refusal and absent-land controls' changed no frozen bytes; it only recorded captures"
+  },
+  "post_probe_note": "Lane HEAD advanced to 8efa380a (round-86: add article paragraph ordinal locator) after the probe window; re-checked read-only: frozen counter and claims blobs remain unchanged vs freeze. Probes and leg dispositions above were observed against 079fbf59.",
+  "cross_check_vs_L1_captures": {
+    "counter_sha": "equal",
+    "freeze_lands_D_and_O_leg_lines": "identical",
+    "base_lands_refusal_message": "identical (ancestry)",
+    "selftest_tail": "identical"
+  },
+  "limitations": [
+    "L1 headline: the 'unchanged base' refusal is shadowed by the earlier ancestry control under this round's shape (base is a first-parent ancestor of freeze, observed). P01/P02 (lands=base, freeze=freeze) were refused with 'freeze not on lands first-parent chain', not 'unchanged base'. Derived from observed code order plus observed chain facts: the predicate is reachable only when cfg.base is freeze-or-descendant (degenerate cfg), which no lane probe or selftest fixture exercises. kill_rule's 'refusing the unchanged base is necessary' still holds behaviorally (rc=2 refusal), but the NAMED predicate never fires in the real configuration and the selftest's loose 'refused:' label cannot prove it did.",
+    "L2: selftest has no c['legs'] mutation case, so the LEGCOUNT refusal path has zero selftest coverage; alignment is static (frozen LEGS constant vs frozen claims.json) plus observed pass-through.",
+    "L3: the runtime grade-order guard ('runtime LEGCOUNT') is likewise unexercised; static reading shows grade() calls match legs order in both claim branches.",
+    "L4: 'full commit id required' conflates malformed hex, well-formed non-commit (tree sha) and well-formed absent sha.",
+    "L5: refusal text leaks the raw json parse error ('Expecting value: line 1 column 1 (char 0)') with no context about which blob failed.",
+    "L6: LINT leg is vacuously green when the entry is absent or empty (observed 'CITED-LINES: 0 finding(s) in 1 file(s)' with bytes=0); it gates shape only, never existence.",
+    "L7: O's tool authority is the lands blob, unpinned, unlike the freeze-pinned lint sha; the counter measures whatever tool lands.",
+    "L8: '# measured revision (lane main)' prints lands verbatim; no control ties lands to the actual lane main HEAD, so any first-parent descendant of freeze measures as 'lane main'.",
+    "L9: command() enforces a hard 60s subprocess ceiling; TimeoutExpired escalates the whole claim to refusal rc=2, conflating slowness with refusal semantics.",
+    "L10: the except tuple (ValueError,KeyError,OSError,UnicodeError,TimeoutExpired) omits TypeError; a structurally malformed frozen cfg (e.g. non-int min_bytes) would crash with a traceback and an exit code outside {0,1,2}.",
+    "L11: no pre-dispatch presence control for cfg-declared freeze blobs such as c['html']; if absent, IRON legs degrade to deterministic mid-run FAIL instead of an early refusal.",
+    "L12: ancestry uses --first-parent only; a wave landed via a merge whose second parent descends from freeze would refuse, so landing must stay linear on the freeze chain.",
+    "L13: FROZENCFG is vacuously green while lands==freeze (P14); it only bites once lands advances beyond freeze.",
+    "L14: selftest fixture cfg is shallow (min_bytes=1, 12 bullets across the 3 ids); it exercises leg plumbing, not the real 6000-byte threshold, which lives in frozen claims.json."
+  ],
+  "future_repairs": [
+    "R1: make the selftest assert exact refusal strings ('refused: unchanged base', 'refused: freeze not on lands first-parent chain') and add a degenerate fixture with cfg.base==freeze so the unchanged-base predicate is actually exercised; applies to a future round's counter freeze, NOT to r86 data.",
+    "R2: add selftest mutations for LEGCOUNT (c['legs'] reorder/truncate), short sha lands, tree-sha lands, missing --work and truncated cfg JSON.",
+    "R3: differentiate refusal reasons for rev validation (malformed / not-a-commit / absent).",
+    "R4: wrap cfg parse failures with context naming the freeze rev and path.",
+    "R5: add a pre-dispatch presence check for cfg-declared freeze blobs (c['html']) before leg evaluation.",
+    "R6: catch TypeError in the refusal handler so malformed cfg shapes degrade to rc=2 with a reason.",
+    "R7: in a future freeze, pin the O tool blob sha like the lint sha, or document lands-tool-as-measurand explicitly in claims.json.",
+    "R8: label subprocess timeout as a distinct refused-cause instead of a bare refusal."
+  ],
+  "receipts_relative_to_lane": [
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes-summary.json",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/run_probes.py",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P01_unchanged_base_D.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P02_unchanged_base_O.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P03_freeze_lands_D.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P04_freeze_lands_O.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P05_head_lands_D.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P06_head_lands_O.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P07_short_rev.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P08_tree_as_lands.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P09_unknown_rev.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P10_ancestry_flip.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P11_base_as_freeze.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P12_missing_work.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P13_symmetric_ancestry.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/P14_head_as_freeze.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/probes/selftest.out",
+    ".ufo/waves/round-86/w1/stage/ExecBoundary/receipts/head-vs-freeze-reports.diff",
+    "note: P01-P14 also have .rc and .err receipts alongside each .out"
+  ],
+  "report": ".ufo/waves/round-86/w1/ExecBoundary.md"
+}

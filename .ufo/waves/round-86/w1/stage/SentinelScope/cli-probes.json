@@ -1,0 +1,136 @@
+{
+  "candidate_sha256": "85c8c70f7959e4e4059b1421f06337ecfa898a0cf30a43364e63c2a98e43a61f",
+  "cases": [
+    {
+      "case": "normal",
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\n",
+      "stderr": "",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "wrong ordinal",
+      "expected_exit": 1,
+      "exit": 1,
+      "stdout": "PARAGRAPH: FAIL ordinal=2 expect=1 quote='needle'\n",
+      "stderr": "",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "absent",
+      "expected_exit": 1,
+      "exit": 1,
+      "stdout": "PARAGRAPH: FAIL absent matches=0 quote='absent'\n",
+      "stderr": "",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "missing path",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kotodama-r86/SentinelScope/missing'\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "directory input",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: [Errno 21] Is a directory: '/fast/scratch/hyaku/kotodama-r86/SentinelScope'\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "invalid UTF8",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "symlink input",
+      "expected_exit": 0,
+      "exit": 0,
+      "stdout": "PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\n",
+      "stderr": "",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "embedded null path",
+      "not_executed": true,
+      "harness_refusal": "subprocess rejects embedded null argv before tool starts; no candidate claim"
+    },
+    {
+      "case": "empty quote",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: --quote must contain non-whitespace text\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "invalid ordinal",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: --expect must be a positive decimal integer\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "unknown option",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: unrecognized arguments: --unknown\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "mixed modes",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: --selftest cannot be combined with locator arguments\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "work missing",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: --selftest requires existing --work directory\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "work file",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: --selftest requires existing --work directory\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    },
+    {
+      "case": "locator with work",
+      "expected_exit": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "PARAGRAPH_ERROR: use --html PATH --quote TEXT --expect N, or --selftest --work PATH\n",
+      "scratch_unchanged": true,
+      "traceback": false
+    }
+  ]
+}

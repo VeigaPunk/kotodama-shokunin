@@ -260,3 +260,32 @@ This is a domain-example completeness rule, not an attestation oracle. The check
 does not establish the truth of a clock interval, semantic plausibility, native
 pronunciation, historical authenticity or canon acceptance. Those judgments
 retain their separate source and lore owners. Binds from round 85.
+
+33. **A quote hit does not certify its claimed paragraph position.**
+
+A locator claiming opening/first/second article paragraph checks that ordinal
+separately from quote presence. Count scoped article paragraphs, excluding
+navigation, headings, captions and boilerplate; state the extraction scope.
+An absent span or a span in multiple eligible paragraphs cannot certify one
+ordinal. This is a source-locator rule for linguistic-cultural evidence, not a
+general-purpose browser or historical-truth certification service.
+
+Grounding: R85-C4 in `corpus/lessons/round-85-verifier-spotcheck.md` and
+R86-M1 in `corpus/lessons/round-86.md`. S920's Iron quote was genuinely present
+but its opening-paragraph locator was wrong. S927 supersedes that locator;
+the original row remains unchanged. ExecParagraph preserved actual same-input
+red/green at `.ufo/waves/round-86/w1/stage/ExecParagraph/iron-red.json` and
+`iron-green.json`: expect 1 exits 1, expect 2 exits 0, both report ordinal 2.
+
+Check: `python3 -B tools/check-paragraph-locator.py --html
+reports/round-86/evidence/Iron.html --quote 'giving origin to the three important
+varieties: cast iron, steel, wrought iron.' --expect 2` (one shell line).
+Use expect 1 for the named red-before. Its isolated selftest checks CLI exit
+codes plus stable diagnostic markers; the round counter preserves actual
+committed-revision IRON_RED and IRON_GREEN results.
+
+Limits: the ordinal holds only under the explicit HTML scope policy, not
+arbitrary browser/CSS layout. Trusted local input only; source authority,
+semantic support, current scholarship, OCR typography and lore canon remain
+separate judgments. Existing tools already locate quotes; this adds positional
+verification, not first quote finding. Binds prospectively from round 86.

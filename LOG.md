@@ -4714,3 +4714,75 @@ seven empty outputs; no replacements. Parent WAVE-DONE preceded close records.
    evidence lines with current symbolic headings and round-85 receipts; no
    promotion is claimed. `misroot-sweep.json` records no attributed own misroot;
    unassigned fleet `after` and orchestrator scratch were left untouched.
+
+## Round 86 — 2026-11-04 (base `1e6b10a0`, freeze `16c26783`)
+
+Two distinct claims: D / depth, a sourced attestation/editorial-solution
+dossier deepening genres already held; O / operability, article-paragraph
+ordinal locator. Freshness stays paused under the existing round-11 L0
+threshold question. No made-up numeric expertise-score delta.
+
+1. **Frozen declaration and controls.** `16c267832746e1cb98fb42a56180f8d1d12dc18b`
+   lands `reports/round-86/claims.json`, immutable `measure86.py`, eight-check
+   real-D-CLI selftest (clean first), source captures and start census.
+   `079fbf5969e4ac152a360f45cd8ed76a0191e14a` lands pre-dispatch base/freeze
+   failures and absent-land separability precheck, plus validated wave spec.
+   Receipts were after freeze but before ready, not inside the freeze; that
+   conformance limitation is retained rather than called an original success.
+2. **O tool/capability** lands `8efa380aa3a66aee9d597d9e855e89c807beeea9`:
+   `tools/check-paragraph-locator.py` and SKILL registry rows. Actual frozen
+   committed-Iron test expects paragraph 1 → exit 1, paragraph 2 → exit 0,
+   ordinal 2 in both; selftest 29 checks and held-out cases pass.
+   `reports/round-86/lands-o.txt` is PASS 8/8, not arbitrary-browser semantics
+   or a proof that a counterfeit implementation cannot satisfy the counter.
+3. **D sourced dossier** first lands `0e0643b19e5cd46c577a58041fed3cdfedcb51fb`,
+   quotation correction lands `3bc22a021a561c9602be60233a397b4298860814`:
+   `corpus/knowledge/linguistics/proverbs-riddles-attestation-solutions.md`,
+   README index row/footer and S924–S928. Three B/mined genre witnesses,
+   one B/mined positional correction, one C/rejected qualified model.
+   SOURCE rows 847→852; old rows unchanged. The final dossier has 18,351 bytes,
+   eight sections, six decisions and fourteen located quote anchors.
+   `lands-d-corrected.txt` PASS 7/7; `anchor-probe.txt` located 14/14.
+   First source-probe red receipt and first lands retained: an OCR-rejoined
+   “testimony” quotation was narrowed to intact words, not silently re-scored.
+4. **Real domain task and handoff.** The dossier prepares an invented ferry
+   town's proverb senses, selective anthology and competing riddle answers
+   for lore, never canon insertion. ExecCraftLedger produced six independent
+   typed NON-CANON records and actual red/green plus boundary probes:
+   `.ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json`,
+   `check-craft.py`, `probe-receipts.json`. Source attestation, editorial
+   inference and design clocks remain separate.
+5. **Learning/corrections/records.** `corpus/lessons/round-86.md` Gate/Mistakes
+   mines the S920 positional miss, false green counter substitutes,
+   caption-regression gap, absent-land precheck and OCR quotation error.
+   QUALITY 33 is grounded in the executable ordinal red/green.
+   S927/S928 correct S920/S923 without changing immutable cells; this also
+   supersedes round-85 LOG item 2's overbroad “universal” characterization
+   with the qualified most-races/Europe-diffusion model and its explicit
+   overlap/chronology caveats. SCORECARD adds measured verdicts/capability;
+   SHONEN retains four author-asserted marks, no promotion.
+6. **Wave completion and limits.** Parent WAVE-DONE preceded close records.
+   `reports/round-86/wave-done.json` and `.ufo/waves/round-86/w1-results.json`
+   record twelve nonempty settled deliveries: 3 executor, 2 scribe, 2 scout,
+   reviewer, critic, mutation-tester, connector, sentinel. Attack 3/12.
+   No replacements/residual or dead seat reported; actual answering models
+   not supplied. Counter kill-power survivors remain in CriticPredicate;
+   R85-C2 partially repaired, not declared complete. Planner-role conflict
+   remains open via kotodama round-86 L0; L1 planning is not a self-waiver.
+7. **Checks/scope.** Corrected independent overlays:
+   `reports/round-86/separability-corrected.txt` 0 findings / 2 runs / 0 skipped.
+   `final-checks.json` observes index 260/260/0 and source census exit 0;
+   registry 0 missing/81 registered/0 dead was observed before the later
+   auxiliary anchor-probe row. Full cited-record scan remains red on two
+   inherited scratch citations in the unchanged non-author r84 spotcheck.
+   `noharm.json` records unchanged prior knowledge/PROVINCE/old source rows.
+   Misroot sweep found no attributed own artifact; fleet `after` and
+   orchestrator `.scratch/` were left untouched. No tools installed.
+   Assimilation: none; staged theme menu opened read-only by ScoutGap,
+   no package adoption; `considerthese/` absent.
+
+Author trend observations: expansion improved through demonstrated new
+capability, not first genre coverage; quality unchanged (no old entry recheck
+or supersession); discernment improved through a spotcheck-grounded criterion.
+Both frozen after-predicates verify, with explicit instrument/timing/role
+conformance debt; independent non-author closure decides round admission.

@@ -67,6 +67,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | ordered sound-law applier | Applies an external ordered rule set to a segment-tokenised proto-lexicon, one trace line per change, with a committed two-era example and a 37-check selftest | `python -B tools/apply-sound-laws.py --selftest`; `python -B tools/apply-sound-laws.py apply --rules examples/sound-laws/rules.json --input examples/sound-laws/proto-lexicon.tsv --out /dev/null`; `reports/round-84/accept-o84.py` (legs=8/8) | round 84 |
 | cited-record checker | Scans a lane tree's round receipts (`reports/round-<k>/**/*.md|*.txt` and the round lesson) for a backticked cited path that resolves to a 0-byte file (`EMPTY`) and for absolute temporary/scratch roots (`SCRATCH`), prints `CITED-RECORDS: <n> empty / <m> scratch`, and fails on either; a token that does not resolve is not a finding (a path list is not a citation) | `python -B tools/check-cited-records.py --root .` → `CITED-RECORDS: 0 empty / 0 scratch`; at base with `--from-round 82 --bind-round 82` → `2 empty / 7 scratch`, exit 1; `--selftest` → `SELFTEST: PASS (12 checks)` | round 83 |
 | explicit-root corpus-index auditor | Audit six partitions, supplemental row ownership, topic equality and current counts with duplicate-row failure and malformed-final-footer refusal; retains already-existing last-valid-footer behavior | `python3 -B tools/check-corpus-index.py --root .`; `--selftest --work <existing-dir>` (23 checks); `reports/round-85/lands-o.txt` at `228e3a4c` → PASS 10/10, actual index 258/258 | round 85 |
+| article paragraph locator | Read a trusted local MediaWiki article capture, exclude navigation/captions, locate a quote in exactly one nonempty article paragraph and compare its one-based ordinal; separate wrong position from absent/ambiguous quote and input refusal | `python3 -B tools/check-paragraph-locator.py --selftest --work <existing-dir>`; actual Iron expect 1/2 exits 1/0, ordinal 2; `reports/round-86/lands-o.txt` at `8efa380aa3a66aee9d597d9e855e89c807beeea9` PASS 8/8, selftest 29 checks | round 86, author-side pending closure |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -1793,3 +1794,48 @@ inventory and weak authority/kill-power checks (CriticClaims F1/F2). No
 post-data counter revision was made. Thus green after-predicates do not
 assert full protocol conformance or override the falsified before-premise;
 round admission is reserved for the independent closure.
+
+## Planned — round 86 (2026-11-04)
+
+Base `1e6b10a02b93a981b012987c51399d278fe37fa9`; frozen predicates/counter
+`16c267832746e1cb98fb42a56180f8d1d12dc18b`.
+Two claims: D / depth — attestation and editorial-solution dossier deepening
+the existing orality entry, not acquiring previously absent genres;
+O / operability — article-paragraph ordinal locator with the S920 positional
+error as a real red-before. `reports/round-86/claims.json` is authoritative.
+Pre-dispatch base/freeze controls fail, recorded in
+`reports/round-86/pre-dispatch-controls.json`. The separability precheck
+stops at the explicitly absent future entry (exit 2), not a green acceptance.
+Freshness remains paused under the round-11 L0 question; no waiver is asserted.
+Round-85's rejected O premise stays rejected; last-footer selection is inherited.
+
+## Axes — round 86 (2026-11-04, author-side; non-author closure pending)
+
+Base `1e6b10a02b93a981b012987c51399d278fe37fa9`; immutable counter freeze
+`16c267832746e1cb98fb42a56180f8d1d12dc18b`.
+One v1 wave, twelve settled nonempty deliveries; WAVE-DONE received.
+Roles: 3 executor, 2 scribe, 2 scout, reviewer, critic, mutation-tester,
+connector, sentinel; attack 3/12. Parent-held planning is disclosed under
+the unresolved planner-policy conflict, not called full L2 role conformance.
+
+| axis | verdict | before → after | command / measured revision |
+|---|---|---|---|
+| depth / D | improved, frozen after-predicate verifies | dedicated dossier absent → 18,351-byte deepening of already-held genres, eight sections, six substantive decisions, fourteen located quotations across three B/mined rows; source registry 847→852 including two correction rows | `python3 -B reports/round-86/measure86.py --root . --claim D --lands 3bc22a021a561c9602be60233a397b4298860814 --freeze 16c267832746e1cb98fb42a56180f8d1d12dc18b --work <existing-dir>` → PASS 7/7; `locate-anchors.py --root . --lands 3bc22a021a561c9602be60233a397b4298860814` → located 14/14; `lands-d-corrected.txt` |
+| operability / O | improved, capability demonstrated | paragraph-locator tool absent → actual CLI, selftest 29 checks, held-out HTML controls, same Iron capture rejected at expect 1 and accepted at expect 2 | same frozen counter with `--claim O --lands 8efa380aa3a66aee9d597d9e855e89c807beeea9` → PASS 8/8; `reports/round-86/lands-o.txt` |
+| calibration | criterion/correction observation, no scored claim | S920 positional error → S927 correction; S923 overbroad descriptor → S928 qualified rejection; QUALITY 33 grounded in actual ordinal red/green | `corpus/lessons/round-86.md` Gate/Mistakes; old rows unchanged in `reports/round-86/noharm.json` |
+| coverage / freshness / adjacency | unchanged | genres already held; freshness paused under round-11 L0; no new canon or research-method ownership | nearest orality entry and PROVINCE unchanged; `noharm.json`, ConnectorOverlap |
+
+No invented 0–10 delta: the inherited verdict-based scorecard's missing
+numeric mapping remains a conformance gap. Observable path counts are 0→1,
+not expertise scores. The capability row is author-side, not external admission.
+Counter adequacy is bounded: fake O reader/selftest, empty D decision cells and
+duplicate source ids can survive; frozen predicates were not amended after data.
+R85-C2 is partially repaired, not closed universally. Pre-dispatch controls
+were committed after freeze; separability precheck stopped on an absent land.
+Corrected final overlays are separately recorded in
+`reports/round-86/separability-corrected.txt` (0 findings, two runs, none skipped).
+Inherited full cited-record scan remains red on a non-author r84 artifact.
+
+Planned next work: a new operability/calibration freeze can strengthen the
+named counterfeit-tool, decision-cell and duplicate-row controls; this round
+does not retroactively improve its own predicate or round-85's rejection.

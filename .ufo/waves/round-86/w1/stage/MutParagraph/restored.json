@@ -1,0 +1,125 @@
+{
+  "driver_exit": 0,
+  "stdout": "{\n  \"direct\": [\n    {\n      \"exit\": 0,\n      \"stdout\": \"PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"nav\",\n      \"expected_exit\": 0,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><nav><p>needle</p></nav><p>opening</p><p>needle</p></div>\",\n      \"quote\": \"needle\",\n      \"expect\": 2\n    },\n    {\n      \"exit\": 0,\n      \"stdout\": \"PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"caption\",\n      \"expected_exit\": 0,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><p>opening</p><figure><figcaption><p>needle</p></figcaption></figure><p>needle</p></div>\",\n      \"quote\": \"needle\",\n      \"expect\": 2\n    },\n    {\n      \"exit\": 0,\n      \"stdout\": \"PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"generic-caption\",\n      \"expected_exit\": 0,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><div class=\\\"image-caption\\\"><p>needle</p></div><p>opening</p><p>needle</p></div>\",\n      \"quote\": \"needle\",\n      \"expect\": 2\n    },\n    {\n      \"exit\": 0,\n      \"stdout\": \"PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"extraneous\",\n      \"expected_exit\": 0,\n      \"matches\": true,\n      \"html\": \"<p>needle</p><div class=\\\"mw-parser-output\\\"><p>opening</p><p>needle</p></div><p>needle</p>\",\n      \"quote\": \"needle\",\n      \"expect\": 2\n    },\n    {\n      \"exit\": 2,\n      \"stdout\": \"\",\n      \"stderr\": \"PARAGRAPH_ERROR: expected one .mw-parser-output article, found 2\\n\",\n      \"name\": \"multiple-roots\",\n      \"expected_exit\": 2,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><p>opening</p></div><div class=\\\"mw-parser-output\\\"><p>needle</p></div>\",\n      \"quote\": \"needle\",\n      \"expect\": 2\n    },\n    {\n      \"exit\": 0,\n      \"stdout\": \"PARAGRAPH: PASS ordinal=2 expect=2 quote='café naïve & wise tail'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"nested-entities-unicode\",\n      \"expected_exit\": 0,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><p>opening</p><p>café <b>naïve &amp; <i>wise</i></b> tail</p></div>\",\n      \"quote\": \"café naïve & wise tail\",\n      \"expect\": 2\n    },\n    {\n      \"exit\": 1,\n      \"stdout\": \"PARAGRAPH: FAIL absent matches=0 quote='missing'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"absent\",\n      \"expected_exit\": 1,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><p>opening</p><p>needle</p></div>\",\n      \"quote\": \"missing\",\n      \"expect\": 1\n    },\n    {\n      \"exit\": 1,\n      \"stdout\": \"PARAGRAPH: FAIL ambiguous matches=2 quote='needle'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"duplicate-paragraphs\",\n      \"expected_exit\": 1,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><p>needle</p><p>needle</p></div>\",\n      \"quote\": \"needle\",\n      \"expect\": 1\n    },\n    {\n      \"exit\": 0,\n      \"stdout\": \"PARAGRAPH: PASS ordinal=1 expect=1 quote='needle'\\n\",\n      \"stderr\": \"\",\n      \"name\": \"duplicate-same-paragraph\",\n      \"expected_exit\": 0,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><p>needle then needle</p></div>\",\n      \"quote\": \"needle\",\n      \"expect\": 1\n    },\n    {\n      \"exit\": 2,\n      \"stdout\": \"\",\n      \"stderr\": \"PARAGRAPH_ERROR: expected one .mw-parser-output article, found 2\\n\",\n      \"name\": \"nested-roots\",\n      \"expected_exit\": 2,\n      \"matches\": true,\n      \"html\": \"<div class=\\\"mw-parser-output\\\"><p>opening</p><div class=\\\"mw-parser-output\\\"><p>needle</p></div><p>tail</p></div>\",\n      \"quote\": \"needle\",\n      \"expect\": 2\n    }\n  ],\n  \"counter_overlay\": {\n    \"exit\": 0,\n    \"stdout\": \"# stamped revision: ffffffffffffffffffffffffffffffffffffffff\\n# evaluated revision: ffffffffffffffffffffffffffffffffffffffff\\n# measured revision (lane main): ffffffffffffffffffffffffffffffffffffffff\\n# tree: 0000000000000000000000000000000000000000\\n# counter sha256 (self): 15cf54126850d7f16acaec1cc22174a4a6319107752c7b9ee6028473158f19fe\\n# frozen legs: 8 (FROZENCFG,BEFORE,TOOL,SELFTEST,IRON_RED,IRON_GREEN,HELDOUT,REGISTRY)\\nLEG PASS FROZENCFG \\nLEG PASS BEFORE \\nLEG PASS TOOL \\nLEG PASS SELFTEST selftest: second paragraph exit=0\\nselftest: ordinal mismatch exit=1\\nselftest: absent quote exit=1\\nselftest: ambiguous paragraphs exit=1\\nselftest: nested inline and entities exit=0\\nselftest: whitespace folding exit=0\\nselftest: figure and navigation excluded exit=0\\nselftest: caption classes excluded exit=0\\nselftest: disclaimer excluded exit=0\\nselftest: outside article excluded exit=0\\nselftest: script and style excluded exit=0\\nselftest: empty paragraphs ignored exit=0\\nselftest: omitted paragraph close exit=0\\nselftest: cross paragraph rejected exit=1\\nselftest: repeated in one paragraph exit=0\\nselftest: missing article exit=2\\nselftest: multiple articles exit=2\\nselftest: malformed UTF8 exit=2\\nselftest: invalid expect 0 exit=2\\nselftest: invalid expect -1 exit=2\\nselftest: invalid expect bad exit=2\\nselftest: invalid expect 1.0 exit=2\\nselftest: empty quote exit=2\\nselftest: missing arguments exit=2\\nselftest: unreadable input exit=2\\nselftest: missing work exit=2\\nselftest: nonexistent work exit=2\\nselftest: mixed modes exit=2\\nSELFTEST: PASS (28 checks)\\nLEG PASS IRON_RED PARAGRAPH: FAIL ordinal=2 expect=1 quote='giving origin to the three important varieties: cast iron, steel, wrought iron.'\\nLEG PASS IRON_GREEN PARAGRAPH: PASS ordinal=2 expect=2 quote='giving origin to the three important varieties: cast iron, steel, wrought iron.'\\nLEG PASS HELDOUT \\nLEG PASS REGISTRY \\nACCEPT-O-86: PASS legs=8/8\\n\",\n    \"note\": \"In-memory blob/commit transport only; no commits created. Real frozen evaluate and subprocess detector.\"\n  }\n}\n",
+  "stderr": "",
+  "locator_sha256": "85c8c70f7959e4e4059b1421f06337ecfa898a0cf30a43364e63c2a98e43a61f",
+  "result": {
+    "direct": [
+      {
+        "exit": 0,
+        "stdout": "PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\n",
+        "stderr": "",
+        "name": "nav",
+        "expected_exit": 0,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><nav><p>needle</p></nav><p>opening</p><p>needle</p></div>",
+        "quote": "needle",
+        "expect": 2
+      },
+      {
+        "exit": 0,
+        "stdout": "PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\n",
+        "stderr": "",
+        "name": "caption",
+        "expected_exit": 0,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><p>opening</p><figure><figcaption><p>needle</p></figcaption></figure><p>needle</p></div>",
+        "quote": "needle",
+        "expect": 2
+      },
+      {
+        "exit": 0,
+        "stdout": "PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\n",
+        "stderr": "",
+        "name": "generic-caption",
+        "expected_exit": 0,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><div class=\"image-caption\"><p>needle</p></div><p>opening</p><p>needle</p></div>",
+        "quote": "needle",
+        "expect": 2
+      },
+      {
+        "exit": 0,
+        "stdout": "PARAGRAPH: PASS ordinal=2 expect=2 quote='needle'\n",
+        "stderr": "",
+        "name": "extraneous",
+        "expected_exit": 0,
+        "matches": true,
+        "html": "<p>needle</p><div class=\"mw-parser-output\"><p>opening</p><p>needle</p></div><p>needle</p>",
+        "quote": "needle",
+        "expect": 2
+      },
+      {
+        "exit": 2,
+        "stdout": "",
+        "stderr": "PARAGRAPH_ERROR: expected one .mw-parser-output article, found 2\n",
+        "name": "multiple-roots",
+        "expected_exit": 2,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><p>opening</p></div><div class=\"mw-parser-output\"><p>needle</p></div>",
+        "quote": "needle",
+        "expect": 2
+      },
+      {
+        "exit": 0,
+        "stdout": "PARAGRAPH: PASS ordinal=2 expect=2 quote='café naïve & wise tail'\n",
+        "stderr": "",
+        "name": "nested-entities-unicode",
+        "expected_exit": 0,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><p>opening</p><p>café <b>naïve &amp; <i>wise</i></b> tail</p></div>",
+        "quote": "café naïve & wise tail",
+        "expect": 2
+      },
+      {
+        "exit": 1,
+        "stdout": "PARAGRAPH: FAIL absent matches=0 quote='missing'\n",
+        "stderr": "",
+        "name": "absent",
+        "expected_exit": 1,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><p>opening</p><p>needle</p></div>",
+        "quote": "missing",
+        "expect": 1
+      },
+      {
+        "exit": 1,
+        "stdout": "PARAGRAPH: FAIL ambiguous matches=2 quote='needle'\n",
+        "stderr": "",
+        "name": "duplicate-paragraphs",
+        "expected_exit": 1,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><p>needle</p><p>needle</p></div>",
+        "quote": "needle",
+        "expect": 1
+      },
+      {
+        "exit": 0,
+        "stdout": "PARAGRAPH: PASS ordinal=1 expect=1 quote='needle'\n",
+        "stderr": "",
+        "name": "duplicate-same-paragraph",
+        "expected_exit": 0,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><p>needle then needle</p></div>",
+        "quote": "needle",
+        "expect": 1
+      },
+      {
+        "exit": 2,
+        "stdout": "",
+        "stderr": "PARAGRAPH_ERROR: expected one .mw-parser-output article, found 2\n",
+        "name": "nested-roots",
+        "expected_exit": 2,
+        "matches": true,
+        "html": "<div class=\"mw-parser-output\"><p>opening</p><div class=\"mw-parser-output\"><p>needle</p></div><p>tail</p></div>",
+        "quote": "needle",
+        "expect": 2
+      }
+    ],
+    "counter_overlay": {
+      "exit": 0,
+      "stdout": "# stamped revision: ffffffffffffffffffffffffffffffffffffffff\n# evaluated revision: ffffffffffffffffffffffffffffffffffffffff\n# measured revision (lane main): ffffffffffffffffffffffffffffffffffffffff\n# tree: 0000000000000000000000000000000000000000\n# counter sha256 (self): 15cf54126850d7f16acaec1cc22174a4a6319107752c7b9ee6028473158f19fe\n# frozen legs: 8 (FROZENCFG,BEFORE,TOOL,SELFTEST,IRON_RED,IRON_GREEN,HELDOUT,REGISTRY)\nLEG PASS FROZENCFG \nLEG PASS BEFORE \nLEG PASS TOOL \nLEG PASS SELFTEST selftest: second paragraph exit=0\nselftest: ordinal mismatch exit=1\nselftest: absent quote exit=1\nselftest: ambiguous paragraphs exit=1\nselftest: nested inline and entities exit=0\nselftest: whitespace folding exit=0\nselftest: figure and navigation excluded exit=0\nselftest: caption classes excluded exit=0\nselftest: disclaimer excluded exit=0\nselftest: outside article excluded exit=0\nselftest: script and style excluded exit=0\nselftest: empty paragraphs ignored exit=0\nselftest: omitted paragraph close exit=0\nselftest: cross paragraph rejected exit=1\nselftest: repeated in one paragraph exit=0\nselftest: missing article exit=2\nselftest: multiple articles exit=2\nselftest: malformed UTF8 exit=2\nselftest: invalid expect 0 exit=2\nselftest: invalid expect -1 exit=2\nselftest: invalid expect bad exit=2\nselftest: invalid expect 1.0 exit=2\nselftest: empty quote exit=2\nselftest: missing arguments exit=2\nselftest: unreadable input exit=2\nselftest: missing work exit=2\nselftest: nonexistent work exit=2\nselftest: mixed modes exit=2\nSELFTEST: PASS (28 checks)\nLEG PASS IRON_RED PARAGRAPH: FAIL ordinal=2 expect=1 quote='giving origin to the three important varieties: cast iron, steel, wrought iron.'\nLEG PASS IRON_GREEN PARAGRAPH: PASS ordinal=2 expect=2 quote='giving origin to the three important varieties: cast iron, steel, wrought iron.'\nLEG PASS HELDOUT \nLEG PASS REGISTRY \nACCEPT-O-86: PASS legs=8/8\n",
+      "note": "In-memory blob/commit transport only; no commits created. Real frozen evaluate and subprocess detector."
+    }
+  }
+}
