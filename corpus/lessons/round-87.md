@@ -105,3 +105,30 @@ provinces and found no authority to treat clean packet checks as lore intake.
 No sibling, world-bible, historical source or previous knowledge bytes changed.
 No tools installed or upgraded. Final committed-byte measurements, census,
 wave results and push evidence are filed with this round's report and LOG.
+
+## Committed integration measurements
+
+At production commit `12903255b6d3c940d18e6b81dce4d7cf49d519c2`,
+the exact frozen counter (materialized from the freeze, no --candidate override)
+returns exit0 and finite12/12; `reports/round-87/lands-o.json` retains all cases,
+revision and tool/counter/packet digests. Actual production selftest returns
+37/37 exit0, and the inherited original packet returns records6/findings[].
+Index audit:260 files/260 rows/0 findings; registry audit:84 registered,
+0 missing/0 dead; current-round cited-record scan:0 empty/0 scratch.
+`final-checks.json` records each exact command and exit0.
+
+`registry-counts.json` records the command and both immutable-revision census
+outputs:852→854 rows; A504→505/B326→326/C22→23;
+mined752→753/queued58→58/rejected42→43. Fleet source validator start/end
+exit0 with the pre-existing W01/W04 warnings preserved in `census-start.json`
+and `census-end.json`. No legacy warning is hidden by a clean outer exit.
+`noharm.json` records unchanged old registry rows, knowledge and PROVINCE.
+
+Parent's WAVE-DONE says all ten seats settled. Its results handoff lost final
+payload/status fields after an orchestrator kernel restart, while all ten
+seat reports survive. Dead-seat count and actual answering-model metadata
+are therefore unknown, not inferred zero; ids from Main's separate message
+are preserved in `wave-summary.json`. The scribe's extra filename-forgery
+repeat is retained in its draft but is not required acceptance evidence.
+`misroot-sweep.json` found no attributed own fleet-root artifact; unrelated
+fleet `after`, sibling work and orchestrator scratch were left untouched.

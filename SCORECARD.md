@@ -68,6 +68,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | cited-record checker | Scans a lane tree's round receipts (`reports/round-<k>/**/*.md|*.txt` and the round lesson) for a backticked cited path that resolves to a 0-byte file (`EMPTY`) and for absolute temporary/scratch roots (`SCRATCH`), prints `CITED-RECORDS: <n> empty / <m> scratch`, and fails on either; a token that does not resolve is not a finding (a path list is not a citation) | `python -B tools/check-cited-records.py --root .` → `CITED-RECORDS: 0 empty / 0 scratch`; at base with `--from-round 82 --bind-round 82` → `2 empty / 7 scratch`, exit 1; `--selftest` → `SELFTEST: PASS (12 checks)` | round 83 |
 | explicit-root corpus-index auditor | Audit six partitions, supplemental row ownership, topic equality and current counts with duplicate-row failure and malformed-final-footer refusal; retains already-existing last-valid-footer behavior | `python3 -B tools/check-corpus-index.py --root .`; `--selftest --work <existing-dir>` (23 checks); `reports/round-85/lands-o.txt` at `228e3a4c` → PASS 10/10, actual index 258/258 | round 85 |
 | article paragraph locator | Read a trusted local MediaWiki article capture, exclude navigation/captions, locate a quote in exactly one nonempty article paragraph and compare its one-based ordinal; separate wrong position from absent/ambiguous quote and input refusal | `python3 -B tools/check-paragraph-locator.py --selftest --work <existing-dir>`; actual Iron expect 1/2 exits 1/0, ordinal 2; `reports/round-86/lands-o.txt` at `8efa380aa3a66aee9d597d9e855e89c807beeea9` PASS 8/8, selftest 29 checks | round 86, author-side pending closure |
+| attestation packet production audit | Named-option trusted-local JSON CLI with variable record populations, stable findings and actual subprocess selftests; inherited relationships from the r86 stage checker, not first integrity checking | `python3 -B tools/check-attestation-packet.py --packet .ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json --json`; `reports/round-87/lands-o.json` at `12903255b6d3c940d18e6b81dce4d7cf49d519c2` finite12/12, `tool-selftest.json`37/37; filename/label forgeries and domain origin-justification miss retained | round 87, author-side pending non-author closure |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -1839,3 +1840,42 @@ Inherited full cited-record scan remains red on a non-author r84 artifact.
 Planned next work: a new operability/calibration freeze can strengthen the
 named counterfeit-tool, decision-cell and duplicate-row controls; this round
 does not retroactively improve its own predicate or round-85's rejection.
+
+## Axes — round 87 (2026-11-04; author-side, non-author closure pending)
+
+One O / operability capability claim. Base
+`83846a22ee1e9da7aa52ac505ccebf4455169247`; executed no-work/counterfeit
+controls `732c45394c73fcffd9fc623b939d446c7b11a9db` strictly precede
+claim/counter freeze `2a3b5643899c3520867ae930593cafef6ef19cad`.
+Production and source/lesson/criterion/docs land
+`12903255b6d3c940d18e6b81dce4d7cf49d519c2`.
+
+| axis | verdict | before → after | counting command and measured revision |
+|---|---|---|---|
+| operability / O | improved, finite predicate verifies | absent production path, 0/12 TOOL_ABSENT exit1 → actual committed CLI finite12/12 exit0; selftest37/37 and original packet records6/findings[] exit0 | `python3 -B reports/round-87/measure87.py --root . --revision <full-commit> --work <existing-dir>` at base and `12903255b6d3c940d18e6b81dce4d7cf49d519c2`; frozen counter SHA256 `131b29e84d39c2cbd22993aaadd469b5a96602651927730c980503cc74738e62`; receipts `no-work.json`, `lands-o.json`, `tool-selftest.json`, `tool-original-packet.json` |
+| calibration | observation, no additional scored claim | prefreeze ordering corrected for current round; inherited relationships and counterfeit survivors explicitly acknowledged | `reports/round-87/control-order.json`: same ancestry command r86rc1/r87rc0; `corpus/lessons/round-87.md` Mistakes; criterion34 binds round88, not current frozen predicate |
+| depth / coverage / freshness / adjacency | unchanged | no knowledge addition, frontier promotion or source re-verification; no canon/method ownership; freshness pause and numeric mapping debt retained | `reports/round-87/noharm.json`: all852 old rows unchanged, knowledge/PROVINCE diff empty; registry854 via two scoped own-work additions |
+
+The old r86 stage checker already holds all eight relationship categories.
+The new capability is a production variable-population diagnostics/selftest
+interface, not first integrity checking. A filename-only forgery and an
+all-labels/wrong-record forgery both satisfy the finite12/12 battery; null
+findings crash the frozen counter. Independent reviewer original expectations
+match23/26 (three nested-type exit classifications differ), domain-trial
+expectations match5/6 (origin justification undetected), three actual guard
+removals are each killed by tool selftest and finite battery. These limits
+stay in the record; no post-data instrument amendment.
+
+One v1 wave: ten seats, attack3/10, one connector, no residual/replacement.
+WAVE-DONE precedes integration validation/report. Parent results lost final
+payload/status metadata after kernel restart; all ten seat reports retained.
+Dead-seat numeric total and actual answering models are unavailable, not
+inferred as zero. `reports/round-87/wave-summary.json` preserves exact ids
+from Main's separate dispatch message.
+
+No invented 0–10 delta or lowest-axis waiver. Freshness remains historically
+lowest and paused under round11's open L0 threshold question; R86-C1's
+numeric/lowest-axis conformance debt and the L2-planner conflict remain.
+Source registry852→854 (A+1/C+1), no prior mutable-cell edits.
+Future work remains a new properly controlled freeze for the named counter
+survivors; no frozen historical claim is retroactively strengthened.

@@ -4824,3 +4824,25 @@ freeze `2a3b5643899c3520867ae930593cafef6ef19cad`. No historical rescoring.
 Committed-byte measurements and final landing hashes are appended below after
 the named production commit is measured; no provisional worktree run is
 represented as a committed-revision result.
+
+Round87 measured integration addendum: production lands
+`12903255b6d3c940d18e6b81dce4d7cf49d519c2`. Exact frozen counter without
+candidate override returns finite12/12 exit0 (`reports/round-87/lands-o.json`);
+tool selftest37/37 and original packet records6/findings[] both exit0.
+`final-checks.json` records index260/260/0, gate registry84 rows/0 missing/
+0 dead, current-round cited-record0/0, source census exit0.
+`registry-counts.json` rederives852→854 rows, A+1/C+1 and mined+1/rejected+1;
+`noharm.json` records all852 original rows and old knowledge/PROVINCE
+unchanged. `control-order.json` gives actual prefreeze-order red/green
+ancestry exits1/0. SCORECARD capability/axis row names this exact measured
+commit; SHONEN stays four author assertions.
+
+Wave telemetry correction: all ten reports delivered and parent says settled,
+but result final payload/status metadata was lost on orchestrator kernel
+restart. Dead-seat numeric count and answering models are unknown, not zero;
+`wave-summary.json` preserves this and ids from the separate Main message.
+`misroot-sweep.json` attributes no own artifact to fleet root; unrelated
+`after`, sibling changes and orchestrator `.scratch` remain untouched.
+Frozen tool/counter bytes were not revised after data. The inherited
+lowest-axis/numeric mapping and L2-planner conformance debts remain open;
+finite predicate verification is not a full-protocol or promotion claim.

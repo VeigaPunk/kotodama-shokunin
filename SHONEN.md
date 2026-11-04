@@ -3,13 +3,10 @@
 Promotion to shokunin requires all of:
 
 - [~] SKILL.md contains real decision tables, error patterns, checklists, cited sources
-  asserted: `SKILL.md` decision/error/checklist/registry sections; sourced depth dossier `corpus/knowledge/linguistics/proverbs-riddles-attestation-solutions.md`; round-86 counter limitations remain explicit, not a promotion pass.
+  asserted: SKILL.md decision/error/checklist/registry sections; corpus/lessons/round-87.md Gate and scoped S929/S930. Current finite-counter limitations remain explicit, not promotion approval.
 - [~] At least one end-to-end domain task executed and logged in LOG.md
-  asserted: `LOG.md` round-86; NON-CANON sense/clock exercise `.ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json` and handoff in the depth dossier; actual Iron positional red/green in `reports/round-86/lands-o.txt`; lore acceptance not claimed.
+  asserted: LOG.md round-87; reports/round-87/tool-original-packet.json audits the inherited NON-CANON packet; ExecDomainTrial preserves original 5/6 expectations and origin-justification miss. No real historical certification or lore handoff acceptance claimed.
 - [~] Instructions executable by an agent without oral context
-  asserted: `tools/check-paragraph-locator.py` documented CLI, 29 isolated selftest checks, frozen committed-input counter receipts `reports/round-86/lands-o.txt` and `lands-d-corrected.txt`; counterfeit-tool/decision/duplicate-row counter survivors and planner conflict remain disclosed.
+  asserted: tools/check-attestation-packet.py public CLI; reports/round-87/lands-o.json exact committed finite12/12, tool-selftest.json37/37; filename/label forgeries survive and malformed counter-output debt remains.
 - [~] No cross-domain bleed (PROVINCE.md still accurate)
-  asserted: `reports/round-86/noharm.json` records unchanged PROVINCE and prior knowledge; ConnectorOverlap bounded lore/chousa/kotoba scan and the dossier's lore handoff preserve canon ownership. All four marks remain author assertions, no named outside promotion verifier.
-
-Marks: `[~]` asserted by the lane itself (evidence pointer required), `[x]` only with a named
-non-author verifier per **Promotion gates**.
+  asserted: reports/round-87/noharm.json unchanged PROVINCE/knowledge/old registry rows; ConnectorScope and SKILL authority boundaries preserve lore/chousa ownership; formal planner and numeric-axis debts remain unresolved.

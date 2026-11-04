@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    "-c",
+    "import sys,subprocess,re,collections,json\nroot=sys.argv[1]\nfor rev in sys.argv[2:]:\n text=subprocess.check_output(['git','-C',root,'show',rev+':corpus/SOURCES.md']).decode()\n rows=[s.strip().strip('|').split('|') for s in text.splitlines() if re.match(r'^ {0,3}\\|\\s*S\\d{3,}\\s*\\|',s)]\n print(json.dumps({'revision':rev,'rows':len(rows),'tiers':dict(collections.Counter(s[3].strip() for s in rows)),'statuses':dict(collections.Counter(s[7].strip() for s in rows))}))\n",
+    "/home/vgpnk/Projects/shokunin/kotodama-shokunin",
+    "83846a22ee1e9da7aa52ac505ccebf4455169247",
+    "12903255b6d3c940d18e6b81dce4d7cf49d519c2"
+  ],
+  "rc": 0,
+  "stdout": "{\"revision\": \"83846a22ee1e9da7aa52ac505ccebf4455169247\", \"rows\": 852, \"tiers\": {\"A\": 504, \"B\": 326, \"C\": 22}, \"statuses\": {\"mined\": 752, \"queued\": 58, \"rejected\": 42}}\n{\"revision\": \"12903255b6d3c940d18e6b81dce4d7cf49d519c2\", \"rows\": 854, \"tiers\": {\"A\": 505, \"B\": 326, \"C\": 23}, \"statuses\": {\"mined\": 753, \"queued\": 58, \"rejected\": 43}}\n",
+  "stderr": ""
+}
