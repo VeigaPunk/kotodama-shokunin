@@ -237,3 +237,26 @@ Measured 2026-11-04 at lane base `3088bd7fe2a55a123214abba7008dcddf12b301c`: `gi
 Grounded in `corpus/lessons/round-82-verifier-spotcheck.md` §6 items 1, 2, 4 and 6 (the empty record, the R82-M2 line erratum, the Gate's missing URLs and dates, and the scratch-path commands) and in `corpus/lessons/round-82.md` `## Mistakes`.
 
 Limits, stated: the checker grades the record, not the judgment — a nonempty file proves bytes exist, never that they support the sentence; path lists are not citations, so unresolved tokens are ignored; the `EMPTY` leg covers `reports/round-<k>/**` (`*.md`, `*.txt`) and the round lesson from `--from-round` and does not scan `SCORECARD.md` or the wave stage directory (`.ufo/waves/round-<k>/`), whose citations are the same class but stay review; clause (iii) is a text check over the Gate block with no checker leg; and no earlier round is retro-fitted — round 82's filed bytes and citations stand as history with this criterion as their correction.
+
+32. **A worked cultural or linguistic ledger instantiates the distinctions its interface promises.**
+
+A worked example advertised as an instance of a record schema carries the actual
+fields, not a slogan saying the distinctions are separate. For a metal-register
+ledger this means a stable sense identifier, typed language channel, composition
+status, and independently stored form/sense/object/process clocks. Unknown is a
+valid explicit value; absence is not silently interpreted as unknown, and an
+invented design interval is never represented as historical attestation.
+
+Grounding: round-85 mistake R85-M4, the ReviewerEntry finding that the prose
+promised sense ids and independent clocks while all twelve companion records
+lacked those fields. `reports/round-85/craft-ledger-red-green.json` preserves
+the exact counting command, input digests and exits: the before fixture prints
+`CRAFT-LEDGER: FAIL records=12 incomplete=12`, exit 1; the repaired companion
+prints `CRAFT-LEDGER: PASS records=12 incomplete=0`, exit 0.
+The before input is `reports/round-85/fixtures/craft-before.json`; the corrected
+input is `reports/round-85/metallurgy-craft.json`.
+
+This is a domain-example completeness rule, not an attestation oracle. The check
+does not establish the truth of a clock interval, semantic plausibility, native
+pronunciation, historical authenticity or canon acceptance. Those judgments
+retain their separate source and lore owners. Binds from round 85.
