@@ -1,0 +1,40 @@
+# Base surface measurement (defect-5 rule: quote the base grep, word-bounded)
+# base 6b0b86e45ae902331aca75863db380f2991458c4, measured 2026-11-04T19:54:28-03:00
+
+## filename owners (word-bounded)
+$ git ls-tree -r --name-only 6b0b86e45ae902331aca75863db380f2991458c4 corpus/knowledge | grep -cE "(prayer|petition|votive|supplicat)"
+# note: filename-only match, no word boundary possible inside a compound name
+0
+
+## headings naming the surface (word-bounded)
+$ git grep -nE "^#{1,6} .*\b(prayer|petition|votive|supplicat)" 6b0b86e45ae902331aca75863db380f2991458c4 -- corpus/knowledge
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/tibet.md:92:## 5. Symbolic systems and prayer-wheel mantra economies
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/direction-symbolism.md:129:## 8. Orientation of prayer and institutions
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/sacred-topography-pilgrimage.md:1:# Sacred topography and pilgrimage — the place register: holy-site typology, the route as rite, votive economy, and the shrine institution
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/sacred-topography-pilgrimage.md:74:## 5. The votive economy — the object, the receipt, the token
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/synthesis/religion-language-co-evolution.md:1:# Religion–language co-evolution: sacred registers, prayer languages, and priestly closure
+
+## body files mentioning the surface
+$ git grep -lciE "\b(prayer|petition|votive|supplicat)" 6b0b86e45ae902331aca75863db380f2991458c4 -- corpus/knowledge | wc -l
+88
+
+## per-file body mention counts (top 10)
+
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/sacred-topography-pilgrimage.md:16
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/carthage.md:14
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/synthesis/religion-language-co-evolution.md:12
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/direction-symbolism.md:11
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/arabia-pre-islamic.md:8
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/muisca.md:8
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/amulets-talismans-apotropaic-marks.md:8
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/synthesis/deity-name-derivation-pipeline.md:7
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/lakota-plains.md:6
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/tibet.md:6
+
+## partition counts
+knowledge files total: 261
+linguistics: 34
+
+## registry rows at base / last id
+865
+S941
