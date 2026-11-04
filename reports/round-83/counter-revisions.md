@@ -76,3 +76,20 @@ precedent).
   `.ufo/waves/round-83/w1/stage/L1/` as working evidence (this commit carries
   both the additions and the deletions); the clean `controls-*.txt` stay in
   `reports/round-83/telemetry/`. No leg predicate, taget or constant changes.
+- **r8 — this commit (before any claim verdict was recorded).** Red-before:
+  claim O's first lands `167c249d` graded `ACCEPT-O-83: FAIL legs=7/8` on
+  `REGISTRY` (the tool's summary printed *covered instruments* where the frozen
+  claim requires the registry data-row count: `summary=(0,61,61,0)`), and the
+  corrected lands `0f088572`, which fixes only the tool, then graded `7/8` on
+  `SEPARABLE` (`own_missing=['SKILL.md']`) because the r6 leg diffed the single
+  lands commit against its own parent while a corrected lands splits a claim's
+  own paths across two commits. Both receipts are committed
+  (`reports/round-83/telemetry/lands-o83.txt`, `lands-o83-r2.txt`). Fix: the
+  `SEPARABLE` leg takes the claim span — the first commit in `base..lands` that
+  touches an own path, and that commit's parent — requires every own path in the
+  cumulative `base..lands` diff, and requires each foreign path's blob to be
+  byte-identical at the span parent and at lands. This is strictly the same
+  predicate ("this claim's commits touch its own paths and move no foreign
+  path"), now robust to a multi-commit lands; a claim that edits a foreign path
+  still fails. No target, after-state, constant or leg name changes. The tool fix
+  itself is a claim artifact, recorded as claim O's lands r2.

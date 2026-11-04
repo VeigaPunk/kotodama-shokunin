@@ -145,11 +145,11 @@ def evaluate(root, lands, freeze, work, cfg, block):
         return (not removed and not changed, "removed=%s changed_cells0to6=%s" % (removed or "none", changed or "none"))
 
     def separable():
-        parent = C.gout(root, "rev-parse", lands + "^").strip()
-        ch = C.changed_paths(root, parent, lands)
-        own_missing = [p for p in block["own_paths"] if not any(c == p or c.startswith(p) for c in ch)]
-        foreign = [p for p in block["foreign_paths"] if any(c == p or c.startswith(p.rstrip("/") + "/") for c in ch)]
-        return (not own_missing and not foreign, "own_missing=%s foreign=%s" % (own_missing or "none", foreign or "none"))
+        parent = C.claim_span(root, base, lands, block["own_paths"])[1]
+        cumulative = C.changed_paths(root, base, lands)
+        own_missing = [p for p in block["own_paths"] if not any(c == p or c.startswith(p) for c in cumulative)]
+        foreign = [p for p in block["foreign_paths"] if C.blob_sha(root, parent, p) != C.blob_sha(root, lands, p)]
+        return (not own_missing and not foreign, "span_parent=%s own_missing=%s foreign_moved=%s" % (parent[:8], own_missing or "none", foreign or "none"))
 
     g.grade("FROZENCFG", frozen)
     g.grade("BEFORE", before)
