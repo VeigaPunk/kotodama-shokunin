@@ -93,3 +93,21 @@ precedent).
   path"), now robust to a multi-commit lands; a claim that edits a foreign path
   still fails. No target, after-state, constant or leg name changes. The tool fix
   itself is a claim artifact, recorded as claim O's lands r2.
+- **r9 — this commit.** Red-before: the D junk battery printed
+  `JUNK anchor-dropped expect ANCHORS killed=False` and `JUNK-D-83: FAIL 2/3`
+  (`reports/round-83/telemetry/junk-d83.txt`, first run) — the mutant dropped one
+  anchor bullet from 52 against a floor of 20, so it was not a mutant. Fix: the
+  fixture now cuts the anchors below the frozen floor (keeps 19). No predicate,
+  target or constant changes; the D claim's grade is unaffected (it was 9/9 both
+  before and after).
+- **r10 — this commit.** Red-before: claim C's first lands graded
+  `ACCEPT-C-83: FAIL legs=9/9 minus SEPARABLE` with
+  `foreign_moved=['corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md']`
+  (`reports/round-83/telemetry/lands-c83.txt`) because `corpus/SOURCES.md` is in
+  two claims' `own_paths`, so the claim span started at the *earlier* claim's
+  commit. Fix: the span is computed from the claim's **distinguishing** paths —
+  its own paths minus any path another claim's block owns, derived from the frozen
+  config itself (no new constant, so the freeze stays valid, which is why
+  `claims.json` bytes are unchanged). Shared paths stay graded by `APPENDONLY`
+  (registry cells) and by the shared file's own claim. No predicate, target,
+  after-state or leg name changes.

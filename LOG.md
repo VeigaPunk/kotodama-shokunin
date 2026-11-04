@@ -4552,3 +4552,59 @@ counted; one v1 wave of 14 seats.
    (R82-M2..M4: a selftest fixture that was not the shape it claimed; two evidence sets for one row
    set; a planned source that duplicated row S320). Sourced claim: D rests on S904–S907, all opened
    this round; the Hovamol page was carried, not rejected, with both reasons on file.
+
+## Round 83 — 2026-11-04 (Linux/omp host; base `3088bd7f`, freeze `29f4b6a5`)
+
+Entry for round 83 (claim O lands `0f088572`, claim D lands `386e7002`, claim C
+lands `86f68b5b`). Three claims, three axes, each measured by its own frozen
+counter; counter revisions r2–r10 are recorded with red-befores in
+`reports/round-83/counter-revisions.md`.
+
+1. **Claim O (operability, capability) — `tools/check-gate-registry.py` and the 14
+   missing registry rows, lands `0f088572`.** At base the registry stopped at
+   `accept-ca-75` while 58 accept-* counters were committed, 11 of them without a
+   row, and nothing in the tree read the registry (`git grep -c GATE-REGISTRY
+   <base> -- tools/ reports/` = 0). The tool enumerates the counter class,
+   parses the `## Gates and probes` table under the census grammar (0–3 leading
+   spaces; `note` rows exempt from the 8-cell rule; pre-existing 9-cell rows
+   tolerated), and prints `GATE-REGISTRY: 0 missing / 74 registered / 61
+   instruments / 0 dead` plus `GATE-REGISTRY-INFO: 25 tools without a row`
+   (informational — the wider tools registry is a next-round candidate, not
+   absorbed). The 14 rows (11 standing + the round's three counters) land in the
+   same commit. First lands `167c249d` graded 7/8 because the tool printed
+   covered instruments in the `registered` slot where the frozen claim requires
+   the data-row count; the corrected lands is `0f088572` and grades
+   `ACCEPT-O-83: PASS legs=8/8`.
+2. **Claim D (depth) — `corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md`,
+   lands `386e7002`.** Marriage as an alliance-and-transfer institution: six
+   decisions (payment direction, prohibited degrees, the rite sequence, name and
+   dress change, dissolution and return, guarantee and children), a six-field
+   lexicon interface with a worked NON-CANON derivation, 52 single-id anchors
+   across six sources (57 spans re-located by the L1 with 0 misses), the lore
+   handoff. The 257th knowledge file (56,555 B) with cited-lines lint 0.
+   SOURCES 832 → 836: S909 Code of Hammurabi §138 (A), S910 EB11 "Marriage" (B,
+   measured as a dated legal survey — 0 occurrences of promiscuity/group
+   marriage/matriarchy, so no stage-law framing), S911 Rigveda 10.85 (A), S912
+   Leviticus 18 (A); S904/S905 `used-by` appended. `ACCEPT-D-83: PASS legs=9/9`.
+3. **Claim C (calibration) — QUALITY criterion 31 and the routed round-82 record
+   repairs, lands `86f68b5b`.** The criterion binds three clauses from round 83: a
+   cited record is nonempty at the cited revision; a committed receipt cites only
+   repo-relative paths that resolve (no `/tmp`, `/var/tmp`, `/fast/scratch`
+   roots); a lesson's `## Gate` names URL and access date per opened row. The
+   0-byte `reports/round-82/counter-revisions.md` is restored (7,051 B, both
+   revision hashes, restored-in-round-83 provenance from committed receipts), the
+   R82-M2 line erratum is filed (`line 5` versus the filed `line 7`), S913
+   supersedes S908 in the contract spelling with a chapter-III locator, and
+   `tools/check-cited-records.py` lands (selftest 12 checks; red-before at base
+   `CITED-RECORDS: 2 empty / 7 scratch`, green at lands `0 empty / 0 scratch`).
+   `ACCEPT-C-83: PASS legs=9/9`.
+4. **Frontier.** Census start (827 → after round 82's rows, exit 0) and end
+   (837 rows, exit 0) receipts in `reports/round-83/telemetry/`. Rows added:
+   A 3 (S909, S911, S912), B 1 (S910), C 1 rejected (S913, superseding S908).
+   Knowledge files 256 → 257. Mistakes mined: R83-M1/M2 (counter control reason
+   order; a counter that crashed on an absent artifact), R83-M3 (a claim artifact
+   whose summary label disagreed with the frozen after-state), R83-M4 (a
+   separability predicate that graded commit order), R83-M5 (a junk mutant that
+   was not a mutant). Sourced claim: D rests on S909–S912, all opened this round.
+   Assimilation: none — no `merge/kotodama/` theme fits this round's claims and
+   the lane's earlier quarantine verdicts stand.

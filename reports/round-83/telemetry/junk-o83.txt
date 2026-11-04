@@ -1,0 +1,28 @@
+LEG FROZENCFG   PASS freeze 29f4b6a5 lands 4a9c4d0c sha256 3b100a971ecf
+LEG BEFORE      PASS instruments=58 missing=11/11 tool_at_base=False
+LEG TOOL        PASS bytes=9598 missing_markers=none
+LEG SELFTEST    PASS rc=0 checks=15 floor=12 tail='SELFTEST: PASS (15 checks)'
+LEG REGISTRY    FAIL tool --json exit 1: '{\n "dead": [],\n "instruments": [\n  "reports/round-53/accept-c.py",\n  "reports/round-54/accept-c.py",\n  "reports/round-55/accept-c.py",\n  "reports/round-55/accept-o.py",\n  "reports/round-56/accept-c.py'
+LEG ROWS        FAIL rows=74 prepared=14 absent=['reports/round-82/accept-o82.py']
+LEG DEAD        FAIL dead=0 rows=74 base_rows=61 grew=13 floor=14
+LEG SEPARABLE   PASS span_parent=29f4b6a5 own_missing=none foreign_moved=none
+JUNK rows-dropped       expect ROWS       killed=True
+LEG FROZENCFG   PASS freeze 29f4b6a5 lands d3c883dd sha256 3b100a971ecf
+LEG BEFORE      PASS instruments=58 missing=11/11 tool_at_base=False
+LEG TOOL        PASS bytes=9598 missing_markers=none
+LEG SELFTEST    PASS rc=0 checks=15 floor=12 tail='SELFTEST: PASS (15 checks)'
+LEG REGISTRY    FAIL tool --json exit 1: '{\n "dead": [\n  {\n   "line": 662,\n   "path": "tools/round83-absent-tool.py",\n   "row": "accept-c-53"\n  }\n ],\n "instruments": [\n  "reports/round-53/accept-c.py",\n  "reports/round-54/accept-c.py",\n  "rep'
+LEG ROWS        PASS rows=75 prepared=14 absent=none
+LEG DEAD        FAIL dead=1 rows=75 base_rows=61 grew=14 floor=14
+LEG SEPARABLE   PASS span_parent=29f4b6a5 own_missing=none foreign_moved=none
+JUNK dead-token         expect DEAD       killed=True
+LEG FROZENCFG   PASS freeze 29f4b6a5 lands 1b4728cf sha256 3b100a971ecf
+LEG BEFORE      PASS instruments=58 missing=11/11 tool_at_base=False
+LEG TOOL        FAIL bytes=289 missing_markers=['def main(']
+LEG SELFTEST    PASS rc=0 checks=99 floor=12 tail='SELFTEST: PASS (99 checks)'
+LEG REGISTRY    FAIL --json not JSON: 'GATE-REGISTRY: 0 missing / 99 registered / 61 instruments / 0 dead\n{"instruments":[],"registered":[],"missing":[],"dead":[],"rows":99}'
+LEG ROWS        FAIL rows=74 prepared=14 absent=['reports/round-82/accept-o82.py']
+LEG DEAD        FAIL dead=0 rows=74 base_rows=61 grew=13 floor=14
+LEG SEPARABLE   PASS span_parent=29f4b6a5 own_missing=none foreign_moved=none
+JUNK canned-tool        expect REGISTRY   killed=True
+JUNK-O-83: PASS 3/3

@@ -1,0 +1,212 @@
+{
+ "round": 83,
+ "base": "3088bd7fe2a55a123214abba7008dcddf12b301c",
+ "pre_data": "Claims, the three counters and the shared counter library freeze before any claim artifact lands. Every constant is read with `git show <freeze>:reports/round-83/claims.json`, never from the graded tree. Each counter refuses (exit 2, `FAIL legs=0/<n> (refused: ...)`) a revision that is not 40-hex, a freeze that is not an ancestor of lands, lands equal to the frozen base (the do-nothing control), unreadable or incomplete frozen config, a leg list that disagrees with its own leg table, a lands revision that is not an ancestor of the branch tip, and a --work that is not an existing directory. Claim verdicts are graded on committed bytes only: each counter materialises the blobs it grades from --root:<rev> into <work>/tree before running any tool.",
+ "claims": [
+  {
+   "id": "O",
+   "axis": "operability",
+   "kind": "capability acquisition (a gate-registry coverage auditor) + the 11 standing registry rows",
+   "title": "Land tools/check-gate-registry.py and the missing gate-registry rows: every committed `reports/round-*/accept-*.py` counter has a row in SKILL.md `## Gates and probes`, derived and checked from committed bytes",
+   "before": "at base the registry stops at `accept-ca-75`: 58 committed accept-* counters, 11 of them with no row (`git ls-tree -r --name-only <base> reports | grep -E 'round-/(accept-.*\\.py)$'` minus the entry-command cells of the `## Gates and probes` table). No committed instrument reads the registry: `git -C <lane> grep -c GATE-REGISTRY <base> -- tools/ reports/` = 0 lines.",
+   "after": "`tools/check-gate-registry.py` exists at lands and prints exactly one `GATE-REGISTRY: 0 missing / <r> registered / <i> instruments / 0 dead` line with i >= 61 and r >= (base rows + 14), exit 0; `--selftest` prints `SELFTEST: PASS (>=12 checks)`; the 11 base-missing counters and the 3 round-83 counters each appear in a row's entry-command cell, derived independently by the counter's own parse.",
+   "counter": "reports/round-83/accept-o83.py",
+   "review_only": [
+    "which additional tools/*.py deserve rows is a curation judgment; the tool reports the count (`GATE-REGISTRY-INFO`) and the round records it, it does not absorb it",
+    "the registry row prose quality (verdict maps, pinned values) is reviewed by a human-readable review seat, not counted"
+   ],
+   "tool83": {
+    "tool_path": "tools/check-gate-registry.py",
+    "instrument_glob": "reports/round-*/accept-*.py",
+    "base_instruments": 58,
+    "base_missing": [
+     "reports/round-76/accept-c.py",
+     "reports/round-76/accept-ca.py",
+     "reports/round-79/accept-ca.py",
+     "reports/round-79/accept-o.py",
+     "reports/round-80/accept-d.py",
+     "reports/round-80/accept-o.py",
+     "reports/round-81/accept-c81.py",
+     "reports/round-81/accept-d81.py",
+     "reports/round-81/accept-o81.py",
+     "reports/round-82/accept-d82.py",
+     "reports/round-82/accept-o82.py"
+    ],
+    "min_instruments_at_lands": 61,
+    "min_new_rows": 14,
+    "min_selftest_checks": 12,
+    "shape_markers": [
+     "GATE-REGISTRY:",
+     "--json",
+     "def main("
+    ],
+    "summary_re": "^GATE-REGISTRY: (\\d+) missing / (\\d+) registered / (\\d+) instruments / (\\d+) dead$",
+    "info_re": "^GATE-REGISTRY-INFO: (\\d+) tools without a row",
+    "registry_heading": "## Gates and probes",
+    "own_paths": [
+     "tools/check-gate-registry.py",
+     "SKILL.md"
+    ],
+    "foreign_paths": [
+     "corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md",
+     "corpus/QUALITY.md",
+     "tools/check-cited-records.py",
+     "reports/round-82/counter-revisions.md"
+    ],
+    "legs": [
+     "FROZENCFG",
+     "BEFORE",
+     "TOOL",
+     "SELFTEST",
+     "REGISTRY",
+     "ROWS",
+     "DEAD",
+     "SEPARABLE"
+    ]
+   }
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "kind": "knowledge entry (four rows opened this round)",
+   "title": "Add corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md: marriage as an alliance-and-transfer institution (the payment direction, prohibited degrees, the rite sequence, name and dress change, dissolution, the lexicon the institution forces) with a worked derivation",
+   "before": "no knowledge file owns the surface at base: filename sweep over the 256 files under corpus/knowledge for `marriage|bride|dowry|wedding|spouse|betroth` = 0 owning filenames; the institutional core `bridewealth|bride-price|bride price|dowry|betroth` appears on 9 files and in 27 whose-word lines, none a decision table; 832 registry rows; no `- gap filled:` owner for the surface.",
+   "after": "the entry lands as the 257th knowledge file (>= 12000 bytes) with the header fields, >= 6 decision rows, >= 20 attested-anchor bullets each carrying exactly one distinct S-id, `tools/check-cited-lines.py` = 0 findings; SOURCES 832 -> >= 836 rows, the four new rows S909-S912 opened 2026-11-04, each `mined`, each `used-by` naming the entry; the entry cites at least three of those new rows.",
+   "counter": "reports/round-83/accept-d83.py",
+   "review_only": [
+    "the comparative claims the entry makes stay within the cited scope; the counter grades shape, provenance and citation hygiene, not scholarship",
+    "entry craft quality is judged by the reviewer seat and the non-author closure, not counted"
+   ],
+   "entry83": {
+    "entry_path": "corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md",
+    "min_bytes": 12000,
+    "min_sections": 7,
+    "min_decision_rows": 6,
+    "anchors_heading": "## 3. Attested anchors",
+    "min_anchors": 20,
+    "new_row_ids": [
+     "S909",
+     "S910",
+     "S911",
+     "S912"
+    ],
+    "min_new_rows": 4,
+    "opened": "2026-11-04",
+    "base_knowledge_files": 256,
+    "base_registry_rows": 832,
+    "cited_lines_tool": "tools/check-cited-lines.py",
+    "header_markers": [
+     "- topic:",
+     "- gap filled:",
+     "- sources:",
+     "- couples:",
+     "- source:",
+     "- verified-at:",
+     "- recheck:",
+     "- scope:"
+    ],
+    "own_paths": [
+     "corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md",
+     "corpus/SOURCES.md"
+    ],
+    "foreign_paths": [
+     "tools/check-gate-registry.py",
+     "SKILL.md",
+     "corpus/QUALITY.md",
+     "tools/check-cited-records.py",
+     "reports/round-82/counter-revisions.md"
+    ],
+    "legs": [
+     "FROZENCFG",
+     "BEFORE",
+     "ENTRY",
+     "SECTIONS",
+     "ANCHORS",
+     "LINT",
+     "ROWS",
+     "SOURCED",
+     "SEPARABLE"
+    ]
+   }
+  },
+  {
+   "id": "C",
+   "axis": "calibration",
+   "kind": "criterion acquisition + record repair (QUALITY 31 + the round-82 routed record defects)",
+   "title": "Land QUALITY criterion 31 (a cited record carries its bytes, a receipt cites resolvable repo-relative paths, a Gate names URL and access date per row) with tools/check-cited-records.py, and repair the round-82 record defects the non-author spot-check routed",
+   "before": "at base `corpus/QUALITY.md` has no `^31\\. ` line, `reports/round-82/counter-revisions.md` is 0 bytes while three committed documents cite it as the r2/r3 record, no committed instrument reads cited-record integrity, S908's `teaches` cell opens `rejected:` (contract spelling `REJECTED:`) and its anchor cell names no chapter.",
+   "after": "`grep -c '^31\\. ' corpus/QUALITY.md` = 1 with the three clauses; the record is > 400 bytes and names both revision hashes `696835ee` and `ea667212`; `reports/round-83/annotations/errata-r82.md` names `R82-M2`, `line 5` and `line 7`; a new registry row's `teaches` opens `supersedes S908 —` and carries `REJECTED:` plus a `chapter III` anchor; `tools/check-cited-records.py` prints `CITED-RECORDS: 0 empty / 0 scratch` exit 0 at lands and `SELFTEST: PASS (>=10 checks)`; existing registry rows differ only in their status/opened/recheck/used-by cells across base..lands.",
+   "counter": "reports/round-83/accept-c83.py",
+   "review_only": [
+    "whether another lane should adopt criterion 31 is a fleet question the round reports, not one it decides",
+    "the erratum's wording is reviewed, not counted"
+   ],
+   "repair83": {
+    "criterion_file": "corpus/QUALITY.md",
+    "criterion_marker": "^31\\. ",
+    "criterion_markers": [
+     "nonempty",
+     "resolve",
+     "access date"
+    ],
+    "record_path": "reports/round-82/counter-revisions.md",
+    "record_min_bytes": 400,
+    "record_hashes": [
+     "696835ee",
+     "ea667212"
+    ],
+    "erratum_path": "reports/round-83/annotations/errata-r82.md",
+    "erratum_markers": [
+     "R82-M2",
+     "line 5",
+     "line 7"
+    ],
+    "supersede_prefix": "supersedes S908 —",
+    "superseded_id": "S908",
+    "supersede_markers": [
+     "REJECTED:",
+     "chapter III"
+    ],
+    "checker_path": "tools/check-cited-records.py",
+    "checker_min_selftest_checks": 10,
+    "checker_shape_markers": [
+     "CITED-RECORDS:",
+     "--selftest",
+     "def main("
+    ],
+    "checker_summary_re": "^CITED-RECORDS: (\\d+) empty / (\\d+) scratch$",
+    "from_round": 83,
+    "own_paths": [
+     "corpus/QUALITY.md",
+     "corpus/SOURCES.md",
+     "reports/round-82/counter-revisions.md",
+     "reports/round-83/annotations/errata-r82.md",
+     "tools/check-cited-records.py"
+    ],
+    "foreign_paths": [
+     "tools/check-gate-registry.py",
+     "SKILL.md",
+     "corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md"
+    ],
+    "append_only_columns_free": [
+     "status",
+     "opened",
+     "recheck",
+     "used-by"
+    ],
+    "legs": [
+     "FROZENCFG",
+     "BEFORE",
+     "CRITERION",
+     "RECORD",
+     "ERRATUM",
+     "SUPERSEDE",
+     "CHECKER",
+     "APPENDONLY",
+     "SEPARABLE"
+    ]
+   }
+  }
+ ],
+ "do_nothing_control": "At --lands = the frozen base every counter refuses with exit 2 (`FAIL legs=0/<n> (refused: lands equals the frozen base -- do-nothing control)`): a control that lands nothing cannot acquire the tool, open a source, add a criterion or fill the record. Receipts: reports/round-83/telemetry/controls-o.txt, controls-d.txt, controls-c.txt."
+}

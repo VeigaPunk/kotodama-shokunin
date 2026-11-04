@@ -63,6 +63,8 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | W2 mutation re-run | Rebuilds the round-80 guard mutation pass from committed bytes: five single-hardening-removal mutants with pinned sha256s (m1/m3 byte-exact vs the r80 recorded shas; m2/m4/m5 deterministic r81 pins, r80 scratch shas kept historical), clean selftest green first, hardened env-probe control, 5/5 caught | `python -B reports/round-81/mutants/w2-mutants.py --repo <lane> --rev <40hex> --work <scratch>` → `W2-RERUN: PASS 5/5 (clean green first)` (`reports/round-81/telemetry/w2-rerun-at-tip.txt`) | round 81 |
 | replace-ref fixture builder | Completes the round-80 `junk-replacerefs.json` template into a real graded fixture (fills both 40-hex placeholders, adds `observe.line`, sets stated values to the shadowed view) and re-derives the r80 receipt pair from committed bytes: r79 bytes exit 0 `PASS pairs=1` (the replace-shadowed lie blessed), hardened bytes exit 2 `REFUSED --repo carries refs/replace entries` | `python -B reports/round-81/fixtures/replacerefs/build-fixture.py --repo <lane> --old-rev a8aaece… --hard-rev <40hex> --work <scratch>` → `REPLACEREFS-FIXTURE: PASS` (`reports/round-81/telemetry/replacerefs-at-tip.txt`) | round 81 |
 | registry recheck-cadence auditor | Derives the lane's registry recheck queue from committed `SOURCES.md` bytes at a given date: parses the 11-cell rows under the census grammar (0-3 leading spaces), turns `NNd` into opened+N days, ISO dates into themselves and `on-release` into an exempt cadence, prints `RECHECK-QUEUE: <due> due / <upcoming> upcoming / <on-release> on-release / <rows> rows` plus one `DUE <id> <date>` line per due row, and refuses a malformed row or unparseable cadence with exit 2 and a `RECHECK-ERROR` line, no traceback; 13-check selftest, population-modular | `python -B tools/check-sources-recheck.py --as-of 2026-11-04 --window 90` → `RECHECK-QUEUE: 0 due / 18 upcoming / 14 on-release / 827 rows` (frozen registry); `--selftest` → `SELFTEST: PASS (13 checks)`; `ACCEPT-O-82: PASS legs=7/7` (`reports/round-82/telemetry/lands-o82-graded.txt`) | round 82 |
+| gate-registry coverage auditor | Enumerates every committed `reports/round-*/accept-*.py` counter, parses the `SKILL.md` `## Gates and probes` table under the census grammar, and reports unregistered counters, dead entry-command paths and the unregistered-tool count (informational, never graded); one summary line, `--json`, and a selftest over 15 fixture checks | `python -B tools/check-gate-registry.py --root .` → `GATE-REGISTRY: 0 missing / 74 registered / 61 instruments / 0 dead`; `--selftest` → `SELFTEST: PASS (15 checks)`; `python -B reports/round-83/accept-o83.py --lands 0f088572 --freeze 29f4b6a5 --work <scratch>` → `ACCEPT-O-83: PASS legs=8/8` | round 83 |
+| cited-record checker | Scans a lane tree's round receipts (`reports/round-<k>/**/*.md|*.txt` and the round lesson) for a backticked cited path that resolves to a 0-byte file (`EMPTY`) and for absolute temporary/scratch roots (`SCRATCH`), prints `CITED-RECORDS: <n> empty / <m> scratch`, and fails on either; a token that does not resolve is not a finding (a path list is not a citation) | `python -B tools/check-cited-records.py --root .` → `CITED-RECORDS: 0 empty / 0 scratch`; at base with `--from-round 82 --bind-round 82` → `2 empty / 7 scratch`, exit 1; `--selftest` → `SELFTEST: PASS (12 checks)` | round 83 |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -1679,3 +1681,35 @@ green at their own lands; the C criterion re-counted; red-befores, do-nothing
 refusals and six junk landings on file); no axis is harmed — freshness paused
 (round-11 L0), coverage/adjacency unchanged, PROVINCE.md untouched. Capability
 row `registry recheck-cadence auditor` enters `## Capabilities` this round.
+
+## Axes — round 83 (2026-11-04, Linux/omp host; author-side, pending non-author closure)
+
+Base `3088bd7fe2a55a123214abba7008dcddf12b301c`; final freeze
+`29f4b6a58f84424b517c6f2aafdf297d66cded6a` (claims.json at r7, counters at r10;
+constants are read with `git show <freeze>:reports/round-83/claims.json`). Claim O
+lands `0f088572` (lands r2; lands r1 `167c249d` graded 7/8 and is the red-before);
+claim D lands `386e7002`; claim C lands `86f68b5b`. Do-nothing control: at
+`--lands` = base all three counters refuse, exit 2
+(`reports/round-83/telemetry/controls-o.txt`, `controls-d.txt`, `controls-c.txt`):
+a control that lands nothing cannot acquire the tool, fill the record, add a
+criterion or open a row. Counter revisions r2–r10 are recorded in
+`reports/round-83/counter-revisions.md` with their red-befores; no claim verdict
+was recorded under a superseded revision. One v1 wave of 14 seats (2 scout,
+3 executor, 4 scribe, 1 connector, 2 critic, 1 mutation-tester, 1 sentinel; the
+L1 holds the canonical planner seat). Round-82 verifier spot-check routed
+defects dispositioned: items 1, 2, 3, 5, 6, 7 landed, item 4 landed as criterion
+31(iii) with its checker limit stated.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability | improved (claim O — capability acquisition: gate-registry coverage auditor + the 14 standing rows) | no committed instrument read the registry at base (58 accept-* counters, 11 with no row; `git -C <lane> grep -c GATE-REGISTRY <base> -- tools/ reports/` = 0), registry stops at `accept-ca-75` → `tools/check-gate-registry.py` lands (selftest 15 checks): `GATE-REGISTRY: 0 missing / 74 registered / 61 instruments / 0 dead` exit 0, `GATE-REGISTRY-INFO: 25 tools without a row`; the 14 rows enter `SKILL.md` | `python -B reports/round-83/accept-o83.py --root . --lands 0f088572 --freeze 29f4b6a5 --work <scratch>` → `ACCEPT-O-83: PASS legs=8/8`, exit 0; junk battery `PASS 3/3` | `telemetry/lands-o83-final.txt`, `junk-o83.txt`, `controls-o.txt`; `tools/check-gate-registry.py --selftest` = 15 checks |
+| depth | improved (claim D — knowledge entry, four rows opened this round) | filename sweep at base `marriage|bride|dowry|wedding|spouse|betroth` → 0 of 256 owning files; institutional core 27 lines in 9 files, none a decision table; registry 832 → 837 → `corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md` lands as the 257th knowledge file, 56,555 B, 7 sections, 6 decision rows, 52 single-id anchors, cited-lines lint 0; rows S909–S912 mined (A/A/B/A) and cited by the entry | `python -B reports/round-83/accept-d83.py --root . --lands 386e7002 --freeze 29f4b6a5 --work <scratch>` → `ACCEPT-D-83: PASS legs=9/9`, exit 0; junk `PASS 3/3` | `telemetry/lands-d83-final.txt`, `junk-d83.txt`, `controls-d.txt`; L1 span re-location 57/57 across six sources |
+| calibration | improved (claim C — criterion acquisition + the routed record repairs) | `git show <base>:corpus/QUALITY.md | grep -c '^31\. '` = 0 and `reports/round-82/counter-revisions.md` = 0 bytes while three documents cited it → criterion 31 lands (three clauses, red-before measured `CITED-RECORDS: 2 empty / 7 scratch` at base), the record is 7051 B and names both revision hashes, the R82-M2 erratum names `line 5` and `line 7`, S913 supersedes S908 with the contract spelling, and `tools/check-cited-records.py` (selftest 12 checks) prints `CITED-RECORDS: 0 empty / 0 scratch` at lands | `python -B reports/round-83/accept-c83.py --root . --lands 86f68b5b --freeze 29f4b6a5 --work <scratch>` → `ACCEPT-C-83: PASS legs=9/9`, exit 0; junk `PASS 3/3` | `telemetry/lands-c83-final.txt`, `junk-c83.txt`, `controls-c.txt`, `.ufo/waves/round-83/w1/stage/L1/redbefore-cited-records.txt` |
+| coverage / freshness / adjacency | unchanged | coverage: the four rows and the criterion are the O/D/C moves themselves, no new domain surface beyond them; freshness: the round opened four sources but no existing entry was re-verified — the round-11 L0 pause stands (no stagnation-nudge evidence on file); adjacency: the EB11 transclusion/Parsoid observation and the critic's row-shape findings are reported in the lesson, not absorbed; `PROVINCE.md` byte-identical across base..lands | `grep -cE '^\| *S[0-9]{3,} *\|' corpus/SOURCES.md` = 837; `git diff-tree -r --name-status 3088bd7f 86f68b5b -- PROVINCE.md` empty; census start/end exit 0 | `telemetry/census-start.txt`, `census-end.txt`; `corpus/lessons/round-83.md` Gate |
+
+Admission (author-side): claims O, D and C verify (each counter re-derived green
+at its own lands with the final counter bytes; red-befores, do-nothing refusals,
+the 7/8 first lands and three 3/3 junk batteries on file); no axis is harmed —
+freshness paused (round-11 L0), coverage/adjacency unchanged, PROVINCE.md
+untouched. Capability rows `gate-registry coverage auditor` and `cited-record
+checker` enter `## Capabilities` this round.

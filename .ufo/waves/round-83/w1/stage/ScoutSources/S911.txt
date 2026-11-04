@@ -1,0 +1,41 @@
+# capture S911.txt — round 83 w1 ScoutSources (claim D recon, independent second reading)
+row: S911
+candidate: Rigveda 10.85 (the Surya marriage hymn), trans. Ralph T. H. Griffith (Wikisource transcription)
+url (seat-named): https://en.wikisource.org/wiki/The_Rig_Veda/Mandala_10/Hymn_85 — HTTP 404, 42463 B, sha256 1e9dd362a432b791f8b50421e788eb88f09a034cf59c934401477d25e6eea06e; the page was moved (Wayback has it under this slug in 2023-2024, live it is gone). ANCHOR FLIP REQUIRED
+url (live, corrected title): https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda/Book_10/Hymn_85
+fetched: 2026-11-04 (round 83 w1; host Arch linux x64; curl 8.23.0; automation: none; no proxy)
+ua-records: UA "curl/8.23.0" -> HTTP 200, 70655 B, wall absent | UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 70655 B, wall absent
+bytes (live, as transferred): 70655
+bytes (live, decoded): 70655
+sha256 (live, decoded): 4d4737d7a06da9a21c17457a412ebc44c702ae0a4b26c707294bc29c70058a29
+template-rendered: yes — Wikisource header + Parsoid HTML (data-mw present); the poem is ONE <pre> block of 47 numbered stanzas; 0 <p> elements
+paragraph-count (live): 1 <pre>, 47 stanzas
+revision: oldid 14397100, "last edited on 8 August 2024, at 09:37"; HTTP last-modified 2026-10-21 is the Parsoid render time
+quote: The Sun-God Savitar bestowed his willing Surya on her Lord
+quote-words: 10
+quote-chars: 58
+raw <n> / folded <m>: raw 2 / folded 1
+count-rule: raw = occurrences in the decoded document as served; folded = script/style dropped, tags -> ONE space, entities decoded, U+00A0 and U+2003 -> space, whitespace runs -> one space, then count (foldcount.py)
+raw-2-cause: the same line appears twice in the served bytes — once escaped inside the <pre data-mw="..."> JSON attribute and once as the rendered poem text; tag-stripping removes the attribute, leaving exactly 1 folded occurrence
+quote-found-verbatim (live, folded): yes, exactly 1 occurrence, folded offset 2319 of 8982
+locator: stanza 9 (the wooing/bestowal: Soma wooed the maid, the Asvins are groomsmen, Savitar bestows his willing Surya on her Lord)
+second-passage: I take thy hand in mine for happy fortune that thou mayst reach old age with me thy husband — 19 words, raw 2 / folded 1, folded offset 6505; stanza 36, the hand-clasp (panigrahana) formula — use in the ritual-formula section; the line carries no diacritics, so it is the safer span if any re-hosting is ever attempted (but quote only from an anchored hosting)
+third-passage: Soma obtained her first of all; next the Gandharva was her lord — 12 words, raw 2 / folded 1, folded offset 7141; stanza 40, the mythic serial-husbands stanza — use in the mythic-precedent section, not as a social rule
+wayback (same page, current title): CDX returns [] — NO capture exists for The_Hymns_of_the_Rigveda/Book_10/Hymn_85 (query run 2026-11-04)
+wayback (pre-move title): https://web.archive.org/web/20240204183600id_/https://en.wikisource.org/wiki/The_Rig_Veda/Mandala_10/Hymn_85
+wayback-status: HTTP 200
+wayback-bytes: 12368 (transferred; gzip) -> 39087 (decoded)
+wayback-sha256 (decoded): 0be4b87ceb61768bfd7bb5fe6065264008b3c62cb3014d12e400e4186a87493c
+wayback-transferred-sha256: ae3d3a56999d764472dd76f4a9159c7348c2bb56d43349b223f2e465ab208f18
+wayback-paragraph-count: 1 <pre>, 47 stanzas
+wayback-quote: present (raw 1 / folded 1, folded offset 1547); second-passage present (folded offset 5733)
+content-stability: word diff of the pre-move capture vs live = 1 deletion (a stray "-->"), 0 additions, 0 replacements — the hymn text is identical
+cdx-query: http://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fen.wikisource.org%2Fwiki%2FThe_Hymns_of_the_Rigveda%2FBook_10%2FHymn_85&output=json&limit=-3&filter=statuscode%3A200
+alternate hosting (seat's second option): https://www.sacred-texts.com/hin/rigveda/rv10085.htm — HTTP 301 -> https://sacred-texts.com/book/the-rig-veda/rig-veda-book-10-hymn-lxxxv-surya-s-bridal; the redirect target answers HTTP 403 to the curl default UA with a Cloudflare block page ('Sorry, you have been blocked', 5686 B); one off-protocol browser-UA probe returned HTTP 200, 296271 B (sha256 aec62a8b194b0d0d1746c9502d7e262b0a0a12696afffbc0c3964fbfd37adc14). The path is challenge-gated: not an anchor and not evidence
+hosting-drift (off-protocol observation, not evidence): the browser-UA copy prints the Griffith text with diacritics ("Sūrya", "Aśvins", "Pūṣan"); the stanza-9 quote above is ASCII on Wikisource and would be folded 0 there ("Sūrya"). Because the path is Cloudflare-gated it is not citable; quote only from the anchored Wikisource bytes
+tier: A — the hymn's own text in Griffith's public-domain verse translation; scope limited to the poem's statements (bestowal, wooing, hand-clasp, procession, the mistress of the house), NOT to Vedic social practice
+framework: Griffith's 1889 verse translation is a Victorian rendering, not a critical edition. The hymn is ritual poetry: it stages the mythic wedding (Savitar gives Surya; Soma the wooer) and embeds the human rite's formulas. Stanza 40's serial husbands (Soma, Gandharva, Agni, then a mortal) is mythic, never a marriage rule. The "marriage hymn" identification is the tradition's, not a measured claim
+refuse: no — not a glossary stub (47 stanzas, 8,982 folded chars)
+command: curl -sSL https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda/Book_10/Hymn_85 | python3 .ufo/waves/round-83/w1/stage/ScoutSources/foldcount.py - "The Sun-God Savitar bestowed his willing Surya on her Lord"
+command-output: bytes=70655 sha256=4d4737d7a06da9a21c17457a412ebc44c702ae0a4b26c707294bc29c70058a29 raw=2 folded=1 words=10 chars=58
+reopen: fetch the corrected URL (either UA), decode, drop script/style, tags -> one space, decode entities, U+00A0/U+2003 -> space, collapse whitespace, search the quote; expect exactly 1 occurrence

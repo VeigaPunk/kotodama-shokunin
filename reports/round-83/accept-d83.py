@@ -31,6 +31,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import counterlib as C  # noqa: E402
 
+CLAIM_ID = "D"
 LABEL = "ACCEPT-D-83"
 CLAIMS = "reports/round-83/claims.json"
 LEGS = ["FROZENCFG", "BEFORE", "ENTRY", "SECTIONS", "ANCHORS", "LINT", "ROWS", "SOURCED", "SEPARABLE"]
@@ -161,9 +162,17 @@ def evaluate(root, lands, freeze, work, cfg, block):
         return (not unknown and len(new_cited) >= 3, "cited=%d unknown=%s new_cited=%s" % (len(cited), unknown or "none", len(new_cited)))
 
     def separable():
-        parent = C.claim_span(root, base, lands, block["own_paths"])[1]
+        shared = set()
+        for other in cfg["claims"]:
+            if other["id"] == CLAIM_ID:
+                continue
+            for b in other.values():
+                if isinstance(b, dict) and b.get("own_paths"):
+                    shared.update(b["own_paths"])
+        unique = [p for p in block["own_paths"] if p not in shared]
+        parent = C.claim_span(root, base, lands, unique)[1]
         cumulative = C.changed_paths(root, base, lands)
-        own_missing = [p for p in block["own_paths"] if not any(c == p or c.startswith(p) for c in cumulative)]
+        own_missing = [p for p in unique if not any(c == p or c.startswith(p) for c in cumulative)]
         foreign = [p for p in block["foreign_paths"] if C.blob_sha(root, parent, p) != C.blob_sha(root, lands, p)]
         return (not own_missing and not foreign, "span_parent=%s own_missing=%s foreign_moved=%s" % (parent[:8], own_missing or "none", foreign or "none"))
 
@@ -211,15 +220,17 @@ def junk_battery(root, lands, freeze, work, cfg, block):
         return C.fixture_commit(dest, entry, "# stub\n\n" + "- topic: stub\n", "junk: entry stub")
 
     def m_anchor():
+        # keep only the first 19 anchor bullets: below the frozen floor of 20, so the
+        # mutant is a real mutant (dropping a single bullet from 52 cannot breach it)
         lines = text.splitlines()
-        killed = False
-        out = []
+        out, kept = [], 0
         for l in lines:
-            if not killed and l.startswith("- ") and SID.search(l):
-                killed = True
-                continue
+            if l.startswith("- ") and SID.search(l):
+                kept += 1
+                if kept > 19:
+                    continue
             out.append(l)
-        return C.fixture_commit(dest, entry, "\n".join(out) + "\n", "junk: one anchor bullet dropped")
+        return C.fixture_commit(dest, entry, "\n".join(out) + "\n", "junk: anchors cut below the floor")
 
     def m_row():
         so = C.show(root, lands, "corpus/SOURCES.md").decode("utf-8")

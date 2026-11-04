@@ -29,6 +29,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import counterlib as C  # noqa: E402
 
+CLAIM_ID = "O"
 LABEL = "ACCEPT-O-83"
 CLAIMS = "reports/round-83/claims.json"
 LEGS = ["FROZENCFG", "BEFORE", "TOOL", "SELFTEST", "REGISTRY", "ROWS", "DEAD", "SEPARABLE"]
@@ -174,9 +175,17 @@ def evaluate(root, lands, freeze, work, cfg, block):
         return (not dead and grew >= block["min_new_rows"], "dead=%d rows=%d base_rows=%d grew=%d floor=%d" % (len(dead), len(rows), len(base_rows), grew, block["min_new_rows"]))
 
     def separable():
-        parent = C.claim_span(root, base, lands, block["own_paths"])[1]
+        shared = set()
+        for other in cfg["claims"]:
+            if other["id"] == CLAIM_ID:
+                continue
+            for b in other.values():
+                if isinstance(b, dict) and b.get("own_paths"):
+                    shared.update(b["own_paths"])
+        unique = [p for p in block["own_paths"] if p not in shared]
+        parent = C.claim_span(root, base, lands, unique)[1]
         cumulative = C.changed_paths(root, base, lands)
-        own_missing = [p for p in block["own_paths"] if not any(c == p or c.startswith(p) for c in cumulative)]
+        own_missing = [p for p in unique if not any(c == p or c.startswith(p) for c in cumulative)]
         foreign = [p for p in block["foreign_paths"] if C.blob_sha(root, parent, p) != C.blob_sha(root, lands, p)]
         return (not own_missing and not foreign, "span_parent=%s own_missing=%s foreign_moved=%s" % (parent[:8], own_missing or "none", foreign or "none"))
 

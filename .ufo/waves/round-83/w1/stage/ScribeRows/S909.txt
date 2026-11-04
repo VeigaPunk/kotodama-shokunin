@@ -1,0 +1,46 @@
+row: S909
+source: the Code of Hammurabi, trans. L. W. King — Yale Law School, Lillian Goldman Law Library, The Avalon Project (public-domain translation hosted as a plain HTML page; page footer "© 2008 Lillian Goldman Law Library")
+url (live): https://avalon.law.yale.edu/ancient/hamcode.asp
+url (frameset that names it): https://avalon.law.yale.edu/ancient/hamframe.asp — HTTP 200, 356 B transferred, 356 B decoded, frameset rows="85%,15%" with frame 1 src="hamcode.asp" (so a fetcher that stops at the frame URL reads 356 B of markup and no law text)
+ua-records (live): UA "curl/8.23.0" -> HTTP 200, 74531 B transferred
+ua-records (live): UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 74531 B transferred
+bytes (live, as transferred): 74531
+bytes (live, decoded): 74531
+sha256 (live, decoded): 93410a95441d28fd498df423ec7860ae5ee821df3811989bb469838075c9eb12
+content-type (live): text/html
+paragraph tags (live): 257 "<P>" (case-insensitive), no closing </P> in the document
+document title: "The Avalon Project : Code of Hammurabi"; body opens "The Code of Hammurabi" / "Translated by L. W. King"
+fetched: 2026-11-04 (access date; automation: none beyond the two plain GETs)
+
+window: Code of Hammurabi § 138, the dissolution-and-return clause of the marriage block (§§ 128-184)
+quote located: 「he shall give her the amount of her purchase money and the dowry which she brought from her father's house」
+quote-words: 20
+raw 1 / folded 1  (folded char offset 27471)
+locator note: the clause continues "…, and let her go." — the located span stops before the comma to stay under 25 words; § 139 immediately follows with "If there was no purchase price he shall give her one mina of gold as a gift of release."
+
+second passage (for a different entry section, the constitution of the union):
+quote located: 「If a man take a woman to wife, but have no intercourse with her, this woman is no wife to him.」
+quote-words: 21
+raw 1 / folded 1  (folded char offset 25220)
+third passage (the price when no price was paid):
+quote located: 「If there was no purchase price he shall give her one mina of gold as a gift of release.」
+quote-words: 19
+raw 1 / folded 1  (folded char offset 27604)
+
+url (wayback): https://web.archive.org/web/20261024211059id_/https://avalon.law.yale.edu/ancient/hamcode.asp
+wayback capture timestamp: 20261024211059 (CDX statuscode 200)
+ua-records (wayback): UA "curl/8.23.0" -> HTTP 200, 26274 B transferred (gzip), 74531 B decoded
+bytes (wayback, decoded): 74531
+sha256 (wayback, decoded): 93410a95441d28fd498df423ec7860ae5ee821df3811989bb469838075c9eb12
+wayback vs live: byte-identical (same sha256, same 257 "<P>", same quote counts)
+raw 1 / folded 1 (wayback)
+
+read definitions (both reads run over the whole fetched document, quote matched as one whitespace-collapsed string):
+  raw    = drop <script>/<style>/comments; every other tag -> nothing; entities decoded; whitespace untouched
+  folded = drop <script>/<style>/comments; every other tag -> one space; entities decoded; U+00A0 and U+2003 -> space; every whitespace run -> one space
+  counts = number of occurrences of the located span in each read
+reproduce (both reads, one command; substitute the file and the quote):
+  python3 -c "import re,html,sys;b=open(sys.argv[1],'rb').read().decode('utf-8','replace');q=sys.argv[2];s=re.sub(r'(?is)<(script|style).*?</\1>','',b);s=re.sub(r'(?is)<!--.*?-->','',s);r=html.unescape(re.sub(r'(?s)<[^>]*>','',s));f=html.unescape(re.sub(r'(?s)<[^>]*>',' ',s)).replace('\u00a0',' ').replace('\u2003',' ');f=re.sub(r'\s+',' ',f);print('raw',r.count(q),'folded',f.count(re.sub(r'\s+',' ',q)))" FILE "QUOTE"
+
+note: the page is not template-rendered — the law text is in the served HTML at both UAs, no JavaScript and no transclusion. The span is raw-contiguous (raw 1), so a byte search finds it without any folding. Raw 0 is possible for neighbouring clauses because the source line-wraps inside a verse; § 138's span happens to sit on one line.
+cited in: corpus/SOURCES.md row S909 (used-by: corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md)

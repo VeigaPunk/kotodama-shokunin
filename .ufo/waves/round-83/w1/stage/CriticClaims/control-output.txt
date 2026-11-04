@@ -1,0 +1,47 @@
+FIXTURE-OK toplevel==/fast/scratch/hyaku/kotodama-r83/CriticClaims-22/fixture at freeze
+
+O-STUB lands: 14c031e3c657806d514f8bc1ef7cc93d71ea2869
+exit 1
+LEG FROZENCFG   PASS freeze 21277b08 lands 14c031e3 sha256 5c58d61faefc
+LEG BEFORE      FAIL instruments=58 missing=11/11 tool_at_base=False
+LEG TOOL        FAIL bytes=3393 missing_markers=none
+LEG SELFTEST    PASS rc=0 checks=12 floor=12 tail='SELFTEST: PASS (12 checks)'
+LEG REGISTRY    FAIL summary=(0,74,61,0) own=(miss=61 instr=61 dead=12) reg=74 rows=75
+LEG ROWS        FAIL rows=75 prepared=14 absent=['reports/round-76/accept-c.py', 'reports/round-76/accept-ca.py', 'reports/round-79/accept-ca.py', 'reports/round-79/accept-o.py', 'reports/round-80/accept-d.py', 'reports/round-80/accept-o.py', 'reports/round-81/accept-c81.py', 'reports/round-81/accept-d81.py', 'reports/round-81/accept-o81.py', 'reports/round-82/accept-d82.py', 'reports/round-82/accept-o82.py', 'reports/round-83/accept-o83.py', 'reports/round-83/accept-d83.py', 'reports/round-83/accept-c83.py']
+LEG DEAD        FAIL dead=12 rows=75 base_rows=61 grew=14 floor=14
+LEG SEPARABLE   PASS own_missing=none foreign=none
+ACCEPT-O-83: FAIL legs=3/8
+
+D-STUB lands: 3a04b4c96c9e0d00f6477a46634ac9b00d0eb673
+exit 1
+LEG FROZENCFG   PASS sha256 5c58d61faefc
+LEG BEFORE      PASS absent=True knowledge=256 registry=832 owning_files=0
+LEG ENTRY       FAIL bytes=7196 missing_header=none
+LEG SECTIONS    PASS sections=7 floor=7 decision_rows=6 floor=6
+LEG ANCHORS     PASS bullets=22 floor=20 multi_or_zero=0
+LEG LINT        FAIL rc=1 'CITED-LINES: 1 finding(s) in 1 file(s)'
+LEG ROWS        PASS grew=4 floor=4 bad=none
+LEG SOURCED     PASS cited=4 unknown=none new_cited=4
+LEG SEPARABLE   PASS own_missing=none foreign=none
+ACCEPT-D-83: FAIL legs=7/9
+
+COMBINED lands: 7eaf8f28b1a1f215b269e457a96544ea5b323238
+-- accept-o83.py exit 1
+   LEG SEPARABLE   FAIL own_missing=none foreign=['corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md']
+   ACCEPT-O-83: FAIL legs=2/8
+-- accept-d83.py exit 1
+   LEG SEPARABLE   FAIL own_missing=none foreign=['tools/check-gate-registry.py', 'SKILL.md']
+   ACCEPT-D-83: FAIL legs=6/9
+
+REFUSE o83            do-nothing(base) exit=2 :: ACCEPT-O-83: FAIL legs=0/8 (refused: lands equals the frozen base -- do-nothing control)
+REFUSE o83            non-40hex exit=2 :: ACCEPT-O-83: FAIL legs=0/8 (refused: revision is not 40-hex)
+REFUSE o83            lands==freeze exit=1 :: LEG FROZENCFG   PASS freeze 21277b08 lands 21277b08 sha256 5c58d61faefc
+REFUSE o83            bad --work exit=2 :: ACCEPT-O-83: FAIL legs=0/8 (refused: --work is not an existing directory)
+REFUSE d83            do-nothing(base) exit=2 :: ACCEPT-D-83: FAIL legs=0/9 (refused: lands equals the frozen base -- do-nothing control)
+REFUSE d83            non-40hex exit=2 :: ACCEPT-D-83: FAIL legs=0/9 (refused: revision is not 40-hex)
+REFUSE d83            lands==freeze exit=1 :: LEG FROZENCFG   PASS sha256 5c58d61faefc
+REFUSE d83            bad --work exit=2 :: ACCEPT-D-83: FAIL legs=0/9 (refused: --work is not an existing directory)
+REFUSE c83            do-nothing(base) exit=2 :: ACCEPT-C-83: FAIL legs=0/9 (refused: lands equals the frozen base -- do-nothing control)
+REFUSE c83            non-40hex exit=2 :: ACCEPT-C-83: FAIL legs=0/9 (refused: revision is not 40-hex)
+REFUSE c83            lands==freeze exit=1 :: LEG FROZENCFG   PASS sha256 5c58d61faefc
+REFUSE c83            bad --work exit=2 :: ACCEPT-C-83: FAIL legs=0/9 (refused: --work is not an existing directory)

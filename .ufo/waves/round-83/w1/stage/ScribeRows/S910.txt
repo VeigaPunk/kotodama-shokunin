@@ -1,0 +1,48 @@
+row: S910
+source: "Marriage", *Encyclopaedia Britannica*, 11th edn (Cambridge University Press, 1911), vol. 17 — Wikisource transcription (public-domain 1911 text, proofread against Page:EB1911 - Volume 17.djvu), page revision 10430027
+url (live): https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Marriage
+ua-records (live): UA "curl/8.23.0" -> HTTP 200, 147040 B transferred
+ua-records (live): UA "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -> HTTP 200, 147040 B transferred
+bytes (live, as transferred): 147040
+bytes (live, decoded): 147040
+sha256 (live, decoded): 79faf53312fc7a8abcad5685004520ea01c460b95ce65962e75d4b6293d050df
+content-type (live): text/html; charset=UTF-8
+paragraph tags (live): 43 "</p>"
+revision (live): wgCurRevisionId 10430027 (also the oldid in every self-link)
+word count of the served article body (folded read, whole document incl. site chrome): ~9904 words
+fetched: 2026-11-04 (access date; automation: none beyond the two plain GETs)
+
+window: EB11 vol. 17 "Marriage", the "Roman law" section — the sentence on the consensual form after the three modes of marriage
+quote located: 「Marriage without manus was contracted by the interchange of consent, without writing or formality of any kind.」
+quote-words: 17
+raw 0 / folded 1  (folded char offset 11308)
+why raw 0: the sentence carries inline <i> markup around "manus" and a source newline after "of any"; with tags removed and replaced by nothing the span is not a contiguous substring. A tag-stripper that emits no separator reads it as absent — an extraction artifact, not a property of the page.
+locator note: the preceding sentences name the three modes — "The three primitive modes of marriage were confarreatio, coemptio in manum, and usus" — and the following sentence says some jurists hold the consensual form "incomplete until consummated by delivery of the woman".
+
+second passage (for a different entry section, the consummation question):
+quote located: 「By some jurists it is regarded as incomplete until consummated by delivery of the woman」
+quote-words: 15
+raw 0 / folded 1
+third passage (for the conveyance form, note the tag-separator before the comma):
+the page reads 「Coemptio was a conveyance of the woman by mancipatio , and might be described as a fictitious sale per aes et libram」 in the folded read — the space before the comma is a tag boundary, so this span is usable only with that space quoted as-is; the row does not use it.
+
+url (wayback): https://web.archive.org/web/20260831215114id_/https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Marriage
+wayback capture timestamp: 20260831215114 (Wayback availability API status 200)
+ua-records (wayback): UA "curl/8.23.0" -> HTTP 200, 37459 B transferred (gzip), 128008 B decoded
+bytes (wayback, decoded): 128008
+sha256 (wayback, decoded): 3d170e52612aa0225fd1388f24f3754aba3380d7300861f0b65bb549bb008733
+paragraph tags (wayback): 44 "</p>"
+raw 0 / folded 1 (wayback)
+wayback vs live: not byte-identical, and not a different article: both renders carry the same 320 sentence units; the capture's legacy parser expands the Proofreadpage transclusion inline (it shows the section token "MARRIAGE."), the live Parsoid render emits the transclusion invocation as a raw {"template": …} JSON blob inside a templatestyles element. Decoded size differs for that reason (128008 vs 147040).
+
+template-rendered: yes. The live page embeds the Proofreadpage "#lst:Page:EB1911 - Volume 17.djvu/…" transclusion as a JSON template payload in the same container as the article prose; a tag-stripper that emits no separator reads that payload as one long sentence. The served article body itself is present and readable once tags are separators: it runs inferior unions/concubinage and morganatic marriage, then Roman law, then the English statutory formalities (Lord Hardwicke's Act, marriage with a deceased wife's sister), foreign marriages and the German code of 1900.
+calibration status: the served bytes carry 0 occurrences of "promiscuity", "group marriage" and "matriarchy"; the two "primitive" hits are the Roman-law phrase. This article is a legal/comparative survey, not a stage-law manifesto — do not load the 1911 evolutionary vocabulary on it as this row's claim.
+
+read definitions (both reads run over the whole fetched document, quote matched as one whitespace-collapsed string):
+  raw    = drop <script>/<style>/comments; every other tag -> nothing; entities decoded; whitespace untouched
+  folded = drop <script>/<style>/comments; every other tag -> one space; entities decoded; U+00A0 and U+2003 -> space; every whitespace run -> one space
+  counts = number of occurrences of the located span in each read
+reproduce (both reads, one command; substitute the file and the quote):
+  python3 -c "import re,html,sys;b=open(sys.argv[1],'rb').read().decode('utf-8','replace');q=sys.argv[2];s=re.sub(r'(?is)<(script|style).*?</\1>','',b);s=re.sub(r'(?is)<!--.*?-->','',s);r=html.unescape(re.sub(r'(?s)<[^>]*>','',s));f=html.unescape(re.sub(r'(?s)<[^>]*>',' ',s)).replace('\u00a0',' ').replace('\u2003',' ');f=re.sub(r'\s+',' ',f);print('raw',r.count(q),'folded',f.count(re.sub(r'\s+',' ',q)))" FILE "QUOTE"
+
+cited in: corpus/SOURCES.md row S910 (used-by: corpus/knowledge/myth-symbol/marriage-alliance-bridewealth.md)
