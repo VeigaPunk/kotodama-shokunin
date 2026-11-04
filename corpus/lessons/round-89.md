@@ -146,3 +146,16 @@ prose named S105, so the counter's first LOCATED line for S105 was S104's,
 carrying S104's quote. Fix in the records only: that prose now says "the
 amer1248 JSON row". The frozen counter, claims and every capture are
 unchanged; the final F measurement below is at the corrected lands.
+
+Final measurement at lands `aac9cca80d12077eb3026b202c835c0d6135bc08`: frozen `measure89.py` rc0 PASS 5/5 for
+F (ADVANCED 16, BACKED 16/16, DISPOSED, OTHERCELLS) and rc0 PASS 8/8 for C
+(ENTRY 19901 B/10 headings, TABLE 5×6, NEWIDS S936–S940, GATE, CAPTURE,
+INDEX tool rc0, APPENDONLY) — `reports/round-89/final/lands-{F,C}.txt`.
+Separability overlays PASS 5/5 and 8/8 (`final/separability.json`). Audit of
+the wave's survivor classes on this landing: no duplicate ids, captures only
+under the round dirs, full local ISO fetch times, no NOT-LOCATED variants, no
+`.gitattributes`, entry cites no population id, re-fetch agreement 16/16;
+one archive-backed row (S142, its own fixed snapshot) and one title-scope
+quote (S032) remain as stated (`final/honest-landing-audit.json`). Registry
+859→865, census exit 0 both ends, recheck queue 20→4 upcoming. WAVE-DONE
+received before the report; seat table in `.ufo/waves/round-89/w1-results.json`.

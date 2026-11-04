@@ -1953,3 +1953,36 @@ before data: a capture fabricated with its quote pasted in passes F and C
 (`F-forged-capture`, `C-forged-capture`); independent re-fetch is the defence.
 Freshness moves here through source re-verification, which does not depend
 on the open round-11 drift-threshold question.
+
+## Axes — round 89 (2026-11-04; author-side, non-author closure pending)
+
+Measured at lands `aac9cca80d12077eb3026b202c835c0d6135bc08` (lane `main` tip at measurement), freeze
+`1cbd0efc56edaa9394e3532fc5d8ef924f122f01`, base
+`42816d2533c44f1d19f38a12fc5f5040d01a2fd3`, in a `git clone --shared`
+checkout of the lands revision with the frozen counter (sha256 `6bc14bcd…`,
+FROZENCFG PASS). A first F run at `590c2067` failed BACKED on S105 because
+the S104 lesson prose named S105; that receipt is kept
+(`reports/round-89/final/lands-F-first.txt`) and only the lesson prose changed.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| freshness / F | improved, finite predicate verifies; admission contingent on the round-11 pause ruling (R89-M7, L0 kotodama round-89) | 0/16 queue rows re-verified, auditor `0 due / 20 upcoming` → 16/16 rows LOCATED live with committed captures, recheck 90d→2027-02-03, auditor `0 due / 4 upcoming / 16 on-release / 865 rows` (the 4 are own-work rows); independent re-fetch agrees 16/16 | `python3 -B reports/round-89/measure89.py --root <clone> --freeze 1cbd0efc56edaa9394e3532fc5d8ef924f122f01 --lands aac9cca80d12077eb3026b202c835c0d6135bc08 --claim F --work <existing-dir>` | `reports/round-89/final/lands-F.txt` PASS 5/5; `rechecks/refetch-agreement.json`; `final/recheck-queue-lands.txt` |
+| coverage / C | improved on the counter; surface statement contested (R89-M4) | no dedicated entry, linguistics 33 → `evidentiality-epistemic-marking.md` 19901 B, 10 headings, 5×6 table, S936–S940 mined (A4/B1) with gates and captures, index OK 261, partition 34; base held semantics-pragmatics §4 and syntax-typology §4 sub-sections, 8-word shingle overlap with them 0 | same counter with `--claim C` | `final/lands-C.txt` PASS 8/8; `final/honest-landing-audit.json` |
+| calibration | observation, no scored claim | R89-M3–M7 recorded; QUALITY36 grounded in the wave's executed survivors (mutation 10/41 killed) | — | `corpus/lessons/round-89.md` `## Mistakes` |
+| depth / operability / adjacency | unchanged | no existing entry deepened, no new lane tool beyond round receipts, no sibling ground absorbed (ConnectorSiblings: no sibling holds evidentiality; lore CM-d reliability grading stays lore's) | — | `git diff --numstat 42816d25 aac9cca80d12077eb3026b202c835c0d6135bc08 -- corpus/knowledge PROVINCE.md` names only the new entry |
+
+Separability: `reports/round-89/separability89.py` overlays at the freeze
+pass F 5/5 and C 8/8 separately (`final/separability.json`). Registry 859 →
+865 rows (A 507→511, B 328→329, C 24→25; mined 757→762, queued 58, rejected
+44→45), sixteen recheck cells changed, no other old cell
+(`final/registry-counts.txt`). Census exit 0 at start and end.
+
+R88-V1 note: the round-88 D counter as declared in
+`reports/round-88/claims.json` exits 2 without `--work`; the valid command
+adds `--work <existing-dir>`; the frozen declaration is not edited.
+R88-V3 note: the round-88 counterfeit controls `shotgun-all-labels` and
+`extra-id` need `KOTODAMA_ROOT`; without it they score 0/13 (rc 2), not 4/13.
+
+Round shape: one v1 wave of 11 seats (3 executor, 2 scribe, 1 scout, 1
+connector, 2 reviewer, 1 critic, 1 mutation-tester); attack 4/11; no dead
+seat, no replacement, no residual.

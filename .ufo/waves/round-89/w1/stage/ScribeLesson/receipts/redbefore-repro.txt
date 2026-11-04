@@ -1,0 +1,27 @@
+# ScribeLesson 2026-11-04 red-before reproduction: mutant = reports/round-89/measure89.py (sha256 6bc14bcd...) with the single occurrence of "out.append(leg('BACKED', not bad," replaced by "out.append(leg('BACKED', True,"
+# mutant sha256: 80a8aa561cbeaf5f7b0289ad7dd4b846210d3c57ae6bc0966029a0e9e4e89ca4 (selftest-redbefore.txt states 80a8aa561cbeaf5f7b0289ad7dd4b846210d3c57ae6bc0966029a0e9e4e89ca4)
+# command: python3 -B measure89.py --selftest --work <scratch> -> rc=1
+# measure89 selftest; counter sha256 (self): 80a8aa561cbeaf5f7b0289ad7dd4b846210d3c57ae6bc0966029a0e9e4e89ca4
+selftest: clean -> exit=0,0 F=PASS C=PASS
+OK  clean F rc=0 expect_rc=0 expect_leg=None
+OK  clean C rc=0 expect_rc=0 expect_leg=None
+OK  nowork F rc=1 expect_rc=1 expect_leg=ADVANCED
+OK  nowork C rc=1 expect_rc=1 expect_leg=ENTRY
+BAD bumponly F rc=0 expect_rc=1 expect_leg=BACKED
+BAD wrongquote F rc=0 expect_rc=1 expect_leg=BACKED
+BAD badurl F rc=0 expect_rc=1 expect_leg=BACKED
+OK  undisposed F rc=1 expect_rc=1 expect_leg=DISPOSED
+OK  cellchange F rc=1 expect_rc=1 expect_leg=OTHERCELLS
+OK  cfgdrift F rc=1 expect_rc=1 expect_leg=FROZENCFG
+OK  cfgdrift C rc=1 expect_rc=1 expect_leg=FROZENCFG
+OK  fakeid C rc=1 expect_rc=1 expect_leg=NEWIDS
+OK  nogate C rc=1 expect_rc=1 expect_leg=GATE
+OK  nocapture C rc=1 expect_rc=1 expect_leg=CAPTURE
+OK  stubtool C rc=1 expect_rc=1 expect_leg=INDEX
+OK  oldrow C rc=1 expect_rc=1 expect_leg=APPENDONLY
+OK  shortentry C rc=1 expect_rc=1 expect_leg=ENTRY
+OK  shortentry C rc=1 expect_rc=1 expect_leg=TABLE
+OK  refuse-base F rc=2 expect_rc=2 expect_leg=None
+OK  refuse-nonhex C rc=2 expect_rc=2 expect_leg=None
+OK  refuse-legcount F rc=2 expect_rc=2 expect_leg=LEGCOUNT
+SELFTEST: FAIL 18/21

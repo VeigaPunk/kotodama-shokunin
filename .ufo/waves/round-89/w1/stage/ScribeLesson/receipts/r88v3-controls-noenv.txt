@@ -1,0 +1,10 @@
+# ScribeLesson 2026-11-04 R88-V3 probe, lane worktree at 9ad00be1, KOTODAMA_ROOT unset (env -u) unless stated
+# cmd: python3 -B tools/check-finding-sets.py --cases reports/round-88/cases.json --packet .ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json --candidate reports/round-88/controls/<c>.py --json --work <scratch>
+in-place no-env shotgun-all-labels: rc=1 passed 0 total 13 case1 2 rc 2 != expected 1
+shared-clone@42816d25 no-env shotgun-all-labels: rc=1 passed 0 total 13
+in-place no-env extra-id: rc=1 passed 0 total 13 case1 2 rc 2 != expected 1
+shared-clone@42816d25 no-env extra-id: rc=1 passed 0 total 13
+in-place KOTODAMA_ROOT=<lane> extra-id: passed 4 total 13
+# direct: cd <scratch>; env -u KOTODAMA_ROOT python3 -B <lane>/reports/round-88/controls/extra-id.py --packet p.json --json -> rc=2, stderr:
+/usr/bin/python3: can't open file '/home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/tools/check-attestation-packet.py': [Errno 2] No such file or directory
+# grep KOTODAMA_ROOT|parents[ reports/round-88/controls/*.py: extra-id.py:11 and shotgun-all-labels.py:12 only (ROOT = KOTODAMA_ROOT or Path(__file__).resolve().parents[2]); constant-pass.py and filename-only.py read neither

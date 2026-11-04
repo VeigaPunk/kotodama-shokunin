@@ -1,0 +1,411 @@
+{
+ "tool": "reports/round-89/separability89.py",
+ "tool_sha256": "54b02c6572cd49fd34eccb91b20f5944a711abbb5d2d3eaa21685343ad81d4c2",
+ "freeze": "1cbd0efc56edaa9394e3532fc5d8ef924f122f01",
+ "lands": "cb6559d0930c2e7997adb084446afd727bd1b533",
+ "run_at": "2026-11-04T19:10:24-03:00",
+ "procedure": "kotodama round-89 claim separability: grade each claim on a one-claim overlay.\n\nUsage:\n  separability89.py --lane LANE --freeze 40HEX --lands 40HEX --work EXISTING_DIR --out JSON [--keep]\n\nFor each claim (F, C) the tool makes its own `git clone --shared` sandbox of\nLANE under --work, checks out the freeze (detached), overlays ONLY that\nclaim's paths from the lands revision, commits the overlay on top of the\nfreeze, and grades the overlay commit with the FROZEN counter bytes\n(`git show <freeze>:reports/round-89/measure89.py`, written into the\nsandbox's .git dir, never the lands copy).\n\nOverlay F = freeze tree +\n  corpus/SOURCES.md  FREEZE bytes; in the rows of claims.json F.population\n                     ONLY the recheck cell (index 9 of the 11 cells after\n                     stripping the outer pipes) is replaced by its LANDS value\n                     (cell padding kept, every other byte is freeze bytes)\n  corpus/lessons/round-89.md       lands blob\n  reports/round-89/rechecks/       lands subtree (freeze subtree removed first)\nOverlay C = freeze tree +\n  corpus/SOURCES.md  FREEZE bytes; the lands row lines whose ids are absent at\n                     the freeze are inserted, in lands order, right after the\n                     last registry row line; for rows present at the freeze\n                     only the used-by cell (index 10) takes its LANDS value\n  corpus/knowledge/linguistics/evidentiality-epistemic-marking.md  lands blob\n  corpus/README.md, corpus/lessons/round-89.md                     lands blobs\n  reports/round-89/evidence/                                       lands subtree\n\nLands paths are restored with `git checkout <lands> -- <path>` (exact blob\nand mode); a path absent at lands is removed from the overlay. The overlay\ncommit is deterministic: identity sep89 <sep@invalid>, author and committer\ndate both set to the freeze's committer date, a fixed message, hooks and\nsigning disabled. Re-running this file on the same committed freeze/lands\ntherefore reproduces the same overlay tree AND commit ids, which --out\nrecords together with the sha256 and blob id of every overlaid file\n(round-88 defect R88-V5: sandbox hashes alone were not durable; here the\nids are re-derivable from committed revisions).\n\nExit 0 iff both overlays grade PASS (counter rc 0); 1 if either does not;\n2 on refusal (bad revision, missing --work, unreadable frozen inputs).\n\nRe-execution from committed revisions (no sandbox state needed):\n  D=$(mktemp -d -p <scratch>)\n  python3 -B reports/round-89/separability89.py --lane <lane> --freeze <freeze> --lands <lands> --work \"$D\" --out <json>\nExpected durable outputs for the same freeze/lands/tool bytes: identical\noverlay_tree, overlay_commit, per-file blob/sha256 and counter verdicts.\nManual equivalent per claim C in {F, C}: clone --shared, checkout --detach\n<freeze>, rebuild corpus/SOURCES.md from `git show <freeze>:corpus/SOURCES.md`\nas described above, `git rm -r` then `git checkout <lands> -- <path>` for each\noverlay path, commit as sep89 <sep@invalid> with GIT_AUTHOR_DATE =\nGIT_COMMITTER_DATE = `git show -s --format=%cI <freeze>` and message\n\"sep89 overlay <C>\\n\\nfreeze <freeze>\\nlands <lands>\\n\", then run\n`git show <freeze>:reports/round-89/measure89.py` with --root <sandbox>\n--freeze <freeze> --lands <overlay commit> --claim <C> --work <dir>.\n",
+ "claims_sha256": "cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552",
+ "counter_sha256": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+ "lands_descends_from_freeze": true,
+ "overlays": [
+  {
+   "claim": "F",
+   "sandbox": "sep89-F-wh0fdi33",
+   "sources_rebuild": {
+    "replaced": {
+     "S009": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S012": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S020": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S021": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S031": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S032": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S033": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S084": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S104": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S105": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S106": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S107": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S142": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S157": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S163": [
+      "90d",
+      "2027-05-03"
+     ],
+     "S875": [
+      "90d",
+      "2027-05-03"
+     ]
+    },
+    "unchanged": [],
+    "missing_at_lands": [],
+    "missing_at_freeze": []
+   },
+   "overlay_paths": [
+    "corpus/SOURCES.md",
+    "corpus/lessons/round-89.md",
+    "reports/round-89/rechecks"
+   ],
+   "absent_at_lands": [],
+   "freeze_paths_replaced": [],
+   "overlay_commit": "8974bc6095b154de3d91a41ee76cb29510eb7a9a",
+   "overlay_tree": "5f6f285fcecbb64063018530593cb2f3b3a5ec65",
+   "overlay_dates": "2026-11-04T19:04:23-03:00",
+   "diff_vs_freeze": [
+    "M\tcorpus/SOURCES.md",
+    "A\tcorpus/lessons/round-89.md",
+    "A\treports/round-89/rechecks/S009.txt",
+    "A\treports/round-89/rechecks/S012.txt",
+    "A\treports/round-89/rechecks/S020.txt",
+    "A\treports/round-89/rechecks/S021.txt",
+    "A\treports/round-89/rechecks/S031.txt",
+    "A\treports/round-89/rechecks/S032.txt",
+    "A\treports/round-89/rechecks/S033.txt",
+    "A\treports/round-89/rechecks/S084.txt",
+    "A\treports/round-89/rechecks/S104.txt",
+    "A\treports/round-89/rechecks/S105.txt",
+    "A\treports/round-89/rechecks/S106.txt",
+    "A\treports/round-89/rechecks/S107.txt",
+    "A\treports/round-89/rechecks/S142.txt",
+    "A\treports/round-89/rechecks/S157.txt",
+    "A\treports/round-89/rechecks/S163.txt",
+    "A\treports/round-89/rechecks/S875.txt",
+    "A\treports/round-89/rechecks/manifest.json"
+   ],
+   "overlay_files": [
+    {
+     "path": "corpus/SOURCES.md",
+     "mode": "100644",
+     "blob": "2971155f6da0ee331845e6c5870d22ae315051b1",
+     "sha256": "0da6561ee75adf671c23416b7b01758e2a24383b01eb4e068308c3dd95639ae1",
+     "bytes": 1034319,
+     "origin": "rebuilt"
+    },
+    {
+     "path": "corpus/lessons/round-89.md",
+     "mode": "100644",
+     "blob": "53f10fe9239eb402bec008f6b0ce9160afdfcf14",
+     "sha256": "6b875f44f3f6fd8ebfe01eee63bd0882e608d9befd9960406e01973ae7a1519d",
+     "bytes": 2757,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S009.txt",
+     "mode": "100644",
+     "blob": "94d4c9f957bd2c9ded035dc0282cdfb96c9d561f",
+     "sha256": "ed46328c21fed1c0881001787657b6b4e77c82abc0da73d420448724b6bf6b73",
+     "bytes": 79,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S012.txt",
+     "mode": "100644",
+     "blob": "bae75854dabca54601403c0b662dd2dbd48c2669",
+     "sha256": "a69bdeaca713c99e1fdceb48bde48b3e1cf7a49263dc311d3b1c9cc08e8698a6",
+     "bytes": 116,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S020.txt",
+     "mode": "100644",
+     "blob": "d83084b05e52da673eb7e82d1d7051af33f9476f",
+     "sha256": "2827e391e2f67c1fd7b8e0816d8362ba68afbca4cfd127a906e5141fdeffb18e",
+     "bytes": 94,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S021.txt",
+     "mode": "100644",
+     "blob": "02267ec8e185f8c8754f8e0486e8a9c8da1c5c91",
+     "sha256": "6c79109ec5b3a620a21b83a128634a11ab4fb2611deaf5cb1b73f7d233486f15",
+     "bytes": 96,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S031.txt",
+     "mode": "100644",
+     "blob": "28712d1d78a25d15dfa92c589a42f06843b03f3a",
+     "sha256": "04d7ca5e6053a15d4ef2b8934b609ff4873cef30a6981edfe82ca38989511cca",
+     "bytes": 78,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S032.txt",
+     "mode": "100644",
+     "blob": "30d1dcad8fc83ccca5fda0269a32790c02590380",
+     "sha256": "b2095f0e7ce3e7dd616b98d4665bb5bbc34fd256229a39726b0b6842bb371e46",
+     "bytes": 77,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S033.txt",
+     "mode": "100644",
+     "blob": "52ea51a798ed55c700af40a3062ee708a6d8f5b6",
+     "sha256": "014bbae7f9499f05509e0c8aef617f481a9ca2e0bb3fe302d6582c1c21e2fc95",
+     "bytes": 103,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S084.txt",
+     "mode": "100644",
+     "blob": "7bd2516be83558cb0cfedf24e9a69647a2f73a9a",
+     "sha256": "a709b92ac8f599d263313f6f43cd03db9a5fa2f7b200bace3be96ce1fb77d378",
+     "bytes": 86,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S104.txt",
+     "mode": "100644",
+     "blob": "dc9145e1951db497065a3afea7406a5c9c3ed488",
+     "sha256": "b361993f7f2913323aaa1875b111c7601729ee662233ce95a4d26b8c55f3c6d1",
+     "bytes": 97,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S105.txt",
+     "mode": "100644",
+     "blob": "dfcf071c5186ea242a107b9d2644747dfc8577ca",
+     "sha256": "941a3665e464478746c58036810df66bb71a7a4f603bbd22eed2fa282bb6080b",
+     "bytes": 62,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S106.txt",
+     "mode": "100644",
+     "blob": "f07387ad14793086f0832e380d01a1bcc0025b11",
+     "sha256": "5617bf0e19d0b0311f19e7cf1b9a032b2f3dff7612415068ef76ff4c6ea11994",
+     "bytes": 73,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S107.txt",
+     "mode": "100644",
+     "blob": "2e64e87afeab3e6f7d6554b1b228cf5000704aba",
+     "sha256": "6de9ca5f00674b321342da41d24e68c3940e88b52802959a4836b0ac1a9df126",
+     "bytes": 96,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S142.txt",
+     "mode": "100644",
+     "blob": "1390396c2d32918fb9cb0b12ed5e24705f065534",
+     "sha256": "9b70939e40e1f10d31a4150fca1ce920672585d1c60712a2a8dc02a1f02ea0fc",
+     "bytes": 86,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S157.txt",
+     "mode": "100644",
+     "blob": "378f5286c5d90e384dfddebd43bb26dc5e300ec5",
+     "sha256": "946ad99b8aab1d69adeac586101cf9ae00bbd2f773c62dd033c43948fb7d5dcc",
+     "bytes": 86,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S163.txt",
+     "mode": "100644",
+     "blob": "73ac28ddbe89710f7711633a3c70cc117f48fc0a",
+     "sha256": "51d0fa07bdec83de34028f15fa70c2a3f6d8c84eef95b9bfce4436276181b749",
+     "bytes": 113,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/S875.txt",
+     "mode": "100644",
+     "blob": "0eb9fcec9a5507102b5b4a5cdb0c47127e0ed1c8",
+     "sha256": "ab71e84d7f73c4d9bcd1a02581463d89dbb4f6d7eed97663eeb3e9fcdee10f99",
+     "bytes": 88,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/rechecks/manifest.json",
+     "mode": "100644",
+     "blob": "29c1783b9f489f9fcdf7aa77d5738f4b7ec7346d",
+     "sha256": "43efa78ba2f67e371b307f23cd8137a71d8f9162ff694aaadb0b07611b231870",
+     "bytes": 4619,
+     "origin": "lands"
+    }
+   ],
+   "stray_paths_vs_freeze": [],
+   "counter_sha256": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+   "command": "python3 -B <sandbox>/.git/sep89-measure89-frozen.py --root <sandbox> --freeze 1cbd0efc56edaa9394e3532fc5d8ef924f122f01 --lands 8974bc6095b154de3d91a41ee76cb29510eb7a9a --claim F --work <work>",
+   "rc": 0,
+   "verdict": "ACCEPT-F-89: PASS legs=5/5",
+   "legs": [
+    "LEG PASS FROZENCFG",
+    "LEG PASS ADVANCED",
+    "LEG PASS BACKED",
+    "LEG PASS DISPOSED",
+    "LEG PASS OTHERCELLS"
+   ],
+   "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 8974bc6095b154de3d91a41ee76cb29510eb7a9a\n# evaluated revision: 8974bc6095b154de3d91a41ee76cb29510eb7a9a (all graded bytes via git show)\n# measured revision (lane main): n/a\n# tree: 5f6f285fcecbb64063018530593cb2f3b3a5ec65\n# freeze: 1cbd0efc56edaa9394e3532fc5d8ef924f122f01\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ADVANCED expected=\">=10\" observed=16\nLEG PASS BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 16, \"unbacked\": {}}\nLEG PASS DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: PASS legs=5/5\n",
+   "stderr": "",
+   "pass": true
+  },
+  {
+   "claim": "C",
+   "sandbox": "sep89-C-gu6nxvrg",
+   "sources_rebuild": {
+    "inserted": [
+     "S936",
+     "S937",
+     "S938"
+    ],
+    "inserted_after_freeze_line": 891,
+    "used_by_applied": {}
+   },
+   "overlay_paths": [
+    "corpus/SOURCES.md",
+    "corpus/knowledge/linguistics/evidentiality-epistemic-marking.md",
+    "corpus/README.md",
+    "corpus/lessons/round-89.md",
+    "reports/round-89/evidence"
+   ],
+   "absent_at_lands": [],
+   "freeze_paths_replaced": [
+    "corpus/README.md"
+   ],
+   "overlay_commit": "7821c6bad18bb0dce6431ca66f35805d4845d523",
+   "overlay_tree": "05ec5f41cfd48ff0b291ede931eecc12144e0ef0",
+   "overlay_dates": "2026-11-04T19:04:23-03:00",
+   "diff_vs_freeze": [
+    "M\tcorpus/README.md",
+    "M\tcorpus/SOURCES.md",
+    "A\tcorpus/knowledge/linguistics/evidentiality-epistemic-marking.md",
+    "A\tcorpus/lessons/round-89.md",
+    "A\treports/round-89/evidence/S936.txt",
+    "A\treports/round-89/evidence/S937.txt",
+    "A\treports/round-89/evidence/S938.txt",
+    "A\treports/round-89/evidence/manifest.json"
+   ],
+   "overlay_files": [
+    {
+     "path": "corpus/README.md",
+     "mode": "100644",
+     "blob": "78359cffee5893035af64a62a3cffdfb4147639a",
+     "sha256": "cbdfee4d34f03572486a1928c640782f2bab3660769a9b5ea059be447ce0fd32",
+     "bytes": 185602,
+     "origin": "lands"
+    },
+    {
+     "path": "corpus/SOURCES.md",
+     "mode": "100644",
+     "blob": "e0340c11bd48ddc822ea9f163e8d958dba54d3ed",
+     "sha256": "172db0e80df05589511bd8f039a389b699bc59e7308537d664f9243cc4dfed27",
+     "bytes": 1034732,
+     "origin": "rebuilt"
+    },
+    {
+     "path": "corpus/knowledge/linguistics/evidentiality-epistemic-marking.md",
+     "mode": "100644",
+     "blob": "9184c869b77b732e973c9370a2fd1c9e7f58d8fc",
+     "sha256": "6fd30e8256c3f3c8c280043a0cb9e91d9fa4b0704ff02813f7055b6ac5eeeade",
+     "bytes": 8876,
+     "origin": "lands"
+    },
+    {
+     "path": "corpus/lessons/round-89.md",
+     "mode": "100644",
+     "blob": "53f10fe9239eb402bec008f6b0ce9160afdfcf14",
+     "sha256": "6b875f44f3f6fd8ebfe01eee63bd0882e608d9befd9960406e01973ae7a1519d",
+     "bytes": 2757,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/evidence/S936.txt",
+     "mode": "100644",
+     "blob": "0790a3a1f63f8fea816fd18a0b12583f94be75a2",
+     "sha256": "4606168091d1af8e24d343420bcf3ba65c097fd7fe65470921e8e0c8f9b2015d",
+     "bytes": 97,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/evidence/S937.txt",
+     "mode": "100644",
+     "blob": "0790a3a1f63f8fea816fd18a0b12583f94be75a2",
+     "sha256": "4606168091d1af8e24d343420bcf3ba65c097fd7fe65470921e8e0c8f9b2015d",
+     "bytes": 97,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/evidence/S938.txt",
+     "mode": "100644",
+     "blob": "0790a3a1f63f8fea816fd18a0b12583f94be75a2",
+     "sha256": "4606168091d1af8e24d343420bcf3ba65c097fd7fe65470921e8e0c8f9b2015d",
+     "bytes": 97,
+     "origin": "lands"
+    },
+    {
+     "path": "reports/round-89/evidence/manifest.json",
+     "mode": "100644",
+     "blob": "4d1bca09e2f582d0ef5b03285b64f354b4b246b7",
+     "sha256": "55f391186cd46166c0ebf70fb31d9544e8b1314e4c11dac69f927fabd6842194",
+     "bytes": 784,
+     "origin": "lands"
+    }
+   ],
+   "stray_paths_vs_freeze": [],
+   "counter_sha256": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+   "command": "python3 -B <sandbox>/.git/sep89-measure89-frozen.py --root <sandbox> --freeze 1cbd0efc56edaa9394e3532fc5d8ef924f122f01 --lands 7821c6bad18bb0dce6431ca66f35805d4845d523 --claim C --work <work>",
+   "rc": 0,
+   "verdict": "ACCEPT-C-89: PASS legs=8/8",
+   "legs": [
+    "LEG PASS FROZENCFG",
+    "LEG PASS ENTRY",
+    "LEG PASS TABLE",
+    "LEG PASS NEWIDS",
+    "LEG PASS GATE",
+    "LEG PASS CAPTURE",
+    "LEG PASS INDEX",
+    "LEG PASS APPENDONLY"
+   ],
+   "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 7821c6bad18bb0dce6431ca66f35805d4845d523\n# evaluated revision: 7821c6bad18bb0dce6431ca66f35805d4845d523 (all graded bytes via git show)\n# measured revision (lane main): n/a\n# tree: 05ec5f41cfd48ff0b291ede931eecc12144e0ef0\n# freeze: 1cbd0efc56edaa9394e3532fc5d8ef924f122f01\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ENTRY expected=\"absent at base; >=8000 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 8876, \"headings\": 6, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 6]]\nLEG PASS NEWIDS expected=\">=3 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S936\", \"S937\", \"S938\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: PASS legs=8/8\n",
+   "stderr": "",
+   "pass": true
+  }
+ ],
+ "all_pass": true,
+ "exit": 0
+}

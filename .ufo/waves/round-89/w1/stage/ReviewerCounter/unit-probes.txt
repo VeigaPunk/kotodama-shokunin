@@ -1,0 +1,27 @@
+url_ok wayback 1999 timestamp                                  True
+url_ok wayback foreign host ?u= suffix                         True
+url_ok wayback no timestamp segment                            True
+url_ok http-vs-https wayback of row url                        False
+url_ok live url with trailing slash variant                    False
+urls() strips trailing ) of wiki-style URL                     ['https://en.wikipedia.org/wiki/Foo_(bar']
+LOCATED_RE on "NOT LOCATED"                                    True
+LOCATED_RE on "NOT_LOCATED"                                    True
+LOCATED_RE on "UNLOCATED"                                      False
+disposition lowercase "not-located" seen                       False
+BACKED arrow form 'recheck 90d → 2027-05-03' accepted          False
+BACKED arrow form 'recheck 90d=>2027-05-03' accepted           False
+BACKED arrow form 'recheck: 90d→2027-05-03' accepted           False
+BACKED arrow form 'recheck 90d—>2027-05-03' accepted           False
+fromisoformat("20270503") (ISO basic) accepted as date         '2027-05-03'
+fromisoformat("2027-W18-1") accepted                           '2027-05-03'
+quote_ok 1-"word" CJK quote of 32 chars                        True
+quote_ok 300-char CJK single token (word cap bypass)           True
+contains CJK clause inside longer unspaced run (false negative) False
+contains across HTML tags/boilerplate                          False
+contains quote equal to URL text                               True
+quote_ok JSON key "child_language_count"                       True
+fetched_at startswith check accepts "2026-11-04 (not fetched)" True
+fetched_at UTC form of a 22:00-03:00 local fetch accepted      False
+rows(): duplicate id -> last wins: z
+rows(): row with 4 leading spaces ignored: {}
+tables(): 1-cell data rows counted: [(3, 5)]

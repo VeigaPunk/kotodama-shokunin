@@ -1,0 +1,1264 @@
+[
+ {
+  "id": "M01",
+  "leg": "FROZENCFG",
+  "desc": "counter self-bytes no longer compared (CLAIMS only)",
+  "old": "for p in (CLAIMS, SELF) if show",
+  "new": "for p in (CLAIMS,) if show",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "3c30717f2bf98d42bd43a3040cc24b592f2c5138c658bed3d15206329fc59afb",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "3c30717f2bf98d42bd43a3040cc24b592f2c5138c658bed3d15206329fc59afb",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 3c30717f2bf98d42bd43a3040cc24b592f2c5138c658bed3d15206329fc59afb generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M02",
+  "leg": "FROZENCFG",
+  "desc": "leg always passes",
+  "old": "return leg('FROZENCFG', not diff,",
+  "new": "return leg('FROZENCFG', True,",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "b837ce5b0bbc430bba49d89a09667cd604afb7b78764fc29b8d3858ef2b4b773",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "b837ce5b0bbc430bba49d89a09667cd604afb7b78764fc29b8d3858ef2b4b773",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 19/21"
+   ],
+   "selftest_bad": [
+    "BAD cfgdrift F rc=0 expect_rc=1 expect_leg=FROZENCFG",
+    "BAD cfgdrift C rc=0 expect_rc=1 expect_leg=FROZENCFG"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 b837ce5b0bbc430bba49d89a09667cd604afb7b78764fc29b8d3858ef2b4b773 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M03",
+  "leg": "ADVANCED",
+  "desc": "threshold >= -> >",
+  "old": "len(advanced) >= c['advance_min']",
+  "new": "len(advanced) > c['advance_min']",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "61d595c84bd587c23d602c103a9a03df5712294a7222a16bb213f5127eef9624",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "61d595c84bd587c23d602c103a9a03df5712294a7222a16bb213f5127eef9624",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD clean F rc=1 expect_rc=0 expect_leg=None"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 61d595c84bd587c23d602c103a9a03df5712294a7222a16bb213f5127eef9624 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M04",
+  "leg": "ADVANCED",
+  "desc": "lower date bound dropped (as_of+90d)",
+  "old": "if lo < d <= hi:",
+  "new": "if d <= hi:",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "acf7dce1657e63b433530710eec2aae3fe897fb442515a92be5f89ec964bf3dc",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "acf7dce1657e63b433530710eec2aae3fe897fb442515a92be5f89ec964bf3dc",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 acf7dce1657e63b433530710eec2aae3fe897fb442515a92be5f89ec964bf3dc generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M05",
+  "leg": "ADVANCED",
+  "desc": "upper date bound dropped (as_of+366d)",
+  "old": "if lo < d <= hi:",
+  "new": "if lo < d:",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "6a817b9a88e6fa3bdb6c972d72ee5f0787411a87131b15c3f160cbd4d348840f",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "6a817b9a88e6fa3bdb6c972d72ee5f0787411a87131b15c3f160cbd4d348840f",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 6a817b9a88e6fa3bdb6c972d72ee5f0787411a87131b15c3f160cbd4d348840f generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M06",
+  "leg": "BACKED/lesson-line",
+  "desc": "LOCATED / not NOT-LOCATED filter dropped",
+  "old": "re.search(r'\\b%s\\b' % rid, x) and LOCATED_RE.search(x) and not NOTLOC_RE.search(x)]",
+  "new": "re.search(r'\\b%s\\b' % rid, x)]",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "3084b0d918ff1a03cd07f764a97074a33ec14dbff7c697f4e5dd32b84d6bd0e2",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "3084b0d918ff1a03cd07f764a97074a33ec14dbff7c697f4e5dd32b84d6bd0e2",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 3084b0d918ff1a03cd07f764a97074a33ec14dbff7c697f4e5dd32b84d6bd0e2 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M07",
+  "leg": "BACKED/recheck",
+  "desc": "old->new reduced to ->new",
+  "old": "(('recheck %s\\u2192%s' % (old, new)) in x or ('recheck %s->%s' % (old, new)) in x)",
+  "new": "(('\\u2192%s' % new) in x or ('->%s' % new) in x)",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "b97492cd76272defc08bc8961d9105ef3d7137b2b1decf84565fe59b171ff58d",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "b97492cd76272defc08bc8961d9105ef3d7137b2b1decf84565fe59b171ff58d",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 b97492cd76272defc08bc8961d9105ef3d7137b2b1decf84565fe59b171ff58d generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M08",
+  "leg": "BACKED/access-date",
+  "desc": "as_of on lesson line not required",
+  "old": "or ('recheck %s->%s' % (old, new)) in x) and cfg['as_of'] in x]",
+  "new": "or ('recheck %s->%s' % (old, new)) in x)]",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "8881e61016f460a6d3496f8ba5d55feec9e8caa6bc5beaae2a066bfedaa9e703",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "8881e61016f460a6d3496f8ba5d55feec9e8caa6bc5beaae2a066bfedaa9e703",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 8881e61016f460a6d3496f8ba5d55feec9e8caa6bc5beaae2a066bfedaa9e703 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M09",
+  "leg": "BACKED/quote-bounds",
+  "desc": "max-words bound dropped",
+  "old": "len(q.split()) <= cfg['quote_max_words'] and",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "d01e7c6458792c23a5d69f51f1c9c6178705a29913c3d3affc7b97c917b1f61a",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "d01e7c6458792c23a5d69f51f1c9c6178705a29913c3d3affc7b97c917b1f61a",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 d01e7c6458792c23a5d69f51f1c9c6178705a29913c3d3affc7b97c917b1f61a generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M10",
+  "leg": "BACKED/quote-bounds",
+  "desc": "min-chars bound dropped",
+  "old": " and len(norm(q)) >= cfg['quote_min_chars']",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "03aff9adbdf74386e7a747e9e0b8605215a3cbb40fcad32164a2f34f4eba824e",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "03aff9adbdf74386e7a747e9e0b8605215a3cbb40fcad32164a2f34f4eba824e",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 03aff9adbdf74386e7a747e9e0b8605215a3cbb40fcad32164a2f34f4eba824e generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M11",
+  "leg": "BACKED/capture-presence",
+  "desc": "uncommitted capture read as empty bytes",
+  "old": "    if cap is None:\n        return 'capture not committed'\n",
+  "new": "    cap = cap if cap is not None else b''\n",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "39c6a873f250214fb6c7b110d046cafa52d42348d0ee46e4d574674f9a528bb6",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "39c6a873f250214fb6c7b110d046cafa52d42348d0ee46e4d574674f9a528bb6",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 39c6a873f250214fb6c7b110d046cafa52d42348d0ee46e4d574674f9a528bb6 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M12",
+  "leg": "BACKED/sha",
+  "desc": "sha256 check dropped",
+  "old": "    if hashlib.sha256(cap).hexdigest() != m.get('sha256'):\n        return 'capture sha256 mismatch'\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "d2ede4797f9113803199ab76d984bbb9d7d6256a86c5daccd40441d941ac6837",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "d2ede4797f9113803199ab76d984bbb9d7d6256a86c5daccd40441d941ac6837",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 d2ede4797f9113803199ab76d984bbb9d7d6256a86c5daccd40441d941ac6837 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M13",
+  "leg": "BACKED/http_status",
+  "desc": "http_status check dropped",
+  "old": "    if not isinstance(m.get('http_status'), int) or not 200 <= m['http_status'] < 300:\n        return 'http_status not 2xx'\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "cfdfc7af490ce6b2ffd02d2fedc5aa7eabcdc9d1ce4a26fea03493d0e48c2c70",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "cfdfc7af490ce6b2ffd02d2fedc5aa7eabcdc9d1ce4a26fea03493d0e48c2c70",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 cfdfc7af490ce6b2ffd02d2fedc5aa7eabcdc9d1ce4a26fea03493d0e48c2c70 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M14",
+  "leg": "BACKED/fetched_at",
+  "desc": "fetched_at check dropped",
+  "old": "    if not str(m.get('fetched_at', '')).startswith(as_of):\n        return 'fetched_at not as_of'\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "1c70be965b23e193cd66e51d78be0b1a3e2887db903e622b701ca8cde13fad41",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "1c70be965b23e193cd66e51d78be0b1a3e2887db903e622b701ca8cde13fad41",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 1c70be965b23e193cd66e51d78be0b1a3e2887db903e622b701ca8cde13fad41 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M15",
+  "leg": "BACKED/url_ok",
+  "desc": "manifest url check dropped",
+  "old": "    if not url_ok(str(m.get('url', '')), row_cell):\n        return 'manifest url not a row url'\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "74b5eb3b85491a5f051f15a5e443de60d72ae364c62e5492d4dc1bc4427fc0d3",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "74b5eb3b85491a5f051f15a5e443de60d72ae364c62e5492d4dc1bc4427fc0d3",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD badurl F rc=0 expect_rc=1 expect_leg=BACKED"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 74b5eb3b85491a5f051f15a5e443de60d72ae364c62e5492d4dc1bc4427fc0d3 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M16",
+  "leg": "BACKED/url_ok",
+  "desc": "wayback prefix not required (any URL ending in a row URL)",
+  "old": "candidate == u or (candidate.startswith('https://web.archive.org/web/') and candidate.endswith(u))",
+  "new": "candidate.endswith(u)",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "9c842e2775eb649396cbe9fbde97b93908a6e50faf5ff29a97a35f7f6fd13b9f",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "9c842e2775eb649396cbe9fbde97b93908a6e50faf5ff29a97a35f7f6fd13b9f",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 9c842e2775eb649396cbe9fbde97b93908a6e50faf5ff29a97a35f7f6fd13b9f generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M17",
+  "leg": "BACKED/contains",
+  "desc": "word-boundary padding dropped (raw substring)",
+  "old": "return bool(n) and (' ' + n + ' ') in (' ' + norm(hay) + ' ')",
+  "new": "return bool(n) and n in norm(hay)",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "7e441c66593864e2a7ac6abed7c6661d0f6e5b286be10eb20993a288589684ff",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "7e441c66593864e2a7ac6abed7c6661d0f6e5b286be10eb20993a288589684ff",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 7e441c66593864e2a7ac6abed7c6661d0f6e5b286be10eb20993a288589684ff generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M18",
+  "leg": "BACKED/contains",
+  "desc": "quote-in-capture check dropped",
+  "old": "    if not contains(cap.decode('utf-8', errors='replace'), quote):\n        return 'quote absent from capture'\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "48e4429a8f887567c51c49d4c048c24dba47a11215a9924547fec275641f561e",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest",
+   "controls"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "48e4429a8f887567c51c49d4c048c24dba47a11215a9924547fec275641f561e",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD wrongquote F rc=0 expect_rc=1 expect_leg=BACKED"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 1,
+   "controls_mismatch": [
+    "MISMATCH F-wrongcapture claim=F role=reject rc=0 expected_rc=1 fail_legs=- expected_leg=BACKED verdict='ACCEPT-F-89: PASS legs=5/5'"
+   ],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 48e4429a8f887567c51c49d4c048c24dba47a11215a9924547fec275641f561e generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMISMATCH F-wrongcapture claim=F role=reject rc=0 expected_rc=1 fail_legs=- expected_leg=BACKED verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M19",
+  "leg": "DISPOSED",
+  "desc": "leg always passes",
+  "old": "out.append(leg('DISPOSED', not undisposed,",
+  "new": "out.append(leg('DISPOSED', True,",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "ca613762c5d9d08dbdb46dba57b6e0da93a775d0db9e36506965cae6d37c134b",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "ca613762c5d9d08dbdb46dba57b6e0da93a775d0db9e36506965cae6d37c134b",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD undisposed F rc=0 expect_rc=1 expect_leg=DISPOSED"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 ca613762c5d9d08dbdb46dba57b6e0da93a775d0db9e36506965cae6d37c134b generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M20",
+  "leg": "DISPOSED",
+  "desc": "any line naming the id disposes it",
+  "old": "if not any(re.search(r'\\b%s\\b' % rid, x) and (NOTLOC_RE.search(x) or LOCATED_RE.search(x)) for x in lesson)]",
+  "new": "if not any(re.search(r'\\b%s\\b' % rid, x) for x in lesson)]",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "e49041b20bb2fac406f18d552a8cc69ed7e6e2115b1cb727f4e418848fcfe66a",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "e49041b20bb2fac406f18d552a8cc69ed7e6e2115b1cb727f4e418848fcfe66a",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 e49041b20bb2fac406f18d552a8cc69ed7e6e2115b1cb727f4e418848fcfe66a generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M21",
+  "leg": "OTHERCELLS",
+  "desc": "non-population recheck drift not checked",
+  "old": "        elif cells[9] != lc[9]:\n            drift.append(rid)\n    out.append(leg('OTHERCELLS'",
+  "new": "    out.append(leg('OTHERCELLS'",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "10e91d478ee7caeac6eb61c732a9648009f90f47e9a2bb45f38d3756134e7c35",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "10e91d478ee7caeac6eb61c732a9648009f90f47e9a2bb45f38d3756134e7c35",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 10e91d478ee7caeac6eb61c732a9648009f90f47e9a2bb45f38d3756134e7c35 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M22",
+  "leg": "OTHERCELLS",
+  "desc": "row-length / deleted-row check dropped (deleted rows skipped)",
+  "old": "        if lc is None or len(lc) != len(cells):\n            drift.append(rid)\n        elif rid in c['population']:",
+  "new": "        if lc is None:\n            continue\n        elif rid in c['population']:",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "31b2c0d5e77f3aa52021c32c9fe42e0c48826e74831ef3756da5fe881b388eb4",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "31b2c0d5e77f3aa52021c32c9fe42e0c48826e74831ef3756da5fe881b388eb4",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 31b2c0d5e77f3aa52021c32c9fe42e0c48826e74831ef3756da5fe881b388eb4 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M23",
+  "leg": "ENTRY/bytes",
+  "desc": "min_bytes dropped",
+  "old": "len(entry_raw) >= c['min_bytes'] and ",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "fb8e5605cd905fe86bff1ec32d271eba7f575140521d2cf8ec99eacf26a8c1d4",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "fb8e5605cd905fe86bff1ec32d271eba7f575140521d2cf8ec99eacf26a8c1d4",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 fb8e5605cd905fe86bff1ec32d271eba7f575140521d2cf8ec99eacf26a8c1d4 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M24",
+  "leg": "ENTRY/headings",
+  "desc": "min_headings off by one",
+  "old": "heads >= c['min_headings'] and not keys",
+  "new": "heads >= c['min_headings'] - 1 and not keys",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "c9fb9039a3e5e77a7b92a7406176b2c6a3d2657ab26e12366a99f74192cc92d8",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "c9fb9039a3e5e77a7b92a7406176b2c6a3d2657ab26e12366a99f74192cc92d8",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 c9fb9039a3e5e77a7b92a7406176b2c6a3d2657ab26e12366a99f74192cc92d8 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M25",
+  "leg": "ENTRY/keys",
+  "desc": "header keys not required",
+  "old": "heads >= c['min_headings'] and not keys",
+  "new": "heads >= c['min_headings']",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "3caa3fdf3239aff4e9f280cb5ecbbeaea1d7969659f233e0287d7a208cd13812",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "3caa3fdf3239aff4e9f280cb5ecbbeaea1d7969659f233e0287d7a208cd13812",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 3caa3fdf3239aff4e9f280cb5ecbbeaea1d7969659f233e0287d7a208cd13812 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M26",
+  "leg": "ENTRY/absent-at-base",
+  "desc": "absent-at-base not required",
+  "old": "ok = entry_raw is not None and not at_base and",
+  "new": "ok = entry_raw is not None and",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "41d3f5f346a654523fa68d0dda44521ca5a964c8471ca510eb334e9152400937",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "41d3f5f346a654523fa68d0dda44521ca5a964c8471ca510eb334e9152400937",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 41d3f5f346a654523fa68d0dda44521ca5a964c8471ca510eb334e9152400937 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M27",
+  "leg": "TABLE",
+  "desc": "data-row minimum dropped",
+  "old": "and n >= c['table_min_rows'] for cols, n in t",
+  "new": "and n >= 0 for cols, n in t",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "109f3f39ebcb9808c85517a62d3a01abe6f083d47948899a5fe87d62aaeb70ee",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "109f3f39ebcb9808c85517a62d3a01abe6f083d47948899a5fe87d62aaeb70ee",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 109f3f39ebcb9808c85517a62d3a01abe6f083d47948899a5fe87d62aaeb70ee generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M28",
+  "leg": "NEWIDS/tier",
+  "desc": "tier C admitted",
+  "old": "r[3] not in ('A', 'B')",
+  "new": "r[3] not in ('A', 'B', 'C')",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "d2e1157019e899811a62224b7f50c11acc7ffcab7d8a8eba9dfcaf04d3028a32",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "d2e1157019e899811a62224b7f50c11acc7ffcab7d8a8eba9dfcaf04d3028a32",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 d2e1157019e899811a62224b7f50c11acc7ffcab7d8a8eba9dfcaf04d3028a32 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M29",
+  "leg": "NEWIDS/status",
+  "desc": "status mined not required",
+  "old": "or r[7] != 'mined' or",
+  "new": "or",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "2c0b9cc66663e38dd4211eee9603c1a96da47a32770f556b689b667c33971549",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "2c0b9cc66663e38dd4211eee9603c1a96da47a32770f556b689b667c33971549",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 2c0b9cc66663e38dd4211eee9603c1a96da47a32770f556b689b667c33971549 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M30",
+  "leg": "NEWIDS/opened",
+  "desc": "opened == as_of not required",
+  "old": "or r[8] != cfg['as_of'] or",
+  "new": "or",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "4f45483631ce3a457d6afa4e22184daadb1442a00496052c7263a166e46ce723",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "4f45483631ce3a457d6afa4e22184daadb1442a00496052c7263a166e46ce723",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 4f45483631ce3a457d6afa4e22184daadb1442a00496052c7263a166e46ce723 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M31",
+  "leg": "NEWIDS/used-by",
+  "desc": "used-by not required",
+  "old": " or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:",
+  "new": ":",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "7fa47159d3bcbd1586e3cbed8c05dd1cc83f712250457ae80cfcb0f01e48b216",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "7fa47159d3bcbd1586e3cbed8c05dd1cc83f712250457ae80cfcb0f01e48b216",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 7fa47159d3bcbd1586e3cbed8c05dd1cc83f712250457ae80cfcb0f01e48b216 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M32",
+  "leg": "NEWIDS/fabricated",
+  "desc": "unregistered cited ids tolerated",
+  "old": "len(qual) >= c['new_ids_min'] and not unq,",
+  "new": "len(qual) >= c['new_ids_min'],",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "704c5483b51f413e84c0bbf2a844934c383025a3fa1e95c5dc91206279cef735",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "704c5483b51f413e84c0bbf2a844934c383025a3fa1e95c5dc91206279cef735",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD fakeid C rc=0 expect_rc=1 expect_leg=NEWIDS"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 704c5483b51f413e84c0bbf2a844934c383025a3fa1e95c5dc91206279cef735 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M33",
+  "leg": "NEWIDS/min",
+  "desc": "new_ids_min dropped",
+  "old": "len(qual) >= c['new_ids_min'] and not unq,",
+  "new": "not unq,",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "f0f3134aa60e1e696ff56bf58031fb831af3bbad37783b8cbc8974578279d070",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "f0f3134aa60e1e696ff56bf58031fb831af3bbad37783b8cbc8974578279d070",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 f0f3134aa60e1e696ff56bf58031fb831af3bbad37783b8cbc8974578279d070 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=3/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M34",
+  "leg": "GATE",
+  "desc": "gate line need not carry a row URL",
+  "old": "                and any(url_ok(u, l_rows[rid][1]) for u in urls(x)) and quote_ok",
+  "new": "                and quote_ok",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "f76a5241e8dedf42a79ccf7f0663994601e1f981152c83361627c33e1d2f6a10",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "f76a5241e8dedf42a79ccf7f0663994601e1f981152c83361627c33e1d2f6a10",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 f76a5241e8dedf42a79ccf7f0663994601e1f981152c83361627c33e1d2f6a10 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M35",
+  "leg": "GATE",
+  "desc": "gate line need not carry as_of",
+  "old": "if re.search(r'\\b%s\\b' % rid, x) and cfg['as_of'] in x\n",
+  "new": "if re.search(r'\\b%s\\b' % rid, x)\n",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "fbf5cbba202002a07455215af17389aaaf7786c142d8347b05a86d3372c254c5",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "fbf5cbba202002a07455215af17389aaaf7786c142d8347b05a86d3372c254c5",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 fbf5cbba202002a07455215af17389aaaf7786c142d8347b05a86d3372c254c5 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M36",
+  "leg": "CAPTURE",
+  "desc": "cap_bad ignored",
+  "old": "bool(qual) and not gate_bad and not cap_bad,",
+  "new": "bool(qual) and not gate_bad,",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "5a2e240c9d3dfc2fd008c92c139946fba23e01cc4ef976063d84abd3a2bfd080",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest",
+   "controls"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "5a2e240c9d3dfc2fd008c92c139946fba23e01cc4ef976063d84abd3a2bfd080",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD nocapture C rc=0 expect_rc=1 expect_leg=CAPTURE"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 1,
+   "controls_mismatch": [
+    "MISMATCH C-gate-no-capture claim=C role=reject rc=0 expected_rc=1 fail_legs=- expected_leg=CAPTURE verdict='ACCEPT-C-89: PASS legs=8/8'"
+   ],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 5a2e240c9d3dfc2fd008c92c139946fba23e01cc4ef976063d84abd3a2bfd080 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMISMATCH C-gate-no-capture claim=C role=reject rc=0 expected_rc=1 fail_legs=- expected_leg=CAPTURE verdict='ACCEPT-C-89: PASS legs=8/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M37",
+  "leg": "INDEX/freeze-pin",
+  "desc": "index tool read from lands not freeze",
+  "old": "tool = show(root, freeze, c['index_tool'])",
+  "new": "tool = show(root, lands, c['index_tool'])",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "bd2441973f928b5f950c944afa77a5e9d82a394d8535cf665cd94b839b243e18",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "bd2441973f928b5f950c944afa77a5e9d82a394d8535cf665cd94b839b243e18",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD stubtool C rc=0 expect_rc=1 expect_leg=INDEX"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 bd2441973f928b5f950c944afa77a5e9d82a394d8535cf665cd94b839b243e18 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M38",
+  "leg": "INDEX/readme-row",
+  "desc": "README row not required",
+  "old": "out.append(leg('INDEX', row_ok and rc == 0,",
+  "new": "out.append(leg('INDEX', rc == 0,",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "207883ae292e7ac8d5d2d544a697f12d4dfdcc74aaf678188c7c1ef684be7eb0",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "207883ae292e7ac8d5d2d544a697f12d4dfdcc74aaf678188c7c1ef684be7eb0",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 207883ae292e7ac8d5d2d544a697f12d4dfdcc74aaf678188c7c1ef684be7eb0 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M39",
+  "leg": "APPENDONLY",
+  "desc": "tier cell (3) dropped from compared set",
+  "old": "for i in (0, 1, 2, 3, 4, 5, 6, 8)] != [lc[i] for i in (0, 1, 2, 3, 4, 5, 6, 8)]",
+  "new": "for i in (0, 1, 2, 4, 5, 6, 8)] != [lc[i] for i in (0, 1, 2, 4, 5, 6, 8)]",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "68469128743130b537de060d345507044ba3d4b25de413409d40289ed5634c98",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "68469128743130b537de060d345507044ba3d4b25de413409d40289ed5634c98",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD oldrow C rc=0 expect_rc=1 expect_leg=APPENDONLY"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 68469128743130b537de060d345507044ba3d4b25de413409d40289ed5634c98 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M40",
+  "leg": "APPENDONLY",
+  "desc": "source cell (1) dropped from compared set",
+  "old": "for i in (0, 1, 2, 3, 4, 5, 6, 8)] != [lc[i] for i in (0, 1, 2, 3, 4, 5, 6, 8)]",
+  "new": "for i in (0, 2, 3, 4, 5, 6, 8)] != [lc[i] for i in (0, 2, 3, 4, 5, 6, 8)]",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "8a52d844f079855c37e6b580f72b9c74637c9dddee9ffc0180524b29a2829527",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "8a52d844f079855c37e6b580f72b9c74637c9dddee9ffc0180524b29a2829527",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 8a52d844f079855c37e6b580f72b9c74637c9dddee9ffc0180524b29a2829527 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M41",
+  "leg": "refusal/lands==base",
+  "desc": "lands==base refusal removed",
+  "old": "    if lands == base:\n        raise Refused('lands equals frozen base')\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "94b5655c43531f9b5ddf6bd74ac4d9bd3f71f74510cf863ac5fbf38ddd1de678",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "94b5655c43531f9b5ddf6bd74ac4d9bd3f71f74510cf863ac5fbf38ddd1de678",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 94b5655c43531f9b5ddf6bd74ac4d9bd3f71f74510cf863ac5fbf38ddd1de678 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M42",
+  "leg": "refusal/first-parent",
+  "desc": "freeze-on-chain refusal removed",
+  "old": "    if freeze not in chain:\n        raise Refused('freeze is not on the lands first-parent chain')\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "9b7de23d3d72e3727be3434d1af9ba2e8ecb699d9b6ad541373a23eaf38308d8",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "9b7de23d3d72e3727be3434d1af9ba2e8ecb699d9b6ad541373a23eaf38308d8",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 9b7de23d3d72e3727be3434d1af9ba2e8ecb699d9b6ad541373a23eaf38308d8 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M43",
+  "leg": "refusal/LEGCOUNT",
+  "desc": "LEGCOUNT refusal removed",
+  "old": "    if frozen_legs != LEGS[args.claim]:\n        raise Refused",
+  "new": "    if False:\n        raise Refused",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "a90d720f86cdb31b355f5b08d3e3d25f4b4d8703656ee30a0788566bf411fc77",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [
+   "selftest"
+  ],
+  "verdict": "killed",
+  "mutated": {
+   "sha": "a90d720f86cdb31b355f5b08d3e3d25f4b4d8703656ee30a0788566bf411fc77",
+   "selftest_rc": 1,
+   "selftest_tail": [
+    "SELFTEST: FAIL 20/21"
+   ],
+   "selftest_bad": [
+    "BAD refuse-legcount F rc=0 expect_rc=2 expect_leg=LEGCOUNT"
+   ],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 a90d720f86cdb31b355f5b08d3e3d25f4b4d8703656ee30a0788566bf411fc77 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M44",
+  "leg": "refusal/HEX40",
+  "desc": "40-hex syntax gate removed",
+  "old": "    if not HEX40.match(rev or ''):\n        raise Refused('not a 40-hex revision: %r' % rev)\n",
+  "new": "",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "c54f08bffacc5f1d2da2cf7b2c4ddbc9a434bd4315a825a2255e2ac7da5a4997",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "c54f08bffacc5f1d2da2cf7b2c4ddbc9a434bd4315a825a2255e2ac7da5a4997",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 c54f08bffacc5f1d2da2cf7b2c4ddbc9a434bd4315a825a2255e2ac7da5a4997 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ },
+ {
+  "id": "M45",
+  "leg": "refusal/first-parent",
+  "desc": "first-parent dropped (any ancestry)",
+  "old": "git(root, 'rev-list', '--first-parent', lands, check=True)",
+  "new": "git(root, 'rev-list', lands, check=True)",
+  "parse_rc": 0,
+  "pristine_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "mutant_sha": "656acf056cef61f5d86eb1598765f06157113a504ac51cc5a2020ba7083653f4",
+  "restored_sha": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "restored_equal": true,
+  "killed_by": [],
+  "verdict": "survived",
+  "mutated": {
+   "sha": "656acf056cef61f5d86eb1598765f06157113a504ac51cc5a2020ba7083653f4",
+   "selftest_rc": 0,
+   "selftest_tail": [
+    "SELFTEST: PASS 21/21"
+   ],
+   "selftest_bad": [],
+   "selftest_stderr": "",
+   "controls_rc": 0,
+   "controls_mismatch": [],
+   "controls_txt": "# claims sha256 cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552 counter sha256 656acf056cef61f5d86eb1598765f06157113a504ac51cc5a2020ba7083653f4 generator sha256 9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e base 42816d2533c44f1d19f38a12fc5f5040d01a2fd3\nMATCH F-nowork claim=F role=reject rc=1 expected_rc=1 fail_legs=ADVANCED,DISPOSED expected_leg=ADVANCED verdict='ACCEPT-F-89: FAIL legs=3/5'\nMATCH F-bumponly claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-wrongcapture claim=F role=reject rc=1 expected_rc=1 fail_legs=BACKED expected_leg=BACKED verdict='ACCEPT-F-89: FAIL legs=4/5'\nMATCH F-forged-capture claim=F role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-F-89: PASS legs=5/5'\nMATCH C-nowork claim=C role=reject rc=1 expected_rc=1 fail_legs=ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX expected_leg=ENTRY verdict='ACCEPT-C-89: FAIL legs=2/8'\nMATCH C-junk-fabricated-ids claim=C role=reject rc=1 expected_rc=1 fail_legs=NEWIDS,GATE,CAPTURE expected_leg=NEWIDS verdict='ACCEPT-C-89: FAIL legs=5/8'\nMATCH C-sourceless-rows claim=C role=reject rc=1 expected_rc=1 fail_legs=GATE,CAPTURE expected_leg=GATE verdict='ACCEPT-C-89: FAIL legs=6/8'\nMATCH C-gate-no-capture claim=C role=reject rc=1 expected_rc=1 fail_legs=CAPTURE expected_leg=CAPTURE verdict='ACCEPT-C-89: FAIL legs=7/8'\nMATCH C-forged-capture claim=C role=known-survivor rc=0 expected_rc=0 fail_legs=- expected_leg=None verdict='ACCEPT-C-89: PASS legs=8/8'\n\n",
+   "controls_stderr": ""
+  }
+ }
+]

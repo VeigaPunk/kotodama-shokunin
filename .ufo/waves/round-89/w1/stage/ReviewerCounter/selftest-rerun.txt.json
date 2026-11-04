@@ -1,0 +1,233 @@
+[
+ {
+  "scenario": "clean",
+  "claim": "F",
+  "lands": "85a672ac021b260b925240661e7ca06d8475d56d",
+  "expect_rc": 0,
+  "expect_leg": null,
+  "rc": 0,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 85a672ac021b260b925240661e7ca06d8475d56d\n# evaluated revision: 85a672ac021b260b925240661e7ca06d8475d56d (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 0f3620f991db25d68025753f9a4cc17cfe3a5fdd\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ADVANCED expected=\">=1\" observed=1\nLEG PASS BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 1, \"unbacked\": {}}\nLEG PASS DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: PASS legs=5/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "clean",
+  "claim": "C",
+  "lands": "85a672ac021b260b925240661e7ca06d8475d56d",
+  "expect_rc": 0,
+  "expect_leg": null,
+  "rc": 0,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 85a672ac021b260b925240661e7ca06d8475d56d\n# evaluated revision: 85a672ac021b260b925240661e7ca06d8475d56d (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 0f3620f991db25d68025753f9a4cc17cfe3a5fdd\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 310, \"headings\": 5, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 5]]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: PASS legs=8/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "nowork",
+  "claim": "F",
+  "lands": "d99bf1830d10efb3c7ed2927826a461f2fcb7db4",
+  "expect_rc": 1,
+  "expect_leg": "ADVANCED",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# evaluated revision: d99bf1830d10efb3c7ed2927826a461f2fcb7db4 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: ffb1e948f47c97f1f7b8cacd01b3c94d60779ed7\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG FAIL ADVANCED expected=\">=1\" observed=0\nLEG PASS BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 0, \"unbacked\": {}}\nLEG FAIL DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[\"S001\", \"S002\"]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: FAIL legs=3/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "nowork",
+  "claim": "C",
+  "lands": "d99bf1830d10efb3c7ed2927826a461f2fcb7db4",
+  "expect_rc": 1,
+  "expect_leg": "ENTRY",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# evaluated revision: d99bf1830d10efb3c7ed2927826a461f2fcb7db4 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: ffb1e948f47c97f1f7b8cacd01b3c94d60779ed7\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG FAIL ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 0, \"headings\": 0, \"missing_keys\": [\"topic:\", \"sources:\", \"verified-at:\", \"recheck:\"]}\nLEG FAIL TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[]\nLEG FAIL NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [], \"unqualified\": {}}\nLEG FAIL GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG FAIL CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG FAIL INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": false, \"tool_rc\": null}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=2/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "bumponly",
+  "claim": "F",
+  "lands": "9ee029efb6bb306a359539443d0c8da796ed333a",
+  "expect_rc": 1,
+  "expect_leg": "BACKED",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 9ee029efb6bb306a359539443d0c8da796ed333a\n# evaluated revision: 9ee029efb6bb306a359539443d0c8da796ed333a (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 7400e8474cc891364464a4bdacfcf18967c05ad0\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ADVANCED expected=\">=1\" observed=1\nLEG FAIL BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 1, \"unbacked\": {\"S001\": \"no manifest entry\"}}\nLEG PASS DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: FAIL legs=4/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "wrongquote",
+  "claim": "F",
+  "lands": "8535e45663b664c962c309c697ad6566ebd46823",
+  "expect_rc": 1,
+  "expect_leg": "BACKED",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 8535e45663b664c962c309c697ad6566ebd46823\n# evaluated revision: 8535e45663b664c962c309c697ad6566ebd46823 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: c1c24f6b3f8242a02d58d0566b097a5f9753568c\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ADVANCED expected=\">=1\" observed=1\nLEG FAIL BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 1, \"unbacked\": {\"S001\": \"quote absent from capture\"}}\nLEG PASS DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: FAIL legs=4/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "badurl",
+  "claim": "F",
+  "lands": "98fa4196045f10dcb1b481f03b0462276148cded",
+  "expect_rc": 1,
+  "expect_leg": "BACKED",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 98fa4196045f10dcb1b481f03b0462276148cded\n# evaluated revision: 98fa4196045f10dcb1b481f03b0462276148cded (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 555bed12af75dfa7dc9f216934a78dd4278a26d3\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ADVANCED expected=\">=1\" observed=1\nLEG FAIL BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 1, \"unbacked\": {\"S001\": \"manifest url not a row url\"}}\nLEG PASS DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: FAIL legs=4/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "undisposed",
+  "claim": "F",
+  "lands": "e3317f7bb14ec79ca3a2d8b855bcc3f081e5deff",
+  "expect_rc": 1,
+  "expect_leg": "DISPOSED",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: e3317f7bb14ec79ca3a2d8b855bcc3f081e5deff\n# evaluated revision: e3317f7bb14ec79ca3a2d8b855bcc3f081e5deff (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: a29fa0e0b37c04037a5791e65690a09780b0ed0f\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ADVANCED expected=\">=1\" observed=1\nLEG PASS BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 1, \"unbacked\": {}}\nLEG FAIL DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[\"S002\"]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: FAIL legs=4/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "cellchange",
+  "claim": "F",
+  "lands": "ad19971ce7c1cebb226fee18e3556a0b4e2ada79",
+  "expect_rc": 1,
+  "expect_leg": "OTHERCELLS",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: ad19971ce7c1cebb226fee18e3556a0b4e2ada79\n# evaluated revision: ad19971ce7c1cebb226fee18e3556a0b4e2ada79 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 0d8fc47d23ae10b225e19c43f28185abd0d3db9f\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ADVANCED expected=\">=1\" observed=1\nLEG PASS BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 1, \"unbacked\": {}}\nLEG PASS DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[]\nLEG FAIL OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[\"S002\"]\nACCEPT-F-89: FAIL legs=4/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "cfgdrift",
+  "claim": "F",
+  "lands": "9e807481678db06415cdb73858c08b1368ebee46",
+  "expect_rc": 1,
+  "expect_leg": "FROZENCFG",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim F\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 9e807481678db06415cdb73858c08b1368ebee46\n# evaluated revision: 9e807481678db06415cdb73858c08b1368ebee46 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 43ed2fcf5e9f41dcbf8950289159234026a5f64b\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)\nLEG FAIL FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[\"reports/round-89/claims.json\"]\nLEG PASS ADVANCED expected=\">=1\" observed=1\nLEG PASS BACKED expected=\"every changed population recheck backed\" observed={\"changed\": 1, \"unbacked\": {}}\nLEG PASS DISPOSED expected=\"every population id has a LOCATED/NOT-LOCATED line\" observed=[]\nLEG PASS OTHERCELLS expected=\"population: only recheck changes; others: recheck unchanged\" observed=[]\nACCEPT-F-89: FAIL legs=4/5\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "cfgdrift",
+  "claim": "C",
+  "lands": "9e807481678db06415cdb73858c08b1368ebee46",
+  "expect_rc": 1,
+  "expect_leg": "FROZENCFG",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 9e807481678db06415cdb73858c08b1368ebee46\n# evaluated revision: 9e807481678db06415cdb73858c08b1368ebee46 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 43ed2fcf5e9f41dcbf8950289159234026a5f64b\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG FAIL FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[\"reports/round-89/claims.json\"]\nLEG PASS ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 310, \"headings\": 5, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 5]]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=7/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "fakeid",
+  "claim": "C",
+  "lands": "1d48243ef93c235c5d7593a64cadf568bef37d0a",
+  "expect_rc": 1,
+  "expect_leg": "NEWIDS",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 1d48243ef93c235c5d7593a64cadf568bef37d0a\n# evaluated revision: 1d48243ef93c235c5d7593a64cadf568bef37d0a (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: d7b153983fd5a8662e5d1b30f1c38e37f639c9af\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 322, \"headings\": 5, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 5]]\nLEG FAIL NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {\"S999\": \"not in lands registry\"}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=7/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "nogate",
+  "claim": "C",
+  "lands": "dbe3a0c4d29bb95e3c8ccaf33eb17fe05531d178",
+  "expect_rc": 1,
+  "expect_leg": "GATE",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: dbe3a0c4d29bb95e3c8ccaf33eb17fe05531d178\n# evaluated revision: dbe3a0c4d29bb95e3c8ccaf33eb17fe05531d178 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: f18ad8afa82df95ec6cf06a5699f1a2df06ea087\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 310, \"headings\": 5, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 5]]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG FAIL GATE expected=\"every qualifying id has a gate line\" observed={\"S004\": \"no gate line with row url, access date and bounded quote\"}\nLEG FAIL CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=6/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "nocapture",
+  "claim": "C",
+  "lands": "319ec523e0eb0f6916e7716cc55d732a2b1632a3",
+  "expect_rc": 1,
+  "expect_leg": "CAPTURE",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 319ec523e0eb0f6916e7716cc55d732a2b1632a3\n# evaluated revision: 319ec523e0eb0f6916e7716cc55d732a2b1632a3 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 91c0775ef36d22378013a1a51c11352fd8b28c90\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 310, \"headings\": 5, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 5]]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG FAIL CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={\"S004\": \"capture sha256 mismatch\"}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=7/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "stubtool",
+  "claim": "C",
+  "lands": "3469f16b3ba5b09c7e0551bdd265294f459dd359",
+  "expect_rc": 1,
+  "expect_leg": "INDEX",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 3469f16b3ba5b09c7e0551bdd265294f459dd359\n# evaluated revision: 3469f16b3ba5b09c7e0551bdd265294f459dd359 (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: ab73ee68a35a346230234fc5a5c1f90d2096f5ff\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 310, \"headings\": 5, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 5]]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG FAIL INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 1}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=7/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "oldrow",
+  "claim": "C",
+  "lands": "a4e898be3efc089212e2fef320fbbeb70c93393f",
+  "expect_rc": 1,
+  "expect_leg": "APPENDONLY",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: a4e898be3efc089212e2fef320fbbeb70c93393f\n# evaluated revision: a4e898be3efc089212e2fef320fbbeb70c93393f (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 14ca62fcedd608aeca50367f66c0741906ad3433\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG PASS ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 310, \"headings\": 5, \"missing_keys\": []}\nLEG PASS TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[[3, 5]]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG FAIL APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[\"S003\"]\nACCEPT-C-89: FAIL legs=7/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "shortentry",
+  "claim": "C",
+  "lands": "354660af2dad2a9a63373de91926484a4e37a28a",
+  "expect_rc": 1,
+  "expect_leg": "ENTRY",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 354660af2dad2a9a63373de91926484a4e37a28a\n# evaluated revision: 354660af2dad2a9a63373de91926484a4e37a28a (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 23936c034d23e4baf600aef6f8f8b8dd8ce9b556\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG FAIL ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 20, \"headings\": 0, \"missing_keys\": [\"sources:\", \"verified-at:\", \"recheck:\"]}\nLEG FAIL TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=6/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "shortentry",
+  "claim": "C",
+  "lands": "354660af2dad2a9a63373de91926484a4e37a28a",
+  "expect_rc": 1,
+  "expect_leg": "TABLE",
+  "rc": 1,
+  "passed": true,
+  "stdout": "# counter: reports/round-89/measure89.py claim C\n# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040\n# stamped revision: 354660af2dad2a9a63373de91926484a4e37a28a\n# evaluated revision: 354660af2dad2a9a63373de91926484a4e37a28a (all graded bytes via git show)\n# measured revision (lane main): d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# tree: 23936c034d23e4baf600aef6f8f8b8dd8ce9b556\n# freeze: d99bf1830d10efb3c7ed2927826a461f2fcb7db4\n# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)\nLEG PASS FROZENCFG expected=\"claims.json and counter equal to freeze blobs\" observed=[]\nLEG FAIL ENTRY expected=\"absent at base; >=200 bytes; >=5 headings; header keys\" observed={\"at_base\": false, \"bytes\": 20, \"headings\": 0, \"missing_keys\": [\"sources:\", \"verified-at:\", \"recheck:\"]}\nLEG FAIL TABLE expected=\"a table >=3 cols and >=5 data rows\" observed=[]\nLEG PASS NEWIDS expected=\">=1 new mined A/B ids opened as_of, none fabricated\" observed={\"qualifying\": [\"S004\"], \"unqualified\": {}}\nLEG PASS GATE expected=\"every qualifying id has a gate line\" observed={}\nLEG PASS CAPTURE expected=\"every gate quote occurs in its committed capture\" observed={}\nLEG PASS INDEX expected=\"README row and freeze-pinned index tool rc0\" observed={\"row\": true, \"tool_rc\": 0}\nLEG PASS APPENDONLY expected=\"base rows: only status/recheck/used-by may change\" observed=[]\nACCEPT-C-89: FAIL legs=6/8\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "refuse-base",
+  "claim": "F",
+  "lands": "6093cabea22d5f908e82e0d1da39dee0fdc047fb",
+  "expect_rc": 2,
+  "expect_leg": null,
+  "rc": 2,
+  "passed": true,
+  "stdout": "ACCEPT-F-89: FAIL legs=0/5 (refused: lands equals frozen base)\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "refuse-nonhex",
+  "claim": "C",
+  "lands": "abc",
+  "expect_rc": 2,
+  "expect_leg": null,
+  "rc": 2,
+  "passed": true,
+  "stdout": "ACCEPT-C-89: FAIL legs=0/8 (refused: not a 40-hex revision: 'abc')\n",
+  "stderr": ""
+ },
+ {
+  "scenario": "refuse-legcount",
+  "claim": "F",
+  "lands": "99ec55628c5a65c3729e38fd85c49b5f995dc25b",
+  "expect_rc": 2,
+  "expect_leg": "LEGCOUNT",
+  "rc": 2,
+  "passed": true,
+  "stdout": "ACCEPT-F-89: FAIL legs=0/5 (refused: LEGCOUNT frozen ['FROZENCFG', 'ADVANCED', 'BACKED', 'DISPOSED', 'OTHERCELLS', 'EXTRA'] != counter ['FROZENCFG', 'ADVANCED', 'BACKED', 'DISPOSED', 'OTHERCELLS'])\n",
+  "stderr": ""
+ }
+]

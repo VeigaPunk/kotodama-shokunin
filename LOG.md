@@ -4918,3 +4918,21 @@ Separability runs rc0 with only each claim's own paths overlaid
 cited-records 0 empty / 0 scratch (`final/current-cited-records.json`);
 the inherited full-tree red stays historical. Four attack seats died on
 the provider with no deliverable and are reported, not replaced.
+
+## Round 89 (2026-11-04) — re-verification of the recheck queue; evidentiality entry
+
+Claims F (freshness) and C (coverage), frozen at `1cbd0efc` with executed
+controls (9/9 as expected, two declared forged-capture survivors), counter
+selftest 21/21 and its red-before (BACKED forced → 18/21, exit 1).
+Wave `kotodama-r89-v1`, 11 seats, all delivered. F: the sixteen URL rows of
+the auditor's upcoming queue were fetched live by two independent clients;
+all located, quotes agree 16/16, recheck 90d→2027-02-03, queue 20→4.
+Re-verification result: no teaches cell found false; S012/S021 arXiv revised,
+S142 anchor wording "by"→"for" mismatch, S157 biome tags grown, S104 child
+nodes only in script — logged, not repaired. C: new
+`corpus/knowledge/linguistics/evidentiality-epistemic-marking.md` over
+S936–S940 (S941 rejected). Wave attacks found the frozen counter thin
+(mutation 10/41) and passable by undeclared lazy landings; recorded as
+R89-M5/M6 and QUALITY36, and this landing audited against them. The lane's
+own round-11 pause text covers freshness claims (R89-M7): L0 question filed.
+Final: F PASS 5/5, C PASS 8/8 at `aac9cca80d12077eb3026b202c835c0d6135bc08`; census exit 0.

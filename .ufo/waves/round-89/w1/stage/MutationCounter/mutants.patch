@@ -1,0 +1,363 @@
+### M01 FROZENCFG: counter self-bytes no longer compared (CLAIMS only) (mutant sha256 3c30717f2bf98d42bd43a3040cc24b592f2c5138c658bed3d15206329fc59afb)
+--- pristine/measure89.py
++++ M01/measure89.py
+@@ -202,3 +202,3 @@
+ def frozencfg(root, freeze, lands):
+-    diff = [p for p in (CLAIMS, SELF) if show(root, freeze, p) != show(root, lands, p)]
++    diff = [p for p in (CLAIMS,) if show(root, freeze, p) != show(root, lands, p)]
+     return leg('FROZENCFG', not diff, 'claims.json and counter equal to freeze blobs', diff)
+### M02 FROZENCFG: leg always passes (mutant sha256 b837ce5b0bbc430bba49d89a09667cd604afb7b78764fc29b8d3858ef2b4b773)
+--- pristine/measure89.py
++++ M02/measure89.py
+@@ -203,3 +203,3 @@
+     diff = [p for p in (CLAIMS, SELF) if show(root, freeze, p) != show(root, lands, p)]
+-    return leg('FROZENCFG', not diff, 'claims.json and counter equal to freeze blobs', diff)
++    return leg('FROZENCFG', True, 'claims.json and counter equal to freeze blobs', diff)
+ 
+### M03 ADVANCED: threshold >= -> > (mutant sha256 61d595c84bd587c23d602c103a9a03df5712294a7222a16bb213f5127eef9624)
+--- pristine/measure89.py
++++ M03/measure89.py
+@@ -182,3 +182,3 @@
+             bad[rid] = why
+-    out.append(leg('ADVANCED', len(advanced) >= c['advance_min'], '>=%d' % c['advance_min'], len(advanced)))
++    out.append(leg('ADVANCED', len(advanced) > c['advance_min'], '>=%d' % c['advance_min'], len(advanced)))
+     out.append(leg('BACKED', not bad, 'every changed population recheck backed', {'changed': len(changed), 'unbacked': bad}))
+### M04 ADVANCED: lower date bound dropped (as_of+90d) (mutant sha256 acf7dce1657e63b433530710eec2aae3fe897fb442515a92be5f89ec964bf3dc)
+--- pristine/measure89.py
++++ M04/measure89.py
+@@ -166,3 +166,3 @@
+             d = datetime.date.fromisoformat(new)
+-            if lo < d <= hi:
++            if d <= hi:
+                 advanced.append(rid)
+### M05 ADVANCED: upper date bound dropped (as_of+366d) (mutant sha256 6a817b9a88e6fa3bdb6c972d72ee5f0787411a87131b15c3f160cbd4d348840f)
+--- pristine/measure89.py
++++ M05/measure89.py
+@@ -166,3 +166,3 @@
+             d = datetime.date.fromisoformat(new)
+-            if lo < d <= hi:
++            if lo < d:
+                 advanced.append(rid)
+### M06 BACKED/lesson-line: LOCATED / not NOT-LOCATED filter dropped (mutant sha256 3084b0d918ff1a03cd07f764a97074a33ec14dbff7c697f4e5dd32b84d6bd0e2)
+--- pristine/measure89.py
++++ M06/measure89.py
+@@ -170,3 +170,3 @@
+             pass
+-        lines = [x for x in lesson if re.search(r'\b%s\b' % rid, x) and LOCATED_RE.search(x) and not NOTLOC_RE.search(x)]
++        lines = [x for x in lesson if re.search(r'\b%s\b' % rid, x)]
+         good = [x for x in lines if (('recheck %s\u2192%s' % (old, new)) in x or ('recheck %s->%s' % (old, new)) in x) and cfg['as_of'] in x]
+### M07 BACKED/recheck: old->new reduced to ->new (mutant sha256 b97492cd76272defc08bc8961d9105ef3d7137b2b1decf84565fe59b171ff58d)
+--- pristine/measure89.py
++++ M07/measure89.py
+@@ -171,3 +171,3 @@
+         lines = [x for x in lesson if re.search(r'\b%s\b' % rid, x) and LOCATED_RE.search(x) and not NOTLOC_RE.search(x)]
+-        good = [x for x in lines if (('recheck %s\u2192%s' % (old, new)) in x or ('recheck %s->%s' % (old, new)) in x) and cfg['as_of'] in x]
++        good = [x for x in lines if (('\u2192%s' % new) in x or ('->%s' % new) in x) and cfg['as_of'] in x]
+         if not good:
+### M08 BACKED/access-date: as_of on lesson line not required (mutant sha256 8881e61016f460a6d3496f8ba5d55feec9e8caa6bc5beaae2a066bfedaa9e703)
+--- pristine/measure89.py
++++ M08/measure89.py
+@@ -171,3 +171,3 @@
+         lines = [x for x in lesson if re.search(r'\b%s\b' % rid, x) and LOCATED_RE.search(x) and not NOTLOC_RE.search(x)]
+-        good = [x for x in lines if (('recheck %s\u2192%s' % (old, new)) in x or ('recheck %s->%s' % (old, new)) in x) and cfg['as_of'] in x]
++        good = [x for x in lines if (('recheck %s\u2192%s' % (old, new)) in x or ('recheck %s->%s' % (old, new)) in x)]
+         if not good:
+### M09 BACKED/quote-bounds: max-words bound dropped (mutant sha256 d01e7c6458792c23a5d69f51f1c9c6178705a29913c3d3affc7b97c917b1f61a)
+--- pristine/measure89.py
++++ M09/measure89.py
+@@ -110,3 +110,3 @@
+ def quote_ok(q, cfg):
+-    return q is not None and len(q.split()) <= cfg['quote_max_words'] and len(norm(q)) >= cfg['quote_min_chars']
++    return q is not None and  len(norm(q)) >= cfg['quote_min_chars']
+ 
+### M10 BACKED/quote-bounds: min-chars bound dropped (mutant sha256 03aff9adbdf74386e7a747e9e0b8605215a3cbb40fcad32164a2f34f4eba824e)
+--- pristine/measure89.py
++++ M10/measure89.py
+@@ -110,3 +110,3 @@
+ def quote_ok(q, cfg):
+-    return q is not None and len(q.split()) <= cfg['quote_max_words'] and len(norm(q)) >= cfg['quote_min_chars']
++    return q is not None and len(q.split()) <= cfg['quote_max_words']
+ 
+### M11 BACKED/capture-presence: uncommitted capture read as empty bytes (mutant sha256 39c6a873f250214fb6c7b110d046cafa52d42348d0ee46e4d574674f9a528bb6)
+--- pristine/measure89.py
++++ M11/measure89.py
+@@ -132,4 +132,3 @@
+     cap = show(root, lands, str(m.get('capture', '')))
+-    if cap is None:
+-        return 'capture not committed'
++    cap = cap if cap is not None else b''
+     if hashlib.sha256(cap).hexdigest() != m.get('sha256'):
+### M12 BACKED/sha: sha256 check dropped (mutant sha256 d2ede4797f9113803199ab76d984bbb9d7d6256a86c5daccd40441d941ac6837)
+--- pristine/measure89.py
++++ M12/measure89.py
+@@ -134,4 +134,2 @@
+         return 'capture not committed'
+-    if hashlib.sha256(cap).hexdigest() != m.get('sha256'):
+-        return 'capture sha256 mismatch'
+     if not isinstance(m.get('http_status'), int) or not 200 <= m['http_status'] < 300:
+### M13 BACKED/http_status: http_status check dropped (mutant sha256 cfdfc7af490ce6b2ffd02d2fedc5aa7eabcdc9d1ce4a26fea03493d0e48c2c70)
+--- pristine/measure89.py
++++ M13/measure89.py
+@@ -136,4 +136,2 @@
+         return 'capture sha256 mismatch'
+-    if not isinstance(m.get('http_status'), int) or not 200 <= m['http_status'] < 300:
+-        return 'http_status not 2xx'
+     if not str(m.get('fetched_at', '')).startswith(as_of):
+### M14 BACKED/fetched_at: fetched_at check dropped (mutant sha256 1c70be965b23e193cd66e51d78be0b1a3e2887db903e622b701ca8cde13fad41)
+--- pristine/measure89.py
++++ M14/measure89.py
+@@ -138,4 +138,2 @@
+         return 'http_status not 2xx'
+-    if not str(m.get('fetched_at', '')).startswith(as_of):
+-        return 'fetched_at not as_of'
+     if not url_ok(str(m.get('url', '')), row_cell):
+### M15 BACKED/url_ok: manifest url check dropped (mutant sha256 74b5eb3b85491a5f051f15a5e443de60d72ae364c62e5492d4dc1bc4427fc0d3)
+--- pristine/measure89.py
++++ M15/measure89.py
+@@ -140,4 +140,2 @@
+         return 'fetched_at not as_of'
+-    if not url_ok(str(m.get('url', '')), row_cell):
+-        return 'manifest url not a row url'
+     if not contains(cap.decode('utf-8', errors='replace'), quote):
+### M16 BACKED/url_ok: wayback prefix not required (any URL ending in a row URL) (mutant sha256 9c842e2775eb649396cbe9fbde97b93908a6e50faf5ff29a97a35f7f6fd13b9f)
+--- pristine/measure89.py
++++ M16/measure89.py
+@@ -99,3 +99,3 @@
+     for u in urls(row_cell):
+-        if candidate == u or (candidate.startswith('https://web.archive.org/web/') and candidate.endswith(u)):
++        if candidate.endswith(u):
+             return True
+### M17 BACKED/contains: word-boundary padding dropped (raw substring) (mutant sha256 7e441c66593864e2a7ac6abed7c6661d0f6e5b286be10eb20993a288589684ff)
+--- pristine/measure89.py
++++ M17/measure89.py
+@@ -81,3 +81,3 @@
+     n = norm(needle)
+-    return bool(n) and (' ' + n + ' ') in (' ' + norm(hay) + ' ')
++    return bool(n) and n in norm(hay)
+ 
+### M18 BACKED/contains: quote-in-capture check dropped (mutant sha256 48e4429a8f887567c51c49d4c048c24dba47a11215a9924547fec275641f561e)
+--- pristine/measure89.py
++++ M18/measure89.py
+@@ -142,4 +142,2 @@
+         return 'manifest url not a row url'
+-    if not contains(cap.decode('utf-8', errors='replace'), quote):
+-        return 'quote absent from capture'
+     return None
+### M19 DISPOSED: leg always passes (mutant sha256 ca613762c5d9d08dbdb46dba57b6e0da93a775d0db9e36506965cae6d37c134b)
+--- pristine/measure89.py
++++ M19/measure89.py
+@@ -186,3 +186,3 @@
+                   if not any(re.search(r'\b%s\b' % rid, x) and (NOTLOC_RE.search(x) or LOCATED_RE.search(x)) for x in lesson)]
+-    out.append(leg('DISPOSED', not undisposed, 'every population id has a LOCATED/NOT-LOCATED line', undisposed))
++    out.append(leg('DISPOSED', True, 'every population id has a LOCATED/NOT-LOCATED line', undisposed))
+     drift = []
+### M20 DISPOSED: any line naming the id disposes it (mutant sha256 e49041b20bb2fac406f18d552a8cc69ed7e6e2115b1cb727f4e418848fcfe66a)
+--- pristine/measure89.py
++++ M20/measure89.py
+@@ -185,3 +185,3 @@
+     undisposed = [rid for rid in c['population']
+-                  if not any(re.search(r'\b%s\b' % rid, x) and (NOTLOC_RE.search(x) or LOCATED_RE.search(x)) for x in lesson)]
++                  if not any(re.search(r'\b%s\b' % rid, x) for x in lesson)]
+     out.append(leg('DISPOSED', not undisposed, 'every population id has a LOCATED/NOT-LOCATED line', undisposed))
+### M21 OTHERCELLS: non-population recheck drift not checked (mutant sha256 10e91d478ee7caeac6eb61c732a9648009f90f47e9a2bb45f38d3756134e7c35)
+--- pristine/measure89.py
++++ M21/measure89.py
+@@ -195,4 +195,2 @@
+                 drift.append(rid)
+-        elif cells[9] != lc[9]:
+-            drift.append(rid)
+     out.append(leg('OTHERCELLS', not drift, 'population: only recheck changes; others: recheck unchanged', drift))
+### M22 OTHERCELLS: row-length / deleted-row check dropped (deleted rows skipped) (mutant sha256 31b2c0d5e77f3aa52021c32c9fe42e0c48826e74831ef3756da5fe881b388eb4)
+--- pristine/measure89.py
++++ M22/measure89.py
+@@ -190,4 +190,4 @@
+         lc = l_rows.get(rid)
+-        if lc is None or len(lc) != len(cells):
+-            drift.append(rid)
++        if lc is None:
++            continue
+         elif rid in c['population']:
+### M23 ENTRY/bytes: min_bytes dropped (mutant sha256 fb8e5605cd905fe86bff1ec32d271eba7f575140521d2cf8ec99eacf26a8c1d4)
+--- pristine/measure89.py
++++ M23/measure89.py
+@@ -228,3 +228,3 @@
+     keys = [k for k in c['header_keys'] if not re.search(r'^- %s' % re.escape(k), head, re.M)]
+-    ok = entry_raw is not None and not at_base and len(entry_raw) >= c['min_bytes'] and heads >= c['min_headings'] and not keys
++    ok = entry_raw is not None and not at_base and heads >= c['min_headings'] and not keys
+     out.append(leg('ENTRY', ok, 'absent at base; >=%d bytes; >=%d headings; header keys' % (c['min_bytes'], c['min_headings']),
+### M24 ENTRY/headings: min_headings off by one (mutant sha256 c9fb9039a3e5e77a7b92a7406176b2c6a3d2657ab26e12366a99f74192cc92d8)
+--- pristine/measure89.py
++++ M24/measure89.py
+@@ -228,3 +228,3 @@
+     keys = [k for k in c['header_keys'] if not re.search(r'^- %s' % re.escape(k), head, re.M)]
+-    ok = entry_raw is not None and not at_base and len(entry_raw) >= c['min_bytes'] and heads >= c['min_headings'] and not keys
++    ok = entry_raw is not None and not at_base and len(entry_raw) >= c['min_bytes'] and heads >= c['min_headings'] - 1 and not keys
+     out.append(leg('ENTRY', ok, 'absent at base; >=%d bytes; >=%d headings; header keys' % (c['min_bytes'], c['min_headings']),
+### M25 ENTRY/keys: header keys not required (mutant sha256 3caa3fdf3239aff4e9f280cb5ecbbeaea1d7969659f233e0287d7a208cd13812)
+--- pristine/measure89.py
++++ M25/measure89.py
+@@ -228,3 +228,3 @@
+     keys = [k for k in c['header_keys'] if not re.search(r'^- %s' % re.escape(k), head, re.M)]
+-    ok = entry_raw is not None and not at_base and len(entry_raw) >= c['min_bytes'] and heads >= c['min_headings'] and not keys
++    ok = entry_raw is not None and not at_base and len(entry_raw) >= c['min_bytes'] and heads >= c['min_headings']
+     out.append(leg('ENTRY', ok, 'absent at base; >=%d bytes; >=%d headings; header keys' % (c['min_bytes'], c['min_headings']),
+### M26 ENTRY/absent-at-base: absent-at-base not required (mutant sha256 41d3f5f346a654523fa68d0dda44521ca5a964c8471ca510eb334e9152400937)
+--- pristine/measure89.py
++++ M26/measure89.py
+@@ -228,3 +228,3 @@
+     keys = [k for k in c['header_keys'] if not re.search(r'^- %s' % re.escape(k), head, re.M)]
+-    ok = entry_raw is not None and not at_base and len(entry_raw) >= c['min_bytes'] and heads >= c['min_headings'] and not keys
++    ok = entry_raw is not None and len(entry_raw) >= c['min_bytes'] and heads >= c['min_headings'] and not keys
+     out.append(leg('ENTRY', ok, 'absent at base; >=%d bytes; >=%d headings; header keys' % (c['min_bytes'], c['min_headings']),
+### M27 TABLE: data-row minimum dropped (mutant sha256 109f3f39ebcb9808c85517a62d3a01abe6f083d47948899a5fe87d62aaeb70ee)
+--- pristine/measure89.py
++++ M27/measure89.py
+@@ -232,3 +232,3 @@
+     t = tables(text)
+-    out.append(leg('TABLE', any(cols >= c['table_min_cols'] and n >= c['table_min_rows'] for cols, n in t),
++    out.append(leg('TABLE', any(cols >= c['table_min_cols'] and n >= 0 for cols, n in t),
+                    'a table >=%d cols and >=%d data rows' % (c['table_min_cols'], c['table_min_rows']), t))
+### M28 NEWIDS/tier: tier C admitted (mutant sha256 d2e1157019e899811a62224b7f50c11acc7ffcab7d8a8eba9dfcaf04d3028a32)
+--- pristine/measure89.py
++++ M28/measure89.py
+@@ -243,3 +243,3 @@
+             unq[rid] = 'not in lands registry'
+-        elif r[3] not in ('A', 'B') or r[7] != 'mined' or r[8] != cfg['as_of'] or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:
++        elif r[3] not in ('A', 'B', 'C') or r[7] != 'mined' or r[8] != cfg['as_of'] or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:
+             unq[rid] = 'tier/status/opened/used-by'
+### M29 NEWIDS/status: status mined not required (mutant sha256 2c0b9cc66663e38dd4211eee9603c1a96da47a32770f556b689b667c33971549)
+--- pristine/measure89.py
++++ M29/measure89.py
+@@ -243,3 +243,3 @@
+             unq[rid] = 'not in lands registry'
+-        elif r[3] not in ('A', 'B') or r[7] != 'mined' or r[8] != cfg['as_of'] or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:
++        elif r[3] not in ('A', 'B') or r[8] != cfg['as_of'] or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:
+             unq[rid] = 'tier/status/opened/used-by'
+### M30 NEWIDS/opened: opened == as_of not required (mutant sha256 4f45483631ce3a457d6afa4e22184daadb1442a00496052c7263a166e46ce723)
+--- pristine/measure89.py
++++ M30/measure89.py
+@@ -243,3 +243,3 @@
+             unq[rid] = 'not in lands registry'
+-        elif r[3] not in ('A', 'B') or r[7] != 'mined' or r[8] != cfg['as_of'] or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:
++        elif r[3] not in ('A', 'B') or r[7] != 'mined' or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:
+             unq[rid] = 'tier/status/opened/used-by'
+### M31 NEWIDS/used-by: used-by not required (mutant sha256 7fa47159d3bcbd1586e3cbed8c05dd1cc83f712250457ae80cfcb0f01e48b216)
+--- pristine/measure89.py
++++ M31/measure89.py
+@@ -243,3 +243,3 @@
+             unq[rid] = 'not in lands registry'
+-        elif r[3] not in ('A', 'B') or r[7] != 'mined' or r[8] != cfg['as_of'] or c['entry'].split('corpus/', 1)[-1] not in r[10] and c['entry'] not in r[10]:
++        elif r[3] not in ('A', 'B') or r[7] != 'mined' or r[8] != cfg['as_of']:
+             unq[rid] = 'tier/status/opened/used-by'
+### M32 NEWIDS/fabricated: unregistered cited ids tolerated (mutant sha256 704c5483b51f413e84c0bbf2a844934c383025a3fa1e95c5dc91206279cef735)
+--- pristine/measure89.py
++++ M32/measure89.py
+@@ -247,3 +247,3 @@
+             qual.append(rid)
+-    out.append(leg('NEWIDS', len(qual) >= c['new_ids_min'] and not unq, '>=%d new mined A/B ids opened as_of, none fabricated' % c['new_ids_min'],
++    out.append(leg('NEWIDS', len(qual) >= c['new_ids_min'], '>=%d new mined A/B ids opened as_of, none fabricated' % c['new_ids_min'],
+                    dict(qualifying=qual, unqualified=unq)))
+### M33 NEWIDS/min: new_ids_min dropped (mutant sha256 f0f3134aa60e1e696ff56bf58031fb831af3bbad37783b8cbc8974578279d070)
+--- pristine/measure89.py
++++ M33/measure89.py
+@@ -247,3 +247,3 @@
+             qual.append(rid)
+-    out.append(leg('NEWIDS', len(qual) >= c['new_ids_min'] and not unq, '>=%d new mined A/B ids opened as_of, none fabricated' % c['new_ids_min'],
++    out.append(leg('NEWIDS', not unq, '>=%d new mined A/B ids opened as_of, none fabricated' % c['new_ids_min'],
+                    dict(qualifying=qual, unqualified=unq)))
+### M34 GATE: gate line need not carry a row URL (mutant sha256 f76a5241e8dedf42a79ccf7f0663994601e1f981152c83361627c33e1d2f6a10)
+--- pristine/measure89.py
++++ M34/measure89.py
+@@ -254,3 +254,3 @@
+         cand = [x for x in lesson if re.search(r'\b%s\b' % rid, x) and cfg['as_of'] in x
+-                and any(url_ok(u, l_rows[rid][1]) for u in urls(x)) and quote_ok(first_quote(x), cfg)]
++                and quote_ok(first_quote(x), cfg)]
+         if not cand:
+### M35 GATE: gate line need not carry as_of (mutant sha256 fbf5cbba202002a07455215af17389aaaf7786c142d8347b05a86d3372c254c5)
+--- pristine/measure89.py
++++ M35/measure89.py
+@@ -253,3 +253,3 @@
+     for rid in qual:
+-        cand = [x for x in lesson if re.search(r'\b%s\b' % rid, x) and cfg['as_of'] in x
++        cand = [x for x in lesson if re.search(r'\b%s\b' % rid, x)
+                 and any(url_ok(u, l_rows[rid][1]) for u in urls(x)) and quote_ok(first_quote(x), cfg)]
+### M36 CAPTURE: cap_bad ignored (mutant sha256 5a2e240c9d3dfc2fd008c92c139946fba23e01cc4ef976063d84abd3a2bfd080)
+--- pristine/measure89.py
++++ M36/measure89.py
+@@ -262,3 +262,3 @@
+     out.append(leg('GATE', bool(qual) and not gate_bad, 'every qualifying id has a gate line', gate_bad))
+-    out.append(leg('CAPTURE', bool(qual) and not gate_bad and not cap_bad, 'every gate quote occurs in its committed capture', cap_bad))
++    out.append(leg('CAPTURE', bool(qual) and not gate_bad, 'every gate quote occurs in its committed capture', cap_bad))
+     readme = (show(root, lands, c['readme']) or b'').decode('utf-8', errors='replace')
+### M37 INDEX/freeze-pin: index tool read from lands not freeze (mutant sha256 bd2441973f928b5f950c944afa77a5e9d82a394d8535cf665cd94b839b243e18)
+--- pristine/measure89.py
++++ M37/measure89.py
+@@ -265,3 +265,3 @@
+     row_ok = re.search(r'^- `%s` \u2014 ' % re.escape(os.path.basename(c['entry'])), readme, re.M) is not None
+-    tool = show(root, freeze, c['index_tool'])
++    tool = show(root, lands, c['index_tool'])
+     rc = None
+### M38 INDEX/readme-row: README row not required (mutant sha256 207883ae292e7ac8d5d2d544a697f12d4dfdcc74aaf678188c7c1ef684be7eb0)
+--- pristine/measure89.py
++++ M38/measure89.py
+@@ -280,3 +280,3 @@
+         shutil.rmtree(tree, ignore_errors=True)
+-    out.append(leg('INDEX', row_ok and rc == 0, 'README row and freeze-pinned index tool rc0', dict(row=row_ok, tool_rc=rc)))
++    out.append(leg('INDEX', rc == 0, 'README row and freeze-pinned index tool rc0', dict(row=row_ok, tool_rc=rc)))
+     drift = []
+### M39 APPENDONLY: tier cell (3) dropped from compared set (mutant sha256 68469128743130b537de060d345507044ba3d4b25de413409d40289ed5634c98)
+--- pristine/measure89.py
++++ M39/measure89.py
+@@ -284,3 +284,3 @@
+         lc = l_rows.get(rid)
+-        if lc is None or len(lc) != len(cells) or [cells[i] for i in (0, 1, 2, 3, 4, 5, 6, 8)] != [lc[i] for i in (0, 1, 2, 3, 4, 5, 6, 8)]:
++        if lc is None or len(lc) != len(cells) or [cells[i] for i in (0, 1, 2, 4, 5, 6, 8)] != [lc[i] for i in (0, 1, 2, 4, 5, 6, 8)]:
+             drift.append(rid)
+### M40 APPENDONLY: source cell (1) dropped from compared set (mutant sha256 8a52d844f079855c37e6b580f72b9c74637c9dddee9ffc0180524b29a2829527)
+--- pristine/measure89.py
++++ M40/measure89.py
+@@ -284,3 +284,3 @@
+         lc = l_rows.get(rid)
+-        if lc is None or len(lc) != len(cells) or [cells[i] for i in (0, 1, 2, 3, 4, 5, 6, 8)] != [lc[i] for i in (0, 1, 2, 3, 4, 5, 6, 8)]:
++        if lc is None or len(lc) != len(cells) or [cells[i] for i in (0, 2, 3, 4, 5, 6, 8)] != [lc[i] for i in (0, 2, 3, 4, 5, 6, 8)]:
+             drift.append(rid)
+### M41 refusal/lands==base: lands==base refusal removed (mutant sha256 94b5655c43531f9b5ddf6bd74ac4d9bd3f71f74510cf863ac5fbf38ddd1de678)
+--- pristine/measure89.py
++++ M41/measure89.py
+@@ -307,4 +307,2 @@
+     base = cfg['base']
+-    if lands == base:
+-        raise Refused('lands equals frozen base')
+     chain = git(root, 'rev-list', '--first-parent', lands, check=True).stdout.decode().split()
+### M42 refusal/first-parent: freeze-on-chain refusal removed (mutant sha256 9b7de23d3d72e3727be3434d1af9ba2e8ecb699d9b6ad541373a23eaf38308d8)
+--- pristine/measure89.py
++++ M42/measure89.py
+@@ -310,4 +310,2 @@
+     chain = git(root, 'rev-list', '--first-parent', lands, check=True).stdout.decode().split()
+-    if freeze not in chain:
+-        raise Refused('freeze is not on the lands first-parent chain')
+     frozen_legs = cfg['legs'][args.claim]
+### M43 refusal/LEGCOUNT: LEGCOUNT refusal removed (mutant sha256 a90d720f86cdb31b355f5b08d3e3d25f4b4d8703656ee30a0788566bf411fc77)
+--- pristine/measure89.py
++++ M43/measure89.py
+@@ -313,3 +313,3 @@
+     frozen_legs = cfg['legs'][args.claim]
+-    if frozen_legs != LEGS[args.claim]:
++    if False:
+         raise Refused('LEGCOUNT frozen %s != counter %s' % (frozen_legs, LEGS[args.claim]))
+### M44 refusal/HEX40: 40-hex syntax gate removed (mutant sha256 c54f08bffacc5f1d2da2cf7b2c4ddbc9a434bd4315a825a2255e2ac7da5a4997)
+--- pristine/measure89.py
++++ M44/measure89.py
+@@ -291,4 +291,2 @@
+ def resolve(root, rev):
+-    if not HEX40.match(rev or ''):
+-        raise Refused('not a 40-hex revision: %r' % rev)
+     p = git(root, 'rev-parse', '--verify', '-q', rev + '^{commit}')
+### M45 refusal/first-parent: first-parent dropped (any ancestry) (mutant sha256 656acf056cef61f5d86eb1598765f06157113a504ac51cc5a2020ba7083653f4)
+--- pristine/measure89.py
++++ M45/measure89.py
+@@ -309,3 +309,3 @@
+         raise Refused('lands equals frozen base')
+-    chain = git(root, 'rev-list', '--first-parent', lands, check=True).stdout.decode().split()
++    chain = git(root, 'rev-list', lands, check=True).stdout.decode().split()
+     if freeze not in chain:

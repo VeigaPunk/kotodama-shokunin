@@ -1,0 +1,16 @@
+$ measure89.py --root <clone> --freeze 1cbd0efc56edaa9394e3532fc5d8ef924f122f01 --lands e5d5da10c0efa460c8a128e44afef00d23912c2e --claim F
+rc=1
+# counter: reports/round-89/measure89.py claim F
+# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040
+# stamped revision: e5d5da10c0efa460c8a128e44afef00d23912c2e
+# evaluated revision: e5d5da10c0efa460c8a128e44afef00d23912c2e (all graded bytes via git show)
+# measured revision (lane main): 9ad00be1a48d33a4f54e1663a1d46e4590cc3438
+# tree: 32eb24e616b8587dca3f8dc0f3aae701bb672c0c
+# freeze: 1cbd0efc56edaa9394e3532fc5d8ef924f122f01
+# frozen legs: 5 (FROZENCFG,ADVANCED,BACKED,DISPOSED,OTHERCELLS)
+LEG PASS FROZENCFG expected="claims.json and counter equal to freeze blobs" observed=[]
+LEG PASS ADVANCED expected=">=10" observed=10
+LEG PASS BACKED expected="every changed population recheck backed" observed={"changed": 10, "unbacked": {}}
+LEG PASS DISPOSED expected="every population id has a LOCATED/NOT-LOCATED line" observed=[]
+LEG FAIL OTHERCELLS expected="population: only recheck changes; others: recheck unchanged" observed=["S009"]
+ACCEPT-F-89: FAIL legs=4/5
