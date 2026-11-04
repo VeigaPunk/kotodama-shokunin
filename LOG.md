@@ -4608,3 +4608,53 @@ counter; counter revisions r2–r10 are recorded with red-befores in
    was not a mutant). Sourced claim: D rests on S909–S912, all opened this round.
    Assimilation: none — no `merge/kotodama/` theme fits this round's claims and
    the lane's earlier quarantine verdicts stand.
+
+## Round 84 — 2026-11-04 (Linux/omp host; base `81499ee4`, freeze `7e6ee2f8`)
+
+One v1 wave of 12 seats (2 scout, 3 executor, 2 scribe, 1 connector, 1 reviewer,
+1 critic, 1 mutation-tester, 1 sentinel; L1 holds the planner seat). Two claims:
+**D** (depth) and **O** (operability, capability acquisition). The round-11 L0
+freshness pause stands (`l0-questions.md` line 47); no freshness move is claimed.
+
+1. **Claim D (depth) — witchcraft and sorcery as an accusation institution,
+   lands `0f19297b`.** `corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md`
+   is the 258th knowledge file (58,005 B): the vocabulary set and its translation
+   traps, the accusation grammar (standing, evidence menu, actionable threshold,
+   charge grades), the proof technology (oath-compurgation, ordeal, oracle, spectral
+   evidence, confession), the slander counter-suit, the commission's brake, and the
+   social functions of the charge; 15 sections, a six-decision table, 44 single-id
+   anchors over 25 ids, cited-lines lint 0. SOURCES 837 → 842: S914 EB11
+   "Witchcraft" (B), S915 Williams, *The Superstitions of Witchcraft* (B), S916 the
+   Bull of Innocent VIII (A), S917 Upham, *Salem Witchcraft* (B), all opened
+   2026-11-04; S918 EB11 "Sorcery" rejected (printed 71-word stub) with reason and
+   flip; 21 already-registered rows had the entry appended to `used-by`. The first
+   L1 read called the Sorcery page a body-less stub — a stripper artefact the source
+   scout caught (R84-M1); the true reason is recorded. `ACCEPT-D-84: PASS legs=10/10`.
+2. **Claim O (operability, capability acquisition) — ordered sound-law applier,
+   lands `35ffc1ce`.** `tools/apply-sound-laws.py` (26,941 B) applies an external
+   ordered rule set over a segment-tokenised lexicon, one trace line per change
+   (input-side index, word before, word after), with `--selftest` (37 checks), an
+   `apply` subcommand and labelled exit-2 refusals for six malformed/guard cases.
+   `examples/sound-laws/` carries a 16-word proto-lexicon, 7 ordered rules and the
+   expected derivation, reproduced byte-for-byte (19 changes, all 7 rules firing);
+   an L1 held-out input with four unseen words matches a hand derivation. Three
+   registry rows land (`GATE-REGISTRY: 0 missing / 77 registered / 63 instruments /
+   0 dead`; `GATE-REGISTRY-INFO: 25 tools without a row`). `ACCEPT-O-84: PASS legs=8/8`.
+   The honest before is narrower than the frozen text: `tools/check-craft-exercise.py`
+   already applies four hardcoded laws inside a bounded checker (R84-M5).
+3. **Frontier.** Census start 837 rows exit 0 (`reports/round-84/telemetry/census-start.txt`)
+   and end 842 rows exit 0 (`census-d.txt`). Rows added: A 1 (S916), B 3 (S914, S915,
+   S917), C 1 rejected (S918). Knowledge files 257 → 258. Mistakes mined: R84-M1
+   (body-probe stripper artefact), M2 (marker graded an implementation detail), M3
+   (contract/counter CLI mismatch), M4 (freeze revision after dispatch), M5
+   (overstated before-state), M6 (counter kill-power gaps), M7 (junk expectation
+   named the wrong leg). Sourced claim: D rests on S914–S917, all opened this round.
+   Assimilation: none — no `merge/kotodama/` theme fits these claims and
+   `considerthese/` does not exist in this lane.
+4. **Round records.** `corpus/lessons/round-84.md` (Gate: 4 admitted, 1 rejected,
+   21 carried; seven mistakes), `reports/round-84/counter-revisions.md` r0–r3,
+   `SCORECARD.md` round-84 section + one capability row, telemetry receipts under
+   `reports/round-84/telemetry/` and wave evidence under `.ufo/waves/round-84/`.
+   The round's attacks found 15 entry defects and 11 tool/record defects; all were
+   fixed or recorded as limits before the lands (the reviewer's D1–D16 and the
+   sentinel's F1–F14 are dispositioned in the report).

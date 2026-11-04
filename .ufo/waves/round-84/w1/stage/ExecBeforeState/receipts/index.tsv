@@ -1,0 +1,120 @@
+P0	$LANE	git rev-parse HEAD
+P0b	$LANE	date -u +%Y-%m-%dT%H:%M:%SZ
+P0c	$LANE	git log --oneline -3
+P1	$LANE	git status --porcelain | wc -l
+P2	$LANE	git status --porcelain -- tools examples corpus SKILL.md reports/round-84 | wc -l
+P3	$LANE	git rev-parse 81499ee45b5751d388fefc78583810878de01ecd
+P4	$LANE	git rev-parse 3ca2cf288fb593618e0559ea86a36e2dd3110eb8
+P5b	$LANE	git rev-parse e160a72e4adf1620e09f812b913d4ece0fcd5243
+P5c	$LANE	git rev-parse 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2
+D1a	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | grep -c "\.md$"
+D1b	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+D1c	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | grep "\.md$" | cut -d/ -f3 | sort | uniq -c | sort -k2
+D1d	$LANE	git diff --stat 81499ee45b5751d388fefc78583810878de01ecd HEAD -- corpus/knowledge
+D1e	$LANE	find $LANE/corpus/knowledge -type f -name "*.md" | wc -l
+D2a	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -cE "^ {0,3}\| *S[0-9]{3,}"
+D2b	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -cE "^ {0,3}\| *S[0-9]{3,} *\|"
+D2c	$LANE	python3 -B $STAGE/probe_counter.py $LANE 81499ee45b5751d388fefc78583810878de01ecd
+D2d	$LANE	git diff --stat 81499ee45b5751d388fefc78583810878de01ecd HEAD -- corpus/SOURCES.md
+D2e	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -cE "^ *\|"
+D2f	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -oE "^ {0,3}\| *S[0-9]{3,}" | grep -oE "S[0-9]+" | sort -V | tail -1
+D2g	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -oE "^ {0,3}\| *S[0-9]{3,}" | grep -oE "S[0-9]+" | sort | uniq -d | wc -l
+D2h	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -oE "^ {0,3}\| *S[0-9]{3,}" | grep -oE "S[0-9]+" | sort -V | head -1
+D3a	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | grep -icE "witch|witches|witchcraft|sorcer|sorcery|malefic"
+D3b	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | grep -iE "witch|witches|witchcraft|sorcer|sorcery|malefic"
+D3c	$LANE	git grep -lE "^- topic: .{0,160}\b(witchcraft|sorcery|witch|sorcerer|malefic)" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge
+D3d	$LANE	git grep -lE "^- topic: .{0,160}\b(witchcraft|sorcery|witch|sorcerer|malefic)" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+D3e	$LANE	git grep -niE "\b(witch|witches|witchcraft|sorcerer|sorcery|malefic)\b" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge
+D3f	$LANE	git grep -niE "\b(witch|witches|witchcraft|sorcerer|sorcery|malefic)\b" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+D3g	$LANE	git grep -liE "\b(witch|witches|witchcraft|sorcerer|sorcery|malefic)\b" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+D3h	$LANE	git grep -nE "^- gap filled:.*(witch|witchcraft|sorcer|sorcery|malefic)" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge
+D3i	$LANE	git grep -nE "^- gap filled:.*(witch|witchcraft|sorcer|sorcery|malefic)" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+D3j	$LANE	git grep -c "^- topic:" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+D3k	$LANE	git grep -c "^- gap filled:" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+D3l	$LANE	git grep -liE "witch|witchcraft|sorcer|malefic" 81499ee45b5751d388fefc78583810878de01ecd -- corpus reports | wc -l
+D3m	$LANE	git grep -liE "witch|witchcraft|sorcer|malefic" 81499ee45b5751d388fefc78583810878de01ecd -- corpus reports
+W1	$LANE	find corpus/knowledge -name "*.md" | grep -icE "witch|witches|witchcraft|sorcer|sorcery|malefic"
+W2	$LANE	grep -rlE "^- topic: .{0,160}\b(witchcraft|sorcery|witch|sorcerer|malefic)" corpus/knowledge | wc -l
+W3	$LANE	grep -rniE "\b(witch|witches|witchcraft|sorcerer|sorcery|malefic)\b" corpus/knowledge | wc -l
+W3b	$LANE	grep -rliE "\b(witch|witches|witchcraft|sorcerer|sorcery|malefic)\b" corpus/knowledge | wc -l
+W4	$LANE	grep -rnE "^- gap filled:.*(witch|witchcraft|sorcer|sorcery|malefic)" corpus/knowledge | wc -l
+D4a	$LANE	git cat-file -e 81499ee45b5751d388fefc78583810878de01ecd:corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md
+D4b	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge/myth-symbol | wc -l
+D4c	$LANE	test -e $LANE/corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md
+D4d	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge/myth-symbol
+O1a	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- tools examples | grep -ciE "sound.?law|soundchange"
+O1b	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- tools examples | grep -iE "sound.?law|soundchange"
+O1c	$LANE	git grep -liE "sound.?law|soundchange" 3ca2cf288fb593618e0559ea86a36e2dd3110eb8 -- reports | wc -l
+O1d	$LANE	git grep -liE "sound.?law|soundchange" 3ca2cf288fb593618e0559ea86a36e2dd3110eb8 -- reports
+O1e	$LANE	git grep -li "sound" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+O1f	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- tools examples | wc -l
+O2a	$LANE	git grep -c SOUNDLAWS 81499ee45b5751d388fefc78583810878de01ecd -- tools examples reports
+O2b	$LANE	git grep -c SOUNDLAWS 3ca2cf288fb593618e0559ea86a36e2dd3110eb8 -- tools examples reports
+O2c	$LANE	git grep -l SOUNDLAWS 3ca2cf288fb593618e0559ea86a36e2dd3110eb8 -- tools examples reports
+O2d	$LANE	git grep -c SOUNDLAW_ERROR 81499ee45b5751d388fefc78583810878de01ecd -- tools examples reports
+O3a	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- examples/sound-laws | wc -l
+O3b	$LANE	git ls-tree --name-only 81499ee45b5751d388fefc78583810878de01ecd:examples
+O3c	$LANE	git cat-file -e 81499ee45b5751d388fefc78583810878de01ecd:examples/sound-laws
+O3d	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- examples | wc -l
+O3e	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- examples | cut -d/ -f2 | sort -u
+O3f	$LANE	git cat-file -e 81499ee45b5751d388fefc78583810878de01ecd:tools/check-craft-exercise.py
+O4a	$STAGE/head	python3 -B tools/check-gate-registry.py --root .
+O4b	$LANE	python3 -B tools/check-gate-registry.py --root .
+O4c	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- tools | wc -l
+O4d	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- reports | grep -cE "^reports/round-[^/]+/accept-[^/]+\.py$"
+O4e	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:SKILL.md | grep -cE "^ {0,3}\|"
+O4f	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- tools | grep -cE "^tools/[^/]+\.py$"
+S1	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -c "| S914 |"
+S2	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -c "| S915 |"
+S3	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -c "| S916 |"
+S4	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -c "| S917 |"
+S5	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -cE "\| S91[4-7] \|"
+S6	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -cE "S91[4-9]|S9[2-9][0-9]"
+S7	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -c "S913"
+S8	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -E "^ {0,3}\| *S913"
+S9	$LANE	git show 81499ee45b5751d388fefc78583810878de01ecd:corpus/SOURCES.md | grep -E "^ {0,3}\| *S913" | awk -F"|" "{print NF-2}"
+P0d	$LANE	git rev-parse HEAD
+P0e	$LANE	date -u +%Y-%m-%dT%H:%M:%SZ
+P5	$LANE	git cat-file -e 81499ee45b5751d388fefc78583810878de01ecd:reports/round-84/claims.json
+P6	$LANE	git merge-base --is-ancestor 81499ee45b5751d388fefc78583810878de01ecd HEAD
+P7	$LANE	git merge-base --is-ancestor 3ca2cf288fb593618e0559ea86a36e2dd3110eb8 HEAD
+P8	$LANE	git diff --stat 81499ee45b5751d388fefc78583810878de01ecd HEAD -- tools examples
+P9	$LANE	git diff --stat 81499ee45b5751d388fefc78583810878de01ecd HEAD -- SKILL.md
+B1	$LANE	python3 -B $STAGE/probe_before_legs.py $LANE 81499ee45b5751d388fefc78583810878de01ecd
+O1g	$LANE	git grep -liE "sound.?law|soundchange" 81499ee45b5751d388fefc78583810878de01ecd -- tools | wc -l
+O1h	$LANE	git grep -liE "sound.?law|soundchange" 81499ee45b5751d388fefc78583810878de01ecd -- tools examples
+O1i	$LANE	git grep -liE "sound.?law" 81499ee45b5751d388fefc78583810878de01ecd -- examples | wc -l
+O1j	$LANE	git grep -liE "sound.?law|soundchange" 81499ee45b5751d388fefc78583810878de01ecd -- reports | wc -l
+O4g	$STAGE/base	python3 -B tools/check-gate-registry.py --root .
+O4h	$LANE	git ls-tree -r --name-only 81499ee45b5751d388fefc78583810878de01ecd -- reports | grep -cE "^reports/round-84/"
+SW1	$LANE	grep -c "| S914 |" corpus/SOURCES.md
+SW2	$LANE	grep -c "| S915 |" corpus/SOURCES.md
+SW3	$LANE	grep -c "| S916 |" corpus/SOURCES.md
+SW4	$LANE	grep -c "| S917 |" corpus/SOURCES.md
+SW5	$LANE	grep -cE "\| S91[4-7] \|" corpus/SOURCES.md
+V1	$STAGE	printf "%s\n" sandwich switch bewitched | grep -cE "\bwitch\b"
+V2	$STAGE	printf "%s\n" "a witch" "witches" | grep -cE "\bwitch\b"
+V3	$LANE	git grep -c "switch" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+V4	$LANE	printf "%s\n" "witch mark" "witchcraft" "sorcery" | grep -cE "(witch|witchcraft|sorcer|sorcery|malefic)"
+V5	$LANE	git grep -cE "^- gap filled:.*(witch|witchcraft|sorcer|sorcery|malefic)" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge
+V6	$LANE	git grep -nE "^- gap filled:.*\b(witch|witchcraft|sorcerer|sorcery|malefic)\b" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge
+V7	$LANE	git grep -nE "^- gap filled:.*\b(witch|witchcraft|sorcerer|sorcery|malefic)\b" 81499ee45b5751d388fefc78583810878de01ecd -- corpus/knowledge | wc -l
+P1b	$LANE	git status --porcelain
+P1c	$LANE	git rev-list --count 3ca2cf288fb593618e0559ea86a36e2dd3110eb8..HEAD
+X1	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/claims.json | grep -c "\-\-selftest"
+X2	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/accept-o84.py | grep -n "\"--selftest\""
+X3	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/accept-o84.py | grep -n "SOUNDLAW_ERROR"
+X4	$LANE	git show 3ca2cf288fb593618e0559ea86a36e2dd3110eb8:reports/round-84/claims.json | grep -n "decision_heading\|\"anchors_heading\""
+X5	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/claims.json | grep -n "decision_heading\|\"anchors_heading\""
+X6	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/claims.json | grep -n "\"shape_markers\"" -A 4
+X7	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/accept-o84.py | grep -c "min_trace_columns\|semantics"
+X8	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/claims.json | grep -n "min_trace_columns\|\"semantics\""
+X9	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/accept-d84.py | grep -n "SID = \|ROW_LINE = \|LINT_SUMMARY = "
+X10	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/accept-d84.py | sed -n "163,180p"
+X11	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/counterlib.py | sed -n "138,156p"
+X12	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/accept-d84.py | sed -n "204,222p"
+X13	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/accept-o84.py | sed -n "197,215p"
+X14	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/claims.json | grep -n "min_selftest_checks\|min_changes\|min_rules_fired\|min_decision_rows\|min_anchors"
+X15	$LANE	git show 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2:reports/round-84/claims.json | grep -n "\"own_paths\"" -A 3
+X16	$LANE	git diff --stat 3ca2cf288fb593618e0559ea86a36e2dd3110eb8 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2 -- reports/round-84
+X17	$LANE	git log --oneline 3ca2cf288fb593618e0559ea86a36e2dd3110eb8..7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2

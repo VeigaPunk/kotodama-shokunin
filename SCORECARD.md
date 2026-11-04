@@ -64,6 +64,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | replace-ref fixture builder | Completes the round-80 `junk-replacerefs.json` template into a real graded fixture (fills both 40-hex placeholders, adds `observe.line`, sets stated values to the shadowed view) and re-derives the r80 receipt pair from committed bytes: r79 bytes exit 0 `PASS pairs=1` (the replace-shadowed lie blessed), hardened bytes exit 2 `REFUSED --repo carries refs/replace entries` | `python -B reports/round-81/fixtures/replacerefs/build-fixture.py --repo <lane> --old-rev a8aaece… --hard-rev <40hex> --work <scratch>` → `REPLACEREFS-FIXTURE: PASS` (`reports/round-81/telemetry/replacerefs-at-tip.txt`) | round 81 |
 | registry recheck-cadence auditor | Derives the lane's registry recheck queue from committed `SOURCES.md` bytes at a given date: parses the 11-cell rows under the census grammar (0-3 leading spaces), turns `NNd` into opened+N days, ISO dates into themselves and `on-release` into an exempt cadence, prints `RECHECK-QUEUE: <due> due / <upcoming> upcoming / <on-release> on-release / <rows> rows` plus one `DUE <id> <date>` line per due row, and refuses a malformed row or unparseable cadence with exit 2 and a `RECHECK-ERROR` line, no traceback; 13-check selftest, population-modular | `python -B tools/check-sources-recheck.py --as-of 2026-11-04 --window 90` → `RECHECK-QUEUE: 0 due / 18 upcoming / 14 on-release / 827 rows` (frozen registry); `--selftest` → `SELFTEST: PASS (13 checks)`; `ACCEPT-O-82: PASS legs=7/7` (`reports/round-82/telemetry/lands-o82-graded.txt`) | round 82 |
 | gate-registry coverage auditor | Enumerates every committed `reports/round-*/accept-*.py` counter, parses the `SKILL.md` `## Gates and probes` table under the census grammar, and reports unregistered counters, dead entry-command paths and the unregistered-tool count (informational, never graded); one summary line, `--json`, and a selftest over 15 fixture checks | `python -B tools/check-gate-registry.py --root .` → `GATE-REGISTRY: 0 missing / 74 registered / 61 instruments / 0 dead`; `--selftest` → `SELFTEST: PASS (15 checks)`; `python -B reports/round-83/accept-o83.py --lands 0f088572 --freeze 29f4b6a5 --work <scratch>` → `ACCEPT-O-83: PASS legs=8/8` | round 83 |
+| ordered sound-law applier | Applies an external ordered rule set to a segment-tokenised proto-lexicon, one trace line per change, with a committed two-era example and a 37-check selftest | `python -B tools/apply-sound-laws.py --selftest`; `python -B tools/apply-sound-laws.py apply --rules examples/sound-laws/rules.json --input examples/sound-laws/proto-lexicon.tsv --out /dev/null`; `reports/round-84/accept-o84.py` (legs=8/8) | round 84 |
 | cited-record checker | Scans a lane tree's round receipts (`reports/round-<k>/**/*.md|*.txt` and the round lesson) for a backticked cited path that resolves to a 0-byte file (`EMPTY`) and for absolute temporary/scratch roots (`SCRATCH`), prints `CITED-RECORDS: <n> empty / <m> scratch`, and fails on either; a token that does not resolve is not a finding (a path list is not a citation) | `python -B tools/check-cited-records.py --root .` → `CITED-RECORDS: 0 empty / 0 scratch`; at base with `--from-round 82 --bind-round 82` → `2 empty / 7 scratch`, exit 1; `--selftest` → `SELFTEST: PASS (12 checks)` | round 83 |
 
 ## Axes — round 6 final integration (2026-10-17)
@@ -1713,3 +1714,34 @@ the 7/8 first lands and three 3/3 junk batteries on file); no axis is harmed —
 freshness paused (round-11 L0), coverage/adjacency unchanged, PROVINCE.md
 untouched. Capability rows `gate-registry coverage auditor` and `cited-record
 checker` enter `## Capabilities` this round.
+
+## Axes — round 84 (2026-11-04, Linux/omp host; author-side, pending non-author closure)
+
+Base `81499ee45b5751d388fefc78583810878de01ecd`; freeze
+`7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2` (r2; r0 `3ca2cf28` and r1 `e160a72e` are
+recorded with their red-befores in `reports/round-84/counter-revisions.md`). Claim D
+lands `0f19297b295a59dacde15400d2382f73d38c4086`; claim O lands
+`35ffc1ce7966d25481016a239e43069e6dfc2272`. Do-nothing control: at `--lands` = base
+both counters refuse, exit 2 (`reports/round-84/telemetry/controls-d.txt`,
+`controls-o.txt`): a control that lands nothing cannot add the entry, open a row or
+acquire the tool. One v1 wave of 12 seats (2 scout, 3 executor, 2 scribe,
+1 connector, 1 reviewer, 1 critic, 1 mutation-tester, 1 sentinel; the L1 holds the
+canonical planner seat). The round-83 verifier spot-check routed no defect to this
+round; the round's own attacks (reviewer, critic, mutation tester, sentinel) found
+15 entry defects and 11 tool/record defects, all dispositioned before the lands.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| depth | improved (claim D) | no knowledge file owned the surface at base (filename sweep 0 of 257; 0 owning topic lines; 19 occurrence lines in 11 files, all passing) → `corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md` lands as the 258th knowledge file, 58,005 B, 15 sections, 6 decision rows, 44 single-id anchors over 25 ids, cited-lines lint 0; SOURCES 837 → 842 (S914–S917 mined, S918 rejected) | `python -B reports/round-84/accept-d84.py --root . --lands 0f19297b --freeze 7e6ee2f8 --work <scratch>` → `ACCEPT-D-84: PASS legs=10/10`, exit 0; junk `PASS 3/3` | `reports/round-84/telemetry/lands-d84.txt`, `junk-d84-r3.txt`, `controls-d.txt`; Gate in `corpus/lessons/round-84.md` |
+| operability | improved (claim O — capability acquisition: ordered sound-law applier) | no general rule-set-driven applier existed (`tools/check-craft-exercise.py:45-75` applies four hardcoded laws inside a bounded checker; the frozen before-text overstated this and is corrected in the report) → `tools/apply-sound-laws.py` lands (26,941 B; `--selftest` 37 checks), the committed example (16 words / 7 ordered rules) is reproduced byte-for-byte with 19 traced changes and all 7 rules firing, 6 malformed/guard cases exit 2 with a `SOUNDLAW_ERROR` label, and three registry rows land (`GATE-REGISTRY: 0 missing / 77 registered / 63 instruments / 0 dead`) | `python -B reports/round-84/accept-o84.py --root . --lands 35ffc1ce --freeze 7e6ee2f8 --work <scratch>` → `ACCEPT-O-84: PASS legs=8/8`, exit 0; junk `PASS 3/3`; held-out input matches the hand derivation | `reports/round-84/telemetry/lands-o84.txt`, `.ufo/waves/round-84/w1/stage/L1/junk-o84.txt`, `controls-o.txt`; `stage/L1/heldout.*`, `stage/L1/fixture-o.txt` |
+| calibration | improved (unclaimed observation) | the round's own frozen before-text for O named an absence that `tools/check-craft-exercise.py` partly fills (mistake R84-M5), a frozen shape marker graded an implementation detail (R84-M2, fixed at r2), and a freeze revision landed post-dispatch (R84-M4, corrected in the record); the critic's kill-power findings (R84-M6) are recorded as limits with a held-out-input check instead of a post-data rule change | `python -B reports/round-84/accept-o84.py ... --junk`; `stage/L1/heldout.*` | `corpus/lessons/round-84.md` `## Mistakes`; `reports/round-84/counter-revisions.md` r0–r3 |
+| coverage / freshness / adjacency | unchanged | coverage: the entry and the tool are the D/O moves themselves; no README index row was added (the index reconciliation remains standing work, as at r83); freshness: four sources opened but no existing entry re-verified — the round-11 L0 pause stands; adjacency: `ConnectorOverlap` found no sibling owner for either surface (lore is the one-way canon target) and `PROVINCE.md` is byte-identical across base..lands | `git diff-tree -r --name-status 81499ee4 35ffc1ce -- PROVINCE.md` empty; `stage/ConnectorOverlap/overlap.md` | `stage/ConnectorOverlap/overlap.md` §1–§3; census start/end exit 0 |
+
+Admission (author-side): claims D and O verify (each counter re-derived green at its
+own lands with the r2 bytes; red-befores, do-nothing refusals and two 3/3 junk
+batteries on file); no axis is harmed — freshness paused (round-11 L0),
+coverage/adjacency unchanged, `PROVINCE.md` untouched. Capability row
+`ordered sound-law applier` enters `## Capabilities` this round. The known limits
+are named in the lesson (ANCHORS tolerates one malformed bullet above its floor;
+`SOURCED` does not verify id membership; `ROWS` grades three cells; `DEMO` runs one
+input — offset by the L1 held-out check).

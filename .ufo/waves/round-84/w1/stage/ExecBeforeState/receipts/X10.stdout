@@ -1,0 +1,18 @@
+            if len(found) != 1 or found[0] in bad:
+                bad.append(line[:60])
+                continue
+            bullets += 1
+            ids.add(found[0])
+        ok = (len(bad) == 0 and bullets >= block["min_anchors"] and len(ids) >= block["min_distinct_ids"])
+        return ok, "bullets=%d/%d ids=%d/%d malformed=%d" % (
+            bullets, block["min_anchors"], len(ids), block["min_distinct_ids"], len(bad))
+
+    def lint():
+        rc, out, err = C.run_py(os.path.join(tree, block["cited_lines_tool"]), [entry], cwd=tree)
+        hit = C.one_line(out, LINT_SUMMARY.pattern)
+        if hit is None:
+            return False, "no CITED-LINES summary: %r" % ((out or err).strip()[:160])
+        k = int(re.match(LINT_SUMMARY.pattern, hit).group(1))
+        return (rc == 0 and k == 0, "rc=%d findings=%d line=%r" % (rc, k, hit[:80]))
+
+    def rows_leg():

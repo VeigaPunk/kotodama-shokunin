@@ -1,0 +1,19 @@
+def claim_span(root, base, lands, own_paths):
+    """Return (first_claim_commit, parent) for the commits in base..lands that touch an own path.
+
+    A claim may need a corrected lands (a second commit that fixes its own artifact);
+    separability is then judged over the claim's own commits from the first one that
+    touches its paths, and foreign paths must be byte-identical at that commit's parent
+    and at lands.
+    """
+    own = [p.rstrip("/") for p in own_paths]
+    for c in gout(root, "rev-list", "--reverse", "%s..%s" % (base, lands)).split():
+        touched = changed_paths(root, c + "^", c)
+        if any(any(t == p or t.startswith(p + "/") for p in own) for t in touched):
+            return c, gout(root, "rev-parse", c + "^").strip()
+    raise RuntimeError("no commit touching a claim path in %s..%s" % (base, lands))
+
+
+def blob_sha(root, rev, path):
+    r = run(root, "rev-parse", "%s:%s" % (rev, path))
+    return r.stdout.decode().strip() if r.returncode == 0 else None

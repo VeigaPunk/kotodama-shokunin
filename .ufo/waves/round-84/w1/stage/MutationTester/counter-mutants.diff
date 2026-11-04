@@ -1,0 +1,38 @@
+== C-D-anchors (accept-d84.py) ==
+--- reports/round-84/accept-d84.py
++++ reports/round-84/accept-d84.py (C-D-anchors)
+@@ -160,7 +160,7 @@
+             if not line.startswith("- "):
+                 continue
+             found = SID.findall(line)
+-            if len(found) != 1 or found[0] in bad:
++            if len(found) == 0 or found[0] in bad:
+                 bad.append(line[:60])
+                 continue
+             bullets += 1
+
+== C-O-demo (accept-o84.py) ==
+--- reports/round-84/accept-o84.py
++++ reports/round-84/accept-o84.py (C-O-demo)
+@@ -138,7 +138,7 @@
+             return False, "apply exit %d" % rc
+         got = open(out_path, "rb").read() if os.path.exists(out_path) else b""
+         want = C.show(root, lands, block["expected_path"]) or b""
+-        if got != want:
++        if False and got != want:
+             return False, "derived != expected (%d vs %d bytes)" % (len(got), len(want))
+         if not os.path.exists(trace_path):
+             return False, "no trace file"
+
+== C-O-registry (accept-o84.py) ==
+--- reports/round-84/accept-o84.py
++++ reports/round-84/accept-o84.py (C-O-registry)
+@@ -189,7 +189,7 @@
+         miss, reg, ins, dead = (int(x) for x in re.match(block["gate_re"], gl).groups())
+         unrowed = int(re.match(block["info_re"], il).group(1))
+         ok = (rc == 0 and miss == 0 and dead == 0 and reg >= block["min_registered_rows"]
+-              and ins >= block["min_instruments_at_lands"] and unrowed <= block["max_unrowed_tools"])
++              and ins >= block["min_instruments_at_lands"] and True)
+         return ok, "gate=(%d,%d,%d,%d) unrowed=%d floors=(%d,%d,%d)" % (
+             miss, reg, ins, dead, unrowed, block["min_registered_rows"],
+             block["min_instruments_at_lands"], block["max_unrowed_tools"])

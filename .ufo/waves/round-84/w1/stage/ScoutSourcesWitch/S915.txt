@@ -1,0 +1,145 @@
+S915 — "Sorcery", Encyclopaedia Britannica, 11th edn, vol. 25 (BRIEFED CANDIDATE: fails); substitute opened and
+measured: Project Gutenberg #22822, Howard Williams, "The Superstitions of Witchcraft" (1865)
+second reading by ScoutSourcesWitch (round 84, wave 1); opened 2026-11-04
+row target: corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md (used-by)
+status: mined (on the substitute; the briefed candidate is rejected)
+
+1. FETCH — the briefed candidate, as served
+url            https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Sorcery
+http           200 (plain request shape) and 200 (browser-shaped request shape)
+bytes          60730 and 60730 — byte-identical under both shapes
+sha256         2c4092db343fa6274f3f5edccbb72016cf5e9ead485fd7024b3fc83644a84726 (both shapes)
+content-type   text/html; charset=UTF-8
+revision       Wikisource oldid=11974381; page footer "This page was last edited on 26 December 2021, at 15:48"
+work marker    1911 Encyclopædia Britannica, Volume 25, p. 431 (Page:EB1911 - Volume 25.djvu/447, section "s4",
+               pagequality level 1); the page header reads "SORBS-SORDINO" and the article sits between
+               SORBONNE and SORDELLO
+capture        Wayback CDX row 20111104071707, status 200, digest IWLBPP7STKHFWDFMWTMMU2Q4SUIY7WOV.
+               Not fetched to bytes; the live bytes are the evidence and the capture pre-dates the current
+               revision. The availability API returned 429; the CDX endpoint answered 200.
+
+2. WHAT THE BRIEFED CANDIDATE ACTUALLY CONTAINS — the correction that matters
+   The article body IS present in the served bytes. It is not truncated, and it is not a template shell. The
+   complete body is 452 characters and 71 words, and it is this, in full:
+
+   "SORCERY, magic, enchantment, witchcraft; the use of supposed supernatural powers by the agency of evil
+   spirits called forth by spells, incantations, &c., on the part of the magician, sorcerer or witch. The word
+   meant originally divination by means of the casting or drawing of lots, and is derived from the O. Fr.
+   sorcerie, sorcier, a sorcerer, Med. Lat. sortiarius, one who practises divination by lots, sortes (see
+   Magic, Divination and Witchcraft)."
+
+   Trap: the served HTML injects the unexpanded Proofreadpage payload as literal JSON at the transclusion
+   point, immediately after "sorci" the payload begins, so a stripper that keeps script/JSON spans prints
+   "...sorci …" and the article looks cut off mid-word. It is not: "Med. Lat. sortiarius" is present in the
+   same bytes (the raw HTML carries "Med.&nbsp;Lat." so a search for "Med. Lat." with a plain space returns 0).
+   The body also carries "</b>" inside the first clause and "&amp;c." for "&c.", which is why a whitespace-
+   collapsed search of the served HTML fails on an excerpt that starts before "magic".
+
+   Why the row cannot stand on it: it is a 71-word dictionary definition, and it contains nothing about
+   accusation, procedure, proof, confession or law. Term counts over the 71-word body (case-insensitive,
+   substring), all zero: accus 0, trial 0, tortur 0, confess 0, evidenc 0, punish 0, law 0, court 0, judic 0,
+   witness 0, slander 0, heresy 0, inquisit 0. Two candidate quotes with one on procedure/accusation are
+   impossible: there is exactly one sentence of content and it is definitional.
+   For contrast, measured the same way: the S914 article yields trial 10, inquisit 13, tortur 8, confess 2,
+   evidenc 5, punish 6, law 8, heresy 6 over 4458 words.
+
+   Candidate quote that does exist (the only one):
+   excerpt (17 words): "the use of supposed supernatural powers by the agency of evil spirits called forth by
+   spells, incantations"
+   locator: s.v. "SORCERY", p. 431
+   counts: served html raw 1 / ws 1 / fold 1; extracted text raw 1 / ws 1 / fold 1; proofread page raw 1 /
+   ws 1 / fold 1.
+   The procedure/accusation slot: none. Probe phrase "the manner of the accusation and the form of the trial"
+   counts 0 in all three measures. This is an absence in the source, not a missed locator.
+
+3. SUBSTITUTE OPENED AND MEASURED — Howard Williams, "The Superstitions of Witchcraft" (1865)
+url            https://www.gutenberg.org/cache/epub/22822/pg22822.txt
+http           200 (plain request shape) and 200 (browser-shaped request shape)
+bytes          450230 and 450230 — byte-identical under both shapes
+sha256         884075101bb1ce9d975faff86d09a6a9851c46560e966ca75d8038b050c003c4 (both shapes)
+content-type   text/plain
+edition marker  header: Title "The Superstitions of Witchcraft"; Author "Howard Williams"; Release date
+               "October 1, 2007 [eBook #22822]"; Credits "E-text prepared by Julie Barkley, Suzan Flanagan,
+               and the Project Gutenberg Online Distributed Proofreading Team". Title page: "HOWARD WILLIAMS,
+               M.A., St. John's College, Cambridge", "London: Longman, Green, Longman, Roberts, & Green. 1865."
+structure      71,246 words; PART I-III with numbered chapters; the table of contents carries page numbers
+               (Part II ch. v begins p. 168); the body carries no page markers, so the locator is
+               part + chapter + paragraph opening + the TOC page.
+capture        Wayback CDX rows include 20240323002858 (https, text/plain, status 200, digest
+               MPCTI2BELHW3CCV4LJKGITCSSNOIGJ4X). Fetched raw: HTTP 200, 450222 bytes, sha256
+               cd07c92d880022a471a8546369b13bc48e6c3ce9bab17463562f0f84d9bd3bb4. Not byte-identical to live
+               (the capture opens with a byte-order mark and differs by 8 bytes overall), but both candidate
+               quotes below verify in the capture at ws 1 and fold 1 — the capture corroborates the quoted
+               spans, not the byte count.
+
+   C1 — practice/institution, and the sharpest accusation-grammar sentence in the round
+   excerpt (25 words): "Previously to the 'Witch Act,' the charge of sorcery was, in most cases, a subordinate
+   and subsidiary one, attached to various political or other indictments."
+   full sentence (the source continues): "Henceforward the practice of the peculiar offence might be entirely
+   independent of any more substantial accusation."
+   locator: Part II, ch. v ("The Witch-Act of 1604 — James VI.'s 'Demonologie' — ..."), pp. 168-185 by the
+   TOC; the paragraph opening "Previously to the 'Witch Act'"; the preceding footnote is numbered [118]
+   counts: served bytes raw 0 / ws 1 / fold 1; capture raw 0 / ws 1 / fold 1 (raw 0 from line wrapping)
+   teaching: the statute is the hinge that detaches a witchcraft charge from the political indictment it used
+   to ride on — the accusation becomes self-standing. This is the "accusation grammar" scope stated as a
+   before/after, and it is a use-of-law claim no other row in this round makes.
+
+   C2 — procedure/proof technology
+   excerpt (19 words): "Fifty persons were found to bear witness; and he was put to the rack, which elicited
+   an unreserved confession."
+   full sentence: as excerpted; it is part of the Gilles Garnier case (Dole, 18 January 1573), immediately
+   followed by the court's death sentence quoted verbatim.
+   locator: Part II, ch. v, the lycanthropy paragraph on "Gilles Garnier"; footnote [119] follows the sentence;
+   TOC page 168ff
+   counts: served bytes raw 0 / ws 1 / fold 1; capture raw 0 / ws 1 / fold 1
+   teaching: the full proof chain in one sentence — witness count, then the rack, then confession, then
+   sentence. It supplies the confession clause the Malleus body would have carried.
+
+   Also measured, for the entry's slander/law scope: the same chapter's "the charge of sorcery was ... a
+   subordinate and subsidiary one" plus the 1736 repeal passage ("Repeal of the Witch Act in England", TOC
+   p. 171) give the repeal side of the legal arc. Term counts over the whole book: accus 70, trial 59,
+   tortur 50, confess 81, evidenc 52, punish 37, law 83, court 49, judic 69, witness 26, slander 1, heresy 18,
+   inquisit 21 over 71,246 words.
+
+4. SECOND SUBSTITUTE CHECKED (named spare; NOT used this round — L1, 2026-11-04) — King James VI,
+   "Daemonologie" (1597)
+url            https://www.gutenberg.org/cache/epub/25929/pg25929.txt
+http           200 both shapes; bytes 173438 both; sha256
+               f890c288a32775db74a513e1e74bf918974d1d5c7500a9619895e06be6362169
+edition marker  Release date "June 29, 2008 [eBook #25929]"; most recently updated "June 20, 2020"
+capture        Wayback CDX 20240321092705, status 200, digest ALPIGKB5J3VDB54BFL2CXVZ3LHVDGLX7
+content        Book II, Chap. VI, "Of the tryall and punishment of Witches. What sorte of accusation ought to
+               be admitted against them. What is the cause of the increasing so far of their number in this
+               age." Book II ch. vi carries both the interrogation rule and the two "helpes" for trial.
+   F1 excerpt (14 words): "the one is the finding of their marke, and the trying the insensiblenes thereof"
+      counts: served bytes raw 0 / ws 1 / fold 1 (Early Modern spelling and line wrapping)
+   F2 excerpt (21 words): "the consulters, trusters in, ouer-seers, interteiners or sturrers vp of these
+      craftes-folkes, are equallie guiltie with themselues that are the practisers"
+      counts: served bytes raw 0 / ws 1 / fold 1
+   This is the stronger text for the proof-technology and guilt-by-association scopes, but it is Early Modern
+   Scots-English and a whole-book swap; Williams is the closer match to the briefed row (a 19th-century
+   narrative history with page locators), which is why the L1 settled the row on it.
+   Williams is the S915 row. Daemonologie stays a named spare: measured, quoted, and not used this round.
+
+5. ACCESS LIMITS AND CAVEATS
+   — The briefed Wikisource page renders correctly; the only trap is the injected template payload (see 2).
+   — The 1911 "Sorcery" article is a printed stub, not a damaged transcription: the proofread page at
+     Page:EB1911 - Volume 25.djvu/447 (pagequality level 1, i.e. not yet proofread against the scan) carries
+     the same 71 words. Level 1 means the text has not been validated against the page image; for a 71-word
+     definition that risk is negligible, for anything longer it would not be.
+   — Williams' body has no page markers: a locator must name part, chapter, the paragraph's opening words and
+     the TOC page. Do not invent a page number inside the chapter.
+   — The Williams capture is not byte-identical to live (byte-order mark, 8 bytes); cite it as corroboration of
+     the quoted spans only.
+   — Both Gutenberg files are plain text with straight quotes and underscores for italics; quotes lifted into
+     the entry must keep the straight apostrophe in "'Witch Act'" or they will not match.
+
+6. VERDICT
+   briefed candidate: rejected. It is a 71-word definition with zero procedure/accusation content; a row built
+   on it could not satisfy claim D's "one about procedure/accusation" and could not cite three of four scopes.
+   substitute: usable. Williams is a 71,246-word history with chapter-level page locators, a statute hinge,
+   a full proof chain, and a 1736 repeal passage.
+   suggested anchor cell: Part II ch. v, pp. 168-185 (TOC), paragraphs "Previously to the 'Witch Act'" and
+   "Gilles Garnier" (footnotes [118] and [119]).
+   suggested teaches cell: the 1604 statute made sorcery a self-standing capital charge detached from political
+   indictment, and the proof chain ran witness count -> rack -> unreserved confession -> sentence.

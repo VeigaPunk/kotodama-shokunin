@@ -1,0 +1,51 @@
+Reproducibility check for the ExecBeforeState measurement
+=========================================================
+
+The four receipts in this directory were produced by `method/run.sh`,
+`method/run2.sh` and `method/run3.sh` (normalised copies; `${STAGE:?}` stands
+for a writable scratch directory, `${LANE:?}` for the lane repository root,
+and the tip materialisation is pinned to 7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2).
+
+Re-run:
+
+    STAGE=/some/writable/dir LANE=<lane-root> bash method/run.sh
+    STAGE=/some/writable/dir LANE=<lane-root> bash method/run2.sh
+    STAGE=/some/writable/dir LANE=<lane-root> bash method/run3.sh
+
+(the three helper programs `probe_counter.py`, `probe_before_legs.py` and
+`materialize.py` must be present in `$STAGE`).
+
+Comparison rule used here: for every `<id>.stdout` in `receipts/` except the
+nine entries that read the clock, the lane HEAD or the live worktree
+(`P0`, `P0b`, `P0c`, `P0d`, `P0e`, `P1`, `P1b`, `P1c`, `O4b`), compare the
+bytes with the re-run's `<id>.stdout`.
+
+Comparison program:
+
+    import os, sys
+    rec, raw = sys.argv[1:3]
+    skip = {"P0","P0b","P0c","P0d","P0e","P1","P1b","P1c","O4b"}
+    bad, n = [], 0
+    for name in sorted(os.listdir(rec)):
+        if not name.endswith(".stdout"):
+            continue
+        eid = name[:-7]
+        if eid in skip:
+            continue
+        a = open(os.path.join(rec, name), "rb").read()
+        p = os.path.join(raw, name)
+        b = open(p, "rb").read() if os.path.exists(p) else b"<absent>"
+        n += 1
+        if a != b:
+            bad.append((eid, len(a), len(b)))
+    print("compared=%d mismatches=%d" % (n, len(bad)))
+    for x in bad:
+        print("MISMATCH", x)
+
+Observed:
+
+    compared=111 mismatches=0
+
+That is: every base-state, instrument and counter-leg reading in this receipt
+set is reproducible from the committed method; only the deliberately
+time-, HEAD- and worktree-dependent entries differ.

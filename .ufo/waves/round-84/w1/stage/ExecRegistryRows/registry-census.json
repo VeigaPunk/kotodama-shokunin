@@ -1,0 +1,155 @@
+{
+ "seat": "ExecRegistryRows",
+ "wave": "kotodama-r84-v1",
+ "base": "81499ee45b5751d388fefc78583810878de01ecd",
+ "freeze": {
+  "head": "7e6ee2f8f7b54dbeecf42cfe96050e533a86a6e2",
+  "revision": "r2",
+  "committed": "2026-11-04T10:31:06-03:00",
+  "dispatched_brief_quoted": "3ca2cf288fb593618e0559ea86a36e2dd3110eb8",
+  "note": "Rows pin r2 because accept-d84/accept-o84 grade FROZENCFG by comparing the --freeze claims.json bytes to the lands bytes; r0/r1 freeze tokens would fail at an r2 lands. Counter code is byte-identical r0..r2."
+ },
+ "census_commands": [
+  "git show $B:SKILL.md | awk '/^## Gates and probes$/{f=1;next} /^## /{if(f)exit} f&&/^\\|/{n++} END{print n-2}'",
+  "git show $B:SKILL.md | awk '/^## Gates and probes$/{f=1;next} /^## /{if(f)exit} f&&/^\\|/{print; c++; if(c==2)exit}' | awk -F'|' '{print NF-2}'",
+  "git ls-tree -r --name-only $B -- reports | grep -cE '^reports/round-[^/]+/accept-[^/]+\\.py$'",
+  "comm -23 <(git ls-tree -r --name-only $B -- reports | grep -E '^reports/round-[^/]+/accept-[^/]+\\.py$' | sort -u) <(cells | grep -oE 'reports/round-[^/]+/accept-[^/]+\\.py' | sort -u) | wc -l",
+  "comm -23 <(cells | grep -oE '(tools|reports)/[A-Za-z0-9_./-]+\\.py' | sort -u) <(git ls-tree -r --name-only $B | sort -u) | wc -l",
+  "comm -23 <(git ls-tree -r --name-only $B -- tools | grep -E '^tools/[^/]+\\.py$' | sort -u) <(cells | grep -oE '(tools|reports)/[A-Za-z0-9_./-]+\\.py' | sort -u) | wc -l",
+  "mkdir -p base-export && git archive $B | tar -x -C base-export && python3 base-export/tools/check-gate-registry.py --root base-export"
+ ],
+ "census": {
+  "section_heading_line": 619,
+  "table_first_line": 648,
+  "table_last_line": 723,
+  "table_lines": 76,
+  "data_rows": 74,
+  "header_cells": 8,
+  "header": [
+   "name",
+   "kind",
+   "entry command",
+   "verdict map",
+   "self-test",
+   "pinned values",
+   "write scope",
+   "owner"
+  ],
+  "separator_cells": 8,
+  "separator_valid": true,
+  "data_cell_distribution": {
+   "8": 68,
+   "9": 6
+  },
+  "nine_cell_rows": [
+   "accept-c-66",
+   "accept-ca-66",
+   "accept-o-66",
+   "accept-c-67",
+   "accept-ca-67",
+   "accept-o-67"
+  ],
+  "nine_cell_extra": "a literal pipe inside the verdict cell (PASS|FAIL); a naive split yields 9 cells; the checker tolerates it; the drafted rows spell the alternatives separately and parse to 8",
+  "kind_distribution": {
+   "gate": 71,
+   "gate (bounded example)": 1,
+   "note": 1,
+   "probe": 1
+  },
+  "non_table_lines_in_band": [],
+  "instruments": 61,
+  "unrowed_instruments": [],
+  "dead_tokens": [],
+  "tools_py": 30,
+  "tools_without_rows": 25,
+  "sources_registry": {
+   "path": "corpus/SOURCES.md",
+   "heading_line": 26,
+   "header_line": 28,
+   "rows": 837,
+   "cell_distribution": {
+    "11": 837
+   }
+  }
+ },
+ "house_checker_base_export": {
+  "line": "GATE-REGISTRY: 0 missing / 74 registered / 61 instruments / 0 dead",
+  "info": "GATE-REGISTRY-INFO: 25 tools without a row",
+  "exit": 0
+ },
+ "rows_file": {
+  "path": ".ufo/waves/round-84/w1/stage/ExecRegistryRows/rows.md",
+  "lines": 3,
+  "sha256": "decb92bf4b4acdd735e9d7b7227af4c3b7168cad0d84f48b5c723ac2570e1421"
+ },
+ "drafted_rows": [
+  {
+   "name": "apply-sound-laws",
+   "kind": "gate (capability)",
+   "cells": 8,
+   "py_tokens": [
+    "tools/apply-sound-laws.py"
+   ],
+   "resolves_at_base": false,
+   "resolves_at_freeze": false,
+   "status": "new tool lands with this row"
+  },
+  {
+   "name": "accept-d-84",
+   "kind": "gate",
+   "cells": 8,
+   "py_tokens": [
+    "reports/round-84/accept-d84.py"
+   ],
+   "resolves_at_base": false,
+   "resolves_at_freeze": true,
+   "status": "frozen counter"
+  },
+  {
+   "name": "accept-o-84",
+   "kind": "gate",
+   "cells": 8,
+   "py_tokens": [
+    "reports/round-84/accept-o84.py"
+   ],
+   "resolves_at_base": false,
+   "resolves_at_freeze": true,
+   "status": "frozen counter"
+  }
+ ],
+ "post_round": {
+  "gate_registry_line": "GATE-REGISTRY: 0 missing / 77 registered / 63 instruments / 0 dead",
+  "gate_registry_info": "GATE-REGISTRY-INFO: 25 tools without a row",
+  "floors": {
+   "missing": 0,
+   "registered_min": 77,
+   "instruments_min": 63,
+   "dead": 0,
+   "unrowed_max": 25
+  },
+  "why": {
+   "registered": "data rows 74 + 3 = 77; reported as registered_rows, not covered instruments",
+   "instruments": "61 base + accept-d84.py + accept-o84.py = 63, both named by drafted rows",
+   "missing": "the 61 base instruments keep their rows; the two new instruments are rowed",
+   "dead": "every .py token resolves at lands: 61 base instruments, 2 frozen counters, the new tool",
+   "unrowed": "top-level tools/*.py only; base 25 of 30, the new tool makes 31 and row 1 covers it, so 25"
+  },
+  "simulation": {
+   "before_rows": "GATE-REGISTRY: 2 missing / 74 registered / 63 instruments / 0 dead + GATE-REGISTRY-INFO: 26 tools without a row (exit 1)",
+   "after_rows": "GATE-REGISTRY: 0 missing / 77 registered / 63 instruments / 0 dead + GATE-REGISTRY-INFO: 25 tools without a row (exit 0)",
+   "note": "disposable base export plus the two frozen counters and a stub tools/apply-sound-laws.py; not a lands verdict",
+   "placement": "rows inserted at the end of the Gates table; appending at EOF instead leaves registered=74"
+  }
+ },
+ "constraints": {
+  "edited_outside_stage": false,
+  "skill_md_edited": false,
+  "commits": 0,
+  "absolute_scratch_paths_in_reports": false
+ },
+ "census_commands_preamble": {
+  "B": "81499ee45b5751d388fefc78583810878de01ecd",
+  "cells": "git show $B:SKILL.md | awk '/^## Gates and probes$/{f=1;next} /^## /{if(f)exit} f&&/^\\|/' | awk -F'|' '{print $4}'",
+  "note": "commands run with LC_ALL=C in the lane repo; the process-substitution forms need bash"
+ }
+}

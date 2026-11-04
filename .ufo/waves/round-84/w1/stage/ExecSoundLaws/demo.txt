@@ -1,0 +1,25 @@
+# Round-84 claim O selftest/prove receipt: the committed example reproduced byte-for-byte.
+# cwd: lane root in a repo-shaped scratch copy (tools/apply-sound-laws.py and
+# examples/sound-laws/{rules.json,proto-lexicon.tsv,expected.tsv,expected-trace.tsv} in place).
+# Post-landing the same commands run unchanged at the lane root.
+
+$ python3 -B tools/apply-sound-laws.py apply --rules examples/sound-laws/rules.json --input examples/sound-laws/proto-lexicon.tsv --out out/derived.tsv --trace out/derived-trace.tsv
+SOUNDLAWS: 16 words / 7 rules / 19 changes
+rc=0
+
+$ cmp out/derived.tsv examples/sound-laws/expected.tsv
+byte-identical
+
+$ cmp out/derived-trace.tsv examples/sound-laws/expected-trace.tsv
+byte-identical
+
+$ cut -f3 out/derived-trace.tsv | sort | uniq -c
+     12 final-a-loss
+      1 initial-w-to-v
+      1 intervocalic-s-rhotacism
+      1 intervocalic-voicing
+      2 i-umlaut
+      1 kt-cluster-simplification
+      1 nasal-place-assimilation
+
+# 7/7 rule names fired; 19 log lines == 19 changes.

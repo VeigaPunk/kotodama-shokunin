@@ -1,0 +1,61 @@
+== unmutated ==
+LEG FROZENCFG   PASS freeze 3ca2cf28 lands 0ef89567 sha256 d8ee0b974189
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        PASS bytes=7322/5000 missing=none
+LEG SELFTEST    PASS rc=0 checks=24 floor=20 tail='SELFTEST: PASS (24 checks)'
+LEG DEMO        PASS summary=(12,6,12) floors=(12,6,12) trace=12 rules_fired=6/6
+LEG NEGATIVE    PASS cases=3 problems=none
+LEG REGISTRY    FAIL no row names tools/apply-sound-laws.py
+LEG SEPARABLE   PASS span_parent=3ca2cf28 own_missing=none foreign_moved=none
+JUNK row-dropped      expect REGISTRY   killed=True
+LEG FROZENCFG   PASS freeze 3ca2cf28 lands c5001948 sha256 d8ee0b974189
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        FAIL bytes=270/5000 missing=['SOUNDLAW_ERROR:', 'def main(']
+LEG SELFTEST    PASS rc=0 checks=99 floor=20 tail='SELFTEST: PASS (99 checks)'
+LEG DEMO        FAIL derived != expected (182 vs 206 bytes)
+LEG NEGATIVE    FAIL cases=3 problems=["missing-rules rc=0 err=''", "bad-json rc=0 err=''", "empty-from rc=0 err=''"]
+LEG REGISTRY    PASS gate=(0,77,63,0) unrowed=25 floors=(77,63,25)
+LEG SEPARABLE   PASS span_parent=3ca2cf28 own_missing=none foreign_moved=none
+JUNK copy-input       expect DEMO       killed=True
+LEG FROZENCFG   PASS freeze 3ca2cf28 lands 2ab5f437 sha256 d8ee0b974189
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        PASS bytes=7255/5000 missing=none
+LEG SELFTEST    PASS rc=0 checks=24 floor=20 tail='SELFTEST: PASS (24 checks)'
+LEG DEMO        PASS summary=(12,6,12) floors=(12,6,12) trace=12 rules_fired=6/6
+LEG NEGATIVE    PASS cases=3 problems=none
+LEG REGISTRY    PASS gate=(0,77,63,0) unrowed=25 floors=(77,63,25)
+LEG SEPARABLE   PASS span_parent=3ca2cf28 own_missing=none foreign_moved=none
+JUNK no-trace         expect DEMO       killed=False
+JUNK-O-84: FAIL 2/3
+== demo-mutated ==
+LEG FROZENCFG   PASS freeze 3ca2cf28 lands 41871265 sha256 d8ee0b974189
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        PASS bytes=7322/5000 missing=none
+LEG SELFTEST    PASS rc=0 checks=24 floor=20 tail='SELFTEST: PASS (24 checks)'
+LEG DEMO        PASS summary=(12,6,12) floors=(12,6,12) trace=12 rules_fired=6/6
+LEG NEGATIVE    PASS cases=3 problems=none
+LEG REGISTRY    FAIL no row names tools/apply-sound-laws.py
+LEG SEPARABLE   PASS span_parent=3ca2cf28 own_missing=none foreign_moved=none
+JUNK row-dropped      expect REGISTRY   killed=True
+LEG FROZENCFG   PASS freeze 3ca2cf28 lands b29ceadd sha256 d8ee0b974189
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        FAIL bytes=270/5000 missing=['SOUNDLAW_ERROR:', 'def main(']
+LEG SELFTEST    PASS rc=0 checks=99 floor=20 tail='SELFTEST: PASS (99 checks)'
+LEG DEMO        FAIL no trace file
+LEG NEGATIVE    FAIL cases=3 problems=["missing-rules rc=0 err=''", "bad-json rc=0 err=''", "empty-from rc=0 err=''"]
+LEG REGISTRY    PASS gate=(0,77,63,0) unrowed=25 floors=(77,63,25)
+LEG SEPARABLE   PASS span_parent=3ca2cf28 own_missing=none foreign_moved=none
+JUNK copy-input       expect DEMO       killed=True
+LEG FROZENCFG   PASS freeze 3ca2cf28 lands b6df63ff sha256 d8ee0b974189
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        PASS bytes=7255/5000 missing=none
+LEG SELFTEST    PASS rc=0 checks=24 floor=20 tail='SELFTEST: PASS (24 checks)'
+LEG DEMO        PASS summary=(12,6,12) floors=(12,6,12) trace=12 rules_fired=6/6
+LEG NEGATIVE    PASS cases=3 problems=none
+LEG REGISTRY    PASS gate=(0,77,63,0) unrowed=25 floors=(77,63,25)
+LEG SEPARABLE   PASS span_parent=3ca2cf28 own_missing=none foreign_moved=none
+JUNK no-trace         expect DEMO       killed=False
+JUNK-O-84: FAIL 2/3
+== no-trace trial target ==
+first line containing 'trace': 'python3 tools/apply-sound-laws.py apply --rules PATH --input PATH --out PATH [--trace PATH]'
+rewritten file parses: rc=0

@@ -282,7 +282,10 @@ def junk_battery(root, lands, freeze, work, cfg, block):
         return C.fixture_commit(dest, "corpus/SOURCES.md", "\n".join(out) + "\n", "junk: new row not mined")
 
     trial("stub-entry", m_stub, "ENTRY")
-    trial("anchor-two-ids", m_two_ids, "ANCHORS")
+    # A two-id anchor is killed by LINT (MULTI-ID), not by ANCHORS: the anchors
+    # leg skips a malformed bullet and its floor still holds at 43 >= 20. The
+    # mutant names the leg that actually catches it; r3 records the red-before.
+    trial("anchor-two-ids", m_two_ids, "LINT")
     trial("row-queued", m_queued, "ROWS")
     ok = all(r[2] for r in results)
     print("JUNK-D-84: %s %d/%d" % ("PASS" if ok else "FAIL", sum(1 for r in results if r[2]), len(results)))

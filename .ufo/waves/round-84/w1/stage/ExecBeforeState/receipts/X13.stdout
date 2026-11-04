@@ -1,0 +1,19 @@
+    def separable():
+        other = set()
+        for c in cfg["claims"]:
+            if c["id"] == CLAIM_ID:
+                continue
+            for v in c.values():
+                if isinstance(v, dict) and v.get("own_paths"):
+                    other.update(v["own_paths"])
+        unique = [p for p in block["own_paths"] if p not in other]
+        parent = C.claim_span(root, base, lands, unique)[1]
+        cumulative = C.changed_paths(root, base, lands)
+        own_missing = [p for p in unique if not any(c == p or c.startswith(p) for c in cumulative)]
+        foreign = [p for p in block["foreign_paths"] if C.blob_sha(root, parent, p) != C.blob_sha(root, lands, p)]
+        return (not own_missing and not foreign,
+                "span_parent=%s own_missing=%s foreign_moved=%s" % (parent[:8], own_missing or "none", foreign or "none"))
+
+    g.grade("FROZENCFG", frozen)
+    g.grade("BEFORE", before)
+    g.grade("TOOL", tool_leg)

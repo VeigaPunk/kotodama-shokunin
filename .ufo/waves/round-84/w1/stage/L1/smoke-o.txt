@@ -1,0 +1,11 @@
+--- smoke O at freeze r1 ---
+LEG FROZENCFG   PASS freeze e160a72e lands e160a72e sha256 ff545df6c108
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        FAIL tool absent at lands
+LEG SELFTEST    FAIL rc=2 checks=-1 floor=20 tail="/usr/bin/python3: can't open file '/fast/scratch/hyaku/kotodama-r84/L1/tree/tools/apply-sound-laws.py': [Errno 2] No suc"
+LEG DEMO        FAIL no single summary line (rc=2): "/usr/bin/python3: can't open file '/fast/scratch/hyaku/kotodama-r84/L1/tree/tools/apply-sound-laws.py': [Errno 2] No such file or directory"
+LEG NEGATIVE    FAIL cases=3 problems=['missing-rules rc=2 err="/usr/bin/python3: can\'t open file \'/fast/scratch/hyaku/kotodama-r84/L1/tree/tool"', 'bad-json rc=2 err="/usr/bin/python3: can\'t open file \'/fast/scratch/hyaku/kotodama-r84/L1/tree/tool"', 'empty-from rc=2 err="/usr/bin/python3: can\'t open file \'/fast/scratch/hyaku/kotodama-r84/L1/tree/tool"']
+LEG REGISTRY    FAIL no row names tools/apply-sound-laws.py
+LEG SEPARABLE   FAIL error: no commit touching a claim path in 81499ee45b5751d388fefc78583810878de01ecd..e160a72e4adf1620e09f812b913d4ece0fcd5243
+ACCEPT-O-84: FAIL legs=2/8
+rc=1

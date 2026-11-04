@@ -1,0 +1,37 @@
+# Negative and guard controls for tools/apply-sound-laws.py (re-run after the reviewer/sentinel fixes, 2026-11-04)
+
+$ apply --rules absent.json ...
+SOUNDLAW_ERROR: rules-missing: <scratch>/absent.json: No such file or directory
+rc=2
+
+$ apply --rules bad.json ...
+SOUNDLAW_ERROR: rules-json: <scratch>/bad.json is not JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+rc=2
+
+$ apply --rules empty-from.json ...
+SOUNDLAW_ERROR: rule-from-empty: <scratch>/empty-from.json: rule 'x' has an empty from
+rc=2
+
+$ apply --rules control-name.json ...
+SOUNDLAW_ERROR: rule-name-control: <scratch>/control-name.json: rule name 'a\nb' carries a tab or newline
+rc=2
+
+$ apply --trace proto-lexicon.tsv (trace must not overwrite the input)
+SOUNDLAW_ERROR: output-path: --trace proto-lexicon.tsv is the input file
+rc=2
+
+$ apply --out X --trace X (same file)
+SOUNDLAW_ERROR: output-path: --trace and --out name the same file
+rc=2
+
+$ apply --out rules.json (out must not overwrite an input)
+SOUNDLAW_ERROR: output-path: --out rules.json is the rules file
+rc=2
+
+$ bytes of the input after the refused runs
+489
+input-intact
+
+$ no output file was created by a refused run
+ls: cannot access '<scratch>/n1.tsv': No such file or directory
+ls: cannot access '<scratch>/n2.tsv': No such file or directory

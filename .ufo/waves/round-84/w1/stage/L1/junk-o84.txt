@@ -1,0 +1,28 @@
+LEG FROZENCFG   PASS freeze 7e6ee2f8 lands df792561 sha256 279a74dc91c0
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        PASS bytes=26941/5000 missing=none
+LEG SELFTEST    PASS rc=0 checks=37 floor=20 tail='SELFTEST: PASS (37 checks)'
+LEG DEMO        PASS summary=(16,7,19) floors=(12,6,12) trace=19 rules_fired=7/7
+LEG NEGATIVE    PASS cases=3 problems=none
+LEG REGISTRY    FAIL no row names tools/apply-sound-laws.py
+LEG SEPARABLE   PASS span_parent=0f19297b own_missing=none foreign_moved=none
+JUNK row-dropped      expect REGISTRY   killed=True
+LEG FROZENCFG   PASS freeze 7e6ee2f8 lands 0de7355b sha256 279a74dc91c0
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        FAIL bytes=270/5000 missing=['SOUNDLAW_ERROR', 'def main(']
+LEG SELFTEST    PASS rc=0 checks=99 floor=20 tail='SELFTEST: PASS (99 checks)'
+LEG DEMO        FAIL derived != expected (489 vs 196 bytes)
+LEG NEGATIVE    FAIL cases=3 problems=["missing-rules rc=0 err=''", "bad-json rc=0 err=''", "empty-from rc=0 err=''"]
+LEG REGISTRY    PASS gate=(0,77,63,0) unrowed=25 floors=(77,63,25)
+LEG SEPARABLE   PASS span_parent=0f19297b own_missing=none foreign_moved=none
+JUNK copy-input       expect DEMO       killed=True
+LEG FROZENCFG   PASS freeze 7e6ee2f8 lands dcf58e12 sha256 279a74dc91c0
+LEG BEFORE      PASS tool_at_base=False example_files=0 marker_files=0
+LEG TOOL        PASS bytes=26942/5000 missing=none
+LEG SELFTEST    FAIL rc=1 checks=-1 floor=20 tail='IndentationError: unexpected indent'
+LEG DEMO        FAIL no single summary line (rc=1): 'File "/fast/scratch/hyaku/kotodama-r84/L1/graded/junkwork-no-trace/tree/tools/apply-sound-laws.py", line 277\n    check_out_path(opts["trace"], opts["rules"], opts["input"], "--trace")\nIndentationError'
+LEG NEGATIVE    FAIL cases=3 problems=['missing-rules rc=1 err=\'File "/fast/scratch/hyaku/kotodama-r84/L1/graded/junkwork-no-trace/tree/tools/ap\'', 'bad-json rc=1 err=\'File "/fast/scratch/hyaku/kotodama-r84/L1/graded/junkwork-no-trace/tree/tools/ap\'', 'empty-from rc=1 err=\'File "/fast/scratch/hyaku/kotodama-r84/L1/graded/junkwork-no-trace/tree/tools/ap\'']
+LEG REGISTRY    PASS gate=(0,77,63,0) unrowed=25 floors=(77,63,25)
+LEG SEPARABLE   PASS span_parent=0f19297b own_missing=none foreign_moved=none
+JUNK no-trace         expect DEMO       killed=True
+JUNK-O-84: PASS 3/3
