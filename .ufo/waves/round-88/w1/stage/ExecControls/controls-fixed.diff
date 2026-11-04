@@ -1,0 +1,96 @@
+--- /fast/scratch/hyaku/kotodama-r88/ExecControls/clones/frozen/reports/round-88/controls/shotgun-all-labels.py	2026-11-04 17:16:46.487083741 -0300
++++ /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-88/w1/stage/ExecControls/controls-fixed/shotgun-all-labels.py	2026-11-04 17:14:17.919737351 -0300
+@@ -2,22 +2,42 @@
+ """Label shotgun: runs the honest auditor, then replaces its findings with EVERY
+ label in the vocabulary on any dirty packet. Exit codes and the clean cases stay
+ correct, so a membership-only battery cannot tell it from an auditor that
+-actually attributes one finding. It never decides which label applies."""
++actually attributes one finding. It never decides which label applies.
++
++The honest auditor is resolved in this order: the committed copy materialised
++beside this wrapper by the grader (same revision, same work directory); then
++KOTODAMA_ROOT/tools; then the nearest ancestor checkout holding tools/."""
+ import json
+ import os
+ import pathlib
+ import subprocess
+ import sys
+ 
+-ROOT = pathlib.Path(os.environ.get('KOTODAMA_ROOT') or pathlib.Path(__file__).resolve().parents[2])
+-HONEST = ROOT / 'tools' / 'check-attestation-packet.py'
++HERE = pathlib.Path(__file__).resolve().parent
++HONEST_NAME = 'check-attestation-packet.py'
+ LABELS = ['RECORD_ID', 'CLOCK_MISSING', 'CLOCK_REASON', 'CLOCK_DATE', 'RECORD_FIELD',
+           'SOLUTION_CONFLICT', 'EDITORIAL_CONFLICT', 'TRANSLATION_CLOCK']
+ 
+ 
++def honest_path():
++    sibling = HERE / HONEST_NAME
++    if sibling.is_file():
++        return sibling
++    if os.environ.get('KOTODAMA_ROOT'):
++        return pathlib.Path(os.environ['KOTODAMA_ROOT']) / 'tools' / HONEST_NAME
++    for ancestor in HERE.parents:
++        if (ancestor / 'tools' / HONEST_NAME).is_file():
++            return ancestor / 'tools' / HONEST_NAME
++    return HERE / HONEST_NAME
++
++
+ def main():
++    honest = honest_path()
++    if not honest.is_file():
++        print(f'CONTROL_HONEST_ABSENT {honest}', file=sys.stderr)
++        return 2
+     packet = sys.argv[sys.argv.index('--packet') + 1]
+-    run = subprocess.run([sys.executable, '-B', str(HONEST), '--packet', packet, '--json'],
++    run = subprocess.run([sys.executable, '-B', str(honest), '--packet', packet, '--json'],
+                          capture_output=True, text=True)
+     if run.returncode != 1:
+         sys.stdout.write(run.stdout)
+--- /fast/scratch/hyaku/kotodama-r88/ExecControls/clones/frozen/reports/round-88/controls/extra-id.py	2026-11-04 17:16:46.487083741 -0300
++++ /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-88/w1/stage/ExecControls/controls-fixed/extra-id.py	2026-11-04 17:14:17.920737354 -0300
+@@ -1,20 +1,40 @@
+ #!/usr/bin/env python3
+ """Extra-id forger: emits the honest auditor's correctly attributed finding set
+ plus one more valid label on every dirty packet. Membership of the expected id
+-still holds, so only exact-set comparison can refuse it."""
++still holds, so only exact-set comparison can refuse it.
++
++The honest auditor is resolved in this order: the committed copy materialised
++beside this wrapper by the grader (same revision, same work directory); then
++KOTODAMA_ROOT/tools; then the nearest ancestor checkout holding tools/."""
+ import json
+ import os
+ import pathlib
+ import subprocess
+ import sys
+ 
+-ROOT = pathlib.Path(os.environ.get('KOTODAMA_ROOT') or pathlib.Path(__file__).resolve().parents[2])
+-HONEST = ROOT / 'tools' / 'check-attestation-packet.py'
++HERE = pathlib.Path(__file__).resolve().parent
++HONEST_NAME = 'check-attestation-packet.py'
++
++
++def honest_path():
++    sibling = HERE / HONEST_NAME
++    if sibling.is_file():
++        return sibling
++    if os.environ.get('KOTODAMA_ROOT'):
++        return pathlib.Path(os.environ['KOTODAMA_ROOT']) / 'tools' / HONEST_NAME
++    for ancestor in HERE.parents:
++        if (ancestor / 'tools' / HONEST_NAME).is_file():
++            return ancestor / 'tools' / HONEST_NAME
++    return HERE / HONEST_NAME
+ 
+ 
+ def main():
++    honest = honest_path()
++    if not honest.is_file():
++        print(f'CONTROL_HONEST_ABSENT {honest}', file=sys.stderr)
++        return 2
+     packet = sys.argv[sys.argv.index('--packet') + 1]
+-    run = subprocess.run([sys.executable, '-B', str(HONEST), '--packet', packet, '--json'],
++    run = subprocess.run([sys.executable, '-B', str(honest), '--packet', packet, '--json'],
+                          capture_output=True, text=True)
+     if run.returncode != 1:
+         sys.stdout.write(run.stdout)

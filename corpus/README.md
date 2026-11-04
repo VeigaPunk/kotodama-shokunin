@@ -896,3 +896,21 @@ Source interface specimen S929 and rejected reader S930 are curated in
 survivor are both retained under `reports/round-87/` and the round's wave.
 Source support, origin justification and lore acceptance remain outside the
 audit. No frontier topic is promoted into core by this interface change.
+
+## Round 88 notation deepening and finding sets (2026-11-04)
+
+`knowledge/linguistics/numerals-and-measures.md` §4b deepens an existing
+notation bullet with a two-axis/five-type cost sheet, explicit placeholder
+limits, and a NON-CANON tag/board design trial. Sources S931–S933 were opened
+this round. This adds no knowledge file and claims no new coverage surface;
+script ownership and detailed notation history remain with the existing
+boundaries and open items. No whole-entry WALS re-verification is asserted.
+
+`tools/check-finding-sets.py` compares the supplied case battery against a
+trusted local candidate by exit, id set and id/record-pair set, using opaque
+filenames. The original round87 counter is unchanged. Its exact named
+counterfeit distinctions, content-memorization survivor, frozen-counter
+selftest false green and environment dependence are retained in
+`corpus/lessons/round-88.md`, not advertised as arbitrary forgery resistance.
+S934 corrects S929's quotation presentation; S935 retains the rejected
+filename oracle. Old source rows are unchanged.

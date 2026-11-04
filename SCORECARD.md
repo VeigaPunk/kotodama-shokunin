@@ -1879,3 +1879,23 @@ numeric/lowest-axis conformance debt and the L2-planner conflict remain.
 Source registry852→854 (A+1/C+1), no prior mutable-cell edits.
 Future work remains a new properly controlled freeze for the named counter
 survivors; no frozen historical claim is retroactively strengthened.
+
+## Planned / frozen — round 88 (2026-11-04)
+
+Two claims are frozen at `4b76524c51e1c2f76c99eeb3b629cfac08a44a76`;
+executed controls `0c8c733088df8c4f06770c9e714360eed7f29272` precede it.
+This SCORECARD synopsis was appended after the ready handoff; it is not
+backdated as the original declaration (`reports/round-88/claims.json` is).
+
+| claim / axis | before → frozen target | counter |
+|---|---|---|
+| O / operability | production finding-set comparator absent; inherited membership counter accepts three counterfeit classes12/12 → comparator public CLI/selftest plus exact13-case honest13, constant3, shotgun4, extra-id4, filename0, and comparator agreement | `python3 -B reports/round-88/measure88.py --root . --lands FULL_HASH --claim O --work EXISTING_DIR` |
+| D / depth | notation subheading absent and new cited ids0 → numeral-notation subsection heading1, table≥5 rows/≥3 columns, new mined A/B ids3 and growth≥2500 bytes | same counter with `--claim D`; frozen D declaration omitted required `--work`, an input-contract defect to disclose, not silently amend |
+
+No new numerical expertise score or lowest-axis waiver. Freshness remains
+historically lowest and paused under the unanswered round11 question.
+Formal L2-planner conflict and inherited full cited-record red remain.
+Counter selftest was executed after freeze/ready, not before dispatch:
+`reports/round-88/counter-selftest.json` exit0 is inadequate transport evidence;
+`counter-selftest-false-green.json` shows a FileNotFoundError child still
+blessed by the suite. QUALITY35 binds round89, not an amended round88 rule.

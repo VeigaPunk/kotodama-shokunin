@@ -311,3 +311,26 @@ predicate. Random filenames alone do not defeat content memorization.
 No finite forgery set proves arbitrary tool correctness, historical truth,
 source support or canon acceptance. Current counterfeit survivors and the
 origin-justification miss remain explicit rather than being called repaired.
+
+35. **A counter selftest must establish a real positive, not merely observe a failure.**
+
+For a subprocess transport selftest, retain the child's raw stdout, stderr,
+return code and parsed expected finding. The positive fixture must actually
+emit its expected report; a traceback is not an accepted positive. Each
+negative must assert the observed comparison result rather than assign
+`passed=True` independently of it. Freeze-time selftest evidence must precede
+dispatch, and a failed or inadequate selftest is disclosed, never repaired
+inside the current frozen counter.
+
+Grounding: `corpus/lessons/round-88.md` R88-M2 and
+`reports/round-88/counter-selftest-false-green.json`. The frozen
+`measure88.py --selftest` exits0 while its nominal exact-accepted child exits1
+with FileNotFoundError: it treats a JSON body as a pathname. The original
+selftest also assigns success to its extra-id check without testing the
+observed outcome. `probe-counter-selftest.py --work <existing-dir>` records
+this false green and exits1. Criterion34 required actual discrimination;
+this criterion makes the transport-positive evidence explicit.
+
+Binding from round89; round88's frozen instrument and its original selftest
+receipt remain unchanged. A production comparator's independently passing
+selftest does not retroactively certify that instrument.

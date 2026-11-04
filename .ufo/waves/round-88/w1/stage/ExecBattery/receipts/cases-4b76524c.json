@@ -1,0 +1,22 @@
+{
+  "round": 88,
+  "baseline_packet": ".ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json",
+  "baseline_packet_revision": "4956282281dac1306cfbe59523e46dde99749d75",
+  "name_salt": "kotodama-r88-case-",
+  "note": "Frozen case list. Expected values are derived from the committed r87 case_contract (reports/round-87/claims.json), not from any candidate's own output; the pre-dispatch receipt records whether the honest tool agrees.",
+  "cases": [
+    {"name": "clean", "rc": 0, "ids": [], "records": [], "records_count": 6, "mutations": []},
+    {"name": "duplicate-id", "rc": 1, "ids": ["RECORD_ID"], "records": ["R86-CRAFT-01"], "mutations": [{"op": "set", "record": 1, "path": "id", "value_from_record": 0}]},
+    {"name": "missing-clock", "rc": 1, "ids": ["CLOCK_MISSING"], "records": ["R86-CRAFT-01"], "mutations": [{"op": "delete", "record": 0, "path": "origin"}]},
+    {"name": "blank-reason", "rc": 1, "ids": ["CLOCK_REASON"], "records": ["R86-CRAFT-01"], "mutations": [{"op": "set", "record": 0, "path": "origin.reason", "value": "  "}]},
+    {"name": "invalid-date", "rc": 1, "ids": ["CLOCK_DATE"], "records": ["R86-CRAFT-01"], "mutations": [{"op": "set", "record": 0, "path": "attestation.value", "value": "1710-02-30"}]},
+    {"name": "blank-sense", "rc": 1, "ids": ["RECORD_FIELD"], "records": ["R86-CRAFT-01"], "mutations": [{"op": "set", "record": 0, "path": "sense", "value": " "}]},
+    {"name": "unresolved-selected", "rc": 1, "ids": ["SOLUTION_CONFLICT"], "records": ["R86-CRAFT-04"], "mutations": [{"op": "set", "record": 3, "path": "solutions.selected", "value": "boat"}]},
+    {"name": "conjecture-promoted", "rc": 1, "ids": ["EDITORIAL_CONFLICT"], "records": ["R86-CRAFT-05"], "mutations": [{"op": "set", "record": 4, "path": "wording", "value_from_path": "editorial.conjectured_wording"}]},
+    {"name": "translation-backdated", "rc": 1, "ids": ["TRANSLATION_CLOCK"], "records": ["R86-CRAFT-06"], "mutations": [{"op": "set", "record": 5, "path": "attestation.value", "value_from_path": "translation.source_attestation"}]},
+    {"name": "unknown-explicit", "rc": 0, "ids": [], "records": [], "records_count": 6, "mutations": [{"op": "set", "record": 0, "path": "attestation.value", "value": null}, {"op": "set", "record": 0, "path": "attestation.reason", "value": "Unknown in this exercise."}]},
+    {"name": "reordered", "rc": 0, "ids": [], "records": [], "records_count": 6, "mutations": [{"op": "reverse"}]},
+    {"name": "double-anomaly", "rc": 1, "ids": ["RECORD_FIELD", "SOLUTION_CONFLICT"], "records": ["R86-CRAFT-02", "R86-CRAFT-04"], "mutations": [{"op": "set", "record": 1, "path": "sense", "value": " "}, {"op": "set", "record": 3, "path": "solutions.selected", "value": "boat"}]},
+    {"name": "invalid-json", "rc": 2, "ids": ["ATTESTATION_ERROR"], "records": [], "mutations": [{"op": "raw", "value": "{broken"}]}
+  ]
+}

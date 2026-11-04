@@ -98,7 +98,66 @@ Two distinctions carry the worldbuilding weight:
 - **Register overrides.** Vietnamese textbooks call classifiers obligatory, yet at food stalls *ba gà hai bò* "three chicken two beef" is normal. Ordinary-citation grammar and in-group register differ — a ready-made in-world sociolinguistic marker (`sociolinguistics-registers.md`).
 - **Distribution.** Classifiers concentrate in one zone centered on East and Southeast Asia, peter out across South Asia, reappear optionally in western Asia, and extend through Indonesia into Micronesia and western Polynesia; outside that arc they sit in smaller hotbeds (West Africa, Pacific Northwest, Mesoamerica, Amazonia).
 
-Where the measures side lives: unit systems, standards, and money-words belong to `culture-material/trade-economy-lexicon.md`. This entry owns only the *words* — mensural classifiers, counting units (*pair*, *head of cattle*, *dozen*, *score*), and the way a classifier system maps a noun inventory into count classes.
+Where the measures side lives: unit systems, standards, and money-words belong to `culture-material/trade-economy-lexicon.md`. This entry owns numeral words, mensural classifiers, counting units and count classes; the round-88 §4b additionally supplies a bounded notation comparison, without taking over that neighbour's metrology or `writing-systems.md`'s scripts.
+
+## 4b. Numeral notation: two axes, five types, and their trade-offs
+
+Round-88 deepening, verified 2026-11-04 for this subsection only.
+Source: S931 — Stephen Chrisomalis (2018), “The writing of numbers,” *Terrain* 70, https://journals.openedition.org/terrain/17506?lang=en, paragraphs 7–10, 19–25.
+Source: S932 — O'Connor and Robertson, “Babylonian numerals,” MacTutor, https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_numerals/, page revision December 2000.
+Source: S933 — O'Connor and Robertson, “Egyptian numerals,” MacTutor, https://mathshistory.st-andrews.ac.uk/HistTopics/Egyptian_numerals/, page revision December 2000.
+Recheck: reopen those body passages before applying their historical examples; keep the original entry's other unresolved bibliography unresolved.
+
+**Scope:** a classification and design procedure for fictional numerical signs, not canon, a new script taxonomy, or certification of archaeological priority. `writing-systems.md` keeps scripts and sign-to-speech mappings; `../culture-material/trade-economy-lexicon.md` keeps metrology; lore keeps the world's actual institutions and accepted records.
+
+### Two questions, not a ladder of progress
+
+S931 paragraphs 7–9 distinguishes the **intraexponential** principle (inside one power of the base) from the **interexponential** principle (combining powers). Ask both before choosing glyphs:
+
+1. Within a power, are coefficients expressed by repeated signs (**cumulative**), distinct coefficient signs (**ciphered**), or a multiplier sign combined with an explicit power sign (**multiplicative**)?
+2. Across powers, does the reader sum explicitly represented values (**additive**), or infer the power from order/location (**positional**)?
+
+S931 paragraph 9 excludes multiplicative–positional in this particular classification because multiplicative systems express powers through explicit power signs, not place value. This is a definitional boundary of the grid, not proof that fictional redundant notations are impossible. The source also notes mixed principles and irregularities; do not force a hybrid historical text into a falsely uniform whole.
+
+| Type | Coefficient / power mechanism | Example in the opened accounts | Design cost to name |
+|---|---|---|---|
+| Cumulative–additive | Repeat signs within powers; add represented values | Greek acrophonic and Roman; early Egyptian hieroglyphic numerals | Repetition makes larger records long; specify grouping and sign inventory |
+| Cumulative–positional | Repeat signs within each place; position supplies powers | Babylonian sexagesimal cuneiform | A small basic sign inventory does not eliminate long numeral strings or empty-place ambiguity |
+| Ciphered–additive | Distinct signs for coefficients at different powers; sum them | Georgian alphabetic; Egyptian hieratic as a structural comparison | Compact recording requires learning a larger repertoire |
+| Ciphered–positional | Reuse digit signs across places; order supplies powers | Lao and Western Hindu-Arabic numerals | Declare empty-place convention, scale and reading direction explicitly |
+| Multiplicative–additive | Combine multiplier and explicit power signs; sum the products | Classical Chinese numerals | Name coefficient signs and power signs separately; do not assume every spoken form maps one-to-one |
+
+The five-type classification and its Greek, Roman, Babylonian, Georgian, Lao and Chinese exemplars are from S931 paragraph 9; the table is a cost sheet, not five historical stages.
+
+The Egyptian comparison in the table is grounded in S933's descriptions of the two repertoires: 276 needs two hundred signs, seven ten signs and six unit signs in the hieroglyphic account, while the hieratic account gives distinct signs for multiples and can write 9999 with four signs. These are that reference page's descriptive examples, not a claim that one repertoire uniformly replaced the other in every period.
+
+S932's Babylonian account makes a different separation: two basic signs construct the values within a place, while powers of sixty are positional. Its paragraph beginning “A much more serious problem” explains that no zero in an empty position made some values indistinguishable without context. The same page discusses later placeholder practice; never generalize the early ambiguity into “Babylonians never used placeholders,” or confuse an internal placeholder with an explicit terminal scale.
+
+### Four systems to record independently
+
+S931 paragraphs 1, 20–25 separates numeral **words**, written **notation**, ongoing **tallies**, and **computational devices**. A tally's distinguished fifth mark can mean “the fifth mark” while still counting one object per mark; it is not automatically a power-bearing numeral sign. A bead board may use positional columns while a written record sums explicit signs. Neither the spoken base nor the board alone determines the notation.
+
+S931 paragraph 10 states: “it is evident that there is no perfect system.” Its trade-off is sign inventory versus written compactness, not a universal superiority ranking. Paragraph 25 likewise distinguishes a structure useful for manipulating quantities from a concise written representation. A culture can therefore change its accounting medium without changing its number words, or retain several notations for different institutions.
+
+**Design checklist — house rules, not historical findings:**
+
+- Name the spoken-number construction, notation, count-in-progress practice and calculation device as separate fields.
+- Choose the two notational principles, then declare the symbols, grouping, scale/empty-place convention and readout.
+- State who reads the record and what training they share. Translinguistic does not mean intelligible without learning the signs.
+- Test a quantity containing an empty middle place and an empty final place. Record any ambiguity and the explicit disambiguating convention.
+- Assign an institution and an era to a borrowed or reformed notation; do not infer contact dates from a notation's type alone.
+
+### Worked design trial — NON-CANON
+
+Brief: an invented market uses vigesimal number words, a decimal bead board for arithmetic, and short tags for levies. Gate readers have not learned the board; foreign traders know a decimal digit notation. This is a design exercise, not an attested town or a lore decision.
+
+Option A uses cumulative–additive decimal tags with one unit, ten and hundred sign. For a levy of 276, the tag needs 2 + 7 + 6 = 15 signs. The spoken reading may remain 13 twenties plus 16: 13 × 20 + 16 = 276. The mismatch is a declared transcoding rule, not a numerical error.
+
+Option B uses a taught ciphered–positional decimal tag notation: 276 occupies three digit places, and 206 requires an explicit empty-ten-place sign. It is shorter here, but gate readers must learn the digit values and place convention; shared quantity does not confer literacy automatically.
+
+Outcome: choose A if minimal repertoire and additive readout outweigh tag length; choose B if compactness outweighs the required reader training. Keep the board in either package. The exercise deliberately leaves a losing constraint visible and supplies both readouts for a lore handoff, rather than declaring one objectively superior.
+
+**Boundary of the improvement:** this subsection deepens the older notation bullet; it does not add a separate knowledge entry, close the entry's anumeric debate or certify any other historical claim. Its source and quote receipts are in the round-88 lesson and source registry.
 
 ## 5. Counting technologies: fingers, bodies, tallies, knots, rods
 
@@ -108,7 +167,7 @@ The base is not the whole story: what the hands and objects do generates a regis
 - **Extended body-part systems** (WALS type 5) are tallies, not arithmetic: Kobon runs 1–12 up the left side, 13–23 down the right, then reverses; the same body-part word is multiply ambiguous (*siduŋ* "shoulder" = 10, 14, 33, 37, 56 …). Languages usually have optional or obligatory means to disambiguate side and pass. Oksapmin is the classic ethnographic case: a 27-point count around the upper periphery of the body (Saxe 1981; later documented as shifting under market and school arithmetic — Saxe & Esmonde 2005). **Do not call such systems "base 27"** — WALS is explicit that extended body-part systems make no use of an arithmetic base. This is the single most common worldbuilding error in this area.
 - **Tally marks** are the material counterpart: one mark per unit, grouped for legibility. Prehistoric tally interpretations (Ishango bone and similar) are contested in both directions — read Marshack (1972) as the classic argument, and treat any "Paleolithic arithmetic" claim as `(to-verify)`.
 - **Knotted-cord and rod records**: the khipu (Inca) and Chinese counting rods are counting *technologies* that generate their own vocabulary and notation (Ascher & Ascher 1981; Urton 1997; `civilizations/inca.md`). Khipu's numeric readings are the well-supported part of its interpretation; narrative readings are contested (see `civilizations/inca.md` for the in-corpus calibration).
-- **Numeral notation vs numeral words** is a separate system: cumulative tallies, ciphered signs (Greek alphabetic numerals, Roman), and positional notation with a zero (Babylonian place value; the Indian decimal positional system) are typological stages (Chrisomalis 2010). A culture can count in words fluently and write numerals cumulatively — the mismatch is a dating tool (`writing-systems.md`).
+- **Numeral notation vs numeral words**: these are distinct representational systems. Round-88 correction supersedes this bullet's former grouping of Roman numerals among ciphered signs, its conflation of tallies with notation, its undifferentiated Babylonian zero claim, and its developmental-stage framing. Use the two-axis alternatives and scoped placeholder discussion in §4b, grounded in S931, instead; no universal ladder toward a perfect notation is asserted.
 
 ## 6. Restricted and anumeric systems — with the debate calibrated
 
@@ -207,3 +266,4 @@ Decisions this entry makes, with their reversal conditions:
 - **Handoff to lore-shokunin**: this file supplies base typology, numeral-word morphology patterns, classifier design tables, contact mechanisms, and the coupling map — method and reference only; which system a given world actually uses is lore's canon decision (`worldbible-integration-contract.md`).
 - **Index**: `corpus/README.md` lists linguistics at 16 entries; this entry makes 17 — the index updater (round-10 C21/C22) owns that edit, and the count command is `python3 tools/source-audit-inventory.py --json --summary --root corpus/knowledge`.
 - **Open items**: (1) the `(to-verify)` bibliography list above awaits a source-recheck wave; (2) no entry yet exists for numeral *notation* as a writing subsystem (Chrisomalis-grade detail) — if the corpus wants it, it belongs beside `writing-systems.md`; (3) the measures/metrology side stays thin in the corpus (trade-economy-lexicon covers economy vocabulary, not unit history) — flag for a future round rather than absorbing it here.
+- **Round-88 scope update to open item (2)**: §4b now supplies a sourced notation typology, trade-off table and fictional design trial within this entry. No separate notation entry was added, and detailed notation history remains open; `writing-systems.md` retains script ownership.

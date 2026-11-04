@@ -1,0 +1,196 @@
+P1  materialize() grades WORKTREE bytes under a revision label
+    observed: {'blob_at_revision': None, 'materialize_returned': '/fast/scratch/hyaku/kotodama-r88/ScoutProtocol/ghost2.py', 'content': 'print("worktree only")\n'}
+    verdict:  FLAW: docstring says "never grades the worktree"; the fallback reads pathlib.Path(root)/path when the revision blob is absent.
+P2  frozen --selftest cannot detect a neutered comparison layer
+    observed: {'stock_selftest_rc': 0, 'mutants': {'always_reject': {'selftest_rc': 0, 'survived': True}, 'always_accept': {'selftest_rc': 0, 'survived': True}, 'membership_only': {'selftest_rc': 0, 'survived': True}}}
+    verdict:  FLAW: every neutered mutant SURVIVES with rc=0, so the selftest exit 0 proves nothing about the layer it claims to check.
+P2b  exact-accepted selftest child crashes instead of emitting a report
+    observed: {'child_rc': 1, 'child_stdout': '', 'stderr_tail': 'FileNotFoundError: [Errno 2] No such file or directory: \'{"records": 6, "findings": [{"id": "RECORD_ID", "record": "R1"}]}\''}
+    verdict:  FLAW: report_partial_tool() writes the JSON body as a PATHNAME; the child raises FileNotFoundError, so the "positive" leg asserts on a crash.
+P3  claim O passes with a battery that accepts the constant-pass counterfeIt
+    observed: {'counter_rc': 0, 'passed': 9, 'total': 9, 'legs': [('battery-absent-at-base', True, True, True), ('battery-present-at-lands', True, True, True), ('score:honest', 13, 13, True), ('score:constant-pass', 3, 3, True), ('score:shotgun-all-labels', 4, 4, True), ('score:extra-id', 4, 4, True), ('score:filename-only', 0, 0, True), ('battery-selftest:exit', 0, 0, True), ('battery-agrees', [13, 4], [13, 4], True)]}
+    verdict:  FLAW: battery-agrees checks only (honest=13, shotgun=4) via the battery's own self-reported `passed` field; constant-pass/extra-id/filename-only are never asked of the battery. The kill_rule names per-class counts the counter does not obtain from the battery.
+P4  D predicate surface: rows/columns/cited/growth legs are weakly binding
+    observed: {'two_tables_row_sum': {'data_rows': 5, 'columns': 2, 'cited': ['S931', 'S932', 'S933'], 'growth': 174}, 'prose_only_citation': {'data_rows': 5, 'columns': 3, 'cited': ['S931', 'S932', 'S933'], 'growth': 215}, 'literal_pipe_columns': {'data_rows': 5, 'columns': 3, 'cited': ['S931', 'S932', 'S933'], 'growth': 162}, 'growth_outside_section': {'data_rows': 5, 'columns': 3, 'cited': ['S931', 'S932', 'S933'], 'growth': 2707}, 'heading_count': 2}
+    verdict:  WEAKNESS: table-rows sums rows across MULTIPLE tables (and counts a second table header as data); table-columns counts literal "|" so a 2-column table can read as 3; new-rows-cited is satisfied by prose, never by a table row; growth-bytes is measured over the whole file, not the section.
+P5  claims.json claim-D counter command is not runnable as written
+    observed: {'command': 'python3 -B reports/round-88/measure88.py --root . --base 4956282281dac1306cfbe59523e46dde99749d75 --lands <lands> --claim D', 'rc': 2, 'stderr_tail': 'measure88.py: error: the following arguments are required: --work'}
+    verdict:  FLAW: measure88.py requires --work (argparse required=True); the frozen claim-D command omits it and exits 2 with a usage error. The claim-O command does include --work.
+
+{
+  "findings": [
+    {
+      "id": "P1",
+      "observed": {
+        "blob_at_revision": null,
+        "content": "print(\"worktree only\")\n",
+        "materialize_returned": "/fast/scratch/hyaku/kotodama-r88/ScoutProtocol/ghost2.py"
+      },
+      "title": "materialize() grades WORKTREE bytes under a revision label",
+      "verdict": "FLAW: docstring says \"never grades the worktree\"; the fallback reads pathlib.Path(root)/path when the revision blob is absent."
+    },
+    {
+      "id": "P2",
+      "observed": {
+        "mutants": {
+          "always_accept": {
+            "selftest_rc": 0,
+            "survived": true
+          },
+          "always_reject": {
+            "selftest_rc": 0,
+            "survived": true
+          },
+          "membership_only": {
+            "selftest_rc": 0,
+            "survived": true
+          }
+        },
+        "stock_selftest_rc": 0
+      },
+      "title": "frozen --selftest cannot detect a neutered comparison layer",
+      "verdict": "FLAW: every neutered mutant SURVIVES with rc=0, so the selftest exit 0 proves nothing about the layer it claims to check."
+    },
+    {
+      "id": "P2b",
+      "observed": {
+        "child_rc": 1,
+        "child_stdout": "",
+        "stderr_tail": "FileNotFoundError: [Errno 2] No such file or directory: '{\"records\": 6, \"findings\": [{\"id\": \"RECORD_ID\", \"record\": \"R1\"}]}'"
+      },
+      "title": "exact-accepted selftest child crashes instead of emitting a report",
+      "verdict": "FLAW: report_partial_tool() writes the JSON body as a PATHNAME; the child raises FileNotFoundError, so the \"positive\" leg asserts on a crash."
+    },
+    {
+      "id": "P3",
+      "observed": {
+        "counter_rc": 0,
+        "legs": [
+          [
+            "battery-absent-at-base",
+            true,
+            true,
+            true
+          ],
+          [
+            "battery-present-at-lands",
+            true,
+            true,
+            true
+          ],
+          [
+            "score:honest",
+            13,
+            13,
+            true
+          ],
+          [
+            "score:constant-pass",
+            3,
+            3,
+            true
+          ],
+          [
+            "score:shotgun-all-labels",
+            4,
+            4,
+            true
+          ],
+          [
+            "score:extra-id",
+            4,
+            4,
+            true
+          ],
+          [
+            "score:filename-only",
+            0,
+            0,
+            true
+          ],
+          [
+            "battery-selftest:exit",
+            0,
+            0,
+            true
+          ],
+          [
+            "battery-agrees",
+            [
+              13,
+              4
+            ],
+            [
+              13,
+              4
+            ],
+            true
+          ]
+        ],
+        "passed": 9,
+        "total": 9
+      },
+      "title": "claim O passes with a battery that accepts the constant-pass counterfeIt",
+      "verdict": "FLAW: battery-agrees checks only (honest=13, shotgun=4) via the battery's own self-reported `passed` field; constant-pass/extra-id/filename-only are never asked of the battery. The kill_rule names per-class counts the counter does not obtain from the battery."
+    },
+    {
+      "id": "P4",
+      "observed": {
+        "growth_outside_section": {
+          "cited": [
+            "S931",
+            "S932",
+            "S933"
+          ],
+          "columns": 3,
+          "data_rows": 5,
+          "growth": 2707
+        },
+        "heading_count": 2,
+        "literal_pipe_columns": {
+          "cited": [
+            "S931",
+            "S932",
+            "S933"
+          ],
+          "columns": 3,
+          "data_rows": 5,
+          "growth": 162
+        },
+        "prose_only_citation": {
+          "cited": [
+            "S931",
+            "S932",
+            "S933"
+          ],
+          "columns": 3,
+          "data_rows": 5,
+          "growth": 215
+        },
+        "two_tables_row_sum": {
+          "cited": [
+            "S931",
+            "S932",
+            "S933"
+          ],
+          "columns": 2,
+          "data_rows": 5,
+          "growth": 174
+        }
+      },
+      "title": "D predicate surface: rows/columns/cited/growth legs are weakly binding",
+      "verdict": "WEAKNESS: table-rows sums rows across MULTIPLE tables (and counts a second table header as data); table-columns counts literal \"|\" so a 2-column table can read as 3; new-rows-cited is satisfied by prose, never by a table row; growth-bytes is measured over the whole file, not the section."
+    },
+    {
+      "id": "P5",
+      "observed": {
+        "command": "python3 -B reports/round-88/measure88.py --root . --base 4956282281dac1306cfbe59523e46dde99749d75 --lands <lands> --claim D",
+        "rc": 2,
+        "stderr_tail": "measure88.py: error: the following arguments are required: --work"
+      },
+      "title": "claims.json claim-D counter command is not runnable as written",
+      "verdict": "FLAW: measure88.py requires --work (argparse required=True); the frozen claim-D command omits it and exits 2 with a usage error. The claim-O command does include --work."
+    }
+  ],
+  "label": "SCOUTPROTOCOL_FROZEN_COUNTER_PROBES"
+}

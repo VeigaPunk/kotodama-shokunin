@@ -4846,3 +4846,61 @@ restart. Dead-seat numeric count and answering models are unknown, not zero;
 Frozen tool/counter bytes were not revised after data. The inherited
 lowest-axis/numeric mapping and L2-planner conformance debts remain open;
 finite predicate verification is not a full-protocol or promotion claim.
+
+## Round 88 — 2026-11-04
+
+Declared O / operability: an exact-set attestation finding comparator;
+D / depth: numeral-notation typology in the already-held numerals entry.
+Base `4956282281dac1306cfbe59523e46dde99749d75`.
+Executed controls land `0c8c733088df8c4f06770c9e714360eed7f29272`
+before claim/counter freeze `4b76524c51e1c2f76c99eeb3b629cfac08a44a76`.
+`reports/round-88/pre-dispatch.json` records inherited `measure87.py`
+honest12/12, constant3/12, shotgun12/12, extra-id12/12 and filename12/12.
+The new comparison layer retains honest13/13 and distinguishes those named
+counterfeits3/4/4/0, but the production comparator is absent at base, so O's
+base run exits1; D's no-work heading/citation/growth counts are zero, exit1.
+These are frozen finite controls, not arbitrary counterfeit resistance.
+
+R87-C4 binding correction: `732c45394c73fcffd9fc623b939d446c7b11a9db`
+carried the round87 counter transport selftest, `measure87.py` and controls;
+the production auditor itself landed at
+`12903255b6d3c940d18e6b81dce4d7cf49d519c2`.
+The prior LOG omitted that counter-selftest binding. R87-C7 disclosure:
+round87 changed box2's evidence from the round86 Iron positional receipt to
+the synthetic-packet audit and removed the former Marks legend; marks stayed
+author-side `[~]`. This appended correction names that historical edit; it
+does not pretend the structural packet audit certifies historical truth.
+
+One validated v1 wave has twelve items. Canonical attack-role counting:
+ReviewerO (reviewer), CriticD (critic), MutationBattery (mutation-tester)
+=3/12=25%; SentinelFrozen is an additional attack, not needed for that floor.
+L1 holds planning and ScoutProtocol the bounded data-walk; formal L2-planner
+and historical lowest-axis/numeric-mapping debts remain explicitly open.
+Ready handoff `.ufo/waves/round-88/w1.ready` names KotodamaR88.
+Integration and final observed outcomes will be appended after WAVE-DONE.
+
+Round88 integration after WAVE-DONE: Main states all12 seats settled; eight
+reports are present, while four attack-seat reports and final payload/status
+metadata are missing from the reconstructed results. Recovery was requested;
+unknown dead-seat count and answering models are retained in wave-summary.json.
+The source/code/scout reports, including the fake-comparator9/9 survivor,
+are durable wave evidence, not outside promotion verification.
+
+Production integration adds `tools/check-finding-sets.py` from ExecBattery,
+deepens numerals-and-measures §4b with a five-type cost sheet and a checked
+276/206 NON-CANON design, and corrects the old Roman/ciphered/tally/stage
+bullet. L1 shortened ScribeNotation's draft to avoid unsupported automatic
+foreign literacy, universal ranking and redundant-grid impossibility claims.
+Source rows S931–S933 support D; S934 supplies S929's complete boundary quote;
+S935 retains the rejected filename oracle. No original source row changes.
+SKILL and corpus index describe the new surfaces and their limits.
+
+QUALITY35 is grounded in the executed frozen-counter false-green probe and
+binds round89, not this frozen predicate. Frozen counter, claims, cases and
+original control bytes stay untouched; ExecControls' staged wrapper fixes are
+not adopted. Measurements explicitly use a committed-revision clone with
+KOTODAMA_ROOT set, retaining the no-environment failure as a limitation.
+The inherited round79 results file is attributed to the stale inline replay
+identified by the r87 non-author spot-check and is committed for durability,
+not reclassified as round88 execution. SHONEN's four marks and pointers are
+intentionally unchanged; the earlier edit is now disclosed above.
