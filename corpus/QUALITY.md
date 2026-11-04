@@ -334,3 +334,30 @@ this criterion makes the transport-positive evidence explicit.
 Binding from round89; round88's frozen instrument and its original selftest
 receipt remain unchanged. A production comparator's independently passing
 selftest does not retroactively certify that instrument.
+
+36. **A freshness or coverage counter binds the evidence to the claim's meaning, and its selftest pins every sub-check.**
+
+A re-verification quote is accepted only when it carries the row's
+`teaches`/`anchor` clause from visible page text, is not a substring of the
+row's own source cell, and comes from a capture path under the round's
+declared capture directory; a coverage counter checks the entry's topic and
+the base corpus's existing sections on that topic, not only its byte, heading
+and table shape. Each sub-check of a leg (date bounds, old→new, access date,
+quote bounds, sha256, http status, URL form, capture path, duplicate ids)
+has its own selftest negative, and a mutation-score receipt over the counter
+is committed before dispatch.
+
+Grounding: round 89. MutationCounter killed 10 of 41 non-equivalent mutants of
+`reports/round-89/measure89.py` with its own selftest (`.ufo/waves/round-89/w1/MutationCounter.md`);
+ReviewerCounter H1–H4/M1–M4 and CriticClaims findings 2–3 built landings that
+pass the frozen F or C predicate without re-verifying a teaching or adding
+topic coverage (shadow duplicate rows, site-chrome quotes, any-year Wayback,
+off-topic filler, copied section, capture path = graded file). The
+`corpus/lessons/round-89.md` R89-M5/M6 rows record them. Able to fail: the
+committed fixtures in `.ufo/waves/round-89/w1/stage/{ReviewerCounter,CriticClaims}/`
+PASS under the frozen counter, which is exactly the red this criterion asks a
+successor counter to turn into named LEG FAILs.
+
+Binding from round 90; round 89's frozen counter and receipts stay unchanged,
+and its real landing is audited separately by
+`reports/round-89/final/honest-landing-audit.json`.

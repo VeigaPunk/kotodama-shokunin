@@ -341,10 +341,11 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (33)
+## linguistics/ (34)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
+- `evidentiality-epistemic-marking.md` — evidentiality (grammatical marking of the speaker's information source and access) designed as a conlang and culture system — kept apart from epistemic modality (degree of commitment) and mirativity (unexpectedness); the WALS semantic and coding typology with its sample bounds, the source/access/egophoric extension, areal diffusion, cultural levers, a NON-CANON worked micro-design, refusals and open questions
 - `gesture-co-speech-pointing.md` — co-speech gesture, pointing and quotable gestures as a conlang and worldbuilding method — gesture as part of the utterance, what each gesture type carries, pointing in space and time, what a language packages into its speakers' hands, emblem repertoires, the social control of gesture, acquisition, and the calibration traps of reading kinesics as a universal script
 - `historical-linguistics.md` — language change as a worldbuilding tool — the comparative method, regular sound change (Grimm's and Verner's laws as worked examples), analogy, the grammaticalization cycle, dating language stages, constructing proto-languages and daughter languages
 - `kinship-terminology.md` — Murdock's six kinship-terminology types (Eskimo/lineal, Hawaiian, Iroquois, Omaha, Crow, Sudanese) with their exact merging fingerprints; what each encodes (weakly) about descent, residence, and marriage rules; Lounsbury's generative skewing rules for building consistent systems; affinal/alliance logic; kin terms borrowed into address systems (fictive kin, kin-pronouns, teknonymy, register strata); and the inverse method — reading a lexicon or an in-world document as evidence of social structure
@@ -914,3 +915,23 @@ selftest false green and environment dependence are retained in
 `corpus/lessons/round-88.md`, not advertised as arbitrary forgery resistance.
 S934 corrects S929's quotation presentation; S935 retains the rejected
 filename oracle. Old source rows are unchanged.
+
+## Round 89 evidentiality entry and source re-verification (2026-11-04)
+
+`knowledge/linguistics/evidentiality-epistemic-marking.md` adds a dedicated
+entry (row above, in the linguistics section). At base, evidentiality was held as
+sub-sections of `semantics-pragmatics.md` §4 and `syntax-typology.md` §4, sized
+by number of terms; the new entry adds the coding axis (WALS 78A), the 77A value
+counts with their sample bounds, the evidential/epistemic boundary as a contested
+design decision, access/egophoric marking, areal spread and a NON-CANON design,
+and couples back to those sections instead of repeating them. Sources S936–S940
+were opened this round; S941 is a retained rejection.
+
+Sixteen older registry rows of the recheck queue were re-opened live and their
+`recheck` cells advanced (round-89 lesson; `reports/round-89/rechecks/`).
+
+Total knowledge entries: 261.
+
+Counts checked 2026-11-04 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 261 files; directory totals 34/36/43/29/24/95).
