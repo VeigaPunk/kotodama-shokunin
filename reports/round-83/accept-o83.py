@@ -64,7 +64,7 @@ def registry_rows(skill_text):
 
 
 def missing_of(instr, rows):
-    return [p for p in instr if not any(p in c[2] for c in rows if len(c) > 2)]
+    return [p for p in instr if not any(p in cells[2] for cells, _ in rows if len(cells) > 2)]
 
 
 def dead_of(rows, tree):
@@ -91,8 +91,10 @@ def evaluate(root, lands, freeze, work, cfg, block):
     lands_inst = instrument_paths(root, lands)
     base_inst = instrument_paths(root, base)
 
+    tools_py = [p for p in C.tree_paths(root, lands, "tools") if p.endswith(".py")]
+
     def prep_lands():
-        C.materialize(root, lands, tree, [block["tool_path"], "SKILL.md"] + lands_inst)
+        C.materialize(root, lands, tree, [block["tool_path"], "SKILL.md"] + lands_inst + tools_py)
 
     def prep_base():
         C.materialize(root, base, btree, ["SKILL.md"] + base_inst)
@@ -163,7 +165,7 @@ def evaluate(root, lands, freeze, work, cfg, block):
 
     def rows_leg():
         need = list(block["base_missing"]) + ["reports/round-83/accept-%s83.py" % k for k in ("o", "d", "c")]
-        absent = [p for p in need if not any(p in c[2] for c in rows if len(c) > 2)]
+        absent = [p for p in need if not any(p in cells[2] for cells, _ in rows if len(cells) > 2)]
         return (not absent, "rows=%d prepared=%d absent=%s" % (len(rows), len(need), absent or "none"))
 
     def dead_leg():
@@ -199,7 +201,12 @@ def junk_battery(root, lands, freeze, work, cfg, block):
 
     def trial(name, mutate, expect):
         subprocess.run(["git", "-C", dest, "reset", "-q", "--hard", lands], check=True)
-        new = mutate()
+        try:
+            new = mutate()
+        except C.NoOp as e:
+            results.append((name, expect, False))
+            print("JUNK %-18s expect %-10s killed=False (no-op fixture: %s)" % (name, expect, e))
+            return
         w = os.path.join(work, "junkwork-" + name)
         os.makedirs(w, exist_ok=True)
         g = evaluate(dest, new, freeze, w, cfg, block)

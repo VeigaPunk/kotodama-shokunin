@@ -22,6 +22,10 @@ class Refuse(Exception):
     pass
 
 
+class NoOp(Exception):
+    """A fixture mutation that changes no committed bytes cannot grade a leg."""
+
+
 def _p(root, *a):
     return ["git", "-C", root] + list(a)
 
@@ -125,6 +129,8 @@ def fixture_commit(dest, relpath, content, msg):
     with open(p, "wb") as f:
         f.write(content if isinstance(content, bytes) else content.encode("utf-8"))
     subprocess.run(["git", "-C", dest, "add", "--", relpath], check=True)
+    if subprocess.run(["git", "-C", dest, "diff", "--cached", "--quiet"]).returncode == 0:
+        raise NoOp("fixture mutation changed no bytes")
     subprocess.run(["git", "-C", dest, "commit", "-q", "-m", msg], check=True)
     return gout(dest, "rev-parse", "HEAD").strip()
 

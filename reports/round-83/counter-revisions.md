@@ -23,3 +23,16 @@ precedent).
   `lands` bytes stay a graded `FROZENCFG` leg, so a control run at the base
   revision is refused by rule rather than by an unreadable file. No predicate,
   target, leg name or leg order changes; constants unchanged.
+- **r3 — this commit.** Red-before: the freeze-r2 smoke grade
+  (`reports/round-83/telemetry/smoke-o.txt`) printed `LEG BEFORE FAIL
+  instruments=58 missing=11/11` — the counter's own `missing_of` iterated the
+  `(cells, line)` tuple as if it were the cell list, so every instrument looked
+  uncovered and the before-state could never pass. Two further legs
+  (`ROWS`) carried the same unpacking bug, and the `DEAD`/`REGISTRY` legs
+  materialised only the accept-* scripts, so every `tools/*.py` row read as a
+  dead token (13 dead at a tree that had no `tools/` blobs). Fix: unpack
+  `(cells, _)` in `missing_of` and `ROWS`; materialise every `tools/**/*.py`
+  blob at lands into the graded tree; treat a fixture mutation that changes no
+  committed bytes as a `NoOp` rather than a commit failure (so a dry run of the
+  junk battery is honest about what it did not test). No predicate, constant,
+  target or leg name changes; the r2 counters are the red-before.

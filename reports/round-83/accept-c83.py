@@ -131,7 +131,8 @@ def evaluate(root, lands, freeze, work, cfg, block):
         rc2, out2, err2 = C.run_py(tp, ["--root", tree, "--from-round", str(block["from_round"])], cwd=tree)
         summ = C.one_line(out2, block["checker_summary_re"])
         m = re.match(block["checker_summary_re"], summ) if summ else None
-        shape = C.show(root, lands, block["checker_path"]).decode("utf-8", "replace")
+        b = C.show(root, lands, block["checker_path"])
+        shape = b.decode("utf-8", "replace") if b is not None else ""
         marks = [k for k in block["checker_shape_markers"] if k not in shape]
         ok = (rc == 0 and n >= block["checker_min_selftest_checks"] and rc2 == 0 and m is not None
               and int(m.group(1)) == 0 and int(m.group(2)) == 0 and not marks)
@@ -169,7 +170,12 @@ def junk_battery(root, lands, freeze, work, cfg, block):
 
     def trial(name, mutate, expect):
         subprocess.run(["git", "-C", dest, "reset", "-q", "--hard", lands], check=True)
-        new = mutate()
+        try:
+            new = mutate()
+        except C.NoOp as e:
+            results.append((name, expect, False))
+            print("JUNK %-18s expect %-10s killed=False (no-op fixture: %s)" % (name, expect, e))
+            return
         w = os.path.join(work, "junkwork-" + name)
         os.makedirs(w, exist_ok=True)
         g = evaluate(dest, new, freeze, w, cfg, block)
