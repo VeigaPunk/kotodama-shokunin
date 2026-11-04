@@ -639,6 +639,27 @@ def selftest(work):
     r = counter(["--root", fx, "--lands", j6, "--freeze", freeze, "--work", wd])
     check("junk shifted-NNd fails MODULAR", "LEG FAIL MODULAR" in r.stdout, r.stdout[-300:])
 
+    # junk 7: rows-less summary line (SUMMARY strictness on the "/ N rows" field)
+    rowless = tool.replace(
+        "    print('RECHECK-QUEUE: %d due / %d upcoming / %d on-release / %d rows'%(due,up,ex,rows))",
+        "    print('RECHECK-QUEUE: %d due / %d upcoming / %d on-release'%(due,up,ex))")
+    with open(os.path.join(fx, "tools", "check-sources-recheck.py"), "w", encoding="utf-8") as fh:
+        fh.write(rowless)
+    j7 = commit("junk: rows-less summary")
+    r = counter(["--root", fx, "--lands", j7, "--freeze", freeze, "--work", wd])
+    check("junk rows-less summary fails QUEUE", "LEG FAIL QUEUE" in r.stdout, r.stdout[-300:])
+
+    # junk 8: correct on the frozen registry, wrong once the population grows (kills a
+    # trivialised MODULAR neutral-row expectation: the tool adds one due at rows > 3)
+    growing = tool.replace(
+        "    for dl in duelines: print(dl)",
+        "    if rows > 3 and c[9] == '365d': due += 1\n    for dl in duelines: print(dl)")
+    with open(os.path.join(fx, "tools", "check-sources-recheck.py"), "w", encoding="utf-8") as fh:
+        fh.write(growing)
+    j8 = commit("junk: due count grows with the population")
+    r = counter(["--root", fx, "--lands", j8, "--freeze", freeze, "--work", wd])
+    check("junk population-growing due fails MODULAR", "LEG FAIL MODULAR" in r.stdout, r.stdout[-300:])
+
     print("SELFTEST-O82: %s (%d checks)" % ("PASS" if ok == total else "FAIL", total))
     return 0 if ok == total else 1
 

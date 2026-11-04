@@ -58,3 +58,36 @@ truth. A tool that prints a green selftest it did not run passes that leg — th
 MODULAR and QUEUE limbs are what catch arithmetic and output lies. The
 `--registry` and `--window` defaults are still never exercised, and a registry
 row shaped like a registry row inside prose would be counted (file-wide regex).
+
+## `reports/round-82/accept-o82.py` — r2 → r3 (same round, mutation closure)
+
+| | |
+|---|---|
+| r2 sha256 | `3b339c5049c861579c04d649c2badf84ae4baf0561ab6479a4c8cd6c53579908` |
+| r3 sha256 | `07e4b2db136c213002ed80e5a15bd64a229d229aa675712931d95a03414422f1` |
+| leg set | unchanged (7 legs) |
+
+**Why.** `MutationTesterO` measured r1's mutation score at **1/5** and named four
+honest coverage gaps; r2 closed the two boundary gaps, r3 closes the rest.
+
+**What changed — selftest only, no leg logic touched:** three more scenarios.
+`junk: rows-less summary` (a `RECHECK-QUEUE: … on-release` line with the
+`/ N rows` field dropped) must fail QUEUE; `junk: due count grows with the
+population` (a tool correct on the frozen registry that adds one due when a
+365d neutral row is appended) must fail MODULAR — this isolates the neutral-row
+expectation that a trivialised `ok1` would bypass; and the doubled-summary and
+shifted-NNd scenarios already added in r2 stay. Selftest 14 → 16 checks.
+
+**Mutation score.** Re-run of the five mutants the wave's seat ran against r1:
+**5/5 killed** under r3 (`telemetry/counter-r3-mutation.txt`), against 1/5 under
+r1 (`MutationTesterO.md`). The r1→r2 boundary kills are recorded in
+`telemetry/counter-r2-caught.txt`.
+
+**Re-grade.** `telemetry/lands-o82-graded-r3.txt`: `ACCEPT-O-82: PASS legs=7/7`,
+exit 0, at lands `41c6de89` with freeze `25907323`; `telemetry/selftest-o82-r3.txt`:
+`SELFTEST-O82: PASS (16 checks)`.
+
+**Residual, stated.** The SELFTEST floor is still self-reported (a tool printing
+a green selftest it did not run passes that leg — MODULAR and QUEUE are what
+catch output lies), and `--registry`/`--window` defaults plus the file-wide row
+regex remain unexercised gaps named by `CriticClaimO` §7.
