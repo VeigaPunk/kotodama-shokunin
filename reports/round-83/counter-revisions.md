@@ -49,3 +49,16 @@ precedent).
   own `the anchor list in `## 3`` cut the split before the later fields. Fix:
   split on `^## ` at line starts. No constant or predicate changes; the header
   requirement is unchanged and the entry was never graded by the broken leg.
+- **r6 — this commit (pre-data; no claim artifact existed).** The three
+  `SEPARABLE` legs compared `base..lands`, a cumulative range. With three claims
+  each landing in its own commit, that range necessarily contains the *earlier*
+  claim's files — so O, landing first, would pass while D and C could only pass
+  by landing first. That grades commit order, not separability. Red-before: at r5
+  the predicate is literally `C.changed_paths(root, base, lands)`, and the frozen
+  `foreign_paths` lists name the sibling claims' artifacts, so a second lands
+  commit fails on files it never touched. Fix: each leg now diffs the lands
+  commit against its own parent (`lands^..lands`), so it asserts "this claim's
+  commit touches its own paths and no foreign path" — the separable-claims
+  predicate. `APPENDONLY` keeps the cumulative `base..lands` range on purpose
+  (append-only is a property of the whole round, not of one commit). No target,
+  constant or leg name changes.

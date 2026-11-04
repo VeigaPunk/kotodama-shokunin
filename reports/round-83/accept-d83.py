@@ -161,7 +161,8 @@ def evaluate(root, lands, freeze, work, cfg, block):
         return (not unknown and len(new_cited) >= 3, "cited=%d unknown=%s new_cited=%s" % (len(cited), unknown or "none", len(new_cited)))
 
     def separable():
-        ch = C.changed_paths(root, base, lands)
+        parent = C.gout(root, "rev-parse", lands + "^").strip()
+        ch = C.changed_paths(root, parent, lands)
         own_missing = [p for p in block["own_paths"] if not any(c == p or c.startswith(p) for c in ch)]
         foreign = [p for p in block["foreign_paths"] if any(c == p or c.startswith(p.rstrip("/") + "/") for c in ch)]
         return (not own_missing and not foreign, "own_missing=%s foreign=%s" % (own_missing or "none", foreign or "none"))
