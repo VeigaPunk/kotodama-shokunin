@@ -4904,3 +4904,17 @@ The inherited round79 results file is attributed to the stale inline replay
 identified by the r87 non-author spot-check and is committed for durability,
 not reclassified as round88 execution. SHONEN's four marks and pointers are
 intentionally unchanged; the earlier edit is now disclosed above.
+
+Round88 final measurement at lands `a64baad9096954fcbdcf09c4b037f5f955667fc4`:
+frozen `measure88.py` rc0 PASS 9/9 for O (honest13, constant-pass3,
+shotgun4, extra-id4, filename-only0, comparator agreement[13,4], battery
+selftest0) and rc0 PASS 7/7 for D (heading1, rows5, columns4, cited3,
+mined3, growth≥2500) in a shared clone at the lands revision with
+KOTODAMA_ROOT set; receipts `reports/round-88/final/lands-{o,d}.json`.
+Separability runs rc0 with only each claim's own paths overlaid
+(`final/separability.json`), no-harm pins equal freeze↔lands
+(`final/noharm.json`), registry 854→859 with no old cell changed
+(`final/registry-counts.json`), census exit0 before and after. Round
+cited-records 0 empty / 0 scratch (`final/current-cited-records.json`);
+the inherited full-tree red stays historical. Four attack seats died on
+the provider with no deliverable and are reported, not replaced.

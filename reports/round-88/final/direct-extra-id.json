@@ -1,0 +1,121 @@
+{
+  "revision": "a64baad9096954fcbdcf09c4b037f5f955667fc4",
+  "tree": "6efa73fee34efb4a6e40a68fe4ad0d86fb57ab3b",
+  "command": [
+    "python3",
+    "-B",
+    "tools/check-finding-sets.py",
+    "--cases",
+    "reports/round-88/cases.json",
+    "--packet",
+    ".ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json",
+    "--candidate",
+    "reports/round-88/controls/extra-id.py",
+    "--json",
+    "--work",
+    "/fast/scratch/hyaku/kotodama-r88/L1/r88-final-yj9uz9k3"
+  ],
+  "environment": {
+    "KOTODAMA_ROOT": "caller-owned shared clone checked out at revision"
+  },
+  "rc": 1,
+  "stdout": "{\n  \"cases\": [\n    {\n      \"expected_rc\": 0,\n      \"name\": \"clean\",\n      \"passed\": true,\n      \"rc\": 0,\n      \"reason\": \"clean: no findings, records match\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"duplicate-id\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_SCOPE', 'RECORD_ID'] != expected ['RECORD_ID']\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"missing-clock\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_MISSING', 'CLOCK_SCOPE'] != expected ['CLOCK_MISSING']\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"blank-reason\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_REASON', 'CLOCK_SCOPE'] != expected ['CLOCK_REASON']\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"invalid-date\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_DATE', 'CLOCK_SCOPE'] != expected ['CLOCK_DATE']\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"blank-sense\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_SCOPE', 'RECORD_FIELD'] != expected ['RECORD_FIELD']\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"unresolved-selected\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_SCOPE', 'SOLUTION_CONFLICT'] != expected ['SOLUTION_CONFLICT']\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"conjecture-promoted\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_SCOPE', 'EDITORIAL_CONFLICT'] != expected ['EDITORIAL_CONFLICT']\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"translation-backdated\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_SCOPE', 'TRANSLATION_CLOCK'] != expected ['TRANSLATION_CLOCK']\"\n    },\n    {\n      \"expected_rc\": 0,\n      \"name\": \"unknown-explicit\",\n      \"passed\": true,\n      \"rc\": 0,\n      \"reason\": \"clean: no findings, records match\"\n    },\n    {\n      \"expected_rc\": 0,\n      \"name\": \"reordered\",\n      \"passed\": true,\n      \"rc\": 0,\n      \"reason\": \"clean: no findings, records match\"\n    },\n    {\n      \"expected_rc\": 1,\n      \"name\": \"double-anomaly\",\n      \"passed\": false,\n      \"rc\": 1,\n      \"reason\": \"id set ['CLOCK_SCOPE', 'RECORD_FIELD', 'SOLUTION_CONFLICT'] != expected ['RECORD_FIELD', 'SOLUTION_CONFLICT']\"\n    },\n    {\n      \"expected_rc\": 2,\n      \"name\": \"invalid-json\",\n      \"passed\": true,\n      \"rc\": 2,\n      \"reason\": \"ATTESTATION_ERROR text present\"\n    }\n  ],\n  \"passed\": 4,\n  \"total\": 13\n}\n",
+  "stderr": "",
+  "body": {
+    "cases": [
+      {
+        "expected_rc": 0,
+        "name": "clean",
+        "passed": true,
+        "rc": 0,
+        "reason": "clean: no findings, records match"
+      },
+      {
+        "expected_rc": 1,
+        "name": "duplicate-id",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_SCOPE', 'RECORD_ID'] != expected ['RECORD_ID']"
+      },
+      {
+        "expected_rc": 1,
+        "name": "missing-clock",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_MISSING', 'CLOCK_SCOPE'] != expected ['CLOCK_MISSING']"
+      },
+      {
+        "expected_rc": 1,
+        "name": "blank-reason",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_REASON', 'CLOCK_SCOPE'] != expected ['CLOCK_REASON']"
+      },
+      {
+        "expected_rc": 1,
+        "name": "invalid-date",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_DATE', 'CLOCK_SCOPE'] != expected ['CLOCK_DATE']"
+      },
+      {
+        "expected_rc": 1,
+        "name": "blank-sense",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_SCOPE', 'RECORD_FIELD'] != expected ['RECORD_FIELD']"
+      },
+      {
+        "expected_rc": 1,
+        "name": "unresolved-selected",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_SCOPE', 'SOLUTION_CONFLICT'] != expected ['SOLUTION_CONFLICT']"
+      },
+      {
+        "expected_rc": 1,
+        "name": "conjecture-promoted",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_SCOPE', 'EDITORIAL_CONFLICT'] != expected ['EDITORIAL_CONFLICT']"
+      },
+      {
+        "expected_rc": 1,
+        "name": "translation-backdated",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_SCOPE', 'TRANSLATION_CLOCK'] != expected ['TRANSLATION_CLOCK']"
+      },
+      {
+        "expected_rc": 0,
+        "name": "unknown-explicit",
+        "passed": true,
+        "rc": 0,
+        "reason": "clean: no findings, records match"
+      },
+      {
+        "expected_rc": 0,
+        "name": "reordered",
+        "passed": true,
+        "rc": 0,
+        "reason": "clean: no findings, records match"
+      },
+      {
+        "expected_rc": 1,
+        "name": "double-anomaly",
+        "passed": false,
+        "rc": 1,
+        "reason": "id set ['CLOCK_SCOPE', 'RECORD_FIELD', 'SOLUTION_CONFLICT'] != expected ['RECORD_FIELD', 'SOLUTION_CONFLICT']"
+      },
+      {
+        "expected_rc": 2,
+        "name": "invalid-json",
+        "passed": true,
+        "rc": 2,
+        "reason": "ATTESTATION_ERROR text present"
+      }
+    ],
+    "passed": 4,
+    "total": 13
+  }
+}

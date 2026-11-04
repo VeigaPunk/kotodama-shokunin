@@ -21,7 +21,7 @@
   "residual": 0,
   "replacement": 0,
   "results_artifact": ".ufo/waves/round-88/w1-results.json",
-  "settled": "Main WAVE-DONE states all12 settled; final payload/status/id metadata not retained after kernel restart",
+  "settled": "All12 settled:8 reports delivered,4 dead with no deliverable. Parent recovered four dead statuses from retained sessions; null result payloads reflect kernel restart, not silent successful seats.",
   "available_reports": [
     "ExecBattery",
     "ExecControls",
@@ -38,7 +38,45 @@
     "MutationBattery",
     "SentinelFrozen"
   ],
-  "dead_seat_count": null,
+  "dead_seat_count": 4,
   "actual_answering_models": null,
-  "unknown_reason": "No status/model metadata in results.json; requested recovery from Main, not inferred zero."
+  "unknown_reason": "Successful seats answering-model metadata was lost; four dead-seat identities, provider/model and error are explicitly recovered from parent.",
+  "dead_seats": [
+    {
+      "id": "ReviewerO",
+      "role": "reviewer",
+      "provider": "opencode-go",
+      "model": "deepseek-v4.1-flash",
+      "stopReason": "error",
+      "error": "402 Upstream request failed: Insufficient account funds (type=server_error)",
+      "deliverable": null
+    },
+    {
+      "id": "CriticD",
+      "role": "critic",
+      "provider": "opencode-go",
+      "model": "deepseek-v4.1-flash",
+      "stopReason": "error",
+      "error": "402 Upstream request failed: Insufficient account funds (type=server_error)",
+      "deliverable": null
+    },
+    {
+      "id": "MutationBattery",
+      "role": "mutation-tester",
+      "provider": "opencode-go",
+      "model": "deepseek-v4.1-flash",
+      "stopReason": "error",
+      "error": "402 Upstream request failed: Insufficient account funds (type=server_error)",
+      "deliverable": null
+    },
+    {
+      "id": "SentinelFrozen",
+      "role": "sentinel",
+      "provider": "opencode-go",
+      "model": "deepseek-v4.1-flash",
+      "stopReason": "error",
+      "error": "402 Upstream request failed: Insufficient account funds (type=server_error)",
+      "deliverable": null
+    }
+  ]
 }

@@ -69,6 +69,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | explicit-root corpus-index auditor | Audit six partitions, supplemental row ownership, topic equality and current counts with duplicate-row failure and malformed-final-footer refusal; retains already-existing last-valid-footer behavior | `python3 -B tools/check-corpus-index.py --root .`; `--selftest --work <existing-dir>` (23 checks); `reports/round-85/lands-o.txt` at `228e3a4c` → PASS 10/10, actual index 258/258 | round 85 |
 | article paragraph locator | Read a trusted local MediaWiki article capture, exclude navigation/captions, locate a quote in exactly one nonempty article paragraph and compare its one-based ordinal; separate wrong position from absent/ambiguous quote and input refusal | `python3 -B tools/check-paragraph-locator.py --selftest --work <existing-dir>`; actual Iron expect 1/2 exits 1/0, ordinal 2; `reports/round-86/lands-o.txt` at `8efa380aa3a66aee9d597d9e855e89c807beeea9` PASS 8/8, selftest 29 checks | round 86, author-side pending closure |
 | attestation packet production audit | Named-option trusted-local JSON CLI with variable record populations, stable findings and actual subprocess selftests; inherited relationships from the r86 stage checker, not first integrity checking | `python3 -B tools/check-attestation-packet.py --packet .ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json --json`; `reports/round-87/lands-o.json` at `12903255b6d3c940d18e6b81dce4d7cf49d519c2` finite12/12, `tool-selftest.json`37/37; filename/label forgeries and domain origin-justification miss retained | round 87, author-side pending non-author closure |
+| exact-set finding comparator | Runs a named trusted-local candidate on opaque filenames and compares exit status plus exact finding-id and id/record-pair sets against a supplied case battery, with a 16-check subprocess selftest (honest positive, four forgeries refused, six malformed outputs failing as cases, one hang timeout); duplicate multiplicity deliberately ungraded | `python3 -B tools/check-finding-sets.py --cases reports/round-88/cases.json --packet .ufo/waves/round-86/w1/stage/ExecCraftLedger/craft.json --candidate tools/check-attestation-packet.py --json --work <existing-dir>`; `--selftest` 16/16; `reports/round-88/final/lands-o.json` at `a64baad9` honest13 / constant-pass3 / shotgun4 / extra-id4 / filename-only0 | round 88, author-side pending non-author closure |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -1899,3 +1900,36 @@ Counter selftest was executed after freeze/ready, not before dispatch:
 `reports/round-88/counter-selftest.json` exit0 is inadequate transport evidence;
 `counter-selftest-false-green.json` shows a FileNotFoundError child still
 blessed by the suite. QUALITY35 binds round89, not an amended round88 rule.
+
+## Axes — round 88 (2026-11-04; author-side, non-author closure pending)
+
+Measured at lands `a64baad9096954fcbdcf09c4b037f5f955667fc4` (lane `main` tip,
+also the remote tip), base `4956282281dac1306cfbe59523e46dde99749d75`, freeze
+`4b76524c51e1c2f76c99eeb3b629cfac08a44a76`, executed controls
+`0c8c733088df8c4f06770c9e714360eed7f29272`. Frozen predicate, counter
+(SHA256 `5a80a4398468710338b39928d44b5aae3a7366d94767b06dd78eabce0bd995e7`),
+cases and control bytes are unchanged after data. Both receipts below come
+from a caller-owned `git clone --shared` checked out at the lands revision
+with `KOTODAMA_ROOT` set; the counter's missing-environment failure remains a
+disclosed limitation, not a repaired one.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved, finite predicate verifies (capability acquisition) | Comparator path absent at base and the inherited r87 counter accepted shotgun/extra-id/filename-only at 12/12 each → committed `tools/check-finding-sets.py` scores the honest auditor 13/13 and the four committed counterfeits exactly constant-pass 3, shotgun-all-labels 4, extra-id 4, filename-only 0, with comparator agreement [13,4] and its own 16/16 subprocess selftest | `python3 -B reports/round-88/measure88.py --root <clone> --base 4956282281dac1306cfbe59523e46dde99749d75 --lands a64baad9096954fcbdcf09c4b037f5f955667fc4 --claim O --work <existing-dir>` (with `KOTODAMA_ROOT=<clone>`) | `reports/round-88/final/lands-o.json` rc0 PASS 9/9; `reports/round-88/final/separability.json` O run rc0 at sandbox `bb442acf` with only `tools/check-finding-sets.py` overlaid |
+| depth / D | improved, finite predicate verifies | Heading count 0, cited new ids 0, growth 0 bytes → exactly one `## 4b. Numeral notation: two axes, five types, and their trade-offs` heading, 5 data rows over 4 columns, S931/S932/S933 cited and mined (A/B), entry growth ≥2500 bytes | same counter with `--claim D` | `reports/round-88/final/lands-d.json` rc0 PASS 7/7; separability D run rc0 at sandbox `c2ba8080` with only the entry and `corpus/SOURCES.md` overlaid |
+| calibration | observation, no additional scored claim | Frozen counter's transport selftest false-green (`counter-selftest-false-green.json`, R88-M2) and four reference-drift/attribution mistakes R88-M1–M6 recorded; QUALITY35 grounded in the executed probe and binds round89 | — | `corpus/lessons/round-88.md` `## Mistakes`; `corpus/QUALITY.md` criterion 35 |
+| coverage / freshness / adjacency | unchanged | No knowledge addition beyond the declared deepening, no frontier promotion, no source re-verification beyond the five rows the claims cite, no canon/method ownership | — | `reports/round-88/final/noharm.json`: changed knowledge path only `corpus/knowledge/linguistics/numerals-and-measures.md`, old registry rows unchanged, four pins equal freeze↔lands |
+
+Source registry 854 → 859 rows (A 505→507, B 326→328, C 23→24; mined
+753→757, queued 58, rejected 43→44); additions S931–S935, no old row cell
+changed (`reports/round-88/final/registry-counts.json`). Census exit 0 both
+ends (`reports/round-88/census-start.json`, `census-end.json`).
+
+Round shape: one v1 wave, 12 seats — 3 executor, 2 scribe, 2 scout,
+1 connector, 1 reviewer, 1 critic, 1 mutation-tester, 1 sentinel; canonical
+attack 3/12 = 25 % plus one additional sentinel; no residual and no
+replacement. Eight seats delivered reports; four attack seats died on the
+provider (`402 Insufficient account funds`) with no deliverable and stay dead
+in the evidence (`reports/round-88/provider-deaths.json`). Formal L2-planner
+conflict, the historical lowest-axis/numeric-mapping debt and the inherited
+full cited-record red remain open.
