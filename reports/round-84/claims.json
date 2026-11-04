@@ -1,0 +1,138 @@
+{
+ "round": 84,
+ "base": "81499ee45b5751d388fefc78583810878de01ecd",
+ "pre_data": "Claims, the two counters and the shared counter library freeze before any claim artifact lands. Every constant is read with `git show <freeze>:reports/round-84/claims.json`, never from the graded tree. Each counter refuses (exit 2, `FAIL legs=0/<n> (refused: ...)`) a revision that is not 40-hex, a freeze that is not an ancestor of lands, lands equal to the frozen base (the do-nothing control), unreadable or incomplete frozen config, a leg list that disagrees with its own leg table, a lands revision that is not an ancestor of the branch tip, and a --work that is not an existing directory. Claim verdicts are graded on committed bytes only: each counter materialises the blobs it grades from --root:<rev> into <work>/tree before running anything, and runs the materialised tools, never the worktree copies.",
+ "claims": [
+  {
+   "id": "D",
+   "axis": "depth",
+   "kind": "knowledge entry (four rows opened this round)",
+   "title": "Add corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md: witchcraft and sorcery as an accusation institution (the vocabulary set, the accusation grammar, the proof technology, the confession, the slander law, and the social functions an accusation carries) with a worked NON-CANON derivation",
+   "before": "at base no knowledge file owns the surface: filename sweep over the 257 files under corpus/knowledge for `witch|witchcraft|sorcer|malefic` (case-insensitive) = 0 owning basenames; matter-of-subject scan `grep -rlE '^- topic: .{0,160}\\b(witchcraft|sorcery|witch|sorcerer|malefic)' corpus/knowledge` = 0 files; the word-boundary term set occurs 19 times across 10 files, every one a passing attribute or a translation caution inside an entry that owns something else (amulets, divination, binding speech, colour, Yorùbá etymological caution, Mongol source criticism); 837 registry rows; no `- gap filled:` owner for the surface.",
+   "after": "the entry lands as the 258th knowledge file (>= 16000 bytes) with the eight header fields, >= 7 `## ` sections, >= 6 decision rows in `## 2. The decision table`, >= 20 attested-anchor bullets in `## 4. Attested anchors` each carrying exactly one distinct S-id across >= 4 distinct ids, and `tools/check-cited-lines.py <entry>` = 0 findings; SOURCES 837 -> >= 841 rows, the four new rows S914-S917 opened 2026-11-04, each `mined`, each `used-by` naming the entry; the entry cites at least three of those new rows.",
+   "counter": "reports/round-84/accept-d84.py",
+   "review_only": [
+    "the comparative claims the entry makes stay within the cited scope; the counter grades shape, provenance and citation hygiene, not scholarship",
+    "entry craft quality is judged by the reviewer seat and the non-author closure, not counted",
+    "whether the accusation institution belongs to myth-symbol or to a social-institutions partition is a curation judgment the round argues in the entry's `- couples:` line and the report, not a counter leg"
+   ],
+   "entry84": {
+    "entry_path": "corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md",
+    "min_bytes": 16000,
+    "min_sections": 7,
+    "decision_heading": "## 2. The decision table",
+    "min_decision_rows": 6,
+    "anchors_heading": "## 4. Attested anchors",
+    "min_anchors": 20,
+    "min_distinct_ids": 4,
+    "new_row_ids": [
+     "S914",
+     "S915",
+     "S916",
+     "S917"
+    ],
+    "min_new_rows": 4,
+    "opened": "2026-11-04",
+    "base_knowledge_files": 257,
+    "base_registry_rows": 837,
+    "cited_lines_tool": "tools/check-cited-lines.py",
+    "surface_re": "(?i)\\b(witch|witches|witchcraft|sorcer[a-z]*|malefic[a-z]*)\\b",
+    "header_markers": [
+     "- topic:",
+     "- gap filled:",
+     "- sources:",
+     "- couples:",
+     "- source:",
+     "- verified-at:",
+     "- recheck:",
+     "- scope:"
+    ],
+    "own_paths": [
+     "corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md",
+     "corpus/SOURCES.md"
+    ],
+    "foreign_paths": [
+     "tools/apply-sound-laws.py",
+     "examples/sound-laws/",
+     "SKILL.md"
+    ],
+    "legs": [
+     "FROZENCFG",
+     "BEFORE",
+     "ENTRY",
+     "SECTIONS",
+     "DECISIONS",
+     "ANCHORS",
+     "LINT",
+     "ROWS",
+     "SOURCED",
+     "SEPARABLE"
+    ]
+   }
+  },
+  {
+   "id": "O",
+   "axis": "operability",
+   "kind": "capability acquisition (a deterministic ordered sound-law applier with rule traces) + the committed two-era derivation it produces",
+   "title": "Land tools/apply-sound-laws.py — a deterministic, dependency-free applier for ordered sound laws over a segment-tokenised proto-lexicon, with one trace line per change, a committed example (12 words, >= 6 ordered rules) that the tool reproduces byte-for-byte, and its SKILL.md `## Gates and probes` row",
+   "before": "at base no committed tool applies ordered sound laws to a lexicon: `git ls-tree -r --name-only <base> tools examples | grep -ciE 'sound.?law|soundchange'` = 0 and `git grep -c SOUNDLAWS <base> -- tools examples reports` = 0 lines; the lane can only *check* a supplied sound-change exercise (`tools/check-craft-exercise.py`), never derive one from a rule set; `examples/sound-laws/` does not exist; registry: `GATE-REGISTRY: 0 missing / 74 registered / 61 instruments / 0 dead` plus `GATE-REGISTRY-INFO: 25 tools without a row` at base.",
+   "after": "`tools/apply-sound-laws.py` exists at lands with `selftest` and `apply --rules --input --out [--trace]` subcommands; `--selftest` prints `SELFTEST: PASS (<n> checks)` with n >= 20, exit 0; the committed example under `examples/sound-laws/` (>= 12 words, >= 6 ordered rules) is reproduced byte-identically by `apply`, printing one `SOUNDLAWS: <w> words / <r> rules / <c> changes` line with w >= 12, r >= 6, c >= 12, and a trace in which every rule fires at least once; three malformed inputs each exit 2 with a `SOUNDLAW_ERROR:` label and no traceback; SKILL.md `## Gates and probes` carries a row whose entry command names `tools/apply-sound-laws.py`, and `tools/check-gate-registry.py --root .` still prints `GATE-REGISTRY: 0 missing / <r> registered / <i> instruments / 0 dead` with r >= 77, i >= 63, plus `GATE-REGISTRY-INFO: <= 25 tools without a row` (the new tool and both round-84 counters are rowed, so the unrowed count does not grow).",
+   "counter": "reports/round-84/accept-o84.py",
+   "review_only": [
+    "whether the rule syntax is the best notation for conlang work is a craft judgment reviewed by the reviewer seat, not counted",
+    "the linguistic plausibility of the example's rule set is reviewed against `corpus/knowledge/linguistics/historical-linguistics.md`, not counted"
+   ],
+   "tool84": {
+    "tool_path": "tools/apply-sound-laws.py",
+    "example_dir": "examples/sound-laws",
+    "rules_path": "examples/sound-laws/rules.json",
+    "input_path": "examples/sound-laws/proto-lexicon.tsv",
+    "expected_path": "examples/sound-laws/expected.tsv",
+    "min_tool_bytes": 5000,
+    "min_selftest_checks": 20,
+    "min_words": 12,
+    "min_rules": 6,
+    "min_changes": 12,
+    "min_rules_fired": 6,
+    "min_registered_rows": 77,
+    "min_instruments_at_lands": 63,
+    "max_unrowed_tools": 25,
+    "shape_markers": [
+     "SOUNDLAW_ERROR:",
+     "--selftest",
+     "def main("
+    ],
+    "summary_re": "^SOUNDLAWS: (\\d+) words / (\\d+) rules / (\\d+) changes$",
+    "selftest_re": "^SELFTEST: PASS \\((\\d+) checks\\)$",
+    "gate_re": "^GATE-REGISTRY: (\\d+) missing / (\\d+) registered / (\\d+) instruments / (\\d+) dead$",
+    "info_re": "^GATE-REGISTRY-INFO: (\\d+) tools without a row$",
+    "registry_heading": "## Gates and probes",
+    "negative_cases": [
+     "missing rules file",
+     "rules file that is not JSON",
+     "rule with an empty `from` segment"
+    ],
+    "own_paths": [
+     "tools/apply-sound-laws.py",
+     "examples/sound-laws/",
+     "SKILL.md"
+    ],
+    "foreign_paths": [
+     "corpus/knowledge/myth-symbol/witchcraft-sorcery-accusation-institution.md",
+     "corpus/SOURCES.md"
+    ],
+    "legs": [
+     "FROZENCFG",
+     "BEFORE",
+     "TOOL",
+     "SELFTEST",
+     "DEMO",
+     "NEGATIVE",
+     "REGISTRY",
+     "SEPARABLE"
+    ]
+   }
+  }
+ ],
+ "do_nothing_control": "At --lands = the frozen base every counter refuses with exit 2 (`FAIL legs=0/<n> (refused: lands equals the frozen base -- do-nothing control)`): a control that lands nothing cannot commit an entry, open a source row, acquire the tool or add its registry row. Receipts: reports/round-84/telemetry/controls-d.txt, controls-o.txt."
+}
