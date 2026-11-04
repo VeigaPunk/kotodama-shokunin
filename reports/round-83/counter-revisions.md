@@ -12,7 +12,7 @@ precedent).
     do-nothing control with the *wrong* reason, `freeze is not an ancestor of
     lands`, because the ancestor check ran before the `lands == base` check — a
     control receipt that names the wrong rule is not a control.
-  - `reports/round-83/telemetry/smoke-d.txt`: the D counter raised an uncaught
+  - `.ufo/waves/round-83/w1/stage/L1/smoke-d.txt`: the D counter raised an uncaught
     `FileNotFoundError` for the absent entry instead of grading the ENTRY leg,
     so a missing artifact could have crashed the counter rather than failing it.
 - **r2 — this commit.** Fixes, each visible in the diff: (1) every counter checks
@@ -24,7 +24,7 @@ precedent).
   revision is refused by rule rather than by an unreadable file. No predicate,
   target, leg name or leg order changes; constants unchanged.
 - **r3 — this commit.** Red-before: the freeze-r2 smoke grade
-  (`reports/round-83/telemetry/smoke-o.txt`) printed `LEG BEFORE FAIL
+  (`.ufo/waves/round-83/w1/stage/L1/smoke-o.txt`) printed `LEG BEFORE FAIL
   instruments=58 missing=11/11` — the counter's own `missing_of` iterated the
   `(cells, line)` tuple as if it were the cell list, so every instrument looked
   uncovered and the before-state could never pass. Two further legs
@@ -62,3 +62,17 @@ precedent).
   predicate. `APPENDONLY` keeps the cumulative `base..lands` range on purpose
   (append-only is a property of the whole round, not of one commit). No target,
   constant or leg name changes.
+- **r7 — this commit (pre-data; no claim artifact existed).** Two contract-level
+  corrections found while the L1 wrote the criterion-31 red-before:
+  (a) the checker's document set was frozen as `reports/round-<k>/**/*.md` +
+  `corpus/lessons/round-<k>*.md`, but the routed round-82 defect's scratch
+  citations are `.txt` telemetry receipts and the empty record is cited from the
+  lesson — so the red-before could not fire on the very class the criterion
+  names. The set is now `reports/round-<k>/**/*.md|*.txt` + the lesson;
+  `.ufo/waves/round-<k>/` stays working evidence and is not scanned (declared in
+  the criterion text and in `claims.json`).
+  (b) the two L1 smoke receipts printed `--work` paths, i.e. scratch roots inside
+  a citable receipt — exactly what criterion 31(ii) forbids. They move to
+  `.ufo/waves/round-83/w1/stage/L1/` as working evidence (this commit carries
+  both the additions and the deletions); the clean `controls-*.txt` stay in
+  `reports/round-83/telemetry/`. No leg predicate, taget or constant changes.
