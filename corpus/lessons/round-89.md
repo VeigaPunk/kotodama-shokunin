@@ -34,7 +34,7 @@ finding 2c), not a longer one.
 - S032 LOCATED recheck 90d→2027-02-03 — https://doi.org/10.1016/j.evolhumbehav.2024.04.014 accessed 2026-11-04: “Female foragers sometimes hunt, yet gendered divisions of labor are real: a comment on Anderson et al. (2023)” — Crossref CSL-JSON for the DOI still carries the title-level counter-position (and 54 references, issued 2024-07) that is all the teaches cell claims.
 - S033 LOCATED recheck 90d→2027-02-03 — https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0309543 accessed 2026-11-04: “concerns were raised about the reliability and replicability of the results” — Correction notice still opens with the reliability/replicability concerns and carries the Definition of forager and Selection criteria sections named in teaches.
 - S084 LOCATED recheck 90d→2027-02-03 — https://www.signwriting.org/ accessed 2026-11-04: “Sign Languages are written languages!” — Home page banner still carries the maintainer statement quoted in teaches.
-- S104 LOCATED recheck 90d→2027-02-03 — https://glottolog.org/resource/languoid/id/lsfi1234 accessed 2026-11-04: “Pseudo Family: LSFic Classification open LSFic” — The page heading still names LSFic as a Glottolog 5.3 pseudo-family node (lsfi1234); the FSL/ASL children are carried only in the script-embedded classification tree, which the text conversion drops, so the quote backs existence/naming (the row anchor "Page heading") and ASL-under-LSFic is independently shown by S105.
+- S104 LOCATED recheck 90d→2027-02-03 — https://glottolog.org/resource/languoid/id/lsfi1234 accessed 2026-11-04: “Pseudo Family: LSFic Classification open LSFic” — The page heading still names LSFic as a Glottolog 5.3 pseudo-family node (lsfi1234); the FSL/ASL children are carried only in the script-embedded classification tree, which the text conversion drops, so the quote backs existence/naming (the row anchor "Page heading") and ASL-under-LSFic is independently shown by the amer1248 JSON row below.
 - S105 LOCATED recheck 90d→2027-02-03 — https://glottolog.org/resource/languoid/id/amer1248.json accessed 2026-11-04: “{"name": "LSFic", "id": "lsfi1234", "url": "https://glottolog.org/resource/languoid/id/lsfi1234"}, {"name": "ASLic", "id": "asli1244",” — The amer1248 JSON classification array runs Sign Language > L1 Sign Language > LSFic > ASLic > American Sign, so ASL lineage is through LSFic with no English node.
 - S106 LOCATED recheck 90d→2027-02-03 — https://glottolog.org/resource/languoid/id/bsli1234 accessed 2026-11-04: “The BANZSL subgroup is argued by Adam Schembri and Kearsy Cormier and Trevor Johnston and David McKee and Rachel McKee and Bencie Woll (2010)” — The Comments on subclassification state the BANZSL subgroup is argued (citing Schembri et al. 2010, Johnston 2003) alongside lexicostatistical and historical evidence for BSLic.
 - S107 LOCATED recheck 90d→2027-02-03 — https://glottolog.org/resource/languoid/id/banz1243.json accessed 2026-11-04: “'British Sign Language [brit1235][bfi]-l-':1,'New Zealand Sign Language [newz1236][nzs]-l-':1)'BANZSL [banz1243]':1” — The banz1243 newick field lists British Sign Language and New Zealand Sign Language (after the Auslanic clade containing Auslan) as children of BANZSL.
@@ -138,3 +138,11 @@ ExecRecheckB, ExecSeparability), 2 scribe (ScribeEvidentiality, ScribeLesson),
 mutation-tester (MutationCounter); attack 4/11. All eleven delivered reports;
 no seat died, none replaced, no residual call. L1 holds planning.
 Measured results are appended below after landing, not invented here.
+
+First measurement at lands `590c20671f38dff203fdd879235fd61b61a9aff7`: F
+FAIL 4/5 — BACKED `S105: quote absent from capture`
+(`reports/round-89/final/lands-F-first.txt`). Cause: the S104 line's trailing
+prose named S105, so the counter's first LOCATED line for S105 was S104's,
+carrying S104's quote. Fix in the records only: that prose now says "the
+amer1248 JSON row". The frozen counter, claims and every capture are
+unchanged; the final F measurement below is at the corrected lands.
