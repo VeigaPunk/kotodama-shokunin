@@ -1,0 +1,14 @@
+# claim C (QUALITY 30) counting receipt
+$ git show c285b2afb19d4b64320e18df1f55e426bf2d0b0c:corpus/QUALITY.md | grep -c "^30\\. "
+0
+$ grep -c "^30\\. " corpus/QUALITY.md
+1
+$ grep -n "^30\\. " corpus/QUALITY.md
+207:30. **A "no quotable prose" reject records a folded re-read and a capture probe before it is filed** — adds to criteria 10, 12, 18, 21, 24 and 27.
+
+# the criterion's grounding rows:
+211:Before the row is filed, the prober re-reads the same fetched bytes under two guards: tags become a separator (not nothing), and U+00A0 and U+2003 fold to a space. The record carries both counts for the span it means, `raw <n> / folded <m>`. A `raw 0 / folded >= 1` reading is an extraction artifact of the prober's stripper, not a property of the source, and the source is quoted from the folded read.
+215:Check (red-before): each reject row of the round carries `raw <n> / folded <m>` for its located span; a row whose reason asserts no prose while `folded >= 1` is a misfiled reject.
+
+# the falsified case the criterion corrects (round 81's filed reject ground):
+156:sources were chosen (stub / client-side transclusion — a plain fetcher cannot

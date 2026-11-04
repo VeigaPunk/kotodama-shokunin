@@ -203,3 +203,17 @@ Measured red/green against base `98c486bdb4650ba5b8e651d332910e8ee60ad121`: `.uf
 Limits, stated: the round-76 red/green check scans only path-attached `(N B)` size cells and the lesson's whole-document/excerpt histogram; it does not audit every numeric sentence or every evidence header. The S885 `111486 B` Gate cell names its staged probe receipt, so it is not counted as a misattribution against the committed evidence file. Criterion 29 requires re-derivation from the artifact each sentence actually names; this fixture demonstrates the size/histogram class, not universal numeric coverage.
 
 Grounded in round-76 mistake R76-M1 (`corpus/lessons/round-76.md` `## Mistakes`) and the recurrence evidence in `.ufo/waves/round-76/w1/RevengerMistakes.md` §§2–5.
+
+30. **A "no quotable prose" reject records a folded re-read and a capture probe before it is filed** — adds to criteria 10, 12, 18, 21, 24 and 27.
+
+Scope: every reject, and every "the page carries no quotable body text" ruling inside a reject reason, that rests on the live URL not serving prose — a client-side transclusion, a stub, a template-only page, a heading-only page.
+
+Before the row is filed, the prober re-reads the same fetched bytes under two guards: tags become a separator (not nothing), and U+00A0 and U+2003 fold to a space. The record carries both counts for the span it means, `raw <n> / folded <m>`. A `raw 0 / folded >= 1` reading is an extraction artifact of the prober's stripper, not a property of the source, and the source is quoted from the folded read.
+
+Where the page is template-rendered (Parsoid/Wikibase transclusion), the prober also fetches the same-page Wayback capture and records its status, decoded bytes, paragraph count and the same `raw/folded` counts. A live-only limitation whose capture (or folded live read) serves the prose is not a durability ground, and the row is judged on what the source carries — a dictionary gloss may still be filed, as a tier-C lead with that scope written into the row.
+
+Check (red-before): each reject row of the round carries `raw <n> / folded <m>` for its located span; a row whose reason asserts no prose while `folded >= 1` is a misfiled reject.
+
+Grounded in round-82's measurement (`reports/round-82/telemetry/quality30-probe.txt`): round 81 rejected EB11 "Coin"/"Mint" as "renders only via client-side transclusion, so a plain fetcher cannot find quotes there", and round 82 re-read the same Mint page folded — 27 paragraph tags and the article's opening sentence present once, live (HTTP 200, 148302 decoded bytes) and in the `20260608000413` capture (121744 / 122055 bytes, 28 `</p>`) — so the ground was extraction-shaped. The same round's first read of EB11 "Guest" reproduced the artifact (the prose follows a raw Parsoid template block in the same container) and was corrected before its row was filed (`reports/round-82/evidence/S907.txt`).
+
+Limits, stated: a folded hit proves the prose is present, never that the span is the article's own sentence rather than a quoted or boilerplate one (that stays review under criterion 11), and the criterion grades the record, not the judgment — a page whose prose is a glossary entry may still be refused as too thin for a claim's scope, which is a tier decision, not a ground of unquotability. Binds from round 83; no earlier reject row is retro-fitted, and round 81's filed reject stands as history with this criterion as its correction.
