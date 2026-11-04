@@ -191,7 +191,12 @@ def junk_battery(root, lands, freeze, work, cfg, block):
 
     def trial(name, mutate, expect):
         subprocess.run(["git", "-C", dest, "reset", "-q", "--hard", lands], check=True)
-        new = mutate()
+        try:
+            new = mutate()
+        except C.NoOp as e:
+            results.append((name, expect, False))
+            print("JUNK %-18s expect %-10s killed=False (no-op fixture: %s)" % (name, expect, e))
+            return
         w = os.path.join(work, "junkwork-" + name)
         os.makedirs(w, exist_ok=True)
         g = evaluate(dest, new, freeze, w, cfg, block)

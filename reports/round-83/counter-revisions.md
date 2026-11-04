@@ -36,3 +36,9 @@ precedent).
   committed bytes as a `NoOp` rather than a commit failure (so a dry run of the
   junk battery is honest about what it did not test). No predicate, constant,
   target or leg name changes; the r2 counters are the red-before.
+- **r4 — this commit.** r3's no-op-fixture fix reached the O and C counters and the
+  shared library but not the D counter (`git diff` at r3 showed the D file clean
+  while the worktree carried the uncommitted hunk). Red-before: at r3 the D
+  counter's junk battery would have raised `CalledProcessError` on a mutation
+  that changes no bytes instead of reporting it. The hunk committed here is the
+  identical `NoOp` handling; no predicate or constant changes.
