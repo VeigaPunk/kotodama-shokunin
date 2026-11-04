@@ -41,3 +41,74 @@ In particular quality for round 84 is unchanged; disposition counts are not disc
 round-83's institutional count is 14 lines / 16 matches / 9 files; final freeze is
 29f4b6a5. Bare junk-o84 resolves to `.ufo/waves/round-84/w1/stage/L1/junk-o84.txt`.
 No old declaration or receipt has been amended.
+
+## Integration and counter limits
+
+Wave W1 settled: parent supplied WAVE-DONE for all 12 seats and
+`.ufo/waves/round-85/w1-results.json`. Five substantive outputs:
+ExecIndexAuditor, ExecIndexReading, ReviewerEntry, CriticClaims, MutationTester.
+Seven settled outputs are empty: ScoutGapMetal, ScoutSourcesMetal, ExecControls,
+ScribeEntryMetal, ScribeRows, ScribeErrata, ConnectorOverlap. Results supply
+neither status, answering model nor last-error text for those rows; no cause of
+death is invented. No seat was replaced. L1 supplied the actual entry and rows,
+then ReviewerEntry inspected those bytes and the repaired companion.
+
+O lands `228e3a4c27ac2ea8e373de02a315cb5d94222d9b`: selftest 23 checks,
+real index 258 files / 258 rows / zero findings, frozen predicate PASS 10/10.
+D lands `5abe107204f1a98c754d49289e6a3c75ee3dfa44`: 27,848 bytes, ten
+sections, six decisions, 20 anchors, four ids, unknown cited ids zero, lint zero,
+frozen predicate PASS 8/8. Source rows 842 → 847: S919–S922 B/mined;
+S923 C/rejected. No old registry row or status/recheck/used-by cell changed.
+All five new-row quotes and all twenty entry quotes located in live and
+same-page archived bodies (ReviewerEntry, `review.md` and quote-location JSON).
+These are lane review findings, not an external admission/spot-check.
+
+The frozen before-text for O incorrectly says the round-28 sweep reads the
+first footer. The pinned base already contains round-75 repair `012e8d3c` and
+selects the last valid footer. Last-footer selection is a retained regression
+guard; genuine new behavior is explicit root, duplicate failure and refusal to
+skip a malformed final dated footer. Frozen bytes are not rewritten or
+reinterpreted as an absence claim that was true. CriticClaims F3 and
+ExecIndexReading measured this, and README/SCORECARD correct the narrative.
+
+CriticClaims F1's more selective inadequate tool passes the frozen O counter:
+the nonce tests do not independently establish ghost/topic/header detection or
+real selftest execution. This survivor is an out-of-protocol synthetic
+experiment: that critic made scratch fixture commits despite the no-mutation
+seat restriction; no lane/fleet mutation occurred. MutationTester's separate
+transport-overlay battery killed seven of eight mutants with clean controls;
+wrong-source-identity survived D's shape check, as its review-only boundary
+predicts. These are mutation-sensitivity experiments, not committed acceptance.
+The real delivered implementation and actual source bodies were separately read.
+
+Counter conformance defects remain: missing isolated counter selftest;
+no frozen leg inventory/LEGCOUNT; base ancestry checked but freeze ancestry
+not enforced; O denominator varies when the tool is absent. No target or
+predicate changed after data. Pre-data controls were committed in `bd520d85`,
+after freeze `ed816e71` but before ready; they were not inside the freeze.
+Separability was exercised after dispatch, not before: corrected manifest
+prints zero findings / two acceptance runs / zero skipped, exit 0.
+
+## Additional mined mistakes
+
+| id | class | evidence | captured-by | fix or honest boundary |
+|---|---|---|---|---|
+| R85-M3 | stale-premise: original r28 behavior attributed to repaired base bytes | CriticClaims F3, `r28-footer-provenance.txt` | QUALITY 29 and R84-M5 nearest-capability discipline | Append corrections to README, SCORECARD and this lesson; do not rewrite freeze. Explicit-root and duplicate deltas remain real, first-footer acquisition is not claimed. |
+| R85-M4 | worked example failed to instantiate its promised ledger | ReviewerEntry MEDIUM finding; `reports/round-85/fixtures/craft-before.json` | QUALITY 4 usability; now criterion 32 | Twelve incomplete records → zero incomplete with unique ids, composition status and four clock fields. `craft-ledger-red-green.json` preserves same-command exit 1 → 0 and input hashes. Unknown native forms remain null. |
+| R85-M5 | counter kill power/authority weaker than local gate standard | CriticClaims F1/F2 and mutation survivor | QUALITY 11, 23, 26, 28 | Preserve all findings, disclose no selftest/LEGCOUNT/freeze-ancestry enforcement; actual source/code review is separate. No post-data counter amendment. |
+| R85-M6 | separability manifest wrong argv nesting and late execution | `reports/round-85/separability-input-red.txt` exit 2; `separability.txt` exit 0 | QUALITY 7/9 | Correct argv shape; retain timing defect rather than calling the post-dispatch check pre-dispatch. |
+
+## Scope, frontier and assimilation
+
+No prior knowledge entry was re-verified or superseded: quality trend remains
+unchanged. The new entry/capability support expansion; criterion 32 supports
+discernment. Canon stays lore's, general research method stays chousa's, and
+engineering recipes remain outside this material-vocabulary task. The L1's
+bounded sibling-PROVINCE regex sweep found no metallurgy/smelting owner; this
+does not assert universal absence beyond that named sweep.
+
+Assimilation: none. L1 opened the staged MERGE-REPORT theme menu read-only;
+no staged package is adopted or bulk-appended. Existing quarantine decisions
+are not reopened by this choice. `considerthese/` is absent in the lane.
+The new entry is indexed after its own landing; the 258-file O demonstration
+does not depend on D. A later footer records the 259-file combined tree.

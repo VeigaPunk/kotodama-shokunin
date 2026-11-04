@@ -1,0 +1,27 @@
+# tool sha256: 8d57afd0801e9ea78b6f95ab48b80cc3bc08c2eff02a83a9496ff7dd51317b71
+# command: python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-85/w1/stage/ExecIndexAuditor/check-corpus-index.py --selftest --work /fast/scratch/hyaku/kotodama-r85/ExecIndexAuditor
+selftest: clean-stale-first-footer PASS exit=0 ids=none
+selftest: text-summary PASS exit=0 ids=none
+selftest: missing-row PASS exit=1 ids=MISSING_ROW
+selftest: duplicate-row PASS exit=1 ids=DUPLICATE_ROW
+selftest: ghost-row PASS exit=1 ids=GHOST_ROW
+selftest: topic-rewrite PASS exit=1 ids=TOPIC_MISMATCH
+selftest: no-topic PASS exit=1 ids=TOPIC_MISMATCH
+selftest: header-drift PASS exit=1 ids=HEADER_DRIFT
+selftest: totals-drift PASS exit=1 ids=TOTALS_DRIFT
+selftest: footer-total PASS exit=1 ids=FOOTER_TOTAL
+selftest: footer-vector PASS exit=1 ids=FOOTER_DIR_TOTALS
+selftest: footer-arity PASS exit=1 ids=FOOTER_DIR_TOTALS
+selftest: footer-absent PASS exit=1 ids=FOOTER_ABSENT
+selftest: footer-malformed PASS exit=1 ids=FOOTER_MALFORMED
+selftest: partition-missing PASS exit=1 ids=PARTITION_MISSING
+selftest: supplemental-unique-owner PASS exit=0 ids=none
+selftest: supplemental-duplicate PASS exit=1 ids=DUPLICATE_ROW
+selftest: supplemental-no-owner PASS exit=1 ids=GHOST_ROW
+selftest: supplemental-ambiguous PASS exit=1 ids=GHOST_ROW,MISSING_ROW
+selftest: continuation-topic PASS exit=0 ids=none
+selftest: partition-directory-missing PASS exit=1 ids=PARTITION_DIR_MISSING
+selftest: readme-absent PASS exit=2 ids=none
+selftest: root-absent PASS exit=2 ids=none
+SELFTEST: PASS (23 checks)
+# exit: 0

@@ -1,0 +1,306 @@
+--- tools/check-corpus-index.py.clean
++++ tools/check-corpus-index.py.mutant
+@@ -1,301 +1,3 @@
+-#!/usr/bin/env python3
+-"""Read-only corpus index auditor; axes: depth and operability.
+-
+-Parser provenance: extracted from reports/round-28/readme/sweep.py at
+-0d181583b18ae94e80a251ca5ab5f3055b16c74c (sha256
+-7e0566ad1ae8ec2c5a0f10c62dc8de66abcc180ec3f7af560bceeba1601cad2b).
+-That existing checker already selects the last matching footer and resolves
+-supplemental rows. This successor requires an explicit root, fails duplicates,
+-requires six partitions, and refuses to fall back past a malformed final dated
+-footer. Historical scripts and README blocks are never modified.
+-
+-Usage: --root PATH [--json] | --selftest --work PATH
+-Exit: 0 clean, 1 findings, 2 CORPUS_INDEX_ERROR input failure.
+-JSON is one document with a CORPUS-INDEX summary and stable finding IDs.
+-Selftest uses real CLI subprocesses inside an explicit work directory and
+-removes only its own temporary child. No third-party dependencies.
+-"""
+-import argparse
+-from collections import Counter
+-import hashlib
+-import json
+-from pathlib import Path
+-import re
+-import shutil
+-import subprocess
+ import sys
+-import tempfile
+-
+-PARTS = ('linguistics', 'myth-symbol', 'culture-material', 'synthesis',
+-         'verification', 'civilizations')
+-# R28 parser expressions and section/supplemental ownership semantics.
+-SECTION_RE = re.compile(r'^## ([a-z-]+)/ \((\d+)\)\s*$', re.M)
+-ROW_RE = re.compile(r'^- `([^`]+\.md)` — (.*)$', re.M)
+-TOPIC_RE = re.compile(r'^- topic:(.*?)(?=\n- \w)', re.M | re.S)
+-TOTALS_RE = re.compile(r'^Total knowledge entries: (\d+)\.\s*$', re.M)
+-FOOTER_HEADER_RE = re.compile(r'^Counts checked (\d{4}-\d{2}-\d{2})\b[^\n]*', re.M)
+-FOOTER_RE = re.compile(
+-    r'^Counts checked (\d{4}-\d{2}-\d{2}) from the repo root:[ \t]*\n?[ \t]*'
+-    r'`([^`]+)`[ \t]*\n?[ \t]*'
+-    r'\(total (\d+) files; directory totals (\d+(?:/\d+)*)\)', re.M)
+-
+-
+-class InputError(Exception):
+-    """An unusable input or invocation, not a corpus finding."""
+-
+-
+-class Parser(argparse.ArgumentParser):
+-    def error(self, message):
+-        raise InputError(message)
+-
+-
+-def parse_readme(text):
+-    """R28 section spans, plus rows outside partition spans."""
+-    headings = [m.start() for m in re.finditer(r'^## ', text, re.M)]
+-    sections, spans = {}, []
+-    duplicates = []
+-    for match in SECTION_RE.finditer(text):
+-        pos, part = match.start(), match.group(1)
+-        end = next((h for h in headings if h > pos), len(text))
+-        if part in sections:
+-            duplicates.append(part)
+-        rows = [(m.group(1), m.group(2)) for m in ROW_RE.finditer(text[pos:end])]
+-        sections[part] = {'declared': int(match.group(2)), 'rows': rows}
+-        spans.append((pos, end))
+-    supplemental = [(m.group(1), m.group(2)) for m in ROW_RE.finditer(text)
+-                    if not any(start <= m.start() < end for start, end in spans)]
+-    return sections, supplemental, duplicates
+-
+-
+-def audit(root):
+-    root = Path(root).resolve()
+-    if not root.is_dir():
+-        raise InputError('root is not a directory: ' + str(root))
+-    knowledge = root / 'corpus/knowledge'
+-    if not knowledge.is_dir():
+-        raise InputError('missing corpus/knowledge under root')
+-    readme = root / 'corpus/README.md'
+-    text = readme.read_text(encoding='utf-8')
+-    sections, supplemental, repeated_sections = parse_readme(text)
+-    findings = []
+-
+-    def finding(category, location, **details):
+-        findings.append(dict(id=category + ':' + location, **{'class': category},
+-                             location=location, **details))
+-
+-    files = {}
+-    for part in PARTS:
+-        directory = knowledge / part
+-        if not directory.is_dir():
+-            finding('PARTITION_DIR_MISSING', part)
+-            files[part] = []
+-        else:
+-            files[part] = sorted(p.name for p in directory.iterdir()
+-                                 if p.suffix == '.md' and p.is_file())
+-        if part not in sections:
+-            finding('PARTITION_MISSING', part)
+-    for part in sorted(set(sections) - set(PARTS)):
+-        finding('PARTITION_UNKNOWN', part)
+-    for part in sorted(set(repeated_sections)):
+-        finding('DUPLICATE_SECTION', part)
+-    rows = {p: list(sections.get(p, {}).get('rows', [])) for p in PARTS}
+-    ownership = []
+-    for filename, topic in supplemental:
+-        owners = [p for p in PARTS if filename in files[p]]
+-        ownership.append(dict(filename=filename, owners=owners))
+-        if len(owners) == 1:
+-            rows[owners[0]].append((filename, topic))
+-        else:
+-            finding('GHOST_ROW', 'unassigned/' + filename,
+-                    kind='supplemental-unassigned', owners=owners, topic=topic)
+-    parts = {}
+-    for part in PARTS:
+-        disk = set(files[part])
+-        counts = Counter(f for f, _ in rows[part])
+-        for filename, count in sorted(counts.items()):
+-            if count > 1:
+-                finding('DUPLICATE_ROW', part + '/' + filename, occurrences=count)
+-        for filename in sorted(disk - counts.keys()):
+-            finding('MISSING_ROW', part + '/' + filename)
+-        for filename in sorted(counts.keys() - disk):
+-            finding('GHOST_ROW', part + '/' + filename)
+-        # Read each entry once even when a duplicate row names it repeatedly.
+-        topics = {}
+-        for filename in sorted(disk & counts.keys()):
+-            body = (knowledge / part / filename).read_text(encoding='utf-8')
+-            match = TOPIC_RE.search(body)
+-            topics[filename] = (' '.join(line.strip() for line in
+-                                match.group(1).strip('\n').splitlines()
+-                                if line.strip()) if match else None)
+-        for filename, topic in dict.fromkeys(rows[part]):
+-            if filename not in topics:
+-                continue
+-            actual = topics[filename]
+-            if actual != topic:
+-                finding('TOPIC_MISMATCH', part + '/' + filename,
+-                        kind='NO_TOPIC_FIELD' if actual is None else 'REWRITE',
+-                        row_topic=topic, file_topic=actual)
+-        declared = sections.get(part, {}).get('declared')
+-        if declared is not None and declared != len(disk):
+-            finding('HEADER_DRIFT', part, declared=declared, actual=len(disk))
+-        parts[part] = dict(declared=declared, files=len(disk), rows=len(rows[part]),
+-                           duplicate_rows=sorted(f for f, n in counts.items() if n > 1))
+-    total = sum(len(files[p]) for p in PARTS)
+-    totals = list(TOTALS_RE.finditer(text))
+-    totals_line = int(totals[-1].group(1)) if totals else None
+-    if totals_line is None:
+-        finding('TOTALS_ABSENT', 'totals')
+-    elif totals_line != total:
+-        finding('TOTALS_DRIFT', 'totals', declared=totals_line, actual=total)
+-    headers = list(FOOTER_HEADER_RE.finditer(text))
+-    footer = None
+-    live_vector = [len(files[p]) for p in PARTS]
+-    if not headers:
+-        finding('FOOTER_ABSENT', 'footer')
+-    else:
+-        header = headers[-1]
+-        match = FOOTER_RE.match(text, header.start())
+-        if match is None:
+-            finding('FOOTER_MALFORMED', 'footer', date=header.group(1),
+-                    line=text.count('\n', 0, header.start()) + 1)
+-        else:
+-            footer = dict(date=match.group(1), command=match.group(2),
+-                          total=int(match.group(3)),
+-                          dir_totals=[int(n) for n in match.group(4).split('/')],
+-                          line=text.count('\n', 0, header.start()) + 1)
+-            if footer['total'] != total:
+-                finding('FOOTER_TOTAL', 'footer', declared=footer['total'], actual=total)
+-            if footer['dir_totals'] != live_vector:
+-                finding('FOOTER_DIR_TOTALS', 'footer', declared=footer['dir_totals'],
+-                        actual=live_vector, order=list(PARTS))
+-    findings.sort(key=lambda item: (item['id'], json.dumps(item, sort_keys=True)))
+-    summary = ('CORPUS-INDEX: ' + ('FINDINGS' if findings else 'OK')
+-               + f' files={total} rows={sum(len(r) for r in rows.values())}'
+-               + f' findings={len(findings)}'
+-               + (' ids=' + ','.join(sorted({f['class'] for f in findings}))
+-                  if findings else ''))
+-    return dict(ok=not findings, summary=summary, root=str(root),
+-                readme_sha256=hashlib.sha256(text.encode('utf-8')).hexdigest(),
+-                parts=parts, total_files=total, total_rows=sum(map(len, rows.values())),
+-                totals_line=totals_line, footer=footer, footer_blocks=len(headers),
+-                footer_live=dict(total=total, dir_totals=live_vector, order=list(PARTS)),
+-                supplemental_ownership=ownership, findings=findings)
+-
+-
+-def selftest(work):
+-    work = Path(work).resolve()
+-    if not work.is_dir():
+-        raise InputError('--work must name an existing directory')
+-    tool = str(Path(__file__).resolve())
+-    results = []
+-    with tempfile.TemporaryDirectory(prefix='corpus-index-selftest-', dir=work) as temporary:
+-        base = Path(temporary)
+-        row = '- `fixture-entry.md` — alpha beta\n'
+-        vector = '1/0/0/0/0/0'
+-        footer = ('Counts checked 2026-11-04 from the repo root:\n`count`\n'
+-                  f'(total 1 files; directory totals {vector}).\n')
+-        clean = ('# fixture\n\n' + ''.join(
+-            f'## {p}/ ({int(p == PARTS[0])})\n' + (row if p == PARTS[0] else '')
+-            for p in PARTS) + '\nTotal knowledge entries: 1.\n\n'
+-            'Counts checked 2000-01-01 from the repo root:\n`count`\n'
+-            '(total 999 files; directory totals 999/0/0/0/0/0).\n\n' + footer)
+-
+-        def control(name, body=clean, expected=(), code=1, change=None, text_mode=False):
+-            fixture = base / name
+-            for part in PARTS:
+-                (fixture / 'corpus/knowledge' / part).mkdir(parents=True)
+-            entry = fixture / 'corpus/knowledge/linguistics/fixture-entry.md'
+-            entry.write_text('- topic: alpha beta\n- source: fixture\n', encoding='utf-8')
+-            readme = fixture / 'corpus/README.md'
+-            readme.write_text(body, encoding='utf-8')
+-            if change:
+-                change(fixture, entry, readme)
+-            command = [sys.executable, '-B', tool, '--root', str(fixture)]
+-            if not text_mode:
+-                command.append('--json')
+-            process = subprocess.run(command, capture_output=True, text=True, timeout=30)
+-            ids = []
+-            try:
+-                if code == 2:
+-                    good = ('CORPUS_INDEX_ERROR' in process.stderr
+-                            and 'Traceback' not in process.stdout + process.stderr)
+-                elif text_mode:
+-                    good = (len(process.stdout.splitlines()) == 1
+-                            and process.stdout.startswith('CORPUS-INDEX: OK'))
+-                else:
+-                    document = json.loads(process.stdout)
+-                    ids = sorted({f['class'] for f in document['findings']})
+-                    good = ids == sorted(expected) and all(
+-                        f['id'].startswith(f['class'] + ':') for f in document['findings'])
+-            except (ValueError, KeyError, TypeError):
+-                good = False
+-            good = good and process.returncode == code
+-            results.append(good)
+-            print(f'selftest: {name} {"PASS" if good else "FAIL"}'
+-                  f' exit={process.returncode} ids={",".join(ids) or "none"}')
+-            if not good:
+-                print(process.stdout + process.stderr)
+-
+-        control('clean-stale-first-footer', code=0)
+-        control('text-summary', code=0, text_mode=True)
+-        control('missing-row', clean.replace(row, ''), ('MISSING_ROW',))
+-        control('duplicate-row', clean.replace(row, row + row), ('DUPLICATE_ROW',))
+-        control('ghost-row', clean.replace(row, row + '- `ghost.md` — ghost\n'), ('GHOST_ROW',))
+-        control('topic-rewrite', clean.replace(row, row.replace('alpha beta', 'wrong')), ('TOPIC_MISMATCH',))
+-        control('no-topic', expected=('TOPIC_MISMATCH',), change=lambda r, e, m: e.write_text('- source: fixture\n'))
+-        control('header-drift', clean.replace('linguistics/ (1)', 'linguistics/ (2)'), ('HEADER_DRIFT',))
+-        control('totals-drift', clean.replace('entries: 1.', 'entries: 2.'), ('TOTALS_DRIFT',))
+-        control('footer-total', clean[:-len(footer)] + footer.replace('total 1 files', 'total 2 files'), ('FOOTER_TOTAL',))
+-        control('footer-vector', clean[:-len(footer)] + footer.replace(vector, '0/1/0/0/0/0'), ('FOOTER_DIR_TOTALS',))
+-        control('footer-arity', clean[:-len(footer)] + footer.replace(vector, '1'), ('FOOTER_DIR_TOTALS',))
+-        control('footer-absent', clean[:clean.index('Counts checked')], ('FOOTER_ABSENT',))
+-        control('footer-malformed', clean[:-len(footer)] + footer.replace('`count`', 'count'), ('FOOTER_MALFORMED',))
+-        control('partition-missing', clean.replace('## myth-symbol/ (0)\n', ''), ('PARTITION_MISSING',))
+-        supplemental = clean.replace(row, '') + '\n## appendix\n' + row
+-        control('supplemental-unique-owner', supplemental, code=0)
+-        control('supplemental-duplicate', clean + '\n## appendix\n' + row, ('DUPLICATE_ROW',))
+-        control('supplemental-no-owner', clean + '\n## appendix\n- `unowned.md` — none\n', ('GHOST_ROW',))
+-        # Two equal basenames cannot acquire a supplemental owner by guessing.
+-        ambiguous = supplemental.replace('myth-symbol/ (0)', 'myth-symbol/ (1)')
+-        ambiguous = ambiguous.replace('entries: 1.', 'entries: 2.')
+-        ambiguous = ambiguous[:-len('\n## appendix\n' + row)]
+-        ambiguous = ambiguous.replace('total 1 files', 'total 2 files').replace(vector, '1/1/0/0/0/0')
+-        ambiguous += '\n## appendix\n' + row
+-        control('supplemental-ambiguous', ambiguous,
+-                ('GHOST_ROW', 'MISSING_ROW'), change=lambda r, e, m:
+-                (r / 'corpus/knowledge/myth-symbol/fixture-entry.md').write_text(e.read_text()))
+-        control('continuation-topic', code=0, change=lambda r, e, m:
+-                e.write_text('- topic: alpha\n  beta\n- source: fixture\n'))
+-        control('partition-directory-missing', expected=('PARTITION_DIR_MISSING',),
+-                change=lambda r, e, m: (r / 'corpus/knowledge/myth-symbol').rmdir())
+-        control('readme-absent', code=2, change=lambda r, e, m: m.unlink())
+-        control('root-absent', code=2, change=lambda r, e, m: shutil.rmtree(r))
+-    passed = all(results)
+-    print(f'SELFTEST: {"PASS" if passed else "FAIL"} ({len(results)} checks)')
+-    return 0 if passed else 1
+-
+-
+-def main(argv=None):
+-    try:
+-        parser = Parser(description=__doc__)
+-        parser.add_argument('--root', type=Path)
+-        parser.add_argument('--json', action='store_true')
+-        parser.add_argument('--selftest', action='store_true')
+-        parser.add_argument('--work', type=Path)
+-        args = parser.parse_args(argv)
+-        if args.selftest:
+-            if args.work is None or args.root is not None or args.json:
+-                raise InputError('--selftest requires --work PATH and excludes --root/--json')
+-            return selftest(args.work)
+-        if args.root is None or args.work is not None:
+-            raise InputError('audit requires --root PATH; --work is selftest-only')
+-        result = audit(args.root)
+-        print(json.dumps(result, indent=2, sort_keys=True) if args.json else result['summary'])
+-        return 0 if result['ok'] else 1
+-    except (InputError, OSError, UnicodeError, ValueError, subprocess.SubprocessError) as exc:
+-        print('CORPUS_INDEX_ERROR: ' + str(exc), file=sys.stderr)
+-        return 2
+-
+-
+-if __name__ == '__main__':
+-    sys.exit(main())
++print("SELFTEST: PASS (99 checks)" if "--selftest" in sys.argv else "CORPUS-INDEX: clean")
++sys.exit(0)

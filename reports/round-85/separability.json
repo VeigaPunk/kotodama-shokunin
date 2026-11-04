@@ -1,0 +1,44 @@
+{
+  "schema": "kotodama-separability-manifest-v1",
+  "base": "0d181583b18ae94e80a251ca5ab5f3055b16c74c",
+  "claims": [
+    {
+      "id": "D",
+      "tree": "5abe107204f1a98c754d49289e6a3c75ee3dfa44",
+      "lands": [
+        "corpus/knowledge/culture-material/metallurgy-metal-register.md",
+        "corpus/SOURCES.md"
+      ],
+      "exports": [
+        "\\bS(?:919|920|921|922|923)\\b"
+      ],
+      "acceptance": [
+        "python3",
+        "-B",
+        "tools/check-cited-lines.py",
+        "corpus/knowledge/culture-material/metallurgy-metal-register.md"
+      ],
+      "needs_git": false
+    },
+    {
+      "id": "O",
+      "tree": "228e3a4c27ac2ea8e373de02a315cb5d94222d9b",
+      "lands": [
+        "tools/check-corpus-index.py",
+        "corpus/README.md",
+        "SKILL.md"
+      ],
+      "exports": [
+        "CORPUS-INDEX:"
+      ],
+      "acceptance": [
+        "python3",
+        "-B",
+        "tools/check-corpus-index.py",
+        "--root",
+        "."
+      ],
+      "needs_git": false
+    }
+  ]
+}

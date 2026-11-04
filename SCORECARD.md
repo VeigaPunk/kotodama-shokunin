@@ -66,6 +66,7 @@ or untested behavior. Full protocol conformance and promotion remain open.
 | gate-registry coverage auditor | Enumerates every committed `reports/round-*/accept-*.py` counter, parses the `SKILL.md` `## Gates and probes` table under the census grammar, and reports unregistered counters, dead entry-command paths and the unregistered-tool count (informational, never graded); one summary line, `--json`, and a selftest over 15 fixture checks | `python -B tools/check-gate-registry.py --root .` → `GATE-REGISTRY: 0 missing / 74 registered / 61 instruments / 0 dead`; `--selftest` → `SELFTEST: PASS (15 checks)`; `python -B reports/round-83/accept-o83.py --lands 0f088572 --freeze 29f4b6a5 --work <scratch>` → `ACCEPT-O-83: PASS legs=8/8` | round 83 |
 | ordered sound-law applier | Applies an external ordered rule set to a segment-tokenised proto-lexicon, one trace line per change, with a committed two-era example and a 37-check selftest | `python -B tools/apply-sound-laws.py --selftest`; `python -B tools/apply-sound-laws.py apply --rules examples/sound-laws/rules.json --input examples/sound-laws/proto-lexicon.tsv --out /dev/null`; `reports/round-84/accept-o84.py` (legs=8/8) | round 84 |
 | cited-record checker | Scans a lane tree's round receipts (`reports/round-<k>/**/*.md|*.txt` and the round lesson) for a backticked cited path that resolves to a 0-byte file (`EMPTY`) and for absolute temporary/scratch roots (`SCRATCH`), prints `CITED-RECORDS: <n> empty / <m> scratch`, and fails on either; a token that does not resolve is not a finding (a path list is not a citation) | `python -B tools/check-cited-records.py --root .` → `CITED-RECORDS: 0 empty / 0 scratch`; at base with `--from-round 82 --bind-round 82` → `2 empty / 7 scratch`, exit 1; `--selftest` → `SELFTEST: PASS (12 checks)` | round 83 |
+| explicit-root corpus-index auditor | Audit six partitions, supplemental row ownership, topic equality and current counts with duplicate-row failure and malformed-final-footer refusal; retains already-existing last-valid-footer behavior | `python3 -B tools/check-corpus-index.py --root .`; `--selftest --work <existing-dir>` (23 checks); `reports/round-85/lands-o.txt` at `228e3a4c` → PASS 10/10, actual index 258/258 | round 85 |
 
 ## Axes — round 6 final integration (2026-10-17)
 
@@ -1745,3 +1746,50 @@ coverage/adjacency unchanged, `PROVINCE.md` untouched. Capability row
 are named in the lesson (ANCHORS tolerates one malformed bullet above its floor;
 `SOURCED` does not verify id membership; `ROWS` grades three cells; `DEMO` runs one
 input — offset by the L1 held-out check).
+
+## Planned — round 85 (2026-11-04)
+
+Base `0d181583b18ae94e80a251ca5ab5f3055b16c74c`; frozen declaration and
+counter `ed816e71a97dde9b65f9265276b77c7583274671`.
+Two claims: D / depth — a sourced metallurgy-register entry;
+O / operability, capability acquisition — explicit-root index auditor selecting
+the final dated footer and failing duplicate rows. The nearest existing
+capability is the round-28 index sweep, not an absent index checker.
+Pre-data base/freeze runs fail both predicates; receipts:
+`reports/round-85/control-d-base.txt`, `control-d-freeze.txt`,
+`control-o-base.txt`, `control-o-freeze.txt`.
+Freshness remains paused by kotodama round-11's open L0 question
+“drift-recheck threshold calibration”; no stagnation waiver or freshness delta.
+
+## Corrections — round 85
+
+`reports/round-85/errata.md` supersedes R84-C1–C9, including the historical
+round-83 depth row's “27 lines in 9 files”: read **14 lines / 16 matches in
+9 files**. The round-84 assertion that round 83 routed no defects was false.
+Round-83 final grading freeze was `29f4b6a58f84424b517c6f2aafdf297d66cded6a`,
+not the lesson's earlier r2 `21277b08`. Historical rows and filed receipts
+are preserved; the corrections carry no axis score delta.
+
+## Axes — round 85 (2026-11-04, author-side; closure pending)
+
+Base `0d181583b18ae94e80a251ca5ab5f3055b16c74c`; immutable declaration/counter
+freeze `ed816e71a97dde9b65f9265276b77c7583274671`.
+One v1 wave: 12 settled seats, 5 substantive deliveries and 7 empty outputs;
+no replacement seats. L1 completed the missing prose/source-row slices.
+
+| axis | verdict | measured before → after | command and measured commit |
+|---|---|---|---|
+| depth / D | structural predicate verifies; sourced entry reviewed | absent owner among 258 filenames / 842 registry rows → 27,848-byte metallurgy register, 10 sections, six decisions, 20 body anchors over four newly opened ids; registry 847, four B mined and one C rejected | `python3 -B reports/round-85/measure85.py --root . --claim D --lands 5abe107204f1a98c754d49289e6a3c75ee3dfa44 --freeze ed816e71a97dde9b65f9265276b77c7583274671 --work <existing-dir>` → PASS 8/8; `reports/round-85/lands-d.txt` |
+| operability / O | after-predicate verifies; frozen before-premise partly falsified | round-28 sweep already existed AND already selected last footer; genuine delta is explicit root, duplicate-row failure and malformed-final-footer refusal. Base effective index 253/258, ten findings → actual repaired index 258/258, zero findings; selftest 23 checks | same counter with `--claim O --lands 228e3a4c27ac2ea8e373de02a315cb5d94222d9b` → PASS 10/10; `reports/round-85/lands-o.txt`; CriticClaims F3 |
+| calibration | record repairs, no score delta claimed | R84-C1–C9 append-only errata; twelve incomplete worked records corrected to twelve explicit sense/clock records; criterion 32 grounded in actual reviewer finding | `reports/round-85/errata.md`, `craft-ledger-red-green.json` (exit 1 → 0), `corpus/QUALITY.md` criterion 32 |
+| coverage / freshness / adjacency | unchanged | new entry and auditor are D/O moves; freshness pause stands; no world-bible acceptance or research-method ownership acquired | `PROVINCE.md` unchanged; lane-scoped source and handoff boundaries in entry |
+
+Independent counterfactual acceptance: `reports/round-85/separability.json`
+overlays only D's paths or only O's paths on the base; `separability.txt`
+prints zero findings, two acceptance runs, none skipped, exit 0.
+The manifest ran after dispatch, not before: the timing defect is retained.
+The frozen counter has no conformant isolated selftest, no authoritative leg
+inventory and weak authority/kill-power checks (CriticClaims F1/F2). No
+post-data counter revision was made. Thus green after-predicates do not
+assert full protocol conformance or override the falsified before-premise;
+round admission is reserved for the independent closure.

@@ -4658,3 +4658,50 @@ freshness pause stands (`l0-questions.md` line 47); no freshness move is claimed
    The round's attacks found 15 entry defects and 11 tool/record defects; all were
    fixed or recorded as limits before the lands (the reviewer's D1–D16 and the
    sentinel's F1–F14 are dispositioned in the report).
+
+## Round 85 — 2026-11-04 (base `0d181583`, freeze `ed816e71`)
+
+Two claims: D / depth and O / operability (capability acquisition).
+Freshness stays paused under kotodama round-11's open threshold-calibration
+question. One validated v1 wave, 12 settled seats, five substantive results and
+seven empty outputs; no replacements. Parent WAVE-DONE preceded close records.
+
+1. **O — explicit-root corpus-index auditor, lands `228e3a4c`.**
+   `tools/check-corpus-index.py` reuses the round-28 parser's semantics and adds
+   explicit-root invocation, duplicate-row failure and malformed-final-footer
+   refusal. Last-valid-footer selection already existed at base; the frozen
+   before-text saying first footer is false and is corrected without rewriting
+   the freeze. Five omitted index rows and two partition counts reconciled;
+   historical footers retained. `reports/round-85/lands-o.txt`: PASS 10/10,
+   selftest 23, index 258 files / 258 rows / zero findings.
+2. **D — metallurgy naming chain, lands `5abe1072`.**
+   `corpus/knowledge/culture-material/metallurgy-metal-register.md` is
+   27,848 bytes, ten sections, six decisions and twenty single-id body anchors.
+   S919–S922 are four B/mined 1911 technical witnesses; S923 is C/rejected for a
+   universal racial-stage/diffusion model, not unavailable prose. Registry
+   842 → 847. L1 and ReviewerEntry located every entry/row quote; live and
+   same-page archive bodies retained. `reports/round-85/lands-d.txt`: PASS 8/8,
+   zero unknown ids and zero citation-lint findings.
+3. **Real domain task:** river-port/hillworks two-era vocabulary, twelve
+   translated-label sense records, four source/design bridges, prepared
+   NON-CANON lore handoff in `reports/round-85/metallurgy-craft.json`.
+   ReviewerEntry caught missing promised fields; actual record repair adds
+   stable sense ids, explicit composition status and independent clocks,
+   keeping unknown native forms null. Same-command red/green in
+   `craft-ledger-red-green.json`: incomplete 12 → 0, exit 1 → 0.
+   This mistake grounds QUALITY criterion 32; it is not historical attestation.
+4. **Inherited records:** `reports/round-85/errata.md` supersedes R84-C1–C9,
+   including the carried r83 institutional count and final freeze. No filed
+   lesson/report or frozen declaration is rewritten. `SCORECARD.md` adds
+   corrections, measured claim rows and the demonstrated capability.
+5. **Limits retained:** CriticClaims F1/F2's counter kill-power/authority gaps,
+   variable O denominator and no counter selftest; no post-data revision.
+   The critic's scratch commits violated its seat restriction and are not
+   treated as compliant evidence. Seven empty results carry no supplied
+   provider error/status; cause is unknown. `reports/round-85/separability.txt`
+   prints zero findings, two acceptance runs, zero skipped; its manifest ran
+   late, and the input-error red receipt is retained.
+6. **Frontier:** source Gate and mistake tables in `corpus/lessons/round-85.md`;
+   sourced D claim, registry search log/path, indexed new entry. Assimilation:
+   none (staged menu read, no package adoption); `considerthese/` absent.
+   No existing entry re-verified/superseded: quality trend unchanged.

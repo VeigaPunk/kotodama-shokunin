@@ -1,0 +1,26 @@
+[
+  {
+    "command": [
+      "python3",
+      "-c",
+      "import json,sys; d=json.load(open(sys.argv[1])); rows=[r for e in d['eras'] for r in e['lexicon']]; bad=[r['gloss'] for r in rows if not r.get('sense_id') or r.get('form_kind')!='translated-label' or not r.get('composition_status') or set(r.get('clocks',{}))!={'form','sense','object','process'} or not r.get('source_or_design') or not r.get('uncertainty')]; ids=[r.get('sense_id') for r in rows]; ok=len(rows)==12 and not bad and len(set(ids))==12; print('CRAFT-LEDGER:', 'PASS' if ok else 'FAIL', 'records='+str(len(rows)), 'incomplete='+str(len(bad))); sys.exit(0 if ok else 1)",
+      "reports/round-85/fixtures/craft-before.json"
+    ],
+    "stdout": "CRAFT-LEDGER: FAIL records=12 incomplete=12\n",
+    "stderr": "",
+    "exit": 1,
+    "input_sha256": "c8667769d5b4fb49d42374ab270ca6f5edde278c8cb15d2bdb9a5c72b5d2936a"
+  },
+  {
+    "command": [
+      "python3",
+      "-c",
+      "import json,sys; d=json.load(open(sys.argv[1])); rows=[r for e in d['eras'] for r in e['lexicon']]; bad=[r['gloss'] for r in rows if not r.get('sense_id') or r.get('form_kind')!='translated-label' or not r.get('composition_status') or set(r.get('clocks',{}))!={'form','sense','object','process'} or not r.get('source_or_design') or not r.get('uncertainty')]; ids=[r.get('sense_id') for r in rows]; ok=len(rows)==12 and not bad and len(set(ids))==12; print('CRAFT-LEDGER:', 'PASS' if ok else 'FAIL', 'records='+str(len(rows)), 'incomplete='+str(len(bad))); sys.exit(0 if ok else 1)",
+      "reports/round-85/metallurgy-craft.json"
+    ],
+    "stdout": "CRAFT-LEDGER: PASS records=12 incomplete=0\n",
+    "stderr": "",
+    "exit": 0,
+    "input_sha256": "d2ba76b556d9409a57126ff549bdf13e1b0ba8822b1f2eeb0ae2598490cc2a0b"
+  }
+]

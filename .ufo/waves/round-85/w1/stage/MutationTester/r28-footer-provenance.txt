@@ -1,0 +1,13 @@
+Read-only git show at base; sha256=7e0566ad1ae8ec2c5a0f10c62dc8de66abcc180ec3f7af560bceeba1601cad2b
+113: def footer_reading(text):
+114:     """The counts-footer block, parsed. None when the block is absent."""
+115:     matches = list(FOOTER_RE.finditer(text))
+116:     if not matches:
+117:         return None
+118:     m = matches[-1]
+119:     return {
+120:         "date": m.group(1),
+121:         "command": m.group(2),
+122:         "total": int(m.group(3)),
+123:         "dir_totals": [int(x) for x in m.group(4).split("/")],
+124:     }

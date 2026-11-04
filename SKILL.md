@@ -26,6 +26,7 @@ languages and cultural systems to it, never edits it.
 | Name entities (people, places, gods, items) | naming-systems → phonotactics + morphology of the naming language | unpronounceable or collision-prone names with no derivational logic | names with etymologies and a derivation pipeline |
 | Stage language across eras | era-language-staging → historical-linguistics (sound change, grammaticalization) | one static language across millennia | period registers / daughter languages with change laws |
 | Dress a culture | dress-through-eras + costume-semiotics → garment lexicon (crosslinguistic) | costume with no rank/rite/era semantics | costume system + its terminology + signaling table |
+| Name a culture's metals and workshop stages | `corpus/knowledge/culture-material/metallurgy-metal-register.md` → craft-artisan-lexicon + trade-economy-lexicon; keep ore/process/product/name/grade and four era clocks separate | treating a metal name as an assay, a borrowed word as a furnace date, or a 1911 periodization as a universal social ladder | typed sense ledger with explicit unknowns and a NON-CANON lore handoff; worked records `reports/round-85/metallurgy-craft.json` |
 | Check a world hangs together | consistency-verification-checklist (synthesis) | silently resolving contradictions into canon | a findings list; canon rulings go to lore |
 
 ### Label typing — translated labels, native forms, borrowed strata
