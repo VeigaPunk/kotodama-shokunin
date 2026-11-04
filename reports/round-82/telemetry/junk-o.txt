@@ -1,0 +1,37 @@
+JUNK-RECEIPT round-82 claim O (accept-o82.py; each junk landing must FAIL)
+# clean fixture green first: ACCEPT-O-82: PASS legs=7/7
+
+# ---- junk-o / JO1 tool deleted ----
+commit: 2df9a233797e7167e842b23c2be22e08ddf12674
+command: python3 -B reports/round-82/accept-o82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-o --lands 2df9a233797e7167e842b23c2be22e08ddf12674 --freeze f0c53ec1ddc6185ff3f757a1081b9a2c665de8c8 --work <scratch>
+LEG FAIL TOOL (tool absent at lands)
+LEG FAIL SELFTEST (tool absent at lands)
+LEG FAIL QUEUE (tool selftest not green)
+LEG FAIL MODULAR (registry/tool unavailable)
+LEG FAIL ERROR (tool selftest not green)
+verdict: ACCEPT-O-82: FAIL legs=2/7
+exit=1
+named-legs-failed: ['ERROR', 'MODULAR', 'QUEUE', 'SELFTEST', 'TOOL'] (wanted ['TOOL']) -> OK
+
+# ---- junk-o / JO2 canned summary ----
+commit: 055c4b32efb23961c661931447b2bd7ddd15c217
+command: python3 -B reports/round-82/accept-o82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-o --lands 055c4b32efb23961c661931447b2bd7ddd15c217 --freeze f0c53ec1ddc6185ff3f757a1081b9a2c665de8c8 --work <scratch>
+LEG FAIL SELFTEST (<no verdict line> rc=1)
+LEG FAIL QUEUE (tool selftest not green)
+LEG FAIL MODULAR (registry/tool unavailable)
+LEG FAIL ERROR (tool selftest not green)
+verdict: ACCEPT-O-82: FAIL legs=3/7
+exit=1
+named-legs-failed: ['ERROR', 'MODULAR', 'QUEUE', 'SELFTEST'] (wanted ['QUEUE']) -> OK
+
+# ---- junk-o / JO3 selftest below the frozen floor ----
+commit: 72ceefb78436a3d6acba1ff79929d36e58a33b57
+command: python3 -B reports/round-82/accept-o82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-o --lands 72ceefb78436a3d6acba1ff79929d36e58a33b57 --freeze f0c53ec1ddc6185ff3f757a1081b9a2c665de8c8 --work <scratch>
+LEG FAIL SELFTEST (SELFTEST: PASS (3 checks) (< frozen floor 8))
+LEG FAIL QUEUE (tool selftest not green)
+LEG FAIL MODULAR (registry/tool unavailable)
+LEG FAIL ERROR (tool selftest not green)
+verdict: ACCEPT-O-82: FAIL legs=3/7
+exit=1
+named-legs-failed: ['ERROR', 'MODULAR', 'QUEUE', 'SELFTEST'] (wanted ['SELFTEST']) -> OK
+

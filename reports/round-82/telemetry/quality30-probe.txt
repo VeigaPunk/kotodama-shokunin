@@ -1,0 +1,31 @@
+# QUALITY-30 probe (round 82): is a 'no quotable prose' reject a property of the source or of the prober's extractor?
+
+## A. the round-81 reject ground under test
+$ grep -n "Mint" corpus/lessons/round-81.md
+80:    fetcher receives the prose; the EB11 "Coin"/"Mint" articles were probed
+81:    first and rejected: "Coin" is a stub, "Mint" renders only via client-side
+155:EB11 "Coin"/"Mint" articles were probed and rejected before the entry's
+
+## B. the live page, whitespace-folded (nbsp and U+2003 folded to space, tags to space)
+$ curl -sSL --compressed -A curl/8.7.1 -o mint.html -w "%{http_code} %{size_download}" https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Mint
+HTTP 200 37993 B
+$ python3 -c "fold; count prose span; count </p>"
+prose-span (folded): 1
+paragraph tags: 27
+decoded bytes: 148302
+
+## C. the same page in its same-page capture
+$ curl -sSL --compressed -A curl/8.7.1 -o mint-cap.html https://web.archive.org/web/20260608000413id_/https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Mint
+HTTP 200 39356 B
+$ wc -c; grep -c "</p>"; sha256sum
+122055 /fast/scratch/hyaku/kotodama-r82/L1/quality30/mint-cap.html
+28
+cac8c41456629f72c10352ef97e464a19f99f16c25546b112ef7ab9fb42642d6  /fast/scratch/hyaku/kotodama-r82/L1/quality30/mint-cap.html
+$ located span:
+「MINT (Lat. moneta ; Mid. Eng. mynt ) a place where coins are manufactured with the authority of the state. Coi」
+
+## D. the round's own first read of EB11 'Guest' (same failure shape, caught and corrected inside the round)
+- first read: a tag-stripper that emitted no separator between tokens reported the page as Wikibase scaffold only; the round-82 evidence record was rewritten after a folded re-read: the prose follows a raw Parsoid template JSON block in the same div, and `quote-found-verbatim` is 1 folded / 0 raw for 「one who receives hospitality in the house of another」.
+- recorded at reports/round-82/evidence/S907.txt (`note:` line).
+
+verdict: the reject ground is extraction-shaped, not source-shaped. Round 81's Coin/Mint reject and this round's own first S907 read both rest on a tag-stripper artifact; a folded re-read plus a same-page capture probe is what the bar must require.

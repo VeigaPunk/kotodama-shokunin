@@ -1,0 +1,151 @@
+{
+ "round": 82,
+ "base": "c285b2afb19d4b64320e18df1f55e426bf2d0b0c",
+ "pre_data": "Claims, counters and the junk generator freeze before any claim data lands. Every constant is read with `git show <freeze>:reports/round-82/claims.json`, never from the graded tree. Both counters refuse a non-40-hex revision, a freeze that is not an ancestor of lands, lands equal to the frozen base (the do-nothing control; lands equal to the freeze is graded, never refused), an unreadable or incomplete frozen config, and a leg list that disagrees with their own leg table (LEGCOUNT). The entry sha pinned here was computed from the worktree bytes that land unchanged at claim D's lands commit. Claim C (QUALITY 30) is verified by its own counting command and receipt, not by a round counter: see its entry in claims[].",
+ "claims": [
+  {
+   "id": "O",
+   "axis": "operability",
+   "kind": "capability acquisition (a registry recheck-cadence auditor)",
+   "title": "Land tools/check-sources-recheck.py: the lane can derive its recheck queue from committed registry bytes at a given date",
+   "before": "at base no tool reads the registry's recheck cells: `git ls-tree --name-only <base> tools/ | grep -c recheck` = 0; `git grep -c RECHECK-QUEUE <base> -- tools/ reports/ | wc -l` = 0; the registry carries 827 rows whose recheck cells are 365d 392 / 180d 249 / ISO 154 / 90d 18 / on-release 14 and nothing derives a due date from them",
+   "after": "the tool exists and prints `RECHECK-QUEUE: 0 due / 18 upcoming / 14 on-release / 827 rows` at --as-of 2026-11-04 --window 90 and `813 due / 0 upcoming / 14 on-release / 827 rows` at --as-of 2027-11-01 --window 90 over the frozen registry blob, matching an independent L1 tally; --selftest prints `SELFTEST: PASS (13 checks)`",
+   "counter": "reports/round-82/accept-o82.py",
+   "review_only": [
+    "the queue's usefulness (which rows a curator should read first) is a curation judgment, not a counted value",
+    "the tool grades cadence arithmetic only; it makes no claim that a due row's content has drifted"
+   ],
+   "tool82": {
+    "tool_path": "tools/check-sources-recheck.py",
+    "shape_markers": [
+     "RECHECK-QUEUE:",
+     "--as-of",
+     "def main("
+    ],
+    "min_selftest_checks": 8,
+    "registry_path": "corpus/SOURCES.md",
+    "as_of": "2026-11-04",
+    "projection_as_of": "2027-11-01",
+    "window": 90,
+    "allowed_o_paths": [
+     "tools/check-sources-recheck.py",
+     "reports/round-82/"
+    ],
+    "sibling_paths": [
+     "corpus/knowledge/myth-symbol/guest-right-hospitality-law.md"
+    ],
+    "legs": [
+     "FROZENCFG",
+     "TOOL",
+     "SELFTEST",
+     "QUEUE",
+     "MODULAR",
+     "ERROR",
+     "SEPARABLE"
+    ]
+   }
+  },
+  {
+   "id": "D",
+   "axis": "depth",
+   "kind": "knowledge entry (four rows opened this round)",
+   "title": "Add corpus/knowledge/myth-symbol/guest-right-hospitality-law.md: guest-right as a sacral-legal institution (the degrees of guest, the host's owed package, the markers, the seals, the breach ladder, the guest's half) with a lexicon interface and a worked derivation",
+   "before": "no knowledge file owns the surface at base: filename sweep `guest|hospital|xenia|hospitium|stranger` -> 0 of 255 files; institutional core `xenia|hospitium|guest-friend|theoxeny` -> 0 lines; 827 registry rows; no capture records under reports/round-82/evidence/",
+   "after": "the entry lands as the 256th knowledge file (>= 8000 bytes) with the header fields, six-decision table, lexicon interface, attested anchors at one S-id per cited line (`tools/check-cited-lines.py` prints 0 findings), craft checklist, NON-CANON worked example and lore handoff; the registry carries S904/S905/S906/S907 (tier A/A/B/C, all mined, 2026-11-04, used-by the entry, each with a same-page Wayback capture and a capture record) and S908 (rejected, Frazer) and the row count moves 827 -> 832",
+   "counter": "reports/round-82/accept-d82.py",
+   "review_only": [
+    "the entry's uncited craft lines (decision table, lexicon derivation, worked example) are method, not sourced claims; only section 3 bullets carry row ids",
+    "the 1911 EB11 gloss is a tier-C lead and is never sole support; the 19th-century translations are cited for what they say, not for Greek or Latin usage"
+   ],
+   "entry82": {
+    "entry_path": "corpus/knowledge/myth-symbol/guest-right-hospitality-law.md",
+    "entry_sha256": "c7fb9bc4bfdfa64c084f770e70bdd9057cc0c10b5b8071786fcf3b95e75d2a35",
+    "entry_min_bytes": 8000,
+    "entry_max_bytes": 120000,
+    "entry_markers": [
+     "- topic:",
+     "- gap filled:",
+     "- couples:",
+     "- source:",
+     "verified-at:",
+     "- recheck:",
+     "- scope:",
+     "## 1. Partial owners",
+     "## 2. Six design decisions",
+     "## 3. Attested anchors",
+     "## 6. Lore handoff"
+    ],
+    "canon_markers": [
+     "decides nothing about what is true in any world",
+     "never here"
+    ],
+    "row_ids": [
+     "S904",
+     "S905",
+     "S906",
+     "S907"
+    ],
+    "row_kinds": {
+     "S904": "book",
+     "S905": "book",
+     "S906": "book",
+     "S907": "book"
+    },
+    "row_tiers": {
+     "S904": "A",
+     "S905": "A",
+     "S906": "B",
+     "S907": "C"
+    },
+    "row_status": {
+     "S904": "mined",
+     "S905": "mined",
+     "S906": "mined",
+     "S907": "mined"
+    },
+    "row_opened": {
+     "S904": "2026-11-04",
+     "S905": "2026-11-04",
+     "S906": "2026-11-04",
+     "S907": "2026-11-04"
+    },
+    "evidence_dir": "reports/round-82/evidence/",
+    "lint_tool_path": "tools/check-cited-lines.py",
+    "lint_tool_sha256": "a9b0fbd5809b3764b2309cd8a82625c75ca1d6dd7c498309387050312078804a",
+    "registry_path": "corpus/SOURCES.md",
+    "rowcount_before": 827,
+    "rowcount_min_after": 831,
+    "allowed_d_paths": [
+     "corpus/knowledge/myth-symbol/guest-right-hospitality-law.md",
+     "corpus/SOURCES.md",
+     "reports/round-82/"
+    ],
+    "sibling_paths": [
+     "tools/check-sources-recheck.py"
+    ],
+    "legs": [
+     "FROZENCFG",
+     "ENTRY",
+     "LINT",
+     "ROWS",
+     "ROWCOUNT",
+     "COUPLES",
+     "NOCANON",
+     "SEPARABLE"
+    ]
+   }
+  },
+  {
+   "id": "C",
+   "axis": "calibration",
+   "kind": "criterion acquisition (a lesson-grounded QUALITY rule) + a falsified reject",
+   "title": "QUALITY 30: a 'no quotable prose' reject must record a whitespace-folded re-read and a same-page capture probe before it is filed; round 81's EB11 Mint reject ground is re-measured and falsified",
+   "before": "`git show <base>:corpus/QUALITY.md | grep -c '^30\\. '` = 0, and round 81's filed reject rests on a live-fetch claim that a folded re-read falsifies",
+   "after": "`grep -c '^30\\. ' corpus/QUALITY.md` = 1 and `reports/round-82/telemetry/quality30-probe.txt` carries the folded re-read (live Mint: HTTP 200, 148302 decoded bytes, 27 </p>, the article's opening sentence present once; capture 20260608000413: 122055 bytes, 28 </p>) plus this round's own corrected EB11 'Guest' read",
+   "counting_command": "git show <base>:corpus/QUALITY.md | grep -c '^30\\. '  # 0 at base; grep -c '^30\\. ' corpus/QUALITY.md  # 1 after",
+   "review_only": [
+    "the criterion's wording is review; the counted value is its presence plus the probe receipt"
+   ]
+  }
+ ]
+}

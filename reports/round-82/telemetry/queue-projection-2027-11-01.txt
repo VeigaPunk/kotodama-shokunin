@@ -1,0 +1,11 @@
+# registry snapshot: git show c285b2afb19d4b64320e18df1f55e426bf2d0b0c:corpus/SOURCES.md
+# sha256: 2f60171c8879f99e690f15403985c240a0b80def31b003e4862272b92f108263
+# projection date, not today: the queue the registry will carry one cadence later
+$ python3 -B tools/check-sources-recheck.py --registry <frozen> --as-of 2027-11-01 --window 90
+RECHECK-QUEUE: 813 due / 0 upcoming / 14 on-release / 827 rows
+exit=0
+# population note (the round-81 R81-V1 class, handled by design): this receipt runs over the FROZEN
+# registry blob (827 rows at c285b2af), which is what accept-o82.py's QUEUE leg re-derives. A run over
+# the live worktree registry at the records tip reads 832 rows and 5 upcoming at this date, because the
+# five rows this round opens (S904-S908, all `365d`) fall due 2027-11-04: 5 above the horizon.
+# Neither number is stale; they are the same tool over two populations, and the counter pins the frozen one.

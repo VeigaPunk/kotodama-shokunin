@@ -1,0 +1,29 @@
+CONTROLS round-82 claim O (clean fixture must PASS, do-nothing must refuse)
+fixture: /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-o
+do-nothing base: 28e570193ff879c03736451cd24628804f8caac0
+freeze: f0c53ec1ddc6185ff3f757a1081b9a2c665de8c8
+clean: 63051273ed4a487ef76321bd3603cbcbdd307eb3
+command: python3 -B reports/round-82/accept-o82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-o --lands 63051273ed4a487ef76321bd3603cbcbdd307eb3 --freeze f0c53ec1ddc6185ff3f757a1081b9a2c665de8c8 --work <scratch>
+# frozen legs: 7 (FROZENCFG, TOOL, SELFTEST, QUEUE, MODULAR, ERROR, SEPARABLE)
+# stamped revision: 63051273ed4a487ef76321bd3603cbcbdd307eb3
+# evaluated revision: 63051273ed4a487ef76321bd3603cbcbdd307eb3
+# measured revision (lane main): <no main>
+# tree: 05cc60f2cacb60881967aadf71450a9f84e2adc2
+# counter sha256 (self): 77b8c19d61cdcae5a9d10fc2e089d772455014bb210a90577b72b1c10d313030
+# config source: git show f0c53ec1ddc6185ff3f757a1081b9a2c665de8c8:reports/round-82/claims.json (never the graded tree)
+# config sha256 (frozen claims.json): 10dbcb85f17b80fa60ac238028ba41df203e68405a1205ba6763c04b7a689765
+LEG PASS FROZENCFG (lands bytes == freeze bytes)
+LEG PASS TOOL (shape markers ok (14259 B))
+LEG PASS SELFTEST (SELFTEST: PASS (13 checks))
+LEG PASS QUEUE (2026-11-04: 0/18/14/832 ok; 2027-11-01: 813/5/14/832 ok)
+LEG PASS MODULAR (neutral +1 row -> (0, 18, 14, 833); due +1 row -> (1, 18, 14, 833); frozen (0, 18, 14, 832))
+LEG PASS ERROR (exit=2 labelled=True traceback=False)
+LEG PASS SEPARABLE (0 foreign paths)
+ACCEPT-O-82: PASS legs=7/7
+exit=0
+
+do-nothing control: lands = base
+command: python3 -B reports/round-82/accept-o82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-o --lands 28e570193ff879c03736451cd24628804f8caac0 --freeze f0c53ec1ddc6185ff3f757a1081b9a2c665de8c8 --work <scratch>
+ACCEPT-O-82: FAIL legs=0/7 (refused: lands equals the frozen base 28e570193ff879c03736451cd24628804f8caac0 (do-nothing control))
+exit=2
+

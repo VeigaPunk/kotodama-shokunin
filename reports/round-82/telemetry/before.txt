@@ -1,0 +1,14 @@
+# round-82 before-state measurements (base c285b2afb19d4b64320e18df1f55e426bf2d0b0c)
+
+$ git ls-tree --name-only BASE tools/ | grep -c recheck
+0
+$ git grep -c RECHECK-QUEUE BASE -- tools/ reports/ | wc -l
+0
+$ git ls-tree -r --name-only BASE corpus/knowledge | grep -c "\.md$"
+255
+$ git ls-tree -r --name-only BASE corpus/knowledge | grep -icE "guest|hospital|xenia|hospitium|stranger"
+0
+$ git show BASE:corpus/SOURCES.md | grep -cE "^[[:space:]]{0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|"
+827
+$ git grep -c "RECHECK-" BASE -- tools/ reports/ | wc -l
+0

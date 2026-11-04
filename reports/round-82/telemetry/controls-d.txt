@@ -1,0 +1,30 @@
+CONTROLS round-82 claim D (clean fixture must PASS, do-nothing must refuse)
+fixture: /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-d
+do-nothing base: e6a7739fab37951bd75bceae5fe8b78821d53f38
+freeze: 5bdd635a242ab82e801b4cad8645469a75b1ce39
+clean: 4e39985d75344e52789334e9a31adf0f183f0c78
+command: python3 -B reports/round-82/accept-d82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-d --lands 4e39985d75344e52789334e9a31adf0f183f0c78 --freeze 5bdd635a242ab82e801b4cad8645469a75b1ce39 --work <scratch>
+# frozen legs: 8 (FROZENCFG, ENTRY, LINT, ROWS, ROWCOUNT, COUPLES, NOCANON, SEPARABLE)
+# stamped revision: 4e39985d75344e52789334e9a31adf0f183f0c78
+# evaluated revision: 4e39985d75344e52789334e9a31adf0f183f0c78
+# measured revision (lane main): <no main>
+# tree: ba812ae136de957125828385e5554d526263a824
+# counter sha256 (self): d62d4e03b1a76ce6f2a142262c3be535e73432806309a76036f6f98f0def6412
+# config source: git show 5bdd635a242ab82e801b4cad8645469a75b1ce39:reports/round-82/claims.json (never the graded tree)
+# config sha256 (frozen claims.json): 2634d680776552f9ee631050e13913c8cafdcc0aeb2066a2622e4ba6358217be
+LEG PASS FROZENCFG (lands bytes == freeze bytes)
+LEG PASS ENTRY (sha/size/markers ok)
+LEG PASS LINT (CITED-LINES: 0 finding(s) in 1 file(s))
+LEG PASS ROWS (4 rows verified)
+LEG PASS ROWCOUNT (rows 827 -> 832 (floor 831))
+LEG PASS COUPLES (9 targets, 0 missing)
+LEG PASS NOCANON (canon markers ok)
+LEG PASS SEPARABLE (0 foreign paths)
+ACCEPT-D-82: PASS legs=8/8
+exit=0
+
+do-nothing control: lands = base
+command: python3 -B reports/round-82/accept-d82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-d --lands e6a7739fab37951bd75bceae5fe8b78821d53f38 --freeze 5bdd635a242ab82e801b4cad8645469a75b1ce39 --work <scratch>
+ACCEPT-D-82: FAIL legs=0/8 (refused: lands equals the frozen base e6a7739fab37951bd75bceae5fe8b78821d53f38 (do-nothing control))
+exit=2
+

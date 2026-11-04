@@ -1,0 +1,10 @@
+# independent tally (L1 parser, not the graded tool) over the same frozen registry blob
+# python3 - <<PY (inline, see below)
+INDEPENDENT 2026-11-04: 0 due / 18 upcoming / 14 on-release / 827 rows
+INDEPENDENT 2027-11-01: 813 due / 0 upcoming / 14 on-release / 827 rows
+
+# tool output for comparison
+$ python3 -B tools/check-sources-recheck.py --registry <frozen> --as-of 2026-11-04 --window 90
+RECHECK-QUEUE: 0 due / 18 upcoming / 14 on-release / 827 rows
+$ python3 -B tools/check-sources-recheck.py --registry <frozen> --as-of 2027-11-01 --window 90
+RECHECK-QUEUE: 813 due / 0 upcoming / 14 on-release / 827 rows

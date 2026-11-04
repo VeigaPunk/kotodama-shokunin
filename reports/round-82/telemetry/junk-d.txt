@@ -1,0 +1,31 @@
+JUNK-RECEIPT round-82 claim D (accept-d82.py; each junk landing must FAIL)
+# clean fixture green first: ACCEPT-D-82: PASS legs=8/8
+
+# ---- junk-d / JD1 entry deleted ----
+commit: 9ec1e7d29128f5725bb5ddac2032bbe8ce2b1c1a
+command: python3 -B reports/round-82/accept-d82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-d --lands 9ec1e7d29128f5725bb5ddac2032bbe8ce2b1c1a --freeze 5bdd635a242ab82e801b4cad8645469a75b1ce39 --work <scratch>
+LEG FAIL ENTRY (entry absent at lands)
+LEG FAIL LINT (entry not usable)
+LEG FAIL COUPLES (no targets found)
+LEG FAIL NOCANON (canon marker missing)
+verdict: ACCEPT-D-82: FAIL legs=4/8
+exit=1
+named-legs-failed: ['COUPLES', 'ENTRY', 'LINT', 'NOCANON'] (wanted ['ENTRY']) -> OK
+
+# ---- junk-d / JD2 registry rows removed ----
+commit: 4e5c91b55da7deb30bbfd5125fe8812452c520ed
+command: python3 -B reports/round-82/accept-d82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-d --lands 4e5c91b55da7deb30bbfd5125fe8812452c520ed --freeze 5bdd635a242ab82e801b4cad8645469a75b1ce39 --work <scratch>
+LEG FAIL ROWS (S904 absent; S905 absent; S906 absent; S907 absent)
+LEG FAIL ROWCOUNT (rows 827 -> 828 (floor 831))
+verdict: ACCEPT-D-82: FAIL legs=6/8
+exit=1
+named-legs-failed: ['ROWCOUNT', 'ROWS'] (wanted ['ROWS']) -> OK
+
+# ---- junk-d / JD3 anchor quote over 25 words ----
+commit: 57bc3629b44bbfdd743fc037bce7f8255bb7840d
+command: python3 -B reports/round-82/accept-d82.py --root /fast/scratch/hyaku/kotodama-r82/L1/jf/work/fx-d --lands 57bc3629b44bbfdd743fc037bce7f8255bb7840d --freeze 5bdd635a242ab82e801b4cad8645469a75b1ce39 --work <scratch>
+LEG FAIL ROWS (S904 anchor 34 words)
+verdict: ACCEPT-D-82: FAIL legs=7/8
+exit=1
+named-legs-failed: ['ROWS'] (wanted ['ROWS']) -> OK
+
