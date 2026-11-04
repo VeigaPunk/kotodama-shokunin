@@ -1933,3 +1933,23 @@ provider (`402 Insufficient account funds`) with no deliverable and stay dead
 in the evidence (`reports/round-88/provider-deaths.json`). Formal L2-planner
 conflict, the historical lowest-axis/numeric-mapping debt and the inherited
 full cited-record red remain open.
+
+## Planned / frozen — round 89 (2026-11-04)
+
+Declared in the freeze commit itself (`reports/round-89/claims.json`, sha256
+`cd74cfc2…`; counter `reports/round-89/measure89.py`, sha256 `6bc14bcd…`).
+Executed controls ride the same commit: `reports/round-89/controls/controls.txt`
+(9/9 match expectation, two named known survivors), counter selftest
+`reports/round-89/counter-selftest.txt` 21/21 with its red-before
+`reports/round-89/selftest-redbefore.txt` (BACKED forced true → selftest exit 1).
+
+| claim / axis | before → frozen target | counter |
+|---|---|---|
+| F / freshness (lowest non-retired axis, worked directly) | 0 of the 16 URL-bearing rows in the recheck auditor's upcoming queue re-verified this round (`RECHECK-QUEUE: 0 due / 20 upcoming / 16 on-release / 859 rows`) → ≥10 of 16 advanced to an ISO recheck, every advance backed by a LOCATED lesson line, quote and committed capture, all 16 dispositioned | `python3 -B reports/round-89/measure89.py --root . --freeze <freeze> --lands <lands> --claim F --work <existing-dir>` |
+| C / coverage (sourced claim) | no dedicated evidentiality entry; linguistics partition 33 files → `corpus/knowledge/linguistics/evidentiality-epistemic-marking.md` ≥8000 B, ≥5 headings, a ≥3×5 table, ≥3 new mined A/B rows opened 2026-11-04 with gate lines and committed captures, index row with freeze-pinned index tool rc0 | same counter with `--claim C` |
+
+Both declared commands carry `--work` (R88-V1). Known survivors, stated
+before data: a capture fabricated with its quote pasted in passes F and C
+(`F-forged-capture`, `C-forged-capture`); independent re-fetch is the defence.
+Freshness moves here through source re-verification, which does not depend
+on the open round-11 drift-threshold question.

@@ -1,0 +1,169 @@
+{
+ "meta": {
+  "base": "42816d2533c44f1d19f38a12fc5f5040d01a2fd3",
+  "claims_sha256": "cd74cfc2d9e4478a778cf338f757c93e6e80910bb005da51fd25c95cec0df552",
+  "counter_sha256": "6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040",
+  "generator_sha256": "9ccd4eae72d17779bfdf8a29d4077dde3ad0e2bfa6e447bde65443423188af6e",
+  "note": "sandbox commits are not durable; bytes are bound by sha256 and this generator reproduces every row"
+ },
+ "controls": [
+  {
+   "control": "F-nowork",
+   "claim": "F",
+   "role": "reject",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "expected_rc": 1,
+   "expected_fail_leg": "ADVANCED",
+   "rc": 1,
+   "fail_legs": [
+    "ADVANCED",
+    "DISPOSED"
+   ],
+   "verdict": "ACCEPT-F-89: FAIL legs=3/5",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands 1b3637049daa84f6a83c7f2149c0c38a452e1993 --claim F --work <sandbox>"
+  },
+  {
+   "control": "F-bumponly",
+   "claim": "F",
+   "role": "reject",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "20c5f745f2b8a9a1c0262840267295aafbefa853",
+   "expected_rc": 1,
+   "expected_fail_leg": "BACKED",
+   "rc": 1,
+   "fail_legs": [
+    "BACKED"
+   ],
+   "verdict": "ACCEPT-F-89: FAIL legs=4/5",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands 20c5f745f2b8a9a1c0262840267295aafbefa853 --claim F --work <sandbox>"
+  },
+  {
+   "control": "F-wrongcapture",
+   "claim": "F",
+   "role": "reject",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "462da06c55b3156e90e29e3ced80190515d38a77",
+   "expected_rc": 1,
+   "expected_fail_leg": "BACKED",
+   "rc": 1,
+   "fail_legs": [
+    "BACKED"
+   ],
+   "verdict": "ACCEPT-F-89: FAIL legs=4/5",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands 462da06c55b3156e90e29e3ced80190515d38a77 --claim F --work <sandbox>"
+  },
+  {
+   "control": "F-forged-capture",
+   "claim": "F",
+   "role": "known-survivor",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "6f4fc012bcf8b8aebb18120017a0ea3b8c982c58",
+   "expected_rc": 0,
+   "expected_fail_leg": null,
+   "rc": 0,
+   "fail_legs": [],
+   "verdict": "ACCEPT-F-89: PASS legs=5/5",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands 6f4fc012bcf8b8aebb18120017a0ea3b8c982c58 --claim F --work <sandbox>"
+  },
+  {
+   "control": "C-nowork",
+   "claim": "C",
+   "role": "reject",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "expected_rc": 1,
+   "expected_fail_leg": "ENTRY",
+   "rc": 1,
+   "fail_legs": [
+    "ENTRY",
+    "TABLE",
+    "NEWIDS",
+    "GATE",
+    "CAPTURE",
+    "INDEX"
+   ],
+   "verdict": "ACCEPT-C-89: FAIL legs=2/8",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands 1b3637049daa84f6a83c7f2149c0c38a452e1993 --claim C --work <sandbox>"
+  },
+  {
+   "control": "C-junk-fabricated-ids",
+   "claim": "C",
+   "role": "reject",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "03b3293f99d496aebab649bc11c8928c41f76baf",
+   "expected_rc": 1,
+   "expected_fail_leg": "NEWIDS",
+   "rc": 1,
+   "fail_legs": [
+    "NEWIDS",
+    "GATE",
+    "CAPTURE"
+   ],
+   "verdict": "ACCEPT-C-89: FAIL legs=5/8",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands 03b3293f99d496aebab649bc11c8928c41f76baf --claim C --work <sandbox>"
+  },
+  {
+   "control": "C-sourceless-rows",
+   "claim": "C",
+   "role": "reject",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "33416ec17f3d9970f02e7f6e629de3d8f11753ce",
+   "expected_rc": 1,
+   "expected_fail_leg": "GATE",
+   "rc": 1,
+   "fail_legs": [
+    "GATE",
+    "CAPTURE"
+   ],
+   "verdict": "ACCEPT-C-89: FAIL legs=6/8",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands 33416ec17f3d9970f02e7f6e629de3d8f11753ce --claim C --work <sandbox>"
+  },
+  {
+   "control": "C-gate-no-capture",
+   "claim": "C",
+   "role": "reject",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "caa55ff8ba3c7ca1135e49de0891d335f8ea5824",
+   "expected_rc": 1,
+   "expected_fail_leg": "CAPTURE",
+   "rc": 1,
+   "fail_legs": [
+    "CAPTURE"
+   ],
+   "verdict": "ACCEPT-C-89: FAIL legs=7/8",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands caa55ff8ba3c7ca1135e49de0891d335f8ea5824 --claim C --work <sandbox>"
+  },
+  {
+   "control": "C-forged-capture",
+   "claim": "C",
+   "role": "known-survivor",
+   "sandbox_freeze": "1b3637049daa84f6a83c7f2149c0c38a452e1993",
+   "sandbox_lands": "e63b73e8197522c3c07f9606df42b5938abeccda",
+   "expected_rc": 0,
+   "expected_fail_leg": null,
+   "rc": 0,
+   "fail_legs": [],
+   "verdict": "ACCEPT-C-89: PASS legs=8/8",
+   "matches_expectation": true,
+   "stderr": "",
+   "command": "-B <sandbox>/reports/round-89/measure89.py --root <sandbox> --freeze 1b3637049daa84f6a83c7f2149c0c38a452e1993 --lands e63b73e8197522c3c07f9606df42b5938abeccda --claim C --work <sandbox>"
+  }
+ ]
+}
