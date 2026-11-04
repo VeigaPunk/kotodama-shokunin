@@ -207,7 +207,7 @@ def grade_c(root, lands, freeze, work, cfg):
         r = sh(args)
         out = (r.stdout or '') + (r.stderr or '')
         want_legs = c['legs']
-        seen = dict(re.findall(r'^LEG (PASS|FAIL) (\S+)', out, re.M)[::-1])
+        seen = {name: verdict for verdict, name in re.findall(r'^LEG (PASS|FAIL) (\S+)', out, re.M)}
         missing = [l for l in want_legs if l not in seen]
         failed = [l for l in want_legs if seen.get(l) == 'FAIL']
         ok = r.returncode == 0 and not missing and not failed
