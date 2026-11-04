@@ -103,7 +103,8 @@ def evaluate(root, lands, freeze, work, cfg, block):
         b = C.show(root, lands, entry)
         if b is None:
             return False, "absent"
-        miss = [m for m in block["header_markers"] if m not in et.split("## ")[0]]
+        head = re.split(r"(?m)^## ", et, maxsplit=1)[0]
+        miss = [m for m in block["header_markers"] if m not in head]
         return (len(b) >= block["min_bytes"] and not miss, "bytes=%d missing_header=%s" % (len(b), miss or "none"))
 
     def sections():

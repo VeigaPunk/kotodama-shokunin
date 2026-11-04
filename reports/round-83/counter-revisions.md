@@ -42,3 +42,10 @@ precedent).
   counter's junk battery would have raised `CalledProcessError` on a mutation
   that changes no bytes instead of reporting it. The hunk committed here is the
   identical `NoOp` handling; no predicate or constant changes.
+- **r5 — this commit.** Red-before: the L1's dry parse of the claim-D entry
+  showed `- couples:`/`- source:`/`- verified-at:`/`- recheck:`/`- scope:`
+  reported missing while all eight header fields were present at lines 3-10 —
+  the `ENTRY` leg split the document on the *substring* `"## "`, and the header's
+  own `the anchor list in `## 3`` cut the split before the later fields. Fix:
+  split on `^## ` at line starts. No constant or predicate changes; the header
+  requirement is unchanged and the entry was never graded by the broken leg.
