@@ -1,0 +1,17 @@
+# counter: reports/round-89/measure89.py claim C
+# counter sha256 (self): 6bc14bcd541239e7d969d74291af46193fca7ac2e46850c40dc420d777cdf040
+# stamped revision: 1cbd0efc56edaa9394e3532fc5d8ef924f122f01
+# evaluated revision: 1cbd0efc56edaa9394e3532fc5d8ef924f122f01 (all graded bytes via git show)
+# measured revision (lane main): 1cbd0efc56edaa9394e3532fc5d8ef924f122f01
+# tree: 8b1cb9dc3a19ada4d722552b1b376cae4bb01db5
+# freeze: 1cbd0efc56edaa9394e3532fc5d8ef924f122f01
+# frozen legs: 8 (FROZENCFG,ENTRY,TABLE,NEWIDS,GATE,CAPTURE,INDEX,APPENDONLY)
+LEG PASS FROZENCFG expected="claims.json and counter equal to freeze blobs" observed=[]
+LEG FAIL ENTRY expected="absent at base; >=8000 bytes; >=5 headings; header keys" observed={"at_base": false, "bytes": 0, "headings": 0, "missing_keys": ["topic:", "sources:", "verified-at:", "recheck:"]}
+LEG FAIL TABLE expected="a table >=3 cols and >=5 data rows" observed=[]
+LEG FAIL NEWIDS expected=">=3 new mined A/B ids opened as_of, none fabricated" observed={"qualifying": [], "unqualified": {}}
+LEG FAIL GATE expected="every qualifying id has a gate line" observed={}
+LEG FAIL CAPTURE expected="every gate quote occurs in its committed capture" observed={}
+LEG FAIL INDEX expected="README row and freeze-pinned index tool rc0" observed={"row": false, "tool_rc": null}
+LEG PASS APPENDONLY expected="base rows: only status/recheck/used-by may change" observed=[]
+ACCEPT-C-89: FAIL legs=2/8
