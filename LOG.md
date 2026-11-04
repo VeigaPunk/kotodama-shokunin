@@ -4786,3 +4786,41 @@ capability, not first genre coverage; quality unchanged (no old entry recheck
 or supersession); discernment improved through a spotcheck-grounded criterion.
 Both frozen after-predicates verify, with explicit instrument/timing/role
 conformance debt; independent non-author closure decides round admission.
+
+## Round 87 — 2026-11-04
+
+Single claim O / operability: production attestation packet audit interface,
+finite frozen twelve-case public-CLI predicate. Base `83846a22ee1e9da7aa52ac505ccebf4455169247`.
+Executed no-work/constant-pass controls land at
+`732c45394c73fcffd9fc623b939d446c7b11a9db` before claim declaration/counter
+freeze `2a3b5643899c3520867ae930593cafef6ef19cad`. No historical rescoring.
+
+1. Tool `tools/check-attestation-packet.py` supplies stable JSON diagnostics,
+   named packet option, variable populations and actual CLI selftests.
+   The old round-86 stage checker already checks the enumerated relationships;
+   frozen bounds novelty is explicitly corrected, not rewritten.
+   Motivation: R86-C2/C3 and `.ufo/waves/round-87/w1/ScoutSurface.md`.
+2. `SKILL.md` documents command, authority limits and gate registry;
+   `corpus/README.md` records capability rather than new knowledge coverage.
+   `corpus/SOURCES.md` appends own-work S929 A/mined interface specimen and
+   S930 C/rejected reader. `corpus/lessons/round-87.md` Gate retains exact
+   quotes, access date and scoped admit/reject; no old registry cells change.
+3. Criterion34 in `corpus/QUALITY.md` learns from actual filename/label
+   counterfeits surviving at 12/12. It binds round88 onward, never changes
+   round87's rule. Constant-pass 3/12 is not arbitrary fake-reader rejection.
+   Full critic receipts, reviewer26 probes, three guard mutations and the
+   original 5/6 domain-trial expectations remain in the wave directory.
+4. Parent WAVE-DONE received for the one v1 wave: ten seats, three executor,
+   two scribe, scout, connector, reviewer, critic and mutation-tester.
+   Attack3/10; L1 planning plus scout data-walk, unresolved formal L2-planner
+   conflict retained. `.ufo/waves/round-87/w1-results.json` is the result
+   handoff; no replacement or residual wave.
+5. Numeric/lowest-axis debt, paused freshness, the old empty-decision-cell
+   and duplicate-source-ID counter debts, non-author r84 cited-record red,
+   unresolved archive coverage and lore/chousa authority boundaries remain
+   explicit in the lesson. Assimilation:none; no considerthese directory
+   found in ScoutSurface's bounded sweep. No installs or upgrades.
+
+Committed-byte measurements and final landing hashes are appended below after
+the named production commit is measured; no provisional worktree run is
+represented as a committed-revision result.

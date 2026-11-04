@@ -1,0 +1,80 @@
+[
+  {
+    "probe": "constant-pass",
+    "rc": 1,
+    "label": "MEASURE87",
+    "passed": 3,
+    "total": 12
+  },
+  {
+    "probe": "non-json",
+    "rc": 1,
+    "label": "MEASURE87",
+    "passed": 0,
+    "total": 12
+  },
+  {
+    "probe": "always-red",
+    "rc": 1,
+    "label": "MEASURE87",
+    "passed": 1,
+    "total": 12
+  },
+  {
+    "probe": "filename-spoof",
+    "rc": 0,
+    "label": "MEASURE87",
+    "passed": 12,
+    "total": 12
+  },
+  {
+    "probe": "all-labels-wrong-record",
+    "rc": 0,
+    "label": "MEASURE87",
+    "passed": 12,
+    "total": 12
+  },
+  {
+    "probe": "null-findings",
+    "rc": 1,
+    "stderr": "Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kotodama-r87/CriticCounter/frozen-measure87.py\", line 113, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/fast/scratch/hyaku/kotodama-r87/CriticCounter/frozen-measure87.py\", line 106, in main\n    rows = evaluate(tool, packet, work)\n  File \"/fast/scratch/hyaku/kotodama-r87/CriticCounter/frozen-measure87.py\", line 50, in evaluate\n    ids = [x.get('id') for x in body.get('findings', []) if isinstance(x, dict)] if isinstance(body, dict) else []\n                                ~~~~~~~~^^^^^^^^^^^^^^^^\nTypeError: 'NoneType' object is not iterable\n"
+  },
+  {
+    "probe": "wrong-positive-population",
+    "rc": 1,
+    "label": "MEASURE87",
+    "passed": 0,
+    "total": 12
+  },
+  {
+    "probe": "transport-selftest",
+    "rc": 0,
+    "label": "MEASURE87_SELFTEST",
+    "checks": [
+      {
+        "case": "clean-transport",
+        "expected_passed": 12,
+        "observed_passed": 12,
+        "passed": true
+      },
+      {
+        "case": "constant-pass",
+        "expected_passed": 3,
+        "observed_passed": 3,
+        "passed": true
+      },
+      {
+        "case": "constant-reject",
+        "expected_passed": 1,
+        "observed_passed": 1,
+        "passed": true
+      },
+      {
+        "case": "non-json",
+        "expected_passed": 0,
+        "observed_passed": 0,
+        "passed": true
+      }
+    ]
+  }
+]

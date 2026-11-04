@@ -883,3 +883,16 @@ Total knowledge entries: 260.
 Counts checked 2026-11-04 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
 (total 260 files; directory totals 33/36/43/29/24/95).
+
+## Round 87 attestation audit interface (2026-11-04)
+
+`tools/check-attestation-packet.py` exposes a production `--packet PATH --json`
+structural audit for the existing fictional attestation records, with stable
+finding IDs and `--selftest --work <existing-dir>`. This is an operability
+capability, not a new knowledge entry or a first integrity checker: the
+round-86 stage checker already held the relevant relationships.
+Source interface specimen S929 and rejected reader S930 are curated in
+`corpus/lessons/round-87.md`. The frozen finite battery and its filename-spoof
+survivor are both retained under `reports/round-87/` and the round's wave.
+Source support, origin justification and lore acceptance remain outside the
+audit. No frontier topic is promoted into core by this interface change.

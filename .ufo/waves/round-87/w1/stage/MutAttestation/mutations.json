@@ -1,0 +1,20 @@
+[
+  {
+    "name": "translation-clock",
+    "old": "if iso_date(target) and iso_date(translated) and target < translated:",
+    "new": "if False:",
+    "expected_detector": "Tool selftest translation-backdated and frozen battery translation-backdated must reject the removed TRANSLATION_CLOCK branch."
+  },
+  {
+    "name": "solution-selected",
+    "old": "if solutions.get('status') == 'unresolved' and solutions.get('selected') is not None:",
+    "new": "if False:",
+    "expected_detector": "Tool selftest unresolved-selected and frozen battery unresolved-selected must reject the removed SOLUTION_CONFLICT branch."
+  },
+  {
+    "name": "duplicate-id",
+    "old": "elif identity in seen:",
+    "new": "elif False:",
+    "expected_detector": "Tool selftest duplicate-id and frozen battery duplicate-record must reject the removed duplicate RECORD_ID branch; blank-id validation remains intact."
+  }
+]

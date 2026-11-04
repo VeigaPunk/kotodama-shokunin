@@ -289,3 +289,25 @@ arbitrary browser/CSS layout. Trusted local input only; source authority,
 semantic support, current scholarship, OCR typography and lore canon remain
 separate judgments. Existing tools already locate quotes; this adds positional
 verification, not first quote finding. Binds prospectively from round 86.
+
+34. **A finite packet battery earns only the discrimination its controls actually demonstrate.**
+
+For future counters claiming reader or counterfeit resistance, freeze a
+constant non-reader, blanket refusal and relevant filename/label forgeries
+before the claim declaration. Retain clean positives. Check actual affected
+record IDs and permitted findings, not just the presence of one expected
+label; malformed output must produce a failed-case receipt, not disappear
+through a traceback. A transport oracle is never a production semantic oracle.
+
+Grounding: `corpus/lessons/round-87.md` R87-M2 and
+`.ufo/waves/round-87/w1/CriticCounter.md`. The frozen round-87 counter rejects
+constant output (3/12) and blanket refusal (1/12), yet filename-only and
+all-labels/wrong-record controls each score 12/12; `findings:null` crashes.
+The receipts and exact sources are retained in that seat's stage.
+These are demonstrated counterexamples, not hypothetical quality advice.
+
+Binding from round 88; it does not revise or re-score the frozen round-87
+predicate. Random filenames alone do not defeat content memorization.
+No finite forgery set proves arbitrary tool correctness, historical truth,
+source support or canon acceptance. Current counterfeit survivors and the
+origin-justification miss remain explicit rather than being called repaired.
