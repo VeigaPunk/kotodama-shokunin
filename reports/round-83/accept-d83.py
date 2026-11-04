@@ -39,6 +39,8 @@ SID = re.compile(r"S\d{3,}")
 
 
 def read(path):
+    if not os.path.isfile(path):
+        return ""
     with open(path, encoding="utf-8") as f:
         return f.read()
 
@@ -250,10 +252,10 @@ def main():
         _, block = C.claim_config(cfg, "D")
         if block["legs"] != LEGS:
             raise C.Refuse("LEGCOUNT: frozen leg table differs from this counter")
-        if not C.is_ancestor(a.root, a.freeze, a.lands):
-            raise C.Refuse("freeze is not an ancestor of lands")
         if a.lands == cfg["base"]:
             raise C.Refuse("lands equals the frozen base -- do-nothing control")
+        if not C.is_ancestor(a.root, a.freeze, a.lands):
+            raise C.Refuse("freeze is not an ancestor of lands")
         if not a.junk and not C.is_ancestor(a.root, a.lands, "main"):
             raise C.Refuse("lands is not an ancestor of the branch tip")
     except C.Refuse as e:

@@ -1,0 +1,25 @@
+# Round-83 counter revisions
+
+The round-83 counters freeze before any claim artifact lands. A revision after
+that point is a repair with a red-before receipt, never a silent edit; the
+claim's predicate, kill rule and target do not move (r79/r80/r81/r82
+precedent).
+
+- **r1 — `240d76b76bb8d3d054f63c28d2423bd5ed692ad5`** (first freeze: claims.json,
+  `counterlib.py`, the three counters, census start). Red-before, measured at
+  this revision before any claim data existed:
+  - `reports/round-83/telemetry/controls-*.txt`: all three counters refused the
+    do-nothing control with the *wrong* reason, `freeze is not an ancestor of
+    lands`, because the ancestor check ran before the `lands == base` check — a
+    control receipt that names the wrong rule is not a control.
+  - `reports/round-83/telemetry/smoke-d.txt`: the D counter raised an uncaught
+    `FileNotFoundError` for the absent entry instead of grading the ENTRY leg,
+    so a missing artifact could have crashed the counter rather than failing it.
+- **r2 — this commit.** Fixes, each visible in the diff: (1) every counter checks
+  `lands == base` before the ancestor relation, so the do-nothing control is
+  refused with that named reason; (2) the D counter reads a missing file as
+  empty text, so an absent entry fails `ENTRY` instead of raising; (3)
+  `counterlib.load_config` reads the frozen config from `--freeze` only — the
+  `lands` bytes stay a graded `FROZENCFG` leg, so a control run at the base
+  revision is refused by rule rather than by an unreadable file. No predicate,
+  target, leg name or leg order changes; constants unchanged.
