@@ -67,13 +67,13 @@ def git_show(root, rev, path):
 
 def materialize(root, rev, dest):
     os.makedirs(dest, exist_ok=True)
-    r = sh(['git', '-C', root, 'archive', '--format=tar', rev], cwd=dest)
+    r = subprocess.run(['git', '-C', root, 'archive', '--format=tar', rev],
+                       capture_output=True)
     if r.returncode != 0:
-        raise Refused(f'git archive {rev} failed: {(r.stderr or "").strip()}')
-    t = subprocess.run(['tar', '-x', '-C', dest], input=r.stdout.encode(),
-                       capture_output=True, text=True)
+        raise Refused(f'git archive {rev} failed: {(r.stderr or b"").decode(errors="replace").strip()}')
+    t = subprocess.run(['tar', '-x', '-C', dest], input=r.stdout, capture_output=True)
     if t.returncode != 0:
-        raise Refused(f'tar -x failed: {(t.stderr or "").strip()}')
+        raise Refused(f'tar -x failed: {(t.stderr or b"").decode(errors="replace").strip()}')
 
 
 def sha256_file(path):
@@ -121,12 +121,16 @@ def grade_o(root, lands, freeze, work, cfg):
 
     st = os.path.join(work, 'st-o')
     os.makedirs(st, exist_ok=True)
-    r = sh([sys.executable, '-B', tool, '--selftest', '--work', st])
-    out = (r.stdout or '') + (r.stderr or '')
+    r = None
+    if os.path.isfile(tool):
+        r = sh([sys.executable, '-B', tool, '--selftest', '--work', st])
+        out = (r.stdout or '') + (r.stderr or '')
+    else:
+        out = 'tool absent at lands'
     m = re.search(r'SELFTEST (PASS|FAIL) (\d+)/(\d+)', out)
     total = int(m.group(3)) if m else 0
-    ok = (r.returncode == 0 and m and m.group(1) == 'PASS'
-          and total == cfg['O']['selftest_checks'])
+    ok = bool(m) and r.returncode == 0 and m.group(1) == 'PASS' \
+        and total == cfg['O']['selftest_checks']
     legs.append(('SELFTEST', bool(ok), f'rc 0 and SELFTEST PASS {cfg["O"]["selftest_checks"]}/{cfg["O"]["selftest_checks"]}',
                  (m.group(0) if m else out.strip().splitlines()[-1:] or 'no verdict line')))
 
@@ -168,12 +172,18 @@ def grade_c(root, lands, freeze, work, cfg):
                  mat if os.path.isdir(os.path.join(mat, 'corpus')) else 'no corpus/ in the archive'))
 
     c = cfg['C']
+    entry_path = os.path.join(mat, c['entry'])
     tool = os.path.join(work, 'tool-frozen.py')
     with open(tool, 'w') as f:
         f.write(git_show(root, freeze, 'tools/check-advance-evidence.py'))
     base_reg = os.path.join(work, 'base-registry.md')
     with open(base_reg, 'w') as f:
         f.write(git_show(root, cfg['base'], 'corpus/SOURCES.md'))
+    if not os.path.isfile(entry_path):
+        legs.append(('ENTRY', False, f'{c["entry"]} exists at lands', 'entry absent at lands'))
+        entry_args = None
+    else:
+        entry_args = True
     receipt = os.path.join(work, 'entry-receipt.txt')
     args = [sys.executable, '-B', tool, 'entry', '--root', mat,
             '--entry', os.path.join(mat, c['entry']),
@@ -193,15 +203,16 @@ def grade_c(root, lands, freeze, work, cfg):
             '--graded', 'corpus/SOURCES.md',
             '--graded', cfg['lesson'],
             '--receipt', receipt]
-    r = sh(args)
-    out = (r.stdout or '') + (r.stderr or '')
-    want_legs = c['legs']
-    seen = dict(re.findall(r'^LEG (PASS|FAIL) (\S+)', out, re.M)[::-1])
-    missing = [l for l in want_legs if l not in seen]
-    failed = [l for l in want_legs if seen.get(l) == 'FAIL']
-    ok = r.returncode == 0 and not missing and not failed
-    legs.append(('ENTRY', ok, f'entry mode passes {",".join(want_legs)}',
-                 'clean' if ok else f'rc={r.returncode} missing={missing} failed={failed}'))
+    if entry_args:
+        r = sh(args)
+        out = (r.stdout or '') + (r.stderr or '')
+        want_legs = c['legs']
+        seen = dict(re.findall(r'^LEG (PASS|FAIL) (\S+)', out, re.M)[::-1])
+        missing = [l for l in want_legs if l not in seen]
+        failed = [l for l in want_legs if seen.get(l) == 'FAIL']
+        ok = r.returncode == 0 and not missing and not failed
+        legs.append(('ENTRY', ok, f'entry mode passes {",".join(want_legs)}',
+                     'clean' if ok else f'rc={r.returncode} missing={missing} failed={failed}'))
 
     idx = os.path.join(work, 'check-corpus-index.py')
     with open(idx, 'w') as f:
@@ -219,7 +230,7 @@ def grade_c(root, lands, freeze, work, cfg):
             problems.append(f'{rid} removed')
         elif lands_rows[rid] != cells:
             problems.append(f'{rid} cells changed')
-    entry = git_show(root, lands, c['entry'])
+    entry = open(entry_path, encoding='utf-8', errors='replace').read() if os.path.isfile(entry_path) else ''
     cited = set(re.findall(r'\bS\d{3,}\b', entry))
     new_ids = sorted(set(lands_rows) - set(base_rows))
     qualifying = []
@@ -260,6 +271,7 @@ def main(argv):
     ap.add_argument('--json', action='store_true')
     args = ap.parse_args(argv)
     try:
+        args.root = os.path.abspath(args.root)
         if not re.match(r'^[0-9a-f]{40}$', args.lands):
             raise Refused('--lands must be a full 40-hex revision')
         if not os.path.isdir(args.work):

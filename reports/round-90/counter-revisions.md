@@ -1,0 +1,9 @@
+# Round-90 counter revisions
+
+| rev | sha256 | when | reason |
+|---|---|---|---|
+| 1 | `4091cda9e0b5af399e99e85898f3040b9070d4225cf11584a601fe4c19caf0ce` | freeze d0b6f2a7, before any data | frozen counter |
+| 2 | `03a15c079a36b3a6a4a9614999b2f422a3d8a486fe22338e22abe8da45d4a432` | at-freeze control run, before any data | the control run exposed two absent-artifact paths: a missing tool crashed the SELFTEST leg with FileNotFoundError instead of failing the leg, and a missing entry returned rc2 REFUSED instead of a FAIL ENTRY finding. No leg name, threshold, predicate or constant changed; only the absent-artifact branch. |
+| 3 | `36911b98d1211822827c35a185f76c683bbbc51f61916d28b9a1aba0b2386745` | at-freeze control run, before any data | `--root .` was passed through to `git -C` relative to the materialize cwd, so the control run refused (rc2) instead of grading; root is now absolutized before any git call. No leg, threshold or constant changed. |
+| 4 | `53c815630f3be99ef89b59cb70a68ef41b1feebb2ce7db93fc2317afa2958071` | at-freeze control run, before any data | the archive stream was read as UTF-8 text and a binary blob in the lane tree aborted the leg; `git archive` now runs binary and feeds `tar` on stdin. No leg, threshold or constant changed. |
+| 5 | `80a07a579be80376d2ba6227011a7231bff47e75ad92c6e4a6e415676aad835a` | at-freeze control run, before any data | APPENDONLY read the entry with `git show <lands>:<path>`, which refuses (rc2) when the entry is absent instead of failing the leg; it now reads the materialized file and fails APPENDONLY with "entry absent from corpus/README.md"/citation findings. No leg, threshold or constant changed. |
