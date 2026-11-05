@@ -341,13 +341,14 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (36)
+## linguistics/ (37)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
 - `evidentiality-epistemic-marking.md` — evidentiality (grammatical marking of the speaker's information source and access) designed as a conlang and culture system — kept apart from epistemic modality (degree of commitment) and mirativity (unexpectedness); the WALS semantic and coding typology with its sample bounds, the source/access/egophoric extension, areal diffusion, cultural levers, a NON-CANON worked micro-design, refusals and open questions
 - `gesture-co-speech-pointing.md` — co-speech gesture, pointing and quotable gestures as a conlang and worldbuilding method — gesture as part of the utterance, what each gesture type carries, pointing in space and time, what a language packages into its speakers' hands, emblem repertoires, the social control of gesture, acquisition, and the calibration traps of reading kinesics as a universal script
 - `historical-linguistics.md` — language change as a worldbuilding tool — the comparative method, regular sound change (Grimm's and Verner's laws as worked examples), analogy, the grammaticalization cycle, dating language stages, constructing proto-languages and daughter languages
+- `ideophones-mimetics.md` — ideophones and mimetic vocabulary: depictive and sound-symbolic words, the typological definition of the ideophone as a word class, onomatopoeia and expressive lexicon, their grammar in Cushitic and Ethiosemitic and Japanese-style mimetics, their sensory semantics, their acquisition and processing, and the design procedure for a fictional depictive register
 - `kinship-terminology.md` — Murdock's six kinship-terminology types (Eskimo/lineal, Hawaiian, Iroquois, Omaha, Crow, Sudanese) with their exact merging fingerprints; what each encodes (weakly) about descent, residence, and marriage rules; Lounsbury's generative skewing rules for building consistent systems; affinal/alliance logic; kin terms borrowed into address systems (fictive kin, kin-pronouns, teknonymy, register strata); and the inverse method — reading a lexicon or an in-world document as evidence of social structure
 - `language-contact.md` — how languages converge — borrowing scales and hierarchies, loanword adaptation, pidgins/creoles/mixed languages, Sprachbund (linguistic-area) features, and using strata of loans to date fictional history
 - `language-shift-obsolescence-revival.md` — The life-cycle side of language contact — how a community stops transmitting its language (domain retreat, transmission break, semi-speakers, terminal speakers), how to diagnose the stage with Fishman's GIDS, UNESCO's vitality factors, and EGIDS, and what actually drives revival (home transmission first, then language nests, immersion schooling, adult acquisition, status and corpus planning) — with calibrated real cases (Hebrew, Welsh, Māori, Ainu, Cornish, Manx, Sumerian) and a decision record for staging a death or a revival in a fictional world.
@@ -976,3 +977,21 @@ Total knowledge entries: 263.
 Counts checked 2026-11-05 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
 (total 263 files; directory totals 36/36/43/29/24/95).
+
+## Round 92 ideophones and mimetic vocabulary entry (2026-11-05)
+
+`knowledge/linguistics/ideophones-mimetics.md` adds a dedicated entry on
+ideophones and mimetic vocabulary: the typological definition of the
+ideophone as a word class and its contested status, the boundary with
+onomatopoeia and expressives, Cushitic (Kambaata) and Ethiosemitic (Amharic)
+grammar, sensory semantics, the acquisition study of sound-symbolic effects,
+and a design procedure for a fictional depictive register. The adjacent owner
+`sound-symbolism.md` keeps token-level sound symbolism. Sources S957–S960 were
+opened this round (A/mined); no older registry row is re-verified, re-dated or
+repaired. Freshness stays paused by the open L0 questions.
+
+Total knowledge entries: 264.
+
+Counts checked 2026-11-05 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 264 files; directory totals 37/36/43/29/24/95).
