@@ -1,0 +1,217 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kotodama-r90-v2",
+  "policy": {
+    "source": "config",
+    "maxLanes": 256,
+    "minLanes": 8,
+    "waveMinLanes": 8,
+    "waveMaxLanes": 16,
+    "declaredMaxLanes": null,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 11,
+    "resume": 0,
+    "total": 11
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-90/w2/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-90/w2",
+    "members": {
+      "ReviewerEntry": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage",
+          "depth"
+        ],
+        "milestone": "r90-v2"
+      },
+      "ReviewerChrome": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "coverage",
+          "calibration"
+        ],
+        "milestone": "r90-v2"
+      },
+      "CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "operability",
+          "coverage",
+          "calibration"
+        ],
+        "milestone": "r90-v2"
+      },
+      "MutationTester": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r90-v2"
+      },
+      "Sentinel": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": null,
+        "axes": [
+          "operability",
+          "adjacency"
+        ],
+        "milestone": "r90-v2"
+      },
+      "ScoutFrontier": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "coverage",
+          "adjacency"
+        ],
+        "milestone": "r90-v2"
+      },
+      "ConnectorSiblings": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "adjacency"
+        ],
+        "milestone": "r90-v2"
+      },
+      "ExecVerifyQuotes": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "coverage"
+        ],
+        "milestone": "r90-v2"
+      },
+      "ExecCounterAtLands": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability",
+          "coverage"
+        ],
+        "milestone": "r90-v2"
+      },
+      "ExecIndexCheck": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability",
+          "coverage"
+        ],
+        "milestone": "r90-v2"
+      },
+      "ScribeReceipts": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "calibration",
+          "coverage"
+        ],
+        "milestone": "r90-v2"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "# Goal\nKotodama round 90 (linguistic-cultural worldbuilding lane, 言霊). Two claims are FROZEN and may not be amended by any seat: read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/claims.json first (freeze d0b6f2a7f9cc36272682749a9b047b739406f0c8, base 6b0b86e45ae902331aca75863db380f2991458c4).\n\n- O / operability (capability acquisition): /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py — a landing-evidence grader whose --selftest pins 67/67 checks including one negative per sub-check, whose committed mutation receipt is 43/43 killed, and which refuses 13 named counterfeit classes (the round-89 survivor classes).\n- C / coverage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/knowledge/linguistics/petitionary-and-votive-formulae.md plus registry rows S942-S948 (S949 a retained rejection), lesson /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-90.md, captures and manifest under /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/evidence/, and the corpus/README.md moves.\n\nClaim C landed at lane revision 7f3a7aa6615624afadc2cc2d2d4f7ad225f44761, graded by the freeze-pinned counter /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/measure90.py. Freshness is PAUSED (open L0 kotodama round-11 and round-89): no seat may re-verify, re-date or repair an old registry row, and no seat may propose a freshness claim.\n\n# Contract\n- Absolute paths only. Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kotodama-shokunin — write it at /home/vgpnk/Projects/shokunin/kotodama-shokunin/<that path>.\n- Scratch: every clone, mirror, fixture and working dir lives under /fast/scratch/hyaku/kotodama-r90/<your-seat-name>/ (mkdir -p first, TMPDIR set explicitly, rm -rf on exit). /tmp is for files under 50 MB and nothing you cite may live there.\n- Read-only production: you may read every lane file and git object, but you may not edit, delete or create production files, may not touch another seat's stage dir, may not commit, push, or run any mutating git/jj command. Your writes are confined to /fast/scratch/hyaku/kotodama-r90/<your-seat-name>/ and /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/<your-seat-name>/ plus your own report file.\n- Never write the fleet repo, a sibling lane, /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/state, MANIFEST.json, or anything under /home/vgpnk/Projects/shokuknow.\n- Never message agent://all. Report findings with the exact command and its observed output; an unrun check has not passed.\n- Tooling authorization (operator, 2026-10-19): you and every seat may install or upgrade tools that help the task; read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate, record tool/version/channel/reason in your report). pacman is PAUSED host-wide: install via `uv tool`, `npx`, or an official binary in ~/.local/bin, or file the need in your report; never run pacman -S/-Sy/-Syu/-U/-R or restart a host service.\n- Host: Linux; the lane repo is jj-colocated. No jj or git writes of any kind by a seat.\n- Depth: no seat spawns another seat. Read-only probes are your own commands.\n",
+    "tasks": [
+      {
+        "name": "ReviewerEntry",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ReviewerEntry/ (create it). Report: .ufo/waves/round-90/w2/ReviewerEntry.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ReviewerEntry.md.\n\nIndependently grade claim C at the landed bytes, as a non-author reviewer would.\n\n1. Re-open at least three of the seven sources yourself (curl -sS -L, ordinary HTTP, no browser, no challenge bypass): wals.info/chapter/72, wals.info/chapter/71, and one of glossary.sil.org/term/vocative-case or atticinscriptions.com/inscription/IGI3/646.\n2. Take the gate quote printed for each id in /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/lessons/round-90.md and check it against YOUR fetch, normalising whitespace and case the way tools/check-advance-evidence.py `norm()` does.\n3. Check four factual statements of the entry against the captures: the 133/20/21/201 of 375 counts (Map 72A), the 48/271 of 319 optative counts (Map 73A), the 113/182/55/146 of 496 prohibitive counts (Map 71A), and the claim that the SIL glossary returns 404 for /term/vocative and carries no prayer or votive term.\n4. Name every statement in the entry that overreaches its source, and any place the entry contradicts a capture.\n\nReport: a verdict per item with the command and the observed line, plus concrete defects. Also write /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ReviewerEntry/verdict.json with keys items (list of objects carrying id, verdict, evidence) and defects (list). Do not edit production files.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage, depth\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ReviewerEntry.md"
+      },
+      {
+        "name": "ReviewerChrome",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ReviewerChrome/ (create it). Report: .ufo/waves/round-90/w2/ReviewerChrome.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ReviewerChrome.md.\n\nAttack the landing with the round-89 survivor classes, as a non-author falsifier.\n\nBuild fixtures under your scratch that try to pass the freeze-pinned grader /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry mode (arguments exactly as measure90.py issues them; read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/claims.json for the constants): (a) a gate quote lifted from the page title or site chrome over a genuine capture; (b) a capture fabricated together with its quote; (c) a capture path that is the graded lesson or the registry; (d) a citation set that repeats one sentence to inflate size; (e) a shadow duplicate registry id whose row also names the entry. For each class, state whether the frozen predicate passes it and whether the LANDED bytes contain that defect.\n\nThen attempt the honest alternative: construct a landing that passes all six C legs without adding topic coverage, run it, and keep the receipt.\n\nReport: per class one line with the fixture path, the counter rc and the LEG lines, and a verdict for the landed bytes. Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ReviewerChrome/.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage, calibration\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ReviewerChrome.md"
+      },
+      {
+        "name": "CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/CriticClaims/ (create it). Report: .ufo/waves/round-90/w2/CriticClaims.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/CriticClaims.md.\n\nFalsify the two frozen claims against their own predicate.\n\nRead /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/claims.json (frozen at FREEZE) and reconstruct each leg from committed bytes at LANDS: O MATERIALIZE/TOOL/SELFTEST/REFUSALS/MUTATION/STUB, C MATERIALIZE/ENTRY/INDEX/APPENDONLY. Then attack:\n1. Which legs pass for the wrong reason or are vacuous (a leg satisfied by both the honest landing and a counterfeit)?\n2. claims.json O.after_target says the stub receipt records the stub failing SELFTEST and MUTATION; the committed receipt /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/controls/stub-tool.txt records a fake SELFTEST PASS 67/67 and failure at REFUSALS and MUTATION. Is the frozen text inaccurate to the bytes, and does that change the O verdict?\n3. claims.json C.surface must be base-measured (QUALITY36, R89-M4). Re-run the base-measure command it names against BASE and say whether the surface sentence holds.\n4. Is each claim causally separable from the other on the committed bytes? Name the exact file set each claim's legs read.\n\nReport one verdict line per finding (PASS, FAIL or UNPROVABLE) with the command. Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/CriticClaims/.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, coverage, calibration\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/CriticClaims.md"
+      },
+      {
+        "name": "MutationTester",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/MutationTester/ (create it). Report: .ufo/waves/round-90/w2/MutationTester.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/MutationTester.md.\n\nIndependent mutation pass over the landed grader bytes, beyond the 43 mutants already committed.\n\n1. Read the frozen mutation receipt /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/mutation-score.txt and /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/mutants.py. Confirm the recorded tally reproduces at LANDS with your own run.\n2. Write at least ten NEW single-point mutants of /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py that the committed 43 do not cover, aimed at the entry-mode legs: the SHAPE repetition threshold, the TOPIC overlap counter, the NEWIDS qualifier cells, the GATE url/date/word bounds, CAPTURE confinement and sha256, registry parsing under 0-3 leading spaces, and duplicate handling.\n3. Run each mutant's --selftest and record killed, survived or broken-pattern with the exact output line.\n\nReport: a MUTATION-SCORE line for your own set, the survivors with a one-line reason each, and a verdict on whether the frozen 43/43 is representative. Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/MutationTester/.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/MutationTester.md"
+      },
+      {
+        "name": "Sentinel",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/Sentinel/ (create it). Report: .ufo/waves/round-90/w2/Sentinel.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/Sentinel.md.\n\nConduct and confinement audit of the landed round.\n\nCheck, and show the command for each: (a) no credential material, private URL or op:// reference in the round's new files at LANDS; (b) every capture cited by a receipt lives in the lane tree, not in /tmp, /var/tmp or /fast/scratch — run /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-cited-records.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin and separate the round-90 hits from the inherited ones; (c) no round-90 file writes outside /home/vgpnk/Projects/shokunin/kotodama-shokunin; (d) git attribution: every round-90 commit is authored kotodama-shokunin with kotodama@shokunin.local, and no seat commit exists; (e) the fleet repo has no round-90 kotodama-named leftover (git -C /home/vgpnk/Projects/shokunin status --porcelain); (f) no source was opened by passing a bot challenge, login wall or paywall — inspect the captures for challenge markers.\n\nReport: one line per check with evidence, plus any finding with severity. Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/Sentinel/.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, adjacency\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/Sentinel.md"
+      },
+      {
+        "name": "ScoutFrontier",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ScoutFrontier/ (create it). Report: .ufo/waves/round-90/w2/ScoutFrontier.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ScoutFrontier.md.\n\nReconnaissance for the lane's next frontier, plus a check on the new entry's base-surface statement.\n\n1. Read /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/README.md (## Frontier and the index), PROVINCE.md and section 8 of the round-90 entry. Name the three highest-value uncovered surfaces a linguistics partition could take next, each with the grep command that shows the lane does not already hold it.\n2. Verify the base-state claim of the round-90 entry: at BASE, run a word-boundary grep over corpus/knowledge for prayer, petition, votive and supplicat, and list which files and headings actually carry the surface. Report whether the entry's account matches.\n3. Coverage-map honesty: does corpus/README.md list the new entry with the right counts, and does any other partition now disagree with the tree?\n\nReport: a ranked frontier list with commands, and a verdict on the base-surface statement. Read-only; stage /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ScoutFrontier/.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: coverage, adjacency\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ScoutFrontier.md"
+      },
+      {
+        "name": "ConnectorSiblings",
+        "agent": "connector",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ConnectorSiblings/ (create it). Report: .ufo/waves/round-90/w2/ConnectorSiblings.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ConnectorSiblings.md.\n\nSibling-overlap scan: who else owns petitionary, votive or litanic ground?\n\nGrep every sibling lane repo under /home/vgpnk/Projects/shokunin for prayer, petition, votive, litany, invocation, dedicat and vow. Report per hit: lane, path, line, and whether it claims ownership or is an incidental word. Then read /home/vgpnk/Projects/shokunin/kotodama-shokunin/PROVINCE.md and state whether the new entry stays inside kotodama's province (the design surface) and outside lore's canon ownership and chousa's research method.\n\nReport: a table of hits with a verdict (no contest, contested or adjacent) and one line naming what the round report must tell the integrator. Read-only; stage /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ConnectorSiblings/.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: adjacency\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ConnectorSiblings.md"
+      },
+      {
+        "name": "ExecVerifyQuotes",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ExecVerifyQuotes/ (create it). Report: .ufo/waves/round-90/w2/ExecVerifyQuotes.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ExecVerifyQuotes.md.\n\nIndependent re-fetch and quote agreement at the landed bytes.\n\n1. Fetch the seven admitted URLs plus the rejected one yourself into your scratch (curl -sS -L; record http status, bytes, sha256 and a local ISO instant with offset).\n2. Compare each against the committed capture at /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/evidence/<id>.txt: byte comparison, and where bytes differ only by per-request session tokens, a content-line diff. Report identical or changed, naming the differing lines.\n3. Run the existing comparator /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w1/stage/ExecIndepRefetch/recheck.py against the landed manifest and lesson; record its rc and output. If it exits 2 or 1, fix nothing in production — report why.\n4. Check each manifest row's sha256, http_status and fetched_at against the committed file it names.\n\nReport: an eight-row agreement table plus a verdict on manifest integrity. Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ExecVerifyQuotes/.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: coverage\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ExecVerifyQuotes.md"
+      },
+      {
+        "name": "ExecCounterAtLands",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ExecCounterAtLands/ (create it). Report: .ufo/waves/round-90/w2/ExecCounterAtLands.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ExecCounterAtLands.md.\n\nRe-run the frozen instrument from a clean clone and keep the receipts.\n\n1. git clone --shared /home/vgpnk/Projects/shokunin/kotodama-shokunin into your scratch and check out 7f3a7aa6615624afadc2cc2d2d4f7ad225f44761.\n2. Run /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/measure90.py --root <clone> --freeze d0b6f2a7f9cc36272682749a9b047b739406f0c8 --lands 7f3a7aa6615624afadc2cc2d2d4f7ad225f44761 --claim O --work <dir>, then the same with --claim C. Record the full LEG lines and the rc.\n3. Run /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/separability90.py --repo <clone> --freeze d0b6f2a7f9cc36272682749a9b047b739406f0c8 --lands 7f3a7aa6615624afadc2cc2d2d4f7ad225f44761 --work <dir> --receipt <file> and record both overlays' verdicts.\n4. Verify the counter's own bytes against /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/counter-revisions.md revision 6 and confirm that claims.json at the freeze is byte-identical to the worktree copy.\n\nReport: the exact LEG lines, both rc values, the separability verdicts, and a statement of whether the frozen instrument reproduces end to end at lands. Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ExecCounterAtLands/; copy receipts there before deleting scratch.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability, coverage\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ExecCounterAtLands.md"
+      },
+      {
+        "name": "ExecIndexCheck",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ExecIndexCheck/ (create it). Report: .ufo/waves/round-90/w2/ExecIndexCheck.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ExecIndexCheck.md.\n\nStructural verification of the landed corpus moves, in a clone (never the lane worktree).\n\n1. /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-corpus-index.py --root <clone> (expect 0 findings): report files, rows and the partition arithmetic.\n2. /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama: report the rc and whether any warning names a new row (S942-S949).\n3. The census clauses that matter for the new rows: malformed-row count, duplicate ids, enum violations, tier inflation, and mined rows whose used-by paths do not exist.\n4. /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-gate-registry.py --root <clone>, and state whether the round added a counter path this registry should know about.\n5. Confirm /home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/README.md counts equal the on-disk partition counts and that the new entry's README topic cell is byte-equal to its own `- topic:` line.\n\nReport: one line per check with the command's summary output and rc. Stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ExecIndexCheck/.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability, coverage\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ExecIndexCheck.md"
+      },
+      {
+        "name": "ScribeReceipts",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nYour stage: /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ScribeReceipts/ (create it). Report: .ufo/waves/round-90/w2/ScribeReceipts.md at /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/ScribeReceipts.md.\n\nDraft the round's measurement and sources receipts from committed bytes (no production edits).\n\n1. Registry before and after: row count, tier histogram and status histogram at BASE and at LANDS, the exact new ids, and the diff of every pre-existing row's cells (expect zero changed). Give the exact awk and grep commands.\n2. Corpus counts: knowledge files per partition at both revisions, plus the entry's byte size, heading count and table shape at LANDS.\n3. Census: read /home/vgpnk/Projects/shokunin/kotodama-shokunin/reports/round-90/census-start.txt and census-end.txt, report both rcs and the delta in warning lines that name a round-90 id.\n4. Draft, in your report, the exact text the L1 can paste into the fleet report's Before-to-after measurements and Sources and frontier sections, every number carrying its command and revision.\n\nReport: the numbers as a table plus paste-ready blocks, also written to /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-90/w2/stage/ScribeReceipts/receipts.md.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: calibration, coverage\nMilestone: r90-v2\n\nReport: write your scoped findings to .ufo/waves/round-90/w2/ScribeReceipts.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

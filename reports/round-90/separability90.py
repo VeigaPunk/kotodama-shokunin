@@ -248,7 +248,7 @@ def build_overlay(work, name, lane, lands, graded, substrate, structural, stage,
             pass
         present.append(rel)
     commit, tree = commit_overlay(repo, lands, f'round-90 separability overlay {name} over {lands}')
-    expected = sorted(present)
+    expected = sorted(set(present))  # a graded path may also arrive via a substrate glob; git trees are sets
     listed = tree_paths(repo, commit)
     if listed != expected:
         extra = sorted(set(listed) - set(expected))[:10]
