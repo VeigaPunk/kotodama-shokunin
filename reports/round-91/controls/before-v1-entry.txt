@@ -1,0 +1,42 @@
+# Claim O before-state receipt — base v1 grader vs frozen v2 grader on one off-topic entry
+# produced 2026-11-05 (L1 KotodamaR91) AFTER the freeze 691aebf2. The frozen O.before
+# names this path; the file did not exist at base, at freeze or in the worktree, so this
+# receipt is a post-freeze reconstruction from the round-90 critic's documented fixture
+# recipe (reports/round-90/w1/CriticClaims.md V1/V5). It is not backdated.
+#
+# Fixture: a 12009-byte entry whose headings, table and prose are a bakery rota, with the
+# declared C topic copied verbatim onto its '- topic:' line (topic-line padding).
+# Base tool: git show d39434b3:tools/check-advance-evidence.py, sha256
+#   121888f08a81ad87675863cf972dd4d32f0a6764b9911dab6b4c8fc4bfe828ed
+# Frozen v2 tool: tools/check-advance-evidence.py, sha256
+#   88597a66c7912861d0a593f984b9eb224a3c46cba3b35d06209b529bc6031093
+
+== base v1, entry mode ==
+$ python3 -B <base>/tools/check-advance-evidence.py entry --root . --entry corpus/knowledge/linguistics/bakery-rota-2.md --base-registry .base-registry.md --lands-registry corpus/SOURCES.md --lesson corpus/lessons/round-91.md --manifest reports/r91fx/manifest.json --capture-dir reports/r91fx --as-of 2026-11-05 --topic "<declared C topic>" --min-bytes 12000 --min-headings 6 --min-new-ids 1 --min-topic-overlap 10 --table-min-rows 5 --table-min-cols 3
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=1 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: PASS legs=6/6
+
+== frozen v2, same fixture, same arguments plus --topic-phrases/--min-topic-phrases ==
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG FAIL TOPIC expected=>=10 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=0 of 6 sub-topic phrases in headings/table cells < 4; phrase anchors 0/6
+LEG PASS NEWIDS expected=>=1 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG FAIL GATE expected=each new id has a located gate line bound to the row teaching observed=S999: gate quote is the row teaching cell (self-quote)
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: FAIL legs=5/7 failed=TOPIC,GATE
+
+# Second measurement, same fixture WITHOUT the copied topic line (a plain bakery entry):
+# base v1 already refuses it — 'entry shares 4 content words with the declared topic < 10',
+# FAIL TOPIC, rc 1. So the frozen O.before sentence 'v1 grades the round-90 bakery-rota
+# off-topic fixture as PASS' is true only for the topic-line-padded variant, which is what
+# this receipt demonstrates; the naive off-topic body is a class v1 already refused.
+#
+# Limits: one fixture, this host, one run per tool; v1's own selftest already carries an
+# 'off-topic filler entry -> FAIL TOPIC' case, so the padding variant, not the whole class,
+# is what v2 adds.
