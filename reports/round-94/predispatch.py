@@ -30,7 +30,10 @@ for path, lines in A_FILES.items():
         text = body[ln - 1]
         if not re.search(r"greet", text, re.I):
             continue
-        targets = [t for t in LINK.findall(text) if "greet" not in t]
+        # rev2: every named .md target is checked (rev1 wrongly excluded
+        # greet-named targets, so the counter could never accept a repoint to
+        # the owner entry; see counter-revisions.md).
+        targets = LINK.findall(text)
         ok = False
         for t in targets:
             cand = [os.path.normpath(os.path.join(os.path.dirname(path), t)),
