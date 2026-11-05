@@ -1,0 +1,87 @@
+{
+ "schema": "kotodama-round-94-battery-manifest-v1",
+ "tool_under_test": "tools/check-advance-evidence.py",
+ "driver": "battery94.py",
+ "classes": [
+  {
+   "class_name": "A1",
+   "counterfeit": "Cyrillic lookalike O (U+041E) in the verdict token LOCATED of a gained S001 lesson line; APPENDONLY sees no disposition.",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "LEG FAIL APPENDONLY",
+    "VERDICT-NONASCII"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/A1",
+   "grade": "battery94.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "B1",
+   "counterfeit": "Soft hyphen (U+00AD) inside the verdict token of a gained S001 lesson line (LOCA­TED).",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "LEG FAIL APPENDONLY",
+    "VERDICT-SOFTHYPHEN"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/B1",
+   "grade": "battery94.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "G1",
+   "counterfeit": "Numbered phrase-only h2 headings (## 1. address, ## 2. petition, ## 3. efficacy, ## 4. table, ## 5. Rites): the list number is counted as a heading token.",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL TOPIC"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/G1",
+   "grade": "battery94.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "H1",
+   "counterfeit": "Manifest row value for S955 is a JSON list, not an object.",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL GATE",
+    "LEG FAIL CAPTURE",
+    "MANIFEST-ROW-NOT-OBJECT",
+    "MANIFEST-ROW-TYPE"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/H1",
+   "grade": "battery94.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "I1",
+   "counterfeit": "Lands registry row S955 truncated to four cells (| S955 | url | docs | A |).",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL NEWIDS",
+    "REGISTRY-ROW-CELLS"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/I1",
+   "grade": "battery94.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "J1",
+   "counterfeit": "En-dash (U+2013) in NOT–LOCATED on a gained S001 lesson line; v4 reads it as LOCATED.",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "gained a NOT-LOCATED line"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/J1",
+   "grade": "battery94.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "K1",
+   "counterfeit": "Lowercase unanchored verdict \"- note: S001 located recheck moved ...\" outside line start: evades the anchored regex and the case-sensitive fallback.",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL APPENDONLY",
+    "VERDICT-LOWERCASE"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/K1",
+   "grade": "battery94.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  }
+ ]
+}

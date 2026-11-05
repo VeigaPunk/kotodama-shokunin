@@ -5044,3 +5044,19 @@ Changes: `tools/check-advance-evidence.py` v4 (sha 9799a96c); `reports/round-93/
 Mistakes mined (`corpus/lessons/round-93.md` `## Mistakes`): R93-M1 fixture masking (3 survivors on the first v4 mutation run, fixed by exact-leg pins), R93-M2 title-only exclusions (round 92), R93-M3 stale premise (round-92 claim C before-description).
 
 Open after this round: freshness paused (L0 round-11 and round-89); the L0 overlap question for round-92 (`ideophones-mimetics.md` vs `sound-symbolism.md` §6) is still unanswered; the three round-92 re-decisions and the 16 exclusions are unlearned; the round-93 residuals routed to round 94; the lowest-axis obligation is neither met nor waived.
+
+## Round 94 (2026-11-05, attempt 1, L1 KotodamaR94)
+
+Claims O (operability), C (coverage) and A (adjacency), frozen at `d4ff93c8844e6db33a6e9d85fc7f0848e9f66ca7` with base `e7fa8eafb7c5d9edd706f860cfc023e6c99b1ab2` (`reports/round-94/claims.json`; counter rev2 at `314ad124`, documented in `reports/round-94/counter-revisions.md`; pre-dispatch receipt `reports/round-94/predispatch-base.txt`: A1=2, entry absent, registry 888/S964, tool sha 9799a96c, census rc 0, index rc 0).
+
+O: FAILED AS DECLARED on the frozen MUTATION leg. Grader v4 → v5 (`tools/check-advance-evidence.py`, sha `7957945db8036f52ab46436b281e92887c6fc22d0a89531d6f80279bcbad01ff`) refuses all seven battery classes on named diagnostics with no traceback (`reports/round-94/controls/battery-v5.txt`: survivors=0 unnamed=0 refused=7) and keeps the 34 round-92/93 REG outcomes byte-identical to v4 (`controls/reg-v4.txt` vs `controls/reg-v5.txt`, diff empty); SELFTEST PASS 126/126 (>= 120 floor), four concurrent runs. MUTATION: `MUTATION-SCORE: 86/88 killed, 1 survived (head-qualify-off), 1 broken-pattern (dispo-fallback-off)` (`.ufo/waves/round-94/w1/stage/MutationTester94/mutation-score.txt`; lands-stamped re-run `reports/round-94/mutation-score-lands.txt`). The five routed mutant classes are all killed. Kill rule fires; no post-scoring amendment.
+
+C: improved. `corpus/knowledge/linguistics/lullaby-child-song-formulae.md` landed (43409 B, 11 h2, two tables incl. 12x5, six phrase anchors in headings, topic line verbatim); registry 888 → 893 (S965–S969, tier A, mined, opened 2026-11-05, captures + fetch manifest `reports/round-94/evidence/`); APPENDONLY 7 added / 0 removed; census rc 0 with 0 E-findings; index 266/266 rc 0.
+
+A: improved. The two dangling greeting pointers (`adornment-body-codes.md:5`, `costume-semiotics.md:143`) re-pointed to `linguistics/greeting-leave-taking-formulae.md`; only those two lines changed (patch sha `3719edcf…`); predispatch rev2 measures A1 2 → 0.
+
+Wave: one v1 wave of 13 seats (5 executor, 1 scout, 1 connector, 2 scribe, 2 reviewer, 1 critic, 1 mutation-tester; attack 4/13), no residual call, no dead seat. ReviewerO94's verdict void by timing (candidate landed after its bound); L1 ran the selftest/battery/regression receipts; CriticO94 attacked with 13 new classes (7 survive — routed to round 95) with the G0 control clean.
+
+Mistakes mined (`corpus/lessons/round-94.md`): R94-M1 round-93 routed verifier classes (fixed by v5, red-before receipts), R94-M2 round-93 report label mismatch (erratum filed in the round-94 report), R94-M3 frozen-counter greet-filter defect (fixed pre-scoring, rev2), R94-M4 battery token-name mismatch (amended pre-scoring), R94-M5 mutation leg unmet (this round's O failure; head-qualify pin gap and stale dispo-fallback pattern routed).
+
+Open after this round: claim O's mutation bar (head-qualify pin, mutant-pattern maintenance), CriticO94's seven surviving classes, F1, freshness paused (L0 round-11/round-89), ideophones overlap L0 (round-92), title-only exclusions (round-92 criterion 37), ReviewerC94 C1 counter-semantics note.

@@ -2167,3 +2167,59 @@ Round shape: one v1 wave of 10 seats (2 scribe, 3 executor, 1 scout, 1 connector
 Routed from this round's seat findings (recipes in `corpus/lessons/round-93.md` `## Routed to round 94`): selftest pins for HTML script/style and comment stripping, entity decoding, the disposition case rule, and base-row `opened` cells (MutationTesterV4 survivors); Cyrillic-lookalike and soft-hyphen verdict tokens (CriticClaims93 A1, B1); numbered phrase-only headings passing the anchor floor (G1); unguarded manifest row values and short registry rows raising tracebacks (H1, I1); en-dash verdict misread (J1). Round 94 declares its own claims against a new freeze; the round-93 v4 predicate is not amended.
 
 Saturation: unchanged. Stagnation window: unchanged. Retired: none.
+
+## Planned / frozen — round 94 (2026-11-05)
+
+Declared in the freeze commit `d4ff93c8844e6db33a6e9d85fc7f0848e9f66ca7`
+(`reports/round-94/claims.json`; counter `reports/round-94/predispatch.py`,
+rev2 `314ad1247ed5fec1195d8228da5c6bc37a51ea30` after the documented
+greet-filter defect, `reports/round-94/counter-revisions.md`); base
+`e7fa8eafb7c5d9edd706f860cfc023e6c99b1ab2`. Pre-dispatch receipt
+`reports/round-94/predispatch-base.txt`: A1 dangling greeting pointers 2, entry
+absent, registry 888 rows / highest S964, tool sha `9799a96c…`, census rc 0,
+index rc 0.
+
+| claim / axis | before → frozen target | counter |
+|---|---|---|
+| O / operability (successor move to the round-93 grader) | v4 (`9799a96c…`): 7 battery classes unfixed (4 survivors rc 0, 2 tracebacks, J1 misfire; `stage/ExecBattery94/red-before-v4.txt`), routed mutants 0/5 killed → v5 refuses all seven classes on named diagnostics with no traceback, SELFTEST >= 120 named checks, REG set byte-identical to v4, MUTATION killed == total, 0 survived, 0 broken-pattern | `python3 -B reports/round-94/predispatch.py --root <lands>`; `python3 -B .ufo/waves/round-94/w1/stage/ExecBattery94/battery94.py --tool tools/check-advance-evidence.py --work <scratch>`; `python3 -B .ufo/waves/round-94/w1/stage/ExecMutants94/mutants94.py --tool tools/check-advance-evidence.py --work <scratch>` |
+| C / coverage (sourced claim) | entry absent; registry 888 / S964 → `corpus/knowledge/linguistics/lullaby-child-song-formulae.md` >= 12000 B, >= 6 h2, a table >= 5x3, >= 4 of six frozen phrases in headings/table cells, >= 3 new mined A/B rows opened 2026-11-05 cited and gated, committed captures, index rc 0, census rc 0, zero removed registry lines | predispatch C1/C2 + census + index + `git diff --numstat` |
+| A / adjacency | A1 = 2 dangling greeting pointers → A1 = 0 with only the two named lines changed and the cross-domain claims preserved | `python3 -B reports/round-94/predispatch.py --root <lands>` (A1 line); `git diff --numstat` |
+
+Freshness stays the historically lowest non-retired axis and stays paused under
+the open L0 kotodama round-11 and round-89 questions; the lowest-axis obligation
+is neither met nor waived this round and the report says so. No numeric 0–10
+score is invented.
+
+## Axes — round 94 (2026-11-05; author-side, non-author closure pending)
+
+Lands measured at the lane tip carrying the work commit; receipts under
+`reports/round-94/`.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | FAILED AS DECLARED (MUTATION leg unmet) | v4: 7 classes unfixed, 0/5 routed mutants killed → v5 (`7957945d…`): SELFTEST PASS 126/126 (4 concurrent), BATTERY survivors=0 unnamed=0 refused=7 with named tokens, REG byte-identical to v4, but MUTATION-SCORE 86/88 with 1 survived (`head-qualify-off`: the v5 selftest does not pin the >= 2-token heading rule) and 1 broken-pattern (`dispo-fallback-off`: pattern stale against v5 bytes); the five routed mutants are all killed | `python3 -B .ufo/waves/round-94/w1/stage/ExecMutants94/mutants94.py --tool tools/check-advance-evidence.py --work <scratch>` | `reports/round-94/mutation-score-lands.txt`; `reports/round-94/controls/battery-v5.txt`, `reg-v4.txt`/`reg-v5.txt` (diff empty), `selftest-v5-run1.txt` |
+| coverage / C | improved, finite predicate verifies | entry absent → landed 43409 B, 11 h2, tables 4x4 and 12x5, six phrase anchors in headings, topic line byte-equal to the frozen topic; registry 888 → 893 (S965–S969, tier A, mined, opened 2026-11-05); APPENDONLY 7 added / 0 removed; census rc 0 (0 E-findings on the new rows); index 266/266 rc 0; 19/19 row quotes locate in the committed captures (ReviewerC94) | `python3 -B reports/round-94/predispatch.py --root .`; `wc -c corpus/knowledge/linguistics/lullaby-child-song-formulae.md`; census + index | `reports/round-94/evidence/` (8 captures + fetch manifest), `reports/round-94/source-rows.md`, `.ufo/waves/round-94/w1/ReviewerC94.md` |
+| adjacency / A | improved, finite predicate verifies | A1 = 2 → 0 under counter rev2 (defect in rev1 found by ExecAdjacency94 before scoring, fixed in `314ad124` with the base receipt re-stamped unchanged); `git diff --numstat` shows exactly 2 files, 2 changed lines; the repointed targets resolve to the greeting entry | predispatch A1; `git diff --numstat` | `.ufo/waves/round-94/w1/stage/ExecAdjacency94/adjacency.patch` (sha `3719edcf…`), `reports/round-94/counter-revisions.md` |
+| calibration | observation, no scored claim | R94-M3 (frozen-counter defect, fixed pre-scoring), R94-M4 (battery token mismatch, amended pre-scoring) and R94-M5 (the O mutation failure itself) are recorded in `corpus/lessons/round-94.md`; ReviewerO94's void verdict disclosed, not hidden | — | `corpus/lessons/round-94.md` `## L1 integration record` |
+| depth / freshness | unchanged | no admitted entry deepened or superseded; freshness paused by open L0 round-11/round-89; the round-89-style live re-verification was NOT used as a claim | `.ufo/l0-questions.md` lines 47 and 303 | `.ufo/waves/round-94/w1/ReviewerC94.md` (live re-fetch integrity checks were evidence, not a claim) |
+| adjacency (beyond A) | unchanged | ConnectorLullaby94 named eight contested scopes with owners; nothing absorbed; the ideophones overlap L0 stays open | — | `.ufo/waves/round-94/w1/ConnectorLullaby94.md` |
+
+Trend verdicts (author-side): expansion improved (a dedicated entry on ground
+with zero filename owners at base, five mined A rows cited); quality unchanged
+(no admitted entry re-verified, deepened or superseded; the two reviewer framing
+fixes were applied to the NEW entry before landing, not to an admitted one);
+discernment improved in the LEARNING.md sense (the round's own counter defect
+and instrument mismatch were caught and fixed before data, and the O failure is
+reported as failed, not prettified).
+
+Registry 888 → 893 rows (five additions S965–S969, no other cell changed).
+Census rc 0 at start (`reports/round-94/predispatch-base.txt`) and end
+(`reports/round-94/census-end.txt`). Round shape: one v1 wave of 13 seats
+(attack 4/13 = 31%), no residual call, no dead seat. The L1 holds the planner
+role (the validator rejects planner as a seat).
+
+## Capabilities — round 94 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| grader v5 counterfeit refusals | Refuses, by name and with no traceback: Cyrillic-lookalike and soft-hyphen verdict tokens (`VERDICT-NONASCII`, `VERDICT-SOFTHYPHEN`), lowercase unanchored verdict tokens (`VERDICT-LOWERCASE`), numbered phrase-only heading anchors (TOPIC leg with list numbers stripped), manifest row values that are lists (`MANIFEST-ROW-TYPE`), short registry rows (`NEWIDS` leg), and en-dash NOT-LOCATED without a false flip; five routed mutant classes pinned in the selftest (126 checks) | `python3 -B tools/check-advance-evidence.py --selftest --work <dir>` → `SELFTEST PASS 126/126`; `reports/round-94/controls/battery-v5.txt` (survivors=0 unnamed=0 refused=7) | round 94, author-side pending closure |
