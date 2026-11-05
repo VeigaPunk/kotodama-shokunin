@@ -1,0 +1,15 @@
+# freeze 174fd5a8e05b3919a7854a4495c2fe0f28080775 (revision 2), claim C, lands = freeze (no entry): do-nothing control
+# frozen legs: 6 (MATERIALIZE,ENTRY,POSITIVE,INDEX,CENSUS,APPENDONLY)
+# stamped revision: 174fd5a8e05b3919a7854a4495c2fe0f28080775
+# evaluated revision: 174fd5a8e05b3919a7854a4495c2fe0f28080775 (materialized)
+# measured revision (lane main): 174fd5a8e05b3919a7854a4495c2fe0f28080775
+# tree: d51763c968c7a12583d0b1e9630a680073fcfc00
+# counter sha256 (self): fb3ca1c20026f0f3dfeb60103396f6af166bf4bc1490d83c17e1fb34df6f84c3
+LEG PASS MATERIALIZE expected=lands 174fd5a8e05b3919a7854a4495c2fe0f28080775 materialized observed=/fast/scratch/hyaku/kotodama-r93/controls2/C-freeze2/mat
+LEG FAIL ENTRY expected=corpus/knowledge/linguistics/greeting-leave-taking-formulae.md exists at lands observed=entry absent at lands
+LEG PASS POSITIVE expected=v4 entry mode passes the round-92 landed entry at 1473606b7baa (ENTRY,SHAPE,TOPIC,NEWIDS,UNIQUENESS,BASEROWS,GATE,CAPTURE,APPENDONLY) observed=clean
+LEG PASS INDEX expected=index tool exit 0 over the lands tree observed=CORPUS-INDEX: OK files=264 rows=264 findings=0
+LEG PASS CENSUS expected=scripts/sources-census.sh validate --file <lands SOURCES.md> exits 0 observed=rc=0
+LEG FAIL APPENDONLY expected=no base row changed or malformed; >=3 new mined A/B rows opened 2026-11-05 cited; README row observed=0 qualifying new ids < 3; entry absent from corpus/README.md
+MEASURE93-C: FAIL legs=4/6 failed=ENTRY,APPENDONLY
+

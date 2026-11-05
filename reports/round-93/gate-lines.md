@@ -1,0 +1,4 @@
+- S961 admit A/mined. https://bop.unibe.ch/linguistik-online/article/view/1426 — accessed 2026-11-05 — body: “the speech acts of greeting and leave-taking denoted by the German verb”
+- S962 admit A/mined. https://pressto.amu.edu.pl/index.php/srp/article/view/21548 — accessed 2026-11-05 — body: “despite their apparent formal resemblance, came to codify totally opposite”
+- S963 admit A/mined. https://bop.unibe.ch/linguistik-online/article/view/3847 — accessed 2026-11-05 — body: “greetings tend to be brief today”
+- S964 admit A/mined. https://oaj.fupress.net/index.php/ss/article/view/17732 — accessed 2026-11-05 — body: “compiled a pool of words, expressions, and sayings”

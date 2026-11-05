@@ -1,0 +1,145 @@
+{
+ "before_sha256": "9799a96cf473278a75d19f51d93c4552cc94a611f7b008b36ef928c914ffaae7",
+ "baseline": {
+  "rc": 0,
+  "first_line": "SELFTEST PASS 114/114",
+  "bad": [],
+  "stderr_tail": ""
+ },
+ "mutants": [
+  {
+   "tag": "script-strip-off",
+   "target": "html_body_text script/style block stripping (tool line ~291)",
+   "old": "s = re.sub(r'(?is)<(script|style)\\b[^>]*>.*?</\\1\\s*>', ' ', s)",
+   "new": "pass",
+   "mutant_sha256": "3ef374418156fb4f137e5b44e92ebcf7a7ff9b7a90a0f2ab73c62afe6b2d4ff5",
+   "rc": 0,
+   "selftest_line": "SELFTEST PASS 114/114",
+   "bad_lines": [],
+   "stderr_tail": "",
+   "verdict": "SURVIVED"
+  },
+  {
+   "tag": "comment-strip-off",
+   "target": "html_body_text HTML comment stripping (tool line ~292)",
+   "old": "s = re.sub(r'(?s)<!--.*?-->', ' ', s)",
+   "new": "pass",
+   "mutant_sha256": "5dd85b69da38a6fa5bace34819601b9eec6b37685ef30c7e68b84839b29c806d",
+   "rc": 0,
+   "selftest_line": "SELFTEST PASS 114/114",
+   "bad_lines": [],
+   "stderr_tail": "",
+   "verdict": "SURVIVED"
+  },
+  {
+   "tag": "unescape-off",
+   "target": "html_body_text entity unescape step (tool line ~294)",
+   "old": "return _html.unescape(s)",
+   "new": "return s",
+   "mutant_sha256": "b8514f16bad9f9093a329fc8e9af8d9e3f0f7d1f8b4c66624640c59af75d457d",
+   "rc": 0,
+   "selftest_line": "SELFTEST PASS 114/114",
+   "bad_lines": [],
+   "stderr_tail": "",
+   "verdict": "SURVIVED"
+  },
+  {
+   "tag": "dispo-any-casei",
+   "target": "DISPO_ANY_RE gains the case-insensitive flag (tool line ~113)",
+   "old": "DISPO_ANY_RE = re.compile(r'\\bS(\\d{3,})\\b.*?\\b(NOT[ _-]?LOCATED|LOCATED)\\b')",
+   "new": "DISPO_ANY_RE = re.compile(r'\\bS(\\d{3,})\\b.*?\\b(NOT[ _-]?LOCATED|LOCATED)\\b', re.I)",
+   "mutant_sha256": "56909ef17ad1cf62aab61e3394d8e737677df41ab6b62c2522aeb5147b24c3dc",
+   "rc": 0,
+   "selftest_line": "SELFTEST PASS 114/114",
+   "bad_lines": [],
+   "stderr_tail": "",
+   "verdict": "SURVIVED"
+  },
+  {
+   "tag": "baserows-drop-cell8",
+   "target": "BASEROWS identity-cell loop drops cell 8 'opened' (tool line ~676)",
+   "old": "for i in (0, 1, 2, 3, 4, 5, 6, 8):",
+   "new": "for i in (0, 1, 2, 3, 4, 5, 6):",
+   "mutant_sha256": "67527ce9b91e3c84d171cfbc3b606f7087f69cac1d60bda85776043ef56048e8",
+   "rc": 0,
+   "selftest_line": "SELFTEST PASS 114/114",
+   "bad_lines": [],
+   "stderr_tail": "",
+   "verdict": "SURVIVED"
+  },
+  {
+   "tag": "head-floor-3",
+   "target": "head_anchors token floor 2 -> 3 (tool line ~576)",
+   "old": "return len(h.lstrip('#').split()) >= 2",
+   "new": "return len(h.lstrip('#').split()) >= 3",
+   "mutant_sha256": "f0ad0a31c95021d32ba4e940a249849a1e1624f9fb983519041ca07a93530364",
+   "rc": 1,
+   "selftest_line": "SELFTEST FAIL 90/114",
+   "bad_lines": [
+    "  BAD positive entry: rc=1 tail=['ENTRY-EVIDENCE: FAIL legs=8/9 failed=TOPIC']",
+    "  BAD uncited new row is out of scope: rc=1 tail=['ENTRY-EVIDENCE: FAIL legs=8/9 failed=TOPIC']",
+    "  BAD entry mode: scheme-swapped shadow url refused: rc=1 tail=['ENTRY-EVIDENCE: FAIL legs=7/9 failed=TOPIC,UNIQUENESS']",
+    "  BAD entry mode: www-prefixed shadow url refused: rc=1 tail=['ENTRY-EVIDENCE: FAIL legs=7/9 failed=TOPIC,UNIQUENESS']"
+   ],
+   "stderr_tail": "",
+   "verdict": "KILLED"
+  },
+  {
+   "tag": "gate-extra-slice-2",
+   "target": "extra gate-quote loop slice [1:] -> [2:] (tool line ~736)",
+   "old": "for extra_line, extra_q in gates.get(rid, [])[1:]:",
+   "new": "for extra_line, extra_q in gates.get(rid, [])[2:]:",
+   "mutant_sha256": "cd77f3ebe1f38b734a2a837e5059a4a7d335b47e3a198c4fb988cb543826e762",
+   "rc": 1,
+   "selftest_line": "SELFTEST FAIL 113/114",
+   "bad_lines": [
+    "  BAD entry mode: second chrome quote on a gate line refused: rc=0 tail=['ENTRY-EVIDENCE: PASS legs=9/9']"
+   ],
+   "stderr_tail": "",
+   "verdict": "KILLED"
+  },
+  {
+   "tag": "gradednorm-key-sha",
+   "target": "graded_norms build key: normalized text -> sha256 (tool line ~524)",
+   "old": "graded_norms[norm(raw.decode('utf-8', errors='replace'))] = g",
+   "new": "graded_norms[hashlib.sha256(raw).hexdigest()] = g",
+   "mutant_sha256": "6e1dc3e5f698669b5c09da46b1fd508d05e8c9121e1a944efe912d033588f9d5",
+   "rc": 1,
+   "selftest_line": "SELFTEST FAIL 113/114",
+   "bad_lines": [
+    "  BAD entry mode: newline-padded entry copy capture refused: rc=0 tail=['ENTRY-EVIDENCE: PASS legs=9/9']"
+   ],
+   "stderr_tail": "",
+   "verdict": "KILLED"
+  },
+  {
+   "tag": "archive-year-le",
+   "target": "surface_error archive year bound < -> <= (tool line ~357)",
+   "old": "if int(stamp[:4]) < int(as_of[:4]):",
+   "new": "if int(stamp[:4]) <= int(as_of[:4]):",
+   "mutant_sha256": "9f78a08966907569facfc9043eafe585beca4b7c6d16b0b98a8bba29cd307c8f",
+   "rc": 1,
+   "selftest_line": "SELFTEST FAIL 113/114",
+   "bad_lines": [
+    "  BAD same-year archive accepted: rc=1 tail=['ADVANCE-EVIDENCE: FAIL legs=6/7 failed=ARCHIVE']"
+   ],
+   "stderr_tail": "",
+   "verdict": "KILLED"
+  },
+  {
+   "tag": "manifest-msg-reword",
+   "target": "manifest rows-mapping refusal message reworded (tool line ~507)",
+   "old": "raise Refused('manifest rows is not a JSON object (list where mapping expected)')",
+   "new": "raise Refused('manifest rows is not a mapping (list where mapping expected)')",
+   "mutant_sha256": "352779666281dd8b489d9e3f3c5bc910163ec6ff126771883a5199240796286c",
+   "rc": 1,
+   "selftest_line": "SELFTEST FAIL 113/114",
+   "bad_lines": [
+    "  BAD entry mode: manifest rows list refused, no traceback: rc=2 tail=['ADVANCE-EVIDENCE_ERROR: manifest rows is not a mapping (list where mapping expected)']"
+   ],
+   "stderr_tail": "",
+   "verdict": "KILLED"
+  }
+ ],
+ "after_sha256": "9799a96cf473278a75d19f51d93c4552cc94a611f7b008b36ef928c914ffaae7"
+}
