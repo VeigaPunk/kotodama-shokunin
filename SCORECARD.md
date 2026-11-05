@@ -2035,3 +2035,56 @@ debt and the inherited full cited-record red remain open.
 | name | demonstrated behavior | command / evidence | first working |
 |---|---|---|---|
 | advance-evidence grader | Grades one landing's evidence — a re-verification population with per-row dispositions, quote and capture binding, archive/live URL form and same-year stamps, duplicate ids and urls, shadow rows, chrome and self-quote refusal, capture confinement, registry append-only and cell-diff, plus a coverage-entry mode (size, shape, topic overlap, new mined ids, gate lines, captures) — with a 67-check selftest holding one negative per sub-check and a committed 43/43 mutation receipt | `python3 -B tools/check-advance-evidence.py --selftest --work <existing-dir>` → `SELFTEST PASS 67/67`; `python3 -B reports/round-90/mutants.py --root . --work <existing-dir>` → `MUTATION-SCORE: 43/43 killed`; `reports/round-90/final/lands-O.txt` PASS 6/6 at `7f3a7aa6` | round 90 |
+
+## Planned / frozen — round 91 (2026-11-05)
+
+Declared in the freeze commit `691aebf247ebea4dd50577bb64ac99d12fa1145a`
+(`reports/round-91/claims.json`); base `d39434b3bc8458e1b66edd2d0d0fea9ea32f3331`.
+Counter `reports/round-91/measure91.py`, mutants `reports/round-91/mutants.py`,
+stub `reports/round-91/controls/stub-tool.py`, before receipt
+`reports/round-91/controls/before-v1-entry.txt`, at-freeze do-nothing control
+`reports/round-91/controls/at-freeze-C-do-nothing.txt`.
+
+| claim / axis | before → frozen target | counter |
+|---|---|---|
+| O / operability (successor move to the round-90 grader) | round-90 grader (`sha256 121888f0…`): no named refusal for the round-90 falsify classes, entry mode PASS 6/6 on a topic-line-padded off-topic entry with a shadow URL and self-quote gates → tool `sha256 88597a66…` equal to the freeze pin, selftest rc 0 `SELFTEST PASS 77/77` with exactly 77 `ok` lines, all 9 named refusal cases ok, mutation 53/53 with 0 survived and 0 broken-pattern, stub refused by OKCOUNT and killing 0 mutants | `python3 -B reports/round-91/measure91.py --root <clone> --freeze <freeze> --lands <lands> --claim O --work <existing-dir>` |
+| C / coverage (sourced claim) | no dedicated entry; linguistics 35 files; registry 875 rows, last id S951 → `corpus/knowledge/linguistics/secret-and-ludic-languages.md` ≥12000 B, ≥6 h2, table ≥5×3, ≥4 of six sub-topic phrases in headings/table cells, ≥3 new mined A/B rows opened 2026-11-05 cited and gated, committed captures, index rc 0, zero old registry rows changed | same counter with `--claim C` |
+
+Freshness stays the historically lowest non-retired axis and stays paused under
+the open round-11/round-89 L0 questions; the lowest-axis obligation is neither
+met nor waived this round and the report says so. No numeric 0–10 score is
+invented; the older numeric-mapping debt stays open.
+
+## Axes — round 91 (2026-11-05; author-side, non-author closure pending)
+
+Measured in a `git clone --shared` checkout of the lands revision with the
+freeze-pinned counter, tool, mutants and stub. Frozen predicate, counter and
+case bytes are unchanged after data.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved, finite predicate verifies | base tool `121888f0` (selftest 67 `ok` lines, 0 of the 9 named refusals) and entry mode PASS 6/6 on a topic-line-padded bakery entry with a shared URL and self-quote gates → tool `88597a66` = freeze pin, `SELFTEST PASS 77/77`, OKCOUNT 77, REFUSALS 9/9, `MUTATION-SCORE: 53/53 killed, 0 survived, 0 broken-pattern`, stub 22 ok lines (refused) with 0/53 killed | `python3 -B reports/round-91/measure91.py --root <clone> --freeze 691aebf2… --lands 6656cef3… --claim O --work <existing-dir>` | `reports/round-91/final/lands-O.txt` PASS 7/7; `reports/round-91/controls/before-v1-entry.txt` (v1 PASS 6/6 vs v2 FAIL TOPIC/UNIQUENESS/GATE) |
+| coverage / C | improved, finite predicate verifies | entry absent, linguistics 35 files, registry 875 → `secret-and-ludic-languages.md` 21472 B, 9 `##` headings, one 6×4 table, all six sub-topic phrases in headings/table, S952–S955 mined and cited, S956 a registered rejection, index 263/263 rc 0, zero old rows changed | same counter with `--claim C` | `reports/round-91/final/lands-C.txt` PASS 4/4 |
+| calibration | observation, no scored claim | ReviewerFreeze D1/D4/D5, W1/W2/W3 and N1/N2 are recorded, not repaired in place: D1's missing receipt was produced post-freeze and its measurement corrects the frozen sentence (lesson R91-M6); D4's misattributed mutation header and D5's unchecked receipt clause stay frozen defects; `ExecQuarantineA`'s backtick-poisoned matching is R91-M7 | — | `corpus/lessons/round-91.md` `## Mistakes`; `.ufo/waves/round-91/w1/stage/ReviewerFreeze/freeze-review.md` |
+| depth / freshness / adjacency | unchanged | no existing entry deepened; no old registry row re-verified, re-dated or repaired (freshness paused); no sibling-owned file changed and canon/research-method ownership untouched | `git diff --numstat d39434b3 6656cef3 -- corpus/knowledge` names only the new entry; registry diff adds rows only | `reports/round-91/quarantine/verdicts.json`; `corpus/README.md` round-91 section |
+
+Registry 875 → 880 rows (A 517→518, B 330→333, C 28→29; mined 769→773,
+queued 58, rejected 48→49), five additions S952–S956 and no other cell changed.
+Entry 21472 B, 9 h2, 6×4 table, index 263/263. Census exit 0 at start
+(`reports/round-91/census-start.txt`) and end (`census-end.txt`).
+
+Frontier step: `corpus/SOURCES.md` rows 875 → 880 with four admits and one
+rejection, each opened this round with a located quote and a committed capture;
+the kotodama slice of the shokuknow absent-defect register was hand-checked row
+by row (21 verdicts: LOCATED 3, PARTIAL 3, ABSENT 10, UNREACHABLE 3,
+UNVERIFIABLE 2) and **nothing was adopted** — adoption stays closed.
+
+Round shape: one v1 wave of 10 seats (3 executor, 1 scribe, 1 scout,
+1 connector, 2 reviewer, 1 critic, 1 mutation-tester; attack 4/10 = 40 %), no
+residual call, no replacement seat.
+
+## Capabilities — round 91 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| entry-mode counterfeit refusal (grader v2) | Refuses by name nine entry-mode counterfeits the round-90 grader passed: off-topic entries whose topic is only topic-line padding (phrase anchors must sit in headings/table cells), duplicate/shadow/shared-URL rows, gate quotes that are the row's own teaching or source cell, captures that byte-copy a graded file, lesson-channel re-verification of an old id, and an old id gaining a fresh disposition; 77-check selftest with one negative per sub-check and a 53/53 mutation receipt | `python3 -B tools/check-advance-evidence.py --selftest --work <existing-dir>` → `SELFTEST PASS 77/77`; `reports/round-91/final/lands-O.txt` PASS 7/7; `reports/round-91/controls/before-v1-entry.txt` | round 91 |

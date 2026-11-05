@@ -4960,3 +4960,38 @@ admitted, S949–S951 registered as rejections), zero old rows changed. Freshnes
 coverage is the axis worked. Final receipts: O PASS 6/6, C PASS 4/4 at
 `7f3a7aa6615624afadc2cc2d2d4f7ad225f44761`, separability PASS both overlays,
 census exit 0 at both ends.
+
+## Round 91 (2026-11-05) — entry-mode grader hardening; secret and ludic registers entry
+
+Claims O (operability, successor move to the round-90 grader) and C (coverage),
+frozen at `691aebf2` with a 77-check selftest, a 53/53 mutation receipt, a stub
+control and a do-nothing control committed before the first dispatch; base
+`d39434b3`, lands `6656cef3`. Earlier attempts of this round (02:11–02:19 and
+07:31) died on provider failures; the L1 that wrote the freeze and dispatched
+w1 was resumed, and its stage, captures and drawn quarantine slice were reused
+after re-verification.
+O: `tools/check-advance-evidence.py` v2 (`sha256 88597a66…`) refuses nine named
+entry-mode counterfeits that the round-90 tool (`121888f0…`) passed. The receipt
+the frozen text names (`reports/round-91/controls/before-v1-entry.txt`) did not
+exist and was produced post-freeze from the round-90 critic's fixture recipe; it
+shows v1 PASS 6/6 and v2 FAIL TOPIC/UNIQUENESS/GATE on a topic-line-padded
+bakery entry with a shared URL and self-quote gates, and it also shows that a
+plain off-topic body was already refused by v1 (R91-M6). Selftest 77/77, exactly
+77 `ok` lines, 9/9 refusal names, mutation 53/53, stub 22 ok lines and 0/53
+killed: `final/lands-O.txt` PASS 7/7.
+C: new `corpus/knowledge/linguistics/secret-and-ludic-languages.md` (21472 B,
+nine `##` sections, a 6×4 table, all six sub-topic phrases anchored in
+headings/table cells) over S952–S955 (A1/B3, all opened 2026-11-05) with
+committed captures, a manifest and lesson gate lines; S956 is a registered
+rejection. Knowledge 262→263, linguistics 35→36, registry 875→880 (mined
+769→773, rejected 48→49), zero old rows changed, index 263/263 rc 0:
+`final/lands-C.txt` PASS 4/4. Registry ids carry into this round from the
+observed 880-row census, not from 875 alone.
+Frontier: the kotodama slice of the shokuknow absent-defect register was
+hand-checked row by row this round (21 rows: LOCATED 3, PARTIAL 3, ABSENT 10,
+UNREACHABLE 3, UNVERIFIABLE 2) and nothing was adopted; the id-collision guard
+found 98 collisions between the lane registry and the package's staged rows, so
+a later adoption round must renumber in scratch. `considerthese/` is absent.
+Freshness stayed paused (open L0 kotodama round-11 and round-89); the
+lowest-axis obligation is neither met nor waived and is reported as such.
+Census exit 0 at both ends.
