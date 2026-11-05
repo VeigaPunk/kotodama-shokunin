@@ -38,3 +38,20 @@ linguistics: 34
 ## registry rows at base / last id
 865
 S941
+
+## correction — case sensitivity (ScoutRecon-7, 2026-11-04T20:20-03:00)
+# The heading grep pasted above is case-sensitive, so it misses two of the seven
+# matching heading lines that claims.json C.surface lists (six owner files).
+# Re-run with -i over the same base:
+$ git grep -niE '^#{1,6} .*\b(prayer|petition|votive|supplicat)' 6b0b86e45ae902331aca75863db380f2991458c4 -- corpus/knowledge
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/carthage.md:1:# Carthage — Punic Language, Votive Cult, and Maritime Culture
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/civilizations/tibet.md:92:## 5. Symbolic systems and prayer-wheel mantra economies
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/direction-symbolism.md:129:## 8. Orientation of prayer and institutions
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/sacred-topography-pilgrimage.md:1:# Sacred topography and pilgrimage — the place register: holy-site typology, the route as rite, votive economy, and the shrine institution
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/myth-symbol/sacred-topography-pilgrimage.md:74:## 5. The votive economy — the object, the receipt, the token
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/synthesis/religion-language-co-evolution.md:1:# Religion–language co-evolution: sacred registers, prayer languages, and priestly closure
+6b0b86e45ae902331aca75863db380f2991458c4:corpus/knowledge/synthesis/religion-language-co-evolution.md:64:## 5. Prayer languages: model events and permissions
+# 7 lines over 6 files — matches claims.json C.surface; the case-sensitive run
+# above under-counts the owner set (carthage.md:1 "Votive", co-evolution:64 "Prayer").
+# Unbounded-pattern note (R90-M5): unbounded 'petition' matches 91 files because it
+# matches 'competition' (32 files); the word-bounded pattern matches 35.

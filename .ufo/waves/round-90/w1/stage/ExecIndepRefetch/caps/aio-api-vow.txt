@@ -1,0 +1,56 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Swagger UI</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
+  <link href="/static/rest_framework_swagger/bundles/vendors.bundle.css" rel="stylesheet" type="text/css">
+  <link href="/static/rest_framework_swagger/bundles/app.bundle.css" rel="stylesheet" type="text/css">
+  <style>
+  .swagger-ui .topbar {
+    background-color: #6992C1;
+  }
+  </style>
+  
+  
+  
+</head>
+
+<body>
+  <div class="swagger-ui">
+    <div class="topbar">
+      <div class="wrapper">
+        <div class="topbar-wrapper">
+          <a href="#" class="link">
+            <img src="/static/img/AIO_logo_100.png" alt="AIO Logo">
+            <span>AIO REST API</span>
+          </a>
+          <div class="download-url-wrapper">
+            <a href="/" class="link">Back to site</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rest-swagger-ui"></div>
+
+  <footer class="swagger-ui">
+    <div class="wrapper">
+    </div>
+  </footer>
+
+  <script>
+    window.drsSettings = {"apisSorter": null, "docExpansion": "full", "jsonEditor": false, "operationsSorter": null, "showRequestHeaders": false, "supportedSubmitMethods": ["get", "post", "put", "delete", "patch"], "acceptHeaderVersion": null, "customHeaders": {}};
+    window.drsSpec = {"swagger": "2.0", "info": {"title": "Attic Inscriptions Online REST API", "description": "Attic Inscriptions Online provides a REST API that allows access to the translations, and editions of inscriptions that make up the site, along with some of the key metadata accompanying the inscriptions. <br/>The text of the translations, along with the Greek text (where present) is included as Base64 encoded Epidoc XML, to allow for embedding of these texts along with other metadata not stored in this format.<br/>", "version": ""}, "paths": {"/inscription/list_all_inscriptions.{response_type}": {"get": {"operationId": "list_all_inscriptions", "responses": {"200": {"description": ""}}, "parameters": [{"name": "response_type", "required": true, "in": "path", "description": "Type of API response, one of either `json` or `xml`.", "type": "string"}, {"name": "page", "required": false, "in": "query", "description": "Page number of paginated response.", "type": "string"}], "description": "Provides a paginated listing of urls and unique identifiers for all inscriptions published on Attic Inscriptions Online.", "summary": "Provides a paginated listing of urls and unique identifiers for all inscriptions published on Attic Inscriptions Online.", "tags": ["Inscriptions"]}}, "/inscription/{sourcevolume}/{id}.{response_type}": {"get": {"operationId": "inscription", "responses": {"200": {"description": ""}}, "parameters": [{"name": "sourcevolume", "required": true, "in": "path", "description": "Source Volume", "type": "string"}, {"name": "id", "required": true, "in": "path", "description": "Identifier of inscription within volume.", "type": "string"}, {"name": "response_type", "required": true, "in": "path", "description": "Type of API response, one of either `json` or `xml`.", "type": "string"}], "description": "Provides data related to an inscription on Attic Inscriptions Online.", "summary": "Provides data related to an inscription on Attic Inscriptions Online.", "tags": ["Inscriptions"]}}}};
+  </script>
+  <script src="/static/rest_framework_swagger/bundles/vendors.bundle.js"></script>
+  <script src="/static/rest_framework_swagger/bundles/app.bundle.js"></script>
+  
+  
+  
+</body>
+
+</html>

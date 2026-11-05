@@ -1,0 +1,139 @@
+FORGERY-CLASS DEMONSTRATION — round 90, seat ExecIndepRefetch
+============================================================
+
+What is shown
+-------------
+The round-90 advance-evidence grader has no network access: it reads committed
+captures. A capture that a seat writes by hand and a quote that a seat invents
+are therefore indistinguishable from a real fetch, and the counter accepts the
+forgery with a full PASS. This is the round-89 survivor class, demonstrated
+honestly rather than asserted. The only defence is independent re-fetch: a
+second seat fetches the same URL itself, hashes its own bytes, and looks for the
+claimed quote in what the server actually sent.
+
+Fixture
+-------
+Work tree: /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge (scratch only,
+deleted before this seat yields; nothing forged was ever written inside the lane
+repo). Three reserved ids S942/S943/S944 point at real A-tier surfaces. Their
+captures in run 1 are hand-written text that was never fetched from any server.
+Entry path, registry shape, lesson gate lines, manifest fields and the grader
+flags are the claim-C values (min-bytes 12000, 6 h2, min-new-ids 3, table 5x3,
+topic overlap 10, as-of 2026-11-04).
+
+Run 1 — FORGED CAPTURES, FABRICATED QUOTES (the survivor)
+---------------------------------------------------------
+CMD: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge --base-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/base.md --lands-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lands.md --lesson /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lesson.md --manifest /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/manifest-forged.json --capture-dir reports/round-90/evidence --as-of 2026-11-04 --entry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/corpus/knowledge/linguistics/petitionary-and-votive-formulae.md --topic petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes --min-bytes 12000 --min-headings 6 --min-new-ids 3 --table-min-rows 5 --table-min-cols 3 --min-topic-overlap 10 --graded corpus/SOURCES.md --graded corpus/lessons/round-90.md
+
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-04 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: PASS legs=6/6
+
+rc=0
+
+The three quotes in run 1 exist nowhere on wals.info/chapter/71,
+atticinscriptions.com/inscription/AIUK45/14 or etcsl.orinst.ox.ac.uk. The
+capture files say so themselves ("FORGED CAPTURE ... never fetched from any
+server"). The counter cannot tell, because sha256, http_status 200 and a local
+ISO fetched_at on the round's date are all satisfiable by a text file.
+
+Run 2 — SAME FIXTURE, REAL CAPTURES, SAME FABRICATED QUOTES (the defence)
+-------------------------------------------------------------------------
+The only change: each capture is the byte-for-byte body this seat fetched with
+curl, with its own sha256 and its own fetch instant. Everything else is
+identical.
+CMD: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge --base-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/base.md --lands-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lands.md --lesson /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lesson.md --manifest /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/manifest-refetch.json --capture-dir reports/round-90/evidence --as-of 2026-11-04 --entry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/corpus/knowledge/linguistics/petitionary-and-votive-formulae.md --topic petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes --min-bytes 12000 --min-headings 6 --min-new-ids 3 --table-min-rows 5 --table-min-cols 3 --min-topic-overlap 10 --graded corpus/SOURCES.md --graded corpus/lessons/round-90.md
+
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-04 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG FAIL CAPTURE expected=each gate quote occurs in its committed capture observed=S942: quote absent from capture: reports/round-90/evidence/refetch-S942.txt; S943: quote absent from capture: reports/round-90/evidence/refetch-S943.txt; S944: quote absent from capture: reports/round-90/evidence/refetch-S944.txt
+ENTRY-EVIDENCE: FAIL legs=5/6 failed=CAPTURE
+
+rc=1
+
+Result: the quote leg fails on all three ids. Re-fetching is what turns a
+plausible manifest into a refuted one; no field in the manifest is
+self-authenticating.
+
+Run 3 — REAL CAPTURES, REAL QUOTES (control)
+--------------------------------------------
+Same fixture, same captures as run 2, gate quotes taken from the captured prose.
+CMD: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge --base-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/base.md --lands-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lands.md --lesson /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lesson-real.md --manifest /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/manifest-real.json --capture-dir reports/round-90/evidence --as-of 2026-11-04 --entry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/corpus/knowledge/linguistics/petitionary-and-votive-formulae.md --topic petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes --min-bytes 12000 --min-headings 6 --min-new-ids 3 --table-min-rows 5 --table-min-cols 3 --min-topic-overlap 10 --graded corpus/SOURCES.md --graded corpus/lessons/round-90.md
+
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-04 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: PASS legs=6/6
+
+rc=0
+
+Conclusion
+----------
+1. The counter is a consistency checker, not a provenance checker. It proves a
+   quote occurs in the capture it is given; it cannot prove the capture came
+   from the URL. A seat that writes its own capture passes.
+2. Independent re-fetch is the only defence. The defence is cheap and total:
+   run 2 refuted every fabricated quote in one pass, because the fetched bytes
+   did not contain the claimed spans.
+3. Consequences for this round's C claim: every gate quote must be a tag-free
+   substring of the raw bytes. Inline markup breaks the match — AIO renders
+   "Eutychis, to the Highest (God), a vow." as two spans, so that sentence is
+   absent from its own page capture, while "This is one of a number of imperial
+   period dedications to Zeus Hypsistos" is present. WALS and ETCSL prose spans
+   are clean; SIL glossary definitions are clean.
+4. Capture hygiene that matters: save the body verbatim (no tag stripping, no
+   re-wrapping), hash those exact bytes, and never let a capture be one of the
+   graded files.
+
+ADDITIONAL ENTRY-MODE FINDINGS (same fixture, real captures)
+============================================================
+(a) TITLE / SITE-CHROME QUOTES ARE NOT REFUSED IN ENTRY MODE.
+    Advance mode refuses a chrome quote under MEANING ("quote is copied from the
+    row source cell"). Entry mode's GATE leg only bounds length and CAPTURE only
+    asks that the quote occur in the capture — and a page's own <title> is in
+    its capture. So a gate quote lifted from the title passes claim C's counter.
+    Run 4 below uses three title strings as the gate quotes of three real
+    captures and the counter prints a full PASS. The quote is real text in the
+    capture; it is just not located prose. The reviewer/closure must refuse it,
+    the counter will not.
+CMD: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge --base-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/base.md --lands-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lands.md --lesson /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lesson-chrome.md --manifest /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/manifest-chrome.json --capture-dir reports/round-90/evidence --as-of 2026-11-04 --entry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/corpus/knowledge/linguistics/petitionary-and-votive-formulae.md --topic petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes --min-bytes 12000 --min-headings 6 --min-new-ids 3 --table-min-rows 5 --table-min-cols 3 --min-topic-overlap 10 --graded corpus/SOURCES.md --graded corpus/lessons/round-90.md --graded corpus/knowledge/linguistics/petitionary-and-votive-formulae.md
+
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-04 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: PASS legs=6/6
+
+rc=0
+
+(b) A CAPTURE THAT IS THE GRADED ENTRY IS REFUSED — by confinement first.
+    Pointing the manifest at the entry itself fails, but the leg that fires is
+    CAPTURE "capture outside reports/round-90/evidence", not the graded-file
+    check, because the entry does not live in the capture dir. The graded-file
+    check is only reachable for a graded path that sits inside the capture
+    directory. Keep it in mind when reading the O selftest's "capture is a
+    graded file" case: it is exercised with a graded path inside the capture
+    dir, which is a different arrangement from the lane's real layout.
+CMD: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge --base-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/base.md --lands-registry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lands.md --lesson /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/lesson-graded.md --manifest /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/manifest-graded.json --capture-dir reports/round-90/evidence --as-of 2026-11-04 --entry /fast/scratch/hyaku/kotodama-r90/ExecIndepRefetch/forge/corpus/knowledge/linguistics/petitionary-and-votive-formulae.md --topic petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes --min-bytes 12000 --min-headings 6 --min-new-ids 1 --table-min-rows 5 --table-min-cols 3 --min-topic-overlap 10 --graded corpus/SOURCES.md --graded corpus/lessons/round-90.md --graded corpus/knowledge/linguistics/petitionary-and-votive-formulae.md
+
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=1 new mined A/B rows opened 2026-11-04 and cited observed=clean
+LEG FAIL GATE expected=each new id has a located gate line observed=S943: no lesson line with id and quote; S944: no lesson line with id and quote
+LEG FAIL CAPTURE expected=each gate quote occurs in its committed capture observed=S942: capture outside reports/round-90/evidence: corpus/knowledge/linguistics/petitionary-and-votive-formulae.md
+ENTRY-EVIDENCE: FAIL legs=4/6 failed=GATE,CAPTURE
+
+rc=1
