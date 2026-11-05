@@ -341,7 +341,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (34)
+## linguistics/ (35)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -357,6 +357,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `naming-systems.md` — How real cultures build and police names — personal name slots (given/lineage/clan/byname), place-name functions and strata, divine names and cult epithets, endonym/exonym layers, name taboo and name magic (the kotodama core: names as power), and a step-by-step derivation pipeline for naming a fictional culture
 - `numerals-and-measures.md` — how real languages build number words and counting practices, as a worldbuilding system — arithmetic base typology (decimal, vigesimal, hybrid, other bases, extended body-part, restricted) with the WALS 131A census and what each base commits a culture to; numeral-word morphology (transparency, portmanteau tens, suppletion, ordinals/collectives/distributives); the numeral–noun interface (sortal vs mensural classifiers, measure words, counting units like *pair* and *head of cattle*); counting technologies (finger counting, body tallies, tally marks, knotted-cord records, counting rods) and the register they generate; restricted and anumeric systems with the Pirahã debate calibrated; numeral diachrony and contact (growth stages, whole-system borrowing as in the Sino-Xenic numerals, contact-driven replacement as in post-Conquest Mesoamerica) — plus decision tables, a NON-CANON worked example, and the boundary where the measures/metrology side hands off to `culture-material/trade-economy-lexicon.md`.
 - `orality-formulaic-language.md` — Oral tradition linguistics — how extended verbal art is composed, performed, and remembered without writing: the Parry–Lord oral-formulaic theory, meter as mnemonic engineering, epithet and praise-name systems, type-scenes and ring composition, kennings and myth-locked diction, proverbs and riddles as compressed cultural knowledge, and a design checklist for an oral-formulaic register ("singer's speech") in a fictional culture
+- `petitionary-and-votive-formulae.md` — petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes
 - `phonetics-phonology.md` — speech sounds and sound systems for fictional cultures — IPA categories, inventory design, phonotactics, markedness, allophony, prosody/tone, environment & anatomy effects, conlang pitfalls
 - `politeness-taboo-euphemism.md` — How cultures regulate saying — politeness theory (Brown & Levinson and its critics), honorific systems as grammar (Japanese, Korean, Javanese, Thai/Vietnamese), taboo vocabulary and its sanctions, euphemism cycles and the euphemism treadmill, and the fossil strata taboo leaves in lexicon, calendar, and law — with construction procedures for fictional cultures
 - `proverbs-riddles-attestation-solutions.md` — Deepening existing proverb/riddle knowledge through a dated-source dossier: distinguish an attested saying from its origin, a collection from the repertoire it selects, a transmitted riddle from an editor's reconstruction, and a proposed answer from an established referent.
@@ -935,3 +936,21 @@ Total knowledge entries: 261.
 Counts checked 2026-11-04 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
 (total 261 files; directory totals 34/36/43/29/24/95).
+
+## Round 90 petitionary and votive entry (2026-11-04)
+
+`knowledge/linguistics/petitionary-and-votive-formulae.md` adds a dedicated
+entry on petitionary address and votive formulae: vocative address to deities,
+the petition mood (imperative, optative, precative), the conditional vow,
+votive inscription grammar, prayer-register archaism and parallelism, and the
+design procedure with its failure modes. At base the surface existed only as
+sub-sections of six entries and no knowledge filename carried
+prayer|petition|votive|supplicat. Sources S942–S948 were opened this round;
+S949 is a retained rejection. This is coverage, not freshness: no older
+registry row is re-verified, re-dated or repaired.
+
+Total knowledge entries: 262.
+
+Counts checked 2026-11-04 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 262 files; directory totals 35/36/43/29/24/95).
