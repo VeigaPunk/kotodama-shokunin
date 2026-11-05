@@ -1,0 +1,78 @@
+{
+  "schema": "kotodama-round-94-claims-v1",
+  "round": 94,
+  "attempt": 1,
+  "base": "e7fa8eafb7c5d9edd706f860cfc023e6c99b1ab2",
+  "as_of": "2026-11-05",
+  "frozen_before": "wave dispatch and every candidate byte; counters are committed with this file before integration",
+  "claims": ["O", "C", "A"],
+  "axes": {
+    "O": "operability",
+    "C": "coverage",
+    "A": "adjacency"
+  },
+  "lowest_axis_obligation": "freshness is the historically lowest non-retired axis and stays paused by the open L0 questions kotodama round-11 and round-89 (\"Freshness axis-move claims are paused until ruled\"). No freshness claim is declared; the obligation is neither met nor waived this round and the report says so.",
+  "O": {
+    "type": "measured successor move (grader v4 -> v5)",
+    "tool": "tools/check-advance-evidence.py",
+    "before_tool_sha256": "9799a96cf473278a75d19f51d93c4552cc94a611f7b008b36ef928c914ffaae7",
+    "name": "Advance-evidence grader v5: refuses the six round-93 counterfeit classes (A1 Cyrillic lookalike in the verdict token, B1 soft hyphen in the verdict token, G1 numbered phrase-only headings, H1 manifest row value that is a list, I1 registry row shorter than eleven cells, J1 en-dash in NOT-LOCATED) on a named leg or named diagnostic with no traceback, pins the five routed mutant classes, and keeps every round-92 and round-93 battery outcome unchanged",
+    "battery": "reports/round-94/battery94.py",
+    "battery_classes": ["A1", "B1", "G1", "H1", "I1", "J1", "K1"],
+    "battery_class_note": "K1 is the lowercase unanchored verdict channel (dispo-any-casei) recorded in corpus/lessons/round-93.md ## Routed to round 94",
+    "routed_mutants": ["script-strip-off", "comment-strip-off", "unescape-off", "dispo-any-casei", "baserows-drop-cell8"],
+    "mutants": "reports/round-94/mutants94.py",
+    "predicate": {
+      "SELFTEST": "python3 -B tools/check-advance-evidence.py --selftest --work <dir> exits 0, prints SELFTEST PASS N/N, and prints exactly N lines beginning with two spaces and 'ok', with N >= 120 (base N = 114; at least six new named checks, one per routed class)",
+      "BATTERY": "every class in battery_classes is refused: exit code nonzero, no 'Traceback' in combined output, and a named diagnostic (a line 'LEG <name> FAIL' or an upper-case diagnostic token from the battery manifest). Survivors = 0, unnamed refusals = 0",
+      "REGRESSION": "every round-92 and round-93 battery case (battery93.py grade set) yields the same exit code and the same named leg as under the v4 base; the round-92 positive control G0 still PASSES",
+      "MUTATION": "mutants94.py run against the v5 tool: killed == total, survived == 0, broken-pattern == 0; the five routed mutant classes are among the total"
+    },
+    "kill_rule": "any predicate leg fails, any battery class survives or is refused without a named diagnostic, any regression, or any routed mutant survives: O fails as declared",
+    "do_nothing_control": "the v4 base tool (sha 9799a96c) must FAIL O.BATTERY and O.MUTATION at the freeze; the stub control reports/round-92/controls/stub-tool.py must be refused by SELFTEST and kill 0 mutants",
+    "before": "v4 base: 6 of 7 battery classes survive or crash (A1, B1, G1 rc 0 survivors; H1, I1 Python tracebacks; J1 misfires as a flip on the wrong leg), K1 survives; the five routed mutants survive (from corpus/lessons/round-93.md ## Routed to round 94)",
+    "measured_before": "to be recorded by ExecBattery94 and ExecMutants94 under .ufo/waves/round-94/w1/stage/ on the base tool"
+  },
+  "C": {
+    "type": "measured coverage move (frontier -> core, one new entry on a zero-owner filename ground)",
+    "topic": "lullaby and child-directed song formulae: the speech of putting a child to sleep, nonsense-syllable refrains, archaic retention in lullaby text, address to the child, register shift between the song and ordinary speech, and the design procedure for a fictional lullaby register",
+    "entry": "corpus/knowledge/linguistics/lullaby-child-song-formulae.md",
+    "registry_new_rows": 3,
+    "registry_new_id_start": "S965",
+    "predicate": {
+      "ENTRY": "entry exists; byte size >= 12000; at least 6 lines beginning '## '; at least one markdown table with >= 5 data rows and >= 3 columns; the header carries a '- topic:' line; at least 4 of these six phrases appear in heading or table-cell text (case-insensitive): 'nonsense syllable', 'archaic retention', 'address to the child', 'register shift', 'tune and tone', 'lullaby as archive'",
+      "SOURCES": "at least 3 new registry rows with ids S965 or higher, each with tier A or B, status 'mined', opened 2026-11-05, a fetch by ordinary means recorded in its anchor cell, and an anchor quote of at most 25 words that is an exact substring of a capture committed under reports/round-94/evidence/; every new row is cited by the entry",
+      "APPENDONLY": "git diff of corpus/SOURCES.md against the base adds rows and a search-log note only: zero removed lines and zero changed base rows",
+      "INDEX": "python3 -B tools/check-corpus-index.py --root <lands> exits 0 with findings=0",
+      "CENSUS": "/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kotodama exits 0 at the lands revision"
+    },
+    "kill_rule": "any predicate leg fails: C fails as declared; no leg is relaxed after data",
+    "do_nothing_control": "at the base commit the entry is absent: ENTRY fails (C1 entry-present 0 in predispatch-base.txt); a no-work tree cannot pass",
+    "before": "entry absent; registry 888 rows, highest id S964; census rc 0; index rc 0 (predispatch-base.txt)",
+    "after_target": "entry present and predicate legs ENTRY, SOURCES, APPENDONLY, INDEX, CENSUS all pass at the lands revision; registry 888 -> 891 or more"
+  },
+  "A": {
+    "type": "measured adjacency move (cross-domain pointers that name greeting formulae must resolve to the owning entry)",
+    "pointers": [
+      "corpus/knowledge/culture-material/adornment-body-codes.md:5",
+      "corpus/knowledge/culture-material/costume-semiotics.md:143"
+    ],
+    "owner_entry": "corpus/knowledge/linguistics/greeting-leave-taking-formulae.md",
+    "predicate": {
+      "DANGLING": "count of the two pointer lines whose greeting reference resolves to a target file that exists and mentions greeting or leave-taking; computed by predispatch.py A1 (dangling = the target does not exist or does not mention greeting)",
+      "SCOPE": "only the two named lines change; no other line of the two files and no other file changes; the rewritten line still states the same cross-domain claim (the dress or body layer), with the owner pointer changed, not deleted"
+    },
+    "kill_rule": "DANGLING after > 0, or SCOPE violated: A fails as declared",
+    "do_nothing_control": "predispatch-base.txt A1 = 2 at base; the do-nothing tree keeps A1 = 2 and fails",
+    "before": "A1 = 2 (predispatch-base.txt)",
+    "after_target": "A1 = 0 with SCOPE leg passing"
+  },
+  "counters": {
+    "predispatch": "reports/round-94/predispatch.py",
+    "predispatch_base": "reports/round-94/predispatch-base.txt",
+    "census_start": "sources-census.sh validate exit 0 at base"
+  },
+  "sourced_claim": "C rests on registry rows S965+ opened 2026-11-05 (frontier step item 4)",
+  "assimilation": "none this round: considerthese/ is absent in this lane; merge/kotodama quarantine verdict already landed at round 91 with nothing adopted, and no package entry is in scope for a coverage gap this round",
+  "freeze_note": "revision 1, committed before dispatch. Counter bodies for O (battery94.py, mutants94.py) are built in-wave under stage dirs and committed by the L1 at integration, before any candidate tool byte is copied into the lane."
+}
