@@ -2248,3 +2248,30 @@ Freshness stays the historically lowest non-retired axis and stays paused under 
 kotodama round-11 and round-89 questions; the lowest-axis obligation is neither met nor waived
 this round and the report says so. No numeric 0–10 score is invented. Saturation: unchanged.
 Stagnation window: unchanged. Retired: none.
+
+## Axes — round 95 (2026-11-05; author-side verdicts, non-author closure pending)
+
+Base `19aa4dd03dfd37b435d0b8ea5b313635d9d51592`; freeze `d41eb594d27fa71869c0c28d9c2dc051fda40079`
+(`reports/round-95/claims.json`, counter `reports/round-95/predispatch.py`); lands measured at the
+round-95 land commit (see the report). Receipts: `reports/round-95/predispatch-base.txt` (do-nothing
+control, FAIL legs=4/10), `reports/round-95/predispatch-lands.txt` (PASS legs=10/10),
+`reports/round-95/controls/` (selftest ×4, battery, REG diff, mutation, instrument shas, entry-mode
+grader), `reports/round-95/census-end.txt` (rc 0).
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved (claim O, frozen predicate met) | grader v5 (`7957945d…`): SELFTEST 126/126, battery95 over v5 7 survivors / 7 refused, mutation 86/88 (head-qualify-off survived, dispo-fallback broken) → grader v6 (`f7981ba2…`): SELFTEST 134/134 ×4 concurrent, battery 0 survivors / 0 unnamed / 14 refused, mutation 95/95 killed with 0 survived and 0 broken-pattern, REG 34/34 byte-identical to v5 | `python3 -B reports/round-95/predispatch.py --root . --work <dir> --base-rev 19aa4dd0…` (O0–O4 legs) | `reports/round-95/controls/selftest-lands-run{1..4}.txt`, `battery-lands.txt`, `reg-diff-v6-vs-v5.txt`, `mutation-score-lands.txt`, `instrument-shas.txt`; independent attacks `ReviewerO95` PASS 5/5, `MutationTester95` MATCH |
+| coverage / C | improved (claim C, frozen predicate met) | no lament/dirge entry at base (`grep -rli lament corpus/knowledge/linguistics` — none owned) → `corpus/knowledge/linguistics/funerary-lament-dirge-formulae.md` (50614 B, 12 h2, table 11×5, six frozen phrases in headings/table cells, topic line equal); registry 893 → 898 (S970–S974, tier A, mined, opened 2026-11-05); 0 removed registry lines | `python3 -B reports/round-95/predispatch.py --root . --work <dir> --base-rev 19aa4dd0…` (C1–C5 legs) | `predispatch-lands.txt`; entry-mode grader `controls/entry-grader-lands.txt` (ENTRY-EVIDENCE PASS 9/9); `reports/round-95/evidence/manifest.json` + captures; `census-end.txt` rc 0; index `CORPUS-INDEX: OK files=267 rows=267` |
+| adjacency / A | unchanged | no sibling surface touched; ConnectorOverlap95 named the lament/funerary-material, eschatology and lullaby boundaries, nothing absorbed | — | `.ufo/waves/round-95/w1/stage/ConnectorOverlap95/overlap.md` |
+| depth / freshness | unchanged | no entry deepened or superseded; freshness paused by open L0 round-11 and round-89 questions (lines 47, 303; no ANSWER) | — | `.ufo/l0-questions.md` |
+| calibration | unchanged (observation) | the do-nothing control was red at 4/10 before data; the control also forced two pre-freeze counter fixes (POSIX-class regex parsed 0 rows; C3 required git inside an archive) — recorded in `reports/round-95/counter-revisions.md` | — | `reports/round-95/predispatch-base.txt`; `corpus/lessons/round-95.md` |
+
+Retirements and saturation: none. The round-94 capability row "grader v5 counterfeit refusals"
+was unadmitted at round-94 closure (`corpus/lessons/round-94-verifier-spotcheck.md`, R95-4); it is
+marked unadmitted here and superseded by the row below.
+
+## Capabilities — round 95 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| grader v6 counterfeit refusals | Refuses by name, with no traceback, the fourteen counterfeit classes of the round-95 battery: lookalike and soft-hyphen and lowercase verdict tokens, list-typed manifest rows, short registry rows, en-dash misreads (round 94), plus combining-mark (`VERDICT-COMBINE`), format-character (`VERDICT-FORMAT`) and whitespace (`VERDICT-TAB`) verdict tokens, lookalike id letters (`ID-NONASCII`), and nested, roman and second-token numbered headings that anchor nothing (TOPIC) | `python3 -B tools/check-advance-evidence.py --selftest --work <dir>` → `SELFTEST PASS 134/134`; `python3 -B .ufo/waves/round-95/w1/stage/ExecBattery95/battery95.py --tool tools/check-advance-evidence.py --work <dir>` → `BATTERY-SUMMARY survivors=0 unnamed=0 refused=14`; mutation95 `95/95 killed` | round 95 (claim O, admitted on the frozen predicate) |

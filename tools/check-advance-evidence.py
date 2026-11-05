@@ -257,14 +257,52 @@ def _dispo_match(stripped):
 def _refuse_disguised(n, stripped):
     """Round-94 v5 (routed round-93 A1/K1): an id line whose verdict token hides
     behind non-ASCII letters or lowercase spelling is refused on a named
-    diagnostic instead of being silently invisible to APPENDONLY."""
-    if not re.search(r'\b[Ss]\d{3,}\b', stripped):
-        return
-    plain = stripped.replace('|', ' ').replace('*', ' ').replace('_', ' ')
-    if DISPO_ANY_RE_I.search(plain):
-        raise Refused(f'line {n}: lowercase verdict token outside the anchored rule (VERDICT-LOWERCASE)')
+    diagnostic instead of being silently invisible to APPENDONLY.
+    Round-95 v6 (routed CriticO94 CD1/LR1/TAB1/ID1): the same applies when the
+    verdict token carries a combining mark (Mn), a format character outside
+    the zero-width strip set (Cf such as U+200E LRM), or whitespace inside the
+    token, and when the id token carries a non-ASCII letter lookalike
+    (such as U+A731 in place of S). A verdict token that matches is still
+    checked, so a tab inside it cannot pass silently."""
     probe = unicodedata.normalize('NFKC', stripped).translate(HOMOGLYPH_MAP)
-    if _dispo_match(probe):
+    plain = stripped.replace('|', ' ').replace('*', ' ').replace('_', ' ')
+    m = _dispo_match(plain)
+    if m:
+        verdict_raw = m.group(2)
+        if any(unicodedata.category(c) == 'Mn' for c in verdict_raw):
+            raise Refused(f'line {n}: verdict token carries a combining mark (VERDICT-COMBINE)')
+        if any(unicodedata.category(c) == 'Cf' and ord(c) not in ZW_MAP for c in verdict_raw):
+            raise Refused(f'line {n}: verdict token carries a format character (VERDICT-FORMAT)')
+    # CD1/LR1 recovery: NFKD strips combining marks from the verdict
+    # spelling; stripping out-of-set Cf removes LRM/RLO etc. If either
+    # recovered spelling matches but the plain spelling does not, the line
+    # is a disguised disposition, refused on its named channel.
+    nfkd = unicodedata.normalize('NFKD', stripped)
+    nfkd_nomark = ''.join(c for c in nfkd if unicodedata.category(c) != 'Mn')
+    if _dispo_match(nfkd_nomark.replace('|', ' ').replace('*', ' ').replace('_', ' ')) and not m:
+        raise Refused(f'line {n}: verdict token carries a combining mark (VERDICT-COMBINE)')
+    nocf = ''.join(c for c in stripped if not (unicodedata.category(c) == 'Cf' and ord(c) not in ZW_MAP))
+    if _dispo_match(nocf.strip().translate(ZW_MAP).translate(DASH_MAP)) and not m and nocf != stripped:
+        raise Refused(f'line {n}: verdict token carries a format character (VERDICT-FORMAT)')
+    # Whitespace inside a split verdict word (TAB1): LO<TAB>CATED etc.
+    if '\t' in stripped and re.search(r'LO\s+CATED|NOT\s+LOCATED', stripped, re.I):
+        raise Refused(f'line {n}: verdict token carries whitespace (VERDICT-TAB)')
+    # Id-token lookalike (ID1): a non-ASCII letter that NFKC-folds or otherwise
+    # sits where the ASCII S of the id token belongs, followed by digits.
+    # Small-cap letters (e.g. U+A731) do not NFKC-fold to ASCII, so map the
+    # common small-cap block explicitly before testing the folded shape.
+    SMALLCAP = {'ꜱ': 'S', 'ᴅ': 'D', 'ᴇ': 'E', 'ʜ': 'H', 'ᴋ': 'K', 'ᴍ': 'M', 'ᴏ': 'O', 'ᴘ': 'P', 'ᴛ': 'T', 'ᴄ': 'C', 'ʙ': 'B', 'ᴀ': 'A'}
+    for tok in re.findall(r'\S+\d{3,}\b', stripped):
+        if not re.match(r'^[Ss]\d{3,}$', tok):
+            folded = ''.join(SMALLCAP.get(c, c) for c in unicodedata.normalize('NFKC', tok))
+            has_nonascii_letter = any(ord(c) > 127 and unicodedata.category(c).startswith('L') for c in tok)
+            if has_nonascii_letter and re.match(r'^[Ss]\d{3,}$', folded):
+                raise Refused(f'line {n}: id token carries a non-ASCII lookalike letter (ID-NONASCII)')
+    if not re.search(r'\b[Ss]\d{3,}\b', probe):
+        return
+    if DISPO_ANY_RE_I.search(plain) and not _dispo_match(plain):
+        raise Refused(f'line {n}: lowercase verdict token outside the anchored rule (VERDICT-LOWERCASE)')
+    if _dispo_match(probe) and not _dispo_match(plain):
         raise Refused(f'line {n}: verdict token carries non-ASCII letters (VERDICT-NONASCII)')
 
 
@@ -284,6 +322,8 @@ def dispositions(lesson):
         m = _dispo_match(stripped)
         if m and '\u00ad' in line and not _dispo_match(line.strip().translate(ZW_ONLY).translate(DASH_MAP)):
             raise Refused(f'line {n}: soft hyphen inside the verdict token (VERDICT-SOFTHYPHEN)')
+        if m:
+            _refuse_disguised(n, stripped)
         if not m:
             _refuse_disguised(n, stripped)
             continue
@@ -629,16 +669,31 @@ def grade_entry(args):
         # at least two raw tokens after the marks, and a table line anchors only
         # when it is a data row below the |---| separator — the header row and
         # single-token span-gaming headings anchor nothing.
+        def _content_toks(h):
+            # Round-95 v6 (routed CriticO94 NUM1/RM1/NUM2): for the span count,
+            # numbering from every position is not a content token - nested
+            # digits ("1.1"), roman numerals (I./II./III./IV./V.), and a
+            # second-token number ("Notes 1)") never supply anchor tokens. A
+            # second-token number turns the heading into a single content
+            # surface: "Notes 1) address" counts as one token.
+            raw = h.lstrip('#').split()
+            def isnum(t):
+                return bool(re.match(r'^(\d+[.)]?|\d+\.\d+[.)]?|[IVXLCDM]+[.)]?|[ivxlcdm]+[.)]?)$', t))
+            if len(raw) >= 3 and isnum(raw[1]):
+                raw = raw[2:]
+            toks = [t for t in raw if not isnum(t)]
+            return toks
+
         def head_anchors(h):
+            # v5 shape kept: >= 2 raw tokens after the marks (number counts).
             return len(h.lstrip('#').split()) >= 2
 
         def head_span_anchors(h):
             # Round-94 v5 (routed round-93 G1): a leading list number is not a
             # heading token for the span count, so "## 1. address" - number plus
             # one bare phrase word - is not a second anchoring surface.
-            toks = h.lstrip('#').split()
-            if toks and re.match(r'^\d+[.)]$', toks[0]):
-                toks = toks[1:]
+            # Round-95 v6 extends the strip to nested/roman/second-token numbers.
+            toks = _content_toks(h)
             return len(toks) >= 2
         qual_rows = []
         sep_seen = False
@@ -1691,6 +1746,68 @@ def selftest(work):
                                                     _row('S001', url, good_teach, opened='2026-10-20')))
     chk_leg('mutant pin: base row opened cell change refused (baserows-drop-cell8)',
             ['entry'] + E(lands_registry=lands_c8), 'BASEROWS')
+
+    # ------------------------------------------------ round-95 v6 entry-mode pins
+    # (routed .ufo/waves/round-94/w1/CriticO94.md survivor recipes CD1, LR1,
+    #  TAB1, ID1, NUM1, RM1, NUM2; one named refusal per new class, plus the
+    #  head-qualify pin mutated by head-qualify-off)
+    lesson_cd1 = write('lesson_cd1.md', lesson_e_text
+                      + '- S001 LOCA\u0301TED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201canother old base row about dye plants\u201d\n')
+    chk('round-95 CD1: combining mark in the verdict token refused', ['entry'] + E(lesson=lesson_cd1),
+        2, ['VERDICT-COMBINE'])
+    lesson_lr1 = write('lesson_lr1.md', lesson_e_text
+                      + '- S001 LO\u200eCATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201canother old base row about dye plants\u201d\n')
+    chk('round-95 LR1: LRM inside the verdict token refused', ['entry'] + E(lesson=lesson_lr1),
+        2, ['VERDICT-FORMAT'])
+    lesson_tab1 = write('lesson_tab1.md', lesson_e_text
+                      + '- S001 LO\tCATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201canother old base row about dye plants\u201d\n')
+    chk('round-95 TAB1: tab inside the verdict token refused', ['entry'] + E(lesson=lesson_tab1),
+        2, ['VERDICT-TAB'])
+    lesson_id1 = write('lesson_id1.md', lesson_e_text
+                      + '- \ua731001 LOCATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201canother old base row about dye plants\u201d\n')
+    chk('round-95 ID1: lookalike small-cap letter in the id token refused', ['entry'] + E(lesson=lesson_id1),
+        2, ['ID-NONASCII'])
+    num1_entry = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1num1/prayer-register.md')
+    os.makedirs(os.path.dirname(num1_entry), exist_ok=True)
+    with open(num1_entry, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## 1.1 address')
+                .replace('## 2. The petition', '## 2.1 petition')
+                .replace('## 3. Fixed and extempore', '## 3.1 efficacy')
+                .replace('## 4. Efficacy', '## 4.1 table')
+                .replace('## 5. Table', '## 5. Notes'))
+    chk_leg('round-95 NUM1: nested numbered phrase-only headings do not anchor', ['entry'] + E(entry=num1_entry), 'TOPIC')
+    rm1_entry = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1rm1/prayer-register.md')
+    os.makedirs(os.path.dirname(rm1_entry), exist_ok=True)
+    with open(rm1_entry, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## I. address')
+                .replace('## 2. The petition', '## II. petition')
+                .replace('## 3. Fixed and extempore', '## III. efficacy')
+                .replace('## 4. Efficacy', '## IV. table')
+                .replace('## 5. Table', '## V. Notes'))
+    chk_leg('round-95 RM1: roman numbered phrase-only headings do not anchor', ['entry'] + E(entry=rm1_entry), 'TOPIC')
+    num2_entry = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1num2/prayer-register.md')
+    os.makedirs(os.path.dirname(num2_entry), exist_ok=True)
+    with open(num2_entry, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## Notes 1) address')
+                .replace('## 2. The petition', '## Notes 2) petition')
+                .replace('## 3. Fixed and extempore', '## Notes 3) efficacy')
+                .replace('## 4. Efficacy', '## Notes 4) table')
+                .replace('## 5. Table', '## Notes 5) Table'))
+    chk_leg('round-95 NUM2: second-token numbered phrase-only headings do not anchor', ['entry'] + E(entry=num2_entry), 'TOPIC')
+    single_tok = write('entry_singletok.md', '# Prayer\n\n- topic: prayer address petition efficacy\n- sources: S010\n'
+                '- verified-at: 2026-11-04\n- recheck: 180d\n\n'
+                '## address\n\nSection body one about sourdough scheduling and the bakery rota for the week. '
+                + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
+                + '\n## petition\n\nMore filler about sourdough scheduling for the bakery rota. '
+                + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
+                + '\n## efficacy\n\n' + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
+                + '\n## table\n\n' + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
+                + '\n\nS010 S011 S012\n')
+    chk('single-token headings anchor no phrase (head-qualify pin)', ['entry'] + E(entry=single_tok, min_topic_phrases='4', min_anchor_span='0', min_topic_overlap='1'), 1, ['FAIL TOPIC', 'phrase anchors 0/4'])
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']

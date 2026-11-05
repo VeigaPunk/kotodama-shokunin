@@ -5060,3 +5060,22 @@ Wave: one v1 wave of 13 seats (5 executor, 1 scout, 1 connector, 2 scribe, 2 rev
 Mistakes mined (`corpus/lessons/round-94.md`): R94-M1 round-93 routed verifier classes (fixed by v5, red-before receipts), R94-M2 round-93 report label mismatch (erratum filed in the round-94 report), R94-M3 frozen-counter greet-filter defect (fixed pre-scoring, rev2), R94-M4 battery token-name mismatch (amended pre-scoring), R94-M5 mutation leg unmet (this round's O failure; head-qualify pin gap and stale dispo-fallback pattern routed).
 
 Open after this round: claim O's mutation bar (head-qualify pin, mutant-pattern maintenance), CriticO94's seven surviving classes, F1, freshness paused (L0 round-11/round-89), ideophones overlap L0 (round-92), title-only exclusions (round-92 criterion 37), ReviewerC94 C1 counter-semantics note.
+
+## Round 95 (2026-11-05, attempt 1, L1 KotodamaR95)
+
+Claims O (operability) and C (coverage), frozen at `d41eb594` (base `19aa4dd0`). Evidence:
+`reports/round-95/predispatch-base.txt` (do-nothing control, FAIL legs=4/10),
+`reports/round-95/predispatch-lands.txt` (PASS legs=10/10), `reports/round-95/controls/`.
+
+- Motivation (O): the round-94 closure rejected claim O on its MUTATION leg (86/88, `head-qualify-off`
+  survived, `dispo-fallback-off` broken) and routed CriticO94's seven surviving counterfeit classes to
+  round 95 (`corpus/lessons/round-94-verifier-spotcheck.md` R95-1..R95-4; `.ufo/waves/round-94/w1/CriticO94.md`).
+  Landed as grader v6 (`tools/check-advance-evidence.py`, sha `f7981ba2`): selftest 134/134, battery 14/14 refused,
+  mutation 95/95 killed, REG identical.
+- Motivation (C): the lament/dirge sung-register surface had no owner at base. Landed
+  `corpus/knowledge/linguistics/funerary-lament-dirge-formulae.md` with five tier-A rows S970–S974
+  (`corpus/SOURCES.md`, evidence `reports/round-95/evidence/`, manifest `manifest.json`).
+- Discipline: the counter was revised twice before freezing, forced by its own do-nothing control
+  (`reports/round-95/counter-revisions.md`); no frozen predicate was amended after scoring.
+- Routed to round 96: CriticO95's nine survivors (splitlines severing, NBSP, ESC, homoglyph id, `## (1)`, `## -`),
+  the F1 battery class, the teaching-cell/anchor-quote coupling (R95-M4), and the staging gap for raw search JSON.

@@ -1,0 +1,172 @@
+{
+ "schema": "kotodama-round-95-battery-manifest-v1",
+ "tool_under_test": "tools/check-advance-evidence.py",
+ "driver": "battery95.py",
+ "classes": [
+  {
+   "class_name": "A1",
+   "counterfeit": "Cyrillic lookalike O (U+041E) in the verdict token LOCATED of a gained S001 lesson line; APPENDONLY sees no disposition.",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "VERDICT-NONASCII",
+    "LEG FAIL APPENDONLY"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/A1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "B1",
+   "counterfeit": "Soft hyphen (U+00AD) inside the verdict token of a gained S001 lesson line (LOCA­TED).",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "VERDICT-SOFTHYPHEN",
+    "LEG FAIL APPENDONLY"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/B1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "G1",
+   "counterfeit": "Numbered phrase-only h2 headings (## 1. address, ## 2. petition, ## 3. efficacy, ## 4. table, ## 5. Rites): the list number is counted as a heading token.",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL TOPIC"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/G1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "H1",
+   "counterfeit": "Manifest row value for S955 is a JSON list, not a JSON object.",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL GATE",
+    "LEG FAIL CAPTURE",
+    "MANIFEST-ROW-NOT-OBJECT",
+    "MANIFEST-ROW-TYPE"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/H1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "I1",
+   "counterfeit": "Lands registry row S955 truncated to four cells (| S955 | url | docs | A |).",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL NEWIDS",
+    "REGISTRY-ROW-CELLS"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/I1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "J1",
+   "counterfeit": "En-dash (U+2013) in NOT–LOCATED on a gained S001 lesson line; v4 reads it as LOCATED.",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "gained a NOT-LOCATED line"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/J1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "K1",
+   "counterfeit": "Lowercase unanchored verdict \"- note: S001 located recheck moved ...\" outside line start: evades the anchored regex and the case-sensitive fallback.",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL APPENDONLY",
+    "VERDICT-LOWERCASE"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/K1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "CD1",
+   "counterfeit": "Combining acute U+0301 inside the verdict token of a gained S001 lesson line (LOCÁTED, CriticO94 CD1).",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "VERDICT-NONASCII",
+    "VERDICT-COMBINE",
+    "COMBINING",
+    "LEG FAIL APPENDONLY"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/CD1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "LR1",
+   "counterfeit": "Left-to-right mark U+200E inside the verdict token of a gained S001 lesson line (LO‎CATED, CriticO94 LR1).",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "VERDICT-NONASCII",
+    "VERDICT-FORMAT",
+    "VERDICT-LRM",
+    "LEG FAIL APPENDONLY"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/LR1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "TAB1",
+   "counterfeit": "Literal tab inside the verdict token of a gained S001 lesson line (LO\tCATED, CriticO94 TAB1).",
+   "leg_or_diagnostic_named_any_of": [
+    "NON-ASCII-VERDICT",
+    "VERDICT-NONASCII",
+    "VERDICT-WS",
+    "VERDICT-TAB",
+    "LEG FAIL APPENDONLY"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/TAB1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "ID1",
+   "counterfeit": "Small-cap S U+A731 in the id token of a gained S001 lesson line (ꜱ001 LOCATED ..., CriticO94 ID1; verdict token is clean ASCII).",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL APPENDONLY",
+    "VERDICT-NONASCII",
+    "NON-ASCII-VERDICT",
+    "ID-NONASCII"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/ID1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "NUM1",
+   "counterfeit": "Nested numbered phrase-only h2 headings (## 1.1 address, ## 2.1 petition, ## 3.1 efficacy, ## 4.1 table, ## 5. Notes, CriticO94 NUM1): the nested number counts as a heading anchor.",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL TOPIC"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/NUM1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "RM1",
+   "counterfeit": "Roman numbered phrase-only h2 headings (## I. address, ## II. petition, ## III. efficacy, ## IV. table, ## V. Notes, CriticO94 RM1).",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL TOPIC"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/RM1",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  },
+  {
+   "class_name": "NUM2",
+   "counterfeit": "Second-token numbered phrase-only h2 headings (## Notes 1) address, ## Notes 2) petition, ## Notes 3) efficacy, ## Notes 4) table, ## Notes 5) Table, CriticO94 NUM2).",
+   "leg_or_diagnostic_named_any_of": [
+    "LEG FAIL TOPIC"
+   ],
+   "expected_exit": "nonzero",
+   "fixture": "battery/NUM2",
+   "grade": "battery95.py grade(): entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), builder floors"
+  }
+ ]
+}
