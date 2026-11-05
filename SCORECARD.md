@@ -2138,3 +2138,32 @@ at the time of writing; one reviewer seat (`ReviewerFreeze-2`) still running.
 |---|---|---|---|
 | counterfeit-battery replay (grader v3 before/after) | Rebuilds seven routed round-91 counterfeit landings and the compliant control, grades them with a supplied base tool and the v3 tool, and writes both receipts; ExecBeforeV2 replayed the receipts byte-identical | `python3 -B reports/round-92/controls/make-counterfeits.py --work <existing-dir> --tool v2=<base-tool> --tool v3=tools/check-advance-evidence.py` → `BEFORE-V2-DEFECT-PRESENT: yes`, `AFTER-V3-REFUSED: yes` | round 92 |
 | receipt-asserting counter (MUTRECEIPT leg) | The frozen counter asserts the committed mutation receipt: tool sha and MUTATION-SCORE numbers must match the live run | `reports/round-92/final/lands-O.txt` MUTRECEIPT PASS | round 92 |
+
+## Axes — round 93 (2026-11-05; claims verified on frozen predicates; non-author closure pending)
+
+Freeze `174fd5a8e05b3919a7854a4495c2fe0f28080775` (revision 2; revision 1 `1928e00d143a310b46aa94536be2eb3d2fbdc013` is superseded, see `reports/round-93/counter-revisions.md`), base `8b2ce60a7bbf015f42a6c9e5c45e994e4c2f7742`, lands `95e7a5cff1687b21d982607ab0bfd8e381c3036c`. Both counters ran at the lands revision in a materialized archive with the frozen constants.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved (claim O; predicate verifies) | v3 (sha 905be2fe) selftest 89/89 and 16 SURVIVOR plus one unnamed traceback against the round-92 battery → v4 (sha 9799a96c) selftest 114/114, stable 4/4 under concurrent runs, mutation 83/83, battery one survivor (A1, a forged committed capture, a residual no committed-bytes checker refuses), 25 named refusal cases, round-92 positive control 9/9 | `python3 -B reports/round-93/measure93.py --root <lane> --lands 95e7a5cff1687b21d982607ab0bfd8e381c3036c --freeze 174fd5a8e05b3919a7854a4495c2fe0f28080775 --claim O --work <dir>` → `MEASURE93-O: PASS legs=10/10` | `reports/round-93/final/lands-O.txt`; `reports/round-93/mutation-score.txt`; `reports/round-93/controls/v3-base-counterfeits.txt` |
+| coverage / C | improved (claim C; predicate verifies) | greeting or leave-taking filename owners 0 → 1; linguistics files 37 → 38; registry rows 884 → 888 (A 522 → 526, mined 777 → 781; B 333, C 29, queued 58, rejected 49 unchanged); entry 21043 B, 8 h2, 6×5 table, four phrase anchors over five surfaces | `python3 -B reports/round-93/measure93.py --root <lane> --lands 95e7a5cff1687b21d982607ab0bfd8e381c3036c --freeze 174fd5a8e05b3919a7854a4495c2fe0f28080775 --claim C --work <dir>` → `MEASURE93-C: PASS legs=6/6` | `reports/round-93/final/lands-C.txt`; `corpus/knowledge/linguistics/greeting-leave-taking-formulae.md`; `corpus/SOURCES.md` rows S961–S964 |
+| calibration | observation, no scored claim | round-92 spot-check disagreements routed; QUALITY 37 added from them; five MutationTesterV4 survivors and four CriticClaims93 defects routed to round 94 | — | `corpus/lessons/round-93.md` `## Mistakes` and `## Routed to round 94` |
+| quality / depth | unchanged | no admitted entry re-verified, deepened or superseded; the four re-opens cover the new rows only | — | `.ufo/waves/round-93/w1/ScoutReopen.md` |
+| freshness | unchanged | paused by open L0 kotodama round-11 and round-89; lowest-axis obligation neither met nor waived (disclosed) | — | `.ufo/l0-questions.md` |
+| adjacency | unchanged | ConnectorOverlap found dangling cross-references to `politeness-taboo-euphemism.md` for greeting formulae; not edited here | — | `.ufo/waves/round-93/w1/ConnectorOverlap.md` |
+
+Trend verdicts (author-side): expansion improved (a dedicated entry on ground with zero filename owners, four mined A rows cited); quality unchanged; discernment improved in the LEARNING.md sense (a closure disagreement became a lesson that adds a grounded QUALITY criterion, number 37); the three round-92 re-decisions (Awetí, Zulu, Turkish) and the 16 title-only exclusions are not yet re-decided and stay open for round 94.
+
+Round shape: one v1 wave of 10 seats (2 scribe, 3 executor, 1 scout, 1 connector, 1 reviewer, 1 critic, 1 mutation-tester; attack 3/10 = 30%; connectors 1). The L1 holds the planner role (the validator rejects planner as a seat). No dead seat; no residual call.
+
+## Capabilities — round 93 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| exact-leg negative pin | every v4 entry-mode negative must fail on the leg it names, so a fixture cannot be refused through another leg; 25 named refusal cases | `python3 -B tools/check-advance-evidence.py --selftest --work <dir>` → `SELFTEST PASS 114/114`; `reports/round-93/final/lands-O.txt` REFUSALS, STABILITY | round 93 |
+
+## Planned — round 94 (routed; no claim frozen yet)
+
+Routed from this round's seat findings (recipes in `corpus/lessons/round-93.md` `## Routed to round 94`): selftest pins for HTML script/style and comment stripping, entity decoding, the disposition case rule, and base-row `opened` cells (MutationTesterV4 survivors); Cyrillic-lookalike and soft-hyphen verdict tokens (CriticClaims93 A1, B1); numbered phrase-only headings passing the anchor floor (G1); unguarded manifest row values and short registry rows raising tracebacks (H1, I1); en-dash verdict misread (J1). Round 94 declares its own claims against a new freeze; the round-93 v4 predicate is not amended.
+
+Saturation: unchanged. Stagnation window: unchanged. Retired: none.

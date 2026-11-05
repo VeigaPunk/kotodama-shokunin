@@ -1,0 +1,17 @@
+# frozen legs: 10 (MATERIALIZE,TOOL,SELFTEST,OKCOUNT,REFUSALS,STABILITY,MUTATION,MUTRECEIPT,BATTERY,STUB)
+# stamped revision: 95e7a5cff1687b21d982607ab0bfd8e381c3036c
+# evaluated revision: 95e7a5cff1687b21d982607ab0bfd8e381c3036c (materialized)
+# measured revision (lane main): 95e7a5cff1687b21d982607ab0bfd8e381c3036c
+# tree: f048b0bd7881e4252ec6c70bc8ed4f09a34ab1b3
+# counter sha256 (self): fb3ca1c20026f0f3dfeb60103396f6af166bf4bc1490d83c17e1fb34df6f84c3
+LEG PASS MATERIALIZE expected=lands 95e7a5cff1687b21d982607ab0bfd8e381c3036c materialized observed=/fast/scratch/hyaku/kotodama-r93/lands/O/mat
+LEG PASS TOOL expected=tools/check-advance-evidence.py sha256 9799a96cf473278a75d19f51d93c4552cc94a611f7b008b36ef928c914ffaae7 observed=9799a96cf473278a75d19f51d93c4552cc94a611f7b008b36ef928c914ffaae7
+LEG PASS SELFTEST expected=rc 0 and SELFTEST PASS 114/114 observed=SELFTEST PASS 114/114
+LEG PASS OKCOUNT expected=exactly 114 lines beginning "  ok " observed=114 ok lines
+LEG PASS REFUSALS expected=25 named refusal cases each ok observed=all ok
+LEG PASS STABILITY expected=4 concurrent selftests, each rc 0 and PASS 114/114 observed=rc=0 SELFTEST PASS 114/114; rc=0 SELFTEST PASS 114/114; rc=0 SELFTEST PASS 114/114; rc=0 SELFTEST PASS 114/114
+LEG PASS MUTATION expected=killed==total>=80, 0 survived, 0 broken-pattern observed=MUTATION-SCORE: 83/83 killed, 0 survived, 0 broken-pattern
+LEG PASS MUTRECEIPT expected=committed lands mutation receipt names the live tool sha and score observed=clean
+LEG PASS BATTERY expected=<= 1 survivor (A1); every other attack refused on a named leg or diagnostic; controls hold observed=26 attacks: survivors=A1 named-refusals=25 unnamed=0
+LEG PASS STUB expected=stub refused by OKCOUNT and kills 0 mutants observed=stub ok lines=34; stub mutation: MUTATION-SCORE: 0/83 killed, 0 survived, 83 broken-pattern
+MEASURE93-O: PASS legs=10/10

@@ -5030,3 +5030,17 @@ the capture's curly form (ReviewerEntry F-2, advisory, routed).
 
 Freshness stayed paused (open L0 kotodama round-11 and round-89); the lowest-axis
 obligation is neither met nor waived and is reported as such.
+
+## Round 93 (2026-11-05) — grader v4 (round-92 routed survivors, exact-leg negatives) and a greeting-and-leave-taking entry
+
+Claims O (operability) and C (coverage), frozen at `174fd5a8e05b3919a7854a4495c2fe0f28080775` (revision 2) with base `8b2ce60a`, measured at lands `95e7a5cff1687b21d982607ab0bfd8e381c3036c`. O: `reports/round-93/final/lands-O.txt` PASS 10/10. C: `reports/round-93/final/lands-C.txt` PASS 6/6.
+
+Evidence for O: the round-92 counterfeit battery re-run against v3 returned 16 survivors and an unnamed traceback (`reports/round-93/controls/v3-base-counterfeits.txt`); against v4 it returns one survivor, A1 (a forged committed capture), with the other attacks refused on named legs (`reports/round-93/final/lands-O.txt` BATTERY). Selftest 114/114 with four concurrent runs passing (STABILITY, responding to the round-92 D3 88/89 report). Mutation 83/83 (`reports/round-93/mutation-score.txt`). The round-92 positive control is still graded 9/9 by v4 (POSITIVE).
+
+Evidence for C: the four rows S961–S964 were opened 2026-11-05 by ordinary HTTP (`corpus/SOURCES.md`; captures and manifest in `reports/round-93/evidence/`); a fresh re-open by ScoutReopen located all four quotes; S962 and the MDPI 403 and Esan TLS failure are recorded as not rows (`corpus/lessons/round-93.md` `## Gate`). Entry `corpus/knowledge/linguistics/greeting-leave-taking-formulae.md` (21043 B) passes the frozen ENTRY, SHAPE, TOPIC, NEWIDS, UNIQUENESS, BASEROWS, GATE, CAPTURE and APPENDONLY legs.
+
+Changes: `tools/check-advance-evidence.py` v4 (sha 9799a96c); `reports/round-93/measure93.py`, `battery93.py`, `mutants.py`, `claims.json`, `counter-revisions.md`; `corpus/knowledge/linguistics/greeting-leave-taking-formulae.md`; `corpus/SOURCES.md` (S961–S964 and a search-log note); `corpus/README.md`; `corpus/lessons/round-93.md`; `corpus/QUALITY.md` criterion 37.
+
+Mistakes mined (`corpus/lessons/round-93.md` `## Mistakes`): R93-M1 fixture masking (3 survivors on the first v4 mutation run, fixed by exact-leg pins), R93-M2 title-only exclusions (round 92), R93-M3 stale premise (round-92 claim C before-description).
+
+Open after this round: freshness paused (L0 round-11 and round-89); the L0 overlap question for round-92 (`ideophones-mimetics.md` vs `sound-symbolism.md` §6) is still unanswered; the three round-92 re-decisions and the 16 exclusions are unlearned; the round-93 residuals routed to round 94; the lowest-axis obligation is neither met nor waived.
