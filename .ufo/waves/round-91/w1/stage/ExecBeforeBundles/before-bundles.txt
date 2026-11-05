@@ -1,0 +1,86 @@
+# ExecBeforeBundles — BEFORE state of claim O, entry mode, frozen v1 vs working-tree v2
+date: 2026-11-05; lane repo: /home/vgpnk/Projects/shokunin/kotodama-shokunin; base: d39434b3bc8458e1b66edd2d0d0fea9ea32f3331
+
+## Grader bytes
+$ git -C /home/vgpnk/Projects/shokunin/kotodama-shokunin show d39434b3bc8458e1b66edd2d0d0fea9ea32f3331:tools/check-advance-evidence.py > /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/v1/check-advance-evidence.py   (rc 0)
+$ sha256sum <v1 bytes> <lane>/tools/check-advance-evidence.py
+121888f08a81ad87675863cf972dd4d32f0a6764b9911dab6b4c8fc4bfe828ed  /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/v1/check-advance-evidence.py
+88597a66c7912861d0a593f984b9eb224a3c46cba3b35d06209b529bc6031093  /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py
+
+PRECHECK of the synthetic entry: {"bytes": 12889, "h2": 17, "table": "6x4", "overlap": 16, "worst_repeat": 1, "cited": ["S952", "S953", "S954"], "v2_phrase_anchors": ["argot", "cant"]}
+
+## Runs — argv mirrors reports/round-91/measure91.py grade_c;
+## v1 drops --topic-phrases --min-topic-phrases --base-lesson (its CLI lacks them).
+
+### v1 x bundle-bakery  rc=0
+$ /usr/bin/python3 -B /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/v1/check-advance-evidence.py entry --root /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery --entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/corpus/knowledge/bakery-rota.md --base-registry /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-SOURCES.md --lands-registry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/corpus/SOURCES.md --lesson /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/corpus/lessons/round-91.md --manifest /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/reports/round-91/evidence/manifest.json --capture-dir reports/round-91/evidence --as-of 2026-11-05 --topic 'secret, ludic and anti-language registers: argot and cant as closed in-group vocabularies, anti-languages as social structure maintained through conversation, backslang and reversal games, ludling and Pig Latin style word play, in-group concealment and identity functions, and the design procedure for a fictional secret register' --min-bytes 12000 --min-headings 6 --min-new-ids 3 --min-topic-overlap 10 --table-min-rows 5 --table-min-cols 3 --graded corpus/SOURCES.md --graded corpus/lessons/round-91.md
+[stdout]
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: PASS legs=6/6
+
+### v2 x bundle-bakery  rc=1
+$ /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery --entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/corpus/knowledge/bakery-rota.md --base-registry /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-SOURCES.md --lands-registry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/corpus/SOURCES.md --lesson /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/corpus/lessons/round-91.md --manifest /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-bakery/reports/round-91/evidence/manifest.json --capture-dir reports/round-91/evidence --as-of 2026-11-05 --topic 'secret, ludic and anti-language registers: argot and cant as closed in-group vocabularies, anti-languages as social structure maintained through conversation, backslang and reversal games, ludling and Pig Latin style word play, in-group concealment and identity functions, and the design procedure for a fictional secret register' --topic-phrases 'argot;anti-language;backslang;ludling;cant;in-group concealment' --min-topic-phrases 4 --base-lesson /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-lesson.md --min-bytes 12000 --min-headings 6 --min-new-ids 3 --min-topic-overlap 10 --table-min-rows 5 --table-min-cols 3 --graded corpus/SOURCES.md --graded corpus/lessons/round-91.md
+[stdout]
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG FAIL TOPIC expected=>=10 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=2 of 6 sub-topic phrases in headings/table cells < 4; phrase anchors 2/6
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=7/8 failed=TOPIC
+
+### v1 x bundle-shadow  rc=0
+$ /usr/bin/python3 -B /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/v1/check-advance-evidence.py entry --root /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow --entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/corpus/knowledge/bakery-rota.md --base-registry /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-SOURCES.md --lands-registry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/corpus/SOURCES.md --lesson /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/corpus/lessons/round-91.md --manifest /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/reports/round-91/evidence/manifest.json --capture-dir reports/round-91/evidence --as-of 2026-11-05 --topic 'secret, ludic and anti-language registers: argot and cant as closed in-group vocabularies, anti-languages as social structure maintained through conversation, backslang and reversal games, ludling and Pig Latin style word play, in-group concealment and identity functions, and the design procedure for a fictional secret register' --min-bytes 12000 --min-headings 6 --min-new-ids 3 --min-topic-overlap 10 --table-min-rows 5 --table-min-cols 3 --graded corpus/SOURCES.md --graded corpus/lessons/round-91.md
+[stdout]
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: PASS legs=6/6
+
+### v2 x bundle-shadow  rc=1
+$ /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow --entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/corpus/knowledge/bakery-rota.md --base-registry /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-SOURCES.md --lands-registry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/corpus/SOURCES.md --lesson /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/corpus/lessons/round-91.md --manifest /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-shadow/reports/round-91/evidence/manifest.json --capture-dir reports/round-91/evidence --as-of 2026-11-05 --topic 'secret, ludic and anti-language registers: argot and cant as closed in-group vocabularies, anti-languages as social structure maintained through conversation, backslang and reversal games, ludling and Pig Latin style word play, in-group concealment and identity functions, and the design procedure for a fictional secret register' --topic-phrases 'argot;anti-language;backslang;ludling;cant;in-group concealment' --min-topic-phrases 4 --base-lesson /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-lesson.md --min-bytes 12000 --min-headings 6 --min-new-ids 3 --min-topic-overlap 10 --table-min-rows 5 --table-min-cols 3 --graded corpus/SOURCES.md --graded corpus/lessons/round-91.md
+[stdout]
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG FAIL TOPIC expected=>=10 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=2 of 6 sub-topic phrases in headings/table cells < 4; phrase anchors 2/6
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG FAIL UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=S954: url shadows base row S900: https://en.wikisource.org/wiki/1911_Encyclop%C3%A6dia_Britannica/Ship
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=6/8 failed=TOPIC,UNIQUENESS
+
+### v1 x bundle-selfquote  rc=0
+$ /usr/bin/python3 -B /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/v1/check-advance-evidence.py entry --root /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote --entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/corpus/knowledge/bakery-rota.md --base-registry /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-SOURCES.md --lands-registry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/corpus/SOURCES.md --lesson /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/corpus/lessons/round-91.md --manifest /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/reports/round-91/evidence/manifest.json --capture-dir reports/round-91/evidence --as-of 2026-11-05 --topic 'secret, ludic and anti-language registers: argot and cant as closed in-group vocabularies, anti-languages as social structure maintained through conversation, backslang and reversal games, ludling and Pig Latin style word play, in-group concealment and identity functions, and the design procedure for a fictional secret register' --min-bytes 12000 --min-headings 6 --min-new-ids 3 --min-topic-overlap 10 --table-min-rows 5 --table-min-cols 3 --graded corpus/SOURCES.md --graded corpus/lessons/round-91.md
+[stdout]
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=10 shared content words with the declared topic observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS GATE expected=each new id has a located gate line observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+ENTRY-EVIDENCE: PASS legs=6/6
+
+### v2 x bundle-selfquote  rc=1
+$ /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py entry --root /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote --entry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/corpus/knowledge/bakery-rota.md --base-registry /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-SOURCES.md --lands-registry /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/corpus/SOURCES.md --lesson /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/corpus/lessons/round-91.md --manifest /home/vgpnk/Projects/shokunin/kotodama-shokunin/.ufo/waves/round-91/w1/stage/ExecBeforeBundles/bundles/bundle-selfquote/reports/round-91/evidence/manifest.json --capture-dir reports/round-91/evidence --as-of 2026-11-05 --topic 'secret, ludic and anti-language registers: argot and cant as closed in-group vocabularies, anti-languages as social structure maintained through conversation, backslang and reversal games, ludling and Pig Latin style word play, in-group concealment and identity functions, and the design procedure for a fictional secret register' --topic-phrases 'argot;anti-language;backslang;ludling;cant;in-group concealment' --min-topic-phrases 4 --base-lesson /fast/scratch/hyaku/kotodama-r91/ExecBeforeBundles/base-lesson.md --min-bytes 12000 --min-headings 6 --min-new-ids 3 --min-topic-overlap 10 --table-min-rows 5 --table-min-cols 3 --graded corpus/SOURCES.md --graded corpus/lessons/round-91.md
+[stdout]
+LEG PASS ENTRY expected=>=12000B, >=6 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG FAIL TOPIC expected=>=10 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=2 of 6 sub-topic phrases in headings/table cells < 4; phrase anchors 2/6
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG FAIL GATE expected=each new id has a located gate line bound to the row teaching observed=S953: gate quote is the row teaching cell (self-quote)
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=6/8 failed=TOPIC,GATE
+
