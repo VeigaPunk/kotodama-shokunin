@@ -111,7 +111,21 @@ DISPO_RE = re.compile(r'^(?:[>\-\*+\s]*\s)?S(\d{3,})\b.*?\b(NOT[ _-]?LOCATED|LOC
 # obscured by zero-width characters. Lowercase prose ("S001 located in the
 # archive") carries no uppercase verdict token and stays clean.
 DISPO_ANY_RE = re.compile(r'\bS(\d{3,})\b.*?\b(NOT[ _-]?LOCATED|LOCATED)\b')
-ZW_MAP = dict.fromkeys(map(ord, '\u200b\u200c\u200d\u2060\ufeff'))
+# Round-94 v5 (routed round-93 K1 / dispo-any-casei pin): a case-insensitive view of
+# the fallback, used only to DETECT a lowercase unanchored verdict for a named
+# refusal; the matching fallback above stays case-sensitive (v4).
+DISPO_ANY_RE_I = re.compile(DISPO_ANY_RE.pattern, re.I)
+# Round-94 v5 (routed round-93 A1/B1/J1): the verdict-normalisation strip now also
+# takes the soft hyphen (U+00AD); ZW_ONLY keeps the v4 zero-width set for the raw
+# re-test; DASH_MAP folds typographic dashes to '-' so a dash inside NOT-LOCATED
+# written with an en-dash reads as NOT-LOCATED instead of flipping the direction;
+# HOMOGLYPH_MAP folds common Cyrillic/Greek lookalike letters, for detection only.
+ZW_ONLY = dict.fromkeys(map(ord, '\u200b\u200c\u200d\u2060\ufeff'))
+ZW_MAP = dict.fromkeys(map(ord, '\u200b\u200c\u200d\u2060\ufeff\u00ad'))
+DASH_MAP = dict.fromkeys(map(ord, '\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uff0d'), '-')
+HOMOGLYPH_MAP = {ord(c): t for c, t in (
+    '\u0410A \u0412B \u0421C \u0415E \u041dH \u041aK \u041cM \u041eO \u0420P \u0422T \u0425X '
+    '\u0430a \u0435e \u043eo \u0440p \u0441c \u0443y \u0445x \u039fO \u03bfo \u0395E \u03b5e').split()}
 STOP = set('''a an the and or but if of to in on at for with from by as is are was were be been being
 this that these those it its their his her they we you i not no nor so than then there here which who
 whom whose what when where why how all any both each few more most other some such only own same too very
@@ -230,19 +244,48 @@ def population(args):
     return ids
 
 
+def _dispo_match(stripped):
+    """v4 matching shape, factored: anchored rule first, then the case-sensitive
+    unanchored fallback over unmarked text."""
+    m = DISPO_RE.match(stripped)
+    if not m:
+        plain = stripped.replace('|', ' ').replace('*', ' ').replace('_', ' ')
+        m = DISPO_ANY_RE.search(plain)
+    return m
+
+
+def _refuse_disguised(n, stripped):
+    """Round-94 v5 (routed round-93 A1/K1): an id line whose verdict token hides
+    behind non-ASCII letters or lowercase spelling is refused on a named
+    diagnostic instead of being silently invisible to APPENDONLY."""
+    if not re.search(r'\b[Ss]\d{3,}\b', stripped):
+        return
+    plain = stripped.replace('|', ' ').replace('*', ' ').replace('_', ' ')
+    if DISPO_ANY_RE_I.search(plain):
+        raise Refused(f'line {n}: lowercase verdict token outside the anchored rule (VERDICT-LOWERCASE)')
+    probe = unicodedata.normalize('NFKC', stripped).translate(HOMOGLYPH_MAP)
+    if _dispo_match(probe):
+        raise Refused(f'line {n}: verdict token carries non-ASCII letters (VERDICT-NONASCII)')
+
+
 def dispositions(lesson):
     """First disposition per id; every NOT-LOCATED spelling collapses to NOT-LOCATED.
     Round-93 v4: the line is first stripped of zero-width characters; the anchored
     rule keeps its old shape, and a case-sensitive unanchored fallback catches
-    bold-wrapped and table-pipe dispositions."""
+    bold-wrapped and table-pipe dispositions.
+    Round-94 v5 (routed round-93 A1/B1/J1/K1): the verdict-normalisation path also
+    strips the soft hyphen and folds typographic dashes to '-', so NOT-LOCATED
+    written with an en-dash reads as NOT-LOCATED and is never misparsed as a
+    LOCATED flip; a verdict token hidden behind a soft hyphen, non-ASCII letters
+    or lowercase spelling is refused on a named diagnostic, never invisible."""
     out = {}
-    for line in lesson.splitlines():
-        stripped = line.strip().translate(ZW_MAP)
-        m = DISPO_RE.match(stripped)
+    for n, line in enumerate(lesson.splitlines(), 1):
+        stripped = line.strip().translate(ZW_MAP).translate(DASH_MAP)
+        m = _dispo_match(stripped)
+        if m and '\u00ad' in line and not _dispo_match(line.strip().translate(ZW_ONLY).translate(DASH_MAP)):
+            raise Refused(f'line {n}: soft hyphen inside the verdict token (VERDICT-SOFTHYPHEN)')
         if not m:
-            plain = stripped.replace('|', ' ').replace('*', ' ').replace('_', ' ')
-            m = DISPO_ANY_RE.search(plain)
-        if not m:
+            _refuse_disguised(n, stripped)
             continue
         rid, verdict = 'S' + m.group(1), m.group(2).upper().replace('_', ' ').replace('-', ' ')
         verdict = 'NOT-LOCATED' if verdict.startswith('NOT') else 'LOCATED'
@@ -365,6 +408,14 @@ def grade_advance(args):
     lesson = read(args.lesson)
     man = json.loads(read(args.manifest) or '{}')
     man_rows = man.get('rows', man)
+    # Round-94 v5 (routed round-93 H1): a row value that is not a JSON object is a
+    # named refusal, not an AttributeError at the surface/capture loop.
+    if not isinstance(man_rows, dict):
+        raise Refused('manifest rows is not a JSON object (list where mapping expected)')
+    bad_man_rows = sorted(str(rid) for rid, val in man_rows.items() if not isinstance(val, dict))
+    if bad_man_rows:
+        raise Refused('manifest row value is not a JSON object (list where mapping expected): '
+                      + ','.join(bad_man_rows) + ' (MANIFEST-ROW-TYPE)')
     ids = population(args)
     as_of = as_date(args.as_of, '--as-of')
     lo = as_of + datetime.timedelta(days=args.window_days)
@@ -505,6 +556,12 @@ def grade_entry(args):
     man_rows = man.get('rows', man)
     if not isinstance(man_rows, dict):
         raise Refused('manifest rows is not a JSON object (list where mapping expected)')
+    # Round-94 v5 (routed round-93 H1): a row VALUE that is a list is a named
+    # refusal, not an AttributeError at the GATE/CAPTURE loop.
+    bad_man_rows = sorted(str(rid) for rid, val in man_rows.items() if not isinstance(val, dict))
+    if bad_man_rows:
+        raise Refused('manifest row value is not a JSON object (list where mapping expected): '
+                      + ','.join(bad_man_rows) + ' (MANIFEST-ROW-TYPE)')
     as_of = as_date(args.as_of, '--as-of')
     legs = []
     detail = {}
@@ -574,6 +631,15 @@ def grade_entry(args):
         # single-token span-gaming headings anchor nothing.
         def head_anchors(h):
             return len(h.lstrip('#').split()) >= 2
+
+        def head_span_anchors(h):
+            # Round-94 v5 (routed round-93 G1): a leading list number is not a
+            # heading token for the span count, so "## 1. address" - number plus
+            # one bare phrase word - is not a second anchoring surface.
+            toks = h.lstrip('#').split()
+            if toks and re.match(r'^\d+[.)]$', toks[0]):
+                toks = toks[1:]
+            return len(toks) >= 2
         qual_rows = []
         sep_seen = False
         for l in entry.splitlines():
@@ -586,10 +652,13 @@ def grade_entry(args):
             if sep_seen:
                 qual_rows.append(l)
         hit_heads = [h for h in heads if head_anchors(h) and any(norm(p) in norm(h) for p in phrases)]
+        span_heads = [h for h in heads if head_span_anchors(h) and any(norm(p) in norm(h) for p in phrases)]
         hit_rows = [l for l in qual_rows if any(norm(p) in norm(l) for p in phrases)]
         anchor_text = norm(' '.join(hit_heads)) + ' ' + norm('\n'.join(hit_rows))
         hits = [p for p in phrases if norm(p) in anchor_text]
-        span = len(hit_heads) + (1 if hit_rows else 0)
+        # Round-94 v5 (routed round-93 G1): the span counts only headings that
+        # anchor without their leading list number.
+        span = len(span_heads) + (1 if hit_rows else 0)
         min_span = getattr(args, 'min_anchor_span', 0) or 0
         phrase_detail = f'phrase anchors {len(hits)}/{len(phrases)} spanning {span} heading/table surfaces'
         if len(hits) < phrase_floor:
@@ -612,6 +681,11 @@ def grade_entry(args):
     detail['new_ids_cited'] = scoped
     for rid in scoped:
         cells = byid[rid][0]['cells']
+        # Round-94 v5 (routed round-93 I1): a registry row shorter than the
+        # eleven-cell census grammar is a named refusal, not an IndexError.
+        if len(cells) < 11:
+            problems.append(f'{rid}: registry row has {len(cells)} cells < 11')
+            continue
         tier, status, opened, used = cells[3], cells[7], cells[8], cells[10]
         if tier not in ('A', 'B'):
             problems.append(f'{rid}: tier {tier} not A/B')
@@ -672,6 +746,11 @@ def grade_entry(args):
         b, l = brows[0]['cells'], lrows[0]['cells']
         if len(b) != len(l):
             baserow.append(f'{rid}: cell count {len(b)} -> {len(l)}')
+            continue
+        # Round-94 v5 (routed round-93 I1): a row shorter than the eleven-cell
+        # census grammar is a named refusal, not an IndexError on the identity loop.
+        if len(b) < 11:
+            baserow.append(f'{rid}: registry row has {len(b)} cells < 11')
             continue
         for i in (0, 1, 2, 3, 4, 5, 6, 8):
             if b[i] != l[i]:
@@ -1537,6 +1616,81 @@ def selftest(work):
         '\u201cprayer address petition votive promise fixed extempore efficacy register case 0\u201d and '
         '\u201cFreemium for Journals platform\u201d'))
     chk_leg('entry mode: second chrome quote on a gate line refused', ['entry'] + E(lesson=two_quote), 'GATE')
+
+    # ------------------------------------------------ round-94 v5 entry-mode pins
+    # (routed corpus/lessons/round-93.md ## Routed to round 94: CriticClaims93
+    #  counterfeits A1/B1/G1/H1/I1/J1, the K1 lowercase channel, and the five
+    #  MutationTesterV4 mutant classes; one named check per class)
+    def unit(name, ok, detail=''):
+        checks.append((name, ok, 0, 0, [detail] if detail else []))
+
+    lesson_a1 = write('lesson_a1.md', lesson_e_text
+                      + '- S001 L\u041eCATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201canother old base row about dye plants\u201d\n')
+    chk('round-94 A1: non-ASCII letters in the verdict token refused', ['entry'] + E(lesson=lesson_a1),
+        2, ['VERDICT-NONASCII'])
+    lesson_b1 = write('lesson_b1.md', lesson_e_text
+                      + '- S001 LOCA\u00adTED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201canother old base row about dye plants\u201d\n')
+    chk('round-94 B1: soft hyphen inside the verdict token refused', ['entry'] + E(lesson=lesson_b1),
+        2, ['VERDICT-SOFTHYPHEN'])
+    g1_entry = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1/prayer-register.md')
+    os.makedirs(os.path.dirname(g1_entry), exist_ok=True)
+    with open(g1_entry, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## 1. address')
+                .replace('## 2. The petition', '## 2. petition')
+                .replace('## 3. Fixed and extempore', '## 3. efficacy')
+                .replace('## 4. Efficacy', '## 4. table')
+                .replace('## 5. Table', '## 5. Rites'))
+    chk_leg('round-94 G1: numbered phrase-only headings do not anchor', ['entry'] + E(entry=g1_entry), 'TOPIC')
+    man_h1_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                             fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_h1_rows['S011'] = ['not', 'a', 'dict']
+    man_h1 = os.path.join(ev, 'mh1.json')
+    with open(man_h1, 'w') as f:
+        json.dump({'rows': man_h1_rows}, f)
+    chk('round-94 H1: manifest row value that is a list refused', ['entry'] + E(manifest=man_h1),
+        2, ['MANIFEST-ROW-TYPE'])
+    lands_i1 = write('lands_i1.md', lands_e.replace(
+        _row('S010', 'https://example.org/a', 'prayer address petition votive promise register case', tier='A',
+             status='mined', opened='2026-11-04', used='corpus/knowledge/myth-symbol/prayer-register.md'),
+        '| S010 | https://example.org/a | docs | A | scope | anchor | prayer address petition votive promise '
+        'register case | mined | 2026-11-04 | 90d |'))
+    chk_leg('round-94 I1: registry row shorter than eleven cells refused',
+            ['entry'] + E(lands_registry=lands_i1), 'NEWIDS')
+    lesson_j1 = write('lesson_j1.md', lesson_e_text
+                      + '- S002 NOT\u2013LOCATED recheck unchanged \u2014 https://example.org/other accessed 2026-11-04: '
+                        '\u201cunrelated row about dye plants\u201d\n')
+    chk('round-94 J1: en-dash NOT-LOCATED reads as NOT-LOCATED, no false flip', ['entry'] + E(lesson=lesson_j1),
+        1, ['FAIL APPENDONLY', 'disposition LOCATED -> NOT-LOCATED'])
+    lesson_k1 = write('lesson_k1.md', lesson_e_text
+                      + 'Round note: S007 located recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201cunrelated row about dye plants and textile trades\u201d\n')
+    chk('round-94 K1: lowercase unanchored verdict refused', ['entry'] + E(lesson=lesson_k1),
+        2, ['VERDICT-LOWERCASE'])
+    # mutant pins (MutationTesterV4 survivors): each check fails when the named
+    # mutation is applied to this tool.
+    _body_ss = html_body_text(b'<html><head><style>.x { color: red; }</style></head><body>'
+                              b'<script>var prayer = "petition";</script>'
+                              b'<p>visible prayer address petition body</p></body></html>')
+    unit('mutant pin: script and style stripping active (script-strip-off)',
+         'var prayer' not in _body_ss and 'color: red' not in _body_ss and 'prayer address petition' in _body_ss)
+    _body_cs = html_body_text(b'before visible <!-- prayer address petition votive promise > hidden comment --> after')
+    unit('mutant pin: comment stripping active (comment-strip-off)',
+         'hidden comment' not in _body_cs and 'before visible' in _body_cs and 'after' in _body_cs)
+    _body_ue = html_body_text(b'<p>Tom &amp; Jerry &#65; &quot;quoted&quot; prayer body</p>')
+    unit('mutant pin: entity unescape active (unescape-off)',
+         '&amp;' not in _body_ue and '&quot;' not in _body_ue
+         and 'Tom & Jerry' in _body_ue and 'A "quoted" prayer body' in _body_ue)
+    try:
+        dispositions('Round note: s001 located in the archive, rechecked against the row.\n')
+        unit('mutant pin: lowercase unanchored verdict refused (dispo-any-casei)', False, 'no refusal raised')
+    except Refused as exc:
+        unit('mutant pin: lowercase unanchored verdict refused (dispo-any-casei)', 'VERDICT-LOWERCASE' in str(exc))
+    lands_c8 = write('lands_c8.md', lands_e.replace(_row('S001', url, good_teach),
+                                                    _row('S001', url, good_teach, opened='2026-10-20')))
+    chk_leg('mutant pin: base row opened cell change refused (baserows-drop-cell8)',
+            ['entry'] + E(lands_registry=lands_c8), 'BASEROWS')
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']

@@ -140,7 +140,7 @@
 - → linguistics/semantic-fields-lexicon-building.md: garment lexicon inventories, cut-and-fabric terminology, layered terms (the Japanese layering lexicon is the model, Dalby 1993).
 - → linguistics/historical-linguistics.md and language-contact.md: garment loanwords as trade strata; terminology outliving the referent (the "silk" word after silk falls, §7).
 - → linguistics/politeness-taboo-euphemism.md and semantics-pragmatics.md: dress taboos, dress-politeness formulae, undress euphemism, the pragmatics of "you can't wear that here."
-- → linguistics/linguistic-anthropology.md: dress as communicative practice alongside greeting formulae and address systems.
+- → linguistics/linguistic-anthropology.md: dress as communicative practice alongside address systems; → linguistics/greeting-leave-taking-formulae.md: dress as communicative practice alongside greeting formulae.
 - → myth-symbol/ritual-liminality.md: rite-of-passage dress — segregation garments, liminal undress, reaggregation robes; mourning phases as a liminal sequence (Taylor 1983).
 - → myth-symbol/animal-symbolism.md: fur, feather, and leather symbolism; *buzi*-style fauna rank badges; heraldic beasts worn as identity.
 - → myth-symbol/number-symbolism.md: badge counts, pleat counts, plait numbers as graded signals.

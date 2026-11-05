@@ -1,5 +1,12 @@
 # kotodama-shokunin corpus index
 
+revision: 2.23 — Round-94 linguistics landing (2026-11-05): one linguistics
+entry landed (`lullaby-child-song-formulae.md`, lullaby and child-directed song
+formulae; the base had 0 word-bounded filename owners). Its row is added in
+filename order between `linguistic-anthropology.md` and
+`morphological-typology.md`, with the entry's `- topic:` text verbatim;
+`## linguistics/` moved 38 → **39**; the totals and footer moved 265 → **266**.
+
 revision: 2.22 — Round-93 linguistics landing (2026-11-05): one linguistics
 entry landed (`greeting-leave-taking-formulae.md`, greeting and leave-taking
 formulae; the base had 0 word-bounded filename owners). Its row is added in
@@ -348,7 +355,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (38)
+## linguistics/ (39)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -362,6 +369,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `language-shift-obsolescence-revival.md` — The life-cycle side of language contact — how a community stops transmitting its language (domain retreat, transmission break, semi-speakers, terminal speakers), how to diagnose the stage with Fishman's GIDS, UNESCO's vitality factors, and EGIDS, and what actually drives revival (home transmission first, then language nests, immersion schooling, adult acquisition, status and corpus planning) — with calibrated real cases (Hebrew, Welsh, Māori, Ainu, Cornish, Manx, Sumerian) and a decision record for staging a death or a revival in a fictional world.
 - `language-socialization-and-acquisition.md` — language socialization and acquisition as culturally organized participation in language across caregiver interaction, early talk, correction, multilingual life, narrative, literacy, and address — a sourced design reference for fictional language practices, not a universal developmental sequence.
 - `linguistic-anthropology.md` — Language as cultural practice — ethnography of communication (Hymes SPEAKING grid), calibrated linguistic relativity, language ideology, register ecology (diglossia, politeness, speech levels), and special languages (ritual registers, avoidance registers, argot/anti-languages). Reference knowledge and method only; canon decisions belong to lore-shokunin.
+- `lullaby-child-song-formulae.md` — lullaby and child-directed song formulae: the speech of putting a child to sleep, nonsense-syllable refrains, archaic retention in lullaby text, address to the child, register shift between the song and ordinary speech, and the design procedure for a fictional lullaby register
 - `morphological-typology.md` — the four classical morphological types (isolating, agglutinative, fusional, polysynthetic), the morphological-process toolbox (affixation, reduplication, ablaut/umlaut, consonant mutation, root-and-pattern, tone, suppletion, incorporation), and the causal cascade from a typology choice into grammar, lexicon, diachrony, and cultural texture
 - `naming-systems.md` — How real cultures build and police names — personal name slots (given/lineage/clan/byname), place-name functions and strata, divine names and cult epithets, endonym/exonym layers, name taboo and name magic (the kotodama core: names as power), and a step-by-step derivation pipeline for naming a fictional culture
 - `numerals-and-measures.md` — how real languages build number words and counting practices, as a worldbuilding system — arithmetic base typology (decimal, vigesimal, hybrid, other bases, extended body-part, restricted) with the WALS 131A census and what each base commits a culture to; numeral-word morphology (transparency, portmanteau tens, suppletion, ordinals/collectives/distributives); the numeral–noun interface (sortal vs mensural classifiers, measure words, counting units like *pair* and *head of cattle*); counting technologies (finger counting, body tallies, tally marks, knotted-cord records, counting rods) and the register they generate; restricted and anumeric systems with the Pirahã debate calibrated; numeral diachrony and contact (growth stages, whole-system borrowing as in the Sino-Xenic numerals, contact-driven replacement as in post-Conquest Mesoamerica) — plus decision tables, a NON-CANON worked example, and the boundary where the measures/metrology side hands off to `culture-material/trade-economy-lexicon.md`.
@@ -1009,3 +1017,19 @@ Total knowledge entries: 265.
 Counts checked 2026-11-05 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
 (total 265 files; directory totals 38/36/43/29/24/95).
+
+## Round 94 lullaby entry (2026-11-05)
+
+`knowledge/linguistics/lullaby-child-song-formulae.md` adds a dedicated entry on
+lullaby and child-directed song formulae: the speech of putting a child to sleep,
+nonsense-syllable refrains, archaic retention in lullaby text, address to the child,
+register shift between the song and ordinary speech, and the design procedure for a
+fictional lullaby register. Sources S965–S969 were opened this round (A/mined); no
+older registry row is re-verified, re-dated or repaired. Freshness stays paused by the
+open L0 questions.
+
+Total knowledge entries: 266.
+
+Counts checked 2026-11-05 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 266 files; directory totals 39/36/43/29/24/95).

@@ -24,3 +24,29 @@
   `predispatch-base.rev1.txt` preserves the rev1 bytes.
 - Claim predicates (claims.json) are unchanged; only the counter body was
   corrected, before data.
+
+## Battery instrument revision 1 → 2 (manifest + battery94 class table)
+
+- **What:** the battery manifest (`manifest.json`) and the driver's CLASSES table
+  (`battery94.py`) originally listed guessed diagnostic token names for A1, B1, H1
+  and K1 (`NON-ASCII-VERDICT`, `MANIFEST-ROW-NOT-OBJECT`, nothing for K1). The v5
+  grader refuses each class with a *different named token* (`VERDICT-NONASCII`,
+  `VERDICT-SOFTHYPHEN`, `MANIFEST-ROW-TYPE`, `VERDICT-LOWERCASE`), captured by
+  direct probe before any claim scoring. The token lists were amended to accept
+  the actual tokens (the originals kept). No expected_exit, no traceback rule and
+  no refusal requirement changed: each class still requires nonzero rc, no
+  Traceback, and a named upper-case diagnostic.
+- **Timing:** found and amended before claim O was scored (no seat ran the battery
+  against the candidate; CriticO94 attacked with its own fixture set; the L1 ran
+  the graded battery at integration).
+- **Control receipts (L1-run, 2026-11-05):**
+  - Stub `reports/round-92/controls/stub-tool.py`: selftest prints
+    `SELFTEST PASS 89/89` with only 34 `  ok ` lines (exactly-N-ok clause fails it)
+    — rc 0; battery: `BATTERY-SUMMARY survivors=7 unnamed=0 refused=0` (every
+    class SURVIVOR); mutants94: `MUTATION-SCORE: 0/88 killed, 0 survived,
+    88 broken-pattern`. The stub fails SELFTEST (34 ≠ 89), BATTERY and MUTATION.
+  - v4 base (seats' red-befores): battery `survivors=4 unnamed=3 refused=0`;
+    routed mutants `0/5 killed, 5 survived`; selftest `114/114` with 114 ok lines.
+  - v5 candidate: selftest `SELFTEST PASS 126/126`, 126 ok lines, rc 0, 4
+    concurrent runs stable; battery `survivors=0 unnamed=0 refused=7` with named
+    tokens per class; REG lines byte-identical to v4 (`diff` empty, 34 cases).
