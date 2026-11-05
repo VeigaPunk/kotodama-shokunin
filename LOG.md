@@ -4947,13 +4947,16 @@ is inherited: its seat reports, stage and frozen artifacts are reused where
 re-verified and its seven captures without a manifest are replaced by L1
 re-fetches with a manifest (R90-M4).
 O: `tools/check-advance-evidence.py` (sha256 `121888f0…`) refuses 13 named
-counterfeit classes from the round-89 wave, its selftest is 67/67 with one
-negative per sub-check, and the committed mutation pass kills 43/43. C: new
+counterfeit classes from the round-89 wave, its selftest is 67/67 and the
+committed mutation pass kills 43/43; the falsification wave then showed 14 of
+21 new entry-mode mutants survive that selftest, so "one negative per
+sub-check" holds for the commit-blocking checks the selftest exercises, not
+for every entry-mode sub-check (recorded, not repaired: the tool is pinned). C: new
 `corpus/knowledge/linguistics/petitionary-and-votive-formulae.md` (19930 B, ten
 h2 sections, a five-row table) over S942–S948 (six A, one B; S949 a retained
 rejection), with committed captures, manifest, lesson gate lines and the
-corpus/README.md moves; knowledge 261→262, registry 865→873, zero old rows
-changed. Freshness stayed paused (open L0 kotodama round-11 and round-89), so
+corpus/README.md moves; knowledge 261→262, registry 865→875 (S942–S948
+admitted, S949–S951 registered as rejections), zero old rows changed. Freshness stayed paused (open L0 kotodama round-11 and round-89), so
 coverage is the axis worked. Final receipts: O PASS 6/6, C PASS 4/4 at
 `7f3a7aa6615624afadc2cc2d2d4f7ad225f44761`, separability PASS both overlays,
 census exit 0 at both ends.

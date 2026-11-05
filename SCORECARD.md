@@ -2018,8 +2018,9 @@ bytes are unchanged after data.
 | calibration | observation, no scored claim | The inherited attempt's dead seat, the counter's ENTRY keying defect, the base-surface wording and the separability set bug are recorded as R90-M3/M4/M7/M8 rather than repaired silently; the frozen `claims.json` O.after_target description of the stub receipt is inaccurate to the recorded bytes and is reported, not edited | — | `corpus/lessons/round-90.md` `## Mistakes`; `reports/round-90/counter-revisions.md` |
 | depth / freshness / adjacency | unchanged | No existing entry deepened, no registry row re-verified or re-dated (freshness paused), no sibling ground absorbed: the entry is a design surface, canon stays lore's and research method chousa's | — | `git diff --numstat 6b0b86e4 7f3a7aa6 -- corpus/knowledge PROVINCE.md` names only the new entry; registry diff shows 0 changed and 0 removed old rows |
 
-Registry 865 → 873 rows (A 511→517, B 329→330, C 25→26; mined 762→769, queued
-58, rejected 45→46), eight additions S942–S949 and no other cell changed
+Registry 865 → 875 rows (A 511→517, B 329→330, C 25→28; mined 762→769, queued
+58, rejected 45→48), ten additions S942–S951 (seven admitted, three rejected)
+and no other cell changed
 (`reports/round-90/final/lands-C.txt`). Census exit 0 at start
 (`census-start.txt`) and end (`census-end.txt`).
 
