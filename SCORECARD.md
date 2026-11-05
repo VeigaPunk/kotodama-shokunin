@@ -1986,3 +1986,51 @@ R88-V3 note: the round-88 counterfeit controls `shotgun-all-labels` and
 Round shape: one v1 wave of 11 seats (3 executor, 2 scribe, 1 scout, 1
 connector, 2 reviewer, 1 critic, 1 mutation-tester); attack 4/11; no dead
 seat, no replacement, no residual.
+
+## Planned / frozen — round 90 (2026-11-04)
+
+Two claims frozen in `reports/round-90/claims.json` at
+`d0b6f2a7f9cc36272682749a9b047b739406f0c8` (base
+`6b0b86e45ae902331aca75863db380f2991458c4`). Executed at-freeze controls,
+counter revisions 1–6 and the mutation receipt precede the first dispatch.
+
+| claim / axis | before → frozen target | counter |
+|---|---|---|
+| O / operability (capability acquisition) | `tools/check-advance-evidence.py` absent; the round-89 counter passed five counterfeit landings and scored 10/41 mutants → tool sha256 `121888f0…` equal to the freeze pin, `--selftest` 67/67 with all 13 refusal cases ok, mutation killed==total>=42 with 0 survived and 0 broken-pattern, stub control recorded | `python3 -B reports/round-90/measure90.py --root <clone> --freeze <freeze> --lands <lands> --claim O --work <existing-dir>` |
+| C / coverage (sourced claim) | no dedicated entry; linguistics 34 files; registry 865 rows → `corpus/knowledge/linguistics/petitionary-and-votive-formulae.md` >=12000 B, >=6 h2, table >=5x3, >=3 new mined A/B rows opened 2026-11-04 cited and gated, captures committed, index rc0, APPENDONLY clean | same counter with `--claim C` |
+
+Freshness stays paused under the open round-11 and round-89 L0 questions, so
+coverage is the lowest axis this round may work; no numeric 0–10 score is
+invented and the older numeric-mapping debt stays open.
+
+## Axes — round 90 (2026-11-04; author-side, non-author closure pending)
+
+Measured at lands `7f3a7aa6615624afadc2cc2d2d4f7ad225f44761`, freeze
+`d0b6f2a7f9cc36272682749a9b047b739406f0c8`, base
+`6b0b86e45ae902331aca75863db380f2991458c4`, in a `git clone --shared` of the
+lands revision with the frozen counter. Frozen predicate, counter and case
+bytes are unchanged after data.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved, finite predicate verifies (capability acquisition) | No advance-evidence grader and a round-89 predicate passable by five counterfeits at 10/41 mutation → committed grader at the freeze pin, selftest 67/67 with a negative per sub-check, 13 refusal cases ok, mutation 43/43 killed, stub control recorded | `python3 -B reports/round-90/measure90.py --root <clone> --freeze d0b6f2a7 --lands 7f3a7aa6 --claim O --work <existing-dir>` | `reports/round-90/final/lands-O.txt` PASS 6/6; `reports/round-90/mutation-score.txt`; `controls/stub-tool.txt` |
+| coverage / C | improved on the counter | No dedicated entry, linguistics 34 files, registry 865 → entry 19930 B / 10 h2 / 5x3 table, seven new mined A/B rows (S942–S948) cited and gated, S949 rejected, index 262/262 rc0, zero old rows changed | same counter with `--claim C` | `reports/round-90/final/lands-C.txt` PASS 4/4; `reports/round-90/final/separability.txt` both overlays PASS |
+| calibration | observation, no scored claim | The inherited attempt's dead seat, the counter's ENTRY keying defect, the base-surface wording and the separability set bug are recorded as R90-M3/M4/M7/M8 rather than repaired silently; the frozen `claims.json` O.after_target description of the stub receipt is inaccurate to the recorded bytes and is reported, not edited | — | `corpus/lessons/round-90.md` `## Mistakes`; `reports/round-90/counter-revisions.md` |
+| depth / freshness / adjacency | unchanged | No existing entry deepened, no registry row re-verified or re-dated (freshness paused), no sibling ground absorbed: the entry is a design surface, canon stays lore's and research method chousa's | — | `git diff --numstat 6b0b86e4 7f3a7aa6 -- corpus/knowledge PROVINCE.md` names only the new entry; registry diff shows 0 changed and 0 removed old rows |
+
+Registry 865 → 873 rows (A 511→517, B 329→330, C 25→26; mined 762→769, queued
+58, rejected 45→46), eight additions S942–S949 and no other cell changed
+(`reports/round-90/final/lands-C.txt`). Census exit 0 at start
+(`census-start.txt`) and end (`census-end.txt`).
+
+Capability row added below for the grader. Round shape: one v1 wave of 11 seats
+(3 executor, 1 scribe, 1 scout, 1 connector, 2 reviewer, 1 critic,
+1 mutation-tester; attack 5/11) after the inherited wave-1 attempt; no
+replacement. The formal L2-planner conflict, the numeric/lowest-axis mapping
+debt and the inherited full cited-record red remain open.
+
+## Capabilities — round 90 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| advance-evidence grader | Grades one landing's evidence — a re-verification population with per-row dispositions, quote and capture binding, archive/live URL form and same-year stamps, duplicate ids and urls, shadow rows, chrome and self-quote refusal, capture confinement, registry append-only and cell-diff, plus a coverage-entry mode (size, shape, topic overlap, new mined ids, gate lines, captures) — with a 67-check selftest holding one negative per sub-check and a committed 43/43 mutation receipt | `python3 -B tools/check-advance-evidence.py --selftest --work <existing-dir>` → `SELFTEST PASS 67/67`; `python3 -B reports/round-90/mutants.py --root . --work <existing-dir>` → `MUTATION-SCORE: 43/43 killed`; `reports/round-90/final/lands-O.txt` PASS 6/6 at `7f3a7aa6` | round 90 |

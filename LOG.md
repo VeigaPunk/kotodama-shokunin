@@ -4936,3 +4936,24 @@ S936–S940 (S941 rejected). Wave attacks found the frozen counter thin
 R89-M5/M6 and QUALITY36, and this landing audited against them. The lane's
 own round-11 pause text covers freshness claims (R89-M7): L0 question filed.
 Final: F PASS 5/5, C PASS 8/8 at `aac9cca80d12077eb3026b202c835c0d6135bc08`; census exit 0.
+
+## Round 90 (2026-11-04) — advance-evidence grader; petitionary and votive entry
+
+Claims O (operability, capability acquisition) and C (coverage), frozen at
+`d0b6f2a7` with executed at-freeze controls, a 67-check selftest and a 43/43
+mutation receipt committed before the first dispatch; base `6b0b86e4`.
+The earlier attempt of this round died on provider failure after its wave and
+is inherited: its seat reports, stage and frozen artifacts are reused where
+re-verified and its seven captures without a manifest are replaced by L1
+re-fetches with a manifest (R90-M4).
+O: `tools/check-advance-evidence.py` (sha256 `121888f0…`) refuses 13 named
+counterfeit classes from the round-89 wave, its selftest is 67/67 with one
+negative per sub-check, and the committed mutation pass kills 43/43. C: new
+`corpus/knowledge/linguistics/petitionary-and-votive-formulae.md` (19930 B, ten
+h2 sections, a five-row table) over S942–S948 (six A, one B; S949 a retained
+rejection), with committed captures, manifest, lesson gate lines and the
+corpus/README.md moves; knowledge 261→262, registry 865→873, zero old rows
+changed. Freshness stayed paused (open L0 kotodama round-11 and round-89), so
+coverage is the axis worked. Final receipts: O PASS 6/6, C PASS 4/4 at
+`7f3a7aa6615624afadc2cc2d2d4f7ad225f44761`, separability PASS both overlays,
+census exit 0 at both ends.
