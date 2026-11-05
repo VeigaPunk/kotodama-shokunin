@@ -73,10 +73,19 @@ grades one landing — but each of its sub-checks has a negative in its own
 selftest, and the mutation receipt is committed before dispatch rather than
 after data, which is what QUALITY36 asks for.
 
-The C claim is a coverage move on ground the coverage map did not hold: at base
-`grep -rn -i '^## .*\(prayer\|petition\|votive\)' corpus/knowledge` finds only
-sub-sections of six entries (carthage, tibet, sacred-topography-pilgrimage,
-direction-symbolism, religion-language-co-evolution) and no dedicated file.
+The C claim is a coverage move on ground the coverage map did not hold. The
+base surface, measured with the command QUALITY36 requires: `git archive
+6b0b86e4 corpus/knowledge | tar -x -C "$S"` then `grep -rn -i -E
+'^#+ .*(prayer|petition|votive|supplicat)' "$S/corpus/knowledge"` returns nine
+lines in five entries and no dedicated file — carthage.md:1 (*Punic Language,
+Votive Cult*), sacred-topography-pilgrimage.md:1 and :74 (*the votive economy —
+the object, the receipt, the token*), religion-language-co-evolution.md:1 and
+:64 (*prayer languages: model events and permissions*), tibet.md:92 (prayer-wheel
+mantra economies), direction-symbolism.md:129 (orientation of prayer), plus two
+lines from garment-lexicon-crosslinguistic.md that match only the substring
+inside *competition* and are not topical. The h2-only spelling of the same grep
+(`'^## .*…'`) misses the four `#` headings and keeps the same two false
+positives, so the heading level must be stated with the command.
 What the entry adds that those sections lack: the four WALS mood paradigms with
 their sample counts and totals, the address slot separated from the mood system,
 the votive formulary as a dated object with a social reading, the large-corpus
@@ -100,6 +109,9 @@ entry is written to pass.
 | R90-M4 | landing (this round) | The earlier attempt's seat wrote seven captures and no manifest, so its claims could not be graded and its work could not be cited; the L1 died on provider failure before landing | QUALITY7 | The captures were re-fetched by the L1 into `reports/round-90/evidence/` with a manifest, and the entry is written from the re-fetched bytes, not from the dead seat's stage |
 | R90-M5 | numbers (this round) | One registry row drafted from memory said the prohibitive chapter was 74; opening the page showed chapter 71 and a 496-language sample | QUALITY14 | Row corrected before append; the gate quote for that row is taken from chapter 71's own values table |
 | R90-M6 | vacuous (this round, retained) | `tools/check-row-fragments.py` printed a green over the round-90 stage while reading zero files, because it walks `--rows` for `row-*.txt` pinned to round 65 | QUALITY23 | Not counted as evidence this round; the row-fragment check is done by the census and the grader instead, and the vacuous green is reported rather than cited |
+| R90-M7 | vacuous (this round) | `reports/round-90/separability90.py` refused with `overlay C tree is not the declared selection: extra=[] missing=[]` because the declared selection listed a path twice (the entry is both a graded path and inside the `corpus/knowledge/**` substrate) and git trees are sets | QUALITY23 (a check that cannot distinguish its own failure from a clean state) | `expected = sorted(set(present))`, one line, with the reason in a comment; rerun PASS both overlays. A refusal whose `extra` and `missing` are both empty is a self-defect, never a finding about the tree |
+| R90-M8 | numbers (this round) | The lesson's first draft stated the base surface with an h2-only grep and named six entries; the measured command returns nine lines in five entries including two `competition` false positives, and misses four `#` headings | QUALITY36 (base-measured surface) | Corrected before landing: the lesson now prints the exact command, the heading level and the false positives; the frozen `claims.json` surface text is not edited |
+| R90-M9 | verification (this round) | The claim that the SIL glossary carries no prayer or votive term rested on another seat's fetches until it was re-measured: on 2026-11-04 all nine of `vocative`, `prayer`, `invocation`, `supplication`, `petition`, `vow`, `votive`, `blessing`, `curse` return 404 under `https://glossary.sil.org/term/` | QUALITY14 (open the source, do not inherit an opened claim) | The nine-term sweep is recorded here; the entry states the 404s and the glosses it does carry |
 
 ## Settlement
 
