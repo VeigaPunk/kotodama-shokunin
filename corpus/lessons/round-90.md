@@ -32,7 +32,7 @@ is never attributed to a neighbouring id.
 
 ### Rejected (one row, kept with its flip condition)
 
-- S949 REJECTED — "A votive offering or votive deposit is one or more objects displayed or deposited, without the intention of recovery or use" — https://en.wikipedia.org/wiki/Votive_offering accessed 2026-11-04, lead section. Reason: tertiary encyclopedia text with no named author, no dating and no corpus, so it cannot carry a petitionary or votive claim under this lane's tier rule. Flip: a referenced revision whose every claim names a scholarly edition or catalogue.
+- S949 REJECTED — "Votive offerings have been described in historical Roman era and Greek sources" — https://en.wikipedia.org/wiki/Votive_offering accessed 2026-11-04, lead section. Reason: tertiary encyclopedia text with no named author, no dating and no corpus, so it cannot carry a petitionary or votive claim under this lane's tier rule. Flip: a referenced revision whose every claim names a scholarly edition or catalogue.
 
 ### Seed rot found before the rows were written
 
@@ -45,7 +45,7 @@ all. Three further seeds (three Wikipedia articles) are tier C and were not
 admitted. A row copied from that list without opening it would have cited a
 page that contradicts its own scope cell.
 
-Registry changes: S942–S948 added (six A, one B; six `mined`, all `opened
+Registry changes: S942–S948 added (six A, one B; all seven `mined`, all `opened
 2026-11-04`, `used-by` = the new entry), S949 added as `rejected` with the
 lesson as `used-by`. No existing row's cell was touched, so the freshness
 pause is respected: nothing was re-verified, re-dated or repaired this round.
