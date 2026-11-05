@@ -362,7 +362,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (40)
+## linguistics/ (41)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -381,6 +381,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `morphological-typology.md` — the four classical morphological types (isolating, agglutinative, fusional, polysynthetic), the morphological-process toolbox (affixation, reduplication, ablaut/umlaut, consonant mutation, root-and-pattern, tone, suppletion, incorporation), and the causal cascade from a typology choice into grammar, lexicon, diachrony, and cultural texture
 - `naming-systems.md` — How real cultures build and police names — personal name slots (given/lineage/clan/byname), place-name functions and strata, divine names and cult epithets, endonym/exonym layers, name taboo and name magic (the kotodama core: names as power), and a step-by-step derivation pipeline for naming a fictional culture
 - `numerals-and-measures.md` — how real languages build number words and counting practices, as a worldbuilding system — arithmetic base typology (decimal, vigesimal, hybrid, other bases, extended body-part, restricted) with the WALS 131A census and what each base commits a culture to; numeral-word morphology (transparency, portmanteau tens, suppletion, ordinals/collectives/distributives); the numeral–noun interface (sortal vs mensural classifiers, measure words, counting units like *pair* and *head of cattle*); counting technologies (finger counting, body tallies, tally marks, knotted-cord records, counting rods) and the register they generate; restricted and anumeric systems with the Pirahã debate calibrated; numeral diachrony and contact (growth stages, whole-system borrowing as in the Sino-Xenic numerals, contact-driven replacement as in post-Conquest Mesoamerica) — plus decision tables, a NON-CANON worked example, and the boundary where the measures/metrology side hands off to `culture-material/trade-economy-lexicon.md`.
+- `oath-blessing-curse-formulae.md` — oath, blessing and curse formulae: performative word-acts that bind, bless or harm — the formula grammar (invoked witness, conditional sanction, self-imprecation, performative verb), registers (sacred, legal, everyday) and the design procedure for a fictional oath or curse system whose force stays tied to its speakers, witnesses and breakers
 - `orality-formulaic-language.md` — Oral tradition linguistics — how extended verbal art is composed, performed, and remembered without writing: the Parry–Lord oral-formulaic theory, meter as mnemonic engineering, epithet and praise-name systems, type-scenes and ring composition, kennings and myth-locked diction, proverbs and riddles as compressed cultural knowledge, and a design checklist for an oral-formulaic register ("singer's speech") in a fictional culture
 - `petitionary-and-votive-formulae.md` — petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes
 - `phonetics-phonology.md` — speech sounds and sound systems for fictional cultures — IPA categories, inventory design, phonotactics, markedness, allophony, prosody/tone, environment & anatomy effects, conlang pitfalls
@@ -1050,8 +1051,23 @@ and refrain structures, formulaic grief content (praise of the dead, address to 
 consolation), gendered mourning rules, the lament between speech and song, and the design procedure for a
 fictional mourning register. Sources S970–S974 were opened this round (A/mined); no older registry row is re-verified, re-dated or repaired. Freshness stays paused by the open L0 questions.
 
-Total knowledge entries: 267.
+Total knowledge entries: 268.
 
 Counts checked 2026-11-05 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
-(total 267 files; directory totals 40/36/43/29/24/95).
+(total 268 files; directory totals 41/36/43/29/24/95).
+
+## Round 96 oath, blessing and curse formulae entry (2026-11-05)
+
+`knowledge/linguistics/oath-blessing-curse-formulae.md` adds a dedicated entry on
+oath, blessing and curse formulae: the formula grammar (invoked witness, conditional sanction,
+self-imprecation, performative verb), registers (sacred, legal, everyday) and the design
+procedure for a fictional oath or curse system whose force stays tied to its speakers,
+witnesses and breakers. Its row is added in filename order inside `## linguistics/`;
+`## linguistics/` moved 40 → **41**; the totals and footer moved 267 → **268**.
+
+Total knowledge entries: 268.
+
+Counts checked 2026-11-05 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 268 files; directory totals 41/36/43/29/24/95).

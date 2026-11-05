@@ -5079,3 +5079,24 @@ Claims O (operability) and C (coverage), frozen at `d41eb594` (base `19aa4dd0`).
   (`reports/round-95/counter-revisions.md`); no frozen predicate was amended after scoring.
 - Routed to round 96: CriticO95's nine survivors (splitlines severing, NBSP, ESC, homoglyph id, `## (1)`, `## -`),
   the F1 battery class, the teaching-cell/anchor-quote coupling (R95-M4), and the staging gap for raw search JSON.
+
+## 2026-11-05 — round 96 (hyaku run 15, attempt 1, L1 KotodamaR96)
+
+Claims frozen in `reports/round-96/claims.json` (freeze `deca7e6f`; before-prediction correction `063f70c9`
+before any seat ran; control `reports/round-96/predispatch-base.txt` FAIL 3/12).
+
+- Claim O (operability): grader v8 (`tools/check-advance-evidence.py`, sha256 `f29ab0139b4590fa8da7232a7372574675ef60763c475eea003006eb1dbcd9c0`)
+  closes the CriticO95 classes NB1, VT1, FF1, LS1, NEL1, ANSI1, CYR1, BR1, DASH1 and the F1 battery class. Battery96
+  over v6: survivors=9 refused=15; over v8: survivors=0 refused=24. Selftest 134 → 147. Mutation96 on the first v7
+  landing 109/112 (3 survived: U+001D and U+001E unpinned; a shadowed duplicate ID1 branch) — repaired in v8 by two pins
+  and deletion of the duplicate, with the mutant whose target was deleted retired (111/111). Evidence:
+  `.ufo/waves/round-96/w1/stage/ExecBattery96/`, `…/ExecGraderV7/`, `…/MutationTester96/`, `reports/round-96/predispatch-lands.txt`.
+- Claim C (coverage): `corpus/knowledge/linguistics/oath-blessing-curse-formulae.md` (30143 B; zero owned file at base;
+  overlap with `binding-speech-complex.md` 0.29%). Registry rows S975–S984 (10 added, 0 removed; S978 Tuomi review, S980
+  Frangulov thesis, S981 Encyclopedia of Shinto, S984 TheTorah; S-ids and quotes in `corpus/lessons/round-96.md` Gate).
+  One scout candidate (C4) dropped on a fresh HTTP 404. Evidence: `reports/round-96/evidence/`, `census/census-end.txt` rc 0.
+- Frontier step: mistake R96-M1 mined (round-95 Thrênoi access reject contradicted by re-open); criterion 38 added to
+  `corpus/QUALITY.md`; re-decision in `ReviewerThrenoi96` (admit-as-candidate, not yet a registry row). Sourced claim:
+  claim C cites S975–S984 opened this round.
+- Dispatch held by `/fast` disk pressure (100% at 17:28 -03); L0 line appended to `.ufo/l0-questions.md`.
+- Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.

@@ -83,7 +83,14 @@ classes by name instead of re-deriving the whole claim:
     CAPTURE    each gate quote occurs in its committed capture (same rules as above)
 
 Exit 0 pass, 1 finding(s), 2 refused (bad arguments or unreadable input).
-No network access: every surface is a committed capture.
+Round-96 v7 refuses the nine fresh CriticO95 classes named: VERDICT-NBSP (NB1,
+U+00A0), VERDICT-VT (VT1), VERDICT-FF (FF1), VERDICT-LINESEP (LS1, with its
+U+2029 / U+001C-U+001E family), VERDICT-NEL (NEL1), VERDICT-ANSI (ANSI1),
+ID-NONASCII for homoglyph id letters (CYR1), and bracketed/separator-dash
+numbered headings (BR1/DASH1, refused on TOPIC). Verdict-channel checks read
+lesson lines on \n only, before any splitlines severing. ZWNJ stays benign
+(not refused) and F1's TOPIC refusal is unchanged.
+
 """
 
 import argparse
@@ -254,7 +261,45 @@ def _dispo_match(stripped):
     return m
 
 
+def _refuse_verdict_channel(n, line):
+    """Round-96 v7 (routed CriticO95 NB1/VT1/FF1/LS1/NEL1/ANSI1/CYR1): read
+    the RAW line (before any splitlines severing and before ZW/DASH
+    stripping) and refuse a named diagnostic when a plausible disposition
+    hides a forged token. Two gated channels: (1) a verdict window - a
+    LOCATED/NOT-LOCATED/LO??CATED-like span bounded by whitespace - carrying
+    NBSP/VT/FF/line-separator/NEL/ESC characters is refused under the
+    VERDICT-* name for that codepoint; (2) a plausible id token carrying a
+    non-ASCII letter (homoglyph) is refused as ID-NONASCII before the
+    ASCII-id gate ever runs. The ZWNJ U+200C is on no blocklist and stays
+    benign (proven by the round-96 ZWNJ1 control)."""
+    # Gate on a plausible disposition: narrow to windows that look like one.
+    _up = line.upper()
+    if 'LOCATED' not in _up and 'LO' not in _up and 'ATED' not in _up:
+        return
+    for m in re.finditer(r'\S*(?:LOCATED|LO[\s\S]{0,10}TED|NOT[\s\S]{0,6}LOCATED)\S*', line, re.I):
+        span = m.group(0)
+        if '\u00a0' in span:
+            raise Refused(f'line {n}: verdict token carries a non-breaking space (VERDICT-NBSP)')
+        if '\u000b' in span:
+            raise Refused(f'line {n}: verdict token carries a vertical tab (VERDICT-VT)')
+        if '\u000c' in span:
+            raise Refused(f'line {n}: verdict token carries a form feed (VERDICT-FF)')
+        for cpv in ('\u2028', '\u2029', '\u001c', '\u001d', '\u001e'):
+            if cpv in span:
+                raise Refused(f'line {n}: verdict token carries a line separator (VERDICT-LINESEP)')
+        if '\u0085' in span:
+            raise Refused(f'line {n}: verdict token carries a NEL (VERDICT-NEL)')
+        if '\u001b' in span:
+            raise Refused(f'line {n}: verdict token carries an ANSI escape (VERDICT-ANSI)')
+    for tok in re.findall(r'\S*?[A-Za-z\u0080-\uFFFF]\d{3,}\b', line):
+        if not re.fullmatch(r'[Ss]\d{3,}', tok):
+            core = tok.strip('|-*<>_`#')
+            if len(core) >= 2 and any(ord(c) > 127 and unicodedata.category(c).startswith('L') for c in core):
+                # only when the non-ASCII one-letter + 3 digits could be an id
+                if re.search(r'\d{3,}$', core):
+                    raise Refused(f'line {n}: id token carries a non-ASCII lookalike letter (ID-NONASCII)')
 def _refuse_disguised(n, stripped):
+
     """Round-94 v5 (routed round-93 A1/K1): an id line whose verdict token hides
     behind non-ASCII letters or lowercase spelling is refused on a named
     diagnostic instead of being silently invisible to APPENDONLY.
@@ -287,17 +332,6 @@ def _refuse_disguised(n, stripped):
     # Whitespace inside a split verdict word (TAB1): LO<TAB>CATED etc.
     if '\t' in stripped and re.search(r'LO\s+CATED|NOT\s+LOCATED', stripped, re.I):
         raise Refused(f'line {n}: verdict token carries whitespace (VERDICT-TAB)')
-    # Id-token lookalike (ID1): a non-ASCII letter that NFKC-folds or otherwise
-    # sits where the ASCII S of the id token belongs, followed by digits.
-    # Small-cap letters (e.g. U+A731) do not NFKC-fold to ASCII, so map the
-    # common small-cap block explicitly before testing the folded shape.
-    SMALLCAP = {'ꜱ': 'S', 'ᴅ': 'D', 'ᴇ': 'E', 'ʜ': 'H', 'ᴋ': 'K', 'ᴍ': 'M', 'ᴏ': 'O', 'ᴘ': 'P', 'ᴛ': 'T', 'ᴄ': 'C', 'ʙ': 'B', 'ᴀ': 'A'}
-    for tok in re.findall(r'\S+\d{3,}\b', stripped):
-        if not re.match(r'^[Ss]\d{3,}$', tok):
-            folded = ''.join(SMALLCAP.get(c, c) for c in unicodedata.normalize('NFKC', tok))
-            has_nonascii_letter = any(ord(c) > 127 and unicodedata.category(c).startswith('L') for c in tok)
-            if has_nonascii_letter and re.match(r'^[Ss]\d{3,}$', folded):
-                raise Refused(f'line {n}: id token carries a non-ASCII lookalike letter (ID-NONASCII)')
     if not re.search(r'\b[Ss]\d{3,}\b', probe):
         return
     if DISPO_ANY_RE_I.search(plain) and not _dispo_match(plain):
@@ -317,6 +351,8 @@ def dispositions(lesson):
     LOCATED flip; a verdict token hidden behind a soft hyphen, non-ASCII letters
     or lowercase spelling is refused on a named diagnostic, never invisible."""
     out = {}
+    for _rn, _rl in enumerate(lesson.split('\n'), 1):
+        _refuse_verdict_channel(_rn, _rl)
     for n, line in enumerate(lesson.splitlines(), 1):
         stripped = line.strip().translate(ZW_MAP).translate(DASH_MAP)
         m = _dispo_match(stripped)
@@ -677,8 +713,11 @@ def grade_entry(args):
             # second-token number turns the heading into a single content
             # surface: "Notes 1) address" counts as one token.
             raw = h.lstrip('#').split()
+            # Round-96 v7 (routed CriticO95 BR1/DASH1): bracketed numbers
+            # "(1)" and a separator dash "-" are list marks, not content.
+            _NUM2 = re.compile(r'^(\d+[.)]?|\d+\.\d+[.)]?|[IVXLCDM]+[.)]?|[ivxlcdm]+[.)]?|\(?\d+[.)]?\)?|[\u2010-\u2015-]+)$')
             def isnum(t):
-                return bool(re.match(r'^(\d+[.)]?|\d+\.\d+[.)]?|[IVXLCDM]+[.)]?|[ivxlcdm]+[.)]?)$', t))
+                return bool(_NUM2.match(t))
             if len(raw) >= 3 and isnum(raw[1]):
                 raw = raw[2:]
             toks = [t for t in raw if not isnum(t)]
@@ -1808,6 +1847,25 @@ def selftest(work):
                 + '\n## table\n\n' + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
                 + '\n\nS010 S011 S012\n')
     chk('single-token headings anchor no phrase (head-qualify pin)', ['entry'] + E(entry=single_tok, min_topic_phrases='4', min_anchor_span='0', min_topic_overlap='1'), 1, ['FAIL TOPIC', 'phrase anchors 0/4'])
+    # ------------------------------------------------ round-96 v7 pins (10)
+    _g96tail = ' recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: \u201canother old base row about dye plants\u201d\n'
+    _d = {'NB1': 'LO\u00a0CATED', 'VT1': 'LOCA\u000bTED', 'FF1': 'LOCA\u000cTED', 'LS1': 'LOCA\u2028TED', 'NEL1': 'LOCA\u0085TED', 'ANSI1': 'LOCA\u001b[31mTED', 'PS1': 'LOCA\u2029TED', 'FS1': 'LOCA\u001cTED', 'FS2': 'LOCA\u001dTED', 'FS3': 'LOCA\u001eTED'}
+    _tok = {'NB1': 'VERDICT-NBSP', 'VT1': 'VERDICT-VT', 'FF1': 'VERDICT-FF', 'LS1': 'VERDICT-LINESEP', 'NEL1': 'VERDICT-NEL', 'ANSI1': 'VERDICT-ANSI', 'PS1': 'VERDICT-LINESEP', 'FS1': 'VERDICT-LINESEP', 'FS2': 'VERDICT-LINESEP', 'FS3': 'VERDICT-LINESEP'}
+    for _c in ['NB1', 'VT1', 'FF1', 'LS1', 'NEL1', 'ANSI1', 'PS1', 'FS1', 'FS2', 'FS3']:
+        _lf = write(f'lesson_g96{_c}.md', lesson_e_text + f'- S001 {_d[_c]}' + _g96tail)
+        chk(f'round-96 {_c}: token carries the codepoint refused', ['entry'] + E(lesson=_lf), 2, [_tok[_c]])
+    _lc = write('lesson_g96CYR1.md', lesson_e_text + '- \u0430' + '001 LOCATED' + _g96tail)
+    chk('round-96 CYR1: homoglyph id letter refused', ['entry'] + E(lesson=_lc), 2, ['ID-NONASCII'])
+    _br1 = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1br1/prayer-register.md')
+    os.makedirs(os.path.dirname(_br1), exist_ok=True)
+    with open(_br1, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## (1) address').replace('## 2. The petition', '## (2) petition').replace('## 3. Fixed and extempore', '## (3) efficacy').replace('## 4. Efficacy', '## (4) table').replace('## 5. Table', '## (5) Notes'))
+    chk_leg('round-96 BR1: bracketed-number phrase-only headings do not anchor', ['entry'] + E(entry=_br1), 'TOPIC')
+    _da1 = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1dash1/prayer-register.md')
+    os.makedirs(os.path.dirname(_da1), exist_ok=True)
+    with open(_da1, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## - address').replace('## 2. The petition', '## - petition').replace('## 3. Fixed and extempore', '## - efficacy').replace('## 4. Efficacy', '## - table').replace('## 5. Table', '## - Notes'))
+    chk_leg('round-96 DASH1: separator-dash phrase-only headings do not anchor', ['entry'] + E(entry=_da1), 'TOPIC')
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']

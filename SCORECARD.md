@@ -2275,3 +2275,27 @@ marked unadmitted here and superseded by the row below.
 | name | demonstrated behavior | command / evidence | first working |
 |---|---|---|---|
 | grader v6 counterfeit refusals | Refuses by name, with no traceback, the fourteen counterfeit classes of the round-95 battery: lookalike and soft-hyphen and lowercase verdict tokens, list-typed manifest rows, short registry rows, en-dash misreads (round 94), plus combining-mark (`VERDICT-COMBINE`), format-character (`VERDICT-FORMAT`) and whitespace (`VERDICT-TAB`) verdict tokens, lookalike id letters (`ID-NONASCII`), and nested, roman and second-token numbered headings that anchor nothing (TOPIC) | `python3 -B tools/check-advance-evidence.py --selftest --work <dir>` → `SELFTEST PASS 134/134`; `python3 -B .ufo/waves/round-95/w1/stage/ExecBattery95/battery95.py --tool tools/check-advance-evidence.py --work <dir>` → `BATTERY-SUMMARY survivors=0 unnamed=0 refused=14`; mutation95 `95/95 killed` | round 95 (claim O, admitted on the frozen predicate) |
+
+## Axes — round 96 (2026-11-05; author-side verdicts, non-author closure pending)
+
+Base `0539276c0e329743200b60e98bf289c540f78864`; freeze `deca7e6fff988061f01bfc501a91e18fca892822`
+(`reports/round-96/claims.json`, counter `reports/round-96/predispatch.py`, control `reports/round-96/predispatch-base.txt`
+FAIL legs=3/12); correction `063f70c9ab9aed5297741773292ded6d713d537a` (before-prediction only, before any seat ran);
+landed tree measured at the round-96 landing commit (see the report): `reports/round-96/predispatch-lands.txt` PASS 12/12.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved (claim O, frozen predicate met on landed v8 bytes; the first v7 landing failed O3, see lesson) | battery96 over v6: survivors=9 refused=15 (control) → over v8 `f29ab013…`: survivors=0 unnamed=0 refused=24; SELFTEST 134/134 → 147/147; mutation96 v7 109/112 (3 survived) → v8 111/111 killed | `python3 -B reports/round-96/predispatch.py --root . --work <dir> --base-rev 0539276c…` (O0–O4) | `reports/round-96/controls/battery96-control-v6.txt`, `.ufo/waves/round-96/w1/stage/ExecGraderV7/`, `…/MutationTester96/mutation-score-v7.txt`, `predispatch-lands.txt` |
+| coverage / C | improved (claim C, frozen predicate met) | no oath, blessing or curse knowledge file at base → `corpus/knowledge/linguistics/oath-blessing-curse-formulae.md` (30143 B, 11 h2, table 19×5, 6/6 phrases); registry 898 → 908 rows, highest S974 → S984, 10 new rows (qualifying 10) | same command (C1–C7) | `reports/round-96/evidence/manifest.json`, captures S975–S984, `census-end.txt` rc 0, `CORPUS-INDEX: OK files=268 rows=268 findings=0` |
+| adjacency / A | unchanged | overlap with `myth-symbol/binding-speech-complex.md` measured at 14 of 4891 distinct 8-grams (0.29%); 17 of 20 named owners zero shared | — | `.ufo/waves/round-96/w1/stage/CriticC96/critic.md` §2; `ConnectorOverlap96/overlap.md` |
+| depth / freshness | unchanged | no depth or freshness claim; freshness paused by open L0 round-11 and round-89 questions (lines 47, 303) | — | `.ufo/l0-questions.md` |
+| calibration | unchanged (observation) | the round-95 Thrênoi access reject re-opened and shown not to hold (HTTP 200, attempt 1); one mistake mined (R96-M1) and criterion 38 added | — | `.ufo/waves/round-96/w1/stage/ReviewerThrenoi96/decision.md` |
+
+Retirements and saturation: none. Stagnation nudge not invoked (no calibrated scores; Saturation section).
+
+## Planned — round 97 (routed; not frozen)
+
+Candidates routed from round 96, to be frozen before data: (1) claim-O surface: the seven v7 survivors named in
+`corpus/lessons/round-96.md` (CR1, US1, OGH1, IS1, NUL1, CM1, CMW2) if they are still open on the v8 bytes;
+(2) Thrênoi row nomination (`ReviewerThrenoi96` §5) and its registry write; (3) the freshness obligation remains
+paused until L0 answers.
