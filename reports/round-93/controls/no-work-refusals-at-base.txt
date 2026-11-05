@@ -1,0 +1,17 @@
+# round-93 base receipts: frozen round-92 instruments without --work (R92-M3 routed)
+# base: 3c81f922a29db286c97640f488a1d97b55a26e96
+$ python3 -B reports/round-92/mutants.py --root <repo>
+rc=2
+usage: mutants.py [-h] [--root ROOT] --work WORK [--out OUT] [--tool TOOL]
+mutants.py: error: the following arguments are required: --work
+
+$ python3 -B reports/round-92/measure92.py --root <repo> --freeze 066b9728... --lands 1473606b... --claim O
+rc=2
+usage: measure92.py [-h] --root ROOT --lands LANDS --claim {O,C} --work WORK
+                    [--freeze FREEZE] [--receipt RECEIPT] [--json]
+measure92.py: error: the following arguments are required: --work
+
+# form 2: --work naming a nonexistent directory
+$ python3 -B reports/round-92/mutants.py --root <repo> --work /fast/scratch/hyaku/kotodama-r93/nonexistent-work-dir
+rc=1 traceback FileNotFoundError: '/fast/scratch/hyaku/kotodama-r93/nonexistent-work-dir/clean-tool.py' (mutants.py:123)
+# routed to round 93: both instruments must refuse a missing/nonexistent --work with a named diagnostic, rc 2.

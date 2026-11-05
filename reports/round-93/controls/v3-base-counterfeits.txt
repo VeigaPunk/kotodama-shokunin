@@ -1,0 +1,567 @@
+# v3-at-base counterfeit battery receipt (round-93 do-nothing evidence)
+# driver: .ufo/waves/round-92/w1/stage/CriticClaims92/attack_driver.py, paths re-pointed to r93 scratch
+# base: 3c81f922a29db286c97640f488a1d97b55a26e96  tool: tools/check-advance-evidence.py sha256 905be2fed386c491d52224832ea75ed8c7b02e67c1b021b2c66511658c1c1422
+# observed: 16 SURVIVORS rc=0 (A2c A2d A2e A2f A3b A4a A5d A5e A5f A6a A6b A6c A6d A6e A6f A6g-unnamed-crash rc=1), 5 refused, 2 CLEAN
+# attacks.md — CriticClaims92 counterfeit battery against the frozen v3 entry mode
+
+Frozen tool: tools/check-advance-evidence.py sha256 905be2fed386c491d52224832ea75ed8c7b02e67c1b021b2c66511658c1c1422 (matches O.tool_sha256).
+Fixture builder imported read-only: reports/round-92/controls/make-counterfeits.py sha256 86d3b8168635a1c61928a7732676b0c2a0ec9c92b7d7aaeca8bf86fdc547e05d.
+Args: entry mode, set B (--min-anchor-span 3 --min-gate-overlap 3), plus the builder floors (--min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3, base-lesson corpus/lessons/round-91.md equivalent fixture).
+Selftest of the frozen tool (run for the record): rc=0 last line: `  ok  gate quote unbound on a real entry: rc=1`
+Driver: attack_driver.py (this stage dir). Fixtures rebuilt under scratch and deleted at seat end.
+
+Totals: counterfeits 21; SURVIVORS 16; refused 5 (unnamed 1); controls: G0=CLEAN, C1c=refused on GATE, A4b=refused on TOPIC, A5a=CLEAN, A5c=refused on APPENDONLY.
+
+| id | expected | rc | outcome | verdict line |
+|---|---|---|---|---|
+| G0 | CLEAN | 0 | CLEAN | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| C1c | REFUSE:GATE | 1 | refused on GATE | `ENTRY-EVIDENCE: FAIL legs=7/8 failed=GATE` |
+| A1 | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A2a | REFUSE:UNIQUENESS | 1 | refused on UNIQUENESS | `ENTRY-EVIDENCE: FAIL legs=7/8 failed=UNIQUENESS` |
+| A2b | REFUSE:GATE/CAPTURE | 1 | refused on CAPTURE,GATE | `ENTRY-EVIDENCE: FAIL legs=6/8 failed=GATE,CAPTURE` |
+| A2c | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A2d | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A2e | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A2f | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A3a | REFUSE:CAPTURE | 1 | refused on CAPTURE | `ENTRY-EVIDENCE: FAIL legs=7/8 failed=CAPTURE` |
+| A3b | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A4a | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A4b | REFUSE:TOPIC | 1 | refused on TOPIC | `ENTRY-EVIDENCE: FAIL legs=7/8 failed=TOPIC` |
+| A5a | CLEAN | 0 | CLEAN | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A5b | REFUSE:APPENDONLY | 1 | refused on APPENDONLY | `ENTRY-EVIDENCE: FAIL legs=7/8 failed=APPENDONLY` |
+| A5c | REFUSE:APPENDONLY | 1 | refused on APPENDONLY | `ENTRY-EVIDENCE: FAIL legs=7/8 failed=APPENDONLY` |
+| A5d | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A5e | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A5f | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A6a | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A6b | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A6c | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A6d | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A6e | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A6f | SURVIVE | 0 | SURVIVOR | `ENTRY-EVIDENCE: PASS legs=8/8` |
+| A6g | REFUSE:unnamed | 1 | refused-unnamed (rc=1) | `AttributeError: 'list' object has no attribute 'get'` |
+
+## G0 — CLEAN
+
+- Recipe: Compliant control: set-B grade of the unmodified mini-lane.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/G0 entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/G0/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/G0/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/G0/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/G0/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/G0/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/G0/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: CLEAN
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## C1c — refused on GATE
+
+- Recipe: Control for attack 1: chrome quote as an own sentence in the entry, manifest quote NOT forged.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/C1c_chrome_noforge entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/C1c_chrome_noforge/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/C1c_chrome_noforge/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/C1c_chrome_noforge/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/C1c_chrome_noforge/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/C1c_chrome_noforge/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/C1c_chrome_noforge/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `ENTRY-EVIDENCE: FAIL legs=7/8 failed=GATE`
+- Expected: REFUSE:GATE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG FAIL GATE expected=each new id has a located gate line bound to the row teaching observed=S955: gate quote shares < 3 content words with teaching/manifest quote (chrome or unrelated)
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=7/8 failed=GATE
+```
+
+## A1 — SURVIVOR
+
+- Recipe: Chrome quote "Freemium for Journals platform" as the gate quote, the same string as the entry's own sentence, and the manifest quote field forged to "Freemium Journals platform prayer address petition" so the content-word bind (3 words) passes.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A1_chrome_forged_manifest entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A1_chrome_forged_manifest/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A1_chrome_forged_manifest/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A1_chrome_forged_manifest/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A1_chrome_forged_manifest/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A1_chrome_forged_manifest/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A1_chrome_forged_manifest/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A2a — refused on UNIQUENESS
+
+- Recipe: Combined fragment + trailing slash + uppercase host: S955 url "https://REGISTRY-EXAMPLE.org/base-prayer-notes/#polari" (requested combined shadow).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_REGISTRY_EXAMPLE_o entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_REGISTRY_EXAMPLE_o/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_REGISTRY_EXAMPLE_o/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_REGISTRY_EXAMPLE_o/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_REGISTRY_EXAMPLE_o/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_REGISTRY_EXAMPLE_o/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_REGISTRY_EXAMPLE_o/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `ENTRY-EVIDENCE: FAIL legs=7/8 failed=UNIQUENESS`
+- Expected: REFUSE:UNIQUENESS
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG FAIL UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=S955: url shadows base row S776: https://REGISTRY-EXAMPLE.org/base-prayer-notes/#polari
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=7/8 failed=UNIQUENESS
+```
+
+## A2b — refused on CAPTURE,GATE
+
+- Recipe: Uppercase scheme "HTTPS://registry-example.org/base-prayer-notes": URL_RE is case-sensitive, so UNIQUENESS sees no url at all; another leg must refuse.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_HTTPS_registry_example_o entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_HTTPS_registry_example_o/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_HTTPS_registry_example_o/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_HTTPS_registry_example_o/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_HTTPS_registry_example_o/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_HTTPS_registry_example_o/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_HTTPS_registry_example_o/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `ENTRY-EVIDENCE: FAIL legs=6/8 failed=GATE,CAPTURE`
+- Expected: REFUSE:GATE/CAPTURE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG FAIL GATE expected=each new id has a located gate line bound to the row teaching observed=S955: gate line does not name the row url
+LEG FAIL CAPTURE expected=each gate quote occurs in its committed capture observed=S955: row carries no URL
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=6/8 failed=GATE,CAPTURE
+```
+
+## A2c — SURVIVOR
+
+- Recipe: Scheme swap: S955 url "http://registry-example.org/base-prayer-notes" (same host and path as base S776 under http).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_http_registry_example_or entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_http_registry_example_or/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_http_registry_example_or/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_http_registry_example_or/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_http_registry_example_or/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_http_registry_example_or/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_http_registry_example_or/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A2d — SURVIVOR
+
+- Recipe: Host prefix: S955 url "https://www.registry-example.org/base-prayer-notes".
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_www_registry_examp entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_www_registry_examp/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_www_registry_examp/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_www_registry_examp/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_www_registry_examp/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_www_registry_examp/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_www_registry_examp/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A2e — SURVIVOR
+
+- Recipe: Query suffix: S955 url "https://registry-example.org/base-prayer-notes?ref=lane".
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A2f — SURVIVOR
+
+- Recipe: Path case: S955 url "https://registry-example.org/Base-Prayer-Notes".
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A2_url_https_registry_example_o/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A3a — refused on CAPTURE
+
+- Recipe: Capture file S955.txt is a byte-exact copy of the ENTRY; gate quote is an entry prose sentence; manifest sha = entry sha.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `ENTRY-EVIDENCE: FAIL legs=7/8 failed=CAPTURE`
+- Expected: REFUSE:CAPTURE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG FAIL CAPTURE expected=each gate quote occurs in its committed capture observed=S955: capture byte-copies a graded file (/fast/scratch/hyaku/kotodama-r93/base-controls/work/A3a_entry_exact_copy/corpus/knowledge/myth-symbol/prayer-register.md) under a different path: reports/round-90/evidence/S955.txt
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=7/8 failed=CAPTURE
+```
+
+## A3b — SURVIVOR
+
+- Recipe: Capture file S955.txt is the ENTRY plus one trailing newline (sha differs from the graded entry, text identical after norm).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3b_entry_plus_newline entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3b_entry_plus_newline/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3b_entry_plus_newline/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3b_entry_plus_newline/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3b_entry_plus_newline/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3b_entry_plus_newline/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A3b_entry_plus_newline/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A4a — SURVIVOR
+
+- Recipe: Span gaming: four h2 headings, three of them a single phrase each ("## address", "## petition", "## efficacy"), "table" in the table header row; topical prose otherwise.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4a_three_minimal_headings entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4a_three_minimal_headings/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4a_three_minimal_headings/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4a_three_minimal_headings/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4a_three_minimal_headings/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4a_three_minimal_headings/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4a_three_minimal_headings/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A4b — refused on TOPIC
+
+- Recipe: Control for attack 4: all four phrases in one heading, no other heading or table hit (span 1).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4b_all_phrases_one_heading entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4b_all_phrases_one_heading/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4b_all_phrases_one_heading/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4b_all_phrases_one_heading/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4b_all_phrases_one_heading/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4b_all_phrases_one_heading/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A4b_all_phrases_one_heading/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `ENTRY-EVIDENCE: FAIL legs=7/8 failed=TOPIC`
+- Expected: REFUSE:TOPIC
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG FAIL TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=phrase anchors span 2 heading/table surfaces < 3; phrase anchors 4/4 spanning 2 heading/table surfaces
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: FAIL legs=7/8 failed=TOPIC
+```
+
+## A5a — CLEAN
+
+- Recipe: Prose sentence "S776 located in the archive, ..." in the lands lesson; S776 base disposition is LOCATED, so no movement.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5a_prose_S776_located entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5a_prose_S776_located/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5a_prose_S776_located/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5a_prose_S776_located/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5a_prose_S776_located/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5a_prose_S776_located/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5a_prose_S776_located/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: CLEAN
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A5b — refused on APPENDONLY
+
+- Recipe: Prose sentence "S001 located in the archive, ..." in the lands lesson; S001 has no base disposition line (over-fire test on honest prose).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5b_prose_S001_located entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5b_prose_S001_located/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5b_prose_S001_located/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5b_prose_S001_located/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5b_prose_S001_located/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5b_prose_S001_located/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5b_prose_S001_located/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `ENTRY-EVIDENCE: FAIL legs=7/8 failed=APPENDONLY`
+- Expected: REFUSE:APPENDONLY
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG FAIL APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=S001: gained a LOCATED line not present at base
+ENTRY-EVIDENCE: FAIL legs=7/8 failed=APPENDONLY
+```
+
+## A5c — refused on APPENDONLY
+
+- Recipe: Control for 5b: "S001 NOT located in the archive, ..." prose line (verdict flip spelled with a space).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5c_prose_S001_not_located entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5c_prose_S001_not_located/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5c_prose_S001_not_located/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5c_prose_S001_not_located/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5c_prose_S001_not_located/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5c_prose_S001_not_located/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5c_prose_S001_not_located/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `ENTRY-EVIDENCE: FAIL legs=7/8 failed=APPENDONLY`
+- Expected: REFUSE:APPENDONLY
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG FAIL APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=S001: gained a NOT-LOCATED line not present at base
+ENTRY-EVIDENCE: FAIL legs=7/8 failed=APPENDONLY
+```
+
+## A5d — SURVIVOR
+
+- Recipe: Bold-wrapped disposition "**S001** LOCATED recheck 90d accessed 2026-11-05" (under-fire: DISPO_RE anchor needs the id at line start after an optional whitespace-terminated prefix).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5d_bold_disposition entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5d_bold_disposition/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5d_bold_disposition/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5d_bold_disposition/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5d_bold_disposition/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5d_bold_disposition/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5d_bold_disposition/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A5e — SURVIVOR
+
+- Recipe: Table-row disposition "| S001 | LOCATED | accessed 2026-11-05 |" in the lands lesson.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5e_table_row_disposition entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5e_table_row_disposition/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5e_table_row_disposition/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5e_table_row_disposition/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5e_table_row_disposition/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5e_table_row_disposition/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5e_table_row_disposition/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A5f — SURVIVOR
+
+- Recipe: Zero-width space inside the verdict: "S001 LOC\u200bATED recheck 90d accessed 2026-11-05" (renders as LOCATED, regex sees no token).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5f_zwsp_verdict entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5f_zwsp_verdict/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5f_zwsp_verdict/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5f_zwsp_verdict/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5f_zwsp_verdict/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5f_zwsp_verdict/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A5f_zwsp_verdict/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A6a — SURVIVOR
+
+- Recipe: Invented class: lands registry base row S776 teaches cell rewritten to a flattering string (entry mode has no OTHERCELLS leg; base registry itself unchanged).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6a_base_row_teaches_rewritten_in_lands entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6a_base_row_teaches_rewritten_in_lands/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6a_base_row_teaches_rewritten_in_lands/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6a_base_row_teaches_rewritten_in_lands/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6a_base_row_teaches_rewritten_in_lands/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6a_base_row_teaches_rewritten_in_lands/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6a_base_row_teaches_rewritten_in_lands/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A6b — SURVIVOR
+
+- Recipe: Invented class: base row S001 deleted from the lands registry (entry mode does not compare lands base rows to base).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6b_base_row_S001_dropped_in_lands entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6b_base_row_S001_dropped_in_lands/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6b_base_row_S001_dropped_in_lands/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6b_base_row_S001_dropped_in_lands/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6b_base_row_S001_dropped_in_lands/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6b_base_row_S001_dropped_in_lands/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6b_base_row_S001_dropped_in_lands/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A6c — SURVIVOR
+
+- Recipe: Invented class: S955 capture is an in-root SYMLINK to base-lesson.md (not graded, lexically confined path, sha matches target, quote in target bytes). Residual of routed finding 6 (non-graded blob).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6c_symlink_inroot_base_lesson entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6c_symlink_inroot_base_lesson/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6c_symlink_inroot_base_lesson/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6c_symlink_inroot_base_lesson/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6c_symlink_inroot_base_lesson/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6c_symlink_inroot_base_lesson/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6c_symlink_inroot_base_lesson/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A6d — SURVIVOR
+
+- Recipe: Invented class: S955 capture is a SYMLINK escaping the repository root to a file in the scratch dir (lexical confinement only).
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6d_symlink_outside_root entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6d_symlink_outside_root/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6d_symlink_outside_root/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6d_symlink_outside_root/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6d_symlink_outside_root/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6d_symlink_outside_root/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6d_symlink_outside_root/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A6e — SURVIVOR
+
+- Recipe: Invented class: quote exists only in raw HTML markup (meta content attribute) of the capture, not in rendered text; CAPTURE matches raw bytes.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6e_quote_only_in_meta entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6e_quote_only_in_meta/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6e_quote_only_in_meta/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6e_quote_only_in_meta/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6e_quote_only_in_meta/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6e_quote_only_in_meta/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6e_quote_only_in_meta/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A6f — SURVIVOR
+
+- Recipe: Invented class: gate line carries a valid first quote (bound, in capture) and a chrome "body:" quote second; only the first quote is ever checked.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6f_decoy_first_quote entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6f_decoy_first_quote/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6f_decoy_first_quote/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6f_decoy_first_quote/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6f_decoy_first_quote/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6f_decoy_first_quote/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6f_decoy_first_quote/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 0
+- Verdict line: `ENTRY-EVIDENCE: PASS legs=8/8`
+- Expected: SURVIVE
+- Leg output:
+```
+LEG PASS ENTRY expected=>=1200B, >=4 h2, header keys observed=clean
+LEG PASS SHAPE expected=>=5 data rows x >=3 cols, no filler repetition observed=clean
+LEG PASS TOPIC expected=>=8 shared content words with the declared topic; >=4 phrase anchors in headings/table observed=clean
+LEG PASS NEWIDS expected=>=3 new mined A/B rows opened 2026-11-05 and cited observed=clean
+LEG PASS UNIQUENESS expected=no duplicate lands id, no base-url shadow, no shared new url observed=clean
+LEG PASS GATE expected=each new id has a located gate line bound to the row teaching observed=clean
+LEG PASS CAPTURE expected=each gate quote occurs in its committed capture observed=clean
+LEG PASS APPENDONLY expected=no old id gains or flips a disposition in the round lesson observed=clean
+ENTRY-EVIDENCE: PASS legs=8/8
+```
+
+## A6g — refused-unnamed (rc=1)
+
+- Recipe: Operability probe: manifest with rows as a list (not a dict). Expected: unnamed traceback, not a named leg.
+- Command: `/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py --root /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6g_manifest_rows_as_list entry --entry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6g_manifest_rows_as_list/corpus/knowledge/myth-symbol/prayer-register.md --base-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6g_manifest_rows_as_list/base.md --lands-registry /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6g_manifest_rows_as_list/lands.md --lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6g_manifest_rows_as_list/lesson.md --manifest /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6g_manifest_rows_as_list/manifest.json --capture-dir reports/round-90/evidence --as-of 2026-11-05 --topic 'prayer as a petitionary address register: vocative formulae, votive promises, fixed and extempore speech, efficacy claims' --topic-phrases 'address;petition;efficacy;table' --min-topic-phrases 4 --min-bytes 1200 --min-headings 4 --min-new-ids 3 --min-topic-overlap 8 --table-min-rows 5 --table-min-cols 3 --base-lesson /fast/scratch/hyaku/kotodama-r93/base-controls/work/A6g_manifest_rows_as_list/base-lesson.md --graded corpus/SOURCES.md --graded lesson.md --min-anchor-span 3 --min-gate-overlap 3`
+- rc: 1
+- Verdict line: `AttributeError: 'list' object has no attribute 'get'`
+- Expected: REFUSE:unnamed
+- Leg output:
+```
+Traceback (most recent call last):
+  File "/home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py", line 1257, in <module>
+    sys.exit(main(sys.argv[1:]))
+             ~~~~^^^^^^^^^^^^^^
+  File "/home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py", line 1250, in main
+    return cli(args)
+  File "/home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py", line 652, in cli
+    return emit(*grade_entry(args), receipt=args.receipt, label='ENTRY-EVIDENCE', as_json=args.json)
+                 ~~~~~~~~~~~^^^^^^
+  File "/home/vgpnk/Projects/shokunin/kotodama-shokunin/tools/check-advance-evidence.py", line 586, in grade_entry
+    man_q = str((man_rows.get(rid) or {}).get('quote', ''))
+                 ^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+```
+

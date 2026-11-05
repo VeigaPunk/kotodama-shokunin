@@ -1,6 +1,35 @@
 #!/usr/bin/env python3
 """Grade a registry re-verification advance or a coverage entry against its evidence.
 
+Round-93 successor (v4) to the round-92 revision. The round-92 non-author
+closure routed 16 counterfeit survivors plus one unnamed crash
+(corpus/lessons/round-92.md R92-M7; CriticClaims92 attacks.md; spot-check §6
+item 4). v4 refuses each by name:
+
+  UNIQUENESS (+) the shadow/duplicate URL comparison folds scheme (http->https),
+                 strips a leading www., drops the query string and case-folds the
+                 path, so scheme-swapped, www-prefixed, query-suffixed and
+                 path-case variants of a base or sibling URL still collide
+  CAPTURE (+)    a capture text-identical (normalized) to a graded file is
+                 refused even when a trailing newline differs; a symlinked
+                 capture is refused; the gate quote must occur in the capture's
+                 body text (HTML markup, tag attributes and metadata content
+                 are stripped before matching)
+  TOPIC (+)      a phrase anchor surface is an h2 heading carrying >= 2 raw
+                 tokens or a table DATA row (below the |---| separator); the
+                 header row and single-token span-gaming headings anchor nothing
+  BASEROWS       no base registry row is removed and no identity cell (id,
+                 source, kind, tier, scope, anchor, teaches, opened) changes
+                 between base and lands (only status, recheck, used-by may move)
+  APPENDONLY (+) the disposition scanner strips zero-width characters and also
+                 reads dispositions wrapped in bold or table pipes (id and an
+                 uppercase LOCATED / NOT LOCATED token anywhere in the line);
+                 lowercase prose mentions stay clean
+  refusal (+)    a manifest that is not a JSON object, or whose rows are a list,
+                 is refused with a named diagnostic (no traceback)
+
+Round-92 v3 history and the advance-mode legs are unchanged.
+
 Round-91 successor (v2) to the round-90 revision. The round-90 falsify wave
 (.ufo/waves/round-90/w1/CriticClaims.md, attacks 5, 6, 8) showed the entry mode
 passed a bakery-rota off-topic entry (TOPIC token count), shadow/duplicate rows,
@@ -60,6 +89,7 @@ No network access: every surface is a committed capture.
 import argparse
 import datetime
 import hashlib
+import html as _html
 import json
 import os
 import re
@@ -76,6 +106,12 @@ ARCHIVE_RE = re.compile(r'^https://web\.archive\.org/web/(\d{14})/(.+)$')
 QUOTE_RE = re.compile(r'\u201c([^\u201d]+)\u201d|"([^"]+)"')
 FETCH_RE = re.compile(r'^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$')
 DISPO_RE = re.compile(r'^(?:[>\-\*+\s]*\s)?S(\d{3,})\b.*?\b(NOT[ _-]?LOCATED|LOCATED)\b', re.I)
+# Round-93 v4 (routed R92-M7 A5d/A5e/A5f): an unanchored, case-SENSITIVE fallback
+# reads dispositions wrapped in markdown bold or table pipes, and a verdict
+# obscured by zero-width characters. Lowercase prose ("S001 located in the
+# archive") carries no uppercase verdict token and stays clean.
+DISPO_ANY_RE = re.compile(r'\bS(\d{3,})\b.*?\b(NOT[ _-]?LOCATED|LOCATED)\b')
+ZW_MAP = dict.fromkeys(map(ord, '\u200b\u200c\u200d\u2060\ufeff'))
 STOP = set('''a an the and or but if of to in on at for with from by as is are was were be been being
 this that these those it its their his her they we you i not no nor so than then there here which who
 whom whose what when where why how all any both each few more most other some such only own same too very
@@ -146,7 +182,12 @@ def urls(cell):
 def norm_url(u):
     """Normalize a URL for shadow/duplicate comparison: lowercase the scheme and
     host, drop a #fragment and default ports, strip trailing slashes (round-91
-    routed V3: a base url plus a #fragment previously passed the shadow check)."""
+    routed V3: a base url plus a #fragment previously passed the shadow check).
+    Round-93 v4 (routed R92-M7 A2c-A2f): the comparison key also folds the scheme
+    to https, strips a leading www., drops the query string and case-folds the
+    path, so scheme-swapped, www-prefixed, query-suffixed and path-case variants
+    of the same page collide. This is a comparison key only: the row cell keeps
+    its original URL, and surface/capture binding still compares exact strings."""
     u = str(u).strip().split('#', 1)[0]
     m = re.match(r'^([a-zA-Z][a-zA-Z0-9+.\-]*)://([^/?#]*)(.*)$', u)
     if not m:
@@ -155,7 +196,14 @@ def norm_url(u):
     host = m.group(2).lower()
     if (scheme == 'http' and host.endswith(':80')) or (scheme == 'https' and host.endswith(':443')):
         host = host.rsplit(':', 1)[0]
-    return scheme + '://' + host + m.group(3).rstrip('/')
+    if scheme in ('http', 'https'):
+        scheme = 'https'
+    if host.startswith('www.'):
+        host = host[4:]
+    rest = m.group(3)
+    rest = rest.split('?', 1)[0]
+    rest = rest.lower()
+    return scheme + '://' + host + rest.rstrip('/')
 
 
 def as_date(s, label):
@@ -183,30 +231,39 @@ def population(args):
 
 
 def dispositions(lesson):
-    """First disposition per id; every NOT-LOCATED spelling collapses to NOT-LOCATED."""
+    """First disposition per id; every NOT-LOCATED spelling collapses to NOT-LOCATED.
+    Round-93 v4: the line is first stripped of zero-width characters; the anchored
+    rule keeps its old shape, and a case-sensitive unanchored fallback catches
+    bold-wrapped and table-pipe dispositions."""
     out = {}
     for line in lesson.splitlines():
-        m = DISPO_RE.match(line.strip())
+        stripped = line.strip().translate(ZW_MAP)
+        m = DISPO_RE.match(stripped)
+        if not m:
+            plain = stripped.replace('|', ' ').replace('*', ' ').replace('_', ' ')
+            m = DISPO_ANY_RE.search(plain)
         if not m:
             continue
         rid, verdict = 'S' + m.group(1), m.group(2).upper().replace('_', ' ').replace('-', ' ')
         verdict = 'NOT-LOCATED' if verdict.startswith('NOT') else 'LOCATED'
         if rid not in out:
-            out[rid] = (verdict, line.strip())
+            out[rid] = (verdict, stripped)
     return out
 
 
 def gate_quotes(lesson):
-    """id -> list of (line, first double-quoted span)."""
+    """id -> list of (line, quoted span), one entry per quoted span on each line
+    that names the id, in line order. The first entry is the advance-mode quote;
+    entry mode binds every entry (round-93 v4, routed R92-M7 A6f)."""
     out = {}
     for line in lesson.splitlines():
         ids = re.findall(r'\bS\d{3,}\b', line)
-        m = QUOTE_RE.search(line)
-        if not ids or not m:
+        if not ids:
             continue
-        q = (m.group(1) or m.group(2)).strip()
-        for rid in ids:
-            out.setdefault(rid, []).append((line, q))
+        for m in QUOTE_RE.finditer(line):
+            q = (m.group(1) or m.group(2)).strip()
+            for rid in ids:
+                out.setdefault(rid, []).append((line, q))
     return out
 
 
@@ -223,7 +280,21 @@ def capture_text(cap_dir, man_entry, root):
         return ''
 
 
-def capture_error(cap_dir, graded, man_entry, quote, as_of, root, graded_shas=None):
+def html_body_text(raw):
+    """Body text of a capture: HTML markup, comments, script/style blocks and tag
+    attributes (including meta content attributes) are stripped before matching,
+    so a quote that exists only in raw markup does not count as located body text
+    (round-93 v4, routed R92-M7 A6e). Non-HTML bytes pass through unchanged."""
+    s = raw.decode('utf-8', errors='replace')
+    if '<' not in s[:4096]:
+        return s
+    s = re.sub(r'(?is)<(script|style)\b[^>]*>.*?</\1\s*>', ' ', s)
+    s = re.sub(r'(?s)<!--.*?-->', ' ', s)
+    s = re.sub(r'(?s)<[^>]+>', ' ', s)
+    return _html.unescape(s)
+
+
+def capture_error(cap_dir, graded, man_entry, quote, as_of, root, graded_shas=None, graded_norms=None):
     m = man_entry
     if not isinstance(m, dict):
         return 'no manifest entry'
@@ -238,6 +309,8 @@ def capture_error(cap_dir, graded, man_entry, quote, as_of, root, graded_shas=No
         if rel == g or rel == os.path.normpath(g):
             return f'capture is a graded file: {rel}'
     path = os.path.join(root, rel)
+    if os.path.islink(path):
+        return f'capture is a symlink: {rel}'
     try:
         with open(path, 'rb') as f:
             raw = f.read()
@@ -249,6 +322,11 @@ def capture_error(cap_dir, graded, man_entry, quote, as_of, root, graded_shas=No
         hit = graded_shas.get(hashlib.sha256(raw).hexdigest())
         if hit:
             return f'capture byte-copies a graded file ({hit}) under a different path: {rel}'
+    ntext = norm(raw.decode('utf-8', errors='replace'))
+    if graded_norms:
+        hitn = graded_norms.get(ntext)
+        if hitn:
+            return f'capture text-copies a graded file ({hitn}) under a different path: {rel}'
     if not isinstance(m.get('http_status'), int) or not 200 <= m['http_status'] < 300:
         return f'capture http_status not 2xx: {rel}'
     fm = FETCH_RE.match(str(m.get('fetched_at', '')))
@@ -256,9 +334,9 @@ def capture_error(cap_dir, graded, man_entry, quote, as_of, root, graded_shas=No
         return f'fetched_at not a local ISO instant with offset: {m.get("fetched_at")!r}'
     if fm.group(1) != as_of:
         return f'fetched_at date {fm.group(1)} != as_of {as_of}'
-    text = norm(raw.decode('utf-8', errors='replace'))
+    text = norm(html_body_text(raw))
     if norm(quote) not in text:
-        return f'quote absent from capture: {rel}'
+        return f'quote absent from capture body text: {rel}'
     return None
 
 
@@ -422,20 +500,28 @@ def grade_entry(args):
     lands_ids = set(r['id'] for r in lands_rows)
     lesson = read(args.lesson)
     man = json.loads(read(args.manifest) or '{}')
+    if not isinstance(man, dict):
+        raise Refused('manifest is not a JSON object')
     man_rows = man.get('rows', man)
+    if not isinstance(man_rows, dict):
+        raise Refused('manifest rows is not a JSON object (list where mapping expected)')
     as_of = as_date(args.as_of, '--as-of')
     legs = []
     detail = {}
 
-    # Byte digests of every graded file, so a capture that byte-copies one is
-    # refused even under a different path (round-90 falsify V6).
+    # Byte digests and normalized text of every graded file, so a capture that
+    # copies one is refused even under a different path, byte-exactly (sha map)
+    # or modulo whitespace normalization (round-93 v4, routed R92-M7 A3b).
     graded_shas = {}
+    graded_norms = {}
     for g in list(args.graded) + [args.lesson, args.lands_registry, args.entry,
                                   args.base_registry, 'corpus/README.md', args.manifest]:
         p = os.path.join(args.root, g)
         if os.path.isfile(p):
             with open(p, 'rb') as f:
-                graded_shas[hashlib.sha256(f.read()).hexdigest()] = g
+                raw = f.read()
+            graded_shas[hashlib.sha256(raw).hexdigest()] = g
+            graded_norms[norm(raw.decode('utf-8', errors='replace'))] = g
 
     # ENTRY
     problems = []
@@ -482,12 +568,27 @@ def grade_entry(args):
     phrases = [p.strip() for p in re.split(r'[;]', args.topic_phrases or '') if p.strip()]
     phrase_floor = getattr(args, 'min_topic_phrases', 0) or 0
     if phrases and phrase_floor > 0:
-        anchor_text = norm(' '.join(heads)) + ' ' + norm(
-            '\n'.join(l for l in entry.splitlines() if l.strip().startswith('|')))
+        # Round-93 v4 (routed R92-M7 A4a): a heading anchors only when it carries
+        # at least two raw tokens after the marks, and a table line anchors only
+        # when it is a data row below the |---| separator — the header row and
+        # single-token span-gaming headings anchor nothing.
+        def head_anchors(h):
+            return len(h.lstrip('#').split()) >= 2
+        qual_rows = []
+        sep_seen = False
+        for l in entry.splitlines():
+            s = l.strip()
+            if not s.startswith('|'):
+                continue
+            if re.match(r'^\|[\s:\-|]+\|$', s):
+                sep_seen = True
+                continue
+            if sep_seen:
+                qual_rows.append(l)
+        hit_heads = [h for h in heads if head_anchors(h) and any(norm(p) in norm(h) for p in phrases)]
+        hit_rows = [l for l in qual_rows if any(norm(p) in norm(l) for p in phrases)]
+        anchor_text = norm(' '.join(hit_heads)) + ' ' + norm('\n'.join(hit_rows))
         hits = [p for p in phrases if norm(p) in anchor_text]
-        hit_heads = [h for h in heads if any(norm(p) in norm(h) for p in phrases)]
-        hit_rows = [l for l in entry.splitlines()
-                    if l.strip().startswith('|') and any(norm(p) in norm(l) for p in phrases)]
         span = len(hit_heads) + (1 if hit_rows else 0)
         min_span = getattr(args, 'min_anchor_span', 0) or 0
         phrase_detail = f'phrase anchors {len(hits)}/{len(phrases)} spanning {span} heading/table surfaces'
@@ -556,6 +657,29 @@ def grade_entry(args):
             uniq.append('url shared by ' + ','.join(sorted(owners)) + ': ' + u)
     legs.append(('UNIQUENESS', not uniq, 'no duplicate lands id, no base-url shadow, no shared new url', 'clean' if not uniq else '; '.join(uniq)))
 
+    # BASEROWS — round-93 v4 (routed R92-M7 A6a/A6b): a base registry row may not
+    # be removed at lands, and its identity cells (id, source, kind, tier, scope,
+    # anchor, teaches, opened) may not change; only status, recheck and used-by
+    # may move under the append-only registry discipline.
+    base_byid = by_id(base_rows)
+    lands_byid = by_id(lands_rows)
+    baserow = []
+    for rid, brows in base_byid.items():
+        lrows = lands_byid.get(rid)
+        if not lrows:
+            baserow.append(f'{rid}: base row removed from the lands registry')
+            continue
+        b, l = brows[0]['cells'], lrows[0]['cells']
+        if len(b) != len(l):
+            baserow.append(f'{rid}: cell count {len(b)} -> {len(l)}')
+            continue
+        for i in (0, 1, 2, 3, 4, 5, 6, 8):
+            if b[i] != l[i]:
+                baserow.append(f'{rid}: identity cell {i} changed: {b[i][:40]!r} -> {l[i][:40]!r}')
+    legs.append(('BASEROWS', not baserow,
+                 'no base registry row removed; identity cells id/source/kind/tier/scope/anchor/teaches/opened unchanged',
+                 'clean' if not baserow else '; '.join(baserow[:6])))
+
     # GATE + CAPTURE
     gates = gate_quotes(lesson)
     gate, capture = [], []
@@ -594,7 +718,7 @@ def grade_entry(args):
         if err:
             capture.append(f'{rid}: {err}')
         err = capture_error(args.capture_dir, list(args.graded), man_entry, quote, args.as_of, args.root,
-                            graded_shas=graded_shas)
+                            graded_shas=graded_shas, graded_norms=graded_norms)
         if err:
             capture.append(f'{rid}: {err}')
         rel = str((man_entry or {}).get('capture', '')).strip()
@@ -603,6 +727,17 @@ def grade_entry(args):
     for rel, owners in sorted(cap_owners.items()):
         if len(owners) > 1:
             capture.append('capture shared by ' + ','.join(owners) + ': ' + rel)
+    # round-93 v4 (routed R92-M7 A6f): every quoted span after the first on a
+    # gate line must bind to the row's teaching cell or manifest quote by content
+    # words, like the first; a chrome or unrelated second quote is refused.
+    for rid in qualifying:
+        row_teaches = byid[rid][0]['cells'][6] if len(byid[rid][0]['cells']) > 6 else ''
+        man_q_extra = str((man_rows.get(rid) or {}).get('quote', ''))
+        for extra_line, extra_q in gates.get(rid, [])[1:]:
+            if len(extra_q.split()) > args.quote_max_words or len(norm(extra_q)) < args.quote_min_chars:
+                gate.append(f'{rid}: extra quote {len(extra_q.split())} words / {len(norm(extra_q))} chars out of bounds')
+            if overlap(extra_q, row_teaches) < args.min_gate_overlap and overlap(extra_q, man_q_extra) < args.min_gate_overlap:
+                gate.append(f'{rid}: extra gate quote shares < {args.min_gate_overlap} content words with teaching/manifest quote (chrome or unrelated)')
     legs.append(('GATE', not gate, 'each new id has a located gate line bound to the row teaching', 'clean' if not gate else '; '.join(gate)))
     legs.append(('CAPTURE', not capture, 'each gate quote occurs in its committed capture', 'clean' if not capture else '; '.join(capture)))
 
@@ -900,7 +1035,7 @@ def selftest(work):
             out += ['--graded', g]
         return out
 
-    chk('positive entry', ['entry'] + E(), 0, ['PASS legs=8/8'])
+    chk('positive entry', ['entry'] + E(), 0, ['PASS legs=9/9'])
     filler = os.path.join(root, 'corpus/knowledge/myth-symbol/sourdough.md')
     with open(filler, 'w') as f:
         f.write('# Sourdough starter care\n\n- topic: sourdough starter care\n- sources: S010\n'
@@ -1026,7 +1161,7 @@ def selftest(work):
     lands_uncited = write('lands_uncited.md', lands_e
                           + _row('S013', 'https://example.org/reject', 'a rejected row about dye plants',
                                  tier='C', status='rejected', opened='2026-11-04', used='corpus/lessons/round-90.md'))
-    chk('uncited new row is out of scope', ['entry'] + E(lands_registry=lands_uncited), 0, ['PASS legs=8/8'])
+    chk('uncited new row is out of scope', ['entry'] + E(lands_registry=lands_uncited), 0, ['PASS legs=9/9'])
     shortq = write('lesson_shortq.md', ''.join(
         f'- {rid} admit A/mined. {u} \u2014 accessed 2026-11-04 \u2014 body: \u201cefficacy register\u201d\n'
         for rid, u in new_rows))
@@ -1185,6 +1320,223 @@ def selftest(work):
     chk('capture byte-copies corpus README', ['entry'] + E(manifest=man_readme), 1,
         ['FAIL CAPTURE', 'byte-copies'])
     chk('gate quote unbound on a real entry', ['entry'] + E(min_gate_overlap='40'), 1, ['FAIL GATE', 'content words'])
+
+    def chk_leg(name, args, leg):
+        """Round-93 v4: the negative must fail on exactly the named leg. A check that
+        passes through a different leg is a fixture-masking survivor (round-93 M1)."""
+        r = subprocess.run([sys.executable, '-B', os.path.abspath(__file__)] + args,
+                           capture_output=True, text=True)
+        out = (r.stdout or '') + (r.stderr or '')
+        verdict = [l for l in out.splitlines() if 'EVIDENCE: ' in l]
+        ok = r.returncode == 1 and bool(verdict) and verdict[-1].endswith('failed=' + leg)
+        checks.append((name, ok, r.returncode, r.returncode, verdict[-1:] or out.strip().splitlines()[-1:]))
+
+    # ------------------------------------------- round-93 v4 entry-mode negatives
+    # (routed round-92 survivors, CriticClaims92 attacks.md A2c-A2f, A3b, A4a,
+    #  A5d-A5f, A6a-A6g; corpus/lessons/round-92-verifier-spotcheck.md §6 item 4)
+    url_variants = [
+        ('entry mode: scheme-swapped shadow url refused', 'http://example.org/prayer'),
+        ('entry mode: www-prefixed shadow url refused', 'https://www.example.org/prayer'),
+        ('entry mode: query-suffixed shadow url refused', 'https://example.org/prayer?ref=lane'),
+        ('entry mode: path-case shadow url refused', 'https://EXAMPLE.org/PRAYER'),
+    ]
+    def url_case(variant):
+        # the row, its gate line and its manifest surface all carry the variant, so
+        # UNIQUENESS is the only leg that can refuse it
+        tag = str(len(checks))
+        lands_v = write('lands_v' + tag + '.md', lands_e.replace('| S010 | https://example.org/a |', '| S010 | ' + variant + ' |'))
+        lesson_v = write('lesson_v' + tag + '.md', lesson_e_text.replace('https://example.org/a ', variant + ' '))
+        man_v = _manifest(root, {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt',
+                                           url=(variant if rid == 'S010' else u), http_status=200,
+                                           fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows},
+                          'mv' + tag + '.json')
+        return lands_v, lesson_v, man_v
+    for label, variant in url_variants:
+        lv, ls, mv = url_case(variant)
+        chk_leg(label, ['entry'] + E(lands_registry=lv, lesson=ls, manifest=mv), 'UNIQUENESS')
+
+    # A3b: a capture text-identical to the graded entry modulo one trailing newline.
+    entry_copy = os.path.join(ev, 'entry-copy.txt')
+    with open(entry_copy, 'w', encoding='utf-8') as f:
+        f.write(open(entry_ok, encoding='utf-8').read() + '\n')
+    man_entry_copy_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                                     fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_entry_copy_rows['S010'] = dict(capture='reports/round-90/evidence/entry-copy.txt', url=new_rows[0][1],
+                                       http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_entry_copy = _manifest(root, man_entry_copy_rows, 'mentrycopy.json')
+    lesson_entry_copy = write('lesson_entry_copy.md', lesson_e_text.replace(
+        '\u201cprayer address petition votive promise fixed extempore efficacy register case 0\u201d',
+        '\u201cThe petition states a want in a fixed order: address, reminder of past favour, request, promise.\u201d'))
+    chk_leg('entry mode: newline-padded entry copy capture refused', ['entry'] + E(lesson=lesson_entry_copy, manifest=man_entry_copy), 'CAPTURE')
+
+    # A4a: span gaming — single-token headings and a phrase in the header row.
+    gaming = os.path.join(root, 'corpus/knowledge/linguistics/prayer-register.md')
+    os.makedirs(os.path.dirname(gaming), exist_ok=True)
+    gaming_body = ('# Prayer\n\n- topic: prayer as a petitionary address register\n- sources: S010 S011 S012\n'
+                   '- verified-at: 2026-11-04\n- recheck: 180d\n\n'
+                   '## address\n\nThe vocative formulae of prayer as a petitionary address register vary by rank, '
+                   'and the votive promises bind the petitioner to fixed and extempore speech with efficacy claims. '
+                   'A prayer opens by naming the deity and stating the petitioner, and the register carries the claim.\n\n'
+                   '## petition\n\nThe petition states a want in a fixed order: address, reminder, request, promise. '
+                   'Votive promises and vocative formulae make the petitionary register legible to the deity and '
+                   'to the community that witnesses the rite of fixed and extempore speech.\n\n'
+                   '## efficacy\n\nA prayer claims efficacy through the address, the promise or the speaker. '
+                   'Efficacy claims in the petitionary register are graded in the culture, and extempore speech '
+                   'carries the weight of the petitioner when the fixed formula is absent.\n\n'
+                   '## 4. Results table of the rite\n\nThe vocative formulae vary by rank and the votive promise binds '
+                   'the petitioner to a return, which keeps the register of prayer and petition stable across occasions.\n\n'
+                   '| table | fixed | extempore |\n|---|---|---|\n| address | rote | improvised |\n'
+                   '| petition | set | composed |\n| promise | written | spoken |\n| authority | text | speaker |\n'
+                   '| failure | ritual fault | weak speaker |\n\n'
+                   'S010 S011 S012 supply the comparative cases and each claim above is bounded to them.\n'
+                   + ''.join(f'Sentence {i} of the petitionary register ties a vocative formula to a votive promise and to a claim of efficacy, varied by occasion number {i}. ' for i in range(1, 9)) + '\n')
+    with open(gaming, 'w') as f:
+        f.write(gaming_body)
+    chk_leg('entry mode: single-word heading span gaming refused', ['entry'] + E(entry=gaming), 'TOPIC')
+
+    # A5d/A5e/A5f: dispositions hidden in bold, table rows or zero-width characters.
+    bold_disp = write('lesson_bold.md', lesson_e_text
+                      + '**S007** LOCATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201cunrelated row about dye plants and textile trades\u201d\n')
+    chk_leg('entry mode: bold-wrapped disposition refused', ['entry'] + E(lesson=bold_disp), 'APPENDONLY')
+    piped_disp = write('lesson_piped.md', lesson_e_text
+                       + '| S007 | LOCATED | 2026-11-04 | https://example.org/other2 | unrelated row about dye plants |\n')
+    chk_leg('entry mode: table-row disposition refused', ['entry'] + E(lesson=piped_disp), 'APPENDONLY')
+    zw_disp = write('lesson_zw.md', lesson_e_text
+                    + 'S007 LOC\u200bATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                      '\u201cunrelated row about dye plants and textile trades\u201d\n')
+    chk_leg('entry mode: zero-width-obscured disposition refused', ['entry'] + E(lesson=zw_disp), 'APPENDONLY')
+
+    # A6a/A6b: the base registry's identity cells may not move at lands.
+    teaches_move = write('lands_teaches.md', lands_e.replace(
+        good_teach, 'a flattering self-describing summary of the prayer register row'))
+    chk_leg('entry mode: lands rewrite of a base teaches cell refused', ['entry'] + E(lands_registry=teaches_move), 'BASEROWS')
+    removed_row = write('lands_removed.md',
+                        '\n'.join(l for l in lands_e.splitlines() if not l.startswith('| S002 ')) + '\n')
+    chk_leg('entry mode: lands deletion of a base row refused', ['entry'] + E(lands_registry=removed_row), 'BASEROWS')
+
+    # A6c/A6d: symlinked captures are refused, in root or escaping it.
+    link_target = os.path.join(root, 'outside-target.txt')
+    with open(link_target, 'w') as f:
+        f.write('Page text. prayer address petition votive promise fixed extempore efficacy register case 0. Boilerplate.')
+    cap_link = os.path.join(ev, 'S010-link.txt')
+    if os.path.lexists(cap_link):
+        os.remove(cap_link)
+    os.symlink(link_target, cap_link)
+    man_link_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                               fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_link_rows['S010'] = dict(capture='reports/round-90/evidence/S010-link.txt', url=new_rows[0][1],
+                                 http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_link = _manifest(root, man_link_rows, 'mlink.json')
+    chk_leg('entry mode: in-root symlink capture refused', ['entry'] + E(manifest=man_link), 'CAPTURE')
+    esc_target = os.path.join(work, 'escape-target.txt')
+    with open(esc_target, 'w') as f:
+        f.write('Page text. prayer address petition votive promise fixed extempore efficacy register case 0. Boilerplate.')
+    cap_esc = os.path.join(ev, 'S010-esc.txt')
+    if os.path.lexists(cap_esc):
+        os.remove(cap_esc)
+    os.symlink(esc_target, cap_esc)
+    man_esc_rows = dict(man_link_rows)
+    man_esc_rows['S010'] = dict(capture='reports/round-90/evidence/S010-esc.txt', url=new_rows[0][1],
+                                http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_esc = _manifest(root, man_esc_rows, 'mesc.json')
+    chk_leg('entry mode: root-escaping symlink capture refused', ['entry'] + E(manifest=man_esc), 'CAPTURE')
+
+    # A6e: a quote that exists only in raw HTML markup is not located body text.
+    _cap(root, 'S010-meta.html',
+         '<html><head><meta name="description" content="prayer address petition votive promise fixed '
+         'extempore efficacy register case 0"></head><body><p>Freemium preview. The full text is available '
+         'to subscribers of the platform and the article body is withheld here.</p></body></html>')
+    man_meta_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                               fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_meta_rows['S010'] = dict(capture='reports/round-90/evidence/S010-meta.html', url=new_rows[0][1],
+                                 http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_meta = _manifest(root, man_meta_rows, 'mmeta.json')
+    chk_leg('entry mode: markup-only capture quote refused', ['entry'] + E(manifest=man_meta), 'CAPTURE')
+
+    # A6g: manifest shape refusals with a named diagnostic, no traceback.
+    man_list = os.path.join(ev, 'mlist.json')
+    with open(man_list, 'w') as f:
+        json.dump({'rows': [{'S010': {}}]}, f)
+    chk('entry mode: manifest rows list refused, no traceback', ['entry'] + E(manifest=man_list), 2,
+        ['manifest rows is not a JSON object'])
+    man_obj = os.path.join(ev, 'mobj.json')
+    with open(man_obj, 'w') as f:
+        f.write('[]')
+    chk('entry mode: manifest not a JSON object refused', ['entry'] + E(manifest=man_obj), 2,
+        ['manifest is not a JSON object'])
+
+    # arm pins for the round-92 gap-hunt survivors (MutationTesterV3.md).
+    man_trav_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                               fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_trav_rows['S010'] = dict(capture='reports/round-90/evidence/../evidence/S010.txt', url=new_rows[0][1],
+                                 http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_trav = _manifest(root, man_trav_rows, 'mtrav.json')
+    chk_leg('capture path with .. segment refused', ['entry'] + E(manifest=man_trav), 'CAPTURE')
+    man_offset_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                                 fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_offset_rows['S010']['fetched_at'] = '2026-11-04T19:00:00'
+    man_offset = _manifest(root, man_offset_rows, 'moffset.json')
+    chk_leg('fetch instant without offset refused', ['entry'] + E(manifest=man_offset), 'CAPTURE')
+    man_date_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                               fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_date_rows['S010']['fetched_at'] = '2026-11-05T19:00:00-03:00'
+    man_date = _manifest(root, man_date_rows, 'mdate.json')
+    chk_leg('fetch date differing from as-of refused', ['entry'] + E(manifest=man_date), 'CAPTURE')
+    sib_dir = os.path.join(root, 'reports/round-90/evidence-x')
+    os.makedirs(sib_dir, exist_ok=True)
+    with open(os.path.join(sib_dir, 'S010.txt'), 'w') as f:
+        f.write('Page text. prayer address petition votive promise fixed extempore efficacy register case 0. Boilerplate.')
+    man_sib_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                              fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_sib_rows['S010'] = dict(capture='reports/round-90/evidence-x/S010.txt', url=new_rows[0][1],
+                                http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_sib = _manifest(root, man_sib_rows, 'msib.json')
+    chk_leg('capture in a sibling capture dir refused', ['entry'] + E(manifest=man_sib), 'CAPTURE')
+    port_row = write('lands_port.md', lands_e.replace('| S010 | https://example.org/a |',
+                                                      '| S010 | https://example.org:443/prayer |'))
+    lv, ls, mv = url_case('https://example.org:443/prayer')
+    chk_leg('entry mode: default-port url shadow refused', ['entry'] + E(lands_registry=lv, lesson=ls, manifest=mv), 'UNIQUENESS')
+
+    # graded-list arm pins: a capture copying the lands registry or the round
+    # lesson itself is refused even under the capture dir (non-circular copies).
+    lands_anchor_text = lands_e.replace('| docs | A | scope | anchor | prayer address petition votive promise register case | ',
+                                        '| docs | A | scope | The petition states a want in a fixed order: address, reminder of past favour, request, promise. | prayer address petition votive promise register case | ', 1)
+    lands_anchor_path = write('lands_anchor.md', lands_anchor_text)
+    lands_copy = os.path.join(ev, 'lands-copy.txt')
+    shutil.copy(lands_anchor_path, lands_copy)
+    man_lands_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                                fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_lands_rows['S010'] = dict(capture='reports/round-90/evidence/lands-copy.txt', url=new_rows[0][1],
+                                  http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_lands = _manifest(root, man_lands_rows, 'mlandscopy.json')
+    lesson_anchor = write('lesson_anchor.md', lesson_e_text.replace(
+        '\u201cprayer address petition votive promise fixed extempore efficacy register case 0\u201d',
+        '\u201cThe petition states a want in a fixed order: address, reminder of past favour, request, promise.\u201d'))
+    chk_leg('capture byte-copies the lands registry refused', ['entry'] + E(lesson=lesson_anchor, lands_registry=lands_anchor_path, manifest=man_lands), 'CAPTURE')
+    # The round lesson under test is a file the graded list does NOT name (round-90.md
+    # is a byte copy of lesson_e, so it would catch the copy through another arm).
+    lesson_x = write('lesson_x.md', lesson_e_text + 'Round note: fixture mirror, no disposition.\n')
+    lesson_copy = os.path.join(ev, 'lesson-copy.txt')
+    shutil.copy(lesson_x, lesson_copy)
+    man_lesson_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                                 fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_lesson_rows['S010'] = dict(capture='reports/round-90/evidence/lesson-copy.txt', url=new_rows[0][1],
+                                   http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_lesson = _manifest(root, man_lesson_rows, 'mlessoncopy.json')
+    chk_leg('capture byte-copies the round lesson refused', ['entry'] + E(lesson=lesson_x, manifest=man_lesson), 'CAPTURE')
+    # Blockquoted lowercase disposition: only the anchored re.I rule reads it (the
+    # uppercase fallback does not), so it pins the anchored arm against revert.
+    quoted_lc = write('lesson_quoted_lc.md', lesson_e_text
+                      + '> - S007 located recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                        '\u201cunrelated row about dye plants and textile trades\u201d\n')
+    chk_leg('entry mode: blockquoted lowercase disposition refused', ['entry'] + E(lesson=quoted_lc), 'APPENDONLY')
+    # A6f: a gate line whose first quote is bound and whose second quote is chrome.
+    two_quote = write('lesson_two_quote.md', lesson_e_text.replace(
+        '\u201cprayer address petition votive promise fixed extempore efficacy register case 0\u201d',
+        '\u201cprayer address petition votive promise fixed extempore efficacy register case 0\u201d and '
+        '\u201cFreemium for Journals platform\u201d'))
+    chk_leg('entry mode: second chrome quote on a gate line refused', ['entry'] + E(lesson=two_quote), 'GATE')
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']
