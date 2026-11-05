@@ -378,8 +378,8 @@ def grade_c(root, lands, freeze, work, cfg):
                  out.splitlines()[-1] if out else 'no output'))
 
     lands_sources = os.path.join(mat, 'corpus/SOURCES.md')
-    rc_census = sh(['/bin/sh', os.path.join(mat, c['census_tool']), 'validate', '--file', lands_sources]) \
-        if os.path.isfile(os.path.join(mat, c['census_tool'])) else None
+    census_tool = c['census_tool']  # the fleet-root census script (read-only, outside the lane)
+    rc_census = sh([census_tool, 'validate', '--file', lands_sources]) if os.path.isfile(census_tool) else None
     legs.append(('CENSUS', rc_census is not None and rc_census.returncode == 0,
                  'scripts/sources-census.sh validate --file <lands SOURCES.md> exits 0',
                  'absent' if rc_census is None else f'rc={rc_census.returncode}'))
