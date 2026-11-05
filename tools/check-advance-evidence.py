@@ -75,7 +75,7 @@ URL_RE = re.compile(r'https?://[^\s|)]+')
 ARCHIVE_RE = re.compile(r'^https://web\.archive\.org/web/(\d{14})/(.+)$')
 QUOTE_RE = re.compile(r'\u201c([^\u201d]+)\u201d|"([^"]+)"')
 FETCH_RE = re.compile(r'^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$')
-DISPO_RE = re.compile(r'^[-*] ?S(\d{3,})\b.*?\b(NOT[ _-]?LOCATED|LOCATED)\b', re.I)
+DISPO_RE = re.compile(r'^(?:[>\-\*+\s]*\s)?S(\d{3,})\b.*?\b(NOT[ _-]?LOCATED|LOCATED)\b', re.I)
 STOP = set('''a an the and or but if of to in on at for with from by as is are was were be been being
 this that these those it its their his her they we you i not no nor so than then there here which who
 whom whose what when where why how all any both each few more most other some such only own same too very
@@ -141,6 +141,21 @@ def by_id(rows):
 
 def urls(cell):
     return [u.rstrip('.,;:\'') for u in URL_RE.findall(cell)]
+
+
+def norm_url(u):
+    """Normalize a URL for shadow/duplicate comparison: lowercase the scheme and
+    host, drop a #fragment and default ports, strip trailing slashes (round-91
+    routed V3: a base url plus a #fragment previously passed the shadow check)."""
+    u = str(u).strip().split('#', 1)[0]
+    m = re.match(r'^([a-zA-Z][a-zA-Z0-9+.\-]*)://([^/?#]*)(.*)$', u)
+    if not m:
+        return u.rstrip('/')
+    scheme = m.group(1).lower()
+    host = m.group(2).lower()
+    if (scheme == 'http' and host.endswith(':80')) or (scheme == 'https' and host.endswith(':443')):
+        host = host.rsplit(':', 1)[0]
+    return scheme + '://' + host + m.group(3).rstrip('/')
 
 
 def as_date(s, label):
@@ -317,7 +332,7 @@ def grade_advance(args):
     for rid in ids:
         for r in lands.get(rid, []):
             for u in urls(r['cells'][1] if len(r['cells']) > 1 else ''):
-                seen_url.setdefault(u, set()).add(r['id'])
+                seen_url.setdefault(norm_url(u), set()).add(r['id'])
     for u, owners in seen_url.items():
         if len(owners) > 1:
             shadow.append('population url in ' + ','.join(sorted(owners)) + ': ' + u)
@@ -415,7 +430,8 @@ def grade_entry(args):
     # Byte digests of every graded file, so a capture that byte-copies one is
     # refused even under a different path (round-90 falsify V6).
     graded_shas = {}
-    for g in list(args.graded) + [args.lesson, args.lands_registry, args.entry]:
+    for g in list(args.graded) + [args.lesson, args.lands_registry, args.entry,
+                                  args.base_registry, 'corpus/README.md', args.manifest]:
         p = os.path.join(args.root, g)
         if os.path.isfile(p):
             with open(p, 'rb') as f:
@@ -448,12 +464,18 @@ def grade_entry(args):
     # h2 headings or table cells (round-90 attack 5: a negation list in running
     # prose cleared a token count; headings and table cells cannot be negated away).
     topic_line = next((l for l in entry.splitlines() if l.strip().startswith('- topic:')), '')
-    shared = overlap(entry, args.topic)
+    # round-91 routed V2: the overlap floor is computed on non-heading, non-table
+    # prose only, so one bridge sentence cannot carry the whole topic, and the
+    # phrase anchors must span more than one heading (a bare list-stuffing h2
+    # cannot satisfy them alone).
+    body_text = '\n'.join(l for l in entry.splitlines()
+                          if not l.strip().startswith('|') and not l.startswith('#'))
+    shared = overlap(body_text, args.topic)
     stem_words = [w for w in re.split(r'[-_.]', os.path.basename(args.entry)) if len(w) >= 4]
     stem_hit = sum(1 for w in stem_words if norm(w) in norm(entry))
     problems = []
     if shared < args.min_topic_overlap:
-        problems.append(f'entry shares {shared} content words with the declared topic < {args.min_topic_overlap}')
+        problems.append(f'entry prose shares {shared} content words with the declared topic < {args.min_topic_overlap}')
     if stem_words and stem_hit == 0:
         problems.append('entry filename words absent from its text')
     phrase_detail = ''
@@ -463,9 +485,16 @@ def grade_entry(args):
         anchor_text = norm(' '.join(heads)) + ' ' + norm(
             '\n'.join(l for l in entry.splitlines() if l.strip().startswith('|')))
         hits = [p for p in phrases if norm(p) in anchor_text]
-        phrase_detail = f'phrase anchors {len(hits)}/{len(phrases)}'
+        hit_heads = [h for h in heads if any(norm(p) in norm(h) for p in phrases)]
+        hit_rows = [l for l in entry.splitlines()
+                    if l.strip().startswith('|') and any(norm(p) in norm(l) for p in phrases)]
+        span = len(hit_heads) + (1 if hit_rows else 0)
+        min_span = getattr(args, 'min_anchor_span', 0) or 0
+        phrase_detail = f'phrase anchors {len(hits)}/{len(phrases)} spanning {span} heading/table surfaces'
         if len(hits) < phrase_floor:
             problems.append(f'{len(hits)} of {len(phrases)} sub-topic phrases in headings/table cells < {phrase_floor}')
+        if span < min_span:
+            problems.append(f'phrase anchors span {span} heading/table surfaces < {min_span}')
     legs.append(('TOPIC', not problems, f'>={args.min_topic_overlap} shared content words with the declared topic' + (f'; >={phrase_floor} phrase anchors in headings/table' if phrases and phrase_floor > 0 else ''), 'clean' if not problems else '; '.join(problems) + (('' if not problems else '; ') + phrase_detail if phrase_detail else phrase_detail)))
 
     # NEWIDS
@@ -515,13 +544,13 @@ def grade_entry(args):
     base_urls = {}
     for r in base_rows:
         for u in urls(r['cells'][1] if len(r['cells']) > 1 else ''):
-            base_urls.setdefault(u, set()).add(r['id'])
+            base_urls.setdefault(norm_url(u), set()).add(r['id'])
     qual_urls = {}
     for rid in qualifying:
         for u in urls(byid[rid][0]['cells'][1] if len(byid[rid][0]['cells']) > 1 else ''):
-            qual_urls.setdefault(u, []).append(rid)
-            if u in base_urls:
-                uniq.append(f'{rid}: url shadows base row {",".join(sorted(base_urls[u]))}: {u}')
+            qual_urls.setdefault(norm_url(u), []).append(rid)
+            if norm_url(u) in base_urls:
+                uniq.append(f'{rid}: url shadows base row {",".join(sorted(base_urls[norm_url(u)]))}: {u}')
     for u, owners in qual_urls.items():
         if len(owners) > 1:
             uniq.append('url shared by ' + ','.join(sorted(owners)) + ': ' + u)
@@ -530,6 +559,7 @@ def grade_entry(args):
     # GATE + CAPTURE
     gates = gate_quotes(lesson)
     gate, capture = [], []
+    cap_owners = {}
     for rid in qualifying:
         row = byid[rid][0]
         src = row['cells'][1]
@@ -550,10 +580,29 @@ def grade_entry(args):
             gate.append(f'{rid}: gate quote is copied from the row source cell (title or chrome), not located prose')
         elif q and q in norm(teaches):
             gate.append(f'{rid}: gate quote is the row teaching cell (self-quote)')
-        err = capture_error(args.capture_dir, list(args.graded), man_rows.get(rid), quote, args.as_of, args.root,
+        # round-91 routed V7: a quote found only in site chrome inside the capture
+        # still passes the substring arms; bind it to the row's teaching cell or
+        # the manifest's recorded quote by content-word overlap.
+        man_q = str((man_rows.get(rid) or {}).get('quote', ''))
+        bound = max(overlap(quote, teaches), overlap(quote, man_q))
+        if bound < args.min_gate_overlap:
+            gate.append(f'{rid}: gate quote shares < {args.min_gate_overlap} content words with teaching/manifest quote (chrome or unrelated)')
+        # round-91 routed V12: the manifest surface is bound to the row's own url,
+        # and one capture file may not serve two qualifying ids.
+        man_entry = man_rows.get(rid)
+        err = surface_error((man_entry or {}).get('url', ''), src, args.as_of)
+        if err:
+            capture.append(f'{rid}: {err}')
+        err = capture_error(args.capture_dir, list(args.graded), man_entry, quote, args.as_of, args.root,
                             graded_shas=graded_shas)
         if err:
             capture.append(f'{rid}: {err}')
+        rel = str((man_entry or {}).get('capture', '')).strip()
+        if rel:
+            cap_owners.setdefault(rel, []).append(rid)
+    for rel, owners in sorted(cap_owners.items()):
+        if len(owners) > 1:
+            capture.append('capture shared by ' + ','.join(owners) + ': ' + rel)
     legs.append(('GATE', not gate, 'each new id has a located gate line bound to the row teaching', 'clean' if not gate else '; '.join(gate)))
     legs.append(('CAPTURE', not capture, 'each gate quote occurs in its committed capture', 'clean' if not capture else '; '.join(capture)))
 
@@ -838,7 +887,8 @@ def selftest(work):
                                             'min_new_ids': '3', 'min_topic_overlap': '8',
                                             'table_min_rows': '5', 'table_min_cols': '3',
                                             'topic_phrases': 'address;petition;efficacy;table',
-                                            'min_topic_phrases': '4', 'base_lesson': base_lesson_path})
+                                            'min_topic_phrases': '4', 'min_anchor_span': '3',
+                                            'base_lesson': base_lesson_path})
         base_args.update(over)
         out = ['--root', root]
         for k, v in base_args.items():
@@ -927,7 +977,7 @@ def selftest(work):
         f'- {rid} admit A/mined. {u} \u2014 accessed 2026-11-04 \u2014 body: \u201c' +
         (longq if rid == 'S010' else f'prayer address petition votive promise fixed extempore efficacy register case {i}') +
         '\u201d\n' for i, (rid, u) in enumerate(new_rows)))
-    chk('gate quote over the word bound', ['entry'] + E(lesson=lesson_longq), 1, ['FAIL GATE'])
+    chk('gate quote over the word bound', ['entry'] + E(lesson=lesson_longq), 1, ['FAIL GATE', 'out of bounds'])
     chk('no mode refused', ['--root', root], 2, ['choose advance or entry'])
 
     # ---------------------------------------------- one negative per remaining sub-check
@@ -980,7 +1030,7 @@ def selftest(work):
     shortq = write('lesson_shortq.md', ''.join(
         f'- {rid} admit A/mined. {u} \u2014 accessed 2026-11-04 \u2014 body: \u201cefficacy register\u201d\n'
         for rid, u in new_rows))
-    chk('gate quote below the char floor', ['entry'] + E(lesson=shortq), 1, ['FAIL GATE'])
+    chk('gate quote below the char floor', ['entry'] + E(lesson=shortq), 1, ['FAIL GATE', 'out of bounds'])
     chk('min new ids unmet', ['entry'] + E(min_new_ids='4'), 1, ['FAIL NEWIDS'])
     twocol = os.path.join(root, 'corpus/knowledge/myth-symbol/twocol.md')
     with open(twocol, 'w') as f:
@@ -1010,7 +1060,7 @@ def selftest(work):
                 'while no heading of this entry names any of them.\n\n'
                 '## 2. Section two\n\n' + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
                 + '\n| a | b | c |\n|---|---|---|\n' + ''.join(f'| row {i} | x | y |\n' for i in range(5)) + '\nS010 S011 S012\n')
-    chk('sub-topic phrases absent from headings', ['entry'] + E(entry=proseonly, min_topic_overlap='1'), 1, ['FAIL TOPIC', 'phrase anchors'])
+    chk('sub-topic phrases absent from headings', ['entry'] + E(entry=proseonly, min_topic_overlap='1'), 1, ['FAIL TOPIC', 'phrase anchors 0/'])
     dupid_e = write('lands_dupid.md', lands_e + _row('S010', 'https://example.org/dup', 'a second row under S010',
                                                      tier='A', status='mined', opened='2026-11-04',
                                                      used='corpus/knowledge/myth-symbol/prayer-register.md'))
@@ -1048,6 +1098,93 @@ def selftest(work):
                      '\u201cunrelated row about dye plants and textile trades\u201d\n')
     chk('old id gains a fresh disposition line', ['entry'] + E(lesson=gained), 1, ['FAIL APPENDONLY', 'gained'])
     chk('phrase floor unmet on a real entry', ['entry'] + E(min_topic_phrases='9'), 1, ['FAIL TOPIC', 'phrase anchors'])
+
+    # ------------------------------------------- round-92 v3 entry-mode negatives
+    # (routed round-91 survivors, CriticClaims91 attacks.md V10a/V10c/V3/V12/V7/V2/V9)
+    bare = write('lesson_bare.md', lesson_e_text
+                 + 'S007 NOT-LOCATED recheck unchanged \u2014 https://example.org/other accessed 2026-11-04: '
+                   '\u201cunrelated row about dye plants\u201d\n')
+    chk('lesson disposition without a marker', ['entry'] + E(lesson=bare), 1, ['FAIL APPENDONLY', 'gained'])
+    bareflip = write('lesson_bareflip.md', lesson_e_text
+                     + 'S002 NOT-LOCATED recheck unchanged \u2014 https://example.org/other accessed 2026-11-04: '
+                       '\u201cunrelated row about dye plants\u201d\n')
+    chk('bare marker flips an old disposition', ['entry'] + E(lesson=bareflip), 1,
+        ['FAIL APPENDONLY', 'disposition LOCATED'])
+    quoted = write('lesson_quoted.md', lesson_e_text
+                   + '> - S007 LOCATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                     '\u201cunrelated row about dye plants and textile trades\u201d\n')
+    chk('lesson disposition behind a blockquote', ['entry'] + E(lesson=quoted), 1, ['FAIL APPENDONLY', 'gained'])
+    frag = write('lands_frag.md', lands_e.replace('| S010 | https://example.org/a |',
+                                                  '| S010 | ' + url + '#polari |'))
+    chk('fragment shadow url', ['entry'] + E(lands_registry=frag), 1, ['FAIL UNIQUENESS'])
+    man_wrong_url = _manifest(root, {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt',
+                                               url=f'https://registry-example.org/{rid}', http_status=200,
+                                               fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows},
+                              'mwrongurl.json')
+    chk('manifest url not the row url', ['entry'] + E(manifest=man_wrong_url), 1, ['FAIL CAPTURE', 'not a row url'])
+    shared_cap = _manifest(root, {rid: dict(capture='reports/round-90/evidence/S010.txt', url=u, http_status=200,
+                                            fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows},
+                           'mshared.json')
+    chk('capture shared by two qualifying ids', ['entry'] + E(manifest=shared_cap), 1, ['FAIL CAPTURE', 'capture shared by'])
+    chrome_cap = _cap(root, 'chrome.txt', 'Freemium for Journals platform. ')
+    man_chrome_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                                 fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_chrome_rows['S010']['capture'] = 'reports/round-90/evidence/chrome.txt'
+    man_chrome = _manifest(root, man_chrome_rows, 'mchrome.json')
+    lesson_chrome_own = write('lesson_chrome_own.md', lesson_e_text.replace(
+        '\u201cprayer address petition votive promise fixed extempore efficacy register case 0\u201d',
+        '\u201cFreemium for Journals platform\u201d'))
+    chk('chrome quote as own sentence', ['entry'] + E(lesson=lesson_chrome_own, manifest=man_chrome),
+        1, ['FAIL GATE', 'content words'])
+    stuffed = os.path.join(root, 'corpus/knowledge/myth-symbol/stuffed.md')
+    with open(stuffed, 'w') as f:
+        f.write('# Prayer\n\n- topic: prayer as a petitionary address register\n- sources: S010\n'
+                '- verified-at: 2026-11-04\n- recheck: 180d\n\n'
+                '## Address, petition, efficacy and table of the bakehouse\n\n'
+                'The address petition efficacy table words appear in this one heading alone, and the '
+                'bridge sentence carries the vocative and votive words for the overlap floor; the rest '
+                'of this entry is filler prose about the bakery rota and its scheduling needs.\n\n'
+                '## 2. Filler\n\n' + ('Feed the starter with flour and water daily and keep the bowl covered overnight. '
+                                      'Bakers argue about proofing times and oven temperatures across the district.\n\n' * 3)
+                + '| a | b | c |\n|---|---|---|\n' + ''.join(f'| row {i} | x | y |\n' for i in range(5))
+                + '\nS010 S011 S012\n')
+    chk('phrase anchors in one heading only', ['entry'] + E(entry=stuffed), 1, ['FAIL TOPIC', 'span 1 heading'])
+    prosetopic = os.path.join(root, 'corpus/knowledge/myth-symbol/prosetopic.md')
+    with open(prosetopic, 'w') as f:
+        f.write('# Prosetopic fixture\n\n- topic: prayer as a petitionary address register\n- sources: S010\n'
+                '- verified-at: 2026-11-04\n- recheck: 180d\n\n'
+                '## 1. Filler section\n\n'
+                'In this register the prayer uses vocative formulae and votive forms, and the petitionary '
+                'address carries the petitioner\u2019s claim before the deity. The wording is settled by custom '
+                'and the delivery follows the mood of the moment.\n\n'
+                '## 2. More filler\n\n'
+                + ('Bakers argue about proofing times and oven temperatures across the district every week.\n\n' * 2)
+                + '| prayer | petition | efficacy |\n|---|---|---|\n'
+                + ''.join(f'| row {i} | x | y |\n' for i in range(5)) + '\nS010 S011 S012\n')
+    chk('topic overlap on prose only', ['entry'] + E(entry=prosetopic), 1,
+        ['FAIL TOPIC', 'prose shares 7 content words'])
+    base_reg_cap = os.path.join(ev, 'basereg.txt')
+    shutil.copy(base, base_reg_cap)
+    man_basereg_rows = {rid: dict(capture='reports/round-90/evidence/basereg.txt', url=u, http_status=200,
+                                  fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_basereg_rows['S010']['quote'] = 'unrelated row about dye plants and textile trade'
+    man_basereg = _manifest(root, man_basereg_rows, 'mbasereg.json')
+    lesson_basereg = write('lesson_basereg.md', lesson_e_text.replace(
+        '\u201cprayer address petition votive promise fixed extempore efficacy register case 0\u201d',
+        '\u201cunrelated row about dye plants and textile trade\u201d'))
+    chk('capture byte-copies the base registry', ['entry'] + E(lesson=lesson_basereg, manifest=man_basereg),
+        1, ['FAIL CAPTURE', 'byte-copies'])
+    readme_copy = os.path.join(ev, 'readme-copy.txt')
+    with open(os.path.join(root, 'corpus/README.md'), 'w') as f:
+        f.write('# corpus README fixture\n\nideophone vocabulary coverage map row.\n')
+    shutil.copy(os.path.join(root, 'corpus/README.md'), readme_copy)
+    man_readme_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                                 fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_readme_rows['S010']['capture'] = 'reports/round-90/evidence/readme-copy.txt'
+    man_readme = _manifest(root, man_readme_rows, 'mreadme.json')
+    chk('capture byte-copies corpus README', ['entry'] + E(manifest=man_readme), 1,
+        ['FAIL CAPTURE', 'byte-copies'])
+    chk('gate quote unbound on a real entry', ['entry'] + E(min_gate_overlap='40'), 1, ['FAIL GATE', 'content words'])
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']
@@ -1088,6 +1225,8 @@ def main(argv):
     p.add_argument('--topic', default='')
     p.add_argument('--topic-phrases', default='')
     p.add_argument('--min-topic-phrases', type=int, default=0)
+    p.add_argument('--min-anchor-span', type=int, default=0)
+    p.add_argument('--min-gate-overlap', type=int, default=3)
     p.add_argument('--base-lesson', dest='base_lesson', default=None)
     p.add_argument('--receipt')
     p.add_argument('--json', action='store_true')
