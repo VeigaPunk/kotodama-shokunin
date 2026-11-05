@@ -1,0 +1,293 @@
+# chousa-shokunin/
+## SKILL.md#C358
+ 89:| `research-gate verify-metadata` | gate | `bash tools/research-gate.sh verify-metadata <entry-or-dir> --root .` | `0` clean (`RESEARCH_GATE: CLEAN`; every screened entry carries `source:`, a dated `verified-at:` and a `recheck:` in its header) · `1` drift (`DRIFT`; any `META_SOURCE_ABSENT`/`META_VERIFIED_AT_ABSENT`/`META_VERIFIED_AT_UNDATED`/`META_RECHECK_ABSENT` warn or `META_ENTRY_REFUSED` crit; `META_RECHECK_UNSCHEDULED`/`META_RECHECK_ROOT_PARENT` info drift only under `CHOUSA_STRICT=1`) · `2` coul...
+*90:...e (baseline missing/unreadable/malformed, or the canonical capture/write failing) | shared `bash tools/research-gate.sh --selftest` → `PASS (275 cases, 0 skipped)`, pin/drift cases 75–85, r37 capture-environment cases 265–267 | the canonical invocation (`verify-all record.md --claims claims.jsonl --json manifest.jsonl --root .`, cwd = a fresh temp fixture the gate writes itself and never commits) and the volatile contract `ts gate_sha256` recorded verbatim in every baseline header; the lane's co... [col 585]
+ 91:| `quote-reopen verify` (r29) | tool | `python3 tools/quote-reopen.py verify --items <tsv> [--registry corpus/SOURCES.md]` | per item `NO_SOURCE` > `TOO_LONG` (over 25 words) > `UNREACHABLE` > `VERBATIM`/`ABSENT`; exit `0` all `VERBATIM` · `1` any other verdict · `2` usage/IO | frozen counter `python3 corpus/evidence/round29/c1-count.py -- python3 tools/quote-reopen.py verify` → `QUOTE_REOPEN_MATCH=130/130` (40 fixture items, 42 derived variants, 48 page-sampled items; fresh seed each run) | contract...
+ 92:| `quote-reopen` round-30 counters | gate | `python3 corpus/evidence/round30/c1-count.py` · `python3 corpus/evidence/round30/c2-count.py` (lane root; `--tool PATH`, `--receipt OUT.json`) | `QUOTE_REOPEN_HEADLESS_MATCH=106/106` · `QUOTE_REOPEN_FETCH_BOUND_MATCH=27/27` exit `0`; any other count exit `1`; harness error exit `2` | before on the round-29 tool: 78/106, 12/27; tool absent: 0/106, 0/27 | contract `corpus/evidence/round30/claims.md` (design v4, tool contract v2); harness `corpus/evidence/round3...
+ 93:| research-gate round-32 counters | gate | `python3 corpus/evidence/round32/c1-count-v2.py` · `python3 corpus/evidence/round32/c2-count-v2.py` (lane root; `--gate PATH`, `--seed N`, `--receipt OUT.json`; C1 needs strace(1), flock(1) and /proc/locks) | `APPEND_SERIALIZED=24/24` · `EXEMPT_AUDIT_MATCH=132/132` exit `0`; any other count exit `1`; harness error exit `2` | before on the round-31 gate `0bc318b3`: 0/24, 0/132 | contract `corpus/evidence/round32/claims.md` (design v2) | temp dirs only (keep `C1...
+...
+ 116:| `round35–41 gate controls` (r46 registration) | instrument | `.ufo/waves/round-35/controls/ctl-c1-hardcoded-grep.sh` · `.ufo/waves/round-36/controls/base-gate-r36.sh` · `.ufo/waves/round-36/controls/ctl-c2-stub-pass.py` · `.ufo/waves/round-37/controls/base-gate-r37.sh` · `.ufo/waves/round-39/controls/mut-gate-path-env.sh` · `.ufo/waves/round-38/controls/base-gate-r38.sh` · `.ufo/waves/round-39/controls/base-gate-r39.sh` · `.ufo/waves/round-41/controls/base-gate-r41.sh` | control artifacts name...
+*117:...re NOT uniform: each script's own header is the authority — `round25-measure.sh` exits 1 on a `GATE_DRIFT` under `set -e`, `round27-regressions.py` and `round27-falsify-controls.py` exit 1 on a MISMATCH, `round27-mechanisms.py` exits 1 on a bare invocation, and seven of the ten have no exit-2 path at all; no exit code here admits a round (round-26 `c1/c2/c3` mode selector) | not re-run this round: each contract was read from the script header and the bytes pinned by digest; their round-24–27 recei... [col 1014]
+ 118:| `round33–34 census instruments` (r46 registration) | instrument | `python3 corpus/evidence/round33/d2-census.py [--lane DIR] [--gate PREFIX]` · `bash corpus/evidence/round33/no-name-signals.sh [--code-only] [--exclude PATH] [--max-bytes N] DIR...` · `python3 corpus/evidence/round34/self-audit.py [--set PATH] [--lane DIR] [--dispositions PATH]` | d2-census and self-audit count and do not gate — self-audit exits 0 whenever the set was readable, printing `SELF_AUDIT_MISMATCHES=K` then `SELF_AUDIT_UN...
+*119:| `qr-harness` (r30; r46 registration) | harness | `python3 corpus/evidence/round30/qr_harness.py boot MAP.json TOOL.py verify --items X --registry Y` (bare invocation prints the module docstring and exits 2) | the candidate's return value becomes the process exit (`os._exit(rc)`, non-int → 2); bare invocation exit 2; missing map exit 1 (`FileNotFoundError`); an unrouted destination raises `ConnectionRefusedError`; verdict lines `QUOTE_REOPEN` are tab-separated on stdout | probe candidate returning 0 ... [col 158]
+ 120:| `inference-ground` (current R48 lexical polarity tool; R46 grounding contract, R47 historical windows) | tool | `python3 tools/inference-ground.py --entry PATH --spans TSV --counts JSON --registry corpus/SOURCES.md [--root DIR] [--json OUT]` | exit `0` grounded, no findings (`GROUND: PASS`) · exit `1` one or more `FINDING` rows (`INF_SECTION_ABSENT`/`INF_NO_BULLETS`/`INF_UNCITED`/`INF_UNGROUNDED`/`INF_TOKEN_NOT_IN_SPAN`/`INF_POLARITY_FLIP`) · exit `2` usage or unreadable entry. `INF_POLARITY_FLIP` ch...
+ 121:| `chousa round-46 counters` | gate | `python3 corpus/evidence/round46/c1-count.py` · `python3 corpus/evidence/round46/c2-count.py --list` · `python3 corpus/evidence/round46/c3-count.py` · `python3 corpus/evidence/round46/c3-count.py --lane-only` · `python3 corpus/evidence/round46/build-spans.py [--check]` | C1 exit `0` `POSITIVE_PASS=3/3 JUNK_KILLED=3/3 CANARY=pass C1=PASS` · exit `1` any leg short, a fixture byte changed (`FIXTURES_CHANGED=`) or the canary failing · exit `2` `C1=FAIL no-fixtures`...
+ 122:| `prose-check` (QUALITY 23, r29) | check | `python3 corpus/evidence/round29/prose-check.py FILE...` (lane root; one or more files) | exit `0` no hits: per file `digit-glued tokens: 0` and `custody vocabulary: 0`, then `TOTAL hits=0 files=N` · exit `1` at least one digit-glued token (outside code spans, fences and URLs) or custody term (whole text), `TOTAL hits=k files=N` with k ≥ 1 · exit `2` no FILE (`usage: python3 prose-check.py FILE...`) or an unreadable or non-UTF-8 file | control `corpus/lesso...
+...
+ 126:| `chousa round-47 counters` | gate | `python3 corpus/evidence/round47/c1-count.py [--root DIR] [--tool PATH]` · `python3 corpus/evidence/round47/c2-count.py --list [--root DIR]` · `python3 corpus/evidence/round47/c3-count.py [--root DIR] [--cache DIR]` · `python3 corpus/evidence/round47/c3-count.py --lane-only` · `python3 corpus/evidence/round47/build-spans.py [--check]` (span builder: derives `corpus/evidence/round47/spans.tsv` and `spans/` from `quotes.tsv`; exit `0` built or `SPANS_ROWS=n STALE=0...
+*127:... (built by `.ufo/waves/round-33/w2/L1ShortcutMask/mk-mask-gate.py`), cited by QUALITY 40 as the shortcut a fixed-list counter cannot kill; its own exits are the research-gate contract (`exit 0` CLEAN · `exit 1` DRIFT · `exit 2` setup/usage, bare invocation prints the header and exits 2); under the round-33 v2 counter it prints `TOPLEVEL_FIELD_MATCH=156/156` exit 0, which is the counter's miss, not a pass of the control | the per-seed confuser counter `python3 .ufo/waves/round-34/w1/ExecE2Counter/c1-... [col 690]
+ 128:| `receipt-binding` census (QUALITY 42, r34; r47 registration) | check | `python3 .ufo/waves/round-34/w1/ExecE4Census/receipt-binding.py <repo> <receipts-dir> [--gate-path tools/research-gate.sh] [--waves-prefix .ufo/waves/] [--json-out PATH]` (repo must be a git checkout: it runs `git rev-list --all` and `git cat-file --batch`) | gates QUALITY 42: `exit 0` no UNBOUND receipt carries a landed/final label (`TOTAL_UNBOUND_LANDED_FINAL 0`; unlabelled `UNBOUND` lines are still listed) · `exit 1` at least on...
+ 129:| `slen-probe` (QUALITY 47, r35; r47 registration) | check | `bash .ufo/waves/round-35/repairs/slen-probe.sh GATE` (GATE a research-gate copy such as `tools/research-gate.sh`; it extracts the gate's chunk-matcher block, sources it and calls `tok_span_offsets_chunk` directly with a decoy visible `span`) | gates QUALITY 47: `exit 0` `SLEN_PROBE offsets=1 first=5` (the matcher reads its span length from its parameter) · `exit 1` any other offset count (`SLEN_PROBE offsets=0 first=`, the coupled one-stateme...
+ 130:| `round-29 quote-reopen counter` (r29; r47 registration) | counter | `python3 corpus/evidence/round29/c1-count.py [--receipt PATH] -- CMD...` (lane root; CMD is the candidate verifier, e.g. `python3 tools/quote-reopen.py verify`; the counter appends `--items <tmp>/items.tsv` with a fresh 64-bit seed per run) | prints `QUOTE_REOPEN_MATCH=n/t`; exit `0` only when n = t = 130 (40 frozen fixture items, 42 fixture-derived variants, 48 page-sampled items each get the verdict equal to its label) · `1` any mis...
+...
+ 165:| `round74 successor correction counter` | gate | `python3 -B corpus/evidence/round74/correction-count.py --lane . --base BASE --rev REV` | 0 C2=PASS checks=7/7; 1 C2=FAIL or Git diagnostic (could-not-evaluate when Git fails); argparse 2 usage | public-path selftest: `python3 -B corpus/evidence/round74/loader-matrix.py --counter corpus/evidence/round74/correction-count.py --work DIR`, expected LOADER_MATRIX=9/9 C1=PASS, 0; mismatch 1; setup 2 | `corpus/evidence/round74/claims.md`; nine committed Git fixt...
+*166:| `round76 loader matrix` | gate | `python3 -B corpus/evidence/round76/loader-matrix-v3.py --counter COUNTER --work DIR` | 0 `LOADER_MATRIX=12/12 MATRIX=PASS`; 1 mismatched case; argparse 2 usage; setup exceptions are could-not-evaluate | public-CLI fixture self-invocation; `python3 -B corpus/evidence/round76/matrix-battery-v3.py --matrix corpus/evidence/round76/loader-matrix-v3.py --work DIR` expects `BATTERY=PASS forgers_rejected=11/11 positive=2/2`, exit 0; 1 short, 2 usage; timeout cleanup and metada... [col 264]
+ 167:| `round76 quote-count correction counter` | gate | `python3 -B corpus/evidence/round76/correction-count-v2.py --lane LANE --base BASE --rev REV` | 0 `C2V=PASS checks=9/9`; 1 failed check or Git diagnostic; argparse 2 usage; Git diagnostic means could-not-evaluate | `python3 -B corpus/evidence/round76/c2-battery.py --counter corpus/evidence/round76/correction-count-v2.py --work DIR` expects `C2_BATTERY=PASS bogus_rejected=6/6 positive=1/1 lane=PASS`, exit 0; 1 short, 2 usage; fixture finding-id limitatio...
+ 168:| `round77 order-and-content battery` | gate | `python3 -B corpus/evidence/round77/matrix-battery-v4.py --matrix MATRIX --work DIR` | 0 `BATTERY=PASS forgers_rejected=11/11 positive=2/2 oracle=REJECTED`; 1 any forger accepted, positive refused, oracle at full marks, or short; argparse 2 usage | the frozen predicate; `--no-permute` must print `BATTERY=FAIL … oracle=MISS` and `--no-content` still passes (recorded asymmetry); three forged matrices are scored as a control leg | `corpus/evidence/round77/cla...
+ 169:| `round78 order-and-content battery v5` | gate | `python3 -B corpus/evidence/round78/matrix-battery-v5.py --matrix MATRIX --work DIR` · `python3 -B corpus/evidence/round78/forge-battery.py --battery BATTERY --work DIR` | 0 `BATTERY=PASS forgers_rejected=11/11 positive=2/2 oracle=REJECTED` (v5) / `FORGE_BATTERY=PASS forgers_handled=4/4 positive=1/1` (forge battery); 1 any forger accepted, positive refused, oracle at full marks, short, or a forger FORGED; argparse 2 usage, and 2 for a missing matrix/subj...
+...
+ 443:**Baseline mode (round 8).** `--pin PATH` runs the gate's canonical reference
+*444:invocation — `verify-all record.md --claims claims.jsonl --json manifest.jsonl
+ 445:--root .` with cwd set to a fresh temp fixture the gate writes itself (never
+ 446:committed; every printed path is relative, so the capture is byte-stable
+ 447:wherever the gate is run) — normalizes that capture and writes it as a
+...
+ 449:`GATE_PIN: ok path=… gate_sha256=…`. `--drift PATH` re-runs the same
+*450:invocation, re-normalizes with the **current** rules and byte-compares: equal
+ 451:prints `GATE_DRIFT: none` exit 0, differ prints `GATE_DRIFT: <changed tokens>`
+ 452:exit 1, and a baseline that is missing, unreadable, malformed (no magic line,
+ 453:no canonical marker, no volatile contract, empty block) — or a capture that
+...
+ 471:`GATE_DRIFT: none` exit 0, immediately and again after 35 s of wall clock (the
+*472:mask absorbs the invocation's only live input); a one-token baseline edit read
+ 473:`GATE_DRIFT: state` exit 1, a rewritten volatile list `GATE_DRIFT:
+ 474:volatile_fields` exit 1, a missing baseline exit 2, an empty file `malformed
+ 475:(magic line absent)` exit 2, and `--pin … --root .` `--pin/--drift take only a
+...
+ 544:non-local namings are counted, never resolved.
+*545:`--pin`/`--drift` compare exactly one canonical invocation's normalized output
+ 546:and nothing else: the two masked fields (`ts`, `gate_sha256`) are declared
+ 547:blind spots, so a change that moves only a masked value — a comment-only gate
+ 548:edit, for instance — reads `none` by design, and a behavior change the
+...
+ 728:  distinct-path GNU-reporting recorder as `RESEARCH_GATE_GREP`; the recorder appends one
+*729:  NUL-delimited argv per invocation to a log whose name and per-run marker are drawn outside the
+ 730:  gate's environment, and every record's own span (or its first 4096 bytes for a dead-zone span)
+ 731:  must appear in a `-a -z -b -o -P` matcher argv. The `-b`-with-`-o` offset semantics come from the
+ 732:  installed grep manual (S069). Command: `python3 corpus/evidence/round36/c2-count.py --seed N` →
+
+# game-dev-3d-shokunin/
+## PROVINCE.md#06DB
+ 56:- GodotPhysics3D/Jolt behavior has backend-specific executable rows; the pinned build and measured regimes are not a universal backend-equivalence claim. Evidence: `corpus/fixtures/run_battery.py:451-454`; `SCORECARD.md:134-146,249-253`.
+*57:- Headless determinism is supported by the baseline 350-row CASES battery and `--headless` invocation path. Evidence: `reports/frontier/unknowns-map.md:13-18`; `corpus/fixtures/run_battery.py:1267-1269`.
+ 58:- Blender bpy has headless evaluation and a Cycles PNG-hash case; it is not a decoded-pixel oracle for Godot rendering. Evidence: `corpus/fixtures/run_battery.py:564-565`; `reports/frontier/bpy-boundary.md:44-47`.
+ 59:
+ 60:## Frontier
+## SKILL.md#08BD
+ 50:| **E** | **Lane-authored static descriptor** — "the lane wrote a `.uplugin` its own checker accepts" | `static-only`. **Never** `verified-here`, and never a statement about Unreal accepting it: the checker is the lane's, so the claim is only about the lane's own writing. | the checker's command and its `PASS … reason=…` line, **plus** its paired reject control. The row must state what the evidence does *not* reach. | `python3 corpus/artifacts/unreal-r22/verify_descriptor.py` → `PASS local-static...
+*51:...ne generally or promote an engine-census row. | saved `verdicts.json` whose aggregate line reads `PASS battery` (`cases=N pass=N fail=0`) with the named row's `verdict=PASS`, `actual_exit=0`, `reasons=[]`, **and** `seeds_unchanged=true`; the exact invocation command; the receipt path, scope, and bound (including timeout), with seed digests identifying the runner and fixture. **A named non-author replay** (independent re-run producing a matching receipt — e.g. the r104 author run corroborated by the ... [col 531]
+ 52:
+ 53:**Citation rule for mutable files.** Cite a mutable artifact by **section heading
+ 54:plus a sha256 stamp**, not by bare line number; cite a frozen artifact
+
+# kagi-shokunin/
+## PROVINCE.md#D7E7
+ 72:- `corpus/scope-gate.sh` — ownership partition + shared-directory breadth. `corpus/adjacency.tsv` declares 5 owned prefixes (27 census rows), 4 shared groups (8 rows), 8 no-enumerate boundaries and 4 derived leaf breadth pins. Default verify fails closed on partition/citation/path defects and on missing/invalid/drifted breadth; `--map` prints all 35 row assignments; `--breadth` prints count-only per-leaf measurements (20/4, 105/2, 4/1, 53/1; total 182 children / 8 declared / 174 undeclared); `--selftes...
+*73:...ts `LAYOUT-INCOMPLETE`), `cells` (policy/host classification before recursion skips), `docs` and reviewed `stamp`. Exit 0/1/2 (3 = citations incomplete in a lone layout); `--selftest` declares 170 cases (121 at round 23; 151 at round 24; fourteen round-25 layout cases and one network-mode refusal). Only executed output verifies the count. Script expansion, attached external pattern-file operands and symlinked script ancestors are refused; the host-free fixture invocation is a closed vector, not a prefix. [col 821]
+ 74:- `corpus/self-counts.py` + `corpus/self-counts.tsv` — binds the current-tense numbers SKILL.md, PROVINCE.md, `corpus/README.md` and (round 27) reviewed `corpus/knowledge/*.md` lines state about this lane's own artifacts to their live source (row counts, a non-host ledger row's output, or a host row's committed pin; nothing host-reading is executed). Exit 0/1/2; `--selftest` proves 48 cases (round 25, ledger `R25-01`/`R25-02`).
+ 75:- `corpus/release-clock.py` + `corpus/release-clocks.tsv` — every `on-release` row bound to a feed or rendered-quote clock; default is the pinned round-36 rearmed receipt (round-26 retained as history), NOT live vendor truth. `--observe` writes a NEW receipt without rewriting the table and can fail on later receipt/profile drift. S040/S041 retain on-release cadence at named3.15.1 anchors; old3.15.0 anchors stay fired. Since round 27 a strict X.Y.Z observation below its own numeric anchor, any numeric a...
+ 76:- `corpus/feed-token-agree.py` — differential feed-token agreement gate (round 29): imports the live `release-clock.py` extractors and shared token grammar (never copies them) and runs one fixed shape corpus of 12 shapes through all three feed extractors in their natural wrappers (Atom title, tag href, text `Version:` line); a shape the grammar adjudicates must be extracted, unchanged, by every extractor, and any deviation is a named `FEED_TOKEN_DISAGREE`. `--selftest` proves 4 cases on synthetic extra...
+
+# kaidoku-shokunin/
+## PROVINCE.md#76E9
+ 731:  and the round-88 class regression arm met; the unchanged round-88 repair scores `0 of 4` on the same
+*732:  class (`pre/c1-base-r88-repair.json`). The counter runs each repair invocation in a private directory
+ 733:  holding only the input (round-88 M88-8 / QUALITY 158). Entry:
+ 734:  `corpus/knowledge/2026-11-04-r89-binfo-field-value-class.md` (S311, S312, S306, S309, S310).
+ 735:- **Held, not Core — the field-class refusal table:** nine single-field classes on two carriers
+## SKILL.md#023A
+ 88:- **Evidence ids are content-addressed per verb family — never substitute ids
+*89:  across invocation shapes.** Many families re-derive byte-identical ids and
+ 90:  envelopes across re-runs, lanes, and rounds (native verbs
+ 91:  `corpus/knowledge/2026-10-13-r7-01-queue-a-ops.md:84-91`; JS workflows
+ 92:  `corpus/knowledge/2026-10-13-r8-02-queue-a-ops-2.md:99-123`; ledger verb
+...
+ 633:  own resolution edit visible — a plain `git log --name-only` scan misses it, and both
+*634:  round-45 counters have exactly that blindness (HIGH, routed R45-CL6). An invocation must
+ 635:  name every frozen path: this round's freeze has two, so the gate is called with
+ 636:  `--pathspec tools/round-45/ --pathspec plans/round-45-claims.md` and the matching two
+ 637:  `--freeze-path` values; one pathspec certifies four of the five frozen files (routed
+...
+ 643:  the gate reads clean on a dirty frozen file (a false-clean, reproduced and routed
+*644:  R45-CL15; this round's invocation never passes that flag). History, not tip equality, is
+ 645:  the evidence: a path that was edited post-freeze and then restored to its exact bytes is
+ 646:  still a violation (`corpus/lessons/round-44.md:88-92`,
+ 647:  `corpus/lessons/round-44-verifier-spotcheck.md:89-92`), which is why the `restored`
+...
+ 744:| the predecessor's input guards are not carried: a FIFO `--in` blocks, `/dev/zero` raises `MemoryError`, the upstream `Refused` escapes as a traceback (QUALITY 169) | `read_input()` — `lstat`, regular file, size cap — plus a wrapper that converts every upstream refusal to the revision's own typed refusal | `N1-refuse-plain` asserting `rc == 2`, never `rc != 0` |
+*745:| the harness leaves the intact original, its outputs or a repaired sibling beside the input (QUALITY 163) | one private directory per invocation holding the tampered input alone | `isolation` |
+*746:| the isolation listing is taken before the child runs (QUALITY 170) | list the directory after the child exits and diff it against the prepared listing | `isolation` with `box_after` recorded per invocation |
+ 747:| the repair can read the pinned carrier path itself (QUALITY 168) | a sandbox in which every pinned carrier path holds decoy bytes, plus a probe proving the blinding took effect | `carrier_blind` |
+ 748:| a bound claimed as a filter is implemented as a rank key (QUALITY 171) | state the bound as a preference with its fallback named, or implement the filter and report the refusal it produced | the per-cell `detail` in the receipt |
+ 749:| an exit code read as "the file is fixed" when it means "the field I own changed" (QUALITY 167) | the counter tests the output — `upx -t`, the `upx -d` pin and the REA counts — never the exit code | `test_ok`, `unpack_pin` and `rea_recover` |
+...
+ 850:  attribution unauthenticated by the id — never substitute ids across
+*851:  invocation shapes, and pin request bytes (or re-derive the dossier) when
+ 852:  module identity matters
+ 853:  (`corpus/knowledge/2026-10-13-r2-evidence-bundle-schema.md:244-250`;
+ 854:  `corpus/knowledge/2026-10-13-r5-01-riscv-bypass.md:83-85`;
+...
+ 880:
+*881:| Name | Kind / owner | Entry / verdict map | Self-invocation | Pinned values / write scope |
+ 882:|---|---|---|---|---|
+ 883:| interactive-r1-recovery | gate / kaidoku | `python3 .ufo/rounds/interactive-r1/verify-recovery.py`; 0 clean, 1 failed, 2 could-not-evaluate; `--admission` checks this recovery's unresolved prerequisites and returns 2, never native judgment | same command with `--selftest`; asserts isolated subprocess exit codes and stable finding IDs | `.ufo/rounds/interactive-r1/expected.json` pins every snapshot input and expected outcome; normal entry read-only in this repo; selftest creates and removes only its iso...
+ 884:| citation-drift | gate / kaidoku | `python3 -I /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/gates/citation-drift/citation-drift-probe.py --root /home/vgpnk/Projects/shokunin/kaidoku-shokunin --rev <REV> --table /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/gates/citation-drift/pointer-table.json --expected /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/gates/citation-drift/expected.json --strict` (exercised argv: `.ufo/waves/round-16/verification.json` and `.ufo/waves/round-17/verifica...
+...
+ 920:
+*921:| Name | Kind / owner | Entry / status map | Self-invocation | Pinned values / write scope |
+ 922:|---|---|---|---|---|
+ 923:| go-snapshot-inventory | probe / kaidoku | `python3 -I /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-15/snapshot-inventory.py --ghidra /home/vgpnk/.local/opt/ghidra_12.1.4_PUBLIC --select 1.24.7 1.25.7 1.26.8`; read-only JSON inventory, not a conformance verdict; 0 emitted, nonzero could-not-evaluate | no selftest or gate claim | `.ufo/waves/round-15/inventory.json` retains filename/size/SHA-256 and selected JSON structure; read-only installed resources, stdout only; rerun and compare ...
+ 924:
+...
+ 980:| temporal-sweep | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-17/tools/temporal-sweep.py --root <LANE> --rev <REV> --sites-rev <BASELINE>`; 0 reported, 2 could-not-evaluate | same command with `--selftest` | Git objects only; a site is corrected only by one line with `R16-PROVENANCE`, its exact `file:line` and "temporal stability not evidenced" |
+*981:| invocation-audit | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-17/tools/invocation-audit.py --root <LANE> --rev <REV>`; 0 reported, 2 could-not-evaluate | same command with `--selftest` | Git objects only; counts an `argv` (never `orig_argv`) only when its recorded exit is 0/1 or absent; strips only a leading `python*` token and relativizes in-lane absolute paths (so results depend on the checkout path), keeping `-I`/`-B`/`--strict` differences as va... [col 3]
+ 982:| go-buildinfo-probe | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-17/tools/buildinfo-probe.py <PATH>`; 0 emitted (`found:false` when no magic), 2 unreadable or malformed ELF | same command with `--selftest` | Pinned values: `.ufo/waves/round-17/tools/buildinfo-probe.py` itself (the build-info magic and header constants of go1.25.0 `debug/buildinfo` are literals in that file, no external baseline; R18-REGISTRY-PINNED, round 19) (keeps the writable-segm...
+ 983:| round17-structural-controls | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-17/controls.py <BEFORE> <AFTER>`; 0 reported, 2 could-not-evaluate | same command with `--selftest` | Git objects only; old-prefix, frozen-blob, verifier and QUALITY-row byte checks; no semantic audit |
+ 984:
+...
+ 999:
+*1000:| Name | Kind / owner | Entry / verdict map | Self-invocation | Pinned values / write scope |
+ 1001:|---|---|---|---|---|
+*1002:...t, so a failed run leaves uncovered files) | no selftest; its inputs' tools carry selftests | Pinned values: writes `.ufo/waves/round-18/predictions/*.prediction.json`, `decision-rule.json`, `swiss-misread/*.json` and `SHA256SUMS`, committed before any run (`eb6c2668e5cb7054fd1e16d2f615cb65586d0fe0`). Write scope: that directory only; never runs REA or a carrier. Ran once before the freeze; its argv is in this row and the commit, not in a retained receipt (an unexercised variant for `invocation-audit`) | [col 773]
+ 1003:
+ 1004:## Revision pins under jj — round 18
+ 1005:
+...
+ 1020:
+*1021:| Name | Kind / owner | Entry / verdict map | Self-invocation | Pinned values / write scope |
+ 1022:|---|---|---|---|---|
+ 1023:| routed-defects | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-18/tools/routed-defects.py --root <LANE> --rev <REV> --strict`; 0 all six R17 routed defects closed, 1 any open (named correction or substance), 2 could-not-evaluate; without `--strict` 0 reported | same command with `--selftest` (open fixture, closed fixture, one-broken-check and token-only red cases) | Pinned values: the defect definitions in the script, the r17 producer hashes and `271167...
+ 1024:| head-rev-lint | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-18/tools/head-rev-lint.py --root <LANE> --rev <REV> --strict`; 0 no live HEAD-as-revision site, 1 live site, 2 could-not-evaluate | same command with `--selftest` | Pinned values: the scanned scope (`.ufo/gates/`, `.ufo/rounds/`, `.ufo/waves/round-14`…`round-18`, seat dirs `w[0-9]/` listed as excluded) and the site kinds in the script; `head-rev-lint: compare-only`/`red-before` comments mar...
+...
+ 1027:| swiss-misread | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-18/tools/swiss-misread.py --carrier <PATH> --golang-root <GOLANG_DIR>` where `<GOLANG_DIR>` is `/home/vgpnk/.local/opt/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/data/typeinfo/golang`; 0 emitted, 2 unparseable | same command with `--selftest` | Pinned values: none external; predictions it emitted for round 18 are frozen under `.ufo/waves/round-18/predictions/` (`swiss-misread/<label>.json` ho...
+*1028:...| Pinned values: carrier sha256 (synthetic `.ufo/waves/round-18/carriers/SHA256SUMS`, read from its deployed copy, else the TSV's 4th column), prediction, tools, Go data; `producer.json` per run records branch tip and tool digests. Write scope: deletes and recreates `.ufo/waves/round-18/runs/<LABEL>/` (or a `/tmp` `RUNS_DIR`); never executes a carrier. The all-label pass was run once without `<LABEL>` (argv in `runs/run-log.txt`, not in a retained receipt: an unexercised variant for `invocation-audit`) | [col 885]
+ 1029:| round18-measure | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-18/measure.py <REV>`; 0 report emitted (claims may be could-not-evaluate), 2 revision unreadable | same command with `--selftest` | Pinned values: none. Write scope: none in the lane; materializes REV's tools into a removed mkdtemp; Git objects only |
+ 1030:| round18-structural-controls | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-18/controls.py <BEFORE> <AFTER>`; 0 reported, 2 could-not-evaluate | same command with `--selftest` | Pinned values: the six contracted in-place r17 edits and the one restored SHA256SUMS line as the only permitted wave-evidence deltas. Write scope: none, Git objects only; no semantic audit |
+ 1031:| routed-r18 | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-19/tools/routed-r18.py --root <LANE> --rev <REV> --strict`; 0 no open routed R18 defect, 1 open defects, 2 unusable input or HEAD-derived `--rev` | same command with `--selftest` (token-only fixture keeps all 7 open) | Pinned values: the seven defect ids, the round-18 baseline `9011581` and delivered revision `a245bb0`, the go.dev archive sha256 values for go1.24.6/go1.25.0, and the alias list, ...
+...
+ 1038:| round19-controls | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-19/controls-r19.py <BEFORE> <AFTER>`; 0 controls hold, 1 failed, 2 unreadable input | same command with `--selftest` | Pinned values: SCORECARD command A, old prefix/QUALITY rules in the script, and prediction freeze `a1140e76fffdc1be032d9d813dbb686157803bbc`. Write scope: none, immutable Git objects only; not a semantic audit |
+*1039:| round19-postfix-mutations | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-19/postfix-mutations.py <SOURCE_COMMIT>`; 0 report emitted, not an all-killed verdict | no separate selftest; the invocation itself is a finite set of committed sandbox mutants with actual pristine/mutated/restored exits | Pinned values: ten named transformations in the producer and the cited source commit. Write scope: one removed /tmp clone, never the lane Git index or jj state... [col 242]
+ 1040:| routed-r19 (historical R20 aggregate) | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-20/tools/routed-r19.py --root <LANE> --rev <REV> --strict [--live]`; 0 closed, 1 open, 2 could-not-evaluate | `--selftest` | Historical measurements only; its D6d positive control reads a C3 receipt. For current R20-SEP validation use `round21-isolated-control` below, not this aggregate. Frozen R20 source/measurements remain unchanged. |
+ 1041:| evidence-timestamps | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-20/tools/evidence-timestamps.py --root <LANE> --rev <REV> --path <dir> --strict`; 0 no zoned timestamp later than its line's introducing committer time, 1 `future_dated <path>:<line>` findings, 2 could-not-evaluate | `--selftest` (5 cases) | Pinned values: the zoned-timestamp grammar in the script (T/space forms with Z or `±HH[:]MM`; zoneless forms unchecked). Text blobs of every size ...
+ 1042:| carrier-guard | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-20/tools/carrier-guard.py {arm,check,disarm} --manifest <TSV> --record <DIR>`; `carrier-guard.py adopt --from <MANUAL-ARM.json> --record <DIR>`; check 0 clean, 1 `mode_restored`/`ctime_changed`/`content_changed`, 2 refusal | `--selftest` (`exec_refused`, `mode_restored`, …; copies of /usr/bin/true in mkdtemp) | Pinned values: `arm.json` per record dir (`.ufo/waves/round-20/evidence/carrier-...
+...
+ 1052:| round21-battery | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-21/battery.py --root <LANE> --rev <REV> --claim C1` (or C2/all; `--regression` is C2/all only); 0 all expected exits, 1 violation, 2 unusable/`snapshot_tampered` | Finite independent test producer, not a new admission gate; no separate selftest | Pinned inputs: `.ufo/waves/round-21/fixture-contract.json`, `fixtures/battery.json`, digest manifest `fixtures/expected.json`. Canonical bytes co...
+*1053:| round21-isolated-control | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-21/tools/isolated-control.py --root <LANE>`; 0 `isolated_control_clean`, 1 failed, 2 unevaluable/`snapshot_tampered` | same command with `--selftest` self-invocation checks exit and finding | Pinned independent template/expected exits: `.ufo/waves/round-21/fixtures/isolated-receipt-v2.json`, freeze `ae73ec7734c8edc70350995267ddc1f0d2f603e4`, SHA-256 constant in script. V1 is retain... [col 281]
+ 1054:| round21-controls | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-21/controls.py --root <LANE> --before <B> --after <V>`; 0 `controls_clean`, 1 `controls_failed`, 2 `controls_unevaluable` | `--selftest` actual self-invocations over removed external Git fixtures, positive plus prior-byte mutation | Pinned rules: SCORECARD command A, immutable prior R20/knowledge/lesson blobs, LOG/SCORECARD prefixes and prior QUALITY admission rows. Write scope: no lane wr...
+ 1055:| round21-verify | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-21/verify.py --root <LANE> --before <B> --after <V> --out-dir <NEW-ROUND-RECORD-DIR>`; 0 expected command exits, 1 discrepancy | Explicit final-suite producer; expected command table committed in script | Writes new records under round21 plus removed external fixtures; use `verify/final/` for the post-wave corrections, preserving initial `verify/*.json`. Retains argv/stdout/stderr/exit, mea...
+ 1056:
+...
+ 1116:
+*1117:| Name | Kind / owner | Entry / verdict map | Self-invocation | Pinned values / write scope |
+ 1118:|---|---|---|---|---|
+ 1119:| round22-C1 | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-22/tools/count-c1.py --root <LANE> --rev <REV>`; 0 c1_complete/all six, 1 c1_incomplete, 2 unevaluable. Frozen claim improvement is k>=1, not an all-six pass | `--selftest` (optional `--root <LANE>` for a relocated executable): 0 counter_controls_clean, 1 counter_controls_failed, 2 snapshot_tampered/unevaluable | Fixed T1/claim in claims.json; original counters and v1 fixture retained in frozen/...
+ 1120:| round22-C2 | gate / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-22/tools/count-c2.py --root <LANE> --rev <REV>`; 0 dispositions_complete/14 matched, 1 dispositions_incomplete, 2 unevaluable | `--selftest` (optional `--root <LANE>`): 0 counter_controls_clean, 1 counter_controls_failed, 2 snapshot_tampered/unevaluable | Fixed T2/grammar in claims.json; frozen/expected-v2.json authenticates the independent fixture/dependency bytes before execution. Original sou...
+ 1121:| round22-capture-probes | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-22/tools/capture-probes.py --out <NEW-DIR>`; 0 producer completed (child errors retained), other exit could-not-evaluate | No selftest: records requested outputs, does not grade a stored baseline | Writes new output directory only; invokes fixed REA6.5.0 calls, explicit false-client ADB and impossible-PID Frida request. Never reuse an existing output directory. No actual selected pr...
+*1122:| round22-verify | probe / kaidoku | `python3 -I -B /home/vgpnk/Projects/shokunin/kaidoku-shokunin/.ufo/waves/round-22/verify.py --root <LANE> --rev <SOURCE-COMMIT> --out <NEW-DIR>`; 0 expected child conditions recorded, 1 discrepancy, 2 invalid invocation | Explicit final-suite producer, not an independent admission authority; self-invocation belongs to the child gates above | Writes only new output directory and removed external fixtures. Extracts candidate/frozen source from the requested commit, chec... [col 247]
+ 1123:
+ 1124:Checklist: open source rows before writing them; bind each counted entry's
+ 1125:`source:` to a mined round-22 row naming it in `used-by`; keep matching
+...
+ 1168:
+*1169:| Name | Kind / owner | Entry / verdict map | Self-invocation | Pinned values / write scope |
+ 1170:|---|---|---|---|---|
+ 1171:| round23-C1 | gate / kaidoku | `python3 -I -B .ufo/waves/round-23/tools/count-c1.py --root <LANE> --rev <REV>`; 0 clean c1_complete6/6, 1 failed c1_incomplete, 2 could-not-evaluate/unevaluable. Round improvement target is k>=2, not a green completeness gate | Same entry with `--root <LANE> --selftest`; 0 selftest_clean, 1 selftest_failed, 2 could-not-evaluate including snapshot_tampered | Fixed B/six targets, reviewed R22/R21/R20 hashes; active frozen/expected-v3.json pins independent fixture program/te...
+ 1172:| round23-signal-description | probe / kaidoku | `python3 -I -B .ufo/waves/round-23/tools/describe-signals.py --root <LANE> --rev <REV>`; 0 report produced, inspect discrepancy fields; 2 could-not-evaluate | No selftest: field/consistency descriptor, not admission oracle | Named committed original envelopes/run records/carriers; stdout only, no producer replay or live-tree writes |
+ 1173:| round23-dart-description | probe / kaidoku | `python3 -I -B .ufo/waves/round-23/tools/describe-dart.py --root <LANE> --rev <REV>`; 0 report produced, inspect discrepancy fields; 2 could-not-evaluate | No selftest: field/consistency descriptor, not admission oracle | Named committed L1 envelope/run/fetch; stdout only, no target replay, SDK inference or live-tree writes |
+*1174:| round23-final-producer | probe / kaidoku | `python3 -I -B .ufo/waves/round-23/verify.py --root <LANE> --rev <SOURCE-COMMIT> --out <NEW-DIR>`; 0 declared finite conditions observed, 1 discrepancy, 2 could-not-evaluate/invocation | No independent selftest: exercises the child gate, input tamper/setup-failure controls, old/current counter regression, original-run consistency, no-harm and source-prefix checks | Own inputs execute in a committed private clone; external fleet census script is fingerprinted a... [col 220]
+ 1175:
+ 1176:Checklist: count each verb once; retain the exact incomplete remainder; separate
+ 1177:catalog mentions from held targets; never replace a parent refusal with a
+...
+ 1207:
+*1208:| Name | Kind / owner | Entry / verdict map | Self-invocation | Pinned values / write scope |
+ 1209:|---|---|---|---|---|
+ 1210:| round24-C1 | gate / kaidoku | `python3 -I -B .ufo/waves/round-24/tools/count-c1.py --root <LANE> --rev <REV>`; 0 c1_complete 4/4, 1 c1_incomplete, 2 unevaluable | post-hoc L1 `tools/selftest.py` (not a frozen independent oracle); BUILD selftest seats never spawned | Fixed BASE `fe10219e`, four T2 verbs, reviewed R22 binder digest, catalog/knowledge/SOURCES/R22–R23 evidence guards; reads Git objects only; temp dir only |
+ 1211:| round24-C2 | gate / kaidoku | `python3 -I -B .ufo/waves/round-24/tools/freeze-gate.py --root <LANE> --rev <REV> --require-clean round-24 --disclosures corpus/claim-freezes.tsv`; 0 required freezes CLEAN and every freeze disclosed exactly, 1 otherwise, 2 unevaluable | none in the instrument | Reads Git objects only; finding codes NONE/UNRESOLVED/ABSENT/UNPINNED/PIN_MISMATCH/REVISED; supersession 1 at `9fb4eacd` disclosed |
+
+# kake-shokunin/
+## SKILL.md#34D6
+ 61:   host (`command -v webzites` = empty; sibling audits confirm); all commands
+*62:   below abbreviate it to `webzites` for readability but the real invocation
+ 63:   is the node path. GET +
+ 64:   canary tripwire (`expect.status`, final URL, title regex, marker literal);
+ 65:   exit 1 on any violation. `webzites status` for last results. Raw `200` is
+...
+ 387:|---|---|---|---|---|---|---|---|
+*388:| corpus-contract | gate | `node scripts/corpus-contract.mjs --json` | `0=clean` structural census; `1=failed` missing fields/gates; `2=could-not-evaluate` input/read error; `64=could-not-evaluate` usage | `node scripts/corpus-contract.mjs --selftest` (`--selftest`), isolated generated fixtures only | `.ufo/waves/round-21/frozen/before/expected.json`; `node .ufo/waves/round-21/replay-proof.mjs` verifies every snapshot digest before checking the expected red baseline | Normal invocation read-only; selftes... [col 481]
+ 389:
+ 390:Round-21 counting and pointer-audit helpers under `.ufo/waves/round-21/`
+ 391:are evidence tools, not publishing gates. `measure.mjs` reports the revision
+...
+ 411:|---|---|---|---|---|---|---|---|
+*412:...mpty findings) | `python3 scripts/canonical_audit.py --selftest` (`--selftest`), isolated local fixtures | Manifest `expectedCanonical` values; committed `.ufo/waves/round-22/cases.json`, `frozen/expected.json`; `python3 .ufo/waves/round-22/replay.py --root .` verifies input digests, then compares every case's exit and finding ids with the pinned cases.json oracle as well as the aggregate exit/accepted/total | Normal invocation read-only, network-free; selftest owns temporary local fixtures only | kake | [col 700]
+ 413:
+ 414:The independent matrix/measurement/replay helpers are evidence tools, not
+ 415:additional domain gates. A missing tool on the baseline is capability absent,
+...
+ 1003:|---|---|---|---|
+*1004:| A page change could alter how a shared URL previews | Run the offline audit before and after the change; manifest is version 1, each page has `file` relative to the manifest directory and an absolute `url`; no network is involved | `python3 -B scripts/link_preview_audit.py --manifest <dir>/manifest.json` (`invocation`, c1-matrix.json) | interface: `manifest v1: {version:1, pages:[{file: relative path inside the manifest directory, url: absolute http(s) page URL}]}` |
+ 1005:| Someone wants to claim the tool meets its whole contract | Run the frozen counter at the landed commit; it reads the tool from `git show <rev>:scripts/link_preview_audit.py`, never the working tree, and four constant gates must each fail a case | `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root <repo> --revision <commit>` (at `d08d8de`: 0/28, `toolPresent:false`, `byKind` 0/6 control, 0/13 defect, 0/7 input, 0/2 usage; `constantGatesAllRejected:true`; `verification/c1-at-d08d8de.json`) | count...
+ 1006:| Exit 1, `og_required_missing`, `property` names one of the four | Add that one property to the page source; `name=` does not count, and content that is only ASCII whitespace counts as empty | re-run the audit; the finding clears only for the named property (D1–D6, D7 exit 1 `og_required_missing og:image`; K6 exit 0) | S067.txt@955 `The four required properties for every page are:`; interface `name= attributes do not count` |
+ 1007:| A page carries the other three but no `og:image` | Treat it as the census's dominant defect, not a per-page accident: 101 of the retained 102 ds4cc pages lack a non-empty `og:image` property, and only 1 has all four | census line, not the tool; see the census rows below | S067.txt@955 (same four-property sentence); S068.txt@6801 `Images are cached based on the URL and won’t be updated unless the URL changes` |
+
+# kama-shokunin/
+## PROVINCE.md#B8D1
+ 14:| which vLLM process serves `/health` — weight cache daemon (`vllm preload`) versus inference server | `corpus/knowledge/runtime-health-surface-processes.md` — source readings of the v0.31.0 release note and pull request 58552 (S480, S481); names the process from the sources and samples no endpoint |
+*15:| endpoint-drift detection + invocation history | `tools/kama-probe.sh snapshot`, `registry/endpoint-consumers.tsv`, `registry/history/{latest.tsv,DELTA.md}` |
+ 16:| endpoint-consumers cross-lane registry | `corpus/knowledge/consumer-registry.md`, `cross-lane-scope.md` |
+ 17:| lane instruments (the capability repertoire, `SCORECARD.md` canonical list) | `tools/kama-ollama-evidence.py` (offline Ollama capture replay), `tools/gguf-identity.py` (GGUF declared identity), `tools/kama-context-capacity.py` (fixture context-capacity receipt), `tools/instrument-agreement.py` (run agreement), `tools/pin-watch.py` with `registry/engine-pins.tsv` (newer-release triggers for the pinned SGLang, vLLM and llama.cpp lines), `tools/digest-ledger.py` with `registry/digest-ledger.tsv` (classifi...
+ 18:
+## SKILL.md#9E9A
+ 201:   `registry_rows_evaluated=3 model_ok=0 drift=3 exit=2`, `CHECK_EXIT=2`.
+*202:   Read the complete final line on every invocation; do not pin future counts.
+ 203:   Exit `0` means all declared rows reconcile, `2` means drift, `1` means
+ 204:   probe/tool error. Never describe exit `2` as model readiness.
+ 205:2. **Inspect pin provenance** — `bash tools/kama-probe.sh consumers`.
+...
+ 226:   requests as an identity test.
+*227:6. **Capture invocation history when requested** —
+ 228:   `bash tools/kama-probe.sh snapshot; echo "SNAPSHOT_EXIT=$?"`.
+ 229:   Default writes: dated local `kama-probe/v2` JSON and
+ 230:   `registry/history/{latest.tsv,DELTA.md}`. Use `--history DIR` to isolate a
+...
+ 307:| Listener census | probe: `bash tools/kama-probe.sh listeners` | 0 census, not a health pass; 1 probe error | No isolated listener-census self-test claimed | Removed temporary work directory only |
+*308:| Invocation history | gate + persistence: `bash tools/kama-probe.sh snapshot --history DIR` | 0 clean; 2 failed/drift captured; 1 could-not-evaluate/probe or persistence error | `bash tools/test-snapshot.sh`; committed fixture expectations include normalized fields, transition ids, stable rerun, malformed baseline and symlink refusal | Explicit history DIR; default `registry/history/` |
+ 309:| Pre-report gate | gate: `python3 tools/pre-report-gate.py --repo . --round N --tip master`; thirteen ordered arms are declared by `ARM_ORDER`; arm 13 `round83-instruments` runs pending-falls and pin-rechecks selftests with their own final-summary prefixes | 0 iff every arm passes and uncommitted=0; 1 failing arms/dirt; 2 CLI misuse; 3 re-entry refusal | `python3 tools/pre-report-gate.py --selftest`; round-84 seat receipt `PRE_REPORT_SELFTEST pass=35 fail=0`; arm-13 missing/red/malformed/foreign-summary...
+ 310:| Census waiver boundary | gate: `python3 tools/census-waiver-boundary.py --census tools/round65-host-census.py` | 0 iff the seven waiver/not-evaluated cases hold and all five named shims are killed; 1 on a survivor, a waivable failure, or the landed census being killed; 2 could-not-evaluate (census unreadable/unloadable, landed census absent, shim corpus missing, CLI misuse — `BOUNDARY could-not-evaluate` on stderr) | `python3 tools/census-waiver-boundary.py --selftest` → `BOUNDARY_SELFTEST pass=18 ...
+ 311:| Province host claims | gate: `python3 tools/round71-province-host-claims.py --repo . --base <rev>` | 0 iff every contradicted `province-host:`/prose claim carries a later verdict-checked correction (`uncovered=0`); 1 on uncovered contradictions or `PROVINCE_HOST_CLAIMS_REWRITTEN`; 2 unreadable input or git failure | `python3 tools/round71-province-host-claims.py --selftest` → `PROVINCE_HOST_CLAIMS_SELFTEST pass=7 fail=0`; kill arms: flipped verdict, wrong tag, deleted marker | Removed temp fixtures o...
+...
+ 352:  establish integration with those runtimes.
+*353:- Invocation history and teardown: `corpus/knowledge/snapshot-history.md`,
+ 354:  `registry/history/DELTA.md`, `corpus/lessons/round-2.md`,
+ 355:  `corpus/lessons/round-4-recensus.md`, and `corpus/lessons/round-5.md`.
+ 356:- Historical cross-lane mint evidence: `MINT.md`,
+...
+ 414:
+*415:Notes: the default invocation checks the default snapshot against the committed
+ 416:manifest. An overridden snapshot supplied without `--manifest` is unpinned: a
+ 417:byte mismatch is still `source_mismatch` (exit 1), but a matching unpinned
+ 418:snapshot is `unpinned` (exit 2, could-not-evaluate), never clean; the committed
+...
+ 446:|---|---|---|---|---|---|---|
+*447:...valid input); undeclared nonzero codes could-not-evaluate; none is semantic admission or endpoint readiness | `python3 .ufo/waves/round-13/measure.py --selftest` invokes the actual CLI over isolated fixtures and checks literal exits/finding IDs | `.ufo/waves/round-13/frozen/expected.json` pins frozen input SHA-256 values and expected verdicts; immutable before revision recorded in script and claims.json | Normal invocation read-only; self-test creates and removes isolated temporary fixtures only | kama | [col 810]
+ 448:
+ 449:This gate checks two explicit formulations in the effective KQ16 row, not
+ 450:arbitrary natural-language correctness. Static source/code and committed
+...
+ 540:|---|---|---|---|---|---|---|
+*541:| Ollama measurement corpus duplicate guard | gate: `python3 tests/ollama-corpus-guard/check.py` exercises `.ufo/waves/round-14/measure.py` | 0 clean test contract, 1 failed test contract (`test_failed`); neither means serving readiness | `python3 tests/ollama-corpus-guard/check.py --selftest`; same literal matrix through actual runner child CLI and actual classifier with temporary invocation marker | `tests/ollama-corpus-guard/*.json` literal duplicate/positive expectations; original classifier cases re... [col 386]
+ 542:
+ 543:This registered command is a regression gate for the historical measurement
+ 544:artifact, not a replacement for the domain classifier or a promoted serving
+...
+ 1755:
+*1756:Round85 adds equality, above-subject direction and exact-summary coverage arms to the existing debt selftest, preserving grade behavior. Historical round84 token-only selfrecord and documentary-source-origin limitations remain explicit; no generic mutation/Markdown capability or serving-runtime readiness is acquired. The finite authority gate has external fixture controls, not an added self-invocation flag: frozen counter bytes remain unchanged.
+
+# kasegi-shokunin/
+## SKILL.md#4447
+ 393:(`[lost-base] ops/check-freshness.mjs:59`) and appends one `freshness_check` telemetry
+*394:line per invocation (`[lost-base] ops/check-freshness.mjs:61`) — which is why the lost
+ 395:tree's telemetry count grew between runs. Its default board was the other
+ 396:then-surviving root, `/home/vgpnk/Projects/origin-work/open-bug-bounties`
+ 397:(`[lost-base] ops/check-freshness.mjs:14`; root ABSENT since 2026-10-12).
+...
+ 998:- `~/Projects/bounties/bounty-map/schema.json` — program record schema (draft-07, fail-closed `additionalProperties:false`)
+
+Showing files 1-20 of 27. Use skip=20 for the next page, or narrow paths/pattern.
+
+Skipped missing paths: /home/vgpnk/Projects/shokunin/audio-shokunin/SKILL.md, /home/vgpnk/Projects/shokunin/game-dev-2d-shokunin/SKILL.md
+
+More than 20 matches in kaidoku-shokunin/SKILL.md; grep keeps the first 20 per file when searching several. Search one file alone for up to 200.
+
+[Showing lines 1-285 of 581 (49.6KB limit). Use :286 to continue. Some lines truncated to 512 bytes]

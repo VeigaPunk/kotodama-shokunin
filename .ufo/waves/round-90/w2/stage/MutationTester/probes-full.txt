@@ -1,0 +1,42 @@
+DIFF shape-table-row-off-by-one
+     clean  : SHAPE:FAIL table 4x3 < 5x3
+     mutant : SHAPE:PASS clean
+DIFF topic-floor-off-by-one
+     clean  : TOPIC:FAIL entry shares 11 content words with the declared topic < 12
+     mutant : TOPIC:PASS clean
+DIFF newids-status-off
+     clean  : NEWIDS:FAIL S010: status retired not mined; S011: status retired not mined; S012: status retired not mined; 0 qualifying new ids < 3
+     mutant : NEWIDS:PASS clean
+DIFF newids-basesubtract-off
+     clean  : NEWIDS:PASS clean
+     mutant : NEWIDS:FAIL S001: opened 2026-10-19 != 2026-11-04
+DIFF gate-url-slash-relaxed
+     clean  : GATE:FAIL S010: gate line does not name the row url
+     mutant : GATE:PASS clean
+DIFF gate-quote-selection-last
+     clean  : GATE:PASS clean
+     mutant : GATE:FAIL S010: gate line does not name the row url
+DIFF capture-traversal-guard-off
+     clean  : capture path not relative and confined: reports/round-90/evidence/../../secret/leak.txt
+     mutant : None
+DIFF capture-sha256-skip-absent
+     clean  : capture sha256 mismatch: reports/round-90/evidence/S001.txt
+     mutant : None
+DIFF capture-http-status-widen
+     clean  : capture http_status not 2xx: reports/round-90/evidence/S001.txt
+     mutant : None
+DIFF capture-fetched-date-off
+     clean  : fetched_at date 2026-11-03 != as_of 2026-11-04
+     mutant : None
+DIFF capture-prefix-boundary-off
+     clean  : capture outside reports/round-90/evidence: reports/round-90/evidence-extra/S001.txt
+     mutant : None
+DIFF row-indent-unbounded
+     clean  : ids=[] dup=[]
+     mutant : ids=['S777'] dup=[]
+DIFF row-indent-zero-only
+     clean  : ids=['S777'] dup=[]
+     mutant : ids=[] dup=[]
+DIFF advanced-dup-length-lenient
+     clean  : ADVANCED:FAIL 0 advanced; S001: 2 rows at lands | SHADOW:FAIL duplicate ids: S001
+     mutant : ADVANCED:PASS 1 advanced | SHADOW:FAIL duplicate ids: S001

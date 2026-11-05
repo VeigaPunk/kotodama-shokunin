@@ -1,0 +1,53 @@
+# capture wall / challenge marker scan
+$ grep -rn -i -E "just a moment|checking your browser|cf-browser-verification|attention required|verify you are human|access denied|request blocked|too many requests|sign in to (read|continue|view)|subscribe to continue|institutional login|register to read" reports/round-90/evidence/ .ufo/waves/round-90/w1/stage/ExecIndepRefetch/caps/
+rc=1 (1 = no wall phrases)
+
+$ grep -rln -i captcha <evidence+сaps>
+reports/round-90/evidence/S948.txt
+reports/round-90/evidence/S949.txt
+.ufo/waves/round-90/w1/stage/ExecIndepRefetch/caps/dagstuhl-dei-genitrix.txt
+.ufo/waves/round-90/w1/stage/ExecIndepRefetch/caps/wiki-curse.txt
+.ufo/waves/round-90/w1/stage/ExecIndepRefetch/caps/wiki-sacred.txt
+.ufo/waves/round-90/w1/stage/ExecIndepRefetch/caps/wiki-votive.txt
+
+# S948 captcha context (feedback widget, page chrome)
+</span>
+
+<div class="_feedback-form -hidden">
+    <span class="_feedback-close"><a href="#">X</a></span>
+    <p>Feedback on the Current Page</p>
+    <div>
+        <textarea class="form-control" name="_feedback"></textarea>
+        <input class="form-control" type="text" name="name" autocomplete="off" placeholder="Name (optional)" maxlength="60">
+        <input class="form-control" type="email" name="email" autocomplete="off" placeholder="Email (optional)" maxlength="60">
+        <div class="_captcha-check">
+            <button class="btn btn-sm btn-default btn-send">Send</button>
+            <div id="captcha" class="mt-2 -hidden">
+                <img src="" alt="CAPTCHA" style="width: 49%">
+                <input class="form-control" type="text" name="captcha" autocomplete="off" placeholder="Enter CAPTCHA" maxlength="60">
+                <input type="hidden" name="phrase">
+                <button class="btn btn-sm btn-default btn-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="alert alert-success _feedback-success -hidden">
+    <span class="glyphicon glyphicon-ok"></span>
+    <h3>Thanks for your feedback!</h3>
+    <div>Feedback submitted to Dagstuhl Publishing</div>
+    <button class="btn btn-white _feedback-done">OK</button>
+</div>
+
+# S948 article identity
+44:    <meta name="citation_title" content="Dei Genitrix: A Generative Grammar for Traditional Litanies" >
+93:        "abstract": "The object of the present paper is a study of two traditional litanies, Litany of the Saints and Litany of Loreto, in their most ancient attested form. We will design a narrati
+320:        <title>Dei Genitrix: A Generative Grammar for Traditional Litanies</title>
+
+# fetch methods and statuses
+method: curl -sS -L -D headers, body saved verbatim, sha256 of the bytes on disk
+note: No headless browser, no CAPTCHA handling, no paywall workaround. Every status is the status curl saw.
+statuses: {200: 28, 404: 4}
+manifest statuses: {200: 8}

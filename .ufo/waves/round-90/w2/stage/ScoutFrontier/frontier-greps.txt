@@ -1,0 +1,36 @@
+# ScoutFrontier — frontier candidate greps (HEAD tree, read-only)
+# lane HEAD: 3f56892f29e46cce90996bd126ca3a2e7c7658e7
+# generated 2026-11-05T00:30:29-03:00
+
+### F1 NEGATION / standard negation
+$ find . -name "*.md" | grep -Ei "(negat|concord)"
+  -> 0 filename owners
+$ grep -rnE "^- topic:.*\b(negation|negative concord|multiple negation|standard negation)\b" . | wc -l
+0
+$ grep -rlEi "negative concord|multiple negation|double negation" --include="*.md" . | wc -l
+0
+
+### F2 TENSE / ASPECT (TAM)
+$ find . -name "*.md" | grep -Ei "(tense|aspect|perfective)"
+  -> 0 filename owners
+$ grep -rnE "^- topic:.*\b(tense|aspect|perfective)\b" .
+./myth-symbol/celestial-symbolism-calendars.md:3:- topic: The naked-eye sky as the worldbuilder's hi
+./myth-symbol/eschatology-world-end-systems.md:3:- topic: The design object the partition names and 
+./myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md:9:- topic: how three articles of *C
+./verification/index-sweep-verification.md:3:- topic: The verification procedure for the **corpus-in
+
+### F3 INTERROGATIVE / polar question
+$ find . -name "*.md" | grep -Ei "(interrogat|question)"
+  -> 0 filename owners
+$ grep -rnE "^- topic:.*\b(interrogative|polar question|question particle|wh-question)\b" . | wc -l
+0
+$ grep -rlEi "\b(interrogative|polar question|question particle)\b" --include="*.md" .
+./civilizations/igbo.md
+./linguistics/evidentiality-epistemic-marking.md
+./synthesis/multi-culture-creole-workshop.md
+
+### F4 (runner-up) INFORMATION STRUCTURE / ANAPHORA
+$ grep -rlEi "\b(anaphor|coreferen|information structure|topic.focus)\b" --include="*.md" . | wc -l
+3
+./synthesis/conlang-blueprint-template.md:79:- Clause orders: neutral main clause [ ]; questions [ ]; subordinate clauses [ ]; pronominal versus full-
+./synthesis/conlang-blueprint-template.md:80:- Phrase orders: possessor/noun [ ]; modifier/noun [ ]; numeral/noun [ ]; adposition/phrase [ ]; coordina

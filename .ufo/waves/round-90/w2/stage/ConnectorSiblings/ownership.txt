@@ -1,0 +1,276 @@
+# revenger-shokunin/
+## SKILL.md#CA5D
+ 193:  with `<TREE>/corpus` present and `TMPDIR` under the same lane-owned scratch. A
+*194:  lane-root invocation is not the registered measurement; do not describe it as one.
+ 195:- Read these labels: `K_HELD`, `K_HELD_BACKED`, `K_ROW C05` (the round-66
+ 196:  disposition readout — `frontier` at base, `uncovered` after adjudication),
+ 197:  `K_ROW C07`, `K_HELD_BACKED_STRICT` (must equal `K_HELD_BACKED` at both ends
+...
+ 401:| verdict map | `0` green (LEG1 llms=2 named `inspect_macho inspect_signature`, LEG2 doctor=0, LEG3 the S445 row carries the exact per-leg tokens, LEG4 the base-row negative control fires) · `1` red (any leg fails; LEG4 not firing is itself a FAIL) · no other exit declared — an undeclared nonzero reads `could-not-evaluate` (PROTOCOL §Gate standard) |
+*402:| self-test | **none exposed — routed debt of this registration, recorded honestly** (the probe has no self-invocation mode over hermetic fixtures; the §Gate-standard self-test clause is NOT satisfied and is not claimed). Two evidences instead: red `reports/round-76/receipt-before.log` (base `6f3a646c`: LEG3 FAIL + LEG4 `S444_MISMATCH_FLAGGED`) vs green `reports/round-76/receipt-after.log` (LEG4 still firing over the superseded base row). Producer-coupling note: LEG1/2/4 read the installed `rea` versi... [col 109]
+ 403:| pinned-value path | `corpus/SOURCES.md` row S445 (the exact per-leg tokens LEG3 greps) and the LEG4 pinned base row `6f3a646c691017f92012fc4cf928d9e946838b84:corpus/SOURCES.md` (S444, "prints 0"); probe bytes sha256 `9315f8d8a2440feaca9d943b95b3eb7247a4635c0e113ee6c4101799d4bd5a11` (working tree = `7b51a021` blob at the r77 tip, unchanged since r76) |
+ 404:| write scope | read-only over the lane tree; runs `rea --llms`, `rea doctor` and `git show`; writes nothing |
+ 405:| owner | revenger |
+...
+ 422:| entry command | `bash reports/round-79/gate_probe2.sh` (cwd = lane root; plain mode value lines byte-identical to v1 — `reports/round-79/plain-equal.log`) |
+*423:| verdict map | `0` green (plain mode: the v1 leg contract verbatim — `GATE_LEG0_RECEIPTS_PRESENT=yes`, LEG1 android-match=1, LEG2 firmware-match=1, LEG3 negctl flagged; `--selftest`: last line `GATE_SELFTEST=pass`) · `1` red (plain: receipts absent, a live gate payload diverges from its committed receipt, or the negative control is accepted; `--selftest`: an assertion dies with an attributed `selftest: …` last line) · `64` usage (any unrecognized invocation form; usage line on stderr) — declared... [col 453]
+ 424:| self-test | `bash reports/round-79/gate_probe2.sh --selftest` (spelling `--selftest`) — hermetic per the §Self-test clause (S452): isolated `mktemp -d` fixtures, no network, no live-tree write, **no producer call** (the committed receipt `reports/round-79/selftest-after.log` runs it with the rea directory stripped from PATH); asserts the exit code and the stable expected finding-ids `GATE_SELFTEST_COMPARATOR_EQUAL=ok`, `GATE_SELFTEST_COMPARATOR_MUTANT_FLAGGED=ok`, `GATE_SELFTEST_COMPARATOR_FIELD_MIS...
+ 425:| pinned-value path | plain mode: the v1 receipts stand (`corpus/live/runs/round-77/provider-gates/`, S448); selftest: expected finding-ids committed in this row + `reports/round-79/claims.md`; two-evidences pair `reports/round-79/selftest-before.log` (v1 pair: `0/2 · 0/2 · 0/2`, exit 1) vs `reports/round-79/selftest-after.log` (`2/2 · 2/2 · 2/2`, exit 0), both produced by the frozen counting instrument `reports/round-79/selftest_probe.sh` sha256 `4126af12767d1968be1cd344c5795a3cb4c2f6cbc9f11e35556eb...
+ 426:| write scope | read-only over the lane tree; plain mode runs live `rea` provider gates (both exit 1 by design); `--selftest` runs no producer call; writes only its own `mktemp -d` dirs, removed on exit |
+...
+ 433:| entry command | `bash reports/round-79/receipt_probe2.sh` (cwd = lane root; plain mode value lines byte-identical to v1 — `reports/round-79/plain-equal.log`) |
+*434:| verdict map | `0` green (plain mode: the v1 leg contract verbatim — LEG1 llms=2 named `inspect_macho inspect_signature`, LEG2 doctor=0, LEG3 the S445 row carries the exact per-leg tokens, LEG4 the base-row negative control fires; `--selftest`: last line `RECEIPT_SELFTEST=pass`) · `1` red (plain: any leg fails, LEG4 not firing is itself a FAIL; `--selftest`: an assertion dies with an attributed `selftest: …` last line) · `64` usage (any unrecognized invocation form; usage line on stderr) — decla... [col 456]
+ 435:| self-test | `bash reports/round-79/receipt_probe2.sh --selftest` (spelling `--selftest`) — hermetic per the §Self-test clause (S452): embedded temp fixtures only, no network, no live-tree write, **no producer call** (PATH-stripped receipt as above); asserts the exit code and the stable expected finding-ids `RECEIPT_SELFTEST_LLMS_VERDICT=ok`, `RECEIPT_SELFTEST_TOKEN_CHECK=ok`, `RECEIPT_SELFTEST_NEGCTL_LOGIC=ok`, last line `RECEIPT_SELFTEST=pass`, committed here and in `reports/round-79/claims.md`. At...
+ 436:| pinned-value path | plain mode: `corpus/SOURCES.md` row S445 and the LEG4 pinned base row `6f3a646c:corpus/SOURCES.md` (S444) — unchanged from v1; selftest: expected finding-ids in this row + claims.md; the same `selftest-before.log` / `selftest-after.log` two-evidences pair; probe bytes sha256 `076cdb67a4bb1dc5a5586cb23fd45d580703369a11b5baabc8e5ef12df2289d9` (pinned at the r79 freeze) |
+ 437:| write scope | read-only over the lane tree; plain mode runs `rea --llms`, `rea doctor` and `git show`; `--selftest` runs no producer call; writes nothing |
+...
+ 444:| entry command | `bash reports/round-87/probe_negctl2.sh` (cwd = lane root; plain mode value lines byte-identical to v1 — `reports/round-87/plain-equal.log`) |
+*445:... `NEGCTL_V2_UNRECORDED_ABSENT_FLAGGED=1/1`, `NEGCTL_V2_POSITIVE_CONTROL=pass`, final `NEGCTL_SELFTEST=pass`; `--selftest`: last line `NEGCTL_V2_SELFTEST=pass`) · `1` fail (plain: a leg outcome deviates; `--selftest`: an assertion dies with an attributed `selftest: …` last line) · `2` could-not-evaluate (probe inputs missing: the frozen P1/P2 probes or PROVINCE.md absent) · `64` usage (any unrecognized invocation form; usage line on stderr) — declared per PROTOCOL §Gate standard §Verdict (S452) | [col 563]
+ 446:| self-test | `bash reports/round-87/probe_negctl2.sh --selftest` — hermetic per the §Self-test clause (S452): synthetic verdict vectors only, no fixture build, no probe run, no producer call (runs with the rea directory stripped from PATH in the committed receipts); asserts the exit code and the stable expected finding-ids `NEGCTL_SELFTEST_FALSEPASS_LOGIC=ok`, `NEGCTL_SELFTEST_ATTRIBUTION_GUARD=ok`, `NEGCTL_SELFTEST_STALE_LOGIC=ok`, `NEGCTL_SELFTEST_UNRECORDED_LOGIC=ok`, last line `NEGCTL_V2_SELFTEST...
+ 447:| pinned-value path | plain mode: v1's pinned fixtures stand (the PROVINCE.md present-record block assertion verbatim; the frozen P1 `reports/round-74/province_probe.sh` / P2 `reports/round-75/province_probe2.sh` bytes); selftest: expected finding-ids in this row + claims.md; two-evidences pair `reports/round-87/negctl-red.log` (the counting instrument over the committed v1 snapshot: `0/1 · 0/2 · 0/1`, exit 1) vs `reports/round-87/negctl-green.log` (over v2: `1/1 · 2/2 · 1/1`, exit 0); instrument byt...
+ 448:| write scope | read-only over the lane tree; plain mode runs the frozen P1/P2 province probes over `mktemp -d` fixtures (host ghidra presence and the PROVINCE.md present-record block are disclosed plain-mode dependencies — the selftest mode has neither); no producer call in either mode; writes only its own `mktemp -d` dirs, removed on exit |
+...
+ 455:| entry command | `PYTHONUTF8=1 python -B reports/round-88/receipt_sweep.py` (cwd = lane root; `--sources PATH` is the declared registry override, used by the prelanding dry run over a staged copy) |
+*456:| verdict map | `0` green (no open findings: every word-count receipt in the registry rule-verified or machine-closed by a verifying supersession) · `1` red (an open finding: a word-count receipt whose recorded value is false under the declared rule and not closed, or a word-count row outside the frozen map, or an unreachable bound source) · `2` could-not-evaluate (registry missing, or a row with NF != 13) · `64` usage (any unrecognized invocation form; usage line on stderr) — declared per PROTOCOL ... [col 442]
+ 457:| self-test | `PYTHONUTF8=1 python -B reports/round-88/receipt_sweep.py --selftest` (spelling `--selftest`) — hermetic per the §Self-test clause (S452): embedded synthetic tables and stub channels only, no producer call, no git, no file reads (the committed counter runs it with the rea directory stripped from PATH); asserts the exit code and the stable expected finding-ids `SWEEP_SELFTEST_MATCH_VERIFIED=ok`, `SWEEP_SELFTEST_DRIFT_DETECTED=ok`, `SWEEP_SELFTEST_CLOSURE_RESOLVES=ok`, `SWEEP_SELFTEST_CLOS...
+ 458:| declared scan contract | the ANCHOR cell (column 7 of 11) of every `| S### |` row; declared receipt-token set P1 word-count / P2 prints / P3 key=value (version-shaped values excluded) / P4 colon-count / P5 ORACLE OK; the declared word-count rule is len(quote.split()) — whitespace split, delimiters do not split; a quote must appear verbatim in its own row anchor and in its bound source (whitespace-normalized). Named limitations: tokens outside the anchor cell; receipt wordings outside the declared set...
+ 459:| pinned-value path | the frozen WC_MAP quotes are byte-exact substrings of the r88 base rows anchor cells and of their bound sources, re-opened 2026-11-02 (`reports/round-88/preprobe-map-check.log`, MAP_CHECK_ALL_OK=True); red pair `reports/round-88/sweep-red-prelanding.log` (over base-state rows: VERIFIED=1/7 — S457 — OPEN=6, exit 1) vs `reports/round-88/sweep-green.log` (over the landing rows: CLOSED=6/6, OPEN=0, exit 0); probe bytes sha256 `57098ed5b8f427ae331da87a1ed68ed4efe909196686db4953612ab6...
+...
+ 700:under lane-owned `/tmp/revenger-r66-*`. Never point it at the working tree. The
+*701:committed invocation shape below is quoted byte-identical from a round-63
+ 702:record; change only the archive commit and the counter path before running it
+ 703:for this round:
+ 704:
+...
+ 760:2026-11-01: exit 2, `revenger missing … revenger-shokunin/corpus/SOURCES.md`).
+*761:The sanctioned invocation form on this host is the **explicit lane dir**:
+ 762:
+ 763:```sh
+ 764:bash <fleet-root>/scripts/sources-census.sh validate --root <fleet-root> <lane-dir>
+
+# souji-shokunin/
+## SKILL.md#7162
+ 207:|---|---|---|---|---|---|---|---|
+*208:| r43-c1-counter | gate | `python3 -B census/round-43/c1-counter.py --root LANE --rev FULL40 --scratch DIR` | 0 exact frozen Target; 1 unmet; 2 could-not-evaluate | `python3 -B tests/fixtures/r43-correction-prose.py --lane-root LANE --rev43 FULL40 --work DIR` (external discrimination fixture, not a counter self-invocation; conformance debt disclosed) | `census/round-43/c1-required.tsv`, `census/round-43/preregistration.txt` | read-only git blobs; caller scratch | souji |
+*209:| r43-c2-counter | gate | `python3 -B census/round-43/c2-counter.py --root LANE --rev FULL40 --scratch DIR` | 0 exact frozen Target; 1 unmet; 2 could-not-evaluate; current target honestly red due to hidden-audit oracle conflict | built-in always-clean/findings/memorizer controls; no self-invocation mode (conformance debt) | `census/round-43/c2-cases.tsv`, `census/round-43/c2-hidden-audit.py`, `census/round-43/preregistration.txt` | isolated git fixtures and shared clone in caller scratch | souji |
+*210:| r43-c3-counter | gate | `python3 -B census/round-43/c3-counter.py --root LANE --rev FULL40 --scratch DIR` | 0 exact frozen Target; 1 unmet; 2 could-not-evaluate; no fixture installed this round because prior symlink behavior conflicts with new target | embedded stderr-discrimination pair and sniffing control; no self-invocation mode (conformance debt) | `census/round-43/c3-survivors.tsv`, `census/round-43/preregistration.txt` | read-only lane blobs; isolated caller scratch | souji |
+ 211:| souji-verify | probe | `bash tools/souji-verify.sh <path>...` | 0 clean, SAFE/NOT-SAFE data; 1 failed selftest or could-not-evaluate setup (legacy debt); 2 could-not-evaluate usage | `TMPDIR=/var/tmp bash tools/souji-verify.sh --selftest` | none; no pinned complete id set | read-only targets; isolated selftest under TMPDIR | souji |
+ 212:| souji-vault-verify | probe | `bash tools/souji-vault-verify.sh --fallback <path>...` | 0 clean, VERIFIED/NOT-VERIFIED data; 1 failed selftest or could-not-evaluate setup (legacy debt); 2 could-not-evaluate usage | `TMPDIR=/var/tmp SOUJI_CLI_BIN=/bin/false bash tools/souji-vault-verify.sh --selftest` | none; no pinned complete id set | read-only source/vault; isolated selftest under TMPDIR | souji |
+ 213:| souji-census | probe | `bash tools/souji-census.sh --root DIR [--compare PREV.tsv] [--repo-timeout N]` | 0 census emitted, including degraded `error`/`status-unverifiable`/`not-a-repo` placeholders, never clean measurements; dirty uses explicit `--untracked-files=normal`; hardlinked/non-regular info/attributes degrades one repo (D2). After enumeration, preflight content guards and `census_one` run separately in their worker groups under the timeout (integer 1..86400, default 600, last option wins; inva...
+...
+ 220:| souji-evidence-cache | gate | `python3 tools/souji-evidence-cache.py --root DIR --record PATH [--require REL...]` or `--frozen DIR` | 0 clean/reusable declared dependencies; 1 failed/stale/missing dependency or matched false; 2 could-not-evaluate malformed/legacy/protected/tampered input | `python3 tools/souji-evidence-cache.py --selftest`; external fixture below | literal embedded expected ids; `tests/fixtures/r14-cache-frozen/expected.json` input pins | inputs read-only; isolated selftest `/var/tmp`;...
+*221:| r14-evidence-cache | gate | `python3 tests/fixtures/r14-evidence-cache.py [--tool PATH]` | 0 clean; 1 failed assertion; 2 could-not-evaluate missing prerequisite | same default self-invocation fixture; isolated positive/negative CLI calls | literal expected exits/finding ids in fixture; `tests/fixtures/r14-cache-frozen/expected.json` | isolated `/var/tmp/souji-r14-cache-fixture.*`; reads selected gate and committed snapshot | souji |
+*222:| r14-census-boundary | gate | `python3 tests/fixtures/r14-census-boundary.py --tool PATH` | 0 clean; 1 failed case/id-set; 2 could-not-evaluate missing prerequisite/trace/usage | same default self-invocation fixture, synthetic HOME with spy and strace access checks; `--tool` selects paired baseline | fixture EXPECTED_IDS and literal expected exits/finding/access assertions | isolated `/var/tmp/r14-census-boundary.*`; never a real credential-store probe | souji |
+*223:| r15-census-config | gate | `python3 tests/fixtures/r15-census-config.py --tool PATH` | 0 clean; 1 failed case/id-set; 2 could-not-evaluate prerequisite/trace/usage | same full default invocation over isolated synthetic HOME; selected tool supplies pre-harm, harmed or changed arm; first executed and revised r16 (degrade/benign/safety classes, mixed fleets, positive controls) | fixture literal EXPECTED_IDS, HARM_CASES, CASE_CLASSES and per-case exits/rows; `census/round-16/c1-matrix-final.json` | isolate... [col 187]
+*224:| r17-census-hygiene | gate | `python3 tests/fixtures/r17-census-hygiene.py --census PATH` (`--tool` accepted as an alias) | 0 clean; 1 failed case or id-set, or a census run exceeding the per-case timeout (rc 124 is FAIL, never SKIP); 2 could-not-evaluate missing prerequisite/usage | same default self-invocation over an isolated synthetic HOME and private tempdir; `--case`/`--list` are debugging only, never admission; `--json` emits per-case records | fixture literal `EXPECTED_IDS` compared as an exact ... [col 305]
+ 225:| r17-census-matrix | evidence | `python3 census/round-17/run-matrix.py --changed <rev or WORKTREE> --output <new.json>` | 0 record written and every suite valid (fixture exit agrees with its SUMMARY; all fixtures clean, or dirty fixtures recorded via `--allow-dirty-fixtures`); 1 unused by code — the runner returns only 0 or 2, an unhandled crash is an unstructured nonzero, never a fixture verdict; 2 could-not-evaluate invalid suite/unknown revision/missing fixture/dirty fixtures without the flag/refus...
+*226:| r17-jj-receipts | gate | `bash tests/fixtures/r17-jj-receipts.sh --tool-dir DIR` | 0 clean with every case counted (a case the selected tools cannot express prints `SKIP`; SKIP is never PASS; jj absent → the optional real-jj J9 arm SKIPs); 1 failed case/id-set; 2 could-not-evaluate missing git, missing `--tool-dir`, usage | same default invocation with `--tool-dir tools`; the paired red arm over `5fa6017`-extracted tools must fail J1, J1-vault, J3, J3-vault, J3-quarantine, J9-file, J9-worktree; `--ba... [col 342]
+*227:...y; 1 failed honest evidence; 2 could-not-evaluate malformed/tampered/unavailable input | `python3 tools/souji-preservation-evidence.py --selftest` (47/47 at r16; 24/47 as landed r15); external fixture below | checker literal r16 case universe and baseline digests; `tests/fixtures/r15-preservation-frozen/expected.json` pins every snapshot input; record regenerated from real runs by `regenerate.py --rev <rev>` | records read-only; self-invocations isolated `/var/tmp`; never runs recorded commands | souji | [col 597]
+*228:| r15-preservation-evidence | gate | `python3 tests/fixtures/r15-preservation-evidence.py` | 0 clean; 1 failed expected exit/finding; 2 could-not-evaluate missing prerequisite | same default self-invocation fixture (8/8 at r16) | fixture literal positive/negative expectations and `tests/fixtures/r15-preservation-frozen/` | isolated `/var/tmp`; inputs read-only | souji |
+ 229:| souji-landing-gate | gate | `python3 tools/souji-landing-gate.py --root LANE --rev REV --round N [--base REV] [--fleet-root FLEET] [--json OUT]` | 0 no findings; 1 findings (parse, missing registry target, frozen pins/measured commit, uncarried STATUS); at round ≥18 also LG-DANGLING-PTR and LG-DANGLING-PTR-EXEMPT-STALE, including .ufo/quarantine citations. Exact synthetic placeholder exemption only; all same-round LOG sections scanned; lane-local pointers cannot be cleared by a fleet collision. 2 cou...
+ 230:| r16-landing-gate | gate | `python3 tests/fixtures/r16-landing-gate.py [--tool PATH]` | 0 clean; 1 failed case; 2 could-not-evaluate prerequisite | same; includes a vacuity stub that must fail | historical r15 replay pins and synthetic same-round cases in the fixture | isolated `/var/tmp` git repos removed afterwards | souji |
+ 231:| r17-gate-replays | gate | `python3 census/round-17/gate-replays.py [--gate-rev REV] --output <new.json>` | 0 all five pinned replay exits and exact (id,path) multisets match expected (b410186 1/5, a31642d 0/0, cc21683 0/0, 6ff91f5 0/0, 79bbe7a 1/29); 1 divergence; 2 bad revision/input/existing output/usage. Semantic equality, not JSON byte identity; selftest is a separate check, not recorded in the old null selftest field. | identity run --gate-rev 5fa6017; installed gate selftest separately | `census/...
+...
+ 233:| r17-transcript-manifest | gate | `python3 census/round-17/transcript-manifest.py --check DIR` | 0 every listed digest matches, no listed file missing, no unlisted file present; 1 mismatch/missing/extra; 2 usage/unreadable directory | `--write` then `--check` on a private `/var/tmp` copy exits 0; a one-byte mutation of one file makes `--check` exit 1 (negative control) | `census/round-16/transcripts/MANIFEST.sha256` (sorted `sha256  relpath`, `LC_ALL=C`) over the byte-exact r16 w1/w2 transcripts | `--wr...
+*234:| r18-census-bounded | gate | `python3 tests/fixtures/r18-census-bounded.py --census PATH` | 0 clean; 1 failed case (outer timeout is FAIL, never SKIP); 2 usage/prerequisite | full invocation B1–B12; case selection is debugging, not admission | `census/round-18/c1-matrix-4800fd7.json`: b576341 12/9 failed → changed 12/0. B1–B4/B8 FIFO reads, B5 slow finite control, B6 residue, B7 protected refusal, B9 TERM-ignoring target, B10 parent TERM/KILL, B11 raw-newline inputs, B12 gitfile-preflight timeout ... [col 182]
+ 235:| r18-census-matrix | evidence | `python3 census/round-18/run-matrix.py --changed <rev or WORKTREE> --output <new.json>` | 0 valid record; 2 invalid/unrunnable suite, bad inputs, missing/dirty fixtures without permission, or refused overwrite; a valid failing suite is data, not a runner crash | py_compile plus recorded fixture runs | `census/round-18/c1-matrix-4800fd7.json`; exact resolved changed revision pinned once; complete CASE details retained | private suite sessions; only owned session killed; pr...
+ 236:| souji-proc-census | probe | `bash tools/souji-proc-census.sh [--prefix DIR]... [--min-age S]` | 0 observation table, never reap permission; 2 usage; 1 selftest failure | `bash tools/souji-proc-census.sh --selftest` | header boot_id; columns pid, ppid, pgid, sid, age_s, starttime, state, wchan, reason, cmd; cwd > argv > fd precedence; `census/round-18/proc-agreement-counterfix.json` | own uid; cwd-deleted any location, --prefix limits argv/fd only; literal live suffix confirmed by inode, identity rechec...
+ 237:| r18-proc-census | gate | `bash tests/fixtures/r18-proc-census.sh --tool PATH` | 0 clean; 1 failed; 2 usage/prerequisite | full P1–P19; header-only stub fails P1/P2 | `census/round-18/final-verification-4800fd7.json`: 19/0; literal cwd/fd names, header/AWS/Slack redaction, prefix sibling and reason precedence added; P7 traces signal syscalls instead of liveness alone | /var/tmp, fixture-owned workers only | souji |
+...
+ 239:| souji-rev-pin | gate | `python3 tools/souji-rev-pin.py --root DIR --rev REV --path PATH... [--no-tree-check]` | 0 full40 durable revision whose selected owned regular file/directory byte set matches committed raw blobs; 2 refused HEAD/branch/short/keep-only/missing/added/changed/nonregular/symlink/escaped/protected input; 1 selftest failure | `python3 tools/souji-rev-pin.py --selftest` (r19 historical 11/0); current caller fixture registered after integration | embedded refusal expectations; `census/ro...
+*240:| r19-rev-pin | gate | `python3 tests/fixtures/r19-rev-pin.py [--tool PATH]` | 0 clean; 1 failed case, wiring leftover, or base arm that accepts every refusal (vacuity); 2 prerequisite/usage | same default invocation; base stub must accept all six refusal cases | fixture literal expectations; `census/round-19/c2-smoke.txt` | /var/tmp git sandbox only | souji |
+*241:| r19-carry-wrap | gate | `python3 tests/fixtures/r19-carry-wrap.py [--tool PATH] [--base-rev REV]` | 0 four exact cases, both named baseline discriminators and branch counters match; 1 any mismatch or changed discriminator set; 2 prerequisite/usage | same default invocation in four isolated /var/tmp Git worlds | literal expected exit/finding IDs, required wrap-unmarked and wrap-bullet-wrapped base mismatches, exact report/marker/status/heading counters | /var/tmp only; no historical evidence overwrite |... [col 266]
+ 242:| probe-carry-invariants | probe | `python3 census/round-19/probe-carry-invariants.py` | 0 every seeded invariant held; 1 a violation; 2 prerequisite | deterministic seeded run itself (no separate selftest; a breaking rule change fails it) | `census/round-19/carry-invariants.txt` (400 paragraphs, 562 boundary cuts, 842 midline cuts, 0 violations) | none (in-memory; no repo writes) | souji |
+*243:| r19-seat-audit-shapes | gate | `python3 tests/fixtures/r19-seat-audit-shapes.py [--tool PATH]` | 0 all literal cases match and baseline differs on at least two; 1 failed case/vacuity; 2 prerequisite/usage | same default synthetic spec/transcript invocation; explicit DELIVER/SCRATCH controls, tools patch refusal, kill/killpg/sudo/loop/xargs/variable shapes and root=/prefix controls | expected case table in fixture; `census/round-19/c1-audit.txt` is historical, not the r20 run | /var/tmp only; recorded B... [col 249]
+ 244:| verify-agreement-pin | gate | `python3 census/round-19/verify-agreement-pin.py --root <original-byte-tree> --check RECORD` (historical use; current replay stages it through r21-acceptance) | 0 pinned digests match; 1 mismatch/missing; 2 malformed/unreadable/refuse-overwrite | `python3 census/round-19/verify-agreement-pin.py --selftest` (5/0 historical) | r21 runner's agreement-pin-check stages original tool/counter revisions and verifies immutable digests; upgraded proc bytes are not r18 bytes | isolat...
+*245:| r20-audit-contract | gate | `python3 tests/fixtures/r20-audit-contract.py [--tool PATH] [--base-tool PATH]` | 0 exact primary inventory plus literal outputs/digests/drift refusals; with baseline all eleven named over-authorizations must reproduce; 1 any mismatch/missing case/baseline witness; 2 prerequisite/usage | same default invocation over fresh synthetic worlds; baseline mode required for claim's before/after | fixture REQUIRED_CASE_IDS and BASE_BROAD_CASE_IDS, independent preregistration `.ufo/wa... [col 333]
+*246:| r20-input-binding | gate | `python3 tests/fixtures/r20-input-binding.py --baseline 12516f7dcdd5b165e5ee208d44a38d63b5bd5812` | 0 exact caller/helper/historical-counter inventory plus all seven old-producer/current-refusal pairs; 1 any behavioral/inventory mismatch; 2 prerequisite/usage | same default invocation has 36 literal cases; named baseline adds seven actual entrypoint guard pairs, with suites stopped by a producer tripwire | fixture expected_case_ids and BASELINE_PAIR_CASE_IDS, frozen oracle `.... [col 305]
+ 247:| r21-acceptance (r22 result-contract repair) | evidence | `python3 census/round-21/run-acceptance.py --root <local-clone-or-bare-repo> --rev <full40> --output <new-absolute-json>` | 0 all18 frozen programs satisfy typed counter values, empty summary stderr, exact33 cache-check names/four ordered phase labels; 1 retained mismatch; 2 refused revision/input/output; source HEAD may differ or be unresolved | `bash census/round-21/replay-matrix.sh --runner census/round-21/run-acceptance.py --lane <source-repo...
+*248:| r21-read-root | gate | `python3 tests/fixtures/r21-read-root.py --tool tools/souji-seat-audit.py --base-tool <6ff3413-auditor-file>` | 0 all32 literal expectations/prior classes; 1 mismatch; 2 usage/baseline-identity refusal | same in-memory invocation, never executes recorded commands | base SHA256 b2fa68e2e98dae9d046c11775737337fb99b0db94fb5042017e4c8a56fc83389; baseline18/32→32/32 | no production writes | souji |
+ 249:| r21-reason-canary | gate | `bash tests/fixtures/r21-reason-canary.sh --tool tools/souji-proc-census.sh --base <6ff3413-proc-file>` | 0 all27 controls; 1 mismatch; 2 usage or baseline-identity refusal | `--baseline-as-tool` same oracle fails21 old-emission cases; changed-base synthetic control exits2 | baseline SHA25637c3316a1fd8cdda18cbefdc7692d3d3f388e5783e8fe19085f5d932a8ceba64; leaks19→0, max454→160 | synthetic /var/tmp input files; --reason-only only, no live proc selftest | souji |
+*250:| r21-read-render-edges | gate | `python3 tests/fixtures/r21-read-render-edges.py --tool tools/souji-seat-audit.py` | 0 four no-overreach controls; 1 mismatch; 2 usage | same isolated in-memory invocation | mixed/uppercase URI and conflicts selectors red0/4→4/4 | no writes | souji |
+*251:| r21-replay-boundaries | gate | `python3 tests/fixtures/r21-replay-boundaries.py --tool census/round-21/run-acceptance.py --base-tool <8513d6ac-runner-file>` | 0 eight literal output-path expectations; 1 mismatch; 2 usage | same temp-tree invocation; old runner fails4/8 | corpus/lessons/round-21.md; census/round-21/replay-boundaries.txt | own /var/tmp synthetic paths, never invokes runner main | souji |
+*252:| r21-source-head | gate | `python3 tests/fixtures/r21-source-head.py --tool census/round-21/run-acceptance.py --base-tool <522dcd76-runner-file>` | 0 three source-state expectations; 1 mismatch; 2 usage | same isolated bare-repository invocation; old runner fails1/3 | census/round-21/source-head-before.txt, source-head-after.txt | own /var/tmp Git fixture only | souji |
+ 253:| r21-source-refs | gate | `python3 tests/fixtures/r21-source-refs.py --runner census/round-21/run-acceptance.py --root <local-source> --rev <full40> --work <new-var-tmp-dir> [--keep-only]` | 0 expected remote-only18/18 or keep-only exit2/no-result; 1 mismatch; 2 usage | same isolated bare-source construction in each mode | census/round-21/remote-source-before.json, remote-source-after.json, final-code-verification.json | own /var/tmp Git graph only; no source writes or live proc | souji |
+ 254:| r22-result-oracle | gate | `python3 -B tests/fixtures/r22-result-oracle.py --runner census/round-21/run-acceptance.py` | 0 all258 literal decisions match (original214 plus11+20+13 appended adequacy guards); 1 R22-RESULT-CONTRACT mismatch (including exception); 2 could-not-evaluate input/usage, R22-ORACLE-INPUT-TAMPERED or unknown-case | same committed public18-step outputs plus fabricated deltas; base41553adb graded by `git show 41553adb139d06511dc386bb3ce4326aebfba675:census/round-21/run-acceptance.py...
+ 255:| r22-mutation-adequacy | gate | `python3 -B census/round-22/mutation-adequacy.py [--oracle FILE] [--grade-stdin]` | 0 pristine passes, all expect=killed listed mutants killed, equivalent marks survive; 1 disagreement/pristine failure; 2 missing/ambiguous anchor or usage; stdin mode follows oracle exit map. Receipts bind probe hash, interpreter, soft stack bytes and direct depth100000 decode outcome | historical245 oracle bytes with current59-mutant list must be red (14 non-equivalent survivors, census/r...
+
+# tabi-shokunin/
+## PROVINCE.md#7031
+ 37:  surfaces here are self-launched Chromium-class browsers on ephemeral loopback
+*38:  CDP ports with throwaway profiles, the surface declared per invocation
+ 39:  (`scripts/chrome-cdp-loopback-round45.mjs --browser chrome|edge`;
+ 40:  branded Chrome exposes the stderr DevTools line, branded Edge is stderr-silent and is
+ 41:  discovered via the profile's `DevToolsActivePort` file — see
+...
+ 69:  --form` extends the r50 journey with an anchor-click to a GET form page and an input-domain fill+submit
+*70:  (`Input.dispatchMouseEvent` click into the field, `Input.insertText` of the invocation-bound nonce, the DOM value
+ 71:  read back, a second mouse click on the form's own submit button), the submission witnessed by the fixture server's
+ 72:  served log as well as the rendered echo page (`corpus/evidence/round51/webview2-form-journey/`; S153 re-opened
+ 73:  byte-identical with the Input-domain quotes verbatim).
+...
+ 83:- Round 53 (2026-11-02): the webview2 surface now carries Shift modifier chords — `scripts/webview2-cdp-loopback-round53.mjs
+*84:  --form` extends the r52 per-key trace with a second trace: the invocation-bound nonce UPPERCASED typed into the form's
+ 85:  second field with real Shift keyDown/keyUp rides around every uppercase letter's pair (the letter's event carrying
+ 86:  `modifiers: 8` — S153's dispatchKeyEvent modifiers bit field, Shift=8, re-opened byte-identical a fifth time this round),
+ 87:  digits/hyphen unshifted, the DOM value read back after EVERY keystroke on BOTH fields, the GET submit carrying both
+## SKILL.md#56BF
+ 1556:
+*1557:| Name | Kind / owner | Entry and verdict map | Self-invocation | Persisted baseline | Write scope |
+ 1558:|---|---|---|---|---|---|
+ 1559:| closeout-pin-witness | gate / tabi | `node scripts/check-freshness.mjs --worktree` (candidate only), or `node scripts/check-freshness.mjs --witness REV`; 0 clean, 1 failed, 2 could-not-evaluate | `node scripts/check-freshness.mjs --self-test`; eight isolated CLI cases assert exit and stable finding | `.ufo/rounds/fleet-round-1-interactive-20261015/freshness.expected.json`; immutable baseline `c24eaea14dfc0c4a3848742d31673db5675f9183` supplies full lane blobs and independent prefix citations; `pins.tsv`...
+ 1560:
+...
+ 1611:
+*1612:| Name | Kind / owner | Entry and verdict map | Self-invocation | Persisted baseline | Write scope |
+ 1613:|---|---|---|---|---|---|
+ 1614:| sources-census | gate / tabi | `node scripts/check-sources.mjs [--file REL] [--since YYYY-MM-DD]`; 0 clean, 1 failed, 2 could-not-evaluate (missing, symlinked or non-regular registry; bad args). FINDING lines carry `fleet=<E/W code>` where the in-flight fleet census defines one | `node scripts/check-sources.mjs --self-test`; 25 isolated CLI cases assert exit + finding id (clean with contract-awk row/tier parity, one per finding, a `supersedes` correction that must stay clean, an `S0010`-vs-`S001` id-bo...
+ 1615:
+...
+ 1654:
+*1655:| Name | Kind / owner | Entry and verdict map | Self-invocation | Persisted baseline | Write scope |
+ 1656:|---|---|---|---|---|---|
+ 1657:| claim-record-discipline | gate / tabi | `node .ufo/waves/round-12/w1/mistake/check-claim-record.mjs --file fixtures/m2-inference-source-scoped.jsonl`; 0 clean, 1 failed, 2 could-not-evaluate | Same entry with `--self-test` only; isolated fixtures assert code and stable finding, including source-only host observation refusal | `.ufo/waves/round-12/w1/mistake/expected.json` pins fixture digests and expected code/finding pairs | Input read-only; self-test writes only a temporary fixture tree and deletes it |
+ 1658:
+...
+ 1674:
+*1675:| Name | Kind / owner | Entry and verdict map | Self-invocation | Persisted pinned values | Write scope |
+ 1676:|---|---|---|---|---|---|
+ 1677:| historical-pstack-contract | gate / tabi | `node scripts/check-round-contract.mjs`; 0 clean, 1 failed, 2 could-not-evaluate | `node scripts/check-round-contract.mjs --self-test`; isolated CLI exit/finding fixtures; `--witness 75e7836b6c3090180aee2754e20a5d3cfb186e74` compares the pinned legacy script against the repaired script on one fixture | `scripts/check-round-contract.mjs` constants HARD_BASELINE, canonical seed digest, census digest and legacy witness blob; `corpus/evidence/pstack-20261015/basel...
+ 1678:| historical-user-contract | gate / tabi | `node scripts/check-user-round-contract.mjs`; 0 clean, 1 failed, 2 could-not-evaluate; inherited six-of-ten `round_count` is still failed, not a successful compatibility repair verdict | `node scripts/check-user-round-contract.mjs --self-test`; isolated CLI exit/finding fixtures | `scripts/check-user-round-contract.mjs` HARD_BASELINE/PSTACK_PIN, canonical seed and exact ROUND-script cutover constants; no runtime self-blessing | Production reads committed lane fi...
+...
+ 1752:
+*1753:| Name | Kind / owner | Entry and verdict map | Self-invocation | Persisted pinned values | Write scope |
+ 1754:|---|---|---|---|---|---|
+ 1755:| aria-historical-metadata | gate / tabi | `node scripts/check-aria-metadata.mjs --check corpus/evidence/round-14/aria-metadata/corrected.json`; 0 clean, 1 failed, 2 could-not-evaluate | `node scripts/check-aria-metadata.mjs --self-test`; isolated subprocess fixtures assert exit and stable finding; `--witness` compares the same checker on old and corrected evidence | Checker ANCHORS pin original receipt/pin/worker/spec/config/manifest/producer; `corpus/evidence/round-14/aria-metadata/expected-fixtures.js...
+ 1756:
+...
+ 1797:
+*1798:| Name | Kind / owner | Entry and verdict map | Self-invocation | Persisted pinned values | Write scope |
+ 1799:|---|---|---|---|---|---|
+ 1800:| historical-user-contract | gate / tabi | `node scripts/check-user-round-contract.mjs`; 0 clean, 1 failed, 2 could-not-evaluate; expected10 stays fixed and current production remains failed6/10 | `node scripts/check-user-round-contract.mjs --self-test`; `--diagnostic-witness` compares real pinned round14 and repaired CLI diagnostics plus an isolated masking mutant; `--count-witness bebe2efc4565bb068efd905e9ef78011bb6b4efd` retains the shell-count differential | Same HARD_BASELINE/PSTACK_PIN/ROUND cutove...
+ 1801:| aria-historical-metadata | gate / tabi | `node scripts/check-aria-metadata.mjs --check corpus/evidence/round-14/aria-metadata/corrected.json`; 0 clean, 1 semantic failed, 2 could-not-evaluate including snapshot_tampered/snapshot_unavailable | `node scripts/check-aria-metadata.mjs --self-test`; isolated CLI cases and separately reported helper checks; `--witness` retains original semantic red→corrected clean comparison | ANCHORS plus new `corpus/evidence/round-15/metadata/expected-fixtures.json` and `...
+...
+ 1893:
+*1894:## Round 17 — lane-tip anchoring, WebMCP invocation, adjacency map (2026-10-20)
+ 1895:
+ 1896:Append-only. Measured revision `93bfead1f5f25f584353df3152a60209bbd89a2e` ("M"); baseline
+ 1897:`5859243183c4d7ac5429dfdb8a73ce0d9a43d583`. Sources S049–S052 (jj/git) are opened this round and
+...
+ 1949:
+*1950:### WebMCP invocation decision rows (C2; `corpus/knowledge/webmcp-invocation-round-17.md`)
+ 1951:
+ 1952:| Question | Answer on Chromium 154 loopback, flags on |
+ 1953:|---|---|
+...
+ 1956:| Does Chromium enforce `inputSchema`? | No — mismatching input ran `Completed` |
+*1957:| Does navigation or unregistration cancel a pending call? | No `toolResponded` within 8 s after navigation; unregistration does not cancel (probe); only `cancelInvocation` gave `Canceled` |
+*1958:| How to pair responses? | By `invocationId` through `toolInvoked`; `toolResponded` carries no tool name or session |
+ 1959:| May the lane invoke a page tool? | Only fixture-owned tools on loopback; never a real site's tool without operator approval |
+ 1960:
+ 1961:### Adjacency map (C3)
+...
+ 1993:
+*1994:**Correction to the round17 inputSchema row at :1956 and invocation note :54/:73:** the measured
+ 1995:mismatch case was an **imperative** tool. Source S071 traces declarative form inputs through
+ 1996:FillData, which rejects unknown names and invalid supported values. This is source-level evidence,
+ 1997:not a new runtime validation probe or proof that every declarative custom-control type validates.
+...
+ 2003:2. `node .ufo/waves/round-18/recheck-fetch.mjs` produces the receipt (CLI in its header); gzip
+*2004:   retention is default. Create a dedicated output directory first. `--normalize-only` writes
+ 2005:   nothing. Treat its command string as an argv display, not a shell command.
+ 2006:3. `node .ufo/waves/round-18/measure-c1.mjs REV [--live]` checks the **fixed round18 cohort51**;
+ 2007:   it is not a reusable due-date gate. Late source rows cannot replace baseline cohort members.
+...
+ 2014:
+*2015:**Supersedes the SKILL-only invocation guidance at :1919-1922 for routine callers:** use the
+ 2016:guarded wrapper. The frozen `scripts/check-freshness.mjs --witness HEAD` remains directly callable;
+ 2017:this round does not falsely claim global enforcement. Real-site actions, host process ownership,
+ 2018:and both open sibling L0 rulings remain operator-owned.
+...
+ 2027:| freshness witness / probe | `node scripts/freshness-witness.mjs [--rev <40hex>] [--dry-run]` | 0 downstream clean/dry-run,1 downstream finding,2 could-not-evaluate/refused input | `--self-test`:8 cases; expected outcomes embedded; receipt `corpus/evidence/round-18/selftests/wrapper.json` | stdout; isolated fixture repos in self-test |
+*2028:| invocation harness / probe | `node scripts/webmcp-invoke-round18.mjs --out <new external path>` | 0 pass,1 case failure,2 could-not-evaluate/abort | real12-case/four-control receipt `corpus/evidence/round-18/webmcp-invoke/receipt.json`; counter self-test supplies finite negative shapes | private temp profiles/server/process tree and selected output receipt |
+ 2029:| source fetch / probe | `node .ufo/waves/round-18/recheck-fetch.mjs <header argv>` | 0 quote found,1 quote absent,2 could-not-evaluate/usage | `--normalize-only` is a probe, not a self-test; C1 fixtures test acceptance | explicit receipt/excerpt/body output directory |
+ 2030:| C1 counter / probe | `node .ufo/waves/round-18/measure-c1.mjs REV [--live]` | 0 evaluated count,1 self-test failure,2 could-not-evaluate | `--self-test`:38; embedded cases; `corpus/evidence/round-18/selftests/c1.json` | isolated fixture repos; live mode public GETs |
+ 2031:| C2 counter / probe | `node .ufo/waves/round-18/measure-c2.mjs REV` | 0 evaluated count,2 could-not-evaluate; self-test verdict explicit | `--self-test`:26; embedded stub cases; `corpus/evidence/round-18/selftests/c2.json` | private clones/browser runs/temp data, never lane Git |
+...
+ 2052:per-type validator rejects — the whole call fails, NO control changes, no submit. **Submit-time**
+*2053:(`kToolInvocationFailed`, S078 `html_form_element.cc:729-751`): values were filled, then toolautosubmit's
+ 2054:interactive constraint validation failed — the error reads `Form validation failed: <name>: <validationMessage>. `
+ 2055:and the bad values REMAIN in the form. Read `toolResponded.status` + `errorText`; never infer success from
+*2056:the invocation id. Non-object input never reaches Blink (CDP `Invalid parameters`).
+ 2057:
+ 2058:| Decision | Condition | Observed outcome | Cases (probe; control) | Source |
+ 2059:|---|---|---|---|---|
+...
+ 2066:| DV-07 | A required text control receives JSON null | Fill-time Error `Invalid value for parameter required` (unquoted template): null cannot be string-coerced | `decl-missing-required-03`; control `decl-missing-required-04` | S077 `form_mcp_schema.cc:222-231` |
+*2067:| DV-08 | The top-level input is not a JSON object (array, string, null) | CDP rejects the command (`Invalid parameters`): no invocationId, no toolInvoked, page untouched | `decl-non-scalar-03`, `decl-non-scalar-04`, `decl-non-scalar-05`; control `decl-non-scalar-06` | S079 `WebMCP.pdl:59-69` |
+ 2068:| DV-09 | A number control receives a non-numeric string or a boolean | Fill-time Error `Invalid value "<v>" for parameter n` (boolean quoted as "true"); control left empty | `decl-number-type-03`, `decl-number-type-04`; control `decl-number-type-01` | S077 `form_mcp_schema.cc:321-335` |
+ 2069:| DV-10 | A number control receives a numeric string or a large exponent | Accepted and submitted; the string is coerced ("42") and 1.25e21 is reserialized as `1.25000e+21` | `decl-number-type-02`, `decl-number-type-05`; control `decl-number-type-01` | S077 `form_mcp_schema.cc:49-62` |
+ 2070:| DV-11 | A number violates min, max or step | Filled (field keeps the bad value), then Error `Form validation failed: amount: Value must be …` / `Please enter a valid value. The two nearest valid values are 2 and 5.`; no submit | `decl-number-range-01`, `decl-number-range-02`, `decl-number-range-03`; control `decl-number-range-04` | S078 `html_form_element.cc:729-751` |
+...
+ 2102:| validation harness / probe | `node scripts/webmcp-validation-round19.mjs --out NEW_EXTERNAL_PATH` | 0 all cases match, 1 failed, 2 could-not-evaluate/refused | `--cases corpus/evidence/round-19/validation/selftest/cases --fixtures corpus/evidence/round-19/validation/selftest/fixtures --out NEW_EXTERNAL_PATH`; wrong-expectation control `selftest-wrong/` | cases/fixtures, runtime pin154/1.64/24.21, recorded producer digest | own temp browser/server + selected new external receipt; tabi |
+*2103:| download-bound invoke harness / probe | `node scripts/webmcp-invoke-round19.mjs --out NEW_EXTERNAL_PATH` | 0 pass, 1 failed, 2 could-not-evaluate/abort | counter C2 supplies finite mutants; no standalone self-invocation claimed | 12 case ids/four controls + nonce/artifact-root expectations | own temp browser/server + selected receipt; tabi |
+ 2104:
+ 2105:### Round-19 wave-2 corrections — current guidance supersedes the rows named below
+ 2106:
+...
+ 2127:
+*2128:#### Registry correction — supersedes :2098-2102 exit, kind, invocation and write-scope cells
+ 2129:
+ 2130:C1/C2/C3 are **measurement probes**, not all-or-nothing admission gates: exit 0 means evaluated count.
+ 2131:Read each count and per-item reasons; C3 now refuses reconstructed wave-return snapshots with a false d4,
+...
+ 2161:| DV-07 | In the pinned missing-required fixture, precisely decl-missing-required-03 test: A required text control receives JSON null; no other input shape is asserted. | Fill-time Error: Blink JSONValue-to-text conversion rejects null; the observed error is Invalid value for parameter required. The required attribute is not the rejection cause. | `decl-missing-required-03`; control `decl-missing-required-04` | S077 `form_mcp_schema.cc:49-328` |
+*2162:| DV-08 | In the pinned non-scalar fixture, precisely decl-non-scalar-03, decl-non-scalar-04, decl-non-scalar-05 test: The top-level input is not a JSON object (array, string, null); no other input shape is asserted. | CDP rejects the command (`Invalid parameters`): no invocationId, no toolInvoked, page untouched | `decl-non-scalar-03`, `decl-non-scalar-04`, `decl-non-scalar-05`; control `decl-non-scalar-06` | S079 `WebMCP.pdl:59-69` |
+ 2163:| DV-09 | In the pinned number-type fixture, precisely decl-number-type-03, decl-number-type-04 test: A number control receives a non-numeric string or a boolean; no other input shape is asserted. | Fill-time Error `Invalid value "<v>" for parameter n` (boolean quoted as "true"); control left empty | `decl-number-type-03`, `decl-number-type-04`; control `decl-number-type-01` | S077 `form_mcp_schema.cc:321-335` |
+ 2164:| DV-10 | In the pinned number-type fixture, precisely decl-number-type-02, decl-number-type-05 test: A number control receives a numeric string or a large exponent; no other input shape is asserted. | Both tested inputs Completed with one prevented submit event: JSON string "42" fills as "42"; JSON number 1.25e21 fills as "1.25000e+21". Other numeric strings/exponents and constraints are not covered. | `decl-number-type-02`, `decl-number-type-05`; control `decl-number-type-01` | S077 `form_mcp_schema.cc...
+ 2165:| DV-11 | In the pinned number-range fixture, precisely decl-number-range-01, decl-number-range-02, decl-number-range-03 test: A number violates min, max or step; no other input shape is asserted. | Filled (field keeps the bad value), then Error `Form validation failed: amount: Value must be …` / `Please enter a valid value. The two nearest valid values are 2 and 5.`; no submit | `decl-number-range-01`, `decl-number-range-02`, `decl-number-range-03`; control `decl-number-range-04` | S096 `html_form_ele...
+
+# tameshi-shokunin/
+## PROVINCE.md#C1FA
+ 130:  reference stands as a record of where it was read, not a current path).
+*131:- The old dispatch host's invocation shape (`/home/vgpnk/...`, `python3`,
+ 132:  `/fast/scratch`) is host-absent: `python3` on this host's PATH is the
+ 133:  Microsoft Store stub (exit 49, no version) and the real interpreter is
+ 134:  `python` (3.13.15). Portable counting commands use `python` and
+## SKILL.md#4794
+ 1567:|---|---|---|
+*1568:| Recorded target bytes equal the current worktree AND the pin verifies against the manifest digest (`tools/pin-disposition.py:67-71`, `:563-567`) | Report `unchanged` content | Mode, dependencies, environment, runner/spec and invocation identity remain unmeasured |
+ 1569:| Readable verified pin differs from current bytes | Report `changed` content | Re-pin a future owner-opted-in sweep; never transfer an old rate |
+ 1570:| Repo, commit, path or pin cannot be evaluated | Report `unavailable`, with reason | Never silently borrow the enclosing fleet repo or label it unchanged |
+ 1571:| All three content identities agree | Keep `result_reuse=not_established` | A content probe is not an incremental verdict cache or mutation re-sweep |
+...
+ 1644:| effective expectation disposition | gate | `python3 tools/evidence-disposition.py --root . --dispositions .ufo/evidence/round-14/dispositions.json --json` (historical; live entry since round 18: `.ufo/evidence/round-18/dispositions.json`; round 17's now exits 2, bash-witness moved) | 0 clean; 1 failed semantic expectations; 2 could-not-evaluate invalid/missing/tampered inputs; 64 usage | `python3 tools/evidence-disposition.py --selftest` | `.ufo/evidence/round-14/dispositions.json` and before counterpa...
+*1645:| archived invocation context capture | historical gate, not active | do not run; retained source `.ufo/evidence/round-14/capture-context.py` only | historical outcomes retained, not an active verdict map | historical helper-only controls do not satisfy the standalone gate selftest | unchanged round13 pin manifest and context receipt | archive bytes read-only; no supported invocation | tameshi |
+ 1646:
+ 1647:The disposition manifest is configured authority, not cryptographic proof of
+ 1648:author authenticity. Receipt replay proves its recorded predicates, not that
+...
+ 1654:Sources: S051 (maintained retained-context gate, opened this round),
+*1655:S049 (explicit child invocation), `corpus/lessons/round-15.md` (Gate and
+ 1656:Mistakes), and `corpus/lessons/round-14-verifier-spotcheck.md`, Routed
+ 1657:defects item 5; `../PROTOCOL.md` §Gate standard. This appendix corrects the
+ 1658:active registry classification and exit classes. Effective runtime evidence is
+...
+ 1722:|---|---|---|---|---|---|---|---|
+*1723:| retained invocation-context gate | gate | `python3 tools/context-capture.py --check` (frozen round-14 clean receipt); `--check --receipt FILE --expected FILE` for a caller-pinned retained receipt | 0 clean (`context_consistent`); 1 failed stable finding ID (e.g. `missing_injected_environment`); 2 and 64 could-not-evaluate (receipt/expected missing, malformed or tampered, e.g. `snapshot_tampered`; 64 `usage_error`) | `python3 tools/context-capture.py --selftest` | frozen clean receipt `.ufo/evidence/rou... [col 12]
+ 1724:| effective expectation disposition | gate | `python3 tools/evidence-disposition.py --root . --dispositions .ufo/evidence/round-14/dispositions.json --json` (**superseded in round 17**: since round 16 this command returns 2 `expected_input_digest_mismatch` at `--root .` because the runner input moved; the 0-clean outcome is restored only by re-pinning, not by relabelling. Live entry: `--dispositions .ufo/evidence/round-18/dispositions.json` → 0 (round 17's now 2), see the round-17 re-pin section; froze...
+ 1725:
+ 1726:The maintained gate's expected values are configured authority, not
+...
+ 1747:failed/exit1. Help exits0 only as a non-verdict informational mode; context-capture's selftest
+*1748:exits 0/1/2 for pass/case failure/could-not-evaluate (setup inability) and 64 for invalid invocation (the disposition selftest: 0 pass, 1 case failure, 2 could-not-evaluate — an unusable scratch root or an unreadable input is named, never a traceback; round 54).
+ 1749:
+ 1750:## Errata — round 16 full-page cold-read
+ 1751:
+...
+ 1989:
+*1990:| Name | Kind | Entry / self-invocation | Verdict map | Persisted values / scope / owner |
+ 1991:|---|---|---|---|---|
+
+Skipped missing paths: /home/vgpnk/Projects/shokunin/audio-shokunin/SKILL.md, /home/vgpnk/Projects/shokunin/game-dev-2d-shokunin/SKILL.md
+
+More than 20 matches in souji-shokunin/SKILL.md, tabi-shokunin/SKILL.md; grep keeps the first 20 per file when searching several. Search one file alone for up to 200.
+
+[Showing lines 1-270 of 416 (49.5KB limit). Use :271 to continue. Some lines truncated to 512 bytes]

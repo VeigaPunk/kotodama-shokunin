@@ -1,0 +1,197 @@
+# chousa-shokunin/corpus/evidence/round30/
+## c1-count.py#E882
+ 62:CONS = "bcdfghjklmnprstvz"
+*63:VOWS = "aeiou"
+ 64:
+ 65:
+ 66:def sha256(path):
+...
+ 81:        while True:
+*82:            w = "".join(self.rng.choice(CONS) + self.rng.choice(VOWS) for _ in range(self.rng.randint(2, 4)))
+ 83:            if self.rng.random() < 0.3:
+ 84:                w += self.rng.choice(CONS)
+ 85:            if self.rng.random() < 0.15:
+## c2-count.py#81AC
+ 70:CONS = "bcdfghjklmnprstvz"
+*71:VOWS = "aeiou"
+ 72:
+ 73:PLAN = (["drip-head"] * 2 + ["drip-body"] * 3 + ["drip-steady"] * 2 + ["stall-body", "mixed-address",
+ 74:        "no-resolve", "redirect-loop"]
+...
+ 90:def words(rng, n):
+*91:    return ["".join(rng.choice(CONS) + rng.choice(VOWS) for _ in range(rng.randint(2, 4))) for _ in range(n)]
+ 92:
+ 93:
+ 94:def page(rng, text, big=False):
+
+# kengaku-shokunin/considerthese/
+## 2026-10-20.md#1BA6
+ 24:   opencode-go has had 0 on-target GT trials across r21–r23 (`attrib-r23-stream.log:239`; M12 starved forcing; r23 FAIL). R9 now requires a pre-flight, but nothing says when to stop trying. Separately, coverage is pinned at 7 by the "declared-but-unresolvable-surface cap" (route telemetry, wiki, bench-arena absent; `SCORECARD.md` §Round 24 axis table), and §Planned (round 25) just says "stays capped until an operator ruling". The README header still advertises llm-wiki and route telemetry as scope.
+*25:   Proposal: (a) add a stop rule. After N=3 consecutive starved rounds, a target leg is declared `unreachable-via-current-routes` with a dated record and a flip condition (a direct endpoint or new route), and no further probe budget goes to it. (b) Draft a one-page retirement or restore petition for each capped surface, with the evidence of absence that `PROVINCE.md` §Province map already re-verified. João can then rule in one sitting, rather than coverage sitting idle until someone remembers.
+ 26:
+ 27:4. **Track self-verdict vs outside-verdict agreement as a calibration metric.**
+ 28:   Round 24's self-verdicts were "improved / improved". The lane critic rejected C2, the orchestrator admitted it, and the spot-check found defects in both samples (admit: S009 range and S012 location; reject: S023's reason). Round 25 C1 plans to count spot-checks (≥2), but a count isn't calibration.
+## 2026-10-21.md#3959
+ 17:  needed S048 to supersede S043's page location. M22 is now a three-round pattern.
+*18:- **opencode-go stop-loss / coverage-cap petition (10-20 #3):** not done. Coverage is still capped at 7, and the L0
+ 19:  coverage-cap and novelty-conversion questions are still open after two more rounds (`SCORECARD.md` §Planned after round 26).
+ 20:- **Self-vs-outside verdict ledger (10-20 #4):** not done. Round 25 is the best data point yet: the lane said
+ 21:  "improved/improved" and the outside verdict was REJECTED-HONEST-STOP.
+
+# kotoba-shokunin/verifiers/
+## check_infoless_fences.py#359C
+ 123:CONSONANTS = "bcdfghjklmnprstvwz"
+*124:VOWELS = "aeiou"
+ 125:# Shell keywords, builtins and wrapper prefixes: a token that names one is
+ 126:# never generated, whatever class it belongs to (round-16 skip list of
+ 127:# verifiers/verify_skill_checklist.py, minus punctuation-only entries).
+...
+ 227:    return "".join(
+*228:        (CONSONANTS if i % 2 == 0 else VOWELS)[
+*229:            rng.randrange(len(CONSONANTS if i % 2 == 0 else VOWELS))]
+ 230:        for i in range(length))
+ 231:
+ 232:
+
+# lore-shokunin/
+## LOG.md#A528
+ 1758:  events with 3 `depends_on` edges; one place contradiction reported-not-resolved
+*1759:  (`moon-basin-vow-location`: gate-witness vs dune-register); 5 sources; and the
+ 1760:  real-world inspiration note keeping **attribution, rights, and AI-training
+ 1761:  permission as three distinct open questions**. Replay:
+ 1762:  `python3 corpus/fixtures/check_bible.py corpus/fixtures/r87-myth-cluster` →
+
+## corpus/
+
+### fixtures/
+
+#### r87-myth-cluster/
+##### README.md#0D7A
+ 2:
+*3:A small, newly authored world-bible cluster around the Mother-Tide Gate, the Moon-Basin Vow, and a reciprocal Shellweaver–Reedwarden pledge. `entities.json`, `relations.json`, `sources.json`, and `timeline.json` use the local checker schema. The alliance has one sourced `allied_with` edge in each direction; the timeline contains an explicit `depends_on` edge.
+ 4:
+*5:`contradictions.json` records a place disagreement between two uniquely sourced, resolvable timeline-event references: Hara's account places the single Moon-Basin Vow at the Mother-Tide Gate, while Sen's account places that same vow at Ash-Dune Sanctuary. **The contradiction is reported, not resolved.** The checker validates the event and source references but does not judge source truth or select canon.
+ 6:
+ 7:`lowwater-hymn-excerpt.md` and `symbolism-clause-map.md` separate invented verse from editorial interpretation. `inspiration-note.md` cites a real-world mythology parallel and keeps attribution, rights, and AI-training permission as three distinct questions.
+ 8:
+##### claim-excerpt-map.md#FB8F
+ 34:| R4 | `relations[3].from`, `relations[3].to`, `relations[3].type`, `relations[3].source_id`: “Sen records at Ash-Dune Sanctuary.” | `dune-register` | `dune-register-excerpt.md:9` | `verbatim` | `At Ash-Dune Sanctuary, Sen kept the register` |
+*35:| T1 | `timeline[0].description`, `timeline[0].source_id`: “Hara's witness slip reports that she sounded the Reed Bell at the Mother-Tide Gate before the Moon-Basin Vow.” | `gate-witness` | `gate-witness-excerpt.md:8` | `verbatim` | `I sounded the Reed Bell at the Mother-Tide Gate before the Moon-Basin Vow` |
+*36:| T2 | `timeline[1].description`, `timeline[1].source_id`: “Sen's tally records the return of the first low-water signal before the Moon-Basin Vow.” | `tide-bell-tally` | `tide-bell-tally-excerpt.md:12` | `verbatim` | `At Ash-Dune Sanctuary, Sen's tally records the return of the first low-water signal before the Moon-Basin Vow` |
+*37:| T3 | `timeline[2].description`, `timeline[2].source_id`: “Hara's slip places the single Moon-Basin Vow of Saltmonth 4 at the Mother-Tide Gate during the first low-water bell.” | `gate-witness` | `gate-witness-excerpt.md:9` | `verbatim` | `I record the single Moon-Basin Vow of Saltmonth 4 at the Mother-Tide Gate during the first low-water bell` |
+*38:| T4 | `timeline[3].description`, `timeline[3].source_id`: “Sen's register places that same single Moon-Basin Vow of Saltmonth 4 at Ash-Dune Sanctuary during the first low-water bell.” | `dune-register` | `dune-register-excerpt.md:10` | `verbatim` | `I record that same single Moon-Basin Vow of Saltmonth 4 at Ash-Dune Sanctuary during the first low-water bell` |
+ 39:
+ 40:## Editorial rows (8 Low-Water Hymn clauses; not JSON facts)
+ 41:
+...
+ 57:- **R3 pledge scope:** the charter source record says it records a reciprocal pledge, not whether either faction kept it. R3's anchor supports only the pledged/assigned duty; it does not establish performance. Do not silently read `keeps_watch_with` as proof of completed watch.
+*58:- **T3/T4:** Hara's gate slip and Sen's register give incompatible locations for the same single Saltmonth 4 vow during the first low-water bell. Preserve both cited accounts as unresolved; neither excerpt refutes the other or selects canon.
+ 59:- **Hymn limits:** the eight readings are interpretive, not new canon. The shell ring is not a legal seal or alliance; the bowl has no asserted entity identity; the verse does not prove joint Bell handling, supernatural return, or an objective event.
+ 60:- **Full D1 crosswalk:** S2's 14 rows co-map six `first_appearance` pointers. The remaining pointer, `entities[2].first_appearance=lowwater-hymn`, resolves to the verse and is anchored at H4's line 5. The additional existing JSON claim `entities[2].claims[0]` (“The Low-Water Hymn places the shell ring and bowl at the Mother-Tide Gate.”) is also co-mapped to H4's line 5; it is not a fifteenth row in the task's 14-fact S2 set or a ninth hymn clause. This makes the 22-row task scope explicit without hid...
+ 61:- `check_bible.py` validates JSON structure and source-ID resolution only; neither its `CLEAN` result nor an anchor match establishes prose fidelity, source authenticity, truth, or canon.
+##### contradictions.json#32D7
+ 2:  {
+*3:    "id": "moon-basin-vow-location",
+ 4:    "claim_a": {
+*5:      "event_id": "moon-basin-vow-gate-account",
+ 6:      "field": "place_id"
+ 7:    },
+ 8:    "claim_b": {
+*9:      "event_id": "moon-basin-vow-dune-account",
+ 10:      "field": "place_id"
+ 11:    },
+*12:    "why": "Hara's gate-witness and Sen's dune-register each describe the same single Moon-Basin Vow of Saltmonth 4 during the first low-water bell, but their event place_id values differ. Both event IDs and their distinct source IDs resolve in this fixture. The disagreement is reported and left unresolved; the checker validates references, not source truth or canon."
+ 13:  }
+ 14:]
+##### dune-register-excerpt.md#05BB
+ 9:> At Ash-Dune Sanctuary, Sen kept the register.
+*10:> I record that same single Moon-Basin Vow of Saltmonth 4 at Ash-Dune Sanctuary during the first low-water bell.
+ 11:
+ 12:This is a newly authored fictional excerpt; the source record calls it unverified.
+##### gate-witness-excerpt.md#6B98
+ 7:> I am Hara, keeper of the Mother-Tide Gate.
+*8:> I sounded the Reed Bell at the Mother-Tide Gate before the Moon-Basin Vow, at the first low-water bell.
+*9:> I record the single Moon-Basin Vow of Saltmonth 4 at the Mother-Tide Gate during the first low-water bell.
+ 10:
+ 11:This is a newly authored fictional excerpt; the source record calls it unverified.
+##### tide-bell-tally-excerpt.md#F974
+ 11:| 1 | We carried the Reed Bell for the low-water signal. |
+*12:| 2 | At Ash-Dune Sanctuary, Sen's tally records the return of the first low-water signal before the Moon-Basin Vow. |
+ 13:
+ 14:This is a newly authored fictional excerpt; the source record says its ordering is fixture-local.
+##### timeline.json#1F1F
+ 7:    "depends_on": [],
+*8:    "description": "Hara's witness slip reports that she sounded the Reed Bell at the Mother-Tide Gate before the Moon-Basin Vow.",
+ 9:    "source_id": "gate-witness"
+ 10:  },
+ 11:  {
+...
+ 18:    ],
+*19:    "description": "Sen's tally records the return of the first low-water signal before the Moon-Basin Vow.",
+ 20:    "source_id": "tide-bell-tally"
+ 21:  },
+ 22:  {
+*23:    "id": "moon-basin-vow-gate-account",
+ 24:    "tick": 3,
+ 25:    "entity_id": "hara",
+ 26:    "place_id": "mother-tide-gate",
+...
+ 29:    ],
+*30:    "description": "Hara's slip places the single Moon-Basin Vow of Saltmonth 4 at the Mother-Tide Gate during the first low-water bell.",
+ 31:    "source_id": "gate-witness"
+ 32:  },
+ 33:  {
+*34:    "id": "moon-basin-vow-dune-account",
+ 35:    "tick": 3,
+ 36:    "entity_id": "sen",
+ 37:    "place_id": "ash-dune-sanctuary",
+...
+ 40:    ],
+*41:    "description": "Sen's register places that same single Moon-Basin Vow of Saltmonth 4 at Ash-Dune Sanctuary during the first low-water bell.",
+ 42:    "source_id": "dune-register"
+ 43:  }
+ 44:]
+
+#### r93-m2-kojiki-cluster/
+##### README.md#700E
+ 23:
+*24:... `records_at` edges (`relations.json:1-14`; `corpus/fixtures/r87-myth-cluster/relations.json:1-26`). Their actors, artifacts, places, assertions, and occasions differ: r87's relevant pair is Hara's and Sen's account of the same Saltmonth 4 Moon-Basin Vow at two locations, represented by two event IDs with a `place_id` disagreement (`corpus/fixtures/r87-myth-cluster/timeline.json:23-43`; `corpus/fixtures/r87-myth-cluster/contradictions.json:1-14`). M-17 has no Vow, tide, bell, or claim about that event... [col 1012]
+ 25:
+ 26:Against r88, the superficial resemblance is two entries in a fictional register. M-17's entries are sequential (ticks 1 then 2), on one folio, with two annotators; r88's paired-clock entries are both tick 9 but concern distinct actors, instruments, and places (Aru/north lantern/Quiet Rise; Evin/south bell/Salt Court) (`timeline.json:1-20`; `corpus/fixtures/r88-m3-maya-cluster/timeline.json:1-20`; `corpus/fixtures/r88-m3-maya-cluster/fictional-excerpts.md:10-13`). R88 has no relations (`corpus/fixtures/r8...
+ 27:
+
+### knowledge/
+#### r89-cross-cluster-contradiction.md#96AC
+ 6:
+*7:## Record: `r89-demo-moon-basin-vow-cross-cluster`
+ 8:
+ 9:**Status:** `unresolved` (conditional worked example). A shared event identity, date, and occasion must be supported by the cited in-world accounts. Equal local ticks, matching IDs, or an external mythology parallel do not establish those conditions. The hypothetical side is only for demonstrating the record shape; it does not satisfy R10's landed-cluster trigger.
+ 10:
+...
+ 15:
+*16:**Existing local record:** `corpus/fixtures/r87-myth-cluster/contradictions.json#moon-basin-vow-location` already records Hara's and Sen's different location claims. It says both concern the same single Moon-Basin Vow of Saltmonth 4 during the first low-water bell.
+ 17:
+*18:**Hypothetical account:** `corpus/fixtures/r89-hypothetical-moon-basin/timeline.json#moon-basin-vow-river-account.place_id`, cited to the hypothetical in-world source `reed-arch-register`, asserts `reed-arch`. Its hypothetical source text would read: “The one Moon-Basin Vow of Saltmonth 4 took place at Reed Arch during the first low-water bell.” Neither the path, source, assertion, nor sentence exists in the corpus; it is invented solely for this procedure demo.
+ 19:
+ 20:### Pair A — Hara account versus hypothetical account
+ 21:
+*22:- Conflicting assertions and claim pointers: `corpus/fixtures/r87-myth-cluster/timeline.json#moon-basin-vow-gate-account.place_id` (`source_id=gate-witness`; asserts `mother-tide-gate`; statement: “Hara's slip places the single Moon-Basin Vow of Saltmonth 4 at the Mother-Tide Gate during the first low-water bell.”) and `corpus/fixtures/r89-hypothetical-moon-basin/timeline.json#moon-basin-vow-river-account.place_id` (`source_id=reed-arch-register`; asserts `reed-arch`; hypothetical statement: “The o... [col 105]
+*23:- Why they cannot both be true as stated: if both source-attributed assertions refer to the same single vow on Saltmonth 4 during the first low-water bell, that one event cannot have both distinct place values.
+ 24:- Status: `unresolved`.
+ 25:
+ 26:### Pair B — Sen account versus hypothetical account
+ 27:
+*28:- Conflicting assertions and claim pointers: `corpus/fixtures/r87-myth-cluster/timeline.json#moon-basin-vow-dune-account.place_id` (`source_id=dune-register`; asserts `ash-dune-sanctuary`; statement: “Sen's register places that same single Moon-Basin Vow of Saltmonth 4 at Ash-Dune Sanctuary during the first low-water bell.”) and `corpus/fixtures/r89-hypothetical-moon-basin/timeline.json#moon-basin-vow-river-account.place_id` (`source_id=reed-arch-register`; asserts `reed-arch`; hypothetical statement... [col 105]
+ 29:- Why they cannot both be true as stated: under the same shared-event and shared-occasion condition, the single event cannot have both distinct place values.
+ 30:- Status: `unresolved`.
+ 31:
+
+# souji-shokunin/census/round-6/
+## seat-68.json#39F7
+ 410:          "size": 8036,
+*411:          "preview": "{\\n  \"phonology\": {\\n    \"consonants\": [\"f\", \"k\", \"l\", \"m\", \"n\", \"p\", \"r\", \"s\", \"t\"],\\n    \"vowels\": [\"a\", \"i\", \"u\"],\\n "
+ 412:        }
+ 413:      ],
+ 414:      "text:plain": [
+
+[Some lines truncated to 512 bytes]
