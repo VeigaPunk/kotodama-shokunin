@@ -34,6 +34,9 @@ is never attributed to a neighbouring id.
 
 - S949 REJECTED — "Votive offerings have been described in historical Roman era and Greek sources" — https://en.wikipedia.org/wiki/Votive_offering accessed 2026-11-04, lead section. Reason: tertiary encyclopedia text with no named author, no dating and no corpus, so it cannot carry a petitionary or votive claim under this lane's tier rule. Flip: a referenced revision whose every claim names a scholarly edition or catalogue.
 
+- S950 REJECTED — "is a small tablet with a curse written on it from the Greco-Roman world" — https://en.wikipedia.org/wiki/Curse_tablet accessed 2026-11-04, lead section. Reason: tertiary encyclopedia text with no named author, no dating and no corpus, and the practice it describes is compulsion of a person, which is a curse register rather than petition or vow. Flip: a referenced revision whose claims name editions or catalogues.
+- S951 REJECTED — "A sacred language, liturgical language, lingua sacra, or holy language is a language that is cultivated and used primarily for religious reasons" — https://en.wikipedia.org/wiki/Sacred_language accessed 2026-11-04, lead section. Reason: tertiary encyclopedia text with no named author and no corpus, and the category it defines is a register-sociology topic this entry does not own. Flip: a referenced revision whose claims name editions or catalogues.
+
 ### Seed rot found before the rows were written
 
 The reading list the wave started from was wrong in three places, and opening
@@ -41,8 +44,9 @@ the pages is what caught it. Chapter 74 is Situational Possibility, not the
 Prohibitive, which is chapter 71; the SIL glossary 404s on `/term/vocative`
 while `/term/vocative-case` answers; and the same glossary has no entry for
 prayer, invocation, supplication, petition, vow, votive, blessing or curse at
-all. Three further seeds (three Wikipedia articles) are tier C and were not
-admitted. A row copied from that list without opening it would have cited a
+all. Three further seeds (three Wikipedia articles) are tier C and none was
+admitted; all three are registered as rejections, S949, S950 and S951, each
+with its flip condition. A row copied from that list without opening it would have cited a
 page that contradicts its own scope cell.
 
 Registry changes: S942–S948 added (six A, one B; all seven `mined`, all `opened
