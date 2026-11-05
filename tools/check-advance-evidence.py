@@ -1,6 +1,28 @@
 #!/usr/bin/env python3
 """Grade a registry re-verification advance or a coverage entry against its evidence.
 
+Round-91 successor (v2) to the round-90 revision. The round-90 falsify wave
+(.ufo/waves/round-90/w1/CriticClaims.md, attacks 5, 6, 8) showed the entry mode
+passed a bakery-rota off-topic entry (TOPIC token count), shadow/duplicate rows,
+a gate quote equal to the row's own teaches cell, a capture byte-copying a
+graded file, and a freshness re-verification hidden in the lesson channel.
+v2 refuses each of those classes by name in entry mode:
+
+  UNIQUENESS   duplicate ids anywhere in the lands registry; a qualifying new
+               row whose URL is already a base row's URL (shadow); two
+               qualifying new rows sharing one URL
+  GATE (+)     the gate quote may not be a substring of the row's teaching cell
+               or of the row's source cell (self-quote and title/chrome classes)
+  CAPTURE (+)  a capture whose bytes equal a graded file's bytes is refused even
+               under a different path
+  TOPIC (+)    declared sub-topic phrases must appear in the entry's h2 headings
+               or table cells, not merely in running prose
+  APPENDONLY   with --base-lesson: no id outside the round's new rows may gain a
+               disposition line or flip its verdict in the round lesson (the
+               lesson channel cannot carry a freshness move as coverage)
+
+Round-90 v1 history and the advance-mode legs are unchanged.
+
 Round-90 successor to the round-89 frozen counter's F/C legs. The round-89
 counter passed five counterfeit landings its own wave built
 (corpus/lessons/round-89.md R89-M5/M6). This tool refuses each of those
@@ -186,7 +208,7 @@ def capture_text(cap_dir, man_entry, root):
         return ''
 
 
-def capture_error(cap_dir, graded, man_entry, quote, as_of, root):
+def capture_error(cap_dir, graded, man_entry, quote, as_of, root, graded_shas=None):
     m = man_entry
     if not isinstance(m, dict):
         return 'no manifest entry'
@@ -208,6 +230,10 @@ def capture_error(cap_dir, graded, man_entry, quote, as_of, root):
         return f'capture not committed: {rel}'
     if hashlib.sha256(raw).hexdigest() != str(m.get('sha256', '')):
         return f'capture sha256 mismatch: {rel}'
+    if graded_shas:
+        hit = graded_shas.get(hashlib.sha256(raw).hexdigest())
+        if hit:
+            return f'capture byte-copies a graded file ({hit}) under a different path: {rel}'
     if not isinstance(m.get('http_status'), int) or not 200 <= m['http_status'] < 300:
         return f'capture http_status not 2xx: {rel}'
     fm = FETCH_RE.match(str(m.get('fetched_at', '')))
@@ -375,7 +401,8 @@ def sentences(text):
 
 def grade_entry(args):
     entry = read(args.entry)
-    base_ids = set(r['id'] for r in registry(read(args.base_registry))[0])
+    base_rows, _ = registry(read(args.base_registry))
+    base_ids = set(r['id'] for r in base_rows)
     lands_rows, lands_dup = registry(read(args.lands_registry))
     lands_ids = set(r['id'] for r in lands_rows)
     lesson = read(args.lesson)
@@ -384,6 +411,15 @@ def grade_entry(args):
     as_of = as_date(args.as_of, '--as-of')
     legs = []
     detail = {}
+
+    # Byte digests of every graded file, so a capture that byte-copies one is
+    # refused even under a different path (round-90 falsify V6).
+    graded_shas = {}
+    for g in list(args.graded) + [args.lesson, args.lands_registry, args.entry]:
+        p = os.path.join(args.root, g)
+        if os.path.isfile(p):
+            with open(p, 'rb') as f:
+                graded_shas[hashlib.sha256(f.read()).hexdigest()] = g
 
     # ENTRY
     problems = []
@@ -408,7 +444,9 @@ def grade_entry(args):
         problems.append(f'a sentence repeats {worst}x')
     legs.append(('SHAPE', not problems, f'>={args.table_min_rows} data rows x >={args.table_min_cols} cols, no filler repetition', 'clean' if not problems else '; '.join(problems)))
 
-    # TOPIC
+    # TOPIC — token overlap, plus the declared sub-topic phrases must appear in
+    # h2 headings or table cells (round-90 attack 5: a negation list in running
+    # prose cleared a token count; headings and table cells cannot be negated away).
     topic_line = next((l for l in entry.splitlines() if l.strip().startswith('- topic:')), '')
     shared = overlap(entry, args.topic)
     stem_words = [w for w in re.split(r'[-_.]', os.path.basename(args.entry)) if len(w) >= 4]
@@ -418,7 +456,17 @@ def grade_entry(args):
         problems.append(f'entry shares {shared} content words with the declared topic < {args.min_topic_overlap}')
     if stem_words and stem_hit == 0:
         problems.append('entry filename words absent from its text')
-    legs.append(('TOPIC', not problems, f'>={args.min_topic_overlap} shared content words with the declared topic', 'clean' if not problems else '; '.join(problems)))
+    phrase_detail = ''
+    phrases = [p.strip() for p in re.split(r'[;]', args.topic_phrases or '') if p.strip()]
+    phrase_floor = getattr(args, 'min_topic_phrases', 0) or 0
+    if phrases and phrase_floor > 0:
+        anchor_text = norm(' '.join(heads)) + ' ' + norm(
+            '\n'.join(l for l in entry.splitlines() if l.strip().startswith('|')))
+        hits = [p for p in phrases if norm(p) in anchor_text]
+        phrase_detail = f'phrase anchors {len(hits)}/{len(phrases)}'
+        if len(hits) < phrase_floor:
+            problems.append(f'{len(hits)} of {len(phrases)} sub-topic phrases in headings/table cells < {phrase_floor}')
+    legs.append(('TOPIC', not problems, f'>={args.min_topic_overlap} shared content words with the declared topic' + (f'; >={phrase_floor} phrase anchors in headings/table' if phrases and phrase_floor > 0 else ''), 'clean' if not problems else '; '.join(problems) + (('' if not problems else '; ') + phrase_detail if phrase_detail else phrase_detail)))
 
     # NEWIDS
     # NEWIDS: only new rows the entry cites are in the claim's population. An
@@ -458,12 +506,34 @@ def grade_entry(args):
     legs.append(('NEWIDS', not problems, f'>={args.min_new_ids} new mined A/B rows opened {args.as_of} and cited', 'clean' if not problems else '; '.join(problems)))
     detail['qualifying'] = qualifying
 
+    # UNIQUENESS — shadow and duplicate classes (round-90 attacks 6/8, V1/V2):
+    # no duplicate id anywhere in the lands registry; no qualifying new row
+    # whose URL is already a base row's URL; no two qualifying rows sharing a URL.
+    uniq = []
+    if lands_dup:
+        uniq.append('duplicate ids at lands: ' + ','.join(sorted(set(lands_dup))))
+    base_urls = {}
+    for r in base_rows:
+        for u in urls(r['cells'][1] if len(r['cells']) > 1 else ''):
+            base_urls.setdefault(u, set()).add(r['id'])
+    qual_urls = {}
+    for rid in qualifying:
+        for u in urls(byid[rid][0]['cells'][1] if len(byid[rid][0]['cells']) > 1 else ''):
+            qual_urls.setdefault(u, []).append(rid)
+            if u in base_urls:
+                uniq.append(f'{rid}: url shadows base row {",".join(sorted(base_urls[u]))}: {u}')
+    for u, owners in qual_urls.items():
+        if len(owners) > 1:
+            uniq.append('url shared by ' + ','.join(sorted(owners)) + ': ' + u)
+    legs.append(('UNIQUENESS', not uniq, 'no duplicate lands id, no base-url shadow, no shared new url', 'clean' if not uniq else '; '.join(uniq)))
+
     # GATE + CAPTURE
     gates = gate_quotes(lesson)
     gate, capture = [], []
     for rid in qualifying:
         row = byid[rid][0]
         src = row['cells'][1]
+        teaches = row['cells'][6] if len(row['cells']) > 6 else ''
         qs = gates.get(rid, [])
         if not qs:
             gate.append(f'{rid}: no lesson line with id and quote')
@@ -475,11 +545,34 @@ def grade_entry(args):
             gate.append(f'{rid}: gate line lacks the access date')
         if len(quote.split()) > args.quote_max_words or len(norm(quote)) < args.quote_min_chars:
             gate.append(f'{rid}: quote {len(quote.split())} words / {len(norm(quote))} chars out of bounds')
-        err = capture_error(args.capture_dir, list(args.graded), man_rows.get(rid), quote, args.as_of, args.root)
+        q = norm(quote)
+        if q and q in norm(src):
+            gate.append(f'{rid}: gate quote is copied from the row source cell (title or chrome), not located prose')
+        elif q and q in norm(teaches):
+            gate.append(f'{rid}: gate quote is the row teaching cell (self-quote)')
+        err = capture_error(args.capture_dir, list(args.graded), man_rows.get(rid), quote, args.as_of, args.root,
+                            graded_shas=graded_shas)
         if err:
             capture.append(f'{rid}: {err}')
-    legs.append(('GATE', not gate, 'each new id has a located gate line', 'clean' if not gate else '; '.join(gate)))
+    legs.append(('GATE', not gate, 'each new id has a located gate line bound to the row teaching', 'clean' if not gate else '; '.join(gate)))
     legs.append(('CAPTURE', not capture, 'each gate quote occurs in its committed capture', 'clean' if not capture else '; '.join(capture)))
+
+    # APPENDONLY — the lesson channel cannot carry a freshness move as coverage
+    # (round-90 attack 8 V4): with --base-lesson, no id outside this round's new
+    # rows may gain a disposition line or flip its verdict in the round lesson.
+    if getattr(args, 'base_lesson', None):
+        base_disp = dispositions(read(args.base_lesson))
+        lands_disp = dispositions(lesson)
+        moved = []
+        for rid, (verdict, _line) in lands_disp.items():
+            if rid in set(new_ids):
+                continue
+            if rid not in base_disp:
+                moved.append(f'{rid}: gained a {verdict} line not present at base')
+            elif base_disp[rid][0] != verdict:
+                moved.append(f'{rid}: disposition {base_disp[rid][0]} -> {verdict}')
+        legs.append(('APPENDONLY', not moved, 'no old id gains or flips a disposition in the round lesson',
+                     'clean' if not moved else '; '.join(moved)))
     return legs, detail
 
 
@@ -736,13 +829,16 @@ def selftest(work):
         f'\u201cprayer address petition votive promise fixed extempore efficacy register case {i}\u201d\n'
         for i, (rid, u) in enumerate(new_rows))
     lesson_e = write('lesson_entry.md', lesson_e_text)
+    base_lesson_path = write('base_lesson.md', lesson_ok)
 
     def E(graded_extra=(), **over):
         base_args = dict(entry=entry_ok, base_registry=base, lands_registry=lands_e_path, lesson=lesson_e,
                          manifest=man_e, **{'capture_dir': 'reports/round-90/evidence', 'as_of': '2026-11-04',
                                             'topic': topic, 'min_bytes': '1200', 'min_headings': '4',
                                             'min_new_ids': '3', 'min_topic_overlap': '8',
-                                            'table_min_rows': '5', 'table_min_cols': '3'})
+                                            'table_min_rows': '5', 'table_min_cols': '3',
+                                            'topic_phrases': 'address;petition;efficacy;table',
+                                            'min_topic_phrases': '4', 'base_lesson': base_lesson_path})
         base_args.update(over)
         out = ['--root', root]
         for k, v in base_args.items():
@@ -754,7 +850,7 @@ def selftest(work):
             out += ['--graded', g]
         return out
 
-    chk('positive entry', ['entry'] + E(), 0, ['PASS legs=6/6'])
+    chk('positive entry', ['entry'] + E(), 0, ['PASS legs=8/8'])
     filler = os.path.join(root, 'corpus/knowledge/myth-symbol/sourdough.md')
     with open(filler, 'w') as f:
         f.write('# Sourdough starter care\n\n- topic: sourdough starter care\n- sources: S010\n'
@@ -880,9 +976,9 @@ def selftest(work):
     lands_uncited = write('lands_uncited.md', lands_e
                           + _row('S013', 'https://example.org/reject', 'a rejected row about dye plants',
                                  tier='C', status='rejected', opened='2026-11-04', used='corpus/lessons/round-90.md'))
-    chk('uncited new row is out of scope', ['entry'] + E(lands_registry=lands_uncited), 0, ['PASS legs=6/6'])
+    chk('uncited new row is out of scope', ['entry'] + E(lands_registry=lands_uncited), 0, ['PASS legs=8/8'])
     shortq = write('lesson_shortq.md', ''.join(
-        f'- {rid} admit A/mined. {u} \u2014 accessed 2026-11-04 \u2014 body: \u201cprayer address\u201d\n'
+        f'- {rid} admit A/mined. {u} \u2014 accessed 2026-11-04 \u2014 body: \u201cefficacy register\u201d\n'
         for rid, u in new_rows))
     chk('gate quote below the char floor', ['entry'] + E(lesson=shortq), 1, ['FAIL GATE'])
     chk('min new ids unmet', ['entry'] + E(min_new_ids='4'), 1, ['FAIL NEWIDS'])
@@ -900,6 +996,58 @@ def selftest(work):
         f.write(good_body)
     chk('filename stem absent from the entry', ['entry'] + E(entry=offstem), 1, ['FAIL TOPIC'])
     chk('topic overlap below the floor', ['entry'] + E(min_topic_overlap='40'), 1, ['FAIL TOPIC'])
+
+    # ---------------------------------------- round-91 v2 entry-mode negatives
+    # Attack 5: on-topic tokens carried by running prose alone cleared the old
+    # TOPIC; the phrase anchors must sit in h2 headings or table cells.
+    proseonly = os.path.join(root, 'corpus/knowledge/myth-symbol/prayer-address.md')
+    with open(proseonly, 'w') as f:
+        f.write('# Prayer\n\n- topic: prayer address petition efficacy\n- sources: S010\n'
+                '- verified-at: 2026-11-04\n- recheck: 180d\n\n'
+                '## 1. Section one\n\nThe words address petition efficacy table appear here only inside running prose, '
+                'never as a heading and never inside the table cells; a negation list clears a token count. '
+                'The address petition efficacy table words are listed again to satisfy the old overlap floor, '
+                'while no heading of this entry names any of them.\n\n'
+                '## 2. Section two\n\n' + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
+                + '\n| a | b | c |\n|---|---|---|\n' + ''.join(f'| row {i} | x | y |\n' for i in range(5)) + '\nS010 S011 S012\n')
+    chk('sub-topic phrases absent from headings', ['entry'] + E(entry=proseonly, min_topic_overlap='1'), 1, ['FAIL TOPIC', 'phrase anchors'])
+    dupid_e = write('lands_dupid.md', lands_e + _row('S010', 'https://example.org/dup', 'a second row under S010',
+                                                     tier='A', status='mined', opened='2026-11-04',
+                                                     used='corpus/knowledge/myth-symbol/prayer-register.md'))
+    chk('duplicate lands id in entry mode', ['entry'] + E(lands_registry=dupid_e), 1, ['FAIL UNIQUENESS'])
+    shadow_base = write('lands_shadow.md', lands_e.replace('| S010 | https://example.org/a |', '| S010 | ' + url + ' |'))
+    chk('new row shadows a base url', ['entry'] + E(lands_registry=shadow_base), 1, ['FAIL UNIQUENESS'])
+    shared_url = write('lands_shared.md', lands_e.replace('| S011 | https://example.org/b |', '| S011 | https://example.org/a |'))
+    chk('two new rows share one url', ['entry'] + E(lands_registry=shared_url), 1, ['FAIL UNIQUENESS'])
+    selfq_rows = []
+    for i, (rid, u) in enumerate(new_rows):
+        q = 'prayer address petition votive promise register case' if rid == 'S010' \
+            else f'prayer address petition votive promise fixed extempore efficacy register case {i}'
+        selfq_rows.append(f'- {rid} admit A/mined. {u} \u2014 accessed 2026-11-04 \u2014 body: \u201c{q}\u201d\n')
+    selfq_e = write('lesson_selfq.md', ''.join(selfq_rows))
+    chk('gate quote is the teaching cell', ['entry'] + E(lesson=selfq_e), 1, ['FAIL GATE', 'self-quote'])
+    chrome_rows = []
+    for i, (rid, u) in enumerate(new_rows):
+        q = u if rid == 'S010' else f'prayer address petition votive promise fixed extempore efficacy register case {i}'
+        chrome_rows.append(f'- {rid} admit A/mined. {u} \u2014 accessed 2026-11-04 \u2014 body: \u201c{q}\u201d\n')
+    chrome_e = write('lesson_chrome.md', ''.join(chrome_rows))
+    chk('gate quote is from the source cell', ['entry'] + E(lesson=chrome_e), 1, ['FAIL GATE', 'source cell'])
+    shutil.copy(lesson_e, os.path.join(ev, 'S010-copy.md'))
+    man_copy_rows = {rid: dict(capture=f'reports/round-90/evidence/{rid}.txt', url=u, http_status=200,
+                               fetched_at='2026-11-04T19:00:00-03:00') for rid, u in new_rows}
+    man_copy_rows['S010'] = dict(capture='reports/round-90/evidence/S010-copy.md', url=new_rows[0][1],
+                                 http_status=200, fetched_at='2026-11-04T19:00:00-03:00')
+    man_copy = _manifest(root, man_copy_rows, 'mcopy.json')
+    chk('capture byte-copies a graded file', ['entry'] + E(manifest=man_copy), 1, ['FAIL CAPTURE', 'byte-copies'])
+    freshmove = write('lesson_freshmove.md', lesson_e_text
+                      + '- S002 NOT-LOCATED recheck unchanged \u2014 https://example.org/other accessed 2026-11-04: '
+                        '\u201cunrelated row about dye plants\u201d\n')
+    chk('lesson channel re-verification refused', ['entry'] + E(lesson=freshmove), 1, ['FAIL APPENDONLY'])
+    gained = write('lesson_gained.md', lesson_e_text
+                   + '- S007 LOCATED recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: '
+                     '\u201cunrelated row about dye plants and textile trades\u201d\n')
+    chk('old id gains a fresh disposition line', ['entry'] + E(lesson=gained), 1, ['FAIL APPENDONLY', 'gained'])
+    chk('phrase floor unmet on a real entry', ['entry'] + E(min_topic_phrases='9'), 1, ['FAIL TOPIC', 'phrase anchors'])
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']
@@ -938,6 +1086,9 @@ def main(argv):
     p.add_argument('--table-min-rows', type=int, default=5)
     p.add_argument('--table-min-cols', type=int, default=3)
     p.add_argument('--topic', default='')
+    p.add_argument('--topic-phrases', default='')
+    p.add_argument('--min-topic-phrases', type=int, default=0)
+    p.add_argument('--base-lesson', dest='base_lesson', default=None)
     p.add_argument('--receipt')
     p.add_argument('--json', action='store_true')
     p.add_argument('--selftest', action='store_true')
