@@ -1,0 +1,52 @@
+{
+  "schema": "kotodama-round-95-claims-v1",
+  "lane": "kotodama",
+  "round": 95,
+  "base": "19aa4dd03dfd37b435d0b8ea5b313635d9d51592",
+  "counter": "reports/round-95/predispatch.py",
+  "kill_rule": "A claim fails as declared when any of its legs fails at the lands measurement with this counter's frozen bytes. No leg list, floor, target, manifest or driver name may be amended after any scoring seat has run. A miss is an honest stop, never a re-target.",
+  "lowest_axis_note": "Freshness is the historically lowest non-retired axis and stays paused under the open L0 kotodama round-11 and round-89 questions; the lowest-axis obligation is neither met nor waived this round and the report says so.",
+  "claims": {
+    "O": {
+      "axis": "operability",
+      "type": "successor capability move; closes the round-94 closure routed defects R95-1, R95-2 and R95-3",
+      "surface": "tools/check-advance-evidence.py grader refusal surface, v5 -> v6",
+      "before": "grader v5, sha256 7957945db8036f52ab46436b281e92887c6fc22d0a89531d6f80279bcbad01ff: SELFTEST PASS 126/126 (< floor 134); round-95 battery over v5 = 7 survivors (CD1 combining mark, LR1 LRM, TAB1 tab, ID1 small-cap id letter, NUM1 nested numbered heading, RM1 roman numbered heading, NUM2 second-token numbered heading), unnamed=0, refused=7 (the seven round-94 classes A1, B1, G1, H1, I1, J1, K1); mutation over v5 = 86/88 killed, 1 survived (head-qualify-off), 1 broken-pattern (dispo-fallback-off)",
+      "after": "grader v6 with sha256 != v5 sha: SELFTEST PASS N/N with N >= 134 and rc 0; battery95 over v6 prints BATTERY-SUMMARY survivors=0 unnamed=0 refused=14 with every one of the 14 classes (A1, B1, G1, H1, I1, J1, K1, CD1, LR1, TAB1, ID1, NUM1, RM1, NUM2) outcome=REFUSED on a nonempty named diagnostic and traceback=no; mutation95 over v6 prints MUTATION-SCORE killed/total killed, 0 survived, 0 broken-pattern with killed == total and total >= 95 (the 88 round-94 manifest entries carried, dispo-fallback refreshed to match the v6 bytes exactly once, head-qualify-off killed by the new selftest pin, plus one new refusal pin per new class); the REG section of battery95 over v6 is byte-identical to reports/round-95/controls/reg-v5.txt",
+      "legs": {
+        "O0": "tool sha256 named (grader bytes changed: lands sha != 7957945db8036f52ab46436b281e92887c6fc22d0a89531d6f80279bcbad01ff)",
+        "O1": "selftest rc 0, SELFTEST PASS N/N, N >= 134",
+        "O2": "battery95 survivors=0 unnamed=0 refused=14",
+        "O3": "mutation95 killed == total, 0 survived, 0 broken-pattern, total >= 95",
+        "O4": "REG byte-identical to the committed reg-v5.txt baseline (fail closed when the baseline is missing)"
+      },
+      "drivers": {
+        "battery": ".ufo/waves/round-95/w1/stage/ExecBattery95/battery95.py",
+        "mutation": ".ufo/waves/round-95/w1/stage/ExecMutants95/mutants95.py"
+      },
+      "counting_command": "python3 -B reports/round-95/predispatch.py --root <lands-tree> --work <scratch> --base-rev 19aa4dd03dfd37b435d0b8ea5b313635d9d51592",
+      "do_nothing_control": "the same counter over a git archive of the base (v5 bytes, no work) must fail: O1 prints 126/134-class floor failure, O2/O3 fail closed on the not-yet-existing stage drivers, O4 fails closed on the missing baseline, C1 prints entry absent, C2 prints rows=893 highest=S969 qualifying=0. Receipt: reports/round-95/predispatch-base.txt committed at the freeze. The seats add explicit red-before receipts: the built battery95 and mutants95 run against the v5 bytes before any v6 work is scored."
+    },
+    "C": {
+      "axis": "coverage",
+      "type": "sourced knowledge entry on a dedicated surface with no filename owner at base",
+      "surface": "corpus/knowledge/linguistics/funerary-lament-dirge-formulae.md (funerary laments and dirges: the sung speech of mourning)",
+      "before": "no linguistics (or other partition) file owns the lament/dirge sung-register surface (filename sweep 0 at base); registry 893 rows, highest S969",
+      "after": "the entry lands with >= 12000 bytes, >= 6 h2 headings, a table of >= 5 data rows x >= 3 columns, >= 4 of the six frozen sub-topic phrases in h2 headings or table data rows, and the `- topic:` line byte-equal to the frozen topic; >= 3 new registry rows above S969, tier A or B, status mined, opened 2026-11-05, used-by exactly the entry path, each cited by id in the entry and carried by a Gate line in corpus/lessons/round-95.md with URL, access date, <= 25-word exact-substring quote and capture sha256; registry >= 896 rows with highest >= S972; census rc 0; corpus index rc 0; zero removed registry lines vs the base",
+      "frozen_topic": "funerary laments and dirges: the sung speech of mourning — professional keeners and lament genres, antiphonal and refrain structures, formulaic grief content (praise of the dead, address to the dead, blame and consolation), gendered mourning rules, the lament between speech and song, and the design procedure for a fictional mourning register",
+      "frozen_phrases": ["professional keeners", "antiphonal lament", "lament refrain", "praise of the dead", "gendered mourning rules", "fictional mourning register"],
+      "legs": {
+        "C1": "entry present with the frozen shape floors and topic line equality",
+        "C2": "registry population and >= 3 qualifying new rows",
+        "C3": "append-only registry (0 removed lines)",
+        "C4": "census rc 0",
+        "C5": "corpus index rc 0"
+      },
+      "counting_command": "python3 -B reports/round-95/predispatch.py --root <lands-tree> --work <scratch> --base-rev 19aa4dd03dfd37b435d0b8ea5b313635d9d51592",
+      "do_nothing_control": "the same base receipt: C1 entry absent, C2 qualifying=0 at rows=893 highest=S969. The control cannot reach either claim's target."
+    }
+  },
+  "causal_separability": "O touches only tools/check-advance-evidence.py bytes and wave stage files; C touches only corpus/knowledge/linguistics/funerary-lament-dirge-formulae.md, corpus/SOURCES.md, corpus/README.md and reports/round-95/evidence/. Neither leg set reads the other's artifacts: the O legs run the selftest/battery/mutation drivers over the tool, the C legs parse the entry and registry. Each claim verifies without the other having landed.",
+  "rules_of_engagement": "Sources are opened by ordinary means only: plain curl, default user agent, -L, --max-time 30; no headless browser, no CAPTCHA or bot-challenge passing, no login, no paywall circumvention, no TLS verification bypass. A 403, a wall, a JS shell or a TLS failure is UNREACHABLE, recorded as observed.",
+  "seat_bounds": "Seats write only inside their own stage dir plus their Report trailer; no commits, no pushes, no mutating git/jj anywhere; the corpus, tools/, reports/, SCORECARD.md and LOG.md are read-only for seats; the L1 integrates after WAVE-DONE."
+}

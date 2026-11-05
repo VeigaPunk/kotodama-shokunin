@@ -2223,3 +2223,28 @@ role (the validator rejects planner as a seat).
 | name | demonstrated behavior | command / evidence | first working |
 |---|---|---|---|
 | grader v5 counterfeit refusals | Refuses, by name and with no traceback: Cyrillic-lookalike and soft-hyphen verdict tokens (`VERDICT-NONASCII`, `VERDICT-SOFTHYPHEN`), lowercase unanchored verdict tokens (`VERDICT-LOWERCASE`), numbered phrase-only heading anchors (TOPIC leg with list numbers stripped), manifest row values that are lists (`MANIFEST-ROW-TYPE`), short registry rows (`NEWIDS` leg), and en-dash NOT-LOCATED without a false flip; five routed mutant classes pinned in the selftest (126 checks) | `python3 -B tools/check-advance-evidence.py --selftest --work <dir>` → `SELFTEST PASS 126/126`; `reports/round-94/controls/battery-v5.txt` (survivors=0 unnamed=0 refused=7) | round 94, author-side pending closure |
+
+## Planned — round 95 (2026-11-05; frozen)
+
+Round 95 (L1 KotodamaR95) freezes two claims in `reports/round-95/claims.json` (sha256
+`5d6cfcbfeab427ef227dc1c52024811e70d0ead8c711a2d21e6fda6492c9b2d9`) with counter
+`reports/round-95/predispatch.py` (sha256 `e6d92eb36b4cdbfab8dfa22e3a938d33fa900432b5e075bf847d8ae090f11afe`);
+base `19aa4dd03dfd37b435d0b8ea5b313635d9d51592`. Do-nothing control executed and committed at the
+freeze (`reports/round-95/predispatch-base.txt`: the frozen counter over the base tree prints
+`PREDISPATCH-95: FAIL legs=4/10` — O1 126/126 < floor 134, O2/O3 fail closed on the not-yet-built
+stage drivers, O4 fail closed on the missing REG baseline, C1 entry absent, C2 rows=893
+highest=S969 qualifying=0 — the control cannot reach either target). A pre-freeze counter revision
+was forced by the control itself (C2 POSIX-class regex parsed 0 rows; C3 required git inside a
+git-archive tree) and is fixed in the frozen bytes.
+
+| claim / axis | before → frozen target | counter |
+|---|---|---|
+| O / operability (successor move; closes round-94 closure routed defects R95-1 head-qualify pin, R95-2 stale dispo-fallback pattern, R95-3 CriticO94's seven survivor classes) | v5 (`7957945d…`): SELFTEST 126/126, battery95 over v5 = 7 survivors (CD1, LR1, TAB1, ID1, NUM1, RM1, NUM2) / 0 unnamed / 7 refused, mutation95 over v5 = 1 survived (head-qualify-off) + 1 broken-pattern (dispo-fallback-off) → v6 (sha ≠ v5): SELFTEST ≥ 134/134 rc 0; battery95 over v6 `survivors=0 unnamed=0 refused=14`, every class REFUSED on a nonempty named diagnostic, traceback=no; mutation95 over v6 killed == total, 0 survived, 0 broken-pattern, total ≥ 95 (88 round-94 entries + 7 new refusal pins; dispo-fallback matches the v6 bytes exactly once); REG byte-identical to `reports/round-95/controls/reg-v5.txt` (fail closed when missing) | `python3 -B reports/round-95/predispatch.py --root <lands-tree> --work <scratch> --base-rev 19aa4dd03dfd37b435d0b8ea5b313635d9d51592` (O legs); drivers `.ufo/waves/round-95/w1/stage/ExecBattery95/battery95.py`, `.ufo/waves/round-95/w1/stage/ExecMutants95/mutants95.py` |
+| C / coverage (sourced claim) | entry absent; registry 893 / S969 → `corpus/knowledge/linguistics/funerary-lament-dirge-formulae.md` ≥ 12000 B, ≥ 6 h2, a table ≥ 5 data rows × ≥ 3 cols, ≥ 4 of six frozen phrases (professional keeners; antiphonal lament; lament refrain; praise of the dead; gendered mourning rules; fictional mourning register) in headings/table cells, `- topic:` line byte-equal to the frozen topic; ≥ 3 new mined tier-A/B rows opened 2026-11-05 above S969, used-by exactly the entry path, cited by id and gated with captures; registry ≥ 896, highest ≥ S972; census rc 0; index rc 0; 0 removed registry lines | same counter (C legs) |
+
+Kill rule: a claim fails as declared when any of its legs fails at the lands measurement with the
+frozen counter bytes; nothing is amended after any scoring seat runs; a miss is an honest stop.
+Freshness stays the historically lowest non-retired axis and stays paused under the open L0
+kotodama round-11 and round-89 questions; the lowest-axis obligation is neither met nor waived
+this round and the report says so. No numeric 0–10 score is invented. Saturation: unchanged.
+Stagnation window: unchanged. Retired: none.
