@@ -1,0 +1,60 @@
+Round-92 frozen-counter controls, seat ExecControls. Freeze 066b9728fc64e78735769c4740d05c1000d31a3b, base 21350361500aa000b90f91082bf9d7295a9c24cd.
+Scratch: /fast/scratch/hyaku/kotodama-r92/ExecControls (deleted before yield). Receipts copied here.
+Commands run from cwd /fast/scratch/hyaku/kotodama-r92/ExecControls with R=/home/vgpnk/Projects/shokunin/kotodama-shokunin.
+
+1. O do-nothing at freeze
+   python3 -B $R/reports/round-92/measure92.py --root $R --lands 066b9728fc64e78735769c4740d05c1000d31a3b --freeze 066b9728fc64e78735769c4740d05c1000d31a3b --claim O --work $S/w/o1 --receipt $S/at-freeze-O-do-nothing.txt
+   rc=0 (brief expected rc 1)
+   legs: 8/8 PASS (MATERIALIZE TOOL SELFTEST OKCOUNT REFUSALS MUTATION MUTRECEIPT STUB). failed= none.
+   result line: MEASURE92-O: PASS legs=8/8
+   receipt: at-freeze-O-do-nothing.txt (sha256 0ab72a4585260e65d99ab57857758ef8e69961912222cbc09bbf092220aeeefc)
+   note: freeze tree already holds the pinned v3 tool (sha 905be2fe...). The brief's expected TOOL/MUTATION failure does not occur at the freeze.
+
+2. C do-nothing at freeze
+   python3 -B $R/reports/round-92/measure92.py --root $R --lands 066b9728fc64e78735769c4740d05c1000d31a3b --freeze 066b9728fc64e78735769c4740d05c1000d31a3b --claim C --work $S/w/c1 --receipt $S/at-freeze-C-do-nothing.txt
+   rc=1 (as expected)
+   legs: 2/4 PASS (MATERIALIZE, INDEX). failed=ENTRY,APPENDONLY
+   result line: MEASURE92-C: FAIL legs=2/4 failed=ENTRY,APPENDONLY
+   receipt: at-freeze-C-do-nothing.txt (sha256 3faf93a84ee5a2eaab74d6baa34d9fde7c6a87b7a57ff019bcb78400c326ab1a)
+   note: APPENDONLY also fails (0 qualifying new ids; entry absent from README), beyond the ENTRY failure the brief named.
+
+3. O with lands = frozen base
+   python3 -B $R/reports/round-92/measure92.py --root $R --lands 21350361500aa000b90f91082bf9d7295a9c24cd --freeze 066b9728fc64e78735769c4740d05c1000d31a3b --claim O --work $S/w/o3
+   rc=2 (as expected)
+   stderr: MEASURE92_ERROR: --lands equals the frozen base; a do-nothing landing cannot pass
+
+4. C twice (determinism)
+   4a. first pair, different work dirs ($S/w/c1 and $S/w/c2), both rc=1, both FAIL ENTRY,APPENDONLY.
+       diff: receipts differ at line 7 only: "observed=.../w/c1/mat" vs "observed=.../w/c2/mat" (the work-dir path). Not a counter nondeterminism; the path is part of the receipt.
+       copy: at-freeze-C-do-nothing-run2.txt
+   4b. second pair, same work dir $S/w/det (dir removed and recreated between runs):
+       python3 -B $R/reports/round-92/measure92.py --root $R --lands 066b9728fc64e78735769c4740d05c1000d31a3b --freeze 066b9728fc64e78735769c4740d05c1000d31a3b --claim C --work $S/w/det --receipt $S/det-run-a.txt   rc=1
+       (same command with --receipt $S/det-run-b.txt)   rc=1
+       cmp det-run-a.txt det-run-b.txt -> byte-identical (DETERMINISTIC_BYTE_IDENTICAL)
+       copies: det-run-a.txt, det-run-b.txt
+   4c. det-run-a.txt vs at-freeze-C-do-nothing.txt differ only on line 7 (work-dir path w/det vs w/c1).
+
+5. C with freeze = frozen base (lands = freeze)
+   python3 -B $R/reports/round-92/measure92.py --root $R --lands 066b9728fc64e78735769c4740d05c1000d31a3b --freeze 21350361500aa000b90f91082bf9d7295a9c24cd --claim C --work $S/w/c5
+   rc=2 (as expected), but NOT for the ancestor reason the brief named.
+   stderr: MEASURE92_ERROR: git show 21350361500aa000b90f91082bf9d7295a9c24cd:reports/round-92/claims.json failed: fatal: path 'reports/round-92/claims.json' exists on disk, but not in '21350361500aa000b90f91082bf9d7295a9c24cd'
+   reason: base IS an ancestor of the freeze (git merge-base --is-ancestor 21350361... 066b9728... -> rc 0), so the ancestor check passes; the refusal comes from the claims.json read at base.
+   copy: c5-base-freeze.stderr.txt
+
+6. Extra: true non-ancestor freeze (lane main tip 66b3ae93fe44e73b5dfa6aefac301175fe5fc253 as --freeze)
+   git -C $R merge-base --is-ancestor 66b3ae93fe44e73b5dfa6aefac301175fe5fc253 066b9728fc64e78735769c4740d05c1000d31a3b -> rc 1 (not an ancestor)
+   python3 -B $R/reports/round-92/measure92.py --root $R --lands 066b9728fc64e78735769c4740d05c1000d31a3b --freeze 66b3ae93fe44e73b5dfa6aefac301175fe5fc253 --claim C --work $S/w/c6
+   rc=2
+   stderr: MEASURE92_ERROR: --freeze 66b3ae93fe44 is not an ancestor of --lands 066b9728fc64
+   copy: c6-noncancestor.stderr.txt
+
+Tool-sha facts (read-only git show | sha256sum):
+   base tools/check-advance-evidence.py 88597a66c7912861d0a593f984b9eb224a3c46cba3b35d06209b529bc6031093 (not the O pin; O TOOL would fail at base)
+   freeze tools/check-advance-evidence.py 905be2fed386c491d52224832ea75ed8c7b02e67c1b021b2c66511658c1c1422 (= O.tool_sha256)
+   freeze reports/round-92/mutants.py 31dc3dc343443a9fe279ec407059919e15fc511f134166f6d35b99f73e9fc2ce
+   freeze has reports/round-92/mutation-score.txt: yes; freeze has corpus/knowledge/linguistics/ideophones-mimetics.md: no
+
+Other O-run facts (from the freeze O receipt): SELFTEST PASS 89/89, 89 ok lines, MUTATION-SCORE 60/60 killed 0 survived 0 broken-pattern, stub ok lines=34 and stub MUTATION-SCORE 0/60 killed 60 broken-pattern. O run wall time 190.45 s.
+Counter sha256 (self, from receipts): f170cc8f45085c7da9e3f1a85e010092b6b58a73b2032d49cb25f7aeee036ca3. Lane main at run time 66b3ae93fe44e73b5dfa6aefac301175fe5fc253.
+
+Tooling: no installs. Commands used only python3 3.14.8, git (read-only), sha256sum, cmp, diff, cp, ls.

@@ -2088,3 +2088,53 @@ residual call, no replacement seat.
 | name | demonstrated behavior | command / evidence | first working |
 |---|---|---|---|
 | entry-mode counterfeit refusal (grader v2) | Refuses by name nine entry-mode counterfeits the round-90 grader passed: off-topic entries whose topic is only topic-line padding (phrase anchors must sit in headings/table cells), duplicate/shadow/shared-URL rows, gate quotes that are the row's own teaching or source cell, captures that byte-copy a graded file, lesson-channel re-verification of an old id, and an old id gaining a fresh disposition; 77-check selftest with one negative per sub-check and a 53/53 mutation receipt | `python3 -B tools/check-advance-evidence.py --selftest --work <existing-dir>` → `SELFTEST PASS 77/77`; `reports/round-91/final/lands-O.txt` PASS 7/7; `reports/round-91/controls/before-v1-entry.txt` | round 91 |
+
+## Planned / frozen — round 92 (2026-11-05)
+
+Declared in the freeze commit `066b9728fc64e78735769c4740d05c1000d31a3b`
+(`reports/round-92/claims.json`); base `21350361500aa000b90f91082bf9d7295a9c24cd`.
+Counter `reports/round-92/measure92.py` (sha `f170cc8f…`), mutants
+`reports/round-92/mutants.py`, stub `reports/round-92/controls/stub-tool.py`,
+counterfeit builder `reports/round-92/controls/make-counterfeits.py` (sha `86d3b816…`).
+Do-nothing controls: `reports/round-92/controls/at-base-O-refused.txt` (rc 2),
+`reports/round-92/controls/at-freeze-C-do-nothing.txt` (rc 1, ENTRY and APPENDONLY fail).
+
+| claim / axis | before → frozen target | counter |
+|---|---|---|
+| O / operability (successor move to the round-91 grader) | round-91 grader (`sha 88597a66`): selftest 77/77, 9 of 21 named refusal cases in source, both counterfeit receipts PASS 7/7 → grader v3 (`sha 905be2fe`) with selftest 89/89 and exactly 89 `  ok ` lines, all 21 named refusals ok, mutation 60/60 killed with 0 survived, a committed mutation receipt that matches the live run, stub refused by OKCOUNT and killing 0 | `python3 -B reports/round-92/measure92.py --root <clone> --freeze 066b9728… --lands <lands> --claim O --work <existing-dir>` |
+| C / coverage (sourced claim) | no dedicated ideophone entry; linguistics 36 files; registry 880 rows, last id S956 → `corpus/knowledge/linguistics/ideophones-mimetics.md` ≥12000 B, ≥6 h2, table ≥5×3, ≥4 of six sub-topic phrases in headings/table spanning ≥3 surfaces, ≥3 new mined A/B rows opened 2026-11-05 cited, index rc 0, zero old registry rows changed | `python3 -B reports/round-92/measure92.py --root <clone> --freeze 066b9728… --lands <lands> --claim C --work <existing-dir>` |
+
+Freshness stays the historically lowest non-retired axis and stays paused under
+the open L0 kotodama round-11 and round-89 questions; the lowest-axis obligation
+is neither met nor waived this round. No numeric 0–10 score is invented.
+
+## Axes — round 92 (2026-11-05; author-side, non-author closure pending)
+
+Measured at lands `1473606b7baaf1b4050c8b21c30bdf17761d136d` (lane main at measurement),
+freeze `066b9728`, base `21350361`. Receipts `reports/round-92/final/lands-O.txt` (PASS 8/8)
+and `reports/round-92/final/lands-C.txt` (PASS 4/4), both stamped at the lands revision.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved, finite predicate verifies | v2 base (`88597a66`) selftest 77/77 with 9 of 21 named refusal names in source; both routed-survivor sets PASS 7/7 (`before-v2-counterfeits.txt`) → v3 (`905be2fe`) selftest 89/89, 21/21 names, mutation 60/60, seven counterfeits refused on their named legs (`after-v3-refusals.txt`), G0 green | `python3 -B reports/round-92/measure92.py --root <clone> --freeze 066b9728… --lands 1473606b… --claim O --work <existing-dir>` | `reports/round-92/final/lands-O.txt` (MEASURE92-O PASS legs=8/8); `reports/round-92/mutation-score.txt` (60/60); `reports/round-92/controls/after-v3-refusals.txt`; replay by ExecBeforeV2 byte-identical |
+| coverage / C | improved, finite predicate verifies | entry absent, linguistics 36 files, 880 rows, 0 ideophone filename owners → `ideophones-mimetics.md` 28814 B, 12 `##` sections, 23×5 table, six phrases across ten surfaces, S957–S960 mined A and cited, 884 rows, linguistics 37, index 264/264 rc 0 | same counter with `--claim C` | `reports/round-92/final/lands-C.txt` (MEASURE92-C PASS legs=4/4); `reports/round-92/census-end.txt` rc 0 |
+| calibration | observation, no scored claim | R92-M1 (do-nothing control named as a control while it passes at the freeze), R92-M9 (frozen `O.before` count 12/21 measured as 9/21) and the r91 receipt header defect (`SELFTEST FAIL 76/77` printed beside rc 0) are recorded, not repaired in place | — | `corpus/lessons/round-92.md` `## Mistakes` |
+| depth / freshness / adjacency | unchanged | no existing entry deepened; no old registry row re-verified, re-dated or repaired (freshness paused); `sound-symbolism.md` named as the adjacent owner and not edited | `git diff --numstat 21350361 1473606b -- corpus/knowledge` names only the new entry; registry diff adds rows only | `corpus/README.md` round-92 section; `reports/round-92/census-start.txt` |
+
+Trend verdicts (author-side): expansion improved (a dedicated entry on ground with zero filename owners; four mined rows cited); quality unchanged (instrument and record repairs are not quality observables under QUALITY 20; no entry re-verified or superseded); discernment unchanged (the outside spot-check of this round's gate decisions is pending; ReviewerEntry-5 checked the entry, not the admit/reject decisions).
+
+Admission (author-side): O and C verify on the frozen predicates; no axis harmed. Critic
+finding routed to round 93: 16 of 21 new counterfeits survive v3 (`corpus/lessons/round-92.md`
+R92-M7); the frozen O predicate does not claim completeness and is not failed by them.
+
+Round shape: wave 1 = 10 seats (3 executor, 1 scribe, 1 scout, 1 connector, 2 reviewer,
+1 critic, 1 mutation-tester; attack 4/10 = 40 %), one v1 wave, no residual call. The
+L1 holds the planner role (wave validator rejects planner as a swarm seat). No dead seat
+at the time of writing; one reviewer seat (`ReviewerFreeze-2`) still running.
+
+## Capabilities — round 92 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| counterfeit-battery replay (grader v3 before/after) | Rebuilds seven routed round-91 counterfeit landings and the compliant control, grades them with a supplied base tool and the v3 tool, and writes both receipts; ExecBeforeV2 replayed the receipts byte-identical | `python3 -B reports/round-92/controls/make-counterfeits.py --work <existing-dir> --tool v2=<base-tool> --tool v3=tools/check-advance-evidence.py` → `BEFORE-V2-DEFECT-PRESENT: yes`, `AFTER-V3-REFUSED: yes` | round 92 |
+| receipt-asserting counter (MUTRECEIPT leg) | The frozen counter asserts the committed mutation receipt: tool sha and MUTATION-SCORE numbers must match the live run | `reports/round-92/final/lands-O.txt` MUTRECEIPT PASS | round 92 |

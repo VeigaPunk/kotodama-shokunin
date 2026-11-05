@@ -1,0 +1,15 @@
+# frozen legs: 8 (MATERIALIZE,TOOL,SELFTEST,OKCOUNT,REFUSALS,MUTATION,MUTRECEIPT,STUB)
+# stamped revision: 1473606b7baaf1b4050c8b21c30bdf17761d136d
+# evaluated revision: 1473606b7baaf1b4050c8b21c30bdf17761d136d (materialized)
+# measured revision (lane main): 1473606b7baaf1b4050c8b21c30bdf17761d136d
+# tree: 4229ef2602b7302f65b14e9338b877d6bcabde84
+# counter sha256 (self): f170cc8f45085c7da9e3f1a85e010092b6b58a73b2032d49cb25f7aeee036ca3
+LEG PASS MATERIALIZE expected=lands 1473606b7baaf1b4050c8b21c30bdf17761d136d materialized observed=/fast/scratch/hyaku/kotodama-r92/meas-O/mat
+LEG PASS TOOL expected=tools/check-advance-evidence.py sha256 905be2fed386c491d52224832ea75ed8c7b02e67c1b021b2c66511658c1c1422 observed=905be2fed386c491d52224832ea75ed8c7b02e67c1b021b2c66511658c1c1422
+LEG PASS SELFTEST expected=rc 0 and SELFTEST PASS 89/89 observed=SELFTEST PASS 89/89
+LEG PASS OKCOUNT expected=exactly 89 lines beginning "  ok " observed=89 ok lines
+LEG PASS REFUSALS expected=21 named refusal cases each ok observed=all ok
+LEG PASS MUTATION expected=killed==total>=60, 0 survived, 0 broken-pattern observed=MUTATION-SCORE: 60/60 killed, 0 survived, 0 broken-pattern
+LEG PASS MUTRECEIPT expected=committed lands mutation receipt exists with matching tool sha and score observed=clean
+LEG PASS STUB expected=stub refused by OKCOUNT (ok lines != selftest_checks) and kills 0 mutants observed=stub ok lines=34; stub mutation: MUTATION-SCORE: 0/60 killed, 0 survived, 60 broken-pattern
+MEASURE92-O: PASS legs=8/8

@@ -4995,3 +4995,38 @@ a later adoption round must renumber in scratch. `considerthese/` is absent.
 Freshness stayed paused (open L0 kotodama round-11 and round-89); the
 lowest-axis obligation is neither met nor waived and is reported as such.
 Census exit 0 at both ends.
+
+## Round 92 (2026-11-05) — grader v3 routed-survivor repairs; ideophones and mimetic vocabulary entry
+
+Claims O (operability, successor move to the round-91 grader) and C (coverage),
+frozen at `066b9728` with base `21350361`. Motivating evidence: the round-91
+non-author spot-check routed seven counterfeit survivors and the mutation receipt
+defects (`corpus/lessons/round-91-verifier-spotcheck.md` §6; CriticClaims91
+`attacks.md`). O: grader v3 refuses the seven counterfeits on their named legs
+(`reports/round-92/controls/before-v2-counterfeits.txt` 7/7 rc 0 on v2;
+`after-v3-refusals.txt` 7/7 rc 1 on the named leg; replayed byte-identical by
+ExecBeforeV2). Selftest 89/89 (was 77/77), 21 named refusals (was 9 of 21 in
+source), mutation 60/60 (was 53/53), receipt asserted by the counter (MUTRECEIPT),
+stub refused. C: `corpus/knowledge/linguistics/ideophones-mimetics.md` over
+S957–S960 (all A, all opened 2026-11-05, located quotes in
+`reports/round-92/evidence/`), registry 880 → 884, linguistics 36 → 37.
+
+Measured at lands `1473606b7baaf1b4050c8b21c30bdf17761d136d` by the frozen counter:
+`reports/round-92/final/lands-O.txt` PASS 8/8, `reports/round-92/final/lands-C.txt`
+PASS 4/4. Do-nothing controls: `reports/round-92/controls/at-base-O-refused.txt` (rc 2),
+`at-freeze-C-do-nothing.txt` (rc 1). Census rc 0 at both ends
+(`reports/round-92/census-start.txt`, `census-end.txt`); index 264/264 rc 0.
+
+Limits recorded, not repaired (see the lesson's Mistakes): a critic seat found
+16 of 21 new counterfeits surviving v3 (URL variants, a trailing-newline
+entry copy, span-gaming headings, six new classes) and one unnamed tool crash on a
+malformed manifest (R92-M7); nine selftest-level mutants outside the frozen 60
+survive (R92-M8); the frozen `O.before` count is wrong (R92-M9). None is a
+frozen-predicate failure; all are routed to round 93.
+
+Sources: S957–S960 are the four rows of this round's frontier step, with the
+search log in the lesson's `## Gate`. The S959 title's ASCII apostrophe differs from
+the capture's curly form (ReviewerEntry F-2, advisory, routed).
+
+Freshness stayed paused (open L0 kotodama round-11 and round-89); the lowest-axis
+obligation is neither met nor waived and is reported as such.

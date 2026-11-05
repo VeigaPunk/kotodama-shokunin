@@ -1,0 +1,11 @@
+# frozen legs: 4 (MATERIALIZE,ENTRY,INDEX,APPENDONLY)
+# stamped revision: 066b9728fc64e78735769c4740d05c1000d31a3b
+# evaluated revision: 066b9728fc64e78735769c4740d05c1000d31a3b (materialized)
+# measured revision (lane main): 66b3ae93fe44e73b5dfa6aefac301175fe5fc253
+# tree: a44d1bca16a5a316130e334d5c123451937be809
+# counter sha256 (self): f170cc8f45085c7da9e3f1a85e010092b6b58a73b2032d49cb25f7aeee036ca3
+LEG PASS MATERIALIZE expected=lands 066b9728fc64e78735769c4740d05c1000d31a3b materialized observed=/fast/scratch/hyaku/kotodama-r92/ExecControls/w/c2/mat
+LEG FAIL ENTRY expected=corpus/knowledge/linguistics/ideophones-mimetics.md exists at lands observed=entry absent at lands
+LEG PASS INDEX expected=index tool exit 0 over the lands tree observed=CORPUS-INDEX: OK files=263 rows=263 findings=0
+LEG FAIL APPENDONLY expected=no base row changed or malformed; >=3 new mined A/B rows opened 2026-11-05 cited; README row observed=0 qualifying new ids < 3; entry absent from corpus/README.md
+MEASURE92-C: FAIL legs=2/4 failed=ENTRY,APPENDONLY

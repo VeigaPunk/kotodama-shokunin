@@ -47,6 +47,8 @@ Statements that stand as filed; corrections are new entries:
 | R92-M6 | multi-id lines | the ScribeEntry draft carried four cited lines with two or more S-ids and an empty `- sources:` header (`grep` lint before landing; the claim's entry mode does not run `check-cited-lines.py`, so the frozen C predicate could not see it) | QUALITY 15 (captured by the lint, not by the C predicate) | fixed by the scribe seat (one id per line; header lists the four sources one per line). Routed to round 93: the C predicate should run `tools/check-cited-lines.py` as a leg. |
 | R92-M7 | survivor (O) | CriticClaims92 ran 21 new counterfeits against frozen v3: **16 survive rc 0** — URL variants that the normalizer does not equate (scheme swap, `www.` host, `?ref=` query, path case: A2c–A2f); an entry copy with a trailing newline (A3b); three single-word headings carrying the phrases (A4a); lesson-channel variants (A5d–A5f); and six new classes (A6a–A6f). One counterfeit (A6g) crashes with an unhandled `AttributeError` (rc 1 without a named refusal). | the round's own critic seat, after the freeze | frozen, not repaired (the tool is sha256-pinned by the claim). O's bounds state that completeness is not claimed; O's frozen predicate verifies (21 named refusals, 60/60 mutants, stub refused). These 16 + the A6g crash are routed to round 93 with the smallest corrections in `.ufo/waves/round-92/w1/stage/CriticClaims92/corrections.md`. |
 | R92-M8 | selftest gap | MutationTesterV3's gap hunt (10 scratch mutants outside the frozen 60): 9 survive the v3 selftest — README graded-list entries (`manifest`, `entry`, `lands`, `lesson` removed from the byte-copy list), the `..` traversal arm of `capture_error`, the FETCH_RE offset, the fetch-date arm, the capture-dir slash arm and the norm_url port-strip arm (`.ufo/waves/round-92/w1/MutationTesterV3.md`) | QUALITY 23 (a selftest must pin each arm) | not in the frozen predicate; retained limit; routed to round 93 as selftest additions with a red-before for each arm. The frozen 60 are all killed, so O's kill rule is not failed by these. |
+| R92-M9 | calibration (frozen text) | `reports/round-92/claims.json` `O.before` states the base tool has "none of the twelve new refusal case names (12/21 named refusals)". Measured: the v2 selftest source (`git show 21350361:tools/check-advance-evidence.py`, sha 88597a66) contains 9 of the 21 names; its selftest passes 77/77 and prints no name for the 12 new cases. The frozen sentence is wrong on the count (9, not 12), and it is not edited. | QUALITY 9 (declared figures are re-derived from committed bytes before dispatch) | erratum recorded here; the O predicate and its counter are unaffected (the predicate tests v3, not this before-description). |
+| R92-M10 | survivor-class (lesson gate) | authorial quoted spans in the entry bind to no capture: `does my language have ideophones` (ReviewerEntry F-1) and two in §7, `this happened` and `this was caused`; one common word, `strongly`, collides with S958's own gloss. A bare span-collision sweep therefore cannot decide mis-citation (ScribeEntry-22 sweep, `.ufo/waves/round-92/w1/ScribeEntry.md`). | QUALITY 11 (a sweep must name what it can and cannot decide) | recorded; the non-author closure judges authorial prose, not span collisions; routed to round 93 as a QUALITY criterion that separates authorial quotes from source quotes. |
 
 ## Quarantine
 
@@ -57,3 +59,24 @@ Assimilation: no package adoption this round. The round-91 quarantine verdicts s
 The entry separates three things the register does not: the typological class of ideophones (S957 names the open question whether they form a clear-cut class), their grammar where a language makes them productive (Kambaata, S958; the Amharic say-verb predicate, S959), and the acquisition question for sound-symbolic effects (S960, a Spanish-learning sample with insensitivity in younger children). The adjacent owner `sound-symbolism.md` keeps token-level symbolism; the entry defers to it in §12. The design procedure in §10 and the decision tables in §11 were NOT independently checked rule by rule this round; that check is left to the non-author closure, and the rules that go beyond the cited sources are the author's design choices.
 
 Outside non-author spot-check: pending. ReviewerEntry-5 (wave 1) reviewed the entry against the frozen C clauses (9/9 floors) and QUALITY criteria 1–5 (5/5) with three LOW findings (F-1 an authorial quoted span, F-2 an ASCII/curly apostrophe mismatch in S959's title, F-3 a title span shared by S958 and S959); none is a frozen-clause failure. Dispatched seats are still the lane; no SHONEN box becomes [x].
+
+## Corrections (after landing, append-only)
+
+1. The sentence at line 59 ("the entry defers to it") overstates the boundary. The
+   connector seat (`.ufo/waves/round-92/w1/stage/ConnectorOverlap/overlap-scan.md`) found a
+   real contested overlap: `corpus/knowledge/linguistics/sound-symbolism.md` §6 (lines
+   99–111) already holds an ideophone word-class definition, a grammar profile, reduplication,
+   the Japanese giongo/gitaigo system and a five-step ideophone register design procedure.
+   The new entry therefore re-states part of the same ground; the counter's coverage leg
+   measures only filename ownership (0 owners at base) and does not see this. Contested
+   scope is reported, not absorbed: the operator is asked to arbitrate through
+   `.ufo/l0-questions.md` (kotodama | round-92). The expansion verdict in SCORECARD is
+   qualified accordingly.
+2. The wave settled with all ten seats returning results and none dead. Its
+   freeze-review seat (`ReviewerFreeze-2`, `.ufo/waves/round-92/w1/ReviewerFreeze.md`) reported
+   D3: an intermittent `SELFTEST FAIL 88/89` on the `capture byte-copies the base registry` case
+   in its own runs during a 10:27–10:54 window. The lane could not reproduce it: 12 sequential
+   fresh-directory runs, 4 concurrent runs on one `--work` directory and 4 concurrent runs on
+   separate directories all printed `SELFTEST PASS 89/89`. The cause is not identified; it is
+   routed to round 93 with the reviewer's captured outputs
+   (`.ufo/waves/round-92/w1/stage/ReviewerFreeze/evidence/`). O's measured run at lands passed.
