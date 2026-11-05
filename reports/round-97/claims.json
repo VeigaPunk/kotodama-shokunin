@@ -1,0 +1,55 @@
+{
+  "schema": "kotodama-round-97-claims-v1",
+  "lane": "kotodama",
+  "round": 97,
+  "attempt": 1,
+  "base": "1ffc5a83d2c70e3bc581594efbcf32c562ba2569",
+  "counter": "reports/round-97/predispatch.py",
+  "counter_control": "reports/round-97/predispatch-base.txt (PREDISPATCH-97: FAIL legs=4/13 over the base tree; C3, C4, C5 and C8 are guard legs that pass on base by construction). Forgery control reports/round-97/controls/forgery-sha-only.txt (v8 + one comment line: O0 PASS, O1 FAIL 147/147 < 154, FAIL legs=5/13). Sweep falsifiability control reports/round-97/sweep-control.txt (round-96 replay owners=2, rc 0).",
+  "predicate": "Claim O holds iff legs O0-O4 PASS and claim C holds iff legs C1-C8 PASS, each on one run of the frozen counter bytes over the landed lane tree with --base-rev 1ffc5a83d2c70e3bc581594efbcf32c562ba2569.",
+  "kill_rule": "A claim fails as declared when any of its legs fails at the lands measurement with this counter's frozen bytes. No leg list, floor, target, phrase, topic, driver name, pin path or receipt path may be amended after any scoring seat has run. A miss is an honest stop, never a re-target.",
+  "lowest_axis_note": "Freshness is the historically lowest non-retired axis. Freshness axis-move claims stay paused under the open L0 kotodama round-11 and round-89 questions (.ufo/l0-questions.md; no ANSWER). No claim in this round moves freshness. The lowest-axis obligation is neither met nor waived this round and the report says so. The AXES stagnation nudge is not invoked (no calibrated scores exist; SCORECARD Saturation section).",
+  "planner_mapping": "The canonical L2 planner seat is held by the L1 (the validator refuses planner as a swarm role). The bounded planning data-walk rides ScoutSurface97 and ConnectorOverlap97.",
+  "claims": {
+    "O": {
+      "axis": "operability",
+      "type": "successor capability move (grader v8 -> v9)",
+      "closes": "round-96 CriticO96 survivors still open on v8 (measured, reports/round-97/controls/critic96-on-v8.txt: CRITIC-O96 survivors=7 unnamed=0 refused=12 over v8 f29ab013...): CR1 (lone CR U+000D in the verdict token), US1 (U+001F), OGH1 (U+1680), IS1 (U+3000), NUL1 (U+0000), CM1 (combining acute on the heading numbering token), CMW2 (combining acute inside a heading phrase word); plus round-96 closure routed defect 2 (mutation driver sha not pinned at first measurement) and defect 6 (v8 docstrings say v7)",
+      "surface": "tools/check-advance-evidence.py grader refusal surface, v8 -> v9; battery97 and mutants97 drivers",
+      "before": "grader v8, sha256 f29ab0139b4590fa8da7232a7372574675ef60763c475eea003006eb1dbcd9c0 (1ffc5a83). SELFTEST PASS 147/147 (measured, predispatch-base.txt O1). battery96 over v8: survivors=0 unnamed=0 refused=24 (L1 run 2026-11-05). The seven classes survive v8 (critic96-on-v8.txt). Predicted battery97 control over v8 (to be measured by ExecBattery97 before any v9 byte exists, receipt reports/round-97/controls/battery97-control-v8.txt): survivors=7 unnamed=0 refused=24.",
+      "after": "grader v9, sha256 != v8: SELFTEST PASS N/N with N >= 154 rc 0; battery97 BATTERY-SUMMARY survivors=0 unnamed=0 refused=31 traceback-free, battery97 sha == pin == control-receipt sha and the control receipt shows survivors=7 unnamed=0 refused=24 over v8; mutation97 killed == total >= 118, 0 survived, 0 broken-pattern, mutants97 sha == pin == first-measurement receipt sha; every REG line of reports/round-95/controls/reg-v5.txt byte-identical in battery97 REG output",
+      "legs": {
+        "O0": "tool sha256 differs from v8",
+        "O1": "selftest rc 0, SELFTEST PASS N/N, N >= 154",
+        "O2": "battery97 survivors=0 unnamed=0 refused=31; driver sha == pin == control receipt; control receipt shows 7/0/24 over v8",
+        "O3": "mutation97 killed == total >= 118, 0 survived, 0 broken-pattern; driver sha == pin == first-measurement receipt",
+        "O4": "REG lines of reg-v5 all present verbatim in battery97 REG output"
+      }
+    },
+    "C": {
+      "axis": "coverage",
+      "type": "sourced frontier -> core entry (surface: verbal duelling and ritual insult; zero topic-line or heading owner at base, measured by the frozen content sweep C8 and recorded in sweep-control.txt R97-BASE owners=0)",
+      "surface": "corpus/knowledge/linguistics/verbal-duelling-ritual-insult.md (new file) plus registry rows S985 upward",
+      "before": "no entry at corpus/knowledge/linguistics/verbal-duelling-ritual-insult.md; registry rows = 908, highest S984, qualifying new rows = 0; base mentions only in prose or table cells (orality-formulaic-language.md:112 list item, myth-symbol/trickster.md:25 and :62, civilizations/arabia-pre-islamic.md:71 table cell)",
+      "after": "entry >= 12000 B, >= 6 h2, a table >= 5 data rows x >= 3 cols, >= 4 of the six frozen phrases in h2 headings or table data rows, the frozen topic line byte-equal; registry rows >= 911, highest >= S987, >= 3 new tier A|B mined rows opened 2026-11-05 with used-by exactly the entry path; all qualifying ids cited in the entry and captured under reports/round-97/evidence/; census rc 0; index rc 0; 0 registry lines removed; content sweep: 0 other topic/heading owners of the frozen phrases",
+      "frozen_topic": "verbal duelling and ritual insult: contests fought in words — flyting, senna, song duels and boasting matches; the formula grammar of boast, taunt and riposte; the audience that adjudicates; the rules that keep an insult ritual rather than real; and the design procedure for a fictional word-contest whose stakes stay tied to its contestants, judges and occasions",
+      "frozen_phrases": ["verbal duel", "ritual insult", "flyting", "song duel", "boast formula", "audience adjudication"],
+      "legs": {
+        "C1": "entry size, h2, table shape, phrases and topic line",
+        "C2": "registry rows, highest id, qualifying new rows",
+        "C3": "append-only: 0 removed lines against base",
+        "C4": "census rc 0",
+        "C5": "index rc 0",
+        "C6": "qualifying ids cited in entry",
+        "C7": "qualifying ids have captures",
+        "C8": "content sweep: 0 other topic/heading owners"
+      }
+    }
+  },
+  "frontier_step": {
+    "sourced_claim": "Claim C rests on registry rows opened this round (S985 upward); the entry cites them by id.",
+    "mistake": "Round-96 claim-C before-state 'zero owned knowledge file at base' rested on a filename-only sweep (ScoutSurface96 surface.md section 1); the round-96 closure found myth-symbol/binding-speech-complex.md already teaching oath formula anatomy (topic line carries self-imprecation). Class: ownership premise from file names. Captured-by: none (no frozen leg checked content ownership). Fix: frozen content-sweep leg C8 plus sweep-control.py, shown able to fail on the round-96 base with the round-96 phrases (owners=2).",
+    "routed_r96": "Closure defects: 1 content sweep (C8, this file); 2 mutation pin (O3 receipt binding); 3 CriticO96 on v8 (measured, critic96-on-v8.txt; closes in O); 4 Threnoi row (frontier curation, ExecRegistry97 writes it used-by the lament entry with a cited sentence, outside claim C counts); 5 one-row-per-edition rule (lesson); 6 docstrings (ExecGraderV9); 7 dead reviewer (ReviewerC97 seat this round)."
+  },
+  "counter_revisions_before_freeze": "1) C1 table-row counter now resets per table (the round-96 counter accumulated rows across separate tables). 2) C8 sweep narrowed from topic+headings+table cells to topic+headings after the first base run flagged myth-symbol/trickster.md:25 for a table-cell mention ('flyting at Aegir's feast'), which is a mention, not ownership. Both before any seat ran; both runs are in the lesson."
+}
