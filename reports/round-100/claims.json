@@ -1,0 +1,66 @@
+{
+  "schema": "kotodama-round-100-claims-v1",
+  "lane": "kotodama",
+  "round": 100,
+  "attempt": 1,
+  "l1": "KotodamaR100",
+  "base": "60010a55fb5f04ee728070c463b1a57ae1cc17fc",
+  "counter": "reports/round-100/predispatch.py",
+  "counter_control": "reports/round-100/predispatch-base.txt (PREDISPATCH-100: FAIL legs=4/15 over the base tree; C3, C4, C5 and C8 are guard legs that pass on base by construction). Forgery and feasibility controls, run by the L1 before any seat and committed in the freeze commit: reports/round-100/controls/forgery/summary.txt — F-O-ALLCLEAN (no checking) fails battery100 19/28; F-O-NOWORD (binding and capture checks only, no cell support: an id-presence checker) fails 7 (F1 F6 F7 F9 F11 F13 T2); F-O-ANYWHERE (word presence anywhere in the row's support, no co-location) fails F11; F-O-UNION (support pooled across rows) fails F6; F-O-WIDE (caption scope widened to any 'recorded') fails benign B7; P-O-FEAS (the L1 feasibility reference reports/round-100/controls/feasibility/table_support_ref.py) passes battery100 28/28 and, in a scratch tree, counter legs O0/O2/O3 (reports/round-100/controls/forgery/P-O-FEAS-counter.txt: O3 forged-minus-actual = {(UNSUPPORTED-CELL, Yoruba, limit on the praise)}); it fails O1 (no selftest), so copying the reference does not meet the claim.",
+  "predicate": "Claim O holds iff legs O0-O5 PASS and claim C holds iff legs C1-C9 PASS, each on one run of the frozen counter bytes over the landed lane tree with --base-rev 60010a55fb5f04ee728070c463b1a57ae1cc17fc.",
+  "kill_rule": "A claim fails as declared when any of its legs fails at the lands measurement with this counter's frozen bytes. No leg, floor, case count, phrase, topic, driver name, pin path, receipt path, window or threshold may be amended after any seat has run. A miss is an honest stop, never a re-target.",
+  "lowest_axis_note": "Freshness is the historically lowest non-retired axis. Freshness axis-move claims stay paused under the open L0 kotodama round-11 and round-89 questions (.ufo/l0-questions.md line 303; no answer). No claim in this round moves freshness. The lowest-axis obligation is neither met nor waived and the report says so. The AXES stagnation nudge is not invoked (no calibrated scores exist; SCORECARD Saturation section).",
+  "planner_mapping": "The canonical L2 planner seat is held by the L1 (the validator refuses planner as a swarm role). The bounded planning data-walk rides ScoutSurface100 and ConnectorOverlap100.",
+  "separability": "O changes tools/check-table-support.py, its selftest, the mutation driver and the capability rows; C changes a new knowledge entry, registry rows S1018 upward, evidence and the index. Neither claim's legs read the other's surface: O3 reads the round-99 praise entry and round-99 evidence, not the new entry; C legs do not run the new tool. The optional praise-table repair (ScribeTable100) is an observation, never a claim, and must keep the Yoruba row label, the table header and the Yoruba limit cell byte-unchanged so O3 is unaffected.",
+  "residual_honesty": "battery100 pins one fixed contract (window 80 tokens, supported iff best*4 >= total*3, caption scope /\\brecorded cases?\\b/i, label-token binding); the checker measures lexical co-location, not meaning: a paraphrase with new words can be flagged and a cell built from capture words in a false order can pass. C7 binds evidence bytes but a fabricated capture passes it; C9 is a non-author attestation leg written from freshly fetched bytes; the counter does not fetch the network.",
+  "claims": {
+    "O": {
+      "axis": "operability",
+      "type": "capability acquisition: table-cell support checker (closes round-99 closure routed defect R2 / lesson R99-M2: a table cell outran its capture while every frozen leg passed)",
+      "surface": "tools/check-table-support.py (new) with in-process selftest; mutation driver mutants100; SCORECARD capability row and SKILL.md mention",
+      "contract": {
+        "cli": "check-table-support.py --entry FILE --evidence DIR [--evidence DIR ...] [--root DIR] [--json] ; check-table-support.py --selftest --work DIR",
+        "scope": "a markdown table (header row, separator row, data rows) whose caption — the contiguous non-blank, non-heading, non-table paragraph immediately above the header — matches /\\brecorded cases?\\b/i",
+        "binding": "the contiguous non-blank, non-heading, non-table paragraph immediately below the last data row; each line of it binds every row one of whose label tokens (first cell, *_` stripped, NFKD-folded lowercase [a-z]+ tokens of length >= 3, not in STOP, not 'and') equals a token of the line; a line's support is the capture <evidence>/<S-id>.txt (first evidence dir holding it) for each S\\d{3,} it carries plus each backticked `path.md:a[-b]` it carries, read from <root>/corpus/knowledge/<path> lines a..b",
+        "support_rule": "content words of a non-label cell: NFKD-fold, drop combining marks, lowercase, [a-z]+ tokens of length >= 4 not in STOP (the set in reports/round-100/controls/feasibility/table_support_ref.py), deduplicated; stems by the ref's stem() (ies->y; es after s/x/z/ch/sh; trailing s not ss); best = max over single support texts of the number of distinct cell stems inside any 80 consecutive tokens; the cell is supported iff best*4 >= total*3",
+        "findings": "UNSUPPORTED-CELL {row, col (header cell text), words (folded cell words whose stem occurs in none of the row's support texts, sorted), best, total}; UNBOUND-ROW {row} when no binding line binds the row or none of those lines carries an S-id or path; NO-CAPTURE {sid} once per table; NO-PATH {path}; each with line",
+        "output": "--json: one JSON object {findings: [...], scoped_tables: int}; text mode: one FINDING line each and the summary `TABLE-SUPPORT: <n> finding(s) in <t> scoped table(s)`; rc 1 when findings, 0 when none; rc 2 with a TABLE_SUPPORT_ERROR line and no traceback on a missing or non-UTF-8 entry, a missing evidence dir or no --evidence"
+      },
+      "before": "no tools/check-table-support.py at base 60010a55 (predispatch-base.txt O0 FAIL); battery100 over the base path: TOOL-MISSING, BATTERY-SUMMARY cases=0 pass=0 fail=1 (battery100-control-base.txt); no capability row or SKILL mention (O5 FAIL)",
+      "after": "tool present; selftest SELFTEST PASS N/N with N >= 24, rc 0; battery100 cases=28 pass=28 fail=0 traceback=0 rc 0 with battery sha == pin == both control receipts; O3 R99-M2 replay forged-minus-actual == {(UNSUPPORTED-CELL, Yoruba, <last header cell>)} and actual-minus-forged empty, forged rc 1; mutation100 killed == total >= 20, 0 survived, 0 broken-pattern, driver sha == pin == first receipt; SCORECARD capability row + SKILL.md mention",
+      "legs": {
+        "O0": "tool present (sha printed)",
+        "O1": "selftest rc 0, SELFTEST PASS N/N, N >= 24",
+        "O2": "battery100 28/28, traceback 0, pin == both control receipts",
+        "O3": "R99-M2 historical replay on the real praise entry and round-99 evidence",
+        "O4": "mutation100 killed == total >= 20, pinned and first-receipt-bound",
+        "O5": "SCORECARD Capabilities row and SKILL.md name check-table-support.py"
+      }
+    },
+    "C": {
+      "axis": "coverage",
+      "type": "sourced frontier -> core entry (surface: work song and labour chant; no topic-line or heading owner of the six frozen phrases at base, measured by C8 owners=0 in predispatch-base.txt; 'work song' appears only in prose of 4 knowledge files)",
+      "surface": "corpus/knowledge/linguistics/work-song-labour-chant.md (new file) plus registry rows S1018 upward",
+      "before": "no entry at corpus/knowledge/linguistics/work-song-labour-chant.md; registry rows = 941, highest S1017, qualifying new rows = 0; C8 owners=0",
+      "after": "entry >= 12000 B, >= 6 h2, a table >= 5 data rows x >= 3 cols, >= 4 of the six frozen phrases in h2 headings or table data rows, the frozen topic line byte-equal; registry rows >= 945, highest >= S1021, >= 4 new tier A|B mined rows opened 2026-11-06 or 2026-11-07 with used-by exactly the entry path; census rc 0; index rc 0; append-only registry; every qualifying id cited and manifest-bound; content sweep 0 other owners; >= 3 qualifying ids re-opened by ReviewerC100 with count 1 on fresh bytes",
+      "frozen_topic": "work song and labour chant: song that times and coordinates shared labour — the song leader's call and the crew's response; hauling, rowing, pounding, field and craft songs and how their rhythm fits the task; the shanty and other occupational repertories; improvised verses, complaint and satire licensed by the work; and the design procedure for a fictional work-song tradition whose songs stay tied to their task, crew, leader and setting",
+      "frozen_phrases": ["work song", "call and response", "song leader", "shanty", "hauling song", "work rhythm"],
+      "legs": {
+        "C1": "entry size, h2, table shape, phrases and topic line",
+        "C2": "registry rows, highest id, qualifying new rows",
+        "C3": "append-only per CORPUS rule 2",
+        "C4": "census rc 0",
+        "C5": "index rc 0",
+        "C6": "qualifying ids cited in entry",
+        "C7": "manifest-bound evidence",
+        "C8": "content sweep: 0 other topic/heading owners",
+        "C9": "non-author re-open >= 3 qualifying ids"
+      }
+    }
+  },
+  "frontier_step": {
+    "sourced_claim": "Claim C rests on registry rows opened this round (S1018 upward); the entry cites them by id.",
+    "mistake": "Round-99 closure D1 (corpus/lessons/round-99-verifier-spotcheck.md section 1): the report said every seat writes w1/<Seat>.md while ReviewerC99's report sat only at w1/stage/ReviewerC99/review.md. Class: a uniform path claim about seat outputs stated without enumerating them. Captured-by: none. Fix: before the report, enumerate every seat named in w1-results.json/the spec and test w1/<Seat>.md; shown able to fail on round 99 (ReviewerC99 missing).",
+    "routed_r99": "Closure section 6: R1 (D1) -> mined mistake and the round-100 report enumerates seat report paths; R2 table-cell support -> claim O; R3 Iranica C6 re-judge -> ScoutRejudge100 (frontier curation, not a claim); R4 CriticO98b 24 survivors / CriticO99 6 passes stay open (grader not touched this round); R5 freshness paused."
+  }
+}
