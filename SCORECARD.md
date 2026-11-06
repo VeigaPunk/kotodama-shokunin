@@ -2299,3 +2299,35 @@ Candidates routed from round 96, to be frozen before data: (1) claim-O surface: 
 `corpus/lessons/round-96.md` (CR1, US1, OGH1, IS1, NUL1, CM1, CMW2) if they are still open on the v8 bytes;
 (2) Thrênoi row nomination (`ReviewerThrenoi96` §5) and its registry write; (3) the freshness obligation remains
 paused until L0 answers.
+
+## Axes — round 97 (2026-11-05; author-side verdicts, non-author closure pending)
+
+Base `1ffc5a83d2c70e3bc581594efbcf32c562ba2569`; freeze `24eac1e91688d8aa0696a07eff17beeacd407763`
+(`reports/round-97/claims.json`, counter `reports/round-97/predispatch.py`, control `reports/round-97/predispatch-base.txt`
+FAIL legs=4/13, forgery control `reports/round-97/controls/forgery-sha-only.txt` FAIL legs=5/13); landed tree measured
+at the round-97 landing commit: `reports/round-97/predispatch-lands.txt` (a first lands run died on host ENOSPC in O3 and
+is kept as `predispatch-lands-enospc.txt`).
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved (claim O, frozen predicate met: O0–O4 PASS on the landed v9 bytes; ReviewerO97 PASS 13/13 independently) | grader v8 `f29ab013…`: battery97 survivors=7 unnamed=0 refused=24 (control receipt), SELFTEST 147/147 → grader v9 `1021dc9d…`: battery97 survivors=0 unnamed=0 refused=31, SELFTEST 155/155, mutation97 121/121 killed at first measurement (driver pinned before it), REG 34/34 | `python3 -B reports/round-97/predispatch.py --root . --work <dir> --base-rev 1ffc5a83…` (O0–O4) | `reports/round-97/controls/battery97-control-v8.txt`, `mutation97-first.txt`, `.ufo/waves/round-97/w1/stage/ExecGraderV9/`, `…/ReviewerO97/review.md`, `predispatch-lands.txt` |
+| coverage / C | improved (claim C, frozen predicate met: C1–C8 PASS) | no topic or heading owner of the six frozen phrases at base (C8 owners=0) → `corpus/knowledge/linguistics/verbal-duelling-ritual-insult.md` (36739 B, 13 h2, table 7×6, 6/6 phrases, topic equal); registry 908 → 917 rows (S985–S992 qualifying, S993 frontier row), 0 removed | same command (C1–C8) | `reports/round-97/evidence/manifest.json`, `.ufo/waves/round-97/census/census-end.txt` rc 0, `CORPUS-INDEX: OK files=269 rows=269 findings=0` |
+| adjacency / A | unchanged | the scribe's first draft copied the canon-boundary prose of `oath-blessing-curse-formulae.md` (294 shared 8-grams, CriticC97 F4); rewritten before landing to 35 shared (header boilerplate and a cited slot list); 0 shared with orality, politeness and binding-speech | — | `.ufo/waves/round-97/w1/stage/CriticC97/critic.md` §C; lesson R97-M4 |
+| depth / D | unchanged (observation) | one sentence added to `funerary-lament-dirge-formulae.md` citing S993 (corrected after ReviewerC97 found the draft contradicted the source); no entry deepened as a claim | — | lesson R97-M3 |
+| freshness | unchanged | paused by open L0 round-11 and round-89 questions; not met, not waived | — | `.ufo/l0-questions.md` |
+| calibration / discernment | unchanged (observation) | QUALITY criterion 39 (ownership by content sweep) added and shown able to fail (round-96 replay owners=2); R27 registry rule stated | — | `reports/round-97/sweep-control.txt`; `corpus/QUALITY.md` 39 |
+
+Retirements and saturation: none.
+
+## Capabilities — round 97 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| grader v9 control and separator refusals | Refuses by name the seven round-97 classes: C0 controls inside a verdict token (`VERDICT-CTRL`, naming the codepoint: CR1, US1, NUL1), Zs space separators inside a verdict token (`VERDICT-SEPARATOR`: OGH1, IS1), and combining marks in h2 headings (`HEADING-COMBINING` on TOPIC: CM1, CMW2), while CR-only line breaks still parse and U+0020 and U+200C stay benign | `python3 -B .ufo/waves/round-97/w1/stage/ExecBattery97/battery97.py --tool tools/check-advance-evidence.py --work <dir>` → `BATTERY-SUMMARY survivors=0 unnamed=0 refused=31`; selftest 155/155 | round 97 |
+| content-ownership sweep | Lists knowledge files whose topic line or heading carries a phrase set, at any revision | `python3 -B reports/round-97/sweep-control.py --root .` | round 97 |
+
+## Planned — round 98 (routed; not frozen)
+
+(1) CriticO97 v9 survivors (`.ufo/waves/round-97/w1/stage/CriticO97/attacks.md`): ENC1 (U+20DD enclosing mark in a verdict,
+unnamed pass), DEL1 (U+007F), non-ASCII heading numbering (ROMAN1, SUP1, FWPER1); (2) a sentence-support table for the
+round-96 oath entry (R97-M2 class sweep); (3) freshness remains paused until L0 answers.

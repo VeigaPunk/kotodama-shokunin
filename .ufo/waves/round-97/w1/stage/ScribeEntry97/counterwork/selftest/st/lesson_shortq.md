@@ -1,0 +1,3 @@
+- S010 admit A/mined. https://example.org/a — accessed 2026-11-04 — body: “efficacy register”
+- S011 admit A/mined. https://example.org/b — accessed 2026-11-04 — body: “efficacy register”
+- S012 admit A/mined. https://example.org/c — accessed 2026-11-04 — body: “efficacy register”

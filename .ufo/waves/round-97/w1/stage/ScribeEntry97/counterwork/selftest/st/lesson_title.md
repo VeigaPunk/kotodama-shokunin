@@ -1,0 +1,2 @@
+- S001 LOCATED recheck 90d→2027-02-03 — https://example.org/prayer accessed 2026-11-04: “The Prayer Book of Example”
+- S002 LOCATED x accessed 2026-11-04: “unrelated row about dye plants”

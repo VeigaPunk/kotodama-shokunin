@@ -83,13 +83,22 @@ classes by name instead of re-deriving the whole claim:
     CAPTURE    each gate quote occurs in its committed capture (same rules as above)
 
 Exit 0 pass, 1 finding(s), 2 refused (bad arguments or unreadable input).
-Round-96 v7 refuses the nine fresh CriticO95 classes named: VERDICT-NBSP (NB1,
+Round-96 v8 refuses the nine fresh CriticO95 classes named: VERDICT-NBSP (NB1,
 U+00A0), VERDICT-VT (VT1), VERDICT-FF (FF1), VERDICT-LINESEP (LS1, with its
 U+2029 / U+001C-U+001E family), VERDICT-NEL (NEL1), VERDICT-ANSI (ANSI1),
 ID-NONASCII for homoglyph id letters (CYR1), and bracketed/separator-dash
 numbered headings (BR1/DASH1, refused on TOPIC). Verdict-channel checks read
 lesson lines on \n only, before any splitlines severing. ZWNJ stays benign
 (not refused) and F1's TOPIC refusal is unchanged.
+
+Round-97 v9 refuses the seven CriticO96 survivors still passing v8 (measured,
+reports/round-97/controls/critic96-on-v8.txt): VERDICT-CTRL names the codepoint
+for the remaining C0 controls inside a verdict token (CR1 U+000D, US1 U+001F,
+NUL1 U+0000 and family), VERDICT-SEPARATOR names the codepoint for the
+remaining Zs space separators (OGH1 U+1680, IS1 U+3000 and family), and
+mark-degraded h2 headings (Mn/Me in a numbering token or phrase word) are
+refused on TOPIC as HEADING-COMBINING (CM1/CMW2). CR-only line breaks still
+parse as line breaks; tabs keep VERDICT-TAB; ZWNJ stays benign.
 
 """
 
@@ -262,7 +271,7 @@ def _dispo_match(stripped):
 
 
 def _refuse_verdict_channel(n, line):
-    """Round-96 v7 (routed CriticO95 NB1/VT1/FF1/LS1/NEL1/ANSI1/CYR1): read
+    """Round-96 v8 (routed CriticO95 NB1/VT1/FF1/LS1/NEL1/ANSI1/CYR1): read
     the RAW line (before any splitlines severing and before ZW/DASH
     stripping) and refuse a named diagnostic when a plausible disposition
     hides a forged token. Two gated channels: (1) a verdict window - a
@@ -271,7 +280,11 @@ def _refuse_verdict_channel(n, line):
     VERDICT-* name for that codepoint; (2) a plausible id token carrying a
     non-ASCII letter (homoglyph) is refused as ID-NONASCII before the
     ASCII-id gate ever runs. The ZWNJ U+200C is on no blocklist and stays
-    benign (proven by the round-96 ZWNJ1 control)."""
+    benign (proven by the round-96 ZWNJ1 control). Round-97 v9 (routed
+    CriticO96 CR1/US1/NUL1/OGH1/IS1) extends the same window: the remaining
+    C0 controls are refused as VERDICT-CTRL and the Zs space separators as
+    VERDICT-SEPARATOR, each refusal naming the codepoint; tabs keep the
+    VERDICT-TAB channel below."""
     # Gate on a plausible disposition: narrow to windows that look like one.
     _up = line.upper()
     if 'LOCATED' not in _up and 'LO' not in _up and 'ATED' not in _up:
@@ -291,6 +304,23 @@ def _refuse_verdict_channel(n, line):
             raise Refused(f'line {n}: verdict token carries a NEL (VERDICT-NEL)')
         if '\u001b' in span:
             raise Refused(f'line {n}: verdict token carries an ANSI escape (VERDICT-ANSI)')
+        # Round-97 v9 (routed CriticO96 CR1/US1/NUL1/OGH1/IS1): the remaining C0
+        # controls and the Zs space separators inside a verdict token are refused
+        # by name, each message naming the codepoint. Tabs keep the VERDICT-TAB
+        # channel, the codepoints named above keep their v8 refusal names, plain
+        # U+0020 stays a legitimate verdict spacing (the anchored rule reads
+        # "NOT LOCATED"), and a lone U+000D that only terminates a line never
+        # reaches this loop.
+        for c in span:
+            o = ord(c)
+            if o in (0x09, 0x0b, 0x0c, 0x1b, 0x1c, 0x1d, 0x1e, 0x85, 0x20) or c == '\u00a0':
+                continue
+            if o < 0x20:
+                raise Refused(f'line {n}: verdict token carries control character '
+                              f'U+{o:04X} (VERDICT-CTRL)')
+            if unicodedata.category(c) == 'Zs':
+                raise Refused(f'line {n}: verdict token carries space separator '
+                              f'U+{o:04X} (VERDICT-SEPARATOR)')
     for tok in re.findall(r'\S*?[A-Za-z\u0080-\uFFFF]\d{3,}\b', line):
         if not re.fullmatch(r'[Ss]\d{3,}', tok):
             core = tok.strip('|-*<>_`#')
@@ -299,7 +329,6 @@ def _refuse_verdict_channel(n, line):
                 if re.search(r'\d{3,}$', core):
                     raise Refused(f'line {n}: id token carries a non-ASCII lookalike letter (ID-NONASCII)')
 def _refuse_disguised(n, stripped):
-
     """Round-94 v5 (routed round-93 A1/K1): an id line whose verdict token hides
     behind non-ASCII letters or lowercase spelling is refused on a named
     diagnostic instead of being silently invisible to APPENDONLY.
@@ -701,6 +730,15 @@ def grade_entry(args):
     phrases = [p.strip() for p in re.split(r'[;]', args.topic_phrases or '') if p.strip()]
     phrase_floor = getattr(args, 'min_topic_phrases', 0) or 0
     if phrases and phrase_floor > 0:
+        # Round-97 v9 (routed CriticO96 CM1/CMW2): combining marks (categories
+        # Mn/Me) in an h2 heading's numbering token or phrase words must not
+        # count toward anchoring - a mark-degraded heading is refused on TOPIC
+        # by name before any anchor is counted. Precomposed letters (Ll) are
+        # unaffected and ZWNJ U+200C (Cf) stays benign (round-96 ZWNJ1 control).
+        for _h in heads:
+            if any(unicodedata.category(_c) in ('Mn', 'Me') for _c in _h):
+                problems.append('h2 heading carries a combining mark (HEADING-COMBINING)')
+                break
         # Round-93 v4 (routed R92-M7 A4a): a heading anchors only when it carries
         # at least two raw tokens after the marks, and a table line anchors only
         # when it is a data row below the |---| separator — the header row and
@@ -713,7 +751,7 @@ def grade_entry(args):
             # second-token number turns the heading into a single content
             # surface: "Notes 1) address" counts as one token.
             raw = h.lstrip('#').split()
-            # Round-96 v7 (routed CriticO95 BR1/DASH1): bracketed numbers
+            # Round-96 v8 (routed CriticO95 BR1/DASH1): bracketed numbers
             # "(1)" and a separator dash "-" are list marks, not content.
             _NUM2 = re.compile(r'^(\d+[.)]?|\d+\.\d+[.)]?|[IVXLCDM]+[.)]?|[ivxlcdm]+[.)]?|\(?\d+[.)]?\)?|[\u2010-\u2015-]+)$')
             def isnum(t):
@@ -1847,7 +1885,7 @@ def selftest(work):
                 + '\n## table\n\n' + ('Filler sentence about sourdough scheduling for the bakery rota, word nine. ' * 8)
                 + '\n\nS010 S011 S012\n')
     chk('single-token headings anchor no phrase (head-qualify pin)', ['entry'] + E(entry=single_tok, min_topic_phrases='4', min_anchor_span='0', min_topic_overlap='1'), 1, ['FAIL TOPIC', 'phrase anchors 0/4'])
-    # ------------------------------------------------ round-96 v7 pins (10)
+    # ------------------------------------------------ round-96 v8 pins (10)
     _g96tail = ' recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: \u201canother old base row about dye plants\u201d\n'
     _d = {'NB1': 'LO\u00a0CATED', 'VT1': 'LOCA\u000bTED', 'FF1': 'LOCA\u000cTED', 'LS1': 'LOCA\u2028TED', 'NEL1': 'LOCA\u0085TED', 'ANSI1': 'LOCA\u001b[31mTED', 'PS1': 'LOCA\u2029TED', 'FS1': 'LOCA\u001cTED', 'FS2': 'LOCA\u001dTED', 'FS3': 'LOCA\u001eTED'}
     _tok = {'NB1': 'VERDICT-NBSP', 'VT1': 'VERDICT-VT', 'FF1': 'VERDICT-FF', 'LS1': 'VERDICT-LINESEP', 'NEL1': 'VERDICT-NEL', 'ANSI1': 'VERDICT-ANSI', 'PS1': 'VERDICT-LINESEP', 'FS1': 'VERDICT-LINESEP', 'FS2': 'VERDICT-LINESEP', 'FS3': 'VERDICT-LINESEP'}
@@ -1866,6 +1904,46 @@ def selftest(work):
     with open(_da1, 'w') as f:
         f.write(good_body.replace('## 1. The address', '## - address').replace('## 2. The petition', '## - petition').replace('## 3. Fixed and extempore', '## - efficacy').replace('## 4. Efficacy', '## - table').replace('## 5. Table', '## - Notes'))
     chk_leg('round-96 DASH1: separator-dash phrase-only headings do not anchor', ['entry'] + E(entry=_da1), 'TOPIC')
+
+    # ------------------------------------------------ round-97 v9 pins (8)
+    # (routed CriticO96 survivors on v8, reports/round-97/controls/critic96-on-v8.txt:
+    #  CR1/US1/NUL1/OGH1/IS1 verdict-token channels plus CM1/CMW2 heading channel;
+    #  the CR-only line-break control proves a lone U+000D terminating a line
+    #  neither severs nor hides a disposition)
+    _g97tail = ' recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: \u201canother old base row about dye plants\u201d\n'
+    _d97 = {'CR1': ('LOCA\u000dTED', 'VERDICT-CTRL', 'U+000D'),
+            'US1': ('LOCA\u001fTED', 'VERDICT-CTRL', 'U+001F'),
+            'NUL1': ('LOCA\u0000TED', 'VERDICT-CTRL', 'U+0000'),
+            'OGH1': ('LOCA\u1680TED', 'VERDICT-SEPARATOR', 'U+1680'),
+            'IS1': ('LOCA\u3000TED', 'VERDICT-SEPARATOR', 'U+3000')}
+    for _c in ['CR1', 'US1', 'NUL1', 'OGH1', 'IS1']:
+        _tokv, _tokname, _cp = _d97[_c]
+        _lf = write(f'lesson_g97{_c}.md', lesson_e_text + f'- S001 {_tokv}' + _g97tail)
+        chk(f'round-97 {_c}: token carries the codepoint refused', ['entry'] + E(lesson=_lf),
+            2, [_tokname, _cp])
+    _cm1e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1cm1/prayer-register.md')
+    os.makedirs(os.path.dirname(_cm1e), exist_ok=True)
+    with open(_cm1e, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## 1\u0301. address')
+                .replace('## 2. The petition', '## 2\u0301. petition')
+                .replace('## 3. Fixed and extempore', '## 3\u0301. efficacy')
+                .replace('## 4. Efficacy', '## 4\u0301. table')
+                .replace('## 5. Table', '## 5\u0301. Notes'))
+    chk('round-97 CM1: combining mark on the heading numbering token refused', ['entry'] + E(entry=_cm1e),
+        1, ['FAIL TOPIC', 'HEADING-COMBINING'])
+    _cmw2e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g1cmw2/prayer-register.md')
+    os.makedirs(os.path.dirname(_cmw2e), exist_ok=True)
+    with open(_cmw2e, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## addre\u0301ss')
+                .replace('## 2. The petition', '## petition\u0301')
+                .replace('## 3. Fixed and extempore', '## efficac\u0301y')
+                .replace('## 4. Efficacy', '## tabl\u0301e')
+                .replace('## 5. Table', '## Notes'))
+    chk('round-97 CMW2: combining mark inside a heading phrase word refused', ['entry'] + E(entry=_cmw2e),
+        1, ['FAIL TOPIC', 'HEADING-COMBINING'])
+    lesson_cronly = write('lesson_g97CRonly.md', lesson_e_text.replace('\n', '\r'))
+    chk('round-97 CR-only line breaks do not sever or hide dispositions', ['entry'] + E(lesson=lesson_cronly),
+        0, ['PASS legs=9/9'])
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']

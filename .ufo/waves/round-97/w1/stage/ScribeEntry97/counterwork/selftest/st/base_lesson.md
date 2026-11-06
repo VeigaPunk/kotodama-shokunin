@@ -1,0 +1,2 @@
+- S001 LOCATED recheck 90d→2027-02-03 — https://example.org/prayer accessed 2026-11-04: “the fixed vocative formulae address the deity and the votive promise binds the petitioner”
+- S002 LOCATED recheck unchanged — https://example.org/prayer/other accessed 2026-11-04: “unrelated row about dye plants”

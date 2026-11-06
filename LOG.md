@@ -5100,3 +5100,24 @@ before any seat ran; control `reports/round-96/predispatch-base.txt` FAIL 3/12).
   claim C cites S975–S984 opened this round.
 - Dispatch held by `/fast` disk pressure (100% at 17:28 -03); L0 line appended to `.ufo/l0-questions.md`.
 - Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.
+
+## 2026-11-05 — round 97 (hyaku run 15, attempt 1, L1 KotodamaR97)
+
+Claims frozen in `reports/round-97/claims.json` (freeze `24eac1e9`; do-nothing control `reports/round-97/predispatch-base.txt`
+FAIL 4/13; sha-only forgery control FAIL 5/13; sweep control rc 0).
+
+- Claim O (operability): grader v9 (`tools/check-advance-evidence.py`, sha256 `1021dc9db778042d8049920292d96930f31481e77bce2b36f577ea2d88b5717b`)
+  closes the seven CriticO96 classes that still survived v8 (measured before freeze: `controls/critic96-on-v8.txt`,
+  survivors=7) with named diagnostics VERDICT-CTRL (CR1, US1, NUL1), VERDICT-SEPARATOR (OGH1, IS1) and HEADING-COMBINING on
+  TOPIC (CM1, CMW2). battery97 over v8 survivors=7 refused=24 → over v9 survivors=0 refused=31; selftest 147 → 155;
+  mutation97 first measurement 121/121 killed (red-before on v8 111/121, 10 broken-pattern). Drivers are bound to a pin and
+  to their first-measurement receipt (round-96 routed defect 2). Evidence: `.ufo/waves/round-97/w1/stage/ExecBattery97/`,
+  `…/ExecGraderV9/`, `…/MutationTester97/`, `reports/round-97/controls/`, `reports/round-97/predispatch-lands.txt`.
+- Claim C (coverage): `corpus/knowledge/linguistics/verbal-duelling-ritual-insult.md` (no topic or heading owner at base by the
+  frozen content sweep C8). Registry rows S985–S992 (Pagliai 2009, Hoebel 1954, Bellows *Lokasenna*, Murphy ed. Dunbar and
+  Kennedy, Ruszkiewicz 2020, Garzia 2007, Nadera 2019, Nicholson 1907). Seat reviews (ReviewerC97, CriticC97) found
+  contradicted and copied sentences; the L1 repaired them before landing (lesson R97-M2, M4).
+- Frontier step: R97-M1 mined (round-96 filename-only ownership sweep) → leg C8 and QUALITY criterion 39, shown able to fail
+  on the round-96 base (owners=2). Thrênoi row written as S993 (used-by the lament entry; one cited sentence there,
+  corrected after ReviewerC97 found the first draft contradicted its source). R27 rule stated: one row per opened URL.
+- Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.

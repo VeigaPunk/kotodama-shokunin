@@ -1,0 +1,1 @@
+- S776 LOCATED recheck unchanged — https://registry-example.org/base-prayer-notes accessed 2026-10-01: “an old base row about prayer notes and rubrics”
