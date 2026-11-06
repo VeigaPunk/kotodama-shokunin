@@ -46,11 +46,11 @@ The Icelandic material gives the oath as a fixed utterance whose wording is pres
 
 In this material the oath opens by calling the gods to witness against perjury — Zeus first, then Earth, Sun and the Erinyes who punish whoever swears falsely — and the source gives the opening as "ἴστω νῦν Ζεὺς πρῶτα θεῶν ὕπατος καὶ ἄριστος" (S977).
 
-The oath form in this material is defined by what it takes with it — the curse is part of the binding — and the source states that "curse-enhanced oaths or vows lie behind the notion of the geis" (S978).
+The oath form in this material is defined by what it takes with it — the curse is part of the binding — and the source reports Mees's conjecture that "curse-enhanced oaths or vows lie behind the notion of" the geis-supported fír of early Irish tradition; his hedge is explicit: "It may well be, then, that" (S978).
 
-The same account takes the whole family as a single class of performative utterance, and it enumerates the class as "a ritual, spell, curse, charm, incantation, blessing, hymn, or mantra" (S980).
+Frangulov's 2023 Oxford MPhil thesis on ritual speech and performativity takes the whole family as a single class of performative utterance, and it enumerates the class as "a ritual, spell, curse, charm, incantation, blessing, hymn, or mantra" (S980).
 
-The norito material treats the formula as a text with an internal sectional structure that a practitioner has to know, and the source describes one such division as "divides the Great Purification Norito found in Fascicle 8 of the Engishiki into 10 sections" (S981).
+The norito material shows the formula as a text with an internal sectional structure, though the division the source records is a commentator's: Ōkuni Takamasa's work, following Mabuchi and Norinaga, "divides the Great Purification Norito found in Fascicle 8 of the Engishiki into 10 sections, and provides commentary for each" (S981).
 
 The binding formula in this tradition is a recited text with a set form rather than an improvised speech, and the source calls it "the recital of a norito or formula—not a prayer, as it is sometimes called" (S983).
 

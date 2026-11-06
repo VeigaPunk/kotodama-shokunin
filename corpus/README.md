@@ -1,5 +1,13 @@
 # kotodama-shokunin corpus index
 
+revision: 2.25 — Round-99 linguistics landing (2026-11-06): one linguistics
+entry landed (`praise-poetry-panegyric.md`, praise poetry and panegyric as a
+public speech act; the base had 0 topic-line or heading owners of the six
+frozen phrases). Its row is added in filename order between
+`politeness-taboo-euphemism.md` and `proverbs-riddles-attestation-solutions.md`,
+with the entry's `- topic:` text verbatim; `## linguistics/` moved 43 → **44**;
+the totals and footer moved 270 → **271**.
+
 revision: 2.24 — Round-95 linguistics landing (2026-11-05): one linguistics
 entry landed (`funerary-lament-dirge-formulae.md`, funerary laments and dirges: the sung speech of mourning;
 the base had 0 word-bounded filename owners). Its row is added in
@@ -362,7 +370,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (43)
+## linguistics/ (44)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -386,6 +394,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `petitionary-and-votive-formulae.md` — petitionary address and votive formulae: vocative address to deities, petition mood (imperative, optative, precative), the conditional vow, votive inscription grammar, prayer-register archaism and parallelism, design procedure and failure modes
 - `phonetics-phonology.md` — speech sounds and sound systems for fictional cultures — IPA categories, inventory design, phonotactics, markedness, allophony, prosody/tone, environment & anatomy effects, conlang pitfalls
 - `politeness-taboo-euphemism.md` — How cultures regulate saying — politeness theory (Brown & Levinson and its critics), honorific systems as grammar (Japanese, Korean, Javanese, Thai/Vietnamese), taboo vocabulary and its sanctions, euphemism cycles and the euphemism treadmill, and the fossil strata taboo leaves in lexicon, calendar, and law — with construction procedures for fictional cultures
+- `praise-poetry-panegyric.md` — praise poetry and panegyric: praise as a public speech act that builds a person, lineage, office or place — the praise singer's office, patronage and reward; the praise epithet and the genealogical recitation; the order of a praise performance and its audience; rivalry, satire and the limits of flattery; and the design procedure for a fictional praise tradition whose epithets stay tied to their bearers, singers, patrons and occasions
 - `proverbs-riddles-attestation-solutions.md` — Deepening existing proverb/riddle knowledge through a dated-source dossier: distinguish an attested saying from its origin, a collection from the repertoire it selects, a transmitted riddle from an editor's reconstruction, and a proposed answer from an established referent.
 - `register-lexicon-ceilings.md` — Why a marked register built by a **mechanical operation** (reversal, truncation, lengthening, reduplication) can only spell some of the semantic fields its own institution needs — and how to measure the ceiling before it is designed into a law. States the general craft rule (**a register's derivation operation constrains which semantic fields it can natively spell**), gives the measurement procedure over a syllable template, works the NON-CANON D4 stamp register as a measured case (four of five legal/institutional abstractions refuse `reverse`), and supplies the three dispositions (hand-pick the base list, choose an operation whose domain covers the needed fields, or accept the ceiling and write the law inside it) plus the calibration shelf for the real-world analogues (verlan, anti-languages, avoidance registers) and their limits. Reference knowledge and method only; canon decisions belong to lore-shokunin.
 - `register-strata-attestation.md` — How to design the **attestation register** — the marked speech a culture uses when a spoken word is being made to bind, as against its unmarked everyday speech — and, separately, the **register law** that governs it: which acts may be spoken in-register, by whom, with what illocutionary force, and with what record consequence. Supplies the speech-act framework (Austin's felicity conditions and misfires, Searle's five classes and the declaration/status-function machinery, Searle's constitutive rules and deontic powers), the anthropological spine for ritually binding speech (Tambiah on the magical power of words; Rappaport on invariance as the engine of liturgical authority), the social conditions that authorise a speaker (Bourdieu's authorized language and delegation; Irvine's honorific ideology), the documentary-institution side that makes an oral act a record (Clanchy; Clanchy's "from memory to written record" transition), a register-law design procedure with worked rows, the boundary against costume/rank rules, and the calibration shelf for what is contested. Reference knowledge and method only; canon decisions belong to lore-shokunin.
@@ -1113,3 +1122,29 @@ Total knowledge entries: 270.
 Counts checked 2026-11-05 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
 (total 270 files; directory totals 43/36/43/29/24/95).
+
+## Round 99 praise poetry and panegyric entry (2026-11-06)
+
+`knowledge/linguistics/praise-poetry-panegyric.md` adds a dedicated entry on
+praise poetry and panegyric: praise as a public speech act that builds a person,
+a lineage, an office or a place — the praise singer's office, patronage and
+reward; the praise epithet and the genealogical recitation; the order of a praise
+performance and its audience; rivalry, satire and the limits of flattery; and the
+design procedure for a fictional praise tradition whose epithets stay tied to
+their bearers, singers, patrons and occasions. Its row is added in filename order
+inside `## linguistics/`; `## linguistics/` moved 43 → **44**; the totals and
+footer moved 270 → **271**.
+
+Sources S1007-S1017 were opened this round (tier A 6, B 5, status mined), all with
+`used-by` exactly this entry: Finnegan's panegyric chapter, Opland and Kaschula on
+the Xhosa imbongi, Barber on text and performance, Groenewald on Ndebele praise
+poetry, Pindar's extant odes, Y Gododdin, the Purananuru anthology, Kertzer on the
+Mande griot, Potts on skaldic poetry, and Kavanagh on the Irish fili. No base
+registry row is re-verified, re-dated or repaired, and no row is superseded this
+round. Freshness stays paused by the open L0 questions.
+
+Total knowledge entries: 271.
+
+Counts checked 2026-11-06 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 271 files; directory totals 44/36/43/29/24/95).

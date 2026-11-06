@@ -2361,3 +2361,32 @@ Retirements and saturation: none. Stagnation nudge not invoked.
 (1) v10 over-refusals F1/F4 with benign selftest twins (`corpus/lessons/round-98.md` Routed to round 99); (2) CriticO98b's
 24 survivors (verdict-window whitelist, list-mark stripping); (3) oath entry weak lines L49/L51/L53; (4) freshness remains
 paused until L0 answers.
+
+## Axes — round 99 (2026-11-06; author-side verdicts, non-author closure pending)
+
+Base `527df3fee305b3454446946e6779ece45456307e`; freeze `b1b80562edfc8f6082aec74bbbf0f25e152708a8`
+(`reports/round-99/claims.json`, counter `reports/round-99/predispatch.py`, do-nothing control
+`reports/round-99/predispatch-base.txt` FAIL legs=6/16, forgery/feasibility controls `reports/round-99/controls/forgery/`);
+landed tree measured at the round-99 landing commit: `reports/round-99/predispatch-lands.txt`.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved — harm repair (frozen predicate met: O0–O6 PASS; ReviewerO99 PASS independently) | grader v10 `d35b13c9…`: SELFTEST 161/161, battery99 0/0/37/0/3/6 (6 benign controls NOT-CLEAN), critic98 replay OVERREFUSAL n=2 → grader v11 `717341dc…`: SELFTEST 175/175, battery99 0/0/37/0/9/0, critic98 OVERREFUSAL n=0 with survivors 24 (unchanged), critic97 unchanged, mutation99 136/136 killed at first measurement; CriticO99 critic99 benign 28/28 clean, 6 anchor-neutral attack classes newly pass (no forged anchor) | `python3 -B reports/round-99/predispatch.py --root . --work <scratch> --base-rev 527df3fee305b3454446946e6779ece45456307e` (O0–O6) | `reports/round-99/predispatch-lands.txt`; `.ufo/waves/round-99/w1/ReviewerO99.md`; `.ufo/waves/round-99/w1/CriticO99.md` |
+| coverage / C | improved (frozen predicate met: C1–C9 PASS) | no topic or heading owner of the six frozen phrases at base (C8 owners=0) → `corpus/knowledge/linguistics/praise-poetry-panegyric.md` (13 h2, table 10×3 data, 6/6 phrases, topic equal); registry 930 → 941 rows (S1007–S1017, tier A 6 / B 5, qualifying 11); ReviewerC99 re-opened 11/11 count 1 | same command (C1–C9) | `reports/round-99/predispatch-lands.txt`; `reports/round-99/evidence/manifest.json`; `.ufo/waves/round-99/w1/stage/ReviewerC99/reopen.json` |
+| depth / D | unchanged (observation) | oath entry: the three round-98 weak lines (L49/L51/L53) repaired, each span count 1 in its round-96 capture (ScribeOath99); praise entry: three CriticC99 support defects repaired (R99-M2); not a claim | — | `.ufo/waves/round-99/w1/ScribeOath99.md`; lesson R99-M2 |
+| freshness | unchanged | paused by open L0 round-11 and round-89 questions; not met, not waived | — | `.ufo/l0-questions.md` |
+| calibration / discernment | unchanged (observation) | QUALITY criterion 41 (benign twin on a widened refusal) shown able to fail on v10 (battery99 not-clean=6; O4 overrefusal=2) | — | `corpus/QUALITY.md` 41; `reports/round-99/controls/battery99-control-v10.txt` |
+
+Retirements and saturation: none. Stagnation nudge not invoked.
+
+## Capabilities — round 99 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| grader v11 anchor-invariant heading-mark rule | Refuses an h2 combining mark only when removing it changes what the heading anchors (CM1, CM1-DEVANAGARI, MARKDASH, ROMANMARK) or degrades a heading phrase word (CMW2); accepts script orthography (Mc, virama, NFD Latin, Cyrillic stress) and bare non-ASCII numeral headings | `python3 -B tools/check-advance-evidence.py --selftest --work <dir>` → `SELFTEST PASS 175/175`; battery99 0/0/37/0/9/0 | round 99 |
+
+## Planned — round 100 (routed; not frozen)
+
+(1) table-cell support check for §-tables whose caption claims recorded cases (lesson R99-M2); (2) CriticO98b's 24
+survivors and CriticO99's 6 anchor-neutral passes stay open (`.ufo/waves/round-99/w1/CriticO99.md`); (3) freshness remains
+paused until L0 answers.

@@ -5141,3 +5141,23 @@ and reused (lesson `corpus/lessons/round-98.md` §Inherited).
   on the round-97 lesson (9 findings) and passing this round's Gate (0 findings). Oath entry support sweep (ReviewerOath98):
   8 of 11 defective sentences repaired, 3 weak routed. QUALITY criterion 40 (control order by commit, not mtime).
 - Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.
+
+## 2026-11-06 — round 99 (hyaku run 15, attempt 2, L1 KotodamaR99a2)
+
+Claims frozen in `reports/round-99/claims.json` by attempt 1 (freeze `b1b80562`; do-nothing control
+`reports/round-99/predispatch-base.txt` FAIL 6/16; forgery/feasibility controls `reports/round-99/controls/forgery/`;
+battery99 + pin + v10 receipt + critic98-on-v10 receipt in the freeze commit). Attempt 1 (L1 KotodamaR99) dispatched w1
+(12 seats) and ended before landing; its outputs were re-verified and reused (lesson `corpus/lessons/round-99.md` §Inherited).
+
+- Claim O (operability, harm repair of the round-98 closure's F1/F4): grader v11 (`tools/check-advance-evidence.py`, sha256
+  `717341dcff329a8c8aea9e6e807a16b70bc24818edfc31681780a24f68ee76f2`) refuses a heading mark only when it changes what the
+  heading anchors; bare non-ASCII numeral headings pass; dead `_dispo_match` Me branch removed; NFKD Me pinned. battery99
+  over v10 0/0/37/0/3/6 → over v11 0/0/37/0/9/0; selftest 161 → 175; critic98 over-refusal 2 → 0 (survivors 24 → 24);
+  mutation99 136/136 killed (red-before on v10 128/136, 6 broken-pattern). ReviewerO99 PASS; CriticO99 benign 28/28 clean.
+- Claim C (coverage): `corpus/knowledge/linguistics/praise-poetry-panegyric.md` (C8 owners=0 at base). Registry rows
+  S1007–S1017 (Finnegan, Opland, Barber, Groenewald, Kaschula, Pindar/Myers, Y Gododdin/Williams, Purananuru, Kertzer,
+  Potts, Kavanagh). ReviewerC99 re-opened 11/11 (http 200, count 1); CriticC99's three support defects repaired by the
+  attempt-2 L1 before landing (lesson R99-M2).
+- Frontier step: R99-M1 mined (round-98 widened refusal without benign twin) → battery99 benign controls + leg O4 + QUALITY
+  criterion 41, shown able to fail on v10. Oath entry weak lines L49/L51/L53 repaired (ScribeOath99).
+- Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.

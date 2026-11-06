@@ -1,0 +1,62 @@
+ScribeEntry99 self-check — round 99 praise-poetry entry
+Date: 2026-11-06. Lane: /home/vgpnk/Projects/shokunin/kotodama-shokunin
+Entry: corpus/knowledge/linguistics/praise-poetry-panegyric.md
+sha256: 1011940ebe519b0039b2e1018913ad7c948616e60dca5c2fd0e6d9f73a1b4842
+bytes: 44922
+
+Commands and rc
+---------------
+1. `python3 -B /fast/scratch/hyaku/kotodama-r99/ScribeEntry99/selfcheck.py`
+   (re-implements the frozen counter's C1/C2/C6/C7/C8 legs read-only, imports
+   FROZEN_TOPIC from reports/round-99/predispatch.py, and runs the two repo tools)
+   rc=0
+
+Output
+------
+C1 bytes=44922 (>=12000 True)
+C1 h2=13 (>=6 True)
+C1 table=10x3 (rows>=5 cols>=3 True)
+C1 phrases=6/6 ['praise poetry', 'praise singer', 'panegyric', 'genealogical recitation', 'praise epithet', 'praise performance'] (>=4 True)
+C1 topic-line=equal
+C2 rows=941 highest=S1017 new=11 qualifying=11 ['S1007', 'S1008', 'S1009', 'S1010', 'S1011', 'S1012', 'S1013', 'S1014', 'S1015', 'S1016', 'S1017']
+C6 cited ids=['S1007', 'S1008', 'S1009', 'S1010', 'S1011', 'S1012', 'S1013', 'S1014', 'S1015', 'S1016', 'S1017']
+C6 uncited qualifying=[]
+C6 cited-not-qualifying=[]
+C7 bound=11/11 failures=[]
+C8 other owners=0 []
+CITED-LINES rc=0 CITED-LINES: 0 finding(s) in 1 file(s)
+8GRAM orality-formulaic-language.md shared=1
+8GRAM toast-drinking-speech-formulae.md shared=7
+8GRAM funerary-lament-dirge-formulae.md shared=1
+8GRAM verbal-duelling-ritual-insult.md shared=9
+INDEX rc=0 CORPUS-INDEX: OK files=271 rows=271 findings=0
+
+2. `python3 -B tools/check-corpus-index.py --root /home/vgpnk/Projects/shokunin/kotodama-shokunin`
+   rc=0
+   CORPUS-INDEX: OK files=271 rows=271 findings=0
+
+3. `python3 -B tools/check-cited-lines.py corpus/knowledge/linguistics/praise-poetry-panegyric.md`
+   rc=0
+   CITED-LINES: 0 finding(s) in 1 file(s)
+
+4. `bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file corpus/SOURCES.md`
+   rc=0; last line `file ok .../corpus/SOURCES.md`; `grep -c E11` = 0 (grep rc=1, no match)
+
+5. `sha256sum corpus/knowledge/linguistics/praise-poetry-panegyric.md`
+   rc=0 → 1011940ebe519b0039b2e1018913ad7c948616e60dca5c2fd0e6d9f73a1b4842
+
+Notes
+-----
+- Table best shape is the §1 boundary table (10 rows x 3 cols); the §7 tradition
+  table is 9 data rows x 5 cols. Both clear the 5x3 floor.
+- The six frozen phrases land in six h2 headings (§2 praise poetry, §3 praise
+  singer, §4 praise epithet, §5 genealogical recitation, §6 praise performance,
+  §8 panegyric) and in the §7 table cells.
+- 8-gram overlap is residual house boilerplate (metadata line, section names,
+  path references), not copied prose; the largest shared run is the
+  `- source: corpus/SOURCES.md (the registry rows below, one id per line)` line
+  that every entry in the corpus carries.
+- Every cited line carries exactly one S-id and no table row carries one
+  (check-cited-lines rc 0).
+- Inference list (§13, 9 items) and the design-only apparatus (§9-§11) are
+  tagged in the body.

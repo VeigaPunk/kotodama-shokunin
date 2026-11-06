@@ -1,0 +1,300 @@
+#!/usr/bin/env python3
+"""Round-99 mutation driver: the 128 round-98 mutants carried with every
+pattern re-verified against the final v11 bytes (all 128 still match; the
+v11 heading gate keeps the v10 mark-presence pre-filter, so the three
+heading mutants keep their v10 slants) plus eight round-99 mutants for the
+v11 repairs, in both directions: re-widen the anchor-invariance heading
+rule to all M and to all Mn/Me on any base (the v10/v9 over-refusal),
+disable the invariance arm (CM1/MARKDASH/ROMANMARK reopen), disable the
+phrase-degradation arm (CMW2 reopens), bypass the NFKD plain heading,
+restore the removed HEADING-NUMBER loop, neuter the NFKD Me branch, and
+flip the new CM1-DEVANAGARI selftest pin.
+
+Axes: operability, faithful mutation semantics, reproducible evidence.
+Each tuple is (name, target, replacement, semantics); 'exactly-once' entries
+must match exactly once in the tool bytes or they are broken-pattern. The
+first stdout line is DRIVER-SHA256 <sha256 of this driver's own bytes>, pin-
+bound before the first measurement. Clean tool selftest must pass before any
+mutation is scored; a stub lacking the patterns scores zero kills. All
+generated files and receipts live under --work. Kill oracle: the mutated
+tool's own --selftest run first (clean tool must selftest-pass first); a
+mutant that survives it is re-run through the frozen battery99 driver and is
+KILLED if any battery class outcome differs from the clean baseline. A
+mutant is KILLED iff either oracle changes; the receipt names the oracle.
+"""
+
+import argparse
+import hashlib
+import os
+import re
+import shutil
+import subprocess
+import sys
+
+MUTANTS = [
+    ('overlap-bound-to-zero', 'elif max(overlap(quote, teaches), overlap(quote, scope), overlap(quote, anchor)) < args.min_overlap:', 'elif max(overlap(quote, teaches), overlap(quote, scope), overlap(quote, anchor)) < 0:', 'replace-all'),
+    ('self-quote-check-off', 'elif q and q in norm(teaches):', 'elif False:', 'replace-all'),
+    ('source-quote-check-off', 'if q and q in norm(src):', 'if False:', 'replace-all'),
+    ('archive-year-off', 'if int(stamp[:4]) < int(as_of[:4]):', 'if False:', 'replace-all'),
+    ('archive-embed-off', 'if embedded not in row_urls:', 'if False:', 'replace-all'),
+    ('row-url-off', 'if not row_urls:', 'if False:', 'replace-all'),
+    ('capture-dir-off', "    if not (rel == cap_dir or rel.startswith(cap_dir.rstrip('/') + '/')):\n        return f'capture outside {cap_dir}: {rel}'", "    if False:\n        return f'capture outside {cap_dir}: {rel}'", 'replace-all'),
+    ('capture-graded-off', "return f'capture is a graded file: {rel}'", 'pass', 'replace-all'),
+    ('sha256-off', "if hashlib.sha256(raw).hexdigest() != str(m.get('sha256', '')):", 'if False:', 'replace-all'),
+    ('http-status-off', "if not isinstance(m.get('http_status'), int) or not 200 <= m['http_status'] < 300:", 'if False:', 'replace-all'),
+    ('quote-in-capture-off', 'if norm(quote) not in text:', 'if False:', 'replace-all'),
+    ('manifest-entry-off', "return 'no manifest entry'", 'return None', 'replace-all'),
+    ('manifest-empty-off', "return 'manifest capture empty'", 'return None', 'replace-all'),
+    ('duplicate-id-off', 'if lands_dup:', 'if False:', 'replace-all'),
+    ('duplicate-url-off', 'if len(owners) > 1:', 'if False:', 'replace-all'),
+    ('not-located-variant-off', "verdict = 'NOT-LOCATED' if verdict.startswith('NOT') else 'LOCATED'", "verdict = 'LOCATED'", 'replace-all'),
+    ('advanced-not-located-off', "if rid in disp and disp[rid][0] == 'NOT-LOCATED':", 'if False:', 'replace-all'),
+    ('window-floor-off', 'if not (lo < d <= hi):', 'if not (as_of < d <= hi):', 'replace-all'),
+    ('recheck-iso-off', 'd = as_date(new, rid)', 'd = as_of', 'replace-all'),
+    ('not-in-base-off', 'if rid not in base:', 'if False:', 'replace-all'),
+    ('othercells-off', 'if moved:', 'if False:', 'replace-all'),
+    ('cellcount-off', 'if len(b) != len(l):', 'if False:', 'replace-all'),
+    ('min-advanced-off', 'len(advanced) >= args.min_advanced', 'len(advanced) >= 0', 'replace-all'),
+    ('disposed-off', 'dispo = [rid for rid in ids if rid not in disp]', 'dispo = []', 'replace-all'),
+    ('advance-word-bound-off', 'if len(quote.split()) > args.quote_max_words:\n            meaning.append', 'if False:\n            meaning.append', 'replace-all'),
+    ('entry-bytes-off', 'if len(entry.encode()) < args.min_bytes:', 'if False:', 'replace-all'),
+    ('entry-headings-off', 'if len(heads) < args.min_headings:', 'if False:', 'replace-all'),
+    ('entry-header-key-off', 'if key not in entry:', 'if False:', 'replace-all'),
+    ('topic-overlap-off', 'if shared < args.min_topic_overlap:', 'if False:', 'replace-all'),
+    ('stem-off', 'if stem_words and stem_hit == 0:', 'if False:', 'replace-all'),
+    ('repeat-sentence-off', 'if worst > 2:', 'if False:', 'replace-all'),
+    ('table-shape-off', 'if rows < args.table_min_rows or cols < args.table_min_cols:', 'if rows < args.table_min_rows:', 'replace-all'),
+    ('newids-opened-off', 'if opened != args.as_of:', 'if False:', 'replace-all'),
+    ('newids-usedby-off', 'if os.path.basename(args.entry) not in used and args.entry not in used:', 'if False:', 'replace-all'),
+    ('newids-missing-cited-off', 'if missing:', 'if False:', 'replace-all'),
+    ('newids-tier-off', "if tier not in ('A', 'B'):", 'if False:', 'replace-all'),
+    ('newids-min-off', 'if len(qualifying) < args.min_new_ids:', 'if False:', 'replace-all'),
+    ('newids-cited-scope-off', 'scoped = [rid for rid in new_ids if rid in cited]', 'scoped = list(new_ids)', 'replace-all'),
+    ('gate-url-off', 'if not any(u in line for u in urls(src)):', 'if False:', 'replace-all'),
+    ('gate-date-off', 'if args.as_of not in line:', 'if False:', 'replace-all'),
+    ('gate-quote-bounds-off', 'if len(quote.split()) > args.quote_max_words or len(norm(quote)) < args.quote_min_chars:', 'if len(quote.split()) > args.quote_max_words:', 'replace-all'),
+    ('gate-min-chars-off', 'or len(norm(quote)) < args.quote_min_chars:', 'or False:', 'replace-all'),
+    ('required-arg-off', 'if not getattr(args, req):', 'if False:', 'replace-all'),
+    ('phrase-parse-off', "phrases = [p.strip() for p in re.split(r'[;]', args.topic_phrases or '') if p.strip()]", 'phrases = []', 'replace-all'),
+    ('phrase-anchor-text-off', "anchor_text = norm(' '.join(hit_heads)) + ' ' + norm('\\n'.join(hit_rows))", "anchor_text = norm(entry) + ' ' + norm('\\n'.join(hit_rows))", 'replace-all'),
+    ('uniq-shadow-off', 'if norm_url(u) in base_urls:', 'if False:', 'replace-all'),
+    ('phrase-floor-off', 'if len(hits) < phrase_floor:', 'if False:', 'replace-all'),
+    ('gate-selfquote-entry-off', "elif q and q in norm(teaches):\n            gate.append(f'{rid}: gate quote is the row teaching cell (self-quote)')", "elif False:\n            gate.append(f'{rid}: gate quote is the row teaching cell (self-quote)')", 'replace-all'),
+    ('gate-chrome-entry-off', "if q and q in norm(src):\n            gate.append(f'{rid}: gate quote is copied from the row source cell (title or chrome), not located prose')", "if False:\n            gate.append(f'{rid}: gate quote is copied from the row source cell (title or chrome), not located prose')", 'replace-all'),
+    ('graded-shas-off', 'if graded_shas:\n        hit = graded_shas.get(hashlib.sha256(raw).hexdigest())', 'if False:\n        hit = None', 'replace-all'),
+    ('appendonly-lesson-off', "if getattr(args, 'base_lesson', None):", 'if False:', 'replace-all'),
+    ('appendonly-gained-off', "if rid not in base_disp:\n                moved.append(f'{rid}: gained", "if False:\n                moved.append(f'{rid}: gained", 'replace-all'),
+    ('appendonly-flip-off', 'elif base_disp[rid][0] != verdict:', 'elif False:', 'replace-all'),
+    ('dispo-anchor-revert', "DISPO_RE = re.compile(r'^(?:[>\\-\\*+\\s]*\\s)?S(\\d{3,})\\b.*?\\b(NOT[ _-]?LOCATED|LOCATED)\\b', re.I)", "DISPO_RE = re.compile(r'^[-*] ?S(\\d{3,})\\b.*?\\b(NOT[ _-]?LOCATED|LOCATED)\\b', re.I)", 'replace-all'),
+    ('shadow-norm-off', "u = str(u).strip().split('#', 1)[0]", 'u = str(u).strip()', 'replace-all'),
+    ('capture-url-bind-off', "err = surface_error((man_entry or {}).get('url', ''), src, args.as_of)", 'err = None', 'replace-all'),
+    ('capture-shared-off', "if len(owners) > 1:\n            capture.append('capture shared by ", "if False:\n            capture.append('capture shared by ", 'replace-all'),
+    ('gate-topic-bind-off', 'if bound < args.min_gate_overlap:', 'if False:', 'replace-all'),
+    ('anchor-span-off', 'if span < min_span:', 'if False:', 'replace-all'),
+    ('topic-prose-off', 'shared = overlap(body_text, args.topic)', 'shared = overlap(entry, args.topic)', 'replace-all'),
+    ('gap-entry-graded-off', '[args.lesson, args.lands_registry, args.entry,', '[args.lesson, args.lands_registry,', 'replace-all'),
+    ('gap-lands-graded-off', '[args.lesson, args.lands_registry, args.entry,', '[args.lesson, args.entry,', 'replace-all'),
+    ('gap-lesson-graded-off', '[args.lesson, args.lands_registry, args.entry,', '[args.lands_registry, args.entry,', 'replace-all'),
+    ('gap-traversal-off', "if rel.startswith('/') or '..' in rel.split('/'):", "if rel.startswith('/'):", 'replace-all'),
+    ('gap-fetch-offset-optional', "(?:Z|[+-]\\d{2}:\\d{2})$')", "(?:Z|[+-]\\d{2}:\\d{2})?$')", 'replace-all'),
+    ('gap-fetch-date-off', "if fm.group(1) != as_of:\n        return f'fetched_at date", "if False:\n        return f'fetched_at date", 'replace-all'),
+    ('gap-cap-slash-capture-error-off', "rel.startswith(cap_dir.rstrip('/') + '/')):", "rel.startswith(cap_dir.rstrip('/'))):", 'replace-all'),
+    ('gap-port-strip-off', "if (scheme == 'http' and host.endswith(':80')) or (scheme == 'https' and host.endswith(':443')):", 'if False:', 'replace-all'),
+    ('norm-fold-scheme-off', "    if scheme in ('http', 'https'):\n        scheme = 'https'", "    if False:\n        scheme = 'https'", 'replace-all'),
+    ('norm-www-off', "    if host.startswith('www.'):\n        host = host[4:]", '    if False:\n        host = host[4:]', 'replace-all'),
+    ('norm-query-off', "    rest = rest.split('?', 1)[0]", '    rest = rest', 'replace-all'),
+    ('norm-pathfold-off', '    rest = rest.lower()', '    rest = rest', 'replace-all'),
+    ('capture-symlink-off', "    if os.path.islink(path):\n        return f'capture is a symlink: {rel}'", "    if False:\n        return f'capture is a symlink: {rel}'", 'replace-all'),
+    ('capture-textcopy-off', '    if graded_norms:\n        hitn = graded_norms.get(ntext)', '    if False:\n        hitn = None', 'replace-all'),
+    ('capture-htmlextract-off', '    text = norm(html_body_text(raw))', "    text = norm(raw.decode('utf-8', errors='replace'))", 'replace-all'),
+    ('dispo-fallback-off', '        m = DISPO_ANY_RE.search(plain)', '        m = None', 'replace-all'),
+    ('dispo-zwstrip-off', '        stripped = line.strip().translate(ZW_MAP)', '        stripped = line.strip()', 'replace-all'),
+    ('baserows-cellcmp-off', '        for i in (0, 1, 2, 3, 4, 5, 6, 8):', '        for i in ():', 'replace-all'),
+    ('baserows-delete-off', "        if not lrows:\n            baserow.append(f'{rid}: base row removed from the lands registry')", "        if False:\n            baserow.append(f'{rid}: base row removed from the lands registry')", 'replace-all'),
+    ('baserows-leg-off', "    legs.append(('BASEROWS', not baserow,", "    legs.append(('BASEROWS', True,", 'replace-all'),
+    ('manifest-shape-off', "    if not isinstance(man_rows, dict):\n        raise Refused('manifest rows is not a JSON object (list where mapping expected)')", "    if False:\n        raise Refused('manifest rows is not a JSON object (list where mapping expected)')", 'replace-all'),
+    ('manifest-object-off', "    if not isinstance(man, dict):\n        raise Refused('manifest is not a JSON object')", "    if False:\n        raise Refused('manifest is not a JSON object')", 'replace-all'),
+    ('head-qualify-off', "            return len(h.lstrip('#').split()) >= 2", '            return True', 'exactly-once'),
+    ('script-strip-off', "s = re.sub(r'(?is)<(script|style)\\b[^>]*>.*?</\\1\\s*>', ' ', s)", 'pass', 'exactly-once'),
+    ('comment-strip-off', "s = re.sub(r'(?s)<!--.*?-->', ' ', s)", 'pass', 'exactly-once'),
+    ('unescape-off', 'return _html.unescape(s)', 'return s', 'exactly-once'),
+    ('dispo-any-casei', "DISPO_ANY_RE = re.compile(r'\\bS(\\d{3,})\\b.*?\\b(NOT[ _-]?LOCATED|LOCATED)\\b')", "DISPO_ANY_RE = re.compile(r'\\bS(\\d{3,})\\b.*?\\b(NOT[ _-]?LOCATED|LOCATED)\\b', re.I)", 'exactly-once'),
+    ('baserows-drop-cell8', 'for i in (0, 1, 2, 3, 4, 5, 6, 8):', 'for i in (0, 1, 2, 3, 4, 5, 6):', 'exactly-once'),
+    ('combining-refuse-off', "    if _dispo_match(nfkd_nomark.replace('|', ' ').replace('*', ' ').replace('_', ' ')) and not m:", "    if _dispo_match(nfkd_nomark.replace('|', ' ').replace('*', ' ').replace('_', ' ')):", 'exactly-once'),
+    ('lrm-refuse-off', '    if _dispo_match(nocf.strip().translate(ZW_MAP).translate(DASH_MAP)) and not m and nocf != stripped:', '    if False:', 'exactly-once'),
+    ('tab-refuse-off', "    if '\\t' in stripped and re.search(r'LO\\s+CATED|NOT\\s+LOCATED', stripped, re.I):", '    if False:', 'exactly-once'),
+    ('num1-anchor-off', '\\d+\\.\\d+[.)]?|', '', 'exactly-once'),
+    ('rm1-anchor-off', '|[IVXLCDM]+[.)]?|[ivxlcdm]+[.)]?', '', 'exactly-once'),
+    ('num2-anchor-off', '            if len(raw) >= 3 and isnum(raw[1]):', '            if False:', 'exactly-once'),
+    # ---- round-96 v7 refusal removals (CriticO95 NB1 VT1 FF1 LS1 NEL1 ANSI1 CYR1 BR1 DASH1, plus anchors)
+    ('nbsp-refuse-off', r"        if '\u00a0' in span:", "        if False:", 'exactly-once'),
+    ('vt-refuse-off', r"        if '\u000b' in span:", "        if False:", 'exactly-once'),
+    ('ff-refuse-off', r"        if '\u000c' in span:", "        if False:", 'exactly-once'),
+    ('ls-u2028-off', r"('\u2028', '\u2029', '\u001c', '\u001d', '\u001e')", r"('\u2029', '\u001c', '\u001d', '\u001e')", 'exactly-once'),
+    ('ls-u2029-off', r"('\u2028', '\u2029', '\u001c'", r"('\u2028', '\u001c'", 'exactly-once'),
+    ('fs-u001c-off', r"'\u2029', '\u001c', ", r"'\u2029', ", 'exactly-once'),
+    ('fs-u001d-off', r"'\u001c', '\u001d', ", r"'\u001c', ", 'exactly-once'),
+    ('fs-u001e-off', r"'\u001d', '\u001e')", r"'\u001d')", 'exactly-once'),
+    ('nel-refuse-off', r"        if '\u0085' in span:", "        if False:", 'exactly-once'),
+    ('ansi-refuse-off', r"        if '\u001b' in span:", "        if False:", 'exactly-once'),
+    ('verdict-window-off', r"    for m in re.finditer(r'\S*(?:LOCATED|LO[\s\S]{0,10}TED|NOT[\s\S]{0,6}LOCATED)\S*', line, re.I):", "    for m in []:", 'exactly-once'),
+    ('verdict-call-off', "        _refuse_verdict_channel(_rn, _rl)", "        pass", 'exactly-once'),
+    ('cyr-idnonascii-off', r"                if re.search(r'\d{3,}$', core):", "                if False:", 'exactly-once'),
+    ('num2-bracket-off', r"|\(?\d+[.)]?\)?", "", 'exactly-once'),
+    ('num2-dash-off', r"|[\u2010-\u2015-]+", "", 'exactly-once'),
+    ('num2-revert-v6', "                return bool(_NUM2.match(t))", "                return bool(re.match(r'^(\\d+[.)]?|\\d+\\.\\d+[.)]?|[IVXLCDM]+[.)]?|[ivxlcdm]+[.)]?)$', t))", 'exactly-once'),
+    ('verdict-split-revert', r"for _rn, _rl in enumerate(lesson.split('\n'), 1):", r"for _rn, _rl in enumerate(lesson.splitlines(), 1):", 'exactly-once'),
+    # ---- round-97 v8->v9 refusal removals (CriticO96 CR1 US1 OGH1 IS1 NUL1 CM1 CMW2)
+    ('verdict-ctrl-off', "            if unicodedata.category(c) == 'Cc':\n                raise Refused(f'line {n}: verdict token carries control character '\n                              f'U+{o:04X} (VERDICT-CTRL)')", "            if False:\n                raise Refused(f'line {n}: verdict token carries control character '\n                              f'U+{o:04X} (VERDICT-CTRL)')", 'exactly-once'),
+    ('verdict-separator-off', "            if unicodedata.category(c) == 'Zs':\n                raise Refused(f'line {n}: verdict token carries space separator '\n                              f'U+{o:04X} (VERDICT-SEPARATOR)')", "            if False:\n                raise Refused(f'line {n}: verdict token carries space separator '\n                              f'U+{o:04X} (VERDICT-SEPARATOR)')", 'exactly-once'),
+    ('heading-combining-off', "        for _h in heads:\n            if any(unicodedata.category(_c)[0] == 'M' for _c in _h):", "        for _h in []:\n            if any(unicodedata.category(_c)[0] == 'M' for _c in _h):", 'exactly-once'),
+    ('cr1-allow-000d', "            if o in (0x09, 0x0b, 0x0c, 0x1b, 0x1c, 0x1d, 0x1e, 0x85, 0x20) or c == '\\u00a0':", "            if o in (0x09, 0x0b, 0x0c, 0x0d, 0x1b, 0x1c, 0x1d, 0x1e, 0x85, 0x20) or c == '\\u00a0':", 'exactly-once'),
+    ('us1-allow-001f', "            if o in (0x09, 0x0b, 0x0c, 0x1b, 0x1c, 0x1d, 0x1e, 0x85, 0x20) or c == '\\u00a0':", "            if o in (0x09, 0x0b, 0x0c, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f, 0x85, 0x20) or c == '\\u00a0':", 'exactly-once'),
+    ('nul1-allow-0000', "            if o in (0x09, 0x0b, 0x0c, 0x1b, 0x1c, 0x1d, 0x1e, 0x85, 0x20) or c == '\\u00a0':", "            if o in (0x00, 0x09, 0x0b, 0x0c, 0x1b, 0x1c, 0x1d, 0x1e, 0x85, 0x20) or c == '\\u00a0':", 'exactly-once'),
+    ('ogh1-zs-exempt-1680', "            if unicodedata.category(c) == 'Zs':", "            if unicodedata.category(c) == 'Zs' and o != 0x1680:", 'exactly-once'),
+    ('is1-zs-exempt-3000', "            if unicodedata.category(c) == 'Zs':", "            if unicodedata.category(c) == 'Zs' and o != 0x3000:", 'exactly-once'),
+    ('cm1-mark-lasttoken-only', "            if any(unicodedata.category(_c)[0] == 'M' for _c in _h):", "            if any(unicodedata.category(_c)[0] == 'M' for _c in _h.split()[-1]):", 'exactly-once'),
+    ('cmw2-mark-numbering-only', "            if any(unicodedata.category(_c)[0] == 'M' for _c in _h):", "            if any(unicodedata.category(_c)[0] == 'M' for _t in _h.split() if re.match(r'^[0-9(.\\[\\)]+[.)]?$', _t) for _c in _t):", 'exactly-once'),
+    # ---- round-98 v9->v10 refusal removals (CriticO97 DEL1 ENC1 ROMAN1 SUP1 FWPER1)
+    ('verdict-ctrl-cc-narrow', "            if unicodedata.category(c) == 'Cc':", '            if o < 0x20:', 'exactly-once'),
+    ('verdict-combine-window-off', "            if unicodedata.category(c)[0] == 'M' and o != 0x200c:\n                raise Refused(f'line {n}: verdict token carries a combining mark '\n                              f'U+{o:04X} (VERDICT-COMBINE)')", "            if False:\n                raise Refused(f'line {n}: verdict token carries a combining mark '\n                              f'U+{o:04X} (VERDICT-COMBINE)')", 'exactly-once'),
+    ('nonascii-number-off', r"            core = tok.strip('\uFF0E\u3002\uFE52\uFF61.')", "            return False\n            core = tok.strip('\\uFF0E\\u3002\\uFE52\\uFF61.')", 'exactly-once'),
+    ('fullwidth-stop-strip-off', r"                (tok and tok[-1] in '\uFF0E\u3002\uFE52\uFF61' and any(c.isdigit() or unicodedata.category(c)[0] == 'N' for c in tok))", r"                (tok and False and tok[-1] in '\uFF0E\u3002\uFE52\uFF61' and any(c.isdigit() or unicodedata.category(c)[0] == 'N' for c in tok))", 'exactly-once'),
+    ('selftest-g98-del1-fixture-off', r"for _c, _tokv, _tokname, _cp in [('DEL1', 'LOCA\u007fTED', 'VERDICT-CTRL', 'U+007F'),", r"for _c, _tokv, _tokname, _cp in [('DEL1', 'LOCATED', 'VERDICT-CTRL', 'U+007F'),", 'exactly-once'),
+    ('selftest-g98-enc1-fixture-off', r"('ENC1', 'LOCA\u20ddTED', 'VERDICT-COMBINE', 'U+20DD')]", r"('ENC1', 'LOCATED', 'VERDICT-COMBINE', 'U+20DD')]", 'exactly-once'),
+    ('selftest-g98-heading-rc-off', "chk(f'round-98 {_c}: non-ASCII numbering token refused', ['entry'] + E(entry=_e), 1, ['FAIL TOPIC'])", "chk(f'round-98 {_c}: non-ASCII numbering token refused', ['entry'] + E(entry=_e), 0, ['FAIL TOPIC'])", 'exactly-once'),
+    # ---- round-99 v11 repairs, both directions (F4/F1/F2/F3 + new selftest pin)
+    ('heading-widen-all-M', "            if (head_anchors(h), head_span_anchors(h)) != (head_anchors(plain), head_span_anchors(plain)):", "            if True:", 'exactly-once'),
+    ('heading-widen-all-Mn', "            if (head_anchors(h), head_span_anchors(h)) != (head_anchors(plain), head_span_anchors(plain)):", "            if any(unicodedata.category(_c) in ('Mn', 'Me') for _c in h):", 'exactly-once'),
+    ('heading-mark-base-rule-off', "            if (head_anchors(h), head_span_anchors(h)) != (head_anchors(plain), head_span_anchors(plain)):", "            if False:", 'exactly-once'),
+    ('heading-phrase-degradation-off', "                if any(norm(p) == norm(bare) for p in phrases):", "                if False:", 'exactly-once'),
+    ('heading-plain-raw', "            plain = ''.join(_ch for _ch in unicodedata.normalize('NFKD', h)\n                            if unicodedata.category(_ch)[0] != 'M')", "            plain = h", 'exactly-once'),
+    ('heading-number-restore', r"                (tok and tok[-1] in '\uFF0E\u3002\uFE52\uFF61' and any(c.isdigit() or unicodedata.category(c)[0] == 'N' for c in tok))",
+     r"                (tok and tok[-1] in '\uFF0E\u3002\uFE52\uFF61' and any(c.isdigit() or unicodedata.category(c)[0] == 'N' for c in tok))"
+     "\n        for _h in heads:\n            _toks = _h.lstrip('#').split()\n            if len(_toks) >= 1 and _nonascii_number(_toks[0]):\n                _rest = [t for t in _toks[1:] if not _nonascii_number(t)]\n                if len(_rest) < 1:\n                    problems.append('h2 heading numbering token is non-ASCII numerals or full stop (HEADING-NUMBER)')\n                    break", 'exactly-once'),
+    ('nfkd-me-neuter', "''.join(c for c in nfkd if unicodedata.category(c)[0] != 'M')", "''.join(c for c in nfkd if unicodedata.category(c)[0] != 'Mn')", 'exactly-once'),
+    ('selftest-g99-cm1deva-rc-off', "chk('round-99 CM1-DEVANAGARI: a mark on the numbering digit stays refused', ['entry'] + E(entry=_e), 1,", "chk('round-99 CM1-DEVANAGARI: a mark on the numbering digit stays refused', ['entry'] + E(entry=_e), 0,", 'exactly-once'),
+]
+
+NAMES = [m[0] for m in MUTANTS]
+
+
+def run(tool, work, tag):
+    d = os.path.join(work, 'st-' + tag)
+    shutil.rmtree(d, ignore_errors=True)
+    os.makedirs(d)
+    p = subprocess.run([sys.executable, '-B', tool, '--selftest', '--work', d],
+                       capture_output=True, text=True)
+    out = p.stdout or ''
+    return p.returncode, bool(re.search(r'^SELFTEST PASS \d+/\d+$', out, re.M)), out + p.stderr
+
+
+BATTERY_BASE = {}
+
+
+def battery_path(lane_tool):
+    lane = os.path.dirname(os.path.dirname(os.path.abspath(lane_tool)))
+    p = os.path.join(lane, 'reports/round-99/controls/battery99.py')
+    return p if os.path.isfile(p) else None
+
+
+def run_battery(tool, lane_tool, work, tag):
+    bp = battery_path(lane_tool)
+    if bp is None:
+        return None
+    safe = re.sub(r'[^A-Za-z0-9_.-]+', '_', tag)
+    d = os.path.join(work, 'bat-' + safe)
+    shutil.rmtree(d, ignore_errors=True)
+    os.makedirs(d)
+    p = subprocess.run([sys.executable, '-B', bp, '--tool', tool, '--work', d],
+                       capture_output=True, text=True)
+    out = (p.stdout or '') + (p.stderr or '')
+    with open(os.path.join(work, 'battery-' + safe + '.txt'), 'w', encoding='utf-8') as f:
+        f.write(out)
+    classes = {}
+    for line in out.splitlines():
+        m = re.match(r'^CLASS (\S+) rc=(\d+) traceback=(\S+) named=(\S+) outcome=(\S+)$', line)
+        if m:
+            classes[m.group(1)] = (m.group(2), m.group(3), m.group(5))
+    return classes or None
+
+
+def battery_baseline(lane_tool, work):
+    if 'base' not in BATTERY_BASE:
+        BATTERY_BASE['base'] = run_battery(os.path.join(work, 'clean-tool.py'), lane_tool, work, 'clean')
+    return BATTERY_BASE['base']
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--tool', required=True)
+    ap.add_argument('--work', required=True, help='existing scratch directory')
+    ap.add_argument('--only', default='', help='comma-separated mutant names')
+    args = ap.parse_args()
+    with open(os.path.abspath(__file__), 'rb') as _sf:
+        print('DRIVER-SHA256 ' + hashlib.sha256(_sf.read()).hexdigest(), flush=True)
+    if not os.path.isdir(args.work):
+        print('MUTANTS99_ERROR: --work must be an existing directory', file=sys.stderr)
+        return 2
+    if not os.path.isfile(args.tool):
+        print('MUTANTS99_ERROR: --tool must be a file', file=sys.stderr)
+        return 2
+    wanted = [n.strip() for n in args.only.split(',') if n.strip()]
+    unknown = [n for n in wanted if n not in NAMES]
+    if unknown:
+        print('MUTANTS99_ERROR: unknown mutant name(s): ' + ', '.join(unknown), file=sys.stderr)
+        return 2
+    selected = [m for m in MUTANTS if not wanted or m[0] in wanted]
+    with open(args.tool, encoding='utf-8') as f:
+        src = f.read()
+    rows = ['TOOL sha256=' + hashlib.sha256(src.encode()).hexdigest()]
+    # Count all patterns at run start, before executing any mutated tool.
+    counts = {name: src.count(old) for name, old, new, semantics in selected}
+    clean = os.path.join(args.work, 'clean-tool.py')
+    with open(clean, 'w', encoding='utf-8') as f:
+        f.write(src)
+    rc, passed, out = run(clean, args.work, 'clean')
+    with open(os.path.join(args.work, 'clean-selftest.txt'), 'w', encoding='utf-8') as f:
+        f.write(out)
+    rows.append(f'CLEAN-FIRST selftest_rc={rc} SELFTEST-PASS-line={passed}')
+    killed = survived = broken = 0
+    if rc != 0 or not passed:
+        survived = len(selected)
+        rows.append('CLEAN-FIRST REFUSED: no mutant executed')
+    else:
+        for name, old, new, semantics in selected:
+            count = counts[name]
+            if count == 0 or (semantics == 'exactly-once' and count != 1):
+                broken += 1
+                rows.append(f' {name} BROKEN-PATTERN matches={count} semantics={semantics} selftest_rc=n/a')
+                continue
+            path = os.path.join(args.work, 'mut-' + name + '.py')
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(src.replace(old, new))
+            rc, passed, out = run(path, args.work, name)
+            with open(os.path.join(args.work, 'selftest-' + name + '.txt'), 'w', encoding='utf-8') as f:
+                f.write(out)
+            status = 'KILLED' if rc != 0 or not passed else 'SURVIVED'
+            oracle = 'selftest'
+            if status == 'SURVIVED':
+                base = battery_baseline(args.tool, args.work)
+                if base is not None:
+                    got = run_battery(path, args.tool, args.work, name)
+                    if got is not None and got != base:
+                        status = 'KILLED'
+                        oracle = 'battery99'
+                    else:
+                        oracle = 'selftest+battery99'
+            killed += status == 'KILLED'
+            survived += status == 'SURVIVED'
+            rows.append(f' {name} {status} matches={count} semantics={semantics} selftest_rc={rc} SELFTEST-PASS-line={passed} oracle={oracle}')
+    rows.append(f'MUTATION-SCORE: {killed}/{len(selected)} killed, {survived} survived, {broken} broken-pattern')
+    receipt = '\n'.join(rows) + '\n'
+    print(receipt, end='')
+    with open(os.path.join(args.work, 'mutation99-score.txt'), 'w', encoding='utf-8') as f:
+        f.write(receipt)
+    return 0 if killed == len(selected) and not survived and not broken else 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

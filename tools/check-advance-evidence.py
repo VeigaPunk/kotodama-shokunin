@@ -346,8 +346,13 @@ def _refuse_disguised(n, stripped):
     m = _dispo_match(plain)
     if m:
         verdict_raw = m.group(2)
-        if any(unicodedata.category(c)[0] == 'M' and ord(c) != 0x200c for c in verdict_raw):
-            raise Refused(f'line {n}: verdict token carries a combining mark (VERDICT-COMBINE)')
+        # Round-99 v11 (routed ReviewerO98b F2): the v10 Me extension of this
+        # check (category Mn widened to every M) is removed as unreachable.
+        # DISPO_RE and DISPO_ANY_RE reach the verdict through the literal
+        # alternatives NOT[ _-]?LOCATED|LOCATED, so group(2) is always one of
+        # four ASCII spellings and can carry no combining mark; the mark channel
+        # is the raw-line scan (_refuse_verdict_channel) and the NFKD recovery
+        # below. The Cf check stays for the same reason it was written.
         if any(unicodedata.category(c) == 'Cf' and ord(c) not in ZW_MAP for c in verdict_raw):
             raise Refused(f'line {n}: verdict token carries a format character (VERDICT-FORMAT)')
     # CD1/LR1 recovery: NFKD strips combining marks from the verdict
@@ -733,36 +738,37 @@ def grade_entry(args):
     phrases = [p.strip() for p in re.split(r'[;]', args.topic_phrases or '') if p.strip()]
     phrase_floor = getattr(args, 'min_topic_phrases', 0) or 0
     if phrases and phrase_floor > 0:
-        # Round-97 v9 (routed CriticO96 CM1/CMW2): combining marks (categories
-        # Mn/Me) in an h2 heading's numbering token or phrase words must not
-        # count toward anchoring - a mark-degraded heading is refused on TOPIC
-        # by name before any anchor is counted. Precomposed letters (Ll) are
-        # unaffected and ZWNJ U+200C (Cf) stays benign (round-96 ZWNJ1 control).
-        for _h in heads:
-            if any(unicodedata.category(_c)[0] == 'M' for _c in _h):
-                problems.append('h2 heading carries a combining mark (HEADING-COMBINING)')
-                break
+        # Round-97 v9 (routed CriticO96 CM1/CMW2), narrowed in round-99 v11
+        # (routed ReviewerO98b F4, CriticO98b OK-MCWORD/OK-DEVAHEAD, CriticO99
+        # EARLY, battery99 MCOK1/MCOK2/VISOK1/DEVAOK1): an h2 heading carrying a
+        # combining mark is refused on TOPIC by name only when the mark is a
+        # forgery. The rule, stated once in _heading_forged_mark() below: a mark
+        # must not change what the heading anchors. v10 refused every category M
+        # and so refused valid Indic, NFD Latin, IPA and Cyrillic headings.
+        # Precomposed letters (Ll) are unaffected and ZWNJ U+200C (Cf) stays
+        # benign (round-96 ZWNJ1 control). The v10 mark-presence test stays as
+        # the cheap pre-filter; the helper decides.
         # Round-98 v10 (routed CriticO97 ROMAN1/SUP1/FWPER1): a numbering token
         # built from non-ASCII numerals (category Nl/No, e.g. U+2160 roman,
         # superscript digits) or ending in a non-ASCII full stop (U+FF0E and
-        # similar) is a list mark, not heading content - a heading that would
-        # anchor only through it is refused on TOPIC by name. ROMANOK stays
+        # similar) is a list mark, not heading content, so _content_toks strips
+        # it and a phrase-only heading cannot reach the span floor; ROMANOK stays
         # clean (the token is stripped, the real heading words anchor).
+        # Round-99 v11 (routed ReviewerO98b F1): the v10 HEADING-NUMBER loop is
+        # removed. It fired only when every token after the first was also such a
+        # number, i.e. on a heading with no content token, which anchors nothing
+        # (head_anchors needs two raw tokens, head_span_anchors two content
+        # tokens): it added no protection and refused a valid bare numeral
+        # section heading (## Ⅳ. / ## 7．, battery99 NUMOK1/NUMOK2). ROMAN1,
+        # SUP1 and FWPER1 stay refused through the span leg below. The dead
+        # `any(... for p in [])` disjunct is gone; the two surviving arms accept
+        # exactly the tokens the v10 expression accepted (its first arm - every
+        # character a numeral, letter or full stop, with a non-ASCII numeral -
+        # was subsumed by the non-ASCII-numeral arm).
         def _nonascii_number(tok):
             core = tok.strip('\uFF0E\u3002\uFE52\uFF61.')
-            return bool(core) and all(unicodedata.category(c)[0] in ('N', 'L')
-                                      or c in '.\uFF0E\u3002\uFE52\uFF61' for c in core) and \
-                any(ord(c) > 127 and unicodedata.category(c)[0] == 'N' for c in core) or \
-                any(tok.endswith(p) and not tok.endswith('.') or tok[-1:] in '\uFF0E\u3002\uFE52\uFF61' for p in []) or \
-                (any(ord(c) > 127 and unicodedata.category(c)[0] == 'N' for c in tok)) or \
+            return any(ord(c) > 127 and unicodedata.category(c)[0] == 'N' for c in core) or \
                 (tok and tok[-1] in '\uFF0E\u3002\uFE52\uFF61' and any(c.isdigit() or unicodedata.category(c)[0] == 'N' for c in tok))
-        for _h in heads:
-            _toks = _h.lstrip('#').split()
-            if len(_toks) >= 1 and _nonascii_number(_toks[0]):
-                _rest = [t for t in _toks[1:] if not _nonascii_number(t)]
-                if len(_rest) < 1:
-                    problems.append('h2 heading numbering token is non-ASCII numerals or full stop (HEADING-NUMBER)')
-                    break
         # Round-93 v4 (routed R92-M7 A4a): a heading anchors only when it carries
         # at least two raw tokens after the marks, and a table line anchors only
         # when it is a data row below the |---| separator — the header row and
@@ -796,6 +802,58 @@ def grade_entry(args):
             # Round-95 v6 extends the strip to nested/roman/second-token numbers.
             toks = _content_toks(h)
             return len(toks) >= 2
+
+        def _heading_forged_mark(h):
+            """Round-99 v11 (routed ReviewerO98b F4, CriticO98b OK-MCWORD/
+            OK-DEVAHEAD, CriticO99 EARLY, battery99 MCOK1/MCOK2/VISOK1/DEVAOK1):
+            the combining mark that makes an h2 heading a forgery, or '' when
+            every mark in it is orthography.
+
+            The rule: a mark must not change what the heading anchors. When the
+            mark-free heading anchors differently - a different raw-token anchor
+            or a different content-token span anchor - the marks are
+            load-bearing and the heading is refused. That is exactly the forgery
+            family: a mark on a numbering token stops it being a list number
+            (battery97 CM1 `## 1<U+0301>. address`, and the same shape on a
+            roman numeral `## I<U+0301>. address`), and a mark on a list dash or
+            a lone mark token turns a list mark into a content token (CriticO99
+            `## 1. address —<U+093E>`). A script-neutral mark (name "COMBINING
+            ...") is also refused when the token it sits in, with its marks
+            removed, is exactly a declared phrase - a mark-degraded phrase word
+            (battery97 CMW2 `## addre<U+0301>ss address`). Marks that leave the
+            anchors unchanged are orthography: Indic vowel signs, virama and
+            visarga on their own bases, NFD Vietnamese, IPA, Cyrillic stress
+            marks, decomposed kana (battery99 MCOK1/MCOK2/VISOK1/DEVAOK1;
+            critic98 OK-MCWORD/OK-DEVAHEAD). v10 refused every category M and so
+            refused valid headings."""
+            plain = ''.join(_ch for _ch in unicodedata.normalize('NFKD', h)
+                            if unicodedata.category(_ch)[0] != 'M')
+            if (head_anchors(h), head_span_anchors(h)) != (head_anchors(plain), head_span_anchors(plain)):
+                return next(_c for _c in h if unicodedata.category(_c)[0] == 'M')
+            for i, c in enumerate(h):
+                if unicodedata.category(c)[0] != 'M':
+                    continue
+                if not unicodedata.name(c, '').startswith('COMBINING '):
+                    continue
+                lo = i
+                while lo > 0 and not h[lo - 1].isspace():
+                    lo -= 1
+                hi = i + 1
+                while hi < len(h) and not h[hi].isspace():
+                    hi += 1
+                bare = ''.join(_ch for _ch in unicodedata.normalize('NFKD', h[lo:hi])
+                               if unicodedata.category(_ch)[0] != 'M')
+                if any(norm(p) == norm(bare) for p in phrases):
+                    return c
+            return ''
+
+        for _h in heads:
+            if any(unicodedata.category(_c)[0] == 'M' for _c in _h):
+                _bad = _heading_forged_mark(_h)
+                if _bad:
+                    problems.append(f'h2 heading carries a combining mark U+{ord(_bad):04X} '
+                                    '(HEADING-COMBINING)')
+                    break
         qual_rows = []
         sep_seen = False
         for l in entry.splitlines():
@@ -1994,6 +2052,88 @@ def selftest(work):
                 .replace('## 4. Efficacy', '## \u2163. Efficacy')
                 .replace('## 5. Table', '## \u2164. Table'))
     chk('round-98 ROMANOK: roman numeral before heading words stays clean', ['entry'] + E(entry=_e), 0, ['PASS legs=9/9'])
+
+    # ------------------------------------------------ round-99 v11 pins (8)
+    # (round-98 closure routed defects 1-3: ReviewerO98b F4/F1/F2/F3. NFKDME1
+    #  pins the NFKD Me branch (F3); the six battery99 controls pin the narrowed
+    #  heading mark rule (F4) and the removed HEADING-NUMBER loop (F1); the
+    #  last pin keeps a mark on the numbering digit refused.)
+    _g99tail = ' recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: \u201canother old base row about dye plants\u201d\n'
+    _lf = write('lesson_g99NFKDME1.md', lesson_e_text + '- S001 L\u20ddOCATED' + _g99tail)
+    chk('round-99 NFKDME1: enclosing circle after the first letter refused', ['entry'] + E(lesson=_lf), 2,
+        ['VERDICT-COMBINE'])
+    for _c, _rep in [('MCOK1', ('## 4. Efficacy', '## 4. Efficacy \u2014 \u0930\u093e\u091c\u093e')),
+                     ('MCOK2', ('## 5. Table', '## 5. Table \u2014 \u0b28\u0b2e\u0b03')),
+                     ('VISOK1', ('## 1. The address', '## 1. The address \u2014 \u0928\u092e\u0903')),
+                     ('DEVAOK1', ('## 1. The address', '## 1. The address \u2014 \u0938\u094d\u0935\u093e\u0939\u093e'))]:
+        _e = os.path.join(root, f'corpus/knowledge/myth-symbol2/g99{_c.lower()}/prayer-register.md')
+        os.makedirs(os.path.dirname(_e), exist_ok=True)
+        with open(_e, 'w') as f:
+            f.write(good_body.replace(_rep[0], _rep[1]))
+        chk(f'round-99 {_c}: non-Latin script marks in an h2 heading stay clean', ['entry'] + E(entry=_e), 0,
+            ['PASS legs=9/9'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99numok1/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.rstrip('\n') + '\n\n## \u2163.\n\nA closing remark on the rite and its record.\n')
+    chk('round-99 NUMOK1: a bare roman-numeral h2 section heading stays clean', ['entry'] + E(entry=_e), 0,
+        ['PASS legs=9/9'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99numok2/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.rstrip('\n') + '\n\n## 7\uff0e\n\nA closing remark on the rite and its record.\n')
+    chk('round-99 NUMOK2: a bare digit + fullwidth full stop h2 section heading stays clean', ['entry'] + E(entry=_e), 0,
+        ['PASS legs=9/9'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99cmdigit/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## 1\u093e. address'))
+    chk('round-99 CM1-DEVANAGARI: a mark on the numbering digit stays refused', ['entry'] + E(entry=_e), 1,
+        ['FAIL TOPIC', 'HEADING-COMBINING'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99markdash/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## 1. address \u2014\u093e')
+                .replace('## 2. The petition', '## 2. petition \u2014\u093e')
+                .replace('## 3. Fixed and extempore', '## 3. efficacy \u2014\u093e')
+                .replace('## 4. Efficacy', '## 4. table \u2014\u093e')
+                .replace('## 5. Table', '## 5. Notes \u2014\u093e'))
+    chk('round-99 MARKDASH: a mark glued to a list dash stays refused', ['entry'] + E(entry=_e), 1,
+        ['FAIL TOPIC', 'HEADING-COMBINING'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99vietnfd/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 4. Efficacy', '## 4. Efficacy \u2014 tie\u0302\u0301ng Vie\u0302\u0323t'))
+    chk('round-99 VIETNFD: NFD Latin diacritics in an h2 heading stay clean', ['entry'] + E(entry=_e), 0,
+        ['PASS legs=9/9'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99romanmark/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## I\u0301. address')
+                .replace('## 2. The petition', '## II\u0301. petition')
+                .replace('## 3. Fixed and extempore', '## III\u0301. efficacy')
+                .replace('## 4. Efficacy', '## IV\u0301. table')
+                .replace('## 5. Table', '## V\u0301. Notes'))
+    chk('round-99 ROMANMARK: a mark on a roman-numeral numbering token stays refused', ['entry'] + E(entry=_e), 1,
+        ['FAIL TOPIC', 'HEADING-COMBINING'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99latmarkindic/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 4. Efficacy', '## 4. Efficacy \u2014 \u0930\u0301'))
+    chk('round-99 LATMARKINDIC: a mark that changes no anchor stays clean', ['entry'] + E(entry=_e), 0,
+        ['PASS legs=9/9'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99cyr/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 4. Efficacy', '## 4. Efficacy \u2014 \u0435\u0301'))
+    chk('round-99 CYR: a Cyrillic stress mark in an h2 heading stays clean', ['entry'] + E(entry=_e), 0,
+        ['PASS legs=9/9'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g99french/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 4. Efficacy', '## 4. Efficacy \u2014 pe\u0301titionnaire'))
+    chk('round-99 FRENCH: NFD French in an h2 heading stays clean', ['entry'] + E(entry=_e), 0,
+        ['PASS legs=9/9'])
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']
