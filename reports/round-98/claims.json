@@ -1,0 +1,57 @@
+{
+  "schema": "kotodama-round-98-claims-v1",
+  "lane": "kotodama",
+  "round": 98,
+  "attempt": 1,
+  "base": "bcf664aa089ddbd1fac85772ed22a38d1b454d23",
+  "counter": "reports/round-98/predispatch.py",
+  "counter_control": "reports/round-98/predispatch-base.txt (PREDISPATCH-98: FAIL legs=5/15 over the base tree; O4, C3, C4, C5 and C8 are guard legs that pass on base by construction). Forgery and positive controls, all run by the L1 before any seat ran and committed in the freeze commit: reports/round-98/controls/forgery-summary.txt and reports/round-98/controls/forgery/*.txt (F-O-SHA: v9 + one comment line -> O0 PASS, O1/O2/O5 FAIL; F-C-JUNK: padded entry + four junk rows + captures without the quote + in-place tier edit of S992 -> C1/C2/C6 PASS, C3 FAIL illegal=1, C7 FAIL quote-count=0; F-C-DUP: captures with the quote twice -> C7 FAIL quote-count=2; P-C-BOUND: captures with the quote once + a rule-2 status edit -> C3 PASS in-place=1, C7 PASS, C9 FAIL; F-C-REOPEN: url mismatch / count 2 -> C9 FAIL; P-C-REOPEN: well-formed attestation -> C9 PASS). Battery control reports/round-98/controls/battery98-control-v9.txt (survivors=5 unnamed=0 refused=31 clean=3 not-clean=0 over v9) and critic replay control reports/round-98/controls/critic97-on-v9.txt (CRITIC-O97 survivors=8).",
+  "predicate": "Claim O holds iff legs O0-O5 PASS and claim C holds iff legs C1-C9 PASS, each on one run of the frozen counter bytes over the landed lane tree with --base-rev bcf664aa089ddbd1fac85772ed22a38d1b454d23.",
+  "kill_rule": "A claim fails as declared when any of its legs fails at the lands measurement with this counter's frozen bytes. No leg list, floor, target, phrase, topic, driver name, pin path or receipt path may be amended after any scoring seat has run. A miss is an honest stop, never a re-target.",
+  "lowest_axis_note": "Freshness is the historically lowest non-retired axis. Freshness axis-move claims stay paused under the open L0 kotodama round-11 and round-89 questions (.ufo/l0-questions.md; no ANSWER). No claim in this round moves freshness. The lowest-axis obligation is neither met nor waived this round and the report says so. The AXES stagnation nudge is not invoked (no calibrated scores exist; SCORECARD Saturation section).",
+  "planner_mapping": "The canonical L2 planner seat is held by the L1 (the validator refuses planner as a swarm role). The bounded planning data-walk rides ScoutSurface98 and ConnectorOverlap98.",
+  "residual_honesty": "C7 binds evidence bytes but a fabricated capture passes it (P-C-BOUND). C9 is a non-author attestation leg written by ReviewerC98 from freshly fetched bytes; the closure re-opens a sample itself. The counter does not fetch the network.",
+  "claims": {
+    "O": {
+      "axis": "operability",
+      "type": "successor capability move (grader v9 -> v10)",
+      "closes": "CriticO97 v9 survivors (.ufo/waves/round-97/w1/stage/CriticO97/attacks.md; measured again this round, reports/round-98/controls/critic97-on-v9.txt: CRITIC-O97 survivors=8, of which five are forgeries with an unnamed PASS 9/9): DEL1 (U+007F in the verdict token), ENC1 (U+20DD enclosing mark, category Me, in the verdict token), ROMAN1 (U+2160-U+2164 as the heading numbering token), SUP1 (superscript digits as the numbering token), FWPER1 (fullwidth full stop U+FF0E after the digit). CYRH1, ZWSH1, BELH1 are benign clean-twin controls and must keep passing. Also round-97 closure routed defect 2: battery98, its pin and its v9 control receipt are committed in the freeze commit, before any v10 byte exists.",
+      "surface": "tools/check-advance-evidence.py grader refusal surface, v9 -> v10; battery98 (freeze-committed) and mutants98 drivers",
+      "before": "grader v9, sha256 1021dc9db778042d8049920292d96930f31481e77bce2b36f577ea2d88b5717b (bcf664aa). SELFTEST PASS 155/155 (measured, predispatch-base.txt O1). battery98 over v9: survivors=5 unnamed=0 refused=31 traceback=0 clean=3 not-clean=0 (measured, battery98-control-v9.txt). critic97 replay over v9: survivors=8 unnamed=0 refused=17 traceback=0 (measured).",
+      "after": "grader v10, sha256 != v9: SELFTEST PASS N/N with N >= 160 rc 0; battery98 survivors=0 unnamed=0 refused=36 traceback=0 clean=3 not-clean=0, battery98 sha == pin == control-receipt sha; mutation98 killed == total >= 126, 0 survived, 0 broken-pattern, mutants98 sha == pin == first-measurement receipt; all 34 reg-v5 REG lines verbatim; critic97 replay: the five named forgeries REFUSED-NAMED, the three benign controls rc 0, unnamed=0 traceback=0",
+      "legs": {
+        "O0": "tool sha256 differs from v9",
+        "O1": "selftest rc 0, SELFTEST PASS N/N, N >= 160",
+        "O2": "battery98 0/0/36/0/3/0; driver sha == pin == control receipt; receipt shows 5/0/31/3/0 over v9",
+        "O3": "mutation98 killed == total >= 126, 0 survived, 0 broken-pattern; driver sha == pin == first receipt",
+        "O4": "REG lines of reg-v5 all present verbatim in battery98 REG output",
+        "O5": "critic97 replay (pinned driver and battery97): DEL1 ENC1 ROMAN1 SUP1 FWPER1 REFUSED-NAMED; CYRH1 ZWSH1 BELH1 rc 0; unnamed 0; traceback 0"
+      }
+    },
+    "C": {
+      "axis": "coverage",
+      "type": "sourced frontier -> core entry (surface: toasts and drinking-speech formulae; no knowledge file mentions toast, wassail, bragafull, toastmaster or health-drinking anywhere at base, and no topic-line or heading owner of the six frozen phrases, measured by C8 owners=0 in predispatch-base.txt)",
+      "surface": "corpus/knowledge/linguistics/toast-drinking-speech-formulae.md (new file) plus registry rows S994 upward",
+      "before": "no entry at corpus/knowledge/linguistics/toast-drinking-speech-formulae.md; registry rows = 917, highest S993, qualifying new rows = 0; `grep -rliE 'toast|wassail|bragaf|toastmaster|health-drink' corpus/knowledge` lists 0 files at base; `libation` occurs in 4 files in prose or table cells only (ainu.md:109, funerary-material-culture.md, vessel-container-lexicon.md:5 and :36)",
+      "after": "entry >= 12000 B, >= 6 h2, a table >= 5 data rows x >= 3 cols, >= 4 of the six frozen phrases in h2 headings or table data rows, the frozen topic line byte-equal; registry rows >= 921, highest >= S997, >= 4 new tier A|B mined rows opened 2026-11-05 or 2026-11-06 with used-by exactly the entry path; census rc 0; index rc 0; registry changes only by append or rule-2 in-place status/recheck/used-by edits; every qualifying id cited in the entry and bound in reports/round-98/evidence/manifest.json (capture sha256 match, quote 1..25 words occurring once in the named quote_capture, quote inside the row's anchor cell); content sweep 0 other owners; >= 3 qualifying ids re-opened by ReviewerC98 with count 1 on fresh bytes",
+      "frozen_topic": "toasts and drinking-speech formulae: the toast as a speech act over a shared cup — health-drinking, libation and the pledge; the toastmaster's office and the order of a toast sequence; the drinking oath and the boast-cup; refusal, reciprocity and the penalty cup; and the design procedure for a fictional drinking rite whose words stay tied to its hosts, guests, cups and occasions",
+      "frozen_phrases": ["toast formula", "health-drinking", "toastmaster", "libation", "toast sequence", "drinking oath"],
+      "legs": {
+        "C1": "entry size, h2, table shape, phrases and topic line",
+        "C2": "registry rows, highest id, qualifying new rows",
+        "C3": "append-only per CORPUS rule 2 (only status/recheck/used-by change in place)",
+        "C4": "census rc 0",
+        "C5": "index rc 0",
+        "C6": "qualifying ids cited in entry",
+        "C7": "manifest-bound evidence: capture sha, quote count 1 in named capture, quote in anchor",
+        "C8": "content sweep: 0 other topic/heading owners",
+        "C9": "non-author re-open: >= 3 qualifying ids, http 200, count 1 on fresh bytes"
+      }
+    }
+  },
+  "frontier_step": {
+    "sourced_claim": "Claim C rests on registry rows opened this round (S994 upward); the entry cites them by id.",
+    "mistake": "Round-97 pin timing: battery97, its pin and its v8 control receipt landed in the round commit, not the freeze, so control-before-candidate order rested on seat mtimes (round-97 closure observation and routed defect 2). Class: control-order evidence by mtime. Captured-by: none (O2 bound sha equality, not commit order). Fix: battery98 + pin + v9 receipt committed in the freeze commit; shown able to fail: the counter's O2 fails on the F-O-SHA fixture and the receipt names TOOL-SHA256 = v9.",
+    "routed_r97": "Closure defects: 1 S992 tier A->B (supersede row per CORPUS rule 2, ExecRegistry98; S992 status mined->queued and used-by -> '—' in place, logged in the lesson; entry citations re-pointed); 2 pin timing (this freeze commit); 3 gate-table hash column names its capture file (lesson Gate table column `capture file`; C7 quote_capture); 4 counting command for manifest fields stated (C7 detail); 5 CriticO97 survivors (claim O) and the sentence-support sweep of the round-96 oath entry (ReviewerOath98, outside claim counts)."
+  }
+}
