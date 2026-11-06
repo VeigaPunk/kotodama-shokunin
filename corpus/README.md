@@ -362,7 +362,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (42)
+## linguistics/ (43)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -399,6 +399,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `speech-surrogates-whistled-drummed.md` — speech surrogates as a conlang and worldbuilding method — whistled speech in non-tonal and tonal languages, drummed speech (slit gongs, log drums, membrane talking drums), horn, reed-pipe, jaw-harp and xylophone speech, and the boundary with signal codes; what each channel keeps and drops, how ambiguity is repaired with stock phrases, the ecology that favours a surrogate, who may use the channel, and the calibration traps (a separate language, the bush telegraph, tonal-only whistling)
 - `syntax-typology.md` — word-order typology (Greenberg universals; the six basic orders), alignment systems (nominative-accusative, ergative-absolutive, split, direct-inverse, Austronesian/Philippine symmetrical voice), relative-clause and embedding strategies, and the cultural signals carried by grammar (evidentials, honorifics, discourse structure, contact) — plus which popular frameworks are contested or discredited. Reference and method only: canon decisions belong to lore-shokunin.
 - `taboo-strata-lifecycle.md` — the lexical-diachronic lifecycle of a forbidden word as a **form-history**: the inventory of form-building operations a taboo substitution can be minted with (mincing, compound circumlocution and its univerbation, semantic shift, borrowing, graphic substitution, reading substitution, understatement, clipping/initialism); the word-level lifecycle states (plain → charged → substituted → fossil or live rung → replaced or reanalyzed) as a branching state graph, never a universal ladder; and the **read-off** — the procedure for ordering the strata a taboo deposits in a lexicon against each other and against the language's other dated strata, using four bracketing tests (sound-law bracketing, loan bracketing, legal/orthographic bracketing, semantic-chain bracketing), the false-fossil exclusion checklist, and negative strata. Method and lane policy only; canon decisions belong to lore-shokunin.
+- `toast-drinking-speech-formulae.md` — toasts and drinking-speech formulae: the toast as a speech act over a shared cup — health-drinking, libation and the pledge; the toastmaster's office and the order of a toast sequence; the drinking oath and the boast-cup; refusal, reciprocity and the penalty cup; and the design procedure for a fictional drinking rite whose words stay tied to its hosts, guests, cups and occasions
 - `toponymy-place-names.md` — place names (toponyms) as a linguistic-cultural design system: what a place name is built from (generic and specific elements, feature words, suffix position), how names stratify by language layer and survive the languages that coined them, why river-names are treated as the deepest layer and how far that holds, endonyms, half-translations and outsider respellings, who standardises names and by which principles (local usage, Indigenous-first priority, duplicate avoidance, settlement-locked names, derogatory-name removal, heritage criteria), renaming as politics and as restoration, romanization by donor-country proposal, street names under council policy, and folk etymology kept at its measured rarity.
 - `translation-protocol-fidelity.md` — The linguistics of **glossing and translation commentary as cultural practice**, and the fidelity criteria a built packet's translation apparatus is audited against. Supplies: the three objects a reader of a rendered text meets (the lexicographic gloss, the apparatus translation note, the equivalence claim) and why they must not be merged; the anatomy of a translation note (its provenance type, its skeleton fields, its anchor, its one dominant job); the assert/license split — what a gloss states, what it licenses a reader to infer, and the laundering classes that collapse the two; thick translation (Appiah) as the reference frame and paratext layers (Genette) as the carriers — preface, glossary, footnote, interlinear, tooltip; domestication vs foreignization (Venuti) as a declared design axis rather than a fidelity binary; the interpreter/mediator as a register office and power class; and the ten fidelity criteria (note-presence, context-field completeness, assertion licensing, translation-vs-original separation, apparatus attribution, mediation recording, era-of-rendering, register equivalence, name-first conformance, skip-test survival) that a fidelity check reads against the packet's own declared protocol. Reference and method only; canon decisions belong to lore-shokunin.
 - `verbal-duelling-ritual-insult.md` — verbal duelling and ritual insult: contests fought in words — flyting, senna, song duels and boasting matches; the formula grammar of boast, taunt and riposte; the audience that adjudicates; the rules that keep an insult ritual rather than real; and the design procedure for a fictional word-contest whose stakes stay tied to its contestants, judges and occasions
@@ -1089,3 +1090,26 @@ Total knowledge entries: 269.
 Counts checked 2026-11-05 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
 (total 269 files; directory totals 42/36/43/29/24/95).
+
+## Round 98 toast and drinking-speech entry (2026-11-05)
+
+`knowledge/linguistics/toast-drinking-speech-formulae.md` adds a dedicated entry on
+toasts and drinking-speech formulae: the toast as a speech act over a shared cup —
+health-drinking, libation and the pledge; the toastmaster's office and the order of a
+toast sequence; the drinking oath and the boast-cup; refusal, reciprocity and the
+penalty cup; and the design procedure for a fictional drinking rite whose words stay
+tied to its hosts, guests, cups and occasions. Its row is added in filename order inside
+`## linguistics/`; `## linguistics/` moved 42 → **43**; the totals and
+footer moved 269 → **270**.
+
+Sources S994-S1004 were opened this round (tier A 6, B 5, status mined). S994's teaches
+cell carried a word no capture grounds, so S1006 supersedes it (S994 status mined → queued,
+used-by → —). The round-97 row S992 is superseded by S1005 (tier A → B; S992 status
+mined → queued, used-by → —); its entry citations point to S1005. No other registry row is
+re-verified, re-dated or repaired. Freshness stays paused by the open L0 questions.
+
+Total knowledge entries: 270.
+
+Counts checked 2026-11-05 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 270 files; directory totals 43/36/43/29/24/95).

@@ -1,0 +1,71 @@
+SELF-CHECK ScribeEntry98 — round 98 claim C entry (self-check of the landed bytes)
+entry: corpus/knowledge/linguistics/toast-drinking-speech-formulae.md
+entry sha256: 0724a044fa33a50bf69c021600561b7e40e067b9cf8bf09bcd774cfa16d9d4cf
+readme sha256: 4bea0f5c44f2bb7ae73ce5cc0db792967a8aaea4524b724e260be28aa7a13640
+registry sha256: 5a9447e9bf7d86f16bb3f23822544e5d50239a2c430ced701feb990b59829f0b
+manifest sha256: c69baf9ffe0298db1775917f2041ebeec54f5134740a46dfc9e1e3cc8ea6813d
+
+[C1 entry shape]
+bytes=47370 (floor 12000) -> PASS
+h2=13 (floor 6) -> PASS
+table=7 data rows x 5 cols (floor 5x3) -> PASS
+frozen phrases in h2 headings or table data rows=6/6 (floor 4) -> PASS
+  hits=['toast formula', 'health-drinking', 'toastmaster', 'libation', 'toast sequence', 'drinking oath']
+topic line byte-equal to frozen topic -> PASS
+  h2 headings:
+    ## 1. Scope: the drinking rite this entry owns, and the things it defers
+    ## 2. The toast formula: a speech act that needs a cup and a company
+    ## 3. Health-drinking: the cup as the vehicle of a wished state
+    ## 4. Libation and the pledge: the god's share and the promise made wet
+    ## 5. The toastmaster's office and the order of a toast sequence
+    ## 6. The drinking oath and the boast-cup
+    ## 7. Refusal, reciprocity and the penalty cup
+    ## 8. The stages of a toast sequence
+    ## 9. Decision procedure: a fictional drinking rite whose words stay tied to its hosts, guests, cups and occasions
+    ## 10. Error patterns: drinking rites that fail as speech acts
+    ## 11. Checklist
+    ## 12. What the sources reach, and what is handed to the world bible
+    ## 13. Inference ledger
+
+[C6 cited ids / C7 evidence binding]
+registry rows=929 highest=S1005 new(>S993)=12 qualifying(used-by=this entry)=11
+qualifying ids: ['S994', 'S995', 'S996', 'S997', 'S998', 'S999', 'S1000', 'S1001', 'S1002', 'S1003', 'S1004']
+ids cited in entry text: ['S994', 'S995', 'S996', 'S997', 'S998', 'S999', 'S1000', 'S1001', 'S1002', 'S1003', 'S1004']
+qualifying uncited: []
+entry cites ids absent from the registry: []
+manifest objects=12
+  S994: words=11 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S994.txt -> PASS
+  S995: words=17 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S995.txt -> PASS
+  S996: words=13 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S996.txt -> PASS
+  S997: words=9 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S997.txt -> PASS
+  S998: words=6 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S998.txt -> PASS
+  S999: words=10 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S999.txt -> PASS
+  S1000: words=14 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S1000.txt -> PASS
+  S1001: words=23 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S1001.txt -> PASS
+  S1002: words=8 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S1002.txt -> PASS
+  S1003: words=14 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S1003.txt -> PASS
+  S1004: words=20 count_in_capture=1 quote_in_anchor_cell=True captures_sha_ok=True quote_capture=S1004.txt -> PASS
+C7-shaped binding over the 11 qualifying ids -> PASS
+
+[body quotes: every double-quoted fragment in the entry body, counted in its capture]
+body quoted fragments=5 unmatched in any capture=0 []
+
+[C8 content sweep: other knowledge files owning a frozen phrase on a topic line or heading]
+files scanned=270 other owners=0 [] -> PASS
+
+[8-gram overlap with neighbour entries]
+entry 8-grams total=8180 (round-97 entry: 6181)
+  linguistics/verbal-duelling-ritual-insult.md: shared 8-grams=11
+  linguistics/oath-blessing-curse-formulae.md: shared 8-grams=6
+  myth-symbol/guest-right-hospitality-law.md: shared 8-grams=0
+
+[cited-line lint shapes (QUALITY criterion 15)]
+MULTI-ID lines=0 TABLE-ID lines=0
+
+[commands run from the repo root /home/vgpnk/Projects/shokunin/kotodama-shokunin]
+$ python3 -B tools/check-corpus-index.py --root .
+  rc= 0 | stdout: CORPUS-INDEX: OK files=270 rows=270 findings=0 | stderr: 
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file corpus/SOURCES.md
+  rc= 0 | stdout: file	ok	/home/vgpnk/Projects/shokunin/kotodama-shokunin/corpus/SOURCES.md | stderr: 
+$ python3 -B tools/check-cited-lines.py corpus/knowledge/linguistics/toast-drinking-speech-formulae.md
+  rc= 0 | stdout: CITED-LINES: 0 finding(s) in 1 file(s) | stderr: 

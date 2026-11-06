@@ -2331,3 +2331,33 @@ Retirements and saturation: none.
 (1) CriticO97 v9 survivors (`.ufo/waves/round-97/w1/stage/CriticO97/attacks.md`): ENC1 (U+20DD enclosing mark in a verdict,
 unnamed pass), DEL1 (U+007F), non-ASCII heading numbering (ROMAN1, SUP1, FWPER1); (2) a sentence-support table for the
 round-96 oath entry (R97-M2 class sweep); (3) freshness remains paused until L0 answers.
+
+## Axes — round 98 (2026-11-06; author-side verdicts, non-author closure pending)
+
+Base `bcf664aa089ddbd1fac85772ed22a38d1b454d23`; freeze `db88f107606aae90efe01344551c7e1ea71cd419`
+(`reports/round-98/claims.json`, counter `reports/round-98/predispatch.py`, control `reports/round-98/predispatch-base.txt`
+FAIL legs=5/15, forgery/positive controls `reports/round-98/controls/forgery-summary.txt`); landed tree measured at the
+round-98 landing commit: `reports/round-98/predispatch-lands.txt`.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | frozen predicate met (O0–O5 PASS; ReviewerO98b PASS 15/15 independently) with two non-author over-refusal findings (F1, F4) routed — admission is the closure's ruling | grader v9 `1021dc9d…`: battery98 survivors=5 refused=31, SELFTEST 155/155, critic97 survivors=8 → grader v10 `d35b13c9…`: battery98 0/0/36/0/3/0, SELFTEST 161/161, mutation98 128/128 at first measurement; v10 refuses an Mc-marked h2 heading and a bare non-ASCII-numeral h2 that v9 passed (lane exposure 0/3010 h2) | `python3 -B reports/round-98/predispatch.py --root . --work <scratch> --base-rev bcf664aa089ddbd1fac85772ed22a38d1b454d23` (O0–O5) | `reports/round-98/predispatch-lands.txt`; `.ufo/waves/round-98/w2/ReviewerO98b.md` F1/F4 |
+| coverage / C | improved (claim C, frozen predicate met: C1–C9 PASS) | no topic or heading owner of the six frozen phrases at base (C8 owners=0) → `corpus/knowledge/linguistics/toast-drinking-speech-formulae.md` (47760 B, 13 h2, table 7×5, 6/6 phrases, topic equal); registry 917 → 930 rows (S994–S1004 + S1006 qualifying 11; S1005 supersedes S992), removed 1 line = S992 in-place status/used-by | same command (C1–C9) | `reports/round-98/predispatch-lands.txt`; `reports/round-98/evidence/manifest.json` |
+| depth / D | unchanged (observation) | oath entry: 8 of 11 defective sentences repaired from the round-96 captures (ReviewerOath98); not a claim | — | lesson R98-M4 |
+| freshness | unchanged | paused by open L0 round-11 and round-89 questions; not met, not waived | — | `.ufo/l0-questions.md` |
+| calibration / discernment | unchanged (observation) | Gate-table capture-file checker (R98-M1) shown able to fail (round-97 lesson 9 findings) and passing round 98 (0 of 13); QUALITY criterion 40 | — | `reports/round-98/gate-captures-lands.txt`; `corpus/QUALITY.md` 40 |
+
+Retirements and saturation: none. Stagnation nudge not invoked.
+
+## Capabilities — round 98 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| grader v10 verdict-control and numbering refusals | Refuses by name U+007F in a verdict token (`VERDICT-CTRL`), enclosing/combining marks in a verdict token (`VERDICT-COMBINE`, naming the codepoint), and non-ASCII numbering tokens / fullwidth stops in h2 heads (`FAIL TOPIC`) | `python3 -B tools/check-advance-evidence.py --selftest --work <dir>` → `SELFTEST PASS 161/161`; battery98 0/0/36/0/3/0 | round 98 |
+| Gate capture-file checker | Names each Gate row whose sha256 lacks, misnames or mismatches its capture file | `python3 -B tools/check-gate-captures.py <lesson> <evidence-dir>`; `--selftest --work <dir>` → `SELFTEST PASS 13/13` | round 98 |
+
+## Planned — round 99 (routed; not frozen)
+
+(1) v10 over-refusals F1/F4 with benign selftest twins (`corpus/lessons/round-98.md` Routed to round 99); (2) CriticO98b's
+24 survivors (verdict-window whitelist, list-mark stripping); (3) oath entry weak lines L49/L51/L53; (4) freshness remains
+paused until L0 answers.

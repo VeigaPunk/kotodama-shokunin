@@ -315,9 +315,12 @@ def _refuse_verdict_channel(n, line):
             o = ord(c)
             if o in (0x09, 0x0b, 0x0c, 0x1b, 0x1c, 0x1d, 0x1e, 0x85, 0x20) or c == '\u00a0':
                 continue
-            if o < 0x20:
+            if unicodedata.category(c) == 'Cc':
                 raise Refused(f'line {n}: verdict token carries control character '
                               f'U+{o:04X} (VERDICT-CTRL)')
+            if unicodedata.category(c)[0] == 'M' and o != 0x200c:
+                raise Refused(f'line {n}: verdict token carries a combining mark '
+                              f'U+{o:04X} (VERDICT-COMBINE)')
             if unicodedata.category(c) == 'Zs':
                 raise Refused(f'line {n}: verdict token carries space separator '
                               f'U+{o:04X} (VERDICT-SEPARATOR)')
@@ -343,7 +346,7 @@ def _refuse_disguised(n, stripped):
     m = _dispo_match(plain)
     if m:
         verdict_raw = m.group(2)
-        if any(unicodedata.category(c) == 'Mn' for c in verdict_raw):
+        if any(unicodedata.category(c)[0] == 'M' and ord(c) != 0x200c for c in verdict_raw):
             raise Refused(f'line {n}: verdict token carries a combining mark (VERDICT-COMBINE)')
         if any(unicodedata.category(c) == 'Cf' and ord(c) not in ZW_MAP for c in verdict_raw):
             raise Refused(f'line {n}: verdict token carries a format character (VERDICT-FORMAT)')
@@ -352,7 +355,7 @@ def _refuse_disguised(n, stripped):
     # recovered spelling matches but the plain spelling does not, the line
     # is a disguised disposition, refused on its named channel.
     nfkd = unicodedata.normalize('NFKD', stripped)
-    nfkd_nomark = ''.join(c for c in nfkd if unicodedata.category(c) != 'Mn')
+    nfkd_nomark = ''.join(c for c in nfkd if unicodedata.category(c)[0] != 'M')
     if _dispo_match(nfkd_nomark.replace('|', ' ').replace('*', ' ').replace('_', ' ')) and not m:
         raise Refused(f'line {n}: verdict token carries a combining mark (VERDICT-COMBINE)')
     nocf = ''.join(c for c in stripped if not (unicodedata.category(c) == 'Cf' and ord(c) not in ZW_MAP))
@@ -736,9 +739,30 @@ def grade_entry(args):
         # by name before any anchor is counted. Precomposed letters (Ll) are
         # unaffected and ZWNJ U+200C (Cf) stays benign (round-96 ZWNJ1 control).
         for _h in heads:
-            if any(unicodedata.category(_c) in ('Mn', 'Me') for _c in _h):
+            if any(unicodedata.category(_c)[0] == 'M' for _c in _h):
                 problems.append('h2 heading carries a combining mark (HEADING-COMBINING)')
                 break
+        # Round-98 v10 (routed CriticO97 ROMAN1/SUP1/FWPER1): a numbering token
+        # built from non-ASCII numerals (category Nl/No, e.g. U+2160 roman,
+        # superscript digits) or ending in a non-ASCII full stop (U+FF0E and
+        # similar) is a list mark, not heading content - a heading that would
+        # anchor only through it is refused on TOPIC by name. ROMANOK stays
+        # clean (the token is stripped, the real heading words anchor).
+        def _nonascii_number(tok):
+            core = tok.strip('\uFF0E\u3002\uFE52\uFF61.')
+            return bool(core) and all(unicodedata.category(c)[0] in ('N', 'L')
+                                      or c in '.\uFF0E\u3002\uFE52\uFF61' for c in core) and \
+                any(ord(c) > 127 and unicodedata.category(c)[0] == 'N' for c in core) or \
+                any(tok.endswith(p) and not tok.endswith('.') or tok[-1:] in '\uFF0E\u3002\uFE52\uFF61' for p in []) or \
+                (any(ord(c) > 127 and unicodedata.category(c)[0] == 'N' for c in tok)) or \
+                (tok and tok[-1] in '\uFF0E\u3002\uFE52\uFF61' and any(c.isdigit() or unicodedata.category(c)[0] == 'N' for c in tok))
+        for _h in heads:
+            _toks = _h.lstrip('#').split()
+            if len(_toks) >= 1 and _nonascii_number(_toks[0]):
+                _rest = [t for t in _toks[1:] if not _nonascii_number(t)]
+                if len(_rest) < 1:
+                    problems.append('h2 heading numbering token is non-ASCII numerals or full stop (HEADING-NUMBER)')
+                    break
         # Round-93 v4 (routed R92-M7 A4a): a heading anchors only when it carries
         # at least two raw tokens after the marks, and a table line anchors only
         # when it is a data row below the |---| separator — the header row and
@@ -755,7 +779,7 @@ def grade_entry(args):
             # "(1)" and a separator dash "-" are list marks, not content.
             _NUM2 = re.compile(r'^(\d+[.)]?|\d+\.\d+[.)]?|[IVXLCDM]+[.)]?|[ivxlcdm]+[.)]?|\(?\d+[.)]?\)?|[\u2010-\u2015-]+)$')
             def isnum(t):
-                return bool(_NUM2.match(t))
+                return bool(_NUM2.match(t)) or _nonascii_number(t)
             if len(raw) >= 3 and isnum(raw[1]):
                 raw = raw[2:]
             toks = [t for t in raw if not isnum(t)]
@@ -1944,6 +1968,32 @@ def selftest(work):
     lesson_cronly = write('lesson_g97CRonly.md', lesson_e_text.replace('\n', '\r'))
     chk('round-97 CR-only line breaks do not sever or hide dispositions', ['entry'] + E(lesson=lesson_cronly),
         0, ['PASS legs=9/9'])
+    _g98tail = ' recheck moved \u2014 https://example.org/other2 accessed 2026-11-04: \u201canother old base row about dye plants\u201d\n'
+    for _c, _tokv, _tokname, _cp in [('DEL1', 'LOCA\u007fTED', 'VERDICT-CTRL', 'U+007F'),
+                                     ('ENC1', 'LOCA\u20ddTED', 'VERDICT-COMBINE', 'U+20DD')]:
+        _lf = write(f'lesson_g98{_c}.md', lesson_e_text + f'- S001 {_tokv}' + _g98tail)
+        chk(f'round-98 {_c}: token carries the codepoint refused', ['entry'] + E(lesson=_lf), 2, [_tokname, _cp])
+    for _c, _rad in [('ROMAN1', ['\u2160.', '\u2161.', '\u2162.', '\u2163.', '\u2164.']),
+                     ('SUP1', ['\u00b9.', '\u00b2.', '\u00b3.', '\u2074.', '\u2075.']),
+                     ('FWPER1', ['1\uff0e', '2\uff0e', '3\uff0e', '4\uff0e', '5\uff0e'])]:
+        _e = os.path.join(root, f'corpus/knowledge/myth-symbol2/g98{_c.lower()}/prayer-register.md')
+        os.makedirs(os.path.dirname(_e), exist_ok=True)
+        with open(_e, 'w') as f:
+            f.write(good_body.replace('## 1. The address', f'## {_rad[0]} address')
+                    .replace('## 2. The petition', f'## {_rad[1]} petition')
+                    .replace('## 3. Fixed and extempore', f'## {_rad[2]} efficacy')
+                    .replace('## 4. Efficacy', f'## {_rad[3]} table')
+                    .replace('## 5. Table', f'## {_rad[4]} Notes'))
+        chk(f'round-98 {_c}: non-ASCII numbering token refused', ['entry'] + E(entry=_e), 1, ['FAIL TOPIC'])
+    _e = os.path.join(root, 'corpus/knowledge/myth-symbol2/g98romanok/prayer-register.md')
+    os.makedirs(os.path.dirname(_e), exist_ok=True)
+    with open(_e, 'w') as f:
+        f.write(good_body.replace('## 1. The address', '## \u2160. The address')
+                .replace('## 2. The petition', '## \u2161. The petition')
+                .replace('## 3. Fixed and extempore', '## \u2162. Fixed and extempore')
+                .replace('## 4. Efficacy', '## \u2163. Efficacy')
+                .replace('## 5. Table', '## \u2164. Table'))
+    chk('round-98 ROMANOK: roman numeral before heading words stays clean', ['entry'] + E(entry=_e), 0, ['PASS legs=9/9'])
 
     bad = [(n, got) for n, ok, rc, got, tail in checks if not ok]
     lines = [f'SELFTEST {"PASS" if not bad else "FAIL"} {len(checks) - len(bad)}/{len(checks)}']

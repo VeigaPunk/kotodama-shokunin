@@ -44,7 +44,7 @@ The oath frame in this material is built around the self-curse, and the source s
 
 The Icelandic material gives the oath as a fixed utterance whose wording is prescribed, and the source quotes the words as "at ek vinn eið at bauga, lögeið" (S976).
 
-The oath form in this material is fixed enough to be quoted in a later text as the archetype of the genre, and the source gives the opening as "ἴστω νῦν Ζεὺς πρῶτα θεῶν ὕπατος καὶ ἄριστος" (S977).
+In this material the oath opens by calling the gods to witness against perjury — Zeus first, then Earth, Sun and the Erinyes who punish whoever swears falsely — and the source gives the opening as "ἴστω νῦν Ζεὺς πρῶτα θεῶν ὕπατος καὶ ἄριστος" (S977).
 
 The oath form in this material is defined by what it takes with it — the curse is part of the binding — and the source states that "curse-enhanced oaths or vows lie behind the notion of the geis" (S978).
 
@@ -79,7 +79,7 @@ A **curse formula** differs from an oath formula in two ways the grammar records
 
 The curse in this material is not a decoration on the oath but the instrument that makes it hold, and the source puts it as "the ultimate goal of all these self-curses is, of course, to strike fear into those who swear the oath" (S975).
 
-The prohibition in this material is not a rule with an attached penalty but a rule whose breach is itself the sanction, and the source describes the relation as "curse-enhanced oaths or vows lie behind the notion of the geis" (S978).
+The prohibition in this material behaves like a conditional curse, a sanction that falls on whoever breaks a bound undertaking, and the source reports Mees reading geasa as "sharing characteristics with curses of the conditional type" (S978).
 
 The Irish material in this set treats the curse as a composed genre with formal requirements the performer must meet, and the source counts them as "the seven requirements which compose any satire (cach n-aír) are" (S979).
 
@@ -89,11 +89,11 @@ The design point the curse formula makes sharp is the **cause grammar**. A curse
 
 The **witness invocation** names the addressee who is called to hear and who is thereby made responsible for the act. It is the slot that decides whether the utterance has anyone behind it.
 
-The witness invocation in this material is a naming act rather than an address, and the source quotes the formula as "at ek vinn eið at bauga, lögeið" (S976).
+The witness invocation in this material names the witnesses first and then addresses named powers: the swearer says "Nefni ek í þat vætti" and closes "hjálpi mér svá Freyr ok Njǫrðr ok hinn almáttki áss" (S976).
 
 The Homeric material shows the witness invocation as an address to a named power at the head of the oath, and the source quotes it as "ἴστω νῦν Ζεὺς πρῶτα θεῶν ὕπατος καὶ ἄριστος" (S977).
 
-The addressee and the occasion are fixed by the text itself in this tradition, which is why the source can count the sections of a given formula: "divides the Great Purification Norito found in Fascicle 8 of the Engishiki into 10 sections" (S981).
+In this tradition a fixed formula is long and sectioned enough to carry a commentary tradition: one commentary "divides the Great Purification Norito found in Fascicle 8 of the Engishiki into 10 sections" (S981).
 
 The Cross River material pairs the witness invocation directly with the enforcement clause, so that the two are one construction, and the source gives the pair as "to witness their truthfulness and punish them if they lied" (S982).
 
@@ -115,15 +115,13 @@ The fifth class is where the design breaks most often, and §9 gives the test.
 
 The **sanction clause** names the consequence and the condition under which it applies, and it is the slot that decides whether the utterance is a contract, a threat or a prayer.
 
-The sanction clause in this tradition is aimed at the community rather than at the hearer, and the source describes the self-curse as a public instrument: "the ultimate goal of all these self-curses is, of course, to strike fear into those who swear the oath" (S975).
+The sanction clause in this tradition is aimed at the swearers themselves, and the source sums up the self-curse rituals of international agreements: "the ultimate goal of all these self-curses is, of course, to strike fear into those who swear the oath" (S975).
 
-The sanction in this material is a matter of whether the target has the required status, and the source states the requirement as "the seven requirements which compose any satire (cach n-aír) are" (S979).
-
-The sanction clause in the same account is read as part of the performative content rather than as an appended condition, so the class it belongs to is the one it "a ritual, spell, curse, charm, incantation, blessing, hymn, or mantra" (S980).
+The sanction in this material is a composed performance with stated conditions of place, time and delivery (a shaded spot, phases of the moon, recitation and magical wounding), and the source introduces them as "the seven requirements which compose any satire (cach n-aír) are" (S979).
 
 The sanction clause in this material is what the witness is called for, and the source states the pairing as "to witness their truthfulness and punish them if they lied" (S982).
 
-The sanction clause in this material is the clause the witness is invoked to enforce, and the source ties the two together as "Moses in Deuteronomy draws on formulations found in ancient Near Eastern treaties" (S984).
+The witness clause in this material is inherited treaty form rather than a practical need for enforcement: the source notes "Unlike human kings, YHWH does not need witnesses and enforcers", and that "Moses in Deuteronomy draws on formulations found in ancient Near Eastern treaties" (S984).
 
 Its grammatical options are a closed set, and the choice between them is a design decision with social consequences (design, not sourced):
 

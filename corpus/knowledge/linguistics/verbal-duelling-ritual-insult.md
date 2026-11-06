@@ -9,7 +9,7 @@
   - S989
   - S990
   - S991
-  - S992
+  - S1005
 - verified-at: 2026-11-05
 - recheck: 180d
 - topic: verbal duelling and ritual insult: contests fought in words — flyting, senna, song duels and boasting matches; the formula grammar of boast, taunt and riposte; the audience that adjudicates; the rules that keep an insult ritual rather than real; and the design procedure for a fictional word-contest whose stakes stay tied to its contestants, judges and occasions
@@ -67,7 +67,7 @@ The genre has a purpose that the scholarship on it states directly, and the stat
 
 The Norse senna is the same act inside a feast rather than on a stage. The account of the poem that this entry opens says of it: "The exchange or contest of insults was dear to the" (S987) Norse heart. The poem's own frame — Loki enters the hall, the company falls silent, he asks for a place and a seat at the feast and is answered, and the exchange of insults follows — is the *senna* in performance: "Then Loki went into the hall, but when they who were there saw who had entered, they were all silent." (S987). The contest is at a table, with the assembly as the audience (design, not sourced).
 
-The Arabic tradition supplies the same structure in a different key, and the survey of the form names it: "Soon these 'Flytings' (_Naqá’iḍ_) were recited" (S992) "everywhere, and each poet had thousands of enthusiastic partisans who" (S992) maintained their superiority to the rival. The word-contest is a **recited** art in that tradition, performed before partisans who attach themselves to one poet or the other, and that partisanship is the audience-adjudication mechanism in its simplest form: the crowd's side is the verdict (design, not sourced).
+The Arabic tradition supplies the same structure in a different key, and the survey of the form names it: "Soon these 'Flytings' (_Naqá’iḍ_) were recited" (S1005) "everywhere, and each poet had thousands of enthusiastic partisans who" (S1005) maintained their superiority to the rival. The word-contest is a **recited** art in that tradition, performed before partisans who attach themselves to one poet or the other, and that partisanship is the audience-adjudication mechanism in its simplest form: the crowd's side is the verdict (design, not sourced).
 
 The forms bracket the design space. A flyting is a **scheduled contest with a purpose and a public**; a senna is a **staged exchange inside a feast, with the assembly as the audience and the outcome a matter of who has the last word**; an Arabic *naqāʾid* contest is a **recited performance before a partisan crowd**; and a Basque *bertsolaritza* contest is a **judged championship with rules, a panel and prizes** (design, not sourced).
 
@@ -167,7 +167,7 @@ Grounding for the rows, one registry row per line:
 - S989, Ruszkiewicz 2020: "the Scottish genre of flyting, whose main" / "purpose was to humiliate the opponent"
 - S990, Garzia 2007: "the references to the verbal combats between bertsolaris and the social importance that such" / "ad hoc compositions appeared to have had at the time."
 - S991, Nadera 2019: "Balagtasan is an indigenous form of competitive Filipino debate poetry in the Tagalog language"
-- S992, Nicholson 1907: "Soon these 'Flytings' (_Naqá’iḍ_) were recited" / "everywhere, and each poet had thousands of enthusiastic partisans who"
+- S1005, Nicholson 1907: "Soon these 'Flytings' (_Naqá’iḍ_) were recited" / "everywhere, and each poet had thousands of enthusiastic partisans who"
 
 ## 9. The rules that keep an insult ritual rather than real
 

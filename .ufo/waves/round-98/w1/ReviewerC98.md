@@ -1,0 +1,13 @@
+# ReviewerC98 — Report (round 98 w1, claim C attack seat)
+
+Verdict: **counter C1–C9 PASS 9/9**; **claim C as sourced coverage: PASS with one High content defect** (fix before dispatch). Full detail: `.ufo/waves/round-98/w1/stage/ReviewerC98/review.md`. Artifacts: `stage/ReviewerC98/reopen.json` (counter leg C9 reads it), `stage/ReviewerC98/counter.txt`.
+
+- Deps: ScribeEntry98/DONE + ExecRegistry98/DONE via bounded loop — ready at iteration 30 (rc 0).
+- Counter: `python3 -B reports/round-98/predispatch.py --root <lane> --work <scratch>/counter --base-rev bcf664aa…` — rc=1, legs 14/15; only O3 fails (`reports/round-98/controls/mutants98.sha256` not landed at review time; MutationTester98 pending). C1–C9 all PASS (C9: 11 ids).
+- Re-open (plain curl, default UA, -L, --max-time 30): all 11 qualifying rows S994–S1004 http 200 on attempt 1 (11 attempts, 11 × rc 0; criterion-38 retries armed but unneeded); manifest quote count 1 on fresh converted bytes for 11/11; fresh sha256 == lane capture sha for 10/11; S1003 drift is archive.org node dynamics (www20→www12, 1006079→1012349 B) with the quote intact — data, not failure.
+- Support sweep (28 cited sentences): 27 supported, 0 weak, 1 unsupported — **line 142 (S999): "The office is not a modern invention in the record" contradicts Tuite**, who argues the tamada institution is "conspicuously absent" before the 19th century ("not attested before the 19th century"); the sentence's factual half is verbatim-supported. One-clause fix for the L1.
+- Grounding-quote recount: 23/24 fragments count 1; the 24th is S1001's page title "Feasting" (count 6).
+- §8 table (Medium): ~10 untagged cells presented as source-resting have no support in the named captures ("drinking on the theme's last word", "a sip and a return of the wish", "the opening may not be declined", "refusal here asserts enmity", penalty-cup cells, "the shortest toast"); same content is design-tagged in §5/§7.
+- Low: §13 ledger says every item is body-tagged *inference*; body carries 1 of 7 (rest tagged design). Dropped hedges at lines 142/246.
+- Checks clean: 6/6 frozen phrases in h2 headings; topic line byte-equal; 7x5 table; NON-CANON ×2; lore-shokunin deferral in §1/§12 (no PROVINCE.md pointer — observation); README 42→43, 269→270 with counts command; S992 correction exact (entry diff = 3 S992→S1005 token lines; row diff = status+used-by only; S1005 opens "supersedes S992 —").
+- Tooling: none installed (used stock curl/pdftotext/python3). Nothing committed by this seat; lane edits confined to stage/ReviewerC98/ + the wave Report file. Scratch deleted before yield.

@@ -5121,3 +5121,23 @@ FAIL 4/13; sha-only forgery control FAIL 5/13; sweep control rc 0).
   on the round-96 base (owners=2). Thrênoi row written as S993 (used-by the lament entry; one cited sentence there,
   corrected after ReviewerC97 found the first draft contradicted its source). R27 rule stated: one row per opened URL.
 - Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.
+
+## 2026-11-05 — round 98 (hyaku run 15, attempt 2, L1 KotodamaR98a2)
+
+Claims frozen in `reports/round-98/claims.json` by attempt 1 (freeze `db88f107`; do-nothing control
+`reports/round-98/predispatch-base.txt` FAIL 5/15; forgery/positive controls `reports/round-98/controls/forgery-summary.txt`;
+battery98 + pin + v9 receipt in the freeze commit). Attempt 1 (L1 KotodamaR98) ended mid-work; its outputs were re-verified
+and reused (lesson `corpus/lessons/round-98.md` §Inherited).
+
+- Claim O (operability): grader v10 (`tools/check-advance-evidence.py`, sha256 `d35b13c9a2f2c7abcbf6d808837a254fb5242faf66c0b99f942640a232716af7`)
+  refuses by name DEL1 and ENC1 (VERDICT-CTRL / VERDICT-COMBINE) and ROMAN1, SUP1, FWPER1 (TOPIC, non-ASCII numbering
+  stripped); battery98 over v9 survivors=5 refused=31 → over v10 survivors=0 refused=36; selftest 155 → 161. mutation98 first measurement 128/128 killed (red-before on v9 117/128, 11 broken-pattern); driver pinned before measuring. Non-author ReviewerO98b PASS 15/15 with findings F1 (HEADING-NUMBER false refusal) and F4 (Mc heading over-refusal, v9 CLEAN → v10 refused); CriticO98b 25 fresh classes: 24 survivors on both v9 and v10 (routed). Three w1 seats (MutationTester98, CriticO98, ReviewerO98) died with the orchestrator session; residual w2 re-ran them. Evidence: `.ufo/waves/round-98/w1/stage/ExecGraderV10/`, `.ufo/waves/round-98/w2/`, `reports/round-98/controls/`, `reports/round-98/predispatch-lands.txt`.
+- Claim C (coverage): `corpus/knowledge/linguistics/toast-drinking-speech-formulae.md` (C8 owners=0 at base). Registry rows
+  S994–S1004 (Laing *Heimskringla*, Ynglinga saga ch. 36, Plato and Xenophon *Symposium*, Athenaeus, Tuite 2005, *Beowulf*,
+  Open Encyclopedia of Anthropology "Feasting", Geoffrey of Monmouth, Legge *Li Ki*, Duthille), S1006 superseding S994,
+  S1005 superseding S992. ReviewerC98 re-opened 11/11 (http 200, count 1); ReviewerC98/CriticC98 defects repaired before
+  landing (lesson R98-M2, M3).
+- Frontier step: R98-M1 mined (Gate hash without its capture file) → `tools/check-gate-captures.py`, shown able to fail
+  on the round-97 lesson (9 findings) and passing this round's Gate (0 findings). Oath entry support sweep (ReviewerOath98):
+  8 of 11 defective sentences repaired, 3 weak routed. QUALITY criterion 40 (control order by commit, not mtime).
+- Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.
