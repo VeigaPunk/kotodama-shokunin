@@ -1,0 +1,45 @@
+# ScribeEntry100 self-check — 2026-11-06T12:30:58Z
+# entry: corpus/knowledge/linguistics/work-song-labour-chant.md
+
+## 1. entry self-check (bytes, h2, table, phrases, topic, cited ids, cited-lines, 8-gram overlap)
+$ python3 /fast/scratch/hyaku/kotodama-r100/ScribeEntry100/selfcheck.py
+BYTES 41933 (>=12000: True)
+H2 12 (>=6: True)
+TABLE 21x3 (>=5x3: True)
+PHRASES 6/6 ['work song', 'call and response', 'song leader', 'shanty', 'hauling song', 'work rhythm']
+TOPIC-LINE equal
+CITED ids=10 ['S1018', 'S1019', 'S1020', 'S1021', 'S1022', 'S1023', 'S1024', 'S1025', 'S1026', 'S1027'] rows.md=10 uncited=[]
+CITED-LINES multi-id=0 table-id=0 [] []
+OVERLAP-8GRAM verbal-duelling-ritual-insult.md=0; toast-drinking-speech-formulae.md=0; speech-surrogates-whistled-drummed.md=0; sociolinguistics-registers.md=0; praise-poetry-panegyric.md=0; orality-formulaic-language.md=0; lullaby-child-song-formulae.md=0; linguistic-anthropology.md=0; funerary-lament-dirge-formulae.md=0
+SELFCHECK PASS
+rc=0
+
+## 2. table-cell support, frozen feasibility reference (0 findings is the aim)
+$ python3 -B reports/round-100/controls/feasibility/table_support_ref.py --entry corpus/knowledge/linguistics/work-song-labour-chant.md --evidence reports/round-100/evidence --root .
+TABLE-SUPPORT: 0 finding(s) in 1 scoped table(s)
+rc=0
+
+## 3. cited-lines lint (QUALITY 15)
+$ python3 -B tools/check-cited-lines.py corpus/knowledge/linguistics/work-song-labour-chant.md
+CITED-LINES: 0 finding(s) in 1 file(s)
+rc=0
+
+## 4. corpus index
+$ python3 -B tools/check-corpus-index.py --root .
+CORPUS-INDEX: OK files=272 rows=272 findings=0
+rc=0
+
+## 5. C8 content sweep (other owners of the six frozen phrases)
+$ python3 -B -c "sweep_owners over corpus/knowledge excluding the entry"
+files 272 other owners 0 []
+rc=0
+
+## 6. byte count and sha256
+$ wc -c corpus/knowledge/linguistics/work-song-labour-chant.md; sha256sum ...
+41933 corpus/knowledge/linguistics/work-song-labour-chant.md
+65d7391ea6c7894524fc0665d06dfb935683861bf8e4a7795e8d923ea53e4dd7  corpus/knowledge/linguistics/work-song-labour-chant.md
+rc=0
+
+## 7. C2/C6 simulation over corpus/SOURCES.md (predispatch logic)
+rows 951 highest S1027 new 10 qualifying 10 uncited []
+rc=0

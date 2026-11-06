@@ -5161,3 +5161,23 @@ battery99 + pin + v10 receipt + critic98-on-v10 receipt in the freeze commit). A
 - Frontier step: R99-M1 mined (round-98 widened refusal without benign twin) → battery99 benign controls + leg O4 + QUALITY
   criterion 41, shown able to fail on v10. Oath entry weak lines L49/L51/L53 repaired (ScribeOath99).
 - Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.
+
+## 2026-11-06 — round 100 (hyaku run 15, attempt 1, L1 KotodamaR100)
+
+Claims frozen in `reports/round-100/claims.json` (freeze `255d84776c12c918b7bfb2a7173d7b495e3f966e`; do-nothing control
+`reports/round-100/predispatch-base.txt` FAIL 4/15; forgery/feasibility controls `reports/round-100/controls/forgery/summary.txt`;
+battery100 + pin + base and feasibility receipts in the freeze commit). One v1 wave of 13 seats.
+
+- Claim O (operability, capability): `tools/check-table-support.py` — table-cell support checker for tables whose caption
+  claims recorded cases (closes R99-M2 / closure R2). Selftest 40/40; battery100 28/28; R99-M2 replay on the real praise
+  entry flags exactly the forged Yoruba cell; mutation100 36/36 killed; ReviewerO100 O0–O4 PASS; CriticO100 25 classes,
+  0 over-refusal, 0 false green, 3 contract gaps routed.
+- Claim C (coverage): `corpus/knowledge/linguistics/work-song-labour-chant.md` (C8 owners=0 at base). Registry rows
+  S1018–S1027 (Terry, Sharp, Slave Songs 1867, Bücher, Collinson, Blankenhorn, Bourke, Purser, Whall, SIL Kalinga).
+  ReviewerC100 re-opened 10/10 (http 200, count 1); CriticC100's four entry defects (unmarked universal, self-contradiction,
+  dropped hedge, duplicated paragraph) repaired by the L1 before landing.
+- End-to-end domain task: the praise entry's §7 table, measured by the new checker, 21 findings → 0 (ScribeTable100,
+  cells rewritten from bound captures; Xhosa row re-bound to S1008).
+- Frontier step: mistake R100-M1 (closure D1, uniform seat-report path claimed without enumeration) → `reports/round-100/seat-report-paths.py`,
+  shown able to fail on round 99 (11/12). R3 Iranica C6 re-opened: challenge page from this host, rejection stands.
+- Freshness obligation: paused (L0 round-11 and round-89 open); not met, not waived.

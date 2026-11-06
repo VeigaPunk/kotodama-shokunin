@@ -370,7 +370,7 @@ symbolisms, and eras to their linguistics and costumes. Every entry
 carries provenance (`- sources:`) and coupling (`- couples:`); the
 admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 
-## linguistics/ (44)
+## linguistics/ (45)
 - `color-terminology.md` — how basic color term systems arise and evolve (Berlin & Kay stages and their critiques), how cultures weight color categories (Japanese ao/midori, Chinese qing, Russian blues, Hanunóo, Biblical Hebrew, Celtic glas), and how dye technology plus status symbolism feed back into color vocabulary — frameworks, decision tables, and design levers for a fictional culture's color lexicon
 - `conlang-methodology.md` — the full artlang pipeline — culture brief → phoneme inventory → phonotactics → morphology sketch → syntax skeleton → 300-word core lexicon → pragmatics — with iterative-deepening triggers and the documentation discipline that turns a sketch into an auditable reference grammar.
 - `dialect-register-consistency.md` — how lects form and drift inside one language — founder effects and migration trajectories, the koineization process model (mixing, leveling, simplification, reallocation, focusing) with its focusing deadline reconciled, focal/relic/transition area mechanics, and anti-language formation (anti-society conditions, overlexicalization zones, renewal, second-life trajectories) — the reference mechanics a built dialect map's internal consistency is checked against
@@ -412,6 +412,7 @@ admission bar is `QUALITY.md`. Canon lives with lore-shokunin.
 - `toponymy-place-names.md` — place names (toponyms) as a linguistic-cultural design system: what a place name is built from (generic and specific elements, feature words, suffix position), how names stratify by language layer and survive the languages that coined them, why river-names are treated as the deepest layer and how far that holds, endonyms, half-translations and outsider respellings, who standardises names and by which principles (local usage, Indigenous-first priority, duplicate avoidance, settlement-locked names, derogatory-name removal, heritage criteria), renaming as politics and as restoration, romanization by donor-country proposal, street names under council policy, and folk etymology kept at its measured rarity.
 - `translation-protocol-fidelity.md` — The linguistics of **glossing and translation commentary as cultural practice**, and the fidelity criteria a built packet's translation apparatus is audited against. Supplies: the three objects a reader of a rendered text meets (the lexicographic gloss, the apparatus translation note, the equivalence claim) and why they must not be merged; the anatomy of a translation note (its provenance type, its skeleton fields, its anchor, its one dominant job); the assert/license split — what a gloss states, what it licenses a reader to infer, and the laundering classes that collapse the two; thick translation (Appiah) as the reference frame and paratext layers (Genette) as the carriers — preface, glossary, footnote, interlinear, tooltip; domestication vs foreignization (Venuti) as a declared design axis rather than a fidelity binary; the interpreter/mediator as a register office and power class; and the ten fidelity criteria (note-presence, context-field completeness, assertion licensing, translation-vs-original separation, apparatus attribution, mediation recording, era-of-rendering, register equivalence, name-first conformance, skip-test survival) that a fidelity check reads against the packet's own declared protocol. Reference and method only; canon decisions belong to lore-shokunin.
 - `verbal-duelling-ritual-insult.md` — verbal duelling and ritual insult: contests fought in words — flyting, senna, song duels and boasting matches; the formula grammar of boast, taunt and riposte; the audience that adjudicates; the rules that keep an insult ritual rather than real; and the design procedure for a fictional word-contest whose stakes stay tied to its contestants, judges and occasions
+- `work-song-labour-chant.md` — work song and labour chant: song that times and coordinates shared labour — the song leader's call and the crew's response; hauling, rowing, pounding, field and craft songs and how their rhythm fits the task; the shanty and other occupational repertories; improvised verses, complaint and satire licensed by the work; and the design procedure for a fictional work-song tradition whose songs stay tied to their task, crew, leader and setting
 - `writing-systems.md` — Script typology (logographic, syllabic, abugida, abjad, alphabet, featural), independent inventions and evolution lineages (Sumerian→cuneiform, Egyptian→abjad→alphabets, Brahmi family), decipherment cases as design lessons, matching script type to a language's phonology, and conscript pitfalls.
 
 ## myth-symbol/ (36)
@@ -1148,3 +1149,30 @@ Total knowledge entries: 271.
 Counts checked 2026-11-06 from the repo root:
 `python3 -B tools/check-corpus-index.py --root .`
 (total 271 files; directory totals 44/36/43/29/24/95).
+
+## Round 100 work song entry (2026-11-06)
+
+`knowledge/linguistics/work-song-labour-chant.md` adds a dedicated entry on work
+song and labour chant: song that times and coordinates shared labour — the song
+leader's call and the crew's response; hauling, rowing, pounding, field and craft
+songs and how their rhythm fits the task; the shanty and other occupational
+repertories; improvised verses, complaint and satire licensed by the work; and the
+design procedure for a fictional work-song tradition whose songs stay tied to
+their task, crew, leader and setting. Its row is added in filename order inside
+`## linguistics/`; `## linguistics/` moved 44 → **45**; the totals and footer
+moved 271 → **272**.
+
+Sources S1018-S1027 were opened this round (tier A 8, B 2, status mined), all with
+`used-by` exactly this entry: Terry's Shanty Book, Sharp's English Folk-Chanteys,
+the 1867 Slave Songs of the United States, Bücher's Arbeit und Rhythmus,
+Collinson on the Firth of Forth oyster-dredging songs, Blankenhorn on Gaelic song
+classification, Bourke on waulking and weeping, Purser on Hebridean rowing songs,
+Whall's Ships, Sea Songs and Shanties, and the SIL Philippines Mangali and Tanudan
+valley music page. No base registry row is re-verified, re-dated or repaired, and
+no row is superseded this round. Freshness stays paused by the open L0 questions.
+
+Total knowledge entries: 272.
+
+Counts checked 2026-11-06 from the repo root:
+`python3 -B tools/check-corpus-index.py --root .`
+(total 272 files; directory totals 45/36/43/29/24/95).

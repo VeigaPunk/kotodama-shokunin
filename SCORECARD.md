@@ -2390,3 +2390,33 @@ Retirements and saturation: none. Stagnation nudge not invoked.
 (1) table-cell support check for §-tables whose caption claims recorded cases (lesson R99-M2); (2) CriticO98b's 24
 survivors and CriticO99's 6 anchor-neutral passes stay open (`.ufo/waves/round-99/w1/CriticO99.md`); (3) freshness remains
 paused until L0 answers.
+
+## Axes — round 100 (2026-11-06; author-side verdicts, non-author closure pending)
+
+Base `60010a55fb5f04ee728070c463b1a57ae1cc17fc`; freeze `255d84776c12c918b7bfb2a7173d7b495e3f966e`
+(`reports/round-100/claims.json`, counter `reports/round-100/predispatch.py`, do-nothing control
+`reports/round-100/predispatch-base.txt` FAIL legs=4/15, forgery/feasibility controls `reports/round-100/controls/forgery/`);
+landed tree measured at the round-100 landing commit: `reports/round-100/predispatch-lands.txt`.
+
+| axis | verdict | before → after / observation | counting command | measured evidence |
+|---|---|---|---|---|
+| operability / O | improved — capability acquisition (frozen predicate O0–O5) | no table-support checker (O0 FAIL; battery100 over base TOOL-MISSING) → `tools/check-table-support.py`: selftest 40/40, battery100 28/28 traceback 0, R99-M2 replay forged-minus-actual = {(UNSUPPORTED-CELL, Yoruba, limit on the praise)}, mutation100 36/36 killed; ReviewerO100 O0–O4 PASS; CriticO100 0 over-refusal / 0 false green / 3 contract gaps | `python3 -B reports/round-100/predispatch.py --root . --work <scratch> --base-rev 60010a55fb5f04ee728070c463b1a57ae1cc17fc` (O0–O5) | `reports/round-100/predispatch-lands.txt`; `.ufo/waves/round-100/w1/ReviewerO100.md`; `.ufo/waves/round-100/w1/stage/CriticO100/attacks.md` |
+| coverage / C | improved (frozen predicate C1–C9) | no owner of the six frozen phrases at base (C8 owners=0) → `corpus/knowledge/linguistics/work-song-labour-chant.md` (12 h2, table 21x3, 6/6 phrases, topic equal); registry 941 → 951 rows (S1018–S1027, qualifying 10); ReviewerC100 re-opened 10/10 count 1 | same command (C1–C9) | `reports/round-100/predispatch-lands.txt`; `reports/round-100/evidence/manifest.json`; `.ufo/waves/round-100/w1/stage/ReviewerC100/reopen.json` |
+| depth / D | unchanged (observation) | praise entry §7 table: 21 support findings → 0 by the new checker (cells rewritten from bound captures, Xhosa row re-bound to S1008); not a claim | `python3 -B tools/check-table-support.py --entry corpus/knowledge/linguistics/praise-poetry-panegyric.md --root . $(ls -d reports/round-*/evidence \| sed 's/^/--evidence /')` | `.ufo/waves/round-100/w1/stage/ScribeTable100/{before,after}.txt` |
+| freshness | unchanged | paused by open L0 round-11 and round-89 questions; not met, not waived | — | `.ufo/l0-questions.md` |
+| calibration / discernment | unchanged (observation) | QUALITY criterion 42 (table cells checked against bound captures), shown able to fail by O3; mistake R100-M1 fix shown able to fail on round 99 (11/12) | — | `corpus/QUALITY.md` 42; `reports/round-100/seat-reports-r99-control.txt` |
+
+Retirements and saturation: none. Stagnation nudge not invoked.
+
+## Capabilities — round 100 addendum
+
+| name | demonstrated behavior | command / evidence | first working |
+|---|---|---|---|
+| table-cell support checker | For tables whose caption claims recorded cases, binds rows to sources via the paragraph under the table and flags cells whose content stems do not co-occur (3/4 within 80 tokens) in one bound capture (`UNSUPPORTED-CELL`), unbound rows, missing captures and dead path cites; rc 0/1/2, no traceback over 272 knowledge files | `python3 -B tools/check-table-support.py --selftest --work <dir>` → `SELFTEST PASS 40/40`; battery100 28/28; `check-table-support.py` on the praise entry 21 → 0 findings after repair | round 100 |
+
+## Planned — round 101 (routed; not frozen)
+
+(1) three overstated `teaches` cells (S1026 "earliest", S1022 "only", S1021 "cooper") — a rule-2 supersession or a C3 that
+admits `teaches` repairs (lesson round-100 F5); (2) CriticO100 contract gaps G1–G3 (fenced tables, heading captions, outer-pipe-less
+tables) and the checker's lexical limit (hedges, quantifiers); (3) R100-M2 registry/scribe ordering; (4) freshness remains
+paused until L0 answers.

@@ -387,3 +387,9 @@ Binding from round 98; the round-97 record is not rewritten.
 Grounding: round 98. Grader v10 widened the h2 mark check from Mn/Me to every category M and added a HEADING-NUMBER loop; battery98 carried one benign twin (ROMANOK) and none for marks, so the Mc over-refusal (ReviewerO98b F4) and the bare-numeral over-refusal (F1) passed every frozen leg and the closure ruled operability harmed (`corpus/lessons/round-98-verifier-spotcheck.md` §2). Able to fail: battery99's six benign controls over v10 print not-clean=6 (`reports/round-99/controls/battery99-control-v10.txt`) and O4 prints overrefusal=2 on the base tree (`reports/round-99/predispatch-base.txt`).
 
 Binding from round 99; the round-98 record is not rewritten.
+
+42. **A summary table that claims recorded cases is checked cell by cell against the captures its binding lines name.** When a knowledge entry's table caption says its cells come from recorded cases, every row is bound to its source(s) by the paragraph under the table and `tools/check-table-support.py` reports 0 findings over the entry with every `reports/round-*/evidence` dir; a finding is repaired from the bound capture's words, re-bound to the right source, or recorded as a residual with its located capture span — never silenced by keyword stuffing. The checker measures lexical co-location, so hedges, quantifiers and setting words still need a reading pass.
+
+Grounding: round 99 lesson R99-M2 (the §7 Yoruba cell "titles are public property…" passed every frozen leg). Shown able to fail: round-100 counter leg O3 replays that cell on the real entry and the checker flags exactly it (`reports/round-100/predispatch-lands.txt`); at base the praise table carried 21 findings (`.ufo/waves/round-100/w1/stage/ScribeTable100/before.txt`), 0 after repair.
+
+Binding from round 100; earlier tables are not rewritten except the round-99 praise table repaired this round.

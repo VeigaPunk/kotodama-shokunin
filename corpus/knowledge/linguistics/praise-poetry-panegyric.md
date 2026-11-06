@@ -175,19 +175,19 @@ The five columns below are the design variables of §3–§6, filled from the re
 
 | tradition | singer and office | patron and reward | form and order | limit on the praise |
 |---|---|---|---|---|
-| Southern Bantu court | *imbongi* / *mmoki* in the chief's retinue, graded by skill | chief and court; gifts and royal bounty, often public | praise names chained into stanzas, ancestors first, present chief last | criticism, sarcasm and withholding licensed as social pressure |
-| Yoruba | drummers and priests; *oriki* held as permanent titles | drummers rewarded by the praised and by passers-by | *oriki* recited or drummed, royal list recited annually in public | an epithet can recall danger or contested reputation rather than flatter |
-| Hausa | *maroka* team: drummers, eulogists, pipers, horn | District Head and graded chiefs; instrument rank marks status | accompaniment fixed by the ruler's grade | derogatory *kirari* and advice inside the praise |
-| Mande and Soninke | roving expert singers, sometimes with drummers | wealthy individuals; gifts to avoid public shame | praise of a chosen notable, delivered on the street or at festivals | the singer may be called a beggar and still be paid |
-| Greek epinician | commissioned poet working for states and princes | victorious patron and city; patronage and public honour | victory, myth and moral counsel, praise of house and city | the poet keeps independence and may refuse a court |
-| contemporary Xhosa | *imbongi* at rallies, unions and inaugurations | political and civic patrons; public standing | greeting, praise, exhortation, closing praise | the right to speak with impunity, and its censorship |
+| Southern Bantu court | *imbongi* / *mmoki*, respected members of the chief's official retinue | the chief's victory and installation; the distribution of royal bounty | a series of eulogies, starting with the chief's ancestors and reaching the present chief | criticism and sarcastic remarks, a kind of social pressure on an unpopular chief |
+| Yoruba | drummers and priests; *oriki* held as permanent titles | drummers go about the streets addressing passers-by, receiving a small reward | the king's praises with the complete list of his predecessors, recited once a year in public | an epithet can recall danger or contested reputation rather than flatter |
+| Hausa | *maroka* team: drummers, eulogists, pipers, horn | the king has allocated them compounds, farm-lands and titles, and provides clothes and money | accompaniment fixed by the ruler's grade | derogatory remarks, or advice as well as praise |
+| Mande and Soninke | roving expert singers, sometimes with drummers | a reputedly wealthy individual; gifts and thanks, avoiding public shaming | singers wander through the streets or attend festivals on their own initiative | even those who refer to them as beggars reward them with gifts |
+| Greek epinician | song-writer to all Hellenic states | the Sicilian princes Hieron and Theron, for whom he wrote odes | triumphal odes for victories in the great games | he would not quit his home to ornament their courts; he had chosen to live his own life |
+| contemporary Xhosa | *imbongi* at rallies, unions and inaugurations | political organizations and trade unions; the imbongi as political orator | the imbongi turns to exhortation, then praise in conclusion | the right to speak with impunity, and its censorship |
 | Norse skaldic court | named skald; court poet | king or earl; generous rewards and renown | encomium of battle exploits, bravery, travel and generosity | skalds compete for the patron's favour |
-| Tamil puram | bard, singer or poet moving between patrons | king, chieftain or headman; gifts before the bard moves on | praise of the ruler, patronage and heroism | the same voice also carries counsel and embassy |
-| Welsh and Irish bardic | bard or *fili* attached to a lord | patron's wealth; the *dúas* reward | praise in song and commemorative naming of warriors | a law-text rule against over-praise and satire |
+| Tamil puram | bard, singer or poet moving between patrons | kings, chieftains and headmen of small cities patronized bards, who stay till patrons honour them with gifts | praise of the ruler, patronage and heroism | the same bards were friends, counsellors and ambassadors too |
+| Welsh and Irish bardic | a herald bard; by the rules of his order he might not bear arms | patron's wealth; the *dúas* reward | stanzas of commemoration, one for each chieftain | a law-text rule against over-praise and satire |
 
 The Southern Bantu, Yoruba, Hausa and Mande rows report the African cases cited above (S1007); the Yoruba limit cell restates the corpus's oríkì section (`civilizations/yoruba.md:83`), whose praise economy stays there (`civilizations/yoruba.md:78-92`).
 The Greek row reports the epinician introduction (S1012).
-The contemporary Xhosa row reports the rally performance and the censorship finding (S1011).
+The contemporary Xhosa row reports the rally performance and the censorship finding (S1011) and the conference performance's greeting and exhortation (S1008).
 The Welsh row reports the bard's choice of praise over reproach (S1013).
 The Tamil row reports the anthology's themes and the bards' reward (S1014).
 The Norse row reports the skaldic reward and the competition for favour (S1016); skaldic meter and the verse economy stay in `civilizations/germanic-norse.md:72-90`.

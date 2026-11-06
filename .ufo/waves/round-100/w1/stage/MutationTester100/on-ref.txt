@@ -1,0 +1,41 @@
+DRIVER-SHA256 18dbcf3b02ef57625b8593a7a514e35b3055e6ad2838fb2d81ec5e9175903424
+TOOL-SHA256 24fd73f4b89af8450ae3f2ce56b39b53f20574bec99b3c7d0e436d12782889c1
+BATTERY-SHA256 b78176e31c9bfc8f22c8269d7f4217c44a9a9e45a28db8a1c33ed5d43b47a02d
+SELFTEST-ORACLE unavailable (pristine rc=2)
+MUTANT W1 SURVIVED battery-rc=0 selftest-rc=0 :: window 80 -> 79
+MUTANT W2 SURVIVED battery-rc=0 selftest-rc=0 :: window 80 -> 81
+MUTANT W3 KILLED-BY-BATTERY rc=1 failing=F11 :: window 80 -> 10000
+MUTANT A1 KILLED-BY-BATTERY rc=1 failing=B9 :: support 3/4 -> strict >
+MUTANT A2 SURVIVED battery-rc=0 selftest-rc=0 :: support 3/4 -> 2/3
+MUTANT A3 KILLED-BY-BATTERY rc=1 failing=F11,F13 :: support 3/4 -> 1/2
+MUTANT S1 KILLED-BY-BATTERY rc=1 failing=B2 :: stem ies->y rule removed
+MUTANT S2 KILLED-BY-BATTERY rc=1 failing=B2 :: stem es-after-s/x/z/ch/sh rule removed
+MUTANT S3 KILLED-BY-BATTERY rc=1 failing=F1 :: stem trailing-s rule removed
+MUTANT P1 KILLED-BY-BATTERY rc=1 failing=B6,F1 :: STOP emptied
+MUTANT P2 KILLED-BY-BATTERY rc=1 failing=B6,F1 :: STOP loses 'them' (a battery case relies on it)
+MUTANT L1 SURVIVED battery-rc=0 selftest-rc=0 :: label-token min length 3 -> 4
+MUTANT L2 SURVIVED battery-rc=0 selftest-rc=0 :: label-token min length 3 -> 2
+MUTANT L3 KILLED-BY-BATTERY rc=1 failing=F10 :: label binding -> substring instead of token equality
+MUTANT L4 SURVIVED battery-rc=0 selftest-rc=0 :: 'and' exclusion removed from label tokens
+MUTANT C1 KILLED-BY-BATTERY rc=1 failing=B7 :: caption regex widened to any "recorded"
+MUTANT C2 KILLED-BY-BATTERY rc=1 failing=F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13,T1,T2 :: caption regex narrowed to singular "recorded case"
+MUTANT C3 KILLED-BY-BATTERY rc=1 failing=F7 :: caption match case-sensitive
+MUTANT C4 SURVIVED battery-rc=0 selftest-rc=0 :: caption paragraph extent: one line only
+MUTANT C5 KILLED-BY-BATTERY rc=1 failing=F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13,T1,T2 :: caption paragraph emptied (scope lost)
+MUTANT B1 KILLED-BY-BATTERY rc=1 failing=F8 :: binding paragraph crosses blank lines
+MUTANT B2 KILLED-BY-BATTERY rc=1 failing=B1,B2,B4,B5,B6,B8,B9,F1,F2,F3,F4,F6,F7,F9,F11,F13,T1,T2 :: support pooled across rows (union)
+MUTANT N1 SURVIVED battery-rc=0 selftest-rc=0 :: NO-CAPTURE dedup removed
+MUTANT N2 KILLED-BY-BATTERY rc=1 failing=F4 :: NO-PATH finding skipped
+MUTANT N3 KILLED-BY-BATTERY rc=1 failing=B4 :: path line range off by one
+MUTANT N4 KILLED-BY-BATTERY rc=1 failing=F12 :: UNBOUND only when no line binds (citation requirement dropped)
+MUTANT R1 KILLED-BY-BATTERY rc=1 failing=B1,B2,B3,B4,B5,B6,B7,B8,B9,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13,T1,T2 :: rc 1 <-> 0
+MUTANT R2 BROKEN-PATTERN matches=3 expected=7 :: rc 2 -> 1 on every error path
+MUTANT R3 BROKEN-PATTERN matches=3 expected=13 :: TABLE_SUPPORT_ERROR text changed
+MUTANT R4 BROKEN-PATTERN matches=0 expected=1 :: traceback on a refused input (ToolError re-raised)
+MUTANT R5 BROKEN-PATTERN matches=0 expected=1 :: bad UTF-8 entry accepted (error path returns 0)
+MUTANT J1 KILLED-BY-BATTERY rc=1 failing=B1,B2,B3,B4,B5,B6,B7,B8,B9,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13 :: JSON key findings renamed
+MUTANT J2 KILLED-BY-BATTERY rc=1 failing=B3,B7,F9 :: JSON key scoped_tables renamed
+MUTANT J3 KILLED-BY-BATTERY rc=1 failing=F1,F6,F7,F9,F11,F13 :: header column name off by one
+MUTANT A4 KILLED-BY-BATTERY rc=1 failing=F1 :: content-word min length 4 -> 3
+MUTANT W4 KILLED-BY-BATTERY rc=1 failing=F1,F13 :: UNSUPPORTED-CELL words compared as words, not stems
+MUTATION-SCORE: 24/36 killed, 8 survived, 4 broken-pattern
